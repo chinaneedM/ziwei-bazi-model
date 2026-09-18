@@ -1,0 +1,102 @@
+name: audit-shidian-taiyin-tonggui-locator
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/audit-shidian-taiyin-tonggui-locator.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  locate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - name: Resolve Shidian target chapter to scan locator
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/shidian-taiyin-tonggui-locator'
+          mkdir -p "$ROOT"
+          BROWSER="$(command -v google-chrome || command -v chromium || command -v chromium-browser || true)"
+          test -n "$BROWSER"
+          npm install --no-save --silent puppeteer-core@24.16.0
+          cat > "$ROOT/probe.mjs" <<'JS'
+          import puppeteer from 'puppeteer-core';
+          import fs from 'node:fs';
+
+          const root='audit/shidian-taiyin-tonggui-locator';
+          const source='https://www.shidianguji.com/book/NGJ892411999012050103144/chapter/1lo7897ewdau2';
+          const browser=await puppeteer.launch({headless:true,executablePath:process.env.BROWSER,args:['--no-sandbox','--disable-setuid-sandbox']});
+          const page=await browser.newPage();
+          await page.setUserAgent('Mozilla/5.0 Tianwen-Provenance-Audit/1.0');
+          const reqs=[], resps=[];
+          page.on('request',r=>{const u=r.url(); if(/ancientlib|pages|chapter|read|book/i.test(u)) reqs.push({method:r.method(),url:u,postData:r.postData()||null});});
+          page.on('response',async r=>{const u=r.url(); if(/api\/ancientlib/i.test(u)){let body=null; try{body=(await r.text()).slice(0,200000)}catch{} resps.push({status:r.status(),url:u,body});}});
+          await page.goto(source,{waitUntil:'networkidle2',timeout:90000});
+          await page.waitForFunction(()=>document.body && document.body.innerText.length>100,{timeout:30000}).catch(()=>{});
+          const snapshot=await page.evaluate(()=>({
+            url:location.href,
+            title:document.title,
+            body:document.body.innerText.slice(0,80000),
+            links:[...document.querySelectorAll('a')].map(a=>({text:(a.innerText||'').trim(),href:a.href,onclick:a.getAttribute('onclick'),data:{...a.dataset}})).filter(x=>/原图|影像|圖片|图片|查看|閱讀|阅读|scan|image/i.test((x.text||'')+' '+(x.href||'')+' '+(x.onclick||''))).slice(0,200),
+            buttons:[...document.querySelectorAll('button')].map(a=>({text:(a.innerText||'').trim(),onclick:a.getAttribute('onclick'),data:{...a.dataset}})).filter(x=>/原图|影像|圖片|图片|查看|閱讀|阅读|scan|image/i.test((x.text||'')+' '+(x.onclick||''))).slice(0,200),
+            pageish:[...document.querySelectorAll('[data-page-num],[data-pagenum],[data-page],[class*=page]')].slice(0,500).map(e=>({tag:e.tagName,cls:e.className,text:(e.innerText||'').trim().slice(0,300),data:{...e.dataset}})),
+            globals:{
+              next:document.querySelector('#__NEXT_DATA__')?.textContent?.slice(0,500000)||null,
+              nuxt:document.querySelector('#__NUXT_DATA__')?.textContent?.slice(0,500000)||null
+            }
+          }));
+          fs.writeFileSync(root+'/snapshot.json',JSON.stringify(snapshot,null,2));
+          await page.screenshot({path:root+'/chapter.png',fullPage:true}).catch(()=>{});
+
+          // SDK status + broad page metadata. This is locator-only, no image/glyph adjudication.
+          let sdk=null;
+          try{
+            await page.waitForFunction(()=>window.byted_psdk && typeof window.byted_psdk.getPtokenStatus==='function',{timeout:30000});
+            sdk=await page.evaluate(async()=>{
+              const ptoken=await window.byted_psdk.getPtokenStatus();
+              const tries=[];
+              for(const pageIndex of [1,2,3,4,5,6]){
+                const payload={bookId:'NGJ892411999012050103144',pageSize:40,startPageNum:1,endPageNum:240,version:1,pageIndex,needCheckVersion:true,isWebpSupported:false,ptoken};
+                try{
+                  const r=await fetch('/api/ancientlib/read/book/pages/v3/',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(payload)});
+                  const j=await r.json(); const pages=(j?.data?.pages||j?.pages||[]);
+                  tries.push({pageIndex,errorCode:j?.errorCode,errorMsg:j?.errorMsg||'',page_count:pages.length,pages:pages.map(x=>({pageId:x.pageId,pageNum:x.pageNum,uri:x.uri,urlEncryptType:x.urlEncryptType}))});
+                }catch(e){tries.push({pageIndex,error:String(e)})}
+              }
+              return {ptoken_present:!!ptoken,ptoken_length:String(ptoken||'').length,tries};
+            });
+          }catch(e){sdk={error:String(e)}}
+          fs.writeFileSync(root+'/sdk-pages.json',JSON.stringify(sdk,null,2));
+
+          const report={
+            schema:'SHIDIAN-TAIYIN-TONGGUI-CHAPTER-LOCATOR-R1',
+            source,
+            snapshot,
+            requests:reqs,
+            api_responses:resps,
+            sdk,
+            locator_terms:['晨昏','冬夏二至','立成'],
+            authority:'LOCATOR_ONLY',
+            independent_witness_increment_authorized:false,
+            glyph_or_numeric_claim_authorized:false,
+            note:'Shidian may be a rehost/digital surrogate. Any target page must be deduplicated against Kyudb before evidence weighting.'
+          };
+          fs.writeFileSync(root+'/report.json',JSON.stringify(report,null,2));
+          console.log(JSON.stringify({title:snapshot.title,url:snapshot.url,links:snapshot.links,buttons:snapshot.buttons,body:snapshot.body.slice(0,3000),api_requests:reqs.length,sdk:sdk?.tries?.map(x=>({pageIndex:x.pageIndex,page_count:x.page_count,errorCode:x.errorCode}))||sdk},null,2));
+          await browser.close();
+          JS
+          BROWSER="$BROWSER" node "$ROOT/probe.mjs"
+      - name: Upload locator artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: shidian-taiyin-tonggui-locator
+          path: audit/shidian-taiyin-tonggui-locator
+          if-no-files-found: error
+          retention-days: 30
