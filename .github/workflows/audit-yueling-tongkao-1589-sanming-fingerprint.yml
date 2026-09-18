@@ -1,0 +1,99 @@
+name: audit-yueling-tongkao-1589-sanming-fingerprint
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/audit-yueling-tongkao-1589-sanming-fingerprint.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install PDF/image tools
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils imagemagick
+
+      - name: Acquire 1589 Yueling Tongkao and locate Sanming-like fingerprint
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/yueling-tongkao-1589-sanming-fingerprint'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT/render"
+          URL='https://commons.wikimedia.org/wiki/Special:Redirect/file/NCL-03165%20%E6%9C%88%E4%BB%A4%E9%80%9A%E6%94%B7.pdf'
+          curl -L --fail --retry 3 --retry-delay 2 -A 'Tianwen-Provenance-Audit/1.0' "$URL" -o "$ROOT/source.pdf"
+          sha256sum "$ROOT/source.pdf" | tee "$ROOT/source.sha256"
+          pdfinfo "$ROOT/source.pdf" | tee "$ROOT/pdfinfo.txt"
+          pdftotext -layout "$ROOT/source.pdf" "$ROOT/text.txt" || true
+
+          python - <<'PY'
+          from pathlib import Path
+          import json,re
+          root=Path('audit/yueling-tongkao-1589-sanming-fingerprint')
+          txt=(root/'text.txt').read_text(encoding='utf-8',errors='ignore')
+          terms=['十三後','後四日','晝四十四刻','晝四十八刻','雨水','大寒']
+          hits={t:[m.start() for m in re.finditer(re.escape(t),txt)] for t in terms}
+          (root/'text-hits.json').write_text(json.dumps(hits,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print(json.dumps({k:len(v) for k,v in hits.items()},ensure_ascii=False))
+          PY
+
+          # Render all pages at low-moderate resolution; 979-page object remains manageable
+          # and allows direct visual localization without using OCR as final glyph authority.
+          PAGES=$(pdfinfo "$ROOT/source.pdf" | awk '/^Pages:/ {print $2}')
+          pdftoppm -jpeg -jpegopt quality=88 -r 105 "$ROOT/source.pdf" "$ROOT/render/page" >/dev/null 2>&1
+          COUNT=$(find "$ROOT/render" -maxdepth 1 -name 'page-*.jpg' | wc -l)
+          test "$COUNT" -eq "$PAGES"
+          sha256sum "$ROOT"/render/page-*.jpg | sort -V > "$ROOT/render.sha256"
+
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image, ImageDraw
+          root=Path('audit/yueling-tongkao-1589-sanming-fingerprint')
+          pages=sorted((root/'render').glob('page-*.jpg'), key=lambda p:int(p.stem.split('-')[-1]))
+          outdir=root/'contact'; outdir.mkdir()
+          for i in range(0,len(pages),40):
+              batch=pages[i:i+40]
+              thumbs=[]
+              for p in batch:
+                  im=Image.open(p).convert('RGB')
+                  im.thumbnail((220,300))
+                  c=Image.new('RGB',(240,330),'white')
+                  c.paste(im,((240-im.width)//2,20))
+                  ImageDraw.Draw(c).text((8,6),p.name,fill='black')
+                  thumbs.append(c)
+              cols=8; rows=(len(thumbs)+cols-1)//cols
+              sh=Image.new('RGB',(cols*240,rows*330),'white')
+              for j,im in enumerate(thumbs): sh.paste(im,((j%cols)*240,(j//cols)*330))
+              sh.save(outdir/f'contact-{i+1:04d}-{i+len(batch):04d}.jpg',quality=88)
+          PY
+
+          cat > "$ROOT/report.json" <<'EOF'
+          {
+            "schema": "YUELING-TONGKAO-1589-SANMING-FINGERPRINT-PHYSICAL-LOCATOR-R1",
+            "source": "NCL-03165 月令通攷",
+            "edition": "明萬曆十七年(1589)王道增臨海刊本",
+            "source_role": "POST_1578_HOMOLOGOUS_FINGERPRINT_WITNESS_PENDING_DIRECT_PAGE_COLLATION",
+            "ocr_text_layer_role": "LOCATOR_ONLY_NOT_GLYPH_AUTHORITY",
+            "ocr_used_for_final_glyph_claims": false,
+            "research_question": "Does the 1589 physical edition directly preserve the Sanming-like 大寒十三後 / 雨水後四日 day-night-ke fingerprint, and if so can directionality be established?"
+          }
+          EOF
+
+      - name: Upload physical locator
+        uses: actions/upload-artifact@v4
+        with:
+          name: yueling-tongkao-1589-sanming-fingerprint
+          path: audit/yueling-tongkao-1589-sanming-fingerprint
+          if-no-files-found: error
+          retention-days: 30
