@@ -881,7 +881,7 @@
       "digital_surrogate_date": "NO_PUBLIC_DIGITAL_ANCIENT_BOOKS_RECORD_OBSERVED_2026_09_19",
       "identifier": "NLC census 110000-0101-0013797 / call no. 14202 / OPAC doc 001790345 / internal id 411999023866 / Shanben catalog item 450",
       "surviving_scope": "ONE_FASCICLE; JUAN_16_TO_19",
-      "target_result": "Physical holding and surviving scope are catalog-bound and OPAC-strengthened (doc 001790345 / internal 411999023866 / call 14202 / South Rare Books Reading Room). Reviewed public digital/surrogate and current indexed second-copy discovery routes are closed without obtaining a juan 16-19 page. Microform presence remains unresolved because B1MICU anonymous search is authentication-blocked. Table family and Sanming/Yueling fingerprint remain unresolved.",
+      "target_result": "Physical holding and surviving scope are catalog-bound and OPAC-strengthened (doc 001790345 / internal 411999023866 / call 14202 / South Rare Books Reading Room). Reviewed public digital/surrogate and current indexed second-copy discovery routes are closed without obtaining a juan 16-19 page. Microform presence remains unresolved because B1MICU anonymous search is authentication-blocked. Table family and Sanming/Yueling fingerprint remain unresolved. Secondary 2025 scholarship narrows the first reproduction request to the end of juan 16, but no direct physical target page has been obtained; Table family and Sanming/Yueling fingerprint remain unresolved.",
       "public_digital_index_status": "CLOSED_NO_TARGET_RECORD_OBSERVED_UNDER_EXACT_TITLE_OR_EXACT_SBNUMBER_14202",
       "evidence": [
         "docs/research/ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-NLC-CENSUS-AND-DIGITAL-ACCESS-BOUNDARY-R1.json",
@@ -903,6 +903,24 @@
         "olcc_b1micu": "AUTHENTICATION_BLOCKED_TARGET_PRESENCE_UNRESOLVED",
         "google_books_microform_catalog": "SEARCHABLE_FALSE",
         "union_bibliography": "48_OF_48_PAGES_576_OF_576_RECORDS_NO_TARGET_OR_VARIANT_COPY"
+      },
+      "secondary_reproduction_locator_after_12dl": {
+        "status": "SCHOLARLY_LOCATOR_ONLY_PENDING_DIRECT_PHYSICAL_PAGE",
+        "source_id": "EXT-LIBRARY-JOURNAL-SHEN-2025-TONGSHU-LEIJU-COLOPHON-CONTROL",
+        "title_attribution": "姚奎纂辑；王以宁校刊",
+        "juan16_end_colophon_locator": "卷十六末",
+        "known_surviving_scope_overlap": true,
+        "direct_physical_colophon_page_observed": false,
+        "first_pass_reproduction_target": [
+          "卷十六末及相邻叶",
+          "卷16-19中昼夜百刻/四时节气/日出入/漏刻或铜壶相关叶"
+        ],
+        "same_printing_shop_proves_textual_or_table_lineage": false,
+        "numeric_ancestry_vote_increment": 0,
+        "evidence": [
+          "docs/research/ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-TITLE-COLOPHON-AND-REPRODUCTION-TARGETING-R1.json",
+          "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-TITLE-COLOPHON-AND-REPRODUCTION-TARGETING-DL.md"
+        ]
       }
     }
   ],
@@ -1760,6 +1778,10 @@
         {
           "batch": "BATCH-12-ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-OPAC-SURROGATE-AND-UNION-BIBLIOGRAPHY-CLOSURE-DK",
           "update": "The 1551 NLC Tongshu Leiju route is strengthened to OPAC doc 001790345 / internal id 411999023866 / call 14202 / South Rare Books Reading Room. Commons/IA public-surrogate discovery and the complete 48-page/576-record NLC Union Bibliography fuzzy result set yield no target or independent indexed copy, while OLCC B1MICU is authentication-blocked. This narrows access and copy-discovery routes only; no juan 16-19 page or numeric fingerprint was obtained, so the composite ancestry model receives zero textual/numeric vote."
+        },
+        {
+          "batch": "BATCH-12-ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-TITLE-COLOPHON-AND-REPRODUCTION-TARGETING-DL",
+          "update": "Publisher-hosted 2025 secondary scholarship narrows the known NLC 1551 Tongshu Leiju copy to a juan-16-end imprint locator inside the surviving juan 16-19 scope, making the first lawful reproduction request materially more precise. The study's same-type/same-layout comparison with the 1552 Zhicheng Mozi is retained only as printing-shop provenance, not textual/table lineage. A newly surfaced Gujin Tushu Jicheng exact fingerprint is explicitly presented under 三命通会五 and is therefore downstream reuse rather than an independent witness. This batch adds zero textual/numeric vote; direct 1551 target-page collation remains unresolved."
         }
       ]
     }
