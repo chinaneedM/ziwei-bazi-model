@@ -49,7 +49,8 @@
     "PARALLEL_COEXISTS_WITH",
     "CONTRADICTS",
     "DISPROVES_LINEAGE_SHORTCUT",
-    "TRANSMISSION_ERROR_OF"
+    "TRANSMISSION_ERROR_OF",
+    "STRUCTURAL_MECHANISM_CANDIDATE_FOR"
   ],
   "allowed_statuses": [
     "CONFIRMED",
@@ -567,6 +568,36 @@
         "docs/research/ZIWEI-SONGSHI-HUANGYOU-ARROW-THRESHOLD-DISCRETIZATION-R1.json"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-SONGSHI-HUANGYOU-ARROW-THRESHOLD-DISCRETIZATION-CZ"
+    },
+    {
+      "node_id": "PHYSICAL-COPY-YUELING-TONGKAO-NCL03165-1589",
+      "node_type": "PHYSICAL_COPY",
+      "label": "NCL-03165《月令通攷》萬曆十七年（1589）王道增臨海刊本",
+      "system_scope": "MING_MONTHLY_CALENDRICAL_COMPILATION_POSTDATING_SANMING",
+      "work_composition_date": "MING; exact compilation history beyond controlled edition not promoted here",
+      "edition_impression_date": "1589",
+      "physical_copy_date": "CONTROLLED_1589_EDITION",
+      "digital_surrogate_date": "MODERN_NCL_WIKIMEDIA_PUBLIC_SCAN",
+      "identifier": "NCL-03165",
+      "evidence": [
+        "docs/research/ZIWEI-YUELING-TONGKAO-1589-SANMING-FINGERPRINT-HOMOLOG-COLLATION-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-YUELING-TONGKAO-1589-SANMING-FINGERPRINT-HOMOLOG-COLLATION-DA.md"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-YUELING-TONGKAO-1589-SANMING-FINGERPRINT-HOMOLOG-COLLATION-DA"
+    },
+    {
+      "node_id": "TABLE-YUELING-1589-DAYNIGHT-FINGERPRINT",
+      "node_type": "OPERATIONAL_ARTIFACT",
+      "label": "1589《月令通攷》晝夜刻換檔指紋",
+      "system_scope": "MING_DAYNIGHT_KE_MONTHLY_CALENDRICAL_LAYER",
+      "date": "DIRECT_PHYSICAL_ATTESTATION_1589",
+      "mechanical_identity": "雨水47/53 -> 後四日 -> 48/52; 大寒43/57 -> literal 十三後 -> 44/56",
+      "chronology_relation_to_sanming": "POSTDATES_EXACT_1578_SANMING_BY_11_YEARS",
+      "evidence": [
+        "docs/research/ZIWEI-YUELING-TONGKAO-1589-SANMING-FINGERPRINT-HOMOLOG-COLLATION-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-YUELING-TONGKAO-1589-SANMING-FINGERPRINT-HOMOLOG-COLLATION-DA.md"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-YUELING-TONGKAO-1589-SANMING-FINGERPRINT-HOMOLOG-COLLATION-DA"
     }
   ],
   "edges": [
@@ -1086,6 +1117,22 @@
       ],
       "scope_note": "Supports the historical plausibility and rule class of a downstream threshold/binning layer only. Huangyou's 60/40 cap and parameters do not equal the 1578 Sanming 59/41/change-day fingerprint.",
       "adjudication_batch": "BATCH-12-ZIWEI-SONGSHI-HUANGYOU-ARROW-THRESHOLD-DISCRETIZATION-CZ"
+    },
+    {
+      "edge_id": "TG-E0036",
+      "from": "PHYSICAL-COPY-YUELING-TONGKAO-NCL03165-1589",
+      "relation": "ATTESTS",
+      "to": "TABLE-YUELING-1589-DAYNIGHT-FINGERPRINT",
+      "status": "CONFIRMED",
+      "confidence": "HIGH",
+      "evidence_class": "DIRECT_SOURCE_BOUND_PHYSICAL_PAGES_NO_OCR",
+      "evidence": [
+        "p27 sha256 3a732796e9a7a2a074bd9a5488ed554781a5726a4d92a2ea0234b875e5667c5c",
+        "p802 sha256 5b451701c299daa05f737250a351f4cfb1dd3bbac92fff89a581573181df8544",
+        "docs/research/ZIWEI-YUELING-TONGKAO-1589-SANMING-FINGERPRINT-HOMOLOG-COLLATION-R1.json"
+      ],
+      "scope_note": "Attests the 1589 Yueling fingerprint only. It does not establish direction of transmission between Yueling and the 1578 Sanming table.",
+      "adjudication_batch": "BATCH-12-ZIWEI-YUELING-TONGKAO-1589-SANMING-FINGERPRINT-HOMOLOG-COLLATION-DA"
     }
   ],
   "lineage_hypotheses": [
@@ -1104,8 +1151,9 @@
       "direct_copy_parent_identified": false,
       "exact_quantization_rule_identified": false,
       "unresolved_questions": [
-        "Which securely pre-1578 Chinese Nanjing/Datong-calibrated rule maps a fine astronomical/daylength argument to integer arrow/ke states with a 59-ke summer cap?",
-        "What exact threshold or selection rule reproduces the 1578 Sanming literal 大寒 十三後日 and 雨水 後四日 transitions from the C-II-N daily curve?",
+        "Which securely pre-1578 Chinese Tongshu/Yueling/calendar witness preserves both the 大寒 十三後 and 雨水 後四日 transition fingerprints?",
+        "Can the Yueling target loci be physically bound to an explicit 通書 or other source label, distinguishing direct post-1578 borrowing from a common earlier source?",
+        "What exact Nanjing/Datong post-computation reduction rule maps C-II-N daily values to the Sanming/Yueling integer-change fingerprint?",
         "Can a pre-1578 Chinese physical witness directly bind the C-II-N daily table and/or its reduction rule, distinguishing Chinese origin from Joseon transmission?"
       ],
       "evidence_updates": [
@@ -1128,6 +1176,10 @@
         {
           "batch": "BATCH-12-ZIWEI-SONGSHI-HUANGYOU-ARROW-THRESHOLD-DISCRETIZATION-CZ",
           "update": "Source-bound no-OCR Songshi v76 physical collation directly closes a historical threshold-driven discretization rule: each one-ke change has a separate arrow and 黃道升降差2度40分 triggers 增減改箭. This materially fills the generic post-conversion reduction-layer gap left by 12CX, but Huangyou 60/40 and its parameters differ from Sanming 59/41, so only the rule class—not the exact Sanming rule—is strengthened."
+        },
+        {
+          "batch": "BATCH-12-ZIWEI-YUELING-TONGKAO-1589-SANMING-FINGERPRINT-HOMOLOG-COLLATION-DA",
+          "update": "A controlled 1589 physical edition of Yueling Tongkao independently preserves both high-information Sanming-like change-day fingerprints: Yushui 47/53 -> post-day-4 48/52 and Dahan 43/57 -> literal 十三後 -> 44/56. Because the witness postdates Sanming by 11 years it cannot be an ancestor; the match strengthens persistence of a transmissible Tongshu/calendar table layer and raises the value of searching a pre-1578 common source, while direct Sanming->Yueling copying remains unproved."
         }
       ]
     }
@@ -1285,6 +1337,27 @@
         "docs/research/ZIWEI-SANMING-1578-SEASONAL-TABLE-DIRECT-PHYSICAL-COLLATION-R1.json"
       ],
       "adjudication_batch": "BATCH-12-ZIWEI-SONGSHI-HUANGYOU-ARROW-THRESHOLD-DISCRETIZATION-CZ"
+    },
+    {
+      "from": "TABLE-YUELING-1589-DAYNIGHT-FINGERPRINT",
+      "relation": "DIRECT_ANCESTOR_OF",
+      "to": "TABLE-SANMING-1578-DAYNIGHT-KE",
+      "status": "DISPROVED",
+      "reason": "The controlled Yueling edition is 1589, eleven years later than the exact 1578 Sanming physical witness.",
+      "evidence": [
+        "docs/research/ZIWEI-YUELING-TONGKAO-1589-SANMING-FINGERPRINT-HOMOLOG-COLLATION-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-YUELING-TONGKAO-1589-SANMING-FINGERPRINT-HOMOLOG-COLLATION-DA.md"
+      ]
+    },
+    {
+      "from": "TABLE-SANMING-1578-DAYNIGHT-KE",
+      "relation": "DIRECT_COPY_PARENT_OF",
+      "to": "TABLE-YUELING-1589-DAYNIGHT-FINGERPRINT",
+      "status": "UNRESOLVED",
+      "reason": "Chronology permits Sanming -> Yueling, but no explicit citation, copy statement, or stemmatic bridge has been established; a common earlier Tongshu/calendar source remains equally live.",
+      "evidence": [
+        "docs/research/ZIWEI-YUELING-TONGKAO-1589-SANMING-FINGERPRINT-HOMOLOG-COLLATION-R1.json"
+      ]
     }
   ],
   "backfill": {

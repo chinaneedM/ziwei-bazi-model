@@ -1,0 +1,119 @@
+{
+  "schema": "ZIWEI-YUELING-TONGKAO-1589-SANMING-FINGERPRINT-HOMOLOG-COLLATION-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-YUELING-TONGKAO-1589-SANMING-FINGERPRINT-HOMOLOG-COLLATION-DA",
+  "prior_batch_id": "BATCH-12-ZIWEI-SONGSHI-HUANGYOU-ARROW-THRESHOLD-DISCRETIZATION-CZ",
+  "question": "Does the exact 1589 Wang Daozeng Linhai edition of Yueling Tongkao physically preserve the same distinctive Dahan/Yushui whole-ke change-day fingerprint as the 1578 Sanming Tonghui witness, and what transmission direction is justified by chronology alone?",
+  "answer": "YES_FOR_POSTDATED_PHYSICAL_FINGERPRINT_HOMOLOGY; NO_FOR_ANCESTOR_DIRECTION; COMMON_OR_EARLIER_TONGSHU_SOURCE_REMAINS_UNRESOLVED",
+  "physical_source": {
+    "source_id": "EXT-NCL-YUELING-TONGKAO-1589-WANGDAOZENG",
+    "title": "月令通攷",
+    "compiler": "盧翰",
+    "edition": "明萬曆十七年（1589）王道增臨海刊本",
+    "provider_route": "National Central Library, Taiwan public scan via Wikimedia Commons",
+    "public_object": "NCL-03165",
+    "source_pdf_sha256": "bc95f32afb2bfe52b69ea4fb249481f6deee49d33b7b51f37f39ae9b383516a4",
+    "pdf_page_count": 979,
+    "workflow_run_id": 35335857137,
+    "artifact_id": 10542996657,
+    "artifact_digest": "sha256:2efb115d5359d93860cbf3914c416243ad5b5aee1f654f463802b2bcae48d801",
+    "artifact_file_count": 1011,
+    "text_layer_target_hit_count": 0,
+    "text_layer_role": "LOCATOR_ONLY_NOT_GLYPH_AUTHORITY; ZERO HITS HAVE NO NEGATIVE AUTHORITY",
+    "ocr_used_for_final_glyph_claims": false
+  },
+  "direct_physical_collation": {
+    "volume14_cover_pdf_page_797": {
+      "page_sha256": "28e7b05c0cee838f632983474849bd5413790b89c59572a4cb6090b614362884",
+      "direct_glyphs": [
+        "月令通攷",
+        "卷十四",
+        "十二月"
+      ],
+      "role": "Direct physical volume/month locator"
+    },
+    "yushui_pdf_page_27": {
+      "page_sha256": "3a732796e9a7a2a074bd9a5488ed554781a5726a4d92a2ea0234b875e5667c5c",
+      "direct_core_readings": [
+        "雨水日日在危九度",
+        "晝四十七刻夜五十三刻",
+        "後四日",
+        "晝四十八刻夜五十二刻"
+      ],
+      "expanded_sequence": "雨水日日在危九度……晝四十七刻夜五十三刻，後四日……晝四十八刻夜五十二刻",
+      "sanming_1578_match": "MATCH_AT_47_53_TO_POST_DAY4_48_52_FINGERPRINT"
+    },
+    "dahan_pdf_page_802": {
+      "page_sha256": "5b451701c299daa05f737250a351f4cfb1dd3bbac92fff89a581573181df8544",
+      "direct_core_readings": [
+        "晝四十三刻夜五十七刻",
+        "十三後晝四十四刻夜五十六刻"
+      ],
+      "expanded_sequence": "大寒段先列晝四十三刻夜五十七刻，隨後物理頁直接印十三後晝四十四刻夜五十六刻",
+      "sanming_1578_match": "MATCH_AT_LITERAL_SHISAN_HOU_TO_44_56_FINGERPRINT"
+    },
+    "method": "Direct visual review of source-bound rendered pages; OCR/text layer is not used as glyph authority."
+  },
+  "comparison_with_sanming_1578": {
+    "controlling_source": "NCL-06589-1 三命通會 明萬曆六年（1578）刊本",
+    "controlling_batch": "BATCH-12-ZIWEI-SANMING-1578-SEASONAL-TABLE-DIRECT-PHYSICAL-COLLATION-CP",
+    "matched_high_information_loci": [
+      "雨水 47/53 -> 後四日 -> 48/52",
+      "大寒 43/57 -> literal 十三後 -> 44/56"
+    ],
+    "stronger_than_shared_extreme_only": true,
+    "reason": "Two internal change-day fingerprints match, not merely a common 59/41 endpoint."
+  },
+  "chronology_and_directionality": {
+    "sanming_physical_year": 1578,
+    "yueling_physical_edition_year": 1589,
+    "years_after_sanming": 11,
+    "yueling_can_be_direct_ancestor_of_1578_sanming": false,
+    "direct_sanming_to_yueling_copying_proved": false,
+    "common_pre1578_source_proved": false,
+    "safe_directional_adjudication": "POSTDATED_HOMOLOGOUS_WITNESS_ONLY",
+    "live_hypotheses": [
+      "1589 Yueling Tongkao inherited the table/fingerprint through a post-1578 route that may include Sanming or another common source",
+      "1578 Sanming and 1589 Yueling Tongkao independently inherit an earlier Tongshu/calendar table tradition",
+      "A common intermediary recension existed but remains unidentified"
+    ]
+  },
+  "source_layer_signal": {
+    "broad_compilation_context": "Yueling Tongkao is a compilation drawing on multiple calendrical/monthly traditions; elsewhere its monthly material explicitly cites 通書.",
+    "adjudication": "This makes a common Tongshu/almanac substrate historically plausible, but the exact source label for the two target loci is not yet physically bound and therefore no common-source edge is promoted."
+  },
+  "transmission_impact": {
+    "nodes_added": [
+      "PHYSICAL-COPY-YUELING-TONGKAO-NCL03165-1589",
+      "TABLE-YUELING-1589-DAYNIGHT-FINGERPRINT"
+    ],
+    "edge_added": "PHYSICAL-COPY-YUELING-TONGKAO-NCL03165-1589 ATTESTS TABLE-YUELING-1589-DAYNIGHT-FINGERPRINT",
+    "relationship_to_sanming": "POSTDATED_HOMOLOGOUS_FINGERPRINT; represented in hypothesis update and explicit directionality firewall, not as a direct ancestry edge",
+    "unresolved": [
+      "Locate a pre-1578 Chinese Tongshu/calendar witness with both Dahan 十三後 and Yushui 後四日 transitions.",
+      "Determine whether the 1589 target loci explicitly cite 通書 or another source in the physical recension.",
+      "Continue search for a Chinese physical C-II-N carrier and Nanjing-calibrated threshold/reduction rule."
+    ]
+  },
+  "product_adjudication": {
+    "hpa_zdate_006_before": "MISSING_FROM_PRODUCT",
+    "hpa_zdate_006_after": "MISSING_FROM_PRODUCT",
+    "new_runtime_candidate": false,
+    "runtime_winner_selected": false,
+    "candidate_collapsed": false,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_authorized": false,
+    "deterministic_fusion_chart_product_r1": "CLOSED"
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "identified_missing_candidate_families": 14,
+    "confirmed_provenance_metadata_defect_count": 12,
+    "repaired_provenance_metadata_defect_count": 12,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  }
+}
