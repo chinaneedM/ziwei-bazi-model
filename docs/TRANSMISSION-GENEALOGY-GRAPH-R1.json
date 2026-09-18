@@ -746,6 +746,38 @@
         "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-YUELING-TONGKAO-1589-TONGSHU-SOURCE-LABEL-SCOPE-DD.md"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-YUELING-TONGKAO-1589-TONGSHU-SOURCE-LABEL-SCOPE-DD"
+    },
+    {
+      "node_id": "PHYSICAL-COPY-LEIBIAN-NLC-MING-VOL1",
+      "node_type": "PHYSICAL_COPY",
+      "label": "NLC892-411999018604-67969《類編曆法通書大全》第1冊明刻本",
+      "system_scope": "MING_TONGSHU_MULTI_TABLE_PHYSICAL_WITNESS",
+      "work_composition_date": "LAYERED_MING_TONGSHU_TRADITION",
+      "edition_impression_date": "MING_1368_1644_EXACT_YEAR_UNRESOLVED",
+      "physical_copy_date": "MING_PRINT_EXACT_YEAR_UNRESOLVED",
+      "digital_surrogate_date": "MODERN_NLC_WIKIMEDIA_SURROGATE",
+      "identifier": "NLC892-411999018604-67969",
+      "evidence": [
+        "docs/research/ZIWEI-LEIBIAN-MING-DUAL-DAYNIGHT-TABLES-R1.json",
+        "docs/research/ZIWEI-LEIBIAN-MING-FINE-TABLE-SANMING-TARGET-MISMATCH-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-LEIBIAN-MING-FINE-TABLE-SANMING-TARGET-MISMATCH-DE.md"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-LEIBIAN-MING-FINE-TABLE-SANMING-TARGET-MISMATCH-DE"
+    },
+    {
+      "node_id": "TABLE-LEIBIAN-FINE-SISHI-38-62",
+      "node_type": "OPERATIONAL_ARTIFACT",
+      "label": "《類編曆法通書大全》四時加減晝夜節氣 38↔62 細表",
+      "system_scope": "MING_TONGSHU_FINE_DAYNIGHT_KE_TABLE_FAMILY",
+      "date": "DIRECT_MING_PRINT_ATTESTATION_EXACT_IMPRESSION_YEAR_UNRESOLVED",
+      "mechanical_identity": "One-ke fine seasonal ladder with winter 38/62 and summer 62/38 family. Direct p24 target rows: 大寒節日至後六日 40/60; 大寒後七日至後十三日 41/59; 雨水節日至後五日 45/55.",
+      "exact_sanming_yueling_target_identity": false,
+      "evidence": [
+        "docs/research/ZIWEI-LEIBIAN-MING-DUAL-DAYNIGHT-TABLES-R1.json",
+        "docs/research/ZIWEI-LEIBIAN-MING-FINE-TABLE-SANMING-TARGET-MISMATCH-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-LEIBIAN-MING-FINE-TABLE-SANMING-TARGET-MISMATCH-DE.md"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-LEIBIAN-MING-FINE-TABLE-SANMING-TARGET-MISMATCH-DE"
     }
   ],
   "edges": [
@@ -1453,6 +1485,36 @@
       ],
       "scope_note": "Confirms only that the 1589 compilation attributes the target material to a generic 通書 source layer. It does not identify title, recension, edition, date, or pre-1578 ancestry.",
       "adjudication_batch": "BATCH-12-ZIWEI-YUELING-TONGKAO-1589-TONGSHU-SOURCE-LABEL-SCOPE-DD"
+    },
+    {
+      "edge_id": "TG-E0048",
+      "from": "PHYSICAL-COPY-LEIBIAN-NLC-MING-VOL1",
+      "relation": "ATTESTS",
+      "to": "TABLE-LEIBIAN-FINE-SISHI-38-62",
+      "status": "CONFIRMED",
+      "confidence": "HIGH",
+      "evidence_class": "DIRECT_SOURCE_BOUND_MING_PRINT_360DPI_TARGET_COLLATION_NO_OCR",
+      "evidence": [
+        "p24 sha256 2316baee2c40b9ffcb9add014dedab78aebb2914ffbfdd87cd96492fe5d7a154",
+        "docs/research/ZIWEI-LEIBIAN-MING-FINE-TABLE-SANMING-TARGET-MISMATCH-R1.json"
+      ],
+      "scope_note": "Attests the fine 38/62 table in this Ming-print object; exact impression year within 1368-1644 remains unresolved.",
+      "adjudication_batch": "BATCH-12-ZIWEI-LEIBIAN-MING-FINE-TABLE-SANMING-TARGET-MISMATCH-DE"
+    },
+    {
+      "edge_id": "TG-E0049",
+      "from": "TABLE-LEIBIAN-FINE-SISHI-38-62",
+      "relation": "PARALLEL_COEXISTS_WITH",
+      "to": "TABLE-FAMILY-TONGSHU-COARSE-40-60",
+      "status": "CONFIRMED",
+      "confidence": "HIGH",
+      "evidence_class": "SAME_PHYSICAL_MING_PRINT_VOLUME_PRESERVES_DISTINCT_DAYNIGHT_TABLE_FAMILIES",
+      "evidence": [
+        "docs/research/ZIWEI-LEIBIAN-MING-DUAL-DAYNIGHT-TABLES-R1.json",
+        "docs/research/ZIWEI-LEIBIAN-MING-FINE-TABLE-SANMING-TARGET-MISMATCH-R1.json"
+      ],
+      "scope_note": "Coexistence confirms Tongshu transmission is multi-table; no derivation direction between the fine and coarse branches is implied.",
+      "adjudication_batch": "BATCH-12-ZIWEI-LEIBIAN-MING-FINE-TABLE-SANMING-TARGET-MISMATCH-DE"
     }
   ],
   "lineage_hypotheses": [
@@ -1511,6 +1573,10 @@
         {
           "batch": "BATCH-12-ZIWEI-YUELING-TONGKAO-1589-TONGSHU-SOURCE-LABEL-SCOPE-DD",
           "update": "Direct p27 and p802 neighborhood collation shows the 1589 Yueling target fingerprint blocks carry the small source label 通書, with same-page small-font source labels such as 汲冢周書 providing typographic control. This materially narrows the common-source search to a Tongshu/almanac source family, but exact title/recension/date and pre-1578 status remain unresolved; distinct Tongshu numeric branches must not be collapsed."
+        },
+        {
+          "batch": "BATCH-12-ZIWEI-LEIBIAN-MING-FINE-TABLE-SANMING-TARGET-MISMATCH-DE",
+          "update": "Direct 360-dpi p24 collation of the Ming-print Leibian fine 四時加減晝夜節氣 branch fixes Dahan at 40/60 then 41/59 and Yushui at 45/55, directly excluding this 38/62 branch as the unchanged exact table behind Sanming/Yueling. This sharpens the generic 通書 search by proving that a Tongshu title can preserve a numerically different fine branch alongside the coarse branch."
         }
       ]
     }
@@ -1731,6 +1797,29 @@
       "evidence": [
         "docs/research/ZIWEI-YUELING-TONGKAO-1589-TONGSHU-SOURCE-LABEL-SCOPE-R1.json",
         "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-YUELING-TONGKAO-1589-TONGSHU-SOURCE-LABEL-SCOPE-DD.md"
+      ]
+    },
+    {
+      "from": "TABLE-LEIBIAN-FINE-SISHI-38-62",
+      "relation": "DIRECT_UNCHANGED_PARENT_OF",
+      "to": "TABLE-SANMING-1578-DAYNIGHT-KE",
+      "status": "DISPROVED",
+      "reason": "Direct p24 mismatch at the target anchors: Leibian fine table has 大寒 40/60 then 41/59 and 雨水 45/55, while exact Sanming 1578 has 大寒 43/57 -> 十三後日 44/56 and 雨水 47/53 -> 後四日 48/52.",
+      "evidence": [
+        "docs/research/ZIWEI-LEIBIAN-MING-FINE-TABLE-SANMING-TARGET-MISMATCH-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-LEIBIAN-MING-FINE-TABLE-SANMING-TARGET-MISMATCH-DE.md",
+        "docs/research/ZIWEI-SANMING-1578-SEASONAL-TABLE-DIRECT-PHYSICAL-COLLATION-R1.json"
+      ]
+    },
+    {
+      "from": "TABLE-LEIBIAN-FINE-SISHI-38-62",
+      "relation": "UNCHANGED_NUMERIC_IDENTITY_WITH",
+      "to": "TABLE-YUELING-1589-DAYNIGHT-FINGERPRINT",
+      "status": "DISPROVED",
+      "reason": "Yueling 1589 physically preserves the same 43/57->44/56 and 47/53->48/52 fingerprint as Sanming, while the Leibian fine 38/62 branch directly differs at Dahan and Yushui anchors.",
+      "evidence": [
+        "docs/research/ZIWEI-LEIBIAN-MING-FINE-TABLE-SANMING-TARGET-MISMATCH-R1.json",
+        "docs/research/ZIWEI-YUELING-TONGKAO-1589-SANMING-FINGERPRINT-HOMOLOG-COLLATION-R1.json"
       ]
     }
   ],
