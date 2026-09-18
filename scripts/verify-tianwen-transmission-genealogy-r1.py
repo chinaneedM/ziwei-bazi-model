@@ -194,10 +194,20 @@ def main() -> int:
     tongshu_leiju_1551 = next(n for n in nodes if n.get("node_id") == "PHYSICAL-COPY-TONGSHU-LEIJU-NLC-JIAJING30-1551-V16-19")
     if tongshu_leiju_1551.get("edition_impression_date") != "MING_JIAJING_30_1551_CENSUS_AND_SHANBEN_CATALOG_BOUND":
         fail("1551 Tongshu Leiju edition binding regressed")
-    if tongshu_leiju_1551.get("identifier") != "NLC census 110000-0101-0013797 / call no. 14202 / Shanben catalog item 450":
+    if tongshu_leiju_1551.get("identifier") != "NLC census 110000-0101-0013797 / call no. 14202 / OPAC doc 001790345 / internal id 411999023866 / Shanben catalog item 450":
         fail("1551 Tongshu Leiju identifier binding regressed")
     if tongshu_leiju_1551.get("public_digital_index_status") != "CLOSED_NO_TARGET_RECORD_OBSERVED_UNDER_EXACT_TITLE_OR_EXACT_SBNUMBER_14202":
         fail("1551 Tongshu Leiju public digital-index boundary regressed")
+    opac1551 = tongshu_leiju_1551.get("opac_control", {})
+    if opac1551.get("doc_number") != "001790345" or opac1551.get("internal_id") != "411999023866" or opac1551.get("holding") != "南区善本阅览室":
+        fail("1551 Tongshu Leiju OPAC strengthening regressed")
+    surrogate1551 = tongshu_leiju_1551.get("public_surrogate_discovery", {})
+    if surrogate1551.get("olcc_b1micu") != "AUTHENTICATION_BLOCKED_TARGET_PRESENCE_UNRESOLVED":
+        fail("1551 Tongshu Leiju microform access firewall regressed")
+    if surrogate1551.get("union_bibliography") != "48_OF_48_PAGES_576_OF_576_RECORDS_NO_TARGET_OR_VARIANT_COPY":
+        fail("1551 Tongshu Leiju union-bibliography closure regressed")
+    if "Table family and Sanming/Yueling fingerprint remain unresolved." not in tongshu_leiju_1551.get("target_result", ""):
+        fail("1551 Tongshu Leiju target-text unresolved firewall regressed")
     if not any(
         x.get("from") == "PHYSICAL-COPY-TONGSHU-LEIJU-NLC-JIAJING30-1551-V16-19"
         and x.get("to") == "TABLE-SANMING-1578-DAYNIGHT-KE"
@@ -214,6 +224,13 @@ def main() -> int:
         for x in graph.get("explicit_non_edges", [])
     ):
         fail("1551 Tongshu Leiju/Yueling target-fingerprint unresolved firewall missing")
+    hyp12dk = next((h for h in graph.get("lineage_hypotheses", []) if h.get("hypothesis_id") == "TG-H0001"), None)
+    if hyp12dk is None or not any(
+        x.get("batch") == "BATCH-12-ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-OPAC-SURROGATE-AND-UNION-BIBLIOGRAPHY-CLOSURE-DK"
+        and "zero textual/numeric vote" in x.get("update", "")
+        for x in hyp12dk.get("evidence_updates", [])
+    ):
+        fail("Batch 12DK genealogy hypothesis access-only update missing")
 
     leibian_fine = next(n for n in nodes if n.get("node_id") == "TABLE-LEIBIAN-FINE-SISHI-38-62")
     if leibian_fine.get("exact_sanming_yueling_target_identity") is not False:
