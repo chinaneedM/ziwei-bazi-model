@@ -614,14 +614,19 @@
       "node_id": "PASSAGE-GEXIANG-HUNDRED-KE-HALF-ZI",
       "node_type": "PASSAGE",
       "label": "《革象新書》卷二《時分百刻》百刻/半子段",
-      "system_scope": "YUAN_WORK_RECEIVED_TEXTUAL_TIMEKEEPING",
+      "system_scope": "YUAN_WORK_RECEIVED_TEXTUAL_TIMEKEEPING_WITH_DIRECT_1520_MING_PRINT_WITNESS",
       "work_composition_date": "YUAN_WORK",
-      "physical_witness_date": "LATER_RECEIVED_FACSIMILE; exact physical-copy date not promoted",
+      "physical_witness_date": "DIRECT_1520_ZHENGDE_PRINT_WITNESS_NCL06265_PLUS_LATER_RECEIVED_CADAL_WITNESS",
       "mechanical_identity": "晝夜十二時均分為百刻 / 一時八大刻二小刻 / 子時上一半夜半前屬昨日 / 下一半夜半後屬今日",
       "evidence": [
-        "docs/research/ZIWEI-GEXIANG-HUQIAN-COMPOSITE-TIMEKEEPING-ANCESTRY-R1.json"
+        "docs/research/ZIWEI-GEXIANG-HUQIAN-COMPOSITE-TIMEKEEPING-ANCESTRY-R1.json",
+        "docs/research/ZIWEI-GEXIANG-ZHENGDE15-1520-PRE1578-TEXTUAL-WITNESS-R1.json"
       ],
-      "first_explicit_graph_batch": "BATCH-12-ZIWEI-SHENDAO-ZHAOYUANDU-TIMEKEEPING-TEXTUAL-BRIDGE-DB"
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-SHENDAO-ZHAOYUANDU-TIMEKEEPING-TEXTUAL-BRIDGE-DB",
+      "recension_variants": {
+        "zhengde_1520": "若子時則上半時在夜半前屬昨日 / 下半時在夜半後屬今日",
+        "later_cadal_received": "子時之上一半在夜半前屬昨日 / 下一半在夜半後屬今日"
+      }
     },
     {
       "node_id": "PHYSICAL-COPY-SHENDAO-HKU-B17672971-FASC4",
@@ -698,6 +703,23 @@
         "docs/research/ZIWEI-SANMING-TONGHUI-1578-TIMEKEEPING-PHYSICAL-COLLATION-R1.json"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-SHENDAO-ZHAOYUANDU-TIMEKEEPING-TEXTUAL-BRIDGE-DB"
+    },
+    {
+      "node_id": "PHYSICAL-COPY-GEXIANG-NCL06265-ZHENGDE15-1520",
+      "node_type": "PHYSICAL_COPY",
+      "label": "NCL-06265《重刊革象新書》正德十五年（1520）宣威公署刊本",
+      "system_scope": "MING_PRE1578_ZHAO_GEXIANG_TIMEKEEPING_PRINT_WITNESS",
+      "work_composition_date": "YUAN_WORK_TRADITION",
+      "edition_impression_date": "1520_ZHENGDE15",
+      "physical_copy_date": "CONTROLLED_AS_1520_PRINT_EDITION_BY_PUBLIC_CATALOG_METADATA_PLUS_INTERNAL_DATED_PARATEXT",
+      "digital_surrogate_date": "MODERN_NCL_WIKIMEDIA_SURROGATE",
+      "identifier": "NCL-06265 / 索書號6265",
+      "physical_locator": "PDF p5, p36, p37",
+      "evidence": [
+        "docs/research/ZIWEI-GEXIANG-ZHENGDE15-1520-PRE1578-TEXTUAL-WITNESS-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-GEXIANG-ZHENGDE15-1520-PRE1578-TEXTUAL-WITNESS-DC.md"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-GEXIANG-ZHENGDE15-1520-PRE1578-TEXTUAL-WITNESS-DC"
     }
   ],
   "edges": [
@@ -1334,7 +1356,8 @@
       "evidence_class": "EXPLICIT_ZHAO_ATTRIBUTION_PLUS_NEAR_VERBATIM_MECHANICAL_TEXT",
       "evidence": [
         "docs/research/ZIWEI-GEXIANG-HUQIAN-COMPOSITE-TIMEKEEPING-ANCESTRY-R1.json",
-        "docs/research/ZIWEI-SHENDAO-ZHAOYUANDU-TIMEKEEPING-TEXTUAL-BRIDGE-R1.json"
+        "docs/research/ZIWEI-SHENDAO-ZHAOYUANDU-TIMEKEEPING-TEXTUAL-BRIDGE-R1.json",
+        "docs/research/ZIWEI-GEXIANG-ZHENGDE15-1520-PRE1578-TEXTUAL-WITNESS-R1.json"
       ],
       "scope_note": "Candidate ancestry at the work/text tradition layer only; direct copying from the reviewed Gexiang physical recension is unproved.",
       "adjudication_batch": "BATCH-12-ZIWEI-SHENDAO-ZHAOYUANDU-TIMEKEEPING-TEXTUAL-BRIDGE-DB"
@@ -1346,13 +1369,14 @@
       "to": "PASSAGE-SANMING-1578-HUNDRED-KE-HALF-ZI",
       "status": "PROBABLE",
       "confidence": "MEDIUM_HIGH",
-      "evidence_class": "EARLIER_WORK_TEXTUAL_ANTECEDENT_PLUS_NEAR_VERBATIM_MECHANICAL_TEXT",
+      "evidence_class": "DIRECT_1520_PRE1578_PHYSICAL_ANTECEDENT_PLUS_NEAR_VERBATIM_MECHANICAL_TEXT",
       "evidence": [
         "docs/research/ZIWEI-GEXIANG-HUQIAN-COMPOSITE-TIMEKEEPING-ANCESTRY-R1.json",
         "docs/research/ZIWEI-SANMING-TONGHUI-1578-TIMEKEEPING-PHYSICAL-COLLATION-R1.json",
-        "docs/research/ZIWEI-SHENDAO-ZHAOYUANDU-TIMEKEEPING-TEXTUAL-BRIDGE-R1.json"
+        "docs/research/ZIWEI-SHENDAO-ZHAOYUANDU-TIMEKEEPING-TEXTUAL-BRIDGE-R1.json",
+        "docs/research/ZIWEI-GEXIANG-ZHENGDE15-1520-PRE1578-TEXTUAL-WITNESS-R1.json"
       ],
-      "scope_note": "Textual ancestry candidate, not proven direct copying; Shendao supplies a plausible Ming mediation/rephrasing layer.",
+      "scope_note": "Textual ancestry candidate materially strengthened by a direct 1520 physical Gexiang witness predating Sanming by 58 years; direct copying is still unproved.",
       "adjudication_batch": "BATCH-12-ZIWEI-SHENDAO-ZHAOYUANDU-TIMEKEEPING-TEXTUAL-BRIDGE-DB"
     },
     {
@@ -1370,6 +1394,23 @@
       ],
       "scope_note": "Attests explicit regional calibration theory: old 60/40, Yandu 62/38, north/south variation.",
       "adjudication_batch": "BATCH-12-ZIWEI-SHENDAO-ZHAOYUANDU-TIMEKEEPING-TEXTUAL-BRIDGE-DB"
+    },
+    {
+      "edge_id": "TG-E0046",
+      "from": "PHYSICAL-COPY-GEXIANG-NCL06265-ZHENGDE15-1520",
+      "relation": "ATTESTS",
+      "to": "PASSAGE-GEXIANG-HUNDRED-KE-HALF-ZI",
+      "status": "CONFIRMED",
+      "confidence": "HIGH",
+      "evidence_class": "DIRECT_SOURCE_BOUND_1520_PRINT_COLLATION_NO_OCR_PLUS_INTERNAL_DATED_PARATEXT",
+      "evidence": [
+        "p5 sha256 a46be69e41452488857bf5365310686598a93b0c514c69aeb6228ba1aaa720ba",
+        "p36 sha256 159f16034b3776ff5b9c13a246bb8671352f4edca38b029018bfc95a468a95fb",
+        "p37 sha256 908d0c1162f46090c1e57d1a4d2279b934a957db1e5fec0bb3900276c5b2bc3c",
+        "docs/research/ZIWEI-GEXIANG-ZHENGDE15-1520-PRE1578-TEXTUAL-WITNESS-R1.json"
+      ],
+      "scope_note": "Physically closes a 1520 pre-1578 witness of the Gexiang hundred-ke/half-Zi rule and 若子時則 wording. It does not prove direct copying into Shendao or Sanming.",
+      "adjudication_batch": "BATCH-12-ZIWEI-GEXIANG-ZHENGDE15-1520-PRE1578-TEXTUAL-WITNESS-DC"
     }
   ],
   "lineage_hypotheses": [
@@ -1619,6 +1660,17 @@
       "evidence": [
         "docs/research/ZIWEI-SHENDAO-ZHAOYUANDU-TIMEKEEPING-TEXTUAL-BRIDGE-R1.json",
         "docs/research/ZIWEI-SANMING-1578-SEASONAL-TABLE-DIRECT-PHYSICAL-COLLATION-R1.json"
+      ]
+    },
+    {
+      "from": "PHYSICAL-COPY-GEXIANG-NCL06265-ZHENGDE15-1520",
+      "relation": "DIRECT_COPY_PARENT_OF",
+      "to": "PASSAGE-SANMING-1578-HUNDRED-KE-HALF-ZI",
+      "status": "UNRESOLVED",
+      "reason": "The 1520 witness predates Sanming and preserves near-verbatim mechanics, but no explicit citation, copy statement, or source-bound stemmatic intermediary proves direct copying from this specific physical/edition line into Sanming 1578.",
+      "evidence": [
+        "docs/research/ZIWEI-GEXIANG-ZHENGDE15-1520-PRE1578-TEXTUAL-WITNESS-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-GEXIANG-ZHENGDE15-1520-PRE1578-TEXTUAL-WITNESS-DC.md"
       ]
     }
   ],
