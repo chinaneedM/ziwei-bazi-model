@@ -1,0 +1,85 @@
+name: probe-shanben-catalog-tongshu-leiju-1551-holding
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-shanben-catalog-tongshu-leiju-1551-holding.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install PDF tools
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils
+
+      - name: Locate 1551 Tongshu Leiju catalog entry and holding legend
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/shanben-catalog-tongshu-leiju-1551-holding'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT/rendered"
+
+          URL='https://upload.wikimedia.org/wikipedia/commons/d/db/SSID-13990657_%E4%B8%AD%E5%9C%8B%E5%8F%A4%E7%B1%8D%E5%96%84%E6%9C%AC%E6%9B%B8%E7%9B%AE_%E5%AD%90%E9%83%A8_3.pdf'
+          curl -L --fail --retry 5 --retry-all-errors --retry-delay 2             -A 'Tianwen-Provenance-Audit/1.0' "$URL" -o "$ROOT/source.pdf"
+
+          sha256sum "$ROOT/source.pdf" | tee "$ROOT/source.sha256"
+          pdfinfo "$ROOT/source.pdf" | tee "$ROOT/pdfinfo.txt"
+          pages=$(pdfinfo "$ROOT/source.pdf" | awk '/^Pages:/ {print $2}')
+          test -n "$pages"
+
+          : > "$ROOT/page-hits.tsv"
+          : > "$ROOT/locator-text.txt"
+
+          for p in $(seq 1 "$pages"); do
+            txt=$(pdftotext -f "$p" -l "$p" -layout "$ROOT/source.pdf" - 2>/dev/null || true)
+            if printf '%s' "$txt" | grep -Eq '通書類聚|通书类聚|尅擇大全|克擇大全|抉擇大全|芝城.*活字'; then
+              printf 'TARGET\t%s\n' "$p" >> "$ROOT/page-hits.tsv"
+              printf '\n===== TARGET PDF PAGE %s =====\n%s\n' "$p" "$txt" >> "$ROOT/locator-text.txt"
+            fi
+            if printf '%s' "$txt" | grep -Eq '收藏單位|收藏单位|藏書單位|藏书单位|簡稱表|简称表'; then
+              printf 'LEGEND\t%s\n' "$p" >> "$ROOT/page-hits.tsv"
+              printf '\n===== LEGEND PDF PAGE %s =====\n%s\n' "$p" "$txt" >> "$ROOT/locator-text.txt"
+            fi
+          done
+
+          test -s "$ROOT/page-hits.tsv"
+          sort -u "$ROOT/page-hits.tsv" -o "$ROOT/page-hits.tsv"
+
+          # Render every locator hit plus one-page context on either side, at direct-reading resolution.
+          cut -f2 "$ROOT/page-hits.tsv" | sort -nu | while read -r p; do
+            for q in $((p-1)) "$p" $((p+1)); do
+              [ "$q" -lt 1 ] && continue
+              [ "$q" -gt "$pages" ] && continue
+              out="$ROOT/rendered/page-$(printf '%04d' "$q")"
+              [ -f "${out}.png" ] && continue
+              pdftoppm -f "$q" -l "$q" -singlefile -png -r 300 "$ROOT/source.pdf" "$out"
+            done
+          done
+
+          sha256sum "$ROOT"/rendered/*.png | sort -V > "$ROOT/rendered.sha256"
+
+          printf '%s\n'             'SOURCE=中國古籍善本書目 子部 三'             'TARGET=通書類聚尅擇大全 / 明嘉靖三十年芝城銅活字印本'             'QUESTION=What exact surviving-volume statement and holding-library code/name are printed in the original bibliography entry?'             'TEXT_LAYER_ROLE=PAGE_LOCATOR_ONLY_NOT_GLYPH_AUTHORITY'             'FINAL_READING_AUTHORITY=300DPI_RENDERED_CATALOG_PAGE'             'OCR_USED_FOR_FINAL_GLYPH_CLAIMS=false'             > "$ROOT/manifest.txt"
+
+          rm "$ROOT/source.pdf"
+
+      - name: Upload catalog evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: shanben-catalog-tongshu-leiju-1551-holding
+          path: audit/shanben-catalog-tongshu-leiju-1551-holding/
+          if-no-files-found: error
+          compression-level: 6
+          retention-days: 30
