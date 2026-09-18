@@ -1,0 +1,119 @@
+name: query-nlc-digital-guji-compound-tongshu-leiju-1551
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/query-nlc-digital-guji-compound-tongshu-leiju-1551.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  query:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Compound-query NLC digital ancient-books index for the 1551 target
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/nlc-digital-guji-compound-tongshu-leiju-1551'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT"
+          UA='Tianwen-Provenance-Audit/1.0'
+          ENDPOINT='http://read.nlc.cn/advanceSearch/gujiSearch/data'
+
+          curl -L -sS --connect-timeout 8 --max-time 25 -A "$UA"             -X POST 'http://read.nlc.cn/DBM/getIsSearchFld?resId=24'             -o "$ROOT/search-fields.json" || true
+
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('audit/nlc-digital-guji-compound-tongshu-leiju-1551/search-fields.json')
+          try:
+              data=json.loads(p.read_text('utf-8'))
+          except Exception:
+              data=[]
+          Path('audit/nlc-digital-guji-compound-tongshu-leiju-1551/search-fields.txt').write_text(
+              '\n'.join(f"{x.get('fldName')}\t{x.get('fldDesc')}" for x in data if isinstance(x,dict))+'\n',
+              encoding='utf-8')
+          PY
+
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          root=Path('audit/nlc-digital-guji-compound-tongshu-leiju-1551')
+          queries = {
+            "year-title-tongshu":[
+              {"fldName":"publish_time","content":"明嘉靖30年[1551]","match":"must"},
+              {"aon":"AND","fldName":"title","content":"通書","match":"like"}],
+            "year-title-leiju":[
+              {"fldName":"publish_time","content":"明嘉靖30年[1551]","match":"must"},
+              {"aon":"AND","fldName":"title","content":"類聚","match":"like"}],
+            "year-title-daquan":[
+              {"fldName":"publish_time","content":"明嘉靖30年[1551]","match":"must"},
+              {"aon":"AND","fldName":"title","content":"大全","match":"like"}],
+            "author-yaokui":[{"fldName":"author","content":"姚奎","match":"like"}],
+            "author-wangyining":[{"fldName":"author","content":"王以寧","match":"like"}],
+            "publisher-zhicheng":[{"fldName":"publish_unit","content":"芝城","match":"like"}],
+            "year-only":[{"fldName":"publish_time","content":"明嘉靖30年[1551]","match":"must"}],
+          }
+          (root/'queries.json').write_text(json.dumps(queries,ensure_ascii=False,indent=2),encoding='utf-8')
+          for k,v in queries.items():
+              (root/f'{k}.payload').write_text(json.dumps(v,ensure_ascii=False,separators=(',',':')),encoding='utf-8')
+          PY
+
+          : > "$ROOT/status.tsv"
+          for payload in "$ROOT"/*.payload; do
+            key=$(basename "$payload" .payload)
+            json=$(cat "$payload")
+            set +e
+            timeout 35s curl -L -sS               --connect-timeout 8 --max-time 25 -A "$UA"               -X POST               --data-urlencode 'index=0003,'               --data-urlencode "searchJson=$json"               --data-urlencode 'pageNo=1'               "$ENDPOINT" -o "$ROOT/$key.json"
+            rc=$?
+            set -e
+            size=0
+            [ -f "$ROOT/$key.json" ] && size=$(wc -c < "$ROOT/$key.json")
+            printf '%s\t%s\t%s\n' "$key" "$rc" "$size" >> "$ROOT/status.tsv"
+          done
+
+          python - <<'PY'
+          import json,re
+          from pathlib import Path
+          root=Path('audit/nlc-digital-guji-compound-tongshu-leiju-1551')
+          out=[]
+          for p in sorted(root.glob('*.json')):
+              if p.name in ('queries.json','search-fields.json'):
+                  continue
+              try:
+                  d=json.loads(p.read_text('utf-8'))
+              except Exception as e:
+                  out.append(f'{p.name}\tPARSE_ERROR\t{e}')
+                  continue
+              rows=d.get('rows') or []
+              out.append(f'{p.name}\ttotal={d.get("total")}\trows={len(rows)}')
+              for r in rows:
+                  title=re.sub('<[^>]+>','',str(r.get('title','')))
+                  out.append(p.name+'\t'+json.dumps({
+                    'title':title,'author':r.get('author'),'publish_unit':r.get('publish_unit'),
+                    'publish_time':r.get('publish_time'),'identifier':r.get('identifier'),
+                    'sbnumber':r.get('sbnumber'),'filepath':r.get('filepath'),
+                    'index_name':r.get('index_name'),'res_name':r.get('res_name')
+                  },ensure_ascii=False,separators=(',',':')))
+          (root/'parsed-results.txt').write_text('\n'.join(out)+'\n',encoding='utf-8')
+          PY
+
+          grep -RniE             '通書類聚|通书类聚|尅擇|克擇|芝城|姚奎|王以寧|嘉靖30年|1551|14202|110000-0101-0013797'             "$ROOT" > "$ROOT/target-hits.txt" || true
+
+          printf '%s\n'             'SOURCE=中國國家圖書館 中華古籍資源庫 高級檢索'             'RESOURCE_INDEX=0003 數字古籍'             'TARGET_CENSUS_ID=110000-0101-0013797'             'TARGET_CALL_NUMBER=14202'             'PURPOSE=controlled cross-field check after exact-title total=0; distinguish alternate cataloging from non-public digitization'             'OCR_USED=false'             > "$ROOT/manifest.txt"
+
+      - name: Upload compound-query evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: nlc-digital-guji-compound-tongshu-leiju-1551-query
+          path: audit/nlc-digital-guji-compound-tongshu-leiju-1551/
+          if-no-files-found: error
+          compression-level: 6
+          retention-days: 30
