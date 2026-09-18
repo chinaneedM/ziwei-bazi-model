@@ -117,9 +117,11 @@ jobs:
             title:'太陰通軌',
             pages_requested:pages,
             physical_pages:physical,
-            shidian_mapping_hypothesis:{
-              '111':'053b','112':'054a','113':'054b','114':'055a','115':'055b',
-              basis:'If Shidian pageNum 4 corresponds to Kyudb 000a, sequential recto/verso mapping yields these labels; must be verified by image content.'
+            recension_boundary:{
+              shidian_nlc_object:'Shidian public metadata identifies its 太陰通軌 as a Qing manuscript held by the National Library of China.',
+              kyudb_object:'GK12436_00 / 奎貴12436 is the Kyujanggak Gapinja printed/corrected object.',
+              linear_page_mapping_authorized:false,
+              reason:'The objects have different recension/layout. Direct visual review rejects sequential page-number projection between them.'
             },
             authority:'OFFICIAL_KYUDB_SOURCE_BOUND_FACSIMILE',
             ocr_used_for_glyph_or_numeric_claims:false,
