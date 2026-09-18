@@ -1,0 +1,108 @@
+name: probe-nlc-digital-guji-advanced-search
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-nlc-digital-guji-advanced-search.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Capture NLC ancient-books advanced-search form contract
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/nlc-digital-guji-advanced-search'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT"
+          UA='Tianwen-Provenance-Audit/1.0'
+
+          for variant in legacy menhu; do
+            if [ "$variant" = legacy ]; then
+              url='http://read.nlc.cn/advanceSearch/gujiSearch'
+            else
+              url='http://read.nlc.cn/menhu/advanceSearch/gujiSearch'
+            fi
+            set +e
+            timeout 35s curl -L -sS               --connect-timeout 8 --max-time 25               -A "$UA" -D "$ROOT/$variant.headers"               "$url" -o "$ROOT/$variant.html"
+            rc=$?
+            set -e
+            size=0
+            [ -f "$ROOT/$variant.html" ] && size=$(wc -c < "$ROOT/$variant.html")
+            printf '%s\t%s\t%s\t%s\n' "$variant" "$rc" "$size" "$url" >> "$ROOT/status.tsv"
+          done
+
+          python - <<'PY'
+          from html.parser import HTMLParser
+          from pathlib import Path
+
+          root=Path('audit/nlc-digital-guji-advanced-search')
+
+          class P(HTMLParser):
+              def __init__(self):
+                  super().__init__()
+                  self.forms=[]
+                  self.inputs=[]
+                  self.selects=[]
+                  self.options=[]
+                  self.scripts=[]
+                  self.text=[]
+              def handle_starttag(self,tag,attrs):
+                  d=dict(attrs)
+                  if tag=='form':
+                      self.forms.append(d)
+                  elif tag=='input':
+                      self.inputs.append(d)
+                  elif tag=='select':
+                      self.selects.append(d)
+                  elif tag=='option':
+                      self.options.append(d)
+                  elif tag=='script' and d.get('src'):
+                      self.scripts.append(d['src'])
+              def handle_data(self,data):
+                  s=' '.join(data.split())
+                  if s:
+                      self.text.append(s)
+
+          for p in root.glob('*.html'):
+              parser=P()
+              parser.feed(p.read_text('utf-8',errors='replace'))
+              out=[]
+              out.append('FORMS')
+              out += [repr(x) for x in parser.forms]
+              out.append('INPUTS')
+              out += [repr(x) for x in parser.inputs]
+              out.append('SELECTS')
+              out += [repr(x) for x in parser.selects]
+              out.append('OPTIONS')
+              out += [repr(x) for x in parser.options]
+              out.append('SCRIPTS')
+              out += parser.scripts
+              out.append('TEXT')
+              out += parser.text
+              (root/f'{p.stem}-parsed.txt').write_text('\n'.join(out)+'\n',encoding='utf-8')
+          PY
+
+          grep -RniE             'search|query|condition|field|title|author|version|book|guji|題名|题名|書名|书名|著者|作者|版本|年代|出版|exact|精確|精确|resId|categoryName|method|action'             "$ROOT" > "$ROOT/contract-hits.txt" || true
+
+          sha256sum "$ROOT"/*.html > "$ROOT/html.sha256" || true
+
+          printf '%s\n'             'SOURCE=中國國家圖書館 中華古籍資源庫'             'ENDPOINT=/advanceSearch/gujiSearch'             'PURPOSE=capture the source form contract before issuing exact-title/version queries for the 1551 Tongshu Leiju copy'             'TARGET_CENSUS_ID=110000-0101-0013797'             'TARGET_CALL_NUMBER=14202'             'OCR_USED=false'             > "$ROOT/manifest.txt"
+
+      - name: Upload advanced-search contract evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: nlc-digital-guji-advanced-search-contract
+          path: audit/nlc-digital-guji-advanced-search/
+          if-no-files-found: error
+          compression-level: 6
+          retention-days: 30
