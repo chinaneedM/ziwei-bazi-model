@@ -94,6 +94,8 @@ def main() -> int:
         "RULE-FAMILY-HUNDRED-KE-HALF-ZI-TEXTUAL-LINEAGE",
         "PHYSICAL-COPY-GEXIANG-NCL06265-ZHENGDE15-1520",
         "SOURCE-FAMILY-YUELING-CITED-TONGSHU-DAYNIGHT",
+        "TABLE-LEIBIAN-FINE-SISHI-38-62",
+        "PHYSICAL-COPY-LEIBIAN-NLC-MING-VOL1",
     }
     if not required_nodes.issubset(set(node_ids)):
         fail("Transmission graph seed nodes incomplete")
@@ -169,6 +171,22 @@ def main() -> int:
     cited_tongshu = next(n for n in nodes if n.get("node_id") == "SOURCE-FAMILY-YUELING-CITED-TONGSHU-DAYNIGHT")
     if cited_tongshu.get("source_label") != "通書" or cited_tongshu.get("exact_bibliographic_identity") != "UNRESOLVED" or cited_tongshu.get("pre1578_status") != "UNRESOLVED":
         fail("Yueling cited Tongshu identity firewall regressed")
+    e48 = next((e for e in edges if e.get("edge_id") == "TG-E0048"), None)
+    if not e48 or e48.get("relation") != "ATTESTS" or e48.get("status") != "CONFIRMED":
+        fail("Leibian fine-table physical attestation edge regressed")
+    e49 = next((e for e in edges if e.get("edge_id") == "TG-E0049"), None)
+    if not e49 or e49.get("relation") != "PARALLEL_COEXISTS_WITH" or e49.get("status") != "CONFIRMED":
+        fail("Leibian fine/coarse coexistence edge regressed")
+    leibian_fine = next(n for n in nodes if n.get("node_id") == "TABLE-LEIBIAN-FINE-SISHI-38-62")
+    if leibian_fine.get("exact_sanming_yueling_target_identity") is not False:
+        fail("Leibian fine-table exact-target mismatch regressed")
+    if not any(
+        x.get("from") == "TABLE-LEIBIAN-FINE-SISHI-38-62"
+        and x.get("to") == "TABLE-SANMING-1578-DAYNIGHT-KE"
+        and x.get("status") == "DISPROVED"
+        for x in graph.get("explicit_non_edges", [])
+    ):
+        fail("Leibian fine/Sanming unchanged-parent non-edge missing")
 
     shendao = next(n for n in nodes if n.get("node_id") == "PHYSICAL-COPY-SHENDAO-HKU-B17672971-FASC4")
     if "UNRESOLVED_WITHIN_RANGE" not in shendao.get("physical_copy_date", ""):
