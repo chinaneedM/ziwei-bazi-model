@@ -1,0 +1,170 @@
+{
+  "schema": "ZIWEI-NAJDA-SUISHU-YUAN-LOUKE-48ARROW-HUANGJI5986-PHYSICAL-CLOSURE-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-NAJDA-SUISHU-YUAN-LOUKE-48ARROW-HUANGJI5986-PHYSICAL-CLOSURE-DX",
+  "status": "SECURE_PRE1578_YUAN_PHYSICAL_WITNESS_CLOSES_MULTIPLE_DISCRETE_ARROW_AND_5986_FRACTIONAL_LAYERS_WITH_NONUSE_FIREWALL",
+  "source": {
+    "title": "《隋書》志第十三、十四；国立公文書館 280-0071 数字化対象",
+    "physical_holder": "国立公文書館",
+    "call_number": "280-0071",
+    "digital_surrogate_provider": "National Archives of Japan Digital Archive scan mirrored by Wikimedia Commons Library back-up project",
+    "commons_file_title": "File:NAJDA-280-0071 隋書 志第13，14.pdf",
+    "commons_file_url": "https://commons.wikimedia.org/wiki/File:NAJDA-280-0071_%E9%9A%8B%E6%9B%B8_%E5%BF%97%E7%AC%AC13%EF%BC%8C14.pdf",
+    "source_pdf_sha256": "608bd57fdcd7b47889c74e34da24776c30164e3a3faeb2a3ecebddc6094da62a",
+    "pdf_pages": 83,
+    "first_party_bibliographic_control": {
+      "provider": "National Archives of Japan",
+      "url": "https://www.archives.go.jp/english/news/pdf/130913_01.pdf",
+      "statement_scope": "Digitization Program 2013-2014 lists call number 280-0071 under 'Chinese classical books printed during the Yuan dynasty'.",
+      "secure_pre1578_physical_witness": true,
+      "exact_impression_year_resolved": false
+    }
+  },
+  "workflow_evidence": {
+    "commit_sha": "ae58f6d22acff0b5f33e30a52ca103ef211e8ca8",
+    "run_id": 35441189701,
+    "job_id": 105892139541,
+    "artifact_id": 10583842373,
+    "artifact_digest": "sha256:caf37c6b6fdf1ef9990232bae608bc950ddf1a23950ac68d93481938cfac3599",
+    "commons_sha1": "3185f16bf7a52b4c3e4996b1573479a5c90fbfac",
+    "rendered_page_count": 83,
+    "ocr_locator_hit_count": 0,
+    "ocr_used_for_final_glyph_numeric_or_mechanism_claims": false,
+    "note": "OCR failed as a locator on the vertical old-print pages. Direct visual review of source-bound renders closes the target loci."
+  },
+  "direct_image_collation": {
+    "p66": {
+      "sha256": "f3b80fc65f3b0f98aac9e80ca0d3e9a1dc5bc164501f318c72429b461a88be94",
+      "bytes": 542957,
+      "direct": [
+        "漏刻"
+      ],
+      "role": "Section-heading control."
+    },
+    "p67": {
+      "sha256": "aef5958d739ce36a2c139ada1d6a85509234c6fec1c995b823e8c1d0b5efc717",
+      "bytes": 559512,
+      "direct": [
+        "至和帝永元十四年霍融上言",
+        "不如夏曆漏刻隨日南北為長短",
+        "依日行黃道去極每差二度四分為增減一刻",
+        "凡用四十八箭",
+        "終於魏晉相傳不改"
+      ],
+      "mechanism": "Astronomical yellow-path/polar-distance differential drives one-ke changes; 48 discrete arrows are explicitly used."
+    },
+    "p68": {
+      "sha256": "ce88052cdbaf3897c8970109034bfebfa910d24a870b8aefa70513536a452bf5",
+      "bytes": 475367,
+      "direct": [
+        "夏至日出寅正入戌正晝六十刻夜四十刻",
+        "右一十九日加減一刻改箭",
+        "袁充素不曉渾天黃道去極之數苟役私智變改舊章",
+        "其於施用未為精密"
+      ],
+      "mechanism": "A distinct Sui Yuan-Chong schedule explicitly uses an approximately nineteen-day interval to add/subtract one ke and change arrow, with a 60/40 summer-solstice endpoint.",
+      "scope_firewall": "The text itself criticizes Yuan Chong's method as not precise in application."
+    },
+    "p69": {
+      "sha256": "cf4daa939b3e23e2ef505ac7796c327af64757eb6099be9052553b4d88260e0d",
+      "bytes": 496578,
+      "direct": [
+        "仁壽四年劉焯上皇極曆有日行遲疾推二十四氣皆有盈縮定日",
+        "冬至夜漏五十九刻一百分刻之八十六晝漏四十刻一十四分",
+        "夏至晝漏五十九刻八十六分夜漏四十刻一十四分",
+        "冬夏二至之間晝夜差一十九刻一百分刻之七十二",
+        "胄玄及焯漏刻並不施用",
+        "然其法制皆著在曆術推驗加時最為詳審"
+      ],
+      "numeric_control": {
+        "winter_night_day": "59.86 / 40.14",
+        "summer_day_night": "59.86 / 40.14",
+        "solstitial_day_night_difference": "19.72 ke"
+      },
+      "mechanism": "Liu Zhuo Huangji calendar explicitly uses 24 qi with surplus/deficit fixed dates and a 59.86/40.14 solstitial value architecture.",
+      "nonuse_firewall": "The received Sui Shu text explicitly says Zhang Zhouxuan and Liu Zhuo clepsydra systems were not put into use."
+    }
+  },
+  "chronology_adjudication": {
+    "exact_object_call_number": "280-0071",
+    "national_archives_yuan_print_classification": true,
+    "securely_pre1578_physical_witness": true,
+    "exact_impression_year": "UNRESOLVED_WITHIN_YUAN_CLASSIFICATION",
+    "later_textual_backdating_needed": false
+  },
+  "mechanism_separation": {
+    "huorong_48arrow": {
+      "class": "ASTRONOMICAL_THRESHOLD_TO_DISCRETE_ARROW_CHANGE",
+      "arrow_count": 48,
+      "one_ke_trigger": "yellow-path polar-distance change of 2 du 4 fen"
+    },
+    "yuanchong_schedule": {
+      "class": "FIXED_DAY_INTERVAL_CHANGE_ARROW_SCHEDULE",
+      "summer_endpoint": "60/40",
+      "directly_visible_change_interval": "19 days at reviewed summer-solstice locus",
+      "application_precision": "CRITICIZED_AS_NOT_PRECISE"
+    },
+    "liuzhuo_huangji": {
+      "class": "24QI_FRACTIONAL_SOLSTITIAL_DAY_NIGHT_MODEL",
+      "qi_count": 24,
+      "endpoint": "59.86/40.14",
+      "put_into_use": false
+    },
+    "collapse_these_three_into_one_rule": false
+  },
+  "relationship_to_sanming_1578": {
+    "pre1578_discrete_arrow_mechanism_strengthened": true,
+    "pre1578_24qi_near_59_endpoint_strengthened": true,
+    "direct_nanjing_locality_binding": false,
+    "explicit_whole_ke_reduction_59_86_to_59": false,
+    "direct_59_41_identity": false,
+    "exact_dahan13_yushui4_fingerprint": false,
+    "direct_sanming_parent_identified": false,
+    "direct_sanming_parent_vote_increment": 0,
+    "implication": "The remaining missing layer is narrower: a pre-1578 Chinese source must bind/recompose a discrete seasonal-arrow or whole-ke layer to the Nanjing 59-ke standard and explain the exact Sanming/Yueling change-day fingerprint. The Sui Shu witness cannot supply that binding by itself."
+  },
+  "adjudication": {
+    "secure_pre1578_physical_louke_witness": "CLOSED",
+    "huorong_48arrow_threshold_mechanism": "CLOSED",
+    "yuanchong_19day_change_arrow_control": "CLOSED_AT_REVIEWED_LOCUS",
+    "liuzhuo_24qi_59_86_fractional_endpoint": "CLOSED",
+    "liuzhuo_or_zhouxuan_actual_implementation": "DISPROVED_BY_RECEIVED_TEXT_NONUSE_STATEMENT",
+    "unchanged_liuzhuo_numeric_identity_with_sanming_1578": "DISPROVED",
+    "direct_sanming_parent_vote_increment": 0,
+    "matrix_count_change": false,
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false
+  },
+  "transmission_impact": {
+    "nodes_added": [
+      "PHYSICAL-COPY-NAJDA-SUISHU-280-0071-YUAN",
+      "RULE-FAMILY-SUISHU-HUORONG-48ARROW-2DU4FEN",
+      "RULE-FAMILY-SUISHU-YUANCHONG-19DAY-CHANGE-ARROW-40-60",
+      "TABLE-SUISHU-LIUZHUO-HUANGJI-24QI-59_86-40_14"
+    ],
+    "edges_supported": [
+      "TG-E0076",
+      "TG-E0077",
+      "TG-E0078",
+      "TG-E0079",
+      "TG-E0080"
+    ],
+    "explicit_non_edge_added": "TABLE-SUISHU-LIUZHUO-HUANGJI-24QI-59_86-40_14 DIRECT_UNCHANGED_TABLE_IDENTITY_WITH TABLE-SANMING-1578-DAYNIGHT-KE = DISPROVED",
+    "unresolved_questions": [
+      "Which pre-1578 source explicitly reduces or maps a near-59 fractional calendrical endpoint to the official Nanjing 59-ke whole-ke endpoint?",
+      "Which pre-1578 source binds the Nanjing 59-ke endpoint to the C-II-N interior whole-ke selection architecture?",
+      "Which pre-1578 source preserves the exact Sanming/Yueling 大寒十三後 / 雨水後四日 transition fingerprint?"
+    ]
+  },
+  "project_consequence": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "missing_from_product_rows": 10,
+    "provenance_defects_repaired": "12/12",
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0,
+    "deterministic_product_status": "CLOSED"
+  }
+}

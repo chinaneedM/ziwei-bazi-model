@@ -18,6 +18,7 @@ BATCH_12DT = ROOT / "docs/research/ZIWEI-KYUDB-DATONG-LIFA-TONGGUI-COMPONENT-SET
 BATCH_12DU = ROOT / "docs/research/ZIWEI-NLC-DATONG-LIFA-TONGGUI-XUXIU1031-PHYSICAL-SCOPE-R1.json"
 BATCH_12DV = ROOT / "docs/research/ZIWEI-XUXIU1031-ZHUNZHAI-CLEPSYDRA-JIEHOU-ARROW-SELECTION-R1.json"
 BATCH_12DW = ROOT / "docs/research/ZIWEI-YONEZAWA-SHILIN1492-LIKOU-48ARROW-24QI-PHYSICAL-CLOSURE-R1.json"
+BATCH_12DX = ROOT / "docs/research/ZIWEI-NAJDA-SUISHU-YUAN-LOUKE-48ARROW-HUANGJI5986-PHYSICAL-CLOSURE-R1.json"
 
 
 def fail(message: str) -> None:
@@ -25,7 +26,7 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
-    for path in (CHARTER, PROTOCOL, GRAPH, STATE, BATCH_12CH, BATCH_12DP, BATCH_12DQ, BATCH_12DR, BATCH_12DS, BATCH_12DT, BATCH_12DU, BATCH_12DV, BATCH_12DW):
+    for path in (CHARTER, PROTOCOL, GRAPH, STATE, BATCH_12CH, BATCH_12DP, BATCH_12DQ, BATCH_12DR, BATCH_12DS, BATCH_12DT, BATCH_12DU, BATCH_12DV, BATCH_12DW, BATCH_12DX):
         if not path.is_file():
             fail(f"Tianwen transmission artifact missing: {path.relative_to(ROOT)}")
 
@@ -581,6 +582,30 @@ def main() -> int:
         fail("Batch 12DW unchanged-table non-edge missing")
     if not any(x.get("batch") == "BATCH-12-ZIWEI-YONEZAWA-SHILIN1492-LIKOU-48ARROW-24QI-PHYSICAL-CLOSURE-DW" and "zero exact Sanming-parent vote" in x.get("update", "") for x in hyp12dk.get("evidence_updates", [])):
         fail("Batch 12DW genealogy hypothesis zero-vote update missing")
+
+    batch12dx = json.loads(BATCH_12DX.read_text(encoding="utf-8"))
+    if batch12dx.get("adjudication", {}).get("secure_pre1578_physical_louke_witness") != "CLOSED":
+        fail("Batch 12DX secure pre-1578 Sui Shu witness regressed")
+    copy12dx = next(n for n in nodes if n.get("node_id") == "PHYSICAL-COPY-NAJDA-SUISHU-280-0071-YUAN")
+    huo12dx = next(n for n in nodes if n.get("node_id") == "RULE-FAMILY-SUISHU-HUORONG-48ARROW-2DU4FEN")
+    yuan12dx = next(n for n in nodes if n.get("node_id") == "RULE-FAMILY-SUISHU-YUANCHONG-19DAY-CHANGE-ARROW-40-60")
+    liu12dx = next(n for n in nodes if n.get("node_id") == "TABLE-SUISHU-LIUZHUO-HUANGJI-24QI-59_86-40_14")
+    if copy12dx.get("secure_pre1578_physical_witness") is not True or "YUAN_DYNASTY" not in copy12dx.get("physical_copy_date", ""):
+        fail("Batch 12DX physical-copy chronology regressed")
+    if huo12dx.get("direct_arrow_count") != 48 or huo12dx.get("direct_change_threshold") != "2 du 4 fen -> 1 ke":
+        fail("Batch 12DX Huo Rong graph mechanics regressed")
+    if yuan12dx.get("direct_summer_endpoint") != "60/40" or yuan12dx.get("direct_reviewed_change_interval_days") != 19:
+        fail("Batch 12DX Yuan Chong graph mechanics regressed")
+    if liu12dx.get("direct_qi_count") != 24 or liu12dx.get("direct_solstitial_values") != {"long_side": "59.86", "short_side": "40.14"} or liu12dx.get("actual_clepsydra_use") is not False:
+        fail("Batch 12DX Liu Zhuo graph mechanics/non-use regressed")
+    for eid, rel in (("TG-E0076","ATTESTS"),("TG-E0077","ATTESTS"),("TG-E0078","ATTESTS"),("TG-E0079","STRUCTURAL_MECHANISM_CANDIDATE_FOR"),("TG-E0080","SYNTHESIS_COMPONENT_CANDIDATE_FOR")):
+        e = next((x for x in edges if x.get("edge_id") == eid), None)
+        if not e or e.get("relation") != rel:
+            fail(f"Batch 12DX transmission edge regressed: {eid}")
+    if not any(x.get("from") == "TABLE-SUISHU-LIUZHUO-HUANGJI-24QI-59_86-40_14" and x.get("relation") == "DIRECT_UNCHANGED_TABLE_IDENTITY_WITH" and x.get("to") == "TABLE-SANMING-1578-DAYNIGHT-KE" and x.get("status") == "DISPROVED" for x in graph.get("explicit_non_edges", [])):
+        fail("Batch 12DX unchanged-table non-edge missing")
+    if not any(x.get("batch") == "BATCH-12-ZIWEI-NAJDA-SUISHU-YUAN-LOUKE-48ARROW-HUANGJI5986-PHYSICAL-CLOSURE-DX" and "zero exact Sanming-parent vote" in x.get("update", "") for x in hyp12dk.get("evidence_updates", [])):
+        fail("Batch 12DX genealogy hypothesis zero-vote update missing")
 
     ncl = next(n for n in nodes if n.get("node_id") == "PHYSICAL-COPY-SISHI-QIHOU-NCL03164-OLD-MANUSCRIPT")
     if ncl.get("physical_copy_date") != "UNRESOLVED":

@@ -56,6 +56,8 @@ ZIWEI_XUXIU_CLEPSYDRA_12DV_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENAN
 ZIWEI_XUXIU_CLEPSYDRA_12DV_EVIDENCE = ROOT / "docs/research/ZIWEI-XUXIU1031-ZHUNZHAI-CLEPSYDRA-JIEHOU-ARROW-SELECTION-R1.json"
 ZIWEI_YONEZAWA_SHILIN_12DW_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-YONEZAWA-SHILIN1492-LIKOU-48ARROW-24QI-PHYSICAL-CLOSURE-DW.md"
 ZIWEI_YONEZAWA_SHILIN_12DW_EVIDENCE = ROOT / "docs/research/ZIWEI-YONEZAWA-SHILIN1492-LIKOU-48ARROW-24QI-PHYSICAL-CLOSURE-R1.json"
+ZIWEI_NAJDA_SUISHU_12DX_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NAJDA-SUISHU-YUAN-LOUKE-48ARROW-HUANGJI5986-PHYSICAL-CLOSURE-DX.md"
+ZIWEI_NAJDA_SUISHU_12DX_EVIDENCE = ROOT / "docs/research/ZIWEI-NAJDA-SUISHU-YUAN-LOUKE-48ARROW-HUANGJI5986-PHYSICAL-CLOSURE-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -310,9 +312,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-NLC-DATONG-LIFA-TONGGUI-XUXIU1031-PHYSICAL-SCOPE-DU",
     "BATCH-12-ZIWEI-XUXIU1031-ZHUNZHAI-CLEPSYDRA-JIEHOU-ARROW-SELECTION-DV",
     "BATCH-12-ZIWEI-YONEZAWA-SHILIN1492-LIKOU-48ARROW-24QI-PHYSICAL-CLOSURE-DW",
+    "BATCH-12-ZIWEI-NAJDA-SUISHU-YUAN-LOUKE-48ARROW-HUANGJI5986-PHYSICAL-CLOSURE-DX",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-YONEZAWA-SHILIN1492-LIKOU-48ARROW-24QI-PHYSICAL-CLOSURE-DW.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NAJDA-SUISHU-YUAN-LOUKE-48ARROW-HUANGJI5986-PHYSICAL-CLOSURE-DX.md"
 
 
 def fail(message: str) -> None:
@@ -391,6 +394,34 @@ def main() -> int:
         fail("Batch 12DW Sanming numeric/lineage firewall regressed")
     if any(ad12dw.get(k) for k in ("matrix_count_change", "runtime_rule_change", "algorithm_reopen_authorized", "candidate_collapse_authorized")):
         fail("Batch 12DW product firewall regressed")
+
+    for path in (ZIWEI_NAJDA_SUISHU_12DX_BATCH, ZIWEI_NAJDA_SUISHU_12DX_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12DX continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12dx = json.loads(ZIWEI_NAJDA_SUISHU_12DX_EVIDENCE.read_text(encoding="utf-8"))
+    if batch12dx.get("batch_id") != "BATCH-12-ZIWEI-NAJDA-SUISHU-YUAN-LOUKE-48ARROW-HUANGJI5986-PHYSICAL-CLOSURE-DX":
+        fail("Batch 12DX evidence identity mismatch")
+    chrono12dx = batch12dx.get("chronology_adjudication", {})
+    if chrono12dx.get("securely_pre1578_physical_witness") is not True or chrono12dx.get("exact_object_call_number") != "280-0071":
+        fail("Batch 12DX pre-1578 physical-object chronology regressed")
+    direct12dx = batch12dx.get("direct_image_collation", {})
+    if "依日行黃道去極每差二度四分為增減一刻" not in direct12dx.get("p67", {}).get("direct", ()) or "凡用四十八箭" not in direct12dx.get("p67", {}).get("direct", ()):
+        fail("Batch 12DX Huo Rong 48-arrow mechanism regressed")
+    if "右一十九日加減一刻改箭" not in direct12dx.get("p68", {}).get("direct", ()) or "夏至日出寅正入戌正晝六十刻夜四十刻" not in direct12dx.get("p68", {}).get("direct", ()):
+        fail("Batch 12DX Yuan Chong change-arrow control regressed")
+    if "仁壽四年劉焯上皇極曆有日行遲疾推二十四氣皆有盈縮定日" not in direct12dx.get("p69", {}).get("direct", ()):
+        fail("Batch 12DX Liu Zhuo 24-qi mechanism regressed")
+    if "夏至晝漏五十九刻八十六分夜漏四十刻一十四分" not in direct12dx.get("p69", {}).get("direct", ()):
+        fail("Batch 12DX Liu Zhuo 59.86/40.14 control regressed")
+    if "胄玄及焯漏刻並不施用" not in direct12dx.get("p69", {}).get("direct", ()):
+        fail("Batch 12DX non-use firewall regressed")
+    ad12dx = batch12dx.get("adjudication", {})
+    if ad12dx.get("liuzhuo_or_zhouxuan_actual_implementation") != "DISPROVED_BY_RECEIVED_TEXT_NONUSE_STATEMENT":
+        fail("Batch 12DX implementation firewall regressed")
+    if ad12dx.get("unchanged_liuzhuo_numeric_identity_with_sanming_1578") != "DISPROVED" or ad12dx.get("direct_sanming_parent_vote_increment") != 0:
+        fail("Batch 12DX Sanming numeric/lineage firewall regressed")
+    if any(ad12dx.get(k) for k in ("matrix_count_change", "runtime_rule_change", "algorithm_reopen_authorized", "candidate_collapse_authorized")):
+        fail("Batch 12DX product firewall regressed")
 
     for path in (ZIWEI_KYUDB_12DT_BATCH, ZIWEI_KYUDB_12DT_EVIDENCE):
         if not path.is_file():

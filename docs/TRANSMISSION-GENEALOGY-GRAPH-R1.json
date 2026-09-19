@@ -1397,6 +1397,73 @@
         "docs/research/ZIWEI-YONEZAWA-SHILIN1492-LIKOU-48ARROW-24QI-PHYSICAL-CLOSURE-R1.json"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-YONEZAWA-SHILIN1492-LIKOU-48ARROW-24QI-PHYSICAL-CLOSURE-DW"
+    },
+    {
+      "node_id": "PHYSICAL-COPY-NAJDA-SUISHU-280-0071-YUAN",
+      "node_type": "PHYSICAL_COPY",
+      "label": "国立公文書館 280-0071 元版《隋書》",
+      "system_scope": "PRE1578_CLEPSYDRA_CALENDRICAL_TIMEKEEPING",
+      "work_composition_date": "TANG_DYNASTIC_HISTORY_COMPILATION_LAYER",
+      "edition_impression_date": "YUAN_DYNASTY_PRINT_PER_NATIONAL_ARCHIVES_DIGITIZATION_CLASSIFICATION; EXACT_YEAR_UNRESOLVED",
+      "physical_copy_date": "YUAN_DYNASTY_PRINT_CLASSIFICATION_SECURE_PRE1578",
+      "digital_surrogate_date": "MODERN_NAJDA_DIGITAL_ARCHIVE_SURROGATE_MIRRORED_BY_WIKIMEDIA_COMMONS",
+      "identifier": "NAJDA 280-0071 / 志第13，14 / PDF sha256 608bd57fdcd7b47889c74e34da24776c30164e3a3faeb2a3ecebddc6094da62a",
+      "secure_pre1578_physical_witness": true,
+      "direct_review_scope": "PDF p66-p69; OCR not final authority",
+      "evidence": [
+        "EXT-NAJDA-SUISHU-280-0071-YUAN-LOUKE",
+        "docs/research/ZIWEI-NAJDA-SUISHU-YUAN-LOUKE-48ARROW-HUANGJI5986-PHYSICAL-CLOSURE-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-NAJDA-SUISHU-YUAN-LOUKE-48ARROW-HUANGJI5986-PHYSICAL-CLOSURE-DX"
+    },
+    {
+      "node_id": "RULE-FAMILY-SUISHU-HUORONG-48ARROW-2DU4FEN",
+      "node_type": "RULE_FAMILY",
+      "label": "《隋書》霍融：黄道去极每差2度4分→增减1刻→48箭",
+      "system_scope": "HISTORICAL_CLEPSYDRA_DISCRETIZATION",
+      "mechanical_identity": "Summer-calendar clepsydra follows solar north/south variation; each 2 du 4 fen yellow-path polar-distance difference changes one ke; 48 arrows.",
+      "direct_arrow_count": 48,
+      "direct_change_threshold": "2 du 4 fen -> 1 ke",
+      "evidence": [
+        "EXT-NAJDA-SUISHU-280-0071-YUAN-LOUKE",
+        "docs/research/ZIWEI-NAJDA-SUISHU-YUAN-LOUKE-48ARROW-HUANGJI5986-PHYSICAL-CLOSURE-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-NAJDA-SUISHU-YUAN-LOUKE-48ARROW-HUANGJI5986-PHYSICAL-CLOSURE-DX"
+    },
+    {
+      "node_id": "RULE-FAMILY-SUISHU-YUANCHONG-19DAY-CHANGE-ARROW-40-60",
+      "node_type": "RULE_FAMILY",
+      "label": "《隋書》袁充：夏至60/40、19日加减1刻改箭",
+      "system_scope": "HISTORICAL_CLEPSYDRA_CHANGE_ARROW_SCHEDULE",
+      "mechanical_identity": "At the reviewed summer-solstice locus: day/night 60/40; after 19 days add/subtract one ke and change arrow.",
+      "direct_summer_endpoint": "60/40",
+      "direct_reviewed_change_interval_days": 19,
+      "received_text_application_precision": "NOT_PRECISE",
+      "evidence": [
+        "EXT-NAJDA-SUISHU-280-0071-YUAN-LOUKE",
+        "docs/research/ZIWEI-NAJDA-SUISHU-YUAN-LOUKE-48ARROW-HUANGJI5986-PHYSICAL-CLOSURE-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-NAJDA-SUISHU-YUAN-LOUKE-48ARROW-HUANGJI5986-PHYSICAL-CLOSURE-DX"
+    },
+    {
+      "node_id": "TABLE-SUISHU-LIUZHUO-HUANGJI-24QI-59_86-40_14",
+      "node_type": "MECHANICAL_RULE",
+      "label": "《隋書》刘焯《皇极历》24气 59.86/40.14 昼夜漏模型",
+      "system_scope": "PRE1578_RECEIVED_CALENDRICAL_DAY_NIGHT_FRACTION_MODEL",
+      "mechanical_identity": "24 qi with surplus/deficit fixed dates; winter night/day and summer day/night are 59.86/40.14; solstitial difference 19.72 ke.",
+      "direct_qi_count": 24,
+      "direct_solstitial_values": {
+        "long_side": "59.86",
+        "short_side": "40.14"
+      },
+      "direct_solstitial_difference": "19.72",
+      "actual_clepsydra_use": false,
+      "nonuse_statement": "胄玄及焯漏刻並不施用",
+      "evidence": [
+        "EXT-NAJDA-SUISHU-280-0071-YUAN-LOUKE",
+        "docs/research/ZIWEI-NAJDA-SUISHU-YUAN-LOUKE-48ARROW-HUANGJI5986-PHYSICAL-CLOSURE-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-NAJDA-SUISHU-YUAN-LOUKE-48ARROW-HUANGJI5986-PHYSICAL-CLOSURE-DX"
     }
   ],
   "edges": [
@@ -2531,6 +2598,80 @@
       ],
       "scope_note": "Securely predates Sanming and proves solar-term-bound discrete arrows existed by 1492, but reviewed numeric control is 40/60 rather than 59/41 and within-qi transition days are not closed. Zero exact-parent vote.",
       "adjudication_batch": "BATCH-12-ZIWEI-YONEZAWA-SHILIN1492-LIKOU-48ARROW-24QI-PHYSICAL-CLOSURE-DW"
+    },
+    {
+      "edge_id": "TG-E0076",
+      "from": "PHYSICAL-COPY-NAJDA-SUISHU-280-0071-YUAN",
+      "relation": "ATTESTS",
+      "to": "RULE-FAMILY-SUISHU-HUORONG-48ARROW-2DU4FEN",
+      "status": "CONFIRMED",
+      "confidence": "HIGH",
+      "evidence_class": "FIRST_PARTY_YUAN_OBJECT_CLASSIFICATION_PLUS_DIRECT_SOURCE_BOUND_PHYSICAL_PAGE_REVIEW",
+      "evidence": [
+        "EXT-NAJDA-SUISHU-280-0071-YUAN-LOUKE",
+        "docs/research/ZIWEI-NAJDA-SUISHU-YUAN-LOUKE-48ARROW-HUANGJI5986-PHYSICAL-CLOSURE-R1.json"
+      ],
+      "scope_note": "Direct p67 attestation of Huo Rong threshold-to-48-arrow rule in a securely pre-1578 physical copy.",
+      "adjudication_batch": "BATCH-12-ZIWEI-NAJDA-SUISHU-YUAN-LOUKE-48ARROW-HUANGJI5986-PHYSICAL-CLOSURE-DX"
+    },
+    {
+      "edge_id": "TG-E0077",
+      "from": "PHYSICAL-COPY-NAJDA-SUISHU-280-0071-YUAN",
+      "relation": "ATTESTS",
+      "to": "RULE-FAMILY-SUISHU-YUANCHONG-19DAY-CHANGE-ARROW-40-60",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_FOR_REVIEWED_LOCUS",
+      "evidence_class": "DIRECT_SOURCE_BOUND_PHYSICAL_PAGE_REVIEW",
+      "evidence": [
+        "EXT-NAJDA-SUISHU-280-0071-YUAN-LOUKE",
+        "docs/research/ZIWEI-NAJDA-SUISHU-YUAN-LOUKE-48ARROW-HUANGJI5986-PHYSICAL-CLOSURE-R1.json"
+      ],
+      "scope_note": "P68 attests 60/40 summer control and 19-day add/subtract-one-ke change-arrow rule; received text separately criticizes application precision.",
+      "adjudication_batch": "BATCH-12-ZIWEI-NAJDA-SUISHU-YUAN-LOUKE-48ARROW-HUANGJI5986-PHYSICAL-CLOSURE-DX"
+    },
+    {
+      "edge_id": "TG-E0078",
+      "from": "PHYSICAL-COPY-NAJDA-SUISHU-280-0071-YUAN",
+      "relation": "ATTESTS",
+      "to": "TABLE-SUISHU-LIUZHUO-HUANGJI-24QI-59_86-40_14",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_FOR_RECEIVED_TEXT_AND_NUMERICS",
+      "evidence_class": "DIRECT_SOURCE_BOUND_PHYSICAL_PAGE_REVIEW",
+      "evidence": [
+        "EXT-NAJDA-SUISHU-280-0071-YUAN-LOUKE",
+        "docs/research/ZIWEI-NAJDA-SUISHU-YUAN-LOUKE-48ARROW-HUANGJI5986-PHYSICAL-CLOSURE-R1.json"
+      ],
+      "scope_note": "P69 directly attests 24 qi, 59.86/40.14 and the explicit non-use statement.",
+      "adjudication_batch": "BATCH-12-ZIWEI-NAJDA-SUISHU-YUAN-LOUKE-48ARROW-HUANGJI5986-PHYSICAL-CLOSURE-DX"
+    },
+    {
+      "edge_id": "TG-E0079",
+      "from": "RULE-FAMILY-SUISHU-HUORONG-48ARROW-2DU4FEN",
+      "relation": "STRUCTURAL_MECHANISM_CANDIDATE_FOR",
+      "to": "TABLE-SANMING-1578-DAYNIGHT-KE",
+      "status": "POSSIBLE",
+      "confidence": "HIGH_FOR_GENERIC_PRE1578_DISCRETE_ARROW_MECHANISM_ONLY; LOW_FOR_DIRECT_LINEAGE",
+      "evidence_class": "SECURE_PRE1578_THRESHOLD_TO_48_ARROW_MECHANISM",
+      "evidence": [
+        "docs/research/ZIWEI-NAJDA-SUISHU-YUAN-LOUKE-48ARROW-HUANGJI5986-PHYSICAL-CLOSURE-R1.json"
+      ],
+      "scope_note": "Supports historical discretization architecture only; no Nanjing locality, Sanming fingerprint, or direct parentage is attested.",
+      "adjudication_batch": "BATCH-12-ZIWEI-NAJDA-SUISHU-YUAN-LOUKE-48ARROW-HUANGJI5986-PHYSICAL-CLOSURE-DX"
+    },
+    {
+      "edge_id": "TG-E0080",
+      "from": "TABLE-SUISHU-LIUZHUO-HUANGJI-24QI-59_86-40_14",
+      "relation": "SYNTHESIS_COMPONENT_CANDIDATE_FOR",
+      "to": "TABLE-SANMING-1578-DAYNIGHT-KE",
+      "status": "POSSIBLE",
+      "confidence": "MEDIUM_FOR_24QI_NEAR_59_NUMERIC_COMPONENT_ONLY; LOW_FOR_DIRECT_LINEAGE",
+      "evidence_class": "SECURE_PRE1578_24QI_59_86_FRACTIONAL_ENDPOINT_WITH_EXPLICIT_NONUSE_FIREWALL",
+      "evidence": [
+        "docs/research/ZIWEI-NAJDA-SUISHU-YUAN-LOUKE-48ARROW-HUANGJI5986-PHYSICAL-CLOSURE-R1.json",
+        "docs/research/ZIWEI-SANMING-1578-SEASONAL-TABLE-DIRECT-PHYSICAL-COLLATION-R1.json"
+      ],
+      "scope_note": "59.86/40.14 is a pre-1578 near-59 component candidate, not an unchanged 59/41 table and not an applied standard; no whole-ke reduction rule is attested.",
+      "adjudication_batch": "BATCH-12-ZIWEI-NAJDA-SUISHU-YUAN-LOUKE-48ARROW-HUANGJI5986-PHYSICAL-CLOSURE-DX"
     }
   ],
   "lineage_hypotheses": [
@@ -2552,7 +2693,8 @@
         "Which exact pre-1578 Tongshu/almanac title, recension, or upstream source carries both the 大寒十三後 and 雨水後四日 fingerprints physically attributed to generic 通書 in Yueling 1589?",
         "Which pre-1578 Chinese source explicitly binds the C-II-N whole-ke interior selection layer to the official Nanjing 59-ke endpoint standard?",
         "Which earlier Chinese exemplar or transmission layer accounts for the identical C-II-N daily table in the Sejong-era Kyujanggak print and the later surviving NLC Chenghua manuscript, and where is the downstream whole-ke reduction/endpoint-binding rule attached?",
-        "Which pre-1578 source gives the exact within-qi selection/change-day rule linking a two-arrows-per-qi clepsydra architecture to the downstream whole-ke seasonal display?"
+        "Which pre-1578 source gives the exact within-qi selection/change-day rule linking a two-arrows-per-qi clepsydra architecture to the downstream whole-ke seasonal display?",
+        "Which pre-1578 Chinese source explicitly maps/reduces a near-59 fractional calendrical endpoint such as 59.86 to a whole 59-ke Nanjing display without breaking the interior threshold sequence?"
       ],
       "evidence_updates": [
         {
@@ -2666,6 +2808,10 @@
         {
           "batch": "BATCH-12-ZIWEI-YONEZAWA-SHILIN1492-LIKOU-48ARROW-24QI-PHYSICAL-CLOSURE-DW",
           "update": "Yonezawa first-party catalog and source-bound JPEGs close a securely pre-1578 physical arrow/qi carrier: the Hongzhi-5/1492 Shilin Guangji print directly preserves a hundred-ke system with 48 arrows, two arrows per qi, 24 qi, a 2.5-fen per-qi differential, and winter-solstice-after increase / summer-solstice-after decrease. The same physical copy directly carries coarse 40/60 solstitial extrema, not the Sanming 59/41 endpoint. This closes the chronology of the seasonal discrete-arrow mechanism class while leaving downstream Nanjing-59 binding, exact within-qi change-day rule and Sanming/Yueling Dahan/Yushui fingerprint unresolved; zero exact Sanming-parent vote is added."
+        },
+        {
+          "batch": "BATCH-12-ZIWEI-NAJDA-SUISHU-YUAN-LOUKE-48ARROW-HUANGJI5986-PHYSICAL-CLOSURE-DX",
+          "update": "A securely pre-1578 Yuan physical Sui Shu witness (NAJDA 280-0071) now directly closes three separate historical layers: Huo Rong's yellow-path 2-du-4-fen threshold -> one-ke -> 48-arrow mechanism; Yuan Chong's reviewed 19-day -> one-ke -> change-arrow schedule with a 60/40 summer endpoint (explicitly criticized as not precise in application); and Liu Zhuo Huangji's 24-qi fractional 59.86/40.14 solstitial model. The same p69 explicitly says Zhang Zhouxuan/Liu Zhuo clepsydras were not put into use. This materially strengthens the pre-1578 component architecture and near-59 numeric prehistory but supplies no Nanjing locality, no 59.86->whole-59 reduction rule, no exact Dahan/Yushui fingerprint, and zero exact Sanming-parent vote."
         }
       ],
       "endpoint_anchor_component_identified": true,
@@ -3093,6 +3239,18 @@
         "docs/research/ZIWEI-SANMING-1578-SEASONAL-TABLE-DIRECT-PHYSICAL-COLLATION-R1.json"
       ],
       "adjudication_batch": "BATCH-12-ZIWEI-YONEZAWA-SHILIN1492-LIKOU-48ARROW-24QI-PHYSICAL-CLOSURE-DW"
+    },
+    {
+      "from": "TABLE-SUISHU-LIUZHUO-HUANGJI-24QI-59_86-40_14",
+      "relation": "DIRECT_UNCHANGED_TABLE_IDENTITY_WITH",
+      "to": "TABLE-SANMING-1578-DAYNIGHT-KE",
+      "status": "DISPROVED",
+      "reason": "The directly reviewed Liu Zhuo values are fractional 59.86/40.14 rather than Sanming's whole-ke 59/41, and the same received physical page explicitly states Zhang Zhouxuan/Liu Zhuo clepsydra systems were not put into use.",
+      "evidence": [
+        "docs/research/ZIWEI-NAJDA-SUISHU-YUAN-LOUKE-48ARROW-HUANGJI5986-PHYSICAL-CLOSURE-R1.json",
+        "docs/research/ZIWEI-SANMING-1578-SEASONAL-TABLE-DIRECT-PHYSICAL-COLLATION-R1.json"
+      ],
+      "adjudication_batch": "BATCH-12-ZIWEI-NAJDA-SUISHU-YUAN-LOUKE-48ARROW-HUANGJI5986-PHYSICAL-CLOSURE-DX"
     }
   ],
   "backfill": {
