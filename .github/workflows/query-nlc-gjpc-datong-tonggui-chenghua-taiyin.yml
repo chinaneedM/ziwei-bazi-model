@@ -13,7 +13,7 @@ permissions:
 jobs:
   query:
     runs-on: ubuntu-latest
-    timeout-minutes: 12
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
 
@@ -34,9 +34,18 @@ jobs:
           datong-full-simp	大统历法通轨
           datong-short-trad	大統通軌
           datong-short-simp	大统通轨
+          ritonggui-trad	大統曆日通軌
+          taiyang-trad	太陽通軌
           jiaoshi-trad	交食通軌
+          yueshi-trad	月食通軌
+          rishi-trad	日食通軌
           wuxing-trad	五星通軌
           siyu-trad	四餘通軌
+          siyu-chandu-trad	四餘躔度通軌
+          siyu-chandu-alt	四餘纏度通軌
+          call-16566	16566
+          call-16567	16567
+          call-16568	16568
           author-yuantong	元統
           chenghua-taiyin	成化 太陰通軌
           EOF
@@ -58,7 +67,7 @@ jobs:
           while IFS=$'\t' read -r key query url; do
             out="$ROOT/raw/$key.html"
             set +e
-            timeout 45s curl -L -sS --connect-timeout 8 --max-time 35 -A "$UA" "$url" -o "$out"
+            timeout 75s curl -L -sS --retry 2 --retry-all-errors --retry-delay 2 --connect-timeout 6 --max-time 22 -A "$UA" "$url" -o "$out"
             rc=$?
             set -e
             size=0; [ -f "$out" ] && size=$(wc -c < "$out")
@@ -78,19 +87,23 @@ jobs:
               s=re.sub(r'<br\s*/?>',' / ',s,flags=re.I)
               s=re.sub(r'<[^>]+>',' ',s)
               return ' '.join(html.unescape(s).split())
-          allrows=[]; summary=[]
+          allrows=[]; summary=[]; parser_failures=[]
           for p in sorted((root/'raw').glob('*.html')):
               s=p.read_text('utf-8',errors='replace')
-              trs=re.findall(r'<tr\b[^>]*>(.*?)</tr>',s,re.I|re.S)
+              count_m=re.search(r'共檢索出\s*<span[^>]*class=["\']light["\'][^>]*>\s*(\d+)\s*</span>',s,re.I|re.S)
+              server_count=int(count_m.group(1)) if count_m else None
+              chunks=re.split(r'<div\b[^>]*class=["\'][^"\']*\bitem\b[^"\']*["\'][^>]*>',s,flags=re.I|re.S)[1:]
               rows=[]
-              for tr in trs:
+              for chunk in chunks:
                   row={}
                   for fld in fields:
-                      m=re.search(r'<t[dh]\b[^>]*data-field=["\']'+re.escape(fld)+r'["\'][^>]*>(.*?)</t[dh]>',tr,re.I|re.S)
-                      if m: row[fld]=clean(m.group(1))
+                      m=re.search(r'<([a-z0-9]+)\b[^>]*data-field=["\']'+re.escape(fld)+r'["\'][^>]*>(.*?)</\1\s*>',chunk,re.I|re.S)
+                      if m: row[fld]=clean(m.group(2))
                   if row.get('PUCHABIANHAO') or row.get('TIMING'):
                       rows.append(row)
-              summary.append({'query_key':p.stem,'query':queries.get(p.stem),'row_count':len(rows)})
+              summary.append({'query_key':p.stem,'query':queries.get(p.stem),'server_count':server_count,'parsed_first_page_rows':len(rows)})
+              if server_count and not rows:
+                  parser_failures.append({'query_key':p.stem,'server_count':server_count,'reason':'SERVER_REPORTS_RESULTS_BUT_ZERO_ROWS_PARSED'})
               for row in rows:
                   allrows.append({'query_key':p.stem,'query':queries.get(p.stem),**row})
           grouped={}
@@ -102,26 +115,31 @@ jobs:
           rows=list(grouped.values())
           (root/'parsed-summary.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2),encoding='utf-8')
           (root/'parsed-records.json').write_text(json.dumps(rows,ensure_ascii=False,indent=2),encoding='utf-8')
+          (root/'parser-failures.json').write_text(json.dumps(parser_failures,ensure_ascii=False,indent=2),encoding='utf-8')
           with (root/'parsed-records.tsv').open('w',encoding='utf-8') as f:
               f.write('QUERY_KEYS\tPUCHABIANHAO\tSUOSHUHAO\tTIMING\tBANBEN\tCESHU\tDANWEI\tCUNJUAN\n')
               for r in rows:
                   vals=[';'.join(r['query_keys'])]+[r.get(x,'') for x in fields]
                   f.write('\t'.join(v.replace('\t',' ') for v in vals)+'\n')
-          target=re.compile(r'太[陰阴]通[軌轨]|大[統统].*通[軌轨]|交食通[軌轨]|五星通[軌轨]|四[餘余]通[軌轨]|元[統统]|成化')
+          target=re.compile(r'太[陰阴]通[軌轨]|太陽通[軌轨]|大[統统].*通[軌轨]|交食通[軌轨]|月食通[軌轨]|日食通[軌轨]|五星通[軌轨]|四[餘余].*通[軌轨]|元[統统]|成化')
           cand=[r for r in rows if target.search(' '.join(str(r.get(k,'')) for k in fields))]
           (root/'candidate-records.json').write_text(json.dumps(cand,ensure_ascii=False,indent=2),encoding='utf-8')
+          if parser_failures:
+              raise SystemExit('parser self-audit failed: server reported records but parser returned zero rows')
           PY
 
-          grep -RniE '太陰通軌|太阴通轨|大統曆法通軌|大统历法通轨|大統通軌|大统通轨|交食通軌|五星通軌|四餘通軌|元統|元统|成化|國家圖書館|国家图书馆' "$ROOT/raw" "$ROOT/parsed-records.tsv" > "$ROOT/target-hits.txt" || true
+          grep -RniE '太陰通軌|太阴通轨|太陽通軌|大統曆法通軌|大统历法通轨|大統曆日通軌|大統通軌|大统通轨|交食通軌|月食通軌|日食通軌|五星通軌|四餘.*通軌|16566|16567|16568|元統|元统|成化|國家圖書館|国家图书馆' "$ROOT/raw" "$ROOT/parsed-records.tsv" > "$ROOT/target-hits.txt" || true
           sha256sum "$ROOT"/raw/*.html | sort -V > "$ROOT/raw.sha256" || true
 
           printf '%s\n' \
             'SOURCE=全國古籍普查登記基本數據庫 / National Ancient Books Census Registration Basic Database' \
             'QUERY_METHOD=GET keyWord + orderProperty=PU_CHA_BIAN_HAO + orderWay=asc' \
-            'PRIMARY_TARGET=國家圖書館藏元統《太陰通軌》明成化抄本' \
-            'RELATED_TARGETS=大統曆法通軌;大統通軌;交食通軌;五星通軌;四餘通軌;元統' \
+            'PRIMARY_TARGET=國家圖書館另藏抄本《大統曆法通軌》三卷之第一方普查身份及组件边界' \
+            'CONTROL_TARGET=國家圖書館藏元統《太陰通軌》明成化抄本' \
+            'RELATED_TARGETS=大統曆法通軌;大統曆日通軌;太陽通軌;交食通軌;月食通軌;日食通軌;五星通軌;四餘躔度通軌;元統;索書號16566-16568' \
             'SCHOLARLY_LOCATOR=EXT-IHNS-MING-DATONG-COMPILATION-2019' \
-            'PURPOSE=obtain a first-party Chinese census identity for a pre-1578 Datong Tonggui carrier, especially the Chenghua Taiyin Tonggui target, without inferring C-II-N content from title identity' \
+            'PARSER_POLICY=parse actual span/data-field item markup; record server-reported hit count; fail if server reports hits but parser returns zero first-page rows' \
+            'PURPOSE=bind the separately reported NLC three-juan Datong Lifa Tonggui manuscript set to first-party census identifiers and date/access scope without inferring numerical content from metadata' \
             'NEGATIVE_POLICY=no hit does not prove the NLC holding is absent; only directly returned catalog rows establish identity/content scope' \
             'OCR_USED=false' \
             > "$ROOT/manifest.txt"
