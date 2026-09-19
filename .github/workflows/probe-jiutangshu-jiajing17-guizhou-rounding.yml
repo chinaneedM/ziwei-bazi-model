@@ -32,7 +32,7 @@ jobs:
           from PIL import Image, ImageDraw
 
           root=pathlib.Path("audit/jiutangshu-jiajing17-guizhou-rounding")
-          title="File:NCL-01535 07 舊唐書.pdf"
+          title="File:NCL-01535 06 舊唐書.pdf"
           api="https://commons.wikimedia.org/w/api.php?" + urllib.parse.urlencode({
               "action":"query","format":"json","formatversion":"2",
               "prop":"imageinfo","iiprop":"url|size|sha1|extmetadata","titles":title
@@ -47,13 +47,13 @@ jobs:
 
           with urllib.request.urlopen(urllib.request.Request(url,headers=headers),timeout=300) as r:
               data=r.read()
-          pdf=root/"jiutangshu-ncl01535-07.pdf"
+          pdf=root/"jiutangshu-ncl01535-06.pdf"
           pdf.write_bytes(data)
           pdf_sha=hashlib.sha256(data).hexdigest()
           info=subprocess.run(["pdfinfo",str(pdf)],stdout=subprocess.PIPE,check=True).stdout.decode("utf-8",errors="replace")
           (root/"pdfinfo.txt").write_text(info,encoding="utf-8")
           m=re.search(r"^Pages:\s+(\d+)",info,re.M)
-          pages=int(m.group(1)) if m else 151
+          pages=int(m.group(1)) if m else 160
 
           terms=["舊唐書卷三十四","旧唐书卷三十四","大衍步日躔術","大衍步日躔术","半已上從一","半已上从一","已下棄之","已下弃之","下求軌漏","下求轨漏","軌漏","轨漏"]
           hits=[]
@@ -109,7 +109,7 @@ jobs:
           ext=ii.get("extmetadata") or {}
           report={
               "schema":"JIUTANGSHU-JIAJING17-GUILOU-ROUNDING-PROBE-R1",
-              "schema_version":"1.0.0",
+              "schema_version":"1.0.1",
               "commons_file_title":title,
               "source_url":url,
               "commons_sha1":ii.get("sha1"),
@@ -120,7 +120,8 @@ jobs:
                   "target_juan":"卷三十四 志第十四 歷三",
                   "edition":"明嘉靖十七年（1538）聞人詮吳郡刊本",
                   "ncl_call_number":"201.242 01535",
-                  "public_surrogate":"Wikimedia Commons / National Central Library scan"
+                  "public_surrogate":"Wikimedia Commons / National Central Library scan",
+                  "fascicle_probe":"NCL-01535 06; corrected after 07 was directly identified as later geography material"
               },
               "publication_date_metadata":(ext.get("Date") or {}).get("value"),
               "low_res_ocr_hits":hits,
