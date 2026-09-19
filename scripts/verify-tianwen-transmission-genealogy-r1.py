@@ -12,6 +12,7 @@ STATE = ROOT / "docs/PROJECT-CURRENT-STATE-R1.json"
 BATCH_12CH = ROOT / "docs/research/ZIWEI-SISHI-QIHOU-JINGTAI6-TONGSHU-TABLE-CONTROL-R1.json"
 BATCH_12DP = ROOT / "docs/research/ZIWEI-DATONG-CIIN-49-58-CROSSING-AND-QICE-OFFSET-REPLAY-R1.json"
 BATCH_12DQ = ROOT / "docs/research/ZIWEI-DATONG-NANJING59-ENDPOINT-RECOMPOSITION-R1.json"
+BATCH_12DR = ROOT / "docs/research/ZIWEI-NLC-TAIYIN-TONGGUI-CHENGHUA-PHYSICAL-CII-N-CLOSURE-R1.json"
 
 
 def fail(message: str) -> None:
@@ -19,7 +20,7 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
-    for path in (CHARTER, PROTOCOL, GRAPH, STATE, BATCH_12CH, BATCH_12DP, BATCH_12DQ):
+    for path in (CHARTER, PROTOCOL, GRAPH, STATE, BATCH_12CH, BATCH_12DP, BATCH_12DQ, BATCH_12DR):
         if not path.is_file():
             fail(f"Tianwen transmission artifact missing: {path.relative_to(ROOT)}")
 
@@ -109,6 +110,8 @@ def main() -> int:
         "PASSAGE-TAIYI-JUAN1-DAILY-SUNRISE-INTERPOLATION",
         "RULE-SHOUSHI-DATONG-QICE-15_2184375",
         "RULE-FAMILY-NANJING-CII-INTEGER-THRESHOLD-PLUS-59-ENDPOINT-ANCHOR",
+        "PHYSICAL-COPY-NLC-TAIYIN-TONGGUI-CHENGHUA-411999012050",
+        "PASSAGE-NLC-TAIYIN-TONGGUI-CHENHUN-LICHENG",
     }
     if not required_nodes.issubset(set(node_ids)):
         fail("Transmission graph seed nodes incomplete")
@@ -356,6 +359,44 @@ def main() -> int:
         for x in hyp12dk.get("evidence_updates", [])
     ):
         fail("Batch 12DQ genealogy hypothesis endpoint-recomposition update missing")
+
+    nlc12dr = next(n for n in nodes if n.get("node_id") == "PHYSICAL-COPY-NLC-TAIYIN-TONGGUI-CHENGHUA-411999012050")
+    passage12dr = next(n for n in nodes if n.get("node_id") == "PASSAGE-NLC-TAIYIN-TONGGUI-CHENHUN-LICHENG")
+    cii12dr = next(n for n in nodes if n.get("node_id") == "TABLE-NANJING-DATONG-DAILY-CII-N-1380S")
+    if nlc12dr.get("identifier") != "411999012050 / NLC892-411999012050-103144 / NLC892-411999012050-103188":
+        fail("Batch 12DR NLC physical-copy node identity regressed")
+    if passage12dr.get("direct_heading") != "冬夏二至日出晨昏分立成鈐" or passage12dr.get("ocr_used_for_final_glyph_or_numeric_claims") is not False:
+        fail("Batch 12DR passage heading/no-OCR control regressed")
+    if passage12dr.get("direct_numeric_fingerprints", {}).get("day0", {}).get("morning_fen") != 2681.7 or passage12dr.get("direct_numeric_fingerprints", {}).get("day178", {}).get("morning_fen") != 1819.66:
+        fail("Batch 12DR passage numeric fingerprints regressed")
+    if cii12dr.get("direct_chinese_pre1578_physical_carrier_closed") is not True or cii12dr.get("direct_chinese_pre1578_physical_carrier") != "PHYSICAL-COPY-NLC-TAIYIN-TONGGUI-CHENGHUA-411999012050":
+        fail("Batch 12DR C-II-N Chinese carrier closure regressed")
+    e60 = next((e for e in edges if e.get("edge_id") == "TG-E0060"), None)
+    e61 = next((e for e in edges if e.get("edge_id") == "TG-E0061"), None)
+    if not e60 or e60.get("relation") != "ATTESTS" or e60.get("status") != "CONFIRMED" or e60.get("to") != "PASSAGE-NLC-TAIYIN-TONGGUI-CHENHUN-LICHENG":
+        fail("Batch 12DR physical-copy attestation edge regressed")
+    if not e61 or e61.get("relation") != "TRANSMITS_RULE" or e61.get("status") != "HIGH_CONFIDENCE" or e61.get("to") != "TABLE-NANJING-DATONG-DAILY-CII-N-1380S":
+        fail("Batch 12DR C-II-N transmission edge regressed")
+    if not any(
+        x.get("from") == "PHYSICAL-COPY-NLC-TAIYIN-TONGGUI-CHENGHUA-411999012050"
+        and x.get("to") == "PHYSICAL-COPY-KYUDB-TAIYIN-GK12436-15C-GABINJA"
+        and x.get("relation") == "DIRECT_ANCESTOR_OF"
+        and x.get("status") == "DISPROVED"
+        for x in graph.get("explicit_non_edges", [])
+    ):
+        fail("Batch 12DR Chenghua/Sejong surviving-copy chronology non-edge missing")
+    batch12dr = json.loads(BATCH_12DR.read_text(encoding="utf-8"))
+    if batch12dr.get("adjudication", {}).get("chinese_pre1578_physical_carrier_for_cii_n") != "CLOSED":
+        fail("Batch 12DR Chinese carrier adjudication regressed")
+    if batch12dr.get("adjudication", {}).get("exact_pre1578_whole_ke_reduction_selection_rule_found") is not False or batch12dr.get("adjudication", {}).get("direct_parent_of_sanming_1578") is not False:
+        fail("Batch 12DR quantization/Sanming-parent firewall regressed")
+    if not any(
+        x.get("batch") == "BATCH-12-ZIWEI-NLC-TAIYIN-TONGGUI-CHENGHUA-PHYSICAL-CII-N-CLOSURE-DR"
+        and "Chinese pre-1578 physical carrier" in x.get("update", "")
+        and "zero exact Sanming-parent vote" in x.get("update", "")
+        for x in hyp12dk.get("evidence_updates", [])
+    ):
+        fail("Batch 12DR genealogy hypothesis Chinese-carrier update missing")
 
     leibian_fine = next(n for n in nodes if n.get("node_id") == "TABLE-LEIBIAN-FINE-SISHI-38-62")
     if leibian_fine.get("exact_sanming_yueling_target_identity") is not False:

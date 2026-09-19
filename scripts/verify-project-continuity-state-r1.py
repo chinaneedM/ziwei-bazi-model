@@ -44,6 +44,8 @@ ZIWEI_DATONG_CIIN_12DP_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-A
 ZIWEI_DATONG_CIIN_12DP_EVIDENCE = ROOT / "docs/research/ZIWEI-DATONG-CIIN-49-58-CROSSING-AND-QICE-OFFSET-REPLAY-R1.json"
 ZIWEI_DATONG_NANJING59_12DQ_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DATONG-NANJING59-ENDPOINT-RECOMPOSITION-DQ.md"
 ZIWEI_DATONG_NANJING59_12DQ_EVIDENCE = ROOT / "docs/research/ZIWEI-DATONG-NANJING59-ENDPOINT-RECOMPOSITION-R1.json"
+ZIWEI_NLC_TAIYIN_12DR_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-TAIYIN-TONGGUI-CHENGHUA-PHYSICAL-CII-N-CLOSURE-DR.md"
+ZIWEI_NLC_TAIYIN_12DR_EVIDENCE = ROOT / "docs/research/ZIWEI-NLC-TAIYIN-TONGGUI-CHENGHUA-PHYSICAL-CII-N-CLOSURE-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -292,9 +294,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-DATONG-CIIN-42-48-CROSSING-AND-TAIYI-DAILY-INTERPOLATION-DO",
     "BATCH-12-ZIWEI-DATONG-CIIN-49-58-CROSSING-AND-QICE-OFFSET-REPLAY-DP",
     "BATCH-12-ZIWEI-DATONG-NANJING59-ENDPOINT-RECOMPOSITION-DQ",
+    "BATCH-12-ZIWEI-NLC-TAIYIN-TONGGUI-CHENGHUA-PHYSICAL-CII-N-CLOSURE-DR",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DATONG-NANJING59-ENDPOINT-RECOMPOSITION-DQ.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-TAIYIN-TONGGUI-CHENGHUA-PHYSICAL-CII-N-CLOSURE-DR.md"
 
 
 def fail(message: str) -> None:
@@ -302,6 +305,44 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
+    for path in (ZIWEI_NLC_TAIYIN_12DR_BATCH, ZIWEI_NLC_TAIYIN_12DR_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12DR continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12dr = json.loads(ZIWEI_NLC_TAIYIN_12DR_EVIDENCE.read_text(encoding="utf-8"))
+    if batch12dr.get("batch_id") != "BATCH-12-ZIWEI-NLC-TAIYIN-TONGGUI-CHENGHUA-PHYSICAL-CII-N-CLOSURE-DR":
+        fail("Batch 12DR evidence identity mismatch")
+    src12dr = batch12dr.get("source_identity", {})
+    if src12dr.get("nlc_object_id") != "411999012050" or src12dr.get("pre1578_physical_copy") is not True:
+        fail("Batch 12DR NLC object/pre-1578 identity regressed")
+    acq12dr = batch12dr.get("acquisition", {})
+    vols12dr = {x.get("volume"): x for x in acq12dr.get("volumes", ())}
+    if acq12dr.get("workflow_run_id") != 35431281149 or acq12dr.get("artifact_id") != 10580972630 or acq12dr.get("ocr_used_for_final_glyph_or_numeric_claims") is not False:
+        fail("Batch 12DR acquisition/no-OCR control regressed")
+    if vols12dr.get(1, {}).get("pages") != 46 or vols12dr.get(1, {}).get("sha256") != "5459e8f27ca1eb158d34daa3a8dc96ac150234f80f3b3309362979dd39ff6762":
+        fail("Batch 12DR volume-1 physical hash/page control regressed")
+    if vols12dr.get(2, {}).get("pages") != 41 or vols12dr.get(2, {}).get("sha256") != "7d47432648f4dc20075166872811bbb15bd80473284b57426339f071989f7c8c":
+        fail("Batch 12DR volume-2 physical hash/page control regressed")
+    phy12dr = batch12dr.get("direct_physical_collation", {})
+    p15_12dr = phy12dr.get("volume_2_page_15", {})
+    d0_12dr = p15_12dr.get("winter_solstice_initial_day", {})
+    p23_12dr = phy12dr.get("volume_2_page_23", {})
+    d178_12dr = p23_12dr.get("accumulated_day_178", {})
+    if p15_12dr.get("direct_heading") != "冬夏二至日出晨昏分立成鈐" or p15_12dr.get("heading_variant_control", {}).get("wording_difference_preserved_not_normalized") is not True:
+        fail("Batch 12DR direct heading/variant firewall regressed")
+    if (d0_12dr.get("morning_fen"), d0_12dr.get("dusk_fen"), d0_12dr.get("sum")) != (2681.7, 7318.3, 10000.0):
+        fail("Batch 12DR day0 direct physical pair regressed")
+    if (d178_12dr.get("morning_fen"), d178_12dr.get("dusk_fen"), d178_12dr.get("sum")) != (1819.66, 8180.34, 10000.0):
+        fail("Batch 12DR day178 direct physical pair regressed")
+    cross12dr = batch12dr.get("cross_recension_numeric_control", {})
+    if cross12dr.get("day0", {}).get("exact_pair_match") is not True or cross12dr.get("day178", {}).get("exact_pair_match") is not True or cross12dr.get("direct_copy_direction_proved") is not False:
+        fail("Batch 12DR cross-recension identity/copy-direction firewall regressed")
+    chrono12dr = batch12dr.get("chronology_firewall", {})
+    if chrono12dr.get("nlc_surviving_copy_can_be_direct_ancestor_of_kyujanggak_surviving_copy") is not False or chrono12dr.get("adjudication") != "DISPROVED_BY_SURVIVING_COPY_CHRONOLOGY":
+        fail("Batch 12DR surviving-copy chronology firewall regressed")
+    adj12dr = batch12dr.get("adjudication", {})
+    if adj12dr.get("chinese_pre1578_physical_carrier_for_cii_n") != "CLOSED" or adj12dr.get("exact_pre1578_whole_ke_reduction_selection_rule_found") is not False or adj12dr.get("algorithm_reopen_authorized") is not False:
+        fail("Batch 12DR carrier/quantization/product firewall regressed")
+
     for path in (ZIWEI_DATONG_NANJING59_12DQ_BATCH, ZIWEI_DATONG_NANJING59_12DQ_EVIDENCE):
         if not path.is_file():
             fail(f"Batch 12DQ continuity artifact missing: {path.relative_to(ROOT)}")
@@ -842,6 +883,11 @@ def main() -> int:
     state = json.loads(STATE.read_text(encoding="utf-8"))
     matrix = json.loads(MATRIX.read_text(encoding="utf-8"))
     registry = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    source12dr = next((x for x in registry.get("sources", []) if x.get("source_id") == "EXT-NLC-TAIYIN-TONGGUI-CHENGHUA-411999012050-PHYSICAL"), None)
+    if source12dr is None or source12dr.get("identifier") != "NLC object 411999012050 / NLC892-411999012050-103144 / NLC892-411999012050-103188":
+        fail("Batch 12DR source-registry NLC object binding missing")
+    if source12dr.get("acquisition", {}).get("ocr_used_for_final_glyph_or_numeric_claims") is not False:
+        fail("Batch 12DR registry no-OCR authority firewall regressed")
     source12do_taiyi = next((x for x in registry.get("sources", []) if x.get("source_id") == "EXT-XUXIU1061-TAIYI-TONGZONG-BAOJIAN-MING-MANUSCRIPT-DAILY-SUNRISE"), None)
     source12do_scholar = next((x for x in registry.get("sources", []) if x.get("source_id") == "EXT-HEP-2025-TAIYI-ASTRONOMICAL-TABLE-COLLATION"), None)
     source12do_gengwu = next((x for x in registry.get("sources", []) if x.get("source_id") == "EXT-SHIDIAN-GENGWU-YUANLI-DAILY-SUNRISE-CONTROL"), None)
@@ -2800,6 +2846,9 @@ def main() -> int:
         fail("Batch 12S Matrix witness-count firewall regressed")
 
     focus_text = "\n".join(audit_state.get("current_focus", ()))
+    for fragment in ("Batch 12DR", "411999012050", "2681.70", "1819.66", "Chinese pre-1578 physical carrier"):
+        if fragment not in focus_text:
+            fail(f"Batch 12DR current-focus marker missing: {fragment}")
     for fragment in (
         "Batch 11U",
         "RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL",

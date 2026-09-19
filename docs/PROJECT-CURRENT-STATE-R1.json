@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.129.0",
+  "schema_version": "1.130.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -207,9 +207,10 @@
       "BATCH-12-ZIWEI-DATONG-CIIN-INTEGER-CROSSING-AND-POST1578-59-41-LADDER-DN",
       "BATCH-12-ZIWEI-DATONG-CIIN-42-48-CROSSING-AND-TAIYI-DAILY-INTERPOLATION-DO",
       "BATCH-12-ZIWEI-DATONG-CIIN-49-58-CROSSING-AND-QICE-OFFSET-REPLAY-DP",
-      "BATCH-12-ZIWEI-DATONG-NANJING59-ENDPOINT-RECOMPOSITION-DQ"
+      "BATCH-12-ZIWEI-DATONG-NANJING59-ENDPOINT-RECOMPOSITION-DQ",
+      "BATCH-12-ZIWEI-NLC-TAIYIN-TONGGUI-CHENGHUA-PHYSICAL-CII-N-CLOSURE-DR"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DATONG-NANJING59-ENDPOINT-RECOMPOSITION-DQ.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-TAIYIN-TONGGUI-CHENGHUA-PHYSICAL-CII-N-CLOSURE-DR.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -724,7 +725,12 @@
       "Batch 12DQ therefore separates the endpoint from the interior reduction layer. The 42-58 interior remains the direct C-II-N integer-crossing component; the 59-ke endpoint is independently anchored by the direct 1447 official Nanjing standard, with 1449 restoration to the Hongwu/Yongle old style supplying policy continuity context.",
       "Tianwen adds RULE-FAMILY-NANJING-CII-INTEGER-THRESHOLD-PLUS-59-ENDPOINT-ANCHOR with TG-E0057..TG-E0059. This composite candidate mechanically covers the clean 42-59 value architecture but is not a discovered pre-1578 combined algorithm or direct Sanming parent.",
       "The exact pre-1578 text binding the two layers remains unresolved, as does the Sanming/Yueling 大寒十三後 / 雨水後四日 change-day fingerprint. Later Xing Yunlu remains explanatory control only and adds zero ancestry vote.",
-      "Batch 12DQ changes no Matrix/product counts: 198 rows / 166 audited / 10 MISSING_FROM_PRODUCT; provenance defects 12/12; chart algorithm defect/reopen/collapse remain 0. Next gate is a pre-1578 Chinese source that explicitly binds the interior whole-ke selection layer to the Nanjing 59-ke endpoint and ideally preserves the target anomalous change-day fingerprint; NLC call 14202 remains parallel behind the external-action firewall."
+      "Batch 12DQ changes no Matrix/product counts: 198 rows / 166 audited / 10 MISSING_FROM_PRODUCT; provenance defects 12/12; chart algorithm defect/reopen/collapse remain 0. Next gate is a pre-1578 Chinese source that explicitly binds the interior whole-ke selection layer to the Nanjing 59-ke endpoint and ideally preserves the target anomalous change-day fingerprint; NLC call 14202 remains parallel behind the external-action firewall.",
+      "Batch 12DR directly acquires the public two-volume surrogate of NLC object 411999012050 《太陰通軌》; the registered IHNS critical bibliographic control identifies the surviving NLC witness as a Ming Chenghua manuscript. PDF controls are 46/41 pages with SHA-256 5459e8f2… / 7d474326….",
+      "Direct no-OCR review of NLC vol.2 p15 reads 冬夏二至日出晨昏分立成鈐 and winter-solstice initial 晨分2681.70 / 昏分7318.30. The extra 出 versus the Kyujanggak heading is preserved as a recension wording variant rather than normalized away.",
+      "Direct no-OCR common-prefix reconstruction on NLC vol.2 p23 closes day178 at 晨分1819.66 / 昏分8180.34. Day0 and day178 exactly match Kyujanggak GK12436 and replay to C-II-N half-day controls 2068.30 / 2930.34, closing a Chinese pre-1578 physical carrier for the same numerical table family.",
+      "Chronology firewall: the surviving NLC Chenghua manuscript (1465-1487 control) postdates the provider-dated Sejong-era Kyujanggak witness (1418-1450), so the surviving NLC copy cannot be the direct ancestor of the surviving Korean copy. Exact earlier exemplar/common transmission remains unresolved.",
+      "Batch 12DR changes no Matrix/product counts: 198 rows / 166 audited / 10 MISSING_FROM_PRODUCT; provenance defects remain 12/12 and chart algorithm reopen/collapse remain 0. Next gate is the pre-1578 downstream whole-ke reduction/endpoint-binding instruction plus the exact 大寒十三後 / 雨水後四日 fingerprint."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10

@@ -147,9 +147,12 @@
       "date": "1380s_TABLE_FAMILY",
       "mechanical_identity": "Daily post-solstice half-day numerical curve, independently classified as Type C-II-N / Nanjing; capable of generating the continuous 42→59 daylight-ke range after unit conversion.",
       "evidence": [
-        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DATONG-RICHU-DAILY-TABLE-SANMING-MULTIPOINT-REPLAY-CG.md"
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DATONG-RICHU-DAILY-TABLE-SANMING-MULTIPOINT-REPLAY-CG.md",
+        "docs/research/ZIWEI-NLC-TAIYIN-TONGGUI-CHENGHUA-PHYSICAL-CII-N-CLOSURE-R1.json"
       ],
-      "first_explicit_graph_batch": "BATCH-12-ZIWEI-SISHI-QIHOU-JINGTAI6-TONGSHU-TABLE-CONTROL-CH"
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-SISHI-QIHOU-JINGTAI6-TONGSHU-TABLE-CONTROL-CH",
+      "direct_chinese_pre1578_physical_carrier_closed": true,
+      "direct_chinese_pre1578_physical_carrier": "PHYSICAL-COPY-NLC-TAIYIN-TONGGUI-CHENGHUA-411999012050"
     },
     {
       "node_id": "TABLE-SANMING-1578-DAYNIGHT-KE",
@@ -1069,6 +1072,51 @@
         "docs/research/ZIWEI-YINGZONG-SHILU-1449-DATONG-OLD-STYLE-RESTORATION-R1.json"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-DATONG-NANJING59-ENDPOINT-RECOMPOSITION-DQ"
+    },
+    {
+      "node_id": "PHYSICAL-COPY-NLC-TAIYIN-TONGGUI-CHENGHUA-411999012050",
+      "node_type": "PHYSICAL_COPY",
+      "label": "國家圖書館《太陰通軌》明成化抄本（NLC 411999012050）",
+      "system_scope": "MING_CHINESE_DATONG_TONGGUI_CII_N_PHYSICAL_TRANSMISSION",
+      "work_composition_date": "YUAN_TONG_DATONG_TONGGUI_TRADITION; exact source-work composition date not re-assigned in 12DR",
+      "edition_impression_date": "MING_CHENGHUA_1465_1487_MANUSCRIPT_PER_EXT_IHNS_CRITICAL_BIBLIOGRAPHIC_CONTROL",
+      "physical_copy_date": "MING_CHENGHUA_1465_1487_PER_MODERN_CRITICAL_BIBLIOGRAPHIC_CONTROL; exact visible colophon date not independently re-read in 12DR",
+      "digital_surrogate_date": "MODERN_NLC_OBJECT_PUBLICLY_MIRRORED_BY_WIKIMEDIA_COMMONS",
+      "identifier": "411999012050 / NLC892-411999012050-103144 / NLC892-411999012050-103188",
+      "evidence": [
+        "EXT-NLC-TAIYIN-TONGGUI-CHENGHUA-411999012050-PHYSICAL",
+        "docs/research/ZIWEI-NLC-TAIYIN-TONGGUI-CHENGHUA-PHYSICAL-CII-N-CLOSURE-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-TAIYIN-TONGGUI-CHENGHUA-PHYSICAL-CII-N-CLOSURE-DR.md"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-NLC-TAIYIN-TONGGUI-CHENGHUA-PHYSICAL-CII-N-CLOSURE-DR"
+    },
+    {
+      "node_id": "PASSAGE-NLC-TAIYIN-TONGGUI-CHENHUN-LICHENG",
+      "node_type": "PASSAGE",
+      "label": "國圖《太陰通軌》卷內《冬夏二至日出晨昏分立成鈐》逐日表",
+      "system_scope": "DATONG_DAILY_SOLAR_TIME_NUMERICAL_TABLE_IN_CHINESE_PRE1578_TAIYIN_TONGGUI",
+      "physical_locator": "NLC object 411999012050, volume 2 PDF p15 onward; day178 on PDF p23",
+      "direct_heading": "冬夏二至日出晨昏分立成鈐",
+      "heading_variant_against_kyujanggak": "NLC includes 出 after 日; Kyujanggak direct heading is 冬夏二至日晨昏分立成鈐",
+      "direct_numeric_fingerprints": {
+        "day0": {
+          "morning_fen": 2681.7,
+          "dusk_fen": 7318.3,
+          "derived_half_day_fen": 2068.3
+        },
+        "day178": {
+          "morning_fen": 1819.66,
+          "dusk_fen": 8180.34,
+          "derived_half_day_fen": 2930.34
+        }
+      },
+      "ocr_used_for_final_glyph_or_numeric_claims": false,
+      "evidence": [
+        "EXT-NLC-TAIYIN-TONGGUI-CHENGHUA-411999012050-PHYSICAL",
+        "docs/research/ZIWEI-NLC-TAIYIN-TONGGUI-CHENGHUA-PHYSICAL-CII-N-CLOSURE-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-TAIYIN-TONGGUI-CHENGHUA-PHYSICAL-CII-N-CLOSURE-DR.md"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-NLC-TAIYIN-TONGGUI-CHENGHUA-PHYSICAL-CII-N-CLOSURE-DR"
     }
   ],
   "edges": [
@@ -1970,6 +2018,38 @@
       ],
       "scope_note": "Mechanically covers the clean family value architecture by separating interior thresholds from the independently attested Nanjing 59 endpoint. It does not establish that this exact combined rule was written or used before 1578, and it does not explain the Sanming/Yueling anomalous Yushui-post-day-4 fingerprint.",
       "adjudication_batch": "BATCH-12-ZIWEI-DATONG-NANJING59-ENDPOINT-RECOMPOSITION-DQ"
+    },
+    {
+      "edge_id": "TG-E0060",
+      "from": "PHYSICAL-COPY-NLC-TAIYIN-TONGGUI-CHENGHUA-411999012050",
+      "relation": "ATTESTS",
+      "to": "PASSAGE-NLC-TAIYIN-TONGGUI-CHENHUN-LICHENG",
+      "status": "CONFIRMED",
+      "confidence": "HIGH",
+      "evidence_class": "DIRECT_PUBLIC_NLC_OBJECT_SURROGATE_NO_OCR_PHYSICAL_GLYPH_AND_NUMERIC_COLLATION",
+      "evidence": [
+        "NLC vol2 p15 render sha256 5fe45f2483dd7f5a4e92506845cec74bd72901dae3f62e59de24fd1ef7b4016b",
+        "NLC vol2 p23 render sha256 17b9dda2a347f3075c834b451417b0adc852313ce168d4f68ae98e6d78ac4f80",
+        "docs/research/ZIWEI-NLC-TAIYIN-TONGGUI-CHENGHUA-PHYSICAL-CII-N-CLOSURE-R1.json"
+      ],
+      "adjudication_batch": "BATCH-12-ZIWEI-NLC-TAIYIN-TONGGUI-CHENGHUA-PHYSICAL-CII-N-CLOSURE-DR"
+    },
+    {
+      "edge_id": "TG-E0061",
+      "from": "PASSAGE-NLC-TAIYIN-TONGGUI-CHENHUN-LICHENG",
+      "relation": "TRANSMITS_RULE",
+      "to": "TABLE-NANJING-DATONG-DAILY-CII-N-1380S",
+      "status": "HIGH_CONFIDENCE",
+      "confidence": "HIGH",
+      "evidence_class": "DIRECT_CHINESE_PRE1578_PHYSICAL_NUMERIC_FINGERPRINT_PLUS_EXACT_DAY0_DAY178_REPLAY",
+      "evidence": [
+        "NLC day0 2681.70/7318.30 -> half-day 2068.30",
+        "NLC day178 1819.66/8180.34 -> half-day 2930.34",
+        "Exact match to Kyujanggak GK12436 and registered C-II-N controls",
+        "docs/research/ZIWEI-NLC-TAIYIN-TONGGUI-CHENGHUA-PHYSICAL-CII-N-CLOSURE-R1.json"
+      ],
+      "scope_note": "Closes a Chinese pre-1578 physical carrier of the same C-II-N numerical family. It does not identify the earlier exemplar, the whole-ke reduction rule, or a direct parent of Sanming 1578.",
+      "adjudication_batch": "BATCH-12-ZIWEI-NLC-TAIYIN-TONGGUI-CHENGHUA-PHYSICAL-CII-N-CLOSURE-DR"
     }
   ],
   "lineage_hypotheses": [
@@ -1990,7 +2070,7 @@
       "unresolved_questions": [
         "Which exact pre-1578 Tongshu/almanac title, recension, or upstream source carries both the 大寒十三後 and 雨水後四日 fingerprints physically attributed to generic 通書 in Yueling 1589?",
         "Which pre-1578 Chinese source explicitly binds the C-II-N whole-ke interior selection layer to the official Nanjing 59-ke endpoint standard?",
-        "Can a pre-1578 Chinese physical witness directly bind the C-II-N daily table and its downstream reduction/recomposition rule, distinguishing Chinese origin from Joseon transmission?"
+        "Which earlier Chinese exemplar or transmission layer accounts for the identical C-II-N daily table in the Sejong-era Kyujanggak print and the later surviving NLC Chenghua manuscript, and where is the downstream whole-ke reduction/endpoint-binding rule attached?"
       ],
       "evidence_updates": [
         {
@@ -2080,6 +2160,10 @@
         {
           "batch": "BATCH-12-ZIWEI-DATONG-NANJING59-ENDPOINT-RECOMPOSITION-DQ",
           "update": "A one-parameter constant fractional threshold is now mechanically rejected for the clean C-II-N -> 42-59 mapping: d160=57.9862 remaining below the first 58 crossing requires t>0.9862, while summer 58.6332 -> 59 requires t<=0.6332, an empty intersection. The endpoint is therefore modeled as a separate component using the direct 1447 official Nanjing 59-ke standard, with 1449 old-style restoration as policy context. This closes the endpoint contradiction at composite mechanism/value-architecture level but not the exact pre-1578 combined rule or Sanming/Yueling Dahan/Yushui fingerprint; zero exact-parent vote is added."
+        },
+        {
+          "batch": "BATCH-12-ZIWEI-NLC-TAIYIN-TONGGUI-CHENGHUA-PHYSICAL-CII-N-CLOSURE-DR",
+          "update": "A direct Chinese pre-1578 physical carrier is now closed: NLC object 411999012050 《太陰通軌》 preserves day0 2681.70/7318.30 and day178 1819.66/8180.34, exactly matching Kyujanggak GK12436 and the C-II-N replay. Surviving-copy chronology disproves the later Chenghua manuscript as direct ancestor of the earlier Sejong-era surviving Korean copy, so an earlier common table tradition/exemplar remains required. This closes the Chinese-carrier gap but leaves the whole-ke reduction/endpoint-binding rule and Sanming/Yueling exact fingerprint unresolved; zero exact Sanming-parent vote is added."
         }
       ],
       "endpoint_anchor_component_identified": true,
@@ -2470,6 +2554,19 @@
         "docs/research/ZIWEI-DATONG-NANJING59-ENDPOINT-RECOMPOSITION-R1.json"
       ],
       "adjudication_batch": "BATCH-12-ZIWEI-DATONG-NANJING59-ENDPOINT-RECOMPOSITION-DQ"
+    },
+    {
+      "from": "PHYSICAL-COPY-NLC-TAIYIN-TONGGUI-CHENGHUA-411999012050",
+      "relation": "DIRECT_ANCESTOR_OF",
+      "to": "PHYSICAL-COPY-KYUDB-TAIYIN-GK12436-15C-GABINJA",
+      "status": "DISPROVED",
+      "reason": "The surviving NLC manuscript is controlled as Chenghua 1465-1487, while the Kyujanggak surviving print is provider-dated to Sejong 1418-1450. The later surviving Chenghua object therefore cannot be the direct ancestor of the earlier surviving Korean object; exact agreement instead points to an earlier shared table tradition/exemplar whose identity remains unresolved.",
+      "evidence": [
+        "EXT-NLC-TAIYIN-TONGGUI-CHENGHUA-411999012050-PHYSICAL",
+        "EXT-KYUDB-TAIYIN-TONGGUI-GK12436-CHENHUN-TABLE",
+        "docs/research/ZIWEI-NLC-TAIYIN-TONGGUI-CHENGHUA-PHYSICAL-CII-N-CLOSURE-R1.json"
+      ],
+      "adjudication_batch": "BATCH-12-ZIWEI-NLC-TAIYIN-TONGGUI-CHENGHUA-PHYSICAL-CII-N-CLOSURE-DR"
     }
   ],
   "backfill": {
