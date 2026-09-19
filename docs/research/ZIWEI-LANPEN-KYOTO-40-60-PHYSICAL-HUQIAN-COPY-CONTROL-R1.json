@@ -1,0 +1,155 @@
+{
+  "schema": "ZIWEI-LANPEN-KYOTO-40-60-PHYSICAL-HUQIAN-COPY-CONTROL-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-LANPEN-KYOTO-40-60-PHYSICAL-AND-HUQIAN-COPY-CONTROL-DZ",
+  "status": "KYOTO_MANUSCRIPT_DIRECTLY_ATTESTS_40_60_WHOLE_KE_TABLE_AND_1716_SONG_PRINT_COLLATION_CLAIM; HUQIAN_MING_REPROBE_CONFIRMS_DISTINCT_20_ARROW_FAMILY; SECOND_TIANYI_OBJECT_IS_JUAN11_20_ONLY; PRE1578_59_RECOMPOSITION_REMAINS_OPEN",
+  "workflow_evidence": {
+    "kyoto": {
+      "head_commit_sha": "089ba27693b7aebef8ece1f72b39716ed4b1b18a",
+      "run_id": 35445786963,
+      "artifact_id": 10585318567,
+      "artifact_name": "kyoto-lanpen-rb00017646",
+      "artifact_digest": "sha256:a15f4752a7f6cc1f8af694b495ad21a2722787de4a23eb5f7676cc4af4e04bfe"
+    },
+    "tianyi_main": {
+      "probe_commit_sha": "d1ba9fdb1fef1d6a665fc1ab2468094408ba3217",
+      "run_id": 35444357383,
+      "artifact_id": 10584312941,
+      "artifact_name": "tianyige-huqianjing-ming-chuanjian",
+      "artifact_digest": "sha256:5d790574d4d0adddfbdbb6bee9c0373213b1181394fd132a18c9d1bb906cff19"
+    },
+    "tianyi_independent_control": {
+      "head_commit_sha": "089ba27693b7aebef8ece1f72b39716ed4b1b18a",
+      "run_id": 35445786995,
+      "artifact_id": 10585408471,
+      "artifact_name": "tianyige-huqianjing-ming-0004676",
+      "artifact_digest": "sha256:f680d383623635d0cb25d82fa52ebac1bd371dd8eaa9de6431563fba86820408"
+    },
+    "ocr_used_for_final_glyph_numeric_or_lineage_claims": false
+  },
+  "kyoto_physical_copy": {
+    "record_id": "RB00017646",
+    "title": "蘭盆疏鈔餘義",
+    "catalog_author": "(宋僧)日新録",
+    "copy_type": "写",
+    "shelfmark": "藏||14||ラ||2",
+    "collection": "蔵経書院文庫 / 蔵経書院本",
+    "physical_copy_date": "UNRESOLVED_FROM_PUBLIC_CATALOG",
+    "internal_collation_colophon_date": "享保元丙申_1716",
+    "chronology_firewall": "The surviving Kyoto object is a manuscript with unresolved copy date. Its 1716 internal colophon claims collation against a Song printed old book, but that claim does not turn the surviving object into a pre-1578 physical witness and does not by itself prove every numerical table entry was unchanged from the cited Song print."
+  },
+  "direct_physical_collation": {
+    "kyoto_canvas_34": {
+      "sha256": "0d7f3461d82129b154f25101550c22a05b30705fac16eb9f8daa989f13a1b2db",
+      "direct": [
+        "節氣加減刻漏規式"
+      ],
+      "normalized_numeric_observation": {
+        "day_night_pair": "46/54",
+        "date_window": "雨水後四日至後九日",
+        "authority": "DIRECT_VISUAL_TABLE_REVIEW"
+      },
+      "role": "Directly closes the Rainwater 46/54 bucket in this manuscript table."
+    },
+    "kyoto_canvas_35": {
+      "sha256": "cc4a2356cfafe21b61545a09e01db256f1e1f3523098d2f82b5283cd6a7dff0f",
+      "direct": [
+        "五十九刻四十一刻",
+        "六十刻四十刻"
+      ],
+      "observation": "The table physically contains 59/41 as an interior/penultimate whole-ke bucket and then continues to a 60/40 maximum; therefore mere occurrence of 59/41 is not evidence of a Nanjing-style 59-ke cap."
+    },
+    "kyoto_canvas_40": {
+      "sha256": "12beea4d2c26aec7a826acb7f069f3712990d0ef342f1c0971a872e2de65a71b",
+      "direct": [
+        "享保元丙申稔仲冬上旬以宋刻古本校正訖",
+        "日本國南京沙門秀慶識"
+      ],
+      "scope_firewall": "This is an internal collation claim about use of a Song printed old book. It is transmission evidence, not an independently surviving Song physical witness and not direct proof of target-table numeric identity in that exemplar."
+    },
+    "tianyi_main_p74_p76": {
+      "p74_sha256": "9afad08f340b2241057241e1818238f55b29d72e9a76d8707fb8786b3d7793a6",
+      "p75_sha256": "9cff30c9119cbceb0f3e07db16aa7969a1f6106682d73fda9a283eccdab76646",
+      "p76_sha256": "1acee7f93d714eedafeb11b2cfbf9883e56e388ea7c8384b3f2c89eec0b7724c",
+      "direct": [
+        "傳箭第七十六",
+        "每時有八刻二十分",
+        "一日十二時合一百刻",
+        "雨水初日改第八箭 -> 47/53",
+        "後第九日改第九箭 -> 48/52",
+        "夏至前三日改第一箭 -> 60/40"
+      ],
+      "role": "Re-confirms the already registered Tianyi Ming-print Huqian family and its distinct change-day fingerprint; adds no new independent physical vote and no exact Ming impression year."
+    },
+    "tianyi_independent_0004676": {
+      "p1_sha256": "f1b7039f6b2f0195993391b7684c0df91a9c6f83afad66df3335eba7ee502107",
+      "p99_sha256": "7251f88551eff284fae50daf2f5396e46fe3964f081f2ddd1ebb3e935cd2d8f0",
+      "direct": [
+        "虎鈐經卷第十一",
+        "虎鈐經卷第二十終"
+      ],
+      "adjudication": "The one-volume 330000-1705-0004676 object physically spans juan 11 through juan 20 in the reviewed endpoints; it does not contain juan 7 傳箭 and cannot be counted as a second independent target-section witness."
+    }
+  },
+  "mechanism_comparison": {
+    "kyoto_lanpen": {
+      "whole_ke_ladder": "40/60 through 60/40",
+      "yushui_observed_bucket": "46/54 from 雨水後四日至後九日",
+      "has_59_41": true,
+      "summer_cap": "60/40"
+    },
+    "huqian_tianyige": {
+      "whole_ke_ladder": "40/60 through 60/40",
+      "yushui_fingerprint": "雨水初日 47/53 -> 後第九日 48/52",
+      "summer_cap": "60/40"
+    },
+    "sanming_1578_control": {
+      "summer_cap": "59/41",
+      "exact_change_day_parentage": "UNRESOLVED",
+      "direct_unchanged_identity_with_kyoto_lanpen": false,
+      "direct_unchanged_identity_with_huqian": false
+    },
+    "consequence": "These witnesses strengthen the historical breadth of whole-ke seasonal binning, but demonstrate that 59/41 can occur inside a 60/40 family. They do not supply the missing rule that binds continuous/fractional values to a terminal Nanjing 59-ke display."
+  },
+  "adjudication": {
+    "kyoto_received_whole_ke_table_physical_attestation": "CLOSED",
+    "kyoto_internal_song_print_collation_claim": "CLOSED_AS_CLAIM_ONLY",
+    "pre1578_physical_carrier_for_kyoto_table": "NOT_CLOSED",
+    "unchanged_song_print_numeric_table_identity": "NOT_PROVED",
+    "second_independent_tianyi_juan7_witness_increment": 0,
+    "nanjing_59_whole_ke_recomposition_rule": "OPEN",
+    "cii_n_to_nanjing59_binding_rule": "OPEN",
+    "direct_sanming_parent_vote_increment": 0,
+    "matrix_count_change": false,
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false
+  },
+  "transmission_impact": {
+    "nodes_added": [
+      "PHYSICAL-COPY-LANPEN-KYOTO-RB00017646",
+      "PASSAGE-LANPEN-KYOTO-1716-SONG-PRINT-COLLATION-COLOPHON",
+      "RULE-FAMILY-LANPEN-JINGFUDIAN-WHOLEKE-40-60"
+    ],
+    "edges_added": [
+      "TG-E0084",
+      "TG-E0085",
+      "TG-E0086"
+    ],
+    "explicit_non_edges_added": [
+      "RULE-FAMILY-LANPEN-JINGFUDIAN-WHOLEKE-40-60 DIRECT_UNCHANGED_TABLE_IDENTITY_WITH TABLE-SANMING-1578-DAYNIGHT-KE",
+      "RULE-FAMILY-LANPEN-JINGFUDIAN-WHOLEKE-40-60 DIRECT_UNCHANGED_TABLE_IDENTITY_WITH RULE-FAMILY-HUQIANJING-CHUANJIAN-20ARROW-40-60"
+    ],
+    "lineage_scope": "Physical received-table attestation plus a later explicit Song-print-collation claim; no direct-copy direction into Sanming and no pre-1578 physical target-table closure."
+  },
+  "project_consequence": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "missing_from_product_rows": 10,
+    "provenance_defects_repaired": "12/12",
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0,
+    "deterministic_product_status": "CLOSED"
+  }
+}

@@ -20,6 +20,7 @@ BATCH_12DV = ROOT / "docs/research/ZIWEI-XUXIU1031-ZHUNZHAI-CLEPSYDRA-JIEHOU-ARR
 BATCH_12DW = ROOT / "docs/research/ZIWEI-YONEZAWA-SHILIN1492-LIKOU-48ARROW-24QI-PHYSICAL-CLOSURE-R1.json"
 BATCH_12DX = ROOT / "docs/research/ZIWEI-NAJDA-SUISHU-YUAN-LOUKE-48ARROW-HUANGJI5986-PHYSICAL-CLOSURE-R1.json"
 BATCH_12DY = ROOT / "docs/research/ZIWEI-WUZONG-SHILU-1518-MULTISOURCE-LOCAL-CALIBRATION-PROPOSAL-R1.json"
+BATCH_12DZ = ROOT / "docs/research/ZIWEI-LANPEN-KYOTO-40-60-PHYSICAL-HUQIAN-COPY-CONTROL-R1.json"
 
 
 def fail(message: str) -> None:
@@ -27,7 +28,7 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
-    for path in (CHARTER, PROTOCOL, GRAPH, STATE, BATCH_12CH, BATCH_12DP, BATCH_12DQ, BATCH_12DR, BATCH_12DS, BATCH_12DT, BATCH_12DU, BATCH_12DV, BATCH_12DW, BATCH_12DX, BATCH_12DY):
+    for path in (CHARTER, PROTOCOL, GRAPH, STATE, BATCH_12CH, BATCH_12DP, BATCH_12DQ, BATCH_12DR, BATCH_12DS, BATCH_12DT, BATCH_12DU, BATCH_12DV, BATCH_12DW, BATCH_12DX, BATCH_12DY, BATCH_12DZ):
         if not path.is_file():
             fail(f"Tianwen transmission artifact missing: {path.relative_to(ROOT)}")
 
@@ -623,6 +624,27 @@ def main() -> int:
             fail(f"Batch 12DY transmission edge regressed: {eid}")
     if not any(x.get("batch") == "BATCH-12-ZIWEI-WUZONG-SHILU-1518-MULTISOURCE-LOCAL-CALIBRATION-PROPOSAL-DY" and "zero exact Sanming-parent vote" in x.get("update", "") for x in hyp12dk.get("evidence_updates", [])):
         fail("Batch 12DY genealogy hypothesis zero-vote update missing")
+
+    batch12dz = json.loads(BATCH_12DZ.read_text(encoding="utf-8"))
+    if batch12dz.get("adjudication", {}).get("kyoto_received_whole_ke_table_physical_attestation") != "CLOSED":
+        fail("Batch 12DZ Kyoto physical table closure regressed")
+    copy12dz = next(n for n in nodes if n.get("node_id") == "PHYSICAL-COPY-LANPEN-KYOTO-RB00017646")
+    table12dz = next(n for n in nodes if n.get("node_id") == "RULE-FAMILY-LANPEN-JINGFUDIAN-WHOLEKE-40-60")
+    col12dz = next(n for n in nodes if n.get("node_id") == "PASSAGE-LANPEN-KYOTO-1716-SONG-PRINT-COLLATION-COLOPHON")
+    if copy12dz.get("physical_copy_date") != "UNRESOLVED_MANUSCRIPT":
+        fail("Batch 12DZ Kyoto physical-copy chronology firewall regressed")
+    if table12dz.get("direct_yushui_bucket") != "46/54 @ 雨水後四日至後九日" or table12dz.get("terminal_summer_cap") != "60/40" or table12dz.get("contains_59_41") is not True:
+        fail("Batch 12DZ Kyoto whole-ke table mechanics regressed")
+    if "宋刻古本" not in "".join(col12dz.get("direct_text", ())):
+        fail("Batch 12DZ Song-print collation passage regressed")
+    for eid, rel in (("TG-E0084","ATTESTS"),("TG-E0085","ATTESTS"),("TG-E0086","STRUCTURAL_ANCESTRY_CANDIDATE_FOR")):
+        e = next((x for x in edges if x.get("edge_id") == eid), None)
+        if not e or e.get("relation") != rel:
+            fail(f"Batch 12DZ transmission edge regressed: {eid}")
+    if not any(x.get("from") == "RULE-FAMILY-LANPEN-JINGFUDIAN-WHOLEKE-40-60" and x.get("relation") == "DIRECT_UNCHANGED_TABLE_IDENTITY_WITH" and x.get("to") == "TABLE-SANMING-1578-DAYNIGHT-KE" and x.get("status") == "DISPROVED" for x in graph.get("explicit_non_edges", [])):
+        fail("Batch 12DZ Sanming unchanged-table non-edge missing")
+    if not any(x.get("batch") == "BATCH-12-ZIWEI-LANPEN-KYOTO-40-60-PHYSICAL-AND-HUQIAN-COPY-CONTROL-DZ" and "Zero exact Sanming-parent vote" in x.get("update", "") for x in hyp12dk.get("evidence_updates", [])):
+        fail("Batch 12DZ genealogy hypothesis zero-vote update missing")
 
     ncl = next(n for n in nodes if n.get("node_id") == "PHYSICAL-COPY-SISHI-QIHOU-NCL03164-OLD-MANUSCRIPT")
     if ncl.get("physical_copy_date") != "UNRESOLVED":

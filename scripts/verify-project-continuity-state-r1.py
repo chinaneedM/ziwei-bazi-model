@@ -60,6 +60,8 @@ ZIWEI_NAJDA_SUISHU_12DX_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-
 ZIWEI_NAJDA_SUISHU_12DX_EVIDENCE = ROOT / "docs/research/ZIWEI-NAJDA-SUISHU-YUAN-LOUKE-48ARROW-HUANGJI5986-PHYSICAL-CLOSURE-R1.json"
 ZIWEI_WUZONG_12DY_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WUZONG-SHILU-1518-MULTISOURCE-LOCAL-CALIBRATION-PROPOSAL-DY.md"
 ZIWEI_WUZONG_12DY_EVIDENCE = ROOT / "docs/research/ZIWEI-WUZONG-SHILU-1518-MULTISOURCE-LOCAL-CALIBRATION-PROPOSAL-R1.json"
+ZIWEI_LANPEN_12DZ_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-LANPEN-KYOTO-40-60-PHYSICAL-AND-HUQIAN-COPY-CONTROL-DZ.md"
+ZIWEI_LANPEN_12DZ_EVIDENCE = ROOT / "docs/research/ZIWEI-LANPEN-KYOTO-40-60-PHYSICAL-HUQIAN-COPY-CONTROL-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -316,9 +318,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-YONEZAWA-SHILIN1492-LIKOU-48ARROW-24QI-PHYSICAL-CLOSURE-DW",
     "BATCH-12-ZIWEI-NAJDA-SUISHU-YUAN-LOUKE-48ARROW-HUANGJI5986-PHYSICAL-CLOSURE-DX",
     "BATCH-12-ZIWEI-WUZONG-SHILU-1518-MULTISOURCE-LOCAL-CALIBRATION-PROPOSAL-DY",
+    "BATCH-12-ZIWEI-LANPEN-KYOTO-40-60-PHYSICAL-AND-HUQIAN-COPY-CONTROL-DZ",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WUZONG-SHILU-1518-MULTISOURCE-LOCAL-CALIBRATION-PROPOSAL-DY.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-LANPEN-KYOTO-40-60-PHYSICAL-AND-HUQIAN-COPY-CONTROL-DZ.md"
 
 
 def fail(message: str) -> None:
@@ -451,6 +454,37 @@ def main() -> int:
         fail("Batch 12DY numeric/lineage firewall regressed")
     if any(ad12dy.get(k) for k in ("matrix_count_change", "runtime_rule_change", "algorithm_reopen_authorized", "candidate_collapse_authorized")):
         fail("Batch 12DY product firewall regressed")
+
+    for path in (ZIWEI_LANPEN_12DZ_BATCH, ZIWEI_LANPEN_12DZ_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12DZ continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12dz = json.loads(ZIWEI_LANPEN_12DZ_EVIDENCE.read_text(encoding="utf-8"))
+    if batch12dz.get("batch_id") != "BATCH-12-ZIWEI-LANPEN-KYOTO-40-60-PHYSICAL-AND-HUQIAN-COPY-CONTROL-DZ":
+        fail("Batch 12DZ evidence identity mismatch")
+    coll12dz = batch12dz.get("direct_physical_collation", {})
+    c34dz = coll12dz.get("kyoto_canvas_34", {})
+    c35dz = coll12dz.get("kyoto_canvas_35", {})
+    c40dz = coll12dz.get("kyoto_canvas_40", {})
+    if c34dz.get("normalized_numeric_observation", {}).get("day_night_pair") != "46/54" or c34dz.get("normalized_numeric_observation", {}).get("date_window") != "雨水後四日至後九日":
+        fail("Batch 12DZ Kyoto Rainwater bucket regressed")
+    if "五十九刻四十一刻" not in c35dz.get("direct", ()) or "六十刻四十刻" not in c35dz.get("direct", ()):
+        fail("Batch 12DZ Kyoto 59/41->60/40 control regressed")
+    if "享保元丙申稔仲冬上旬以宋刻古本校正訖" not in c40dz.get("direct", ()):
+        fail("Batch 12DZ Song-print collation claim regressed")
+    ind12dz = coll12dz.get("tianyi_independent_0004676", {})
+    if "虎鈐經卷第十一" not in ind12dz.get("direct", ()) or "虎鈐經卷第二十終" not in ind12dz.get("direct", ()):
+        fail("Batch 12DZ independent Tianyi juan-range control regressed")
+    ad12dz = batch12dz.get("adjudication", {})
+    if ad12dz.get("pre1578_physical_carrier_for_kyoto_table") != "NOT_CLOSED" or ad12dz.get("nanjing_59_whole_ke_recomposition_rule") != "OPEN" or ad12dz.get("direct_sanming_parent_vote_increment") != 0:
+        fail("Batch 12DZ chronology/numeric firewall regressed")
+    if any(ad12dz.get(k) for k in ("matrix_count_change", "runtime_rule_change", "algorithm_reopen_authorized", "candidate_collapse_authorized")):
+        fail("Batch 12DZ product firewall regressed")
+    dz_kyoto = next((s for s in registry.get("sources", []) if s.get("source_id") == "EXT-KYOTO-RB00017646-LANPEN-JIEQI-LOUKE"), None)
+    dz_tianyi = next((s for s in registry.get("sources", []) if s.get("source_id") == "EXT-TIANYIGE-HUQIANJING-MING-0004676-V11-20-CONTROL"), None)
+    if dz_kyoto is None or dz_tianyi is None:
+        fail("Batch 12DZ external-source registry binding missing")
+    if dz_tianyi.get("batch_12dz", {}).get("target_juan7_present") is not False:
+        fail("Batch 12DZ Tianyi negative-scope control regressed")
 
     for path in (ZIWEI_KYUDB_12DT_BATCH, ZIWEI_KYUDB_12DT_EVIDENCE):
         if not path.is_file():

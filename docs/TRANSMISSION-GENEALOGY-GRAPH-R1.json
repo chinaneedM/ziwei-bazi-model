@@ -1515,6 +1515,55 @@
         "docs/research/ZIWEI-WUZONG-SHILU-1518-MULTISOURCE-LOCAL-CALIBRATION-PROPOSAL-R1.json"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-WUZONG-SHILU-1518-MULTISOURCE-LOCAL-CALIBRATION-PROPOSAL-DY"
+    },
+    {
+      "node_id": "PHYSICAL-COPY-LANPEN-KYOTO-RB00017646",
+      "node_type": "PHYSICAL_COPY",
+      "label": "京都大学蔵《蘭盆疏鈔餘義》RB00017646写本",
+      "system_scope": "SONG_BUDDHIST_RECEIVED_TEXT_WITH_SEASONAL_TIMEKEEPING_TABLE",
+      "work_internal_chronology": "Received work tradition associated with Song; current batch does not convert work chronology into physical-copy chronology.",
+      "physical_copy_date": "UNRESOLVED_MANUSCRIPT",
+      "internal_collation_colophon_date": "1716_XIANGBAO_1_BINGSHEN",
+      "digital_surrogate_date": "2023_KYOTO_DIGITIZATION",
+      "identifier": "RB00017646 / 藏||14||ラ||2",
+      "evidence": [
+        "EXT-KYOTO-RB00017646-LANPEN-JIEQI-LOUKE",
+        "docs/research/ZIWEI-LANPEN-KYOTO-40-60-PHYSICAL-HUQIAN-COPY-CONTROL-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-LANPEN-KYOTO-40-60-PHYSICAL-AND-HUQIAN-COPY-CONTROL-DZ"
+    },
+    {
+      "node_id": "PASSAGE-LANPEN-KYOTO-1716-SONG-PRINT-COLLATION-COLOPHON",
+      "node_type": "PASSAGE",
+      "label": "京都RB00017646享保元年宋刻古本校正跋",
+      "system_scope": "TRANSMISSION_COLLATION_CLAIM",
+      "internal_date": "1716_XIANGBAO_1_BINGSHEN",
+      "direct_text": [
+        "享保元丙申稔仲冬上旬以宋刻古本校正訖",
+        "日本國南京沙門秀慶識"
+      ],
+      "claim_scope": "Claims collation against a Song printed old book; does not itself constitute the Song physical exemplar and does not prove every target-table numeral unchanged.",
+      "evidence": [
+        "EXT-KYOTO-RB00017646-LANPEN-JIEQI-LOUKE",
+        "docs/research/ZIWEI-LANPEN-KYOTO-40-60-PHYSICAL-HUQIAN-COPY-CONTROL-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-LANPEN-KYOTO-40-60-PHYSICAL-AND-HUQIAN-COPY-CONTROL-DZ"
+    },
+    {
+      "node_id": "RULE-FAMILY-LANPEN-JINGFUDIAN-WHOLEKE-40-60",
+      "node_type": "RULE_FAMILY",
+      "label": "《蘭盆疏鈔餘義·節氣加減刻漏規式》40↔60整刻表家族",
+      "system_scope": "CROSS_DISCIPLINARY_SEASONAL_TIMEKEEPING",
+      "mechanical_identity": "Direct Kyoto physical manuscript table uses whole-ke day/night pairs across a 40/60..60/40 ladder. Rainwater after day 4 through after day 9 is 46/54; 59/41 occurs as an interior/penultimate bucket and the table continues to 60/40.",
+      "direct_yushui_bucket": "46/54 @ 雨水後四日至後九日",
+      "contains_59_41": true,
+      "terminal_summer_cap": "60/40",
+      "pre1578_physical_witness": false,
+      "evidence": [
+        "EXT-KYOTO-RB00017646-LANPEN-JIEQI-LOUKE",
+        "docs/research/ZIWEI-LANPEN-KYOTO-40-60-PHYSICAL-HUQIAN-COPY-CONTROL-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-LANPEN-KYOTO-40-60-PHYSICAL-AND-HUQIAN-COPY-CONTROL-DZ"
     }
   ],
   "edges": [
@@ -2767,6 +2816,51 @@
       ],
       "scope_note": "Shows later pre-1578 institutional locality-calibration context explicitly includes Nanjing. Does not assert that the proposal generated, rounded, transmitted or numerically defined the 1447 59-ke standard.",
       "adjudication_batch": "BATCH-12-ZIWEI-WUZONG-SHILU-1518-MULTISOURCE-LOCAL-CALIBRATION-PROPOSAL-DY"
+    },
+    {
+      "edge_id": "TG-E0084",
+      "from": "PHYSICAL-COPY-LANPEN-KYOTO-RB00017646",
+      "relation": "ATTESTS",
+      "to": "RULE-FAMILY-LANPEN-JINGFUDIAN-WHOLEKE-40-60",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_FOR_DIRECT_PHYSICAL_TABLE_CONTENT",
+      "evidence_class": "DIRECT_NO_OCR_MANUSCRIPT_TABLE_REVIEW",
+      "evidence": [
+        "EXT-KYOTO-RB00017646-LANPEN-JIEQI-LOUKE",
+        "docs/research/ZIWEI-LANPEN-KYOTO-40-60-PHYSICAL-HUQIAN-COPY-CONTROL-R1.json"
+      ],
+      "scope_note": "Attests the received manuscript table only; physical-copy chronology remains unresolved.",
+      "adjudication_batch": "BATCH-12-ZIWEI-LANPEN-KYOTO-40-60-PHYSICAL-AND-HUQIAN-COPY-CONTROL-DZ"
+    },
+    {
+      "edge_id": "TG-E0085",
+      "from": "PHYSICAL-COPY-LANPEN-KYOTO-RB00017646",
+      "relation": "ATTESTS",
+      "to": "PASSAGE-LANPEN-KYOTO-1716-SONG-PRINT-COLLATION-COLOPHON",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_FOR_INTERNAL_COLOPHON_TEXT",
+      "evidence_class": "DIRECT_NO_OCR_MANUSCRIPT_COLOPHON_REVIEW",
+      "evidence": [
+        "EXT-KYOTO-RB00017646-LANPEN-JIEQI-LOUKE",
+        "docs/research/ZIWEI-LANPEN-KYOTO-40-60-PHYSICAL-HUQIAN-COPY-CONTROL-R1.json"
+      ],
+      "scope_note": "Attests the 1716 collation claim, not the survival or exact numerical contents of the cited Song printed exemplar.",
+      "adjudication_batch": "BATCH-12-ZIWEI-LANPEN-KYOTO-40-60-PHYSICAL-AND-HUQIAN-COPY-CONTROL-DZ"
+    },
+    {
+      "edge_id": "TG-E0086",
+      "from": "RULE-FAMILY-LANPEN-JINGFUDIAN-WHOLEKE-40-60",
+      "relation": "STRUCTURAL_ANCESTRY_CANDIDATE_FOR",
+      "to": "TABLE-SANMING-1578-DAYNIGHT-KE",
+      "status": "POSSIBLE",
+      "confidence": "MEDIUM_FOR_MECHANISM_CLASS_ONLY_LOW_FOR_DIRECT_LINEAGE",
+      "evidence_class": "DIRECT_RECEIVED_WHOLE_KE_TABLE_PLUS_LATER_SONG_PRINT_COLLATION_CLAIM_WITH_ENDPOINT_MISMATCH",
+      "evidence": [
+        "EXT-KYOTO-RB00017646-LANPEN-JIEQI-LOUKE",
+        "docs/research/ZIWEI-LANPEN-KYOTO-40-60-PHYSICAL-HUQIAN-COPY-CONTROL-R1.json"
+      ],
+      "scope_note": "Supports whole-ke seasonal binning as an ancestry mechanism class; Lanpen reaches 60/40 and therefore cannot be an unchanged Sanming 59/41 table.",
+      "adjudication_batch": "BATCH-12-ZIWEI-LANPEN-KYOTO-40-60-PHYSICAL-AND-HUQIAN-COPY-CONTROL-DZ"
     }
   ],
   "lineage_hypotheses": [
@@ -2911,6 +3005,10 @@
         {
           "batch": "BATCH-12-ZIWEI-WUZONG-SHILU-1518-MULTISOURCE-LOCAL-CALIBRATION-PROPOSAL-DY",
           "update": "The 1518 Wuzong Shilu Zhu Yu memorial directly closes a pre-1578 Qintianjian proposal for multisource regional calibration: old/new calendar cross-checking, Observatory measurements, Clepsydra Office day/night water-clock adjustment, Huihui-calendar verification, and Nanjing/Zhejiang gnomon observations are to converge before calendar revision. The same record says the matter was sent to the Ministry and Zhu Yu/Qintianjian officers were not considered sufficiently reliable for immediate entrustment, so this is proposal/method-context evidence, not proof of adoption or execution. It adds zero exact Sanming-parent vote and no 59-ke reduction rule."
+        },
+        {
+          "batch": "BATCH-12-ZIWEI-LANPEN-KYOTO-40-60-PHYSICAL-AND-HUQIAN-COPY-CONTROL-DZ",
+          "update": "Kyoto RB00017646 directly closes a received whole-ke 40/60..60/40 seasonal table: 雨水後四日至後九日 is 46/54, 59/41 appears inside the ladder, and the table continues to 60/40. Its 1716 internal note explicitly claims collation against a Song printed old book, but the surviving manuscript copy date is unresolved and the colophon is not a surviving pre-1578 physical table witness. Re-probed Tianyi Huqian remains a distinct 47/53->48/52, 60/40 family with unresolved exact Ming impression year; second Tianyi object 0004676 is juan 11-20 only and adds no juan-7 vote. Zero exact Sanming-parent vote and no Nanjing-59 recomposition rule are added."
         }
       ],
       "endpoint_anchor_component_identified": true,
@@ -3350,6 +3448,32 @@
         "docs/research/ZIWEI-SANMING-1578-SEASONAL-TABLE-DIRECT-PHYSICAL-COLLATION-R1.json"
       ],
       "adjudication_batch": "BATCH-12-ZIWEI-NAJDA-SUISHU-YUAN-LOUKE-48ARROW-HUANGJI5986-PHYSICAL-CLOSURE-DX"
+    },
+    {
+      "from": "RULE-FAMILY-LANPEN-JINGFUDIAN-WHOLEKE-40-60",
+      "relation": "DIRECT_UNCHANGED_TABLE_IDENTITY_WITH",
+      "to": "TABLE-SANMING-1578-DAYNIGHT-KE",
+      "status": "DISPROVED",
+      "reason": "The directly reviewed Kyoto table physically contains 59/41 but continues to a terminal 60/40, whereas the exact 1578 Sanming target terminates at 59/41. Bare occurrence of 59/41 is therefore not unchanged-table identity.",
+      "evidence": [
+        "EXT-KYOTO-RB00017646-LANPEN-JIEQI-LOUKE",
+        "docs/research/ZIWEI-LANPEN-KYOTO-40-60-PHYSICAL-HUQIAN-COPY-CONTROL-R1.json"
+      ],
+      "adjudication_batch": "BATCH-12-ZIWEI-LANPEN-KYOTO-40-60-PHYSICAL-AND-HUQIAN-COPY-CONTROL-DZ"
+    },
+    {
+      "from": "RULE-FAMILY-LANPEN-JINGFUDIAN-WHOLEKE-40-60",
+      "relation": "DIRECT_UNCHANGED_TABLE_IDENTITY_WITH",
+      "to": "RULE-FAMILY-HUQIANJING-CHUANJIAN-20ARROW-40-60",
+      "status": "DISPROVED",
+      "reason": "The reviewed Rainwater fingerprints differ: Kyoto Lanpen assigns 46/54 to 雨水後四日至後九日, while the directly reviewed Huqian table has 雨水初日 47/53 and 後第九日 48/52. Shared 40↔60 architecture does not establish unchanged table identity.",
+      "evidence": [
+        "EXT-KYOTO-RB00017646-LANPEN-JIEQI-LOUKE",
+        "EXT-TIANYIGE-HUQIANJING-MING-CHUANJIAN",
+        "docs/research/ZIWEI-LANPEN-KYOTO-40-60-PHYSICAL-HUQIAN-COPY-CONTROL-R1.json",
+        "docs/research/ZIWEI-HUQIANJING-CHANGE-DAY-FINGERPRINT-SANMING-COMPARISON-R1.json"
+      ],
+      "adjudication_batch": "BATCH-12-ZIWEI-LANPEN-KYOTO-40-60-PHYSICAL-AND-HUQIAN-COPY-CONTROL-DZ"
     }
   ],
   "backfill": {
