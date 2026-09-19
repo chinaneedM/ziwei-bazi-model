@@ -1,0 +1,145 @@
+name: probe-jiutangshu-jiajing17-guizhou-rounding
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-jiutangshu-jiajing17-guizhou-rounding.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Acquire 1538 Jiutangshu volume and locate guilou rounding passage
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/jiutangshu-jiajing17-guizhou-rounding'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT/pages" "$ROOT/ocr-low"
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils tesseract-ocr tesseract-ocr-chi-tra >/dev/null
+          python -m pip install --quiet pillow
+          python - <<'PY'
+          import hashlib, json, pathlib, re, subprocess, tempfile, urllib.parse, urllib.request
+          from PIL import Image, ImageDraw
+
+          root=pathlib.Path("audit/jiutangshu-jiajing17-guizhou-rounding")
+          title="File:NCL-01535 07 舊唐書.pdf"
+          api="https://commons.wikimedia.org/w/api.php?" + urllib.parse.urlencode({
+              "action":"query","format":"json","formatversion":"2",
+              "prop":"imageinfo","iiprop":"url|size|sha1|extmetadata","titles":title
+          })
+          headers={"User-Agent":"Tianwen-Provenance-Audit/1.0"}
+          with urllib.request.urlopen(urllib.request.Request(api,headers=headers),timeout=60) as r:
+              meta=json.load(r)
+          page=meta["query"]["pages"][0]
+          ii=page["imageinfo"][0]
+          url=ii["url"]
+          (root/"commons-metadata.json").write_text(json.dumps(meta,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+
+          with urllib.request.urlopen(urllib.request.Request(url,headers=headers),timeout=300) as r:
+              data=r.read()
+          pdf=root/"jiutangshu-ncl01535-07.pdf"
+          pdf.write_bytes(data)
+          pdf_sha=hashlib.sha256(data).hexdigest()
+          info=subprocess.run(["pdfinfo",str(pdf)],stdout=subprocess.PIPE,check=True).stdout.decode("utf-8",errors="replace")
+          (root/"pdfinfo.txt").write_text(info,encoding="utf-8")
+          m=re.search(r"^Pages:\s+(\d+)",info,re.M)
+          pages=int(m.group(1)) if m else 151
+
+          terms=["舊唐書卷三十四","旧唐书卷三十四","大衍步日躔術","大衍步日躔术","半已上從一","半已上从一","已下棄之","已下弃之","下求軌漏","下求轨漏","軌漏","轨漏"]
+          hits=[]
+          tmp=pathlib.Path(tempfile.mkdtemp(prefix="jiutang-low-"))
+          for n in range(1,pages+1):
+              prefix=tmp/f"p{n:03d}"
+              subprocess.run(["pdftoppm","-f",str(n),"-singlefile","-jpeg","-r","95",str(pdf),str(prefix)],
+                             check=True,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
+              jpg=pathlib.Path(str(prefix)+".jpg")
+              proc=subprocess.run(["tesseract",str(jpg),"stdout","-l","chi_tra","--psm","6"],
+                                  stdout=subprocess.PIPE,stderr=subprocess.DEVNULL,check=False)
+              txt=proc.stdout.decode("utf-8",errors="replace")
+              (root/"ocr-low"/f"p{n:03d}.txt").write_text(txt,encoding="utf-8")
+              compact="".join(txt.split())
+              found=[t for t in terms if t in compact]
+              if found:
+                  hits.append({"page":n,"terms":found,"context":" ".join(txt.split())[:2200]})
+              jpg.unlink(missing_ok=True)
+
+          selected=set(range(1,min(8,pages)+1))
+          selected.update(range(max(1,pages-7),pages+1))
+          for h in hits:
+              n=h["page"]
+              selected.update(range(max(1,n-3),min(pages,n+3)+1))
+          selected=sorted(selected)
+
+          manifest=[]
+          for n in selected:
+              prefix=root/"pages"/f"p{n:03d}"
+              subprocess.run(["pdftoppm","-f",str(n),"-singlefile","-jpeg","-r","220",str(pdf),str(prefix)],
+                             check=True,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
+              p=pathlib.Path(str(prefix)+".jpg")
+              b=p.read_bytes()
+              manifest.append({"page":n,"file":p.name,"bytes":len(b),"sha256":hashlib.sha256(b).hexdigest()})
+
+          paths=sorted((root/"pages").glob("p*.jpg"))
+          cols=4; per=16
+          for start in range(0,len(paths),per):
+              chunk=paths[start:start+per]; thumbs=[]
+              for p in chunk:
+                  n=int(p.stem[1:])
+                  im=Image.open(p).convert("RGB")
+                  tw=360; ratio=tw/im.width
+                  im=im.resize((tw,max(1,int(im.height*ratio))))
+                  c=Image.new("RGB",(tw,im.height+28),"white"); c.paste(im,(0,28))
+                  ImageDraw.Draw(c).text((6,6),f"PDF p{n}",fill="black"); thumbs.append(c)
+              cw=max(x.width for x in thumbs); ch=max(x.height for x in thumbs)
+              rows=(len(thumbs)+cols-1)//cols
+              sheet=Image.new("RGB",(cols*cw,rows*ch),"white")
+              for k,im in enumerate(thumbs): sheet.paste(im,((k%cols)*cw,(k//cols)*ch))
+              sheet.save(root/f"contact-{start+1:03d}-{start+len(chunk):03d}.jpg",quality=90,optimize=True)
+
+          ext=ii.get("extmetadata") or {}
+          report={
+              "schema":"JIUTANGSHU-JIAJING17-GUILOU-ROUNDING-PROBE-R1",
+              "schema_version":"1.0.0",
+              "commons_file_title":title,
+              "source_url":url,
+              "commons_sha1":ii.get("sha1"),
+              "pdf_sha256":pdf_sha,
+              "pdf_pages":pages,
+              "catalog_control":{
+                  "work":"舊唐書",
+                  "target_juan":"卷三十四 志第十四 歷三",
+                  "edition":"明嘉靖十七年（1538）聞人詮吳郡刊本",
+                  "ncl_call_number":"201.242 01535",
+                  "public_surrogate":"Wikimedia Commons / National Central Library scan"
+              },
+              "publication_date_metadata":(ext.get("Date") or {}).get("value"),
+              "low_res_ocr_hits":hits,
+              "ocr_authority":"LOCATOR_ONLY_NOT_FINAL_GLYPH_NUMERIC_OR_LINEAGE_AUTHORITY",
+              "selected_direct_review_pages":selected,
+              "page_manifest":manifest,
+              "target_received_text_control":"其分不滿全數…用百為母，半已上從一，已下棄之。下求軌漏，餘分不滿准此。",
+              "research_question":"Does a securely pre-1578 physical Jiutangshu edition directly preserve the half-up/discard-below-half rule and explicitly extend it to guilou, and if so can that rule explain the Nanjing 59-ke endpoint without explaining away the distinct Sanming/Yueling change-day fingerprint?",
+              "product_boundary":"Probe only; no runtime change, algorithm reopen, candidate collapse, or direct-parent promotion."
+          }
+          (root/"report.json").write_text(json.dumps(report,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+          print(json.dumps({"pdf_sha256":pdf_sha,"pages":pages,"hits":hits,"selected":selected},ensure_ascii=False,indent=2))
+          PY
+
+      - name: Upload Jiutangshu rounding probe
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: jiutangshu-jiajing17-guizhou-rounding
+          path: audit/jiutangshu-jiajing17-guizhou-rounding
+          if-no-files-found: error
+          retention-days: 30
