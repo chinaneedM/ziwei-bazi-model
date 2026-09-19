@@ -17,6 +17,7 @@ BATCH_12DS = ROOT / "docs/research/ZIWEI-NLC-TAIYIN-TONGGUI-CONTINUOUS-FEN-CONSU
 BATCH_12DT = ROOT / "docs/research/ZIWEI-KYUDB-DATONG-LIFA-TONGGUI-COMPONENT-SET-CROSSWALK-R1.json"
 BATCH_12DU = ROOT / "docs/research/ZIWEI-NLC-DATONG-LIFA-TONGGUI-XUXIU1031-PHYSICAL-SCOPE-R1.json"
 BATCH_12DV = ROOT / "docs/research/ZIWEI-XUXIU1031-ZHUNZHAI-CLEPSYDRA-JIEHOU-ARROW-SELECTION-R1.json"
+BATCH_12DW = ROOT / "docs/research/ZIWEI-YONEZAWA-SHILIN1492-LIKOU-48ARROW-24QI-PHYSICAL-CLOSURE-R1.json"
 
 
 def fail(message: str) -> None:
@@ -24,7 +25,7 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
-    for path in (CHARTER, PROTOCOL, GRAPH, STATE, BATCH_12CH, BATCH_12DP, BATCH_12DQ, BATCH_12DR, BATCH_12DS, BATCH_12DT, BATCH_12DU, BATCH_12DV):
+    for path in (CHARTER, PROTOCOL, GRAPH, STATE, BATCH_12CH, BATCH_12DP, BATCH_12DQ, BATCH_12DR, BATCH_12DS, BATCH_12DT, BATCH_12DU, BATCH_12DV, BATCH_12DW):
         if not path.is_file():
             fail(f"Tianwen transmission artifact missing: {path.relative_to(ROOT)}")
 
@@ -558,6 +559,28 @@ def main() -> int:
         fail("Batch 12DV unchanged-table non-edge missing")
     if not any(x.get("batch") == "BATCH-12-ZIWEI-XUXIU1031-ZHUNZHAI-CLEPSYDRA-JIEHOU-ARROW-SELECTION-DV" and "zero exact Sanming-parent vote" in x.get("update", "") for x in hyp12dk.get("evidence_updates", [])):
         fail("Batch 12DV genealogy hypothesis zero-vote update missing")
+
+    batch12dw = json.loads(BATCH_12DW.read_text(encoding="utf-8"))
+    if batch12dw.get("adjudication", {}).get("secure_pre1578_arrow_qi_physical_witness") != "CLOSED":
+        fail("Batch 12DW secure pre-1578 arrow/qi adjudication regressed")
+    copy12dw = next(n for n in nodes if n.get("node_id") == "PHYSICAL-COPY-YONEZAWA-SHILIN-AA060-HONGZHI5-1492")
+    rule12dw = next(n for n in nodes if n.get("node_id") == "RULE-FAMILY-SHILIN-48ARROW-24QI-40-60")
+    if copy12dw.get("physical_copy_date") != "MING_HONGZHI_5_1492_PRINT_AS_CATALOGUED" or copy12dw.get("secure_pre1578_physical_witness") is not True:
+        fail("Batch 12DW physical-copy chronology regressed")
+    if rule12dw.get("direct_arrow_count") != 48 or rule12dw.get("direct_qi_count") != 24 or rule12dw.get("direct_arrows_per_qi") != 2:
+        fail("Batch 12DW 48-arrow/24-qi mechanics regressed")
+    if rule12dw.get("direct_extrema") != {"winter_solstice": "40/60", "summer_solstice": "60/40", "equinox": "50/50"}:
+        fail("Batch 12DW 40/60 extrema control regressed")
+    e74 = next((e for e in edges if e.get("edge_id") == "TG-E0074"), None)
+    e75 = next((e for e in edges if e.get("edge_id") == "TG-E0075"), None)
+    if not e74 or e74.get("relation") != "ATTESTS" or e74.get("from") != "PHYSICAL-COPY-YONEZAWA-SHILIN-AA060-HONGZHI5-1492" or e74.get("to") != "RULE-FAMILY-SHILIN-48ARROW-24QI-40-60":
+        fail("Batch 12DW ATTESTS edge regressed")
+    if not e75 or e75.get("relation") != "STRUCTURAL_MECHANISM_CANDIDATE_FOR" or e75.get("status") != "POSSIBLE" or e75.get("to") != "TABLE-SANMING-1578-DAYNIGHT-KE":
+        fail("Batch 12DW structural-mechanism edge regressed")
+    if not any(x.get("from") == "RULE-FAMILY-SHILIN-48ARROW-24QI-40-60" and x.get("relation") == "DIRECT_UNCHANGED_TABLE_IDENTITY_WITH" and x.get("to") == "TABLE-SANMING-1578-DAYNIGHT-KE" and x.get("status") == "DISPROVED" for x in graph.get("explicit_non_edges", [])):
+        fail("Batch 12DW unchanged-table non-edge missing")
+    if not any(x.get("batch") == "BATCH-12-ZIWEI-YONEZAWA-SHILIN1492-LIKOU-48ARROW-24QI-PHYSICAL-CLOSURE-DW" and "zero exact Sanming-parent vote" in x.get("update", "") for x in hyp12dk.get("evidence_updates", [])):
+        fail("Batch 12DW genealogy hypothesis zero-vote update missing")
 
     ncl = next(n for n in nodes if n.get("node_id") == "PHYSICAL-COPY-SISHI-QIHOU-NCL03164-OLD-MANUSCRIPT")
     if ncl.get("physical_copy_date") != "UNRESOLVED":

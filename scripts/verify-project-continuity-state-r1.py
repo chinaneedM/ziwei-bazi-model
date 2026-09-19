@@ -54,6 +54,8 @@ ZIWEI_NLC_12DU_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BAT
 ZIWEI_NLC_12DU_EVIDENCE = ROOT / "docs/research/ZIWEI-NLC-DATONG-LIFA-TONGGUI-XUXIU1031-PHYSICAL-SCOPE-R1.json"
 ZIWEI_XUXIU_CLEPSYDRA_12DV_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-XUXIU1031-ZHUNZHAI-CLEPSYDRA-JIEHOU-ARROW-SELECTION-DV.md"
 ZIWEI_XUXIU_CLEPSYDRA_12DV_EVIDENCE = ROOT / "docs/research/ZIWEI-XUXIU1031-ZHUNZHAI-CLEPSYDRA-JIEHOU-ARROW-SELECTION-R1.json"
+ZIWEI_YONEZAWA_SHILIN_12DW_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-YONEZAWA-SHILIN1492-LIKOU-48ARROW-24QI-PHYSICAL-CLOSURE-DW.md"
+ZIWEI_YONEZAWA_SHILIN_12DW_EVIDENCE = ROOT / "docs/research/ZIWEI-YONEZAWA-SHILIN1492-LIKOU-48ARROW-24QI-PHYSICAL-CLOSURE-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -307,9 +309,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-KYUDB-DATONG-LIFA-TONGGUI-COMPONENT-SET-CROSSWALK-DT",
     "BATCH-12-ZIWEI-NLC-DATONG-LIFA-TONGGUI-XUXIU1031-PHYSICAL-SCOPE-DU",
     "BATCH-12-ZIWEI-XUXIU1031-ZHUNZHAI-CLEPSYDRA-JIEHOU-ARROW-SELECTION-DV",
+    "BATCH-12-ZIWEI-YONEZAWA-SHILIN1492-LIKOU-48ARROW-24QI-PHYSICAL-CLOSURE-DW",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-XUXIU1031-ZHUNZHAI-CLEPSYDRA-JIEHOU-ARROW-SELECTION-DV.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-YONEZAWA-SHILIN1492-LIKOU-48ARROW-24QI-PHYSICAL-CLOSURE-DW.md"
 
 
 def fail(message: str) -> None:
@@ -361,6 +364,37 @@ def main() -> int:
         fail("Batch 12DV Sanming lineage firewall regressed")
     if ad12dv.get("algorithm_reopen_authorized") is not False or ad12dv.get("matrix_count_change") is not False:
         fail("Batch 12DV product firewall regressed")
+    for path in (ZIWEI_YONEZAWA_SHILIN_12DW_BATCH, ZIWEI_YONEZAWA_SHILIN_12DW_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12DW continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12dw = json.loads(ZIWEI_YONEZAWA_SHILIN_12DW_EVIDENCE.read_text(encoding="utf-8"))
+    if batch12dw.get("batch_id") != "BATCH-12-ZIWEI-YONEZAWA-SHILIN1492-LIKOU-48ARROW-24QI-PHYSICAL-CLOSURE-DW":
+        fail("Batch 12DW evidence identity mismatch")
+    src12dw = batch12dw.get("source", {}).get("catalog_identity", {})
+    if src12dw.get("publication_year") != "弘治5年（1492）刊" or src12dw.get("secure_pre1578_print_witness") is not True:
+        fail("Batch 12DW first-party 1492 chronology control regressed")
+    direct12dw = batch12dw.get("direct_image_collation", {})
+    p15dw = direct12dw.get("AA060001_015", {})
+    p16dw = direct12dw.get("AA060001_016", {})
+    if "冬至晝四十刻夜六十刻" not in p15dw.get("direct", ()) or "夏至晝六十刻夜四十刻" not in p15dw.get("direct", ()):
+        fail("Batch 12DW 40/60 coarse extrema regressed")
+    for phrase in ("箭四十八", "二箭當一氣", "二十四氣大凡每氣差二分半", "冬至後行盈夏至後行縮"):
+        if phrase not in p16dw.get("direct", ()):
+            fail(f"Batch 12DW 48-arrow/24-qi mechanism regressed: {phrase}")
+    mech12dw = batch12dw.get("mechanism_comparison", {})
+    if mech12dw.get("arrow_count") != 48 or mech12dw.get("qi_count") != 24 or mech12dw.get("arrows_per_qi") != 2:
+        fail("Batch 12DW arrow/qi cardinality regressed")
+    ad12dw = batch12dw.get("adjudication", {})
+    if ad12dw.get("secure_pre1578_arrow_qi_physical_witness") != "CLOSED":
+        fail("Batch 12DW pre-1578 physical mechanism closure regressed")
+    if ad12dw.get("unchanged_direct_numeric_table_identity_with_sanming_1578") != "DISPROVED" or ad12dw.get("direct_sanming_parent_vote_increment") != 0:
+        fail("Batch 12DW Sanming numeric/lineage firewall regressed")
+    if any(ad12dw.get(k) for k in ("matrix_count_change", "runtime_rule_change", "algorithm_reopen_authorized", "candidate_collapse_authorized")):
+        fail("Batch 12DW product firewall regressed")
+    reg12dw = next((s for s in registry.get("sources", []) if s.get("source_id") == "EXT-YONEZAWA-SHILIN-AA060-HONGZHI5-1492"), None)
+    if reg12dw is None or reg12dw.get("batch_12dw", {}).get("secure_pre1578_print_witness") is not True:
+        fail("Batch 12DW external-source registry binding missing")
+
     for path in (ZIWEI_KYUDB_12DT_BATCH, ZIWEI_KYUDB_12DT_EVIDENCE):
         if not path.is_file():
             fail(f"Batch 12DT continuity artifact missing: {path.relative_to(ROOT)}")

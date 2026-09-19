@@ -1,0 +1,137 @@
+{
+  "schema": "ZIWEI-YONEZAWA-SHILIN1492-LIKOU-48ARROW-24QI-PHYSICAL-CLOSURE-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-YONEZAWA-SHILIN1492-LIKOU-48ARROW-24QI-PHYSICAL-CLOSURE-DW",
+  "status": "SECURE_PRE1578_PHYSICAL_48ARROW_24QI_MECHANISM_CLOSED_WITH_40_60_NUMERIC_DIVERGENCE",
+  "source": {
+    "title": "《群書類要事林廣記》十二卷",
+    "provider": "市立米沢図書館デジタルライブラリー",
+    "catalog_url": "https://www.library.yonezawa.yamagata.jp/dg/AA060.html",
+    "viewer_url": "https://www.library.yonezawa.yamagata.jp/dg/AA060_view.html",
+    "catalog_identity": {
+      "call_number": "米沢善本60",
+      "management_number": "AA060001",
+      "publisher": "刊本　詹氏進徳精舎刊本",
+      "publication_year": "弘治5年（1492）刊",
+      "extent": "12巻・12冊 / 375丁",
+      "secure_pre1578_print_witness": true
+    }
+  },
+  "workflow_evidence": {
+    "route_probe": {
+      "commit_sha": "c093f5d5e7504cf3e60e51a312b7baf7137c4d6b",
+      "run_id": 35439896355,
+      "artifact_id": 10583615625,
+      "artifact_digest": "sha256:48daba78184a60b8e7f3afda80b3789ad8614879efcb24e781bbc3ad89c419d7",
+      "result": "First-party viewer route exposed AA060_view.html and data/AA060/001/AA060001_001.jpg."
+    },
+    "physical_page_probe": {
+      "commit_sha": "d750ed339f4f10bac8fc35c498b0aae769727b8e",
+      "run_id": 35440299002,
+      "job_id": 105889826159,
+      "artifact_id": 10583821131,
+      "artifact_digest": "sha256:126b756814bfb1dbde6cd536b2a45398f746e8b0f82231801557ec9e4fb54782",
+      "acquired_books": [
+        "AA060001",
+        "AA060002"
+      ],
+      "acquired_page_count": 48,
+      "ocr_locator_hit_count": 0,
+      "ocr_used_for_final_glyph_numeric_or_mechanism_claims": false,
+      "note": "OCR was locator-only and returned no target-term hits; final claims come from direct visual review of source-bound first-party JPEGs."
+    }
+  },
+  "direct_image_collation": {
+    "AA060001_015": {
+      "url": "https://www.library.yonezawa.yamagata.jp/dg/data/AA060/001/AA060001_015.jpg",
+      "sha256": "ebbf7717500d3ef2dd07b77f1f44bcaed235c321bf68ff9d89c500bf26f31d3a",
+      "bytes": 444233,
+      "direct": [
+        "古制蓮漏之圖",
+        "刻漏制",
+        "成周挈壺氏以百刻分晝夜",
+        "冬至晝四十刻夜六十刻",
+        "夏至晝六十刻夜四十刻",
+        "春秋二分晝夜各五十刻"
+      ],
+      "role": "Direct 100-ke and 40/60 coarse-extrema control in the securely dated 1492 physical print."
+    },
+    "AA060001_016": {
+      "url": "https://www.library.yonezawa.yamagata.jp/dg/data/AA060/001/AA060001_016.jpg",
+      "sha256": "96c1ba3aa77df00739194ce04f5fd351521a7001591d125297e0df840786dc52",
+      "bytes": 405748,
+      "direct": [
+        "今制蓮漏之圖",
+        "宋朝所用之制亦如於唐而其法以晝夜百刻",
+        "分十二時每時有八刻二十分每刻六十分",
+        "箭四十八",
+        "二箭當一氣",
+        "二十四氣大凡每氣差二分半",
+        "冬至後行盈夏至後行縮"
+      ],
+      "mechanism": "Hundred-ke clepsydra; 48 arrows; two arrows per qi; 24-qi cycle; each qi differs by 2.5 fen; seasonal direction increases after winter solstice and decreases after summer solstice."
+    }
+  },
+  "chronology_adjudication": {
+    "first_party_catalog_print_date": "MING_HONGZHI_5_1492",
+    "securely_pre1578_physical_print_witness": true,
+    "exact_binding_of_48_arrow_mechanism_to_1492_object": "CLOSED"
+  },
+  "mechanism_comparison": {
+    "pre1578_solar_term_indexed_discrete_arrow_architecture": "CLOSED",
+    "arrow_count": 48,
+    "qi_count": 24,
+    "arrows_per_qi": 2,
+    "per_qi_difference": "2.5 fen",
+    "seasonal_direction": "WINTER_SOLSTICE_AFTER_INCREASE / SUMMER_SOLSTICE_AFTER_DECREASE",
+    "same_copy_coarse_extrema": {
+      "winter_solstice": "40/60",
+      "summer_solstice": "60/40",
+      "equinox": "50/50"
+    },
+    "exact_within_qi_change_day_selection_rule": "UNRESOLVED",
+    "exact_sanming_1578_59_41_numeric_identity": false,
+    "exact_nanjing_59_endpoint_binding": "UNRESOLVED",
+    "exact_sanming_yueling_dahan13_yushui4_fingerprint": "UNRESOLVED",
+    "direct_sanming_parent_vote_increment": 0
+  },
+  "adjudication": {
+    "secure_pre1578_arrow_qi_physical_witness": "CLOSED",
+    "explicit_two_arrows_per_qi_binding": "CLOSED",
+    "unchanged_direct_numeric_table_identity_with_sanming_1578": "DISPROVED",
+    "exact_sanming_within_qi_selection_boundary": "UNRESOLVED",
+    "exact_nanjing_59_endpoint_binding": "UNRESOLVED",
+    "exact_sanming_yueling_dahan13_yushui4_fingerprint": "UNRESOLVED",
+    "direct_sanming_parent_vote_increment": 0,
+    "matrix_count_change": false,
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [
+      "PHYSICAL-COPY-YONEZAWA-SHILIN-AA060-HONGZHI5-1492",
+      "RULE-FAMILY-SHILIN-48ARROW-24QI-40-60"
+    ],
+    "edges_supported": [
+      "TG-E0074",
+      "TG-E0075"
+    ],
+    "explicit_non_edge_added": "RULE-FAMILY-SHILIN-48ARROW-24QI-40-60 DIRECT_UNCHANGED_TABLE_IDENTITY_WITH TABLE-SANMING-1578-DAYNIGHT-KE = DISPROVED",
+    "unresolved_lineage_questions": [
+      "Find a pre-1578 Chinese source that binds a whole-ke interior selection/reduction layer to the Nanjing 59-ke endpoint.",
+      "Find the pre-1578 source of the Sanming/Yueling 大寒十三後 / 雨水後四日 transition fingerprint.",
+      "Determine whether any pre-1578 source gives the within-qi change-day rule for the 48-arrow/two-arrows-per-qi mechanism."
+    ]
+  },
+  "project_consequence": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "missing_from_product_rows": 10,
+    "provenance_defects_repaired": "12/12",
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0,
+    "deterministic_product_status": "CLOSED"
+  }
+}
