@@ -13,6 +13,7 @@ BATCH_12CH = ROOT / "docs/research/ZIWEI-SISHI-QIHOU-JINGTAI6-TONGSHU-TABLE-CONT
 BATCH_12DP = ROOT / "docs/research/ZIWEI-DATONG-CIIN-49-58-CROSSING-AND-QICE-OFFSET-REPLAY-R1.json"
 BATCH_12DQ = ROOT / "docs/research/ZIWEI-DATONG-NANJING59-ENDPOINT-RECOMPOSITION-R1.json"
 BATCH_12DR = ROOT / "docs/research/ZIWEI-NLC-TAIYIN-TONGGUI-CHENGHUA-PHYSICAL-CII-N-CLOSURE-R1.json"
+BATCH_12DS = ROOT / "docs/research/ZIWEI-NLC-TAIYIN-TONGGUI-CONTINUOUS-FEN-CONSUMER-INTERFACE-R1.json"
 
 
 def fail(message: str) -> None:
@@ -20,7 +21,7 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
-    for path in (CHARTER, PROTOCOL, GRAPH, STATE, BATCH_12CH, BATCH_12DP, BATCH_12DQ, BATCH_12DR):
+    for path in (CHARTER, PROTOCOL, GRAPH, STATE, BATCH_12CH, BATCH_12DP, BATCH_12DQ, BATCH_12DR, BATCH_12DS):
         if not path.is_file():
             fail(f"Tianwen transmission artifact missing: {path.relative_to(ROOT)}")
 
@@ -397,6 +398,26 @@ def main() -> int:
         for x in hyp12dk.get("evidence_updates", [])
     ):
         fail("Batch 12DR genealogy hypothesis Chinese-carrier update missing")
+
+    local12ds = cii12dr.get("local_consumer_interface_after_12ds", {})
+    if local12ds.get("full_morning_fraction_directly_copied_and_consumed") is not True or local12ds.get("full_evening_fraction_directly_copied_and_consumed") is not True:
+        fail("Batch 12DS C-II-N full-fraction consumer-interface node regressed")
+    if local12ds.get("whole_ke_reduction_attested_in_reviewed_interface") is not False or local12ds.get("nanjing_59_endpoint_binding_attested_in_reviewed_interface") is not False:
+        fail("Batch 12DS C-II-N local whole-ke/endpoint firewall regressed")
+    if local12ds.get("scope_limit") != "LOCAL_INTERFACE_ONLY_NOT_WHOLE_WORK_NEGATIVE":
+        fail("Batch 12DS C-II-N scope firewall regressed")
+    batch12ds = json.loads(BATCH_12DS.read_text(encoding="utf-8"))
+    if batch12ds.get("adjudication", {}).get("local_taiyin_interface_preserves_full_fractional_fen") != "CLOSED":
+        fail("Batch 12DS local fractional-consumer adjudication regressed")
+    if batch12ds.get("adjudication", {}).get("exact_pre1578_whole_ke_reduction_selection_rule_found") is not False:
+        fail("Batch 12DS missing whole-ke-rule firewall regressed")
+    if not any(
+        x.get("batch") == "BATCH-12-ZIWEI-NLC-TAIYIN-TONGGUI-CONTINUOUS-FEN-CONSUMER-INTERFACE-DS"
+        and "local consumer interface" in x.get("update", "")
+        and "zero exact Sanming-parent or quantization-rule vote" in x.get("update", "")
+        for x in hyp12dk.get("evidence_updates", [])
+    ):
+        fail("Batch 12DS genealogy hypothesis interface-narrowing update missing")
 
     leibian_fine = next(n for n in nodes if n.get("node_id") == "TABLE-LEIBIAN-FINE-SISHI-38-62")
     if leibian_fine.get("exact_sanming_yueling_target_identity") is not False:

@@ -1,0 +1,136 @@
+{
+  "schema": "ZIWEI-NLC-TAIYIN-TONGGUI-CONTINUOUS-FEN-CONSUMER-INTERFACE-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-NLC-TAIYIN-TONGGUI-CONTINUOUS-FEN-CONSUMER-INTERFACE-DS",
+  "prior_batch_id": "BATCH-12-ZIWEI-NLC-TAIYIN-TONGGUI-CHENGHUA-PHYSICAL-CII-N-CLOSURE-DR",
+  "question": "At the directly reviewed Taiyin Tonggui interface surrounding the C-II-N morning/evening table, are 晨分/昏分 first reduced to whole ke, or are the full fractional fen values copied and consumed directly in the lunar computation?",
+  "answer": "THE REVIEWED INTERFACE DIRECTLY RETAINS AND CONSUMES FULL 晨分/昏分; NO WHOLE-KE REDUCTION OR 59-KE ENDPOINT-BINDING INSTRUCTION IS ATTESTED IN THE REVIEWED P12-P24 INTERFACE.",
+  "source_identity": {
+    "source_id": "EXT-NLC-TAIYIN-TONGGUI-CHENGHUA-411999012050-PHYSICAL",
+    "nlc_object_id": "411999012050",
+    "title": "太陰通軌",
+    "physical_copy_scope": "MING_CHENGHUA_MANUSCRIPT_PER_12DR_BIBLIOGRAPHIC_CONTROL",
+    "reviewed_volume": 2,
+    "reviewed_pdf_page_range": "12-24",
+    "final_glyph_authority": "DIRECT_PHYSICAL_SURROGATE_NO_OCR"
+  },
+  "direct_physical_controls": {
+    "page_12": {
+      "render_sha256": "7af238834a551e79f45133f4e683b5d6cde27d75d51562a9e0e983e812ea3bd7",
+      "direct_heading": "推第十格晨入轉日并晨分及晨轉度分法",
+      "direct_statements": [
+        "晨分者就將元加之晨分全錄於晨日同格為各推得之晨分也",
+        "晨轉度分者置各第八格推得遲疾轉定度全分以其本格推得晨分全分為法"
+      ],
+      "mechanism": "The morning fraction is copied in full and then used as the divisor/basis for the morning turn-degree calculation.",
+      "whole_ke_reduction_before_use_attested": false
+    },
+    "page_14": {
+      "render_sha256": "0bbed80c9f1bce507c7b472cdf6a4f45971f47d6450105cda130220ce326e4c2",
+      "direct_heading": "推第十二格昏入轉日并昏分及昏轉度分法",
+      "direct_statements": [
+        "昏分者就將元加之昏分全錄於昏日同格為各推得昏分也",
+        "昏轉度分者亦置其第八格推得遲疾轉定度全分以其本格推得昏分全分為法"
+      ],
+      "mechanism": "The evening fraction is symmetrically copied in full and directly used in the evening turn-degree calculation.",
+      "whole_ke_reduction_before_use_attested": false
+    },
+    "page_15": {
+      "render_sha256": "5fe45f2483dd7f5a4e92506845cec74bd72901dae3f62e59de24fd1ef7b4016b",
+      "direct_heading": "冬夏二至日出晨昏分立成鈐",
+      "initial_numeric_control": {
+        "winter_morning_fen": 2681.7,
+        "winter_dusk_fen": 7318.3
+      },
+      "table_unit": "FEN_WITH_FRACTIONAL_PRECISION_NOT_WHOLE_KE"
+    },
+    "page_24": {
+      "render_sha256": "6cfdbc58a0c0f98300c8b76a7ea2b446a22e23a3a42e87b52b750dd3a50e4c1d",
+      "direct_post_table_heading": "推第十四格相距度分并轉積度分法",
+      "scope_effect": "After the continuous 晨昏 table, the text resumes lunar relative-distance/turn-accumulation computation rather than inserting a day/night whole-ke conversion stage."
+    }
+  },
+  "reviewed_interface_adjudication": {
+    "morning_full_fraction_copied_directly": true,
+    "evening_full_fraction_copied_directly": true,
+    "fractional_table_values_used_in_lunar_computation": true,
+    "whole_ke_rounding_instruction_observed": false,
+    "whole_ke_floor_instruction_observed": false,
+    "whole_ke_nearest_instruction_observed": false,
+    "whole_ke_ceiling_instruction_observed": false,
+    "clepsydra_arrow_change_instruction_observed": false,
+    "explicit_nanjing_59_ke_endpoint_binding_observed": false,
+    "exact_sanming_yueling_change_day_fingerprint_observed": false,
+    "scope_limit": "OBJECT_SCOPED_P12_P24_INTERFACE_NONATTESTATION_ONLY; NOT A WHOLE-WORK OR ALL-DATONG-TEXT NEGATIVE"
+  },
+  "locator_only_transcription_control": {
+    "provider": "Shidian transcription surface for the same NLC object",
+    "role": "LOCATOR_AND_READING_ASSIST_ONLY_NOT_FINAL_GLYPH_AUTHORITY",
+    "searched_terms": [
+      "刻",
+      "百刻",
+      "漏",
+      "箭",
+      "晝夜",
+      "半晝"
+    ],
+    "returned_matches_in_reviewed_search": 0,
+    "negative_authority_increment": 0
+  },
+  "mechanism_impact": {
+    "cii_n_continuous_fractional_consumer_interface_closed": true,
+    "exact_integer_reduction_rule_narrowed_out_of_this_local_interface": true,
+    "possible_remaining_locations": [
+      "parallel or downstream Tongshu/almanac table recomposition",
+      "clepsydra/change-arrow institutional layer",
+      "other Datong/Tonggui text not in the reviewed p12-p24 interface",
+      "editorial selection/recomposition between continuous calendar substrate and Sanming display"
+    ],
+    "direct_sanming_parent_vote_increment": 0,
+    "exact_quantization_rule_vote_increment": 0
+  },
+  "adjudication": {
+    "local_taiyin_interface_preserves_full_fractional_fen": "CLOSED",
+    "local_taiyin_interface_whole_ke_reduction_attested": false,
+    "exact_pre1578_whole_ke_reduction_selection_rule_found": false,
+    "exact_pre1578_binding_to_nanjing_59_endpoint_found": false,
+    "exact_sanming_yueling_change_day_fingerprint_explained": false,
+    "new_runtime_candidate_created": false,
+    "runtime_winner_selected": false,
+    "candidate_collapsed": false,
+    "algorithm_reopen_authorized": false
+  },
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_added": [],
+    "node_strengthened": "TABLE-NANJING-DATONG-DAILY-CII-N-1380S",
+    "hypothesis_updated": "TG-H0001",
+    "lineage_effect": "The Chinese physical carrier now also demonstrates a continuous-fraction consumer interface. This narrows the missing whole-ke layer away from the reviewed local Taiyin calculation stage without changing direct-copy genealogy."
+  },
+  "product_adjudication": {
+    "matrix_rule_id": "HPA-ZDATE-006",
+    "status_before": "MISSING_FROM_PRODUCT",
+    "status_after": "MISSING_FROM_PRODUCT",
+    "matrix_count_change": false,
+    "deterministic_fusion_chart_product_r1": "CLOSED",
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "identified_missing_candidate_families": 14,
+    "confirmed_provenance_metadata_defect_count": 12,
+    "repaired_provenance_metadata_defect_count": 12,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Search outside the reviewed Taiyin p12-p24 local consumer interface for the pre-1578 whole-ke reduction / table-selection / change-arrow rule.",
+    "Prioritize Tongshu/almanac, clepsydra, official calendar and related Datong/Tonggui witnesses that can bind the C-II-N continuous substrate to the Nanjing 59-ke endpoint.",
+    "Continue the exact 大寒十三後 / 雨水後四日 fingerprint search.",
+    "Locate and physically collate the separately reported NLC three-juan 大統曆法通軌."
+  ]
+}

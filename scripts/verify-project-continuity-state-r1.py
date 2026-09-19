@@ -46,6 +46,8 @@ ZIWEI_DATONG_NANJING59_12DQ_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENA
 ZIWEI_DATONG_NANJING59_12DQ_EVIDENCE = ROOT / "docs/research/ZIWEI-DATONG-NANJING59-ENDPOINT-RECOMPOSITION-R1.json"
 ZIWEI_NLC_TAIYIN_12DR_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-TAIYIN-TONGGUI-CHENGHUA-PHYSICAL-CII-N-CLOSURE-DR.md"
 ZIWEI_NLC_TAIYIN_12DR_EVIDENCE = ROOT / "docs/research/ZIWEI-NLC-TAIYIN-TONGGUI-CHENGHUA-PHYSICAL-CII-N-CLOSURE-R1.json"
+ZIWEI_NLC_TAIYIN_12DS_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-TAIYIN-TONGGUI-CONTINUOUS-FEN-CONSUMER-INTERFACE-DS.md"
+ZIWEI_NLC_TAIYIN_12DS_EVIDENCE = ROOT / "docs/research/ZIWEI-NLC-TAIYIN-TONGGUI-CONTINUOUS-FEN-CONSUMER-INTERFACE-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -295,9 +297,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-DATONG-CIIN-49-58-CROSSING-AND-QICE-OFFSET-REPLAY-DP",
     "BATCH-12-ZIWEI-DATONG-NANJING59-ENDPOINT-RECOMPOSITION-DQ",
     "BATCH-12-ZIWEI-NLC-TAIYIN-TONGGUI-CHENGHUA-PHYSICAL-CII-N-CLOSURE-DR",
+    "BATCH-12-ZIWEI-NLC-TAIYIN-TONGGUI-CONTINUOUS-FEN-CONSUMER-INTERFACE-DS",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-TAIYIN-TONGGUI-CHENGHUA-PHYSICAL-CII-N-CLOSURE-DR.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-TAIYIN-TONGGUI-CONTINUOUS-FEN-CONSUMER-INTERFACE-DS.md"
 
 
 def fail(message: str) -> None:
@@ -305,6 +308,39 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
+    for path in (ZIWEI_NLC_TAIYIN_12DS_BATCH, ZIWEI_NLC_TAIYIN_12DS_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12DS continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12ds = json.loads(ZIWEI_NLC_TAIYIN_12DS_EVIDENCE.read_text(encoding="utf-8"))
+    if batch12ds.get("batch_id") != "BATCH-12-ZIWEI-NLC-TAIYIN-TONGGUI-CONTINUOUS-FEN-CONSUMER-INTERFACE-DS":
+        fail("Batch 12DS evidence identity mismatch")
+    phy12ds = batch12ds.get("direct_physical_controls", {})
+    p12ds = phy12ds.get("page_12", {})
+    p14ds = phy12ds.get("page_14", {})
+    p15ds = phy12ds.get("page_15", {})
+    p24ds = phy12ds.get("page_24", {})
+    if p12ds.get("direct_heading") != "推第十格晨入轉日并晨分及晨轉度分法" or p12ds.get("whole_ke_reduction_before_use_attested") is not False:
+        fail("Batch 12DS morning-interface heading/firewall regressed")
+    if "晨分者就將元加之晨分全錄於晨日同格為各推得之晨分也" not in p12ds.get("direct_statements", ()) or "晨轉度分者置各第八格推得遲疾轉定度全分以其本格推得晨分全分為法" not in p12ds.get("direct_statements", ()):
+        fail("Batch 12DS morning full-fraction statements regressed")
+    if p14ds.get("direct_heading") != "推第十二格昏入轉日并昏分及昏轉度分法" or p14ds.get("whole_ke_reduction_before_use_attested") is not False:
+        fail("Batch 12DS evening-interface heading/firewall regressed")
+    if "昏分者就將元加之昏分全錄於昏日同格為各推得昏分也" not in p14ds.get("direct_statements", ()) or "昏轉度分者亦置其第八格推得遲疾轉定度全分以其本格推得昏分全分為法" not in p14ds.get("direct_statements", ()):
+        fail("Batch 12DS evening full-fraction statements regressed")
+    if p15ds.get("direct_heading") != "冬夏二至日出晨昏分立成鈐" or p15ds.get("table_unit") != "FEN_WITH_FRACTIONAL_PRECISION_NOT_WHOLE_KE":
+        fail("Batch 12DS table-unit control regressed")
+    if p24ds.get("direct_post_table_heading") != "推第十四格相距度分并轉積度分法":
+        fail("Batch 12DS post-table boundary regressed")
+    adj12ds = batch12ds.get("reviewed_interface_adjudication", {})
+    if adj12ds.get("morning_full_fraction_copied_directly") is not True or adj12ds.get("evening_full_fraction_copied_directly") is not True:
+        fail("Batch 12DS full-fraction consumer closure regressed")
+    if adj12ds.get("whole_ke_rounding_instruction_observed") is not False or adj12ds.get("explicit_nanjing_59_ke_endpoint_binding_observed") is not False:
+        fail("Batch 12DS whole-ke/endpoint local-interface firewall regressed")
+    if "OBJECT_SCOPED_P12_P24_INTERFACE_NONATTESTATION_ONLY" not in adj12ds.get("scope_limit", ""):
+        fail("Batch 12DS object-scope firewall regressed")
+    if batch12ds.get("adjudication", {}).get("algorithm_reopen_authorized") is not False:
+        fail("Batch 12DS product firewall regressed")
+
     for path in (ZIWEI_NLC_TAIYIN_12DR_BATCH, ZIWEI_NLC_TAIYIN_12DR_EVIDENCE):
         if not path.is_file():
             fail(f"Batch 12DR continuity artifact missing: {path.relative_to(ROOT)}")
@@ -884,6 +920,12 @@ def main() -> int:
     matrix = json.loads(MATRIX.read_text(encoding="utf-8"))
     registry = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
     source12dr = next((x for x in registry.get("sources", []) if x.get("source_id") == "EXT-NLC-TAIYIN-TONGGUI-CHENGHUA-411999012050-PHYSICAL"), None)
+    if source12dr is not None:
+        iface12ds = source12dr.get("batch_12ds_local_consumer_interface", {})
+        if iface12ds.get("continuous_fractional_consumer_interface_closed") is not True or iface12ds.get("whole_ke_reduction_in_reviewed_interface_attested") is not False:
+            fail("Batch 12DS source-registry continuous-fraction interface regressed")
+        if iface12ds.get("ocr_used_for_final_glyph_or_mechanism_claims") is not False:
+            fail("Batch 12DS source-registry no-OCR firewall regressed")
     if source12dr is None or source12dr.get("identifier") != "NLC object 411999012050 / NLC892-411999012050-103144 / NLC892-411999012050-103188":
         fail("Batch 12DR source-registry NLC object binding missing")
     if source12dr.get("acquisition", {}).get("ocr_used_for_final_glyph_or_numeric_claims") is not False:
@@ -2846,6 +2888,9 @@ def main() -> int:
         fail("Batch 12S Matrix witness-count firewall regressed")
 
     focus_text = "\n".join(audit_state.get("current_focus", ()))
+    for fragment in ("Batch 12DS", "晨分全分", "昏分全分", "continuous-fraction consumer interface"):
+        if fragment not in focus_text:
+            fail(f"Batch 12DS current-focus marker missing: {fragment}")
     for fragment in ("Batch 12DR", "411999012050", "2681.70", "1819.66", "Chinese pre-1578 physical carrier"):
         if fragment not in focus_text:
             fail(f"Batch 12DR current-focus marker missing: {fragment}")

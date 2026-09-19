@@ -148,11 +148,27 @@
       "mechanical_identity": "Daily post-solstice half-day numerical curve, independently classified as Type C-II-N / Nanjing; capable of generating the continuous 42→59 daylight-ke range after unit conversion.",
       "evidence": [
         "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DATONG-RICHU-DAILY-TABLE-SANMING-MULTIPOINT-REPLAY-CG.md",
-        "docs/research/ZIWEI-NLC-TAIYIN-TONGGUI-CHENGHUA-PHYSICAL-CII-N-CLOSURE-R1.json"
+        "docs/research/ZIWEI-NLC-TAIYIN-TONGGUI-CHENGHUA-PHYSICAL-CII-N-CLOSURE-R1.json",
+        "docs/research/ZIWEI-NLC-TAIYIN-TONGGUI-CONTINUOUS-FEN-CONSUMER-INTERFACE-R1.json"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-SISHI-QIHOU-JINGTAI6-TONGSHU-TABLE-CONTROL-CH",
       "direct_chinese_pre1578_physical_carrier_closed": true,
-      "direct_chinese_pre1578_physical_carrier": "PHYSICAL-COPY-NLC-TAIYIN-TONGGUI-CHENGHUA-411999012050"
+      "direct_chinese_pre1578_physical_carrier": "PHYSICAL-COPY-NLC-TAIYIN-TONGGUI-CHENGHUA-411999012050",
+      "local_consumer_interface_after_12ds": {
+        "physical_carrier": "PHYSICAL-COPY-NLC-TAIYIN-TONGGUI-CHENGHUA-411999012050",
+        "reviewed_scope": "NLC volume 2 PDF p12-p24",
+        "full_morning_fraction_directly_copied_and_consumed": true,
+        "full_evening_fraction_directly_copied_and_consumed": true,
+        "whole_ke_reduction_attested_in_reviewed_interface": false,
+        "clepsydra_change_arrow_rule_attested_in_reviewed_interface": false,
+        "nanjing_59_endpoint_binding_attested_in_reviewed_interface": false,
+        "exact_sanming_yueling_fingerprint_attested_in_reviewed_interface": false,
+        "scope_limit": "LOCAL_INTERFACE_ONLY_NOT_WHOLE_WORK_NEGATIVE",
+        "evidence": [
+          "docs/research/ZIWEI-NLC-TAIYIN-TONGGUI-CONTINUOUS-FEN-CONSUMER-INTERFACE-R1.json",
+          "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-TAIYIN-TONGGUI-CONTINUOUS-FEN-CONSUMER-INTERFACE-DS.md"
+        ]
+      }
     },
     {
       "node_id": "TABLE-SANMING-1578-DAYNIGHT-KE",
@@ -2164,6 +2180,10 @@
         {
           "batch": "BATCH-12-ZIWEI-NLC-TAIYIN-TONGGUI-CHENGHUA-PHYSICAL-CII-N-CLOSURE-DR",
           "update": "A direct Chinese pre-1578 physical carrier is now closed: NLC object 411999012050 《太陰通軌》 preserves day0 2681.70/7318.30 and day178 1819.66/8180.34, exactly matching Kyujanggak GK12436 and the C-II-N replay. Surviving-copy chronology disproves the later Chenghua manuscript as direct ancestor of the earlier Sejong-era surviving Korean copy, so an earlier common table tradition/exemplar remains required. This closes the Chinese-carrier gap but leaves the whole-ke reduction/endpoint-binding rule and Sanming/Yueling exact fingerprint unresolved; zero exact Sanming-parent vote is added."
+        },
+        {
+          "batch": "BATCH-12-ZIWEI-NLC-TAIYIN-TONGGUI-CONTINUOUS-FEN-CONSUMER-INTERFACE-DS",
+          "update": "Direct NLC Taiyin p12-p24 review closes the local consumer interface: 晨分 and 昏分 are each explicitly 全錄 and then used as 晨分全分/昏分全分 in the lunar turn-degree calculation. No whole-ke reduction, change-arrow or 59-ke endpoint-binding instruction is attested in this local interface. This narrows the missing Sanming integer-display layer to another Datong/Tonggui section, Tongshu/almanac, clepsydra/institutional or editorial recomposition layer; it adds zero exact Sanming-parent or quantization-rule vote."
         }
       ],
       "endpoint_anchor_component_identified": true,
