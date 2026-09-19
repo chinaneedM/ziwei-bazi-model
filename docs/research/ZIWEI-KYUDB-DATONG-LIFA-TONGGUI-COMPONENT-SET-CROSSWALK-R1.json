@@ -1,0 +1,211 @@
+{
+  "schema": "ZIWEI-KYUDB-DATONG-LIFA-TONGGUI-COMPONENT-SET-CROSSWALK-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-KYUDB-DATONG-LIFA-TONGGUI-COMPONENT-SET-CROSSWALK-DT",
+  "prior_batch_id": "BATCH-12-ZIWEI-NLC-TAIYIN-TONGGUI-CONTINUOUS-FEN-CONSUMER-INTERFACE-DS",
+  "question": "Does the current Kyujanggak catalog expose Yuan Tong's 大統曆法通軌 as one aggregate-title record, or as a componentized holding set, and how should that catalog model be reconciled with the scholarly 12434–39 aggregate citation?",
+  "answer": "CURRENT FIRST-PARTY KYUDB EXACT-TITLE ROUTES EXPOSE SIX COMPONENT HOLDINGS GK12434_00–GK12439_00. LI LIANG 2022 BIBLIOGRAPHICALLY AGGREGATES COLLECTION NOS 12434–39 AS DATONG LIFA TONGGUI. THE CURRENT AGGREGATE-TITLE SEARCH NONRETURN IS THEREFORE A CATALOG-MODEL/SEARCH-SURFACE LIMITATION, NOT EVIDENCE THAT THE HOLDING IS ABSENT.",
+  "first_party_component_route": {
+    "provider": "Kyujanggak Institute for Korean Studies, Seoul National University",
+    "workflow_run_id": 35308888364,
+    "workflow_job_id": 105486610378,
+    "artifact_id": 10532910411,
+    "artifact_digest": "sha256:e42c0f37c29bbf484f162b73f99ea10b34bf7b20a49ec06c5074d0db34e9a52b",
+    "route_role": "DIRECT_CURRENT_CATALOG_EXACT_TITLE_AND_SOURCE_EMITTED_IDENTIFIER_CROSSWALK",
+    "components": [
+      {
+        "title": "四餘纏度通軌",
+        "book_cd": "GK12434_00",
+        "call_number": "奎貴12434",
+        "edition": "甲寅字",
+        "catalog_year_field": "1444",
+        "author_editor": "李純之·金淡(朝鮮) 受命編",
+        "node_id": "PHYSICAL-COPY-KYUDB-SIYU-GK12434-15C-GABINJA",
+        "direct_content_reviewed": false
+      },
+      {
+        "title": "太陽通軌",
+        "book_cd": "GK12435_00",
+        "call_number": "奎貴12435",
+        "edition": "甲寅字",
+        "catalog_year_field": "1418",
+        "author_editor": "李純之(朝鮮);金淡(朝鮮) 受命校正",
+        "node_id": "PHYSICAL-COPY-KYUDB-TAIYANG-GK12435-15C-GABINJA",
+        "direct_content_reviewed": false
+      },
+      {
+        "title": "太陰通軌",
+        "book_cd": "GK12436_00",
+        "call_number": "奎貴12436",
+        "edition": "甲寅字",
+        "catalog_year_field": "1418",
+        "author_editor": "李純之(朝鮮);金淡(朝鮮) 受命校正",
+        "node_id": "PHYSICAL-COPY-KYUDB-TAIYIN-GK12436-15C-GABINJA",
+        "direct_content_reviewed": true
+      },
+      {
+        "title": "大統曆日通軌",
+        "book_cd": "GK12437_00",
+        "call_number": "奎貴12437",
+        "edition": "甲寅字",
+        "catalog_year_field": "1418",
+        "author_editor": "李純之·金淡(朝鮮) 受命校正",
+        "node_id": "PHYSICAL-COPY-KYUDB-RITONGGUI-GK12437-15C-GABINJA",
+        "direct_content_reviewed": true
+      },
+      {
+        "title": "交食通軌",
+        "book_cd": "GK12438_00",
+        "call_number": "奎貴12438",
+        "edition": "甲寅字",
+        "catalog_year_field": "1418",
+        "author_editor": "李純之·金淡(朝鮮) 受命校正",
+        "node_id": "PHYSICAL-COPY-KYUDB-JIAOSHI-GK12438-15C-GABINJA",
+        "direct_content_reviewed": false
+      },
+      {
+        "title": "五星通軌",
+        "book_cd": "GK12439_00",
+        "call_number": "奎貴12439",
+        "edition": "甲寅字",
+        "catalog_year_field": "1418",
+        "author_editor": "李純之(朝鮮)·金淡(朝鮮) 受命校正",
+        "node_id": "PHYSICAL-COPY-KYUDB-WUXING-GK12439-15C-GABINJA",
+        "direct_content_reviewed": false
+      }
+    ],
+    "all_six_component_records_observed": true,
+    "all_six_edition_fields": "甲寅字",
+    "catalog_year_fields_mixed": true,
+    "exact_set_level_impression_year_adjudicated": false,
+    "source_bound_image_routes_emitted_for_all_six": true
+  },
+  "current_head_aggregate_title_probe": {
+    "workflow_run_id": 35434045642,
+    "workflow_job_id": 105873589715,
+    "artifact_id": 10581242234,
+    "artifact_digest": "sha256:acaef7b0d00a3d8d4fadc055f50978bc4f947beb7278cc6d79d94c796c5543cb",
+    "head_sha": "bc6651de3d00310f83da7820efc1c3bc6183523f",
+    "queries": [
+      {
+        "query": "大統曆法通軌",
+        "result": "CONNECTION_RESET",
+        "negative_authority": false
+      },
+      {
+        "query": "대통력법통궤",
+        "result": "ZERO_BOOK_CDS",
+        "negative_authority": false
+      },
+      {
+        "query": "大統曆法通軌四卷",
+        "result": "ZERO_BOOK_CDS",
+        "negative_authority": false
+      },
+      {
+        "query": "大統通軌",
+        "result": "ZERO_BOOK_CDS",
+        "negative_authority": false
+      },
+      {
+        "query": "대통통궤",
+        "result": "ZERO_BOOK_CDS",
+        "negative_authority": false
+      }
+    ],
+    "aggregate_catalog_record_observed": false,
+    "no_holding_conclusion_authorized": false,
+    "adjudication": "SUPERSEDED_AS_ABSENCE_TEST_BY_COMPONENT_SET_CROSSWALK; RETAINED AS CURRENT_SEARCH_SURFACE_CONTROL"
+  },
+  "secondary_scholarly_control": {
+    "source_id": "EXT-LI-LIANG-SUNRISE-TABLES-2022",
+    "author": "Li Liang 李亮",
+    "title": "Tables of Sunrise and Sunset in Yuan and Ming China (1271–1644) and their Adoption in Korea",
+    "publication_year": 2022,
+    "pages": "253-286",
+    "doi": "10.1484/M.PALS-EB.5.127700",
+    "bibliographic_aggregate": "Datong lifa tonggui = Yuan Tong; Gyujanggak collection nos 12434–39",
+    "printed_1444_statement_role": "HIGH_QUALITY_SECONDARY_DATE_WITNESS_ONLY",
+    "current_first_party_exact_copy_date_override_authorized": false
+  },
+  "catalog_model_adjudication": {
+    "aggregate_work_component_range": "GK12434_00–GK12439_00 / 奎貴12434–12439",
+    "aggregate_work_identity_confidence": "HIGH_FOR_BIBLIOGRAPHIC_COMPONENT_SET_CROSSWALK",
+    "single_aggregate_current_catalog_record_required": false,
+    "single_aggregate_current_catalog_record_observed": false,
+    "aggregate_title_search_nonreturn_proves_no_holding": false,
+    "same_component_range_proves_same_physical_volume": false,
+    "same_edition_label_proves_same_impression_date": false,
+    "mixed_catalog_year_fields_can_be_normalized_to_1444": false
+  },
+  "content_scope_firewall": {
+    "gk12436_direct_content_reviewed": true,
+    "gk12437_direct_content_reviewed": true,
+    "gk12434_gk12435_gk12438_gk12439_direct_content_reviewed_in_this_batch": false,
+    "gk12436_cii_n_table_may_be_imputed_to_other_components": false,
+    "whole_ke_reduction_rule_found": false,
+    "endpoint_binding_rule_found": false,
+    "exact_sanming_yueling_fingerprint_found": false,
+    "numeric_ancestry_vote_increment": 0
+  },
+  "adjudication": {
+    "kyudb_component_set_crosswalk": "CLOSED",
+    "aggregate_title_nonreturn_reclassified": "CATALOG_MODEL_SEARCH_BOUNDARY_NOT_ABSENCE_EVIDENCE",
+    "exact_1444_impression_date_for_every_surviving_component": "UNRESOLVED",
+    "exact_pre1578_whole_ke_reduction_selection_rule_found": false,
+    "new_runtime_candidate_created": false,
+    "runtime_winner_selected": false,
+    "candidate_collapsed": false,
+    "algorithm_reopen_authorized": false
+  },
+  "transmission_impact": {
+    "nodes_added": [
+      "TEXT-WORK-YUANTONG-DATONG-LIFA-TONGGUI-HONGWU17",
+      "EDITION-KYUDB-DATONG-LIFA-TONGGUI-GK12434-12439-GABINJA",
+      "PHYSICAL-COPY-KYUDB-SIYU-GK12434-15C-GABINJA",
+      "PHYSICAL-COPY-KYUDB-TAIYANG-GK12435-15C-GABINJA",
+      "PHYSICAL-COPY-KYUDB-JIAOSHI-GK12438-15C-GABINJA",
+      "PHYSICAL-COPY-KYUDB-WUXING-GK12439-15C-GABINJA"
+    ],
+    "nodes_strengthened": [
+      "PHYSICAL-COPY-KYUDB-TAIYIN-GK12436-15C-GABINJA",
+      "PHYSICAL-COPY-KYUDB-RITONGGUI-GK12437-15C-GABINJA"
+    ],
+    "edges_added": [
+      "TG-E0062",
+      "TG-E0063",
+      "TG-E0064",
+      "TG-E0065",
+      "TG-E0066",
+      "TG-E0067",
+      "TG-E0068"
+    ],
+    "lineage_effect": "The current Kyujanggak component records are now explicitly crosswalked to a scholarly aggregate 大統曆法通軌 edition-set identity. This improves work/edition/copy modeling only; it adds zero whole-ke, endpoint, exact-fingerprint or Sanming-parent vote."
+  },
+  "product_adjudication": {
+    "matrix_rule_id": "HPA-ZDATE-006",
+    "status_before": "MISSING_FROM_PRODUCT",
+    "status_after": "MISSING_FROM_PRODUCT",
+    "matrix_count_change": false,
+    "deterministic_fusion_chart_product_r1": "CLOSED",
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "identified_missing_candidate_families": 14,
+    "confirmed_provenance_metadata_defect_count": 12,
+    "repaired_provenance_metadata_defect_count": 12,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Return to the primary mechanism gate: locate a Chinese pre-1578 whole-ke reduction / table-selection / change-arrow / endpoint-binding instruction outside the reviewed Taiyin p12-p24 interface.",
+    "Continue the exact 大寒十三後 / 雨水後四日 fingerprint search.",
+    "Locate and physically collate the separately reported NLC three-juan 大統曆法通軌 rather than treating Kyujanggak aggregate-title nonreturn as a substitute.",
+    "For Kyujanggak GK12434/GK12435/GK12438/GK12439, acquire direct physical pages only when a concrete mechanism locator justifies the cost; do not impute GK12436 contents across the set."
+  ]
+}

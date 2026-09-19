@@ -14,6 +14,7 @@ BATCH_12DP = ROOT / "docs/research/ZIWEI-DATONG-CIIN-49-58-CROSSING-AND-QICE-OFF
 BATCH_12DQ = ROOT / "docs/research/ZIWEI-DATONG-NANJING59-ENDPOINT-RECOMPOSITION-R1.json"
 BATCH_12DR = ROOT / "docs/research/ZIWEI-NLC-TAIYIN-TONGGUI-CHENGHUA-PHYSICAL-CII-N-CLOSURE-R1.json"
 BATCH_12DS = ROOT / "docs/research/ZIWEI-NLC-TAIYIN-TONGGUI-CONTINUOUS-FEN-CONSUMER-INTERFACE-R1.json"
+BATCH_12DT = ROOT / "docs/research/ZIWEI-KYUDB-DATONG-LIFA-TONGGUI-COMPONENT-SET-CROSSWALK-R1.json"
 
 
 def fail(message: str) -> None:
@@ -21,7 +22,7 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
-    for path in (CHARTER, PROTOCOL, GRAPH, STATE, BATCH_12CH, BATCH_12DP, BATCH_12DQ, BATCH_12DR, BATCH_12DS):
+    for path in (CHARTER, PROTOCOL, GRAPH, STATE, BATCH_12CH, BATCH_12DP, BATCH_12DQ, BATCH_12DR, BATCH_12DS, BATCH_12DT):
         if not path.is_file():
             fail(f"Tianwen transmission artifact missing: {path.relative_to(ROOT)}")
 
@@ -81,6 +82,12 @@ def main() -> int:
         "STANDARD-NANJING-59KE-1447",
         "TABLE-NANJING-DATONG-DAILY-CII-N-1380S",
         "TABLE-SANMING-1578-DAYNIGHT-KE",
+        "TEXT-WORK-YUANTONG-DATONG-LIFA-TONGGUI-HONGWU17",
+        "EDITION-KYUDB-DATONG-LIFA-TONGGUI-GK12434-12439-GABINJA",
+        "PHYSICAL-COPY-KYUDB-SIYU-GK12434-15C-GABINJA",
+        "PHYSICAL-COPY-KYUDB-TAIYANG-GK12435-15C-GABINJA",
+        "PHYSICAL-COPY-KYUDB-JIAOSHI-GK12438-15C-GABINJA",
+        "PHYSICAL-COPY-KYUDB-WUXING-GK12439-15C-GABINJA",
         "TABLE-HANXIANFU-1010-24QI-PRECISION",
         "PHYSICAL-COPY-HUQIANJING-TIANYIGE-MING",
         "PHYSICAL-COPY-HUQIANJING-CADAL06049792-SIKU",
@@ -472,6 +479,33 @@ def main() -> int:
     shendao = next(n for n in nodes if n.get("node_id") == "PHYSICAL-COPY-SHENDAO-HKU-B17672971-FASC4")
     if "UNRESOLVED_WITHIN_RANGE" not in shendao.get("physical_copy_date", ""):
         fail("Shendao manuscript was falsely narrowed to a pre-1578 physical-copy date")
+
+    batch12dt = json.loads(BATCH_12DT.read_text(encoding="utf-8"))
+    if batch12dt.get("adjudication", {}).get("kyudb_component_set_crosswalk") != "CLOSED":
+        fail("Batch 12DT component-set adjudication regressed")
+    if batch12dt.get("adjudication", {}).get("exact_1444_impression_date_for_every_surviving_component") != "UNRESOLVED":
+        fail("Batch 12DT exact-date adjudication firewall regressed")
+    edition12dt = next(n for n in nodes if n.get("node_id") == "EDITION-KYUDB-DATONG-LIFA-TONGGUI-GK12434-12439-GABINJA")
+    if edition12dt.get("exact_set_level_impression_year_proved") is not False or len(edition12dt.get("component_identifiers", [])) != 6:
+        fail("Batch 12DT aggregate edition date firewall regressed")
+    e62 = next((e for e in edges if e.get("edge_id") == "TG-E0062"), None)
+    if not e62 or e62.get("from") != "EDITION-KYUDB-DATONG-LIFA-TONGGUI-GK12434-12439-GABINJA" or e62.get("relation") != "EDITION_OF" or e62.get("to") != "TEXT-WORK-YUANTONG-DATONG-LIFA-TONGGUI-HONGWU17":
+        fail("Batch 12DT aggregate edition/work edge regressed")
+    component_nodes12dt = [
+        "PHYSICAL-COPY-KYUDB-SIYU-GK12434-15C-GABINJA",
+        "PHYSICAL-COPY-KYUDB-TAIYANG-GK12435-15C-GABINJA",
+        "PHYSICAL-COPY-KYUDB-TAIYIN-GK12436-15C-GABINJA",
+        "PHYSICAL-COPY-KYUDB-RITONGGUI-GK12437-15C-GABINJA",
+        "PHYSICAL-COPY-KYUDB-JIAOSHI-GK12438-15C-GABINJA",
+        "PHYSICAL-COPY-KYUDB-WUXING-GK12439-15C-GABINJA",
+    ]
+    for node_id in component_nodes12dt:
+        if not any(e.get("from") == node_id and e.get("relation") == "PHYSICAL_COPY_OF_EDITION" and e.get("to") == "EDITION-KYUDB-DATONG-LIFA-TONGGUI-GK12434-12439-GABINJA" and e.get("status") == "HIGH_CONFIDENCE" for e in edges):
+            fail(f"Batch 12DT component-set edge missing: {node_id}")
+    if batch12dt.get("content_scope_firewall", {}).get("gk12436_cii_n_table_may_be_imputed_to_other_components") is not False:
+        fail("Batch 12DT sibling-content imputation firewall regressed")
+    if not any(x.get("batch") == "BATCH-12-ZIWEI-KYUDB-DATONG-LIFA-TONGGUI-COMPONENT-SET-CROSSWALK-DT" and "zero whole-ke" in x.get("update", "") and "Sanming-parent vote" in x.get("update", "") for x in hyp12dk.get("evidence_updates", [])):
+        fail("Batch 12DT genealogy hypothesis zero-vote update missing")
 
     ncl = next(n for n in nodes if n.get("node_id") == "PHYSICAL-COPY-SISHI-QIHOU-NCL03164-OLD-MANUSCRIPT")
     if ncl.get("physical_copy_date") != "UNRESOLVED":

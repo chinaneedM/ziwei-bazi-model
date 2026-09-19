@@ -48,6 +48,8 @@ ZIWEI_NLC_TAIYIN_12DR_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AU
 ZIWEI_NLC_TAIYIN_12DR_EVIDENCE = ROOT / "docs/research/ZIWEI-NLC-TAIYIN-TONGGUI-CHENGHUA-PHYSICAL-CII-N-CLOSURE-R1.json"
 ZIWEI_NLC_TAIYIN_12DS_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-TAIYIN-TONGGUI-CONTINUOUS-FEN-CONSUMER-INTERFACE-DS.md"
 ZIWEI_NLC_TAIYIN_12DS_EVIDENCE = ROOT / "docs/research/ZIWEI-NLC-TAIYIN-TONGGUI-CONTINUOUS-FEN-CONSUMER-INTERFACE-R1.json"
+ZIWEI_KYUDB_12DT_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KYUDB-DATONG-LIFA-TONGGUI-COMPONENT-SET-CROSSWALK-DT.md"
+ZIWEI_KYUDB_12DT_EVIDENCE = ROOT / "docs/research/ZIWEI-KYUDB-DATONG-LIFA-TONGGUI-COMPONENT-SET-CROSSWALK-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -300,7 +302,7 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-NLC-TAIYIN-TONGGUI-CONTINUOUS-FEN-CONSUMER-INTERFACE-DS",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-TAIYIN-TONGGUI-CONTINUOUS-FEN-CONSUMER-INTERFACE-DS.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KYUDB-DATONG-LIFA-TONGGUI-COMPONENT-SET-CROSSWALK-DT.md"
 
 
 def fail(message: str) -> None:
@@ -308,6 +310,29 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
+    for path in (ZIWEI_KYUDB_12DT_BATCH, ZIWEI_KYUDB_12DT_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12DT continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12dt = json.loads(ZIWEI_KYUDB_12DT_EVIDENCE.read_text(encoding="utf-8"))
+    if batch12dt.get("batch_id") != "BATCH-12-ZIWEI-KYUDB-DATONG-LIFA-TONGGUI-COMPONENT-SET-CROSSWALK-DT":
+        fail("Batch 12DT evidence identity mismatch")
+    route12dt = batch12dt.get("first_party_component_route", {})
+    comps12dt = route12dt.get("components", [])
+    if route12dt.get("all_six_component_records_observed") is not True or len(comps12dt) != 6:
+        fail("Batch 12DT six-component first-party crosswalk regressed")
+    if [x.get("book_cd") for x in comps12dt] != ["GK12434_00", "GK12435_00", "GK12436_00", "GK12437_00", "GK12438_00", "GK12439_00"]:
+        fail("Batch 12DT component identifier sequence regressed")
+    if route12dt.get("exact_set_level_impression_year_adjudicated") is not False:
+        fail("Batch 12DT exact-date firewall regressed")
+    head12dt = batch12dt.get("current_head_aggregate_title_probe", {})
+    if head12dt.get("no_holding_conclusion_authorized") is not False or head12dt.get("aggregate_catalog_record_observed") is not False:
+        fail("Batch 12DT aggregate-search boundary regressed")
+    scope12dt = batch12dt.get("content_scope_firewall", {})
+    if scope12dt.get("gk12436_cii_n_table_may_be_imputed_to_other_components") is not False or scope12dt.get("whole_ke_reduction_rule_found") is not False:
+        fail("Batch 12DT cross-component/mechanism firewall regressed")
+    if batch12dt.get("adjudication", {}).get("algorithm_reopen_authorized") is not False:
+        fail("Batch 12DT product firewall regressed")
+
     for path in (ZIWEI_NLC_TAIYIN_12DS_BATCH, ZIWEI_NLC_TAIYIN_12DS_EVIDENCE):
         if not path.is_file():
             fail(f"Batch 12DS continuity artifact missing: {path.relative_to(ROOT)}")
@@ -2888,6 +2913,9 @@ def main() -> int:
         fail("Batch 12S Matrix witness-count firewall regressed")
 
     focus_text = "\n".join(audit_state.get("current_focus", ()))
+    for fragment in ("Batch 12DT", "GK12434_00", "GK12439_00", "aggregate-title search-surface control"):
+        if fragment not in focus_text:
+            fail(f"Batch 12DT current-focus marker missing: {fragment}")
     for fragment in ("Batch 12DS", "晨分全分", "昏分全分", "continuous-fraction consumer interface"):
         if fragment not in focus_text:
             fail(f"Batch 12DS current-focus marker missing: {fragment}")

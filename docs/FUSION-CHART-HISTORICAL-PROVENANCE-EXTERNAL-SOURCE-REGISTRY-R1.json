@@ -1239,7 +1239,25 @@
       "provider": "Brepols / Bayerische Akademie der Wissenschaften public chapter PDF",
       "url": "https://doi.org/10.1484/M.PALS-EB.5.127700",
       "source_role": "PEER_REVIEWED_NUMERICAL_TABLE_HISTORY_AND_CONFLICTING_COPY_DATE_WITNESS_FOR_KYUJANGGAK_893",
-      "quality_notes": "The chapter's bibliography/reference key explicitly identifies Shoushili licheng, Kyujanggak collection no. 893, as printed in 1444. This conflicts with Li 2018's 1434 reprint statement and KOSTMA's 1434 print-history association. Because Kyujanggak's own live catalog only dates the surviving copy to the first half of the 15th century / Sejong 1418-1450, this 1444 statement is retained as a high-quality secondary date witness, not silently promoted to copy-specific fact or target-glyph authority. The same study classifies the Shoushi Type-II sunrise/sunset table as C-II-B (Beijing/Dadu) and the Great Concordance/Datong Type-II table as C-II-N (Nanjing); Batch 12CW uses that modern classification only after direct physical numerical collation, not as a substitute for the physical pages."
+      "quality_notes": "The chapter's bibliography/reference key explicitly identifies Shoushili licheng, Kyujanggak collection no. 893, as printed in 1444. This conflicts with Li 2018's 1434 reprint statement and KOSTMA's 1434 print-history association. Because Kyujanggak's own live catalog only dates the surviving copy to the first half of the 15th century / Sejong 1418-1450, this 1444 statement is retained as a high-quality secondary date witness, not silently promoted to copy-specific fact or target-glyph authority. The same study classifies the Shoushi Type-II sunrise/sunset table as C-II-B (Beijing/Dadu) and the Great Concordance/Datong Type-II table as C-II-N (Nanjing); Batch 12CW uses that modern classification only after direct physical numerical collation, not as a substitute for the physical pages.",
+      "batch_12dt_datong_lifa_tonggui_component_set_crosswalk": {
+        "aggregate_work": "大統曆法通軌 / Datong lifa tonggui",
+        "scholarly_collection_range": "Gyujanggak collection nos 12434–39",
+        "scholarly_print_date_statement": 1444,
+        "date_role": "HIGH_QUALITY_SECONDARY_DATE_WITNESS_NOT_COPY_SPECIFIC_OVERRIDE",
+        "first_party_crosscheck_run_id": 35308888364,
+        "first_party_component_ids": [
+          "GK12434_00",
+          "GK12435_00",
+          "GK12436_00",
+          "GK12437_00",
+          "GK12438_00",
+          "GK12439_00"
+        ],
+        "aggregate_crosswalk_status": "HIGH_CONFIDENCE",
+        "exact_surviving_component_impression_date_status": "UNRESOLVED",
+        "research_artifact": "docs/research/ZIWEI-KYUDB-DATONG-LIFA-TONGGUI-COMPONENT-SET-CROSSWALK-R1.json"
+      }
     },
     {
       "source_id": "EXT-KYUJANGGAK-CHILJEONGSAN-NAEPYEON-G894-1444",
@@ -5098,6 +5116,42 @@
         "scope_firewall": "OBJECT_SCOPED_P12_P24_ONLY",
         "ocr_used_for_final_glyph_or_mechanism_claims": false,
         "research_artifact": "docs/research/ZIWEI-NLC-TAIYIN-TONGGUI-CONTINUOUS-FEN-CONSUMER-INTERFACE-R1.json"
+      }
+    },
+    {
+      "source_id": "EXT-KYUDB-DATONG-LIFA-TONGGUI-COMPONENT-SET-GK12434-39",
+      "title": "Kyujanggak current component-set crosswalk for 大統曆法通軌: 奎貴12434–12439",
+      "historical_period": "CURRENT_INSTITUTIONAL_CATALOG_CROSSWALK_TO_15TH_CENTURY_GABINJA_COMPONENT_HOLDINGS; EXACT_SET_LEVEL_IMPRESSION_DATE_UNRESOLVED",
+      "provider": "Kyujanggak Institute for Korean Studies, Seoul National University",
+      "url": "https://kyudb.snu.ac.kr/book/list.do?mid=GDS",
+      "source_role": "DIRECT_FIRST_PARTY_CURRENT_CATALOG_COMPONENT_SET_AND_IDENTIFIER_CROSSWALK",
+      "quality_notes": "Workflow 35308888364 / artifact 10532910411 directly binds six exact component titles to GK12434_00–GK12439_00 / 奎貴12434–12439 and emits source-bound image routes. All six records expose 甲寅字, while parsed catalog year fields are mixed (GK12434=1444; GK12435–39=1418). Batch 12DT therefore closes component identity but does not normalize an exact set-level impression year. Li Liang 2022 independently aggregates collection nos 12434–39 as Datong lifa tonggui. HEAD probe 35434045642 aggregate-title nonreturn is retained only as a search-surface boundary, not no-holding evidence.",
+      "batch_12dt": {
+        "workflow_run_id": 35308888364,
+        "workflow_job_id": 105486610378,
+        "artifact_id": 10532910411,
+        "artifact_digest": "sha256:e42c0f37c29bbf484f162b73f99ea10b34bf7b20a49ec06c5074d0db34e9a52b",
+        "head_probe_run_id": 35434045642,
+        "head_probe_artifact_id": 10581242234,
+        "component_ids": [
+          "GK12434_00",
+          "GK12435_00",
+          "GK12436_00",
+          "GK12437_00",
+          "GK12438_00",
+          "GK12439_00"
+        ],
+        "component_titles": [
+          "四餘纏度通軌",
+          "太陽通軌",
+          "太陰通軌",
+          "大統曆日通軌",
+          "交食通軌",
+          "五星通軌"
+        ],
+        "aggregate_title_no_holding_conclusion_authorized": false,
+        "exact_set_level_impression_year_adjudicated": false,
+        "research_artifact": "docs/research/ZIWEI-KYUDB-DATONG-LIFA-TONGGUI-COMPONENT-SET-CROSSWALK-R1.json"
       }
     }
   ],
