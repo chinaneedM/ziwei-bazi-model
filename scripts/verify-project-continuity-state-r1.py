@@ -479,8 +479,9 @@ def main() -> int:
         fail("Batch 12DZ chronology/numeric firewall regressed")
     if any(ad12dz.get(k) for k in ("matrix_count_change", "runtime_rule_change", "algorithm_reopen_authorized", "candidate_collapse_authorized")):
         fail("Batch 12DZ product firewall regressed")
-    dz_kyoto = next((s for s in registry.get("sources", []) if s.get("source_id") == "EXT-KYOTO-RB00017646-LANPEN-JIEQI-LOUKE"), None)
-    dz_tianyi = next((s for s in registry.get("sources", []) if s.get("source_id") == "EXT-TIANYIGE-HUQIANJING-MING-0004676-V11-20-CONTROL"), None)
+    dz_registry = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    dz_kyoto = next((s for s in dz_registry.get("sources", []) if s.get("source_id") == "EXT-KYOTO-RB00017646-LANPEN-JIEQI-LOUKE"), None)
+    dz_tianyi = next((s for s in dz_registry.get("sources", []) if s.get("source_id") == "EXT-TIANYIGE-HUQIANJING-MING-0004676-V11-20-CONTROL"), None)
     if dz_kyoto is None or dz_tianyi is None:
         fail("Batch 12DZ external-source registry binding missing")
     if dz_tianyi.get("batch_12dz", {}).get("target_juan7_present") is not False:
