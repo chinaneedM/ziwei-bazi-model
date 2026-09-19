@@ -1318,6 +1318,43 @@
         "docs/research/ZIWEI-NLC-DATONG-LIFA-TONGGUI-XUXIU1031-PHYSICAL-SCOPE-R1.json"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-NLC-DATONG-LIFA-TONGGUI-XUXIU1031-PHYSICAL-SCOPE-DU"
+    },
+    {
+      "node_id": "PHYSICAL-COPY-NLC-ZHUNZHAI-JILOU-DAOGUANG3-HUANG-SHILIJU-MS",
+      "node_type": "PHYSICAL_COPY",
+      "label": "國家圖書館藏清道光三年黃氏士禮居抄本《準齋心製几漏圖式》",
+      "system_scope": "RECEIVED_CLEPSYDRA_OPERATIONAL_TEXT",
+      "work_composition_date": "SONG_ATTRIBUTION_TO_SUN_FENGJI_PER_XUXIU_METADATA; EXACT_COMPOSITION_DATE_NOT_REPROVED_IN_BATCH_12DV",
+      "edition_impression_date": "MANUSCRIPT_NOT_PRINT; COPY_IDENTIFIED_AS_QING_DAOGUANG_3_1823",
+      "physical_copy_date": "QING_DAOGUANG_3_1823",
+      "digital_surrogate_date": "MODERN_XUXIU_2002_REPRODUCTION_PUBLIC_WIKIMEDIA_SURROGATE",
+      "identifier": "Xuxiu1031 PDF p70-p76; source sha256 07348e40ec26ca38efe9c9736a69c403c61f9b07a2c89a847fc68d00ce6d8c25",
+      "exact_pre1578_physical_copy_status": "NOT_PROVED",
+      "direct_review_scope": "p70-p76; no OCR final authority",
+      "evidence": [
+        "EXT-XUXIU1031-ZHUNZHAI-TONGHU-CLEPSYDRA-QING-MSS-PHYSICAL",
+        "docs/research/ZIWEI-XUXIU1031-ZHUNZHAI-CLEPSYDRA-JIEHOU-ARROW-SELECTION-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-XUXIU1031-ZHUNZHAI-CLEPSYDRA-JIEHOU-ARROW-SELECTION-DV"
+    },
+    {
+      "node_id": "RULE-FAMILY-ZHUNZHAI-25ARROW-JIEHOU-SELECTION-38-62",
+      "node_type": "RULE_FAMILY",
+      "label": "《準齋心製几漏圖式》日曆/節候→二十五箭離散選擇38↔62規則家族",
+      "system_scope": "RECEIVED_SEASONAL_CLEPSYDRA_ARROW_SELECTION",
+      "mechanical_identity": "Hundred-ke day/night framework; 25 arrows; after winter solstice use from first arrow forward; after summer solstice use from 25th arrow in reverse; consult calendar/solar-term state; direct first arrow 38/62 and 25th arrow 62/38.",
+      "direct_arrow_count": 25,
+      "direct_extrema": {
+        "first_arrow": "38/62",
+        "twenty_fifth_arrow": "62/38"
+      },
+      "exact_sanming_parameter_identity": false,
+      "secure_pre1578_physical_witness": false,
+      "evidence": [
+        "EXT-XUXIU1031-ZHUNZHAI-TONGHU-CLEPSYDRA-QING-MSS-PHYSICAL",
+        "docs/research/ZIWEI-XUXIU1031-ZHUNZHAI-CLEPSYDRA-JIEHOU-ARROW-SELECTION-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-XUXIU1031-ZHUNZHAI-CLEPSYDRA-JIEHOU-ARROW-SELECTION-DV"
     }
   ],
   "edges": [
@@ -2392,6 +2429,36 @@
         "docs/research/ZIWEI-NLC-DATONG-LIFA-TONGGUI-XUXIU1031-PHYSICAL-SCOPE-R1.json"
       ],
       "adjudication_batch": "BATCH-12-ZIWEI-NLC-DATONG-LIFA-TONGGUI-XUXIU1031-PHYSICAL-SCOPE-DU"
+    },
+    {
+      "edge_id": "TG-E0072",
+      "from": "PHYSICAL-COPY-NLC-ZHUNZHAI-JILOU-DAOGUANG3-HUANG-SHILIJU-MS",
+      "relation": "ATTESTS",
+      "to": "RULE-FAMILY-ZHUNZHAI-25ARROW-JIEHOU-SELECTION-38-62",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_FOR_RECEIVED_QING_PHYSICAL_RECENSION",
+      "evidence_class": "DIRECT_SOURCE_BOUND_PHYSICAL_REPRODUCTION_NO_OCR_FINAL_GLYPH_CLAIMS",
+      "evidence": [
+        "EXT-XUXIU1031-ZHUNZHAI-TONGHU-CLEPSYDRA-QING-MSS-PHYSICAL",
+        "docs/research/ZIWEI-XUXIU1031-ZHUNZHAI-CLEPSYDRA-JIEHOU-ARROW-SELECTION-R1.json"
+      ],
+      "scope_note": "Attests the rule wording and 38/62..62/38 values in the reviewed Qing Daoguang-3 manuscript recension; does not physically date the witness to Song or pre-1578.",
+      "adjudication_batch": "BATCH-12-ZIWEI-XUXIU1031-ZHUNZHAI-CLEPSYDRA-JIEHOU-ARROW-SELECTION-DV"
+    },
+    {
+      "edge_id": "TG-E0073",
+      "from": "RULE-FAMILY-ZHUNZHAI-25ARROW-JIEHOU-SELECTION-38-62",
+      "relation": "STRUCTURAL_MECHANISM_CANDIDATE_FOR",
+      "to": "TABLE-SANMING-1578-DAYNIGHT-KE",
+      "status": "POSSIBLE",
+      "confidence": "MEDIUM_FOR_MECHANISM_CLASS_ONLY",
+      "evidence_class": "DIRECT_RECEIVED_PHYSICAL_CALENDAR_TERM_TO_DISCRETE_ARROW_SELECTION_PLUS_NUMERIC_MISMATCH_CONTROL",
+      "evidence": [
+        "docs/research/ZIWEI-XUXIU1031-ZHUNZHAI-CLEPSYDRA-JIEHOU-ARROW-SELECTION-R1.json",
+        "docs/research/ZIWEI-SANMING-1578-SEASONAL-TABLE-DIRECT-PHYSICAL-COLLATION-R1.json"
+      ],
+      "scope_note": "Supports calendar/solar-term-driven discrete arrow selection as a historical mechanism class only. Direct unchanged table identity is disproved by 38/62..62/38 versus the Sanming 59/41 endpoint; the reviewed physical copy is Qing 1823, and exact Dahan/Yushui change-day identity remains unresolved.",
+      "adjudication_batch": "BATCH-12-ZIWEI-XUXIU1031-ZHUNZHAI-CLEPSYDRA-JIEHOU-ARROW-SELECTION-DV"
     }
   ],
   "lineage_hypotheses": [
@@ -2518,6 +2585,10 @@
         {
           "batch": "BATCH-12-ZIWEI-NLC-DATONG-LIFA-TONGGUI-XUXIU1031-PHYSICAL-SCOPE-DU",
           "update": "Xuxiu1031 direct no-OCR review physically closes the NLC Ming-manuscript residual Tonggui block at p578-p622: 交食→日食→月食→四餘→五星, with 月食通軌終 and 四餘纏度通軌終 directly visible and p624 already the next work. The 2019 三卷 report versus Xuxiu five named one-juan units remains an unresolved catalog/codicology tension. This residual scope adds zero whole-ke, endpoint, exact Sanming/Yueling fingerprint or Sanming-parent vote."
+        },
+        {
+          "batch": "BATCH-12-ZIWEI-XUXIU1031-ZHUNZHAI-CLEPSYDRA-JIEHOU-ARROW-SELECTION-DV",
+          "update": "Xuxiu1031 direct no-OCR review adds a received calendar/solar-term -> discrete-arrow selection mechanism: 《準齋心製几漏圖式》 says the hundred-ke seasonal regime uses 25 arrows, winter-solstice forward selection, summer-solstice reverse selection, and 日曆/節候 reference; first/25th arrows are 38/62 and 62/38. The companion 《銅壺漏箭制度》 directly exposes 60/40 at p86. The underlying reviewed manuscripts are Qing Daoguang-3 (1823), so this is not a secure pre-1578 physical witness. It strengthens the selection-mechanism class, while direct unchanged Sanming-table identity is disproved and zero exact Sanming-parent vote is added."
         }
       ],
       "endpoint_anchor_component_identified": true,
@@ -2921,6 +2992,18 @@
         "docs/research/ZIWEI-NLC-TAIYIN-TONGGUI-CHENGHUA-PHYSICAL-CII-N-CLOSURE-R1.json"
       ],
       "adjudication_batch": "BATCH-12-ZIWEI-NLC-TAIYIN-TONGGUI-CHENGHUA-PHYSICAL-CII-N-CLOSURE-DR"
+    },
+    {
+      "from": "RULE-FAMILY-ZHUNZHAI-25ARROW-JIEHOU-SELECTION-38-62",
+      "relation": "DIRECT_UNCHANGED_TABLE_IDENTITY_WITH",
+      "to": "TABLE-SANMING-1578-DAYNIGHT-KE",
+      "status": "DISPROVED",
+      "reason": "Direct 《準齋》 values run from first-arrow 38/62 to twenty-fifth-arrow 62/38, while the exact 1578 Sanming target has the Nanjing-family 59/41 summer endpoint; the reviewed 《準齋》 physical recension is also Qing 1823, not a pre-1578 physical witness.",
+      "evidence": [
+        "docs/research/ZIWEI-XUXIU1031-ZHUNZHAI-CLEPSYDRA-JIEHOU-ARROW-SELECTION-R1.json",
+        "docs/research/ZIWEI-SANMING-1578-SEASONAL-TABLE-DIRECT-PHYSICAL-COLLATION-R1.json"
+      ],
+      "adjudication_batch": "BATCH-12-ZIWEI-XUXIU1031-ZHUNZHAI-CLEPSYDRA-JIEHOU-ARROW-SELECTION-DV"
     }
   ],
   "backfill": {

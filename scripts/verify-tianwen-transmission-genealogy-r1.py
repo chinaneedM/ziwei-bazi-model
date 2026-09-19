@@ -16,6 +16,7 @@ BATCH_12DR = ROOT / "docs/research/ZIWEI-NLC-TAIYIN-TONGGUI-CHENGHUA-PHYSICAL-CI
 BATCH_12DS = ROOT / "docs/research/ZIWEI-NLC-TAIYIN-TONGGUI-CONTINUOUS-FEN-CONSUMER-INTERFACE-R1.json"
 BATCH_12DT = ROOT / "docs/research/ZIWEI-KYUDB-DATONG-LIFA-TONGGUI-COMPONENT-SET-CROSSWALK-R1.json"
 BATCH_12DU = ROOT / "docs/research/ZIWEI-NLC-DATONG-LIFA-TONGGUI-XUXIU1031-PHYSICAL-SCOPE-R1.json"
+BATCH_12DV = ROOT / "docs/research/ZIWEI-XUXIU1031-ZHUNZHAI-CLEPSYDRA-JIEHOU-ARROW-SELECTION-R1.json"
 
 
 def fail(message: str) -> None:
@@ -23,7 +24,7 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
-    for path in (CHARTER, PROTOCOL, GRAPH, STATE, BATCH_12CH, BATCH_12DP, BATCH_12DQ, BATCH_12DR, BATCH_12DS, BATCH_12DT, BATCH_12DU):
+    for path in (CHARTER, PROTOCOL, GRAPH, STATE, BATCH_12CH, BATCH_12DP, BATCH_12DQ, BATCH_12DR, BATCH_12DS, BATCH_12DT, BATCH_12DU, BATCH_12DV):
         if not path.is_file():
             fail(f"Tianwen transmission artifact missing: {path.relative_to(ROOT)}")
 
@@ -124,6 +125,8 @@ def main() -> int:
         "RULE-FAMILY-NANJING-CII-INTEGER-THRESHOLD-PLUS-59-ENDPOINT-ANCHOR",
         "PHYSICAL-COPY-NLC-TAIYIN-TONGGUI-CHENGHUA-411999012050",
         "PASSAGE-NLC-TAIYIN-TONGGUI-CHENHUN-LICHENG",
+        "PHYSICAL-COPY-NLC-ZHUNZHAI-JILOU-DAOGUANG3-HUANG-SHILIJU-MS",
+        "RULE-FAMILY-ZHUNZHAI-25ARROW-JIEHOU-SELECTION-38-62",
     }
     if not required_nodes.issubset(set(node_ids)):
         fail("Transmission graph seed nodes incomplete")
@@ -533,6 +536,28 @@ def main() -> int:
         fail("Batch 12DU catalog normalization firewall regressed")
     if not any(x.get("batch") == "BATCH-12-ZIWEI-NLC-DATONG-LIFA-TONGGUI-XUXIU1031-PHYSICAL-SCOPE-DU" and "zero whole-ke" in x.get("update", "") and "Sanming-parent vote" in x.get("update", "") for x in hyp12dk.get("evidence_updates", [])):
         fail("Batch 12DU genealogy hypothesis zero-vote update missing")
+
+    batch12dv = json.loads(BATCH_12DV.read_text(encoding="utf-8"))
+    if batch12dv.get("adjudication", {}).get("received_calendar_term_to_discrete_arrow_selection_mechanism") != "CLOSED":
+        fail("Batch 12DV selection-mechanism adjudication regressed")
+    if batch12dv.get("adjudication", {}).get("exact_pre1578_physical_copy_status") != "NOT_PROVED":
+        fail("Batch 12DV chronology firewall regressed")
+    copy12dv = next(n for n in nodes if n.get("node_id") == "PHYSICAL-COPY-NLC-ZHUNZHAI-JILOU-DAOGUANG3-HUANG-SHILIJU-MS")
+    rule12dv = next(n for n in nodes if n.get("node_id") == "RULE-FAMILY-ZHUNZHAI-25ARROW-JIEHOU-SELECTION-38-62")
+    if copy12dv.get("physical_copy_date") != "QING_DAOGUANG_3_1823" or copy12dv.get("exact_pre1578_physical_copy_status") != "NOT_PROVED":
+        fail("Batch 12DV physical-copy date firewall regressed")
+    if rule12dv.get("direct_arrow_count") != 25 or rule12dv.get("direct_extrema") != {"first_arrow": "38/62", "twenty_fifth_arrow": "62/38"}:
+        fail("Batch 12DV rule-family mechanics regressed")
+    e72 = next((e for e in edges if e.get("edge_id") == "TG-E0072"), None)
+    e73 = next((e for e in edges if e.get("edge_id") == "TG-E0073"), None)
+    if not e72 or e72.get("relation") != "ATTESTS" or e72.get("from") != "PHYSICAL-COPY-NLC-ZHUNZHAI-JILOU-DAOGUANG3-HUANG-SHILIJU-MS" or e72.get("to") != "RULE-FAMILY-ZHUNZHAI-25ARROW-JIEHOU-SELECTION-38-62":
+        fail("Batch 12DV ATTESTS edge regressed")
+    if not e73 or e73.get("relation") != "STRUCTURAL_MECHANISM_CANDIDATE_FOR" or e73.get("status") != "POSSIBLE" or e73.get("to") != "TABLE-SANMING-1578-DAYNIGHT-KE":
+        fail("Batch 12DV structural-mechanism edge regressed")
+    if not any(x.get("from") == "RULE-FAMILY-ZHUNZHAI-25ARROW-JIEHOU-SELECTION-38-62" and x.get("relation") == "DIRECT_UNCHANGED_TABLE_IDENTITY_WITH" and x.get("to") == "TABLE-SANMING-1578-DAYNIGHT-KE" and x.get("status") == "DISPROVED" for x in graph.get("explicit_non_edges", [])):
+        fail("Batch 12DV unchanged-table non-edge missing")
+    if not any(x.get("batch") == "BATCH-12-ZIWEI-XUXIU1031-ZHUNZHAI-CLEPSYDRA-JIEHOU-ARROW-SELECTION-DV" and "zero exact Sanming-parent vote" in x.get("update", "") for x in hyp12dk.get("evidence_updates", [])):
+        fail("Batch 12DV genealogy hypothesis zero-vote update missing")
 
     ncl = next(n for n in nodes if n.get("node_id") == "PHYSICAL-COPY-SISHI-QIHOU-NCL03164-OLD-MANUSCRIPT")
     if ncl.get("physical_copy_date") != "UNRESOLVED":

@@ -52,6 +52,8 @@ ZIWEI_KYUDB_12DT_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-B
 ZIWEI_KYUDB_12DT_EVIDENCE = ROOT / "docs/research/ZIWEI-KYUDB-DATONG-LIFA-TONGGUI-COMPONENT-SET-CROSSWALK-R1.json"
 ZIWEI_NLC_12DU_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-DATONG-LIFA-TONGGUI-XUXIU1031-PHYSICAL-SCOPE-DU.md"
 ZIWEI_NLC_12DU_EVIDENCE = ROOT / "docs/research/ZIWEI-NLC-DATONG-LIFA-TONGGUI-XUXIU1031-PHYSICAL-SCOPE-R1.json"
+ZIWEI_XUXIU_CLEPSYDRA_12DV_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-XUXIU1031-ZHUNZHAI-CLEPSYDRA-JIEHOU-ARROW-SELECTION-DV.md"
+ZIWEI_XUXIU_CLEPSYDRA_12DV_EVIDENCE = ROOT / "docs/research/ZIWEI-XUXIU1031-ZHUNZHAI-CLEPSYDRA-JIEHOU-ARROW-SELECTION-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -304,9 +306,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-NLC-TAIYIN-TONGGUI-CONTINUOUS-FEN-CONSUMER-INTERFACE-DS",
     "BATCH-12-ZIWEI-KYUDB-DATONG-LIFA-TONGGUI-COMPONENT-SET-CROSSWALK-DT",
     "BATCH-12-ZIWEI-NLC-DATONG-LIFA-TONGGUI-XUXIU1031-PHYSICAL-SCOPE-DU",
+    "BATCH-12-ZIWEI-XUXIU1031-ZHUNZHAI-CLEPSYDRA-JIEHOU-ARROW-SELECTION-DV",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-DATONG-LIFA-TONGGUI-XUXIU1031-PHYSICAL-SCOPE-DU.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-XUXIU1031-ZHUNZHAI-CLEPSYDRA-JIEHOU-ARROW-SELECTION-DV.md"
 
 
 def fail(message: str) -> None:
@@ -336,6 +339,31 @@ def main() -> int:
         fail("Batch 12DU mechanism zero-vote firewall regressed")
     if batch12du.get("adjudication", {}).get("algorithm_reopen_authorized") is not False:
         fail("Batch 12DU product firewall regressed")
+
+    for path in (ZIWEI_XUXIU_CLEPSYDRA_12DV_BATCH, ZIWEI_XUXIU_CLEPSYDRA_12DV_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12DV continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12dv = json.loads(ZIWEI_XUXIU_CLEPSYDRA_12DV_EVIDENCE.read_text(encoding="utf-8"))
+    if batch12dv.get("batch_id") != "BATCH-12-ZIWEI-XUXIU1031-ZHUNZHAI-CLEPSYDRA-JIEHOU-ARROW-SELECTION-DV":
+        fail("Batch 12DV evidence identity mismatch")
+    direct12dv = batch12dv.get("direct_image_collation", {})
+    if "分界定數二十有五箭" not in direct12dv.get("p71", {}).get("direct", ()):
+        fail("Batch 12DV 25-arrow direct rule regressed")
+    if "晝三十八刻" not in direct12dv.get("p72", {}).get("direct", ()) or "夜六十二刻" not in direct12dv.get("p72", {}).get("direct", ()):
+        fail("Batch 12DV first-arrow extrema regressed")
+    if "晝六十二刻" not in direct12dv.get("p76", {}).get("direct", ()) or "夜三十八刻" not in direct12dv.get("p76", {}).get("direct", ()):
+        fail("Batch 12DV twenty-fifth-arrow extrema regressed")
+    chrono12dv = batch12dv.get("chronology_firewall", {})
+    if chrono12dv.get("exact_pre1578_physical_witness_status") != "NOT_PROVED":
+        fail("Batch 12DV physical chronology firewall regressed")
+    ad12dv = batch12dv.get("adjudication", {})
+    if ad12dv.get("unchanged_direct_table_identity_with_sanming_1578") != "DISPROVED" or ad12dv.get("direct_sanming_parent_vote_increment") != 0:
+        fail("Batch 12DV Sanming lineage firewall regressed")
+    if ad12dv.get("algorithm_reopen_authorized") is not False or ad12dv.get("matrix_count_change") is not False:
+        fail("Batch 12DV product firewall regressed")
+    source12dv = next((s for s in registry.get("sources", []) if s.get("source_id") == "EXT-XUXIU1031-ZHUNZHAI-TONGHU-CLEPSYDRA-QING-MSS-PHYSICAL"), None)
+    if source12dv is None or source12dv.get("batch_12dv", {}).get("exact_pre1578_physical_copy_status") != "NOT_PROVED":
+        fail("Batch 12DV external-source registry binding missing")
 
     for path in (ZIWEI_KYUDB_12DT_BATCH, ZIWEI_KYUDB_12DT_EVIDENCE):
         if not path.is_file():
