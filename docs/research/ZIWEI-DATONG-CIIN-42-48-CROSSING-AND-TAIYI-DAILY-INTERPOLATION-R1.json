@@ -1,0 +1,313 @@
+{
+  "schema": "ZIWEI-DATONG-CIIN-42-48-CROSSING-AND-TAIYI-DAILY-INTERPOLATION-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-DATONG-CIIN-42-48-CROSSING-AND-TAIYI-DAILY-INTERPOLATION-DO",
+  "prior_batch_id": "BATCH-12-ZIWEI-DATONG-CIIN-INTEGER-CROSSING-AND-POST1578-59-41-LADDER-DN",
+  "question": "Do exact C-II-N crossings from 42 through 48 ke support a historically plausible interior whole-ke selection layer, and does an independent calendrical witness preserve a daily interpolation mechanism without collapsing that mechanism into the exact 1578 Sanming/Yueling fingerprint?",
+  "answer": "YES FOR THE INTERIOR 42-48 THRESHOLD MECHANISM AND FOR AN INDEPENDENT DAILY-INTERPOLATION CONTROL; NO FOR A UNIVERSAL FLOOR RULE OR THE EXACT SANMING/YUELING PARENT. Direct no-OCR re-collation places the 42..48 integer crossings between days 20/21, 33/34, 42/43, 50/51, 58/59, 66/67 and 73/74. These interior transitions are all consistent with a fraction-discard/floor-like threshold layer, but C-II-N reaches only about 58.6332 ke at the summer endpoint while received whole-ke tables display 59/41, so a global floor/truncation rule remains disproved as an overclaim. Xuxiu 1061's Ming-manuscript reproduction of Taiyi Tongzong Baojian directly preserves a daily sunrise-difference algorithm; a 2025 scholarly collation independently compares this mechanism with the 1216 Gengwu Yuanli. The Taiyi work's 1303 self-preface does not physically date every calendrical layer, and none of this resolves Sanming/Yueling's anomalous Yushui post-day-4 fingerprint.",
+  "cii_n_direct_recollation": {
+    "source_id": "EXT-NCL-DATONG-RICHU-NCL06267",
+    "workflow_run_id": 34869676923,
+    "artifact_id": 10358685142,
+    "artifact_digest": "sha256:fdb1fd4b9e0fc785d9fb467e00daa71544c412482e2093d31cf553152bd518fe",
+    "source_pdf_sha256": "0d3ed2b54f92b5eb2f11e5d06babebcc177e04ec5b8c7168b56f1fb25f94797d",
+    "ocr_used_for_final_numeric_claims": false,
+    "page_controls": {
+      "page_03_sha256": "3611a747aee0d01b57c87be4c32fbe66d1b7a6b7e5bb15f209a45d513fac528b",
+      "page_04_sha256": "44ee08862757b4f1581ba1386b0e0ceaebd73f8af5f21bd99796bccd03b953a4",
+      "page_05_sha256": "0ffa5e0c5f86a1ae1a1ebd63816475be26443f798bc4cbd4fdd2816a76d4eff4",
+      "page_06_sha256": "8424b8c33cdf04f8eabb52cacf55548096a27801fb49a1276812619cdd41157d"
+    },
+    "conversion": "full_daylight_ke = 2 * half_day_fen / 100",
+    "direct_cells": [
+      {
+        "accumulated_day": 20,
+        "half_day_fen": 2098.53,
+        "full_daylight_ke": 41.9706,
+        "page": 3
+      },
+      {
+        "accumulated_day": 21,
+        "half_day_fen": 2101.63,
+        "full_daylight_ke": 42.0326,
+        "page": 3
+      },
+      {
+        "accumulated_day": 33,
+        "half_day_fen": 2149.39,
+        "full_daylight_ke": 42.9878,
+        "page": 3
+      },
+      {
+        "accumulated_day": 34,
+        "half_day_fen": 2154.21,
+        "full_daylight_ke": 43.0842,
+        "page": 3
+      },
+      {
+        "accumulated_day": 42,
+        "half_day_fen": 2196.64,
+        "full_daylight_ke": 43.9328,
+        "page": 4
+      },
+      {
+        "accumulated_day": 43,
+        "half_day_fen": 2202.37,
+        "full_daylight_ke": 44.0474,
+        "page": 4
+      },
+      {
+        "accumulated_day": 44,
+        "half_day_fen": 2208.19,
+        "full_daylight_ke": 44.1638,
+        "page": 4
+      },
+      {
+        "accumulated_day": 50,
+        "half_day_fen": 2244.56,
+        "full_daylight_ke": 44.8912,
+        "page": 5
+      },
+      {
+        "accumulated_day": 51,
+        "half_day_fen": 2250.82,
+        "full_daylight_ke": 45.0164,
+        "page": 5
+      },
+      {
+        "accumulated_day": 58,
+        "half_day_fen": 2295.66,
+        "full_daylight_ke": 45.9132,
+        "page": 5
+      },
+      {
+        "accumulated_day": 59,
+        "half_day_fen": 2302.41,
+        "full_daylight_ke": 46.0482,
+        "page": 5
+      },
+      {
+        "accumulated_day": 66,
+        "half_day_fen": 2348.73,
+        "full_daylight_ke": 46.9746,
+        "page": 6
+      },
+      {
+        "accumulated_day": 67,
+        "half_day_fen": 2355.37,
+        "full_daylight_ke": 47.1074,
+        "page": 6
+      },
+      {
+        "accumulated_day": 73,
+        "half_day_fen": 2395.26,
+        "full_daylight_ke": 47.9052,
+        "page": 6
+      },
+      {
+        "accumulated_day": 74,
+        "half_day_fen": 2401.9,
+        "full_daylight_ke": 48.038,
+        "page": 6
+      }
+    ],
+    "integer_crossing_controls": {
+      "42_ke": {
+        "lower_day": 20,
+        "lower_value": 41.9706,
+        "upper_day": 21,
+        "upper_value": 42.0326
+      },
+      "43_ke": {
+        "lower_day": 33,
+        "lower_value": 42.9878,
+        "upper_day": 34,
+        "upper_value": 43.0842
+      },
+      "44_ke": {
+        "lower_day": 42,
+        "lower_value": 43.9328,
+        "upper_day": 43,
+        "upper_value": 44.0474
+      },
+      "45_ke": {
+        "lower_day": 50,
+        "lower_value": 44.8912,
+        "upper_day": 51,
+        "upper_value": 45.0164
+      },
+      "46_ke": {
+        "lower_day": 58,
+        "lower_value": 45.9132,
+        "upper_day": 59,
+        "upper_value": 46.0482
+      },
+      "47_ke": {
+        "lower_day": 66,
+        "lower_value": 46.9746,
+        "upper_day": 67,
+        "upper_value": 47.1074
+      },
+      "48_ke": {
+        "lower_day": 73,
+        "lower_value": 47.9052,
+        "upper_day": 74,
+        "upper_value": 48.038
+      }
+    },
+    "first_crossing_day_ladder": {
+      "42": 21,
+      "43": 34,
+      "44": 43,
+      "45": 51,
+      "46": 59,
+      "47": 67,
+      "48": 74
+    },
+    "summer_endpoint_control": {
+      "day": 182,
+      "half_day_fen": 2931.66,
+      "full_daylight_ke": 58.6332,
+      "source_scope": "LI_LIANG_CII_N_EXACT_TRANSCRIPTION_ALREADY_REGISTERED"
+    }
+  },
+  "batch_12cg_forward_only_corrections": {
+    "prior_artifact": "docs/research/ZIWEI-DATONG-RICHU-DAILY-TABLE-SANMING-MULTIPOINT-REPLAY-R1.json",
+    "prior_records": [
+      {
+        "prior_accumulated_day": 43,
+        "prior_half_day_fen": 2208.19,
+        "prior_scope_label": "DIRECT_VISUAL_APPROX",
+        "corrected_day43_half_day_fen": 2202.37,
+        "cell_2208_19_exact_day": 44
+      },
+      {
+        "prior_accumulated_day": 67,
+        "prior_half_day_fen": 2348.62,
+        "prior_scope_label": "DIRECT_VISUAL_APPROX",
+        "corrected_day67_half_day_fen": 2355.37,
+        "corrected_day66_half_day_fen": 2348.73
+      }
+    ],
+    "adjudication": "SUPERSEDED_FOR_EXACT_DAY_INDEXING_ONLY",
+    "prior_batch_rewritten": false,
+    "prior_macro_conclusion_changed": false
+  },
+  "clean_59_41_ladder_mechanical_comparison": {
+    "source_id": "EXT-LEIJING-TUYI-TIANQI4-1624-59-41-LADDER",
+    "clean_received_sequence": {
+      "冬至": "41/59",
+      "小寒後六日": "42/58",
+      "大寒後四日": "43/57",
+      "大寒後十三日": "44/56",
+      "立春後六日": "45/55",
+      "立春後十三日": "46/54",
+      "雨水後六日": "47/53",
+      "雨水後十三日": "48/52",
+      "驚蟄後六日": "49/51",
+      "夏至": "59/41"
+    },
+    "cii_n_interior_42_48_consistency": "STRONG",
+    "interior_fraction_discard_threshold_model": "CONSISTENT_WITH_ALL_EXACTLY_RECOLLATED_42_TO_48_CROSSINGS",
+    "universal_floor_or_truncation_rule_proved": false,
+    "universal_nearest_integer_rule_proved": false,
+    "endpoint_reason": "C-II-N summer maximum is about 58.6332 daylight ke, whereas the received whole-ke family displays 59/41; endpoint anchoring/capping/recomposition remains required.",
+    "exact_sanming_yueling_fingerprint_identity": false,
+    "target_branch_firewall": "Sanming/Yueling Yushui post-day-4 -> 48/52 does not collapse into the clean Yushui +13 branch."
+  },
+  "taiyi_daily_interpolation_control": {
+    "physical_source_id": "EXT-XUXIU1061-TAIYI-TONGZONG-BAOJIAN-MING-MANUSCRIPT-DAILY-SUNRISE",
+    "scholarly_source_id": "EXT-HEP-2025-TAIYI-ASTRONOMICAL-TABLE-COLLATION",
+    "gengwu_received_source_id": "EXT-SHIDIAN-GENGWU-YUANLI-DAILY-SUNRISE-CONTROL",
+    "acquisition": {
+      "workflow_run_id": 35387139084,
+      "artifact_id": 10564496303,
+      "artifact_digest": "sha256:6bdeee20026841a0ad8e98ddad41c34a6e2749cd4d4f84cc0c08a1030ab46bf2",
+      "source_pdf_sha256": "618a31924e05cbb8e8c5b49bfc0da2d7c7fb64526c6719175d685088cef29d83",
+      "rendered_pdf_pages": "365-430 at 200 dpi",
+      "ocr_run": false,
+      "text_layer_role": "LOCATOR_ONLY_NOT_GLYPH_DATE_OR_NEGATIVE_AUTHORITY"
+    },
+    "direct_physical_controls": {
+      "preface_page": 376,
+      "table_page": 385,
+      "method_page": 386,
+      "preface_self_date": "大德七年癸卯 / 1303",
+      "direct_table_heading": "二十四氣初日損益朓朒及日出分",
+      "direct_method_heading": "求每日日出分術",
+      "direct_mechanical_reading": "差分秒逐日累加減氣初日出分，以生成每日日出分",
+      "daily_interpolation_directly_observed": true
+    },
+    "chronology_firewall": {
+      "work_self_preface_year": 1303,
+      "reviewed_copy_description": "《續修四庫全書》1061影印明抄本",
+      "exact_manuscript_copy_date": "UNRESOLVED_WITHIN_MING_SCOPE",
+      "self_preface_proves_every_calendar_layer_present_in_1303": false,
+      "calendar_layer_pre1578_physically_proved": false,
+      "direct_parent_of_cii_n": false,
+      "direct_parent_of_sanming_1578": false
+    },
+    "scholarly_control": {
+      "authors": [
+        "鲁楠",
+        "叶杰",
+        "李刚"
+      ],
+      "article": "《太乙统宗宝鉴》中的天文数表校勘",
+      "journal": "内蒙古师范大学学报（自然科学版）",
+      "year": 2025,
+      "volume_issue_pages": "54(04):427-436",
+      "doi": "10.3969/j.issn.1001-8735.2025.04.014",
+      "reported_mechanism": "Taiyi daily sunrise values are generated from each solar-term initial sunrise value by accumulated daily differences; the study compares the table and method with Gengwu Yuanli.",
+      "gengwu_year": 1216,
+      "direct_physical_glyph_authority": false
+    }
+  },
+  "mechanical_adjudication": {
+    "interior_42_48_threshold_rule_status": "INTERIOR_42_48_CONSISTENT_WITH_FRACTION_DISCARD_THRESHOLD",
+    "exact_global_whole_ke_rule_identified": false,
+    "summer_endpoint_specific_layer_required": true,
+    "clean_post1578_ladder_structural_mechanism_strengthened": true,
+    "sanming_yueling_exact_fingerprint_explained": false,
+    "taiyi_mechanism_is_direct_ancestry_proof": false
+  },
+  "transmission_impact": {
+    "nodes_added": [
+      "PHYSICAL-COPY-TAIYI-TONGZONG-XUXIU-MING-MANUSCRIPT",
+      "PASSAGE-TAIYI-JUAN1-DAILY-SUNRISE-INTERPOLATION"
+    ],
+    "edges_added": [
+      "TG-E0055",
+      "TG-E0056"
+    ],
+    "edge_strengthened": "TG-E0054",
+    "hypothesis_updated": "TG-H0001",
+    "textual_vote_increment_for_exact_pre1578_sanming_parent": 0,
+    "numeric_vote_increment_for_exact_pre1578_sanming_parent": 0
+  },
+  "product_adjudication": {
+    "matrix_count_change": false,
+    "new_runtime_candidate": false,
+    "runtime_winner_selected": false,
+    "candidate_collapsed": false,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_authorized": false,
+    "deterministic_fusion_chart_product_r1": "CLOSED"
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 12,
+    "repaired_provenance_metadata_defect_count": 12,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Search securely pre-1578 Chinese physical witnesses that preserve the C-II-N numerical table itself or explicitly state the whole-ke reduction/selection rule; the 15th-century Joseon GK12436 carrier remains the independent pre-1578 physical transmission witness.",
+    "Extend direct C-II-N re-collation through 49-58 integer crossings and model solar-term offsets explicitly, testing the clean +6/+13 ladder without assuming exactly 15.0 days per qi.",
+    "Keep the Sanming/Yueling Dahan 十三後 / Yushui 後四日 fingerprint as a distinct unresolved editorial/recomposition branch.",
+    "Continue NLC call-14202 lawful reproduction access in parallel; no external request is submitted by this batch."
+  ]
+}

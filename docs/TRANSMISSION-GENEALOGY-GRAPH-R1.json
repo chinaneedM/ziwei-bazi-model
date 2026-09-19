@@ -991,6 +991,43 @@
         "docs/research/ZIWEI-DATONG-CIIN-INTEGER-CROSSING-AND-POST1578-59-41-LADDER-R1.json"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-DATONG-CIIN-INTEGER-CROSSING-AND-POST1578-59-41-LADDER-DN"
+    },
+    {
+      "node_id": "PHYSICAL-COPY-TAIYI-TONGZONG-XUXIU-MING-MANUSCRIPT",
+      "node_type": "PHYSICAL_COPY",
+      "label": "《續修四庫全書》1061所收《太乙統宗寶鑑》明抄本再現对象",
+      "system_scope": "TAIYI_CALENDRICAL_DAILY_INTERPOLATION_MECHANISM_CONTROL",
+      "work_composition_date": "SELF_PREFACE_1303_VISIBLE_IN_REVIEWED_REPRODUCTION; DOES_NOT_DATE_EVERY_CALENDAR_LAYER",
+      "edition_impression_date": "MING_MANUSCRIPT_PER_XUXIU_REPRODUCTION_DESCRIPTION; EXACT_DATE_UNRESOLVED",
+      "physical_copy_date": "UNRESOLVED_WITHIN_MING_SCOPE",
+      "digital_surrogate_date": "MODERN_XUXIU_WIKIMEDIA_REPRODUCTION",
+      "source_pdf_sha256": "618a31924e05cbb8e8c5b49bfc0da2d7c7fb64526c6719175d685088cef29d83",
+      "calendar_layer_pre1578_physically_proved": false,
+      "evidence": [
+        "EXT-XUXIU1061-TAIYI-TONGZONG-BAOJIAN-MING-MANUSCRIPT-DAILY-SUNRISE",
+        "docs/research/ZIWEI-DATONG-CIIN-42-48-CROSSING-AND-TAIYI-DAILY-INTERPOLATION-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DATONG-CIIN-42-48-CROSSING-AND-TAIYI-DAILY-INTERPOLATION-DO.md"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-DATONG-CIIN-42-48-CROSSING-AND-TAIYI-DAILY-INTERPOLATION-DO"
+    },
+    {
+      "node_id": "PASSAGE-TAIYI-JUAN1-DAILY-SUNRISE-INTERPOLATION",
+      "node_type": "PASSAGE",
+      "label": "《太乙統宗寶鑑》卷一《求每日日出分術》逐日差分机制",
+      "system_scope": "HISTORICAL_DAILY_SUNRISE_INTERPOLATION_MECHANISM",
+      "physical_locator": "Xuxiu 1061 PDF p385-p386; p385 table / p386 method",
+      "direct_table_heading": "二十四氣初日損益朓朒及日出分",
+      "direct_method_heading": "求每日日出分術",
+      "daily_interpolation_directly_observed": true,
+      "mechanical_identity": "Solar-term initial sunrise values are updated by accumulated daily difference values to generate each day's sunrise value.",
+      "direct_cii_n_numeric_identity": false,
+      "exact_sanming_reduction_rule": false,
+      "evidence": [
+        "EXT-XUXIU1061-TAIYI-TONGZONG-BAOJIAN-MING-MANUSCRIPT-DAILY-SUNRISE",
+        "EXT-HEP-2025-TAIYI-ASTRONOMICAL-TABLE-COLLATION",
+        "docs/research/ZIWEI-DATONG-CIIN-42-48-CROSSING-AND-TAIYI-DAILY-INTERPOLATION-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-DATONG-CIIN-42-48-CROSSING-AND-TAIYI-DAILY-INTERPOLATION-DO"
     }
   ],
   "edges": [
@@ -1799,15 +1836,48 @@
       "relation": "STRUCTURAL_MECHANISM_CANDIDATE_FOR",
       "to": "TABLE-FAMILY-POST1578-NANJING-59-41-STEPPED",
       "status": "PROBABLE",
-      "confidence": "MEDIUM_HIGH",
-      "evidence_class": "DIRECT_CII_N_ADJACENT_DAY_INTEGER_CROSSINGS_PLUS_POST1578_COHERENT_WHOLE_KE_LADDER",
+      "confidence": "HIGH_FOR_INTERIOR_42_48_THRESHOLD_MECHANISM",
+      "evidence_class": "DIRECT_CII_N_42_48_ADJACENT_DAY_INTEGER_CROSSINGS_PLUS_POST1578_COHERENT_WHOLE_KE_LADDER",
       "evidence": [
-        "NCL-06267 page05/page06 direct no-OCR cells: day66=46.9746, day67=47.1074, day73=47.9052, day74=48.0380",
+        "NCL-06267 direct no-OCR cells: 42-ke d20=41.9706/d21=42.0326; 43-ke d33=42.9878/d34=43.0842; 44-ke d42=43.9328/d43=44.0474; 45-ke d50=44.8912/d51=45.0164; 46-ke d58=45.9132/d59=46.0482; 47-ke d66=46.9746/d67=47.1074; 48-ke d73=47.9052/d74=48.0380",
         "EXT-LEIJING-TUYI-TIANQI4-1624-59-41-LADDER",
-        "docs/research/ZIWEI-DATONG-CIIN-INTEGER-CROSSING-AND-POST1578-59-41-LADDER-R1.json"
+        "docs/research/ZIWEI-DATONG-CIIN-42-48-CROSSING-AND-TAIYI-DAILY-INTERPOLATION-R1.json"
       ],
-      "scope_note": "Strengthens the continuous-substrate -> whole-ke-ladder mechanism. Exact historical selection rule, summer 59-ke endpoint handling and direct transmission path remain unresolved.",
-      "adjudication_batch": "BATCH-12-ZIWEI-DATONG-CIIN-INTEGER-CROSSING-AND-POST1578-59-41-LADDER-DN"
+      "scope_note": "Seven consecutive interior whole-ke crossings (42-48) strongly support a continuous-substrate -> integer-threshold mechanism for the clean stepped family. Status remains PROBABLE because the 58.6332-ke summer endpoint still needs separate anchoring/capping/recomposition, chronology is postdated for the clean textual witnesses, and the Sanming/Yueling Yushui-post-day-4 fingerprint remains mechanically distinct.",
+      "adjudication_batch": "BATCH-12-ZIWEI-DATONG-CIIN-42-48-CROSSING-AND-TAIYI-DAILY-INTERPOLATION-DO"
+    },
+    {
+      "edge_id": "TG-E0055",
+      "from": "PHYSICAL-COPY-TAIYI-TONGZONG-XUXIU-MING-MANUSCRIPT",
+      "relation": "ATTESTS",
+      "to": "PASSAGE-TAIYI-JUAN1-DAILY-SUNRISE-INTERPOLATION",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_FOR_REVIEWED_REPRODUCTION_SCOPE",
+      "evidence_class": "DIRECT_SOURCE_BOUND_PHYSICAL_REPRODUCTION_NO_OCR_GLYPH_REVIEW",
+      "evidence": [
+        "EXT-XUXIU1061-TAIYI-TONGZONG-BAOJIAN-MING-MANUSCRIPT-DAILY-SUNRISE",
+        "docs/research/ZIWEI-DATONG-CIIN-42-48-CROSSING-AND-TAIYI-DAILY-INTERPOLATION-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DATONG-CIIN-42-48-CROSSING-AND-TAIYI-DAILY-INTERPOLATION-DO.md"
+      ],
+      "scope_note": "Confirms the passage in the reviewed Ming-manuscript reproduction only; the 1303 self-preface does not physically date every calendrical layer.",
+      "adjudication_batch": "BATCH-12-ZIWEI-DATONG-CIIN-42-48-CROSSING-AND-TAIYI-DAILY-INTERPOLATION-DO"
+    },
+    {
+      "edge_id": "TG-E0056",
+      "from": "PASSAGE-TAIYI-JUAN1-DAILY-SUNRISE-INTERPOLATION",
+      "relation": "STRUCTURAL_MECHANISM_CANDIDATE_FOR",
+      "to": "TABLE-NANJING-DATONG-DAILY-CII-N-1380S",
+      "status": "POSSIBLE",
+      "confidence": "MEDIUM_FOR_MECHANISM_CLASS_ONLY",
+      "evidence_class": "DIRECT_TAIYI_DAILY_INTERPOLATION_PASSAGE_PLUS_2025_SCHOLARLY_GENGWU_COMPARISON",
+      "evidence": [
+        "EXT-XUXIU1061-TAIYI-TONGZONG-BAOJIAN-MING-MANUSCRIPT-DAILY-SUNRISE",
+        "EXT-HEP-2025-TAIYI-ASTRONOMICAL-TABLE-COLLATION",
+        "EXT-SHIDIAN-GENGWU-YUANLI-DAILY-SUNRISE-CONTROL",
+        "docs/research/ZIWEI-DATONG-CIIN-42-48-CROSSING-AND-TAIYI-DAILY-INTERPOLATION-R1.json"
+      ],
+      "scope_note": "Shows a historically real daily-difference interpolation mechanism compatible in class with daily sunrise tables. It does not prove that Taiyi generated C-II-N, that the layer is physically pre-1578, or that either is a direct parent of Sanming.",
+      "adjudication_batch": "BATCH-12-ZIWEI-DATONG-CIIN-42-48-CROSSING-AND-TAIYI-DAILY-INTERPOLATION-DO"
     }
   ],
   "lineage_hypotheses": [
@@ -1906,6 +1976,10 @@
         {
           "batch": "BATCH-12-ZIWEI-DATONG-CIIN-INTEGER-CROSSING-AND-POST1578-59-41-LADDER-DN",
           "update": "Direct no-OCR re-collation corrects the prior 12CG exact day indexing: C-II-N day66=46.9746 ke and day67=47.1074 ke cross 47, while day73=47.9052 and day74=48.0380 cross 48. The prior day67=2348.62 DIRECT_VISUAL_APPROX record is preserved but superseded for exact indexing only. Postdated 1616 Zhu Yi and 1624 Leijing Tuyi expose a coherent 59/41 whole-ke ladder family, strengthening the continuous Nanjing/Datong substrate -> whole-ke selection model. Chronology gives zero pre-1578 parent vote, and the summer endpoint prevents promotion of a single global floor/truncation rule; the exact Sanming/Yueling fingerprint parent remains unresolved."
+        },
+        {
+          "batch": "BATCH-12-ZIWEI-DATONG-CIIN-42-48-CROSSING-AND-TAIYI-DAILY-INTERPOLATION-DO",
+          "update": "Direct no-OCR C-II-N re-collation now closes seven consecutive 42-48 whole-ke crossings, with first crossing days 21,34,43,51,59,67,74; all are consistent with an interior fraction-discard threshold layer. A second 12CG approximate indexing defect is corrected forward-only: day43=2202.37 while 2208.19 belongs to day44. The summer endpoint remains only 58.6332 ke, so no universal floor rule is promoted. Xuxiu 1061 independently attests a historical Taiyi daily-difference sunrise mechanism, while the 1303 self-preface does not physically date the calendrical layer. This strengthens the mechanism class and clean stepped-family bridge but adds zero exact pre-1578 Sanming-parent vote; the Sanming/Yueling Yushui 後四日 branch remains unresolved."
         }
       ]
     }
@@ -2271,6 +2345,18 @@
         "docs/research/ZIWEI-DATONG-CIIN-INTEGER-CROSSING-AND-POST1578-59-41-LADDER-R1.json"
       ],
       "adjudication_batch": "BATCH-12-ZIWEI-DATONG-CIIN-INTEGER-CROSSING-AND-POST1578-59-41-LADDER-DN"
+    },
+    {
+      "from": "PHYSICAL-COPY-TAIYI-TONGZONG-XUXIU-MING-MANUSCRIPT",
+      "relation": "DIRECT_ANCESTOR_OF",
+      "to": "TABLE-SANMING-1578-DAYNIGHT-KE",
+      "status": "UNRESOLVED",
+      "reason": "The reviewed object is only broadly a Ming manuscript reproduction; the 1303 self-preface does not physically date the calendrical layer, and no direct transmission path or exact Sanming change-day rule is attested.",
+      "evidence": [
+        "EXT-XUXIU1061-TAIYI-TONGZONG-BAOJIAN-MING-MANUSCRIPT-DAILY-SUNRISE",
+        "docs/research/ZIWEI-DATONG-CIIN-42-48-CROSSING-AND-TAIYI-DAILY-INTERPOLATION-R1.json"
+      ],
+      "adjudication_batch": "BATCH-12-ZIWEI-DATONG-CIIN-42-48-CROSSING-AND-TAIYI-DAILY-INTERPOLATION-DO"
     }
   ],
   "backfill": {

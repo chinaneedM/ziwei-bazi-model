@@ -38,6 +38,8 @@ ZIWEI_TONGSHU_LEIJU_12DM_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE
 ZIWEI_TONGSHU_LEIJU_12DM_EVIDENCE = ROOT / "docs/research/ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-NLC-CURRENT-REPRODUCTION-SERVICE-ROUTE-R1.json"
 ZIWEI_DATONG_CIIN_12DN_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DATONG-CIIN-INTEGER-CROSSING-AND-POST1578-59-41-LADDER-DN.md"
 ZIWEI_DATONG_CIIN_12DN_EVIDENCE = ROOT / "docs/research/ZIWEI-DATONG-CIIN-INTEGER-CROSSING-AND-POST1578-59-41-LADDER-R1.json"
+ZIWEI_DATONG_CIIN_12DO_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DATONG-CIIN-42-48-CROSSING-AND-TAIYI-DAILY-INTERPOLATION-DO.md"
+ZIWEI_DATONG_CIIN_12DO_EVIDENCE = ROOT / "docs/research/ZIWEI-DATONG-CIIN-42-48-CROSSING-AND-TAIYI-DAILY-INTERPOLATION-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -283,9 +285,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-TITLE-COLOPHON-AND-REPRODUCTION-TARGETING-DL",
     "BATCH-12-ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-NLC-CURRENT-REPRODUCTION-SERVICE-ROUTE-DM",
     "BATCH-12-ZIWEI-DATONG-CIIN-INTEGER-CROSSING-AND-POST1578-59-41-LADDER-DN",
+    "BATCH-12-ZIWEI-DATONG-CIIN-42-48-CROSSING-AND-TAIYI-DAILY-INTERPOLATION-DO",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DATONG-CIIN-INTEGER-CROSSING-AND-POST1578-59-41-LADDER-DN.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DATONG-CIIN-42-48-CROSSING-AND-TAIYI-DAILY-INTERPOLATION-DO.md"
 
 
 def fail(message: str) -> None:
@@ -293,6 +296,44 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
+    for path in (ZIWEI_DATONG_CIIN_12DO_BATCH, ZIWEI_DATONG_CIIN_12DO_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12DO continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12do = json.loads(ZIWEI_DATONG_CIIN_12DO_EVIDENCE.read_text(encoding="utf-8"))
+    if batch12do.get("batch_id") != "BATCH-12-ZIWEI-DATONG-CIIN-42-48-CROSSING-AND-TAIYI-DAILY-INTERPOLATION-DO":
+        fail("Batch 12DO evidence identity mismatch")
+    phy12do = batch12do.get("cii_n_direct_recollation", {})
+    cells12do = {x.get("accumulated_day"): x for x in phy12do.get("direct_cells", ())}
+    expected12do = {20:41.9706,21:42.0326,33:42.9878,34:43.0842,42:43.9328,43:44.0474,50:44.8912,51:45.0164,58:45.9132,59:46.0482,66:46.9746,67:47.1074,73:47.9052,74:48.038}
+    if any(cells12do.get(day, {}).get("full_daylight_ke") != value for day, value in expected12do.items()):
+        fail("Batch 12DO exact 42-48 crossing cells regressed")
+    crossings12do = phy12do.get("integer_crossing_controls", {})
+    expected_pairs12do = {"42_ke":(20,21),"43_ke":(33,34),"44_ke":(42,43),"45_ke":(50,51),"46_ke":(58,59),"47_ke":(66,67),"48_ke":(73,74)}
+    if any((crossings12do.get(k, {}).get("lower_day"), crossings12do.get(k, {}).get("upper_day")) != pair for k, pair in expected_pairs12do.items()):
+        fail("Batch 12DO 42-48 crossing-day ladder regressed")
+    corr12do = batch12do.get("batch_12cg_forward_only_corrections", {})
+    if corr12do.get("adjudication") != "SUPERSEDED_FOR_EXACT_DAY_INDEXING_ONLY" or corr12do.get("prior_batch_rewritten") is not False:
+        fail("Batch 12DO forward-only correction firewall regressed")
+    if not any(x.get("prior_accumulated_day") == 43 and x.get("prior_half_day_fen") == 2208.19 and x.get("corrected_day43_half_day_fen") == 2202.37 and x.get("cell_2208_19_exact_day") == 44 for x in corr12do.get("prior_records", ())):
+        fail("Batch 12DO day43/day44 exact-index correction regressed")
+    mech12do = batch12do.get("mechanical_adjudication", {})
+    if mech12do.get("interior_42_48_threshold_rule_status") != "INTERIOR_42_48_CONSISTENT_WITH_FRACTION_DISCARD_THRESHOLD":
+        fail("Batch 12DO interior threshold adjudication regressed")
+    if mech12do.get("exact_global_whole_ke_rule_identified") is not False or mech12do.get("summer_endpoint_specific_layer_required") is not True or mech12do.get("sanming_yueling_exact_fingerprint_explained") is not False:
+        fail("Batch 12DO endpoint/target firewall regressed")
+    taiyi12do = batch12do.get("taiyi_daily_interpolation_control", {})
+    acq12do = taiyi12do.get("acquisition", {})
+    if acq12do.get("workflow_run_id") != 35387139084 or acq12do.get("artifact_id") != 10564496303 or acq12do.get("ocr_run") is not False:
+        fail("Batch 12DO Taiyi acquisition binding regressed")
+    direct12do = taiyi12do.get("direct_physical_controls", {})
+    if direct12do.get("direct_table_heading") != "二十四氣初日損益朓朒及日出分" or direct12do.get("direct_method_heading") != "求每日日出分術" or direct12do.get("daily_interpolation_directly_observed") is not True:
+        fail("Batch 12DO Taiyi direct mechanism control regressed")
+    chrono12do = taiyi12do.get("chronology_firewall", {})
+    if chrono12do.get("work_self_preface_year") != 1303 or chrono12do.get("calendar_layer_pre1578_physically_proved") is not False or chrono12do.get("direct_parent_of_cii_n") is not False or chrono12do.get("direct_parent_of_sanming_1578") is not False:
+        fail("Batch 12DO Taiyi chronology/lineage firewall regressed")
+    if batch12do.get("product_adjudication", {}).get("algorithm_reopen_authorized") is not False:
+        fail("Batch 12DO unexpectedly reopened algorithm")
+
     for path in (ZIWEI_DATONG_CIIN_12DN_BATCH, ZIWEI_DATONG_CIIN_12DN_EVIDENCE):
         if not path.is_file():
             fail(f"Batch 12DN continuity artifact missing: {path.relative_to(ROOT)}")
@@ -735,6 +776,18 @@ def main() -> int:
     state = json.loads(STATE.read_text(encoding="utf-8"))
     matrix = json.loads(MATRIX.read_text(encoding="utf-8"))
     registry = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    source12do_taiyi = next((x for x in registry.get("sources", []) if x.get("source_id") == "EXT-XUXIU1061-TAIYI-TONGZONG-BAOJIAN-MING-MANUSCRIPT-DAILY-SUNRISE"), None)
+    source12do_scholar = next((x for x in registry.get("sources", []) if x.get("source_id") == "EXT-HEP-2025-TAIYI-ASTRONOMICAL-TABLE-COLLATION"), None)
+    source12do_gengwu = next((x for x in registry.get("sources", []) if x.get("source_id") == "EXT-SHIDIAN-GENGWU-YUANLI-DAILY-SUNRISE-CONTROL"), None)
+    if source12do_taiyi is None or source12do_scholar is None or source12do_gengwu is None:
+        fail("Batch 12DO source-registry bindings missing")
+    if source12do_taiyi.get("calendar_layer_pre1578_physically_proved") is not False or source12do_taiyi.get("direct_parent_of_cii_n") is not False or source12do_taiyi.get("direct_parent_of_sanming_1578") is not False:
+        fail("Batch 12DO Taiyi registry chronology/lineage firewall regressed")
+    if source12do_scholar.get("direct_physical_glyph_authority") is not False or source12do_scholar.get("proves_taiyi_calendar_layer_physically_present_in_1303") is not False:
+        fail("Batch 12DO scholarly authority firewall regressed")
+    if source12do_gengwu.get("direct_1216_physical_glyph_authority") is not False or source12do_gengwu.get("direct_ancestor_of_cii_n_proved") is not False:
+        fail("Batch 12DO Gengwu received-text firewall regressed")
+
     source12dn_zhu_bib = next((x for x in registry.get("sources", []) if x.get("source_id") == "EXT-NATIONAL-PRECIOUS-ZHUYI-WANLI44-1616"), None)
     source12dn_zhu_text = next((x for x in registry.get("sources", []) if x.get("source_id") == "EXT-SHIDIAN-ZHUYI-CADAL02059063-59-41-LADDER"), None)
     source12dn_leijing = next((x for x in registry.get("sources", []) if x.get("source_id") == "EXT-LEIJING-TUYI-TIANQI4-1624-59-41-LADDER"), None)

@@ -4890,6 +4890,69 @@
       "numeric_ancestry_vote_increment_for_pre1578_parent": 0,
       "research_artifact": "docs/research/ZIWEI-DATONG-CIIN-INTEGER-CROSSING-AND-POST1578-59-41-LADDER-R1.json",
       "quality_notes": "The 1624 chronology makes this a later transmission/mechanical control only. It is not evidence that the clean +6/+13 sequence predates Sanming or shares the same immediate exemplar."
+    },
+    {
+      "source_id": "EXT-XUXIU1061-TAIYI-TONGZONG-BAOJIAN-MING-MANUSCRIPT-DAILY-SUNRISE",
+      "title": "《續修四庫全書》第1061冊所收《太乙統宗寶鑑》明抄本再現：卷一逐日日出分机制",
+      "historical_period": "MING_MANUSCRIPT_REPRODUCTION_OF_WORK_WITH_1303_SELF_PREFACE",
+      "provider": "《續修四庫全書》Wikimedia public PDF reproduction",
+      "url": "https://commons.wikimedia.org/wiki/Special:Redirect/file/%E7%BA%8C%E4%BF%AE%E5%9B%9B%E5%BA%AB%E5%85%A8%E6%9B%B8%E7%AC%AC1061%E5%86%8A.pdf",
+      "source_role": "DIRECT_PHYSICAL_REPRODUCTION_CONTROL_FOR_TAIYI_DAILY_SUNRISE_INTERPOLATION",
+      "source_pdf_sha256": "618a31924e05cbb8e8c5b49bfc0da2d7c7fb64526c6719175d685088cef29d83",
+      "workflow_run_id": 35387139084,
+      "artifact_id": 10564496303,
+      "artifact_digest": "sha256:6bdeee20026841a0ad8e98ddad41c34a6e2749cd4d4f84cc0c08a1030ab46bf2",
+      "direct_controls": {
+        "preface_page": 376,
+        "table_page": 385,
+        "method_page": 386,
+        "self_preface_year": 1303,
+        "table_heading": "二十四氣初日損益朓朒及日出分",
+        "method_heading": "求每日日出分術"
+      },
+      "ocr_used_for_final_glyph_claims": false,
+      "reviewed_copy_description": "影印明抄本",
+      "exact_manuscript_date": "UNRESOLVED_WITHIN_MING_SCOPE",
+      "calendar_layer_pre1578_physically_proved": false,
+      "direct_parent_of_cii_n": false,
+      "direct_parent_of_sanming_1578": false,
+      "research_artifact": "docs/research/ZIWEI-DATONG-CIIN-42-48-CROSSING-AND-TAIYI-DAILY-INTERPOLATION-R1.json",
+      "quality_notes": "Direct page review proves the daily interpolation mechanism in the reviewed Ming-manuscript reproduction and a visible 1303 self-preface. The self-preface is not promoted to physical proof that every calendrical layer already existed in identical form in 1303."
+    },
+    {
+      "source_id": "EXT-HEP-2025-TAIYI-ASTRONOMICAL-TABLE-COLLATION",
+      "title": "鲁楠、叶杰、李刚《太乙统宗宝鉴》中的天文数表校勘",
+      "author": "鲁楠；叶杰；李刚",
+      "publication": "《内蒙古师范大学学报（自然科学版）》2025, 54(04):427-436",
+      "doi": "10.3969/j.issn.1001-8735.2025.04.014",
+      "provider": "中国高校科技期刊集群服务平台",
+      "url": "https://cjournal.hep.com.cn/1001-8735/CN/1207255822989852892",
+      "source_role": "SECONDARY_SCHOLARLY_MECHANISM_AND_GENGWU_YUANLI_COMPARISON_CONTROL",
+      "controls": {
+        "taiyi_table": "二十四气初日损益朓朒及日出分立成",
+        "daily_sunrise_method": "initial solar-term sunrise value plus accumulated daily differences",
+        "gengwu_yuanli_year": 1216
+      },
+      "direct_physical_glyph_authority": false,
+      "proves_taiyi_calendar_layer_physically_present_in_1303": false,
+      "proves_direct_ancestry_to_cii_n": false,
+      "research_artifact": "docs/research/ZIWEI-DATONG-CIIN-42-48-CROSSING-AND-TAIYI-DAILY-INTERPOLATION-R1.json",
+      "quality_notes": "Used for mathematical-astronomy comparison and bibliographic/mechanism control. Direct glyph authority remains the reviewed Xuxiu page images."
+    },
+    {
+      "source_id": "EXT-SHIDIAN-GENGWU-YUANLI-DAILY-SUNRISE-CONTROL",
+      "title": "《庚午元曆》传本文本：求每日日出入晨昏半晝分",
+      "author": "耶律楚材相关历法传统",
+      "historical_period": "1216_CALENDAR_RECEIVED_TEXT_CONTROL",
+      "provider": "识典古籍《古今图书集成·历法典》转录",
+      "url": "https://www.shidianguji.com/book/GJTS03/chapter/1lp6118vpbtpv",
+      "source_role": "RECEIVED_TEXT_HISTORICAL_DAILY_SUNRISE_DIFFERENCE_MECHANISM_CONTROL",
+      "mechanism": "Uses initial rising/falling rates and accumulated differences to generate daily sunrise, then derives sunset and half-day values.",
+      "direct_1216_physical_glyph_authority": false,
+      "direct_ancestor_of_taiyi_proved": false,
+      "direct_ancestor_of_cii_n_proved": false,
+      "research_artifact": "docs/research/ZIWEI-DATONG-CIIN-42-48-CROSSING-AND-TAIYI-DAILY-INTERPOLATION-R1.json",
+      "quality_notes": "A received-text mechanism control only. It prevents treating daily interpolation as a modern fitting invention, but it is not a 1216 physical witness."
     }
   ],
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md"

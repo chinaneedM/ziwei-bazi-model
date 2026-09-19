@@ -103,6 +103,8 @@ def main() -> int:
         "TEXT-WORK-ZHUYI-JIANGXUQI-1616",
         "TEXT-WORK-LEIJING-TUYI-ZHANGJIEBIN-1624",
         "TABLE-FAMILY-POST1578-NANJING-59-41-STEPPED",
+        "PHYSICAL-COPY-TAIYI-TONGZONG-XUXIU-MING-MANUSCRIPT",
+        "PASSAGE-TAIYI-JUAN1-DAILY-SUNRISE-INTERPOLATION",
     }
     if not required_nodes.issubset(set(node_ids)):
         fail("Transmission graph seed nodes incomplete")
@@ -288,6 +290,25 @@ def main() -> int:
             fail(f"Batch 12DN chronology non-edge missing for {later_id}")
     if not any(x.get("batch") == "BATCH-12-ZIWEI-DATONG-CIIN-INTEGER-CROSSING-AND-POST1578-59-41-LADDER-DN" and "zero pre-1578 parent vote" in x.get("update", "") and "day67=47.1074" in x.get("update", "") for x in hyp12dk.get("evidence_updates", [])):
         fail("Batch 12DN genealogy hypothesis correction/homology update missing")
+
+    taiyi12do = next(n for n in nodes if n.get("node_id") == "PHYSICAL-COPY-TAIYI-TONGZONG-XUXIU-MING-MANUSCRIPT")
+    passage12do = next(n for n in nodes if n.get("node_id") == "PASSAGE-TAIYI-JUAN1-DAILY-SUNRISE-INTERPOLATION")
+    if taiyi12do.get("calendar_layer_pre1578_physically_proved") is not False or "1303" not in taiyi12do.get("work_composition_date", ""):
+        fail("Batch 12DO Taiyi graph chronology firewall regressed")
+    if passage12do.get("daily_interpolation_directly_observed") is not True or passage12do.get("direct_method_heading") != "求每日日出分術":
+        fail("Batch 12DO Taiyi direct passage regressed")
+    e55 = next((e for e in edges if e.get("edge_id") == "TG-E0055"), None)
+    e56 = next((e for e in edges if e.get("edge_id") == "TG-E0056"), None)
+    if not e55 or e55.get("relation") != "ATTESTS" or e55.get("status") != "CONFIRMED":
+        fail("Batch 12DO Taiyi physical attestation edge regressed")
+    if not e56 or e56.get("relation") != "STRUCTURAL_MECHANISM_CANDIDATE_FOR" or e56.get("status") != "POSSIBLE" or e56.get("to") != "TABLE-NANJING-DATONG-DAILY-CII-N-1380S":
+        fail("Batch 12DO Taiyi mechanism-candidate edge regressed")
+    if e54.get("confidence") != "HIGH_FOR_INTERIOR_42_48_THRESHOLD_MECHANISM" or not any("42-ke d20=41.9706/d21=42.0326" in str(x) for x in e54.get("evidence", [])):
+        fail("Batch 12DO TG-E0054 interior-threshold strengthening regressed")
+    if not any(x.get("batch") == "BATCH-12-ZIWEI-DATONG-CIIN-42-48-CROSSING-AND-TAIYI-DAILY-INTERPOLATION-DO" and "seven consecutive 42-48" in x.get("update", "") and "summer endpoint" in x.get("update", "") and "zero exact pre-1578 Sanming-parent vote" in x.get("update", "") for x in hyp12dk.get("evidence_updates", [])):
+        fail("Batch 12DO genealogy hypothesis mechanism/firewall update missing")
+    if not any(x.get("from") == "PHYSICAL-COPY-TAIYI-TONGZONG-XUXIU-MING-MANUSCRIPT" and x.get("to") == "TABLE-SANMING-1578-DAYNIGHT-KE" and x.get("relation") == "DIRECT_ANCESTOR_OF" and x.get("status") == "UNRESOLVED" for x in graph.get("explicit_non_edges", [])):
+        fail("Batch 12DO Taiyi/Sanming direct-ancestry firewall missing")
 
     leibian_fine = next(n for n in nodes if n.get("node_id") == "TABLE-LEIBIAN-FINE-SISHI-38-62")
     if leibian_fine.get("exact_sanming_yueling_target_identity") is not False:
