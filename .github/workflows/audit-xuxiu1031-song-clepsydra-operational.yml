@@ -25,7 +25,7 @@ jobs:
           sudo apt-get install -y -qq poppler-utils
           python -m pip install --quiet pillow
 
-      - name: Locate Song clepsydra operational works in Xuxiu 1031
+      - name: Full-volume structural locator for Song clepsydra works
         shell: bash
         run: |
           set -euo pipefail
@@ -42,36 +42,40 @@ jobs:
           test "$ACTUAL" = "$EXPECTED"
           pdfinfo "$ROOT/1031.pdf" | tee "$ROOT/pdfinfo.txt"
 
-          # Both clepsydra works are near the end of Xuxiu 1031.
-          pdftotext -f 625 -l 740 -layout "$ROOT/1031.pdf" "$ROOT/text-layer-p625-740.txt" || true
+          # The public file metadata confirms both titles are in this volume, but the
+          # previous p625-p740 assumption was wrong: that window is still 新製靈臺儀象志.
+          # Scan the complete 740-page PDF at low resolution for structural/title-page
+          # localization only. High-resolution final mechanism review is a later pass.
+          pdftotext -f 1 -l 740 -layout "$ROOT/1031.pdf" "$ROOT/text-layer-full.txt" || true
           grep -n -E '準齋|准齋|几漏|銅壺|铜壶|漏箭|刻漏|上箭|下箭|獨用|独用|同用|十二節|十二节|冬至|夏至|晝夜|昼夜|百刻|改箭' \
-            "$ROOT/text-layer-p625-740.txt" > "$ROOT/text-layer-locator-hits.txt" || true
+            "$ROOT/text-layer-full.txt" > "$ROOT/text-layer-locator-hits.txt" || true
 
-          pdftoppm -f 625 -l 740 -jpeg -jpegopt quality=90 -r 160 \
-            "$ROOT/1031.pdf" "$ROOT/render/page" >/dev/null 2>&1
-          sha256sum "$ROOT"/render/*.jpg | sort -V > "$ROOT/render.sha256"
+          mkdir -p "$ROOT/lowres"
+          pdftoppm -f 1 -l 740 -jpeg -jpegopt quality=65 -r 60 \
+            "$ROOT/1031.pdf" "$ROOT/lowres/page" >/dev/null 2>&1
+          sha256sum "$ROOT"/lowres/*.jpg | sort -V > "$ROOT/lowres.sha256"
 
           python - <<'PY'
           from pathlib import Path
           from PIL import Image,ImageDraw
           root=Path('audit/xuxiu1031-song-clepsydra-operational')
-          pages=sorted((root/'render').glob('page-*.jpg'), key=lambda p:int(p.stem.split('-')[-1]))
-          for i in range(0,len(pages),12):
-              batch=pages[i:i+12]
+          pages=sorted((root/'lowres').glob('page-*.jpg'), key=lambda p:int(p.stem.split('-')[-1]))
+          for i in range(0,len(pages),24):
+              batch=pages[i:i+24]
               thumbs=[]
               for p in batch:
                   im=Image.open(p).convert('RGB')
-                  im.thumbnail((340,475))
-                  c=Image.new('RGB',(360,510),'white')
-                  c.paste(im,((360-im.width)//2,25))
-                  ImageDraw.Draw(c).text((8,6),p.name,fill='black')
+                  im.thumbnail((245,342))
+                  c=Image.new('RGB',(260,372),'white')
+                  c.paste(im,((260-im.width)//2,23))
+                  ImageDraw.Draw(c).text((6,5),p.name,fill='black')
                   thumbs.append(c)
-              cols=4; rows=(len(thumbs)+cols-1)//cols
-              sh=Image.new('RGB',(cols*360,rows*510),'white')
+              cols=6; rows=(len(thumbs)+cols-1)//cols
+              sh=Image.new('RGB',(cols*260,rows*372),'white')
               for j,im in enumerate(thumbs):
-                  sh.paste(im,((j%cols)*360,(j//cols)*510))
+                  sh.paste(im,((j%cols)*260,(j//cols)*372))
               first=int(batch[0].stem.split('-')[-1]); last=int(batch[-1].stem.split('-')[-1])
-              sh.save(root/'contact'/f'contact-{first:03d}-{last:03d}.jpg',quality=92)
+              sh.save(root/'contact'/f'contact-{first:03d}-{last:03d}.jpg',quality=82)
           PY
           sha256sum "$ROOT"/contact/*.jpg | sort -V > "$ROOT/contact.sha256"
 
@@ -81,10 +85,11 @@ jobs:
             'TARGETS=準齋心製几漏圖式一卷;銅壺漏箭制度一卷' \
             'XUXIU_COPY_SCOPE=both reproduced from NLC-held Qing Daoguang-3 Huang Pilie Shiliju manuscripts; work layers attributed to Song tradition' \
             'PURPOSE=locate direct operational rules for seasonal arrow selection/change/use; do not promote Qing reproduction copy into a pre1578 physical witness' \
-            'RENDER_RANGE=PDF p625-p740 at 160dpi' \
+            'STRUCTURAL_LOCATOR_RANGE=PDF p1-p740 at 60dpi; 24 pages/contact sheet' \
             'OCR_RUN=false' \
             'TEXT_LAYER_ROLE=LOCATOR_ONLY_NOT_FINAL_GLYPH_OR_MECHANISM_AUTHORITY' \
-            'FINAL_MECHANISM_CLAIMS_REQUIRE_DIRECT_IMAGE_REVIEW=true' \
+            'STRUCTURAL_LOCATOR_ONLY=true' \
+            'FINAL_MECHANISM_CLAIMS_REQUIRE_SEPARATE_HIGH_RES_DIRECT_IMAGE_REVIEW=true' \
             > "$ROOT/manifest.txt"
 
           rm "$ROOT/1031.pdf"
