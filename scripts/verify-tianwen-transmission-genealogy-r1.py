@@ -19,6 +19,7 @@ BATCH_12DU = ROOT / "docs/research/ZIWEI-NLC-DATONG-LIFA-TONGGUI-XUXIU1031-PHYSI
 BATCH_12DV = ROOT / "docs/research/ZIWEI-XUXIU1031-ZHUNZHAI-CLEPSYDRA-JIEHOU-ARROW-SELECTION-R1.json"
 BATCH_12DW = ROOT / "docs/research/ZIWEI-YONEZAWA-SHILIN1492-LIKOU-48ARROW-24QI-PHYSICAL-CLOSURE-R1.json"
 BATCH_12DX = ROOT / "docs/research/ZIWEI-NAJDA-SUISHU-YUAN-LOUKE-48ARROW-HUANGJI5986-PHYSICAL-CLOSURE-R1.json"
+BATCH_12DY = ROOT / "docs/research/ZIWEI-WUZONG-SHILU-1518-MULTISOURCE-LOCAL-CALIBRATION-PROPOSAL-R1.json"
 
 
 def fail(message: str) -> None:
@@ -26,7 +27,7 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
-    for path in (CHARTER, PROTOCOL, GRAPH, STATE, BATCH_12CH, BATCH_12DP, BATCH_12DQ, BATCH_12DR, BATCH_12DS, BATCH_12DT, BATCH_12DU, BATCH_12DV, BATCH_12DW, BATCH_12DX):
+    for path in (CHARTER, PROTOCOL, GRAPH, STATE, BATCH_12CH, BATCH_12DP, BATCH_12DQ, BATCH_12DR, BATCH_12DS, BATCH_12DT, BATCH_12DU, BATCH_12DV, BATCH_12DW, BATCH_12DX, BATCH_12DY):
         if not path.is_file():
             fail(f"Tianwen transmission artifact missing: {path.relative_to(ROOT)}")
 
@@ -606,6 +607,22 @@ def main() -> int:
         fail("Batch 12DX unchanged-table non-edge missing")
     if not any(x.get("batch") == "BATCH-12-ZIWEI-NAJDA-SUISHU-YUAN-LOUKE-48ARROW-HUANGJI5986-PHYSICAL-CLOSURE-DX" and "zero exact Sanming-parent vote" in x.get("update", "") for x in hyp12dk.get("evidence_updates", [])):
         fail("Batch 12DX genealogy hypothesis zero-vote update missing")
+
+    batch12dy = json.loads(BATCH_12DY.read_text(encoding="utf-8"))
+    if batch12dy.get("adjudication", {}).get("pre1578_multisource_local_calibration_proposal") != "CLOSED":
+        fail("Batch 12DY proposal closure regressed")
+    passage12dy = next(n for n in nodes if n.get("node_id") == "PASSAGE-WUZONG169-ZHUYU-CALIBRATION-PROPOSAL-1518")
+    rule12dy = next(n for n in nodes if n.get("node_id") == "RULE-FAMILY-MING-QINTIANJIAN-MULTISOURCE-LOCAL-CALIBRATION-PROPOSAL-1518")
+    if passage12dy.get("proposal_status") != "SUBMITTED_AND_REVIEWED_NOT_PROVED_ADOPTED_OR_EXECUTED":
+        fail("Batch 12DY passage proposal-status firewall regressed")
+    if rule12dy.get("adopted_or_executed") is not False or rule12dy.get("direct_59_numeral") is not False or rule12dy.get("direct_whole_ke_reduction_rule") is not False:
+        fail("Batch 12DY rule-family adoption/numeric firewall regressed")
+    for eid, rel in (("TG-E0081","ATTESTS"),("TG-E0082","ATTESTS"),("TG-E0083","PARALLEL_COEXISTS_WITH")):
+        e = next((x for x in edges if x.get("edge_id") == eid), None)
+        if not e or e.get("relation") != rel:
+            fail(f"Batch 12DY transmission edge regressed: {eid}")
+    if not any(x.get("batch") == "BATCH-12-ZIWEI-WUZONG-SHILU-1518-MULTISOURCE-LOCAL-CALIBRATION-PROPOSAL-DY" and "zero exact Sanming-parent vote" in x.get("update", "") for x in hyp12dk.get("evidence_updates", [])):
+        fail("Batch 12DY genealogy hypothesis zero-vote update missing")
 
     ncl = next(n for n in nodes if n.get("node_id") == "PHYSICAL-COPY-SISHI-QIHOU-NCL03164-OLD-MANUSCRIPT")
     if ncl.get("physical_copy_date") != "UNRESOLVED":

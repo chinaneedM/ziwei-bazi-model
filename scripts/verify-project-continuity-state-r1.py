@@ -58,6 +58,8 @@ ZIWEI_YONEZAWA_SHILIN_12DW_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENAN
 ZIWEI_YONEZAWA_SHILIN_12DW_EVIDENCE = ROOT / "docs/research/ZIWEI-YONEZAWA-SHILIN1492-LIKOU-48ARROW-24QI-PHYSICAL-CLOSURE-R1.json"
 ZIWEI_NAJDA_SUISHU_12DX_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NAJDA-SUISHU-YUAN-LOUKE-48ARROW-HUANGJI5986-PHYSICAL-CLOSURE-DX.md"
 ZIWEI_NAJDA_SUISHU_12DX_EVIDENCE = ROOT / "docs/research/ZIWEI-NAJDA-SUISHU-YUAN-LOUKE-48ARROW-HUANGJI5986-PHYSICAL-CLOSURE-R1.json"
+ZIWEI_WUZONG_12DY_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WUZONG-SHILU-1518-MULTISOURCE-LOCAL-CALIBRATION-PROPOSAL-DY.md"
+ZIWEI_WUZONG_12DY_EVIDENCE = ROOT / "docs/research/ZIWEI-WUZONG-SHILU-1518-MULTISOURCE-LOCAL-CALIBRATION-PROPOSAL-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -313,9 +315,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-XUXIU1031-ZHUNZHAI-CLEPSYDRA-JIEHOU-ARROW-SELECTION-DV",
     "BATCH-12-ZIWEI-YONEZAWA-SHILIN1492-LIKOU-48ARROW-24QI-PHYSICAL-CLOSURE-DW",
     "BATCH-12-ZIWEI-NAJDA-SUISHU-YUAN-LOUKE-48ARROW-HUANGJI5986-PHYSICAL-CLOSURE-DX",
+    "BATCH-12-ZIWEI-WUZONG-SHILU-1518-MULTISOURCE-LOCAL-CALIBRATION-PROPOSAL-DY",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NAJDA-SUISHU-YUAN-LOUKE-48ARROW-HUANGJI5986-PHYSICAL-CLOSURE-DX.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WUZONG-SHILU-1518-MULTISOURCE-LOCAL-CALIBRATION-PROPOSAL-DY.md"
 
 
 def fail(message: str) -> None:
@@ -422,6 +425,32 @@ def main() -> int:
         fail("Batch 12DX Sanming numeric/lineage firewall regressed")
     if any(ad12dx.get(k) for k in ("matrix_count_change", "runtime_rule_change", "algorithm_reopen_authorized", "candidate_collapse_authorized")):
         fail("Batch 12DX product firewall regressed")
+
+    for path in (ZIWEI_WUZONG_12DY_BATCH, ZIWEI_WUZONG_12DY_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12DY continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12dy = json.loads(ZIWEI_WUZONG_12DY_EVIDENCE.read_text(encoding="utf-8"))
+    if batch12dy.get("batch_id") != "BATCH-12-ZIWEI-WUZONG-SHILU-1518-MULTISOURCE-LOCAL-CALIBRATION-PROPOSAL-DY":
+        fail("Batch 12DY evidence identity mismatch")
+    direct12dy = batch12dy.get("direct_physical_collation", {})
+    if "明武宗毅皇帝實錄卷之一百六十九" not in direct12dy.get("p66", {}).get("direct", ()) or "正德十三年十二月丙寅朔" not in direct12dy.get("p66", {}).get("direct", ()):
+        fail("Batch 12DY volume/date binding regressed")
+    p70dy = direct12dy.get("p70", {}).get("direct", ())
+    for phrase in ("先是欽天監漏刻博士朱裕請修改曆法上疏曰", "觀象臺測驗黃道赤道度分若干日月五星躔度疏密", "漏刻科推測昏旦中星調品晝夜壺漏", "仍遣官之南京及浙江諸省候土圭以測今時與至元"):
+        if phrase not in p70dy:
+            fail(f"Batch 12DY multisource/local calibration text regressed: {phrase}")
+    p71dy = direct12dy.get("p71", {}).get("direct", ())
+    for phrase in ("天道修短若干節氣早晚何如衆途同歸方可成曆", "事下禮部看詳", "今裕及欽天監官曆法未必皆精難遽委以是任"):
+        if phrase not in p71dy:
+            fail(f"Batch 12DY proposal/adoption firewall regressed: {phrase}")
+    mech12dy = batch12dy.get("institutional_mechanism", {})
+    if mech12dy.get("proposal_adopted_or_executed") != "NOT_PROVED" or mech12dy.get("locality_materiality") != "EXPLICIT_IN_PROPOSAL":
+        fail("Batch 12DY proposal/locality adjudication regressed")
+    ad12dy = batch12dy.get("adjudication", {})
+    if ad12dy.get("direct_numeric_59_rule") != "NOT_ATTESTED_IN_REVIEWED_PASSAGE" or ad12dy.get("whole_ke_reduction_rule") != "NOT_ATTESTED_IN_REVIEWED_PASSAGE" or ad12dy.get("direct_sanming_parent_vote_increment") != 0:
+        fail("Batch 12DY numeric/lineage firewall regressed")
+    if any(ad12dy.get(k) for k in ("matrix_count_change", "runtime_rule_change", "algorithm_reopen_authorized", "candidate_collapse_authorized")):
+        fail("Batch 12DY product firewall regressed")
 
     for path in (ZIWEI_KYUDB_12DT_BATCH, ZIWEI_KYUDB_12DT_EVIDENCE):
         if not path.is_file():

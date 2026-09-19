@@ -1464,6 +1464,57 @@
         "docs/research/ZIWEI-NAJDA-SUISHU-YUAN-LOUKE-48ARROW-HUANGJI5986-PHYSICAL-CLOSURE-R1.json"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-NAJDA-SUISHU-YUAN-LOUKE-48ARROW-HUANGJI5986-PHYSICAL-CLOSURE-DX"
+    },
+    {
+      "node_id": "DIGITAL-SURROGATE-WUZONG-SHILU-NLC-V18",
+      "node_type": "DIGITAL_SURROGATE",
+      "label": "NLC/Wikimedia《明武宗毅皇帝實錄》第18冊数字替身",
+      "system_scope": "MING_OFFICIAL_CALENDRICAL_INSTITUTIONAL_RECORD",
+      "work_composition_date": "POST_EVENT_MING_DYNASTIC_SHILU_COMPILATION",
+      "physical_copy_date": "MING_1368_1644_BROAD_CATALOG_RANGE_FROM_SURROGATE_METADATA",
+      "digital_surrogate_date": "MODERN_NLC_COMMONS_DIGITIZATION_OR_MIRROR",
+      "identifier": "NLC892-CBM0106-366484 / PDF sha256 22dd2aa63acae395da5bd354b6caa73d54b437f260d287a6b927f18f03cbd07c",
+      "evidence": [
+        "EXT-NLC-WUZONG-SHILU-V18-1518-ZHUYU-CALIBRATION",
+        "docs/research/ZIWEI-WUZONG-SHILU-1518-MULTISOURCE-LOCAL-CALIBRATION-PROPOSAL-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-WUZONG-SHILU-1518-MULTISOURCE-LOCAL-CALIBRATION-PROPOSAL-DY"
+    },
+    {
+      "node_id": "PASSAGE-WUZONG169-ZHUYU-CALIBRATION-PROPOSAL-1518",
+      "node_type": "PASSAGE",
+      "label": "《武宗實錄》卷169正德十三年十二月朱裕改曆奏議",
+      "system_scope": "MING_QINTIANJIAN_CALENDAR_REVISION_PROPOSAL",
+      "historical_event_date": "ZHENGDE_13_12_BINGYIN_SHUO_1518",
+      "physical_surrogate_locator": "NLC volume18 PDF pp66,70-71",
+      "proposal_status": "SUBMITTED_AND_REVIEWED_NOT_PROVED_ADOPTED_OR_EXECUTED",
+      "evidence": [
+        "EXT-NLC-WUZONG-SHILU-V18-1518-ZHUYU-CALIBRATION",
+        "docs/research/ZIWEI-WUZONG-SHILU-1518-MULTISOURCE-LOCAL-CALIBRATION-PROPOSAL-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-WUZONG-SHILU-1518-MULTISOURCE-LOCAL-CALIBRATION-PROPOSAL-DY"
+    },
+    {
+      "node_id": "RULE-FAMILY-MING-QINTIANJIAN-MULTISOURCE-LOCAL-CALIBRATION-PROPOSAL-1518",
+      "node_type": "RULE_FAMILY",
+      "label": "1518欽天監多源／跨地域校曆方案",
+      "system_scope": "MING_OFFICIAL_INSTITUTIONAL_CALIBRATION_METHODOLOGY_PROPOSAL",
+      "mechanical_identity": "Old/new calendar cross-computation + observatory ecliptic/equatorial/celestial-motion measurement + Clepsydra Office dawn/dusk culminating stars and day/night water-clock adjustment + Huihui calendar verification + Nanjing/Zhejiang gnomon observations, converging before calendar revision.",
+      "locality_component": [
+        "南京",
+        "浙江諸省"
+      ],
+      "clepsydra_component": "漏刻科推測昏旦中星調品晝夜壺漏",
+      "convergence_principle": "衆途同歸方可成曆",
+      "adopted_or_executed": false,
+      "adoption_status_reason": "禮部看詳後稱今裕及欽天監官曆法未必皆精難遽委以是任",
+      "direct_59_numeral": false,
+      "direct_whole_ke_reduction_rule": false,
+      "evidence": [
+        "EXT-NLC-WUZONG-SHILU-V18-1518-ZHUYU-CALIBRATION",
+        "docs/research/ZIWEI-WUZONG-SHILU-1518-MULTISOURCE-LOCAL-CALIBRATION-PROPOSAL-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-WUZONG-SHILU-1518-MULTISOURCE-LOCAL-CALIBRATION-PROPOSAL-DY"
     }
   ],
   "edges": [
@@ -2672,6 +2723,50 @@
       ],
       "scope_note": "59.86/40.14 is a pre-1578 near-59 component candidate, not an unchanged 59/41 table and not an applied standard; no whole-ke reduction rule is attested.",
       "adjudication_batch": "BATCH-12-ZIWEI-NAJDA-SUISHU-YUAN-LOUKE-48ARROW-HUANGJI5986-PHYSICAL-CLOSURE-DX"
+    },
+    {
+      "edge_id": "TG-E0081",
+      "from": "DIGITAL-SURROGATE-WUZONG-SHILU-NLC-V18",
+      "relation": "ATTESTS",
+      "to": "PASSAGE-WUZONG169-ZHUYU-CALIBRATION-PROPOSAL-1518",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_FOR_SOURCE_BOUND_PHYSICAL_SURROGATE",
+      "evidence_class": "DIRECT_NO_OCR_FINAL_GLYPH_REVIEW_WITH_VOLUME_DATE_AND_TARGET_PAGE_BINDING",
+      "evidence": [
+        "EXT-NLC-WUZONG-SHILU-V18-1518-ZHUYU-CALIBRATION",
+        "docs/research/ZIWEI-WUZONG-SHILU-1518-MULTISOURCE-LOCAL-CALIBRATION-PROPOSAL-R1.json"
+      ],
+      "scope_note": "Attests the 1518 proposal text and ministry-response context; event/compilation/copy/surrogate dates remain separate.",
+      "adjudication_batch": "BATCH-12-ZIWEI-WUZONG-SHILU-1518-MULTISOURCE-LOCAL-CALIBRATION-PROPOSAL-DY"
+    },
+    {
+      "edge_id": "TG-E0082",
+      "from": "PASSAGE-WUZONG169-ZHUYU-CALIBRATION-PROPOSAL-1518",
+      "relation": "ATTESTS",
+      "to": "RULE-FAMILY-MING-QINTIANJIAN-MULTISOURCE-LOCAL-CALIBRATION-PROPOSAL-1518",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_FOR_PROPOSAL_CONTENT; NOT_AN_ADOPTION_CLAIM",
+      "evidence_class": "DIRECT_PHYSICAL_TEXTUAL_MECHANISM_COLLATION",
+      "evidence": [
+        "docs/research/ZIWEI-WUZONG-SHILU-1518-MULTISOURCE-LOCAL-CALIBRATION-PROPOSAL-R1.json"
+      ],
+      "scope_note": "The rule-family node is explicitly proposal-scoped. The same passage prevents promotion to an adopted/executed institutional standard.",
+      "adjudication_batch": "BATCH-12-ZIWEI-WUZONG-SHILU-1518-MULTISOURCE-LOCAL-CALIBRATION-PROPOSAL-DY"
+    },
+    {
+      "edge_id": "TG-E0083",
+      "from": "RULE-FAMILY-MING-QINTIANJIAN-MULTISOURCE-LOCAL-CALIBRATION-PROPOSAL-1518",
+      "relation": "PARALLEL_COEXISTS_WITH",
+      "to": "STANDARD-NANJING-59KE-1447",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_FOR_SAME_PRE1578_MING_LOCALITY_CALIBRATION_CONTEXT; NO_NUMERIC_LINEAGE_CLAIM",
+      "evidence_class": "DIRECT_1518_NANJING_LOCAL_OBSERVATION_PROPOSAL_PLUS_INDEPENDENT_1447_NANJING_59_STANDARD",
+      "evidence": [
+        "docs/research/ZIWEI-WUZONG-SHILU-1518-MULTISOURCE-LOCAL-CALIBRATION-PROPOSAL-R1.json",
+        "docs/research/ZIWEI-YINGZONG-SHILU-1447-NANJING-59-41-PHYSICAL-COLLATION-R1.json"
+      ],
+      "scope_note": "Shows later pre-1578 institutional locality-calibration context explicitly includes Nanjing. Does not assert that the proposal generated, rounded, transmitted or numerically defined the 1447 59-ke standard.",
+      "adjudication_batch": "BATCH-12-ZIWEI-WUZONG-SHILU-1518-MULTISOURCE-LOCAL-CALIBRATION-PROPOSAL-DY"
     }
   ],
   "lineage_hypotheses": [
@@ -2812,6 +2907,10 @@
         {
           "batch": "BATCH-12-ZIWEI-NAJDA-SUISHU-YUAN-LOUKE-48ARROW-HUANGJI5986-PHYSICAL-CLOSURE-DX",
           "update": "A securely pre-1578 Yuan physical Sui Shu witness (NAJDA 280-0071) now directly closes three separate historical layers: Huo Rong's yellow-path 2-du-4-fen threshold -> one-ke -> 48-arrow mechanism; Yuan Chong's reviewed 19-day -> one-ke -> change-arrow schedule with a 60/40 summer endpoint (explicitly criticized as not precise in application); and Liu Zhuo Huangji's 24-qi fractional 59.86/40.14 solstitial model. The same p69 explicitly says Zhang Zhouxuan/Liu Zhuo clepsydras were not put into use. This materially strengthens the pre-1578 component architecture and near-59 numeric prehistory but supplies no Nanjing locality, no 59.86->whole-59 reduction rule, no exact Dahan/Yushui fingerprint, and zero exact Sanming-parent vote."
+        },
+        {
+          "batch": "BATCH-12-ZIWEI-WUZONG-SHILU-1518-MULTISOURCE-LOCAL-CALIBRATION-PROPOSAL-DY",
+          "update": "The 1518 Wuzong Shilu Zhu Yu memorial directly closes a pre-1578 Qintianjian proposal for multisource regional calibration: old/new calendar cross-checking, Observatory measurements, Clepsydra Office day/night water-clock adjustment, Huihui-calendar verification, and Nanjing/Zhejiang gnomon observations are to converge before calendar revision. The same record says the matter was sent to the Ministry and Zhu Yu/Qintianjian officers were not considered sufficiently reliable for immediate entrustment, so this is proposal/method-context evidence, not proof of adoption or execution. It adds zero exact Sanming-parent vote and no 59-ke reduction rule."
         }
       ],
       "endpoint_anchor_component_identified": true,
