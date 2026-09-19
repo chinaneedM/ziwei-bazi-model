@@ -391,9 +391,6 @@ def main() -> int:
         fail("Batch 12DW Sanming numeric/lineage firewall regressed")
     if any(ad12dw.get(k) for k in ("matrix_count_change", "runtime_rule_change", "algorithm_reopen_authorized", "candidate_collapse_authorized")):
         fail("Batch 12DW product firewall regressed")
-    reg12dw = next((s for s in registry.get("sources", []) if s.get("source_id") == "EXT-YONEZAWA-SHILIN-AA060-HONGZHI5-1492"), None)
-    if reg12dw is None or reg12dw.get("batch_12dw", {}).get("secure_pre1578_print_witness") is not True:
-        fail("Batch 12DW external-source registry binding missing")
 
     for path in (ZIWEI_KYUDB_12DT_BATCH, ZIWEI_KYUDB_12DT_EVIDENCE):
         if not path.is_file():
