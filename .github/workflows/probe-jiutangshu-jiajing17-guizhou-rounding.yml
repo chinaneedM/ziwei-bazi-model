@@ -32,7 +32,7 @@ jobs:
           from PIL import Image, ImageDraw
 
           root=pathlib.Path("audit/jiutangshu-jiajing17-guizhou-rounding")
-          title="File:NCL-01535 06 舊唐書.pdf"
+          title="File:NCL-01535 05 舊唐書.pdf"
           api="https://commons.wikimedia.org/w/api.php?" + urllib.parse.urlencode({
               "action":"query","format":"json","formatversion":"2",
               "prop":"imageinfo","iiprop":"url|size|sha1|extmetadata","titles":title
@@ -47,7 +47,7 @@ jobs:
 
           with urllib.request.urlopen(urllib.request.Request(url,headers=headers),timeout=300) as r:
               data=r.read()
-          pdf=root/"jiutangshu-ncl01535-06.pdf"
+          pdf=root/"jiutangshu-ncl01535-05.pdf"
           pdf.write_bytes(data)
           pdf_sha=hashlib.sha256(data).hexdigest()
           info=subprocess.run(["pdfinfo",str(pdf)],stdout=subprocess.PIPE,check=True).stdout.decode("utf-8",errors="replace")
@@ -109,7 +109,7 @@ jobs:
           ext=ii.get("extmetadata") or {}
           report={
               "schema":"JIUTANGSHU-JIAJING17-GUILOU-ROUNDING-PROBE-R1",
-              "schema_version":"1.0.1",
+              "schema_version":"1.0.2",
               "commons_file_title":title,
               "source_url":url,
               "commons_sha1":ii.get("sha1"),
@@ -121,7 +121,7 @@ jobs:
                   "edition":"明嘉靖十七年（1538）聞人詮吳郡刊本",
                   "ncl_call_number":"201.242 01535",
                   "public_surrogate":"Wikimedia Commons / National Central Library scan",
-                  "fascicle_probe":"NCL-01535 06; corrected after 07 was directly identified as later geography material"
+                  "fascicle_probe":"NCL-01535 05; 07 was directly identified as later geography material and 06 opens in later juan34 lunar/eclipse procedures, placing the target earlier"
               },
               "publication_date_metadata":(ext.get("Date") or {}).get("value"),
               "low_res_ocr_hits":hits,
