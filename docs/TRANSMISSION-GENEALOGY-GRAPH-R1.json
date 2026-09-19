@@ -1260,6 +1260,64 @@
         "docs/research/ZIWEI-KYUDB-DATONG-LIFA-TONGGUI-COMPONENT-SET-CROSSWALK-R1.json"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-KYUDB-DATONG-LIFA-TONGGUI-COMPONENT-SET-CROSSWALK-DT"
+    },
+    {
+      "node_id": "EDITION-NLC-DATONG-LIFA-TONGGUI-RESIDUAL-MING-MS-RECENSION",
+      "node_type": "EDITION",
+      "label": "國家圖書館藏《大統曆法通軌》殘存明抄本傳本層（交食/日食/月食/四餘/五星）",
+      "system_scope": "MING_DATONG_TONGGUI_RESIDUAL_RECENSION",
+      "work_composition_date": "YUAN_TONG_DATONG_LIFA_TONGGUI_HONGWU17_1384_WORK_LAYER",
+      "edition_impression_date": "MANUSCRIPT_RECENSION_WITHIN_MING_SCOPE; EXACT_COPYING_DATE_UNRESOLVED",
+      "physical_copy_date": null,
+      "digital_surrogate_date": null,
+      "juan_count_note": "2019 secondary locator reports 三卷; Xuxiu1031 metadata reports five named one-juan units; exact codicological reconciliation unresolved",
+      "direct_title_sequence_scope": [
+        "交食通軌",
+        "日食通軌",
+        "月食通軌",
+        "四餘通軌/四餘纏度通軌",
+        "五星通軌"
+      ],
+      "evidence": [
+        "EXT-XUXIU1031-NLC-DATONG-TONGGUI-MING-MS-PHYSICAL",
+        "docs/research/ZIWEI-NLC-DATONG-LIFA-TONGGUI-XUXIU1031-PHYSICAL-SCOPE-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-NLC-DATONG-LIFA-TONGGUI-XUXIU1031-PHYSICAL-SCOPE-DU"
+    },
+    {
+      "node_id": "PHYSICAL-COPY-NLC-DATONG-LIFA-TONGGUI-RESIDUAL-MING-MS",
+      "node_type": "PHYSICAL_COPY",
+      "label": "國家圖書館藏《大統曆法通軌》殘存明抄本（續修1031再現底本）",
+      "system_scope": "NLC_MING_MANUSCRIPT_DATONG_TONGGUI_RESIDUAL_COMPONENTS",
+      "work_composition_date": "YUAN_TONG_DATONG_LIFA_TONGGUI_WORK_LAYER",
+      "edition_impression_date": "MING_MANUSCRIPT_RECENSION; EXACT_DATE_UNRESOLVED",
+      "physical_copy_date": "UNRESOLVED_WITHIN_MING_SCOPE",
+      "digital_surrogate_date": null,
+      "identifier": "NLC-held Ming manuscript; current NLC call number/item id unresolved",
+      "reproduced_scope": "Xuxiu1031 PDF p578-p622; p623 separator; p624 next work",
+      "exact_pre1578_physical_copy_status": "NOT_PROVED",
+      "evidence": [
+        "EXT-XUXIU1031-NLC-DATONG-TONGGUI-MING-MS-PHYSICAL",
+        "docs/research/ZIWEI-NLC-DATONG-LIFA-TONGGUI-XUXIU1031-PHYSICAL-SCOPE-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-NLC-DATONG-LIFA-TONGGUI-XUXIU1031-PHYSICAL-SCOPE-DU"
+    },
+    {
+      "node_id": "DIGITAL-SURROGATE-XUXIU1031-NLC-DATONG-TONGGUI-RESIDUAL",
+      "node_type": "DIGITAL_SURROGATE",
+      "label": "《續修四庫全書》第1031冊國圖《大統曆法通軌》殘存明抄本公開再影印",
+      "system_scope": "PUBLIC_DIGITAL_SURROGATE_OF_NLC_MING_DATONG_TONGGUI_RESIDUAL_COPY",
+      "work_composition_date": "NOT_A_WORK_DATE_CLAIM",
+      "edition_impression_date": "XUXIU_SIKU_QUANSHU_2002_REPRODUCTION",
+      "physical_copy_date": null,
+      "digital_surrogate_date": "WIKIMEDIA_PUBLIC_PDF_CURRENT_SURROGATE",
+      "identifier": "Xuxiu vol.1031 / source sha256 07348e40ec26ca38efe9c9736a69c403c61f9b07a2c89a847fc68d00ce6d8c25",
+      "direct_review_scope": "PDF p578-p624 boundary controls; no OCR final authority",
+      "evidence": [
+        "EXT-XUXIU1031-NLC-DATONG-TONGGUI-MING-MS-PHYSICAL",
+        "docs/research/ZIWEI-NLC-DATONG-LIFA-TONGGUI-XUXIU1031-PHYSICAL-SCOPE-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-NLC-DATONG-LIFA-TONGGUI-XUXIU1031-PHYSICAL-SCOPE-DU"
     }
   ],
   "edges": [
@@ -2291,6 +2349,49 @@
       ],
       "adjudication_batch": "BATCH-12-ZIWEI-KYUDB-DATONG-LIFA-TONGGUI-COMPONENT-SET-CROSSWALK-DT",
       "scope_note": "Component-set membership only; no content imputation across sibling holdings."
+    },
+    {
+      "edge_id": "TG-E0069",
+      "from": "EDITION-NLC-DATONG-LIFA-TONGGUI-RESIDUAL-MING-MS-RECENSION",
+      "relation": "EDITION_OF",
+      "to": "TEXT-WORK-YUANTONG-DATONG-LIFA-TONGGUI-HONGWU17",
+      "status": "HIGH_CONFIDENCE",
+      "confidence": "HIGH_FOR_WORK_FAMILY_AND_DIRECT_YUAN_TONG_TITLE_BRANCH_BINDING; JUAN_COUNT_RECONCILIATION_UNRESOLVED",
+      "evidence_class": "DIRECT_REPRODUCTION_TITLES_PLUS_DIRECT_YUAN_TONG_NAME_CONTROL_PLUS_BIBLIOGRAPHIC_XUXIU_GROUPING",
+      "evidence": [
+        "EXT-XUXIU1031-NLC-DATONG-TONGGUI-MING-MS-PHYSICAL",
+        "docs/research/ZIWEI-NLC-DATONG-LIFA-TONGGUI-XUXIU1031-PHYSICAL-SCOPE-R1.json"
+      ],
+      "scope_note": "Does not normalize the 2019 三卷 report to Xuxiu's five named one-juan units.",
+      "adjudication_batch": "BATCH-12-ZIWEI-NLC-DATONG-LIFA-TONGGUI-XUXIU1031-PHYSICAL-SCOPE-DU"
+    },
+    {
+      "edge_id": "TG-E0070",
+      "from": "PHYSICAL-COPY-NLC-DATONG-LIFA-TONGGUI-RESIDUAL-MING-MS",
+      "relation": "PHYSICAL_COPY_OF_EDITION",
+      "to": "EDITION-NLC-DATONG-LIFA-TONGGUI-RESIDUAL-MING-MS-RECENSION",
+      "status": "HIGH_CONFIDENCE",
+      "confidence": "HIGH_FOR_XUXIU_DESCRIBED_NLC_MING_MANUSCRIPT_REPRODUCTION; EXACT_NLC_CALL_NUMBER_AND_COPY_DATE_UNRESOLVED",
+      "evidence_class": "XUXIU_REPRODUCTION_METADATA_PLUS_DIRECT_CONTIGUOUS_PHYSICAL_BOUNDARY_REVIEW",
+      "evidence": [
+        "EXT-XUXIU1031-NLC-DATONG-TONGGUI-MING-MS-PHYSICAL",
+        "docs/research/ZIWEI-NLC-DATONG-LIFA-TONGGUI-XUXIU1031-PHYSICAL-SCOPE-R1.json"
+      ],
+      "adjudication_batch": "BATCH-12-ZIWEI-NLC-DATONG-LIFA-TONGGUI-XUXIU1031-PHYSICAL-SCOPE-DU"
+    },
+    {
+      "edge_id": "TG-E0071",
+      "from": "DIGITAL-SURROGATE-XUXIU1031-NLC-DATONG-TONGGUI-RESIDUAL",
+      "relation": "DIGITAL_SURROGATE_OF",
+      "to": "PHYSICAL-COPY-NLC-DATONG-LIFA-TONGGUI-RESIDUAL-MING-MS",
+      "status": "CONFIRMED",
+      "confidence": "HIGH",
+      "evidence_class": "SOURCE_BOUND_PUBLIC_REPRODUCTION_WITH_SHA256_AND_DIRECT_PAGE_BOUNDARIES",
+      "evidence": [
+        "EXT-XUXIU1031-NLC-DATONG-TONGGUI-MING-MS-PHYSICAL",
+        "docs/research/ZIWEI-NLC-DATONG-LIFA-TONGGUI-XUXIU1031-PHYSICAL-SCOPE-R1.json"
+      ],
+      "adjudication_batch": "BATCH-12-ZIWEI-NLC-DATONG-LIFA-TONGGUI-XUXIU1031-PHYSICAL-SCOPE-DU"
     }
   ],
   "lineage_hypotheses": [
@@ -2413,6 +2514,10 @@
         {
           "batch": "BATCH-12-ZIWEI-KYUDB-DATONG-LIFA-TONGGUI-COMPONENT-SET-CROSSWALK-DT",
           "update": "Kyujanggak catalog modeling is reconciled: first-party exact-title records bind six Gabinja component holdings GK12434_00–GK12439_00, while Li Liang 2022 bibliographically aggregates collection nos 12434–39 as Datong lifa tonggui. Aggregate-title search nonreturn is therefore not no-holding evidence. This is provenance/work-edition-copy modeling only and adds zero whole-ke, endpoint, exact Sanming/Yueling fingerprint or Sanming-parent vote."
+        },
+        {
+          "batch": "BATCH-12-ZIWEI-NLC-DATONG-LIFA-TONGGUI-XUXIU1031-PHYSICAL-SCOPE-DU",
+          "update": "Xuxiu1031 direct no-OCR review physically closes the NLC Ming-manuscript residual Tonggui block at p578-p622: 交食→日食→月食→四餘→五星, with 月食通軌終 and 四餘纏度通軌終 directly visible and p624 already the next work. The 2019 三卷 report versus Xuxiu five named one-juan units remains an unresolved catalog/codicology tension. This residual scope adds zero whole-ke, endpoint, exact Sanming/Yueling fingerprint or Sanming-parent vote."
         }
       ],
       "endpoint_anchor_component_identified": true,

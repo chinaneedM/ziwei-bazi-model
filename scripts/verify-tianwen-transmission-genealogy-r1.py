@@ -15,6 +15,7 @@ BATCH_12DQ = ROOT / "docs/research/ZIWEI-DATONG-NANJING59-ENDPOINT-RECOMPOSITION
 BATCH_12DR = ROOT / "docs/research/ZIWEI-NLC-TAIYIN-TONGGUI-CHENGHUA-PHYSICAL-CII-N-CLOSURE-R1.json"
 BATCH_12DS = ROOT / "docs/research/ZIWEI-NLC-TAIYIN-TONGGUI-CONTINUOUS-FEN-CONSUMER-INTERFACE-R1.json"
 BATCH_12DT = ROOT / "docs/research/ZIWEI-KYUDB-DATONG-LIFA-TONGGUI-COMPONENT-SET-CROSSWALK-R1.json"
+BATCH_12DU = ROOT / "docs/research/ZIWEI-NLC-DATONG-LIFA-TONGGUI-XUXIU1031-PHYSICAL-SCOPE-R1.json"
 
 
 def fail(message: str) -> None:
@@ -22,7 +23,7 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
-    for path in (CHARTER, PROTOCOL, GRAPH, STATE, BATCH_12CH, BATCH_12DP, BATCH_12DQ, BATCH_12DR, BATCH_12DS, BATCH_12DT):
+    for path in (CHARTER, PROTOCOL, GRAPH, STATE, BATCH_12CH, BATCH_12DP, BATCH_12DQ, BATCH_12DR, BATCH_12DS, BATCH_12DT, BATCH_12DU):
         if not path.is_file():
             fail(f"Tianwen transmission artifact missing: {path.relative_to(ROOT)}")
 
@@ -83,6 +84,9 @@ def main() -> int:
         "TABLE-NANJING-DATONG-DAILY-CII-N-1380S",
         "TABLE-SANMING-1578-DAYNIGHT-KE",
         "TEXT-WORK-YUANTONG-DATONG-LIFA-TONGGUI-HONGWU17",
+        "EDITION-NLC-DATONG-LIFA-TONGGUI-RESIDUAL-MING-MS-RECENSION",
+        "PHYSICAL-COPY-NLC-DATONG-LIFA-TONGGUI-RESIDUAL-MING-MS",
+        "DIGITAL-SURROGATE-XUXIU1031-NLC-DATONG-TONGGUI-RESIDUAL",
         "EDITION-KYUDB-DATONG-LIFA-TONGGUI-GK12434-12439-GABINJA",
         "PHYSICAL-COPY-KYUDB-SIYU-GK12434-15C-GABINJA",
         "PHYSICAL-COPY-KYUDB-TAIYANG-GK12435-15C-GABINJA",
@@ -506,6 +510,29 @@ def main() -> int:
         fail("Batch 12DT sibling-content imputation firewall regressed")
     if not any(x.get("batch") == "BATCH-12-ZIWEI-KYUDB-DATONG-LIFA-TONGGUI-COMPONENT-SET-CROSSWALK-DT" and "zero whole-ke" in x.get("update", "") and "Sanming-parent vote" in x.get("update", "") for x in hyp12dk.get("evidence_updates", [])):
         fail("Batch 12DT genealogy hypothesis zero-vote update missing")
+
+    batch12du = json.loads(BATCH_12DU.read_text(encoding="utf-8"))
+    if batch12du.get("adjudication", {}).get("nlc_ming_manuscript_public_reproduction_scope") != "CLOSED":
+        fail("Batch 12DU physical-scope adjudication regressed")
+    if batch12du.get("adjudication", {}).get("exact_pre1578_physical_copy_status") != "NOT_PROVED":
+        fail("Batch 12DU Ming-date firewall regressed")
+    nlc_edition12du = next(n for n in nodes if n.get("node_id") == "EDITION-NLC-DATONG-LIFA-TONGGUI-RESIDUAL-MING-MS-RECENSION")
+    nlc_copy12du = next(n for n in nodes if n.get("node_id") == "PHYSICAL-COPY-NLC-DATONG-LIFA-TONGGUI-RESIDUAL-MING-MS")
+    nlc_surrogate12du = next(n for n in nodes if n.get("node_id") == "DIGITAL-SURROGATE-XUXIU1031-NLC-DATONG-TONGGUI-RESIDUAL")
+    if "三卷" not in nlc_edition12du.get("juan_count_note", ""):
+        fail("Batch 12DU juan-count tension note missing")
+    if nlc_copy12du.get("exact_pre1578_physical_copy_status") != "NOT_PROVED" or "p578-p622" not in nlc_copy12du.get("reproduced_scope", ""):
+        fail("Batch 12DU NLC physical-scope graph boundary regressed")
+    if "07348e40ec26ca38efe9c9736a69c403c61f9b07a2c89a847fc68d00ce6d8c25" not in nlc_surrogate12du.get("identifier", ""):
+        fail("Batch 12DU surrogate source hash missing")
+    for edge_id, rel in (("TG-E0069", "EDITION_OF"), ("TG-E0070", "PHYSICAL_COPY_OF_EDITION"), ("TG-E0071", "DIGITAL_SURROGATE_OF")):
+        e = next((x for x in edges if x.get("edge_id") == edge_id), None)
+        if not e or e.get("relation") != rel:
+            fail(f"Batch 12DU transmission edge regressed: {edge_id}")
+    if batch12du.get("bibliographic_tension", {}).get("normalization_forbidden") is not True:
+        fail("Batch 12DU catalog normalization firewall regressed")
+    if not any(x.get("batch") == "BATCH-12-ZIWEI-NLC-DATONG-LIFA-TONGGUI-XUXIU1031-PHYSICAL-SCOPE-DU" and "zero whole-ke" in x.get("update", "") and "Sanming-parent vote" in x.get("update", "") for x in hyp12dk.get("evidence_updates", [])):
+        fail("Batch 12DU genealogy hypothesis zero-vote update missing")
 
     ncl = next(n for n in nodes if n.get("node_id") == "PHYSICAL-COPY-SISHI-QIHOU-NCL03164-OLD-MANUSCRIPT")
     if ncl.get("physical_copy_date") != "UNRESOLVED":

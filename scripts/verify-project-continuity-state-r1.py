@@ -50,6 +50,8 @@ ZIWEI_NLC_TAIYIN_12DS_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AU
 ZIWEI_NLC_TAIYIN_12DS_EVIDENCE = ROOT / "docs/research/ZIWEI-NLC-TAIYIN-TONGGUI-CONTINUOUS-FEN-CONSUMER-INTERFACE-R1.json"
 ZIWEI_KYUDB_12DT_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KYUDB-DATONG-LIFA-TONGGUI-COMPONENT-SET-CROSSWALK-DT.md"
 ZIWEI_KYUDB_12DT_EVIDENCE = ROOT / "docs/research/ZIWEI-KYUDB-DATONG-LIFA-TONGGUI-COMPONENT-SET-CROSSWALK-R1.json"
+ZIWEI_NLC_12DU_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-DATONG-LIFA-TONGGUI-XUXIU1031-PHYSICAL-SCOPE-DU.md"
+ZIWEI_NLC_12DU_EVIDENCE = ROOT / "docs/research/ZIWEI-NLC-DATONG-LIFA-TONGGUI-XUXIU1031-PHYSICAL-SCOPE-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -301,9 +303,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-NLC-TAIYIN-TONGGUI-CHENGHUA-PHYSICAL-CII-N-CLOSURE-DR",
     "BATCH-12-ZIWEI-NLC-TAIYIN-TONGGUI-CONTINUOUS-FEN-CONSUMER-INTERFACE-DS",
     "BATCH-12-ZIWEI-KYUDB-DATONG-LIFA-TONGGUI-COMPONENT-SET-CROSSWALK-DT",
+    "BATCH-12-ZIWEI-NLC-DATONG-LIFA-TONGGUI-XUXIU1031-PHYSICAL-SCOPE-DU",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KYUDB-DATONG-LIFA-TONGGUI-COMPONENT-SET-CROSSWALK-DT.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-DATONG-LIFA-TONGGUI-XUXIU1031-PHYSICAL-SCOPE-DU.md"
 
 
 def fail(message: str) -> None:
@@ -311,6 +314,29 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
+    for path in (ZIWEI_NLC_12DU_BATCH, ZIWEI_NLC_12DU_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12DU continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12du = json.loads(ZIWEI_NLC_12DU_EVIDENCE.read_text(encoding="utf-8"))
+    if batch12du.get("batch_id") != "BATCH-12-ZIWEI-NLC-DATONG-LIFA-TONGGUI-XUXIU1031-PHYSICAL-SCOPE-DU":
+        fail("Batch 12DU evidence identity mismatch")
+    scope12du = batch12du.get("physical_scope_adjudication", {})
+    if scope12du.get("target_block_start_pdf_page") != 578 or scope12du.get("target_block_last_text_pdf_page") != 622 or scope12du.get("separator_pdf_page") != 623 or scope12du.get("next_work_pdf_page") != 624:
+        fail("Batch 12DU physical block boundary regressed")
+    if scope12du.get("next_work_title") != "三垣列舍入宿去極集" or scope12du.get("continuous_block_physically_closed") is not True:
+        fail("Batch 12DU block-exit control regressed")
+    tension12du = batch12du.get("bibliographic_tension", {})
+    if tension12du.get("direct_images_support_five_named_sequences") is not True or tension12du.get("normalization_forbidden") is not True:
+        fail("Batch 12DU three-vs-five catalog firewall regressed")
+    access12du = batch12du.get("first_party_nlc_census_access_boundary", {})
+    if access12du.get("timed_out_requests") != 19 or access12du.get("exact_nlc_identifier_closed") is not False or access12du.get("no_holding_conclusion_authorized") is not False:
+        fail("Batch 12DU NLC access-boundary firewall regressed")
+    mech12du = batch12du.get("mechanism_scope_firewall", {})
+    if mech12du.get("whole_ke_reduction_rule_identified_in_this_batch") is not False or mech12du.get("direct_sanming_parent_vote_increment") != 0:
+        fail("Batch 12DU mechanism zero-vote firewall regressed")
+    if batch12du.get("adjudication", {}).get("algorithm_reopen_authorized") is not False:
+        fail("Batch 12DU product firewall regressed")
+
     for path in (ZIWEI_KYUDB_12DT_BATCH, ZIWEI_KYUDB_12DT_EVIDENCE):
         if not path.is_file():
             fail(f"Batch 12DT continuity artifact missing: {path.relative_to(ROOT)}")
@@ -2914,6 +2940,9 @@ def main() -> int:
         fail("Batch 12S Matrix witness-count firewall regressed")
 
     focus_text = "\n".join(audit_state.get("current_focus", ()))
+    for fragment in ("Batch 12DU", "p578-p622", "月食通軌終", "四餘纏度通軌終", "19 of 20 requests"):
+        if fragment not in focus_text:
+            fail(f"Batch 12DU current-focus marker missing: {fragment}")
     for fragment in ("Batch 12DT", "GK12434_00", "GK12439_00", "aggregate-title search-surface control"):
         if fragment not in focus_text:
             fail(f"Batch 12DT current-focus marker missing: {fragment}")

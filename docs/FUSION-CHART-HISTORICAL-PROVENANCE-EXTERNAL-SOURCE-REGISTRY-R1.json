@@ -5153,6 +5153,78 @@
         "exact_set_level_impression_year_adjudicated": false,
         "research_artifact": "docs/research/ZIWEI-KYUDB-DATONG-LIFA-TONGGUI-COMPONENT-SET-CROSSWALK-R1.json"
       }
+    },
+    {
+      "source_id": "EXT-XUXIU1031-NLC-DATONG-TONGGUI-MING-MS-PHYSICAL",
+      "title": "《續修四庫全書》第1031冊所收國家圖書館藏明抄本《交食通軌／日食通軌／月食通軌／四餘通軌／五星通軌》",
+      "author_editor": "p579 directly binds 日食通軌 to 欽天監正一元統 按經編輯; broader set retained within documented Datong Tonggui scope",
+      "historical_period": "UNDERLYING_NLC_MING_MANUSCRIPT; EXACT_COPY_DATE_UNRESOLVED",
+      "edition": "Modern 2002 Xuxiu Siku Quanshu reproduction of NLC-held Ming manuscript",
+      "provider": "《續修四庫全書》第1031冊 / Wikimedia Commons public PDF reproduction",
+      "identifier": "Xuxiu vol.1031 target block PDF p578-p622; original NLC call number unresolved",
+      "url": "https://commons.wikimedia.org/wiki/File:%E7%BA%8C%E4%BF%AE%E5%9B%9B%E5%BA%AB%E5%85%A8%E6%9B%B8%E7%AC%AC1031%E5%86%8A.pdf",
+      "source_role": "DIRECT_PUBLIC_PHYSICAL_REPRODUCTION_FOR_NLC_MING_MANUSCRIPT_DATONG_TONGGUI_RESIDUAL_COMPONENT_SCOPE",
+      "source_pdf_sha256": "07348e40ec26ca38efe9c9736a69c403c61f9b07a2c89a847fc68d00ce6d8c25",
+      "quality_notes": "Batch 12DU directly reviews no-OCR renders and closes the contiguous NLC Ming-manuscript reproduction block at PDF p578-p622: 交食, 日食, 月食 (月食通軌終 p591), 四餘 (四餘纏度通軌終 p598), and 五星, followed by separator p623 and next work 三垣列舍入宿去極集 p624. Xuxiu metadata reports five named one-juan units, while the 2019 locator reports 大統曆法通軌三卷; the count discrepancy remains unresolved. Exact NLC call number and exact Ming copy date remain unresolved. No whole-ke/endpoint/Sanming-parent claim is authorized.",
+      "batch_12du": {
+        "workflow_run_id": 35436035101,
+        "workflow_job_id": 105878719081,
+        "artifact_id": 10581254254,
+        "artifact_digest": "sha256:e62c5978e36296d68321e2ba0345964947fe3214cd06952702fbcbc073e37145",
+        "target_pdf_range": "578-622",
+        "separator_page": 623,
+        "next_work_page": 624,
+        "page_controls": {
+          "578": {
+            "sha256": "3a52d069759700decacd80c3ba70c9a2da7ccde25b1b6d4853105e7c72833fdb",
+            "direct": "交食通軌 visible as opening title/running title; upper leaf begins 大交食通軌 / 用數日錄"
+          },
+          "579": {
+            "sha256": "3ccc4271616557c145452697223df87edd782d2b9676791b8ff7c27825047faf",
+            "direct": "日食通軌 visible; lower leaf reads 欽天監正一元統 按經編輯"
+          },
+          "584": {
+            "sha256": "8443f42d500b272c5efb1ab4c35557fa4595cb26bfba900d850d2aee4c04514c",
+            "direct": "日食通軌 continues; lower reproduction area marked 原缺"
+          },
+          "585": {
+            "sha256": "ebcbe07d44e640dca6fdae3a80f31d7dd1791c148fde0de62656dd2f0d99da52",
+            "direct": "月食通軌 visible"
+          },
+          "591": {
+            "sha256": "e64f4081c5bd0e510b21fd35711f4dcbb57b28abf72ee4b2b0f98897d978ca19",
+            "direct": "月食通軌終 directly visible; lower leaf turns to fourth-residual calculation"
+          },
+          "592": {
+            "sha256": "6e22bc2cf8b0a26d8429c55ac7e02467371676cb3d04d3f6f153f5483da14f1e",
+            "direct": "四餘通軌 visible"
+          },
+          "598": {
+            "sha256": "f805d133f19b196bd9cf67126495326af87624ef3c60b8e34b040622b9f40bde",
+            "direct": "四餘通軌 visible; 四餘纏度通軌終 directly visible"
+          },
+          "599": {
+            "sha256": "9a78c8472238147399a13dc82baefd67d672e29014c40a1ef6165b169c736e95",
+            "direct": "五星通軌 / 用數日錄 directly visible"
+          },
+          "622": {
+            "sha256": "d5a7ff4254872890549477048a2fb52d07d739c66df47a22ca70ee8b8c8a30aa",
+            "direct": "五星通軌 still visible on last target-text reproduction page"
+          },
+          "623": {
+            "sha256": "3e53afa9b518fdc66a0d64cccd4b3d12ebee2e9202c99fea31ce89b2bcab918d",
+            "direct": "blank/separator reproduction page"
+          },
+          "624": {
+            "sha256": "1d45214cf6997b4edbb88baad96da2fb2b8adf23326e5bde45f3fae1e4473cef",
+            "direct": "next work 三垣列舍入宿去極集 begins"
+          }
+        },
+        "exact_nlc_call_number": "UNRESOLVED",
+        "exact_underlying_copy_date": "UNRESOLVED_WITHIN_MING_SCOPE",
+        "ocr_used_for_final_glyph_or_boundary_claims": false,
+        "research_artifact": "docs/research/ZIWEI-NLC-DATONG-LIFA-TONGGUI-XUXIU1031-PHYSICAL-SCOPE-R1.json"
+      }
     }
   ],
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md"
