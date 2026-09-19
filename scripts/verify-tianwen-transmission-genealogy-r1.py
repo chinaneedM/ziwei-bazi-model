@@ -10,6 +10,7 @@ PROTOCOL = ROOT / "docs/TRANSMISSION-GENEALOGY-PROTOCOL-R1.md"
 GRAPH = ROOT / "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json"
 STATE = ROOT / "docs/PROJECT-CURRENT-STATE-R1.json"
 BATCH_12CH = ROOT / "docs/research/ZIWEI-SISHI-QIHOU-JINGTAI6-TONGSHU-TABLE-CONTROL-R1.json"
+BATCH_12DP = ROOT / "docs/research/ZIWEI-DATONG-CIIN-49-58-CROSSING-AND-QICE-OFFSET-REPLAY-R1.json"
 
 
 def fail(message: str) -> None:
@@ -17,7 +18,7 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
-    for path in (CHARTER, PROTOCOL, GRAPH, STATE, BATCH_12CH):
+    for path in (CHARTER, PROTOCOL, GRAPH, STATE, BATCH_12CH, BATCH_12DP):
         if not path.is_file():
             fail(f"Tianwen transmission artifact missing: {path.relative_to(ROOT)}")
 
@@ -105,6 +106,7 @@ def main() -> int:
         "TABLE-FAMILY-POST1578-NANJING-59-41-STEPPED",
         "PHYSICAL-COPY-TAIYI-TONGZONG-XUXIU-MING-MANUSCRIPT",
         "PASSAGE-TAIYI-JUAN1-DAILY-SUNRISE-INTERPOLATION",
+        "RULE-SHOUSHI-DATONG-QICE-15_2184375",
     }
     if not required_nodes.issubset(set(node_ids)):
         fail("Transmission graph seed nodes incomplete")
@@ -303,12 +305,21 @@ def main() -> int:
         fail("Batch 12DO Taiyi physical attestation edge regressed")
     if not e56 or e56.get("relation") != "STRUCTURAL_MECHANISM_CANDIDATE_FOR" or e56.get("status") != "POSSIBLE" or e56.get("to") != "TABLE-NANJING-DATONG-DAILY-CII-N-1380S":
         fail("Batch 12DO Taiyi mechanism-candidate edge regressed")
-    if e54.get("confidence") != "HIGH_FOR_INTERIOR_42_48_THRESHOLD_MECHANISM" or not any("42-ke d20=41.9706/d21=42.0326" in str(x) for x in e54.get("evidence", [])):
-        fail("Batch 12DO TG-E0054 interior-threshold strengthening regressed")
+    if e54.get("confidence") != "HIGH_FOR_INTERIOR_42_58_THRESHOLD_AND_QICE_OFFSET_COMPATIBILITY" or not any("49-ke d81=48.9632/d82=49.0948" in str(x) and "58-ke d160=57.9862/d161=58.0424" in str(x) for x in e54.get("evidence", [])):
+        fail("Batch 12DP TG-E0054 42-58/qice strengthening regressed")
     if not any(x.get("batch") == "BATCH-12-ZIWEI-DATONG-CIIN-42-48-CROSSING-AND-TAIYI-DAILY-INTERPOLATION-DO" and "seven consecutive 42-48" in x.get("update", "") and "summer endpoint" in x.get("update", "") and "zero exact pre-1578 Sanming-parent vote" in x.get("update", "") for x in hyp12dk.get("evidence_updates", [])):
         fail("Batch 12DO genealogy hypothesis mechanism/firewall update missing")
     if not any(x.get("from") == "PHYSICAL-COPY-TAIYI-TONGZONG-XUXIU-MING-MANUSCRIPT" and x.get("to") == "TABLE-SANMING-1578-DAYNIGHT-KE" and x.get("relation") == "DIRECT_ANCESTOR_OF" and x.get("status") == "UNRESOLVED" for x in graph.get("explicit_non_edges", [])):
         fail("Batch 12DO Taiyi/Sanming direct-ancestry firewall missing")
+
+    qice12dp = next(n for n in nodes if n.get("node_id") == "RULE-SHOUSHI-DATONG-QICE-15_2184375")
+    if qice12dp.get("qice_days") != 15.2184375 or qice12dp.get("direct_cii_n_parent") is not False or qice12dp.get("direct_sanming_parent") is not False:
+        fail("Batch 12DP qi-ce graph node regressed")
+    batch12dp = json.loads(BATCH_12DP.read_text(encoding="utf-8"))
+    if batch12dp.get("leijing_1624_transition_replay", {}).get("historical_counting_convention_selected") is not False:
+        fail("Batch 12DP counting-convention firewall regressed")
+    if not any(x.get("batch") == "BATCH-12-ZIWEI-DATONG-CIIN-49-58-CROSSING-AND-QICE-OFFSET-REPLAY-DP" and "seventeen consecutive 42-58" in x.get("update", "") and "0.5291" in x.get("update", "") and "zero exact pre-1578 Sanming-parent vote" in x.get("update", "") for x in hyp12dk.get("evidence_updates", [])):
+        fail("Batch 12DP genealogy hypothesis threshold/qice update missing")
 
     leibian_fine = next(n for n in nodes if n.get("node_id") == "TABLE-LEIBIAN-FINE-SISHI-38-62")
     if leibian_fine.get("exact_sanming_yueling_target_identity") is not False:

@@ -475,7 +475,13 @@
       "provider": "Chinese Text Project",
       "url": "https://ctext.org/wiki.pl?chapter=798779&if=en",
       "source_role": "RECEIVED_DYNASTIC_HISTORY_WITNESS_FOR_MING_DATONG_CALENDAR_CONTEXT",
-      "quality_notes": "Qing-compiled dynastic-history witness for Ming Datong context. Vol.35 received text gives a different conjunction-correction denominator: 迟疾限行度 minus 820 (定限度). Batch 11F treats this as a later received textual variant because the 1569 Ming facsimile, a Ming-authorial Datong worked example, and surviving official-almanac timings converge on D1. Retain for transmission history, not as the production-method winner."
+      "quality_notes": "Qing-compiled dynastic-history witness for Ming Datong context. Vol.35 received text gives a different conjunction-correction denominator: 迟疾限行度 minus 820 (定限度). Batch 11F treats this as a later received textual variant because the 1569 Ming facsimile, a Ming-authorial Datong worked example, and surviving official-almanac timings converge on D1. Retain for transmission history, not as the production-method winner.",
+      "batch_12dp_qice_control": {
+        "role": "MING_DATONG_RECEIVED_CROSS_CONTROL_ONLY",
+        "qice_relationship": "氣策 = 歲周 / 24 in the received Datong context",
+        "direct_pre1578_target_physical_copy": false,
+        "research_artifact": "docs/research/ZIWEI-DATONG-CIIN-49-58-CROSSING-AND-QICE-OFFSET-REPLAY-R1.json"
+      }
     },
     {
       "source_id": "EXT-LOC-XINLI-XIAOHUO-SHIXIAN-1645",
@@ -4889,7 +4895,86 @@
       "direct_ancestor_of_sanming_1578": false,
       "numeric_ancestry_vote_increment_for_pre1578_parent": 0,
       "research_artifact": "docs/research/ZIWEI-DATONG-CIIN-INTEGER-CROSSING-AND-POST1578-59-41-LADDER-R1.json",
-      "quality_notes": "The 1624 chronology makes this a later transmission/mechanical control only. It is not evidence that the clean +6/+13 sequence predates Sanming or shares the same immediate exemplar."
+      "quality_notes": "The 1624 chronology makes this a later transmission/mechanical control only. It is not evidence that the clean +6/+13 sequence predates Sanming or shares the same immediate exemplar. Batch 12DP replays the complete 42-58 received transition markers on the 15.2184375-day qi-ce coordinate and finds every C-II-N first crossing within 0.53 day of an elapsed/ordinal candidate; the count convention is deliberately left unresolved and chronology still forbids pre-1578 ancestry inference.",
+      "received_transition_controls_42_58": [
+        {
+          "whole_ke": 42,
+          "phrase": "小寒後六日"
+        },
+        {
+          "whole_ke": 43,
+          "phrase": "大寒後四日"
+        },
+        {
+          "whole_ke": 44,
+          "phrase": "大寒後十三日"
+        },
+        {
+          "whole_ke": 45,
+          "phrase": "立春後六日"
+        },
+        {
+          "whole_ke": 46,
+          "phrase": "立春後十三日"
+        },
+        {
+          "whole_ke": 47,
+          "phrase": "雨水後六日"
+        },
+        {
+          "whole_ke": 48,
+          "phrase": "雨水後十三日"
+        },
+        {
+          "whole_ke": 49,
+          "phrase": "驚蟄後六日"
+        },
+        {
+          "whole_ke": 50,
+          "phrase": "驚蟄後十四日"
+        },
+        {
+          "whole_ke": 51,
+          "phrase": "春分後七日"
+        },
+        {
+          "whole_ke": 52,
+          "phrase": "春分後十五日"
+        },
+        {
+          "whole_ke": 53,
+          "phrase": "清明後七日"
+        },
+        {
+          "whole_ke": 54,
+          "phrase": "清明後十五日"
+        },
+        {
+          "whole_ke": 55,
+          "phrase": "穀雨後七日"
+        },
+        {
+          "whole_ke": 56,
+          "phrase": "立夏"
+        },
+        {
+          "whole_ke": 57,
+          "phrase": "立夏後十一日"
+        },
+        {
+          "whole_ke": 58,
+          "phrase": "小滿後十日"
+        }
+      ],
+      "batch_12dp_qice_offset_replay": {
+        "qice_source_id": "EXT-WIKISOURCE-YUANSHI-V54-SHOUSHI-QICE",
+        "qice_days": 15.2184375,
+        "max_abs_residual_days": 0.5290625,
+        "all_42_58_within_0_53_day": true,
+        "counting_convention_selected": false,
+        "direct_pre1578_ancestry_vote_increment": 0,
+        "research_artifact": "docs/research/ZIWEI-DATONG-CIIN-49-58-CROSSING-AND-QICE-OFFSET-REPLAY-R1.json"
+      }
     },
     {
       "source_id": "EXT-XUXIU1061-TAIYI-TONGZONG-BAOJIAN-MING-MANUSCRIPT-DAILY-SUNRISE",
@@ -4953,6 +5038,28 @@
       "direct_ancestor_of_cii_n_proved": false,
       "research_artifact": "docs/research/ZIWEI-DATONG-CIIN-42-48-CROSSING-AND-TAIYI-DAILY-INTERPOLATION-R1.json",
       "quality_notes": "A received-text mechanism control only. It prevents treating daily interpolation as a modern fitting invention, but it is not a 1216 physical witness."
+    },
+    {
+      "source_id": "EXT-WIKISOURCE-YUANSHI-V54-SHOUSHI-QICE",
+      "title": "《元史》卷五十四《授時曆經上·步氣朔第一》氣策與次氣累加法",
+      "historical_period": "YUAN_SHOUSHI_RULE_PRESERVED_IN_LATER_RECEIVED_DYNASTIC_HISTORY",
+      "provider": "Wikisource with Chinese Text Project cross-control",
+      "url": "https://zh.wikisource.org/wiki/%E5%85%83%E5%8F%B2/%E5%8D%B7054",
+      "related_urls": [
+        "https://ctext.org/wiki.pl?chapter=303505&if=gb"
+      ],
+      "source_role": "RECEIVED_TEXT_CONTROL_FOR_SHOUSHI_QICE_AND_CUMULATIVE_NEXT_QI_COORDINATE",
+      "controls": {
+        "day_cycle_units": 10000,
+        "qice_literal": "氣策，十五日二千一百八十四分三十七秒半",
+        "qice_days": 15.2184375,
+        "next_qi_rule": "置天正冬至日分，以氣策累加之，各得次氣日辰及分秒"
+      },
+      "direct_pre1578_physical_copy": false,
+      "direct_parent_of_cii_n": false,
+      "direct_parent_of_sanming_1578": false,
+      "research_artifact": "docs/research/ZIWEI-DATONG-CIIN-49-58-CROSSING-AND-QICE-OFFSET-REPLAY-R1.json",
+      "quality_notes": "Used only as a received calendrical-coordinate control for qi-ce accumulation. It does not prove the date of a specific physical copy, direct transmission into NCL-06267, or the exact Sanming reduction rule."
     }
   ],
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md"

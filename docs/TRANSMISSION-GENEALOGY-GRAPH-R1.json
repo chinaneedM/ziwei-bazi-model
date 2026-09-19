@@ -1028,6 +1028,27 @@
         "docs/research/ZIWEI-DATONG-CIIN-42-48-CROSSING-AND-TAIYI-DAILY-INTERPOLATION-R1.json"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-DATONG-CIIN-42-48-CROSSING-AND-TAIYI-DAILY-INTERPOLATION-DO"
+    },
+    {
+      "node_id": "RULE-SHOUSHI-DATONG-QICE-15_2184375",
+      "node_type": "MECHANICAL_RULE",
+      "label": "授時/大統氣策累加節氣座標（15.2184375日）",
+      "system_scope": "SHOUSHI_DATONG_SOLAR_TERM_ACCUMULATED_COORDINATE_CONTROL",
+      "work_composition_date": "SHOUSHI_RULE_TRADITION; EXACT CURRENT RECEIVED-TEXT RECENSION DATE SEPARATE",
+      "edition_impression_date": "LATER_RECEIVED_YUANSHI_AND_MINGSHI_CONTROLS; NOT A DIRECT PRE1578 PHYSICAL IMPRESSION IN THIS BATCH",
+      "physical_copy_date": "NOT_BOUND_TO_A_PRE1578_PHYSICAL_COPY_IN_BATCH_12DP",
+      "digital_surrogate_date": "CURRENT_PUBLIC_RECEIVED_TEXT_SURFACES_REVIEWED_2026-09-19",
+      "qice_literal": "氣策，十五日二千一百八十四分三十七秒半",
+      "qice_days": 15.2184375,
+      "next_qi_rule": "置天正冬至日分，以氣策累加之",
+      "direct_cii_n_parent": false,
+      "direct_sanming_parent": false,
+      "evidence": [
+        "EXT-WIKISOURCE-YUANSHI-V54-SHOUSHI-QICE",
+        "EXT-CTEXT-MINGSHI-DATONG-CALENDAR",
+        "docs/research/ZIWEI-DATONG-CIIN-49-58-CROSSING-AND-QICE-OFFSET-REPLAY-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-DATONG-CIIN-49-58-CROSSING-AND-QICE-OFFSET-REPLAY-DP"
     }
   ],
   "edges": [
@@ -1836,15 +1857,17 @@
       "relation": "STRUCTURAL_MECHANISM_CANDIDATE_FOR",
       "to": "TABLE-FAMILY-POST1578-NANJING-59-41-STEPPED",
       "status": "PROBABLE",
-      "confidence": "HIGH_FOR_INTERIOR_42_48_THRESHOLD_MECHANISM",
-      "evidence_class": "DIRECT_CII_N_42_48_ADJACENT_DAY_INTEGER_CROSSINGS_PLUS_POST1578_COHERENT_WHOLE_KE_LADDER",
+      "confidence": "HIGH_FOR_INTERIOR_42_58_THRESHOLD_AND_QICE_OFFSET_COMPATIBILITY",
+      "evidence_class": "DIRECT_CII_N_42_58_ADJACENT_DAY_INTEGER_CROSSINGS_PLUS_POST1578_COHERENT_WHOLE_KE_LADDER_PLUS_RECEIVED_QICE_OFFSET_REPLAY",
       "evidence": [
-        "NCL-06267 direct no-OCR cells: 42-ke d20=41.9706/d21=42.0326; 43-ke d33=42.9878/d34=43.0842; 44-ke d42=43.9328/d43=44.0474; 45-ke d50=44.8912/d51=45.0164; 46-ke d58=45.9132/d59=46.0482; 47-ke d66=46.9746/d67=47.1074; 48-ke d73=47.9052/d74=48.0380",
+        "NCL-06267 direct no-OCR: 42-48 crossings retained from 12DO",
+        "NCL-06267 direct no-OCR: 49-ke d81=48.9632/d82=49.0948; 50-ke d88=49.8808/d89=50.0122; 51-ke d96=50.9242/d97=51.0548; 52-ke d104=51.9662/d105=52.0964; 53-ke d111=52.8754/d112=53.0048; 54-ke d119=53.9018/d120=54.0282; 55-ke d127=54.8950/d128=55.0154; 56-ke d136=55.9236/d137=56.0270; 57-ke d146=56.9424/d147=57.0322; 58-ke d160=57.9862/d161=58.0424",
+        "EXT-WIKISOURCE-YUANSHI-V54-SHOUSHI-QICE",
         "EXT-LEIJING-TUYI-TIANQI4-1624-59-41-LADDER",
-        "docs/research/ZIWEI-DATONG-CIIN-42-48-CROSSING-AND-TAIYI-DAILY-INTERPOLATION-R1.json"
+        "docs/research/ZIWEI-DATONG-CIIN-49-58-CROSSING-AND-QICE-OFFSET-REPLAY-R1.json"
       ],
-      "scope_note": "Seven consecutive interior whole-ke crossings (42-48) strongly support a continuous-substrate -> integer-threshold mechanism for the clean stepped family. Status remains PROBABLE because the 58.6332-ke summer endpoint still needs separate anchoring/capping/recomposition, chronology is postdated for the clean textual witnesses, and the Sanming/Yueling Yushui-post-day-4 fingerprint remains mechanically distinct.",
-      "adjudication_batch": "BATCH-12-ZIWEI-DATONG-CIIN-42-48-CROSSING-AND-TAIYI-DAILY-INTERPOLATION-DO"
+      "scope_note": "Seventeen consecutive direct C-II-N whole-ke crossings (42-58) support an interior continuous-substrate -> integer-threshold mechanism. Received qi-ce accumulation aligns the complete 1624 42-58 transition sequence within 0.5291 day when both elapsed-day and ordinal-day readings are preserved. Status remains PROBABLE: the 1624 witness is postdated, counting convention is unresolved, the 58.6332-ke summer endpoint still requires anchoring/capping/recomposition, and the Sanming/Yueling anomalous Yushui-post-day-4 branch remains distinct.",
+      "adjudication_batch": "BATCH-12-ZIWEI-DATONG-CIIN-49-58-CROSSING-AND-QICE-OFFSET-REPLAY-DP"
     },
     {
       "edge_id": "TG-E0055",
@@ -1980,6 +2003,10 @@
         {
           "batch": "BATCH-12-ZIWEI-DATONG-CIIN-42-48-CROSSING-AND-TAIYI-DAILY-INTERPOLATION-DO",
           "update": "Direct no-OCR C-II-N re-collation now closes seven consecutive 42-48 whole-ke crossings, with first crossing days 21,34,43,51,59,67,74; all are consistent with an interior fraction-discard threshold layer. A second 12CG approximate indexing defect is corrected forward-only: day43=2202.37 while 2208.19 belongs to day44. The summer endpoint remains only 58.6332 ke, so no universal floor rule is promoted. Xuxiu 1061 independently attests a historical Taiyi daily-difference sunrise mechanism, while the 1303 self-preface does not physically date the calendrical layer. This strengthens the mechanism class and clean stepped-family bridge but adds zero exact pre-1578 Sanming-parent vote; the Sanming/Yueling Yushui 後四日 branch remains unresolved."
+        },
+        {
+          "batch": "BATCH-12-ZIWEI-DATONG-CIIN-49-58-CROSSING-AND-QICE-OFFSET-REPLAY-DP",
+          "update": "Direct no-OCR re-collation extends C-II-N to seventeen consecutive 42-58 whole-ke crossings; 49-58 close at d82,89,97,105,112,120,128,137,147,161. A third forward-only 12CG index correction moves 2494.04 from exploratory day89 to exact day88 and fixes day89=2500.61. Received Shoushi qi-ce 15.2184375-day accumulation aligns every postdated 1624 Leijing Tuyi 42-58 transition within 0.5291 day under preserved elapsed/ordinal counting ambiguity. This materially strengthens TG-E0054 as a structural-mechanism candidate, but chronology, the 58.6332 summer endpoint and the Sanming/Yueling anomalous Yushui branch remain firewalls; zero exact pre-1578 Sanming-parent vote is added."
         }
       ]
     }

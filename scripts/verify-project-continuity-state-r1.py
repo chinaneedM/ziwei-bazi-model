@@ -40,6 +40,8 @@ ZIWEI_DATONG_CIIN_12DN_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-A
 ZIWEI_DATONG_CIIN_12DN_EVIDENCE = ROOT / "docs/research/ZIWEI-DATONG-CIIN-INTEGER-CROSSING-AND-POST1578-59-41-LADDER-R1.json"
 ZIWEI_DATONG_CIIN_12DO_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DATONG-CIIN-42-48-CROSSING-AND-TAIYI-DAILY-INTERPOLATION-DO.md"
 ZIWEI_DATONG_CIIN_12DO_EVIDENCE = ROOT / "docs/research/ZIWEI-DATONG-CIIN-42-48-CROSSING-AND-TAIYI-DAILY-INTERPOLATION-R1.json"
+ZIWEI_DATONG_CIIN_12DP_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DATONG-CIIN-49-58-CROSSING-AND-QICE-OFFSET-REPLAY-DP.md"
+ZIWEI_DATONG_CIIN_12DP_EVIDENCE = ROOT / "docs/research/ZIWEI-DATONG-CIIN-49-58-CROSSING-AND-QICE-OFFSET-REPLAY-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -288,7 +290,7 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-DATONG-CIIN-42-48-CROSSING-AND-TAIYI-DAILY-INTERPOLATION-DO",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DATONG-CIIN-42-48-CROSSING-AND-TAIYI-DAILY-INTERPOLATION-DO.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DATONG-CIIN-49-58-CROSSING-AND-QICE-OFFSET-REPLAY-DP.md"
 
 
 def fail(message: str) -> None:
@@ -296,6 +298,42 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
+    for path in (ZIWEI_DATONG_CIIN_12DP_BATCH, ZIWEI_DATONG_CIIN_12DP_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12DP continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12dp = json.loads(ZIWEI_DATONG_CIIN_12DP_EVIDENCE.read_text(encoding="utf-8"))
+    if batch12dp.get("batch_id") != "BATCH-12-ZIWEI-DATONG-CIIN-49-58-CROSSING-AND-QICE-OFFSET-REPLAY-DP":
+        fail("Batch 12DP evidence identity mismatch")
+    phy12dp = batch12dp.get("cii_n_direct_recollation", {})
+    cells12dp = {x.get("accumulated_day"): x for x in phy12dp.get("direct_cells", ())}
+    expected12dp = {81:48.9632,82:49.0948,88:49.8808,89:50.0122,96:50.9242,97:51.0548,104:51.9662,105:52.0964,111:52.8754,112:53.0048,119:53.9018,120:54.0282,127:54.895,128:55.0154,136:55.9236,137:56.027,146:56.9424,147:57.0322,160:57.9862,161:58.0424}
+    if any(cells12dp.get(day, {}).get("full_daylight_ke") != value for day, value in expected12dp.items()):
+        fail("Batch 12DP 49-58 crossing cells regressed")
+    crossings12dp = phy12dp.get("integer_crossing_controls", {})
+    expected_pairs12dp = {"49_ke":(81,82),"50_ke":(88,89),"51_ke":(96,97),"52_ke":(104,105),"53_ke":(111,112),"54_ke":(119,120),"55_ke":(127,128),"56_ke":(136,137),"57_ke":(146,147),"58_ke":(160,161)}
+    if any((crossings12dp.get(k, {}).get("lower_day"), crossings12dp.get(k, {}).get("upper_day")) != pair for k, pair in expected_pairs12dp.items()):
+        fail("Batch 12DP 49-58 crossing-day ladder regressed")
+    if phy12dp.get("consecutive_integer_threshold_count_42_58") != 17:
+        fail("Batch 12DP combined 42-58 threshold count regressed")
+    corr12dp = batch12dp.get("batch_12cg_forward_only_correction", {})
+    if corr12dp.get("prior_accumulated_day") != 89 or corr12dp.get("prior_half_day_fen") != 2494.04 or corr12dp.get("corrected_day88_half_day_fen") != 2494.04 or corr12dp.get("corrected_day89_half_day_fen") != 2500.61:
+        fail("Batch 12DP day88/day89 exact-index correction regressed")
+    if corr12dp.get("adjudication") != "SUPERSEDED_FOR_EXACT_DAY_INDEXING_ONLY" or corr12dp.get("prior_batch_rewritten") is not False:
+        fail("Batch 12DP forward-only correction firewall regressed")
+    qice12dp = batch12dp.get("historical_qice_coordinate_control", {})
+    if qice12dp.get("qice_days") != 15.2184375 or qice12dp.get("direct_pre1578_physical_copy_in_this_batch") is not False:
+        fail("Batch 12DP qi-ce coordinate/date firewall regressed")
+    replay12dp = batch12dp.get("leijing_1624_transition_replay", {})
+    if replay12dp.get("max_abs_residual_days") != 0.5290625 or replay12dp.get("all_42_58_within_0_53_day") is not True or replay12dp.get("historical_counting_convention_selected") is not False:
+        fail("Batch 12DP qi-ce transition replay/counting firewall regressed")
+    mech12dp = batch12dp.get("mechanical_adjudication", {})
+    if mech12dp.get("interior_42_58_threshold_rule_status") != "INTERIOR_42_58_CONSISTENT_WITH_WHOLE_INTEGER_THRESHOLD":
+        fail("Batch 12DP interior threshold adjudication regressed")
+    if mech12dp.get("exact_global_whole_ke_rule_identified") is not False or mech12dp.get("summer_endpoint_specific_layer_required") is not True or mech12dp.get("sanming_yueling_exact_fingerprint_explained") is not False or mech12dp.get("pre1578_exact_reduction_rule_found") is not False:
+        fail("Batch 12DP endpoint/ancestry firewall regressed")
+    if batch12dp.get("product_adjudication", {}).get("algorithm_reopen_authorized") is not False:
+        fail("Batch 12DP unexpectedly reopened algorithm")
+
     for path in (ZIWEI_DATONG_CIIN_12DO_BATCH, ZIWEI_DATONG_CIIN_12DO_EVIDENCE):
         if not path.is_file():
             fail(f"Batch 12DO continuity artifact missing: {path.relative_to(ROOT)}")
