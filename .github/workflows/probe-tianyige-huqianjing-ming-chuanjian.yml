@@ -1,0 +1,154 @@
+name: probe-tianyige-huqianjing-ming-chuanjian
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-tianyige-huqianjing-ming-chuanjian.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Acquire Tianyi Pavilion Ming Huqianjing and locate juan7 Chuanjian
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/tianyige-huqianjing-ming-chuanjian'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT/pages" "$ROOT/ocr"
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils tesseract-ocr tesseract-ocr-chi-tra >/dev/null
+          python -m pip install --quiet pillow
+          python - <<'PY'
+          import hashlib, json, pathlib, re, subprocess, urllib.parse, urllib.request
+          from PIL import Image, ImageDraw
+
+          root=pathlib.Path("audit/tianyige-huqianjing-ming-chuanjian")
+          title="File:Tianyige-330000-1705-0004205 虎鈐經二十卷 宋許洞撰 明刻本.pdf"
+          api="https://commons.wikimedia.org/w/api.php?" + urllib.parse.urlencode({
+              "action":"query","format":"json","formatversion":"2",
+              "prop":"imageinfo","iiprop":"url|size|sha1|extmetadata","titles":title
+          })
+          headers={"User-Agent":"Tianwen-Provenance-Audit/1.0"}
+          req=urllib.request.Request(api,headers=headers)
+          with urllib.request.urlopen(req,timeout=60) as r:
+              meta=json.load(r)
+          page=meta["query"]["pages"][0]
+          ii=page["imageinfo"][0]
+          url=ii["url"]
+          (root/"commons-metadata.json").write_text(json.dumps(meta,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+
+          req=urllib.request.Request(url,headers=headers)
+          with urllib.request.urlopen(req,timeout=180) as r:
+              data=r.read()
+          pdf=root/"tianyige-huqianjing-ming.pdf"
+          pdf.write_bytes(data)
+          pdf_sha=hashlib.sha256(data).hexdigest()
+          info=subprocess.run(["pdfinfo",str(pdf)],stdout=subprocess.PIPE,check=True).stdout.decode("utf-8",errors="replace")
+          (root/"pdfinfo.txt").write_text(info,encoding="utf-8")
+          m=re.search(r"^Pages:\s+(\d+)",info,re.M)
+          pages=int(m.group(1)) if m else None
+
+          # Targeted middle range likely containing juan 7, plus beginning/end for edition controls.
+          ranges=[(1,min(10,pages or 10)),(45,min(115,pages or 115)),(max(1,(pages or 221)-10),pages or 221)]
+          selected=[]
+          for a,b in ranges:
+              selected.extend(range(a,b+1))
+          selected=sorted(set(selected))
+
+          manifest=[]
+          hits=[]
+          terms=["虎鈐經卷七","漏法","傳箭","每時有八刻二十分","冬至前三日","改第一箭","夏至前三日","晝六十刻","夜四十刻","嘉靖","萬曆","重刊","刊"]
+          for n in selected:
+              prefix=root/"pages"/f"p{n:03d}"
+              subprocess.run(["pdftoppm","-f",str(n),"-singlefile","-jpeg","-r","150",str(pdf),str(prefix)],check=True,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
+              p=pathlib.Path(str(prefix)+".jpg")
+              b=p.read_bytes()
+              manifest.append({"page":n,"file":p.name,"bytes":len(b),"sha256":hashlib.sha256(b).hexdigest()})
+              proc=subprocess.run(["tesseract",str(p),"stdout","-l","chi_tra","--psm","6"],stdout=subprocess.PIPE,stderr=subprocess.DEVNULL,check=False)
+              txt=proc.stdout.decode("utf-8",errors="replace")
+              (root/"ocr"/f"p{n:03d}.txt").write_text(txt,encoding="utf-8")
+              compact="".join(txt.split())
+              found=[t for t in terms if t in compact]
+              diag=sum(ch in compact for ch in ["漏","箭","冬","夏","刻","卷","七"])
+              if found or diag>=5:
+                  hits.append({"page":n,"terms":found,"diagnostic_score":diag,"context":" ".join(txt.split())[:2600]})
+
+          # Contact sheets, preserving page labels.
+          page_paths=sorted((root/"pages").glob("p*.jpg"))
+          cols=4; per_sheet=20
+          for start in range(0,len(page_paths),per_sheet):
+              chunk=page_paths[start:start+per_sheet]
+              thumbs=[]
+              for p in chunk:
+                  n=int(p.stem[1:])
+                  im=Image.open(p).convert("RGB"); tw=330
+                  ratio=tw/im.width
+                  im=im.resize((tw,max(1,int(im.height*ratio))))
+                  canvas=Image.new("RGB",(tw,im.height+28),"white")
+                  canvas.paste(im,(0,28))
+                  ImageDraw.Draw(canvas).text((6,6),f"PDF p{n}",fill="black")
+                  thumbs.append(canvas)
+              cw=max(x.width for x in thumbs); ch=max(x.height for x in thumbs)
+              rows=(len(thumbs)+cols-1)//cols
+              sheet=Image.new("RGB",(cols*cw,rows*ch),"white")
+              for k,im in enumerate(thumbs):
+                  sheet.paste(im,((k%cols)*cw,(k//cols)*ch))
+              sheet.save(root/f"contact-{start+1:03d}-{start+len(chunk):03d}.jpg",quality=90,optimize=True)
+
+          ext=ii.get("extmetadata") or {}
+          report={
+              "schema":"TIANYIGE-HUQIANJING-MING-CHUANJIAN-PROBE-R1",
+              "schema_version":"1.0.0",
+              "commons_file_title":title,
+              "source_url":url,
+              "commons_sha1":ii.get("sha1"),
+              "pdf_sha256":pdf_sha,
+              "pdf_pages":pages,
+              "commons_metadata":{
+                  "publication_date":(ext.get("Date") or {}).get("value"),
+                  "description":(ext.get("ImageDescription") or {}).get("value"),
+                  "source":(ext.get("Credit") or {}).get("value")
+              },
+              "catalog_control":{
+                  "source_institution":"Tianyi Pavilion Museum",
+                  "census_number":"330000-1705-0004205",
+                  "call_number":"馮善1426",
+                  "edition":"明刻本 / exact Ming year unresolved from public Commons metadata",
+                  "volumes":"4冊"
+              },
+              "selected_pages":selected,
+              "page_manifest":manifest,
+              "ocr_locator_hits":hits,
+              "ocr_authority":"LOCATOR_ONLY_NOT_FINAL_GLYPH_OR_EDITION_DATE_AUTHORITY",
+              "target_received_text":[
+                  "卷七 漏法 / 傳箭",
+                  "每時有八刻二十分，一刻六十分，一日十二時合一百刻",
+                  "piecewise arrow changes from 40/60 to 60/40 and back",
+                  "雨水初日改第八箭 47/53; 後第九日改第九箭 48/52",
+                  "summer endpoint: 夏至前三日改第一箭 60/40"
+              ],
+              "chronology_firewall":"Public Tianyi/Commons metadata says only 明刻本. Until an exact pre-1578 impression date is secured, this physical object must not satisfy the pre-1578 carrier gate merely because the work was composed in the Song.",
+              "research_question":"Does this Ming physical print directly preserve the explicit whole-ke change-arrow table, and can its edition/imprint be narrowed securely before 1578?",
+              "product_boundary":"Probe only; no runtime rule, algorithm reopen, candidate collapse or Sanming-parent promotion."
+          }
+          (root/"report.json").write_text(json.dumps(report,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+          print(json.dumps({"pdf_sha256":pdf_sha,"pages":pages,"ocr_hits":hits},ensure_ascii=False,indent=2))
+          PY
+
+      - name: Upload Tianyi Huqianjing probe
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tianyige-huqianjing-ming-chuanjian
+          path: audit/tianyige-huqianjing-ming-chuanjian
+          if-no-files-found: error
+          retention-days: 30
