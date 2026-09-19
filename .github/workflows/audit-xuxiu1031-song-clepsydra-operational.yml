@@ -1,0 +1,98 @@
+name: audit-xuxiu1031-song-clepsydra-operational
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/audit-xuxiu1031-song-clepsydra-operational.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install locator tools
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils
+          python -m pip install --quiet pillow
+
+      - name: Locate Song clepsydra operational works in Xuxiu 1031
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/xuxiu1031-song-clepsydra-operational'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT/render" "$ROOT/contact"
+
+          URL='https://commons.wikimedia.org/wiki/Special:Redirect/file/%E7%BA%8C%E4%BF%AE%E5%9B%9B%E5%BA%AB%E5%85%A8%E6%9B%B8%E7%AC%AC1031%E5%86%8A.pdf'
+          curl -L --fail --retry 4 --retry-delay 3 --connect-timeout 15 --max-time 300 \
+            -A 'Tianwen-Provenance-Audit/1.0' "$URL" -o "$ROOT/1031.pdf"
+          ACTUAL=$(sha256sum "$ROOT/1031.pdf" | awk '{print $1}')
+          EXPECTED='07348e40ec26ca38efe9c9736a69c403c61f9b07a2c89a847fc68d00ce6d8c25'
+          printf '%s  %s\n' "$ACTUAL" "$ROOT/1031.pdf" | tee "$ROOT/source.sha256"
+          test "$ACTUAL" = "$EXPECTED"
+          pdfinfo "$ROOT/1031.pdf" | tee "$ROOT/pdfinfo.txt"
+
+          # Both clepsydra works are near the end of Xuxiu 1031.
+          pdftotext -f 625 -l 740 -layout "$ROOT/1031.pdf" "$ROOT/text-layer-p625-740.txt" || true
+          grep -n -E '準齋|准齋|几漏|銅壺|铜壶|漏箭|刻漏|上箭|下箭|獨用|独用|同用|十二節|十二节|冬至|夏至|晝夜|昼夜|百刻|改箭' \
+            "$ROOT/text-layer-p625-740.txt" > "$ROOT/text-layer-locator-hits.txt" || true
+
+          pdftoppm -f 625 -l 740 -jpeg -jpegopt quality=90 -r 160 \
+            "$ROOT/1031.pdf" "$ROOT/render/page" >/dev/null 2>&1
+          sha256sum "$ROOT"/render/*.jpg | sort -V > "$ROOT/render.sha256"
+
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image,ImageDraw
+          root=Path('audit/xuxiu1031-song-clepsydra-operational')
+          pages=sorted((root/'render').glob('page-*.jpg'), key=lambda p:int(p.stem.split('-')[-1]))
+          for i in range(0,len(pages),12):
+              batch=pages[i:i+12]
+              thumbs=[]
+              for p in batch:
+                  im=Image.open(p).convert('RGB')
+                  im.thumbnail((340,475))
+                  c=Image.new('RGB',(360,510),'white')
+                  c.paste(im,((360-im.width)//2,25))
+                  ImageDraw.Draw(c).text((8,6),p.name,fill='black')
+                  thumbs.append(c)
+              cols=4; rows=(len(thumbs)+cols-1)//cols
+              sh=Image.new('RGB',(cols*360,rows*510),'white')
+              for j,im in enumerate(thumbs):
+                  sh.paste(im,((j%cols)*360,(j//cols)*510))
+              first=int(batch[0].stem.split('-')[-1]); last=int(batch[-1].stem.split('-')[-1])
+              sh.save(root/'contact'/f'contact-{first:03d}-{last:03d}.jpg',quality=92)
+          PY
+          sha256sum "$ROOT"/contact/*.jpg | sort -V > "$ROOT/contact.sha256"
+
+          printf '%s\n' \
+            'SOURCE=續修四庫全書第1031冊 public reproduction' \
+            'SOURCE_SHA256=07348e40ec26ca38efe9c9736a69c403c61f9b07a2c89a847fc68d00ce6d8c25' \
+            'TARGETS=準齋心製几漏圖式一卷;銅壺漏箭制度一卷' \
+            'XUXIU_COPY_SCOPE=both reproduced from NLC-held Qing Daoguang-3 Huang Pilie Shiliju manuscripts; work layers attributed to Song tradition' \
+            'PURPOSE=locate direct operational rules for seasonal arrow selection/change/use; do not promote Qing reproduction copy into a pre1578 physical witness' \
+            'RENDER_RANGE=PDF p625-p740 at 160dpi' \
+            'OCR_RUN=false' \
+            'TEXT_LAYER_ROLE=LOCATOR_ONLY_NOT_FINAL_GLYPH_OR_MECHANISM_AUTHORITY' \
+            'FINAL_MECHANISM_CLAIMS_REQUIRE_DIRECT_IMAGE_REVIEW=true' \
+            > "$ROOT/manifest.txt"
+
+          rm "$ROOT/1031.pdf"
+
+      - name: Upload Song clepsydra operational locator
+        uses: actions/upload-artifact@v4
+        with:
+          name: xuxiu1031-song-clepsydra-operational
+          path: audit/xuxiu1031-song-clepsydra-operational
+          if-no-files-found: error
+          retention-days: 30
