@@ -78,6 +78,7 @@ jobs:
               sh.save(root/'contact'/f'contact-{first:03d}-{last:03d}.jpg',quality=82)
           PY
           sha256sum "$ROOT"/contact/*.jpg | sort -V > "$ROOT/contact.sha256"
+          rm -rf "$ROOT/lowres"
 
           printf '%s\n' \
             'SOURCE=續修四庫全書第1031冊 public reproduction' \
