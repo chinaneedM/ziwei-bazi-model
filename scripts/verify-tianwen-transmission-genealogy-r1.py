@@ -11,6 +11,7 @@ GRAPH = ROOT / "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json"
 STATE = ROOT / "docs/PROJECT-CURRENT-STATE-R1.json"
 BATCH_12CH = ROOT / "docs/research/ZIWEI-SISHI-QIHOU-JINGTAI6-TONGSHU-TABLE-CONTROL-R1.json"
 BATCH_12DP = ROOT / "docs/research/ZIWEI-DATONG-CIIN-49-58-CROSSING-AND-QICE-OFFSET-REPLAY-R1.json"
+BATCH_12DQ = ROOT / "docs/research/ZIWEI-DATONG-NANJING59-ENDPOINT-RECOMPOSITION-R1.json"
 
 
 def fail(message: str) -> None:
@@ -18,7 +19,7 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
-    for path in (CHARTER, PROTOCOL, GRAPH, STATE, BATCH_12CH, BATCH_12DP):
+    for path in (CHARTER, PROTOCOL, GRAPH, STATE, BATCH_12CH, BATCH_12DP, BATCH_12DQ):
         if not path.is_file():
             fail(f"Tianwen transmission artifact missing: {path.relative_to(ROOT)}")
 
@@ -107,6 +108,7 @@ def main() -> int:
         "PHYSICAL-COPY-TAIYI-TONGZONG-XUXIU-MING-MANUSCRIPT",
         "PASSAGE-TAIYI-JUAN1-DAILY-SUNRISE-INTERPOLATION",
         "RULE-SHOUSHI-DATONG-QICE-15_2184375",
+        "RULE-FAMILY-NANJING-CII-INTEGER-THRESHOLD-PLUS-59-ENDPOINT-ANCHOR",
     }
     if not required_nodes.issubset(set(node_ids)):
         fail("Transmission graph seed nodes incomplete")
@@ -320,6 +322,40 @@ def main() -> int:
         fail("Batch 12DP counting-convention firewall regressed")
     if not any(x.get("batch") == "BATCH-12-ZIWEI-DATONG-CIIN-49-58-CROSSING-AND-QICE-OFFSET-REPLAY-DP" and "seventeen consecutive 42-58" in x.get("update", "") and "0.5291" in x.get("update", "") and "zero exact pre-1578 Sanming-parent vote" in x.get("update", "") for x in hyp12dk.get("evidence_updates", [])):
         fail("Batch 12DP genealogy hypothesis threshold/qice update missing")
+
+    composite12dq = next(n for n in nodes if n.get("node_id") == "RULE-FAMILY-NANJING-CII-INTEGER-THRESHOLD-PLUS-59-ENDPOINT-ANCHOR")
+    if composite12dq.get("single_global_constant_fractional_threshold_disproved") is not True or composite12dq.get("exact_pre1578_combined_rule_text") != "UNRESOLVED":
+        fail("Batch 12DQ composite-rule node firewall regressed")
+    if composite12dq.get("clean_42_59_value_architecture_mechanically_covered") is not True or composite12dq.get("direct_sanming_parent") is not False:
+        fail("Batch 12DQ composite value-architecture/direct-parent firewall regressed")
+    e57 = next((e for e in edges if e.get("edge_id") == "TG-E0057"), None)
+    e58 = next((e for e in edges if e.get("edge_id") == "TG-E0058"), None)
+    e59 = next((e for e in edges if e.get("edge_id") == "TG-E0059"), None)
+    if not e57 or e57.get("from") != "TABLE-NANJING-DATONG-DAILY-CII-N-1380S" or e57.get("to") != "RULE-FAMILY-NANJING-CII-INTEGER-THRESHOLD-PLUS-59-ENDPOINT-ANCHOR" or e57.get("relation") != "SYNTHESIS_COMPONENT_CANDIDATE_FOR" or e57.get("status") != "PROBABLE":
+        fail("Batch 12DQ C-II-N composite-component edge regressed")
+    if not e58 or e58.get("from") != "STANDARD-NANJING-59KE-1447" or e58.get("to") != "RULE-FAMILY-NANJING-CII-INTEGER-THRESHOLD-PLUS-59-ENDPOINT-ANCHOR" or e58.get("relation") != "SYNTHESIS_COMPONENT_CANDIDATE_FOR" or e58.get("status") != "PROBABLE":
+        fail("Batch 12DQ Nanjing59 endpoint-component edge regressed")
+    if not e59 or e59.get("from") != "RULE-FAMILY-NANJING-CII-INTEGER-THRESHOLD-PLUS-59-ENDPOINT-ANCHOR" or e59.get("to") != "TABLE-FAMILY-POST1578-NANJING-59-41-STEPPED" or e59.get("relation") != "STRUCTURAL_MECHANISM_CANDIDATE_FOR" or e59.get("status") != "PROBABLE":
+        fail("Batch 12DQ composite clean-family edge regressed")
+    batch12dq = json.loads(BATCH_12DQ.read_text(encoding="utf-8"))
+    threshold12dq = batch12dq.get("constant_fractional_threshold_test", {})
+    if threshold12dq.get("threshold_lower_bound") != 0.9862 or threshold12dq.get("threshold_upper_bound") != 0.6332 or threshold12dq.get("constant_threshold_intersection_empty") is not True:
+        fail("Batch 12DQ constant-threshold contradiction regressed")
+    if not any(
+        x.get("from") == "RULE-FAMILY-NANJING-CII-INTEGER-THRESHOLD-PLUS-59-ENDPOINT-ANCHOR"
+        and x.get("to") == "TABLE-SANMING-1578-DAYNIGHT-KE"
+        and x.get("relation") == "DIRECT_ANCESTOR_OF"
+        and x.get("status") == "UNRESOLVED"
+        for x in graph.get("explicit_non_edges", [])
+    ):
+        fail("Batch 12DQ composite/Sanming direct-ancestry firewall missing")
+    if not any(
+        x.get("batch") == "BATCH-12-ZIWEI-DATONG-NANJING59-ENDPOINT-RECOMPOSITION-DQ"
+        and "empty intersection" in x.get("update", "")
+        and "zero exact-parent vote" in x.get("update", "")
+        for x in hyp12dk.get("evidence_updates", [])
+    ):
+        fail("Batch 12DQ genealogy hypothesis endpoint-recomposition update missing")
 
     leibian_fine = next(n for n in nodes if n.get("node_id") == "TABLE-LEIBIAN-FINE-SISHI-38-62")
     if leibian_fine.get("exact_sanming_yueling_target_identity") is not False:

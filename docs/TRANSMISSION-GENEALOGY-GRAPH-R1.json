@@ -1049,6 +1049,26 @@
         "docs/research/ZIWEI-DATONG-CIIN-49-58-CROSSING-AND-QICE-OFFSET-REPLAY-R1.json"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-DATONG-CIIN-49-58-CROSSING-AND-QICE-OFFSET-REPLAY-DP"
+    },
+    {
+      "node_id": "RULE-FAMILY-NANJING-CII-INTEGER-THRESHOLD-PLUS-59-ENDPOINT-ANCHOR",
+      "node_type": "RULE_FAMILY",
+      "label": "南京大統 C-II-N 內部整刻閾值 + 59刻至日端點錨定復合機制候選",
+      "system_scope": "MING_NANJING_DATONG_COMPOSITE_MECHANISM_HYPOTHESIS",
+      "date": "COMPONENTS_PRE1578; COMBINATION_NOT_DIRECTLY_ATTESTED_PRE1578",
+      "mechanical_identity": "C-II-N supplies seventeen direct 42-58 interior whole-ke crossings; the 1447 official Nanjing standard independently supplies a 59-ke solstitial endpoint. A single global constant fractional round-up threshold is mechanically impossible because the interior lower control requires t>0.9862 while the endpoint requires t<=0.6332.",
+      "clean_42_59_value_architecture_mechanically_covered": true,
+      "single_global_constant_fractional_threshold_disproved": true,
+      "exact_pre1578_combined_rule_text": "UNRESOLVED",
+      "exact_sanming_yueling_change_day_fingerprint": false,
+      "direct_sanming_parent": false,
+      "evidence": [
+        "docs/research/ZIWEI-DATONG-NANJING59-ENDPOINT-RECOMPOSITION-R1.json",
+        "docs/research/ZIWEI-DATONG-CIIN-49-58-CROSSING-AND-QICE-OFFSET-REPLAY-R1.json",
+        "docs/research/ZIWEI-YINGZONG-SHILU-1447-NANJING-59-41-PHYSICAL-COLLATION-R1.json",
+        "docs/research/ZIWEI-YINGZONG-SHILU-1449-DATONG-OLD-STYLE-RESTORATION-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-DATONG-NANJING59-ENDPOINT-RECOMPOSITION-DQ"
     }
   ],
   "edges": [
@@ -1866,8 +1886,10 @@
         "EXT-LEIJING-TUYI-TIANQI4-1624-59-41-LADDER",
         "docs/research/ZIWEI-DATONG-CIIN-49-58-CROSSING-AND-QICE-OFFSET-REPLAY-R1.json"
       ],
-      "scope_note": "Seventeen consecutive direct C-II-N whole-ke crossings (42-58) support an interior continuous-substrate -> integer-threshold mechanism. Received qi-ce accumulation aligns the complete 1624 42-58 transition sequence within 0.5291 day when both elapsed-day and ordinal-day readings are preserved. Status remains PROBABLE: the 1624 witness is postdated, counting convention is unresolved, the 58.6332-ke summer endpoint still requires anchoring/capping/recomposition, and the Sanming/Yueling anomalous Yushui-post-day-4 branch remains distinct.",
-      "adjudication_batch": "BATCH-12-ZIWEI-DATONG-CIIN-49-58-CROSSING-AND-QICE-OFFSET-REPLAY-DP"
+      "scope_note": "Seventeen consecutive direct C-II-N whole-ke crossings (42-58) support an interior continuous-substrate -> integer-threshold mechanism. Received qi-ce accumulation aligns the complete 1624 42-58 transition sequence within 0.5291 day when both elapsed-day and ordinal-day readings are preserved. Batch 12DQ now models the 59 endpoint separately through the direct 1447 Nanjing regional standard rather than forcing a universal fractional threshold. This edge remains interior-only and PROBABLE: the 1624 witness is postdated, counting convention is unresolved, and the Sanming/Yueling anomalous Yushui-post-day-4 branch remains distinct.",
+      "adjudication_batch": "BATCH-12-ZIWEI-DATONG-CIIN-49-58-CROSSING-AND-QICE-OFFSET-REPLAY-DP",
+      "endpoint_handling_after_12dq": "SEPARATE_PRE1578_NANJING_59KE_ANCHOR_COMPONENT; NOT_PART_OF_THIS_CII_N_INTERIOR_EDGE",
+      "latest_scope_update_batch": "BATCH-12-ZIWEI-DATONG-NANJING59-ENDPOINT-RECOMPOSITION-DQ"
     },
     {
       "edge_id": "TG-E0055",
@@ -1901,6 +1923,53 @@
       ],
       "scope_note": "Shows a historically real daily-difference interpolation mechanism compatible in class with daily sunrise tables. It does not prove that Taiyi generated C-II-N, that the layer is physically pre-1578, or that either is a direct parent of Sanming.",
       "adjudication_batch": "BATCH-12-ZIWEI-DATONG-CIIN-42-48-CROSSING-AND-TAIYI-DAILY-INTERPOLATION-DO"
+    },
+    {
+      "edge_id": "TG-E0057",
+      "from": "TABLE-NANJING-DATONG-DAILY-CII-N-1380S",
+      "relation": "SYNTHESIS_COMPONENT_CANDIDATE_FOR",
+      "to": "RULE-FAMILY-NANJING-CII-INTEGER-THRESHOLD-PLUS-59-ENDPOINT-ANCHOR",
+      "status": "PROBABLE",
+      "confidence": "HIGH_FOR_INTERIOR_42_58_COMPONENT",
+      "evidence_class": "DIRECT_CII_N_SEVENTEEN_CONSECUTIVE_INTEGER_CROSSINGS_PLUS_MODEL_CLASS_FALSIFICATION",
+      "evidence": [
+        "docs/research/ZIWEI-DATONG-CIIN-49-58-CROSSING-AND-QICE-OFFSET-REPLAY-R1.json",
+        "docs/research/ZIWEI-DATONG-NANJING59-ENDPOINT-RECOMPOSITION-R1.json"
+      ],
+      "scope_note": "C-II-N directly supplies the interior 42-58 threshold component. It does not by itself generate the 59 endpoint or prove the historical recomposition instruction.",
+      "adjudication_batch": "BATCH-12-ZIWEI-DATONG-NANJING59-ENDPOINT-RECOMPOSITION-DQ"
+    },
+    {
+      "edge_id": "TG-E0058",
+      "from": "STANDARD-NANJING-59KE-1447",
+      "relation": "SYNTHESIS_COMPONENT_CANDIDATE_FOR",
+      "to": "RULE-FAMILY-NANJING-CII-INTEGER-THRESHOLD-PLUS-59-ENDPOINT-ANCHOR",
+      "status": "PROBABLE",
+      "confidence": "HIGH_FOR_PRE1578_SOLSTITIAL_ENDPOINT_COMPONENT",
+      "evidence_class": "DIRECT_1447_OFFICIAL_NANJING_59KE_STANDARD_PLUS_1449_OLD_STYLE_RESTORATION_CONTEXT",
+      "evidence": [
+        "docs/research/ZIWEI-YINGZONG-SHILU-1447-NANJING-59-41-PHYSICAL-COLLATION-R1.json",
+        "docs/research/ZIWEI-YINGZONG-SHILU-1449-DATONG-OLD-STYLE-RESTORATION-R1.json",
+        "docs/research/ZIWEI-DATONG-NANJING59-ENDPOINT-RECOMPOSITION-R1.json"
+      ],
+      "scope_note": "The 59-ke endpoint is directly pre-1578 and local/institutional. The synthesis relation is still a candidate because no pre-1578 text has yet been found explicitly binding this endpoint to the C-II-N interior threshold procedure.",
+      "adjudication_batch": "BATCH-12-ZIWEI-DATONG-NANJING59-ENDPOINT-RECOMPOSITION-DQ"
+    },
+    {
+      "edge_id": "TG-E0059",
+      "from": "RULE-FAMILY-NANJING-CII-INTEGER-THRESHOLD-PLUS-59-ENDPOINT-ANCHOR",
+      "relation": "STRUCTURAL_MECHANISM_CANDIDATE_FOR",
+      "to": "TABLE-FAMILY-POST1578-NANJING-59-41-STEPPED",
+      "status": "PROBABLE",
+      "confidence": "HIGH_FOR_42_59_VALUE_ARCHITECTURE_NOT_TEXTUAL_LINEAGE",
+      "evidence_class": "DIRECT_PRE1578_COMPONENTS_PLUS_12DP_INTERIOR_REPLAY_PLUS_CONSTANT_THRESHOLD_CLASS_FALSIFICATION",
+      "evidence": [
+        "docs/research/ZIWEI-DATONG-NANJING59-ENDPOINT-RECOMPOSITION-R1.json",
+        "docs/research/ZIWEI-DATONG-CIIN-49-58-CROSSING-AND-QICE-OFFSET-REPLAY-R1.json",
+        "docs/research/ZIWEI-YINGZONG-SHILU-1447-NANJING-59-41-PHYSICAL-COLLATION-R1.json"
+      ],
+      "scope_note": "Mechanically covers the clean family value architecture by separating interior thresholds from the independently attested Nanjing 59 endpoint. It does not establish that this exact combined rule was written or used before 1578, and it does not explain the Sanming/Yueling anomalous Yushui-post-day-4 fingerprint.",
+      "adjudication_batch": "BATCH-12-ZIWEI-DATONG-NANJING59-ENDPOINT-RECOMPOSITION-DQ"
     }
   ],
   "lineage_hypotheses": [
@@ -1915,13 +1984,13 @@
         "TABLE-NANJING-DATONG-DAILY-CII-N-1380S"
       ],
       "target": "TABLE-SANMING-1578-DAYNIGHT-KE",
-      "model": "older coarse seasonal/leak-clock integer table family + Ming Nanjing/Datong locality numerical layer + unresolved selection/quantization/editorial recomposition -> Sanming 1578 displayed ladder",
+      "model": "older coarse seasonal/leak-clock integer table family + Ming Nanjing/Datong C-II-N interior integer-threshold layer + independently attested Nanjing 59-ke endpoint anchor + unresolved pre-1578 binding/change-day/editorial recomposition -> Sanming 1578 displayed ladder",
       "direct_copy_parent_identified": false,
       "exact_quantization_rule_identified": false,
       "unresolved_questions": [
         "Which exact pre-1578 Tongshu/almanac title, recension, or upstream source carries both the 大寒十三後 and 雨水後四日 fingerprints physically attributed to generic 通書 in Yueling 1589?",
-        "What exact Nanjing/Datong post-computation reduction rule maps C-II-N daily values to the Sanming/Yueling integer-change fingerprint?",
-        "Can a pre-1578 Chinese physical witness directly bind the C-II-N daily table and/or its reduction rule, distinguishing Chinese origin from Joseon transmission?"
+        "Which pre-1578 Chinese source explicitly binds the C-II-N whole-ke interior selection layer to the official Nanjing 59-ke endpoint standard?",
+        "Can a pre-1578 Chinese physical witness directly bind the C-II-N daily table and its downstream reduction/recomposition rule, distinguishing Chinese origin from Joseon transmission?"
       ],
       "evidence_updates": [
         {
@@ -2007,8 +2076,14 @@
         {
           "batch": "BATCH-12-ZIWEI-DATONG-CIIN-49-58-CROSSING-AND-QICE-OFFSET-REPLAY-DP",
           "update": "Direct no-OCR re-collation extends C-II-N to seventeen consecutive 42-58 whole-ke crossings; 49-58 close at d82,89,97,105,112,120,128,137,147,161. A third forward-only 12CG index correction moves 2494.04 from exploratory day89 to exact day88 and fixes day89=2500.61. Received Shoushi qi-ce 15.2184375-day accumulation aligns every postdated 1624 Leijing Tuyi 42-58 transition within 0.5291 day under preserved elapsed/ordinal counting ambiguity. This materially strengthens TG-E0054 as a structural-mechanism candidate, but chronology, the 58.6332 summer endpoint and the Sanming/Yueling anomalous Yushui branch remain firewalls; zero exact pre-1578 Sanming-parent vote is added."
+        },
+        {
+          "batch": "BATCH-12-ZIWEI-DATONG-NANJING59-ENDPOINT-RECOMPOSITION-DQ",
+          "update": "A one-parameter constant fractional threshold is now mechanically rejected for the clean C-II-N -> 42-59 mapping: d160=57.9862 remaining below the first 58 crossing requires t>0.9862, while summer 58.6332 -> 59 requires t<=0.6332, an empty intersection. The endpoint is therefore modeled as a separate component using the direct 1447 official Nanjing 59-ke standard, with 1449 old-style restoration as policy context. This closes the endpoint contradiction at composite mechanism/value-architecture level but not the exact pre-1578 combined rule or Sanming/Yueling Dahan/Yushui fingerprint; zero exact-parent vote is added."
         }
-      ]
+      ],
+      "endpoint_anchor_component_identified": true,
+      "single_global_constant_fractional_threshold_rejected": true
     }
   ],
   "explicit_non_edges": [
@@ -2384,6 +2459,17 @@
         "docs/research/ZIWEI-DATONG-CIIN-42-48-CROSSING-AND-TAIYI-DAILY-INTERPOLATION-R1.json"
       ],
       "adjudication_batch": "BATCH-12-ZIWEI-DATONG-CIIN-42-48-CROSSING-AND-TAIYI-DAILY-INTERPOLATION-DO"
+    },
+    {
+      "from": "RULE-FAMILY-NANJING-CII-INTEGER-THRESHOLD-PLUS-59-ENDPOINT-ANCHOR",
+      "relation": "DIRECT_ANCESTOR_OF",
+      "to": "TABLE-SANMING-1578-DAYNIGHT-KE",
+      "status": "UNRESOLVED",
+      "reason": "The composite mechanism is a research reconstruction from separately attested pre-1578 components. No pre-1578 source has yet been found that explicitly binds the C-II-N interior threshold procedure to the Nanjing 59-ke endpoint while also reproducing the exact Sanming/Yueling Dahan/Yushui change-day fingerprint.",
+      "evidence": [
+        "docs/research/ZIWEI-DATONG-NANJING59-ENDPOINT-RECOMPOSITION-R1.json"
+      ],
+      "adjudication_batch": "BATCH-12-ZIWEI-DATONG-NANJING59-ENDPOINT-RECOMPOSITION-DQ"
     }
   ],
   "backfill": {

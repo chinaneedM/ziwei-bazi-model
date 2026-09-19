@@ -42,6 +42,8 @@ ZIWEI_DATONG_CIIN_12DO_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-A
 ZIWEI_DATONG_CIIN_12DO_EVIDENCE = ROOT / "docs/research/ZIWEI-DATONG-CIIN-42-48-CROSSING-AND-TAIYI-DAILY-INTERPOLATION-R1.json"
 ZIWEI_DATONG_CIIN_12DP_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DATONG-CIIN-49-58-CROSSING-AND-QICE-OFFSET-REPLAY-DP.md"
 ZIWEI_DATONG_CIIN_12DP_EVIDENCE = ROOT / "docs/research/ZIWEI-DATONG-CIIN-49-58-CROSSING-AND-QICE-OFFSET-REPLAY-R1.json"
+ZIWEI_DATONG_NANJING59_12DQ_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DATONG-NANJING59-ENDPOINT-RECOMPOSITION-DQ.md"
+ZIWEI_DATONG_NANJING59_12DQ_EVIDENCE = ROOT / "docs/research/ZIWEI-DATONG-NANJING59-ENDPOINT-RECOMPOSITION-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -289,9 +291,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-DATONG-CIIN-INTEGER-CROSSING-AND-POST1578-59-41-LADDER-DN",
     "BATCH-12-ZIWEI-DATONG-CIIN-42-48-CROSSING-AND-TAIYI-DAILY-INTERPOLATION-DO",
     "BATCH-12-ZIWEI-DATONG-CIIN-49-58-CROSSING-AND-QICE-OFFSET-REPLAY-DP",
+    "BATCH-12-ZIWEI-DATONG-NANJING59-ENDPOINT-RECOMPOSITION-DQ",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DATONG-CIIN-49-58-CROSSING-AND-QICE-OFFSET-REPLAY-DP.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DATONG-NANJING59-ENDPOINT-RECOMPOSITION-DQ.md"
 
 
 def fail(message: str) -> None:
@@ -299,6 +302,30 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
+    for path in (ZIWEI_DATONG_NANJING59_12DQ_BATCH, ZIWEI_DATONG_NANJING59_12DQ_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12DQ continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12dq = json.loads(ZIWEI_DATONG_NANJING59_12DQ_EVIDENCE.read_text(encoding="utf-8"))
+    if batch12dq.get("batch_id") != "BATCH-12-ZIWEI-DATONG-NANJING59-ENDPOINT-RECOMPOSITION-DQ":
+        fail("Batch 12DQ evidence identity mismatch")
+    threshold12dq = batch12dq.get("constant_fractional_threshold_test", {})
+    interior12dq = threshold12dq.get("interior_latest_lower_control", {})
+    endpoint12dq = threshold12dq.get("endpoint_control", {})
+    if interior12dq.get("accumulated_day") != 160 or interior12dq.get("input_ke") != 57.9862 or threshold12dq.get("threshold_lower_bound") != 0.9862:
+        fail("Batch 12DQ interior threshold constraint regressed")
+    if endpoint12dq.get("accumulated_day") != 182 or endpoint12dq.get("input_ke") != 58.6332 or endpoint12dq.get("required_received_endpoint") != 59 or threshold12dq.get("threshold_upper_bound") != 0.6332:
+        fail("Batch 12DQ endpoint threshold constraint regressed")
+    if threshold12dq.get("constant_threshold_intersection_empty") is not True:
+        fail("Batch 12DQ constant-threshold negative result regressed")
+    composite12dq = batch12dq.get("composite_mechanism_candidate", {})
+    if composite12dq.get("clean_42_59_value_architecture_mechanically_covered") is not True:
+        fail("Batch 12DQ composite 42-59 value architecture regressed")
+    if composite12dq.get("exact_pre1578_text_binding_both_layers_found") is not False or composite12dq.get("exact_pre1578_combined_algorithm_found") is not False or composite12dq.get("exact_sanming_yueling_change_day_fingerprint_explained") is not False:
+        fail("Batch 12DQ combined-rule/fingerprint firewall regressed")
+    adjudication12dq = batch12dq.get("adjudication", {})
+    if adjudication12dq.get("single_global_constant_fractional_threshold_mapping_closed_as_negative") is not True or adjudication12dq.get("algorithm_reopen_authorized") is not False:
+        fail("Batch 12DQ model-class/product firewall regressed")
+
     for path in (ZIWEI_DATONG_CIIN_12DP_BATCH, ZIWEI_DATONG_CIIN_12DP_EVIDENCE):
         if not path.is_file():
             fail(f"Batch 12DP continuity artifact missing: {path.relative_to(ROOT)}")
