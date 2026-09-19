@@ -361,10 +361,6 @@ def main() -> int:
         fail("Batch 12DV Sanming lineage firewall regressed")
     if ad12dv.get("algorithm_reopen_authorized") is not False or ad12dv.get("matrix_count_change") is not False:
         fail("Batch 12DV product firewall regressed")
-    source12dv = next((s for s in registry.get("sources", []) if s.get("source_id") == "EXT-XUXIU1031-ZHUNZHAI-TONGHU-CLEPSYDRA-QING-MSS-PHYSICAL"), None)
-    if source12dv is None or source12dv.get("batch_12dv", {}).get("exact_pre1578_physical_copy_status") != "NOT_PROVED":
-        fail("Batch 12DV external-source registry binding missing")
-
     for path in (ZIWEI_KYUDB_12DT_BATCH, ZIWEI_KYUDB_12DT_EVIDENCE):
         if not path.is_file():
             fail(f"Batch 12DT continuity artifact missing: {path.relative_to(ROOT)}")
@@ -999,6 +995,9 @@ def main() -> int:
     state = json.loads(STATE.read_text(encoding="utf-8"))
     matrix = json.loads(MATRIX.read_text(encoding="utf-8"))
     registry = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    source12dv = next((s for s in registry.get("sources", []) if s.get("source_id") == "EXT-XUXIU1031-ZHUNZHAI-TONGHU-CLEPSYDRA-QING-MSS-PHYSICAL"), None)
+    if source12dv is None or source12dv.get("batch_12dv", {}).get("exact_pre1578_physical_copy_status") != "NOT_PROVED":
+        fail("Batch 12DV external-source registry binding missing")
     source12dr = next((x for x in registry.get("sources", []) if x.get("source_id") == "EXT-NLC-TAIYIN-TONGGUI-CHENGHUA-411999012050-PHYSICAL"), None)
     if source12dr is not None:
         iface12ds = source12dr.get("batch_12ds_local_consumer_interface", {})
