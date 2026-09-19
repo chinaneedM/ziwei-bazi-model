@@ -1,0 +1,99 @@
+name: audit-nlc-datong-tonggui-xuxiu1031-physical
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/audit-nlc-datong-tonggui-xuxiu1031-physical.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install physical-collation tools
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils
+          python -m pip install --quiet pillow
+
+      - name: Acquire and locate NLC Ming-manuscript Datong Tonggui reproduction
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/nlc-datong-tonggui-xuxiu1031-physical'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT/render" "$ROOT/contact"
+
+          URL='https://commons.wikimedia.org/wiki/Special:Redirect/file/%E7%BA%8C%E4%BF%AE%E5%9B%9B%E5%BA%AB%E5%85%A8%E6%9B%B8%E7%AC%AC1031%E5%86%8A.pdf'
+          curl -L --fail --retry 4 --retry-delay 3 --connect-timeout 15 --max-time 300 \
+            -A 'Tianwen-Provenance-Audit/1.0' "$URL" -o "$ROOT/1031.pdf"
+          sha256sum "$ROOT/1031.pdf" | tee "$ROOT/source.sha256"
+          pdfinfo "$ROOT/1031.pdf" | tee "$ROOT/pdfinfo.txt"
+
+          # Published Xuxiu index places the NLC Ming-manuscript Tonggui block around printed/PDF p575.
+          # Use a deliberately wider window to capture title leaves, internal work boundaries and end matter.
+          pdftotext -f 545 -l 650 -layout "$ROOT/1031.pdf" "$ROOT/text-layer-p545-650.txt" || true
+          grep -n -E '交食通軌|交食通轨|日食通軌|日食通轨|月食通軌|月食通轨|四餘|四余|五星通軌|五星通轨|大統曆法通軌|大统历法通轨|元統|元统|明鈔|明抄|國家圖書館|国家图书馆' \
+            "$ROOT/text-layer-p545-650.txt" > "$ROOT/text-layer-locator-hits.txt" || true
+
+          pdftoppm -f 550 -l 645 -jpeg -jpegopt quality=90 -r 150 \
+            "$ROOT/1031.pdf" "$ROOT/render/page" >/dev/null 2>&1
+          sha256sum "$ROOT"/render/*.jpg | sort -V > "$ROOT/render.sha256"
+
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image,ImageDraw
+          root=Path('audit/nlc-datong-tonggui-xuxiu1031-physical')
+          pages=sorted((root/'render').glob('page-*.jpg'), key=lambda p:int(p.stem.split('-')[-1]))
+          for i in range(0,len(pages),12):
+              batch=pages[i:i+12]
+              thumbs=[]
+              for p in batch:
+                  im=Image.open(p).convert('RGB')
+                  im.thumbnail((340,475))
+                  c=Image.new('RGB',(360,510),'white')
+                  c.paste(im,((360-im.width)//2,25))
+                  ImageDraw.Draw(c).text((8,6),p.name,fill='black')
+                  thumbs.append(c)
+              cols=4
+              rows=(len(thumbs)+cols-1)//cols
+              sh=Image.new('RGB',(cols*360,rows*510),'white')
+              for j,im in enumerate(thumbs):
+                  sh.paste(im,((j%cols)*360,(j//cols)*510))
+              first=int(batch[0].stem.split('-')[-1])
+              last=int(batch[-1].stem.split('-')[-1])
+              sh.save(root/'contact'/f'contact-{first:03d}-{last:03d}.jpg',quality=92)
+          PY
+          sha256sum "$ROOT"/contact/*.jpg | sort -V > "$ROOT/contact.sha256"
+
+          printf '%s\n' \
+            'SOURCE=續修四庫全書第1031冊 public reproduction on Wikimedia Commons' \
+            'SOURCE_BIBLIOGRAPHIC_IDENTITY=2002 Xuxiu Siku Quanshu vol.1031' \
+            'UNDERLYING_TARGET=國家圖書館藏明抄本：交食通軌一卷、日食通軌一卷、月食通軌一卷、四餘通軌一卷、五星通軌一卷' \
+            'SECONDARY_THREE_JUAN_CONTROL=2019 Ming Datong Lifa Huibian description says NLC separately holds a three-juan manuscript Datong Lifa Tonggui' \
+            'LOCATOR_RANGE=PDF pages 550-645 at 150dpi' \
+            'TEXT_LAYER_RANGE=PDF pages 545-650' \
+            'OCR_RUN=false' \
+            'TEXT_LAYER_ROLE=LOCATOR_ONLY_NOT_FINAL_GLYPH_OR_NUMERIC_AUTHORITY' \
+            'FINAL_GLYPH_NUMERIC_CLAIMS_REQUIRE_DIRECT_IMAGE_REVIEW=true' \
+            'PURPOSE=physically locate the public reproduction of the NLC Ming-manuscript Datong Tonggui residual component set and identify work/component boundaries before any mechanism claim' \
+            > "$ROOT/manifest.txt"
+
+          rm "$ROOT/1031.pdf"
+
+      - name: Upload Xuxiu 1031 physical locator
+        uses: actions/upload-artifact@v4
+        with:
+          name: nlc-datong-tonggui-xuxiu1031-physical
+          path: audit/nlc-datong-tonggui-xuxiu1031-physical
+          if-no-files-found: error
+          retention-days: 30
