@@ -1,0 +1,165 @@
+name: probe-kyudb-datonglizhu-copy-census
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-kyudb-datonglizhu-copy-census.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Resolve all current Kyujanggak Datonglizhu holdings
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/kyudb-datonglizhu-copy-census'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT"
+          python - <<'PY'
+          from pathlib import Path
+          import html as htmlmod
+          import json, re, urllib.parse, urllib.request
+
+          root=Path('audit/kyudb-datonglizhu-copy-census')
+          UA='Mozilla/5.0 Tianwen-Provenance-Audit/1.0'
+          searches=[
+              ('exact_title','大統曆註'),
+              ('old_title','大統曆'),
+              ('call_hint','2538'),
+          ]
+
+          def request(url,data=None):
+              body=urllib.parse.urlencode(data).encode() if data is not None else None
+              req=urllib.request.Request(url,data=body,headers={
+                  'User-Agent':UA,
+                  'Accept-Language':'ko,en;q=0.8',
+                  'Content-Type':'application/x-www-form-urlencoded',
+                  'Referer':'https://kyudb.snu.ac.kr/book/list.do?book_cate=SIC04&mid=GDS',
+              })
+              with urllib.request.urlopen(req,timeout=45) as r:
+                  return r.geturl(),r.read().decode('utf-8','replace')
+
+          def compact(s):
+              return re.sub(r'\s+',' ',htmlmod.unescape(re.sub(r'<[^>]+>',' ',s))).strip()
+
+          def base_form(q):
+              return {
+                  'prevSearchString':'',
+                  'bookCateRebrowsing':'Y',
+                  'dbBookCdRebrowsing':'N',
+                  'hasImgFilter':'N',
+                  'hasTxtFilter':'N',
+                  'searchArea':'-1',
+                  'viewType':'1',
+                  'pageIndex':'1',
+                  'recordIndex':'0',
+                  'mid':'GDS',
+                  'book_cate':'SIC04',
+                  'focus':'',
+                  'book_cd':'',
+                  'target':'',
+                  'heje_seq':'0',
+                  'toponym':'',
+                  'selSortInfo':'sortAlphabetical',
+                  'selCallNum':'ALL',
+                  'selSearchArea':'okTitle',
+                  'totalSearchString':q,
+                  'pageUnit':'100',
+              }
+
+          rows=[]
+          discovered={}
+          for key,q in searches:
+              try:
+                  final,h=request('https://kyudb.snu.ac.kr/book/list.do',base_form(q))
+                  (root/f'list-{key}.html').write_text(h,encoding='utf-8')
+                  # Record all list blocks that mention 大統曆 or the call-number hint.
+                  blocks=[]
+                  for m in re.finditer(r'大統曆註|大統曆|2538',h):
+                      start=h.rfind('<li',0,m.start())
+                      end=h.find('</li>',m.end())
+                      frag=h[start:end+5] if start>=0 and end>=0 else h[max(0,m.start()-2500):m.start()+6500]
+                      ids=re.findall(r'(G[A-Z]\d{5}_00)',frag)
+                      if not ids:
+                          continue
+                      book_cd=ids[-1]
+                      row={
+                          'book_cd':book_cd,
+                          'fragment':compact(frag)[:12000],
+                          'call_numbers':[compact(x) for x in re.findall(r'청구기호\s*:\s*([^<]+)',frag)],
+                          'authors':[compact(x) for x in re.findall(r'편저자\s*:\s*([^<]+)',frag)],
+                          'editions':[compact(x) for x in re.findall(r'판본사항\s*:\s*([^<]+)',frag)],
+                          'years':[compact(x) for x in re.findall(r'발행년도\s*:\s*([^<]+)',frag)],
+                      }
+                      blocks.append(row)
+                      discovered.setdefault(book_cd,row)
+                  rows.append({'search_key':key,'query':q,'final_url':final,'matches':blocks})
+              except Exception as e:
+                  rows.append({'search_key':key,'query':q,'error':type(e).__name__+': '+str(e)})
+
+          details=[]
+          for i,(book_cd,base) in enumerate(sorted(discovered.items())):
+              form=base_form('大統曆註')
+              form.update({'recordIndex':str(i+1),'book_cd':book_cd,'target':'master'})
+              try:
+                  final,h=request('https://kyudb.snu.ac.kr/book/view.do',form)
+                  (root/f'view-{book_cd}.html').write_text(h,encoding='utf-8')
+                  text=compact(h)
+                  contexts=[]
+                  for pat in ('大統曆註','大統曆','청구기호','편저자','판본사항','발행년도','원문이미지','마이크로필름','奎2426','奎2538','1434','世宗'):
+                      for m in list(re.finditer(re.escape(pat),h,re.I))[:8]:
+                          contexts.append({'pattern':pat,'context':compact(h[max(0,m.start()-1800):min(len(h),m.end()+4500)])[:8000]})
+                  details.append({
+                      'book_cd':book_cd,
+                      'final_url':final,
+                      'list_fragment':base.get('fragment'),
+                      'contexts':contexts,
+                      'contains_call_2426':'2426' in text,
+                      'contains_call_2538':'2538' in text,
+                      'contains_original_image':'원문이미지' in text or 'fn_originalImg' in h,
+                      'contains_microfilm':'마이크로필름' in text,
+                  })
+              except Exception as e:
+                  details.append({'book_cd':book_cd,'error':type(e).__name__+': '+str(e)})
+
+          report={
+              'schema':'KYUDB-DATONGLIZHU-COPY-CENSUS-R1',
+              'schema_version':'1.0.0',
+              'provider':'Kyujanggak Institute for Korean Studies, Seoul National University',
+              'purpose':'Resolve whether 奎2426 and 奎2538 are distinct current catalogued physical copies/records of 大統曆註 and bind each to an exact book_cd before any chronology or textual comparison.',
+              'searches':rows,
+              'discovered_book_cds':sorted(discovered),
+              'details':details,
+              'adjudication_firewall':'Do not infer that an old catalog call number, secondary-media label, or 1434 postface belongs to GK02426_00. Physical-copy identity, chronology and content must be bound record by record.',
+              'ocr_used_for_final_claims':False,
+          }
+          (root/'report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print(json.dumps({
+              'discovered_book_cds':report['discovered_book_cds'],
+              'details':[{
+                  'book_cd':x.get('book_cd'),
+                  'contains_call_2426':x.get('contains_call_2426'),
+                  'contains_call_2538':x.get('contains_call_2538'),
+                  'contains_original_image':x.get('contains_original_image'),
+                  'contains_microfilm':x.get('contains_microfilm')
+              } for x in details]
+          },ensure_ascii=False,indent=2))
+          PY
+
+      - name: Upload Kyujanggak Datonglizhu copy census
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: kyudb-datonglizhu-copy-census-r1
+          path: audit/kyudb-datonglizhu-copy-census
+          if-no-files-found: error
+          retention-days: 30
