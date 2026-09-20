@@ -1602,6 +1602,43 @@
         "docs/research/ZIWEI-JIUTANGSHU-JIAJING17-GUILOU-HALFUP-ROUNDING-R1.json"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-JIUTANGSHU-JIAJING17-GUILOU-HALFUP-ROUNDING-EA"
+    },
+    {
+      "node_id": "PHYSICAL-COPY-XINGYUNLU-NLC371920-MING-WANLI",
+      "node_type": "PHYSICAL_COPY",
+      "label": "NLC《古今律曆考》第1冊卷二萬曆期實物數字替代本",
+      "system_scope": "LATER_MING_DATONG_ENDPOINT_BINDING_CONTROL",
+      "work_composition_date": "MING_WANLI_XINGYUNLU_WORK; EXACT_COMPOSITION_DATE_NOT_ADJUDICATED_IN_12EB",
+      "edition_impression_date": "MING_WANLI_1573_1620_BROAD_PROVIDER_RANGE",
+      "physical_copy_date": "UNRESOLVED_WITHIN_MING_WANLI_RANGE",
+      "digital_surrogate_date": "MODERN_NLC_WIKIMEDIA_SURROGATE",
+      "identifier": "NLC892-CBM1408-371920 / PDF p52 / page sha256 e7e5289a0912b37c8c011a1d7b5f3b1235fd7d31c121cff61695c8f39fb445b9",
+      "secure_pre1578_physical_witness": false,
+      "evidence": [
+        "EXT-NLC-XINGYUNLU-MING-WANLI-V2-DATONG-ENDPOINT-BINDING",
+        "docs/research/ZIWEI-XINGYUNLU-DATONG-ENDPOINT-BINDING-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-XINGYUNLU-DATONG-ENDPOINT-BINDING-EB"
+    },
+    {
+      "node_id": "RULE-FAMILY-XINGYUNLU-DATONG-ENDPOINT-FEN-TO-59_41",
+      "node_type": "RULE_FAMILY",
+      "label": "《古今律曆考》卷二大統至日出分→59/41整刻端點綁定",
+      "system_scope": "LATER_MING_DATONG_ENDPOINT_BINDING",
+      "mechanical_identity": "The reviewed physical passage directly places Datong summer/winter sunrise-fen 2068.30/2931.70 and the corresponding summer 59/41, winter 41/59 day/night whole-ke displays together.",
+      "direct_summer_sunrise_fen": "2068.30",
+      "direct_winter_sunrise_fen": "2931.70",
+      "direct_summer_day_night": "59/41",
+      "direct_winter_day_night": "41/59",
+      "same_physical_passage_binding": true,
+      "secure_pre1578_binding": false,
+      "full_interior_42_58_selector": false,
+      "exact_sanming_yueling_fingerprint": false,
+      "evidence": [
+        "EXT-NLC-XINGYUNLU-MING-WANLI-V2-DATONG-ENDPOINT-BINDING",
+        "docs/research/ZIWEI-XINGYUNLU-DATONG-ENDPOINT-BINDING-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-XINGYUNLU-DATONG-ENDPOINT-BINDING-EB"
     }
   ],
   "edges": [
@@ -2930,6 +2967,37 @@
       ],
       "scope_note": "Half-up maps 58.6332 to the official Nanjing 59 endpoint, so it is a historically real endpoint-reduction component candidate. The same rule maps day160 57.9862 to 58 and therefore cannot be the universal C-II-N interior mapping; no direct Sanming ancestry is claimed.",
       "adjudication_batch": "BATCH-12-ZIWEI-JIUTANGSHU-JIAJING17-GUILOU-HALFUP-ROUNDING-EA"
+    },
+    {
+      "edge_id": "TG-E0089",
+      "from": "PHYSICAL-COPY-XINGYUNLU-NLC371920-MING-WANLI",
+      "relation": "ATTESTS",
+      "to": "RULE-FAMILY-XINGYUNLU-DATONG-ENDPOINT-FEN-TO-59_41",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_FOR_DIRECT_PHYSICAL_ENDPOINT_BINDING",
+      "evidence_class": "DIRECT_SOURCE_BOUND_PHYSICAL_PAGE_REVIEW_NO_OCR_FINAL_AUTHORITY",
+      "evidence": [
+        "EXT-NLC-XINGYUNLU-MING-WANLI-V2-DATONG-ENDPOINT-BINDING",
+        "docs/research/ZIWEI-XINGYUNLU-DATONG-ENDPOINT-BINDING-R1.json"
+      ],
+      "scope_note": "Attests the same-page Datong solstitial sunrise-fen and 59/41 whole-ke endpoint binding in the reviewed NLC object. Exact impression year remains unresolved within the Wanli range.",
+      "adjudication_batch": "BATCH-12-ZIWEI-XINGYUNLU-DATONG-ENDPOINT-BINDING-EB"
+    },
+    {
+      "edge_id": "TG-E0090",
+      "from": "RULE-FAMILY-XINGYUNLU-DATONG-ENDPOINT-FEN-TO-59_41",
+      "relation": "STRUCTURAL_MECHANISM_CANDIDATE_FOR",
+      "to": "RULE-FAMILY-NANJING-CII-INTEGER-THRESHOLD-PLUS-59-ENDPOINT-ANCHOR",
+      "status": "PROBABLE",
+      "confidence": "HIGH_FOR_LATER_MING_ENDPOINT_BRIDGE_LOW_FOR_PRE1578_LINEAGE",
+      "evidence_class": "DIRECT_LATER_MING_DATONG_ENDPOINT_INPUT_OUTPUT_BINDING_PLUS_PRIOR_CII_N_AND_NANJING59_CONTROLS",
+      "evidence": [
+        "EXT-NLC-XINGYUNLU-MING-WANLI-V2-DATONG-ENDPOINT-BINDING",
+        "docs/research/ZIWEI-XINGYUNLU-DATONG-ENDPOINT-BINDING-R1.json",
+        "docs/research/ZIWEI-DATONG-NANJING59-ENDPOINT-RECOMPOSITION-R1.json"
+      ],
+      "scope_note": "Directly demonstrates that a later-Ming Datong tradition binds the continuous/fractional solstitial endpoint layer to 59/41 output. This closes existence of a later bridge, not its securely pre-1578 chronology, full interior selector, or ancestry into Sanming.",
+      "adjudication_batch": "BATCH-12-ZIWEI-XINGYUNLU-DATONG-ENDPOINT-BINDING-EB"
     }
   ],
   "lineage_hypotheses": [
@@ -3082,6 +3150,10 @@
         {
           "batch": "BATCH-12-ZIWEI-JIUTANGSHU-JIAJING17-GUILOU-HALFUP-ROUNDING-EA",
           "update": "A secure Jiajing-17/1538 Jiutangshu physical page now directly attests a base-100 half-up/discard-below-half rule and explicitly extends it to guilou. The rule maps C-II-N summer 58.6332 to the independently attested Nanjing 59 endpoint, but it also maps day160 57.9862 to 58 before the closed first-58 crossing at day161; Liu Zhuo 59.86 would become 60. It therefore supplies a real pre-1578 reduction-mechanism component while disproving itself as the universal C-II-N mapping. Zero exact Sanming-parent vote is added; the exact endpoint binding and Dahan/Yushui fingerprint remain unresolved."
+        },
+        {
+          "batch": "BATCH-12-ZIWEI-XINGYUNLU-DATONG-ENDPOINT-BINDING-EB",
+          "update": "NLC Xing Yunlu volume 1 p52 directly binds Datong summer/winter sunrise-fen 2068.30/2931.70 to summer 59/41 and winter 41/59 on one physical page. This closes a later-Ming mechanical bridge between the endpoint continuous/fractional layer and the whole-ke display, materially strengthening the composite model. The reviewed object's exact Wanli impression year is unresolved and it is not securely pre-1578, so zero exact Sanming-parent vote is added; the full 42-58 selector and Dahan/Yushui fingerprint remain open."
         }
       ],
       "endpoint_anchor_component_identified": true,

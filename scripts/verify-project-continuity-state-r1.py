@@ -63,7 +63,7 @@ ZIWEI_WUZONG_12DY_EVIDENCE = ROOT / "docs/research/ZIWEI-WUZONG-SHILU-1518-MULTI
 ZIWEI_LANPEN_12DZ_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-LANPEN-KYOTO-40-60-PHYSICAL-AND-HUQIAN-COPY-CONTROL-DZ.md"
 ZIWEI_LANPEN_12DZ_EVIDENCE = ROOT / "docs/research/ZIWEI-LANPEN-KYOTO-40-60-PHYSICAL-HUQIAN-COPY-CONTROL-R1.json"
 ZIWEI_JIUTANGSHU_12EA_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JIUTANGSHU-JIAJING17-GUILOU-HALFUP-ROUNDING-EA.md"
-ZIWEI_JIUTANGSHU_12EA_EVIDENCE = ROOT / "docs/research/ZIWEI-JIUTANGSHU-JIAJING17-GUILOU-HALFUP-ROUNDING-R1.json"
+ZIWEI_JIUTANGSHU_12EA_EVIDENCE = ROOT / "docs/research/ZIWEI-JIUTANGSHU-JIAJING17-GUILOU-HALFUP-ROUNDING-R1.json"\nZIWEI_XINGYUNLU_12EB_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-XINGYUNLU-DATONG-ENDPOINT-BINDING-EB.md"\nZIWEI_XINGYUNLU_12EB_EVIDENCE = ROOT / "docs/research/ZIWEI-XINGYUNLU-DATONG-ENDPOINT-BINDING-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -324,7 +324,7 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-JIUTANGSHU-JIAJING17-GUILOU-HALFUP-ROUNDING-EA",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JIUTANGSHU-JIAJING17-GUILOU-HALFUP-ROUNDING-EA.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-XINGYUNLU-DATONG-ENDPOINT-BINDING-EB.md"
 
 
 def fail(message: str) -> None:
@@ -519,6 +519,30 @@ def main() -> int:
     ea_source = next((s for s in ea_registry.get("sources", []) if s.get("source_id") == "EXT-NCL-JIUTANGSHU-JIAJING17-1538-GUILOU-HALFUP"), None)
     if ea_source is None or ea_source.get("batch_12ea", {}).get("target_pdf_page") != 17:
         fail("Batch 12EA external-source registry binding missing")
+
+    for path in (ZIWEI_XINGYUNLU_12EB_BATCH, ZIWEI_XINGYUNLU_12EB_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12EB continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12eb = json.loads(ZIWEI_XINGYUNLU_12EB_EVIDENCE.read_text(encoding="utf-8"))
+    if batch12eb.get("batch_id") != "BATCH-12-ZIWEI-XINGYUNLU-DATONG-ENDPOINT-BINDING-EB":
+        fail("Batch 12EB evidence identity mismatch")
+    p52eb = batch12eb.get("direct_physical_collation", {}).get("page_52", {})
+    if batch12eb.get("physical_source", {}).get("target_page_sha256") != "e7e5289a0912b37c8c011a1d7b5f3b1235fd7d31c121cff61695c8f39fb445b9":
+        fail("Batch 12EB p52 physical hash regressed")
+    for phrase in ("大統曆推夏至日出分二千六十八分三十秒", "冬至日出分二千九百三十一分七十秒"):
+        if phrase not in p52eb.get("direct_sequence", ()):
+            fail(f"Batch 12EB Datong endpoint input phrase regressed: {phrase}")
+    if not any("晝五十九刻夜四十一刻" in x for x in p52eb.get("direct_sequence", ())):
+        fail("Batch 12EB summer 59/41 binding regressed")
+    ad12eb = batch12eb.get("adjudication", {})
+    if ad12eb.get("direct_physical_datong_endpoint_binding") != "CLOSED_FOR_REVIEWED_MING_NLC_OBJECT" or ad12eb.get("secure_pre1578_binding_witness") is not False or ad12eb.get("direct_sanming_parent_vote_increment") != 0:
+        fail("Batch 12EB chronology/lineage firewall regressed")
+    if any(ad12eb.get(k) for k in ("matrix_count_change", "runtime_rule_change", "algorithm_reopen_authorized", "candidate_collapse_authorized")):
+        fail("Batch 12EB product firewall regressed")
+    eb_registry = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    eb_source = next((s for s in eb_registry.get("sources", []) if s.get("source_id") == "EXT-NLC-XINGYUNLU-MING-WANLI-V2-DATONG-ENDPOINT-BINDING"), None)
+    if eb_source is None or eb_source.get("batch_12eb", {}).get("target_pdf_page") != 52:
+        fail("Batch 12EB external-source registry binding missing")
 
     for path in (ZIWEI_KYUDB_12DT_BATCH, ZIWEI_KYUDB_12DT_EVIDENCE):
         if not path.is_file():

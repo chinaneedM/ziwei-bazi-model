@@ -1,0 +1,102 @@
+{
+  "schema": "ZIWEI-XINGYUNLU-DATONG-ENDPOINT-BINDING-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-XINGYUNLU-DATONG-ENDPOINT-BINDING-EB",
+  "status": "MING_NLC_PHYSICAL_PAGE_DIRECTLY_BINDS_DATONG_SOLSTITIAL_SUNRISE_FEN_TO_59_41_WHOLE_KE_DISPLAY; LATER_MING_OR_EXACT_DATE_UNRESOLVED; PRE1578_ANCESTRY_NOT_CLOSED",
+  "workflow_evidence": {
+    "head_commit_sha": "8299dc959b175b910d2ccd11a7637729f1f94aa6",
+    "workflow_run_id": 35506520386,
+    "artifact_id": 10603956470,
+    "artifact_name": "xingyunlu-v2-datong-endpoint-binding",
+    "artifact_digest": "sha256:98e2aa1b9d8a415aa04242e662d490fad5d261dbf61ec6e777d2296db30abf01",
+    "probe_schema_version": "1.0.1",
+    "ocr_used_for_final_glyph_numeric_or_lineage_claims": false
+  },
+  "physical_source": {
+    "work": "古今律曆考",
+    "author": "邢雲路",
+    "target_juan": "卷二",
+    "provider": "National Library of China surrogate via Wikimedia Commons",
+    "provider_volume_description": "卷首 / 目錄 / 卷一 / 卷二",
+    "provider_publication_date": "明萬曆[1573-1620]",
+    "exact_impression_year": "UNRESOLVED_FOR_THIS_NLC_OBJECT",
+    "secure_pre1578_physical_witness": false,
+    "pdf_sha256": "ad413ec420d9f3713a1a6a10e747173992b4ca0e8c55c30a96205b40ae3affbf",
+    "pdf_pages": 79,
+    "target_pdf_page_1_based": 52,
+    "target_page_sha256": "e7e5289a0912b37c8c011a1d7b5f3b1235fd7d31c121cff61695c8f39fb445b9",
+    "chronology_firewall": "The reviewed NLC object is catalogued only within the broad Ming Wanli range and the registered Xing Yunlu control is later-Ming explanatory evidence. It cannot be promoted into a securely pre-1578 Sanming ancestor."
+  },
+  "direct_physical_collation": {
+    "page_52": {
+      "authority": "DIRECT_VISUAL_REVIEW_NO_OCR_FINAL_AUTHORITY",
+      "direct_sequence": [
+        "大統曆推夏至日出分二千六十八分三十秒",
+        "冬至日出分二千九百三十一分七十秒",
+        "夏至日出寅正四刻日入戌初初刻晝五十九刻夜四十一刻",
+        "冬至日出辰初初刻日入申正四刻晝四十一刻夜五十九刻"
+      ],
+      "normalized_mechanical_reading": "One physical passage explicitly places Datong solstitial sunrise-fen values 2068.30 / 2931.70 and the corresponding 59/41 / 41/59 whole-ke displays together, providing a direct later-Ming binding witness between continuous/fractional Datong endpoint coordinates and whole-ke endpoint display.",
+      "source_scope": "This closes a physical later-Ming binding at the solstitial endpoint. It does not by itself expose the full interior 42-58 selection rule or the Sanming/Yueling Dahan/Yushui transition fingerprint."
+    },
+    "locator_control": {
+      "target_page": 52,
+      "fixed_review_window": "PDF p50-p54",
+      "low_res_ocr_hits": 0,
+      "direct_target_window_forced": true
+    }
+  },
+  "comparison": {
+    "cii_n_registered_endpoint": {
+      "summer_full_daylight_ke": 58.6332,
+      "winter_complementary_context": "41.3668 under 100-ke complement",
+      "prior_direct_table_family": "EXT-NCL-DATONG-RICHU-NCL06267"
+    },
+    "xingyunlu_endpoint_binding": {
+      "summer_sunrise_fen": "2068.30",
+      "winter_sunrise_fen": "2931.70",
+      "summer_display": "59/41",
+      "winter_display": "41/59",
+      "same_passage_binding": true
+    },
+    "consequence": "The previously reconstructed C-II-N + Nanjing-59 composite architecture now has a direct later-Ming textual/physical bridge showing Datong endpoint fen values and 59/41 whole-ke output in one passage. The missing link is narrowed from existence of such a binding to its securely pre-1578 form, exact state-dependent mechanics, and the Sanming/Yueling transition fingerprint."
+  },
+  "adjudication": {
+    "direct_physical_datong_endpoint_binding": "CLOSED_FOR_REVIEWED_MING_NLC_OBJECT",
+    "exact_nlc_impression_year": "UNRESOLVED",
+    "secure_pre1578_binding_witness": false,
+    "exact_interior_42_58_selection_rule_explained": false,
+    "exact_sanming_yueling_change_day_fingerprint_explained": false,
+    "direct_sanming_parent_vote_increment": 0,
+    "matrix_count_change": false,
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false
+  },
+  "transmission_impact": {
+    "nodes_added": [
+      "PHYSICAL-COPY-XINGYUNLU-NLC371920-MING-WANLI",
+      "RULE-FAMILY-XINGYUNLU-DATONG-ENDPOINT-FEN-TO-59_41"
+    ],
+    "edges_added": [
+      "TG-E0089",
+      "TG-E0090"
+    ],
+    "lineage_scope": "Direct physical later-Ming endpoint-binding control. Strong mechanical bridge, chronology insufficient for pre-1578 ancestry."
+  },
+  "project_consequence": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "missing_from_product_rows": 10,
+    "provenance_defects_repaired": "12/12",
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0,
+    "deterministic_product_status": "CLOSED"
+  },
+  "next_gate": [
+    "Search a securely pre-1578 Nanjing/Datong, Tongshu/almanac, clepsydra/change-arrow, or official-calendar witness that binds the same endpoint layer before Sanming 1578.",
+    "Find the exact state-dependent rule that preserves the C-II-N interior 42-58 thresholds while producing 59 at the solstitial endpoint.",
+    "Keep the Sanming/Yueling 大寒十三後 / 雨水後四日 fingerprint as an independent high-information gate."
+  ]
+}
