@@ -80,6 +80,9 @@ jobs:
 
           selected=set(range(1,min(8,pages)+1))
           selected.update(range(max(1,pages-7),pages+1))
+          # Direct review of the first complete artifact locates the target binding on PDF p52.
+          # Fix p50-p54 into the high-resolution artifact so OCR non-hits cannot omit the target.
+          selected.update(range(50,min(pages,54)+1))
           for h in hits:
               n=h["page"]
               selected.update(range(max(1,n-4),min(pages,n+4)+1))
@@ -120,7 +123,7 @@ jobs:
           ext=ii.get("extmetadata") or {}
           report={
               "schema":"XINGYUNLU-V2-DATONG-ENDPOINT-BINDING-PROBE-R1",
-              "schema_version":"1.0.0",
+              "schema_version":"1.0.1",
               "commons_file_title":title,
               "source_url":url,
               "commons_sha1":ii.get("sha1"),
@@ -140,6 +143,8 @@ jobs:
               "low_res_ocr_hits":hits,
               "ocr_authority":"LOCATOR_ONLY_NOT_FINAL_GLYPH_NUMERIC_OR_LINEAGE_AUTHORITY",
               "selected_direct_review_pages":selected,
+              "fixed_target_window":"PDF p50-p54; target direct review p52",
+              "target_pdf_page_1_based":52,
               "page_manifest":manifest,
               "received_text_target_control":[
                   "大統曆推夏至日出分二千六十八分三十秒",
