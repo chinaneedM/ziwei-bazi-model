@@ -17,6 +17,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Install image tools
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --quiet pillow
+
       - name: Acquire narrow physical windows
         shell: bash
         run: |
