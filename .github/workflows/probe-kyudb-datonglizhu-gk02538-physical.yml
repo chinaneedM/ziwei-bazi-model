@@ -132,16 +132,25 @@ jobs:
 
           // Text layer is locator-only. Probe enough range to capture any hidden indexing.
           const targetTerms=['大寒','雨水','冬至餘','已上為退','後四日','後六日','後十三日','十三後','晝四十七刻','晝四十四刻','跋','金鑌','世宗'];
-          const textRows=[];
+          const textTasks=[];
           for(const vol of ['0001','0004']){
-            for(let n=0;n<=110;n++){
-              for(const ab of ['a','b']){
-                const p=String(n).padStart(3,'0')+ab;
-                const row=await textRow(vol,p);
-                if(row.text) textRows.push({volume:vol,page:p,...row,hits:targetTerms.filter(t=>row.text.includes(t))});
-              }
+            for(let n=0;n<=110;n++) for(const ab of ['a','b']){
+              textTasks.push([vol,String(n).padStart(3,'0')+ab]);
             }
           }
+          const textResults=new Array(textTasks.length);
+          let textCursor=0;
+          const textWorkers=Array.from({length:16},async()=>{
+            while(true){
+              const i=textCursor++;
+              if(i>=textTasks.length) return;
+              const [vol,p]=textTasks[i];
+              const row=await textRow(vol,p);
+              textResults[i]={volume:vol,page:p,...row,hits:targetTerms.filter(t=>row.text.includes(t))};
+            }
+          });
+          await Promise.all(textWorkers);
+          const textRows=textResults.filter(x=>x.text);
 
           const physical=[];
           // Rainwater: complete first 12 leaves of volume 1.
@@ -167,7 +176,7 @@ jobs:
 
           const report={
             schema:'KYUDB-DATONGLIZHU-GK02538-PHYSICAL-PROBE-R1',
-            schema_version:'1.0.0',
+            schema_version:'1.1.0',
             provider:'Kyujanggak Institute for Korean Studies, Seoul National University',
             book_cd:book,
             call_number:'奎2538-v.1-4',
