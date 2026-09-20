@@ -1,0 +1,266 @@
+name: probe-kyudb-datonglizhu-gk02538-physical
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-kyudb-datonglizhu-gk02538-physical.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install browser and image tools
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm install --no-save --silent puppeteer-core@24.16.0
+          python -m pip install --quiet pillow
+
+      - name: Acquire GK02538 physical target windows
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/kyudb-datonglizhu-gk02538-physical'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT/physical/0001" "$ROOT/physical/0004"
+          BROWSER="$(command -v google-chrome || command -v chromium || command -v chromium-browser || true)"
+          test -n "$BROWSER"
+
+          cat > "$ROOT/acquire.mjs" <<'JS'
+          import puppeteer from 'puppeteer-core';
+          import fs from 'node:fs';
+          import crypto from 'node:crypto';
+
+          const root='audit/kyudb-datonglizhu-gk02538-physical';
+          const book='GK02538_00';
+          const browser=await puppeteer.launch({
+            headless:true,
+            executablePath:process.env.BROWSER,
+            args:['--no-sandbox','--disable-setuid-sandbox']
+          });
+          const page=await browser.newPage();
+          await page.setUserAgent('Mozilla/5.0 Tianwen-Provenance-Audit/1.0');
+
+          await page.goto('https://kyudb.snu.ac.kr/book/list.do?book_cate=SIC04&mid=GDS',{
+            waitUntil:'networkidle2',timeout:90000
+          });
+          await Promise.all([
+            page.waitForNavigation({waitUntil:'networkidle2',timeout:90000}),
+            page.evaluate((book)=>{
+              const f=document.getElementById('frmBookSearchInf');
+              f.querySelector('#book_cd').value=book;
+              f.querySelector('#target').value='master';
+              f.action='/book/view.do'; f.method='post'; f.submit();
+            },book)
+          ]);
+          const catalogText=await page.evaluate(()=>document.body.innerText);
+          fs.writeFileSync(root+'/catalog-text.txt',catalogText);
+
+          const before=new Set(browser.targets().map(t=>t._targetId));
+          await page.evaluate((book)=>window.fn_originalImg('SIC',book,'',''),book);
+          let viewer=null;
+          for(let i=0;i<30 && !viewer;i++){
+            await new Promise(r=>setTimeout(r,500));
+            for(const t of browser.targets()){
+              if(t.type()==='page' && !before.has(t._targetId) && t.url().includes('/pf01/rendererImg.do')){
+                viewer=await t.page(); break;
+              }
+            }
+          }
+          if(!viewer) throw new Error('viewer target not resolved');
+          await viewer.waitForNetworkIdle({idleTime:1000,timeout:30000}).catch(()=>{});
+
+          function imageUrl(vol,p){
+            const fn=`${book}IH_${vol}_${p}.jpg`;
+            const path=`/data01/stream/SIC/IMG/${book}/${book}_${vol}/${fn}`;
+            return {
+              fn,path,
+              url:`https://kyudb.snu.ac.kr/ImageServlet.do?imgFileNm=${encodeURIComponent(fn)}&path=${encodeURIComponent(path)}`
+            };
+          }
+
+          async function textRow(vol,p){
+            try{
+              return await viewer.evaluate(async({book,vol,p})=>{
+                const body=new URLSearchParams({item_cd:'SIC',book_cd:book,vol_no:vol,page_no:p});
+                const r=await fetch('/pf01/pageText.do',{method:'POST',headers:{'content-type':'application/x-www-form-urlencoded; charset=UTF-8'},body});
+                const raw=await r.text();
+                let j=null; try{j=JSON.parse(raw)}catch{}
+                const html=j?.ORG?.list||'';
+                const div=document.createElement('div'); div.innerHTML=html;
+                return {status:r.status,text:(div.innerText||div.textContent||'').replace(/\\s+/g,' ').trim(),rawBytes:raw.length};
+              },{book,vol,p});
+            }catch(e){
+              return {status:null,text:'',rawBytes:null,error:String(e)};
+            }
+          }
+
+          async function download(vol,p){
+            const {url}=imageUrl(vol,p);
+            const imgPage=await browser.newPage();
+            await imgPage.setUserAgent('Mozilla/5.0 Tianwen-Provenance-Audit/1.0');
+            let buf=null,status=null,ctype=null,error=null;
+            for(let attempt=1;attempt<=3;attempt++){
+              try{
+                const resp=await imgPage.goto(url,{waitUntil:'domcontentloaded',timeout:20000});
+                status=resp?.status()??null; ctype=resp?.headers()?.['content-type']??null;
+                if(resp && resp.ok()){
+                  const candidate=await resp.buffer();
+                  if(candidate.length>5000){buf=candidate;break;}
+                }
+              }catch(e){error=String(e);}
+              await new Promise(r=>setTimeout(r,350*attempt));
+            }
+            await imgPage.close();
+            if(!buf) return {volume:vol,page:p,download_ok:false,status,content_type:ctype,error,url};
+            const out=`${root}/physical/${vol}/${p}.jpg`;
+            fs.writeFileSync(out,buf);
+            return {
+              volume:vol,page:p,download_ok:true,bytes:buf.length,
+              sha256:crypto.createHash('sha256').update(buf).digest('hex'),
+              content_type:ctype,url
+            };
+          }
+
+          // Text layer is locator-only. Probe enough range to capture any hidden indexing.
+          const targetTerms=['大寒','雨水','冬至餘','已上為退','後四日','後六日','後十三日','十三後','晝四十七刻','晝四十四刻','跋','金鑌','世宗'];
+          const textRows=[];
+          for(const vol of ['0001','0004']){
+            for(let n=0;n<=110;n++){
+              for(const ab of ['a','b']){
+                const p=String(n).padStart(3,'0')+ab;
+                const row=await textRow(vol,p);
+                if(row.text) textRows.push({volume:vol,page:p,...row,hits:targetTerms.filter(t=>row.text.includes(t))});
+              }
+            }
+          }
+
+          const physical=[];
+          // Rainwater: complete first 12 leaves of volume 1.
+          for(let n=0;n<=11;n++) for(const ab of ['a','b']){
+            physical.push(await download('0001',String(n).padStart(3,'0')+ab));
+          }
+
+          // Volume 4 locator: every second a-side leaf through 110 to locate juan 12 and terminal postface.
+          for(let n=0;n<=110;n+=2){
+            physical.push(await download('0004',String(n).padStart(3,'0')+'a'));
+          }
+
+          // Determine last substantive a-side and pull a complete +/- 14-leaf terminal neighborhood.
+          const vol4a=physical.filter(x=>x.volume==='0004'&&x.download_ok&&x.page.endsWith('a'));
+          let lastN=0;
+          for(const x of vol4a) lastN=Math.max(lastN,parseInt(x.page.slice(0,3),10));
+          const start=Math.max(0,lastN-14), end=Math.min(120,lastN+4);
+          const already=new Set(physical.filter(x=>x.download_ok).map(x=>x.volume+'/'+x.page));
+          for(let n=start;n<=end;n++) for(const ab of ['a','b']){
+            const p=String(n).padStart(3,'0')+ab;
+            if(!already.has('0004/'+p)) physical.push(await download('0004',p));
+          }
+
+          const report={
+            schema:'KYUDB-DATONGLIZHU-GK02538-PHYSICAL-PROBE-R1',
+            schema_version:'1.0.0',
+            provider:'Kyujanggak Institute for Korean Studies, Seoul National University',
+            book_cd:book,
+            call_number:'奎2538-v.1-4',
+            title:'大統曆註',
+            catalog_edition:'觀象監活字',
+            catalog_year:'刊年未詳',
+            catalog_extent:'12卷 4冊',
+            catalog_colophon:'跋: 權近, 卞季良, 金鑌(世宗16年, 1434)',
+            catalog_marks:['學部圖書','編輯局保管'],
+            catalog_microfilm:'M/F83-16-89-D',
+            catalog_layout:'四周雙邊; 半葉匡郭 25.3×17.5cm; 9行21字; 注雙行; 上下花紋魚尾; 34.7×22.5cm',
+            identity_control:{
+              distinct_from_GK02426_00:true,
+              reason:[
+                'call number 奎2538-v.1-4 vs 奎2426-v.1-4',
+                '觀象監活字 vs 觀象監木活字',
+                '9行21字 vs 10行18字',
+                '34.7×22.5cm vs 36×21.7cm',
+                'M/F83-16-89-D vs M/F83-16-95-D',
+                '1434 postface explicitly catalogued only on GK02538 detail'
+              ]
+            },
+            text_rows:textRows,
+            text_layer_authority:'LOCATOR_ONLY_NOT_FINAL_GLYPH_NUMERIC_DATE_OR_LINEAGE_AUTHORITY',
+            physical_pages:physical,
+            volume4_last_sampled_a_side:lastN,
+            terminal_window:{start_leaf:start,end_leaf:end},
+            physical_image_authority:'DIRECT_SOURCE_BOUND_FACSIMILE_REQUIRED_FOR_FINAL_GLYPH_NUMERIC_CHRONOLOGY_AND_LINEAGE_CLAIMS',
+            chronology_firewall:'A catalogued 1434 postface is a strong chronology lead, but direct physical review must determine what the postface itself dates and whether the reviewed calendrical text/print state may safely be placed before 1578.',
+            research_questions:[
+              'Does volume 1 preserve Sanming/Yueling Rainwater 47/53 -> 後四日 -> 48/52?',
+              'Does volume 4 preserve Dahan day13 -> 44/56 and what is the exact physical wording?',
+              'Does the physical terminal neighborhood directly preserve the catalogued 1434 postface?',
+              'Does the postface date the printing/type event, the exemplar/textual state, or only a historical note?',
+              'Does this recension preserve 冬至餘...已上為退, and does it expose an operator linking threshold state to whole-ke output?'
+            ],
+            ocr_used_for_final_glyph_claims:false
+          };
+          fs.writeFileSync(root+'/report.json',JSON.stringify(report,null,2));
+          console.log(JSON.stringify({
+            text_nonempty:textRows.length,
+            text_hits:textRows.filter(x=>x.hits?.length).map(x=>({volume:x.volume,page:x.page,hits:x.hits,text:x.text.slice(0,500)})),
+            physical_ok:physical.filter(x=>x.download_ok).length,
+            physical_failed:physical.filter(x=>!x.download_ok).length,
+            last_sampled_a_side:lastN,
+            terminal_window:report.terminal_window
+          },null,2));
+          await browser.close();
+          if(!physical.some(x=>x.download_ok)) process.exitCode=2;
+          JS
+
+          BROWSER="$BROWSER" node "$ROOT/acquire.mjs"
+
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image,ImageDraw
+          import json
+          root=Path('audit/kyudb-datonglizhu-gk02538-physical')
+          r=json.loads((root/'report.json').read_text())
+          ok=[x for x in r['physical_pages'] if x.get('download_ok')]
+          sheets=[]
+          for vol in ['0001','0004']:
+              rows=[x for x in ok if x['volume']==vol]
+              # keep acquisition order but dedup page
+              seen=set(); rows=[x for x in rows if not (x['page'] in seen or seen.add(x['page']))]
+              for start in range(0,len(rows),16):
+                  batch=rows[start:start+16]
+                  thumbs=[]
+                  for row in batch:
+                      p=root/'physical'/vol/f"{row['page']}.jpg"
+                      im=Image.open(p).convert('RGB')
+                      row['width'],row['height']=im.size
+                      im.thumbnail((430,610))
+                      c=Image.new('RGB',(450,655),'white')
+                      c.paste(im,((450-im.width)//2,20))
+                      ImageDraw.Draw(c).text((10,628),f"{vol} {row['page']}",fill='black')
+                      thumbs.append(c)
+                  cols=4; nrows=(len(thumbs)+cols-1)//cols
+                  sheet=Image.new('RGB',(cols*450,nrows*655),'white')
+                  for i,im in enumerate(thumbs): sheet.paste(im,((i%cols)*450,(i//cols)*655))
+                  out=root/f'contact-{vol}-{start//16+1:02d}.jpg'
+                  sheet.save(out,quality=90)
+                  sheets.append(out.name)
+          r['contact_sheets']=sheets
+          (root/'report.json').write_text(json.dumps(r,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print(json.dumps({'contact_sheets':sheets,'physical_ok':len(ok)},ensure_ascii=False,indent=2))
+          PY
+
+      - name: Upload GK02538 physical probe
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: kyudb-datonglizhu-gk02538-physical-r1
+          path: audit/kyudb-datonglizhu-gk02538-physical
+          if-no-files-found: error
+          retention-days: 30
