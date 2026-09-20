@@ -155,8 +155,8 @@ jobs:
 
           // Preserve deterministic controls even if the text layer misses one target.
           for(const [vol,controls] of Object.entries({
-            '0001':['000a','001a','002a','003a','004a','004b'],
-            '0004':['000a','001a','002a','003a','004a','004b']
+            '0001':['000a','001a','002a','002b','003a','003b','004a','004b'],
+            '0004':['000a','001a','002a','002b','002a','006a','010a','014a','018a','022a','026a','030a','034a','038a','042a','046a','050a','054a','058a','062a','066a','070a','074a','078a']
           })){
             if(!wanted.has(vol)) wanted.set(vol,new Set());
             for(const p of controls) wanted.get(vol).add(p);
@@ -200,7 +200,7 @@ jobs:
 
           const report={
             schema:'KYUDB-DATONGLIZHU-GK02426-FINGERPRINT-PROBE-R1',
-            schema_version:'1.0.0',
+            schema_version:'1.1.0',
             provider:'Kyujanggak Institute for Korean Studies, Seoul National University',
             book_cd:book,
             call_number:'奎2426-v.1-4',
@@ -219,6 +219,7 @@ jobs:
             text_layer_authority:'LOCATOR_ONLY_NOT_FINAL_GLYPH_NUMERIC_DATE_OR_LINEAGE_AUTHORITY',
             physical_image_authority:'DIRECT_SOURCE_BOUND_FACSIMILE_REQUIRED_FOR_FINAL_GLYPH_NUMERIC_AND_RECENSION_CLAIMS',
             chronology_firewall:'Catalog year remains unresolved. The 1434 postface is a dating lead, not automatic date assignment to all content.',
+            deterministic_fallback_sampling:'Volume 1 fixes the Rainwater opening/back-leaf neighborhood; volume 4 samples every fourth a-side leaf from 002a through 078a to locate the卷12/十二月/Dahan section when the pageText layer is empty.',
             ocr_used_for_final_glyph_claims:false,
             research_questions:[
               'Does volume 1 physically reproduce the Sanming/Yueling Rainwater fingerprint 47/53 -> 後四日 -> 48/52?',
