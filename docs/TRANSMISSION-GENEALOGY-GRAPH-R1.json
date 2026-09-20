@@ -1564,6 +1564,44 @@
         "docs/research/ZIWEI-LANPEN-KYOTO-40-60-PHYSICAL-HUQIAN-COPY-CONTROL-R1.json"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-LANPEN-KYOTO-40-60-PHYSICAL-AND-HUQIAN-COPY-CONTROL-DZ"
+    },
+    {
+      "node_id": "PHYSICAL-COPY-JIUTANGSHU-NCL01535-JIAJING17-1538",
+      "node_type": "PHYSICAL_COPY",
+      "label": "NCL-01535 明嘉靖十七年（1538）聞人詮吳郡刊《舊唐書》卷三十四實物",
+      "system_scope": "PRE1578_CALENDRICAL_GUILOU_ROUNDING",
+      "work_composition_date": "RECEIVED_JIUTANGSHU_WORK; EARLIER_COMPOSITION_HISTORY_NOT_RE-ADJUDICATED_IN_12EA",
+      "edition_impression_date": "MING_JIAJING_17_1538",
+      "physical_copy_date": "MING_JIAJING_17_1538_PRINT_AS_CATALOGUED",
+      "digital_surrogate_date": "MODERN_NCL_WIKIMEDIA_SURROGATE",
+      "identifier": "NCL-01535 / 201.242 01535 / fascicle 06 / PDF p17 / page sha256 93ace6d015b0b3cc55545652dce917f38b901c0060abf2ea80749f474ec15ec5",
+      "secure_pre1578_physical_witness": true,
+      "evidence": [
+        "EXT-NCL-JIUTANGSHU-JIAJING17-1538-GUILOU-HALFUP",
+        "docs/research/ZIWEI-JIUTANGSHU-JIAJING17-GUILOU-HALFUP-ROUNDING-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-JIUTANGSHU-JIAJING17-GUILOU-HALFUP-ROUNDING-EA"
+    },
+    {
+      "node_id": "RULE-FAMILY-JIUTANGSHU-GUILOU-BASE100-HALFUP",
+      "node_type": "RULE_FAMILY",
+      "label": "《舊唐書》軌漏百母半上進一／以下棄之取整規則家族",
+      "system_scope": "PRE1578_FRACTIONAL_TO_INTEGER_REDUCTION_FOR_CALENDRICAL_GUILOU",
+      "mechanical_identity": "Use 100 as denominator; half or more advances one; below half is discarded; the following guilou remainder is instructed to follow the same handling.",
+      "direct_base_denominator": 100,
+      "direct_half_or_more_action": "從一",
+      "direct_below_half_action": "棄之",
+      "direct_guilou_extension": true,
+      "secure_pre1578_physical_witness": true,
+      "global_cii_n_interior_mapping": false,
+      "nanjing_58_6332_to_59_endpoint_compatible": true,
+      "liu_zhuo_59_86_to_whole59_compatible": false,
+      "exact_sanming_parent": false,
+      "evidence": [
+        "EXT-NCL-JIUTANGSHU-JIAJING17-1538-GUILOU-HALFUP",
+        "docs/research/ZIWEI-JIUTANGSHU-JIAJING17-GUILOU-HALFUP-ROUNDING-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-JIUTANGSHU-JIAJING17-GUILOU-HALFUP-ROUNDING-EA"
     }
   ],
   "edges": [
@@ -2861,6 +2899,37 @@
       ],
       "scope_note": "Supports whole-ke seasonal binning as an ancestry mechanism class; Lanpen reaches 60/40 and therefore cannot be an unchanged Sanming 59/41 table.",
       "adjudication_batch": "BATCH-12-ZIWEI-LANPEN-KYOTO-40-60-PHYSICAL-AND-HUQIAN-COPY-CONTROL-DZ"
+    },
+    {
+      "edge_id": "TG-E0087",
+      "from": "PHYSICAL-COPY-JIUTANGSHU-NCL01535-JIAJING17-1538",
+      "relation": "ATTESTS",
+      "to": "RULE-FAMILY-JIUTANGSHU-GUILOU-BASE100-HALFUP",
+      "status": "CONFIRMED",
+      "confidence": "HIGH",
+      "evidence_class": "SECURE_1538_PHYSICAL_PRINT_PLUS_DIRECT_NO_OCR_TARGET_PAGE_REVIEW",
+      "evidence": [
+        "EXT-NCL-JIUTANGSHU-JIAJING17-1538-GUILOU-HALFUP",
+        "docs/research/ZIWEI-JIUTANGSHU-JIAJING17-GUILOU-HALFUP-ROUNDING-R1.json"
+      ],
+      "scope_note": "Directly attests the source-scoped base-100 half-up/discard-below-half wording and its explicit extension to guilou on the reviewed p17.",
+      "adjudication_batch": "BATCH-12-ZIWEI-JIUTANGSHU-JIAJING17-GUILOU-HALFUP-ROUNDING-EA"
+    },
+    {
+      "edge_id": "TG-E0088",
+      "from": "RULE-FAMILY-JIUTANGSHU-GUILOU-BASE100-HALFUP",
+      "relation": "SYNTHESIS_COMPONENT_CANDIDATE_FOR",
+      "to": "RULE-FAMILY-NANJING-CII-INTEGER-THRESHOLD-PLUS-59-ENDPOINT-ANCHOR",
+      "status": "POSSIBLE",
+      "confidence": "MEDIUM_FOR_ENDPOINT_REDUCTION_CLASS_ONLY_LOW_FOR_EXACT_LINEAGE",
+      "evidence_class": "DIRECT_PRE1578_GUILOU_ROUNDING_RULE_PLUS_MECHANICAL_REPLAY_AGAINST_CII_N_AND_NANJING59",
+      "evidence": [
+        "EXT-NCL-JIUTANGSHU-JIAJING17-1538-GUILOU-HALFUP",
+        "docs/research/ZIWEI-JIUTANGSHU-JIAJING17-GUILOU-HALFUP-ROUNDING-R1.json",
+        "docs/research/ZIWEI-DATONG-NANJING59-ENDPOINT-RECOMPOSITION-R1.json"
+      ],
+      "scope_note": "Half-up maps 58.6332 to the official Nanjing 59 endpoint, so it is a historically real endpoint-reduction component candidate. The same rule maps day160 57.9862 to 58 and therefore cannot be the universal C-II-N interior mapping; no direct Sanming ancestry is claimed.",
+      "adjudication_batch": "BATCH-12-ZIWEI-JIUTANGSHU-JIAJING17-GUILOU-HALFUP-ROUNDING-EA"
     }
   ],
   "lineage_hypotheses": [
@@ -3009,6 +3078,10 @@
         {
           "batch": "BATCH-12-ZIWEI-LANPEN-KYOTO-40-60-PHYSICAL-AND-HUQIAN-COPY-CONTROL-DZ",
           "update": "Kyoto RB00017646 directly closes a received whole-ke 40/60..60/40 seasonal table: 雨水後四日至後九日 is 46/54, 59/41 appears inside the ladder, and the table continues to 60/40. Its 1716 internal note explicitly claims collation against a Song printed old book, but the surviving manuscript copy date is unresolved and the colophon is not a surviving pre-1578 physical table witness. Re-probed Tianyi Huqian remains a distinct 47/53->48/52, 60/40 family with unresolved exact Ming impression year; second Tianyi object 0004676 is juan 11-20 only and adds no juan-7 vote. Zero exact Sanming-parent vote and no Nanjing-59 recomposition rule are added."
+        },
+        {
+          "batch": "BATCH-12-ZIWEI-JIUTANGSHU-JIAJING17-GUILOU-HALFUP-ROUNDING-EA",
+          "update": "A secure Jiajing-17/1538 Jiutangshu physical page now directly attests a base-100 half-up/discard-below-half rule and explicitly extends it to guilou. The rule maps C-II-N summer 58.6332 to the independently attested Nanjing 59 endpoint, but it also maps day160 57.9862 to 58 before the closed first-58 crossing at day161; Liu Zhuo 59.86 would become 60. It therefore supplies a real pre-1578 reduction-mechanism component while disproving itself as the universal C-II-N mapping. Zero exact Sanming-parent vote is added; the exact endpoint binding and Dahan/Yushui fingerprint remain unresolved."
         }
       ],
       "endpoint_anchor_component_identified": true,
@@ -3482,5 +3555,5 @@
     "first_explicit_seed_batch": "BATCH-12-ZIWEI-SISHI-QIHOU-JINGTAI6-TONGSHU-TABLE-CONTROL-CH",
     "future_material_batches_require_transmission_impact": true
   },
-  "updated_at": "2026-09-19"
+  "updated_at": "2026-09-20"
 }

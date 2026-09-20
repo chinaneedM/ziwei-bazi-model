@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.138.0",
+  "schema_version": "1.139.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -216,9 +216,10 @@
       "BATCH-12-ZIWEI-YONEZAWA-SHILIN1492-LIKOU-48ARROW-24QI-PHYSICAL-CLOSURE-DW",
       "BATCH-12-ZIWEI-NAJDA-SUISHU-YUAN-LOUKE-48ARROW-HUANGJI5986-PHYSICAL-CLOSURE-DX",
       "BATCH-12-ZIWEI-WUZONG-SHILU-1518-MULTISOURCE-LOCAL-CALIBRATION-PROPOSAL-DY",
-      "BATCH-12-ZIWEI-LANPEN-KYOTO-40-60-PHYSICAL-AND-HUQIAN-COPY-CONTROL-DZ"
+      "BATCH-12-ZIWEI-LANPEN-KYOTO-40-60-PHYSICAL-AND-HUQIAN-COPY-CONTROL-DZ",
+      "BATCH-12-ZIWEI-JIUTANGSHU-JIAJING17-GUILOU-HALFUP-ROUNDING-EA"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-LANPEN-KYOTO-40-60-PHYSICAL-AND-HUQIAN-COPY-CONTROL-DZ.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JIUTANGSHU-JIAJING17-GUILOU-HALFUP-ROUNDING-EA.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -777,7 +778,11 @@
       "Batch 12DZ direct Kyoto RB00017646 review closes a new physical received whole-ke seasonal table: canvas34 gives 節氣加減刻漏規式 and 46/54 at 雨水後四日至後九日; canvas35 physically contains 59/41 but then continues to 60/40. Therefore bare 59/41 occurrence is not evidence of a Nanjing-style 59-ke terminal cap.",
       "Kyoto canvas40 directly carries the 1716 internal statement 享保元丙申稔仲冬上旬以宋刻古本校正訖 / 日本國南京沙門秀慶識. This is preserved as a Song-print-collation claim only: the surviving object is catalogued as 写 with unresolved copy date, so no pre-1578 physical carrier or unchanged Song-print numeric table is claimed.",
       "12DZ re-probes Tianyi 330000-1705-0004205 and directly reconfirms the existing Huqian 100-ke / Rainwater 47/53->48/52 / summer 60/40 family, but its exact Ming impression year remains unresolved. The second Tianyi object 330000-1705-0004676 directly opens at 卷第十一 and ends 卷第二十終, so it is not a second juan-7 傳箭 witness and adds zero independent target vote.",
-      "Batch 12DZ changes no Matrix/product counts: 198 rows / 166 audited / 10 MISSING_FROM_PRODUCT; provenance defects remain 12/12; chart algorithm defect/reopen/collapse remain 0. Next gate remains a securely pre-1578 numerical recomposition/quantization witness that binds continuous/fractional or C-II-N input to a terminal Nanjing 59-ke display, preferably with the exact Sanming/Yueling Dahan/Yushui fingerprint; additional generic 40↔60 tables are lower priority unless they close that binding."
+      "Batch 12DZ changes no Matrix/product counts: 198 rows / 166 audited / 10 MISSING_FROM_PRODUCT; provenance defects remain 12/12; chart algorithm defect/reopen/collapse remain 0. Next gate remains a securely pre-1578 numerical recomposition/quantization witness that binds continuous/fractional or C-II-N input to a terminal Nanjing 59-ke display, preferably with the exact Sanming/Yueling Dahan/Yushui fingerprint; additional generic 40↔60 tables are lower priority unless they close that binding.",
+      "Batch 12EA closes a securely pre-1578 physical numerical-reduction mechanism: Jiajing-17/1538 NCL-01535 fascicle 06 PDF p17 directly preserves 用百為母 / 半已上從一 / 已下棄之 and explicitly continues the same remainder handling under 下求軌漏 / 餘分不滿准此; final glyph/mechanical claims are direct visual, not OCR.",
+      "12EA mechanically replays the historical half-up rule against the closed C-II-N controls: 58.6332 -> 59 is compatible with the official Nanjing summer endpoint, but day160 57.9862 -> 58 would promote the interior step before the closed day161 first-58 crossing. Therefore the rule is a real pre-1578 endpoint/reduction component candidate, not a universal C-II-N mapping.",
+      "The same half-up rule would map Liu Zhuo 59.86 -> 60, so it does not supply a 59.86 -> whole-59 explanation. Exact Ming Nanjing/Datong adoption, state-dependent endpoint binding and the Sanming/Yueling 大寒十三後 / 雨水後四日 fingerprint remain unresolved; exact Sanming-parent vote increment is 0.",
+      "Batch 12EA changes no Matrix/product counts: 198 rows / 166 audited / 10 MISSING_FROM_PRODUCT; provenance defects remain 12/12; chart algorithm defect/reopen/collapse remain 0. The next gate is a pre-1578 state-dependent binding/recomposition source that preserves the C-II-N interior thresholds while producing the Nanjing 59 endpoint, preferably with the exact Dahan/Yushui fingerprint."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10
@@ -817,7 +822,7 @@
     "handoff_text_should_be_generated_from_repository_state_not_chat_memory": true,
     "new_chat_minimal_user_prompt": "继续项目。按仓库 docs/PROJECT-CONTINUITY-PROTOCOL-R1.md 启动，以 GitHub 远端最新状态为唯一事实源。"
   },
-  "updated_at": "2026-09-19",
+  "updated_at": "2026-09-20",
   "tianwen_identity": {
     "umbrella_name_zh": "天问",
     "umbrella_name_en": "TIANWEN",

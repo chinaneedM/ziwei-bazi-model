@@ -62,6 +62,8 @@ ZIWEI_WUZONG_12DY_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-
 ZIWEI_WUZONG_12DY_EVIDENCE = ROOT / "docs/research/ZIWEI-WUZONG-SHILU-1518-MULTISOURCE-LOCAL-CALIBRATION-PROPOSAL-R1.json"
 ZIWEI_LANPEN_12DZ_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-LANPEN-KYOTO-40-60-PHYSICAL-AND-HUQIAN-COPY-CONTROL-DZ.md"
 ZIWEI_LANPEN_12DZ_EVIDENCE = ROOT / "docs/research/ZIWEI-LANPEN-KYOTO-40-60-PHYSICAL-HUQIAN-COPY-CONTROL-R1.json"
+ZIWEI_JIUTANGSHU_12EA_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JIUTANGSHU-JIAJING17-GUILOU-HALFUP-ROUNDING-EA.md"
+ZIWEI_JIUTANGSHU_12EA_EVIDENCE = ROOT / "docs/research/ZIWEI-JIUTANGSHU-JIAJING17-GUILOU-HALFUP-ROUNDING-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -319,9 +321,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-NAJDA-SUISHU-YUAN-LOUKE-48ARROW-HUANGJI5986-PHYSICAL-CLOSURE-DX",
     "BATCH-12-ZIWEI-WUZONG-SHILU-1518-MULTISOURCE-LOCAL-CALIBRATION-PROPOSAL-DY",
     "BATCH-12-ZIWEI-LANPEN-KYOTO-40-60-PHYSICAL-AND-HUQIAN-COPY-CONTROL-DZ",
+    "BATCH-12-ZIWEI-JIUTANGSHU-JIAJING17-GUILOU-HALFUP-ROUNDING-EA",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-LANPEN-KYOTO-40-60-PHYSICAL-AND-HUQIAN-COPY-CONTROL-DZ.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JIUTANGSHU-JIAJING17-GUILOU-HALFUP-ROUNDING-EA.md"
 
 
 def fail(message: str) -> None:
@@ -486,6 +489,36 @@ def main() -> int:
         fail("Batch 12DZ external-source registry binding missing")
     if dz_tianyi.get("batch_12dz", {}).get("target_juan7_present") is not False:
         fail("Batch 12DZ Tianyi negative-scope control regressed")
+
+
+    for path in (ZIWEI_JIUTANGSHU_12EA_BATCH, ZIWEI_JIUTANGSHU_12EA_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12EA continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12ea = json.loads(ZIWEI_JIUTANGSHU_12EA_EVIDENCE.read_text(encoding="utf-8"))
+    if batch12ea.get("batch_id") != "BATCH-12-ZIWEI-JIUTANGSHU-JIAJING17-GUILOU-HALFUP-ROUNDING-EA":
+        fail("Batch 12EA evidence identity mismatch")
+    p17ea = batch12ea.get("direct_physical_collation", {}).get("page_17", {})
+    if batch12ea.get("physical_source", {}).get("target_page_sha256") != "93ace6d015b0b3cc55545652dce917f38b901c0060abf2ea80749f474ec15ec5":
+        fail("Batch 12EA p17 physical hash regressed")
+    for phrase in ("用百為母", "半已上從一", "已下棄之", "下求軌漏", "餘分不滿准此"):
+        if phrase not in p17ea.get("direct_sequence", ()):
+            fail(f"Batch 12EA direct rounding/guilou phrase regressed: {phrase}")
+    replay12ea = batch12ea.get("mechanical_replay", {})
+    if replay12ea.get("cii_n_interior_control", {}).get("half_up_output") != 58 or replay12ea.get("cii_n_interior_control", {}).get("result") != "INCOMPATIBLE_WITH_GLOBAL_CII_N_INTERIOR_MAPPING":
+        fail("Batch 12EA C-II-N interior replay firewall regressed")
+    if replay12ea.get("nanjing_summer_endpoint_control", {}).get("half_up_output") != 59 or replay12ea.get("nanjing_summer_endpoint_control", {}).get("result") != "COMPATIBLE_AT_ENDPOINT_ONLY":
+        fail("Batch 12EA Nanjing endpoint replay regressed")
+    if replay12ea.get("liu_zhuo_fractional_endpoint_control", {}).get("half_up_output") != 60:
+        fail("Batch 12EA Liu Zhuo 59.86 replay regressed")
+    ad12ea = batch12ea.get("adjudication", {})
+    if ad12ea.get("pre1578_physical_base100_halfup_rule") != "CLOSED" or ad12ea.get("global_cii_n_42_58_reduction_identity") != "DISPROVED_BY_REPLAY" or ad12ea.get("direct_sanming_parent_vote_increment") != 0:
+        fail("Batch 12EA historical/mechanical adjudication regressed")
+    if any(ad12ea.get(k) for k in ("matrix_count_change", "runtime_rule_change", "algorithm_reopen_authorized", "candidate_collapse_authorized")):
+        fail("Batch 12EA product firewall regressed")
+    ea_registry = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    ea_source = next((s for s in ea_registry.get("sources", []) if s.get("source_id") == "EXT-NCL-JIUTANGSHU-JIAJING17-1538-GUILOU-HALFUP"), None)
+    if ea_source is None or ea_source.get("batch_12ea", {}).get("target_pdf_page") != 17:
+        fail("Batch 12EA external-source registry binding missing")
 
     for path in (ZIWEI_KYUDB_12DT_BATCH, ZIWEI_KYUDB_12DT_EVIDENCE):
         if not path.is_file():

@@ -21,6 +21,7 @@ BATCH_12DW = ROOT / "docs/research/ZIWEI-YONEZAWA-SHILIN1492-LIKOU-48ARROW-24QI-
 BATCH_12DX = ROOT / "docs/research/ZIWEI-NAJDA-SUISHU-YUAN-LOUKE-48ARROW-HUANGJI5986-PHYSICAL-CLOSURE-R1.json"
 BATCH_12DY = ROOT / "docs/research/ZIWEI-WUZONG-SHILU-1518-MULTISOURCE-LOCAL-CALIBRATION-PROPOSAL-R1.json"
 BATCH_12DZ = ROOT / "docs/research/ZIWEI-LANPEN-KYOTO-40-60-PHYSICAL-HUQIAN-COPY-CONTROL-R1.json"
+BATCH_12EA = ROOT / "docs/research/ZIWEI-JIUTANGSHU-JIAJING17-GUILOU-HALFUP-ROUNDING-R1.json"
 
 
 def fail(message: str) -> None:
@@ -28,7 +29,7 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
-    for path in (CHARTER, PROTOCOL, GRAPH, STATE, BATCH_12CH, BATCH_12DP, BATCH_12DQ, BATCH_12DR, BATCH_12DS, BATCH_12DT, BATCH_12DU, BATCH_12DV, BATCH_12DW, BATCH_12DX, BATCH_12DY, BATCH_12DZ):
+    for path in (CHARTER, PROTOCOL, GRAPH, STATE, BATCH_12CH, BATCH_12DP, BATCH_12DQ, BATCH_12DR, BATCH_12DS, BATCH_12DT, BATCH_12DU, BATCH_12DV, BATCH_12DW, BATCH_12DX, BATCH_12DY, BATCH_12DZ, BATCH_12EA):
         if not path.is_file():
             fail(f"Tianwen transmission artifact missing: {path.relative_to(ROOT)}")
 
@@ -645,6 +646,23 @@ def main() -> int:
         fail("Batch 12DZ Sanming unchanged-table non-edge missing")
     if not any(x.get("batch") == "BATCH-12-ZIWEI-LANPEN-KYOTO-40-60-PHYSICAL-AND-HUQIAN-COPY-CONTROL-DZ" and "Zero exact Sanming-parent vote" in x.get("update", "") for x in hyp12dk.get("evidence_updates", [])):
         fail("Batch 12DZ genealogy hypothesis zero-vote update missing")
+
+
+    batch12ea = json.loads(BATCH_12EA.read_text(encoding="utf-8"))
+    if batch12ea.get("adjudication", {}).get("pre1578_physical_base100_halfup_rule") != "CLOSED":
+        fail("Batch 12EA pre-1578 half-up rule closure regressed")
+    copy12ea = next(n for n in nodes if n.get("node_id") == "PHYSICAL-COPY-JIUTANGSHU-NCL01535-JIAJING17-1538")
+    rule12ea = next(n for n in nodes if n.get("node_id") == "RULE-FAMILY-JIUTANGSHU-GUILOU-BASE100-HALFUP")
+    if copy12ea.get("secure_pre1578_physical_witness") is not True or copy12ea.get("physical_copy_date") != "MING_JIAJING_17_1538_PRINT_AS_CATALOGUED":
+        fail("Batch 12EA physical chronology control regressed")
+    if rule12ea.get("direct_base_denominator") != 100 or rule12ea.get("direct_guilou_extension") is not True or rule12ea.get("global_cii_n_interior_mapping") is not False:
+        fail("Batch 12EA rule-family mechanical firewall regressed")
+    for eid, rel in (("TG-E0087","ATTESTS"),("TG-E0088","SYNTHESIS_COMPONENT_CANDIDATE_FOR")):
+        e = next((x for x in edges if x.get("edge_id") == eid), None)
+        if not e or e.get("relation") != rel:
+            fail(f"Batch 12EA transmission edge regressed: {eid}")
+    if not any(x.get("batch") == "BATCH-12-ZIWEI-JIUTANGSHU-JIAJING17-GUILOU-HALFUP-ROUNDING-EA" and "Zero exact Sanming-parent vote" in x.get("update", "") for x in hyp12dk.get("evidence_updates", [])):
+        fail("Batch 12EA genealogy hypothesis zero-vote update missing")
 
     ncl = next(n for n in nodes if n.get("node_id") == "PHYSICAL-COPY-SISHI-QIHOU-NCL03164-OLD-MANUSCRIPT")
     if ncl.get("physical_copy_date") != "UNRESOLVED":

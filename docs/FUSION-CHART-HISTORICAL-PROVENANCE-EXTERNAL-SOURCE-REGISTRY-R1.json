@@ -1,7 +1,7 @@
 {
   "schema": "FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1",
   "schema_version": "1.0.0",
-  "access_date": "2026-09-19",
+  "access_date": "2026-09-20",
   "authority_policy": "S00-S19 are a frozen project research corpus and discovery/index layer, not infallible historical authority. External primary/received/bibliographic witnesses may corroborate, refine, contradict, or expose scope/attribution defects in the project corpus. Modern software and secondary research never become historical authority by observation alone.",
   "sources": [
     {
@@ -5405,6 +5405,30 @@
         "target_juan7_present": false,
         "independent_target_witness_increment": 0,
         "research_artifact": "docs/research/ZIWEI-LANPEN-KYOTO-40-60-PHYSICAL-HUQIAN-COPY-CONTROL-R1.json"
+      }
+    },
+    {
+      "source_id": "EXT-NCL-JIUTANGSHU-JIAJING17-1538-GUILOU-HALFUP",
+      "title": "明嘉靖十七年聞人詮吳郡刊《舊唐書》卷三十四《歷三》軌漏百母半上進一規則",
+      "historical_period": "MING_JIAJING_17_1538_PHYSICAL_PRINT_OF_RECEIVED_JIUTANGSHU",
+      "edition": "明嘉靖十七年（1538）聞人詮吳郡刊本",
+      "provider": "National Central Library scan via Wikimedia Commons",
+      "identifier": "NCL-01535 / call 201.242 01535 / fascicle 06 / PDF p17",
+      "url": "https://commons.wikimedia.org/wiki/File:NCL-01535_06_%E8%88%8A%E5%94%90%E6%9B%B8.pdf",
+      "source_role": "DIRECT_PRE1578_PHYSICAL_CALENDRICAL_WITNESS_FOR_BASE100_HALFUP_REMAINDER_RULE_EXPLICITLY_EXTENDED_TO_GUILOU",
+      "quality_notes": "Batch 12EA direct no-OCR review of fascicle 06 PDF p17 physically preserves 用百為母 / 半已上從一 / 已下棄之 and immediately extends the same remainder handling under 下求軌漏 / 餘分不滿准此. Mechanical replay shows endpoint-only compatibility with C-II-N summer 58.6332 -> official Nanjing 59, but a global half-up rule would turn day160 57.9862 into 58 before the closed first-58 crossing at day161. This is a real pre-1578 reduction-mechanism class, not a direct Sanming parent or universal C-II-N rule.",
+      "batch_12ea": {
+        "workflow_run_id": 35451542592,
+        "artifact_id": 10587006903,
+        "artifact_digest": "sha256:33f879bcf4e1c7365caed7e4a9e6a8216fd0377fbda215940548a0b5283759e6",
+        "pdf_sha256": "c08bb69617c00205f07f3c65cfdbfbcab45ba73d061cd5393947d421d8153df3",
+        "target_pdf_page": 17,
+        "target_page_sha256": "93ace6d015b0b3cc55545652dce917f38b901c0060abf2ea80749f474ec15ec5",
+        "ocr_used_for_final_glyph_or_mechanical_claims": false,
+        "endpoint_58_6332_halfup_to_59": true,
+        "global_cii_interior_mapping_compatible": false,
+        "direct_sanming_parent_vote_increment": 0,
+        "research_artifact": "docs/research/ZIWEI-JIUTANGSHU-JIAJING17-GUILOU-HALFUP-ROUNDING-R1.json"
       }
     }
   ],
