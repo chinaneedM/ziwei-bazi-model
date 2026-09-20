@@ -72,6 +72,8 @@ ZIWEI_KYUDB_DATONGLIZHU_12ED_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVEN
 ZIWEI_KYUDB_DATONGLIZHU_12ED_EVIDENCE = ROOT / "docs/research/ZIWEI-KYUDB-DATONGLIZHU-GK02426-PARTIAL-FINGERPRINT-R1.json"
 ZIWEI_KYUDB_DATONGLIZHU_12EE_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KYUDB-DATONGLIZHU-GK02538-1434-TYPE-POSTFACE-AND-FINGERPRINT-EE.md"
 ZIWEI_KYUDB_DATONGLIZHU_12EE_EVIDENCE = ROOT / "docs/research/ZIWEI-KYUDB-DATONGLIZHU-GK02538-1434-TYPE-POSTFACE-AND-FINGERPRINT-R1.json"
+ZIWEI_KYUDB_DATONGLIZHU_12EF_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KYUDB-DATONGLIZHU-GK02538-1442-TERMINAL-DATE-IMPRESSION-FIREWALL-EF.md"
+ZIWEI_KYUDB_DATONGLIZHU_12EF_EVIDENCE = ROOT / "docs/research/ZIWEI-KYUDB-DATONGLIZHU-GK02538-1442-TERMINAL-DATE-IMPRESSION-FIREWALL-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -334,9 +336,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-NCL06627-DATONGLIZHU-THRESHOLD-FINGERPRINT-EC",
     "BATCH-12-ZIWEI-KYUDB-DATONGLIZHU-GK02426-PARTIAL-FINGERPRINT-ED",
     "BATCH-12-ZIWEI-KYUDB-DATONGLIZHU-GK02538-1434-TYPE-POSTFACE-AND-FINGERPRINT-EE",
+    "BATCH-12-ZIWEI-KYUDB-DATONGLIZHU-GK02538-1442-TERMINAL-DATE-IMPRESSION-FIREWALL-EF",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KYUDB-DATONGLIZHU-GK02538-1434-TYPE-POSTFACE-AND-FINGERPRINT-EE.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KYUDB-DATONGLIZHU-GK02538-1442-TERMINAL-DATE-IMPRESSION-FIREWALL-EF.md"
 
 
 def fail(message: str) -> None:
@@ -656,6 +659,42 @@ def main() -> int:
     ee_source = next((s for s in ee_registry.get("sources", []) if s.get("source_id") == "EXT-KYUDB-DATONGLIZHU-GK02538-GWANSANGGAM-TYPE-POSTFACE-FINGERPRINT"), None)
     if ee_source is None or ee_source.get("batch_12ee", {}).get("artifact_id") != 10606724326:
         fail("Batch 12EE external-source registry binding missing")
+
+
+    for path in (ZIWEI_KYUDB_DATONGLIZHU_12EF_BATCH, ZIWEI_KYUDB_DATONGLIZHU_12EF_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12EF continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12ef = json.loads(ZIWEI_KYUDB_DATONGLIZHU_12EF_EVIDENCE.read_text(encoding="utf-8"))
+    if batch12ef.get("batch_id") != "BATCH-12-ZIWEI-KYUDB-DATONGLIZHU-GK02538-1442-TERMINAL-DATE-IMPRESSION-FIREWALL-EF":
+        fail("Batch 12EF evidence identity mismatch")
+    source12ef = batch12ef.get("source_object", {})
+    if source12ef.get("book_cd") != "GK02538_00" or source12ef.get("item_cd") != "CSP" or source12ef.get("call_number") != "奎2538-v.1-4":
+        fail("Batch 12EF source-object identity regressed")
+    page12ef = batch12ef.get("direct_physical_evidence", {}).get("volume4_page_057b", {})
+    if page12ef.get("page_sha256") != "9bf50977f2ab0cbe21b326bd4ec1eaa20493dc93a47917ee291695f8df90232b":
+        fail("Batch 12EF terminal-page hash regressed")
+    if page12ef.get("terminal_internal_date_line") != "正統七年十二月日" or page12ef.get("terminal_internal_date_gregorian_year") != 1442:
+        fail("Batch 12EF 1442 terminal-date reading regressed")
+    if page12ef.get("terminal_internal_date_line_physically_observed") is not True or page12ef.get("explicit_yinchū_marker_adjacent_to_terminal_date") is not False:
+        fail("Batch 12EF direct-date / 印出 firewall regressed")
+    chrono12ef = batch12ef.get("chronology_adjudication", {})
+    if chrono12ef.get("terminal_textual_layer_terminus_post_quem_year") != 1442:
+        fail("Batch 12EF terminal textual terminus regressed")
+    if chrono12ef.get("terminal_date_line_is_exact_impression_statement") is not False or chrono12ef.get("exact_impression_year_adjudicated") is not False or chrono12ef.get("secure_pre1578_physical_impression_witness") is not False:
+        fail("Batch 12EF impression-date firewall regressed")
+    ad12ef = batch12ef.get("adjudication", {})
+    if ad12ef.get("copy_dated_exactly_to_1442") is not False or ad12ef.get("direct_sanming_parent_vote_increment") != 0 or ad12ef.get("threshold_to_wholeke_operator_closed") is not False:
+        fail("Batch 12EF chronology/mechanism zero-vote firewall regressed")
+    if any(ad12ef.get(k) for k in ("matrix_count_change", "runtime_rule_change", "algorithm_reopen_authorized", "candidate_collapse_authorized")):
+        fail("Batch 12EF product firewall regressed")
+    ef_registry = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    ef_source = next((s for s in ef_registry.get("sources", []) if s.get("source_id") == "EXT-KYUDB-DATONGLIZHU-GK02538-GWANSANGGAM-TYPE-POSTFACE-FINGERPRINT"), None)
+    if ef_source is None or ef_source.get("batch_12ef", {}).get("terminal_internal_date_gregorian_year") != 1442 or ef_source.get("batch_12ef", {}).get("exact_impression_year_adjudicated") is not False:
+        fail("Batch 12EF external-source registry binding missing")
+    if not any(s.get("source_id") == "EXT-AKS-ENCYCLOPEDIA-DATONGLIZHU-1434-TYPE-POSTFACE-CONTROL" for s in ef_registry.get("sources", [])):
+        fail("Batch 12EF AKS comparative control missing")
+    if not any(s.get("source_id") == "EXT-KEIO-MOMIJIYAMA-GAPJA-TYPE-PRINTING-COLOPHON-CONTROL" for s in ef_registry.get("sources", [])):
+        fail("Batch 12EF Keio comparative control missing")
 
     for path in (ZIWEI_KYUDB_12DT_BATCH, ZIWEI_KYUDB_12DT_EVIDENCE):
         if not path.is_file():

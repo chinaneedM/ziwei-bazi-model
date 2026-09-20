@@ -5515,15 +5515,15 @@
     },
     {
       "source_id": "EXT-KYUDB-DATONGLIZHU-GK02538-GWANSANGGAM-TYPE-POSTFACE-FINGERPRINT",
-      "title": "奎章閣 GK02538_00《大統曆註》觀象監活字本：1434 金鑌鑄字跋與雨水/大寒異本指紋",
+      "title": "奎章閣 GK02538_00《大統曆註》觀象監活字本：1434 金鑌鑄字跋、1442終端日期與雨水/大寒異本指紋",
       "author": "[編者未詳]; attached postfaces include 金鑌",
-      "historical_period": "KOREAN GWANSANGGAM MOVABLE-TYPE RECENSION; DIRECT 1434 TYPE-EVENT POSTFACE; CURRENT CATALOG IMPRESSION YEAR UNRESOLVED",
+      "historical_period": "KOREAN GWANSANGGAM MOVABLE-TYPE RECENSION; DIRECT 1434 TYPE-EVENT POSTFACE; DIRECT 1442 TERMINAL INTERNAL DATE; CURRENT CATALOG IMPRESSION YEAR UNRESOLVED",
       "edition": "觀象監活字; 刊年未詳",
       "provider": "Kyujanggak Institute for Korean Studies, Seoul National University",
       "identifier": "GK02538_00 / 奎2538-v.1-4 / CSP / M/F83-16-89-D",
       "url": "https://kyudb.snu.ac.kr/",
-      "source_role": "DIRECT_PHYSICAL_KOREAN_DATONGLIZHU_RECENSION_FOR_1434_TYPE_EVENT_POSTFACE_AND_HIGH_INFORMATION_RAINWATER_DAHAN_FINGERPRINT_CONTROL",
-      "quality_notes": "Batch 12EE directly reviews source-bound CSP/_IL_ images with no OCR final authority. Rainwater p002b gives 後五六日 47/53 and 後十三四日 48/52; Dahan p038b gives 後十三四日 44/56 and 冬至餘五十六刻三十分已上為退. p057a-p057b physically recover the 宣德九年/1434 Kim Bin type-casting and start-of-printing postface. The catalog still says 刊年未詳, so the postface is not promoted into the surviving copy's impression date.",
+      "source_role": "DIRECT_PHYSICAL_KOREAN_DATONGLIZHU_RECENSION_FOR_1434_TYPE_EVENT_1442_TERMINAL_INTERNAL_DATE_AND_HIGH_INFORMATION_RAINWATER_DAHAN_FINGERPRINT_CONTROL",
+      "quality_notes": "Batch 12EE directly reviews source-bound CSP/_IL_ images with no OCR final authority. Rainwater p002b gives 後五六日 47/53 and 後十三四日 48/52; Dahan p038b gives 後十三四日 44/56 and 冬至餘五十六刻三十分已上為退. p057a-p057b physically recover the 宣德九年/1434 Kim Bin type-casting and start-of-printing postface. The catalog still says 刊年未詳, so the postface is not promoted into the surviving copy's impression date. Batch 12EF re-adjudicates the separately printed p057b line 正統七年十二月日 as a direct 1442 terminal internal date and a textual-layer terminus post quem only. No adjacent 印出 marker is observed, so the surviving copy remains 刊年未詳 and is not promoted to a 1442 impression.",
       "batch_12ee": {
         "workflow_run_id": 35516795637,
         "artifact_id": 10606724326,
@@ -5542,7 +5542,46 @@
         "exact_sanming_fingerprint_match": false,
         "direct_sanming_parent_vote_increment": 0,
         "research_artifact": "docs/research/ZIWEI-KYUDB-DATONGLIZHU-GK02538-1434-TYPE-POSTFACE-AND-FINGERPRINT-R1.json"
+      },
+      "batch_12ef": {
+        "evidence_reused_from_batch_12ee": true,
+        "workflow_run_id": 35516795637,
+        "artifact_id": 10606724326,
+        "page_sha256": {
+          "0004/057b": "9bf50977f2ab0cbe21b326bd4ec1eaa20493dc93a47917ee291695f8df90232b"
+        },
+        "terminal_internal_date_line": "正統七年十二月日",
+        "terminal_internal_date_gregorian_year": 1442,
+        "explicit_yinchū_marker_adjacent_to_terminal_date": false,
+        "exact_impression_year_adjudicated": false,
+        "secure_pre1578_physical_impression_witness": false,
+        "direct_sanming_parent_vote_increment": 0,
+        "research_artifact": "docs/research/ZIWEI-KYUDB-DATONGLIZHU-GK02538-1442-TERMINAL-DATE-IMPRESSION-FIREWALL-R1.json"
       }
+    },
+    {
+      "source_id": "EXT-AKS-ENCYCLOPEDIA-DATONGLIZHU-1434-TYPE-POSTFACE-CONTROL",
+      "title": "한국민족문화대백과사전 「대통력주」",
+      "author": "한국민족문화대백과사전 집필자",
+      "historical_period": "MODERN SPECIALIST REFERENCE ENTRY ABOUT JOSEON-EARLY DATONGLIZHU",
+      "edition": "current public web reference",
+      "provider": "Academy of Korean Studies / 한국학중앙연구원",
+      "identifier": "Article E0014864",
+      "url": "https://encykorea.aks.ac.kr/Article/E0014864",
+      "source_role": "SECONDARY_SPECIALIST_SCOPE_CONTROL_FOR_1434_KIM_BIN_POSTFACE_AS_TYPE_CASTING_NOT_DATONG_CALENDAR_CONTENT",
+      "quality_notes": "Used in Batch 12EF only as an independent scope control. It says the Kim Bin postface was written in 1434 and concerns casting type, not Datong-calendar content. It does not replace direct GK02538 physical glyph review and does not date the surviving copy."
+    },
+    {
+      "source_id": "EXT-KEIO-MOMIJIYAMA-GAPJA-TYPE-PRINTING-COLOPHON-CONTROL",
+      "title": "Digital 紅葉山文庫《歷代將鑑博議》甲寅字刊本記錄",
+      "author": "Keio University bibliographic project",
+      "historical_period": "JOSEON GABINJA COMPARATIVE PRINTING/COLLOPHON CONTROL",
+      "edition": "朝鮮(明)正統2年跋刊; 甲寅字",
+      "provider": "Keio University Digital 紅葉山文庫",
+      "identifier": "bibid=006881 / 函架番号 403･31",
+      "url": "https://db2.sido.keio.ac.jp/momijiyama/bib_detail?bibid=006881",
+      "source_role": "COMPARATIVE_BIBLIOGRAPHIC_CONTROL_SHOWING_1434_KIM_BIN_TYPE_POSTFACE_SEPARATE_FROM_EXPLICIT_LATER_印出_STATEMENT",
+      "quality_notes": "The record transcribes the 1434 Kim Bin Gabinja type-casting postface and then separately records 正統元年十一月日 印出. Used only to demonstrate that type-history postface and print-out statement can be distinct; it does not assign the function of GK02538's bare 正統七年十二月日 line."
     }
   ],
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md"

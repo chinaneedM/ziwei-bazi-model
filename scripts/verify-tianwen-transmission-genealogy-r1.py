@@ -755,6 +755,16 @@ def main() -> int:
     if not any(x.get("batch") == "BATCH-12-ZIWEI-KYUDB-DATONGLIZHU-GK02538-1434-TYPE-POSTFACE-AND-FINGERPRINT-EE" and "zero exact sanming-parent vote" in x.get("update", "").lower() for x in hyp12dk.get("evidence_updates", [])):
         fail("Batch 12EE genealogy hypothesis zero-vote update missing")
 
+
+    if copy12ee.get("terminal_internal_date_line") != "正統七年十二月日" or copy12ee.get("terminal_internal_date_gregorian_year") != 1442:
+        fail("Batch 12EF GK02538 terminal chronology node regressed")
+    if copy12ee.get("terminal_textual_layer_terminus_post_quem_year") != 1442 or copy12ee.get("explicit_yinchū_marker_adjacent_to_terminal_date") is not False:
+        fail("Batch 12EF textual-terminus / 印出 firewall regressed")
+    if copy12ee.get("exact_impression_year_adjudicated") is not False or copy12ee.get("physical_copy_date") != "UNRESOLVED_KYUDB_CATALOG_KANEN_MISHO":
+        fail("Batch 12EF exact-impression firewall regressed")
+    if not any(x.get("batch") == "BATCH-12-ZIWEI-KYUDB-DATONGLIZHU-GK02538-1442-TERMINAL-DATE-IMPRESSION-FIREWALL-EF" and "zero exact sanming-parent vote" in x.get("update", "").lower() for x in hyp12dk.get("evidence_updates", [])):
+        fail("Batch 12EF genealogy hypothesis zero-vote update missing")
+
     ncl = next(n for n in nodes if n.get("node_id") == "PHYSICAL-COPY-SISHI-QIHOU-NCL03164-OLD-MANUSCRIPT")
     if ncl.get("physical_copy_date") != "UNRESOLVED":
         fail("NCL-03164 physical-copy date was falsely closed")

@@ -1,0 +1,111 @@
+{
+  "schema": "ZIWEI-KYUDB-DATONGLIZHU-GK02538-1442-TERMINAL-DATE-IMPRESSION-FIREWALL-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-KYUDB-DATONGLIZHU-GK02538-1442-TERMINAL-DATE-IMPRESSION-FIREWALL-EF",
+  "prior_batch_id": "BATCH-12-ZIWEI-KYUDB-DATONGLIZHU-GK02538-1434-TYPE-POSTFACE-AND-FINGERPRINT-EE",
+  "question": "What chronology can safely be extracted from the separately printed 正統七年十二月日 line on GK02538 volume 4 p057b, and does it date the surviving copy itself?",
+  "answer": "DIRECT_TERMINAL_1442_INTERNAL_DATE_LINE_CLOSED; TERMINAL_TEXTUAL_LAYER_NOT_BEFORE_1442; EXACT_SURVIVING_COPY_IMPRESSION_YEAR_STILL_UNRESOLVED; NO_EXPLICIT_印出_ADJACENT_TO_1442_LINE; NO_RUNTIME_OR_SANMING_PARENT_CHANGE",
+  "source_object": {
+    "provider": "Kyujanggak Institute for Korean Studies, Seoul National University",
+    "item_cd": "CSP",
+    "book_cd": "GK02538_00",
+    "call_number": "奎2538-v.1-4",
+    "title": "大統曆註",
+    "catalog_edition": "觀象監活字",
+    "catalog_impression_year": "[刊年未詳]",
+    "catalog_extent": "12卷 4冊",
+    "catalog_microfilm": "M/F83-16-89-D",
+    "current_image_route": "CSP / filename GK02538_00_IL_{vol}_{page}.jpg"
+  },
+  "direct_physical_evidence": {
+    "evidence_reused_from_batch_12ee": true,
+    "workflow_run_id": 35516795637,
+    "artifact_id": 10606724326,
+    "artifact_digest": "sha256:407a937f452431c1adcd6fb46c10b4446bf2e3e08b1f2e1bc727b9683fb59349",
+    "volume4_page_057b": {
+      "page_sha256": "9bf50977f2ab0cbe21b326bd4ec1eaa20493dc93a47917ee291695f8df90232b",
+      "direct_sequence": [
+        "宣德九年九月日",
+        "臣金鑌拜手稽首敬跋",
+        "正統七年十二月日"
+      ],
+      "terminal_internal_date_line": "正統七年十二月日",
+      "terminal_internal_date_gregorian_year": 1442,
+      "terminal_internal_date_line_physically_observed": true,
+      "explicit_yinchū_marker_adjacent_to_terminal_date": false,
+      "exact_function_of_terminal_date_line": "UNRESOLVED",
+      "next_scanned_leaves": "0004/058a and 0004/058b are blank in the acquired window"
+    },
+    "ocr_used_for_final_glyph_or_chronology_claims": false
+  },
+  "chronology_adjudication": {
+    "type_event_postface_composition_year": 1434,
+    "type_event_postface_scope": "金鑌跋 directly concerns large-type recasting and start of printing with the newly cast type; it is not a Datong-calendar-content date.",
+    "terminal_internal_date_reign": "正統七年十二月",
+    "terminal_internal_date_gregorian_year": 1442,
+    "terminal_textual_layer_terminus_post_quem_year": 1442,
+    "surviving_terminal_leaf_reproduces_1442_date_line": true,
+    "terminal_date_line_is_exact_impression_statement": false,
+    "explicit_impression_marker_observed": false,
+    "exact_impression_year_adjudicated": false,
+    "physical_copy_date": "UNRESOLVED_KYUDB_CATALOG_KANEN_MISHO",
+    "secure_pre1578_physical_impression_witness": false,
+    "safe_conclusion": "The reviewed terminal textual layer contains a direct 1442 internal date and therefore cannot represent a text state earlier than 1442. The surviving copy may have been impressed in 1442 or later; the exact impression year is not closed by this line alone."
+  },
+  "comparative_controls": [
+    {
+      "source_id": "EXT-AKS-ENCYCLOPEDIA-DATONGLIZHU-1434-TYPE-POSTFACE-CONTROL",
+      "url": "https://encykorea.aks.ac.kr/Article/E0014864",
+      "observation": "The specialist reference identifies the Kim Bin postface as written in 1434 and explicitly says it concerns casting type rather than Datong-calendar content.",
+      "use": "SCOPE_CONTROL_ONLY_NOT_PHYSICAL_GLYPH_AUTHORITY"
+    },
+    {
+      "source_id": "EXT-KEIO-MOMIJIYAMA-GAPJA-TYPE-PRINTING-COLOPHON-CONTROL",
+      "url": "https://db2.sido.keio.ac.jp/momijiyama/bib_detail?bibid=006881",
+      "observation": "A separate Gabinja book preserves the same class of 1434 Kim Bin type-casting postface and then separately records 正統元年十一月日 印出.",
+      "use": "COMPARATIVE_COLOPHON_CONVENTION_CONTROL_ONLY; DOES_NOT_DATE_GK02538"
+    }
+  ],
+  "adjudication": {
+    "exact_surviving_copy_impression_date": "UNRESOLVED",
+    "copy_dated_exactly_to_1442": false,
+    "securely_pre1578_surviving_physical_impression": false,
+    "exact_sanming_fingerprint_match_changed": false,
+    "direct_sanming_parent_vote_increment": 0,
+    "threshold_to_wholeke_operator_closed": false,
+    "matrix_count_change": false,
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false
+  },
+  "transmission_impact": {
+    "nodes_strengthened": [
+      "PHYSICAL-COPY-KYUDB-DATONGLIZHU-GK02538-GWANSANGGAM-MOVABLETYPE"
+    ],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [],
+    "unresolved_lineage_questions": [
+      "What exact bibliographic/typographic evidence binds 正統七年十二月日 to an impression, reprint, collation, or other terminal event for the surviving GK02538 object?",
+      "Which securely pre-1578 witness carries the exact combined Sanming/Yueling Rainwater 後四日 and Dahan 十三後日 fingerprint?",
+      "Which historical instruction explicitly maps 冬至餘…已上為退 state thresholds to the displayed whole-ke schedule?"
+    ],
+    "interpretation": "12EF strengthens the chronology of the GK02538 terminal textual layer only. It adds no direct-copy edge, reverses no existing unchanged-table disproof, and contributes zero exact Sanming-parent vote."
+  },
+  "project_consequence": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "missing_from_product_rows": 10,
+    "provenance_defects_repaired": "12/12",
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0,
+    "deterministic_product_status": "CLOSED"
+  },
+  "next_gate": [
+    "Seek copy/type/bibliographic evidence resolving the function of the printed 正統七年十二月日 line without assuming it means 印出.",
+    "Continue searching for a securely pre-1578 exact combined Rainwater/Dahan fingerprint witness.",
+    "Continue searching for an explicit threshold-to-whole-ke state-selection operator."
+  ],
+  "updated_at": "2026-09-20"
+}
