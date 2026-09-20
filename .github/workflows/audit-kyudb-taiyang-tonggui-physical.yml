@@ -40,7 +40,7 @@ jobs:
 
           const root='audit/kyudb-taiyang-tonggui-physical';
           const book='GK12435_00', vol='0001';
-          const primaryTerms=['晨昏分','晨昏','晨分','昏分','日出分','日入分','半晝','半昼'];
+          const primaryTerms=['晨昏分','晨昏','晨分','昏分','日出分','日入分','半晝','半昼','二千六十八','二千九百三十一','五十九刻','四十一刻','寅正四刻','戌初初刻'];
           const secondaryTerms=['冬夏二至','冬夏','冬至','夏至','立成'];
           const pages=[];
           for(let n=0;n<=19;n++) for(const ab of ['a','b']) pages.push(String(n).padStart(3,'0')+ab);
@@ -153,7 +153,7 @@ jobs:
           }
 
           const report={
-            schema:'KYUDB-TAIYIN-TONGGUI-MORNING-EVENING-PHYSICAL-LOCATOR-R2',
+            schema:'KYUDB-TAIYANG-TONGGUI-DATONG-ENDPOINT-BINDING-PHYSICAL-PROBE-R1',
             schema_version:'1.0.0',
             provider:'Kyujanggak Institute for Korean Studies, Seoul National University',
             book_cd:book,
@@ -173,7 +173,8 @@ jobs:
             text_layer_authority:'LOCATOR_ONLY_NOT_GLYPH_OR_NUMERIC_AUTHORITY',
             physical_image_authority:'DIRECT_SOURCE_BOUND_FACSIMILE_REQUIRED_FOR_FINAL_GLYPH_AND_NUMERIC_CLAIMS',
             ocr_used_for_final_glyph_claims:false,
-            numeric_claim_authorized_by_machine_step:false
+            numeric_claim_authorized_by_machine_step:false,
+            research_question:'Does the 15th-century Taiyang Tonggui physical witness preserve the exact 2068.30/2931.70 Datong solstitial values, 59/41 whole-ke display, or an explicit conversion/binding instruction matching the later Xingyunlu explanation?'
           };
           fs.writeFileSync(root+'/report.json',JSON.stringify(report,null,2));
           console.log(JSON.stringify({primary_locator_pages:primaryPages,seed_pages:seedPages,physical_ok:physical.filter(x=>x.download_ok).length,physical_requested:physical.length,fallback},null,2));
