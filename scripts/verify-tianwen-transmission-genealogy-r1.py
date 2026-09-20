@@ -677,7 +677,7 @@ def main() -> int:
         e = next((x for x in edges if x.get("edge_id") == eid), None)
         if not e or e.get("relation") != rel:
             fail(f"Batch 12EB transmission edge regressed: {eid}")
-    if not any(x.get("batch") == "BATCH-12-ZIWEI-XINGYUNLU-DATONG-ENDPOINT-BINDING-EB" and "zero exact Sanming-parent vote" in x.get("update", "").lower() for x in hyp12dk.get("evidence_updates", [])):
+    if not any(x.get("batch") == "BATCH-12-ZIWEI-XINGYUNLU-DATONG-ENDPOINT-BINDING-EB" and "zero exact sanming-parent vote" in x.get("update", "").lower() for x in hyp12dk.get("evidence_updates", [])):
         fail("Batch 12EB genealogy hypothesis zero-vote update missing")
 
     ncl = next(n for n in nodes if n.get("node_id") == "PHYSICAL-COPY-SISHI-QIHOU-NCL03164-OLD-MANUSCRIPT")
