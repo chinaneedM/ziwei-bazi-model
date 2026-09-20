@@ -23,7 +23,7 @@ jobs:
           set -euo pipefail
           ROOT='audit/ncl06627-endpoint-threshold'
           rm -rf "$ROOT"
-          mkdir -p "$ROOT/pages" "$ROOT/frontback"
+          mkdir -p "$ROOT/pages" "$ROOT/frontback" "$ROOT/fingerprint"
           sudo apt-get update -qq
           sudo apt-get install -y -qq poppler-utils >/dev/null
           python -m pip install --quiet pillow
@@ -56,10 +56,20 @@ jobs:
           m=re.search(r"^Pages:\s+(\d+)",info,re.M)
           pages=int(m.group(1)) if m else 195
 
-          selected=sorted(set(list(range(64,min(68,pages)+1)) + list(range(1,min(12,pages)+1)) + list(range(max(1,pages-11),pages+1))))
+          selected=sorted(set(
+              list(range(64,min(68,pages)+1))
+              + list(range(1,min(12,pages)+1))
+              + [n for n in (179,180) if n <= pages]
+              + list(range(max(1,pages-11),pages+1))
+          ))
           manifest=[]
           for n in selected:
-              outdir=root/"pages" if 64 <= n <= 68 else root/"frontback"
+              if 64 <= n <= 68:
+                  outdir=root/"pages"
+              elif n in (179,180):
+                  outdir=root/"fingerprint"
+              else:
+                  outdir=root/"frontback"
               prefix=outdir/f"p{n:03d}"
               subprocess.run(["pdftoppm","-f",str(n),"-singlefile","-jpeg","-r","320",str(pdf),str(prefix)],
                              check=True,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
@@ -87,7 +97,7 @@ jobs:
           ext=ii.get("extmetadata") or {}
           report={
               "schema":"NCL06627-DATONGLIZHU-ENDPOINT-THRESHOLD-PROBE-R1",
-              "schema_version":"1.0.0",
+              "schema_version":"1.1.0",
               "commons_file_title":title,
               "source_url":url,
               "commons_sha1":ii.get("sha1"),
@@ -103,6 +113,7 @@ jobs:
               "image_description_metadata":(ext.get("ImageDescription") or {}).get("value"),
               "selected_direct_review_pages":selected,
               "fixed_endpoint_window":"PDF p64-p68; prior locator ranked p66 for 夏至/日出/五十九/四十一",
+              "fixed_change_day_window":"PDF p179-p180; direct review targets 大寒 43/57 -> 44/56 transition and literal change-day phrase",
               "target_pdf_page_1_based":66,
               "page_manifest":manifest,
               "prior_locator_control":{
@@ -113,6 +124,8 @@ jobs:
               "direct_review_questions":[
                   "Does p66 physically preserve 夏至 together with day/night 五十九刻/四十一刻?",
                   "Does the same local passage preserve a remainder or threshold instruction such as 十五分已上 and, if so, what quantity does it govern?",
+                  "Do p1-p2 preserve the 雨水-side day/night change schedule, and does it reproduce Sanming 1578 雨水 47/53 -> 後四日 48/52?",
+                  "Do p179-p180 preserve the 大寒-side 43/57 -> 44/56 change schedule, and does the literal change-day phrase reproduce Sanming 1578 十三後日?",
                   "Do front/back leaves expose an internal date, postface, copy note, or recension marker capable of securely pre-1578 dating this physical/textual state?"
               ],
               "product_boundary":"Probe only; no runtime change, algorithm reopen, candidate collapse, or ancestry promotion without direct physical adjudication."
