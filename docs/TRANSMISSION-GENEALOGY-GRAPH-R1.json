@@ -1674,6 +1674,42 @@
         "docs/research/ZIWEI-NCL06627-DATONGLIZHU-THRESHOLD-FINGERPRINT-R1.json"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-NCL06627-DATONGLIZHU-THRESHOLD-FINGERPRINT-EC"
+    },
+    {
+      "node_id": "PHYSICAL-COPY-KYUDB-DATONGLIZHU-GK02426-GWANSANGGAM-WOODTYPE",
+      "node_type": "PHYSICAL_COPY",
+      "label": "Kyujanggak GK02426_00《大統曆註》觀象監木活字本",
+      "system_scope": "KOREAN_DATONGLIZHU_RECENSION_TERM_THRESHOLD_AND_WHOLEKE_CONTROL",
+      "work_composition_date": "DATONG_CALENDAR_COMMENTARY_TRADITION; EXACT COMPOSITION DATE NOT ADJUDICATED IN 12ED",
+      "edition_impression_date": "KYUDB_CATALOG_KANEN_MISHO",
+      "physical_copy_date": "UNRESOLVED_KYUDB_CATALOG_KANEN_MISHO",
+      "digital_surrogate_date": "CURRENT_KYUDB_DIGITAL_SURROGATE",
+      "identifier": "GK02426_00 / 奎2426-v.1-4 / 觀象監木活字",
+      "secure_pre1578_physical_witness": false,
+      "evidence": [
+        "EXT-KYUDB-DATONGLIZHU-GK02426-GWANSANGGAM-WOODTYPE-PARTIAL-FINGERPRINT",
+        "docs/research/ZIWEI-KYUDB-DATONGLIZHU-GK02426-PARTIAL-FINGERPRINT-R1.json",
+        "docs/research/KOREA-DATONGLIZHU-1434-PHYSICAL-LOCATOR-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-KYUDB-DATONGLIZHU-GK02426-PARTIAL-FINGERPRINT-ED"
+    },
+    {
+      "node_id": "RULE-FAMILY-KYUDB-DATONGLIZHU-TERM-THRESHOLD-WHOLEKE-SCHEDULE",
+      "node_type": "RULE_FAMILY",
+      "label": "奎章閣《大統曆註》節氣冬至餘閾值＋晝夜整刻異本規則族",
+      "system_scope": "KOREAN_DATONGLIZHU_TERM_STATE_THRESHOLD_AND_WHOLEKE_SCHEDULE",
+      "mechanical_identity": "Directly reviewed GK02426 preserves 冬至餘…已上為退 thresholds plus whole-ke day/night states; Rainwater timing diverges from Sanming while Dahan day13->44/56 partially converges.",
+      "direct_lichun_threshold": "冬至餘三十四刻四十五分已上為退",
+      "direct_rainwater_47_53_timing": "後六日",
+      "direct_dahan_44_56_timing": "後十三日",
+      "dahan_day13_44_56_partial_convergence": true,
+      "exact_sanming_yueling_fingerprint": false,
+      "threshold_proved_as_wholeke_operator": false,
+      "evidence": [
+        "EXT-KYUDB-DATONGLIZHU-GK02426-GWANSANGGAM-WOODTYPE-PARTIAL-FINGERPRINT",
+        "docs/research/ZIWEI-KYUDB-DATONGLIZHU-GK02426-PARTIAL-FINGERPRINT-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-KYUDB-DATONGLIZHU-GK02426-PARTIAL-FINGERPRINT-ED"
     }
   ],
   "edges": [
@@ -3064,6 +3100,38 @@
       ],
       "scope_note": "Strengthens the existence of a compound Datong calendrical architecture containing state thresholds plus whole-ke output, but does not prove the numerical operator or a pre-1578 Sanming lineage.",
       "adjudication_batch": "BATCH-12-ZIWEI-NCL06627-DATONGLIZHU-THRESHOLD-FINGERPRINT-EC"
+    },
+    {
+      "edge_id": "TG-E0093",
+      "from": "PHYSICAL-COPY-KYUDB-DATONGLIZHU-GK02426-GWANSANGGAM-WOODTYPE",
+      "relation": "ATTESTS",
+      "to": "RULE-FAMILY-KYUDB-DATONGLIZHU-TERM-THRESHOLD-WHOLEKE-SCHEDULE",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_FOR_DIRECT_PHYSICAL_TEXT_STATE",
+      "evidence_class": "DIRECT_KYUDB_SOURCE_BOUND_FACSIMILE_REVIEW_NO_OCR_FINAL_AUTHORITY",
+      "evidence": [
+        "EXT-KYUDB-DATONGLIZHU-GK02426-GWANSANGGAM-WOODTYPE-PARTIAL-FINGERPRINT",
+        "docs/research/ZIWEI-KYUDB-DATONGLIZHU-GK02426-PARTIAL-FINGERPRINT-R1.json"
+      ],
+      "scope_note": "Attests the reviewed Korean threshold-plus-whole-ke recension, including Rainwater 後六日 47/53 and Dahan 後十三日 44/56. Exact impression year remains unresolved.",
+      "adjudication_batch": "BATCH-12-ZIWEI-KYUDB-DATONGLIZHU-GK02426-PARTIAL-FINGERPRINT-ED"
+    },
+    {
+      "edge_id": "TG-E0094",
+      "from": "PHYSICAL-COPY-KYUDB-DATONGLIZHU-GK02426-GWANSANGGAM-WOODTYPE",
+      "relation": "SHARED_COMMON_ANCESTOR_CANDIDATE",
+      "to": "PHYSICAL-COPY-DATONGLIZHU-NCL06627-MING-MANUSCRIPT",
+      "status": "PROBABLE",
+      "confidence": "HIGH_FOR_SHARED_WORK_AND_MECHANISM_FAMILY_LOW_FOR_DIRECT_COPY_DIRECTION_AND_CHRONOLOGY",
+      "evidence_class": "INDEPENDENT_PHYSICAL_RECENSIONS_WITH_SHARED_DATONGLIZHU_THRESHOLD_WHOLEKE_ARCHITECTURE_AND_DECISIVE_NUMERIC_VARIANTS",
+      "evidence": [
+        "EXT-KYUDB-DATONGLIZHU-GK02426-GWANSANGGAM-WOODTYPE-PARTIAL-FINGERPRINT",
+        "docs/research/ZIWEI-KYUDB-DATONGLIZHU-GK02426-PARTIAL-FINGERPRINT-R1.json",
+        "EXT-NCL-DATONGLIZHU-NCL06627-MING-THRESHOLD-FINGERPRINT",
+        "docs/research/ZIWEI-NCL06627-DATONGLIZHU-THRESHOLD-FINGERPRINT-R1.json"
+      ],
+      "scope_note": "Same work title and mechanical architecture support a shared recensional family/common ancestor candidate. Lichun threshold and Dahan day-count differences disprove unchanged-copy identity and no direct copy direction is inferred.",
+      "adjudication_batch": "BATCH-12-ZIWEI-KYUDB-DATONGLIZHU-GK02426-PARTIAL-FINGERPRINT-ED"
     }
   ],
   "lineage_hypotheses": [
@@ -3224,6 +3292,10 @@
         {
           "batch": "BATCH-12-ZIWEI-NCL06627-DATONGLIZHU-THRESHOLD-FINGERPRINT-EC",
           "update": "NCL-06627 directly co-locates term-specific 冬至餘…已上為退 thresholds with whole-ke day/night scheduling and directly preserves the 59/41 summer endpoint, strengthening the compound Datong mechanism family. Its two decisive change-day loci diverge from Sanming 1578: Rainwater-side 後六日 47/53 then 後十四日 48/52, and Dahan-side 後十四日 to 44/56 versus Sanming 後四日 and literal 十三後日. Unchanged-table identity is therefore disproved for this reviewed text state. Exact manuscript date is unresolved, so zero exact Sanming-parent vote is added."
+        },
+        {
+          "batch": "BATCH-12-ZIWEI-KYUDB-DATONGLIZHU-GK02426-PARTIAL-FINGERPRINT-ED",
+          "update": "Kyujanggak GK02426_00 independently preserves the Datonglizhu term-threshold plus whole-ke architecture. It materially narrows the Dahan branch because the reviewed Dahan block reaches 後十三日 -> 44/56, converging on the Sanming/Yueling day-13 timing and differing from NCL-06627's 後十四日. However its Rainwater 47/53 is explicitly at 後六日, not the exact Sanming term-anchor/後四日 fingerprint, and the first-party impression year remains unresolved. Zero exact Sanming-parent vote is added; the evidence supports branching recensional recomposition rather than a single unchanged Datonglizhu table."
         }
       ],
       "endpoint_anchor_component_identified": true,
@@ -3702,6 +3774,32 @@
         "docs/research/ZIWEI-SANMING-1578-SEASONAL-TABLE-DIRECT-PHYSICAL-COLLATION-R1.json"
       ],
       "adjudication_batch": "BATCH-12-ZIWEI-NCL06627-DATONGLIZHU-THRESHOLD-FINGERPRINT-EC"
+    },
+    {
+      "from": "RULE-FAMILY-KYUDB-DATONGLIZHU-TERM-THRESHOLD-WHOLEKE-SCHEDULE",
+      "relation": "DIRECT_UNCHANGED_TABLE_IDENTITY_WITH",
+      "to": "TABLE-SANMING-1578-DAYNIGHT-KE",
+      "status": "DISPROVED",
+      "reason": "The reviewed Korean recension places Rainwater 47/53 at 後六日, whereas the exact 1578 Sanming target has 雨水 47/53 followed by 後四日 48/52. Dahan day13->44/56 convergence is therefore insufficient for unchanged-table identity.",
+      "evidence": [
+        "EXT-KYUDB-DATONGLIZHU-GK02426-GWANSANGGAM-WOODTYPE-PARTIAL-FINGERPRINT",
+        "docs/research/ZIWEI-KYUDB-DATONGLIZHU-GK02426-PARTIAL-FINGERPRINT-R1.json",
+        "docs/research/ZIWEI-SANMING-1578-SEASONAL-TABLE-DIRECT-PHYSICAL-COLLATION-R1.json"
+      ],
+      "adjudication_batch": "BATCH-12-ZIWEI-KYUDB-DATONGLIZHU-GK02426-PARTIAL-FINGERPRINT-ED"
+    },
+    {
+      "from": "RULE-FAMILY-KYUDB-DATONGLIZHU-TERM-THRESHOLD-WHOLEKE-SCHEDULE",
+      "relation": "DIRECT_UNCHANGED_TABLE_IDENTITY_WITH",
+      "to": "RULE-FAMILY-DATONGLIZHU-TERM-THRESHOLD-WHOLEKE-SCHEDULE",
+      "status": "DISPROVED",
+      "reason": "GK02426 gives the Lichun threshold as 34刻45分 and Dahan 44/56 at 後十三日; NCL-06627 gives the reviewed Lichun threshold as 34刻40分 and Dahan 44/56 at 後十四日. Shared architecture therefore does not establish one unchanged received table/text state.",
+      "evidence": [
+        "EXT-KYUDB-DATONGLIZHU-GK02426-GWANSANGGAM-WOODTYPE-PARTIAL-FINGERPRINT",
+        "docs/research/ZIWEI-KYUDB-DATONGLIZHU-GK02426-PARTIAL-FINGERPRINT-R1.json",
+        "docs/research/ZIWEI-NCL06627-DATONGLIZHU-THRESHOLD-FINGERPRINT-R1.json"
+      ],
+      "adjudication_batch": "BATCH-12-ZIWEI-KYUDB-DATONGLIZHU-GK02426-PARTIAL-FINGERPRINT-ED"
     }
   ],
   "backfill": {
