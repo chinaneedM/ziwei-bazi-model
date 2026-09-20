@@ -162,6 +162,8 @@ jobs:
           };
           for(let n=0;n<=8;n++) for(const ab of ['a','b']) exactFallback['0001'].push(String(n).padStart(3,'0')+ab);
           for(let n=49;n<=60;n++) for(const ab of ['a','b']) exactFallback['0004'].push(String(n).padStart(3,'0')+ab);
+          // Volume 4 tail: bind the Kim Bin postface / terminal chronology neighborhood directly.
+          for(let n=68;n<=80;n++) for(const ab of ['a','b']) exactFallback['0004'].push(String(n).padStart(3,'0')+ab);
           for(const [vol,controls] of Object.entries(exactFallback)){
             if(!wanted.has(vol)) wanted.set(vol,new Set());
             for(const p of controls) wanted.get(vol).add(p);
@@ -205,7 +207,7 @@ jobs:
 
           const report={
             schema:'KYUDB-DATONGLIZHU-GK02426-FINGERPRINT-PROBE-R1',
-            schema_version:'1.2.0',
+            schema_version:'1.3.0',
             provider:'Kyujanggak Institute for Korean Studies, Seoul National University',
             book_cd:book,
             call_number:'奎2426-v.1-4',
@@ -224,14 +226,15 @@ jobs:
             text_layer_authority:'LOCATOR_ONLY_NOT_FINAL_GLYPH_NUMERIC_DATE_OR_LINEAGE_AUTHORITY',
             physical_image_authority:'DIRECT_SOURCE_BOUND_FACSIMILE_REQUIRED_FOR_FINAL_GLYPH_NUMERIC_AND_RECENSION_CLAIMS',
             chronology_firewall:'Catalog year remains unresolved. The 1434 postface is a dating lead, not automatic date assignment to all content.',
-            deterministic_fallback_sampling:'pageText is empty for this object. Volume 1 is therefore fixed at every a/b side from 000a through 008b; volume 4 is fixed at every a/b side from 049a through 060b, spanning the directly located juan-11 tail into the expected juan-12 / December / Dahan opening.',
+            deterministic_fallback_sampling:'pageText is empty for this object. Volume 1 is fixed at every a/b side from 000a through 008b; volume 4 is fixed at every a/b side from 049a through 060b for juan-12 / Dahan and from 068a through 080b for the terminal postface/chronology neighborhood.',
             ocr_used_for_final_glyph_claims:false,
             research_questions:[
               'Does volume 1 physically reproduce the Sanming/Yueling Rainwater fingerprint 47/53 -> 後四日 -> 48/52?',
               'Does volume 4 physically reproduce the Sanming/Yueling Dahan fingerprint 43/57 -> literal 十三後 -> 44/56?',
               'Does this Kyujanggak recension preserve the same 冬至餘...已上為退 threshold architecture as NCL-06627?',
               'Does any target neighborhood directly explain what 為退 operates on?',
-              'Can the physical edition/copy chronology be bound securely enough to place the relevant text state before 1578?'
+              'Can the physical edition/copy chronology be bound securely enough to place the relevant text state before 1578?',
+              'Does the terminal volume physically preserve the Kim Bin 1434 postface, and if so does it date only the postface/archetype or the reviewed physical print itself?'
             ]
           };
           fs.writeFileSync(root+'/report.json',JSON.stringify(report,null,2));
