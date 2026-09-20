@@ -48,12 +48,12 @@ jobs:
           for n in range(0,10):
               for ab in 'ab':
                   tasks.append(('0001',f'{n:03d}{ab}','RAINWATER_OPENING'))
-          # Dahan / juan 12 neighborhood based on the independently collated GK02426 locator.
-          for n in range(46,58):
+          # Dahan / juan 12 neighborhood source-bound after direct GK02538 volume-12 opening localization at 038a.
+          for n in range(36,41):
               for ab in 'ab':
                   tasks.append(('0004',f'{n:03d}{ab}','DAHAN_JUAN12'))
           # Terminal colophon/postface neighborhood.
-          for n in range(66,83):
+          for n in range(55,59):
               for ab in 'ab':
                   tasks.append(('0004',f'{n:03d}{ab}','TERMINAL_POSTFACE'))
 
@@ -112,7 +112,7 @@ jobs:
 
           report={
               'schema':'KYUDB-DATONGLIZHU-GK02538-TARGET-WINDOWS-R1',
-              'schema_version':'1.0.0',
+              'schema_version':'1.1.0',
               'provider':'Kyujanggak Institute for Korean Studies, Seoul National University',
               'book_cd':book,
               'item_cd':item,
