@@ -1,0 +1,193 @@
+name: probe-kyudb-datonglizhu-gk02538-viewer-diagnostics
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-kyudb-datonglizhu-gk02538-viewer-diagnostics.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install browser tools
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm install --no-save --silent puppeteer-core@24.16.0
+
+      - name: Diagnose source-emitted legacy image route
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/kyudb-datonglizhu-gk02538-viewer-diagnostics'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT"
+          BROWSER="$(command -v google-chrome || command -v chromium || command -v chromium-browser || true)"
+          test -n "$BROWSER"
+
+          cat > "$ROOT/diagnose.mjs" <<'JS'
+          import puppeteer from 'puppeteer-core';
+          import fs from 'node:fs';
+          import crypto from 'node:crypto';
+
+          const root='audit/kyudb-datonglizhu-gk02538-viewer-diagnostics';
+          const book='GK02538_00';
+          const browser=await puppeteer.launch({
+            headless:true,
+            executablePath:process.env.BROWSER,
+            args:['--no-sandbox','--disable-setuid-sandbox']
+          });
+          const page=await browser.newPage();
+          await page.setUserAgent('Mozilla/5.0 Tianwen-Provenance-Audit/1.0');
+
+          await page.goto('https://kyudb.snu.ac.kr/book/list.do?book_cate=SIC04&mid=GDS',{
+            waitUntil:'networkidle2',timeout:90000
+          });
+          await Promise.all([
+            page.waitForNavigation({waitUntil:'networkidle2',timeout:90000}),
+            page.evaluate((book)=>{
+              const f=document.getElementById('frmBookSearchInf');
+              f.querySelector('#book_cd').value=book;
+              f.querySelector('#target').value='master';
+              f.action='/book/view.do'; f.method='post'; f.submit();
+            },book)
+          ]);
+          fs.writeFileSync(root+'/catalog.html',await page.content());
+          fs.writeFileSync(root+'/catalog.txt',await page.evaluate(()=>document.body.innerText));
+
+          const before=new Set(browser.targets().map(t=>t._targetId));
+          await page.evaluate((book)=>window.fn_originalImg('SIC',book,'',''),book);
+          let viewer=null;
+          for(let i=0;i<40 && !viewer;i++){
+            await new Promise(r=>setTimeout(r,500));
+            for(const t of browser.targets()){
+              if(t.type()==='page' && !before.has(t._targetId) && t.url().includes('/pf01/rendererImg.do')){
+                viewer=await t.page(); break;
+              }
+            }
+          }
+          if(!viewer) throw new Error('viewer target not resolved');
+
+          const responses=[];
+          const captured=[];
+          let capIndex=0;
+          viewer.on('response',async(resp)=>{
+            try{
+              const headers=resp.headers();
+              const row={url:resp.url(),status:resp.status(),content_type:headers['content-type']||null,content_length:headers['content-length']||null};
+              responses.push(row);
+              if((row.content_type||'').startsWith('image/') && capIndex<12){
+                const b=await resp.buffer();
+                if(b.length>1000){
+                  const ext=(row.content_type||'').includes('png')?'png':'jpg';
+                  const fn=`response-image-${String(capIndex++).padStart(2,'0')}.${ext}`;
+                  fs.writeFileSync(root+'/'+fn,b);
+                  captured.push({file:fn,bytes:b.length,sha256:crypto.createHash('sha256').update(b).digest('hex'),...row});
+                }
+              }
+            }catch{}
+          });
+
+          await viewer.reload({waitUntil:'networkidle2',timeout:90000}).catch(()=>{});
+          await new Promise(r=>setTimeout(r,4000));
+
+          const state=await viewer.evaluate((book)=>{
+            const abs=(u)=>{try{return new URL(u,location.href).href}catch{return u}};
+            const resources=performance.getEntriesByType('resource').map(x=>x.name);
+            const images=[...document.images].map((x,i)=>({
+              i,src:abs(x.getAttribute('src')||''),currentSrc:abs(x.currentSrc||''),width:x.width,height:x.height,
+              naturalWidth:x.naturalWidth,naturalHeight:x.naturalHeight,id:x.id||null,className:x.className||null,alt:x.alt||null
+            }));
+            const links=[...document.querySelectorAll('a[href]')].map((x,i)=>({i,href:abs(x.getAttribute('href')),text:(x.innerText||'').trim()}));
+            const iframes=[...document.querySelectorAll('iframe')].map((x,i)=>({i,src:abs(x.getAttribute('src')||''),id:x.id||null,name:x.name||null}));
+            const forms=[...document.forms].map((f,i)=>({
+              i,action:abs(f.getAttribute('action')||''),method:f.method,
+              inputs:[...f.elements].filter(x=>x.name||x.id).map(x=>({name:x.name||null,id:x.id||null,value:String(x.value??'').slice(0,500),type:x.type||null}))
+            }));
+            const scripts=[...document.scripts].map((s,i)=>({i,src:abs(s.src||''),text:(s.textContent||'').slice(0,200000)}));
+            const scriptHits=[];
+            const pats=['ImageServlet','imgFileNm','data01','rendererImg','pageText','book_cd','vol_no','page_no',book,'GK02538','02538'];
+            for(const s of scripts){
+              if(!s.text) continue;
+              for(const pat of pats){
+                let from=0,count=0;
+                while((from=s.text.indexOf(pat,from))>=0 && count<8){
+                  scriptHits.push({script_index:s.i,pattern:pat,context:s.text.slice(Math.max(0,from-500),Math.min(s.text.length,from+1400))});
+                  from+=pat.length; count++;
+                }
+              }
+            }
+            const globals={};
+            for(const k of Object.getOwnPropertyNames(window)){
+              if(!/img|image|book|page|vol|file|path|sic|view|render/i.test(k)) continue;
+              try{
+                const v=window[k];
+                if(['string','number','boolean'].includes(typeof v)) globals[k]=String(v).slice(0,2000);
+              }catch{}
+            }
+            return {
+              url:location.href,
+              title:document.title,
+              bodyText:document.body.innerText.slice(0,30000),
+              resources,
+              images,
+              links:links.filter(x=>/image|img|servlet|renderer|jpg|png|download|original/i.test(x.href+' '+x.text)),
+              iframes,
+              forms,
+              script_srcs:scripts.filter(x=>x.src).map(x=>x.src),
+              scriptHits,
+              globals
+            };
+          },book);
+
+          fs.writeFileSync(root+'/viewer.html',await viewer.content());
+          fs.writeFileSync(root+'/state.json',JSON.stringify(state,null,2));
+          await viewer.screenshot({path:root+'/viewer.png',fullPage:true}).catch(()=>{});
+
+          const report={
+            schema:'KYUDB-DATONGLIZHU-GK02538-VIEWER-DIAGNOSTICS-R1',
+            schema_version:'1.0.0',
+            provider:'Kyujanggak Institute for Korean Studies, Seoul National University',
+            book_cd:book,
+            viewer_url:state.url,
+            captured_images:captured,
+            response_rows:responses,
+            resource_image_like:state.resources.filter(x=>/ImageServlet|imgFileNm|\.jpg|\.png|image/i.test(x)),
+            dom_images:state.images,
+            relevant_links:state.links,
+            iframes:state.iframes,
+            globals:state.globals,
+            script_hits:state.scriptHits,
+            adjudication:'Diagnostics only. Source-emitted URLs/parameters may repair the legacy image route; no physical glyph or chronology conclusion is authorized from route metadata alone.'
+          };
+          fs.writeFileSync(root+'/report.json',JSON.stringify(report,null,2));
+          console.log(JSON.stringify({
+            viewer_url:report.viewer_url,
+            captured_images:report.captured_images,
+            image_like_resources:report.resource_image_like.slice(0,30),
+            dom_images:report.dom_images.slice(0,30),
+            globals:report.globals,
+            script_hit_count:report.script_hits.length
+          },null,2));
+
+          await browser.close();
+          JS
+
+          BROWSER="$BROWSER" node "$ROOT/diagnose.mjs"
+
+      - name: Upload diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: kyudb-datonglizhu-gk02538-viewer-diagnostics-r1
+          path: audit/kyudb-datonglizhu-gk02538-viewer-diagnostics
+          if-no-files-found: error
+          retention-days: 30
