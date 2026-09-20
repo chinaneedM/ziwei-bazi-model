@@ -1,0 +1,220 @@
+{
+  "schema": "ZIWEI-KYUDB-DATONGLIZHU-GK02538-1434-TYPE-POSTFACE-AND-FINGERPRINT-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-KYUDB-DATONGLIZHU-GK02538-1434-TYPE-POSTFACE-AND-FINGERPRINT-EE",
+  "prior_batch_id": "BATCH-12-ZIWEI-KYUDB-DATONGLIZHU-GK02426-PARTIAL-FINGERPRINT-ED",
+  "question": "Does the distinct Kyujanggak GK02538_00 / 奎2538-v.1-4 movable-type Datonglizhu recension close a pre-1578 chronology route and reproduce the exact 1578 Sanming/Yueling Rainwater + Dahan change-day fingerprint?",
+  "answer": "DISTINCT_KYUDB_MOVABLETYPE_RECENSION_DIRECTLY_COLLATION_CLOSED; 1434_TYPE_CASTING_AND_PRINTING_EVENT_DIRECTLY_ATTESTED_IN_ATTACHED_KIM_BIN_POSTFACE; CURRENT_CATALOG_IMPRESSION_YEAR_STILL_UNRESOLVED; RAINWATER_AND_DAHAN_EXACT_SANMING_FINGERPRINTS_MISMATCH; ZERO_EXACT_SANMING_PARENT_VOTE",
+  "workflow_evidence": {
+    "head_commit_sha": "9b02888db12879aa21a99bffba9d22e192d645d2",
+    "workflow_run_id": 35516795637,
+    "artifact_id": 10606724326,
+    "artifact_name": "kyudb-datonglizhu-gk02538-target-windows-r1",
+    "artifact_digest": "sha256:407a937f452431c1adcd6fb46c10b4446bf2e3e08b1f2e1bc727b9683fb59349",
+    "probe_schema_version": "1.1.0",
+    "requested_physical_pages": 38,
+    "recovered_physical_pages": 38,
+    "failed_physical_pages": 0,
+    "ocr_used_for_final_glyph_numeric_date_or_lineage_claims": false
+  },
+  "physical_source": {
+    "provider": "Kyujanggak Institute for Korean Studies, Seoul National University",
+    "item_cd": "CSP",
+    "book_cd": "GK02538_00",
+    "call_number": "奎2538-v.1-4",
+    "title": "大統曆註",
+    "author_editor": "[編者未詳]",
+    "catalog_edition": "觀象監活字",
+    "catalog_impression_year": "[刊年未詳]",
+    "catalog_extent": "12卷 4冊",
+    "catalog_layout": "四周雙邊; 半葉匡郭 25.3×17.5cm; 9行21字; 注雙行; 上下花紋魚尾; 34.7×22.5cm",
+    "catalog_microfilm": "M/F83-16-89-D",
+    "catalog_colophon": "跋: 權近, 卞季良, 金鑌(世宗16年, 1434)",
+    "current_image_route": "CSP / filename GK02538_00_IL_{vol}_{page}.jpg",
+    "distinct_from_gk02426": true,
+    "distinct_identity_controls": [
+      "奎2538-v.1-4 vs 奎2426-v.1-4",
+      "觀象監活字 vs 觀象監木活字",
+      "9行21字 vs 10行18字",
+      "34.7×22.5cm vs 36×21.7cm",
+      "M/F83-16-89-D vs M/F83-16-95-D"
+    ],
+    "physical_copy_date": "UNRESOLVED_KYUDB_CATALOG_KANEN_MISHO",
+    "secure_pre1578_physical_impression_witness": false,
+    "secure_pre1578_calendar_text_state": false,
+    "direct_pre1578_type_event_witness": true
+  },
+  "direct_physical_collation": {
+    "adjudication_method": "Direct visual inspection of source-bound Kyujanggak physical images. OCR/text-layer output is not used for final glyph, numeric, chronology or lineage claims.",
+    "volume1_page_002a": {
+      "page_sha256": "8458f8a0fd58f23f91139d7d489077472fd7fddb449d9635f6f29df5e2a9b461",
+      "direct_sequence": [
+        "大統曆註卷第一",
+        "立春正月節",
+        "冬至餘三十四刻四十五分已上為退",
+        "雨水正月中"
+      ],
+      "safe_reading": "The distinct movable-type recension preserves the same Datonglizhu term-threshold plus whole-ke schedule architecture."
+    },
+    "volume1_page_002b": {
+      "page_sha256": "44d3b37b9ddf8d67da153a4a7143837b1d9b066379f657c38a0ab0a8298a95a1",
+      "direct_sequence": [
+        "後五六日 晝四十七刻 夜五十三刻",
+        "後十三四日 晝四十八刻 夜五十二刻"
+      ],
+      "safe_reading": "Rainwater-side 47/53 and 48/52 are attached to paired later-day windows, not to the Sanming/Yueling term-anchor -> 後四日 fingerprint."
+    },
+    "volume4_page_038a": {
+      "page_sha256": "a2ef9d9612b2a5b19acc4314eac579e390dc2edd3106c162ddd058fe3634db9d",
+      "direct_sequence": [
+        "大統曆註卷第十二",
+        "小寒十二月節",
+        "大寒十二月中"
+      ],
+      "safe_reading": "Directly binds the following 038b transition to the Dahan/twelfth-month block."
+    },
+    "volume4_page_038b": {
+      "page_sha256": "1952fe334709737751f5a29831a261cbf7eb7219b0ef2a9f6c15c9b01649fb38",
+      "direct_sequence": [
+        "後十三四日 晝四十四刻 夜五十六刻",
+        "冬至餘五十六刻三十分已上為退"
+      ],
+      "safe_reading": "Dahan reaches 44/56 on a paired day-13/14 window, not the GK02426 single 後十三日 wording and not the exact Sanming literal 十三後日 fingerprint."
+    },
+    "volume4_page_055b": {
+      "page_sha256": "1c7f5846981a232fee75bc926b86bb2bcb9086f0432d89286d9e4170884acd4a",
+      "direct_sequence": [
+        "大統曆註卷第十二終"
+      ],
+      "safe_reading": "The calendar text closes before the attached printing/type postfaces."
+    },
+    "volume4_page_057a": {
+      "page_sha256": "6adda63e4c6c84aea1230e2c2925faeecac5069b2779018e725986c2adbc97ef",
+      "direct_sequence": [
+        "宣德九年秋七月",
+        "殿下謂知申樞院事臣李蕆曰",
+        "更用大字本重鑄之亦佳也"
+      ],
+      "safe_reading": "The attached postface directly dates a new large-type recasting initiative to Xuande 9 / 1434."
+    },
+    "volume4_page_057b": {
+      "page_sha256": "9bf50977f2ab0cbe21b326bd4ec1eaa20493dc93a47917ee291695f8df90232b",
+      "direct_sequence": [
+        "所鑄至三十有餘萬字",
+        "越九月初九日始用以印書",
+        "一日所印可至四十餘紙",
+        "宣德九年九月日",
+        "臣金鑌拜手稽首敬跋"
+      ],
+      "additional_visible_date": "正統七年十二月日",
+      "additional_visible_date_referent": "UNRESOLVED_IN_THIS_BATCH",
+      "safe_reading": "The object directly preserves a 1434 Kim Bin postface saying the newly cast type began being used to print books on the ninth day of the ninth month. This closes the historical type-event statement, not the surviving copy's exact impression date nor the date of every calendar rule."
+    }
+  },
+  "comparison_with_gk02426": {
+    "gk02426_batch": "BATCH-12-ZIWEI-KYUDB-DATONGLIZHU-GK02426-PARTIAL-FINGERPRINT-ED",
+    "shared_features": [
+      "Same work title 大統曆註",
+      "12-juan monthly solar-term architecture",
+      "冬至餘…已上為退 threshold clauses",
+      "Whole-ke day/night schedule",
+      "Lichun threshold 34刻45分 in the directly reviewed opening"
+    ],
+    "decisive_differences": [
+      {
+        "locus": "edition/copy identity",
+        "gk02538": "觀象監活字 / 奎2538 / 9行21字",
+        "gk02426": "觀象監木活字 / 奎2426 / 10行18字",
+        "result": "DISTINCT_PHYSICAL_RECENSIONS"
+      },
+      {
+        "locus": "Dahan 44/56 timing wording",
+        "gk02538": "後十三四日",
+        "gk02426": "後十三日",
+        "result": "MISMATCH"
+      },
+      {
+        "locus": "direct postface access",
+        "gk02538": "1434 Kim Bin type/printing postface physically recovered",
+        "gk02426": "1434 postface not recovered in Batch 12ED",
+        "result": "DIFFERENT_CHRONOLOGY_EVIDENCE_SURFACE"
+      }
+    ],
+    "unchanged_text_state_identity": "DISPROVED",
+    "shared_common_ancestor_or_recensional_family": "SUPPORTED_AS_CANDIDATE_NOT_DIRECT_COPY_DIRECTION"
+  },
+  "comparison_with_sanming_1578": {
+    "controlling_source": "NCL-06589-1 三命通會 明萬曆六年（1578）刊本",
+    "controlling_batch": "BATCH-12-ZIWEI-SANMING-1578-SEASONAL-TABLE-DIRECT-PHYSICAL-COLLATION-CP",
+    "rainwater": {
+      "sanming_target": "雨水 47/53 -> 後四日 -> 48/52",
+      "gk02538": "後五六日 -> 47/53; 後十三四日 -> 48/52",
+      "result": "DECISIVE_CHANGE_DAY_MISMATCH"
+    },
+    "dahan": {
+      "sanming_target": "43/57 -> literal 十三後日 -> 44/56",
+      "gk02538": "後十三四日 -> 44/56",
+      "result": "PARTIAL_DAY13_14_BAND_PROXIMITY_BUT_EXACT_LITERAL_AND_STATE_TRANSITION_MISMATCH"
+    },
+    "exact_unchanged_table_identity": "DISPROVED",
+    "exact_parentage": "UNRESOLVED"
+  },
+  "chronology_adjudication": {
+    "current_first_party_catalog_impression_year": "UNRESOLVED",
+    "attached_1434_kim_bin_postface_directly_recovered": true,
+    "postface_directly_attests_1434_type_recasting": true,
+    "postface_directly_attests_1434_09_09_start_of_printing_with_new_type": true,
+    "postface_proves_surviving_copy_impressed_in_1434": false,
+    "postface_proves_calendar_rules_composed_in_1434": false,
+    "secure_pre1578_physical_impression_witness": false,
+    "secure_pre1578_calendar_text_state": false,
+    "pre1578_type_event_transmission_control": true,
+    "direct_sanming_parent_vote_increment": 0
+  },
+  "adjudication": {
+    "direct_physical_gk02538_recension": "CLOSED_FOR_REVIEWED_TARGET_WINDOWS",
+    "direct_1434_type_event_statement": "CLOSED_FOR_ATTACHED_POSTFACE_TEXT",
+    "exact_surviving_copy_impression_date": "UNRESOLVED",
+    "rainwater_exact_sanming_fingerprint_match": false,
+    "dahan_exact_sanming_fingerprint_match": false,
+    "direct_unchanged_table_identity_with_sanming_1578": "DISPROVED",
+    "direct_unchanged_text_state_identity_with_gk02426": "DISPROVED",
+    "threshold_is_proved_operator_for_wholeke_schedule": false,
+    "secure_pre1578_binding_witness": false,
+    "direct_sanming_parent_vote_increment": 0,
+    "matrix_count_change": false,
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false
+  },
+  "transmission_impact": {
+    "nodes_added": [
+      "PHYSICAL-COPY-KYUDB-DATONGLIZHU-GK02538-GWANSANGGAM-MOVABLETYPE",
+      "RULE-FAMILY-KYUDB-DATONGLIZHU-GK02538-TERM-THRESHOLD-WHOLEKE-SCHEDULE"
+    ],
+    "edges_added": [
+      "TG-E0095",
+      "TG-E0096"
+    ],
+    "explicit_non_edges_added": [
+      "RULE-FAMILY-KYUDB-DATONGLIZHU-GK02538-TERM-THRESHOLD-WHOLEKE-SCHEDULE DIRECT_UNCHANGED_TABLE_IDENTITY_WITH TABLE-SANMING-1578-DAYNIGHT-KE = DISPROVED",
+      "RULE-FAMILY-KYUDB-DATONGLIZHU-GK02538-TERM-THRESHOLD-WHOLEKE-SCHEDULE DIRECT_UNCHANGED_TABLE_IDENTITY_WITH RULE-FAMILY-KYUDB-DATONGLIZHU-TERM-THRESHOLD-WHOLEKE-SCHEDULE = DISPROVED"
+    ],
+    "interpretation": "GK02538 directly adds a distinct Korean Datonglizhu movable-type recension and a physical 1434 type-event postface. Its high-information Rainwater/Dahan schedule differs from both Sanming and GK02426, strengthening a branching/recomposed recensional model while preserving chronology firewalls."
+  },
+  "project_consequence": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "missing_from_product_rows": 10,
+    "provenance_defects_repaired": "12/12",
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0,
+    "deterministic_product_status": "CLOSED"
+  },
+  "next_gate": [
+    "Seek bibliographic/type-study evidence that can date the surviving GK02538 impression itself without equating its attached 1434 type postface to the physical-copy date.",
+    "Continue searching a securely pre-1578 Datong/Tongshu witness that physically combines the exact Sanming/Yueling Rainwater term-anchor -> 後四日 fingerprint with the exact Dahan 十三後日 -> 44/56 fingerprint.",
+    "Continue searching for an explicit historical operator mapping 冬至餘 threshold state to the whole-ke schedule; co-location alone remains insufficient."
+  ]
+}

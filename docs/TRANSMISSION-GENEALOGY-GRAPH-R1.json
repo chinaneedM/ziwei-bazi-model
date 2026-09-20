@@ -1710,6 +1710,42 @@
         "docs/research/ZIWEI-KYUDB-DATONGLIZHU-GK02426-PARTIAL-FINGERPRINT-R1.json"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-KYUDB-DATONGLIZHU-GK02426-PARTIAL-FINGERPRINT-ED"
+    },
+    {
+      "node_id": "PHYSICAL-COPY-KYUDB-DATONGLIZHU-GK02538-GWANSANGGAM-MOVABLETYPE",
+      "node_type": "PHYSICAL_COPY",
+      "label": "Kyujanggak GK02538_00《大統曆註》觀象監活字本",
+      "system_scope": "KOREAN_DATONGLIZHU_RECENSION_TYPE_POSTFACE_TERM_THRESHOLD_AND_WHOLEKE_CONTROL",
+      "work_composition_date": "DATONG_CALENDAR_COMMENTARY_TRADITION; EXACT COMPOSITION DATE NOT ADJUDICATED IN 12EE",
+      "edition_impression_date": "KYUDB_CATALOG_KANEN_MISHO",
+      "physical_copy_date": "UNRESOLVED_KYUDB_CATALOG_KANEN_MISHO",
+      "digital_surrogate_date": "CURRENT_KYUDB_DIGITAL_SURROGATE",
+      "identifier": "GK02538_00 / 奎2538-v.1-4 / 觀象監活字 / CSP / M/F83-16-89-D",
+      "direct_1434_type_event_postface": true,
+      "secure_pre1578_physical_witness": false,
+      "evidence": [
+        "EXT-KYUDB-DATONGLIZHU-GK02538-GWANSANGGAM-TYPE-POSTFACE-FINGERPRINT",
+        "docs/research/ZIWEI-KYUDB-DATONGLIZHU-GK02538-1434-TYPE-POSTFACE-AND-FINGERPRINT-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-KYUDB-DATONGLIZHU-GK02538-1434-TYPE-POSTFACE-AND-FINGERPRINT-EE"
+    },
+    {
+      "node_id": "RULE-FAMILY-KYUDB-DATONGLIZHU-GK02538-TERM-THRESHOLD-WHOLEKE-SCHEDULE",
+      "node_type": "RULE_FAMILY",
+      "label": "奎2538《大統曆註》節氣冬至餘閾值＋晝夜整刻活字異本規則族",
+      "system_scope": "KOREAN_DATONGLIZHU_TERM_STATE_THRESHOLD_AND_WHOLEKE_SCHEDULE",
+      "mechanical_identity": "Directly reviewed GK02538 preserves the Datonglizhu threshold + whole-ke architecture; Rainwater uses paired 後五六日 47/53 and 後十三四日 48/52, while Dahan uses 後十三四日 44/56.",
+      "direct_lichun_threshold": "冬至餘三十四刻四十五分已上為退",
+      "direct_rainwater_47_53_timing": "後五六日",
+      "direct_rainwater_48_52_timing": "後十三四日",
+      "direct_dahan_44_56_timing": "後十三四日",
+      "exact_sanming_yueling_fingerprint": false,
+      "threshold_proved_as_wholeke_operator": false,
+      "evidence": [
+        "EXT-KYUDB-DATONGLIZHU-GK02538-GWANSANGGAM-TYPE-POSTFACE-FINGERPRINT",
+        "docs/research/ZIWEI-KYUDB-DATONGLIZHU-GK02538-1434-TYPE-POSTFACE-AND-FINGERPRINT-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-KYUDB-DATONGLIZHU-GK02538-1434-TYPE-POSTFACE-AND-FINGERPRINT-EE"
     }
   ],
   "edges": [
@@ -3132,6 +3168,38 @@
       ],
       "scope_note": "Same work title and mechanical architecture support a shared recensional family/common ancestor candidate. Lichun threshold and Dahan day-count differences disprove unchanged-copy identity and no direct copy direction is inferred.",
       "adjudication_batch": "BATCH-12-ZIWEI-KYUDB-DATONGLIZHU-GK02426-PARTIAL-FINGERPRINT-ED"
+    },
+    {
+      "edge_id": "TG-E0095",
+      "from": "PHYSICAL-COPY-KYUDB-DATONGLIZHU-GK02538-GWANSANGGAM-MOVABLETYPE",
+      "relation": "ATTESTS",
+      "to": "RULE-FAMILY-KYUDB-DATONGLIZHU-GK02538-TERM-THRESHOLD-WHOLEKE-SCHEDULE",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_FOR_DIRECT_PHYSICAL_TEXT_STATE",
+      "evidence_class": "DIRECT_KYUDB_SOURCE_BOUND_FACSIMILE_REVIEW_NO_OCR_FINAL_AUTHORITY",
+      "evidence": [
+        "EXT-KYUDB-DATONGLIZHU-GK02538-GWANSANGGAM-TYPE-POSTFACE-FINGERPRINT",
+        "docs/research/ZIWEI-KYUDB-DATONGLIZHU-GK02538-1434-TYPE-POSTFACE-AND-FINGERPRINT-R1.json"
+      ],
+      "scope_note": "Attests the reviewed movable-type recension, including paired Rainwater and Dahan timing plus the attached 1434 type-event postface. Current impression year remains unresolved.",
+      "adjudication_batch": "BATCH-12-ZIWEI-KYUDB-DATONGLIZHU-GK02538-1434-TYPE-POSTFACE-AND-FINGERPRINT-EE"
+    },
+    {
+      "edge_id": "TG-E0096",
+      "from": "PHYSICAL-COPY-KYUDB-DATONGLIZHU-GK02538-GWANSANGGAM-MOVABLETYPE",
+      "relation": "SHARED_COMMON_ANCESTOR_CANDIDATE",
+      "to": "PHYSICAL-COPY-KYUDB-DATONGLIZHU-GK02426-GWANSANGGAM-WOODTYPE",
+      "status": "PROBABLE",
+      "confidence": "HIGH_FOR_SHARED_WORK_AND_MECHANISM_FAMILY_LOW_FOR_DIRECT_COPY_DIRECTION_AND_EXACT_IMPRESSION_CHRONOLOGY",
+      "evidence_class": "TWO_DISTINCT_KYUDB_PHYSICAL_RECENSIONS_WITH_SHARED_DATONGLIZHU_ARCHITECTURE_AND_HIGH_INFORMATION_VARIANTS",
+      "evidence": [
+        "EXT-KYUDB-DATONGLIZHU-GK02538-GWANSANGGAM-TYPE-POSTFACE-FINGERPRINT",
+        "docs/research/ZIWEI-KYUDB-DATONGLIZHU-GK02538-1434-TYPE-POSTFACE-AND-FINGERPRINT-R1.json",
+        "EXT-KYUDB-DATONGLIZHU-GK02426-GWANSANGGAM-WOODTYPE-PARTIAL-FINGERPRINT",
+        "docs/research/ZIWEI-KYUDB-DATONGLIZHU-GK02426-PARTIAL-FINGERPRINT-R1.json"
+      ],
+      "scope_note": "Same title and threshold/whole-ke architecture support a common-recensional-family candidate. Dahan timing wording and physical/typographic identities differ, so unchanged-copy identity and copy direction are not inferred.",
+      "adjudication_batch": "BATCH-12-ZIWEI-KYUDB-DATONGLIZHU-GK02538-1434-TYPE-POSTFACE-AND-FINGERPRINT-EE"
     }
   ],
   "lineage_hypotheses": [
@@ -3296,6 +3364,10 @@
         {
           "batch": "BATCH-12-ZIWEI-KYUDB-DATONGLIZHU-GK02426-PARTIAL-FINGERPRINT-ED",
           "update": "Kyujanggak GK02426_00 independently preserves the Datonglizhu term-threshold plus whole-ke architecture. It materially narrows the Dahan branch because the reviewed Dahan block reaches 後十三日 -> 44/56, converging on the Sanming/Yueling day-13 timing and differing from NCL-06627's 後十四日. However its Rainwater 47/53 is explicitly at 後六日, not the exact Sanming term-anchor/後四日 fingerprint, and the first-party impression year remains unresolved. Zero exact Sanming-parent vote is added; the evidence supports branching recensional recomposition rather than a single unchanged Datonglizhu table."
+        },
+        {
+          "batch": "BATCH-12-ZIWEI-KYUDB-DATONGLIZHU-GK02538-1434-TYPE-POSTFACE-AND-FINGERPRINT-EE",
+          "update": "Kyujanggak GK02538_00 directly adds a distinct movable-type Datonglizhu recension and physically recovers the 1434 Kim Bin type-casting/start-of-printing postface. Its Rainwater 後五六日 47/53 -> 後十三四日 48/52 and Dahan 後十三四日 -> 44/56 differ from the exact Sanming/Yueling fingerprint and from GK02426 at the Dahan locus. The postface closes a pre-1578 type-event statement but not the surviving copy's impression date or a Sanming parent. Zero exact Sanming-parent vote is added."
         }
       ],
       "endpoint_anchor_component_identified": true,
@@ -3800,6 +3872,33 @@
         "docs/research/ZIWEI-NCL06627-DATONGLIZHU-THRESHOLD-FINGERPRINT-R1.json"
       ],
       "adjudication_batch": "BATCH-12-ZIWEI-KYUDB-DATONGLIZHU-GK02426-PARTIAL-FINGERPRINT-ED"
+    },
+    {
+      "from": "RULE-FAMILY-KYUDB-DATONGLIZHU-GK02538-TERM-THRESHOLD-WHOLEKE-SCHEDULE",
+      "relation": "DIRECT_UNCHANGED_TABLE_IDENTITY_WITH",
+      "to": "TABLE-SANMING-1578-DAYNIGHT-KE",
+      "status": "DISPROVED",
+      "reason": "GK02538 directly gives Rainwater 後五六日 47/53 and 後十三四日 48/52 plus Dahan 後十三四日 44/56, whereas Sanming has the Rainwater term-anchor -> 後四日 transition and literal 十三後日 Dahan transition.",
+      "evidence": [
+        "EXT-KYUDB-DATONGLIZHU-GK02538-GWANSANGGAM-TYPE-POSTFACE-FINGERPRINT",
+        "docs/research/ZIWEI-KYUDB-DATONGLIZHU-GK02538-1434-TYPE-POSTFACE-AND-FINGERPRINT-R1.json",
+        "docs/research/ZIWEI-SANMING-1578-SEASONAL-TABLE-DIRECT-PHYSICAL-COLLATION-R1.json"
+      ],
+      "adjudication_batch": "BATCH-12-ZIWEI-KYUDB-DATONGLIZHU-GK02538-1434-TYPE-POSTFACE-AND-FINGERPRINT-EE"
+    },
+    {
+      "from": "RULE-FAMILY-KYUDB-DATONGLIZHU-GK02538-TERM-THRESHOLD-WHOLEKE-SCHEDULE",
+      "relation": "DIRECT_UNCHANGED_TABLE_IDENTITY_WITH",
+      "to": "RULE-FAMILY-KYUDB-DATONGLIZHU-TERM-THRESHOLD-WHOLEKE-SCHEDULE",
+      "status": "DISPROVED",
+      "reason": "GK02538 is a distinct movable-type recension and directly uses Dahan 後十三四日 -> 44/56, while GK02426 uses a single 後十三日 -> 44/56; the physical/call-number/layout identities also differ.",
+      "evidence": [
+        "EXT-KYUDB-DATONGLIZHU-GK02538-GWANSANGGAM-TYPE-POSTFACE-FINGERPRINT",
+        "docs/research/ZIWEI-KYUDB-DATONGLIZHU-GK02538-1434-TYPE-POSTFACE-AND-FINGERPRINT-R1.json",
+        "EXT-KYUDB-DATONGLIZHU-GK02426-GWANSANGGAM-WOODTYPE-PARTIAL-FINGERPRINT",
+        "docs/research/ZIWEI-KYUDB-DATONGLIZHU-GK02426-PARTIAL-FINGERPRINT-R1.json"
+      ],
+      "adjudication_batch": "BATCH-12-ZIWEI-KYUDB-DATONGLIZHU-GK02538-1434-TYPE-POSTFACE-AND-FINGERPRINT-EE"
     }
   ],
   "backfill": {

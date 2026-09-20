@@ -25,6 +25,7 @@ BATCH_12EA = ROOT / "docs/research/ZIWEI-JIUTANGSHU-JIAJING17-GUILOU-HALFUP-ROUN
 BATCH_12EB = ROOT / "docs/research/ZIWEI-XINGYUNLU-DATONG-ENDPOINT-BINDING-R1.json"
 BATCH_12EC = ROOT / "docs/research/ZIWEI-NCL06627-DATONGLIZHU-THRESHOLD-FINGERPRINT-R1.json"
 BATCH_12ED = ROOT / "docs/research/ZIWEI-KYUDB-DATONGLIZHU-GK02426-PARTIAL-FINGERPRINT-R1.json"
+BATCH_12EE = ROOT / "docs/research/ZIWEI-KYUDB-DATONGLIZHU-GK02538-1434-TYPE-POSTFACE-AND-FINGERPRINT-R1.json"
 
 
 def fail(message: str) -> None:
@@ -32,7 +33,7 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
-    for path in (CHARTER, PROTOCOL, GRAPH, STATE, BATCH_12CH, BATCH_12DP, BATCH_12DQ, BATCH_12DR, BATCH_12DS, BATCH_12DT, BATCH_12DU, BATCH_12DV, BATCH_12DW, BATCH_12DX, BATCH_12DY, BATCH_12DZ, BATCH_12EA, BATCH_12EB, BATCH_12EC, BATCH_12ED):
+    for path in (CHARTER, PROTOCOL, GRAPH, STATE, BATCH_12CH, BATCH_12DP, BATCH_12DQ, BATCH_12DR, BATCH_12DS, BATCH_12DT, BATCH_12DU, BATCH_12DV, BATCH_12DW, BATCH_12DX, BATCH_12DY, BATCH_12DZ, BATCH_12EA, BATCH_12EB, BATCH_12EC, BATCH_12ED, BATCH_12EE):
         if not path.is_file():
             fail(f"Tianwen transmission artifact missing: {path.relative_to(ROOT)}")
 
@@ -728,6 +729,31 @@ def main() -> int:
         fail("Batch 12ED NCL-recension unchanged-identity non-edge missing")
     if not any(x.get("batch") == "BATCH-12-ZIWEI-KYUDB-DATONGLIZHU-GK02426-PARTIAL-FINGERPRINT-ED" and "zero exact sanming-parent vote" in x.get("update", "").lower() for x in hyp12dk.get("evidence_updates", [])):
         fail("Batch 12ED genealogy hypothesis zero-vote update missing")
+
+    batch12ee = json.loads(BATCH_12EE.read_text(encoding="utf-8"))
+    ad12ee = batch12ee.get("adjudication", {})
+    if ad12ee.get("direct_1434_type_event_statement") != "CLOSED_FOR_ATTACHED_POSTFACE_TEXT":
+        fail("Batch 12EE direct postface closure regressed")
+    if ad12ee.get("rainwater_exact_sanming_fingerprint_match") is not False or ad12ee.get("dahan_exact_sanming_fingerprint_match") is not False:
+        fail("Batch 12EE exact-fingerprint firewall regressed")
+    if ad12ee.get("secure_pre1578_binding_witness") is not False or ad12ee.get("direct_sanming_parent_vote_increment") != 0:
+        fail("Batch 12EE chronology/lineage firewall regressed")
+    copy12ee = next(n for n in nodes if n.get("node_id") == "PHYSICAL-COPY-KYUDB-DATONGLIZHU-GK02538-GWANSANGGAM-MOVABLETYPE")
+    rule12ee = next(n for n in nodes if n.get("node_id") == "RULE-FAMILY-KYUDB-DATONGLIZHU-GK02538-TERM-THRESHOLD-WHOLEKE-SCHEDULE")
+    if copy12ee.get("physical_copy_date") != "UNRESOLVED_KYUDB_CATALOG_KANEN_MISHO" or copy12ee.get("secure_pre1578_physical_witness") is not False or copy12ee.get("direct_1434_type_event_postface") is not True:
+        fail("Batch 12EE physical chronology control regressed")
+    if rule12ee.get("direct_rainwater_47_53_timing") != "後五六日" or rule12ee.get("direct_rainwater_48_52_timing") != "後十三四日" or rule12ee.get("direct_dahan_44_56_timing") != "後十三四日" or rule12ee.get("exact_sanming_yueling_fingerprint") is not False:
+        fail("Batch 12EE rule-family fingerprint control regressed")
+    for eid, rel in (("TG-E0095","ATTESTS"),("TG-E0096","SHARED_COMMON_ANCESTOR_CANDIDATE")):
+        e = next((x for x in edges if x.get("edge_id") == eid), None)
+        if not e or e.get("relation") != rel:
+            fail(f"Batch 12EE transmission edge regressed: {eid}")
+    if not any(x.get("from") == "RULE-FAMILY-KYUDB-DATONGLIZHU-GK02538-TERM-THRESHOLD-WHOLEKE-SCHEDULE" and x.get("relation") == "DIRECT_UNCHANGED_TABLE_IDENTITY_WITH" and x.get("to") == "TABLE-SANMING-1578-DAYNIGHT-KE" and x.get("status") == "DISPROVED" for x in graph.get("explicit_non_edges", [])):
+        fail("Batch 12EE Sanming unchanged-table non-edge missing")
+    if not any(x.get("from") == "RULE-FAMILY-KYUDB-DATONGLIZHU-GK02538-TERM-THRESHOLD-WHOLEKE-SCHEDULE" and x.get("relation") == "DIRECT_UNCHANGED_TABLE_IDENTITY_WITH" and x.get("to") == "RULE-FAMILY-KYUDB-DATONGLIZHU-TERM-THRESHOLD-WHOLEKE-SCHEDULE" and x.get("status") == "DISPROVED" for x in graph.get("explicit_non_edges", [])):
+        fail("Batch 12EE GK02426 unchanged-identity non-edge missing")
+    if not any(x.get("batch") == "BATCH-12-ZIWEI-KYUDB-DATONGLIZHU-GK02538-1434-TYPE-POSTFACE-AND-FINGERPRINT-EE" and "zero exact sanming-parent vote" in x.get("update", "").lower() for x in hyp12dk.get("evidence_updates", [])):
+        fail("Batch 12EE genealogy hypothesis zero-vote update missing")
 
     ncl = next(n for n in nodes if n.get("node_id") == "PHYSICAL-COPY-SISHI-QIHOU-NCL03164-OLD-MANUSCRIPT")
     if ncl.get("physical_copy_date") != "UNRESOLVED":
