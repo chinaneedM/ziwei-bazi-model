@@ -65,7 +65,7 @@ jobs:
           fs.writeFileSync(root+'/catalog-text.txt',catalogText);
 
           const before=new Set(browser.targets().map(t=>t._targetId));
-          await page.evaluate((book)=>window.fn_originalImg('SIC',book,'',''),book);
+          await page.evaluate((book)=>window.fn_originalImg('CSP',book,'',''),book);
           let viewer=null;
           for(let i=0;i<30 && !viewer;i++){
             await new Promise(r=>setTimeout(r,500));
@@ -80,7 +80,7 @@ jobs:
 
           function imageUrl(vol,p){
             const fn=`${book}IH_${vol}_${p}.jpg`;
-            const path=`/data01/stream/SIC/IMG/${book}/${book}_${vol}/${fn}`;
+            const path=`/data01/stream/CSP/IMG/${book}/${book}_${vol}/${fn}`;
             return {
               fn,path,
               url:`https://kyudb.snu.ac.kr/ImageServlet.do?imgFileNm=${encodeURIComponent(fn)}&path=${encodeURIComponent(path)}`
@@ -90,7 +90,7 @@ jobs:
           async function textRow(vol,p){
             try{
               return await viewer.evaluate(async({book,vol,p})=>{
-                const body=new URLSearchParams({item_cd:'SIC',book_cd:book,vol_no:vol,page_no:p});
+                const body=new URLSearchParams({item_cd:'CSP',book_cd:book,vol_no:vol,page_no:p});
                 const r=await fetch('/pf01/pageText.do',{method:'POST',headers:{'content-type':'application/x-www-form-urlencoded; charset=UTF-8'},body});
                 const raw=await r.text();
                 let j=null; try{j=JSON.parse(raw)}catch{}
@@ -197,7 +197,7 @@ jobs:
 
           const report={
             schema:'KYUDB-DATONGLIZHU-GK02538-PHYSICAL-PROBE-R1',
-            schema_version:'1.2.0',
+            schema_version:'1.3.0',
             provider:'Kyujanggak Institute for Korean Studies, Seoul National University',
             book_cd:book,
             call_number:'奎2538-v.1-4',
