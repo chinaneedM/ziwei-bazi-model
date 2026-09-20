@@ -131,14 +131,43 @@ jobs:
               except Exception as e:
                   details.append({'book_cd':book_cd,'error':type(e).__name__+': '+str(e)})
 
+          # Historical scholarship exposes call no. 奎2538-v.1-4, while the current
+          # searchable record is 奎2426-v.1-4. Test plausible legacy book_cd mappings
+          # directly rather than assuming that call-number digits equal book_cd digits.
+          legacy_candidates=['GK02538_00','GK02538_01','GC02538_00','GK2538_00']
+          legacy_direct=[]
+          for book_cd in legacy_candidates:
+              form=base_form('大統曆註')
+              form.update({'recordIndex':'1','book_cd':book_cd,'target':'master'})
+              try:
+                  final,h=request('https://kyudb.snu.ac.kr/book/view.do',form)
+                  (root/f'legacy-view-{book_cd}.html').write_text(h,encoding='utf-8')
+                  t=compact(h)
+                  hidden_ids=sorted(set(re.findall(r'name=["\\\']book_id["\\\']\\s+value=["\\\']([^"\\\']+)',h,re.I)))
+                  current_book_ids=sorted(set(re.findall(r'(?:GK|GC|GR|GG)\\d{5}_00',h)))
+                  legacy_direct.append({
+                      'candidate_book_cd':book_cd,
+                      'final_url':final,
+                      'hidden_book_ids':hidden_ids,
+                      'current_book_ids':current_book_ids,
+                      'contains_datonglizhu':'大統曆註' in t,
+                      'contains_call_2538':'2538' in t,
+                      'contains_call_2426':'2426' in t,
+                      'contains_original_image':'原文 이미지' in t or '원문 이미지' in t or 'fn_originalImg' in h,
+                      'text_excerpt':t[t.find('도서정보'):t.find('도서정보')+3500] if '도서정보' in t else t[:3500],
+                  })
+              except Exception as e:
+                  legacy_direct.append({'candidate_book_cd':book_cd,'error':type(e).__name__+': '+str(e)})
+
           report={
               'schema':'KYUDB-DATONGLIZHU-COPY-CENSUS-R1',
-              'schema_version':'1.0.0',
+              'schema_version':'1.1.0',
               'provider':'Kyujanggak Institute for Korean Studies, Seoul National University',
               'purpose':'Resolve whether 奎2426 and 奎2538 are distinct current catalogued physical copies/records of 大統曆註 and bind each to an exact book_cd before any chronology or textual comparison.',
               'searches':rows,
               'discovered_book_cds':sorted(discovered),
               'details':details,
+              'legacy_direct_candidate_probes':legacy_direct,
               'adjudication_firewall':'Do not infer that an old catalog call number, secondary-media label, or 1434 postface belongs to GK02426_00. Physical-copy identity, chronology and content must be bound record by record.',
               'ocr_used_for_final_claims':False,
           }
@@ -151,7 +180,8 @@ jobs:
                   'contains_call_2538':x.get('contains_call_2538'),
                   'contains_original_image':x.get('contains_original_image'),
                   'contains_microfilm':x.get('contains_microfilm')
-              } for x in details]
+              } for x in details],
+              'legacy_direct_candidate_probes':legacy_direct
           },ensure_ascii=False,indent=2))
           PY
 
