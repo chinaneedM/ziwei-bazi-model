@@ -64,7 +64,7 @@ jobs:
           fs.writeFileSync(root+'/catalog.txt',await page.evaluate(()=>document.body.innerText));
 
           const before=new Set(browser.targets().map(t=>t._targetId));
-          await page.evaluate((book)=>window.fn_originalImg('SIC',book,'',''),book);
+          await page.evaluate((book)=>window.fn_originalImg('CSP',book,'',''),book);
           let viewer=null;
           for(let i=0;i<40 && !viewer;i++){
             await new Promise(r=>setTimeout(r,500));
