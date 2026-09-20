@@ -1,0 +1,285 @@
+name: probe-kyudb-datonglizhu-gk02426-fingerprint
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-kyudb-datonglizhu-gk02426-fingerprint.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install browser and image tools
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm install --no-save --silent puppeteer-core@24.16.0
+          python -m pip install --quiet pillow
+
+      - name: Locate exact fingerprint pages and acquire physical images
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/kyudb-datonglizhu-gk02426-fingerprint'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT/physical"
+          BROWSER="$(command -v google-chrome || command -v chromium || command -v chromium-browser || true)"
+          test -n "$BROWSER"
+
+          cat > "$ROOT/acquire.mjs" <<'JS'
+          import puppeteer from 'puppeteer-core';
+          import fs from 'node:fs';
+          import crypto from 'node:crypto';
+
+          const root='audit/kyudb-datonglizhu-gk02426-fingerprint';
+          const book='GK02426_00';
+          const volumes=['0001','0002','0003','0004'];
+          const targetTerms=[
+            '大寒','雨水','立春','夏至','冬至餘','已上為退','為退',
+            '晝五十九刻','夜四十一刻','五十九刻','四十一刻',
+            '晝四十三刻','夜五十七刻','晝四十四刻','夜五十六刻',
+            '晝四十七刻','夜五十三刻','晝四十八刻','夜五十二刻',
+            '後四日','十三後','後十三日','後十四日','後六日'
+          ];
+          const pages=[];
+          for(let n=0;n<=80;n++) for(const ab of ['a','b']) pages.push(String(n).padStart(3,'0')+ab);
+
+          const browser=await puppeteer.launch({
+            headless:true,
+            executablePath:process.env.BROWSER,
+            args:['--no-sandbox','--disable-setuid-sandbox']
+          });
+          const page=await browser.newPage();
+          await page.setUserAgent('Mozilla/5.0 Tianwen-Provenance-Audit/1.0');
+
+          await page.goto('https://kyudb.snu.ac.kr/book/list.do?book_cate=SIC04&mid=GDS',{
+            waitUntil:'networkidle2',timeout:90000
+          });
+          await Promise.all([
+            page.waitForNavigation({waitUntil:'networkidle2',timeout:90000}),
+            page.evaluate((book)=>{
+              const f=document.getElementById('frmBookSearchInf');
+              f.querySelector('#book_cd').value=book;
+              f.querySelector('#target').value='master';
+              f.action='/book/view.do'; f.method='post'; f.submit();
+            },book)
+          ]);
+          const catalog=await page.evaluate(()=>({
+            title:document.querySelector('h3')?.innerText || document.body.innerText.slice(0,500),
+            text:document.body.innerText
+          }));
+          fs.writeFileSync(root+'/catalog-text.txt',catalog.text);
+
+          const before=new Set(browser.targets().map(t=>t._targetId));
+          await page.evaluate((book)=>window.fn_originalImg('SIC',book,'',''),book);
+          let viewer=null;
+          for(let i=0;i<30 && !viewer;i++){
+            await new Promise(r=>setTimeout(r,500));
+            for(const t of browser.targets()){
+              if(t.type()==='page' && !before.has(t._targetId) && t.url().includes('/pf01/rendererImg.do')){
+                viewer=await t.page(); break;
+              }
+            }
+          }
+          if(!viewer) throw new Error('viewer target not resolved');
+          await viewer.waitForNetworkIdle({idleTime:1000,timeout:30000}).catch(()=>{});
+
+          async function fetchText(vol,p){
+            let result=null,error=null;
+            for(let attempt=1;attempt<=3;attempt++){
+              try{
+                result=await viewer.evaluate(async({book,vol,p})=>{
+                  const ctl=new AbortController();
+                  const timer=setTimeout(()=>ctl.abort(),8000);
+                  try{
+                    const body=new URLSearchParams({item_cd:'SIC',book_cd:book,vol_no:vol,page_no:p});
+                    const r=await fetch('/pf01/pageText.do',{
+                      method:'POST',
+                      headers:{'content-type':'application/x-www-form-urlencoded; charset=UTF-8'},
+                      body,signal:ctl.signal
+                    });
+                    const raw=await r.text();
+                    let j=null; try{j=JSON.parse(raw)}catch{}
+                    const html=j?.ORG?.list || '';
+                    const div=document.createElement('div'); div.innerHTML=html;
+                    return {
+                      status:r.status,
+                      text:(div.innerText||div.textContent||'').replace(/\\s+/g,' ').trim(),
+                      rawBytes:raw.length
+                    };
+                  } finally { clearTimeout(timer); }
+                },{book,vol,p});
+                if(result?.status===200) break;
+              }catch(e){ error=String(e); }
+              await new Promise(r=>setTimeout(r,250*attempt));
+            }
+            const text=result?.text || '';
+            return {
+              volume:vol,page:p,status:result?.status??null,text,
+              hits:targetTerms.filter(t=>text.includes(t)),
+              rawBytes:result?.rawBytes??null,error
+            };
+          }
+
+          const tasks=[];
+          for(const vol of volumes) for(const p of pages) tasks.push([vol,p]);
+          const rows=new Array(tasks.length);
+          let cursor=0;
+          const workers=Array.from({length:16},async()=>{
+            while(true){
+              const i=cursor++;
+              if(i>=tasks.length) return;
+              const [vol,p]=tasks[i];
+              rows[i]=await fetchText(vol,p);
+            }
+          });
+          await Promise.all(workers);
+
+          const nonempty=rows.filter(x=>x.text.length);
+          const hitRows=nonempty.filter(x=>x.hits.length);
+          const idx=new Map(pages.map((p,i)=>[p,i]));
+          const wanted=new Map();
+          for(const row of hitRows){
+            if(!wanted.has(row.volume)) wanted.set(row.volume,new Set());
+            const i=idx.get(row.page);
+            for(let j=Math.max(0,i-3);j<=Math.min(pages.length-1,i+3);j++) wanted.get(row.volume).add(pages[j]);
+          }
+
+          // Preserve deterministic controls even if the text layer misses one target.
+          for(const [vol,controls] of Object.entries({
+            '0001':['000a','001a','002a','003a','004a','004b'],
+            '0004':['000a','001a','002a','003a','004a','004b']
+          })){
+            if(!wanted.has(vol)) wanted.set(vol,new Set());
+            for(const p of controls) wanted.get(vol).add(p);
+          }
+
+          const physical=[];
+          for(const vol of volumes){
+            const selected=[...(wanted.get(vol)||[])].sort((a,b)=>idx.get(a)-idx.get(b));
+            for(const p of selected){
+              const fn=`${book}IH_${vol}_${p}.jpg`;
+              const path=`/data01/stream/SIC/IMG/${book}/${book}_${vol}/${fn}`;
+              const url=`https://kyudb.snu.ac.kr/ImageServlet.do?imgFileNm=${encodeURIComponent(fn)}&path=${encodeURIComponent(path)}`;
+              const imgPage=await browser.newPage();
+              await imgPage.setUserAgent('Mozilla/5.0 Tianwen-Provenance-Audit/1.0');
+              let buf=null,status=null,ctype=null,error=null;
+              for(let attempt=1;attempt<=3;attempt++){
+                try{
+                  const resp=await imgPage.goto(url,{waitUntil:'domcontentloaded',timeout:20000});
+                  status=resp?.status()??null; ctype=resp?.headers()?.['content-type']??null;
+                  if(resp && resp.ok()){
+                    const candidate=await resp.buffer();
+                    if(candidate.length>5000){ buf=candidate; break; }
+                  }
+                }catch(e){ error=String(e); }
+                await new Promise(r=>setTimeout(r,400*attempt));
+              }
+              await imgPage.close();
+              if(buf){
+                const dir=`${root}/physical/${vol}`; fs.mkdirSync(dir,{recursive:true});
+                const out=`${dir}/${p}.jpg`; fs.writeFileSync(out,buf);
+                physical.push({
+                  volume:vol,page:p,download_ok:true,bytes:buf.length,
+                  sha256:crypto.createHash('sha256').update(buf).digest('hex'),
+                  content_type:ctype,url
+                });
+              }else{
+                physical.push({volume:vol,page:p,download_ok:false,status,content_type:ctype,error,url});
+              }
+            }
+          }
+
+          const report={
+            schema:'KYUDB-DATONGLIZHU-GK02426-FINGERPRINT-PROBE-R1',
+            schema_version:'1.0.0',
+            provider:'Kyujanggak Institute for Korean Studies, Seoul National University',
+            book_cd:book,
+            call_number:'奎2426-v.1-4',
+            title:'大統曆註',
+            catalog_edition:'觀象監木活字',
+            catalog_year:'刊年未詳',
+            catalog_structure:'12卷4冊; 卷1正月 ... 卷12十二月',
+            prior_catalog_signal:'Encyclopedia/KOSTMA notes a Kim Bin postface dated 1434, but that postface is not by itself used to date every calendrical passage.',
+            volumes,
+            probed_page_range:'000a-080b per volume',
+            target_terms:targetTerms,
+            nonempty_text_page_count:nonempty.length,
+            hit_rows:hitRows,
+            text_rows:rows,
+            physical_pages:physical,
+            text_layer_authority:'LOCATOR_ONLY_NOT_FINAL_GLYPH_NUMERIC_DATE_OR_LINEAGE_AUTHORITY',
+            physical_image_authority:'DIRECT_SOURCE_BOUND_FACSIMILE_REQUIRED_FOR_FINAL_GLYPH_NUMERIC_AND_RECENSION_CLAIMS',
+            chronology_firewall:'Catalog year remains unresolved. The 1434 postface is a dating lead, not automatic date assignment to all content.',
+            ocr_used_for_final_glyph_claims:false,
+            research_questions:[
+              'Does volume 1 physically reproduce the Sanming/Yueling Rainwater fingerprint 47/53 -> 後四日 -> 48/52?',
+              'Does volume 4 physically reproduce the Sanming/Yueling Dahan fingerprint 43/57 -> literal 十三後 -> 44/56?',
+              'Does this Kyujanggak recension preserve the same 冬至餘...已上為退 threshold architecture as NCL-06627?',
+              'Does any target neighborhood directly explain what 為退 operates on?',
+              'Can the physical edition/copy chronology be bound securely enough to place the relevant text state before 1578?'
+            ]
+          };
+          fs.writeFileSync(root+'/report.json',JSON.stringify(report,null,2));
+          console.log(JSON.stringify({
+            nonempty_text_page_count:nonempty.length,
+            hit_rows:hitRows.map(x=>({volume:x.volume,page:x.page,hits:x.hits,text:x.text.slice(0,500)})),
+            physical_ok:physical.filter(x=>x.download_ok).length,
+            physical_requested:physical.length
+          },null,2));
+          await browser.close();
+          if(!physical.some(x=>x.download_ok)) process.exitCode=2;
+          JS
+
+          BROWSER="$BROWSER" node "$ROOT/acquire.mjs"
+
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image, ImageDraw
+          import json
+          root=Path('audit/kyudb-datonglizhu-gk02426-fingerprint')
+          report=json.loads((root/'report.json').read_text())
+          ok=[x for x in report['physical_pages'] if x.get('download_ok')]
+          sheets=[]
+          for vol in ['0001','0002','0003','0004']:
+              rows=[x for x in ok if x['volume']==vol]
+              if not rows: continue
+              for start in range(0,len(rows),16):
+                  batch=rows[start:start+16]
+                  thumbs=[]
+                  for row in batch:
+                      p=root/'physical'/vol/f"{row['page']}.jpg"
+                      im=Image.open(p).convert('RGB')
+                      row['width'],row['height']=im.size
+                      im.thumbnail((430,610))
+                      c=Image.new('RGB',(450,655),'white')
+                      c.paste(im,((450-im.width)//2,20))
+                      ImageDraw.Draw(c).text((10,628),f"{vol} {row['page']}",fill='black')
+                      thumbs.append(c)
+                  cols=4; nrows=(len(thumbs)+cols-1)//cols
+                  sheet=Image.new('RGB',(cols*450,nrows*655),'white')
+                  for i,im in enumerate(thumbs): sheet.paste(im,((i%cols)*450,(i//cols)*655))
+                  out=root/f'contact-{vol}-{start//16+1:02d}.jpg'
+                  sheet.save(out,quality=90)
+                  sheets.append(out.name)
+          report['contact_sheets']=sheets
+          (root/'report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print(json.dumps({'contact_sheets':sheets,'physical_ok':len(ok)},ensure_ascii=False,indent=2))
+          PY
+
+      - name: Upload Kyudb Datonglizhu fingerprint probe
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: kyudb-datonglizhu-gk02426-fingerprint-r1
+          path: audit/kyudb-datonglizhu-gk02426-fingerprint
+          if-no-files-found: error
+          retention-days: 30
