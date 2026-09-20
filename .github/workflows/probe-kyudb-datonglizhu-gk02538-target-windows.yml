@@ -1,0 +1,140 @@
+name: probe-kyudb-datonglizhu-gk02538-target-windows
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-kyudb-datonglizhu-gk02538-target-windows.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Acquire narrow physical windows
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/kyudb-datonglizhu-gk02538-target-windows'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT/physical/0001" "$ROOT/physical/0004"
+          python - <<'PY'
+          from concurrent.futures import ThreadPoolExecutor, as_completed
+          from pathlib import Path
+          from urllib.request import Request, urlopen
+          from urllib.parse import urlencode
+          from PIL import Image,ImageDraw
+          import hashlib, io, json, time
+
+          root=Path('audit/kyudb-datonglizhu-gk02538-target-windows')
+          book='GK02538_00'
+          item='CSP'
+          UA='Mozilla/5.0 Tianwen-Provenance-Audit/1.0'
+
+          tasks=[]
+          # Rainwater / Lichun opening neighborhood.
+          for n in range(0,10):
+              for ab in 'ab':
+                  tasks.append(('0001',f'{n:03d}{ab}','RAINWATER_OPENING'))
+          # Dahan / juan 12 neighborhood based on the independently collated GK02426 locator.
+          for n in range(46,58):
+              for ab in 'ab':
+                  tasks.append(('0004',f'{n:03d}{ab}','DAHAN_JUAN12'))
+          # Terminal colophon/postface neighborhood.
+          for n in range(66,83):
+              for ab in 'ab':
+                  tasks.append(('0004',f'{n:03d}{ab}','TERMINAL_POSTFACE'))
+
+          def fetch_one(task):
+              vol,p,window=task
+              fn=f'{book}_IL_{vol}_{p}.jpg'
+              path=f'/data01/stream/{item}/IMG/{book}/{book}_{vol}/{fn}'
+              url='https://kyudb.snu.ac.kr/ImageServlet.do?'+urlencode({'imgFileNm':fn,'path':path})
+              req=Request(url,headers={'User-Agent':UA,'Referer':'https://kyudb.snu.ac.kr/pf01/rendererImg.do'})
+              last=None
+              for attempt in range(3):
+                  try:
+                      with urlopen(req,timeout=20) as r:
+                          b=r.read()
+                          ctype=r.headers.get('content-type')
+                          status=getattr(r,'status',200)
+                      if len(b)>5000 and b[:2]==b'\xff\xd8':
+                          out=root/'physical'/vol/f'{p}.jpg'
+                          out.write_bytes(b)
+                          with Image.open(io.BytesIO(b)) as im:
+                              size=im.size
+                          return {'volume':vol,'page':p,'window':window,'ok':True,'bytes':len(b),'sha256':hashlib.sha256(b).hexdigest(),'size':size,'content_type':ctype,'url':url}
+                      last={'status':status,'bytes':len(b),'content_type':ctype,'prefix':b[:40].hex()}
+                  except Exception as e:
+                      last={'error':type(e).__name__+': '+str(e)}
+                  time.sleep(.25*(attempt+1))
+              return {'volume':vol,'page':p,'window':window,'ok':False,'last':last,'url':url}
+
+          rows=[None]*len(tasks)
+          with ThreadPoolExecutor(max_workers=16) as ex:
+              fut={ex.submit(fetch_one,t):i for i,t in enumerate(tasks)}
+              for f in as_completed(fut):
+                  rows[fut[f]]=f.result()
+
+          # Contact sheets preserve page labels for direct no-OCR visual review.
+          sheets=[]
+          for window in ['RAINWATER_OPENING','DAHAN_JUAN12','TERMINAL_POSTFACE']:
+              valid=[r for r in rows if r['window']==window and r.get('ok')]
+              for start in range(0,len(valid),16):
+                  batch=valid[start:start+16]
+                  thumbs=[]
+                  for r in batch:
+                      im=Image.open(root/'physical'/r['volume']/f"{r['page']}.jpg").convert('RGB')
+                      im.thumbnail((430,610))
+                      c=Image.new('RGB',(450,655),'white')
+                      c.paste(im,((450-im.width)//2,20))
+                      ImageDraw.Draw(c).text((10,628),f"{r['volume']} {r['page']}",fill='black')
+                      thumbs.append(c)
+                  if not thumbs: continue
+                  cols=4; nr=(len(thumbs)+cols-1)//cols
+                  sheet=Image.new('RGB',(cols*450,nr*655),'white')
+                  for i,im in enumerate(thumbs): sheet.paste(im,((i%cols)*450,(i//cols)*655))
+                  out=root/f'contact-{window.lower()}-{start//16+1:02d}.jpg'
+                  sheet.save(out,quality=92)
+                  sheets.append(out.name)
+
+          report={
+              'schema':'KYUDB-DATONGLIZHU-GK02538-TARGET-WINDOWS-R1',
+              'schema_version':'1.0.0',
+              'provider':'Kyujanggak Institute for Korean Studies, Seoul National University',
+              'book_cd':book,
+              'item_cd':item,
+              'call_number':'奎2538-v.1-4',
+              'title':'大統曆註',
+              'image_route':'CSP / filename {book}_IL_{vol}_{page}.jpg',
+              'route_authority':'SOURCE_EMITTED_BY_CURRENT_KYUDB_VIEWER',
+              'rows':rows,
+              'contact_sheets':sheets,
+              'counts':{
+                  'requested':len(rows),
+                  'ok':sum(bool(r.get('ok')) for r in rows),
+                  'failed':sum(not bool(r.get('ok')) for r in rows)
+              },
+              'chronology_firewall':'Direct page images may establish glyph/text state and a physical postface statement. A dated postface does not automatically equal the impression date of the surviving copy or the composition date of every calendrical rule.',
+              'ocr_used_for_final_claims':False
+          }
+          (root/'report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print(json.dumps({'counts':report['counts'],'sheets':sheets,'failed':[r for r in rows if not r.get('ok')][:10]},ensure_ascii=False,indent=2))
+          if report['counts']['ok']==0:
+              raise SystemExit(2)
+          PY
+
+      - name: Upload target windows
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: kyudb-datonglizhu-gk02538-target-windows-r1
+          path: audit/kyudb-datonglizhu-gk02538-target-windows
+          if-no-files-found: error
+          retention-days: 30
