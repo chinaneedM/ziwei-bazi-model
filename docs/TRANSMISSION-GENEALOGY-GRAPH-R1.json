@@ -1639,6 +1639,41 @@
         "docs/research/ZIWEI-XINGYUNLU-DATONG-ENDPOINT-BINDING-R1.json"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-XINGYUNLU-DATONG-ENDPOINT-BINDING-EB"
+    },
+    {
+      "node_id": "PHYSICAL-COPY-DATONGLIZHU-NCL06627-MING-MANUSCRIPT",
+      "node_type": "PHYSICAL_COPY",
+      "label": "NCL-06627《大統曆註》明抄本（確切抄寫年代未定）",
+      "system_scope": "MING_DATONG_CALENDAR_COMMENTARY_TERM_THRESHOLD_AND_WHOLEKE_CONTROL",
+      "work_composition_date": "MING_DATONG_CALENDAR_COMMENTARY; EXACT_COMPOSITION_DATE_NOT_ADJUDICATED_IN_12EC",
+      "edition_impression_date": "MANUSCRIPT_NOT_PRINT_IMPRESSION; UNRESOLVED",
+      "physical_copy_date": "MING_MANUSCRIPT_EXACT_DATE_UNRESOLVED",
+      "digital_surrogate_date": "MODERN_NCL_WIKIMEDIA_SURROGATE",
+      "identifier": "NCL-06627 / PDF pp1-2,66,179-180 / pdf sha256 a9bc6bd645f327afde884cb87dc35b48dfd9080bce96bf6f425fd4af205c22a2",
+      "secure_pre1578_physical_witness": false,
+      "evidence": [
+        "EXT-NCL-DATONGLIZHU-NCL06627-MING-THRESHOLD-FINGERPRINT",
+        "docs/research/ZIWEI-NCL06627-DATONGLIZHU-THRESHOLD-FINGERPRINT-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-NCL06627-DATONGLIZHU-THRESHOLD-FINGERPRINT-EC"
+    },
+    {
+      "node_id": "RULE-FAMILY-DATONGLIZHU-TERM-THRESHOLD-WHOLEKE-SCHEDULE",
+      "node_type": "RULE_FAMILY",
+      "label": "《大統曆註》節氣冬至餘閾值＋晝夜整刻進階表規則族",
+      "system_scope": "MING_DATONG_TERM_STATE_THRESHOLD_AND_WHOLEKE_SCHEDULE",
+      "mechanical_identity": "The reviewed NCL-06627 text state physically co-locates term-specific 冬至餘…已上為退 thresholds with stepped day/night whole-ke schedules and directly preserves the 59/41 summer endpoint, while its Dahan/Rainwater change-day loci diverge from Sanming 1578.",
+      "term_threshold_family": "冬至餘…已上為退",
+      "direct_summer_day_night": "59/41",
+      "dahan_terminal_change": "後十四日 -> 44/56",
+      "rainwater_side_changes": "後六日 -> 47/53; 後十四日 -> 48/52",
+      "threshold_proved_as_wholeke_operator": false,
+      "exact_sanming_yueling_fingerprint": false,
+      "evidence": [
+        "EXT-NCL-DATONGLIZHU-NCL06627-MING-THRESHOLD-FINGERPRINT",
+        "docs/research/ZIWEI-NCL06627-DATONGLIZHU-THRESHOLD-FINGERPRINT-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-NCL06627-DATONGLIZHU-THRESHOLD-FINGERPRINT-EC"
     }
   ],
   "edges": [
@@ -2998,6 +3033,37 @@
       ],
       "scope_note": "Directly demonstrates that a later-Ming Datong tradition binds the continuous/fractional solstitial endpoint layer to 59/41 output. This closes existence of a later bridge, not its securely pre-1578 chronology, full interior selector, or ancestry into Sanming.",
       "adjudication_batch": "BATCH-12-ZIWEI-XINGYUNLU-DATONG-ENDPOINT-BINDING-EB"
+    },
+    {
+      "edge_id": "TG-E0091",
+      "from": "PHYSICAL-COPY-DATONGLIZHU-NCL06627-MING-MANUSCRIPT",
+      "relation": "ATTESTS",
+      "to": "RULE-FAMILY-DATONGLIZHU-TERM-THRESHOLD-WHOLEKE-SCHEDULE",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_FOR_DIRECT_PHYSICAL_TEXT_STATE",
+      "evidence_class": "DIRECT_SOURCE_BOUND_PHYSICAL_PAGE_REVIEW_NO_OCR_FINAL_AUTHORITY",
+      "evidence": [
+        "EXT-NCL-DATONGLIZHU-NCL06627-MING-THRESHOLD-FINGERPRINT",
+        "docs/research/ZIWEI-NCL06627-DATONGLIZHU-THRESHOLD-FINGERPRINT-R1.json"
+      ],
+      "scope_note": "Attests the threshold-plus-whole-ke architecture, 59/41 summer endpoint and the reviewed Dahan/Rainwater change-day schedule in NCL-06627. Exact copy date remains unresolved.",
+      "adjudication_batch": "BATCH-12-ZIWEI-NCL06627-DATONGLIZHU-THRESHOLD-FINGERPRINT-EC"
+    },
+    {
+      "edge_id": "TG-E0092",
+      "from": "RULE-FAMILY-DATONGLIZHU-TERM-THRESHOLD-WHOLEKE-SCHEDULE",
+      "relation": "STRUCTURAL_MECHANISM_CANDIDATE_FOR",
+      "to": "RULE-FAMILY-NANJING-CII-INTEGER-THRESHOLD-PLUS-59-ENDPOINT-ANCHOR",
+      "status": "PROBABLE",
+      "confidence": "HIGH_FOR_COMPOUND_ARCHITECTURE_LOW_FOR_OPERATOR_AND_PRE1578_LINEAGE",
+      "evidence_class": "DIRECT_MING_TERM_THRESHOLD_PLUS_WHOLEKE_COLOCATION_WITH_59_41_ENDPOINT_AND_DIVERGENT_CHANGE_DAY_CONTROLS",
+      "evidence": [
+        "EXT-NCL-DATONGLIZHU-NCL06627-MING-THRESHOLD-FINGERPRINT",
+        "docs/research/ZIWEI-NCL06627-DATONGLIZHU-THRESHOLD-FINGERPRINT-R1.json",
+        "docs/research/ZIWEI-DATONG-NANJING59-ENDPOINT-RECOMPOSITION-R1.json"
+      ],
+      "scope_note": "Strengthens the existence of a compound Datong calendrical architecture containing state thresholds plus whole-ke output, but does not prove the numerical operator or a pre-1578 Sanming lineage.",
+      "adjudication_batch": "BATCH-12-ZIWEI-NCL06627-DATONGLIZHU-THRESHOLD-FINGERPRINT-EC"
     }
   ],
   "lineage_hypotheses": [
@@ -3154,6 +3220,10 @@
         {
           "batch": "BATCH-12-ZIWEI-XINGYUNLU-DATONG-ENDPOINT-BINDING-EB",
           "update": "NLC Xing Yunlu volume 1 p52 directly binds Datong summer/winter sunrise-fen 2068.30/2931.70 to summer 59/41 and winter 41/59 on one physical page. This closes a later-Ming mechanical bridge between the endpoint continuous/fractional layer and the whole-ke display, materially strengthening the composite model. The reviewed object's exact Wanli impression year is unresolved and it is not securely pre-1578, so zero exact Sanming-parent vote is added; the full 42-58 selector and Dahan/Yushui fingerprint remain open."
+        },
+        {
+          "batch": "BATCH-12-ZIWEI-NCL06627-DATONGLIZHU-THRESHOLD-FINGERPRINT-EC",
+          "update": "NCL-06627 directly co-locates term-specific 冬至餘…已上為退 thresholds with whole-ke day/night scheduling and directly preserves the 59/41 summer endpoint, strengthening the compound Datong mechanism family. Its two decisive change-day loci diverge from Sanming 1578: Rainwater-side 後六日 47/53 then 後十四日 48/52, and Dahan-side 後十四日 to 44/56 versus Sanming 後四日 and literal 十三後日. Unchanged-table identity is therefore disproved for this reviewed text state. Exact manuscript date is unresolved, so zero exact Sanming-parent vote is added."
         }
       ],
       "endpoint_anchor_component_identified": true,
@@ -3619,6 +3689,19 @@
         "docs/research/ZIWEI-HUQIANJING-CHANGE-DAY-FINGERPRINT-SANMING-COMPARISON-R1.json"
       ],
       "adjudication_batch": "BATCH-12-ZIWEI-LANPEN-KYOTO-40-60-PHYSICAL-AND-HUQIAN-COPY-CONTROL-DZ"
+    },
+    {
+      "from": "RULE-FAMILY-DATONGLIZHU-TERM-THRESHOLD-WHOLEKE-SCHEDULE",
+      "relation": "DIRECT_UNCHANGED_TABLE_IDENTITY_WITH",
+      "to": "TABLE-SANMING-1578-DAYNIGHT-KE",
+      "status": "DISPROVED",
+      "reason": "Two high-information change-day loci differ despite the shared 59/41 summer endpoint: NCL-06627 gives Rainwater-side 後六日 47/53 and 後十四日 48/52 versus Sanming 雨水 47/53 and 後四日 48/52; NCL-06627 gives 後十四日 44/56 after the Dahan 43/57 state versus the Sanming physical sequence 十三後日 before 44/56.",
+      "evidence": [
+        "EXT-NCL-DATONGLIZHU-NCL06627-MING-THRESHOLD-FINGERPRINT",
+        "docs/research/ZIWEI-NCL06627-DATONGLIZHU-THRESHOLD-FINGERPRINT-R1.json",
+        "docs/research/ZIWEI-SANMING-1578-SEASONAL-TABLE-DIRECT-PHYSICAL-COLLATION-R1.json"
+      ],
+      "adjudication_batch": "BATCH-12-ZIWEI-NCL06627-DATONGLIZHU-THRESHOLD-FINGERPRINT-EC"
     }
   ],
   "backfill": {

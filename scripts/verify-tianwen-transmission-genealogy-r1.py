@@ -23,6 +23,7 @@ BATCH_12DY = ROOT / "docs/research/ZIWEI-WUZONG-SHILU-1518-MULTISOURCE-LOCAL-CAL
 BATCH_12DZ = ROOT / "docs/research/ZIWEI-LANPEN-KYOTO-40-60-PHYSICAL-HUQIAN-COPY-CONTROL-R1.json"
 BATCH_12EA = ROOT / "docs/research/ZIWEI-JIUTANGSHU-JIAJING17-GUILOU-HALFUP-ROUNDING-R1.json"
 BATCH_12EB = ROOT / "docs/research/ZIWEI-XINGYUNLU-DATONG-ENDPOINT-BINDING-R1.json"
+BATCH_12EC = ROOT / "docs/research/ZIWEI-NCL06627-DATONGLIZHU-THRESHOLD-FINGERPRINT-R1.json"
 
 
 def fail(message: str) -> None:
@@ -30,7 +31,7 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
-    for path in (CHARTER, PROTOCOL, GRAPH, STATE, BATCH_12CH, BATCH_12DP, BATCH_12DQ, BATCH_12DR, BATCH_12DS, BATCH_12DT, BATCH_12DU, BATCH_12DV, BATCH_12DW, BATCH_12DX, BATCH_12DY, BATCH_12DZ, BATCH_12EA, BATCH_12EB):
+    for path in (CHARTER, PROTOCOL, GRAPH, STATE, BATCH_12CH, BATCH_12DP, BATCH_12DQ, BATCH_12DR, BATCH_12DS, BATCH_12DT, BATCH_12DU, BATCH_12DV, BATCH_12DW, BATCH_12DX, BATCH_12DY, BATCH_12DZ, BATCH_12EA, BATCH_12EB, BATCH_12EC):
         if not path.is_file():
             fail(f"Tianwen transmission artifact missing: {path.relative_to(ROOT)}")
 
@@ -680,6 +681,27 @@ def main() -> int:
             fail(f"Batch 12EB transmission edge regressed: {eid}")
     if not any(x.get("batch") == "BATCH-12-ZIWEI-XINGYUNLU-DATONG-ENDPOINT-BINDING-EB" and "zero exact sanming-parent vote" in x.get("update", "").lower() for x in hyp12dk.get("evidence_updates", [])):
         fail("Batch 12EB genealogy hypothesis zero-vote update missing")
+
+    batch12ec = json.loads(BATCH_12EC.read_text(encoding="utf-8"))
+    ad12ec = batch12ec.get("adjudication", {})
+    if ad12ec.get("direct_physical_term_threshold_and_wholeke_coexistence") != "CLOSED_FOR_REVIEWED_NCL06627_TEXT_STATE":
+        fail("Batch 12EC compound architecture regressed")
+    if ad12ec.get("sanming_exact_change_day_fingerprint_match") is not False or ad12ec.get("secure_pre1578_binding_witness") is not False:
+        fail("Batch 12EC fingerprint/chronology firewall regressed")
+    copy12ec = next(n for n in nodes if n.get("node_id") == "PHYSICAL-COPY-DATONGLIZHU-NCL06627-MING-MANUSCRIPT")
+    rule12ec = next(n for n in nodes if n.get("node_id") == "RULE-FAMILY-DATONGLIZHU-TERM-THRESHOLD-WHOLEKE-SCHEDULE")
+    if copy12ec.get("secure_pre1578_physical_witness") is not False or copy12ec.get("physical_copy_date") != "MING_MANUSCRIPT_EXACT_DATE_UNRESOLVED":
+        fail("Batch 12EC physical chronology control regressed")
+    if rule12ec.get("direct_summer_day_night") != "59/41" or rule12ec.get("threshold_proved_as_wholeke_operator") is not False or rule12ec.get("exact_sanming_yueling_fingerprint") is not False:
+        fail("Batch 12EC rule-family firewall regressed")
+    for eid, rel in (("TG-E0091","ATTESTS"),("TG-E0092","STRUCTURAL_MECHANISM_CANDIDATE_FOR")):
+        e = next((x for x in edges if x.get("edge_id") == eid), None)
+        if not e or e.get("relation") != rel:
+            fail(f"Batch 12EC transmission edge regressed: {eid}")
+    if not any(x.get("from") == "RULE-FAMILY-DATONGLIZHU-TERM-THRESHOLD-WHOLEKE-SCHEDULE" and x.get("relation") == "DIRECT_UNCHANGED_TABLE_IDENTITY_WITH" and x.get("to") == "TABLE-SANMING-1578-DAYNIGHT-KE" and x.get("status") == "DISPROVED" for x in graph.get("explicit_non_edges", [])):
+        fail("Batch 12EC unchanged-table non-edge missing")
+    if not any(x.get("batch") == "BATCH-12-ZIWEI-NCL06627-DATONGLIZHU-THRESHOLD-FINGERPRINT-EC" and "zero exact sanming-parent vote" in x.get("update", "").lower() for x in hyp12dk.get("evidence_updates", [])):
+        fail("Batch 12EC genealogy hypothesis zero-vote update missing")
 
     ncl = next(n for n in nodes if n.get("node_id") == "PHYSICAL-COPY-SISHI-QIHOU-NCL03164-OLD-MANUSCRIPT")
     if ncl.get("physical_copy_date") != "UNRESOLVED":

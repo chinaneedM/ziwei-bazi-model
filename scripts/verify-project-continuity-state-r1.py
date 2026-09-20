@@ -66,6 +66,8 @@ ZIWEI_JIUTANGSHU_12EA_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AU
 ZIWEI_JIUTANGSHU_12EA_EVIDENCE = ROOT / "docs/research/ZIWEI-JIUTANGSHU-JIAJING17-GUILOU-HALFUP-ROUNDING-R1.json"
 ZIWEI_XINGYUNLU_12EB_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-XINGYUNLU-DATONG-ENDPOINT-BINDING-EB.md"
 ZIWEI_XINGYUNLU_12EB_EVIDENCE = ROOT / "docs/research/ZIWEI-XINGYUNLU-DATONG-ENDPOINT-BINDING-R1.json"
+ZIWEI_NCL06627_12EC_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NCL06627-DATONGLIZHU-THRESHOLD-FINGERPRINT-EC.md"
+ZIWEI_NCL06627_12EC_EVIDENCE = ROOT / "docs/research/ZIWEI-NCL06627-DATONGLIZHU-THRESHOLD-FINGERPRINT-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -325,9 +327,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-LANPEN-KYOTO-40-60-PHYSICAL-AND-HUQIAN-COPY-CONTROL-DZ",
     "BATCH-12-ZIWEI-JIUTANGSHU-JIAJING17-GUILOU-HALFUP-ROUNDING-EA",
     "BATCH-12-ZIWEI-XINGYUNLU-DATONG-ENDPOINT-BINDING-EB",
+    "BATCH-12-ZIWEI-NCL06627-DATONGLIZHU-THRESHOLD-FINGERPRINT-EC",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-XINGYUNLU-DATONG-ENDPOINT-BINDING-EB.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NCL06627-DATONGLIZHU-THRESHOLD-FINGERPRINT-EC.md"
 
 
 def fail(message: str) -> None:
@@ -546,6 +549,34 @@ def main() -> int:
     eb_source = next((s for s in eb_registry.get("sources", []) if s.get("source_id") == "EXT-NLC-XINGYUNLU-MING-WANLI-V2-DATONG-ENDPOINT-BINDING"), None)
     if eb_source is None or eb_source.get("batch_12eb", {}).get("target_pdf_page") != 52:
         fail("Batch 12EB external-source registry binding missing")
+
+    for path in (ZIWEI_NCL06627_12EC_BATCH, ZIWEI_NCL06627_12EC_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12EC continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12ec = json.loads(ZIWEI_NCL06627_12EC_EVIDENCE.read_text(encoding="utf-8"))
+    if batch12ec.get("batch_id") != "BATCH-12-ZIWEI-NCL06627-DATONGLIZHU-THRESHOLD-FINGERPRINT-EC":
+        fail("Batch 12EC evidence identity mismatch")
+    col12ec = batch12ec.get("direct_physical_collation", {})
+    if col12ec.get("page_66", {}).get("page_sha256") != "cfe70aef0b6cbdcc337e789ffe9d109eabffe3534744673b28d6b5547e6c24da":
+        fail("Batch 12EC p66 physical hash regressed")
+    if col12ec.get("page_179", {}).get("page_sha256") != "2efc7a5fedb470656fc7376691508e248c30c760ec6fb520424fa47c0e070c61" or col12ec.get("page_180", {}).get("page_sha256") != "4e5547e6ab9b14bc87cc093f56d3de05d2593506972469894ea1df2e3c04f708":
+        fail("Batch 12EC Dahan fingerprint page hashes regressed")
+    if "後十四日 晝四十四刻 夜五十六刻" not in col12ec.get("page_180", {}).get("direct_sequence", ()):
+        fail("Batch 12EC Dahan 後十四日 fingerprint regressed")
+    p2seq = col12ec.get("page_2", {}).get("direct_sequence", ())
+    if "後六日 晝四十七刻 夜五十三刻" not in p2seq or "後十四日 晝四十八刻 夜五十二刻" not in p2seq:
+        fail("Batch 12EC Rainwater-side fingerprint regressed")
+    ad12ec = batch12ec.get("adjudication", {})
+    if ad12ec.get("direct_unchanged_table_identity_with_sanming_1578") != "DISPROVED_FOR_REVIEWED_TEXT_STATE" or ad12ec.get("secure_pre1578_binding_witness") is not False or ad12ec.get("direct_sanming_parent_vote_increment") != 0:
+        fail("Batch 12EC chronology/fingerprint firewall regressed")
+    if ad12ec.get("threshold_is_proved_operator_for_wholeke_schedule") is not False:
+        fail("Batch 12EC threshold/operator firewall regressed")
+    if any(ad12ec.get(k) for k in ("matrix_count_change", "runtime_rule_change", "algorithm_reopen_authorized", "candidate_collapse_authorized")):
+        fail("Batch 12EC product firewall regressed")
+    ec_registry = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    ec_source = next((s for s in ec_registry.get("sources", []) if s.get("source_id") == "EXT-NCL-DATONGLIZHU-NCL06627-MING-THRESHOLD-FINGERPRINT"), None)
+    if ec_source is None or ec_source.get("batch_12ec", {}).get("page_sha256", {}).get("180") != "4e5547e6ab9b14bc87cc093f56d3de05d2593506972469894ea1df2e3c04f708":
+        fail("Batch 12EC external-source registry binding missing")
 
     for path in (ZIWEI_KYUDB_12DT_BATCH, ZIWEI_KYUDB_12DT_EVIDENCE):
         if not path.is_file():
