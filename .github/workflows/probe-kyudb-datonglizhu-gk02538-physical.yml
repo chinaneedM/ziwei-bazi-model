@@ -130,6 +130,21 @@ jobs:
             };
           }
 
+          async function downloadTasks(tasks,concurrency=8){
+            const results=new Array(tasks.length);
+            let cursor=0;
+            const workers=Array.from({length:Math.min(concurrency,Math.max(1,tasks.length))},async()=>{
+              while(true){
+                const i=cursor++;
+                if(i>=tasks.length) return;
+                const [vol,p]=tasks[i];
+                results[i]=await download(vol,p);
+              }
+            });
+            await Promise.all(workers);
+            return results;
+          }
+
           // Text layer is locator-only. Probe enough range to capture any hidden indexing.
           const targetTerms=['大寒','雨水','冬至餘','已上為退','後四日','後六日','後十三日','十三後','晝四十七刻','晝四十四刻','跋','金鑌','世宗'];
           const textTasks=[];
@@ -153,15 +168,19 @@ jobs:
           const textRows=textResults.filter(x=>x.text);
 
           const physical=[];
-          // Rainwater: complete first 12 leaves of volume 1.
+          // Rainwater: complete first 12 leaves of volume 1. Preserve task order while downloading in parallel.
+          const rainTasks=[];
           for(let n=0;n<=11;n++) for(const ab of ['a','b']){
-            physical.push(await download('0001',String(n).padStart(3,'0')+ab));
+            rainTasks.push(['0001',String(n).padStart(3,'0')+ab]);
           }
+          physical.push(...await downloadTasks(rainTasks,8));
 
           // Volume 4 locator: every second a-side leaf through 110 to locate juan 12 and terminal postface.
+          const locatorTasks=[];
           for(let n=0;n<=110;n+=2){
-            physical.push(await download('0004',String(n).padStart(3,'0')+'a'));
+            locatorTasks.push(['0004',String(n).padStart(3,'0')+'a']);
           }
+          physical.push(...await downloadTasks(locatorTasks,8));
 
           // Determine last substantive a-side and pull a complete +/- 14-leaf terminal neighborhood.
           const vol4a=physical.filter(x=>x.volume==='0004'&&x.download_ok&&x.page.endsWith('a'));
@@ -169,14 +188,16 @@ jobs:
           for(const x of vol4a) lastN=Math.max(lastN,parseInt(x.page.slice(0,3),10));
           const start=Math.max(0,lastN-14), end=Math.min(120,lastN+4);
           const already=new Set(physical.filter(x=>x.download_ok).map(x=>x.volume+'/'+x.page));
+          const terminalTasks=[];
           for(let n=start;n<=end;n++) for(const ab of ['a','b']){
             const p=String(n).padStart(3,'0')+ab;
-            if(!already.has('0004/'+p)) physical.push(await download('0004',p));
+            if(!already.has('0004/'+p)) terminalTasks.push(['0004',p]);
           }
+          physical.push(...await downloadTasks(terminalTasks,8));
 
           const report={
             schema:'KYUDB-DATONGLIZHU-GK02538-PHYSICAL-PROBE-R1',
-            schema_version:'1.1.0',
+            schema_version:'1.2.0',
             provider:'Kyujanggak Institute for Korean Studies, Seoul National University',
             book_cd:book,
             call_number:'奎2538-v.1-4',
