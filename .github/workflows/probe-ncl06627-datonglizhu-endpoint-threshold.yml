@@ -1,0 +1,131 @@
+name: probe-ncl06627-datonglizhu-endpoint-threshold
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-ncl06627-datonglizhu-endpoint-threshold.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Acquire NCL-06627 and fix endpoint-threshold review window
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/ncl06627-endpoint-threshold'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT/pages" "$ROOT/frontback"
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils >/dev/null
+          python -m pip install --quiet pillow
+          python - <<'PY'
+          import hashlib, json, pathlib, re, subprocess, urllib.parse, urllib.request
+          from PIL import Image, ImageDraw
+
+          root=pathlib.Path("audit/ncl06627-endpoint-threshold")
+          title="File:NCL-06627 大統曆註.pdf"
+          api="https://commons.wikimedia.org/w/api.php?" + urllib.parse.urlencode({
+              "action":"query","format":"json","formatversion":"2",
+              "prop":"imageinfo","iiprop":"url|size|sha1|extmetadata","titles":title
+          })
+          headers={"User-Agent":"Tianwen-Provenance-Audit/1.0"}
+          with urllib.request.urlopen(urllib.request.Request(api,headers=headers),timeout=60) as r:
+              meta=json.load(r)
+          page=meta["query"]["pages"][0]
+          if "missing" in page:
+              raise SystemExit(f"Commons file missing: {title}")
+          ii=page["imageinfo"][0]
+          url=ii["url"]
+          (root/"commons-metadata.json").write_text(json.dumps(meta,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+          with urllib.request.urlopen(urllib.request.Request(url,headers=headers),timeout=300) as r:
+              data=r.read()
+          pdf=root/"NCL-06627-datonglizhu.pdf"
+          pdf.write_bytes(data)
+          pdf_sha=hashlib.sha256(data).hexdigest()
+          info=subprocess.run(["pdfinfo",str(pdf)],stdout=subprocess.PIPE,check=True).stdout.decode("utf-8",errors="replace")
+          (root/"pdfinfo.txt").write_text(info,encoding="utf-8")
+          m=re.search(r"^Pages:\s+(\d+)",info,re.M)
+          pages=int(m.group(1)) if m else 195
+
+          selected=sorted(set(list(range(64,min(68,pages)+1)) + list(range(1,min(12,pages)+1)) + list(range(max(1,pages-11),pages+1))))
+          manifest=[]
+          for n in selected:
+              outdir=root/"pages" if 64 <= n <= 68 else root/"frontback"
+              prefix=outdir/f"p{n:03d}"
+              subprocess.run(["pdftoppm","-f",str(n),"-singlefile","-jpeg","-r","320",str(pdf),str(prefix)],
+                             check=True,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
+              p=pathlib.Path(str(prefix)+".jpg")
+              b=p.read_bytes()
+              manifest.append({"page":n,"file":str(p.relative_to(root)),"bytes":len(b),"sha256":hashlib.sha256(b).hexdigest()})
+
+          # Make an endpoint contact sheet for deterministic direct review.
+          paths=sorted((root/"pages").glob("p*.jpg"))
+          thumbs=[]
+          for p in paths:
+              n=int(p.stem[1:])
+              im=Image.open(p).convert("RGB")
+              tw=520; ratio=tw/im.width
+              im=im.resize((tw,max(1,int(im.height*ratio))))
+              c=Image.new("RGB",(tw,im.height+30),"white"); c.paste(im,(0,30))
+              ImageDraw.Draw(c).text((6,6),f"PDF p{n}",fill="black")
+              thumbs.append(c)
+          if thumbs:
+              cw=max(x.width for x in thumbs); ch=max(x.height for x in thumbs)
+              sheet=Image.new("RGB",(cw*len(thumbs),ch),"white")
+              for i,im in enumerate(thumbs): sheet.paste(im,(i*cw,0))
+              sheet.save(root/"endpoint-contact-p064-p068.jpg",quality=92,optimize=True)
+
+          ext=ii.get("extmetadata") or {}
+          report={
+              "schema":"NCL06627-DATONGLIZHU-ENDPOINT-THRESHOLD-PROBE-R1",
+              "schema_version":"1.0.0",
+              "commons_file_title":title,
+              "source_url":url,
+              "commons_sha1":ii.get("sha1"),
+              "pdf_sha256":pdf_sha,
+              "pdf_pages":pages,
+              "catalog_control":{
+                  "work":"大統曆註",
+                  "ncl_identifier":"NCL-06627",
+                  "public_surrogate":"Wikimedia Commons / National Central Library scan",
+                  "known_project_scope":"Ming manuscript / exact physical copy date unresolved unless direct front/back evidence closes it"
+              },
+              "publication_date_metadata":(ext.get("Date") or {}).get("value"),
+              "image_description_metadata":(ext.get("ImageDescription") or {}).get("value"),
+              "selected_direct_review_pages":selected,
+              "fixed_endpoint_window":"PDF p64-p68; prior locator ranked p66 for 夏至/日出/五十九/四十一",
+              "target_pdf_page_1_based":66,
+              "page_manifest":manifest,
+              "prior_locator_control":{
+                  "source":"docs/research/NCL-06627-DATONGLIZHU-PAGE-LOCATOR-R1.json",
+                  "p66_ocr_hits":["夏至","日出","刻","五十九","四十一"],
+                  "ocr_authority":"LOCATOR_ONLY_NOT_FINAL_GLYPH_NUMERIC_OR_LINEAGE_AUTHORITY"
+              },
+              "direct_review_questions":[
+                  "Does p66 physically preserve 夏至 together with day/night 五十九刻/四十一刻?",
+                  "Does the same local passage preserve a remainder or threshold instruction such as 十五分已上 and, if so, what quantity does it govern?",
+                  "Do front/back leaves expose an internal date, postface, copy note, or recension marker capable of securely pre-1578 dating this physical/textual state?"
+              ],
+              "product_boundary":"Probe only; no runtime change, algorithm reopen, candidate collapse, or ancestry promotion without direct physical adjudication."
+          }
+          (root/"report.json").write_text(json.dumps(report,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+          print(json.dumps({"pdf_sha256":pdf_sha,"pages":pages,"selected":selected},ensure_ascii=False,indent=2))
+          PY
+
+      - name: Upload NCL-06627 endpoint-threshold probe
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ncl06627-datonglizhu-endpoint-threshold
+          path: audit/ncl06627-endpoint-threshold
+          if-no-files-found: error
+          retention-days: 30
