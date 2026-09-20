@@ -153,11 +153,16 @@ jobs:
             for(let j=Math.max(0,i-3);j<=Math.min(pages.length-1,i+3);j++) wanted.get(row.volume).add(pages[j]);
           }
 
-          // Preserve deterministic controls even if the text layer misses one target.
-          for(const [vol,controls] of Object.entries({
-            '0001':['000a','001a','002a','002b','003a','003b','004a','004b'],
-            '0004':['000a','001a','002a','002b','002a','006a','010a','014a','018a','022a','026a','030a','034a','038a','042a','046a','050a','054a','058a','062a','066a','070a','074a','078a']
-          })){
+          // Preserve deterministic physical windows even when the pageText layer is empty.
+          // Volume 1: complete opening neighborhood covering juan 1 / first-month Rainwater.
+          // Volume 4: juan 11 tail -> juan 12 opening, where December / Dahan must occur.
+          const exactFallback={
+            '0001':[],
+            '0004':[]
+          };
+          for(let n=0;n<=8;n++) for(const ab of ['a','b']) exactFallback['0001'].push(String(n).padStart(3,'0')+ab);
+          for(let n=49;n<=60;n++) for(const ab of ['a','b']) exactFallback['0004'].push(String(n).padStart(3,'0')+ab);
+          for(const [vol,controls] of Object.entries(exactFallback)){
             if(!wanted.has(vol)) wanted.set(vol,new Set());
             for(const p of controls) wanted.get(vol).add(p);
           }
@@ -200,7 +205,7 @@ jobs:
 
           const report={
             schema:'KYUDB-DATONGLIZHU-GK02426-FINGERPRINT-PROBE-R1',
-            schema_version:'1.1.0',
+            schema_version:'1.2.0',
             provider:'Kyujanggak Institute for Korean Studies, Seoul National University',
             book_cd:book,
             call_number:'奎2426-v.1-4',
@@ -219,7 +224,7 @@ jobs:
             text_layer_authority:'LOCATOR_ONLY_NOT_FINAL_GLYPH_NUMERIC_DATE_OR_LINEAGE_AUTHORITY',
             physical_image_authority:'DIRECT_SOURCE_BOUND_FACSIMILE_REQUIRED_FOR_FINAL_GLYPH_NUMERIC_AND_RECENSION_CLAIMS',
             chronology_firewall:'Catalog year remains unresolved. The 1434 postface is a dating lead, not automatic date assignment to all content.',
-            deterministic_fallback_sampling:'Volume 1 fixes the Rainwater opening/back-leaf neighborhood; volume 4 samples every fourth a-side leaf from 002a through 078a to locate the卷12/十二月/Dahan section when the pageText layer is empty.',
+            deterministic_fallback_sampling:'pageText is empty for this object. Volume 1 is therefore fixed at every a/b side from 000a through 008b; volume 4 is fixed at every a/b side from 049a through 060b, spanning the directly located juan-11 tail into the expected juan-12 / December / Dahan opening.',
             ocr_used_for_final_glyph_claims:false,
             research_questions:[
               'Does volume 1 physically reproduce the Sanming/Yueling Rainwater fingerprint 47/53 -> 後四日 -> 48/52?',
