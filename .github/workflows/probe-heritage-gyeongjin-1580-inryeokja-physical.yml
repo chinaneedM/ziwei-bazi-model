@@ -40,7 +40,11 @@ jobs:
           import crypto from 'node:crypto';
 
           const root='audit/heritage-gyeongjin-1580-inryeokja';
-          const target='https://www.heritage.go.kr/heri/mem/selectHaejeDetail.do?pg=1&returnUrl=kr%2Fgo%2Fheritage%2Fmem%2FEgovHaejePrint&s_asno=13190000&s_cnum=0001&s_ctcd=00&s_kdcd=12&searchDisp=0';
+          const targets=[
+            {key:'heritage-detail',url:'https://www.heritage.go.kr/heri/mem/selectHaejeDetail.do?pg=1&returnUrl=kr%2Fgo%2Fheritage%2Fmem%2FEgovHaejePrint&s_asno=13190000&s_cnum=0001&s_ctcd=00&s_kdcd=12&searchDisp=0'},
+            {key:'heritage-hwalja',url:'https://www.heritage.go.kr/heri/html/HtmlPage.do?pg=%2Fhwalja%2Fhwalja01_01.jsp'},
+            {key:'aks-gyeongjin',url:'https://encykorea.aks.ac.kr/Article/E0068940'}
+          ];
           const browser=await puppeteer.launch({
             headless:true,
             executablePath:process.env.BROWSER,
@@ -70,56 +74,76 @@ jobs:
             }catch{}
           });
 
-          let gotoError=null;
-          try{
-            await page.goto(target,{waitUntil:'networkidle2',timeout:90000});
-          }catch(e){gotoError=String(e)}
-          await new Promise(r=>setTimeout(r,2500));
-          fs.writeFileSync(root+'/page.html',await page.content());
-          fs.writeFileSync(root+'/page-text.txt',await page.evaluate(()=>document.body.innerText||''));
-          await page.screenshot({path:root+'/page.png',fullPage:true}).catch(()=>{});
-
-          const dom=await page.evaluate(()=>({
-            title:document.title,
-            url:location.href,
-            images:[...document.images].map(x=>({src:x.src,alt:x.alt,width:x.naturalWidth,height:x.naturalHeight})),
-            links:[...document.querySelectorAll('a')].map(x=>({text:(x.innerText||'').trim(),href:x.href})).filter(x=>x.text||x.href),
-            buttons:[...document.querySelectorAll('button,input[type=button],input[type=submit]')].map(x=>({text:(x.innerText||x.value||'').trim(),onclick:x.getAttribute('onclick')})),
-            iframes:[...document.querySelectorAll('iframe')].map(x=>x.src),
-          }));
-          fs.writeFileSync(root+'/dom.json',JSON.stringify(dom,null,2));
-
-          // Try links/buttons likely to expose original images; keep all resulting image traffic.
-          const candidates=await page.$$('a,button,input[type=button],input[type=submit]');
-          for(let i=0;i<candidates.length;i++){
-            const el=candidates[i];
-            const label=await el.evaluate(x=>((x.innerText||x.value||x.getAttribute('title')||x.getAttribute('alt')||'')+' '+(x.getAttribute('onclick')||'')).trim()).catch(()=>'');
-            if(!/(원문|이미지|image|사진|상세|보기)/i.test(label)) continue;
+          const pageReports=[];
+          for(const t of targets){
+            let gotoError=null;
             try{
-              await el.click();
-              await new Promise(r=>setTimeout(r,1400));
-            }catch{}
+              await page.goto(t.url,{waitUntil:'networkidle2',timeout:90000});
+            }catch(e){gotoError=String(e)}
+            // Force lazy media into the viewport.
+            await page.evaluate(async()=>{
+              for(let y=0;y<document.body.scrollHeight;y+=700){
+                window.scrollTo(0,y);
+                await new Promise(r=>setTimeout(r,180));
+              }
+              window.scrollTo(0,0);
+            }).catch(()=>{});
+            await new Promise(r=>setTimeout(r,1800));
+
+            // Try controls likely to expose media, but never submit forms requiring user data.
+            const candidates=await page.$('a,button,input[type=button]');
+            for(let i=0;i<candidates.length;i++){
+              const el=candidates[i];
+              const label=await el.evaluate(x=>((x.innerText||x.value||x.getAttribute('title')||x.getAttribute('alt')||'')+' '+(x.getAttribute('onclick')||'')).trim()).catch(()=>'');
+              if(!/(원문|이미지|image|사진|미디어|갤러리|상세|보기)/i.test(label)) continue;
+              if(/다운로드|신청|로그인/i.test(label)) continue;
+              try{
+                await el.click();
+                await new Promise(r=>setTimeout(r,900));
+              }catch{}
+            }
+            const html=await page.content();
+            const textBody=await page.evaluate(()=>document.body.innerText||'');
+            const dom=await page.evaluate(()=>({
+              title:document.title,
+              url:location.href,
+              images:[...document.querySelectorAll('img')].map(x=>({
+                src:x.src,
+                currentSrc:x.currentSrc,
+                dataSrc:x.getAttribute('data-src'),
+                dataOriginal:x.getAttribute('data-original'),
+                alt:x.alt,
+                width:x.naturalWidth,
+                height:x.naturalHeight
+              })),
+              links:[...document.querySelectorAll('a')].map(x=>({text:(x.innerText||'').trim(),href:x.href})).filter(x=>x.text||x.href),
+              buttons:[...document.querySelectorAll('button,input[type=button]')].map(x=>({text:(x.innerText||x.value||'').trim(),onclick:x.getAttribute('onclick')})),
+              iframes:[...document.querySelectorAll('iframe')].map(x=>x.src),
+            }));
+            fs.writeFileSync(root+`/${t.key}.html`,html);
+            fs.writeFileSync(root+`/${t.key}-text.txt`,textBody);
+            fs.writeFileSync(root+`/${t.key}-dom.json`,JSON.stringify(dom,null,2));
+            await page.screenshot({path:root+`/${t.key}.png`,fullPage:true}).catch(()=>{});
+            pageReports.push({
+              key:t.key,target_url:t.url,goto_error:gotoError,final_url:page.url(),title:await page.title(),
+              text_has_庚辰年大統曆:textBody.includes('庚辰年大統曆'),
+              text_has_관상감활자:textBody.includes('관상감활자'),
+              text_has_인력자:textBody.includes('인력자'),
+              dom
+            });
           }
-          await new Promise(r=>setTimeout(r,2000));
 
           const report={
             schema:'HERITAGE-GYEONGJIN-1580-INRYEOKJA-PHYSICAL-PROBE-R1',
-            schema_version:'1.0.0',
-            provider:'Korea Heritage Service / 국가유산포털',
-            target_url:target,
-            goto_error:gotoError,
-            final_url:page.url(),
-            title:await page.title(),
-            text_has_庚辰年大統曆:(await page.evaluate(()=>document.body.innerText||'')).includes('庚辰年大統曆'),
-            text_has_관상감활자:(await page.evaluate(()=>document.body.innerText||'')).includes('관상감활자'),
-            text_has_인력자:(await page.evaluate(()=>document.body.innerText||'')).includes('인력자'),
+            schema_version:'1.1.0',
+            providers:['Korea Heritage Service / 국가유산포털','Academy of Korean Studies / 한국민족문화대백과사전'],
+            pages:pageReports,
             network_images:captured,
-            dom,
             adjudication_firewall:'This probe only builds a dated official physical/type comparison set. Similarity or difference must not be converted into a GK02538 impression date without direct typographic adjudication.',
             ocr_used_for_final_claims:false
           };
           fs.writeFileSync(root+'/report.json',JSON.stringify(report,null,2));
-          console.log(JSON.stringify({gotoError,title:report.title,final_url:report.final_url,network_images:captured.length,dom_images:dom.images.length,buttons:dom.buttons.slice(0,40)},null,2));
+          console.log(JSON.stringify({pages:pageReports.map(x=>({key:x.key,goto_error:x.goto_error,title:x.title,final_url:x.final_url,dom_images:x.dom.images.length,text_has_庚辰年大統曆:x.text_has_庚辰年大統曆,text_has_인력자:x.text_has_인력자})),network_images:captured.length},null,2));
           await browser.close();
           JS
           BROWSER="$BROWSER" node "$ROOT/capture.mjs"
