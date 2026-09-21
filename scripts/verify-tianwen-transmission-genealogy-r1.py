@@ -773,6 +773,16 @@ def main() -> int:
     if not any(x.get("batch") == "BATCH-12-ZIWEI-KYUDB-DATONGLIZHU-GK02538-GWANSANGGAM-TYPE-CATEGORY-AND-INHERITED-COLOPHON-CONTROL-EG" and "zero exact sanming-parent vote" in x.get("update", "").lower() for x in hyp12dk.get("evidence_updates", [])):
         fail("Batch 12EG genealogy hypothesis zero-vote update missing")
 
+
+    if copy12ee.get("dated_inryeokja_physical_comparators_acquired") is not True:
+        fail("Batch 12EH dated-comparator node control regressed")
+    if copy12ee.get("annual_calendar_layout_is_copy_dating_operator") is not False or copy12ee.get("gwansanggam_specific_subtype") != "UNRESOLVED" or copy12ee.get("casting_generation") != "UNRESOLVED":
+        fail("Batch 12EH type-subtype/copy-dating node firewall regressed")
+    if copy12ee.get("shared_glyph_identity_control_status") != "NOT_YET_CLOSED":
+        fail("Batch 12EH shared-glyph gate regressed")
+    if not any(x.get("batch") == "BATCH-12-ZIWEI-KYUDB-GK02538-DATED-INRYEOKJA-PHYSICAL-COMPARATOR-AND-SUBTYPE-FIREWALL-EH" and "zero exact sanming-parent vote" in x.get("update", "").lower() for x in hyp12dk.get("evidence_updates", [])):
+        fail("Batch 12EH genealogy hypothesis zero-vote update missing")
+
     ncl = next(n for n in nodes if n.get("node_id") == "PHYSICAL-COPY-SISHI-QIHOU-NCL03164-OLD-MANUSCRIPT")
     if ncl.get("physical_copy_date") != "UNRESOLVED":
         fail("NCL-03164 physical-copy date was falsely closed")

@@ -76,6 +76,8 @@ ZIWEI_KYUDB_DATONGLIZHU_12EF_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVEN
 ZIWEI_KYUDB_DATONGLIZHU_12EF_EVIDENCE = ROOT / "docs/research/ZIWEI-KYUDB-DATONGLIZHU-GK02538-1442-TERMINAL-DATE-IMPRESSION-FIREWALL-R1.json"
 ZIWEI_KYUDB_DATONGLIZHU_12EG_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KYUDB-DATONGLIZHU-GK02538-GWANSANGGAM-TYPE-CATEGORY-AND-INHERITED-COLOPHON-CONTROL-EG.md"
 ZIWEI_KYUDB_DATONGLIZHU_12EG_EVIDENCE = ROOT / "docs/research/ZIWEI-KYUDB-DATONGLIZHU-GK02538-GWANSANGGAM-TYPE-CATEGORY-AND-INHERITED-COLOPHON-CONTROL-R1.json"
+ZIWEI_KYUDB_DATONGLIZHU_12EH_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KYUDB-GK02538-DATED-INRYEOKJA-PHYSICAL-COMPARATOR-AND-SUBTYPE-FIREWALL-EH.md"
+ZIWEI_KYUDB_DATONGLIZHU_12EH_EVIDENCE = ROOT / "docs/research/ZIWEI-KYUDB-GK02538-DATED-INRYEOKJA-PHYSICAL-COMPARATOR-AND-SUBTYPE-FIREWALL-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -340,9 +342,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-KYUDB-DATONGLIZHU-GK02538-1434-TYPE-POSTFACE-AND-FINGERPRINT-EE",
     "BATCH-12-ZIWEI-KYUDB-DATONGLIZHU-GK02538-1442-TERMINAL-DATE-IMPRESSION-FIREWALL-EF",
     "BATCH-12-ZIWEI-KYUDB-DATONGLIZHU-GK02538-GWANSANGGAM-TYPE-CATEGORY-AND-INHERITED-COLOPHON-CONTROL-EG",
+    "BATCH-12-ZIWEI-KYUDB-GK02538-DATED-INRYEOKJA-PHYSICAL-COMPARATOR-AND-SUBTYPE-FIREWALL-EH",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KYUDB-DATONGLIZHU-GK02538-GWANSANGGAM-TYPE-CATEGORY-AND-INHERITED-COLOPHON-CONTROL-EG.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KYUDB-GK02538-DATED-INRYEOKJA-PHYSICAL-COMPARATOR-AND-SUBTYPE-FIREWALL-EH.md"
 
 
 def fail(message: str) -> None:
@@ -733,6 +736,47 @@ def main() -> int:
     ):
         if not any(s.get("source_id") == sid for s in eg_registry.get("sources", [])):
             fail(f"Batch 12EG source registry control missing: {sid}")
+
+
+    for path in (ZIWEI_KYUDB_DATONGLIZHU_12EH_BATCH, ZIWEI_KYUDB_DATONGLIZHU_12EH_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12EH continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12eh = json.loads(ZIWEI_KYUDB_DATONGLIZHU_12EH_EVIDENCE.read_text(encoding="utf-8"))
+    if batch12eh.get("batch_id") != "BATCH-12-ZIWEI-KYUDB-GK02538-DATED-INRYEOKJA-PHYSICAL-COMPARATOR-AND-SUBTYPE-FIREWALL-EH":
+        fail("Batch 12EH evidence identity mismatch")
+    wf12eh = batch12eh.get("workflow_evidence", {})
+    if wf12eh.get("workflow_run_id") != 35551350656 or wf12eh.get("artifact_id") != 10618158169 or wf12eh.get("all_target_images_recovered") is not True:
+        fail("Batch 12EH physical comparator artifact binding regressed")
+    comps12eh = batch12eh.get("dated_physical_comparators", {})
+    if comps12eh.get("gyeongjin_1580_head", {}).get("sha256") != "34dcbde6f5b79629df507498e1c22baa09db8f6ac74368b80f3819d82e61de2e":
+        fail("Batch 12EH Gyeongjin head hash regressed")
+    if comps12eh.get("gyeongjin_1580_tail", {}).get("sha256") != "306b8f03949850c0cedd9575263208ccbd9dc8e6465165b13406ef1918788590":
+        fail("Batch 12EH Gyeongjin tail hash regressed")
+    if comps12eh.get("ryu_gabjin_1604", {}).get("sha256") != "05a59824cfb8a836e2c86168f1610417f115a372f50af4c0f6613b8cde864a3b" or comps12eh.get("ryu_gabjin_1604", {}).get("direct_visible_date_heading") is not True:
+        fail("Batch 12EH 1604 direct comparator regressed")
+    vis12eh = batch12eh.get("direct_visual_adjudication", {})
+    if vis12eh.get("annual_calendar_page_architecture_is_copy_identical_comparator") is not False or vis12eh.get("visual_resemblance_alone_dates_gk02538") is not False or vis12eh.get("shared_glyph_casting_generation_identity_closed") is not False:
+        fail("Batch 12EH layout/shared-glyph firewall regressed")
+    tax12eh = batch12eh.get("specialist_taxonomy_control", {})
+    if tax12eh.get("gk02538_specific_subtype_identified") is not False:
+        fail("Batch 12EH subtype firewall regressed")
+    chrono12eh = batch12eh.get("chronology_adjudication", {})
+    if chrono12eh.get("gk02538_specific_type_subtype_identified") is not False or chrono12eh.get("gk02538_casting_generation_identified") is not False or chrono12eh.get("gk02538_exact_impression_year_adjudicated") is not False:
+        fail("Batch 12EH chronology firewall regressed")
+    ad12eh = batch12eh.get("adjudication", {})
+    if ad12eh.get("direct_sanming_parent_vote_increment") != 0 or ad12eh.get("threshold_to_wholeke_operator_closed") is not False:
+        fail("Batch 12EH lineage/mechanism zero-vote firewall regressed")
+    if any(ad12eh.get(k) for k in ("matrix_count_change","runtime_rule_change","algorithm_reopen_authorized","candidate_collapse_authorized")):
+        fail("Batch 12EH product firewall regressed")
+    eh_registry = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    for sid in (
+        "EXT-HERITAGE-GYEONGJIN-1580-INRYEOKJA-PHYSICAL-CONTROL",
+        "EXT-AKS-RYU-GABJIN1604-INRYEOKJA-PHYSICAL-CONTROL",
+        "EXT-HERITAGE-RYU-1594-1606-DAETONGLYOK-DATED-SERIES",
+        "EXT-RISS-KIM-SANGHO-1987-GWANSANGGAM-TYPE-SUBTYPE-TAXONOMY",
+    ):
+        if not any(s.get("source_id") == sid for s in eh_registry.get("sources", [])):
+            fail(f"Batch 12EH source registry control missing: {sid}")
 
     for path in (ZIWEI_KYUDB_12DT_BATCH, ZIWEI_KYUDB_12DT_EVIDENCE):
         if not path.is_file():
