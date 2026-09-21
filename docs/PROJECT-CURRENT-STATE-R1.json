@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.146.0",
+  "schema_version": "1.147.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -224,9 +224,10 @@
       "BATCH-12-ZIWEI-KYUDB-DATONGLIZHU-GK02538-1434-TYPE-POSTFACE-AND-FINGERPRINT-EE",
       "BATCH-12-ZIWEI-KYUDB-DATONGLIZHU-GK02538-1442-TERMINAL-DATE-IMPRESSION-FIREWALL-EF",
       "BATCH-12-ZIWEI-KYUDB-DATONGLIZHU-GK02538-GWANSANGGAM-TYPE-CATEGORY-AND-INHERITED-COLOPHON-CONTROL-EG",
-      "BATCH-12-ZIWEI-KYUDB-GK02538-DATED-INRYEOKJA-PHYSICAL-COMPARATOR-AND-SUBTYPE-FIREWALL-EH"
+      "BATCH-12-ZIWEI-KYUDB-GK02538-DATED-INRYEOKJA-PHYSICAL-COMPARATOR-AND-SUBTYPE-FIREWALL-EH",
+      "BATCH-12-ZIWEI-KYUDB-GK02538-INRYEOKJA-BODY-SCALE-COMPATIBILITY-AND-CASTING-FIREWALL-EI"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KYUDB-GK02538-DATED-INRYEOKJA-PHYSICAL-COMPARATOR-AND-SUBTYPE-FIREWALL-EH.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KYUDB-GK02538-INRYEOKJA-BODY-SCALE-COMPATIBILITY-AND-CASTING-FIREWALL-EI.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -819,7 +820,11 @@
       "Batch 12EH builds the first direct dated Gwansanggam/Inryeokja physical comparator corpus beside GK02538: full-size 1580 庚辰年大統曆 head/tail, direct 1604 柳成龍甲辰大統曆 media, and exact GK02538 p002a/p002b/p057a/p057b are bound in one artifact with SHA controls.",
       "Direct visual review rejects a page-layout shortcut: annual calendar grids, chained calendar formulae and mixed type sizes are structurally different from the 12-juan Datonglizhu commentary format, so layout resemblance/difference cannot date GK02538 or prove a different type family.",
       "A specialist 1987 bibliography study indexed by RISS independently warns that multiple distinct types have often been collapsed under the generic label Kwansanggam Type and proposes four subtypes. GK02538 is not assigned to any subtype until object-level shared-glyph/type evidence is recovered.",
-      "Batch 12EH leaves exact GK02538 impression year, specific subtype and casting generation unresolved; product counts remain 198 / 166 / 10, provenance defects 12/12, chart algorithm defect/reopen/collapse 0, exact Sanming-parent vote increment 0. Next chronology gate is scale-preserving shared-glyph comparison or authoritative subtype identification."
+      "Batch 12EH leaves exact GK02538 impression year, specific subtype and casting generation unresolved; product counts remain 198 / 166 / 10, provenance defects 12/12, chart algorithm defect/reopen/collapse 0, exact Sanming-parent vote increment 0. Next chronology gate is scale-preserving shared-glyph comparison or authoritative subtype identification.",
+      "Batch 12EI adds an official type-body scale control: Korea Heritage Portal lists 16th-century 印曆字 / 觀象監 iron type as medium 1.2×0.8 cm and small 0.5×0.4 cm, used for 大統曆 and other calendrical books; the same source leaves the exact casting date unresolved and only places use before the Imjin War by historical inference.",
+      "GK02538 catalog metadata gives a half-leaf frame 25.3×17.5 cm with 9 lines × 21 characters and double-line annotations. The nominal vertical body slot is therefore 25.3/21 = 1.2047619 cm, only 0.397% above the official 1.2 cm medium 印曆字 height. This closes nominal physical-scale compatibility only; it is not a direct glyph/body measurement and does not prove a casting generation.",
+      "The official 1604 Ryu Gabjin calendar record gives half-frame 28.5×16.2 cm but explicitly says line/character count is variable. Its annual-calendar image also mixes type sizes and manuscript annotations, so frame normalization cannot be converted into a uniform shared-glyph casting identity without size-class binding.",
+      "Batch 12EI leaves GK02538 subtype, casting generation and exact impression year unresolved; shared-glyph form identity remains open. Product counts remain 198 / 166 / 10, provenance defects 12/12, chart algorithm defect/reopen/collapse 0, exact Sanming-parent vote increment 0. Next gate is size-class-bound shared-glyph/type-form comparison or authoritative object-specific subtype identification."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10
@@ -859,7 +864,7 @@
     "handoff_text_should_be_generated_from_repository_state_not_chat_memory": true,
     "new_chat_minimal_user_prompt": "继续项目。按仓库 docs/PROJECT-CONTINUITY-PROTOCOL-R1.md 启动，以 GitHub 远端最新状态为唯一事实源。"
   },
-  "updated_at": "2026-09-21",
+  "updated_at": "2026-09-22",
   "tianwen_identity": {
     "umbrella_name_zh": "天问",
     "umbrella_name_en": "TIANWEN",

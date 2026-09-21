@@ -78,6 +78,8 @@ ZIWEI_KYUDB_DATONGLIZHU_12EG_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVEN
 ZIWEI_KYUDB_DATONGLIZHU_12EG_EVIDENCE = ROOT / "docs/research/ZIWEI-KYUDB-DATONGLIZHU-GK02538-GWANSANGGAM-TYPE-CATEGORY-AND-INHERITED-COLOPHON-CONTROL-R1.json"
 ZIWEI_KYUDB_DATONGLIZHU_12EH_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KYUDB-GK02538-DATED-INRYEOKJA-PHYSICAL-COMPARATOR-AND-SUBTYPE-FIREWALL-EH.md"
 ZIWEI_KYUDB_DATONGLIZHU_12EH_EVIDENCE = ROOT / "docs/research/ZIWEI-KYUDB-GK02538-DATED-INRYEOKJA-PHYSICAL-COMPARATOR-AND-SUBTYPE-FIREWALL-R1.json"
+ZIWEI_KYUDB_DATONGLIZHU_12EI_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KYUDB-GK02538-INRYEOKJA-BODY-SCALE-COMPATIBILITY-AND-CASTING-FIREWALL-EI.md"
+ZIWEI_KYUDB_DATONGLIZHU_12EI_EVIDENCE = ROOT / "docs/research/ZIWEI-KYUDB-GK02538-INRYEOKJA-BODY-SCALE-COMPATIBILITY-AND-CASTING-FIREWALL-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -343,9 +345,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-KYUDB-DATONGLIZHU-GK02538-1442-TERMINAL-DATE-IMPRESSION-FIREWALL-EF",
     "BATCH-12-ZIWEI-KYUDB-DATONGLIZHU-GK02538-GWANSANGGAM-TYPE-CATEGORY-AND-INHERITED-COLOPHON-CONTROL-EG",
     "BATCH-12-ZIWEI-KYUDB-GK02538-DATED-INRYEOKJA-PHYSICAL-COMPARATOR-AND-SUBTYPE-FIREWALL-EH",
+    "BATCH-12-ZIWEI-KYUDB-GK02538-INRYEOKJA-BODY-SCALE-COMPATIBILITY-AND-CASTING-FIREWALL-EI",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KYUDB-GK02538-DATED-INRYEOKJA-PHYSICAL-COMPARATOR-AND-SUBTYPE-FIREWALL-EH.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KYUDB-GK02538-INRYEOKJA-BODY-SCALE-COMPATIBILITY-AND-CASTING-FIREWALL-EI.md"
 
 
 def fail(message: str) -> None:
@@ -777,6 +780,38 @@ def main() -> int:
     ):
         if not any(s.get("source_id") == sid for s in eh_registry.get("sources", [])):
             fail(f"Batch 12EH source registry control missing: {sid}")
+
+
+    for path in (ZIWEI_KYUDB_DATONGLIZHU_12EI_BATCH, ZIWEI_KYUDB_DATONGLIZHU_12EI_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12EI continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12ei = json.loads(ZIWEI_KYUDB_DATONGLIZHU_12EI_EVIDENCE.read_text(encoding="utf-8"))
+    if batch12ei.get("batch_id") != "BATCH-12-ZIWEI-KYUDB-GK02538-INRYEOKJA-BODY-SCALE-COMPATIBILITY-AND-CASTING-FIREWALL-EI":
+        fail("Batch 12EI evidence identity mismatch")
+    scale12ei = batch12ei.get("nominal_scale_replay", {})
+    if abs(scale12ei.get("gk02538_nominal_vertical_slot_pitch_cm", 0) - 1.204761905) > 1e-8:
+        fail("Batch 12EI nominal GK02538 slot-pitch replay regressed")
+    if scale12ei.get("official_medium_inryeokja_height_cm") != 1.2 or scale12ei.get("scale_compatibility") != "SUPPORTED_AT_NOMINAL_VERTICAL_SLOT_LEVEL":
+        fail("Batch 12EI official medium-type scale control regressed")
+    if scale12ei.get("exact_type_body_measurement") is not False or scale12ei.get("same_matrix_or_casting_identity_proven") is not False:
+        fail("Batch 12EI direct-measurement/casting firewall regressed")
+    chrono12ei = batch12ei.get("chronology_adjudication", {})
+    if chrono12ei.get("gk02538_medium_inryeokja_scale_compatibility_supported") is not True:
+        fail("Batch 12EI scale-compatibility conclusion regressed")
+    if any(chrono12ei.get(k) for k in ("gk02538_specific_type_subtype_identified","gk02538_casting_generation_identified","gk02538_exact_impression_year_adjudicated","secure_pre1578_gk02538_physical_impression_witness","type_scale_compatibility_may_date_copy")):
+        fail("Batch 12EI chronology/casting firewall regressed")
+    img12ei = batch12ei.get("direct_image_controls", {})
+    if img12ei.get("shared_glyph_form_identity_vote_increment") != 0:
+        fail("Batch 12EI shared-glyph identity vote firewall regressed")
+    ad12ei = batch12ei.get("adjudication", {})
+    if ad12ei.get("direct_sanming_parent_vote_increment") != 0 or ad12ei.get("threshold_to_wholeke_operator_closed") is not False:
+        fail("Batch 12EI lineage/mechanism zero-vote firewall regressed")
+    if any(ad12ei.get(k) for k in ("matrix_count_change","runtime_rule_change","algorithm_reopen_authorized","candidate_collapse_authorized")):
+        fail("Batch 12EI product firewall regressed")
+    ei_registry = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    type_src12ei = next((s for s in ei_registry.get("sources", []) if s.get("source_id") == "EXT-HERITAGE-INRYEOKJA-TYPE-BODY-DIMENSION-CONTROL"), None)
+    if type_src12ei is None or "1.2" not in type_src12ei.get("quality_notes", "") or "0.5" not in type_src12ei.get("quality_notes", ""):
+        fail("Batch 12EI official Inryeokja body-size source binding missing")
 
     for path in (ZIWEI_KYUDB_12DT_BATCH, ZIWEI_KYUDB_12DT_EVIDENCE):
         if not path.is_file():

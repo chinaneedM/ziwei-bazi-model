@@ -26,6 +26,7 @@ BATCH_12EB = ROOT / "docs/research/ZIWEI-XINGYUNLU-DATONG-ENDPOINT-BINDING-R1.js
 BATCH_12EC = ROOT / "docs/research/ZIWEI-NCL06627-DATONGLIZHU-THRESHOLD-FINGERPRINT-R1.json"
 BATCH_12ED = ROOT / "docs/research/ZIWEI-KYUDB-DATONGLIZHU-GK02426-PARTIAL-FINGERPRINT-R1.json"
 BATCH_12EE = ROOT / "docs/research/ZIWEI-KYUDB-DATONGLIZHU-GK02538-1434-TYPE-POSTFACE-AND-FINGERPRINT-R1.json"
+BATCH_12EI = ROOT / "docs/research/ZIWEI-KYUDB-GK02538-INRYEOKJA-BODY-SCALE-COMPATIBILITY-AND-CASTING-FIREWALL-R1.json"
 
 
 def fail(message: str) -> None:
@@ -33,7 +34,7 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
-    for path in (CHARTER, PROTOCOL, GRAPH, STATE, BATCH_12CH, BATCH_12DP, BATCH_12DQ, BATCH_12DR, BATCH_12DS, BATCH_12DT, BATCH_12DU, BATCH_12DV, BATCH_12DW, BATCH_12DX, BATCH_12DY, BATCH_12DZ, BATCH_12EA, BATCH_12EB, BATCH_12EC, BATCH_12ED, BATCH_12EE):
+    for path in (CHARTER, PROTOCOL, GRAPH, STATE, BATCH_12CH, BATCH_12DP, BATCH_12DQ, BATCH_12DR, BATCH_12DS, BATCH_12DT, BATCH_12DU, BATCH_12DV, BATCH_12DW, BATCH_12DX, BATCH_12DY, BATCH_12DZ, BATCH_12EA, BATCH_12EB, BATCH_12EC, BATCH_12ED, BATCH_12EE, BATCH_12EI):
         if not path.is_file():
             fail(f"Tianwen transmission artifact missing: {path.relative_to(ROOT)}")
 
@@ -782,6 +783,24 @@ def main() -> int:
         fail("Batch 12EH shared-glyph gate regressed")
     if not any(x.get("batch") == "BATCH-12-ZIWEI-KYUDB-GK02538-DATED-INRYEOKJA-PHYSICAL-COMPARATOR-AND-SUBTYPE-FIREWALL-EH" and "zero exact sanming-parent vote" in x.get("update", "").lower() for x in hyp12dk.get("evidence_updates", [])):
         fail("Batch 12EH genealogy hypothesis zero-vote update missing")
+
+
+    if abs(copy12ee.get("gk02538_nominal_vertical_slot_pitch_cm", 0) - 1.204761905) > 1e-8:
+        fail("Batch 12EI GK02538 nominal type-slot scale regressed")
+    if copy12ee.get("type_body_scale_compatibility_status") != "SUPPORTED_NOMINAL_VERTICAL_SCALE_ONLY":
+        fail("Batch 12EI type-body scale compatibility node missing")
+    if copy12ee.get("direct_glyph_body_measurement_performed") is not False or copy12ee.get("scale_compatibility_proves_same_casting_generation") is not False:
+        fail("Batch 12EI scale-to-casting firewall regressed")
+    if copy12ee.get("gwansanggam_specific_subtype") != "UNRESOLVED" or copy12ee.get("casting_generation") != "UNRESOLVED" or copy12ee.get("shared_glyph_identity_control_status") != "NOT_YET_CLOSED":
+        fail("Batch 12EI unresolved subtype/shared-glyph gate regressed")
+    if not any(x.get("batch") == "BATCH-12-ZIWEI-KYUDB-GK02538-INRYEOKJA-BODY-SCALE-COMPATIBILITY-AND-CASTING-FIREWALL-EI" and "zero exact sanming-parent vote" in x.get("update", "").lower() for x in hyp12dk.get("evidence_updates", [])):
+        fail("Batch 12EI genealogy hypothesis zero-vote update missing")
+    batch12ei = json.loads(BATCH_12EI.read_text(encoding="utf-8"))
+    impact12ei = batch12ei.get("transmission_impact", {})
+    if "PHYSICAL-COPY-KYUDB-DATONGLIZHU-GK02538-GWANSANGGAM-MOVABLETYPE" not in impact12ei.get("nodes_strengthened", []):
+        fail("Batch 12EI transmission impact node strengthening missing")
+    if impact12ei.get("edges_supported") != []:
+        fail("Batch 12EI unexpectedly closed a transmission edge")
 
     ncl = next(n for n in nodes if n.get("node_id") == "PHYSICAL-COPY-SISHI-QIHOU-NCL03164-OLD-MANUSCRIPT")
     if ncl.get("physical_copy_date") != "UNRESOLVED":

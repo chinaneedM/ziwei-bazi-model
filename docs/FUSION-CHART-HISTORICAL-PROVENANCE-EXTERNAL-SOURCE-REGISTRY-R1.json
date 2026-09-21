@@ -1,7 +1,7 @@
 {
   "schema": "FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1",
   "schema_version": "1.0.0",
-  "access_date": "2026-09-21",
+  "access_date": "2026-09-22",
   "authority_policy": "S00-S19 are a frozen project research corpus and discovery/index layer, not infallible historical authority. External primary/received/bibliographic witnesses may corroborate, refine, contradict, or expose scope/attribution defects in the project corpus. Modern software and secondary research never become historical authority by observation alone.",
   "sources": [
     {
@@ -5523,7 +5523,7 @@
       "identifier": "GK02538_00 / 奎2538-v.1-4 / CSP / M/F83-16-89-D",
       "url": "https://kyudb.snu.ac.kr/",
       "source_role": "DIRECT_PHYSICAL_KOREAN_DATONGLIZHU_RECENSION_FOR_1434_TYPE_EVENT_1442_TERMINAL_INTERNAL_DATE_AND_HIGH_INFORMATION_RAINWATER_DAHAN_FINGERPRINT_CONTROL",
-      "quality_notes": "Batch 12EE directly reviews source-bound CSP/_IL_ images with no OCR final authority. Rainwater p002b gives 後五六日 47/53 and 後十三四日 48/52; Dahan p038b gives 後十三四日 44/56 and 冬至餘五十六刻三十分已上為退. p057a-p057b physically recover the 宣德九年/1434 Kim Bin type-casting and start-of-printing postface. The catalog still says 刊年未詳, so the postface is not promoted into the surviving copy's impression date. Batch 12EF re-adjudicates the separately printed p057b line 正統七年十二月日 as a direct 1442 terminal internal date and a textual-layer terminus post quem only. No adjacent 印出 marker is observed, so the surviving copy remains 刊年未詳 and is not promoted to a 1442 impression. Batch 12EG adds a bibliographic type/copy firewall: AKS treats 印曆字/觀象監活字 as a recurring Gwansanggam calendar-type category with repeated recasting and diverse impressions, while Kyujanggak GC00509 directly proves a 1707 Musinja reprint can retain a 1434 Gabinja 原刊記. Therefore neither the type-category label nor inherited internal imprint/date statements date GK02538 by themselves. Batch 12EH adds a direct dated physical comparator corpus (1580 Gyeongjin calendar and 1604 Ryu Gabjin calendar) beside exact GK02538 source-bound pages. Direct review shows annual-calendar page architecture is not a copy-identical layout control for the 12-juan commentary; exact dating now requires subtype/shared-glyph evidence.",
+      "quality_notes": "Batch 12EE directly reviews source-bound CSP/_IL_ images with no OCR final authority. Rainwater p002b gives 後五六日 47/53 and 後十三四日 48/52; Dahan p038b gives 後十三四日 44/56 and 冬至餘五十六刻三十分已上為退. p057a-p057b physically recover the 宣德九年/1434 Kim Bin type-casting and start-of-printing postface. The catalog still says 刊年未詳, so the postface is not promoted into the surviving copy's impression date. Batch 12EF re-adjudicates the separately printed p057b line 正統七年十二月日 as a direct 1442 terminal internal date and a textual-layer terminus post quem only. No adjacent 印出 marker is observed, so the surviving copy remains 刊年未詳 and is not promoted to a 1442 impression. Batch 12EG adds a bibliographic type/copy firewall: AKS treats 印曆字/觀象監活字 as a recurring Gwansanggam calendar-type category with repeated recasting and diverse impressions, while Kyujanggak GC00509 directly proves a 1707 Musinja reprint can retain a 1434 Gabinja 原刊記. Therefore neither the type-category label nor inherited internal imprint/date statements date GK02538 by themselves. Batch 12EH adds a direct dated physical comparator corpus (1580 Gyeongjin calendar and 1604 Ryu Gabjin calendar) beside exact GK02538 source-bound pages. Direct review shows annual-calendar page architecture is not a copy-identical layout control for the 12-juan commentary; exact dating now requires subtype/shared-glyph evidence. Batch 12EI adds official physical-scale control: the 25.3 cm frame height divided by 21 body-character slots gives a nominal 1.2047619 cm vertical pitch, compatible within 0.397% of the Heritage Portal 1.2 cm medium 印曆字 height. This is scale compatibility only and does not identify the casting generation or impression year.",
       "batch_12ee": {
         "workflow_run_id": 35516795637,
         "artifact_id": 10606724326,
@@ -5579,6 +5579,25 @@
         "exact_impression_year_adjudicated": false,
         "direct_sanming_parent_vote_increment": 0,
         "research_artifact": "docs/research/ZIWEI-KYUDB-GK02538-DATED-INRYEOKJA-PHYSICAL-COMPARATOR-AND-SUBTYPE-FIREWALL-R1.json"
+      },
+      "batch_12ei": {
+        "official_inryeokja_medium_type_cm": [
+          1.2,
+          0.8
+        ],
+        "official_inryeokja_small_type_cm": [
+          0.5,
+          0.4
+        ],
+        "gk02538_frame_height_cm": 25.3,
+        "gk02538_body_characters_per_line": 21,
+        "gk02538_nominal_vertical_slot_pitch_cm": 1.204761905,
+        "nominal_pitch_vs_medium_height_relative_delta_pct": 0.396825,
+        "type_body_scale_compatibility": "SUPPORTED_NOMINAL_VERTICAL_SCALE_ONLY",
+        "direct_glyph_body_measurement_performed": false,
+        "casting_generation_identity_closed": false,
+        "exact_impression_year_adjudicated": false,
+        "research_artifact": "docs/research/ZIWEI-KYUDB-GK02538-INRYEOKJA-BODY-SCALE-COMPATIBILITY-AND-CASTING-FIREWALL-R1.json"
       }
     },
     {
@@ -5675,7 +5694,7 @@
       "identifier": "보물 제160호 / s_asno=01601000",
       "url": "https://www.heritage.go.kr/heri/mem/selectSeojiDetail.do?s_asno=01601000&s_ctcd=00&s_kdcd=12&searchPage=1",
       "source_role": "DATED_GWANSANGGAM_CALENDAR_SERIES_BIBLIOGRAPHIC_AND_LAYOUT_CONTROL",
-      "quality_notes": "Official bibliography gives five dated volumes and page-format metadata. Used as a dated series/control, not as a complete high-resolution glyph corpus; 1604 has separate direct AKS image control."
+      "quality_notes": "Official bibliography gives five dated volumes and page-format metadata. Used as a dated series/control, not as a complete high-resolution glyph corpus; 1604 has separate direct AKS image control. Batch 12EI uses the same official record's 1604 甲辰 entry as a scale firewall: half-frame 28.5×16.2 cm, but 行字數不定, so no fixed frame/character pitch may be imputed to the annual calendar."
     },
     {
       "source_id": "EXT-RISS-KIM-SANGHO-1987-GWANSANGGAM-TYPE-SUBTYPE-TAXONOMY",
@@ -5688,6 +5707,18 @@
       "url": "https://www.riss.or.kr/search/Search.do?colName=re_a_kor&isDetailSearch=Y&queryText=znCreator%2C%EA%B9%80%EC%83%81%ED%98%B8%28Kim+Sang-Ho%29&searchGubun=true",
       "source_role": "SECONDARY_SPECIALIST_TAXONOMY_CONTROL_WARNING_GENERIC_KWANSANGGAM_TYPE_LABEL_CAN_MASK_MULTIPLE_SUBTYPES",
       "quality_notes": "Indexed abstract states that libraries often lump distinct types under Kwansanggam Type, causing erroneous catalog notes, and proposes four categories: Daetongryokja, Naeyongsamsoja, Myongsiryokja, Chiljongryokja. This is not used to assign GK02538 to a subtype without object-level evidence."
+    },
+    {
+      "source_id": "EXT-HERITAGE-INRYEOKJA-TYPE-BODY-DIMENSION-CONTROL",
+      "title": "국가유산포털 금속활자 연표 — 인력자(印曆字)",
+      "author": "국가유산청 국가유산포털; cited source notes include 문화재청 박문열 (2001) and 청주고인쇄박물관 (2002)",
+      "historical_period": "16TH-CENTURY GWANSANGGAM CALENDAR-TYPE CATEGORY; CURRENT INSTITUTIONAL REFERENCE",
+      "edition": "institutional metal-type chronology/reference table",
+      "provider": "Korea Heritage Service / 국가유산청 국가유산포털",
+      "identifier": "인력자(印曆字) / 관상감(서운관) 철활자",
+      "url": "https://www.heritage.go.kr/heri/html/HtmlPage.do?pg=%2Fhwalja%2Fhwalja01_01.jsp",
+      "source_role": "OFFICIAL_INRYEOKJA_TYPE_BODY_DIMENSION_MATERIAL_AND_USE_SCOPE_CONTROL",
+      "quality_notes": "Official portal gives material 무쇠, medium type 1.2×0.8 cm, small type 0.5×0.4 cm, and imprints including 大統曆 and other calendrical books. It states the exact casting date is unknown and treats pre-Imjin use as an inference, so the dimensions are a type-category scale control, not a copy-specific dating operator."
     }
   ],
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md"
