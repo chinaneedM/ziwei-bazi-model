@@ -74,6 +74,8 @@ ZIWEI_KYUDB_DATONGLIZHU_12EE_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVEN
 ZIWEI_KYUDB_DATONGLIZHU_12EE_EVIDENCE = ROOT / "docs/research/ZIWEI-KYUDB-DATONGLIZHU-GK02538-1434-TYPE-POSTFACE-AND-FINGERPRINT-R1.json"
 ZIWEI_KYUDB_DATONGLIZHU_12EF_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KYUDB-DATONGLIZHU-GK02538-1442-TERMINAL-DATE-IMPRESSION-FIREWALL-EF.md"
 ZIWEI_KYUDB_DATONGLIZHU_12EF_EVIDENCE = ROOT / "docs/research/ZIWEI-KYUDB-DATONGLIZHU-GK02538-1442-TERMINAL-DATE-IMPRESSION-FIREWALL-R1.json"
+ZIWEI_KYUDB_DATONGLIZHU_12EG_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KYUDB-DATONGLIZHU-GK02538-GWANSANGGAM-TYPE-CATEGORY-AND-INHERITED-COLOPHON-CONTROL-EG.md"
+ZIWEI_KYUDB_DATONGLIZHU_12EG_EVIDENCE = ROOT / "docs/research/ZIWEI-KYUDB-DATONGLIZHU-GK02538-GWANSANGGAM-TYPE-CATEGORY-AND-INHERITED-COLOPHON-CONTROL-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -337,9 +339,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-KYUDB-DATONGLIZHU-GK02426-PARTIAL-FINGERPRINT-ED",
     "BATCH-12-ZIWEI-KYUDB-DATONGLIZHU-GK02538-1434-TYPE-POSTFACE-AND-FINGERPRINT-EE",
     "BATCH-12-ZIWEI-KYUDB-DATONGLIZHU-GK02538-1442-TERMINAL-DATE-IMPRESSION-FIREWALL-EF",
+    "BATCH-12-ZIWEI-KYUDB-DATONGLIZHU-GK02538-GWANSANGGAM-TYPE-CATEGORY-AND-INHERITED-COLOPHON-CONTROL-EG",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KYUDB-DATONGLIZHU-GK02538-1442-TERMINAL-DATE-IMPRESSION-FIREWALL-EF.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KYUDB-DATONGLIZHU-GK02538-GWANSANGGAM-TYPE-CATEGORY-AND-INHERITED-COLOPHON-CONTROL-EG.md"
 
 
 def fail(message: str) -> None:
@@ -695,6 +698,41 @@ def main() -> int:
         fail("Batch 12EF AKS comparative control missing")
     if not any(s.get("source_id") == "EXT-KEIO-MOMIJIYAMA-GAPJA-TYPE-PRINTING-COLOPHON-CONTROL" for s in ef_registry.get("sources", [])):
         fail("Batch 12EF Keio comparative control missing")
+
+
+    for path in (ZIWEI_KYUDB_DATONGLIZHU_12EG_BATCH, ZIWEI_KYUDB_DATONGLIZHU_12EG_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12EG continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12eg = json.loads(ZIWEI_KYUDB_DATONGLIZHU_12EG_EVIDENCE.read_text(encoding="utf-8"))
+    if batch12eg.get("batch_id") != "BATCH-12-ZIWEI-KYUDB-DATONGLIZHU-GK02538-GWANSANGGAM-TYPE-CATEGORY-AND-INHERITED-COLOPHON-CONTROL-EG":
+        fail("Batch 12EG evidence identity mismatch")
+    chrono12eg = batch12eg.get("chronology_adjudication", {})
+    if chrono12eg.get("gwansanggam_hwalja_equals_inryeokja_category") is not True or chrono12eg.get("gwansanggam_hwalja_is_unique_single_casting_event") is not False:
+        fail("Batch 12EG Gwansanggam type-category firewall regressed")
+    if chrono12eg.get("catalog_type_label_identifies_exact_1434_gabinja") is not False or chrono12eg.get("catalog_type_label_alone_dates_current_copy") is not False:
+        fail("Batch 12EG catalog-type dating firewall regressed")
+    if chrono12eg.get("inherited_original_imprint_statements_attested_in_later_physical_reprints") is not True or chrono12eg.get("internal_imprint_statement_alone_dates_current_physical_copy") is not False:
+        fail("Batch 12EG inherited-colophon firewall regressed")
+    if chrono12eg.get("gk02538_exact_impression_year_adjudicated") is not False or chrono12eg.get("gk02538_secure_pre1578_physical_impression_witness") is not False:
+        fail("Batch 12EG GK02538 exact-impression firewall regressed")
+    kyuctrl12eg = batch12eg.get("external_controls", {}).get("kyudb_1707_daehakyeonui", {})
+    if kyuctrl12eg.get("book_cd") != "GC00509_00" or kyuctrl12eg.get("current_copy_impression_year") != 1707 or kyuctrl12eg.get("current_copy_type") != "金屬活字本(戊申字)":
+        fail("Batch 12EG 1707 Kyujanggak control regressed")
+    if kyuctrl12eg.get("retained_internal_imprint") != "宣德九年(1434)十月日印出":
+        fail("Batch 12EG inherited 1434 original-imprint control regressed")
+    ad12eg = batch12eg.get("adjudication", {})
+    if ad12eg.get("direct_sanming_parent_vote_increment") != 0 or ad12eg.get("threshold_to_wholeke_operator_closed") is not False:
+        fail("Batch 12EG lineage/mechanism zero-vote firewall regressed")
+    if any(ad12eg.get(k) for k in ("matrix_count_change", "runtime_rule_change", "algorithm_reopen_authorized", "candidate_collapse_authorized")):
+        fail("Batch 12EG product firewall regressed")
+    eg_registry = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    for sid in (
+        "EXT-AKS-INRYEOKJA-GWANSANGGAM-TYPE-CATEGORY-CONTROL",
+        "EXT-KYUDB-DAEHAKYEONUI-1707-INHERITED-GABINJA-ORIGINAL-COLOPHON-CONTROL",
+        "EXT-NIKH-GORYEOSAJEOLYO-1434-TYPE-POSTFACE-1453-PRINT-CONTROL",
+    ):
+        if not any(s.get("source_id") == sid for s in eg_registry.get("sources", [])):
+            fail(f"Batch 12EG source registry control missing: {sid}")
 
     for path in (ZIWEI_KYUDB_12DT_BATCH, ZIWEI_KYUDB_12DT_EVIDENCE):
         if not path.is_file():

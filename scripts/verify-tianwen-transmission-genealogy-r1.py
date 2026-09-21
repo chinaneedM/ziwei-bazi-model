@@ -765,6 +765,14 @@ def main() -> int:
     if not any(x.get("batch") == "BATCH-12-ZIWEI-KYUDB-DATONGLIZHU-GK02538-1442-TERMINAL-DATE-IMPRESSION-FIREWALL-EF" and "zero exact sanming-parent vote" in x.get("update", "").lower() for x in hyp12dk.get("evidence_updates", [])):
         fail("Batch 12EF genealogy hypothesis zero-vote update missing")
 
+
+    if copy12ee.get("gwansanggam_type_category_unique_1434_event") is not False:
+        fail("Batch 12EG Gwansanggam type-category node firewall regressed")
+    if copy12ee.get("inherited_original_imprint_can_survive_later_reprint") is not True or copy12ee.get("internal_date_or_imprint_alone_dates_current_copy") is not False:
+        fail("Batch 12EG inherited-colophon node firewall regressed")
+    if not any(x.get("batch") == "BATCH-12-ZIWEI-KYUDB-DATONGLIZHU-GK02538-GWANSANGGAM-TYPE-CATEGORY-AND-INHERITED-COLOPHON-CONTROL-EG" and "zero exact sanming-parent vote" in x.get("update", "").lower() for x in hyp12dk.get("evidence_updates", [])):
+        fail("Batch 12EG genealogy hypothesis zero-vote update missing")
+
     ncl = next(n for n in nodes if n.get("node_id") == "PHYSICAL-COPY-SISHI-QIHOU-NCL03164-OLD-MANUSCRIPT")
     if ncl.get("physical_copy_date") != "UNRESOLVED":
         fail("NCL-03164 physical-copy date was falsely closed")

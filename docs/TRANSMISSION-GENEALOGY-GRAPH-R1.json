@@ -1728,7 +1728,11 @@
         "docs/research/ZIWEI-KYUDB-DATONGLIZHU-GK02538-1434-TYPE-POSTFACE-AND-FINGERPRINT-R1.json",
         "docs/research/ZIWEI-KYUDB-DATONGLIZHU-GK02538-1442-TERMINAL-DATE-IMPRESSION-FIREWALL-R1.json",
         "EXT-AKS-ENCYCLOPEDIA-DATONGLIZHU-1434-TYPE-POSTFACE-CONTROL",
-        "EXT-KEIO-MOMIJIYAMA-GAPJA-TYPE-PRINTING-COLOPHON-CONTROL"
+        "EXT-KEIO-MOMIJIYAMA-GAPJA-TYPE-PRINTING-COLOPHON-CONTROL",
+        "docs/research/ZIWEI-KYUDB-DATONGLIZHU-GK02538-GWANSANGGAM-TYPE-CATEGORY-AND-INHERITED-COLOPHON-CONTROL-R1.json",
+        "EXT-AKS-INRYEOKJA-GWANSANGGAM-TYPE-CATEGORY-CONTROL",
+        "EXT-KYUDB-DAEHAKYEONUI-1707-INHERITED-GABINJA-ORIGINAL-COLOPHON-CONTROL",
+        "EXT-NIKH-GORYEOSAJEOLYO-1434-TYPE-POSTFACE-1453-PRINT-CONTROL"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-KYUDB-DATONGLIZHU-GK02538-1434-TYPE-POSTFACE-AND-FINGERPRINT-EE",
       "terminal_internal_date_line": "正統七年十二月日",
@@ -1736,7 +1740,11 @@
       "terminal_internal_date_line_directly_observed": true,
       "terminal_textual_layer_terminus_post_quem_year": 1442,
       "explicit_yinchū_marker_adjacent_to_terminal_date": false,
-      "exact_impression_year_adjudicated": false
+      "exact_impression_year_adjudicated": false,
+      "catalog_type_category_scope": "觀象監活字 is treated as a Gwansanggam calendar-type category, not a unique 1434 casting or exact impression-year identifier.",
+      "gwansanggam_type_category_unique_1434_event": false,
+      "inherited_original_imprint_can_survive_later_reprint": true,
+      "internal_date_or_imprint_alone_dates_current_copy": false
     },
     {
       "node_id": "RULE-FAMILY-KYUDB-DATONGLIZHU-GK02538-TERM-THRESHOLD-WHOLEKE-SCHEDULE",
@@ -3381,6 +3389,10 @@
         {
           "batch": "BATCH-12-ZIWEI-KYUDB-DATONGLIZHU-GK02538-1442-TERMINAL-DATE-IMPRESSION-FIREWALL-EF",
           "update": "GK02538 p057b directly adds a separately printed 正統七年十二月日 (1442) internal terminal date after the 1434 Kim Bin type-event postface. Comparative specialist/bibliographic controls keep 1434 scoped to type casting and show that explicit 印出 statements can be separately recorded on other Gabinja books. Because GK02538's 1442 line has no adjacent 印出 and the first-party catalog remains 刊年未詳, 12EF strengthens only the terminal textual chronology; exact surviving-copy impression date and Sanming parentage remain unresolved. Zero exact Sanming-parent vote is added."
+        },
+        {
+          "batch": "BATCH-12-ZIWEI-KYUDB-DATONGLIZHU-GK02538-GWANSANGGAM-TYPE-CATEGORY-AND-INHERITED-COLOPHON-CONTROL-EG",
+          "update": "Bibliographic controls close a stronger edition/copy firewall for GK02538: AKS defines 印曆字/觀象監活字 as a Gwansanggam calendrical-type category with repeated recasting and diverse impressions, not a unique 1434 casting event. Kyujanggak GC00509 directly catalogs a 1707 Musinja physical reprint that still carries 宣德九年(1434)十月日印出 explicitly as 甲寅字本 原刊記, proving an earlier imprint statement can survive inside a later copy. NIKH separately preserves the Kim Bin 1434 type-event postface followed by a distinct 1453 印出 date. Therefore GK02538's catalog type label, 1434 postface and 1442 internal date cannot independently close the surviving-copy impression year. Zero exact Sanming-parent vote is added."
         }
       ],
       "endpoint_anchor_component_identified": true,
@@ -3920,5 +3932,5 @@
     "first_explicit_seed_batch": "BATCH-12-ZIWEI-SISHI-QIHOU-JINGTAI6-TONGSHU-TABLE-CONTROL-CH",
     "future_material_batches_require_transmission_impact": true
   },
-  "updated_at": "2026-09-20"
+  "updated_at": "2026-09-21"
 }

@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.144.0",
+  "schema_version": "1.145.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -222,9 +222,10 @@
       "BATCH-12-ZIWEI-NCL06627-DATONGLIZHU-THRESHOLD-FINGERPRINT-EC",
       "BATCH-12-ZIWEI-KYUDB-DATONGLIZHU-GK02426-PARTIAL-FINGERPRINT-ED",
       "BATCH-12-ZIWEI-KYUDB-DATONGLIZHU-GK02538-1434-TYPE-POSTFACE-AND-FINGERPRINT-EE",
-      "BATCH-12-ZIWEI-KYUDB-DATONGLIZHU-GK02538-1442-TERMINAL-DATE-IMPRESSION-FIREWALL-EF"
+      "BATCH-12-ZIWEI-KYUDB-DATONGLIZHU-GK02538-1442-TERMINAL-DATE-IMPRESSION-FIREWALL-EF",
+      "BATCH-12-ZIWEI-KYUDB-DATONGLIZHU-GK02538-GWANSANGGAM-TYPE-CATEGORY-AND-INHERITED-COLOPHON-CONTROL-EG"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KYUDB-DATONGLIZHU-GK02538-1442-TERMINAL-DATE-IMPRESSION-FIREWALL-EF.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KYUDB-DATONGLIZHU-GK02538-GWANSANGGAM-TYPE-CATEGORY-AND-INHERITED-COLOPHON-CONTROL-EG.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -809,7 +810,11 @@
       "Batch 12EF directly re-adjudicates the separately printed GK02538 p057b line 正統七年十二月日 as a 1442 internal terminal date. The reviewed terminal textual layer is therefore not earlier than 1442, but this is not yet an exact surviving-copy impression date.",
       "The 12EF chronology firewall remains strict: p057b has no adjacent 印出 marker, Kyujanggak still catalogs GK02538 as 刊年未詳, and neither the 1434 Kim Bin type-event postface nor the 1442 bare date line is promoted into an exact copy-specific impression year.",
       "Comparative controls reinforce the scope distinction: the AKS specialist entry says the 1434 Kim Bin postface concerns casting type rather than Datong-calendar content; a Keio Momijiyama Gabinja record separately prints the same class of 1434 type postface and an explicit later 正統元年十一月日 印出 statement. This convention is not transferred to GK02538 without its own 印出 wording.",
-      "Batch 12EF changes no Matrix/product counts: 198 rows / 166 audited / 10 MISSING_FROM_PRODUCT; provenance defects remain 12/12; chart algorithm defect/reopen/collapse remain 0; exact Sanming-parent vote increment remains 0. Next gate is copy-specific interpretation of the 1442 line, exact pre-1578 Rainwater+Dahan fingerprint, and an explicit threshold-to-whole-ke operator."
+      "Batch 12EF changes no Matrix/product counts: 198 rows / 166 audited / 10 MISSING_FROM_PRODUCT; provenance defects remain 12/12; chart algorithm defect/reopen/collapse remain 0; exact Sanming-parent vote increment remains 0. Next gate is copy-specific interpretation of the 1442 line, exact pre-1578 Rainwater+Dahan fingerprint, and an explicit threshold-to-whole-ke operator.",
+      "Batch 12EG closes a stronger GK02538 edition/copy firewall: AKS defines 印曆字/觀象監活字 as a recurring Gwansanggam calendrical-type category with repeated recasting, different type forms and mixed wooden sorts; the catalog label therefore is not a unique 1434 casting identifier or copy-specific date.",
+      "Kyujanggak GC00509 directly proves original-imprint inheritance: the current physical object is catalogued as a 1707 戊申字本, yet it retains 宣德九年(1434)十月日印出 explicitly labeled 甲寅字本 原刊記. Internal imprint wording therefore cannot date the surviving physical copy without edition binding.",
+      "NIKH's received 金鑌 postface separately preserves a 1434 type-event postface followed by 景泰四年四月日印出 (1453), confirming that type-event date and explicit print-out date are distinct chronological layers.",
+      "Batch 12EG leaves GK02538 exact impression year unresolved and changes no Matrix/product counts: 198 rows / 166 audited / 10 MISSING_FROM_PRODUCT; provenance defects 12/12; chart algorithm defect/reopen/collapse 0; exact Sanming-parent vote increment 0. Next chronology gate is direct typographic comparison against dated Gwansanggam/印曆字 impressions."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10
@@ -849,7 +854,7 @@
     "handoff_text_should_be_generated_from_repository_state_not_chat_memory": true,
     "new_chat_minimal_user_prompt": "继续项目。按仓库 docs/PROJECT-CONTINUITY-PROTOCOL-R1.md 启动，以 GitHub 远端最新状态为唯一事实源。"
   },
-  "updated_at": "2026-09-20",
+  "updated_at": "2026-09-21",
   "tianwen_identity": {
     "umbrella_name_zh": "天问",
     "umbrella_name_en": "TIANWEN",
