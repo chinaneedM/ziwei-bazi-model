@@ -43,7 +43,9 @@ jobs:
           const targets=[
             {key:'heritage-detail',url:'https://www.heritage.go.kr/heri/mem/selectHaejeDetail.do?pg=1&returnUrl=kr%2Fgo%2Fheritage%2Fmem%2FEgovHaejePrint&s_asno=13190000&s_cnum=0001&s_ctcd=00&s_kdcd=12&searchDisp=0'},
             {key:'heritage-hwalja',url:'https://www.heritage.go.kr/heri/html/HtmlPage.do?pg=%2Fhwalja%2Fhwalja01_01.jsp'},
-            {key:'aks-gyeongjin',url:'https://encykorea.aks.ac.kr/Article/E0068940'}
+            {key:'aks-gyeongjin',url:'https://encykorea.aks.ac.kr/Article/E0068940'},
+            {key:'nculture-gyeongjin',url:'https://ncms.nculture.org/archival/story/4891'},
+            {key:'historynet-gyeongjin',url:'https://contents.history.go.kr/mobile/km/view.do?levelId=km_015_0050_0020'}
           ];
           const browser=await puppeteer.launch({
             headless:true,
