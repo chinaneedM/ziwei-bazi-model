@@ -1,0 +1,193 @@
+name: probe-heritage-gyeongjin-1580-inryeokja-physical
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-heritage-gyeongjin-1580-inryeokja-physical.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install browser/image tooling
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm install --no-save --silent puppeteer-core@24.16.0
+          python -m pip install --quiet pillow
+
+      - name: Capture official 1580 Gyeongjin Datong calendar surfaces
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/heritage-gyeongjin-1580-inryeokja'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT/network-images" "$ROOT/kyudb-control"
+          BROWSER="$(command -v google-chrome || command -v chromium || command -v chromium-browser || true)"
+          test -n "$BROWSER"
+
+          cat > "$ROOT/capture.mjs" <<'JS'
+          import puppeteer from 'puppeteer-core';
+          import fs from 'node:fs';
+          import crypto from 'node:crypto';
+
+          const root='audit/heritage-gyeongjin-1580-inryeokja';
+          const target='https://www.heritage.go.kr/heri/mem/selectHaejeDetail.do?pg=1&returnUrl=kr%2Fgo%2Fheritage%2Fmem%2FEgovHaejePrint&s_asno=13190000&s_cnum=0001&s_ctcd=00&s_kdcd=12&searchDisp=0';
+          const browser=await puppeteer.launch({
+            headless:true,
+            executablePath:process.env.BROWSER,
+            args:['--no-sandbox','--disable-setuid-sandbox']
+          });
+          const page=await browser.newPage();
+          await page.setUserAgent('Mozilla/5.0 Tianwen-Provenance-Audit/1.0');
+          await page.setViewport({width:1600,height:1200});
+
+          const seen=new Set();
+          const captured=[];
+          page.on('response',async resp=>{
+            try{
+              const url=resp.url();
+              const headers=resp.headers();
+              const ctype=headers['content-type']||'';
+              if(!ctype.toLowerCase().startsWith('image/')) return;
+              if(seen.has(url)) return;
+              seen.add(url);
+              const buf=await resp.buffer();
+              if(buf.length<12000) return;
+              const ext=ctype.includes('png')?'png':ctype.includes('webp')?'webp':'jpg';
+              const sha=crypto.createHash('sha256').update(buf).digest('hex');
+              const name=`${String(captured.length+1).padStart(3,'0')}-${sha.slice(0,12)}.${ext}`;
+              fs.writeFileSync(`${root}/network-images/${name}`,buf);
+              captured.push({name,url,content_type:ctype,bytes:buf.length,sha256:sha});
+            }catch{}
+          });
+
+          let gotoError=null;
+          try{
+            await page.goto(target,{waitUntil:'networkidle2',timeout:90000});
+          }catch(e){gotoError=String(e)}
+          await new Promise(r=>setTimeout(r,2500));
+          fs.writeFileSync(root+'/page.html',await page.content());
+          fs.writeFileSync(root+'/page-text.txt',await page.evaluate(()=>document.body.innerText||''));
+          await page.screenshot({path:root+'/page.png',fullPage:true}).catch(()=>{});
+
+          const dom=await page.evaluate(()=>({
+            title:document.title,
+            url:location.href,
+            images:[...document.images].map(x=>({src:x.src,alt:x.alt,width:x.naturalWidth,height:x.naturalHeight})),
+            links:[...document.querySelectorAll('a')].map(x=>({text:(x.innerText||'').trim(),href:x.href})).filter(x=>x.text||x.href),
+            buttons:[...document.querySelectorAll('button,input[type=button],input[type=submit]')].map(x=>({text:(x.innerText||x.value||'').trim(),onclick:x.getAttribute('onclick')})),
+            iframes:[...document.querySelectorAll('iframe')].map(x=>x.src),
+          }));
+          fs.writeFileSync(root+'/dom.json',JSON.stringify(dom,null,2));
+
+          // Try links/buttons likely to expose original images; keep all resulting image traffic.
+          const candidates=await page.$$('a,button,input[type=button],input[type=submit]');
+          for(let i=0;i<candidates.length;i++){
+            const el=candidates[i];
+            const label=await el.evaluate(x=>((x.innerText||x.value||x.getAttribute('title')||x.getAttribute('alt')||'')+' '+(x.getAttribute('onclick')||'')).trim()).catch(()=>'');
+            if(!/(원문|이미지|image|사진|상세|보기)/i.test(label)) continue;
+            try{
+              await el.click();
+              await new Promise(r=>setTimeout(r,1400));
+            }catch{}
+          }
+          await new Promise(r=>setTimeout(r,2000));
+
+          const report={
+            schema:'HERITAGE-GYEONGJIN-1580-INRYEOKJA-PHYSICAL-PROBE-R1',
+            schema_version:'1.0.0',
+            provider:'Korea Heritage Service / 국가유산포털',
+            target_url:target,
+            goto_error:gotoError,
+            final_url:page.url(),
+            title:await page.title(),
+            text_has_庚辰年大統曆:(await page.evaluate(()=>document.body.innerText||'')).includes('庚辰年大統曆'),
+            text_has_관상감활자:(await page.evaluate(()=>document.body.innerText||'')).includes('관상감활자'),
+            text_has_인력자:(await page.evaluate(()=>document.body.innerText||'')).includes('인력자'),
+            network_images:captured,
+            dom,
+            adjudication_firewall:'This probe only builds a dated official physical/type comparison set. Similarity or difference must not be converted into a GK02538 impression date without direct typographic adjudication.',
+            ocr_used_for_final_claims:false
+          };
+          fs.writeFileSync(root+'/report.json',JSON.stringify(report,null,2));
+          console.log(JSON.stringify({gotoError,title:report.title,final_url:report.final_url,network_images:captured.length,dom_images:dom.images.length,buttons:dom.buttons.slice(0,40)},null,2));
+          await browser.close();
+          JS
+          BROWSER="$BROWSER" node "$ROOT/capture.mjs"
+
+          # Fetch the exact GK02538 source-bound comparison pages already controlled by 12EE.
+          python - <<'PY'
+          from pathlib import Path
+          from urllib.parse import urlencode
+          from urllib.request import Request,urlopen
+          import hashlib,json
+          root=Path('audit/heritage-gyeongjin-1580-inryeokja')
+          book='GK02538_00'; item='CSP'
+          rows=[]
+          for vol,p in [('0001','002a'),('0001','002b'),('0004','057a'),('0004','057b')]:
+              fn=f'{book}_IL_{vol}_{p}.jpg'
+              path=f'/data01/stream/{item}/IMG/{book}/{book}_{vol}/{fn}'
+              url='https://kyudb.snu.ac.kr/ImageServlet.do?'+urlencode({'imgFileNm':fn,'path':path})
+              req=Request(url,headers={'User-Agent':'Mozilla/5.0 Tianwen-Provenance-Audit/1.0','Referer':'https://kyudb.snu.ac.kr/pf01/rendererImg.do'})
+              try:
+                  with urlopen(req,timeout=30) as r:b=r.read()
+                  out=root/'kyudb-control'/f'{vol}-{p}.jpg'; out.write_bytes(b)
+                  rows.append({'volume':vol,'page':p,'bytes':len(b),'sha256':hashlib.sha256(b).hexdigest(),'url':url})
+              except Exception as e:
+                  rows.append({'volume':vol,'page':p,'error':type(e).__name__+': '+str(e),'url':url})
+          (root/'kyudb-control.json').write_text(json.dumps(rows,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print(json.dumps(rows,ensure_ascii=False,indent=2))
+          PY
+
+          # Build contact sheets for direct visual review; no OCR.
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image,ImageDraw
+          import json
+          root=Path('audit/heritage-gyeongjin-1580-inryeokja')
+          imgs=[]
+          for p in sorted((root/'network-images').glob('*')):
+              try:
+                  im=Image.open(p).convert('RGB')
+                  if im.width<300 or im.height<300: continue
+                  imgs.append((p.name,im.copy()))
+              except: pass
+          for p in sorted((root/'kyudb-control').glob('*.jpg')):
+              try: imgs.append((p.name,Image.open(p).convert('RGB').copy()))
+              except: pass
+          sheets=[]
+          for start in range(0,len(imgs),12):
+              batch=imgs[start:start+12]
+              thumbs=[]
+              for name,im in batch:
+                  im.thumbnail((480,650))
+                  c=Image.new('RGB',(500,700),'white')
+                  c.paste(im,((500-im.width)//2,20))
+                  ImageDraw.Draw(c).text((10,670),name,fill='black')
+                  thumbs.append(c)
+              cols=3; nr=(len(thumbs)+cols-1)//cols
+              sheet=Image.new('RGB',(cols*500,nr*700),'white')
+              for i,im in enumerate(thumbs): sheet.paste(im,((i%cols)*500,(i//cols)*700))
+              out=root/f'contact-{start//12+1:02d}.jpg'
+              sheet.save(out,quality=92)
+              sheets.append(out.name)
+          print(json.dumps({'image_count':len(imgs),'contact_sheets':sheets},ensure_ascii=False))
+          PY
+
+      - name: Upload dated Inryeokja comparison set
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: heritage-gyeongjin-1580-inryeokja-physical-r1
+          path: audit/heritage-gyeongjin-1580-inryeokja
+          if-no-files-found: error
+          retention-days: 30
