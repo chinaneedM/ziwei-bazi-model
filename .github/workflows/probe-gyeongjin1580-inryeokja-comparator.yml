@@ -1,0 +1,143 @@
+name: probe-gyeongjin1580-inryeokja-comparator
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-gyeongjin1580-inryeokja-comparator.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Probe public Gyeongjin 1580 image routes
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/gyeongjin1580-inryeokja-comparator'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT/html" "$ROOT/images"
+          python - <<'PY'
+          from pathlib import Path
+          from urllib.request import Request, build_opener, HTTPRedirectHandler
+          from urllib.parse import urljoin, urlparse
+          import hashlib, html, json, re, ssl, time
+
+          root=Path('audit/gyeongjin1580-inryeokja-comparator')
+          UA='Mozilla/5.0 Tianwen-Provenance-Audit/1.0'
+          pages=[
+            ('gongu','https://gongu.copyright.or.kr/gongu/wrt/wrt/view.do?menuNo=200018&wrtSn=12189510'),
+            ('heritage_legacy','https://www.heritage.go.kr/korea/heritage/search/Culresult_Db_View.jsp?mc=NS_04_03_01&VdkVgwKey=12,13190000,11&flag=Y'),
+            ('heritage_detail','https://www.heritage.go.kr/heri/cul/culSelectDetail.do?VdkVgwKey=12,13190000,11&pageNo=1_1_1_1'),
+            ('nfm_designated','https://www.nfm.go.kr/home/subIndex/104.do'),
+            ('nfm_webzine','https://webzine.nfm.go.kr/2017/11/11/%EB%B0%95%EB%AC%BC%EA%B4%80%EC%97%90-%EB%8B%B4%EA%B8%B4-%EC%82%B6%EC%9D%98-%EC%9D%B4%EC%95%BC%EA%B8%B0%EB%A5%BC-%EB%93%A4%EC%96%B4%EB%B3%B4%EC%8B%A4%EB%9E%98%EC%9A%94/'),
+          ]
+          ctx=ssl.create_default_context()
+          opener=build_opener(HTTPRedirectHandler())
+          rows=[]
+          candidates=[]
+
+          def fetch(url, timeout=30):
+              req=Request(url,headers={'User-Agent':UA,'Accept':'text/html,application/xhtml+xml,image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8'})
+              with opener.open(req,timeout=timeout,context=ctx) if False else opener.open(req,timeout=timeout) as r:
+                  return getattr(r,'status',200), r.geturl(), r.headers.get('content-type',''), r.read()
+
+          # urllib opener does not accept context directly; HTTPS here is public PKI.
+          for name,url in pages:
+              try:
+                  req=Request(url,headers={'User-Agent':UA,'Accept':'text/html,application/xhtml+xml,*/*;q=0.8'})
+                  with opener.open(req,timeout=30) as r:
+                      b=r.read(); final=r.geturl(); status=getattr(r,'status',200); ctype=r.headers.get('content-type','')
+                  (root/'html'/f'{name}.html').write_bytes(b)
+                  text=b.decode('utf-8','ignore')
+                  rows.append({'name':name,'url':url,'status':status,'final_url':final,'content_type':ctype,'bytes':len(b),'sha256':hashlib.sha256(b).hexdigest()})
+                  attrs=[]
+                  for m in re.finditer(r'''(?:src|href|data-src|data-original|content)\s*=\s*["']([^"']+)["']''', text, re.I):
+                      attrs.append(html.unescape(m.group(1)))
+                  # Also capture raw absolute media URLs embedded in JS/JSON.
+                  attrs += re.findall(r'''https?://[^"'<>\s]+''', text)
+                  for raw in attrs:
+                      u=urljoin(final,raw)
+                      lu=u.lower()
+                      if any(x in lu for x in ('.jpg','.jpeg','.png','.webp','.gif','image','img','photo','thumb','13190000','12189510')):
+                          candidates.append({'source_page':name,'url':u})
+              except Exception as e:
+                  rows.append({'name':name,'url':url,'error':type(e).__name__+': '+str(e)})
+
+          # Explicitly inspect the Shared Madang outbound redirect.
+          redirect_url='https://gongu.copyright.or.kr/gongu/wrt/cmmn/WritingFileLinkUrl.do?fileSn=1&wrtSn=12189510'
+          try:
+              req=Request(redirect_url,headers={'User-Agent':UA})
+              with opener.open(req,timeout=30) as r:
+                  b=r.read(); final=r.geturl(); status=getattr(r,'status',200); ctype=r.headers.get('content-type','')
+              rows.append({'name':'gongu_outbound','url':redirect_url,'status':status,'final_url':final,'content_type':ctype,'bytes':len(b),'sha256':hashlib.sha256(b).hexdigest()})
+              if 'text/html' in ctype:
+                  (root/'html'/'gongu_outbound.html').write_bytes(b)
+          except Exception as e:
+              rows.append({'name':'gongu_outbound','url':redirect_url,'error':type(e).__name__+': '+str(e)})
+
+          # Deduplicate and prefer plausible content images.
+          seen=set(); uniq=[]
+          for c in candidates:
+              u=c['url'].replace('&amp;','&')
+              if u in seen: continue
+              seen.add(u)
+              uniq.append({'source_page':c['source_page'],'url':u})
+
+          downloads=[]
+          for i,c in enumerate(uniq[:250]):
+              u=c['url']
+              try:
+                  req=Request(u,headers={'User-Agent':UA,'Referer':'https://gongu.copyright.or.kr/'})
+                  with opener.open(req,timeout=20) as r:
+                      b=r.read(); status=getattr(r,'status',200); ctype=r.headers.get('content-type',''); final=r.geturl()
+                  is_image=(ctype or '').startswith('image/') or b[:2]==b'\xff\xd8' or b[:8]==b'\x89PNG\r\n\x1a\n'
+                  row={'i':i,'source_page':c['source_page'],'url':u,'final_url':final,'status':status,'content_type':ctype,'bytes':len(b),'sha256':hashlib.sha256(b).hexdigest(),'is_image':is_image}
+                  if is_image and len(b)>5000:
+                      ext='.jpg'
+                      if 'png' in ctype or b[:8]==b'\x89PNG\r\n\x1a\n': ext='.png'
+                      elif 'webp' in ctype: ext='.webp'
+                      out=root/'images'/f'{i:03d}{ext}'
+                      out.write_bytes(b)
+                      row['saved']=str(out.relative_to(root))
+                  downloads.append(row)
+              except Exception as e:
+                  downloads.append({'i':i,'source_page':c['source_page'],'url':u,'error':type(e).__name__+': '+str(e)})
+              time.sleep(.05)
+
+          report={
+              'schema':'GYEONGJIN1580-INRYEOKJA-COMPARATOR-PROBE-R1',
+              'schema_version':'1.0.0',
+              'target':'庚辰年大統曆 / 1580 use-year / likely 1579 impression / earliest securely identified surviving pre-Imjin Gwansanggam 印曆字 almanac',
+              'authority_firewall':'Discovery/access probe only. No typographic identity or GK02538 dating claim may be made until source-bound comparator images are directly reviewed.',
+              'page_fetches':rows,
+              'candidate_count':len(uniq),
+              'candidates':uniq,
+              'downloads':downloads,
+              'saved_image_count':sum(1 for x in downloads if x.get('saved')),
+          }
+          (root/'report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print(json.dumps({
+              'page_fetches':rows,
+              'candidate_count':len(uniq),
+              'saved_image_count':report['saved_image_count'],
+              'saved':[x for x in downloads if x.get('saved')][:40],
+              'errors':[x for x in downloads if x.get('error')][:20]
+          },ensure_ascii=False,indent=2))
+          PY
+
+      - name: Upload comparator probe
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: gyeongjin1580-inryeokja-comparator-r1
+          path: audit/gyeongjin1580-inryeokja-comparator
+          if-no-files-found: error
+          retention-days: 30
