@@ -1746,7 +1746,8 @@
         "docs/research/ZIWEI-KYUDB-GK02538-GYEONGJIN1580-SOURCE-BOUND-SHARED-GLYPH-CROPS-R1.json",
         "EXT-NATIONAL-SCIENCE-MUSEUM-INRYEOKJA-GYEONGJIN-SIZECLASS-CONTROL",
         "docs/research/ZIWEI-KYUDB-GK02538-GYEONGJIN1580-MEDIUM-SIZECLASS-BINDING-R1.json",
-        "docs/research/ZIWEI-KYUDB-GK02538-GYEONGJIN1580-NOMINAL-PHYSICAL-SCALE-THREE-GLYPH-COMPARISON-R1.json"
+        "docs/research/ZIWEI-KYUDB-GK02538-GYEONGJIN1580-NOMINAL-PHYSICAL-SCALE-THREE-GLYPH-COMPARISON-R1.json",
+        "docs/research/ZIWEI-KYUDB-GK02538-DATED-INRYEOKJA-THREE-WAY-FORM-VARIATION-FIREWALL-R1.json"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-KYUDB-DATONGLIZHU-GK02538-1434-TYPE-POSTFACE-AND-FINGERPRINT-EE",
       "terminal_internal_date_line": "正統七年十二月日",
@@ -1818,7 +1819,20 @@
       "gk02538_normalization_pitch_px": 55.5,
       "normalized_three_glyph_form_divergence_observed": true,
       "normalized_form_divergence_proves_different_casting_generation": false,
-      "medium_normalized_form_identity_vote_increment": 0
+      "medium_normalized_form_identity_vote_increment": 0,
+      "dated_inryeokja_three_way_manual_set": [
+        "正",
+        "月",
+        "大"
+      ],
+      "dated_inryeokja_three_way_probe_run_id": 35673722058,
+      "dated_inryeokja_three_way_probe_artifact_id": 10672460495,
+      "dated_inryeokja_three_way_probe_artifact_digest": "sha256:4ba5393b22292b04b1488a4cc710ed8b20495952d1bc24b92673dc3a8f2c4839",
+      "dated_inryeokja_three_way_corpus_status": "CLOSED_SOURCE_HASH_BOUND",
+      "ryu1604_shared_glyph_size_class_binding": "LARGER_MONTHLY_HEADING_CLASS_VISIBLE; MEDIUM_CLASS_NOT_INDEPENDENTLY_CLOSED",
+      "dated_inryeokja_category_level_form_variation_observed": true,
+      "dated_inryeokja_visual_nearest_neighbor_proves_casting_generation": false,
+      "dated_inryeokja_visual_nearest_neighbor_proves_impression_date": false
     },
     {
       "node_id": "RULE-FAMILY-KYUDB-DATONGLIZHU-GK02538-TERM-THRESHOLD-WHOLEKE-SCHEDULE",
@@ -3491,6 +3505,10 @@
         {
           "batch": "BATCH-12-ZIWEI-KYUDB-GK02538-GYEONGJIN1580-NOMINAL-PHYSICAL-SCALE-THREE-GLYPH-COMPARISON-EM",
           "update": "A source-hash-bound nominal medium-scale corpus now compares 正/月/大 between dated 1580 Gyeongjin Inryeokja and GK02538. Local pitch anchors 55.0 px vs 55.5 px are isotropically normalized to the institutional 1.2 cm medium-class height. All three pairs remain visibly non-identical after normalization, establishing a reproducible descriptive form-divergence signal. Because Gwansanggam/Inryeokja was repeatedly recast and could mix wooden sorts, this does not identify a different casting generation, GK02538 subtype, exact impression year or Sanming parent. Zero exact Sanming-parent vote is added."
+        },
+        {
+          "batch": "BATCH-12-ZIWEI-KYUDB-GK02538-DATED-INRYEOKJA-THREE-WAY-FORM-VARIATION-FIREWALL-EN",
+          "update": "A second dated Gwansanggam/Inryeokja control is now source-bound at shared-glyph level: 1604 Ryu Gabjin 正/月/大 joins 1580 Gyeongjin and GK02538. The dated 1580 and 1604 controls are visibly non-identical across all three glyphs, directly demonstrating form variation inside the broad Inryeokja category. The 1604 exact medium-size binding remains unclosed, so local-pitch normalization is display-only. Visual nearest-neighbor match/mismatch therefore cannot identify GK02538 casting generation, subtype, exact impression year or Sanming parent. Zero exact Sanming-parent vote is added."
         }
       ],
       "endpoint_anchor_component_identified": true,

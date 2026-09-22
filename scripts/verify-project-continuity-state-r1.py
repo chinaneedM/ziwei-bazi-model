@@ -88,6 +88,8 @@ ZIWEI_KYUDB_DATONGLIZHU_12EL_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVEN
 ZIWEI_KYUDB_DATONGLIZHU_12EL_EVIDENCE = ROOT / "docs/research/ZIWEI-KYUDB-GK02538-GYEONGJIN1580-MEDIUM-SIZECLASS-BINDING-R1.json"
 ZIWEI_KYUDB_DATONGLIZHU_12EM_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KYUDB-GK02538-GYEONGJIN1580-NOMINAL-PHYSICAL-SCALE-THREE-GLYPH-COMPARISON-EM.md"
 ZIWEI_KYUDB_DATONGLIZHU_12EM_EVIDENCE = ROOT / "docs/research/ZIWEI-KYUDB-GK02538-GYEONGJIN1580-NOMINAL-PHYSICAL-SCALE-THREE-GLYPH-COMPARISON-R1.json"
+ZIWEI_KYUDB_DATONGLIZHU_12EN_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KYUDB-GK02538-DATED-INRYEOKJA-THREE-WAY-FORM-VARIATION-FIREWALL-EN.md"
+ZIWEI_KYUDB_DATONGLIZHU_12EN_EVIDENCE = ROOT / "docs/research/ZIWEI-KYUDB-GK02538-DATED-INRYEOKJA-THREE-WAY-FORM-VARIATION-FIREWALL-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -358,9 +360,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-KYUDB-GK02538-GYEONGJIN1580-SOURCE-BOUND-SHARED-GLYPH-CROPS-EK",
     "BATCH-12-ZIWEI-KYUDB-GK02538-GYEONGJIN1580-MEDIUM-SIZECLASS-BINDING-EL",
     "BATCH-12-ZIWEI-KYUDB-GK02538-GYEONGJIN1580-NOMINAL-PHYSICAL-SCALE-THREE-GLYPH-COMPARISON-EM",
+    "BATCH-12-ZIWEI-KYUDB-GK02538-DATED-INRYEOKJA-THREE-WAY-FORM-VARIATION-FIREWALL-EN",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KYUDB-GK02538-GYEONGJIN1580-NOMINAL-PHYSICAL-SCALE-THREE-GLYPH-COMPARISON-EM.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KYUDB-GK02538-DATED-INRYEOKJA-THREE-WAY-FORM-VARIATION-FIREWALL-EN.md"
 
 
 def fail(message: str) -> None:
@@ -944,6 +947,44 @@ def main() -> int:
         src = next((s for s in reg12em.get("sources", []) if s.get("source_id") == sid), None)
         if not src or src.get("batch_12em", {}).get("artifact_id") != 10671577720:
             fail(f"Batch 12EM source registry binding missing: {sid}")
+
+    for path in (ZIWEI_KYUDB_DATONGLIZHU_12EN_BATCH, ZIWEI_KYUDB_DATONGLIZHU_12EN_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12EN continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12en = json.loads(ZIWEI_KYUDB_DATONGLIZHU_12EN_EVIDENCE.read_text(encoding="utf-8"))
+    if batch12en.get("batch_id") != "BATCH-12-ZIWEI-KYUDB-GK02538-DATED-INRYEOKJA-THREE-WAY-FORM-VARIATION-FIREWALL-EN":
+        fail("Batch 12EN evidence identity mismatch")
+    wf12en = batch12en.get("workflow_evidence", {})
+    if wf12en.get("workflow_run_id") != 35673722058 or wf12en.get("artifact_id") != 10672460495 or wf12en.get("workflow_status") != "SUCCESS":
+        fail("Batch 12EN workflow artifact binding regressed")
+    if wf12en.get("artifact_digest") != "sha256:4ba5393b22292b04b1488a4cc710ed8b20495952d1bc24b92673dc3a8f2c4839":
+        fail("Batch 12EN artifact digest regressed")
+    glyph12en = batch12en.get("fixed_shared_glyphs", {})
+    if glyph12en.get("manual_set") != ["正","月","大"]:
+        fail("Batch 12EN manual glyph set regressed")
+    if glyph12en.get("ryu1604", {}).get("zheng", {}).get("crop_png_sha256") != "e4e3db000a26fb2b6c14a933dfa1789d90a953fd6a58f3f37f0c7a22c5b7b038":
+        fail("Batch 12EN 1604 正 crop regressed")
+    if glyph12en.get("ryu1604", {}).get("yue", {}).get("crop_png_sha256") != "dbdf8b00cac7025b05c2378394dea0369408c4e2fab5efb3460e3b9e6b4a2e11" or glyph12en.get("ryu1604", {}).get("da", {}).get("crop_png_sha256") != "9371eaf6d5837afe5dcf055d4f84aa58681ab9f9c3ba94c8c7095c2b39e67fa8":
+        fail("Batch 12EN 1604 月/大 crops regressed")
+    norm12en = batch12en.get("normalization_control", {})
+    if norm12en.get("source_pitches_px", {}).get("ryu1604") != 34.75 or norm12en.get("physical_scale_equivalence_across_all_three_objects_proven") is not False:
+        fail("Batch 12EN 1604 normalization firewall regressed")
+    vis12en = batch12en.get("direct_visual_adjudication", {})
+    if vis12en.get("gyeongjin1580_vs_ryu1604_all_three_visibly_non_identical") is not True or vis12en.get("dated_inryeokja_category_level_form_variation_directly_observed") is not True:
+        fail("Batch 12EN dated-control form-variation adjudication regressed")
+    if vis12en.get("visual_match_or_mismatch_is_standalone_casting_generation_operator") is not False or vis12en.get("visual_match_or_mismatch_is_standalone_impression_dating_operator") is not False:
+        fail("Batch 12EN visual nearest-neighbor firewall regressed")
+    ryu12en = batch12en.get("source_objects", {}).get("ryu1604", {})
+    if "NOT_INDEPENDENTLY_CLOSED" not in ryu12en.get("target_size_class", ""):
+        fail("Batch 12EN 1604 medium-size firewall regressed")
+    ad12en = batch12en.get("adjudication", {})
+    if ad12en.get("direct_sanming_parent_vote_increment") != 0 or any(ad12en.get(k) for k in ("matrix_count_change","runtime_rule_change","algorithm_reopen_authorized","candidate_collapse_authorized")):
+        fail("Batch 12EN project firewall regressed")
+    reg12en = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    for sid in ("EXT-KYUDB-DATONGLIZHU-GK02538-GWANSANGGAM-TYPE-POSTFACE-FINGERPRINT","EXT-HERITAGE-GYEONGJIN-1580-INRYEOKJA-PHYSICAL-CONTROL","EXT-AKS-RYU-GABJIN1604-INRYEOKJA-PHYSICAL-CONTROL"):
+        src = next((s for s in reg12en.get("sources", []) if s.get("source_id") == sid), None)
+        if not src or src.get("batch_12en", {}).get("artifact_id") != 10672460495:
+            fail(f"Batch 12EN source registry binding missing: {sid}")
 
     for path in (ZIWEI_KYUDB_12DT_BATCH, ZIWEI_KYUDB_12DT_EVIDENCE):
         if not path.is_file():
