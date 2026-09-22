@@ -1747,7 +1747,9 @@
         "EXT-NATIONAL-SCIENCE-MUSEUM-INRYEOKJA-GYEONGJIN-SIZECLASS-CONTROL",
         "docs/research/ZIWEI-KYUDB-GK02538-GYEONGJIN1580-MEDIUM-SIZECLASS-BINDING-R1.json",
         "docs/research/ZIWEI-KYUDB-GK02538-GYEONGJIN1580-NOMINAL-PHYSICAL-SCALE-THREE-GLYPH-COMPARISON-R1.json",
-        "docs/research/ZIWEI-KYUDB-GK02538-DATED-INRYEOKJA-THREE-WAY-FORM-VARIATION-FIREWALL-R1.json"
+        "docs/research/ZIWEI-KYUDB-GK02538-DATED-INRYEOKJA-THREE-WAY-FORM-VARIATION-FIREWALL-R1.json",
+        "EXT-KIM-JONGTAE-2002-GYEONGJIN-FOUR-SIZE-TYPE-MEASUREMENT",
+        "docs/research/ZIWEI-KYUDB-GK02538-GYEONGJIN1580-OBJECT-SPECIFIC-FOUR-SIZE-CALIBRATION-R1.json"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-KYUDB-DATONGLIZHU-GK02538-1434-TYPE-POSTFACE-AND-FINGERPRINT-EE",
       "terminal_internal_date_line": "正統七年十二月日",
@@ -1796,15 +1798,15 @@
       "shared_glyph_probe_run_id": 35671323140,
       "shared_glyph_probe_artifact_id": 10671595229,
       "shared_glyph_probe_artifact_digest": "sha256:4bdc7d69457fe7b988286c63028dd2e6afbb0897d99728b1273dae59cb9111b8",
-      "gyeongjin1580_shared_glyph_size_class_binding": "MEDIUM_INRYEOKJA_CLASS_SUPPORTED_AT_OBJECT_LAYOUT_LEVEL",
+      "gyeongjin1580_shared_glyph_size_class_binding": "OBJECT_SPECIFIC_MONTH_NAME_HEADING_正/月_APPROX_1.4W_X_1.2H_CM; 大_SAME_VISIBLE_HEADING_CLASS_ONLY",
       "shared_glyph_visual_form_comparison_available": true,
       "shared_glyph_visual_resemblance_or_difference_proves_casting_generation": false,
       "gyeongjin1580_medium_type_dimensions_cm": [
         1.2,
         0.8
       ],
-      "gyeongjin1580_target_medium_size_class_supported": true,
-      "same_size_class_shared_glyph_control_status": "CLOSED_NOMINAL_MEDIUM_CLASS_LEVEL",
+      "gyeongjin1580_target_medium_size_class_supported": false,
+      "same_size_class_shared_glyph_control_status": "CLOSED_NOMINAL_VERTICAL_1.2CM_LEVEL_ONLY",
       "physical_scale_normalized_shared_glyph_form_comparison_status": "NOT_YET_CLOSED",
       "medium_normalized_shared_glyph_manual_set": [
         "正",
@@ -1832,7 +1834,38 @@
       "ryu1604_shared_glyph_size_class_binding": "LARGER_MONTHLY_HEADING_CLASS_VISIBLE; MEDIUM_CLASS_NOT_INDEPENDENTLY_CLOSED",
       "dated_inryeokja_category_level_form_variation_observed": true,
       "dated_inryeokja_visual_nearest_neighbor_proves_casting_generation": false,
-      "dated_inryeokja_visual_nearest_neighbor_proves_impression_date": false
+      "dated_inryeokja_visual_nearest_neighbor_proves_impression_date": false,
+      "gyeongjin1580_12el_original_size_class_binding": "MEDIUM_INRYEOKJA_CLASS_SUPPORTED_AT_OBJECT_LAYOUT_LEVEL",
+      "gyeongjin1580_generic_inryeokja_medium_type_dimensions_cm": [
+        1.2,
+        0.8
+      ],
+      "gyeongjin1580_object_specific_month_name_heading_size_cm_width_height": [
+        1.4,
+        1.2
+      ],
+      "gyeongjin1580_four_size_scheme_cm_width_height": [
+        [
+          1.4,
+          1.2
+        ],
+        [
+          1,
+          0.9
+        ],
+        [
+          0.7,
+          0.6
+        ],
+        [
+          0.3,
+          0.3
+        ]
+      ],
+      "gyeongjin1580_object_specific_four_size_scheme_documented": true,
+      "gyeongjin1580_chained_type_practice_documented": true,
+      "gk02538_to_gyeongjin1580_month_heading_vertical_delta_pct": 0.396825,
+      "gk02538_to_gyeongjin1580_width_equivalence_proven": false
     },
     {
       "node_id": "RULE-FAMILY-KYUDB-DATONGLIZHU-GK02538-TERM-THRESHOLD-WHOLEKE-SCHEDULE",
@@ -3509,6 +3542,10 @@
         {
           "batch": "BATCH-12-ZIWEI-KYUDB-GK02538-DATED-INRYEOKJA-THREE-WAY-FORM-VARIATION-FIREWALL-EN",
           "update": "A second dated Gwansanggam/Inryeokja control is now source-bound at shared-glyph level: 1604 Ryu Gabjin 正/月/大 joins 1580 Gyeongjin and GK02538. The dated 1580 and 1604 controls are visibly non-identical across all three glyphs, directly demonstrating form variation inside the broad Inryeokja category. The 1604 exact medium-size binding remains unclosed, so local-pitch normalization is display-only. Visual nearest-neighbor match/mismatch therefore cannot identify GK02538 casting generation, subtype, exact impression year or Sanming parent. Zero exact Sanming-parent vote is added."
+        },
+        {
+          "batch": "BATCH-12-ZIWEI-KYUDB-GK02538-GYEONGJIN1580-OBJECT-SPECIFIC-FOUR-SIZE-CALIBRATION-EO",
+          "update": "Kim Jong-tae's 2002 National Folk Museum study supplies object-specific 1580 type measurements. The month-name/month-stem-branch heading class is approximately 1.4 cm wide × 1.2 cm high, so the source-fixed 正/月 targets are better described by this object-specific class than by the generic 1.2×0.8 cm Inryeokja medium table. GK02538's nominal vertical slot remains 1.204761905 cm (0.396825% from 1.2 cm), preserving the vertical bridge while leaving width/body equality, subtype, casting generation, exact impression year and Sanming parent unresolved. Zero exact Sanming-parent vote is added."
         }
       ],
       "endpoint_anchor_component_identified": true,

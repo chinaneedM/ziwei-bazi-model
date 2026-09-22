@@ -90,6 +90,8 @@ ZIWEI_KYUDB_DATONGLIZHU_12EM_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVEN
 ZIWEI_KYUDB_DATONGLIZHU_12EM_EVIDENCE = ROOT / "docs/research/ZIWEI-KYUDB-GK02538-GYEONGJIN1580-NOMINAL-PHYSICAL-SCALE-THREE-GLYPH-COMPARISON-R1.json"
 ZIWEI_KYUDB_DATONGLIZHU_12EN_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KYUDB-GK02538-DATED-INRYEOKJA-THREE-WAY-FORM-VARIATION-FIREWALL-EN.md"
 ZIWEI_KYUDB_DATONGLIZHU_12EN_EVIDENCE = ROOT / "docs/research/ZIWEI-KYUDB-GK02538-DATED-INRYEOKJA-THREE-WAY-FORM-VARIATION-FIREWALL-R1.json"
+ZIWEI_KYUDB_DATONGLIZHU_12EO_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KYUDB-GK02538-GYEONGJIN1580-OBJECT-SPECIFIC-FOUR-SIZE-CALIBRATION-EO.md"
+ZIWEI_KYUDB_DATONGLIZHU_12EO_EVIDENCE = ROOT / "docs/research/ZIWEI-KYUDB-GK02538-GYEONGJIN1580-OBJECT-SPECIFIC-FOUR-SIZE-CALIBRATION-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -361,9 +363,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-KYUDB-GK02538-GYEONGJIN1580-MEDIUM-SIZECLASS-BINDING-EL",
     "BATCH-12-ZIWEI-KYUDB-GK02538-GYEONGJIN1580-NOMINAL-PHYSICAL-SCALE-THREE-GLYPH-COMPARISON-EM",
     "BATCH-12-ZIWEI-KYUDB-GK02538-DATED-INRYEOKJA-THREE-WAY-FORM-VARIATION-FIREWALL-EN",
+    "BATCH-12-ZIWEI-KYUDB-GK02538-GYEONGJIN1580-OBJECT-SPECIFIC-FOUR-SIZE-CALIBRATION-EO",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KYUDB-GK02538-DATED-INRYEOKJA-THREE-WAY-FORM-VARIATION-FIREWALL-EN.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KYUDB-GK02538-GYEONGJIN1580-OBJECT-SPECIFIC-FOUR-SIZE-CALIBRATION-EO.md"
 
 
 def fail(message: str) -> None:
@@ -985,6 +988,41 @@ def main() -> int:
         src = next((s for s in reg12en.get("sources", []) if s.get("source_id") == sid), None)
         if not src or src.get("batch_12en", {}).get("artifact_id") != 10672460495:
             fail(f"Batch 12EN source registry binding missing: {sid}")
+
+    for path in (ZIWEI_KYUDB_DATONGLIZHU_12EO_BATCH, ZIWEI_KYUDB_DATONGLIZHU_12EO_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12EO continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12eo = json.loads(ZIWEI_KYUDB_DATONGLIZHU_12EO_EVIDENCE.read_text(encoding="utf-8"))
+    if batch12eo.get("batch_id") != "BATCH-12-ZIWEI-KYUDB-GK02538-GYEONGJIN1580-OBJECT-SPECIFIC-FOUR-SIZE-CALIBRATION-EO":
+        fail("Batch 12EO evidence identity mismatch")
+    src12eo = batch12eo.get("source", {})
+    if src12eo.get("identifier") != "KINX2003062472" or src12eo.get("reviewed_printed_page") != 82 or src12eo.get("ocr_final_authority_used") is not False:
+        fail("Batch 12EO source identity/page/no-OCR control regressed")
+    sizes12eo = batch12eo.get("object_specific_measurement", {}).get("four_size_classes_cm_width_height", [])
+    if [x.get("approx_cm") for x in sizes12eo] != [[1.4,1.2],[1.0,0.9],[0.7,0.6],[0.3,0.3]]:
+        fail("Batch 12EO four-size measurement scheme regressed")
+    bind12eo = batch12eo.get("target_binding", {})
+    if bind12eo.get("gyeongjin1580_zheng", {}).get("object_specific_size_cm_width_height") != [1.4,1.2] or bind12eo.get("gyeongjin1580_yue", {}).get("object_specific_size_cm_width_height") != [1.4,1.2]:
+        fail("Batch 12EO 正/月 object-specific binding regressed")
+    if bind12eo.get("gyeongjin1580_da", {}).get("object_specific_size_cm_width_height") is not None or bind12eo.get("generic_1_2_by_0_8_medium_body_is_exact_2d_target_identity") is not False:
+        fail("Batch 12EO 大/generic-medium firewall regressed")
+    bridge12eo = batch12eo.get("gk02538_vertical_bridge", {})
+    if bridge12eo.get("gk02538_nominal_vertical_slot_pitch_cm") != 1.204761905 or bridge12eo.get("gyeongjin1580_month_name_heading_vertical_cm") != 1.2 or bridge12eo.get("relative_delta_pct") != 0.396825:
+        fail("Batch 12EO vertical bridge controls regressed")
+    if bridge12eo.get("horizontal_width_equivalence_proven") is not False or bridge12eo.get("full_physical_scale_equivalence_proven") is not False:
+        fail("Batch 12EO width/full-scale firewall regressed")
+    corr12eo = batch12eo.get("correction_scope", {})
+    if corr12eo.get("12el_generic_medium_interpretation_superseded_for_current_target_description") is not True or corr12eo.get("12em_vertical_pitch_normalization_invalidated") is not False:
+        fail("Batch 12EO correction scope regressed")
+    if corr12eo.get("same_size_control_current_status") != "CLOSED_NOMINAL_VERTICAL_1.2CM_LEVEL_ONLY":
+        fail("Batch 12EO same-size control refinement regressed")
+    ad12eo = batch12eo.get("adjudication", {})
+    if ad12eo.get("direct_sanming_parent_vote_increment") != 0 or any(ad12eo.get(k) for k in ("matrix_count_change","runtime_rule_change","algorithm_reopen_authorized","candidate_collapse_authorized")):
+        fail("Batch 12EO project firewall regressed")
+    reg12eo = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    kim12eo = next((s for s in reg12eo.get("sources", []) if s.get("source_id") == "EXT-KIM-JONGTAE-2002-GYEONGJIN-FOUR-SIZE-TYPE-MEASUREMENT"), None)
+    if not kim12eo or kim12eo.get("identifier") != "KINX2003062472":
+        fail("Batch 12EO Kim Jong-tae source registry entry missing")
 
     for path in (ZIWEI_KYUDB_12DT_BATCH, ZIWEI_KYUDB_12DT_EVIDENCE):
         if not path.is_file():
