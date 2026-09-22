@@ -1,0 +1,70 @@
+name: fast-locate-guoshi-jingjizhi-v3-zhunzhai-author
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/fast-locate-guoshi-jingjizhi-v3-zhunzhai-author.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  locate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Render correct NLC Guoshi Jingjizhi volume 3 contact sheets
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/guoshi-jingjizhi-v3-fast-locator'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT/pages"
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils >/dev/null
+          python -m pip install --quiet pillow
+          URL='https://commons.wikimedia.org/wiki/Special:Redirect/file/NLC892-1081-207390%20%E5%9C%8B%E5%8F%B2%E7%B6%93%E7%B1%8D%E5%BF%97%20%E7%AC%AC2%E5%86%8A.pdf'
+          curl -fL --retry 4 --retry-delay 2 -A 'Tianwen-Provenance-Audit/1.0' "$URL" -o "$ROOT/source.pdf"
+          sha256sum "$ROOT/source.pdf" | tee "$ROOT/source-sha256.txt"
+          pdfinfo "$ROOT/source.pdf" | tee "$ROOT/pdfinfo.txt"
+          pdftoppm -jpeg -r 115 "$ROOT/source.pdf" "$ROOT/pages/page" >/dev/null 2>&1
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image, ImageDraw
+          import hashlib, json
+          root=Path('audit/guoshi-jingjizhi-v3-fast-locator')
+          pages=sorted(root.joinpath('pages').glob('page-*.jpg'))
+          manifest=[]
+          for i,p in enumerate(pages,1):
+              b=p.read_bytes(); im=Image.open(p)
+              manifest.append({'pdf_page':i,'file':p.name,'sha256':hashlib.sha256(b).hexdigest(),'width':im.width,'height':im.height})
+          cols=5; per=20
+          for start in range(0,len(pages),per):
+              chunk=pages[start:start+per]; thumbs=[]
+              for j,p in enumerate(chunk,start+1):
+                  im=Image.open(p).convert('RGB'); tw=360
+                  im=im.resize((tw,max(1,int(im.height*tw/im.width))))
+                  c=Image.new('RGB',(tw,im.height+30),'white'); c.paste(im,(0,30))
+                  ImageDraw.Draw(c).text((7,6),f'PDF p{j}',fill='black'); thumbs.append(c)
+              cw=max(t.width for t in thumbs); ch=max(t.height for t in thumbs)
+              rows=(len(thumbs)+cols-1)//cols
+              sheet=Image.new('RGB',(cols*cw,rows*ch),'white')
+              for k,t in enumerate(thumbs): sheet.paste(t,((k%cols)*cw,(k//cols)*ch))
+              sheet.save(root/f'contact-{start+1:03d}-{start+len(chunk):03d}.jpg',quality=94)
+          root.joinpath('manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          root.joinpath('README.txt').write_text(
+              'Correct source: NLC892-1081-207390, Wikimedia/NLC metadata Description=卷三.\n'
+              'Purpose: direct visual locator only; target neighborhood is 食貨 -> 右貨寶 -> 準齋几漏圖式一卷 / 孫逢吉.\n'
+              'No OCR content-negative authority.\n',encoding='utf-8')
+          print(json.dumps({'pages':len(pages),'contacts':(len(pages)+19)//20},ensure_ascii=False))
+          PY
+      - name: Upload fast locator
+        uses: actions/upload-artifact@v4
+        with:
+          name: guoshi-jingjizhi-v3-fast-locator-r1
+          path: audit/guoshi-jingjizhi-v3-fast-locator
+          if-no-files-found: error
+          retention-days: 30
