@@ -1739,7 +1739,10 @@
         "EXT-HERITAGE-RYU-1594-1606-DAETONGLYOK-DATED-SERIES",
         "EXT-RISS-KIM-SANGHO-1987-GWANSANGGAM-TYPE-SUBTYPE-TAXONOMY",
         "EXT-HERITAGE-INRYEOKJA-TYPE-BODY-DIMENSION-CONTROL",
-        "docs/research/ZIWEI-KYUDB-GK02538-INRYEOKJA-BODY-SCALE-COMPATIBILITY-AND-CASTING-FIREWALL-R1.json"
+        "docs/research/ZIWEI-KYUDB-GK02538-INRYEOKJA-BODY-SCALE-COMPATIBILITY-AND-CASTING-FIREWALL-R1.json",
+        "EXT-KASI-YU1997-SEJONG-CALENDAR-BIBLIOGRAPHY-DATONGLIZHU-GENERIC-GWANSANGGAM-TYPE",
+        "EXT-HANSUNG-MYONGJAE-DAETONGLYOKJA-SCOPE-KIMSANGHO132-CONTROL",
+        "docs/research/ZIWEI-KYUDB-GK02538-DAETONGLYOKJA-NAME-SCOPE-AND-SEJONG-LIST-FIREWALL-R1.json"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-KYUDB-DATONGLIZHU-GK02538-1434-TYPE-POSTFACE-AND-FINGERPRINT-EE",
       "terminal_internal_date_line": "正統七年十二月日",
@@ -1771,7 +1774,15 @@
       "nominal_pitch_vs_medium_inryeokja_height_relative_delta_pct": 0.396825,
       "type_body_scale_compatibility_status": "SUPPORTED_NOMINAL_VERTICAL_SCALE_ONLY",
       "direct_glyph_body_measurement_performed": false,
-      "scale_compatibility_proves_same_casting_generation": false
+      "scale_compatibility_proves_same_casting_generation": false,
+      "title_string_implies_daetongryokja_subtype": false,
+      "kasi_1997_bibliographic_label": "大統曆註（觀象監活字）",
+      "kasi_1997_table_membership_proves_sejong_impression": false,
+      "daetongryokja_name_is_title_identity_rule": false,
+      "daetongryokja_secondary_scope_examples": [
+        "大統曆 1651/1652",
+        "時憲曆 1653-1723"
+      ]
     },
     {
       "node_id": "RULE-FAMILY-KYUDB-DATONGLIZHU-GK02538-TERM-THRESHOLD-WHOLEKE-SCHEDULE",
@@ -3428,6 +3439,10 @@
         {
           "batch": "BATCH-12-ZIWEI-KYUDB-GK02538-INRYEOKJA-BODY-SCALE-COMPATIBILITY-AND-CASTING-FIREWALL-EI",
           "update": "Official Korea Heritage type-body data now make GK02538 physically compatible with the medium 印曆字 scale at the nominal vertical-slot level: 25.3 cm / 21 = 1.2047619 cm versus 1.2 cm medium type height (0.397% difference). The 1604 official frame record remains 行字數不定 and the annual calendar mixes size classes, so this cannot identify a shared casting generation or exact impression. GK02538 subtype/date remain unresolved and zero exact Sanming-parent vote is added."
+        },
+        {
+          "batch": "BATCH-12-ZIWEI-KYUDB-GK02538-DAETONGLYOKJA-NAME-SCOPE-AND-SEJONG-LIST-FIREWALL-EJ",
+          "update": "Subtype-name scope is narrowed without dating GK02538. KASI 1997 lists the matching 大統曆註 bibliographic item as generic 觀象監活字, while a Hansung bibliographic study explicitly citing Kim Sang-Ho 1987 p.132 applies 觀象監大統曆字 to 1651/1652 大統曆 and 1653-1723 時憲曆. Thus 大統曆字 is not a title-string identity operator, and 大統曆註 -> Daetongryokja is not authorized. GK02538 subtype/casting/date remain unresolved; zero exact Sanming-parent vote is added."
         }
       ],
       "endpoint_anchor_component_identified": true,

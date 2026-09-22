@@ -27,6 +27,7 @@ BATCH_12EC = ROOT / "docs/research/ZIWEI-NCL06627-DATONGLIZHU-THRESHOLD-FINGERPR
 BATCH_12ED = ROOT / "docs/research/ZIWEI-KYUDB-DATONGLIZHU-GK02426-PARTIAL-FINGERPRINT-R1.json"
 BATCH_12EE = ROOT / "docs/research/ZIWEI-KYUDB-DATONGLIZHU-GK02538-1434-TYPE-POSTFACE-AND-FINGERPRINT-R1.json"
 BATCH_12EI = ROOT / "docs/research/ZIWEI-KYUDB-GK02538-INRYEOKJA-BODY-SCALE-COMPATIBILITY-AND-CASTING-FIREWALL-R1.json"
+BATCH_12EJ = ROOT / "docs/research/ZIWEI-KYUDB-GK02538-DAETONGLYOKJA-NAME-SCOPE-AND-SEJONG-LIST-FIREWALL-R1.json"
 
 
 def fail(message: str) -> None:
@@ -34,7 +35,7 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
-    for path in (CHARTER, PROTOCOL, GRAPH, STATE, BATCH_12CH, BATCH_12DP, BATCH_12DQ, BATCH_12DR, BATCH_12DS, BATCH_12DT, BATCH_12DU, BATCH_12DV, BATCH_12DW, BATCH_12DX, BATCH_12DY, BATCH_12DZ, BATCH_12EA, BATCH_12EB, BATCH_12EC, BATCH_12ED, BATCH_12EE, BATCH_12EI):
+    for path in (CHARTER, PROTOCOL, GRAPH, STATE, BATCH_12CH, BATCH_12DP, BATCH_12DQ, BATCH_12DR, BATCH_12DS, BATCH_12DT, BATCH_12DU, BATCH_12DV, BATCH_12DW, BATCH_12DX, BATCH_12DY, BATCH_12DZ, BATCH_12EA, BATCH_12EB, BATCH_12EC, BATCH_12ED, BATCH_12EE, BATCH_12EI, BATCH_12EJ):
         if not path.is_file():
             fail(f"Tianwen transmission artifact missing: {path.relative_to(ROOT)}")
 
@@ -801,6 +802,24 @@ def main() -> int:
         fail("Batch 12EI transmission impact node strengthening missing")
     if impact12ei.get("edges_supported") != []:
         fail("Batch 12EI unexpectedly closed a transmission edge")
+
+
+    if copy12ee.get("title_string_implies_daetongryokja_subtype") is not False:
+        fail("Batch 12EJ title-to-Daetongryokja node firewall regressed")
+    if copy12ee.get("kasi_1997_bibliographic_label") != "大統曆註（觀象監活字）" or copy12ee.get("kasi_1997_table_membership_proves_sejong_impression") is not False:
+        fail("Batch 12EJ KASI bibliography node control regressed")
+    if copy12ee.get("daetongryokja_name_is_title_identity_rule") is not False:
+        fail("Batch 12EJ type-name identity firewall regressed")
+    if copy12ee.get("gwansanggam_specific_subtype") != "UNRESOLVED" or copy12ee.get("casting_generation") != "UNRESOLVED":
+        fail("Batch 12EJ unresolved subtype/casting gate regressed")
+    if not any(x.get("batch") == "BATCH-12-ZIWEI-KYUDB-GK02538-DAETONGLYOKJA-NAME-SCOPE-AND-SEJONG-LIST-FIREWALL-EJ" and "zero exact sanming-parent vote" in x.get("update", "").lower() for x in hyp12dk.get("evidence_updates", [])):
+        fail("Batch 12EJ genealogy hypothesis zero-vote update missing")
+    batch12ej = json.loads(BATCH_12EJ.read_text(encoding="utf-8"))
+    impact12ej = batch12ej.get("transmission_impact", {})
+    if "PHYSICAL-COPY-KYUDB-DATONGLIZHU-GK02538-GWANSANGGAM-MOVABLETYPE" not in impact12ej.get("nodes_strengthened", []):
+        fail("Batch 12EJ transmission impact node strengthening missing")
+    if impact12ej.get("edges_supported") != []:
+        fail("Batch 12EJ unexpectedly closed a positive transmission edge")
 
     ncl = next(n for n in nodes if n.get("node_id") == "PHYSICAL-COPY-SISHI-QIHOU-NCL03164-OLD-MANUSCRIPT")
     if ncl.get("physical_copy_date") != "UNRESOLVED":

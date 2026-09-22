@@ -80,6 +80,8 @@ ZIWEI_KYUDB_DATONGLIZHU_12EH_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVEN
 ZIWEI_KYUDB_DATONGLIZHU_12EH_EVIDENCE = ROOT / "docs/research/ZIWEI-KYUDB-GK02538-DATED-INRYEOKJA-PHYSICAL-COMPARATOR-AND-SUBTYPE-FIREWALL-R1.json"
 ZIWEI_KYUDB_DATONGLIZHU_12EI_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KYUDB-GK02538-INRYEOKJA-BODY-SCALE-COMPATIBILITY-AND-CASTING-FIREWALL-EI.md"
 ZIWEI_KYUDB_DATONGLIZHU_12EI_EVIDENCE = ROOT / "docs/research/ZIWEI-KYUDB-GK02538-INRYEOKJA-BODY-SCALE-COMPATIBILITY-AND-CASTING-FIREWALL-R1.json"
+ZIWEI_KYUDB_DATONGLIZHU_12EJ_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KYUDB-GK02538-DAETONGLYOKJA-NAME-SCOPE-AND-SEJONG-LIST-FIREWALL-EJ.md"
+ZIWEI_KYUDB_DATONGLIZHU_12EJ_EVIDENCE = ROOT / "docs/research/ZIWEI-KYUDB-GK02538-DAETONGLYOKJA-NAME-SCOPE-AND-SEJONG-LIST-FIREWALL-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -346,9 +348,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-KYUDB-DATONGLIZHU-GK02538-GWANSANGGAM-TYPE-CATEGORY-AND-INHERITED-COLOPHON-CONTROL-EG",
     "BATCH-12-ZIWEI-KYUDB-GK02538-DATED-INRYEOKJA-PHYSICAL-COMPARATOR-AND-SUBTYPE-FIREWALL-EH",
     "BATCH-12-ZIWEI-KYUDB-GK02538-INRYEOKJA-BODY-SCALE-COMPATIBILITY-AND-CASTING-FIREWALL-EI",
+    "BATCH-12-ZIWEI-KYUDB-GK02538-DAETONGLYOKJA-NAME-SCOPE-AND-SEJONG-LIST-FIREWALL-EJ",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KYUDB-GK02538-INRYEOKJA-BODY-SCALE-COMPATIBILITY-AND-CASTING-FIREWALL-EI.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KYUDB-GK02538-DAETONGLYOKJA-NAME-SCOPE-AND-SEJONG-LIST-FIREWALL-EJ.md"
 
 
 def fail(message: str) -> None:
@@ -812,6 +815,34 @@ def main() -> int:
     type_src12ei = next((s for s in ei_registry.get("sources", []) if s.get("source_id") == "EXT-HERITAGE-INRYEOKJA-TYPE-BODY-DIMENSION-CONTROL"), None)
     if type_src12ei is None or "1.2" not in type_src12ei.get("quality_notes", "") or "0.5" not in type_src12ei.get("quality_notes", ""):
         fail("Batch 12EI official Inryeokja body-size source binding missing")
+
+
+    for path in (ZIWEI_KYUDB_DATONGLIZHU_12EJ_BATCH, ZIWEI_KYUDB_DATONGLIZHU_12EJ_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12EJ continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12ej = json.loads(ZIWEI_KYUDB_DATONGLIZHU_12EJ_EVIDENCE.read_text(encoding="utf-8"))
+    if batch12ej.get("batch_id") != "BATCH-12-ZIWEI-KYUDB-GK02538-DAETONGLYOKJA-NAME-SCOPE-AND-SEJONG-LIST-FIREWALL-EJ":
+        fail("Batch 12EJ evidence identity mismatch")
+    subtype12ej = batch12ej.get("subtype_name_adjudication", {})
+    if subtype12ej.get("title_string_is_type_subtype_identifier") is not False or subtype12ej.get("generic_gwansanggam_type_label_is_specific_subtype_identifier") is not False:
+        fail("Batch 12EJ title/generic-type subtype firewall regressed")
+    if subtype12ej.get("daetongryokja_label_can_span_other_calendar_titles") is not True or subtype12ej.get("gk02538_daetongryokja_assignment_from_title_authorized") is not False:
+        fail("Batch 12EJ Daetongryokja name-scope adjudication regressed")
+    chrono12ej = batch12ej.get("chronology_firewall", {})
+    if chrono12ej.get("kasi_table_membership_proves_sejong_period_impression") is not False or chrono12ej.get("exact_surviving_copy_impression_year") != "UNRESOLVED":
+        fail("Batch 12EJ KASI/chronology firewall regressed")
+    rel12ej = batch12ej.get("relation_to_12ei", {})
+    if rel12ej.get("nominal_medium_inryeokja_scale_compatibility_retained") is not True or rel12ej.get("scale_compatibility_plus_title_closes_subtype") is not False:
+        fail("Batch 12EJ 12EI scale/subtype firewall regressed")
+    ad12ej = batch12ej.get("adjudication", {})
+    if ad12ej.get("direct_sanming_parent_vote_increment") != 0 or ad12ej.get("threshold_to_wholeke_operator_closed") is not False:
+        fail("Batch 12EJ lineage/mechanism zero-vote firewall regressed")
+    if any(ad12ej.get(k) for k in ("matrix_count_change","runtime_rule_change","algorithm_reopen_authorized","candidate_collapse_authorized")):
+        fail("Batch 12EJ product firewall regressed")
+    ej_registry = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    for sid in ("EXT-KASI-YU1997-SEJONG-CALENDAR-BIBLIOGRAPHY-DATONGLIZHU-GENERIC-GWANSANGGAM-TYPE", "EXT-HANSUNG-MYONGJAE-DAETONGLYOKJA-SCOPE-KIMSANGHO132-CONTROL"):
+        if not any(s.get("source_id") == sid for s in ej_registry.get("sources", [])):
+            fail(f"Batch 12EJ source registry control missing: {sid}")
 
     for path in (ZIWEI_KYUDB_12DT_BATCH, ZIWEI_KYUDB_12DT_EVIDENCE):
         if not path.is_file():

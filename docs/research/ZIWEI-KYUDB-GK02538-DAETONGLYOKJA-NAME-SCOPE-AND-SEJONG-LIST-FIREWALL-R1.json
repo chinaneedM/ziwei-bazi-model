@@ -1,0 +1,95 @@
+{
+  "schema": "ZIWEI-KYUDB-GK02538-DAETONGLYOKJA-NAME-SCOPE-AND-SEJONG-LIST-FIREWALL-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-KYUDB-GK02538-DAETONGLYOKJA-NAME-SCOPE-AND-SEJONG-LIST-FIREWALL-EJ",
+  "prior_batch_id": "BATCH-12-ZIWEI-KYUDB-GK02538-INRYEOKJA-BODY-SCALE-COMPATIBILITY-AND-CASTING-FIREWALL-EI",
+  "question": "Can GK02538 be assigned to the Daetongryokja / 觀象監大統曆字 subtype merely because its title is 大統曆註 and its catalog type is generic 觀象監活字?",
+  "answer": "NO_TITLE_STRING_SUBTYPE_SHORTCUT; KASI_1997_MATCHING_BIBLIOGRAPHIC_ITEM_REMAINS_GENERIC_觀象監活字; SECONDARY_BIBLIOGRAPHIC_EVIDENCE_CITING_KIM_SANGHO_1987_P132_APPLIES_觀象監大統曆字_ACROSS_1651_1652_大統曆_AND_1653_1723_時憲曆; GK02538_OBJECT_SPECIFIC_SUBTYPE_REMAINS_UNRESOLVED",
+  "controlling_sources": {
+    "kim_sangho_1987_index": {
+      "source_id": "EXT-RISS-KIM-SANGHO-1987-GWANSANGGAM-TYPE-SUBTYPE-TAXONOMY",
+      "citation": "Kim Sang-Ho, 觀象監活字考, 圖書館學 14 (1987), pp.131-148",
+      "indexed_abstract": "Four different Kwansanggam type categories are proposed according to calendar nature: Daetongryokja, Naeyongsamsoja, Myongsiryokja, Chiljongryokja.",
+      "full_text_directly_recovered_in_this_batch": false
+    },
+    "kasi_1997": {
+      "source_id": "EXT-KASI-YU1997-SEJONG-CALENDAR-BIBLIOGRAPHY-DATONGLIZHU-GENERIC-GWANSANGGAM-TYPE",
+      "provider": "Korea Astronomy and Space Science Institute",
+      "table": "Table 3. Astronomical calendars published in or near the period of Sejong",
+      "target_item": "18. 大統曆註（觀象監活字） 跋 權近, 卞季良, 金鑌 12卷4冊",
+      "table_scope_statement": "The surrounding text says the table contains books of Goryeo, Yuan, Ming, and books published in Sejong's period.",
+      "direct_consequence": "Target item is bibliographically labelled generic 觀象監活字; table membership alone is not a Sejong-impression proof."
+    },
+    "hansung_bibliography": {
+      "source_id": "EXT-HANSUNG-MYONGJAE-DAETONGLYOKJA-SCOPE-KIMSANGHO132-CONTROL",
+      "direct_pdf_page": 52,
+      "statement_scope": "觀象監大統曆字 printed holdings include 大統曆 1651/1652 and 時憲曆 1653-1723.",
+      "footnote": "41) 金相淏, 觀象監活字考, 圖書館學 14 (1987), p.132.",
+      "use": "SECONDARY_NAME_SCOPE_CONTROL_NOT_GK02538_OBJECT_IDENTIFICATION"
+    }
+  },
+  "subtype_name_adjudication": {
+    "title_contains_daetongryok": true,
+    "title_string_is_type_subtype_identifier": false,
+    "generic_gwansanggam_type_label_is_specific_subtype_identifier": false,
+    "daetongryokja_label_is_restricted_to_books_titled_daetongryok": false,
+    "daetongryokja_label_can_span_other_calendar_titles": true,
+    "gk02538_daetongryokja_assignment_from_title_authorized": false,
+    "gk02538_object_specific_subtype_identified": false
+  },
+  "chronology_firewall": {
+    "kasi_table_membership_proves_sejong_period_impression": false,
+    "target_item_includes_1434_postface_chain": true,
+    "postface_chain_dates_surviving_copy": false,
+    "exact_surviving_copy_impression_year": "UNRESOLVED",
+    "secure_pre1578_gk02538_physical_impression_witness": false
+  },
+  "relation_to_12ei": {
+    "nominal_medium_inryeokja_scale_compatibility_retained": true,
+    "scale_compatibility_plus_title_closes_subtype": false,
+    "scale_compatibility_plus_generic_catalog_label_closes_subtype": false,
+    "shared_glyph_identity_control_status": "NOT_YET_CLOSED"
+  },
+  "transmission_impact": {
+    "nodes_strengthened": [
+      "PHYSICAL-COPY-KYUDB-DATONGLIZHU-GK02538-GWANSANGGAM-MOVABLETYPE"
+    ],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "TITLE 大統曆註 -> SUBTYPE Daetongryokja",
+      "KASI Sejong-period bibliography membership -> GK02538 surviving-copy Sejong impression",
+      "generic 觀象監活字 + nominal medium scale -> specific casting generation"
+    ],
+    "unresolved_lineage_questions": [
+      "Which specific Gwansanggam type subtype, if any, is physically represented by GK02538?",
+      "Can a dated same-size shared-glyph set identify type-form/casting generation?",
+      "Can Kim Sang-Ho 1987 full text or another specialist study be recovered with object-specific diagnostic criteria?"
+    ],
+    "interpretation": "12EJ removes a nomenclatural shortcut but adds no positive subtype identity or copy date."
+  },
+  "adjudication": {
+    "direct_sanming_parent_vote_increment": 0,
+    "threshold_to_wholeke_operator_closed": false,
+    "matrix_count_change": false,
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false
+  },
+  "project_consequence": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "missing_from_product_rows": 10,
+    "provenance_defects_repaired": "12/12",
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0,
+    "deterministic_product_status": "CLOSED"
+  },
+  "next_gate": [
+    "Recover object-level diagnostic criteria from Kim Sang-Ho 1987 or equivalent authoritative typographic research.",
+    "Acquire size-class-bound shared-glyph controls from dated 16th-century Inryeokja impressions and compare type forms.",
+    "Continue the independent pre-1578 exact Sanming/Yueling Rainwater+Dahan fingerprint and threshold-operator search."
+  ],
+  "updated_at": "2026-09-22"
+}
