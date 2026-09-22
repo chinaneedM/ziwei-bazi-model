@@ -1,0 +1,124 @@
+name: probe-neige-shumu-1605-zhunzhai-author
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-neige-shumu-1605-zhunzhai-author.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Acquire NLC Neige Shumu and locate Zhunzhai author entry
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/neige-shumu-1605-zhunzhai-author'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT/pages" "$ROOT/ocr" "$ROOT/highres"
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils tesseract-ocr tesseract-ocr-chi-tra tesseract-ocr-chi-tra-vert >/dev/null
+          python -m pip install --quiet pillow
+
+          URL='https://commons.wikimedia.org/wiki/Special:Redirect/file/NLC892-1083-204836%20%E5%85%A7%E9%96%A3%E6%9B%B8%E7%9B%AE.pdf'
+          curl -fL --retry 4 --retry-delay 2 -A 'Tianwen-Provenance-Audit/1.0' "$URL" -o "$ROOT/neige-shumu.pdf"
+          sha256sum "$ROOT/neige-shumu.pdf" | tee "$ROOT/source-sha256.txt"
+          pdfinfo "$ROOT/neige-shumu.pdf" | tee "$ROOT/pdfinfo.txt"
+          pdftotext -layout "$ROOT/neige-shumu.pdf" "$ROOT/embedded-text.txt" || true
+
+          # Render the complete volume for locator review.
+          pdftoppm -jpeg -r 130 "$ROOT/neige-shumu.pdf" "$ROOT/pages/page" >/dev/null 2>&1
+
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image, ImageDraw
+          import hashlib, json, subprocess, re
+
+          root=Path('audit/neige-shumu-1605-zhunzhai-author')
+          pages=sorted(root.joinpath('pages').glob('page-*.jpg'))
+          targets=['準齋','准齋','几漏','幾漏','孫逢吉','孙逢吉','逢吉','莫詳時代','莫详时代','技藝部','技艺部']
+          manifest=[]
+          hits=[]
+          for i,p in enumerate(pages,1):
+              b=p.read_bytes()
+              im=Image.open(p).convert('RGB')
+              manifest.append({'pdf_page':i,'file':p.name,'sha256':hashlib.sha256(b).hexdigest(),'width':im.width,'height':im.height})
+              texts=[]
+              for lang,psm in [('chi_tra_vert','5'),('chi_tra','6')]:
+                  proc=subprocess.run(['tesseract',str(p),'stdout','-l',lang,'--psm',psm],stdout=subprocess.PIPE,stderr=subprocess.DEVNULL,check=False)
+                  txt=proc.stdout.decode('utf-8',errors='replace')
+                  texts.append(txt)
+              txt='\n'.join(texts)
+              root.joinpath('ocr',f'page-{i:03d}.txt').write_text(txt,encoding='utf-8')
+              compact=''.join(txt.split())
+              found=[t for t in targets if t in compact]
+              # Fuzzy diagnostic for weak vertical OCR.
+              diag=sum(ch in compact for ch in ['準','齋','漏','孫','逢','吉','技','藝'])
+              if found or diag>=4:
+                  hits.append({'pdf_page':i,'terms':found,'diagnostic_score':diag,'context':' '.join(txt.split())[:3000]})
+
+          # Full contact sheets; human review remains final authority.
+          cols=4; per=16
+          for start in range(0,len(pages),per):
+              chunk=pages[start:start+per]
+              thumbs=[]
+              for j,p in enumerate(chunk,start+1):
+                  im=Image.open(p).convert('RGB')
+                  tw=330
+                  im=im.resize((tw,max(1,int(im.height*tw/im.width))))
+                  c=Image.new('RGB',(tw,im.height+30),'white')
+                  c.paste(im,(0,30))
+                  ImageDraw.Draw(c).text((6,6),f'PDF p{j}',fill='black')
+                  thumbs.append(c)
+              cw=max(t.width for t in thumbs); ch=max(t.height for t in thumbs)
+              rows=(len(thumbs)+cols-1)//cols
+              sheet=Image.new('RGB',(cols*cw,rows*ch),'white')
+              for k,t in enumerate(thumbs):
+                  sheet.paste(t,((k%cols)*cw,(k//cols)*ch))
+              sheet.save(root/f'contact-{start+1:03d}-{start+len(chunk):03d}.jpg',quality=90)
+
+          # High-res render a broad neighborhood around OCR hits.
+          cand=set()
+          for h in hits:
+              for q in range(max(1,h['pdf_page']-2),min(len(pages),h['pdf_page']+2)+1):
+                  cand.add(q)
+          # If OCR is weak, sample likely later 技藝/天文 region broadly.
+          if not cand:
+              # Entire book remains available in contact sheets; avoid false negative.
+              cand.update(range(1,len(pages)+1))
+          # Cap direct highres pages only if huge, preserving all hit neighborhoods.
+          for i in sorted(cand):
+              subprocess.run(['pdftoppm','-f',str(i),'-l',str(i),'-png','-r','300',str(root/'neige-shumu.pdf'),str(root/'highres'/f'p{i:03d}')],check=True,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
+
+          report={
+            'schema':'NEIGE-SHUMU-1605-ZHUNZHAI-AUTHOR-PROBE-R1',
+            'source_file':'NLC892-1083-204836 內閣書目.pdf',
+            'source_role':'Modern physical transmission witness of the Ming Wanli 33 / 1605 catalog text; not a 1605 physical copy.',
+            'rendered_page_count':len(pages),
+            'ocr_locator_hits':hits,
+            'ocr_authority':'LOCATOR_ONLY_NOT_FINAL_GLYPH_AUTHORITY',
+            'highres_candidate_pages':sorted(cand),
+            'target_claim_to_test':'準齋几漏新式一冊 / 孫逢吉著 / 莫詳時代',
+            'secondary_control':'Wang Xiaohu 2014 quotes 內閣藏書目錄 with 準齋几漏新式一冊 followed by 孫逢吉著，莫詳時代.',
+            'final_adjudication':'PENDING_DIRECT_IMAGE_REVIEW'
+          }
+          root.joinpath('manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          root.joinpath('report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print(json.dumps({'pages':len(pages),'hits':hits,'highres_candidates':sorted(cand)},ensure_ascii=False,indent=2))
+          PY
+
+      - name: Upload Neige Shumu target corpus
+        uses: actions/upload-artifact@v4
+        with:
+          name: neige-shumu-1605-zhunzhai-author-r1
+          path: audit/neige-shumu-1605-zhunzhai-author
+          if-no-files-found: error
+          retention-days: 30
