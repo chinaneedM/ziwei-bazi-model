@@ -94,6 +94,8 @@ ZIWEI_KYUDB_DATONGLIZHU_12EO_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVEN
 ZIWEI_KYUDB_DATONGLIZHU_12EO_EVIDENCE = ROOT / "docs/research/ZIWEI-KYUDB-GK02538-GYEONGJIN1580-OBJECT-SPECIFIC-FOUR-SIZE-CALIBRATION-R1.json"
 ZIWEI_KYUDB_DATONGLIZHU_12EP_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KYUDB-GK02538-IMJIN-TYPE-LOSS-RECOVERY-CONTINUITY-FIREWALL-EP.md"
 ZIWEI_KYUDB_DATONGLIZHU_12EP_EVIDENCE = ROOT / "docs/research/ZIWEI-KYUDB-GK02538-IMJIN-TYPE-LOSS-RECOVERY-CONTINUITY-FIREWALL-R1.json"
+ZIWEI_WENYUANGE_ZHUNZHAI_12EQ_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENYUANGE1441-ZHUNZHAI-TITLE-EXISTENCE-CHRONOLOGY-FIREWALL-EQ.md"
+ZIWEI_WENYUANGE_ZHUNZHAI_12EQ_EVIDENCE = ROOT / "docs/research/ZIWEI-WENYUANGE1441-ZHUNZHAI-TITLE-EXISTENCE-CHRONOLOGY-FIREWALL-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -367,9 +369,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-KYUDB-GK02538-DATED-INRYEOKJA-THREE-WAY-FORM-VARIATION-FIREWALL-EN",
     "BATCH-12-ZIWEI-KYUDB-GK02538-GYEONGJIN1580-OBJECT-SPECIFIC-FOUR-SIZE-CALIBRATION-EO",
     "BATCH-12-ZIWEI-KYUDB-GK02538-IMJIN-TYPE-LOSS-RECOVERY-CONTINUITY-FIREWALL-EP",
+    "BATCH-12-ZIWEI-WENYUANGE1441-ZHUNZHAI-TITLE-EXISTENCE-CHRONOLOGY-FIREWALL-EQ",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KYUDB-GK02538-IMJIN-TYPE-LOSS-RECOVERY-CONTINUITY-FIREWALL-EP.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENYUANGE1441-ZHUNZHAI-TITLE-EXISTENCE-CHRONOLOGY-FIREWALL-EQ.md"
 
 
 def fail(message: str) -> None:
@@ -1058,6 +1061,42 @@ def main() -> int:
     shim12ep = next((s for s in reg12ep.get("sources", []) if s.get("source_id") == "EXT-SHIM-SUGYEONG-GYEONHANJAPROK-CALENDAR-TYPE-LOSS-RECOVERY-TRANSCRIPTION"), None)
     if not shim12ep or "partial recovery" not in shim12ep.get("quality_notes","").lower():
         fail("Batch 12EP Shim Su-gyeong source registry entry missing")
+
+    for path in (ZIWEI_WENYUANGE_ZHUNZHAI_12EQ_BATCH, ZIWEI_WENYUANGE_ZHUNZHAI_12EQ_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12EQ continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12eq = json.loads(ZIWEI_WENYUANGE_ZHUNZHAI_12EQ_EVIDENCE.read_text(encoding="utf-8"))
+    if batch12eq.get("batch_id") != "BATCH-12-ZIWEI-WENYUANGE1441-ZHUNZHAI-TITLE-EXISTENCE-CHRONOLOGY-FIREWALL-EQ":
+        fail("Batch 12EQ evidence identity mismatch")
+    comp12eq = batch12eq.get("catalog_compilation_control", {})
+    if comp12eq.get("catalog_event_year") != 1441 or comp12eq.get("received_preface_date_text") != "正統六年六月二十六日" or comp12eq.get("physical_1441_catalog_copy_directly_reviewed") is not False:
+        fail("Batch 12EQ catalog-event chronology firewall regressed")
+    phy12eq = batch12eq.get("physical_transmission_witness", {})
+    if phy12eq.get("catalogued_physical_edition_year") != 1799 or phy12eq.get("workflow_run_id") != 35692047498 or phy12eq.get("artifact_id") != 10678747062:
+        fail("Batch 12EQ 1799 physical probe binding regressed")
+    if phy12eq.get("artifact_digest") != "sha256:6e60e7e22cb6cfefa7b1a5dbdd963bbfbd59c312315219352662464499296e64" or phy12eq.get("source_pdf_sha256") != "dce49b1a0cafc092fad3668f161968ae8d0d8c306829850d7a7914b643091fb9":
+        fail("Batch 12EQ artifact/PDF digest regressed")
+    direct12eq = batch12eq.get("direct_image_collation", {})
+    if direct12eq.get("pdf_page_3", {}).get("page_sha256") != "40ab791f8d1ae5c90aa84ca6fe4ff5beabfbe475955e33fa594bf60fe81b6bf1":
+        fail("Batch 12EQ juan-15 identity page regressed")
+    p6 = direct12eq.get("pdf_page_6", {})
+    if p6.get("page_sha256") != "19f595c0ce0af6e19d33596fb25817a633a862d8a4eeef8997c8c289f801550e" or p6.get("target_title") != "準齋九漏新式" or p6.get("companion_title") != "銅壺漏箭制度":
+        fail("Batch 12EQ target catalog page regressed")
+    fire12eq = batch12eq.get("title_relation_firewall", {})
+    if fire12eq.get("exact_title_identity_proven") is not False or fire12eq.get("exact_same_text_state_proven") is not False or fire12eq.get("catalog_title_alone_proves_25arrow_rule_wording") is not False:
+        fail("Batch 12EQ title/rule-text firewall regressed")
+    chrono12eq = batch12eq.get("rule_chronology_adjudication", {})
+    if chrono12eq.get("work_or_title_family_pre1578_catalog_attestation") != "CLOSED_AT_1441_CATALOG_TEXT_LAYER" or chrono12eq.get("exact_25arrow_rule_text_pre1578_attestation") != "NOT_CLOSED":
+        fail("Batch 12EQ rule chronology scope regressed")
+    if chrono12eq.get("secure_pre1578_physical_rule_witness") is not False or chrono12eq.get("exact_sanming_dahan_yushui_fingerprint_closed") is not False or chrono12eq.get("exact_nanjing_59_endpoint_binding_closed") is not False:
+        fail("Batch 12EQ pre1578/rule/fingerprint firewall regressed")
+    ad12eq = batch12eq.get("adjudication", {})
+    if ad12eq.get("direct_sanming_parent_vote_increment") != 0 or any(ad12eq.get(k) for k in ("matrix_count_change","runtime_rule_change","algorithm_reopen_authorized","candidate_collapse_authorized")):
+        fail("Batch 12EQ product firewall regressed")
+    reg12eq = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    for sid in ("EXT-CTEXT-WENYUANGE-SHUMU-1441-PREFACE-CONTROL","EXT-NLC-WENYUANGE-SHUMU-1799-V5-ZHUNZHAI-CATALOG-CONTROL"):
+        if not any(s.get("source_id") == sid for s in reg12eq.get("sources", [])):
+            fail(f"Batch 12EQ source registry entry missing: {sid}")
 
     for path in (ZIWEI_KYUDB_12DT_BATCH, ZIWEI_KYUDB_12DT_EVIDENCE):
         if not path.is_file():

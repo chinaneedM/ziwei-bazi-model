@@ -1324,7 +1324,7 @@
       "node_type": "PHYSICAL_COPY",
       "label": "國家圖書館藏清道光三年黃氏士禮居抄本《準齋心製几漏圖式》",
       "system_scope": "RECEIVED_CLEPSYDRA_OPERATIONAL_TEXT",
-      "work_composition_date": "SONG_ATTRIBUTION_TO_SUN_FENGJI_PER_XUXIU_METADATA; EXACT_COMPOSITION_DATE_NOT_REPROVED_IN_BATCH_12DV",
+      "work_composition_date": "TITLE_FAMILY_ANTECEDENT_ATTESTED_IN_1441_WENYUANGE_CATALOG; RECEIVED_WORK_ATTRIBUTED_TO_SONG_SUN_FENGJI; EXACT_25ARROW_RULE_TEXT_COMPOSITION_DATE_UNRESOLVED",
       "edition_impression_date": "MANUSCRIPT_NOT_PRINT; COPY_IDENTIFIED_AS_QING_DAOGUANG_3_1823",
       "physical_copy_date": "QING_DAOGUANG_3_1823",
       "digital_surrogate_date": "MODERN_XUXIU_2002_REPRODUCTION_PUBLIC_WIKIMEDIA_SURROGATE",
@@ -1333,9 +1333,14 @@
       "direct_review_scope": "p70-p76; no OCR final authority",
       "evidence": [
         "EXT-XUXIU1031-ZHUNZHAI-TONGHU-CLEPSYDRA-QING-MSS-PHYSICAL",
-        "docs/research/ZIWEI-XUXIU1031-ZHUNZHAI-CLEPSYDRA-JIEHOU-ARROW-SELECTION-R1.json"
+        "docs/research/ZIWEI-XUXIU1031-ZHUNZHAI-CLEPSYDRA-JIEHOU-ARROW-SELECTION-R1.json",
+        "EXT-CTEXT-WENYUANGE-SHUMU-1441-PREFACE-CONTROL",
+        "EXT-NLC-WENYUANGE-SHUMU-1799-V5-ZHUNZHAI-CATALOG-CONTROL",
+        "docs/research/ZIWEI-WENYUANGE1441-ZHUNZHAI-TITLE-EXISTENCE-CHRONOLOGY-FIREWALL-R1.json"
       ],
-      "first_explicit_graph_batch": "BATCH-12-ZIWEI-XUXIU1031-ZHUNZHAI-CLEPSYDRA-JIEHOU-ARROW-SELECTION-DV"
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-XUXIU1031-ZHUNZHAI-CLEPSYDRA-JIEHOU-ARROW-SELECTION-DV",
+      "pre1578_title_family_catalog_attestation_status": "CLOSED_AT_1441_CATALOG_TEXT_LAYER",
+      "pre1578_exact_25arrow_rule_text_status": "NOT_CLOSED"
     },
     {
       "node_id": "RULE-FAMILY-ZHUNZHAI-25ARROW-JIEHOU-SELECTION-38-62",
@@ -1352,9 +1357,19 @@
       "secure_pre1578_physical_witness": false,
       "evidence": [
         "EXT-XUXIU1031-ZHUNZHAI-TONGHU-CLEPSYDRA-QING-MSS-PHYSICAL",
-        "docs/research/ZIWEI-XUXIU1031-ZHUNZHAI-CLEPSYDRA-JIEHOU-ARROW-SELECTION-R1.json"
+        "docs/research/ZIWEI-XUXIU1031-ZHUNZHAI-CLEPSYDRA-JIEHOU-ARROW-SELECTION-R1.json",
+        "EXT-CTEXT-WENYUANGE-SHUMU-1441-PREFACE-CONTROL",
+        "EXT-NLC-WENYUANGE-SHUMU-1799-V5-ZHUNZHAI-CATALOG-CONTROL",
+        "docs/research/ZIWEI-WENYUANGE1441-ZHUNZHAI-TITLE-EXISTENCE-CHRONOLOGY-FIREWALL-R1.json"
       ],
-      "first_explicit_graph_batch": "BATCH-12-ZIWEI-XUXIU1031-ZHUNZHAI-CLEPSYDRA-JIEHOU-ARROW-SELECTION-DV"
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-XUXIU1031-ZHUNZHAI-CLEPSYDRA-JIEHOU-ARROW-SELECTION-DV",
+      "pre1578_title_family_catalog_attestation": true,
+      "pre1578_title_family_catalog_year": 1441,
+      "pre1578_catalog_title": "準齋九漏新式",
+      "received_1823_rule_text_title": "準齋心製几漏圖式",
+      "catalog_title_variant_exact_identity_proven": false,
+      "pre1578_exact_25arrow_rule_text_status": "NOT_CLOSED",
+      "pre1578_catalog_attestation_proves_rule_parameters": false
     },
     {
       "node_id": "PHYSICAL-COPY-YONEZAWA-SHILIN-AA060-HONGZHI5-1492",
@@ -3563,6 +3578,10 @@
         {
           "batch": "BATCH-12-ZIWEI-KYUDB-GK02538-IMJIN-TYPE-LOSS-RECOVERY-CONTINUITY-FIREWALL-EP",
           "update": "The Imjin-war calendar-production record now constrains the 1580→1604 type-stock relation. Shim Su-gyeong reports dispersal/loss of calendar apparatus, temporary block printing, then recovery/presentation of calendar casting type and resumed printing. The official Ryu series identifies 1594 as woodblock and 1596/1597/1604/1606 as metal Inryeokja. This proves postwar restoration with partial recovery but neither complete physical-sort continuity nor complete discontinuity. GK02538 subtype/casting/date and Sanming parentage remain unresolved; zero exact Sanming-parent vote is added."
+        },
+        {
+          "batch": "BATCH-12-ZIWEI-WENYUANGE1441-ZHUNZHAI-TITLE-EXISTENCE-CHRONOLOGY-FIREWALL-EQ",
+          "update": "The received 1441 文淵閣書目 catalog text now closes a pre-1578 title-family antecedent for the Zhunzhai clepsydra tradition: a source-bound 1799 physical transmission witness directly lists 準齋九漏新式 beside 銅壺漏箭制度 in juan 15. This moves only the work/title-family chronology. Exact identity with the 1823 準齋心製几漏圖式 text state, the 25-arrow / 日曆節候 wording before 1578, Nanjing-59 binding and the exact Sanming/Yueling fingerprint remain unresolved. Zero exact Sanming-parent vote is added."
         }
       ],
       "endpoint_anchor_component_identified": true,
