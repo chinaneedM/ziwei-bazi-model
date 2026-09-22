@@ -1,0 +1,138 @@
+name: locate-neige-shumu-zhunzhai-by-columns
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/locate-neige-shumu-zhunzhai-by-columns.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  locate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Column-segment Neige Shumu and OCR only for locator scoring
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/neige-shumu-column-locator'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT/pages" "$ROOT/candidates" "$ROOT/ocr"
+
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils tesseract-ocr tesseract-ocr-chi-tra tesseract-ocr-chi-tra-vert >/dev/null
+          python -m pip install --quiet pillow
+
+          URL='https://commons.wikimedia.org/wiki/Special:Redirect/file/NLC892-1083-204836%20%E5%85%A7%E9%96%A3%E6%9B%B8%E7%9B%AE.pdf'
+          curl -fL --retry 4 --retry-delay 2 -A 'Tianwen-Provenance-Audit/1.0' "$URL" -o "$ROOT/source.pdf"
+          sha256sum "$ROOT/source.pdf" | tee "$ROOT/source-sha256.txt"
+          pdfinfo "$ROOT/source.pdf" | tee "$ROOT/pdfinfo.txt"
+
+          # 180 dpi is enough for locator OCR while keeping the run bounded.
+          pdftoppm -jpeg -r 180 "$ROOT/source.pdf" "$ROOT/pages/page" >/dev/null 2>&1
+
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image, ImageOps, ImageEnhance
+          import subprocess, json, re, hashlib
+
+          root=Path('audit/neige-shumu-column-locator')
+          pages=sorted(root.joinpath('pages').glob('page-*.jpg'))
+
+          strong_terms=['準齋','准齋','几漏','幾漏','孫逢吉','孙逢吉','莫詳時代','莫详时代']
+          signal_chars=list('準准齋斋几幾漏孫孙逢吉莫詳详時时代')
+          report=[]
+
+          for pi,p in enumerate(pages,1):
+              im=Image.open(p).convert('L')
+              w,h=im.size
+              # Ignore top/bottom margins and split each two-page scan into many
+              # overlapping narrow vertical strips. This is locator-only OCR.
+              y0=int(h*0.06); y1=int(h*0.95)
+              body=im.crop((0,y0,w,y1))
+              bw,bh=body.size
+              n=24
+              overlap=0.25
+              strip_w=bw/n
+              page_hits=[]
+              best_score=0
+              best_ctx=''
+              for si in range(n):
+                  x0=max(0,int((si-overlap)*strip_w))
+                  x1=min(bw,int((si+1+overlap)*strip_w))
+                  strip=body.crop((x0,0,x1,bh))
+                  # contrast + upscale improves old-print locator OCR
+                  strip=ImageOps.autocontrast(strip)
+                  strip=ImageEnhance.Contrast(strip).enhance(1.6)
+                  strip=strip.resize((strip.width*2,strip.height*2))
+                  tmp=root/'ocr'/f'p{pi:03d}-s{si:02d}.png'
+                  strip.save(tmp)
+                  texts=[]
+                  for lang,psm in [('chi_tra_vert','5'),('chi_tra','6')]:
+                      proc=subprocess.run(
+                          ['tesseract',str(tmp),'stdout','-l',lang,'--psm',psm],
+                          stdout=subprocess.PIPE,stderr=subprocess.DEVNULL,check=False
+                      )
+                      texts.append(proc.stdout.decode('utf-8',errors='replace'))
+                  txt='\n'.join(texts)
+                  compact=''.join(txt.split())
+                  exact=[t for t in strong_terms if t in compact]
+                  score=sum(1 for ch in signal_chars if ch in compact)
+                  # Reward rare co-occurrences even if OCR misses one character.
+                  for grp in [('準','齋'),('几','漏'),('孫','逢','吉'),('莫','詳','時','代')]:
+                      if sum(ch in compact for ch in grp) >= max(2,len(grp)-1):
+                          score += 4
+                  if exact or score>=5:
+                      page_hits.append({
+                          'strip':si,'exact_terms':exact,'score':score,
+                          'context':' '.join(txt.split())[:1000]
+                      })
+                  if score>best_score:
+                      best_score=score
+                      best_ctx=' '.join(txt.split())[:1200]
+                  tmp.unlink(missing_ok=True)
+
+              # Keep pages with meaningful locator signals. Human review remains
+              # final authority, so this is not a content-negative screen.
+              if page_hits or best_score>=5:
+                  out=root/'candidates'/f'page-{pi:03d}.jpg'
+                  out.write_bytes(p.read_bytes())
+                  report.append({
+                      'pdf_page':pi,
+                      'page_sha256':hashlib.sha256(p.read_bytes()).hexdigest(),
+                      'best_score':best_score,
+                      'hits':page_hits,
+                      'best_context':best_ctx,
+                  })
+
+          result={
+            'schema':'NEIGE-SHUMU-ZHUNZHAI-COLUMN-LOCATOR-R1',
+            'source_file':'NLC892-1083-204836 內閣書目.pdf',
+            'source_pdf_sha256':hashlib.sha256((root/'source.pdf').read_bytes()).hexdigest(),
+            'rendered_page_count':len(pages),
+            'locator_method':'24 overlapping vertical strips per page; chi_tra_vert + chi_tra; OCR locator only',
+            'ocr_authority':'LOCATOR_ONLY_NOT_FINAL_GLYPH_AUTHORITY',
+            'target_claim':'準齋几漏新式一冊 / 孫逢吉著 / 莫詳時代',
+            'candidate_pages':report,
+            'negative_claim_authorized':False,
+            'final_adjudication':'PENDING_DIRECT_IMAGE_REVIEW'
+          }
+          (root/'report.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print(json.dumps(result,ensure_ascii=False,indent=2))
+          PY
+
+          rm -rf "$ROOT/pages" "$ROOT/source.pdf" "$ROOT/ocr"
+
+      - name: Upload Neige column locator
+        uses: actions/upload-artifact@v4
+        with:
+          name: neige-shumu-zhunzhai-column-locator-r1
+          path: audit/neige-shumu-column-locator
+          if-no-files-found: error
+          retention-days: 30
