@@ -102,6 +102,8 @@ ZIWEI_LEIBIAN_SHOUSHI_12ES_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENAN
 ZIWEI_LEIBIAN_SHOUSHI_12ES_EVIDENCE = ROOT / "docs/research/ZIWEI-LEIBIAN1551-SHOUSHI-SELF-ASCRIPTION-ZHUNZHAI-BRIDGE-R1.json"
 ZIWEI_LEIBIAN_ZHUNZHAI_12ET_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-LEIBIAN1551-ZHUNZHAI-MULTIPOINT-AND-CORRUPTION-REPLAY-ET.md"
 ZIWEI_LEIBIAN_ZHUNZHAI_12ET_EVIDENCE = ROOT / "docs/research/ZIWEI-LEIBIAN1551-ZHUNZHAI-MULTIPOINT-AND-CORRUPTION-REPLAY-R1.json"
+ZIWEI_GUOSHI_ZHUNZHAI_12EU_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-GUOSHI1602-ZHUNZHAI-SUNFENGJI-DIRECT-AUTHOR-TITLE-BINDING-EU.md"
+ZIWEI_GUOSHI_ZHUNZHAI_12EU_EVIDENCE = ROOT / "docs/research/ZIWEI-GUOSHI1602-ZHUNZHAI-SUNFENGJI-DIRECT-AUTHOR-TITLE-BINDING-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -379,9 +381,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-ZHUNZHAI-YUAN-SHOUSHI-COMPOSITION-ATTRIBUTION-FIREWALL-ER",
     "BATCH-12-ZIWEI-LEIBIAN1551-SHOUSHI-SELF-ASCRIPTION-ZHUNZHAI-BRIDGE-ES",
     "BATCH-12-ZIWEI-LEIBIAN1551-ZHUNZHAI-MULTIPOINT-AND-CORRUPTION-REPLAY-ET",
+    "BATCH-12-ZIWEI-GUOSHI1602-ZHUNZHAI-SUNFENGJI-DIRECT-AUTHOR-TITLE-BINDING-EU",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-LEIBIAN1551-ZHUNZHAI-MULTIPOINT-AND-CORRUPTION-REPLAY-ET.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-GUOSHI1602-ZHUNZHAI-SUNFENGJI-DIRECT-AUTHOR-TITLE-BINDING-EU.md"
 
 
 def fail(message: str) -> None:
@@ -1188,6 +1191,30 @@ def main() -> int:
         fail("Batch 12ET transmission firewall regressed")
     if batch12et.get("sanming_firewall", {}).get("direct_sanming_parent_vote_increment") != 0:
         fail("Batch 12ET Sanming zero-vote firewall regressed")
+
+    for path in (ZIWEI_GUOSHI_ZHUNZHAI_12EU_BATCH, ZIWEI_GUOSHI_ZHUNZHAI_12EU_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12EU continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12eu = json.loads(ZIWEI_GUOSHI_ZHUNZHAI_12EU_EVIDENCE.read_text(encoding="utf-8"))
+    if batch12eu.get("batch_id") != "BATCH-12-ZIWEI-GUOSHI1602-ZHUNZHAI-SUNFENGJI-DIRECT-AUTHOR-TITLE-BINDING-EU":
+        fail("Batch 12EU evidence identity mismatch")
+    sb12eu = batch12eu.get("source_binding", {})
+    if sb12eu.get("source_pdf_sha256") != "cc40a6517e748707a5af77535e073a11450da986cb7add0528916178d4e6bdd2" or sb12eu.get("pdf_page") != 19:
+        fail("Batch 12EU source/page binding regressed")
+    if sb12eu.get("full_render_sha256") != "b0069785c581a37dafe2ab84799e4f60bfb36b79decd935632e72f60339b6a04" or sb12eu.get("target_band_b_sha256") != "3e7e665942c1b634d0d2fb8ee7dd44e440f9bb29df15ee2602bf5d6c60715625":
+        fail("Batch 12EU physical render binding regressed")
+    read12eu = batch12eu.get("direct_physical_reading", {})
+    if read12eu.get("title_entry") != "準齋几漏圖式一卷" or read12eu.get("attributed_author") != "孫逢吉" or read12eu.get("same_entry_pairing") is not True:
+        fail("Batch 12EU direct title-author reading regressed")
+    fw12eu = batch12eu.get("chronology_and_identity_firewall", {})
+    if fw12eu.get("exact_identity_with_yuan_1281_yanling_sun_fengji") != "POSSIBLE_NOT_PROVED" or fw12eu.get("pre1578_exact_25arrow_rule_text_attested") is not False:
+        fail("Batch 12EU person/chronology firewall regressed")
+    if batch12eu.get("sanming_firewall", {}).get("direct_sanming_parent_vote_increment") != 0:
+        fail("Batch 12EU Sanming zero-vote firewall regressed")
+    reg12eu = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    src12eu = next((s for s in reg12eu.get("sources", []) if s.get("source_id") == "EXT-NCL-GUOSHI-JINGJIZHI-WANLI30-1602-V3-ZHUNZHAI-AUTHOR"), None)
+    if not src12eu or src12eu.get("batch_12eu", {}).get("direct_author_annotation") != "孫逢吉":
+        fail("Batch 12EU source registry author binding missing")
 
     for path in (ZIWEI_KYUDB_12DT_BATCH, ZIWEI_KYUDB_12DT_EVIDENCE):
         if not path.is_file():

@@ -1403,7 +1403,10 @@
         "docs/research/ZIWEI-LEIBIAN1551-SHOUSHI-SELF-ASCRIPTION-ZHUNZHAI-BRIDGE-R1.json",
         "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-LEIBIAN1551-SHOUSHI-SELF-ASCRIPTION-ZHUNZHAI-BRIDGE-ES.md",
         "docs/research/ZIWEI-LEIBIAN1551-ZHUNZHAI-MULTIPOINT-AND-CORRUPTION-REPLAY-R1.json",
-        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-LEIBIAN1551-ZHUNZHAI-MULTIPOINT-AND-CORRUPTION-REPLAY-ET.md"
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-LEIBIAN1551-ZHUNZHAI-MULTIPOINT-AND-CORRUPTION-REPLAY-ET.md",
+        "EXT-NCL-GUOSHI-JINGJIZHI-WANLI30-1602-V3-ZHUNZHAI-AUTHOR",
+        "docs/research/ZIWEI-GUOSHI1602-ZHUNZHAI-SUNFENGJI-DIRECT-AUTHOR-TITLE-BINDING-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-GUOSHI1602-ZHUNZHAI-SUNFENGJI-DIRECT-AUTHOR-TITLE-BINDING-EU.md"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-XUXIU1031-ZHUNZHAI-CLEPSYDRA-JIEHOU-ARROW-SELECTION-DV",
       "pre1578_title_family_catalog_attestation": true,
@@ -1439,6 +1442,14 @@
         ],
         "full_25arrow_sequence_replay_closed": false,
         "direct_copy_direction_proved": false
+      },
+      "ming1602_title_author_attribution": {
+        "status": "CLOSED_AT_MING_1602_ORIGINAL_PRINT_BIBLIOGRAPHIC_LAYER",
+        "title": "準齋几漏圖式一卷",
+        "attributed_author": "孫逢吉",
+        "exact_identity_with_1281_yanling_sun_fengji": "POSSIBLE_NOT_PROVED",
+        "proves_work_composition_date": false,
+        "proves_pre1578_exact_25arrow_rule_text": false
       }
     },
     {
@@ -1982,6 +1993,48 @@
         "docs/research/ZIWEI-KYUDB-DATONGLIZHU-GK02538-1434-TYPE-POSTFACE-AND-FINGERPRINT-R1.json"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-KYUDB-DATONGLIZHU-GK02538-1434-TYPE-POSTFACE-AND-FINGERPRINT-EE"
+    },
+    {
+      "node_id": "PHYSICAL-COPY-NCL-GUOSHI-JINGJIZHI-WANLI30-1602-V3",
+      "node_type": "PHYSICAL_COPY",
+      "label": "NCL-04980 03《國史經籍志》卷三 萬曆三十年（1602）原刊本",
+      "system_scope": "MING_BIBLIOGRAPHIC_WITNESS_FOR_ZHUNZHAI_TITLE_AUTHOR_ATTRIBUTION",
+      "work_composition_date": "JIAO_HONG_GUOSHI_JINGJIZHI_MING_WORK; TARGET_ZHUNZHAI_WORK_COMPOSITION_DATE_NOT_DERIVED_FROM_CATALOG_ENTRY",
+      "edition_impression_date": "MING_WANLI_30_1602_ORIGINAL_PRINT_PROVIDER_CATALOG_BOUND",
+      "physical_copy_date": "PROVIDER_CATALOG_IDENTIFIED_AS_1602_ORIGINAL_PRINT",
+      "digital_surrogate_date": "MODERN_NCL_DIGITIZATION; PDF_METADATA_CREATION_2023-09-18",
+      "identifier": "NCL-04980 03",
+      "source_pdf_sha256": "cc40a6517e748707a5af77535e073a11450da986cb7add0528916178d4e6bdd2",
+      "target_page": 19,
+      "target_render_sha256": "b0069785c581a37dafe2ab84799e4f60bfb36b79decd935632e72f60339b6a04",
+      "direct_target_result": "準齋几漏圖式一卷 / 孫逢吉",
+      "ocr_used_for_final_glyph_claims": false,
+      "evidence": [
+        "EXT-NCL-GUOSHI-JINGJIZHI-WANLI30-1602-V3-ZHUNZHAI-AUTHOR",
+        "docs/research/ZIWEI-GUOSHI1602-ZHUNZHAI-SUNFENGJI-DIRECT-AUTHOR-TITLE-BINDING-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-GUOSHI1602-ZHUNZHAI-SUNFENGJI-DIRECT-AUTHOR-TITLE-BINDING-EU.md"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-GUOSHI1602-ZHUNZHAI-SUNFENGJI-DIRECT-AUTHOR-TITLE-BINDING-EU"
+    },
+    {
+      "node_id": "PASSAGE-GUOSHI1602-ZHUNZHAI-SUNFENGJI-ENTRY",
+      "node_type": "PASSAGE",
+      "label": "1602《國史經籍志》卷三《準齋几漏圖式一卷》孫逢吉著者條",
+      "system_scope": "MING_BIBLIOGRAPHIC_TITLE_AUTHOR_ATTRIBUTION",
+      "physical_locator": "NCL-04980 03 PDF p19",
+      "direct_title": "準齋几漏圖式一卷",
+      "direct_author_annotation": "孫逢吉",
+      "same_entry_pairing": true,
+      "attestation_date_scope": "MING_WANLI30_1602_ORIGINAL_PRINT",
+      "exact_yuan_1281_yanling_person_identity": "POSSIBLE_NOT_PROVED",
+      "proves_work_composition_date": false,
+      "proves_pre1578_exact_25arrow_prose": false,
+      "evidence": [
+        "EXT-NCL-GUOSHI-JINGJIZHI-WANLI30-1602-V3-ZHUNZHAI-AUTHOR",
+        "docs/research/ZIWEI-GUOSHI1602-ZHUNZHAI-SUNFENGJI-DIRECT-AUTHOR-TITLE-BINDING-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-GUOSHI1602-ZHUNZHAI-SUNFENGJI-DIRECT-AUTHOR-TITLE-BINDING-EU.md"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-GUOSHI1602-ZHUNZHAI-SUNFENGJI-DIRECT-AUTHOR-TITLE-BINDING-EU"
     }
   ],
   "edges": [
@@ -3452,6 +3505,22 @@
       ],
       "scope_note": "Three directly replayed date/value anchors plus two physical corruption controls support a shared Shoushi fine-table source family/common ancestor. This is not a direct-copy edge, does not prove which text is earlier, and does not make the 1823 Zhunzhai manuscript a pre-1578 physical witness.",
       "adjudication_batch": "BATCH-12-ZIWEI-LEIBIAN1551-ZHUNZHAI-MULTIPOINT-AND-CORRUPTION-REPLAY-ET"
+    },
+    {
+      "edge_id": "TG-E0098",
+      "from": "PHYSICAL-COPY-NCL-GUOSHI-JINGJIZHI-WANLI30-1602-V3",
+      "relation": "ATTESTS",
+      "to": "PASSAGE-GUOSHI1602-ZHUNZHAI-SUNFENGJI-ENTRY",
+      "status": "CONFIRMED",
+      "confidence": "HIGH",
+      "evidence_class": "DIRECT_SOURCE_BOUND_1602_ORIGINAL_PRINT_PAGE_COLLATION_NO_OCR",
+      "evidence": [
+        "NCL-04980 03 PDF p19 full render sha256 b0069785c581a37dafe2ab84799e4f60bfb36b79decd935632e72f60339b6a04",
+        "target-band-b sha256 3e7e665942c1b634d0d2fb8ee7dd44e440f9bb29df15ee2602bf5d6c60715625",
+        "docs/research/ZIWEI-GUOSHI1602-ZHUNZHAI-SUNFENGJI-DIRECT-AUTHOR-TITLE-BINDING-R1.json"
+      ],
+      "scope_note": "Confirms the 1602 physical bibliographic pairing 準齋几漏圖式一卷 / 孫逢吉. It does not identify the author with the 1281 Yanling Sun Fengji, date composition, attest pre-1578 25-arrow prose, or establish direct textual ancestry.",
+      "adjudication_batch": "BATCH-12-ZIWEI-GUOSHI1602-ZHUNZHAI-SUNFENGJI-DIRECT-AUTHOR-TITLE-BINDING-EU"
     }
   ],
   "lineage_hypotheses": [
@@ -3680,6 +3749,10 @@
         {
           "batch": "BATCH-12-ZIWEI-LEIBIAN1551-ZHUNZHAI-MULTIPOINT-AND-CORRUPTION-REPLAY-ET",
           "update": "Direct physical replay now spans the 1551 Shoushi-ascribed fine table at three exact anchors: 38/62 winter start, 45/55 Rainwater spring range, and 62/38 summer terminal range. Two sequence-breaking p20 readings are also physically localized: 45/55 autumn 霜降前十日 and 46/54 spring 雨水前八日. Zhunzhai arrows 8/9 supply clean parallel boundaries 霜降前一日 and 雨水後六日 respectively. This supports TG-E0097 as a probable shared-common-ancestor candidate for the Zhunzhai and Leibian Shoushi fine-table families, while direct copying, full 25-arrow replay, exact pre-1578 Zhunzhai prose, and Sanming parentage remain unproved. Zero exact Sanming-parent vote is added."
+        },
+        {
+          "batch": "BATCH-12-ZIWEI-GUOSHI1602-ZHUNZHAI-SUNFENGJI-DIRECT-AUTHOR-TITLE-BINDING-EU",
+          "update": "Direct no-OCR review of the Wanli-30/1602 original-print 《國史經籍志》 p19 closes the same-entry bibliographic pairing 準齋几漏圖式一卷 / 孫逢吉. This materially strengthens the historical title-author attribution while keeping the Yuan-person firewall intact: Fang Hui's received 1281-context Yanling Sun Fengji passage still does not name the work, so exact person identity remains POSSIBLE_NOT_PROVED. The post-1578 catalog entry does not close pre-1578 25-arrow prose or Sanming parentage. Zero exact Sanming-parent vote is added."
         }
       ],
       "endpoint_anchor_component_identified": true,

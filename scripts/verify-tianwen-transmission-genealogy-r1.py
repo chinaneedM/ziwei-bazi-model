@@ -38,6 +38,7 @@ BATCH_12EQ = ROOT / "docs/research/ZIWEI-WENYUANGE1441-ZHUNZHAI-TITLE-EXISTENCE-
 BATCH_12ER = ROOT / "docs/research/ZIWEI-ZHUNZHAI-YUAN-SHOUSHI-COMPOSITION-ATTRIBUTION-FIREWALL-R1.json"
 BATCH_12ES = ROOT / "docs/research/ZIWEI-LEIBIAN1551-SHOUSHI-SELF-ASCRIPTION-ZHUNZHAI-BRIDGE-R1.json"
 BATCH_12ET = ROOT / "docs/research/ZIWEI-LEIBIAN1551-ZHUNZHAI-MULTIPOINT-AND-CORRUPTION-REPLAY-R1.json"
+BATCH_12EU = ROOT / "docs/research/ZIWEI-GUOSHI1602-ZHUNZHAI-SUNFENGJI-DIRECT-AUTHOR-TITLE-BINDING-R1.json"
 
 
 def fail(message: str) -> None:
@@ -45,7 +46,7 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
-    for path in (CHARTER, PROTOCOL, GRAPH, STATE, BATCH_12CH, BATCH_12DP, BATCH_12DQ, BATCH_12DR, BATCH_12DS, BATCH_12DT, BATCH_12DU, BATCH_12DV, BATCH_12DW, BATCH_12DX, BATCH_12DY, BATCH_12DZ, BATCH_12EA, BATCH_12EB, BATCH_12EC, BATCH_12ED, BATCH_12EE, BATCH_12EI, BATCH_12EJ, BATCH_12EK, BATCH_12EL, BATCH_12EM, BATCH_12EN, BATCH_12EO, BATCH_12EP, BATCH_12EQ, BATCH_12ER, BATCH_12ES, BATCH_12ET):
+    for path in (CHARTER, PROTOCOL, GRAPH, STATE, BATCH_12CH, BATCH_12DP, BATCH_12DQ, BATCH_12DR, BATCH_12DS, BATCH_12DT, BATCH_12DU, BATCH_12DV, BATCH_12DW, BATCH_12DX, BATCH_12DY, BATCH_12DZ, BATCH_12EA, BATCH_12EB, BATCH_12EC, BATCH_12ED, BATCH_12EE, BATCH_12EI, BATCH_12EJ, BATCH_12EK, BATCH_12EL, BATCH_12EM, BATCH_12EN, BATCH_12EO, BATCH_12EP, BATCH_12EQ, BATCH_12ER, BATCH_12ES, BATCH_12ET, BATCH_12EU):
         if not path.is_file():
             fail(f"Tianwen transmission artifact missing: {path.relative_to(ROOT)}")
 
@@ -1002,6 +1003,34 @@ def main() -> int:
     batch12et = json.loads(BATCH_12ET.read_text(encoding="utf-8"))
     if batch12et.get("transmission_adjudication", {}).get("direct_copy_direction_proved") is not False:
         fail("Batch 12ET direct-copy firewall regressed")
+
+    edge12eu = next((e for e in edges if e.get("edge_id") == "TG-E0098"), None)
+    if not edge12eu or edge12eu.get("relation") != "ATTESTS" or edge12eu.get("status") != "CONFIRMED" or edge12eu.get("confidence") != "HIGH":
+        fail("Batch 12EU direct-attestation edge regressed")
+    if edge12eu.get("from") != "PHYSICAL-COPY-NCL-GUOSHI-JINGJIZHI-WANLI30-1602-V3" or edge12eu.get("to") != "PASSAGE-GUOSHI1602-ZHUNZHAI-SUNFENGJI-ENTRY":
+        fail("Batch 12EU edge endpoints regressed")
+    phys12eu = next((n for n in nodes if n.get("node_id") == "PHYSICAL-COPY-NCL-GUOSHI-JINGJIZHI-WANLI30-1602-V3"), None)
+    passage12eu = next((n for n in nodes if n.get("node_id") == "PASSAGE-GUOSHI1602-ZHUNZHAI-SUNFENGJI-ENTRY"), None)
+    if not phys12eu or phys12eu.get("direct_target_result") != "準齋几漏圖式一卷 / 孫逢吉":
+        fail("Batch 12EU physical node regressed")
+    if not passage12eu or passage12eu.get("direct_title") != "準齋几漏圖式一卷" or passage12eu.get("direct_author_annotation") != "孫逢吉":
+        fail("Batch 12EU passage node regressed")
+    if passage12eu.get("exact_yuan_1281_yanling_person_identity") != "POSSIBLE_NOT_PROVED":
+        fail("Batch 12EU Yuan person-identity firewall regressed")
+    zhun_rule12eu = next(n for n in nodes if n.get("node_id") == "RULE-FAMILY-ZHUNZHAI-25ARROW-JIEHOU-SELECTION-38-62")
+    auth12eu = zhun_rule12eu.get("ming1602_title_author_attribution", {})
+    if auth12eu.get("status") != "CLOSED_AT_MING_1602_ORIGINAL_PRINT_BIBLIOGRAPHIC_LAYER" or auth12eu.get("attributed_author") != "孫逢吉":
+        fail("Batch 12EU rule-family author attribution regressed")
+    if zhun_rule12eu.get("yanling_sun_fengji_1281_author_identity") != "POSSIBLE_NOT_PROVED":
+        fail("Batch 12EU rule-family person identity was overclosed")
+    if not any(x.get("batch") == "BATCH-12-ZIWEI-GUOSHI1602-ZHUNZHAI-SUNFENGJI-DIRECT-AUTHOR-TITLE-BINDING-EU" and "zero exact sanming-parent vote" in x.get("update","").lower() for x in hyp12dk.get("evidence_updates", [])):
+        fail("Batch 12EU genealogy hypothesis zero-vote update missing")
+    batch12eu = json.loads(BATCH_12EU.read_text(encoding="utf-8"))
+    impact12eu = batch12eu.get("transmission_impact", {})
+    if impact12eu.get("edges_supported") != ["TG-E0098"] or "PHYSICAL-COPY-NCL-GUOSHI-JINGJIZHI-WANLI30-1602-V3" not in impact12eu.get("nodes_added", []):
+        fail("Batch 12EU transmission impact regressed")
+    if batch12eu.get("chronology_and_identity_firewall", {}).get("exact_identity_with_yuan_1281_yanling_sun_fengji") != "POSSIBLE_NOT_PROVED":
+        fail("Batch 12EU evidence person-identity firewall regressed")
 
     ncl = next(n for n in nodes if n.get("node_id") == "PHYSICAL-COPY-SISHI-QIHOU-NCL03164-OLD-MANUSCRIPT")
     if ncl.get("physical_copy_date") != "UNRESOLVED":
