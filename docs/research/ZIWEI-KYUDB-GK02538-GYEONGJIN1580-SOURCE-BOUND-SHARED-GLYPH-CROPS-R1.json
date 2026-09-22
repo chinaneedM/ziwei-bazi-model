@@ -1,0 +1,174 @@
+{
+  "schema": "ZIWEI-KYUDB-GK02538-GYEONGJIN1580-SOURCE-BOUND-SHARED-GLYPH-CROPS-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-KYUDB-GK02538-GYEONGJIN1580-SOURCE-BOUND-SHARED-GLYPH-CROPS-EK",
+  "prior_batch_id": "BATCH-12-ZIWEI-KYUDB-GK02538-DAETONGLYOKJA-NAME-SCOPE-AND-SEJONG-LIST-FIREWALL-EJ",
+  "question": "Can the first shared-glyph comparison between GK02538 and a dated Inryeokja object be made fully source-bound and reproducible without overclaiming type identity?",
+  "answer": "YES_SOURCE_HASH_BOUND_FIXED_PIXEL_CROPS_FOR_正_AND_月_ARE_CLOSED; NO_OCR_OR_AUTOMATIC_TYPE_CLASSIFICATION; GYEONGJIN_SIZE_CLASS_BINDING_REMAINS_UNRESOLVED; VISUAL_FORM_SIMILARITY_OR_DIFFERENCE_DOES_NOT_CLOSE_CASTING_GENERATION; GK02538_SUBTYPE_AND_IMPRESSION_YEAR_REMAIN_UNRESOLVED",
+  "workflow_evidence": {
+    "head_commit_sha": "a4040ef337f95d895a52c115a3db13c79eb6a84c",
+    "workflow_run_id": 35671323140,
+    "artifact_id": 10671595229,
+    "artifact_name": "gk02538-gyeongjin1580-shared-glyphs-r1",
+    "artifact_digest": "sha256:4bdc7d69457fe7b988286c63028dd2e6afbb0897d99728b1273dae59cb9111b8",
+    "probe_schema_version": "1.0.0",
+    "status": "SUCCESS",
+    "ocr_used": false,
+    "automatic_type_family_or_casting_classification": false
+  },
+  "source_objects": {
+    "gyeongjin1580_tail": {
+      "source_id": "EXT-HERITAGE-GYEONGJIN-1580-INRYEOKJA-PHYSICAL-CONTROL",
+      "dimensions": [
+        1748,
+        2048
+      ],
+      "sha256": "306b8f03949850c0cedd9575263208ccbd9dc8e6465165b13406ef1918788590",
+      "dated_scope": "1580 usage-year; printing-year inference remains separately firewalled"
+    },
+    "gk02538_0001_002a": {
+      "source_id": "EXT-KYUDB-DATONGLIZHU-GK02538-GWANSANGGAM-TYPE-POSTFACE-FINGERPRINT",
+      "dimensions": [
+        1186,
+        2000
+      ],
+      "sha256": "8458f8a0fd58f23f91139d7d489077472fd7fddb449d9635f6f29df5e2a9b461",
+      "catalog_scope": "觀象監活字 / 刊年未詳"
+    }
+  },
+  "fixed_crops": {
+    "gyeongjin1580": {
+      "context": {
+        "box": [
+          680,
+          550,
+          770,
+          730
+        ],
+        "manual_locator": "正/月/大 printed vertical column",
+        "png_sha256": "bc517b487df5e86fd0f844db00d18ace71bcf0a3004d415bd2ddf9aad0248583"
+      },
+      "zheng": {
+        "box": [
+          698,
+          565,
+          754,
+          625
+        ],
+        "manual_locator": "正",
+        "png_sha256": "435701fe0d243b869d700471106774a62f6b11cc63f7b2b8a5ed13efcf48cf05"
+      },
+      "yue": {
+        "box": [
+          698,
+          620,
+          754,
+          680
+        ],
+        "manual_locator": "月",
+        "png_sha256": "41fab7d68a3d1565a3d74042522cd428ad7b2278a8b88350923264f78a55dc1d"
+      }
+    },
+    "gk02538": {
+      "context": {
+        "box": [
+          885,
+          300,
+          975,
+          440
+        ],
+        "manual_locator": "正/月 printed vertical column",
+        "png_sha256": "eee70046aba183e74cbd5a3c5a439d5e039ae0f65698d68b7d16b850c2bfb221"
+      },
+      "zheng": {
+        "box": [
+          900,
+          315,
+          961,
+          375
+        ],
+        "manual_locator": "正",
+        "png_sha256": "1f5833438ca3fefe5b8a12301c46a19a5fec563268d2849bcdd70d86a43442d1"
+      },
+      "yue": {
+        "box": [
+          900,
+          370,
+          961,
+          431
+        ],
+        "manual_locator": "月",
+        "png_sha256": "5790ac69eecef028763001e24dc3d604c5890b90ccb6bcf8a0e540f3fac2da8b"
+      }
+    }
+  },
+  "direct_visual_adjudication": {
+    "same_glyphs_available_for_comparison": [
+      "正",
+      "月"
+    ],
+    "shared_glyph_crop_control_closed": true,
+    "equal_display_magnification_is_physical_scale_normalization": false,
+    "pixel_shape_identity_is_type_sort_identity": false,
+    "pixel_shape_difference_proves_different_casting_generation": false,
+    "current_visual_form_vote_increment": 0,
+    "explanation": "The fixed crops make the evidence repeatable. They do not normalize physical scale or control photographic perspective, inking, wear, paper deformation, or scanning. Apparent form differences therefore remain non-diagnostic for casting generation."
+  },
+  "relation_to_prior_batches": {
+    "batch_12ei_gk02538_nominal_medium_scale_compatibility_retained": true,
+    "batch_12ej_title_based_subtype_shortcut_remains_rejected": true,
+    "gyeongjin1580_crop_size_class_bound_to_official_medium_1_2x0_8cm": false,
+    "same_size_class_shared_glyph_control_closed": false,
+    "shared_glyph_casting_identity_closed": false
+  },
+  "chronology_adjudication": {
+    "gk02538_specific_type_subtype_identified": false,
+    "gk02538_casting_generation_identified": false,
+    "gk02538_exact_impression_year_adjudicated": false,
+    "secure_pre1578_gk02538_physical_impression_witness": false
+  },
+  "transmission_impact": {
+    "nodes_strengthened": [
+      "PHYSICAL-COPY-KYUDB-DATONGLIZHU-GK02538-GWANSANGGAM-MOVABLETYPE"
+    ],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "fixed shared-glyph crop -> same type sort",
+      "visual glyph resemblance -> same casting generation",
+      "visual glyph difference -> different casting generation",
+      "fixed crop dimensions -> same physical type-size class"
+    ],
+    "unresolved_lineage_questions": [
+      "Can the 1580 正/月 occurrences be independently bound to the medium 1.2×0.8 cm Inryeokja size class?",
+      "Can source-scale normalization plus additional shared glyphs yield diagnostic type-form evidence?",
+      "Can a specialist source explicitly bind GK02538 to a named Gwansanggam subtype?"
+    ],
+    "interpretation": "12EK advances evidence reproducibility from whole-page visual comparison to hash-bound fixed shared-glyph crops, while preserving all type identity and chronology firewalls."
+  },
+  "adjudication": {
+    "direct_sanming_parent_vote_increment": 0,
+    "threshold_to_wholeke_operator_closed": false,
+    "matrix_count_change": false,
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false
+  },
+  "project_consequence": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "missing_from_product_rows": 10,
+    "provenance_defects_repaired": "12/12",
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0,
+    "deterministic_product_status": "CLOSED"
+  },
+  "next_gate": [
+    "Bind the Gyeongjin 1580 shared-glyph occurrences to an official or otherwise reliable physical type-size class.",
+    "Acquire additional same-size-class shared glyphs and physical-scale-normalize before type-form comparison.",
+    "Recover object-level diagnostic criteria from Kim Sang-Ho 1987 or equivalent authoritative typographic research.",
+    "Continue the independent pre-1578 exact Sanming/Yueling Rainwater+Dahan fingerprint and threshold-operator search."
+  ],
+  "updated_at": "2026-09-22"
+}

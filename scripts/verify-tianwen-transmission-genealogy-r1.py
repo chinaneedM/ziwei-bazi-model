@@ -28,6 +28,7 @@ BATCH_12ED = ROOT / "docs/research/ZIWEI-KYUDB-DATONGLIZHU-GK02426-PARTIAL-FINGE
 BATCH_12EE = ROOT / "docs/research/ZIWEI-KYUDB-DATONGLIZHU-GK02538-1434-TYPE-POSTFACE-AND-FINGERPRINT-R1.json"
 BATCH_12EI = ROOT / "docs/research/ZIWEI-KYUDB-GK02538-INRYEOKJA-BODY-SCALE-COMPATIBILITY-AND-CASTING-FIREWALL-R1.json"
 BATCH_12EJ = ROOT / "docs/research/ZIWEI-KYUDB-GK02538-DAETONGLYOKJA-NAME-SCOPE-AND-SEJONG-LIST-FIREWALL-R1.json"
+BATCH_12EK = ROOT / "docs/research/ZIWEI-KYUDB-GK02538-GYEONGJIN1580-SOURCE-BOUND-SHARED-GLYPH-CROPS-R1.json"
 
 
 def fail(message: str) -> None:
@@ -35,7 +36,7 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
-    for path in (CHARTER, PROTOCOL, GRAPH, STATE, BATCH_12CH, BATCH_12DP, BATCH_12DQ, BATCH_12DR, BATCH_12DS, BATCH_12DT, BATCH_12DU, BATCH_12DV, BATCH_12DW, BATCH_12DX, BATCH_12DY, BATCH_12DZ, BATCH_12EA, BATCH_12EB, BATCH_12EC, BATCH_12ED, BATCH_12EE, BATCH_12EI, BATCH_12EJ):
+    for path in (CHARTER, PROTOCOL, GRAPH, STATE, BATCH_12CH, BATCH_12DP, BATCH_12DQ, BATCH_12DR, BATCH_12DS, BATCH_12DT, BATCH_12DU, BATCH_12DV, BATCH_12DW, BATCH_12DX, BATCH_12DY, BATCH_12DZ, BATCH_12EA, BATCH_12EB, BATCH_12EC, BATCH_12ED, BATCH_12EE, BATCH_12EI, BATCH_12EJ, BATCH_12EK):
         if not path.is_file():
             fail(f"Tianwen transmission artifact missing: {path.relative_to(ROOT)}")
 
@@ -820,6 +821,22 @@ def main() -> int:
         fail("Batch 12EJ transmission impact node strengthening missing")
     if impact12ej.get("edges_supported") != []:
         fail("Batch 12EJ unexpectedly closed a positive transmission edge")
+
+
+    if copy12ee.get("shared_glyph_crop_control_status") != "CLOSED_SOURCE_BOUND_FIXED_PIXEL_CROPS":
+        fail("Batch 12EK shared-glyph crop node status regressed")
+    if copy12ee.get("shared_glyph_manual_set") != ["正", "月"]:
+        fail("Batch 12EK shared-glyph manual set regressed")
+    if copy12ee.get("shared_glyph_probe_artifact_id") != 10671595229 or copy12ee.get("gyeongjin1580_shared_glyph_size_class_binding") != "UNRESOLVED":
+        fail("Batch 12EK artifact/size-class node firewall regressed")
+    if copy12ee.get("shared_glyph_visual_resemblance_or_difference_proves_casting_generation") is not False or copy12ee.get("shared_glyph_identity_control_status") != "NOT_YET_CLOSED":
+        fail("Batch 12EK visual-form/casting firewall regressed")
+    if not any(x.get("batch") == "BATCH-12-ZIWEI-KYUDB-GK02538-GYEONGJIN1580-SOURCE-BOUND-SHARED-GLYPH-CROPS-EK" and "zero exact sanming-parent vote" in x.get("update", "").lower() for x in hyp12dk.get("evidence_updates", [])):
+        fail("Batch 12EK genealogy hypothesis zero-vote update missing")
+    batch12ek = json.loads(BATCH_12EK.read_text(encoding="utf-8"))
+    impact12ek = batch12ek.get("transmission_impact", {})
+    if impact12ek.get("edges_supported") != []:
+        fail("Batch 12EK unexpectedly closed a transmission edge")
 
     ncl = next(n for n in nodes if n.get("node_id") == "PHYSICAL-COPY-SISHI-QIHOU-NCL03164-OLD-MANUSCRIPT")
     if ncl.get("physical_copy_date") != "UNRESOLVED":

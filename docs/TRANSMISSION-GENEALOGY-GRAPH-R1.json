@@ -1742,7 +1742,8 @@
         "docs/research/ZIWEI-KYUDB-GK02538-INRYEOKJA-BODY-SCALE-COMPATIBILITY-AND-CASTING-FIREWALL-R1.json",
         "EXT-KASI-YU1997-SEJONG-CALENDAR-BIBLIOGRAPHY-DATONGLIZHU-GENERIC-GWANSANGGAM-TYPE",
         "EXT-HANSUNG-MYONGJAE-DAETONGLYOKJA-SCOPE-KIMSANGHO132-CONTROL",
-        "docs/research/ZIWEI-KYUDB-GK02538-DAETONGLYOKJA-NAME-SCOPE-AND-SEJONG-LIST-FIREWALL-R1.json"
+        "docs/research/ZIWEI-KYUDB-GK02538-DAETONGLYOKJA-NAME-SCOPE-AND-SEJONG-LIST-FIREWALL-R1.json",
+        "docs/research/ZIWEI-KYUDB-GK02538-GYEONGJIN1580-SOURCE-BOUND-SHARED-GLYPH-CROPS-R1.json"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-KYUDB-DATONGLIZHU-GK02538-1434-TYPE-POSTFACE-AND-FINGERPRINT-EE",
       "terminal_internal_date_line": "正統七年十二月日",
@@ -1782,7 +1783,18 @@
       "daetongryokja_secondary_scope_examples": [
         "大統曆 1651/1652",
         "時憲曆 1653-1723"
-      ]
+      ],
+      "shared_glyph_crop_control_status": "CLOSED_SOURCE_BOUND_FIXED_PIXEL_CROPS",
+      "shared_glyph_manual_set": [
+        "正",
+        "月"
+      ],
+      "shared_glyph_probe_run_id": 35671323140,
+      "shared_glyph_probe_artifact_id": 10671595229,
+      "shared_glyph_probe_artifact_digest": "sha256:4bdc7d69457fe7b988286c63028dd2e6afbb0897d99728b1273dae59cb9111b8",
+      "gyeongjin1580_shared_glyph_size_class_binding": "UNRESOLVED",
+      "shared_glyph_visual_form_comparison_available": true,
+      "shared_glyph_visual_resemblance_or_difference_proves_casting_generation": false
     },
     {
       "node_id": "RULE-FAMILY-KYUDB-DATONGLIZHU-GK02538-TERM-THRESHOLD-WHOLEKE-SCHEDULE",
@@ -3443,6 +3455,10 @@
         {
           "batch": "BATCH-12-ZIWEI-KYUDB-GK02538-DAETONGLYOKJA-NAME-SCOPE-AND-SEJONG-LIST-FIREWALL-EJ",
           "update": "Subtype-name scope is narrowed without dating GK02538. KASI 1997 lists the matching 大統曆註 bibliographic item as generic 觀象監活字, while a Hansung bibliographic study explicitly citing Kim Sang-Ho 1987 p.132 applies 觀象監大統曆字 to 1651/1652 大統曆 and 1653-1723 時憲曆. Thus 大統曆字 is not a title-string identity operator, and 大統曆註 -> Daetongryokja is not authorized. GK02538 subtype/casting/date remain unresolved; zero exact Sanming-parent vote is added."
+        },
+        {
+          "batch": "BATCH-12-ZIWEI-KYUDB-GK02538-GYEONGJIN1580-SOURCE-BOUND-SHARED-GLYPH-CROPS-EK",
+          "update": "A reproducible source-bound shared-glyph corpus is now closed for GK02538 versus the dated 1580 Gyeongjin calendar: workflow 35671323140 verifies the exact source SHA-256 values and exports fixed pixel crops for 正/月. This solves the evidence-repeatability problem only. The 1580 crop occurrences are not yet independently bound to the official medium type-size class, and visual shape similarity/difference cannot prove a casting generation. GK02538 subtype/date remain unresolved and zero exact Sanming-parent vote is added."
         }
       ],
       "endpoint_anchor_component_identified": true,

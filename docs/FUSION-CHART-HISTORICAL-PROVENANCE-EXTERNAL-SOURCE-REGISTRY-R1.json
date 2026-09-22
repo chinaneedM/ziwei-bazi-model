@@ -5523,7 +5523,7 @@
       "identifier": "GK02538_00 / 奎2538-v.1-4 / CSP / M/F83-16-89-D",
       "url": "https://kyudb.snu.ac.kr/",
       "source_role": "DIRECT_PHYSICAL_KOREAN_DATONGLIZHU_RECENSION_FOR_1434_TYPE_EVENT_1442_TERMINAL_INTERNAL_DATE_AND_HIGH_INFORMATION_RAINWATER_DAHAN_FINGERPRINT_CONTROL",
-      "quality_notes": "Batch 12EE directly reviews source-bound CSP/_IL_ images with no OCR final authority. Rainwater p002b gives 後五六日 47/53 and 後十三四日 48/52; Dahan p038b gives 後十三四日 44/56 and 冬至餘五十六刻三十分已上為退. p057a-p057b physically recover the 宣德九年/1434 Kim Bin type-casting and start-of-printing postface. The catalog still says 刊年未詳, so the postface is not promoted into the surviving copy's impression date. Batch 12EF re-adjudicates the separately printed p057b line 正統七年十二月日 as a direct 1442 terminal internal date and a textual-layer terminus post quem only. No adjacent 印出 marker is observed, so the surviving copy remains 刊年未詳 and is not promoted to a 1442 impression. Batch 12EG adds a bibliographic type/copy firewall: AKS treats 印曆字/觀象監活字 as a recurring Gwansanggam calendar-type category with repeated recasting and diverse impressions, while Kyujanggak GC00509 directly proves a 1707 Musinja reprint can retain a 1434 Gabinja 原刊記. Therefore neither the type-category label nor inherited internal imprint/date statements date GK02538 by themselves. Batch 12EH adds a direct dated physical comparator corpus (1580 Gyeongjin calendar and 1604 Ryu Gabjin calendar) beside exact GK02538 source-bound pages. Direct review shows annual-calendar page architecture is not a copy-identical layout control for the 12-juan commentary; exact dating now requires subtype/shared-glyph evidence. Batch 12EI adds official physical-scale control: the 25.3 cm frame height divided by 21 body-character slots gives a nominal 1.2047619 cm vertical pitch, compatible within 0.397% of the Heritage Portal 1.2 cm medium 印曆字 height. This is scale compatibility only and does not identify the casting generation or impression year. Batch 12EJ rejects title-based subtype assignment: a KASI scholarly bibliography still labels the matching 大統曆註 item generically 觀象監活字, while an independent bibliographic thesis citing Kim Sang-Ho 1987 p.132 uses 觀象監大統曆字 for later 1651/1652 大統曆 and 1653-1723 時憲曆. Therefore the title 大統曆註 is not a subtype identifier.",
+      "quality_notes": "Batch 12EE directly reviews source-bound CSP/_IL_ images with no OCR final authority. Rainwater p002b gives 後五六日 47/53 and 後十三四日 48/52; Dahan p038b gives 後十三四日 44/56 and 冬至餘五十六刻三十分已上為退. p057a-p057b physically recover the 宣德九年/1434 Kim Bin type-casting and start-of-printing postface. The catalog still says 刊年未詳, so the postface is not promoted into the surviving copy's impression date. Batch 12EF re-adjudicates the separately printed p057b line 正統七年十二月日 as a direct 1442 terminal internal date and a textual-layer terminus post quem only. No adjacent 印出 marker is observed, so the surviving copy remains 刊年未詳 and is not promoted to a 1442 impression. Batch 12EG adds a bibliographic type/copy firewall: AKS treats 印曆字/觀象監活字 as a recurring Gwansanggam calendar-type category with repeated recasting and diverse impressions, while Kyujanggak GC00509 directly proves a 1707 Musinja reprint can retain a 1434 Gabinja 原刊記. Therefore neither the type-category label nor inherited internal imprint/date statements date GK02538 by themselves. Batch 12EH adds a direct dated physical comparator corpus (1580 Gyeongjin calendar and 1604 Ryu Gabjin calendar) beside exact GK02538 source-bound pages. Direct review shows annual-calendar page architecture is not a copy-identical layout control for the 12-juan commentary; exact dating now requires subtype/shared-glyph evidence. Batch 12EI adds official physical-scale control: the 25.3 cm frame height divided by 21 body-character slots gives a nominal 1.2047619 cm vertical pitch, compatible within 0.397% of the Heritage Portal 1.2 cm medium 印曆字 height. This is scale compatibility only and does not identify the casting generation or impression year. Batch 12EJ rejects title-based subtype assignment: a KASI scholarly bibliography still labels the matching 大統曆註 item generically 觀象監活字, while an independent bibliographic thesis citing Kim Sang-Ho 1987 p.132 uses 觀象監大統曆字 for later 1651/1652 大統曆 and 1653-1723 時憲曆. Therefore the title 大統曆註 is not a subtype identifier. Batch 12EK hash-locks fixed source-pixel 正/月/context crops from 0001/002a against the dated 1580 Gyeongjin control. The corpus closes reproducible shared-glyph access but not same-size-class, subtype, casting-generation or impression-date identity.",
       "batch_12ee": {
         "workflow_run_id": 35516795637,
         "artifact_id": 10606724326,
@@ -5611,6 +5611,31 @@
         "object_specific_subtype_identified": false,
         "exact_impression_year_adjudicated": false,
         "research_artifact": "docs/research/ZIWEI-KYUDB-GK02538-DAETONGLYOKJA-NAME-SCOPE-AND-SEJONG-LIST-FIREWALL-R1.json"
+      },
+      "batch_12ek": {
+        "workflow_run_id": 35671323140,
+        "artifact_id": 10671595229,
+        "artifact_digest": "sha256:4bdc7d69457fe7b988286c63028dd2e6afbb0897d99728b1273dae59cb9111b8",
+        "source_page": "0001/002a",
+        "source_sha256": "8458f8a0fd58f23f91139d7d489077472fd7fddb449d9635f6f29df5e2a9b461",
+        "zheng_box": [
+          900,
+          315,
+          961,
+          375
+        ],
+        "zheng_crop_sha256": "1f5833438ca3fefe5b8a12301c46a19a5fec563268d2849bcdd70d86a43442d1",
+        "yue_box": [
+          900,
+          370,
+          961,
+          431
+        ],
+        "yue_crop_sha256": "5790ac69eecef028763001e24dc3d604c5890b90ccb6bcf8a0e540f3fac2da8b",
+        "shared_glyph_crop_control": "CLOSED_SOURCE_BOUND_FIXED_PIXEL_CROPS",
+        "shared_glyph_identity_vote_increment": 0,
+        "exact_impression_year_adjudicated": false,
+        "research_artifact": "docs/research/ZIWEI-KYUDB-GK02538-GYEONGJIN1580-SOURCE-BOUND-SHARED-GLYPH-CROPS-R1.json"
       }
     },
     {
@@ -5683,7 +5708,30 @@
       "identifier": "보물 경진년대통력",
       "url": "https://www.heritage.go.kr/heri/mem/selectHaejeDetail.do?pg=1&returnUrl=kr%2Fgo%2Fheritage%2Fmem%2FEgovHaejePrint&s_asno=13190000&s_cnum=0001&s_ctcd=00&s_kdcd=12&searchDisp=0",
       "source_role": "DIRECT_DATED_PRE_IMJIN_GWANSANGGAM_INRYEOKJA_PHYSICAL_COMPARATOR_WITH_HIGH_RES_HEAD_AND_TAIL_IMAGES",
-      "quality_notes": "Batch 12EH binds full-size physical images SHA256 34dcbde6... (head) and 306b8f03... (tail). The object directly controls the 1580 calendar text/form; 1579 printing is retained with the source's inference/specialist-status distinction rather than treated as an image-internal imprint."
+      "quality_notes": "Batch 12EH binds full-size physical images SHA256 34dcbde6... (head) and 306b8f03... (tail). The object directly controls the 1580 calendar text/form; 1579 printing is retained with the source's inference/specialist-status distinction rather than treated as an image-internal imprint. Batch 12EK source-reacquires the exact tail image and hash-locks fixed source-pixel 正/月/context crops in workflow artifact 10671595229. These are direct visual comparison locators only; no size-class or casting-generation identity is inferred.",
+      "batch_12ek": {
+        "workflow_run_id": 35671323140,
+        "artifact_id": 10671595229,
+        "artifact_digest": "sha256:4bdc7d69457fe7b988286c63028dd2e6afbb0897d99728b1273dae59cb9111b8",
+        "source_sha256": "306b8f03949850c0cedd9575263208ccbd9dc8e6465165b13406ef1918788590",
+        "zheng_box": [
+          698,
+          565,
+          754,
+          625
+        ],
+        "zheng_crop_sha256": "435701fe0d243b869d700471106774a62f6b11cc63f7b2b8a5ed13efcf48cf05",
+        "yue_box": [
+          698,
+          620,
+          754,
+          680
+        ],
+        "yue_crop_sha256": "41fab7d68a3d1565a3d74042522cd428ad7b2278a8b88350923264f78a55dc1d",
+        "same_size_class_adjudicated": false,
+        "casting_generation_identity_vote_increment": 0,
+        "research_artifact": "docs/research/ZIWEI-KYUDB-GK02538-GYEONGJIN1580-SOURCE-BOUND-SHARED-GLYPH-CROPS-R1.json"
+      }
     },
     {
       "source_id": "EXT-AKS-RYU-GABJIN1604-INRYEOKJA-PHYSICAL-CONTROL",

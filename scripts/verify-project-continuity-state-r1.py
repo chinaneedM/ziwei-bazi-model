@@ -82,6 +82,8 @@ ZIWEI_KYUDB_DATONGLIZHU_12EI_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVEN
 ZIWEI_KYUDB_DATONGLIZHU_12EI_EVIDENCE = ROOT / "docs/research/ZIWEI-KYUDB-GK02538-INRYEOKJA-BODY-SCALE-COMPATIBILITY-AND-CASTING-FIREWALL-R1.json"
 ZIWEI_KYUDB_DATONGLIZHU_12EJ_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KYUDB-GK02538-DAETONGLYOKJA-NAME-SCOPE-AND-SEJONG-LIST-FIREWALL-EJ.md"
 ZIWEI_KYUDB_DATONGLIZHU_12EJ_EVIDENCE = ROOT / "docs/research/ZIWEI-KYUDB-GK02538-DAETONGLYOKJA-NAME-SCOPE-AND-SEJONG-LIST-FIREWALL-R1.json"
+ZIWEI_KYUDB_DATONGLIZHU_12EK_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KYUDB-GK02538-GYEONGJIN1580-SOURCE-BOUND-SHARED-GLYPH-CROPS-EK.md"
+ZIWEI_KYUDB_DATONGLIZHU_12EK_EVIDENCE = ROOT / "docs/research/ZIWEI-KYUDB-GK02538-GYEONGJIN1580-SOURCE-BOUND-SHARED-GLYPH-CROPS-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -349,9 +351,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-KYUDB-GK02538-DATED-INRYEOKJA-PHYSICAL-COMPARATOR-AND-SUBTYPE-FIREWALL-EH",
     "BATCH-12-ZIWEI-KYUDB-GK02538-INRYEOKJA-BODY-SCALE-COMPATIBILITY-AND-CASTING-FIREWALL-EI",
     "BATCH-12-ZIWEI-KYUDB-GK02538-DAETONGLYOKJA-NAME-SCOPE-AND-SEJONG-LIST-FIREWALL-EJ",
+    "BATCH-12-ZIWEI-KYUDB-GK02538-GYEONGJIN1580-SOURCE-BOUND-SHARED-GLYPH-CROPS-EK",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KYUDB-GK02538-DAETONGLYOKJA-NAME-SCOPE-AND-SEJONG-LIST-FIREWALL-EJ.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KYUDB-GK02538-GYEONGJIN1580-SOURCE-BOUND-SHARED-GLYPH-CROPS-EK.md"
 
 
 def fail(message: str) -> None:
@@ -843,6 +846,38 @@ def main() -> int:
     for sid in ("EXT-KASI-YU1997-SEJONG-CALENDAR-BIBLIOGRAPHY-DATONGLIZHU-GENERIC-GWANSANGGAM-TYPE", "EXT-HANSUNG-MYONGJAE-DAETONGLYOKJA-SCOPE-KIMSANGHO132-CONTROL"):
         if not any(s.get("source_id") == sid for s in ej_registry.get("sources", [])):
             fail(f"Batch 12EJ source registry control missing: {sid}")
+
+
+    for path in (ZIWEI_KYUDB_DATONGLIZHU_12EK_BATCH, ZIWEI_KYUDB_DATONGLIZHU_12EK_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12EK continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12ek = json.loads(ZIWEI_KYUDB_DATONGLIZHU_12EK_EVIDENCE.read_text(encoding="utf-8"))
+    if batch12ek.get("batch_id") != "BATCH-12-ZIWEI-KYUDB-GK02538-GYEONGJIN1580-SOURCE-BOUND-SHARED-GLYPH-CROPS-EK":
+        fail("Batch 12EK evidence identity mismatch")
+    wf12ek = batch12ek.get("workflow_evidence", {})
+    if wf12ek.get("workflow_run_id") != 35671323140 or wf12ek.get("artifact_id") != 10671595229 or wf12ek.get("artifact_digest") != "sha256:4bdc7d69457fe7b988286c63028dd2e6afbb0897d99728b1273dae59cb9111b8":
+        fail("Batch 12EK shared-glyph artifact binding regressed")
+    if wf12ek.get("ocr_used") is not False or wf12ek.get("automatic_type_family_or_casting_classification") is not False:
+        fail("Batch 12EK OCR/automatic-classification firewall regressed")
+    src12ek = batch12ek.get("source_objects", {})
+    if src12ek.get("gyeongjin1580_tail", {}).get("sha256") != "306b8f03949850c0cedd9575263208ccbd9dc8e6465165b13406ef1918788590":
+        fail("Batch 12EK Gyeongjin source hash regressed")
+    if src12ek.get("gk02538_0001_002a", {}).get("sha256") != "8458f8a0fd58f23f91139d7d489077472fd7fddb449d9635f6f29df5e2a9b461":
+        fail("Batch 12EK GK02538 source hash regressed")
+    crops12ek = batch12ek.get("fixed_crops", {})
+    if crops12ek.get("gyeongjin1580", {}).get("zheng", {}).get("png_sha256") != "435701fe0d243b869d700471106774a62f6b11cc63f7b2b8a5ed13efcf48cf05":
+        fail("Batch 12EK Gyeongjin 正 crop regressed")
+    if crops12ek.get("gk02538", {}).get("yue", {}).get("png_sha256") != "5790ac69eecef028763001e24dc3d604c5890b90ccb6bcf8a0e540f3fac2da8b":
+        fail("Batch 12EK GK02538 月 crop regressed")
+    vis12ek = batch12ek.get("direct_visual_adjudication", {})
+    if vis12ek.get("shared_glyph_crop_control_closed") is not True or vis12ek.get("current_visual_form_vote_increment") != 0:
+        fail("Batch 12EK shared-glyph crop/zero-vote adjudication regressed")
+    rel12ek = batch12ek.get("relation_to_prior_batches", {})
+    if rel12ek.get("gyeongjin1580_crop_size_class_bound_to_official_medium_1_2x0_8cm") is not False or rel12ek.get("same_size_class_shared_glyph_control_closed") is not False or rel12ek.get("shared_glyph_casting_identity_closed") is not False:
+        fail("Batch 12EK size-class/casting firewall regressed")
+    ad12ek = batch12ek.get("adjudication", {})
+    if ad12ek.get("direct_sanming_parent_vote_increment") != 0 or any(ad12ek.get(k) for k in ("matrix_count_change","runtime_rule_change","algorithm_reopen_authorized","candidate_collapse_authorized")):
+        fail("Batch 12EK project firewall regressed")
 
     for path in (ZIWEI_KYUDB_12DT_BATCH, ZIWEI_KYUDB_12DT_EVIDENCE):
         if not path.is_file():
