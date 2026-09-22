@@ -100,6 +100,8 @@ ZIWEI_ZHUNZHAI_YUAN_12ER_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE
 ZIWEI_ZHUNZHAI_YUAN_12ER_EVIDENCE = ROOT / "docs/research/ZIWEI-ZHUNZHAI-YUAN-SHOUSHI-COMPOSITION-ATTRIBUTION-FIREWALL-R1.json"
 ZIWEI_LEIBIAN_SHOUSHI_12ES_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-LEIBIAN1551-SHOUSHI-SELF-ASCRIPTION-ZHUNZHAI-BRIDGE-ES.md"
 ZIWEI_LEIBIAN_SHOUSHI_12ES_EVIDENCE = ROOT / "docs/research/ZIWEI-LEIBIAN1551-SHOUSHI-SELF-ASCRIPTION-ZHUNZHAI-BRIDGE-R1.json"
+ZIWEI_LEIBIAN_ZHUNZHAI_12ET_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-LEIBIAN1551-ZHUNZHAI-MULTIPOINT-AND-CORRUPTION-REPLAY-ET.md"
+ZIWEI_LEIBIAN_ZHUNZHAI_12ET_EVIDENCE = ROOT / "docs/research/ZIWEI-LEIBIAN1551-ZHUNZHAI-MULTIPOINT-AND-CORRUPTION-REPLAY-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -376,9 +378,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-WENYUANGE1441-ZHUNZHAI-TITLE-EXISTENCE-CHRONOLOGY-FIREWALL-EQ",
     "BATCH-12-ZIWEI-ZHUNZHAI-YUAN-SHOUSHI-COMPOSITION-ATTRIBUTION-FIREWALL-ER",
     "BATCH-12-ZIWEI-LEIBIAN1551-SHOUSHI-SELF-ASCRIPTION-ZHUNZHAI-BRIDGE-ES",
+    "BATCH-12-ZIWEI-LEIBIAN1551-ZHUNZHAI-MULTIPOINT-AND-CORRUPTION-REPLAY-ET",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-LEIBIAN1551-SHOUSHI-SELF-ASCRIPTION-ZHUNZHAI-BRIDGE-ES.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-LEIBIAN1551-ZHUNZHAI-MULTIPOINT-AND-CORRUPTION-REPLAY-ET.md"
 
 
 def fail(message: str) -> None:
@@ -1161,6 +1164,30 @@ def main() -> int:
     src12es = next((s for s in reg12es.get("sources", []) if s.get("source_id") == "EXT-NLC-LEIBIAN-LIFA-TONGSHU-JIAJING30-1551"), None)
     if not src12es or src12es.get("batch_12es", {}).get("direct_source_ascription") != "依授時曆抄白":
         fail("Batch 12ES source registry physical ascription missing")
+
+    for path in (ZIWEI_LEIBIAN_ZHUNZHAI_12ET_BATCH, ZIWEI_LEIBIAN_ZHUNZHAI_12ET_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12ET continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12et = json.loads(ZIWEI_LEIBIAN_ZHUNZHAI_12ET_EVIDENCE.read_text(encoding="utf-8"))
+    if batch12et.get("batch_id") != "BATCH-12-ZIWEI-LEIBIAN1551-ZHUNZHAI-MULTIPOINT-AND-CORRUPTION-REPLAY-ET":
+        fail("Batch 12ET evidence identity mismatch")
+    sb12et = batch12et.get("source_bindings", {})
+    if sb12et.get("leibian_1551", {}).get("page_sha256") != "ac71e579493ff892476c1534aabd3b53cb26d64f185d6bb12a837476ba3f6fa9":
+        fail("Batch 12ET Leibian p20 binding regressed")
+    zpages12et = sb12et.get("zhunzhai_1823", {}).get("pages", {})
+    if zpages12et.get("73") != "1984fab868257d433464ef4ef4bf219c876b8b4872d882e5e55ca949266eb526" or zpages12et.get("76") != "64aad110e3cba4984cb784e9f97c99044fbc25e39a06744000a7a606ba73ffeb":
+        fail("Batch 12ET Zhunzhai page bindings regressed")
+    anchors12et = batch12et.get("exact_anchor_replay", [])
+    if len(anchors12et) != 3 or [x.get("state") for x in anchors12et] != ["38/62","45/55","62/38"] or not all("EXACT" in x.get("adjudication","") for x in anchors12et):
+        fail("Batch 12ET exact-anchor replay regressed")
+    corr12et = batch12et.get("corruption_controls", [])
+    if len(corr12et) != 2 or corr12et[0].get("physical_1551") != "霜降前十日至後四日同" or corr12et[1].get("physical_1551") != "雨水前八日至後十日同":
+        fail("Batch 12ET physical corruption controls regressed")
+    trans12et = batch12et.get("transmission_adjudication", {})
+    if trans12et.get("edge_id") != "TG-E0097" or trans12et.get("relation") != "SHARED_COMMON_ANCESTOR_CANDIDATE" or trans12et.get("direct_copy_direction_proved") is not False or trans12et.get("full_25arrow_sequence_replay_closed") is not False:
+        fail("Batch 12ET transmission firewall regressed")
+    if batch12et.get("sanming_firewall", {}).get("direct_sanming_parent_vote_increment") != 0:
+        fail("Batch 12ET Sanming zero-vote firewall regressed")
 
     for path in (ZIWEI_KYUDB_12DT_BATCH, ZIWEI_KYUDB_12DT_EVIDENCE):
         if not path.is_file():

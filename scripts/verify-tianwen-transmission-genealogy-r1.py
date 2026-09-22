@@ -37,6 +37,7 @@ BATCH_12EP = ROOT / "docs/research/ZIWEI-KYUDB-GK02538-IMJIN-TYPE-LOSS-RECOVERY-
 BATCH_12EQ = ROOT / "docs/research/ZIWEI-WENYUANGE1441-ZHUNZHAI-TITLE-EXISTENCE-CHRONOLOGY-FIREWALL-R1.json"
 BATCH_12ER = ROOT / "docs/research/ZIWEI-ZHUNZHAI-YUAN-SHOUSHI-COMPOSITION-ATTRIBUTION-FIREWALL-R1.json"
 BATCH_12ES = ROOT / "docs/research/ZIWEI-LEIBIAN1551-SHOUSHI-SELF-ASCRIPTION-ZHUNZHAI-BRIDGE-R1.json"
+BATCH_12ET = ROOT / "docs/research/ZIWEI-LEIBIAN1551-ZHUNZHAI-MULTIPOINT-AND-CORRUPTION-REPLAY-R1.json"
 
 
 def fail(message: str) -> None:
@@ -44,7 +45,7 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
-    for path in (CHARTER, PROTOCOL, GRAPH, STATE, BATCH_12CH, BATCH_12DP, BATCH_12DQ, BATCH_12DR, BATCH_12DS, BATCH_12DT, BATCH_12DU, BATCH_12DV, BATCH_12DW, BATCH_12DX, BATCH_12DY, BATCH_12DZ, BATCH_12EA, BATCH_12EB, BATCH_12EC, BATCH_12ED, BATCH_12EE, BATCH_12EI, BATCH_12EJ, BATCH_12EK, BATCH_12EL, BATCH_12EM, BATCH_12EN, BATCH_12EO, BATCH_12EP, BATCH_12EQ, BATCH_12ER, BATCH_12ES):
+    for path in (CHARTER, PROTOCOL, GRAPH, STATE, BATCH_12CH, BATCH_12DP, BATCH_12DQ, BATCH_12DR, BATCH_12DS, BATCH_12DT, BATCH_12DU, BATCH_12DV, BATCH_12DW, BATCH_12DX, BATCH_12DY, BATCH_12DZ, BATCH_12EA, BATCH_12EB, BATCH_12EC, BATCH_12ED, BATCH_12EE, BATCH_12EI, BATCH_12EJ, BATCH_12EK, BATCH_12EL, BATCH_12EM, BATCH_12EN, BATCH_12EO, BATCH_12EP, BATCH_12EQ, BATCH_12ER, BATCH_12ES, BATCH_12ET):
         if not path.is_file():
             fail(f"Tianwen transmission artifact missing: {path.relative_to(ROOT)}")
 
@@ -983,6 +984,24 @@ def main() -> int:
     batch12es = json.loads(BATCH_12ES.read_text(encoding="utf-8"))
     if batch12es.get("transmission_impact", {}).get("edges_supported") != []:
         fail("Batch 12ES unexpectedly closed a transmission edge")
+
+    edge12et = next((e for e in edges if e.get("edge_id") == "TG-E0097"), None)
+    if not edge12et or edge12et.get("relation") != "SHARED_COMMON_ANCESTOR_CANDIDATE" or edge12et.get("status") != "PROBABLE" or edge12et.get("confidence") != "MEDIUM_HIGH":
+        fail("Batch 12ET common-ancestor candidate edge regressed")
+    if edge12et.get("from") != "RULE-FAMILY-ZHUNZHAI-25ARROW-JIEHOU-SELECTION-38-62" or edge12et.get("to") != "TABLE-LEIBIAN-FINE-SISHI-38-62":
+        fail("Batch 12ET edge endpoints regressed")
+    zhun_rule12et = next(n for n in nodes if n.get("node_id") == "RULE-FAMILY-ZHUNZHAI-25ARROW-JIEHOU-SELECTION-38-62")
+    replay12et = zhun_rule12et.get("multi_point_1551_replay", {})
+    if replay12et.get("status") != "PARTIALLY_CLOSED_3_EXACT_ANCHORS_PLUS_2_CORRUPTION_CONTROLS" or replay12et.get("full_25arrow_sequence_replay_closed") is not False or replay12et.get("direct_copy_direction_proved") is not False:
+        fail("Batch 12ET graph replay/firewall regressed")
+    leib_table12et = next(n for n in nodes if n.get("node_id") == "TABLE-LEIBIAN-FINE-SISHI-38-62")
+    if leib_table12et.get("multi_point_zhunzhai_bridge_status") != "PARTIALLY_CLOSED_3_EXACT_ANCHORS_PLUS_2_CORRUPTION_CONTROLS":
+        fail("Batch 12ET graph bridge status regressed")
+    if not any(x.get("batch") == "BATCH-12-ZIWEI-LEIBIAN1551-ZHUNZHAI-MULTIPOINT-AND-CORRUPTION-REPLAY-ET" and "zero exact sanming-parent vote" in x.get("update","").lower() for x in hyp12dk.get("evidence_updates", [])):
+        fail("Batch 12ET genealogy hypothesis zero-vote update missing")
+    batch12et = json.loads(BATCH_12ET.read_text(encoding="utf-8"))
+    if batch12et.get("transmission_adjudication", {}).get("direct_copy_direction_proved") is not False:
+        fail("Batch 12ET direct-copy firewall regressed")
 
     ncl = next(n for n in nodes if n.get("node_id") == "PHYSICAL-COPY-SISHI-QIHOU-NCL03164-OLD-MANUSCRIPT")
     if ncl.get("physical_copy_date") != "UNRESOLVED":

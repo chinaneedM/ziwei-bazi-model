@@ -818,7 +818,9 @@
         "docs/research/ZIWEI-LEIBIAN-JIAJING30-1551-PRE1578-FINE-TABLE-CHRONOLOGY-R1.json",
         "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-LEIBIAN-JIAJING30-1551-PRE1578-FINE-TABLE-CHRONOLOGY-DH.md",
         "docs/research/ZIWEI-LEIBIAN1551-SHOUSHI-SELF-ASCRIPTION-ZHUNZHAI-BRIDGE-R1.json",
-        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-LEIBIAN1551-SHOUSHI-SELF-ASCRIPTION-ZHUNZHAI-BRIDGE-ES.md"
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-LEIBIAN1551-SHOUSHI-SELF-ASCRIPTION-ZHUNZHAI-BRIDGE-ES.md",
+        "docs/research/ZIWEI-LEIBIAN1551-ZHUNZHAI-MULTIPOINT-AND-CORRUPTION-REPLAY-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-LEIBIAN1551-ZHUNZHAI-MULTIPOINT-AND-CORRUPTION-REPLAY-ET.md"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-LEIBIAN-MING-FINE-TABLE-SANMING-TARGET-MISMATCH-DE",
       "chronology_prior_12de": "DIRECT_MING_PRINT_ATTESTATION_EXACT_IMPRESSION_YEAR_UNRESOLVED",
@@ -827,7 +829,20 @@
       "direct_pre1578_source_ascription": "依授時曆抄白",
       "direct_pre1578_source_ascription_page": "NLC 1551 p20",
       "shoushi_ascribed_table_attestation_status": "CLOSED_AT_1551_PHYSICAL_TEXT_LAYER",
-      "source_ascription_proves_unchanged_yuan_rowset": false
+      "source_ascription_proves_unchanged_yuan_rowset": false,
+      "transmission_error_controls_12et": {
+        "row45_autumn": {
+          "physical_1551": "霜降前十日至後四日同",
+          "clean_parallel_1823": "霜降前一日用至霜降後四日",
+          "adjudication": "TRANSMISSION_ERROR_STRONGLY_SUPPORTED_AT 十→一 LOCUS"
+        },
+        "row46_spring": {
+          "physical_1551": "雨水前八日至後十日同",
+          "clean_parallel_1823": "雨水後六日用至驚蟄前五日",
+          "adjudication": "START_BOUNDARY TRANSMISSION_ERROR STRONGLY_SUPPORTED; TERMINAL EQUIVALENCE REQUIRES TERM-LENGTH NORMALIZATION"
+        }
+      },
+      "multi_point_zhunzhai_bridge_status": "PARTIALLY_CLOSED_3_EXACT_ANCHORS_PLUS_2_CORRUPTION_CONTROLS"
     },
     {
       "node_id": "PHYSICAL-COPY-YINYANG-BAOJIAN-NLC-MINGCHU-V1-4",
@@ -1386,7 +1401,9 @@
         "EXT-NLC-LEIBIAN-LIFA-TONGSHU-JIAJING30-1551",
         "docs/research/ZIWEI-ZHUNZHAI-YUAN-SHOUSHI-COMPOSITION-ATTRIBUTION-FIREWALL-R1.json",
         "docs/research/ZIWEI-LEIBIAN1551-SHOUSHI-SELF-ASCRIPTION-ZHUNZHAI-BRIDGE-R1.json",
-        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-LEIBIAN1551-SHOUSHI-SELF-ASCRIPTION-ZHUNZHAI-BRIDGE-ES.md"
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-LEIBIAN1551-SHOUSHI-SELF-ASCRIPTION-ZHUNZHAI-BRIDGE-ES.md",
+        "docs/research/ZIWEI-LEIBIAN1551-ZHUNZHAI-MULTIPOINT-AND-CORRUPTION-REPLAY-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-LEIBIAN1551-ZHUNZHAI-MULTIPOINT-AND-CORRUPTION-REPLAY-ET.md"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-XUXIU1031-ZHUNZHAI-CLEPSYDRA-JIEHOU-ARROW-SELECTION-DV",
       "pre1578_title_family_catalog_attestation": true,
@@ -1408,7 +1425,21 @@
         "full_25arrow_sequence_replay_closed": false
       },
       "yanling_sun_fengji_1281_author_identity": "POSSIBLE_NOT_PROVED",
-      "shoushi_substrate_bridge_status": "DIRECT_PRE1578_SHOUSHI_ASCRIPTION_PLUS_EXACT_FIRST_STATE_MATCH"
+      "shoushi_substrate_bridge_status": "DIRECT_PRE1578_SHOUSHI_ASCRIPTION_PLUS_EXACT_FIRST_STATE_MATCH",
+      "multi_point_1551_replay": {
+        "status": "PARTIALLY_CLOSED_3_EXACT_ANCHORS_PLUS_2_CORRUPTION_CONTROLS",
+        "exact_anchors": [
+          "38/62: 冬至→小寒後四日",
+          "45/55 spring: 雨水日→雨水後五日",
+          "62/38: 夏至→小暑後六日"
+        ],
+        "corruption_controls": [
+          "1551 45/55 autumn 霜降前十日 is controlled by Zhunzhai arrow8 霜降前一日",
+          "1551 46/54 spring 雨水前八日 is controlled at the starting boundary by Zhunzhai arrow9 雨水後六日"
+        ],
+        "full_25arrow_sequence_replay_closed": false,
+        "direct_copy_direction_proved": false
+      }
     },
     {
       "node_id": "PHYSICAL-COPY-YONEZAWA-SHILIN-AA060-HONGZHI5-1492",
@@ -3405,6 +3436,22 @@
       ],
       "scope_note": "Same title and threshold/whole-ke architecture support a common-recensional-family candidate. Dahan timing wording and physical/typographic identities differ, so unchanged-copy identity and copy direction are not inferred.",
       "adjudication_batch": "BATCH-12-ZIWEI-KYUDB-DATONGLIZHU-GK02538-1434-TYPE-POSTFACE-AND-FINGERPRINT-EE"
+    },
+    {
+      "edge_id": "TG-E0097",
+      "from": "RULE-FAMILY-ZHUNZHAI-25ARROW-JIEHOU-SELECTION-38-62",
+      "relation": "SHARED_COMMON_ANCESTOR_CANDIDATE",
+      "to": "TABLE-LEIBIAN-FINE-SISHI-38-62",
+      "status": "PROBABLE",
+      "confidence": "MEDIUM_HIGH",
+      "evidence_class": "COMPOSITE_EVIDENCE",
+      "evidence": [
+        "docs/research/ZIWEI-LEIBIAN1551-ZHUNZHAI-MULTIPOINT-AND-CORRUPTION-REPLAY-R1.json",
+        "docs/research/ZIWEI-LEIBIAN1551-SHOUSHI-SELF-ASCRIPTION-ZHUNZHAI-BRIDGE-R1.json",
+        "EXT-WANG-XIAOHU-2014-ZHUNZHAI-YUAN-COMPOSITION-STUDY"
+      ],
+      "scope_note": "Three directly replayed date/value anchors plus two physical corruption controls support a shared Shoushi fine-table source family/common ancestor. This is not a direct-copy edge, does not prove which text is earlier, and does not make the 1823 Zhunzhai manuscript a pre-1578 physical witness.",
+      "adjudication_batch": "BATCH-12-ZIWEI-LEIBIAN1551-ZHUNZHAI-MULTIPOINT-AND-CORRUPTION-REPLAY-ET"
     }
   ],
   "lineage_hypotheses": [
@@ -3629,6 +3676,10 @@
         {
           "batch": "BATCH-12-ZIWEI-LEIBIAN1551-SHOUSHI-SELF-ASCRIPTION-ZHUNZHAI-BRIDGE-ES",
           "update": "Direct re-read of the securely pre-1578 1551 NLC Leibian p20 closes the physical side ascription 依授時曆抄白 beside 四時加減晝夜節氣. The same physical page starts with 冬至節日連小寒後四日同=38/62, exactly matching the 1823 Zhunzhai first arrow 自冬至用至小寒後四日=38/62. This upgrades the Zhunzhai chronology bridge from a merely Shoushi-like numerical resemblance to a direct pre-1578 Shoushi-ascribed table plus exact first-state match. It still does not close the full 25-arrow replay, exact pre-1578 Zhunzhai prose, direct-copy direction, or the Sanming/Yueling target fingerprint. Zero exact Sanming-parent vote is added."
+        },
+        {
+          "batch": "BATCH-12-ZIWEI-LEIBIAN1551-ZHUNZHAI-MULTIPOINT-AND-CORRUPTION-REPLAY-ET",
+          "update": "Direct physical replay now spans the 1551 Shoushi-ascribed fine table at three exact anchors: 38/62 winter start, 45/55 Rainwater spring range, and 62/38 summer terminal range. Two sequence-breaking p20 readings are also physically localized: 45/55 autumn 霜降前十日 and 46/54 spring 雨水前八日. Zhunzhai arrows 8/9 supply clean parallel boundaries 霜降前一日 and 雨水後六日 respectively. This supports TG-E0097 as a probable shared-common-ancestor candidate for the Zhunzhai and Leibian Shoushi fine-table families, while direct copying, full 25-arrow replay, exact pre-1578 Zhunzhai prose, and Sanming parentage remain unproved. Zero exact Sanming-parent vote is added."
         }
       ],
       "endpoint_anchor_component_identified": true,
