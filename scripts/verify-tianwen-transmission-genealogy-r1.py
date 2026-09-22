@@ -36,6 +36,7 @@ BATCH_12EO = ROOT / "docs/research/ZIWEI-KYUDB-GK02538-GYEONGJIN1580-OBJECT-SPEC
 BATCH_12EP = ROOT / "docs/research/ZIWEI-KYUDB-GK02538-IMJIN-TYPE-LOSS-RECOVERY-CONTINUITY-FIREWALL-R1.json"
 BATCH_12EQ = ROOT / "docs/research/ZIWEI-WENYUANGE1441-ZHUNZHAI-TITLE-EXISTENCE-CHRONOLOGY-FIREWALL-R1.json"
 BATCH_12ER = ROOT / "docs/research/ZIWEI-ZHUNZHAI-YUAN-SHOUSHI-COMPOSITION-ATTRIBUTION-FIREWALL-R1.json"
+BATCH_12ES = ROOT / "docs/research/ZIWEI-LEIBIAN1551-SHOUSHI-SELF-ASCRIPTION-ZHUNZHAI-BRIDGE-R1.json"
 
 
 def fail(message: str) -> None:
@@ -43,7 +44,7 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
-    for path in (CHARTER, PROTOCOL, GRAPH, STATE, BATCH_12CH, BATCH_12DP, BATCH_12DQ, BATCH_12DR, BATCH_12DS, BATCH_12DT, BATCH_12DU, BATCH_12DV, BATCH_12DW, BATCH_12DX, BATCH_12DY, BATCH_12DZ, BATCH_12EA, BATCH_12EB, BATCH_12EC, BATCH_12ED, BATCH_12EE, BATCH_12EI, BATCH_12EJ, BATCH_12EK, BATCH_12EL, BATCH_12EM, BATCH_12EN, BATCH_12EO, BATCH_12EP, BATCH_12EQ, BATCH_12ER):
+    for path in (CHARTER, PROTOCOL, GRAPH, STATE, BATCH_12CH, BATCH_12DP, BATCH_12DQ, BATCH_12DR, BATCH_12DS, BATCH_12DT, BATCH_12DU, BATCH_12DV, BATCH_12DW, BATCH_12DX, BATCH_12DY, BATCH_12DZ, BATCH_12EA, BATCH_12EB, BATCH_12EC, BATCH_12ED, BATCH_12EE, BATCH_12EI, BATCH_12EJ, BATCH_12EK, BATCH_12EL, BATCH_12EM, BATCH_12EN, BATCH_12EO, BATCH_12EP, BATCH_12EQ, BATCH_12ER, BATCH_12ES):
         if not path.is_file():
             fail(f"Tianwen transmission artifact missing: {path.relative_to(ROOT)}")
 
@@ -962,6 +963,26 @@ def main() -> int:
     impact12er = batch12er.get("transmission_impact", {})
     if impact12er.get("edges_supported") != []:
         fail("Batch 12ER unexpectedly closed a transmission edge")
+
+    leib_phys12es = next(n for n in nodes if n.get("node_id") == "PHYSICAL-COPY-LEIBIAN-NLC-JIAJING30-1551-VOL1")
+    leib_table12es = next(n for n in nodes if n.get("node_id") == "TABLE-LEIBIAN-FINE-SISHI-38-62")
+    zhun_rule12es = next(n for n in nodes if n.get("node_id") == "RULE-FAMILY-ZHUNZHAI-25ARROW-JIEHOU-SELECTION-38-62")
+    if leib_phys12es.get("direct_p20_source_ascription") != "依授時曆抄白" or leib_phys12es.get("direct_p20_source_ascription_status") != "DIRECT_360DPI_PHYSICAL_RENDER_CLOSED":
+        fail("Batch 12ES graph direct Shoushi ascription regressed")
+    if leib_phys12es.get("source_ascription_historical_truth_independently_proved_by_inscription_alone") is not False:
+        fail("Batch 12ES graph ascription-truth firewall regressed")
+    if leib_table12es.get("shoushi_ascribed_table_attestation_status") != "CLOSED_AT_1551_PHYSICAL_TEXT_LAYER" or leib_table12es.get("source_ascription_proves_unchanged_yuan_rowset") is not False:
+        fail("Batch 12ES graph table/ascription firewall regressed")
+    match12es = zhun_rule12es.get("first_arrow_cross_witness_match", {})
+    if match12es.get("source_table_self_ascription") != "依授時曆抄白" or match12es.get("source_table_self_ascription_direct_pre1578_physical") is not True:
+        fail("Batch 12ES graph Zhunzhai/Shoushi bridge regressed")
+    if match12es.get("full_25arrow_sequence_replay_closed") is not False:
+        fail("Batch 12ES graph full-sequence firewall regressed")
+    if not any(x.get("batch") == "BATCH-12-ZIWEI-LEIBIAN1551-SHOUSHI-SELF-ASCRIPTION-ZHUNZHAI-BRIDGE-ES" and "zero exact sanming-parent vote" in x.get("update", "").lower() for x in hyp12dk.get("evidence_updates", [])):
+        fail("Batch 12ES genealogy hypothesis zero-vote update missing")
+    batch12es = json.loads(BATCH_12ES.read_text(encoding="utf-8"))
+    if batch12es.get("transmission_impact", {}).get("edges_supported") != []:
+        fail("Batch 12ES unexpectedly closed a transmission edge")
 
     ncl = next(n for n in nodes if n.get("node_id") == "PHYSICAL-COPY-SISHI-QIHOU-NCL03164-OLD-MANUSCRIPT")
     if ncl.get("physical_copy_date") != "UNRESOLVED":

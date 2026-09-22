@@ -816,12 +816,18 @@
         "docs/research/ZIWEI-LEIBIAN-MING-FINE-TABLE-SANMING-TARGET-MISMATCH-R1.json",
         "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-LEIBIAN-MING-FINE-TABLE-SANMING-TARGET-MISMATCH-DE.md",
         "docs/research/ZIWEI-LEIBIAN-JIAJING30-1551-PRE1578-FINE-TABLE-CHRONOLOGY-R1.json",
-        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-LEIBIAN-JIAJING30-1551-PRE1578-FINE-TABLE-CHRONOLOGY-DH.md"
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-LEIBIAN-JIAJING30-1551-PRE1578-FINE-TABLE-CHRONOLOGY-DH.md",
+        "docs/research/ZIWEI-LEIBIAN1551-SHOUSHI-SELF-ASCRIPTION-ZHUNZHAI-BRIDGE-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-LEIBIAN1551-SHOUSHI-SELF-ASCRIPTION-ZHUNZHAI-BRIDGE-ES.md"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-LEIBIAN-MING-FINE-TABLE-SANMING-TARGET-MISMATCH-DE",
       "chronology_prior_12de": "DIRECT_MING_PRINT_ATTESTATION_EXACT_IMPRESSION_YEAR_UNRESOLVED",
       "chronology_after_12dh": "DIRECT_PRE1578_ATTESTATION_BY_NLC_JIAJING30_1551_CATALOG_BOUND_COPY",
-      "pre1578_physical_attestation_closed": true
+      "pre1578_physical_attestation_closed": true,
+      "direct_pre1578_source_ascription": "依授時曆抄白",
+      "direct_pre1578_source_ascription_page": "NLC 1551 p20",
+      "shoushi_ascribed_table_attestation_status": "CLOSED_AT_1551_PHYSICAL_TEXT_LAYER",
+      "source_ascription_proves_unchanged_yuan_rowset": false
     },
     {
       "node_id": "PHYSICAL-COPY-YINYANG-BAOJIAN-NLC-MINGCHU-V1-4",
@@ -877,12 +883,17 @@
       "digital_surrogate_date": "MODERN_NLC_WIKIMEDIA_SURROGATE",
       "identifier": "NLC892-411999026677-72517 / set 411999026677 / 善本書號15897",
       "source_pdf_sha256": "22811dd2b2291ed4a94a63b51665c24785a4c1795637a4a89b05f979208d76f2",
-      "target_result": "P20 attests fine 38/62 branch; 大寒40/60->41/59; 雨水45/55; exact Sanming/Yueling target identity false.",
+      "target_result": "P20 directly reads 四時加減晝夜節氣 / 依授時曆抄白 and attests fine 38/62 branch; first state 冬至節日連小寒後四日同=38/62; exact Sanming/Yueling target identity remains false.",
       "evidence": [
         "docs/research/ZIWEI-LEIBIAN-JIAJING30-1551-PRE1578-FINE-TABLE-CHRONOLOGY-R1.json",
-        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-LEIBIAN-JIAJING30-1551-PRE1578-FINE-TABLE-CHRONOLOGY-DH.md"
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-LEIBIAN-JIAJING30-1551-PRE1578-FINE-TABLE-CHRONOLOGY-DH.md",
+        "docs/research/ZIWEI-LEIBIAN1551-SHOUSHI-SELF-ASCRIPTION-ZHUNZHAI-BRIDGE-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-LEIBIAN1551-SHOUSHI-SELF-ASCRIPTION-ZHUNZHAI-BRIDGE-ES.md"
       ],
-      "first_explicit_graph_batch": "BATCH-12-ZIWEI-LEIBIAN-JIAJING30-1551-PRE1578-FINE-TABLE-CHRONOLOGY-DH"
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-LEIBIAN-JIAJING30-1551-PRE1578-FINE-TABLE-CHRONOLOGY-DH",
+      "direct_p20_source_ascription": "依授時曆抄白",
+      "direct_p20_source_ascription_status": "DIRECT_360DPI_PHYSICAL_RENDER_CLOSED",
+      "source_ascription_historical_truth_independently_proved_by_inscription_alone": false
     },
     {
       "node_id": "PHYSICAL-COPY-HEBING-TONGSHU-LOC-JIAJING33-1554-JUAN17",
@@ -1339,14 +1350,17 @@
         "docs/research/ZIWEI-WENYUANGE1441-ZHUNZHAI-TITLE-EXISTENCE-CHRONOLOGY-FIREWALL-R1.json",
         "EXT-WANG-XIAOHU-2014-ZHUNZHAI-YUAN-COMPOSITION-STUDY",
         "EXT-CTEXT-TONGJIANGJI-SUNJUN-SHANJING-1281-CONTROL",
-        "docs/research/ZIWEI-ZHUNZHAI-YUAN-SHOUSHI-COMPOSITION-ATTRIBUTION-FIREWALL-R1.json"
+        "docs/research/ZIWEI-ZHUNZHAI-YUAN-SHOUSHI-COMPOSITION-ATTRIBUTION-FIREWALL-R1.json",
+        "docs/research/ZIWEI-LEIBIAN1551-SHOUSHI-SELF-ASCRIPTION-ZHUNZHAI-BRIDGE-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-LEIBIAN1551-SHOUSHI-SELF-ASCRIPTION-ZHUNZHAI-BRIDGE-ES.md"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-XUXIU1031-ZHUNZHAI-CLEPSYDRA-JIEHOU-ARROW-SELECTION-DV",
       "pre1578_title_family_catalog_attestation_status": "CLOSED_AT_1441_CATALOG_TEXT_LAYER",
       "pre1578_exact_25arrow_rule_text_status": "NOT_CLOSED",
       "received_song_attribution_status": "CONTESTED_LATE_BIBLIOGRAPHIC_TRADITION_NOT_PRIMARY_COMPOSITION_PROOF",
       "yuan_composition_hypothesis_status": "STRONGLY_CORROBORATED_NOT_PRIMARY_COLOPHON_CLOSED",
-      "yanling_sun_fengji_1281_identity_with_zhunzhai_author": "POSSIBLE_NOT_PROVED"
+      "yanling_sun_fengji_1281_identity_with_zhunzhai_author": "POSSIBLE_NOT_PROVED",
+      "direct_pre1578_shoushi_ascribed_table_bridge_status": "EXACT_FIRST_STATE_MATCH_CLOSED_FULL_25ARROW_REPLAY_OPEN"
     },
     {
       "node_id": "RULE-FAMILY-ZHUNZHAI-25ARROW-JIEHOU-SELECTION-38-62",
@@ -1370,7 +1384,9 @@
         "EXT-WANG-XIAOHU-2014-ZHUNZHAI-YUAN-COMPOSITION-STUDY",
         "EXT-CTEXT-TONGJIANGJI-SUNJUN-SHANJING-1281-CONTROL",
         "EXT-NLC-LEIBIAN-LIFA-TONGSHU-JIAJING30-1551",
-        "docs/research/ZIWEI-ZHUNZHAI-YUAN-SHOUSHI-COMPOSITION-ATTRIBUTION-FIREWALL-R1.json"
+        "docs/research/ZIWEI-ZHUNZHAI-YUAN-SHOUSHI-COMPOSITION-ATTRIBUTION-FIREWALL-R1.json",
+        "docs/research/ZIWEI-LEIBIAN1551-SHOUSHI-SELF-ASCRIPTION-ZHUNZHAI-BRIDGE-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-LEIBIAN1551-SHOUSHI-SELF-ASCRIPTION-ZHUNZHAI-BRIDGE-ES.md"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-XUXIU1031-ZHUNZHAI-CLEPSYDRA-JIEHOU-ARROW-SELECTION-DV",
       "pre1578_title_family_catalog_attestation": true,
@@ -1386,9 +1402,13 @@
         "zhunzhai_1823": "自冬至用至小寒後四日 / 晝38夜62",
         "leibian_1551": "冬至節日連小寒後四日同 / 晝38夜62",
         "exact_range_and_value_match": true,
-        "implication": "STRONG_SHOUSHI_FINE_TABLE_SUBSTRATE_COMPATIBILITY_NOT_DIRECT_COPY_PROOF"
+        "implication": "STRONG_SHOUSHI_FINE_TABLE_SUBSTRATE_COMPATIBILITY_NOT_DIRECT_COPY_PROOF",
+        "source_table_self_ascription": "依授時曆抄白",
+        "source_table_self_ascription_direct_pre1578_physical": true,
+        "full_25arrow_sequence_replay_closed": false
       },
-      "yanling_sun_fengji_1281_author_identity": "POSSIBLE_NOT_PROVED"
+      "yanling_sun_fengji_1281_author_identity": "POSSIBLE_NOT_PROVED",
+      "shoushi_substrate_bridge_status": "DIRECT_PRE1578_SHOUSHI_ASCRIPTION_PLUS_EXACT_FIRST_STATE_MATCH"
     },
     {
       "node_id": "PHYSICAL-COPY-YONEZAWA-SHILIN-AA060-HONGZHI5-1492",
@@ -3605,6 +3625,10 @@
         {
           "batch": "BATCH-12-ZIWEI-ZHUNZHAI-YUAN-SHOUSHI-COMPOSITION-ATTRIBUTION-FIREWALL-ER",
           "update": "Specialist scholarship now challenges the inherited Song attribution of the received Zhunzhai text and proposes Yuan/Shoushi-period composition. Repository physical replay independently closes one high-information correspondence: the 1823 Zhunzhai first arrow (winter solstice through Xiaohan+4, 38/62) exactly matches the 1551 pre-1578 Leibian fine-table first state. A received Fang Hui passage independently names a Yuan-era Yanling Sun Fengji interested in astronomy and Yan Su clepsydra tradition, but does not name Zhunzhai. The Yuan composition/author hypothesis is therefore strongly corroborated, while exact authorship, exact pre-1578 25-arrow wording, Nanjing-59 binding and Sanming/Yueling fingerprint remain unresolved. Zero exact Sanming-parent vote is added."
+        },
+        {
+          "batch": "BATCH-12-ZIWEI-LEIBIAN1551-SHOUSHI-SELF-ASCRIPTION-ZHUNZHAI-BRIDGE-ES",
+          "update": "Direct re-read of the securely pre-1578 1551 NLC Leibian p20 closes the physical side ascription 依授時曆抄白 beside 四時加減晝夜節氣. The same physical page starts with 冬至節日連小寒後四日同=38/62, exactly matching the 1823 Zhunzhai first arrow 自冬至用至小寒後四日=38/62. This upgrades the Zhunzhai chronology bridge from a merely Shoushi-like numerical resemblance to a direct pre-1578 Shoushi-ascribed table plus exact first-state match. It still does not close the full 25-arrow replay, exact pre-1578 Zhunzhai prose, direct-copy direction, or the Sanming/Yueling target fingerprint. Zero exact Sanming-parent vote is added."
         }
       ],
       "endpoint_anchor_component_identified": true,

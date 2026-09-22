@@ -98,6 +98,8 @@ ZIWEI_WENYUANGE_ZHUNZHAI_12EQ_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVE
 ZIWEI_WENYUANGE_ZHUNZHAI_12EQ_EVIDENCE = ROOT / "docs/research/ZIWEI-WENYUANGE1441-ZHUNZHAI-TITLE-EXISTENCE-CHRONOLOGY-FIREWALL-R1.json"
 ZIWEI_ZHUNZHAI_YUAN_12ER_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHUNZHAI-YUAN-SHOUSHI-COMPOSITION-ATTRIBUTION-FIREWALL-ER.md"
 ZIWEI_ZHUNZHAI_YUAN_12ER_EVIDENCE = ROOT / "docs/research/ZIWEI-ZHUNZHAI-YUAN-SHOUSHI-COMPOSITION-ATTRIBUTION-FIREWALL-R1.json"
+ZIWEI_LEIBIAN_SHOUSHI_12ES_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-LEIBIAN1551-SHOUSHI-SELF-ASCRIPTION-ZHUNZHAI-BRIDGE-ES.md"
+ZIWEI_LEIBIAN_SHOUSHI_12ES_EVIDENCE = ROOT / "docs/research/ZIWEI-LEIBIAN1551-SHOUSHI-SELF-ASCRIPTION-ZHUNZHAI-BRIDGE-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -373,9 +375,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-KYUDB-GK02538-IMJIN-TYPE-LOSS-RECOVERY-CONTINUITY-FIREWALL-EP",
     "BATCH-12-ZIWEI-WENYUANGE1441-ZHUNZHAI-TITLE-EXISTENCE-CHRONOLOGY-FIREWALL-EQ",
     "BATCH-12-ZIWEI-ZHUNZHAI-YUAN-SHOUSHI-COMPOSITION-ATTRIBUTION-FIREWALL-ER",
+    "BATCH-12-ZIWEI-LEIBIAN1551-SHOUSHI-SELF-ASCRIPTION-ZHUNZHAI-BRIDGE-ES",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHUNZHAI-YUAN-SHOUSHI-COMPOSITION-ATTRIBUTION-FIREWALL-ER.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-LEIBIAN1551-SHOUSHI-SELF-ASCRIPTION-ZHUNZHAI-BRIDGE-ES.md"
 
 
 def fail(message: str) -> None:
@@ -1127,6 +1130,37 @@ def main() -> int:
     for sid in ("EXT-WANG-XIAOHU-2014-ZHUNZHAI-YUAN-COMPOSITION-STUDY","EXT-CTEXT-TONGJIANGJI-SUNJUN-SHANJING-1281-CONTROL"):
         if not any(s.get("source_id") == sid for s in reg12er.get("sources", [])):
             fail(f"Batch 12ER source registry entry missing: {sid}")
+
+    for path in (ZIWEI_LEIBIAN_SHOUSHI_12ES_BATCH, ZIWEI_LEIBIAN_SHOUSHI_12ES_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12ES continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12es = json.loads(ZIWEI_LEIBIAN_SHOUSHI_12ES_EVIDENCE.read_text(encoding="utf-8"))
+    if batch12es.get("batch_id") != "BATCH-12-ZIWEI-LEIBIAN1551-SHOUSHI-SELF-ASCRIPTION-ZHUNZHAI-BRIDGE-ES":
+        fail("Batch 12ES evidence identity mismatch")
+    phy12es = batch12es.get("physical_binding", {})
+    if phy12es.get("highres_run_id") != 35359354362 or phy12es.get("highres_artifact_id") != 10554051966:
+        fail("Batch 12ES highres binding regressed")
+    if phy12es.get("p20_sha256") != "ac71e579493ff892476c1534aabd3b53cb26d64f185d6bb12a837476ba3f6fa9" or phy12es.get("ocr_used_for_final_glyph_claims") is not False:
+        fail("Batch 12ES p20/glyph-authority binding regressed")
+    direct12es = batch12es.get("direct_p20_collation", {})
+    if direct12es.get("heading") != "四時加減晝夜節氣" or direct12es.get("side_ascription") != "依授時曆抄白":
+        fail("Batch 12ES direct Shoushi ascription regressed")
+    if direct12es.get("ascription_historical_accuracy_independently_proved_by_this_label_alone") is not False:
+        fail("Batch 12ES self-ascription truth firewall regressed")
+    cross12es = batch12es.get("zhunzhai_cross_witness", {})
+    if cross12es.get("exact_date_span_and_value_match_with_1551_first_state") is not True or cross12es.get("source_table_directly_shoushi_ascribed") is not True:
+        fail("Batch 12ES Zhunzhai/Shoushi bridge regressed")
+    if cross12es.get("full_25arrow_sequence_replay_closed") is not False:
+        fail("Batch 12ES full-25-arrow replay firewall regressed")
+    chrono12es = batch12es.get("chronology_firewall", {})
+    if chrono12es.get("exact_25arrow_rule_text_pre1578_attestation") != "NOT_CLOSED" or chrono12es.get("secure_pre1578_physical_zhunzhai_rule_witness") is not False:
+        fail("Batch 12ES exact-rule/pre1578 firewall regressed")
+    if batch12es.get("sanming_firewall", {}).get("direct_sanming_parent_vote_increment") != 0:
+        fail("Batch 12ES Sanming zero-vote firewall regressed")
+    reg12es = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    src12es = next((s for s in reg12es.get("sources", []) if s.get("source_id") == "EXT-NLC-LEIBIAN-LIFA-TONGSHU-JIAJING30-1551"), None)
+    if not src12es or src12es.get("batch_12es", {}).get("direct_source_ascription") != "依授時曆抄白":
+        fail("Batch 12ES source registry physical ascription missing")
 
     for path in (ZIWEI_KYUDB_12DT_BATCH, ZIWEI_KYUDB_12DT_EVIDENCE):
         if not path.is_file():
