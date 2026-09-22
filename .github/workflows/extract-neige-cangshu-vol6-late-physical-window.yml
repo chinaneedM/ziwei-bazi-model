@@ -1,0 +1,71 @@
+name: extract-neige-cangshu-vol6-late-physical-window
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/extract-neige-cangshu-vol6-late-physical-window.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Export source-bound late volume-six physical page window
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/neige-cangshu-vol6-late-physical-window'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT/pages"
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils >/dev/null
+          python -m pip install --quiet pillow
+          URL='https://commons.wikimedia.org/wiki/Special:Redirect/file/NLC892-1084-204844%20%E5%85%A7%E9%96%A3%E8%97%8F%E6%9B%B8%E7%9B%AE%E9%8C%84%20%E7%AC%AC2%E5%86%8A.pdf'
+          curl -fL --retry 4 --retry-delay 2 -A 'Tianwen-Provenance-Audit/1.0' "$URL" -o "$ROOT/source.pdf"
+          sha256sum "$ROOT/source.pdf" | tee "$ROOT/source-sha256.txt"
+          pdftoppm -f 45 -l 70 -jpeg -jpegopt quality=95 -r 190 "$ROOT/source.pdf" "$ROOT/pages/page" >/dev/null 2>&1
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image,ImageDraw
+          import hashlib,json,re
+          root=Path('audit/neige-cangshu-vol6-late-physical-window')
+          pages=sorted(root.joinpath('pages').glob('page-*.jpg'))
+          manifest=[]; thumbs=[]
+          for p in pages:
+              m=re.search(r'-(\d+)\.jpg$',p.name); n=int(m.group(1))
+              b=p.read_bytes(); im=Image.open(p).convert('RGB')
+              manifest.append({'pdf_page':n,'file':p.name,'sha256':hashlib.sha256(b).hexdigest(),'width':im.width,'height':im.height})
+              tw=500;t=im.resize((tw,max(1,int(im.height*tw/im.width))))
+              c=Image.new('RGB',(tw,t.height+32),'white');c.paste(t,(0,32))
+              ImageDraw.Draw(c).text((8,7),f'PDF p{n}',fill='black');thumbs.append(c)
+          cols=5;cw=max(x.width for x in thumbs);ch=max(x.height for x in thumbs)
+          rows=(len(thumbs)+cols-1)//cols
+          sheet=Image.new('RGB',(cols*cw,rows*ch),'white')
+          for i,t in enumerate(thumbs):sheet.paste(t,((i%cols)*cw,(i//cols)*ch))
+          sheet.save(root/'contact-p45-p70.jpg',quality=95)
+          report={
+            'schema':'NEIGE-CANGSHU-VOL6-LATE-PHYSICAL-WINDOW-R1',
+            'source_file':'NLC892-1084-204844 內閣藏書目錄 第2冊.pdf',
+            'source_pdf_sha256':hashlib.sha256((root/'source.pdf').read_bytes()).hexdigest(),
+            'window':'PDF p45-p70',
+            'authority':'DIRECT_PAGE_IMAGES; NO_OCR',
+            'target_sequence':['百夷傳','技藝部','大統歷','參校歷法','七政','準齋几漏新式','孫逢吉','莫詳時代','皇極經世衍數'],
+            'manifest':manifest
+          }
+          (root/'report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print(json.dumps({'pages':[x['pdf_page'] for x in manifest]},ensure_ascii=False))
+          PY
+          rm "$ROOT/source.pdf"
+      - name: Upload source-bound late volume-six window
+        uses: actions/upload-artifact@v4
+        with:
+          name: neige-cangshu-vol6-late-physical-window-r1
+          path: audit/neige-cangshu-vol6-late-physical-window
+          if-no-files-found: error
+          retention-days: 30
