@@ -1,0 +1,88 @@
+name: extract-ncl-guoshi-jingjizhi-1602-p19-zhunzhai-author
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/extract-ncl-guoshi-jingjizhi-1602-p19-zhunzhai-author.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Extract source-bound 1602 Guoshi p19 at high resolution
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/ncl-guoshi-jingjizhi-1602-p19-zhunzhai-author'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT"
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils >/dev/null
+          python -m pip install --quiet pillow
+          URL='https://commons.wikimedia.org/wiki/Special:Redirect/file/NCL-04980%2003%20%E5%9C%8B%E5%8F%B2%E7%B6%93%E7%B1%8D%E5%BF%97.pdf'
+          curl -fL --retry 4 --retry-delay 2 -A 'Tianwen-Provenance-Audit/1.0' "$URL" -o "$ROOT/source.pdf"
+          sha256sum "$ROOT/source.pdf" | tee "$ROOT/source-sha256.txt"
+          pdfinfo "$ROOT/source.pdf" | tee "$ROOT/pdfinfo.txt"
+          pdftoppm -f 19 -l 19 -png -r 300 "$ROOT/source.pdf" "$ROOT/p19" >/dev/null 2>&1
+          mv "$ROOT"/p19-019.png "$ROOT/p19-full-300dpi.png"
+          sha256sum "$ROOT/p19-full-300dpi.png" | tee "$ROOT/p19-sha256.txt"
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image
+          import hashlib, json
+
+          root=Path('audit/ncl-guoshi-jingjizhi-1602-p19-zhunzhai-author')
+          p=root/'p19-full-300dpi.png'
+          im=Image.open(p).convert('RGB')
+          w,h=im.size
+          # The target is in the left-hand leaf, under 右貨寶. Preserve broad
+          # context plus overlapping vertical strips so final human reading does
+          # not depend on OCR or one guessed crop boundary.
+          boxes={
+            'left-leaf': (0,0,int(w*0.52),h),
+            'left-upper': (0,int(h*0.08),int(w*0.52),int(h*0.64)),
+            'target-band-a': (int(w*0.08),int(h*0.10),int(w*0.28),int(h*0.66)),
+            'target-band-b': (int(w*0.16),int(h*0.10),int(w*0.36),int(h*0.66)),
+            'target-band-c': (int(w*0.24),int(h*0.10),int(w*0.44),int(h*0.66)),
+          }
+          out={}
+          for name,box in boxes.items():
+              q=root/f'{name}.png'
+              im.crop(box).save(q)
+              out[name]={
+                'box':box,
+                'sha256':hashlib.sha256(q.read_bytes()).hexdigest(),
+                'width':Image.open(q).width,
+                'height':Image.open(q).height,
+              }
+          report={
+            'schema':'NCL-GUOSHI-JINGJIZHI-1602-P19-ZHUNZHAI-AUTHOR-R1',
+            'source_file':'NCL-04980 03 國史經籍志.pdf',
+            'catalog_scope':'明萬曆壬寅（三十年，1602）原刊本',
+            'source_pdf_sha256':hashlib.sha256((root/'source.pdf').read_bytes()).hexdigest(),
+            'pdf_page':19,
+            'full_render_sha256':hashlib.sha256(p.read_bytes()).hexdigest(),
+            'full_render_size':[w,h],
+            'target_claim_to_test':'器用 / 準齋几漏圖式一卷 / 孫逢吉',
+            'ocr_used_for_final_glyph_claims':False,
+            'crops':out,
+            'final_adjudication':'PENDING_DIRECT_IMAGE_REVIEW'
+          }
+          (root/'report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print(json.dumps(report,ensure_ascii=False,indent=2))
+          PY
+          rm "$ROOT/source.pdf"
+      - name: Upload source-bound p19 corpus
+        uses: actions/upload-artifact@v4
+        with:
+          name: ncl-guoshi-jingjizhi-1602-p19-zhunzhai-author-r1
+          path: audit/ncl-guoshi-jingjizhi-1602-p19-zhunzhai-author
+          if-no-files-found: error
+          retention-days: 30
