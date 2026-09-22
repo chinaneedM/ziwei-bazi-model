@@ -1,0 +1,90 @@
+name: probe-wenyuange-1799-zhunzhai-catalog-entry
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-wenyuange-1799-zhunzhai-catalog-entry.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install PDF/image tooling
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils
+          python -m pip install --quiet pillow
+
+      - name: Acquire NLC 1799 Wenyuange catalog scan and render juan-15 opening
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/wenyuange-1799-zhunzhai-catalog'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT/pages"
+          URL='https://commons.wikimedia.org/wiki/Special:Redirect/file/NLC892-001945390-316069%20%E6%96%87%E6%B7%B5%E9%96%A3%E6%9B%B8%E7%9B%AE%20%E4%BA%8C%E5%8D%81%E5%8D%B7%20%E7%AC%AC5%E5%86%8A.pdf'
+          curl -fL --retry 4 --retry-delay 2 -A 'Tianwen-Provenance-Audit/1.0' "$URL" -o "$ROOT/wenyuange-v5-1799.pdf"
+          sha256sum "$ROOT/wenyuange-v5-1799.pdf" | tee "$ROOT/source-sha256.txt"
+          pdfinfo "$ROOT/wenyuange-v5-1799.pdf" | tee "$ROOT/pdfinfo.txt"
+
+          # Volume 5 contains juan 15-18. Render the first 30 PDF pages for
+          # direct visual locator review; no OCR is used for final claims.
+          pdftoppm -f 1 -l 30 -jpeg -r 180 "$ROOT/wenyuange-v5-1799.pdf" "$ROOT/pages/p" >/dev/null 2>&1
+
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image, ImageOps, ImageDraw
+          import hashlib, json
+          root=Path('audit/wenyuange-1799-zhunzhai-catalog')
+          pages=sorted(root.joinpath('pages').glob('p-*.jpg'))
+          rows=[]
+          thumbs=[]
+          for i,p in enumerate(pages,1):
+              b=p.read_bytes()
+              im=Image.open(p).convert('RGB')
+              rows.append({
+                'pdf_page':i,
+                'file':str(p.relative_to(root)),
+                'width':im.width,'height':im.height,
+                'sha256':hashlib.sha256(b).hexdigest()
+              })
+              t=im.copy()
+              t.thumbnail((420,620))
+              canvas=Image.new('RGB',(440,660),'white')
+              canvas.paste(t,((440-t.width)//2,20))
+              ImageDraw.Draw(canvas).text((12,635),f'PDF p{i}',fill='black')
+              thumbs.append(canvas)
+          cols=5
+          rows_n=(len(thumbs)+cols-1)//cols
+          sheet=Image.new('RGB',(cols*440,rows_n*660),'white')
+          for i,t in enumerate(thumbs):
+              sheet.paste(t,((i%cols)*440,(i//cols)*660))
+          sheet.save(root/'contact-p1-p30.jpg',quality=92)
+          report={
+            'schema':'WENYUANGE-1799-ZHUNZHAI-CATALOG-PROBE-R1',
+            'source_role':'1799 physical transmission witness for the 1441 catalog text; not a 1441 physical copy',
+            'rendered_pdf_pages':[1,30],
+            'ocr_used_for_final_claims':False,
+            'pages':rows,
+            'manual_locator_status':'PENDING_HUMAN_REVIEW'
+          }
+          root.joinpath('report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          PY
+
+      - name: Upload catalog locator corpus
+        uses: actions/upload-artifact@v4
+        with:
+          name: wenyuange-1799-zhunzhai-catalog-r1
+          path: audit/wenyuange-1799-zhunzhai-catalog
+          if-no-files-found: error
+          retention-days: 30
