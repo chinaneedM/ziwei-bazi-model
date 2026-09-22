@@ -46,6 +46,9 @@ jobs:
           pages=sorted(root.joinpath('pages').glob('page-*.jpg'))
 
           strong_terms=['準齋','准齋','几漏','幾漏','孫逢吉','孙逢吉','莫詳時代','莫详时代']
+          # Neighbor anchors are taken from the public received transcription only
+          # to locate the physical page. They carry no final glyph authority.
+          anchor_terms=['皇極經世','皇极经世','七政','天文分野','陰陽氣運','阴阳气运','銅板經','铜板经']
           signal_chars=list('準准齋斋几幾漏孫孙逢吉莫詳详時时代')
           report=[]
 
@@ -83,14 +86,15 @@ jobs:
                   txt='\n'.join(texts)
                   compact=''.join(txt.split())
                   exact=[t for t in strong_terms if t in compact]
-                  score=sum(1 for ch in signal_chars if ch in compact)
+                  anchors=[t for t in anchor_terms if t in compact]
+                  score=sum(1 for ch in signal_chars if ch in compact) + 3*len(anchors)
                   # Reward rare co-occurrences even if OCR misses one character.
                   for grp in [('準','齋'),('几','漏'),('孫','逢','吉'),('莫','詳','時','代')]:
                       if sum(ch in compact for ch in grp) >= max(2,len(grp)-1):
                           score += 4
-                  if exact or score>=5:
+                  if exact or anchors or score>=5:
                       page_hits.append({
-                          'strip':si,'exact_terms':exact,'score':score,
+                          'strip':si,'exact_terms':exact,'anchor_terms':anchors,'score':score,
                           'context':' '.join(txt.split())[:1000]
                       })
                   if score>best_score:
@@ -119,6 +123,7 @@ jobs:
             'locator_method':'24 overlapping vertical strips per page; chi_tra_vert + chi_tra; OCR locator only',
             'ocr_authority':'LOCATOR_ONLY_NOT_FINAL_GLYPH_AUTHORITY',
             'target_claim':'準齋几漏新式一冊 / 孫逢吉著 / 莫詳時代',
+            'received_transcription_locator_control':'target lies after 永樂七政 material and before 皇極經世衍數; locator only',
             'candidate_pages':report,
             'negative_claim_authorized':False,
             'final_adjudication':'PENDING_DIRECT_IMAGE_REVIEW'
