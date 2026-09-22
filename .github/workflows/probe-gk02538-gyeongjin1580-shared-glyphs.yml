@@ -1,0 +1,174 @@
+name: probe-gk02538-gyeongjin1580-shared-glyphs
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-gk02538-gyeongjin1580-shared-glyphs.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install image tooling
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --quiet pillow
+
+      - name: Acquire source-bound images and fixed shared-glyph crops
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/gk02538-gyeongjin1580-shared-glyphs'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT/source" "$ROOT/crops"
+
+          python - <<'PY'
+          from pathlib import Path
+          from urllib.request import Request,urlopen
+          from urllib.parse import urlencode
+          from PIL import Image,ImageDraw
+          import hashlib,json,time
+
+          root=Path('audit/gk02538-gyeongjin1580-shared-glyphs')
+          UA='Mozilla/5.0 Tianwen-Provenance-Audit/1.0'
+
+          expected={
+            'gyeongjin1580-tail':'306b8f03949850c0cedd9575263208ccbd9dc8e6465165b13406ef1918788590',
+            'gk02538-0001-002a':'8458f8a0fd58f23f91139d7d489077472fd7fddb449d9635f6f29df5e2a9b461',
+          }
+
+          def get(url,referer=None):
+              headers={'User-Agent':UA,'Accept':'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8'}
+              if referer: headers['Referer']=referer
+              req=Request(url,headers=headers)
+              last=None
+              for n in range(4):
+                  try:
+                      with urlopen(req,timeout=35) as r:
+                          return r.read(),r.headers.get('content-type'),getattr(r,'status',200)
+                  except Exception as e:
+                      last=e
+                      time.sleep(.5*(n+1))
+              raise last
+
+          rows=[]
+
+          gy_url='https://minio.nculture.org/amsweb-opt/multimedia_assets/94/72995/69248/c/%EA%B2%BD%EC%A7%84%EB%85%84-%EB%8C%80%ED%86%B5%EB%A0%A5-%EA%B6%8C%EB%A7%90_%EB%AC%B8%ED%99%94%EC%9E%AC%EC%B2%AD_%EC%A0%9C1%EC%9C%A0%ED%98%95-full-size.jpg'
+          b,ctype,status=get(gy_url,'https://www.nculture.org/')
+          gy=root/'source'/'gyeongjin1580-tail.jpg'
+          gy.write_bytes(b)
+          gy_sha=hashlib.sha256(b).hexdigest()
+          if gy_sha != expected['gyeongjin1580-tail']:
+              raise SystemExit(f'Gyeongjin source hash drift: {gy_sha}')
+          with Image.open(gy) as im:
+              rows.append({'key':'gyeongjin1580-tail','sha256':gy_sha,'width':im.width,'height':im.height,'content_type':ctype,'status':status,'url':gy_url})
+
+          book='GK02538_00'; item='CSP'; vol='0001'; page='002a'
+          fn=f'{book}_IL_{vol}_{page}.jpg'
+          server_path=f'/data01/stream/{item}/IMG/{book}/{book}_{vol}/{fn}'
+          gk_url='https://kyudb.snu.ac.kr/ImageServlet.do?'+urlencode({'imgFileNm':fn,'path':server_path})
+          b,ctype,status=get(gk_url,'https://kyudb.snu.ac.kr/pf01/rendererImg.do')
+          gk=root/'source'/'gk02538-0001-002a.jpg'
+          gk.write_bytes(b)
+          gk_sha=hashlib.sha256(b).hexdigest()
+          if gk_sha != expected['gk02538-0001-002a']:
+              raise SystemExit(f'GK02538 source hash drift: {gk_sha}')
+          with Image.open(gk) as im:
+              rows.append({'key':'gk02538-0001-002a','sha256':gk_sha,'width':im.width,'height':im.height,'content_type':ctype,'status':status,'url':gk_url})
+
+          # Fixed source-pixel crops chosen by direct visual review. They are
+          # source locators only; no OCR or automatic type-family classification.
+          crops=[
+            {'key':'gyeongjin1580-zheng-context','source':'gyeongjin1580-tail','box':[680,550,770,730],'visible_manual_locator':'正/月/大 printed vertical column'},
+            {'key':'gyeongjin1580-zheng','source':'gyeongjin1580-tail','box':[698,565,754,625],'visible_manual_locator':'正'},
+            {'key':'gyeongjin1580-yue','source':'gyeongjin1580-tail','box':[698,620,754,680],'visible_manual_locator':'月'},
+            {'key':'gk02538-zhengyue-context','source':'gk02538-0001-002a','box':[885,300,975,440],'visible_manual_locator':'正/月 printed vertical column'},
+            {'key':'gk02538-zheng','source':'gk02538-0001-002a','box':[900,315,961,375],'visible_manual_locator':'正'},
+            {'key':'gk02538-yue','source':'gk02538-0001-002a','box':[900,370,961,431],'visible_manual_locator':'月'},
+          ]
+          source_map={'gyeongjin1580-tail':gy,'gk02538-0001-002a':gk}
+          crop_rows=[]
+          for c in crops:
+              with Image.open(source_map[c['source']]).convert('RGB') as im:
+                  box=tuple(c['box'])
+                  if not (0 <= box[0] < box[2] <= im.width and 0 <= box[1] < box[3] <= im.height):
+                      raise SystemExit(f'crop out of bounds: {c}')
+                  cr=im.crop(box)
+                  out=root/'crops'/f"{c['key']}.png"
+                  cr.save(out)
+                  raw=out.read_bytes()
+                  crop_rows.append({
+                    **c,
+                    'source_sha256':expected[c['source']],
+                    'crop_width':cr.width,
+                    'crop_height':cr.height,
+                    'crop_png_sha256':hashlib.sha256(raw).hexdigest(),
+                    'file':str(out.relative_to(root)),
+                  })
+
+          # Create a direct visual aid at equal display magnification only.
+          pair_keys=[('gyeongjin1580-zheng','gk02538-zheng','正'),('gyeongjin1580-yue','gk02538-yue','月')]
+          panels=[]
+          crop_by_key={x['key']:x for x in crop_rows}
+          for left,right,label in pair_keys:
+              ims=[]
+              for key in (left,right):
+                  im=Image.open(root/crop_by_key[key]['file']).convert('RGB')
+                  im=im.resize((im.width*5,im.height*5))
+                  ims.append(im)
+              h=max(x.height for x in ims)
+              w=sum(x.width for x in ims)+30
+              panel=Image.new('RGB',(w,h+44),'white')
+              panel.paste(ims[0],(0,0))
+              panel.paste(ims[1],(ims[0].width+30,0))
+              d=ImageDraw.Draw(panel)
+              d.text((4,h+5),f'1580 {label}',fill='black')
+              d.text((ims[0].width+34,h+5),f'GK02538 {label}',fill='black')
+              panels.append(panel)
+          sheet=Image.new('RGB',(max(p.width for p in panels),sum(p.height for p in panels)),'white')
+          y=0
+          for p in panels:
+              sheet.paste(p,(0,y)); y+=p.height
+          sheet.save(root/'shared-glyph-pairs.png')
+
+          report={
+            'schema':'GK02538-GYEONGJIN1580-SHARED-GLYPH-CROP-PROBE-R1',
+            'schema_version':'1.0.0',
+            'purpose':'Create reproducible source-hash-bound fixed-pixel shared-glyph crops for direct human type-form review.',
+            'source_objects':rows,
+            'crops':crop_rows,
+            'manual_glyphs':['正','月'],
+            'equal_display_magnification_only':True,
+            'ocr_used':False,
+            'automatic_type_family_or_casting_classification':False,
+            'same_size_class_adjudicated_by_probe':False,
+            'casting_generation_identity_adjudicated_by_probe':False,
+            'exact_impression_date_adjudicated_by_probe':False,
+            'firewall':[
+              'Crop equality is not type-sort identity.',
+              'Pixel-shape difference is not proof of different casting generation.',
+              'Source photo resolution, perspective, paper deformation, inking, wear and scan processing may alter apparent form.',
+              'Any size-class conclusion must be separately bound to bibliographic or physical measurement evidence.'
+            ],
+          }
+          (root/'report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print(json.dumps(report,ensure_ascii=False,indent=2))
+          PY
+
+      - name: Upload source-bound shared-glyph probe
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: gk02538-gyeongjin1580-shared-glyphs-r1
+          path: audit/gk02538-gyeongjin1580-shared-glyphs
+          if-no-files-found: error
+          retention-days: 30
