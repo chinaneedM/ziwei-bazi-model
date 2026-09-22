@@ -84,6 +84,8 @@ ZIWEI_KYUDB_DATONGLIZHU_12EJ_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVEN
 ZIWEI_KYUDB_DATONGLIZHU_12EJ_EVIDENCE = ROOT / "docs/research/ZIWEI-KYUDB-GK02538-DAETONGLYOKJA-NAME-SCOPE-AND-SEJONG-LIST-FIREWALL-R1.json"
 ZIWEI_KYUDB_DATONGLIZHU_12EK_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KYUDB-GK02538-GYEONGJIN1580-SOURCE-BOUND-SHARED-GLYPH-CROPS-EK.md"
 ZIWEI_KYUDB_DATONGLIZHU_12EK_EVIDENCE = ROOT / "docs/research/ZIWEI-KYUDB-GK02538-GYEONGJIN1580-SOURCE-BOUND-SHARED-GLYPH-CROPS-R1.json"
+ZIWEI_KYUDB_DATONGLIZHU_12EL_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KYUDB-GK02538-GYEONGJIN1580-MEDIUM-SIZECLASS-BINDING-EL.md"
+ZIWEI_KYUDB_DATONGLIZHU_12EL_EVIDENCE = ROOT / "docs/research/ZIWEI-KYUDB-GK02538-GYEONGJIN1580-MEDIUM-SIZECLASS-BINDING-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -352,9 +354,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-KYUDB-GK02538-INRYEOKJA-BODY-SCALE-COMPATIBILITY-AND-CASTING-FIREWALL-EI",
     "BATCH-12-ZIWEI-KYUDB-GK02538-DAETONGLYOKJA-NAME-SCOPE-AND-SEJONG-LIST-FIREWALL-EJ",
     "BATCH-12-ZIWEI-KYUDB-GK02538-GYEONGJIN1580-SOURCE-BOUND-SHARED-GLYPH-CROPS-EK",
+    "BATCH-12-ZIWEI-KYUDB-GK02538-GYEONGJIN1580-MEDIUM-SIZECLASS-BINDING-EL",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KYUDB-GK02538-GYEONGJIN1580-SOURCE-BOUND-SHARED-GLYPH-CROPS-EK.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KYUDB-GK02538-GYEONGJIN1580-MEDIUM-SIZECLASS-BINDING-EL.md"
 
 
 def fail(message: str) -> None:
@@ -878,6 +881,29 @@ def main() -> int:
     ad12ek = batch12ek.get("adjudication", {})
     if ad12ek.get("direct_sanming_parent_vote_increment") != 0 or any(ad12ek.get(k) for k in ("matrix_count_change","runtime_rule_change","algorithm_reopen_authorized","candidate_collapse_authorized")):
         fail("Batch 12EK project firewall regressed")
+
+    for path in (ZIWEI_KYUDB_DATONGLIZHU_12EL_BATCH, ZIWEI_KYUDB_DATONGLIZHU_12EL_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12EL continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12el = json.loads(ZIWEI_KYUDB_DATONGLIZHU_12EL_EVIDENCE.read_text(encoding="utf-8"))
+    if batch12el.get("batch_id") != "BATCH-12-ZIWEI-KYUDB-GK02538-GYEONGJIN1580-MEDIUM-SIZECLASS-BINDING-EL":
+        fail("Batch 12EL evidence identity mismatch")
+    size12el = batch12el.get("sizeclass_adjudication", {})
+    if size12el.get("target_occurrences_medium_class_binding") != "SUPPORTED_AT_OBJECT_LAYOUT_CLASS_LEVEL":
+        fail("Batch 12EL Gyeongjin medium size-class binding regressed")
+    if size12el.get("same_physical_sort_proven") is not False or size12el.get("same_casting_generation_proven") is not False:
+        fail("Batch 12EL sort/casting firewall regressed")
+    rel12el = batch12el.get("relation_to_gk02538", {})
+    if rel12el.get("same_size_class_shared_glyph_control_status") != "CLOSED_NOMINAL_MEDIUM_CLASS_LEVEL" or rel12el.get("physical_scale_normalized_form_comparison_status") != "NOT_YET_CLOSED":
+        fail("Batch 12EL same-class/normalization gate regressed")
+    if rel12el.get("gk02538_casting_generation_identified") is not False or rel12el.get("gk02538_exact_impression_year_adjudicated") is not False:
+        fail("Batch 12EL chronology firewall regressed")
+    ad12el = batch12el.get("adjudication", {})
+    if ad12el.get("direct_sanming_parent_vote_increment") != 0 or any(ad12el.get(k) for k in ("matrix_count_change","runtime_rule_change","algorithm_reopen_authorized","candidate_collapse_authorized")):
+        fail("Batch 12EL project firewall regressed")
+    el_registry = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    if not any(s.get("source_id") == "EXT-NATIONAL-SCIENCE-MUSEUM-INRYEOKJA-GYEONGJIN-SIZECLASS-CONTROL" for s in el_registry.get("sources", [])):
+        fail("Batch 12EL National Science Museum source control missing")
 
     for path in (ZIWEI_KYUDB_12DT_BATCH, ZIWEI_KYUDB_12DT_EVIDENCE):
         if not path.is_file():

@@ -29,6 +29,7 @@ BATCH_12EE = ROOT / "docs/research/ZIWEI-KYUDB-DATONGLIZHU-GK02538-1434-TYPE-POS
 BATCH_12EI = ROOT / "docs/research/ZIWEI-KYUDB-GK02538-INRYEOKJA-BODY-SCALE-COMPATIBILITY-AND-CASTING-FIREWALL-R1.json"
 BATCH_12EJ = ROOT / "docs/research/ZIWEI-KYUDB-GK02538-DAETONGLYOKJA-NAME-SCOPE-AND-SEJONG-LIST-FIREWALL-R1.json"
 BATCH_12EK = ROOT / "docs/research/ZIWEI-KYUDB-GK02538-GYEONGJIN1580-SOURCE-BOUND-SHARED-GLYPH-CROPS-R1.json"
+BATCH_12EL = ROOT / "docs/research/ZIWEI-KYUDB-GK02538-GYEONGJIN1580-MEDIUM-SIZECLASS-BINDING-R1.json"
 
 
 def fail(message: str) -> None:
@@ -36,7 +37,7 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
-    for path in (CHARTER, PROTOCOL, GRAPH, STATE, BATCH_12CH, BATCH_12DP, BATCH_12DQ, BATCH_12DR, BATCH_12DS, BATCH_12DT, BATCH_12DU, BATCH_12DV, BATCH_12DW, BATCH_12DX, BATCH_12DY, BATCH_12DZ, BATCH_12EA, BATCH_12EB, BATCH_12EC, BATCH_12ED, BATCH_12EE, BATCH_12EI, BATCH_12EJ, BATCH_12EK):
+    for path in (CHARTER, PROTOCOL, GRAPH, STATE, BATCH_12CH, BATCH_12DP, BATCH_12DQ, BATCH_12DR, BATCH_12DS, BATCH_12DT, BATCH_12DU, BATCH_12DV, BATCH_12DW, BATCH_12DX, BATCH_12DY, BATCH_12DZ, BATCH_12EA, BATCH_12EB, BATCH_12EC, BATCH_12ED, BATCH_12EE, BATCH_12EI, BATCH_12EJ, BATCH_12EK, BATCH_12EL):
         if not path.is_file():
             fail(f"Tianwen transmission artifact missing: {path.relative_to(ROOT)}")
 
@@ -837,6 +838,19 @@ def main() -> int:
     impact12ek = batch12ek.get("transmission_impact", {})
     if impact12ek.get("edges_supported") != []:
         fail("Batch 12EK unexpectedly closed a transmission edge")
+
+    if copy12ee.get("gyeongjin1580_shared_glyph_size_class_binding") != "MEDIUM_INRYEOKJA_CLASS_SUPPORTED_AT_OBJECT_LAYOUT_LEVEL":
+        fail("Batch 12EL Gyeongjin medium class node binding regressed")
+    if copy12ee.get("same_size_class_shared_glyph_control_status") != "CLOSED_NOMINAL_MEDIUM_CLASS_LEVEL":
+        fail("Batch 12EL same-size-class shared-glyph gate regressed")
+    if copy12ee.get("physical_scale_normalized_shared_glyph_form_comparison_status") != "NOT_YET_CLOSED":
+        fail("Batch 12EL physical-scale normalization firewall regressed")
+    if not any(x.get("batch") == "BATCH-12-ZIWEI-KYUDB-GK02538-GYEONGJIN1580-MEDIUM-SIZECLASS-BINDING-EL" and "zero exact sanming-parent vote" in x.get("update", "").lower() for x in hyp12dk.get("evidence_updates", [])):
+        fail("Batch 12EL genealogy hypothesis zero-vote update missing")
+    batch12el = json.loads(BATCH_12EL.read_text(encoding="utf-8"))
+    impact12el = batch12el.get("transmission_impact", {})
+    if impact12el.get("edges_supported") != []:
+        fail("Batch 12EL unexpectedly closed a transmission edge")
 
     ncl = next(n for n in nodes if n.get("node_id") == "PHYSICAL-COPY-SISHI-QIHOU-NCL03164-OLD-MANUSCRIPT")
     if ncl.get("physical_copy_date") != "UNRESOLVED":

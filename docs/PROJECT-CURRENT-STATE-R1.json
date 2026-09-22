@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.149.0",
+  "schema_version": "1.150.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -227,9 +227,10 @@
       "BATCH-12-ZIWEI-KYUDB-GK02538-DATED-INRYEOKJA-PHYSICAL-COMPARATOR-AND-SUBTYPE-FIREWALL-EH",
       "BATCH-12-ZIWEI-KYUDB-GK02538-INRYEOKJA-BODY-SCALE-COMPATIBILITY-AND-CASTING-FIREWALL-EI",
       "BATCH-12-ZIWEI-KYUDB-GK02538-DAETONGLYOKJA-NAME-SCOPE-AND-SEJONG-LIST-FIREWALL-EJ",
-      "BATCH-12-ZIWEI-KYUDB-GK02538-GYEONGJIN1580-SOURCE-BOUND-SHARED-GLYPH-CROPS-EK"
+      "BATCH-12-ZIWEI-KYUDB-GK02538-GYEONGJIN1580-SOURCE-BOUND-SHARED-GLYPH-CROPS-EK",
+      "BATCH-12-ZIWEI-KYUDB-GK02538-GYEONGJIN1580-MEDIUM-SIZECLASS-BINDING-EL"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KYUDB-GK02538-GYEONGJIN1580-SOURCE-BOUND-SHARED-GLYPH-CROPS-EK.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KYUDB-GK02538-GYEONGJIN1580-MEDIUM-SIZECLASS-BINDING-EL.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -834,7 +835,11 @@
       "Batch 12EK closes the first reproducible object-level shared-glyph crop corpus for GK02538 vs the dated 1580 Gyeongjin Inryeokja control. Probe run 35671323140 / artifact 10671595229 re-acquires both source images, verifies their exact 12EH SHA-256 values, and exports fixed source-pixel crops for 正 and 月 plus context windows.",
       "The crop corpus is source-coordinate evidence, not an OCR or type-classification result. Direct visual review confirms the same glyph identities are available for comparison, while pixel resemblance/difference is explicitly barred from proving same/different casting generation because photography, perspective, inking, wear, paper deformation and scan processing remain uncontrolled.",
       "12EK does not yet close the crucial size-class bridge on the 1580 occurrences: GK02538 retains the 12EI nominal medium-scale compatibility, but the 1580 正/月 crop is not independently bound to the official 1.2×0.8 cm medium sort rather than another display/use class. Therefore shared-glyph crop availability is CLOSED while shared-glyph casting identity remains NOT_YET_CLOSED.",
-      "Batch 12EK changes no Matrix/product counts: 198 rows / 166 audited / 10 MISSING_FROM_PRODUCT; provenance defects 12/12; chart algorithm defect/reopen/collapse 0; exact Sanming-parent vote increment 0. Next gate is physical/bibliographic size-class binding for the 1580 shared-glyph occurrences or an authoritative object-specific subtype diagnosis."
+      "Batch 12EK changes no Matrix/product counts: 198 rows / 166 audited / 10 MISSING_FROM_PRODUCT; provenance defects 12/12; chart algorithm defect/reopen/collapse 0; exact Sanming-parent vote increment 0. Next gate is physical/bibliographic size-class binding for the 1580 shared-glyph occurrences or an authoritative object-specific subtype diagnosis.",
+      "Batch 12EL binds the 12EK source-fixed Gyeongjin 1580 正/月 targets to the medium Inryeokja size class at object-layout level. The National Science Museum directly presents Gyeongjin Daetongryeok as an Inryeokja example and gives medium 1.2×0.8 cm versus small 0.5×0.4 cm; the Heritage Portal independently identifies the surviving calendar as a Gwansanggam Inryeokja print.",
+      "Direct 12EK review places 正/月 in the visibly larger heading class rather than the dense small body text. Combined with the institutional two-class control, the target occurrences are medium-class supported. This is not a caliper measurement, source-photo perspective remains unrectified, and no individual-sort or casting-generation identity is inferred.",
+      "Together with 12EI's GK02538 nominal medium-scale compatibility, the same-size-class shared-glyph gate is now CLOSED_NOMINAL_MEDIUM_CLASS_LEVEL. Physical-scale normalized type-form comparison remains NOT_YET_CLOSED.",
+      "Batch 12EL changes no Matrix/product counts: 198 rows / 166 audited / 10 MISSING_FROM_PRODUCT; provenance defects 12/12; chart algorithm defect/reopen/collapse 0; exact Sanming-parent vote increment 0. Next gate is multi-glyph physical-scale normalization or authoritative object-specific subtype/casting diagnosis."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10

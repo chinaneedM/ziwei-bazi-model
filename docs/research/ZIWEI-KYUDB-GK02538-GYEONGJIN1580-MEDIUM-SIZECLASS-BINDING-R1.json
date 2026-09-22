@@ -1,0 +1,119 @@
+{
+  "schema": "ZIWEI-KYUDB-GK02538-GYEONGJIN1580-MEDIUM-SIZECLASS-BINDING-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-KYUDB-GK02538-GYEONGJIN1580-MEDIUM-SIZECLASS-BINDING-EL",
+  "prior_batch_id": "BATCH-12-ZIWEI-KYUDB-GK02538-GYEONGJIN1580-SOURCE-BOUND-SHARED-GLYPH-CROPS-EK",
+  "question": "Can the source-bound 1580 Gyeongjin 正/月 shared-glyph occurrences be assigned to the official medium Inryeokja size class without overclaiming same-sort or same-casting identity?",
+  "answer": "YES_AT_OBJECT_LAYOUT_SIZECLASS_LEVEL; NATIONAL_SCIENCE_MUSEUM_IDENTIFIES_GYEONGJIN_DAETONGLYOK_AS_INRYEOKJA_EXAMPLE_AND_LISTS_MEDIUM_1_2x0_8CM_VS_SMALL_0_5x0_4CM; HERITAGE_PORTAL_INDEPENDENTLY_IDENTIFIES_THE_OBJECT_AS_GWANSANGGAM_INRYEOKJA_PRINT; DIRECT_12EK_CROPS_PLACE_正/月_IN_THE_VISIBLY_LARGER_HEADING_CLASS; MEDIUM_CLASS_BINDING_SUPPORTED; PHYSICAL_SCALE_NORMALIZATION_AND_CASTING_GENERATION_IDENTITY_REMAIN_OPEN",
+  "controlling_sources": {
+    "national_science_museum": {
+      "source_id": "EXT-NATIONAL-SCIENCE-MUSEUM-INRYEOKJA-GYEONGJIN-SIZECLASS-CONTROL",
+      "provider": "National Science Museum of Korea / 국립중앙과학관",
+      "url": "https://www.science.go.kr/mps/scienceSubject/printingType/view.do?subjectSid=153",
+      "object_example": "인력자_경진년대통력",
+      "type_name": "인력자 / 관상감(서운관) 철활자",
+      "medium_type_cm": [
+        1.2,
+        0.8
+      ],
+      "small_type_cm": [
+        0.5,
+        0.4
+      ],
+      "material": "무쇠",
+      "notes": "The institutional learning record directly couples the Inryeokja description with the Gyeongjin Daetongryeok example and states medium/small dimensions. It does not identify an individual metal sort or casting generation."
+    },
+    "heritage_portal": {
+      "source_id": "EXT-HERITAGE-GYEONGJIN-1580-INRYEOKJA-PHYSICAL-CONTROL",
+      "provider": "Korea Heritage Service / 국가유산포털",
+      "url": "https://www.heritage.go.kr/heri/mem/selectHaejeDetail.do?pg=1&returnUrl=kr%2Fgo%2Fheritage%2Fmem%2FEgovHaejePrint&s_asno=13190000&s_cnum=0001&s_ctcd=00&s_kdcd=12&searchDisp=0",
+      "direct_scope": "The heritage record identifies Gyeongjin Daetongryeok as a Gwansanggam movable-type calendar and the earliest surviving book printed with Gwansanggam Inryeokja.",
+      "printing_year_scope": "1579 remains an inference from prior-winter calendar issuance, not an image-internal imprint statement."
+    },
+    "batch_12ek_crop_control": {
+      "workflow_run_id": 35671323140,
+      "artifact_id": 10671595229,
+      "artifact_digest": "sha256:4bdc7d69457fe7b988286c63028dd2e6afbb0897d99728b1273dae59cb9111b8",
+      "source_sha256": "306b8f03949850c0cedd9575263208ccbd9dc8e6465165b13406ef1918788590",
+      "zheng_box": [
+        698,
+        565,
+        754,
+        625
+      ],
+      "yue_box": [
+        698,
+        620,
+        754,
+        680
+      ],
+      "manual_column_role": "正/月/大 heading column",
+      "ocr_used": false
+    }
+  },
+  "sizeclass_adjudication": {
+    "official_inryeokja_size_classes_observed": [
+      "MEDIUM_1.2x0.8CM",
+      "SMALL_0.5x0.4CM"
+    ],
+    "target_occurrences_visibly_belong_to_larger_heading_class": true,
+    "target_occurrences_medium_class_binding": "SUPPORTED_AT_OBJECT_LAYOUT_CLASS_LEVEL",
+    "exact_printed_glyph_body_caliper_measurement": false,
+    "source_photo_perspective_fully_rectified": false,
+    "same_physical_sort_proven": false,
+    "same_casting_generation_proven": false,
+    "explanation": "The target 正/月 are the large heading characters in the 12EK source-fixed column, not the dense small body text. Given the institutional two-size Inryeokja control, the larger class is assigned to the medium class. This is a size-class assignment, not a metric glyph-body measurement or type-sort identity."
+  },
+  "relation_to_gk02538": {
+    "gk02538_nominal_medium_scale_compatibility_from_12ei": true,
+    "gyeongjin1580_target_medium_size_class_supported": true,
+    "same_size_class_shared_glyph_control_status": "CLOSED_NOMINAL_MEDIUM_CLASS_LEVEL",
+    "physical_scale_normalized_form_comparison_status": "NOT_YET_CLOSED",
+    "shared_glyph_casting_identity_closed": false,
+    "gk02538_specific_subtype_identified": false,
+    "gk02538_casting_generation_identified": false,
+    "gk02538_exact_impression_year_adjudicated": false
+  },
+  "transmission_impact": {
+    "nodes_strengthened": [
+      "PHYSICAL-COPY-KYUDB-DATONGLIZHU-GK02538-GWANSANGGAM-MOVABLETYPE"
+    ],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "same medium size class -> same individual sort",
+      "same medium size class -> same casting generation",
+      "same medium size class -> exact impression date"
+    ],
+    "unresolved_lineage_questions": [
+      "After physical-scale normalization, do multiple same-class shared glyphs show diagnostic type-form convergence or divergence?",
+      "Can specialist typographic research explicitly assign GK02538 to a named Gwansanggam subtype or casting generation?",
+      "Which securely pre-1578 witness carries the exact Sanming/Yueling Rainwater 後四日 + Dahan 十三後日 fingerprint?"
+    ],
+    "interpretation": "12EL closes the missing size-class bridge needed by 12EK, but deliberately stops before type-form/casting identity."
+  },
+  "adjudication": {
+    "direct_sanming_parent_vote_increment": 0,
+    "threshold_to_wholeke_operator_closed": false,
+    "matrix_count_change": false,
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false
+  },
+  "project_consequence": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "missing_from_product_rows": 10,
+    "provenance_defects_repaired": "12/12",
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0,
+    "deterministic_product_status": "CLOSED"
+  },
+  "next_gate": [
+    "Physically normalize additional medium-class shared glyphs across GK02538 and Gyeongjin 1580 before any type-form adjudication.",
+    "Recover object-level subtype/casting diagnostics from Kim Sang-Ho 1987 or equivalent authoritative typographic research.",
+    "Continue the independent pre-1578 exact Sanming/Yueling Rainwater+Dahan fingerprint and threshold-operator search."
+  ],
+  "updated_at": "2026-09-22"
+}
