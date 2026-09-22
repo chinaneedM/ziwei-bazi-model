@@ -30,6 +30,7 @@ BATCH_12EI = ROOT / "docs/research/ZIWEI-KYUDB-GK02538-INRYEOKJA-BODY-SCALE-COMP
 BATCH_12EJ = ROOT / "docs/research/ZIWEI-KYUDB-GK02538-DAETONGLYOKJA-NAME-SCOPE-AND-SEJONG-LIST-FIREWALL-R1.json"
 BATCH_12EK = ROOT / "docs/research/ZIWEI-KYUDB-GK02538-GYEONGJIN1580-SOURCE-BOUND-SHARED-GLYPH-CROPS-R1.json"
 BATCH_12EL = ROOT / "docs/research/ZIWEI-KYUDB-GK02538-GYEONGJIN1580-MEDIUM-SIZECLASS-BINDING-R1.json"
+BATCH_12EM = ROOT / "docs/research/ZIWEI-KYUDB-GK02538-GYEONGJIN1580-NOMINAL-PHYSICAL-SCALE-THREE-GLYPH-COMPARISON-R1.json"
 
 
 def fail(message: str) -> None:
@@ -37,7 +38,7 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
-    for path in (CHARTER, PROTOCOL, GRAPH, STATE, BATCH_12CH, BATCH_12DP, BATCH_12DQ, BATCH_12DR, BATCH_12DS, BATCH_12DT, BATCH_12DU, BATCH_12DV, BATCH_12DW, BATCH_12DX, BATCH_12DY, BATCH_12DZ, BATCH_12EA, BATCH_12EB, BATCH_12EC, BATCH_12ED, BATCH_12EE, BATCH_12EI, BATCH_12EJ, BATCH_12EK, BATCH_12EL):
+    for path in (CHARTER, PROTOCOL, GRAPH, STATE, BATCH_12CH, BATCH_12DP, BATCH_12DQ, BATCH_12DR, BATCH_12DS, BATCH_12DT, BATCH_12DU, BATCH_12DV, BATCH_12DW, BATCH_12DX, BATCH_12DY, BATCH_12DZ, BATCH_12EA, BATCH_12EB, BATCH_12EC, BATCH_12ED, BATCH_12EE, BATCH_12EI, BATCH_12EJ, BATCH_12EK, BATCH_12EL, BATCH_12EM):
         if not path.is_file():
             fail(f"Tianwen transmission artifact missing: {path.relative_to(ROOT)}")
 
@@ -851,6 +852,19 @@ def main() -> int:
     impact12el = batch12el.get("transmission_impact", {})
     if impact12el.get("edges_supported") != []:
         fail("Batch 12EL unexpectedly closed a transmission edge")
+
+    if copy12ee.get("medium_normalized_shared_glyph_manual_set") != ["正","月","大"]:
+        fail("Batch 12EM graph manual glyph set regressed")
+    if copy12ee.get("medium_normalized_probe_artifact_id") != 10671577720 or copy12ee.get("nominal_vertical_pitch_normalized_three_glyph_corpus_status") != "CLOSED_SOURCE_HASH_BOUND":
+        fail("Batch 12EM graph artifact/corpus status regressed")
+    if copy12ee.get("normalized_three_glyph_form_divergence_observed") is not True or copy12ee.get("normalized_form_divergence_proves_different_casting_generation") is not False:
+        fail("Batch 12EM graph form-divergence firewall regressed")
+    if not any(x.get("batch") == "BATCH-12-ZIWEI-KYUDB-GK02538-GYEONGJIN1580-NOMINAL-PHYSICAL-SCALE-THREE-GLYPH-COMPARISON-EM" and "zero exact sanming-parent vote" in x.get("update", "").lower() for x in hyp12dk.get("evidence_updates", [])):
+        fail("Batch 12EM genealogy hypothesis zero-vote update missing")
+    batch12em = json.loads(BATCH_12EM.read_text(encoding="utf-8"))
+    impact12em = batch12em.get("transmission_impact", {})
+    if impact12em.get("edges_supported") != []:
+        fail("Batch 12EM unexpectedly closed a transmission edge")
 
     ncl = next(n for n in nodes if n.get("node_id") == "PHYSICAL-COPY-SISHI-QIHOU-NCL03164-OLD-MANUSCRIPT")
     if ncl.get("physical_copy_date") != "UNRESOLVED":

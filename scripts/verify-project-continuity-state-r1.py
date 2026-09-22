@@ -86,6 +86,8 @@ ZIWEI_KYUDB_DATONGLIZHU_12EK_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVEN
 ZIWEI_KYUDB_DATONGLIZHU_12EK_EVIDENCE = ROOT / "docs/research/ZIWEI-KYUDB-GK02538-GYEONGJIN1580-SOURCE-BOUND-SHARED-GLYPH-CROPS-R1.json"
 ZIWEI_KYUDB_DATONGLIZHU_12EL_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KYUDB-GK02538-GYEONGJIN1580-MEDIUM-SIZECLASS-BINDING-EL.md"
 ZIWEI_KYUDB_DATONGLIZHU_12EL_EVIDENCE = ROOT / "docs/research/ZIWEI-KYUDB-GK02538-GYEONGJIN1580-MEDIUM-SIZECLASS-BINDING-R1.json"
+ZIWEI_KYUDB_DATONGLIZHU_12EM_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KYUDB-GK02538-GYEONGJIN1580-NOMINAL-PHYSICAL-SCALE-THREE-GLYPH-COMPARISON-EM.md"
+ZIWEI_KYUDB_DATONGLIZHU_12EM_EVIDENCE = ROOT / "docs/research/ZIWEI-KYUDB-GK02538-GYEONGJIN1580-NOMINAL-PHYSICAL-SCALE-THREE-GLYPH-COMPARISON-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -355,9 +357,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-KYUDB-GK02538-DAETONGLYOKJA-NAME-SCOPE-AND-SEJONG-LIST-FIREWALL-EJ",
     "BATCH-12-ZIWEI-KYUDB-GK02538-GYEONGJIN1580-SOURCE-BOUND-SHARED-GLYPH-CROPS-EK",
     "BATCH-12-ZIWEI-KYUDB-GK02538-GYEONGJIN1580-MEDIUM-SIZECLASS-BINDING-EL",
+    "BATCH-12-ZIWEI-KYUDB-GK02538-GYEONGJIN1580-NOMINAL-PHYSICAL-SCALE-THREE-GLYPH-COMPARISON-EM",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KYUDB-GK02538-GYEONGJIN1580-MEDIUM-SIZECLASS-BINDING-EL.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KYUDB-GK02538-GYEONGJIN1580-NOMINAL-PHYSICAL-SCALE-THREE-GLYPH-COMPARISON-EM.md"
 
 
 def fail(message: str) -> None:
@@ -904,6 +907,43 @@ def main() -> int:
     el_registry = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
     if not any(s.get("source_id") == "EXT-NATIONAL-SCIENCE-MUSEUM-INRYEOKJA-GYEONGJIN-SIZECLASS-CONTROL" for s in el_registry.get("sources", [])):
         fail("Batch 12EL National Science Museum source control missing")
+
+    for path in (ZIWEI_KYUDB_DATONGLIZHU_12EM_BATCH, ZIWEI_KYUDB_DATONGLIZHU_12EM_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12EM continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12em = json.loads(ZIWEI_KYUDB_DATONGLIZHU_12EM_EVIDENCE.read_text(encoding="utf-8"))
+    if batch12em.get("batch_id") != "BATCH-12-ZIWEI-KYUDB-GK02538-GYEONGJIN1580-NOMINAL-PHYSICAL-SCALE-THREE-GLYPH-COMPARISON-EM":
+        fail("Batch 12EM evidence identity mismatch")
+    wf12em = batch12em.get("workflow_evidence", {})
+    if wf12em.get("workflow_run_id") != 35673107826 or wf12em.get("artifact_id") != 10671577720 or wf12em.get("workflow_status") != "SUCCESS":
+        fail("Batch 12EM workflow artifact binding regressed")
+    if wf12em.get("artifact_digest") != "sha256:f75b65bded16d00d3a80b41bb00174c5d75b8e143c82f19455d997c6fa66a60f":
+        fail("Batch 12EM artifact digest regressed")
+    glyph12em = batch12em.get("fixed_shared_glyphs", {})
+    if glyph12em.get("manual_set") != ["正","月","大"]:
+        fail("Batch 12EM manual glyph set regressed")
+    if glyph12em.get("gyeongjin1580", {}).get("da", {}).get("crop_png_sha256") != "bee7598f99a39e1cf8aecda68acde4797006ba7ef3e8051d45c812bca724a54e":
+        fail("Batch 12EM Gyeongjin 大 crop regressed")
+    if glyph12em.get("gk02538", {}).get("da", {}).get("crop_png_sha256") != "fa1e315a09b4b3b970e67105b3cb98004e6f331484437162e51f403607f893f4":
+        fail("Batch 12EM GK02538 大 crop regressed")
+    norm12em = batch12em.get("nominal_physical_scale_normalization", {})
+    if norm12em.get("gyeongjin1580_observed_heading_pitch_px") != 55.0 or norm12em.get("gk02538_observed_zheng_yue_pitch_px") != 55.5 or norm12em.get("target_pitch_px") != 240.0:
+        fail("Batch 12EM pitch normalization controls regressed")
+    if norm12em.get("three_glyph_normalized_corpus_closed") is not True or norm12em.get("direct_printed_glyph_body_caliper_measurement") is not False:
+        fail("Batch 12EM nominal-normalization/caliper firewall regressed")
+    vis12em = batch12em.get("direct_visual_adjudication", {})
+    if vis12em.get("all_three_pairs_visibly_non_identical") is not True or vis12em.get("consistent_form_divergence_observed_across_three_glyphs") is not True:
+        fail("Batch 12EM three-glyph visual adjudication regressed")
+    if vis12em.get("different_casting_generation_proven") is not False or vis12em.get("casting_generation_identity_vote_increment") != 0:
+        fail("Batch 12EM casting-generation firewall regressed")
+    ad12em = batch12em.get("adjudication", {})
+    if ad12em.get("direct_sanming_parent_vote_increment") != 0 or any(ad12em.get(k) for k in ("matrix_count_change","runtime_rule_change","algorithm_reopen_authorized","candidate_collapse_authorized")):
+        fail("Batch 12EM project firewall regressed")
+    reg12em = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    for sid in ("EXT-KYUDB-DATONGLIZHU-GK02538-GWANSANGGAM-TYPE-POSTFACE-FINGERPRINT","EXT-HERITAGE-GYEONGJIN-1580-INRYEOKJA-PHYSICAL-CONTROL"):
+        src = next((s for s in reg12em.get("sources", []) if s.get("source_id") == sid), None)
+        if not src or src.get("batch_12em", {}).get("artifact_id") != 10671577720:
+            fail(f"Batch 12EM source registry binding missing: {sid}")
 
     for path in (ZIWEI_KYUDB_12DT_BATCH, ZIWEI_KYUDB_12DT_EVIDENCE):
         if not path.is_file():

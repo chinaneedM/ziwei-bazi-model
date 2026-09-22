@@ -1745,7 +1745,8 @@
         "docs/research/ZIWEI-KYUDB-GK02538-DAETONGLYOKJA-NAME-SCOPE-AND-SEJONG-LIST-FIREWALL-R1.json",
         "docs/research/ZIWEI-KYUDB-GK02538-GYEONGJIN1580-SOURCE-BOUND-SHARED-GLYPH-CROPS-R1.json",
         "EXT-NATIONAL-SCIENCE-MUSEUM-INRYEOKJA-GYEONGJIN-SIZECLASS-CONTROL",
-        "docs/research/ZIWEI-KYUDB-GK02538-GYEONGJIN1580-MEDIUM-SIZECLASS-BINDING-R1.json"
+        "docs/research/ZIWEI-KYUDB-GK02538-GYEONGJIN1580-MEDIUM-SIZECLASS-BINDING-R1.json",
+        "docs/research/ZIWEI-KYUDB-GK02538-GYEONGJIN1580-NOMINAL-PHYSICAL-SCALE-THREE-GLYPH-COMPARISON-R1.json"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-KYUDB-DATONGLIZHU-GK02538-1434-TYPE-POSTFACE-AND-FINGERPRINT-EE",
       "terminal_internal_date_line": "正統七年十二月日",
@@ -1803,7 +1804,21 @@
       ],
       "gyeongjin1580_target_medium_size_class_supported": true,
       "same_size_class_shared_glyph_control_status": "CLOSED_NOMINAL_MEDIUM_CLASS_LEVEL",
-      "physical_scale_normalized_shared_glyph_form_comparison_status": "NOT_YET_CLOSED"
+      "physical_scale_normalized_shared_glyph_form_comparison_status": "NOT_YET_CLOSED",
+      "medium_normalized_shared_glyph_manual_set": [
+        "正",
+        "月",
+        "大"
+      ],
+      "medium_normalized_probe_run_id": 35673107826,
+      "medium_normalized_probe_artifact_id": 10671577720,
+      "medium_normalized_probe_artifact_digest": "sha256:f75b65bded16d00d3a80b41bb00174c5d75b8e143c82f19455d997c6fa66a60f",
+      "nominal_vertical_pitch_normalized_three_glyph_corpus_status": "CLOSED_SOURCE_HASH_BOUND",
+      "gyeongjin1580_normalization_pitch_px": 55,
+      "gk02538_normalization_pitch_px": 55.5,
+      "normalized_three_glyph_form_divergence_observed": true,
+      "normalized_form_divergence_proves_different_casting_generation": false,
+      "medium_normalized_form_identity_vote_increment": 0
     },
     {
       "node_id": "RULE-FAMILY-KYUDB-DATONGLIZHU-GK02538-TERM-THRESHOLD-WHOLEKE-SCHEDULE",
@@ -3472,6 +3487,10 @@
         {
           "batch": "BATCH-12-ZIWEI-KYUDB-GK02538-GYEONGJIN1580-MEDIUM-SIZECLASS-BINDING-EL",
           "update": "National Science Museum institutional metadata directly couples Gyeongjin Daetongryeok with Inryeokja and gives medium 1.2×0.8 cm versus small 0.5×0.4 cm. Combined with the source-fixed 12EK image showing 正/月 in the visibly larger heading class, the 1580 target is bound to the medium class at object-layout level. Together with GK02538's prior nominal medium-scale compatibility, the same-size-class shared-glyph gate closes at nominal class level, but physical-scale form normalization, subtype/casting identity, exact impression dating and Sanming parentage remain unresolved. Zero exact Sanming-parent vote is added."
+        },
+        {
+          "batch": "BATCH-12-ZIWEI-KYUDB-GK02538-GYEONGJIN1580-NOMINAL-PHYSICAL-SCALE-THREE-GLYPH-COMPARISON-EM",
+          "update": "A source-hash-bound nominal medium-scale corpus now compares 正/月/大 between dated 1580 Gyeongjin Inryeokja and GK02538. Local pitch anchors 55.0 px vs 55.5 px are isotropically normalized to the institutional 1.2 cm medium-class height. All three pairs remain visibly non-identical after normalization, establishing a reproducible descriptive form-divergence signal. Because Gwansanggam/Inryeokja was repeatedly recast and could mix wooden sorts, this does not identify a different casting generation, GK02538 subtype, exact impression year or Sanming parent. Zero exact Sanming-parent vote is added."
         }
       ],
       "endpoint_anchor_component_identified": true,
