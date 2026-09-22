@@ -31,7 +31,9 @@ jobs:
           sha256sum "$ROOT/source.pdf" | tee "$ROOT/source-sha256.txt"
           pdfinfo "$ROOT/source.pdf" | tee "$ROOT/pdfinfo.txt"
           pdftoppm -f 19 -l 19 -png -r 300 "$ROOT/source.pdf" "$ROOT/p19" >/dev/null 2>&1
-          mv "$ROOT"/p19-019.png "$ROOT/p19-full-300dpi.png"
+          OUT="$(find "$ROOT" -maxdepth 1 -type f -name 'p19-*.png' | head -n 1)"
+          test -n "$OUT"
+          mv "$OUT" "$ROOT/p19-full-300dpi.png"
           sha256sum "$ROOT/p19-full-300dpi.png" | tee "$ROOT/p19-sha256.txt"
           python - <<'PY'
           from pathlib import Path
