@@ -1324,7 +1324,7 @@
       "node_type": "PHYSICAL_COPY",
       "label": "國家圖書館藏清道光三年黃氏士禮居抄本《準齋心製几漏圖式》",
       "system_scope": "RECEIVED_CLEPSYDRA_OPERATIONAL_TEXT",
-      "work_composition_date": "TITLE_FAMILY_ANTECEDENT_ATTESTED_IN_1441_WENYUANGE_CATALOG; RECEIVED_WORK_ATTRIBUTED_TO_SONG_SUN_FENGJI; EXACT_25ARROW_RULE_TEXT_COMPOSITION_DATE_UNRESOLVED",
+      "work_composition_date": "TITLE_FAMILY_ANTECEDENT_ATTESTED_IN_1441_WENYUANGE_CATALOG; RECEIVED_SONG_SUN_FENGJI_ATTRIBUTION_CONTESTED; YUAN_SHOUSHI_PERIOD_COMPOSITION_HYPOTHESIS_STRONGLY_CORROBORATED_BY_WANG_2014_PLUS_FIRST-ARROW_PHYSICAL_REPLAY; EXACT_25ARROW_RULE_TEXT_COMPOSITION_DATE_UNRESOLVED",
       "edition_impression_date": "MANUSCRIPT_NOT_PRINT; COPY_IDENTIFIED_AS_QING_DAOGUANG_3_1823",
       "physical_copy_date": "QING_DAOGUANG_3_1823",
       "digital_surrogate_date": "MODERN_XUXIU_2002_REPRODUCTION_PUBLIC_WIKIMEDIA_SURROGATE",
@@ -1336,11 +1336,17 @@
         "docs/research/ZIWEI-XUXIU1031-ZHUNZHAI-CLEPSYDRA-JIEHOU-ARROW-SELECTION-R1.json",
         "EXT-CTEXT-WENYUANGE-SHUMU-1441-PREFACE-CONTROL",
         "EXT-NLC-WENYUANGE-SHUMU-1799-V5-ZHUNZHAI-CATALOG-CONTROL",
-        "docs/research/ZIWEI-WENYUANGE1441-ZHUNZHAI-TITLE-EXISTENCE-CHRONOLOGY-FIREWALL-R1.json"
+        "docs/research/ZIWEI-WENYUANGE1441-ZHUNZHAI-TITLE-EXISTENCE-CHRONOLOGY-FIREWALL-R1.json",
+        "EXT-WANG-XIAOHU-2014-ZHUNZHAI-YUAN-COMPOSITION-STUDY",
+        "EXT-CTEXT-TONGJIANGJI-SUNJUN-SHANJING-1281-CONTROL",
+        "docs/research/ZIWEI-ZHUNZHAI-YUAN-SHOUSHI-COMPOSITION-ATTRIBUTION-FIREWALL-R1.json"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-XUXIU1031-ZHUNZHAI-CLEPSYDRA-JIEHOU-ARROW-SELECTION-DV",
       "pre1578_title_family_catalog_attestation_status": "CLOSED_AT_1441_CATALOG_TEXT_LAYER",
-      "pre1578_exact_25arrow_rule_text_status": "NOT_CLOSED"
+      "pre1578_exact_25arrow_rule_text_status": "NOT_CLOSED",
+      "received_song_attribution_status": "CONTESTED_LATE_BIBLIOGRAPHIC_TRADITION_NOT_PRIMARY_COMPOSITION_PROOF",
+      "yuan_composition_hypothesis_status": "STRONGLY_CORROBORATED_NOT_PRIMARY_COLOPHON_CLOSED",
+      "yanling_sun_fengji_1281_identity_with_zhunzhai_author": "POSSIBLE_NOT_PROVED"
     },
     {
       "node_id": "RULE-FAMILY-ZHUNZHAI-25ARROW-JIEHOU-SELECTION-38-62",
@@ -1360,7 +1366,11 @@
         "docs/research/ZIWEI-XUXIU1031-ZHUNZHAI-CLEPSYDRA-JIEHOU-ARROW-SELECTION-R1.json",
         "EXT-CTEXT-WENYUANGE-SHUMU-1441-PREFACE-CONTROL",
         "EXT-NLC-WENYUANGE-SHUMU-1799-V5-ZHUNZHAI-CATALOG-CONTROL",
-        "docs/research/ZIWEI-WENYUANGE1441-ZHUNZHAI-TITLE-EXISTENCE-CHRONOLOGY-FIREWALL-R1.json"
+        "docs/research/ZIWEI-WENYUANGE1441-ZHUNZHAI-TITLE-EXISTENCE-CHRONOLOGY-FIREWALL-R1.json",
+        "EXT-WANG-XIAOHU-2014-ZHUNZHAI-YUAN-COMPOSITION-STUDY",
+        "EXT-CTEXT-TONGJIANGJI-SUNJUN-SHANJING-1281-CONTROL",
+        "EXT-NLC-LEIBIAN-LIFA-TONGSHU-JIAJING30-1551",
+        "docs/research/ZIWEI-ZHUNZHAI-YUAN-SHOUSHI-COMPOSITION-ATTRIBUTION-FIREWALL-R1.json"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-XUXIU1031-ZHUNZHAI-CLEPSYDRA-JIEHOU-ARROW-SELECTION-DV",
       "pre1578_title_family_catalog_attestation": true,
@@ -1369,7 +1379,16 @@
       "received_1823_rule_text_title": "準齋心製几漏圖式",
       "catalog_title_variant_exact_identity_proven": false,
       "pre1578_exact_25arrow_rule_text_status": "NOT_CLOSED",
-      "pre1578_catalog_attestation_proves_rule_parameters": false
+      "pre1578_catalog_attestation_proves_rule_parameters": false,
+      "composition_chronology_hypothesis": "YUAN_SHOUSHI_PERIOD_STRONGLY_CORROBORATED_NOT_PRIMARY_COLOPHON_CLOSED",
+      "received_song_attribution_controls_composition_date": false,
+      "first_arrow_cross_witness_match": {
+        "zhunzhai_1823": "自冬至用至小寒後四日 / 晝38夜62",
+        "leibian_1551": "冬至節日連小寒後四日同 / 晝38夜62",
+        "exact_range_and_value_match": true,
+        "implication": "STRONG_SHOUSHI_FINE_TABLE_SUBSTRATE_COMPATIBILITY_NOT_DIRECT_COPY_PROOF"
+      },
+      "yanling_sun_fengji_1281_author_identity": "POSSIBLE_NOT_PROVED"
     },
     {
       "node_id": "PHYSICAL-COPY-YONEZAWA-SHILIN-AA060-HONGZHI5-1492",
@@ -3582,6 +3601,10 @@
         {
           "batch": "BATCH-12-ZIWEI-WENYUANGE1441-ZHUNZHAI-TITLE-EXISTENCE-CHRONOLOGY-FIREWALL-EQ",
           "update": "The received 1441 文淵閣書目 catalog text now closes a pre-1578 title-family antecedent for the Zhunzhai clepsydra tradition: a source-bound 1799 physical transmission witness directly lists 準齋九漏新式 beside 銅壺漏箭制度 in juan 15. This moves only the work/title-family chronology. Exact identity with the 1823 準齋心製几漏圖式 text state, the 25-arrow / 日曆節候 wording before 1578, Nanjing-59 binding and the exact Sanming/Yueling fingerprint remain unresolved. Zero exact Sanming-parent vote is added."
+        },
+        {
+          "batch": "BATCH-12-ZIWEI-ZHUNZHAI-YUAN-SHOUSHI-COMPOSITION-ATTRIBUTION-FIREWALL-ER",
+          "update": "Specialist scholarship now challenges the inherited Song attribution of the received Zhunzhai text and proposes Yuan/Shoushi-period composition. Repository physical replay independently closes one high-information correspondence: the 1823 Zhunzhai first arrow (winter solstice through Xiaohan+4, 38/62) exactly matches the 1551 pre-1578 Leibian fine-table first state. A received Fang Hui passage independently names a Yuan-era Yanling Sun Fengji interested in astronomy and Yan Su clepsydra tradition, but does not name Zhunzhai. The Yuan composition/author hypothesis is therefore strongly corroborated, while exact authorship, exact pre-1578 25-arrow wording, Nanjing-59 binding and Sanming/Yueling fingerprint remain unresolved. Zero exact Sanming-parent vote is added."
         }
       ],
       "endpoint_anchor_component_identified": true,

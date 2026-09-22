@@ -35,6 +35,7 @@ BATCH_12EN = ROOT / "docs/research/ZIWEI-KYUDB-GK02538-DATED-INRYEOKJA-THREE-WAY
 BATCH_12EO = ROOT / "docs/research/ZIWEI-KYUDB-GK02538-GYEONGJIN1580-OBJECT-SPECIFIC-FOUR-SIZE-CALIBRATION-R1.json"
 BATCH_12EP = ROOT / "docs/research/ZIWEI-KYUDB-GK02538-IMJIN-TYPE-LOSS-RECOVERY-CONTINUITY-FIREWALL-R1.json"
 BATCH_12EQ = ROOT / "docs/research/ZIWEI-WENYUANGE1441-ZHUNZHAI-TITLE-EXISTENCE-CHRONOLOGY-FIREWALL-R1.json"
+BATCH_12ER = ROOT / "docs/research/ZIWEI-ZHUNZHAI-YUAN-SHOUSHI-COMPOSITION-ATTRIBUTION-FIREWALL-R1.json"
 
 
 def fail(message: str) -> None:
@@ -42,7 +43,7 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
-    for path in (CHARTER, PROTOCOL, GRAPH, STATE, BATCH_12CH, BATCH_12DP, BATCH_12DQ, BATCH_12DR, BATCH_12DS, BATCH_12DT, BATCH_12DU, BATCH_12DV, BATCH_12DW, BATCH_12DX, BATCH_12DY, BATCH_12DZ, BATCH_12EA, BATCH_12EB, BATCH_12EC, BATCH_12ED, BATCH_12EE, BATCH_12EI, BATCH_12EJ, BATCH_12EK, BATCH_12EL, BATCH_12EM, BATCH_12EN, BATCH_12EO, BATCH_12EP, BATCH_12EQ):
+    for path in (CHARTER, PROTOCOL, GRAPH, STATE, BATCH_12CH, BATCH_12DP, BATCH_12DQ, BATCH_12DR, BATCH_12DS, BATCH_12DT, BATCH_12DU, BATCH_12DV, BATCH_12DW, BATCH_12DX, BATCH_12DY, BATCH_12DZ, BATCH_12EA, BATCH_12EB, BATCH_12EC, BATCH_12ED, BATCH_12EE, BATCH_12EI, BATCH_12EJ, BATCH_12EK, BATCH_12EL, BATCH_12EM, BATCH_12EN, BATCH_12EO, BATCH_12EP, BATCH_12EQ, BATCH_12ER):
         if not path.is_file():
             fail(f"Tianwen transmission artifact missing: {path.relative_to(ROOT)}")
 
@@ -943,6 +944,24 @@ def main() -> int:
     impact12eq = batch12eq.get("transmission_impact", {})
     if impact12eq.get("edges_supported") != []:
         fail("Batch 12EQ unexpectedly closed a transmission edge")
+
+    zhun_phys12er = next(n for n in nodes if n.get("node_id") == "PHYSICAL-COPY-NLC-ZHUNZHAI-JILOU-DAOGUANG3-HUANG-SHILIJU-MS")
+    zhun_rule12er = next(n for n in nodes if n.get("node_id") == "RULE-FAMILY-ZHUNZHAI-25ARROW-JIEHOU-SELECTION-38-62")
+    if zhun_phys12er.get("yuan_composition_hypothesis_status") != "STRONGLY_CORROBORATED_NOT_PRIMARY_COLOPHON_CLOSED":
+        fail("Batch 12ER graph Yuan composition hypothesis regressed")
+    if zhun_phys12er.get("yanling_sun_fengji_1281_identity_with_zhunzhai_author") != "POSSIBLE_NOT_PROVED":
+        fail("Batch 12ER graph author-identity firewall regressed")
+    match12er = zhun_rule12er.get("first_arrow_cross_witness_match", {})
+    if match12er.get("exact_range_and_value_match") is not True:
+        fail("Batch 12ER graph first-arrow cross-witness match regressed")
+    if zhun_rule12er.get("received_song_attribution_controls_composition_date") is not False or zhun_rule12er.get("pre1578_exact_25arrow_rule_text_status") != "NOT_CLOSED":
+        fail("Batch 12ER graph attribution/rule-text firewall regressed")
+    if not any(x.get("batch") == "BATCH-12-ZIWEI-ZHUNZHAI-YUAN-SHOUSHI-COMPOSITION-ATTRIBUTION-FIREWALL-ER" and "zero exact sanming-parent vote" in x.get("update", "").lower() for x in hyp12dk.get("evidence_updates", [])):
+        fail("Batch 12ER genealogy hypothesis zero-vote update missing")
+    batch12er = json.loads(BATCH_12ER.read_text(encoding="utf-8"))
+    impact12er = batch12er.get("transmission_impact", {})
+    if impact12er.get("edges_supported") != []:
+        fail("Batch 12ER unexpectedly closed a transmission edge")
 
     ncl = next(n for n in nodes if n.get("node_id") == "PHYSICAL-COPY-SISHI-QIHOU-NCL03164-OLD-MANUSCRIPT")
     if ncl.get("physical_copy_date") != "UNRESOLVED":

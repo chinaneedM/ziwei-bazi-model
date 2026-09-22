@@ -96,6 +96,8 @@ ZIWEI_KYUDB_DATONGLIZHU_12EP_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVEN
 ZIWEI_KYUDB_DATONGLIZHU_12EP_EVIDENCE = ROOT / "docs/research/ZIWEI-KYUDB-GK02538-IMJIN-TYPE-LOSS-RECOVERY-CONTINUITY-FIREWALL-R1.json"
 ZIWEI_WENYUANGE_ZHUNZHAI_12EQ_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENYUANGE1441-ZHUNZHAI-TITLE-EXISTENCE-CHRONOLOGY-FIREWALL-EQ.md"
 ZIWEI_WENYUANGE_ZHUNZHAI_12EQ_EVIDENCE = ROOT / "docs/research/ZIWEI-WENYUANGE1441-ZHUNZHAI-TITLE-EXISTENCE-CHRONOLOGY-FIREWALL-R1.json"
+ZIWEI_ZHUNZHAI_YUAN_12ER_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHUNZHAI-YUAN-SHOUSHI-COMPOSITION-ATTRIBUTION-FIREWALL-ER.md"
+ZIWEI_ZHUNZHAI_YUAN_12ER_EVIDENCE = ROOT / "docs/research/ZIWEI-ZHUNZHAI-YUAN-SHOUSHI-COMPOSITION-ATTRIBUTION-FIREWALL-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -370,9 +372,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-KYUDB-GK02538-GYEONGJIN1580-OBJECT-SPECIFIC-FOUR-SIZE-CALIBRATION-EO",
     "BATCH-12-ZIWEI-KYUDB-GK02538-IMJIN-TYPE-LOSS-RECOVERY-CONTINUITY-FIREWALL-EP",
     "BATCH-12-ZIWEI-WENYUANGE1441-ZHUNZHAI-TITLE-EXISTENCE-CHRONOLOGY-FIREWALL-EQ",
+    "BATCH-12-ZIWEI-ZHUNZHAI-YUAN-SHOUSHI-COMPOSITION-ATTRIBUTION-FIREWALL-ER",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENYUANGE1441-ZHUNZHAI-TITLE-EXISTENCE-CHRONOLOGY-FIREWALL-EQ.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHUNZHAI-YUAN-SHOUSHI-COMPOSITION-ATTRIBUTION-FIREWALL-ER.md"
 
 
 def fail(message: str) -> None:
@@ -1097,6 +1100,33 @@ def main() -> int:
     for sid in ("EXT-CTEXT-WENYUANGE-SHUMU-1441-PREFACE-CONTROL","EXT-NLC-WENYUANGE-SHUMU-1799-V5-ZHUNZHAI-CATALOG-CONTROL"):
         if not any(s.get("source_id") == sid for s in reg12eq.get("sources", [])):
             fail(f"Batch 12EQ source registry entry missing: {sid}")
+
+    for path in (ZIWEI_ZHUNZHAI_YUAN_12ER_BATCH, ZIWEI_ZHUNZHAI_YUAN_12ER_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12ER continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12er = json.loads(ZIWEI_ZHUNZHAI_YUAN_12ER_EVIDENCE.read_text(encoding="utf-8"))
+    if batch12er.get("batch_id") != "BATCH-12-ZIWEI-ZHUNZHAI-YUAN-SHOUSHI-COMPOSITION-ATTRIBUTION-FIREWALL-ER":
+        fail("Batch 12ER evidence identity mismatch")
+    replay12er = batch12er.get("repository_physical_replay", {})
+    if replay12er.get("exact_first_state_date_range_and_value_match") is not True:
+        fail("Batch 12ER first-state physical replay regressed")
+    if replay12er.get("whole_25_arrow_sequence_directly_replayed_against_1551_physical_table_in_this_batch") is not False or replay12er.get("direct_copy_relation_proven") is not False:
+        fail("Batch 12ER replay scope firewall regressed")
+    chrono12er = batch12er.get("chronology_adjudication", {})
+    if chrono12er.get("yuan_shoushi_composition_hypothesis") != "STRONGLY_CORROBORATED_NOT_PRIMARY_COLOPHON_CLOSED":
+        fail("Batch 12ER Yuan composition hypothesis status regressed")
+    if chrono12er.get("exact_25arrow_rule_text_pre1578_attestation") != "NOT_CLOSED" or chrono12er.get("secure_pre1578_physical_rule_witness") is not False:
+        fail("Batch 12ER exact-rule/pre1578 firewall regressed")
+    person12er = batch12er.get("primary_received_person_control", {})
+    if person12er.get("exact_same_person_as_zhunzhai_author_proven") is not False or person12er.get("exact_zhunzhai_work_named_in_passage") is not False:
+        fail("Batch 12ER author-identity firewall regressed")
+    ad12er = batch12er.get("adjudication", {})
+    if ad12er.get("direct_sanming_parent_vote_increment") != 0 or any(ad12er.get(k) for k in ("matrix_count_change","runtime_rule_change","algorithm_reopen_authorized","candidate_collapse_authorized")):
+        fail("Batch 12ER product firewall regressed")
+    reg12er = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    for sid in ("EXT-WANG-XIAOHU-2014-ZHUNZHAI-YUAN-COMPOSITION-STUDY","EXT-CTEXT-TONGJIANGJI-SUNJUN-SHANJING-1281-CONTROL"):
+        if not any(s.get("source_id") == sid for s in reg12er.get("sources", [])):
+            fail(f"Batch 12ER source registry entry missing: {sid}")
 
     for path in (ZIWEI_KYUDB_12DT_BATCH, ZIWEI_KYUDB_12DT_EVIDENCE):
         if not path.is_file():
