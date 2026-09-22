@@ -33,6 +33,7 @@ BATCH_12EL = ROOT / "docs/research/ZIWEI-KYUDB-GK02538-GYEONGJIN1580-MEDIUM-SIZE
 BATCH_12EM = ROOT / "docs/research/ZIWEI-KYUDB-GK02538-GYEONGJIN1580-NOMINAL-PHYSICAL-SCALE-THREE-GLYPH-COMPARISON-R1.json"
 BATCH_12EN = ROOT / "docs/research/ZIWEI-KYUDB-GK02538-DATED-INRYEOKJA-THREE-WAY-FORM-VARIATION-FIREWALL-R1.json"
 BATCH_12EO = ROOT / "docs/research/ZIWEI-KYUDB-GK02538-GYEONGJIN1580-OBJECT-SPECIFIC-FOUR-SIZE-CALIBRATION-R1.json"
+BATCH_12EP = ROOT / "docs/research/ZIWEI-KYUDB-GK02538-IMJIN-TYPE-LOSS-RECOVERY-CONTINUITY-FIREWALL-R1.json"
 
 
 def fail(message: str) -> None:
@@ -40,7 +41,7 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
-    for path in (CHARTER, PROTOCOL, GRAPH, STATE, BATCH_12CH, BATCH_12DP, BATCH_12DQ, BATCH_12DR, BATCH_12DS, BATCH_12DT, BATCH_12DU, BATCH_12DV, BATCH_12DW, BATCH_12DX, BATCH_12DY, BATCH_12DZ, BATCH_12EA, BATCH_12EB, BATCH_12EC, BATCH_12ED, BATCH_12EE, BATCH_12EI, BATCH_12EJ, BATCH_12EK, BATCH_12EL, BATCH_12EM, BATCH_12EN, BATCH_12EO):
+    for path in (CHARTER, PROTOCOL, GRAPH, STATE, BATCH_12CH, BATCH_12DP, BATCH_12DQ, BATCH_12DR, BATCH_12DS, BATCH_12DT, BATCH_12DU, BATCH_12DV, BATCH_12DW, BATCH_12DX, BATCH_12DY, BATCH_12DZ, BATCH_12EA, BATCH_12EB, BATCH_12EC, BATCH_12ED, BATCH_12EE, BATCH_12EI, BATCH_12EJ, BATCH_12EK, BATCH_12EL, BATCH_12EM, BATCH_12EN, BATCH_12EO, BATCH_12EP):
         if not path.is_file():
             fail(f"Tianwen transmission artifact missing: {path.relative_to(ROOT)}")
 
@@ -905,6 +906,23 @@ def main() -> int:
     impact12eo = batch12eo.get("transmission_impact", {})
     if impact12eo.get("edges_supported") != []:
         fail("Batch 12EO unexpectedly closed a transmission edge")
+
+    if copy12ee.get("imjin_calendar_apparatus_loss_or_dispersal_attested") is not True or copy12ee.get("imjin_calendar_cast_type_recovery_attested") is not True:
+        fail("Batch 12EP graph wartime loss/recovery controls regressed")
+    if copy12ee.get("prewar_postwar_physical_sort_stock_status") != "UNRESOLVED_PARTIAL_RECOVERY_ATTESTED":
+        fail("Batch 12EP graph continuity status regressed")
+    if copy12ee.get("prewar_postwar_complete_sort_continuity_proven") is not False or copy12ee.get("prewar_postwar_complete_sort_discontinuity_proven") is not False:
+        fail("Batch 12EP graph two-sided continuity firewall regressed")
+    if copy12ee.get("ryu_series_1594_woodblock_control") is not True or copy12ee.get("ryu_series_1596_1597_1604_1606_metal_inryeokja_control") is not True:
+        fail("Batch 12EP graph Ryu media controls regressed")
+    if copy12ee.get("ryu1604_same_casting_generation_as_gyeongjin1580_proven") is not False or copy12ee.get("visual_nearest_neighbor_across_imjin_boundary_is_dating_operator") is not False:
+        fail("Batch 12EP graph casting/dating firewall regressed")
+    if not any(x.get("batch") == "BATCH-12-ZIWEI-KYUDB-GK02538-IMJIN-TYPE-LOSS-RECOVERY-CONTINUITY-FIREWALL-EP" and "zero exact sanming-parent vote" in x.get("update", "").lower() for x in hyp12dk.get("evidence_updates", [])):
+        fail("Batch 12EP genealogy hypothesis zero-vote update missing")
+    batch12ep = json.loads(BATCH_12EP.read_text(encoding="utf-8"))
+    impact12ep = batch12ep.get("transmission_impact", {})
+    if impact12ep.get("edges_supported") != []:
+        fail("Batch 12EP unexpectedly closed a transmission edge")
 
     ncl = next(n for n in nodes if n.get("node_id") == "PHYSICAL-COPY-SISHI-QIHOU-NCL03164-OLD-MANUSCRIPT")
     if ncl.get("physical_copy_date") != "UNRESOLVED":

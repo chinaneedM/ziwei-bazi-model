@@ -92,6 +92,8 @@ ZIWEI_KYUDB_DATONGLIZHU_12EN_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVEN
 ZIWEI_KYUDB_DATONGLIZHU_12EN_EVIDENCE = ROOT / "docs/research/ZIWEI-KYUDB-GK02538-DATED-INRYEOKJA-THREE-WAY-FORM-VARIATION-FIREWALL-R1.json"
 ZIWEI_KYUDB_DATONGLIZHU_12EO_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KYUDB-GK02538-GYEONGJIN1580-OBJECT-SPECIFIC-FOUR-SIZE-CALIBRATION-EO.md"
 ZIWEI_KYUDB_DATONGLIZHU_12EO_EVIDENCE = ROOT / "docs/research/ZIWEI-KYUDB-GK02538-GYEONGJIN1580-OBJECT-SPECIFIC-FOUR-SIZE-CALIBRATION-R1.json"
+ZIWEI_KYUDB_DATONGLIZHU_12EP_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KYUDB-GK02538-IMJIN-TYPE-LOSS-RECOVERY-CONTINUITY-FIREWALL-EP.md"
+ZIWEI_KYUDB_DATONGLIZHU_12EP_EVIDENCE = ROOT / "docs/research/ZIWEI-KYUDB-GK02538-IMJIN-TYPE-LOSS-RECOVERY-CONTINUITY-FIREWALL-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -364,9 +366,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-KYUDB-GK02538-GYEONGJIN1580-NOMINAL-PHYSICAL-SCALE-THREE-GLYPH-COMPARISON-EM",
     "BATCH-12-ZIWEI-KYUDB-GK02538-DATED-INRYEOKJA-THREE-WAY-FORM-VARIATION-FIREWALL-EN",
     "BATCH-12-ZIWEI-KYUDB-GK02538-GYEONGJIN1580-OBJECT-SPECIFIC-FOUR-SIZE-CALIBRATION-EO",
+    "BATCH-12-ZIWEI-KYUDB-GK02538-IMJIN-TYPE-LOSS-RECOVERY-CONTINUITY-FIREWALL-EP",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KYUDB-GK02538-GYEONGJIN1580-OBJECT-SPECIFIC-FOUR-SIZE-CALIBRATION-EO.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KYUDB-GK02538-IMJIN-TYPE-LOSS-RECOVERY-CONTINUITY-FIREWALL-EP.md"
 
 
 def fail(message: str) -> None:
@@ -1023,6 +1026,38 @@ def main() -> int:
     kim12eo = next((s for s in reg12eo.get("sources", []) if s.get("source_id") == "EXT-KIM-JONGTAE-2002-GYEONGJIN-FOUR-SIZE-TYPE-MEASUREMENT"), None)
     if not kim12eo or kim12eo.get("identifier") != "KINX2003062472":
         fail("Batch 12EO Kim Jong-tae source registry entry missing")
+
+    for path in (ZIWEI_KYUDB_DATONGLIZHU_12EP_BATCH, ZIWEI_KYUDB_DATONGLIZHU_12EP_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12EP continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12ep = json.loads(ZIWEI_KYUDB_DATONGLIZHU_12EP_EVIDENCE.read_text(encoding="utf-8"))
+    if batch12ep.get("batch_id") != "BATCH-12-ZIWEI-KYUDB-GK02538-IMJIN-TYPE-LOSS-RECOVERY-CONTINUITY-FIREWALL-EP":
+        fail("Batch 12EP evidence identity mismatch")
+    acct12ep = batch12ep.get("contemporary_account", {})
+    if acct12ep.get("partial_recovery_attested") is not True or acct12ep.get("complete_prewar_type_stock_survived_proven") is not False or acct12ep.get("zero_prewar_type_stock_survived_proven") is not False:
+        fail("Batch 12EP partial-recovery two-sided firewall regressed")
+    seq12ep = batch12ep.get("ryu_series_media_transition", {})
+    seq = seq12ep.get("official_detailed_record", [])
+    if [(x.get("usage_year"),x.get("printing_medium")) for x in seq] != [(1594,"WOODBLOCK"),(1596,"METAL_INRYEOKJA"),(1597,"METAL_INRYEOKJA"),(1604,"METAL_INRYEOKJA"),(1606,"METAL_INRYEOKJA")]:
+        fail("Batch 12EP Ryu media sequence regressed")
+    if seq12ep.get("first_postwar_metal_calendar_ever_produced_year_adjudicated") is not False:
+        fail("Batch 12EP first-postwar-metal-calendar firewall regressed")
+    cont12ep = batch12ep.get("continuity_adjudication", {})
+    if cont12ep.get("prewar_1580_to_postwar_1604_physical_sort_stock_status") != "UNRESOLVED_PARTIAL_RECOVERY_ATTESTED":
+        fail("Batch 12EP continuity status regressed")
+    for key in ("same_exact_physical_sorts_proven","wholly_new_postwar_sort_stock_proven","same_casting_generation_proven","complete_casting_discontinuity_proven","1580_vs_1604_form_difference_is_standalone_casting_operator","1580_vs_1604_form_difference_is_standalone_dating_operator"):
+        if cont12ep.get(key) is not False:
+            fail(f"Batch 12EP continuity firewall regressed: {key}")
+    gk12ep = batch12ep.get("gk02538_consequence", {})
+    if gk12ep.get("gk02538_exact_impression_year_adjudicated") is not False or gk12ep.get("direct_sanming_parent_vote_increment") != 0:
+        fail("Batch 12EP GK/date zero-vote firewall regressed")
+    ad12ep = batch12ep.get("adjudication", {})
+    if ad12ep.get("direct_sanming_parent_vote_increment") != 0 or any(ad12ep.get(k) for k in ("matrix_count_change","runtime_rule_change","algorithm_reopen_authorized","candidate_collapse_authorized")):
+        fail("Batch 12EP product firewall regressed")
+    reg12ep = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    shim12ep = next((s for s in reg12ep.get("sources", []) if s.get("source_id") == "EXT-SHIM-SUGYEONG-GYEONHANJAPROK-CALENDAR-TYPE-LOSS-RECOVERY-TRANSCRIPTION"), None)
+    if not shim12ep or "partial recovery" not in shim12ep.get("quality_notes","").lower():
+        fail("Batch 12EP Shim Su-gyeong source registry entry missing")
 
     for path in (ZIWEI_KYUDB_12DT_BATCH, ZIWEI_KYUDB_12DT_EVIDENCE):
         if not path.is_file():
