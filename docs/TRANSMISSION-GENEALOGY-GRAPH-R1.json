@@ -2339,7 +2339,7 @@
         "387": "984fe54f6a2ffd660594eac4fbb656b835921f6fd61ca700a201f7fe8ae156cb",
         "388": "8b150e774ad68e06bc81e53e3f8608b977f686055c479faa30b6d1ba2cb376b6"
       },
-      "direct_target_result": "準齋心製几漏圖式一卷 / 影鈔本 / 宋孫逢古撰并序 / 郡中黃氏舊藏 / 蕘翁有跋",
+      "direct_target_result": "準齋心製几漏圖式一卷 / 影鈔宋本 / 宋孫逢古撰并序 / 郡中黃氏舊藏 / 蕘翁有跋",
       "ocr_used_for_final_glyph_claims": false,
       "evidence": [
         "EXT-TIANYIGE-TIEQIN-QING-MS-0004561-ZHUNZHAI-FENGGU-HUANG-PROVENANCE",
@@ -2364,6 +2364,13 @@
         "huang_provenance": "郡中黃氏舊藏",
         "raoweng_paratext": "蕘翁有跋",
         "exact_identity_with_nlc_1823": "STRONGLY_SUPPORTED_NOT_FORMALLY_CLOSED"
+      },
+      "batch_12fc_copy_description_revision": {
+        "from": "影鈔本",
+        "to": "影鈔宋本",
+        "status": "REPAIRED_FORWARD_ONLY",
+        "evidence": "Tianyi 0004561 PDF p387 400dpi sha256 1a27cb70651956d59e847f0161e45ccc2749992910f11bda5a2feaa86667b227",
+        "chronology_firewall": "影鈔宋本_IS_CATALOG_COPY_DESCRIPTION_NOT_PHYSICAL_SONG_DATE"
       }
     },
     {
@@ -2373,7 +2380,7 @@
       "system_scope": "QING_BIBLIOGRAPHIC_AUTHOR_VARIANT_AND_PROVENANCE_CONTROL",
       "physical_locator": "Tianyi 0004561 PDF p387-p388",
       "direct_title": "準齋心製几漏圖式一卷",
-      "copy_description": "影鈔本",
+      "copy_description": "影鈔宋本",
       "direct_author": "孫逢古",
       "direct_huang_note": "郡中黃氏舊藏",
       "direct_raoweng_note": "蕘翁有跋",
@@ -2385,7 +2392,14 @@
         "docs/research/ZIWEI-TIEQIN-QING-MS-ZHUNZHAI-FENGGU-HUANG-PROVENANCE-R1.json",
         "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TIEQIN-QING-MS-ZHUNZHAI-FENGGU-HUANG-PROVENANCE-EY.md"
       ],
-      "first_explicit_graph_batch": "BATCH-12-ZIWEI-TIEQIN-QING-MS-ZHUNZHAI-FENGGU-HUANG-PROVENANCE-EY"
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-TIEQIN-QING-MS-ZHUNZHAI-FENGGU-HUANG-PROVENANCE-EY",
+      "copy_description_revision": {
+        "from": "影鈔本",
+        "to": "影鈔宋本",
+        "batch": "BATCH-12-ZIWEI-TIEQIN-YINGCHAO-SONGBEN-TRANSCRIPTION-REPAIR-FC",
+        "defect_class": "INCOMPLETE_COPY_DESCRIPTION_TRANSCRIPTION",
+        "prior_batch_artifact_rewritten": false
+      }
     },
     {
       "node_id": "PHYSICAL-COPY-NLC-AIRIJINGLU-DAOGUANG7-1827-SET001947627",
@@ -4053,9 +4067,11 @@
         "Tianyi 0004561 p387 sha256 984fe54f6a2ffd660594eac4fbb656b835921f6fd61ca700a201f7fe8ae156cb",
         "Tianyi 0004561 p388 sha256 8b150e774ad68e06bc81e53e3f8608b977f686055c479faa30b6d1ba2cb376b6",
         "EXT-TIANYIGE-TIEQIN-QING-MS-0004561-ZHUNZHAI-FENGGU-HUANG-PROVENANCE",
-        "docs/research/ZIWEI-TIEQIN-QING-MS-ZHUNZHAI-FENGGU-HUANG-PROVENANCE-R1.json"
+        "docs/research/ZIWEI-TIEQIN-QING-MS-ZHUNZHAI-FENGGU-HUANG-PROVENANCE-R1.json",
+        "docs/research/ZIWEI-TIEQIN-YINGCHAO-SONGBEN-TRANSCRIPTION-REPAIR-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TIEQIN-YINGCHAO-SONGBEN-TRANSCRIPTION-REPAIR-FC.md"
       ],
-      "scope_note": "Confirms the Qing Tieqin manuscript's 孫逢古 bibliographic attribution and Huang/Raoweng provenance statements. It does not date the manuscript exactly, prove the original author-name form, bind the exact Huang physical copy, or close pre-1578 operational prose.",
+      "scope_note": "Confirms the Qing Tieqin manuscript's 孫逢古 bibliographic attribution and Huang/Raoweng provenance statements. Batch 12FC forward-only corrects the current copy-description metadata from the earlier abbreviated 影鈔本 to the 400-dpi direct reading 影鈔宋本. This descriptor does not date the Tianyi manuscript or any surviving Huang/NLC object to Song, prove the original author-name form, bind the exact Huang physical copy, or close pre-1578 operational prose.",
       "adjudication_batch": "BATCH-12-ZIWEI-TIEQIN-QING-MS-ZHUNZHAI-FENGGU-HUANG-PROVENANCE-EY"
     },
     {
@@ -4368,6 +4384,10 @@
         {
           "batch": "BATCH-12-ZIWEI-TIEQIN-NLC1823-COMPOSITE-OBJECT-FINGERPRINT-CONTROL-FB",
           "update": "Direct 400-dpi Tieqin p387-p388 review closes a compound catalogued-object fingerprint: Copper volume-head seals 士禮居藏 / 黃印丕烈 / 蕘圃, Zhunzhai + Copper 合裝一冊, 郡中黃氏舊藏, and 蕘翁有跋. The current NLC 1823 Copper title page visibly carries the same three Huang seals and the composite object carries Huang's dated 1823 Zhunzhai paratext. Same-physical-object identity is therefore strongly supported but not formally closed because the lower fourth NLC seal and a unique later shelfmark/ownership signature remain unresolved, while Huang's 原書舊鈔/錄副 distinction preserves multi-copy possibility. Zero exact Sanming-parent vote is added."
+        },
+        {
+          "batch": "BATCH-12-ZIWEI-TIEQIN-YINGCHAO-SONGBEN-TRANSCRIPTION-REPAIR-FC",
+          "update": "Source-bound 400-dpi re-collation of Tianyi 0004561 p387 corrects the current Zhunzhai copy-description metadata from the earlier abbreviated 影鈔本 to 影鈔宋本; the immediately preceding Copper entry independently carries the same 影鈔宋本 descriptor. The 12EY historical record is preserved rather than rewritten. This is a Qing bibliographic copy-description correction only: no Song physical-date claim, pre-1578 exact-rule witness, same-object collapse, direct-copy edge, or Sanming-parent vote is added."
         }
       ],
       "endpoint_anchor_component_identified": true,

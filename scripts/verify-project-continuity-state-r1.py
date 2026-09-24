@@ -118,6 +118,8 @@ ZIWEI_SHILIJU_1823_12FA_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-
 ZIWEI_SHILIJU_1823_12FA_EVIDENCE = ROOT / "docs/research/ZIWEI-SHILIJU1823-ZHUNZHAI-HUANG-PILIE-OLD-COPY-RECOPY-FIREWALL-R1.json"
 ZIWEI_TIEQIN_NLC1823_12FB_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TIEQIN-NLC1823-COMPOSITE-OBJECT-FINGERPRINT-CONTROL-FB.md"
 ZIWEI_TIEQIN_NLC1823_12FB_EVIDENCE = ROOT / "docs/research/ZIWEI-TIEQIN-NLC1823-COMPOSITE-OBJECT-FINGERPRINT-CONTROL-R1.json"
+ZIWEI_TIEQIN_YINGCHAO_12FC_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TIEQIN-YINGCHAO-SONGBEN-TRANSCRIPTION-REPAIR-FC.md"
+ZIWEI_TIEQIN_YINGCHAO_12FC_EVIDENCE = ROOT / "docs/research/ZIWEI-TIEQIN-YINGCHAO-SONGBEN-TRANSCRIPTION-REPAIR-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -403,9 +405,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-AIRIJINGLU1827-ZHUNZHAI-FENGGU-FIRST-EDITION-RECENSION-CONTROL-EZ",
     "BATCH-12-ZIWEI-SHILIJU1823-ZHUNZHAI-HUANG-PILIE-OLD-COPY-RECOPY-FIREWALL-FA",
     "BATCH-12-ZIWEI-TIEQIN-NLC1823-COMPOSITE-OBJECT-FINGERPRINT-CONTROL-FB",
+    "BATCH-12-ZIWEI-TIEQIN-YINGCHAO-SONGBEN-TRANSCRIPTION-REPAIR-FC",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TIEQIN-NLC1823-COMPOSITE-OBJECT-FINGERPRINT-CONTROL-FB.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TIEQIN-YINGCHAO-SONGBEN-TRANSCRIPTION-REPAIR-FC.md"
 
 
 def fail(message: str) -> None:
@@ -1406,6 +1409,29 @@ def main() -> int:
         fail("Batch 12FB Huang copy-layer firewall regressed")
     if batch12fb.get("sanming_firewall", {}).get("direct_sanming_parent_vote_increment") != 0:
         fail("Batch 12FB Sanming zero-vote firewall regressed")
+
+    for path in (ZIWEI_TIEQIN_YINGCHAO_12FC_BATCH, ZIWEI_TIEQIN_YINGCHAO_12FC_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12FC continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12fc = json.loads(ZIWEI_TIEQIN_YINGCHAO_12FC_EVIDENCE.read_text(encoding="utf-8"))
+    if batch12fc.get("batch_id") != "BATCH-12-ZIWEI-TIEQIN-YINGCHAO-SONGBEN-TRANSCRIPTION-REPAIR-FC":
+        fail("Batch 12FC copy-description evidence identity mismatch")
+    repair12fc = batch12fc.get("forward_only_repair", {})
+    if repair12fc.get("prior_current_metadata_reading") != "影鈔本" or repair12fc.get("corrected_current_metadata_reading") != "影鈔宋本":
+        fail("Batch 12FC copy-description repair regressed")
+    if repair12fc.get("prior_batch_artifact_rewritten") is not False:
+        fail("Batch 12FC forward-only history firewall regressed")
+    chrono12fc = batch12fc.get("chronology_firewall", {})
+    if chrono12fc.get("physical_song_copy_proved") is not False or chrono12fc.get("secure_pre1578_exact_25arrow_physical_witness") is not False:
+        fail("Batch 12FC Song/pre-1578 chronology firewall regressed")
+    reg12fc = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    src12fc = next((x for x in reg12fc.get("sources", []) if x.get("source_id") == "EXT-TIANYIGE-TIEQIN-QING-MS-0004561-ZHUNZHAI-FENGGU-HUANG-PROVENANCE"), None)
+    if src12fc is None or src12fc.get("copy_description") != "影鈔宋本":
+        fail("Batch 12FC current Registry copy-description repair missing")
+    matrix12fc = json.loads(MATRIX.read_text(encoding="utf-8"))
+    summary12fc = matrix12fc.get("audit_summary", {})
+    if summary12fc.get("confirmed_provenance_metadata_defect_count") != 13 or summary12fc.get("repaired_provenance_metadata_defect_count") != 13:
+        fail("Batch 12FC provenance defect accounting mismatch")
 
     for path in (ZIWEI_KYUDB_12DT_BATCH, ZIWEI_KYUDB_12DT_EVIDENCE):
         if not path.is_file():

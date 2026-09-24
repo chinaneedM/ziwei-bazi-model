@@ -6265,7 +6265,7 @@
       "url": "https://commons.wikimedia.org/wiki/File:Tianyige-330000-1705-0004561_%E9%90%B5%E7%90%B4%E9%8A%85%E5%8A%8D%E6%A8%93%E8%97%8F%E6%9B%B8%E7%9B%AE%E9%8C%84_%E6%B8%85%E7%9E%BF%E9%8F%9E%E7%B7%A8_%E6%B8%85%E6%8A%84%E6%9C%AC.pdf",
       "source_role": "DIRECT_QING_MANUSCRIPT_BIBLIOGRAPHIC_CONTROL_FOR_ZHUNZHAI_FENGGU_VARIANT_AND_HUANG_RAOWENG_PROVENANCE_NOT_ORIGINAL_AUTHOR_NAME_OR_PRE1578_RULE_DATING_AUTHORITY",
       "source_pdf_sha256": "29d6774b33087ee8140d7141ca85bd60d25d1872bc636a33da35be9b75dbfc6f",
-      "quality_notes": "Batch 12EY direct 300-dpi review closes 準齋心製几漏圖式一卷 / 影鈔本 / 宋孫逢古撰并序 on p387 and 一冊 / 郡中黃氏舊藏 / 蕘翁有跋 on p388. The Qing manuscript copy year is unresolved. The evidence confirms a Qing bibliographic 孫逢古 tradition and a Huang/Raoweng provenance route, but does not make 孫逢古 original, does not identify the exact Huang physical copy, and adds no pre-1578 or Sanming-parent vote.",
+      "quality_notes": "Batch 12EY direct 300-dpi review correctly closed the title/author/provenance layer but abbreviated the p387 copy descriptor as 影鈔本. Batch 12FB/12FC source-bound 400-dpi re-collation directly reads 準齋心製几漏圖式一卷 / 影鈔宋本 / 宋孫逢古撰并序, while the immediately preceding 銅壺漏箭制度 entry independently also reads 影鈔宋本. Current Registry metadata is repaired forward-only to 影鈔宋本. This is a Qing bibliographic copy-description claim, not proof that the reviewed Tianyi manuscript, the NLC 1823 object, or any surviving physical witness is Song-dated; exact Huang-copy identity, pre-1578 exact 25-arrow prose and Sanming parentage remain open.",
       "batch_12ey": {
         "workflow_run_id": 35952843891,
         "workflow_artifact_id": 10789681401,
@@ -6277,6 +6277,21 @@
         "direct_raoweng_note": "蕘翁有跋",
         "ocr_used_for_final_glyph_claims": false,
         "research_artifact": "docs/research/ZIWEI-TIEQIN-QING-MS-ZHUNZHAI-FENGGU-HUANG-PROVENANCE-R1.json"
+      },
+      "copy_description": "影鈔宋本",
+      "batch_12fc": {
+        "prior_current_metadata_reading": "影鈔本",
+        "corrected_direct_reading": "影鈔宋本",
+        "correction_scope": "CURRENT_REGISTRY_AND_GRAPH_COPY_DESCRIPTION_ONLY",
+        "controlling_render": "Tianyi 0004561 PDF p387 at 400 dpi",
+        "controlling_render_sha256": "1a27cb70651956d59e847f0161e45ccc2749992910f11bda5a2feaa86667b227",
+        "workflow_run_id": 35968905286,
+        "workflow_artifact_id": 10795545616,
+        "workflow_artifact_digest": "sha256:ddd321789cc420f2342a883efce0ee8e60514b79794a0476de0b783b2f901611",
+        "prior_batch_artifact_rewritten": false,
+        "physical_song_copy_proved": false,
+        "secure_pre1578_exact_25arrow_physical_witness": false,
+        "research_artifact": "docs/research/ZIWEI-TIEQIN-YINGCHAO-SONGBEN-TRANSCRIPTION-REPAIR-R1.json"
       }
     },
     {

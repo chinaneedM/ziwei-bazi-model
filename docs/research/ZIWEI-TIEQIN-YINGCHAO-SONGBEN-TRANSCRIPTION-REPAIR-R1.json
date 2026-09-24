@@ -1,0 +1,112 @@
+{
+  "schema": "ZIWEI-TIEQIN-YINGCHAO-SONGBEN-TRANSCRIPTION-REPAIR-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-TIEQIN-YINGCHAO-SONGBEN-TRANSCRIPTION-REPAIR-FC",
+  "prior_batch_id": "BATCH-12-ZIWEI-TIEQIN-NLC1823-COMPOSITE-OBJECT-FINGERPRINT-CONTROL-FB",
+  "question": "Does the source-bound 400-dpi Tieqin p387 image require a forward-only correction of the current Zhunzhai copy-description metadata from 影鈔本 to 影鈔宋本, and what chronology/lineage claims does that wording actually authorize?",
+  "answer": "YES. DIRECT 400-DPI REVIEW OF TIANYI 0004561 PDF P387 READS 準齋心製几漏圖式一卷 / 影鈔宋本 / 宋孫逢古撰并序. THE IMMEDIATELY PRECEDING 銅壺漏箭制度 ENTRY INDEPENDENTLY ALSO READS 影鈔宋本. THE EARLIER 12EY 300-DPI AUDIT RECORD ABBREVIATED THE COPY DESCRIPTION AS 影鈔本; THAT HISTORICAL RECORD IS PRESERVED, WHILE CURRENT REGISTRY/GRAPH METADATA IS REPAIRED FORWARD-ONLY TO 影鈔宋本. THIS IS A QING BIBLIOGRAPHIC COPY-DESCRIPTION CLAIM ONLY AND DOES NOT PROVE A SURVIVING SONG PHYSICAL COPY, PRE-1578 EXACT 25-ARROW PROSE, SAME-OBJECT IDENTITY, OR SANMING PARENTAGE.",
+  "source_binding": {
+    "source_id": "EXT-TIANYIGE-TIEQIN-QING-MS-0004561-ZHUNZHAI-FENGGU-HUANG-PROVENANCE",
+    "object": "Tianyi Pavilion Qing manuscript 《鐵琴銅劍樓藏書目錄》 330000-1705-0004561 / 善2088",
+    "source_pdf_sha256": "29d6774b33087ee8140d7141ca85bd60d25d1872bc636a33da35be9b75dbfc6f",
+    "target_pdf_page": 387,
+    "render_resolution_dpi": 400,
+    "target_render_sha256": "1a27cb70651956d59e847f0161e45ccc2749992910f11bda5a2feaa86667b227",
+    "extraction_commit": "5f12da4b0815c76cebdb9076e09f6ec3658e6c7a",
+    "workflow_run_id": 35968905286,
+    "workflow_artifact_id": 10795545616,
+    "workflow_artifact_digest": "sha256:ddd321789cc420f2342a883efce0ee8e60514b79794a0476de0b783b2f901611",
+    "ocr_used_for_final_glyph_claims": false
+  },
+  "direct_physical_recollation": {
+    "copper": [
+      "銅壺漏箭制度一卷",
+      "影鈔宋本"
+    ],
+    "zhunzhai": [
+      "準齋心製几漏圖式一卷",
+      "影鈔宋本",
+      "宋孫逢古撰并序"
+    ],
+    "same_page_independent_copy_descriptor_control": true,
+    "adjudication": "YINGCHAO_SONGBEN_COPY_DESCRIPTION_DIRECTLY_CLOSED"
+  },
+  "forward_only_repair": {
+    "defect_class": "INCOMPLETE_COPY_DESCRIPTION_TRANSCRIPTION",
+    "prior_current_metadata_reading": "影鈔本",
+    "corrected_current_metadata_reading": "影鈔宋本",
+    "affected_current_surfaces": [
+      "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json",
+      "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json"
+    ],
+    "prior_batch_artifact_rewritten": false,
+    "prior_batch_record_retained": "BATCH-12-ZIWEI-TIEQIN-QING-MS-ZHUNZHAI-FENGGU-HUANG-PROVENANCE-EY",
+    "confirmed_provenance_metadata_defect_increment": 1,
+    "repaired_provenance_metadata_defect_increment": 1
+  },
+  "chronology_firewall": {
+    "phrase": "影鈔宋本",
+    "evidence_role": "QING_BIBLIOGRAPHIC_COPY_DESCRIPTION_OR_CLAIM_OF_SONG-MODEL_SHADOW_COPY",
+    "physical_song_copy_proved": false,
+    "tianyi_reviewed_manuscript_proved_song_physical_copy": false,
+    "nlc_1823_object_proved_song_physical_copy": false,
+    "surviving_song_physical_object_proved": false,
+    "secure_pre1578_exact_25arrow_physical_witness": false,
+    "exact_song_exemplar_identity": "UNRESOLVED",
+    "copy_process_and_date": "UNRESOLVED"
+  },
+  "object_identity_firewall": {
+    "nlc1823_equals_tieqin_catalogued_object": "STRONGLY_SUPPORTED_NOT_FORMALLY_CLOSED",
+    "huang_old_copy_vs_recopy_role": "UNRESOLVED",
+    "airijinglu1827_source_copy_identity": "NOT_PROVED",
+    "same_object_edge_authorized": false
+  },
+  "sanming_firewall": {
+    "exact_sanming_yueling_dahan_yushui_fingerprint_closed": false,
+    "exact_nanjing_59_endpoint_binding_closed": false,
+    "direct_sanming_parent_vote_increment": 0
+  },
+  "adjudication": {
+    "matrix_count_change": false,
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "deterministic_fusion_chart_product_r1": "CLOSED"
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 13,
+    "repaired_provenance_metadata_defect_count": 13,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "transmission_impact": {
+    "nodes_added": [],
+    "nodes_strengthened": [
+      "PHYSICAL-COPY-TIANYIGE-TIEQIN-QING-MS-0004561",
+      "PASSAGE-TIEQIN-QING-MS-ZHUNZHAI-FENGGU-HUANG-PROVENANCE"
+    ],
+    "edges_supported": [],
+    "edges_revised": [
+      "TG-E0103"
+    ],
+    "new_edges_added": [],
+    "edges_rejected": [],
+    "unresolved_lineage_questions": [
+      "Which specific Song exemplar, if any, lay behind the Qing catalog description 影鈔宋本?",
+      "Which surviving Huang-family object is 原書舊鈔 and which is 錄副?",
+      "Can a unique fourth seal, shelfmark or acquisition record formally close NLC1823 == Tieqin catalogued object?",
+      "Can a securely pre-1578 physical witness close the exact Zhunzhai 25-arrow operating prose?"
+    ]
+  },
+  "next_gate": [
+    "Identify the lower fourth seal on the current NLC Copper title page from an independent seal specimen or object-specific record.",
+    "Search NLC/Tieqin acquisition and shelfmark records for a unique object-level identity signature.",
+    "Continue the Yuan person-title and securely pre-1578 exact 25-arrow prose searches.",
+    "Keep the independent Sanming/Yueling Dahan-Rainwater and Nanjing-59 lines active."
+  ],
+  "updated_at": "2026-09-24"
+}

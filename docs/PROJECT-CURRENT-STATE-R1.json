@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.166.0",
+  "schema_version": "1.167.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -39,8 +39,8 @@
     "external_source_registry": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json",
     "row_count": 198,
     "audited_row_count": 166,
-    "confirmed_provenance_metadata_defect_count": 12,
-    "repaired_provenance_metadata_defect_count": 12,
+    "confirmed_provenance_metadata_defect_count": 13,
+    "repaired_provenance_metadata_defect_count": 13,
     "historical_candidate_registry_count": 3,
     "historical_candidate_runtime_resolver_count": 3,
     "identified_missing_candidate_family_count": 14,
@@ -244,9 +244,10 @@
       "BATCH-12-ZIWEI-TIEQIN-QING-MS-ZHUNZHAI-FENGGU-HUANG-PROVENANCE-EY",
       "BATCH-12-ZIWEI-AIRIJINGLU1827-ZHUNZHAI-FENGGU-FIRST-EDITION-RECENSION-CONTROL-EZ",
       "BATCH-12-ZIWEI-SHILIJU1823-ZHUNZHAI-HUANG-PILIE-OLD-COPY-RECOPY-FIREWALL-FA",
-      "BATCH-12-ZIWEI-TIEQIN-NLC1823-COMPOSITE-OBJECT-FINGERPRINT-CONTROL-FB"
+      "BATCH-12-ZIWEI-TIEQIN-NLC1823-COMPOSITE-OBJECT-FINGERPRINT-CONTROL-FB",
+      "BATCH-12-ZIWEI-TIEQIN-YINGCHAO-SONGBEN-TRANSCRIPTION-REPAIR-FC"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TIEQIN-NLC1823-COMPOSITE-OBJECT-FINGERPRINT-CONTROL-FB.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TIEQIN-YINGCHAO-SONGBEN-TRANSCRIPTION-REPAIR-FC.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -920,7 +921,11 @@
       "Batch 12FB extends direct Tieqin control to the immediately preceding Copper entry: p387 directly records the Copper volume-head Huang seals 士禮居藏 / 黃印丕烈 / 蕘圃, then opens the Zhunzhai entry.",
       "Tieqin p387-p388 directly describes a compound object signature: Copper + Zhunzhai, 合裝一冊, 郡中黃氏舊藏, 蕘翁有跋, and Zhunzhai 卷首士禮居藏. The current NLC 1823 composite reproduction carries the same Copper volume-head three-seal Huang set plus Huang's dated 1823 Zhunzhai paratext.",
       "NLC1823 == the Tieqin-catalogued composite object is upgraded to STRONGLY_SUPPORTED_NOT_FORMALLY_CLOSED. The fourth lower NLC seal is not securely identified; no unique Tieqin shelfmark/later ownership signature is yet directly matched; Huang's 原書舊鈔 / 錄副 multi-copy firewall remains active.",
-      "Batch 12FB adds TG-E0106 ATTESTS only; no same-object edge or direct-copy edge is authorized. Matrix/product counts remain 198 / 166 / 10, provenance defects 12/12, chart algorithm defect/reopen/collapse 0, and direct Sanming-parent vote increment 0."
+      "Batch 12FB adds TG-E0106 ATTESTS only; no same-object edge or direct-copy edge is authorized. Matrix/product counts remain 198 / 166 / 10, provenance defects 12/12, chart algorithm defect/reopen/collapse 0, and direct Sanming-parent vote increment 0.",
+      "Batch 12FC source-bound 400-dpi re-collation repairs the current Tieqin Zhunzhai copy-description metadata: p387 directly reads 準齋心製几漏圖式一卷 / 影鈔宋本 / 宋孫逢古撰并序. The immediately preceding 銅壺漏箭制度 entry independently also reads 影鈔宋本.",
+      "The earlier Batch 12EY 300-dpi record is preserved as historical audit history and is not silently rewritten. Current Registry/Graph fields are corrected forward-only from the abbreviated 影鈔本 to 影鈔宋本; formal provenance metadata defect accounting advances to 13 confirmed / 13 repaired.",
+      "影鈔宋本 is retained strictly as a Qing bibliographic copy-description statement. It does not prove that the Tianyi manuscript, the current NLC 1823 composite object, or any surviving physical witness is Song-dated; Huang 原書舊鈔/錄副 identity, pre-1578 exact 25-arrow prose and Yuan person identity remain open.",
+      "Batch 12FC revises TG-E0103 evidence/scope without creating a new genealogy edge. Matrix remains 198 / 166 / 10, chart algorithm defect/reopen/collapse remain 0, and direct Sanming-parent vote increment remains 0. Highest object-level next gate returns to the unidentified fourth NLC Copper seal / unique acquisition-shelfmark signature, in parallel with the pre-1578 rule and Sanming/Nanjing-59 lines."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10
