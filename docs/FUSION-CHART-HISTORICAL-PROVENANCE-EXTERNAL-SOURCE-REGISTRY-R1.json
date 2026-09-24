@@ -7044,6 +7044,15 @@
         "linked_tokyo_holding": true,
         "chapter_9_full_text_exposed": false,
         "research_artifact": "docs/research/ZIWEI-JI-SHUYING-TIEQIN-ACQUISITION-PROGRAM-CHRONOLOGY-AND-DIRECT-TEXT-BOUNDARY-R1.json"
+      },
+      "batch_12fq": {
+        "exact_record_visible_holding_section": "全国の図書館の所蔵",
+        "exact_record_visible_holdings": [
+          "東京都立中央図書館"
+        ],
+        "exact_record_displays_ndl_holding": false,
+        "absolute_ndl_nonholding_claim_authorized": false,
+        "note": "Display absence is used only as a bounded current catalog observation; final remote-copy eligibility remains for Tokyo Metropolitan Library to determine."
       }
     },
     {
@@ -7055,7 +7064,7 @@
       "identifier": "bibid 1400053127 / material 4001029913 / C/022.3/6011/2009",
       "url": "https://catalog.library.metro.tokyo.lg.jp/winj/opac/switch-detail-iccap.do?bibid=1400053127",
       "source_role": "FIRST_PARTY_CURRENT_PHYSICAL_HOLDING_AND_LAWFUL_ACCESS_ROUTE_CONTROL_FOR_JI_CHAPTER_9",
-      "quality_notes": "Batch 12FP closes a lawful access route to the exact 2009 volume: 中央・書庫, 一般中国図書, call number C/022.3/6011/2009, material code 4001029913, catalog status 利用可 and cooperative lending 可能. The catalog exposes a remote-copy route and states remote copying is accepted from people living, working or studying in Tokyo. The project has not yet obtained or directly collated chapter 9.",
+      "quality_notes": "Batch 12FP closes a lawful access route to the exact 2009 volume: 中央・書庫, 一般中国図書, call number C/022.3/6011/2009, material code 4001029913, catalog status 利用可 and cooperative lending 可能. The catalog exposes a remote-copy route and states remote copying is accepted from people living, working or studying in Tokyo. The project has not yet obtained or directly collated chapter 9. Batch 12FQ corrects an earlier overbroad eligibility shorthand: Tokyo residents/workers/students are the normal group, but applicants outside Tokyo may also be accepted for qualifying material not held by NDL, subject to other library requirements. No user-specific eligibility or final acceptance is inferred.",
       "batch_12fp": {
         "physical_holding_closed": true,
         "current_catalog_availability": "利用可",
@@ -7063,7 +7072,16 @@
         "remote_copy_route_exposed": true,
         "remote_copy_eligibility": "東京都在住・在勤・在学の方",
         "project_has_obtained_chapter_9_copy": false,
-        "project_has_directly_collated_chapter_9": false
+        "project_has_directly_collated_chapter_9": false,
+        "remote_copy_eligibility_prior_overbroad": "東京都在住・在勤・在学の方",
+        "remote_copy_eligibility_model": {
+          "normal_group": "東京都在住・在勤・在学の個人",
+          "outside_tokyo_possible": true,
+          "outside_tokyo_condition": "国立国会図書館で所蔵していない資料の内、要件を満たす資料",
+          "final_acceptance_prejudged_by_project": false
+        },
+        "page_range_unknown_use_reference_service_first": true,
+        "corrected_by_batch_12fq": true
       }
     },
     {
@@ -7125,6 +7143,66 @@
         "reported_batch_chronology_recorded": true,
         "exact_total_reconciliation_authorized": false,
         "target_3482_3483_batch_membership_closed": false
+      }
+    },
+    {
+      "source_id": "EXT-TOKYO-METRO-LIB-REMOTE-COPY-OVERVIEW-2026",
+      "title": "東京都立図書館 遠隔複写サービス",
+      "author": "東京都立図書館",
+      "historical_period": "current service rules reviewed 2026",
+      "provider": "東京都立図書館",
+      "url": "https://www.library.metro.tokyo.lg.jp/search/photocopy/remote/",
+      "source_role": "FIRST_PARTY_REMOTE_COPY_SERVICE_OVERVIEW_AND_OUTSIDE_TOKYO_EXCEPTION_CONTROL",
+      "quality_notes": "Batch 12FQ uses this first-party page to close the two remote-copy modalities, the one-half copyright scope, and the outside-Tokyo exception for qualifying materials not held by NDL. It does not pre-adjudicate eligibility for a specific user or item.",
+      "batch_12fq": {
+        "outside_tokyo_exception_exists": true,
+        "user_specific_eligibility_inferred": false,
+        "copy_request_submitted": false
+      }
+    },
+    {
+      "source_id": "EXT-TOKYO-METRO-LIB-REMOTE-COPY-BY-MAIL-RULES-2026",
+      "title": "東京都立図書館 遠隔複写（郵送）サービス",
+      "author": "東京都立図書館",
+      "historical_period": "current service rules reviewed 2026",
+      "provider": "東京都立図書館",
+      "url": "https://www.library.metro.tokyo.lg.jp/search/photocopy/remote/by_mail/",
+      "source_role": "FIRST_PARTY_POSTAL_REMOTE_COPY_REQUEST_AND_REFERENCE_SERVICE_CONTROL",
+      "quality_notes": "Batch 12FQ uses this page to close postal request channels (telephone, letter, web form), conditional outside-Tokyo eligibility, and the instruction to determine unknown copy pages through reference service before applying.",
+      "batch_12fq": {
+        "unknown_page_range_use_reference_service_first": true,
+        "max_books_per_request": 5,
+        "user_specific_eligibility_inferred": false
+      }
+    },
+    {
+      "source_id": "EXT-TOKYO-METRO-LIB-REMOTE-COPY-PDF-RULES-2026",
+      "title": "東京都立図書館 遠隔複写（PDF送信）サービス",
+      "author": "東京都立図書館",
+      "historical_period": "current service rules reviewed 2026",
+      "provider": "東京都立図書館",
+      "url": "https://www.library.metro.tokyo.lg.jp/search/photocopy/remote/transmission/",
+      "source_role": "FIRST_PARTY_PDF_REMOTE_COPY_ELIGIBILITY_IDENTITY_AND_FEE_CONTROL",
+      "quality_notes": "Batch 12FQ uses this page to close PDF web-only application, identity-document requirement, compensation fee, one-half copyright scope, and conditional outside-Tokyo eligibility for qualifying NDL-nonheld material. No identity document or paid request has been submitted by the project.",
+      "batch_12fq": {
+        "identity_document_required_each_application": true,
+        "compensation_fee_required": true,
+        "outside_tokyo_exception_exists": true,
+        "user_action_taken": false
+      }
+    },
+    {
+      "source_id": "EXT-TOKYO-METRO-LIB-REMOTE-COPY-PDF-TERMS-2026",
+      "title": "東京都立図書館 遠隔複写（PDF送信）サービス利用規約",
+      "author": "東京都立図書館",
+      "historical_period": "current terms reviewed 2026",
+      "provider": "東京都立図書館",
+      "url": "https://www.library.metro.tokyo.lg.jp/search/photocopy/remote/transmission/ToU/index.html",
+      "source_role": "FIRST_PARTY_FORMAL_TERMS_CONTROL_FOR_OUTSIDE_TOKYO_USER_CLASS",
+      "quality_notes": "Batch 12FQ uses the formal terms only to confirm that a person outside the normal Tokyo resident/worker/student group may be within the service user class when requesting material whose NDL holding cannot be confirmed, subject to all other rules. This does not constitute acceptance of this exact application.",
+      "batch_12fq": {
+        "outside_normal_group_user_class_exists": true,
+        "exact_application_acceptance_prejudged": false
       }
     }
   ],
