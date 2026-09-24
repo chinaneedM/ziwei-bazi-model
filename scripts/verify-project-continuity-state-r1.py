@@ -158,6 +158,8 @@ ZIWEI_ZHENG_NIANPU_12FU_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-
 ZIWEI_ZHENG_NIANPU_12FU_EVIDENCE = ROOT / "docs/research/ZIWEI-ZHENG-ZHENDUO-NIANPU-REF24-2017-EDITION-AND-JAN10-SECONDARY-DATE-BOUNDARY-R1.json"
 ZIWEI_GU_TINGLONG_12FV_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-GU-TINGLONG-DIARY-1950-0106-DIRECT-EDITION-AND-JAPAN-HOLDING-BOUNDARY-FV.md"
 ZIWEI_GU_TINGLONG_12FV_EVIDENCE = ROOT / "docs/research/ZIWEI-GU-TINGLONG-DIARY-1950-0106-DIRECT-EDITION-AND-JAPAN-HOLDING-BOUNDARY-R1.json"
+ZIWEI_DENG_ZHICHENG_12FW_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DENG-ZHICHENG-DIARY-1950-0129-FACSIMILE-VOLUME5-JAPAN-HOLDING-BOUNDARY-FW.md"
+ZIWEI_DENG_ZHICHENG_12FW_EVIDENCE = ROOT / "docs/research/ZIWEI-DENG-ZHICHENG-DIARY-1950-0129-FACSIMILE-VOLUME5-JAPAN-HOLDING-BOUNDARY-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -463,9 +465,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-QIUSHUZHAI-DIARY16-PP321-322-1949-NOVEMBER-CHRONOLOGY-BOUNDARY-FT",
     "BATCH-12-ZIWEI-ZHENG-ZHENDUO-NIANPU-REF24-2017-EDITION-AND-JAN10-SECONDARY-DATE-BOUNDARY-FU",
     "BATCH-12-ZIWEI-GU-TINGLONG-DIARY-1950-0106-DIRECT-EDITION-AND-JAPAN-HOLDING-BOUNDARY-FV",
+    "BATCH-12-ZIWEI-DENG-ZHICHENG-DIARY-1950-0129-FACSIMILE-VOLUME5-JAPAN-HOLDING-BOUNDARY-FW",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-GU-TINGLONG-DIARY-1950-0106-DIRECT-EDITION-AND-JAPAN-HOLDING-BOUNDARY-FV.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DENG-ZHICHENG-DIARY-1950-0129-FACSIMILE-VOLUME5-JAPAN-HOLDING-BOUNDARY-FW.md"
 
 
 def fail(message: str) -> None:
@@ -2348,6 +2351,64 @@ def main() -> int:
         fail("Batch 12FV product/matrix firewall regressed")
     if batch12fv.get("accounting", {}).get("matrix_rows") != 198 or batch12fv.get("accounting", {}).get("audited_rows") != 166 or batch12fv.get("accounting", {}).get("current_missing_from_product_rows") != 10:
         fail("Batch 12FV matrix accounting unexpectedly changed")
+
+    for path in (ZIWEI_DENG_ZHICHENG_12FW_BATCH, ZIWEI_DENG_ZHICHENG_12FW_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12FW continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12fw = json.loads(ZIWEI_DENG_ZHICHENG_12FW_EVIDENCE.read_text(encoding="utf-8"))
+    if batch12fw.get("batch_id") != "BATCH-12-ZIWEI-DENG-ZHICHENG-DIARY-1950-0129-FACSIMILE-VOLUME5-JAPAN-HOLDING-BOUNDARY-FW":
+        fail("Batch 12FW evidence identity mismatch")
+    pub12fw = batch12fw.get("first_party_facsimile_control", {})
+    if pub12fw.get("isbn") != "9787501334773" or pub12fw.get("volume_count") != 8 or pub12fw.get("publication_date") != "2007-07-11":
+        fail("Batch 12FW first-party facsimile identity regressed")
+    tv12fw = pub12fw.get("target_volume_toc", {})
+    if tv12fw.get("volume") != 5 or tv12fw.get("notebook_14_start") != "1949-01-29" or tv12fw.get("notebook_14_end") != "1950-02-16":
+        fail("Batch 12FW target volume/notebook chronology regressed")
+    if pub12fw.get("target_date") != "1950-01-29" or pub12fw.get("target_date_in_volume5_notebook14") is not True:
+        fail("Batch 12FW target date volume binding regressed")
+    if pub12fw.get("exact_target_page_number") != "UNRESOLVED" or pub12fw.get("target_facsimile_page_directly_reviewed_by_project") is not False:
+        fail("Batch 12FW target page/direct-text boundary regressed")
+    ci12fw = batch12fw.get("cinii_bibliographic_and_holding_control", {})
+    if ci12fw.get("ncid") != "BA83843361" or ci12fw.get("note") != "影印本" or ci12fw.get("target_volume") != 5:
+        fail("Batch 12FW CiNii facsimile binding regressed")
+    if ci12fw.get("volume5_japan_holding_routes_closed") is not True or ci12fw.get("remote_copy_eligibility_closed") is not False or ci12fw.get("copy_request_submitted") is not False:
+        fail("Batch 12FW holding/access firewall regressed")
+    ids12fw = {x.get("item_identifier") for x in ci12fw.get("volume5_holdings", [])}
+    if ids12fw != {"16200370985","200003056595","505909","370054578"}:
+        fail("Batch 12FW volume-5 item identifiers regressed")
+    sec12fw = batch12fw.get("secondary_or_derived_text_controls", {})
+    if sec12fw.get("direct_facsimile_text_status") != "NOT_REVIEWED" or sec12fw.get("reported_wording_status") != "PUBLICATION_MEDIATED_QUOTATION_PENDING_DIRECT_FACSIMILE_COLLATION":
+        fail("Batch 12FW direct/mediated text boundary regressed")
+    derived12fw = sec12fw.get("2012_derived_work", {})
+    if derived12fw.get("isbn") != "9787550612594" or derived12fw.get("role") != "SELECTED_SIMPLIFIED_HORIZONTAL_DERIVATIVE_FROM_DENG_DIARY_NOT_PRIMARY_FACSIMILE":
+        fail("Batch 12FW derivative-source classification regressed")
+    adj12fw = batch12fw.get("adjudication", {})
+    if adj12fw.get("target_1950_01_29_volume") != "CLOSED_AS_VOLUME_5_NOTEBOOK_14" or adj12fw.get("target_1950_01_29_exact_page_number") != "UNRESOLVED" or adj12fw.get("target_1950_01_29_facsimile_text") != "NOT_REVIEWED":
+        fail("Batch 12FW target entry adjudication regressed")
+    for key in ("reported_forty_million_purchase","reported_twelve_boxes","reported_public_custody"):
+        if adj12fw.get(key) != "PUBLICATION_MEDIATED_PENDING_DIRECT_COLLATION":
+            fail(f"Batch 12FW mediated transaction status regressed: {key}")
+    if adj12fw.get("target_specific_purchase_route_selected") is not False or adj12fw.get("target_specific_donation_route_selected") is not False or adj12fw.get("final_nlc_acquisition_transfer_path") != "UNRESOLVED":
+        fail("Batch 12FW target route was falsely closed")
+    fw12fw = batch12fw.get("inference_firewall", {})
+    for key in ("toc_volume_binding_does_not_equal_target_page_text","facsimile_edition_identity_does_not_equal_project_page_collation","publication_mediated_quote_does_not_equal_direct_handwriting_review","collection_level_twelve_box_purchase_does_not_bind_target_volume","public_custody_wording_does_not_identify_beijing_library_accession_number","target_route_requires_item_level_or_stable_identifier_level_transaction_evidence"):
+        if fw12fw.get(key) is not True:
+            fail(f"Batch 12FW inference firewall regressed: {key}")
+    reg12fw = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    regids12fw = {x.get("source_id") for x in reg12fw.get("sources", [])}
+    if not {"EXT-NLCPRESS-DENG-ZHICHENG-DIARY-FACSIMILE-2007","EXT-CINII-DENG-ZHICHENG-DIARY-FACSIMILE-2007","EXT-SOHU-2019-ZHAO-WANLI-GU-DENG-TIEQIN-PURCHASE-DIARY-CONTROLS"}.issubset(regids12fw):
+        fail("Batch 12FW source registry controls incomplete")
+    nlp12fw = next((x for x in reg12fw.get("sources", []) if x.get("source_id") == "EXT-NLCPRESS-DENG-ZHICHENG-DIARY-FACSIMILE-2007"), None)
+    if nlp12fw is None or nlp12fw.get("batch_12fw", {}).get("target_volume") != 5 or nlp12fw.get("batch_12fw", {}).get("target_facsimile_page_reviewed") is not False:
+        fail("Batch 12FW NLC Press registry boundary regressed")
+    trans12fw = batch12fw.get("transmission_impact", {})
+    if trans12fw.get("nodes_added") != [] or trans12fw.get("edges_added") != [] or trans12fw.get("acquisition_edge_authorized") is not False or trans12fw.get("same_object_edge_authorized") is not False:
+        fail("Batch 12FW zero-topology/acquisition-edge firewall regressed")
+    rule12fw = batch12fw.get("chronology_and_rule_firewall", {})
+    if rule12fw.get("direct_sanming_parent_vote_increment") != 0 or rule12fw.get("pre1578_zhunzhai_rule_witness_increment") != 0 or rule12fw.get("runtime_rule_change") is not False or rule12fw.get("algorithm_reopen_authorized") is not False or rule12fw.get("candidate_collapse_authorized") is not False or rule12fw.get("matrix_count_change") is not False:
+        fail("Batch 12FW product/matrix firewall regressed")
+    if batch12fw.get("accounting", {}).get("matrix_rows") != 198 or batch12fw.get("accounting", {}).get("audited_rows") != 166 or batch12fw.get("accounting", {}).get("current_missing_from_product_rows") != 10:
+        fail("Batch 12FW matrix accounting unexpectedly changed")
 
     for path in (ZIWEI_KYUDB_12DT_BATCH, ZIWEI_KYUDB_12DT_EVIDENCE):
         if not path.is_file():
