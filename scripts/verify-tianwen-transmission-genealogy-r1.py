@@ -47,6 +47,7 @@ BATCH_12EZ = ROOT / "docs/research/ZIWEI-AIRIJINGLU1827-ZHUNZHAI-FENGGU-FIRST-ED
 BATCH_12FA = ROOT / "docs/research/ZIWEI-SHILIJU1823-ZHUNZHAI-HUANG-PILIE-OLD-COPY-RECOPY-FIREWALL-R1.json"
 BATCH_12FB = ROOT / "docs/research/ZIWEI-TIEQIN-NLC1823-COMPOSITE-OBJECT-FINGERPRINT-CONTROL-R1.json"
 BATCH_12FC = ROOT / "docs/research/ZIWEI-TIEQIN-YINGCHAO-SONGBEN-TRANSCRIPTION-REPAIR-R1.json"
+BATCH_12FD = ROOT / "docs/research/ZIWEI-NLC1823-TIEQIN-SEAL-PROVENANCE-CONTROL-R1.json"
 
 
 def fail(message: str) -> None:
@@ -54,7 +55,7 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
-    for path in (CHARTER, PROTOCOL, GRAPH, STATE, BATCH_12CH, BATCH_12DP, BATCH_12DQ, BATCH_12DR, BATCH_12DS, BATCH_12DT, BATCH_12DU, BATCH_12DV, BATCH_12DW, BATCH_12DX, BATCH_12DY, BATCH_12DZ, BATCH_12EA, BATCH_12EB, BATCH_12EC, BATCH_12ED, BATCH_12EE, BATCH_12EI, BATCH_12EJ, BATCH_12EK, BATCH_12EL, BATCH_12EM, BATCH_12EN, BATCH_12EO, BATCH_12EP, BATCH_12EQ, BATCH_12ER, BATCH_12ES, BATCH_12ET, BATCH_12EU, BATCH_12EV, BATCH_12EW, BATCH_12EX, BATCH_12EY, BATCH_12EZ, BATCH_12FA, BATCH_12FB, BATCH_12FC):
+    for path in (CHARTER, PROTOCOL, GRAPH, STATE, BATCH_12CH, BATCH_12DP, BATCH_12DQ, BATCH_12DR, BATCH_12DS, BATCH_12DT, BATCH_12DU, BATCH_12DV, BATCH_12DW, BATCH_12DX, BATCH_12DY, BATCH_12DZ, BATCH_12EA, BATCH_12EB, BATCH_12EC, BATCH_12ED, BATCH_12EE, BATCH_12EI, BATCH_12EJ, BATCH_12EK, BATCH_12EL, BATCH_12EM, BATCH_12EN, BATCH_12EO, BATCH_12EP, BATCH_12EQ, BATCH_12ER, BATCH_12ES, BATCH_12ET, BATCH_12EU, BATCH_12EV, BATCH_12EW, BATCH_12EX, BATCH_12EY, BATCH_12EZ, BATCH_12FA, BATCH_12FB, BATCH_12FC, BATCH_12FD):
         if not path.is_file():
             fail(f"Tianwen transmission artifact missing: {path.relative_to(ROOT)}")
 
@@ -1175,8 +1176,10 @@ def main() -> int:
         fail("Batch 12FB same-object passage firewall regressed")
     nlc12fb = next(n for n in nodes if n.get("node_id") == "PHYSICAL-COPY-NLC-ZHUNZHAI-JILOU-DAOGUANG3-HUANG-SHILIJU-MS")
     obj12fb = nlc12fb.get("tieqin_composite_object_fingerprint_control", {})
-    if obj12fb.get("status") != "STRONGLY_SUPPORTED_NOT_FORMALLY_CLOSED" or obj12fb.get("lower_fourth_seal_identity") != "UNADJUDICATED" or obj12fb.get("force_same_object_collapse_authorized") is not False:
-        fail("Batch 12FB NLC object-identity firewall regressed")
+    if obj12fb.get("status") not in ("STRONGLY_SUPPORTED_NOT_FORMALLY_CLOSED", "VERY_STRONGLY_SUPPORTED_NOT_FORMALLY_UNIQUE_OBJECT_CLOSED"):
+        fail("Batch 12FB/12FD NLC object-identity progression regressed")
+    if obj12fb.get("lower_fourth_seal_identity") not in ("UNADJUDICATED", "鐵琴銅劍樓") or obj12fb.get("force_same_object_collapse_authorized") is not False:
+        fail("Batch 12FB/12FD NLC object-identity firewall regressed")
     batch12fb = json.loads(BATCH_12FB.read_text(encoding="utf-8"))
     if batch12fb.get("transmission_impact", {}).get("same_object_edge_authorized") is not False:
         fail("Batch 12FB unexpectedly authorized same-object edge")
@@ -1203,6 +1206,30 @@ def main() -> int:
         fail("Batch 12FC TG-E0103 revision evidence regressed")
     if not any(x.get("batch") == "BATCH-12-ZIWEI-TIEQIN-YINGCHAO-SONGBEN-TRANSCRIPTION-REPAIR-FC" and "copy-description" in x.get("update","").lower() for x in hyp12dk.get("evidence_updates", [])):
         fail("Batch 12FC genealogy hypothesis correction update missing")
+
+    batch12fd = json.loads(BATCH_12FD.read_text(encoding="utf-8"))
+    if batch12fd.get("batch_id") != "BATCH-12-ZIWEI-NLC1823-TIEQIN-SEAL-PROVENANCE-CONTROL-FD":
+        fail("Batch 12FD genealogy evidence identity mismatch")
+    impact12fd = batch12fd.get("transmission_impact", {})
+    if impact12fd.get("edges_supported") != ["TG-E0107"] or impact12fd.get("same_object_edge_authorized") is not False:
+        fail("Batch 12FD genealogy edge/collapse scope regressed")
+    obj12fd = nlc12fb.get("tieqin_composite_object_fingerprint_control", {})
+    if obj12fd.get("lower_fourth_seal_identity") != "鐵琴銅劍樓" or obj12fd.get("tieqin_collection_provenance_status") != "CLOSED":
+        fail("Batch 12FD current NLC Tieqin provenance state regressed")
+    if obj12fd.get("status") != "VERY_STRONGLY_SUPPORTED_NOT_FORMALLY_UNIQUE_OBJECT_CLOSED" or obj12fd.get("force_same_object_collapse_authorized") is not False:
+        fail("Batch 12FD current unique-object firewall regressed")
+    passage12fd = next((n for n in nodes if n.get("node_id") == "PASSAGE-NLC1823-COPPER-TIEQIN-OWNERSHIP-SEAL"), None)
+    if passage12fd is None or passage12fd.get("direct_lower_seal") != "鐵琴銅劍樓" or passage12fd.get("tieqin_collection_provenance_status") != "CLOSED":
+        fail("Batch 12FD ownership-seal passage missing/regressed")
+    if passage12fd.get("same_object_edge_authorized") is not False:
+        fail("Batch 12FD passage same-object firewall regressed")
+    edge12fd = next((e for e in edges if e.get("edge_id") == "TG-E0107"), None)
+    if edge12fd is None or edge12fd.get("relation") != "ATTESTS" or edge12fd.get("from") != "PHYSICAL-COPY-NLC-ZHUNZHAI-JILOU-DAOGUANG3-HUANG-SHILIJU-MS" or edge12fd.get("to") != "PASSAGE-NLC1823-COPPER-TIEQIN-OWNERSHIP-SEAL":
+        fail("Batch 12FD TG-E0107 identity regressed")
+    if "not a unique item number" not in edge12fd.get("scope_note", ""):
+        fail("Batch 12FD TG-E0107 unique-object scope firewall missing")
+    if not any(x.get("batch") == "BATCH-12-ZIWEI-NLC1823-TIEQIN-SEAL-PROVENANCE-CONTROL-FD" and "zero exact sanming-parent vote" in x.get("update","").lower() for x in hyp12dk.get("evidence_updates", [])):
+        fail("Batch 12FD genealogy hypothesis zero-vote update missing")
 
     ncl = next(n for n in nodes if n.get("node_id") == "PHYSICAL-COPY-SISHI-QIHOU-NCL03164-OLD-MANUSCRIPT")
     if ncl.get("physical_copy_date") != "UNRESOLVED":
