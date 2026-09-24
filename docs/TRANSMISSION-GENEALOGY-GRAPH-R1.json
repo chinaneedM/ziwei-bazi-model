@@ -1376,7 +1376,10 @@
         "EXT-NCL-SANLI-CUOYAO-TIEQIN-SEAL-CATALOG-CONTROL",
         "EXT-NCL-JOURNAL-2018-TIEQIN-SEAL-FIG36",
         "docs/research/ZIWEI-NLC1823-TIEQIN-SEAL-PROVENANCE-CONTROL-R1.json",
-        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC1823-TIEQIN-SEAL-PROVENANCE-CONTROL-FD.md"
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC1823-TIEQIN-SEAL-PROVENANCE-CONTROL-FD.md",
+        "EXT-NCL-TW-UNION-TONGHU-RARECATX0514818",
+        "docs/research/ZIWEI-NCL-UNION-TONGHU-RARECATX0514818-BOUNDARY-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NCL-UNION-TONGHU-RARECATX0514818-BOUNDARY-FE.md"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-XUXIU1031-ZHUNZHAI-CLEPSYDRA-JIEHOU-ARROW-SELECTION-DV",
       "pre1578_title_family_catalog_attestation_status": "CLOSED_AT_1441_CATALOG_TEXT_LAYER",
@@ -1429,6 +1432,23 @@
         "provenance_status": "CLOSED_AT_TIEQIN_COLLECTION_OWNERSHIP_LEVEL",
         "exact_specific_catalogued_object_identity": "VERY_STRONGLY_SUPPORTED_NOT_FORMALLY_UNIQUE_OBJECT_CLOSED",
         "huang_copy_layer": "UNRESOLVED"
+      },
+      "nlc_union_catalog_record_control": {
+        "batch": "BATCH-12-ZIWEI-NCL-UNION-TONGHU-RARECATX0514818-BOUNDARY-FE",
+        "registration_number": "rarecatx0514818",
+        "record_identifier_role": "PUBLIC_UNION_CATALOG_REGISTRATION_OR_RECORD_IDENTIFIER",
+        "record_level_binding": "HIGH_CONFIDENCE_SAME_NLC_HUANG_COPY_FAMILY",
+        "unique_physical_shelfmark_proved": false,
+        "acquisition_or_donation_identifier_proved": false,
+        "exact_physical_copy_identity_proved": false,
+        "same_object_edge_authorized": false,
+        "fields_not_exposed_on_reviewed_public_surface": [
+          "道光三年/1823",
+          "準齋心製几漏圖式合裝",
+          "士禮居藏/黃印丕烈/蕘圃 seals",
+          "鐵琴銅劍樓 seal",
+          "unique physical shelfmark"
+        ]
       }
     },
     {
@@ -2558,6 +2578,31 @@
         "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC1823-TIEQIN-SEAL-PROVENANCE-CONTROL-FD.md"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-NLC1823-TIEQIN-SEAL-PROVENANCE-CONTROL-FD"
+    },
+    {
+      "node_id": "CATALOG-NCL-UNION-TONGHU-RARECATX0514818",
+      "node_type": "DIGITAL_SURROGATE",
+      "label": "國家圖書館中文古籍聯合目錄《銅壺漏箭制度》rarecatx0514818",
+      "system_scope": "MODERN_OFFICIAL_CATALOG_RECORD_BINDING",
+      "date": "MODERN_PUBLIC_UNION_CATALOG_RECORD_OBSERVED_2026-09-24",
+      "locator": "National Central Library Chinese Rare Books Union Catalog public detail surface",
+      "direct_title": "銅壺漏箭制度",
+      "version": "抄本",
+      "direct_note": "清黃丕烈跋",
+      "registration_number": "rarecatx0514818",
+      "current_holder": "中國國家圖書館",
+      "identifier_role": "PUBLIC_UNION_CATALOG_REGISTRATION_OR_RECORD_IDENTIFIER",
+      "unique_physical_shelfmark_proved": false,
+      "acquisition_or_donation_identifier_proved": false,
+      "tieqin_era_shelfmark_proved": false,
+      "exact_physical_copy_identity_proved": false,
+      "record_level_binding": "HIGH_CONFIDENCE_SAME_NLC_HUANG_COPY_FAMILY",
+      "evidence": [
+        "EXT-NCL-TW-UNION-TONGHU-RARECATX0514818",
+        "docs/research/ZIWEI-NCL-UNION-TONGHU-RARECATX0514818-BOUNDARY-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NCL-UNION-TONGHU-RARECATX0514818-BOUNDARY-FE.md"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-NCL-UNION-TONGHU-RARECATX0514818-BOUNDARY-FE"
     }
   ],
   "edges": [
@@ -4198,6 +4243,22 @@
       ],
       "scope_note": "Confirms that the current NLC/Xuxiu1031 1823 Copper/Zhunzhai composite object directly carries the 鐵琴銅劍樓 collection mark and therefore entered the Tieqin Tongjianlou collection. The collection seal is not a unique item number; this edge does not collapse the current object with the specific catalogued copy, identify Huang's 原書舊鈔 versus 錄副, bind the 1827 Airijinglu source copy, or close pre-1578 rule provenance.",
       "adjudication_batch": "BATCH-12-ZIWEI-NLC1823-TIEQIN-SEAL-PROVENANCE-CONTROL-FD"
+    },
+    {
+      "edge_id": "TG-E0108",
+      "from": "CATALOG-NCL-UNION-TONGHU-RARECATX0514818",
+      "relation": "ATTESTS",
+      "to": "PHYSICAL-COPY-NLC-ZHUNZHAI-JILOU-DAOGUANG3-HUANG-SHILIJU-MS",
+      "status": "HIGH_CONFIDENCE",
+      "confidence": "HIGH_FOR_RECORD_LEVEL_SAME_NLC_HUANG_COPY_FAMILY_NOT_EXACT_PHYSICAL_IDENTITY",
+      "evidence_class": "OFFICIAL_UNION_CATALOG_PUBLIC_RECORD_FIELDS",
+      "evidence": [
+        "EXT-NCL-TW-UNION-TONGHU-RARECATX0514818",
+        "docs/research/ZIWEI-NCL-UNION-TONGHU-RARECATX0514818-BOUNDARY-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NCL-UNION-TONGHU-RARECATX0514818-BOUNDARY-FE.md"
+      ],
+      "scope_note": "The official public union-catalog record binds 銅壺漏箭制度 / 抄本 / 清黃丕烈跋 / rarecatx0514818 / 中國國家圖書館 and therefore supports a high-confidence same-NLC-Huang-copy-family association with the reviewed 1823 Copper/Zhunzhai object. rarecatx0514818 is a catalog registration/record identifier, not a proved physical shelfmark or unique item number. Exact physical-copy identity and SAME_OBJECT collapse remain unproved; no pre-1578 rule or Sanming-parent vote is added.",
+      "adjudication_batch": "BATCH-12-ZIWEI-NCL-UNION-TONGHU-RARECATX0514818-BOUNDARY-FE"
     }
   ],
   "lineage_hypotheses": [
@@ -4466,6 +4527,10 @@
         {
           "batch": "BATCH-12-ZIWEI-NLC1823-TIEQIN-SEAL-PROVENANCE-CONTROL-FD",
           "update": "Source-bound Xuxiu1031 p78 review directly identifies the formerly unresolved lower collector's seal as 鐵琴銅劍樓, independently controlled by NCL catalog and published seal-study evidence. This closes later Tieqin-collection provenance for the current 1823 Huang-family Copper/Zhunzhai composite object and materially strengthens the 12FB object fingerprint. Exact identity with the specific physical copy described by the Tieqin catalog remains very strongly supported but not formally unique-object closed because a collection seal is not a unique inventory identifier and Huang's 原書舊鈔/錄副 multi-copy firewall remains active. Zero exact Sanming-parent vote is added."
+        },
+        {
+          "batch": "BATCH-12-ZIWEI-NCL-UNION-TONGHU-RARECATX0514818-BOUNDARY-FE",
+          "update": "Official NCL Chinese Rare Books Union Catalog detail closes the public record identity 銅壺漏箭制度 / 抄本 / 清黃丕烈跋 / rarecatx0514818 / 中國國家圖書館. The exposed 登錄號 is preserved as a database registration/record identifier, not a physical shelfmark or unique item number. It supports a high-confidence same-NLC-Huang-copy-family association but does not close exact physical-object identity, Huang 原書舊鈔/錄副, pre-1578 exact rule provenance, or direct lineage. Zero exact Sanming-parent vote is added."
         }
       ],
       "endpoint_anchor_component_identified": true,
