@@ -128,6 +128,8 @@ ZIWEI_NLC_OPAC_ZHUNZHAI_12FF_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVEN
 ZIWEI_NLC_OPAC_ZHUNZHAI_12FF_EVIDENCE = ROOT / "docs/research/ZIWEI-NLC-OPAC-ZHUNZHAI-MICROFILM-SOURCE-CROSSBINDING-R1.json"
 ZIWEI_BEITU1959_12FG_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-BEITU1959-TONGHU-ZHUNZHAI-CATALOG-NUMBER-AND-QUDONATION-BOUNDARY-FG.md"
 ZIWEI_BEITU1959_12FG_EVIDENCE = ROOT / "docs/research/ZIWEI-BEITU1959-TONGHU-ZHUNZHAI-CATALOG-NUMBER-AND-QUDONATION-BOUNDARY-R1.json"
+ZIWEI_NLC_CURRENT_12FH_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-CURRENT-SYS-ITEM-HOLDINGS-LOCATOR-FH.md"
+ZIWEI_NLC_CURRENT_12FH_EVIDENCE = ROOT / "docs/research/ZIWEI-NLC-CURRENT-SYS-ITEM-HOLDINGS-LOCATOR-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -418,9 +420,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-NCL-UNION-TONGHU-RARECATX0514818-BOUNDARY-FE",
     "BATCH-12-ZIWEI-NLC-OPAC-ZHUNZHAI-MICROFILM-SOURCE-CROSSBINDING-FF",
     "BATCH-12-ZIWEI-BEITU1959-TONGHU-ZHUNZHAI-CATALOG-NUMBER-AND-QUDONATION-BOUNDARY-FG",
+    "BATCH-12-ZIWEI-NLC-CURRENT-SYS-ITEM-HOLDINGS-LOCATOR-FH",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-BEITU1959-TONGHU-ZHUNZHAI-CATALOG-NUMBER-AND-QUDONATION-BOUNDARY-FG.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-CURRENT-SYS-ITEM-HOLDINGS-LOCATOR-FH.md"
 
 
 def fail(message: str) -> None:
@@ -1583,6 +1586,43 @@ def main() -> int:
         fail("Batch 12FG Sanming zero-vote firewall regressed")
     if batch12fg.get("accounting", {}).get("confirmed_provenance_metadata_defect_count") != 13 or batch12fg.get("accounting", {}).get("repaired_provenance_metadata_defect_count") != 13:
         fail("Batch 12FG provenance accounting unexpectedly changed")
+
+    for path in (ZIWEI_NLC_CURRENT_12FH_BATCH, ZIWEI_NLC_CURRENT_12FH_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12FH continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12fh = json.loads(ZIWEI_NLC_CURRENT_12FH_EVIDENCE.read_text(encoding="utf-8"))
+    if batch12fh.get("batch_id") != "BATCH-12-ZIWEI-NLC-CURRENT-SYS-ITEM-HOLDINGS-LOCATOR-FH":
+        fail("Batch 12FH evidence identity mismatch")
+    original12fh = batch12fh.get("original_record", {})
+    if original12fh.get("sys") != "001775083" or original12fh.get("uid") != "UCS01003828993":
+        fail("Batch 12FH current SYS/UID identity regressed")
+    if original12fh.get("current_meta_sys_identity_closed") is not True or original12fh.get("barcode_exposed") is not False:
+        fail("Batch 12FH SYS/barcode firewall regressed")
+    locator12fh = batch12fh.get("local_holdings_locator", {})
+    if locator12fh.get("field_905a") != "NLC" or locator12fh.get("field_905q") != "SBYL" or locator12fh.get("field_905s") != "03483":
+        fail("Batch 12FH 905 holdings tuple regressed")
+    if locator12fh.get("composite_3165") != "NLC:SBYL:03483" or locator12fh.get("current_local_holdings_locator_closed") is not True:
+        fail("Batch 12FH current local holdings locator regressed")
+    if locator12fh.get("public_barcode_proved") is not False:
+        fail("Batch 12FH public-barcode firewall regressed")
+    micro12fh = batch12fh.get("microfilm_record", {})
+    if micro12fh.get("embedded_link_payload_raw") != "001411999008601" or micro12fh.get("embedded_tag") != "001" or micro12fh.get("linked_original_record_control_id") != "411999008601":
+        fail("Batch 12FH 455 embedded-001 parse regressed")
+    if micro12fh.get("physical_shelfmark") is not False or micro12fh.get("barcode") is not False or micro12fh.get("acquisition_or_donation_number") is not False:
+        fail("Batch 12FH 455 identifier firewall regressed")
+    photo12fh = batch12fh.get("separate_photo_reference", {})
+    if photo12fh.get("raw_value") != "00O003570" or photo12fh.get("classification") != "SEPARATE_PHOTOGRAPH_REFERENCE_ONLY" or photo12fh.get("exact_subtype") != "UNRESOLVED":
+        fail("Batch 12FH separate-photo boundary regressed")
+    reg12fh = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    src12fh = next((x for x in reg12fh.get("sources", []) if x.get("source_id") == "EXT-NLC-META-ZHUNZHAI-CURRENT-SYS001775083-ITEM-HOLDINGS"), None)
+    if src12fh is None or src12fh.get("batch_12fh", {}).get("current_local_holdings_locator_closed") is not True:
+        fail("Batch 12FH source registry entry missing/regressed")
+    if batch12fh.get("chronology_and_rule_firewall", {}).get("direct_sanming_parent_vote_increment") != 0:
+        fail("Batch 12FH Sanming zero-vote firewall regressed")
+    if batch12fh.get("object_binding_adjudication", {}).get("same_object_edge_authorized") is not False:
+        fail("Batch 12FH SAME_OBJECT firewall regressed")
+    if batch12fh.get("accounting", {}).get("confirmed_provenance_metadata_defect_count") != 13 or batch12fh.get("accounting", {}).get("repaired_provenance_metadata_defect_count") != 13:
+        fail("Batch 12FH provenance accounting unexpectedly changed")
 
     for path in (ZIWEI_KYUDB_12DT_BATCH, ZIWEI_KYUDB_12DT_EVIDENCE):
         if not path.is_file():
