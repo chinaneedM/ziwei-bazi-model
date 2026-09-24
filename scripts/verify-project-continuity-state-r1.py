@@ -124,6 +124,8 @@ ZIWEI_NLC1823_TIEQIN_SEAL_12FD_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROV
 ZIWEI_NLC1823_TIEQIN_SEAL_12FD_EVIDENCE = ROOT / "docs/research/ZIWEI-NLC1823-TIEQIN-SEAL-PROVENANCE-CONTROL-R1.json"
 ZIWEI_NCL_UNION_TONGHU_12FE_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NCL-UNION-TONGHU-RARECATX0514818-BOUNDARY-FE.md"
 ZIWEI_NCL_UNION_TONGHU_12FE_EVIDENCE = ROOT / "docs/research/ZIWEI-NCL-UNION-TONGHU-RARECATX0514818-BOUNDARY-R1.json"
+ZIWEI_NLC_OPAC_ZHUNZHAI_12FF_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-OPAC-ZHUNZHAI-MICROFILM-SOURCE-CROSSBINDING-FF.md"
+ZIWEI_NLC_OPAC_ZHUNZHAI_12FF_EVIDENCE = ROOT / "docs/research/ZIWEI-NLC-OPAC-ZHUNZHAI-MICROFILM-SOURCE-CROSSBINDING-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -412,9 +414,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-TIEQIN-YINGCHAO-SONGBEN-TRANSCRIPTION-REPAIR-FC",
     "BATCH-12-ZIWEI-NLC1823-TIEQIN-SEAL-PROVENANCE-CONTROL-FD",
     "BATCH-12-ZIWEI-NCL-UNION-TONGHU-RARECATX0514818-BOUNDARY-FE",
+    "BATCH-12-ZIWEI-NLC-OPAC-ZHUNZHAI-MICROFILM-SOURCE-CROSSBINDING-FF",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NCL-UNION-TONGHU-RARECATX0514818-BOUNDARY-FE.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-OPAC-ZHUNZHAI-MICROFILM-SOURCE-CROSSBINDING-FF.md"
 
 
 def fail(message: str) -> None:
@@ -1499,6 +1502,40 @@ def main() -> int:
         fail("Batch 12FE Sanming zero-vote firewall regressed")
     if batch12fe.get("accounting", {}).get("confirmed_provenance_metadata_defect_count") != 13 or batch12fe.get("accounting", {}).get("repaired_provenance_metadata_defect_count") != 13:
         fail("Batch 12FE provenance accounting unexpectedly changed")
+
+    for path in (ZIWEI_NLC_OPAC_ZHUNZHAI_12FF_BATCH, ZIWEI_NLC_OPAC_ZHUNZHAI_12FF_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12FF continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12ff = json.loads(ZIWEI_NLC_OPAC_ZHUNZHAI_12FF_EVIDENCE.read_text(encoding="utf-8"))
+    if batch12ff.get("batch_id") != "BATCH-12-ZIWEI-NLC-OPAC-ZHUNZHAI-MICROFILM-SOURCE-CROSSBINDING-FF":
+        fail("Batch 12FF NLC OPAC evidence identity mismatch")
+    src12ff = batch12ff.get("source_binding", {})
+    micro12ff = src12ff.get("opac_microfilm_record", {})
+    copied12ff = src12ff.get("copied_from_field", {})
+    if micro12ff.get("doc_number") != "002597934" or src12ff.get("workflow_artifact_id") != 10810554622:
+        fail("Batch 12FF microfilm record binding regressed")
+    if copied12ff.get("original_doc_number") != "001775083" or copied12ff.get("source_control_value") != "001411999008601":
+        fail("Batch 12FF copied-from source record binding regressed")
+    if copied12ff.get("direct_composite_note") != "原文献03482铜壶漏箭制度、03483准斋心制几漏图式为一册，铜壶漏箭制度另拍在00O003570":
+        fail("Batch 12FF direct composite note regressed")
+    ident12ff = batch12ff.get("identifier_adjudication", {})
+    if ident12ff.get("03482") != "ORIGINAL_DOCUMENT_NUMBER_FOR_TONGHU_AS_EXPLICITLY_DESCRIBED_BY_OPAC_NOTE_NOT_PROVED_CALL_NUMBER":
+        fail("Batch 12FF original-document identifier classification regressed")
+    if ident12ff.get("unique_physical_call_number_proved") is not False or ident12ff.get("acquisition_or_donation_number_proved") is not False:
+        fail("Batch 12FF physical/acquisition identifier firewall regressed")
+    obj12ff = batch12ff.get("object_binding_adjudication", {})
+    if obj12ff.get("official_copper_zhunzhai_one_volume_binding_closed") is not True or obj12ff.get("same_object_edge_authorized") is not False:
+        fail("Batch 12FF companion binding/same-object firewall regressed")
+    reg12ff = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    src_entry12ff = next((x for x in reg12ff.get("sources", []) if x.get("source_id") == "EXT-NLC-OPAC-ZHUNZHAI-MICROFILM-002597934-SOURCE001775083"), None)
+    if src_entry12ff is None or src_entry12ff.get("batch_12ff", {}).get("official_one_volume_binding_closed") is not True:
+        fail("Batch 12FF source registry entry missing/regressed")
+    if src_entry12ff.get("batch_12ff", {}).get("unique_physical_shelfmark_proved") is not False or src_entry12ff.get("batch_12ff", {}).get("same_object_edge_authorized") is not False:
+        fail("Batch 12FF registry identifier/same-object firewall regressed")
+    if batch12ff.get("chronology_and_rule_firewall", {}).get("direct_sanming_parent_vote_increment") != 0:
+        fail("Batch 12FF Sanming zero-vote firewall regressed")
+    if batch12ff.get("accounting", {}).get("confirmed_provenance_metadata_defect_count") != 13 or batch12ff.get("accounting", {}).get("repaired_provenance_metadata_defect_count") != 13:
+        fail("Batch 12FF provenance accounting unexpectedly changed")
 
     for path in (ZIWEI_KYUDB_12DT_BATCH, ZIWEI_KYUDB_12DT_EVIDENCE):
         if not path.is_file():
