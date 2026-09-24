@@ -51,7 +51,7 @@ jobs:
           assert tq['target_facsimile_page_resolved'] is False
 
           p=e['non_target_volume5_page_citation_control']
-          assert p['cited_2007_facsimile_location']=='第五册第222页'
+          assert p['cited_2007_facsimile_location']=='《邓之诚日记》第五册第222页'
           assert p['editorial_note']=='《札记》录文有删略'
           assert p['target_1950_01_29_same_passage'] is False
           assert p['direct_facsimile_page_222_reviewed_by_project'] is False
