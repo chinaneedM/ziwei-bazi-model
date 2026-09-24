@@ -1,0 +1,160 @@
+{
+  "schema": "ZIWEI-NLC-CURRENT-SYS-ITEM-HOLDINGS-LOCATOR-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-NLC-CURRENT-SYS-ITEM-HOLDINGS-LOCATOR-FH",
+  "prior_batch_id": "BATCH-12-ZIWEI-BEITU1959-TONGHU-ZHUNZHAI-CATALOG-NUMBER-AND-QUDONATION-BOUNDARY-FG",
+  "question": "Can the current National Library of China metadata/item APIs close the original Zhunzhai rare-book system identity and local holdings locator, classify the prior 455 linked-control payload, and keep barcode/acquisition/photo-reference semantics fail-closed?",
+  "answer": "YES AT THE CURRENT CATALOG/LOCAL-HOLDINGS LEVEL. CURRENT NLC META UNIQUELY RESOLVES SYS 001775083 TO UID UCS01003828993 FOR THE 1823 HUANG SHILIJU RARE-BOOK RECORD. THE ITEM API DIRECTLY EMITS 905a=NLC, 905q=SBYL, 905s=03483 AND 3165=NLC:SBYL:03483. CNMARC INDEX SEMANTICS CLASSIFY 905s AS A LOCAL CALL-NUMBER FIELD AND SBYL IS THE NLC GOOD-BOOKS READING-ROOM SUBLIBRARY CODE. NO PUBLIC BARCODE IS EXPOSED. MICROFILM FIELD 455$1 SERIALIZES EMBEDDED 001 + RECORD CONTROL ID 411999008601; IT IS NOT A PHYSICAL SHELFMARK OR ACQUISITION NUMBER. 00O003570 REMAINS ONLY A SEPARATE-PHOTOGRAPH REFERENCE. FINAL QU-FAMILY ACQUISITION/TRANSFER PATH REMAINS UNRESOLVED.",
+  "current_nlc_source": {
+    "source_id": "EXT-NLC-META-ZHUNZHAI-CURRENT-SYS001775083-ITEM-HOLDINGS",
+    "provider": "National Library of China current meta.nlc.cn metadata and item APIs",
+    "observed_at": "2026-09-24",
+    "search_endpoint": "https://meta.nlc.cn/v2/doSearch?hight=false",
+    "detail_endpoint_template": "https://meta.nlc.cn/api/v1/item/<UID>/1/999",
+    "probes": {
+      "current_json_search": {
+        "workflow_run_id": 36018407574,
+        "artifact_id": 10816096193,
+        "artifact_digest": "sha256:49cd661d1d890b6ed247db2ddaf4a1cac21fd26145504ab63f86c68560b7e5f4"
+      },
+      "holding_bridge": {
+        "workflow_run_id": 36019233451,
+        "artifact_id": 10816056823,
+        "artifact_digest": "sha256:1dcf44b657ca3c0d236dd04d5d28df624507b5feeb92a14aa26e25b622f2f17c"
+      },
+      "sys_field": {
+        "workflow_run_id": 36019435493,
+        "artifact_id": 10815952788,
+        "artifact_digest": "sha256:384e4acedb67dad3b5099129bf80463046b9c2a2c22da6f2544aacaf32db98e9"
+      },
+      "item_detail": {
+        "workflow_run_id": 36019748667,
+        "artifact_id": 10815419291,
+        "artifact_digest": "sha256:be9cc2db66d4ad150a975f08f2956b6ab068314b9afbdf69fd5d4a6a564eda65"
+      }
+    },
+    "ocr_used": false
+  },
+  "original_record": {
+    "sys": "001775083",
+    "uid": "UCS01003828993",
+    "current_record_control_001": "003828993",
+    "material_type": "善本",
+    "title": "准齋心製几漏圖式",
+    "year": "1823",
+    "publisher_or_copying_source": "黃氏士禮居",
+    "extent": "1冊",
+    "current_holder": "国家图书馆",
+    "current_meta_sys_identity_closed": true,
+    "current_uid_identity_closed": true,
+    "barcode_exposed": false
+  },
+  "local_holdings_locator": {
+    "field_905a": "NLC",
+    "field_905q": "SBYL",
+    "field_905s": "03483",
+    "composite_3165": "NLC:SBYL:03483",
+    "field_852a": "A100000NLC",
+    "sublibrary_semantics": "SBYL=善本阅览室",
+    "field_905s_semantics": "LOCAL_CALL_NUMBER_COMPONENT",
+    "adjudicated_locator": "NLC:SBYL:03483",
+    "current_local_holdings_locator_closed": true,
+    "public_barcode_proved": false,
+    "identifier_layer_firewall": "The current 905 local-call-number use of 03483 is separately recorded from the 1959 historical catalog number 3483 and the legacy OPAC 原文献03483 layer, even though the numeric value persists."
+  },
+  "historical_to_current_number_continuity": {
+    "beitu_1959_printed_number": "3483",
+    "legacy_opac_original_document_number": "03483",
+    "current_905s_local_call_number_component": "03483",
+    "continuity_status": "DIRECT_NUMERIC_CONTINUITY_ACROSS_HISTORICAL_CATALOG_OPAC_ORIGINAL_DOCUMENT_AND_CURRENT_LOCAL_HOLDINGS_FIELDS",
+    "semantic_collapse_forbidden": true
+  },
+  "microfilm_record": {
+    "sys": "002597934",
+    "uid": "UCS01003581458",
+    "material_type": "缩微品",
+    "year": "1985",
+    "current_holder": "国家图书馆",
+    "reproduction_link_field": "455",
+    "embedded_link_payload_raw": "001411999008601",
+    "embedded_tag": "001",
+    "linked_original_record_control_id": "411999008601",
+    "linked_payload_classification": "455_REPRODUCTION_OF_EMBEDDED_001_RECORD_IDENTIFIER",
+    "physical_shelfmark": false,
+    "barcode": false,
+    "acquisition_or_donation_number": false
+  },
+  "separate_photo_reference": {
+    "raw_value": "00O003570",
+    "source_text": "铜壶漏箭制度另拍在00O003570",
+    "exact_subtype": "UNRESOLVED",
+    "classification": "SEPARATE_PHOTOGRAPH_REFERENCE_ONLY",
+    "current_sys_proved": false,
+    "physical_call_number_proved": false,
+    "barcode_proved": false,
+    "acquisition_or_donation_number_proved": false
+  },
+  "semantic_controls": {
+    "cnmarc_905s": "CNMARC search/index documentation maps 905s to Local Call Numbers.",
+    "sbyl": "NLC sublibrary documentation identifies SBYL as 善本阅览室.",
+    "unimarc_455": "UNIMARC 455 is Reproduction Of and supports embedded linking fields.",
+    "unimarc_001": "Embedded 001 is a record identifier/control number, not a physical item locator."
+  },
+  "acquisition_provenance_adjudication": {
+    "same_1959_catalog_uses_explicit_qu_donation_mark": true,
+    "target_3482_3483_qu_donation_mark_present": false,
+    "general_qu_family_transfer_used_sale_and_donation_channels": true,
+    "secondary_donation_list_target_nonlocation_reported": true,
+    "sale_route_selected": false,
+    "donation_route_selected": false,
+    "final_nlc_acquisition_transfer_path": "UNRESOLVED"
+  },
+  "object_binding_adjudication": {
+    "current_nlc_original_record_for_1823_huang_shiliju_zhunzhai_closed": true,
+    "current_local_holdings_locator_closed": true,
+    "exact_specific_tieqin_catalogued_object_identity": "VERY_STRONGLY_SUPPORTED_NOT_FORMALLY_UNIQUE_OBJECT_CLOSED",
+    "huang_原書舊鈔_vs_錄副_role": "UNRESOLVED",
+    "same_object_edge_authorized": false
+  },
+  "chronology_and_rule_firewall": {
+    "catalog_metadata_does_not_date_work_composition": true,
+    "secure_pre1578_exact_25arrow_physical_witness": false,
+    "exact_yuan_1281_person_identity": "POSSIBLE_NOT_PROVED",
+    "exact_sanming_yueling_dahan_yushui_fingerprint_closed": false,
+    "exact_nanjing_59_endpoint_binding_closed": false,
+    "direct_sanming_parent_vote_increment": 0,
+    "algorithm_reopen_authorized": false
+  },
+  "transmission_impact": {
+    "nodes_added": [
+      "CATALOG-NLC-CURRENT-ZHUNZHAI-SYS001775083-UIDUCS01003828993"
+    ],
+    "nodes_strengthened": [
+      "PHYSICAL-COPY-NLC-ZHUNZHAI-JILOU-DAOGUANG3-HUANG-SHILIJU-MS",
+      "CATALOG-NLC-OPAC-ZHUNZHAI-MICROFILM-002597934"
+    ],
+    "edges_supported": [
+      "TG-E0111"
+    ],
+    "same_object_edge_authorized": false,
+    "direct_copy_edges_authorized": []
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 13,
+    "repaired_provenance_metadata_defect_count": 13,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Locate the current NLC 铜壶漏箭制度 record and test whether its local holdings locator carries NLC:SBYL:03482.",
+    "Resolve the exact first-party identifier class/current route of 00O003570.",
+    "Test whether linked record-control 411999008601 is separately addressable in the current platform and preserve its relationship to SYS 001775083.",
+    "Continue Qu-family sale/donation/transfer/accession archival research without converting catalog silence into a target-specific verdict.",
+    "Keep the pre-1578 Zhunzhai rule line and independent Sanming/Yueling Dahan-Rainwater + Nanjing-59 lines active."
+  ],
+  "updated_at": "2026-09-24"
+}
