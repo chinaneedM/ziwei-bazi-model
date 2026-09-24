@@ -9,7 +9,7 @@
     "tang_zhibo_zhao_yingjie_2026_bibliographic_survey_publication_discussion": {
       "url": "https://www.sohu.com/a/1011488146_121124384",
       "underlying_work": "汤志波、赵颖洁编《中国分省公藏古籍书目总录（1949—2024）》, 上海辞书出版社, 2026, ISBN 9787532664252",
-      "role": "MODERN_BIBLIOGRAPHIC_SURVEY_ATTESTATION_OF_GAO_ANNOTATED_TIEQIN_CATALOG_EXISTENCE_AND_USE",
+      "role": "DEPRECATED_GENERIC_BOOK_DISCUSSION_ALIAS_SUPERSEDED_BY_LIN_ZHENYUE_PREFACE_ATTRIBUTION",
       "observed_claims": [
         "Gao Xizeng accompanied Zhao Wanli in collecting Qu-family books.",
         "Gao left an annotated copy of 《铁琴铜剑楼藏书目录》.",
@@ -20,7 +20,11 @@
       "shelfmark_named": false,
       "public_digital_surrogate_named": false,
       "target_3482_3483_annotation_reproduced": false,
-      "target_transaction_mode_closed": false
+      "target_transaction_mode_closed": false,
+      "deprecated_attribution_alias": true,
+      "superseded_by_key": "lin_zhenyue_2025_preface_gao_annotated_catalog_attestation",
+      "direct_statement_author": "林振岳",
+      "target_statement_is_directly_authored_by_tang_zhibo_or_zhao_yingjie": false
     },
     "gao_xizeng_xueshu_wencun_2022": {
       "urls": [
@@ -66,6 +70,32 @@
       ],
       "target_catalog_custody_proved": false,
       "access_request_route_possible": true
+    },
+    "lin_zhenyue_2025_preface_gao_annotated_catalog_attestation": {
+      "url": "https://www.sohu.com/a/1011488146_121124384",
+      "underlying_work": "汤志波、赵颖洁编《中国分省公藏古籍书目总录（1949—2024）》, 上海辞书出版社, 2026, ISBN 9787532664252",
+      "preface_author": "林振岳",
+      "preface_heading": "序",
+      "preface_dated": "2025-10-30",
+      "preface_place": "东京大学东洋文化研究所",
+      "underlying_volume_compilers": [
+        "汤志波",
+        "赵颖洁"
+      ],
+      "role": "CANONICAL_MODERN_PREFACE_ATTESTATION_OF_GAO_ANNOTATED_TIEQIN_CATALOG_EXISTENCE_AND_USE",
+      "observed_claims": [
+        "Gao Xizeng accompanied Zhao Wanli in collecting Qu-family books.",
+        "Gao left an annotated copy of 《铁琴铜剑楼藏书目录》.",
+        "The annotated copy contains detailed annotations on books he handled.",
+        "The survey discussion uses this kind of historical catalog comparison to trace Qu-family book destinations."
+      ],
+      "current_holding_named": false,
+      "shelfmark_named": false,
+      "public_digital_surrogate_named": false,
+      "target_3482_3483_annotation_reproduced": false,
+      "target_transaction_mode_closed": false,
+      "canonical_source_id": "EXT-LIN-ZHENYUE-2025-PREFACE-QU-TRANSFER-GAO-ANNOTATED-CATALOG",
+      "source_attribution_repaired_by_batch": "BATCH-12-ZIWEI-LIN-ZHENYUE-PREFACE-GAO-ANNOTATED-CATALOG-SOURCE-ATTRIBUTION-FN"
     }
   },
   "search_boundary": {
@@ -80,7 +110,7 @@
     "negative_scope": "REVIEWED_PUBLIC_WEB_INDEXES_ONLY_NOT_GLOBAL_NONEXISTENCE_OR_PRIVATE_CUSTODY_CLAIM"
   },
   "adjudication": {
-    "gao_annotated_tieqin_catalog_existence": "ATTESTED_BY_2026_BIBLIOGRAPHIC_SURVEY_DISCUSSION",
+    "gao_annotated_tieqin_catalog_existence": "ATTESTED_BY_LIN_ZHENYUE_PREFACE",
     "gao_role_in_qu_collection_work": "ATTESTED_IN_MODERN_BIBLIOGRAPHIC_SURVEY_AND_COMPATIBLE_WITH_KNOWN_BEIJING_LIBRARY_ROLE",
     "broader_gao_manuscript_survival": "CLOSED_AT_MODERN_EDITORIAL_CHAIN_LEVEL",
     "gao_bibliographical_manuscript_research_chain": "CLOSED_FOR_OTHER_VERSION_NOTES_MANUSCRIPT_PUBLICATION",
