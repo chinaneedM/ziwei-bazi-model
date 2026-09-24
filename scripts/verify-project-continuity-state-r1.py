@@ -136,6 +136,8 @@ ZIWEI_NLC_DIGITAL_12FJ_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-A
 ZIWEI_NLC_DIGITAL_12FJ_EVIDENCE = ROOT / "docs/research/ZIWEI-NLC-DIGITAL-FID-AND-MICROFILM-REGISTRATION-R1.json"
 ZIWEI_NLC_OPENOBJECT_12FK_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-OPENOBJECT-PUBLIC-SHELL-ACCESS-BOUNDARY-FK.md"
 ZIWEI_NLC_OPENOBJECT_12FK_EVIDENCE = ROOT / "docs/research/ZIWEI-NLC-OPENOBJECT-PUBLIC-SHELL-ACCESS-BOUNDARY-R1.json"
+ZIWEI_QU_NLC_12FL_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-QU-NLC-MIXED-TRANSFER-AND-TARGET-ACQUISITION-BOUNDARY-FL.md"
+ZIWEI_QU_NLC_12FL_EVIDENCE = ROOT / "docs/research/ZIWEI-QU-NLC-MIXED-TRANSFER-AND-TARGET-ACQUISITION-BOUNDARY-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -430,9 +432,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-NLC-CURRENT-TONGHU-COMPOSITE-HOLDINGS-LOCATOR-FI",
     "BATCH-12-ZIWEI-NLC-DIGITAL-FID-AND-MICROFILM-REGISTRATION-FJ",
     "BATCH-12-ZIWEI-NLC-OPENOBJECT-PUBLIC-SHELL-ACCESS-BOUNDARY-FK",
+    "BATCH-12-ZIWEI-QU-NLC-MIXED-TRANSFER-AND-TARGET-ACQUISITION-BOUNDARY-FL",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-OPENOBJECT-PUBLIC-SHELL-ACCESS-BOUNDARY-FK.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-QU-NLC-MIXED-TRANSFER-AND-TARGET-ACQUISITION-BOUNDARY-FL.md"
 
 
 def fail(message: str) -> None:
@@ -1776,6 +1779,44 @@ def main() -> int:
         fail("Batch 12FK genealogy no-new-node/SAME_OBJECT firewall regressed")
     if batch12fk.get("accounting", {}).get("confirmed_provenance_metadata_defect_count") != 13 or batch12fk.get("accounting", {}).get("repaired_provenance_metadata_defect_count") != 13:
         fail("Batch 12FK provenance accounting unexpectedly changed")
+
+    for path in (ZIWEI_QU_NLC_12FL_BATCH, ZIWEI_QU_NLC_12FL_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12FL continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12fl = json.loads(ZIWEI_QU_NLC_12FL_EVIDENCE.read_text(encoding="utf-8"))
+    if batch12fl.get("batch_id") != "BATCH-12-ZIWEI-QU-NLC-MIXED-TRANSFER-AND-TARGET-ACQUISITION-BOUNDARY-FL":
+        fail("Batch 12FL evidence identity mismatch")
+    adj12fl = batch12fl.get("adjudication", {})
+    if adj12fl.get("qu_to_beijing_library_collection_level_transfer_program") != "CLOSED_AS_MIXED_DONATION_AND_PRICED_ACQUISITION_OR_SALE":
+        fail("Batch 12FL collection-level mixed transfer adjudication regressed")
+    if adj12fl.get("target_1959_qu_donation_mark") != "ABSENT_ON_DIRECT_TARGET_ENTRIES":
+        fail("Batch 12FL target Qu-donation-mark boundary regressed")
+    if adj12fl.get("target_specific_donation_route_selected") is not False or adj12fl.get("target_specific_sale_or_purchase_route_selected") is not False or adj12fl.get("target_specific_other_transfer_route_selected") is not False:
+        fail("Batch 12FL target transaction route was falsely selected")
+    if adj12fl.get("final_nlc_acquisition_transfer_path") != "UNRESOLVED":
+        fail("Batch 12FL target acquisition route was falsely closed")
+    if adj12fl.get("missing_qu_donation_mark_implies_sale") is not False or adj12fl.get("wang_donation_list_nonlocation_implies_sale") is not False:
+        fail("Batch 12FL bounded negative-evidence firewall regressed")
+    lead12fl = batch12fl.get("sources", {}).get("gao_xizeng_annotated_catalog_discovery_lead", {})
+    if lead12fl.get("annotated_copy_directly_reviewed_by_project") is not False or lead12fl.get("target_3482_3483_annotation_reviewed") is not False or lead12fl.get("target_transaction_mode_closed") is not False:
+        fail("Batch 12FL Gao annotated-catalog discovery-lead firewall regressed")
+    trans12fl = batch12fl.get("transmission_impact", {})
+    if trans12fl.get("nodes_added") != [] or trans12fl.get("edges_added") != [] or trans12fl.get("acquisition_edge_authorized") is not False or trans12fl.get("same_object_edge_authorized") is not False:
+        fail("Batch 12FL zero-topology/acquisition-edge firewall regressed")
+    rule12fl = batch12fl.get("chronology_and_rule_firewall", {})
+    if rule12fl.get("direct_sanming_parent_vote_increment") != 0 or rule12fl.get("runtime_rule_change") is not False or rule12fl.get("algorithm_reopen_authorized") is not False or rule12fl.get("candidate_collapse_authorized") is not False:
+        fail("Batch 12FL rule/product firewall regressed")
+    if batch12fl.get("accounting", {}).get("confirmed_provenance_metadata_defect_count") != 13 or batch12fl.get("accounting", {}).get("repaired_provenance_metadata_defect_count") != 13:
+        fail("Batch 12FL provenance accounting unexpectedly changed")
+    regids12fl = {x.get("source_id") for x in registry.get("sources", [])}
+    needed12fl = {
+        "EXT-NLC-PCAB-ZHAO-WANLI-QU-TIEQIN-MIXED-TRANSFER-RETROSPECTIVE-2018",
+        "EXT-NLC-PCAB-ZHENG-ZHENDUO-QU-DONATION-AND-PRICED-ACQUISITION-2024",
+        "EXT-TANG-ZHAO-2026-QU-TRANSFER-CATALOG-SEMANTICS-GAO-ANNOTATED-CATALOG-LEAD",
+        "EXT-WANG-XIAOHU-2014-ZHUNZHAI-YUAN-COMPOSITION-STUDY",
+    }
+    if not needed12fl.issubset(regids12fl):
+        fail("Batch 12FL source registry controls incomplete")
 
     for path in (ZIWEI_KYUDB_12DT_BATCH, ZIWEI_KYUDB_12DT_EVIDENCE):
         if not path.is_file():
