@@ -114,6 +114,8 @@ ZIWEI_TIEQIN_QING_MS_12EY_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANC
 ZIWEI_TIEQIN_QING_MS_12EY_EVIDENCE = ROOT / "docs/research/ZIWEI-TIEQIN-QING-MS-ZHUNZHAI-FENGGU-HUANG-PROVENANCE-R1.json"
 ZIWEI_AIRIJINGLU_1827_12EZ_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-AIRIJINGLU1827-ZHUNZHAI-FENGGU-FIRST-EDITION-RECENSION-CONTROL-EZ.md"
 ZIWEI_AIRIJINGLU_1827_12EZ_EVIDENCE = ROOT / "docs/research/ZIWEI-AIRIJINGLU1827-ZHUNZHAI-FENGGU-FIRST-EDITION-RECENSION-CONTROL-R1.json"
+ZIWEI_SHILIJU_1823_12FA_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-SHILIJU1823-ZHUNZHAI-HUANG-PILIE-OLD-COPY-RECOPY-FIREWALL-FA.md"
+ZIWEI_SHILIJU_1823_12FA_EVIDENCE = ROOT / "docs/research/ZIWEI-SHILIJU1823-ZHUNZHAI-HUANG-PILIE-OLD-COPY-RECOPY-FIREWALL-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -397,9 +399,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-AIRIJINGLU1887-ZHUNZHAI-AUTHOR-VARIANT-AND-25ARROW-REPLAY-EX",
     "BATCH-12-ZIWEI-TIEQIN-QING-MS-ZHUNZHAI-FENGGU-HUANG-PROVENANCE-EY",
     "BATCH-12-ZIWEI-AIRIJINGLU1827-ZHUNZHAI-FENGGU-FIRST-EDITION-RECENSION-CONTROL-EZ",
+    "BATCH-12-ZIWEI-SHILIJU1823-ZHUNZHAI-HUANG-PILIE-OLD-COPY-RECOPY-FIREWALL-FA",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-AIRIJINGLU1827-ZHUNZHAI-FENGGU-FIRST-EDITION-RECENSION-CONTROL-EZ.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-SHILIJU1823-ZHUNZHAI-HUANG-PILIE-OLD-COPY-RECOPY-FIREWALL-FA.md"
 
 
 def fail(message: str) -> None:
@@ -1361,6 +1364,25 @@ def main() -> int:
         fail("Batch 12EZ recension-direction firewall regressed")
     if batch12ez.get("sanming_firewall", {}).get("direct_sanming_parent_vote_increment") != 0:
         fail("Batch 12EZ Sanming zero-vote firewall regressed")
+
+    for path in (ZIWEI_SHILIJU_1823_12FA_BATCH, ZIWEI_SHILIJU_1823_12FA_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12FA continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12fa = json.loads(ZIWEI_SHILIJU_1823_12FA_EVIDENCE.read_text(encoding="utf-8"))
+    if batch12fa.get("batch_id") != "BATCH-12-ZIWEI-SHILIJU1823-ZHUNZHAI-HUANG-PILIE-OLD-COPY-RECOPY-FIREWALL-FA":
+        fail("Batch 12FA evidence identity mismatch")
+    read12fa = batch12fa.get("direct_physical_reading", {})
+    if read12fa.get("old_source_and_recopy_explicitly_distinct") is not True:
+        fail("Batch 12FA old-source/recopy distinction regressed")
+    if "原書舊鈔當是影宋" not in read12fa.get("p76", []) or "道光癸未仲冬月蕘夫書" not in read12fa.get("p76", []):
+        fail("Batch 12FA direct Huang paratext reading regressed")
+    fire12fa = batch12fa.get("physical_identity_firewall", {})
+    if fire12fa.get("exact_identity_airijinglu_huang_old_copy_equals_reviewed_1823_object") != "NOT_PROVED" or fire12fa.get("direct_copy_edge_to_airijinglu_1827_authorized") is not False:
+        fail("Batch 12FA Huang-copy identity firewall regressed")
+    if batch12fa.get("yingsong_firewall", {}).get("secure_pre1578_exact_25arrow_physical_witness") is not False:
+        fail("Batch 12FA Ying-Song chronology firewall regressed")
+    if batch12fa.get("sanming_firewall", {}).get("direct_sanming_parent_vote_increment") != 0:
+        fail("Batch 12FA Sanming zero-vote firewall regressed")
 
     for path in (ZIWEI_KYUDB_12DT_BATCH, ZIWEI_KYUDB_12DT_EVIDENCE):
         if not path.is_file():

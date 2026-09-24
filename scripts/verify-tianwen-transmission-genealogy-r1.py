@@ -44,6 +44,7 @@ BATCH_12EW = ROOT / "docs/research/ZIWEI-WENYUANGE1937-ZHUNZHAI-JIULOU-PRINTED-V
 BATCH_12EX = ROOT / "docs/research/ZIWEI-AIRIJINGLU1887-ZHUNZHAI-AUTHOR-VARIANT-AND-25ARROW-REPLAY-R1.json"
 BATCH_12EY = ROOT / "docs/research/ZIWEI-TIEQIN-QING-MS-ZHUNZHAI-FENGGU-HUANG-PROVENANCE-R1.json"
 BATCH_12EZ = ROOT / "docs/research/ZIWEI-AIRIJINGLU1827-ZHUNZHAI-FENGGU-FIRST-EDITION-RECENSION-CONTROL-R1.json"
+BATCH_12FA = ROOT / "docs/research/ZIWEI-SHILIJU1823-ZHUNZHAI-HUANG-PILIE-OLD-COPY-RECOPY-FIREWALL-R1.json"
 
 
 def fail(message: str) -> None:
@@ -51,7 +52,7 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
-    for path in (CHARTER, PROTOCOL, GRAPH, STATE, BATCH_12CH, BATCH_12DP, BATCH_12DQ, BATCH_12DR, BATCH_12DS, BATCH_12DT, BATCH_12DU, BATCH_12DV, BATCH_12DW, BATCH_12DX, BATCH_12DY, BATCH_12DZ, BATCH_12EA, BATCH_12EB, BATCH_12EC, BATCH_12ED, BATCH_12EE, BATCH_12EI, BATCH_12EJ, BATCH_12EK, BATCH_12EL, BATCH_12EM, BATCH_12EN, BATCH_12EO, BATCH_12EP, BATCH_12EQ, BATCH_12ER, BATCH_12ES, BATCH_12ET, BATCH_12EU, BATCH_12EV, BATCH_12EW, BATCH_12EX, BATCH_12EY, BATCH_12EZ):
+    for path in (CHARTER, PROTOCOL, GRAPH, STATE, BATCH_12CH, BATCH_12DP, BATCH_12DQ, BATCH_12DR, BATCH_12DS, BATCH_12DT, BATCH_12DU, BATCH_12DV, BATCH_12DW, BATCH_12DX, BATCH_12DY, BATCH_12DZ, BATCH_12EA, BATCH_12EB, BATCH_12EC, BATCH_12ED, BATCH_12EE, BATCH_12EI, BATCH_12EJ, BATCH_12EK, BATCH_12EL, BATCH_12EM, BATCH_12EN, BATCH_12EO, BATCH_12EP, BATCH_12EQ, BATCH_12ER, BATCH_12ES, BATCH_12ET, BATCH_12EU, BATCH_12EV, BATCH_12EW, BATCH_12EX, BATCH_12EY, BATCH_12EZ, BATCH_12FA):
         if not path.is_file():
             fail(f"Tianwen transmission artifact missing: {path.relative_to(ROOT)}")
 
@@ -1144,6 +1145,21 @@ def main() -> int:
         fail("Batch 12EZ rule-family first-edition/recension firewall regressed")
     if not any(x.get("batch") == "BATCH-12-ZIWEI-AIRIJINGLU1827-ZHUNZHAI-FENGGU-FIRST-EDITION-RECENSION-CONTROL-EZ" and "zero exact sanming-parent vote" in x.get("update","").lower() for x in hyp12dk.get("evidence_updates", [])):
         fail("Batch 12EZ genealogy hypothesis zero-vote update missing")
+
+    edge12fa = next((e for e in edges if e.get("edge_id") == "TG-E0105"), None)
+    if not edge12fa or edge12fa.get("relation") != "ATTESTS" or edge12fa.get("status") != "CONFIRMED" or edge12fa.get("confidence") != "HIGH":
+        fail("Batch 12FA direct-attestation edge regressed")
+    if edge12fa.get("from") != "PHYSICAL-COPY-NLC-ZHUNZHAI-JILOU-DAOGUANG3-HUANG-SHILIJU-MS" or edge12fa.get("to") != "PASSAGE-SHILIJU1823-ZHUNZHAI-HUANG-PILIE-OLD-COPY-RECOPY":
+        fail("Batch 12FA edge endpoints regressed")
+    passage12fa = next((n for n in nodes if n.get("node_id") == "PASSAGE-SHILIJU1823-ZHUNZHAI-HUANG-PILIE-OLD-COPY-RECOPY"), None)
+    if not passage12fa or passage12fa.get("old_source_and_recopy_explicitly_distinct") is not True or passage12fa.get("exact_airijinglu1827_huang_copy_identity") != "NOT_PROVED":
+        fail("Batch 12FA passage copy-layer firewall regressed")
+    phys12fa = next(n for n in nodes if n.get("node_id") == "PHYSICAL-COPY-NLC-ZHUNZHAI-JILOU-DAOGUANG3-HUANG-SHILIJU-MS")
+    ctrl12fa = phys12fa.get("huang_pilie_1823_old_source_recopy_control", {})
+    if ctrl12fa.get("status") != "OLD_SOURCE_VS_RECOPY_LAYERING_DIRECTLY_CLOSED" or ctrl12fa.get("exact_identity_with_airijinglu1827_huang_old_copy") != "NOT_PROVED":
+        fail("Batch 12FA physical-node identity firewall regressed")
+    if not any(x.get("batch") == "BATCH-12-ZIWEI-SHILIJU1823-ZHUNZHAI-HUANG-PILIE-OLD-COPY-RECOPY-FIREWALL-FA" and "zero exact sanming-parent vote" in x.get("update","").lower() for x in hyp12dk.get("evidence_updates", [])):
+        fail("Batch 12FA genealogy hypothesis zero-vote update missing")
 
     ncl = next(n for n in nodes if n.get("node_id") == "PHYSICAL-COPY-SISHI-QIHOU-NCL03164-OLD-MANUSCRIPT")
     if ncl.get("physical_copy_date") != "UNRESOLVED":

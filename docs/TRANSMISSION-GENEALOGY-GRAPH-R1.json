@@ -1367,7 +1367,9 @@
         "EXT-CTEXT-TONGJIANGJI-SUNJUN-SHANJING-1281-CONTROL",
         "docs/research/ZIWEI-ZHUNZHAI-YUAN-SHOUSHI-COMPOSITION-ATTRIBUTION-FIREWALL-R1.json",
         "docs/research/ZIWEI-LEIBIAN1551-SHOUSHI-SELF-ASCRIPTION-ZHUNZHAI-BRIDGE-R1.json",
-        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-LEIBIAN1551-SHOUSHI-SELF-ASCRIPTION-ZHUNZHAI-BRIDGE-ES.md"
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-LEIBIAN1551-SHOUSHI-SELF-ASCRIPTION-ZHUNZHAI-BRIDGE-ES.md",
+        "docs/research/ZIWEI-SHILIJU1823-ZHUNZHAI-HUANG-PILIE-OLD-COPY-RECOPY-FIREWALL-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-SHILIJU1823-ZHUNZHAI-HUANG-PILIE-OLD-COPY-RECOPY-FIREWALL-FA.md"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-XUXIU1031-ZHUNZHAI-CLEPSYDRA-JIEHOU-ARROW-SELECTION-DV",
       "pre1578_title_family_catalog_attestation_status": "CLOSED_AT_1441_CATALOG_TEXT_LAYER",
@@ -1375,7 +1377,17 @@
       "received_song_attribution_status": "CONTESTED_LATE_BIBLIOGRAPHIC_TRADITION_NOT_PRIMARY_COMPOSITION_PROOF",
       "yuan_composition_hypothesis_status": "STRONGLY_CORROBORATED_NOT_PRIMARY_COLOPHON_CLOSED",
       "yanling_sun_fengji_1281_identity_with_zhunzhai_author": "POSSIBLE_NOT_PROVED",
-      "direct_pre1578_shoushi_ascribed_table_bridge_status": "EXACT_FIRST_STATE_MATCH_CLOSED_FULL_25ARROW_REPLAY_OPEN"
+      "direct_pre1578_shoushi_ascribed_table_bridge_status": "EXACT_FIRST_STATE_MATCH_CLOSED_FULL_25ARROW_REPLAY_OPEN",
+      "huang_pilie_1823_old_source_recopy_control": {
+        "status": "OLD_SOURCE_VS_RECOPY_LAYERING_DIRECTLY_CLOSED",
+        "paratext_page": 76,
+        "direct_old_source_term": "原書舊鈔",
+        "direct_recopy_term": "錄副",
+        "direct_yingsong_judgment": "原書舊鈔當是影宋",
+        "date": "道光癸未仲冬月",
+        "reviewed_object_exact_role": "UNRESOLVED",
+        "exact_identity_with_airijinglu1827_huang_old_copy": "NOT_PROVED"
+      }
     },
     {
       "node_id": "RULE-FAMILY-ZHUNZHAI-25ARROW-JIEHOU-SELECTION-38-62",
@@ -1544,6 +1556,14 @@
         "force_normalization_authorized": false,
         "exact_mutation_event_proved": false,
         "exact_huang_copy_identity_with_nlc_1823": "NOT_PROVED"
+      },
+      "huang_pilie_1823_copy_layer_firewall": {
+        "old_source_vs_recopy": "DIRECTLY_DISTINCT",
+        "old_source_term": "原書舊鈔",
+        "recopy_term": "錄副",
+        "yingsong_judgment_scope": "QING_BIBLIOGRAPHIC_JUDGMENT_NOT_PHYSICAL_DATE",
+        "exact_airijinglu1827_source_object_identity": "NOT_PROVED",
+        "force_one_object_collapse": false
       }
     },
     {
@@ -2366,6 +2386,28 @@
         "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-AIRIJINGLU1827-ZHUNZHAI-FENGGU-FIRST-EDITION-RECENSION-CONTROL-EZ.md"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-AIRIJINGLU1827-ZHUNZHAI-FENGGU-FIRST-EDITION-RECENSION-CONTROL-EZ"
+    },
+    {
+      "node_id": "PASSAGE-SHILIJU1823-ZHUNZHAI-HUANG-PILIE-OLD-COPY-RECOPY",
+      "node_type": "PASSAGE",
+      "label": "1823 士禮居《準齋》黃丕烈跋：原書舊鈔／錄副分層",
+      "system_scope": "QING_1823_PARATEXT_CONTROL_FOR_HUANG_SOURCE_COPY_AND_RECOPY_LAYERING",
+      "physical_locator": "Xuxiu1031 PDF p76",
+      "target_page_sha256": "64aad110e3cba4984cb784e9f97c99044fbc25e39a06744000a7a606ba73ffeb",
+      "direct_date": "道光癸未仲冬月蕘夫書",
+      "direct_old_source_term": "原書舊鈔",
+      "direct_recopy_term": "錄副",
+      "direct_yingsong_judgment": "原書舊鈔當是影宋",
+      "old_source_and_recopy_explicitly_distinct": true,
+      "yingsong_is_qing_judgment_not_physical_date": true,
+      "exact_airijinglu1827_huang_copy_identity": "NOT_PROVED",
+      "direct_copy_edge_to_airijinglu1827_authorized": false,
+      "evidence": [
+        "EXT-XUXIU1031-ZHUNZHAI-TONGHU-CLEPSYDRA-QING-MSS-PHYSICAL",
+        "docs/research/ZIWEI-SHILIJU1823-ZHUNZHAI-HUANG-PILIE-OLD-COPY-RECOPY-FIREWALL-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-SHILIJU1823-ZHUNZHAI-HUANG-PILIE-OLD-COPY-RECOPY-FIREWALL-FA.md"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-SHILIJU1823-ZHUNZHAI-HUANG-PILIE-OLD-COPY-RECOPY-FIREWALL-FA"
     }
   ],
   "edges": [
@@ -3953,6 +3995,22 @@
       ],
       "scope_note": "Confirms the dated 1827 Airijinglu Fenggu header/Huang-copy note and a bounded 1827/1887 recension difference. It does not prove original author identity, exact mutation direction, exact Huang source-copy identity, pre-1578 rule prose, or Sanming parentage.",
       "adjudication_batch": "BATCH-12-ZIWEI-AIRIJINGLU1827-ZHUNZHAI-FENGGU-FIRST-EDITION-RECENSION-CONTROL-EZ"
+    },
+    {
+      "edge_id": "TG-E0105",
+      "from": "PHYSICAL-COPY-NLC-ZHUNZHAI-JILOU-DAOGUANG3-HUANG-SHILIJU-MS",
+      "relation": "ATTESTS",
+      "to": "PASSAGE-SHILIJU1823-ZHUNZHAI-HUANG-PILIE-OLD-COPY-RECOPY",
+      "status": "CONFIRMED",
+      "confidence": "HIGH",
+      "evidence_class": "DIRECT_SOURCE_BOUND_1823_SHILIJU_P76_PARATEXT_REVIEW_NO_OCR_FINAL_AUTHORITY",
+      "evidence": [
+        "Xuxiu1031 PDF p76 sha256 64aad110e3cba4984cb784e9f97c99044fbc25e39a06744000a7a606ba73ffeb",
+        "EXT-XUXIU1031-ZHUNZHAI-TONGHU-CLEPSYDRA-QING-MSS-PHYSICAL",
+        "docs/research/ZIWEI-SHILIJU1823-ZHUNZHAI-HUANG-PILIE-OLD-COPY-RECOPY-FIREWALL-R1.json"
+      ],
+      "scope_note": "Confirms Huang's received 1823 distinction between 原書舊鈔 and 錄副 and his 當是影宋 judgment. It does not prove the reviewed 1823 object is the older source, prove a Song physical witness, or identify the 1827 Airijinglu Huang old-copy source with this exact surviving object.",
+      "adjudication_batch": "BATCH-12-ZIWEI-SHILIJU1823-ZHUNZHAI-HUANG-PILIE-OLD-COPY-RECOPY-FIREWALL-FA"
     }
   ],
   "lineage_hypotheses": [
@@ -4205,6 +4263,10 @@
         {
           "batch": "BATCH-12-ZIWEI-AIRIJINGLU1827-ZHUNZHAI-FENGGU-FIRST-EDITION-RECENSION-CONTROL-EZ",
           "update": "Direct 300-dpi NLC Daoguang-7 1827 Airijinglu review moves the physical Fenggu header control back to 1827: 準齋心製几漏圖式一卷 / 抄本 / 宋孫逢古撰 / 文淵閣書目著錄 / 從吳門黃氏藏舊抄本影寫. The complete bounded 1827 p50-p51 entry does not show the 1887 same-entry body sentence 由此逢吉以心法創茲小壺 before the next title, so an 1827/1887 recension difference is confirmed while change direction remains unresolved. Earlier 1602/1605 孫逢吉 controls retain priority; zero exact Sanming-parent vote is added."
+        },
+        {
+          "batch": "BATCH-12-ZIWEI-SHILIJU1823-ZHUNZHAI-HUANG-PILIE-OLD-COPY-RECOPY-FIREWALL-FA",
+          "update": "Direct source-bound re-review of the 1823 Shiliju p76 Huang paratext separates 原書舊鈔 from 錄副 and dates the note 道光癸未仲冬月. Huang's 原書舊鈔當是影宋 is a Qing bibliographic judgment, not physical dating. The 1827 Airijinglu 從吳門黃氏藏舊抄本影寫 route therefore cannot be collapsed onto the currently reviewed 1823 object without further object-level proof. Zero exact Sanming-parent vote is added."
         }
       ],
       "endpoint_anchor_component_identified": true,

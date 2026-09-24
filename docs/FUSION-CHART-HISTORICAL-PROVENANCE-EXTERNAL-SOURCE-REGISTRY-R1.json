@@ -5282,7 +5282,7 @@
       "url": "https://commons.wikimedia.org/wiki/File:%E7%BA%8C%E4%BF%AE%E5%9B%9B%E5%BA%AB%E5%85%A8%E6%9B%B8%E7%AC%AC1031%E5%86%8A.pdf",
       "source_role": "DIRECT_PUBLIC_PHYSICAL_REPRODUCTION_FOR_RECEIVED_CLEPSYDRA_ARROW_SELECTION_MECHANISM_WITH_QING_COPY_DATE_FIREWALL",
       "source_pdf_sha256": "07348e40ec26ca38efe9c9736a69c403c61f9b07a2c89a847fc68d00ce6d8c25",
-      "quality_notes": "Batch 12DV direct no-OCR review. PDF p71 explicitly gives hundred-ke seasonal variation, twenty-five arrows, winter-solstice forward selection, summer-solstice reverse selection, and 日曆/節候 reference. p72 first arrow is 38/62; p76 twenty-fifth arrow is 62/38. p78 opens 銅壺漏箭制度 and p86 directly prints a 60/40 seasonal pair. These facts strengthen the historical discrete-arrow selection mechanism class but directly mismatch the 1578 Sanming 59/41 endpoint. Xuxiu metadata identifies the reviewed underlying manuscripts as Qing Daoguang-3 Huang-family Shiliju copies; Song work attribution is not a pre-1578 physical-copy claim. Batch 12EQ adds a 1441 catalog-text title-family antecedent (準齋九漏新式) from 《文淵閣書目》, but explicitly does not backdate the exact 25-arrow wording or the 1823 physical manuscript. Batch 12ER adds a chronology-attribution refinement: modern specialist scholarship argues for Yuan/Shoushi-period composition, and repository replay finds the 1823 first-arrow state (winter solstice through Xiaohan+4, 38/62) exactly matches the source-bound 1551 Leibian fine-table first state. This strongly corroborates a Yuan/Shoushi textual substrate but does not date the surviving 1823 manuscript or close the exact pre-1578 25-arrow wording. Batch 12ET directly uses source-bound p73 (SHA256 1984fab8...) and p76 to extend the 1551 bridge: arrow 8 gives 45/55 with 雨水日→雨水後五日 and 霜降前一日→霜降後四日; arrow 9 gives 46/54 beginning 雨水後六日; arrow 25 gives 夏至日→小暑後六日 at 62/38. This resolves/controls specific 1551 p20 anomalies but does not prove a direct Zhunzhai↔Leibian copying direction or close all 25 rows.",
+      "quality_notes": "Batch 12DV direct no-OCR review. PDF p71 explicitly gives hundred-ke seasonal variation, twenty-five arrows, winter-solstice forward selection, summer-solstice reverse selection, and 日曆/節候 reference. p72 first arrow is 38/62; p76 twenty-fifth arrow is 62/38. p78 opens 銅壺漏箭制度 and p86 directly prints a 60/40 seasonal pair. These facts strengthen the historical discrete-arrow selection mechanism class but directly mismatch the 1578 Sanming 59/41 endpoint. Xuxiu metadata identifies the reviewed underlying manuscripts as Qing Daoguang-3 Huang-family Shiliju copies; Song work attribution is not a pre-1578 physical-copy claim. Batch 12EQ adds a 1441 catalog-text title-family antecedent (準齋九漏新式) from 《文淵閣書目》, but explicitly does not backdate the exact 25-arrow wording or the 1823 physical manuscript. Batch 12ER adds a chronology-attribution refinement: modern specialist scholarship argues for Yuan/Shoushi-period composition, and repository replay finds the 1823 first-arrow state (winter solstice through Xiaohan+4, 38/62) exactly matches the source-bound 1551 Leibian fine-table first state. This strongly corroborates a Yuan/Shoushi textual substrate but does not date the surviving 1823 manuscript or close the exact pre-1578 25-arrow wording. Batch 12ET directly uses source-bound p73 (SHA256 1984fab8...) and p76 to extend the 1551 bridge: arrow 8 gives 45/55 with 雨水日→雨水後五日 and 霜降前一日→霜降後四日; arrow 9 gives 46/54 beginning 雨水後六日; arrow 25 gives 夏至日→小暑後六日 at 62/38. This resolves/controls specific 1551 p20 anomalies but does not prove a direct Zhunzhai↔Leibian copying direction or close all 25 rows. Batch 12FA re-adjudicates the source-bound p76 Huang paratext and directly separates 原書舊鈔 from 錄副. The phrase 原書舊鈔當是影宋 is preserved as Huang's Qing bibliographic judgment, not as physical dating. This blocks automatic identity between the 1827 Airijinglu 從吳門黃氏藏舊抄本影寫 source and the currently reviewed 1823 Shiliju physical object.",
       "batch_12dv": {
         "workflow_run_id": 35438178430,
         "workflow_job_id": 105884323863,
@@ -5337,6 +5337,18 @@
         "full_25arrow_replay_closed": false,
         "direct_copy_direction_proved": false,
         "research_artifact": "docs/research/ZIWEI-LEIBIAN1551-ZHUNZHAI-MULTIPOINT-AND-CORRUPTION-REPLAY-R1.json"
+      },
+      "batch_12fa": {
+        "target_page": 76,
+        "target_page_sha256": "64aad110e3cba4984cb784e9f97c99044fbc25e39a06744000a7a606ba73ffeb",
+        "direct_old_source_term": "原書舊鈔",
+        "direct_recopy_term": "錄副",
+        "direct_yingsong_judgment": "原書舊鈔當是影宋",
+        "direct_date": "道光癸未仲冬月蕘夫書",
+        "old_source_and_recopy_explicitly_distinct": true,
+        "exact_airijinglu1827_source_identity_with_reviewed_1823_object": "NOT_PROVED",
+        "secure_pre1578_physical_witness": false,
+        "research_artifact": "docs/research/ZIWEI-SHILIJU1823-ZHUNZHAI-HUANG-PILIE-OLD-COPY-RECOPY-FIREWALL-R1.json"
       }
     },
     {
