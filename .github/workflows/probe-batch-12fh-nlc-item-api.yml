@@ -1,0 +1,104 @@
+name: probe-batch-12fh-nlc-item-api
+
+on:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - '.github/workflows/probe-batch-12fh-nlc-item-api.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Probe NLC item detail API
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/batch-12fh-nlc-item-api'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT/raw"
+          UA='Tianwen-Provenance-Audit/1.0'
+          cat > "$ROOT/targets.tsv" <<'EOF'
+          target-original	UCS01003828993	准齋心製几漏圖式
+          target-microfilm	UCS01003581458	准斋心制几漏图式
+          positive-control	UCS01002865167	多发性骨髓瘤14q32染色体易位的分子生物学研究
+          EOF
+          : > "$ROOT/status.tsv"
+          while IFS=$'\t' read -r key uid title; do
+            url=$(UID="$uid" TITLE="$title" python - <<'PY'
+          import os
+          from urllib.parse import quote
+          print('https://meta.nlc.cn/api/v1/item/'+quote(os.environ['UID'],safe='')+'/1/999?b_tit='+quote(os.environ['TITLE']))
+          PY
+            )
+            out="$ROOT/raw/$key.json"
+            set +e
+            code=$(curl -L -sS --connect-timeout 8 --max-time 30 \
+              -A "$UA" -H 'Accept: application/json, text/javascript, */*; q=0.01' \
+              -H 'X-Requested-With: XMLHttpRequest' \
+              -H "Referer: https://meta.nlc.cn/v2/detail/$uid" \
+              -X POST -o "$out" -w '%{http_code}' "$url")
+            rc=$?
+            set -e
+            size=0; [ -f "$out" ] && size=$(wc -c < "$out")
+            printf '%s\t%s\trc=%s\thttp=%s\tbytes=%s\t%s\n' "$key" "$uid" "$rc" "$code" "$size" "$url" >> "$ROOT/status.tsv"
+          done < "$ROOT/targets.tsv"
+
+          python - <<'PY'
+          from pathlib import Path
+          import json,re
+          root=Path('audit/batch-12fh-nlc-item-api')
+          out=[]
+          keys=re.compile(r'(?i)(call|shelf|barcode|access|register|login|item|holding|location|905|906|索书|索書|条码|條碼|登录|登錄|登记|登記|馆藏|館藏|排架|财产|財產|典藏|入藏)')
+          for p in sorted((root/'raw').glob('*.json')):
+              out.append('### '+p.name)
+              try:
+                  obj=json.loads(p.read_text('utf-8'))
+              except Exception as e:
+                  out.append('PARSE_ERROR '+repr(e)); continue
+              out.append('TOP '+json.dumps({k:obj.get(k) for k in obj if k!='result'},ensure_ascii=False,separators=(',',':')))
+              result=obj.get('result') or {}
+              out.append('RESULT_KEYS '+repr(sorted(result.keys())))
+              for section in ('biblio','esBook','holding','b_tit'):
+                  v=result.get(section)
+                  out.append(section.upper()+' '+json.dumps(v,ensure_ascii=False,separators=(',',':')))
+              def walk(v,path=''):
+                  if isinstance(v,dict):
+                      for k,val in v.items():
+                          np=path+'.'+str(k) if path else str(k)
+                          if keys.search(str(k)):
+                              out.append('KEYHIT '+np+'='+json.dumps(val,ensure_ascii=False,separators=(',',':')))
+                          walk(val,np)
+                  elif isinstance(v,list):
+                      for i,val in enumerate(v):
+                          walk(val,f'{path}[{i}]')
+                  elif isinstance(v,str) and keys.search(v):
+                      out.append('VALHIT '+path+'='+json.dumps(v,ensure_ascii=False))
+              walk(result)
+          root.joinpath('summary.txt').write_text('\n'.join(out)+'\n',encoding='utf-8')
+          PY
+
+          find "$ROOT" -type f -size +0c -print0 | xargs -0 -r sha256sum | sort -V > "$ROOT/all-files.sha256"
+          printf '%s\n' \
+            'SOURCE=National Library of China current meta.nlc.cn item detail API disclosed by /v2/detail JavaScript' \
+            'TARGET_ORIGINAL=UID UCS01003828993 / SYS 001775083 / 1823 Huang Shiliju rare book' \
+            'TARGET_MICROFILM=UID UCS01003581458 / SYS 002597934 / 1985 microfilm' \
+            'PURPOSE=inspect full current biblio/esBook/holding payload for explicitly labelled call number, barcode, registration or item identifier' \
+            'IDENTIFIER_FIREWALL=UID and SYS are catalog/system identifiers unless an item/call/barcode field explicitly says otherwise' \
+            'OCR_USED=false' > "$ROOT/manifest.txt"
+
+      - name: Upload item API evidence probe
+        uses: actions/upload-artifact@v4
+        with:
+          name: batch-12fh-nlc-item-api-probe
+          path: audit/batch-12fh-nlc-item-api/
+          if-no-files-found: error
+          retention-days: 30
