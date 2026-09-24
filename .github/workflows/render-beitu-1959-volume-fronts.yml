@@ -1,0 +1,82 @@
+name: render-beitu-1959-volume-fronts
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/render-beitu-1959-volume-fronts.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install render tools
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils imagemagick
+
+      - name: Render first 12 pages of all eight volumes
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/beitu-1959-volume-fronts'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT/contacts" "$ROOT/meta"
+          : > "$ROOT/status.tsv"
+
+          for vol in $(seq 1 8); do
+            ssid=$((12335506+vol))
+            title="SSID-${ssid} 北京圖書館善本書目 ${vol}.pdf"
+            api=$(TITLE="$title" python - <<'PY'
+          import os,urllib.parse
+          q={'action':'query','format':'json','prop':'imageinfo','iiprop':'url','titles':'File:'+os.environ['TITLE']}
+          print('https://commons.wikimedia.org/w/api.php?'+urllib.parse.urlencode(q))
+          PY
+            )
+            meta="$ROOT/meta/vol-$vol.json"
+            curl -L --fail --retry 5 --retry-all-errors --retry-delay 2 -A 'Tianwen-Provenance-Audit/1.0' "$api" -o "$meta"
+            url=$(META="$meta" python - <<'PY'
+          import json,os
+          d=json.load(open(os.environ['META'],encoding='utf-8'))
+          p=next(iter(d['query']['pages'].values()))
+          print(p['imageinfo'][0]['url'])
+          PY
+            )
+            pdf="$ROOT/vol-$vol.pdf"
+            curl -L --fail --retry 5 --retry-all-errors --retry-delay 2 -A 'Tianwen-Provenance-Audit/1.0' "$url" -o "$pdf"
+            pages=$(pdfinfo "$pdf" | awk '/^Pages:/ {print $2}')
+            n=12; [ "$pages" -lt 12 ] && n="$pages"
+            mkdir -p "$ROOT/tmp-$vol"
+            pdftoppm -f 1 -l "$n" -jpeg -jpegopt quality=88 -r 125 "$pdf" "$ROOT/tmp-$vol/page" >/dev/null 2>&1
+            mapfile -t imgs < <(find "$ROOT/tmp-$vol" -name 'page-*.jpg' | sort -V)
+            test "${#imgs[@]}" -eq "$n"
+            montage "${imgs[@]}" -thumbnail 320x620 -label '%f' -tile 4x3 -geometry +10+26 "$ROOT/contacts/vol-$vol-front12.jpg"
+            printf '%s\t%s\t%s\t%s\n' "$vol" "$ssid" "$pages" "$(sha256sum "$pdf" | awk '{print $1}')" >> "$ROOT/status.tsv"
+            rm -rf "$ROOT/tmp-$vol" "$pdf"
+          done
+
+          sha256sum "$ROOT"/contacts/*.jpg | sort -V > "$ROOT/contacts.sha256"
+          printf '%s\n' \
+            'SOURCE=北京圖書館善本書目 1959 / 8冊 / Wikimedia Commons scans' \
+            'METHOD=first 12 pages of every volume rendered at 125 dpi and montaged 4x3' \
+            'PURPOSE=identify which volume contains 子部 / 天文算法 before bounded full-volume image locator' \
+            'OCR_USED=false' \
+            > "$ROOT/manifest.txt"
+
+      - name: Upload volume-front contacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: beitu-1959-volume-fronts
+          path: audit/beitu-1959-volume-fronts/
+          if-no-files-found: error
+          compression-level: 6
+          retention-days: 30
