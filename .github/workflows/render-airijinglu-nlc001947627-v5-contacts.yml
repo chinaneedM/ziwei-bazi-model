@@ -1,0 +1,83 @@
+name: render-airijinglu-nlc001947627-v5-contacts
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/render-airijinglu-nlc001947627-v5-contacts.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Render alternate NLC volume 5 direct contacts
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/airijinglu-nlc001947627-v5-contacts'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT/pages" "$ROOT/contacts"
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils >/dev/null
+          python -m pip install --quiet pillow
+
+          URL='https://commons.wikimedia.org/wiki/Special:Redirect/file/NLC892-001947627-317258%20%E6%84%9B%E6%97%A5%E7%B2%BE%E5%BB%AC%E8%97%8F%E6%9B%B8%E5%BF%97%20%E4%B8%89%E5%8D%81%E5%85%AD%E5%8D%B7%E7%BA%8C%E5%BF%97%E5%9B%9B%E5%8D%B7%20%E7%AC%AC5%E5%86%8A.pdf'
+          curl -fL --retry 4 --retry-delay 2 -A 'Tianwen-Provenance-Audit/1.0' "$URL" -o "$ROOT/source.pdf"
+          sha256sum "$ROOT/source.pdf" | tee "$ROOT/source-sha256.txt"
+          pdfinfo "$ROOT/source.pdf" | tee "$ROOT/pdfinfo.txt"
+          pdftoppm -jpeg -r 100 "$ROOT/source.pdf" "$ROOT/pages/page" >/dev/null 2>&1
+
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image,ImageDraw
+          import re,json,hashlib
+          root=Path('audit/airijinglu-nlc001947627-v5-contacts')
+          pages=sorted((root/'pages').glob('page-*.jpg'),key=lambda p:int(re.search(r'-(\\d+)\\.jpg$',p.name).group(1)))
+          manifest=[]
+          for p in pages:
+              n=int(re.search(r'-(\\d+)\\.jpg$',p.name).group(1))
+              im=Image.open(p)
+              manifest.append({'pdf_page':n,'sha256':hashlib.sha256(p.read_bytes()).hexdigest(),
+                               'width':im.width,'height':im.height})
+          per=6; cols=2
+          for start in range(0,len(pages),per):
+              chunk=pages[start:start+per]; thumbs=[]
+              for p in chunk:
+                  n=int(re.search(r'-(\\d+)\\.jpg$',p.name).group(1))
+                  im=Image.open(p).convert('RGB'); tw=720
+                  im=im.resize((tw,max(1,int(im.height*tw/im.width))))
+                  c=Image.new('RGB',(tw,im.height+44),'white'); c.paste(im,(0,44))
+                  ImageDraw.Draw(c).text((12,12),f'PDF p{n}',fill='black'); thumbs.append(c)
+              cw=max(x.width for x in thumbs); ch=max(x.height for x in thumbs)
+              rows=(len(thumbs)+cols-1)//cols
+              sheet=Image.new('RGB',(cols*cw,rows*ch),'white')
+              for i,t in enumerate(thumbs): sheet.paste(t,((i%cols)*cw,(i//cols)*ch))
+              lo=int(re.search(r'-(\\d+)\\.jpg$',chunk[0].name).group(1))
+              hi=int(re.search(r'-(\\d+)\\.jpg$',chunk[-1].name).group(1))
+              sheet.save(root/'contacts'/f'contact-{lo:03d}-{hi:03d}.jpg',quality=96)
+          report={
+            'schema':'AIRIJINGLU-NLC001947627-V5-CONTACTS-R1',
+            'set_id':'NLC892-001947627',
+            'volume_file':'317258 第5冊',
+            'source_sha256':hashlib.sha256((root/'source.pdf').read_bytes()).hexdigest(),
+            'manifest':manifest,
+            'authority':'DIRECT_PAGE_IMAGE_STRUCTURAL_LOCATOR; HIGH_RES_TARGET_REQUIRED_FOR_FINAL_GLYPHS'
+          }
+          (root/'report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\\n')
+          PY
+
+          rm "$ROOT/source.pdf" "$ROOT"/pages/*.jpg
+
+      - name: Upload volume 5 contacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: airijinglu-nlc001947627-v5-contacts-r1
+          path: audit/airijinglu-nlc001947627-v5-contacts
+          if-no-files-found: error
+          retention-days: 30
