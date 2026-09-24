@@ -86,7 +86,7 @@ jobs:
           printf '%s\n' \
             'SOURCE=National Library of China current meta.nlc.cn /v2/doSearch' \
             'PURPOSE=field-level test whether legacy OPAC doc_number values are indexed as SYS; positive control SYS=003145713 comes directly from a current NLC holdings result' \
-            'TARGETS=001775083 original rare-book doc; 002597934 microfilm doc; 001411999008601 source-control candidate' \
+            'TARGETS=001775083 original rare-book doc; 002597934 microfilm doc; raw 455$1 sequence 001411999008601; parsed embedded-001 control 411999008601; 423a linked-control candidate 411999008' \
             'NEGATIVE_POLICY=no result means not exposed under current SYS index at probe time, not physical nonexistence' \
             'OCR_USED=false' > "$ROOT/manifest.txt"
 
