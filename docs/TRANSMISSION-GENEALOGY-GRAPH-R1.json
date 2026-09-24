@@ -1388,7 +1388,13 @@
         "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-CURRENT-SYS-ITEM-HOLDINGS-LOCATOR-FH.md",
         "EXT-NLC-META-TONGHU-CURRENT-SYS001775082-ITEM-HOLDINGS",
         "docs/research/ZIWEI-NLC-CURRENT-TONGHU-COMPOSITE-HOLDINGS-LOCATOR-R1.json",
-        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-CURRENT-TONGHU-COMPOSITE-HOLDINGS-LOCATOR-FI.md"
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-CURRENT-TONGHU-COMPOSITE-HOLDINGS-LOCATOR-FI.md",
+        "EXT-NLC-READ-DATA892-TONGHU-FID411999008600",
+        "EXT-NLC-READ-DATA892-ZHUNZHAI-FID411999008601",
+        "EXT-NLC-META-MICROFILM-TONGHU-SYS002146415-905B00O003570",
+        "EXT-NLC-META-MICROFILM-ZHUNZHAI-SYS002146416-905B00O003571",
+        "docs/research/ZIWEI-NLC-DIGITAL-FID-AND-MICROFILM-REGISTRATION-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-DIGITAL-FID-AND-MICROFILM-REGISTRATION-FJ.md"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-XUXIU1031-ZHUNZHAI-CLEPSYDRA-JIEHOU-ARROW-SELECTION-DV",
       "pre1578_title_family_catalog_attestation_status": "CLOSED_AT_1441_CATALOG_TEXT_LAYER",
@@ -1532,6 +1538,33 @@
           "tonghu": "3482",
           "zhunzhai": "3483"
         },
+        "public_barcode_proved": false,
+        "final_acquisition_path": "UNRESOLVED",
+        "same_object_edge_authorized": false
+      },
+      "nlc_digital_and_microfilm_identifier_layers_12fj": {
+        "batch": "BATCH-12-ZIWEI-NLC-DIGITAL-FID-AND-MICROFILM-REGISTRATION-FJ",
+        "digital_fids": {
+          "tonghu": "411999008600",
+          "zhunzhai": "411999008601"
+        },
+        "read_object_bids": {
+          "tonghu": "113028",
+          "zhunzhai": "113029"
+        },
+        "microfilm_work_sys": {
+          "tonghu": "002146415",
+          "zhunzhai": "002146416"
+        },
+        "microfilm_registration_login_numbers": {
+          "tonghu": "00O003570",
+          "zhunzhai": "00O003571"
+        },
+        "original_rare_book_local_call_pair": {
+          "tonghu": "NLC:SBYL:03482",
+          "zhunzhai": "NLC:SBYL:03483"
+        },
+        "identifier_layer_collapse_forbidden": true,
         "public_barcode_proved": false,
         "final_acquisition_path": "UNRESOLVED",
         "same_object_edge_authorized": false
@@ -2757,6 +2790,28 @@
         "separate_photo_reference_referents_closed": true,
         "separate_photo_reference_identifier_class": "SEPARATE_PHOTOGRAPH_REFERENCE_ONLY",
         "current_sys_crosswalk_proved": false
+      },
+      "digital_fid_and_microfilm_registration_12fj": {
+        "tonghu": {
+          "raw_455_embedded_payload": "001411999008600",
+          "parsed_linked_record_control_id": "411999008600",
+          "read_data_892_fid": "411999008600",
+          "read_bid": "113028",
+          "microfilm_work_sys": "002146415",
+          "field_905b_registration_login_number": "00O003570"
+        },
+        "zhunzhai": {
+          "raw_455_embedded_payload": "001411999008601",
+          "parsed_linked_record_control_id": "411999008601",
+          "read_data_892_fid": "411999008601",
+          "read_bid": "113029",
+          "microfilm_work_sys": "002146416",
+          "field_905b_registration_login_number": "00O003571"
+        },
+        "field_905b_semantic_class": "MICROFILM_REGISTRATION_LOGIN_NUMBER",
+        "current_meta_sys_equivalence": false,
+        "public_barcode_proved": false,
+        "historical_acquisition_number_proved": false
       }
     },
     {
@@ -2882,6 +2937,106 @@
         "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-CURRENT-TONGHU-COMPOSITE-HOLDINGS-LOCATOR-FI.md"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-NLC-CURRENT-TONGHU-COMPOSITE-HOLDINGS-LOCATOR-FI"
+    },
+    {
+      "node_id": "DIGITAL-NLC-DATA892-TONGHU-FID411999008600-BID113028",
+      "node_type": "DIGITAL_SURROGATE",
+      "label": "國家圖書館數字古籍《銅壺漏箭制度》data_892 FID 411999008600 / bid 113028",
+      "system_scope": "MODERN_NLC_DIGITAL_ANCIENT_BOOK_RESOURCE_AND_READING_OBJECT",
+      "date": "CURRENT_PUBLIC_READ_NLC_OBSERVED_2026-09-24",
+      "locator": "http://read.nlc.cn/allSearch/searchDetail?searchType=10024&showType=1&indexName=data_892&fid=411999008600",
+      "index_name": "data_892",
+      "fid": "411999008600",
+      "aid": "892",
+      "bid": "113028",
+      "direct_title": "銅壺漏箭制度",
+      "cover_image": "img892/SBGJ03908_00001.jpg",
+      "current_meta_sys_equivalence_proved": false,
+      "public_barcode_proved": false,
+      "evidence": [
+        "EXT-NLC-READ-DATA892-TONGHU-FID411999008600",
+        "docs/research/ZIWEI-NLC-DIGITAL-FID-AND-MICROFILM-REGISTRATION-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-DIGITAL-FID-AND-MICROFILM-REGISTRATION-FJ.md"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-NLC-DIGITAL-FID-AND-MICROFILM-REGISTRATION-FJ"
+    },
+    {
+      "node_id": "DIGITAL-NLC-DATA892-ZHUNZHAI-FID411999008601-BID113029",
+      "node_type": "DIGITAL_SURROGATE",
+      "label": "國家圖書館數字古籍《準齋心製几漏圖式》data_892 FID 411999008601 / bid 113029",
+      "system_scope": "MODERN_NLC_DIGITAL_ANCIENT_BOOK_RESOURCE_AND_READING_OBJECT",
+      "date": "CURRENT_PUBLIC_READ_NLC_OBSERVED_2026-09-24",
+      "locator": "http://read.nlc.cn/allSearch/searchDetail?searchType=10024&showType=1&indexName=data_892&fid=411999008601",
+      "index_name": "data_892",
+      "fid": "411999008601",
+      "aid": "892",
+      "bid": "113029",
+      "direct_title": "准齋心製几漏圖式",
+      "cover_image": "img892/SBGJ03909_00001.jpg",
+      "current_meta_sys_equivalence_proved": false,
+      "public_barcode_proved": false,
+      "evidence": [
+        "EXT-NLC-READ-DATA892-ZHUNZHAI-FID411999008601",
+        "docs/research/ZIWEI-NLC-DIGITAL-FID-AND-MICROFILM-REGISTRATION-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-DIGITAL-FID-AND-MICROFILM-REGISTRATION-FJ.md"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-NLC-DIGITAL-FID-AND-MICROFILM-REGISTRATION-FJ"
+    },
+    {
+      "node_id": "MICROFILM-NLC-TONGHU-SYS002146415-LOGIN00O003570",
+      "node_type": "DIGITAL_SURROGATE",
+      "label": "國家圖書館《銅壺漏箭制度》1985縮微工作記錄 SYS 002146415 / 905$b 00O003570",
+      "system_scope": "MODERN_NLC_MICROFILM_OBJECT_CATALOG_RECORD_AND_REGISTRATION_NUMBER",
+      "date": "MICROFILM_1985; CURRENT_META_OBSERVED_2026-09-24",
+      "locator": "https://meta.nlc.cn/v2/detail/UCS01003553255",
+      "sys": "002146415",
+      "uid": "UCS01003553255",
+      "field_905a": "全国图书馆文献缩微中心",
+      "field_905b": "00O003570",
+      "field_905q": "swkf",
+      "registration_login_number": "00O003570",
+      "raw_455_embedded_payload": "001411999008600",
+      "linked_fid": "411999008600",
+      "companion_separate_photo_reference": "00O003571",
+      "original_rare_book_call_number": false,
+      "public_barcode_proved": false,
+      "evidence": [
+        "EXT-NLC-META-MICROFILM-TONGHU-SYS002146415-905B00O003570",
+        "EXT-XXU-CNMARC-905B-LOGIN-NUMBER-CONTROL",
+        "EXT-AHPU-CNMARC-905B-LOGIN-NUMBER-CONTROL",
+        "EXT-GZHSVC-CNMARC-905B-LOGIN-NUMBER-CONTROL",
+        "docs/research/ZIWEI-NLC-DIGITAL-FID-AND-MICROFILM-REGISTRATION-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-DIGITAL-FID-AND-MICROFILM-REGISTRATION-FJ.md"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-NLC-DIGITAL-FID-AND-MICROFILM-REGISTRATION-FJ"
+    },
+    {
+      "node_id": "MICROFILM-NLC-ZHUNZHAI-SYS002146416-LOGIN00O003571",
+      "node_type": "DIGITAL_SURROGATE",
+      "label": "國家圖書館《準齋心製几漏圖式》1985縮微工作記錄 SYS 002146416 / 905$b 00O003571",
+      "system_scope": "MODERN_NLC_MICROFILM_OBJECT_CATALOG_RECORD_AND_REGISTRATION_NUMBER",
+      "date": "MICROFILM_1985; CURRENT_META_OBSERVED_2026-09-24",
+      "locator": "https://meta.nlc.cn/v2/detail/UCS01003553256",
+      "sys": "002146416",
+      "uid": "UCS01003553256",
+      "field_905a": "全国图书馆文献缩微中心",
+      "field_905b": "00O003571",
+      "field_905q": "swkf",
+      "registration_login_number": "00O003571",
+      "raw_455_embedded_payload": "001411999008601",
+      "linked_fid": "411999008601",
+      "companion_separate_photo_reference": "00O003570",
+      "original_rare_book_call_number": false,
+      "public_barcode_proved": false,
+      "evidence": [
+        "EXT-NLC-META-MICROFILM-ZHUNZHAI-SYS002146416-905B00O003571",
+        "EXT-XXU-CNMARC-905B-LOGIN-NUMBER-CONTROL",
+        "EXT-AHPU-CNMARC-905B-LOGIN-NUMBER-CONTROL",
+        "EXT-GZHSVC-CNMARC-905B-LOGIN-NUMBER-CONTROL",
+        "docs/research/ZIWEI-NLC-DIGITAL-FID-AND-MICROFILM-REGISTRATION-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-DIGITAL-FID-AND-MICROFILM-REGISTRATION-FJ.md"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-NLC-DIGITAL-FID-AND-MICROFILM-REGISTRATION-FJ"
     }
   ],
   "edges": [
@@ -4604,6 +4759,68 @@
       ],
       "scope_note": "Current NLC meta binds SYS 001775082 / UID UCS01003828992 to the 1823 Huang Shiliju Tonghu rare-book record and exposes NLC:SBYL:03482, paired with Batch 12FH Zhunzhai SYS 001775083 / UID UCS01003828993 / NLC:SBYL:03483. The current catalog/local-call-number pair is closed and numerically concordant with historical 3482/3483 and OPAC 原文献03482/03483, but semantic layers remain distinct. No public barcode or target-specific acquisition route is proved; Huang multi-copy and historical SAME_OBJECT firewalls remain active.",
       "adjudication_batch": "BATCH-12-ZIWEI-NLC-CURRENT-TONGHU-COMPOSITE-HOLDINGS-LOCATOR-FI"
+    },
+    {
+      "edge_id": "TG-E0113",
+      "from": "DIGITAL-NLC-DATA892-TONGHU-FID411999008600-BID113028",
+      "relation": "ATTESTS",
+      "to": "PHYSICAL-COPY-NLC-ZHUNZHAI-JILOU-DAOGUANG3-HUANG-SHILIJU-MS",
+      "status": "HIGH_CONFIDENCE",
+      "confidence": "VERY_HIGH_FOR_FIRST_PARTY_NLC_DIGITAL_RESOURCE_IDENTIFIER_AND_TITLE_BINDING_NOT_CURRENT_META_SYS_OR_BARCODE",
+      "evidence_class": "FIRST_PARTY_NLC_READ_DATA892_DETAIL_PAGE",
+      "evidence": [
+        "EXT-NLC-READ-DATA892-TONGHU-FID411999008600",
+        "docs/research/ZIWEI-NLC-DIGITAL-FID-AND-MICROFILM-REGISTRATION-R1.json"
+      ],
+      "scope_note": "NLC read.nlc.cn directly binds data_892 identifier/FID 411999008600 to 銅壺漏箭制度 and exposes open-object bid 113028. The value directly matches the parsed 455 embedded-001 linked record control from current microfilm metadata. This is a digital-resource identifier/read-object binding, not a current meta bibliographic SYS/UID, 905s rare-book call number, public barcode, acquisition number or SAME_OBJECT authorization.",
+      "adjudication_batch": "BATCH-12-ZIWEI-NLC-DIGITAL-FID-AND-MICROFILM-REGISTRATION-FJ"
+    },
+    {
+      "edge_id": "TG-E0114",
+      "from": "DIGITAL-NLC-DATA892-ZHUNZHAI-FID411999008601-BID113029",
+      "relation": "ATTESTS",
+      "to": "PHYSICAL-COPY-NLC-ZHUNZHAI-JILOU-DAOGUANG3-HUANG-SHILIJU-MS",
+      "status": "HIGH_CONFIDENCE",
+      "confidence": "VERY_HIGH_FOR_FIRST_PARTY_NLC_DIGITAL_RESOURCE_IDENTIFIER_AND_TITLE_BINDING_NOT_CURRENT_META_SYS_OR_BARCODE",
+      "evidence_class": "FIRST_PARTY_NLC_READ_DATA892_DETAIL_PAGE",
+      "evidence": [
+        "EXT-NLC-READ-DATA892-ZHUNZHAI-FID411999008601",
+        "docs/research/ZIWEI-NLC-DIGITAL-FID-AND-MICROFILM-REGISTRATION-R1.json"
+      ],
+      "scope_note": "NLC read.nlc.cn directly binds data_892 identifier/FID 411999008601 to 准齋心製几漏圖式 and exposes open-object bid 113029. The value directly matches the parsed 455 embedded-001 linked record control from current microfilm metadata. This is a digital-resource identifier/read-object binding, not a current meta bibliographic SYS/UID, 905s rare-book call number, public barcode, acquisition number or SAME_OBJECT authorization.",
+      "adjudication_batch": "BATCH-12-ZIWEI-NLC-DIGITAL-FID-AND-MICROFILM-REGISTRATION-FJ"
+    },
+    {
+      "edge_id": "TG-E0115",
+      "from": "MICROFILM-NLC-TONGHU-SYS002146415-LOGIN00O003570",
+      "relation": "ATTESTS",
+      "to": "PHYSICAL-COPY-NLC-ZHUNZHAI-JILOU-DAOGUANG3-HUANG-SHILIJU-MS",
+      "status": "HIGH_CONFIDENCE",
+      "confidence": "VERY_HIGH_FOR_CURRENT_NLC_MICROFILM_RECORD_905B_REGISTRATION_NUMBER_AND_ORIGINAL_SOURCE_LINK_NOT_HISTORICAL_ACQUISITION_ROUTE",
+      "evidence_class": "FIRST_PARTY_NLC_CURRENT_ITEM_API_PLUS_INSTITUTIONAL_CNMARC_905B_SEMANTIC_CONTROLS",
+      "evidence": [
+        "EXT-NLC-META-MICROFILM-TONGHU-SYS002146415-905B00O003570",
+        "EXT-AHPU-CNMARC-905B-LOGIN-NUMBER-CONTROL",
+        "docs/research/ZIWEI-NLC-DIGITAL-FID-AND-MICROFILM-REGISTRATION-R1.json"
+      ],
+      "scope_note": "Current NLC item metadata directly binds Tonghu microfilm SYS 002146415 / UID UCS01003553255 to structured 905b=00O003570 and 455 linked FID 411999008600; the companion note points to Zhunzhai 00O003571. CNMARC semantic controls classify 905b as 登录号. This is the 1985 microfilm object's registration/login number, not the original rare-book 905s call number, public barcode, historical Qu acquisition/donation number or SAME_OBJECT proof.",
+      "adjudication_batch": "BATCH-12-ZIWEI-NLC-DIGITAL-FID-AND-MICROFILM-REGISTRATION-FJ"
+    },
+    {
+      "edge_id": "TG-E0116",
+      "from": "MICROFILM-NLC-ZHUNZHAI-SYS002146416-LOGIN00O003571",
+      "relation": "ATTESTS",
+      "to": "PHYSICAL-COPY-NLC-ZHUNZHAI-JILOU-DAOGUANG3-HUANG-SHILIJU-MS",
+      "status": "HIGH_CONFIDENCE",
+      "confidence": "VERY_HIGH_FOR_CURRENT_NLC_MICROFILM_RECORD_905B_REGISTRATION_NUMBER_AND_ORIGINAL_SOURCE_LINK_NOT_HISTORICAL_ACQUISITION_ROUTE",
+      "evidence_class": "FIRST_PARTY_NLC_CURRENT_ITEM_API_PLUS_INSTITUTIONAL_CNMARC_905B_SEMANTIC_CONTROLS",
+      "evidence": [
+        "EXT-NLC-META-MICROFILM-ZHUNZHAI-SYS002146416-905B00O003571",
+        "EXT-AHPU-CNMARC-905B-LOGIN-NUMBER-CONTROL",
+        "docs/research/ZIWEI-NLC-DIGITAL-FID-AND-MICROFILM-REGISTRATION-R1.json"
+      ],
+      "scope_note": "Current NLC item metadata directly binds Zhunzhai microfilm SYS 002146416 / UID UCS01003553256 to structured 905b=00O003571 and 455 linked FID 411999008601; the companion note points to Tonghu 00O003570. CNMARC semantic controls classify 905b as 登录号. This is the 1985 microfilm object's registration/login number, not the original rare-book 905s call number, public barcode, historical Qu acquisition/donation number or SAME_OBJECT proof.",
+      "adjudication_batch": "BATCH-12-ZIWEI-NLC-DIGITAL-FID-AND-MICROFILM-REGISTRATION-FJ"
     }
   ],
   "lineage_hypotheses": [
@@ -4892,6 +5109,10 @@
         {
           "batch": "BATCH-12-ZIWEI-NLC-CURRENT-TONGHU-COMPOSITE-HOLDINGS-LOCATOR-FI",
           "update": "Current NLC meta closes Tonghu SYS 001775082 / UID UCS01003828992 / NLC:SBYL:03482 and pairs it with Zhunzhai SYS 001775083 / UID UCS01003828993 / NLC:SBYL:03483. Tonghu microfilm 455$1 raw 001411999008600 parses as embedded 001 + linked record-control 411999008600 and symmetrically points to Zhunzhai separate-photo reference 00O003571, while Zhunzhai points to Tonghu 00O003570. Barcode, current SYS mapping of 00O references, acquisition route and SAME_OBJECT remain open, with zero exact Sanming-parent vote."
+        },
+        {
+          "batch": "BATCH-12-ZIWEI-NLC-DIGITAL-FID-AND-MICROFILM-REGISTRATION-FJ",
+          "update": "First-party NLC read data_892 closes digital-resource FID/identifier 411999008600 for Tonghu with read-object bid 113028 and 411999008601 for Zhunzhai with bid 113029. Current NLC microfilm work records SYS 002146415/002146416 directly expose structured 905b 00O003570/00O003571; independent CNMARC controls classify 905b as 登录号. Digital FID, read bid, microfilm registration number, current rare-book SYS/UID and 905s local call numbers remain separate identifier layers; no public barcode, acquisition-route or SAME_OBJECT closure, and zero exact Sanming-parent vote is added."
         }
       ],
       "endpoint_anchor_component_identified": true,
