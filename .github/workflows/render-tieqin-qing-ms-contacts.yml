@@ -1,0 +1,78 @@
+name: render-tieqin-qing-ms-contacts
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/render-tieqin-qing-ms-contacts.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Render Tianyige Qing manuscript structural contacts
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/tieqin-qing-ms-contacts'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT/pages" "$ROOT/contacts"
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils >/dev/null
+          python -m pip install --quiet pillow
+
+          URL='https://upload.wikimedia.org/wikipedia/commons/1/1c/Tianyige-330000-1705-0004561_%E9%90%B5%E7%90%B4%E9%8A%85%E5%8A%8D%E6%A8%93%E8%97%8F%E6%9B%B8%E7%9B%AE%E9%8C%84_%E6%B8%85%E7%9E%BF%E9%8F%9E%E7%B7%A8_%E6%B8%85%E6%8A%84%E6%9C%AC.pdf'
+          curl -fL --retry 4 --retry-delay 2 -A 'Tianwen-Provenance-Audit/1.0' "$URL" -o "$ROOT/source.pdf"
+          sha256sum "$ROOT/source.pdf" | tee "$ROOT/source-sha256.txt"
+          pdfinfo "$ROOT/source.pdf" | tee "$ROOT/pdfinfo.txt"
+
+          # Broad structural scan around expected juan 15 position.
+          pdftoppm -f 250 -l 470 -jpeg -r 90 "$ROOT/source.pdf" "$ROOT/pages/page" >/dev/null 2>&1
+
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image, ImageDraw
+          import hashlib,json,re
+          root=Path('audit/tieqin-qing-ms-contacts')
+          pages=sorted((root/'pages').glob('page-*.jpg'), key=lambda p:int(re.search(r'-(\d+)\.jpg$',p.name).group(1)))
+          manifest=[]
+          for p in pages:
+              n=int(re.search(r'-(\d+)\.jpg$',p.name).group(1))
+              im=Image.open(p).convert('RGB')
+              manifest.append({'pdf_page':n,'sha256':hashlib.sha256(p.read_bytes()).hexdigest(),'width':im.width,'height':im.height})
+          per=12; cols=3
+          for start in range(0,len(pages),per):
+              chunk=pages[start:start+per]; thumbs=[]
+              for p in chunk:
+                  n=int(re.search(r'-(\d+)\.jpg$',p.name).group(1))
+                  im=Image.open(p).convert('RGB'); tw=520
+                  im=im.resize((tw,max(1,int(im.height*tw/im.width))))
+                  c=Image.new('RGB',(tw,im.height+38),'white'); c.paste(im,(0,38))
+                  ImageDraw.Draw(c).text((10,10),f'PDF p{n}',fill='black'); thumbs.append(c)
+              cw=max(x.width for x in thumbs); ch=max(x.height for x in thumbs)
+              rows=(len(thumbs)+cols-1)//cols
+              sheet=Image.new('RGB',(cols*cw,rows*ch),'white')
+              for i,t in enumerate(thumbs): sheet.paste(t,((i%cols)*cw,(i//cols)*ch))
+              lo=int(re.search(r'-(\d+)\.jpg$',chunk[0].name).group(1))
+              hi=int(re.search(r'-(\d+)\.jpg$',chunk[-1].name).group(1))
+              sheet.save(root/'contacts'/f'contact-{lo:03d}-{hi:03d}.jpg',quality=95)
+          report={'schema':'TIEQIN-QING-MS-CONTACTS-R1','source_pdf_sha256':hashlib.sha256((root/'source.pdf').read_bytes()).hexdigest(),
+                  'window':'PDF p250-p470','authority':'DIRECT_PAGE_IMAGES_STRUCTURAL_LOCATOR','manifest':manifest}
+          (root/'report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
+          PY
+
+          rm "$ROOT/source.pdf" "$ROOT"/pages/*.jpg
+
+      - name: Upload structural contacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: tieqin-qing-ms-contacts-r1
+          path: audit/tieqin-qing-ms-contacts
+          if-no-files-found: error
+          retention-days: 30
