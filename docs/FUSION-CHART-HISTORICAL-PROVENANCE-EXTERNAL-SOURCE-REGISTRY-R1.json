@@ -6853,8 +6853,8 @@
       "provider": "上海辞书出版社2026著作；公开书讯由海交史转载",
       "identifier": "ISBN 978-7-5326-6425-2",
       "url": "https://www.haijiaoshi.com/archives/14918",
-      "source_role": "SECONDARY_DISCOVERY_SOURCE_FOR_QU_CATALOG_SEMANTICS_AND_GAO_XIZENG_ANNOTATED_CATALOG_NOT_DIRECT_TARGET_EVIDENCE",
-      "quality_notes": "Batch 12FL uses this only as a discovery lead. The public discussion states that Qu-donated books can be marked 瞿捐 in the 1959 Beijing Library catalog while sold Qu books were not marked as sale entries, and reports that Gao Xizeng left an annotated 《铁琴铜剑楼藏书目录》 with detailed annotations on handled books. The project has not directly reviewed that annotated copy, its holding location is not closed, and no target 3482/3483 transaction annotation is claimed from this source. Batch 12FM upgrades only the existence/discovery status of the Gao annotated Tieqin catalog from a generic lead to a modern bibliographic-survey attestation. Present holder, shelfmark, public surrogate and target 3482/3483 annotations remain unresolved.",
+      "source_role": "DEPRECATED_ATTRIBUTION_ALIAS_FOR_LIN_ZHENYUE_PREFACE_SOURCE",
+      "quality_notes": "Batch 12FL uses this only as a discovery lead. The public discussion states that Qu-donated books can be marked 瞿捐 in the 1959 Beijing Library catalog while sold Qu books were not marked as sale entries, and reports that Gao Xizeng left an annotated 《铁琴铜剑楼藏书目录》 with detailed annotations on handled books. The project has not directly reviewed that annotated copy, its holding location is not closed, and no target 3482/3483 transaction annotation is claimed from this source. Batch 12FM upgrades only the existence/discovery status of the Gao annotated Tieqin catalog from a generic lead to a modern bibliographic-survey attestation. Present holder, shelfmark, public surrogate and target 3482/3483 annotations remain unresolved. Batch 12FN corrects the direct authorship layer: the target statement occurs in Lin Zhenyue's signed preface to the Tang/Zhao volume, not in a separately signed passage by the compilers. This source_id is retained only as a historical attribution alias.",
       "batch_12fl": {
         "missing_qu_donation_mark_implies_sale": false,
         "gao_annotated_catalog_directly_reviewed": false,
@@ -6872,7 +6872,9 @@
         "target_3482_3483_annotation_reproduced": false,
         "target_transaction_mode_closed": false,
         "research_artifact": "docs/research/ZIWEI-GAO-XIZENG-ANNOTATED-TIEQIN-CATALOG-HOLDING-AND-ACCESS-BOUNDARY-R1.json"
-      }
+      },
+      "deprecated_attribution_alias": true,
+      "superseded_by_source_id": "EXT-LIN-ZHENYUE-2025-PREFACE-QU-TRANSFER-GAO-ANNOTATED-CATALOG"
     },
     {
       "source_id": "EXT-GAO-XIZENG-XUESHU-WENCUN-ZHAO-LINTAO-2022-MANUSCRIPT-CHAIN",
@@ -6925,6 +6927,48 @@
         "target_catalog_custody_proved": false,
         "hebei_university_custody_selected": false,
         "research_artifact": "docs/research/ZIWEI-GAO-XIZENG-ANNOTATED-TIEQIN-CATALOG-HOLDING-AND-ACCESS-BOUNDARY-R1.json"
+      }
+    },
+    {
+      "source_id": "EXT-LIN-ZHENYUE-2025-PREFACE-QU-TRANSFER-GAO-ANNOTATED-CATALOG",
+      "title": "林振岳《序》：汤志波、赵颖洁编《中国分省公藏古籍书目总录（1949—2024）》",
+      "author": "林振岳",
+      "historical_period": "序文署2025-10-30；收入2026年出版总录",
+      "provider": "上海辞书出版社2026著作；公开转载可见于搜狐/海交史",
+      "identifier": "ISBN 9787532664252",
+      "url": "https://www.sohu.com/a/1011488146_121124384",
+      "source_role": "CANONICAL_MODERN_PREFACE_ATTESTATION_FOR_QU_TRANSFER_CATALOG_SEMANTICS_AND_GAO_XIZENG_ANNOTATED_TIEQIN_CATALOG_EXISTENCE",
+      "quality_notes": "Batch 12FN directly resolves the authorship layer of the public statement: the repost labels the section 序 and names 林振岳 as preface author; the Gao annotated-catalog sentence occurs inside that preface, dated 2025-10-30 at the University of Tokyo Institute for Advanced Studies on Asia. Tang Zhibo and Zhao Yingjie are the volume compilers. This source closes only modern attestation/source attribution, not current custody, shelfmark, public surrogate, target 3482/3483 annotation, or target transaction mode.",
+      "batch_12fn": {
+        "preface_author": "林振岳",
+        "underlying_volume_compilers": [
+          "汤志波",
+          "赵颖洁"
+        ],
+        "target_statement_inside_preface": true,
+        "source_layer_collapse_forbidden": true,
+        "annotated_catalog_existence": "ATTESTED_BY_LIN_ZHENYUE_PREFACE",
+        "current_holding": "UNRESOLVED",
+        "target_3482_3483_annotation": "NOT_REVIEWED",
+        "target_transaction_mode": "UNRESOLVED",
+        "research_artifact": "docs/research/ZIWEI-LIN-ZHENYUE-PREFACE-GAO-ANNOTATED-CATALOG-SOURCE-ATTRIBUTION-R1.json"
+      }
+    },
+    {
+      "source_id": "EXT-SJTU-LIN-ZHENYUE-OFFICIAL-FACULTY-PROFILE",
+      "title": "上海交通大学人文学院：林振岳教师主页",
+      "author": "上海交通大学人文学院",
+      "historical_period": "current institutional profile reviewed 2026",
+      "provider": "上海交通大学",
+      "url": "https://shss.sjtu.edu.cn/Web/FacultyDetail/265",
+      "source_role": "FIRST_PARTY_CURRENT_AUTHOR_IDENTITY_AND_RESEARCH_FIELD_CONTROL",
+      "quality_notes": "Official profile identifies Lin Zhenyue as a Shanghai Jiao Tong University humanities scholar working in Chinese classical bibliography, editions/catalog studies, book history, and Ming-Qing catalog/collection history. Used only to bind the preface author identity and a legitimate scholarly discovery/outreach route; institutional affiliation does not prove custody of the Gao annotated catalog.",
+      "batch_12fn": {
+        "author_identity_closed": true,
+        "relevant_research_fields_closed": true,
+        "public_professional_contact_route_exists": true,
+        "outreach_performed_by_project": false,
+        "target_catalog_custody_proved": false
       }
     }
   ],
