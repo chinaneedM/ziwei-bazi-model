@@ -1808,7 +1808,8 @@ def main() -> int:
         fail("Batch 12FL rule/product firewall regressed")
     if batch12fl.get("accounting", {}).get("confirmed_provenance_metadata_defect_count") != 13 or batch12fl.get("accounting", {}).get("repaired_provenance_metadata_defect_count") != 13:
         fail("Batch 12FL provenance accounting unexpectedly changed")
-    regids12fl = {x.get("source_id") for x in registry.get("sources", [])}
+    registry12fl = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    regids12fl = {x.get("source_id") for x in registry12fl.get("sources", [])}
     needed12fl = {
         "EXT-NLC-PCAB-ZHAO-WANLI-QU-TIEQIN-MIXED-TRANSFER-RETROSPECTIVE-2018",
         "EXT-NLC-PCAB-ZHENG-ZHENDUO-QU-DONATION-AND-PRICED-ACQUISITION-2024",
