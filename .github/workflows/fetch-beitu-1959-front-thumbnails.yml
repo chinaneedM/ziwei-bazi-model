@@ -17,20 +17,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install montage
-        shell: bash
-        run: |
-          set -euo pipefail
-          sudo apt-get update -qq
-          sudo apt-get install -y -qq imagemagick
-
       - name: Fetch Wikimedia PDF page thumbnails
         shell: bash
         run: |
           set -euo pipefail
           ROOT='audit/beitu-1959-front-thumbnails'
           rm -rf "$ROOT"
-          mkdir -p "$ROOT/pages" "$ROOT/contacts" "$ROOT/meta"
+          mkdir -p "$ROOT/pages" "$ROOT/meta"
           : > "$ROOT/status.tsv"
 
           for vol in $(seq 1 8); do
@@ -66,19 +59,15 @@ jobs:
                 -A 'Tianwen-Provenance-Audit/1.0' "$thumb" -o "$out"
               printf '%s\t%s\t%s\t%s\n' "$vol" "$p" "$ssid" "$(sha256sum "$out" | awk '{print $1}')" >> "$ROOT/status.tsv"
             done
-            mapfile -t imgs < <(find "$ROOT/pages/vol-$vol" -name 'page-*.jpg' | sort -V)
-            test "${#imgs[@]}" -eq 12
-            montage "${imgs[@]}" -thumbnail 360x740 -label '%f' -tile 4x3 -geometry +10+28 \
-              "$ROOT/contacts/vol-$vol-front12.jpg"
           done
 
-          sha256sum "$ROOT"/contacts/*.jpg | sort -V > "$ROOT/contacts.sha256"
+          find "$ROOT/pages" -name '*.jpg' -print0 | xargs -0 sha256sum | sort -V > "$ROOT/pages.sha256"
           printf '%s\n' \
             'SOURCE=Wikimedia Commons ImageInfo PDF page thumbnails for 北京圖書館善本書目 1959' \
             'VOLUMES=SSID-12335507..12335514' \
             'PAGES=1..12 each' \
             'API_PARAM=iiurlwidth=500 + iiurlparam=pageN-500px' \
-            'PURPOSE=identify volume/classification boundary before bounded full-volume target locator' \
+            'PURPOSE=identify volume/classification boundary before bounded full-volume target locator; contact sheets generated downstream from these source thumbnails' \
             'OCR_USED=false' \
             > "$ROOT/manifest.txt"
 
