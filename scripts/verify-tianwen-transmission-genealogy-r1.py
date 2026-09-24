@@ -40,6 +40,7 @@ BATCH_12ES = ROOT / "docs/research/ZIWEI-LEIBIAN1551-SHOUSHI-SELF-ASCRIPTION-ZHU
 BATCH_12ET = ROOT / "docs/research/ZIWEI-LEIBIAN1551-ZHUNZHAI-MULTIPOINT-AND-CORRUPTION-REPLAY-R1.json"
 BATCH_12EU = ROOT / "docs/research/ZIWEI-GUOSHI1602-ZHUNZHAI-SUNFENGJI-DIRECT-AUTHOR-TITLE-BINDING-R1.json"
 BATCH_12EV = ROOT / "docs/research/ZIWEI-NEIGE-CANGSHU1605-ZHUNZHAI-SUNFENGJI-UNKNOWN-ERA-BIBLIOGRAPHIC-CONTROL-R1.json"
+BATCH_12EW = ROOT / "docs/research/ZIWEI-WENYUANGE1937-ZHUNZHAI-JIULOU-PRINTED-VARIANT-CONTROL-R1.json"
 
 
 def fail(message: str) -> None:
@@ -47,7 +48,7 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
-    for path in (CHARTER, PROTOCOL, GRAPH, STATE, BATCH_12CH, BATCH_12DP, BATCH_12DQ, BATCH_12DR, BATCH_12DS, BATCH_12DT, BATCH_12DU, BATCH_12DV, BATCH_12DW, BATCH_12DX, BATCH_12DY, BATCH_12DZ, BATCH_12EA, BATCH_12EB, BATCH_12EC, BATCH_12ED, BATCH_12EE, BATCH_12EI, BATCH_12EJ, BATCH_12EK, BATCH_12EL, BATCH_12EM, BATCH_12EN, BATCH_12EO, BATCH_12EP, BATCH_12EQ, BATCH_12ER, BATCH_12ES, BATCH_12ET, BATCH_12EU, BATCH_12EV):
+    for path in (CHARTER, PROTOCOL, GRAPH, STATE, BATCH_12CH, BATCH_12DP, BATCH_12DQ, BATCH_12DR, BATCH_12DS, BATCH_12DT, BATCH_12DU, BATCH_12DV, BATCH_12DW, BATCH_12DX, BATCH_12DY, BATCH_12DZ, BATCH_12EA, BATCH_12EB, BATCH_12EC, BATCH_12ED, BATCH_12EE, BATCH_12EI, BATCH_12EJ, BATCH_12EK, BATCH_12EL, BATCH_12EM, BATCH_12EN, BATCH_12EO, BATCH_12EP, BATCH_12EQ, BATCH_12ER, BATCH_12ES, BATCH_12ET, BATCH_12EU, BATCH_12EV, BATCH_12EW):
         if not path.is_file():
             fail(f"Tianwen transmission artifact missing: {path.relative_to(ROOT)}")
 
@@ -1060,6 +1061,29 @@ def main() -> int:
     impact12ev = batch12ev.get("transmission_impact", {})
     if impact12ev.get("edges_supported") != ["TG-E0099", "TG-E0100"] or "PASSAGE-NEIGE1605-ZHUNZHAI-SUNFENGJI-UNKNOWN-ERA" not in impact12ev.get("nodes_added", []):
         fail("Batch 12EV transmission impact regressed")
+
+
+    edge12ew = next((e for e in edges if e.get("edge_id") == "TG-E0101"), None)
+    if not edge12ew or edge12ew.get("relation") != "ATTESTS" or edge12ew.get("status") != "CONFIRMED":
+        fail("Batch 12EW direct-attestation edge regressed")
+    if edge12ew.get("from") != "PHYSICAL-COPY-WENYUANGE-SHUMU-BUSINESS-PRESS-1937" or edge12ew.get("to") != "PASSAGE-WENYUANGE1937-ZHUNZHAI-JIULOU-ENTRY":
+        fail("Batch 12EW edge endpoints regressed")
+    phys12ew = next((n for n in nodes if n.get("node_id") == "PHYSICAL-COPY-WENYUANGE-SHUMU-BUSINESS-PRESS-1937"), None)
+    passage12ew = next((n for n in nodes if n.get("node_id") == "PASSAGE-WENYUANGE1937-ZHUNZHAI-JIULOU-ENTRY"), None)
+    if not phys12ew or phys12ew.get("direct_target_result") != "準齋九漏新式一部一冊完全" or phys12ew.get("independent_1441_witness_vote_added") is not False:
+        fail("Batch 12EW physical node regressed")
+    if not passage12ew or passage12ew.get("core_title") != "準齋九漏新式" or passage12ew.get("proves_1441_original_glyph") is not False:
+        fail("Batch 12EW passage node regressed")
+    zhun_rule12ew = next(n for n in nodes if n.get("node_id") == "RULE-FAMILY-ZHUNZHAI-25ARROW-JIEHOU-SELECTION-38-62")
+    ctrl12ew = zhun_rule12ew.get("wenyuange_received_title_controls", {})
+    if ctrl12ew.get("status") != "TWO_DIRECT_LATE_TRANSMISSION_SURFACES_AGREE_ON_JIULOU" or ctrl12ew.get("independent_1441_witness_count_increment") != 0 or ctrl12ew.get("original_九_vs_几_direction") != "UNRESOLVED":
+        fail("Batch 12EW rule-family variant control regressed")
+    if not any(x.get("batch") == "BATCH-12-ZIWEI-WENYUANGE1937-ZHUNZHAI-JIULOU-PRINTED-VARIANT-CONTROL-EW" and "zero exact sanming-parent vote" in x.get("update","").lower() for x in hyp12dk.get("evidence_updates", [])):
+        fail("Batch 12EW genealogy hypothesis zero-vote update missing")
+    batch12ew = json.loads(BATCH_12EW.read_text(encoding="utf-8"))
+    impact12ew = batch12ew.get("transmission_impact", {})
+    if impact12ew.get("edges_supported") != ["TG-E0101"] or "PASSAGE-WENYUANGE1937-ZHUNZHAI-JIULOU-ENTRY" not in impact12ew.get("nodes_added", []):
+        fail("Batch 12EW transmission impact regressed")
 
     ncl = next(n for n in nodes if n.get("node_id") == "PHYSICAL-COPY-SISHI-QIHOU-NCL03164-OLD-MANUSCRIPT")
     if ncl.get("physical_copy_date") != "UNRESOLVED":

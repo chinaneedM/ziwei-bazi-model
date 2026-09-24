@@ -1409,7 +1409,10 @@
         "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-GUOSHI1602-ZHUNZHAI-SUNFENGJI-DIRECT-AUTHOR-TITLE-BINDING-EU.md",
         "EXT-NLC-NEIGE-CANGSHU-WANLI33-1605-V2-ZHUNZHAI-SUNFENGJI-UNKNOWN-ERA",
         "docs/research/ZIWEI-NEIGE-CANGSHU1605-ZHUNZHAI-SUNFENGJI-UNKNOWN-ERA-BIBLIOGRAPHIC-CONTROL-R1.json",
-        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NEIGE-CANGSHU1605-ZHUNZHAI-SUNFENGJI-UNKNOWN-ERA-BIBLIOGRAPHIC-CONTROL-EV.md"
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NEIGE-CANGSHU1605-ZHUNZHAI-SUNFENGJI-UNKNOWN-ERA-BIBLIOGRAPHIC-CONTROL-EV.md",
+        "EXT-NLC-WENYUANGE-SHUMU-1937-BUSINESS-PRESS-ZHUNZHAI-JIULOU",
+        "docs/research/ZIWEI-WENYUANGE1937-ZHUNZHAI-JIULOU-PRINTED-VARIANT-CONTROL-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENYUANGE1937-ZHUNZHAI-JIULOU-PRINTED-VARIANT-CONTROL-EW.md"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-XUXIU1031-ZHUNZHAI-CLEPSYDRA-JIEHOU-ARROW-SELECTION-DV",
       "pre1578_title_family_catalog_attestation": true,
@@ -1464,6 +1467,15 @@
         "proves_song_or_yuan_composition": false,
         "proves_pre1578_exact_25arrow_rule_text": false,
         "title_variant_normalization_authorized": false
+      },
+      "wenyuange_received_title_controls": {
+        "status": "TWO_DIRECT_LATE_TRANSMISSION_SURFACES_AGREE_ON_JIULOU",
+        "witness_1799": "準齋九漏新式",
+        "witness_1937": "準齋九漏新式一部一冊完全",
+        "core_match": "準齋九漏新式",
+        "independent_1441_witness_count_increment": 0,
+        "original_九_vs_几_direction": "UNRESOLVED",
+        "exact_title_state_identity_with_1602_1605_1823": "UNRESOLVED"
       }
     },
     {
@@ -2094,6 +2106,48 @@
         "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NEIGE-CANGSHU1605-ZHUNZHAI-SUNFENGJI-UNKNOWN-ERA-BIBLIOGRAPHIC-CONTROL-EV.md"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-NEIGE-CANGSHU1605-ZHUNZHAI-SUNFENGJI-UNKNOWN-ERA-BIBLIOGRAPHIC-CONTROL-EV"
+    },
+    {
+      "node_id": "PHYSICAL-COPY-WENYUANGE-SHUMU-BUSINESS-PRESS-1937",
+      "node_type": "PHYSICAL_COPY",
+      "label": "1937 商務印書館《國學基本叢書》本《文淵閣書目》",
+      "system_scope": "LATE_PRINTED_RECEIVED_TEXT_CONTROL_FOR_WENYUANGE_ZHUNZHAI_TITLE_VARIANT",
+      "work_composition_date": "MING_ZHENGTONG6_1441_CATALOG_TEXT_EVENT_SEPARATELY_CONTROLLED",
+      "edition_impression_date": "REPUBLIC_26_1937_FIRST_EDITION_PROVIDER_METADATA",
+      "physical_copy_date": "1937_PRINT_LAYER",
+      "digital_surrogate_date": "MODERN_NLC_WIKIMEDIA_SURROGATE",
+      "identifier": "NLC511-023031404016761-25273",
+      "source_pdf_sha256": "f8ff2c2bb82bd10fb3fb65e8f02f43d3eed76b609dfe6d821b6ebb2656e7924a",
+      "target_page": 194,
+      "target_page_sha256": "e8795fd55ed09d45dbb2819f0684a7197a140fe2b9445fbeb36c6d3c6bd0e611",
+      "direct_target_result": "準齋九漏新式一部一冊完全",
+      "independent_1441_witness_vote_added": false,
+      "ocr_used_for_final_glyph_claims": false,
+      "evidence": [
+        "EXT-NLC-WENYUANGE-SHUMU-1937-BUSINESS-PRESS-ZHUNZHAI-JIULOU",
+        "docs/research/ZIWEI-WENYUANGE1937-ZHUNZHAI-JIULOU-PRINTED-VARIANT-CONTROL-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENYUANGE1937-ZHUNZHAI-JIULOU-PRINTED-VARIANT-CONTROL-EW.md"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-WENYUANGE1937-ZHUNZHAI-JIULOU-PRINTED-VARIANT-CONTROL-EW"
+    },
+    {
+      "node_id": "PASSAGE-WENYUANGE1937-ZHUNZHAI-JIULOU-ENTRY",
+      "node_type": "PASSAGE",
+      "label": "1937《文淵閣書目》卷十五《準齋九漏新式一部一冊完全》條",
+      "system_scope": "RECEIVED_CATALOG_TITLE_VARIANT_CONTROL",
+      "physical_locator": "NLC511-023031404016761-25273 PDF p194",
+      "direct_title": "準齋九漏新式一部一冊完全",
+      "core_title": "準齋九漏新式",
+      "immediate_right_neighbor": "官歷漏刻圖一部一冊",
+      "immediate_left_neighbor": "年日月通用一部一冊完全",
+      "proves_1441_original_glyph": false,
+      "proves_independent_premodern_recension": false,
+      "evidence": [
+        "EXT-NLC-WENYUANGE-SHUMU-1937-BUSINESS-PRESS-ZHUNZHAI-JIULOU",
+        "docs/research/ZIWEI-WENYUANGE1937-ZHUNZHAI-JIULOU-PRINTED-VARIANT-CONTROL-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENYUANGE1937-ZHUNZHAI-JIULOU-PRINTED-VARIANT-CONTROL-EW.md"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-WENYUANGE1937-ZHUNZHAI-JIULOU-PRINTED-VARIANT-CONTROL-EW"
     }
   ],
   "edges": [
@@ -3613,6 +3667,22 @@
       ],
       "scope_note": "Records that the 1602 and 1605 Ming bibliographic texts both pair the Zhunzhai title family with 孫逢吉. It does not assert independent stemmatic voting, direct copying, or exact title-state identity; the 1605 text uniquely adds 莫詳時代.",
       "adjudication_batch": "BATCH-12-ZIWEI-NEIGE-CANGSHU1605-ZHUNZHAI-SUNFENGJI-UNKNOWN-ERA-BIBLIOGRAPHIC-CONTROL-EV"
+    },
+    {
+      "edge_id": "TG-E0101",
+      "from": "PHYSICAL-COPY-WENYUANGE-SHUMU-BUSINESS-PRESS-1937",
+      "relation": "ATTESTS",
+      "to": "PASSAGE-WENYUANGE1937-ZHUNZHAI-JIULOU-ENTRY",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_FOR_1937_PRINTED_READING_LOW_FOR_INDEPENDENT_STEMMATIC_VALUE",
+      "evidence_class": "DIRECT_SOURCE_BOUND_1937_PRINT_PAGE_REVIEW_NO_OCR_FINAL_AUTHORITY",
+      "evidence": [
+        "NLC511-023031404016761-25273 PDF p194 sha256 e8795fd55ed09d45dbb2819f0684a7197a140fe2b9445fbeb36c6d3c6bd0e611",
+        "EXT-NLC-WENYUANGE-SHUMU-1937-BUSINESS-PRESS-ZHUNZHAI-JIULOU",
+        "docs/research/ZIWEI-WENYUANGE1937-ZHUNZHAI-JIULOU-PRINTED-VARIANT-CONTROL-R1.json"
+      ],
+      "scope_note": "Confirms 準齋九漏新式一部一冊完全 on the 1937 printed received-text surface. It does not count as an independent 1441 witness, prove the original 九/几 reading, or date the operational Zhunzhai text.",
+      "adjudication_batch": "BATCH-12-ZIWEI-WENYUANGE1937-ZHUNZHAI-JIULOU-PRINTED-VARIANT-CONTROL-EW"
     }
   ],
   "lineage_hypotheses": [
@@ -3849,6 +3919,10 @@
         {
           "batch": "BATCH-12-ZIWEI-NEIGE-CANGSHU1605-ZHUNZHAI-SUNFENGJI-UNKNOWN-ERA-BIBLIOGRAPHIC-CONTROL-EV",
           "update": "Direct no-OCR p105 collation of the 1605 《內閣藏書目錄》 text closes 準齋几漏新式一冊 / 孫逢吉著莫詳時代. This supplies a second nearby Ming bibliographic author-name control while explicitly preserving contemporaneous period uncertainty; it does not normalize 九漏/几漏 or 新式/圖式, does not identify the 1281 Yanling person, does not close pre-1578 25-arrow prose, and adds zero exact Sanming-parent vote."
+        },
+        {
+          "batch": "BATCH-12-ZIWEI-WENYUANGE1937-ZHUNZHAI-JIULOU-PRINTED-VARIANT-CONTROL-EW",
+          "update": "Direct no-OCR review of the 1937 Business Press 《文淵閣書目》 p194 reads 準齋九漏新式一部一冊完全, directly reconfirming the 1799 Wenyuange 九漏 title core on a later printed received-text surface. This removes single-surface/OCR dependence for the 九 glyph but is not counted as a second independent 1441 witness, does not adjudicate 九↔几 direction or 新式↔圖式, does not close pre-1578 25-arrow prose, and adds zero exact Sanming-parent vote."
         }
       ],
       "endpoint_anchor_component_identified": true,

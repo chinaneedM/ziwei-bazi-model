@@ -106,6 +106,8 @@ ZIWEI_GUOSHI_ZHUNZHAI_12EU_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENAN
 ZIWEI_GUOSHI_ZHUNZHAI_12EU_EVIDENCE = ROOT / "docs/research/ZIWEI-GUOSHI1602-ZHUNZHAI-SUNFENGJI-DIRECT-AUTHOR-TITLE-BINDING-R1.json"
 ZIWEI_NEIGE_ZHUNZHAI_12EV_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NEIGE-CANGSHU1605-ZHUNZHAI-SUNFENGJI-UNKNOWN-ERA-BIBLIOGRAPHIC-CONTROL-EV.md"
 ZIWEI_NEIGE_ZHUNZHAI_12EV_EVIDENCE = ROOT / "docs/research/ZIWEI-NEIGE-CANGSHU1605-ZHUNZHAI-SUNFENGJI-UNKNOWN-ERA-BIBLIOGRAPHIC-CONTROL-R1.json"
+ZIWEI_WENYUANGE_1937_12EW_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENYUANGE1937-ZHUNZHAI-JIULOU-PRINTED-VARIANT-CONTROL-EW.md"
+ZIWEI_WENYUANGE_1937_12EW_EVIDENCE = ROOT / "docs/research/ZIWEI-WENYUANGE1937-ZHUNZHAI-JIULOU-PRINTED-VARIANT-CONTROL-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -385,9 +387,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-LEIBIAN1551-ZHUNZHAI-MULTIPOINT-AND-CORRUPTION-REPLAY-ET",
     "BATCH-12-ZIWEI-GUOSHI1602-ZHUNZHAI-SUNFENGJI-DIRECT-AUTHOR-TITLE-BINDING-EU",
     "BATCH-12-ZIWEI-NEIGE-CANGSHU1605-ZHUNZHAI-SUNFENGJI-UNKNOWN-ERA-BIBLIOGRAPHIC-CONTROL-EV",
+    "BATCH-12-ZIWEI-WENYUANGE1937-ZHUNZHAI-JIULOU-PRINTED-VARIANT-CONTROL-EW",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NEIGE-CANGSHU1605-ZHUNZHAI-SUNFENGJI-UNKNOWN-ERA-BIBLIOGRAPHIC-CONTROL-EV.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENYUANGE1937-ZHUNZHAI-JIULOU-PRINTED-VARIANT-CONTROL-EW.md"
 
 
 def fail(message: str) -> None:
@@ -1246,6 +1249,34 @@ def main() -> int:
     src12ev = next((s for s in reg12ev.get("sources", []) if s.get("source_id") == "EXT-NLC-NEIGE-CANGSHU-WANLI33-1605-V2-ZHUNZHAI-SUNFENGJI-UNKNOWN-ERA"), None)
     if not src12ev or src12ev.get("batch_12ev", {}).get("direct_era_annotation") != "莫詳時代":
         fail("Batch 12EV source registry era control missing")
+
+
+    for path in (ZIWEI_WENYUANGE_1937_12EW_BATCH, ZIWEI_WENYUANGE_1937_12EW_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12EW continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12ew = json.loads(ZIWEI_WENYUANGE_1937_12EW_EVIDENCE.read_text(encoding="utf-8"))
+    if batch12ew.get("batch_id") != "BATCH-12-ZIWEI-WENYUANGE1937-ZHUNZHAI-JIULOU-PRINTED-VARIANT-CONTROL-EW":
+        fail("Batch 12EW evidence identity mismatch")
+    sb12ew = batch12ew.get("source_binding", {})
+    if sb12ew.get("source_pdf_sha256") != "f8ff2c2bb82bd10fb3fb65e8f02f43d3eed76b609dfe6d821b6ebb2656e7924a" or sb12ew.get("target_pdf_page") != 194:
+        fail("Batch 12EW source/page binding regressed")
+    if sb12ew.get("target_page_sha256") != "e8795fd55ed09d45dbb2819f0684a7197a140fe2b9445fbeb36c6d3c6bd0e611":
+        fail("Batch 12EW target page hash regressed")
+    read12ew = batch12ew.get("direct_physical_reading", {})
+    if read12ew.get("target_title_and_count") != "準齋九漏新式一部一冊完全":
+        fail("Batch 12EW direct title reading regressed")
+    rel12ew = batch12ew.get("relation_to_1799_witness", {})
+    if rel12ew.get("glyph_core_match") != "準齋九漏新式" or rel12ew.get("independent_1441_witness_vote_added") is not False:
+        fail("Batch 12EW 1799/1937 relation firewall regressed")
+    variants12ew = batch12ew.get("title_variant_firewall", {})
+    if variants12ew.get("九_to_几_originality_adjudicated") is not False or variants12ew.get("scribal_or_editorial_direction_adjudicated") is not False:
+        fail("Batch 12EW title-variant direction was overclosed")
+    if batch12ew.get("sanming_firewall", {}).get("direct_sanming_parent_vote_increment") != 0:
+        fail("Batch 12EW Sanming zero-vote firewall regressed")
+    reg12ew = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    src12ew = next((s for s in reg12ew.get("sources", []) if s.get("source_id") == "EXT-NLC-WENYUANGE-SHUMU-1937-BUSINESS-PRESS-ZHUNZHAI-JIULOU"), None)
+    if not src12ew or src12ew.get("batch_12ew", {}).get("direct_title") != "準齋九漏新式一部一冊完全":
+        fail("Batch 12EW source registry title control missing")
 
     for path in (ZIWEI_KYUDB_12DT_BATCH, ZIWEI_KYUDB_12DT_EVIDENCE):
         if not path.is_file():
