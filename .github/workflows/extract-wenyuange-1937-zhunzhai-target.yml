@@ -1,0 +1,82 @@
+name: extract-wenyuange-1937-zhunzhai-target
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/extract-wenyuange-1937-zhunzhai-target.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Export source-bound 1937 Wenyuange target pages
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/wenyuange-1937-zhunzhai-target'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT/pages"
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils >/dev/null
+          python -m pip install --quiet pillow
+
+          URL='https://upload.wikimedia.org/wikipedia/commons/5/5d/NLC511-023031404016761-25273_%E6%96%87%E6%B7%B5%E9%96%A3%E6%9B%B8%E7%9B%AE.pdf'
+          curl -fL --retry 4 --retry-delay 2 -A 'Tianwen-Provenance-Audit/1.0' "$URL" -o "$ROOT/source.pdf"
+          sha256sum "$ROOT/source.pdf" | tee "$ROOT/source-sha256.txt"
+          pdfinfo "$ROOT/source.pdf" | tee "$ROOT/pdfinfo.txt"
+
+          # Web PDF review localizes 卷十五/陰陽 target to PDF page 194.
+          # Export neighbors as page-order controls; no OCR is final authority.
+          pdftoppm -f 193 -l 195 -png -r 300 "$ROOT/source.pdf" "$ROOT/pages/page" >/dev/null 2>&1
+
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image, ImageDraw
+          import hashlib, json, re
+          root=Path('audit/wenyuange-1937-zhunzhai-target')
+          pages=sorted(root.joinpath('pages').glob('page-*.png'))
+          manifest=[]; thumbs=[]
+          for p in pages:
+              m=re.search(r'-(\d+)\.png$',p.name); n=int(m.group(1))
+              b=p.read_bytes(); im=Image.open(p).convert('RGB')
+              manifest.append({
+                  'pdf_page':n,'file':p.name,'sha256':hashlib.sha256(b).hexdigest(),
+                  'width':im.width,'height':im.height
+              })
+              tw=900; t=im.resize((tw,max(1,int(im.height*tw/im.width))))
+              c=Image.new('RGB',(tw,t.height+44),'white'); c.paste(t,(0,44))
+              ImageDraw.Draw(c).text((10,12),f'PDF p{n}',fill='black'); thumbs.append(c)
+          cw=max(x.width for x in thumbs); ch=max(x.height for x in thumbs)
+          sheet=Image.new('RGB',(cw,ch*len(thumbs)),'white')
+          for i,t in enumerate(thumbs): sheet.paste(t,(0,i*ch))
+          sheet.save(root/'contact-p193-p195.jpg',quality=97)
+          report={
+            'schema':'WENYUANGE-1937-ZHUNZHAI-TARGET-R1',
+            'source_file':'NLC511-023031404016761-25273 文淵閣書目.pdf',
+            'publication_layer':'中華民國二十六年二月初版 / 商務印書館 / 國學基本叢書',
+            'source_pdf_sha256':hashlib.sha256((root/'source.pdf').read_bytes()).hexdigest(),
+            'window':'PDF p193-p195',
+            'target_page':194,
+            'authority':'DIRECT_PAGE_IMAGES; NO_OCR_FINAL_AUTHORITY',
+            'target_sequence':['陰陽氣運','官歷漏刻圖','準齋九漏新式','年日月通用'],
+            'manifest':manifest
+          }
+          (root/'report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print(json.dumps(report,ensure_ascii=False))
+          PY
+          rm "$ROOT/source.pdf"
+
+      - name: Upload Wenyuange target pages
+        uses: actions/upload-artifact@v4
+        with:
+          name: wenyuange-1937-zhunzhai-target-r1
+          path: audit/wenyuange-1937-zhunzhai-target
+          if-no-files-found: error
+          retention-days: 30
