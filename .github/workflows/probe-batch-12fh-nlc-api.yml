@@ -1,0 +1,175 @@
+name: probe-batch-12fh-nlc-api
+
+on:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - '.github/workflows/probe-batch-12fh-nlc-api.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Probe NLC current holdings JSON API
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/batch-12fh-nlc-api'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT"
+          python - <<'PY'
+          from pathlib import Path
+          from urllib.request import Request, urlopen
+          from urllib.parse import quote
+          from urllib.error import HTTPError, URLError
+          import json, time
+
+          root=Path('audit/batch-12fh-nlc-api')
+          raw=root/'raw'
+          detail=root/'detail'
+          raw.mkdir(parents=True,exist_ok=True)
+          detail.mkdir(parents=True,exist_ok=True)
+
+          queries=[
+              ('zhunzhai-simp','准斋心制几漏图式','TIT',True),
+              ('zhunzhai-trad','準齋心製几漏圖式','TIT',True),
+              ('zhunzhai-short','准斋几漏图式','TIT',False),
+              ('tonghu-simp','铜壶漏箭制度','TIT',True),
+              ('tonghu-trad','銅壺漏箭制度','TIT',True),
+              ('doc-001775083','001775083','ANY',True),
+              ('control-001411999008601','001411999008601','ANY',True),
+              ('catalog-03482','03482','ANY',True),
+              ('catalog-03483','03483','ANY',True),
+              ('photo-00O003570','00O003570','ANY',True),
+          ]
+          endpoint='https://meta.nlc.cn/v2/doSearch?hight=false'
+          headers_base={
+              'User-Agent':'Tianwen-Provenance-Audit/1.0',
+              'Accept':'application/json, text/javascript, */*; q=0.01',
+              'X-Requested-With':'XMLHttpRequest',
+              'Referer':'https://meta.nlc.cn/v2/search',
+          }
+          status=[]
+          summary=[]
+          detail_urls=[]
+          for key,q,way,exact in queries:
+              body={
+                  'q':q,
+                  'searchWay':way,
+                  'sort':[{'_score':'DESC'}],
+                  'page_num':'1',
+                  'exactMatch':exact,
+                  'query':q if way=='ANY' else way+'='+q,
+                  'size':10,
+                  'facetVal':[],
+              }
+              payload=json.dumps(body,ensure_ascii=False,separators=(',',':')).encode('utf-8')
+              success=False
+              for mode,ctype in [('json','application/json;charset=UTF-8'),('jquery','application/x-www-form-urlencoded; charset=UTF-8')]:
+                  headers=dict(headers_base)
+                  headers['Content-Type']=ctype
+                  req=Request(endpoint,data=payload,headers=headers,method='POST')
+                  out=raw/(key+'-'+mode+'.txt')
+                  try:
+                      with urlopen(req,timeout=45) as resp:
+                          data=resp.read()
+                          code=resp.status
+                          final=resp.geturl()
+                      out.write_bytes(data)
+                      status.append((key,mode,'OK',str(code),str(len(data)),final))
+                      try:
+                          obj=json.loads(data.decode('utf-8','replace'))
+                      except Exception as e:
+                          summary.append(key+' '+mode+' PARSE_ERROR '+repr(e)+' '+data[:500].decode('utf-8','replace'))
+                          continue
+                      summary.append('### '+key+' '+mode)
+                      summary.append('status='+repr(obj.get('status'))+' total='+repr(obj.get('total'))+' message='+repr(obj.get('message')))
+                      rows=obj.get('result') or []
+                      for i,row in enumerate(rows,1):
+                          rid=row.get('_id')
+                          src=row.get('_source') or {}
+                          summary.append('ROW '+str(i)+' id='+repr(rid)+' source='+json.dumps(src,ensure_ascii=False,separators=(',',':')))
+                          tit=src.get('TIT') or ['']
+                          if isinstance(tit,list):
+                              tit=tit[0] if tit else ''
+                          if rid:
+                              detail_urls.append('https://meta.nlc.cn/v2/detail/'+quote(str(rid),safe='')+'?b_tit='+quote(str(tit)))
+                      if 'status' in obj or 'result' in obj or 'total' in obj:
+                          success=True
+                          break
+                  except HTTPError as e:
+                      data=e.read()
+                      out.write_bytes(data)
+                      status.append((key,mode,'HTTP_ERROR',str(e.code),str(len(data)),e.geturl()))
+                  except (URLError,TimeoutError,Exception) as e:
+                      status.append((key,mode,'ERROR','', '',repr(e)))
+                  time.sleep(0.3)
+              if not success:
+                  summary.append('NO_PARSEABLE_API_RESPONSE '+key)
+
+          root.joinpath('api-status.tsv').write_text(
+              ''.join('\t'.join(row)+'\n' for row in status),encoding='utf-8')
+          root.joinpath('api-summary.txt').write_text('\n'.join(summary)+'\n',encoding='utf-8')
+          root.joinpath('detail-links.txt').write_text(
+              '\n'.join(dict.fromkeys(detail_urls))+'\n',encoding='utf-8')
+
+          detail_status=[]
+          for i,url in enumerate(dict.fromkeys(detail_urls),1):
+              if i>60:
+                  break
+              req=Request(url,headers={'User-Agent':'Tianwen-Provenance-Audit/1.0','Referer':'https://meta.nlc.cn/v2/search'})
+              out=detail/(str(i)+'.html')
+              try:
+                  with urlopen(req,timeout=35) as resp:
+                      data=resp.read()
+                      code=resp.status
+                      final=resp.geturl()
+                  out.write_bytes(data)
+                  detail_status.append((str(i),'OK',str(code),str(len(data)),final))
+              except HTTPError as e:
+                  data=e.read()
+                  out.write_bytes(data)
+                  detail_status.append((str(i),'HTTP_ERROR',str(e.code),str(len(data)),e.geturl()))
+              except Exception as e:
+                  detail_status.append((str(i),'ERROR','','',repr(e)))
+              time.sleep(0.25)
+          root.joinpath('detail-status.tsv').write_text(
+              ''.join('\t'.join(row)+'\n' for row in detail_status),encoding='utf-8')
+
+          needles=['准斋','準齋','几漏','漏箭','黄丕烈','黃丕烈','士礼居','士禮居',
+                   '001775083','001411999008601','03482','03483','00O003570',
+                   '索书号','索書號','条码','條碼','馆藏','館藏','南区善本','南區善本',
+                   'call','barcode','shelf','文献号','登录号','登记号']
+          hits=[]
+          for p in sorted(detail.glob('*.html')):
+              text=p.read_text('utf-8',errors='replace')
+              hits.append('### '+p.name)
+              for line in text.splitlines():
+                  if any(n.lower() in line.lower() for n in needles):
+                      hits.append(line.strip())
+          root.joinpath('detail-target-hits.txt').write_text('\n'.join(hits)+'\n',encoding='utf-8')
+          PY
+
+          find "$ROOT" -type f -size +0c -print0 | xargs -0 -r sha256sum | sort -V > "$ROOT/all-files.sha256"
+          printf '%s\n' \
+            'SOURCE=National Library of China current meta.nlc.cn /v2/doSearch JSON API and returned detail routes' \
+            'PURPOSE=resolve current holding/result identifiers for Zhunzhai/Tonghu and classify legacy identifiers without shape inference' \
+            'IDENTIFIER_FIREWALL=search result id != historical catalog number != current call number != barcode != acquisition/donation number' \
+            'NEGATIVE_POLICY=zero results, errors or timeouts are bounded current-index/access observations only' \
+            'OCR_USED=false' > "$ROOT/manifest.txt"
+
+      - name: Upload API evidence probe
+        uses: actions/upload-artifact@v4
+        with:
+          name: batch-12fh-nlc-api-probe
+          path: audit/batch-12fh-nlc-api/
+          if-no-files-found: error
+          retention-days: 30
