@@ -1,7 +1,7 @@
 {
   "schema": "FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1",
   "schema_version": "1.0.0",
-  "access_date": "2026-09-24",
+  "access_date": "2026-09-25",
   "authority_policy": "S00-S19 are a frozen project research corpus and discovery/index layer, not infallible historical authority. External primary/received/bibliographic witnesses may corroborate, refine, contradict, or expose scope/attribution defects in the project corpus. Modern software and secondary research never become historical authority by observation alone.",
   "sources": [
     {
@@ -7512,6 +7512,63 @@
         "remote_copy_eligibility_closed": false,
         "target_3482_3483_bound": false,
         "research_artifact": "docs/research/ZIWEI-DENG-ZHICHENG-DIARY-1950-0129-FACSIMILE-VOLUME5-JAPAN-HOLDING-BOUNDARY-R1.json"
+      }
+    },
+    {
+      "source_id": "EXT-NJU-DENG-RUI-WUSHIZHAI-SERIAL-PROOF-COLLATION",
+      "title": "谈南京大学所藏宋拓《大观帖》卷六榷场本",
+      "author": "邓瑞",
+      "historical_period": "2000s first-person editorial account concerning serial collation of Deng Zhicheng diary-derived material",
+      "provider": "南京大学",
+      "url": "https://xiaobao.nju.edu.cn/d5/00/c18184a316672/page.htm",
+      "source_role": "EDITOR_FIRST_PERSON_CONTROL_FOR_WUSHIZHAI_SERIAL_PROOFS_CHECKED_AGAINST_ORIGINAL_DIARY_SOURCE",
+      "quality_notes": "Batch 12FX uses Deng Rui's own statement that every proof of 《五石斋文史札记》 was checked against the original source while serialised in 《中国典籍与文化》. This upgrades the editorial/transcription route only. It does not make the serial a facsimile, prove that 1950-01-29 was included, or resolve the target serial/facsimile page.",
+      "batch_12fx": {
+        "every_proof_checked_against_original": true,
+        "original_source_context": "邓之诚《五石斋日记》",
+        "target_1950_01_29_serial_page": "UNRESOLVED",
+        "target_1950_01_29_facsimile_page": "UNRESOLVED",
+        "direct_handwriting_reviewed": false,
+        "research_artifact": "docs/research/ZIWEI-DENG-ZHICHENG-DIARY-1950-0129-EDITOR-CHECKED-SERIAL-ROUTE-R1.json"
+      }
+    },
+    {
+      "source_id": "EXT-TSINGHUA-ALUMNI-ZHAO-WANLI-DENG-1950-0129",
+      "title": "赵万里：一生为书",
+      "author": "清华校友总会页面署文",
+      "historical_period": "2013 institutional article citing a 1950-01-29 Deng Zhicheng diary-derived passage",
+      "provider": "清华校友总会",
+      "url": "https://www.tsinghua.org.cn/info/1951/18141.htm",
+      "source_role": "INSTITUTIONAL_SECONDARY_CONTROL_FOR_1950_01_29_DENG_DERIVATIVE_QUOTATION",
+      "quality_notes": "Batch 12FX records the institutional page's explicit attribution of the Tieqin twelve-box wording to Deng Zhicheng's 1950-01-29 diary while citing Deng Rui's 2012 edited 《邓之诚文史札记》. It remains derivative and does not substitute for direct facsimile handwriting collation.",
+      "batch_12fx": {
+        "attributed_diary_date": "1950-01-29",
+        "cited_derivative": "邓瑞整理《邓之诚文史札记》，凤凰出版社2012年4月",
+        "reported_purchase_amount": "四千万人民券",
+        "reported_box_count": 12,
+        "reported_destination_wording": "以归公",
+        "exact_wording_promoted_to_direct_facsimile_text": false,
+        "target_facsimile_page_resolved": false,
+        "research_artifact": "docs/research/ZIWEI-DENG-ZHICHENG-DIARY-1950-0129-EDITOR-CHECKED-SERIAL-ROUTE-R1.json"
+      }
+    },
+    {
+      "source_id": "EXT-HUWENHUI-DENG-DIARY-VOL5-P222-ABRIDGEMENT-CONTROL",
+      "title": "统战胡适考",
+      "author": "胡文辉",
+      "historical_period": "modern secondary article with exact 2007 facsimile volume/page citation for a different Deng diary passage",
+      "provider": "公开文章镜像",
+      "url": "https://taihangsummit.com/690f4e94de/",
+      "source_role": "SECONDARY_EXACT_PAGE_CITATION_AND_DERIVATIVE_ABRIDGEMENT_CONTROL_NOT_DIRECT_PAGE_REVIEW",
+      "quality_notes": "Batch 12FX records a page-specific citation mapping a different passage from 2012 《邓之诚文史札记》上册 p508 to 2007 《邓之诚日记》第五册 p222, with an explicit note that the edited transcription is abridged. The project has not reviewed facsimile p222, and this non-target anchor is forbidden from locating the 1950-01-29 page by inference.",
+      "batch_12fx": {
+        "cited_2012_location": "上册第508页",
+        "cited_2007_facsimile_location": "第五册第222页",
+        "derivative_abridgement_note": true,
+        "target_1950_01_29_same_passage": false,
+        "direct_facsimile_page_222_reviewed": false,
+        "target_1950_01_29_page_inferred_from_p222": false,
+        "research_artifact": "docs/research/ZIWEI-DENG-ZHICHENG-DIARY-1950-0129-EDITOR-CHECKED-SERIAL-ROUTE-R1.json"
       }
     }
   ],
