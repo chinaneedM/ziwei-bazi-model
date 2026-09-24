@@ -13,7 +13,7 @@ permissions:
 jobs:
   probe:
     runs-on: ubuntu-latest
-    timeout-minutes: 12
+    timeout-minutes: 7
     steps:
       - uses: actions/checkout@v4
 
@@ -47,7 +47,7 @@ jobs:
               )
               out="$ROOT/opac/raw/$key-$code.html"
               set +e
-              timeout 40s curl -L -sS --connect-timeout 8 --max-time 30 -A "$UA" "$url" -o "$out"
+              timeout 15s curl -L -sS --connect-timeout 5 --max-time 10 -A "$UA" "$url" -o "$out"
               rc=$?
               set -e
               size=0; [ -f "$out" ] && size=$(wc -c < "$out")
@@ -90,7 +90,7 @@ jobs:
               url="http://opac.nlc.cn/F/?func=$func&local_base=NLC01&doc_number=$doc"
               out="$ROOT/opac/raw/doc-$doc-$func.html"
               set +e
-              timeout 40s curl -L -sS --connect-timeout 8 --max-time 30 -A "$UA" "$url" -o "$out"
+              timeout 15s curl -L -sS --connect-timeout 5 --max-time 10 -A "$UA" "$url" -o "$out"
               rc=$?
               set -e
               printf 'doc-%s-%s\t%s\t%s\n' "$doc" "$func" "$rc" "$(wc -c < "$out" 2>/dev/null || echo 0)" >> "$ROOT/opac/status.tsv"
@@ -123,7 +123,7 @@ jobs:
               )
               out="$ROOT/union/$key-$match.json"
               set +e
-              timeout 40s curl -L -sS --connect-timeout 8 --max-time 30 -A "$UA" -X POST \
+              timeout 15s curl -L -sS --connect-timeout 5 --max-time 10 -A "$UA" -X POST \
                 --data-urlencode 'index=0019,' \
                 --data-urlencode "searchJson=$SEARCH_JSON" \
                 --data-urlencode 'pageNo=1' \
@@ -154,7 +154,7 @@ jobs:
           for url in 'https://meta.nlc.cn/v2/index.html' 'https://meta.nlc.cn/v2/hightSearch'; do
             key=$(printf '%s' "$url" | sed 's#https://meta.nlc.cn/v2/##;s#[/?=&]#_#g')
             set +e
-            timeout 40s curl -L -sS --connect-timeout 8 --max-time 30 -A "$UA" -D "$ROOT/meta/raw/$key.headers" "$url" -o "$ROOT/meta/raw/$key.html"
+            timeout 15s curl -L -sS --connect-timeout 5 --max-time 10 -A "$UA" -D "$ROOT/meta/raw/$key.headers" "$url" -o "$ROOT/meta/raw/$key.html"
             rc=$?
             set -e
             printf '%s\t%s\t%s\n' "$url" "$rc" "$(wc -c < "$ROOT/meta/raw/$key.html" 2>/dev/null || echo 0)" >> "$ROOT/meta/status.tsv"
@@ -190,7 +190,7 @@ jobs:
             n=$((n+1))
             out="$ROOT/meta/js/$n.js"
             set +e
-            timeout 40s curl -L -sS --connect-timeout 8 --max-time 30 -A "$UA" "$url" -o "$out"
+            timeout 15s curl -L -sS --connect-timeout 5 --max-time 10 -A "$UA" "$url" -o "$out"
             rc=$?
             set -e
             printf 'script-%s\t%s\t%s\t%s\n' "$n" "$rc" "$(wc -c < "$out" 2>/dev/null || echo 0)" "$url" >> "$ROOT/meta/status.tsv"
