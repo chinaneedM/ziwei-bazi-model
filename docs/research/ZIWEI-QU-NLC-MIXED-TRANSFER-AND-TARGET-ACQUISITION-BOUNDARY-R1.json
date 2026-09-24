@@ -1,0 +1,132 @@
+{
+  "schema": "ZIWEI-QU-NLC-MIXED-TRANSFER-AND-TARGET-ACQUISITION-BOUNDARY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-QU-NLC-MIXED-TRANSFER-AND-TARGET-ACQUISITION-BOUNDARY-FL",
+  "prior_batch_id": "BATCH-12-ZIWEI-NLC-OPENOBJECT-PUBLIC-SHELL-ACCESS-BOUNDARY-FK",
+  "question": "Can the exact acquisition/transfer route by which the bound Tonghu Loujian Zhidu + Zhunzhai Xinzhi Jilou Tushi volume entered Beijing Library/NLC be selected as donation, sale/purchase, or another route from currently accessible evidence?",
+  "answer": "NO. Collection-level evidence closes a mixed Qu-family transfer program containing both donation and priced acquisition/sale, but the target volume's exact transaction route remains unresolved. The 1959 target entries lack the catalog's explicit 瞿捐 notation, which is bounded negative evidence for that specific entry-level donation mark and does not authorize a sale inference.",
+  "sources": {
+    "nlc_2018_zhao_wanli_retrospective": {
+      "url": "https://www.nlc.cn/pcab/zy/pxjz/20181227_174775.shtml",
+      "provider": "国家图书馆 / 中国古籍保护网",
+      "role": "FIRST_PARTY_INSTITUTIONAL_RETROSPECTIVE_FOR_COLLECTION_LEVEL_QU_TO_BEITU_TRANSFER_PROGRAM",
+      "observed_claims": [
+        "Early-1950s Qu-family books transferred to Beijing Library through a mixed 半卖半送 process.",
+        "The retrospective separately reports more than 500 titles across three transfer batches and 246 donated titles.",
+        "It quotes contemporary recollection that Zhao Wanli purchased Tieqin Tongjian Lou books and that a per-volume price was negotiated."
+      ],
+      "target_titles_named_in_transfer_record": false,
+      "target_transaction_mode_closed": false
+    },
+    "nlc_2024_zheng_zhenduo_study": {
+      "url": "https://www.nlc.cn/pcab/zx/xw/20240701_2640245.shtml",
+      "provider": "国家图书馆 / 中国古籍保护网",
+      "authors": [
+        "蔡成普（国家图书馆）",
+        "李静（国家博物馆）"
+      ],
+      "publication_source": "《山东图书馆学刊》",
+      "role": "INSTITUTIONAL_SCHOLARLY_CONTROL_FOR_QU_DONATION_AND_PLANNED_PRICED_ACQUISITION",
+      "observed_claims": [
+        "By late 1949 Zheng Zhenduo was mobilizing the Qu family to transfer Tieqin Tongjian Lou books to public custody.",
+        "A January 1950 Zheng letter urged that remaining books later be 陆续价购归公 under agreement.",
+        "The study records Qu-family donation activity in 1950, 1953 and 1954."
+      ],
+      "target_titles_named_in_transfer_record": false,
+      "target_transaction_mode_closed": false,
+      "cited_archival_targets": [
+        "《北京图书馆馆史资料汇编二：1946—1966》1997 pp.446–449",
+        "陈福康《郑振铎年谱》2017 pp.1397–1398",
+        "仲伟行等《铁琴铜剑楼研究文献集》1997 pp.263–264",
+        "李致忠《中国国家图书馆馆史资料长编：1909—2008》2009 pp.417–418"
+      ]
+    },
+    "wang_xiaohu_target_specific_control": {
+      "source_id": "EXT-WANG-XIAOHU-2014-ZHUNZHAI-YUAN-COMPOSITION-STUDY",
+      "url": "https://www.sohu.com/a/210477956_488626",
+      "role": "SECONDARY_TARGET_SPECIFIC_PROVENANCE_CONTROL",
+      "observed_claims": [
+        "The NLC Tonghu and Zhunzhai texts are bound together in one 1823 Huang Pilie/Shiliju manuscript volume with Tieqin Tongjian Lou provenance.",
+        "The author did not find these two works in the consulted 瞿氏藏书捐赠北京图书馆书目.",
+        "The exact route by which the target volume entered NLC was left for further investigation."
+      ],
+      "direct_target_transaction_document": false
+    },
+    "direct_1959_catalog_control": {
+      "repository_batch": "BATCH-12-ZIWEI-BEITU1959-TONGHU-ZHUNZHAI-CATALOG-NUMBER-AND-QUDONATION-BOUNDARY-FG",
+      "research_artifact": "docs/research/ZIWEI-BEITU1959-TONGHU-ZHUNZHAI-CATALOG-NUMBER-AND-QUDONATION-BOUNDARY-R1.json",
+      "target_catalog_numbers": [
+        "3482",
+        "3483"
+      ],
+      "same_catalog_explicit_qu_donation_mark_usage": true,
+      "target_entries_qu_donation_mark_present": false,
+      "target_qu_donation_attested_by_1959_catalog": false,
+      "sale_route_inferred_from_missing_mark": false,
+      "negative_scope": "ENTRY_LEVEL_1959_CATALOG_NOTATION_ONLY"
+    },
+    "gao_xizeng_annotated_catalog_discovery_lead": {
+      "discovery_url": "https://www.haijiaoshi.com/archives/14918",
+      "underlying_work": "汤志波、赵颖洁《中国分省公藏古籍书目总录（1949—2024）》, 上海辞书出版社, 2026",
+      "role": "SECONDARY_DISCOVERY_LEAD_FOR_TRANSACTION_ANNOTATION_SOURCE_NOT_DIRECT_TARGET_EVIDENCE",
+      "reported_lead": "A Gao Xizeng annotated copy of 《铁琴铜剑楼藏书目录》 is reported to contain detailed annotations about books handled during Qu-family collection transfer work.",
+      "reported_catalog_semantics": "The same modern bibliographic discussion states that Qu-donated books can bear 瞿捐 in the 1959 Beijing Library catalog while books sold to Beijing Library were not marked as sale entries.",
+      "annotated_copy_directly_reviewed_by_project": false,
+      "current_holding_or_digital_surrogate_closed": false,
+      "target_3482_3483_annotation_reviewed": false,
+      "target_transaction_mode_closed": false
+    }
+  },
+  "adjudication": {
+    "qu_to_beijing_library_collection_level_transfer_program": "CLOSED_AS_MIXED_DONATION_AND_PRICED_ACQUISITION_OR_SALE",
+    "target_volume_qu_provenance": "CLOSED_BEFORE_BEIJING_LIBRARY",
+    "target_1959_qu_donation_mark": "ABSENT_ON_DIRECT_TARGET_ENTRIES",
+    "target_specific_donation_route_selected": false,
+    "target_specific_sale_or_purchase_route_selected": false,
+    "target_specific_other_transfer_route_selected": false,
+    "final_nlc_acquisition_transfer_path": "UNRESOLVED",
+    "missing_qu_donation_mark_implies_sale": false,
+    "wang_donation_list_nonlocation_implies_sale": false,
+    "reason": "The evidence proves multiple collection-level pathways but supplies no direct target-level transaction annotation. Negative catalog/list evidence is bounded and cannot choose among those pathways."
+  },
+  "source_hierarchy_firewall": {
+    "collection_level_history_may_assign_target_route": false,
+    "secondary_discovery_lead_may_replace_direct_annotated_catalog": false,
+    "absence_in_one_donation_list_is_exhaustive_negative": false,
+    "exact_target_transaction_requires_direct_or_near_direct_item_level_record": true
+  },
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_added": [],
+    "same_object_edge_authorized": false,
+    "direct_copy_edges_authorized": [],
+    "acquisition_edge_authorized": false,
+    "note": "No transmission-genealogy topology change is authorized until target-specific acquisition/transfer evidence is obtained."
+  },
+  "chronology_and_rule_firewall": {
+    "direct_sanming_parent_vote_increment": 0,
+    "pre1578_zhunzhai_rule_witness_increment": 0,
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_count_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 13,
+    "repaired_provenance_metadata_defect_count": 13,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Locate and directly inspect Gao Xizeng's annotated 《铁琴铜剑楼藏书目录》 or an authoritative reproduction/collation, then test the target Tonghu/Zhunzhai entry or the bound-volume identity for a transaction annotation.",
+    "Inspect the Qu-family transaction material cited through Beijing Library/NLC institutional history, especially 《北京图书馆馆史资料汇编二：1946—1966》 pp.446–449 and related accession/transfer lists, for title-level or catalog-number-level binding.",
+    "Do not infer sale from the absence of 瞿捐 or from nonlocation in one donation list.",
+    "Keep NLC OpenObject page-count/full-manifest as the 12FK access-control boundary unless a lawful public pre-permission route appears.",
+    "Keep pre-1578 Zhunzhai and independent Sanming/Yueling Dahan–Rainwater + Nanjing-59 lines active in parallel."
+  ],
+  "updated_at": "2026-09-25"
+}
