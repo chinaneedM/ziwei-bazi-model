@@ -150,6 +150,8 @@ ZIWEI_TOKYO_JI_12FQ_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDI
 ZIWEI_TOKYO_JI_12FQ_EVIDENCE = ROOT / "docs/research/ZIWEI-TOKYO-JI-SHUYING-CH9-REMOTE-COPY-ELIGIBILITY-AND-PAGE-RANGE-BOUNDARY-R1.json"
 ZIWEI_BEITU_HISTORY_12FR_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-BEITU-HISTORY-MATERIALS-PP446-449-DIRECT-ACCESS-BOUNDARY-FR.md"
 ZIWEI_BEITU_HISTORY_12FR_EVIDENCE = ROOT / "docs/research/ZIWEI-BEITU-HISTORY-MATERIALS-1949-1966-PP446-449-DIRECT-ACCESS-BOUNDARY-R1.json"
+ZIWEI_NLC_QU_CITATION_12FS_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-2024-QU-CITATION-SCOPE-23-24-DISAMBIGUATION-FS.md"
+ZIWEI_NLC_QU_CITATION_12FS_EVIDENCE = ROOT / "docs/research/ZIWEI-NLC-2024-QU-CITATION-SCOPE-23-24-DISAMBIGUATION-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -451,9 +453,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-JI-SHUYING-TIEQIN-ACQUISITION-PROGRAM-CHRONOLOGY-AND-DIRECT-TEXT-BOUNDARY-FP",
     "BATCH-12-ZIWEI-TOKYO-JI-SHUYING-CH9-REMOTE-COPY-ELIGIBILITY-AND-PAGE-RANGE-BOUNDARY-FQ",
     "BATCH-12-ZIWEI-BEITU-HISTORY-MATERIALS-PP446-449-DIRECT-ACCESS-BOUNDARY-FR",
+    "BATCH-12-ZIWEI-NLC-2024-QU-CITATION-SCOPE-23-24-DISAMBIGUATION-FS",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-BEITU-HISTORY-MATERIALS-PP446-449-DIRECT-ACCESS-BOUNDARY-FR.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-2024-QU-CITATION-SCOPE-23-24-DISAMBIGUATION-FS.md"
 
 
 def fail(message: str) -> None:
@@ -2125,6 +2128,52 @@ def main() -> int:
         fail("Batch 12FR zero-topology firewall regressed")
     if batch12fr.get("chronology_and_rule_firewall", {}).get("algorithm_reopen_authorized") is not False:
         fail("Batch 12FR algorithm firewall regressed")
+
+    for path in (ZIWEI_NLC_QU_CITATION_12FS_BATCH, ZIWEI_NLC_QU_CITATION_12FS_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12FS continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12fs = json.loads(ZIWEI_NLC_QU_CITATION_12FS_EVIDENCE.read_text(encoding="utf-8"))
+    if batch12fs.get("batch_id") != "BATCH-12-ZIWEI-NLC-2024-QU-CITATION-SCOPE-23-24-DISAMBIGUATION-FS":
+        fail("Batch 12FS evidence identity mismatch")
+    seq12fs = {x.get("reference_number"): x for x in batch12fs.get("citation_sequence", [])}
+    ref23 = seq12fs.get(23, {})
+    ref24 = seq12fs.get(24, {})
+    if ref23.get("future_priced_acquisition_intention_source_in_this_article") is not False:
+        fail("Batch 12FS ref23 priced-acquisition scope regressed")
+    if ref24.get("priced_acquisition_intention_source_in_this_article") is not True:
+        fail("Batch 12FS ref24 priced-acquisition scope regressed")
+    scope12fs = batch12fs.get("scope_adjudication", {})
+    if scope12fs.get("ref23_pp446_449_is_article_source_for_future_priced_acquisition_intention") is not False:
+        fail("Batch 12FS ref23/ref24 citation separation regressed")
+    if scope12fs.get("ref24_is_article_source_for_future_priced_acquisition_intention") is not True:
+        fail("Batch 12FS ref24 control regressed")
+    if scope12fs.get("ref22_is_article_source_for_partial_rare_books_transfer_to_government") is not True:
+        fail("Batch 12FS ref22 transfer scope regressed")
+    for key in ("article_itself_proves_target_3482_3483_in_any_specific_batch","article_itself_proves_target_purchase","article_itself_proves_target_donation","article_itself_proves_target_exact_acquisition_date"):
+        if scope12fs.get(key) is not False:
+            fail(f"Batch 12FS target firewall regressed: {key}")
+    narrow12fs = batch12fs.get("batch_12fr_correction_or_narrowing", {})
+    if narrow12fs.get("fr_access_route_remains_valid") is not True or narrow12fs.get("fr_volume_binding_remains_valid") is not True or narrow12fs.get("fr_direct_text_not_reviewed_boundary_remains_valid") is not True:
+        fail("Batch 12FS FR-preservation boundary regressed")
+    fw12fs = batch12fs.get("inference_firewall", {})
+    for key in ("adjacent_sentences_in_same_paragraph_may_not_share_citations_without_marker_support","future_priced_acquisition_intention_does_not_prove_execution_for_any_specific_item","institutional_entry_statement_does_not_identify_transaction_mode","target_route_requires_item_level_or_stable_identifier_level_evidence"):
+        if fw12fs.get(key) is not True:
+            fail(f"Batch 12FS inference firewall regressed: {key}")
+    reg12fs = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    nlc12fs = next((x for x in reg12fs.get("sources", []) if x.get("source_id") == "EXT-NLC-PCAB-ZHENG-ZHENDUO-QU-DONATION-AND-PRICED-ACQUISITION-2024"), None)
+    if nlc12fs is None:
+        fail("Batch 12FS NLC registry source missing")
+    scope_reg12fs = nlc12fs.get("batch_12fs", {})
+    if scope_reg12fs.get("ref23_is_source_for_future_priced_acquisition_intention") is not False or scope_reg12fs.get("ref24_is_source_for_future_priced_acquisition_intention") is not True:
+        fail("Batch 12FS registry citation scope regressed")
+    trans12fs = batch12fs.get("transmission_impact", {})
+    if trans12fs.get("nodes_added") != [] or trans12fs.get("edges_added") != [] or trans12fs.get("acquisition_edge_authorized") is not False or trans12fs.get("same_object_edge_authorized") is not False:
+        fail("Batch 12FS zero-topology/acquisition-edge firewall regressed")
+    rule12fs = batch12fs.get("chronology_and_rule_firewall", {})
+    if rule12fs.get("direct_sanming_parent_vote_increment") != 0 or rule12fs.get("pre1578_zhunzhai_rule_witness_increment") != 0 or rule12fs.get("runtime_rule_change") is not False or rule12fs.get("algorithm_reopen_authorized") is not False or rule12fs.get("candidate_collapse_authorized") is not False or rule12fs.get("matrix_count_change") is not False:
+        fail("Batch 12FS product/matrix firewall regressed")
+    if batch12fs.get("accounting", {}).get("matrix_rows") != 198 or batch12fs.get("accounting", {}).get("audited_rows") != 166 or batch12fs.get("accounting", {}).get("current_missing_from_product_rows") != 10:
+        fail("Batch 12FS matrix accounting unexpectedly changed")
 
     for path in (ZIWEI_KYUDB_12DT_BATCH, ZIWEI_KYUDB_12DT_EVIDENCE):
         if not path.is_file():
