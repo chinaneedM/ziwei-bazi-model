@@ -250,9 +250,10 @@
       "BATCH-12-ZIWEI-NCL-UNION-TONGHU-RARECATX0514818-BOUNDARY-FE",
       "BATCH-12-ZIWEI-NLC-OPAC-ZHUNZHAI-MICROFILM-SOURCE-CROSSBINDING-FF",
       "BATCH-12-ZIWEI-BEITU1959-TONGHU-ZHUNZHAI-CATALOG-NUMBER-AND-QUDONATION-BOUNDARY-FG",
-      "BATCH-12-ZIWEI-NLC-CURRENT-SYS-ITEM-HOLDINGS-LOCATOR-FH"
+      "BATCH-12-ZIWEI-NLC-CURRENT-SYS-ITEM-HOLDINGS-LOCATOR-FH",
+      "BATCH-12-ZIWEI-NLC-CURRENT-TONGHU-COMPOSITE-HOLDINGS-LOCATOR-FI"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-CURRENT-SYS-ITEM-HOLDINGS-LOCATOR-FH.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-CURRENT-TONGHU-COMPOSITE-HOLDINGS-LOCATOR-FI.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -958,7 +959,14 @@
       "Batch 12FH reclassifies raw 455$1 value 001411999008601 from an unresolved source-control-shaped string to an embedded-link payload: UNIMARC/CNMARC 455 = Reproduction Of and embedded 001 = record identifier, so the linked original record-control value is 411999008601. It is not a physical shelfmark, barcode or acquisition/donation number.",
       "00O003570 remains only the first-party separate-photograph reference from the note 铜壶漏箭制度另拍在00O003570. Its exact current SYS/call-number/photo-service subtype remains UNRESOLVED.",
       "Batch 12FH adds CATALOG-NLC-CURRENT-ZHUNZHAI-SYS001775083-UIDUCS01003828993 and TG-E0111 HIGH_CONFIDENCE ATTESTS only. SAME_OBJECT/direct-copy remain unauthorized; final Qu-family acquisition/transfer path remains UNRESOLVED; matrix/product counts remain 198 / 166 / 10, provenance defects 13/13, chart algorithm defect/reopen/collapse 0, and direct Sanming-parent vote increment 0.",
-      "Highest next gate: locate the current NLC 铜壶漏箭制度 record and test whether its local holdings locator is NLC:SBYL:03482; resolve 00O003570 from a first-party field; test whether linked record-control 411999008601 is separately addressable; continue Qu-family sale/donation/transfer/accession research; keep pre-1578 Zhunzhai and Sanming/Yueling Dahan-Rainwater + Nanjing-59 lines active in parallel."
+      "Highest next gate: locate the current NLC 铜壶漏箭制度 record and test whether its local holdings locator is NLC:SBYL:03482; resolve 00O003570 from a first-party field; test whether linked record-control 411999008601 is separately addressable; continue Qu-family sale/donation/transfer/accession research; keep pre-1578 Zhunzhai and Sanming/Yueling Dahan-Rainwater + Nanjing-59 lines active in parallel.",
+      "Batch 12FI current National Library of China meta.nlc.cn title search closes the original 1823 Huang Shiliju Tonghu rare-book record as SYS 001775082 / UID UCS01003828992, with WDT 善本, YEA 1823, PUB 黃氏士禮居, PAG 1冊 and current holder 国家图书馆.",
+      "The Tonghu item API directly emits 905a=NLC / 905q=SBYL / 905s=03482 / 3165=NLC:SBYL:03482. Using the same gated CNMARC/SBYL semantics as 12FH, current NLC local holdings locator NLC:SBYL:03482 is CLOSED; paired with Zhunzhai NLC:SBYL:03483, both current components are closed at catalog-and-local-holdings level; no public barcode is exposed or inferred.",
+      "Identifier semantics remain layered: 1959 printed 3482/3483, legacy OPAC 原文献03482/03483 and current 905s 03482/03483 show direct numeric continuity but are not silently collapsed into one semantic class. Current SYS/UID and local-call-number components remain separate from historical catalog numbers and barcodes.",
+      "Two current Tonghu microfilm records (SYS 002597933 / UID UCS01003581457 and SYS 002146415 / UID UCS01003553255) directly emit 455 original-source metadata for the 03482+03483 one-volume object, raw 455$1 001411999008600 -> embedded 001 + linked record-control 411999008600, and the note 准斋心制几漏图式另拍在00O003571.",
+      "Together with the Zhunzhai microfilm control raw 455$1 001411999008601 -> 411999008601 and 铜壶漏箭制度另拍在00O003570, the referents of 00O003570/571 are closed as a reciprocal title-specific separate-photograph reference pair. Exact identifier subtype/current route remains UNRESOLVED; neither value is promoted to a physical call number, barcode, acquisition or donation number.",
+      "Batch 12FI adds CATALOG-NLC-CURRENT-TONGHU-SYS001775082-UIDUCS01003828992 and TG-E0112 HIGH_CONFIDENCE ATTESTS only. SAME_OBJECT/direct-copy remain unauthorized; final Qu-family acquisition/transfer path remains UNRESOLVED; matrix/product counts remain 198 / 166 / 10, provenance defects 13/13, chart algorithm defect/reopen/collapse 0, and direct Sanming-parent vote increment 0.",
+      "Highest next gate: map 00O003570 and 00O003571 to any first-party current microfilm/photo-service identifier class or route without inferring from sequence alone; test 411999008600/411999008601 through first-party linked-record routes; continue target-specific Qu-family sale/donation/transfer/accession research; keep pre-1578 Zhunzhai and Sanming/Yueling Dahan-Rainwater + Nanjing-59 lines active in parallel."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10
