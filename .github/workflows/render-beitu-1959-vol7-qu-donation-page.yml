@@ -1,0 +1,50 @@
+name: render-beitu-1959-vol7-qu-donation-page
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/render-beitu-1959-vol7-qu-donation-page.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install PDF renderer
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils
+
+      - name: Render pages 18-20 at 400 dpi
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/beitu-1959-vol7-qu-donation-page'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT/rendered"
+          URL='https://upload.wikimedia.org/wikipedia/commons/2/23/SSID-12335513_%E5%8C%97%E4%BA%AC%E5%9C%96%E6%9B%B8%E9%A4%A8%E5%96%84%E6%9C%AC%E6%9B%B8%E7%9B%AE_7.pdf'
+          curl -L --fail --retry 5 --retry-all-errors --retry-delay 2             -A 'Tianwen-Provenance-Audit/1.0' "$URL" -o "$ROOT/source.pdf"
+          sha256sum "$ROOT/source.pdf" > "$ROOT/source.sha256"
+          pdfinfo "$ROOT/source.pdf" > "$ROOT/pdfinfo.txt"
+          pdftoppm -f 18 -l 20 -png -r 400 "$ROOT/source.pdf" "$ROOT/rendered/page"
+          sha256sum "$ROOT"/rendered/*.png | sort -V > "$ROOT/rendered.sha256"
+          printf '%s\n'             'SOURCE=北京圖書館善本書目 第7冊 / 中華書局 1959 / SSID-12335513'             'TARGET_WINDOW=PDF pages 18-20'             'TARGET_PAGE=19 from complete image-only locator'             'TARGET=金華黃先生文集四十三卷 元刻明修本 / 瞿捐 notation'             'RENDER=400dpi PNG'             'OCR_USED=false'             'FINAL_GLYPH_AUTHORITY=source-bound p19 render'             > "$ROOT/manifest.txt"
+          rm "$ROOT/source.pdf"
+
+      - name: Upload Qu-donation control pages
+        uses: actions/upload-artifact@v4
+        with:
+          name: beitu-1959-vol7-qu-donation-page
+          path: audit/beitu-1959-vol7-qu-donation-page/
+          if-no-files-found: error
+          compression-level: 6
+          retention-days: 30
