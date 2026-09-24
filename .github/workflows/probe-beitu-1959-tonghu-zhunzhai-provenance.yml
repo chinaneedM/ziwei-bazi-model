@@ -22,7 +22,7 @@ jobs:
         run: |
           set -euo pipefail
           sudo apt-get update -qq
-          sudo apt-get install -y -qq poppler-utils imagemagick
+          sudo apt-get install -y -qq poppler-utils
 
       - name: Locate target entries in 1959 Beijing Library rare-book catalog
         shell: bash
@@ -30,7 +30,7 @@ jobs:
           set -euo pipefail
           ROOT='audit/beitu-1959-tonghu-zhunzhai-provenance'
           rm -rf "$ROOT"
-          mkdir -p "$ROOT/raw" "$ROOT/text" "$ROOT/rendered" "$ROOT/front"
+          mkdir -p "$ROOT/raw" "$ROOT/text"
 
           python - <<'PY'
           from pathlib import Path
@@ -103,45 +103,24 @@ jobs:
                   f.write('\n'.join(lines)+'\n')
           PY
 
-            maxfront=8
-            [ "$pages" -lt 8 ] && maxfront="$pages"
-            pdftoppm -f 1 -l "$maxfront" -jpeg -jpegopt quality=85 -r 110 \
-              "$pdf" "$ROOT/front/vol-$vol-front" >/dev/null 2>&1
-            montage "$ROOT/front"/vol-$vol-front-*.jpg \
-              -thumbnail 250x520 -label '%f' -tile 4x2 -geometry +8+24 \
-              "$ROOT/front/vol-$vol-front-contact.jpg"
-            rm "$ROOT/front"/vol-$vol-front-*.jpg
-
-            awk -F'\t' -v v="$vol" '$1==v {print $2}' "$ROOT/page-hits.tsv" | sort -nu | while read -r p; do
-              [ -z "$p" ] && continue
-              for q in $((p-1)) "$p" $((p+1)); do
-                [ "$q" -lt 1 ] && continue
-                [ "$q" -gt "$pages" ] && continue
-                out="$ROOT/rendered/vol-$vol-page-$(printf '%04d' "$q")"
-                [ -f "${out}.png" ] && continue
-                pdftoppm -f "$q" -l "$q" -singlefile -png -r 300 "$pdf" "$out"
-              done
-            done
           done < "$ROOT/volumes.tsv"
 
-          sha256sum "$ROOT"/raw/*.json "$ROOT"/front/*.jpg > "$ROOT/source-and-front.sha256"
-          if compgen -G "$ROOT/rendered/*.png" > /dev/null; then
-            sha256sum "$ROOT"/rendered/*.png | sort -V > "$ROOT/rendered.sha256"
-          fi
+          sha256sum "$ROOT"/raw/*.json | sort -V > "$ROOT/source-meta.sha256"
 
           printf '%s\n' \
             'SOURCE=北京圖書館善本書目 / 中華書局 1959 / 8冊 / Wikimedia Commons public-domain scans SSID-12335507..12335514' \
             'TARGETS=銅壺漏箭制度 ; 準齋心製几漏圖式 ; 瞿捐 provenance mark' \
             'QUESTION=Does the 1959 catalog identify the target composite object as a Qu-family donation, sale/unmarked acquisition, or otherwise source-labelled holding?' \
             'TEXT_LAYER_ROLE=LOCATOR_ONLY' \
-            'FINAL_GLYPH_AUTHORITY=SOURCE-BOUND 300DPI RENDER IF TARGET PAGE IS LOCATED' \
-            'NO_TARGET_TEXT_HIT_POLICY=absence from an unusable text layer has zero negative authority; use front-page classification controls to select image-only follow-up volume' \
+            'FINAL_GLYPH_AUTHORITY=NOT_YET; THIS PASS IS LOCATOR-ONLY' \
+            'NO_TARGET_TEXT_HIT_POLICY=absence from an unusable text layer has zero negative authority; a separate image-only locator must follow' \
             'OCR_USED=false' \
             > "$ROOT/manifest.txt"
 
           rm "$ROOT"/raw/vol-*.pdf
 
       - name: Upload 1959 catalog locator evidence
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: beitu-1959-tonghu-zhunzhai-provenance
