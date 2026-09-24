@@ -1,0 +1,92 @@
+name: fetch-beitu-1959-front-thumbnails
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/fetch-beitu-1959-front-thumbnails.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install montage
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq imagemagick
+
+      - name: Fetch Wikimedia PDF page thumbnails
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/beitu-1959-front-thumbnails'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT/pages" "$ROOT/contacts" "$ROOT/meta"
+          : > "$ROOT/status.tsv"
+
+          for vol in $(seq 1 8); do
+            ssid=$((12335506+vol))
+            title="File:SSID-${ssid} 北京圖書館善本書目 ${vol}.pdf"
+            mkdir -p "$ROOT/pages/vol-$vol"
+            for p in $(seq 1 12); do
+              api=$(TITLE="$title" PAGE="$p" python - <<'PY'
+          import os,urllib.parse
+          page=int(os.environ['PAGE'])
+          q={
+            'action':'query','format':'json','prop':'imageinfo',
+            'iiprop':'url','iiurlwidth':'500',
+            'iiurlparam':f'page{page}-500px',
+            'titles':os.environ['TITLE']
+          }
+          print('https://commons.wikimedia.org/w/api.php?'+urllib.parse.urlencode(q))
+          PY
+              )
+              meta="$ROOT/meta/vol-$vol-page-$p.json"
+              curl -L --fail --retry 5 --retry-all-errors --retry-delay 1 \
+                -A 'Tianwen-Provenance-Audit/1.0' "$api" -o "$meta"
+              thumb=$(META="$meta" python - <<'PY'
+          import json,os
+          d=json.load(open(os.environ['META'],encoding='utf-8'))
+          node=next(iter(d['query']['pages'].values()))
+          info=node['imageinfo'][0]
+          print(info.get('thumburl') or info['url'])
+          PY
+              )
+              out="$ROOT/pages/vol-$vol/page-$(printf '%02d' "$p").jpg"
+              curl -L --fail --retry 5 --retry-all-errors --retry-delay 1 \
+                -A 'Tianwen-Provenance-Audit/1.0' "$thumb" -o "$out"
+              printf '%s\t%s\t%s\t%s\n' "$vol" "$p" "$ssid" "$(sha256sum "$out" | awk '{print $1}')" >> "$ROOT/status.tsv"
+            done
+            mapfile -t imgs < <(find "$ROOT/pages/vol-$vol" -name 'page-*.jpg' | sort -V)
+            test "${#imgs[@]}" -eq 12
+            montage "${imgs[@]}" -thumbnail 360x740 -label '%f' -tile 4x3 -geometry +10+28 \
+              "$ROOT/contacts/vol-$vol-front12.jpg"
+          done
+
+          sha256sum "$ROOT"/contacts/*.jpg | sort -V > "$ROOT/contacts.sha256"
+          printf '%s\n' \
+            'SOURCE=Wikimedia Commons ImageInfo PDF page thumbnails for 北京圖書館善本書目 1959' \
+            'VOLUMES=SSID-12335507..12335514' \
+            'PAGES=1..12 each' \
+            'API_PARAM=iiurlwidth=500 + iiurlparam=pageN-500px' \
+            'PURPOSE=identify volume/classification boundary before bounded full-volume target locator' \
+            'OCR_USED=false' \
+            > "$ROOT/manifest.txt"
+
+      - name: Upload fast front thumbnails
+        uses: actions/upload-artifact@v4
+        with:
+          name: beitu-1959-front-thumbnails
+          path: audit/beitu-1959-front-thumbnails/
+          if-no-files-found: error
+          compression-level: 6
+          retention-days: 30
