@@ -38,10 +38,10 @@ jobs:
           from PIL import Image,ImageDraw
           import re,json,hashlib
           root=Path('audit/airijinglu-nlc001947627-v5-contacts')
-          pages=sorted((root/'pages').glob('page-*.jpg'),key=lambda p:int(re.search(r'-(\\d+)\\.jpg$',p.name).group(1)))
+          pages=sorted((root/'pages').glob('page-*.jpg'),key=lambda p:int(re.search(r'-(\d+)\.jpg$',p.name).group(1)))
           manifest=[]
           for p in pages:
-              n=int(re.search(r'-(\\d+)\\.jpg$',p.name).group(1))
+              n=int(re.search(r'-(\d+)\.jpg$',p.name).group(1))
               im=Image.open(p)
               manifest.append({'pdf_page':n,'sha256':hashlib.sha256(p.read_bytes()).hexdigest(),
                                'width':im.width,'height':im.height})
@@ -49,7 +49,7 @@ jobs:
           for start in range(0,len(pages),per):
               chunk=pages[start:start+per]; thumbs=[]
               for p in chunk:
-                  n=int(re.search(r'-(\\d+)\\.jpg$',p.name).group(1))
+                  n=int(re.search(r'-(\d+)\.jpg$',p.name).group(1))
                   im=Image.open(p).convert('RGB'); tw=720
                   im=im.resize((tw,max(1,int(im.height*tw/im.width))))
                   c=Image.new('RGB',(tw,im.height+44),'white'); c.paste(im,(0,44))
@@ -58,8 +58,8 @@ jobs:
               rows=(len(thumbs)+cols-1)//cols
               sheet=Image.new('RGB',(cols*cw,rows*ch),'white')
               for i,t in enumerate(thumbs): sheet.paste(t,((i%cols)*cw,(i//cols)*ch))
-              lo=int(re.search(r'-(\\d+)\\.jpg$',chunk[0].name).group(1))
-              hi=int(re.search(r'-(\\d+)\\.jpg$',chunk[-1].name).group(1))
+              lo=int(re.search(r'-(\d+)\.jpg$',chunk[0].name).group(1))
+              hi=int(re.search(r'-(\d+)\.jpg$',chunk[-1].name).group(1))
               sheet.save(root/'contacts'/f'contact-{lo:03d}-{hi:03d}.jpg',quality=96)
           report={
             'schema':'AIRIJINGLU-NLC001947627-V5-CONTACTS-R1',
