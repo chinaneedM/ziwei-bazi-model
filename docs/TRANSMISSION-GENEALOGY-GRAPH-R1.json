@@ -1379,7 +1379,10 @@
         "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC1823-TIEQIN-SEAL-PROVENANCE-CONTROL-FD.md",
         "EXT-NCL-TW-UNION-TONGHU-RARECATX0514818",
         "docs/research/ZIWEI-NCL-UNION-TONGHU-RARECATX0514818-BOUNDARY-R1.json",
-        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NCL-UNION-TONGHU-RARECATX0514818-BOUNDARY-FE.md"
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NCL-UNION-TONGHU-RARECATX0514818-BOUNDARY-FE.md",
+        "EXT-NLC-OPAC-ZHUNZHAI-MICROFILM-002597934-SOURCE001775083",
+        "docs/research/ZIWEI-NLC-OPAC-ZHUNZHAI-MICROFILM-SOURCE-CROSSBINDING-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-OPAC-ZHUNZHAI-MICROFILM-SOURCE-CROSSBINDING-FF.md"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-XUXIU1031-ZHUNZHAI-CLEPSYDRA-JIEHOU-ARROW-SELECTION-DV",
       "pre1578_title_family_catalog_attestation_status": "CLOSED_AT_1441_CATALOG_TEXT_LAYER",
@@ -1449,6 +1452,26 @@
           "鐵琴銅劍樓 seal",
           "unique physical shelfmark"
         ]
+      },
+      "nlc_opac_microfilm_source_record_control": {
+        "batch": "BATCH-12-ZIWEI-NLC-OPAC-ZHUNZHAI-MICROFILM-SOURCE-CROSSBINDING-FF",
+        "microfilm_doc_number": "002597934",
+        "displayed_id": "602003002862",
+        "original_doc_number": "001775083",
+        "source_control_value": "001411999008601",
+        "original_document_numbers": {
+          "tonghu": "03482",
+          "zhunzhai": "03483"
+        },
+        "copper_separate_photo_reference": "00O003570",
+        "source_date_and_provenance": "黃氏士禮居 清道光三年[1823]",
+        "official_one_volume_binding": "03482 銅壺漏箭制度 + 03483 準齋心製几漏圖式 = 為一冊",
+        "official_one_volume_binding_closed": true,
+        "unique_physical_shelfmark_proved": false,
+        "acquisition_or_donation_identifier_proved": false,
+        "rarecatx0514818_exact_crosswalk_proved": false,
+        "exact_specific_tieqin_catalogued_object_identity": "VERY_STRONGLY_SUPPORTED_NOT_FORMALLY_UNIQUE_OBJECT_CLOSED",
+        "same_object_edge_authorized": false
       }
     },
     {
@@ -2603,6 +2626,34 @@
         "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NCL-UNION-TONGHU-RARECATX0514818-BOUNDARY-FE.md"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-NCL-UNION-TONGHU-RARECATX0514818-BOUNDARY-FE"
+    },
+    {
+      "node_id": "CATALOG-NLC-OPAC-ZHUNZHAI-MICROFILM-002597934",
+      "node_type": "DIGITAL_SURROGATE",
+      "label": "國家圖書館 OPAC《準齋心製几漏圖式》縮微品 002597934 與原善本 001775083 複製來源記錄",
+      "system_scope": "MODERN_OFFICIAL_OPAC_REPRODUCTION_AND_SOURCE_RECORD_BINDING",
+      "date": "MICROFILM_1985; OPAC_CAPTURE_2026-09-24",
+      "locator": "National Library of China OPAC",
+      "microfilm_doc_number": "002597934",
+      "displayed_id": "602003002862",
+      "original_doc_number": "001775083",
+      "source_control_value": "001411999008601",
+      "original_document_numbers": {
+        "tonghu": "03482",
+        "zhunzhai": "03483"
+      },
+      "copper_separate_photo_reference": "00O003570",
+      "source_date_and_provenance": "黃氏士禮居 清道光三年[1823]",
+      "official_one_volume_binding_closed": true,
+      "unique_physical_shelfmark_proved": false,
+      "acquisition_or_donation_identifier_proved": false,
+      "rarecatx0514818_exact_crosswalk_proved": false,
+      "evidence": [
+        "EXT-NLC-OPAC-ZHUNZHAI-MICROFILM-002597934-SOURCE001775083",
+        "docs/research/ZIWEI-NLC-OPAC-ZHUNZHAI-MICROFILM-SOURCE-CROSSBINDING-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-OPAC-ZHUNZHAI-MICROFILM-SOURCE-CROSSBINDING-FF.md"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-NLC-OPAC-ZHUNZHAI-MICROFILM-SOURCE-CROSSBINDING-FF"
     }
   ],
   "edges": [
@@ -4259,6 +4310,22 @@
       ],
       "scope_note": "The official public union-catalog record binds 銅壺漏箭制度 / 抄本 / 清黃丕烈跋 / rarecatx0514818 / 中國國家圖書館 and therefore supports a high-confidence same-NLC-Huang-copy-family association with the reviewed 1823 Copper/Zhunzhai object. rarecatx0514818 is a catalog registration/record identifier, not a proved physical shelfmark or unique item number. Exact physical-copy identity and SAME_OBJECT collapse remain unproved; no pre-1578 rule or Sanming-parent vote is added.",
       "adjudication_batch": "BATCH-12-ZIWEI-NCL-UNION-TONGHU-RARECATX0514818-BOUNDARY-FE"
+    },
+    {
+      "edge_id": "TG-E0109",
+      "from": "CATALOG-NLC-OPAC-ZHUNZHAI-MICROFILM-002597934",
+      "relation": "ATTESTS",
+      "to": "PHYSICAL-COPY-NLC-ZHUNZHAI-JILOU-DAOGUANG3-HUANG-SHILIJU-MS",
+      "status": "VERY_HIGH_CONFIDENCE",
+      "confidence": "VERY_HIGH_FOR_OFFICIAL_NLC_1823_HUANG_SHILIJU_COMPOSITE_SOURCE_RECORD_BINDING_NOT_UNIQUE_PHYSICAL_SHELFMARK_OR_TIEQIN_SAME_OBJECT_COLLAPSE",
+      "evidence_class": "FIRST_PARTY_NLC_OPAC_MICROFILM_RECORD_WITH_DIRECT_COPIED_FROM_SOURCE_METADATA",
+      "evidence": [
+        "EXT-NLC-OPAC-ZHUNZHAI-MICROFILM-002597934-SOURCE001775083",
+        "docs/research/ZIWEI-NLC-OPAC-ZHUNZHAI-MICROFILM-SOURCE-CROSSBINDING-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-OPAC-ZHUNZHAI-MICROFILM-SOURCE-CROSSBINDING-FF.md"
+      ],
+      "scope_note": "The NLC OPAC microfilm record directly links doc 002597934 to original rare-book doc 001775083 / source-control 001411999008601 and states 黃氏士禮居 清道光三年[1823] / 1冊 / 原文献03482铜壶漏箭制度、03483准斋心制几漏图式为一册. This closes the official OPAC companion/source-record and one-volume composite binding. It does not prove that 03482/03483 or 001411999008601 are physical shelfmarks, does not equate rarecatx0514818 with those OPAC identifiers, does not close acquisition/donation provenance, does not collapse Huang 原書舊鈔 versus 錄副, and does not authorize SAME_OBJECT identity with the specific Tieqin-catalogued physical copy or add a Sanming-parent vote.",
+      "adjudication_batch": "BATCH-12-ZIWEI-NLC-OPAC-ZHUNZHAI-MICROFILM-SOURCE-CROSSBINDING-FF"
     }
   ],
   "lineage_hypotheses": [
@@ -4531,6 +4598,10 @@
         {
           "batch": "BATCH-12-ZIWEI-NCL-UNION-TONGHU-RARECATX0514818-BOUNDARY-FE",
           "update": "Official NCL Chinese Rare Books Union Catalog detail closes the public record identity 銅壺漏箭制度 / 抄本 / 清黃丕烈跋 / rarecatx0514818 / 中國國家圖書館. The exposed 登錄號 is preserved as a database registration/record identifier, not a physical shelfmark or unique item number. It supports a high-confidence same-NLC-Huang-copy-family association but does not close exact physical-object identity, Huang 原書舊鈔/錄副, pre-1578 exact rule provenance, or direct lineage. Zero exact Sanming-parent vote is added."
+        },
+        {
+          "batch": "BATCH-12-ZIWEI-NLC-OPAC-ZHUNZHAI-MICROFILM-SOURCE-CROSSBINDING-FF",
+          "update": "First-party NLC OPAC closes an official Zhunzhai companion record and the 1985 microfilm-to-original source chain: microfilm doc 002597934 -> original rare-book doc 001775083 / source-control 001411999008601, with the direct source note 黃氏士禮居 清道光三年[1823] / 1冊 / 原文献03482铜壶漏箭制度、03483准斋心制几漏图式为一册 and Copper separately photographed at 00O003570. Identifier classes remain fail-closed: none of 001411999008601, 03482/03483 or 00O003570 is promoted to a physical shelfmark or accession/donation number without an explicit label; rarecatx0514818 cross-system equivalence remains unproved; exact Tieqin unique-object collapse remains withheld; zero exact Sanming-parent vote is added."
         }
       ],
       "endpoint_anchor_component_identified": true,
