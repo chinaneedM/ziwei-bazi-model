@@ -52,6 +52,7 @@ BATCH_12FE = ROOT / "docs/research/ZIWEI-NCL-UNION-TONGHU-RARECATX0514818-BOUNDA
 BATCH_12FF = ROOT / "docs/research/ZIWEI-NLC-OPAC-ZHUNZHAI-MICROFILM-SOURCE-CROSSBINDING-R1.json"
 BATCH_12FG = ROOT / "docs/research/ZIWEI-BEITU1959-TONGHU-ZHUNZHAI-CATALOG-NUMBER-AND-QUDONATION-BOUNDARY-R1.json"
 BATCH_12FH = ROOT / "docs/research/ZIWEI-NLC-CURRENT-SYS-ITEM-HOLDINGS-LOCATOR-R1.json"
+BATCH_12FI = ROOT / "docs/research/ZIWEI-NLC-CURRENT-TONGHU-COMPOSITE-HOLDINGS-LOCATOR-R1.json"
 
 
 def fail(message: str) -> None:
@@ -59,7 +60,7 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
-    for path in (CHARTER, PROTOCOL, GRAPH, STATE, BATCH_12CH, BATCH_12DP, BATCH_12DQ, BATCH_12DR, BATCH_12DS, BATCH_12DT, BATCH_12DU, BATCH_12DV, BATCH_12DW, BATCH_12DX, BATCH_12DY, BATCH_12DZ, BATCH_12EA, BATCH_12EB, BATCH_12EC, BATCH_12ED, BATCH_12EE, BATCH_12EI, BATCH_12EJ, BATCH_12EK, BATCH_12EL, BATCH_12EM, BATCH_12EN, BATCH_12EO, BATCH_12EP, BATCH_12EQ, BATCH_12ER, BATCH_12ES, BATCH_12ET, BATCH_12EU, BATCH_12EV, BATCH_12EW, BATCH_12EX, BATCH_12EY, BATCH_12EZ, BATCH_12FA, BATCH_12FB, BATCH_12FC, BATCH_12FD, BATCH_12FE, BATCH_12FF, BATCH_12FG, BATCH_12FH):
+    for path in (CHARTER, PROTOCOL, GRAPH, STATE, BATCH_12CH, BATCH_12DP, BATCH_12DQ, BATCH_12DR, BATCH_12DS, BATCH_12DT, BATCH_12DU, BATCH_12DV, BATCH_12DW, BATCH_12DX, BATCH_12DY, BATCH_12DZ, BATCH_12EA, BATCH_12EB, BATCH_12EC, BATCH_12ED, BATCH_12EE, BATCH_12EI, BATCH_12EJ, BATCH_12EK, BATCH_12EL, BATCH_12EM, BATCH_12EN, BATCH_12EO, BATCH_12EP, BATCH_12EQ, BATCH_12ER, BATCH_12ES, BATCH_12ET, BATCH_12EU, BATCH_12EV, BATCH_12EW, BATCH_12EX, BATCH_12EY, BATCH_12EZ, BATCH_12FA, BATCH_12FB, BATCH_12FC, BATCH_12FD, BATCH_12FE, BATCH_12FF, BATCH_12FG, BATCH_12FH, BATCH_12FI):
         if not path.is_file():
             fail(f"Tianwen transmission artifact missing: {path.relative_to(ROOT)}")
 
@@ -1372,6 +1373,48 @@ def main() -> int:
         fail("Batch 12FH TG-E0111 barcode/SAME_OBJECT scope firewall missing")
     if not any(x.get("batch") == "BATCH-12-ZIWEI-NLC-CURRENT-SYS-ITEM-HOLDINGS-LOCATOR-FH" and "zero exact sanming-parent vote" in x.get("update","").lower() for x in hyp12dk.get("evidence_updates", [])):
         fail("Batch 12FH genealogy hypothesis zero-vote update missing")
+
+    batch12fi = json.loads(BATCH_12FI.read_text(encoding="utf-8"))
+    if batch12fi.get("batch_id") != "BATCH-12-ZIWEI-NLC-CURRENT-TONGHU-COMPOSITE-HOLDINGS-LOCATOR-FI":
+        fail("Batch 12FI genealogy evidence identity mismatch")
+    impact12fi = batch12fi.get("transmission_impact", {})
+    if impact12fi.get("edges_supported") != ["TG-E0112"] or impact12fi.get("same_object_edge_authorized") is not False:
+        fail("Batch 12FI genealogy edge/collapse scope regressed")
+    current12fi = next((n for n in nodes if n.get("node_id") == "CATALOG-NLC-CURRENT-TONGHU-SYS001775082-UIDUCS01003828992"), None)
+    if current12fi is None:
+        fail("Batch 12FI current Tonghu catalog node missing")
+    if current12fi.get("sys") != "001775082" or current12fi.get("uid") != "UCS01003828992":
+        fail("Batch 12FI current Tonghu SYS/UID graph identity regressed")
+    loc12fi = current12fi.get("local_holdings_fields", {})
+    if loc12fi.get("field_905a") != "NLC" or loc12fi.get("field_905q") != "SBYL" or loc12fi.get("field_905s") != "03482":
+        fail("Batch 12FI current Tonghu 905 graph tuple regressed")
+    if current12fi.get("local_holdings_locator") != "NLC:SBYL:03482" or current12fi.get("public_barcode_proved") is not False:
+        fail("Batch 12FI current Tonghu locator/barcode graph firewall regressed")
+    physical12fi = next((n for n in nodes if n.get("node_id") == "PHYSICAL-COPY-NLC-ZHUNZHAI-JILOU-DAOGUANG3-HUANG-SHILIJU-MS"), None)
+    pairctl12fi = {} if physical12fi is None else physical12fi.get("nlc_current_composite_holdings_pair_control", {})
+    if pairctl12fi.get("pair_closed") is not True:
+        fail("Batch 12FI physical-node current pair control missing")
+    if pairctl12fi.get("tonghu", {}).get("local_holdings_locator") != "NLC:SBYL:03482" or pairctl12fi.get("zhunzhai", {}).get("local_holdings_locator") != "NLC:SBYL:03483":
+        fail("Batch 12FI physical-node 03482/03483 pair regressed")
+    if pairctl12fi.get("public_barcode_proved") is not False or pairctl12fi.get("same_object_edge_authorized") is not False or pairctl12fi.get("final_acquisition_path") != "UNRESOLVED":
+        fail("Batch 12FI physical-node barcode/acquisition/SAME_OBJECT firewall regressed")
+    opacnode12fi = next((n for n in nodes if n.get("node_id") == "CATALOG-NLC-OPAC-ZHUNZHAI-MICROFILM-002597934"), None)
+    sym12fi = {} if opacnode12fi is None else opacnode12fi.get("symmetric_microfilm_pair_12fi", {})
+    if sym12fi.get("tonghu", {}).get("raw_455_embedded_payload") != "001411999008600" or sym12fi.get("tonghu", {}).get("parsed_linked_record_control_id") != "411999008600":
+        fail("Batch 12FI Tonghu 455 graph parse regressed")
+    if sym12fi.get("tonghu", {}).get("companion_separate_photo_reference") != "00O003571" or sym12fi.get("zhunzhai", {}).get("companion_separate_photo_reference") != "00O003570":
+        fail("Batch 12FI separate-photo graph pair regressed")
+    if sym12fi.get("separate_photo_reference_referents_closed") is not True or sym12fi.get("separate_photo_reference_identifier_class") != "SEPARATE_PHOTOGRAPH_REFERENCE_ONLY" or sym12fi.get("current_sys_crosswalk_proved") is not False:
+        fail("Batch 12FI separate-photo graph boundary regressed")
+    edge12fi = next((e for e in edges if e.get("edge_id") == "TG-E0112"), None)
+    if edge12fi is None or edge12fi.get("relation") != "ATTESTS" or edge12fi.get("status") != "HIGH_CONFIDENCE":
+        fail("Batch 12FI TG-E0112 status/relation regressed")
+    if edge12fi.get("from") != "CATALOG-NLC-CURRENT-TONGHU-SYS001775082-UIDUCS01003828992" or edge12fi.get("to") != "PHYSICAL-COPY-NLC-ZHUNZHAI-JILOU-DAOGUANG3-HUANG-SHILIJU-MS":
+        fail("Batch 12FI TG-E0112 endpoints regressed")
+    if "No public barcode" not in edge12fi.get("scope_note", "") or "SAME_OBJECT" not in edge12fi.get("scope_note", ""):
+        fail("Batch 12FI TG-E0112 barcode/SAME_OBJECT scope firewall missing")
+    if not any(x.get("batch") == "BATCH-12-ZIWEI-NLC-CURRENT-TONGHU-COMPOSITE-HOLDINGS-LOCATOR-FI" and "zero exact sanming-parent vote" in x.get("update","").lower() for x in hyp12dk.get("evidence_updates", [])):
+        fail("Batch 12FI genealogy hypothesis zero-vote update missing")
 
     ncl = next(n for n in nodes if n.get("node_id") == "PHYSICAL-COPY-SISHI-QIHOU-NCL03164-OLD-MANUSCRIPT")
     if ncl.get("physical_copy_date") != "UNRESOLVED":
