@@ -1385,7 +1385,10 @@
         "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-OPAC-ZHUNZHAI-MICROFILM-SOURCE-CROSSBINDING-FF.md",
         "EXT-NLC-META-ZHUNZHAI-CURRENT-SYS001775083-ITEM-HOLDINGS",
         "docs/research/ZIWEI-NLC-CURRENT-SYS-ITEM-HOLDINGS-LOCATOR-R1.json",
-        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-CURRENT-SYS-ITEM-HOLDINGS-LOCATOR-FH.md"
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-CURRENT-SYS-ITEM-HOLDINGS-LOCATOR-FH.md",
+        "EXT-NLC-META-TONGHU-CURRENT-SYS001775082-ITEM-HOLDINGS",
+        "docs/research/ZIWEI-NLC-CURRENT-TONGHU-COMPOSITE-HOLDINGS-LOCATOR-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-CURRENT-TONGHU-COMPOSITE-HOLDINGS-LOCATOR-FI.md"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-XUXIU1031-ZHUNZHAI-CLEPSYDRA-JIEHOU-ARROW-SELECTION-DV",
       "pre1578_title_family_catalog_attestation_status": "CLOSED_AT_1441_CATALOG_TEXT_LAYER",
@@ -1506,6 +1509,30 @@
         "public_barcode_proved": false,
         "historical_1959_3483_to_current_905s_03483_numeric_continuity": true,
         "semantic_layer_collapse_forbidden": true,
+        "final_acquisition_path": "UNRESOLVED",
+        "same_object_edge_authorized": false
+      },
+      "nlc_current_composite_holdings_pair_control": {
+        "batch": "BATCH-12-ZIWEI-NLC-CURRENT-TONGHU-COMPOSITE-HOLDINGS-LOCATOR-FI",
+        "tonghu": {
+          "sys": "001775082",
+          "uid": "UCS01003828992",
+          "local_holdings_locator": "NLC:SBYL:03482",
+          "field_905s": "03482"
+        },
+        "zhunzhai": {
+          "sys": "001775083",
+          "uid": "UCS01003828993",
+          "local_holdings_locator": "NLC:SBYL:03483",
+          "field_905s": "03483"
+        },
+        "pair_closed": true,
+        "legacy_opac_one_volume_binding_closed": true,
+        "historical_1959_pair": {
+          "tonghu": "3482",
+          "zhunzhai": "3483"
+        },
+        "public_barcode_proved": false,
         "final_acquisition_path": "UNRESOLVED",
         "same_object_edge_authorized": false
       }
@@ -2710,6 +2737,26 @@
         "separate_photo_reference": "00O003570",
         "separate_photo_reference_exact_subtype": "UNRESOLVED",
         "public_barcode_proved": false
+      },
+      "symmetric_microfilm_pair_12fi": {
+        "tonghu": {
+          "microfilm_sys": [
+            "002597933",
+            "002146415"
+          ],
+          "raw_455_embedded_payload": "001411999008600",
+          "parsed_linked_record_control_id": "411999008600",
+          "companion_separate_photo_reference": "00O003571"
+        },
+        "zhunzhai": {
+          "microfilm_sys": "002597934",
+          "raw_455_embedded_payload": "001411999008601",
+          "parsed_linked_record_control_id": "411999008601",
+          "companion_separate_photo_reference": "00O003570"
+        },
+        "separate_photo_reference_referents_closed": true,
+        "separate_photo_reference_identifier_class": "SEPARATE_PHOTOGRAPH_REFERENCE_ONLY",
+        "current_sys_crosswalk_proved": false
       }
     },
     {
@@ -2783,7 +2830,58 @@
         "docs/research/ZIWEI-NLC-CURRENT-SYS-ITEM-HOLDINGS-LOCATOR-R1.json",
         "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-CURRENT-SYS-ITEM-HOLDINGS-LOCATOR-FH.md"
       ],
-      "first_explicit_graph_batch": "BATCH-12-ZIWEI-NLC-CURRENT-SYS-ITEM-HOLDINGS-LOCATOR-FH"
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-NLC-CURRENT-SYS-ITEM-HOLDINGS-LOCATOR-FH",
+      "current_companion_pair_12fi": {
+        "tonghu_sys": "001775082",
+        "tonghu_uid": "UCS01003828992",
+        "tonghu_local_holdings_locator": "NLC:SBYL:03482",
+        "zhunzhai_local_holdings_locator": "NLC:SBYL:03483",
+        "pair_closed": true,
+        "semantic_layer_collapse_forbidden": true
+      }
+    },
+    {
+      "node_id": "CATALOG-NLC-CURRENT-TONGHU-SYS001775082-UIDUCS01003828992",
+      "node_type": "DIGITAL_SURROGATE",
+      "label": "國家圖書館 current meta《銅壺漏箭制度》SYS 001775082 / UID UCS01003828992 / NLC:SBYL:03482",
+      "system_scope": "MODERN_CURRENT_NLC_TONGHU_SYSTEM_IDENTITY_AND_LOCAL_HOLDINGS_LOCATOR",
+      "date": "CURRENT_PUBLIC_META_OBSERVED_2026-09-24",
+      "locator": "https://meta.nlc.cn/v2/detail/UCS01003828992",
+      "sys": "001775082",
+      "uid": "UCS01003828992",
+      "direct_title": "銅壺漏箭制度",
+      "companion_title_in_current_record": "准齋心製几漏圖式",
+      "material_type": "善本",
+      "source_date_and_provenance": "黃氏士禮居 / 1823 / 1冊",
+      "current_holder": "国家图书馆",
+      "local_holdings_fields": {
+        "field_905a": "NLC",
+        "field_905q": "SBYL",
+        "field_905s": "03482",
+        "composite_3165": "NLC:SBYL:03482",
+        "field_852a": "A100000NLC"
+      },
+      "local_holdings_locator": "NLC:SBYL:03482",
+      "local_call_number_component": "03482",
+      "sublibrary_code": "SBYL",
+      "sublibrary_meaning": "善本阅览室",
+      "public_barcode_proved": false,
+      "current_companion_pair": {
+        "tonghu": "NLC:SBYL:03482",
+        "zhunzhai": "NLC:SBYL:03483",
+        "pair_closed": true
+      },
+      "current_catalog_author_string_used_for_historical_authorship": false,
+      "acquisition_or_donation_identifier_proved": false,
+      "final_acquisition_path": "UNRESOLVED",
+      "evidence": [
+        "EXT-NLC-META-TONGHU-CURRENT-SYS001775082-ITEM-HOLDINGS",
+        "EXT-CLARIVATE-CNMARC-905S-LOCAL-CALL-NUMBER-CONTROL",
+        "EXT-NLC-SUBLIBRARY-CODE-SBYL-CONTROL",
+        "docs/research/ZIWEI-NLC-CURRENT-TONGHU-COMPOSITE-HOLDINGS-LOCATOR-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-CURRENT-TONGHU-COMPOSITE-HOLDINGS-LOCATOR-FI.md"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-NLC-CURRENT-TONGHU-COMPOSITE-HOLDINGS-LOCATOR-FI"
     }
   ],
   "edges": [
@@ -4490,6 +4588,22 @@
       ],
       "scope_note": "Current NLC meta uniquely binds SYS 001775083 / UID UCS01003828993 to the 1823 Huang Shiliju Zhunzhai rare-book record and directly exposes 905a=NLC, 905q=SBYL, 905s=03483 and composite NLC:SBYL:03483. This closes the current local holdings locator and local call-number component, not a public barcode or acquisition/donation route. Historical 3483, OPAC 原文献03483 and current 905s 03483 remain separate semantic layers. The microfilm 455$1 payload 001411999008601 is parsed as embedded 001 + record control 411999008601; 00O003570 remains a separate-photo reference. SAME_OBJECT collapse remains unauthorized.",
       "adjudication_batch": "BATCH-12-ZIWEI-NLC-CURRENT-SYS-ITEM-HOLDINGS-LOCATOR-FH"
+    },
+    {
+      "edge_id": "TG-E0112",
+      "from": "CATALOG-NLC-CURRENT-TONGHU-SYS001775082-UIDUCS01003828992",
+      "relation": "ATTESTS",
+      "to": "PHYSICAL-COPY-NLC-ZHUNZHAI-JILOU-DAOGUANG3-HUANG-SHILIJU-MS",
+      "status": "HIGH_CONFIDENCE",
+      "confidence": "VERY_HIGH_FOR_CURRENT_NLC_TONGHU_SYSTEM_IDENTITY_AND_LOCAL_HOLDINGS_LOCATOR_AND_CURRENT_03482_03483_COMPANION_PAIR_NOT_BARCODE_OR_ACQUISITION_ROUTE",
+      "evidence_class": "FIRST_PARTY_CURRENT_NLC_TITLE_SEARCH_AND_ITEM_API_PLUS_ALREADY_GATED_CNMARC_905_AND_NLC_SBYL_SEMANTICS",
+      "evidence": [
+        "EXT-NLC-META-TONGHU-CURRENT-SYS001775082-ITEM-HOLDINGS",
+        "EXT-NLC-META-ZHUNZHAI-CURRENT-SYS001775083-ITEM-HOLDINGS",
+        "docs/research/ZIWEI-NLC-CURRENT-TONGHU-COMPOSITE-HOLDINGS-LOCATOR-R1.json"
+      ],
+      "scope_note": "Current NLC meta binds SYS 001775082 / UID UCS01003828992 to the 1823 Huang Shiliju Tonghu rare-book record and exposes NLC:SBYL:03482, paired with Batch 12FH Zhunzhai SYS 001775083 / UID UCS01003828993 / NLC:SBYL:03483. The current catalog/local-call-number pair is closed and numerically concordant with historical 3482/3483 and OPAC 原文献03482/03483, but semantic layers remain distinct. No public barcode or target-specific acquisition route is proved; Huang multi-copy and historical SAME_OBJECT firewalls remain active.",
+      "adjudication_batch": "BATCH-12-ZIWEI-NLC-CURRENT-TONGHU-COMPOSITE-HOLDINGS-LOCATOR-FI"
     }
   ],
   "lineage_hypotheses": [
@@ -4774,6 +4888,10 @@
         {
           "batch": "BATCH-12-ZIWEI-NLC-CURRENT-SYS-ITEM-HOLDINGS-LOCATOR-FH",
           "update": "Current NLC meta closes original rare-book SYS 001775083 / UID UCS01003828993 and local holdings locator NLC:SBYL:03483, while preserving identifier-layer firewalls: no public barcode, 455$1 raw 001411999008601 parses as embedded 001 + linked record-control 411999008601, 00O003570 remains separate-photo-reference only, acquisition route and SAME_OBJECT collapse remain open, and zero exact Sanming-parent vote is added."
+        },
+        {
+          "batch": "BATCH-12-ZIWEI-NLC-CURRENT-TONGHU-COMPOSITE-HOLDINGS-LOCATOR-FI",
+          "update": "Current NLC meta closes Tonghu SYS 001775082 / UID UCS01003828992 / NLC:SBYL:03482 and pairs it with Zhunzhai SYS 001775083 / UID UCS01003828993 / NLC:SBYL:03483. Tonghu microfilm 455$1 raw 001411999008600 parses as embedded 001 + linked record-control 411999008600 and symmetrically points to Zhunzhai separate-photo reference 00O003571, while Zhunzhai points to Tonghu 00O003570. Barcode, current SYS mapping of 00O references, acquisition route and SAME_OBJECT remain open, with zero exact Sanming-parent vote."
         }
       ],
       "endpoint_anchor_component_identified": true,
