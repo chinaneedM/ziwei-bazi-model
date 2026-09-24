@@ -110,6 +110,8 @@ ZIWEI_WENYUANGE_1937_12EW_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANC
 ZIWEI_WENYUANGE_1937_12EW_EVIDENCE = ROOT / "docs/research/ZIWEI-WENYUANGE1937-ZHUNZHAI-JIULOU-PRINTED-VARIANT-CONTROL-R1.json"
 ZIWEI_AIRIJINGLU_1887_12EX_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-AIRIJINGLU1887-ZHUNZHAI-AUTHOR-VARIANT-AND-25ARROW-REPLAY-EX.md"
 ZIWEI_AIRIJINGLU_1887_12EX_EVIDENCE = ROOT / "docs/research/ZIWEI-AIRIJINGLU1887-ZHUNZHAI-AUTHOR-VARIANT-AND-25ARROW-REPLAY-R1.json"
+ZIWEI_TIEQIN_QING_MS_12EY_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TIEQIN-QING-MS-ZHUNZHAI-FENGGU-HUANG-PROVENANCE-EY.md"
+ZIWEI_TIEQIN_QING_MS_12EY_EVIDENCE = ROOT / "docs/research/ZIWEI-TIEQIN-QING-MS-ZHUNZHAI-FENGGU-HUANG-PROVENANCE-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -391,9 +393,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-NEIGE-CANGSHU1605-ZHUNZHAI-SUNFENGJI-UNKNOWN-ERA-BIBLIOGRAPHIC-CONTROL-EV",
     "BATCH-12-ZIWEI-WENYUANGE1937-ZHUNZHAI-JIULOU-PRINTED-VARIANT-CONTROL-EW",
     "BATCH-12-ZIWEI-AIRIJINGLU1887-ZHUNZHAI-AUTHOR-VARIANT-AND-25ARROW-REPLAY-EX",
+    "BATCH-12-ZIWEI-TIEQIN-QING-MS-ZHUNZHAI-FENGGU-HUANG-PROVENANCE-EY",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-AIRIJINGLU1887-ZHUNZHAI-AUTHOR-VARIANT-AND-25ARROW-REPLAY-EX.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TIEQIN-QING-MS-ZHUNZHAI-FENGGU-HUANG-PROVENANCE-EY.md"
 
 
 def fail(message: str) -> None:
@@ -1306,6 +1309,29 @@ def main() -> int:
         fail("Batch 12EX Huang-copy identity was overclosed")
     if batch12ex.get("sanming_firewall", {}).get("direct_sanming_parent_vote_increment") != 0:
         fail("Batch 12EX Sanming zero-vote firewall regressed")
+
+
+    for path in (ZIWEI_TIEQIN_QING_MS_12EY_BATCH, ZIWEI_TIEQIN_QING_MS_12EY_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12EY continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12ey = json.loads(ZIWEI_TIEQIN_QING_MS_12EY_EVIDENCE.read_text(encoding="utf-8"))
+    if batch12ey.get("batch_id") != "BATCH-12-ZIWEI-TIEQIN-QING-MS-ZHUNZHAI-FENGGU-HUANG-PROVENANCE-EY":
+        fail("Batch 12EY evidence identity mismatch")
+    sb12ey = batch12ey.get("source_binding", {})
+    if sb12ey.get("source_pdf_sha256") != "29d6774b33087ee8140d7141ca85bd60d25d1872bc636a33da35be9b75dbfc6f":
+        fail("Batch 12EY source binding regressed")
+    if sb12ey.get("pdf_page_387_sha256") != "984fe54f6a2ffd660594eac4fbb656b835921f6fd61ca700a201f7fe8ae156cb" or sb12ey.get("pdf_page_388_sha256") != "8b150e774ad68e06bc81e53e3f8608b977f686055c479faa30b6d1ba2cb376b6":
+        fail("Batch 12EY page hashes regressed")
+    read12ey = batch12ey.get("direct_physical_reading", {})
+    if "宋孫逢古撰并序" not in read12ey.get("p387", []) or "郡中黃氏舊藏" not in read12ey.get("p388_continuation", []) or "蕘翁有跋" not in read12ey.get("p388_continuation", []):
+        fail("Batch 12EY direct reading regressed")
+    varey = batch12ey.get("author_variant_adjudication", {})
+    if varey.get("force_normalize_孫逢古_to_孫逢吉") is not False or "STRONGLY_SUPPORTED" not in varey.get("adjudication",""):
+        fail("Batch 12EY author-variant firewall regressed")
+    if batch12ey.get("huang_provenance_firewall", {}).get("exact_physical_identity_across_routes") != "NOT_PROVED":
+        fail("Batch 12EY Huang-copy identity was overclosed")
+    if batch12ey.get("sanming_firewall", {}).get("direct_sanming_parent_vote_increment") != 0:
+        fail("Batch 12EY Sanming zero-vote firewall regressed")
 
     for path in (ZIWEI_KYUDB_12DT_BATCH, ZIWEI_KYUDB_12DT_EVIDENCE):
         if not path.is_file():

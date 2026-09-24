@@ -1415,7 +1415,10 @@
         "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENYUANGE1937-ZHUNZHAI-JIULOU-PRINTED-VARIANT-CONTROL-EW.md",
         "EXT-NLC-AIRIJINGLU-LINGFENGE-1887-V5-ZHUNZHAI-FENGGU-FENGJI-25ARROW",
         "docs/research/ZIWEI-AIRIJINGLU1887-ZHUNZHAI-AUTHOR-VARIANT-AND-25ARROW-REPLAY-R1.json",
-        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-AIRIJINGLU1887-ZHUNZHAI-AUTHOR-VARIANT-AND-25ARROW-REPLAY-EX.md"
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-AIRIJINGLU1887-ZHUNZHAI-AUTHOR-VARIANT-AND-25ARROW-REPLAY-EX.md",
+        "EXT-TIANYIGE-TIEQIN-QING-MS-0004561-ZHUNZHAI-FENGGU-HUANG-PROVENANCE",
+        "docs/research/ZIWEI-TIEQIN-QING-MS-ZHUNZHAI-FENGGU-HUANG-PROVENANCE-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TIEQIN-QING-MS-ZHUNZHAI-FENGGU-HUANG-PROVENANCE-EY.md"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-XUXIU1031-ZHUNZHAI-CLEPSYDRA-JIEHOU-ARROW-SELECTION-DV",
       "pre1578_title_family_catalog_attestation": true,
@@ -1504,6 +1507,23 @@
         "exact_character_identity": false,
         "exact_huang_source_copy_identity_with_1823": "NOT_PROVED",
         "pre1578_exact_rule_prose_closed": false
+      },
+      "tieqin_qing_ms_variant_and_provenance_control": {
+        "status": "FENGGU_QING_BIBLIOGRAPHIC_VARIANT_AND_HUANG_RAOWENG_ROUTE_CLOSED",
+        "direct_author": "孫逢古",
+        "earlier_ming_controls": [
+          "1602 孫逢吉",
+          "1605 孫逢吉"
+        ],
+        "airijinglu1887_internal_body_control": "逢吉",
+        "author_variant_adjudication": "LATE_QING_BIBLIOGRAPHIC_OR_RECENSIONAL_FENGGU_VARIANT_CORRUPTION_STRONGLY_SUPPORTED",
+        "force_normalization_authorized": false,
+        "huang_notes": [
+          "郡中黃氏舊藏",
+          "蕘翁有跋"
+        ],
+        "exact_huang_copy_identity_with_nlc_1823": "NOT_PROVED",
+        "exact_qing_manuscript_copy_year": "UNRESOLVED"
       }
     },
     {
@@ -2229,6 +2249,51 @@
         "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-AIRIJINGLU1887-ZHUNZHAI-AUTHOR-VARIANT-AND-25ARROW-REPLAY-EX.md"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-AIRIJINGLU1887-ZHUNZHAI-AUTHOR-VARIANT-AND-25ARROW-REPLAY-EX"
+    },
+    {
+      "node_id": "PHYSICAL-COPY-TIANYIGE-TIEQIN-QING-MS-0004561",
+      "node_type": "PHYSICAL_COPY",
+      "label": "天一閣藏清抄本《鐵琴銅劍樓藏書目錄》330000-1705-0004561",
+      "system_scope": "QING_BIBLIOGRAPHIC_MANUSCRIPT_FOR_ZHUNZHAI_AUTHOR_VARIANT_AND_PROVENANCE",
+      "work_composition_date": "TIEQIN_CATALOG_QING_COMPILATION; TARGET_ZHUNZHAI_WORK_DATE_NOT_DERIVED",
+      "edition_impression_date": "MANUSCRIPT_NOT_PRINT",
+      "physical_copy_date": "QING_EXACT_COPY_YEAR_UNRESOLVED",
+      "digital_surrogate_date": "MODERN_TIANyi_WIKIMEDIA_SURROGATE",
+      "identifier": "330000-1705-0004561 / 善2088",
+      "source_pdf_sha256": "29d6774b33087ee8140d7141ca85bd60d25d1872bc636a33da35be9b75dbfc6f",
+      "target_page_sha256": {
+        "387": "984fe54f6a2ffd660594eac4fbb656b835921f6fd61ca700a201f7fe8ae156cb",
+        "388": "8b150e774ad68e06bc81e53e3f8608b977f686055c479faa30b6d1ba2cb376b6"
+      },
+      "direct_target_result": "準齋心製几漏圖式一卷 / 影鈔本 / 宋孫逢古撰并序 / 郡中黃氏舊藏 / 蕘翁有跋",
+      "ocr_used_for_final_glyph_claims": false,
+      "evidence": [
+        "EXT-TIANYIGE-TIEQIN-QING-MS-0004561-ZHUNZHAI-FENGGU-HUANG-PROVENANCE",
+        "docs/research/ZIWEI-TIEQIN-QING-MS-ZHUNZHAI-FENGGU-HUANG-PROVENANCE-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TIEQIN-QING-MS-ZHUNZHAI-FENGGU-HUANG-PROVENANCE-EY.md"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-TIEQIN-QING-MS-ZHUNZHAI-FENGGU-HUANG-PROVENANCE-EY"
+    },
+    {
+      "node_id": "PASSAGE-TIEQIN-QING-MS-ZHUNZHAI-FENGGU-HUANG-PROVENANCE",
+      "node_type": "PASSAGE",
+      "label": "清抄《鐵琴銅劍樓藏書目錄》準齋條：孫逢古／黃氏舊藏／蕘翁跋",
+      "system_scope": "QING_BIBLIOGRAPHIC_AUTHOR_VARIANT_AND_PROVENANCE_CONTROL",
+      "physical_locator": "Tianyi 0004561 PDF p387-p388",
+      "direct_title": "準齋心製几漏圖式一卷",
+      "copy_description": "影鈔本",
+      "direct_author": "孫逢古",
+      "direct_huang_note": "郡中黃氏舊藏",
+      "direct_raoweng_note": "蕘翁有跋",
+      "exact_copy_year": "UNRESOLVED",
+      "original_author_name_proved": false,
+      "exact_huang_copy_identity_with_nlc_1823": "NOT_PROVED",
+      "evidence": [
+        "EXT-TIANYIGE-TIEQIN-QING-MS-0004561-ZHUNZHAI-FENGGU-HUANG-PROVENANCE",
+        "docs/research/ZIWEI-TIEQIN-QING-MS-ZHUNZHAI-FENGGU-HUANG-PROVENANCE-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TIEQIN-QING-MS-ZHUNZHAI-FENGGU-HUANG-PROVENANCE-EY.md"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-TIEQIN-QING-MS-ZHUNZHAI-FENGGU-HUANG-PROVENANCE-EY"
     }
   ],
   "edges": [
@@ -3781,6 +3846,23 @@
       ],
       "scope_note": "Confirms the 1887 printed header/body author-name conflict and received 25-arrow mechanism. It does not prove Song/Yuan composition, exact identity with the 1823 Huang manuscript, pre-1578 operational wording, or Sanming parentage.",
       "adjudication_batch": "BATCH-12-ZIWEI-AIRIJINGLU1887-ZHUNZHAI-AUTHOR-VARIANT-AND-25ARROW-REPLAY-EX"
+    },
+    {
+      "edge_id": "TG-E0103",
+      "from": "PHYSICAL-COPY-TIANYIGE-TIEQIN-QING-MS-0004561",
+      "relation": "ATTESTS",
+      "to": "PASSAGE-TIEQIN-QING-MS-ZHUNZHAI-FENGGU-HUANG-PROVENANCE",
+      "status": "CONFIRMED",
+      "confidence": "HIGH",
+      "evidence_class": "DIRECT_SOURCE_BOUND_QING_MANUSCRIPT_300DPI_PAGE_REVIEW_NO_OCR_FINAL_AUTHORITY",
+      "evidence": [
+        "Tianyi 0004561 p387 sha256 984fe54f6a2ffd660594eac4fbb656b835921f6fd61ca700a201f7fe8ae156cb",
+        "Tianyi 0004561 p388 sha256 8b150e774ad68e06bc81e53e3f8608b977f686055c479faa30b6d1ba2cb376b6",
+        "EXT-TIANYIGE-TIEQIN-QING-MS-0004561-ZHUNZHAI-FENGGU-HUANG-PROVENANCE",
+        "docs/research/ZIWEI-TIEQIN-QING-MS-ZHUNZHAI-FENGGU-HUANG-PROVENANCE-R1.json"
+      ],
+      "scope_note": "Confirms the Qing Tieqin manuscript's 孫逢古 bibliographic attribution and Huang/Raoweng provenance statements. It does not date the manuscript exactly, prove the original author-name form, bind the exact Huang physical copy, or close pre-1578 operational prose.",
+      "adjudication_batch": "BATCH-12-ZIWEI-TIEQIN-QING-MS-ZHUNZHAI-FENGGU-HUANG-PROVENANCE-EY"
     }
   ],
   "lineage_hypotheses": [
@@ -4025,6 +4107,10 @@
         {
           "batch": "BATCH-12-ZIWEI-AIRIJINGLU1887-ZHUNZHAI-AUTHOR-VARIANT-AND-25ARROW-REPLAY-EX",
           "update": "Direct 1887 Lingfenge Airijinglu p37-p38 review closes an internal author-name conflict (header 孫逢古撰 versus same-entry body 由此逢吉以心法創茲小壺) and replays the received 25-arrow winter-forward/summer-reverse 日曆節候 mechanism. Together with direct 1602/1605 孫逢吉 controls, a late Fenggu bibliographic/recensional variant-corruption is strongly supported but not silently normalized. The Huang old-copy source note does not prove identity with the reviewed 1823 manuscript, the witness is late, and zero exact Sanming-parent vote is added."
+        },
+        {
+          "batch": "BATCH-12-ZIWEI-TIEQIN-QING-MS-ZHUNZHAI-FENGGU-HUANG-PROVENANCE-EY",
+          "update": "Direct 300-dpi Tianyi Qing-manuscript Tieqin review closes 準齋心製几漏圖式一卷 / 影鈔本 / 宋孫逢古撰并序 and the continuation 郡中黃氏舊藏 / 蕘翁有跋. This confirms a Qing bibliographic Fenggu variant and convergent Huang/Raoweng provenance route. Earlier direct 1602/1605 孫逢吉 and the 1887 same-entry body 逢吉 keep late Fenggu corruption/variant strongly supported but not silently normalized. Exact manuscript date/Huang-copy identity remain open; zero exact Sanming-parent vote is added."
         }
       ],
       "endpoint_anchor_component_identified": true,
