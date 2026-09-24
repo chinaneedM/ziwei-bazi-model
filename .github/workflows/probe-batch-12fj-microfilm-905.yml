@@ -1,0 +1,96 @@
+name: probe-batch-12fj-microfilm-905
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12fj-microfilm-905.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Probe all known Tonghu/Zhunzhai microfilm 905 fields
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/batch-12fj-microfilm-905'
+          rm -rf "$ROOT"; mkdir -p "$ROOT/raw"
+          UA='Tianwen-Provenance-Audit/1.0'
+          cat > "$ROOT/targets.tsv" <<'EOF'
+          tonghu-2146415	UCS01003553255	002146415
+          tonghu-2597933	UCS01003581457	002597933
+          zhunzhai-2146416	UCS01003553256	002146416
+          zhunzhai-2597934	UCS01003581458	002597934
+          EOF
+
+          : > "$ROOT/status.tsv"
+          while IFS=$'\t' read -r key uid sys; do
+            out="$ROOT/raw/$key.json"
+            ok=0
+            for attempt in 1 2 3; do
+              set +e
+              code=$(curl -L -sS --connect-timeout 7 --max-time 30 -A "$UA" \
+                -H 'Accept: application/json, text/javascript, */*; q=0.01' \
+                -H 'X-Requested-With: XMLHttpRequest' \
+                -H "Referer: https://meta.nlc.cn/v2/detail/$uid" \
+                -X POST -o "$out" -w '%{http_code}' \
+                "https://meta.nlc.cn/api/v1/item/$uid/1/999")
+              rc=$?
+              set -e
+              bytes=0; [ -f "$out" ] && bytes=$(wc -c < "$out")
+              printf '%s\t%s\t%s\tattempt=%s\trc=%s\thttp=%s\tbytes=%s\n' "$key" "$uid" "$sys" "$attempt" "$rc" "$code" "$bytes" >> "$ROOT/status.tsv"
+              if [ "$rc" -eq 0 ] && [ "$code" = "200" ] && [ "$bytes" -gt 100 ]; then ok=1; break; fi
+              sleep 1
+            done
+            [ "$ok" -eq 1 ] || true
+          done < "$ROOT/targets.tsv"
+
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          root=Path('audit/batch-12fj-microfilm-905')
+          out=[]
+          for p in sorted((root/'raw').glob('*.json')):
+              out.append('### '+p.name)
+              try: obj=json.loads(p.read_text('utf-8'))
+              except Exception as e:
+                  out.append('PARSE_ERROR '+repr(e)); continue
+              res=obj.get('result') or {}
+              bib=res.get('biblio') or {}
+              es=res.get('esBook') or {}
+              all905={k:v for k,v in bib.items() if str(k).startswith('905')}
+              all910={k:v for k,v in bib.items() if str(k).startswith('910')}
+              all035={k:v for k,v in bib.items() if str(k).startswith('035')}
+              all455={k:v for k,v in bib.items() if str(k).startswith('455')}
+              out.append('ESBOOK '+json.dumps({k:es.get(k) for k in ('SYS','UID','WDT','YEA','PUB','PAG','TIT','AUT')},ensure_ascii=False,separators=(',',':')))
+              out.append('905 '+json.dumps(all905,ensure_ascii=False,separators=(',',':')))
+              out.append('910 '+json.dumps(all910,ensure_ascii=False,separators=(',',':')))
+              out.append('035 '+json.dumps(all035,ensure_ascii=False,separators=(',',':')))
+              out.append('455 '+json.dumps(all455,ensure_ascii=False,separators=(',',':')))
+          root.joinpath('summary.txt').write_text('\n'.join(out)+'\n',encoding='utf-8')
+          PY
+
+          find "$ROOT" -type f -size +0c -print0 | xargs -0 -r sha256sum | sort -V > "$ROOT/all-files.sha256"
+          printf '%s\n' \
+            'SOURCE=National Library of China current meta.nlc.cn item API' \
+            'PURPOSE=exhaustively inspect all structured 905 fields on four known Tonghu/Zhunzhai microfilm records' \
+            'TEST=whether 00O003570/00O003571 are present as structured 905b or any other 905 subfield' \
+            'SEMANTIC_CONTROL=CNMARC 905b is registration/accession number in standard practice; absence means free-text 455 note cannot be promoted to 905b' \
+            'IDENTIFIER_FIREWALL=00O refs remain title-specific separate-photograph references unless first-party structure proves a narrower class' \
+            'OCR_USED=false' > "$ROOT/manifest.txt"
+
+      - name: Upload evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: batch-12fj-microfilm-905
+          path: audit/batch-12fj-microfilm-905/
+          if-no-files-found: error
+          retention-days: 30
