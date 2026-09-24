@@ -138,6 +138,8 @@ ZIWEI_NLC_OPENOBJECT_12FK_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANC
 ZIWEI_NLC_OPENOBJECT_12FK_EVIDENCE = ROOT / "docs/research/ZIWEI-NLC-OPENOBJECT-PUBLIC-SHELL-ACCESS-BOUNDARY-R1.json"
 ZIWEI_QU_NLC_12FL_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-QU-NLC-MIXED-TRANSFER-AND-TARGET-ACQUISITION-BOUNDARY-FL.md"
 ZIWEI_QU_NLC_12FL_EVIDENCE = ROOT / "docs/research/ZIWEI-QU-NLC-MIXED-TRANSFER-AND-TARGET-ACQUISITION-BOUNDARY-R1.json"
+ZIWEI_GAO_TIEQIN_12FM_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-GAO-XIZENG-ANNOTATED-TIEQIN-CATALOG-HOLDING-AND-ACCESS-BOUNDARY-FM.md"
+ZIWEI_GAO_TIEQIN_12FM_EVIDENCE = ROOT / "docs/research/ZIWEI-GAO-XIZENG-ANNOTATED-TIEQIN-CATALOG-HOLDING-AND-ACCESS-BOUNDARY-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -433,9 +435,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-NLC-DIGITAL-FID-AND-MICROFILM-REGISTRATION-FJ",
     "BATCH-12-ZIWEI-NLC-OPENOBJECT-PUBLIC-SHELL-ACCESS-BOUNDARY-FK",
     "BATCH-12-ZIWEI-QU-NLC-MIXED-TRANSFER-AND-TARGET-ACQUISITION-BOUNDARY-FL",
+    "BATCH-12-ZIWEI-GAO-XIZENG-ANNOTATED-TIEQIN-CATALOG-HOLDING-AND-ACCESS-BOUNDARY-FM",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-QU-NLC-MIXED-TRANSFER-AND-TARGET-ACQUISITION-BOUNDARY-FL.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-GAO-XIZENG-ANNOTATED-TIEQIN-CATALOG-HOLDING-AND-ACCESS-BOUNDARY-FM.md"
 
 
 def fail(message: str) -> None:
@@ -1818,6 +1821,58 @@ def main() -> int:
     }
     if not needed12fl.issubset(regids12fl):
         fail("Batch 12FL source registry controls incomplete")
+
+    for path in (ZIWEI_GAO_TIEQIN_12FM_BATCH, ZIWEI_GAO_TIEQIN_12FM_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12FM continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12fm = json.loads(ZIWEI_GAO_TIEQIN_12FM_EVIDENCE.read_text(encoding="utf-8"))
+    if batch12fm.get("batch_id") != "BATCH-12-ZIWEI-GAO-XIZENG-ANNOTATED-TIEQIN-CATALOG-HOLDING-AND-ACCESS-BOUNDARY-FM":
+        fail("Batch 12FM evidence identity mismatch")
+    adj12fm = batch12fm.get("adjudication", {})
+    if adj12fm.get("gao_annotated_tieqin_catalog_existence") != "ATTESTED_BY_2026_BIBLIOGRAPHIC_SURVEY_DISCUSSION":
+        fail("Batch 12FM Gao annotated-catalog existence attestation regressed")
+    if adj12fm.get("broader_gao_manuscript_survival") != "CLOSED_AT_MODERN_EDITORIAL_CHAIN_LEVEL":
+        fail("Batch 12FM broader Gao manuscript survival chain regressed")
+    if adj12fm.get("gao_bibliographical_manuscript_research_chain") != "CLOSED_FOR_OTHER_VERSION_NOTES_MANUSCRIPT_PUBLICATION":
+        fail("Batch 12FM Gao bibliographical manuscript research chain regressed")
+    if adj12fm.get("target_annotated_tieqin_catalog_current_holding") != "UNRESOLVED" or adj12fm.get("target_annotated_tieqin_catalog_shelfmark") != "UNRESOLVED" or adj12fm.get("target_annotated_tieqin_catalog_public_surrogate") != "UNRESOLVED":
+        fail("Batch 12FM target holding/shelfmark/surrogate was falsely closed")
+    if adj12fm.get("target_3482_3483_annotation") != "NOT_REVIEWED" or adj12fm.get("target_transaction_mode") != "UNRESOLVED":
+        fail("Batch 12FM target annotation/transaction boundary regressed")
+    if any(adj12fm.get(k) is not False for k in ("family_custody_selected", "hebei_university_custody_selected", "nlc_custody_selected", "other_custody_selected")):
+        fail("Batch 12FM custody was falsely selected")
+    search12fm = batch12fm.get("search_boundary", {})
+    if any(search12fm.get(k) is not False for k in ("public_exact_holding_record_located", "public_exact_shelfmark_located", "public_exact_digital_surrogate_located")):
+        fail("Batch 12FM public holding/shelfmark/surrogate boundary regressed")
+    fw12fm = batch12fm.get("target_transaction_firewall", {})
+    if any(fw12fm.get(k) is not False for k in (
+        "missing_current_holding_record_implies_lost",
+        "surviving_other_gao_manuscripts_implies_same_custody",
+        "hebei_university_editorial_connection_implies_hebei_university_holding",
+        "nlc_employment_history_implies_nlc_holding",
+        "target_sale_or_donation_route_selected",
+    )):
+        fail("Batch 12FM custody/transaction inference firewall regressed")
+    trans12fm = batch12fm.get("transmission_impact", {})
+    if trans12fm.get("nodes_added") != [] or trans12fm.get("edges_added") != [] or trans12fm.get("acquisition_edge_authorized") is not False or trans12fm.get("same_object_edge_authorized") is not False:
+        fail("Batch 12FM zero-topology/acquisition-edge firewall regressed")
+    rule12fm = batch12fm.get("chronology_and_rule_firewall", {})
+    if rule12fm.get("direct_sanming_parent_vote_increment") != 0 or rule12fm.get("pre1578_zhunzhai_rule_witness_increment") != 0:
+        fail("Batch 12FM historical-rule zero-vote firewall regressed")
+    if rule12fm.get("runtime_rule_change") is not False or rule12fm.get("algorithm_reopen_authorized") is not False or rule12fm.get("candidate_collapse_authorized") is not False or rule12fm.get("matrix_count_change") is not False:
+        fail("Batch 12FM product/matrix firewall regressed")
+    if batch12fm.get("accounting", {}).get("confirmed_provenance_metadata_defect_count") != 13 or batch12fm.get("accounting", {}).get("repaired_provenance_metadata_defect_count") != 13:
+        fail("Batch 12FM provenance accounting unexpectedly changed")
+    registry12fm = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    regids12fm = {x.get("source_id") for x in registry12fm.get("sources", [])}
+    needed12fm = {
+        "EXT-TANG-ZHAO-2026-QU-TRANSFER-CATALOG-SEMANTICS-GAO-ANNOTATED-CATALOG-LEAD",
+        "EXT-GAO-XIZENG-XUESHU-WENCUN-ZHAO-LINTAO-2022-MANUSCRIPT-CHAIN",
+        "EXT-YANZHAO-CULTURE-3-QIN-JUNZE-GAO-BANBEN-SUOJI-2020",
+        "EXT-HEBEI-UNIVERSITY-ZHAO-LINTAO-CURRENT-INSTITUTIONAL-TRACE-2026",
+    }
+    if not needed12fm.issubset(regids12fm):
+        fail("Batch 12FM source registry controls incomplete")
 
     for path in (ZIWEI_KYUDB_12DT_BATCH, ZIWEI_KYUDB_12DT_EVIDENCE):
         if not path.is_file():
