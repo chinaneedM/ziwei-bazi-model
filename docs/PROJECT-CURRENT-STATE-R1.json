@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.183.0",
+  "schema_version": "1.184.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -265,9 +265,10 @@
       "BATCH-12-ZIWEI-QIUSHUZHAI-DIARY16-PP321-322-1949-NOVEMBER-CHRONOLOGY-BOUNDARY-FT",
       "BATCH-12-ZIWEI-ZHENG-ZHENDUO-NIANPU-REF24-2017-EDITION-AND-JAN10-SECONDARY-DATE-BOUNDARY-FU",
       "BATCH-12-ZIWEI-GU-TINGLONG-DIARY-1950-0106-DIRECT-EDITION-AND-JAPAN-HOLDING-BOUNDARY-FV",
-      "BATCH-12-ZIWEI-DENG-ZHICHENG-DIARY-1950-0129-FACSIMILE-VOLUME5-JAPAN-HOLDING-BOUNDARY-FW"
+      "BATCH-12-ZIWEI-DENG-ZHICHENG-DIARY-1950-0129-FACSIMILE-VOLUME5-JAPAN-HOLDING-BOUNDARY-FW",
+      "BATCH-12-ZIWEI-DENG-ZHICHENG-DIARY-1950-0129-EDITOR-CHECKED-SERIAL-ROUTE-AND-VOL5-P222-CITATION-BOUNDARY-FX"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DENG-ZHICHENG-DIARY-1950-0129-FACSIMILE-VOLUME5-JAPAN-HOLDING-BOUNDARY-FW.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DENG-ZHICHENG-DIARY-1950-0129-EDITOR-CHECKED-SERIAL-ROUTE-AND-VOL5-P222-CITATION-BOUNDARY-FX.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -1061,7 +1062,13 @@
       "The exact facsimile page number and handwriting text for 1950-01-29 remain unreviewed. The existing quotation that Zhao Wanli used 四千万人民券 to buy twelve boxes of Tieqin books 以归公 remains PUBLICATION_MEDIATED_PENDING_DIRECT_COLLATION and is not promoted to direct manuscript/facsimile text.",
       "Batch 12FW does not bind the target 1823 Tonghu/Zhunzhai bound volume or historical 3482/3483 to those twelve purchased boxes. Collection-level purchase language is not item-level transaction evidence; target route/date remain UNRESOLVED.",
       "Batch 12FW adds no transmission node/edge and authorizes no acquisition edge, SAME_OBJECT relation, runtime rule change, candidate collapse or algorithm reopen. Matrix/product counts remain 198 / 166 / 10; provenance defects 13/13; chart algorithm defects 0; DETERMINISTIC_FUSION_CHART_PRODUCT_R1 remains CLOSED.",
-      "Highest next gate: resolve the exact facsimile page/leaf for 1950-01-29 in volume 5, directly collate the handwriting and compare it with the 2012 simplified derivative/later quotations; test the entry and adjacent pages for 铜壶漏箭制度, 准斋心制几漏图式, 3482/3483, 03482/03483 or the 1823 士礼居 bound-volume fingerprint. Continue FV Jan-6, NLC [23]/[24], Ji chapter 9 and Gao annotated-catalog routes in parallel."
+      "Highest next gate: resolve the exact facsimile page/leaf for 1950-01-29 in volume 5, directly collate the handwriting and compare it with the 2012 simplified derivative/later quotations; test the entry and adjacent pages for 铜壶漏箭制度, 准斋心制几漏图式, 3482/3483, 03482/03483 or the 1823 士礼居 bound-volume fingerprint. Continue FV Jan-6, NLC [23]/[24], Ji chapter 9 and Gao annotated-catalog routes in parallel.",
+      "Batch 12FX closes an editor-first-person transcription route for the Deng Zhicheng diary material: Deng Rui states on a Nanjing University page that while 《五石斋文史札记》 was serialised in 《中国典籍与文化》, every proof was checked against the original source. This upgrades the serial editorial route only; it does not make the serial a facsimile or prove that the 1950-01-29 entry was included.",
+      "A Tsinghua Alumni Association institutional article explicitly attributes the familiar Tieqin twelve-box passage to Deng Zhicheng's 1950-01-29 diary while citing the 2012 Deng Rui-edited 《邓之诚文史札记》. The wording remains derivative pending direct facsimile collation; no direct-handwriting authority is claimed.",
+      "A separate Hu Wenhui citation maps a different 2012 edited passage (上册 p508) to 2007 facsimile volume 5 p222 and explicitly notes that the edited transcription is abridged. This supplies a non-target pagination anchor and an omission warning only; volume-5 p222 is forbidden from being used to infer the Jan-29 target page.",
+      "Journal pagination and facsimile pagination remain separate coordinate systems. A discovery lead places 1950-01-01 in 《五石斋文史札记（二十八）》 / 《中国典籍与文化》 2008年第3期 at journal p124, but this remains discovery-only pending primary-issue review and cannot be mapped to facsimile volume 5 p124.",
+      "Batch 12FX adds no transmission node/edge and authorizes no acquisition edge, SAME_OBJECT relation, runtime rule change, candidate collapse or algorithm reopen. Matrix/product counts remain 198 / 166 / 10; provenance defects 13/13; chart algorithm defects 0; DETERMINISTIC_FUSION_CHART_PRODUCT_R1 remains CLOSED.",
+      "Highest next gate: directly inspect the primary journal issue containing 《五石斋文史札记（二十八）》 to determine whether 1950-01-29 is included and close its journal page if present; then compare any editor-checked serial text with the 2012 derivative, resolve the exact 2007 facsimile volume-5 page/leaf and directly collate the handwriting. Continue FV Jan-6, NLC [23]/[24], Ji chapter 9 and Gao annotated-catalog routes in parallel."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10
