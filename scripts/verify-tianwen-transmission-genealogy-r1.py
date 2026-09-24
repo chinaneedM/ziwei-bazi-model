@@ -53,6 +53,7 @@ BATCH_12FF = ROOT / "docs/research/ZIWEI-NLC-OPAC-ZHUNZHAI-MICROFILM-SOURCE-CROS
 BATCH_12FG = ROOT / "docs/research/ZIWEI-BEITU1959-TONGHU-ZHUNZHAI-CATALOG-NUMBER-AND-QUDONATION-BOUNDARY-R1.json"
 BATCH_12FH = ROOT / "docs/research/ZIWEI-NLC-CURRENT-SYS-ITEM-HOLDINGS-LOCATOR-R1.json"
 BATCH_12FI = ROOT / "docs/research/ZIWEI-NLC-CURRENT-TONGHU-COMPOSITE-HOLDINGS-LOCATOR-R1.json"
+BATCH_12FJ = ROOT / "docs/research/ZIWEI-NLC-DIGITAL-FID-AND-MICROFILM-REGISTRATION-R1.json"
 
 
 def fail(message: str) -> None:
@@ -60,7 +61,7 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
-    for path in (CHARTER, PROTOCOL, GRAPH, STATE, BATCH_12CH, BATCH_12DP, BATCH_12DQ, BATCH_12DR, BATCH_12DS, BATCH_12DT, BATCH_12DU, BATCH_12DV, BATCH_12DW, BATCH_12DX, BATCH_12DY, BATCH_12DZ, BATCH_12EA, BATCH_12EB, BATCH_12EC, BATCH_12ED, BATCH_12EE, BATCH_12EI, BATCH_12EJ, BATCH_12EK, BATCH_12EL, BATCH_12EM, BATCH_12EN, BATCH_12EO, BATCH_12EP, BATCH_12EQ, BATCH_12ER, BATCH_12ES, BATCH_12ET, BATCH_12EU, BATCH_12EV, BATCH_12EW, BATCH_12EX, BATCH_12EY, BATCH_12EZ, BATCH_12FA, BATCH_12FB, BATCH_12FC, BATCH_12FD, BATCH_12FE, BATCH_12FF, BATCH_12FG, BATCH_12FH, BATCH_12FI):
+    for path in (CHARTER, PROTOCOL, GRAPH, STATE, BATCH_12CH, BATCH_12DP, BATCH_12DQ, BATCH_12DR, BATCH_12DS, BATCH_12DT, BATCH_12DU, BATCH_12DV, BATCH_12DW, BATCH_12DX, BATCH_12DY, BATCH_12DZ, BATCH_12EA, BATCH_12EB, BATCH_12EC, BATCH_12ED, BATCH_12EE, BATCH_12EI, BATCH_12EJ, BATCH_12EK, BATCH_12EL, BATCH_12EM, BATCH_12EN, BATCH_12EO, BATCH_12EP, BATCH_12EQ, BATCH_12ER, BATCH_12ES, BATCH_12ET, BATCH_12EU, BATCH_12EV, BATCH_12EW, BATCH_12EX, BATCH_12EY, BATCH_12EZ, BATCH_12FA, BATCH_12FB, BATCH_12FC, BATCH_12FD, BATCH_12FE, BATCH_12FF, BATCH_12FG, BATCH_12FH, BATCH_12FI, BATCH_12FJ):
         if not path.is_file():
             fail(f"Tianwen transmission artifact missing: {path.relative_to(ROOT)}")
 
@@ -1415,6 +1416,55 @@ def main() -> int:
         fail("Batch 12FI TG-E0112 barcode/SAME_OBJECT scope firewall missing")
     if not any(x.get("batch") == "BATCH-12-ZIWEI-NLC-CURRENT-TONGHU-COMPOSITE-HOLDINGS-LOCATOR-FI" and "zero exact sanming-parent vote" in x.get("update","").lower() for x in hyp12dk.get("evidence_updates", [])):
         fail("Batch 12FI genealogy hypothesis zero-vote update missing")
+
+    batch12fj = json.loads(BATCH_12FJ.read_text(encoding="utf-8"))
+    if batch12fj.get("batch_id") != "BATCH-12-ZIWEI-NLC-DIGITAL-FID-AND-MICROFILM-REGISTRATION-FJ":
+        fail("Batch 12FJ genealogy evidence identity mismatch")
+    impact12fj = batch12fj.get("transmission_impact", {})
+    if impact12fj.get("edges_supported") != ["TG-E0113", "TG-E0114", "TG-E0115", "TG-E0116"] or impact12fj.get("same_object_edge_authorized") is not False:
+        fail("Batch 12FJ genealogy edge/collapse scope regressed")
+    dt12fj = next((n for n in nodes if n.get("node_id") == "DIGITAL-NLC-DATA892-TONGHU-FID411999008600-BID113028"), None)
+    dz12fj = next((n for n in nodes if n.get("node_id") == "DIGITAL-NLC-DATA892-ZHUNZHAI-FID411999008601-BID113029"), None)
+    mt12fj = next((n for n in nodes if n.get("node_id") == "MICROFILM-NLC-TONGHU-SYS002146415-LOGIN00O003570"), None)
+    mz12fj = next((n for n in nodes if n.get("node_id") == "MICROFILM-NLC-ZHUNZHAI-SYS002146416-LOGIN00O003571"), None)
+    if any(x is None for x in (dt12fj, dz12fj, mt12fj, mz12fj)):
+        fail("Batch 12FJ digital/microfilm graph nodes missing")
+    if dt12fj.get("fid") != "411999008600" or dt12fj.get("bid") != "113028" or dt12fj.get("index_name") != "data_892":
+        fail("Batch 12FJ Tonghu digital graph identifiers regressed")
+    if dz12fj.get("fid") != "411999008601" or dz12fj.get("bid") != "113029" or dz12fj.get("index_name") != "data_892":
+        fail("Batch 12FJ Zhunzhai digital graph identifiers regressed")
+    if dt12fj.get("current_meta_sys_equivalence_proved") is not False or dz12fj.get("current_meta_sys_equivalence_proved") is not False:
+        fail("Batch 12FJ digital FID/meta-SYS firewall regressed")
+    if mt12fj.get("sys") != "002146415" or mt12fj.get("field_905b") != "00O003570" or mt12fj.get("registration_login_number") != "00O003570":
+        fail("Batch 12FJ Tonghu microfilm graph registration regressed")
+    if mz12fj.get("sys") != "002146416" or mz12fj.get("field_905b") != "00O003571" or mz12fj.get("registration_login_number") != "00O003571":
+        fail("Batch 12FJ Zhunzhai microfilm graph registration regressed")
+    if mt12fj.get("public_barcode_proved") is not False or mz12fj.get("public_barcode_proved") is not False:
+        fail("Batch 12FJ microfilm public-barcode firewall regressed")
+    edge_specs12fj = {
+        "TG-E0113": ("DIGITAL-NLC-DATA892-TONGHU-FID411999008600-BID113028", "ATTESTS"),
+        "TG-E0114": ("DIGITAL-NLC-DATA892-ZHUNZHAI-FID411999008601-BID113029", "ATTESTS"),
+        "TG-E0115": ("MICROFILM-NLC-TONGHU-SYS002146415-LOGIN00O003570", "ATTESTS"),
+        "TG-E0116": ("MICROFILM-NLC-ZHUNZHAI-SYS002146416-LOGIN00O003571", "ATTESTS"),
+    }
+    for eid12fj, (from12fj, rel12fj) in edge_specs12fj.items():
+        e12fj = next((e for e in edges if e.get("edge_id") == eid12fj), None)
+        if e12fj is None or e12fj.get("from") != from12fj or e12fj.get("to") != "PHYSICAL-COPY-NLC-ZHUNZHAI-JILOU-DAOGUANG3-HUANG-SHILIJU-MS" or e12fj.get("relation") != rel12fj or e12fj.get("status") != "HIGH_CONFIDENCE":
+            fail(f"Batch 12FJ graph edge regressed: {eid12fj}")
+    if "not a current meta bibliographic SYS/UID" not in next(e for e in edges if e.get("edge_id") == "TG-E0113").get("scope_note", ""):
+        fail("Batch 12FJ digital identifier-layer firewall missing")
+    if "registration/login number" not in next(e for e in edges if e.get("edge_id") == "TG-E0115").get("scope_note", ""):
+        fail("Batch 12FJ microfilm 905b semantic scope missing")
+    physical12fj = next((n for n in nodes if n.get("node_id") == "PHYSICAL-COPY-NLC-ZHUNZHAI-JILOU-DAOGUANG3-HUANG-SHILIJU-MS"), None)
+    ctl12fj = {} if physical12fj is None else physical12fj.get("nlc_digital_and_microfilm_identifier_layers_12fj", {})
+    if ctl12fj.get("digital_fids") != {"tonghu": "411999008600", "zhunzhai": "411999008601"}:
+        fail("Batch 12FJ physical-node digital FID pair regressed")
+    if ctl12fj.get("microfilm_registration_login_numbers") != {"tonghu": "00O003570", "zhunzhai": "00O003571"}:
+        fail("Batch 12FJ physical-node microfilm registration pair regressed")
+    if ctl12fj.get("identifier_layer_collapse_forbidden") is not True or ctl12fj.get("public_barcode_proved") is not False or ctl12fj.get("final_acquisition_path") != "UNRESOLVED" or ctl12fj.get("same_object_edge_authorized") is not False:
+        fail("Batch 12FJ physical-node identifier/acquisition firewall regressed")
+    if not any(x.get("batch") == "BATCH-12-ZIWEI-NLC-DIGITAL-FID-AND-MICROFILM-REGISTRATION-FJ" and "zero exact sanming-parent vote" in x.get("update","").lower() for x in hyp12dk.get("evidence_updates", [])):
+        fail("Batch 12FJ genealogy hypothesis zero-vote update missing")
 
     ncl = next(n for n in nodes if n.get("node_id") == "PHYSICAL-COPY-SISHI-QIHOU-NCL03164-OLD-MANUSCRIPT")
     if ncl.get("physical_copy_date") != "UNRESOLVED":
