@@ -1,0 +1,249 @@
+{
+  "schema": "ZIWEI-NLC-DIGITAL-FID-AND-MICROFILM-REGISTRATION-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-NLC-DIGITAL-FID-AND-MICROFILM-REGISTRATION-FJ",
+  "prior_batch_id": "BATCH-12-ZIWEI-NLC-CURRENT-TONGHU-COMPOSITE-HOLDINGS-LOCATOR-FI",
+  "question": "Can the NLC first-party digital ancient-book pages and current microfilm item records classify 411999008600/601, 113028/113029 and 00O003570/571 while preserving SYS/UID/local-call/barcode/acquisition firewalls?",
+  "answer": "YES. NLC READ DATA_892 DIRECTLY RETURNS TONGHU UNDER IDENTIFIER/FID 411999008600 WITH OPEN-OBJECT BID 113028.0 AND ZHUNZHAI UNDER IDENTIFIER/FID 411999008601 WITH BID 113029.0. CURRENT NLC MICROFILM WORK RECORDS SYS 002146415 / UID UCS01003553255 AND SYS 002146416 / UID UCS01003553256 DIRECTLY EMIT STRUCTURED 905B VALUES 00O003570 AND 00O003571, WHILE THEIR 455 NOTES RECIPROCALLY STATE THAT THE COMPANION TITLE WAS SEPARATELY PHOTOGRAPHED AT THE OTHER NUMBER. MULTIPLE INSTITUTIONAL CNMARC CONTROLS DEFINE 905B AS 登录号 / REGISTRATION-ACCESSION NUMBER. THEREFORE 00O003570/571 ARE CLASSIFIED AS THE MICROFILM OBJECT REGISTRATION/LOGIN-NUMBER PAIR, NOT THE ORIGINAL RARE-BOOK CALL NUMBERS, BARCODES OR HISTORICAL QU ACQUISITION/DONATION NUMBERS. 455 EMBEDDED 001 VALUES 411999008600/601 ARE DIRECTLY CROSS-BOUND TO ACTIVE NLC READ DATA_892 FIDS FOR THE CORRESPONDING DIGITIZED ANCIENT-BOOK RESOURCES. CURRENT META BIBLIOGRAPHIC SYS/UID, RARE-BOOK 905S LOCAL CALL NUMBERS, DIGITAL FIDS/BIDS AND MICROFILM 905B REGISTRATION NUMBERS REMAIN DISTINCT IDENTIFIER LAYERS.",
+  "controlling_probes": {
+    "nlc_read_digital_object_route": {
+      "workflow_run_id": 36022930599,
+      "artifact_id": 10816989283,
+      "artifact_digest": "sha256:9073537533143383592026aa3aa05d4fec86dbb5e5a2c2dcab8174442d21dc04",
+      "tonghu_html_sha256": "d29a1e9453d4570017485d0d830e2f67fa6ebfb55e8966127849f1dfc88f0831",
+      "zhunzhai_html_sha256": "8c46c8eafcc5dd8e3132aaa4755b764275366e65c8bf43adfbb3b7f9af9636aa",
+      "ocr_used": false
+    },
+    "nlc_current_microfilm_905": {
+      "workflow_run_id": 36023804174,
+      "artifact_id": 10819360343,
+      "artifact_digest": "sha256:3d1bba50289697254336125cf47da28bb440d363ddd81f3ac06d504328241802",
+      "tonghu_item_json_sha256": "02c0ff8fe206e9b3cbc5763da14a3916be2818b451024d208c59b68bc85e02e1",
+      "zhunzhai_item_json_sha256": "f00b982db4b7297fc140ce550ebcddcf70e21a804cd0478663d255377ae88db0",
+      "ocr_used": false
+    }
+  },
+  "digital_ancient_book_resources": {
+    "index_name": "data_892",
+    "tonghu": {
+      "title": "銅壺漏箭制度",
+      "fid_identifier": "411999008600",
+      "read_page_http_status": 200,
+      "cover_image": "img892/SBGJ03908_00001.jpg",
+      "open_object_aid": "892",
+      "open_object_bid": "113028.0",
+      "bid_numeric": "113028",
+      "first_party_route": "http://read.nlc.cn/allSearch/searchDetail?indexName=data_892&fid=411999008600",
+      "first_party_identifier_closed": true,
+      "first_party_open_object_bid_closed": true
+    },
+    "zhunzhai": {
+      "title": "准齋心製几漏圖式",
+      "fid_identifier": "411999008601",
+      "read_page_http_status": 200,
+      "cover_image": "img892/SBGJ03909_00001.jpg",
+      "open_object_aid": "892",
+      "open_object_bid": "113029.0",
+      "bid_numeric": "113029",
+      "first_party_route": "http://read.nlc.cn/allSearch/searchDetail?indexName=data_892&fid=411999008601",
+      "first_party_identifier_closed": true,
+      "first_party_open_object_bid_closed": true
+    },
+    "secondary_backup_index": {
+      "provider": "Wikimedia Commons NLC library backup project",
+      "role": "LOCATOR_AND_CORROBORATION_ONLY",
+      "tonghu_filename": "NLC892-411999008600-113028 銅壺漏箭制度.pdf",
+      "zhunzhai_filename": "NLC892-411999008601-113029 准齋心製幾漏圖式.pdf",
+      "first_party_nlc_controls_final_classification": true
+    }
+  },
+  "linked_record_control_crosswalk": {
+    "tonghu": {
+      "microfilm_455_raw_payload": "001411999008600",
+      "embedded_tag": "001",
+      "parsed_linked_record_control_id": "411999008600",
+      "read_data_892_fid": "411999008600",
+      "cross_system_identity_status": "DIRECT_VALUE_AND_TITLE_CONCORDANCE_CLOSED"
+    },
+    "zhunzhai": {
+      "microfilm_455_raw_payload": "001411999008601",
+      "embedded_tag": "001",
+      "parsed_linked_record_control_id": "411999008601",
+      "read_data_892_fid": "411999008601",
+      "cross_system_identity_status": "DIRECT_VALUE_AND_TITLE_CONCORDANCE_CLOSED"
+    },
+    "semantic_note": "The same numeric value functions as the embedded original-record identifier inside 455 and as the read.nlc.cn data_892 FID/identifier. This does not turn it into meta.nlc.cn SYS/UID, 905 local call number or barcode."
+  },
+  "microfilm_work_records": {
+    "tonghu": {
+      "sys": "002146415",
+      "uid": "UCS01003553255",
+      "material_type": "缩微品",
+      "publisher": "全国图书馆文献缩微中心",
+      "year": "1985",
+      "extent": "1盘卷片(3米32拍)",
+      "field_905a": "全国图书馆文献缩微中心",
+      "field_905b": "00O003570",
+      "field_905q": "swkf",
+      "raw_455_embedded_payload": "001411999008600",
+      "companion_separate_photo_note": "准斋心制几漏图式另拍在00O003571",
+      "current_meta_item_record_closed": true
+    },
+    "zhunzhai": {
+      "sys": "002146416",
+      "uid": "UCS01003553256",
+      "material_type": "缩微品",
+      "publisher": "全国图书馆文献缩微中心",
+      "year": "1985",
+      "extent": "1盘卷片(3米26拍)",
+      "field_905a": "全国图书馆文献缩微中心",
+      "field_905b": "00O003571",
+      "field_905q": "swkf",
+      "raw_455_embedded_payload": "001411999008601",
+      "companion_separate_photo_note": "铜壶漏箭制度另拍在00O003570",
+      "current_meta_item_record_closed": true
+    }
+  },
+  "microfilm_distribution_copy_records": {
+    "tonghu": {
+      "sys": "002597933",
+      "uid": "UCS01003581457",
+      "field_905b_present": false,
+      "edition_statement": "发行拷贝片"
+    },
+    "zhunzhai": {
+      "sys": "002597934",
+      "uid": "UCS01003581458",
+      "field_905b_present": false,
+      "edition_statement": "发行拷贝片"
+    },
+    "interpretation": "The work/master-style records carry 905b registration numbers while distribution-copy records omit 905b; both layers preserve the same 455 original-source links. This is a record-layer distinction, not conflicting target semantics."
+  },
+  "field_905b_semantic_controls": {
+    "semantic_class": "LOGIN_REGISTRATION_ACCESSION_NUMBER_FOR_LIBRARY_ITEM",
+    "chinese_term": "登录号",
+    "controls": [
+      {
+        "source_id": "EXT-XXU-CNMARC-905B-LOGIN-NUMBER-CONTROL",
+        "provider": "新乡学院图书馆",
+        "statement": "数据字段自定义：905$b登录号"
+      },
+      {
+        "source_id": "EXT-AHPU-CNMARC-905B-LOGIN-NUMBER-CONTROL",
+        "provider": "安徽工程大学图书馆",
+        "statement": "905字段馆藏信息：$a机构代码，$b登录号，$d分类号，$e书次/种次号"
+      },
+      {
+        "source_id": "EXT-GZHSVC-CNMARC-905B-LOGIN-NUMBER-CONTROL",
+        "provider": "广州华商职业学院图书馆",
+        "statement": "馆藏信息905：$a本馆代码，$b登录号，$d分类号，$e种次号"
+      }
+    ],
+    "target_specific_adjudication": {
+      "tonghu_value": "00O003570",
+      "zhunzhai_value": "00O003571",
+      "classification": "MICROFILM_REGISTRATION_LOGIN_NUMBER",
+      "exact_target_pair_closed": true,
+      "original_rare_book_call_number": false,
+      "public_barcode": false,
+      "historical_qu_acquisition_or_donation_number": false
+    }
+  },
+  "identifier_layer_firewall": {
+    "original_rare_book_catalog_sys_pair": [
+      "001775082",
+      "001775083"
+    ],
+    "original_rare_book_uid_pair": [
+      "UCS01003828992",
+      "UCS01003828993"
+    ],
+    "original_rare_book_local_call_pair": [
+      "NLC:SBYL:03482",
+      "NLC:SBYL:03483"
+    ],
+    "digital_data_892_fid_pair": [
+      "411999008600",
+      "411999008601"
+    ],
+    "digital_read_object_bid_pair": [
+      "113028",
+      "113029"
+    ],
+    "microfilm_work_record_sys_pair": [
+      "002146415",
+      "002146416"
+    ],
+    "microfilm_work_record_uid_pair": [
+      "UCS01003553255",
+      "UCS01003553256"
+    ],
+    "microfilm_distribution_sys_pair": [
+      "002597933",
+      "002597934"
+    ],
+    "microfilm_registration_login_number_pair": [
+      "00O003570",
+      "00O003571"
+    ],
+    "semantic_layer_collapse_forbidden": true,
+    "public_barcode_proved": false
+  },
+  "acquisition_provenance_adjudication": {
+    "general_qu_family_transfer_used_sale_and_donation_channels": true,
+    "target_1959_qu_donation_mark_present": false,
+    "secondary_donation_list_target_nonlocation_reported": true,
+    "sale_route_selected": false,
+    "donation_route_selected": false,
+    "final_nlc_acquisition_transfer_path": "UNRESOLVED",
+    "microfilm_905b_registration_numbers_are_not_historical_acquisition_numbers": true
+  },
+  "chronology_and_rule_firewall": {
+    "digital_or_microfilm_metadata_does_not_date_work_composition": true,
+    "current_catalog_author_strings_do_not_reopen_historical_authorship": true,
+    "secure_pre1578_exact_25arrow_physical_witness": false,
+    "exact_yuan_1281_person_identity": "POSSIBLE_NOT_PROVED",
+    "exact_sanming_yueling_dahan_yushui_fingerprint_closed": false,
+    "exact_nanjing_59_endpoint_binding_closed": false,
+    "direct_sanming_parent_vote_increment": 0,
+    "algorithm_reopen_authorized": false
+  },
+  "transmission_impact": {
+    "nodes_added": [
+      "DIGITAL-NLC-DATA892-TONGHU-FID411999008600-BID113028",
+      "DIGITAL-NLC-DATA892-ZHUNZHAI-FID411999008601-BID113029",
+      "MICROFILM-NLC-TONGHU-SYS002146415-LOGIN00O003570",
+      "MICROFILM-NLC-ZHUNZHAI-SYS002146416-LOGIN00O003571"
+    ],
+    "nodes_strengthened": [
+      "CATALOG-NLC-CURRENT-TONGHU-SYS001775082-UIDUCS01003828992",
+      "CATALOG-NLC-CURRENT-ZHUNZHAI-SYS001775083-UIDUCS01003828993",
+      "CATALOG-NLC-OPAC-ZHUNZHAI-MICROFILM-002597934",
+      "PHYSICAL-COPY-NLC-ZHUNZHAI-JILOU-DAOGUANG3-HUANG-SHILIJU-MS"
+    ],
+    "edges_supported": [
+      "TG-E0113",
+      "TG-E0114",
+      "TG-E0115",
+      "TG-E0116"
+    ],
+    "same_object_edge_authorized": false,
+    "direct_copy_edges_authorized": []
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 13,
+    "repaired_provenance_metadata_defect_count": 13,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Probe the first-party NLC open-object bid 113028/113029 routes for page-count/object-manifest metadata and hash-bind any public object manifest without bypassing access controls.",
+    "Continue target-specific Qu-family sale/donation/transfer/accession research; treat donation-list nonlocation as bounded evidence rather than a sale verdict.",
+    "Keep the pre-1578 Zhunzhai rule line and independent Sanming/Yueling Dahan-Rainwater + Nanjing-59 lines active."
+  ],
+  "updated_at": "2026-09-24"
+}
