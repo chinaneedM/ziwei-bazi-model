@@ -1,0 +1,131 @@
+{
+  "schema": "ZIWEI-NLC1823-TIEQIN-SEAL-PROVENANCE-CONTROL-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-NLC1823-TIEQIN-SEAL-PROVENANCE-CONTROL-FD",
+  "prior_batch_id": "BATCH-12-ZIWEI-TIEQIN-YINGCHAO-SONGBEN-TRANSCRIPTION-REPAIR-FC",
+  "question": "Can the unresolved lower seal on the current NLC/Xuxiu1031 Copper title page be independently identified, and what does that prove about the current 1823 Huang-family composite object's relationship to the Tieqin Tongjianlou catalogued tradition?",
+  "answer": "YES AT THE LATER-COLLECTION-PROVENANCE LEVEL. SOURCE-BOUND XUXIU1031 PDF P78 DIRECT IMAGE REVIEW IDENTIFIES THE LOWER LONG RECTANGULAR SEAL AS 鐵琴銅劍樓. AN INDEPENDENT NATIONAL CENTRAL LIBRARY BIBLIOGRAPHIC RECORD DESCRIBES THE SAME QU-FAMILY SEAL AS 「鐵琴銅/劍樓」白文長方印, AND NCL'S PUBLISHED SEAL STUDY FIGURE 36 EXPLICITLY LABELS A PHYSICAL EXEMPLAR FROM 《三曆撮要》 AS QU YONG'S 「鐵琴銅劍樓」 COLLECTOR'S SEAL. THIS CLOSES THAT THE CURRENT NLC 1823 HUANG-FAMILY COPPER/ZHUNZHAI COMPOSITE OBJECT LATER ENTERED THE TIEQIN TONGJIANLOU COLLECTION. HOWEVER, THE SEAL IS A COLLECTION MARK RATHER THAN A UNIQUE INVENTORY IDENTIFIER; TOGETHER WITH HUANG PILIE'S 原書舊鈔/錄副 MULTI-COPY FIREWALL, EXACT UNIQUE-PHYSICAL-OBJECT IDENTITY WITH THE SPECIFIC COPY DESCRIBED BY THE REVIEWED TIEQIN CATALOG ENTRY REMAINS VERY STRONGLY SUPPORTED BUT NOT FORMALLY COLLAPSED.",
+  "source_binding": {
+    "source_id": "EXT-XUXIU1031-ZHUNZHAI-TONGHU-CLEPSYDRA-QING-MSS-PHYSICAL",
+    "object": "National Library of China-held Qing Daoguang-3 / 1823 Huang Shiliju Copper/Zhunzhai composite manuscript reproduced in Xuxiu1031",
+    "source_pdf_sha256": "07348e40ec26ca38efe9c9736a69c403c61f9b07a2c89a847fc68d00ce6d8c25",
+    "target_pdf_page": 78,
+    "prior_220dpi_page_sha256": "43f91f0d11eb88a014bb1a5fe53bc5ec696df540cfc2318cc9e80ba04e4c1329",
+    "evidence_extraction": {
+      "workflow_file": ".github/workflows/extract-xuxiu1031-p78-seal-column.yml",
+      "controlling_commit": "3692539a7d9b3e47e93568211fee472a2c336237",
+      "workflow_run_id": 36002988836,
+      "workflow_artifact_id": 10809201996,
+      "workflow_artifact_digest": "sha256:ac7e01957bd7f0e4c8a741cffbe3daf02aabd795b99daa6da477048f76c42e4a",
+      "source_bound_render_dpi": 600,
+      "render_sha256": "e302f09b20bf716415f19b8affaa079e3e30e63bada2087bc77680b898194a41",
+      "full_seal_column_crop_sha256": "449af987bb2e20ac18ab5eeb5efb1964e8944d211fb6998dc9033c8ae29cb4e1",
+      "lower_seal_review_crop_sha256": "d8d48d3f3f05a9a7babd344bbf438d36ea03312de3b42387e5f79029f665876b",
+      "note": "600-dpi rendering is a source-bound magnification of the fixed PDF page for inspection, not a claim of increased native scan information; OCR is not final authority and no generative enhancement is used."
+    }
+  },
+  "direct_physical_reading": {
+    "previously_closed_upper_seals": [
+      "士禮居藏",
+      "黃印丕烈",
+      "蕘圃"
+    ],
+    "lower_long_rectangular_seal": "鐵琴銅劍樓",
+    "lower_seal_form_observed": "LONG_RECTANGULAR_COLLECTOR_SEAL",
+    "adjudication": "NLC1823_TIEQIN_TONGJIANLOU_LATER_COLLECTION_MARK_DIRECTLY_CLOSED",
+    "ocr_used_for_final_seal_claim": false
+  },
+  "independent_seal_controls": [
+    {
+      "source_id": "EXT-NCL-SANLI-CUOYAO-TIEQIN-SEAL-CATALOG-CONTROL",
+      "provider": "National Central Library, Taiwan — 古籍與特藏文獻資源",
+      "title": "《三曆撮要》館藏記錄",
+      "url": "https://rbook.ncl.edu.tw/NCLSearch/Search/SearchDetail?HasImage=&SourceID=1&item=ebb5e19efb4344f6917211232fcddaf6fDcyNTAw0.XL_KHez4VBPAX3ar9_0pq7q169lJ73yLQfXeg2lrIdg_&page=",
+      "direct_catalog_control": "收藏印記明列「鐵琴銅/劍樓」白文長方印",
+      "role": "INDEPENDENT_OFFICIAL_SEAL_NAME_AND_FORM_CONTROL_NOT_TARGET_OBJECT_IDENTITY"
+    },
+    {
+      "source_id": "EXT-NCL-JOURNAL-2018-TIEQIN-SEAL-FIG36",
+      "provider": "National Central Library / 國家圖書館館刊",
+      "title": "張圍東〈古籍裡的風景—國家圖書館的藏書印記初探〉",
+      "year": 2018,
+      "url": "https://nclfile.ncl.edu.tw/files/201903/638c7a79-fdd5-42f8-ab5a-54f3a45117db.pdf",
+      "direct_published_control": "圖36明確標示《三曆撮要》所鈐瞿鏞「鐵琴銅劍樓」藏書印",
+      "role": "INDEPENDENT_PUBLISHED_PHYSICAL_SEAL_EXEMPLAR_LABEL_CONTROL_NOT_TARGET_OBJECT_IDENTITY"
+    }
+  ],
+  "object_provenance_adjudication": {
+    "current_nlc1823_object_entered_tieqin_tongjianlou_collection": "CLOSED",
+    "current_nlc1823_object_has_tieqin_tongjianlou_collection_mark": true,
+    "nlc1823_equals_specific_tieqin_catalogued_composite_object": "VERY_STRONGLY_SUPPORTED_NOT_FORMALLY_UNIQUE_OBJECT_CLOSED",
+    "rationale": [
+      "Current object directly carries the 鐵琴銅劍樓 collection seal.",
+      "Tieqin catalog independently records the same Copper/Zhunzhai paired titles, 合裝一冊, 郡中黃氏舊藏, 蕘翁有跋, and the same Copper volume-head Huang seal trio.",
+      "A collection seal is not a unique shelfmark or serial number and could have been applied to multiple Qu-family holdings.",
+      "Huang Pilie's own 1823 paratext explicitly distinguishes 原書舊鈔 from 錄副, preserving a real multi-copy possibility."
+    ],
+    "force_same_object_node_collapse_authorized": false,
+    "unique_inventory_identifier_matched": false
+  },
+  "copy_layer_firewall": {
+    "reviewed_1823_object_exact_role_as_原書舊鈔_or_錄副": "UNRESOLVED",
+    "exact_identity_with_airijinglu1827_吳門黃氏藏舊抄本": "NOT_PROVED",
+    "direct_copy_edge_to_airijinglu1827_authorized": false,
+    "tieqin_seal_does_not_resolve_huang_copy_layer": true
+  },
+  "chronology_and_rule_firewall": {
+    "tieqin_ownership_mark_does_not_date_work_composition": true,
+    "physical_song_copy_proved": false,
+    "secure_pre1578_exact_25arrow_physical_witness": false,
+    "exact_yuan_1281_person_identity": "POSSIBLE_NOT_PROVED",
+    "exact_sanming_yueling_dahan_yushui_fingerprint_closed": false,
+    "exact_nanjing_59_endpoint_binding_closed": false,
+    "direct_sanming_parent_vote_increment": 0
+  },
+  "adjudication": {
+    "matrix_count_change": false,
+    "provenance_defect_count_change": false,
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "deterministic_fusion_chart_product_r1": "CLOSED"
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 13,
+    "repaired_provenance_metadata_defect_count": 13,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "transmission_impact": {
+    "nodes_added": [
+      "PASSAGE-NLC1823-COPPER-TIEQIN-OWNERSHIP-SEAL"
+    ],
+    "nodes_strengthened": [
+      "PHYSICAL-COPY-NLC-ZHUNZHAI-JILOU-DAOGUANG3-HUANG-SHILIJU-MS",
+      "PHYSICAL-COPY-TIANYIGE-TIEQIN-QING-MS-0004561",
+      "PASSAGE-TIEQIN-QING-MS-TONGHU-HUANG-SEALS-COMPOSITE-BINDING"
+    ],
+    "edges_supported": [
+      "TG-E0107"
+    ],
+    "same_object_edge_authorized": false,
+    "direct_copy_edges_authorized": [],
+    "unresolved_lineage_questions": [
+      "Can a unique Tieqin-era shelfmark, acquisition register, paper defect, binding repair or other one-object marker close the exact catalogued-object identity?",
+      "Which surviving Huang layer is 原書舊鈔 and which is 錄副?",
+      "Which Huang layer did Zhang Jinwu use by 1827?",
+      "Can a securely pre-1578 physical witness close the exact Zhunzhai 25-arrow operating prose?"
+    ]
+  },
+  "next_gate": [
+    "Search Tieqin/NLC acquisition, donation and shelfmark records for a unique one-object crosswalk beyond the collection seal.",
+    "Keep Huang 原書舊鈔 / 錄副 and Airijinglu 1827 source-copy identities separate.",
+    "Continue Yuan person-title and securely pre-1578 exact 25-arrow prose searches.",
+    "Keep independent Sanming/Yueling Dahan-Rainwater and Nanjing-59 searches active."
+  ],
+  "updated_at": "2026-09-24"
+}
