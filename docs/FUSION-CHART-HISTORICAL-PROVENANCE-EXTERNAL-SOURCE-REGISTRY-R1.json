@@ -6465,6 +6465,66 @@
         "rarecatx0514818_exact_crosswalk_proved": false,
         "same_object_edge_authorized": false,
         "research_artifact": "docs/research/ZIWEI-NLC-OPAC-ZHUNZHAI-MICROFILM-SOURCE-CROSSBINDING-R1.json"
+      },
+      "batch_12fg_crosswalk": {
+        "historical_catalog_source": "EXT-BEITU-1959-V4-TONGHU-ZHUNZHAI-3482-3483",
+        "opac_03482_to_beitu1959_3482": "CLOSED_AT_HISTORICAL_BIBLIOGRAPHIC_CATALOG_NUMBER_LEVEL",
+        "opac_03483_to_beitu1959_3483": "CLOSED_AT_HISTORICAL_BIBLIOGRAPHIC_CATALOG_NUMBER_LEVEL",
+        "current_physical_shelfmark_proved": false,
+        "acquisition_or_donation_number_proved": false,
+        "note": "Forward-only semantic refinement. Batch 12FF remains historical audit history; 12FG supplies the later source-bound catalog-number crosswalk."
+      }
+    },
+    {
+      "source_id": "EXT-BEITU-1959-V4-TONGHU-ZHUNZHAI-3482-3483",
+      "title": "1959《北京圖書館善本書目》第4冊：銅壺漏箭制度3482／準齋心製几漏圖式3483",
+      "author": "北京圖書館編",
+      "historical_period": "MODERN_1959_CATALOG_RECORD_OF_QING_DAOGUANG3_1823_HUANG_SHILIJU_COMPOSITE_OBJECT",
+      "edition": "中華書局1959年版；第4冊；SSID-12335510；PDF p60",
+      "provider": "北京圖書館 / 中華書局; public-domain scan via Wikimedia Commons",
+      "identifier": "SSID-12335510 / p60 / printed 3482 + 3483",
+      "url": "https://commons.wikimedia.org/wiki/File:SSID-12335510_%E5%8C%97%E4%BA%AC%E5%9C%96%E6%9B%B8%E9%A4%A8%E5%96%84%E6%9C%AC%E6%9B%B8%E7%9B%AE_4.pdf",
+      "source_role": "DIRECT_HISTORICAL_BEIJING_LIBRARY_CATALOG_NUMBER_AND_1823_HUANG_SHILIJU_ONE_VOLUME_BINDING_CONTROL_NOT_CURRENT_NLC_ITEM_BARCODE",
+      "quality_notes": "Batch 12FG direct 400-dpi p60 review reads 銅壺漏箭制度一卷 / 清道光三年黃氏士禮居抄本 / 與準齋心製几漏圖式合一冊 with printed number 三四八二, and 準齋心製几漏圖式一卷 / 宋孫逢古撰 / 清道光三年黃氏士禮居抄本 / 黃丕烈跋 / 與銅壺漏箭制度合一冊 with printed number 三四八三. The target entries do not print 瞿捐. Exact number/title convergence closes OPAC 原文献03482↔1959 3482 and 03483↔3483 at the historical catalog-number layer only; it does not prove a current NLC barcode/present shelfmark.",
+      "batch_12fg": {
+        "workflow_run_id": 36013592896,
+        "workflow_artifact_id": 10813571631,
+        "workflow_artifact_digest": "sha256:769638c723dc1bacbb2b385b1669fc1cbc103866b2eff800184b346ddf05386f",
+        "source_pdf_sha256": "f762a4d2f0f1c96e5f8543f6b572988b0a0e17125f491522a1f2a035d4145ddb",
+        "pdf_page": 60,
+        "render_sha256": "722fce53457f722df9d2d7184646e2bf53427f56fa23ed518818d9ffdf2756c1",
+        "tonghu_printed_number": "3482",
+        "zhunzhai_printed_number": "3483",
+        "target_qu_donation_mark_present": false,
+        "opac_original_document_number_crosswalk_closed": true,
+        "current_physical_shelfmark_proved": false,
+        "research_artifact": "docs/research/ZIWEI-BEITU1959-TONGHU-ZHUNZHAI-CATALOG-NUMBER-AND-QUDONATION-BOUNDARY-R1.json"
+      }
+    },
+    {
+      "source_id": "EXT-BEITU-1959-V7-QUDONATION-MARK-CONTROL",
+      "title": "1959《北京圖書館善本書目》第7冊：金華黃先生文集「瞿捐」直接標記控制",
+      "author": "北京圖書館編",
+      "historical_period": "MODERN_1959_CATALOG_ENTRY_LEVEL_DONATION_NOTATION_CONTROL",
+      "edition": "中華書局1959年版；第7冊；SSID-12335513；PDF p19",
+      "provider": "北京圖書館 / 中華書局; public-domain scan via Wikimedia Commons",
+      "identifier": "SSID-12335513 / p19 / 金華黃先生文集四十三卷 元刻明修本",
+      "url": "https://commons.wikimedia.org/wiki/File:SSID-12335513_%E5%8C%97%E4%BA%AC%E5%9C%96%E6%9B%B8%E9%A4%A8%E5%96%84%E6%9C%AC%E6%9B%B8%E7%9B%AE_7.pdf",
+      "source_role": "DIRECT_SAME_CATALOG_CONTROL_PROVING_EXPLICIT_QU_DONATION_NOTATION_IS_USED_ON_INDIVIDUAL_ENTRIES",
+      "quality_notes": "Batch 12FG complete image-only localization followed by direct 400-dpi p19 review reads 金華黃先生文集四十三卷 / 元黃溍撰 / 元刻明修本 / 一冊 / 瞿捐. This proves the 1959 catalog can explicitly mark Qu-family donation at entry level. The absence of 瞿捐 on target 3482/3483 therefore has bounded catalog-level negative significance, but does not absolutely disprove every historical donation/transfer path because catalog source annotations can be incomplete.",
+      "batch_12fg": {
+        "locator_workflow_run_id": 36015371114,
+        "locator_artifact_id": 10814068175,
+        "locator_artifact_digest": "sha256:a4a86d66174d8bf5c258cf658c44d2c2ae9698771a4f8b1bfa21719c376385ca",
+        "workflow_run_id": 36015952183,
+        "workflow_artifact_id": 10814199731,
+        "workflow_artifact_digest": "sha256:009f045ff614e835990bd84fd5c91f93a314249d8e155ab32118ab2068e07b02",
+        "source_pdf_sha256": "04a9b1e1a2aa0d3928a6facf499b76464607b26f506afc58a7b8f5325f335e0c",
+        "pdf_page": 19,
+        "render_sha256": "05b64be88917364c2528ac01f85edd02a098db0b0be34d7f233ca468cabe2467",
+        "direct_mark": "瞿捐",
+        "ocr_used_for_final_glyph_claims": false,
+        "research_artifact": "docs/research/ZIWEI-BEITU1959-TONGHU-ZHUNZHAI-CATALOG-NUMBER-AND-QUDONATION-BOUNDARY-R1.json"
       }
     }
   ],
