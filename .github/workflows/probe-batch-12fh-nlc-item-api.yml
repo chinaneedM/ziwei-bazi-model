@@ -32,11 +32,11 @@ jobs:
           positive-control	UCS01002865167	多发性骨髓瘤14q32染色体易位的分子生物学研究
           EOF
           : > "$ROOT/status.tsv"
-          while IFS=$'\t' read -r key uid title; do
-            url=$(UID="$uid" TITLE="$title" python - <<'PY'
+          while IFS=$'\t' read -r key item_uid title; do
+            url=$(ITEM_UID="$item_uid" TITLE="$title" python - <<'PY'
           import os
           from urllib.parse import quote
-          print('https://meta.nlc.cn/api/v1/item/'+quote(os.environ['UID'],safe='')+'/1/999?b_tit='+quote(os.environ['TITLE']))
+          print('https://meta.nlc.cn/api/v1/item/'+quote(os.environ['ITEM_UID'],safe='')+'/1/999?b_tit='+quote(os.environ['TITLE']))
           PY
             )
             out="$ROOT/raw/$key.json"
@@ -44,12 +44,12 @@ jobs:
             code=$(curl -L -sS --connect-timeout 8 --max-time 30 \
               -A "$UA" -H 'Accept: application/json, text/javascript, */*; q=0.01' \
               -H 'X-Requested-With: XMLHttpRequest' \
-              -H "Referer: https://meta.nlc.cn/v2/detail/$uid" \
+              -H "Referer: https://meta.nlc.cn/v2/detail/$item_uid" \
               -X POST -o "$out" -w '%{http_code}' "$url")
             rc=$?
             set -e
             size=0; [ -f "$out" ] && size=$(wc -c < "$out")
-            printf '%s\t%s\trc=%s\thttp=%s\tbytes=%s\t%s\n' "$key" "$uid" "$rc" "$code" "$size" "$url" >> "$ROOT/status.tsv"
+            printf '%s\t%s\trc=%s\thttp=%s\tbytes=%s\t%s\n' "$key" "$item_uid" "$rc" "$code" "$size" "$url" >> "$ROOT/status.tsv"
           done < "$ROOT/targets.tsv"
 
           python - <<'PY'
