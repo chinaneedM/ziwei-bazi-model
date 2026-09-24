@@ -1179,8 +1179,8 @@ def main() -> int:
     passage12fb = next((n for n in nodes if n.get("node_id") == "PASSAGE-TIEQIN-QING-MS-TONGHU-HUANG-SEALS-COMPOSITE-BINDING"), None)
     if not passage12fb or passage12fb.get("direct_copper_volume_head_huang_seals") != ["士禮居藏", "黃印丕烈", "蕘圃"]:
         fail("Batch 12FB Tieqin seal-set passage regressed")
-    if passage12fb.get("exact_identity_with_nlc_1823") != "STRONGLY_SUPPORTED_NOT_FORMALLY_CLOSED":
-        fail("Batch 12FB same-object passage firewall regressed")
+    if passage12fb.get("exact_identity_with_nlc_1823") not in ("STRONGLY_SUPPORTED_NOT_FORMALLY_CLOSED", "VERY_STRONGLY_SUPPORTED_NOT_FORMALLY_UNIQUE_OBJECT_CLOSED"):
+        fail("Batch 12FB/12FD same-object passage progression regressed")
     nlc12fb = next(n for n in nodes if n.get("node_id") == "PHYSICAL-COPY-NLC-ZHUNZHAI-JILOU-DAOGUANG3-HUANG-SHILIJU-MS")
     obj12fb = nlc12fb.get("tieqin_composite_object_fingerprint_control", {})
     if obj12fb.get("status") not in ("STRONGLY_SUPPORTED_NOT_FORMALLY_CLOSED", "VERY_STRONGLY_SUPPORTED_NOT_FORMALLY_UNIQUE_OBJECT_CLOSED"):
@@ -1188,6 +1188,8 @@ def main() -> int:
     if obj12fb.get("lower_fourth_seal_identity") not in ("UNADJUDICATED", "鐵琴銅劍樓") or obj12fb.get("force_same_object_collapse_authorized") is not False:
         fail("Batch 12FB/12FD NLC object-identity firewall regressed")
     batch12fb = json.loads(BATCH_12FB.read_text(encoding="utf-8"))
+    if "SAME-PHYSICAL-OBJECT IDENTITY STRONGLY SUPPORTED, BUT IT IS NOT FORMALLY CLOSED" not in batch12fb.get("answer", ""):
+        fail("Batch 12FB historical strong-not-closed identity adjudication regressed")
     if batch12fb.get("transmission_impact", {}).get("same_object_edge_authorized") is not False:
         fail("Batch 12FB unexpectedly authorized same-object edge")
     if not any(x.get("batch") == "BATCH-12-ZIWEI-TIEQIN-NLC1823-COMPOSITE-OBJECT-FINGERPRINT-CONTROL-FB" and "zero exact sanming-parent vote" in x.get("update","").lower() for x in hyp12dk.get("evidence_updates", [])):
