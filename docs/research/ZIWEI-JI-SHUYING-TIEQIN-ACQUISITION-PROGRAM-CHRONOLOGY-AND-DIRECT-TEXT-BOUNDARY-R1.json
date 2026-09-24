@@ -1,0 +1,185 @@
+{
+  "schema": "ZIWEI-JI-SHUYING-TIEQIN-ACQUISITION-PROGRAM-CHRONOLOGY-AND-DIRECT-TEXT-BOUNDARY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-JI-SHUYING-TIEQIN-ACQUISITION-PROGRAM-CHRONOLOGY-AND-DIRECT-TEXT-BOUNDARY-FP",
+  "prior_batch_id": "BATCH-12-ZIWEI-ZHOU-SHUTAO-DIARY-GAO-ACQUISITION-ROLE-AND-QU-1953-CHRONOLOGY-FO",
+  "question": "How far can Ji Shuying's specialized account of Tieqin Tongjian Lou acquisition be closed from currently accessible bibliographic metadata, public chapter summaries, later scholarly recollections, and publication-mediated contemporary diary controls, without assigning catalog nos. 3482/3483 to a sale/purchase batch?",
+  "answer": "The existence and identity of Ji Shuying's 2009 book and its chapter 9 《铁琴铜剑楼藏书的收购入藏》 are closed. Later specialists explicitly identify this chapter as a key source revealing that Qu-family books entered Beijing Library through both donation and sale/purchase. Multiple publication-mediated contemporary diary controls independently attest actual purchase transactions and price negotiation at the collection-program level. However, the project has not directly reviewed the full chapter-9 pages, no reviewed source binds Tonghu/Zhunzhai or catalog nos. 3482/3483 to a numbered transfer batch, and no target sale/donation route is selected.",
+  "book_identity": {
+    "title": "冀淑英古籍善本十五讲",
+    "author": "冀淑英",
+    "illustrator": "李文洁",
+    "publisher": "国家图书馆出版社",
+    "publication_date": "2009-07",
+    "isbn": "9787501340637",
+    "series": "国家图书馆善本特藏学术文库",
+    "bibliographic_controls": [
+      {
+        "provider": "日本国立国会图书馆 NDL Search",
+        "url": "https://ndlsearch.ndl.go.jp/search?cs=bib&f-ndc=%220223%22&from=0&size=20",
+        "observed": "冀淑英著 ; 李文洁插图. 国家图书馆出版社, 2009.7."
+      },
+      {
+        "provider": "CiNii Books",
+        "url": "https://ci.nii.ac.jp/author/DA1043209X",
+        "observed": "Lists 冀淑英古籍善本十五讲 as 冀淑英著 ; 李文洁插图, 国家图书馆出版社 2009.7."
+      }
+    ],
+    "chapter_9": {
+      "title": "铁琴铜剑楼藏书的收购入藏",
+      "identity_closed": true,
+      "full_direct_page_scan_reviewed_by_project": false,
+      "full_direct_text_reviewed_by_project": false,
+      "public_summary_available": true
+    }
+  },
+  "public_chapter_summary_control": {
+    "url": "https://kknews.cc/zh-my/culture/x2jngr8.html",
+    "role": "PUBLIC_SECONDARY_SUMMARY_OF_BOOK_STRUCTURE_AND_SELECTED_CHAPTER_CONTENT_NOT_DIRECT_BOOK_SCAN",
+    "closes": [
+      "Chapter 9 exact title.",
+      "Chapter 9 concerns the Changshu Qu family and Tieqin Tongjian Lou rare books."
+    ],
+    "does_not_close": [
+      "Exact wording of the complete chapter.",
+      "Complete transfer lists or batch membership.",
+      "Any reference to target catalog nos. 3482/3483 unless separately reproduced."
+    ]
+  },
+  "shen_jin_recollection_control": {
+    "urls": [
+      "https://culture.ifeng.com/a/20140803/41421066_0.shtml",
+      "https://www.sohu.com/a/218253013_562249"
+    ],
+    "author": "沈津",
+    "title": "记铁琴铜剑楼后人瞿凤起先生",
+    "role": "LATER_SPECIALIST_RECOLLECTION_EXPLICITLY_IDENTIFYING_JI_CHAPTER_9_AS_SOURCE_FOR_MIXED_DONATION_AND_SALE_HISTORY",
+    "observed_claims": [
+      "Earlier donation histories did not describe the sale component in the same way.",
+      "Ji Shuying's chapter 9 is explicitly named as revealing Qu-family donation together with sale/purchase into Beijing Library.",
+      "The Qu→Beijing Library program is described as multiple batches combining sale and donation.",
+      "Zhao Wanli and Qu Fengqi are described as the main negotiators."
+    ],
+    "target_tonghu_zhunzhai_named": false,
+    "target_3482_3483_bound": false,
+    "direct_reproduction_of_ji_chapter_pages": false,
+    "batch_numeric_details_are_secondary_recounting": true
+  },
+  "secondary_batch_chronology_recounting": {
+    "source_url": "https://www.sohu.com/a/276963264_562249",
+    "source_role": "SECONDARY_RECOUNTING_CITING_JI_SHUYING_CHAPTER_9_NOT_DIRECT_CHAPTER_COLLATION",
+    "reported_events": [
+      {
+        "date": "1950-01-07",
+        "reported_donation_titles": 52,
+        "reported_sale_titles": 304,
+        "status": "SECONDARY_REPORTED_NOT_DIRECTLY_COLLATION_CLOSED"
+      },
+      {
+        "date": "1950-03",
+        "reported_sale_titles": 123,
+        "status": "SECONDARY_REPORTED_NOT_DIRECTLY_COLLATION_CLOSED"
+      },
+      {
+        "date": "1953-03",
+        "reported_donation_titles": 97,
+        "reported_sale_titles": "300+",
+        "status": "SECONDARY_REPORTED_NOT_DIRECTLY_COLLATION_CLOSED"
+      }
+    ],
+    "direct_full_chapter_verification_pending": true,
+    "target_3482_3483_batch_membership_closed": false,
+    "exact_total_reconciliation_authorized": false,
+    "note": "Secondary articles contain aggregate-count formulations that should not be normalized into a single exact ledger before direct review of Ji's chapter and/or accession lists."
+  },
+  "contemporaneous_purchase_controls": {
+    "gu_tinglong_diary_1950_01_06": {
+      "public_reproduction_url": "https://www.sohu.com/a/293535862_744041",
+      "mediated_via": "Shen Jin discussion citing 《顾廷龙年谱》, which cites Gu Tinglong diary",
+      "reported_wording_scope": "Zhao Wanli reported the Tieqin Tongjian Lou transaction as purchase of 300 titles for 30 million old-currency units and donation of 42 titles.",
+      "direct_diary_image_reviewed_by_project": false,
+      "proves_collection_level_purchase_transaction": true,
+      "proves_target_3482_3483_purchase": false
+    },
+    "deng_zhicheng_diary_1950_01_29": {
+      "public_reproduction_url": "https://zhao.zupu.cn/wenhua/352342.jhtml",
+      "mediated_via": "Later article citing Deng Rui's edited 《邓之诚文史札记》",
+      "reported_scope": "Deng Zhicheng recorded that Zhao Wanli had bought twelve boxes of Tieqin Tongjian Lou books for public custody for forty million old-currency units.",
+      "direct_diary_image_reviewed_by_project": false,
+      "proves_collection_level_purchase_transaction": true,
+      "proves_target_3482_3483_purchase": false
+    },
+    "gu_tinglong_diary_1951_12_21": {
+      "public_reproduction_url": "https://www.sohu.com/a/218253013_562249",
+      "mediated_via": "Shen Jin citing 《顾廷龙年谱》 / Gu diary",
+      "reported_scope": "Qu Fengqi's daughter reported a disagreement with Zhao Wanli over book price the preceding night.",
+      "direct_diary_image_reviewed_by_project": false,
+      "proves_price_negotiation_in_qu_transfer_context": true,
+      "proves_target_3482_3483_negotiation": false
+    }
+  },
+  "institutional_bibliographic_control": {
+    "url": "https://www.nlc.cn/pcab/zx/xw/20240701_2640245.shtml",
+    "provider": "国家图书馆 / 中国古籍保护网",
+    "role": "FIRST_PARTY_INSTITUTIONAL_BIBLIOGRAPHIC_CONTROL_FOR_JI_SHUYING_VOLUME_AND_NLC_ACQUISITION_HISTORY_RESEARCH_CHAIN",
+    "observed": "A 2024 NLC-hosted scholarly article cites Ji Shuying's 2009 volume by title, publisher and chapter structure in its reference apparatus, confirming the volume is part of the NLC institutional research lineage.",
+    "chapter_9_full_text_exposed": false
+  },
+  "adjudication": {
+    "ji_book_identity": "CLOSED",
+    "ji_chapter_9_identity": "CLOSED_AS_铁琴铜剑楼藏书的收购入藏",
+    "ji_chapter_9_full_direct_text": "NOT_REVIEWED",
+    "qu_to_beijing_library_purchase_component": "CLOSED_AT_COLLECTION_PROGRAM_LEVEL",
+    "qu_to_beijing_library_donation_component": "CLOSED_AT_COLLECTION_PROGRAM_LEVEL",
+    "mixed_transfer_program": "CLOSED",
+    "reported_1950_1953_batch_counts": "SECONDARY_RECOUNTING_PENDING_DIRECT_CHAPTER_OR_ACCESSION_LEDGER_COLLATION",
+    "target_tonghu_zhunzhai_named_in_reviewed_ji_material": false,
+    "target_3482_3483_batch_membership": "UNRESOLVED",
+    "target_specific_purchase_route_selected": false,
+    "target_specific_donation_route_selected": false,
+    "target_specific_other_transfer_route_selected": false,
+    "target_exact_acquisition_date": "UNRESOLVED",
+    "final_nlc_acquisition_transfer_path": "UNRESOLVED"
+  },
+  "inference_firewall": {
+    "chapter_title_contains_收购_does_not_mean_every_qu_item_was_purchased": true,
+    "collection_level_purchase_evidence_does_not_assign_target_purchase": true,
+    "secondary_batch_counts_may_not_be_promoted_to_direct_ji_text": true,
+    "diary_purchase_controls_may_not_bind_unlisted_target_titles": true,
+    "missing_瞿捐_mark_still_does_not_imply_sale": true,
+    "target_route_requires_title_catalog_number_or_bound_volume_level_transaction_evidence": true
+  },
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_added": [],
+    "acquisition_edge_authorized": false,
+    "same_object_edge_authorized": false,
+    "direct_copy_edges_authorized": []
+  },
+  "chronology_and_rule_firewall": {
+    "direct_sanming_parent_vote_increment": 0,
+    "pre1578_zhunzhai_rule_witness_increment": 0,
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_count_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 13,
+    "repaired_provenance_metadata_defect_count": 13,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Acquire or lawfully access the complete pages of Ji Shuying chapter 9 《铁琴铜剑楼藏书的收购入藏》 and directly collate its transfer chronology, cited documents, and any title-level lists.",
+    "Trace chapter 9's source notes back to Beijing Library/NLC accession, acquisition, price, and donation records rather than relying on later aggregate summaries.",
+    "Search the direct chapter and related accession lists for 铜壶漏箭制度, 准斋心制几漏图式, the bound-volume description, historical catalog nos. 3482/3483, or other stable identifiers.",
+    "Continue the Lin Zhenyue/Gao annotated-catalog source-basis route in parallel because it may provide item-level transaction annotations unavailable in aggregate acquisition histories.",
+    "Do not select target sale/purchase or donation route until direct or near-direct item-level evidence is recovered."
+  ],
+  "updated_at": "2026-09-25"
+}
