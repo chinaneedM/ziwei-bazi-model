@@ -116,6 +116,8 @@ ZIWEI_AIRIJINGLU_1827_12EZ_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENAN
 ZIWEI_AIRIJINGLU_1827_12EZ_EVIDENCE = ROOT / "docs/research/ZIWEI-AIRIJINGLU1827-ZHUNZHAI-FENGGU-FIRST-EDITION-RECENSION-CONTROL-R1.json"
 ZIWEI_SHILIJU_1823_12FA_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-SHILIJU1823-ZHUNZHAI-HUANG-PILIE-OLD-COPY-RECOPY-FIREWALL-FA.md"
 ZIWEI_SHILIJU_1823_12FA_EVIDENCE = ROOT / "docs/research/ZIWEI-SHILIJU1823-ZHUNZHAI-HUANG-PILIE-OLD-COPY-RECOPY-FIREWALL-R1.json"
+ZIWEI_TIEQIN_NLC1823_12FB_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TIEQIN-NLC1823-COMPOSITE-OBJECT-FINGERPRINT-CONTROL-FB.md"
+ZIWEI_TIEQIN_NLC1823_12FB_EVIDENCE = ROOT / "docs/research/ZIWEI-TIEQIN-NLC1823-COMPOSITE-OBJECT-FINGERPRINT-CONTROL-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -400,9 +402,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-TIEQIN-QING-MS-ZHUNZHAI-FENGGU-HUANG-PROVENANCE-EY",
     "BATCH-12-ZIWEI-AIRIJINGLU1827-ZHUNZHAI-FENGGU-FIRST-EDITION-RECENSION-CONTROL-EZ",
     "BATCH-12-ZIWEI-SHILIJU1823-ZHUNZHAI-HUANG-PILIE-OLD-COPY-RECOPY-FIREWALL-FA",
+    "BATCH-12-ZIWEI-TIEQIN-NLC1823-COMPOSITE-OBJECT-FINGERPRINT-CONTROL-FB",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-SHILIJU1823-ZHUNZHAI-HUANG-PILIE-OLD-COPY-RECOPY-FIREWALL-FA.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TIEQIN-NLC1823-COMPOSITE-OBJECT-FINGERPRINT-CONTROL-FB.md"
 
 
 def fail(message: str) -> None:
@@ -1383,6 +1386,26 @@ def main() -> int:
         fail("Batch 12FA Ying-Song chronology firewall regressed")
     if batch12fa.get("sanming_firewall", {}).get("direct_sanming_parent_vote_increment") != 0:
         fail("Batch 12FA Sanming zero-vote firewall regressed")
+
+    for path in (ZIWEI_TIEQIN_NLC1823_12FB_BATCH, ZIWEI_TIEQIN_NLC1823_12FB_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12FB continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12fb = json.loads(ZIWEI_TIEQIN_NLC1823_12FB_EVIDENCE.read_text(encoding="utf-8"))
+    if batch12fb.get("batch_id") != "BATCH-12-ZIWEI-TIEQIN-NLC1823-COMPOSITE-OBJECT-FINGERPRINT-CONTROL-FB":
+        fail("Batch 12FB evidence identity mismatch")
+    read12fb = batch12fb.get("direct_tieqin_reading", {})
+    if "卷首有「士禮居藏」、「黃印丕烈」、「蕘圃」諸朱記" not in read12fb.get("p387", []):
+        fail("Batch 12FB Tieqin Huang seal-set reading regressed")
+    fp12fb = batch12fb.get("composite_object_fingerprint", {})
+    if fp12fb.get("exact_identity_nlc1823_equals_tieqin_catalogued_composite_object") != "STRONGLY_SUPPORTED_NOT_FORMALLY_CLOSED":
+        fail("Batch 12FB same-object fail-closed status regressed")
+    if fp12fb.get("force_same_object_collapse_authorized") is not False:
+        fail("Batch 12FB same-object collapse firewall regressed")
+    copy12fb = batch12fb.get("copy_layer_firewall", {})
+    if copy12fb.get("reviewed_1823_object_exact_role_as_原書舊鈔_or_錄副") != "UNRESOLVED" or copy12fb.get("exact_identity_with_airijinglu1827_吳門黃氏藏舊抄本") != "NOT_PROVED":
+        fail("Batch 12FB Huang copy-layer firewall regressed")
+    if batch12fb.get("sanming_firewall", {}).get("direct_sanming_parent_vote_increment") != 0:
+        fail("Batch 12FB Sanming zero-vote firewall regressed")
 
     for path in (ZIWEI_KYUDB_12DT_BATCH, ZIWEI_KYUDB_12DT_EVIDENCE):
         if not path.is_file():

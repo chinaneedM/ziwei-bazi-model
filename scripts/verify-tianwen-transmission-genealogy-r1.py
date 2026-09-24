@@ -45,6 +45,7 @@ BATCH_12EX = ROOT / "docs/research/ZIWEI-AIRIJINGLU1887-ZHUNZHAI-AUTHOR-VARIANT-
 BATCH_12EY = ROOT / "docs/research/ZIWEI-TIEQIN-QING-MS-ZHUNZHAI-FENGGU-HUANG-PROVENANCE-R1.json"
 BATCH_12EZ = ROOT / "docs/research/ZIWEI-AIRIJINGLU1827-ZHUNZHAI-FENGGU-FIRST-EDITION-RECENSION-CONTROL-R1.json"
 BATCH_12FA = ROOT / "docs/research/ZIWEI-SHILIJU1823-ZHUNZHAI-HUANG-PILIE-OLD-COPY-RECOPY-FIREWALL-R1.json"
+BATCH_12FB = ROOT / "docs/research/ZIWEI-TIEQIN-NLC1823-COMPOSITE-OBJECT-FINGERPRINT-CONTROL-R1.json"
 
 
 def fail(message: str) -> None:
@@ -52,7 +53,7 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
-    for path in (CHARTER, PROTOCOL, GRAPH, STATE, BATCH_12CH, BATCH_12DP, BATCH_12DQ, BATCH_12DR, BATCH_12DS, BATCH_12DT, BATCH_12DU, BATCH_12DV, BATCH_12DW, BATCH_12DX, BATCH_12DY, BATCH_12DZ, BATCH_12EA, BATCH_12EB, BATCH_12EC, BATCH_12ED, BATCH_12EE, BATCH_12EI, BATCH_12EJ, BATCH_12EK, BATCH_12EL, BATCH_12EM, BATCH_12EN, BATCH_12EO, BATCH_12EP, BATCH_12EQ, BATCH_12ER, BATCH_12ES, BATCH_12ET, BATCH_12EU, BATCH_12EV, BATCH_12EW, BATCH_12EX, BATCH_12EY, BATCH_12EZ, BATCH_12FA):
+    for path in (CHARTER, PROTOCOL, GRAPH, STATE, BATCH_12CH, BATCH_12DP, BATCH_12DQ, BATCH_12DR, BATCH_12DS, BATCH_12DT, BATCH_12DU, BATCH_12DV, BATCH_12DW, BATCH_12DX, BATCH_12DY, BATCH_12DZ, BATCH_12EA, BATCH_12EB, BATCH_12EC, BATCH_12ED, BATCH_12EE, BATCH_12EI, BATCH_12EJ, BATCH_12EK, BATCH_12EL, BATCH_12EM, BATCH_12EN, BATCH_12EO, BATCH_12EP, BATCH_12EQ, BATCH_12ER, BATCH_12ES, BATCH_12ET, BATCH_12EU, BATCH_12EV, BATCH_12EW, BATCH_12EX, BATCH_12EY, BATCH_12EZ, BATCH_12FA, BATCH_12FB):
         if not path.is_file():
             fail(f"Tianwen transmission artifact missing: {path.relative_to(ROOT)}")
 
@@ -1160,6 +1161,26 @@ def main() -> int:
         fail("Batch 12FA physical-node identity firewall regressed")
     if not any(x.get("batch") == "BATCH-12-ZIWEI-SHILIJU1823-ZHUNZHAI-HUANG-PILIE-OLD-COPY-RECOPY-FIREWALL-FA" and "zero exact sanming-parent vote" in x.get("update","").lower() for x in hyp12dk.get("evidence_updates", [])):
         fail("Batch 12FA genealogy hypothesis zero-vote update missing")
+
+    edge12fb = next((e for e in edges if e.get("edge_id") == "TG-E0106"), None)
+    if not edge12fb or edge12fb.get("relation") != "ATTESTS" or edge12fb.get("status") != "CONFIRMED" or edge12fb.get("confidence") != "HIGH":
+        fail("Batch 12FB direct-attestation edge regressed")
+    if edge12fb.get("from") != "PHYSICAL-COPY-TIANYIGE-TIEQIN-QING-MS-0004561" or edge12fb.get("to") != "PASSAGE-TIEQIN-QING-MS-TONGHU-HUANG-SEALS-COMPOSITE-BINDING":
+        fail("Batch 12FB edge endpoints regressed")
+    passage12fb = next((n for n in nodes if n.get("node_id") == "PASSAGE-TIEQIN-QING-MS-TONGHU-HUANG-SEALS-COMPOSITE-BINDING"), None)
+    if not passage12fb or passage12fb.get("direct_copper_volume_head_huang_seals") != ["士禮居藏", "黃印丕烈", "蕘圃"]:
+        fail("Batch 12FB Tieqin seal-set passage regressed")
+    if passage12fb.get("exact_identity_with_nlc_1823") != "STRONGLY_SUPPORTED_NOT_FORMALLY_CLOSED":
+        fail("Batch 12FB same-object passage firewall regressed")
+    nlc12fb = next(n for n in nodes if n.get("node_id") == "PHYSICAL-COPY-NLC-ZHUNZHAI-JILOU-DAOGUANG3-HUANG-SHILIJU-MS")
+    obj12fb = nlc12fb.get("tieqin_composite_object_fingerprint_control", {})
+    if obj12fb.get("status") != "STRONGLY_SUPPORTED_NOT_FORMALLY_CLOSED" or obj12fb.get("lower_fourth_seal_identity") != "UNADJUDICATED" or obj12fb.get("force_same_object_collapse_authorized") is not False:
+        fail("Batch 12FB NLC object-identity firewall regressed")
+    batch12fb = json.loads(BATCH_12FB.read_text(encoding="utf-8"))
+    if batch12fb.get("transmission_impact", {}).get("same_object_edge_authorized") is not False:
+        fail("Batch 12FB unexpectedly authorized same-object edge")
+    if not any(x.get("batch") == "BATCH-12-ZIWEI-TIEQIN-NLC1823-COMPOSITE-OBJECT-FINGERPRINT-CONTROL-FB" and "zero exact sanming-parent vote" in x.get("update","").lower() for x in hyp12dk.get("evidence_updates", [])):
+        fail("Batch 12FB genealogy hypothesis zero-vote update missing")
 
     ncl = next(n for n in nodes if n.get("node_id") == "PHYSICAL-COPY-SISHI-QIHOU-NCL03164-OLD-MANUSCRIPT")
     if ncl.get("physical_copy_date") != "UNRESOLVED":
