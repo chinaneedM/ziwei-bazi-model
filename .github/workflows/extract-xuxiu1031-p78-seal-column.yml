@@ -45,6 +45,7 @@ jobs:
           from pathlib import Path
           from PIL import Image, ImageOps
           import hashlib, json
+          Image.MAX_IMAGE_PIXELS = None
 
           root = Path('audit/xuxiu1031-p78-seal-column')
           p = root / 'p78-600dpi.png'
