@@ -54,6 +54,7 @@ BATCH_12FG = ROOT / "docs/research/ZIWEI-BEITU1959-TONGHU-ZHUNZHAI-CATALOG-NUMBE
 BATCH_12FH = ROOT / "docs/research/ZIWEI-NLC-CURRENT-SYS-ITEM-HOLDINGS-LOCATOR-R1.json"
 BATCH_12FI = ROOT / "docs/research/ZIWEI-NLC-CURRENT-TONGHU-COMPOSITE-HOLDINGS-LOCATOR-R1.json"
 BATCH_12FJ = ROOT / "docs/research/ZIWEI-NLC-DIGITAL-FID-AND-MICROFILM-REGISTRATION-R1.json"
+BATCH_12FK = ROOT / "docs/research/ZIWEI-NLC-OPENOBJECT-PUBLIC-SHELL-ACCESS-BOUNDARY-R1.json"
 
 
 def fail(message: str) -> None:
@@ -61,7 +62,7 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
-    for path in (CHARTER, PROTOCOL, GRAPH, STATE, BATCH_12CH, BATCH_12DP, BATCH_12DQ, BATCH_12DR, BATCH_12DS, BATCH_12DT, BATCH_12DU, BATCH_12DV, BATCH_12DW, BATCH_12DX, BATCH_12DY, BATCH_12DZ, BATCH_12EA, BATCH_12EB, BATCH_12EC, BATCH_12ED, BATCH_12EE, BATCH_12EI, BATCH_12EJ, BATCH_12EK, BATCH_12EL, BATCH_12EM, BATCH_12EN, BATCH_12EO, BATCH_12EP, BATCH_12EQ, BATCH_12ER, BATCH_12ES, BATCH_12ET, BATCH_12EU, BATCH_12EV, BATCH_12EW, BATCH_12EX, BATCH_12EY, BATCH_12EZ, BATCH_12FA, BATCH_12FB, BATCH_12FC, BATCH_12FD, BATCH_12FE, BATCH_12FF, BATCH_12FG, BATCH_12FH, BATCH_12FI, BATCH_12FJ):
+    for path in (CHARTER, PROTOCOL, GRAPH, STATE, BATCH_12CH, BATCH_12DP, BATCH_12DQ, BATCH_12DR, BATCH_12DS, BATCH_12DT, BATCH_12DU, BATCH_12DV, BATCH_12DW, BATCH_12DX, BATCH_12DY, BATCH_12DZ, BATCH_12EA, BATCH_12EB, BATCH_12EC, BATCH_12ED, BATCH_12EE, BATCH_12EI, BATCH_12EJ, BATCH_12EK, BATCH_12EL, BATCH_12EM, BATCH_12EN, BATCH_12EO, BATCH_12EP, BATCH_12EQ, BATCH_12ER, BATCH_12ES, BATCH_12ET, BATCH_12EU, BATCH_12EV, BATCH_12EW, BATCH_12EX, BATCH_12EY, BATCH_12EZ, BATCH_12FA, BATCH_12FB, BATCH_12FC, BATCH_12FD, BATCH_12FE, BATCH_12FF, BATCH_12FG, BATCH_12FH, BATCH_12FI, BATCH_12FJ, BATCH_12FK):
         if not path.is_file():
             fail(f"Tianwen transmission artifact missing: {path.relative_to(ROOT)}")
 
@@ -1465,6 +1466,54 @@ def main() -> int:
         fail("Batch 12FJ physical-node identifier/acquisition firewall regressed")
     if not any(x.get("batch") == "BATCH-12-ZIWEI-NLC-DIGITAL-FID-AND-MICROFILM-REGISTRATION-FJ" and "zero exact sanming-parent vote" in x.get("update","").lower() for x in hyp12dk.get("evidence_updates", [])):
         fail("Batch 12FJ genealogy hypothesis zero-vote update missing")
+
+    batch12fk = json.loads(BATCH_12FK.read_text(encoding="utf-8"))
+    if batch12fk.get("batch_id") != "BATCH-12-ZIWEI-NLC-OPENOBJECT-PUBLIC-SHELL-ACCESS-BOUNDARY-FK":
+        fail("Batch 12FK genealogy evidence identity mismatch")
+    impact12fk = batch12fk.get("transmission_impact", {})
+    if impact12fk.get("nodes_added") != [] or impact12fk.get("nodes_strengthened") != [
+        "DIGITAL-NLC-DATA892-TONGHU-FID411999008600-BID113028",
+        "DIGITAL-NLC-DATA892-ZHUNZHAI-FID411999008601-BID113029",
+    ]:
+        fail("Batch 12FK genealogy node scope regressed")
+    if impact12fk.get("edges_supported") != ["TG-E0113", "TG-E0114"] or impact12fk.get("same_object_edge_authorized") is not False:
+        fail("Batch 12FK genealogy edge/collapse scope regressed")
+    dt12fk = next((n for n in nodes if n.get("node_id") == "DIGITAL-NLC-DATA892-TONGHU-FID411999008600-BID113028"), None)
+    dz12fk = next((n for n in nodes if n.get("node_id") == "DIGITAL-NLC-DATA892-ZHUNZHAI-FID411999008601-BID113029"), None)
+    if dt12fk is None or dz12fk is None:
+        fail("Batch 12FK strengthened digital nodes missing")
+    ctl_t12fk = dt12fk.get("open_object_public_shell_permission_boundary_12fk", {})
+    ctl_z12fk = dz12fk.get("open_object_public_shell_permission_boundary_12fk", {})
+    if ctl_t12fk.get("public_shell_metadata_closed") is not True or ctl_z12fk.get("public_shell_metadata_closed") is not True:
+        fail("Batch 12FK public shell graph closure regressed")
+    if not ctl_t12fk.get("internal_pdf_object_path", "").endswith("SBGJ03908_00001.pdf") or not ctl_z12fk.get("internal_pdf_object_path", "").endswith("SBGJ03909_00001.pdf"):
+        fail("Batch 12FK graph PDF object path regressed")
+    if ctl_t12fk.get("public_page_count_status") != "NOT_EXPOSED_ON_REVIEWED_PRE_PERMISSION_PUBLIC_SURFACE" or ctl_z12fk.get("public_page_count_status") != "NOT_EXPOSED_ON_REVIEWED_PRE_PERMISSION_PUBLIC_SURFACE":
+        fail("Batch 12FK graph page-count boundary regressed")
+    if ctl_t12fk.get("public_page_manifest_status") != "NOT_EXPOSED_ON_REVIEWED_PRE_PERMISSION_PUBLIC_SURFACE" or ctl_z12fk.get("public_page_manifest_status") != "NOT_EXPOSED_ON_REVIEWED_PRE_PERMISSION_PUBLIC_SURFACE":
+        fail("Batch 12FK graph page-manifest boundary regressed")
+    if ctl_t12fk.get("permission_endpoint_invoked") is not False or ctl_z12fk.get("permission_endpoint_invoked") is not False:
+        fail("Batch 12FK graph permission firewall regressed")
+    canonical_r12fk = "docs/research/ZIWEI-NLC-OPENOBJECT-PUBLIC-SHELL-ACCESS-BOUNDARY-R1.json"
+    canonical_d12fk = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-OPENOBJECT-PUBLIC-SHELL-ACCESS-BOUNDARY-FK.md"
+    for obj12fk in (dt12fk, dz12fk):
+        if canonical_r12fk not in obj12fk.get("evidence", []) or canonical_d12fk not in obj12fk.get("evidence", []):
+            fail("Batch 12FK canonical node evidence path missing")
+        if obj12fk.get("latest_scope_update_batch") != "BATCH-12-ZIWEI-NLC-OPENOBJECT-PUBLIC-SHELL-ACCESS-BOUNDARY-FK":
+            fail("Batch 12FK canonical node latest-scope batch regressed")
+    for eid12fk in ("TG-E0113", "TG-E0114"):
+        e12fk = next((e for e in edges if e.get("edge_id") == eid12fk), None)
+        if e12fk is None or e12fk.get("status") != "HIGH_CONFIDENCE" or e12fk.get("relation") != "ATTESTS":
+            fail(f"Batch 12FK strengthened edge regressed: {eid12fk}")
+        if canonical_r12fk not in e12fk.get("evidence", []) or canonical_d12fk not in e12fk.get("evidence", []):
+            fail(f"Batch 12FK canonical edge evidence missing: {eid12fk}")
+        if e12fk.get("latest_scope_update_batch") != "BATCH-12-ZIWEI-NLC-OPENOBJECT-PUBLIC-SHELL-ACCESS-BOUNDARY-FK":
+            fail(f"Batch 12FK canonical edge latest-scope batch regressed: {eid12fk}")
+    perm12fk = batch12fk.get("permission_boundary", {})
+    if perm12fk.get("permission_endpoint_invoked") is not False or perm12fk.get("authorization_bypass_attempted") is not False:
+        fail("Batch 12FK permission/access-control firewall regressed")
+    if not any(x.get("batch") == "BATCH-12-ZIWEI-NLC-OPENOBJECT-PUBLIC-SHELL-ACCESS-BOUNDARY-FK" and "zero exact sanming-parent vote" in x.get("update","").lower() for x in hyp12dk.get("evidence_updates", [])):
+        fail("Batch 12FK genealogy hypothesis zero-vote update missing")
 
     ncl = next(n for n in nodes if n.get("node_id") == "PHYSICAL-COPY-SISHI-QIHOU-NCL03164-OLD-MANUSCRIPT")
     if ncl.get("physical_copy_date") != "UNRESOLVED":
