@@ -2432,7 +2432,7 @@ def main() -> int:
     if tq12fx.get("exact_wording_promoted_to_direct_handwriting") is not False or tq12fx.get("target_facsimile_page_resolved") is not False:
         fail("Batch 12FX institutional quote was overpromoted")
     p222_12fx = batch12fx.get("non_target_volume5_page_citation_control", {})
-    if p222_12fx.get("cited_2007_facsimile_location") != "第五册第222页" or p222_12fx.get("editorial_note") != "《札记》录文有删略":
+    if p222_12fx.get("cited_2007_facsimile_location") != "《邓之诚日记》第五册第222页" or p222_12fx.get("editorial_note") != "《札记》录文有删略":
         fail("Batch 12FX non-target p222 citation control regressed")
     if p222_12fx.get("target_1950_01_29_same_passage") is not False or p222_12fx.get("target_1950_01_29_page_inferred_from_p222") is not False:
         fail("Batch 12FX non-target p222 inference firewall regressed")
