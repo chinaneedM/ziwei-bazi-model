@@ -1,0 +1,99 @@
+name: probe-batch-12fh-nlc-sys-id
+
+on:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - '.github/workflows/probe-batch-12fh-nlc-sys-id.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Probe NLC SYS field
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/batch-12fh-nlc-sys-id'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT/raw"
+          UA='Tianwen-Provenance-Audit/1.0'
+          cat > "$ROOT/targets.tsv" <<'EOF'
+          positive-control	003145713
+          target-original	001775083
+          target-microfilm	002597934
+          source-control	001411999008601
+          EOF
+          : > "$ROOT/status.tsv"
+          while IFS=$'\t' read -r key sys; do
+            body=$(SYS="$sys" python - <<'PY'
+          import json,os
+          s=os.environ['SYS']
+          print(json.dumps({
+            "q":s,
+            "searchWay":"SYS",
+            "sort":[{"_score":"DESC"}],
+            "page_num":"1",
+            "exactMatch":True,
+            "query":"SYS="+s,
+            "size":10,
+            "facetVal":[]
+          },ensure_ascii=False,separators=(',',':')))
+          PY
+            )
+            out="$ROOT/raw/$key.json"
+            set +e
+            code=$(curl -L -sS --connect-timeout 8 --max-time 25 \
+              -A "$UA" \
+              -H 'Accept: application/json, text/javascript, */*; q=0.01' \
+              -H 'X-Requested-With: XMLHttpRequest' \
+              -H 'Referer: https://meta.nlc.cn/v2/search' \
+              -H 'Content-Type: application/json;charset=UTF-8' \
+              -o "$out" -w '%{http_code}' \
+              --data-binary "$body" 'https://meta.nlc.cn/v2/doSearch?hight=false')
+            rc=$?
+            set -e
+            size=0; [ -f "$out" ] && size=$(wc -c < "$out")
+            printf '%s\t%s\trc=%s\thttp=%s\tbytes=%s\n' "$key" "$sys" "$rc" "$code" "$size" >> "$ROOT/status.tsv"
+          done < "$ROOT/targets.tsv"
+
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          root=Path('audit/batch-12fh-nlc-sys-id')
+          out=[]
+          for p in sorted((root/'raw').glob('*.json')):
+              out.append('### '+p.name)
+              try:
+                  obj=json.loads(p.read_text('utf-8'))
+              except Exception as e:
+                  out.append('PARSE_ERROR '+repr(e)); continue
+              out.append('status='+repr(obj.get('status'))+' total='+repr(obj.get('total'))+' message='+repr(obj.get('message')))
+              for i,row in enumerate(obj.get('result') or [],1):
+                  out.append('ROW '+str(i)+' '+json.dumps(row,ensure_ascii=False,separators=(',',':')))
+          root.joinpath('summary.txt').write_text('\n'.join(out)+'\n',encoding='utf-8')
+          PY
+
+          find "$ROOT" -type f -size +0c -print0 | xargs -0 -r sha256sum | sort -V > "$ROOT/all-files.sha256"
+          printf '%s\n' \
+            'SOURCE=National Library of China current meta.nlc.cn /v2/doSearch' \
+            'PURPOSE=field-level test whether legacy OPAC doc_number values are indexed as SYS; positive control SYS=003145713 comes directly from a current NLC holdings result' \
+            'TARGETS=001775083 original rare-book doc; 002597934 microfilm doc; 001411999008601 source-control candidate' \
+            'NEGATIVE_POLICY=no result means not exposed under current SYS index at probe time, not physical nonexistence' \
+            'OCR_USED=false' > "$ROOT/manifest.txt"
+
+      - name: Upload SYS evidence probe
+        uses: actions/upload-artifact@v4
+        with:
+          name: batch-12fh-nlc-sys-id-probe
+          path: audit/batch-12fh-nlc-sys-id/
+          if-no-files-found: error
+          retention-days: 30
