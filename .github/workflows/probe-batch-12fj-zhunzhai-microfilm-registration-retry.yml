@@ -1,0 +1,82 @@
+name: probe-batch-12fj-zhunzhai-microfilm-registration-retry
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12fj-zhunzhai-microfilm-registration-retry.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - name: Retry exact Zhunzhai microfilm item
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/batch-12fj-zhunzhai-microfilm-registration-retry'
+          rm -rf "$ROOT"; mkdir -p "$ROOT"
+          UA='Tianwen-Provenance-Audit/1.0'
+          UID='UCS01003553256'
+          SYS='002146416'
+          : > "$ROOT/status.tsv"
+          ok=0
+          for attempt in 1 2 3 4 5; do
+            out="$ROOT/item-attempt-$attempt.json"
+            set +e
+            code=$(curl -L -sS --connect-timeout 7 --max-time 25 -A "$UA" \
+              -H 'Accept: application/json, text/javascript, */*; q=0.01' \
+              -H 'X-Requested-With: XMLHttpRequest' \
+              -H "Referer: https://meta.nlc.cn/v2/detail/$UID" \
+              -X POST -o "$out" -w '%{http_code}' \
+              "https://meta.nlc.cn/api/v1/item/$UID/1/999")
+            rc=$?
+            set -e
+            size=0; [ -f "$out" ] && size=$(wc -c < "$out")
+            printf '%s\trc=%s\thttp=%s\tbytes=%s\n' "$attempt" "$rc" "$code" "$size" >> "$ROOT/status.tsv"
+            if [ "$rc" -eq 0 ] && [ "$code" = "200" ] && [ "$size" -gt 100 ]; then
+              cp "$out" "$ROOT/item-success.json"; ok=1; break
+            fi
+            sleep 2
+          done
+
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          root=Path('audit/batch-12fj-zhunzhai-microfilm-registration-retry')
+          p=root/'item-success.json'
+          out=[]
+          if p.exists():
+              obj=json.loads(p.read_text('utf-8'))
+              r=obj.get('result') or {}; b=r.get('biblio') or {}; es=r.get('esBook') or {}
+              out.append('ESBOOK '+json.dumps({k:es.get(k) for k in ('SYS','UID','WDT','YEA','PUB','PAG','TIT','AUT','holdings')},ensure_ascii=False,separators=(',',':')))
+              keys=('200a','200b','205a','210c','210d','215a','455a','4551','905a','905b','905q','905s','3165','035a','049b','049c','910n','001')
+              out.append('BIBLIO '+json.dumps({k:b.get(k) for k in keys if k in b},ensure_ascii=False,separators=(',',':')))
+              out.append('TARGET_905B '+repr(b.get('905b')))
+          else:
+              out.append('NO_SUCCESSFUL_ITEM_RESPONSE')
+          root.joinpath('summary.txt').write_text('\n'.join(out)+'\n',encoding='utf-8')
+          PY
+
+          find "$ROOT" -type f -size +0c -print0 | xargs -0 -r sha256sum | sort -V > "$ROOT/all-files.sha256"
+          printf '%s\n' \
+            'SOURCE=National Library of China current meta.nlc.cn exact item API' \
+            'TARGET_SYS=002146416' \
+            'TARGET_UID=UCS01003553256' \
+            'PURPOSE=directly test whether the original 1985 Zhunzhai microfilm record exposes 905b=00O003571' \
+            'NO_SYMMETRY_INFERENCE=required' \
+            'NEGATIVE_POLICY=all timeouts mean access boundary only' > "$ROOT/manifest.txt"
+
+      - name: Upload retry evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: batch-12fj-zhunzhai-microfilm-registration-retry
+          path: audit/batch-12fj-zhunzhai-microfilm-registration-retry/
+          if-no-files-found: error
+          retention-days: 30
