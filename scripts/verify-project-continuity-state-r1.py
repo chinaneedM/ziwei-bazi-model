@@ -126,6 +126,8 @@ ZIWEI_NCL_UNION_TONGHU_12FE_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENA
 ZIWEI_NCL_UNION_TONGHU_12FE_EVIDENCE = ROOT / "docs/research/ZIWEI-NCL-UNION-TONGHU-RARECATX0514818-BOUNDARY-R1.json"
 ZIWEI_NLC_OPAC_ZHUNZHAI_12FF_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-OPAC-ZHUNZHAI-MICROFILM-SOURCE-CROSSBINDING-FF.md"
 ZIWEI_NLC_OPAC_ZHUNZHAI_12FF_EVIDENCE = ROOT / "docs/research/ZIWEI-NLC-OPAC-ZHUNZHAI-MICROFILM-SOURCE-CROSSBINDING-R1.json"
+ZIWEI_BEITU1959_12FG_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-BEITU1959-TONGHU-ZHUNZHAI-CATALOG-NUMBER-AND-QUDONATION-BOUNDARY-FG.md"
+ZIWEI_BEITU1959_12FG_EVIDENCE = ROOT / "docs/research/ZIWEI-BEITU1959-TONGHU-ZHUNZHAI-CATALOG-NUMBER-AND-QUDONATION-BOUNDARY-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -415,9 +417,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-NLC1823-TIEQIN-SEAL-PROVENANCE-CONTROL-FD",
     "BATCH-12-ZIWEI-NCL-UNION-TONGHU-RARECATX0514818-BOUNDARY-FE",
     "BATCH-12-ZIWEI-NLC-OPAC-ZHUNZHAI-MICROFILM-SOURCE-CROSSBINDING-FF",
+    "BATCH-12-ZIWEI-BEITU1959-TONGHU-ZHUNZHAI-CATALOG-NUMBER-AND-QUDONATION-BOUNDARY-FG",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-OPAC-ZHUNZHAI-MICROFILM-SOURCE-CROSSBINDING-FF.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-BEITU1959-TONGHU-ZHUNZHAI-CATALOG-NUMBER-AND-QUDONATION-BOUNDARY-FG.md"
 
 
 def fail(message: str) -> None:
@@ -1536,6 +1539,50 @@ def main() -> int:
         fail("Batch 12FF Sanming zero-vote firewall regressed")
     if batch12ff.get("accounting", {}).get("confirmed_provenance_metadata_defect_count") != 13 or batch12ff.get("accounting", {}).get("repaired_provenance_metadata_defect_count") != 13:
         fail("Batch 12FF provenance accounting unexpectedly changed")
+
+
+    for path in (ZIWEI_BEITU1959_12FG_BATCH, ZIWEI_BEITU1959_12FG_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12FG continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12fg = json.loads(ZIWEI_BEITU1959_12FG_EVIDENCE.read_text(encoding="utf-8"))
+    if batch12fg.get("batch_id") != "BATCH-12-ZIWEI-BEITU1959-TONGHU-ZHUNZHAI-CATALOG-NUMBER-AND-QUDONATION-BOUNDARY-FG":
+        fail("Batch 12FG evidence identity mismatch")
+    target12fg = batch12fg.get("target_catalog_source", {})
+    entries12fg = target12fg.get("direct_entries", {})
+    if target12fg.get("workflow_artifact_id") != 10813571631 or target12fg.get("pdf_page") != 60 or target12fg.get("render_sha256") != "722fce53457f722df9d2d7184646e2bf53427f56fa23ed518818d9ffdf2756c1":
+        fail("Batch 12FG target-page source binding regressed")
+    if entries12fg.get("tonghu", {}).get("printed_number_arabic") != "3482" or entries12fg.get("zhunzhai", {}).get("printed_number_arabic") != "3483":
+        fail("Batch 12FG target historical number pair regressed")
+    ident12fg = batch12fg.get("identifier_adjudication", {})
+    if ident12fg.get("opac_original_document_03482_to_beitu1959_3482") != "CLOSED_AT_HISTORICAL_BIBLIOGRAPHIC_CATALOG_NUMBER_LEVEL":
+        fail("Batch 12FG 03482->3482 crosswalk regressed")
+    if ident12fg.get("opac_original_document_03483_to_beitu1959_3483") != "CLOSED_AT_HISTORICAL_BIBLIOGRAPHIC_CATALOG_NUMBER_LEVEL":
+        fail("Batch 12FG 03483->3483 crosswalk regressed")
+    if ident12fg.get("current_nlc_physical_shelfmark_proved") is not False or ident12fg.get("acquisition_or_donation_number_proved") is not False:
+        fail("Batch 12FG current-shelfmark/acquisition firewall regressed")
+    qu12fg = batch12fg.get("qu_donation_control_source", {})
+    if qu12fg.get("direct_artifact_id") != 10814199731 or qu12fg.get("pdf_page") != 19 or qu12fg.get("render_sha256") != "05b64be88917364c2528ac01f85edd02a098db0b0be34d7f233ca468cabe2467":
+        fail("Batch 12FG Qu-donation control binding regressed")
+    if qu12fg.get("direct_control", {}).get("acquisition_provenance_mark") != "瞿捐":
+        fail("Batch 12FG direct 瞿捐 control regressed")
+    acq12fg = batch12fg.get("acquisition_provenance_adjudication", {})
+    if acq12fg.get("target_3482_qu_donation_mark_present") is not False or acq12fg.get("target_3483_qu_donation_mark_present") is not False:
+        fail("Batch 12FG target Qu-donation absence regressed")
+    if acq12fg.get("historical_qu_donation_route_absolutely_disproved") is not False or acq12fg.get("final_nlc_acquisition_transfer_path") != "UNRESOLVED":
+        fail("Batch 12FG acquisition-path negative-evidence firewall regressed")
+    reg12fg = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    reg_target12fg = next((x for x in reg12fg.get("sources", []) if x.get("source_id") == "EXT-BEITU-1959-V4-TONGHU-ZHUNZHAI-3482-3483"), None)
+    reg_qu12fg = next((x for x in reg12fg.get("sources", []) if x.get("source_id") == "EXT-BEITU-1959-V7-QUDONATION-MARK-CONTROL"), None)
+    if reg_target12fg is None or reg_qu12fg is None:
+        fail("Batch 12FG source registry entries missing")
+    if reg_target12fg.get("batch_12fg", {}).get("opac_original_document_number_crosswalk_closed") is not True:
+        fail("Batch 12FG registry number crosswalk regressed")
+    if reg_qu12fg.get("batch_12fg", {}).get("direct_mark") != "瞿捐":
+        fail("Batch 12FG registry Qu-donation control regressed")
+    if batch12fg.get("chronology_and_rule_firewall", {}).get("direct_sanming_parent_vote_increment") != 0:
+        fail("Batch 12FG Sanming zero-vote firewall regressed")
+    if batch12fg.get("accounting", {}).get("confirmed_provenance_metadata_defect_count") != 13 or batch12fg.get("accounting", {}).get("repaired_provenance_metadata_defect_count") != 13:
+        fail("Batch 12FG provenance accounting unexpectedly changed")
 
     for path in (ZIWEI_KYUDB_12DT_BATCH, ZIWEI_KYUDB_12DT_EVIDENCE):
         if not path.is_file():
