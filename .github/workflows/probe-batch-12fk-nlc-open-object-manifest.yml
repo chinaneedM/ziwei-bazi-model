@@ -1,0 +1,135 @@
+name: probe-batch-12fk-nlc-open-object-manifest
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12fk-nlc-open-object-manifest.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Probe public NLC open-object metadata routes
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/batch-12fk-nlc-open-object-manifest'
+          rm -rf "$ROOT"; mkdir -p "$ROOT/raw" "$ROOT/catalog" "$ROOT/images"
+          UA='Tianwen-Provenance-Audit/1.0'
+
+          cat > "$ROOT/targets.tsv" <<'EOF'
+          tonghu	411999008600	113028	SBGJ03908
+          zhunzhai	411999008601	113029	SBGJ03909
+          EOF
+
+          : > "$ROOT/open-status.tsv"
+          while IFS=$'\t' read -r key fid bid stem; do
+            for scheme in http https; do
+              url="$scheme://read.nlc.cn/OutOpenBook/OpenObjectBook?aid=892&bid=$bid.0"
+              out="$ROOT/raw/${key}-${scheme}.html"
+              hdr="$ROOT/raw/${key}-${scheme}.headers"
+              set +e
+              code=$(curl -L -sS --connect-timeout 8 --max-time 35 -A "$UA" -D "$hdr" -o "$out" -w '%{http_code}' "$url")
+              rc=$?
+              set -e
+              size=0; [ -f "$out" ] && size=$(wc -c < "$out")
+              final=$(grep -i '^location:' "$hdr" 2>/dev/null | tail -1 | tr -d '\r' | sed 's/^[^:]*:[[:space:]]*//' || true)
+              printf '%s\t%s\trc=%s\thttp=%s\tbytes=%s\tfinal-location=%s\n' "$key" "$scheme" "$rc" "$code" "$size" "$final" >> "$ROOT/open-status.tsv"
+            done
+
+            # Public catalog endpoint seen in first-party detail page JavaScript.
+            for id in "$bid" "$bid.0"; do
+              out="$ROOT/catalog/${key}-${id//./_}.json"
+              set +e
+              code=$(curl -L -sS --connect-timeout 8 --max-time 30 -A "$UA" \
+                -H 'X-Requested-With: XMLHttpRequest' \
+                -H "Referer: http://read.nlc.cn/allSearch/searchDetail?indexName=data_892&fid=$fid" \
+                --data-urlencode "id=$id" --data-urlencode 'indexName=data_892' \
+                -o "$out" -w '%{http_code}' 'http://read.nlc.cn/allSearch/formatCatalog')
+              rc=$?
+              set -e
+              printf '%s\t%s\trc=%s\thttp=%s\tbytes=%s\n' "$key" "$id" "$rc" "$code" "$(wc -c < "$out" 2>/dev/null || echo 0)" >> "$ROOT/catalog-status.tsv"
+            done
+
+            # Only public cover/nearby image URL checks; no enumeration beyond three bounded names.
+            for n in 1 2 3; do
+              num=$(printf '%05d' "$n")
+              url="http://read.nlc.cn/img1/img892/${stem}_${num}.jpg"
+              out="$ROOT/images/${key}-${num}.jpg"
+              hdr="$ROOT/images/${key}-${num}.headers"
+              set +e
+              code=$(curl -L -sS --connect-timeout 8 --max-time 25 -A "$UA" -D "$hdr" -o "$out" -w '%{http_code}' "$url")
+              rc=$?
+              set -e
+              printf '%s\t%s\trc=%s\thttp=%s\tbytes=%s\tctype=%s\n' "$key" "$num" "$rc" "$code" "$(wc -c < "$out" 2>/dev/null || echo 0)" "$(grep -i '^content-type:' "$hdr" 2>/dev/null | tail -1 | tr -d '\r' | cut -d: -f2- | xargs || true)" >> "$ROOT/image-status.tsv"
+            done
+          done < "$ROOT/targets.tsv"
+
+          python - <<'PY'
+          from pathlib import Path
+          from html.parser import HTMLParser
+          from urllib.parse import urljoin
+          import json,re
+          root=Path('audit/batch-12fk-nlc-open-object-manifest')
+          terms=re.compile(r'113028|113029|411999008600|411999008601|bid|aid|page|pages|count|total|img892|SBGJ03908|SBGJ03909|pdf|manifest|catalog|卷|頁|页',re.I)
+          out=[]
+          class P(HTMLParser):
+              def __init__(self): super().__init__(); self.text=[]; self.links=[]; self.scripts=[]; self.inputs=[]
+              def handle_data(self,d):
+                  s=' '.join(d.split())
+                  if s:self.text.append(s)
+              def handle_starttag(self,tag,attrs):
+                  a=dict(attrs)
+                  if tag=='a' and a.get('href'): self.links.append(a['href'])
+                  if tag=='script' and a.get('src'): self.scripts.append(a['src'])
+                  if tag=='input': self.inputs.append(a)
+          for p in sorted((root/'raw').glob('*.html')):
+              out.append('### '+p.name)
+              q=P(); q.feed(p.read_text('utf-8',errors='replace'))
+              for x in q.text:
+                  if terms.search(x): out.append('TEXT\t'+x)
+              for x in q.links:
+                  u=urljoin('http://read.nlc.cn/',x)
+                  if terms.search(u): out.append('LINK\t'+u)
+              for x in q.scripts:
+                  u=urljoin('http://read.nlc.cn/',x)
+                  if terms.search(u): out.append('SCRIPT\t'+u)
+              for x in q.inputs:
+                  if terms.search(repr(x)): out.append('INPUT\t'+repr(x))
+          root.joinpath('open-target-hits.txt').write_text('\n'.join(out)+'\n',encoding='utf-8')
+
+          cat=[]
+          for p in sorted((root/'catalog').glob('*.json')):
+              cat.append('### '+p.name)
+              text=p.read_text('utf-8',errors='replace')
+              try:
+                  obj=json.loads(text)
+                  cat.append(json.dumps(obj,ensure_ascii=False,separators=(',',':')))
+              except Exception as e:
+                  cat.append('PARSE_ERROR '+repr(e)+' '+text[:1000])
+          root.joinpath('catalog-summary.txt').write_text('\n'.join(cat)+'\n',encoding='utf-8')
+          PY
+
+          # Hash response metadata and text/json. JPEG probes are hashed too if public.
+          find "$ROOT" -type f -size +0c -print0 | xargs -0 -r sha256sum | sort -V > "$ROOT/all-files.sha256"
+          printf '%s\n' \
+            'SOURCE=National Library of China public read.nlc.cn routes only' \
+            'PURPOSE=test public bid 113028/113029 object route, catalog metadata and three bounded public image names' \
+            'AUTH_BOUNDARY=no permission endpoint, no login emulation, no token acquisition, no access-control bypass' \
+            'NEGATIVE_POLICY=timeout/nonreturn/empty public endpoint is access boundary only' \
+            'OCR_USED=false' > "$ROOT/manifest.txt"
+
+      - name: Upload evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: batch-12fk-nlc-open-object-manifest
+          path: audit/batch-12fk-nlc-open-object-manifest/
+          if-no-files-found: error
+          retention-days: 30
