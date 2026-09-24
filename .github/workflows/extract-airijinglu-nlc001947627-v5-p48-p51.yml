@@ -1,0 +1,57 @@
+name: extract-airijinglu-nlc001947627-v5-p48-p51
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/extract-airijinglu-nlc001947627-v5-p48-p51.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Extract direct 300dpi volume 23 target pages
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/airijinglu-nlc001947627-v5-p48-p51'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT/pages"
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils >/dev/null
+
+          URL='https://commons.wikimedia.org/wiki/Special:Redirect/file/NLC892-001947627-317258%20%E6%84%9B%E6%97%A5%E7%B2%BE%E5%BB%AC%E8%97%8F%E6%9B%B8%E5%BF%97%20%E4%B8%89%E5%8D%81%E5%85%AD%E5%8D%B7%E7%BA%8C%E5%BF%97%E5%9B%9B%E5%8D%B7%20%E7%AC%AC5%E5%86%8A.pdf'
+          EXPECTED='c866354e719ab018a86e70181cbadf3b03fb6787c86cb0239d036782a0ae17a0'
+          curl -fL --retry 4 --retry-delay 2 -A 'Tianwen-Provenance-Audit/1.0' "$URL" -o "$ROOT/source.pdf"
+          ACTUAL="$(sha256sum "$ROOT/source.pdf" | awk '{print $1}')"
+          test "$ACTUAL" = "$EXPECTED"
+          printf '%s  %s\n' "$ACTUAL" 'NLC892-001947627-317258 第5冊 source.pdf' > "$ROOT/source-sha256.txt"
+          pdfinfo "$ROOT/source.pdf" > "$ROOT/pdfinfo.txt"
+
+          for n in 48 49 50 51; do
+            pdftoppm -f "$n" -l "$n" -singlefile -png -r 300               "$ROOT/source.pdf" "$ROOT/pages/page-$n" >/dev/null 2>&1
+          done
+          sha256sum "$ROOT"/pages/*.png > "$ROOT/page-sha256.txt"
+          cat > "$ROOT/README.txt" <<'EOF'
+          AIRIJINGLU-NLC001947627-V5-P48-P51-R1
+          Source: NLC892-001947627-317258, 愛日精廬藏書志 第5冊
+          Source SHA-256: c866354e719ab018a86e70181cbadf3b03fb6787c86cb0239d036782a0ae17a0
+          Pages: PDF p48-p51, rendered at 300 dpi
+          Authority: direct source-bound page images; no OCR is authoritative for final glyph claims.
+          Structural locator: p48 opens 卷二十三; p50 contains the 準齋 target neighborhood.
+          EOF
+          rm "$ROOT/source.pdf"
+
+      - name: Upload direct target pages
+        uses: actions/upload-artifact@v4
+        with:
+          name: airijinglu-nlc001947627-v5-p48-p51-r1
+          path: audit/airijinglu-nlc001947627-v5-p48-p51
+          if-no-files-found: error
+          retention-days: 30
