@@ -1372,7 +1372,11 @@
         "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-SHILIJU1823-ZHUNZHAI-HUANG-PILIE-OLD-COPY-RECOPY-FIREWALL-FA.md",
         "EXT-TIANYIGE-TIEQIN-QING-MS-0004561-TONGHU-ZHUNZHAI-COMPOSITE-FINGERPRINT",
         "docs/research/ZIWEI-TIEQIN-NLC1823-COMPOSITE-OBJECT-FINGERPRINT-CONTROL-R1.json",
-        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TIEQIN-NLC1823-COMPOSITE-OBJECT-FINGERPRINT-CONTROL-FB.md"
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TIEQIN-NLC1823-COMPOSITE-OBJECT-FINGERPRINT-CONTROL-FB.md",
+        "EXT-NCL-SANLI-CUOYAO-TIEQIN-SEAL-CATALOG-CONTROL",
+        "EXT-NCL-JOURNAL-2018-TIEQIN-SEAL-FIG36",
+        "docs/research/ZIWEI-NLC1823-TIEQIN-SEAL-PROVENANCE-CONTROL-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC1823-TIEQIN-SEAL-PROVENANCE-CONTROL-FD.md"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-XUXIU1031-ZHUNZHAI-CLEPSYDRA-JIEHOU-ARROW-SELECTION-DV",
       "pre1578_title_family_catalog_attestation_status": "CLOSED_AT_1441_CATALOG_TEXT_LAYER",
@@ -1392,7 +1396,7 @@
         "exact_identity_with_airijinglu1827_huang_old_copy": "NOT_PROVED"
       },
       "tieqin_composite_object_fingerprint_control": {
-        "status": "STRONGLY_SUPPORTED_NOT_FORMALLY_CLOSED",
+        "status": "VERY_STRONGLY_SUPPORTED_NOT_FORMALLY_UNIQUE_OBJECT_CLOSED",
         "current_copper_page_sha256": "43f91f0d11eb88a014bb1a5fe53bc5ec696df540cfc2318cc9e80ba04e4c1329",
         "current_visible_huang_seals": [
           "士禮居藏",
@@ -1406,10 +1410,25 @@
           "蕘翁有跋",
           "銅壺卷首 士禮居藏/黃印丕烈/蕘圃"
         ],
-        "lower_fourth_seal_identity": "UNADJUDICATED",
+        "lower_fourth_seal_identity": "鐵琴銅劍樓",
         "reviewed_object_exact_role_as_原書舊鈔_or_錄副": "UNRESOLVED",
         "exact_identity_with_airijinglu1827_huang_old_copy": "NOT_PROVED",
-        "force_same_object_collapse_authorized": false
+        "force_same_object_collapse_authorized": false,
+        "tieqin_collection_provenance_status": "CLOSED",
+        "unique_inventory_identifier_matched": false
+      },
+      "tieqin_ownership_seal_control": {
+        "batch": "BATCH-12-ZIWEI-NLC1823-TIEQIN-SEAL-PROVENANCE-CONTROL-FD",
+        "target_page": "Xuxiu1031 PDF p78",
+        "source_pdf_sha256": "07348e40ec26ca38efe9c9736a69c403c61f9b07a2c89a847fc68d00ce6d8c25",
+        "workflow_run_id": 36002988836,
+        "artifact_id": 10809201996,
+        "artifact_digest": "sha256:ac7e01957bd7f0e4c8a741cffbe3daf02aabd795b99daa6da477048f76c42e4a",
+        "direct_lower_seal": "鐵琴銅劍樓",
+        "independent_form_control": "NCL official records: 「鐵琴銅/劍樓」白文長方印; NCL journal Figure 36 labels Qu Yong's 鐵琴銅劍樓 seal",
+        "provenance_status": "CLOSED_AT_TIEQIN_COLLECTION_OWNERSHIP_LEVEL",
+        "exact_specific_catalogued_object_identity": "VERY_STRONGLY_SUPPORTED_NOT_FORMALLY_UNIQUE_OBJECT_CLOSED",
+        "huang_copy_layer": "UNRESOLVED"
       }
     },
     {
@@ -2371,6 +2390,12 @@
         "status": "REPAIRED_FORWARD_ONLY",
         "evidence": "Tianyi 0004561 PDF p387 400dpi sha256 1a27cb70651956d59e847f0161e45ccc2749992910f11bda5a2feaa86667b227",
         "chronology_firewall": "影鈔宋本_IS_CATALOG_COPY_DESCRIPTION_NOT_PHYSICAL_SONG_DATE"
+      },
+      "batch_12fd_nlc1823_ownership_seal_control": {
+        "status": "NLC1823_DIRECT_TIEQIN_COLLECTION_PROVENANCE_CLOSED",
+        "direct_nlc_seal": "鐵琴銅劍樓",
+        "exact_identity_with_specific_catalogued_composite_object": "VERY_STRONGLY_SUPPORTED_NOT_FORMALLY_UNIQUE_OBJECT_CLOSED",
+        "same_object_collapse_authorized": false
       }
     },
     {
@@ -2494,14 +2519,45 @@
       "direct_huang_note": "郡中黃氏舊藏",
       "direct_raoweng_note": "蕘翁有跋",
       "direct_zhunzhai_seal_note": "卷首有士禮居藏朱記",
-      "exact_identity_with_nlc_1823": "STRONGLY_SUPPORTED_NOT_FORMALLY_CLOSED",
+      "exact_identity_with_nlc_1823": "VERY_STRONGLY_SUPPORTED_NOT_FORMALLY_UNIQUE_OBJECT_CLOSED",
       "exact_identity_with_airijinglu1827_huang_copy": "NOT_PROVED",
       "evidence": [
         "EXT-TIANYIGE-TIEQIN-QING-MS-0004561-TONGHU-ZHUNZHAI-COMPOSITE-FINGERPRINT",
         "docs/research/ZIWEI-TIEQIN-NLC1823-COMPOSITE-OBJECT-FINGERPRINT-CONTROL-R1.json",
-        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TIEQIN-NLC1823-COMPOSITE-OBJECT-FINGERPRINT-CONTROL-FB.md"
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TIEQIN-NLC1823-COMPOSITE-OBJECT-FINGERPRINT-CONTROL-FB.md",
+        "EXT-NCL-SANLI-CUOYAO-TIEQIN-SEAL-CATALOG-CONTROL",
+        "EXT-NCL-JOURNAL-2018-TIEQIN-SEAL-FIG36",
+        "docs/research/ZIWEI-NLC1823-TIEQIN-SEAL-PROVENANCE-CONTROL-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC1823-TIEQIN-SEAL-PROVENANCE-CONTROL-FD.md"
       ],
-      "first_explicit_graph_batch": "BATCH-12-ZIWEI-TIEQIN-NLC1823-COMPOSITE-OBJECT-FINGERPRINT-CONTROL-FB"
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-TIEQIN-NLC1823-COMPOSITE-OBJECT-FINGERPRINT-CONTROL-FB",
+      "nlc1823_direct_tieqin_collection_seal": "鐵琴銅劍樓",
+      "same_object_collapse_authorized": false
+    },
+    {
+      "node_id": "PASSAGE-NLC1823-COPPER-TIEQIN-OWNERSHIP-SEAL",
+      "node_type": "PASSAGE",
+      "label": "國圖 1823《銅壺漏箭制度》卷首「鐵琴銅劍樓」收藏印",
+      "system_scope": "QING_1823_PHYSICAL_COPY_LATER_TIEQIN_COLLECTION_PROVENANCE_CONTROL",
+      "physical_locator": "Xuxiu1031 PDF p78; source-bound seal-column artifact from workflow 36002988836",
+      "source_pdf_sha256": "07348e40ec26ca38efe9c9736a69c403c61f9b07a2c89a847fc68d00ce6d8c25",
+      "target_page_220dpi_sha256": "43f91f0d11eb88a014bb1a5fe53bc5ec696df540cfc2318cc9e80ba04e4c1329",
+      "inspection_render_sha256": "e302f09b20bf716415f19b8affaa079e3e30e63bada2087bc77680b898194a41",
+      "seal_column_crop_sha256": "449af987bb2e20ac18ab5eeb5efb1964e8944d211fb6998dc9033c8ae29cb4e1",
+      "lower_seal_review_crop_sha256": "d8d48d3f3f05a9a7babd344bbf438d36ea03312de3b42387e5f79029f665876b",
+      "direct_lower_seal": "鐵琴銅劍樓",
+      "independent_official_seal_form_control": "「鐵琴銅/劍樓」白文長方印",
+      "tieqin_collection_provenance_status": "CLOSED",
+      "exact_specific_tieqin_catalogued_object_identity": "VERY_STRONGLY_SUPPORTED_NOT_FORMALLY_UNIQUE_OBJECT_CLOSED",
+      "same_object_edge_authorized": false,
+      "evidence": [
+        "EXT-XUXIU1031-ZHUNZHAI-TONGHU-CLEPSYDRA-QING-MSS-PHYSICAL",
+        "EXT-NCL-SANLI-CUOYAO-TIEQIN-SEAL-CATALOG-CONTROL",
+        "EXT-NCL-JOURNAL-2018-TIEQIN-SEAL-FIG36",
+        "docs/research/ZIWEI-NLC1823-TIEQIN-SEAL-PROVENANCE-CONTROL-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC1823-TIEQIN-SEAL-PROVENANCE-CONTROL-FD.md"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-NLC1823-TIEQIN-SEAL-PROVENANCE-CONTROL-FD"
     }
   ],
   "edges": [
@@ -4124,6 +4180,24 @@
       ],
       "scope_note": "Confirms the Tieqin catalog's Copper Huang three-seal statement plus Zhunzhai/Copper one-volume binding and Huang/Raoweng provenance. It does not itself prove that the current NLC 1823 object is the identical physical copy, identify Huang's 原書舊鈔 versus 錄副, or bind the 1827 Airijinglu source copy.",
       "adjudication_batch": "BATCH-12-ZIWEI-TIEQIN-NLC1823-COMPOSITE-OBJECT-FINGERPRINT-CONTROL-FB"
+    },
+    {
+      "edge_id": "TG-E0107",
+      "from": "PHYSICAL-COPY-NLC-ZHUNZHAI-JILOU-DAOGUANG3-HUANG-SHILIJU-MS",
+      "relation": "ATTESTS",
+      "to": "PASSAGE-NLC1823-COPPER-TIEQIN-OWNERSHIP-SEAL",
+      "status": "CONFIRMED",
+      "confidence": "HIGH",
+      "evidence_class": "DIRECT_SOURCE_BOUND_TARGET_PAGE_PLUS_INDEPENDENT_OFFICIAL_SEAL_NAME_FORM_CONTROLS",
+      "evidence": [
+        "Xuxiu1031 PDF p78 source sha256 07348e40ec26ca38efe9c9736a69c403c61f9b07a2c89a847fc68d00ce6d8c25",
+        "workflow 36002988836 artifact 10809201996 digest sha256:ac7e01957bd7f0e4c8a741cffbe3daf02aabd795b99daa6da477048f76c42e4a",
+        "EXT-NCL-SANLI-CUOYAO-TIEQIN-SEAL-CATALOG-CONTROL",
+        "EXT-NCL-JOURNAL-2018-TIEQIN-SEAL-FIG36",
+        "docs/research/ZIWEI-NLC1823-TIEQIN-SEAL-PROVENANCE-CONTROL-R1.json"
+      ],
+      "scope_note": "Confirms that the current NLC/Xuxiu1031 1823 Copper/Zhunzhai composite object directly carries the 鐵琴銅劍樓 collection mark and therefore entered the Tieqin Tongjianlou collection. The collection seal is not a unique item number; this edge does not collapse the current object with the specific catalogued copy, identify Huang's 原書舊鈔 versus 錄副, bind the 1827 Airijinglu source copy, or close pre-1578 rule provenance.",
+      "adjudication_batch": "BATCH-12-ZIWEI-NLC1823-TIEQIN-SEAL-PROVENANCE-CONTROL-FD"
     }
   ],
   "lineage_hypotheses": [
@@ -4388,6 +4462,10 @@
         {
           "batch": "BATCH-12-ZIWEI-TIEQIN-YINGCHAO-SONGBEN-TRANSCRIPTION-REPAIR-FC",
           "update": "Source-bound 400-dpi re-collation of Tianyi 0004561 p387 corrects the current Zhunzhai copy-description metadata from the earlier abbreviated 影鈔本 to 影鈔宋本; the immediately preceding Copper entry independently carries the same 影鈔宋本 descriptor. The 12EY historical record is preserved rather than rewritten. This is a Qing bibliographic copy-description correction only: no Song physical-date claim, pre-1578 exact-rule witness, same-object collapse, direct-copy edge, or Sanming-parent vote is added."
+        },
+        {
+          "batch": "BATCH-12-ZIWEI-NLC1823-TIEQIN-SEAL-PROVENANCE-CONTROL-FD",
+          "update": "Source-bound Xuxiu1031 p78 review directly identifies the formerly unresolved lower collector's seal as 鐵琴銅劍樓, independently controlled by NCL catalog and published seal-study evidence. This closes later Tieqin-collection provenance for the current 1823 Huang-family Copper/Zhunzhai composite object and materially strengthens the 12FB object fingerprint. Exact identity with the specific physical copy described by the Tieqin catalog remains very strongly supported but not formally unique-object closed because a collection seal is not a unique inventory identifier and Huang's 原書舊鈔/錄副 multi-copy firewall remains active. Zero exact Sanming-parent vote is added."
         }
       ],
       "endpoint_anchor_component_identified": true,
