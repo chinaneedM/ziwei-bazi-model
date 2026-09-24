@@ -122,6 +122,8 @@ ZIWEI_TIEQIN_YINGCHAO_12FC_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENAN
 ZIWEI_TIEQIN_YINGCHAO_12FC_EVIDENCE = ROOT / "docs/research/ZIWEI-TIEQIN-YINGCHAO-SONGBEN-TRANSCRIPTION-REPAIR-R1.json"
 ZIWEI_NLC1823_TIEQIN_SEAL_12FD_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC1823-TIEQIN-SEAL-PROVENANCE-CONTROL-FD.md"
 ZIWEI_NLC1823_TIEQIN_SEAL_12FD_EVIDENCE = ROOT / "docs/research/ZIWEI-NLC1823-TIEQIN-SEAL-PROVENANCE-CONTROL-R1.json"
+ZIWEI_NCL_UNION_TONGHU_12FE_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NCL-UNION-TONGHU-RARECATX0514818-BOUNDARY-FE.md"
+ZIWEI_NCL_UNION_TONGHU_12FE_EVIDENCE = ROOT / "docs/research/ZIWEI-NCL-UNION-TONGHU-RARECATX0514818-BOUNDARY-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -409,9 +411,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-TIEQIN-NLC1823-COMPOSITE-OBJECT-FINGERPRINT-CONTROL-FB",
     "BATCH-12-ZIWEI-TIEQIN-YINGCHAO-SONGBEN-TRANSCRIPTION-REPAIR-FC",
     "BATCH-12-ZIWEI-NLC1823-TIEQIN-SEAL-PROVENANCE-CONTROL-FD",
+    "BATCH-12-ZIWEI-NCL-UNION-TONGHU-RARECATX0514818-BOUNDARY-FE",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC1823-TIEQIN-SEAL-PROVENANCE-CONTROL-FD.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NCL-UNION-TONGHU-RARECATX0514818-BOUNDARY-FE.md"
 
 
 def fail(message: str) -> None:
@@ -1465,6 +1468,37 @@ def main() -> int:
         fail("Batch 12FD Sanming zero-vote firewall regressed")
     if batch12fd.get("accounting", {}).get("confirmed_provenance_metadata_defect_count") != 13 or batch12fd.get("accounting", {}).get("repaired_provenance_metadata_defect_count") != 13:
         fail("Batch 12FD provenance defect accounting unexpectedly changed")
+
+    for path in (ZIWEI_NCL_UNION_TONGHU_12FE_BATCH, ZIWEI_NCL_UNION_TONGHU_12FE_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12FE continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12fe = json.loads(ZIWEI_NCL_UNION_TONGHU_12FE_EVIDENCE.read_text(encoding="utf-8"))
+    if batch12fe.get("batch_id") != "BATCH-12-ZIWEI-NCL-UNION-TONGHU-RARECATX0514818-BOUNDARY-FE":
+        fail("Batch 12FE NCL union catalog evidence identity mismatch")
+    src12fe = batch12fe.get("source_binding", {})
+    observed12fe = src12fe.get("observed_fields", {})
+    if observed12fe.get("registration_number") != "rarecatx0514818" or observed12fe.get("current_holder") != "中國國家圖書館":
+        fail("Batch 12FE public union-catalog field binding regressed")
+    ident12fe = batch12fe.get("identifier_adjudication", {})
+    if ident12fe.get("rarecatx0514818_role") != "PUBLIC_UNION_CATALOG_REGISTRATION_OR_RECORD_IDENTIFIER":
+        fail("Batch 12FE registration-identifier role regressed")
+    if ident12fe.get("unique_physical_call_number_proved") is not False or ident12fe.get("unique_physical_object_crosswalk_proved") is not False:
+        fail("Batch 12FE physical-identifier firewall regressed")
+    target12fe = batch12fe.get("target_comparison", {})
+    if target12fe.get("record_level_binding") != "HIGH_CONFIDENCE_SAME_NLC_HUANG_COPY_FAMILY" or target12fe.get("exact_physical_copy_identity_from_this_record_alone") != "NOT_PROVED":
+        fail("Batch 12FE record-level/exact-copy boundary regressed")
+    if batch12fe.get("copy_layer_firewall", {}).get("exact_identity_with_specific_tieqin_catalogued_composite_object") != "VERY_STRONGLY_SUPPORTED_NOT_FORMALLY_UNIQUE_OBJECT_CLOSED":
+        fail("Batch 12FE Tieqin unique-object firewall regressed")
+    reg12fe = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    src_entry12fe = next((x for x in reg12fe.get("sources", []) if x.get("source_id") == "EXT-NCL-TW-UNION-TONGHU-RARECATX0514818"), None)
+    if src_entry12fe is None or src_entry12fe.get("identifier") != "rarecatx0514818":
+        fail("Batch 12FE source registry entry missing")
+    if src_entry12fe.get("batch_12fe", {}).get("unique_physical_shelfmark_proved") is not False or src_entry12fe.get("batch_12fe", {}).get("same_object_edge_authorized") is not False:
+        fail("Batch 12FE registry physical-object firewall regressed")
+    if batch12fe.get("chronology_and_rule_firewall", {}).get("direct_sanming_parent_vote_increment") != 0:
+        fail("Batch 12FE Sanming zero-vote firewall regressed")
+    if batch12fe.get("accounting", {}).get("confirmed_provenance_metadata_defect_count") != 13 or batch12fe.get("accounting", {}).get("repaired_provenance_metadata_defect_count") != 13:
+        fail("Batch 12FE provenance accounting unexpectedly changed")
 
     for path in (ZIWEI_KYUDB_12DT_BATCH, ZIWEI_KYUDB_12DT_EVIDENCE):
         if not path.is_file():
