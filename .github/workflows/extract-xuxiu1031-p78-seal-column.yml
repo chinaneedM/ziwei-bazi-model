@@ -1,0 +1,109 @@
+name: extract-xuxiu1031-p78-seal-column
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/extract-xuxiu1031-p78-seal-column.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Render p78 seal column at high resolution
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/xuxiu1031-p78-seal-column'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT/crops"
+
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils >/dev/null
+          python -m pip install --quiet pillow
+
+          URL='https://commons.wikimedia.org/wiki/Special:Redirect/file/%E7%BA%8C%E4%BF%AE%E5%9B%9B%E5%BA%AB%E5%85%A8%E6%9B%B8%E7%AC%AC1031%E5%86%8A.pdf'
+          curl -L --fail --retry 4 --retry-delay 3 --connect-timeout 15 --max-time 300             -A 'Tianwen-Provenance-Audit/1.0' "$URL" -o "$ROOT/1031.pdf"
+
+          ACTUAL=$(sha256sum "$ROOT/1031.pdf" | awk '{print $1}')
+          EXPECTED='07348e40ec26ca38efe9c9736a69c403c61f9b07a2c89a847fc68d00ce6d8c25'
+          test "$ACTUAL" = "$EXPECTED"
+          printf '%s  %s\n' "$ACTUAL" "$ROOT/1031.pdf" > "$ROOT/source.sha256"
+          pdfinfo "$ROOT/1031.pdf" > "$ROOT/pdfinfo.txt"
+
+          # p78 contains the Copper title page and the unresolved lower seal.
+          pdftoppm -f 78 -l 78 -singlefile -png -r 600             "$ROOT/1031.pdf" "$ROOT/p78-600dpi" >/dev/null 2>&1
+
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image, ImageOps
+          import hashlib, json
+
+          root = Path('audit/xuxiu1031-p78-seal-column')
+          p = root / 'p78-600dpi.png'
+          im = Image.open(p).convert('RGB')
+          W, H = im.size
+
+          # Coordinates are proportional to the source-bound 220-dpi page already
+          # reviewed in Batch 12FB; retain generous margins to avoid clipping seals.
+          boxes = {
+              'seal-column': (0.70, 0.05, 0.94, 0.48),
+              'seal-1':      (0.73, 0.12, 0.91, 0.22),
+              'seal-2':      (0.73, 0.20, 0.91, 0.29),
+              'seal-3':      (0.73, 0.27, 0.91, 0.36),
+              'seal-4':      (0.73, 0.34, 0.91, 0.45),
+          }
+
+          manifest = {
+              'schema': 'XUXIU1031-P78-SEAL-COLUMN-R1',
+              'source_pdf_sha256': hashlib.sha256((root/'1031.pdf').read_bytes()).hexdigest(),
+              'pdf_page': 78,
+              'render_dpi': 600,
+              'render_width': W,
+              'render_height': H,
+              'render_sha256': hashlib.sha256(p.read_bytes()).hexdigest(),
+              'authority': 'DIRECT_SOURCE_BOUND_IMAGE_REVIEW_NO_OCR_FINAL_AUTHORITY',
+              'crops': []
+          }
+
+          for name, (x0,y0,x1,y1) in boxes.items():
+              box = (int(W*x0), int(H*y0), int(W*x1), int(H*y1))
+              crop = im.crop(box)
+              out = root/'crops'/f'{name}.png'
+              crop.save(out, optimize=True)
+              # Also emit a 2x nearest-neighbor enlargement for visual inspection
+              # without inventing pixels/interpolation-based strokes.
+              enlarged = crop.resize((crop.width*2, crop.height*2), Image.Resampling.NEAREST)
+              eout = root/'crops'/f'{name}-2x-nearest.png'
+              enlarged.save(eout, optimize=True)
+              manifest['crops'].append({
+                  'name': name,
+                  'box_px': list(box),
+                  'file': str(out.relative_to(root)),
+                  'sha256': hashlib.sha256(out.read_bytes()).hexdigest(),
+                  'width': crop.width,
+                  'height': crop.height,
+                  'enlarged_file': str(eout.relative_to(root)),
+                  'enlarged_sha256': hashlib.sha256(eout.read_bytes()).hexdigest()
+              })
+
+          (root/'report.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          PY
+
+          sha256sum "$ROOT"/crops/*.png | sort > "$ROOT/crops.sha256"
+          rm "$ROOT/1031.pdf"
+
+      - name: Upload p78 seal evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: xuxiu1031-p78-seal-column-r1
+          path: audit/xuxiu1031-p78-seal-column
+          if-no-files-found: error
+          retention-days: 30
