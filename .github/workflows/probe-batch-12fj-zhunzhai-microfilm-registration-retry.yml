@@ -23,7 +23,7 @@ jobs:
           ROOT='audit/batch-12fj-zhunzhai-microfilm-registration-retry'
           rm -rf "$ROOT"; mkdir -p "$ROOT"
           UA='Tianwen-Provenance-Audit/1.0'
-          UID='UCS01003553256'
+          TARGET_UID='UCS01003553256'
           SYS='002146416'
           : > "$ROOT/status.tsv"
           ok=0
@@ -33,9 +33,9 @@ jobs:
             code=$(curl -L -sS --connect-timeout 7 --max-time 25 -A "$UA" \
               -H 'Accept: application/json, text/javascript, */*; q=0.01' \
               -H 'X-Requested-With: XMLHttpRequest' \
-              -H "Referer: https://meta.nlc.cn/v2/detail/$UID" \
+              -H "Referer: https://meta.nlc.cn/v2/detail/$TARGET_UID" \
               -X POST -o "$out" -w '%{http_code}' \
-              "https://meta.nlc.cn/api/v1/item/$UID/1/999")
+              "https://meta.nlc.cn/api/v1/item/$TARGET_UID/1/999")
             rc=$?
             set -e
             size=0; [ -f "$out" ] && size=$(wc -c < "$out")
