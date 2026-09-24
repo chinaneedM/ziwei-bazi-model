@@ -6854,7 +6854,7 @@
       "identifier": "ISBN 978-7-5326-6425-2",
       "url": "https://www.haijiaoshi.com/archives/14918",
       "source_role": "SECONDARY_DISCOVERY_SOURCE_FOR_QU_CATALOG_SEMANTICS_AND_GAO_XIZENG_ANNOTATED_CATALOG_NOT_DIRECT_TARGET_EVIDENCE",
-      "quality_notes": "Batch 12FL uses this only as a discovery lead. The public discussion states that Qu-donated books can be marked 瞿捐 in the 1959 Beijing Library catalog while sold Qu books were not marked as sale entries, and reports that Gao Xizeng left an annotated 《铁琴铜剑楼藏书目录》 with detailed annotations on handled books. The project has not directly reviewed that annotated copy, its holding location is not closed, and no target 3482/3483 transaction annotation is claimed from this source.",
+      "quality_notes": "Batch 12FL uses this only as a discovery lead. The public discussion states that Qu-donated books can be marked 瞿捐 in the 1959 Beijing Library catalog while sold Qu books were not marked as sale entries, and reports that Gao Xizeng left an annotated 《铁琴铜剑楼藏书目录》 with detailed annotations on handled books. The project has not directly reviewed that annotated copy, its holding location is not closed, and no target 3482/3483 transaction annotation is claimed from this source. Batch 12FM upgrades only the existence/discovery status of the Gao annotated Tieqin catalog from a generic lead to a modern bibliographic-survey attestation. Present holder, shelfmark, public surrogate and target 3482/3483 annotations remain unresolved.",
       "batch_12fl": {
         "missing_qu_donation_mark_implies_sale": false,
         "gao_annotated_catalog_directly_reviewed": false,
@@ -6862,6 +6862,69 @@
         "target_3482_3483_annotation_reviewed": false,
         "target_transaction_mode_closed": false,
         "research_artifact": "docs/research/ZIWEI-QU-NLC-MIXED-TRANSFER-AND-TARGET-ACQUISITION-BOUNDARY-R1.json"
+      },
+      "batch_12fm": {
+        "role": "PRIMARY_MODERN_DISCOVERY_ATTESTATION_FOR_GAO_ANNOTATED_TIEQIN_CATALOG_EXISTENCE_WITHIN_2026_BIBLIOGRAPHIC_SURVEY_DISCUSSION",
+        "annotated_catalog_existence": "ATTESTED_BY_2026_BIBLIOGRAPHIC_SURVEY_DISCUSSION",
+        "current_holding_named": false,
+        "shelfmark_named": false,
+        "public_surrogate_named": false,
+        "target_3482_3483_annotation_reproduced": false,
+        "target_transaction_mode_closed": false,
+        "research_artifact": "docs/research/ZIWEI-GAO-XIZENG-ANNOTATED-TIEQIN-CATALOG-HOLDING-AND-ACCESS-BOUNDARY-R1.json"
+      }
+    },
+    {
+      "source_id": "EXT-GAO-XIZENG-XUESHU-WENCUN-ZHAO-LINTAO-2022-MANUSCRIPT-CHAIN",
+      "title": "赵林涛辑校《高熙曾学术文存：中国古代文学经典讲义》",
+      "author": "高熙曾著；赵林涛辑校；序一高亭亭",
+      "historical_period": "高熙曾1921—1980；现代整理本2022",
+      "provider": "社会科学文献出版社；公开书目/试读由MegBook与华艺电子书提供",
+      "identifier": "ISBN 9787522804750",
+      "url": "https://search.megbook.com.hk/mall/detail.jsp?proID=3791857",
+      "source_role": "MODERN_EDITORIAL_CONTROL_FOR_SURVIVING_GAO_MANUSCRIPT_CORPUS_NOT_TARGET_TIEQIN_CATALOG_CUSTODY",
+      "quality_notes": "Batch 12FM uses this modern edited volume only to close a broader Gao-manuscript survival/editorial chain. The public description states that some material was organized from manuscripts; Gao Tingting's preface records Gao's 1950 Beijing Library rare-books work under Zhao Wanli and many valuable records. It does not identify the current holder, shelfmark, or surrogate of Gao's annotated 《铁琴铜剑楼藏书目录》.",
+      "batch_12fm": {
+        "broader_gao_manuscript_survival": "CLOSED_AT_MODERN_EDITORIAL_CHAIN_LEVEL",
+        "family_custody_selected": false,
+        "hebei_university_custody_selected": false,
+        "nlc_custody_selected": false,
+        "target_tieqin_catalog_holding_closed": false,
+        "research_artifact": "docs/research/ZIWEI-GAO-XIZENG-ANNOTATED-TIEQIN-CATALOG-HOLDING-AND-ACCESS-BOUNDARY-R1.json"
+      }
+    },
+    {
+      "source_id": "EXT-YANZHAO-CULTURE-3-QIN-JUNZE-GAO-BANBEN-SUOJI-2020",
+      "title": "秦俊泽《高熙曾〈版本琐记遗稿〉整理与研究》",
+      "author": "秦俊泽",
+      "historical_period": "现代高熙曾版本学遗稿整理；2020",
+      "provider": "河北大学文学院《燕赵文化研究（第3辑）》；社会科学文献出版社",
+      "identifier": "ISBN 9787520169417",
+      "url": "https://www.megbook.com.tw/mall/detail.jsp?proID=3559785",
+      "source_role": "MODERN_PUBLICATION_CONTROL_FOR_ANOTHER_GAO_BIBLIOGRAPHICAL_MANUSCRIPT_RESEARCH_CHAIN",
+      "quality_notes": "Batch 12FM closes only that a 2020 Hebei University literature publication contains Qin Junze's study/organization of Gao Xizeng's 《版本琐记遗稿》. The reviewed public bibliographic record does not expose the underlying manuscript's custody and does not establish identity with the annotated Tieqin catalog.",
+      "batch_12fm": {
+        "article_existence_closed": true,
+        "underlying_manuscript_custody_closed": false,
+        "target_tieqin_catalog_identity_closed": false,
+        "target_3482_3483_annotation_reviewed": false,
+        "research_artifact": "docs/research/ZIWEI-GAO-XIZENG-ANNOTATED-TIEQIN-CATALOG-HOLDING-AND-ACCESS-BOUNDARY-R1.json"
+      }
+    },
+    {
+      "source_id": "EXT-HEBEI-UNIVERSITY-ZHAO-LINTAO-CURRENT-INSTITUTIONAL-TRACE-2026",
+      "title": "河北大学官方页面：赵林涛当前机构与学术活动线索",
+      "author": "河北大学",
+      "historical_period": "2026 current institutional trace",
+      "provider": "河北大学",
+      "url": "https://www.hbu.edu.cn/info/1094/22368.htm",
+      "source_role": "CURRENT_INSTITUTIONAL_DISCOVERY_TRACE_FOR_GAO_EDITORIAL_NETWORK_NOT_CUSTODY_EVIDENCE",
+      "quality_notes": "Batch 12FM uses official Hebei University pages only to make the Zhao Lintao / Hebei University editorial network an actionable discovery path. Current institutional affiliation is not evidence that the exact Gao annotated Tieqin catalog is held by Hebei University.",
+      "batch_12fm": {
+        "zhao_lintao_current_hebei_university_trace_closed": true,
+        "target_catalog_custody_proved": false,
+        "hebei_university_custody_selected": false,
+        "research_artifact": "docs/research/ZIWEI-GAO-XIZENG-ANNOTATED-TIEQIN-CATALOG-HOLDING-AND-ACCESS-BOUNDARY-R1.json"
       }
     }
   ],
