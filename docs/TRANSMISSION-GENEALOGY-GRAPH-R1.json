@@ -1412,7 +1412,10 @@
         "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NEIGE-CANGSHU1605-ZHUNZHAI-SUNFENGJI-UNKNOWN-ERA-BIBLIOGRAPHIC-CONTROL-EV.md",
         "EXT-NLC-WENYUANGE-SHUMU-1937-BUSINESS-PRESS-ZHUNZHAI-JIULOU",
         "docs/research/ZIWEI-WENYUANGE1937-ZHUNZHAI-JIULOU-PRINTED-VARIANT-CONTROL-R1.json",
-        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENYUANGE1937-ZHUNZHAI-JIULOU-PRINTED-VARIANT-CONTROL-EW.md"
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENYUANGE1937-ZHUNZHAI-JIULOU-PRINTED-VARIANT-CONTROL-EW.md",
+        "EXT-NLC-AIRIJINGLU-LINGFENGE-1887-V5-ZHUNZHAI-FENGGU-FENGJI-25ARROW",
+        "docs/research/ZIWEI-AIRIJINGLU1887-ZHUNZHAI-AUTHOR-VARIANT-AND-25ARROW-REPLAY-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-AIRIJINGLU1887-ZHUNZHAI-AUTHOR-VARIANT-AND-25ARROW-REPLAY-EX.md"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-XUXIU1031-ZHUNZHAI-CLEPSYDRA-JIEHOU-ARROW-SELECTION-DV",
       "pre1578_title_family_catalog_attestation": true,
@@ -1476,6 +1479,31 @@
         "independent_1441_witness_count_increment": 0,
         "original_九_vs_几_direction": "UNRESOLVED",
         "exact_title_state_identity_with_1602_1605_1823": "UNRESOLVED"
+      },
+      "airijinglu1887_author_variant_control": {
+        "status": "HEADER_FENGGU_VS_BODY_FENGJI_INTERNAL_CONFLICT_CLOSED",
+        "header_author": "孫逢古",
+        "body_self_reference": "逢吉",
+        "earlier_ming_controls": [
+          "1602 孫逢吉",
+          "1605 孫逢吉"
+        ],
+        "adjudication": "LATE_BIBLIOGRAPHIC_OR_RECENSIONAL_FENGGU_VARIANT_CORRUPTION_STRONGLY_SUPPORTED_NOT_ABSOLUTELY_PROVED",
+        "force_normalization_authorized": false,
+        "exact_yuan_1281_person_identity": "POSSIBLE_NOT_PROVED"
+      },
+      "airijinglu1887_mechanism_replay": {
+        "status": "RECEIVED_TEXT_MECHANISM_REPLAY_CLOSED",
+        "phrases": [
+          "分界定數二十五箭",
+          "如冬至後自第一箭順數用之",
+          "夏至後自二十五箭逆數用之",
+          "卻依日曆參照節候"
+        ],
+        "compared_1823_numeral_wording": "分界定數二十有五箭",
+        "exact_character_identity": false,
+        "exact_huang_source_copy_identity_with_1823": "NOT_PROVED",
+        "pre1578_exact_rule_prose_closed": false
       }
     },
     {
@@ -2148,6 +2176,59 @@
         "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENYUANGE1937-ZHUNZHAI-JIULOU-PRINTED-VARIANT-CONTROL-EW.md"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-WENYUANGE1937-ZHUNZHAI-JIULOU-PRINTED-VARIANT-CONTROL-EW"
+    },
+    {
+      "node_id": "PHYSICAL-COPY-AIRIJINGLU-LINGFENGE-1887-V5",
+      "node_type": "PHYSICAL_COPY",
+      "label": "1887 靈芬閣活字本《愛日精廬藏書志》第5冊",
+      "system_scope": "QING_PRINTED_BIBLIOGRAPHIC_RECEIVED_TEXT_FOR_ZHUNZHAI_AUTHOR_VARIANT_AND_25ARROW_MECHANISM",
+      "work_composition_date": "ZHANG_JINWU_QING_BIBLIOGRAPHIC_WORK; ZHUNZHAI_TARGET_WORK_DATE_NOT_DERIVED",
+      "edition_impression_date": "QING_GUANGXU13_1887",
+      "physical_copy_date": "1887_PRINT_LAYER",
+      "digital_surrogate_date": "MODERN_NLC_WIKIMEDIA_SURROGATE",
+      "identifier": "NLC892-001947629-315323",
+      "source_pdf_sha256": "e8789679d196a38b4fba60ee69e0eed35c681c9de295de5a3113952be6930d82",
+      "target_pages": [
+        37,
+        38
+      ],
+      "target_page_sha256": {
+        "37": "4cc7daa365563b0d311a717be38160aae6bb2f5f9a0b90fc3c5912190928ca9c",
+        "38": "245d405a924d802045427433a81622e2d14380c211e3ae54c4f6668b9382934a"
+      },
+      "direct_target_result": "p37: 準齋心製几漏圖式一卷 / 孫逢古撰 / 由此逢吉以心法創茲小壺 / 從吳門黃氏藏舊抄本影寫; p38: 25-arrow winter-forward summer-reverse 日曆節候 prose",
+      "ocr_used_for_final_glyph_claims": false,
+      "evidence": [
+        "EXT-NLC-AIRIJINGLU-LINGFENGE-1887-V5-ZHUNZHAI-FENGGU-FENGJI-25ARROW",
+        "docs/research/ZIWEI-AIRIJINGLU1887-ZHUNZHAI-AUTHOR-VARIANT-AND-25ARROW-REPLAY-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-AIRIJINGLU1887-ZHUNZHAI-AUTHOR-VARIANT-AND-25ARROW-REPLAY-EX.md"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-AIRIJINGLU1887-ZHUNZHAI-AUTHOR-VARIANT-AND-25ARROW-REPLAY-EX"
+    },
+    {
+      "node_id": "PASSAGE-AIRIJINGLU1887-ZHUNZHAI-FENGGU-FENGJI-25ARROW",
+      "node_type": "PASSAGE",
+      "label": "1887《愛日精廬藏書志》準齋條：孫逢古表頭／逢吉正文／二十五箭規則",
+      "system_scope": "LATE_RECEIVED_AUTHOR_VARIANT_AND_OPERATIONAL_TEXT_CONTROL",
+      "physical_locator": "NLC892-001947629-315323 PDF p37-p38",
+      "direct_title": "準齋心製几漏圖式一卷",
+      "header_author": "孫逢古",
+      "body_self_reference": "逢吉",
+      "source_copy_note": "從吳門黃氏藏舊抄本影寫",
+      "operational_phrases": [
+        "分界定數二十五箭",
+        "如冬至後自第一箭順數用之",
+        "夏至後自二十五箭逆數用之",
+        "卻依日曆參照節候"
+      ],
+      "exact_yuan_1281_person_identity": "POSSIBLE_NOT_PROVED",
+      "proves_pre1578_exact_25arrow_prose": false,
+      "evidence": [
+        "EXT-NLC-AIRIJINGLU-LINGFENGE-1887-V5-ZHUNZHAI-FENGGU-FENGJI-25ARROW",
+        "docs/research/ZIWEI-AIRIJINGLU1887-ZHUNZHAI-AUTHOR-VARIANT-AND-25ARROW-REPLAY-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-AIRIJINGLU1887-ZHUNZHAI-AUTHOR-VARIANT-AND-25ARROW-REPLAY-EX.md"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-AIRIJINGLU1887-ZHUNZHAI-AUTHOR-VARIANT-AND-25ARROW-REPLAY-EX"
     }
   ],
   "edges": [
@@ -3683,6 +3764,23 @@
       ],
       "scope_note": "Confirms 準齋九漏新式一部一冊完全 on the 1937 printed received-text surface. It does not count as an independent 1441 witness, prove the original 九/几 reading, or date the operational Zhunzhai text.",
       "adjudication_batch": "BATCH-12-ZIWEI-WENYUANGE1937-ZHUNZHAI-JIULOU-PRINTED-VARIANT-CONTROL-EW"
+    },
+    {
+      "edge_id": "TG-E0102",
+      "from": "PHYSICAL-COPY-AIRIJINGLU-LINGFENGE-1887-V5",
+      "relation": "ATTESTS",
+      "to": "PASSAGE-AIRIJINGLU1887-ZHUNZHAI-FENGGU-FENGJI-25ARROW",
+      "status": "CONFIRMED",
+      "confidence": "HIGH",
+      "evidence_class": "DIRECT_SOURCE_BOUND_1887_PHYSICAL_PRINT_P37_P38_REVIEW_NO_OCR_FINAL_AUTHORITY",
+      "evidence": [
+        "NLC892-001947629-315323 PDF p37 sha256 4cc7daa365563b0d311a717be38160aae6bb2f5f9a0b90fc3c5912190928ca9c",
+        "NLC892-001947629-315323 PDF p38 sha256 245d405a924d802045427433a81622e2d14380c211e3ae54c4f6668b9382934a",
+        "EXT-NLC-AIRIJINGLU-LINGFENGE-1887-V5-ZHUNZHAI-FENGGU-FENGJI-25ARROW",
+        "docs/research/ZIWEI-AIRIJINGLU1887-ZHUNZHAI-AUTHOR-VARIANT-AND-25ARROW-REPLAY-R1.json"
+      ],
+      "scope_note": "Confirms the 1887 printed header/body author-name conflict and received 25-arrow mechanism. It does not prove Song/Yuan composition, exact identity with the 1823 Huang manuscript, pre-1578 operational wording, or Sanming parentage.",
+      "adjudication_batch": "BATCH-12-ZIWEI-AIRIJINGLU1887-ZHUNZHAI-AUTHOR-VARIANT-AND-25ARROW-REPLAY-EX"
     }
   ],
   "lineage_hypotheses": [
@@ -3923,6 +4021,10 @@
         {
           "batch": "BATCH-12-ZIWEI-WENYUANGE1937-ZHUNZHAI-JIULOU-PRINTED-VARIANT-CONTROL-EW",
           "update": "Direct no-OCR review of the 1937 Business Press 《文淵閣書目》 p194 reads 準齋九漏新式一部一冊完全, directly reconfirming the 1799 Wenyuange 九漏 title core on a later printed received-text surface. This removes single-surface/OCR dependence for the 九 glyph but is not counted as a second independent 1441 witness, does not adjudicate 九↔几 direction or 新式↔圖式, does not close pre-1578 25-arrow prose, and adds zero exact Sanming-parent vote."
+        },
+        {
+          "batch": "BATCH-12-ZIWEI-AIRIJINGLU1887-ZHUNZHAI-AUTHOR-VARIANT-AND-25ARROW-REPLAY-EX",
+          "update": "Direct 1887 Lingfenge Airijinglu p37-p38 review closes an internal author-name conflict (header 孫逢古撰 versus same-entry body 由此逢吉以心法創茲小壺) and replays the received 25-arrow winter-forward/summer-reverse 日曆節候 mechanism. Together with direct 1602/1605 孫逢吉 controls, a late Fenggu bibliographic/recensional variant-corruption is strongly supported but not silently normalized. The Huang old-copy source note does not prove identity with the reviewed 1823 manuscript, the witness is late, and zero exact Sanming-parent vote is added."
         }
       ],
       "endpoint_anchor_component_identified": true,

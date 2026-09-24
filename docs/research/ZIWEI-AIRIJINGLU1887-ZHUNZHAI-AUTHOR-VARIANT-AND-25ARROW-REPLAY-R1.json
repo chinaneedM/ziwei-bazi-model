@@ -1,0 +1,136 @@
+{
+  "schema": "ZIWEI-AIRIJINGLU1887-ZHUNZHAI-AUTHOR-VARIANT-AND-25ARROW-REPLAY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-AIRIJINGLU1887-ZHUNZHAI-AUTHOR-VARIANT-AND-25ARROW-REPLAY-EX",
+  "prior_batch_id": "BATCH-12-ZIWEI-WENYUANGE1937-ZHUNZHAI-JIULOU-PRINTED-VARIANT-CONTROL-EW",
+  "question": "What does the source-bound 1887 Lingfenge 《愛日精廬藏書志》 witness directly preserve for the Zhunzhai title, author-name variant, source-copy note and 25-arrow operating prose, and can it adjudicate 孫逢古 versus 孫逢吉?",
+  "answer": "THE 1887 PRINT DIRECTLY PRESERVES A HIGH-INFORMATION INTERNAL CONFLICT: THE BIBLIOGRAPHIC HEADER READS 孫逢古撰, WHILE THE SAME ENTRY'S BODY READS 由此逢吉以心法創茲小壺. PDF P37 ALSO READS 準齋心製几漏圖式一卷 / 抄本 / 文淵閣書目著錄 / 從吳門黃氏藏舊抄本影寫. PDF P38 DIRECTLY REPLAYS THE 25-ARROW MECHANISM: 分界定數二十五箭 / 如冬至後自第一箭順數用之 / 夏至後自二十五箭逆數用之 / 卻依日曆參照節候. COMBINED WITH DIRECT 1602 AND 1605 MING BIBLIOGRAPHIC 孫逢吉 CONTROLS, THIS STRONGLY LOCALIZES 孫逢古 AS A LATE BIBLIOGRAPHIC/RECENSIONAL VARIANT OR CORRUPTION, BUT DOES NOT AUTHORIZE ABSOLUTE NORMALIZATION, DOES NOT PROVE THE 1281 YANLING PERSON IDENTITY, SONG/YUAN COMPOSITION, PRE-1578 EXACT RULE PROSE, OR SANMING PARENTAGE.",
+  "source_binding": {
+    "source_id": "EXT-NLC-AIRIJINGLU-LINGFENGE-1887-V5-ZHUNZHAI-FENGGU-FENGJI-25ARROW",
+    "source_file": "NLC892-001947629-315323 愛日精廬藏書志 三十六卷續志四卷 第5冊.pdf",
+    "work": "《愛日精廬藏書志》卷二十三",
+    "author": "清 張金吾",
+    "edition": "吳縣徐氏靈芬閣 清光緒13年[1887] 活字本",
+    "publication_year": 1887,
+    "provider": "National Library of China digitization via Wikimedia Commons",
+    "source_url": "https://commons.wikimedia.org/wiki/File:NLC892-001947629-315323_%E6%84%9B%E6%97%A5%E7%B2%BE%E5%BB%AC%E8%97%8F%E6%9B%B8%E5%BF%97_%E4%B8%89%E5%8D%81%E5%85%AD%E5%8D%B7%E7%BA%8C%E5%BF%97%E5%9B%9B%E5%8D%B7_%E7%AC%AC5%E5%86%8A.pdf",
+    "source_pdf_sha256": "e8789679d196a38b4fba60ee69e0eed35c681c9de295de5a3113952be6930d82",
+    "page_count": 80,
+    "pdf_page_37_sha256": "4cc7daa365563b0d311a717be38160aae6bb2f5f9a0b90fc3c5912190928ca9c",
+    "pdf_page_38_sha256": "245d405a924d802045427433a81622e2d14380c211e3ae54c4f6668b9382934a",
+    "page_render_dimensions": [
+      3246,
+      2868
+    ],
+    "locator_commit": "67688dfd69162c4420d073e3d6386b5ccf590440",
+    "contact_render_commit": "64a880b7528530dea960f1275cb1aa4cb34b9941",
+    "workflow_run_id": 35950150138,
+    "workflow_artifact_id": 10787714159,
+    "workflow_artifact_digest": "sha256:8f39f4f257bfa5f3078be5ced33d45b34d7504c2b30968e693919424dbee47f9",
+    "ocr_used_for_locator": true,
+    "ocr_used_for_final_glyph_claims": false
+  },
+  "direct_image_collation": {
+    "p37": {
+      "title": "準齋心製几漏圖式一卷",
+      "format_note": "抄本",
+      "bibliographic_header_author": "孫逢古撰",
+      "catalog_note": "文淵閣書目著錄",
+      "source_copy_note": "從吳門黃氏藏舊抄本影寫",
+      "body_self_reference": "由此逢吉以心法創茲小壺",
+      "dynasty_label_not_needed_for_final_author_variant_adjudication": true
+    },
+    "p38": {
+      "direct_operational_phrases": [
+        "凡晝夜百刻節序短長",
+        "分界定數二十五箭",
+        "如冬至後自第一箭順數用之",
+        "夏至後自二十五箭逆數用之",
+        "卻依日曆參照節候"
+      ],
+      "comparison_to_1823": {
+        "shared_mechanism_phrases": [
+          "如冬至後自第一箭順數用之",
+          "夏至後自二十五箭逆數用之",
+          "卻依日曆參照節候"
+        ],
+        "numeral_wording_1887": "分界定數二十五箭",
+        "numeral_wording_1823": "分界定數二十有五箭",
+        "operational_mechanism_same": true,
+        "exact_character_for_character_identity": false
+      }
+    }
+  },
+  "author_variant_adjudication": {
+    "direct_1602_guoshi_author": "孫逢吉",
+    "direct_1605_neige_author": "孫逢吉",
+    "direct_1887_header_author": "孫逢古",
+    "direct_1887_same_entry_body_self_reference": "逢吉",
+    "adjudication": "LATE_BIBLIOGRAPHIC_OR_RECENSIONAL_FENGGU_VARIANT_CORRUPTION_STRONGLY_SUPPORTED_NOT_ABSOLUTELY_PROVED",
+    "force_normalize_孫逢古_to_孫逢吉": false,
+    "rationale": "Two earlier Ming bibliographic witnesses directly preserve 孫逢吉, and the 1887 witness that labels the author 孫逢古 internally preserves 逢吉 in the operational-text body. This localizes the conflict to late bibliographic/recensional transmission with high confidence, but the project retains the variant rather than silently emending it."
+  },
+  "source_copy_firewall": {
+    "direct_note": "從吳門黃氏藏舊抄本影寫",
+    "exact_identity_with_nlc_daoguang3_1823_huang_shiliju_manuscript": "NOT_PROVED",
+    "independent_stemmatic_vote_against_1823_added": false,
+    "implication": "The 1887 print is a received-text transmission control derived from a Huang-family old manuscript route; it is not treated as an independent premodern operational archetype."
+  },
+  "chronology_and_identity_firewall": {
+    "reviewed_physical_print_year": 1887,
+    "pre1578_exact_25arrow_rule_text_attested": false,
+    "exact_identity_with_yuan_1281_yanling_sun_fengji": "POSSIBLE_NOT_PROVED",
+    "song_composition_proved_by_1887_header": false,
+    "yuan_composition_proved_by_1887_witness": false,
+    "work_composition_date_proved": false
+  },
+  "sanming_firewall": {
+    "exact_sanming_yueling_dahan_yushui_fingerprint_closed": false,
+    "exact_nanjing_59_endpoint_binding_closed": false,
+    "direct_sanming_parent_vote_increment": 0
+  },
+  "adjudication": {
+    "matrix_count_change": false,
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "deterministic_fusion_chart_product_r1": "CLOSED"
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 12,
+    "repaired_provenance_metadata_defect_count": 12,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "transmission_impact": {
+    "nodes_added": [
+      "PHYSICAL-COPY-AIRIJINGLU-LINGFENGE-1887-V5",
+      "PASSAGE-AIRIJINGLU1887-ZHUNZHAI-FENGGU-FENGJI-25ARROW"
+    ],
+    "nodes_strengthened": [
+      "RULE-FAMILY-ZHUNZHAI-25ARROW-JIEHOU-SELECTION-38-62"
+    ],
+    "edges_supported": [
+      "TG-E0102"
+    ],
+    "edges_revised": [],
+    "edges_rejected": [],
+    "remaining_lineage_questions": [
+      "Can a pre-1887 physical bibliographic witness directly show where 孫逢古 first appears?",
+      "Can the Huang-family source copy behind the 1887 影寫 note be proven identical to, or distinct from, the 1823 Shiliju manuscript?",
+      "Can a Yuan or otherwise identity-closing primary witness name both the Yanling Sun Fengji and the Zhunzhai work?",
+      "Can a securely pre-1578 carrier preserve the exact 25-arrow operating prose?"
+    ]
+  },
+  "next_gate": [
+    "Trace the 孫逢古 header variant backward through 《鐵琴銅劍樓藏書目錄》, 黃丕烈題跋 and other Qing bibliographic witnesses, preserving source dependence.",
+    "Seek a direct physical Huang-family paratext that can bind the 1887 source-copy statement to a specific manuscript.",
+    "Continue the Yuan person-title bridge and securely pre-1578 exact 25-arrow prose searches.",
+    "Keep the independent Sanming/Yueling Dahan/Rainwater and Nanjing-59 searches active."
+  ],
+  "updated_at": "2026-09-24"
+}

@@ -41,6 +41,7 @@ BATCH_12ET = ROOT / "docs/research/ZIWEI-LEIBIAN1551-ZHUNZHAI-MULTIPOINT-AND-COR
 BATCH_12EU = ROOT / "docs/research/ZIWEI-GUOSHI1602-ZHUNZHAI-SUNFENGJI-DIRECT-AUTHOR-TITLE-BINDING-R1.json"
 BATCH_12EV = ROOT / "docs/research/ZIWEI-NEIGE-CANGSHU1605-ZHUNZHAI-SUNFENGJI-UNKNOWN-ERA-BIBLIOGRAPHIC-CONTROL-R1.json"
 BATCH_12EW = ROOT / "docs/research/ZIWEI-WENYUANGE1937-ZHUNZHAI-JIULOU-PRINTED-VARIANT-CONTROL-R1.json"
+BATCH_12EX = ROOT / "docs/research/ZIWEI-AIRIJINGLU1887-ZHUNZHAI-AUTHOR-VARIANT-AND-25ARROW-REPLAY-R1.json"
 
 
 def fail(message: str) -> None:
@@ -48,7 +49,7 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
-    for path in (CHARTER, PROTOCOL, GRAPH, STATE, BATCH_12CH, BATCH_12DP, BATCH_12DQ, BATCH_12DR, BATCH_12DS, BATCH_12DT, BATCH_12DU, BATCH_12DV, BATCH_12DW, BATCH_12DX, BATCH_12DY, BATCH_12DZ, BATCH_12EA, BATCH_12EB, BATCH_12EC, BATCH_12ED, BATCH_12EE, BATCH_12EI, BATCH_12EJ, BATCH_12EK, BATCH_12EL, BATCH_12EM, BATCH_12EN, BATCH_12EO, BATCH_12EP, BATCH_12EQ, BATCH_12ER, BATCH_12ES, BATCH_12ET, BATCH_12EU, BATCH_12EV, BATCH_12EW):
+    for path in (CHARTER, PROTOCOL, GRAPH, STATE, BATCH_12CH, BATCH_12DP, BATCH_12DQ, BATCH_12DR, BATCH_12DS, BATCH_12DT, BATCH_12DU, BATCH_12DV, BATCH_12DW, BATCH_12DX, BATCH_12DY, BATCH_12DZ, BATCH_12EA, BATCH_12EB, BATCH_12EC, BATCH_12ED, BATCH_12EE, BATCH_12EI, BATCH_12EJ, BATCH_12EK, BATCH_12EL, BATCH_12EM, BATCH_12EN, BATCH_12EO, BATCH_12EP, BATCH_12EQ, BATCH_12ER, BATCH_12ES, BATCH_12ET, BATCH_12EU, BATCH_12EV, BATCH_12EW, BATCH_12EX):
         if not path.is_file():
             fail(f"Tianwen transmission artifact missing: {path.relative_to(ROOT)}")
 
@@ -1084,6 +1085,32 @@ def main() -> int:
     impact12ew = batch12ew.get("transmission_impact", {})
     if impact12ew.get("edges_supported") != ["TG-E0101"] or "PASSAGE-WENYUANGE1937-ZHUNZHAI-JIULOU-ENTRY" not in impact12ew.get("nodes_added", []):
         fail("Batch 12EW transmission impact regressed")
+
+
+    edge12ex = next((e for e in edges if e.get("edge_id") == "TG-E0102"), None)
+    if not edge12ex or edge12ex.get("relation") != "ATTESTS" or edge12ex.get("status") != "CONFIRMED" or edge12ex.get("confidence") != "HIGH":
+        fail("Batch 12EX direct-attestation edge regressed")
+    if edge12ex.get("from") != "PHYSICAL-COPY-AIRIJINGLU-LINGFENGE-1887-V5" or edge12ex.get("to") != "PASSAGE-AIRIJINGLU1887-ZHUNZHAI-FENGGU-FENGJI-25ARROW":
+        fail("Batch 12EX edge endpoints regressed")
+    phys12ex = next((n for n in nodes if n.get("node_id") == "PHYSICAL-COPY-AIRIJINGLU-LINGFENGE-1887-V5"), None)
+    passage12ex = next((n for n in nodes if n.get("node_id") == "PASSAGE-AIRIJINGLU1887-ZHUNZHAI-FENGGU-FENGJI-25ARROW"), None)
+    if not phys12ex or phys12ex.get("target_page_sha256", {}).get("37") != "4cc7daa365563b0d311a717be38160aae6bb2f5f9a0b90fc3c5912190928ca9c":
+        fail("Batch 12EX physical node regressed")
+    if not passage12ex or passage12ex.get("header_author") != "孫逢古" or passage12ex.get("body_self_reference") != "逢吉":
+        fail("Batch 12EX passage author-variant control regressed")
+    zhun_rule12ex = next(n for n in nodes if n.get("node_id") == "RULE-FAMILY-ZHUNZHAI-25ARROW-JIEHOU-SELECTION-38-62")
+    av12ex = zhun_rule12ex.get("airijinglu1887_author_variant_control", {})
+    mech12ex = zhun_rule12ex.get("airijinglu1887_mechanism_replay", {})
+    if av12ex.get("header_author") != "孫逢古" or av12ex.get("body_self_reference") != "逢吉" or av12ex.get("force_normalization_authorized") is not False:
+        fail("Batch 12EX rule-family author variant regressed")
+    if mech12ex.get("status") != "RECEIVED_TEXT_MECHANISM_REPLAY_CLOSED" or mech12ex.get("exact_huang_source_copy_identity_with_1823") != "NOT_PROVED":
+        fail("Batch 12EX rule-family mechanism/source-copy firewall regressed")
+    if not any(x.get("batch") == "BATCH-12-ZIWEI-AIRIJINGLU1887-ZHUNZHAI-AUTHOR-VARIANT-AND-25ARROW-REPLAY-EX" and "zero exact sanming-parent vote" in x.get("update","").lower() for x in hyp12dk.get("evidence_updates", [])):
+        fail("Batch 12EX genealogy hypothesis zero-vote update missing")
+    batch12ex = json.loads(BATCH_12EX.read_text(encoding="utf-8"))
+    impact12ex = batch12ex.get("transmission_impact", {})
+    if impact12ex.get("edges_supported") != ["TG-E0102"] or "PASSAGE-AIRIJINGLU1887-ZHUNZHAI-FENGGU-FENGJI-25ARROW" not in impact12ex.get("nodes_added", []):
+        fail("Batch 12EX transmission impact regressed")
 
     ncl = next(n for n in nodes if n.get("node_id") == "PHYSICAL-COPY-SISHI-QIHOU-NCL03164-OLD-MANUSCRIPT")
     if ncl.get("physical_copy_date") != "UNRESOLVED":

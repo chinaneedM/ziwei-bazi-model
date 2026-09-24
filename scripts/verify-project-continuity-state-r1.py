@@ -108,6 +108,8 @@ ZIWEI_NEIGE_ZHUNZHAI_12EV_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANC
 ZIWEI_NEIGE_ZHUNZHAI_12EV_EVIDENCE = ROOT / "docs/research/ZIWEI-NEIGE-CANGSHU1605-ZHUNZHAI-SUNFENGJI-UNKNOWN-ERA-BIBLIOGRAPHIC-CONTROL-R1.json"
 ZIWEI_WENYUANGE_1937_12EW_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENYUANGE1937-ZHUNZHAI-JIULOU-PRINTED-VARIANT-CONTROL-EW.md"
 ZIWEI_WENYUANGE_1937_12EW_EVIDENCE = ROOT / "docs/research/ZIWEI-WENYUANGE1937-ZHUNZHAI-JIULOU-PRINTED-VARIANT-CONTROL-R1.json"
+ZIWEI_AIRIJINGLU_1887_12EX_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-AIRIJINGLU1887-ZHUNZHAI-AUTHOR-VARIANT-AND-25ARROW-REPLAY-EX.md"
+ZIWEI_AIRIJINGLU_1887_12EX_EVIDENCE = ROOT / "docs/research/ZIWEI-AIRIJINGLU1887-ZHUNZHAI-AUTHOR-VARIANT-AND-25ARROW-REPLAY-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -388,9 +390,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-GUOSHI1602-ZHUNZHAI-SUNFENGJI-DIRECT-AUTHOR-TITLE-BINDING-EU",
     "BATCH-12-ZIWEI-NEIGE-CANGSHU1605-ZHUNZHAI-SUNFENGJI-UNKNOWN-ERA-BIBLIOGRAPHIC-CONTROL-EV",
     "BATCH-12-ZIWEI-WENYUANGE1937-ZHUNZHAI-JIULOU-PRINTED-VARIANT-CONTROL-EW",
+    "BATCH-12-ZIWEI-AIRIJINGLU1887-ZHUNZHAI-AUTHOR-VARIANT-AND-25ARROW-REPLAY-EX",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENYUANGE1937-ZHUNZHAI-JIULOU-PRINTED-VARIANT-CONTROL-EW.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-AIRIJINGLU1887-ZHUNZHAI-AUTHOR-VARIANT-AND-25ARROW-REPLAY-EX.md"
 
 
 def fail(message: str) -> None:
@@ -1277,6 +1280,32 @@ def main() -> int:
     src12ew = next((s for s in reg12ew.get("sources", []) if s.get("source_id") == "EXT-NLC-WENYUANGE-SHUMU-1937-BUSINESS-PRESS-ZHUNZHAI-JIULOU"), None)
     if not src12ew or src12ew.get("batch_12ew", {}).get("direct_title") != "準齋九漏新式一部一冊完全":
         fail("Batch 12EW source registry title control missing")
+
+
+    for path in (ZIWEI_AIRIJINGLU_1887_12EX_BATCH, ZIWEI_AIRIJINGLU_1887_12EX_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12EX continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12ex = json.loads(ZIWEI_AIRIJINGLU_1887_12EX_EVIDENCE.read_text(encoding="utf-8"))
+    if batch12ex.get("batch_id") != "BATCH-12-ZIWEI-AIRIJINGLU1887-ZHUNZHAI-AUTHOR-VARIANT-AND-25ARROW-REPLAY-EX":
+        fail("Batch 12EX evidence identity mismatch")
+    sb12ex = batch12ex.get("source_binding", {})
+    if sb12ex.get("source_pdf_sha256") != "e8789679d196a38b4fba60ee69e0eed35c681c9de295de5a3113952be6930d82":
+        fail("Batch 12EX source binding regressed")
+    if sb12ex.get("pdf_page_37_sha256") != "4cc7daa365563b0d311a717be38160aae6bb2f5f9a0b90fc3c5912190928ca9c" or sb12ex.get("pdf_page_38_sha256") != "245d405a924d802045427433a81622e2d14380c211e3ae54c4f6668b9382934a":
+        fail("Batch 12EX target page hashes regressed")
+    p37ex = batch12ex.get("direct_image_collation", {}).get("p37", {})
+    if p37ex.get("bibliographic_header_author") != "孫逢古撰" or p37ex.get("body_self_reference") != "由此逢吉以心法創茲小壺":
+        fail("Batch 12EX internal author variant reading regressed")
+    p38ex = batch12ex.get("direct_image_collation", {}).get("p38", {})
+    if "分界定數二十五箭" not in p38ex.get("direct_operational_phrases", []) or "卻依日曆參照節候" not in p38ex.get("direct_operational_phrases", []):
+        fail("Batch 12EX 25-arrow mechanism replay regressed")
+    varex = batch12ex.get("author_variant_adjudication", {})
+    if varex.get("force_normalize_孫逢古_to_孫逢吉") is not False or "STRONGLY_SUPPORTED" not in varex.get("adjudication",""):
+        fail("Batch 12EX author-variant firewall regressed")
+    if batch12ex.get("source_copy_firewall", {}).get("exact_identity_with_nlc_daoguang3_1823_huang_shiliju_manuscript") != "NOT_PROVED":
+        fail("Batch 12EX Huang-copy identity was overclosed")
+    if batch12ex.get("sanming_firewall", {}).get("direct_sanming_parent_vote_increment") != 0:
+        fail("Batch 12EX Sanming zero-vote firewall regressed")
 
     for path in (ZIWEI_KYUDB_12DT_BATCH, ZIWEI_KYUDB_12DT_EVIDENCE):
         if not path.is_file():
