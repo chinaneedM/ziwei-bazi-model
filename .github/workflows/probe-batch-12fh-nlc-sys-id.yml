@@ -30,7 +30,9 @@ jobs:
           positive-control	003145713
           target-original	001775083
           target-microfilm	002597934
-          source-control	001411999008601
+          source-control-raw	001411999008601
+          linked-455-control	411999008601
+          issued-with-423-control	411999008
           EOF
           : > "$ROOT/status.tsv"
           while IFS=$'\t' read -r key sys; do
