@@ -6843,6 +6843,12 @@
         "target_transaction_mode_closed": false,
         "cited_next_target": "《北京图书馆馆史资料汇编二：1946—1966》pp.446–449 and related accession/transfer materials",
         "research_artifact": "docs/research/ZIWEI-QU-NLC-MIXED-TRANSFER-AND-TARGET-ACQUISITION-BOUNDARY-R1.json"
+      },
+      "batch_12fp": {
+        "role": "FIRST_PARTY_INSTITUTIONAL_BIBLIOGRAPHIC_CONTROL_FOR_JI_SHUYING_VOLUME_AND_ACQUISITION_HISTORY_RESEARCH_CHAIN",
+        "ji_2009_volume_cited_in_reference_apparatus": true,
+        "chapter_9_full_text_exposed": false,
+        "target_3482_3483_bound": false
       }
     },
     {
@@ -7020,6 +7026,105 @@
         "gao_name_variant_preserved": true,
         "proves_gao_qu_event": false,
         "direct_manuscript_image_reviewed": false
+      }
+    },
+    {
+      "source_id": "EXT-NDL-JI-SHUYING-GUJI-SHANBEN-15LECTURES-2009",
+      "title": "NDL Search《冀淑英古籍善本十五讲》书目记录",
+      "author": "日本国立国会图书馆 NDL Search",
+      "historical_period": "2009 edition; catalog reviewed 2026",
+      "provider": "国立国会图书馆 NDL Search",
+      "identifier": "R100000001-I13111400053127 / ISBN 9787501340637",
+      "url": "https://ndlsearch.ndl.go.jp/books/R100000001-I13111400053127",
+      "source_role": "FIRST_PARTY_LIBRARY_CATALOG_CONTROL_FOR_EXACT_2009_JI_SHUYING_EDITION_AND_LINKED_HOLDING",
+      "quality_notes": "Batch 12FP uses NDL Search to close the exact edition as 冀淑英著、李文洁插图、国家图书馆出版社2009.7, 241 pages, and to identify a linked Tokyo Metropolitan Central Library holding. This catalog record does not expose chapter 9 text.",
+      "batch_12fp": {
+        "book_identity_closed": true,
+        "page_count": 241,
+        "linked_tokyo_holding": true,
+        "chapter_9_full_text_exposed": false,
+        "research_artifact": "docs/research/ZIWEI-JI-SHUYING-TIEQIN-ACQUISITION-PROGRAM-CHRONOLOGY-AND-DIRECT-TEXT-BOUNDARY-R1.json"
+      }
+    },
+    {
+      "source_id": "EXT-TOKYO-METRO-LIB-JI-SHUYING-15LECTURES-HOLDING-2009",
+      "title": "東京都立中央図書館《冀淑英古籍善本十五讲》馆藏记录",
+      "author": "東京都立図書館",
+      "historical_period": "current holding record reviewed 2026",
+      "provider": "東京都立中央図書館",
+      "identifier": "bibid 1400053127 / material 4001029913 / C/022.3/6011/2009",
+      "url": "https://catalog.library.metro.tokyo.lg.jp/winj/opac/switch-detail-iccap.do?bibid=1400053127",
+      "source_role": "FIRST_PARTY_CURRENT_PHYSICAL_HOLDING_AND_LAWFUL_ACCESS_ROUTE_CONTROL_FOR_JI_CHAPTER_9",
+      "quality_notes": "Batch 12FP closes a lawful access route to the exact 2009 volume: 中央・書庫, 一般中国図書, call number C/022.3/6011/2009, material code 4001029913, catalog status 利用可 and cooperative lending 可能. The catalog exposes a remote-copy route and states remote copying is accepted from people living, working or studying in Tokyo. The project has not yet obtained or directly collated chapter 9.",
+      "batch_12fp": {
+        "physical_holding_closed": true,
+        "current_catalog_availability": "利用可",
+        "cooperative_lending": "可能",
+        "remote_copy_route_exposed": true,
+        "remote_copy_eligibility": "東京都在住・在勤・在学の方",
+        "project_has_obtained_chapter_9_copy": false,
+        "project_has_directly_collated_chapter_9": false
+      }
+    },
+    {
+      "source_id": "EXT-KKNEWS-JI-SHUYING-15LECTURES-CH9-PUBLIC-SUMMARY",
+      "title": "《冀淑英古籍善本十五讲》摘要：第九讲《铁琴铜剑楼藏书的收购入藏》",
+      "author": "古籍类公开摘要转载",
+      "historical_period": "2019 public summary of 2009 volume",
+      "provider": "每日头条",
+      "url": "https://kknews.cc/zh-my/culture/x2jngr8.html",
+      "source_role": "SECONDARY_PUBLIC_BOOK_STRUCTURE_AND_CHAPTER_SUMMARY_NOT_DIRECT_BOOK_SCAN",
+      "quality_notes": "Batch 12FP uses this only to close chapter-9 title/structure on the public web surface. It is not a complete authorized transcription and cannot be used to promote omitted transfer lists, counts, or target-title membership.",
+      "batch_12fp": {
+        "chapter_9_title_closed": true,
+        "full_direct_text": false,
+        "target_3482_3483_bound": false
+      }
+    },
+    {
+      "source_id": "EXT-SHEN-JIN-2014-QU-FENGQI-JI-CH9-MIXED-TRANSFER-CONTROL",
+      "title": "沈津《记铁琴铜剑楼后人瞿凤起先生》",
+      "author": "沈津",
+      "historical_period": "2014 specialist recollection of 1950s Qu-family transfer",
+      "provider": "南方都市报原刊；凤凰文化/搜狐等公开转载",
+      "url": "https://www.sohu.com/a/218253013_562249",
+      "source_role": "LATER_SPECIALIST_RECOLLECTION_EXPLICITLY_CITING_JI_SHUYING_CHAPTER_9_FOR_MIXED_DONATION_AND_SALE_HISTORY",
+      "quality_notes": "Batch 12FP uses Shen Jin as a later specialist control that explicitly names Ji Shuying chapter 9 as a source for the sale/purchase component alongside donation, and reproduces Gu Tinglong yearbook/diary price-negotiation material. This is not direct chapter-9 page collation and does not bind target 3482/3483 to a transaction batch.",
+      "batch_12fp": {
+        "ji_chapter_9_named_as_source": true,
+        "mixed_transfer_program_supported": true,
+        "target_3482_3483_bound": false,
+        "target_route_selected": false
+      }
+    },
+    {
+      "source_id": "EXT-SOHU-2019-ZHAO-WANLI-GU-DENG-TIEQIN-PURCHASE-DIARY-CONTROLS",
+      "title": "《赵万里先生琐忆》：顾廷龙、邓之诚日记所见铁琴铜剑楼购书",
+      "author": "公开转载《东方早报》2013相关人物文章",
+      "historical_period": "2019 repost of article citing 1950-1952 documentary material",
+      "provider": "古逸英华 / 搜狐",
+      "url": "https://www.sohu.com/a/293535862_744041",
+      "source_role": "SECONDARY_PUBLICATION_MEDIATING_CONTEMPORANEOUS_GU_TINGLONG_DENG_ZHICHENG_AND_ZHENG_ZHENDUO_PURCHASE_CONTROLS",
+      "quality_notes": "Batch 12FP uses this publication-mediated source to record contemporaneous purchase controls: a 1950-01-06 Gu Tinglong diary report of Tieqin transaction with purchase and donation components; a 1950-01-29 Deng Zhicheng diary report of twelve boxes purchased for public custody; and a Zheng Zhenduo letter stating two batches of Tieqin rare books had been purchased. No original diary/letter image was reviewed here, and none of these passages names target catalog nos. 3482/3483.",
+      "batch_12fp": {
+        "collection_level_purchase_component_supported": true,
+        "direct_original_image_reviewed": false,
+        "target_3482_3483_purchase_proved": false
+      }
+    },
+    {
+      "source_id": "EXT-SECONDARY-JI-CH9-TIEQIN-BATCH-CHRONOLOGY-1950-1953",
+      "title": "四大藏书楼兴衰文章所转述冀淑英第九讲之铁琴铜剑楼1950—1953批次",
+      "author": "公开藏书史文章",
+      "historical_period": "secondary recounting of 1950-1953 transfer chronology",
+      "provider": "搜狐",
+      "url": "https://www.sohu.com/a/276963264_562249",
+      "source_role": "SECONDARY_RECOUNTING_OF_JI_SHUYING_CHAPTER_9_BATCH_NUMBERS_PENDING_DIRECT_COLLATION",
+      "quality_notes": "Batch 12FP records the reported 1950-01-07, 1950-03 and 1953-03 donation/sale counts only as secondary recounting. Aggregate formulations in later articles are not normalized into a definitive ledger until Ji chapter 9 or accession records are directly collated.",
+      "batch_12fp": {
+        "reported_batch_chronology_recorded": true,
+        "exact_total_reconciliation_authorized": false,
+        "target_3482_3483_batch_membership_closed": false
       }
     }
   ],
