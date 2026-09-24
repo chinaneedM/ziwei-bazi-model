@@ -144,6 +144,8 @@ ZIWEI_LIN_ZHENYUE_12FN_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-A
 ZIWEI_LIN_ZHENYUE_12FN_EVIDENCE = ROOT / "docs/research/ZIWEI-LIN-ZHENYUE-PREFACE-GAO-ANNOTATED-CATALOG-SOURCE-ATTRIBUTION-R1.json"
 ZIWEI_ZHOU_SHUTAO_12FO_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHOU-SHUTAO-DIARY-GAO-ACQUISITION-ROLE-AND-QU-1953-CHRONOLOGY-FO.md"
 ZIWEI_ZHOU_SHUTAO_12FO_EVIDENCE = ROOT / "docs/research/ZIWEI-ZHOU-SHUTAO-DIARY-GAO-ACQUISITION-ROLE-AND-QU-1953-CHRONOLOGY-R1.json"
+ZIWEI_JI_SHUYING_12FP_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-TIEQIN-ACQUISITION-PROGRAM-CHRONOLOGY-AND-DIRECT-TEXT-BOUNDARY-FP.md"
+ZIWEI_JI_SHUYING_12FP_EVIDENCE = ROOT / "docs/research/ZIWEI-JI-SHUYING-TIEQIN-ACQUISITION-PROGRAM-CHRONOLOGY-AND-DIRECT-TEXT-BOUNDARY-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -442,9 +444,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-GAO-XIZENG-ANNOTATED-TIEQIN-CATALOG-HOLDING-AND-ACCESS-BOUNDARY-FM",
     "BATCH-12-ZIWEI-LIN-ZHENYUE-PREFACE-GAO-ANNOTATED-CATALOG-SOURCE-ATTRIBUTION-FN",
     "BATCH-12-ZIWEI-ZHOU-SHUTAO-DIARY-GAO-ACQUISITION-ROLE-AND-QU-1953-CHRONOLOGY-FO",
+    "BATCH-12-ZIWEI-JI-SHUYING-TIEQIN-ACQUISITION-PROGRAM-CHRONOLOGY-AND-DIRECT-TEXT-BOUNDARY-FP",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHOU-SHUTAO-DIARY-GAO-ACQUISITION-ROLE-AND-QU-1953-CHRONOLOGY-FO.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-TIEQIN-ACQUISITION-PROGRAM-CHRONOLOGY-AND-DIRECT-TEXT-BOUNDARY-FP.md"
 
 
 def fail(message: str) -> None:
@@ -1993,6 +1996,78 @@ def main() -> int:
         fail("Batch 12FO product/matrix firewall regressed")
     if batch12fo.get("accounting", {}).get("confirmed_provenance_metadata_defect_count") != 13 or batch12fo.get("accounting", {}).get("repaired_provenance_metadata_defect_count") != 13:
         fail("Batch 12FO provenance accounting unexpectedly changed")
+
+    for path in (ZIWEI_JI_SHUYING_12FP_BATCH, ZIWEI_JI_SHUYING_12FP_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12FP continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12fp = json.loads(ZIWEI_JI_SHUYING_12FP_EVIDENCE.read_text(encoding="utf-8"))
+    if batch12fp.get("batch_id") != "BATCH-12-ZIWEI-JI-SHUYING-TIEQIN-ACQUISITION-PROGRAM-CHRONOLOGY-AND-DIRECT-TEXT-BOUNDARY-FP":
+        fail("Batch 12FP evidence identity mismatch")
+    book12fp = batch12fp.get("book_identity", {})
+    if book12fp.get("title") != "冀淑英古籍善本十五讲" or book12fp.get("author") != "冀淑英" or book12fp.get("isbn") != "9787501340637":
+        fail("Batch 12FP exact book identity regressed")
+    ch912fp = book12fp.get("chapter_9", {})
+    if ch912fp.get("title") != "铁琴铜剑楼藏书的收购入藏" or ch912fp.get("identity_closed") is not True:
+        fail("Batch 12FP chapter-9 identity regressed")
+    if ch912fp.get("full_direct_page_scan_reviewed_by_project") is not False or ch912fp.get("full_direct_text_reviewed_by_project") is not False:
+        fail("Batch 12FP direct chapter-review boundary regressed")
+    access12fp = batch12fp.get("lawful_direct_access_route", {})
+    if access12fp.get("status") != "PHYSICAL_HOLDING_AND_LIBRARY_COPY_REQUEST_ROUTE_LOCATED" or access12fp.get("adjudication") != "LAWFUL_ACCESS_ROUTE_CLOSED_BUT_DIRECT_CHAPTER_COLLATION_PENDING":
+        fail("Batch 12FP lawful access-route adjudication regressed")
+    tokyo12fp = access12fp.get("tokyo_metropolitan_central_library", {})
+    if tokyo12fp.get("call_number") != "C/022.3/6011/2009" or tokyo12fp.get("material_code") != "4001029913" or tokyo12fp.get("availability_status") != "利用可":
+        fail("Batch 12FP Tokyo holding identity/availability regressed")
+    if tokyo12fp.get("project_has_obtained_chapter_9_copy") is not False or tokyo12fp.get("project_has_directly_collated_chapter_9") is not False:
+        fail("Batch 12FP direct chapter-collation status was falsely closed")
+    adj12fp = batch12fp.get("adjudication", {})
+    if adj12fp.get("ji_book_identity") != "CLOSED" or adj12fp.get("ji_chapter_9_identity") != "CLOSED_AS_铁琴铜剑楼藏书的收购入藏":
+        fail("Batch 12FP book/chapter adjudication regressed")
+    if adj12fp.get("ji_chapter_9_lawful_access_route") != "CLOSED_VIA_TOKYO_METROPOLITAN_CENTRAL_LIBRARY":
+        fail("Batch 12FP lawful chapter access route regressed")
+    if adj12fp.get("ji_chapter_9_full_direct_text") != "NOT_REVIEWED":
+        fail("Batch 12FP full-text boundary regressed")
+    if adj12fp.get("qu_to_beijing_library_purchase_component") != "CLOSED_AT_COLLECTION_PROGRAM_LEVEL" or adj12fp.get("qu_to_beijing_library_donation_component") != "CLOSED_AT_COLLECTION_PROGRAM_LEVEL" or adj12fp.get("mixed_transfer_program") != "CLOSED":
+        fail("Batch 12FP collection-level mixed acquisition adjudication regressed")
+    if adj12fp.get("reported_1950_1953_batch_counts") != "SECONDARY_RECOUNTING_PENDING_DIRECT_CHAPTER_OR_ACCESSION_LEDGER_COLLATION":
+        fail("Batch 12FP secondary batch-count boundary regressed")
+    if adj12fp.get("target_3482_3483_batch_membership") != "UNRESOLVED":
+        fail("Batch 12FP target batch membership was falsely closed")
+    if adj12fp.get("target_specific_purchase_route_selected") is not False or adj12fp.get("target_specific_donation_route_selected") is not False or adj12fp.get("target_specific_other_transfer_route_selected") is not False:
+        fail("Batch 12FP target route was falsely selected")
+    if adj12fp.get("target_exact_acquisition_date") != "UNRESOLVED" or adj12fp.get("final_nlc_acquisition_transfer_path") != "UNRESOLVED":
+        fail("Batch 12FP target date/acquisition route was falsely closed")
+    fw12fp = batch12fp.get("inference_firewall", {})
+    for key in (
+        "chapter_title_contains_收购_does_not_mean_every_qu_item_was_purchased",
+        "collection_level_purchase_evidence_does_not_assign_target_purchase",
+        "secondary_batch_counts_may_not_be_promoted_to_direct_ji_text",
+        "diary_purchase_controls_may_not_bind_unlisted_target_titles",
+        "missing_瞿捐_mark_still_does_not_imply_sale",
+        "target_route_requires_title_catalog_number_or_bound_volume_level_transaction_evidence",
+    ):
+        if fw12fp.get(key) is not True:
+            fail(f"Batch 12FP inference firewall regressed: {key}")
+    registry12fp = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    regids12fp = {x.get("source_id") for x in registry12fp.get("sources", [])}
+    needed12fp = {
+        "EXT-NDL-JI-SHUYING-GUJI-SHANBEN-15LECTURES-2009",
+        "EXT-TOKYO-METRO-LIB-JI-SHUYING-15LECTURES-HOLDING-2009",
+        "EXT-KKNEWS-JI-SHUYING-15LECTURES-CH9-PUBLIC-SUMMARY",
+        "EXT-SHEN-JIN-2014-QU-FENGQI-JI-CH9-MIXED-TRANSFER-CONTROL",
+        "EXT-SOHU-2019-ZHAO-WANLI-GU-DENG-TIEQIN-PURCHASE-DIARY-CONTROLS",
+        "EXT-SECONDARY-JI-CH9-TIEQIN-BATCH-CHRONOLOGY-1950-1953",
+        "EXT-NLC-PCAB-ZHENG-ZHENDUO-QU-DONATION-AND-PRICED-ACQUISITION-2024",
+    }
+    if not needed12fp.issubset(regids12fp):
+        fail("Batch 12FP source registry controls incomplete")
+    trans12fp = batch12fp.get("transmission_impact", {})
+    if trans12fp.get("nodes_added") != [] or trans12fp.get("edges_added") != [] or trans12fp.get("acquisition_edge_authorized") is not False or trans12fp.get("same_object_edge_authorized") is not False:
+        fail("Batch 12FP zero-topology/acquisition-edge firewall regressed")
+    rule12fp = batch12fp.get("chronology_and_rule_firewall", {})
+    if rule12fp.get("direct_sanming_parent_vote_increment") != 0 or rule12fp.get("pre1578_zhunzhai_rule_witness_increment") != 0 or rule12fp.get("runtime_rule_change") is not False or rule12fp.get("algorithm_reopen_authorized") is not False or rule12fp.get("candidate_collapse_authorized") is not False or rule12fp.get("matrix_count_change") is not False:
+        fail("Batch 12FP product/matrix firewall regressed")
+    if batch12fp.get("accounting", {}).get("confirmed_provenance_metadata_defect_count") != 13 or batch12fp.get("accounting", {}).get("repaired_provenance_metadata_defect_count") != 13:
+        fail("Batch 12FP provenance accounting unexpectedly changed")
 
     for path in (ZIWEI_KYUDB_12DT_BATCH, ZIWEI_KYUDB_12DT_EVIDENCE):
         if not path.is_file():
