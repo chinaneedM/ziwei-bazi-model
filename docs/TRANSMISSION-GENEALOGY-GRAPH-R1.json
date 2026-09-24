@@ -1472,6 +1472,24 @@
         "rarecatx0514818_exact_crosswalk_proved": false,
         "exact_specific_tieqin_catalogued_object_identity": "VERY_STRONGLY_SUPPORTED_NOT_FORMALLY_UNIQUE_OBJECT_CLOSED",
         "same_object_edge_authorized": false
+      },
+      "beitu_1959_catalog_number_and_qu_donation_control": {
+        "batch": "BATCH-12-ZIWEI-BEITU1959-TONGHU-ZHUNZHAI-CATALOG-NUMBER-AND-QUDONATION-BOUNDARY-FG",
+        "tonghu_printed_number": "3482",
+        "zhunzhai_printed_number": "3483",
+        "source_date_and_provenance": "清道光三年黃氏士禮居抄本",
+        "one_volume_binding_closed": true,
+        "opac_original_document_number_crosswalk": {
+          "03482": "3482",
+          "03483": "3483",
+          "status": "CLOSED_AT_HISTORICAL_BIBLIOGRAPHIC_CATALOG_NUMBER_LEVEL"
+        },
+        "same_catalog_explicit_qu_donation_control": true,
+        "target_qu_donation_mark_present": false,
+        "historical_qu_donation_absolutely_disproved": false,
+        "final_acquisition_path": "UNRESOLVED",
+        "current_physical_shelfmark_proved": false,
+        "same_object_edge_authorized": false
       }
     },
     {
@@ -2653,7 +2671,51 @@
         "docs/research/ZIWEI-NLC-OPAC-ZHUNZHAI-MICROFILM-SOURCE-CROSSBINDING-R1.json",
         "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-OPAC-ZHUNZHAI-MICROFILM-SOURCE-CROSSBINDING-FF.md"
       ],
-      "first_explicit_graph_batch": "BATCH-12-ZIWEI-NLC-OPAC-ZHUNZHAI-MICROFILM-SOURCE-CROSSBINDING-FF"
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-NLC-OPAC-ZHUNZHAI-MICROFILM-SOURCE-CROSSBINDING-FF",
+      "historical_catalog_number_crosswalk_12fg": {
+        "source_node": "CATALOG-BEITU-1959-TONGHU-ZHUNZHAI-3482-3483",
+        "03482_to_3482": "CLOSED_AT_HISTORICAL_BIBLIOGRAPHIC_CATALOG_NUMBER_LEVEL",
+        "03483_to_3483": "CLOSED_AT_HISTORICAL_BIBLIOGRAPHIC_CATALOG_NUMBER_LEVEL",
+        "current_physical_shelfmark_proved": false,
+        "rarecatx0514818_exact_crosswalk_proved": false,
+        "note": "Forward-only refinement of 12FF identifier semantics; 03482/03483 are cross-bound to the printed 1959 historical catalog-number layer, not a proved current item barcode."
+      }
+    },
+    {
+      "node_id": "CATALOG-BEITU-1959-TONGHU-ZHUNZHAI-3482-3483",
+      "node_type": "DIGITAL_SURROGATE",
+      "label": "1959《北京圖書館善本書目》3482《銅壺漏箭制度》／3483《準齋心製几漏圖式》",
+      "system_scope": "MODERN_HISTORICAL_BEIJING_LIBRARY_CATALOG_RECORD_AND_NUMBER_CROSSWALK",
+      "date": "1959",
+      "locator": "《北京圖書館善本書目》第4冊 SSID-12335510 PDF p60",
+      "historical_catalog_numbers": {
+        "tonghu": "3482",
+        "zhunzhai": "3483"
+      },
+      "source_date_and_provenance": "清道光三年黃氏士禮居抄本",
+      "official_one_volume_binding": "3482 銅壺漏箭制度 + 3483 準齋心製几漏圖式 = 合一冊",
+      "target_qu_donation_mark_present": false,
+      "same_catalog_qu_donation_control": {
+        "source": "《北京圖書館善本書目》第7冊 SSID-12335513 PDF p19",
+        "control_title": "金華黃先生文集四十三卷",
+        "direct_mark": "瞿捐",
+        "direct_mark_closed": true
+      },
+      "opac_original_document_crosswalk": {
+        "03482": "3482",
+        "03483": "3483",
+        "status": "CLOSED_AT_HISTORICAL_BIBLIOGRAPHIC_CATALOG_NUMBER_LEVEL"
+      },
+      "current_physical_shelfmark_proved": false,
+      "acquisition_or_donation_number_proved": false,
+      "final_acquisition_path": "UNRESOLVED",
+      "evidence": [
+        "EXT-BEITU-1959-V4-TONGHU-ZHUNZHAI-3482-3483",
+        "EXT-BEITU-1959-V7-QUDONATION-MARK-CONTROL",
+        "docs/research/ZIWEI-BEITU1959-TONGHU-ZHUNZHAI-CATALOG-NUMBER-AND-QUDONATION-BOUNDARY-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-BEITU1959-TONGHU-ZHUNZHAI-CATALOG-NUMBER-AND-QUDONATION-BOUNDARY-FG.md"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-BEITU1959-TONGHU-ZHUNZHAI-CATALOG-NUMBER-AND-QUDONATION-BOUNDARY-FG"
     }
   ],
   "edges": [
@@ -4326,6 +4388,22 @@
       ],
       "scope_note": "The NLC OPAC microfilm record directly links doc 002597934 to original rare-book doc 001775083 / source-control 001411999008601 and states 黃氏士禮居 清道光三年[1823] / 1冊 / 原文献03482铜壶漏箭制度、03483准斋心制几漏图式为一册. This closes the official OPAC companion/source-record and one-volume composite binding. It does not prove that 03482/03483 or 001411999008601 are physical shelfmarks, does not equate rarecatx0514818 with those OPAC identifiers, does not close acquisition/donation provenance, does not collapse Huang 原書舊鈔 versus 錄副, and does not authorize SAME_OBJECT identity with the specific Tieqin-catalogued physical copy or add a Sanming-parent vote.",
       "adjudication_batch": "BATCH-12-ZIWEI-NLC-OPAC-ZHUNZHAI-MICROFILM-SOURCE-CROSSBINDING-FF"
+    },
+    {
+      "edge_id": "TG-E0110",
+      "from": "CATALOG-BEITU-1959-TONGHU-ZHUNZHAI-3482-3483",
+      "relation": "ATTESTS",
+      "to": "PHYSICAL-COPY-NLC-ZHUNZHAI-JILOU-DAOGUANG3-HUANG-SHILIJU-MS",
+      "status": "HIGH_CONFIDENCE",
+      "confidence": "VERY_HIGH_FOR_1959_BEIJING_LIBRARY_1823_HUANG_SHILIJU_COMPOSITE_CATALOG_RECORD_AND_3482_3483_NUMBER_CROSSWALK_NOT_CURRENT_PHYSICAL_SHELFMARK_OR_FINAL_ACQUISITION_ROUTE",
+      "evidence_class": "DIRECT_1959_PRINTED_CATALOG_400DPI_COLLATION_PLUS_SAME_CATALOG_QUDONATION_CONTROL",
+      "evidence": [
+        "EXT-BEITU-1959-V4-TONGHU-ZHUNZHAI-3482-3483",
+        "EXT-BEITU-1959-V7-QUDONATION-MARK-CONTROL",
+        "docs/research/ZIWEI-BEITU1959-TONGHU-ZHUNZHAI-CATALOG-NUMBER-AND-QUDONATION-BOUNDARY-R1.json"
+      ],
+      "scope_note": "The 1959 catalog directly prints 3482 銅壺漏箭制度 and 3483 準齋心製几漏圖式 with the same 1823 Huang Shiliju and one-volume signature later referenced by NLC OPAC as 原文献03482/03483. The crosswalk is closed at the historical bibliographic/catalog-number level. The same catalog directly prints 瞿捐 on another entry, while target 3482/3483 do not carry that mark. This bounds the 1959 catalog's donation evidence but does not absolutely disprove every historical Qu donation/transfer route, prove a current physical shelfmark, or authorize SAME_OBJECT collapse.",
+      "adjudication_batch": "BATCH-12-ZIWEI-BEITU1959-TONGHU-ZHUNZHAI-CATALOG-NUMBER-AND-QUDONATION-BOUNDARY-FG"
     }
   ],
   "lineage_hypotheses": [
@@ -4602,6 +4680,10 @@
         {
           "batch": "BATCH-12-ZIWEI-NLC-OPAC-ZHUNZHAI-MICROFILM-SOURCE-CROSSBINDING-FF",
           "update": "First-party NLC OPAC closes an official Zhunzhai companion record and the 1985 microfilm-to-original source chain: microfilm doc 002597934 -> original rare-book doc 001775083 / source-control 001411999008601, with the direct source note 黃氏士禮居 清道光三年[1823] / 1冊 / 原文献03482铜壶漏箭制度、03483准斋心制几漏图式为一册 and Copper separately photographed at 00O003570. Identifier classes remain fail-closed: none of 001411999008601, 03482/03483 or 00O003570 is promoted to a physical shelfmark or accession/donation number without an explicit label; rarecatx0514818 cross-system equivalence remains unproved; exact Tieqin unique-object collapse remains withheld; zero exact Sanming-parent vote is added."
+        },
+        {
+          "batch": "BATCH-12-ZIWEI-BEITU1959-TONGHU-ZHUNZHAI-CATALOG-NUMBER-AND-QUDONATION-BOUNDARY-FG",
+          "update": "Direct 1959 Beijing Library catalog p60 closes the historical 3482 Copper / 3483 Zhunzhai number layer and their 1823 Huang Shiliju one-volume signature, allowing the later NLC OPAC 原文献03482/03483 values to be cross-bound to those historical catalog numbers. Same-catalog p19 directly proves that 瞿捐 is an explicit entry-level notation, while target 3482/3483 lack it. This narrows acquisition provenance only: final transfer path, current physical shelfmark, Huang 原書舊鈔/錄副 identity and Tieqin unique-object collapse remain open; zero exact Sanming-parent vote is added."
         }
       ],
       "endpoint_anchor_component_identified": true,
