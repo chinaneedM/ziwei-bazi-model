@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.176.0",
+  "schema_version": "1.178.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -258,9 +258,11 @@
       "BATCH-12-ZIWEI-GAO-XIZENG-ANNOTATED-TIEQIN-CATALOG-HOLDING-AND-ACCESS-BOUNDARY-FM",
       "BATCH-12-ZIWEI-LIN-ZHENYUE-PREFACE-GAO-ANNOTATED-CATALOG-SOURCE-ATTRIBUTION-FN",
       "BATCH-12-ZIWEI-ZHOU-SHUTAO-DIARY-GAO-ACQUISITION-ROLE-AND-QU-1953-CHRONOLOGY-FO",
-      "BATCH-12-ZIWEI-JI-SHUYING-TIEQIN-ACQUISITION-PROGRAM-CHRONOLOGY-AND-DIRECT-TEXT-BOUNDARY-FP"
+      "BATCH-12-ZIWEI-JI-SHUYING-TIEQIN-ACQUISITION-PROGRAM-CHRONOLOGY-AND-DIRECT-TEXT-BOUNDARY-FP",
+      "BATCH-12-ZIWEI-TOKYO-JI-SHUYING-CH9-REMOTE-COPY-ELIGIBILITY-AND-PAGE-RANGE-BOUNDARY-FQ",
+      "BATCH-12-ZIWEI-BEITU-HISTORY-MATERIALS-PP446-449-DIRECT-ACCESS-BOUNDARY-FR"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-TIEQIN-ACQUISITION-PROGRAM-CHRONOLOGY-AND-DIRECT-TEXT-BOUNDARY-FP.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-BEITU-HISTORY-MATERIALS-PP446-449-DIRECT-ACCESS-BOUNDARY-FR.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -1016,7 +1018,15 @@
       "Publication-mediated contemporaneous controls independently close a real collection-level purchase component: Gu Tinglong 1950-01-06 is reported as recording roughly 300 Tieqin titles purchased plus a donated group; Deng Zhicheng 1950-01-29 is reported as recording twelve boxes bought for public custody; Gu Tinglong 1951-12-21 records a book-price dispute. Original diary images were not reviewed in this batch.",
       "Target firewalls remain unchanged: chapter title 收购, collection-level purchase evidence, missing 瞿捐, and secondary batch totals do NOT bind the target 1823 Tonghu/Zhunzhai volume or historical catalog nos. 3482/3483 to a purchase batch. Target purchase/donation/other route and exact acquisition date remain unresolved.",
       "Batch 12FP adds no transmission node or edge and authorizes no acquisition edge, SAME_OBJECT or direct-copy relation. Matrix/product counts remain 198 / 166 / 10, provenance defects 13/13, chart algorithm defect/reopen/collapse 0, direct Sanming-parent vote increment 0, and DETERMINISTIC_FUSION_CHART_PRODUCT_R1 remains CLOSED.",
-      "Highest next gate: use the located lawful Tokyo Metropolitan Central Library holding to obtain or inspect chapter 9 under library rules; directly collate transfer chronology, citations and any title-level lists; trace those citations to Beijing Library/NLC accession/acquisition ledgers and search for 铜壶漏箭制度, 准斋心制几漏图式, bound-volume description, 3482/3483 or stable predecessor identifiers. Keep the Lin Zhenyue/Gao annotated-catalog source-basis route active in parallel."
+      "Highest next gate: use the located lawful Tokyo Metropolitan Central Library holding to obtain or inspect chapter 9 under library rules; directly collate transfer chronology, citations and any title-level lists; trace those citations to Beijing Library/NLC accession/acquisition ledgers and search for 铜壶漏箭制度, 准斋心制几漏图式, bound-volume description, 3482/3483 or stable predecessor identifiers. Keep the Lin Zhenyue/Gao annotated-catalog source-basis route active in parallel.",
+      "Batch 12FQ corrects Batch 12FP's overbroad shorthand for Tokyo Metropolitan Library remote-copy eligibility. Tokyo residents/workers/students are the normal group, while a conditional outside-Tokyo route exists for qualifying material not held by NDL; exact user/item acceptance remains a library decision.",
+      "Batch 12FQ leaves Ji Shuying chapter 9 page range unresolved. First-party Tokyo rules explicitly direct users to reference service when desired copy pages are unknown. No page range was inferred from the 241-page total or chapter order, and no copy request, identity document or fee was submitted.",
+      "Batch 12FQ changes no historical target adjudication: the 1823 Tonghu/Zhunzhai bound volume and historical 3482/3483 remain unassigned to purchase, donation or any exact acquisition date. Matrix/product counts remain 198 / 166 / 10; provenance defects 13/13; algorithm defect/reopen/collapse 0.",
+      "Batch 12FR binds the NLC-hosted 2024 article's citation to 《北京图书馆馆史资料汇编（二）》 pp.446—449 to the exact 1997 upper volume. NDL Search identifies that upper volume as an 866-page paper book, ISBN 7501314195, NDL call UL215-C3, NDLBibID a0000036720, and lists NDL itself as holding institution.",
+      "Batch 12FR independently closes the Tokyo Metropolitan Central Library holding for the same upper volume: 中央・書庫, 一般中国図書, call C/0161/1/2-1, material 4000017284, currently 利用可, cooperative lending 可能, with remote-copy route exposed.",
+      "Because the exact upper volume has 866 pages, the cited pp.446—449 are now closed to that physical volume. Their actual text, embedded document titles/file numbers, and any target-title or 3482/3483 mention remain NOT_REVIEWED/UNRESOLVED; volume access is not page-content authority.",
+      "Batch 12FR adds no genealogy node or edge and authorizes no acquisition edge, SAME_OBJECT relation, direct Sanming-parent vote, runtime change, candidate collapse or algorithm reopen. DETERMINISTIC_FUSION_CHART_PRODUCT_R1 remains CLOSED.",
+      "Highest next gate: directly inspect or lawfully obtain 《北京图书馆馆史资料汇编（二）》上册 pp.446—449, extract every cited/reproduced contemporaneous acquisition record and identifier, then trace those records to NLC/Beijing Library first-party archival controls and search for 铜壶漏箭制度, 准斋心制几漏图式, 3482/3483, 03482/03483 or the 1823 one-volume fingerprint. Ji chapter 9 and Lin Zhenyue/Gao Xizeng annotated-catalog routes remain active in parallel."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10
