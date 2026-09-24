@@ -1,0 +1,219 @@
+{
+  "schema": "ZIWEI-NLC-OPENOBJECT-PUBLIC-SHELL-ACCESS-BOUNDARY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-NLC-OPENOBJECT-PUBLIC-SHELL-ACCESS-BOUNDARY-FK",
+  "prior_batch_id": "BATCH-12-ZIWEI-NLC-DIGITAL-FID-AND-MICROFILM-REGISTRATION-FJ",
+  "question": "How much of the NLC data_892 OpenObject public shell can be directly closed for Tonghu/Zhunzhai without invoking permission, login, token or access-control endpoints, and does the pre-permission surface expose page count or a full page manifest?",
+  "answer": "THE PUBLIC NLC OPENOBJECTBOOK SHELLS DIRECTLY CLOSE THE TONGHU/ZHUNZHAI DATA_892 FID/BID PAIRS AND EXPOSE INTERNAL PDF OBJECT PATH METADATA, WHILE FORMATCATALOG RETURNS ONLY THE SINGLE TITLE FOR EACH OBJECT. THE PUBLIC SHELL CODE EXPLICITLY ROUTES READER ACCESS THROUGH RES-IP, DATA-IN/OUT AND PERMISSIONNEW CHECKS BEFORE LOADING WEBPDF. NO PERMISSION ENDPOINT, LOGIN EMULATION, TOKEN ACQUISITION OR DIRECT INTERNAL-PDF RETRIEVAL WAS ATTEMPTED. PAGE COUNT AND PAGE MANIFEST ARE THEREFORE NOT EXPOSED ON THE REVIEWED PRE-PERMISSION PUBLIC SURFACE; THEIR EXISTENCE BEHIND AUTHORIZED READER ACCESS IS NOT NEGATED.",
+  "controlling_probes": {
+    "initial_public_probe": {
+      "workflow_run_id": 36024889534,
+      "artifact_id": 10819487008,
+      "artifact_digest": "sha256:29d7d4aef4c38beb320f10ce73cdd6ae7cd19d420e878799e5019e9fe54a96de",
+      "zhunzhai_open_shell_sha256": "2b3c0bb1aa1e4289ec14434f069e3b0883fbea18f76c8238dea3832780f499b9",
+      "tonghu_catalog_sha256": "053f7a3f3a2f08370fea1e4ab73dca4486f1badf01a34f75feab4b2a896f2e11",
+      "zhunzhai_catalog_sha256": "23b0b6ffcfd551b1f57fce855116c3480ec2c2a84a38ee83bd90d08eb764b921",
+      "tonghu_cover_sha256": "71701a6dc199c6a3541a2550628df72f90d1e23b08aa0fb95723836721d028f3",
+      "ocr_used": false
+    },
+    "tonghu_public_shell_retry": {
+      "workflow_run_id": 36025150571,
+      "artifact_id": 10818922726,
+      "artifact_digest": "sha256:8ab91df8fa0a06603f5d3b17d871108a12f971008bcf031454299ba8b864281b",
+      "tonghu_open_shell_sha256": "e9f9e7cc5b57186b74812dcde048058858f7b4a4eaa86e61b9aed996d8083c75",
+      "ocr_used": false
+    }
+  },
+  "public_open_object_shells": {
+    "tonghu": {
+      "title": "銅壺漏箭制度",
+      "index_name": "data_892",
+      "fid_identifier": "411999008600",
+      "aid": "892",
+      "bid": "113028.0",
+      "bid_numeric": "113028",
+      "servercode": "3",
+      "http_status": 200,
+      "shell_closed": true,
+      "internal_pdf_object_path": "data09/sbgj_shanbenguji/20151221_01szsb4171/duixiang/SBGJ03908_00001/SBGJ03908/00001/SBGJ03908_00001.pdf",
+      "direct_internal_pdf_retrieval_attempted": false
+    },
+    "zhunzhai": {
+      "title": "准齋心製几漏圖式",
+      "index_name": "data_892",
+      "fid_identifier": "411999008601",
+      "aid": "892",
+      "bid": "113029.0",
+      "bid_numeric": "113029",
+      "servercode": "3",
+      "http_status": 200,
+      "shell_closed": true,
+      "internal_pdf_object_path": "data09/sbgj_shanbenguji/20151221_01szsb4171/duixiang/SBGJ03909_00001/SBGJ03909/00001/SBGJ03909_00001.pdf",
+      "direct_internal_pdf_retrieval_attempted": false
+    }
+  },
+  "public_format_catalog": {
+    "endpoint": "/allSearch/formatCatalog",
+    "request_index_name": "data_892",
+    "tonghu": {
+      "id": "113028",
+      "http_status": 200,
+      "success": true,
+      "returned_entries": [
+        {
+          "chapter_num1": "銅壺漏箭制度",
+          "chapter_name1": ""
+        }
+      ],
+      "page_count_exposed": false,
+      "page_manifest_exposed": false
+    },
+    "zhunzhai": {
+      "id": "113029",
+      "http_status": 200,
+      "success": true,
+      "returned_entries": [
+        {
+          "chapter_num1": "準齋心製几漏圖式",
+          "chapter_name1": ""
+        }
+      ],
+      "page_count_exposed": false,
+      "page_manifest_exposed": false
+    },
+    "decimal_id_control": {
+      "tonghu_113028_0_returns_obj": null,
+      "note": "The integer bid is the working public formatCatalog request observed in this batch; no page metadata is inferred from the decimal-id difference."
+    }
+  },
+  "permission_boundary": {
+    "endpoints_observed_in_public_shell": [
+      "/OutOpenBook/resIpPermission",
+      "/OutOpenBook/dataInOutPermission",
+      "/OutOpenBook/resInOutPermission",
+      "/allSearch/permissionNew"
+    ],
+    "public_reader_paths_observed": [
+      "/static/webpdf/index.html",
+      "/static/webpdf/indexnobj.html",
+      "/static/webpdf/indexlimit.html",
+      "/static/webpdf/indexlimitnobj.html"
+    ],
+    "permission_endpoint_invoked": false,
+    "login_or_sso_emulation_attempted": false,
+    "token_acquisition_attempted": false,
+    "direct_internal_pdf_retrieval_attempted": false,
+    "reader_iframe_loaded_through_authorization_flow": false,
+    "authorization_bypass_attempted": false,
+    "page_count_status": "NOT_EXPOSED_ON_REVIEWED_PRE_PERMISSION_PUBLIC_SURFACE",
+    "page_manifest_status": "NOT_EXPOSED_ON_REVIEWED_PRE_PERMISSION_PUBLIC_SURFACE",
+    "authorized_reader_manifest_status": "NOT_ACQUIRED",
+    "negative_scope": "ACCESS_BOUNDARY_ONLY_NOT_NONEXISTENCE_CLAIM"
+  },
+  "bounded_public_image_probe": {
+    "policy": "ONLY_THREE_COVER_LIKE_NAMES_PER_TITLE; NO PAGE_NAMESPACE_ENUMERATION",
+    "tonghu": {
+      "00001": {
+        "http_status": 200,
+        "content_type": "image/jpeg",
+        "bytes": 497177,
+        "sha256": "71701a6dc199c6a3541a2550628df72f90d1e23b08aa0fb95723836721d028f3"
+      },
+      "00002": {
+        "http_status": 404
+      },
+      "00003": {
+        "http_status": 404
+      },
+      "simple_numeric_suffix_page_route_proved": false
+    },
+    "zhunzhai": {
+      "00001": {
+        "status": "TIMEOUT_IN_THIS_RUN"
+      },
+      "00002": {
+        "http_status": 404
+      },
+      "00003": {
+        "http_status": 404
+      },
+      "simple_numeric_suffix_page_route_proved": false
+    },
+    "page_count_inference_authorized": false
+  },
+  "identifier_and_object_firewall": {
+    "original_rare_book_catalog_sys_pair": [
+      "001775082",
+      "001775083"
+    ],
+    "original_rare_book_local_holdings_pair": [
+      "NLC:SBYL:03482",
+      "NLC:SBYL:03483"
+    ],
+    "digital_fid_pair": [
+      "411999008600",
+      "411999008601"
+    ],
+    "digital_bid_pair": [
+      "113028",
+      "113029"
+    ],
+    "microfilm_work_sys_pair": [
+      "002146415",
+      "002146416"
+    ],
+    "microfilm_registration_login_number_pair": [
+      "00O003570",
+      "00O003571"
+    ],
+    "internal_pdf_object_paths_are_catalog_or_call_numbers": false,
+    "internal_pdf_object_paths_are_barcodes": false,
+    "internal_pdf_object_paths_are_historical_acquisition_identifiers": false,
+    "semantic_layer_collapse_forbidden": true,
+    "public_barcode_proved": false
+  },
+  "acquisition_provenance_adjudication": {
+    "target_specific_sale_route_selected": false,
+    "target_specific_donation_route_selected": false,
+    "final_nlc_acquisition_transfer_path": "UNRESOLVED",
+    "open_object_metadata_changes_acquisition_adjudication": false
+  },
+  "chronology_and_rule_firewall": {
+    "digital_reader_metadata_does_not_date_work_composition": true,
+    "digital_reader_metadata_does_not_reopen_authorship": true,
+    "secure_pre1578_exact_25arrow_physical_witness": false,
+    "exact_sanming_yueling_dahan_yushui_fingerprint_closed": false,
+    "exact_nanjing_59_endpoint_binding_closed": false,
+    "direct_sanming_parent_vote_increment": 0,
+    "algorithm_reopen_authorized": false
+  },
+  "transmission_impact": {
+    "nodes_added": [],
+    "nodes_strengthened": [
+      "DIGITAL-NLC-DATA892-TONGHU-FID411999008600-BID113028",
+      "DIGITAL-NLC-DATA892-ZHUNZHAI-FID411999008601-BID113029"
+    ],
+    "edges_supported": [
+      "TG-E0113",
+      "TG-E0114"
+    ],
+    "same_object_edge_authorized": false,
+    "direct_copy_edges_authorized": []
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 13,
+    "repaired_provenance_metadata_defect_count": 13,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Prioritize target-specific Qu-family sale/donation/transfer/accession archival evidence rather than further permission-gated page-count probing.",
+    "Keep the NLC page-count/full-manifest status ACCESS_CONTROL_BOUNDARY_NOT_PUBLICLY_CLOSED unless a lawful public first-party pre-permission route appears.",
+    "Keep the pre-1578 Zhunzhai rule line and independent Sanming/Yueling Dahan-Rainwater + Nanjing-59 lines active."
+  ],
+  "updated_at": "2026-09-24"
+}
