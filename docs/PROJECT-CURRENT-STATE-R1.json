@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.179.0",
+  "schema_version": "1.180.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -261,9 +261,10 @@
       "BATCH-12-ZIWEI-JI-SHUYING-TIEQIN-ACQUISITION-PROGRAM-CHRONOLOGY-AND-DIRECT-TEXT-BOUNDARY-FP",
       "BATCH-12-ZIWEI-TOKYO-JI-SHUYING-CH9-REMOTE-COPY-ELIGIBILITY-AND-PAGE-RANGE-BOUNDARY-FQ",
       "BATCH-12-ZIWEI-BEITU-HISTORY-MATERIALS-PP446-449-DIRECT-ACCESS-BOUNDARY-FR",
-      "BATCH-12-ZIWEI-NLC-2024-QU-CITATION-SCOPE-23-24-DISAMBIGUATION-FS"
+      "BATCH-12-ZIWEI-NLC-2024-QU-CITATION-SCOPE-23-24-DISAMBIGUATION-FS",
+      "BATCH-12-ZIWEI-QIUSHUZHAI-DIARY16-PP321-322-1949-NOVEMBER-CHRONOLOGY-BOUNDARY-FT"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-2024-QU-CITATION-SCOPE-23-24-DISAMBIGUATION-FS.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-QIUSHUZHAI-DIARY16-PP321-322-1949-NOVEMBER-CHRONOLOGY-BOUNDARY-FT.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -1032,7 +1033,13 @@
       "Batch 12FS therefore narrows Batch 12FR's source semantics without invalidating its bibliographic/access closure: 《北京图书馆馆史资料汇编（二）》 pp.446—449 remains a high-value institutional-history target, but it must not be described as the NLC article's cited source for the '陆续价购归公' intention sentence. In that article, [24] 陈福康《郑振铎年谱》 pp.1397—1398 controls that sentence.",
       "The project has not directly collated the underlying pages of [22], [23] or [24], nor recovered the underlying Zheng Zhenduo letter image/source. Adjacent article sentences may not share citations without marker support, future acquisition intention is not execution evidence, and transfer-to-government wording is not automatically donation.",
       "Batch 12FS changes no target adjudication: the 1823 Tonghu/Zhunzhai bound volume and historical 3482/3483 remain unassigned to purchase, donation or another exact transfer event/date. Matrix/product counts remain 198 / 166 / 10; provenance defects 13/13; algorithm defect/reopen/collapse 0; DETERMINISTIC_FUSION_CHART_PRODUCT_R1 remains CLOSED.",
-      "Highest next gate: separately collate [22] 《求恕斋日记16》 pp.321—322, [23] 《北京图书馆馆史资料汇编（二）》上册 pp.446—449, and [24] 《郑振铎年谱》 pp.1397—1398 / its underlying Zheng letter. Across all routes search for 铜壶漏箭制度, 准斋心制几漏图式, 3482/3483, 03482/03483, the 1823 士礼居 one-volume fingerprint or another stable predecessor identifier. Keep Ji Shuying chapter 9 and Lin Zhenyue/Gao Xizeng annotated-catalog routes active in parallel."
+      "Highest next gate: separately collate [22] 《求恕斋日记16》 pp.321—322, [23] 《北京图书馆馆史资料汇编（二）》上册 pp.446—449, and [24] 《郑振铎年谱》 pp.1397—1398 / its underlying Zheng letter. Across all routes search for 铜壶漏箭制度, 准斋心制几漏图式, 3482/3483, 03482/03483, the 1823 士礼居 one-volume fingerprint or another stable predecessor identifier. Keep Ji Shuying chapter 9 and Lin Zhenyue/Gao Xizeng annotated-catalog routes active in parallel.",
+      "Batch 12FT upgrades NLC 2024 reference [22] with a first-party National Library Press table-of-contents control. The 2016 facsimile 《求恕斋日记》第16册 starts 1949 November at p.321, December at p.335 and 1950 January at p.355; therefore cited pp.321—322 are securely inside the November 1949 diary section.",
+      "This page-to-month closure independently agrees with the NLC article's narrative phrase 早在1949年底 and requires [22]'s cited diary layer to remain chronologically separate from the later January-1950 Zheng Zhenduo letter controlled by [24]. Exact day and exact diary wording remain unresolved because pp.321—322 have not been directly reviewed.",
+      "The publisher identifies the 18-volume 2016 set as a facsimile of Liu Chenggan diary manuscripts now divided between Shanghai Library and Fudan University Library. Batch 12FT does not assign the exact original manuscript behind volume16 pp.321—322 to either institution without volume-level custody evidence.",
+      "Batch 12FT forbids normalizing the NLC article wording 让归政府 into donation or purchase before direct page collation. The target 1823 Tonghu/Zhunzhai bound volume and historical 3482/3483 remain unassigned to any batch, transaction mode or exact acquisition date.",
+      "Batch 12FT adds no genealogy node/edge and authorizes no acquisition edge, SAME_OBJECT relation, runtime change, candidate collapse or algorithm reopen. Matrix/product counts remain 198 / 166 / 10; provenance defects 13/13; chart algorithm defects 0; DETERMINISTIC_FUSION_CHART_PRODUCT_R1 remains CLOSED.",
+      "Highest next gate: obtain/directly inspect 《求恕斋日记》第16册 pp.321—322 to close exact November-1949 day, wording, actors, object counts and transaction vocabulary; in parallel continue [23] 《北京图书馆馆史资料汇编（二）》 pp.446—449 and [24] 《郑振铎年谱》 pp.1397—1398 / underlying Zheng letter, filtering all direct records for 铜壶漏箭制度, 准斋心制几漏图式, 3482/3483, 03482/03483 or the 1823 士礼居 one-volume fingerprint."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10
