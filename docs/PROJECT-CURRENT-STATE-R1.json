@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.173.0",
+  "schema_version": "1.174.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -255,9 +255,10 @@
       "BATCH-12-ZIWEI-NLC-DIGITAL-FID-AND-MICROFILM-REGISTRATION-FJ",
       "BATCH-12-ZIWEI-NLC-OPENOBJECT-PUBLIC-SHELL-ACCESS-BOUNDARY-FK",
       "BATCH-12-ZIWEI-QU-NLC-MIXED-TRANSFER-AND-TARGET-ACQUISITION-BOUNDARY-FL",
-      "BATCH-12-ZIWEI-GAO-XIZENG-ANNOTATED-TIEQIN-CATALOG-HOLDING-AND-ACCESS-BOUNDARY-FM"
+      "BATCH-12-ZIWEI-GAO-XIZENG-ANNOTATED-TIEQIN-CATALOG-HOLDING-AND-ACCESS-BOUNDARY-FM",
+      "BATCH-12-ZIWEI-LIN-ZHENYUE-PREFACE-GAO-ANNOTATED-CATALOG-SOURCE-ATTRIBUTION-FN"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-GAO-XIZENG-ANNOTATED-TIEQIN-CATALOG-HOLDING-AND-ACCESS-BOUNDARY-FM.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-LIN-ZHENYUE-PREFACE-GAO-ANNOTATED-CATALOG-SOURCE-ATTRIBUTION-FN.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -994,7 +995,13 @@
       "Batch 12FM leaves target annotated-catalog current holder, shelfmark, lawful public surrogate, and catalog-nos. 3482/3483 annotations unresolved. Reviewed public-web nonlocation is a bounded search result only and does not authorize LOST/NONEXISTENT/private-custody claims.",
       "Custody firewalls remain explicit: surviving other Gao manuscripts != same custody as target catalog; Hebei University editorial connection != Hebei University holding; Gao's former Beijing Library employment != NLC holding. Target donation/sale/purchase route remains unresolved.",
       "Batch 12FM adds no transmission node or edge and authorizes no acquisition edge, SAME_OBJECT or direct-copy relation. Matrix/product counts remain 198 / 166 / 10, provenance defects 13/13, chart algorithm defect/reopen/collapse 0, direct Sanming-parent vote increment 0, pre-1578 Zhunzhai rule-witness increment 0, and DETERMINISTIC_FUSION_CHART_PRODUCT_R1 remains CLOSED.",
-      "Highest next gate: recover the source/citation context behind Tang/Zhao 2026 for Gao's annotated Tieqin catalog; read Qin Junze 2020 for manuscript provenance/custody notes; trace Zhao Lintao/Gao-family editorial access only as a discovery route; search NLC historical acquisition/work-paper archives; do not select the target transaction route without direct or near-direct 3482/3483 or bound-volume evidence."
+      "Highest next gate: recover the source/citation context behind Tang/Zhao 2026 for Gao's annotated Tieqin catalog; read Qin Junze 2020 for manuscript provenance/custody notes; trace Zhao Lintao/Gao-family editorial access only as a discovery route; search NLC historical acquisition/work-paper archives; do not select the target transaction route without direct or near-direct 3482/3483 or bound-volume evidence.",
+      "Batch 12FN repairs the modern evidence-source authorship layer for the Gao Xizeng annotated 《铁琴铜剑楼藏书目录》 statement: direct review of the public text shows the statement occurs inside Lin Zhenyue's signed preface, not in a separately signed passage by volume compilers Tang Zhibo and Zhao Yingjie.",
+      "Canonical source layering is now: underlying volume compilers = 汤志波/赵颖洁; signed preface author = 林振岳; public repost platforms = carriers only. The prior EXT-TANG-ZHAO-2026... source_id is retained as a deprecated attribution alias and superseded by EXT-LIN-ZHENYUE-2025-PREFACE-QU-TRANSFER-GAO-ANNOTATED-CATALOG.",
+      "Batch 12FL and 12FM machine records are repaired to distinguish the preface author from the book compilers and repost platform. Gao annotated-catalog existence attestation remains valid; current holder, shelfmark, public surrogate, target 3482/3483 annotation and target transaction mode remain unresolved.",
+      "Shanghai Jiao Tong University's official faculty profile closes Lin Zhenyue's current identity and relevant research fields in classical bibliography, editions/catalog studies, book history and Ming-Qing collection history. This provides a legitimate scholarly discovery route but proves no custody and no underlying-source identity by itself.",
+      "Batch 12FN adds no genealogy node or edge and authorizes no acquisition edge, SAME_OBJECT or direct-copy relation. Matrix/product counts remain 198 / 166 / 10, provenance defects 13/13, chart algorithm defect/reopen/collapse 0, and DETERMINISTIC_FUSION_CHART_PRODUCT_R1 remains CLOSED.",
+      "Highest next gate: recover Lin Zhenyue's source basis for the Gao annotated-catalog statement (citation, personally inspected copy, colleague-owned material, unpublished catalog record or archival reference); continue Qin Junze 2020 / Zhao Lintao / Gao-family / NLC work-paper routes only as secondary discovery paths; do not assign custody or target transaction mode without direct or near-direct evidence."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10
