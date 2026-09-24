@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.169.0",
+  "schema_version": "1.170.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -247,9 +247,10 @@
       "BATCH-12-ZIWEI-TIEQIN-NLC1823-COMPOSITE-OBJECT-FINGERPRINT-CONTROL-FB",
       "BATCH-12-ZIWEI-TIEQIN-YINGCHAO-SONGBEN-TRANSCRIPTION-REPAIR-FC",
       "BATCH-12-ZIWEI-NLC1823-TIEQIN-SEAL-PROVENANCE-CONTROL-FD",
-      "BATCH-12-ZIWEI-NCL-UNION-TONGHU-RARECATX0514818-BOUNDARY-FE"
+      "BATCH-12-ZIWEI-NCL-UNION-TONGHU-RARECATX0514818-BOUNDARY-FE",
+      "BATCH-12-ZIWEI-NLC-OPAC-ZHUNZHAI-MICROFILM-SOURCE-CROSSBINDING-FF"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NCL-UNION-TONGHU-RARECATX0514818-BOUNDARY-FE.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-OPAC-ZHUNZHAI-MICROFILM-SOURCE-CROSSBINDING-FF.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -936,7 +937,13 @@
       "rarecatx0514818 is explicitly preserved as a PUBLIC_UNION_CATALOG_REGISTRATION_OR_RECORD_IDENTIFIER. The reviewed public surface exposes no separate physical call number, China-NLC shelfmark, acquisition/donation number or Tieqin-era unique item identifier; database record ID != proved physical-copy identifier.",
       "The union-catalog record supports HIGH_CONFIDENCE_SAME_NLC_HUANG_COPY_FAMILY convergence with the reviewed NLC 1823 Copper/Zhunzhai object, but exact physical-copy identity remains NOT_PROVED and the specific Tieqin-catalogued object remains VERY_STRONGLY_SUPPORTED_NOT_FORMALLY_UNIQUE_OBJECT_CLOSED. Huang 原書舊鈔/錄副 and the 1827 Airijinglu source-copy identities remain separate.",
       "Batch 12FE adds CATALOG-NCL-UNION-TONGHU-RARECATX0514818 and TG-E0108 HIGH_CONFIDENCE ATTESTS only; SAME_OBJECT/direct-copy edges remain unauthorized. Matrix/product counts remain 198 / 166 / 10, provenance defects 13/13, chart algorithm defect/reopen/collapse 0, and direct Sanming-parent vote increment 0.",
-      "Highest next gate: search China NLC OPAC/rare-book/archival surfaces for a physical call number, old accession/registration, acquisition/donation or other one-object identifier for 銅壺漏箭制度, and locate an official 準齋心製几漏圖式 companion record for object-level cross-binding; keep pre-1578 Zhunzhai and independent Sanming/Yueling Dahan-Rainwater + Nanjing-59 lines active in parallel."
+      "Highest next gate: search China NLC OPAC/rare-book/archival surfaces for a physical call number, old accession/registration, acquisition/donation or other one-object identifier for 銅壺漏箭制度, and locate an official 準齋心製几漏圖式 companion record for object-level cross-binding; keep pre-1578 Zhunzhai and independent Sanming/Yueling Dahan-Rainwater + Nanjing-59 lines active in parallel.",
+      "Batch 12FF closes an official China NLC OPAC companion record for 準齋心製几漏圖式 via microfilm doc 002597934 / displayed ID 602003002862, linked by the source's own 複製自 field to original rare-book doc 001775083 and source-control value 001411999008601.",
+      "The same first-party OPAC field directly binds 黃氏士禮居 / 清道光三年[1823] / 1冊 and states 原文献03482铜壶漏箭制度、03483准斋心制几漏图式为一册; official NLC object-level Copper+Zhunzhai companion binding is therefore CLOSED at the OPAC source-record layer.",
+      "Identifier classes remain fail-closed: 03482/03483 are only source-labelled 原文獻 numbers, 00O003570 is only an 另拍在 reference, and 001411999008601 is a source-control value on the reviewed surface. None is promoted to a physical call number, accession/donation number or Tieqin-era shelfmark; rarecatx0514818↔03482 exact cross-system equivalence remains NOT_PROVED.",
+      "Batch 12FF adds CATALOG-NLC-OPAC-ZHUNZHAI-MICROFILM-002597934 and TG-E0109 HIGH_CONFIDENCE ATTESTS only. SAME_OBJECT/direct-copy edges remain unauthorized; exact identity with the specific Tieqin-catalogued object stays VERY_STRONGLY_SUPPORTED_NOT_FORMALLY_UNIQUE_OBJECT_CLOSED; Huang 原書舊鈔/錄副 remains unresolved.",
+      "Workflow 36009054595 failed only because legacy opac.nlc.cn timed out before source-record retrieval; this has zero negative content authority. Highest next gate: reacquire original doc 001775083/item page when reachable to capture any explicitly labelled physical call/barcode/accession field, classify 001411999008601 / 03482 / 03483 / 00O003570 from first-party labels, and search acquisition/donation or Qu-family transfer records; keep pre-1578 Zhunzhai and Sanming/Yueling Dahan-Rainwater + Nanjing-59 lines active in parallel.",
+      "Matrix/product counts remain 198 / 166 / 10, provenance defects 13/13, chart algorithm defect/reopen/collapse 0, direct Sanming-parent vote increment 0, and DETERMINISTIC_FUSION_CHART_PRODUCT_R1 remains CLOSED."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10
