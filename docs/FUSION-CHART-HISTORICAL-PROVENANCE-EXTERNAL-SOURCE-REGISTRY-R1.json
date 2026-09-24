@@ -1,7 +1,7 @@
 {
   "schema": "FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1",
   "schema_version": "1.0.0",
-  "access_date": "2026-09-22",
+  "access_date": "2026-09-24",
   "authority_policy": "S00-S19 are a frozen project research corpus and discovery/index layer, not infallible historical authority. External primary/received/bibliographic witnesses may corroborate, refine, contradict, or expose scope/attribution defects in the project corpus. Modern software and secondary research never become historical authority by observation alone.",
   "sources": [
     {
@@ -6161,6 +6161,33 @@
         "ocr_used_for_final_glyph_claims": false,
         "exact_yuan_yanling_person_identity_closed": false,
         "research_artifact": "docs/research/ZIWEI-GUOSHI1602-ZHUNZHAI-SUNFENGJI-DIRECT-AUTHOR-TITLE-BINDING-R1.json"
+      }
+    },
+    {
+      "source_id": "EXT-NLC-NEIGE-CANGSHU-WANLI33-1605-V2-ZHUNZHAI-SUNFENGJI-UNKNOWN-ERA",
+      "title": "《內閣藏書目錄》第2冊：1605目錄文本《準齋几漏新式》孫逢吉／莫詳時代控制",
+      "author": "明 孫能傳、張萱等",
+      "historical_period": "MING_WANLI33_1605_CATALOG_TEXT_EVENT; REVIEWED_SURVIVING_COPY_DATE_UNRESOLVED",
+      "edition": "NLC digitized transmitted copy; exact physical-copy date/recension not closed in Batch 12EV",
+      "provider": "National Library of China digitization via Wikimedia Commons",
+      "identifier": "NLC892-1084-204844 / 內閣藏書目錄 第2冊 / PDF p105",
+      "url": "https://commons.wikimedia.org/wiki/File:NLC892-1084-204844_%E5%85%A7%E9%96%A3%E8%97%8F%E6%9B%B8%E7%9B%AE%E9%8C%84_%E7%AC%AC2%E5%86%8A.pdf",
+      "source_role": "DIRECT_SOURCE_BOUND_PHYSICAL_TRANSMISSION_WITNESS_FOR_1605_CATALOG_TEXT_TITLE_AUTHOR_UNKNOWN_ERA_CONTROL_NOT_ORIGINAL_COPY_DATING_AUTHORITY",
+      "source_pdf_sha256": "7d0ff9994a0a49c41e7ab287e5c355c343ffbd80573ce1aac69491b2e4639a43",
+      "quality_notes": "Batch 12EV direct no-OCR review of PDF p105 reads 準齋几漏新式一冊 with attached 孫逢吉著莫詳時代; the next entry is 皇極經世衍數四十八冊不全. The 1605 date is the catalog-text compilation event, not an asserted date for the reviewed surviving copy. This strengthens the Ming bibliographic author-name control while explicitly preserving period uncertainty and the 九漏/几漏, 新式/圖式 title variants. It does not close exact Yuan-person identity, Song/Yuan composition, pre-1578 exact 25-arrow prose, or Sanming parentage.",
+      "batch_12ev": {
+        "workflow_run_id": 35784888865,
+        "workflow_artifact_id": 10718814910,
+        "workflow_artifact_digest": "sha256:39ea2d7d7cc8612917cc4e14757e69f47cc2666cdaea0a7ecdc6d3ddb96c60a9",
+        "extraction_commit": "f014a8872a6ec7ca8ced7d8dcf3030081acf9af4",
+        "pdf_page": 105,
+        "page_sha256": "b71944e1baa0c86a9801e441779b4d1f57956062f58cf35d39418e9304675db0",
+        "direct_title": "準齋几漏新式一冊",
+        "direct_author_annotation": "孫逢吉",
+        "direct_era_annotation": "莫詳時代",
+        "reviewed_copy_treated_as_1605_original": false,
+        "ocr_used_for_final_glyph_claims": false,
+        "research_artifact": "docs/research/ZIWEI-NEIGE-CANGSHU1605-ZHUNZHAI-SUNFENGJI-UNKNOWN-ERA-BIBLIOGRAPHIC-CONTROL-R1.json"
       }
     }
   ],

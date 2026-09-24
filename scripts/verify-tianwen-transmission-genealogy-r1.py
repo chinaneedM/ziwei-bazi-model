@@ -39,6 +39,7 @@ BATCH_12ER = ROOT / "docs/research/ZIWEI-ZHUNZHAI-YUAN-SHOUSHI-COMPOSITION-ATTRI
 BATCH_12ES = ROOT / "docs/research/ZIWEI-LEIBIAN1551-SHOUSHI-SELF-ASCRIPTION-ZHUNZHAI-BRIDGE-R1.json"
 BATCH_12ET = ROOT / "docs/research/ZIWEI-LEIBIAN1551-ZHUNZHAI-MULTIPOINT-AND-CORRUPTION-REPLAY-R1.json"
 BATCH_12EU = ROOT / "docs/research/ZIWEI-GUOSHI1602-ZHUNZHAI-SUNFENGJI-DIRECT-AUTHOR-TITLE-BINDING-R1.json"
+BATCH_12EV = ROOT / "docs/research/ZIWEI-NEIGE-CANGSHU1605-ZHUNZHAI-SUNFENGJI-UNKNOWN-ERA-BIBLIOGRAPHIC-CONTROL-R1.json"
 
 
 def fail(message: str) -> None:
@@ -46,7 +47,7 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
-    for path in (CHARTER, PROTOCOL, GRAPH, STATE, BATCH_12CH, BATCH_12DP, BATCH_12DQ, BATCH_12DR, BATCH_12DS, BATCH_12DT, BATCH_12DU, BATCH_12DV, BATCH_12DW, BATCH_12DX, BATCH_12DY, BATCH_12DZ, BATCH_12EA, BATCH_12EB, BATCH_12EC, BATCH_12ED, BATCH_12EE, BATCH_12EI, BATCH_12EJ, BATCH_12EK, BATCH_12EL, BATCH_12EM, BATCH_12EN, BATCH_12EO, BATCH_12EP, BATCH_12EQ, BATCH_12ER, BATCH_12ES, BATCH_12ET, BATCH_12EU):
+    for path in (CHARTER, PROTOCOL, GRAPH, STATE, BATCH_12CH, BATCH_12DP, BATCH_12DQ, BATCH_12DR, BATCH_12DS, BATCH_12DT, BATCH_12DU, BATCH_12DV, BATCH_12DW, BATCH_12DX, BATCH_12DY, BATCH_12DZ, BATCH_12EA, BATCH_12EB, BATCH_12EC, BATCH_12ED, BATCH_12EE, BATCH_12EI, BATCH_12EJ, BATCH_12EK, BATCH_12EL, BATCH_12EM, BATCH_12EN, BATCH_12EO, BATCH_12EP, BATCH_12EQ, BATCH_12ER, BATCH_12ES, BATCH_12ET, BATCH_12EU, BATCH_12EV):
         if not path.is_file():
             fail(f"Tianwen transmission artifact missing: {path.relative_to(ROOT)}")
 
@@ -1031,6 +1032,34 @@ def main() -> int:
         fail("Batch 12EU transmission impact regressed")
     if batch12eu.get("chronology_and_identity_firewall", {}).get("exact_identity_with_yuan_1281_yanling_sun_fengji") != "POSSIBLE_NOT_PROVED":
         fail("Batch 12EU evidence person-identity firewall regressed")
+
+
+    edge12ev = next((e for e in edges if e.get("edge_id") == "TG-E0099"), None)
+    if not edge12ev or edge12ev.get("relation") != "ATTESTS" or edge12ev.get("status") != "CONFIRMED" or edge12ev.get("confidence") != "HIGH":
+        fail("Batch 12EV direct-attestation edge regressed")
+    if edge12ev.get("from") != "PHYSICAL-COPY-NLC-NEIGE-CANGSHU-NLC892-1084-204844-V2" or edge12ev.get("to") != "PASSAGE-NEIGE1605-ZHUNZHAI-SUNFENGJI-UNKNOWN-ERA":
+        fail("Batch 12EV edge endpoints regressed")
+    parallel12ev = next((e for e in edges if e.get("edge_id") == "TG-E0100"), None)
+    if not parallel12ev or parallel12ev.get("relation") != "PARALLEL_COEXISTS_WITH" or parallel12ev.get("status") != "CONFIRMED":
+        fail("Batch 12EV Ming bibliographic parallel edge regressed")
+    phys12ev = next((n for n in nodes if n.get("node_id") == "PHYSICAL-COPY-NLC-NEIGE-CANGSHU-NLC892-1084-204844-V2"), None)
+    passage12ev = next((n for n in nodes if n.get("node_id") == "PASSAGE-NEIGE1605-ZHUNZHAI-SUNFENGJI-UNKNOWN-ERA"), None)
+    if not phys12ev or phys12ev.get("direct_target_result") != "準齋几漏新式一冊 / 孫逢吉著莫詳時代" or phys12ev.get("reviewed_copy_treated_as_1605_original") is not False:
+        fail("Batch 12EV physical node regressed")
+    if not passage12ev or passage12ev.get("direct_title") != "準齋几漏新式一冊" or passage12ev.get("direct_era_annotation") != "莫詳時代":
+        fail("Batch 12EV passage node regressed")
+    zhun_rule12ev = next(n for n in nodes if n.get("node_id") == "RULE-FAMILY-ZHUNZHAI-25ARROW-JIEHOU-SELECTION-38-62")
+    cat12ev = zhun_rule12ev.get("ming1605_catalog_control", {})
+    if cat12ev.get("status") != "CLOSED_AT_MING_1605_CATALOG_TEXT_LAYER" or cat12ev.get("era_annotation") != "莫詳時代" or cat12ev.get("title_variant_normalization_authorized") is not False:
+        fail("Batch 12EV rule-family catalog control regressed")
+    if zhun_rule12ev.get("yanling_sun_fengji_1281_author_identity") != "POSSIBLE_NOT_PROVED":
+        fail("Batch 12EV rule-family person identity was overclosed")
+    if not any(x.get("batch") == "BATCH-12-ZIWEI-NEIGE-CANGSHU1605-ZHUNZHAI-SUNFENGJI-UNKNOWN-ERA-BIBLIOGRAPHIC-CONTROL-EV" and "zero exact sanming-parent vote" in x.get("update","").lower() for x in hyp12dk.get("evidence_updates", [])):
+        fail("Batch 12EV genealogy hypothesis zero-vote update missing")
+    batch12ev = json.loads(BATCH_12EV.read_text(encoding="utf-8"))
+    impact12ev = batch12ev.get("transmission_impact", {})
+    if impact12ev.get("edges_supported") != ["TG-E0099", "TG-E0100"] or "PASSAGE-NEIGE1605-ZHUNZHAI-SUNFENGJI-UNKNOWN-ERA" not in impact12ev.get("nodes_added", []):
+        fail("Batch 12EV transmission impact regressed")
 
     ncl = next(n for n in nodes if n.get("node_id") == "PHYSICAL-COPY-SISHI-QIHOU-NCL03164-OLD-MANUSCRIPT")
     if ncl.get("physical_copy_date") != "UNRESOLVED":

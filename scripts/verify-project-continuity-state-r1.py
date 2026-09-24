@@ -104,6 +104,8 @@ ZIWEI_LEIBIAN_ZHUNZHAI_12ET_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENA
 ZIWEI_LEIBIAN_ZHUNZHAI_12ET_EVIDENCE = ROOT / "docs/research/ZIWEI-LEIBIAN1551-ZHUNZHAI-MULTIPOINT-AND-CORRUPTION-REPLAY-R1.json"
 ZIWEI_GUOSHI_ZHUNZHAI_12EU_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-GUOSHI1602-ZHUNZHAI-SUNFENGJI-DIRECT-AUTHOR-TITLE-BINDING-EU.md"
 ZIWEI_GUOSHI_ZHUNZHAI_12EU_EVIDENCE = ROOT / "docs/research/ZIWEI-GUOSHI1602-ZHUNZHAI-SUNFENGJI-DIRECT-AUTHOR-TITLE-BINDING-R1.json"
+ZIWEI_NEIGE_ZHUNZHAI_12EV_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NEIGE-CANGSHU1605-ZHUNZHAI-SUNFENGJI-UNKNOWN-ERA-BIBLIOGRAPHIC-CONTROL-EV.md"
+ZIWEI_NEIGE_ZHUNZHAI_12EV_EVIDENCE = ROOT / "docs/research/ZIWEI-NEIGE-CANGSHU1605-ZHUNZHAI-SUNFENGJI-UNKNOWN-ERA-BIBLIOGRAPHIC-CONTROL-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -382,9 +384,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-LEIBIAN1551-SHOUSHI-SELF-ASCRIPTION-ZHUNZHAI-BRIDGE-ES",
     "BATCH-12-ZIWEI-LEIBIAN1551-ZHUNZHAI-MULTIPOINT-AND-CORRUPTION-REPLAY-ET",
     "BATCH-12-ZIWEI-GUOSHI1602-ZHUNZHAI-SUNFENGJI-DIRECT-AUTHOR-TITLE-BINDING-EU",
+    "BATCH-12-ZIWEI-NEIGE-CANGSHU1605-ZHUNZHAI-SUNFENGJI-UNKNOWN-ERA-BIBLIOGRAPHIC-CONTROL-EV",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-GUOSHI1602-ZHUNZHAI-SUNFENGJI-DIRECT-AUTHOR-TITLE-BINDING-EU.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NEIGE-CANGSHU1605-ZHUNZHAI-SUNFENGJI-UNKNOWN-ERA-BIBLIOGRAPHIC-CONTROL-EV.md"
 
 
 def fail(message: str) -> None:
@@ -1215,6 +1218,34 @@ def main() -> int:
     src12eu = next((s for s in reg12eu.get("sources", []) if s.get("source_id") == "EXT-NCL-GUOSHI-JINGJIZHI-WANLI30-1602-V3-ZHUNZHAI-AUTHOR"), None)
     if not src12eu or src12eu.get("batch_12eu", {}).get("direct_author_annotation") != "孫逢吉":
         fail("Batch 12EU source registry author binding missing")
+
+
+    for path in (ZIWEI_NEIGE_ZHUNZHAI_12EV_BATCH, ZIWEI_NEIGE_ZHUNZHAI_12EV_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12EV continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12ev = json.loads(ZIWEI_NEIGE_ZHUNZHAI_12EV_EVIDENCE.read_text(encoding="utf-8"))
+    if batch12ev.get("batch_id") != "BATCH-12-ZIWEI-NEIGE-CANGSHU1605-ZHUNZHAI-SUNFENGJI-UNKNOWN-ERA-BIBLIOGRAPHIC-CONTROL-EV":
+        fail("Batch 12EV evidence identity mismatch")
+    sb12ev = batch12ev.get("source_binding", {})
+    if sb12ev.get("source_pdf_sha256") != "7d0ff9994a0a49c41e7ab287e5c355c343ffbd80573ce1aac69491b2e4639a43" or sb12ev.get("pdf_page") != 105:
+        fail("Batch 12EV source/page binding regressed")
+    if sb12ev.get("page_sha256") != "b71944e1baa0c86a9801e441779b4d1f57956062f58cf35d39418e9304675db0" or sb12ev.get("reviewed_copy_treated_as_1605_original") is not False:
+        fail("Batch 12EV physical-copy firewall regressed")
+    read12ev = batch12ev.get("direct_physical_reading", {})
+    if read12ev.get("title_entry") != "準齋几漏新式一冊" or read12ev.get("author_and_era_annotation") != "孫逢吉著莫詳時代":
+        fail("Batch 12EV direct reading regressed")
+    fw12ev = batch12ev.get("chronology_and_identity_firewall", {})
+    if fw12ev.get("exact_identity_with_yuan_1281_yanling_sun_fengji") != "POSSIBLE_NOT_PROVED" or fw12ev.get("ming_catalog_explicitly_knew_author_era") is not False:
+        fail("Batch 12EV person/era firewall regressed")
+    variants12ev = batch12ev.get("title_variant_firewall", {})
+    if variants12ev.get("force_normalize_九_to_几") is not False or variants12ev.get("force_equate_新式_to_圖式") is not False:
+        fail("Batch 12EV title-variant firewall regressed")
+    if batch12ev.get("sanming_firewall", {}).get("direct_sanming_parent_vote_increment") != 0:
+        fail("Batch 12EV Sanming zero-vote firewall regressed")
+    reg12ev = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    src12ev = next((s for s in reg12ev.get("sources", []) if s.get("source_id") == "EXT-NLC-NEIGE-CANGSHU-WANLI33-1605-V2-ZHUNZHAI-SUNFENGJI-UNKNOWN-ERA"), None)
+    if not src12ev or src12ev.get("batch_12ev", {}).get("direct_era_annotation") != "莫詳時代":
+        fail("Batch 12EV source registry era control missing")
 
     for path in (ZIWEI_KYUDB_12DT_BATCH, ZIWEI_KYUDB_12DT_EVIDENCE):
         if not path.is_file():
