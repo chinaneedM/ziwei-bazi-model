@@ -48,6 +48,7 @@ BATCH_12FA = ROOT / "docs/research/ZIWEI-SHILIJU1823-ZHUNZHAI-HUANG-PILIE-OLD-CO
 BATCH_12FB = ROOT / "docs/research/ZIWEI-TIEQIN-NLC1823-COMPOSITE-OBJECT-FINGERPRINT-CONTROL-R1.json"
 BATCH_12FC = ROOT / "docs/research/ZIWEI-TIEQIN-YINGCHAO-SONGBEN-TRANSCRIPTION-REPAIR-R1.json"
 BATCH_12FD = ROOT / "docs/research/ZIWEI-NLC1823-TIEQIN-SEAL-PROVENANCE-CONTROL-R1.json"
+BATCH_12FE = ROOT / "docs/research/ZIWEI-NCL-UNION-TONGHU-RARECATX0514818-BOUNDARY-R1.json"
 
 
 def fail(message: str) -> None:
@@ -55,7 +56,7 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
-    for path in (CHARTER, PROTOCOL, GRAPH, STATE, BATCH_12CH, BATCH_12DP, BATCH_12DQ, BATCH_12DR, BATCH_12DS, BATCH_12DT, BATCH_12DU, BATCH_12DV, BATCH_12DW, BATCH_12DX, BATCH_12DY, BATCH_12DZ, BATCH_12EA, BATCH_12EB, BATCH_12EC, BATCH_12ED, BATCH_12EE, BATCH_12EI, BATCH_12EJ, BATCH_12EK, BATCH_12EL, BATCH_12EM, BATCH_12EN, BATCH_12EO, BATCH_12EP, BATCH_12EQ, BATCH_12ER, BATCH_12ES, BATCH_12ET, BATCH_12EU, BATCH_12EV, BATCH_12EW, BATCH_12EX, BATCH_12EY, BATCH_12EZ, BATCH_12FA, BATCH_12FB, BATCH_12FC, BATCH_12FD):
+    for path in (CHARTER, PROTOCOL, GRAPH, STATE, BATCH_12CH, BATCH_12DP, BATCH_12DQ, BATCH_12DR, BATCH_12DS, BATCH_12DT, BATCH_12DU, BATCH_12DV, BATCH_12DW, BATCH_12DX, BATCH_12DY, BATCH_12DZ, BATCH_12EA, BATCH_12EB, BATCH_12EC, BATCH_12ED, BATCH_12EE, BATCH_12EI, BATCH_12EJ, BATCH_12EK, BATCH_12EL, BATCH_12EM, BATCH_12EN, BATCH_12EO, BATCH_12EP, BATCH_12EQ, BATCH_12ER, BATCH_12ES, BATCH_12ET, BATCH_12EU, BATCH_12EV, BATCH_12EW, BATCH_12EX, BATCH_12EY, BATCH_12EZ, BATCH_12FA, BATCH_12FB, BATCH_12FC, BATCH_12FD, BATCH_12FE):
         if not path.is_file():
             fail(f"Tianwen transmission artifact missing: {path.relative_to(ROOT)}")
 
@@ -1230,6 +1231,33 @@ def main() -> int:
         fail("Batch 12FD TG-E0107 unique-object scope firewall missing")
     if not any(x.get("batch") == "BATCH-12-ZIWEI-NLC1823-TIEQIN-SEAL-PROVENANCE-CONTROL-FD" and "zero exact sanming-parent vote" in x.get("update","").lower() for x in hyp12dk.get("evidence_updates", [])):
         fail("Batch 12FD genealogy hypothesis zero-vote update missing")
+
+    batch12fe = json.loads(BATCH_12FE.read_text(encoding="utf-8"))
+    if batch12fe.get("batch_id") != "BATCH-12-ZIWEI-NCL-UNION-TONGHU-RARECATX0514818-BOUNDARY-FE":
+        fail("Batch 12FE genealogy evidence identity mismatch")
+    impact12fe = batch12fe.get("transmission_impact", {})
+    if impact12fe.get("edges_supported") != ["TG-E0108"] or impact12fe.get("same_object_edge_authorized") is not False:
+        fail("Batch 12FE genealogy edge/collapse scope regressed")
+    catalog12fe = next((n for n in nodes if n.get("node_id") == "CATALOG-NCL-UNION-TONGHU-RARECATX0514818"), None)
+    if catalog12fe is None or catalog12fe.get("registration_number") != "rarecatx0514818":
+        fail("Batch 12FE catalog node missing/regressed")
+    if catalog12fe.get("identifier_role") != "PUBLIC_UNION_CATALOG_REGISTRATION_OR_RECORD_IDENTIFIER" or catalog12fe.get("unique_physical_shelfmark_proved") is not False or catalog12fe.get("exact_physical_copy_identity_proved") is not False:
+        fail("Batch 12FE catalog identifier firewall regressed")
+    physical12fe = next((n for n in nodes if n.get("node_id") == "PHYSICAL-COPY-NLC-ZHUNZHAI-JILOU-DAOGUANG3-HUANG-SHILIJU-MS"), None)
+    union12fe = {} if physical12fe is None else physical12fe.get("nlc_union_catalog_record_control", {})
+    if union12fe.get("registration_number") != "rarecatx0514818" or union12fe.get("record_level_binding") != "HIGH_CONFIDENCE_SAME_NLC_HUANG_COPY_FAMILY":
+        fail("Batch 12FE physical-node catalog binding regressed")
+    if union12fe.get("unique_physical_shelfmark_proved") is not False or union12fe.get("exact_physical_copy_identity_proved") is not False or union12fe.get("same_object_edge_authorized") is not False:
+        fail("Batch 12FE physical-node exact-object firewall regressed")
+    edge12fe = next((e for e in edges if e.get("edge_id") == "TG-E0108"), None)
+    if edge12fe is None or edge12fe.get("relation") != "ATTESTS" or edge12fe.get("status") != "HIGH_CONFIDENCE":
+        fail("Batch 12FE TG-E0108 status/relation regressed")
+    if edge12fe.get("from") != "CATALOG-NCL-UNION-TONGHU-RARECATX0514818" or edge12fe.get("to") != "PHYSICAL-COPY-NLC-ZHUNZHAI-JILOU-DAOGUANG3-HUANG-SHILIJU-MS":
+        fail("Batch 12FE TG-E0108 endpoints regressed")
+    if "not a proved physical shelfmark" not in edge12fe.get("scope_note", "") or "SAME_OBJECT" not in edge12fe.get("scope_note", ""):
+        fail("Batch 12FE TG-E0108 identifier/same-object scope firewall missing")
+    if not any(x.get("batch") == "BATCH-12-ZIWEI-NCL-UNION-TONGHU-RARECATX0514818-BOUNDARY-FE" and "zero exact sanming-parent vote" in x.get("update","").lower() for x in hyp12dk.get("evidence_updates", [])):
+        fail("Batch 12FE genealogy hypothesis zero-vote update missing")
 
     ncl = next(n for n in nodes if n.get("node_id") == "PHYSICAL-COPY-SISHI-QIHOU-NCL03164-OLD-MANUSCRIPT")
     if ncl.get("physical_copy_date") != "UNRESOLVED":
