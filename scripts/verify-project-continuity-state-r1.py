@@ -140,6 +140,8 @@ ZIWEI_QU_NLC_12FL_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-
 ZIWEI_QU_NLC_12FL_EVIDENCE = ROOT / "docs/research/ZIWEI-QU-NLC-MIXED-TRANSFER-AND-TARGET-ACQUISITION-BOUNDARY-R1.json"
 ZIWEI_GAO_TIEQIN_12FM_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-GAO-XIZENG-ANNOTATED-TIEQIN-CATALOG-HOLDING-AND-ACCESS-BOUNDARY-FM.md"
 ZIWEI_GAO_TIEQIN_12FM_EVIDENCE = ROOT / "docs/research/ZIWEI-GAO-XIZENG-ANNOTATED-TIEQIN-CATALOG-HOLDING-AND-ACCESS-BOUNDARY-R1.json"
+ZIWEI_LIN_ZHENYUE_12FN_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-LIN-ZHENYUE-PREFACE-GAO-ANNOTATED-CATALOG-SOURCE-ATTRIBUTION-FN.md"
+ZIWEI_LIN_ZHENYUE_12FN_EVIDENCE = ROOT / "docs/research/ZIWEI-LIN-ZHENYUE-PREFACE-GAO-ANNOTATED-CATALOG-SOURCE-ATTRIBUTION-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -436,9 +438,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-NLC-OPENOBJECT-PUBLIC-SHELL-ACCESS-BOUNDARY-FK",
     "BATCH-12-ZIWEI-QU-NLC-MIXED-TRANSFER-AND-TARGET-ACQUISITION-BOUNDARY-FL",
     "BATCH-12-ZIWEI-GAO-XIZENG-ANNOTATED-TIEQIN-CATALOG-HOLDING-AND-ACCESS-BOUNDARY-FM",
+    "BATCH-12-ZIWEI-LIN-ZHENYUE-PREFACE-GAO-ANNOTATED-CATALOG-SOURCE-ATTRIBUTION-FN",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-GAO-XIZENG-ANNOTATED-TIEQIN-CATALOG-HOLDING-AND-ACCESS-BOUNDARY-FM.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-LIN-ZHENYUE-PREFACE-GAO-ANNOTATED-CATALOG-SOURCE-ATTRIBUTION-FN.md"
 
 
 def fail(message: str) -> None:
@@ -1829,7 +1832,7 @@ def main() -> int:
     if batch12fm.get("batch_id") != "BATCH-12-ZIWEI-GAO-XIZENG-ANNOTATED-TIEQIN-CATALOG-HOLDING-AND-ACCESS-BOUNDARY-FM":
         fail("Batch 12FM evidence identity mismatch")
     adj12fm = batch12fm.get("adjudication", {})
-    if adj12fm.get("gao_annotated_tieqin_catalog_existence") != "ATTESTED_BY_2026_BIBLIOGRAPHIC_SURVEY_DISCUSSION":
+    if adj12fm.get("gao_annotated_tieqin_catalog_existence") != "ATTESTED_BY_LIN_ZHENYUE_PREFACE":
         fail("Batch 12FM Gao annotated-catalog existence attestation regressed")
     if adj12fm.get("broader_gao_manuscript_survival") != "CLOSED_AT_MODERN_EDITORIAL_CHAIN_LEVEL":
         fail("Batch 12FM broader Gao manuscript survival chain regressed")
@@ -1867,12 +1870,63 @@ def main() -> int:
     regids12fm = {x.get("source_id") for x in registry12fm.get("sources", [])}
     needed12fm = {
         "EXT-TANG-ZHAO-2026-QU-TRANSFER-CATALOG-SEMANTICS-GAO-ANNOTATED-CATALOG-LEAD",
+        "EXT-LIN-ZHENYUE-2025-PREFACE-QU-TRANSFER-GAO-ANNOTATED-CATALOG",
         "EXT-GAO-XIZENG-XUESHU-WENCUN-ZHAO-LINTAO-2022-MANUSCRIPT-CHAIN",
         "EXT-YANZHAO-CULTURE-3-QIN-JUNZE-GAO-BANBEN-SUOJI-2020",
         "EXT-HEBEI-UNIVERSITY-ZHAO-LINTAO-CURRENT-INSTITUTIONAL-TRACE-2026",
     }
     if not needed12fm.issubset(regids12fm):
         fail("Batch 12FM source registry controls incomplete")
+
+    for path in (ZIWEI_LIN_ZHENYUE_12FN_BATCH, ZIWEI_LIN_ZHENYUE_12FN_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12FN continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12fn = json.loads(ZIWEI_LIN_ZHENYUE_12FN_EVIDENCE.read_text(encoding="utf-8"))
+    if batch12fn.get("batch_id") != "BATCH-12-ZIWEI-LIN-ZHENYUE-PREFACE-GAO-ANNOTATED-CATALOG-SOURCE-ATTRIBUTION-FN":
+        fail("Batch 12FN evidence identity mismatch")
+    pub12fn = batch12fn.get("public_text_control", {})
+    if pub12fn.get("visible_structure", {}).get("preface_author") != "林振岳" or pub12fn.get("target_statement_author") != "林振岳":
+        fail("Batch 12FN Lin Zhenyue preface authorship binding regressed")
+    if pub12fn.get("target_statement_is_directly_authored_by_tang_zhibo_or_zhao_yingjie") is not False or pub12fn.get("repost_platform_is_original_authority") is not False:
+        fail("Batch 12FN compiler/repost source-layer firewall regressed")
+    adj12fn = batch12fn.get("adjudication", {})
+    if adj12fn.get("direct_modern_assertion_author") != "林振岳" or adj12fn.get("source_layer_collapse_forbidden") is not True:
+        fail("Batch 12FN canonical assertion-author/source-layer control regressed")
+    if adj12fn.get("gao_annotated_catalog_existence_status") != "ATTESTED_BY_LIN_ZHENYUE_PREFACE":
+        fail("Batch 12FN Gao annotated-catalog attestation source regressed")
+    if adj12fn.get("current_holding") != "UNRESOLVED" or adj12fn.get("shelfmark") != "UNRESOLVED" or adj12fn.get("public_surrogate") != "UNRESOLVED":
+        fail("Batch 12FN custody/shelfmark/surrogate was falsely closed")
+    if adj12fn.get("target_3482_3483_annotation") != "NOT_REVIEWED" or adj12fn.get("target_transaction_mode") != "UNRESOLVED":
+        fail("Batch 12FN target annotation/transaction boundary regressed")
+    if adj12fn.get("source_attribution_metadata_repair_required") is not True or adj12fn.get("chart_or_product_provenance_defect_counter_increment") != 0:
+        fail("Batch 12FN attribution-repair/product-counter firewall regressed")
+    registry12fn = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    byid12fn = {x.get("source_id"): x for x in registry12fn.get("sources", [])}
+    canonical12fn = byid12fn.get("EXT-LIN-ZHENYUE-2025-PREFACE-QU-TRANSFER-GAO-ANNOTATED-CATALOG")
+    alias12fn = byid12fn.get("EXT-TANG-ZHAO-2026-QU-TRANSFER-CATALOG-SEMANTICS-GAO-ANNOTATED-CATALOG-LEAD")
+    profile12fn = byid12fn.get("EXT-SJTU-LIN-ZHENYUE-OFFICIAL-FACULTY-PROFILE")
+    if not canonical12fn or canonical12fn.get("author") != "林振岳":
+        fail("Batch 12FN canonical Lin source missing")
+    if not alias12fn or alias12fn.get("deprecated_attribution_alias") is not True or alias12fn.get("superseded_by_source_id") != canonical12fn.get("source_id"):
+        fail("Batch 12FN deprecated attribution alias control regressed")
+    if not profile12fn or profile12fn.get("batch_12fn", {}).get("target_catalog_custody_proved") is not False:
+        fail("Batch 12FN SJTU identity/custody firewall regressed")
+    fl12fn = json.loads(ZIWEI_QU_NLC_12FL_EVIDENCE.read_text(encoding="utf-8"))
+    fllead12fn = fl12fn.get("sources", {}).get("gao_xizeng_annotated_catalog_discovery_lead", {})
+    if fllead12fn.get("direct_statement_author") != "林振岳" or fllead12fn.get("canonical_source_id") != canonical12fn.get("source_id"):
+        fail("Batch 12FN Batch-12FL source-attribution repair regressed")
+    fm12fn = json.loads(ZIWEI_GAO_TIEQIN_12FM_EVIDENCE.read_text(encoding="utf-8"))
+    fmsrc12fn = fm12fn.get("sources", {}).get("lin_zhenyue_2025_preface_gao_annotated_catalog_attestation", {})
+    if fmsrc12fn.get("preface_author") != "林振岳" or fmsrc12fn.get("canonical_source_id") != canonical12fn.get("source_id"):
+        fail("Batch 12FN Batch-12FM source-attribution repair regressed")
+    trans12fn = batch12fn.get("transmission_impact", {})
+    if trans12fn.get("nodes_added") != [] or trans12fn.get("edges_added") != [] or trans12fn.get("acquisition_edge_authorized") is not False or trans12fn.get("same_object_edge_authorized") is not False:
+        fail("Batch 12FN zero-topology/acquisition-edge firewall regressed")
+    rule12fn = batch12fn.get("chronology_and_rule_firewall", {})
+    if rule12fn.get("direct_sanming_parent_vote_increment") != 0 or rule12fn.get("runtime_rule_change") is not False or rule12fn.get("algorithm_reopen_authorized") is not False or rule12fn.get("candidate_collapse_authorized") is not False or rule12fn.get("matrix_count_change") is not False:
+        fail("Batch 12FN product/matrix firewall regressed")
+    if batch12fn.get("accounting", {}).get("confirmed_provenance_metadata_defect_count") != 13 or batch12fn.get("accounting", {}).get("repaired_provenance_metadata_defect_count") != 13:
+        fail("Batch 12FN provenance accounting unexpectedly changed")
 
     for path in (ZIWEI_KYUDB_12DT_BATCH, ZIWEI_KYUDB_12DT_EVIDENCE):
         if not path.is_file():
