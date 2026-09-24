@@ -6526,7 +6526,85 @@
         "ocr_used_for_final_glyph_claims": false,
         "research_artifact": "docs/research/ZIWEI-BEITU1959-TONGHU-ZHUNZHAI-CATALOG-NUMBER-AND-QUDONATION-BOUNDARY-R1.json"
       }
+    },
+    {
+      "source_id": "EXT-NLC-META-ZHUNZHAI-CURRENT-SYS001775083-ITEM-HOLDINGS",
+      "title": "国家图书馆 current meta《准斋心制几漏图式》原善本 SYS 001775083 / UID UCS01003828993 / 905 馆藏定位",
+      "author": "National Library of China current metadata service",
+      "historical_period": "MODERN_CURRENT_CATALOG_RECORD_OF_QING_DAOGUANG3_1823_HUANG_SHILIJU_MANUSCRIPT",
+      "provider": "National Library of China",
+      "identifier": "SYS 001775083 / UID UCS01003828993 / 905 NLC:SBYL:03483",
+      "url": "https://meta.nlc.cn/v2/detail/UCS01003828993",
+      "source_role": "FIRST_PARTY_CURRENT_NLC_SYSTEM_IDENTITY_AND_LOCAL_HOLDINGS_LOCATOR_CONTROL",
+      "quality_notes": "Batch 12FH current API probes uniquely bind SYS 001775083 to the 1823 Huang Shiliju rare-book record and expose 905a=NLC, 905q=SBYL, 905s=03483 and 3165=NLC:SBYL:03483. No public barcode is exposed. Historical 3483, OPAC 原文献03483 and current 905s 03483 are recorded as distinct identifier-semantic layers despite numeric continuity.",
+      "batch_12fh": {
+        "sys": "001775083",
+        "uid": "UCS01003828993",
+        "year": "1823",
+        "material_type": "善本",
+        "publisher_or_copying_source": "黃氏士禮居",
+        "field_905a": "NLC",
+        "field_905q": "SBYL",
+        "field_905s": "03483",
+        "composite_3165": "NLC:SBYL:03483",
+        "current_local_holdings_locator_closed": true,
+        "public_barcode_proved": false,
+        "sys_probe_run_id": 36019435493,
+        "sys_probe_artifact_id": 10815952788,
+        "sys_probe_digest": "sha256:384e4acedb67dad3b5099129bf80463046b9c2a2c22da6f2544aacaf32db98e9",
+        "item_probe_run_id": 36019748667,
+        "item_probe_artifact_id": 10815419291,
+        "item_probe_digest": "sha256:be9cc2db66d4ad150a975f08f2956b6ab068314b9afbdf69fd5d4a6a564eda65",
+        "research_artifact": "docs/research/ZIWEI-NLC-CURRENT-SYS-ITEM-HOLDINGS-LOCATOR-R1.json"
+      }
+    },
+    {
+      "source_id": "EXT-CLARIVATE-CNMARC-905S-LOCAL-CALL-NUMBER-CONTROL",
+      "title": "CNMARC Bibliographic All Titles Search：905s = Local Call Numbers",
+      "author": "Ex Libris / Clarivate Knowledge Center",
+      "historical_period": "MODERN_CNMARC_TECHNICAL_CONTROL",
+      "provider": "Clarivate / Ex Libris",
+      "url": "https://knowledge.ag-software.clarivate.com/alma/en-us/Product_Documentation/Metadata_Management/CNMARC_Bibliographic_All_Titles_Search.html",
+      "source_role": "TECHNICAL_SEMANTIC_CONTROL_FOR_CNMARC_905S_LOCAL_CALL_NUMBER_CLASSIFICATION",
+      "quality_notes": "Used only to classify current field semantics. It does not identify the NLC target record by itself or turn a local call-number component into a barcode.",
+      "batch_12fh": {
+        "field": "905s",
+        "semantic_class": "LOCAL_CALL_NUMBERS",
+        "target_value": "03483"
+      }
+    },
+    {
+      "source_id": "EXT-NLC-SUBLIBRARY-CODE-SBYL-CONTROL",
+      "title": "国家图书馆 WSL 子库代码：SBYL = 善本阅览室",
+      "author": "National Library cataloging/training material reproduced by People's Education Press library training resources",
+      "historical_period": "MODERN_LIBRARY_SYSTEM_CODE_CONTROL",
+      "provider": "People's Education Press library training resource quoting NLC WSL sublibrary codes",
+      "url": "https://www.pep.com.cn/tsg/tsg_hdjl/tsg_hdjl_fwzn/202509/P020250917405315592902.pdf",
+      "source_role": "TECHNICAL_SEMANTIC_CONTROL_FOR_NLC_SUBLIBRARY_CODE_SBYL",
+      "quality_notes": "Used only to expand the sublibrary code observed in the first-party NLC item payload. First-party target identity remains controlled by meta.nlc.cn.",
+      "batch_12fh": {
+        "code": "SBYL",
+        "meaning": "善本阅览室"
+      }
+    },
+    {
+      "source_id": "EXT-IFLA-UNIMARC-MICROFORMS-455-001-LINK-CONTROL",
+      "title": "IFLA Guidelines for Using UNIMARC for Microforms：455 Reproduction Of with embedded 001 Record Identifier",
+      "author": "IFLA UBCIM",
+      "historical_period": "MODERN_UNIMARC_TECHNICAL_CONTROL",
+      "provider": "International Federation of Library Associations and Institutions",
+      "url": "https://repository.ifla.org/bitstreams/91adb848-6056-49a6-bb62-17214394f844/download",
+      "source_role": "TECHNICAL_SEMANTIC_CONTROL_FOR_455_REPRODUCTION_OF_AND_EMBEDDED_001_RECORD_IDENTIFIER",
+      "quality_notes": "Used to parse the first-party NLC microfilm 455$1 payload 001411999008601 as embedded tag 001 plus linked record-control identifier 411999008601. It does not classify that value as a physical shelfmark or acquisition number.",
+      "batch_12fh": {
+        "field": "455",
+        "relation": "REPRODUCTION_OF",
+        "embedded_tag": "001",
+        "raw_target_payload": "001411999008601",
+        "parsed_record_identifier": "411999008601"
+      }
     }
   ],
-  "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md"
+  "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md",
+  "updated_at": "2026-09-24"
 }
