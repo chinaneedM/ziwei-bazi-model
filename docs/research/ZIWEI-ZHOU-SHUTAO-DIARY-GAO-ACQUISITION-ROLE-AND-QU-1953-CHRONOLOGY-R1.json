@@ -1,0 +1,128 @@
+{
+  "schema": "ZIWEI-ZHOU-SHUTAO-DIARY-GAO-ACQUISITION-ROLE-AND-QU-1953-CHRONOLOGY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-ZHOU-SHUTAO-DIARY-GAO-ACQUISITION-ROLE-AND-QU-1953-CHRONOLOGY-FO",
+  "prior_batch_id": "BATCH-12-ZIWEI-LIN-ZHENYUE-PREFACE-GAO-ANNOTATED-CATALOG-SOURCE-ATTRIBUTION-FN",
+  "question": "What contemporaneous diary evidence independently constrains Gao Xizeng's operational rare-book acquisition role and the date by which Qu-family books were already among Beijing Library's newly received rare books, without falsely joining those two facts into one event?",
+  "answer": "Zhou Shutao's surviving diary excerpts independently attest (1) Gao Xizeng participating with Zhang Heng and Zhao Wanli in physically taking Zhou Shutao's donated books on 1952-08-31, proving an operational acquisition/collection-handling role; and (2) Zhou Shutao viewing newly received rare books at Beijing Library on 1953-05-29 with the terse collection labels 'Hanfenglou, Qu shi', providing a terminus ante quem that at least some Qu-family books were already present among newly received rare books by that date. The diary excerpts do NOT state that Gao handled those Qu-family books, do NOT identify Tonghu/Zhunzhai catalog nos. 3482/3483, and do NOT select donation versus sale for the target volume.",
+  "source_chain": {
+    "zhou_qiqian_2015_article": {
+      "original_publication": "《文汇学人》192期",
+      "original_date": "2015-04-10",
+      "author": "周启乾",
+      "title": "《周叔弢日记》中的祖父及其友人",
+      "later_public_reproduction_url": "https://www.sohu.com/a/327835586_523187",
+      "source_role": "FAMILY-EDITED_PUBLICATION_OF_CONTEMPORANEOUS_DIARY_EXCERPTS_NOT_DIRECT_MANUSCRIPT_IMAGE",
+      "diary_survival_note": "The article explains that surviving material includes a hand-copied 1952-05 through 1962-08 diary selection and later diary volumes; the 1950s selection history is not fully known.",
+      "direct_manuscript_image_for_target_entries_reviewed_by_project": false
+    },
+    "wenhui_2019_bibliographic_confirmation": {
+      "url": "https://www.whb.cn/zhuzhan/xueren/20190802/280856.html",
+      "author": "杨丽娟",
+      "title": "《周叔弢张重威日记对读合璧举隅》",
+      "role": "WENHUI_BIBLIOGRAPHIC_AND_SURVIVAL_CONTROL_FOR_ZHOU_QIQIAN_2015_DIARY_PUBLICATION",
+      "observed_claims": [
+        "Confirms Zhou Qiqian published the diary article in 《文汇学人》 issue 192 on 2015-04-10.",
+        "Describes the surviving Zhou Shutao diary corpus and the 1952-1962 hand-copied selection."
+      ]
+    },
+    "thepaper_2016_letter_annotation_control": {
+      "url": "https://www.thepaper.cn/newsDetail_forward_1472173",
+      "title": "《家书里的时代风云：周叔弢致周一良函笺注》",
+      "credited_editing": "孟繁之整理；周景良审定",
+      "role": "INDEPENDENT_PUBLICATION_REPRODUCING_1952_0831_DIARY_EXCERPT_AND_MANUSCRIPT_CUSTODY_NOTE",
+      "observed_claims": [
+        "Footnote reproduces 1952-08-31 diary wording that Zhang Heng, Zhao Wanli and Gao Xizeng/Gao Xizeng-variant came to take the donated books.",
+        "Notes the 1952-1962 diary extract manuscript was then held by Zhou Jingliang."
+      ]
+    }
+  },
+  "diary_controls": {
+    "entry_1952_08_31": {
+      "published_wording": "张葱玉、赵万里、高熙曾来取藏书",
+      "name_variant_control": "Some republications/annotations print 高希曾; repository normalizes identity to 高熙曾 only at person-identity level and preserves the textual variant as a publication control.",
+      "context": "Zhou Shutao's own donated collection, not Qu-family books.",
+      "adjudication": {
+        "gao_present_in_physical_book_collection_or_retrieval_work": true,
+        "zhao_wanli_present": true,
+        "zhang_heng_present": true,
+        "operational_acquisition_handling_role": "DIRECTLY_ATTESTED_FOR_ZHOU_SHUTAO_DONATION_EVENT",
+        "proves_gao_handled_qu_family_books": false,
+        "proves_gao_annotated_tieqin_catalog_source_basis": false
+      }
+    },
+    "entry_1953_05_29": {
+      "published_wording": "早到北京图书馆和徐森玉看新收善本书。涵芬楼，瞿氏。",
+      "adjudication": {
+        "beijing_library_newly_received_rare_books_reviewed": true,
+        "hanfenglou_collection_label_present": true,
+        "qu_family_collection_label_present": true,
+        "qu_books_present_among_reviewed_new_receipts_by_date": "1953-05-29_TERMINUS_ANTE_QUEM",
+        "exact_qu_titles_named": false,
+        "target_tonghu_zhunzhai_named": false,
+        "target_catalog_3482_3483_bound": false,
+        "target_transaction_mode_closed": false,
+        "target_acquisition_date_closed": false
+      }
+    }
+  },
+  "cross_event_firewall": {
+    "same_diary_author_does_not_merge_events": true,
+    "gao_role_in_zhou_donation_does_not_prove_gao_role_in_qu_transfer": true,
+    "qu_new_receipt_chronology_does_not_prove_target_volume_included": true,
+    "qu_new_receipt_chronology_does_not_select_donation_or_sale": true,
+    "lin_zhenyue_preface_specific_gao_qu_statement_not_independently_proved_by_combining_these_entries": true,
+    "note": "The two diary entries are independent controls: one closes Gao's operational book-handling capacity in an actual Beijing Library collection event; the other closes a collection-level Qu-receipt chronology. Their conjunction is corroborative context only, not an event-level identity bridge."
+  },
+  "adjudication": {
+    "gao_operational_beijing_library_collection_handling_role": "CLOSED_FOR_1952_ZHOU_SHUTAO_DONATION_EVENT",
+    "qu_family_books_among_beijing_library_new_receipts_by_1953_05_29": "CLOSED_AT_COLLECTION_LABEL_LEVEL",
+    "direct_gao_to_qu_family_transfer_event": "NOT_PROVED_BY_THESE_DIARY_ENTRIES",
+    "gao_annotated_tieqin_catalog_source_basis": "UNRESOLVED",
+    "target_tonghu_zhunzhai_presence_in_1953_05_29_viewing": "NOT_PROVED",
+    "target_3482_3483_transaction_mode": "UNRESOLVED",
+    "target_exact_acquisition_date": "UNRESOLVED",
+    "final_nlc_acquisition_transfer_path": "UNRESOLVED"
+  },
+  "source_quality_firewall": {
+    "contemporaneous_diary_content": true,
+    "current_project_direct_manuscript_image_review": false,
+    "published_excerpt_is_family_or_scholarly_mediated": true,
+    "verbatim_excerpt_may_be_used_with_mediation_label": true,
+    "spelling_variant_may_not_create_separate_person": true,
+    "unpublished_context_may_not_be_inferred": true
+  },
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_added": [],
+    "acquisition_edge_authorized": false,
+    "same_object_edge_authorized": false,
+    "direct_copy_edges_authorized": []
+  },
+  "chronology_and_rule_firewall": {
+    "direct_sanming_parent_vote_increment": 0,
+    "pre1578_zhunzhai_rule_witness_increment": 0,
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_count_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 13,
+    "repaired_provenance_metadata_defect_count": 13,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Continue the primary 12FN gate: recover Lin Zhenyue's exact source basis for the Gao annotated Tieqin-catalog statement.",
+    "Seek a direct image/transcription chain for the relevant Zhou Shutao diary pages where lawful and publicly available; do not upgrade publication-mediated excerpts to direct manuscript collation without it.",
+    "Search Beijing Library/NLC 1952-1953 acquisition/accession records for Qu-family title-level or catalog-number-level lists that can bind the target volume.",
+    "Do not infer that Gao handled Qu-family books solely because he handled Zhou Shutao's donation and Qu books were new receipts in the following year.",
+    "Do not select target donation/sale/purchase route without direct or near-direct item-level evidence."
+  ],
+  "updated_at": "2026-09-25"
+}
