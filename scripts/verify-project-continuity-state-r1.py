@@ -132,6 +132,8 @@ ZIWEI_NLC_CURRENT_12FH_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-A
 ZIWEI_NLC_CURRENT_12FH_EVIDENCE = ROOT / "docs/research/ZIWEI-NLC-CURRENT-SYS-ITEM-HOLDINGS-LOCATOR-R1.json"
 ZIWEI_NLC_TONGHU_CURRENT_12FI_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-CURRENT-TONGHU-COMPOSITE-HOLDINGS-LOCATOR-FI.md"
 ZIWEI_NLC_TONGHU_CURRENT_12FI_EVIDENCE = ROOT / "docs/research/ZIWEI-NLC-CURRENT-TONGHU-COMPOSITE-HOLDINGS-LOCATOR-R1.json"
+ZIWEI_NLC_DIGITAL_12FJ_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-DIGITAL-FID-AND-MICROFILM-REGISTRATION-FJ.md"
+ZIWEI_NLC_DIGITAL_12FJ_EVIDENCE = ROOT / "docs/research/ZIWEI-NLC-DIGITAL-FID-AND-MICROFILM-REGISTRATION-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -424,9 +426,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-BEITU1959-TONGHU-ZHUNZHAI-CATALOG-NUMBER-AND-QUDONATION-BOUNDARY-FG",
     "BATCH-12-ZIWEI-NLC-CURRENT-SYS-ITEM-HOLDINGS-LOCATOR-FH",
     "BATCH-12-ZIWEI-NLC-CURRENT-TONGHU-COMPOSITE-HOLDINGS-LOCATOR-FI",
+    "BATCH-12-ZIWEI-NLC-DIGITAL-FID-AND-MICROFILM-REGISTRATION-FJ",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-CURRENT-TONGHU-COMPOSITE-HOLDINGS-LOCATOR-FI.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-DIGITAL-FID-AND-MICROFILM-REGISTRATION-FJ.md"
 
 
 def fail(message: str) -> None:
@@ -1672,6 +1675,62 @@ def main() -> int:
         fail("Batch 12FI SAME_OBJECT firewall regressed")
     if batch12fi.get("accounting", {}).get("confirmed_provenance_metadata_defect_count") != 13 or batch12fi.get("accounting", {}).get("repaired_provenance_metadata_defect_count") != 13:
         fail("Batch 12FI provenance accounting unexpectedly changed")
+
+    for path in (ZIWEI_NLC_DIGITAL_12FJ_BATCH, ZIWEI_NLC_DIGITAL_12FJ_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12FJ continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12fj = json.loads(ZIWEI_NLC_DIGITAL_12FJ_EVIDENCE.read_text(encoding="utf-8"))
+    if batch12fj.get("batch_id") != "BATCH-12-ZIWEI-NLC-DIGITAL-FID-AND-MICROFILM-REGISTRATION-FJ":
+        fail("Batch 12FJ evidence identity mismatch")
+    digital12fj = batch12fj.get("digital_ancient_book_resources", {})
+    tonghu_digital12fj = digital12fj.get("tonghu", {})
+    zhunzhai_digital12fj = digital12fj.get("zhunzhai", {})
+    if tonghu_digital12fj.get("fid_identifier") != "411999008600" or tonghu_digital12fj.get("bid_numeric") != "113028":
+        fail("Batch 12FJ Tonghu digital FID/bid regressed")
+    if zhunzhai_digital12fj.get("fid_identifier") != "411999008601" or zhunzhai_digital12fj.get("bid_numeric") != "113029":
+        fail("Batch 12FJ Zhunzhai digital FID/bid regressed")
+    if tonghu_digital12fj.get("first_party_identifier_closed") is not True or zhunzhai_digital12fj.get("first_party_identifier_closed") is not True:
+        fail("Batch 12FJ first-party digital identifier closure regressed")
+    cross12fj = batch12fj.get("linked_record_control_crosswalk", {})
+    if cross12fj.get("tonghu", {}).get("parsed_linked_record_control_id") != "411999008600" or cross12fj.get("tonghu", {}).get("read_data_892_fid") != "411999008600":
+        fail("Batch 12FJ Tonghu 455-to-read FID crosswalk regressed")
+    if cross12fj.get("zhunzhai", {}).get("parsed_linked_record_control_id") != "411999008601" or cross12fj.get("zhunzhai", {}).get("read_data_892_fid") != "411999008601":
+        fail("Batch 12FJ Zhunzhai 455-to-read FID crosswalk regressed")
+    micro12fj = batch12fj.get("microfilm_work_records", {})
+    if micro12fj.get("tonghu", {}).get("sys") != "002146415" or micro12fj.get("tonghu", {}).get("field_905b") != "00O003570":
+        fail("Batch 12FJ Tonghu microfilm 905b regressed")
+    if micro12fj.get("zhunzhai", {}).get("sys") != "002146416" or micro12fj.get("zhunzhai", {}).get("field_905b") != "00O003571":
+        fail("Batch 12FJ Zhunzhai microfilm 905b regressed")
+    semantic12fj = batch12fj.get("field_905b_semantic_controls", {})
+    if semantic12fj.get("semantic_class") != "LOGIN_REGISTRATION_ACCESSION_NUMBER_FOR_LIBRARY_ITEM" or semantic12fj.get("chinese_term") != "登录号":
+        fail("Batch 12FJ 905b semantic classification regressed")
+    target_sem12fj = semantic12fj.get("target_specific_adjudication", {})
+    if target_sem12fj.get("classification") != "MICROFILM_REGISTRATION_LOGIN_NUMBER" or target_sem12fj.get("exact_target_pair_closed") is not True:
+        fail("Batch 12FJ target microfilm registration classification regressed")
+    if target_sem12fj.get("original_rare_book_call_number") is not False or target_sem12fj.get("public_barcode") is not False or target_sem12fj.get("historical_qu_acquisition_or_donation_number") is not False:
+        fail("Batch 12FJ microfilm identifier firewall regressed")
+    layers12fj = batch12fj.get("identifier_layer_firewall", {})
+    if layers12fj.get("semantic_layer_collapse_forbidden") is not True or layers12fj.get("public_barcode_proved") is not False:
+        fail("Batch 12FJ identifier-layer/barcode firewall regressed")
+    reg12fj = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    needed12fj = {
+        "EXT-NLC-READ-DATA892-TONGHU-FID411999008600",
+        "EXT-NLC-READ-DATA892-ZHUNZHAI-FID411999008601",
+        "EXT-NLC-META-MICROFILM-TONGHU-SYS002146415-905B00O003570",
+        "EXT-NLC-META-MICROFILM-ZHUNZHAI-SYS002146416-905B00O003571",
+        "EXT-XXU-CNMARC-905B-LOGIN-NUMBER-CONTROL",
+        "EXT-AHPU-CNMARC-905B-LOGIN-NUMBER-CONTROL",
+        "EXT-GZHSVC-CNMARC-905B-LOGIN-NUMBER-CONTROL",
+    }
+    regids12fj = {x.get("source_id") for x in reg12fj.get("sources", [])}
+    if not needed12fj.issubset(regids12fj):
+        fail("Batch 12FJ source registry controls incomplete")
+    if batch12fj.get("chronology_and_rule_firewall", {}).get("direct_sanming_parent_vote_increment") != 0:
+        fail("Batch 12FJ Sanming zero-vote firewall regressed")
+    if batch12fj.get("transmission_impact", {}).get("same_object_edge_authorized") is not False:
+        fail("Batch 12FJ SAME_OBJECT firewall regressed")
+    if batch12fj.get("accounting", {}).get("confirmed_provenance_metadata_defect_count") != 13 or batch12fj.get("accounting", {}).get("repaired_provenance_metadata_defect_count") != 13:
+        fail("Batch 12FJ provenance accounting unexpectedly changed")
 
     for path in (ZIWEI_KYUDB_12DT_BATCH, ZIWEI_KYUDB_12DT_EVIDENCE):
         if not path.is_file():
