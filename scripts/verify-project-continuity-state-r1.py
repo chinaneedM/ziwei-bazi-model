@@ -146,6 +146,10 @@ ZIWEI_ZHOU_SHUTAO_12FO_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-A
 ZIWEI_ZHOU_SHUTAO_12FO_EVIDENCE = ROOT / "docs/research/ZIWEI-ZHOU-SHUTAO-DIARY-GAO-ACQUISITION-ROLE-AND-QU-1953-CHRONOLOGY-R1.json"
 ZIWEI_JI_SHUYING_12FP_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-TIEQIN-ACQUISITION-PROGRAM-CHRONOLOGY-AND-DIRECT-TEXT-BOUNDARY-FP.md"
 ZIWEI_JI_SHUYING_12FP_EVIDENCE = ROOT / "docs/research/ZIWEI-JI-SHUYING-TIEQIN-ACQUISITION-PROGRAM-CHRONOLOGY-AND-DIRECT-TEXT-BOUNDARY-R1.json"
+ZIWEI_TOKYO_JI_12FQ_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TOKYO-JI-SHUYING-CH9-REMOTE-COPY-ELIGIBILITY-AND-PAGE-RANGE-BOUNDARY-FQ.md"
+ZIWEI_TOKYO_JI_12FQ_EVIDENCE = ROOT / "docs/research/ZIWEI-TOKYO-JI-SHUYING-CH9-REMOTE-COPY-ELIGIBILITY-AND-PAGE-RANGE-BOUNDARY-R1.json"
+ZIWEI_BEITU_HISTORY_12FR_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-BEITU-HISTORY-MATERIALS-PP446-449-DIRECT-ACCESS-BOUNDARY-FR.md"
+ZIWEI_BEITU_HISTORY_12FR_EVIDENCE = ROOT / "docs/research/ZIWEI-BEITU-HISTORY-MATERIALS-1949-1966-PP446-449-DIRECT-ACCESS-BOUNDARY-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -445,9 +449,11 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-LIN-ZHENYUE-PREFACE-GAO-ANNOTATED-CATALOG-SOURCE-ATTRIBUTION-FN",
     "BATCH-12-ZIWEI-ZHOU-SHUTAO-DIARY-GAO-ACQUISITION-ROLE-AND-QU-1953-CHRONOLOGY-FO",
     "BATCH-12-ZIWEI-JI-SHUYING-TIEQIN-ACQUISITION-PROGRAM-CHRONOLOGY-AND-DIRECT-TEXT-BOUNDARY-FP",
+    "BATCH-12-ZIWEI-TOKYO-JI-SHUYING-CH9-REMOTE-COPY-ELIGIBILITY-AND-PAGE-RANGE-BOUNDARY-FQ",
+    "BATCH-12-ZIWEI-BEITU-HISTORY-MATERIALS-PP446-449-DIRECT-ACCESS-BOUNDARY-FR",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-TIEQIN-ACQUISITION-PROGRAM-CHRONOLOGY-AND-DIRECT-TEXT-BOUNDARY-FP.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-BEITU-HISTORY-MATERIALS-PP446-449-DIRECT-ACCESS-BOUNDARY-FR.md"
 
 
 def fail(message: str) -> None:
@@ -2068,6 +2074,56 @@ def main() -> int:
         fail("Batch 12FP product/matrix firewall regressed")
     if batch12fp.get("accounting", {}).get("confirmed_provenance_metadata_defect_count") != 13 or batch12fp.get("accounting", {}).get("repaired_provenance_metadata_defect_count") != 13:
         fail("Batch 12FP provenance accounting unexpectedly changed")
+
+    for path in (ZIWEI_TOKYO_JI_12FQ_BATCH, ZIWEI_TOKYO_JI_12FQ_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12FQ continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12fq = json.loads(ZIWEI_TOKYO_JI_12FQ_EVIDENCE.read_text(encoding="utf-8"))
+    if batch12fq.get("batch_id") != "BATCH-12-ZIWEI-TOKYO-JI-SHUYING-CH9-REMOTE-COPY-ELIGIBILITY-AND-PAGE-RANGE-BOUNDARY-FQ":
+        fail("Batch 12FQ evidence identity mismatch")
+    rules12fq = batch12fq.get("first_party_remote_copy_rules", {})
+    if rules12fq.get("postal", {}).get("outside_tokyo_exception") != "国立国会図書館で所蔵していない資料の内、要件を満たす資料":
+        fail("Batch 12FQ outside-Tokyo postal exception regressed")
+    if rules12fq.get("pdf", {}).get("identity_document_required_each_application") is not True or rules12fq.get("pdf", {}).get("compensation_fee_required") is not True:
+        fail("Batch 12FQ PDF identity/fee control regressed")
+    adj12fq = batch12fq.get("adjudication", {})
+    if adj12fq.get("chapter_9_page_range") != "UNRESOLVED" or adj12fq.get("reference_service_is_correct_page_range_resolution_route") != "CLOSED":
+        fail("Batch 12FQ page-range/reference-service boundary regressed")
+    if adj12fq.get("this_exact_book_definitively_eligible_for_outside_tokyo_remote_copy") != "NOT_PREJUDGED":
+        fail("Batch 12FQ exact-item eligibility was falsely prejudged")
+    uaf12fq = batch12fq.get("user_action_firewall", {})
+    if any(uaf12fq.get(k) is not True for k in ("no_paid_copy_request_submitted","no_identity_document_submitted","no_user_eligibility_inferred","no_payment_authorized","no_library_account_or_form_action_taken")):
+        fail("Batch 12FQ user-action firewall regressed")
+    tfw12fq = batch12fq.get("target_provenance_firewall", {})
+    if tfw12fq.get("target_3482_3483_purchase_selected") is not False or tfw12fq.get("target_3482_3483_donation_selected") is not False or tfw12fq.get("final_nlc_acquisition_transfer_path") != "UNRESOLVED":
+        fail("Batch 12FQ target transaction route was falsely closed")
+
+    for path in (ZIWEI_BEITU_HISTORY_12FR_BATCH, ZIWEI_BEITU_HISTORY_12FR_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12FR continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12fr = json.loads(ZIWEI_BEITU_HISTORY_12FR_EVIDENCE.read_text(encoding="utf-8"))
+    if batch12fr.get("batch_id") != "BATCH-12-ZIWEI-BEITU-HISTORY-MATERIALS-PP446-449-DIRECT-ACCESS-BOUNDARY-FR":
+        fail("Batch 12FR evidence identity mismatch")
+    ndl12fr = batch12fr.get("source_chain", {}).get("ndl_exact_upper_volume", {})
+    if ndl12fr.get("ndl_bibliographic_id") != "a0000036720" or ndl12fr.get("ndl_call_number") != "UL215-C3" or ndl12fr.get("pages") != 866:
+        fail("Batch 12FR NDL upper-volume identity regressed")
+    if ndl12fr.get("pp446_449_within_upper_volume") is not True or ndl12fr.get("page_content_reviewed_by_project") is not False:
+        fail("Batch 12FR volume/page-content boundary regressed")
+    tok12fr = batch12fr.get("source_chain", {}).get("tokyo_metropolitan_exact_upper_volume", {})
+    if tok12fr.get("call_number") != "C/0161/1/2-1" or tok12fr.get("material_code") != "4000017284" or tok12fr.get("availability") != "利用可":
+        fail("Batch 12FR Tokyo upper-volume holding regressed")
+    adj12fr = batch12fr.get("adjudication", {})
+    if adj12fr.get("pp446_449_direct_text") != "NOT_REVIEWED" or adj12fr.get("target_3482_3483_batch_membership") != "UNRESOLVED":
+        fail("Batch 12FR direct-page/target boundary regressed")
+    if adj12fr.get("target_specific_purchase_route_selected") is not False or adj12fr.get("target_specific_donation_route_selected") is not False or adj12fr.get("final_nlc_acquisition_transfer_path") != "UNRESOLVED":
+        fail("Batch 12FR target transaction route was falsely closed")
+    regids12fr = {x.get("source_id") for x in registry.get("sources", [])}
+    if not {"EXT-NDL-BEITU-HISTORY-MATERIALS-2-UPPER-1997","EXT-TOKYO-METRO-LIB-BEITU-HISTORY-MATERIALS-2-UPPER-1997","EXT-NLC-PCAB-ZHENG-ZHENDUO-QU-DONATION-AND-PRICED-ACQUISITION-2024"}.issubset(regids12fr):
+        fail("Batch 12FR source registry controls incomplete")
+    if batch12fr.get("transmission_impact", {}).get("nodes_added") != [] or batch12fr.get("transmission_impact", {}).get("edges_added") != []:
+        fail("Batch 12FR zero-topology firewall regressed")
+    if batch12fr.get("chronology_and_rule_firewall", {}).get("algorithm_reopen_authorized") is not False:
+        fail("Batch 12FR algorithm firewall regressed")
 
     for path in (ZIWEI_KYUDB_12DT_BATCH, ZIWEI_KYUDB_12DT_EVIDENCE):
         if not path.is_file():
