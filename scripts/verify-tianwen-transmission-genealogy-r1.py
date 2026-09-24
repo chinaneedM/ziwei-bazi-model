@@ -50,6 +50,7 @@ BATCH_12FC = ROOT / "docs/research/ZIWEI-TIEQIN-YINGCHAO-SONGBEN-TRANSCRIPTION-R
 BATCH_12FD = ROOT / "docs/research/ZIWEI-NLC1823-TIEQIN-SEAL-PROVENANCE-CONTROL-R1.json"
 BATCH_12FE = ROOT / "docs/research/ZIWEI-NCL-UNION-TONGHU-RARECATX0514818-BOUNDARY-R1.json"
 BATCH_12FF = ROOT / "docs/research/ZIWEI-NLC-OPAC-ZHUNZHAI-MICROFILM-SOURCE-CROSSBINDING-R1.json"
+BATCH_12FG = ROOT / "docs/research/ZIWEI-BEITU1959-TONGHU-ZHUNZHAI-CATALOG-NUMBER-AND-QUDONATION-BOUNDARY-R1.json"
 
 
 def fail(message: str) -> None:
@@ -57,7 +58,7 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
-    for path in (CHARTER, PROTOCOL, GRAPH, STATE, BATCH_12CH, BATCH_12DP, BATCH_12DQ, BATCH_12DR, BATCH_12DS, BATCH_12DT, BATCH_12DU, BATCH_12DV, BATCH_12DW, BATCH_12DX, BATCH_12DY, BATCH_12DZ, BATCH_12EA, BATCH_12EB, BATCH_12EC, BATCH_12ED, BATCH_12EE, BATCH_12EI, BATCH_12EJ, BATCH_12EK, BATCH_12EL, BATCH_12EM, BATCH_12EN, BATCH_12EO, BATCH_12EP, BATCH_12EQ, BATCH_12ER, BATCH_12ES, BATCH_12ET, BATCH_12EU, BATCH_12EV, BATCH_12EW, BATCH_12EX, BATCH_12EY, BATCH_12EZ, BATCH_12FA, BATCH_12FB, BATCH_12FC, BATCH_12FD, BATCH_12FE, BATCH_12FF):
+    for path in (CHARTER, PROTOCOL, GRAPH, STATE, BATCH_12CH, BATCH_12DP, BATCH_12DQ, BATCH_12DR, BATCH_12DS, BATCH_12DT, BATCH_12DU, BATCH_12DV, BATCH_12DW, BATCH_12DX, BATCH_12DY, BATCH_12DZ, BATCH_12EA, BATCH_12EB, BATCH_12EC, BATCH_12ED, BATCH_12EE, BATCH_12EI, BATCH_12EJ, BATCH_12EK, BATCH_12EL, BATCH_12EM, BATCH_12EN, BATCH_12EO, BATCH_12EP, BATCH_12EQ, BATCH_12ER, BATCH_12ES, BATCH_12ET, BATCH_12EU, BATCH_12EV, BATCH_12EW, BATCH_12EX, BATCH_12EY, BATCH_12EZ, BATCH_12FA, BATCH_12FB, BATCH_12FC, BATCH_12FD, BATCH_12FE, BATCH_12FF, BATCH_12FG):
         if not path.is_file():
             fail(f"Tianwen transmission artifact missing: {path.relative_to(ROOT)}")
 
@@ -1293,6 +1294,43 @@ def main() -> int:
         fail("Batch 12FF TG-E0109 identifier/same-object scope firewall missing")
     if not any(x.get("batch") == "BATCH-12-ZIWEI-NLC-OPAC-ZHUNZHAI-MICROFILM-SOURCE-CROSSBINDING-FF" and "zero exact sanming-parent vote" in x.get("update","").lower() for x in hyp12dk.get("evidence_updates", [])):
         fail("Batch 12FF genealogy hypothesis zero-vote update missing")
+
+
+    batch12fg = json.loads(BATCH_12FG.read_text(encoding="utf-8"))
+    if batch12fg.get("batch_id") != "BATCH-12-ZIWEI-BEITU1959-TONGHU-ZHUNZHAI-CATALOG-NUMBER-AND-QUDONATION-BOUNDARY-FG":
+        fail("Batch 12FG genealogy evidence identity mismatch")
+    impact12fg = batch12fg.get("transmission_impact", {})
+    if impact12fg.get("edges_supported") != ["TG-E0110"] or impact12fg.get("same_object_edge_authorized") is not False:
+        fail("Batch 12FG genealogy edge/collapse scope regressed")
+    catalog12fg = next((n for n in nodes if n.get("node_id") == "CATALOG-BEITU-1959-TONGHU-ZHUNZHAI-3482-3483"), None)
+    if catalog12fg is None:
+        fail("Batch 12FG 1959 catalog node missing")
+    nums12fg = catalog12fg.get("historical_catalog_numbers", {})
+    if nums12fg.get("tonghu") != "3482" or nums12fg.get("zhunzhai") != "3483":
+        fail("Batch 12FG historical catalog numbers regressed")
+    cross12fg = catalog12fg.get("opac_original_document_crosswalk", {})
+    if cross12fg.get("03482") != "3482" or cross12fg.get("03483") != "3483" or cross12fg.get("status") != "CLOSED_AT_HISTORICAL_BIBLIOGRAPHIC_CATALOG_NUMBER_LEVEL":
+        fail("Batch 12FG OPAC-to-1959 catalog crosswalk regressed")
+    if catalog12fg.get("current_physical_shelfmark_proved") is not False or catalog12fg.get("acquisition_or_donation_number_proved") is not False:
+        fail("Batch 12FG current identifier firewall regressed")
+    quctrl12fg = catalog12fg.get("same_catalog_qu_donation_control", {})
+    if quctrl12fg.get("direct_mark") != "瞿捐" or quctrl12fg.get("direct_mark_closed") is not True:
+        fail("Batch 12FG same-catalog 瞿捐 control regressed")
+    physical12fg = next((n for n in nodes if n.get("node_id") == "PHYSICAL-COPY-NLC-ZHUNZHAI-JILOU-DAOGUANG3-HUANG-SHILIJU-MS"), None)
+    ctl12fg = {} if physical12fg is None else physical12fg.get("beitu_1959_catalog_number_and_qu_donation_control", {})
+    if ctl12fg.get("tonghu_printed_number") != "3482" or ctl12fg.get("zhunzhai_printed_number") != "3483":
+        fail("Batch 12FG physical-node number control regressed")
+    if ctl12fg.get("target_qu_donation_mark_present") is not False or ctl12fg.get("historical_qu_donation_absolutely_disproved") is not False or ctl12fg.get("final_acquisition_path") != "UNRESOLVED":
+        fail("Batch 12FG Qu-donation/acquisition firewall regressed")
+    edge12fg = next((e for e in edges if e.get("edge_id") == "TG-E0110"), None)
+    if edge12fg is None or edge12fg.get("relation") != "ATTESTS" or edge12fg.get("status") != "HIGH_CONFIDENCE":
+        fail("Batch 12FG TG-E0110 status/relation regressed")
+    if edge12fg.get("from") != "CATALOG-BEITU-1959-TONGHU-ZHUNZHAI-3482-3483" or edge12fg.get("to") != "PHYSICAL-COPY-NLC-ZHUNZHAI-JILOU-DAOGUANG3-HUANG-SHILIJU-MS":
+        fail("Batch 12FG TG-E0110 endpoints regressed")
+    if "does not absolutely disprove" not in edge12fg.get("scope_note", "") or "current physical shelfmark" not in edge12fg.get("scope_note", ""):
+        fail("Batch 12FG TG-E0110 acquisition/current-identifier firewall missing")
+    if not any(x.get("batch") == "BATCH-12-ZIWEI-BEITU1959-TONGHU-ZHUNZHAI-CATALOG-NUMBER-AND-QUDONATION-BOUNDARY-FG" and "zero exact sanming-parent vote" in x.get("update","").lower() for x in hyp12dk.get("evidence_updates", [])):
+        fail("Batch 12FG genealogy hypothesis zero-vote update missing")
 
     ncl = next(n for n in nodes if n.get("node_id") == "PHYSICAL-COPY-SISHI-QIHOU-NCL03164-OLD-MANUSCRIPT")
     if ncl.get("physical_copy_date") != "UNRESOLVED":
