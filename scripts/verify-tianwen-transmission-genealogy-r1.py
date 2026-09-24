@@ -848,13 +848,18 @@ def main() -> int:
         fail("Batch 12EK shared-glyph crop node status regressed")
     if copy12ee.get("shared_glyph_manual_set") != ["正", "月"]:
         fail("Batch 12EK shared-glyph manual set regressed")
-    if copy12ee.get("shared_glyph_probe_artifact_id") != 10671595229 or copy12ee.get("gyeongjin1580_shared_glyph_size_class_binding") != "UNRESOLVED":
-        fail("Batch 12EK artifact/size-class node firewall regressed")
+    if copy12ee.get("shared_glyph_probe_artifact_id") != 10671595229:
+        fail("Batch 12EK shared-glyph artifact identity regressed")
     if copy12ee.get("shared_glyph_visual_resemblance_or_difference_proves_casting_generation") is not False or copy12ee.get("shared_glyph_identity_control_status") != "NOT_YET_CLOSED":
         fail("Batch 12EK visual-form/casting firewall regressed")
     if not any(x.get("batch") == "BATCH-12-ZIWEI-KYUDB-GK02538-GYEONGJIN1580-SOURCE-BOUND-SHARED-GLYPH-CROPS-EK" and "zero exact sanming-parent vote" in x.get("update", "").lower() for x in hyp12dk.get("evidence_updates", [])):
         fail("Batch 12EK genealogy hypothesis zero-vote update missing")
     batch12ek = json.loads(BATCH_12EK.read_text(encoding="utf-8"))
+    rel12ek = batch12ek.get("relation_to_prior_batches", {})
+    if rel12ek.get("gyeongjin1580_crop_size_class_bound_to_official_medium_1_2x0_8cm") is not False:
+        fail("Batch 12EK historical size-class-open firewall regressed")
+    if "GYEONGJIN_SIZE_CLASS_BINDING_REMAINS_UNRESOLVED" not in batch12ek.get("answer", ""):
+        fail("Batch 12EK historical unresolved size-class adjudication regressed")
     impact12ek = batch12ek.get("transmission_impact", {})
     if impact12ek.get("edges_supported") != []:
         fail("Batch 12EK unexpectedly closed a transmission edge")
