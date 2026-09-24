@@ -1,0 +1,218 @@
+name: probe-nlc-tonghu-zhunzhai-physical-id
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-nlc-tonghu-zhunzhai-physical-id.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Probe NLC OPAC, union bibliography, and current holdings frontend
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/nlc-tonghu-zhunzhai-physical-id'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT/opac/raw" "$ROOT/opac/text" "$ROOT/union" "$ROOT/meta/raw" "$ROOT/meta/js"
+          UA='Tianwen-Provenance-Audit/1.0'
+
+          cat > "$ROOT/titles.tsv" <<'EOF'
+          tonghu-trad	銅壺漏箭制度
+          tonghu-simp	铜壶漏箭制度
+          zhunzhai-full-trad	準齋心製几漏圖式
+          zhunzhai-full-simp	准斋心制几漏图式
+          zhunzhai-short-trad	準齋几漏圖式
+          zhunzhai-short-simp	准斋几漏图式
+          EOF
+
+          : > "$ROOT/opac/status.tsv"
+          while IFS=$'\t' read -r key title; do
+            for code in WTI WRD; do
+              url=$(KEY="$key" TITLE="$title" CODE="$code" python - <<'PY'
+          import os
+          from urllib.parse import quote_plus
+          print('http://opac.nlc.cn/F/?func=find-b&find_code='+os.environ['CODE']+
+                '&request='+quote_plus(os.environ['TITLE'])+'&local_base=NLC01')
+          PY
+              )
+              out="$ROOT/opac/raw/$key-$code.html"
+              set +e
+              timeout 40s curl -L -sS --connect-timeout 8 --max-time 30 -A "$UA" "$url" -o "$out"
+              rc=$?
+              set -e
+              size=0; [ -f "$out" ] && size=$(wc -c < "$out")
+              printf '%s\t%s\t%s\t%s\t%s\n' "$key" "$code" "$rc" "$size" "$title" >> "$ROOT/opac/status.tsv"
+            done
+          done < "$ROOT/titles.tsv"
+
+          python - <<'PY'
+          from html.parser import HTMLParser
+          from pathlib import Path
+          from urllib.parse import urljoin
+          import re
+          root=Path('audit/nlc-tonghu-zhunzhai-physical-id/opac')
+          class P(HTMLParser):
+              def __init__(self):
+                  super().__init__(); self.text=[]; self.links=[]
+              def handle_data(self,d):
+                  s=' '.join(d.split())
+                  if s:self.text.append(s)
+              def handle_starttag(self,tag,attrs):
+                  a=dict(attrs)
+                  if tag=='a' and a.get('href'):self.links.append(urljoin('http://opac.nlc.cn/F/',a['href']))
+          docs=set()
+          all_links=[]
+          for p in sorted((root/'raw').glob('*.html')):
+              q=P(); q.feed(p.read_text('utf-8',errors='replace'))
+              (root/'text'/f'{p.stem}.txt').write_text('\n'.join(q.text)+'\n',encoding='utf-8')
+              for href in q.links:
+                  all_links.append((p.stem,href))
+                  for pat in (r'doc_number=([0-9]{1,12})',r'doc_num=([0-9]{1,12})'):
+                      m=re.search(pat,href)
+                      if m:docs.add(m.group(1))
+          (root/'all-links.tsv').write_text(''.join(f'{s}\t{h}\n' for s,h in all_links),encoding='utf-8')
+          (root/'doc-numbers.txt').write_text('\n'.join(sorted(docs))+'\n',encoding='utf-8')
+          PY
+
+          while IFS= read -r doc; do
+            [ -z "$doc" ] && continue
+            for func in direct item-global; do
+              url="http://opac.nlc.cn/F/?func=$func&local_base=NLC01&doc_number=$doc"
+              out="$ROOT/opac/raw/doc-$doc-$func.html"
+              set +e
+              timeout 40s curl -L -sS --connect-timeout 8 --max-time 30 -A "$UA" "$url" -o "$out"
+              rc=$?
+              set -e
+              printf 'doc-%s-%s\t%s\t%s\n' "$doc" "$func" "$rc" "$(wc -c < "$out" 2>/dev/null || echo 0)" >> "$ROOT/opac/status.tsv"
+            done
+          done < "$ROOT/opac/doc-numbers.txt"
+
+          python - <<'PY'
+          from html.parser import HTMLParser
+          from pathlib import Path
+          root=Path('audit/nlc-tonghu-zhunzhai-physical-id/opac')
+          class P(HTMLParser):
+              def __init__(self):super().__init__();self.text=[]
+              def handle_data(self,d):
+                  s=' '.join(d.split())
+                  if s:self.text.append(s)
+          for p in sorted((root/'raw').glob('doc-*.html')):
+              q=P();q.feed(p.read_text('utf-8',errors='replace'))
+              (root/'text'/f'{p.stem}.txt').write_text('\n'.join(q.text)+'\n',encoding='utf-8')
+          PY
+          grep -RniE '銅壺|铜壶|準齋|准斋|几漏|漏箭|黃丕烈|黄丕烈|士禮居|士礼居|鐵琴|铁琴|索書號|索书号|館藏|馆藏|善本|閱覽室|阅览室|doc_number|411999|道光三|1823' "$ROOT/opac" > "$ROOT/opac/target-hits.txt" || true
+
+          ENDPOINT='http://read.nlc.cn/advanceSearch/gujiSearch/data'
+          : > "$ROOT/union/status.tsv"
+          while IFS=$'\t' read -r key title; do
+            for match in must like; do
+              SEARCH_JSON=$(TITLE="$title" MATCH="$match" python - <<'PY'
+          import json,os
+          print(json.dumps([{"fldName":"title","content":os.environ["TITLE"],"match":os.environ["MATCH"]}],ensure_ascii=False,separators=(',',':')))
+          PY
+              )
+              out="$ROOT/union/$key-$match.json"
+              set +e
+              timeout 40s curl -L -sS --connect-timeout 8 --max-time 30 -A "$UA" -X POST \
+                --data-urlencode 'index=0019,' \
+                --data-urlencode "searchJson=$SEARCH_JSON" \
+                --data-urlencode 'pageNo=1' \
+                "$ENDPOINT" -o "$out"
+              rc=$?
+              set -e
+              printf '%s\t%s\t%s\t%s\t%s\n' "$key" "$match" "$rc" "$(wc -c < "$out" 2>/dev/null || echo 0)" "$title" >> "$ROOT/union/status.tsv"
+            done
+          done < "$ROOT/titles.tsv"
+
+          python - <<'PY'
+          import json,re
+          from pathlib import Path
+          root=Path('audit/nlc-tonghu-zhunzhai-physical-id/union')
+          report=[]
+          for p in sorted(root.glob('*.json')):
+              try:d=json.loads(p.read_text('utf-8'))
+              except Exception as e:
+                  report.append(f'{p.name}\tPARSE_ERROR\t{e}');continue
+              rows=d.get('rows') or []
+              report.append(f'{p.name}\ttotal={d.get("total")}\trows={len(rows)}')
+              for i,r in enumerate(rows,1):
+                  report.append(f'{p.name}\trow={i}\t'+json.dumps(r,ensure_ascii=False,separators=(',',':')))
+          (root/'parsed-results.txt').write_text('\n'.join(report)+'\n',encoding='utf-8')
+          PY
+          grep -RniE '銅壺|铜壶|準齋|准斋|几漏|漏箭|黃丕烈|黄丕烈|國家圖書館|国家图书馆|索書號|索书号|登錄號|登录号|館藏|馆藏|identifier|call|shelf' "$ROOT/union" > "$ROOT/union/target-hits.txt" || true
+
+          for url in 'https://meta.nlc.cn/v2/index.html' 'https://meta.nlc.cn/v2/hightSearch'; do
+            key=$(printf '%s' "$url" | sed 's#https://meta.nlc.cn/v2/##;s#[/?=&]#_#g')
+            set +e
+            timeout 40s curl -L -sS --connect-timeout 8 --max-time 30 -A "$UA" -D "$ROOT/meta/raw/$key.headers" "$url" -o "$ROOT/meta/raw/$key.html"
+            rc=$?
+            set -e
+            printf '%s\t%s\t%s\n' "$url" "$rc" "$(wc -c < "$ROOT/meta/raw/$key.html" 2>/dev/null || echo 0)" >> "$ROOT/meta/status.tsv"
+          done
+
+          python - <<'PY'
+          from html.parser import HTMLParser
+          from pathlib import Path
+          from urllib.parse import urljoin
+          root=Path('audit/nlc-tonghu-zhunzhai-physical-id/meta')
+          class P(HTMLParser):
+              def __init__(self):super().__init__();self.scripts=[];self.forms=[];self.inputs=[]
+              def handle_starttag(self,tag,attrs):
+                  d=dict(attrs)
+                  if tag=='script' and d.get('src'):self.scripts.append(urljoin('https://meta.nlc.cn/v2/',d['src']))
+                  elif tag=='form':self.forms.append(d)
+                  elif tag=='input':self.inputs.append(d)
+          urls=[]
+          out=[]
+          for p in sorted((root/'raw').glob('*.html')):
+              q=P();q.feed(p.read_text('utf-8',errors='replace'))
+              out += [f'{p.name}\tSCRIPT\t{x}' for x in q.scripts]
+              out += [f'{p.name}\tFORM\t{x!r}' for x in q.forms]
+              out += [f'{p.name}\tINPUT\t{x!r}' for x in q.inputs]
+              urls.extend(q.scripts)
+          (root/'frontend-contract.txt').write_text('\n'.join(out)+'\n',encoding='utf-8')
+          (root/'script-urls.txt').write_text('\n'.join(dict.fromkeys(urls))+'\n',encoding='utf-8')
+          PY
+
+          n=0
+          while IFS= read -r url; do
+            [ -z "$url" ] && continue
+            n=$((n+1))
+            out="$ROOT/meta/js/$n.js"
+            set +e
+            timeout 40s curl -L -sS --connect-timeout 8 --max-time 30 -A "$UA" "$url" -o "$out"
+            rc=$?
+            set -e
+            printf 'script-%s\t%s\t%s\t%s\n' "$n" "$rc" "$(wc -c < "$out" 2>/dev/null || echo 0)" "$url" >> "$ROOT/meta/status.tsv"
+          done < "$ROOT/meta/script-urls.txt"
+
+          grep -RnioE '.{0,120}(axios|fetch\(|/api/|search[A-Za-z0-9_/-]*|hightSearch|highSearch|keyword|title|holding|item|detail|opac|query).{0,220}' "$ROOT/meta/js" "$ROOT/meta/raw" > "$ROOT/meta/endpoint-hits.txt" || true
+          find "$ROOT" -type f -size +0c -print0 | xargs -0 -r sha256sum | sort -V > "$ROOT/all-files.sha256"
+
+          printf '%s\n' \
+            'SOURCE=National Library of China public OPAC + Chinese Ancient Books Union Bibliography + current meta.nlc.cn holdings frontend' \
+            'TARGETS=銅壺漏箭制度 ; 準齋心製几漏圖式 and title variants' \
+            'PURPOSE=resolve physical call number/internal record/acquisition identifier or companion-record object cross-binding after Batch 12FE' \
+            'IDENTIFIER_FIREWALL=record id != physical call number != acquisition/donation number != collection seal' \
+            'NEGATIVE_POLICY=failed/nonreturned public routes are access/index boundaries only; they do not prove no physical holding or identifier exists' \
+            'OCR_USED=false' \
+            > "$ROOT/manifest.txt"
+
+      - name: Upload NLC physical-identifier probe
+        uses: actions/upload-artifact@v4
+        with:
+          name: nlc-tonghu-zhunzhai-physical-id-probe
+          path: audit/nlc-tonghu-zhunzhai-physical-id/
+          if-no-files-found: error
+          compression-level: 6
+          retention-days: 30
