@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.174.0",
+  "schema_version": "1.175.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -256,9 +256,10 @@
       "BATCH-12-ZIWEI-NLC-OPENOBJECT-PUBLIC-SHELL-ACCESS-BOUNDARY-FK",
       "BATCH-12-ZIWEI-QU-NLC-MIXED-TRANSFER-AND-TARGET-ACQUISITION-BOUNDARY-FL",
       "BATCH-12-ZIWEI-GAO-XIZENG-ANNOTATED-TIEQIN-CATALOG-HOLDING-AND-ACCESS-BOUNDARY-FM",
-      "BATCH-12-ZIWEI-LIN-ZHENYUE-PREFACE-GAO-ANNOTATED-CATALOG-SOURCE-ATTRIBUTION-FN"
+      "BATCH-12-ZIWEI-LIN-ZHENYUE-PREFACE-GAO-ANNOTATED-CATALOG-SOURCE-ATTRIBUTION-FN",
+      "BATCH-12-ZIWEI-ZHOU-SHUTAO-DIARY-GAO-ACQUISITION-ROLE-AND-QU-1953-CHRONOLOGY-FO"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-LIN-ZHENYUE-PREFACE-GAO-ANNOTATED-CATALOG-SOURCE-ATTRIBUTION-FN.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHOU-SHUTAO-DIARY-GAO-ACQUISITION-ROLE-AND-QU-1953-CHRONOLOGY-FO.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -1001,7 +1002,13 @@
       "Batch 12FL and 12FM machine records are repaired to distinguish the preface author from the book compilers and repost platform. Gao annotated-catalog existence attestation remains valid; current holder, shelfmark, public surrogate, target 3482/3483 annotation and target transaction mode remain unresolved.",
       "Shanghai Jiao Tong University's official faculty profile closes Lin Zhenyue's current identity and relevant research fields in classical bibliography, editions/catalog studies, book history and Ming-Qing collection history. This provides a legitimate scholarly discovery route but proves no custody and no underlying-source identity by itself.",
       "Batch 12FN adds no genealogy node or edge and authorizes no acquisition edge, SAME_OBJECT or direct-copy relation. Matrix/product counts remain 198 / 166 / 10, provenance defects 13/13, chart algorithm defect/reopen/collapse 0, and DETERMINISTIC_FUSION_CHART_PRODUCT_R1 remains CLOSED.",
-      "Highest next gate: recover Lin Zhenyue's source basis for the Gao annotated-catalog statement (citation, personally inspected copy, colleague-owned material, unpublished catalog record or archival reference); continue Qin Junze 2020 / Zhao Lintao / Gao-family / NLC work-paper routes only as secondary discovery paths; do not assign custody or target transaction mode without direct or near-direct evidence."
+      "Highest next gate: recover Lin Zhenyue's source basis for the Gao annotated-catalog statement (citation, personally inspected copy, colleague-owned material, unpublished catalog record or archival reference); continue Qin Junze 2020 / Zhao Lintao / Gao-family / NLC work-paper routes only as secondary discovery paths; do not assign custody or target transaction mode without direct or near-direct evidence.",
+      "Batch 12FO adds two independent contemporaneous-diary controls from published Zhou Shutao excerpts: 1952-08-31 directly attests Gao Xizeng participating with Zhang Heng and Zhao Wanli in physically taking Zhou Shutao's donated books, closing Gao's operational collection-handling role for that event only.",
+      "Zhou Shutao's 1953-05-29 diary excerpt records viewing Beijing Library newly received rare books with the terse collection labels 涵芬楼、瞿氏, closing a collection-level terminus ante quem that some Qu-family books were among reviewed new receipts by 1953-05-29. The target Tonghu/Zhunzhai volume or catalog nos. 3482/3483 are not named.",
+      "Batch 12FO enforces a cross-event firewall: Gao handling Zhou Shutao's 1952 donation plus Qu-family books appearing among 1953 new receipts does NOT prove Gao handled the Qu-family transfer, and does NOT independently prove Lin Zhenyue's more specific Gao→Qu statement. Target transaction route and exact acquisition date remain unresolved.",
+      "The reviewed diary access layer is publication-mediated, not direct manuscript-image collation. Wenhui 2019 confirms Zhou Qiqian's 2015-04-10 《文汇学人》 publication and the surviving diary corpus; a 2016 letter-annotation publication independently reproduces the 1952-08-31 entry and notes custody of the 1952-1962 diary extract at that time.",
+      "Batch 12FO adds no genealogy node or edge and authorizes no acquisition edge, SAME_OBJECT or direct-copy relation. Matrix/product counts remain 198 / 166 / 10, provenance defects 13/13, chart algorithm defect/reopen/collapse 0, direct Sanming-parent vote increment 0, and DETERMINISTIC_FUSION_CHART_PRODUCT_R1 remains CLOSED.",
+      "Highest next gate remains recovery of Lin Zhenyue's exact source basis for the Gao annotated Tieqin-catalog statement, with a secondary route to direct images/transcription context for the relevant Zhou Shutao diary pages and Beijing Library/NLC 1952-1953 Qu-family accession/title-level records. No target donation/sale inference is authorized."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10
