@@ -5183,6 +5183,10 @@
         {
           "batch": "BATCH-12-ZIWEI-NLC-DIGITAL-FID-AND-MICROFILM-REGISTRATION-FJ",
           "update": "First-party NLC read data_892 closes digital-resource FID/identifier 411999008600 for Tonghu with read-object bid 113028 and 411999008601 for Zhunzhai with bid 113029. Current NLC microfilm work records SYS 002146415/002146416 directly expose structured 905b 00O003570/00O003571; independent CNMARC controls classify 905b as 登录号. Digital FID, read bid, microfilm registration number, current rare-book SYS/UID and 905s local call numbers remain separate identifier layers; no public barcode, acquisition-route or SAME_OBJECT closure, and zero exact Sanming-parent vote is added."
+        },
+        {
+          "batch": "BATCH-12-ZIWEI-NLC-OPENOBJECT-PUBLIC-SHELL-ACCESS-BOUNDARY-FK",
+          "update": "First-party NLC public OpenObjectBook shells close the Tonghu/Zhunzhai data_892 FID/bid pair to their internal pdfname object-path metadata, while formatCatalog exposes only the title and the public shell explicitly places page-level reader access behind IP/data/login/permission checks. No permission endpoint, login emulation, token acquisition or direct internal-PDF retrieval was attempted. Page count/full manifest remain an access-boundary unknown, acquisition provenance remains unresolved, SAME_OBJECT/direct-copy remain unauthorized, and zero exact Sanming-parent vote is added."
         }
       ],
       "endpoint_anchor_component_identified": true,
