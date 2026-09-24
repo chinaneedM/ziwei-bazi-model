@@ -1,0 +1,97 @@
+name: verify-batch-12fv-exact-head
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/verify-batch-12fv-exact-head.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify Batch 12FV exact head
+        run: |
+          set -euo pipefail
+          python scripts/verify-tianwen-transmission-genealogy-r1.py
+          python scripts/verify-project-continuity-state-r1.py
+          python scripts/verify-fusion-chart-historical-provenance-audit-r1.py
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          bid='BATCH-12-ZIWEI-GU-TINGLONG-DIARY-1950-0106-DIRECT-EDITION-AND-JAPAN-HOLDING-BOUNDARY-FV'
+          e=json.loads(Path('docs/research/ZIWEI-GU-TINGLONG-DIARY-1950-0106-DIRECT-EDITION-AND-JAPAN-HOLDING-BOUNDARY-R1.json').read_text(encoding='utf-8'))
+          assert e['batch_id']==bid
+
+          pub=e['published_edition_control']
+          assert pub['ncid']=='BC15377496'
+          assert pub['isbn']=='9787101153804'
+          assert pub['publisher']=='中华书局'
+          assert pub['edition_identity']=='CLOSED'
+
+          man=e['surviving_manuscript_coverage_control']
+          assert man['observed_1950_manuscript_title']=='养新日记'
+          assert man['observed_1950_start_date']=='1950-01-01'
+          assert man['observed_1950_end_date']=='1950-12-06'
+          assert man['january_6_within_surviving_manuscript_range'] is True
+          assert man['project_direct_1950_01_06_page_reviewed'] is False
+
+          h=e['japan_holding_routes']
+          assert h['holding_count_observed']==5
+          assert h['lawful_physical_inspection_routes_closed'] is True
+          assert h['remote_copy_eligibility_closed'] is False
+          assert h['copy_request_submitted'] is False
+          assert {x['item_identifier'] for x in h['holdings']}=={'200042944929','4819775877','4820074682','6413393247','120241811'}
+
+          sec=e['secondary_1950_01_06_claim_control']
+          assert sec['status']=='PUBLICATION_MEDIATED_QUOTATION_PENDING_DIRECT_EDITION_COLLATION'
+          assert sec['reported_date']=='1950-01-06'
+          assert sec['direct_2022_diary_page_reviewed'] is False
+          assert sec['direct_manuscript_page_reviewed'] is False
+
+          a=e['adjudication']
+          assert a['1950_01_06_within_surviving_manuscript'] is True
+          assert a['1950_01_06_exact_published_page_number']=='UNRESOLVED'
+          assert a['1950_01_06_direct_published_text']=='NOT_REVIEWED'
+          assert a['1950_01_06_direct_manuscript_text']=='NOT_REVIEWED'
+          assert a['reported_purchase_300_titles_30_million']=='SECONDARY_QUOTATION_PENDING_DIRECT_COLLATION'
+          assert a['reported_donation_42_titles']=='SECONDARY_QUOTATION_PENDING_DIRECT_COLLATION'
+          assert a['target_specific_purchase_route_selected'] is False
+          assert a['target_specific_donation_route_selected'] is False
+          assert a['final_nlc_acquisition_transfer_path']=='UNRESOLVED'
+
+          state=json.loads(Path('docs/PROJECT-CURRENT-STATE-R1.json').read_text(encoding='utf-8'))
+          assert state['schema_version']=='1.182.0'
+          assert bid in state['historical_audit']['completed_batches']
+          assert state['historical_audit']['latest_batch_doc'].endswith('ZIWEI-GU-TINGLONG-DIARY-1950-0106-DIRECT-EDITION-AND-JAPAN-HOLDING-BOUNDARY-FV.md')
+          assert state['historical_audit']['row_count']==198
+          assert state['historical_audit']['audited_row_count']==166
+          assert state['historical_audit']['current_missing_from_product_row_count']==10
+          assert state['historical_audit']['confirmed_provenance_metadata_defect_count']==13
+          assert state['historical_audit']['repaired_provenance_metadata_defect_count']==13
+          assert state['invariants']['deterministic_fusion_chart_product_r1']=='CLOSED'
+          assert state['invariants']['confirmed_chart_algorithm_defect_count']==0
+          assert state['invariants']['algorithm_reopen_count']==0
+          assert state['invariants']['candidate_collapse_count']==0
+
+          reg=json.loads(Path('docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json').read_text(encoding='utf-8'))
+          ids={x.get('source_id') for x in reg['sources']}
+          assert {'EXT-CINII-GU-TINGLONG-DIARY-2022','EXT-ZHONGHUA1912-REPRINT-GU-TINGLONG-DIARY-EDITORIAL-PREFACE-2022','EXT-SOHU-2019-ZHAO-WANLI-GU-DENG-TIEQIN-PURCHASE-DIARY-CONTROLS'}.issubset(ids)
+
+          assert e['transmission_impact']['nodes_added']==[]
+          assert e['transmission_impact']['edges_added']==[]
+          assert e['chronology_and_rule_firewall']['runtime_rule_change'] is False
+          assert e['chronology_and_rule_firewall']['algorithm_reopen_authorized'] is False
+          assert e['chronology_and_rule_firewall']['candidate_collapse_authorized'] is False
+          assert e['chronology_and_rule_firewall']['matrix_count_change'] is False
+          PY
