@@ -2117,7 +2117,8 @@ def main() -> int:
         fail("Batch 12FR direct-page/target boundary regressed")
     if adj12fr.get("target_specific_purchase_route_selected") is not False or adj12fr.get("target_specific_donation_route_selected") is not False or adj12fr.get("final_nlc_acquisition_transfer_path") != "UNRESOLVED":
         fail("Batch 12FR target transaction route was falsely closed")
-    regids12fr = {x.get("source_id") for x in registry.get("sources", [])}
+    registry12fr = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    regids12fr = {x.get("source_id") for x in registry12fr.get("sources", [])}
     if not {"EXT-NDL-BEITU-HISTORY-MATERIALS-2-UPPER-1997","EXT-TOKYO-METRO-LIB-BEITU-HISTORY-MATERIALS-2-UPPER-1997","EXT-NLC-PCAB-ZHENG-ZHENDUO-QU-DONATION-AND-PRICED-ACQUISITION-2024"}.issubset(regids12fr):
         fail("Batch 12FR source registry controls incomplete")
     if batch12fr.get("transmission_impact", {}).get("nodes_added") != [] or batch12fr.get("transmission_impact", {}).get("edges_added") != []:
