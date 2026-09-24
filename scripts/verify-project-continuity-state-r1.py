@@ -142,6 +142,8 @@ ZIWEI_GAO_TIEQIN_12FM_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AU
 ZIWEI_GAO_TIEQIN_12FM_EVIDENCE = ROOT / "docs/research/ZIWEI-GAO-XIZENG-ANNOTATED-TIEQIN-CATALOG-HOLDING-AND-ACCESS-BOUNDARY-R1.json"
 ZIWEI_LIN_ZHENYUE_12FN_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-LIN-ZHENYUE-PREFACE-GAO-ANNOTATED-CATALOG-SOURCE-ATTRIBUTION-FN.md"
 ZIWEI_LIN_ZHENYUE_12FN_EVIDENCE = ROOT / "docs/research/ZIWEI-LIN-ZHENYUE-PREFACE-GAO-ANNOTATED-CATALOG-SOURCE-ATTRIBUTION-R1.json"
+ZIWEI_ZHOU_SHUTAO_12FO_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHOU-SHUTAO-DIARY-GAO-ACQUISITION-ROLE-AND-QU-1953-CHRONOLOGY-FO.md"
+ZIWEI_ZHOU_SHUTAO_12FO_EVIDENCE = ROOT / "docs/research/ZIWEI-ZHOU-SHUTAO-DIARY-GAO-ACQUISITION-ROLE-AND-QU-1953-CHRONOLOGY-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -439,9 +441,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-QU-NLC-MIXED-TRANSFER-AND-TARGET-ACQUISITION-BOUNDARY-FL",
     "BATCH-12-ZIWEI-GAO-XIZENG-ANNOTATED-TIEQIN-CATALOG-HOLDING-AND-ACCESS-BOUNDARY-FM",
     "BATCH-12-ZIWEI-LIN-ZHENYUE-PREFACE-GAO-ANNOTATED-CATALOG-SOURCE-ATTRIBUTION-FN",
+    "BATCH-12-ZIWEI-ZHOU-SHUTAO-DIARY-GAO-ACQUISITION-ROLE-AND-QU-1953-CHRONOLOGY-FO",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-LIN-ZHENYUE-PREFACE-GAO-ANNOTATED-CATALOG-SOURCE-ATTRIBUTION-FN.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHOU-SHUTAO-DIARY-GAO-ACQUISITION-ROLE-AND-QU-1953-CHRONOLOGY-FO.md"
 
 
 def fail(message: str) -> None:
@@ -1927,6 +1930,69 @@ def main() -> int:
         fail("Batch 12FN product/matrix firewall regressed")
     if batch12fn.get("accounting", {}).get("confirmed_provenance_metadata_defect_count") != 13 or batch12fn.get("accounting", {}).get("repaired_provenance_metadata_defect_count") != 13:
         fail("Batch 12FN provenance accounting unexpectedly changed")
+
+    for path in (ZIWEI_ZHOU_SHUTAO_12FO_BATCH, ZIWEI_ZHOU_SHUTAO_12FO_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12FO continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12fo = json.loads(ZIWEI_ZHOU_SHUTAO_12FO_EVIDENCE.read_text(encoding="utf-8"))
+    if batch12fo.get("batch_id") != "BATCH-12-ZIWEI-ZHOU-SHUTAO-DIARY-GAO-ACQUISITION-ROLE-AND-QU-1953-CHRONOLOGY-FO":
+        fail("Batch 12FO evidence identity mismatch")
+    d12fo = batch12fo.get("diary_controls", {})
+    e1952 = d12fo.get("entry_1952_08_31", {}).get("adjudication", {})
+    if e1952.get("gao_present_in_physical_book_collection_or_retrieval_work") is not True or e1952.get("zhao_wanli_present") is not True or e1952.get("zhang_heng_present") is not True:
+        fail("Batch 12FO 1952-08-31 operational-role control regressed")
+    if e1952.get("operational_acquisition_handling_role") != "DIRECTLY_ATTESTED_FOR_ZHOU_SHUTAO_DONATION_EVENT":
+        fail("Batch 12FO Gao operational-role scope regressed")
+    if e1952.get("proves_gao_handled_qu_family_books") is not False or e1952.get("proves_gao_annotated_tieqin_catalog_source_basis") is not False:
+        fail("Batch 12FO Gao→Qu/source-basis inference firewall regressed")
+    e1953 = d12fo.get("entry_1953_05_29", {}).get("adjudication", {})
+    if e1953.get("beijing_library_newly_received_rare_books_reviewed") is not True or e1953.get("qu_family_collection_label_present") is not True:
+        fail("Batch 12FO 1953-05-29 Qu new-receipt chronology control regressed")
+    if e1953.get("qu_books_present_among_reviewed_new_receipts_by_date") != "1953-05-29_TERMINUS_ANTE_QUEM":
+        fail("Batch 12FO Qu receipt terminus ante quem regressed")
+    if e1953.get("target_tonghu_zhunzhai_named") is not False or e1953.get("target_catalog_3482_3483_bound") is not False or e1953.get("target_transaction_mode_closed") is not False:
+        fail("Batch 12FO target identity/transaction firewall regressed")
+    cross12fo = batch12fo.get("cross_event_firewall", {})
+    for key in (
+        "same_diary_author_does_not_merge_events",
+        "gao_role_in_zhou_donation_does_not_prove_gao_role_in_qu_transfer",
+        "qu_new_receipt_chronology_does_not_prove_target_volume_included",
+        "qu_new_receipt_chronology_does_not_select_donation_or_sale",
+        "lin_zhenyue_preface_specific_gao_qu_statement_not_independently_proved_by_combining_these_entries",
+    ):
+        if cross12fo.get(key) is not True:
+            fail(f"Batch 12FO cross-event firewall regressed: {key}")
+    adj12fo = batch12fo.get("adjudication", {})
+    if adj12fo.get("direct_gao_to_qu_family_transfer_event") != "NOT_PROVED_BY_THESE_DIARY_ENTRIES":
+        fail("Batch 12FO direct Gao→Qu event was falsely proved")
+    if adj12fo.get("gao_annotated_tieqin_catalog_source_basis") != "UNRESOLVED":
+        fail("Batch 12FO Gao annotated-catalog source basis was falsely closed")
+    if adj12fo.get("target_tonghu_zhunzhai_presence_in_1953_05_29_viewing") != "NOT_PROVED":
+        fail("Batch 12FO target presence was falsely closed")
+    if adj12fo.get("target_3482_3483_transaction_mode") != "UNRESOLVED" or adj12fo.get("final_nlc_acquisition_transfer_path") != "UNRESOLVED":
+        fail("Batch 12FO target transaction/acquisition route was falsely closed")
+    quality12fo = batch12fo.get("source_quality_firewall", {})
+    if quality12fo.get("contemporaneous_diary_content") is not True or quality12fo.get("current_project_direct_manuscript_image_review") is not False or quality12fo.get("published_excerpt_is_family_or_scholarly_mediated") is not True:
+        fail("Batch 12FO source-mediation control regressed")
+    if quality12fo.get("unpublished_context_may_not_be_inferred") is not True:
+        fail("Batch 12FO unpublished-context firewall regressed")
+    registry12fo = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    regids12fo = {x.get("source_id") for x in registry12fo.get("sources", [])}
+    needed12fo = {
+        "EXT-ZHOU-QIQIAN-2015-ZHOU-SHUTAO-DIARY-FRIENDS-PUBLIC-REPRODUCTION",
+        "EXT-WENHUI-2019-ZHOU-SHUTAO-DIARY-SURVIVAL-PUBLICATION-CONTROL",
+        "EXT-THEPAPER-2016-ZHOU-SHUTAO-LETTERS-DIARY-0831-CUSTODY-CONTROL",
+    }
+    if not needed12fo.issubset(regids12fo):
+        fail("Batch 12FO source registry controls incomplete")
+    trans12fo = batch12fo.get("transmission_impact", {})
+    if trans12fo.get("nodes_added") != [] or trans12fo.get("edges_added") != [] or trans12fo.get("acquisition_edge_authorized") is not False or trans12fo.get("same_object_edge_authorized") is not False:
+        fail("Batch 12FO zero-topology/acquisition-edge firewall regressed")
+    rule12fo = batch12fo.get("chronology_and_rule_firewall", {})
+    if rule12fo.get("direct_sanming_parent_vote_increment") != 0 or rule12fo.get("pre1578_zhunzhai_rule_witness_increment") != 0 or rule12fo.get("runtime_rule_change") is not False or rule12fo.get("algorithm_reopen_authorized") is not False or rule12fo.get("candidate_collapse_authorized") is not False or rule12fo.get("matrix_count_change") is not False:
+        fail("Batch 12FO product/matrix firewall regressed")
+    if batch12fo.get("accounting", {}).get("confirmed_provenance_metadata_defect_count") != 13 or batch12fo.get("accounting", {}).get("repaired_provenance_metadata_defect_count") != 13:
+        fail("Batch 12FO provenance accounting unexpectedly changed")
 
     for path in (ZIWEI_KYUDB_12DT_BATCH, ZIWEI_KYUDB_12DT_EVIDENCE):
         if not path.is_file():
