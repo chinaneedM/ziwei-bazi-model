@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.170.0",
+  "schema_version": "1.171.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -248,9 +248,10 @@
       "BATCH-12-ZIWEI-TIEQIN-YINGCHAO-SONGBEN-TRANSCRIPTION-REPAIR-FC",
       "BATCH-12-ZIWEI-NLC1823-TIEQIN-SEAL-PROVENANCE-CONTROL-FD",
       "BATCH-12-ZIWEI-NCL-UNION-TONGHU-RARECATX0514818-BOUNDARY-FE",
-      "BATCH-12-ZIWEI-NLC-OPAC-ZHUNZHAI-MICROFILM-SOURCE-CROSSBINDING-FF"
+      "BATCH-12-ZIWEI-NLC-OPAC-ZHUNZHAI-MICROFILM-SOURCE-CROSSBINDING-FF",
+      "BATCH-12-ZIWEI-BEITU1959-TONGHU-ZHUNZHAI-CATALOG-NUMBER-AND-QUDONATION-BOUNDARY-FG"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-OPAC-ZHUNZHAI-MICROFILM-SOURCE-CROSSBINDING-FF.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-BEITU1959-TONGHU-ZHUNZHAI-CATALOG-NUMBER-AND-QUDONATION-BOUNDARY-FG.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -943,7 +944,13 @@
       "Identifier classes remain fail-closed: 03482/03483 are only source-labelled 原文獻 numbers, 00O003570 is only an 另拍在 reference, and 001411999008601 is a source-control value on the reviewed surface. None is promoted to a physical call number, accession/donation number or Tieqin-era shelfmark; rarecatx0514818↔03482 exact cross-system equivalence remains NOT_PROVED.",
       "Batch 12FF adds CATALOG-NLC-OPAC-ZHUNZHAI-MICROFILM-002597934 and TG-E0109 HIGH_CONFIDENCE ATTESTS only. SAME_OBJECT/direct-copy edges remain unauthorized; exact identity with the specific Tieqin-catalogued object stays VERY_STRONGLY_SUPPORTED_NOT_FORMALLY_UNIQUE_OBJECT_CLOSED; Huang 原書舊鈔/錄副 remains unresolved.",
       "Workflow 36009054595 failed only because legacy opac.nlc.cn timed out before source-record retrieval; this has zero negative content authority. Highest next gate: reacquire original doc 001775083/item page when reachable to capture any explicitly labelled physical call/barcode/accession field, classify 001411999008601 / 03482 / 03483 / 00O003570 from first-party labels, and search acquisition/donation or Qu-family transfer records; keep pre-1578 Zhunzhai and Sanming/Yueling Dahan-Rainwater + Nanjing-59 lines active in parallel.",
-      "Matrix/product counts remain 198 / 166 / 10, provenance defects 13/13, chart algorithm defect/reopen/collapse 0, direct Sanming-parent vote increment 0, and DETERMINISTIC_FUSION_CHART_PRODUCT_R1 remains CLOSED."
+      "Matrix/product counts remain 198 / 166 / 10, provenance defects 13/13, chart algorithm defect/reopen/collapse 0, direct Sanming-parent vote increment 0, and DETERMINISTIC_FUSION_CHART_PRODUCT_R1 remains CLOSED.",
+      "Batch 12FG direct 400-dpi review of the 1959 《北京圖書館善本書目》第4冊 p60 closes the printed target-number layer: 銅壺漏箭制度 = 三四八二 / 3482 and 準齋心製几漏圖式 = 三四八三 / 3483, with the same 清道光三年黃氏士禮居抄本 and mutual 合一冊 signature.",
+      "Exact title+number+1823 provenance convergence closes NLC OPAC 原文献03482↔1959 3482 and 原文献03483↔1959 3483 at the historical bibliographic/catalog-number level. This is a forward-only semantic refinement of 12FF, not proof of a current NLC barcode or present physical shelfmark; 001411999008601, 00O003570 and rarecatx0514818 cross-system equivalence remain separately unresolved.",
+      "A complete image-only locator followed by 400-dpi review of the same 1959 catalog 第7冊 p19 directly reads 金華黃先生文集四十三卷 / 元黃溍撰 / 元刻明修本 / 一冊 / 瞿捐. The catalog therefore demonstrably uses 瞿捐 as an explicit entry-level donation/provenance notation.",
+      "The 3482/3483 target entries on 第4冊 p60 do not carry 瞿捐. Qu donation is therefore NOT_ATTESTED_BY_1959_TARGET_CATALOG_ENTRY, but historical Qu donation/transfer is not absolutely disproved and no sale/purchase route is selected. Final acquisition/transfer path into Beijing/NLC remains UNRESOLVED.",
+      "Batch 12FG adds CATALOG-BEITU-1959-TONGHU-ZHUNZHAI-3482-3483 and TG-E0110 HIGH_CONFIDENCE ATTESTS only; SAME_OBJECT/direct-copy edges remain unauthorized. Matrix/product counts remain 198 / 166 / 10, provenance defects 13/13, chart algorithm defect/reopen/collapse 0, and direct Sanming-parent vote increment 0.",
+      "Highest next gate: reacquire original NLC OPAC doc 001775083/item page for an explicitly labelled current call number/barcode/item identifier; resolve 001411999008601 and 00O003570 from first-party labels; continue Qu-family donation/sale/transfer/accession archival research without overreading catalog silence; keep pre-1578 Zhunzhai and Sanming/Yueling Dahan-Rainwater + Nanjing-59 lines active in parallel."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10
