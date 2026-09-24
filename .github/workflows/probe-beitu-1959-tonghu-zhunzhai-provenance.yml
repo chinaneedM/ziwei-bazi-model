@@ -1,0 +1,151 @@
+name: probe-beitu-1959-tonghu-zhunzhai-provenance
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-beitu-1959-tonghu-zhunzhai-provenance.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install PDF tools
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils imagemagick
+
+      - name: Locate target entries in 1959 Beijing Library rare-book catalog
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/beitu-1959-tonghu-zhunzhai-provenance'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT/raw" "$ROOT/text" "$ROOT/rendered" "$ROOT/front"
+
+          python - <<'PY'
+          from pathlib import Path
+          rows=[]
+          for vol,ssid in enumerate(range(12335507,12335515),1):
+              title=f'SSID-{ssid} 北京圖書館善本書目 {vol}.pdf'
+              rows.append(f'{vol}\t{ssid}\t{title}')
+          Path('audit/beitu-1959-tonghu-zhunzhai-provenance/volumes.tsv').write_text(
+              '\n'.join(rows)+'\n',encoding='utf-8')
+          PY
+
+          : > "$ROOT/status.tsv"
+          : > "$ROOT/page-hits.tsv"
+          : > "$ROOT/text-layer-summary.tsv"
+
+          while IFS=$'\t' read -r vol ssid title; do
+            api=$(TITLE="$title" python - <<'PY'
+          import os, urllib.parse
+          q={
+            'action':'query','format':'json','prop':'imageinfo','iiprop':'url',
+            'titles':'File:'+os.environ['TITLE']
+          }
+          print('https://commons.wikimedia.org/w/api.php?'+urllib.parse.urlencode(q))
+          PY
+            )
+            meta="$ROOT/raw/vol-$vol-meta.json"
+            curl -L --fail --retry 5 --retry-all-errors --retry-delay 2 \
+              -A 'Tianwen-Provenance-Audit/1.0' "$api" -o "$meta"
+            url=$(META="$meta" python - <<'PY'
+          import json,os
+          d=json.load(open(os.environ['META'],encoding='utf-8'))
+          pages=d['query']['pages']
+          p=next(iter(pages.values()))
+          print(p['imageinfo'][0]['url'])
+          PY
+            )
+            pdf="$ROOT/raw/vol-$vol.pdf"
+            curl -L --fail --retry 5 --retry-all-errors --retry-delay 2 \
+              -A 'Tianwen-Provenance-Audit/1.0' "$url" -o "$pdf"
+
+            sha=$(sha256sum "$pdf" | awk '{print $1}')
+            pages=$(pdfinfo "$pdf" | awk '/^Pages:/ {print $2}')
+            printf '%s\t%s\t%s\t%s\t%s\n' "$vol" "$ssid" "$pages" "$sha" "$title" >> "$ROOT/status.tsv"
+
+            txt="$ROOT/text/vol-$vol.txt"
+            pdftotext -layout "$pdf" "$txt" 2>/dev/null || true
+            chars=$(wc -m < "$txt" 2>/dev/null || echo 0)
+            printf '%s\t%s\t%s\n' "$vol" "$pages" "$chars" >> "$ROOT/text-layer-summary.tsv"
+
+            VOL="$vol" TXT="$txt" OUT="$ROOT/page-hits.tsv" python - <<'PY'
+          import os,re
+          from pathlib import Path
+          vol=int(os.environ['VOL'])
+          text=Path(os.environ['TXT']).read_text('utf-8',errors='replace') if Path(os.environ['TXT']).exists() else ''
+          terms=[
+            ('TONGHU',r'銅壺漏箭制度|铜壶漏箭制度'),
+            ('ZHUNZHAI',r'準齋心製几漏圖式|准斋心制几漏图式|準齋几漏圖式|准斋几漏图式'),
+            ('QUDONOR',r'瞿捐|瞿氏|鐵琴銅劍樓|铁琴铜剑楼'),
+            ('ASTRONOMY',r'天文算法|天文類|天文类')
+          ]
+          pages=text.split('\f')
+          lines=[]
+          for i,p in enumerate(pages,1):
+              for key,pat in terms:
+                  if re.search(pat,p,re.I):
+                      clean=' '.join(p.split())
+                      lines.append(f'{vol}\t{i}\t{key}\t{clean[:600]}')
+          if lines:
+              with open(os.environ['OUT'],'a',encoding='utf-8') as f:
+                  f.write('\n'.join(lines)+'\n')
+          PY
+
+            maxfront=8
+            [ "$pages" -lt 8 ] && maxfront="$pages"
+            pdftoppm -f 1 -l "$maxfront" -jpeg -jpegopt quality=85 -r 110 \
+              "$pdf" "$ROOT/front/vol-$vol-front" >/dev/null 2>&1
+            montage "$ROOT/front"/vol-$vol-front-*.jpg \
+              -thumbnail 250x520 -label '%f' -tile 4x2 -geometry +8+24 \
+              "$ROOT/front/vol-$vol-front-contact.jpg"
+            rm "$ROOT/front"/vol-$vol-front-*.jpg
+
+            awk -F'\t' -v v="$vol" '$1==v {print $2}' "$ROOT/page-hits.tsv" | sort -nu | while read -r p; do
+              [ -z "$p" ] && continue
+              for q in $((p-1)) "$p" $((p+1)); do
+                [ "$q" -lt 1 ] && continue
+                [ "$q" -gt "$pages" ] && continue
+                out="$ROOT/rendered/vol-$vol-page-$(printf '%04d' "$q")"
+                [ -f "${out}.png" ] && continue
+                pdftoppm -f "$q" -l "$q" -singlefile -png -r 300 "$pdf" "$out"
+              done
+            done
+          done < "$ROOT/volumes.tsv"
+
+          sha256sum "$ROOT"/raw/*.json "$ROOT"/front/*.jpg > "$ROOT/source-and-front.sha256"
+          if compgen -G "$ROOT/rendered/*.png" > /dev/null; then
+            sha256sum "$ROOT"/rendered/*.png | sort -V > "$ROOT/rendered.sha256"
+          fi
+
+          printf '%s\n' \
+            'SOURCE=北京圖書館善本書目 / 中華書局 1959 / 8冊 / Wikimedia Commons public-domain scans SSID-12335507..12335514' \
+            'TARGETS=銅壺漏箭制度 ; 準齋心製几漏圖式 ; 瞿捐 provenance mark' \
+            'QUESTION=Does the 1959 catalog identify the target composite object as a Qu-family donation, sale/unmarked acquisition, or otherwise source-labelled holding?' \
+            'TEXT_LAYER_ROLE=LOCATOR_ONLY' \
+            'FINAL_GLYPH_AUTHORITY=SOURCE-BOUND 300DPI RENDER IF TARGET PAGE IS LOCATED' \
+            'NO_TARGET_TEXT_HIT_POLICY=absence from an unusable text layer has zero negative authority; use front-page classification controls to select image-only follow-up volume' \
+            'OCR_USED=false' \
+            > "$ROOT/manifest.txt"
+
+          rm "$ROOT"/raw/vol-*.pdf
+
+      - name: Upload 1959 catalog locator evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: beitu-1959-tonghu-zhunzhai-provenance
+          path: audit/beitu-1959-tonghu-zhunzhai-provenance/
+          if-no-files-found: error
+          compression-level: 6
+          retention-days: 30
