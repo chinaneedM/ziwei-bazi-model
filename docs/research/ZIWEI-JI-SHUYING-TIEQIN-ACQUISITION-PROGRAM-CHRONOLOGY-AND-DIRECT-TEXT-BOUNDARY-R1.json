@@ -139,7 +139,8 @@
     "target_specific_donation_route_selected": false,
     "target_specific_other_transfer_route_selected": false,
     "target_exact_acquisition_date": "UNRESOLVED",
-    "final_nlc_acquisition_transfer_path": "UNRESOLVED"
+    "final_nlc_acquisition_transfer_path": "UNRESOLVED",
+    "ji_chapter_9_lawful_access_route": "CLOSED_VIA_TOKYO_METROPOLITAN_CENTRAL_LIBRARY"
   },
   "inference_firewall": {
     "chapter_title_contains_收购_does_not_mean_every_qu_item_was_purchased": true,
@@ -175,11 +176,37 @@
     "candidate_collapse_count": 0
   },
   "next_gate": [
-    "Acquire or lawfully access the complete pages of Ji Shuying chapter 9 《铁琴铜剑楼藏书的收购入藏》 and directly collate its transfer chronology, cited documents, and any title-level lists.",
-    "Trace chapter 9's source notes back to Beijing Library/NLC accession, acquisition, price, and donation records rather than relying on later aggregate summaries.",
+    "Use the located lawful holding/access route for the Tokyo Metropolitan Central Library copy (call number C/022.3/6011/2009) to obtain or inspect chapter 9, subject to library eligibility and copying rules.",
+    "Directly collate the complete chapter 9 《铁琴铜剑楼藏书的收购入藏》: transfer chronology, citations, any title-level lists, and all numerical batch claims.",
+    "Trace chapter 9's source notes back to Beijing Library/NLC accession, acquisition, price, and donation records.",
     "Search the direct chapter and related accession lists for 铜壶漏箭制度, 准斋心制几漏图式, the bound-volume description, historical catalog nos. 3482/3483, or other stable identifiers.",
     "Continue the Lin Zhenyue/Gao annotated-catalog source-basis route in parallel because it may provide item-level transaction annotations unavailable in aggregate acquisition histories.",
     "Do not select target sale/purchase or donation route until direct or near-direct item-level evidence is recovered."
   ],
-  "updated_at": "2026-09-25"
+  "updated_at": "2026-09-25",
+  "lawful_direct_access_route": {
+    "status": "PHYSICAL_HOLDING_AND_LIBRARY_COPY_REQUEST_ROUTE_LOCATED",
+    "ndl_search": {
+      "url": "https://ndlsearch.ndl.go.jp/books/R100000001-I13111400053127",
+      "bibliographic_record_closed": true,
+      "page_count": 241,
+      "format": "PAPER_BOOK",
+      "linked_holding": "東京都立中央図書館"
+    },
+    "tokyo_metropolitan_central_library": {
+      "url": "https://catalog.library.metro.tokyo.lg.jp/winj/opac/switch-detail-iccap.do?bibid=1400053127",
+      "holding_library": "東京都立中央図書館",
+      "location": "中央・書庫",
+      "material_class": "一般中国図書",
+      "call_number": "C/022.3/6011/2009",
+      "material_code": "4001029913",
+      "availability_status": "利用可",
+      "cooperative_lending": "可能",
+      "remote_copy_request_route_exposed": true,
+      "remote_copy_eligibility": "東京都在住・在勤・在学の方",
+      "project_has_obtained_chapter_9_copy": false,
+      "project_has_directly_collated_chapter_9": false
+    },
+    "adjudication": "LAWFUL_ACCESS_ROUTE_CLOSED_BUT_DIRECT_CHAPTER_COLLATION_PENDING"
+  }
 }
