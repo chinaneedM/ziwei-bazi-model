@@ -54,6 +54,176 @@ jobs:
             printf '%s\trc=%s\thttp=%s\tbytes=%s\tq=%s\tway=%s\texact=%s\n' "$key" "$rc" "$code" "$size" "$q" "$way" "$exact" >> "$ROOT/meta/status.tsv"
           done < "$ROOT/queries.tsv"
 
+          # The HTML search page is only a shell. Reproduce its JavaScript POST
+          # contract against /v2/doSearch to obtain the actual result JSON.
+          mkdir -p "$ROOT/meta/api" "$ROOT/meta/api-detail"
+          : > "$ROOT/meta/api-status.tsv"
+          while IFS=
+          from html.parser import HTMLParser
+          from pathlib import Path
+          from urllib.parse import urljoin, urlparse
+          import re
+
+          root=Path('audit/batch-12fh-nlc-meta/meta')
+          class P(HTMLParser):
+              def __init__(self):
+                  super().__init__(); self.text=[]; self.links=[]; self.forms=[]; self.inputs=[]
+              def handle_data(self,d):
+                  s=' '.join(d.split())
+                  if s:self.text.append(s)
+              def handle_starttag(self,tag,attrs):
+                  a=dict(attrs)
+                  if tag=='a' and a.get('href'):
+                      self.links.append(a['href'])
+                  if tag=='form': self.forms.append(a)
+                  if tag=='input': self.inputs.append(a)
+          links=[]
+          report=[]
+          targets=re.compile(r'准斋|準齋|几漏|漏箭|黄丕烈|黃丕烈|士礼居|士禮居|001775083|001411999008601|03482|03483|00O003570|索书号|索書號|条码|條碼|馆藏|館藏|善本|南区善本|南區善本',re.I)
+          for p in sorted((root/'raw').glob('*.html')):
+              q=P(); q.feed(p.read_text('utf-8',errors='replace'))
+              text='\n'.join(q.text)+'\n'
+              (root/'text'/f'{p.stem}.txt').write_text(text,encoding='utf-8')
+              report.append(f'### {p.name}')
+              for line in q.text:
+                  if targets.search(line): report.append(line)
+              for href in q.links:
+                  u=urljoin('https://meta.nlc.cn/v2/search',href)
+                  links.append(u)
+                  if any(x in u.lower() for x in ('detail','book','record','show','item','holding')):
+                      report.append('LINK\t'+u)
+              for f in q.forms: report.append('FORM\t'+repr(f))
+          (root/'target-hits.txt').write_text('\n'.join(report)+'\n',encoding='utf-8')
+          uniq=[]
+          for u in links:
+              if u not in uniq and urlparse(u).netloc=='meta.nlc.cn' and not re.search(r'\.(css|js|png|jpg|jpeg|gif|svg)(?:\?|$)',u,re.I):
+                  uniq.append(u)
+          (root/'candidate-links.txt').write_text('\n'.join(uniq[:120])+'\n',encoding='utf-8')
+          PY
+
+          : > "$ROOT/meta/detail-status.tsv"
+          n=0
+          while IFS= read -r url; do
+            [ -z "$url" ] && continue
+            n=$((n+1)); [ "$n" -gt 80 ] && break
+            out="$ROOT/meta/detail/$n.html"
+            set +e
+            code=$(curl -L -sS --connect-timeout 10 --max-time 35 -A "$UA" -o "$out" -w '%{http_code}' "$url")
+            rc=$?
+            set -e
+            size=0; [ -f "$out" ] && size=$(wc -c < "$out")
+            printf '%s\trc=%s\thttp=%s\tbytes=%s\t%s\n' "$n" "$rc" "$code" "$size" "$url" >> "$ROOT/meta/detail-status.tsv"
+          done < "$ROOT/meta/candidate-links.txt"
+
+          grep -RniE '准斋|準齋|几漏|漏箭|黄丕烈|黃丕烈|士礼居|士禮居|001775083|001411999008601|03482|03483|00O003570|索书号|索書號|条码|條碼|馆藏|館藏|南区善本|南區善本|call.?number|barcode|shelf' "$ROOT/meta/detail" > "$ROOT/meta/detail-target-hits.txt" || true
+
+          : > "$ROOT/opac/status.tsv"
+          for doc in 001775083 002597934; do
+            for scheme in http https; do
+              for func in direct item-global; do
+                url="$scheme://opac.nlc.cn/F/?func=$func&local_base=NLC01&doc_number=$doc"
+                out="$ROOT/opac/${scheme}-${doc}-${func}.html"
+                set +e
+                code=$(curl -L -sS --connect-timeout 8 --max-time 25 -A "$UA" -o "$out" -w '%{http_code}' "$url")
+                rc=$?
+                set -e
+                size=0; [ -f "$out" ] && size=$(wc -c < "$out")
+                printf '%s\t%s\t%s\trc=%s\thttp=%s\tbytes=%s\n' "$scheme" "$doc" "$func" "$rc" "$code" "$size" >> "$ROOT/opac/status.tsv"
+              done
+            done
+          done
+          grep -RniE '准斋|準齋|几漏|漏箭|黄丕烈|黃丕烈|士礼居|士禮居|001775083|001411999008601|03482|03483|00O003570|索书号|索書號|条码|條碼|馆藏|館藏|南区善本|南區善本' "$ROOT/opac" > "$ROOT/opac/target-hits.txt" || true
+
+          find "$ROOT" -type f -size +0c -print0 | xargs -0 -r sha256sum | sort -V > "$ROOT/all-files.sha256"
+          printf '%s\n' \
+            'SOURCE=National Library of China current meta.nlc.cn holdings platform + legacy OPAC' \
+            'PURPOSE=resolve original source doc 001775083 current call/barcode/item identifier and classify 001411999008601 / 00O003570' \
+            'IDENTIFIER_FIREWALL=record id != historical catalog number != current call number != barcode != acquisition/donation number' \
+            'NEGATIVE_POLICY=failed or empty public routes are access/index boundaries only, not proof of nonexistence' \
+            'OCR_USED=false' > "$ROOT/manifest.txt"
+
+      - name: Upload evidence probe
+        uses: actions/upload-artifact@v4
+        with:
+          name: batch-12fh-nlc-meta-probe
+          path: audit/batch-12fh-nlc-meta/
+          if-no-files-found: error
+          retention-days: 30
+\\t' read -r key q way exact; do
+            body=$(Q="$q" WAY="$way" EXACT="$exact" python - <<'PY'
+          import json, os
+          q=os.environ["Q"]
+          way=os.environ["WAY"]
+          exact=os.environ["EXACT"].lower()=="true"
+          body={
+              "q":q,
+              "searchWay":way,
+              "sort":[{"_score":"DESC"}],
+              "page_num":"1",
+              "exactMatch":exact,
+              "query":q if way=="ANY" else way+"="+q,
+              "size":10,
+              "facetVal":[]
+          }
+          print(json.dumps(body,ensure_ascii=False,separators=(',',':')))
+          PY
+            )
+            out="$ROOT/meta/api/$key.json"
+            set +e
+            code=$(curl -L -sS --connect-timeout 10 --max-time 45 -A "$UA" \
+              -H 'Content-Type: application/json;charset=UTF-8' \
+              -o "$out" -w '%{http_code}' \
+              --data-binary "$body" 'https://meta.nlc.cn/v2/doSearch?hight=false')
+            rc=$?
+            set -e
+            size=0; [ -f "$out" ] && size=$(wc -c < "$out")
+            printf '%s\\trc=%s\\thttp=%s\\tbytes=%s\\n' "$key" "$rc" "$code" "$size" >> "$ROOT/meta/api-status.tsv"
+          done < "$ROOT/queries.tsv"
+
+          python - <<'PY'
+          from pathlib import Path
+          from urllib.parse import quote
+          import json
+
+          root=Path('audit/batch-12fh-nlc-meta/meta')
+          report=[]
+          detail=[]
+          for p in sorted((root/'api').glob('*.json')):
+              report.append('### '+p.name)
+              try:
+                  d=json.loads(p.read_text('utf-8',errors='replace'))
+              except Exception as e:
+                  report.append('PARSE_ERROR '+repr(e))
+                  report.append(p.read_text('utf-8',errors='replace')[:4000])
+                  continue
+              report.append('status='+repr(d.get('status'))+' total='+repr(d.get('total'))+' message='+repr(d.get('message')))
+              rows=d.get('result') or []
+              for i,row in enumerate(rows,1):
+                  rid=row.get('_id')
+                  src=row.get('_source') or {}
+                  report.append('ROW %s id=%r source=%s' % (i,rid,json.dumps(src,ensure_ascii=False,separators=(',',':'))))
+                  tit=(src.get('TIT') or [''])[0] if isinstance(src.get('TIT'),list) else str(src.get('TIT') or '')
+                  if rid:
+                      detail.append('https://meta.nlc.cn/v2/detail/%s?b_tit=%s' % (rid,quote(tit)))
+          (root/'api-summary.txt').write_text('\\n'.join(report)+'\\n',encoding='utf-8')
+          (root/'api-detail-links.txt').write_text('\\n'.join(dict.fromkeys(detail))+'\\n',encoding='utf-8')
+          PY
+
+          : > "$ROOT/meta/api-detail-status.tsv"
+          n=0
+          while IFS= read -r url; do
+            [ -z "$url" ] && continue
+            n=$((n+1)); [ "$n" -gt 80 ] && break
+            out="$ROOT/meta/api-detail/$n.html"
+            set +e
+            code=$(curl -L -sS --connect-timeout 10 --max-time 35 -A "$UA" -o "$out" -w '%{http_code}' "$url")
+            rc=$?
+            set -e
+            size=0; [ -f "$out" ] && size=$(wc -c < "$out")
+            printf '%s\\trc=%s\\thttp=%s\\tbytes=%s\\t%s\\n' "$n" "$rc" "$code" "$size" "$url" >> "$ROOT/meta/api-detail-status.tsv"
+          done < "$ROOT/meta/api-detail-links.txt"
+          grep -RniE '准斋|準齋|几漏|漏箭|黄丕烈|黃丕烈|士礼居|士禮居|001775083|001411999008601|03482|03483|00O003570|索书号|索書號|条码|條碼|馆藏|館藏|南区善本|南區善本|call.?number|barcode|shelf|文献号|登录号|登记号' "$ROOT/meta/api-detail" > "$ROOT/meta/api-detail-target-hits.txt" || true
+
           python - <<'PY'
           from html.parser import HTMLParser
           from pathlib import Path
