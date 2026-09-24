@@ -1,0 +1,162 @@
+{
+  "schema": "ZIWEI-GAO-XIZENG-ANNOTATED-TIEQIN-CATALOG-HOLDING-AND-ACCESS-BOUNDARY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-GAO-XIZENG-ANNOTATED-TIEQIN-CATALOG-HOLDING-AND-ACCESS-BOUNDARY-FM",
+  "prior_batch_id": "BATCH-12-ZIWEI-QU-NLC-MIXED-TRANSFER-AND-TARGET-ACQUISITION-BOUNDARY-FL",
+  "question": "Can the current holding, public surrogate, or target 3482/3483 annotations of Gao Xizeng's annotated 《铁琴铜剑楼藏书目录》 be directly closed from presently accessible evidence?",
+  "answer": "NO. A 2026 bibliographic-survey publication discussion attests the existence and research use of a Gao Xizeng annotated Tieqin catalog recording books handled during the Qu-family transfer work. Independent modern publication records show that other Gao manuscripts and bibliographical notes survived into an editorial/research chain connected with Gao's family and Hebei University scholars. However, no reviewed source identifies the current holding institution or shelfmark of the target annotated catalog, exposes a lawful public digital surrogate, or reproduces the target Tonghu/Zhunzhai 3482/3483 annotations. Holding/access and target annotation remain unresolved.",
+  "sources": {
+    "tang_zhibo_zhao_yingjie_2026_bibliographic_survey_publication_discussion": {
+      "url": "https://www.sohu.com/a/1011488146_121124384",
+      "underlying_work": "汤志波、赵颖洁编《中国分省公藏古籍书目总录（1949—2024）》, 上海辞书出版社, 2026, ISBN 9787532664252",
+      "role": "MODERN_BIBLIOGRAPHIC_SURVEY_ATTESTATION_OF_GAO_ANNOTATED_TIEQIN_CATALOG_EXISTENCE_AND_USE",
+      "observed_claims": [
+        "Gao Xizeng accompanied Zhao Wanli in collecting Qu-family books.",
+        "Gao left an annotated copy of 《铁琴铜剑楼藏书目录》.",
+        "The annotated copy contains detailed annotations on books he handled.",
+        "The survey discussion uses this kind of historical catalog comparison to trace Qu-family book destinations."
+      ],
+      "current_holding_named": false,
+      "shelfmark_named": false,
+      "public_digital_surrogate_named": false,
+      "target_3482_3483_annotation_reproduced": false,
+      "target_transaction_mode_closed": false
+    },
+    "gao_xizeng_xueshu_wencun_2022": {
+      "urls": [
+        "https://search.megbook.com.hk/mall/detail.jsp?proID=3791857",
+        "https://www.airitibooks.com/Publication/Details?publicationID=P20240308094"
+      ],
+      "title": "赵林涛辑校《高熙曾学术文存：中国古代文学经典讲义》",
+      "publisher": "社会科学文献出版社",
+      "year": 2022,
+      "isbn": "9787522804750",
+      "role": "MODERN_EDITORIAL_EVIDENCE_FOR_SURVIVING_GAO_MANUSCRIPT_CORPUS_NOT_TARGET_CATALOG_CUSTODY",
+      "observed_claims": [
+        "The volume includes material organized from Gao Xizeng manuscripts.",
+        "Gao's daughter Gao Tingting wrote the first preface.",
+        "The family preface records Gao's 1950 transfer into Beijing Library rare-books work under Zhao Wanli and says he left many valuable records.",
+        "Editor Zhao Lintao has long worked at Hebei University."
+      ],
+      "proves_some_gao_manuscripts_survived_into_modern_editorial_chain": true,
+      "proves_target_annotated_tieqin_catalog_is_in_family_custody": false,
+      "proves_target_annotated_tieqin_catalog_is_at_hebei_university": false,
+      "proves_target_annotated_tieqin_catalog_is_at_nlc": false
+    },
+    "yanzhao_culture_3_2020_qin_junze": {
+      "url": "https://www.megbook.com.tw/mall/detail.jsp?proID=3559785",
+      "publication": "河北大学文学院《燕赵文化研究（第3辑）》, 社会科学文献出版社, 2020",
+      "article": "秦俊泽《高熙曾〈版本琐记遗稿〉整理与研究》",
+      "role": "MODERN_PUBLICATION_EVIDENCE_FOR_ANOTHER_GAO_BIBLIOGRAPHICAL_MANUSCRIPT_RESEARCH_CHAIN",
+      "article_existence_closed": true,
+      "underlying_manuscript_current_custody_closed": false,
+      "target_tieqin_catalog_identity_closed": false,
+      "target_3482_3483_annotation_reproduced": false
+    },
+    "hebei_university_zhao_lintao_current_institutional_trace": {
+      "urls": [
+        "https://manage.hbu.edu.cn/jgsz/gltd.htm",
+        "https://www.hbu.edu.cn/info/1094/22368.htm"
+      ],
+      "provider": "河北大学",
+      "role": "CURRENT_INSTITUTIONAL_TRACE_FOR_GAO_EDITORIAL_RESEARCH_NETWORK_NOT_CUSTODY_PROOF",
+      "observed_claims": [
+        "Zhao Lintao is currently an institutional scholar/administrator at Hebei University.",
+        "Hebei University reported in September 2026 that Zhao Lintao has conducted long-term research on Gu Sui and related modern scholarly heritage."
+      ],
+      "target_catalog_custody_proved": false,
+      "access_request_route_possible": true
+    }
+  },
+  "search_boundary": {
+    "exact_title_web_searches_performed": true,
+    "nlc_indexed_web_searches_performed": true,
+    "hebei_university_domain_searches_performed": true,
+    "qin_junze_version_notes_searches_performed": true,
+    "zhao_lintao_gao_manuscript_searches_performed": true,
+    "public_exact_holding_record_located": false,
+    "public_exact_shelfmark_located": false,
+    "public_exact_digital_surrogate_located": false,
+    "negative_scope": "REVIEWED_PUBLIC_WEB_INDEXES_ONLY_NOT_GLOBAL_NONEXISTENCE_OR_PRIVATE_CUSTODY_CLAIM"
+  },
+  "adjudication": {
+    "gao_annotated_tieqin_catalog_existence": "ATTESTED_BY_2026_BIBLIOGRAPHIC_SURVEY_DISCUSSION",
+    "gao_role_in_qu_collection_work": "ATTESTED_IN_MODERN_BIBLIOGRAPHIC_SURVEY_AND_COMPATIBLE_WITH_KNOWN_BEIJING_LIBRARY_ROLE",
+    "broader_gao_manuscript_survival": "CLOSED_AT_MODERN_EDITORIAL_CHAIN_LEVEL",
+    "gao_bibliographical_manuscript_research_chain": "CLOSED_FOR_OTHER_VERSION_NOTES_MANUSCRIPT_PUBLICATION",
+    "target_annotated_tieqin_catalog_current_holding": "UNRESOLVED",
+    "target_annotated_tieqin_catalog_shelfmark": "UNRESOLVED",
+    "target_annotated_tieqin_catalog_public_surrogate": "UNRESOLVED",
+    "target_3482_3483_annotation": "NOT_REVIEWED",
+    "target_transaction_mode": "UNRESOLVED",
+    "family_custody_selected": false,
+    "hebei_university_custody_selected": false,
+    "nlc_custody_selected": false,
+    "other_custody_selected": false,
+    "reason": "The surviving-manuscript/editorial ecosystem narrows a discovery route but no reviewed source binds the exact annotated Tieqin catalog to a present holder, shelfmark, surrogate, or target annotation."
+  },
+  "next_access_targets": [
+    {
+      "priority": 1,
+      "target": "汤志波 / 赵颖洁 and the source apparatus behind《中国分省公藏古籍书目总录（1949—2024）》",
+      "purpose": "Identify the cited or personally inspected Gao annotated Tieqin catalog's present holder, reproduction, or source citation."
+    },
+    {
+      "priority": 2,
+      "target": "赵林涛 / 河北大学 Gao Xizeng editorial-manuscript network",
+      "purpose": "Determine whether the annotated Tieqin catalog or a reproduction was among Gao-family materials used for modern Gao manuscript publication."
+    },
+    {
+      "priority": 3,
+      "target": "秦俊泽《高熙曾〈版本琐记遗稿〉整理与研究》 source note",
+      "purpose": "Extract manuscript provenance/custody language and test whether it identifies the broader Gao manuscript corpus holder."
+    },
+    {
+      "priority": 4,
+      "target": "国家图书馆古籍馆 / historical acquisition archives and Gao/Zhao Wanli work records",
+      "purpose": "Test whether the annotated Tieqin catalog remained within Beijing Library/NLC work papers or was referenced in acquisition files."
+    }
+  ],
+  "target_transaction_firewall": {
+    "missing_current_holding_record_implies_lost": false,
+    "surviving_other_gao_manuscripts_implies_same_custody": false,
+    "hebei_university_editorial_connection_implies_hebei_university_holding": false,
+    "nlc_employment_history_implies_nlc_holding": false,
+    "target_sale_or_donation_route_selected": false
+  },
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_added": [],
+    "acquisition_edge_authorized": false,
+    "same_object_edge_authorized": false,
+    "direct_copy_edges_authorized": [],
+    "note": "This is a research-access provenance boundary only. No textual-transmission topology changes."
+  },
+  "chronology_and_rule_firewall": {
+    "direct_sanming_parent_vote_increment": 0,
+    "pre1578_zhunzhai_rule_witness_increment": 0,
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_count_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 13,
+    "repaired_provenance_metadata_defect_count": 13,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Recover source/citation context for Gao Xizeng's annotated 《铁琴铜剑楼藏书目录》 from the 2026 Tang/Zhao survey authors or underlying bibliography.",
+    "Read Qin Junze's 2020整理与研究 article for explicit manuscript provenance and custody notes.",
+    "Trace Gao-family/modern editor Zhao Lintao manuscript access only as a discovery path; do not infer custody.",
+    "Search NLC historical acquisition/work-paper archives for the annotated catalog or title-level transaction annotations.",
+    "Do not select target donation/sale/purchase route until 3482/3483 or the bound volume is bound to a direct or near-direct transaction annotation.",
+    "Keep Batch 12FK public pre-permission access boundary unchanged."
+  ],
+  "updated_at": "2026-09-25"
+}
