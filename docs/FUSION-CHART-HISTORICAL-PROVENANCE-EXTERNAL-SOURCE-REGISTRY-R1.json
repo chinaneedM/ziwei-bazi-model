@@ -6148,7 +6148,15 @@
       "identifier": "ISSN 1673-1441; 2014(04):446-458",
       "url": "https://www.sohu.com/a/210477956_488626",
       "source_role": "SECONDARY_MECHANICAL_CHRONOLOGY_AND_AUTHORSHIP_HYPOTHESIS_CONTROL_NOT_PRIMARY_DATING_AUTHORITY",
-      "quality_notes": "Batch 12ER uses this history-of-science journal study only as a secondary hypothesis/control. Wang argues that the received Zhunzhai 25-arrow count, 38↔62 solstitial extrema, and change-arrow date system fit the Yuan Shoushi calendrical regime rather than the conventional Song attribution, and proposes a Yuan Yanling Sun Fengji. Repository adjudication independently replays only source-bound portions: 1823 Zhunzhai first arrow = winter solstice through Xiaohan+4 at 38/62, exactly matching the 1551 physical Leibian fine-table first state. The article does not convert the 1823 manuscript into a Yuan physical witness and does not close exact pre-1578 wording."
+      "quality_notes": "Batch 12ER uses this history-of-science journal study only as a secondary hypothesis/control. Wang argues that the received Zhunzhai 25-arrow count, 38↔62 solstitial extrema, and change-arrow date system fit the Yuan Shoushi calendrical regime rather than the conventional Song attribution, and proposes a Yuan Yanling Sun Fengji. Repository adjudication independently replays only source-bound portions: 1823 Zhunzhai first arrow = winter solstice through Xiaohan+4 at 38/62, exactly matching the 1551 physical Leibian fine-table first state. The article does not convert the 1823 manuscript into a Yuan physical witness and does not close exact pre-1578 wording. Batch 12FL additionally uses the study only as a target-specific provenance negative control: the author reports not finding the target two works in the consulted Qu-family donation list and leaves their exact NLC acquisition route unresolved. This nonlocation is not treated as exhaustive or as proof of sale.",
+      "batch_12fl": {
+        "role": "SECONDARY_TARGET_SPECIFIC_PROVENANCE_NEGATIVE_CONTROL",
+        "target_bound_volume_qu_provenance_closed": true,
+        "consulted_qu_donation_list_target_nonlocation": true,
+        "nonlocation_is_exhaustive_negative": false,
+        "final_nlc_acquisition_transfer_path": "UNRESOLVED",
+        "research_artifact": "docs/research/ZIWEI-QU-NLC-MIXED-TRANSFER-AND-TARGET-ACQUISITION-BOUNDARY-R1.json"
+      }
     },
     {
       "source_id": "EXT-CTEXT-TONGJIANGJI-SUNJUN-SHANJING-1281-CONTROL",
@@ -6803,8 +6811,60 @@
       "url": "https://lib.gzhsvc.edu.cn/info/1009/1467.htm",
       "source_role": "TECHNICAL_SEMANTIC_CONTROL_FOR_CNMARC_905B_LOGIN_REGISTRATION_NUMBER",
       "quality_notes": "Institutional CNMARC holdings-field definition explicitly maps 905$a to library code and 905$b to 登录号. Used as an independent semantic control, not as target identity evidence."
+    },
+    {
+      "source_id": "EXT-NLC-PCAB-ZHAO-WANLI-QU-TIEQIN-MIXED-TRANSFER-RETROSPECTIVE-2018",
+      "title": "国家图书馆中国古籍保护网《版本学家赵万里先生（下）》：瞿氏铁琴铜剑楼入北图“半卖半送”回顾",
+      "author": "国家图书馆中国古籍保护网整理",
+      "historical_period": "中华人民共和国成立初期瞿氏藏书转移；网页回顾发表于2018年前后",
+      "provider": "国家图书馆 / 中国古籍保护网",
+      "url": "https://www.nlc.cn/pcab/zy/pxjz/20181227_174775.shtml",
+      "source_role": "FIRST_PARTY_INSTITUTIONAL_RETROSPECTIVE_FOR_COLLECTION_LEVEL_QU_TO_BEITU_MIXED_TRANSFER_PROGRAM",
+      "quality_notes": "Batch 12FL uses this NLC-hosted institutional retrospective to close only the collection-level fact that Qu-family Tieqin Tongjian Lou books entered Beijing Library through a mixed transfer program containing sale/priced transfer and donation. It reports three batches as 半卖半送, more than 500 titles in those transfer batches, and another 246 donated titles, and quotes contemporary recollection about Zhao Wanli purchasing the collection. It does not identify catalog nos. 3482/3483 or the Tonghu/Zhunzhai bound volume as belonging to a particular transaction.",
+      "batch_12fl": {
+        "collection_level_mixed_transfer_closed": true,
+        "target_3482_3483_transaction_mode_closed": false,
+        "target_specific_route_selected": false,
+        "research_artifact": "docs/research/ZIWEI-QU-NLC-MIXED-TRANSFER-AND-TARGET-ACQUISITION-BOUNDARY-R1.json"
+      }
+    },
+    {
+      "source_id": "EXT-NLC-PCAB-ZHENG-ZHENDUO-QU-DONATION-AND-PRICED-ACQUISITION-2024",
+      "title": "蔡成普、李静《郑振铎对国家图书馆藏书建设的历史贡献》",
+      "author": "蔡成普（国家图书馆）、李静（国家博物馆）",
+      "historical_period": "1949—1954瞿氏藏书入公藏过程；研究发表于2024",
+      "provider": "国家图书馆 / 中国古籍保护网；原载《山东图书馆学刊》",
+      "url": "https://www.nlc.cn/pcab/zx/xw/20240701_2640245.shtml",
+      "source_role": "INSTITUTIONAL_SCHOLARLY_CONTROL_FOR_QU_DONATION_AND_PLANNED_PRICED_ACQUISITION_PROGRAM",
+      "quality_notes": "Batch 12FL uses this NLC-hosted study for collection-level transfer chronology and source leads. It records late-1949 mobilization, an early Qu-family transfer, a January 1950 Zheng Zhenduo letter calling for the remaining collection to be 陆续价购归公 under agreement, and Qu-family donation activity in 1950, 1953 and 1954. The article does not bind the target Tonghu/Zhunzhai volume to a specific donation or purchase event.",
+      "batch_12fl": {
+        "collection_level_donation_component_closed": true,
+        "collection_level_priced_acquisition_component_closed": true,
+        "target_transaction_mode_closed": false,
+        "cited_next_target": "《北京图书馆馆史资料汇编二：1946—1966》pp.446–449 and related accession/transfer materials",
+        "research_artifact": "docs/research/ZIWEI-QU-NLC-MIXED-TRANSFER-AND-TARGET-ACQUISITION-BOUNDARY-R1.json"
+      }
+    },
+    {
+      "source_id": "EXT-TANG-ZHAO-2026-QU-TRANSFER-CATALOG-SEMANTICS-GAO-ANNOTATED-CATALOG-LEAD",
+      "title": "汤志波、赵颖洁《中国分省公藏古籍书目总录（1949—2024）》相关公开书讯：铁琴铜剑楼半捐半售与高熙曾批校目录线索",
+      "author": "汤志波、赵颖洁；公开书讯转载",
+      "historical_period": "2026 bibliographic survey discussion of post-1949 public ancient-book catalogs",
+      "provider": "上海辞书出版社2026著作；公开书讯由海交史转载",
+      "identifier": "ISBN 978-7-5326-6425-2",
+      "url": "https://www.haijiaoshi.com/archives/14918",
+      "source_role": "SECONDARY_DISCOVERY_SOURCE_FOR_QU_CATALOG_SEMANTICS_AND_GAO_XIZENG_ANNOTATED_CATALOG_NOT_DIRECT_TARGET_EVIDENCE",
+      "quality_notes": "Batch 12FL uses this only as a discovery lead. The public discussion states that Qu-donated books can be marked 瞿捐 in the 1959 Beijing Library catalog while sold Qu books were not marked as sale entries, and reports that Gao Xizeng left an annotated 《铁琴铜剑楼藏书目录》 with detailed annotations on handled books. The project has not directly reviewed that annotated copy, its holding location is not closed, and no target 3482/3483 transaction annotation is claimed from this source.",
+      "batch_12fl": {
+        "missing_qu_donation_mark_implies_sale": false,
+        "gao_annotated_catalog_directly_reviewed": false,
+        "gao_annotated_catalog_holding_closed": false,
+        "target_3482_3483_annotation_reviewed": false,
+        "target_transaction_mode_closed": false,
+        "research_artifact": "docs/research/ZIWEI-QU-NLC-MIXED-TRANSFER-AND-TARGET-ACQUISITION-BOUNDARY-R1.json"
+      }
     }
   ],
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md",
-  "updated_at": "2026-09-24"
+  "updated_at": "2026-09-25"
 }
