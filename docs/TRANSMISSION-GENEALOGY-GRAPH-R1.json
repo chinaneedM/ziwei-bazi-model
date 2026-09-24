@@ -1382,7 +1382,10 @@
         "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NCL-UNION-TONGHU-RARECATX0514818-BOUNDARY-FE.md",
         "EXT-NLC-OPAC-ZHUNZHAI-MICROFILM-002597934-SOURCE001775083",
         "docs/research/ZIWEI-NLC-OPAC-ZHUNZHAI-MICROFILM-SOURCE-CROSSBINDING-R1.json",
-        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-OPAC-ZHUNZHAI-MICROFILM-SOURCE-CROSSBINDING-FF.md"
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-OPAC-ZHUNZHAI-MICROFILM-SOURCE-CROSSBINDING-FF.md",
+        "EXT-NLC-META-ZHUNZHAI-CURRENT-SYS001775083-ITEM-HOLDINGS",
+        "docs/research/ZIWEI-NLC-CURRENT-SYS-ITEM-HOLDINGS-LOCATOR-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-CURRENT-SYS-ITEM-HOLDINGS-LOCATOR-FH.md"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-XUXIU1031-ZHUNZHAI-CLEPSYDRA-JIEHOU-ARROW-SELECTION-DV",
       "pre1578_title_family_catalog_attestation_status": "CLOSED_AT_1441_CATALOG_TEXT_LAYER",
@@ -1489,6 +1492,21 @@
         "historical_qu_donation_absolutely_disproved": false,
         "final_acquisition_path": "UNRESOLVED",
         "current_physical_shelfmark_proved": false,
+        "same_object_edge_authorized": false
+      },
+      "nlc_current_meta_holdings_locator_control": {
+        "batch": "BATCH-12-ZIWEI-NLC-CURRENT-SYS-ITEM-HOLDINGS-LOCATOR-FH",
+        "sys": "001775083",
+        "uid": "UCS01003828993",
+        "current_local_holdings_locator": "NLC:SBYL:03483",
+        "field_905a": "NLC",
+        "field_905q": "SBYL",
+        "field_905s": "03483",
+        "sublibrary_meaning": "SBYL=善本阅览室",
+        "public_barcode_proved": false,
+        "historical_1959_3483_to_current_905s_03483_numeric_continuity": true,
+        "semantic_layer_collapse_forbidden": true,
+        "final_acquisition_path": "UNRESOLVED",
         "same_object_edge_authorized": false
       }
     },
@@ -2679,6 +2697,19 @@
         "current_physical_shelfmark_proved": false,
         "rarecatx0514818_exact_crosswalk_proved": false,
         "note": "Forward-only refinement of 12FF identifier semantics; 03482/03483 are cross-bound to the printed 1959 historical catalog-number layer, not a proved current item barcode."
+      },
+      "current_meta_crosswalk_12fh": {
+        "original_sys": "001775083",
+        "original_uid": "UCS01003828993",
+        "original_current_local_holdings_locator": "NLC:SBYL:03483",
+        "microfilm_sys": "002597934",
+        "microfilm_uid": "UCS01003581458",
+        "raw_455_embedded_payload": "001411999008601",
+        "parsed_embedded_tag": "001",
+        "parsed_linked_record_control_id": "411999008601",
+        "separate_photo_reference": "00O003570",
+        "separate_photo_reference_exact_subtype": "UNRESOLVED",
+        "public_barcode_proved": false
       }
     },
     {
@@ -2716,6 +2747,43 @@
         "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-BEITU1959-TONGHU-ZHUNZHAI-CATALOG-NUMBER-AND-QUDONATION-BOUNDARY-FG.md"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-BEITU1959-TONGHU-ZHUNZHAI-CATALOG-NUMBER-AND-QUDONATION-BOUNDARY-FG"
+    },
+    {
+      "node_id": "CATALOG-NLC-CURRENT-ZHUNZHAI-SYS001775083-UIDUCS01003828993",
+      "node_type": "DIGITAL_SURROGATE",
+      "label": "國家圖書館 current meta《準齋心製几漏圖式》SYS 001775083 / UID UCS01003828993 / NLC:SBYL:03483",
+      "system_scope": "MODERN_CURRENT_NLC_SYSTEM_IDENTITY_AND_LOCAL_HOLDINGS_LOCATOR",
+      "date": "CURRENT_PUBLIC_META_OBSERVED_2026-09-24",
+      "locator": "https://meta.nlc.cn/v2/detail/UCS01003828993",
+      "sys": "001775083",
+      "uid": "UCS01003828993",
+      "direct_title": "准齋心製几漏圖式",
+      "material_type": "善本",
+      "source_date_and_provenance": "黃氏士禮居 / 1823 / 1冊",
+      "current_holder": "国家图书馆",
+      "local_holdings_fields": {
+        "field_905a": "NLC",
+        "field_905q": "SBYL",
+        "field_905s": "03483",
+        "composite_3165": "NLC:SBYL:03483",
+        "field_852a": "A100000NLC"
+      },
+      "local_holdings_locator": "NLC:SBYL:03483",
+      "local_call_number_component": "03483",
+      "sublibrary_code": "SBYL",
+      "sublibrary_meaning": "善本阅览室",
+      "public_barcode_proved": false,
+      "historical_number_semantic_collapse_forbidden": true,
+      "acquisition_or_donation_identifier_proved": false,
+      "final_acquisition_path": "UNRESOLVED",
+      "evidence": [
+        "EXT-NLC-META-ZHUNZHAI-CURRENT-SYS001775083-ITEM-HOLDINGS",
+        "EXT-CLARIVATE-CNMARC-905S-LOCAL-CALL-NUMBER-CONTROL",
+        "EXT-NLC-SUBLIBRARY-CODE-SBYL-CONTROL",
+        "docs/research/ZIWEI-NLC-CURRENT-SYS-ITEM-HOLDINGS-LOCATOR-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-CURRENT-SYS-ITEM-HOLDINGS-LOCATOR-FH.md"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-NLC-CURRENT-SYS-ITEM-HOLDINGS-LOCATOR-FH"
     }
   ],
   "edges": [
@@ -4404,6 +4472,24 @@
       ],
       "scope_note": "The 1959 catalog directly prints 3482 銅壺漏箭制度 and 3483 準齋心製几漏圖式 with the same 1823 Huang Shiliju and one-volume signature later referenced by NLC OPAC as 原文献03482/03483. The crosswalk is closed at the historical bibliographic/catalog-number level. The same catalog directly prints 瞿捐 on another entry, while target 3482/3483 do not carry that mark. This bounds the 1959 catalog's donation evidence but does not absolutely disprove every historical Qu donation/transfer route, prove a current physical shelfmark, or authorize SAME_OBJECT collapse.",
       "adjudication_batch": "BATCH-12-ZIWEI-BEITU1959-TONGHU-ZHUNZHAI-CATALOG-NUMBER-AND-QUDONATION-BOUNDARY-FG"
+    },
+    {
+      "edge_id": "TG-E0111",
+      "from": "CATALOG-NLC-CURRENT-ZHUNZHAI-SYS001775083-UIDUCS01003828993",
+      "relation": "ATTESTS",
+      "to": "PHYSICAL-COPY-NLC-ZHUNZHAI-JILOU-DAOGUANG3-HUANG-SHILIJU-MS",
+      "status": "HIGH_CONFIDENCE",
+      "confidence": "VERY_HIGH_FOR_CURRENT_NLC_SYSTEM_IDENTITY_AND_LOCAL_HOLDINGS_LOCATOR_NOT_BARCODE_OR_ACQUISITION_ROUTE",
+      "evidence_class": "FIRST_PARTY_CURRENT_NLC_SYS_AND_ITEM_API_PLUS_CNMARC_FIELD_SEMANTIC_CONTROLS",
+      "evidence": [
+        "EXT-NLC-META-ZHUNZHAI-CURRENT-SYS001775083-ITEM-HOLDINGS",
+        "EXT-CLARIVATE-CNMARC-905S-LOCAL-CALL-NUMBER-CONTROL",
+        "EXT-NLC-SUBLIBRARY-CODE-SBYL-CONTROL",
+        "EXT-IFLA-UNIMARC-MICROFORMS-455-001-LINK-CONTROL",
+        "docs/research/ZIWEI-NLC-CURRENT-SYS-ITEM-HOLDINGS-LOCATOR-R1.json"
+      ],
+      "scope_note": "Current NLC meta uniquely binds SYS 001775083 / UID UCS01003828993 to the 1823 Huang Shiliju Zhunzhai rare-book record and directly exposes 905a=NLC, 905q=SBYL, 905s=03483 and composite NLC:SBYL:03483. This closes the current local holdings locator and local call-number component, not a public barcode or acquisition/donation route. Historical 3483, OPAC 原文献03483 and current 905s 03483 remain separate semantic layers. The microfilm 455$1 payload 001411999008601 is parsed as embedded 001 + record control 411999008601; 00O003570 remains a separate-photo reference. SAME_OBJECT collapse remains unauthorized.",
+      "adjudication_batch": "BATCH-12-ZIWEI-NLC-CURRENT-SYS-ITEM-HOLDINGS-LOCATOR-FH"
     }
   ],
   "lineage_hypotheses": [
@@ -4684,6 +4770,10 @@
         {
           "batch": "BATCH-12-ZIWEI-BEITU1959-TONGHU-ZHUNZHAI-CATALOG-NUMBER-AND-QUDONATION-BOUNDARY-FG",
           "update": "Direct 1959 Beijing Library catalog p60 closes the historical 3482 Copper / 3483 Zhunzhai number layer and their 1823 Huang Shiliju one-volume signature, allowing the later NLC OPAC 原文献03482/03483 values to be cross-bound to those historical catalog numbers. Same-catalog p19 directly proves that 瞿捐 is an explicit entry-level notation, while target 3482/3483 lack it. This narrows acquisition provenance only: final transfer path, current physical shelfmark, Huang 原書舊鈔/錄副 identity and Tieqin unique-object collapse remain open; zero exact Sanming-parent vote is added."
+        },
+        {
+          "batch": "BATCH-12-ZIWEI-NLC-CURRENT-SYS-ITEM-HOLDINGS-LOCATOR-FH",
+          "update": "Current NLC meta closes original rare-book SYS 001775083 / UID UCS01003828993 and local holdings locator NLC:SBYL:03483, while preserving identifier-layer firewalls: no public barcode, 455$1 raw 001411999008601 parses as embedded 001 + linked record-control 411999008601, 00O003570 remains separate-photo-reference only, acquisition route and SAME_OBJECT collapse remain open, and zero exact Sanming-parent vote is added."
         }
       ],
       "endpoint_anchor_component_identified": true,
