@@ -27,7 +27,7 @@ jobs:
           sudo apt-get install -y -qq poppler-utils tesseract-ocr tesseract-ocr-chi-tra tesseract-ocr-chi-tra-vert >/dev/null
           python -m pip install --quiet pillow
 
-          URL='https://commons.wikimedia.org/wiki/Special:Redirect/file/Tianyige-330000-1705-0004561%20%E9%90%B5%E7%90%B4%E9%8A%85%E5%8A%8D%E6%A8%93%E8%97%8F%E6%9B%B8%E7%9B%AE%20%E6%B8%85%E7%9E%BF%E9%8F%9E%E7%B7%A8%20%E6%B8%85%E6%8A%84%E6%9C%AC.pdf'
+          URL='https://upload.wikimedia.org/wikipedia/commons/1/1c/Tianyige-330000-1705-0004561_%E9%90%B5%E7%90%B4%E9%8A%85%E5%8A%8D%E6%A8%93%E8%97%8F%E6%9B%B8%E7%9B%AE%E9%8C%84_%E6%B8%85%E7%9E%BF%E9%8F%9E%E7%B7%A8_%E6%B8%85%E6%8A%84%E6%9C%AC.pdf'
           curl -fL --retry 4 --retry-delay 2 -A 'Tianwen-Provenance-Audit/1.0' "$URL" -o "$ROOT/source.pdf"
           sha256sum "$ROOT/source.pdf" | tee "$ROOT/source-sha256.txt"
           pdfinfo "$ROOT/source.pdf" | tee "$ROOT/pdfinfo.txt"
