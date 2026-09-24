@@ -1,0 +1,72 @@
+name: render-airijinglu-1887-v5-contacts
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/render-airijinglu-1887-v5-contacts.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - name: Render 1887 Lingfenge volume 5 contact sheets
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/airijinglu-1887-v5-contacts'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT/pages" "$ROOT/contacts"
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils >/dev/null
+          python -m pip install --quiet pillow
+          URL='https://commons.wikimedia.org/wiki/Special:Redirect/file/NLC892-001947629-315323%20%E6%84%9B%E6%97%A5%E7%B2%BE%E5%BB%AC%E8%97%8F%E6%9B%B8%E5%BF%97%20%E4%B8%89%E5%8D%81%E5%85%AD%E5%8D%B7%E7%BA%8C%E5%BF%97%E5%9B%9B%E5%8D%B7%20%E7%AC%AC5%E5%86%8A.pdf'
+          curl -fL --retry 4 --retry-delay 2 -A 'Tianwen-Provenance-Audit/1.0' "$URL" -o "$ROOT/source.pdf"
+          sha256sum "$ROOT/source.pdf" | tee "$ROOT/source-sha256.txt"
+          pdfinfo "$ROOT/source.pdf" | tee "$ROOT/pdfinfo.txt"
+          pdftoppm -jpeg -r 100 "$ROOT/source.pdf" "$ROOT/pages/page" >/dev/null 2>&1
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image,ImageDraw
+          import hashlib,json,re
+          root=Path('audit/airijinglu-1887-v5-contacts')
+          pages=sorted((root/'pages').glob('page-*.jpg'))
+          manifest=[]
+          for p in pages:
+              m=re.search(r'-(\d+)\.jpg$',p.name); n=int(m.group(1))
+              im=Image.open(p).convert('RGB')
+              manifest.append({'pdf_page':n,'file':p.name,'sha256':hashlib.sha256(p.read_bytes()).hexdigest(),'width':im.width,'height':im.height})
+          per=16; cols=4
+          for start in range(0,len(pages),per):
+              chunk=pages[start:start+per]; thumbs=[]
+              for p in chunk:
+                  n=int(re.search(r'-(\d+)\.jpg$',p.name).group(1))
+                  im=Image.open(p).convert('RGB'); tw=420
+                  im=im.resize((tw,max(1,int(im.height*tw/im.width))))
+                  c=Image.new('RGB',(tw,im.height+34),'white'); c.paste(im,(0,34))
+                  ImageDraw.Draw(c).text((8,8),f'PDF p{n}',fill='black'); thumbs.append(c)
+              cw=max(x.width for x in thumbs); ch=max(x.height for x in thumbs)
+              rows=(len(thumbs)+cols-1)//cols
+              sheet=Image.new('RGB',(cols*cw,rows*ch),'white')
+              for i,t in enumerate(thumbs): sheet.paste(t,((i%cols)*cw,(i//cols)*ch))
+              lo=start+1; hi=start+len(chunk)
+              sheet.save(root/'contacts'/f'contact-{lo:03d}-{hi:03d}.jpg',quality=95)
+          report={'schema':'AIRIJINGLU-1887-V5-CONTACTS-R1','source_file':'NLC892-001947629-315323 愛日精廬藏書志 第5冊.pdf',
+                  'edition':'吳縣徐氏靈芬閣 清光緒13年[1887] 活字本','volume_scope':['卷二十二','卷二十三','卷二十四','卷二十五'],
+                  'source_pdf_sha256':hashlib.sha256((root/'source.pdf').read_bytes()).hexdigest(),'page_count':len(pages),'manifest':manifest}
+          (root/'report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
+          PY
+          rm "$ROOT/source.pdf" "$ROOT"/pages/*.jpg
+      - name: Upload contacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: airijinglu-1887-v5-contacts-r1
+          path: audit/airijinglu-1887-v5-contacts
+          if-no-files-found: error
+          retention-days: 30
