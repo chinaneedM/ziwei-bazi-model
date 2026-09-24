@@ -1,0 +1,79 @@
+name: probe-batch-12fk-nlc-tonghu-open-shell-retry
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12fk-nlc-tonghu-open-shell-retry.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - name: Retry public Tonghu open-object shell only
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/batch-12fk-tonghu-open-shell-retry'
+          rm -rf "$ROOT"; mkdir -p "$ROOT"
+          UA='Tianwen-Provenance-Audit/1.0'
+          URL='http://read.nlc.cn/OutOpenBook/OpenObjectBook?aid=892&bid=113028.0'
+          : > "$ROOT/status.tsv"
+          for attempt in 1 2 3; do
+            out="$ROOT/tonghu-attempt-$attempt.html"
+            hdr="$ROOT/tonghu-attempt-$attempt.headers"
+            set +e
+            code=$(curl -L -sS --connect-timeout 8 --max-time 30 -A "$UA" -D "$hdr" -o "$out" -w '%{http_code}' "$URL")
+            rc=$?
+            set -e
+            bytes=0; [ -f "$out" ] && bytes=$(wc -c < "$out")
+            printf 'attempt=%s\trc=%s\thttp=%s\tbytes=%s\n' "$attempt" "$rc" "$code" "$bytes" >> "$ROOT/status.tsv"
+            if [ "$rc" -eq 0 ] && [ "$code" = "200" ] && [ "$bytes" -gt 1000 ]; then break; fi
+            sleep 1
+          done
+          python - <<'PY'
+          from pathlib import Path
+          import re, hashlib
+          root=Path('audit/batch-12fk-tonghu-open-shell-retry')
+          out=[]
+          for p in sorted(root.glob('*.html')):
+              data=p.read_bytes()
+              if len(data)<1000: continue
+              text=data.decode('utf-8',errors='replace')
+              out.append('FILE='+p.name)
+              out.append('SHA256='+hashlib.sha256(data).hexdigest())
+              for name,pat in [
+                  ('indexName',r"var indexName\s*=\s*'([^']*)'"),
+                  ('id',r"var id\s*=\s*parseInt\('([^']*)'\)"),
+                  ('identifier',r"var identifier\s*=\s*'([^']*)'"),
+                  ('title',r"var title\s*=\s*'([^']*)'"),
+                  ('servercode',r"var servercode\s*=\s*'([^']*)'"),
+                  ('pdfname',r"var pdfname\s*=\s*'([^']*)'"),
+                  ('aid',r"var aid\s*=\s*'([^']*)'"),
+                  ('bid',r"var bid\s*=\s*'([^']*)'"),
+              ]:
+                  m=re.search(pat,text)
+                  out.append(name+'='+(m.group(1) if m else 'NOT_FOUND'))
+              for endpoint in ('/OutOpenBook/resIpPermission','/OutOpenBook/dataInOutPermission','/allSearch/permissionNew','/static/webpdf/indexnobj.html'):
+                  out.append(endpoint+'='+str(endpoint in text))
+          root.joinpath('summary.txt').write_text('\n'.join(out)+'\n',encoding='utf-8')
+          PY
+          find "$ROOT" -type f -size +0c -print0 | xargs -0 -r sha256sum | sort -V > "$ROOT/all-files.sha256"
+          printf '%s\n' \
+            'SOURCE=National Library of China public OpenObjectBook shell only' \
+            'PURPOSE=retry Tonghu bid 113028 public shell and record metadata/permission-boundary symmetry' \
+            'AUTH_BOUNDARY=no permission endpoint invocation, no login emulation, no token acquisition, no direct PDF retrieval' \
+            'NEGATIVE_POLICY=timeout/nonreturn is access boundary only' \
+            'OCR_USED=false' > "$ROOT/manifest.txt"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12fk-tonghu-open-shell-retry
+          path: audit/batch-12fk-tonghu-open-shell-retry/
+          if-no-files-found: error
+          retention-days: 30
