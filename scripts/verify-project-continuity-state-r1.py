@@ -120,6 +120,8 @@ ZIWEI_TIEQIN_NLC1823_12FB_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANC
 ZIWEI_TIEQIN_NLC1823_12FB_EVIDENCE = ROOT / "docs/research/ZIWEI-TIEQIN-NLC1823-COMPOSITE-OBJECT-FINGERPRINT-CONTROL-R1.json"
 ZIWEI_TIEQIN_YINGCHAO_12FC_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TIEQIN-YINGCHAO-SONGBEN-TRANSCRIPTION-REPAIR-FC.md"
 ZIWEI_TIEQIN_YINGCHAO_12FC_EVIDENCE = ROOT / "docs/research/ZIWEI-TIEQIN-YINGCHAO-SONGBEN-TRANSCRIPTION-REPAIR-R1.json"
+ZIWEI_NLC1823_TIEQIN_SEAL_12FD_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC1823-TIEQIN-SEAL-PROVENANCE-CONTROL-FD.md"
+ZIWEI_NLC1823_TIEQIN_SEAL_12FD_EVIDENCE = ROOT / "docs/research/ZIWEI-NLC1823-TIEQIN-SEAL-PROVENANCE-CONTROL-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -406,9 +408,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-SHILIJU1823-ZHUNZHAI-HUANG-PILIE-OLD-COPY-RECOPY-FIREWALL-FA",
     "BATCH-12-ZIWEI-TIEQIN-NLC1823-COMPOSITE-OBJECT-FINGERPRINT-CONTROL-FB",
     "BATCH-12-ZIWEI-TIEQIN-YINGCHAO-SONGBEN-TRANSCRIPTION-REPAIR-FC",
+    "BATCH-12-ZIWEI-NLC1823-TIEQIN-SEAL-PROVENANCE-CONTROL-FD",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TIEQIN-YINGCHAO-SONGBEN-TRANSCRIPTION-REPAIR-FC.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC1823-TIEQIN-SEAL-PROVENANCE-CONTROL-FD.md"
 
 
 def fail(message: str) -> None:
@@ -1432,6 +1435,36 @@ def main() -> int:
     summary12fc = matrix12fc.get("audit_summary", {})
     if summary12fc.get("confirmed_provenance_metadata_defect_count") != 13 or summary12fc.get("repaired_provenance_metadata_defect_count") != 13:
         fail("Batch 12FC provenance defect accounting mismatch")
+
+    for path in (ZIWEI_NLC1823_TIEQIN_SEAL_12FD_BATCH, ZIWEI_NLC1823_TIEQIN_SEAL_12FD_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12FD continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12fd = json.loads(ZIWEI_NLC1823_TIEQIN_SEAL_12FD_EVIDENCE.read_text(encoding="utf-8"))
+    if batch12fd.get("batch_id") != "BATCH-12-ZIWEI-NLC1823-TIEQIN-SEAL-PROVENANCE-CONTROL-FD":
+        fail("Batch 12FD Tieqin seal evidence identity mismatch")
+    direct12fd = batch12fd.get("direct_physical_reading", {})
+    if direct12fd.get("lower_long_rectangular_seal") != "鐵琴銅劍樓" or direct12fd.get("ocr_used_for_final_seal_claim") is not False:
+        fail("Batch 12FD direct lower-seal reading regressed")
+    obj12fd = batch12fd.get("object_provenance_adjudication", {})
+    if obj12fd.get("current_nlc1823_object_entered_tieqin_tongjianlou_collection") != "CLOSED":
+        fail("Batch 12FD Tieqin collection provenance closure regressed")
+    if obj12fd.get("nlc1823_equals_specific_tieqin_catalogued_composite_object") != "VERY_STRONGLY_SUPPORTED_NOT_FORMALLY_UNIQUE_OBJECT_CLOSED" or obj12fd.get("force_same_object_node_collapse_authorized") is not False:
+        fail("Batch 12FD unique-object firewall regressed")
+    copy12fd = batch12fd.get("copy_layer_firewall", {})
+    if copy12fd.get("reviewed_1823_object_exact_role_as_原書舊鈔_or_錄副") != "UNRESOLVED" or copy12fd.get("exact_identity_with_airijinglu1827_吳門黃氏藏舊抄本") != "NOT_PROVED":
+        fail("Batch 12FD Huang/Airijinglu copy-layer firewall regressed")
+    reg12fd = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    by_id12fd = {x.get("source_id"): x for x in reg12fd.get("sources", [])}
+    xuxiu12fd = by_id12fd.get("EXT-XUXIU1031-ZHUNZHAI-TONGHU-CLEPSYDRA-QING-MSS-PHYSICAL")
+    if xuxiu12fd is None or xuxiu12fd.get("batch_12fd", {}).get("direct_lower_seal") != "鐵琴銅劍樓":
+        fail("Batch 12FD current Registry target seal control missing")
+    for sid in ("EXT-NCL-SANLI-CUOYAO-TIEQIN-SEAL-CATALOG-CONTROL", "EXT-NCL-JOURNAL-2018-TIEQIN-SEAL-FIG36"):
+        if sid not in by_id12fd:
+            fail(f"Batch 12FD independent seal control missing: {sid}")
+    if batch12fd.get("chronology_and_rule_firewall", {}).get("direct_sanming_parent_vote_increment") != 0:
+        fail("Batch 12FD Sanming zero-vote firewall regressed")
+    if batch12fd.get("accounting", {}).get("confirmed_provenance_metadata_defect_count") != 13 or batch12fd.get("accounting", {}).get("repaired_provenance_metadata_defect_count") != 13:
+        fail("Batch 12FD provenance defect accounting unexpectedly changed")
 
     for path in (ZIWEI_KYUDB_12DT_BATCH, ZIWEI_KYUDB_12DT_EVIDENCE):
         if not path.is_file():
