@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.163.0",
+  "schema_version": "1.164.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -241,9 +241,10 @@
       "BATCH-12-ZIWEI-NEIGE-CANGSHU1605-ZHUNZHAI-SUNFENGJI-UNKNOWN-ERA-BIBLIOGRAPHIC-CONTROL-EV",
       "BATCH-12-ZIWEI-WENYUANGE1937-ZHUNZHAI-JIULOU-PRINTED-VARIANT-CONTROL-EW",
       "BATCH-12-ZIWEI-AIRIJINGLU1887-ZHUNZHAI-AUTHOR-VARIANT-AND-25ARROW-REPLAY-EX",
-      "BATCH-12-ZIWEI-TIEQIN-QING-MS-ZHUNZHAI-FENGGU-HUANG-PROVENANCE-EY"
+      "BATCH-12-ZIWEI-TIEQIN-QING-MS-ZHUNZHAI-FENGGU-HUANG-PROVENANCE-EY",
+      "BATCH-12-ZIWEI-AIRIJINGLU1827-ZHUNZHAI-FENGGU-FIRST-EDITION-RECENSION-CONTROL-EZ"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TIEQIN-QING-MS-ZHUNZHAI-FENGGU-HUANG-PROVENANCE-EY.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-AIRIJINGLU1827-ZHUNZHAI-FENGGU-FIRST-EDITION-RECENSION-CONTROL-EZ.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -905,7 +906,11 @@
       "Batch 12EY directly closes the Tianyi Qing-manuscript Tieqin Zhunzhai entry: p387 reads 準齋心製几漏圖式一卷 / 影鈔本 / 宋孫逢古撰并序; final glyph adjudication is direct 300-dpi image review.",
       "The same entry continues on p388 with 郡中黃氏舊藏 / 蕘翁有跋. Together with 12EX 從吳門黃氏藏舊抄本影寫 and the NLC 1823 Huang Shiliju manuscript route, Huang/Raoweng provenance convergence is strong, while exact physical-copy identity remains NOT_PROVED.",
       "孫逢古 is now confirmed in at least two late-Qing bibliographic surfaces (Airijinglu header and Tieqin text), but earlier 1602/1605 direct witnesses read 孫逢吉 and the 1887 Airijinglu body itself reads 逢吉. Late bibliographic/recensional Fenggu mutation remains strongly supported, not absolutely normalized.",
-      "Batch 12EY adds TG-E0103 ATTESTS. Matrix/product counts remain 198 / 166 / 10, provenance defects 12/12, chart algorithm defect/reopen/collapse 0, and direct Sanming-parent vote increment 0."
+      "Batch 12EY adds TG-E0103 ATTESTS. Matrix/product counts remain 198 / 166 / 10, provenance defects 12/12, chart algorithm defect/reopen/collapse 0, and direct Sanming-parent vote increment 0.",
+      "Batch 12EZ directly binds NLC set NLC892-001947627 to the 1827 first-edition layer: 第1冊 p5 reads 道光七年歲在丁亥秋九月; 第5冊 p48 opens 愛日精廬藏書志卷二十三 / 子部 / 天文算法類.",
+      "The 1827 p50 target directly reads 準齋心製几漏圖式一卷 / 抄本 / 宋孫逢古撰 / 文淵閣書目著錄 / 從吳門黃氏藏舊抄本影寫. This moves the direct Airijinglu Fenggu physical control from 1887 back to 1827 while earlier 1602/1605 direct controls remain 孫逢吉.",
+      "Direct review of the complete bounded 1827 Zhunzhai p50-p51 entry does not show 1887's same-entry body sentence 由此逢吉以心法創茲小壺 before the next title begins. The 1827/1887 recension difference is CLOSED, but direction, insertion source and intermediate state remain UNRESOLVED; the 1887 sentence must not be back-projected into 1827.",
+      "Batch 12EZ adds TG-E0104 ATTESTS. Matrix/product counts remain 198 / 166 / 10, provenance defects 12/12, chart algorithm defect/reopen/collapse 0, and direct Sanming-parent vote increment 0."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10

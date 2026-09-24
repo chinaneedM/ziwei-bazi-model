@@ -1418,7 +1418,10 @@
         "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-AIRIJINGLU1887-ZHUNZHAI-AUTHOR-VARIANT-AND-25ARROW-REPLAY-EX.md",
         "EXT-TIANYIGE-TIEQIN-QING-MS-0004561-ZHUNZHAI-FENGGU-HUANG-PROVENANCE",
         "docs/research/ZIWEI-TIEQIN-QING-MS-ZHUNZHAI-FENGGU-HUANG-PROVENANCE-R1.json",
-        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TIEQIN-QING-MS-ZHUNZHAI-FENGGU-HUANG-PROVENANCE-EY.md"
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TIEQIN-QING-MS-ZHUNZHAI-FENGGU-HUANG-PROVENANCE-EY.md",
+        "EXT-NLC-AIRIJINGLU-DAOGUANG7-1827-V5-ZHUNZHAI-FENGGU-RECENSION",
+        "docs/research/ZIWEI-AIRIJINGLU1827-ZHUNZHAI-FENGGU-FIRST-EDITION-RECENSION-CONTROL-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-AIRIJINGLU1827-ZHUNZHAI-FENGGU-FIRST-EDITION-RECENSION-CONTROL-EZ.md"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-XUXIU1031-ZHUNZHAI-CLEPSYDRA-JIEHOU-ARROW-SELECTION-DV",
       "pre1578_title_family_catalog_attestation": true,
@@ -1524,6 +1527,23 @@
         ],
         "exact_huang_copy_identity_with_nlc_1823": "NOT_PROVED",
         "exact_qing_manuscript_copy_year": "UNRESOLVED"
+      },
+      "airijinglu1827_first_edition_control": {
+        "status": "FENGGU_DIRECTLY_CLOSED_BY_1827_AND_1827_1887_BODY_RECENSION_DIFFERENCE_CLOSED",
+        "edition_date": "1827_DAOGUANG7_DIRECT",
+        "direct_author": "孫逢古",
+        "earlier_ming_controls": [
+          "1602 孫逢吉",
+          "1605 孫逢吉"
+        ],
+        "airijinglu1887_header": "孫逢古",
+        "airijinglu1887_same_entry_body": "逢吉",
+        "airijinglu1827_same_entry_body_fengji_phrase_observed": false,
+        "recension_difference": "CONFIRMED",
+        "recension_change_direction": "UNRESOLVED",
+        "force_normalization_authorized": false,
+        "exact_mutation_event_proved": false,
+        "exact_huang_copy_identity_with_nlc_1823": "NOT_PROVED"
       }
     },
     {
@@ -2294,6 +2314,58 @@
         "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TIEQIN-QING-MS-ZHUNZHAI-FENGGU-HUANG-PROVENANCE-EY.md"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-TIEQIN-QING-MS-ZHUNZHAI-FENGGU-HUANG-PROVENANCE-EY"
+    },
+    {
+      "node_id": "PHYSICAL-COPY-NLC-AIRIJINGLU-DAOGUANG7-1827-SET001947627",
+      "node_type": "PHYSICAL_COPY",
+      "label": "國家圖書館 NLC892-001947627 清道光七年《愛日精廬藏書志》",
+      "system_scope": "DATED_1827_BIBLIOGRAPHIC_PRINT_FOR_ZHUNZHAI_AUTHOR_VARIANT_AND_RECENSION_CONTROL",
+      "work_composition_date": "AIRIJINGLU_CATALOG_QING_COMPILATION; TARGET_ZHUNZHAI_WORK_DATE_NOT_DERIVED",
+      "edition_impression_date": "1827_DAOGUANG7_DIRECTLY_READ",
+      "physical_copy_date": "QING_DAOGUANG7_PRINT_SET",
+      "digital_surrogate_date": "MODERN_NLC_WIKIMEDIA_SURROGATE",
+      "identifier": "NLC892-001947627 / 317255 第1冊 + 317258 第5冊",
+      "edition_control_sha256": {
+        "v1_source": "4d9ee8a1c6e9234daeedbb22b6dc9eec99a18f676684168321e8483e691214a6",
+        "v1_p5": "c7dce87293230fdc79f6fcc0428d19d88a124b7e66f1709fdcd2668b54184433"
+      },
+      "target_source_sha256": "c866354e719ab018a86e70181cbadf3b03fb6787c86cb0239d036782a0ae17a0",
+      "target_page_sha256": {
+        "48": "98ce34e66b32a5c41ec3e190158250bf8dc51acf358c4da8c3bedf98a2eece12",
+        "50": "61ec3229c322de643eaefd81e0bb1a392ae1a6bb9fed326928e4bcf343bdacdc",
+        "51": "1c4282036fa8f43faa9fbfefe59449c2f46b4a306b3614bb5252582ce3f62d7c"
+      },
+      "direct_target_result": "1827 p50: 準齋心製几漏圖式一卷 / 抄本 / 宋孫逢古撰 / 文淵閣書目著錄 / 從吳門黃氏藏舊抄本影寫; bounded p50-p51 does not show the 1887 由此逢吉 sentence",
+      "ocr_used_for_final_glyph_claims": false,
+      "evidence": [
+        "EXT-NLC-AIRIJINGLU-DAOGUANG7-1827-V5-ZHUNZHAI-FENGGU-RECENSION",
+        "docs/research/ZIWEI-AIRIJINGLU1827-ZHUNZHAI-FENGGU-FIRST-EDITION-RECENSION-CONTROL-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-AIRIJINGLU1827-ZHUNZHAI-FENGGU-FIRST-EDITION-RECENSION-CONTROL-EZ.md"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-AIRIJINGLU1827-ZHUNZHAI-FENGGU-FIRST-EDITION-RECENSION-CONTROL-EZ"
+    },
+    {
+      "node_id": "PASSAGE-AIRIJINGLU1827-ZHUNZHAI-FENGGU-RECENSION",
+      "node_type": "PASSAGE",
+      "label": "1827《愛日精廬藏書志》準齋條：孫逢古與 1827/1887 正文異文控制",
+      "system_scope": "DATED_1827_BIBLIOGRAPHIC_AUTHOR_VARIANT_AND_RECENSION_CONTROL",
+      "physical_locator": "NLC892-001947627 第5冊 PDF p50-p51; edition control 第1冊 p5",
+      "direct_title": "準齋心製几漏圖式一卷",
+      "copy_description": "抄本",
+      "direct_author": "孫逢古",
+      "direct_catalog_note": "文淵閣書目著錄",
+      "direct_huang_copy_note": "從吳門黃氏藏舊抄本影寫",
+      "phrase_由此逢吉以心法創茲小壺_observed": false,
+      "bounded_nonattestation_scope": "COMPLETE_P50_P51_ZHUNZHAI_ENTRY_TO_NEXT_TITLE_BOUNDARY",
+      "original_author_name_proved": false,
+      "recension_change_direction": "UNRESOLVED",
+      "exact_huang_copy_identity_with_nlc_1823": "NOT_PROVED",
+      "evidence": [
+        "EXT-NLC-AIRIJINGLU-DAOGUANG7-1827-V5-ZHUNZHAI-FENGGU-RECENSION",
+        "docs/research/ZIWEI-AIRIJINGLU1827-ZHUNZHAI-FENGGU-FIRST-EDITION-RECENSION-CONTROL-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-AIRIJINGLU1827-ZHUNZHAI-FENGGU-FIRST-EDITION-RECENSION-CONTROL-EZ.md"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-AIRIJINGLU1827-ZHUNZHAI-FENGGU-FIRST-EDITION-RECENSION-CONTROL-EZ"
     }
   ],
   "edges": [
@@ -3863,6 +3935,24 @@
       ],
       "scope_note": "Confirms the Qing Tieqin manuscript's 孫逢古 bibliographic attribution and Huang/Raoweng provenance statements. It does not date the manuscript exactly, prove the original author-name form, bind the exact Huang physical copy, or close pre-1578 operational prose.",
       "adjudication_batch": "BATCH-12-ZIWEI-TIEQIN-QING-MS-ZHUNZHAI-FENGGU-HUANG-PROVENANCE-EY"
+    },
+    {
+      "edge_id": "TG-E0104",
+      "from": "PHYSICAL-COPY-NLC-AIRIJINGLU-DAOGUANG7-1827-SET001947627",
+      "relation": "ATTESTS",
+      "to": "PASSAGE-AIRIJINGLU1827-ZHUNZHAI-FENGGU-RECENSION",
+      "status": "CONFIRMED",
+      "confidence": "HIGH",
+      "evidence_class": "DIRECT_SOURCE_BOUND_DAOGUANG7_1827_PRINT_300DPI_PAGE_REVIEW_NO_OCR_FINAL_AUTHORITY",
+      "evidence": [
+        "NLC001947627 v1 p5 sha256 c7dce87293230fdc79f6fcc0428d19d88a124b7e66f1709fdcd2668b54184433",
+        "NLC001947627 v5 p50 sha256 61ec3229c322de643eaefd81e0bb1a392ae1a6bb9fed326928e4bcf343bdacdc",
+        "NLC001947627 v5 p51 sha256 1c4282036fa8f43faa9fbfefe59449c2f46b4a306b3614bb5252582ce3f62d7c",
+        "EXT-NLC-AIRIJINGLU-DAOGUANG7-1827-V5-ZHUNZHAI-FENGGU-RECENSION",
+        "docs/research/ZIWEI-AIRIJINGLU1827-ZHUNZHAI-FENGGU-FIRST-EDITION-RECENSION-CONTROL-R1.json"
+      ],
+      "scope_note": "Confirms the dated 1827 Airijinglu Fenggu header/Huang-copy note and a bounded 1827/1887 recension difference. It does not prove original author identity, exact mutation direction, exact Huang source-copy identity, pre-1578 rule prose, or Sanming parentage.",
+      "adjudication_batch": "BATCH-12-ZIWEI-AIRIJINGLU1827-ZHUNZHAI-FENGGU-FIRST-EDITION-RECENSION-CONTROL-EZ"
     }
   ],
   "lineage_hypotheses": [
@@ -4111,6 +4201,10 @@
         {
           "batch": "BATCH-12-ZIWEI-TIEQIN-QING-MS-ZHUNZHAI-FENGGU-HUANG-PROVENANCE-EY",
           "update": "Direct 300-dpi Tianyi Qing-manuscript Tieqin review closes 準齋心製几漏圖式一卷 / 影鈔本 / 宋孫逢古撰并序 and the continuation 郡中黃氏舊藏 / 蕘翁有跋. This confirms a Qing bibliographic Fenggu variant and convergent Huang/Raoweng provenance route. Earlier direct 1602/1605 孫逢吉 and the 1887 same-entry body 逢吉 keep late Fenggu corruption/variant strongly supported but not silently normalized. Exact manuscript date/Huang-copy identity remain open; zero exact Sanming-parent vote is added."
+        },
+        {
+          "batch": "BATCH-12-ZIWEI-AIRIJINGLU1827-ZHUNZHAI-FENGGU-FIRST-EDITION-RECENSION-CONTROL-EZ",
+          "update": "Direct 300-dpi NLC Daoguang-7 1827 Airijinglu review moves the physical Fenggu header control back to 1827: 準齋心製几漏圖式一卷 / 抄本 / 宋孫逢古撰 / 文淵閣書目著錄 / 從吳門黃氏藏舊抄本影寫. The complete bounded 1827 p50-p51 entry does not show the 1887 same-entry body sentence 由此逢吉以心法創茲小壺 before the next title, so an 1827/1887 recension difference is confirmed while change direction remains unresolved. Earlier 1602/1605 孫逢吉 controls retain priority; zero exact Sanming-parent vote is added."
         }
       ],
       "endpoint_anchor_component_identified": true,

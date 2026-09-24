@@ -112,6 +112,8 @@ ZIWEI_AIRIJINGLU_1887_12EX_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENAN
 ZIWEI_AIRIJINGLU_1887_12EX_EVIDENCE = ROOT / "docs/research/ZIWEI-AIRIJINGLU1887-ZHUNZHAI-AUTHOR-VARIANT-AND-25ARROW-REPLAY-R1.json"
 ZIWEI_TIEQIN_QING_MS_12EY_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TIEQIN-QING-MS-ZHUNZHAI-FENGGU-HUANG-PROVENANCE-EY.md"
 ZIWEI_TIEQIN_QING_MS_12EY_EVIDENCE = ROOT / "docs/research/ZIWEI-TIEQIN-QING-MS-ZHUNZHAI-FENGGU-HUANG-PROVENANCE-R1.json"
+ZIWEI_AIRIJINGLU_1827_12EZ_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-AIRIJINGLU1827-ZHUNZHAI-FENGGU-FIRST-EDITION-RECENSION-CONTROL-EZ.md"
+ZIWEI_AIRIJINGLU_1827_12EZ_EVIDENCE = ROOT / "docs/research/ZIWEI-AIRIJINGLU1827-ZHUNZHAI-FENGGU-FIRST-EDITION-RECENSION-CONTROL-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -394,9 +396,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-WENYUANGE1937-ZHUNZHAI-JIULOU-PRINTED-VARIANT-CONTROL-EW",
     "BATCH-12-ZIWEI-AIRIJINGLU1887-ZHUNZHAI-AUTHOR-VARIANT-AND-25ARROW-REPLAY-EX",
     "BATCH-12-ZIWEI-TIEQIN-QING-MS-ZHUNZHAI-FENGGU-HUANG-PROVENANCE-EY",
+    "BATCH-12-ZIWEI-AIRIJINGLU1827-ZHUNZHAI-FENGGU-FIRST-EDITION-RECENSION-CONTROL-EZ",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TIEQIN-QING-MS-ZHUNZHAI-FENGGU-HUANG-PROVENANCE-EY.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-AIRIJINGLU1827-ZHUNZHAI-FENGGU-FIRST-EDITION-RECENSION-CONTROL-EZ.md"
 
 
 def fail(message: str) -> None:
@@ -1332,6 +1335,32 @@ def main() -> int:
         fail("Batch 12EY Huang-copy identity was overclosed")
     if batch12ey.get("sanming_firewall", {}).get("direct_sanming_parent_vote_increment") != 0:
         fail("Batch 12EY Sanming zero-vote firewall regressed")
+
+    for path in (ZIWEI_AIRIJINGLU_1827_12EZ_BATCH, ZIWEI_AIRIJINGLU_1827_12EZ_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12EZ continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12ez = json.loads(ZIWEI_AIRIJINGLU_1827_12EZ_EVIDENCE.read_text(encoding="utf-8"))
+    if batch12ez.get("batch_id") != "BATCH-12-ZIWEI-AIRIJINGLU1827-ZHUNZHAI-FENGGU-FIRST-EDITION-RECENSION-CONTROL-EZ":
+        fail("Batch 12EZ evidence identity mismatch")
+    sb12ez = batch12ez.get("source_binding", {})
+    if sb12ez.get("v1_source_sha256") != "4d9ee8a1c6e9234daeedbb22b6dc9eec99a18f676684168321e8483e691214a6":
+        fail("Batch 12EZ edition-source binding regressed")
+    if sb12ez.get("v5_source_sha256") != "c866354e719ab018a86e70181cbadf3b03fb6787c86cb0239d036782a0ae17a0":
+        fail("Batch 12EZ target-source binding regressed")
+    if sb12ez.get("v5_pdf_page_50_sha256") != "61ec3229c322de643eaefd81e0bb1a392ae1a6bb9fed326928e4bcf343bdacdc" or sb12ez.get("v5_pdf_page_51_sha256") != "1c4282036fa8f43faa9fbfefe59449c2f46b4a306b3614bb5252582ce3f62d7c":
+        fail("Batch 12EZ target page hashes regressed")
+    read12ez = batch12ez.get("direct_physical_reading", {})
+    if "宋孫逢古撰" not in read12ez.get("v5_p50", []) or "從吳門黃氏藏舊抄本影寫" not in read12ez.get("v5_p50", []):
+        fail("Batch 12EZ direct 1827 target reading regressed")
+    if read12ez.get("phrase_由此逢吉以心法創茲小壺_observed") is not False:
+        fail("Batch 12EZ bounded 1827 nonattestation firewall regressed")
+    var12ez = batch12ez.get("author_variant_adjudication", {})
+    if var12ez.get("earliest_current_direct_airijinglu_fenggu_physical_control") != 1827 or var12ez.get("exact_mutation_event_proved") is not False or var12ez.get("force_normalize_孫逢古_to_孫逢吉") is not False:
+        fail("Batch 12EZ author chronology/normalization firewall regressed")
+    if batch12ez.get("recension_firewall", {}).get("recension_difference") != "CONFIRMED" or batch12ez.get("recension_firewall", {}).get("insertion_or_deletion_direction") != "UNRESOLVED":
+        fail("Batch 12EZ recension-direction firewall regressed")
+    if batch12ez.get("sanming_firewall", {}).get("direct_sanming_parent_vote_increment") != 0:
+        fail("Batch 12EZ Sanming zero-vote firewall regressed")
 
     for path in (ZIWEI_KYUDB_12DT_BATCH, ZIWEI_KYUDB_12DT_EVIDENCE):
         if not path.is_file():

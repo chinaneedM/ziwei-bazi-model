@@ -1,0 +1,145 @@
+{
+  "schema": "ZIWEI-AIRIJINGLU1827-ZHUNZHAI-FENGGU-FIRST-EDITION-RECENSION-CONTROL-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-AIRIJINGLU1827-ZHUNZHAI-FENGGU-FIRST-EDITION-RECENSION-CONTROL-EZ",
+  "prior_batch_id": "BATCH-12-ZIWEI-TIEQIN-QING-MS-ZHUNZHAI-FENGGU-HUANG-PROVENANCE-EY",
+  "question": "Does a source-bound 1827 first-edition Airijinglu physical print directly attest 孫逢古, and does its bounded Zhunzhai entry already contain the 1887 same-entry body phrase 由此逢吉以心法創茲小壺?",
+  "answer": "YES FOR THE 1827 FENGGU HEADER; NO OBSERVATION OF THE 1887 FENGJI BODY PHRASE ON THE COMPLETE BOUNDED 1827 P50-P51 ZHUNZHAI ENTRY SURFACE. NLC SET NLC892-001947627 V1 P5 DIRECTLY DATES THE EDITION TO 道光七年歲在丁亥秋九月. V5 P48 DIRECTLY OPENS 卷二十三 / 子部 / 天文算法類. V5 P50 DIRECTLY READS 準齋心製几漏圖式一卷 / 抄本 / 宋孫逢古撰 / 文淵閣書目著錄 / 從吳門黃氏藏舊抄本影寫. P51 DIRECTLY TRANSITIONS TO THE NEXT TITLE 大宋寶祐四年丙辰歲會天萬年具注曆一卷. THE 1887 BODY SENTENCE MUST NOT BE BACK-PROJECTED INTO 1827. RECENSION DIFFERENCE IS CLOSED; DIRECTION AND EXACT MUTATION EVENT REMAIN UNRESOLVED.",
+  "source_binding": {
+    "source_id": "EXT-NLC-AIRIJINGLU-DAOGUANG7-1827-V5-ZHUNZHAI-FENGGU-RECENSION",
+    "set_id": "NLC892-001947627",
+    "provider": "National Library of China scan via Wikimedia Commons",
+    "edition": "清道光七年（1827）張氏愛日精廬刻本",
+    "v1_file": "317255 第1冊",
+    "v1_source_sha256": "4d9ee8a1c6e9234daeedbb22b6dc9eec99a18f676684168321e8483e691214a6",
+    "v1_pdf_page_5_sha256": "c7dce87293230fdc79f6fcc0428d19d88a124b7e66f1709fdcd2668b54184433",
+    "v5_file": "317258 第5冊",
+    "v5_source_sha256": "c866354e719ab018a86e70181cbadf3b03fb6787c86cb0239d036782a0ae17a0",
+    "v5_pdf_page_48_sha256": "98ce34e66b32a5c41ec3e190158250bf8dc51acf358c4da8c3bedf98a2eece12",
+    "v5_pdf_page_50_sha256": "61ec3229c322de643eaefd81e0bb1a392ae1a6bb9fed326928e4bcf343bdacdc",
+    "v5_pdf_page_51_sha256": "1c4282036fa8f43faa9fbfefe59449c2f46b4a306b3614bb5252582ce3f62d7c",
+    "target_workflow_run_id": 35955986758,
+    "target_artifact_id": 10790402505,
+    "target_artifact_digest": "sha256:6017c478ff5473bf71c6ccb0ebb752475215be34ba863d78974eb6105ac72a28",
+    "extraction_commit": "a293343b93f2aee9c5616a9ff5c2bfefc2ef1343",
+    "ocr_used_for_final_glyph_claims": false,
+    "cadal_same_edition_control": {
+      "id": "CADAL02091326",
+      "source_sha256": "1ba9109dba50e976e24b3c3bf25f9c277768cc332f8fff3d29d343c0c8ffe1dd",
+      "pdf_page_4_sha256": "98266a63c8bbe4370136c07004f1a63f0140f3622540857e0b691ae61c58445c",
+      "role": "SAME_EDITION_CORROBORATION_NOT_COUNTED_AS_INDEPENDENT_TEXTUAL_VOTE"
+    }
+  },
+  "direct_physical_reading": {
+    "edition_control_p5": [
+      "道光七年歲在丁亥秋九月"
+    ],
+    "v5_p48": [
+      "愛日精廬藏書志卷二十三",
+      "子部",
+      "天文算法類"
+    ],
+    "v5_p50": [
+      "準齋心製几漏圖式一卷",
+      "抄本",
+      "宋孫逢古撰",
+      "文淵閣書目著錄",
+      "從吳門黃氏藏舊抄本影寫"
+    ],
+    "v5_p51_transition": [
+      "大宋寶祐四年丙辰歲會天萬年具注曆一卷",
+      "抄本"
+    ],
+    "bounded_zhunzhai_surface": "PDF p50-p51 from title start through next-title boundary",
+    "phrase_由此逢吉以心法創茲小壺_observed": false,
+    "nonattestation_scope": "BOUNDED_TARGET_ENTRY_SURFACE_ONLY_NOT_WHOLE_BOOK_NEGATIVE_SEARCH",
+    "adjudication": "1827_FENGGU_HEADER_AND_1827_1887_RECENSION_DIFFERENCE_CLOSED"
+  },
+  "author_variant_adjudication": {
+    "direct_ming_1602": "孫逢吉",
+    "direct_ming_1605": "孫逢吉",
+    "direct_airijinglu_1827_header": "孫逢古",
+    "direct_airijinglu_1887_header": "孫逢古",
+    "direct_airijinglu_1887_same_entry_body": "逢吉",
+    "direct_tieqin_qing_ms": "孫逢古",
+    "earliest_current_direct_airijinglu_fenggu_physical_control": 1827,
+    "safe_mutation_window": "AFTER_1605_BY_1827_AT_LATEST_FOR_THE_REVIEWED_BIBLIOGRAPHIC_HEADER_TRADITION",
+    "exact_mutation_event_proved": false,
+    "direct_copy_direction_proved": false,
+    "force_normalize_孫逢古_to_孫逢吉": false
+  },
+  "recension_firewall": {
+    "airijinglu_1827_body_fengji_sentence_observed": false,
+    "airijinglu_1887_body_fengji_sentence_observed": true,
+    "recension_difference": "CONFIRMED",
+    "insertion_or_deletion_direction": "UNRESOLVED",
+    "intermediate_recension_state": "UNRESOLVED",
+    "safe_conclusion": "THE 1887 BODY PHRASE CANNOT BE PROJECTED BACKWARD INTO THE DIRECTLY REVIEWED 1827 ENTRY"
+  },
+  "huang_provenance_firewall": {
+    "airijinglu_1827_statement": "從吳門黃氏藏舊抄本影寫",
+    "tieqin_qing_ms_statements": [
+      "郡中黃氏舊藏",
+      "蕘翁有跋"
+    ],
+    "reviewed_nlc_1823_manuscript_route": "清道光三年黃氏士禮居抄本",
+    "exact_physical_identity_across_routes": "NOT_PROVED",
+    "safe_conclusion": "DATED_1827_HUANG_COPY_ROUTE_CLOSED_AT_BIBLIOGRAPHIC_LEVEL; EXACT_SOURCE_MANUSCRIPT_IDENTITY_OPEN"
+  },
+  "chronology_and_identity_firewall": {
+    "edition_impression_date": "1827_DAOGUANG7_DIRECTLY_READ",
+    "target_work_composition_date_proved": false,
+    "exact_identity_with_yuan_1281_yanling_sun_fengji": "POSSIBLE_NOT_PROVED",
+    "pre1578_exact_25arrow_rule_text_attested": false,
+    "original_author_name_proved": false
+  },
+  "sanming_firewall": {
+    "exact_sanming_yueling_dahan_yushui_fingerprint_closed": false,
+    "exact_nanjing_59_endpoint_binding_closed": false,
+    "direct_sanming_parent_vote_increment": 0
+  },
+  "adjudication": {
+    "matrix_count_change": false,
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "deterministic_fusion_chart_product_r1": "CLOSED"
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 12,
+    "repaired_provenance_metadata_defect_count": 12,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "transmission_impact": {
+    "nodes_added": [
+      "PHYSICAL-COPY-NLC-AIRIJINGLU-DAOGUANG7-1827-SET001947627",
+      "PASSAGE-AIRIJINGLU1827-ZHUNZHAI-FENGGU-RECENSION"
+    ],
+    "nodes_strengthened": [
+      "RULE-FAMILY-ZHUNZHAI-25ARROW-JIEHOU-SELECTION-38-62"
+    ],
+    "edges_supported": [
+      "TG-E0104"
+    ],
+    "edges_revised": [],
+    "edges_rejected": [],
+    "remaining_lineage_questions": [
+      "Can the exact Huang/Raoweng source manuscript behind the 1827 從吳門黃氏藏舊抄本影寫 statement be bound to the reviewed 1823 Shiliju manuscript?",
+      "Which intermediate recension first introduces or preserves the 1887 body phrase 由此逢吉以心法創茲小壺?",
+      "Can a Yuan primary witness directly pair the Yanling Sun Fengji with the Zhunzhai title?",
+      "Can a securely pre-1578 physical witness close the exact 25-arrow operating prose?"
+    ]
+  },
+  "next_gate": [
+    "Trace Huang Pilie/Raoweng paratext against the NLC 1823 Shiliju manuscript.",
+    "Search intermediate pre-1887 Airijinglu recensions for the 由此逢吉 body phrase.",
+    "Continue Yuan person-title and securely pre-1578 exact 25-arrow prose searches.",
+    "Keep Sanming/Yueling Dahan-Rainwater and Nanjing-59 searches active."
+  ],
+  "updated_at": "2026-09-24"
+}
