@@ -140,7 +140,9 @@
     "target_specific_other_transfer_route_selected": false,
     "target_exact_acquisition_date": "UNRESOLVED",
     "final_nlc_acquisition_transfer_path": "UNRESOLVED",
-    "ji_chapter_9_lawful_access_route": "CLOSED_VIA_TOKYO_METROPOLITAN_CENTRAL_LIBRARY"
+    "ji_chapter_9_lawful_access_route": "CLOSED_VIA_TOKYO_METROPOLITAN_CENTRAL_LIBRARY",
+    "ji_chapter_9_remote_copy_eligibility": "CONDITIONAL_NOT_USER_SPECIFICALLY_ADJUDICATED",
+    "ji_chapter_9_page_range": "UNRESOLVED_USE_REFERENCE_SERVICE"
   },
   "inference_firewall": {
     "chapter_title_contains_收购_does_not_mean_every_qu_item_was_purchased": true,
@@ -203,10 +205,25 @@
       "availability_status": "利用可",
       "cooperative_lending": "可能",
       "remote_copy_request_route_exposed": true,
-      "remote_copy_eligibility": "東京都在住・在勤・在学の方",
       "project_has_obtained_chapter_9_copy": false,
-      "project_has_directly_collated_chapter_9": false
+      "project_has_directly_collated_chapter_9": false,
+      "remote_copy_eligibility_prior_overbroad": "東京都在住・在勤・在学の方",
+      "remote_copy_eligibility_model": {
+        "normal_group": "東京都在住・在勤・在学の個人",
+        "outside_tokyo_possible": true,
+        "outside_tokyo_condition": "国立国会図書館で所蔵していない資料の内、要件を満たす資料",
+        "final_acceptance_prejudged_by_project": false
+      },
+      "page_range_unknown_use_reference_service_first": true,
+      "project_has_submitted_copy_request": false,
+      "project_has_submitted_identity_document": false,
+      "project_has_incurred_copy_fee": false
     },
     "adjudication": "LAWFUL_ACCESS_ROUTE_CLOSED_BUT_DIRECT_CHAPTER_COLLATION_PENDING"
+  },
+  "correction_by_batch_12fq": {
+    "batch_id": "BATCH-12-ZIWEI-TOKYO-JI-SHUYING-CH9-REMOTE-COPY-ELIGIBILITY-AND-PAGE-RANGE-BOUNDARY-FQ",
+    "corrected_overbroad_remote_copy_eligibility": true,
+    "historical_or_algorithmic_conclusion_changed": false
   }
 }
