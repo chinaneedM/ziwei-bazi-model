@@ -1,0 +1,97 @@
+name: locate-airijinglu-1887-v5-v6-zhunzhai
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/locate-airijinglu-1887-v5-v6-zhunzhai.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  locate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Locate Zhunzhai in 1887 Lingfenge volumes 5-6
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/airijinglu-1887-v5-v6-zhunzhai'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT"
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils tesseract-ocr tesseract-ocr-chi-tra tesseract-ocr-chi-tra-vert >/dev/null
+          python -m pip install --quiet pillow
+
+          python - <<'PY'
+          from pathlib import Path
+          import subprocess, hashlib, json, re, urllib.parse, os
+          from PIL import Image, ImageOps, ImageEnhance, ImageDraw
+
+          root=Path('audit/airijinglu-1887-v5-v6-zhunzhai')
+          files=[
+            ('v5','NLC892-001947629-315323 愛日精廬藏書志 三十六卷續志四卷 第5冊.pdf'),
+            ('v6','NLC892-001947629-315326 愛日精廬藏書志 三十六卷續志四卷 第6冊.pdf'),
+          ]
+          report={'schema':'AIRIJINGLU-1887-V5-V6-ZHUNZHAI-LOCATOR-R1','edition':'吳縣徐氏靈芬閣 清光緒13年[1887] 活字本','volumes':[]}
+          terms=['準齋','准齋','几漏','孫逢古','孫逢吉','二十五箭','二十有五箭','冬至後自第一','夏至後自二十五','銅壺漏']
+          for tag,name in files:
+              d=root/tag; (d/'pages').mkdir(parents=True)
+              url='https://commons.wikimedia.org/wiki/Special:Redirect/file/'+urllib.parse.quote(name,safe='')
+              pdf=d/'source.pdf'
+              subprocess.run(['curl','-fL','--retry','4','--retry-delay','2','-A','Tianwen-Provenance-Audit/1.0',url,'-o',str(pdf)],check=True)
+              sha=hashlib.sha256(pdf.read_bytes()).hexdigest()
+              info=subprocess.run(['pdfinfo',str(pdf)],stdout=subprocess.PIPE,check=True).stdout.decode('utf-8','ignore')
+              (d/'pdfinfo.txt').write_text(info)
+              m=re.search(r'^Pages:\s+(\d+)',info,re.M); count=int(m.group(1))
+              subprocess.run(['pdftoppm','-jpeg','-r','130',str(pdf),str(d/'pages/page')],check=True,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
+              hits=[]
+              pagefiles=sorted((d/'pages').glob('page-*.jpg'))
+              for p in pagefiles:
+                  pm=re.search(r'-(\d+)\.jpg$',p.name); n=int(pm.group(1))
+                  im=Image.open(p).convert('L')
+                  im=ImageOps.autocontrast(im)
+                  im=ImageEnhance.Contrast(im).enhance(1.35)
+                  tmp=d/'_ocr.png'; im.save(tmp)
+                  proc=subprocess.run(['tesseract',str(tmp),'stdout','-l','chi_tra_vert','--psm','5'],
+                                      stdout=subprocess.PIPE,stderr=subprocess.DEVNULL)
+                  txt=proc.stdout.decode('utf-8','ignore')
+                  compact=''.join(txt.split())
+                  found=[t for t in terms if t in compact]
+                  score=sum(1 for ch in '準准齋几漏孫逢古吉箭冬至夏至銅壺' if ch in compact)
+                  if found or score>=8:
+                      hits.append({'pdf_page':n,'found':found,'score':score,'context':' '.join(txt.split())[:1600]})
+              cand=sorted(set(x['pdf_page'] for x in hits))
+              # keep only source-bound high-res candidate neighborhoods
+              hires=[]
+              if cand:
+                  lo=max(1,min(cand)-2); hi=min(count,max(cand)+2)
+                  hd=d/'hires'; hd.mkdir()
+                  subprocess.run(['pdftoppm','-f',str(lo),'-l',str(hi),'-png','-r','300',str(pdf),str(hd/'page')],
+                                 check=True,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
+                  for hp in sorted(hd.glob('page-*.png')):
+                      hm=re.search(r'-(\d+)\.png$',hp.name); n=int(hm.group(1))
+                      hires.append({'pdf_page':n,'file':str(hp.relative_to(root)),'sha256':hashlib.sha256(hp.read_bytes()).hexdigest(),
+                                    'width':Image.open(hp).width,'height':Image.open(hp).height})
+              report['volumes'].append({'tag':tag,'file':name,'source_pdf_sha256':sha,'page_count':count,
+                                        'locator_method':'130dpi chi_tra_vert OCR locator only','ocr_final_authority':False,
+                                        'hits':hits,'candidate_pages':cand,'hires':hires})
+              pdf.unlink()
+              for p in pagefiles: p.unlink()
+              tmp=d/'_ocr.png'
+              if tmp.exists(): tmp.unlink()
+          (root/'report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
+          print(json.dumps(report,ensure_ascii=False))
+          PY
+
+      - name: Upload locator
+        uses: actions/upload-artifact@v4
+        with:
+          name: airijinglu-1887-v5-v6-zhunzhai-r1
+          path: audit/airijinglu-1887-v5-v6-zhunzhai
+          if-no-files-found: error
+          retention-days: 30
