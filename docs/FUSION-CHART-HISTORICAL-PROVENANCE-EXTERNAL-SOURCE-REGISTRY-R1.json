@@ -6836,7 +6836,7 @@
       "provider": "国家图书馆 / 中国古籍保护网；原载《山东图书馆学刊》",
       "url": "https://www.nlc.cn/pcab/zx/xw/20240701_2640245.shtml",
       "source_role": "INSTITUTIONAL_SCHOLARLY_CONTROL_FOR_QU_DONATION_AND_PLANNED_PRICED_ACQUISITION_PROGRAM",
-      "quality_notes": "Batch 12FL uses this NLC-hosted study for collection-level transfer chronology and source leads. It records late-1949 mobilization, an early Qu-family transfer, a January 1950 Zheng Zhenduo letter calling for the remaining collection to be 陆续价购归公 under agreement, and Qu-family donation activity in 1950, 1953 and 1954. The article does not bind the target Tonghu/Zhunzhai volume to a specific donation or purchase event.",
+      "quality_notes": "Batch 12FL uses this NLC-hosted study for collection-level transfer chronology and source leads. It records late-1949 mobilization, an early Qu-family transfer, a January 1950 Zheng Zhenduo letter calling for the remaining collection to be 陆续价购归公 under agreement, and Qu-family donation activity in 1950, 1953 and 1954. The article does not bind the target Tonghu/Zhunzhai volume to a specific donation or purchase event. Batch 12FS disambiguates the article's adjacent citation markers: [23] (Beijing Library history pp.446—449) supports the institutional entry/reception sentence in this article, while the following future priced-acquisition-intention sentence is marked [24] (Chen Fukang's Zheng Zhenduo chronology pp.1397—1398). Do not collapse [23] and [24] into one evidentiary scope.",
       "batch_12fl": {
         "collection_level_donation_component_closed": true,
         "collection_level_priced_acquisition_component_closed": true,
@@ -6858,6 +6858,21 @@
         "direct_pp446_449_text_exposed": false,
         "target_3482_3483_bound": false,
         "research_artifact": "docs/research/ZIWEI-BEITU-HISTORY-MATERIALS-1949-1966-PP446-449-DIRECT-ACCESS-BOUNDARY-R1.json"
+      },
+      "batch_12fs": {
+        "role": "FIRST_PARTY_HOSTED_ARTICLE_CITATION_MARKER_SCOPE_CONTROL",
+        "ref22_claim_scope": "部分瞿氏善本经郑振铎动员后让归政府",
+        "ref23_bibliography": "《北京图书馆馆史资料汇编（二）》, 1997, pp.446—449",
+        "ref23_claim_scope": "这批善本入藏北京图书馆后增强中文馆藏的重要地位",
+        "ref23_is_source_for_future_priced_acquisition_intention": false,
+        "ref24_bibliography": "陈福康《郑振铎年谱》, 2017, pp.1397—1398",
+        "ref24_claim_scope": "1950年1月郑振铎函希望其余尊藏将来可在双方协议下陆续价购归公",
+        "ref24_is_source_for_future_priced_acquisition_intention": true,
+        "underlying_ref22_pages_directly_reviewed": false,
+        "underlying_ref23_pages_directly_reviewed": false,
+        "underlying_ref24_pages_or_letter_directly_reviewed": false,
+        "target_3482_3483_bound": false,
+        "research_artifact": "docs/research/ZIWEI-NLC-2024-QU-CITATION-SCOPE-23-24-DISAMBIGUATION-R1.json"
       }
     },
     {
