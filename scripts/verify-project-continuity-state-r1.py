@@ -206,6 +206,8 @@ ZIWEI_JI_TOC_12GS_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-
 ZIWEI_JI_TOC_12GS_EVIDENCE = ROOT / "docs/research/ZIWEI-JI-SHUYING-WENJI-2004-PUBLIC-FULL-TOC-ARTICLE74-EDITORIAL-ENDMATTER-BOUNDARY-R1.json"
 ZIWEI_JI_EXTENT_12GT_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-WENJI-2004-INSTITUTIONAL-PAGINATION-AND-RETAIL-P456-FIREWALL-GT.md"
 ZIWEI_JI_EXTENT_12GT_EVIDENCE = ROOT / "docs/research/ZIWEI-JI-SHUYING-WENJI-2004-INSTITUTIONAL-PAGINATION-AND-RETAIL-P456-FIREWALL-R1.json"
+ZIWEI_WENJIN_V3_12GU_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENJIN-XUEZHI-V3-JAPAN-PHYSICAL-HOLDINGS-AND-OPAC-ACCESS-BOUNDARY-GU.md"
+ZIWEI_WENJIN_V3_12GU_EVIDENCE = ROOT / "docs/research/ZIWEI-WENJIN-XUEZHI-V3-JAPAN-PHYSICAL-HOLDINGS-AND-OPAC-ACCESS-BOUNDARY-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -535,9 +537,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-JI-SHUYING-WENJI-PP383-385-CHEN-QINGHUA-PURCHASE-CONTEXT-FALSE-LEAD-FIREWALL-GR",
     "BATCH-12-ZIWEI-JI-SHUYING-WENJI-2004-PUBLIC-FULL-TOC-ARTICLE74-EDITORIAL-ENDMATTER-BOUNDARY-GS",
     "BATCH-12-ZIWEI-JI-SHUYING-WENJI-2004-INSTITUTIONAL-PAGINATION-AND-RETAIL-P456-FIREWALL-GT",
+    "BATCH-12-ZIWEI-WENJIN-XUEZHI-V3-JAPAN-PHYSICAL-HOLDINGS-AND-OPAC-ACCESS-BOUNDARY-GU",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-WENJI-2004-INSTITUTIONAL-PAGINATION-AND-RETAIL-P456-FIREWALL-GT.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENJIN-XUEZHI-V3-JAPAN-PHYSICAL-HOLDINGS-AND-OPAC-ACCESS-BOUNDARY-GU.md"
 
 
 def fail(message: str) -> None:
@@ -7141,6 +7144,64 @@ def main() -> int:
         fail("Batch 12GT missing from completed batch state")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12GT latest-batch document state mismatch")
+
+    # Batch 12GU Wenjin Xuezhi v3 exact Japanese holdings and OPAC access boundary.
+    for path in (ZIWEI_WENJIN_V3_12GU_BATCH, ZIWEI_WENJIN_V3_12GU_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12GU continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12gu = json.loads(ZIWEI_WENJIN_V3_12GU_EVIDENCE.read_text(encoding="utf-8"))
+    bid12gu = "BATCH-12-ZIWEI-WENJIN-XUEZHI-V3-JAPAN-PHYSICAL-HOLDINGS-AND-OPAC-ACCESS-BOUNDARY-GU"
+    if batch12gu.get("batch_id") != bid12gu:
+        fail("Batch 12GU evidence identity mismatch")
+    c12gu = batch12gu.get("cinii_serial_control", {})
+    if c12gu.get("ncid") != "BA65589403" or c12gu.get("target_volume_number") != 3 or c12gu.get("target_isbn_13") != "9787501340859":
+        fail("Batch 12GU serial/volume identity regressed")
+    hs12gu = batch12gu.get("exact_volume3_holdings", [])
+    if len(hs12gu) != 3:
+        fail("Batch 12GU exact holding count regressed")
+    keys12gu={(x.get("institution"),x.get("call_number"),x.get("holding_or_item_identifier")) for x in hs12gu}
+    expected12gu={
+        ("京都大学 人文科学研究所 図書室","020.22||Ko/43||3","200035254509"),
+        ("京都大学 文学研究科 図書館","FXIIb||B||7","200019220216"),
+        ("東京大学 大学院人文社会系研究科・文学部 図書室","3号館B37:Guo:3","4818863757"),
+    }
+    if keys12gu != expected12gu:
+        fail("Batch 12GU exact holdings regressed")
+    access12gu=batch12gu.get("access_adjudication", {})
+    if access12gu.get("exact_japan_volume3_physical_holding_routes") != "CLOSED_FOR_THREE_INSTITUTIONAL_COPIES_AT_CINII_HOLDING_LAYER":
+        fail("Batch 12GU physical-holding adjudication regressed")
+    if access12gu.get("supplement_article_author") != "UNRESOLVED" or access12gu.get("supplement_article_page_range") != "UNRESOLVED" or access12gu.get("supplement_article_body") != "NOT_REVIEWED":
+        fail("Batch 12GU article-level access boundary regressed")
+    if access12gu.get("opac_403_means_library_human_access_denied") is not False or access12gu.get("opac_403_means_reference_or_copy_service_unavailable") is not False:
+        fail("Batch 12GU crawler-403 inference firewall regressed")
+    if any(access12gu.get(k) for k in ("project_submitted_reference_request","project_submitted_copy_request","project_logged_into_library_account","project_transmitted_user_identity","project_incurred_fee")):
+        fail("Batch 12GU external-action firewall violated")
+    if access12gu.get("external_action_requires_explicit_user_authorization") is not True:
+        fail("Batch 12GU authorization boundary regressed")
+    src12gu=next((x for x in registry.get("sources",()) if x.get("source_id")=="EXT-CINII-WENJIN-XUEZHI-SERIAL-V3-ISBN9787501340859"),None)
+    if src12gu is None or src12gu.get("batch_12gu",{}).get("exact_physical_holding_route_count") != 3:
+        fail("Batch 12GU registry enrichment missing")
+    trans12gu=batch12gu.get("transmission_impact",{})
+    if trans12gu.get("nodes_added") != [] or trans12gu.get("edges_added") != [] or trans12gu.get("direct_copy_edge_authorized") is not False or trans12gu.get("same_object_edge_authorized") is not False or trans12gu.get("acquisition_edge_authorized") is not False:
+        fail("Batch 12GU genealogy firewall regressed")
+    rule12gu=batch12gu.get("chronology_and_rule_firewall",{})
+    if rule12gu.get("runtime_rule_change") is not False or rule12gu.get("algorithm_reopen_authorized") is not False or rule12gu.get("candidate_collapse_authorized") is not False or rule12gu.get("matrix_count_change") is not False:
+        fail("Batch 12GU product/matrix firewall regressed")
+    acct12gu=batch12gu.get("accounting",{})
+    if acct12gu.get("matrix_rows") != 198 or acct12gu.get("audited_rows") != 166 or acct12gu.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12GU matrix accounting unexpectedly changed")
+    if acct12gu.get("confirmed_provenance_metadata_defect_count") != 14 or acct12gu.get("repaired_provenance_metadata_defect_count") != 14 or acct12gu.get("confirmed_chart_algorithm_defect_count") != 0:
+        fail("Batch 12GU provenance/algorithm accounting regressed")
+    try:
+        schema12gu=tuple(int(part) for part in state.get("schema_version","0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12GU current-state schema version is not numeric")
+    if schema12gu < (1,207,0):
+        fail("Batch 12GU current-state schema version regressed below 1.207.0")
+    if bid12gu not in audit_state.get("completed_batches",()):
+        fail("Batch 12GU missing from completed batch state")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12GU latest-batch document state mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

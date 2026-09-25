@@ -8576,13 +8576,43 @@
       "identifier": "NCID BA65589403 / ISBN 9787501340859",
       "url": "https://ci.nii.ac.jp/ncid/BA65589403",
       "source_role": "INSTITUTIONAL_UNION_CATALOG_SERIAL_AND_EXACT_ISBN_CONTROL_FOR_WENJIN_XUEZHI_V3",
-      "quality_notes": "Batch 12GQ uses the CiNii record to independently bind the series and exact volume ISBN. The record notes volumes 3–12 under 国家图书馆出版社. It does not expose the individual supplement article title/body or page span on the reviewed surface.",
+      "quality_notes": "Batch 12GQ uses the CiNii record to independently bind the series and exact volume ISBN. The record notes volumes 3–12 under 国家图书馆出版社. It does not expose the individual supplement article title/body or page span on the reviewed surface. Batch 12GU directly reviews the holding section and closes three exact 第3輯 Japanese university physical-copy routes with volume-specific call numbers/item identifiers; the article author/pages/body remain unexposed. Kyoto and University of Tokyo OPAC links returned HTTP 403 in the reviewed anonymous tool route only; no library-access prohibition is inferred.",
       "batch_12gq": {
         "ncid": "BA65589403",
         "target_volume_number": 3,
         "isbn_13": "9787501340859",
         "article_page_range_exposed": false,
         "research_artifact": "docs/research/ZIWEI-JI-SHUYING-WENJI-2010-SUPPLEMENT-ARTICLE-DISCOVERY-BOUNDARY-R1.json"
+      },
+      "batch_12gu": {
+        "target_volume_number": 3,
+        "exact_physical_holding_route_count": 3,
+        "holdings": [
+          {
+            "institution": "京都大学 人文科学研究所 図書室",
+            "section": "人情セ",
+            "call_number": "020.22||Ko/43||3",
+            "holding_or_item_identifier": "200035254509"
+          },
+          {
+            "institution": "京都大学 文学研究科 図書館",
+            "section": "東洋史",
+            "call_number": "FXIIb||B||7",
+            "holding_or_item_identifier": "200019220216"
+          },
+          {
+            "institution": "東京大学 大学院人文社会系研究科・文学部 図書室",
+            "section": "中国思想",
+            "call_number": "3号館B37:Guo:3",
+            "holding_or_item_identifier": "4818863757"
+          }
+        ],
+        "kyoto_opac_anonymous_tool_result": "HTTP_403",
+        "utokyo_opac_anonymous_tool_result": "HTTP_403",
+        "article_page_range_exposed": false,
+        "article_body_exposed": false,
+        "external_action_taken": false,
+        "research_artifact": "docs/research/ZIWEI-WENJIN-XUEZHI-V3-JAPAN-PHYSICAL-HOLDINGS-AND-OPAC-ACCESS-BOUNDARY-R1.json"
       }
     },
     {

@@ -1,0 +1,117 @@
+{
+  "schema": "ZIWEI-WENJIN-XUEZHI-V3-JAPAN-PHYSICAL-HOLDINGS-AND-OPAC-ACCESS-BOUNDARY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-WENJIN-XUEZHI-V3-JAPAN-PHYSICAL-HOLDINGS-AND-OPAC-ACCESS-BOUNDARY-GU",
+  "prior_batch_id": "BATCH-12-ZIWEI-JI-SHUYING-WENJI-2004-INSTITUTIONAL-PAGINATION-AND-RETAIL-P456-FIREWALL-GT",
+  "question": "Can the 2010 《文津学志》第三辑 containing 《〈冀淑英文集〉补遣》 be bound to exact institutional physical holdings for lawful direct collation, and do the public OPAC routes currently expose article-level pages or text?",
+  "answer": "Yes for exact physical holding routes; no for article-level access in the reviewed anonymous web route. The CiNii/NII record BA65589403 explicitly lists volume 3 at Kyoto University Institute for Research in Humanities, Kyoto University Graduate School/Faculty of Letters, and the University of Tokyo Faculty of Letters Chinese Thought collection, each with a volume-specific call/location string and holding/item identifier. The public CiNii record does not expose the supplement article author, page range or body. Following the Kyoto and Tokyo OPAC links in the reviewed anonymous browser route returned HTTP 403. This is recorded only as a current anonymous-fetch boundary, not as proof that the libraries deny normal human access, on-site use, reference service or lawful reproduction. No request, login, identity transmission, payment or copy order was submitted.",
+  "cinii_serial_control": {
+    "source_id": "EXT-CINII-WENJIN-XUEZHI-SERIAL-V3-ISBN9787501340859",
+    "provider": "CiNii Books / National Institute of Informatics",
+    "url": "https://ci.nii.ac.jp/ncid/BA65589403",
+    "ncid": "BA65589403",
+    "target_volume_number": 3,
+    "target_isbn_13": "9787501340859",
+    "direct_record_reviewed": true,
+    "volume3_listed": true,
+    "article_title_exposed_on_cinii_surface": false,
+    "article_author_exposed": false,
+    "article_page_range_exposed": false,
+    "article_body_exposed": false
+  },
+  "exact_volume3_holdings": [
+    {
+      "institution": "京都大学 人文科学研究所 図書室",
+      "collection_or_section": "人情セ",
+      "volume": "第3輯",
+      "call_number": "020.22||Ko/43||3",
+      "holding_or_item_identifier": "200035254509",
+      "opac_host": "kuline.kulib.kyoto-u.ac.jp",
+      "cinii_opac_link_reviewed": true,
+      "anonymous_web_fetch_result": "HTTP_403_FORBIDDEN_IN_REVIEWED_TOOL_ROUTE"
+    },
+    {
+      "institution": "京都大学 文学研究科 図書館",
+      "collection_or_section": "東洋史",
+      "volume": "第3輯",
+      "call_number": "FXIIb||B||7",
+      "holding_or_item_identifier": "200019220216",
+      "opac_host": "kuline.kulib.kyoto-u.ac.jp",
+      "cinii_opac_link_reviewed": true,
+      "anonymous_web_fetch_result": "HTTP_403_FORBIDDEN_IN_REVIEWED_TOOL_ROUTE"
+    },
+    {
+      "institution": "東京大学 大学院人文社会系研究科・文学部 図書室",
+      "collection_or_section": "中国思想",
+      "volume": "第3輯",
+      "call_number": "3号館B37:Guo:3",
+      "holding_or_item_identifier": "4818863757",
+      "opac_host": "opac.dl.itc.u-tokyo.ac.jp",
+      "cinii_opac_link_reviewed": true,
+      "anonymous_web_fetch_result": "HTTP_403_FORBIDDEN_IN_REVIEWED_TOOL_ROUTE"
+    }
+  ],
+  "access_adjudication": {
+    "exact_japan_volume3_physical_holding_routes": "CLOSED_FOR_THREE_INSTITUTIONAL_COPIES_AT_CINII_HOLDING_LAYER",
+    "direct_article_pages": "NOT_REVIEWED",
+    "supplement_article_author": "UNRESOLVED",
+    "supplement_article_page_range": "UNRESOLVED",
+    "supplement_article_body": "NOT_REVIEWED",
+    "kyoto_public_opac_current_anonymous_fetch": "HTTP_403_IN_REVIEWED_TOOL_ROUTE",
+    "tokyo_university_public_opac_current_anonymous_fetch": "HTTP_403_IN_REVIEWED_TOOL_ROUTE",
+    "opac_403_means_library_human_access_denied": false,
+    "opac_403_means_reference_or_copy_service_unavailable": false,
+    "project_submitted_reference_request": false,
+    "project_submitted_copy_request": false,
+    "project_logged_into_library_account": false,
+    "project_transmitted_user_identity": false,
+    "project_incurred_fee": false,
+    "external_action_requires_explicit_user_authorization": true
+  },
+  "relation_to_gq": {
+    "formal_supplement_existence_remains_closed_at_published_toc_level": true,
+    "exact_isbn_identity_remains": "9787501340859",
+    "new_increment": "THREE_EXACT_VOLUME3_PHYSICAL_HOLDING_ROUTES_WITH_ITEM_IDENTIFIERS",
+    "author_page_body_status_changed": false,
+    "source_genealogy_status_changed": false
+  },
+  "inference_firewall": {
+    "holding_record_does_not_equal_article_text": true,
+    "call_number_does_not_equal_article_page_range": true,
+    "crawler_403_does_not_equal_library_access_prohibition": true,
+    "physical_holding_does_not_authorize_external_request_without_user_approval": true,
+    "multiple_holdings_do_not_create_multiple_textual_witness_votes_without_collation": true
+  },
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_added": [],
+    "direct_copy_edge_authorized": false,
+    "same_object_edge_authorized": false,
+    "acquisition_edge_authorized": false
+  },
+  "chronology_and_rule_firewall": {
+    "direct_sanming_parent_vote_increment": 0,
+    "pre1578_zhunzhai_rule_witness_increment": 0,
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_count_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 14,
+    "repaired_provenance_metadata_defect_count": 14,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Continue public discovery for an article-level index, citation, table of contents with author/pages, or lawful digital surrogate for 《〈冀淑英文集〉补遣》 before initiating any external library request.",
+    "If public routes remain exhausted, an actual Kyoto University or University of Tokyo reference/copy inquiry is an explicit user-authorized external-action boundary; do not submit automatically.",
+    "Directly inspect the 2004 《冀淑英文集》 TOC item 74 and final 《編后記》, plus the 2009 《冀淑英古籍善本十五讲》 postscript.",
+    "Continue direct 《北京图书馆馆史资料汇编（二）：1949—1966》 pp.446—449 collation in parallel."
+  ],
+  "updated_at": "2026-09-25"
+}

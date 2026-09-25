@@ -51,7 +51,10 @@ jobs:
           state=json.loads(Path('docs/PROJECT-CURRENT-STATE-R1.json').read_text(encoding='utf-8'))
           assert tuple(int(x) for x in state['schema_version'].split('.')) >= (1,206,0)
           assert bid in state['historical_audit']['completed_batches']
-          assert state['historical_audit']['latest_batch_doc']=='docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-WENJI-2004-INSTITUTIONAL-PAGINATION-AND-RETAIL-P456-FIREWALL-GT.md'
+          latest=state['historical_audit']['latest_batch_doc']
+          assert isinstance(latest,str)
+          assert latest.startswith('docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-')
+          assert latest.endswith('.md')
           reg=json.loads(Path('docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json').read_text(encoding='utf-8'))
           src={x.get('source_id'):x for x in reg['sources']}
           assert src['EXT-CINII-JI-SHUYING-WENJI-2004-HOLDINGS']['batch_12gt']['main_numbered_extent']==435
