@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.189.0",
+  "schema_version": "1.190.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -271,9 +271,10 @@
       "BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI-2008-ISSUE03-PKU-ARTICLE-RANGE-AND-P120-CITATION-REPAIR-FZ",
       "BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-PKU-FULLTEXT-BRIDGE-PUBLIC-ACCESS-BOUNDARY-GA",
       "BATCH-12-ZIWEI-DENG-ZHICHENG-DIARY-2007-NLCPRESS-ITEM-DOWNLOAD-SURFACE-BOUNDARY-GB",
-      "BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-PKU-STABLE-DETAIL-ARTICLEFILE-BOUNDARY-GC"
+      "BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-PKU-STABLE-DETAIL-ARTICLEFILE-BOUNDARY-GC",
+      "BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-PKU-TITLE-PHRASE-INDEX-NONMATCH-BOUNDARY-GD"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-PKU-STABLE-DETAIL-ARTICLEFILE-BOUNDARY-GC.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-PKU-TITLE-PHRASE-INDEX-NONMATCH-BOUNDARY-GD.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -1100,7 +1101,12 @@
       "The stable detail route https://ccj.pku.edu.cn/article/info?aid=286663046 returns HTTP 200 and displays the exact title/page range. The search row simultaneously reports hasFullText=true, isFileExist=false and fulltextFId=null.",
       "The detail page itself source-emits /Article/DownLoad?id=286663046&&type=ArticleFile. Direct anonymous retrieval returns HTTP 200 application/json with succeeded=false / 文件不存在; no PDF or primary article text is obtained. Therefore Fulltext/hasFullText is metadata, not current retrievable-file authority.",
       "Batch 12GC adds no transmission node/edge and authorizes no acquisition edge, SAME_OBJECT relation, runtime rule change, candidate collapse or algorithm reopen. Matrix/product counts remain 198 / 166 / 10; provenance defects remain 14/14 repaired; chart algorithm defects remain 0; DETERMINISTIC_FUSION_CHART_PRODUCT_R1 remains CLOSED.",
-      "Highest next gate: keep aid=286663046 as stable PKU metadata identity while continuing lawful source-emitted primary/fulltext-page discovery and exact 1950-01-29 journal-page citation search; in parallel continue the 2007 facsimile volume-5 page/leaf, FV Jan-6, NLC [23]/[24], Ji chapter 9 and Gao annotated-catalog routes."
+      "Highest next gate: keep aid=286663046 as stable PKU metadata identity while continuing lawful source-emitted primary/fulltext-page discovery and exact 1950-01-29 journal-page citation search; in parallel continue the 2007 facsimile volume-5 page/leaf, FV Jan-6, NLC [23]/[24], Ji chapter 9 and Gao annotated-catalog routes.",
+      "Batch 12GD validates the current PKU source-emitted two-condition search mechanism before interpreting phrase nonmatches: Title=五石斋文史札记 AND All-fields=邓之诚 returns all 37 series records and target article 286663046 exactly once.",
+      "Using the same source-emitted queryItem mechanism, five known derivative Jan-29 phrases do not match target 286663046: 四千万人民券 (0 series results), 十二箱 (9 series results, target 0), 以归公 (4, target 0), 一月二十九日 (20, target 0), 铁琴铜剑楼 (1, target 0).",
+      "This is CURRENT_SEARCH_INDEX_NONMATCH_UNDER_TESTED_TITLE_SCOPED_QUERY only. It is not negative collation of the 2008 article: target abstract is empty, GC established isFileExist=false/fulltextFId=null and current ArticleFile=文件不存在, and complete body indexing has not been demonstrated.",
+      "Batch 12GD adds no transmission node/edge and authorizes no acquisition edge, SAME_OBJECT relation, runtime rule change, candidate collapse or algorithm reopen. Matrix/product counts remain 198 / 166 / 10; provenance defects remain 14/14 repaired; chart algorithm defects remain 0; DETERMINISTIC_FUSION_CHART_PRODUCT_R1 remains CLOSED.",
+      "Highest next gate: stop spending cycles treating PKU phrase-index nonmatches as primary negative evidence; prioritize an exact page citation or source-emitted primary/fulltext page object for 1950-01-29, and continue the 2007 facsimile volume-5 page/leaf, FV Jan-6, NLC [23]/[24], Ji chapter 9 and Gao annotated-catalog routes."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10
