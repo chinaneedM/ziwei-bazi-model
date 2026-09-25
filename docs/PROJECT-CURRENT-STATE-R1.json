@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.185.0",
+  "schema_version": "1.186.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -39,8 +39,8 @@
     "external_source_registry": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json",
     "row_count": 198,
     "audited_row_count": 166,
-    "confirmed_provenance_metadata_defect_count": 13,
-    "repaired_provenance_metadata_defect_count": 13,
+    "confirmed_provenance_metadata_defect_count": 14,
+    "repaired_provenance_metadata_defect_count": 14,
     "historical_candidate_registry_count": 3,
     "historical_candidate_runtime_resolver_count": 3,
     "identified_missing_candidate_family_count": 14,
@@ -267,9 +267,10 @@
       "BATCH-12-ZIWEI-GU-TINGLONG-DIARY-1950-0106-DIRECT-EDITION-AND-JAPAN-HOLDING-BOUNDARY-FV",
       "BATCH-12-ZIWEI-DENG-ZHICHENG-DIARY-1950-0129-FACSIMILE-VOLUME5-JAPAN-HOLDING-BOUNDARY-FW",
       "BATCH-12-ZIWEI-DENG-ZHICHENG-DIARY-1950-0129-EDITOR-CHECKED-SERIAL-ROUTE-AND-VOL5-P222-CITATION-BOUNDARY-FX",
-      "BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI-2008-ISSUE03-PKU-CQVIP-PAGINATION-BOUNDARY-FY"
+      "BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI-2008-ISSUE03-PKU-CQVIP-PAGINATION-BOUNDARY-FY",
+      "BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI-2008-ISSUE03-PKU-ARTICLE-RANGE-AND-P120-CITATION-REPAIR-FZ"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI-2008-ISSUE03-PKU-CQVIP-PAGINATION-BOUNDARY-FY.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI-2008-ISSUE03-PKU-ARTICLE-RANGE-AND-P120-CITATION-REPAIR-FZ.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -1075,7 +1076,13 @@
       "Two page anchors are retained at different evidentiary levels: Qu Jun's scholarly article cites the 1949-09-30 entry of installment (二十八) at journal p120; a lower-authority Wikipedia citation reports the 1950-01-01 entry at p124. Neither is a primary journal-page review, and no linear date-to-page interpolation toward 1950-01-29 is permitted.",
       "Journal pagination, the 2012 derivative-book pagination and the 2007 facsimile volume-5 pagination remain separate coordinate systems. The exact 1950-01-29 journal page, primary journal text, facsimile page/leaf and handwriting remain UNRESOLVED / NOT_REVIEWED.",
       "Batch 12FY adds no transmission node/edge and authorizes no acquisition edge, SAME_OBJECT relation, runtime rule change, candidate collapse or algorithm reopen. Matrix/product counts remain 198 / 166 / 10; provenance defects 13/13; chart algorithm defects 0; DETERMINISTIC_FUSION_CHART_PRODUCT_R1 remains CLOSED.",
-      "Highest next gate: recover a primary or first-party article record/TOC row for 《五石斋文史札记（二十八）》 in 2008 Issue 03 and close its exact article page range; directly inspect the primary journal text around 1950-01-29, then cross-check against the 2012 derivative and resolve the exact 2007 facsimile volume-5 page/leaf and handwriting. Continue FV Jan-6, NLC [23]/[24], Ji chapter 9 and Gao annotated-catalog routes in parallel."
+      "Highest next gate: recover a primary or first-party article record/TOC row for 《五石斋文史札记（二十八）》 in 2008 Issue 03 and close its exact article page range; directly inspect the primary journal text around 1950-01-29, then cross-check against the 2012 derivative and resolve the exact 2007 facsimile volume-5 page/leaf and handwriting. Continue FV Jan-6, NLC [23]/[24], Ji chapter 9 and Gao annotated-catalog routes in parallel.",
+      "Batch 12FZ closes the exact published page range of 《五石斋文史札记（二十八）》 at the Peking University journal-platform indexed-metadata layer: 邓之诚 / 邓瑞, 《中国典籍与文化》 2008(03), pp.121–129. The reviewed live detail route is not stably rendered, so this is bibliographic page-range authority, not direct page-image or primary-text collation.",
+      "The new first-party range directly conflicts with FY's promoted Qu Jun secondary p120 page anchor: p120 lies outside pp.121–129. PROV-DEFECT-014 therefore repairs the current Registry forward-only by withdrawing p120 as valid article-pagination authority while preserving the FY artifact as historical audit trace. A primary p120 page, erratum or demonstrated alternate pagination would be required to rehabilitate that citation.",
+      "The lower-authority 1950-01-01 -> p124 citation is range-consistent with pp.121–129 but remains discovery-only; range consistency does not promote it to primary authority. No linear or density-based interpolation toward 1950-01-29 is allowed.",
+      "The 1950-01-29 search space is now bounded at article level to pp.121–129 if the entry is actually present, but its exact journal page and primary journal wording remain UNRESOLVED / NOT_REVIEWED. The 2007 facsimile volume-5 page/leaf and handwriting also remain UNRESOLVED / NOT_REVIEWED.",
+      "Batch 12FZ adds no transmission node/edge and authorizes no acquisition edge, SAME_OBJECT relation, runtime rule change, candidate collapse or algorithm reopen. Matrix/product row counts remain 198 / 166 / 10; provenance defects are now 14/14; chart algorithm defects 0; DETERMINISTIC_FUSION_CHART_PRODUCT_R1 remains CLOSED.",
+      "Highest next gate: directly retrieve or review the primary article pages 121–129 (or a source-emitted fulltext object) and locate 1950-01-29 without interpolation; then bind the exact journal page/text, compare the 2012 derivative, resolve the 2007 facsimile volume-5 page/leaf and directly collate handwriting. Continue FV Jan-6, NLC [23]/[24], Ji chapter 9 and Gao annotated-catalog routes in parallel."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10
