@@ -1,0 +1,175 @@
+{
+  "schema": "ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-PKU-STABLE-DETAIL-ARTICLEFILE-BOUNDARY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-PKU-STABLE-DETAIL-ARTICLEFILE-BOUNDARY-GC",
+  "prior_batch_id": "BATCH-12-ZIWEI-DENG-ZHICHENG-DIARY-2007-NLCPRESS-ITEM-DOWNLOAD-SURFACE-BOUNDARY-GB",
+  "question": "Can the official PKU platform current search backend close a stable article identity/detail route for 《五石斋文史札记》(二十八), and does the detail page's own ArticleFile route expose the primary text/file?",
+  "answer": "Yes for stable article identity/detail metadata; no for retrievable ArticleFile. The official PKU search page source emits POST /Search/SearchArticleByElasticsearch, its CSRF token, Title-field query structure, 100/Page UI, and source-emitted detail template /article/info?aid={{item.id}}. Executing that source-defined contract with the title 五石斋文史札记 returns all 37 series records and exactly one installment-28 match: id 286663046, 邓之诚/邓瑞, 中国典籍与文化 2008(03), pp.121-129, volumeIssueId 12482306. The source-returned detail URL /article/info?aid=286663046 returns HTTP 200 and displays the exact title and page range. Its search record says hasFullText=true while isFileExist=false and fulltextFId=null. The detail page itself source-emits /Article/DownLoad?id=286663046&&type=ArticleFile; following that exact route without login or guessed IDs returns HTTP 200 application/json with succeeded=false and errors=文件不存在. Therefore the current stable detail route is closed, but Fulltext/hasFullText must not be equated with a currently retrievable article file or primary journal text.",
+  "official_search_contract": {
+    "provider": "北京大学期刊平台",
+    "search_page": "https://ccj.pku.edu.cn/Search/search?fd0=1&kw0=%E4%BA%94%E7%9F%B3%E6%96%8B%E6%96%87%E5%8F%B2%E6%9C%AD%E8%AE%B0",
+    "backend": "https://ccj.pku.edu.cn/Search/SearchArticleByElasticsearch",
+    "method": "POST",
+    "content_type": "application/x-www-form-urlencoded",
+    "csrf_token_source_emitted": true,
+    "source_query_item": {
+      "Field": 1,
+      "Desc": "Title",
+      "Type": 0,
+      "IsAccurate": false,
+      "IsExactValue": false,
+      "Value": "五石斋文史札记"
+    },
+    "source_ui_page_sizes": [
+      10,
+      20,
+      50,
+      100
+    ],
+    "executed_page_size": 100,
+    "backend_total": "37",
+    "backend_pages": 1,
+    "result_row_count": 37,
+    "authentication_used": false,
+    "id_enumeration_or_guessing": false
+  },
+  "target_article_identity": {
+    "source_id": "EXT-PKU-CCJ-WUSHIZHAI28-2008-03-PP121-129-INDEX",
+    "article_id": "286663046",
+    "title": "《五石斋文史札记》(二十八)",
+    "authors": [
+      "邓之诚",
+      "邓瑞"
+    ],
+    "journal": "中国典籍与文化",
+    "year": 2008,
+    "issue": "03",
+    "volume_issue_id": "12482306",
+    "pages": "121-129",
+    "page_start": "121",
+    "page_end": "129",
+    "classification_code": "K825.4",
+    "journal_id": "94408",
+    "issn": "1004-3241",
+    "has_full_text_flag": true,
+    "is_file_exist": false,
+    "fulltext_fid": null,
+    "article_on_shelf": true,
+    "volume_on_shelf": true,
+    "journal_on_shelf": true
+  },
+  "stable_detail_control": {
+    "url": "https://ccj.pku.edu.cn/article/info?aid=286663046",
+    "status": 200,
+    "exact_title_displayed": true,
+    "exact_page_range_displayed": true,
+    "citation_metadata_displayed": true,
+    "stable_detail_route_status": "CLOSED_CURRENT_FIRST_PARTY_DETAIL_ROUTE",
+    "source_emitted_mag_article_id": "77845",
+    "body_template_present": true,
+    "directly_rendered_primary_article_body_observed": false
+  },
+  "articlefile_control": {
+    "source_emitted_url": "https://ccj.pku.edu.cn/Article/DownLoad?id=286663046&&type=ArticleFile",
+    "source": "TARGET_DETAIL_PAGE_INLINE_JAVASCRIPT_DOWNLOADLINK",
+    "status": 200,
+    "content_type": "application/json; charset=utf-8",
+    "content_disposition": null,
+    "response_sha256": "70e6fc2a80ba2a231907d056ee834355c3ef458e9165cf7adb3f81fdc1e6fe6b",
+    "response_bytes": 114,
+    "response_succeeded": false,
+    "response_error": "文件不存在",
+    "starts_pdf": false,
+    "retrievable_article_file_obtained": false,
+    "primary_journal_text_obtained": false
+  },
+  "research_runs": [
+    {
+      "run_id": 36095744082,
+      "role": "SOURCE_EMITTED_PKU_ROUTE_AND_SCRIPT_DISCOVERY",
+      "artifact_id": 10847102165,
+      "artifact_name": "wushizhai-pku-source-routes-gc",
+      "artifact_digest": "sha256:f39c0cb7aa7d8b834957f20353f7657114e7f5b173a7d639c5b10a8467221d3f"
+    },
+    {
+      "run_id": 36096215694,
+      "role": "CURRENT_TITLE_FIELD_37_RECORD_ENUMERATION_AND_EXACT_TARGET_ID_BINDING",
+      "artifact_id": 10847970466,
+      "artifact_name": "wushizhai-pku-title-results-gc",
+      "artifact_digest": "sha256:6c6c62b50525e9439daa7f00cec0e393b8f55c22bce0ba2bddb056f4c9f348b5"
+    },
+    {
+      "run_id": 36096368404,
+      "role": "EXACT_TARGET_DETAIL_AND_SOURCE_EMITTED_ARTICLEFILE_CONTROL",
+      "artifact_id": 10847906395,
+      "artifact_name": "wushizhai-pku-detail-fulltext-gc",
+      "artifact_digest": "sha256:d492143ae58fe67255ac87d6c3383aac75b23f4ae5c291bd13a7b4a523527c29"
+    }
+  ],
+  "access_and_authority_firewall": {
+    "has_full_text_flag_does_not_equal_retrievable_article_file": true,
+    "fulltext_label_does_not_equal_primary_text_review": true,
+    "stable_detail_metadata_does_not_equal_page_glyph_authority": true,
+    "articlefile_error_does_not_prove_other_provider_content_absence": true,
+    "articlefile_error_does_not_prove_historical_file_never_existed": true,
+    "no_authentication_bypass_attempted": true,
+    "no_paywall_bypass_attempted": true,
+    "no_article_id_enumeration_or_guessing": true,
+    "target_id_followed_only_after_official_search_backend_return": true,
+    "no_provider_account_action_taken": true,
+    "no_purchase_or_fee_incurred": true,
+    "no_date_to_page_interpolation": true,
+    "journal_pagination_does_not_map_to_2007_facsimile_pagination_without_direct_crosswalk": true
+  },
+  "target_status_after_batch": {
+    "article_identity": "CLOSED_CURRENT_FIRST_PARTY_SEARCH_BACKEND",
+    "article_id": "286663046",
+    "article_page_range": "121-129",
+    "stable_detail_route": "CLOSED_CURRENT_FIRST_PARTY_DETAIL_ROUTE",
+    "current_pku_articlefile": "SOURCE_EMITTED_ROUTE_RETURNS_FILE_NOT_FOUND",
+    "target_1950_01_29_presence_in_article": "NOT_DIRECTLY_COLLATED",
+    "target_1950_01_29_exact_journal_page": "UNRESOLVED",
+    "target_1950_01_29_primary_journal_text": "NOT_REVIEWED",
+    "target_1950_01_29_exact_facsimile_page": "UNRESOLVED",
+    "target_1950_01_29_facsimile_text": "NOT_REVIEWED",
+    "target_1950_01_29_handwriting_directly_collated": false,
+    "target_3482_3483_batch_membership": "UNRESOLVED",
+    "target_specific_purchase_route_selected": false,
+    "target_specific_donation_route_selected": false,
+    "final_nlc_acquisition_transfer_path": "UNRESOLVED"
+  },
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_added": [],
+    "supported_edges": [],
+    "revised_edges": [],
+    "rejected_edges": [],
+    "remaining_lineage_questions": [],
+    "acquisition_edge_authorized": false,
+    "same_object_edge_authorized": false
+  },
+  "chronology_and_rule_firewall": {
+    "direct_sanming_parent_vote_increment": 0,
+    "pre1578_zhunzhai_rule_witness_increment": 0,
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 14,
+    "repaired_provenance_metadata_defect_count": 14,
+    "confirmed_chart_algorithm_defect_count": 0
+  },
+  "next_gate": [
+    "Use the now-stable PKU article identity/detail route only as metadata authority; continue lawful discovery for a source-emitted primary/fulltext page object covering pp.121-129 from PKU or its outbound providers without treating the current ArticleFile error as provider-wide absence.",
+    "Search exact 1950-01-29 wording/citations that bind the entry to a specific journal page within 121-129, but do not interpolate from neighboring dates.",
+    "Continue item-specific 2007 facsimile volume-5 page/leaf discovery and directly collate handwriting if obtained.",
+    "Search directly reviewed primary/facsimile target and adjacent pages for 铜壶漏箭制度, 准斋心制几漏图式, 3482/3483, 03482/03483, the 1823 士礼居 fingerprint or another stable identifier.",
+    "Continue Gu Tinglong 1950-01-06, NLC [23]/[24], Ji Shuying chapter 9 and Gao Xizeng annotated-catalog routes in parallel."
+  ],
+  "updated_at": "2026-09-25"
+}
