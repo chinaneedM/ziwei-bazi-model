@@ -210,6 +210,8 @@ ZIWEI_WENJIN_V3_12GU_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUD
 ZIWEI_WENJIN_V3_12GU_EVIDENCE = ROOT / "docs/research/ZIWEI-WENJIN-XUEZHI-V3-JAPAN-PHYSICAL-HOLDINGS-AND-OPAC-ACCESS-BOUNDARY-R1.json"
 ZIWEI_JI_BAICHUAN_P335_12GV_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-BAICHUAN-P335-CROSS-PUBLICATION-CITATION-BRIDGE-GV.md"
 ZIWEI_JI_BAICHUAN_P335_12GV_EVIDENCE = ROOT / "docs/research/ZIWEI-JI-SHUYING-BAICHUAN-P335-CROSS-PUBLICATION-CITATION-BRIDGE-R1.json"
+ZIWEI_JI_EDITOR_12GW_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-WENJI-2004-CHEN-HONGYAN-EDITORIAL-RESPONSIBILITY-BOUNDARY-GW.md"
+ZIWEI_JI_EDITOR_12GW_EVIDENCE = ROOT / "docs/research/ZIWEI-JI-SHUYING-WENJI-2004-CHEN-HONGYAN-EDITORIAL-RESPONSIBILITY-BOUNDARY-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -541,9 +543,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-JI-SHUYING-WENJI-2004-INSTITUTIONAL-PAGINATION-AND-RETAIL-P456-FIREWALL-GT",
     "BATCH-12-ZIWEI-WENJIN-XUEZHI-V3-JAPAN-PHYSICAL-HOLDINGS-AND-OPAC-ACCESS-BOUNDARY-GU",
     "BATCH-12-ZIWEI-JI-SHUYING-BAICHUAN-P335-CROSS-PUBLICATION-CITATION-BRIDGE-GV",
+    "BATCH-12-ZIWEI-JI-SHUYING-WENJI-2004-CHEN-HONGYAN-EDITORIAL-RESPONSIBILITY-BOUNDARY-GW",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-BAICHUAN-P335-CROSS-PUBLICATION-CITATION-BRIDGE-GV.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-WENJI-2004-CHEN-HONGYAN-EDITORIAL-RESPONSIBILITY-BOUNDARY-GW.md"
 
 
 def fail(message: str) -> None:
@@ -7253,6 +7256,52 @@ def main() -> int:
         fail("Batch 12GV missing from completed batch state")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12GV latest-batch document state mismatch")
+
+    # Batch 12GW Ji Wenji / Chen Hongyan editorial-responsibility boundary.
+    for path in (ZIWEI_JI_EDITOR_12GW_BATCH, ZIWEI_JI_EDITOR_12GW_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12GW continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12gw=json.loads(ZIWEI_JI_EDITOR_12GW_EVIDENCE.read_text(encoding="utf-8"))
+    bid12gw="BATCH-12-ZIWEI-JI-SHUYING-WENJI-2004-CHEN-HONGYAN-EDITORIAL-RESPONSIBILITY-BOUNDARY-GW"
+    if batch12gw.get("batch_id") != bid12gw:
+        fail("Batch 12GW evidence identity mismatch")
+    bio12gw=batch12gw.get("public_bio_control",{})
+    if bio12gw.get("speaker") != "陈红彦" or bio12gw.get("ji_wenji_editorial_responsibility_directly_named") is not True:
+        fail("Batch 12GW explicit editorial biography regressed")
+    nlc12gw=batch12gw.get("nlc_project_context",{})
+    if nlc12gw.get("series") != "芸香阁丛书" or "陈红彦" not in nlc12gw.get("named_participants_in_relevant_project_passage",[]):
+        fail("Batch 12GW first-party project context regressed")
+    adj12gw=batch12gw.get("adjudication",{})
+    if adj12gw.get("chen_hongyan_editorial_responsibility_for_yunxiangge_ji_wenji") != "CLOSED_AT_EXPLICIT_PUBLIC_BIO_PLUS_FIRST_PARTY_NLC_PROJECT_CONTEXT":
+        fail("Batch 12GW editorial-responsibility adjudication regressed")
+    if adj12gw.get("final_bianhouji_author") != "UNRESOLVED" or adj12gw.get("final_bianhouji_text") != "NOT_REVIEWED":
+        fail("Batch 12GW final-endmatter firewall regressed")
+    if adj12gw.get("secondary_reported_bianzhezhu_author") != "UNRESOLVED" or adj12gw.get("final_bianhouji_equals_secondary_reported_bianzhezhu") != "NOT_PROVED":
+        fail("Batch 12GW bianzhezhu identity firewall regressed")
+    if adj12gw.get("supplement_2010_author") != "UNRESOLVED" or adj12gw.get("chen_hongyan_authored_2010_supplement") != "NOT_PROVED":
+        fail("Batch 12GW supplement-authorship firewall regressed")
+    src12gw={x.get("source_id"):x for x in registry.get("sources",())}
+    if "EXT-CHINANEWS-CHEN-HONGYAN-2009-JI-WENJI-EDITOR-BIO" not in src12gw or "EXT-NLC-PCAB-YUNXIANGGE-PROJECT-CONTEXT-2017" not in src12gw:
+        fail("Batch 12GW source registry binding missing")
+    trans12gw=batch12gw.get("transmission_impact",{})
+    if trans12gw.get("nodes_added") != [] or trans12gw.get("edges_added") != [] or trans12gw.get("direct_copy_edge_authorized") is not False or trans12gw.get("same_object_edge_authorized") is not False or trans12gw.get("acquisition_edge_authorized") is not False:
+        fail("Batch 12GW genealogy firewall regressed")
+    rule12gw=batch12gw.get("chronology_and_rule_firewall",{})
+    if rule12gw.get("runtime_rule_change") is not False or rule12gw.get("algorithm_reopen_authorized") is not False or rule12gw.get("candidate_collapse_authorized") is not False or rule12gw.get("matrix_count_change") is not False:
+        fail("Batch 12GW product/matrix firewall regressed")
+    acct12gw=batch12gw.get("accounting",{})
+    if acct12gw.get("matrix_rows") != 198 or acct12gw.get("audited_rows") != 166 or acct12gw.get("current_missing_from_product_rows") != 10 or acct12gw.get("confirmed_chart_algorithm_defect_count") != 0:
+        fail("Batch 12GW accounting regressed")
+    try:
+        schema12gw=tuple(int(part) for part in state.get("schema_version","0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12GW current-state schema version is not numeric")
+    if schema12gw < (1,209,0):
+        fail("Batch 12GW current-state schema version regressed below 1.209.0")
+    if bid12gw not in audit_state.get("completed_batches",()):
+        fail("Batch 12GW missing from completed batch state")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12GW latest-batch document state mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")
