@@ -1,0 +1,118 @@
+{
+  "schema": "ZIWEI-ZHENG-ZHENDUO-XU-SENYU-1952-CONTEXTUAL-TIEQIN-TWO-BATCH-CHRONOLOGY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-ZHENG-ZHENDUO-XU-SENYU-1952-CONTEXTUAL-TIEQIN-TWO-BATCH-CHRONOLOGY-FIREWALL-GH",
+  "prior_batch_id": "BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-NDL-REMOTE-COPY-FRONTEND-CONTRACT-STATIC-BOUNDARY-GG",
+  "question": "Does the publication-mediated Zheng Zhenduo-to-Xu Senyu letter route add a distinct priced-acquisition chronology control for the Tieqin Tongjianlou collection without collapsing it into the 1950-01-29 Deng Zhicheng transaction or binding NLC target catalog numbers 3482/3483?",
+  "answer": "Yes, at the chronology-firewall level only. A Tsinghua Alumni Association article reproduces a Zheng Zhenduo letter whose year is not written on the surviving letter as described there; the article contextually reconstructs the letter as early 1952 from the Three-Anti campaign context and a contemporaneous Xie Zhiliu report. In a February 18 added note, the reproduced text says that in the previous year the bureau bought two batches of Tieqin Tongjianlou rare books, totaling two hundred million yuan in the then-current currency. The National Library of China 2024 bibliography independently identifies the published letter corpus as Liu Xiangchun, Zheng Zhenduo zhi Xu Senyu hanzha, Lishi Wenxian vol.16, Shanghai Guji Chubanshe, 2012, pp.284-343. The exact target letter page inside that range and the original manuscript image have not been directly reviewed. Therefore the evidence supports a distinct later multi-batch priced-acquisition control conditional on the article's 1952 contextual dating, but does not identify either batch's contents, bind 3482/3483, select the target Tonghu/Zhunzhai transfer mode, or alter any chart rule.",
+  "research_date": "2026-09-25",
+  "source_controls": {
+    "tsinghua_public_reproduction": {
+      "source_id": "EXT-TSINGHUA-ALUMNI-ZHAO-WANLI-DENG-1950-0129",
+      "provider": "清华校友总会",
+      "title": "赵万里：一生为书",
+      "publication_date": "2013-06-20",
+      "url": "https://www.tsinghua.org.cn/info/1951/18141.htm",
+      "role": "INSTITUTIONAL_PUBLIC_REPRODUCTION_OF_PUBLISHED_ZHENG_TO_XU_LETTER_TEXT_AND_CONTEXTUAL_DATING_ARGUMENT",
+      "exact_original_letter_image_reviewed": false,
+      "exact_published_letter_page_reviewed": false
+    },
+    "published_letter_collection_bibliography": {
+      "source_id": "EXT-LIU-XIANGCHUN-ZHENG-ZHENDUO-XU-SENYU-LETTERS-LISHIWENXIAN16-2012",
+      "author_editor": "柳向春整理",
+      "title": "郑振铎致徐森玉函札",
+      "container": "历史文献（第十六辑）",
+      "publisher": "上海古籍出版社",
+      "year": 2012,
+      "cited_page_range": "284-343",
+      "bibliographic_locator_provider": "国家图书馆 / 中国古籍保护网",
+      "bibliographic_locator_url": "https://www.nlc.cn/pcab/zx/xw/20240701_2640245.shtml",
+      "exact_target_letter_page": "UNRESOLVED",
+      "exact_target_letter_page_directly_reviewed": false,
+      "original_manuscript_image_reviewed": false
+    }
+  },
+  "contextual_letter_control": {
+    "surviving_letter_date_as_described": "二月十六日（原信未署年份）",
+    "added_note_date_as_described": "二月十八日",
+    "publication_contextual_year_reconstruction": 1952,
+    "contextual_year_is_direct_original_letter_date": false,
+    "contextual_year_reason": "The Tsinghua article dates the letter to early 1952 from internal Three-Anti references and a contemporaneous report about Xie Zhiliu; the project has not independently collated the original letter image.",
+    "reproduced_purchase_phrase_short": "去岁曾向瞿氏铁琴铜剑楼购善本两批，计共两亿元",
+    "reproduced_purchase_phrase_authority": "PUBLICATION_MEDIATED_FIRST_PERSON_LETTER_TEXT",
+    "conditional_previous_year_if_1952_context_accepted": 1951,
+    "purchased_batch_count": 2,
+    "reported_total_amount_text": "两亿元",
+    "exact_currency_unit_normalization": "NOT_PERFORMED"
+  },
+  "chronology_adjudication": {
+    "earlier_control": {
+      "date": "1950-01-29",
+      "source_layer": "DENG_ZHICHENG_DIARY_DERIVATIVE_QUOTATION_PENDING_FACSIMILE_COLLATION",
+      "reported_amount_text": "四千万人民券",
+      "reported_box_count": 12,
+      "target_specific_contents_closed": false
+    },
+    "later_control": {
+      "letter_year_status": "CONTEXTUALLY_RECONSTRUCTED_AS_1952_NOT_DIRECTLY_WRITTEN_YEAR",
+      "conditional_previous_year": 1951,
+      "reported_batch_count": 2,
+      "reported_total_amount_text": "两亿元",
+      "target_specific_contents_closed": false
+    },
+    "silent_same_transaction_collapse_authorized": false,
+    "reason": "The two controls have different temporal frames, amounts, transaction descriptions and evidentiary layers. They must remain separate unless direct accession or item-level evidence bridges them.",
+    "collection_level_priced_acquisition_strengthened": true,
+    "exact_target_transaction_mode_closed": false
+  },
+  "target_binding_firewall": {
+    "target_catalog_numbers": [
+      "3482",
+      "3483"
+    ],
+    "target_titles_context": "铜壶漏箭制度 / 准斋心制几漏图式 bound-volume provenance route",
+    "either_contextual_1951_batch_contains_target": "UNRESOLVED",
+    "target_1950_01_29_batch_membership": "UNRESOLVED",
+    "target_specific_purchase_route_selected": false,
+    "target_specific_donation_route_selected": false,
+    "target_acquisition_edge_authorized": false,
+    "same_object_edge_authorized": false
+  },
+  "primary_gate_status": {
+    "target_1950_01_29_exact_journal_page": "UNRESOLVED",
+    "target_1950_01_29_primary_journal_text": "NOT_REVIEWED",
+    "target_1950_01_29_exact_2007_facsimile_page": "UNRESOLVED",
+    "target_1950_01_29_handwriting_directly_collated": false,
+    "primary_gate_changed_by_this_batch": false
+  },
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_added": [],
+    "supported_edges": [],
+    "revised_edges": [],
+    "rejected_edges": [],
+    "acquisition_edge_authorized": false,
+    "same_object_edge_authorized": false
+  },
+  "chronology_and_rule_firewall": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 14,
+    "repaired_provenance_metadata_defect_count": 14,
+    "confirmed_chart_algorithm_defect_count": 0
+  },
+  "next_gate": [
+    "Continue the primary target: recover an exact page citation or source-emitted primary/fulltext page object for 1950-01-29 in 《五石斋文史札记（二十八）》 pp.121-129 without interpolation.",
+    "Continue the 2007 facsimile volume-5 page/leaf route and directly collate the 1950-01-29 handwriting if obtained.",
+    "If a lawful source exposes the exact page within Liu Xiangchun's 2012 pp.284-343 letter corpus, directly collate the target letter and separate printed editorial punctuation from original-letter wording.",
+    "Continue Gu Tinglong 1950-01-06, NLC [23]/[24], Ji Shuying chapter 9 and Gao Xizeng annotated-catalog routes; do not use this batch to bind 3482/3483."
+  ],
+  "updated_at": "2026-09-25"
+}
