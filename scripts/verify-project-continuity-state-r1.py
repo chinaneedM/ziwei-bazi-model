@@ -200,6 +200,8 @@ ZIWEI_JI_BAICHUAN_12GP_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-A
 ZIWEI_JI_BAICHUAN_12GP_EVIDENCE = ROOT / "docs/research/ZIWEI-JI-SHUYING-2004-BAICHUAN-ARTICLE-HOLDING-AND-FIFTEEN-LECTURES-SOURCE-GENEALOGY-BOUNDARY-R1.json"
 ZIWEI_JI_SUPPLEMENT_12GQ_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-WENJI-2010-SUPPLEMENT-ARTICLE-DISCOVERY-BOUNDARY-GQ.md"
 ZIWEI_JI_SUPPLEMENT_12GQ_EVIDENCE = ROOT / "docs/research/ZIWEI-JI-SHUYING-WENJI-2010-SUPPLEMENT-ARTICLE-DISCOVERY-BOUNDARY-R1.json"
+ZIWEI_JI_PP383_12GR_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-WENJI-PP383-385-CHEN-QINGHUA-PURCHASE-CONTEXT-FALSE-LEAD-FIREWALL-GR.md"
+ZIWEI_JI_PP383_12GR_EVIDENCE = ROOT / "docs/research/ZIWEI-JI-SHUYING-WENJI-PP383-385-CHEN-QINGHUA-PURCHASE-CONTEXT-FIREWALL-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -526,9 +528,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-BEITU-HISTORY-1997-1949-1966-BIBLIOGRAPHIC-RANGE-REPAIR-GO",
     "BATCH-12-ZIWEI-JI-SHUYING-2004-BAICHUAN-ARTICLE-HOLDING-AND-FIFTEEN-LECTURES-SOURCE-GENEALOGY-BOUNDARY-GP",
     "BATCH-12-ZIWEI-JI-SHUYING-WENJI-2010-SUPPLEMENT-ARTICLE-DISCOVERY-BOUNDARY-GQ",
+    "BATCH-12-ZIWEI-JI-SHUYING-WENJI-PP383-385-CHEN-QINGHUA-PURCHASE-CONTEXT-FALSE-LEAD-FIREWALL-GR",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-WENJI-2010-SUPPLEMENT-ARTICLE-DISCOVERY-BOUNDARY-GQ.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-WENJI-PP383-385-CHEN-QINGHUA-PURCHASE-CONTEXT-FALSE-LEAD-FIREWALL-GR.md"
 
 
 def fail(message: str) -> None:
@@ -6972,6 +6975,55 @@ def main() -> int:
         fail("Batch 12GQ missing from completed batch state")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12GQ latest-batch document state mismatch")
+
+    # Batch 12GR Ji Wenji pp383-385 Chen Qinghua purchase-context false-lead firewall.
+    for path in (ZIWEI_JI_PP383_12GR_BATCH, ZIWEI_JI_PP383_12GR_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12GR continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12gr = json.loads(ZIWEI_JI_PP383_12GR_EVIDENCE.read_text(encoding="utf-8"))
+    bid12gr = "BATCH-12-ZIWEI-JI-SHUYING-WENJI-PP383-385-CHEN-QINGHUA-PURCHASE-CONTEXT-FALSE-LEAD-FIREWALL-GR"
+    if batch12gr.get("batch_id") != bid12gr:
+        fail("Batch 12GR evidence identity mismatch")
+    dpm12gr = batch12gr.get("dpm_article_identity", {})
+    if dpm12gr.get("provider") != "故宫博物院" or dpm12gr.get("author") != "刘蔷" or dpm12gr.get("printed_page_range") != "53—70":
+        fail("Batch 12GR DPM article identity regressed")
+    p6212gr = batch12gr.get("printed_page_62_control", {})
+    if p6212gr.get("printed_page") != 62 or p6212gr.get("footnote_2_contains_ji_wenji_pages") != "383—385" or p6212gr.get("directly_reviewed_page_image") is not True:
+        fail("Batch 12GR p62 citation control regressed")
+    p6312gr = batch12gr.get("printed_page_63_control", {})
+    if p6312gr.get("collector") != "陈清华" or p6312gr.get("state_acquisition_years") != [1956, 1965] or p6312gr.get("context_identity") != "CHEN_QINGHUA_BULK_PURCHASE_DISCUSSION":
+        fail("Batch 12GR p63 referent/context regressed")
+    adj12gr = batch12gr.get("adjudication", {})
+    if adj12gr.get("liu_2010_use_of_ji_pp383_385") != "CHEN_QINGHUA_BULK_PURCHASE_CONTEXT" or adj12gr.get("direct_ji_pp383_385_text") != "NOT_REVIEWED":
+        fail("Batch 12GR citation/direct-page boundary regressed")
+    if adj12gr.get("ji_pp383_385_as_baichuan_page_locator") != "NOT_AUTHORIZED" or adj12gr.get("ji_pp383_385_as_tieqin_chapter_page_locator") != "NOT_AUTHORIZED" or adj12gr.get("ji_pp383_385_proven_absent_of_tieqin_material") is not False:
+        fail("Batch 12GR false-lead firewall regressed")
+    if adj12gr.get("target_specific_purchase_route_selected") is not False or adj12gr.get("target_specific_donation_route_selected") is not False:
+        fail("Batch 12GR target transfer route falsely selected")
+    srcids12gr = {x.get("source_id"): x for x in registry.get("sources", ())}
+    if "EXT-DPM-LIU-QIANG-2010-TIANLU-PP62-63-JI383-385-CONTEXT" not in srcids12gr:
+        fail("Batch 12GR source registry missing")
+    trans12gr = batch12gr.get("transmission_impact", {})
+    if trans12gr.get("nodes_added") != [] or trans12gr.get("edges_added") != [] or trans12gr.get("direct_copy_edge_authorized") is not False or trans12gr.get("same_object_edge_authorized") is not False or trans12gr.get("acquisition_edge_authorized") is not False:
+        fail("Batch 12GR topology/genealogy firewall regressed")
+    rule12gr = batch12gr.get("chronology_and_rule_firewall", {})
+    if rule12gr.get("runtime_rule_change") is not False or rule12gr.get("algorithm_reopen_authorized") is not False or rule12gr.get("candidate_collapse_authorized") is not False or rule12gr.get("matrix_count_change") is not False:
+        fail("Batch 12GR product/matrix firewall regressed")
+    acct12gr = batch12gr.get("accounting", {})
+    if acct12gr.get("matrix_rows") != 198 or acct12gr.get("audited_rows") != 166 or acct12gr.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12GR matrix accounting unexpectedly changed")
+    if acct12gr.get("confirmed_provenance_metadata_defect_count") != 14 or acct12gr.get("repaired_provenance_metadata_defect_count") != 14 or acct12gr.get("confirmed_chart_algorithm_defect_count") != 0:
+        fail("Batch 12GR provenance/algorithm accounting regressed")
+    try:
+        schema12gr = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12GR current-state schema version is not numeric")
+    if schema12gr < (1, 204, 0):
+        fail("Batch 12GR current-state schema version regressed below 1.204.0")
+    if bid12gr not in audit_state.get("completed_batches", ()):
+        fail("Batch 12GR missing from completed batch state")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12GR latest-batch document state mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")
