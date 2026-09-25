@@ -166,6 +166,8 @@ ZIWEI_DENG_ZHICHENG_12FY_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE
 ZIWEI_DENG_ZHICHENG_12FY_EVIDENCE = ROOT / "docs/research/ZIWEI-DENG-ZHICHENG-WUSHIZHAI-2008-ISSUE03-PAGINATION-BOUNDARY-R1.json"
 ZIWEI_DENG_ZHICHENG_12FZ_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI-2008-ISSUE03-PKU-ARTICLE-RANGE-AND-P120-CITATION-REPAIR-FZ.md"
 ZIWEI_DENG_ZHICHENG_12FZ_EVIDENCE = ROOT / "docs/research/ZIWEI-DENG-ZHICHENG-WUSHIZHAI-2008-ISSUE03-PKU-ARTICLE-RANGE-P120-REPAIR-R1.json"
+ZIWEI_DENG_ZHICHENG_12GA_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-PKU-FULLTEXT-BRIDGE-PUBLIC-ACCESS-BOUNDARY-GA.md"
+ZIWEI_DENG_ZHICHENG_12GA_EVIDENCE = ROOT / "docs/research/ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-PKU-FULLTEXT-BRIDGE-PUBLIC-ACCESS-BOUNDARY-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -475,9 +477,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-DENG-ZHICHENG-DIARY-1950-0129-EDITOR-CHECKED-SERIAL-ROUTE-AND-VOL5-P222-CITATION-BOUNDARY-FX",
     "BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI-2008-ISSUE03-PKU-CQVIP-PAGINATION-BOUNDARY-FY",
     "BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI-2008-ISSUE03-PKU-ARTICLE-RANGE-AND-P120-CITATION-REPAIR-FZ",
+    "BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-PKU-FULLTEXT-BRIDGE-PUBLIC-ACCESS-BOUNDARY-GA",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI-2008-ISSUE03-PKU-ARTICLE-RANGE-AND-P120-CITATION-REPAIR-FZ.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-PKU-FULLTEXT-BRIDGE-PUBLIC-ACCESS-BOUNDARY-GA.md"
 
 
 def fail(message: str) -> None:
@@ -2609,6 +2612,66 @@ def main() -> int:
         fail("Batch 12FZ matrix accounting unexpectedly changed")
     if acct12fz.get("confirmed_provenance_metadata_defect_count") != 14 or acct12fz.get("repaired_provenance_metadata_defect_count") != 14:
         fail("Batch 12FZ provenance defect accounting regressed")
+
+    for path in (ZIWEI_DENG_ZHICHENG_12GA_BATCH, ZIWEI_DENG_ZHICHENG_12GA_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12GA continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12ga = json.loads(ZIWEI_DENG_ZHICHENG_12GA_EVIDENCE.read_text(encoding="utf-8"))
+    if batch12ga.get("batch_id") != "BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-PKU-FULLTEXT-BRIDGE-PUBLIC-ACCESS-BOUNDARY-GA":
+        fail("Batch 12GA evidence identity mismatch")
+    bridge12ga = batch12ga.get("official_pku_issue_bridge", {})
+    if bridge12ga.get("jid") != "94408" or bridge12ga.get("viid") != "12482306" or bridge12ga.get("issue_year") != 2008 or bridge12ga.get("issue_no") != "03":
+        fail("Batch 12GA PKU issue/fulltext bridge identity regressed")
+    if bridge12ga.get("outbound_link_count") != 5 or bridge12ga.get("target_article_range_from_prior_fz") != "121-129" or bridge12ga.get("target_primary_text_obtained") is not False:
+        fail("Batch 12GA bridge-count/range/target-text boundary regressed")
+    expected_labels12ga = ["Official website","National social sciences database","知网","万方","维普"]
+    if bridge12ga.get("outbound_fulltext_link_labels") != expected_labels12ga:
+        fail("Batch 12GA outbound fulltext labels regressed")
+    routes12ga = batch12ga.get("route_observations", [])
+    if len(routes12ga) != 5 or any(x.get("target_article_text_obtained") is not False for x in routes12ga):
+        fail("Batch 12GA route observation count/text boundary regressed")
+    if any(x.get("content_absence_proved") is True or x.get("provider_holding_absence_proved") is True for x in routes12ga):
+        fail("Batch 12GA provider-absence firewall regressed")
+    pku_route12ga = batch12ga.get("pku_platform_article_route_control", {})
+    if pku_route12ga.get("prior_index_metadata_page_range") != "121-129" or pku_route12ga.get("index_metadata_fulltext_label_emitted") is not True:
+        fail("Batch 12GA FZ index metadata inheritance regressed")
+    if pku_route12ga.get("target_article_detail_stably_rendered") is not False or pku_route12ga.get("target_download_object_source_emitted") is not False or pku_route12ga.get("target_primary_text_source_emitted") is not False:
+        fail("Batch 12GA PKU target-detail/fulltext boundary regressed")
+    if pku_route12ga.get("aid_enumeration_or_guessing_performed") is not False:
+        fail("Batch 12GA article-id enumeration firewall regressed")
+    fw12ga = batch12ga.get("access_and_authority_firewall", {})
+    for key in ("outbound_fulltext_link_presence_does_not_equal_target_fulltext_retrieval","provider_http_error_does_not_equal_content_absence","javascript_or_login_shell_does_not_equal_content_absence","generic_publisher_homepage_does_not_equal_no_archive_or_no_article","no_authentication_bypass_attempted","no_paywall_bypass_attempted","no_article_id_enumeration_or_guessing","no_provider_account_action_taken","no_purchase_or_fee_incurred","first_party_indexed_page_range_121_129_remains_valid","article_range_does_not_prove_jan29_presence","no_date_to_page_interpolation","journal_pagination_does_not_map_to_2007_facsimile_pagination_without_direct_crosswalk"):
+        if fw12ga.get(key) is not True:
+            fail(f"Batch 12GA access/authority firewall regressed: {key}")
+    target12ga = batch12ga.get("target_status_after_batch", {})
+    if target12ga.get("article_page_range") != "121-129" or target12ga.get("article_page_range_authority") != "FIRST_PARTY_PKU_PLATFORM_INDEX_METADATA":
+        fail("Batch 12GA article-range authority regressed")
+    if target12ga.get("target_1950_01_29_presence_in_article") != "NOT_DIRECTLY_COLLATED" or target12ga.get("target_1950_01_29_exact_journal_page") != "UNRESOLVED" or target12ga.get("target_1950_01_29_primary_journal_text") != "NOT_REVIEWED":
+        fail("Batch 12GA Jan-29 journal target falsely closed")
+    if target12ga.get("target_1950_01_29_facsimile_page") != "UNRESOLVED" or target12ga.get("target_1950_01_29_facsimile_text") != "NOT_REVIEWED" or target12ga.get("target_1950_01_29_handwriting_directly_collated") is not False:
+        fail("Batch 12GA facsimile/handwriting boundary regressed")
+    if target12ga.get("target_specific_purchase_route_selected") is not False or target12ga.get("target_specific_donation_route_selected") is not False or target12ga.get("final_nlc_acquisition_transfer_path") != "UNRESOLVED":
+        fail("Batch 12GA transaction route was falsely closed")
+    reg12ga = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    pkubridge12ga = next((x for x in reg12ga.get("sources", []) if x.get("source_id") == "EXT-PKU-CCJ-2008-03-FULLTEXT-BRIDGE-ACCESS-CONTROL"), None)
+    if pkubridge12ga is None:
+        fail("Batch 12GA source registry control missing")
+    b12ga = pkubridge12ga.get("batch_12ga", {})
+    if b12ga.get("outbound_fulltext_link_count") != 5 or b12ga.get("target_article_range_from_prior_fz") != "121-129" or b12ga.get("target_primary_text_obtained") is not False:
+        fail("Batch 12GA registry bridge boundary regressed")
+    if b12ga.get("no_authentication_bypass_attempted") is not True or b12ga.get("no_paywall_bypass_attempted") is not True or b12ga.get("no_article_id_enumeration_or_guessing") is not True:
+        fail("Batch 12GA registry access-method firewall regressed")
+    trans12ga = batch12ga.get("transmission_impact", {})
+    if trans12ga.get("nodes_added") != [] or trans12ga.get("edges_added") != [] or trans12ga.get("acquisition_edge_authorized") is not False or trans12ga.get("same_object_edge_authorized") is not False:
+        fail("Batch 12GA zero-topology/acquisition-edge firewall regressed")
+    rule12ga = batch12ga.get("chronology_and_rule_firewall", {})
+    if rule12ga.get("direct_sanming_parent_vote_increment") != 0 or rule12ga.get("pre1578_zhunzhai_rule_witness_increment") != 0 or rule12ga.get("runtime_rule_change") is not False or rule12ga.get("algorithm_reopen_authorized") is not False or rule12ga.get("candidate_collapse_authorized") is not False or rule12ga.get("matrix_row_count_change") is not False:
+        fail("Batch 12GA product/matrix firewall regressed")
+    acct12ga = batch12ga.get("accounting", {})
+    if acct12ga.get("matrix_rows") != 198 or acct12ga.get("audited_rows") != 166 or acct12ga.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12GA matrix accounting unexpectedly changed")
+    if acct12ga.get("confirmed_provenance_metadata_defect_count") != 14 or acct12ga.get("repaired_provenance_metadata_defect_count") != 14:
+        fail("Batch 12GA provenance defect accounting regressed")
 
     for path in (ZIWEI_KYUDB_12DT_BATCH, ZIWEI_KYUDB_12DT_EVIDENCE):
         if not path.is_file():
