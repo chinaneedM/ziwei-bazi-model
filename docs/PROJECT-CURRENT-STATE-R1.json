@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.184.0",
+  "schema_version": "1.185.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -266,9 +266,10 @@
       "BATCH-12-ZIWEI-ZHENG-ZHENDUO-NIANPU-REF24-2017-EDITION-AND-JAN10-SECONDARY-DATE-BOUNDARY-FU",
       "BATCH-12-ZIWEI-GU-TINGLONG-DIARY-1950-0106-DIRECT-EDITION-AND-JAPAN-HOLDING-BOUNDARY-FV",
       "BATCH-12-ZIWEI-DENG-ZHICHENG-DIARY-1950-0129-FACSIMILE-VOLUME5-JAPAN-HOLDING-BOUNDARY-FW",
-      "BATCH-12-ZIWEI-DENG-ZHICHENG-DIARY-1950-0129-EDITOR-CHECKED-SERIAL-ROUTE-AND-VOL5-P222-CITATION-BOUNDARY-FX"
+      "BATCH-12-ZIWEI-DENG-ZHICHENG-DIARY-1950-0129-EDITOR-CHECKED-SERIAL-ROUTE-AND-VOL5-P222-CITATION-BOUNDARY-FX",
+      "BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI-2008-ISSUE03-PKU-CQVIP-PAGINATION-BOUNDARY-FY"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DENG-ZHICHENG-DIARY-1950-0129-EDITOR-CHECKED-SERIAL-ROUTE-AND-VOL5-P222-CITATION-BOUNDARY-FX.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI-2008-ISSUE03-PKU-CQVIP-PAGINATION-BOUNDARY-FY.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -1068,7 +1069,13 @@
       "A separate Hu Wenhui citation maps a different 2012 edited passage (上册 p508) to 2007 facsimile volume 5 p222 and explicitly notes that the edited transcription is abridged. This supplies a non-target pagination anchor and an omission warning only; volume-5 p222 is forbidden from being used to infer the Jan-29 target page.",
       "Journal pagination and facsimile pagination remain separate coordinate systems. A discovery lead places 1950-01-01 in 《五石斋文史札记（二十八）》 / 《中国典籍与文化》 2008年第3期 at journal p124, but this remains discovery-only pending primary-issue review and cannot be mapped to facsimile volume 5 p124.",
       "Batch 12FX adds no transmission node/edge and authorizes no acquisition edge, SAME_OBJECT relation, runtime rule change, candidate collapse or algorithm reopen. Matrix/product counts remain 198 / 166 / 10; provenance defects 13/13; chart algorithm defects 0; DETERMINISTIC_FUSION_CHART_PRODUCT_R1 remains CLOSED.",
-      "Highest next gate: directly inspect the primary journal issue containing 《五石斋文史札记（二十八）》 to determine whether 1950-01-29 is included and close its journal page if present; then compare any editor-checked serial text with the 2012 derivative, resolve the exact 2007 facsimile volume-5 page/leaf and directly collate the handwriting. Continue FV Jan-6, NLC [23]/[24], Ji chapter 9 and Gao annotated-catalog routes in parallel."
+      "Highest next gate: directly inspect the primary journal issue containing 《五石斋文史札记（二十八）》 to determine whether 1950-01-29 is included and close its journal page if present; then compare any editor-checked serial text with the 2012 derivative, resolve the exact 2007 facsimile volume-5 page/leaf and directly collate the handwriting. Continue FV Jan-6, NLC [23]/[24], Ji chapter 9 and Gao annotated-catalog routes in parallel.",
+      "Batch 12FY closes the first-party 2008 Issue 03 container for 《中国典籍与文化》 on the Peking University journal platform: jid 94408 / viid 12482306 / issueNo 03, ISSN 1004-3241, CN 11-2992/G2. The reviewed static surface does not source-emit the target 《五石斋文史札记（二十八）》 row, page range or text, so issue-container identity is not promoted to target-article collation.",
+      "CQVIP directly displays 2008年3期 with 31 articles and a two-page TOC control. The reviewed first static TOC page exposes article ranges only through 92-95; the second page and target row were not directly retrieved. No p96+ target-page inference is authorized.",
+      "Two page anchors are retained at different evidentiary levels: Qu Jun's scholarly article cites the 1949-09-30 entry of installment (二十八) at journal p120; a lower-authority Wikipedia citation reports the 1950-01-01 entry at p124. Neither is a primary journal-page review, and no linear date-to-page interpolation toward 1950-01-29 is permitted.",
+      "Journal pagination, the 2012 derivative-book pagination and the 2007 facsimile volume-5 pagination remain separate coordinate systems. The exact 1950-01-29 journal page, primary journal text, facsimile page/leaf and handwriting remain UNRESOLVED / NOT_REVIEWED.",
+      "Batch 12FY adds no transmission node/edge and authorizes no acquisition edge, SAME_OBJECT relation, runtime rule change, candidate collapse or algorithm reopen. Matrix/product counts remain 198 / 166 / 10; provenance defects 13/13; chart algorithm defects 0; DETERMINISTIC_FUSION_CHART_PRODUCT_R1 remains CLOSED.",
+      "Highest next gate: recover a primary or first-party article record/TOC row for 《五石斋文史札记（二十八）》 in 2008 Issue 03 and close its exact article page range; directly inspect the primary journal text around 1950-01-29, then cross-check against the 2012 derivative and resolve the exact 2007 facsimile volume-5 page/leaf and handwriting. Continue FV Jan-6, NLC [23]/[24], Ji chapter 9 and Gao annotated-catalog routes in parallel."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10
