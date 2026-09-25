@@ -7782,6 +7782,72 @@
         "first_party_indexed_page_range_121_129_remains_valid": true,
         "research_artifact": "docs/research/ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-PKU-FULLTEXT-BRIDGE-PUBLIC-ACCESS-BOUNDARY-R1.json"
       }
+    },
+    {
+      "source_id": "EXT-NDL-ZHONGGUO-DIANJI-YU-WENHUA-Z21-AC41",
+      "title": "中國典籍與文化 — 国立国会図書館纸本连续馆藏",
+      "historical_period": "1994-2018 NDL listed serial holdings; target issue 2008(03)",
+      "provider": "国立国会図書館 / NDL Search",
+      "identifier": "NDL call Z21-AC41 / NDLBibID a0000052718 / ISSN 10043241",
+      "url": "https://ndlsearch.ndl.go.jp/books/R100000002-Ia0000052718",
+      "source_role": "FIRST_PARTY_PHYSICAL_SERIAL_HOLDING_ROUTE_COVERING_TARGET_2008_03",
+      "quality_notes": "Batch 12GE records NDL's first-party paper-serial record and continuous listed holdings span from 1994 issue 1 (total 8) through 2018 issue 4 (total 107), which covers 2008(03). Exact 2008(03) child-record/material-label ID and target page review remain unresolved. NDL remote-copy/article-location services are documented generally but exact target eligibility is not promoted without authenticated source-emitted state.",
+      "batch_12ge": {
+        "ndl_call_number": "Z21-AC41",
+        "ndl_bib_id": "a0000052718",
+        "holdings_start": "1994年1期 总8期",
+        "holdings_end": "2018年4期 总107期",
+        "target_issue": "2008(03)",
+        "target_issue_within_listed_holding_span": true,
+        "exact_target_issue_child_record_id": "UNRESOLVED",
+        "target_pages_121_129_reviewed": false,
+        "remote_copy_request_submitted": false,
+        "article_location_investigation_submitted": false,
+        "research_artifact": "docs/research/ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-JAPAN-PHYSICAL-SERIAL-HOLDINGS-COPY-ACTION-BOUNDARY-R1.json"
+      }
+    },
+    {
+      "source_id": "EXT-CINII-AA1225301X-ZHONGGUO-DIANJI-YU-WENHUA-JAPAN-HOLDINGS",
+      "title": "中國典籍與文化 — CiNii 日本大学图书馆馆藏控制",
+      "historical_period": "current union-catalog holdings; target issue 2008(03)",
+      "provider": "CiNii / National Institute of Informatics",
+      "identifier": "NCID AA1225301X / ISSN 10043241",
+      "url": "https://ci.nii.ac.jp/ncid/AA1225301X",
+      "source_role": "JAPAN_UNION_CATALOG_PHYSICAL_ACCESS_LOCATORS_FOR_TARGET_2008_03",
+      "quality_notes": "Batch 12GE records six stated Japanese university holding ranges that include 2008 and one negative control (Nara University lists only 2008(1-2)). These are physical-access locators only and do not substitute for direct target-page collation or exact issue-item identity.",
+      "batch_12ge": {
+        "target_issue": "2008(03)",
+        "holding_routes_covering_2008_count": 6,
+        "institutions": [
+          "学習院大学 図書館",
+          "京都大学 人文科学研究所 図書室",
+          "拓殖大学 八王子図書館",
+          "東京大学 東洋文化研究所 図書室",
+          "佛教大学 附属図書館",
+          "早稲田大学 図書館 (中央図書館)"
+        ],
+        "negative_control_institution": "奈良大学 図書館",
+        "negative_control_range": "2008(1-2)",
+        "target_pages_121_129_reviewed": false,
+        "research_artifact": "docs/research/ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-JAPAN-PHYSICAL-SERIAL-HOLDINGS-COPY-ACTION-BOUNDARY-R1.json"
+      }
+    },
+    {
+      "source_id": "EXT-GAKUSHUIN-OPAC-AA1225301X-ILL-ACTION-SURFACE",
+      "title": "学習院大学 WebOPAC — AA1225301X ILL/複写 action surface",
+      "historical_period": "current OPAC action surface",
+      "provider": "学習院大学 図書館",
+      "url": "https://glim-op.glim.gakushuin.ac.jp/webopac/cattab.do?ncid=AA1225301X&sp_srh_flg=true",
+      "source_role": "USER_ACTION_BOUNDARY_FOR_INTERLIBRARY_COPY_AND_LOAN",
+      "quality_notes": "Batch 12GE records visible InterLibrary Copy Request / InterLibrary Loan Request / Login controls on the public OPAC surface. This does not establish user eligibility or target 2008(03) copy eligibility. No login or request was performed.",
+      "batch_12ge": {
+        "interlibrary_copy_request_control_visible": true,
+        "interlibrary_loan_request_control_visible": true,
+        "login_control_visible": true,
+        "exact_target_issue_copy_eligibility": "UNRESOLVED",
+        "request_submitted": false,
+        "research_artifact": "docs/research/ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-JAPAN-PHYSICAL-SERIAL-HOLDINGS-COPY-ACTION-BOUNDARY-R1.json"
+      }
     }
   ],
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md",
