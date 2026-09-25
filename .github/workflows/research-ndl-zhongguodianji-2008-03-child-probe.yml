@@ -19,48 +19,83 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Probe finite source-emitted NDL volume-list pages
+      - name: Probe source-emitted NDL volume list and exact target child
         run: |
           set -euo pipefail
           mkdir -p research-out
           python - <<'PY'
-          import hashlib, html, json, re, urllib.request
+          import hashlib, html, json, re, urllib.parse, urllib.request
           from pathlib import Path
 
           base="https://ndlsearch.ndl.go.jp/search?collapse=none&cs=bib&f-tid=R100000002-Ia0000052718&from={offset}&size=20&sort=published%3Adesc"
           offsets=[0,20,40,60]
-          out={"target":"中國典籍與文化 2008(3)=66:2008","requests":[],"matches":[]}
+          out={"target_label_pattern":"中國典籍與文化 / 2008(3) / 通号66","requests":[],"matches":[]}
           ua={"User-Agent":"Mozilla/5.0 TianwenHistoricalAudit/1.0"}
+
+          def get(url):
+              req=urllib.request.Request(url,headers=ua)
+              with urllib.request.urlopen(req,timeout=30) as r:
+                  b=r.read()
+                  return b,getattr(r,"status",200),r.geturl(),r.headers.get("Content-Type")
+
           for offset in offsets:
               url=base.format(offset=offset)
-              req=urllib.request.Request(url,headers=ua)
               try:
-                  with urllib.request.urlopen(req,timeout=30) as r:
-                      b=r.read()
-                      status=getattr(r,"status",200)
-                      final=r.geturl()
-                      ctype=r.headers.get("Content-Type")
+                  b,status,final,ctype=get(url)
               except Exception as ex:
                   out["requests"].append({"offset":offset,"url":url,"error":repr(ex)})
                   continue
               text=b.decode("utf-8","replace")
               Path(f"research-out/ndl-{offset}.html").write_bytes(b)
-              rec={"offset":offset,"url":url,"final_url":final,"status":status,"content_type":ctype,"sha256":hashlib.sha256(b).hexdigest(),"bytes":len(b)}
-              target_positions=[m.start() for m in re.finditer(r"2008\s*\(3\)\s*=\s*66\s*:\s*2008",text)]
-              rec["target_occurrences"]=len(target_positions)
-              out["requests"].append(rec)
-
+              out["requests"].append({
+                  "offset":offset,"url":url,"final_url":final,"status":status,
+                  "content_type":ctype,"sha256":hashlib.sha256(b).hexdigest(),"bytes":len(b)
+              })
               link_re=re.compile(r'href=["\']([^"\']*?/books/R100000002-Ia0000052718-i\d+[^"\']*)["\'][^>]*>(.*?)</a>',re.I|re.S)
               for href,label_html in link_re.findall(text):
                   label=html.unescape(re.sub(r"<[^>]+>"," ",label_html))
                   label=" ".join(label.split())
-                  if "2008" in label or "中國典籍與文化" in label:
-                      out["matches"].append({"offset":offset,"href":html.unescape(href),"label":label})
-              for pos in target_positions:
-                  lo=max(0,pos-1800); hi=min(len(text),pos+1800)
-                  context=text[lo:hi]
-                  hrefs=re.findall(r'href=["\']([^"\']+)["\']',context,re.I)
-                  out.setdefault("target_contexts",[]).append({"offset":offset,"context":context,"hrefs":hrefs})
+                  rec={"offset":offset,"href":html.unescape(href),"label":label}
+                  if rec not in out["matches"]:
+                      out["matches"].append(rec)
+
+          targets=[]
+          for m in out["matches"]:
+              if re.search(r"2008\s*\(3\)",m["label"]) and re.search(r"(通号\s*66|=\s*66)",m["label"]):
+                  targets.append(m)
+          out["target_matches"]=targets
+          unique_hrefs=sorted(set(x["href"] for x in targets))
+          out["target_unique_hrefs"]=unique_hrefs
+
+          child_records=[]
+          service_terms=["資料のコピーを入手する","遠隔複写","複写","記事掲載箇所調査","利用できる資料","東京本館","関西館","申込","ログイン","Z21-AC41","通号 66","通号66","2008(3)"]
+          for href in unique_hrefs:
+              url=urllib.parse.urljoin("https://ndlsearch.ndl.go.jp",href)
+              try:
+                  b,status,final,ctype=get(url)
+              except Exception as ex:
+                  child_records.append({"url":url,"error":repr(ex)})
+                  continue
+              t=b.decode("utf-8","replace")
+              Path("research-out/target-child.html").write_bytes(b)
+              rec={
+                  "url":url,"status":status,"final_url":final,"content_type":ctype,
+                  "sha256":hashlib.sha256(b).hexdigest(),"bytes":len(b),
+                  "term_counts":{term:t.count(term) for term in service_terms},
+                  "title_tag":(re.search(r"<title[^>]*>(.*?)</title>",t,re.I|re.S).group(1) if re.search(r"<title[^>]*>(.*?)</title>",t,re.I|re.S) else None),
+              }
+              # Preserve finite contexts around service/access words without attempting login/action.
+              contexts=[]
+              for term in service_terms:
+                  pos=t.find(term)
+                  if pos>=0:
+                      contexts.append({"term":term,"context":re.sub(r"\s+"," ",t[max(0,pos-700):min(len(t),pos+1400)])})
+              rec["contexts"]=contexts
+              # Extract any source-emitted URLs/ids around the target child and application affordances.
+              rec["book_links"]=sorted(set(re.findall(r'https?://[^"\'<> ]+|/books/R100000002-Ia0000052718-i\d+',t)))[:200]
+              rec["candidate_item_ids"]=sorted(set(re.findall(r'(?i)(?:item|material|holding)[A-Za-z_-]*["\'=: ]+([A-Za-z0-9_-]{4,})',t)))[:100]
+              child_records.append(rec)
+          out["child_records"]=child_records
 
           Path("research-out/result.json").write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8")
           print(json.dumps(out,ensure_ascii=False,indent=2))
