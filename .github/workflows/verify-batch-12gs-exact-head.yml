@@ -1,0 +1,84 @@
+name: verify-batch-12gs-exact-head
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/verify-batch-12gs-exact-head.yml
+      - docs/research/ZIWEI-JI-SHUYING-WENJI-2004-PUBLIC-FULL-TOC-ARTICLE74-EDITORIAL-ENDMATTER-BOUNDARY-R1.json
+      - docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-WENJI-2004-PUBLIC-FULL-TOC-ARTICLE74-EDITORIAL-ENDMATTER-BOUNDARY-GS.md
+      - docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json
+      - docs/PROJECT-CURRENT-STATE-R1.json
+      - scripts/verify-project-continuity-state-r1.py
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify Batch 12GS exact head
+        run: |
+          set -euo pipefail
+          python scripts/verify-tianwen-transmission-genealogy-r1.py
+          python scripts/verify-project-continuity-state-r1.py
+          python scripts/verify-fusion-chart-historical-provenance-audit-r1.py
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          bid='BATCH-12-ZIWEI-JI-SHUYING-WENJI-2004-PUBLIC-FULL-TOC-ARTICLE74-EDITORIAL-ENDMATTER-BOUNDARY-GS'
+          e=json.loads(Path('docs/research/ZIWEI-JI-SHUYING-WENJI-2004-PUBLIC-FULL-TOC-ARTICLE74-EDITORIAL-ENDMATTER-BOUNDARY-R1.json').read_text(encoding='utf-8'))
+          assert e['batch_id']==bid
+
+          toc=e['public_full_toc_control']
+          assert toc['complete_toc_sequence_exposed'] is True
+          assert toc['target_entry']['ordinal']==74
+          assert toc['target_entry']['normalized_title']=='百川归海，蔚为大观'
+          assert toc['immediate_successor']['ordinal']==75
+          assert toc['immediate_successor']['normalized_for_locator_only']=='中国古代目录学简述'
+          assert toc['appendix_entries_displayed']==3
+          assert toc['final_endmatter_display']=='編后記'
+          assert toc['target_article_page_numbers_exposed'] is False
+          assert toc['target_article_body_exposed'] is False
+          assert toc['final_endmatter_body_exposed'] is False
+
+          a=e['adjudication']
+          assert a['baichuan_toc_ordinal']=='CLOSED_AT_PUBLIC_FULL_TOC_LAYER_AS_ITEM_74'
+          assert a['baichuan_exact_page_range']=='UNRESOLVED'
+          assert a['direct_2004_article_text']=='NOT_REVIEWED'
+          assert a['direct_final_editor_postscript_text']=='NOT_REVIEWED'
+          assert a['displayed_bianhouji_equals_secondary_reported_bianzhezhu']=='NOT_PROVED'
+          assert a['retail_p456_as_canonical_pagination']=='NOT_AUTHORIZED'
+          assert a['derivation_status']=='SECONDARY_REPORTED_NOT_DIRECTLY_CLOSED'
+          assert a['target_specific_purchase_route_selected'] is False
+          assert a['target_specific_donation_route_selected'] is False
+
+          state=json.loads(Path('docs/PROJECT-CURRENT-STATE-R1.json').read_text(encoding='utf-8'))
+          assert tuple(int(x) for x in state['schema_version'].split('.')) >= (1,205,0)
+          assert bid in state['historical_audit']['completed_batches']
+          assert state['historical_audit']['latest_batch_doc']=='docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-WENJI-2004-PUBLIC-FULL-TOC-ARTICLE74-EDITORIAL-ENDMATTER-BOUNDARY-GS.md'
+
+          reg=json.loads(Path('docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json').read_text(encoding='utf-8'))
+          assert 'EXT-FRELAX-SHUCHONG-JI-SHUYING-WENJI-2004-FULL-TOC' in {x.get('source_id') for x in reg['sources']}
+
+          assert e['transmission_impact']['nodes_added']==[]
+          assert e['transmission_impact']['edges_added']==[]
+          assert e['chronology_and_rule_firewall']['runtime_rule_change'] is False
+          assert e['chronology_and_rule_firewall']['algorithm_reopen_authorized'] is False
+          assert e['chronology_and_rule_firewall']['candidate_collapse_authorized'] is False
+          assert e['chronology_and_rule_firewall']['matrix_count_change'] is False
+          assert e['accounting']['matrix_rows']==198
+          assert e['accounting']['audited_rows']==166
+          assert e['accounting']['current_missing_from_product_rows']==10
+          assert e['accounting']['confirmed_provenance_metadata_defect_count']==14
+          assert e['accounting']['repaired_provenance_metadata_defect_count']==14
+          assert e['accounting']['confirmed_chart_algorithm_defect_count']==0
+          PY

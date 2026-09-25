@@ -202,6 +202,8 @@ ZIWEI_JI_SUPPLEMENT_12GQ_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE
 ZIWEI_JI_SUPPLEMENT_12GQ_EVIDENCE = ROOT / "docs/research/ZIWEI-JI-SHUYING-WENJI-2010-SUPPLEMENT-ARTICLE-DISCOVERY-BOUNDARY-R1.json"
 ZIWEI_JI_PP383_12GR_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-WENJI-PP383-385-CHEN-QINGHUA-PURCHASE-CONTEXT-FALSE-LEAD-FIREWALL-GR.md"
 ZIWEI_JI_PP383_12GR_EVIDENCE = ROOT / "docs/research/ZIWEI-JI-SHUYING-WENJI-PP383-385-CHEN-QINGHUA-PURCHASE-CONTEXT-FIREWALL-R1.json"
+ZIWEI_JI_TOC_12GS_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-WENJI-2004-PUBLIC-FULL-TOC-ARTICLE74-EDITORIAL-ENDMATTER-BOUNDARY-GS.md"
+ZIWEI_JI_TOC_12GS_EVIDENCE = ROOT / "docs/research/ZIWEI-JI-SHUYING-WENJI-2004-PUBLIC-FULL-TOC-ARTICLE74-EDITORIAL-ENDMATTER-BOUNDARY-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -529,9 +531,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-JI-SHUYING-2004-BAICHUAN-ARTICLE-HOLDING-AND-FIFTEEN-LECTURES-SOURCE-GENEALOGY-BOUNDARY-GP",
     "BATCH-12-ZIWEI-JI-SHUYING-WENJI-2010-SUPPLEMENT-ARTICLE-DISCOVERY-BOUNDARY-GQ",
     "BATCH-12-ZIWEI-JI-SHUYING-WENJI-PP383-385-CHEN-QINGHUA-PURCHASE-CONTEXT-FALSE-LEAD-FIREWALL-GR",
+    "BATCH-12-ZIWEI-JI-SHUYING-WENJI-2004-PUBLIC-FULL-TOC-ARTICLE74-EDITORIAL-ENDMATTER-BOUNDARY-GS",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-WENJI-PP383-385-CHEN-QINGHUA-PURCHASE-CONTEXT-FALSE-LEAD-FIREWALL-GR.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-WENJI-2004-PUBLIC-FULL-TOC-ARTICLE74-EDITORIAL-ENDMATTER-BOUNDARY-GS.md"
 
 
 def fail(message: str) -> None:
@@ -7024,6 +7027,59 @@ def main() -> int:
         fail("Batch 12GR missing from completed batch state")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12GR latest-batch document state mismatch")
+
+    # Batch 12GS Ji Wenji 2004 public full-TOC item-74/editorial-endmatter boundary.
+    for path in (ZIWEI_JI_TOC_12GS_BATCH, ZIWEI_JI_TOC_12GS_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12GS continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12gs = json.loads(ZIWEI_JI_TOC_12GS_EVIDENCE.read_text(encoding="utf-8"))
+    bid12gs = "BATCH-12-ZIWEI-JI-SHUYING-WENJI-2004-PUBLIC-FULL-TOC-ARTICLE74-EDITORIAL-ENDMATTER-BOUNDARY-GS"
+    if batch12gs.get("batch_id") != bid12gs:
+        fail("Batch 12GS evidence identity mismatch")
+    toc12gs = batch12gs.get("public_full_toc_control", {})
+    target12gs = toc12gs.get("target_entry", {})
+    if toc12gs.get("complete_toc_sequence_exposed") is not True or target12gs.get("ordinal") != 74 or target12gs.get("normalized_title") != "百川归海，蔚为大观":
+        fail("Batch 12GS target TOC locator regressed")
+    succ12gs = toc12gs.get("immediate_successor", {})
+    if succ12gs.get("ordinal") != 75 or succ12gs.get("normalized_for_locator_only") != "中国古代目录学简述":
+        fail("Batch 12GS successor locator regressed")
+    if toc12gs.get("appendix_entries_displayed") != 3 or toc12gs.get("final_endmatter_display") != "編后記":
+        fail("Batch 12GS endmatter structure regressed")
+    if toc12gs.get("target_article_page_numbers_exposed") is not False or toc12gs.get("target_article_body_exposed") is not False or toc12gs.get("final_endmatter_body_exposed") is not False:
+        fail("Batch 12GS access boundary regressed")
+    adj12gs = batch12gs.get("adjudication", {})
+    if adj12gs.get("baichuan_toc_ordinal") != "CLOSED_AT_PUBLIC_FULL_TOC_LAYER_AS_ITEM_74" or adj12gs.get("baichuan_exact_page_range") != "UNRESOLVED" or adj12gs.get("direct_2004_article_text") != "NOT_REVIEWED":
+        fail("Batch 12GS article locator/direct-text boundary regressed")
+    if adj12gs.get("final_editor_postscript_presence") != "CLOSED_AT_TOC_LABEL_LAYER" or adj12gs.get("direct_final_editor_postscript_text") != "NOT_REVIEWED" or adj12gs.get("displayed_bianhouji_equals_secondary_reported_bianzhezhu") != "NOT_PROVED":
+        fail("Batch 12GS editor-endmatter firewall regressed")
+    if adj12gs.get("retail_p456_as_canonical_pagination") != "NOT_AUTHORIZED" or adj12gs.get("derivation_status") != "SECONDARY_REPORTED_NOT_DIRECTLY_CLOSED":
+        fail("Batch 12GS pagination/genealogy firewall regressed")
+    if adj12gs.get("target_specific_purchase_route_selected") is not False or adj12gs.get("target_specific_donation_route_selected") is not False:
+        fail("Batch 12GS target transfer route falsely selected")
+    srcids12gs = {x.get("source_id"): x for x in registry.get("sources", ())}
+    if "EXT-FRELAX-SHUCHONG-JI-SHUYING-WENJI-2004-FULL-TOC" not in srcids12gs:
+        fail("Batch 12GS source registry missing")
+    trans12gs = batch12gs.get("transmission_impact", {})
+    if trans12gs.get("nodes_added") != [] or trans12gs.get("edges_added") != [] or trans12gs.get("direct_copy_edge_authorized") is not False or trans12gs.get("same_object_edge_authorized") is not False or trans12gs.get("acquisition_edge_authorized") is not False:
+        fail("Batch 12GS topology/genealogy firewall regressed")
+    rule12gs = batch12gs.get("chronology_and_rule_firewall", {})
+    if rule12gs.get("runtime_rule_change") is not False or rule12gs.get("algorithm_reopen_authorized") is not False or rule12gs.get("candidate_collapse_authorized") is not False or rule12gs.get("matrix_count_change") is not False:
+        fail("Batch 12GS product/matrix firewall regressed")
+    acct12gs = batch12gs.get("accounting", {})
+    if acct12gs.get("matrix_rows") != 198 or acct12gs.get("audited_rows") != 166 or acct12gs.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12GS matrix accounting unexpectedly changed")
+    if acct12gs.get("confirmed_provenance_metadata_defect_count") != 14 or acct12gs.get("repaired_provenance_metadata_defect_count") != 14 or acct12gs.get("confirmed_chart_algorithm_defect_count") != 0:
+        fail("Batch 12GS provenance/algorithm accounting regressed")
+    try:
+        schema12gs = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12GS current-state schema version is not numeric")
+    if schema12gs < (1, 205, 0):
+        fail("Batch 12GS current-state schema version regressed below 1.205.0")
+    if bid12gs not in audit_state.get("completed_batches", ()):
+        fail("Batch 12GS missing from completed batch state")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12GS latest-batch document state mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")
