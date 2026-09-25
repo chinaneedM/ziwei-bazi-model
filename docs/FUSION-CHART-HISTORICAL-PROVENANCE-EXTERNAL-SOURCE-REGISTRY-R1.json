@@ -7621,8 +7621,8 @@
       "historical_period": "modern scholarly article citing a 1949-09-30 entry from the 2008 serial installment",
       "provider": "爱思想",
       "url": "https://www.aisixiang.com/data/106322.html",
-      "source_role": "SCHOLARLY_SECONDARY_EXACT_DATE_PAGE_ANCHOR_PENDING_PRIMARY_JOURNAL_COLLATION",
-      "quality_notes": "Batch 12FY records footnote 45's citation of 《五石斋文史札记》(二十八), 1949-09-30, journal page 120, 《中国典籍与文化》 2008(3). This is a secondary citation anchor only; the project has not directly reviewed journal p120 and does not interpolate the 1950-01-29 page from it.",
+      "source_role": "SCHOLARLY_SECONDARY_CITATION_WITH_PAGE_CONFLICT_NOT_ACCEPTED_AS_ARTICLE_PAGE_ANCHOR",
+      "quality_notes": "Batch 12FY records footnote 45's citation of 《五石斋文史札记》(二十八), 1949-09-30, journal page 120, 《中国典籍与文化》 2008(3). This is a secondary citation anchor only; the project has not directly reviewed journal p120 and does not interpolate the 1950-01-29 page from it. Batch 12FZ supersedes the p120 page-anchor use: Peking University's first-party platform index gives the target article itself as pp.121-129, so p120 falls outside the article range. The secondary citation remains preserved as audit trace but is withdrawn as article-pagination authority pending primary p120/erratum/alternate-pagination evidence.",
       "batch_12fy": {
         "cited_diary_date": "1949-09-30",
         "cited_journal_page": 120,
@@ -7630,6 +7630,46 @@
         "primary_journal_page_directly_reviewed": false,
         "target_1950_01_29_page_inferred": false,
         "research_artifact": "docs/research/ZIWEI-DENG-ZHICHENG-WUSHIZHAI-2008-ISSUE03-PAGINATION-BOUNDARY-R1.json"
+      },
+      "batch_12fz": {
+        "provenance_defect_id": "PROV-DEFECT-014",
+        "first_party_article_page_range": "121-129",
+        "prior_claimed_page": 120,
+        "conflict": "P120_OUTSIDE_FIRST_PARTY_ARTICLE_RANGE",
+        "repaired_classification": "SCHOLARLY_SECONDARY_CITATION_WITH_PAGE_CONFLICT_NOT_ACCEPTED_AS_ARTICLE_PAGE_ANCHOR",
+        "p120_anchor_authority_after_repair": "WITHDRAWN_PENDING_PRIMARY_PAGE_OR_EXPLICIT_ERRATUM",
+        "prior_fy_artifact_rewritten": false,
+        "defect_confirmed": true,
+        "defect_repaired": true,
+        "research_artifact": "docs/research/ZIWEI-DENG-ZHICHENG-WUSHIZHAI-2008-ISSUE03-PKU-ARTICLE-RANGE-P120-REPAIR-R1.json"
+      }
+    },
+    {
+      "source_id": "EXT-PKU-CCJ-WUSHIZHAI28-2008-03-PP121-129-INDEX",
+      "title": "《五石斋文史札记》(二十八) — 北大期刊平台索引元数据",
+      "author": "邓之诚；邓瑞",
+      "historical_period": "2008 journal article; current first-party Peking University platform indexed metadata",
+      "provider": "北京大学期刊平台",
+      "url": "https://ccj.pku.edu.cn/Search/search?fd0=2&kw0=%E9%82%93%E5%A3%B0%E5%A8%81",
+      "source_role": "FIRST_PARTY_PLATFORM_INDEX_METADATA_FOR_EXACT_ARTICLE_PAGE_RANGE",
+      "quality_notes": "Batch 12FZ records Peking University platform indexed metadata emitting the exact target title, authors, 中国典籍与文化 2008 (03), pp.121-129 and a Fulltext label. The reviewed live detail route is not stably rendered, so this closes article bibliographic page range only, not page images or primary article glyphs.",
+      "batch_12fz": {
+        "article_title": "《五石斋文史札记》(二十八)",
+        "authors": [
+          "邓之诚",
+          "邓瑞"
+        ],
+        "journal": "中国典籍与文化",
+        "year": 2008,
+        "issue": "03",
+        "page_range": "121-129",
+        "start_page": 121,
+        "end_page": 129,
+        "fulltext_label_emitted": true,
+        "article_page_range_status": "CLOSED_AT_FIRST_PARTY_PLATFORM_INDEX_METADATA_LAYER",
+        "direct_primary_page_images_reviewed": false,
+        "direct_primary_article_text_reviewed": false,
+        "research_artifact": "docs/research/ZIWEI-DENG-ZHICHENG-WUSHIZHAI-2008-ISSUE03-PKU-ARTICLE-RANGE-P120-REPAIR-R1.json"
       }
     }
   ],
