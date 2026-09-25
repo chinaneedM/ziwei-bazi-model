@@ -7791,7 +7791,7 @@
       "identifier": "NDL call Z21-AC41 / NDLBibID a0000052718 / ISSN 10043241",
       "url": "https://ndlsearch.ndl.go.jp/books/R100000002-Ia0000052718",
       "source_role": "FIRST_PARTY_PHYSICAL_SERIAL_HOLDING_ROUTE_COVERING_TARGET_2008_03",
-      "quality_notes": "Batch 12GE records NDL's first-party paper-serial record and continuous listed holdings span from 1994 issue 1 (total 8) through 2018 issue 4 (total 107), which covers 2008(03). Exact 2008(03) child-record/material-label ID and target page review remain unresolved. NDL remote-copy/article-location services are documented generally but exact target eligibility is not promoted without authenticated source-emitted state.",
+      "quality_notes": "Batch 12GE records NDL's first-party paper-serial record and continuous listed holdings span covering 2008(03). Batch 12GF resolves the exact source-emitted NDL issue child as 中國典籍與文化 2008(3) (通号 66) 2008 / i25264793 through finite parent-list pagination, without identifier guessing. Exact article page/text and target-specific copy eligibility remain unresolved.",
       "batch_12ge": {
         "ndl_call_number": "Z21-AC41",
         "ndl_bib_id": "a0000052718",
@@ -7804,6 +7804,18 @@
         "remote_copy_request_submitted": false,
         "article_location_investigation_submitted": false,
         "research_artifact": "docs/research/ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-JAPAN-PHYSICAL-SERIAL-HOLDINGS-COPY-ACTION-BOUNDARY-R1.json"
+      },
+      "batch_12gf": {
+        "target_issue": "2008(03)",
+        "target_total_issue_number": 66,
+        "exact_target_child_suffix": "i25264793",
+        "exact_target_child_url": "https://ndlsearch.ndl.go.jp/books/R100000002-Ia0000052718-i25264793",
+        "exact_target_child_record_status": "CLOSED_SOURCE_EMITTED_FIRST_PARTY",
+        "target_pages_121_129_reviewed": false,
+        "target_specific_remote_copy_eligibility": "UNRESOLVED",
+        "exact_material_label_or_item_id": "UNRESOLVED",
+        "no_identifier_guessing": true,
+        "research_artifact": "docs/research/ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-NDL-2008-03-EXACT-CHILD-RECORD-AND-COPY-SURFACE-BOUNDARY-R1.json"
       }
     },
     {
@@ -7847,6 +7859,38 @@
         "exact_target_issue_copy_eligibility": "UNRESOLVED",
         "request_submitted": false,
         "research_artifact": "docs/research/ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-JAPAN-PHYSICAL-SERIAL-HOLDINGS-COPY-ACTION-BOUNDARY-R1.json"
+      }
+    },
+    {
+      "source_id": "EXT-NDL-ZHONGGUO-DIANJI-YU-WENHUA-2008-03-I25264793",
+      "title": "中國典籍與文化 2008(3) (通号 66) 2008 — NDL exact issue child",
+      "historical_period": "2008 journal issue; current first-party NDL exact issue-child record",
+      "provider": "国立国会図書館 / NDL Search",
+      "identifier": "parent NDLBibID a0000052718 / child i25264793 / call Z21-AC41",
+      "url": "https://ndlsearch.ndl.go.jp/books/R100000002-Ia0000052718-i25264793",
+      "source_role": "FIRST_PARTY_EXACT_ISSUE_CHILD_IDENTITY_AND_STATIC_ACCESS_SURFACE_CONTROL",
+      "quality_notes": "Batch 12GF closes the exact target issue child from NDL's own finite source-emitted child list: 2008(3), 通号66, i25264793. Direct anonymous fetch returns HTTP 200 and the exact title/call/BibID. The reviewed static page exposes generic copy/access-help links but does not close target-specific remote-copy eligibility, article-location eligibility, material-label ID, pp.121-129 images or primary article text.",
+      "batch_12gf": {
+        "issue_year": 2008,
+        "issue_no": 3,
+        "total_issue_number": 66,
+        "child_suffix": "i25264793",
+        "direct_child_http_status": 200,
+        "direct_child_response_sha256": "b8678d1bab127f7ee45ef5851aa8d16fc2a03cc1d5a606e18baad9abc8823e29",
+        "direct_child_response_bytes": 201873,
+        "call_number": "Z21-AC41",
+        "ndl_bib_id": "a0000052718",
+        "cinii_ncid": "AA1225301X",
+        "generic_copy_help_present": true,
+        "target_specific_remote_copy_eligibility": "UNRESOLVED",
+        "target_specific_article_location_eligibility": "UNRESOLVED",
+        "exact_material_label_or_item_id": "UNRESOLVED",
+        "target_pages_121_129_reviewed": false,
+        "target_article_body_reviewed": false,
+        "no_login_performed": true,
+        "no_request_submitted": true,
+        "no_fee_incurred": true,
+        "research_artifact": "docs/research/ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-NDL-2008-03-EXACT-CHILD-RECORD-AND-COPY-SURFACE-BOUNDARY-R1.json"
       }
     }
   ],
