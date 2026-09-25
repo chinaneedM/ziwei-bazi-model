@@ -178,6 +178,8 @@ ZIWEI_DENG_ZHICHENG_12GE_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE
 ZIWEI_DENG_ZHICHENG_12GE_EVIDENCE = ROOT / "docs/research/ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-JAPAN-PHYSICAL-SERIAL-HOLDINGS-COPY-ACTION-BOUNDARY-R1.json"
 ZIWEI_DENG_ZHICHENG_12GF_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-NDL-2008-03-EXACT-CHILD-RECORD-AND-COPY-SURFACE-BOUNDARY-GF.md"
 ZIWEI_DENG_ZHICHENG_12GF_EVIDENCE = ROOT / "docs/research/ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-NDL-2008-03-EXACT-CHILD-RECORD-AND-COPY-SURFACE-BOUNDARY-R1.json"
+ZIWEI_DENG_ZHICHENG_12GG_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-NDL-REMOTE-COPY-FRONTEND-CONTRACT-STATIC-BOUNDARY-GG.md"
+ZIWEI_DENG_ZHICHENG_12GG_EVIDENCE = ROOT / "docs/research/ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-NDL-REMOTE-COPY-FRONTEND-CONTRACT-STATIC-BOUNDARY-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -493,9 +495,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-PKU-TITLE-PHRASE-INDEX-NONMATCH-BOUNDARY-GD",
     "BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-JAPAN-PHYSICAL-SERIAL-HOLDINGS-AND-COPY-ACTION-BOUNDARY-GE",
     "BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-NDL-2008-03-EXACT-CHILD-RECORD-AND-COPY-SURFACE-BOUNDARY-GF",
+    "BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-NDL-REMOTE-COPY-FRONTEND-CONTRACT-STATIC-BOUNDARY-GG",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-NDL-2008-03-EXACT-CHILD-RECORD-AND-COPY-SURFACE-BOUNDARY-GF.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-NDL-REMOTE-COPY-FRONTEND-CONTRACT-STATIC-BOUNDARY-GG.md"
 
 
 def fail(message: str) -> None:
@@ -3044,6 +3047,72 @@ def main() -> int:
         fail("Batch 12GF matrix accounting unexpectedly changed")
     if acct12gf.get("confirmed_provenance_metadata_defect_count") != 14 or acct12gf.get("repaired_provenance_metadata_defect_count") != 14 or acct12gf.get("confirmed_chart_algorithm_defect_count") != 0:
         fail("Batch 12GF provenance/algorithm accounting regressed")
+
+    for path in (ZIWEI_DENG_ZHICHENG_12GG_BATCH, ZIWEI_DENG_ZHICHENG_12GG_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12GG continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12gg = json.loads(ZIWEI_DENG_ZHICHENG_12GG_EVIDENCE.read_text(encoding="utf-8"))
+    if batch12gg.get("batch_id") != "BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-NDL-REMOTE-COPY-FRONTEND-CONTRACT-STATIC-BOUNDARY-GG":
+        fail("Batch 12GG evidence identity mismatch")
+    child12gg = batch12gg.get("exact_child_control", {})
+    if child12gg.get("child_suffix") != "i25264793" or child12gg.get("issue_label") != "中國典籍與文化 2008(3) (通号 66) 2008":
+        fail("Batch 12GG exact target child identity regressed")
+    if child12gg.get("target_admin_permission") != "PUBLIC" or child12gg.get("target_holding_type") != ["ndl"] or child12gg.get("target_item_source_record_numeric_id") != "25264793":
+        fail("Batch 12GG target public metadata/holding/source-record control regressed")
+    anon12gg = batch12gg.get("anonymous_request_state_control", {})
+    rq12gg = anon12gg.get("request_store", {})
+    rc12gg = anon12gg.get("rcopy_store", {})
+    if rq12gg.get("checkedCartItems") != [] or rq12gg.get("requestCount") != 0:
+        fail("Batch 12GG anonymous request-store baseline regressed")
+    if rc12gg.get("requestItemFromTml") != [] or rc12gg.get("requestItemFromKsk") != [] or rc12gg.get("requestItemFromIlcl") != []:
+        fail("Batch 12GG anonymous rcopy-store baseline regressed")
+    if anon12gg.get("empty_request_state_proves_ineligibility") is not False:
+        fail("Batch 12GG anonymous empty state was falsely promoted to denial evidence")
+    probe12gg = batch12gg.get("frontend_contract_probe", {})
+    if probe12gg.get("run_id") != 36098813291 or probe12gg.get("artifact_id") != 10848705735:
+        fail("Batch 12GG frontend-probe provenance regressed")
+    if probe12gg.get("entry_module_sha256") != "095c1b4e55d21b0378d8e2b70516d77d1b022ee4d779d6071fdfa17b7eda0575" or probe12gg.get("source_emitted_modules_fetched_count") != 75:
+        fail("Batch 12GG source-emitted frontend module control regressed")
+    routes12gg = probe12gg.get("source_emitted_global_routes", [])
+    for route in ("/request/cart","/request/rcopy/input","/request/rcopy/confirm","/request/rcopy/fee","/api/cart","/api/request","/api/request/without-cart","/copy/remote","/help/remotecopy"):
+        if route not in routes12gg:
+            fail(f"Batch 12GG global request route regressed: {route}")
+    if probe12gg.get("target_specific_cart_item_obtained") is not False or probe12gg.get("target_specific_rcopy_part_item_id_obtained") is not False or probe12gg.get("target_specific_item_id_for_request_obtained") is not False or probe12gg.get("target_specific_maximum_fee_obtained") is not False:
+        fail("Batch 12GG target-specific request object was falsely closed")
+    if probe12gg.get("contract_execution_performed") is not False or probe12gg.get("login_performed") is not False or probe12gg.get("request_submission_performed") is not False:
+        fail("Batch 12GG no-action boundary regressed")
+    adj12gg = batch12gg.get("adjudication", {})
+    if adj12gg.get("global_ndl_remote_copy_frontend_exists") != "SUPPORTED_STATIC_SOURCE_CODE" or adj12gg.get("exact_target_issue_remote_copy_eligibility") != "UNRESOLVED":
+        fail("Batch 12GG frontend-vs-target eligibility adjudication regressed")
+    if adj12gg.get("anonymous_empty_request_store") != "INITIAL_STATE_ONLY_NOT_DENIAL_EVIDENCE":
+        fail("Batch 12GG anonymous-state interpretation regressed")
+    fw12gg = batch12gg.get("access_and_authority_firewall", {})
+    for key in ("global_remote_copy_route_does_not_equal_target_issue_eligibility","public_metadata_permission_does_not_equal_copy_permission","empty_anonymous_request_store_does_not_equal_copy_denial","source_code_request_schema_does_not_equal_target_request_object","api_route_discovery_does_not_authorize_api_execution","no_api_contract_execution","no_login_performed","no_remote_copy_request_submitted","no_article_location_investigation_submitted","no_ill_request_submitted","no_fee_or_purchase_incurred","no_identifier_guessing","no_date_to_page_interpolation"):
+        if fw12gg.get(key) is not True:
+            fail(f"Batch 12GG access/authority firewall regressed: {key}")
+    stop12gg = batch12gg.get("stop_rule", {})
+    if stop12gg.get("broad_frontend_route_archaeology_after_batch") != "DEPRIORITIZE" or stop12gg.get("return_priority_to_primary_target_pages") is not True:
+        fail("Batch 12GG stop rule regressed")
+    reg12gg = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    childreg12gg = next((x for x in reg12gg.get("sources", []) if x.get("source_id") == "EXT-NDL-ZHONGGUO-DIANJI-YU-WENHUA-2008-03-I25264793"), None)
+    frontreg12gg = next((x for x in reg12gg.get("sources", []) if x.get("source_id") == "EXT-NDL-SEARCH-REMOTE-COPY-FRONTEND-CONTRACT-STATIC"), None)
+    if childreg12gg is None or frontreg12gg is None:
+        fail("Batch 12GG registry controls missing")
+    if childreg12gg.get("batch_12gg", {}).get("empty_anonymous_state_proves_ineligibility") is not False or childreg12gg.get("batch_12gg", {}).get("target_specific_remote_copy_eligibility") != "UNRESOLVED":
+        fail("Batch 12GG exact-child registry eligibility boundary regressed")
+    if frontreg12gg.get("batch_12gg", {}).get("contract_execution_performed") is not False or frontreg12gg.get("batch_12gg", {}).get("source_emitted_modules_fetched_count") != 75:
+        fail("Batch 12GG frontend registry probe boundary regressed")
+    trans12gg = batch12gg.get("transmission_impact", {})
+    if trans12gg.get("nodes_added") != [] or trans12gg.get("edges_added") != [] or trans12gg.get("acquisition_edge_authorized") is not False or trans12gg.get("same_object_edge_authorized") is not False:
+        fail("Batch 12GG zero-topology/acquisition-edge firewall regressed")
+    rule12gg = batch12gg.get("chronology_and_rule_firewall", {})
+    if rule12gg.get("runtime_rule_change") is not False or rule12gg.get("algorithm_reopen_authorized") is not False or rule12gg.get("candidate_collapse_authorized") is not False or rule12gg.get("matrix_row_count_change") is not False:
+        fail("Batch 12GG product/matrix firewall regressed")
+    acct12gg = batch12gg.get("accounting", {})
+    if acct12gg.get("matrix_rows") != 198 or acct12gg.get("audited_rows") != 166 or acct12gg.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12GG matrix accounting unexpectedly changed")
+    if acct12gg.get("confirmed_provenance_metadata_defect_count") != 14 or acct12gg.get("repaired_provenance_metadata_defect_count") != 14 or acct12gg.get("confirmed_chart_algorithm_defect_count") != 0:
+        fail("Batch 12GG provenance/algorithm accounting regressed")
 
     for path in (ZIWEI_KYUDB_12DT_BATCH, ZIWEI_KYUDB_12DT_EVIDENCE):
         if not path.is_file():
