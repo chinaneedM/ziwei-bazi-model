@@ -176,6 +176,8 @@ ZIWEI_DENG_ZHICHENG_12GD_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE
 ZIWEI_DENG_ZHICHENG_12GD_EVIDENCE = ROOT / "docs/research/ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-PKU-TITLE-PHRASE-INDEX-NONMATCH-BOUNDARY-R1.json"
 ZIWEI_DENG_ZHICHENG_12GE_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-JAPAN-PHYSICAL-SERIAL-HOLDINGS-AND-COPY-ACTION-BOUNDARY-GE.md"
 ZIWEI_DENG_ZHICHENG_12GE_EVIDENCE = ROOT / "docs/research/ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-JAPAN-PHYSICAL-SERIAL-HOLDINGS-COPY-ACTION-BOUNDARY-R1.json"
+ZIWEI_DENG_ZHICHENG_12GF_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-NDL-2008-03-EXACT-CHILD-RECORD-AND-COPY-SURFACE-BOUNDARY-GF.md"
+ZIWEI_DENG_ZHICHENG_12GF_EVIDENCE = ROOT / "docs/research/ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-NDL-2008-03-EXACT-CHILD-RECORD-AND-COPY-SURFACE-BOUNDARY-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -490,9 +492,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-PKU-STABLE-DETAIL-ARTICLEFILE-BOUNDARY-GC",
     "BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-PKU-TITLE-PHRASE-INDEX-NONMATCH-BOUNDARY-GD",
     "BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-JAPAN-PHYSICAL-SERIAL-HOLDINGS-AND-COPY-ACTION-BOUNDARY-GE",
+    "BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-NDL-2008-03-EXACT-CHILD-RECORD-AND-COPY-SURFACE-BOUNDARY-GF",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-JAPAN-PHYSICAL-SERIAL-HOLDINGS-AND-COPY-ACTION-BOUNDARY-GE.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-NDL-2008-03-EXACT-CHILD-RECORD-AND-COPY-SURFACE-BOUNDARY-GF.md"
 
 
 def fail(message: str) -> None:
@@ -2968,6 +2971,79 @@ def main() -> int:
         fail("Batch 12GE matrix accounting unexpectedly changed")
     if acct12ge.get("confirmed_provenance_metadata_defect_count") != 14 or acct12ge.get("repaired_provenance_metadata_defect_count") != 14 or acct12ge.get("confirmed_chart_algorithm_defect_count") != 0:
         fail("Batch 12GE provenance/algorithm accounting regressed")
+
+    for path in (ZIWEI_DENG_ZHICHENG_12GF_BATCH, ZIWEI_DENG_ZHICHENG_12GF_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12GF continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12gf = json.loads(ZIWEI_DENG_ZHICHENG_12GF_EVIDENCE.read_text(encoding="utf-8"))
+    if batch12gf.get("batch_id") != "BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-NDL-2008-03-EXACT-CHILD-RECORD-AND-COPY-SURFACE-BOUNDARY-GF":
+        fail("Batch 12GF evidence identity mismatch")
+    parent12gf = batch12gf.get("parent_list_discovery", {})
+    tm12gf = parent12gf.get("target_match", {})
+    if parent12gf.get("identifier_guessing_performed") is not False or parent12gf.get("requested_offsets") != [0, 20, 40, 60]:
+        fail("Batch 12GF finite source-emitted parent pagination contract regressed")
+    if tm12gf.get("child_suffix") != "i25264793" or tm12gf.get("total_issue_number") != 66 or tm12gf.get("issue") != 3 or tm12gf.get("year") != 2008:
+        fail("Batch 12GF exact NDL target child identity regressed")
+    if tm12gf.get("href") != "/books/R100000002-Ia0000052718-i25264793" or parent12gf.get("exact_target_child_record_status") != "CLOSED_SOURCE_EMITTED_FIRST_PARTY":
+        fail("Batch 12GF source-emitted exact child closure regressed")
+    adj12gf = parent12gf.get("adjacent_controls", [])
+    if [(x.get("total_issue_number"), x.get("href")) for x in adj12gf] != [(65, "/books/R100000002-Ia0000052718-i25264749"), (67, "/books/R100000002-Ia0000052718-i25264816")]:
+        fail("Batch 12GF adjacent issue controls regressed")
+    child12gf = batch12gf.get("exact_child_record_control", {})
+    if child12gf.get("url") != "https://ndlsearch.ndl.go.jp/books/R100000002-Ia0000052718-i25264793" or child12gf.get("status") != 200:
+        fail("Batch 12GF direct target child route/status regressed")
+    if child12gf.get("response_sha256") != "b8678d1bab127f7ee45ef5851aa8d16fc2a03cc1d5a606e18baad9abc8823e29":
+        fail("Batch 12GF target child static response fingerprint regressed")
+    if child12gf.get("displayed_issue") != "2008(3) (通号 66) 2008" or child12gf.get("call_number") != "Z21-AC41" or child12gf.get("ndl_bib_id") != "a0000052718":
+        fail("Batch 12GF target child display/call/BibID regressed")
+    if child12gf.get("exact_material_label_id") != "UNRESOLVED" or child12gf.get("target_article_pages_121_129_directly_reviewed") is not False or child12gf.get("target_article_body_directly_reviewed") is not False:
+        fail("Batch 12GF target material/page/text falsely closed")
+    surf12gf = batch12gf.get("child_access_surface_control", {})
+    if surf12gf.get("generic_copy_help_present") is not True:
+        fail("Batch 12GF generic copy-help surface regressed")
+    if surf12gf.get("target_specific_remote_copy_eligibility_source_emitted") is not False or surf12gf.get("target_specific_article_location_investigation_eligibility_source_emitted") is not False or surf12gf.get("target_specific_request_button_or_cart_state_source_emitted") is not False:
+        fail("Batch 12GF generic access help was falsely promoted to target-specific eligibility")
+    if surf12gf.get("exact_material_or_holding_item_id_resolved") is not False or surf12gf.get("account_login_performed") is not False or surf12gf.get("request_submitted") is not False or surf12gf.get("fee_incurred") is not False:
+        fail("Batch 12GF target item/user-action boundary regressed")
+    runs12gf = batch12gf.get("research_runs", [])
+    if [x.get("run_id") for x in runs12gf] != [36098091941, 36098197610]:
+        fail("Batch 12GF research-run provenance regressed")
+    fw12gf = batch12gf.get("access_and_authority_firewall", {})
+    for key in ("source_emitted_child_href_does_not_equal_article_page_review","exact_issue_child_record_does_not_equal_exact_article_page","generic_copy_help_link_does_not_equal_target_specific_remote_copy_eligibility","generic_application_state_does_not_equal_requestable_item_state","call_number_and_bib_id_do_not_equal_material_label_or_copy_item_id","issue_identity_does_not_equal_primary_article_text","no_identifier_guessing","no_login_performed","no_remote_copy_request_submitted","no_article_location_investigation_submitted","no_ill_request_submitted","no_fee_or_purchase_incurred","no_date_to_page_interpolation","journal_pagination_does_not_map_to_2007_facsimile_pagination_without_direct_crosswalk"):
+        if fw12gf.get(key) is not True:
+            fail(f"Batch 12GF access/authority firewall regressed: {key}")
+    target12gf = batch12gf.get("target_status_after_batch", {})
+    if target12gf.get("target_issue_child_record") != "CLOSED_NDL_I25264793" or target12gf.get("target_issue_label") != "中國典籍與文化 2008(3) (通号 66) 2008":
+        fail("Batch 12GF target issue child status regressed")
+    if target12gf.get("target_article_page_range") != "121-129" or target12gf.get("target_1950_01_29_exact_journal_page") != "UNRESOLVED" or target12gf.get("target_1950_01_29_primary_journal_text") != "NOT_REVIEWED":
+        fail("Batch 12GF Jan-29 journal target falsely closed")
+    if target12gf.get("target_specific_ndl_remote_copy_eligibility") != "UNRESOLVED" or target12gf.get("exact_ndl_material_label_or_item_id") != "UNRESOLVED":
+        fail("Batch 12GF target-specific NDL request/material state falsely closed")
+    if target12gf.get("target_1950_01_29_exact_facsimile_page") != "UNRESOLVED" or target12gf.get("target_1950_01_29_facsimile_text") != "NOT_REVIEWED" or target12gf.get("target_1950_01_29_handwriting_directly_collated") is not False:
+        fail("Batch 12GF facsimile/handwriting target falsely closed")
+    reg12gf = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    parentreg12gf = next((x for x in reg12gf.get("sources", []) if x.get("source_id") == "EXT-NDL-ZHONGGUO-DIANJI-YU-WENHUA-Z21-AC41"), None)
+    childreg12gf = next((x for x in reg12gf.get("sources", []) if x.get("source_id") == "EXT-NDL-ZHONGGUO-DIANJI-YU-WENHUA-2008-03-I25264793"), None)
+    if parentreg12gf is None or childreg12gf is None:
+        fail("Batch 12GF NDL parent/exact-child registry controls missing")
+    if parentreg12gf.get("batch_12gf", {}).get("exact_target_child_suffix") != "i25264793" or parentreg12gf.get("batch_12gf", {}).get("target_pages_121_129_reviewed") is not False:
+        fail("Batch 12GF parent registry exact-child/page boundary regressed")
+    c12gf = childreg12gf.get("batch_12gf", {})
+    if c12gf.get("child_suffix") != "i25264793" or c12gf.get("total_issue_number") != 66 or c12gf.get("direct_child_http_status") != 200:
+        fail("Batch 12GF exact-child registry identity regressed")
+    if c12gf.get("target_specific_remote_copy_eligibility") != "UNRESOLVED" or c12gf.get("exact_material_label_or_item_id") != "UNRESOLVED" or c12gf.get("target_pages_121_129_reviewed") is not False:
+        fail("Batch 12GF registry copy/material/page boundary falsely closed")
+    trans12gf = batch12gf.get("transmission_impact", {})
+    if trans12gf.get("nodes_added") != [] or trans12gf.get("edges_added") != [] or trans12gf.get("acquisition_edge_authorized") is not False or trans12gf.get("same_object_edge_authorized") is not False:
+        fail("Batch 12GF zero-topology/acquisition-edge firewall regressed")
+    rule12gf = batch12gf.get("chronology_and_rule_firewall", {})
+    if rule12gf.get("direct_sanming_parent_vote_increment") != 0 or rule12gf.get("pre1578_zhunzhai_rule_witness_increment") != 0 or rule12gf.get("runtime_rule_change") is not False or rule12gf.get("algorithm_reopen_authorized") is not False or rule12gf.get("candidate_collapse_authorized") is not False or rule12gf.get("matrix_row_count_change") is not False:
+        fail("Batch 12GF product/matrix firewall regressed")
+    acct12gf = batch12gf.get("accounting", {})
+    if acct12gf.get("matrix_rows") != 198 or acct12gf.get("audited_rows") != 166 or acct12gf.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12GF matrix accounting unexpectedly changed")
+    if acct12gf.get("confirmed_provenance_metadata_defect_count") != 14 or acct12gf.get("repaired_provenance_metadata_defect_count") != 14 or acct12gf.get("confirmed_chart_algorithm_defect_count") != 0:
+        fail("Batch 12GF provenance/algorithm accounting regressed")
 
     for path in (ZIWEI_KYUDB_12DT_BATCH, ZIWEI_KYUDB_12DT_EVIDENCE):
         if not path.is_file():
