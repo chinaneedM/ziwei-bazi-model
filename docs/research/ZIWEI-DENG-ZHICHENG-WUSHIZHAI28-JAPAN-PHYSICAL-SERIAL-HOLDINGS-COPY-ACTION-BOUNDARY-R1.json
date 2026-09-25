@@ -1,0 +1,143 @@
+{
+  "schema": "ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-JAPAN-PHYSICAL-SERIAL-HOLDINGS-COPY-ACTION-BOUNDARY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-JAPAN-PHYSICAL-SERIAL-HOLDINGS-AND-COPY-ACTION-BOUNDARY-GE",
+  "prior_batch_id": "BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-PKU-TITLE-PHRASE-INDEX-NONMATCH-BOUNDARY-GD",
+  "question": "After PKU phrase-index nonmatches were correctly demoted to index-only evidence, is there a directly documented physical-journal route to the 2008(03) issue that could support lawful page inspection or copying of pp.121-129?",
+  "answer": "Yes, at the holding/access-route level. The National Diet Library first-party catalog records the paper serial 中國典籍與文化 under call number Z21-AC41 / NDLBibID a0000052718 with holdings from 1994 issue 1 (total 8) through 2018 issue 4 (total 107), a span that covers 2008 issue 3. The exact 2008(3) child-record/item identifier has not yet been resolved in this batch, so no issue-level material ID or copy eligibility is claimed. CiNii NCID AA1225301X independently lists multiple Japanese university holdings whose stated ranges include 2008, including Gakushuin, Kyoto University Institute for Research in Humanities, Takushoku, University of Tokyo Institute for Advanced Studies on Asia, Bukkyo University and Waseda. These are physical-access locators only; none has been used to inspect pp.121-129. NDL's official help documents paid remote copying for some NDL-tagged materials and an article-location investigation service for registered individual users, but using those services requires an account/action boundary and exact target eligibility has not been established. No login, copy request, ILL request, fee or purchase was performed.",
+  "ndl_first_party_serial_control": {
+    "source_id": "EXT-NDL-ZHONGGUO-DIANJI-YU-WENHUA-Z21-AC41",
+    "provider": "国立国会図書館 / NDL Search",
+    "title": "中國典籍與文化",
+    "url": "https://ndlsearch.ndl.go.jp/books/R100000002-Ia0000052718",
+    "ndl_call_number": "Z21-AC41",
+    "ndl_bib_id": "a0000052718",
+    "issn": "10043241",
+    "carrier": "PAPER",
+    "holdings_start": "1994年1期 总8期",
+    "holdings_end": "2018年4期 总107期",
+    "target_issue": "2008(03)",
+    "target_issue_within_listed_holding_span": true,
+    "exact_target_issue_child_record_id": "UNRESOLVED",
+    "exact_target_issue_material_label_id": "UNRESOLVED",
+    "target_pages_121_129_directly_reviewed": false
+  },
+  "ndl_service_control": {
+    "official_help_url": "https://ndlsearch.ndl.go.jp/help/about",
+    "registered_individual_remote_copy_service_documented": true,
+    "remote_copy_is_paid": true,
+    "registered_individual_article_location_investigation_documented": true,
+    "exact_target_issue_remote_copy_eligibility": "NOT_CHECKED_AUTHENTICATED",
+    "account_login_performed": false,
+    "remote_copy_request_submitted": false,
+    "article_location_investigation_submitted": false,
+    "fee_incurred": false
+  },
+  "cinii_union_holding_control": {
+    "source_id": "EXT-CINII-AA1225301X-ZHONGGUO-DIANJI-YU-WENHUA-JAPAN-HOLDINGS",
+    "provider": "CiNii / National Institute of Informatics",
+    "url": "https://ci.nii.ac.jp/ncid/AA1225301X",
+    "ncid": "AA1225301X",
+    "issn": "10043241",
+    "target_issue": "2008(03)",
+    "holdings_covering_2008": [
+      {
+        "institution": "学習院大学 図書館",
+        "call_number": "123/2//P",
+        "range": "2007(3-4),2008-2010,2011(1-3),2012-2015"
+      },
+      {
+        "institution": "京都大学 人文科学研究所 図書室",
+        "call_number": "222.005||C/62",
+        "range": "2007-2011,2012(1,3-4),2013-2014,2015(1-3),2016-2019,2020(1-3),2021(2-3),2022-2023,2024(1,3-6),2025(1-3)+"
+      },
+      {
+        "institution": "拓殖大学 八王子図書館",
+        "range": "1992-1994,1997(2-3),2003-2005,2006(1),2007-2024,2025(1-4)"
+      },
+      {
+        "institution": "東京大学 東洋文化研究所 図書室",
+        "call_number": "CZZ:296",
+        "range": "2007(3-4),2008-2017,2018(1)"
+      },
+      {
+        "institution": "佛教大学 附属図書館",
+        "range": "1992(1-3),1993-2009"
+      },
+      {
+        "institution": "早稲田大学 図書館 (中央図書館)",
+        "range": "1992-2025,2026(1-2)+"
+      }
+    ],
+    "negative_holding_control": {
+      "institution": "奈良大学 図書館",
+      "range": "1992(1-3),1994,1995(1,4),1996(3-4),1997-2002,2003(1-3),2004-2007,2008(1-2),2012(4)",
+      "target_2008_issue_3_in_listed_holdings": false
+    },
+    "target_pages_121_129_directly_reviewed": false
+  },
+  "gakushuin_opac_action_surface": {
+    "source_id": "EXT-GAKUSHUIN-OPAC-AA1225301X-ILL-ACTION-SURFACE",
+    "url": "https://glim-op.glim.gakushuin.ac.jp/webopac/cattab.do?ncid=AA1225301X&sp_srh_flg=true",
+    "interlibrary_copy_request_control_visible": true,
+    "interlibrary_loan_request_control_visible": true,
+    "login_control_visible": true,
+    "exact_target_issue_copy_eligibility": "UNRESOLVED",
+    "request_submitted": false
+  },
+  "access_and_authority_firewall": {
+    "series_holding_span_does_not_equal_target_page_review": true,
+    "union_catalog_holding_does_not_equal_article_text_authority": true,
+    "remote_copy_service_availability_does_not_equal_target_issue_eligibility": true,
+    "physical_holding_does_not_equal_same_copy_or_same_issue_item_identity": true,
+    "exact_issue_child_record_required_before_item_level_request": true,
+    "no_login_performed": true,
+    "no_ill_request_submitted": true,
+    "no_remote_copy_request_submitted": true,
+    "no_article_location_investigation_submitted": true,
+    "no_fee_or_purchase_incurred": true,
+    "no_page_interpolation": true
+  },
+  "target_status_after_batch": {
+    "target_article_page_range": "121-129",
+    "target_1950_01_29_exact_journal_page": "UNRESOLVED",
+    "target_1950_01_29_primary_journal_text": "NOT_REVIEWED",
+    "target_1950_01_29_exact_facsimile_page": "UNRESOLVED",
+    "target_1950_01_29_facsimile_text": "NOT_REVIEWED",
+    "direct_physical_2008_issue_access_routes": "EXPANDED_JAPAN_NDL_AND_UNIVERSITY_HOLDINGS",
+    "exact_ndl_target_issue_child_record": "UNRESOLVED",
+    "target_3482_3483_batch_membership": "UNRESOLVED",
+    "target_specific_purchase_route_selected": false,
+    "target_specific_donation_route_selected": false
+  },
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_added": [],
+    "acquisition_edge_authorized": false,
+    "same_object_edge_authorized": false
+  },
+  "chronology_and_rule_firewall": {
+    "direct_sanming_parent_vote_increment": 0,
+    "pre1578_zhunzhai_rule_witness_increment": 0,
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 14,
+    "repaired_provenance_metadata_defect_count": 14,
+    "confirmed_chart_algorithm_defect_count": 0
+  },
+  "next_gate": [
+    "Resolve the exact NDL child record/material identifier for 中國典籍與文化 2008(3) without guessing identifiers, then determine whether the target issue supports remote copying or article-location investigation.",
+    "Continue public source-emitted searches for the exact 1950-01-29 journal page/citation before any account-based request.",
+    "If a lawful copy/page object is obtained, directly collate pp.121-129 and bind 1950-01-29 to its exact journal page and punctuation-independent wording.",
+    "Continue the 2007 facsimile volume-5 page/leaf route in parallel and compare any direct handwriting against the editor-checked serial and 2012 derivative.",
+    "Continue FV Jan-6, NLC [23]/[24], Ji Shuying chapter 9 and Gao Xizeng annotated-catalog routes in parallel."
+  ],
+  "updated_at": "2026-09-25"
+}
