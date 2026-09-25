@@ -8512,12 +8512,23 @@
       "provider": "CiNii Books / NII",
       "url": "https://ci.nii.ac.jp/author/DA1043209X",
       "source_role": "INDEPENDENT_JAPAN_UNION_CATALOG_BIBLIOGRAPHIC_AND_HOLDING_CONTROL",
-      "quality_notes": "Batch 12GP uses CiNii only to independently corroborate the 2004.9 Beijing Library Press work identity and multiple Japanese holdings. The author page reports availability at 11 libraries; it does not expose the target article page range.",
+      "quality_notes": "Batch 12GP uses CiNii only to independently corroborate the 2004.9 Beijing Library Press work identity and multiple Japanese holdings. The author page reports availability at 11 libraries; it does not expose the target article page range. Batch 12GT additionally reviews the exact NCID record and closes the institutional extent as literal 4, 435p / 22cm; this does not expose item 74 pages.",
       "batch_12gp": {
         "publication_date": "2004.9",
         "observed_holding_count": 11,
         "article_page_range_exposed": false,
         "research_artifact": "docs/research/ZIWEI-JI-SHUYING-2004-BAICHUAN-ARTICLE-HOLDING-AND-FIFTEEN-LECTURES-SOURCE-GENEALOGY-BOUNDARY-R1.json"
+      },
+      "batch_12gt": {
+        "exact_record_url": "https://ci.nii.ac.jp/ncid/BA71484545",
+        "ncid": "BA71484545",
+        "isbn": "7501324611",
+        "extent_literal": "4, 435p",
+        "size": "22cm",
+        "holdings_count": 11,
+        "main_numbered_extent": 435,
+        "retail_p456_as_canonical_pagination": false,
+        "research_artifact": "docs/research/ZIWEI-JI-SHUYING-WENJI-2004-INSTITUTIONAL-PAGINATION-AND-RETAIL-P456-FIREWALL-R1.json"
       }
     },
     {
@@ -8616,6 +8627,25 @@
         "editor_postscript_body_exposed": false,
         "page_interpolation_authorized": false,
         "research_artifact": "docs/research/ZIWEI-JI-SHUYING-WENJI-2004-PUBLIC-FULL-TOC-ARTICLE74-EDITORIAL-ENDMATTER-BOUNDARY-R1.json"
+      }
+    },
+    {
+      "source_id": "EXT-STANFORD-SEARCHWORKS-JI-SHUYING-WENJI-2004-EXTENT",
+      "title": "Stanford SearchWorks: Ji Shuying wen ji / 冀淑英文集",
+      "author": "冀淑英",
+      "historical_period": "2004 volume / current institutional catalog record",
+      "provider": "Stanford University Libraries SearchWorks",
+      "identifier": "Catkey 6318452",
+      "url": "https://searchworks.stanford.edu/view/6318452",
+      "source_role": "INDEPENDENT_INSTITUTIONAL_BIBLIOGRAPHIC_EXTENT_CONTROL_FOR_2004_JI_WENJI",
+      "quality_notes": "Batch 12GT reviews the SearchWorks indexed institutional catalog result, which exposes 4, 10, 435 p. : ill. (some col.) ; 22 cm. The full-record fetch timed out in the reviewed web route, so no additional fields are claimed. It independently converges with CiNii on 435 as the numbered main-page extent while differing on preliminary-matter representation.",
+      "batch_12gt": {
+        "extent_literal": "4, 10, 435 p.",
+        "main_numbered_extent": 435,
+        "size": "22 cm",
+        "full_record_fetch_timed_out": true,
+        "page_range_for_baichuan_exposed": false,
+        "research_artifact": "docs/research/ZIWEI-JI-SHUYING-WENJI-2004-INSTITUTIONAL-PAGINATION-AND-RETAIL-P456-FIREWALL-R1.json"
       }
     }
   ],

@@ -204,6 +204,8 @@ ZIWEI_JI_PP383_12GR_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDI
 ZIWEI_JI_PP383_12GR_EVIDENCE = ROOT / "docs/research/ZIWEI-JI-SHUYING-WENJI-PP383-385-CHEN-QINGHUA-PURCHASE-CONTEXT-FIREWALL-R1.json"
 ZIWEI_JI_TOC_12GS_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-WENJI-2004-PUBLIC-FULL-TOC-ARTICLE74-EDITORIAL-ENDMATTER-BOUNDARY-GS.md"
 ZIWEI_JI_TOC_12GS_EVIDENCE = ROOT / "docs/research/ZIWEI-JI-SHUYING-WENJI-2004-PUBLIC-FULL-TOC-ARTICLE74-EDITORIAL-ENDMATTER-BOUNDARY-R1.json"
+ZIWEI_JI_EXTENT_12GT_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-WENJI-2004-INSTITUTIONAL-PAGINATION-AND-RETAIL-P456-FIREWALL-GT.md"
+ZIWEI_JI_EXTENT_12GT_EVIDENCE = ROOT / "docs/research/ZIWEI-JI-SHUYING-WENJI-2004-INSTITUTIONAL-PAGINATION-AND-RETAIL-P456-FIREWALL-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -532,9 +534,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-JI-SHUYING-WENJI-2010-SUPPLEMENT-ARTICLE-DISCOVERY-BOUNDARY-GQ",
     "BATCH-12-ZIWEI-JI-SHUYING-WENJI-PP383-385-CHEN-QINGHUA-PURCHASE-CONTEXT-FALSE-LEAD-FIREWALL-GR",
     "BATCH-12-ZIWEI-JI-SHUYING-WENJI-2004-PUBLIC-FULL-TOC-ARTICLE74-EDITORIAL-ENDMATTER-BOUNDARY-GS",
+    "BATCH-12-ZIWEI-JI-SHUYING-WENJI-2004-INSTITUTIONAL-PAGINATION-AND-RETAIL-P456-FIREWALL-GT",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-WENJI-2004-PUBLIC-FULL-TOC-ARTICLE74-EDITORIAL-ENDMATTER-BOUNDARY-GS.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-WENJI-2004-INSTITUTIONAL-PAGINATION-AND-RETAIL-P456-FIREWALL-GT.md"
 
 
 def fail(message: str) -> None:
@@ -7080,6 +7083,64 @@ def main() -> int:
         fail("Batch 12GS missing from completed batch state")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12GS latest-batch document state mismatch")
+
+    # Batch 12GT Ji Wenji institutional pagination vs retail-p456 firewall.
+    for path in (ZIWEI_JI_EXTENT_12GT_BATCH, ZIWEI_JI_EXTENT_12GT_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12GT continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12gt = json.loads(ZIWEI_JI_EXTENT_12GT_EVIDENCE.read_text(encoding="utf-8"))
+    bid12gt = "BATCH-12-ZIWEI-JI-SHUYING-WENJI-2004-INSTITUTIONAL-PAGINATION-AND-RETAIL-P456-FIREWALL-GT"
+    if batch12gt.get("batch_id") != bid12gt:
+        fail("Batch 12GT evidence identity mismatch")
+    ext12gt = batch12gt.get("institutional_extent_controls", {})
+    ci12gt = ext12gt.get("cinii", {})
+    st12gt = ext12gt.get("stanford", {})
+    rt12gt = ext12gt.get("retail_control_from_batch_12gs", {})
+    if ci12gt.get("ncid") != "BA71484545" or ci12gt.get("isbn") != "7501324611" or ci12gt.get("extent_literal") != "4, 435p":
+        fail("Batch 12GT CiNii exact-record extent regressed")
+    if st12gt.get("catalog_key") != "6318452" or st12gt.get("extent_literal") != "4, 10, 435 p.":
+        fail("Batch 12GT Stanford extent control regressed")
+    if rt12gt.get("extent_literal") != "p456/32開/精装" or rt12gt.get("canonical_pagination_authorized") is not False:
+        fail("Batch 12GT retail extent firewall regressed")
+    adj12gt = batch12gt.get("adjudication", {})
+    if adj12gt.get("institutional_main_numbered_extent_convergence") != 435:
+        fail("Batch 12GT institutional numbered extent convergence regressed")
+    if adj12gt.get("preliminary_matter_representation") != "VARIANT_CINII_4_VS_STANFORD_4_10_PRESERVE_LITERAL":
+        fail("Batch 12GT preliminary-matter variation regressed")
+    if adj12gt.get("retail_p456_as_canonical_pagination") != "REJECTED_FOR_PAGE_INFERENCE" or adj12gt.get("retail_p456_as_possible_total_or_vendor_count") != "UNRESOLVED_DO_NOT_NORMALIZE":
+        fail("Batch 12GT retail-p456 adjudication regressed")
+    if adj12gt.get("baichuan_toc_ordinal") != 74 or adj12gt.get("baichuan_exact_page_range") != "UNRESOLVED" or adj12gt.get("page_interpolation_from_ordinal_total_pages_or_neighbor_order") != "NOT_AUTHORIZED":
+        fail("Batch 12GT Baichuan page-inference firewall regressed")
+    if adj12gt.get("direct_2004_article_text") != "NOT_REVIEWED" or adj12gt.get("direct_final_bianhouji_text") != "NOT_REVIEWED" or adj12gt.get("derivation_status") != "SECONDARY_REPORTED_NOT_DIRECTLY_CLOSED":
+        fail("Batch 12GT direct-text/genealogy boundary regressed")
+    srcids12gt = {x.get("source_id"): x for x in registry.get("sources", ())}
+    if "EXT-CINII-JI-SHUYING-WENJI-2004-HOLDINGS" not in srcids12gt or "EXT-STANFORD-SEARCHWORKS-JI-SHUYING-WENJI-2004-EXTENT" not in srcids12gt:
+        fail("Batch 12GT source registry binding missing")
+    if srcids12gt["EXT-CINII-JI-SHUYING-WENJI-2004-HOLDINGS"].get("batch_12gt", {}).get("main_numbered_extent") != 435:
+        fail("Batch 12GT CiNii registry enrichment missing")
+    if srcids12gt["EXT-STANFORD-SEARCHWORKS-JI-SHUYING-WENJI-2004-EXTENT"].get("batch_12gt", {}).get("main_numbered_extent") != 435:
+        fail("Batch 12GT Stanford registry binding regressed")
+    trans12gt = batch12gt.get("transmission_impact", {})
+    if trans12gt.get("nodes_added") != [] or trans12gt.get("edges_added") != [] or trans12gt.get("direct_copy_edge_authorized") is not False or trans12gt.get("same_object_edge_authorized") is not False or trans12gt.get("acquisition_edge_authorized") is not False:
+        fail("Batch 12GT topology/genealogy firewall regressed")
+    rule12gt = batch12gt.get("chronology_and_rule_firewall", {})
+    if rule12gt.get("runtime_rule_change") is not False or rule12gt.get("algorithm_reopen_authorized") is not False or rule12gt.get("candidate_collapse_authorized") is not False or rule12gt.get("matrix_count_change") is not False:
+        fail("Batch 12GT product/matrix firewall regressed")
+    acct12gt = batch12gt.get("accounting", {})
+    if acct12gt.get("matrix_rows") != 198 or acct12gt.get("audited_rows") != 166 or acct12gt.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12GT matrix accounting unexpectedly changed")
+    if acct12gt.get("confirmed_provenance_metadata_defect_count") != 14 or acct12gt.get("repaired_provenance_metadata_defect_count") != 14 or acct12gt.get("confirmed_chart_algorithm_defect_count") != 0:
+        fail("Batch 12GT provenance/algorithm accounting regressed")
+    try:
+        schema12gt = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12GT current-state schema version is not numeric")
+    if schema12gt < (1, 206, 0):
+        fail("Batch 12GT current-state schema version regressed below 1.206.0")
+    if bid12gt not in audit_state.get("completed_batches", ()):
+        fail("Batch 12GT missing from completed batch state")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12GT latest-batch document state mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")
