@@ -7668,7 +7668,7 @@
       "provider": "北京大学期刊平台",
       "url": "https://ccj.pku.edu.cn/Search/search?fd0=2&kw0=%E9%82%93%E5%A3%B0%E5%A8%81",
       "source_role": "FIRST_PARTY_PLATFORM_INDEX_METADATA_FOR_EXACT_ARTICLE_PAGE_RANGE",
-      "quality_notes": "Batch 12FZ records Peking University platform indexed metadata emitting the exact target title, authors, 中国典籍与文化 2008 (03), pp.121-129 and a Fulltext label. The reviewed live detail route is not stably rendered, so this closes article bibliographic page range only, not page images or primary article glyphs.",
+      "quality_notes": "Batch 12FZ records Peking University platform indexed metadata emitting the exact target title, authors, 中国典籍与文化 2008(03), pp.121-129. Batch 12GC replays the current first-party search backend using its source-emitted Title-field contract, binds the unique target to article id 286663046, and closes the stable detail URL. The row says hasFullText=true while isFileExist=false/fulltextFId=null; the detail page's own ArticleFile route returns JSON 文件不存在. Therefore Fulltext metadata is not promoted to retrievable file or primary-text authority.",
       "batch_12fz": {
         "article_title": "《五石斋文史札记》(二十八)",
         "authors": [
@@ -7686,6 +7686,29 @@
         "direct_primary_page_images_reviewed": false,
         "direct_primary_article_text_reviewed": false,
         "research_artifact": "docs/research/ZIWEI-DENG-ZHICHENG-WUSHIZHAI-2008-ISSUE03-PKU-ARTICLE-RANGE-P120-REPAIR-R1.json"
+      },
+      "batch_12gc": {
+        "role": "CURRENT_FIRST_PARTY_SEARCH_BACKEND_EXACT_ARTICLE_ID_STABLE_DETAIL_AND_ARTICLEFILE_BOUNDARY",
+        "article_id": "286663046",
+        "detail_url": "https://ccj.pku.edu.cn/article/info?aid=286663046",
+        "year": 2008,
+        "issue": "03",
+        "volume_issue_id": "12482306",
+        "page_range": "121-129",
+        "backend_series_result_count": 37,
+        "exact_installment_28_match_count": 1,
+        "has_full_text_flag": true,
+        "is_file_exist": false,
+        "fulltext_fid": null,
+        "stable_detail_route_closed": true,
+        "source_emitted_articlefile_url": "https://ccj.pku.edu.cn/Article/DownLoad?id=286663046&&type=ArticleFile",
+        "articlefile_http_status": 200,
+        "articlefile_content_type": "application/json; charset=utf-8",
+        "articlefile_response_error": "文件不存在",
+        "articlefile_retrieved": false,
+        "primary_journal_text_reviewed": false,
+        "no_article_id_enumeration_or_guessing": true,
+        "research_artifact": "docs/research/ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-PKU-STABLE-DETAIL-ARTICLEFILE-BOUNDARY-R1.json"
       }
     },
     {
