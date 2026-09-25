@@ -192,6 +192,8 @@ ZIWEI_JI_CAMBRIDGE_12GL_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-
 ZIWEI_JI_CAMBRIDGE_12GL_EVIDENCE = ROOT / "docs/research/ZIWEI-JI-SHUYING-CAMBRIDGE-MCDERMOTT-HOLDING-AND-SCAN-ELIGIBILITY-BOUNDARY-R1.json"
 ZIWEI_LIN_TONGJI_12GM_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-LIN-ZHENYUE-2024-TONGJI-TIEQIN-SALE-NEW-MATERIALS-REPORT-SOURCE-BASIS-BOUNDARY-GM.md"
 ZIWEI_LIN_TONGJI_12GM_EVIDENCE = ROOT / "docs/research/ZIWEI-LIN-ZHENYUE-2024-TONGJI-TIEQIN-SALE-NEW-MATERIALS-REPORT-SOURCE-BASIS-BOUNDARY-R1.json"
+ZIWEI_NLC_PP446_12GN_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-PP446-449-TIEQIN-CITATION-BRIDGE-AND-TOKYO-HOLDING-GN.md"
+ZIWEI_NLC_PP446_12GN_EVIDENCE = ROOT / "docs/research/ZIWEI-NLC-PP446-449-TIEQIN-CITATION-BRIDGE-AND-TOKYO-HOLDING-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -514,9 +516,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-SONG-YUNBIN-DIARY-1950-0211-TIEQIN-CONTEMPORARY-COUNT-PRICE-DISCREPANCY-FIREWALL-GK",
     "BATCH-12-ZIWEI-JI-SHUYING-CAMBRIDGE-MCDERMOTT-HOLDING-AND-SCAN-ELIGIBILITY-BOUNDARY-GL",
     "BATCH-12-ZIWEI-LIN-ZHENYUE-2024-TONGJI-TIEQIN-SALE-NEW-MATERIALS-REPORT-SOURCE-BASIS-BOUNDARY-GM",
+    "BATCH-12-ZIWEI-NLC-PP446-449-TIEQIN-CITATION-BRIDGE-AND-TOKYO-HOLDING-GN",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-LIN-ZHENYUE-2024-TONGJI-TIEQIN-SALE-NEW-MATERIALS-REPORT-SOURCE-BASIS-BOUNDARY-GM.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-PP446-449-TIEQIN-CITATION-BRIDGE-AND-TOKYO-HOLDING-GN.md"
 
 
 def fail(message: str) -> None:
@@ -6743,6 +6746,59 @@ def main() -> int:
         fail("Batch 12GM missing from completed batch state")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12GM latest-batch document state mismatch")
+
+    # Batch 12GN NLC pp.446-449 Tieqin citation bridge and Tokyo holding route.
+    for path in (ZIWEI_NLC_PP446_12GN_BATCH, ZIWEI_NLC_PP446_12GN_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12GN continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12gn = json.loads(ZIWEI_NLC_PP446_12GN_EVIDENCE.read_text(encoding="utf-8"))
+    bid12gn = "BATCH-12-ZIWEI-NLC-PP446-449-TIEQIN-CITATION-BRIDGE-AND-TOKYO-HOLDING-GN"
+    if batch12gn.get("batch_id") != bid12gn:
+        fail("Batch 12GN evidence identity mismatch")
+    nlc12gn = batch12gn.get("nlc_2024_citation_bridge", {})
+    if nlc12gn.get("provider") != "国家图书馆 / 中国古籍保护网" or nlc12gn.get("quote_reference_number") != 23:
+        fail("Batch 12GN NLC citation bridge identity regressed")
+    if nlc12gn.get("reference_23", {}).get("pages") != "446—449" or nlc12gn.get("beijing_library_intake_quote") != "这些善本入藏本馆，本馆中文书藏地位将益形重要，可为全国之冠":
+        fail("Batch 12GN pp446-449 quote binding regressed")
+    if nlc12gn.get("preceding_sentence_about_qu_books_made_over_to_government_reference_number") != 22 or nlc12gn.get("preceding_sentence_reference_is_not_1997_pp446_449") is not True:
+        fail("Batch 12GN reference-22/reference-23 separation regressed")
+    if nlc12gn.get("direct_1997_page_images_reviewed") is not False or nlc12gn.get("direct_1997_page_text_reviewed") is not False:
+        fail("Batch 12GN direct-page authority boundary regressed")
+    tokyo12gn = batch12gn.get("tokyo_metropolitan_holding_control", {})
+    if tokyo12gn.get("provider") != "東京都立図書館" or tokyo12gn.get("displayed_shelf_sequence") != ["0161", "1", "2-1"]:
+        fail("Batch 12GN Tokyo holding route regressed")
+    if tokyo12gn.get("page_446_449_images_exposed_on_reviewed_public_surface") is not False or tokyo12gn.get("project_submitted_copy_request") is not False:
+        fail("Batch 12GN Tokyo page-access boundary regressed")
+    adj12gn = batch12gn.get("adjudication", {})
+    if adj12gn.get("pp446_449_tieqin_context_citation_bridge") != "CLOSED_AT_NLC_HOSTED_MODERN_SCHOLARLY_LAYER" or adj12gn.get("pp446_449_direct_page_collation") != "NOT_REVIEWED":
+        fail("Batch 12GN citation/direct-page adjudication regressed")
+    if adj12gn.get("target_specific_sale_or_purchase_route_selected") is not False or adj12gn.get("target_specific_donation_route_selected") is not False or adj12gn.get("final_nlc_acquisition_transfer_path") != "UNRESOLVED":
+        fail("Batch 12GN target transfer route falsely selected")
+    srcids12gn = {x.get("source_id"): x for x in registry.get("sources", ())}
+    for sid in ("EXT-NLC-CAI-LI-2024-QU-TIEQIN-BEITU-PP446-449-CITATION-BRIDGE", "EXT-TOKYO-METROPOLITAN-1997-BEITU-HISTORY-V2-UPPER-HOLDING"):
+        if sid not in srcids12gn:
+            fail(f"Batch 12GN source registry missing: {sid}")
+    trans12gn = batch12gn.get("transmission_impact", {})
+    if trans12gn.get("nodes_added") != [] or trans12gn.get("edges_added") != [] or trans12gn.get("acquisition_edge_authorized") is not False or trans12gn.get("same_object_edge_authorized") is not False:
+        fail("Batch 12GN zero-topology/acquisition-edge firewall regressed")
+    rule12gn = batch12gn.get("chronology_and_rule_firewall", {})
+    if rule12gn.get("runtime_rule_change") is not False or rule12gn.get("algorithm_reopen_authorized") is not False or rule12gn.get("candidate_collapse_authorized") is not False or rule12gn.get("matrix_count_change") is not False:
+        fail("Batch 12GN product/matrix firewall regressed")
+    acct12gn = batch12gn.get("accounting", {})
+    if acct12gn.get("matrix_rows") != 198 or acct12gn.get("audited_rows") != 166 or acct12gn.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12GN matrix accounting unexpectedly changed")
+    if acct12gn.get("confirmed_provenance_metadata_defect_count") != 14 or acct12gn.get("repaired_provenance_metadata_defect_count") != 14 or acct12gn.get("confirmed_chart_algorithm_defect_count") != 0:
+        fail("Batch 12GN provenance/algorithm accounting regressed")
+    try:
+        schema12gn = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12GN current-state schema version is not numeric")
+    if schema12gn < (1, 200, 0):
+        fail("Batch 12GN current-state schema version regressed below 1.200.0")
+    if bid12gn not in audit_state.get("completed_batches", ()):
+        fail("Batch 12GN missing from completed batch state")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12GN latest-batch document state mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")
