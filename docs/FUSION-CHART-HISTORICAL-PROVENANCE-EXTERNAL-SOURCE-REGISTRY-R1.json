@@ -8360,7 +8360,7 @@
       "provider": "国家图书馆 / 中国古籍保护网",
       "url": "https://www.nlc.cn/pcab/zx/xw/20240701_2640245.shtml",
       "source_role": "FIRST_PARTY_NLC_HOSTED_MODERN_SCHOLARLY_CITATION_BRIDGE_FROM_TIEQIN_TRANSFER_CONTEXT_TO_BEIJING_LIBRARY_HISTORY_COMPILATION_PP446_449",
-      "quality_notes": "Batch 12GN uses this source only at the modern institutional scholarly-citation layer. In section 3.1 it discusses the Qu/Tieqin transfer, then quotes ‘这些善本入藏本馆，本馆中文书藏地位将益形重要，可为全国之冠’ with reference [23] immediately following; [23] is the 1997 《北京图书馆馆史资料汇编二：1946—1966》 pp.446—449. The preceding ‘让归政府’ sentence is cited to [22], not [23]. Direct 1997 page images/text remain unreviewed.",
+      "quality_notes": "Batch 12GN uses this source only at the modern institutional scholarly-citation layer. In section 3.1 it discusses the Qu/Tieqin transfer, then quotes ‘这些善本入藏本馆，本馆中文书藏地位将益形重要，可为全国之冠’ with reference [23] immediately following; [23] is the 1997 《北京图书馆馆史资料汇编二：1946—1966》 pp.446—449. The preceding ‘让归政府’ sentence is cited to [22], not [23]. Direct 1997 page images/text remain unreviewed. Batch 12GO later separates the reference's literal 1946—1966 string from the canonical 1997 bibliographic identity: Google Books ISBN 7501314195 and an NLC-hosted 2023 periodical citation converge on 1949—1966. The pp.446—449 citation bridge is preserved.",
       "batch_12gn": {
         "tieqin_context_exposed": true,
         "beijing_library_intake_quote": "这些善本入藏本馆，本馆中文书藏地位将益形重要，可为全国之冠",
@@ -8371,6 +8371,14 @@
         "target_3482_3483_named_in_article": false,
         "target_route_selected": false,
         "research_artifact": "docs/research/ZIWEI-NLC-PP446-449-TIEQIN-CITATION-BRIDGE-AND-TOKYO-HOLDING-R1.json"
+      },
+      "batch_12go": {
+        "observed_reference_23_literal_range": "1946—1966",
+        "canonical_1997_range": "1949—1966",
+        "classification": "BIBLIOGRAPHIC_DATE_RANGE_VARIANT_HIGH_CONFIDENCE_TYPO_NOT_CANONICAL_TITLE",
+        "pp446_449_citation_bridge_preserved": true,
+        "direct_pages_still_unreviewed": true,
+        "research_artifact": "docs/research/ZIWEI-BEITU-HISTORY-1997-1949-1966-BIBLIOGRAPHIC-RANGE-REPAIR-R1.json"
       }
     },
     {
@@ -8399,6 +8407,46 @@
         "copy_request_submitted": false,
         "target_3482_3483_named": false,
         "research_artifact": "docs/research/ZIWEI-NLC-PP446-449-TIEQIN-CITATION-BRIDGE-AND-TOKYO-HOLDING-R1.json"
+      }
+    },
+    {
+      "source_id": "EXT-GOOGLE-BOOKS-BEITU-HISTORY-1997-1949-1966-ISBN7501314195",
+      "title": "Google Books《北京图书馆馆史资料汇编: 1949-1966, Volume 2》",
+      "author": "北京图书馆馆史资料汇编(二)编辑委员会",
+      "historical_period": "1997 publication; current Google Books bibliographic object",
+      "provider": "Google Books",
+      "identifier": "BZ0M0gEACAAJ / ISBN 7501314195 / 9787501314195",
+      "url": "https://books.google.com/books?id=BZ0M0gEACAAJ",
+      "source_role": "BIBLIOGRAPHIC_IDENTITY_CONTROL_FOR_1997_BEIJING_LIBRARY_HISTORY_COMPILATION_DATE_RANGE",
+      "quality_notes": "Batch 12GO uses the object only for canonical bibliographic identity: title/range 1949-1966, Volume 2, Beijing Library Press 1997, ISBN 7501314195/9787501314195, 1811 pages. It does not expose or authenticate pp.446—449 target text.",
+      "batch_12go": {
+        "canonical_range": "1949—1966",
+        "volume_id": "BZ0M0gEACAAJ",
+        "isbn_10": "7501314195",
+        "isbn_13": "9787501314195",
+        "page_count": 1811,
+        "direct_pp446_449_reviewed": false,
+        "research_artifact": "docs/research/ZIWEI-BEITU-HISTORY-1997-1949-1966-BIBLIOGRAPHIC-RANGE-REPAIR-R1.json"
+      }
+    },
+    {
+      "source_id": "EXT-NLC-WENJIN-2023-BEITU-HISTORY-1949-1966-BIBLIOGRAPHIC-CONTROL",
+      "title": "国家图书馆《文津流觞》2023年第4期：马涛《王重民与鼎新之际的国家图书馆》书目脚注",
+      "author": "马涛",
+      "historical_period": "2023 NLC publication citing 1997 compilation",
+      "provider": "国家图书馆",
+      "url": "https://www.nlc.cn/upload/attachments/2023-12-18/56d6e51d.pdf",
+      "source_role": "FIRST_PARTY_NLC_PUBLICATION_INDEPENDENT_BIBLIOGRAPHIC_RANGE_CONTROL_FOR_1997_COMPILATION",
+      "quality_notes": "Batch 12GO directly reviews PDF page index 6 / printed p.22. Footnote ② visibly cites 《北京图书馆馆史资料汇编（二）（1949—1966）》, 北京图书馆出版社, 1997, p.606. This is independent NLC-hosted support for canonical range 1949—1966, not pp.446—449 target-page text.",
+      "batch_12go": {
+        "periodical": "文津流觞",
+        "issue": "2023年第4期",
+        "article": "王重民与鼎新之际的国家图书馆",
+        "printed_page": 22,
+        "canonical_range": "1949—1966",
+        "cited_page": 606,
+        "direct_pp446_449_reviewed": false,
+        "research_artifact": "docs/research/ZIWEI-BEITU-HISTORY-1997-1949-1966-BIBLIOGRAPHIC-RANGE-REPAIR-R1.json"
       }
     }
   ],

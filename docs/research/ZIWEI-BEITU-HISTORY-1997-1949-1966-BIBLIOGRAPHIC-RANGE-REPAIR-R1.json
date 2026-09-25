@@ -1,0 +1,120 @@
+{
+  "schema": "ZIWEI-BEITU-HISTORY-1997-1949-1966-BIBLIOGRAPHIC-RANGE-REPAIR-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-BEITU-HISTORY-1997-1949-1966-BIBLIOGRAPHIC-RANGE-REPAIR-GO",
+  "prior_batch_id": "BATCH-12-ZIWEI-NLC-PP446-449-TIEQIN-CITATION-BRIDGE-AND-TOKYO-HOLDING-GN",
+  "question": "Is the canonical date range of the 1997 《北京图书馆馆史资料汇编（二）》 1946—1966 as printed in Cai/Li 2024 reference [23], or 1949—1966?",
+  "answer": "The canonical 1997 bibliographic identity is 1949—1966. Google Books volume BZ0M0gEACAAJ identifies the 1997 Beijing Library Press volume as 《北京图书馆馆史资料汇编: 1949-1966》, Volume 2, ISBN 7501314195 / 9787501314195, 1811 pages. Independently, the National Library of China-hosted 《文津流觞》2023年第4期, in Ma Tao's article 《王重民与鼎新之际的国家图书馆》, visibly cites 《北京图书馆馆史资料汇编（二）（1949—1966）》, Beijing Library Press, 1997, p.606. Cai/Li 2024 reference [23] literally prints 1946—1966 for the same editor/publisher/year and pp.446—449; that literal source-layer variant is preserved but adjudicated as a high-confidence bibliographic typo rather than canonical title identity.",
+  "google_books_bibliographic_control": {
+    "source_id": "EXT-GOOGLE-BOOKS-BEITU-HISTORY-1997-1949-1966-ISBN7501314195",
+    "url": "https://books.google.com/books?id=BZ0M0gEACAAJ",
+    "volume_id": "BZ0M0gEACAAJ",
+    "title": "北京图书馆馆史资料汇编: 1949-1966, Volume 2",
+    "contributor": "北京图书馆. 馆史资料汇编(二)编辑委员会",
+    "publisher": "北京图书馆出版社",
+    "publication_year": 1997,
+    "isbn_10": "7501314195",
+    "isbn_13": "9787501314195",
+    "page_count": 1811,
+    "direct_pp446_449_page_images_reviewed": false,
+    "role": "BIBLIOGRAPHIC_IDENTITY_CONTROL_NOT_TARGET_PAGE_TEXT"
+  },
+  "nlc_wenjin_2023_control": {
+    "source_id": "EXT-NLC-WENJIN-2023-BEITU-HISTORY-1949-1966-BIBLIOGRAPHIC-CONTROL",
+    "url": "https://www.nlc.cn/upload/attachments/2023-12-18/56d6e51d.pdf",
+    "provider": "国家图书馆",
+    "periodical": "文津流觞",
+    "issue": "2023年第4期",
+    "article_title": "王重民与鼎新之际的国家图书馆",
+    "author": "马涛",
+    "reviewed_pdf_page_index_zero_based": 6,
+    "printed_page": 22,
+    "visible_citation": "北京图书馆馆史资料汇编（二）编辑委员会：《北京图书馆馆史资料汇编（二）（1949—1966）》，北京图书馆出版社，1997年，第606页。",
+    "canonical_range_observed": "1949—1966",
+    "publisher_observed": "北京图书馆出版社",
+    "publication_year_observed": 1997,
+    "target_pp446_449_reviewed": false,
+    "role": "FIRST_PARTY_NLC_PUBLICATION_INDEPENDENT_BIBLIOGRAPHIC_RANGE_CONTROL"
+  },
+  "cai_li_2024_variant_control": {
+    "source_id": "EXT-NLC-CAI-LI-2024-QU-TIEQIN-BEITU-PP446-449-CITATION-BRIDGE",
+    "url": "https://www.nlc.cn/pcab/zx/xw/20240701_2640245.shtml",
+    "reference_number": 23,
+    "observed_literal_title": "北京图书馆馆史资料汇编二：1946—1966",
+    "observed_editor": "北京图书馆馆史资料汇编(二)编辑委员会",
+    "observed_publisher": "北京图书馆出版社",
+    "observed_publication_year": 1997,
+    "observed_pages": "446—449",
+    "literal_1946_string_preserved": true,
+    "classification": "BIBLIOGRAPHIC_DATE_RANGE_VARIANT_HIGH_CONFIDENCE_TYPO_NOT_CANONICAL_TITLE",
+    "canonical_range_after_adjudication": "1949—1966",
+    "pp446_449_citation_bridge_invalidated": false
+  },
+  "conflict_adjudication": {
+    "canonical_1997_range": "1949—1966",
+    "canonical_range_confidence": "HIGH",
+    "basis": [
+      "Google Books 1997 bibliographic object with ISBN 7501314195",
+      "National Library of China-hosted 2023 periodical PDF independently citing the same work as 1949—1966"
+    ],
+    "cai_li_2024_observed_range": "1946—1966",
+    "cai_li_2024_variant_status": "PRESERVE_LITERAL_SOURCE_LAYER_BUT_DO_NOT_USE_AS_CANONICAL_EDITION_IDENTITY",
+    "silent_normalization_forbidden": true,
+    "citation_bridge_to_pp446_449_preserved": true,
+    "direct_pp446_449_collation_still_pending": true
+  },
+  "correction_to_batch_12gn": {
+    "batch_id": "BATCH-12-ZIWEI-NLC-PP446-449-TIEQIN-CITATION-BRIDGE-AND-TOKYO-HOLDING-GN",
+    "original_observation_retracted": false,
+    "reason": "Batch 12GN accurately recorded what Cai/Li 2024 reference [23] literally prints. Batch 12GO separates that citation-layer wording from the canonical 1997 bibliographic identity.",
+    "gn_reference_23_literal_range_remains": "1946—1966",
+    "canonical_1997_range_now_bound": "1949—1966",
+    "pp446_449_bridge_preserved": true,
+    "target_transfer_conclusion_changed": false
+  },
+  "target_volume_firewall": {
+    "target_3482_3483_named_in_new_bibliographic_controls": false,
+    "target_transaction_mode_changed": false,
+    "target_specific_sale_or_purchase_route_selected": false,
+    "target_specific_donation_route_selected": false,
+    "pp446_449_direct_text_reviewed": false
+  },
+  "counter_policy": {
+    "source_metadata_normalization_only": true,
+    "historical_audit_matrix_row_changed": false,
+    "product_provenance_defect_counter_increment": 0,
+    "analogy": "BATCH-12-ZIWEI-LIN-ZHENYUE-PREFACE-GAO-ANNOTATED-CATALOG-SOURCE-ATTRIBUTION-FN"
+  },
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_added": [],
+    "acquisition_edge_authorized": false,
+    "same_object_edge_authorized": false
+  },
+  "chronology_and_rule_firewall": {
+    "direct_sanming_parent_vote_increment": 0,
+    "pre1578_zhunzhai_rule_witness_increment": 0,
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_count_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 14,
+    "repaired_provenance_metadata_defect_count": 14,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Lawfully obtain or inspect 《北京图书馆馆史资料汇编（二）：1949—1966》上册 pp.446—449 directly.",
+    "Identify all internal documents reproduced on pp.446—449 and their dates, offices, quotation boundaries, counts, prices and identifiers.",
+    "Search direct pp.446—449 for 铜壶漏箭制度, 准斋心制几漏图式, 3482/3483, 03482/03483 and the 1823 Huang/Shiliju one-volume fingerprint.",
+    "Keep the 1946—1966 string only as an observed Cai/Li 2024 reference-layer variant.",
+    "Continue Lin Zhenyue 2024, Ji Shuying chapter 9, Song Yunbin 1950-02-11 and Deng Zhicheng 1950-01-29 routes in parallel."
+  ],
+  "updated_at": "2026-09-25"
+}

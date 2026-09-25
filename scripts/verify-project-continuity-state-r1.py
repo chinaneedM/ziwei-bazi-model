@@ -194,6 +194,8 @@ ZIWEI_LIN_TONGJI_12GM_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AU
 ZIWEI_LIN_TONGJI_12GM_EVIDENCE = ROOT / "docs/research/ZIWEI-LIN-ZHENYUE-2024-TONGJI-TIEQIN-SALE-NEW-MATERIALS-REPORT-SOURCE-BASIS-BOUNDARY-R1.json"
 ZIWEI_NLC_PP446_12GN_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-PP446-449-TIEQIN-CITATION-BRIDGE-AND-TOKYO-HOLDING-GN.md"
 ZIWEI_NLC_PP446_12GN_EVIDENCE = ROOT / "docs/research/ZIWEI-NLC-PP446-449-TIEQIN-CITATION-BRIDGE-AND-TOKYO-HOLDING-R1.json"
+ZIWEI_BEITU_RANGE_12GO_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-BEITU-HISTORY-1997-1949-1966-BIBLIOGRAPHIC-RANGE-REPAIR-GO.md"
+ZIWEI_BEITU_RANGE_12GO_EVIDENCE = ROOT / "docs/research/ZIWEI-BEITU-HISTORY-1997-1949-1966-BIBLIOGRAPHIC-RANGE-REPAIR-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -517,9 +519,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-JI-SHUYING-CAMBRIDGE-MCDERMOTT-HOLDING-AND-SCAN-ELIGIBILITY-BOUNDARY-GL",
     "BATCH-12-ZIWEI-LIN-ZHENYUE-2024-TONGJI-TIEQIN-SALE-NEW-MATERIALS-REPORT-SOURCE-BASIS-BOUNDARY-GM",
     "BATCH-12-ZIWEI-NLC-PP446-449-TIEQIN-CITATION-BRIDGE-AND-TOKYO-HOLDING-GN",
+    "BATCH-12-ZIWEI-BEITU-HISTORY-1997-1949-1966-BIBLIOGRAPHIC-RANGE-REPAIR-GO",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-PP446-449-TIEQIN-CITATION-BRIDGE-AND-TOKYO-HOLDING-GN.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-BEITU-HISTORY-1997-1949-1966-BIBLIOGRAPHIC-RANGE-REPAIR-GO.md"
 
 
 def fail(message: str) -> None:
@@ -6799,6 +6802,61 @@ def main() -> int:
         fail("Batch 12GN missing from completed batch state")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12GN latest-batch document state mismatch")
+
+    # Batch 12GO canonical 1949-1966 bibliographic range repair for 1997 Beijing Library history compilation.
+    for path in (ZIWEI_BEITU_RANGE_12GO_BATCH, ZIWEI_BEITU_RANGE_12GO_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12GO continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12go = json.loads(ZIWEI_BEITU_RANGE_12GO_EVIDENCE.read_text(encoding="utf-8"))
+    bid12go = "BATCH-12-ZIWEI-BEITU-HISTORY-1997-1949-1966-BIBLIOGRAPHIC-RANGE-REPAIR-GO"
+    if batch12go.get("batch_id") != bid12go:
+        fail("Batch 12GO evidence identity mismatch")
+    gb12go = batch12go.get("google_books_bibliographic_control", {})
+    if gb12go.get("volume_id") != "BZ0M0gEACAAJ" or gb12go.get("isbn_10") != "7501314195" or gb12go.get("publication_year") != 1997:
+        fail("Batch 12GO Google Books identity control regressed")
+    if gb12go.get("title") != "北京图书馆馆史资料汇编: 1949-1966, Volume 2" or gb12go.get("page_count") != 1811:
+        fail("Batch 12GO Google Books title/range control regressed")
+    nlc12go = batch12go.get("nlc_wenjin_2023_control", {})
+    if nlc12go.get("provider") != "国家图书馆" or nlc12go.get("canonical_range_observed") != "1949—1966" or nlc12go.get("printed_page") != 22:
+        fail("Batch 12GO NLC Wenjin bibliographic control regressed")
+    var12go = batch12go.get("cai_li_2024_variant_control", {})
+    if var12go.get("observed_literal_title") != "北京图书馆馆史资料汇编二：1946—1966" or var12go.get("observed_pages") != "446—449":
+        fail("Batch 12GO Cai/Li literal variant record regressed")
+    if var12go.get("classification") != "BIBLIOGRAPHIC_DATE_RANGE_VARIANT_HIGH_CONFIDENCE_TYPO_NOT_CANONICAL_TITLE" or var12go.get("pp446_449_citation_bridge_invalidated") is not False:
+        fail("Batch 12GO variant adjudication regressed")
+    adj12go = batch12go.get("conflict_adjudication", {})
+    if adj12go.get("canonical_1997_range") != "1949—1966" or adj12go.get("cai_li_2024_observed_range") != "1946—1966":
+        fail("Batch 12GO canonical/variant range separation regressed")
+    if adj12go.get("citation_bridge_to_pp446_449_preserved") is not True or adj12go.get("direct_pp446_449_collation_still_pending") is not True:
+        fail("Batch 12GO pp446-449 bridge/direct-page boundary regressed")
+    corr12go = batch12gn.get("bibliographic_range_correction_by_batch_12go", {})
+    if corr12go.get("canonical_1997_range") != "1949—1966" or corr12go.get("original_cai_li_2024_literal_range") != "1946—1966" or corr12go.get("pp446_449_citation_bridge_preserved") is not True:
+        fail("Batch 12GO forward-only correction marker missing from 12GN evidence")
+    srcids12go = {x.get("source_id"): x for x in registry.get("sources", ())}
+    for sid in ("EXT-GOOGLE-BOOKS-BEITU-HISTORY-1997-1949-1966-ISBN7501314195", "EXT-NLC-WENJIN-2023-BEITU-HISTORY-1949-1966-BIBLIOGRAPHIC-CONTROL"):
+        if sid not in srcids12go:
+            fail(f"Batch 12GO source registry missing: {sid}")
+    trans12go = batch12go.get("transmission_impact", {})
+    if trans12go.get("nodes_added") != [] or trans12go.get("edges_added") != [] or trans12go.get("acquisition_edge_authorized") is not False or trans12go.get("same_object_edge_authorized") is not False:
+        fail("Batch 12GO topology/acquisition firewall regressed")
+    rule12go = batch12go.get("chronology_and_rule_firewall", {})
+    if rule12go.get("runtime_rule_change") is not False or rule12go.get("algorithm_reopen_authorized") is not False or rule12go.get("candidate_collapse_authorized") is not False or rule12go.get("matrix_count_change") is not False:
+        fail("Batch 12GO product/matrix firewall regressed")
+    acct12go = batch12go.get("accounting", {})
+    if acct12go.get("matrix_rows") != 198 or acct12go.get("audited_rows") != 166 or acct12go.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12GO matrix accounting unexpectedly changed")
+    if acct12go.get("confirmed_provenance_metadata_defect_count") != 14 or acct12go.get("repaired_provenance_metadata_defect_count") != 14 or acct12go.get("confirmed_chart_algorithm_defect_count") != 0:
+        fail("Batch 12GO provenance/algorithm accounting regressed")
+    try:
+        schema12go = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12GO current-state schema version is not numeric")
+    if schema12go < (1, 201, 0):
+        fail("Batch 12GO current-state schema version regressed below 1.201.0")
+    if bid12go not in audit_state.get("completed_batches", ()):
+        fail("Batch 12GO missing from completed batch state")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12GO latest-batch document state mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")
