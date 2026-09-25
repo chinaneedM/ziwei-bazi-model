@@ -1,0 +1,125 @@
+{
+  "schema": "ZIWEI-WENJIN-XUEZHI-V3-NLCPRESS-PUBLIC-RESOURCE-CENTER-CROSSCHECK-BOUNDARY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-WENJIN-XUEZHI-V3-NLCPRESS-PUBLIC-RESOURCE-CENTER-CROSSCHECK-BOUNDARY-GY",
+  "prior_batch_id": "BATCH-12-ZIWEI-WENJIN-XUEZHI-V3-NLCPRESS-OFFICIAL-DOWNLOAD-SURFACE-BOUNDARY-GX",
+  "question": "Do the National Library of China Press public resource-center lists independently expose a public downloadable record for the TXT or TOC attachment labels shown on product 4396, and does that crosscheck recover the 2010 supplement article metadata or bytes?",
+  "answer": "No target attachment record is exposed on the currently reviewed first-party public resource-center list surfaces. The publisher site exposes separate global download categories for book catalogs, table-of-contents/partial-content pages, e-books, MARC data and other downloads. The current TOC/partial-content list contains exactly one listed object, the comprehensive index for 《中国图书馆馆史》（全四册）, and does not list product 4396 or 《文津学志（第三辑）》. The current public e-book and MARC lists expose no listed records; the reviewed book-catalog and other-download lists expose unrelated items and no target record. This does not negate the product-local labels 图书文件下载（TXT） and 目录附件下载 established in Batch 12GX, and it does not prove that an ordinary interactive-browser action, client-side event or other product-local public route cannot expose them. No endpoint guessing or access bypass was attempted. The attachment URLs/bytes and the supplement article author/page span/body remain unresolved.",
+  "first_party_product_control_carried_forward": {
+    "source_id": "EXT-NLCPRESS-WENJIN-XUEZHI-V3-PRODUCT-DOWNLOAD-SURFACE",
+    "product_id": 4396,
+    "title": "文津学志（第三辑）",
+    "isbn_display": "978-7-5013-4085-9",
+    "product_url": "https://www.nlcpress.com/ProductView.aspx?Id=4396",
+    "labels_directly_exposed": [
+      "图书文件下载（TXT）",
+      "目录附件下载"
+    ],
+    "product_local_labels_remain_valid": true
+  },
+  "public_resource_center_crosscheck": {
+    "source_id": "EXT-NLCPRESS-WENJIN-XUEZHI-V3-PUBLIC-RESOURCE-CENTER-CROSSCHECK",
+    "provider": "国家图书馆出版社",
+    "reviewed_urls": {
+      "book_catalog_downloads": "https://www.nlcpress.com/DownLoadList.aspx?Rid=1",
+      "toc_and_partial_content": "https://www.nlcpress.com/DownLoadList.aspx?Rid=2",
+      "ebook_downloads": "https://www.nlcpress.com/DownLoadList.aspx?Rid=3",
+      "marc_downloads": "https://www.nlcpress.com/DownLoadList.aspx?Rid=4",
+      "other_downloads": "https://www.nlcpress.com/DownLoadList.aspx?Rid=5"
+    },
+    "global_categories_observed": [
+      "书目下载",
+      "目录及部分内容页",
+      "电子书下载",
+      "MARC数据下载",
+      "其他下载"
+    ],
+    "toc_partial_content_list": {
+      "current_listed_record_count": 1,
+      "sole_listed_title": "《中国图书馆馆史》（全四册）综合索引",
+      "sole_record_detail_url": "https://www.nlcpress.com/DownloadView.aspx?RId=87",
+      "target_product_4396_listed": false,
+      "target_title_listed": false
+    },
+    "ebook_list": {
+      "current_listed_record_count": 0,
+      "target_product_4396_listed": false
+    },
+    "marc_list": {
+      "current_listed_record_count": 0,
+      "target_product_4396_listed": false
+    },
+    "book_catalog_list": {
+      "reviewed_current_public_list": true,
+      "target_product_4396_listed": false
+    },
+    "other_download_list": {
+      "reviewed_current_public_list": true,
+      "target_product_4396_listed": false
+    },
+    "product_4396_attachment_record_exposed_by_global_resource_center": false,
+    "direct_product_attachment_url_resolved": false,
+    "attachment_bytes_recovered": false
+  },
+  "negative_scope_firewall": {
+    "current_public_resource_list_nonlisting_does_not_mean_attachment_nonexistence": true,
+    "current_public_resource_list_nonlisting_does_not_disprove_product_local_labels": true,
+    "current_public_resource_list_nonlisting_does_not_prove_interactive_browser_unavailability": true,
+    "no_negative_claim_about_javascript_or_postback_product_action": true,
+    "no_endpoint_guessing": true,
+    "no_endpoint_enumeration": true,
+    "no_login": true,
+    "no_token_or_cookie_reuse": true,
+    "no_identity_transmission": true,
+    "no_fee": true
+  },
+  "article_level_adjudication": {
+    "supplement_article_title": "《〈冀淑英文集〉补遣》",
+    "supplement_article_author": "UNRESOLVED",
+    "supplement_article_page_range": "UNRESOLVED",
+    "supplement_article_body": "NOT_REVIEWED",
+    "supplement_article_footnotes": "NOT_REVIEWED",
+    "direct_attachment_url": "UNRESOLVED",
+    "attachment_bytes": "NOT_RECOVERED"
+  },
+  "relation_to_prior_batches": {
+    "gx_product_local_download_labels_remain_closed": true,
+    "gx_underlying_url_status_changed": false,
+    "gq_formal_article_existence_remains_closed": true,
+    "gu_physical_holding_routes_remain_closed": true,
+    "new_increment": "FIRST_PARTY_GLOBAL_PUBLIC_RESOURCE_CENTER_REVERSE_DISCOVERY_ROUTE_CHECKED_AND_TARGET_NOT_LISTED_WITH_STRICT_NEGATIVE_SCOPE"
+  },
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_added": [],
+    "direct_copy_edge_authorized": false,
+    "same_object_edge_authorized": false,
+    "acquisition_edge_authorized": false
+  },
+  "chronology_and_rule_firewall": {
+    "direct_sanming_parent_vote_increment": 0,
+    "pre1578_zhunzhai_rule_witness_increment": 0,
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_count_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 14,
+    "repaired_provenance_metadata_defect_count": 14,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Continue only lawful public first-party discovery for product 4396 attachment targets when they are actually surfaced by normal publisher UI, search results or navigation; do not guess paths or enumerate endpoints.",
+    "Continue article-level reverse-index discovery for 《〈冀淑英文集〉补遣》 author and exact page span through public catalogs, bibliographies and citations.",
+    "Continue direct 2004 《冀淑英文集》 p.335/neighbouring pages and final 《編后記》 recovery.",
+    "Continue direct 1997 《北京图书馆馆史资料汇编（二）：1949—1966》 pp.446—449 collation in parallel.",
+    "Any library reference/copy request remains an explicit user-authorized external action."
+  ],
+  "updated_at": "2026-09-25"
+}

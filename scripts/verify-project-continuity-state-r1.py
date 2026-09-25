@@ -214,6 +214,8 @@ ZIWEI_JI_EDITOR_12GW_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUD
 ZIWEI_JI_EDITOR_12GW_EVIDENCE = ROOT / "docs/research/ZIWEI-JI-SHUYING-WENJI-2004-CHEN-HONGYAN-EDITORIAL-RESPONSIBILITY-BOUNDARY-R1.json"
 ZIWEI_WENJIN_NLCPRESS_12GX_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENJIN-XUEZHI-V3-NLCPRESS-OFFICIAL-DOWNLOAD-SURFACE-BOUNDARY-GX.md"
 ZIWEI_WENJIN_NLCPRESS_12GX_EVIDENCE = ROOT / "docs/research/ZIWEI-WENJIN-XUEZHI-V3-NLCPRESS-OFFICIAL-DOWNLOAD-SURFACE-BOUNDARY-R1.json"
+ZIWEI_WENJIN_RESOURCE_CENTER_12GY_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENJIN-XUEZHI-V3-NLCPRESS-PUBLIC-RESOURCE-CENTER-CROSSCHECK-BOUNDARY-GY.md"
+ZIWEI_WENJIN_RESOURCE_CENTER_12GY_EVIDENCE = ROOT / "docs/research/ZIWEI-WENJIN-XUEZHI-V3-NLCPRESS-PUBLIC-RESOURCE-CENTER-CROSSCHECK-BOUNDARY-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -547,9 +549,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-JI-SHUYING-BAICHUAN-P335-CROSS-PUBLICATION-CITATION-BRIDGE-GV",
     "BATCH-12-ZIWEI-JI-SHUYING-WENJI-2004-CHEN-HONGYAN-EDITORIAL-RESPONSIBILITY-BOUNDARY-GW",
     "BATCH-12-ZIWEI-WENJIN-XUEZHI-V3-NLCPRESS-OFFICIAL-DOWNLOAD-SURFACE-BOUNDARY-GX",
+    "BATCH-12-ZIWEI-WENJIN-XUEZHI-V3-NLCPRESS-PUBLIC-RESOURCE-CENTER-CROSSCHECK-BOUNDARY-GY",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENJIN-XUEZHI-V3-NLCPRESS-OFFICIAL-DOWNLOAD-SURFACE-BOUNDARY-GX.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENJIN-XUEZHI-V3-NLCPRESS-PUBLIC-RESOURCE-CENTER-CROSSCHECK-BOUNDARY-GY.md"
 
 
 def fail(message: str) -> None:
@@ -7354,6 +7357,59 @@ def main() -> int:
         fail("Batch 12GX missing from completed batch state")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12GX latest-batch document state mismatch")
+
+    # Batch 12GY Wenjin Xuezhi v3 NLC Press global public resource-center crosscheck.
+    for path in (ZIWEI_WENJIN_RESOURCE_CENTER_12GY_BATCH, ZIWEI_WENJIN_RESOURCE_CENTER_12GY_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12GY continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12gy=json.loads(ZIWEI_WENJIN_RESOURCE_CENTER_12GY_EVIDENCE.read_text(encoding="utf-8"))
+    bid12gy="BATCH-12-ZIWEI-WENJIN-XUEZHI-V3-NLCPRESS-PUBLIC-RESOURCE-CENTER-CROSSCHECK-BOUNDARY-GY"
+    if batch12gy.get("batch_id") != bid12gy:
+        fail("Batch 12GY evidence identity mismatch")
+    p12gy=batch12gy.get("first_party_product_control_carried_forward",{})
+    if p12gy.get("product_id") != 4396 or p12gy.get("isbn_display") != "978-7-5013-4085-9":
+        fail("Batch 12GY product identity regressed")
+    if p12gy.get("labels_directly_exposed") != ["图书文件下载（TXT）","目录附件下载"] or p12gy.get("product_local_labels_remain_valid") is not True:
+        fail("Batch 12GY carried-forward product-local labels regressed")
+    r12gy=batch12gy.get("public_resource_center_crosscheck",{})
+    toc12gy=r12gy.get("toc_partial_content_list",{})
+    if toc12gy.get("current_listed_record_count") != 1 or toc12gy.get("sole_listed_title") != "《中国图书馆馆史》（全四册）综合索引":
+        fail("Batch 12GY TOC/partial-content list control regressed")
+    if toc12gy.get("target_product_4396_listed") is not False or toc12gy.get("target_title_listed") is not False:
+        fail("Batch 12GY target nonlisting boundary regressed")
+    if r12gy.get("ebook_list",{}).get("current_listed_record_count") != 0 or r12gy.get("marc_list",{}).get("current_listed_record_count") != 0:
+        fail("Batch 12GY empty e-book/MARC list controls regressed")
+    if r12gy.get("product_4396_attachment_record_exposed_by_global_resource_center") is not False or r12gy.get("direct_product_attachment_url_resolved") is not False or r12gy.get("attachment_bytes_recovered") is not False:
+        fail("Batch 12GY resource-center access boundary regressed")
+    neg12gy=batch12gy.get("negative_scope_firewall",{})
+    for key in ("current_public_resource_list_nonlisting_does_not_mean_attachment_nonexistence","current_public_resource_list_nonlisting_does_not_disprove_product_local_labels","current_public_resource_list_nonlisting_does_not_prove_interactive_browser_unavailability","no_negative_claim_about_javascript_or_postback_product_action","no_endpoint_guessing","no_endpoint_enumeration","no_login","no_token_or_cookie_reuse","no_identity_transmission","no_fee"):
+        if neg12gy.get(key) is not True:
+            fail(f"Batch 12GY negative-scope/access firewall regressed: {key}")
+    a12gy=batch12gy.get("article_level_adjudication",{})
+    if a12gy.get("supplement_article_author") != "UNRESOLVED" or a12gy.get("supplement_article_page_range") != "UNRESOLVED" or a12gy.get("supplement_article_body") != "NOT_REVIEWED":
+        fail("Batch 12GY article-level boundary regressed")
+    src12gy=next((x for x in registry.get("sources",()) if x.get("source_id")=="EXT-NLCPRESS-WENJIN-XUEZHI-V3-PUBLIC-RESOURCE-CENTER-CROSSCHECK"),None)
+    if src12gy is None or src12gy.get("batch_12gy",{}).get("target_product_id") != 4396 or src12gy.get("batch_12gy",{}).get("target_listed_in_global_public_resource_center") is not False:
+        fail("Batch 12GY source registry binding missing")
+    trans12gy=batch12gy.get("transmission_impact",{})
+    if trans12gy.get("nodes_added") != [] or trans12gy.get("edges_added") != [] or trans12gy.get("direct_copy_edge_authorized") is not False or trans12gy.get("same_object_edge_authorized") is not False or trans12gy.get("acquisition_edge_authorized") is not False:
+        fail("Batch 12GY genealogy firewall regressed")
+    rule12gy=batch12gy.get("chronology_and_rule_firewall",{})
+    if rule12gy.get("runtime_rule_change") is not False or rule12gy.get("algorithm_reopen_authorized") is not False or rule12gy.get("candidate_collapse_authorized") is not False or rule12gy.get("matrix_count_change") is not False:
+        fail("Batch 12GY product/matrix firewall regressed")
+    acct12gy=batch12gy.get("accounting",{})
+    if acct12gy.get("matrix_rows") != 198 or acct12gy.get("audited_rows") != 166 or acct12gy.get("current_missing_from_product_rows") != 10 or acct12gy.get("confirmed_chart_algorithm_defect_count") != 0:
+        fail("Batch 12GY accounting regressed")
+    try:
+        schema12gy=tuple(int(part) for part in state.get("schema_version","0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12GY current-state schema version is not numeric")
+    if schema12gy < (1,211,0):
+        fail("Batch 12GY current-state schema version regressed below 1.211.0")
+    if bid12gy not in audit_state.get("completed_batches",()):
+        fail("Batch 12GY missing from completed batch state")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12GY latest-batch document state mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

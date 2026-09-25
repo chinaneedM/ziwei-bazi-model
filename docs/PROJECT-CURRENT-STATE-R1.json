@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.210.0",
+  "schema_version": "1.211.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -292,9 +292,10 @@
       "BATCH-12-ZIWEI-WENJIN-XUEZHI-V3-JAPAN-PHYSICAL-HOLDINGS-AND-OPAC-ACCESS-BOUNDARY-GU",
       "BATCH-12-ZIWEI-JI-SHUYING-BAICHUAN-P335-CROSS-PUBLICATION-CITATION-BRIDGE-GV",
       "BATCH-12-ZIWEI-JI-SHUYING-WENJI-2004-CHEN-HONGYAN-EDITORIAL-RESPONSIBILITY-BOUNDARY-GW",
-      "BATCH-12-ZIWEI-WENJIN-XUEZHI-V3-NLCPRESS-OFFICIAL-DOWNLOAD-SURFACE-BOUNDARY-GX"
+      "BATCH-12-ZIWEI-WENJIN-XUEZHI-V3-NLCPRESS-OFFICIAL-DOWNLOAD-SURFACE-BOUNDARY-GX",
+      "BATCH-12-ZIWEI-WENJIN-XUEZHI-V3-NLCPRESS-PUBLIC-RESOURCE-CENTER-CROSSCHECK-BOUNDARY-GY"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENJIN-XUEZHI-V3-NLCPRESS-OFFICIAL-DOWNLOAD-SURFACE-BOUNDARY-GX.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENJIN-XUEZHI-V3-NLCPRESS-PUBLIC-RESOURCE-CENTER-CROSSCHECK-BOUNDARY-GY.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -1240,7 +1241,12 @@
       "The reviewed text interface does not expose the underlying attachment URLs and no attachment bytes were recovered. No endpoint guessing, enumeration, login, cookie/token reuse, identity transmission or fee occurred.",
       "The volume-level compiler field 国家图书馆善本特藏部 does not identify the author of 《〈冀淑英文集〉补遣》; author/page/body remain UNRESOLVED/NOT_REVIEWED.",
       "Batch 12GX changes no target 3482/3483 transfer conclusion, genealogy topology, Matrix count, runtime rule, algorithm reopen or candidate collapse. Accounting remains 198 / 166 / 10, provenance defects 14/14 repaired and chart algorithm defects 0.",
-      "Highest next gate: resolve only the public first-party product-4396 TXT/目录附件 URL without guessing; continue 2004 p.335/final 編后記 and 1997 pp.446—449 in parallel."
+      "Highest next gate: resolve only the public first-party product-4396 TXT/目录附件 URL without guessing; continue 2004 p.335/final 編后記 and 1997 pp.446—449 in parallel.",
+      "Batch 12GY directly crosschecks 国家图书馆出版社's global public resource center across 书目下载 / 目录及部分内容页 / 电子书下载 / MARC数据下载 / 其他下载. The current 目录及部分内容页 list exposes exactly one unrelated object, 《中国图书馆馆史》（全四册）综合索引; the current e-book and MARC public lists expose no records, and the other reviewed lists do not expose product 4396.",
+      "12GY is a route-specific negative only: absence from the current global public resource-center lists does NOT mean the 4396 TXT/目录 attachments do not exist, does NOT invalidate the product-local labels closed by 12GX, and does NOT prove that an ordinary interactive browser/product action cannot expose them.",
+      "No endpoint guessing, enumeration, login, cookie/token reuse, identity transmission or fee occurred. Direct attachment URL/bytes remain unresolved/not recovered; 《〈冀淑英文集〉补遣》 author/page range/body remain UNRESOLVED/UNRESOLVED/NOT_REVIEWED.",
+      "Batch 12GY changes no target 3482/3483 transfer conclusion, genealogy topology, Matrix count, runtime rule, algorithm reopen or candidate collapse. Accounting remains 198 / 166 / 10, provenance defects 14/14 repaired and chart algorithm defects 0.",
+      "Highest next gate: continue lawful first-party product-4396 attachment discovery only when a target is actually surfaced by normal publisher UI/search/navigation; continue article-level reverse-index discovery, 2004 p.335/final 編后記 and direct 1997 pp.446—449 in parallel."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10

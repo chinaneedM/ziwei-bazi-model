@@ -1,0 +1,71 @@
+name: verify-batch-12gy-exact-head
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/verify-batch-12gy-exact-head.yml
+      - docs/research/ZIWEI-WENJIN-XUEZHI-V3-NLCPRESS-PUBLIC-RESOURCE-CENTER-CROSSCHECK-BOUNDARY-R1.json
+      - docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENJIN-XUEZHI-V3-NLCPRESS-PUBLIC-RESOURCE-CENTER-CROSSCHECK-BOUNDARY-GY.md
+      - docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json
+      - docs/PROJECT-CURRENT-STATE-R1.json
+      - scripts/verify-project-continuity-state-r1.py
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify Batch 12GY exact head
+        run: |
+          set -euo pipefail
+          python scripts/verify-tianwen-transmission-genealogy-r1.py
+          python scripts/verify-project-continuity-state-r1.py
+          python scripts/verify-fusion-chart-historical-provenance-audit-r1.py
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          bid='BATCH-12-ZIWEI-WENJIN-XUEZHI-V3-NLCPRESS-PUBLIC-RESOURCE-CENTER-CROSSCHECK-BOUNDARY-GY'
+          e=json.loads(Path('docs/research/ZIWEI-WENJIN-XUEZHI-V3-NLCPRESS-PUBLIC-RESOURCE-CENTER-CROSSCHECK-BOUNDARY-R1.json').read_text(encoding='utf-8'))
+          assert e['batch_id']==bid
+          p=e['first_party_product_control_carried_forward']
+          assert p['product_id']==4396
+          assert p['labels_directly_exposed']==['图书文件下载（TXT）','目录附件下载']
+          r=e['public_resource_center_crosscheck']
+          assert r['toc_partial_content_list']['current_listed_record_count']==1
+          assert r['toc_partial_content_list']['sole_listed_title']=='《中国图书馆馆史》（全四册）综合索引'
+          assert r['toc_partial_content_list']['target_product_4396_listed'] is False
+          assert r['ebook_list']['current_listed_record_count']==0
+          assert r['marc_list']['current_listed_record_count']==0
+          assert r['product_4396_attachment_record_exposed_by_global_resource_center'] is False
+          assert r['direct_product_attachment_url_resolved'] is False
+          assert r['attachment_bytes_recovered'] is False
+          a=e['article_level_adjudication']
+          assert a['supplement_article_author']=='UNRESOLVED'
+          assert a['supplement_article_page_range']=='UNRESOLVED'
+          assert a['supplement_article_body']=='NOT_REVIEWED'
+          state=json.loads(Path('docs/PROJECT-CURRENT-STATE-R1.json').read_text(encoding='utf-8'))
+          assert tuple(int(x) for x in state['schema_version'].split('.')) >= (1,211,0)
+          assert bid in state['historical_audit']['completed_batches']
+          assert state['historical_audit']['latest_batch_doc']=='docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENJIN-XUEZHI-V3-NLCPRESS-PUBLIC-RESOURCE-CENTER-CROSSCHECK-BOUNDARY-GY.md'
+          reg=json.loads(Path('docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json').read_text(encoding='utf-8'))
+          src={x.get('source_id'):x for x in reg['sources']}
+          s=src['EXT-NLCPRESS-WENJIN-XUEZHI-V3-PUBLIC-RESOURCE-CENTER-CROSSCHECK']
+          assert s['batch_12gy']['target_product_id']==4396
+          assert s['batch_12gy']['target_listed_in_global_public_resource_center'] is False
+          assert e['transmission_impact']['nodes_added']==[]
+          assert e['transmission_impact']['edges_added']==[]
+          assert e['chronology_and_rule_firewall']['runtime_rule_change'] is False
+          assert e['chronology_and_rule_firewall']['algorithm_reopen_authorized'] is False
+          assert e['accounting']['matrix_rows']==198
+          assert e['accounting']['audited_rows']==166
+          assert e['accounting']['current_missing_from_product_rows']==10
+          PY
