@@ -186,6 +186,8 @@ ZIWEI_DENG_TOYO_12GI_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUD
 ZIWEI_DENG_TOYO_12GI_EVIDENCE = ROOT / "docs/research/ZIWEI-DENG-ZHICHENG-DIARY-VOL5-TOYO-BUNKO-FIRST-PARTY-HOLDING-AND-COPY-SERVICE-BOUNDARY-R1.json"
 ZIWEI_GU_PAGE_CAL_12GJ_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-GU-TINGLONG-DIARY-P593-P595-PAGE-CALIBRATION-AND-JAN6-FALSE-LEAD-FIREWALL-GJ.md"
 ZIWEI_GU_PAGE_CAL_12GJ_EVIDENCE = ROOT / "docs/research/ZIWEI-GU-TINGLONG-DIARY-P593-P595-PAGE-CALIBRATION-JAN6-FIREWALL-R1.json"
+ZIWEI_SONG_YUNBIN_12GK_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-SONG-YUNBIN-DIARY-1950-0211-TIEQIN-CONTEMPORARY-COUNT-PRICE-DISCREPANCY-FIREWALL-GK.md"
+ZIWEI_SONG_YUNBIN_12GK_EVIDENCE = ROOT / "docs/research/ZIWEI-SONG-YUNBIN-DIARY-1950-0211-TIEQIN-COUNT-PRICE-DISCREPANCY-FIREWALL-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -505,9 +507,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-ZHENG-ZHENDUO-XU-SENYU-1952-CONTEXTUAL-TIEQIN-TWO-BATCH-CHRONOLOGY-FIREWALL-GH",
     "BATCH-12-ZIWEI-DENG-ZHICHENG-DIARY-VOL5-TOYO-BUNKO-FIRST-PARTY-HOLDING-AND-COPY-SERVICE-BOUNDARY-GI",
     "BATCH-12-ZIWEI-GU-TINGLONG-DIARY-P593-P595-PAGE-CALIBRATION-AND-JAN6-FALSE-LEAD-FIREWALL-GJ",
+    "BATCH-12-ZIWEI-SONG-YUNBIN-DIARY-1950-0211-TIEQIN-CONTEMPORARY-COUNT-PRICE-DISCREPANCY-FIREWALL-GK",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-GU-TINGLONG-DIARY-P593-P595-PAGE-CALIBRATION-AND-JAN6-FALSE-LEAD-FIREWALL-GJ.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-SONG-YUNBIN-DIARY-1950-0211-TIEQIN-CONTEMPORARY-COUNT-PRICE-DISCREPANCY-FIREWALL-GK.md"
 
 
 def fail(message: str) -> None:
@@ -6525,6 +6528,82 @@ def main() -> int:
         fail("Batch 12GJ missing from completed batch state")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12GJ latest-batch document state mismatch")
+
+    # Batch 12GK Song Yunbin 1950-02-11 Tieqin count/price discrepancy firewall.
+    for path in (ZIWEI_SONG_YUNBIN_12GK_BATCH, ZIWEI_SONG_YUNBIN_12GK_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12GK continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12gk = json.loads(ZIWEI_SONG_YUNBIN_12GK_EVIDENCE.read_text(encoding="utf-8"))
+    bid12gk = "BATCH-12-ZIWEI-SONG-YUNBIN-DIARY-1950-0211-TIEQIN-CONTEMPORARY-COUNT-PRICE-DISCREPANCY-FIREWALL-GK"
+    if batch12gk.get("batch_id") != bid12gk:
+        fail("Batch 12GK evidence identity mismatch")
+    song12gk = batch12gk.get("public_1950_02_11_excerpt_control", {})
+    if song12gk.get("explicit_date_heading") != "1950-02-11" or song12gk.get("reported_purchase_amount_text") != "三千万元":
+        fail("Batch 12GK Song date/amount control regressed")
+    if song12gk.get("reported_purchase_title_count") != 302 or song12gk.get("reported_donation_title_count") != 52:
+        fail("Batch 12GK Song count control regressed")
+    if song12gk.get("carrier_status") != "PUBLIC_EXCERPT_CARRIER_NOT_DIRECT_2016_PAGE_OR_MANUSCRIPT_IMAGE":
+        fail("Batch 12GK carrier authority layer regressed")
+    if song12gk.get("direct_2016_page_reviewed") is not False or song12gk.get("direct_manuscript_leaf_reviewed") is not False:
+        fail("Batch 12GK direct-page boundary regressed")
+    ed12gk = batch12gk.get("edition_control", {})
+    if ed12gk.get("ncid") != "BB22929970" or ed12gk.get("publisher") != "中华书局" or ed12gk.get("publication_date") != "2016-10":
+        fail("Batch 12GK edition identity regressed")
+    if ed12gk.get("volumes") != ["上册", "中册", "下册"] or ed12gk.get("exact_1950_02_11_page") != "UNRESOLVED":
+        fail("Batch 12GK target-page boundary regressed")
+    arch12gk = batch12gk.get("archival_manuscript_provenance_control", {})
+    if arch12gk.get("diary_manuscript_corpus_archival_provenance") != "CLOSED_AT_COLLECTION_LEVEL":
+        fail("Batch 12GK archive provenance regressed")
+    if arch12gk.get("direct_2016_edition_to_manuscript_textual_lineage_closed") is not False or arch12gk.get("direct_1950_02_11_manuscript_leaf_reviewed") is not False:
+        fail("Batch 12GK manuscript/direct-lineage firewall regressed")
+    diff12gk = batch12gk.get("discrepancy_adjudication", {})
+    if diff12gk.get("gu_300_vs_song_302_purchase_count") != "UNRESOLVED" or diff12gk.get("gu_42_vs_song_52_donation_count") != "UNRESOLVED":
+        fail("Batch 12GK Gu/Song discrepancy firewall regressed")
+    if diff12gk.get("song_302_vs_ji_304_sale_count") != "UNRESOLVED" or diff12gk.get("song_52_vs_ji_52_donation_count") != "NUMERIC_AGREEMENT_ONLY_NOT_IDENTITY_PROOF":
+        fail("Batch 12GK Song/Ji discrepancy firewall regressed")
+    if diff12gk.get("deng_12_boxes_vs_title_counts") != "INCOMMENSURATE_UNITS_NO_DIRECT_CONVERSION" or diff12gk.get("all_controls_same_transaction_identity") != "UNRESOLVED":
+        fail("Batch 12GK Deng/unit or transaction-identity firewall regressed")
+    if diff12gk.get("typo_or_transcription_error_selected") is not False or diff12gk.get("exact_first_batch_ledger_closed") is not False:
+        fail("Batch 12GK discrepancy was falsely adjudicated")
+    target12gk = batch12gk.get("target_binding_firewall", {})
+    if target12gk.get("target_3482_3483_batch_membership") != "UNRESOLVED":
+        fail("Batch 12GK target batch membership falsely closed")
+    if target12gk.get("target_specific_purchase_route_selected") is not False or target12gk.get("target_specific_donation_route_selected") is not False:
+        fail("Batch 12GK target transaction mode falsely selected")
+    srcids12gk = {x.get("source_id"): x for x in registry.get("sources", ())}
+    for sid in ("EXT-CINII-SONG-YUNBIN-DIARY-2016","EXT-UIBE-SONG-YUNBIN-DIARY-2016-UPPER","EXT-ZHEJIANG-ARCHIVES-SONG-YUNBIN-DIARY-MANUSCRIPT-PROVENANCE","EXT-SBKSC-SONG-YUNBIN-DIARY-1950-0211-TIEQIN-EXCERPT"):
+        if sid not in srcids12gk:
+            fail(f"Batch 12GK source registry missing: {sid}")
+    gu12gk = srcids12gk.get("EXT-SOHU-2019-ZHAO-WANLI-GU-DENG-TIEQIN-PURCHASE-DIARY-CONTROLS", {}).get("batch_12gk", {})
+    de12gk = srcids12gk.get("EXT-TSINGHUA-ALUMNI-ZHAO-WANLI-DENG-1950-0129", {}).get("batch_12gk", {})
+    ji12gk = srcids12gk.get("EXT-SECONDARY-JI-CH9-TIEQIN-BATCH-CHRONOLOGY-1950-1953", {}).get("batch_12gk", {})
+    if gu12gk.get("silent_numeric_normalization_authorized") is not False or gu12gk.get("same_transaction_identity") != "UNRESOLVED":
+        fail("Batch 12GK Gu comparator registry firewall regressed")
+    if de12gk.get("box_to_title_conversion_authorized") is not False or de12gk.get("silent_collapse_with_gu_song_transaction_authorized") is not False:
+        fail("Batch 12GK Deng comparator registry firewall regressed")
+    if ji12gk.get("donation_52_numeric_agreement_is_same_transaction_proof") is not False or ji12gk.get("sale_302_vs_304_reconciled") is not False:
+        fail("Batch 12GK Ji comparator registry firewall regressed")
+    trans12gk = batch12gk.get("transmission_impact", {})
+    if trans12gk.get("nodes_added") != [] or trans12gk.get("edges_added") != [] or trans12gk.get("acquisition_edge_authorized") is not False or trans12gk.get("same_object_edge_authorized") is not False:
+        fail("Batch 12GK zero-topology/acquisition-edge firewall regressed")
+    rule12gk = batch12gk.get("chronology_and_rule_firewall", {})
+    if rule12gk.get("runtime_rule_change") is not False or rule12gk.get("algorithm_reopen_authorized") is not False or rule12gk.get("candidate_collapse_authorized") is not False or rule12gk.get("matrix_count_change") is not False:
+        fail("Batch 12GK product/matrix firewall regressed")
+    acct12gk = batch12gk.get("accounting", {})
+    if acct12gk.get("matrix_rows") != 198 or acct12gk.get("audited_rows") != 166 or acct12gk.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12GK matrix accounting unexpectedly changed")
+    if acct12gk.get("confirmed_provenance_metadata_defect_count") != 14 or acct12gk.get("repaired_provenance_metadata_defect_count") != 14 or acct12gk.get("confirmed_chart_algorithm_defect_count") != 0:
+        fail("Batch 12GK provenance/algorithm accounting regressed")
+    try:
+        schema12gk = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12GK current-state schema version is not numeric")
+    if schema12gk < (1, 197, 0):
+        fail("Batch 12GK current-state schema version regressed below 1.197.0")
+    if bid12gk not in audit_state.get("completed_batches", ()):
+        fail("Batch 12GK missing from completed batch state")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12GK latest-batch document state mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

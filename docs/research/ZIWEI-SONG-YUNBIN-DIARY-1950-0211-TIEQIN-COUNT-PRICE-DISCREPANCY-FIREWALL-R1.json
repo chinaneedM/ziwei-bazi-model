@@ -1,0 +1,177 @@
+{
+  "schema": "ZIWEI-SONG-YUNBIN-DIARY-1950-0211-TIEQIN-COUNT-PRICE-DISCREPANCY-FIREWALL-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-SONG-YUNBIN-DIARY-1950-0211-TIEQIN-CONTEMPORARY-COUNT-PRICE-DISCREPANCY-FIREWALL-GK",
+  "prior_batch_id": "BATCH-12-ZIWEI-GU-TINGLONG-DIARY-P593-P595-PAGE-CALIBRATION-AND-JAN6-FALSE-LEAD-FIREWALL-GJ",
+  "question": "Does the publicly excerpted 1950-02-11 Song Yunbin diary entry close or reconcile the early Tieqin Tongjian Lou purchase/donation counts recorded in the existing Gu Tinglong, Deng Zhicheng and later Ji Shuying-derived controls?",
+  "answer": "It adds a distinct contemporaneous diary report but does not close reconciliation. A public excerpt explicitly headed 1950-02-11 reports Song Yunbin recording Zhao Wanli's account that the government/Culture Ministry paid thirty million yuan for 302 Tieqin titles and that the Qu family separately donated 52 titles. CiNii and university catalog records independently close the 2016 Zhonghua Shuju three-volume edition identity, while Zhejiang archival authorities close the upstream Song Yunbin diary manuscript corpus as archival holdings. However, the exact 2016 page and manuscript leaf for 1950-02-11 have not been directly reviewed. The Song figures differ from the publication-mediated Gu Tinglong Jan-6 control (300 purchased, 42 donated) and the later Ji Shuying-derived recounting (304 sold, 52 donated), while the Deng Jan-29 control uses a different unit and amount (twelve boxes, forty million). These differences may reflect reporting time, counting scope, transaction stage, editorial/transcription variation or distinct transactions. No silent normalization is authorized.",
+  "edition_control": {
+    "source_id": "EXT-CINII-SONG-YUNBIN-DIARY-2016",
+    "provider": "CiNii Books / NII",
+    "title": "宋雲彬日记",
+    "author": "宋云彬",
+    "organizer": "海宁市档案局(馆)",
+    "publisher": "中华书局",
+    "publication_date": "2016-10",
+    "edition": "北京第1版",
+    "ncid": "BB22929970",
+    "volumes": [
+      "上册",
+      "中册",
+      "下册"
+    ],
+    "observed_holding_count": 13,
+    "edition_identity": "CLOSED",
+    "exact_1950_02_11_page": "UNRESOLVED",
+    "target_page_directly_reviewed": false
+  },
+  "upper_volume_catalog_control": {
+    "source_id": "EXT-UIBE-SONG-YUNBIN-DIARY-2016-UPPER",
+    "provider": "对外经济贸易大学图书馆 OPAC",
+    "title": "宋雲彬日记.上",
+    "isbn": "978-7-101-10954-2",
+    "publisher": "中华书局",
+    "publication_date": "2016-10",
+    "pagination": "328页",
+    "call_number": "K825.4/S89.3/1",
+    "exact_1950_02_11_page": "UNRESOLVED",
+    "target_page_directly_reviewed": false
+  },
+  "archival_manuscript_provenance_control": {
+    "source_id": "EXT-ZHEJIANG-ARCHIVES-SONG-YUNBIN-DIARY-MANUSCRIPT-PROVENANCE",
+    "provider": "浙江省档案馆 / 浙江档案网",
+    "url": "https://www.zjda.gov.cn/art/2015/7/15/art_1378534_13054346.html",
+    "archive_statement_scope": "宋云彬日记稿本于1994年征集进馆，2003年入选浙江省档案文献遗产名录；2015《宋云彬文集》第四、第五卷日记以馆藏日记手稿为底本进行点校。",
+    "diary_manuscript_corpus_archival_provenance": "CLOSED_AT_COLLECTION_LEVEL",
+    "direct_2016_edition_to_manuscript_textual_lineage_closed": false,
+    "direct_1950_02_11_manuscript_leaf_reviewed": false
+  },
+  "public_1950_02_11_excerpt_control": {
+    "source_id": "EXT-SBKSC-SONG-YUNBIN-DIARY-1950-0211-TIEQIN-EXCERPT",
+    "provider": "中国收藏家协会书报刊收藏委员会公开网页",
+    "url": "https://www.sbksc.zcxn.com/html/xsydxssc/0522_794.html",
+    "page_title": "宋云彬收藏轶事",
+    "explicit_date_heading": "1950-02-11",
+    "named_informant": "赵万里（斐云）",
+    "reported_transaction_actor": "政府（文化部）",
+    "reported_purchase_amount_text": "三千万元",
+    "reported_purchase_title_count": 302,
+    "reported_donation_title_count": 52,
+    "short_wording_control": "购得藏书三百零二种，另由瞿氏捐献政府五十二种",
+    "stated_source_footer": "选自《宋云彬日记》，中华书局出版",
+    "carrier_status": "PUBLIC_EXCERPT_CARRIER_NOT_DIRECT_2016_PAGE_OR_MANUSCRIPT_IMAGE",
+    "exact_2016_page": "UNRESOLVED",
+    "direct_2016_page_reviewed": false,
+    "direct_manuscript_leaf_reviewed": false,
+    "parenthetical_16m_vs_30m_scope": "PUBLIC_EXCERPT_PRESENT_BUT_ORIGINAL_DIARY_VS_EDITORIAL_NOTE_STATUS_UNRESOLVED"
+  },
+  "contemporaneous_and_later_controls": [
+    {
+      "control": "GU_TINGLONG_1950_01_06",
+      "source_id": "EXT-SOHU-2019-ZHAO-WANLI-GU-DENG-TIEQIN-PURCHASE-DIARY-CONTROLS",
+      "evidence_layer": "PUBLICATION_MEDIATED_QUOTATION_PENDING_DIRECT_2022_DIARY_COLLATION",
+      "reported_purchase_title_count": 300,
+      "reported_purchase_amount_text": "三千万元",
+      "reported_donation_title_count": 42,
+      "direct_page_reviewed": false
+    },
+    {
+      "control": "DENG_ZHICHENG_1950_01_29",
+      "source_id": "EXT-TSINGHUA-ALUMNI-ZHAO-WANLI-DENG-1950-0129",
+      "evidence_layer": "INSTITUTIONAL_SECONDARY_DERIVATIVE_QUOTATION_PENDING_DIRECT_FACSIMILE_COLLATION",
+      "reported_purchase_amount_text": "四千万人民券",
+      "reported_box_count": 12,
+      "reported_title_count": "UNSTATED",
+      "direct_page_reviewed": false
+    },
+    {
+      "control": "SONG_YUNBIN_1950_02_11",
+      "source_id": "EXT-SBKSC-SONG-YUNBIN-DIARY-1950-0211-TIEQIN-EXCERPT",
+      "evidence_layer": "PUBLIC_EXCERPT_OF_PUBLISHED_DIARY_PENDING_DIRECT_PAGE_COLLATION",
+      "reported_purchase_title_count": 302,
+      "reported_purchase_amount_text": "三千万元",
+      "reported_donation_title_count": 52,
+      "direct_page_reviewed": false
+    },
+    {
+      "control": "JI_SHUYING_LATER_RECOUNTING",
+      "source_id": "EXT-SECONDARY-JI-CH9-TIEQIN-BATCH-CHRONOLOGY-1950-1953",
+      "evidence_layer": "SECONDARY_RECOUNTING_PENDING_DIRECT_CHAPTER_9_COLLATION",
+      "reported_first_batch_date": "1950-01-07",
+      "reported_first_batch_sale_title_count": 304,
+      "reported_first_batch_donation_title_count": 52,
+      "direct_chapter_9_reviewed": false
+    }
+  ],
+  "discrepancy_adjudication": {
+    "gu_300_vs_song_302_purchase_count": "UNRESOLVED",
+    "gu_42_vs_song_52_donation_count": "UNRESOLVED",
+    "song_302_vs_ji_304_sale_count": "UNRESOLVED",
+    "song_52_vs_ji_52_donation_count": "NUMERIC_AGREEMENT_ONLY_NOT_IDENTITY_PROOF",
+    "gu_song_purchase_amount_30m_agreement": "NUMERIC_AGREEMENT_ONLY_NOT_IDENTITY_PROOF",
+    "deng_40m_vs_gu_song_30m": "UNRESOLVED_DIFFERENT_REPORTING_OR_TRANSACTION_SCOPE_POSSIBLE",
+    "deng_12_boxes_vs_title_counts": "INCOMMENSURATE_UNITS_NO_DIRECT_CONVERSION",
+    "all_controls_same_transaction_identity": "UNRESOLVED",
+    "typo_or_transcription_error_selected": false,
+    "exact_first_batch_ledger_closed": false
+  },
+  "target_binding_firewall": {
+    "song_excerpt_names_tonghu_zhunzhai": false,
+    "song_excerpt_names_historical_3482_3483": false,
+    "song_excerpt_names_current_03482_03483": false,
+    "song_excerpt_names_1823_shiliju_bound_volume": false,
+    "target_3482_3483_batch_membership": "UNRESOLVED",
+    "target_specific_purchase_route_selected": false,
+    "target_specific_donation_route_selected": false,
+    "target_exact_acquisition_date": "UNRESOLVED",
+    "final_nlc_acquisition_transfer_path": "UNRESOLVED"
+  },
+  "inference_firewall": {
+    "public_excerpt_does_not_equal_direct_published_page": true,
+    "published_edition_identity_does_not_equal_target_page_collation": true,
+    "archival_manuscript_corpus_provenance_does_not_equal_direct_target_leaf": true,
+    "equal_money_amount_does_not_prove_same_transaction": true,
+    "equal_donation_count_does_not_prove_same_transaction": true,
+    "differing_counts_must_not_be_silently_normalized": true,
+    "box_count_must_not_be_converted_to_title_count_without_direct_ledger": true,
+    "later_ji_recounting_must_not_overwrite_contemporaneous_diary_reports": true,
+    "target_transaction_requires_item_or_stable_identifier_level_evidence": true
+  },
+  "user_action_firewall": {
+    "no_library_account_action_taken": true,
+    "no_copy_request_submitted": true,
+    "no_fee_incurred": true,
+    "no_identity_document_submitted": true
+  },
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_added": [],
+    "acquisition_edge_authorized": false,
+    "same_object_edge_authorized": false
+  },
+  "chronology_and_rule_firewall": {
+    "direct_sanming_parent_vote_increment": 0,
+    "pre1578_zhunzhai_rule_witness_increment": 0,
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_count_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 14,
+    "repaired_provenance_metadata_defect_count": 14,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Resolve the exact 2016 Zhonghua upper-volume page for 1950-02-11 and directly collate the published entry.",
+    "Where lawfully available, compare the 2016 text with the 2015 archival-manuscript-based Wenji diary text and the Zhejiang-held original diary leaf.",
+    "Directly collate Ji Shuying chapter 9 and Beijing Library/NLC acquisition records to explain 300/302/304 and 42/52 discrepancies rather than choosing a preferred number.",
+    "Continue NLC [23] pp.446-449 and the Deng Zhicheng 1950-01-29 facsimile route, filtering all direct records for 铜壶漏箭制度, 准斋心制几漏图式, 3482/3483, 03482/03483 or the 1823 士礼居 one-volume fingerprint."
+  ],
+  "updated_at": "2026-09-25"
+}

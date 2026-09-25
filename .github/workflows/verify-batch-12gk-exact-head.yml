@@ -1,0 +1,107 @@
+name: verify-batch-12gk-exact-head
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/verify-batch-12gk-exact-head.yml
+      - docs/research/ZIWEI-SONG-YUNBIN-DIARY-1950-0211-TIEQIN-COUNT-PRICE-DISCREPANCY-FIREWALL-R1.json
+      - docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-SONG-YUNBIN-DIARY-1950-0211-TIEQIN-CONTEMPORARY-COUNT-PRICE-DISCREPANCY-FIREWALL-GK.md
+      - docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json
+      - docs/PROJECT-CURRENT-STATE-R1.json
+      - scripts/verify-project-continuity-state-r1.py
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify Batch 12GK exact head
+        run: |
+          set -euo pipefail
+          python scripts/verify-tianwen-transmission-genealogy-r1.py
+          python scripts/verify-project-continuity-state-r1.py
+          python scripts/verify-fusion-chart-historical-provenance-audit-r1.py
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          bid='BATCH-12-ZIWEI-SONG-YUNBIN-DIARY-1950-0211-TIEQIN-CONTEMPORARY-COUNT-PRICE-DISCREPANCY-FIREWALL-GK'
+          ep=Path('docs/research/ZIWEI-SONG-YUNBIN-DIARY-1950-0211-TIEQIN-COUNT-PRICE-DISCREPANCY-FIREWALL-R1.json')
+          dp=Path('docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-SONG-YUNBIN-DIARY-1950-0211-TIEQIN-CONTEMPORARY-COUNT-PRICE-DISCREPANCY-FIREWALL-GK.md')
+          assert ep.is_file() and dp.is_file()
+          e=json.loads(ep.read_text(encoding='utf-8'))
+          assert e['batch_id']==bid
+
+          x=e['public_1950_02_11_excerpt_control']
+          assert x['explicit_date_heading']=='1950-02-11'
+          assert x['reported_purchase_amount_text']=='三千万元'
+          assert x['reported_purchase_title_count']==302
+          assert x['reported_donation_title_count']==52
+          assert x['carrier_status']=='PUBLIC_EXCERPT_CARRIER_NOT_DIRECT_2016_PAGE_OR_MANUSCRIPT_IMAGE'
+          assert x['direct_2016_page_reviewed'] is False
+          assert x['direct_manuscript_leaf_reviewed'] is False
+
+          ed=e['edition_control']
+          assert ed['ncid']=='BB22929970'
+          assert ed['publisher']=='中华书局'
+          assert ed['publication_date']=='2016-10'
+          assert ed['volumes']==['上册','中册','下册']
+          assert ed['exact_1950_02_11_page']=='UNRESOLVED'
+
+          ap=e['archival_manuscript_provenance_control']
+          assert ap['diary_manuscript_corpus_archival_provenance']=='CLOSED_AT_COLLECTION_LEVEL'
+          assert ap['direct_2016_edition_to_manuscript_textual_lineage_closed'] is False
+          assert ap['direct_1950_02_11_manuscript_leaf_reviewed'] is False
+
+          d=e['discrepancy_adjudication']
+          assert d['gu_300_vs_song_302_purchase_count']=='UNRESOLVED'
+          assert d['gu_42_vs_song_52_donation_count']=='UNRESOLVED'
+          assert d['song_302_vs_ji_304_sale_count']=='UNRESOLVED'
+          assert d['song_52_vs_ji_52_donation_count']=='NUMERIC_AGREEMENT_ONLY_NOT_IDENTITY_PROOF'
+          assert d['deng_12_boxes_vs_title_counts']=='INCOMMENSURATE_UNITS_NO_DIRECT_CONVERSION'
+          assert d['all_controls_same_transaction_identity']=='UNRESOLVED'
+          assert d['typo_or_transcription_error_selected'] is False
+
+          tf=e['target_binding_firewall']
+          assert tf['song_excerpt_names_historical_3482_3483'] is False
+          assert tf['target_3482_3483_batch_membership']=='UNRESOLVED'
+          assert tf['target_specific_purchase_route_selected'] is False
+          assert tf['target_specific_donation_route_selected'] is False
+
+          state=json.loads(Path('docs/PROJECT-CURRENT-STATE-R1.json').read_text(encoding='utf-8'))
+          state_schema_version=tuple(int(part) for part in state['schema_version'].split('.'))
+          assert state_schema_version >= (1, 197, 0)
+          assert bid in state['historical_audit']['completed_batches']
+
+          reg=json.loads(Path('docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json').read_text(encoding='utf-8'))
+          ids={x.get('source_id') for x in reg['sources']}
+          assert {
+            'EXT-CINII-SONG-YUNBIN-DIARY-2016',
+            'EXT-UIBE-SONG-YUNBIN-DIARY-2016-UPPER',
+            'EXT-ZHEJIANG-ARCHIVES-SONG-YUNBIN-DIARY-MANUSCRIPT-PROVENANCE',
+            'EXT-SBKSC-SONG-YUNBIN-DIARY-1950-0211-TIEQIN-EXCERPT',
+          }.issubset(ids)
+
+          assert e['transmission_impact']['nodes_added']==[]
+          assert e['transmission_impact']['edges_added']==[]
+          assert e['transmission_impact']['acquisition_edge_authorized'] is False
+          assert e['transmission_impact']['same_object_edge_authorized'] is False
+          assert e['chronology_and_rule_firewall']['runtime_rule_change'] is False
+          assert e['chronology_and_rule_firewall']['algorithm_reopen_authorized'] is False
+          assert e['chronology_and_rule_firewall']['candidate_collapse_authorized'] is False
+          assert e['chronology_and_rule_firewall']['matrix_count_change'] is False
+          assert e['accounting']['matrix_rows']==198
+          assert e['accounting']['audited_rows']==166
+          assert e['accounting']['current_missing_from_product_rows']==10
+          assert e['accounting']['confirmed_provenance_metadata_defect_count']==14
+          assert e['accounting']['repaired_provenance_metadata_defect_count']==14
+          PY
