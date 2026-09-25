@@ -1,0 +1,120 @@
+name: verify-batch-12ga-exact-head
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/verify-batch-12ga-exact-head.yml
+      - docs/research/ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-PKU-FULLTEXT-BRIDGE-PUBLIC-ACCESS-BOUNDARY-R1.json
+      - docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-PKU-FULLTEXT-BRIDGE-PUBLIC-ACCESS-BOUNDARY-GA.md
+      - docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json
+      - docs/PROJECT-CURRENT-STATE-R1.json
+      - scripts/verify-project-continuity-state-r1.py
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify Batch 12GA exact head
+        run: |
+          set -euo pipefail
+          python scripts/verify-tianwen-transmission-genealogy-r1.py
+          python scripts/verify-project-continuity-state-r1.py
+          python scripts/verify-fusion-chart-historical-provenance-audit-r1.py
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          bid='BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-PKU-FULLTEXT-BRIDGE-PUBLIC-ACCESS-BOUNDARY-GA'
+          ep=Path('docs/research/ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-PKU-FULLTEXT-BRIDGE-PUBLIC-ACCESS-BOUNDARY-R1.json')
+          dp=Path('docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-PKU-FULLTEXT-BRIDGE-PUBLIC-ACCESS-BOUNDARY-GA.md')
+          assert ep.is_file() and dp.is_file()
+          e=json.loads(ep.read_text(encoding='utf-8'))
+          assert e['batch_id']==bid
+
+          b=e['official_pku_issue_bridge']
+          assert b['jid']=='94408'
+          assert b['viid']=='12482306'
+          assert b['outbound_link_count']==5
+          assert b['target_article_range_from_prior_fz']=='121-129'
+          assert b['target_primary_text_obtained'] is False
+
+          assert len(e['route_observations'])==5
+          assert all(x['target_article_text_obtained'] is False for x in e['route_observations'])
+          assert all(x.get('content_absence_proved') is not True for x in e['route_observations'])
+          assert all(x.get('provider_holding_absence_proved') is not True for x in e['route_observations'])
+
+          p=e['pku_platform_article_route_control']
+          assert p['prior_index_metadata_page_range']=='121-129'
+          assert p['index_metadata_fulltext_label_emitted'] is True
+          assert p['target_article_detail_stably_rendered'] is False
+          assert p['target_download_object_source_emitted'] is False
+          assert p['target_primary_text_source_emitted'] is False
+          assert p['aid_enumeration_or_guessing_performed'] is False
+
+          fw=e['access_and_authority_firewall']
+          for key in (
+              'outbound_fulltext_link_presence_does_not_equal_target_fulltext_retrieval',
+              'provider_http_error_does_not_equal_content_absence',
+              'javascript_or_login_shell_does_not_equal_content_absence',
+              'generic_publisher_homepage_does_not_equal_no_archive_or_no_article',
+              'no_authentication_bypass_attempted',
+              'no_paywall_bypass_attempted',
+              'no_article_id_enumeration_or_guessing',
+              'no_provider_account_action_taken',
+              'no_purchase_or_fee_incurred',
+              'first_party_indexed_page_range_121_129_remains_valid',
+              'article_range_does_not_prove_jan29_presence',
+              'no_date_to_page_interpolation',
+              'journal_pagination_does_not_map_to_2007_facsimile_pagination_without_direct_crosswalk',
+          ):
+              assert fw[key] is True
+
+          t=e['target_status_after_batch']
+          assert t['article_page_range']=='121-129'
+          assert t['target_1950_01_29_presence_in_article']=='NOT_DIRECTLY_COLLATED'
+          assert t['target_1950_01_29_exact_journal_page']=='UNRESOLVED'
+          assert t['target_1950_01_29_primary_journal_text']=='NOT_REVIEWED'
+          assert t['target_1950_01_29_facsimile_page']=='UNRESOLVED'
+          assert t['target_1950_01_29_facsimile_text']=='NOT_REVIEWED'
+          assert t['target_1950_01_29_handwriting_directly_collated'] is False
+
+          state=json.loads(Path('docs/PROJECT-CURRENT-STATE-R1.json').read_text(encoding='utf-8'))
+          assert state['schema_version']=='1.187.0'
+          assert bid in state['historical_audit']['completed_batches']
+          assert state['historical_audit']['latest_batch_doc'].endswith('PKU-FULLTEXT-BRIDGE-PUBLIC-ACCESS-BOUNDARY-GA.md')
+          assert state['historical_audit']['row_count']==198
+          assert state['historical_audit']['audited_row_count']==166
+          assert state['historical_audit']['current_missing_from_product_row_count']==10
+          assert state['historical_audit']['confirmed_provenance_metadata_defect_count']==14
+          assert state['historical_audit']['repaired_provenance_metadata_defect_count']==14
+          assert state['invariants']['deterministic_fusion_chart_product_r1']=='CLOSED'
+          assert state['invariants']['confirmed_chart_algorithm_defect_count']==0
+          assert state['invariants']['algorithm_reopen_count']==0
+          assert state['invariants']['candidate_collapse_count']==0
+
+          reg=json.loads(Path('docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json').read_text(encoding='utf-8'))
+          s=next(x for x in reg['sources'] if x.get('source_id')=='EXT-PKU-CCJ-2008-03-FULLTEXT-BRIDGE-ACCESS-CONTROL')
+          assert s['batch_12ga']['outbound_fulltext_link_count']==5
+          assert s['batch_12ga']['target_article_range_from_prior_fz']=='121-129'
+          assert s['batch_12ga']['target_primary_text_obtained'] is False
+          assert s['batch_12ga']['no_authentication_bypass_attempted'] is True
+          assert s['batch_12ga']['no_paywall_bypass_attempted'] is True
+          assert s['batch_12ga']['no_article_id_enumeration_or_guessing'] is True
+
+          assert e['transmission_impact']['nodes_added']==[]
+          assert e['transmission_impact']['edges_added']==[]
+          assert e['chronology_and_rule_firewall']['runtime_rule_change'] is False
+          assert e['chronology_and_rule_firewall']['algorithm_reopen_authorized'] is False
+          assert e['chronology_and_rule_firewall']['candidate_collapse_authorized'] is False
+          assert e['chronology_and_rule_firewall']['matrix_row_count_change'] is False
+          PY
