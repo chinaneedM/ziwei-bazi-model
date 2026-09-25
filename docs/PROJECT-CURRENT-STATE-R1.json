@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.186.0",
+  "schema_version": "1.187.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -268,9 +268,10 @@
       "BATCH-12-ZIWEI-DENG-ZHICHENG-DIARY-1950-0129-FACSIMILE-VOLUME5-JAPAN-HOLDING-BOUNDARY-FW",
       "BATCH-12-ZIWEI-DENG-ZHICHENG-DIARY-1950-0129-EDITOR-CHECKED-SERIAL-ROUTE-AND-VOL5-P222-CITATION-BOUNDARY-FX",
       "BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI-2008-ISSUE03-PKU-CQVIP-PAGINATION-BOUNDARY-FY",
-      "BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI-2008-ISSUE03-PKU-ARTICLE-RANGE-AND-P120-CITATION-REPAIR-FZ"
+      "BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI-2008-ISSUE03-PKU-ARTICLE-RANGE-AND-P120-CITATION-REPAIR-FZ",
+      "BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-PKU-FULLTEXT-BRIDGE-PUBLIC-ACCESS-BOUNDARY-GA"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI-2008-ISSUE03-PKU-ARTICLE-RANGE-AND-P120-CITATION-REPAIR-FZ.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-PKU-FULLTEXT-BRIDGE-PUBLIC-ACCESS-BOUNDARY-GA.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -1082,7 +1083,12 @@
       "The lower-authority 1950-01-01 -> p124 citation is range-consistent with pp.121–129 but remains discovery-only; range consistency does not promote it to primary authority. No linear or density-based interpolation toward 1950-01-29 is allowed.",
       "The 1950-01-29 search space is now bounded at article level to pp.121–129 if the entry is actually present, but its exact journal page and primary journal wording remain UNRESOLVED / NOT_REVIEWED. The 2007 facsimile volume-5 page/leaf and handwriting also remain UNRESOLVED / NOT_REVIEWED.",
       "Batch 12FZ adds no transmission node/edge and authorizes no acquisition edge, SAME_OBJECT relation, runtime rule change, candidate collapse or algorithm reopen. Matrix/product row counts remain 198 / 166 / 10; provenance defects are now 14/14; chart algorithm defects 0; DETERMINISTIC_FUSION_CHART_PRODUCT_R1 remains CLOSED.",
-      "Highest next gate: directly retrieve or review the primary article pages 121–129 (or a source-emitted fulltext object) and locate 1950-01-29 without interpolation; then bind the exact journal page/text, compare the 2012 derivative, resolve the 2007 facsimile volume-5 page/leaf and directly collate handwriting. Continue FV Jan-6, NLC [23]/[24], Ji chapter 9 and Gao annotated-catalog routes in parallel."
+      "Highest next gate: directly retrieve or review the primary article pages 121–129 (or a source-emitted fulltext object) and locate 1950-01-29 without interpolation; then bind the exact journal page/text, compare the 2012 derivative, resolve the 2007 facsimile volume-5 page/leaf and directly collate handwriting. Continue FV Jan-6, NLC [23]/[24], Ji chapter 9 and Gao annotated-catalog routes in parallel.",
+      "Batch 12GA closes the public-access boundary of the official PKU 2008 Issue 03 fulltext bridge. The first-party issue page exposes five outbound fulltext routes (publisher official website, National Social Sciences Database, CNKI, Wanfang and CQVIP), but no source-emitted primary-text object for 《五石斋文史札记（二十八）》 was obtained on the reviewed anonymous public surfaces.",
+      "The observed provider outcomes are routing/access observations only: a generic publisher homepage, NSSD legacy-route 404, CNKI 502 in the reviewed environment, a Wanfang JavaScript/account-oriented shell, and CQVIP 412. None proves provider content absence, and no authentication/paywall bypass, article-ID enumeration/guessing, purchase or account action was attempted.",
+      "The FZ first-party indexed article range pp.121–129 remains authoritative at the bibliographic-metadata layer. GA does not change that range and does not prove Jan-29 presence, exact page or primary wording. The 1950-01-29 journal page/text and 2007 facsimile page/handwriting remain UNRESOLVED / NOT_REVIEWED.",
+      "Batch 12GA adds no transmission node/edge and authorizes no acquisition edge, SAME_OBJECT relation, runtime rule change, candidate collapse or algorithm reopen. Matrix/product counts remain 198 / 166 / 10; provenance defects remain 14/14 repaired; chart algorithm defects remain 0; DETERMINISTIC_FUSION_CHART_PRODUCT_R1 remains CLOSED.",
+      "Highest next gate: continue lawful discovery for a source-emitted primary/fulltext object covering pp.121–129 and directly locate 1950-01-29 without interpolation; if obtained, bind exact journal page/text and compare the 2012 derivative. In parallel, continue the 2007 facsimile volume-5 page/leaf route plus FV Jan-6, NLC [23]/[24], Ji chapter 9 and Gao annotated-catalog routes."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10
