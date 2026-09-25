@@ -1,0 +1,114 @@
+{
+  "schema": "ZIWEI-GU-TINGLONG-DIARY-P593-P595-PAGE-CALIBRATION-JAN6-FALSE-LEAD-FIREWALL-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-GU-TINGLONG-DIARY-P593-P595-PAGE-CALIBRATION-AND-JAN6-FALSE-LEAD-FIREWALL-GJ",
+  "prior_batch_id": "BATCH-12-ZIWEI-DENG-ZHICHENG-DIARY-VOL5-TOYO-BUNKO-FIRST-PARTY-HOLDING-AND-COPY-SERVICE-BOUNDARY-GI",
+  "question": "Does the newly surfaced citation to page 593 of the 2022 Zhonghua edition of Gu Tinglong's diary close the exact published page for the 1950-01-06 Tieqin transaction entry?",
+  "answer": "No. The public Library Journal article exposes reference [40] only as Gu Tinglong Diary (2022), p.593; its public HTML does not expose the in-text citation context needed to bind p.593 to 1950-01-06. Separately, search-index text from a Peking University-hosted academic PDF explicitly associates 1951-12-25 with Gu Tinglong Diary p.595. Because the PDF itself could not be opened/screenshot in the current public browser route, that second control remains search-index text rather than direct page-image collation. Together these controls make p.593 unsafe as a Jan-6 locator: no p.593→1950-01-06 binding is authorized, and Batch 12FV's exact Jan-6 published page remains UNRESOLVED.",
+  "library_journal_p593_control": {
+    "source_id": "EXT-LIBRARYJOURNAL-WANG-SHIWEI-2025-GU-DIARY-P593-CITATION",
+    "provider": "《图书馆杂志》官方网站",
+    "author": "王世伟",
+    "article_title": "古籍版本目录学界的“南顾北赵”——纪念赵万里先生诞辰120周年",
+    "journal": "图书馆杂志",
+    "year": 2025,
+    "volume": 44,
+    "issue_or_serial": "415",
+    "article_pages": "114-125",
+    "url": "https://www.libraryjournal.com.cn/CN/Y2025/V44/I415/114",
+    "public_html_exposes_reference_40": true,
+    "reference_40_text": "顾廷龙,李军,师元光. 顾廷龙日记[M]. 北京:中华书局,2022:593.",
+    "public_html_exposes_reference_40_in_text_context": false,
+    "public_html_exposes_p593_event_date": false,
+    "p593_event_date": "UNRESOLVED",
+    "p593_bound_to_1950_01_06": false,
+    "direct_2022_page593_reviewed_by_project": false
+  },
+  "pku_p595_chronology_control": {
+    "source_id": "EXT-PKU-JCCS-CHEN-MING-GU-DIARY-P595-1951-1225",
+    "provider": "北京大学跨文化研究中心 / 《跨文化对话》平台",
+    "author": "陈明",
+    "article_title": "“也是学梵文的”——周一良的梵文研究及其与季羡林的早期学谊",
+    "url": "https://www.pkujccs.cn/uploads/attachments/20250320/e119cce935b86fa35050fd6f055b9d0f.pdf",
+    "observed_via": "PUBLIC_SEARCH_INDEX_TEXT_FROM_PKU_HOSTED_ACADEMIC_PDF",
+    "observed_date": "1951-12-25",
+    "observed_diary_phrase": "得一良寄乃翁《六十纪念集》",
+    "observed_footnote_locator": "顾廷龙撰，李军、师元光整理：《顾廷龙日记》，第595页",
+    "p595_associated_with_1951_12_25_in_search_index_text": true,
+    "direct_pdf_fetch_succeeded": false,
+    "direct_pdf_page_screenshot_reviewed_by_project": false,
+    "direct_2022_diary_page595_reviewed_by_project": false,
+    "authority_status": "SEARCH_INDEX_TEXT_CONTROL_NOT_DIRECT_DIARY_OR_PDF_PAGE_COLLATION"
+  },
+  "surviving_1950_sample_control": {
+    "source_id": "EXT-ZHONGHUA1912-REPRINT-GU-TINGLONG-DIARY-EDITORIAL-PREFACE-2022",
+    "public_repost_url": "https://www.sohu.com/a/525751522_121124384",
+    "public_sample_caption": "1950年1月1日、2日、3日、4日日记",
+    "public_sample_includes_1950_01_06": false,
+    "jan6_page_number_recoverable_from_sample": false,
+    "direct_jan6_page_reviewed": false
+  },
+  "adjudication": {
+    "gu_diary_2022_edition_identity": "CLOSED_BY_BATCH_12FV",
+    "p593_citation_exists": "CLOSED_AT_LIBRARY_JOURNAL_REFERENCE_LIST_LEVEL",
+    "p593_in_text_event_context": "UNRESOLVED",
+    "p595_1951_12_25_association": "SEARCH_INDEX_TEXT_CONTROL",
+    "p593_to_1950_01_06_binding_authorized": false,
+    "1950_01_06_exact_published_page_number": "UNRESOLVED",
+    "1950_01_06_direct_published_text": "NOT_REVIEWED",
+    "1950_01_06_direct_manuscript_text": "NOT_REVIEWED",
+    "reported_purchase_300_titles_30_million": "SECONDARY_QUOTATION_PENDING_DIRECT_COLLATION",
+    "reported_donation_42_titles": "SECONDARY_QUOTATION_PENDING_DIRECT_COLLATION",
+    "target_specific_purchase_route_selected": false,
+    "target_specific_donation_route_selected": false,
+    "target_exact_acquisition_date": "UNRESOLVED",
+    "final_nlc_acquisition_transfer_path": "UNRESOLVED"
+  },
+  "inference_firewall": {
+    "bibliography_reference_page_does_not_equal_target_date_binding": true,
+    "p595_late_1951_control_does_not_identify_p593_event": true,
+    "search_index_pdf_text_does_not_equal_direct_pdf_page_review": true,
+    "neighboring_page_numbers_must_not_be_back_interpolated_to_jan6_1950": true,
+    "public_sample_jan1_4_does_not_locate_jan6": true,
+    "direct_jan6_page_required_before_exact_page_promotion": true,
+    "collection_level_purchase_and_donation_counts_do_not_bind_target_volume": true,
+    "target_route_requires_item_level_or_stable_identifier_level_transaction_evidence": true
+  },
+  "user_action_firewall": {
+    "no_library_account_action_taken": true,
+    "no_copy_request_submitted": true,
+    "no_fee_incurred": true,
+    "no_identity_document_submitted": true
+  },
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_added": [],
+    "acquisition_edge_authorized": false,
+    "same_object_edge_authorized": false
+  },
+  "chronology_and_rule_firewall": {
+    "direct_sanming_parent_vote_increment": 0,
+    "pre1578_zhunzhai_rule_witness_increment": 0,
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_count_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 14,
+    "repaired_provenance_metadata_defect_count": 14,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Keep Batch 12FV exact 1950-01-06 published page UNRESOLVED; do not use p.593 as the locator without direct in-text/page evidence.",
+    "Search lawful previews, citations, indexes or physical-library routes for an explicit 1950-01-06 -> page binding in the 2022 Zhonghua edition.",
+    "Directly collate the 1950-01-06 published diary entry and, where lawful, compare it with the Shanghai Library manuscript/reproduction.",
+    "Continue NLC [23] pp.446-449, NLC [24] pp.1397-1398/original Zheng letter, Ji Shuying chapter 9, Gao Xizeng annotated catalog, and the 1950-01-29 Deng Zhicheng diary routes in parallel."
+  ],
+  "updated_at": "2026-09-25"
+}

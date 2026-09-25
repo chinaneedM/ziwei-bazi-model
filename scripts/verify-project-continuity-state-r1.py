@@ -184,6 +184,8 @@ ZIWEI_ZHENG_XU_12GH_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDI
 ZIWEI_ZHENG_XU_12GH_EVIDENCE = ROOT / "docs/research/ZIWEI-ZHENG-ZHENDUO-XU-SENYU-1952-CONTEXTUAL-TIEQIN-TWO-BATCH-CHRONOLOGY-R1.json"
 ZIWEI_DENG_TOYO_12GI_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DENG-ZHICHENG-DIARY-VOL5-TOYO-BUNKO-FIRST-PARTY-HOLDING-AND-COPY-SERVICE-BOUNDARY-GI.md"
 ZIWEI_DENG_TOYO_12GI_EVIDENCE = ROOT / "docs/research/ZIWEI-DENG-ZHICHENG-DIARY-VOL5-TOYO-BUNKO-FIRST-PARTY-HOLDING-AND-COPY-SERVICE-BOUNDARY-R1.json"
+ZIWEI_GU_PAGE_CAL_12GJ_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-GU-TINGLONG-DIARY-P593-P595-PAGE-CALIBRATION-AND-JAN6-FALSE-LEAD-FIREWALL-GJ.md"
+ZIWEI_GU_PAGE_CAL_12GJ_EVIDENCE = ROOT / "docs/research/ZIWEI-GU-TINGLONG-DIARY-P593-P595-PAGE-CALIBRATION-JAN6-FIREWALL-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -502,9 +504,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-NDL-REMOTE-COPY-FRONTEND-CONTRACT-STATIC-BOUNDARY-GG",
     "BATCH-12-ZIWEI-ZHENG-ZHENDUO-XU-SENYU-1952-CONTEXTUAL-TIEQIN-TWO-BATCH-CHRONOLOGY-FIREWALL-GH",
     "BATCH-12-ZIWEI-DENG-ZHICHENG-DIARY-VOL5-TOYO-BUNKO-FIRST-PARTY-HOLDING-AND-COPY-SERVICE-BOUNDARY-GI",
+    "BATCH-12-ZIWEI-GU-TINGLONG-DIARY-P593-P595-PAGE-CALIBRATION-AND-JAN6-FALSE-LEAD-FIREWALL-GJ",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DENG-ZHICHENG-DIARY-VOL5-TOYO-BUNKO-FIRST-PARTY-HOLDING-AND-COPY-SERVICE-BOUNDARY-GI.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-GU-TINGLONG-DIARY-P593-P595-PAGE-CALIBRATION-AND-JAN6-FALSE-LEAD-FIREWALL-GJ.md"
 
 
 def fail(message: str) -> None:
@@ -6462,6 +6465,66 @@ def main() -> int:
         fail("Batch 12GI missing from completed batch state")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12GI latest-batch document state mismatch")
+
+    # Batch 12GJ Gu Tinglong p593/p595 page-calibration and Jan-6 false-lead firewall.
+    for path in (ZIWEI_GU_PAGE_CAL_12GJ_BATCH, ZIWEI_GU_PAGE_CAL_12GJ_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12GJ continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12gj = json.loads(ZIWEI_GU_PAGE_CAL_12GJ_EVIDENCE.read_text(encoding="utf-8"))
+    bid12gj = "BATCH-12-ZIWEI-GU-TINGLONG-DIARY-P593-P595-PAGE-CALIBRATION-AND-JAN6-FALSE-LEAD-FIREWALL-GJ"
+    if batch12gj.get("batch_id") != bid12gj:
+        fail("Batch 12GJ evidence identity mismatch")
+    p593gj = batch12gj.get("library_journal_p593_control", {})
+    if p593gj.get("public_html_exposes_reference_40") is not True or p593gj.get("reference_40_text") != "顾廷龙,李军,师元光. 顾廷龙日记[M]. 北京:中华书局,2022:593.":
+        fail("Batch 12GJ p593 citation control regressed")
+    if p593gj.get("public_html_exposes_reference_40_in_text_context") is not False or p593gj.get("p593_event_date") != "UNRESOLVED" or p593gj.get("p593_bound_to_1950_01_06") is not False:
+        fail("Batch 12GJ p593 date-binding firewall regressed")
+    p595gj = batch12gj.get("pku_p595_chronology_control", {})
+    if p595gj.get("observed_date") != "1951-12-25" or p595gj.get("p595_associated_with_1951_12_25_in_search_index_text") is not True:
+        fail("Batch 12GJ p595 chronology control regressed")
+    if p595gj.get("direct_pdf_fetch_succeeded") is not False or p595gj.get("direct_pdf_page_screenshot_reviewed_by_project") is not False or p595gj.get("authority_status") != "SEARCH_INDEX_TEXT_CONTROL_NOT_DIRECT_DIARY_OR_PDF_PAGE_COLLATION":
+        fail("Batch 12GJ PDF/search-index authority firewall regressed")
+    adj12gj = batch12gj.get("adjudication", {})
+    if adj12gj.get("p593_to_1950_01_06_binding_authorized") is not False or adj12gj.get("1950_01_06_exact_published_page_number") != "UNRESOLVED":
+        fail("Batch 12GJ Jan-6 page was falsely closed")
+    if adj12gj.get("1950_01_06_direct_published_text") != "NOT_REVIEWED" or adj12gj.get("1950_01_06_direct_manuscript_text") != "NOT_REVIEWED":
+        fail("Batch 12GJ Jan-6 direct-text boundary regressed")
+    fw12gj = batch12gj.get("inference_firewall", {})
+    for key in ("bibliography_reference_page_does_not_equal_target_date_binding","p595_late_1951_control_does_not_identify_p593_event","search_index_pdf_text_does_not_equal_direct_pdf_page_review","neighboring_page_numbers_must_not_be_back_interpolated_to_jan6_1950","public_sample_jan1_4_does_not_locate_jan6","direct_jan6_page_required_before_exact_page_promotion","collection_level_purchase_and_donation_counts_do_not_bind_target_volume","target_route_requires_item_level_or_stable_identifier_level_transaction_evidence"):
+        if fw12gj.get(key) is not True:
+            fail(f"Batch 12GJ inference firewall regressed: {key}")
+    src_p593_gj = next((x for x in registry.get("sources", ()) if x.get("source_id") == "EXT-LIBRARYJOURNAL-WANG-SHIWEI-2025-GU-DIARY-P593-CITATION"), None)
+    src_p595_gj = next((x for x in registry.get("sources", ()) if x.get("source_id") == "EXT-PKU-JCCS-CHEN-MING-GU-DIARY-P595-1951-1225"), None)
+    src_cinii_gj = next((x for x in registry.get("sources", ()) if x.get("source_id") == "EXT-CINII-GU-TINGLONG-DIARY-2022"), None)
+    if src_p593_gj is None or src_p595_gj is None or src_cinii_gj is None:
+        fail("Batch 12GJ source registry controls missing")
+    if src_p593_gj.get("batch_12gj", {}).get("cited_page_event_date") != "UNRESOLVED" or src_p593_gj.get("batch_12gj", {}).get("p593_bound_to_1950_01_06") is not False:
+        fail("Batch 12GJ Library Journal registry boundary regressed")
+    if src_p595_gj.get("batch_12gj", {}).get("observed_date") != "1951-12-25" or src_p595_gj.get("batch_12gj", {}).get("direct_pdf_page_screenshot_reviewed") is not False:
+        fail("Batch 12GJ PKU page-chronology registry boundary regressed")
+    if src_cinii_gj.get("batch_12gj", {}).get("p593_jan6_binding_authorized") is not False or src_cinii_gj.get("batch_12gj", {}).get("exact_1950_01_06_published_page") != "UNRESOLVED":
+        fail("Batch 12GJ CiNii Jan-6 page firewall regressed")
+    trans12gj = batch12gj.get("transmission_impact", {})
+    if trans12gj.get("nodes_added") != [] or trans12gj.get("edges_added") != [] or trans12gj.get("acquisition_edge_authorized") is not False or trans12gj.get("same_object_edge_authorized") is not False:
+        fail("Batch 12GJ zero-topology/acquisition-edge firewall regressed")
+    rule12gj = batch12gj.get("chronology_and_rule_firewall", {})
+    if rule12gj.get("runtime_rule_change") is not False or rule12gj.get("algorithm_reopen_authorized") is not False or rule12gj.get("candidate_collapse_authorized") is not False or rule12gj.get("matrix_count_change") is not False:
+        fail("Batch 12GJ product/matrix firewall regressed")
+    acct12gj = batch12gj.get("accounting", {})
+    if acct12gj.get("matrix_rows") != 198 or acct12gj.get("audited_rows") != 166 or acct12gj.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12GJ matrix accounting unexpectedly changed")
+    if acct12gj.get("confirmed_provenance_metadata_defect_count") != 14 or acct12gj.get("repaired_provenance_metadata_defect_count") != 14 or acct12gj.get("confirmed_chart_algorithm_defect_count") != 0:
+        fail("Batch 12GJ provenance/algorithm accounting regressed")
+    try:
+        schema12gj = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12GJ current-state schema version is not numeric")
+    if schema12gj < (1, 196, 0):
+        fail("Batch 12GJ current-state schema version regressed below 1.196.0")
+    if bid12gj not in audit_state.get("completed_batches", ()):
+        fail("Batch 12GJ missing from completed batch state")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12GJ latest-batch document state mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")
