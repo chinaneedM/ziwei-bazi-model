@@ -1,0 +1,170 @@
+{
+  "schema": "ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-PKU-TITLE-PHRASE-INDEX-NONMATCH-BOUNDARY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-PKU-TITLE-PHRASE-INDEX-NONMATCH-BOUNDARY-GD",
+  "prior_batch_id": "BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-PKU-STABLE-DETAIL-ARTICLEFILE-BOUNDARY-GC",
+  "question": "Does the current first-party PKU search index reproduce known 1950-01-29 derivative phrases inside the 《五石斋文史札记》 series, and can any nonmatch be treated as a negative statement about the primary article text?",
+  "answer": "The current PKU search backend does not match target article id 286663046 for the five tested derivative phrases when each is AND-scoped by the source-emitted two-condition query to Title=五石斋文史札记. The same query mechanism is validated by a positive control: Title=五石斋文史札记 AND 邓之诚 returns all 37 series records and includes target id 286663046 exactly once. Under the validated mechanism, 四千万人民券 yields 0 series results; 十二箱 yields 9 series results but not the target; 以归公 yields 4 but not target; 一月二十九日 yields 20 but not target; 铁琴铜剑楼 yields 1 but not target. This closes only a CURRENT_SEARCH_INDEX_NONMATCH_UNDER_TESTED_QUERY boundary. It does not prove the phrases are absent from the 2008 primary article, because the target search record has an empty abstract, GC showed isFileExist=false/fulltextFId=null, and the current ArticleFile route returns 文件不存在. Search-index coverage/fielding is not page-text authority.",
+  "source_contract": {
+    "provider": "北京大学期刊平台",
+    "backend": "https://ccj.pku.edu.cn/Search/SearchArticleByElasticsearch",
+    "target_article_id": "286663046",
+    "title_scope": "五石斋文史札记",
+    "query_generation": "GET_ADVANCED_SEARCH_PAGE_THEN_REPLAY_EXACT_SOURCE_EMITTED_QUERYITEM_ARRAY",
+    "title_field": 1,
+    "all_fields_field": 0,
+    "boolean_operator": "AND",
+    "executed_page_size": 100,
+    "authentication_used": false,
+    "id_enumeration_or_guessing": false,
+    "backend_query_only_if_two_condition_query_item_source_emitted": true
+  },
+  "broad_probe_control": {
+    "run_id": 36096798823,
+    "artifact_id": 10847607831,
+    "artifact_name": "wushizhai-pku-index-phrases-gd",
+    "artifact_digest": "sha256:44e6617b58ec2105367639db6f279f8c4c45a8c0bf80a6ae6d06e512b7b36cb7",
+    "role": "BROAD_ALL_FIELD_TOP100_CONTROL_NOT_USED_FOR_NEGATIVE_ADJUDICATION",
+    "limitation": "Broad all-field queries had totals from 1183 to 44898 while only the top 100 were retrieved; target nonmatch there is not interpretable as a target-specific negative."
+  },
+  "scoped_probe": {
+    "run_id": 36097046685,
+    "artifact_id": 10846993957,
+    "artifact_name": "wushizhai-pku-title-phrase-scope-gd",
+    "artifact_digest": "sha256:f8f353ac63def02584f394e668bb47d5faa0e438b4ec02158048b9342507d3a4",
+    "positive_control": {
+      "title_condition": "五石斋文史札记",
+      "all_fields_condition": "邓之诚",
+      "source_emitted_query_item_count": 2,
+      "backend_total": "37",
+      "result_count": 37,
+      "target_match_count": 1,
+      "target_id": "286663046",
+      "target_pages": "121-129",
+      "success": true
+    },
+    "phrase_tests": [
+      {
+        "label": "purchase_amount",
+        "phrase": "四千万人民券",
+        "backend_total": "0",
+        "result_count": 0,
+        "target_match_count": 0,
+        "target_current_index_match": false
+      },
+      {
+        "label": "box_count",
+        "phrase": "十二箱",
+        "backend_total": "9",
+        "result_count": 9,
+        "target_match_count": 0,
+        "target_current_index_match": false
+      },
+      {
+        "label": "destination",
+        "phrase": "以归公",
+        "backend_total": "4",
+        "result_count": 4,
+        "target_match_count": 0,
+        "target_current_index_match": false
+      },
+      {
+        "label": "date",
+        "phrase": "一月二十九日",
+        "backend_total": "20",
+        "result_count": 20,
+        "target_match_count": 0,
+        "target_current_index_match": false
+      },
+      {
+        "label": "collection_name",
+        "phrase": "铁琴铜剑楼",
+        "backend_total": "1",
+        "result_count": 1,
+        "target_match_count": 0,
+        "target_current_index_match": false
+      }
+    ]
+  },
+  "interpretation": {
+    "validated_two_condition_query_mechanism": true,
+    "tested_phrase_count": 5,
+    "tested_phrase_target_match_count": 0,
+    "classification": "CURRENT_SEARCH_INDEX_NONMATCH_UNDER_TESTED_QUERY",
+    "whole_article_negative_attestation": false,
+    "primary_text_negative_attestation": false,
+    "page_glyph_negative_attestation": false,
+    "reason_negative_attestation_forbidden": [
+      "target abstract is empty in current PKU search row",
+      "target isFileExist=false",
+      "target fulltextFId=null",
+      "GC source-emitted ArticleFile route returns 文件不存在",
+      "current search-index field coverage is not demonstrated to equal complete article body indexing"
+    ]
+  },
+  "access_and_authority_firewall": {
+    "positive_control_required_before_interpreting_phrase_nonmatch": true,
+    "broad_top100_nonmatch_not_negative_evidence": true,
+    "scoped_index_nonmatch_does_not_equal_article_text_absence": true,
+    "search_index_highlight_or_match_does_not_equal_primary_page_glyph": true,
+    "empty_abstract_does_not_equal_empty_article": true,
+    "no_authentication_bypass_attempted": true,
+    "no_paywall_bypass_attempted": true,
+    "no_article_id_enumeration_or_guessing": true,
+    "no_provider_account_action_taken": true,
+    "no_purchase_or_fee_incurred": true,
+    "no_date_to_page_interpolation": true,
+    "journal_pagination_does_not_map_to_2007_facsimile_pagination_without_direct_crosswalk": true
+  },
+  "target_status_after_batch": {
+    "article_id": "286663046",
+    "article_page_range": "121-129",
+    "stable_detail_route": "CLOSED_CURRENT_FIRST_PARTY_DETAIL_ROUTE",
+    "current_pku_articlefile": "SOURCE_EMITTED_ROUTE_RETURNS_FILE_NOT_FOUND",
+    "known_derivative_phrase_index_status": "CURRENT_SEARCH_INDEX_NONMATCH_UNDER_TESTED_TITLE_SCOPED_QUERY",
+    "target_1950_01_29_presence_in_article": "NOT_DIRECTLY_COLLATED",
+    "target_1950_01_29_exact_journal_page": "UNRESOLVED",
+    "target_1950_01_29_primary_journal_text": "NOT_REVIEWED",
+    "target_1950_01_29_exact_facsimile_page": "UNRESOLVED",
+    "target_1950_01_29_facsimile_text": "NOT_REVIEWED",
+    "target_1950_01_29_handwriting_directly_collated": false,
+    "target_3482_3483_batch_membership": "UNRESOLVED",
+    "target_specific_purchase_route_selected": false,
+    "target_specific_donation_route_selected": false,
+    "final_nlc_acquisition_transfer_path": "UNRESOLVED"
+  },
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_added": [],
+    "supported_edges": [],
+    "revised_edges": [],
+    "rejected_edges": [],
+    "remaining_lineage_questions": [],
+    "acquisition_edge_authorized": false,
+    "same_object_edge_authorized": false
+  },
+  "chronology_and_rule_firewall": {
+    "direct_sanming_parent_vote_increment": 0,
+    "pre1578_zhunzhai_rule_witness_increment": 0,
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 14,
+    "repaired_provenance_metadata_defect_count": 14,
+    "confirmed_chart_algorithm_defect_count": 0
+  },
+  "next_gate": [
+    "Do not spend further cycles treating PKU phrase-index nonmatches as article-text negatives; seek a source-emitted primary page/fulltext object or an independent exact page citation for 1950-01-29.",
+    "Search exact scholarly/primary citations that bind the 1950-01-29 entry to one page within 121-129 without interpolation.",
+    "Continue exact 2007 facsimile volume-5 page/leaf discovery and directly collate handwriting if obtained.",
+    "Search directly reviewed target/adjacent primary or facsimile pages for 铜壶漏箭制度, 准斋心制几漏图式, 3482/3483, 03482/03483, the 1823 士礼居 fingerprint or another stable identifier.",
+    "Continue Gu Tinglong 1950-01-06, NLC [23]/[24], Ji Shuying chapter 9 and Gao Xizeng annotated-catalog routes in parallel."
+  ],
+  "updated_at": "2026-09-25"
+}
