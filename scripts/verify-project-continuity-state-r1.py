@@ -208,6 +208,8 @@ ZIWEI_JI_EXTENT_12GT_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUD
 ZIWEI_JI_EXTENT_12GT_EVIDENCE = ROOT / "docs/research/ZIWEI-JI-SHUYING-WENJI-2004-INSTITUTIONAL-PAGINATION-AND-RETAIL-P456-FIREWALL-R1.json"
 ZIWEI_WENJIN_V3_12GU_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENJIN-XUEZHI-V3-JAPAN-PHYSICAL-HOLDINGS-AND-OPAC-ACCESS-BOUNDARY-GU.md"
 ZIWEI_WENJIN_V3_12GU_EVIDENCE = ROOT / "docs/research/ZIWEI-WENJIN-XUEZHI-V3-JAPAN-PHYSICAL-HOLDINGS-AND-OPAC-ACCESS-BOUNDARY-R1.json"
+ZIWEI_JI_BAICHUAN_P335_12GV_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-BAICHUAN-P335-CROSS-PUBLICATION-CITATION-BRIDGE-GV.md"
+ZIWEI_JI_BAICHUAN_P335_12GV_EVIDENCE = ROOT / "docs/research/ZIWEI-JI-SHUYING-BAICHUAN-P335-CROSS-PUBLICATION-CITATION-BRIDGE-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -538,9 +540,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-JI-SHUYING-WENJI-2004-PUBLIC-FULL-TOC-ARTICLE74-EDITORIAL-ENDMATTER-BOUNDARY-GS",
     "BATCH-12-ZIWEI-JI-SHUYING-WENJI-2004-INSTITUTIONAL-PAGINATION-AND-RETAIL-P456-FIREWALL-GT",
     "BATCH-12-ZIWEI-WENJIN-XUEZHI-V3-JAPAN-PHYSICAL-HOLDINGS-AND-OPAC-ACCESS-BOUNDARY-GU",
+    "BATCH-12-ZIWEI-JI-SHUYING-BAICHUAN-P335-CROSS-PUBLICATION-CITATION-BRIDGE-GV",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENJIN-XUEZHI-V3-JAPAN-PHYSICAL-HOLDINGS-AND-OPAC-ACCESS-BOUNDARY-GU.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-BAICHUAN-P335-CROSS-PUBLICATION-CITATION-BRIDGE-GV.md"
 
 
 def fail(message: str) -> None:
@@ -7202,6 +7205,54 @@ def main() -> int:
         fail("Batch 12GU missing from completed batch state")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12GU latest-batch document state mismatch")
+
+    # Batch 12GV Baichuan p335 cross-publication citation bridge.
+    for path in (ZIWEI_JI_BAICHUAN_P335_12GV_BATCH, ZIWEI_JI_BAICHUAN_P335_12GV_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12GV continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12gv=json.loads(ZIWEI_JI_BAICHUAN_P335_12GV_EVIDENCE.read_text(encoding="utf-8"))
+    bid12gv="BATCH-12-ZIWEI-JI-SHUYING-BAICHUAN-P335-CROSS-PUBLICATION-CITATION-BRIDGE-GV"
+    if batch12gv.get("batch_id") != bid12gv:
+        fail("Batch 12GV evidence identity mismatch")
+    d12gv=batch12gv.get("dpm_2010_page335_control",{})
+    if d12gv.get("printed_page") != 60 or d12gv.get("wenji_cited_page") != 335 or d12gv.get("directly_reviewed_page_image") is not True:
+        fail("Batch 12GV DPM p335 control regressed")
+    t12gv=batch12gv.get("taiwan_ncl_2015_article_binding",{})
+    if t12gv.get("printed_statement_page") != 96 or t12gv.get("statement_attribution") != "冀淑英（2004）":
+        fail("Batch 12GV Taiwan statement attribution regressed")
+    if t12gv.get("printed_bibliography_page") != 102 or t12gv.get("bibliography_entry_title") != "百川歸海，蔚為大觀" or t12gv.get("bibliography_container") != "冀淑英文集":
+        fail("Batch 12GV bibliography binding regressed")
+    adj12gv=batch12gv.get("cross_publication_adjudication",{})
+    if adj12gv.get("dpm_binds_statement_to_wenji_page") != 335 or adj12gv.get("taiwan_ncl_binds_statement_to_baichuan_article") is not True:
+        fail("Batch 12GV cross-publication bridge regressed")
+    if adj12gv.get("baichuan_contains_wenji_page_335") != "HIGH_CONFIDENCE_CROSS_PUBLICATION_CITATION_BRIDGE":
+        fail("Batch 12GV p335 Baichuan anchor regressed")
+    if adj12gv.get("direct_2004_page_335_reviewed") is not False or adj12gv.get("baichuan_exact_page_range") != "UNRESOLVED" or adj12gv.get("page_interpolation_from_p335") != "NOT_AUTHORIZED":
+        fail("Batch 12GV direct-page/range firewall regressed")
+    src12gv={x.get("source_id"):x for x in registry.get("sources",())}
+    if src12gv.get("EXT-TAIWAN-NCL-2015-BAICHUAN-WENJI-BIBLIOGRAPHIC-CONTROL",{}).get("batch_12gv",{}).get("printed_bibliography_page") != 102:
+        fail("Batch 12GV Taiwan registry enrichment missing")
+    if src12gv.get("EXT-DPM-LIU-QIANG-2010-TIANLU-PP62-63-JI383-385-CONTEXT",{}).get("batch_12gv",{}).get("wenji_cited_page") != 335:
+        fail("Batch 12GV DPM registry enrichment missing")
+    trans12gv=batch12gv.get("transmission_impact",{})
+    if trans12gv.get("nodes_added") != [] or trans12gv.get("edges_added") != [] or trans12gv.get("direct_copy_edge_authorized") is not False or trans12gv.get("same_object_edge_authorized") is not False or trans12gv.get("acquisition_edge_authorized") is not False:
+        fail("Batch 12GV genealogy firewall regressed")
+    rule12gv=batch12gv.get("chronology_and_rule_firewall",{})
+    if rule12gv.get("runtime_rule_change") is not False or rule12gv.get("algorithm_reopen_authorized") is not False or rule12gv.get("candidate_collapse_authorized") is not False or rule12gv.get("matrix_count_change") is not False:
+        fail("Batch 12GV product/matrix firewall regressed")
+    acct12gv=batch12gv.get("accounting",{})
+    if acct12gv.get("matrix_rows") != 198 or acct12gv.get("audited_rows") != 166 or acct12gv.get("current_missing_from_product_rows") != 10 or acct12gv.get("confirmed_chart_algorithm_defect_count") != 0:
+        fail("Batch 12GV accounting regressed")
+    try:
+        schema12gv=tuple(int(part) for part in state.get("schema_version","0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12GV current-state schema version is not numeric")
+    if schema12gv < (1,208,0):
+        fail("Batch 12GV current-state schema version regressed below 1.208.0")
+    if bid12gv not in audit_state.get("completed_batches",()):
+        fail("Batch 12GV missing from completed batch state")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12GV latest-batch document state mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

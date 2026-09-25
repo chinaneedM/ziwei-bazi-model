@@ -1,0 +1,105 @@
+{
+  "schema": "ZIWEI-JI-SHUYING-BAICHUAN-P335-CROSS-PUBLICATION-CITATION-BRIDGE-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-JI-SHUYING-BAICHUAN-P335-CROSS-PUBLICATION-CITATION-BRIDGE-GV",
+  "prior_batch_id": "BATCH-12-ZIWEI-WENJIN-XUEZHI-V3-JAPAN-PHYSICAL-HOLDINGS-AND-OPAC-ACCESS-BOUNDARY-GU",
+  "question": "Can a concrete numbered page inside the 2004 《百川归海，蔚为大观》 be identified without directly possessing the 2004 volume?",
+  "answer": "Yes, at a high-confidence cross-publication citation-bridge layer, not by direct review of the 2004 page. Liu Qiang's official Palace Museum Journal article, printed p.60, reproduces Ji Shuying's statement that the better-known Song editions in the Tianlu Linlang Hou-bian were transferred to Beijing Library and footnotes it specifically to 《冀淑英文集》 p.335 (Beijing Library Press, 2004). An independent 2015 Taiwan National Central Library journal article reproduces the same Ji statement and cites it in author-year form as 冀淑英（2004）; that article's reference list expands the cited 2004 Ji item as 《百川归海，蔚为大观》 in 《冀淑英文集》. The convergent citation chain therefore binds Wenji p.335 to the Baichuan article with high confidence. It does not reveal whether p.335 is the article's first, last, or interior page, and the original p.335 has not been directly reviewed.",
+  "dpm_2010_page335_control": {
+    "source_id": "EXT-DPM-LIU-QIANG-2010-TIANLU-PP62-63-JI383-385-CONTEXT",
+    "provider": "故宫博物院",
+    "article_author": "刘蔷",
+    "article_title": "清宫“天禄琳琅”书存世状况总述",
+    "journal": "故宫博物院院刊",
+    "issue": "2010年第3期·总第149期",
+    "printed_page": 60,
+    "page_pdf_url": "https://www.dpm.org.cn/Uploads/File/pdf/c7/97/ab/c797abefe40e2b056a7258cc4dd6ce17.pdf",
+    "directly_reviewed_page_image": true,
+    "cited_statement_identity": "TIANLU_HOUBIAN_FAMOUS_SONG_EDITIONS_TRANSFERRED_TO_BEIJING_LIBRARY",
+    "footnote_number": 6,
+    "footnote_literal_source_scope": "冀淑英《冀淑英文集》页335，北京图书馆出版社，2004年",
+    "wenji_cited_page": 335,
+    "baichuan_title_named_in_dpm_footnote": false
+  },
+  "taiwan_ncl_2015_article_binding": {
+    "source_id": "EXT-TAIWAN-NCL-2015-BAICHUAN-WENJI-BIBLIOGRAPHIC-CONTROL",
+    "provider": "台湾国家图书馆馆刊",
+    "article_title": "臺灣現藏《天祿琳琅》遺書考述",
+    "issue": "104年第二期（2015.12）",
+    "printed_statement_page": 96,
+    "statement_pdf_page_zero_based": 7,
+    "directly_reviewed_statement_page_image": true,
+    "statement_attribution": "冀淑英（2004）",
+    "cited_statement_identity": "TIANLU_HOUBIAN_FAMOUS_SONG_EDITIONS_TRANSFERRED_TO_BEIJING_LIBRARY",
+    "printed_bibliography_page": 102,
+    "bibliography_pdf_page_zero_based": 13,
+    "directly_reviewed_bibliography_page_image": true,
+    "bibliography_entry_title": "百川歸海，蔚為大觀",
+    "bibliography_container": "冀淑英文集",
+    "bibliography_publisher": "北京圖書館出版社",
+    "bibliography_year": 2004
+  },
+  "cross_publication_adjudication": {
+    "same_substantive_ji_statement_observed_in_both_publications": true,
+    "dpm_binds_statement_to_wenji_page": 335,
+    "taiwan_ncl_binds_statement_to_baichuan_article": true,
+    "baichuan_contains_wenji_page_335": "HIGH_CONFIDENCE_CROSS_PUBLICATION_CITATION_BRIDGE",
+    "direct_2004_page_335_reviewed": false,
+    "page_335_is_baichuan_start_page": "UNRESOLVED",
+    "page_335_is_baichuan_end_page": "UNRESOLVED",
+    "baichuan_exact_page_range": "UNRESOLVED",
+    "baichuan_toc_ordinal": 74,
+    "page_interpolation_from_p335": "NOT_AUTHORIZED",
+    "direct_2004_article_text": "NOT_REVIEWED"
+  },
+  "relation_to_prior_baichuan_batches": {
+    "batch_12gp_article_identity_remains_closed": true,
+    "batch_12gs_toc_item_74_remains_closed": true,
+    "batch_12gt_retail_p456_firewall_remains_in_force": true,
+    "batch_12gr_pp383_385_false_lead_remains_in_force": true,
+    "new_increment": "FIRST_CONCRETE_NUMBERED_PAGE_ANCHOR_INSIDE_BAICHUAN_AT_CROSS_PUBLICATION_CITATION_LEVEL",
+    "direct_original_page_collation_increment": 0
+  },
+  "target_volume_firewall": {
+    "page335_statement_topic": "TIANLU_LINLANG_COLLECTION_TRANSFER_GENERAL",
+    "target_tonghu_title_named": false,
+    "target_zhunzhai_title_named": false,
+    "historical_3482_3483_named": false,
+    "current_03482_03483_named": false,
+    "target_specific_purchase_route_selected": false,
+    "target_specific_donation_route_selected": false,
+    "final_nlc_acquisition_transfer_path": "UNRESOLVED"
+  },
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_added": [],
+    "direct_copy_edge_authorized": false,
+    "same_object_edge_authorized": false,
+    "acquisition_edge_authorized": false
+  },
+  "chronology_and_rule_firewall": {
+    "direct_sanming_parent_vote_increment": 0,
+    "pre1578_zhunzhai_rule_witness_increment": 0,
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_count_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 14,
+    "repaired_provenance_metadata_defect_count": 14,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Search for additional citations to 《百川归海，蔚为大观》 with explicit page numbers adjacent to or bracketing p.335, prioritizing page-level scholarly references over total-page inference.",
+    "Directly obtain or inspect the 2004 volume p.335 and neighboring pages, then locate the start/end leaves of TOC item 74 without interpolation.",
+    "Directly inspect the final 《編后記》 and 2009 《冀淑英古籍善本十五讲》 postscript; continue 2010 supplement article discovery.",
+    "Continue direct 《北京图书馆馆史资料汇编（二）：1949—1966》 pp.446—449 collation in parallel."
+  ],
+  "updated_at": "2026-09-25"
+}
