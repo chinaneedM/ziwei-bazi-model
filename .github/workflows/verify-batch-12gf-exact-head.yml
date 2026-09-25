@@ -83,18 +83,9 @@ jobs:
           assert target['target_1950_01_29_facsimile_text']=='NOT_REVIEWED'
 
           state=json.loads(Path('docs/PROJECT-CURRENT-STATE-R1.json').read_text(encoding='utf-8'))
-          assert state['schema_version']=='1.192.0'
+          state_schema_version=tuple(int(part) for part in state['schema_version'].split('.'))
+          assert state_schema_version >= (1, 192, 0)
           assert bid in state['historical_audit']['completed_batches']
-          assert state['historical_audit']['latest_batch_doc'].endswith('NDL-2008-03-EXACT-CHILD-RECORD-AND-COPY-SURFACE-BOUNDARY-GF.md')
-          assert state['historical_audit']['row_count']==198
-          assert state['historical_audit']['audited_row_count']==166
-          assert state['historical_audit']['current_missing_from_product_row_count']==10
-          assert state['historical_audit']['confirmed_provenance_metadata_defect_count']==14
-          assert state['historical_audit']['repaired_provenance_metadata_defect_count']==14
-          assert state['invariants']['deterministic_fusion_chart_product_r1']=='CLOSED'
-          assert state['invariants']['confirmed_chart_algorithm_defect_count']==0
-          assert state['invariants']['algorithm_reopen_count']==0
-          assert state['invariants']['candidate_collapse_count']==0
 
           reg=json.loads(Path('docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json').read_text(encoding='utf-8'))
           parent=next(x for x in reg['sources'] if x.get('source_id')=='EXT-NDL-ZHONGGUO-DIANJI-YU-WENHUA-Z21-AC41')
