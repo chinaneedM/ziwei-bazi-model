@@ -1,0 +1,100 @@
+name: verify-batch-12gl-exact-head
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/verify-batch-12gl-exact-head.yml
+      - docs/research/ZIWEI-JI-SHUYING-CAMBRIDGE-MCDERMOTT-HOLDING-AND-SCAN-ELIGIBILITY-BOUNDARY-R1.json
+      - docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-CAMBRIDGE-MCDERMOTT-HOLDING-AND-SCAN-ELIGIBILITY-BOUNDARY-GL.md
+      - docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json
+      - docs/PROJECT-CURRENT-STATE-R1.json
+      - scripts/verify-project-continuity-state-r1.py
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify Batch 12GL exact head
+        run: |
+          set -euo pipefail
+          python scripts/verify-tianwen-transmission-genealogy-r1.py
+          python scripts/verify-project-continuity-state-r1.py
+          python scripts/verify-fusion-chart-historical-provenance-audit-r1.py
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          bid='BATCH-12-ZIWEI-JI-SHUYING-CAMBRIDGE-MCDERMOTT-HOLDING-AND-SCAN-ELIGIBILITY-BOUNDARY-GL'
+          ep=Path('docs/research/ZIWEI-JI-SHUYING-CAMBRIDGE-MCDERMOTT-HOLDING-AND-SCAN-ELIGIBILITY-BOUNDARY-R1.json')
+          dp=Path('docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-CAMBRIDGE-MCDERMOTT-HOLDING-AND-SCAN-ELIGIBILITY-BOUNDARY-GL.md')
+          assert ep.is_file() and dp.is_file()
+          e=json.loads(ep.read_text(encoding='utf-8'))
+          assert e['batch_id']==bid
+
+          h=e['cambridge_holding']
+          assert h['classmark']=='FM.2024.8.319'
+          assert h['title']=='冀淑英古籍善本十五讲'
+          assert h['exact_title_classmark_binding_closed'] is True
+          assert h['independent_first_party_physical_holding_route_closed'] is True
+          assert h['chapter_9_start_page']=='UNRESOLVED'
+          assert h['chapter_9_end_page']=='UNRESOLVED'
+          assert h['chapter_9_direct_text_reviewed'] is False
+
+          s=e['scan_and_deliver_control']
+          assert s['asian_collections_in_scope'] is True
+          assert 'private researchers' in s['explicitly_not_available_to']
+          assert s['user_specific_eligibility_inferred'] is False
+          assert s['request_submitted'] is False
+          assert s['scan_obtained'] is False
+          assert s['login_performed'] is False
+
+          c=e['chinese_section_contact_control']
+          assert c['collection_questions_contact_route_exists'] is True
+          assert c['outreach_performed'] is False
+          assert c['chapter_page_range_reference_answer_obtained'] is False
+
+          a=e['adjudication']
+          assert a['cambridge_exact_title_classmark']=='CLOSED'
+          assert a['external_private_researcher_scan_and_deliver_eligibility']=='NOT_ELIGIBLE_UNDER_PUBLISHED_RULES'
+          assert a['chapter_9_start_page']=='UNRESOLVED'
+          assert a['chapter_9_direct_text']=='NOT_REVIEWED'
+          assert a['target_specific_purchase_route_selected'] is False
+          assert a['target_specific_donation_route_selected'] is False
+
+          state=json.loads(Path('docs/PROJECT-CURRENT-STATE-R1.json').read_text(encoding='utf-8'))
+          state_schema_version=tuple(int(part) for part in state['schema_version'].split('.'))
+          assert state_schema_version >= (1, 198, 0)
+          assert bid in state['historical_audit']['completed_batches']
+
+          reg=json.loads(Path('docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json').read_text(encoding='utf-8'))
+          ids={x.get('source_id') for x in reg['sources']}
+          assert {
+            'EXT-CAMBRIDGE-MCDERMOTT-JI-SHUYING-15LECTURES-FM2024-8-319',
+            'EXT-CAMBRIDGE-UL-SCAN-AND-DELIVER-2026',
+            'EXT-CAMBRIDGE-UL-CHINESE-COLLECTIONS-CONTACT',
+          }.issubset(ids)
+
+          assert e['transmission_impact']['nodes_added']==[]
+          assert e['transmission_impact']['edges_added']==[]
+          assert e['transmission_impact']['acquisition_edge_authorized'] is False
+          assert e['transmission_impact']['same_object_edge_authorized'] is False
+          assert e['chronology_and_rule_firewall']['runtime_rule_change'] is False
+          assert e['chronology_and_rule_firewall']['algorithm_reopen_authorized'] is False
+          assert e['chronology_and_rule_firewall']['candidate_collapse_authorized'] is False
+          assert e['chronology_and_rule_firewall']['matrix_count_change'] is False
+          assert e['accounting']['matrix_rows']==198
+          assert e['accounting']['audited_rows']==166
+          assert e['accounting']['current_missing_from_product_rows']==10
+          assert e['accounting']['confirmed_provenance_metadata_defect_count']==14
+          assert e['accounting']['repaired_provenance_metadata_defect_count']==14
+          PY

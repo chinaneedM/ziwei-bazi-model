@@ -188,6 +188,8 @@ ZIWEI_GU_PAGE_CAL_12GJ_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-A
 ZIWEI_GU_PAGE_CAL_12GJ_EVIDENCE = ROOT / "docs/research/ZIWEI-GU-TINGLONG-DIARY-P593-P595-PAGE-CALIBRATION-JAN6-FIREWALL-R1.json"
 ZIWEI_SONG_YUNBIN_12GK_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-SONG-YUNBIN-DIARY-1950-0211-TIEQIN-CONTEMPORARY-COUNT-PRICE-DISCREPANCY-FIREWALL-GK.md"
 ZIWEI_SONG_YUNBIN_12GK_EVIDENCE = ROOT / "docs/research/ZIWEI-SONG-YUNBIN-DIARY-1950-0211-TIEQIN-COUNT-PRICE-DISCREPANCY-FIREWALL-R1.json"
+ZIWEI_JI_CAMBRIDGE_12GL_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-CAMBRIDGE-MCDERMOTT-HOLDING-AND-SCAN-ELIGIBILITY-BOUNDARY-GL.md"
+ZIWEI_JI_CAMBRIDGE_12GL_EVIDENCE = ROOT / "docs/research/ZIWEI-JI-SHUYING-CAMBRIDGE-MCDERMOTT-HOLDING-AND-SCAN-ELIGIBILITY-BOUNDARY-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -508,9 +510,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-DENG-ZHICHENG-DIARY-VOL5-TOYO-BUNKO-FIRST-PARTY-HOLDING-AND-COPY-SERVICE-BOUNDARY-GI",
     "BATCH-12-ZIWEI-GU-TINGLONG-DIARY-P593-P595-PAGE-CALIBRATION-AND-JAN6-FALSE-LEAD-FIREWALL-GJ",
     "BATCH-12-ZIWEI-SONG-YUNBIN-DIARY-1950-0211-TIEQIN-CONTEMPORARY-COUNT-PRICE-DISCREPANCY-FIREWALL-GK",
+    "BATCH-12-ZIWEI-JI-SHUYING-CAMBRIDGE-MCDERMOTT-HOLDING-AND-SCAN-ELIGIBILITY-BOUNDARY-GL",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-SONG-YUNBIN-DIARY-1950-0211-TIEQIN-CONTEMPORARY-COUNT-PRICE-DISCREPANCY-FIREWALL-GK.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-CAMBRIDGE-MCDERMOTT-HOLDING-AND-SCAN-ELIGIBILITY-BOUNDARY-GL.md"
 
 
 def fail(message: str) -> None:
@@ -6604,6 +6607,68 @@ def main() -> int:
         fail("Batch 12GK missing from completed batch state")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12GK latest-batch document state mismatch")
+
+    # Batch 12GL Cambridge McDermott holding and Scan & Deliver eligibility boundary.
+    for path in (ZIWEI_JI_CAMBRIDGE_12GL_BATCH, ZIWEI_JI_CAMBRIDGE_12GL_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12GL continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12gl = json.loads(ZIWEI_JI_CAMBRIDGE_12GL_EVIDENCE.read_text(encoding="utf-8"))
+    bid12gl = "BATCH-12-ZIWEI-JI-SHUYING-CAMBRIDGE-MCDERMOTT-HOLDING-AND-SCAN-ELIGIBILITY-BOUNDARY-GL"
+    if batch12gl.get("batch_id") != bid12gl:
+        fail("Batch 12GL evidence identity mismatch")
+    hold12gl = batch12gl.get("cambridge_holding", {})
+    if hold12gl.get("classmark") != "FM.2024.8.319" or hold12gl.get("title") != "冀淑英古籍善本十五讲":
+        fail("Batch 12GL Cambridge title/classmark binding regressed")
+    if hold12gl.get("exact_title_classmark_binding_closed") is not True or hold12gl.get("independent_first_party_physical_holding_route_closed") is not True:
+        fail("Batch 12GL Cambridge holding closure regressed")
+    if hold12gl.get("chapter_9_start_page") != "UNRESOLVED" or hold12gl.get("chapter_9_end_page") != "UNRESOLVED" or hold12gl.get("chapter_9_direct_text_reviewed") is not False:
+        fail("Batch 12GL chapter-9 page/text boundary regressed")
+    svc12gl = batch12gl.get("scan_and_deliver_control", {})
+    if svc12gl.get("asian_collections_in_scope") is not True or "private researchers" not in svc12gl.get("explicitly_not_available_to", []):
+        fail("Batch 12GL Scan & Deliver eligibility scope regressed")
+    if svc12gl.get("user_specific_eligibility_inferred") is not False or svc12gl.get("request_submitted") is not False or svc12gl.get("scan_obtained") is not False or svc12gl.get("login_performed") is not False:
+        fail("Batch 12GL no-action/eligibility firewall regressed")
+    contact12gl = batch12gl.get("chinese_section_contact_control", {})
+    if contact12gl.get("collection_questions_contact_route_exists") is not True or contact12gl.get("outreach_performed") is not False or contact12gl.get("chapter_page_range_reference_answer_obtained") is not False:
+        fail("Batch 12GL Chinese Section contact boundary regressed")
+    adj12gl = batch12gl.get("adjudication", {})
+    if adj12gl.get("cambridge_exact_title_classmark") != "CLOSED" or adj12gl.get("independent_cambridge_physical_holding") != "CLOSED":
+        fail("Batch 12GL holding adjudication regressed")
+    if adj12gl.get("external_private_researcher_scan_and_deliver_eligibility") != "NOT_ELIGIBLE_UNDER_PUBLISHED_RULES":
+        fail("Batch 12GL external scan eligibility boundary regressed")
+    if adj12gl.get("chapter_9_start_page") != "UNRESOLVED" or adj12gl.get("chapter_9_direct_text") != "NOT_REVIEWED":
+        fail("Batch 12GL chapter-9 unresolved status regressed")
+    srcids12gl = {x.get("source_id"): x for x in registry.get("sources", ())}
+    for sid in ("EXT-CAMBRIDGE-MCDERMOTT-JI-SHUYING-15LECTURES-FM2024-8-319","EXT-CAMBRIDGE-UL-SCAN-AND-DELIVER-2026","EXT-CAMBRIDGE-UL-CHINESE-COLLECTIONS-CONTACT"):
+        if sid not in srcids12gl:
+            fail(f"Batch 12GL source registry missing: {sid}")
+    if srcids12gl["EXT-CAMBRIDGE-MCDERMOTT-JI-SHUYING-15LECTURES-FM2024-8-319"].get("batch_12gl", {}).get("classmark") != "FM.2024.8.319":
+        fail("Batch 12GL Cambridge registry classmark regressed")
+    if srcids12gl["EXT-CAMBRIDGE-UL-SCAN-AND-DELIVER-2026"].get("batch_12gl", {}).get("external_private_researcher_eligible") is not False:
+        fail("Batch 12GL scan-service registry eligibility regressed")
+    if srcids12gl["EXT-CAMBRIDGE-UL-CHINESE-COLLECTIONS-CONTACT"].get("batch_12gl", {}).get("outreach_performed") is not False:
+        fail("Batch 12GL contact registry action boundary regressed")
+    trans12gl = batch12gl.get("transmission_impact", {})
+    if trans12gl.get("nodes_added") != [] or trans12gl.get("edges_added") != [] or trans12gl.get("acquisition_edge_authorized") is not False or trans12gl.get("same_object_edge_authorized") is not False:
+        fail("Batch 12GL zero-topology/acquisition-edge firewall regressed")
+    rule12gl = batch12gl.get("chronology_and_rule_firewall", {})
+    if rule12gl.get("runtime_rule_change") is not False or rule12gl.get("algorithm_reopen_authorized") is not False or rule12gl.get("candidate_collapse_authorized") is not False or rule12gl.get("matrix_count_change") is not False:
+        fail("Batch 12GL product/matrix firewall regressed")
+    acct12gl = batch12gl.get("accounting", {})
+    if acct12gl.get("matrix_rows") != 198 or acct12gl.get("audited_rows") != 166 or acct12gl.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12GL matrix accounting unexpectedly changed")
+    if acct12gl.get("confirmed_provenance_metadata_defect_count") != 14 or acct12gl.get("repaired_provenance_metadata_defect_count") != 14 or acct12gl.get("confirmed_chart_algorithm_defect_count") != 0:
+        fail("Batch 12GL provenance/algorithm accounting regressed")
+    try:
+        schema12gl = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12GL current-state schema version is not numeric")
+    if schema12gl < (1, 198, 0):
+        fail("Batch 12GL current-state schema version regressed below 1.198.0")
+    if bid12gl not in audit_state.get("completed_batches", ()):
+        fail("Batch 12GL missing from completed batch state")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12GL latest-batch document state mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

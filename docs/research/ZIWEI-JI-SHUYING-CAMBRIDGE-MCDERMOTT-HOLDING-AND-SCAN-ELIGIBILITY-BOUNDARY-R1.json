@@ -1,0 +1,127 @@
+{
+  "schema": "ZIWEI-JI-SHUYING-CAMBRIDGE-MCDERMOTT-HOLDING-AND-SCAN-ELIGIBILITY-BOUNDARY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-JI-SHUYING-CAMBRIDGE-MCDERMOTT-HOLDING-AND-SCAN-ELIGIBILITY-BOUNDARY-GL",
+  "prior_batch_id": "BATCH-12-ZIWEI-SONG-YUNBIN-DIARY-1950-0211-TIEQIN-CONTEMPORARY-COUNT-PRICE-DISCREPANCY-FIREWALL-GK",
+  "question": "Does Cambridge University Library provide an independent first-party physical holding and a directly usable remote scan route for Ji Shuying's 2009 古籍善本十五讲 chapter 9?",
+  "answer": "Cambridge University Library independently lists 冀淑英古籍善本十五讲 in the Joseph McDermott Collection under classmark FM.2024.8.319, which closes an additional first-party physical holding route. Cambridge Scan & Deliver can scan one chapter or 5% of a monograph, including Asian collections, but eligibility is limited to current Cambridge staff/students and specified partners; the library explicitly says the service is not available to members of other universities or private researchers, including Reader's Card holders. The Chinese Section publishes a specialist contact route for questions about the collection. No scan, email, form submission, login, fee, or user-specific eligibility action has been performed. Chapter 9 start/end pages and direct text remain unresolved/not reviewed.",
+  "cambridge_holding": {
+    "source_id": "EXT-CAMBRIDGE-MCDERMOTT-JI-SHUYING-15LECTURES-FM2024-8-319",
+    "provider": "Cambridge University Library",
+    "collection": "Joseph McDermott Collection (周绍明文库)",
+    "collection_established_year": 2024,
+    "classmark": "FM.2024.8.319",
+    "title": "冀淑英古籍善本十五讲",
+    "source_url": "https://www.lib.cam.ac.uk/collections/departments/chinese-collections/chinese-collections-te-cang-yu-zhuan-cang/joseph",
+    "exact_title_classmark_binding_closed": true,
+    "independent_first_party_physical_holding_route_closed": true,
+    "chapter_9_start_page": "UNRESOLVED",
+    "chapter_9_end_page": "UNRESOLVED",
+    "chapter_9_direct_text_reviewed": false,
+    "copy_or_scan_obtained": false
+  },
+  "scan_and_deliver_control": {
+    "source_id": "EXT-CAMBRIDGE-UL-SCAN-AND-DELIVER-2026",
+    "provider": "Cambridge University Library",
+    "source_url": "https://www.lib.cam.ac.uk/using-library/remote-services/scan-and-deliver",
+    "service_scope": "one chapter or 5% of a monograph, subject to copyright/conservation controls",
+    "asian_collections_in_scope": true,
+    "eligible_groups": [
+      "current University of Cambridge staff",
+      "current University of Cambridge students",
+      "ICE staff and students",
+      "specified NHS partners"
+    ],
+    "explicitly_not_available_to": [
+      "members of other universities",
+      "private researchers",
+      "Reader's Card holders who are not otherwise eligible"
+    ],
+    "user_specific_eligibility_inferred": false,
+    "request_submitted": false,
+    "scan_obtained": false,
+    "login_performed": false,
+    "fee_incurred": false
+  },
+  "chinese_section_contact_control": {
+    "source_id": "EXT-CAMBRIDGE-UL-CHINESE-COLLECTIONS-CONTACT",
+    "provider": "Cambridge University Library Chinese Section",
+    "source_url": "https://www.lib.cam.ac.uk/collections/departments/chinese-collections",
+    "collection_questions_contact_route_exists": true,
+    "specialist_contact_scope": "questions about Chinese collections and use",
+    "outreach_performed": false,
+    "chapter_page_range_reference_answer_obtained": false
+  },
+  "relation_to_existing_tokyo_route": {
+    "prior_batch": "BATCH-12-ZIWEI-TOKYO-JI-SHUYING-CH9-REMOTE-COPY-ELIGIBILITY-AND-PAGE-RANGE-BOUNDARY-FQ",
+    "tokyo_exact_holding_already_closed": true,
+    "cambridge_adds_independent_first_party_holding": true,
+    "cambridge_does_not_supersede_tokyo_route": true,
+    "cambridge_public_scan_route_is_more_restrictive_for_external_private_researchers": true,
+    "chapter_9_page_range_still_unresolved": true
+  },
+  "adjudication": {
+    "cambridge_exact_title_classmark": "CLOSED",
+    "independent_cambridge_physical_holding": "CLOSED",
+    "cambridge_scan_service_architecture": "CLOSED_AT_PUBLIC_RULE_LEVEL",
+    "external_private_researcher_scan_and_deliver_eligibility": "NOT_ELIGIBLE_UNDER_PUBLISHED_RULES",
+    "chinese_section_specialist_contact_route": "CLOSED",
+    "chapter_9_start_page": "UNRESOLVED",
+    "chapter_9_end_page": "UNRESOLVED",
+    "chapter_9_direct_text": "NOT_REVIEWED",
+    "chapter_9_copy_obtained": false,
+    "target_3482_3483_batch_membership": "UNRESOLVED",
+    "target_specific_purchase_route_selected": false,
+    "target_specific_donation_route_selected": false,
+    "final_nlc_acquisition_transfer_path": "UNRESOLVED"
+  },
+  "inference_firewall": {
+    "physical_holding_does_not_equal_direct_text": true,
+    "scan_service_exists_does_not_equal_user_eligibility": true,
+    "published_ineligibility_for_external_private_researchers_does_not_equal_global_impossibility_of_all_reference_help": true,
+    "specialist_contact_route_does_not_equal_reference_answer": true,
+    "chapter_order_does_not_authorize_page_range_interpolation": true,
+    "independent_holding_does_not_increment_historical_transaction_evidence": true,
+    "target_transaction_requires_item_or_stable_identifier_level_evidence": true
+  },
+  "user_action_firewall": {
+    "no_scan_request_submitted": true,
+    "no_email_sent": true,
+    "no_library_login_performed": true,
+    "no_fee_incurred": true,
+    "no_identity_or_account_data_submitted": true,
+    "external_contact_requires_explicit_user_authorization": true
+  },
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_added": [],
+    "acquisition_edge_authorized": false,
+    "same_object_edge_authorized": false
+  },
+  "chronology_and_rule_firewall": {
+    "direct_sanming_parent_vote_increment": 0,
+    "pre1578_zhunzhai_rule_witness_increment": 0,
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_count_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 14,
+    "repaired_provenance_metadata_defect_count": 14,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Continue public exact page-range discovery for chapter 9 without interpolation.",
+    "Keep Tokyo Metropolitan Library as the currently documented conditional remote-copy route; Cambridge Scan & Deliver is not treated as available to an external private researcher under its published rules.",
+    "If explicit authorization for external outreach is later given, a narrowly scoped page-range/reference question to Cambridge Chinese Section may be considered without requesting a scan or transmitting unnecessary personal information.",
+    "Continue NLC/Beijing Library pp.446-449 and Deng Zhicheng 1950-01-29 direct-page routes in parallel.",
+    "Do not bind 3482/3483 or 03482/03483 to purchase/donation until item-level evidence appears."
+  ],
+  "updated_at": "2026-09-25"
+}
