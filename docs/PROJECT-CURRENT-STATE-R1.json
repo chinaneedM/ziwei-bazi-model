@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.188.0",
+  "schema_version": "1.189.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -270,9 +270,10 @@
       "BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI-2008-ISSUE03-PKU-CQVIP-PAGINATION-BOUNDARY-FY",
       "BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI-2008-ISSUE03-PKU-ARTICLE-RANGE-AND-P120-CITATION-REPAIR-FZ",
       "BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-PKU-FULLTEXT-BRIDGE-PUBLIC-ACCESS-BOUNDARY-GA",
-      "BATCH-12-ZIWEI-DENG-ZHICHENG-DIARY-2007-NLCPRESS-ITEM-DOWNLOAD-SURFACE-BOUNDARY-GB"
+      "BATCH-12-ZIWEI-DENG-ZHICHENG-DIARY-2007-NLCPRESS-ITEM-DOWNLOAD-SURFACE-BOUNDARY-GB",
+      "BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-PKU-STABLE-DETAIL-ARTICLEFILE-BOUNDARY-GC"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DENG-ZHICHENG-DIARY-2007-NLCPRESS-ITEM-DOWNLOAD-SURFACE-BOUNDARY-GB.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-PKU-STABLE-DETAIL-ARTICLEFILE-BOUNDARY-GC.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -1094,7 +1095,12 @@
       "On the reviewed parsed product surface no item-specific downloadable URL/object is exposed behind those labels. The public 目录及部分内容页 list shows only an unrelated resource and the public 电子书下载 list shows no listed resource; these are access observations only and do not prove publisher-side file absence.",
       "Download-label presence is not promoted to target text, facsimile-image or handwriting authority. No resource-ID enumeration/guessing, authentication/paywall bypass, provider account action, purchase or fee occurred.",
       "Batch 12GB adds no transmission node/edge and authorizes no acquisition edge, SAME_OBJECT relation, runtime rule change, candidate collapse or algorithm reopen. Matrix/product counts remain 198 / 166 / 10; provenance defects remain 14/14 repaired; chart algorithm defects remain 0; DETERMINISTIC_FUSION_CHART_PRODUCT_R1 remains CLOSED.",
-      "Highest next gate: continue lawful source-emitted 2008 serial pp.121–129 fulltext/page discovery and item-specific 2007 facsimile volume-5 page/leaf discovery without guessed identifiers; directly collate 1950-01-29 if obtained, then compare the editor-checked serial and 2012 derivative. Continue FV Jan-6, NLC [23]/[24], Ji chapter 9 and Gao annotated-catalog routes in parallel."
+      "Highest next gate: continue lawful source-emitted 2008 serial pp.121–129 fulltext/page discovery and item-specific 2007 facsimile volume-5 page/leaf discovery without guessed identifiers; directly collate 1950-01-29 if obtained, then compare the editor-checked serial and 2012 derivative. Continue FV Jan-6, NLC [23]/[24], Ji chapter 9 and Gao annotated-catalog routes in parallel.",
+      "Batch 12GC closes the current first-party PKU exact article identity and stable detail route for 《五石斋文史札记》(二十八): the source-emitted Title-field search backend returns 37 series records and exactly one target row, article id 286663046, 中国典籍与文化 2008(03), pp.121-129 / volumeIssueId 12482306.",
+      "The stable detail route https://ccj.pku.edu.cn/article/info?aid=286663046 returns HTTP 200 and displays the exact title/page range. The search row simultaneously reports hasFullText=true, isFileExist=false and fulltextFId=null.",
+      "The detail page itself source-emits /Article/DownLoad?id=286663046&&type=ArticleFile. Direct anonymous retrieval returns HTTP 200 application/json with succeeded=false / 文件不存在; no PDF or primary article text is obtained. Therefore Fulltext/hasFullText is metadata, not current retrievable-file authority.",
+      "Batch 12GC adds no transmission node/edge and authorizes no acquisition edge, SAME_OBJECT relation, runtime rule change, candidate collapse or algorithm reopen. Matrix/product counts remain 198 / 166 / 10; provenance defects remain 14/14 repaired; chart algorithm defects remain 0; DETERMINISTIC_FUSION_CHART_PRODUCT_R1 remains CLOSED.",
+      "Highest next gate: keep aid=286663046 as stable PKU metadata identity while continuing lawful source-emitted primary/fulltext-page discovery and exact 1950-01-29 journal-page citation search; in parallel continue the 2007 facsimile volume-5 page/leaf, FV Jan-6, NLC [23]/[24], Ji chapter 9 and Gao annotated-catalog routes."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10
