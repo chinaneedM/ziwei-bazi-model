@@ -174,6 +174,8 @@ ZIWEI_DENG_ZHICHENG_12GC_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE
 ZIWEI_DENG_ZHICHENG_12GC_EVIDENCE = ROOT / "docs/research/ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-PKU-STABLE-DETAIL-ARTICLEFILE-BOUNDARY-R1.json"
 ZIWEI_DENG_ZHICHENG_12GD_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-PKU-TITLE-PHRASE-INDEX-NONMATCH-BOUNDARY-GD.md"
 ZIWEI_DENG_ZHICHENG_12GD_EVIDENCE = ROOT / "docs/research/ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-PKU-TITLE-PHRASE-INDEX-NONMATCH-BOUNDARY-R1.json"
+ZIWEI_DENG_ZHICHENG_12GE_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-JAPAN-PHYSICAL-SERIAL-HOLDINGS-AND-COPY-ACTION-BOUNDARY-GE.md"
+ZIWEI_DENG_ZHICHENG_12GE_EVIDENCE = ROOT / "docs/research/ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-JAPAN-PHYSICAL-SERIAL-HOLDINGS-COPY-ACTION-BOUNDARY-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -487,9 +489,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-DENG-ZHICHENG-DIARY-2007-NLCPRESS-ITEM-DOWNLOAD-SURFACE-BOUNDARY-GB",
     "BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-PKU-STABLE-DETAIL-ARTICLEFILE-BOUNDARY-GC",
     "BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-PKU-TITLE-PHRASE-INDEX-NONMATCH-BOUNDARY-GD",
+    "BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-JAPAN-PHYSICAL-SERIAL-HOLDINGS-AND-COPY-ACTION-BOUNDARY-GE",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-PKU-TITLE-PHRASE-INDEX-NONMATCH-BOUNDARY-GD.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-JAPAN-PHYSICAL-SERIAL-HOLDINGS-AND-COPY-ACTION-BOUNDARY-GE.md"
 
 
 def fail(message: str) -> None:
@@ -2899,6 +2902,72 @@ def main() -> int:
         fail("Batch 12GD matrix accounting unexpectedly changed")
     if acct12gd.get("confirmed_provenance_metadata_defect_count") != 14 or acct12gd.get("repaired_provenance_metadata_defect_count") != 14 or acct12gd.get("confirmed_chart_algorithm_defect_count") != 0:
         fail("Batch 12GD provenance/algorithm accounting regressed")
+
+    for path in (ZIWEI_DENG_ZHICHENG_12GE_BATCH, ZIWEI_DENG_ZHICHENG_12GE_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12GE continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12ge = json.loads(ZIWEI_DENG_ZHICHENG_12GE_EVIDENCE.read_text(encoding="utf-8"))
+    if batch12ge.get("batch_id") != "BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-JAPAN-PHYSICAL-SERIAL-HOLDINGS-AND-COPY-ACTION-BOUNDARY-GE":
+        fail("Batch 12GE evidence identity mismatch")
+    ndl12ge = batch12ge.get("ndl_first_party_serial_control", {})
+    if ndl12ge.get("ndl_call_number") != "Z21-AC41" or ndl12ge.get("ndl_bib_id") != "a0000052718" or ndl12ge.get("issn") != "10043241":
+        fail("Batch 12GE NDL serial identity regressed")
+    if ndl12ge.get("target_issue") != "2008(03)" or ndl12ge.get("target_issue_within_listed_holding_span") is not True:
+        fail("Batch 12GE NDL target-issue holding-span binding regressed")
+    if ndl12ge.get("exact_target_issue_child_record_id") != "UNRESOLVED" or ndl12ge.get("exact_target_issue_material_label_id") != "UNRESOLVED" or ndl12ge.get("target_pages_121_129_directly_reviewed") is not False:
+        fail("Batch 12GE exact issue/page boundary falsely closed")
+    svc12ge = batch12ge.get("ndl_service_control", {})
+    if svc12ge.get("registered_individual_remote_copy_service_documented") is not True or svc12ge.get("remote_copy_is_paid") is not True or svc12ge.get("registered_individual_article_location_investigation_documented") is not True:
+        fail("Batch 12GE NDL service-control documentation regressed")
+    if svc12ge.get("exact_target_issue_remote_copy_eligibility") != "NOT_CHECKED_AUTHENTICATED" or svc12ge.get("account_login_performed") is not False or svc12ge.get("remote_copy_request_submitted") is not False or svc12ge.get("article_location_investigation_submitted") is not False or svc12ge.get("fee_incurred") is not False:
+        fail("Batch 12GE user-action boundary regressed")
+    cinii12ge = batch12ge.get("cinii_union_holding_control", {})
+    if cinii12ge.get("ncid") != "AA1225301X" or cinii12ge.get("issn") != "10043241" or cinii12ge.get("target_issue") != "2008(03)":
+        fail("Batch 12GE CiNii serial identity regressed")
+    holdings12ge = cinii12ge.get("holdings_covering_2008", [])
+    if len(holdings12ge) != 6:
+        fail("Batch 12GE Japanese holding-route count regressed")
+    expected_institutions12ge = ["学習院大学 図書館","京都大学 人文科学研究所 図書室","拓殖大学 八王子図書館","東京大学 東洋文化研究所 図書室","佛教大学 附属図書館","早稲田大学 図書館 (中央図書館)"]
+    if [x.get("institution") for x in holdings12ge] != expected_institutions12ge:
+        fail("Batch 12GE Japanese holding-route identity regressed")
+    neg12ge = cinii12ge.get("negative_holding_control", {})
+    if neg12ge.get("institution") != "奈良大学 図書館" or neg12ge.get("target_2008_issue_3_in_listed_holdings") is not False:
+        fail("Batch 12GE Nara negative holding control regressed")
+    gak12ge = batch12ge.get("gakushuin_opac_action_surface", {})
+    if gak12ge.get("interlibrary_copy_request_control_visible") is not True or gak12ge.get("interlibrary_loan_request_control_visible") is not True or gak12ge.get("login_control_visible") is not True or gak12ge.get("request_submitted") is not False:
+        fail("Batch 12GE Gakushuin action-surface boundary regressed")
+    fw12ge = batch12ge.get("access_and_authority_firewall", {})
+    for key in ("series_holding_span_does_not_equal_target_page_review","union_catalog_holding_does_not_equal_article_text_authority","remote_copy_service_availability_does_not_equal_target_issue_eligibility","physical_holding_does_not_equal_same_copy_or_same_issue_item_identity","exact_issue_child_record_required_before_item_level_request","no_login_performed","no_ill_request_submitted","no_remote_copy_request_submitted","no_article_location_investigation_submitted","no_fee_or_purchase_incurred","no_page_interpolation"):
+        if fw12ge.get(key) is not True:
+            fail(f"Batch 12GE access/authority firewall regressed: {key}")
+    target12ge = batch12ge.get("target_status_after_batch", {})
+    if target12ge.get("target_article_page_range") != "121-129" or target12ge.get("target_1950_01_29_exact_journal_page") != "UNRESOLVED" or target12ge.get("target_1950_01_29_primary_journal_text") != "NOT_REVIEWED":
+        fail("Batch 12GE Jan-29 journal target falsely closed")
+    if target12ge.get("target_1950_01_29_exact_facsimile_page") != "UNRESOLVED" or target12ge.get("target_1950_01_29_facsimile_text") != "NOT_REVIEWED":
+        fail("Batch 12GE facsimile target falsely closed")
+    reg12ge = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    ndlreg12ge = next((x for x in reg12ge.get("sources", []) if x.get("source_id") == "EXT-NDL-ZHONGGUO-DIANJI-YU-WENHUA-Z21-AC41"), None)
+    ciniireg12ge = next((x for x in reg12ge.get("sources", []) if x.get("source_id") == "EXT-CINII-AA1225301X-ZHONGGUO-DIANJI-YU-WENHUA-JAPAN-HOLDINGS"), None)
+    gakreg12ge = next((x for x in reg12ge.get("sources", []) if x.get("source_id") == "EXT-GAKUSHUIN-OPAC-AA1225301X-ILL-ACTION-SURFACE"), None)
+    if ndlreg12ge is None or ciniireg12ge is None or gakreg12ge is None:
+        fail("Batch 12GE registry controls missing")
+    if ndlreg12ge.get("batch_12ge", {}).get("target_pages_121_129_reviewed") is not False or ndlreg12ge.get("batch_12ge", {}).get("remote_copy_request_submitted") is not False:
+        fail("Batch 12GE NDL registry target/action boundary regressed")
+    if ciniireg12ge.get("batch_12ge", {}).get("holding_routes_covering_2008_count") != 6 or ciniireg12ge.get("batch_12ge", {}).get("target_pages_121_129_reviewed") is not False:
+        fail("Batch 12GE CiNii registry holding boundary regressed")
+    if gakreg12ge.get("batch_12ge", {}).get("request_submitted") is not False:
+        fail("Batch 12GE Gakushuin registry request boundary regressed")
+    trans12ge = batch12ge.get("transmission_impact", {})
+    if trans12ge.get("nodes_added") != [] or trans12ge.get("edges_added") != [] or trans12ge.get("acquisition_edge_authorized") is not False or trans12ge.get("same_object_edge_authorized") is not False:
+        fail("Batch 12GE zero-topology/acquisition-edge firewall regressed")
+    rule12ge = batch12ge.get("chronology_and_rule_firewall", {})
+    if rule12ge.get("direct_sanming_parent_vote_increment") != 0 or rule12ge.get("pre1578_zhunzhai_rule_witness_increment") != 0 or rule12ge.get("runtime_rule_change") is not False or rule12ge.get("algorithm_reopen_authorized") is not False or rule12ge.get("candidate_collapse_authorized") is not False or rule12ge.get("matrix_row_count_change") is not False:
+        fail("Batch 12GE product/matrix firewall regressed")
+    acct12ge = batch12ge.get("accounting", {})
+    if acct12ge.get("matrix_rows") != 198 or acct12ge.get("audited_rows") != 166 or acct12ge.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12GE matrix accounting unexpectedly changed")
+    if acct12ge.get("confirmed_provenance_metadata_defect_count") != 14 or acct12ge.get("repaired_provenance_metadata_defect_count") != 14 or acct12ge.get("confirmed_chart_algorithm_defect_count") != 0:
+        fail("Batch 12GE provenance/algorithm accounting regressed")
 
     for path in (ZIWEI_KYUDB_12DT_BATCH, ZIWEI_KYUDB_12DT_EVIDENCE):
         if not path.is_file():
