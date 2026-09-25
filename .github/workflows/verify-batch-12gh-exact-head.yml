@@ -1,0 +1,110 @@
+name: verify-batch-12gh-exact-head
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/verify-batch-12gh-exact-head.yml
+      - docs/research/ZIWEI-ZHENG-ZHENDUO-XU-SENYU-1952-CONTEXTUAL-TIEQIN-TWO-BATCH-CHRONOLOGY-R1.json
+      - docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHENG-ZHENDUO-XU-SENYU-1952-CONTEXTUAL-TIEQIN-TWO-BATCH-CHRONOLOGY-FIREWALL-GH.md
+      - docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json
+      - docs/PROJECT-CURRENT-STATE-R1.json
+      - scripts/verify-project-continuity-state-r1.py
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify Batch 12GH exact head
+        run: |
+          set -euo pipefail
+          python scripts/verify-tianwen-transmission-genealogy-r1.py
+          python scripts/verify-project-continuity-state-r1.py
+          python scripts/verify-fusion-chart-historical-provenance-audit-r1.py
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          bid='BATCH-12-ZIWEI-ZHENG-ZHENDUO-XU-SENYU-1952-CONTEXTUAL-TIEQIN-TWO-BATCH-CHRONOLOGY-FIREWALL-GH'
+          ep=Path('docs/research/ZIWEI-ZHENG-ZHENDUO-XU-SENYU-1952-CONTEXTUAL-TIEQIN-TWO-BATCH-CHRONOLOGY-R1.json')
+          dp=Path('docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHENG-ZHENDUO-XU-SENYU-1952-CONTEXTUAL-TIEQIN-TWO-BATCH-CHRONOLOGY-FIREWALL-GH.md')
+          assert ep.is_file() and dp.is_file()
+          e=json.loads(ep.read_text(encoding='utf-8'))
+          assert e['batch_id']==bid
+
+          ctx=e['contextual_letter_control']
+          assert ctx['publication_contextual_year_reconstruction']==1952
+          assert ctx['contextual_year_is_direct_original_letter_date'] is False
+          assert ctx['conditional_previous_year_if_1952_context_accepted']==1951
+          assert ctx['purchased_batch_count']==2
+          assert ctx['reported_total_amount_text']=='两亿元'
+          assert ctx['reproduced_purchase_phrase_authority']=='PUBLICATION_MEDIATED_FIRST_PERSON_LETTER_TEXT'
+
+          chron=e['chronology_adjudication']
+          assert chron['silent_same_transaction_collapse_authorized'] is False
+          assert chron['collection_level_priced_acquisition_strengthened'] is True
+          assert chron['exact_target_transaction_mode_closed'] is False
+          assert chron['earlier_control']['date']=='1950-01-29'
+          assert chron['earlier_control']['reported_amount_text']=='四千万人民券'
+          assert chron['earlier_control']['reported_box_count']==12
+          assert chron['later_control']['conditional_previous_year']==1951
+          assert chron['later_control']['reported_batch_count']==2
+          assert chron['later_control']['reported_total_amount_text']=='两亿元'
+
+          tf=e['target_binding_firewall']
+          assert tf['either_contextual_1951_batch_contains_target']=='UNRESOLVED'
+          assert tf['target_1950_01_29_batch_membership']=='UNRESOLVED'
+          assert tf['target_specific_purchase_route_selected'] is False
+          assert tf['target_specific_donation_route_selected'] is False
+          assert tf['target_acquisition_edge_authorized'] is False
+          assert tf['same_object_edge_authorized'] is False
+
+          pg=e['primary_gate_status']
+          assert pg['target_1950_01_29_exact_journal_page']=='UNRESOLVED'
+          assert pg['target_1950_01_29_primary_journal_text']=='NOT_REVIEWED'
+          assert pg['target_1950_01_29_exact_2007_facsimile_page']=='UNRESOLVED'
+          assert pg['target_1950_01_29_handwriting_directly_collated'] is False
+          assert pg['primary_gate_changed_by_this_batch'] is False
+
+          state=json.loads(Path('docs/PROJECT-CURRENT-STATE-R1.json').read_text(encoding='utf-8'))
+          assert state['schema_version']=='1.194.0'
+          assert bid in state['historical_audit']['completed_batches']
+          assert state['historical_audit']['latest_batch_doc'].endswith('ZHENG-ZHENDUO-XU-SENYU-1952-CONTEXTUAL-TIEQIN-TWO-BATCH-CHRONOLOGY-FIREWALL-GH.md')
+          assert state['historical_audit']['row_count']==198
+          assert state['historical_audit']['audited_row_count']==166
+          assert state['historical_audit']['current_missing_from_product_row_count']==10
+          assert state['historical_audit']['confirmed_provenance_metadata_defect_count']==14
+          assert state['historical_audit']['repaired_provenance_metadata_defect_count']==14
+          assert state['invariants']['deterministic_fusion_chart_product_r1']=='CLOSED'
+          assert state['invariants']['confirmed_chart_algorithm_defect_count']==0
+          assert state['invariants']['algorithm_reopen_count']==0
+          assert state['invariants']['candidate_collapse_count']==0
+
+          reg=json.loads(Path('docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json').read_text(encoding='utf-8'))
+          t=next(x for x in reg['sources'] if x.get('source_id')=='EXT-TSINGHUA-ALUMNI-ZHAO-WANLI-DENG-1950-0129')
+          l=next(x for x in reg['sources'] if x.get('source_id')=='EXT-LIU-XIANGCHUN-ZHENG-ZHENDUO-XU-SENYU-LETTERS-LISHIWENXIAN16-2012')
+          assert t['batch_12gh']['contextual_year_is_direct_original_letter_date'] is False
+          assert t['batch_12gh']['silent_collapse_with_1950_01_29_deng_transaction_authorized'] is False
+          assert t['batch_12gh']['target_3482_3483_bound'] is False
+          assert l['batch_12gh']['cited_page_range']=='284-343'
+          assert l['batch_12gh']['exact_target_letter_page']=='UNRESOLVED'
+          assert l['batch_12gh']['original_manuscript_image_reviewed'] is False
+
+          assert e['transmission_impact']['nodes_added']==[]
+          assert e['transmission_impact']['edges_added']==[]
+          assert e['transmission_impact']['acquisition_edge_authorized'] is False
+          assert e['transmission_impact']['same_object_edge_authorized'] is False
+          assert e['chronology_and_rule_firewall']['runtime_rule_change'] is False
+          assert e['chronology_and_rule_firewall']['algorithm_reopen_authorized'] is False
+          assert e['chronology_and_rule_firewall']['candidate_collapse_authorized'] is False
+          assert e['chronology_and_rule_firewall']['matrix_row_count_change'] is False
+          PY
