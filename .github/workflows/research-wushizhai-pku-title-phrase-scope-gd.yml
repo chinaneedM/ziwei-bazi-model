@@ -1,0 +1,176 @@
+name: research-wushizhai-pku-title-phrase-scope-gd
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/research-wushizhai-pku-title-phrase-scope-gd.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run source-emitted two-condition PKU queries
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts/pku-title-phrase-gd
+          python - <<'PY'
+          from __future__ import annotations
+          import hashlib, html, http.cookiejar, json, re, urllib.parse, urllib.request
+          from pathlib import Path
+
+          OUT=Path("artifacts/pku-title-phrase-gd")
+          ORIGIN="https://ccj.pku.edu.cn"
+          API=ORIGIN+"/Search/SearchArticleByElasticsearch"
+          TITLE="五石斋文史札记"
+          TARGET="286663046"
+          TESTS=[
+              ("positive_author_control","邓之诚"),
+              ("purchase_amount","四千万人民券"),
+              ("box_count","十二箱"),
+              ("destination","以归公"),
+              ("date","一月二十九日"),
+              ("collection_name","铁琴铜剑楼"),
+          ]
+          UA="Mozilla/5.0 TianwenResearch/1.0"
+
+          def extract_query_item(text):
+              # The PKU page source serializes the server-built query as literal JSON:
+              # queryItem: [ ... ]
+              m=re.search(r'queryItem\s*:\s*(\[[\s\S]*?\])\s*,\s*type\s*:',text)
+              if not m:
+                  m=re.search(r'queryItem\s*:\s*(\[[^;\n]+\])',text)
+              if not m:
+                  return None
+              try:
+                  return json.loads(m.group(1))
+              except Exception:
+                  return None
+
+          def run_one(label,term):
+              cj=http.cookiejar.CookieJar()
+              opener=urllib.request.build_opener(urllib.request.HTTPCookieProcessor(cj))
+              params=[
+                  ("fd0","1"),("kw0",TITLE),("IsAccurate0","0"),
+                  ("fd1","0"),("kw1",term),("IsAccurate1","0"),("op1","AND"),
+              ]
+              page_url=ORIGIN+"/Search/search?"+urllib.parse.urlencode(params)
+
+              def fetch(req):
+                  try:
+                      with opener.open(req,timeout=30) as r:
+                          return r.status,r.geturl(),dict(r.headers),r.read()
+                  except Exception as e:
+                      code=getattr(e,"code",None); body=b""
+                      try: body=e.read()
+                      except Exception: body=repr(e).encode()
+                      return code,getattr(e,"url",req.full_url),dict(getattr(e,"headers",{}) or {}),body
+
+              st,final,hs,page=fetch(urllib.request.Request(page_url,headers={"User-Agent":UA}))
+              (OUT/f"{label}_page.html").write_bytes(page)
+              text=page.decode("utf-8","replace")
+              token_m=re.search(r'name="__RequestVerificationToken"[^>]*value="([^"]+)"',text)
+              token=html.unescape(token_m.group(1)) if token_m else None
+              qi=extract_query_item(text)
+
+              rec={
+                  "label":label,"term":term,"page_url":page_url,
+                  "page_status":st,"page_final_url":final,
+                  "page_sha256":hashlib.sha256(page).hexdigest(),
+                  "csrf_token_source_emitted":bool(token),
+                  "query_item_source_emitted":qi,
+                  "query_item_count":len(qi) if isinstance(qi,list) else 0,
+                  "backend_called":False,
+              }
+
+              # Fail closed: only query backend if PKU itself emitted >=2 query items
+              # and the values include both our known title and test term.
+              values=[str(x.get("Value","")) for x in qi] if isinstance(qi,list) else []
+              if not (isinstance(qi,list) and len(qi)>=2 and TITLE in values and term in values and token):
+                  rec["fail_closed_reason"]="TWO_CONDITION_QUERY_ITEM_NOT_SOURCE_EMITTED_AS_EXPECTED"
+                  return rec
+
+              pairs=[
+                  ("pageSize","100"),("pageIndex","1"),
+                  ("sortType","desc"),("sortField","_score"),
+              ]
+              for i,item in enumerate(qi):
+                  for k,v in item.items():
+                      if isinstance(v,bool): v="true" if v else "false"
+                      elif v is None: v=""
+                      pairs.append((f"queryItem[{i}][{k}]",str(v)))
+              pairs.append(("__RequestVerificationToken",token))
+              body=urllib.parse.urlencode(pairs).encode("utf-8")
+              req=urllib.request.Request(API,data=body,method="POST",headers={
+                  "User-Agent":UA,
+                  "Content-Type":"application/x-www-form-urlencoded; charset=UTF-8",
+                  "Referer":page_url,
+                  "X-Requested-With":"XMLHttpRequest",
+                  "Accept":"application/json, text/javascript, */*; q=0.01",
+              })
+              ast,afinal,ah,abody=fetch(req)
+              (OUT/f"{label}_response.json").write_bytes(abody)
+              parsed=None; err=None
+              try: parsed=json.loads(abody.decode("utf-8"))
+              except Exception as e: err=repr(e)
+
+              rows=[]
+              if isinstance(parsed,dict):
+                  if isinstance(parsed.get("list"),list): rows=parsed["list"]
+                  elif isinstance(parsed.get("data"),dict) and isinstance(parsed["data"].get("list"),list):
+                      rows=parsed["data"]["list"]
+
+              target=[r for r in rows if str(r.get("id") or r.get("Id"))==TARGET]
+              rec.update({
+                  "backend_called":True,
+                  "backend_status":ast,
+                  "backend_final_url":afinal,
+                  "backend_sha256":hashlib.sha256(abody).hexdigest(),
+                  "json_parsed":parsed is not None,
+                  "parse_error":err,
+                  "total":parsed.get("total") if isinstance(parsed,dict) else None,
+                  "pages":parsed.get("pages") if isinstance(parsed,dict) else None,
+                  "result_count":len(rows),
+                  "target_match_count":len(target),
+                  "target_matches":target,
+              })
+              return rec
+
+          results=[run_one(label,term) for label,term in TESTS]
+          positive=results[0]
+          manifest={
+              "policy":{
+                  "authentication_used":False,
+                  "paywall_bypass_attempted":False,
+                  "id_enumeration_or_guessing":False,
+                  "backend_query_only_if_two_condition_query_item_source_emitted":True,
+                  "target_article_id_previously_bound_by_official_search_backend":TARGET,
+                  "search_index_evidence_not_primary_page_glyph_authority":True,
+                  "zero_match_not_whole_article_negative_attestation":True,
+              },
+              "title_scope":TITLE,
+              "target_article_id":TARGET,
+              "tests":TESTS,
+              "positive_control_success":(
+                  positive.get("backend_called") is True and
+                  positive.get("target_match_count",0)>0
+              ),
+              "results":results,
+          }
+          (OUT/"manifest.json").write_text(json.dumps(manifest,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(manifest,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: wushizhai-pku-title-phrase-scope-gd
+          path: artifacts/pku-title-phrase-gd
+          if-no-files-found: error
