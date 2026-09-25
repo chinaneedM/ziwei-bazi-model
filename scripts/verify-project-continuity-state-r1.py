@@ -164,6 +164,8 @@ ZIWEI_DENG_ZHICHENG_12FX_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE
 ZIWEI_DENG_ZHICHENG_12FX_EVIDENCE = ROOT / "docs/research/ZIWEI-DENG-ZHICHENG-DIARY-1950-0129-EDITOR-CHECKED-SERIAL-ROUTE-R1.json"
 ZIWEI_DENG_ZHICHENG_12FY_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI-2008-ISSUE03-PKU-CQVIP-PAGINATION-BOUNDARY-FY.md"
 ZIWEI_DENG_ZHICHENG_12FY_EVIDENCE = ROOT / "docs/research/ZIWEI-DENG-ZHICHENG-WUSHIZHAI-2008-ISSUE03-PAGINATION-BOUNDARY-R1.json"
+ZIWEI_DENG_ZHICHENG_12FZ_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI-2008-ISSUE03-PKU-ARTICLE-RANGE-AND-P120-CITATION-REPAIR-FZ.md"
+ZIWEI_DENG_ZHICHENG_12FZ_EVIDENCE = ROOT / "docs/research/ZIWEI-DENG-ZHICHENG-WUSHIZHAI-2008-ISSUE03-PKU-ARTICLE-RANGE-P120-REPAIR-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -472,9 +474,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-DENG-ZHICHENG-DIARY-1950-0129-FACSIMILE-VOLUME5-JAPAN-HOLDING-BOUNDARY-FW",
     "BATCH-12-ZIWEI-DENG-ZHICHENG-DIARY-1950-0129-EDITOR-CHECKED-SERIAL-ROUTE-AND-VOL5-P222-CITATION-BOUNDARY-FX",
     "BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI-2008-ISSUE03-PKU-CQVIP-PAGINATION-BOUNDARY-FY",
+    "BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI-2008-ISSUE03-PKU-ARTICLE-RANGE-AND-P120-CITATION-REPAIR-FZ",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI-2008-ISSUE03-PKU-CQVIP-PAGINATION-BOUNDARY-FY.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI-2008-ISSUE03-PKU-ARTICLE-RANGE-AND-P120-CITATION-REPAIR-FZ.md"
 
 
 def fail(message: str) -> None:
@@ -2545,6 +2548,67 @@ def main() -> int:
         fail("Batch 12FY matrix accounting unexpectedly changed")
     if acct12fy.get("confirmed_provenance_metadata_defect_count") != 13 or acct12fy.get("repaired_provenance_metadata_defect_count") != 13:
         fail("Batch 12FY provenance defect accounting unexpectedly changed")
+
+    for path in (ZIWEI_DENG_ZHICHENG_12FZ_BATCH, ZIWEI_DENG_ZHICHENG_12FZ_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12FZ continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12fz = json.loads(ZIWEI_DENG_ZHICHENG_12FZ_EVIDENCE.read_text(encoding="utf-8"))
+    if batch12fz.get("batch_id") != "BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI-2008-ISSUE03-PKU-ARTICLE-RANGE-AND-P120-CITATION-REPAIR-FZ":
+        fail("Batch 12FZ evidence identity mismatch")
+    meta12fz = batch12fz.get("first_party_article_metadata", {})
+    if meta12fz.get("provider") != "北京大学期刊平台索引" or meta12fz.get("indexed_article_title") != "《五石斋文史札记》(二十八)":
+        fail("Batch 12FZ first-party article identity regressed")
+    if meta12fz.get("authors") != ["邓之诚", "邓瑞"] or meta12fz.get("journal") != "中国典籍与文化" or meta12fz.get("year") != 2008 or meta12fz.get("issue") != "03":
+        fail("Batch 12FZ article bibliographic metadata regressed")
+    if meta12fz.get("start_page") != 121 or meta12fz.get("end_page") != 129 or meta12fz.get("page_range") != "121-129":
+        fail("Batch 12FZ exact article page range regressed")
+    if meta12fz.get("article_page_range_status") != "CLOSED_AT_FIRST_PARTY_PLATFORM_INDEX_METADATA_LAYER" or meta12fz.get("direct_primary_page_images_reviewed") is not False or meta12fz.get("direct_primary_article_text_reviewed") is not False:
+        fail("Batch 12FZ index-metadata/page-text boundary regressed")
+    repair12fz = batch12fz.get("fy_p120_forward_only_repair", {})
+    if repair12fz.get("provenance_defect_id") != "PROV-DEFECT-014" or repair12fz.get("prior_claimed_page") != 120 or repair12fz.get("first_party_article_page_range") != "121-129":
+        fail("Batch 12FZ p120 repair identity regressed")
+    if repair12fz.get("conflict") != "P120_OUTSIDE_FIRST_PARTY_ARTICLE_RANGE" or repair12fz.get("p120_anchor_authority_after_repair") != "WITHDRAWN_PENDING_PRIMARY_PAGE_OR_EXPLICIT_ERRATUM":
+        fail("Batch 12FZ p120 conflict adjudication regressed")
+    if repair12fz.get("prior_fy_artifact_rewritten") is not False or repair12fz.get("defect_found_increment") != 1 or repair12fz.get("defect_repaired_increment") != 1:
+        fail("Batch 12FZ forward-only repair accounting regressed")
+    p124_12fz = batch12fz.get("p124_control", {})
+    if p124_12fz.get("claimed_page") != 124 or p124_12fz.get("within_first_party_article_range") is not True or p124_12fz.get("promoted_to_primary_page_authority") is not False or p124_12fz.get("registry_promotion_authorized") is not False:
+        fail("Batch 12FZ p124 range-consistency authority firewall regressed")
+    narrow12fz = batch12fz.get("target_narrowing", {})
+    if narrow12fz.get("article_page_range") != "121-129" or narrow12fz.get("target_1950_01_29_possible_article_range_if_present") != "121-129":
+        fail("Batch 12FZ target article-range narrowing regressed")
+    if narrow12fz.get("target_1950_01_29_exact_journal_page") != "UNRESOLVED" or narrow12fz.get("target_1950_01_29_primary_journal_text") != "NOT_REVIEWED":
+        fail("Batch 12FZ target exact journal page/text falsely closed")
+    if narrow12fz.get("target_1950_01_29_facsimile_page") != "UNRESOLVED" or narrow12fz.get("target_1950_01_29_handwriting_directly_collated") is not False:
+        fail("Batch 12FZ facsimile/handwriting boundary regressed")
+    fw12fz = batch12fz.get("inference_firewall", {})
+    for key in ("first_party_indexed_metadata_closes_bibliographic_page_range_not_page_glyphs","p120_conflict_does_not_authorize_guessing_correct_page_for_1949_09_30","p124_range_consistency_does_not_upgrade_wikipedia_to_primary_authority","article_range_does_not_prove_jan29_entry_presence","article_range_does_not_identify_jan29_exact_page","no_linear_or_density_based_date_to_page_interpolation","journal_pagination_does_not_map_to_2007_facsimile_pagination_without_direct_crosswalk","derivative_text_does_not_equal_primary_journal_or_facsimile_handwriting","collection_level_twelve_box_purchase_does_not_bind_target_volume","target_route_requires_item_level_or_stable_identifier_level_transaction_evidence"):
+        if fw12fz.get(key) is not True:
+            fail(f"Batch 12FZ inference firewall regressed: {key}")
+    reg12fz = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    pku_range12fz = next((x for x in reg12fz.get("sources", []) if x.get("source_id") == "EXT-PKU-CCJ-WUSHIZHAI28-2008-03-PP121-129-INDEX"), None)
+    if pku_range12fz is None or pku_range12fz.get("batch_12fz", {}).get("page_range") != "121-129" or pku_range12fz.get("batch_12fz", {}).get("direct_primary_article_text_reviewed") is not False:
+        fail("Batch 12FZ PKU range registry binding regressed")
+    p120_reg12fz = next((x for x in reg12fz.get("sources", []) if x.get("source_id") == "EXT-AISIXIANG-QUJUN-WUSHIZHAI-1949-0930-P120-CITATION"), None)
+    if p120_reg12fz is None or p120_reg12fz.get("source_role") != "SCHOLARLY_SECONDARY_CITATION_WITH_PAGE_CONFLICT_NOT_ACCEPTED_AS_ARTICLE_PAGE_ANCHOR":
+        fail("Batch 12FZ p120 Registry classification repair missing")
+    if p120_reg12fz.get("batch_12fz", {}).get("provenance_defect_id") != "PROV-DEFECT-014" or p120_reg12fz.get("batch_12fz", {}).get("defect_repaired") is not True:
+        fail("Batch 12FZ p120 Registry repair trace regressed")
+    matrix12fz = json.loads(MATRIX.read_text(encoding="utf-8"))
+    sum12fz = matrix12fz.get("audit_summary", {})
+    if sum12fz.get("confirmed_provenance_metadata_defect_count") != 14 or sum12fz.get("repaired_provenance_metadata_defect_count") != 14:
+        fail("Batch 12FZ Matrix provenance accounting mismatch")
+    trans12fz = batch12fz.get("transmission_impact", {})
+    if trans12fz.get("nodes_added") != [] or trans12fz.get("edges_added") != [] or trans12fz.get("acquisition_edge_authorized") is not False or trans12fz.get("same_object_edge_authorized") is not False:
+        fail("Batch 12FZ zero-topology/acquisition-edge firewall regressed")
+    rule12fz = batch12fz.get("chronology_and_rule_firewall", {})
+    if rule12fz.get("direct_sanming_parent_vote_increment") != 0 or rule12fz.get("pre1578_zhunzhai_rule_witness_increment") != 0 or rule12fz.get("runtime_rule_change") is not False or rule12fz.get("algorithm_reopen_authorized") is not False or rule12fz.get("candidate_collapse_authorized") is not False or rule12fz.get("matrix_row_count_change") is not False:
+        fail("Batch 12FZ product/matrix firewall regressed")
+    acct12fz = batch12fz.get("accounting", {})
+    if acct12fz.get("matrix_rows") != 198 or acct12fz.get("audited_rows") != 166 or acct12fz.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12FZ matrix accounting unexpectedly changed")
+    if acct12fz.get("confirmed_provenance_metadata_defect_count") != 14 or acct12fz.get("repaired_provenance_metadata_defect_count") != 14:
+        fail("Batch 12FZ provenance defect accounting regressed")
 
     for path in (ZIWEI_KYUDB_12DT_BATCH, ZIWEI_KYUDB_12DT_EVIDENCE):
         if not path.is_file():
