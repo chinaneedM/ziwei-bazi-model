@@ -1,0 +1,136 @@
+{
+  "schema": "ZIWEI-DENG-ZHICHENG-DIARY-VOL5-TOYO-BUNKO-FIRST-PARTY-HOLDING-AND-COPY-SERVICE-BOUNDARY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-DENG-ZHICHENG-DIARY-VOL5-TOYO-BUNKO-FIRST-PARTY-HOLDING-AND-COPY-SERVICE-BOUNDARY-GI",
+  "prior_batch_id": "BATCH-12-ZIWEI-ZHENG-ZHENDUO-XU-SENYU-1952-CONTEXTUAL-TIEQIN-TWO-BATCH-CHRONOLOGY-FIREWALL-GH",
+  "question": "Can a first-party Japanese holding and current lawful copy-service route be closed for the exact 2007 facsimile volume 5 that contains 1950-01-29, without pretending that the target page/leaf has already been located or copied?",
+  "answer": "Yes. Toyo Bunko's first-party OPAC directly identifies the 2007 Beijing Library Press facsimile set as bibliography ID 1000018751 / ISBN 9787501334773 and lists volume 5 as ordinary book request number II/10-D/1059, document ID 505909. The library's current first-party service rules accept copy applications at the reading counter and by post, fax or email/contact form. For general books published from 1971 onward, the published service table allows electronic copying (self/staff), staff digital-camera or microform printing, or outsourced digital photography, with no special-copy-permit application and no preservation surcharge. This closes a lawful current institutional access/copy route for the exact volume-5 physical holding. It does not locate the 1950-01-29 facsimile page, directly collate handwriting, guarantee that any requested page will be copied, or authorize the project to submit a request, incur a fee, or disclose user identity/contact details.",
+  "research_date": "2026-09-25",
+  "bibliographic_control": {
+    "union_catalog_source_id": "EXT-CINII-DENG-ZHICHENG-DIARY-FACSIMILE-2007",
+    "ncid": "BA83843361",
+    "isbn": "9787501334773",
+    "publication": "北京圖書館出版社, 2007.7",
+    "facsimile_note": "影印本",
+    "exact_volume": 5,
+    "toyo_union_item_id": "505909"
+  },
+  "toyo_first_party_holding": {
+    "source_id": "EXT-TOYO-BUNKO-DENG-ZHICHENG-DIARY-2007-V5-505909",
+    "provider": "公益財団法人 東洋文庫",
+    "opac_search_url": "https://opac.tbopac.com/gate?method=search&module=search&path=search&searchForm.library=true&searchForm.orderNumber=BA83843361",
+    "bibliography_id": "1000018751",
+    "title": "鄧之誠日記",
+    "publication": "北京 : 北京圖書館出版社, 2007.7",
+    "material_class_display": "普通書",
+    "request_number": "II/10-D/1059",
+    "document_id": "505909",
+    "volume": "5",
+    "exact_volume5_first_party_holding_closed": true,
+    "target_1950_01_29_page_located": false,
+    "target_1950_01_29_page_directly_reviewed": false,
+    "target_handwriting_directly_collated": false
+  },
+  "current_copy_service_control": {
+    "source_id": "EXT-TOYO-BUNKO-LIBRARY-COPY-GUIDELINES-2026",
+    "provider": "公益財団法人 東洋文庫",
+    "url": "https://toyo-bunko.or.jp/library/guidelines/",
+    "copy_application_channels": [
+      "reading counter",
+      "post",
+      "fax",
+      "email/contact form"
+    ],
+    "ordinary_book_1971_plus_methods": [
+      "electronic copy (self/staff)",
+      "staff digital-camera copy or microform print",
+      "outsourced digital photography"
+    ],
+    "special_copy_permission_required_for_1971_plus_general_books": false,
+    "preservation_surcharge_required_for_1971_plus_general_books": false,
+    "ordinary_copy_application_still_required": true,
+    "exact_target_copy_acceptance_tested": false,
+    "request_submitted": false,
+    "fee_incurred": false,
+    "user_identity_or_contact_data_submitted": false
+  },
+  "reference_service_boundary": {
+    "service_available": true,
+    "allowed_scope": [
+      "library-use guidance",
+      "holding investigation",
+      "support for material search methods"
+    ],
+    "excluded_scope": [
+      "decipherment",
+      "translation",
+      "annotation",
+      "excerpt creation",
+      "research outsourcing"
+    ],
+    "target_page_location_request_executed": false,
+    "reference_request_submitted": false,
+    "note": "Public reference scope does not authorize assuming staff will research or extract the 1950-01-29 passage on the project's behalf."
+  },
+  "access_adjudication": {
+    "exact_volume5_first_party_physical_route": "CLOSED_TOYO_BUNKO_DOCUMENT_505909",
+    "current_copy_service_route": "CLOSED_AT_PUBLIC_INSTITUTIONAL_RULE_LEVEL",
+    "exact_1950_01_29_facsimile_page": "UNRESOLVED",
+    "target_facsimile_text": "NOT_REVIEWED",
+    "target_handwriting_directly_collated": false,
+    "copy_request_acceptance": "UNTESTED_NO_REQUEST_SUBMITTED",
+    "current_access_route_replaces_union_catalog_only_boundary": true
+  },
+  "authority_firewall": {
+    "first_party_holding_does_not_equal_page_collation": true,
+    "copy_service_availability_does_not_equal_target_copy_completion": true,
+    "no_special_copy_permit_does_not_equal_no_copy_application": true,
+    "copy_route_does_not_equal_user_specific_acceptance": true,
+    "no_date_to_page_interpolation": true,
+    "journal_pagination_does_not_map_to_facsimile_pagination_without_direct_crosswalk": true,
+    "edited_2012_text_does_not_equal_2007_facsimile_handwriting": true,
+    "no_request_submitted": true,
+    "no_fee_incurred": true,
+    "no_user_identity_or_contact_data_submitted": true
+  },
+  "target_binding_firewall": {
+    "target_catalog_numbers": [
+      "3482",
+      "3483"
+    ],
+    "target_3482_3483_bound_to_this_volume5_access_route": false,
+    "target_purchase_or_donation_mode_selected": false,
+    "acquisition_edge_authorized": false,
+    "same_object_edge_authorized": false
+  },
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_added": [],
+    "supported_edges": [],
+    "revised_edges": [],
+    "rejected_edges": [],
+    "acquisition_edge_authorized": false,
+    "same_object_edge_authorized": false
+  },
+  "chronology_and_rule_firewall": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 14,
+    "repaired_provenance_metadata_defect_count": 14,
+    "confirmed_chart_algorithm_defect_count": 0
+  },
+  "next_gate": [
+    "Continue anonymous/public discovery for the exact 1950-01-29 page/leaf in Toyo Bunko document 505909 or another lawful first-party surrogate/citation; do not infer page number from neighboring dates.",
+    "Continue direct primary/fulltext-page discovery for 《五石斋文史札记（二十八）》 pp.121-129 and locate 1950-01-29 without interpolation.",
+    "If public page-location routes remain exhausted, a Toyo Bunko copy/reference request is an explicit external action requiring user authorization and any required identity/contact/payment handling before submission.",
+    "Continue Gu Tinglong 1950-01-06, NLC [23]/[24], Ji Shuying chapter 9, Gao Xizeng annotated-catalog and Zheng-to-Xu exact-letter-page routes in parallel."
+  ],
+  "updated_at": "2026-09-25"
+}
