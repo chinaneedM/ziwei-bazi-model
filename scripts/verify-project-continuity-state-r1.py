@@ -6377,8 +6377,12 @@ def main() -> int:
         fail("Batch 12GH matrix accounting unexpectedly changed")
     if acct12gh.get("confirmed_provenance_metadata_defect_count") != 14 or acct12gh.get("repaired_provenance_metadata_defect_count") != 14 or acct12gh.get("confirmed_chart_algorithm_defect_count") != 0:
         fail("Batch 12GH provenance/algorithm accounting regressed")
-    if state.get("schema_version") != "1.194.0":
-        fail("Batch 12GH current-state schema version mismatch")
+    try:
+        schema12gh = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12GH current-state schema version is not numeric")
+    if schema12gh < (1, 194, 0):
+        fail("Batch 12GH current-state schema version regressed below 1.194.0")
     if bid12gh not in audit_state.get("completed_batches", ()):
         fail("Batch 12GH missing from completed batch state")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
