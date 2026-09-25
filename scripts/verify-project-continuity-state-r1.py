@@ -180,6 +180,8 @@ ZIWEI_DENG_ZHICHENG_12GF_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE
 ZIWEI_DENG_ZHICHENG_12GF_EVIDENCE = ROOT / "docs/research/ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-NDL-2008-03-EXACT-CHILD-RECORD-AND-COPY-SURFACE-BOUNDARY-R1.json"
 ZIWEI_DENG_ZHICHENG_12GG_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-NDL-REMOTE-COPY-FRONTEND-CONTRACT-STATIC-BOUNDARY-GG.md"
 ZIWEI_DENG_ZHICHENG_12GG_EVIDENCE = ROOT / "docs/research/ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-NDL-REMOTE-COPY-FRONTEND-CONTRACT-STATIC-BOUNDARY-R1.json"
+ZIWEI_ZHENG_XU_12GH_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHENG-ZHENDUO-XU-SENYU-1952-CONTEXTUAL-TIEQIN-TWO-BATCH-CHRONOLOGY-FIREWALL-GH.md"
+ZIWEI_ZHENG_XU_12GH_EVIDENCE = ROOT / "docs/research/ZIWEI-ZHENG-ZHENDUO-XU-SENYU-1952-CONTEXTUAL-TIEQIN-TWO-BATCH-CHRONOLOGY-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -496,9 +498,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-JAPAN-PHYSICAL-SERIAL-HOLDINGS-AND-COPY-ACTION-BOUNDARY-GE",
     "BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-NDL-2008-03-EXACT-CHILD-RECORD-AND-COPY-SURFACE-BOUNDARY-GF",
     "BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-NDL-REMOTE-COPY-FRONTEND-CONTRACT-STATIC-BOUNDARY-GG",
+    "BATCH-12-ZIWEI-ZHENG-ZHENDUO-XU-SENYU-1952-CONTEXTUAL-TIEQIN-TWO-BATCH-CHRONOLOGY-FIREWALL-GH",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-NDL-REMOTE-COPY-FRONTEND-CONTRACT-STATIC-BOUNDARY-GG.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHENG-ZHENDUO-XU-SENYU-1952-CONTEXTUAL-TIEQIN-TWO-BATCH-CHRONOLOGY-FIREWALL-GH.md"
 
 
 def fail(message: str) -> None:
@@ -6315,6 +6318,68 @@ def main() -> int:
         fail("Batch 12AC Matrix image firewall regressed")
     if row12ac.get("independent_textual_witness_count_added_batch_12ac") != 0 or row12ac.get("independent_hai_glyph_witness_count_added_batch_12ac") != 0:
         fail("Batch 12AC Matrix witness firewall regressed")
+
+    # Batch 12GH Zheng Zhenduo -> Xu Senyu chronology firewall: later two-batch purchase control stays distinct from Jan-1950 Deng report.
+    for path in (ZIWEI_ZHENG_XU_12GH_BATCH, ZIWEI_ZHENG_XU_12GH_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12GH continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12gh = json.loads(ZIWEI_ZHENG_XU_12GH_EVIDENCE.read_text(encoding="utf-8"))
+    bid12gh = "BATCH-12-ZIWEI-ZHENG-ZHENDUO-XU-SENYU-1952-CONTEXTUAL-TIEQIN-TWO-BATCH-CHRONOLOGY-FIREWALL-GH"
+    if batch12gh.get("batch_id") != bid12gh:
+        fail("Batch 12GH evidence identity mismatch")
+    ctx12gh = batch12gh.get("contextual_letter_control", {})
+    if ctx12gh.get("publication_contextual_year_reconstruction") != 1952 or ctx12gh.get("contextual_year_is_direct_original_letter_date") is not False:
+        fail("Batch 12GH contextual-year firewall regressed")
+    if ctx12gh.get("conditional_previous_year_if_1952_context_accepted") != 1951 or ctx12gh.get("purchased_batch_count") != 2 or ctx12gh.get("reported_total_amount_text") != "两亿元":
+        fail("Batch 12GH later purchase chronology control regressed")
+    if ctx12gh.get("reproduced_purchase_phrase_authority") != "PUBLICATION_MEDIATED_FIRST_PERSON_LETTER_TEXT":
+        fail("Batch 12GH publication-mediated authority layer regressed")
+    chrono12gh = batch12gh.get("chronology_adjudication", {})
+    if chrono12gh.get("silent_same_transaction_collapse_authorized") is not False or chrono12gh.get("collection_level_priced_acquisition_strengthened") is not True or chrono12gh.get("exact_target_transaction_mode_closed") is not False:
+        fail("Batch 12GH chronology separation firewall regressed")
+    earlier12gh = chrono12gh.get("earlier_control", {})
+    later12gh = chrono12gh.get("later_control", {})
+    if earlier12gh.get("date") != "1950-01-29" or earlier12gh.get("reported_amount_text") != "四千万人民券" or earlier12gh.get("reported_box_count") != 12:
+        fail("Batch 12GH Jan-1950 comparison control regressed")
+    if later12gh.get("conditional_previous_year") != 1951 or later12gh.get("reported_batch_count") != 2 or later12gh.get("reported_total_amount_text") != "两亿元":
+        fail("Batch 12GH contextual later-event control regressed")
+    target12gh = batch12gh.get("target_binding_firewall", {})
+    if target12gh.get("either_contextual_1951_batch_contains_target") != "UNRESOLVED" or target12gh.get("target_1950_01_29_batch_membership") != "UNRESOLVED":
+        fail("Batch 12GH target batch membership was falsely closed")
+    if target12gh.get("target_specific_purchase_route_selected") is not False or target12gh.get("target_specific_donation_route_selected") is not False or target12gh.get("target_acquisition_edge_authorized") is not False:
+        fail("Batch 12GH target acquisition-mode firewall regressed")
+    pg12gh = batch12gh.get("primary_gate_status", {})
+    if pg12gh.get("target_1950_01_29_exact_journal_page") != "UNRESOLVED" or pg12gh.get("target_1950_01_29_primary_journal_text") != "NOT_REVIEWED":
+        fail("Batch 12GH primary journal gate was falsely closed")
+    if pg12gh.get("target_1950_01_29_exact_2007_facsimile_page") != "UNRESOLVED" or pg12gh.get("target_1950_01_29_handwriting_directly_collated") is not False or pg12gh.get("primary_gate_changed_by_this_batch") is not False:
+        fail("Batch 12GH facsimile/primary-gate firewall regressed")
+    src_tsg_12gh = next((x for x in registry.get("sources", ()) if x.get("source_id") == "EXT-TSINGHUA-ALUMNI-ZHAO-WANLI-DENG-1950-0129"), None)
+    src_letters_12gh = next((x for x in registry.get("sources", ()) if x.get("source_id") == "EXT-LIU-XIANGCHUN-ZHENG-ZHENDUO-XU-SENYU-LETTERS-LISHIWENXIAN16-2012"), None)
+    if src_tsg_12gh is None or src_letters_12gh is None:
+        fail("Batch 12GH registry controls missing")
+    if src_tsg_12gh.get("batch_12gh", {}).get("contextual_year_is_direct_original_letter_date") is not False or src_tsg_12gh.get("batch_12gh", {}).get("target_3482_3483_bound") is not False:
+        fail("Batch 12GH Tsinghua source-layer firewall regressed")
+    if src_letters_12gh.get("batch_12gh", {}).get("cited_page_range") != "284-343" or src_letters_12gh.get("batch_12gh", {}).get("exact_target_letter_page") != "UNRESOLVED":
+        fail("Batch 12GH published-letter bibliographic boundary regressed")
+    if src_letters_12gh.get("batch_12gh", {}).get("original_manuscript_image_reviewed") is not False:
+        fail("Batch 12GH original-letter image was falsely promoted")
+    trans12gh = batch12gh.get("transmission_impact", {})
+    if trans12gh.get("nodes_added") != [] or trans12gh.get("edges_added") != [] or trans12gh.get("acquisition_edge_authorized") is not False or trans12gh.get("same_object_edge_authorized") is not False:
+        fail("Batch 12GH zero-topology/acquisition-edge firewall regressed")
+    rule12gh = batch12gh.get("chronology_and_rule_firewall", {})
+    if rule12gh.get("runtime_rule_change") is not False or rule12gh.get("algorithm_reopen_authorized") is not False or rule12gh.get("candidate_collapse_authorized") is not False or rule12gh.get("matrix_row_count_change") is not False:
+        fail("Batch 12GH product/matrix firewall regressed")
+    acct12gh = batch12gh.get("accounting", {})
+    if acct12gh.get("matrix_rows") != 198 or acct12gh.get("audited_rows") != 166 or acct12gh.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12GH matrix accounting unexpectedly changed")
+    if acct12gh.get("confirmed_provenance_metadata_defect_count") != 14 or acct12gh.get("repaired_provenance_metadata_defect_count") != 14 or acct12gh.get("confirmed_chart_algorithm_defect_count") != 0:
+        fail("Batch 12GH provenance/algorithm accounting regressed")
+    if state.get("schema_version") != "1.194.0":
+        fail("Batch 12GH current-state schema version mismatch")
+    if bid12gh not in audit_state.get("completed_batches", ()):
+        fail("Batch 12GH missing from completed batch state")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12GH latest-batch document state mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")
