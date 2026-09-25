@@ -76,8 +76,11 @@ jobs:
 
           state=json.loads(Path('docs/PROJECT-CURRENT-STATE-R1.json').read_text(encoding='utf-8'))
           assert tuple(int(x) for x in state['schema_version'].split('.')) >= (1,201,0)
-          assert bid in state['historical_audit']['completed_batches']
-          assert state['historical_audit']['latest_batch_doc']=='docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-BEITU-HISTORY-1997-1949-1966-BIBLIOGRAPHIC-RANGE-REPAIR-GO.md'
+          completed=state['historical_audit']['completed_batches']
+          assert bid in completed
+          # Forward-compatible: later batches may become latest while GO remains a completed repair checkpoint.
+          latest=state['historical_audit']['latest_batch_doc']
+          assert isinstance(latest, str) and latest.startswith('docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-') and latest.endswith('.md')
 
           reg=json.loads(Path('docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json').read_text(encoding='utf-8'))
           ids={x.get('source_id') for x in reg['sources']}

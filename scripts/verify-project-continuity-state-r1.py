@@ -196,6 +196,8 @@ ZIWEI_NLC_PP446_12GN_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUD
 ZIWEI_NLC_PP446_12GN_EVIDENCE = ROOT / "docs/research/ZIWEI-NLC-PP446-449-TIEQIN-CITATION-BRIDGE-AND-TOKYO-HOLDING-R1.json"
 ZIWEI_BEITU_RANGE_12GO_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-BEITU-HISTORY-1997-1949-1966-BIBLIOGRAPHIC-RANGE-REPAIR-GO.md"
 ZIWEI_BEITU_RANGE_12GO_EVIDENCE = ROOT / "docs/research/ZIWEI-BEITU-HISTORY-1997-1949-1966-BIBLIOGRAPHIC-RANGE-REPAIR-R1.json"
+ZIWEI_JI_BAICHUAN_12GP_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-2004-BAICHUAN-ARTICLE-HOLDING-AND-FIFTEEN-LECTURES-SOURCE-GENEALOGY-BOUNDARY-GP.md"
+ZIWEI_JI_BAICHUAN_12GP_EVIDENCE = ROOT / "docs/research/ZIWEI-JI-SHUYING-2004-BAICHUAN-ARTICLE-HOLDING-AND-FIFTEEN-LECTURES-SOURCE-GENEALOGY-BOUNDARY-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -520,9 +522,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-LIN-ZHENYUE-2024-TONGJI-TIEQIN-SALE-NEW-MATERIALS-REPORT-SOURCE-BASIS-BOUNDARY-GM",
     "BATCH-12-ZIWEI-NLC-PP446-449-TIEQIN-CITATION-BRIDGE-AND-TOKYO-HOLDING-GN",
     "BATCH-12-ZIWEI-BEITU-HISTORY-1997-1949-1966-BIBLIOGRAPHIC-RANGE-REPAIR-GO",
+    "BATCH-12-ZIWEI-JI-SHUYING-2004-BAICHUAN-ARTICLE-HOLDING-AND-FIFTEEN-LECTURES-SOURCE-GENEALOGY-BOUNDARY-GP",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-BEITU-HISTORY-1997-1949-1966-BIBLIOGRAPHIC-RANGE-REPAIR-GO.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-2004-BAICHUAN-ARTICLE-HOLDING-AND-FIFTEEN-LECTURES-SOURCE-GENEALOGY-BOUNDARY-GP.md"
 
 
 def fail(message: str) -> None:
@@ -6857,6 +6860,65 @@ def main() -> int:
         fail("Batch 12GO missing from completed batch state")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12GO latest-batch document state mismatch")
+
+    # Batch 12GP Ji Shuying 2004 Baichuan article holding/source-genealogy boundary.
+    for path in (ZIWEI_JI_BAICHUAN_12GP_BATCH, ZIWEI_JI_BAICHUAN_12GP_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12GP continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12gp = json.loads(ZIWEI_JI_BAICHUAN_12GP_EVIDENCE.read_text(encoding="utf-8"))
+    bid12gp = "BATCH-12-ZIWEI-JI-SHUYING-2004-BAICHUAN-ARTICLE-HOLDING-AND-FIFTEEN-LECTURES-SOURCE-GENEALOGY-BOUNDARY-GP"
+    if batch12gp.get("batch_id") != bid12gp:
+        fail("Batch 12GP evidence identity mismatch")
+    nlc12gp = batch12gp.get("nlc_2010_bibliographic_control", {})
+    if nlc12gp.get("provider") != "国家图书馆" or nlc12gp.get("article_title") != "百川归海，蔚为大观" or nlc12gp.get("publication_year") != 2004:
+        fail("Batch 12GP NLC article identity control regressed")
+    if nlc12gp.get("direct_article_pages_reviewed") is not False or nlc12gp.get("article_page_range") != "UNRESOLVED":
+        fail("Batch 12GP direct article-page boundary regressed")
+    tw12gp = batch12gp.get("taiwan_ncl_2015_control", {})
+    if tw12gp.get("article_title") != "百川归海，蔚为大观" or tw12gp.get("publication_year") != 2004 or tw12gp.get("direct_article_pages_reviewed") is not False:
+        fail("Batch 12GP Taiwan NCL bibliographic control regressed")
+    tokyo12gp = batch12gp.get("tokyo_metropolitan_holding_control", {})
+    if tokyo12gp.get("provider") != "東京都立図書館" or tokyo12gp.get("title") != "冀淑英文集" or tokyo12gp.get("displayed_shelf_sequence") != ["022.0", "6001", "2004"]:
+        fail("Batch 12GP Tokyo holding route regressed")
+    if tokyo12gp.get("project_submitted_copy_request") is not False or tokyo12gp.get("project_incurred_fee") is not False:
+        fail("Batch 12GP external-action firewall regressed")
+    sec12gp = batch12gp.get("secondary_source_genealogy_locator", {})
+    if sec12gp.get("source_role") != "SECONDARY_DISCOVERY_LOCATOR_NOT_HISTORICAL_OR_BIBLIOGRAPHIC_AUTHORITY":
+        fail("Batch 12GP secondary-locator scope regressed")
+    if sec12gp.get("direct_2009_postscript_reviewed") is not False or sec12gp.get("direct_2004_editor_note_reviewed") is not False or sec12gp.get("source_genealogy_status") != "SECONDARY_REPORTED_NOT_DIRECTLY_CLOSED":
+        fail("Batch 12GP source-genealogy boundary falsely closed")
+    adj12gp = batch12gp.get("adjudication", {})
+    if adj12gp.get("baichuan_article_identity") != "CLOSED_AS_2004_WENJI_COMPONENT_BY_TWO_INDEPENDENT_INSTITUTIONAL_PUBLICATIONS":
+        fail("Batch 12GP article identity closure regressed")
+    if adj12gp.get("direct_2004_article_text") != "NOT_REVIEWED" or adj12gp.get("direct_2009_postscript") != "NOT_REVIEWED" or adj12gp.get("2009_derived_from_2004_baichuan") != "SECONDARY_REPORTED_NOT_DIRECTLY_CLOSED":
+        fail("Batch 12GP direct-text/source-genealogy firewall regressed")
+    if adj12gp.get("target_specific_purchase_route_selected") is not False or adj12gp.get("target_specific_donation_route_selected") is not False or adj12gp.get("final_nlc_acquisition_transfer_path") != "UNRESOLVED":
+        fail("Batch 12GP target transfer route falsely selected")
+    srcids12gp = {x.get("source_id"): x for x in registry.get("sources", ())}
+    for sid in ("EXT-NLC-HAIYUANGE-2010-BAICHUAN-WENJI-BIBLIOGRAPHIC-CONTROL","EXT-TAIWAN-NCL-2015-BAICHUAN-WENJI-BIBLIOGRAPHIC-CONTROL","EXT-TOKYO-METROPOLITAN-JI-SHUYING-WENJI-2004-HOLDING","EXT-CINII-JI-SHUYING-WENJI-2004-HOLDINGS","EXT-SHUGE-JI-2009-BAICHUAN-SOURCE-GENEALOGY-LOCATOR"):
+        if sid not in srcids12gp:
+            fail(f"Batch 12GP source registry missing: {sid}")
+    trans12gp = batch12gp.get("transmission_impact", {})
+    if trans12gp.get("nodes_added") != [] or trans12gp.get("edges_added") != [] or trans12gp.get("direct_copy_edge_authorized") is not False or trans12gp.get("same_object_edge_authorized") is not False or trans12gp.get("acquisition_edge_authorized") is not False:
+        fail("Batch 12GP genealogy/acquisition firewall regressed")
+    rule12gp = batch12gp.get("chronology_and_rule_firewall", {})
+    if rule12gp.get("runtime_rule_change") is not False or rule12gp.get("algorithm_reopen_authorized") is not False or rule12gp.get("candidate_collapse_authorized") is not False or rule12gp.get("matrix_count_change") is not False:
+        fail("Batch 12GP product/matrix firewall regressed")
+    acct12gp = batch12gp.get("accounting", {})
+    if acct12gp.get("matrix_rows") != 198 or acct12gp.get("audited_rows") != 166 or acct12gp.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12GP matrix accounting unexpectedly changed")
+    if acct12gp.get("confirmed_provenance_metadata_defect_count") != 14 or acct12gp.get("repaired_provenance_metadata_defect_count") != 14 or acct12gp.get("confirmed_chart_algorithm_defect_count") != 0:
+        fail("Batch 12GP provenance/algorithm accounting regressed")
+    try:
+        schema12gp = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12GP current-state schema version is not numeric")
+    if schema12gp < (1, 202, 0):
+        fail("Batch 12GP current-state schema version regressed below 1.202.0")
+    if bid12gp not in audit_state.get("completed_batches", ()):
+        fail("Batch 12GP missing from completed batch state")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12GP latest-batch document state mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")
