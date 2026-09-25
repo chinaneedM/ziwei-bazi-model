@@ -182,6 +182,8 @@ ZIWEI_DENG_ZHICHENG_12GG_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE
 ZIWEI_DENG_ZHICHENG_12GG_EVIDENCE = ROOT / "docs/research/ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-NDL-REMOTE-COPY-FRONTEND-CONTRACT-STATIC-BOUNDARY-R1.json"
 ZIWEI_ZHENG_XU_12GH_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHENG-ZHENDUO-XU-SENYU-1952-CONTEXTUAL-TIEQIN-TWO-BATCH-CHRONOLOGY-FIREWALL-GH.md"
 ZIWEI_ZHENG_XU_12GH_EVIDENCE = ROOT / "docs/research/ZIWEI-ZHENG-ZHENDUO-XU-SENYU-1952-CONTEXTUAL-TIEQIN-TWO-BATCH-CHRONOLOGY-R1.json"
+ZIWEI_DENG_TOYO_12GI_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DENG-ZHICHENG-DIARY-VOL5-TOYO-BUNKO-FIRST-PARTY-HOLDING-AND-COPY-SERVICE-BOUNDARY-GI.md"
+ZIWEI_DENG_TOYO_12GI_EVIDENCE = ROOT / "docs/research/ZIWEI-DENG-ZHICHENG-DIARY-VOL5-TOYO-BUNKO-FIRST-PARTY-HOLDING-AND-COPY-SERVICE-BOUNDARY-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -499,9 +501,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-NDL-2008-03-EXACT-CHILD-RECORD-AND-COPY-SURFACE-BOUNDARY-GF",
     "BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-NDL-REMOTE-COPY-FRONTEND-CONTRACT-STATIC-BOUNDARY-GG",
     "BATCH-12-ZIWEI-ZHENG-ZHENDUO-XU-SENYU-1952-CONTEXTUAL-TIEQIN-TWO-BATCH-CHRONOLOGY-FIREWALL-GH",
+    "BATCH-12-ZIWEI-DENG-ZHICHENG-DIARY-VOL5-TOYO-BUNKO-FIRST-PARTY-HOLDING-AND-COPY-SERVICE-BOUNDARY-GI",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHENG-ZHENDUO-XU-SENYU-1952-CONTEXTUAL-TIEQIN-TWO-BATCH-CHRONOLOGY-FIREWALL-GH.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DENG-ZHICHENG-DIARY-VOL5-TOYO-BUNKO-FIRST-PARTY-HOLDING-AND-COPY-SERVICE-BOUNDARY-GI.md"
 
 
 def fail(message: str) -> None:
@@ -6380,6 +6383,77 @@ def main() -> int:
         fail("Batch 12GH missing from completed batch state")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12GH latest-batch document state mismatch")
+
+    # Batch 12GI Toyo Bunko volume-5 first-party holding and copy-service boundary.
+    for path in (ZIWEI_DENG_TOYO_12GI_BATCH, ZIWEI_DENG_TOYO_12GI_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12GI continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12gi = json.loads(ZIWEI_DENG_TOYO_12GI_EVIDENCE.read_text(encoding="utf-8"))
+    bid12gi = "BATCH-12-ZIWEI-DENG-ZHICHENG-DIARY-VOL5-TOYO-BUNKO-FIRST-PARTY-HOLDING-AND-COPY-SERVICE-BOUNDARY-GI"
+    if batch12gi.get("batch_id") != bid12gi:
+        fail("Batch 12GI evidence identity mismatch")
+    hold12gi = batch12gi.get("toyo_first_party_holding", {})
+    if hold12gi.get("bibliography_id") != "1000018751" or hold12gi.get("request_number") != "II/10-D/1059" or hold12gi.get("document_id") != "505909" or hold12gi.get("volume") != "5":
+        fail("Batch 12GI exact Toyo volume-5 identity regressed")
+    if hold12gi.get("material_class_display") != "普通書" or hold12gi.get("exact_volume5_first_party_holding_closed") is not True:
+        fail("Batch 12GI Toyo first-party holding classification regressed")
+    if hold12gi.get("target_1950_01_29_page_located") is not False or hold12gi.get("target_1950_01_29_page_directly_reviewed") is not False or hold12gi.get("target_handwriting_directly_collated") is not False:
+        fail("Batch 12GI target page/handwriting was falsely closed")
+    svc12gi = batch12gi.get("current_copy_service_control", {})
+    if svc12gi.get("special_copy_permission_required_for_1971_plus_general_books") is not False or svc12gi.get("preservation_surcharge_required_for_1971_plus_general_books") is not False:
+        fail("Batch 12GI general-book service classification regressed")
+    if svc12gi.get("ordinary_copy_application_still_required") is not True:
+        fail("Batch 12GI ordinary-copy application boundary regressed")
+    if svc12gi.get("request_submitted") is not False or svc12gi.get("fee_incurred") is not False or svc12gi.get("user_identity_or_contact_data_submitted") is not False:
+        fail("Batch 12GI no-action/privacy boundary regressed")
+    adj12gi = batch12gi.get("access_adjudication", {})
+    if adj12gi.get("exact_volume5_first_party_physical_route") != "CLOSED_TOYO_BUNKO_DOCUMENT_505909" or adj12gi.get("current_copy_service_route") != "CLOSED_AT_PUBLIC_INSTITUTIONAL_RULE_LEVEL":
+        fail("Batch 12GI access-route adjudication regressed")
+    if adj12gi.get("exact_1950_01_29_facsimile_page") != "UNRESOLVED" or adj12gi.get("target_facsimile_text") != "NOT_REVIEWED" or adj12gi.get("target_handwriting_directly_collated") is not False:
+        fail("Batch 12GI unresolved facsimile target was falsely closed")
+    auth12gi = batch12gi.get("authority_firewall", {})
+    for key in (
+        "first_party_holding_does_not_equal_page_collation",
+        "copy_service_availability_does_not_equal_target_copy_completion",
+        "no_special_copy_permit_does_not_equal_no_copy_application",
+        "copy_route_does_not_equal_user_specific_acceptance",
+        "no_date_to_page_interpolation",
+        "journal_pagination_does_not_map_to_facsimile_pagination_without_direct_crosswalk",
+        "edited_2012_text_does_not_equal_2007_facsimile_handwriting",
+        "no_request_submitted",
+        "no_fee_incurred",
+        "no_user_identity_or_contact_data_submitted",
+    ):
+        if auth12gi.get(key) is not True:
+            fail(f"Batch 12GI authority/action firewall regressed: {key}")
+    src_hold_12gi = next((x for x in registry.get("sources", ()) if x.get("source_id") == "EXT-TOYO-BUNKO-DENG-ZHICHENG-DIARY-2007-V5-505909"), None)
+    src_svc_12gi = next((x for x in registry.get("sources", ()) if x.get("source_id") == "EXT-TOYO-BUNKO-LIBRARY-COPY-GUIDELINES-2026"), None)
+    src_cinii_12gi = next((x for x in registry.get("sources", ()) if x.get("source_id") == "EXT-CINII-DENG-ZHICHENG-DIARY-FACSIMILE-2007"), None)
+    if src_hold_12gi is None or src_svc_12gi is None or src_cinii_12gi is None:
+        fail("Batch 12GI registry controls missing")
+    if src_hold_12gi.get("batch_12gi", {}).get("document_id") != "505909" or src_hold_12gi.get("batch_12gi", {}).get("target_page_directly_reviewed") is not False:
+        fail("Batch 12GI holding registry boundary regressed")
+    if src_svc_12gi.get("batch_12gi", {}).get("ordinary_copy_application_still_required") is not True or src_svc_12gi.get("batch_12gi", {}).get("target_request_submitted") is not False:
+        fail("Batch 12GI copy-service registry boundary regressed")
+    if src_cinii_12gi.get("batch_12gi", {}).get("toyo_first_party_holding_closed") is not True or src_cinii_12gi.get("batch_12gi", {}).get("exact_target_page") != "UNRESOLVED":
+        fail("Batch 12GI CiNii-to-Toyo upgrade boundary regressed")
+    trans12gi = batch12gi.get("transmission_impact", {})
+    if trans12gi.get("nodes_added") != [] or trans12gi.get("edges_added") != [] or trans12gi.get("acquisition_edge_authorized") is not False or trans12gi.get("same_object_edge_authorized") is not False:
+        fail("Batch 12GI zero-topology/acquisition-edge firewall regressed")
+    rule12gi = batch12gi.get("chronology_and_rule_firewall", {})
+    if rule12gi.get("runtime_rule_change") is not False or rule12gi.get("algorithm_reopen_authorized") is not False or rule12gi.get("candidate_collapse_authorized") is not False or rule12gi.get("matrix_row_count_change") is not False:
+        fail("Batch 12GI product/matrix firewall regressed")
+    acct12gi = batch12gi.get("accounting", {})
+    if acct12gi.get("matrix_rows") != 198 or acct12gi.get("audited_rows") != 166 or acct12gi.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12GI matrix accounting unexpectedly changed")
+    if acct12gi.get("confirmed_provenance_metadata_defect_count") != 14 or acct12gi.get("repaired_provenance_metadata_defect_count") != 14 or acct12gi.get("confirmed_chart_algorithm_defect_count") != 0:
+        fail("Batch 12GI provenance/algorithm accounting regressed")
+    if state.get("schema_version") != "1.195.0":
+        fail("Batch 12GI current-state schema version mismatch")
+    if bid12gi not in audit_state.get("completed_batches", ()):
+        fail("Batch 12GI missing from completed batch state")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12GI latest-batch document state mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")
