@@ -172,6 +172,8 @@ ZIWEI_DENG_ZHICHENG_12GB_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE
 ZIWEI_DENG_ZHICHENG_12GB_EVIDENCE = ROOT / "docs/research/ZIWEI-DENG-ZHICHENG-DIARY-2007-NLCPRESS-ITEM-DOWNLOAD-SURFACE-BOUNDARY-R1.json"
 ZIWEI_DENG_ZHICHENG_12GC_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-PKU-STABLE-DETAIL-ARTICLEFILE-BOUNDARY-GC.md"
 ZIWEI_DENG_ZHICHENG_12GC_EVIDENCE = ROOT / "docs/research/ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-PKU-STABLE-DETAIL-ARTICLEFILE-BOUNDARY-R1.json"
+ZIWEI_DENG_ZHICHENG_12GD_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-PKU-TITLE-PHRASE-INDEX-NONMATCH-BOUNDARY-GD.md"
+ZIWEI_DENG_ZHICHENG_12GD_EVIDENCE = ROOT / "docs/research/ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-PKU-TITLE-PHRASE-INDEX-NONMATCH-BOUNDARY-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -484,9 +486,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-PKU-FULLTEXT-BRIDGE-PUBLIC-ACCESS-BOUNDARY-GA",
     "BATCH-12-ZIWEI-DENG-ZHICHENG-DIARY-2007-NLCPRESS-ITEM-DOWNLOAD-SURFACE-BOUNDARY-GB",
     "BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-PKU-STABLE-DETAIL-ARTICLEFILE-BOUNDARY-GC",
+    "BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-PKU-TITLE-PHRASE-INDEX-NONMATCH-BOUNDARY-GD",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-PKU-STABLE-DETAIL-ARTICLEFILE-BOUNDARY-GC.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-PKU-TITLE-PHRASE-INDEX-NONMATCH-BOUNDARY-GD.md"
 
 
 def fail(message: str) -> None:
@@ -2798,6 +2801,104 @@ def main() -> int:
         fail("Batch 12GC matrix accounting unexpectedly changed")
     if acct12gc.get("confirmed_provenance_metadata_defect_count") != 14 or acct12gc.get("repaired_provenance_metadata_defect_count") != 14 or acct12gc.get("confirmed_chart_algorithm_defect_count") != 0:
         fail("Batch 12GC provenance/algorithm accounting regressed")
+
+    for path in (ZIWEI_DENG_ZHICHENG_12GD_BATCH, ZIWEI_DENG_ZHICHENG_12GD_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12GD continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12gd = json.loads(ZIWEI_DENG_ZHICHENG_12GD_EVIDENCE.read_text(encoding="utf-8"))
+    if batch12gd.get("batch_id") != "BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-PKU-TITLE-PHRASE-INDEX-NONMATCH-BOUNDARY-GD":
+        fail("Batch 12GD evidence identity mismatch")
+    contract12gd = batch12gd.get("source_contract", {})
+    if contract12gd.get("backend") != "https://ccj.pku.edu.cn/Search/SearchArticleByElasticsearch":
+        fail("Batch 12GD PKU backend identity regressed")
+    if contract12gd.get("target_article_id") != "286663046" or contract12gd.get("title_scope") != "五石斋文史札记":
+        fail("Batch 12GD target/title scope regressed")
+    if contract12gd.get("boolean_operator") != "AND" or contract12gd.get("executed_page_size") != 100:
+        fail("Batch 12GD scoped-query contract regressed")
+    if contract12gd.get("authentication_used") is not False or contract12gd.get("id_enumeration_or_guessing") is not False:
+        fail("Batch 12GD query-method firewall regressed")
+    scoped12gd = batch12gd.get("scoped_probe", {})
+    pc12gd = scoped12gd.get("positive_control", {})
+    if pc12gd.get("success") is not True or pc12gd.get("backend_total") != "37" or pc12gd.get("result_count") != 37:
+        fail("Batch 12GD positive-control series closure regressed")
+    if pc12gd.get("target_match_count") != 1 or pc12gd.get("target_id") != "286663046" or pc12gd.get("target_pages") != "121-129":
+        fail("Batch 12GD positive-control target recovery regressed")
+    tests12gd = scoped12gd.get("phrase_tests", [])
+    expected12gd = {
+        "四千万人民券": (0, 0),
+        "十二箱": (9, 0),
+        "以归公": (4, 0),
+        "一月二十九日": (20, 0),
+        "铁琴铜剑楼": (1, 0),
+    }
+    if len(tests12gd) != 5:
+        fail("Batch 12GD phrase-test count regressed")
+    for item in tests12gd:
+        phrase = item.get("phrase")
+        if phrase not in expected12gd:
+            fail(f"Batch 12GD unexpected phrase test: {phrase}")
+        exp_results, exp_target = expected12gd[phrase]
+        if item.get("result_count") != exp_results or item.get("target_match_count") != exp_target:
+            fail(f"Batch 12GD scoped phrase result regressed: {phrase}")
+        if item.get("target_current_index_match") is not False:
+            fail(f"Batch 12GD target index nonmatch regressed: {phrase}")
+    interp12gd = batch12gd.get("interpretation", {})
+    if interp12gd.get("validated_two_condition_query_mechanism") is not True:
+        fail("Batch 12GD two-condition validation regressed")
+    if interp12gd.get("tested_phrase_count") != 5 or interp12gd.get("tested_phrase_target_match_count") != 0:
+        fail("Batch 12GD tested phrase accounting regressed")
+    if interp12gd.get("classification") != "CURRENT_SEARCH_INDEX_NONMATCH_UNDER_TESTED_QUERY":
+        fail("Batch 12GD index-boundary classification regressed")
+    if interp12gd.get("whole_article_negative_attestation") is not False or interp12gd.get("primary_text_negative_attestation") is not False or interp12gd.get("page_glyph_negative_attestation") is not False:
+        fail("Batch 12GD index nonmatch falsely promoted to textual negative")
+    fw12gd = batch12gd.get("access_and_authority_firewall", {})
+    for key in (
+        "positive_control_required_before_interpreting_phrase_nonmatch",
+        "broad_top100_nonmatch_not_negative_evidence",
+        "scoped_index_nonmatch_does_not_equal_article_text_absence",
+        "search_index_highlight_or_match_does_not_equal_primary_page_glyph",
+        "empty_abstract_does_not_equal_empty_article",
+        "no_authentication_bypass_attempted",
+        "no_paywall_bypass_attempted",
+        "no_article_id_enumeration_or_guessing",
+        "no_provider_account_action_taken",
+        "no_purchase_or_fee_incurred",
+        "no_date_to_page_interpolation",
+        "journal_pagination_does_not_map_to_2007_facsimile_pagination_without_direct_crosswalk",
+    ):
+        if fw12gd.get(key) is not True:
+            fail(f"Batch 12GD access/authority firewall regressed: {key}")
+    target12gd = batch12gd.get("target_status_after_batch", {})
+    if target12gd.get("article_id") != "286663046" or target12gd.get("article_page_range") != "121-129":
+        fail("Batch 12GD target article identity regressed")
+    if target12gd.get("known_derivative_phrase_index_status") != "CURRENT_SEARCH_INDEX_NONMATCH_UNDER_TESTED_TITLE_SCOPED_QUERY":
+        fail("Batch 12GD target index status regressed")
+    if target12gd.get("target_1950_01_29_exact_journal_page") != "UNRESOLVED" or target12gd.get("target_1950_01_29_primary_journal_text") != "NOT_REVIEWED":
+        fail("Batch 12GD Jan-29 journal target falsely closed")
+    if target12gd.get("target_1950_01_29_exact_facsimile_page") != "UNRESOLVED" or target12gd.get("target_1950_01_29_facsimile_text") != "NOT_REVIEWED" or target12gd.get("target_1950_01_29_handwriting_directly_collated") is not False:
+        fail("Batch 12GD facsimile/handwriting target falsely closed")
+    reg12gd = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    pkutarget12gd = next((x for x in reg12gd.get("sources", []) if x.get("source_id") == "EXT-PKU-CCJ-WUSHIZHAI28-2008-03-PP121-129-INDEX"), None)
+    if pkutarget12gd is None:
+        fail("Batch 12GD PKU registry target missing")
+    b12gd = pkutarget12gd.get("batch_12gd", {})
+    if b12gd.get("target_article_id") != "286663046" or b12gd.get("positive_control_success") is not True:
+        fail("Batch 12GD registry positive-control binding regressed")
+    if b12gd.get("classification") != "CURRENT_SEARCH_INDEX_NONMATCH_UNDER_TESTED_TITLE_SCOPED_QUERY":
+        fail("Batch 12GD registry classification regressed")
+    if b12gd.get("whole_article_negative_attestation") is not False or b12gd.get("primary_text_negative_attestation") is not False or b12gd.get("page_glyph_negative_attestation") is not False:
+        fail("Batch 12GD registry textual-negative firewall regressed")
+    trans12gd = batch12gd.get("transmission_impact", {})
+    if trans12gd.get("nodes_added") != [] or trans12gd.get("edges_added") != [] or trans12gd.get("acquisition_edge_authorized") is not False or trans12gd.get("same_object_edge_authorized") is not False:
+        fail("Batch 12GD zero-topology/acquisition-edge firewall regressed")
+    rule12gd = batch12gd.get("chronology_and_rule_firewall", {})
+    if rule12gd.get("direct_sanming_parent_vote_increment") != 0 or rule12gd.get("pre1578_zhunzhai_rule_witness_increment") != 0 or rule12gd.get("runtime_rule_change") is not False or rule12gd.get("algorithm_reopen_authorized") is not False or rule12gd.get("candidate_collapse_authorized") is not False or rule12gd.get("matrix_row_count_change") is not False:
+        fail("Batch 12GD product/matrix firewall regressed")
+    acct12gd = batch12gd.get("accounting", {})
+    if acct12gd.get("matrix_rows") != 198 or acct12gd.get("audited_rows") != 166 or acct12gd.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12GD matrix accounting unexpectedly changed")
+    if acct12gd.get("confirmed_provenance_metadata_defect_count") != 14 or acct12gd.get("repaired_provenance_metadata_defect_count") != 14 or acct12gd.get("confirmed_chart_algorithm_defect_count") != 0:
+        fail("Batch 12GD provenance/algorithm accounting regressed")
 
     for path in (ZIWEI_KYUDB_12DT_BATCH, ZIWEI_KYUDB_12DT_EVIDENCE):
         if not path.is_file():
