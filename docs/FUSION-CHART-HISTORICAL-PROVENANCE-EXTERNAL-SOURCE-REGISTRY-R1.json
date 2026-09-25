@@ -7570,6 +7570,67 @@
         "target_1950_01_29_page_inferred_from_p222": false,
         "research_artifact": "docs/research/ZIWEI-DENG-ZHICHENG-DIARY-1950-0129-EDITOR-CHECKED-SERIAL-ROUTE-R1.json"
       }
+    },
+    {
+      "source_id": "EXT-PKU-CCJ-ZGDJYWH-2008-03-VIID12482306",
+      "title": "Chinese classics & culture — 2008 Issue 03 Table of Contents",
+      "historical_period": "2008 journal issue; current first-party issue-container metadata",
+      "provider": "北京大学期刊网",
+      "url": "https://ccj.pku.edu.cn/journal/info?issueNo=03&jid=94408&viid=12482306&volumeNo=",
+      "source_role": "FIRST_PARTY_JOURNAL_ISSUE_CONTAINER_AND_FULLTEXT_BRIDGE_CONTROL",
+      "quality_notes": "Batch 12FY directly binds jid 94408 / viid 12482306 / 2008 Issue 03, ISSN 1004-3241 and CN 11-2992/G2 on the PKU journal platform. The reviewed static surface does not source-emit the target 《五石斋文史札记（二十八）》 row, page range or text; issue-container identity must not be promoted to target-article collation.",
+      "batch_12fy": {
+        "jid": "94408",
+        "viid": "12482306",
+        "issue_year": 2008,
+        "issue_no": "03",
+        "first_party_issue_container_closed": true,
+        "target_article_row_source_emitted": false,
+        "target_article_page_range_source_emitted": false,
+        "target_article_text_source_emitted": false,
+        "research_artifact": "docs/research/ZIWEI-DENG-ZHICHENG-WUSHIZHAI-2008-ISSUE03-PAGINATION-BOUNDARY-R1.json"
+      }
+    },
+    {
+      "source_id": "EXT-CQVIP-ZGDJYWH-2008-03-TOC",
+      "title": "中国典籍与文化 — 2008年3期目录",
+      "historical_period": "2008 journal issue; current CQVIP TOC surface",
+      "provider": "维普官网",
+      "url": "https://www.cqvip.com/journal/81912X/81912X/2008",
+      "source_role": "CURRENT_TOC_SURFACE_AND_PAGINATION_BOUNDARY_CONTROL",
+      "quality_notes": "Batch 12FY directly records 2008年3期, 31 articles, and a two-page TOC control. The reviewed first static TOC page exposes article ranges only through 92-95. The target row and second TOC page were not directly retrieved; no p96+ target-page inference is authorized.",
+      "batch_12fy": {
+        "selected_issue": "2008年3期",
+        "displayed_article_count": 31,
+        "first_static_toc_page_last_visible_article_page_range": "92-95",
+        "first_static_toc_page_max_visible_end_page": 95,
+        "toc_pagination_control_pages_observed": [
+          1,
+          2
+        ],
+        "second_toc_page_directly_retrieved": false,
+        "target_article_row_observed": false,
+        "target_article_page_range": "UNRESOLVED",
+        "research_artifact": "docs/research/ZIWEI-DENG-ZHICHENG-WUSHIZHAI-2008-ISSUE03-PAGINATION-BOUNDARY-R1.json"
+      }
+    },
+    {
+      "source_id": "EXT-AISIXIANG-QUJUN-WUSHIZHAI-1949-0930-P120-CITATION",
+      "title": "重大问题的再历史化",
+      "author": "瞿骏",
+      "historical_period": "modern scholarly article citing a 1949-09-30 entry from the 2008 serial installment",
+      "provider": "爱思想",
+      "url": "https://www.aisixiang.com/data/106322.html",
+      "source_role": "SCHOLARLY_SECONDARY_EXACT_DATE_PAGE_ANCHOR_PENDING_PRIMARY_JOURNAL_COLLATION",
+      "quality_notes": "Batch 12FY records footnote 45's citation of 《五石斋文史札记》(二十八), 1949-09-30, journal page 120, 《中国典籍与文化》 2008(3). This is a secondary citation anchor only; the project has not directly reviewed journal p120 and does not interpolate the 1950-01-29 page from it.",
+      "batch_12fy": {
+        "cited_diary_date": "1949-09-30",
+        "cited_journal_page": 120,
+        "cited_issue": "中国典籍与文化 2008(3)",
+        "primary_journal_page_directly_reviewed": false,
+        "target_1950_01_29_page_inferred": false,
+        "research_artifact": "docs/research/ZIWEI-DENG-ZHICHENG-WUSHIZHAI-2008-ISSUE03-PAGINATION-BOUNDARY-R1.json"
+      }
     }
   ],
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md",
