@@ -1,0 +1,106 @@
+name: verify-batch-12gg-exact-head
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/verify-batch-12gg-exact-head.yml
+      - docs/research/ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-NDL-REMOTE-COPY-FRONTEND-CONTRACT-STATIC-BOUNDARY-R1.json
+      - docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-NDL-REMOTE-COPY-FRONTEND-CONTRACT-STATIC-BOUNDARY-GG.md
+      - docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json
+      - docs/PROJECT-CURRENT-STATE-R1.json
+      - scripts/verify-project-continuity-state-r1.py
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify Batch 12GG exact head
+        run: |
+          set -euo pipefail
+          python scripts/verify-tianwen-transmission-genealogy-r1.py
+          python scripts/verify-project-continuity-state-r1.py
+          python scripts/verify-fusion-chart-historical-provenance-audit-r1.py
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          bid='BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-NDL-REMOTE-COPY-FRONTEND-CONTRACT-STATIC-BOUNDARY-GG'
+          ep=Path('docs/research/ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-NDL-REMOTE-COPY-FRONTEND-CONTRACT-STATIC-BOUNDARY-R1.json')
+          dp=Path('docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-NDL-REMOTE-COPY-FRONTEND-CONTRACT-STATIC-BOUNDARY-GG.md')
+          assert ep.is_file() and dp.is_file()
+          e=json.loads(ep.read_text(encoding='utf-8'))
+          assert e['batch_id']==bid
+
+          c=e['exact_child_control']
+          assert c['child_suffix']=='i25264793'
+          assert c['target_admin_permission']=='PUBLIC'
+          assert c['target_holding_type']==['ndl']
+          assert c['public_metadata_permission_does_not_equal_request_eligibility'] is True
+
+          a=e['anonymous_request_state_control']
+          assert a['request_store']['checkedCartItems']==[]
+          assert a['request_store']['requestCount']==0
+          assert a['rcopy_store']['requestItemFromTml']==[]
+          assert a['rcopy_store']['requestItemFromKsk']==[]
+          assert a['rcopy_store']['requestItemFromIlcl']==[]
+          assert a['empty_request_state_proves_ineligibility'] is False
+
+          p=e['frontend_contract_probe']
+          assert p['run_id']==36098813291
+          assert p['artifact_id']==10848705735
+          assert p['entry_module_sha256']=='095c1b4e55d21b0378d8e2b70516d77d1b022ee4d779d6071fdfa17b7eda0575'
+          assert p['source_emitted_modules_fetched_count']==75
+          assert p['contract_execution_performed'] is False
+          assert p['login_performed'] is False
+          assert p['request_submission_performed'] is False
+          for route in ('/request/cart','/request/rcopy/input','/api/cart','/api/request','/api/request/without-cart','/copy/remote','/help/remotecopy'):
+              assert route in p['source_emitted_global_routes']
+          assert p['target_specific_cart_item_obtained'] is False
+          assert p['target_specific_rcopy_part_item_id_obtained'] is False
+          assert p['target_specific_item_id_for_request_obtained'] is False
+          assert p['target_specific_maximum_fee_obtained'] is False
+
+          assert e['adjudication']['exact_target_issue_remote_copy_eligibility']=='UNRESOLVED'
+          assert e['adjudication']['anonymous_empty_request_store']=='INITIAL_STATE_ONLY_NOT_DENIAL_EVIDENCE'
+          assert e['stop_rule']['broad_frontend_route_archaeology_after_batch']=='DEPRIORITIZE'
+          assert e['stop_rule']['return_priority_to_primary_target_pages'] is True
+
+          state=json.loads(Path('docs/PROJECT-CURRENT-STATE-R1.json').read_text(encoding='utf-8'))
+          assert state['schema_version']=='1.193.0'
+          assert bid in state['historical_audit']['completed_batches']
+          assert state['historical_audit']['latest_batch_doc'].endswith('NDL-REMOTE-COPY-FRONTEND-CONTRACT-STATIC-BOUNDARY-GG.md')
+          assert state['historical_audit']['row_count']==198
+          assert state['historical_audit']['audited_row_count']==166
+          assert state['historical_audit']['current_missing_from_product_row_count']==10
+          assert state['historical_audit']['confirmed_provenance_metadata_defect_count']==14
+          assert state['historical_audit']['repaired_provenance_metadata_defect_count']==14
+          assert state['invariants']['deterministic_fusion_chart_product_r1']=='CLOSED'
+          assert state['invariants']['confirmed_chart_algorithm_defect_count']==0
+          assert state['invariants']['algorithm_reopen_count']==0
+          assert state['invariants']['candidate_collapse_count']==0
+
+          reg=json.loads(Path('docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json').read_text(encoding='utf-8'))
+          child=next(x for x in reg['sources'] if x.get('source_id')=='EXT-NDL-ZHONGGUO-DIANJI-YU-WENHUA-2008-03-I25264793')
+          front=next(x for x in reg['sources'] if x.get('source_id')=='EXT-NDL-SEARCH-REMOTE-COPY-FRONTEND-CONTRACT-STATIC')
+          assert child['batch_12gg']['target_specific_remote_copy_eligibility']=='UNRESOLVED'
+          assert child['batch_12gg']['empty_anonymous_state_proves_ineligibility'] is False
+          assert front['batch_12gg']['contract_execution_performed'] is False
+          assert front['batch_12gg']['source_emitted_modules_fetched_count']==75
+
+          assert e['transmission_impact']['nodes_added']==[]
+          assert e['transmission_impact']['edges_added']==[]
+          assert e['chronology_and_rule_firewall']['runtime_rule_change'] is False
+          assert e['chronology_and_rule_firewall']['algorithm_reopen_authorized'] is False
+          assert e['chronology_and_rule_firewall']['candidate_collapse_authorized'] is False
+          assert e['chronology_and_rule_firewall']['matrix_row_count_change'] is False
+          PY
