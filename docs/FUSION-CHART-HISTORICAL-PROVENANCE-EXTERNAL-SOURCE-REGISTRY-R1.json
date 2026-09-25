@@ -7668,7 +7668,7 @@
       "provider": "北京大学期刊平台",
       "url": "https://ccj.pku.edu.cn/Search/search?fd0=2&kw0=%E9%82%93%E5%A3%B0%E5%A8%81",
       "source_role": "FIRST_PARTY_PLATFORM_INDEX_METADATA_FOR_EXACT_ARTICLE_PAGE_RANGE",
-      "quality_notes": "Batch 12FZ records Peking University platform indexed metadata emitting the exact target title, authors, 中国典籍与文化 2008(03), pp.121-129. Batch 12GC replays the current first-party search backend using its source-emitted Title-field contract, binds the unique target to article id 286663046, and closes the stable detail URL. The row says hasFullText=true while isFileExist=false/fulltextFId=null; the detail page's own ArticleFile route returns JSON 文件不存在. Therefore Fulltext metadata is not promoted to retrievable file or primary-text authority.",
+      "quality_notes": "Batch 12FZ closes the exact article page range pp.121-129 at first-party indexed-metadata level. Batch 12GC binds current article id 286663046 and stable detail route while showing hasFullText=true does not yield a current ArticleFile. Batch 12GD validates PKU's source-emitted two-condition search with a positive control and then shows five known derivative Jan-29 phrases do not match target 286663046 under Title=五石斋文史札记 AND All-fields=<phrase>. This is a current search-index coverage boundary only, not primary-text negative evidence.",
       "batch_12fz": {
         "article_title": "《五石斋文史札记》(二十八)",
         "authors": [
@@ -7709,6 +7709,48 @@
         "primary_journal_text_reviewed": false,
         "no_article_id_enumeration_or_guessing": true,
         "research_artifact": "docs/research/ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-PKU-STABLE-DETAIL-ARTICLEFILE-BOUNDARY-R1.json"
+      },
+      "batch_12gd": {
+        "role": "CURRENT_FIRST_PARTY_TITLE_SCOPED_DERIVATIVE_PHRASE_INDEX_NONMATCH_BOUNDARY",
+        "target_article_id": "286663046",
+        "title_scope": "五石斋文史札记",
+        "positive_control_term": "邓之诚",
+        "positive_control_total": "37",
+        "positive_control_target_match_count": 1,
+        "positive_control_success": true,
+        "tested_phrases": [
+          {
+            "phrase": "四千万人民券",
+            "series_result_count": 0,
+            "target_match_count": 0
+          },
+          {
+            "phrase": "十二箱",
+            "series_result_count": 9,
+            "target_match_count": 0
+          },
+          {
+            "phrase": "以归公",
+            "series_result_count": 4,
+            "target_match_count": 0
+          },
+          {
+            "phrase": "一月二十九日",
+            "series_result_count": 20,
+            "target_match_count": 0
+          },
+          {
+            "phrase": "铁琴铜剑楼",
+            "series_result_count": 1,
+            "target_match_count": 0
+          }
+        ],
+        "classification": "CURRENT_SEARCH_INDEX_NONMATCH_UNDER_TESTED_TITLE_SCOPED_QUERY",
+        "whole_article_negative_attestation": false,
+        "primary_text_negative_attestation": false,
+        "page_glyph_negative_attestation": false,
+        "no_article_id_enumeration_or_guessing": true,
+        "research_artifact": "docs/research/ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-PKU-TITLE-PHRASE-INDEX-NONMATCH-BOUNDARY-R1.json"
       }
     },
     {
