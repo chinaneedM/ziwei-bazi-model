@@ -7869,7 +7869,7 @@
       "identifier": "parent NDLBibID a0000052718 / child i25264793 / call Z21-AC41",
       "url": "https://ndlsearch.ndl.go.jp/books/R100000002-Ia0000052718-i25264793",
       "source_role": "FIRST_PARTY_EXACT_ISSUE_CHILD_IDENTITY_AND_STATIC_ACCESS_SURFACE_CONTROL",
-      "quality_notes": "Batch 12GF closes the exact target issue child from NDL's own finite source-emitted child list: 2008(3), 通号66, i25264793. Direct anonymous fetch returns HTTP 200 and the exact title/call/BibID. The reviewed static page exposes generic copy/access-help links but does not close target-specific remote-copy eligibility, article-location eligibility, material-label ID, pp.121-129 images or primary article text.",
+      "quality_notes": "Batch 12GF closes exact issue-child identity i25264793 / 2008(3) / 通号66. Batch 12GG statically maps NDL's global remote-copy frontend contract and anonymous request-store boundary. Global request routes and PUBLIC metadata do not establish target-specific copy eligibility; no target cart/request object or fee state was obtained.",
       "batch_12gf": {
         "issue_year": 2008,
         "issue_no": 3,
@@ -7891,6 +7891,54 @@
         "no_request_submitted": true,
         "no_fee_incurred": true,
         "research_artifact": "docs/research/ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-NDL-2008-03-EXACT-CHILD-RECORD-AND-COPY-SURFACE-BOUNDARY-R1.json"
+      },
+      "batch_12gg": {
+        "global_remote_copy_frontend_exists": true,
+        "anonymous_checked_cart_items_count": 0,
+        "anonymous_request_count": 0,
+        "anonymous_request_item_from_tml_count": 0,
+        "anonymous_request_item_from_ksk_count": 0,
+        "anonymous_request_item_from_ilcl_count": 0,
+        "empty_anonymous_state_proves_ineligibility": false,
+        "target_specific_remote_copy_eligibility": "UNRESOLVED",
+        "target_specific_cart_item_obtained": false,
+        "request_api_executed": false,
+        "login_performed": false,
+        "request_submitted": false,
+        "research_artifact": "docs/research/ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-NDL-REMOTE-COPY-FRONTEND-CONTRACT-STATIC-BOUNDARY-R1.json"
+      }
+    },
+    {
+      "source_id": "EXT-NDL-SEARCH-REMOTE-COPY-FRONTEND-CONTRACT-STATIC",
+      "title": "NDL Search remote-copy frontend static contract",
+      "historical_period": "current NDL Search frontend; reviewed 2026-09-25",
+      "provider": "国立国会図書館 / NDL Search",
+      "identifier": "entry module QlNHqkx-.js / SHA-256 095c1b4e55d21b0378d8e2b70516d77d1b022ee4d779d6071fdfa17b7eda0575",
+      "url": "https://ndlsearch.ndl.go.jp/_nuxt/QlNHqkx-.js",
+      "source_role": "STATIC_FRONTEND_CONTRACT_CONTROL_FOR_GLOBAL_REMOTE_COPY_ROUTES_NOT_TARGET_ELIGIBILITY",
+      "quality_notes": "Batch 12GG statically inspects the exact child's source-emitted entry module and finite first-level imports. It directly exposes global request/remote-copy routes and request-object schema, but no API contract is executed and no target-specific eligibility is inferred.",
+      "batch_12gg": {
+        "research_run_id": 36098813291,
+        "artifact_id": 10848705735,
+        "artifact_digest": "sha256:459e0abc6ba0f66200a78d99f6d20339cf0fd506387570b07b65d333ad1100a9",
+        "entry_module_sha256": "095c1b4e55d21b0378d8e2b70516d77d1b022ee4d779d6071fdfa17b7eda0575",
+        "source_emitted_modules_fetched_count": 75,
+        "routes": [
+          "/request/cart",
+          "/request/rcopy/input",
+          "/request/rcopy/confirm",
+          "/request/rcopy/fee",
+          "/request/rcopy/complete",
+          "/api/cart",
+          "/api/request",
+          "/api/request/without-cart",
+          "/copy/remote",
+          "/help/remotecopy"
+        ],
+        "contract_execution_performed": false,
+        "login_performed": false,
+        "request_submission_performed": false,
+        "research_artifact": "docs/research/ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-NDL-REMOTE-COPY-FRONTEND-CONTRACT-STATIC-BOUNDARY-R1.json"
       }
     }
   ],
