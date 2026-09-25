@@ -190,6 +190,8 @@ ZIWEI_SONG_YUNBIN_12GK_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-A
 ZIWEI_SONG_YUNBIN_12GK_EVIDENCE = ROOT / "docs/research/ZIWEI-SONG-YUNBIN-DIARY-1950-0211-TIEQIN-COUNT-PRICE-DISCREPANCY-FIREWALL-R1.json"
 ZIWEI_JI_CAMBRIDGE_12GL_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-CAMBRIDGE-MCDERMOTT-HOLDING-AND-SCAN-ELIGIBILITY-BOUNDARY-GL.md"
 ZIWEI_JI_CAMBRIDGE_12GL_EVIDENCE = ROOT / "docs/research/ZIWEI-JI-SHUYING-CAMBRIDGE-MCDERMOTT-HOLDING-AND-SCAN-ELIGIBILITY-BOUNDARY-R1.json"
+ZIWEI_LIN_TONGJI_12GM_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-LIN-ZHENYUE-2024-TONGJI-TIEQIN-SALE-NEW-MATERIALS-REPORT-SOURCE-BASIS-BOUNDARY-GM.md"
+ZIWEI_LIN_TONGJI_12GM_EVIDENCE = ROOT / "docs/research/ZIWEI-LIN-ZHENYUE-2024-TONGJI-TIEQIN-SALE-NEW-MATERIALS-REPORT-SOURCE-BASIS-BOUNDARY-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -511,9 +513,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-GU-TINGLONG-DIARY-P593-P595-PAGE-CALIBRATION-AND-JAN6-FALSE-LEAD-FIREWALL-GJ",
     "BATCH-12-ZIWEI-SONG-YUNBIN-DIARY-1950-0211-TIEQIN-CONTEMPORARY-COUNT-PRICE-DISCREPANCY-FIREWALL-GK",
     "BATCH-12-ZIWEI-JI-SHUYING-CAMBRIDGE-MCDERMOTT-HOLDING-AND-SCAN-ELIGIBILITY-BOUNDARY-GL",
+    "BATCH-12-ZIWEI-LIN-ZHENYUE-2024-TONGJI-TIEQIN-SALE-NEW-MATERIALS-REPORT-SOURCE-BASIS-BOUNDARY-GM",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-CAMBRIDGE-MCDERMOTT-HOLDING-AND-SCAN-ELIGIBILITY-BOUNDARY-GL.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-LIN-ZHENYUE-2024-TONGJI-TIEQIN-SALE-NEW-MATERIALS-REPORT-SOURCE-BASIS-BOUNDARY-GM.md"
 
 
 def fail(message: str) -> None:
@@ -6669,6 +6672,77 @@ def main() -> int:
         fail("Batch 12GL missing from completed batch state")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12GL latest-batch document state mismatch")
+
+    # Batch 12GM Lin Zhenyue 2024 Tongji Tieqin sale-new-materials report source-basis boundary.
+    for path in (ZIWEI_LIN_TONGJI_12GM_BATCH, ZIWEI_LIN_TONGJI_12GM_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12GM continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12gm = json.loads(ZIWEI_LIN_TONGJI_12GM_EVIDENCE.read_text(encoding="utf-8"))
+    bid12gm = "BATCH-12-ZIWEI-LIN-ZHENYUE-2024-TONGJI-TIEQIN-SALE-NEW-MATERIALS-REPORT-SOURCE-BASIS-BOUNDARY-GM"
+    if batch12gm.get("batch_id") != bid12gm:
+        fail("Batch 12GM evidence identity mismatch")
+    conf12gm = batch12gm.get("conference_handbook_control", {})
+    if conf12gm.get("stated_organizer") != "同济大学中文系" or conf12gm.get("meeting_start") != "2024-10-25" or conf12gm.get("meeting_end") != "2024-10-27":
+        fail("Batch 12GM conference identity/date control regressed")
+    if conf12gm.get("session_date") != "2024-10-26" or conf12gm.get("session_room") != "云通楼221" or conf12gm.get("speaker") != "林振岳":
+        fail("Batch 12GM session identity regressed")
+    if conf12gm.get("report_start") != "09:50" or conf12gm.get("report_end") != "10:05" or conf12gm.get("report_title") != "铁琴铜剑楼藏书售归北京图书馆新史料":
+        fail("Batch 12GM report schedule/title regressed")
+    if conf12gm.get("report_existential_binding") != "CLOSED_AT_PUBLIC_HANDBOOK_LEVEL" or conf12gm.get("report_body_directly_reviewed") is not False:
+        fail("Batch 12GM report authority boundary regressed")
+    ind12gm = batch12gm.get("independent_meeting_identity_control", {})
+    if ind12gm.get("provider") != "中国科学院自然科学史研究所" or ind12gm.get("observed_date") != "2024-10-26" or ind12gm.get("observed_place") != "同济大学人文学院，上海":
+        fail("Batch 12GM independent meeting corroboration regressed")
+    if ind12gm.get("lin_report_title_exposed_on_this_source") is not False:
+        fail("Batch 12GM independent corroboration scope expanded falsely")
+    rel12gm = batch12gm.get("relation_to_lin_2025_preface", {})
+    if rel12gm.get("conference_report_precedes_preface") is not True or rel12gm.get("preface_attests_gao_xizeng_annotated_tieqin_catalog") is not True:
+        fail("Batch 12GM report/preface chronology regressed")
+    if rel12gm.get("same_new_materials_basis_as_preface_gao_statement") != "UNRESOLVED" or rel12gm.get("conference_report_used_gao_annotated_catalog") != "UNRESOLVED":
+        fail("Batch 12GM source-basis firewall regressed")
+    sem12gm = batch12gm.get("report_title_semantics", {})
+    if sem12gm.get("exact_title_contains_sale_to_beijing_library") is not True or sem12gm.get("exact_title_contains_new_materials") is not True:
+        fail("Batch 12GM report-title semantics regressed")
+    if sem12gm.get("title_proves_target_volume_was_sold") is not False or sem12gm.get("title_proves_target_volume_was_not_donated") is not False:
+        fail("Batch 12GM title-to-target inference firewall regressed")
+    adj12gm = batch12gm.get("adjudication", {})
+    if adj12gm.get("lin_2024_report_existence") != "CLOSED" or adj12gm.get("report_full_text") != "NOT_REVIEWED_NOT_PUBLICLY_RECOVERED":
+        fail("Batch 12GM report existence/fulltext boundary regressed")
+    if adj12gm.get("underlying_new_material_identity") != "UNRESOLVED" or adj12gm.get("target_3482_3483_mentioned_in_report") != "UNRESOLVED":
+        fail("Batch 12GM new-material/target scope falsely closed")
+    if adj12gm.get("target_specific_sale_or_purchase_route_selected") is not False or adj12gm.get("target_specific_donation_route_selected") is not False or adj12gm.get("final_nlc_acquisition_transfer_path") != "UNRESOLVED":
+        fail("Batch 12GM target route falsely selected")
+    srcids12gm = {x.get("source_id"): x for x in registry.get("sources", ())}
+    for sid in ("EXT-TONGJI-18TH-ANCIENT-BOOK-SALON-2024-LIN-TIEQIN-SALE-REPORT-HANDBOOK","EXT-IHNS-ZHENG-CHENG-2024-TONGJI-18TH-ANCIENT-BOOK-SALON","EXT-LIN-ZHENYUE-2025-PREFACE-QU-TRANSFER-GAO-ANNOTATED-CATALOG"):
+        if sid not in srcids12gm:
+            fail(f"Batch 12GM source registry missing: {sid}")
+    if srcids12gm["EXT-TONGJI-18TH-ANCIENT-BOOK-SALON-2024-LIN-TIEQIN-SALE-REPORT-HANDBOOK"].get("batch_12gm", {}).get("report_title") != "铁琴铜剑楼藏书售归北京图书馆新史料":
+        fail("Batch 12GM conference registry title regressed")
+    if srcids12gm["EXT-IHNS-ZHENG-CHENG-2024-TONGJI-18TH-ANCIENT-BOOK-SALON"].get("batch_12gm", {}).get("lin_report_title_exposed") is not False:
+        fail("Batch 12GM IHNS corroboration scope regressed")
+    if srcids12gm["EXT-LIN-ZHENYUE-2025-PREFACE-QU-TRANSFER-GAO-ANNOTATED-CATALOG"].get("batch_12gm", {}).get("same_source_basis_as_2025_gao_annotated_catalog_statement") != "UNRESOLVED":
+        fail("Batch 12GM Lin preface source-basis boundary regressed")
+    trans12gm = batch12gm.get("transmission_impact", {})
+    if trans12gm.get("nodes_added") != [] or trans12gm.get("edges_added") != [] or trans12gm.get("acquisition_edge_authorized") is not False or trans12gm.get("same_object_edge_authorized") is not False:
+        fail("Batch 12GM zero-topology/acquisition-edge firewall regressed")
+    rule12gm = batch12gm.get("chronology_and_rule_firewall", {})
+    if rule12gm.get("runtime_rule_change") is not False or rule12gm.get("algorithm_reopen_authorized") is not False or rule12gm.get("candidate_collapse_authorized") is not False or rule12gm.get("matrix_count_change") is not False:
+        fail("Batch 12GM product/matrix firewall regressed")
+    acct12gm = batch12gm.get("accounting", {})
+    if acct12gm.get("matrix_rows") != 198 or acct12gm.get("audited_rows") != 166 or acct12gm.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12GM matrix accounting unexpectedly changed")
+    if acct12gm.get("confirmed_provenance_metadata_defect_count") != 14 or acct12gm.get("repaired_provenance_metadata_defect_count") != 14 or acct12gm.get("confirmed_chart_algorithm_defect_count") != 0:
+        fail("Batch 12GM provenance/algorithm accounting regressed")
+    try:
+        schema12gm = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12GM current-state schema version is not numeric")
+    if schema12gm < (1, 199, 0):
+        fail("Batch 12GM current-state schema version regressed below 1.199.0")
+    if bid12gm not in audit_state.get("completed_batches", ()):
+        fail("Batch 12GM missing from completed batch state")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12GM latest-batch document state mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")
