@@ -168,6 +168,8 @@ ZIWEI_DENG_ZHICHENG_12FZ_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE
 ZIWEI_DENG_ZHICHENG_12FZ_EVIDENCE = ROOT / "docs/research/ZIWEI-DENG-ZHICHENG-WUSHIZHAI-2008-ISSUE03-PKU-ARTICLE-RANGE-P120-REPAIR-R1.json"
 ZIWEI_DENG_ZHICHENG_12GA_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-PKU-FULLTEXT-BRIDGE-PUBLIC-ACCESS-BOUNDARY-GA.md"
 ZIWEI_DENG_ZHICHENG_12GA_EVIDENCE = ROOT / "docs/research/ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-PKU-FULLTEXT-BRIDGE-PUBLIC-ACCESS-BOUNDARY-R1.json"
+ZIWEI_DENG_ZHICHENG_12GB_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DENG-ZHICHENG-DIARY-2007-NLCPRESS-ITEM-DOWNLOAD-SURFACE-BOUNDARY-GB.md"
+ZIWEI_DENG_ZHICHENG_12GB_EVIDENCE = ROOT / "docs/research/ZIWEI-DENG-ZHICHENG-DIARY-2007-NLCPRESS-ITEM-DOWNLOAD-SURFACE-BOUNDARY-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -478,9 +480,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI-2008-ISSUE03-PKU-CQVIP-PAGINATION-BOUNDARY-FY",
     "BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI-2008-ISSUE03-PKU-ARTICLE-RANGE-AND-P120-CITATION-REPAIR-FZ",
     "BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-PKU-FULLTEXT-BRIDGE-PUBLIC-ACCESS-BOUNDARY-GA",
+    "BATCH-12-ZIWEI-DENG-ZHICHENG-DIARY-2007-NLCPRESS-ITEM-DOWNLOAD-SURFACE-BOUNDARY-GB",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-PKU-FULLTEXT-BRIDGE-PUBLIC-ACCESS-BOUNDARY-GA.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DENG-ZHICHENG-DIARY-2007-NLCPRESS-ITEM-DOWNLOAD-SURFACE-BOUNDARY-GB.md"
 
 
 def fail(message: str) -> None:
@@ -2672,6 +2675,56 @@ def main() -> int:
         fail("Batch 12GA matrix accounting unexpectedly changed")
     if acct12ga.get("confirmed_provenance_metadata_defect_count") != 14 or acct12ga.get("repaired_provenance_metadata_defect_count") != 14:
         fail("Batch 12GA provenance defect accounting regressed")
+
+    for path in (ZIWEI_DENG_ZHICHENG_12GB_BATCH, ZIWEI_DENG_ZHICHENG_12GB_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12GB continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12gb = json.loads(ZIWEI_DENG_ZHICHENG_12GB_EVIDENCE.read_text(encoding="utf-8"))
+    if batch12gb.get("batch_id") != "BATCH-12-ZIWEI-DENG-ZHICHENG-DIARY-2007-NLCPRESS-ITEM-DOWNLOAD-SURFACE-BOUNDARY-GB":
+        fail("Batch 12GB evidence identity mismatch")
+    item12gb = batch12gb.get("first_party_item_control", {})
+    if item12gb.get("isbn") != "978-7-5013-3477-3/K·1509" or item12gb.get("target_volume") != 5 or item12gb.get("target_notebook") != 14:
+        fail("Batch 12GB first-party facsimile identity/target-volume binding regressed")
+    if item12gb.get("source_emitted_related_download_labels") != ["图书文件下载（TXT）", "目录附件下载"]:
+        fail("Batch 12GB related-download labels regressed")
+    if item12gb.get("item_specific_download_url_source_emitted_in_reviewed_parsed_surface") is not False or item12gb.get("target_facsimile_object_obtained") is not False or item12gb.get("target_text_object_obtained") is not False:
+        fail("Batch 12GB target file/text boundary falsely closed")
+    lists12gb = batch12gb.get("publisher_resource_list_controls", [])
+    if len(lists12gb) != 2 or any(x.get("target_file_obtained") is not False for x in lists12gb):
+        fail("Batch 12GB publisher resource-list access boundary regressed")
+    if any(x.get("publisher_file_absence_proved") is not False for x in lists12gb):
+        fail("Batch 12GB generic-list nonappearance was falsely promoted to publisher file absence")
+    fw12gb = batch12gb.get("access_and_authority_firewall", {})
+    for key in ("related_download_label_presence_does_not_equal_target_file_retrieval","generic_download_list_nonappearance_does_not_equal_file_absence","txt_label_does_not_equal_facsimile_image_or_handwriting_authority","toc_attachment_label_does_not_equal_target_page_number","no_resource_id_enumeration_or_guessing","no_authentication_bypass_attempted","no_paywall_bypass_attempted","no_provider_account_action_taken","no_purchase_or_fee_incurred","no_date_to_page_interpolation","journal_pagination_does_not_map_to_2007_facsimile_pagination_without_direct_crosswalk"):
+        if fw12gb.get(key) is not True:
+            fail(f"Batch 12GB access/authority firewall regressed: {key}")
+    target12gb = batch12gb.get("target_status_after_batch", {})
+    if target12gb.get("target_1950_01_29_volume") != "CLOSED_AS_VOLUME_5_NOTEBOOK_14":
+        fail("Batch 12GB target volume binding regressed")
+    if target12gb.get("target_1950_01_29_exact_facsimile_page") != "UNRESOLVED" or target12gb.get("target_1950_01_29_facsimile_text") != "NOT_REVIEWED" or target12gb.get("target_1950_01_29_handwriting_directly_collated") is not False:
+        fail("Batch 12GB facsimile/handwriting target falsely closed")
+    if target12gb.get("target_1950_01_29_exact_journal_page") != "UNRESOLVED" or target12gb.get("target_1950_01_29_primary_journal_text") != "NOT_REVIEWED":
+        fail("Batch 12GB journal target falsely closed")
+    reg12gb = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    nlcpress12gb = next((x for x in reg12gb.get("sources", []) if x.get("source_id") == "EXT-NLCPRESS-DENG-ZHICHENG-DIARY-FACSIMILE-2007"), None)
+    if nlcpress12gb is None:
+        fail("Batch 12GB NLCPress registry control missing")
+    b12gb = nlcpress12gb.get("batch_12gb", {})
+    if b12gb.get("related_download_labels") != ["图书文件下载（TXT）", "目录附件下载"] or b12gb.get("target_file_obtained") is not False or b12gb.get("target_facsimile_page_reviewed") is not False:
+        fail("Batch 12GB registry download/facsimile boundary regressed")
+    if b12gb.get("generic_list_nonappearance_proves_file_absence") is not False or b12gb.get("no_resource_id_enumeration_or_guessing") is not True:
+        fail("Batch 12GB registry access firewall regressed")
+    trans12gb = batch12gb.get("transmission_impact", {})
+    if trans12gb.get("nodes_added") != [] or trans12gb.get("edges_added") != [] or trans12gb.get("acquisition_edge_authorized") is not False or trans12gb.get("same_object_edge_authorized") is not False:
+        fail("Batch 12GB zero-topology/acquisition-edge firewall regressed")
+    rule12gb = batch12gb.get("chronology_and_rule_firewall", {})
+    if rule12gb.get("direct_sanming_parent_vote_increment") != 0 or rule12gb.get("pre1578_zhunzhai_rule_witness_increment") != 0 or rule12gb.get("runtime_rule_change") is not False or rule12gb.get("algorithm_reopen_authorized") is not False or rule12gb.get("candidate_collapse_authorized") is not False or rule12gb.get("matrix_row_count_change") is not False:
+        fail("Batch 12GB product/matrix firewall regressed")
+    acct12gb = batch12gb.get("accounting", {})
+    if acct12gb.get("matrix_rows") != 198 or acct12gb.get("audited_rows") != 166 or acct12gb.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12GB matrix accounting unexpectedly changed")
+    if acct12gb.get("confirmed_provenance_metadata_defect_count") != 14 or acct12gb.get("repaired_provenance_metadata_defect_count") != 14 or acct12gb.get("confirmed_chart_algorithm_defect_count") != 0:
+        fail("Batch 12GB provenance/algorithm accounting regressed")
 
     for path in (ZIWEI_KYUDB_12DT_BATCH, ZIWEI_KYUDB_12DT_EVIDENCE):
         if not path.is_file():
