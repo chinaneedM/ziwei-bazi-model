@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.191.0",
+  "schema_version": "1.192.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -273,9 +273,10 @@
       "BATCH-12-ZIWEI-DENG-ZHICHENG-DIARY-2007-NLCPRESS-ITEM-DOWNLOAD-SURFACE-BOUNDARY-GB",
       "BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-PKU-STABLE-DETAIL-ARTICLEFILE-BOUNDARY-GC",
       "BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-PKU-TITLE-PHRASE-INDEX-NONMATCH-BOUNDARY-GD",
-      "BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-JAPAN-PHYSICAL-SERIAL-HOLDINGS-AND-COPY-ACTION-BOUNDARY-GE"
+      "BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-JAPAN-PHYSICAL-SERIAL-HOLDINGS-AND-COPY-ACTION-BOUNDARY-GE",
+      "BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-NDL-2008-03-EXACT-CHILD-RECORD-AND-COPY-SURFACE-BOUNDARY-GF"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-JAPAN-PHYSICAL-SERIAL-HOLDINGS-AND-COPY-ACTION-BOUNDARY-GE.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-NDL-2008-03-EXACT-CHILD-RECORD-AND-COPY-SURFACE-BOUNDARY-GF.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -1113,7 +1114,13 @@
       "CiNii NCID AA1225301X independently supplies six Japanese university holding routes whose stated ranges include 2008: Gakushuin, Kyoto University Institute for Research in Humanities, Takushoku, University of Tokyo Institute for Advanced Studies on Asia, Bukkyo and Waseda. Nara University is retained as a negative holding control because its listed 2008 range is only issues 1–2.",
       "NDL officially documents paid remote copying for some NDL-tagged material and article-location investigation for registered individual users; Gakushuin OPAC exposes ILL copy/loan/login controls. These are user/account/action boundaries only. No login, request, fee or purchase was performed.",
       "Batch 12GE adds no transmission node/edge and authorizes no acquisition edge, SAME_OBJECT relation, runtime rule change, candidate collapse or algorithm reopen. Matrix/product counts remain 198 / 166 / 10; provenance defects remain 14/14 repaired; chart algorithm defects remain 0; DETERMINISTIC_FUSION_CHART_PRODUCT_R1 remains CLOSED.",
-      "Highest next gate: resolve the exact NDL child record/material identifier for 中國典籍與文化 2008(3) without identifier guessing and determine source-emitted target-issue service eligibility; continue public exact-page citation/fulltext discovery and the 2007 facsimile volume-5 page/leaf route in parallel. Only after public routes are exhausted should an account-based copy/article-location request be considered."
+      "Highest next gate: resolve the exact NDL child record/material identifier for 中國典籍與文化 2008(3) without identifier guessing and determine source-emitted target-issue service eligibility; continue public exact-page citation/fulltext discovery and the 2007 facsimile volume-5 page/leaf route in parallel. Only after public routes are exhausted should an account-based copy/article-location request be considered.",
+      "Batch 12GF resolves the exact first-party NDL child record for the target journal issue without identifier guessing. Finite source-emitted parent-list pagination returns 中國典籍與文化 2008(3) (通号 66) 2008 -> /books/R100000002-Ia0000052718-i25264793, bracketed by 2008(2)/通号65/i25264749 and 2008(4)/通号67/i25264816.",
+      "Direct anonymous retrieval of child i25264793 returns HTTP 200 and the exact issue title, NDL call Z21-AC41 and bibliographic ID a0000052718; the captured child HTML SHA-256 is b8678d1bab127f7ee45ef5851aa8d16fc2a03cc1d5a606e18baad9abc8823e29.",
+      "The exact child page only closes issue-level identity/access routing. Generic NDL links for Internet reading/copy/library reading and generic application state do not establish target-specific remote-copy eligibility, article-location eligibility or an exact material-label/copy-item ID. No login, request, fee or purchase occurred.",
+      "The historical target itself remains open: PKU aid 286663046 / pp.121-129 is stable metadata; 1950-01-29 exact journal page and primary journal text remain UNRESOLVED / NOT_REVIEWED; 2007 facsimile volume-5 page/handwriting also remain unresolved.",
+      "Batch 12GF adds no transmission node/edge and authorizes no acquisition edge, SAME_OBJECT relation, runtime rule change, candidate collapse or algorithm reopen. Matrix/product counts remain 198 / 166 / 10; provenance defects remain 14/14 repaired; chart algorithm defects remain 0; DETERMINISTIC_FUSION_CHART_PRODUCT_R1 remains CLOSED.",
+      "Highest next gate: inspect only source-emitted structured state/endpoints from exact NDL child i25264793 for a demonstrable material label or target-specific public copy/request state, while continuing exact 1950-01-29 page/fulltext discovery and the 2007 facsimile volume-5 page/leaf route. Any authenticated NDL request remains an explicit user-account/external-action boundary."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10
