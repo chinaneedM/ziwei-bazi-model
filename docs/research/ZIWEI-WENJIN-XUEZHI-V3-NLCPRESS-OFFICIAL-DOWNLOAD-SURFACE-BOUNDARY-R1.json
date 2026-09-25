@@ -1,0 +1,110 @@
+{
+  "schema": "ZIWEI-WENJIN-XUEZHI-V3-NLCPRESS-OFFICIAL-DOWNLOAD-SURFACE-BOUNDARY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-WENJIN-XUEZHI-V3-NLCPRESS-OFFICIAL-DOWNLOAD-SURFACE-BOUNDARY-GX",
+  "prior_batch_id": "BATCH-12-ZIWEI-JI-SHUYING-WENJI-2004-CHEN-HONGYAN-EDITORIAL-RESPONSIBILITY-BOUNDARY-GW",
+  "question": "Does the first-party National Library of China Press page for 《文津学志》第三辑 expose an official public download surface that can supersede secondary retail/holding routes for recovering article-level metadata, and have the actual attachments been recovered?",
+  "answer": "Yes for the first-party download surface; no for attachment recovery in the currently reviewed interface. The National Library of China Press product page ProductView.aspx?Id=4396 directly identifies 《文津学志（第三辑）》, 编著者 国家图书馆善本特藏部, ISBN 978-7-5013-4085-9, publication date 2010-05-25, edition B1, print date 2010-05-01 and imprint Y1. In its 相关下载 field it explicitly exposes two official resource labels: 图书文件下载（TXT） and 目录附件下载. The text-only public interface reviewed by the project does not expose the underlying attachment URLs as selectable links, and direct external network fetching outside the web interface was unavailable. No guessed endpoint, login, access-token reuse or path enumeration was attempted. Therefore an exact first-party attachment route is now established, but attachment bytes, the supplement byline, page span and body remain unrecovered.",
+  "official_product_control": {
+    "source_id": "EXT-NLCPRESS-WENJIN-XUEZHI-V3-PRODUCT-DOWNLOAD-SURFACE",
+    "provider": "国家图书馆出版社",
+    "url": "https://www.nlcpress.com/ProductView.aspx?Id=4396",
+    "product_id": 4396,
+    "title": "文津学志（第三辑）",
+    "compiler_display": "国家图书馆善本特藏部",
+    "isbn_display": "978-7-5013-4085-9",
+    "publication_date": "2010-05-25",
+    "edition_display": "B1",
+    "print_date": "2010-05-01",
+    "impression_display": "Y1",
+    "stock_display": "有书",
+    "series_display": "文津学志",
+    "classification_display": "G255.1",
+    "first_party_page_directly_reviewed": true
+  },
+  "official_related_downloads": {
+    "field_label": "相关下载",
+    "labels_directly_exposed": [
+      "图书文件下载（TXT）",
+      "目录附件下载"
+    ],
+    "official_download_surface_exists": true,
+    "underlying_attachment_urls_exposed_in_reviewed_text_interface": false,
+    "attachment_bytes_recovered": false,
+    "txt_contents_reviewed": false,
+    "toc_attachment_reviewed": false,
+    "supplement_article_author_recovered": false,
+    "supplement_article_page_range_recovered": false,
+    "supplement_article_body_recovered": false
+  },
+  "access_boundary": {
+    "guessed_download_endpoint_attempted": false,
+    "endpoint_enumeration_attempted": false,
+    "login_attempted": false,
+    "token_or_cookie_reuse_attempted": false,
+    "account_or_identity_transmitted": false,
+    "fee_incurred": false,
+    "external_network_fetch_outside_web_interface_succeeded": false,
+    "correct_next_action": "RESOLVE_OR_ACCESS_ONLY_THE_FIRST_PARTY_PUBLISHER_EXPOSED_ATTACHMENTS_IF_THEIR_PUBLIC_URL_BECOMES_AVAILABLE_DO_NOT_GUESS_PATHS"
+  },
+  "relation_to_prior_batches": {
+    "gq_formal_supplement_existence_remains_closed": true,
+    "gu_three_exact_physical_holding_routes_remain_closed": true,
+    "new_increment": "FIRST_PARTY_PUBLISHER_PRODUCT_AND_OFFICIAL_TXT_TOC_DOWNLOAD_SURFACE",
+    "supplement_author_status_changed": false,
+    "supplement_page_range_status_changed": false,
+    "supplement_body_status_changed": false
+  },
+  "adjudication": {
+    "exact_v3_publisher_product_identity": "CLOSED_FIRST_PARTY_NLCPRESS_PRODUCT_ID_4396",
+    "official_txt_download_surface": "EXPOSED_BY_FIRST_PARTY_PRODUCT_PAGE",
+    "official_toc_attachment_surface": "EXPOSED_BY_FIRST_PARTY_PRODUCT_PAGE",
+    "direct_attachment_urls": "UNRESOLVED_IN_REVIEWED_INTERFACE",
+    "attachment_bytes": "NOT_RECOVERED",
+    "supplement_article_author": "UNRESOLVED",
+    "supplement_article_page_range": "UNRESOLVED",
+    "supplement_article_body": "NOT_REVIEWED",
+    "direct_textual_genealogy_change": false,
+    "target_specific_purchase_route_selected": false,
+    "target_specific_donation_route_selected": false
+  },
+  "inference_firewall": {
+    "download_label_does_not_equal_downloaded_bytes": true,
+    "volume_level_txt_does_not_presume_article_byline": true,
+    "publisher_compiler_does_not_equal_individual_article_author": true,
+    "inaccessible_link_target_does_not_authorize_endpoint_guessing": true,
+    "product_stock_status_does_not_equal_copy_or_scan_entitlement": true
+  },
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_added": [],
+    "direct_copy_edge_authorized": false,
+    "same_object_edge_authorized": false,
+    "acquisition_edge_authorized": false
+  },
+  "chronology_and_rule_firewall": {
+    "direct_sanming_parent_vote_increment": 0,
+    "pre1578_zhunzhai_rule_witness_increment": 0,
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_count_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 14,
+    "repaired_provenance_metadata_defect_count": 14,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Resolve the public first-party attachment URL behind 国家图书馆出版社 product 4396 目录附件下载 or 图书文件下载（TXT） without guessing paths, bypassing controls or using credentials.",
+    "If an official attachment becomes directly accessible, inspect it first for 《〈冀淑英文集〉补遣》 byline and exact page span before any library-copy request.",
+    "Continue direct 2004 《冀淑英文集》 p.335/neighbouring pages and final 《編后記》 recovery.",
+    "Continue direct 1997 《北京图书馆馆史资料汇编（二）：1949—1966》 pp.446—449 collation in parallel."
+  ],
+  "updated_at": "2026-09-25"
+}

@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.209.0",
+  "schema_version": "1.210.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -291,9 +291,10 @@
       "BATCH-12-ZIWEI-JI-SHUYING-WENJI-2004-INSTITUTIONAL-PAGINATION-AND-RETAIL-P456-FIREWALL-GT",
       "BATCH-12-ZIWEI-WENJIN-XUEZHI-V3-JAPAN-PHYSICAL-HOLDINGS-AND-OPAC-ACCESS-BOUNDARY-GU",
       "BATCH-12-ZIWEI-JI-SHUYING-BAICHUAN-P335-CROSS-PUBLICATION-CITATION-BRIDGE-GV",
-      "BATCH-12-ZIWEI-JI-SHUYING-WENJI-2004-CHEN-HONGYAN-EDITORIAL-RESPONSIBILITY-BOUNDARY-GW"
+      "BATCH-12-ZIWEI-JI-SHUYING-WENJI-2004-CHEN-HONGYAN-EDITORIAL-RESPONSIBILITY-BOUNDARY-GW",
+      "BATCH-12-ZIWEI-WENJIN-XUEZHI-V3-NLCPRESS-OFFICIAL-DOWNLOAD-SURFACE-BOUNDARY-GX"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-WENJI-2004-CHEN-HONGYAN-EDITORIAL-RESPONSIBILITY-BOUNDARY-GW.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENJIN-XUEZHI-V3-NLCPRESS-OFFICIAL-DOWNLOAD-SURFACE-BOUNDARY-GX.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -1233,7 +1234,13 @@
       "A 2009 China News report of her National Library lecture explicitly says she '编有《芸香阁丛书——冀淑英文集》'; the NLC/China Ancient Books Preservation Network independently places Chen Hongyan among the post-2000 Yunxiangge collected-works project participants.",
       "This does NOT assign the final 《編后記》, the secondary-reported 《编者注》, or the 2010 《〈冀淑英文集〉补遣》 to Chen Hongyan. Their direct signatures/bylines remain unresolved, and the exact 2004 colophon credit line is still not directly reviewed.",
       "Batch 12GW leaves 12GV p.335 anchor, 12GS item-74 structure, 12GT pagination firewall and all 3482/3483 transfer conclusions unchanged. Accounting remains 198 / 166 / 10, provenance defects 14/14 repaired and chart algorithm defects 0.",
-      "Highest next gate: direct title/copyright/colophon or final 編后記 image; p.335 neighboring pages; 2010 supplement byline/pages/body; direct 1997 pp.446—449."
+      "Highest next gate: direct title/copyright/colophon or final 編后記 image; p.335 neighboring pages; 2010 supplement byline/pages/body; direct 1997 pp.446—449.",
+      "Batch 12GX directly reviews 国家图书馆出版社 product ID 4396 and closes the exact first-party 《文津学志（第三辑）》 product identity: 国家图书馆善本特藏部, ISBN 978-7-5013-4085-9, 2010-05-25, B1 / 2010-05-01 Y1.",
+      "The publisher page explicitly exposes two official related-download labels: 《图书文件下载（TXT）》 and 《目录附件下载》. This is now the preferred public route for recovering the 2010 supplement byline/page span before considering external library-copy actions.",
+      "The reviewed text interface does not expose the underlying attachment URLs and no attachment bytes were recovered. No endpoint guessing, enumeration, login, cookie/token reuse, identity transmission or fee occurred.",
+      "The volume-level compiler field 国家图书馆善本特藏部 does not identify the author of 《〈冀淑英文集〉补遣》; author/page/body remain UNRESOLVED/NOT_REVIEWED.",
+      "Batch 12GX changes no target 3482/3483 transfer conclusion, genealogy topology, Matrix count, runtime rule, algorithm reopen or candidate collapse. Accounting remains 198 / 166 / 10, provenance defects 14/14 repaired and chart algorithm defects 0.",
+      "Highest next gate: resolve only the public first-party product-4396 TXT/目录附件 URL without guessing; continue 2004 p.335/final 編后記 and 1997 pp.446—449 in parallel."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10

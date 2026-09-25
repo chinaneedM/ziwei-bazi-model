@@ -212,6 +212,8 @@ ZIWEI_JI_BAICHUAN_P335_12GV_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENA
 ZIWEI_JI_BAICHUAN_P335_12GV_EVIDENCE = ROOT / "docs/research/ZIWEI-JI-SHUYING-BAICHUAN-P335-CROSS-PUBLICATION-CITATION-BRIDGE-R1.json"
 ZIWEI_JI_EDITOR_12GW_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-WENJI-2004-CHEN-HONGYAN-EDITORIAL-RESPONSIBILITY-BOUNDARY-GW.md"
 ZIWEI_JI_EDITOR_12GW_EVIDENCE = ROOT / "docs/research/ZIWEI-JI-SHUYING-WENJI-2004-CHEN-HONGYAN-EDITORIAL-RESPONSIBILITY-BOUNDARY-R1.json"
+ZIWEI_WENJIN_NLCPRESS_12GX_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENJIN-XUEZHI-V3-NLCPRESS-OFFICIAL-DOWNLOAD-SURFACE-BOUNDARY-GX.md"
+ZIWEI_WENJIN_NLCPRESS_12GX_EVIDENCE = ROOT / "docs/research/ZIWEI-WENJIN-XUEZHI-V3-NLCPRESS-OFFICIAL-DOWNLOAD-SURFACE-BOUNDARY-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -544,9 +546,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-WENJIN-XUEZHI-V3-JAPAN-PHYSICAL-HOLDINGS-AND-OPAC-ACCESS-BOUNDARY-GU",
     "BATCH-12-ZIWEI-JI-SHUYING-BAICHUAN-P335-CROSS-PUBLICATION-CITATION-BRIDGE-GV",
     "BATCH-12-ZIWEI-JI-SHUYING-WENJI-2004-CHEN-HONGYAN-EDITORIAL-RESPONSIBILITY-BOUNDARY-GW",
+    "BATCH-12-ZIWEI-WENJIN-XUEZHI-V3-NLCPRESS-OFFICIAL-DOWNLOAD-SURFACE-BOUNDARY-GX",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-WENJI-2004-CHEN-HONGYAN-EDITORIAL-RESPONSIBILITY-BOUNDARY-GW.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENJIN-XUEZHI-V3-NLCPRESS-OFFICIAL-DOWNLOAD-SURFACE-BOUNDARY-GX.md"
 
 
 def fail(message: str) -> None:
@@ -7302,6 +7305,55 @@ def main() -> int:
         fail("Batch 12GW missing from completed batch state")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12GW latest-batch document state mismatch")
+
+    # Batch 12GX Wenjin Xuezhi v3 NLC Press first-party download-surface boundary.
+    for path in (ZIWEI_WENJIN_NLCPRESS_12GX_BATCH, ZIWEI_WENJIN_NLCPRESS_12GX_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12GX continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12gx=json.loads(ZIWEI_WENJIN_NLCPRESS_12GX_EVIDENCE.read_text(encoding="utf-8"))
+    bid12gx="BATCH-12-ZIWEI-WENJIN-XUEZHI-V3-NLCPRESS-OFFICIAL-DOWNLOAD-SURFACE-BOUNDARY-GX"
+    if batch12gx.get("batch_id") != bid12gx:
+        fail("Batch 12GX evidence identity mismatch")
+    p12gx=batch12gx.get("official_product_control",{})
+    if p12gx.get("product_id") != 4396 or p12gx.get("isbn_display") != "978-7-5013-4085-9" or p12gx.get("publication_date") != "2010-05-25":
+        fail("Batch 12GX product identity regressed")
+    if p12gx.get("compiler_display") != "国家图书馆善本特藏部" or p12gx.get("first_party_page_directly_reviewed") is not True:
+        fail("Batch 12GX first-party product control regressed")
+    d12gx=batch12gx.get("official_related_downloads",{})
+    if d12gx.get("labels_directly_exposed") != ["图书文件下载（TXT）","目录附件下载"] or d12gx.get("official_download_surface_exists") is not True:
+        fail("Batch 12GX official download labels regressed")
+    if d12gx.get("underlying_attachment_urls_exposed_in_reviewed_text_interface") is not False or d12gx.get("attachment_bytes_recovered") is not False:
+        fail("Batch 12GX attachment-access boundary regressed")
+    a12gx=batch12gx.get("adjudication",{})
+    if a12gx.get("exact_v3_publisher_product_identity") != "CLOSED_FIRST_PARTY_NLCPRESS_PRODUCT_ID_4396":
+        fail("Batch 12GX exact publisher object regressed")
+    if a12gx.get("supplement_article_author") != "UNRESOLVED" or a12gx.get("supplement_article_page_range") != "UNRESOLVED" or a12gx.get("supplement_article_body") != "NOT_REVIEWED":
+        fail("Batch 12GX article-level boundary regressed")
+    access12gx=batch12gx.get("access_boundary",{})
+    if any(access12gx.get(k) for k in ("guessed_download_endpoint_attempted","endpoint_enumeration_attempted","login_attempted","token_or_cookie_reuse_attempted","account_or_identity_transmitted","fee_incurred")):
+        fail("Batch 12GX access firewall violated")
+    src12gx=next((x for x in registry.get("sources",()) if x.get("source_id")=="EXT-NLCPRESS-WENJIN-XUEZHI-V3-PRODUCT-DOWNLOAD-SURFACE"),None)
+    if src12gx is None or src12gx.get("batch_12gx",{}).get("product_id") != 4396:
+        fail("Batch 12GX source registry binding missing")
+    trans12gx=batch12gx.get("transmission_impact",{})
+    if trans12gx.get("nodes_added") != [] or trans12gx.get("edges_added") != [] or trans12gx.get("direct_copy_edge_authorized") is not False or trans12gx.get("same_object_edge_authorized") is not False or trans12gx.get("acquisition_edge_authorized") is not False:
+        fail("Batch 12GX genealogy firewall regressed")
+    rule12gx=batch12gx.get("chronology_and_rule_firewall",{})
+    if rule12gx.get("runtime_rule_change") is not False or rule12gx.get("algorithm_reopen_authorized") is not False or rule12gx.get("candidate_collapse_authorized") is not False or rule12gx.get("matrix_count_change") is not False:
+        fail("Batch 12GX product/matrix firewall regressed")
+    acct12gx=batch12gx.get("accounting",{})
+    if acct12gx.get("matrix_rows") != 198 or acct12gx.get("audited_rows") != 166 or acct12gx.get("current_missing_from_product_rows") != 10 or acct12gx.get("confirmed_chart_algorithm_defect_count") != 0:
+        fail("Batch 12GX accounting regressed")
+    try:
+        schema12gx=tuple(int(part) for part in state.get("schema_version","0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12GX current-state schema version is not numeric")
+    if schema12gx < (1,210,0):
+        fail("Batch 12GX current-state schema version regressed below 1.210.0")
+    if bid12gx not in audit_state.get("completed_batches",()):
+        fail("Batch 12GX missing from completed batch state")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12GX latest-batch document state mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")
