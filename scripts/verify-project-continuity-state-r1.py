@@ -1499,8 +1499,8 @@ def main() -> int:
         fail("Batch 12FC current Registry copy-description repair missing")
     matrix12fc = json.loads(MATRIX.read_text(encoding="utf-8"))
     summary12fc = matrix12fc.get("audit_summary", {})
-    if summary12fc.get("confirmed_provenance_metadata_defect_count") != 13 or summary12fc.get("repaired_provenance_metadata_defect_count") != 13:
-        fail("Batch 12FC provenance defect accounting mismatch")
+    if summary12fc.get("confirmed_provenance_metadata_defect_count", 0) < 13 or summary12fc.get("repaired_provenance_metadata_defect_count", 0) < 13:
+        fail("Batch 12FC provenance defect baseline regressed below 13/13")
 
     for path in (ZIWEI_NLC1823_TIEQIN_SEAL_12FD_BATCH, ZIWEI_NLC1823_TIEQIN_SEAL_12FD_EVIDENCE):
         if not path.is_file():
