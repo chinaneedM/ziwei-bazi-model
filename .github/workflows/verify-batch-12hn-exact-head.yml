@@ -1,0 +1,71 @@
+name: verify-batch-12hn-exact-head
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/verify-batch-12hm-exact-head.yml
+      - .github/workflows/verify-batch-12hn-exact-head.yml
+      - docs/research/ZIWEI-BEITU1987-ZUOZHUAN-BOOKNO3388-FID070-CATALOG-CROSSWALK-R1.json
+      - docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-BEITU1987-ZUOZHUAN-BOOKNO3388-FID070-CATALOG-CROSSWALK-HN.md
+      - docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json
+      - docs/PROJECT-CURRENT-STATE-R1.json
+      - scripts/verify-project-continuity-state-r1.py
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify Batch 12HN exact head
+        run: |
+          set -euo pipefail
+          python scripts/verify-tianwen-transmission-genealogy-r1.py
+          python scripts/verify-project-continuity-state-r1.py
+          python scripts/verify-fusion-chart-historical-provenance-audit-r1.py
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          bid='BATCH-12-ZIWEI-BEITU1987-ZUOZHUAN-BOOKNO3388-FID070-CATALOG-CROSSWALK-HN'
+          e=json.loads(Path('docs/research/ZIWEI-BEITU1987-ZUOZHUAN-BOOKNO3388-FID070-CATALOG-CROSSWALK-R1.json').read_text(encoding='utf-8'))
+          assert e['batch_id']==bid
+          c=e['beitu1987_catalog_control']
+          assert c['catalog_semantics']['rule_location']=='编例第五条第⑦项'
+          assert c['catalog_semantics']['number_under_title_semantic']=='书号'
+          assert c['catalog_semantics']['generic_zero_padding_authorized'] is False
+          t=c['target_entry']
+          assert t['visual_source_pdf_page']==104 and t['printed_page']==92
+          assert t['title']=='附釋音春秋左傳註疏六十卷'
+          assert t['version']=='元刻明修本' and t['extent']=='三十二冊'
+          assert t['book_number_arabic']=='3388'
+          f=e['fid070_crosswalk']
+          assert f['fid']=='412004000070'
+          assert f['beitu1987_book_number']=='3388'
+          assert f['binding_status']=='HIGH_CONFIDENCE_CLOSED_AT_CATALOG_PROFILE_AND_CONTIGUOUS_GROUP_LEVEL'
+          cur=e['current_nlc_identifier_boundary']
+          assert cur['current_905s']=='UNRESOLVED'
+          assert cur['zero_padding_3388_to_03388']=='FORBIDDEN_WITHOUT_DIRECT_CURRENT_RECORD'
+          tie=e['tieqin_identity_firewall']
+          assert tie['fid070_equals_zhang_tieqin_copy']=='STRONGLY_COMPATIBLE_NOT_PROVED'
+          assert tie['same_object_edge_authorized'] is False
+          state=json.loads(Path('docs/PROJECT-CURRENT-STATE-R1.json').read_text(encoding='utf-8'))
+          assert tuple(int(x) for x in state['schema_version'].split('.')) >= (1,226,0)
+          assert bid in state['historical_audit']['completed_batches']
+          assert state['historical_audit']['latest_batch_doc']=='docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-BEITU1987-ZUOZHUAN-BOOKNO3388-FID070-CATALOG-CROSSWALK-HN.md'
+          reg=json.loads(Path('docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json').read_text(encoding='utf-8'))
+          src={x.get('source_id'):x for x in reg['sources']}
+          assert src['EXT-BEITU-1987-GUJISHANBEN-JINGBU-ZUOZHUAN-BOOKNO3388']['batch_12hn']['target_book_number']=='3388'
+          assert src['EXT-NLC-DIGITAL-ZUOZHUAN-412004000070-COMMONS-BACKUP']['batch_12hn']['historical_1987_book_number']=='3388'
+          assert e['accounting']['matrix_rows']==198
+          assert e['accounting']['audited_rows']==166
+          assert e['accounting']['current_missing_from_product_rows']==10
+          assert e['accounting']['confirmed_chart_algorithm_defect_count']==0
+          PY

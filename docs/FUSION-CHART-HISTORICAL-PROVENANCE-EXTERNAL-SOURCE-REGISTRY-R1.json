@@ -9235,6 +9235,16 @@
         "exact_modern_nlc_uid": "UNRESOLVED",
         "exact_modern_nlc_905s": "UNRESOLVED",
         "research_artifact": "docs/research/ZIWEI-NLC-ZUOZHUAN-FID412004000070-MICROFILM-OLD-CATALOG-CROSSWALK-R1.json"
+      },
+      "batch_12hn": {
+        "role": "OFFICIAL_TIEQIN_PHYSICAL_RESEARCH_COMPARATOR_AFTER_1987_BOOK_NUMBER_RECOVERY",
+        "prior_catalog_classification": "元刻明修本",
+        "revised_physical_adjudication": "元刻元印十行本",
+        "historical_1987_book_number_candidate": "3388",
+        "zhang_report_directly_prints_3388": false,
+        "exact_fid070_identity": "STRONGLY_COMPATIBLE_NOT_PROVED",
+        "same_object_edge_authorized": false,
+        "research_artifact": "docs/research/ZIWEI-BEITU1987-ZUOZHUAN-BOOKNO3388-FID070-CATALOG-CROSSWALK-R1.json"
       }
     },
     {
@@ -9322,6 +9332,14 @@
         "modern_original_905s": "UNRESOLVED",
         "tieqin_identity": "STRONGLY_COMPATIBLE_NOT_PROVED",
         "research_artifact": "docs/research/ZIWEI-NLC-ZUOZHUAN-FID412004000070-MICROFILM-OLD-CATALOG-CROSSWALK-R1.json"
+      },
+      "batch_12hn": {
+        "role": "CROSSWALK_COMPARATOR_TO_1987_BEIJING_LIBRARY_BOOK_NUMBER_3388",
+        "embedded_original_control": "412004000070",
+        "old_profile": "元 + 明重修 + 32册",
+        "book_number_3388_binding": "HIGH_CONFIDENCE_AT_TITLE_VERSION_EXTENT_AND_CONTIGUOUS_CATALOG_GROUP_LEVEL",
+        "direct_3388_field_in_1985_record": false,
+        "research_artifact": "docs/research/ZIWEI-BEITU1987-ZUOZHUAN-BOOKNO3388-FID070-CATALOG-CROSSWALK-R1.json"
       }
     },
     {
@@ -9350,6 +9368,38 @@
         "nlc_credit": true,
         "tieqin_identity": "STRONGLY_COMPATIBLE_NOT_PROVED",
         "research_artifact": "docs/research/ZIWEI-NLC-ZUOZHUAN-FID412004000070-MICROFILM-OLD-CATALOG-CROSSWALK-R1.json"
+      },
+      "batch_12hn": {
+        "fid": "412004000070",
+        "digital_book_count": 32,
+        "historical_1987_book_number": "3388",
+        "crosswalk_status": "HIGH_CONFIDENCE_CLOSED_AT_CATALOG_PROFILE_AND_CONTIGUOUS_GROUP_LEVEL",
+        "current_905s": "UNRESOLVED",
+        "research_artifact": "docs/research/ZIWEI-BEITU1987-ZUOZHUAN-BOOKNO3388-FID070-CATALOG-CROSSWALK-R1.json"
+      }
+    },
+    {
+      "source_id": "EXT-BEITU-1987-GUJISHANBEN-JINGBU-ZUOZHUAN-BOOKNO3388",
+      "title": "北京图书馆《北京图书馆古籍善本书目·经部》1987《附釋音春秋左傳註疏》书号3388",
+      "author": "北京图书馆编",
+      "historical_period": "1987 institutional rare-book catalog describing the then-cataloged physical holding",
+      "provider": "北京图书馆；公开扫描备份由 Wikimedia Commons 提供",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/8/8d/SSID-10354752_%E5%8C%97%E4%BA%AC%E5%9C%96%E6%9B%B8%E9%A4%A8%E5%8F%A4%E7%B1%8D%E5%96%84%E6%9C%AC%E6%9B%B8%E7%9B%AE_%E7%B6%93%E9%83%A8.pdf",
+      "source_role": "INSTITUTIONAL_CATALOG_SCAN_CONTROL_FOR_HISTORICAL_BOOK_NUMBER_3388_AND_YUAN_MING_REPAIR_32_BOOK_PROFILE",
+      "quality_notes": "Hash-bound public scan of the 1987 Beijing Library catalog. Manual visual collation, no OCR. The catalog's own 编例 defines the number below each title as 书号 and gives leading zero a pre-1937 old-holding meaning. Printed page 92 / PDF page 104 physically binds 三三八八 (3388) to the Yuan-engraved/Ming-repaired 32-book 《附釋音春秋左傳註疏》 entry. This source does not by itself provide a modern NLC SYS/UID/905s or explicitly say 铁琴铜剑楼.",
+      "batch_12hn": {
+        "source_pdf_sha256": "9cb2ab3ff5d00fda316a9f0430096ca2a5e68fcd53609a878c0ed9d08a26d3ab",
+        "catalog_rule_location": "编例第五条第⑦项",
+        "catalog_number_semantic": "书号",
+        "leading_zero_semantic": "1937年前本馆旧藏",
+        "target_pdf_page": 104,
+        "target_printed_page": 92,
+        "target_title": "附釋音春秋左傳註疏六十卷",
+        "target_version": "元刻明修本",
+        "target_extent": "三十二冊",
+        "target_book_number": "3388",
+        "automatic_zero_padding_forbidden": true,
+        "research_artifact": "docs/research/ZIWEI-BEITU1987-ZUOZHUAN-BOOKNO3388-FID070-CATALOG-CROSSWALK-R1.json"
       }
     }
   ],
