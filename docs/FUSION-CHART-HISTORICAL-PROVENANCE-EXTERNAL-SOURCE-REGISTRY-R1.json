@@ -9156,6 +9156,77 @@
         "page_fidelity_independently_collated": false,
         "research_artifact": "docs/research/ZIWEI-WENWU-CANKAO-NDL-1951-H2-AND-RYUKOKU-1986-FACSIMILE-ACCESS-REDUNDANCY-R1.json"
       }
+    },
+    {
+      "source_id": "EXT-NLC-DIGITAL-ZUOZHUAN-412004000069-COMMONS-BACKUP",
+      "title": "国家图书馆数字古籍 fid 412004000069《附釋音春秋左傳注疏》六十卷公开备份元数据",
+      "author": "〔晋〕杜预注；数字对象元数据显示刘叔刚宋刻",
+      "historical_period": "underlying ancient-book witness; public NLC digital object metadata backed up 2026",
+      "provider": "国家图书馆 / 中華古籍資源庫；Wikimedia Commons library backup",
+      "identifier": "fid 412004000069 / Commons NLC892",
+      "url": "https://read.nlc.cn/allSearch/searchDetail?fid=412004000069&indexName=data_892&searchType=10024&showType=1",
+      "additional_urls": [
+        "https://commons.wikimedia.org/wiki/File:NLC892-412004000069-405182_附釋音春秋左傳注疏_六十卷_劉叔剛宋刻本_第1冊.pdf",
+        "https://commons.wikimedia.org/wiki/File:NLC892-412004000069-405186_附釋音春秋左傳注疏_六十卷_劉叔剛宋刻本_第15冊.pdf"
+      ],
+      "source_role": "CONCRETE_NLC_DIGITAL_OBJECT_METADATA_CONTROL_FOR_HJ_ZUOZHUAN_MEMBER_CANDIDATE_NOT_TIEQIN_IDENTITY_PROOF",
+      "quality_notes": "Commons library-backup metadata explicitly carries NLC digital fid 412004000069 and NLC source attribution. It displays Liu Shugang / Song and ten-line 16–17 / small double-line 23 format; observed book 1 has 卷首/1/2 and book 15 has 28/29. The first-party NLC detail route resolved but timed out, original PDF bytes were not recovered, and no ownership-seal reading is closed. Batch 12HK forbids equating this fid with the Tieqin-Yuan witness without an object-level bridge.",
+      "batch_12hk": {
+        "nlc_fid": "412004000069",
+        "public_backup_book_count_display": 15,
+        "observed_book1": [
+          "卷首",
+          "卷第一",
+          "卷第二"
+        ],
+        "observed_book15": [
+          "卷第二十八",
+          "卷第二十九"
+        ],
+        "publication_display": "刘叔刚 宋[960-1279]",
+        "format_display": "十行十六至十七字小字双行二十三字细黑口左右双边双鱼尾",
+        "exact_tieqin_identity": "UNRESOLVED",
+        "research_artifact": "docs/research/ZIWEI-NLC-ZUOZHUAN-412004000069-TIEQIN-YUAN-IDENTITY-BIFURCATION-FIREWALL-R1.json"
+      }
+    },
+    {
+      "source_id": "EXT-NOPSS-ZHANG-LIJUAN-NLC-TIEQIN-YUAN-ZUOZHUAN",
+      "title": "全国社科工作办《〈春秋左传〉校注及研究中期检查报告》：张丽娟国图铁琴旧藏元刻十行本研究",
+      "author": "项目负责人/子项目研究者张丽娟；全国哲学社会科学工作办公室发布",
+      "historical_period": "2019 project report summarizing 2018 physical version research",
+      "provider": "全国哲学社会科学工作办公室",
+      "url": "https://www.nopss.gov.cn/n1/2019/1118/c400941-31461052.html",
+      "source_role": "OFFICIAL_PROJECT_REPORT_CONTROL_FOR_NLC_TIEQIN_OLD_COLLECTION_YUAN_ENGRAVED_YUAN_IMPRESSION_ZUOZHUAN_WITNESS",
+      "quality_notes": "The official report states that NLC has a Tieqin Tongjian Lou old-collection ten-line 《附释音春秋左传注疏》, previously cataloged as Yuan-engraved/Ming-repaired and physically re-adjudicated by Zhang Lijuan as Yuan-engraved/Yuan-impression with no Ming repair traces. The reviewed report does not expose the modern shelfmark or digital fid, so it cannot be automatically equated with NLC fid 412004000069.",
+      "batch_12hk": {
+        "tieqin_old_collection": true,
+        "prior_catalog_classification": "元刻明修本",
+        "revised_physical_adjudication": "元刻元印十行本",
+        "exact_nlc_shelfmark": "UNRESOLVED",
+        "exact_nlc_digital_fid": "UNRESOLVED",
+        "research_artifact": "docs/research/ZIWEI-NLC-ZUOZHUAN-412004000069-TIEQIN-YUAN-IDENTITY-BIFURCATION-FIREWALL-R1.json"
+      }
+    },
+    {
+      "source_id": "EXT-TIEQIN-CATALOG-ZUOZHUAN-60-BAISONG-FINGERPRINT-SHIDIAN",
+      "title": "《铁琴铜剑楼藏书目录》卷五《附释音春秋左传注疏》六十卷黄氏百宋一廛与十行版式记录",
+      "author": "清 瞿镛编",
+      "historical_period": "Qing bibliographic catalog record; public modern transcription",
+      "provider": "识典古籍公开转录",
+      "url": "https://www.shidianguji.com/mid-page/7478065069058736155",
+      "source_role": "HISTORICAL_TIEQIN_CATALOG_CONTROL_FOR_ZUOZHUAN_60_JUAN_PROVENANCE_AND_FORMAT_NOT_UNIQUE_MODERN_OBJECT_ID",
+      "quality_notes": "The entry records old Huang-family Baishong Yichan provenance, a 60-juan 《附释音春秋左传注疏》, ten lines / 17 main characters and double-line / 23 commentary characters. Its version language is layered: it calls the carving Southern Song and later reasons the impression is Yuan-period. Batch 12HK uses it as a historical provenance/format comparator only; exact binding to a modern NLC fid or shelfmark is not closed.",
+      "batch_12hk": {
+        "title_entry": "附释音春秋左传注疏六十卷",
+        "old_provenance": "旧藏黄氏百宋一廛",
+        "lines_per_half_leaf": 10,
+        "main_chars_per_line": 17,
+        "commentary_double_line_chars": 23,
+        "carving_language": "南宋时刻本",
+        "impression_language": "其为元时印本无疑",
+        "exact_binding_to_fid_412004000069": "NOT_PROVED",
+        "research_artifact": "docs/research/ZIWEI-NLC-ZUOZHUAN-412004000069-TIEQIN-YUAN-IDENTITY-BIFURCATION-FIREWALL-R1.json"
+      }
     }
   ],
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md",

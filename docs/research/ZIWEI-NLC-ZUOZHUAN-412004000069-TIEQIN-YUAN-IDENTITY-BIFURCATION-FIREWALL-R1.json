@@ -1,0 +1,164 @@
+{
+  "schema": "ZIWEI-NLC-ZUOZHUAN-412004000069-TIEQIN-YUAN-IDENTITY-BIFURCATION-FIREWALL-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-NLC-ZUOZHUAN-412004000069-TIEQIN-YUAN-IDENTITY-BIFURCATION-FIREWALL-HK",
+  "prior_batch_id": "BATCH-12-ZIWEI-ZHAO-WANLI-1951-QU-SIXTYTWO-DONATION-COUNT-CHRONOLOGY-FIREWALL-HJ",
+  "question": "Can the National Library of China digital object fid 412004000069 be identified as the exact Qu-family/Tieqin copy behind Zhao Wanli's 1951 'Song-printed Chunqiu Zuozhuan Zhushu' member of the 62-title donation group?",
+  "answer": "No. Batch 12HK closes a necessary identity bifurcation, not a same-object identification. A public backup of NLC digital object fid 412004000069 carries NLC source provenance and catalogs 《附釋音春秋左傳注疏》六十卷 as a Liu Shugang Song-engraved ten-line copy; the observed 15-book backup run starts with book 1 containing 卷首/卷一/卷二 and book 15 containing 卷二十八/卷二十九. Separately, an official National Social Science Fund project report summarizing Zhang Lijuan's physical version research explicitly identifies an NLC-held Tieqin Tongjian Lou old-collection ten-line 《附释音春秋左传注疏》 that had been cataloged as Yuan-engraved/Ming-repaired but was re-adjudicated as a rare Yuan-engraved/Yuan-impression copy. The historical Tieqin catalog transcription supplies a closely related 60-juan entry with old Huang-family Baishong Yichan provenance and ten-line / 17-character / double-line-23-character format, while itself containing layered language about Southern-Song carving and a Yuan-time impression. These controls prove that generic title and ten-line format are insufficient for same-object collapse. The exact modern NLC shelfmark/object ID of Zhang's Tieqin-Yuan copy remains unresolved, and physical distinctness versus stale/revised catalog metadata is not formally closed. Therefore fid 412004000069 must not be equated with the Tieqin-Yuan copy or with HJ's donated member without a stable shelfmark, accession/provenance chain, ownership seal, or unique physical defect/fingerprint bridge.",
+  "nlc_digital_object": {
+    "source_id": "EXT-NLC-DIGITAL-ZUOZHUAN-412004000069-COMMONS-BACKUP",
+    "nlc_fid": "412004000069",
+    "exact_nlc_url": "https://read.nlc.cn/allSearch/searchDetail?fid=412004000069&indexName=data_892&searchType=10024&showType=1",
+    "nlc_direct_fetch_status": "TIMEOUT_IN_REVIEWED_WEB_INTERFACE",
+    "public_backup_provider": "Wikimedia Commons library backup project",
+    "backup_book1_url": "https://commons.wikimedia.org/wiki/File:NLC892-412004000069-405182_附釋音春秋左傳注疏_六十卷_劉叔剛宋刻本_第1冊.pdf",
+    "backup_book15_url": "https://commons.wikimedia.org/wiki/File:NLC892-412004000069-405186_附釋音春秋左傳注疏_六十卷_劉叔剛宋刻本_第15冊.pdf",
+    "backup_source_display": "National Library of China / 中華古籍資源庫 數字古籍",
+    "title": "附釋音春秋左傳注疏 六十卷",
+    "author_display": "〔晉〕杜預注",
+    "edition_display": "刻本",
+    "publication_display": "刘叔刚 宋[960-1279]",
+    "format_display": "十行十六至十七字小字双行二十三字细黑口左右双边双鱼尾",
+    "public_backup_book_count_display": 15,
+    "observed_book1_description": [
+      "卷首",
+      "卷第一",
+      "卷第二"
+    ],
+    "observed_book15_description": [
+      "卷第二十八",
+      "卷第二十九"
+    ],
+    "public_backup_run_reaches_juan_29": true,
+    "exact_nlc_shelfmark": "UNRESOLVED",
+    "exact_accession_number": "UNRESOLVED",
+    "direct_nlc_metadata_page_recovered": false,
+    "original_pdf_bytes_recovered": false,
+    "direct_pdf_page_visual_collation": false,
+    "ownership_seal_reading_closed": false
+  },
+  "nlc_tieqin_yuan_research_control": {
+    "source_id": "EXT-NOPSS-ZHANG-LIJUAN-NLC-TIEQIN-YUAN-ZUOZHUAN",
+    "provider": "全国哲学社会科学工作办公室",
+    "research_project": "《春秋左传》校注及研究",
+    "researcher": "张丽娟",
+    "report_url": "https://www.nopss.gov.cn/n1/2019/1118/c400941-31461052.html",
+    "cited_research_output": "国图藏元刻十行本《附释音春秋左传注疏》",
+    "publication": "《国学季刊》第十一期，山东人民出版社，2018年9月",
+    "nlc_holding": true,
+    "tieqin_tongjian_lou_old_collection": true,
+    "prior_catalog_classification": "元刻明修本",
+    "revised_physical_adjudication": "元刻元印十行本",
+    "no_ming_repair_traces_reported": true,
+    "exact_nlc_shelfmark": "UNRESOLVED",
+    "exact_nlc_digital_fid": "UNRESOLVED",
+    "direct_article_fulltext_reviewed": false,
+    "official_project_report_directly_reviewed": true
+  },
+  "historical_tieqin_catalog_control": {
+    "source_id": "EXT-TIEQIN-CATALOG-ZUOZHUAN-60-BAISONG-FINGERPRINT-SHIDIAN",
+    "work": "铁琴铜剑楼藏书目录",
+    "compiler": "瞿镛",
+    "carrier": "识典古籍公开转录",
+    "url": "https://www.shidianguji.com/mid-page/7478065069058736155",
+    "title_entry": "附释音春秋左传注疏六十卷",
+    "old_provenance_display": "旧藏黄氏百宋一廛",
+    "carving_language": "此书为南宋时刻本",
+    "impression_language": "其为元时印本无疑",
+    "physical_format": {
+      "lines_per_half_leaf": 10,
+      "main_chars_per_line": 17,
+      "commentary_double_line_chars": 23
+    },
+    "ming_repair_character_absence_claim": true,
+    "exact_binding_to_zhang_nlc_tieqin_yuan_copy": "STRONGLY_RELEVANT_HISTORICAL_CATALOG_CONTROL_NOT_UNIQUE_MODERN_OBJECT_ID",
+    "exact_binding_to_fid_412004000069": "NOT_PROVED"
+  },
+  "identity_bifurcation_adjudication": {
+    "generic_title_identity": "SAME_WORK_TITLE_FAMILY",
+    "ten_line_format_similarity": "HIGH_INFORMATION_BUT_NONUNIQUE",
+    "fid_412004000069_equals_zhang_tieqin_yuan_copy": "NOT_PROVED",
+    "physical_distinctness_between_the_two_descriptions": "UNRESOLVED",
+    "stale_or_legacy_catalog_metadata_possible": true,
+    "same_object_collapse_authorized": false,
+    "hj_named_song_print_member_equals_fid_412004000069": "UNRESOLVED",
+    "hj_named_song_print_member_equals_zhang_tieqin_yuan_copy": "UNRESOLVED",
+    "current_required_bridge": [
+      "STABLE_NLC_SHELFMARK_OR_ACCESSION_IDENTIFIER",
+      "DIRECT_OWNERSHIP_SEAL_OR_PROVENANCE_NOTE",
+      "UNIQUE_PHYSICAL_DEFECT_OR_PAGE_LEVEL_FINGERPRINT",
+      "CATALOG_CROSSWALK_EXPLICITLY_LINKING_FID_TO_TIEQIN_PROVENANCE"
+    ]
+  },
+  "relation_to_hj": {
+    "hj_named_member": "宋刻《春秋左传注疏》",
+    "hj_count_group": 62,
+    "new_concrete_nlc_digital_candidate_increment": 1,
+    "new_tieqin_yuan_version_control_increment": 1,
+    "exact_hj_member_object_identity_increment": 0,
+    "full_62_title_list_increment": 0,
+    "count_adjudication_changed": false
+  },
+  "target_volume_firewall": {
+    "target_titles": [
+      "铜壶漏箭制度",
+      "准斋心制几漏图式"
+    ],
+    "historical_catalog_numbers": [
+      3482,
+      3483
+    ],
+    "current_catalog_number_candidates": [
+      "03482",
+      "03483"
+    ],
+    "target_named_in_hk_sources": false,
+    "target_numbers_named_in_hk_sources": false,
+    "target_transaction_route_changed": false,
+    "target_specific_purchase_route_selected": false,
+    "target_specific_donation_route_selected": false,
+    "target_specific_ding_intermediary_selected": false,
+    "final_nlc_acquisition_transfer_path": "UNRESOLVED"
+  },
+  "access_firewall": {
+    "first_party_nlc_detail_url_resolved": true,
+    "first_party_nlc_detail_fetch_succeeded": false,
+    "commons_original_pdf_fetch_succeeded": false,
+    "commons_original_pdf_failure_reason": "CONTENT_LENGTH_TOO_LARGE_IN_WEB_READER",
+    "endpoint_guessing": false,
+    "login": false,
+    "account_action": false,
+    "identity_transmission": false,
+    "fee": false
+  },
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_added": [],
+    "direct_copy_edge_authorized": false,
+    "same_object_edge_authorized": false,
+    "acquisition_edge_authorized": false
+  },
+  "chronology_and_rule_firewall": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_count_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 14,
+    "repaired_provenance_metadata_defect_count": 14,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Resolve the exact NLC shelfmark/accession/digital identifier for Zhang Lijuan's Tieqin old-collection Yuan-engraved/Yuan-impression ten-line copy.",
+    "Recover a readable ownership-seal/provenance page or catalog crosswalk for fid 412004000069 before deciding whether it is distinct from or related to the Tieqin copy.",
+    "Use only a stable object-level bridge to bind HJ's 1951 donated Song-printed member to either candidate; generic title and ten-line format are insufficient.",
+    "Continue direct 1951/2011 page collation, 2018 pp.309–310, 1997 pp.446–449, Ji chapter 9, 2004 p.335/final 編后記 and 2010 supplement routes."
+  ],
+  "updated_at": "2026-09-27"
+}
