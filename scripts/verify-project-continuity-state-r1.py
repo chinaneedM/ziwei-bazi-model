@@ -248,6 +248,8 @@ ZIWEI_BEITU_12HN_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-B
 ZIWEI_BEITU_12HN_EVIDENCE = ROOT / "docs/research/ZIWEI-BEITU1987-ZUOZHUAN-BOOKNO3388-FID070-CATALOG-CROSSWALK-R1.json"
 ZIWEI_NLC_ZUOZHUAN_12HO_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID070-PROVENANCE-SEAL-VISUAL-BOUNDARY-HO.md"
 ZIWEI_NLC_ZUOZHUAN_12HO_EVIDENCE = ROOT / "docs/research/ZIWEI-NLC-ZUOZHUAN-FID070-PROVENANCE-SEAL-VISUAL-BOUNDARY-R1.json"
+ZIWEI_BEITU_12HP_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-BEITU1959-ZUOZHUAN-QU-DONATION-FID070-TIEQIN-IDENTITY-CLOSURE-HP.md"
+ZIWEI_BEITU_12HP_EVIDENCE = ROOT / "docs/research/ZIWEI-BEITU1959-ZUOZHUAN-QU-DONATION-FID070-TIEQIN-IDENTITY-CLOSURE-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -598,9 +600,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID412004000070-MICROFILM-OLD-CATALOG-CROSSWALK-HM",
     "BATCH-12-ZIWEI-BEITU1987-ZUOZHUAN-BOOKNO3388-FID070-CATALOG-CROSSWALK-HN",
     "BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID070-PROVENANCE-SEAL-VISUAL-BOUNDARY-HO",
+    "BATCH-12-ZIWEI-BEITU1959-ZUOZHUAN-QU-DONATION-FID070-TIEQIN-IDENTITY-CLOSURE-HP",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID070-PROVENANCE-SEAL-VISUAL-BOUNDARY-HO.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-BEITU1959-ZUOZHUAN-QU-DONATION-FID070-TIEQIN-IDENTITY-CLOSURE-HP.md"
 
 
 def fail(message: str) -> None:
@@ -8412,6 +8415,83 @@ def main() -> int:
         fail("Batch 12HO missing from completed state")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12HO latest-batch document mismatch")
+
+
+    # Batch 12HP: 1959 Qu-donation catalog bridge closes FID070/Tieqin physical identity.
+    for path in (ZIWEI_BEITU_12HP_BATCH, ZIWEI_BEITU_12HP_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12HP continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12hp=json.loads(ZIWEI_BEITU_12HP_EVIDENCE.read_text(encoding="utf-8"))
+    bid12hp="BATCH-12-ZIWEI-BEITU1959-ZUOZHUAN-QU-DONATION-FID070-TIEQIN-IDENTITY-CLOSURE-HP"
+    if batch12hp.get("batch_id") != bid12hp:
+        fail("Batch 12HP evidence identity mismatch")
+    target12hp=batch12hp.get("beitu1959_direct_target",{})
+    if target12hp.get("pdf_page") != 56 or target12hp.get("title") != "附釋音春秋左傳註疏六十卷":
+        fail("Batch 12HP 1959 target page/title regressed")
+    if target12hp.get("version") != "元刻明修本" or target12hp.get("extent") != "三十二冊":
+        fail("Batch 12HP 1959 version/extent regressed")
+    if target12hp.get("donor_notation") != "瞿捐" or target12hp.get("printed_bottom_number_arabic") != "3368":
+        fail("Batch 12HP direct Qu-donation/number reading regressed")
+    if target12hp.get("ocr_used") is not False or target12hp.get("donor_notation_visually_direct") is not True:
+        fail("Batch 12HP no-OCR direct-visual control regressed")
+    method12hp=batch12hp.get("beitu1959_catalog_semantics_control",{})
+    if method12hp.get("donor_notation_semantic") != "DONOR_SURNAME" or method12hp.get("interpretation_of_qu_juan") != "QU_SURNAME_DONATION_SOURCE":
+        fail("Batch 12HP donor-notation semantics regressed")
+    qu12hp=batch12hp.get("qu_tieqin_donation_control",{})
+    if qu12hp.get("qu_family_is_tieqin_donor_to_nlc") is not True:
+        fail("Batch 12HP Qu/Tieqin NLC donation bridge regressed")
+    ident12hp=batch12hp.get("identity_adjudication",{})
+    if ident12hp.get("historical_1959_qu_donation_bridge") != "CLOSED_DIRECT_VISUAL":
+        fail("Batch 12HP 1959 Qu bridge regressed")
+    if ident12hp.get("qu_donation_is_tieqin_nlc_provenance") != "CLOSED_AT_NLC_OFFICIAL_HISTORY_LEVEL":
+        fail("Batch 12HP Qu/Tieqin provenance adjudication regressed")
+    if ident12hp.get("fid070_equals_zhang_tieqin_yuan_copy") != "HIGH_CONFIDENCE_CLOSED_AT_MULTILAYER_HISTORICAL_CATALOG_DONOR_PROVENANCE_AND_FORMAT_LEVEL":
+        fail("Batch 12HP FID070/Tieqin identity closure regressed")
+    if ident12hp.get("same_physical_object_identity_authorized") is not True or ident12hp.get("direct_modern_machine_identifier_closed") is not False:
+        fail("Batch 12HP identity-level/current-ID firewall regressed")
+    if ident12hp.get("exact_provenance_seal_text") != "UNRESOLVED" or ident12hp.get("closure_does_not_depend_on_seal_guess") is not True:
+        fail("Batch 12HP seal-text firewall regressed")
+    ids12hp=batch12hp.get("cross_catalog_identifier_firewall",{})
+    if ids12hp.get("beitu1959_printed_bottom_number") != "3368" or ids12hp.get("beitu1987_book_number") != "3388":
+        fail("Batch 12HP historical catalog-number layers regressed")
+    if ids12hp.get("direct_3368_to_3388_renumbering_record_recovered") is not False or ids12hp.get("renumbering_or_catalog_succession_mechanism") != "UNRESOLVED":
+        fail("Batch 12HP 1959/1987 renumbering firewall regressed")
+    if ids12hp.get("current_sys") != "UNRESOLVED" or ids12hp.get("current_uid") != "UNRESOLVED" or ids12hp.get("current_905s") != "UNRESOLVED":
+        fail("Batch 12HP current NLC identifier boundary regressed")
+    srcmap12hp={x.get("source_id"):x for x in registry.get("sources",())}
+    if srcmap12hp.get("EXT-BEITU-1959-SHANBEN-V1-ZUOZHUAN-QU-DONATION",{}).get("batch_12hp",{}).get("donor_notation") != "瞿捐":
+        fail("Batch 12HP 1959 catalog registry binding missing")
+    if srcmap12hp.get("EXT-NLC-PCAB-2019-BEITU1959-DONOR-SURNAME-CATALOG-METHOD",{}).get("batch_12hp",{}).get("donor_surname_annotation_after_each_book") is not True:
+        fail("Batch 12HP catalog-method registry binding missing")
+    if srcmap12hp.get("EXT-NLC-PCAB-2020-TIEQIN-700PLUS-DING-FUBAO-SIX-BOOK-ROUTE",{}).get("batch_12hp",{}).get("target_1959_qu_donation_notation_consistent") is not True:
+        fail("Batch 12HP official Tieqin-donation registry binding missing")
+    if srcmap12hp.get("EXT-NLC-DIGITAL-ZUOZHUAN-412004000070-COMMONS-BACKUP",{}).get("batch_12hp",{}).get("tieqin_physical_identity_status") != "HIGH_CONFIDENCE_CLOSED_AT_MULTILAYER_HISTORICAL_CATALOG_DONOR_PROVENANCE_AND_FORMAT_LEVEL":
+        fail("Batch 12HP FID070 registry identity closure missing")
+    rel12hp=batch12hp.get("relation_to_hj",{})
+    if rel12hp.get("hj_named_song_member_equals_fid070") != "UNRESOLVED":
+        fail("Batch 12HP HJ mapping firewall regressed")
+    tv12hp=batch12hp.get("target_volume_firewall",{})
+    if tv12hp.get("target_transaction_route_changed") is not False or any(tv12hp.get(k) for k in ("target_specific_purchase_route_selected","target_specific_donation_route_selected","target_specific_ding_intermediary_selected")):
+        fail("Batch 12HP target-volume firewall regressed")
+    trans12hp=batch12hp.get("transmission_impact",{})
+    if trans12hp.get("nodes_added") != [] or trans12hp.get("edges_added") != [] or trans12hp.get("physical_identity_between_fid070_original_and_zhang_tieqin_copy_authorized") is not True:
+        fail("Batch 12HP transmission-scope identity control regressed")
+    rule12hp=batch12hp.get("chronology_and_rule_firewall",{})
+    if any(rule12hp.get(k) for k in ("runtime_rule_change","algorithm_reopen_authorized","candidate_collapse_authorized","matrix_count_change")):
+        fail("Batch 12HP product/matrix firewall regressed")
+    acct12hp=batch12hp.get("accounting",{})
+    if acct12hp.get("matrix_rows") != 198 or acct12hp.get("audited_rows") != 166 or acct12hp.get("current_missing_from_product_rows") != 10 or acct12hp.get("confirmed_chart_algorithm_defect_count") != 0:
+        fail("Batch 12HP accounting regressed")
+    try:
+        schema12hp=tuple(int(part) for part in state.get("schema_version","0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12HP state version is not numeric")
+    if schema12hp < (1,228,0):
+        fail("Batch 12HP state version regressed below 1.228.0")
+    if bid12hp not in audit_state.get("completed_batches",()):
+        fail("Batch 12HP missing from completed state")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12HP latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")
