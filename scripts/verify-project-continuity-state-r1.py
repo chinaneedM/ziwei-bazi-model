@@ -226,6 +226,8 @@ ZIWEI_NLC_TIEQIN_12HC_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AU
 ZIWEI_NLC_TIEQIN_12HC_EVIDENCE = ROOT / "docs/research/ZIWEI-NLC-2020-TIEQIN-700PLUS-DING-FUBAO-SIX-BOOK-INTERMEDIARY-TRANSFER-SCOPE-R1.json"
 ZIWEI_SONG_DING_12HD_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-SONG-YUNBIN-1950-0211-DING-HUIKANG-FUBAO-INTERMEDIARY-ROUTE-SCOPE-HD.md"
 ZIWEI_SONG_DING_12HD_EVIDENCE = ROOT / "docs/research/ZIWEI-SONG-YUNBIN-1950-0211-DING-HUIKANG-FUBAO-INTERMEDIARY-ROUTE-SCOPE-R1.json"
+ZIWEI_TSINGHUA_DING_12HE_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TSINGHUA-DING-HUIKANG-TIEQIN-1100PLUS-VOLUMES-FINANCING-SCOPE-HE.md"
+ZIWEI_TSINGHUA_DING_12HE_EVIDENCE = ROOT / "docs/research/ZIWEI-TSINGHUA-DING-HUIKANG-TIEQIN-1100PLUS-VOLUMES-FINANCING-SCOPE-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -565,9 +567,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-CAI-CHENGPU-2026-TIEQIN-1950-1954-FOUR-TRANSFER-699-AGGREGATE-SCOPE-HB",
     "BATCH-12-ZIWEI-NLC-2020-TIEQIN-700PLUS-DING-FUBAO-SIX-BOOK-INTERMEDIARY-TRANSFER-SCOPE-HC",
     "BATCH-12-ZIWEI-SONG-YUNBIN-1950-0211-DING-HUIKANG-FUBAO-INTERMEDIARY-ROUTE-SCOPE-HD",
+    "BATCH-12-ZIWEI-TSINGHUA-DING-HUIKANG-TIEQIN-1100PLUS-VOLUMES-FINANCING-SCOPE-HE",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-SONG-YUNBIN-1950-0211-DING-HUIKANG-FUBAO-INTERMEDIARY-ROUTE-SCOPE-HD.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TSINGHUA-DING-HUIKANG-TIEQIN-1100PLUS-VOLUMES-FINANCING-SCOPE-HE.md"
 
 
 def fail(message: str) -> None:
@@ -7696,6 +7699,60 @@ def main() -> int:
         fail("Batch 12HD missing from completed batch state")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12HD latest-batch document state mismatch")
+
+    # Batch 12HE: Tsinghua institutional retrospective Ding Huikang 1100+ volume scope.
+    for path in (ZIWEI_TSINGHUA_DING_12HE_BATCH, ZIWEI_TSINGHUA_DING_12HE_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12HE continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12he=json.loads(ZIWEI_TSINGHUA_DING_12HE_EVIDENCE.read_text(encoding="utf-8"))
+    bid12he="BATCH-12-ZIWEI-TSINGHUA-DING-HUIKANG-TIEQIN-1100PLUS-VOLUMES-FINANCING-SCOPE-HE"
+    if batch12he.get("batch_id") != bid12he:
+        fail("Batch 12HE evidence identity mismatch")
+    src12he=batch12he.get("source_control",{})
+    if src12he.get("provider") != "清华校友总会" or src12he.get("page_date") != "2009-01-16":
+        fail("Batch 12HE source identity regressed")
+    if src12he.get("republication_source_display") != "摘自 中华读书报 2009年1月14日" or src12he.get("body_still_publicly_rendered") is not True:
+        fail("Batch 12HE republication/page-state control regressed")
+    ding12he=batch12he.get("ding_huikang_control",{})
+    if ding12he.get("relation_to_ding_fubao") != "丁福保次子" or ding12he.get("financing_involvement_supported") is not True:
+        fail("Batch 12HE Ding identity/financing control regressed")
+    if ding12he.get("quantity_display") != "1100+" or ding12he.get("quantity_unit") != "册":
+        fail("Batch 12HE 1100+ volume scope regressed")
+    hc12he=batch12he.get("relation_to_hc",{})
+    if hc12he.get("hc_retrospective_title_count") != 6 or hc12he.get("hc_unit") != "种":
+        fail("Batch 12HE HC comparator regressed")
+    if hc12he.get("six_titles_equals_1100plus_volumes") is not False or hc12he.get("unit_conversion_authorized") is not False or hc12he.get("same_transaction_scope") != "UNRESOLVED":
+        fail("Batch 12HE unit/scope firewall regressed")
+    hd12he=batch12he.get("relation_to_hd",{})
+    if hd12he.get("he_supports_hd_financing_involvement") is not True or hd12he.get("he_does_not_resolve_hd_ruganzhong_count") is not True:
+        fail("Batch 12HE relation-to-HD firewall regressed")
+    target12he=batch12he.get("target_volume_firewall",{})
+    if target12he.get("target_in_1100plus_volumes") != "UNRESOLVED" or target12he.get("target_in_nlc_six_titles") != "UNRESOLVED":
+        fail("Batch 12HE target membership regressed")
+    if any(target12he.get(k) for k in ("target_specific_ding_intermediary_selected","target_specific_purchase_route_selected","target_specific_donation_route_selected")):
+        fail("Batch 12HE target-route firewall regressed")
+    srcreg12he=next((x for x in registry.get("sources",()) if x.get("source_id")=="EXT-TSINGHUA-ALUMNI-DING-HUIKANG-TIEQIN-1100PLUS-VOLUMES"),None)
+    if srcreg12he is None or srcreg12he.get("batch_12he",{}).get("tieqin_quantity") != "1100+" or srcreg12he.get("batch_12he",{}).get("tieqin_quantity_unit") != "册":
+        fail("Batch 12HE registry binding missing")
+    trans12he=batch12he.get("transmission_impact",{})
+    if trans12he.get("nodes_added") != [] or trans12he.get("edges_added") != [] or trans12he.get("acquisition_edge_authorized") is not False:
+        fail("Batch 12HE genealogy firewall regressed")
+    rule12he=batch12he.get("chronology_and_rule_firewall",{})
+    if rule12he.get("runtime_rule_change") is not False or rule12he.get("algorithm_reopen_authorized") is not False or rule12he.get("candidate_collapse_authorized") is not False or rule12he.get("matrix_count_change") is not False:
+        fail("Batch 12HE product/matrix firewall regressed")
+    acct12he=batch12he.get("accounting",{})
+    if acct12he.get("matrix_rows") != 198 or acct12he.get("audited_rows") != 166 or acct12he.get("current_missing_from_product_rows") != 10 or acct12he.get("confirmed_chart_algorithm_defect_count") != 0:
+        fail("Batch 12HE accounting regressed")
+    try:
+        schema12he=tuple(int(part) for part in state.get("schema_version","0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12HE current-state schema version is not numeric")
+    if schema12he < (1,217,0):
+        fail("Batch 12HE current-state schema version regressed below 1.217.0")
+    if bid12he not in audit_state.get("completed_batches",()):
+        fail("Batch 12HE missing from completed batch state")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12HE latest-batch document state mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")
