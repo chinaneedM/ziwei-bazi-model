@@ -34,7 +34,7 @@ Every row carries:
 - proposed action;
 - explicit algorithm-reopen authorization, which is **false for every inventory row at creation**.
 
-The initial inventory contained **107 rule/field families**. After Batches 01–12E and explicit splitting of historically distinct candidate families, the current machine-readable inventory contains **198 rows**, with **166 audited rows**. It intentionally keeps unresolved source work explicit rather than converting uncertainty into a chart defect. The current audit ledger records **9 confirmed provenance metadata defects repaired forward-only at the provenance/hash-lineage layer, 0 chart algorithm defects, 0 algorithm reopens, 14 cumulatively identified missing candidate families, 10 rows currently `MISSING_FROM_PRODUCT`, 6 historical candidate extensions, 3 source-scoped historical candidate registries, and 3 runtime-resolver components**.
+The initial inventory contained **107 rule/field families**. After Batches 01–12E and explicit splitting of historically distinct candidate families, the current machine-readable inventory contains **198 rows**, with **166 audited rows**. It intentionally keeps unresolved source work explicit rather than converting uncertainty into a chart defect. The current audit ledger records **16 confirmed provenance metadata defects repaired forward-only at the provenance/hash-lineage layer, 0 chart algorithm defects, 0 algorithm reopens, 14 cumulatively identified missing candidate families, 10 rows currently `MISSING_FROM_PRODUCT`, 6 historical candidate extensions, 3 source-scoped historical candidate registries, and 3 runtime-resolver components**.
 
 ## Research-corpus authority
 
@@ -665,3 +665,14 @@ Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZH
 - The next gate returns to direct table discovery and page-level collation; `59/41`, daily ladders, change days, rounding, and direct Sanming parentage remain unresolved.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DATONG-RITONGGUI-KOSTMA-ATTRIBUTION-REPAIR-CO.md`. Research record: `docs/research/ZIWEI-DATONG-RITONGGUI-KOSTMA-ATTRIBUTION-REPAIR-R1.json`.
+
+
+## Progress — Batch 12HX
+
+- FID070 first-book physical scans now provide two independent complete large-type main-text lines on different pages, p12 and p16, each directly counted at 17 characters without OCR.
+- GB/T 3792.7—2008《古籍著录规则》8.7.1.4(b) specifies that line-count metadata is based on full half-leaves and full lines; the standard applies to Chinese ancient-book cataloging and lists the National Library of China among its principal drafting institutions.
+- These object-level controls converge with the Tieqin historical catalog, the 1987 Beijing Library catalog and the 2017 Shanghai Ancient Books publication preview, all of which describe the main-text line as 17 characters while preserving 23-character double-line commentary.
+- `PROV-DEFECT-016=CURRENT_PROVIDER_FORMAT_NOTE_MAIN_TEXT_FULL_LINE_CHARACTER_COUNT_ERROR` is therefore confirmed and repaired forward-only. The current NLC raw `10行16字` provider value remains preserved as observed metadata; project adjudication uses `10行17字 / 小字雙行23字` for the exact physical witness.
+- Accounting advances to 16 confirmed / 16 repaired provenance metadata defects. Matrix rows remain 198, audited rows 166, current MISSING_FROM_PRODUCT rows 10, chart algorithm defects/reopens/candidate collapses remain 0.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID070-SECOND-17CHAR-LINE-GBT-FORMAT-DEFECT-CLOSURE-HX.md`. Research record: `docs/research/ZIWEI-NLC-ZUOZHUAN-FID070-SECOND-17CHAR-LINE-GBT-FORMAT-DEFECT-CLOSURE-R1.json`.

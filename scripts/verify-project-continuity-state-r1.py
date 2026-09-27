@@ -264,6 +264,8 @@ ZIWEI_SHANGGU_12HV_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT
 ZIWEI_SHANGGU_12HV_EVIDENCE = ROOT / "docs/research/ZIWEI-SHANGGU2017-ZUOZHUAN-17CHAR-PUBLICATION-PREVIEW-CONTROL-R1.json"
 ZIWEI_NLC_17LINE_12HW_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID070-DIRECT-17CHAR-LINE-PHYSICAL-CONTROL-HW.md"
 ZIWEI_NLC_17LINE_12HW_EVIDENCE = ROOT / "docs/research/ZIWEI-NLC-ZUOZHUAN-FID070-DIRECT-17CHAR-LINE-PHYSICAL-CONTROL-R1.json"
+ZIWEI_NLC_FORMAT_DEFECT_12HX_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID070-SECOND-17CHAR-LINE-GBT-FORMAT-DEFECT-CLOSURE-HX.md"
+ZIWEI_NLC_FORMAT_DEFECT_12HX_EVIDENCE = ROOT / "docs/research/ZIWEI-NLC-ZUOZHUAN-FID070-SECOND-17CHAR-LINE-GBT-FORMAT-DEFECT-CLOSURE-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -622,9 +624,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID070-16-17-FORMAT-AUTHORITY-TRIANGULATION-HU",
     "BATCH-12-ZIWEI-SHANGGU2017-ZUOZHUAN-17CHAR-PUBLICATION-PREVIEW-CONTROL-HV",
     "BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID070-DIRECT-17CHAR-LINE-PHYSICAL-CONTROL-HW",
+    "BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID070-SECOND-17CHAR-LINE-GBT-FORMAT-DEFECT-CLOSURE-HX",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID070-DIRECT-17CHAR-LINE-PHYSICAL-CONTROL-HW.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID070-SECOND-17CHAR-LINE-GBT-FORMAT-DEFECT-CLOSURE-HX.md"
 
 
 def fail(message: str) -> None:
@@ -8689,7 +8692,7 @@ def main() -> int:
         fail("Batch 12HS current NLC registry binding missing")
     matrix12hs = json.loads(MATRIX.read_text(encoding="utf-8"))
     sum12hs = matrix12hs.get("audit_summary", {})
-    if sum12hs.get("confirmed_provenance_metadata_defect_count") != 15 or sum12hs.get("repaired_provenance_metadata_defect_count") != 15:
+    if sum12hs.get("confirmed_provenance_metadata_defect_count", 0) < 15 or sum12hs.get("repaired_provenance_metadata_defect_count", 0) < 15:
         fail("Batch 12HS Matrix provenance accounting mismatch")
     acct12hs = batch12hs.get("accounting", {})
     if acct12hs.get("matrix_rows") != 198 or acct12hs.get("audited_rows") != 166 or acct12hs.get("current_missing_from_product_rows") != 10:
@@ -8706,7 +8709,7 @@ def main() -> int:
         fail("Batch 12HS missing from completed state")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12HS latest-batch document mismatch")
-    if audit_state.get("confirmed_provenance_metadata_defect_count") != 15 or audit_state.get("repaired_provenance_metadata_defect_count") != 15:
+    if audit_state.get("confirmed_provenance_metadata_defect_count", 0) < 15 or audit_state.get("repaired_provenance_metadata_defect_count", 0) < 15:
         fail("Batch 12HS state provenance accounting mismatch")
 
     # Batch 12HT: both 1959 3368 and 1987 3288 are direct book numbers; exact target-specific change mechanism remains unresolved.
@@ -8831,7 +8834,7 @@ def main() -> int:
         fail("Batch 12HU missing from completed state")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12HU latest-batch document mismatch")
-    if audit_state.get("confirmed_provenance_metadata_defect_count") != 15 or audit_state.get("repaired_provenance_metadata_defect_count") != 15:
+    if audit_state.get("confirmed_provenance_metadata_defect_count", 0) < 15 or audit_state.get("repaired_provenance_metadata_defect_count", 0) < 15:
         fail("Batch 12HU state provenance accounting mismatch")
 
     # Batch 12HV: 2017 Shanghai Ancient Books publication preview adds a third 17/23 description layer without exact FID070 source-copy closure.
@@ -8893,7 +8896,7 @@ def main() -> int:
         fail("Batch 12HV missing from completed state")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12HV latest-batch document mismatch")
-    if audit_state.get("confirmed_provenance_metadata_defect_count") != 15 or audit_state.get("repaired_provenance_metadata_defect_count") != 15:
+    if audit_state.get("confirmed_provenance_metadata_defect_count", 0) < 15 or audit_state.get("repaired_provenance_metadata_defect_count", 0) < 15:
         fail("Batch 12HV state provenance accounting mismatch")
 
     # Batch 12HW: one direct 17-character large-text physical line is closed on FID070; defect status remains fail-closed pending repeat/field semantics.
@@ -8941,8 +8944,79 @@ def main() -> int:
         fail("Batch 12HW missing from completed state")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12HW latest-batch document mismatch")
-    if audit_state.get("confirmed_provenance_metadata_defect_count") != 15 or audit_state.get("repaired_provenance_metadata_defect_count") != 15:
+    if audit_state.get("confirmed_provenance_metadata_defect_count", 0) < 15 or audit_state.get("repaired_provenance_metadata_defect_count", 0) < 15:
         fail("Batch 12HW state provenance accounting mismatch")
+
+    # Batch 12HX: two direct FID070 17-char full lines + GB/T full-line semantics close PROV-DEFECT-016.
+    for path in (ZIWEI_NLC_FORMAT_DEFECT_12HX_BATCH, ZIWEI_NLC_FORMAT_DEFECT_12HX_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12HX continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12hx = json.loads(ZIWEI_NLC_FORMAT_DEFECT_12HX_EVIDENCE.read_text(encoding="utf-8"))
+    bid12hx = "BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID070-SECOND-17CHAR-LINE-GBT-FORMAT-DEFECT-CLOSURE-HX"
+    if batch12hx.get("batch_id") != bid12hx:
+        fail("Batch 12HX evidence identity mismatch")
+    phys12hx = batch12hx.get("direct_physical_full_line_controls", {})
+    samples12hx = phys12hx.get("independent_page_samples", ())
+    if phys12hx.get("direct_full_line_sample_count") != 2 or phys12hx.get("distinct_pdf_pages") != [12, 16]:
+        fail("Batch 12HX two-page sample cardinality regressed")
+    if [x.get("count") for x in samples12hx] != [17, 17]:
+        fail("Batch 12HX direct 17/17 counts regressed")
+    if [x.get("direct_reading") for x in samples12hx] != ["周禮有史官掌邦國四方之事達四方之志", "策書成文考其真偽而志其典禮上以遵周"]:
+        fail("Batch 12HX direct line readings regressed")
+    if any(x.get("ocr_used") is not False for x in samples12hx):
+        fail("Batch 12HX no-OCR control regressed")
+    std12hx = batch12hx.get("cataloging_standard_control", {})
+    if std12hx.get("standard") != "GB/T 3792.7—2008" or std12hx.get("section") != "8.7.1.4(b)":
+        fail("Batch 12HX cataloging standard identity regressed")
+    if std12hx.get("direct_rule") != "每半叶行数按满半叶行数计算；每行字数按满行字数计算。":
+        fail("Batch 12HX full-line semantics regressed")
+    defect12hx = batch12hx.get("provenance_defect_repair", {})
+    if defect12hx.get("provenance_defect_id") != "PROV-DEFECT-016":
+        fail("Batch 12HX defect id regressed")
+    if defect12hx.get("raw_provider_value") != "10行16字，小字雙行23字，白口，左右雙邊。":
+        fail("Batch 12HX raw provider value regressed")
+    if defect12hx.get("adjudicated_full_line_value") != "10行17字，小字雙行23字，白口，左右雙邊。":
+        fail("Batch 12HX adjudicated value regressed")
+    if defect12hx.get("provider_record_mutated") is not False or defect12hx.get("raw_provider_value_preserved_for_audit") is not True:
+        fail("Batch 12HX forward-only raw-provider firewall regressed")
+    if defect12hx.get("defect_found_increment") != 1 or defect12hx.get("defect_repaired_increment") != 1:
+        fail("Batch 12HX defect increment regressed")
+    adj12hx = batch12hx.get("adjudication", {})
+    if adj12hx.get("current_nlc_literal_16_full_line_count") != "CONFIRMED_METADATA_DEFECT_UNDER_GBT_FULL_LINE_SEMANTICS":
+        fail("Batch 12HX defect adjudication regressed")
+    if adj12hx.get("physical_main_text_full_line_count") != 17 or adj12hx.get("commentary_double_line_count") != 23:
+        fail("Batch 12HX adjudicated format count regressed")
+    if any(adj12hx.get(k) for k in ("exact_object_identity_reopened","runtime_rule_change","algorithm_reopen_authorized","candidate_collapse_authorized","matrix_row_count_change","matrix_audited_row_count_change","transmission_topology_change")):
+        fail("Batch 12HX product/topology firewall regressed")
+    matrix12hx = json.loads(MATRIX.read_text(encoding="utf-8"))
+    sum12hx = matrix12hx.get("audit_summary", {})
+    if sum12hx.get("confirmed_provenance_metadata_defect_count") != 16 or sum12hx.get("repaired_provenance_metadata_defect_count") != 16:
+        fail("Batch 12HX Matrix provenance accounting mismatch")
+    stdsrc12hx = next((x for x in registry.get("sources", ()) if x.get("source_id") == "EXT-GBT3792-7-2008-GUJI-FULL-LINE-COUNT-RULE"), None)
+    if stdsrc12hx is None or stdsrc12hx.get("batch_12hx", {}).get("supports_full_line_semantics") is not True:
+        fail("Batch 12HX standard registry binding missing")
+    cursrc12hx = next((x for x in registry.get("sources", ()) if x.get("source_id") == "EXT-NLC-META-ZUOZHUAN-UCS01003868188-CURRENT-SEARCH-20260927"), None)
+    if cursrc12hx is None or cursrc12hx.get("batch_12hx", {}).get("provenance_defect_id") != "PROV-DEFECT-016":
+        fail("Batch 12HX current-NLC registry repair binding missing")
+    if cursrc12hx.get("batch_12hx", {}).get("raw_provider_value_preserved") is not True:
+        fail("Batch 12HX registry raw-provider preservation regressed")
+    acct12hx = batch12hx.get("accounting", {})
+    if acct12hx.get("matrix_rows") != 198 or acct12hx.get("audited_rows") != 166 or acct12hx.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12HX matrix row accounting regressed")
+    if acct12hx.get("confirmed_provenance_metadata_defect_count") != 16 or acct12hx.get("repaired_provenance_metadata_defect_count") != 16 or acct12hx.get("confirmed_chart_algorithm_defect_count") != 0:
+        fail("Batch 12HX defect/algorithm accounting regressed")
+    try:
+        schema12hx = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12HX state version is not numeric")
+    if schema12hx < (1, 236, 0):
+        fail("Batch 12HX state version regressed below 1.236.0")
+    if bid12hx not in audit_state.get("completed_batches", ()):
+        fail("Batch 12HX missing from completed state")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12HX latest-batch document mismatch")
+    if audit_state.get("confirmed_provenance_metadata_defect_count") != 16 or audit_state.get("repaired_provenance_metadata_defect_count") != 16:
+        fail("Batch 12HX state provenance accounting mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

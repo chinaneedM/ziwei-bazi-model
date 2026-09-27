@@ -9500,6 +9500,27 @@
         "second_clean_full_line_closed": false,
         "current_nlc_16_metadata_defect_proved": false,
         "research_artifact": "docs/research/ZIWEI-NLC-ZUOZHUAN-FID070-DIRECT-17CHAR-LINE-PHYSICAL-CONTROL-R1.json"
+      },
+      "batch_12hx": {
+        "role": "TWO_DIRECT_17_CHAR_FULL_MAIN_TEXT_LINE_PHYSICAL_CONTROL",
+        "samples": [
+          {
+            "pdf_page": 12,
+            "direct_reading": "周禮有史官掌邦國四方之事達四方之志",
+            "count": 17,
+            "ocr_used": false
+          },
+          {
+            "pdf_page": 16,
+            "direct_reading": "策書成文考其真偽而志其典禮上以遵周",
+            "count": 17,
+            "ocr_used": false
+          }
+        ],
+        "direct_full_line_sample_count": 2,
+        "physical_main_text_full_line_count": 17,
+        "provenance_defect_id": "PROV-DEFECT-016",
+        "research_artifact": "docs/research/ZIWEI-NLC-ZUOZHUAN-FID070-SECOND-17CHAR-LINE-GBT-FORMAT-DEFECT-CLOSURE-R1.json"
       }
     },
     {
@@ -9742,6 +9763,17 @@
         "defect_016_created": false,
         "pending": "SECOND_CLEAN_FULL_LINE_AND_CATALOG_FIELD_SEMANTICS",
         "research_artifact": "docs/research/ZIWEI-NLC-ZUOZHUAN-FID070-DIRECT-17CHAR-LINE-PHYSICAL-CONTROL-R1.json"
+      },
+      "batch_12hx": {
+        "role": "FORWARD_ONLY_ADJUDICATION_OF_CURRENT_RAW_16_CHAR_FORMAT_NOTE",
+        "raw_provider_format_note": "10行16字，小字雙行23字，白口，左右雙邊。",
+        "raw_provider_value_preserved": true,
+        "adjudicated_format_note": "10行17字，小字雙行23字，白口，左右雙邊。",
+        "provenance_defect_id": "PROV-DEFECT-016",
+        "defect_class": "CURRENT_PROVIDER_FORMAT_NOTE_MAIN_TEXT_FULL_LINE_CHARACTER_COUNT_ERROR",
+        "defect_confirmed": true,
+        "defect_repaired_forward_only": true,
+        "research_artifact": "docs/research/ZIWEI-NLC-ZUOZHUAN-FID070-SECOND-17CHAR-LINE-GBT-FORMAT-DEFECT-CLOSURE-R1.json"
       }
     },
     {
@@ -9819,6 +9851,27 @@
         "independent_physical_witness_increment": 0,
         "current_nlc_16_metadata_defect_proved": false,
         "research_artifact": "docs/research/ZIWEI-SHANGGU2017-ZUOZHUAN-17CHAR-PUBLICATION-PREVIEW-CONTROL-R1.json"
+      }
+    },
+    {
+      "source_id": "EXT-GBT3792-7-2008-GUJI-FULL-LINE-COUNT-RULE",
+      "title": "GB/T 3792.7—2008《古籍著录规则》8.7.1.4(b) 行款满行计数规则",
+      "historical_period": "2008 national bibliographic standard; effective 2009-01-01",
+      "provider": "中华人民共和国国家标准公开PDF；湖北省图书馆古籍保护平台镜像；国家图书馆旧站镜像",
+      "url": "https://guji.library.hb.cn/gywm/gjzc/202401/P020240125534976186520.pdf",
+      "additional_urls": [
+        "https://www.nlc.cn/migrated/pcab.nlc.cn/gjbhzs/bm/201412/P020150309516939790893.pdf"
+      ],
+      "source_role": "NATIONAL_CATALOGING_STANDARD_CONTROL_FOR_ANCIENT_BOOK_FORMAT_LINE_AND_CHARACTER_COUNT_SEMANTICS",
+      "quality_notes": "GB/T 3792.7—2008 section 8.7.1.4(b) states that rows are counted on a full half-leaf and characters-per-line on a full line. Scope clauses say the standard mainly applies to Chinese ancient-book cataloging and to national bibliographies and all types of catalogs. Principal drafting institutions include the National Library of China, Peking University Library and Beijing Normal University Library.",
+      "batch_12hx": {
+        "standard": "GB/T 3792.7—2008",
+        "section": "8.7.1.4(b)",
+        "rule": "每半叶行数按满半叶行数计算；每行字数按满行字数计算。",
+        "printed_page": 17,
+        "pdf_page_index_zero_based": 20,
+        "supports_full_line_semantics": true,
+        "research_artifact": "docs/research/ZIWEI-NLC-ZUOZHUAN-FID070-SECOND-17CHAR-LINE-GBT-FORMAT-DEFECT-CLOSURE-R1.json"
       }
     }
   ],
