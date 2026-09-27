@@ -9493,6 +9493,18 @@
         "direct_1959_3368_to_1987_3388_renumbering_record": false,
         "renumbering_mechanism": "UNRESOLVED",
         "research_artifact": "docs/research/ZIWEI-BEITU1959-ZUOZHUAN-QU-DONATION-FID070-TIEQIN-IDENTITY-CLOSURE-R1.json"
+      },
+      "batch_12hs_forward_correction": {
+        "provenance_defect_id": "PROV-DEFECT-015",
+        "prior_internal_reading": "3388",
+        "corrected_direct_visual_reading": "3288",
+        "corrected_chinese_numerals": "三二八八",
+        "source_pdf_page": 104,
+        "rendered_page_sha256": "04c1c3a8a33aaa3b401db2fd6ddcc77455a94098f01cc178a284ea8b2f42b6ce",
+        "prior_source_id_retained_for_auditability": true,
+        "prior_batch_12hn_value_superseded": true,
+        "do_not_use_3388_as_current_source_value": true,
+        "correction_artifact": "docs/research/ZIWEI-NLC-ZUOZHUAN-FID070-905S03288-BOOKNO3288-FORWARD-CORRECTION-R1.json"
       }
     },
     {
@@ -9598,6 +9610,13 @@
         "search_only_hypothesis_authorized": true,
         "asserted_identity_authorized": false,
         "research_artifact": "docs/research/ZIWEI-NLC-2026-RAREBOOK-CALLNUMBER-FORMAT-3388-CURRENT-SEARCH-BOUNDARY-R1.json"
+      },
+      "batch_12hs_forward_correction": {
+        "prior_target_search_hypothesis": "03388",
+        "current_direct_target_905s": "03288",
+        "corrected_1987_book_number": "3288",
+        "prior_03388_hypothesis_status": "REJECTED",
+        "note": "The 2026 formatting control remains valid generically; only its target-specific 3388/03388 search hypothesis is superseded."
       }
     },
     {
@@ -9627,6 +9646,54 @@
         "current_905s": "UNRESOLVED",
         "current_shelfmark": "UNRESOLVED",
         "research_artifact": "docs/research/ZIWEI-NLC-ZUOZHUAN-FID070-CURRENT-SYS-UID-SEARCH-CROSSWALK-R1.json"
+      },
+      "batch_12hs": {
+        "workflow_run_id": 36319489516,
+        "workflow_job_id": 108620434290,
+        "artifact_id": 10932075967,
+        "artifact_zip_digest": "sha256:7fffceaac4ab10128ca638bfb79924649056663520c8bef217f332ff3d2b757d",
+        "target_uid": "UCS01003868188",
+        "target_sys": "002838237",
+        "target_905a": "NLC",
+        "target_905q": "SBYL",
+        "target_905s": "03288",
+        "target_852a": "A100000NLC",
+        "target_910n": "002838237",
+        "target_910l": "NLC01",
+        "normalized_local_holdings_locator": "NLC:SBYL:03288",
+        "current_local_holdings_locator_closed": true,
+        "adjacent_control_uid": "UCS01003868187",
+        "adjacent_control_sys": "002838236",
+        "adjacent_control_905s": "08643",
+        "adjacent_control_3165": "NLC:SBYL:08643",
+        "corrected_1987_book_number": "3288",
+        "prior_3388_reading_superseded": true,
+        "prior_03388_search_hypothesis_rejected": true,
+        "research_artifact": "docs/research/ZIWEI-NLC-ZUOZHUAN-FID070-905S03288-BOOKNO3288-FORWARD-CORRECTION-R1.json"
+      }
+    },
+    {
+      "source_id": "EXT-BEITU-1987-GUJISHANBEN-JINGBU-ZUOZHUAN-BOOKNO3288-CORRECTED",
+      "title": "北京图书馆《北京图书馆古籍善本书目·经部》1987《附釋音春秋左傳註疏》书号3288（Batch 12HS直接复核纠正）",
+      "author": "北京图书馆编",
+      "historical_period": "1987 institutional rare-book catalog describing the then-cataloged physical holding",
+      "provider": "北京图书馆；公开扫描备份由 Wikimedia Commons 提供",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/8/8d/SSID-10354752_%E5%8C%97%E4%BA%AC%E5%9C%96%E6%9B%B8%E9%A4%A8%E5%8F%A4%E7%B1%8D%E5%96%84%E6%9C%AC%E6%9B%B8%E7%9B%AE_%E7%B6%93%E9%83%A8.pdf",
+      "source_role": "CORRECTED_DIRECT_VISUAL_AUTHORITY_FOR_1987_BOOK_NUMBER_3288_AND_CURRENT_905S03288_CROSSWALK",
+      "quality_notes": "Batch 12HS magnified the same hash-bound p.104 render used in 12HN and directly reads 三二八八=3288. The older registry source_id ending BOOKNO3388 is retained only as an auditable alias for the superseded internal misreading. No OCR is used for the corrected numeral.",
+      "batch_12hs": {
+        "source_pdf_sha256": "9cb2ab3ff5d00fda316a9f0430096ca2a5e68fcd53609a878c0ed9d08a26d3ab",
+        "pdf_page": 104,
+        "printed_page": 92,
+        "rendered_page_sha256": "04c1c3a8a33aaa3b401db2fd6ddcc77455a94098f01cc178a284ea8b2f42b6ce",
+        "target_title": "附釋音春秋左傳註疏六十卷",
+        "target_version": "元刻明修本",
+        "target_extent": "三十二冊",
+        "corrected_book_number": "3288",
+        "corrected_chinese_numerals": "三二八八",
+        "ocr_used": false,
+        "provenance_defect_id": "PROV-DEFECT-015",
+        "research_artifact": "docs/research/ZIWEI-NLC-ZUOZHUAN-FID070-905S03288-BOOKNO3288-FORWARD-CORRECTION-R1.json"
       }
     }
   ],
