@@ -256,6 +256,8 @@ ZIWEI_NLC_CURRENT_ID_12HR_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANC
 ZIWEI_NLC_CURRENT_ID_12HR_EVIDENCE = ROOT / "docs/research/ZIWEI-NLC-ZUOZHUAN-FID070-CURRENT-SYS-UID-SEARCH-CROSSWALK-R1.json"
 ZIWEI_NLC_3288_12HS_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID070-905S03288-BOOKNO3288-FORWARD-CORRECTION-HS.md"
 ZIWEI_NLC_3288_12HS_EVIDENCE = ROOT / "docs/research/ZIWEI-NLC-ZUOZHUAN-FID070-905S03288-BOOKNO3288-FORWARD-CORRECTION-R1.json"
+ZIWEI_BEITU_BOOKNO_12HT_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-BEITU1959-1987-BOOKNO-3368-3288-RECOMPILATION-BOUNDARY-HT.md"
+ZIWEI_BEITU_BOOKNO_12HT_EVIDENCE = ROOT / "docs/research/ZIWEI-BEITU1959-1987-ZUOZHUAN-BOOKNO3368-3288-RECOMPILATION-BOUNDARY-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -610,9 +612,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-NLC-2026-RAREBOOK-CALLNUMBER-FORMAT-3388-CURRENT-SEARCH-BOUNDARY-HQ",
     "BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID070-CURRENT-SYS-UID-SEARCH-CROSSWALK-HR",
     "BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID070-905S03288-BOOKNO3288-FORWARD-CORRECTION-HS",
+    "BATCH-12-ZIWEI-BEITU1959-1987-BOOKNO-3368-3288-RECOMPILATION-BOUNDARY-HT",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID070-905S03288-BOOKNO3288-FORWARD-CORRECTION-HS.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-BEITU1959-1987-BOOKNO-3368-3288-RECOMPILATION-BOUNDARY-HT.md"
 
 
 def fail(message: str) -> None:
@@ -8696,6 +8699,67 @@ def main() -> int:
         fail("Batch 12HS latest-batch document mismatch")
     if audit_state.get("confirmed_provenance_metadata_defect_count") != 15 or audit_state.get("repaired_provenance_metadata_defect_count") != 15:
         fail("Batch 12HS state provenance accounting mismatch")
+
+    # Batch 12HT: both 1959 3368 and 1987 3288 are direct book numbers; exact target-specific change mechanism remains unresolved.
+    for path in (ZIWEI_BEITU_BOOKNO_12HT_BATCH, ZIWEI_BEITU_BOOKNO_12HT_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12HT continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12ht = json.loads(ZIWEI_BEITU_BOOKNO_12HT_EVIDENCE.read_text(encoding="utf-8"))
+    bid12ht = "BATCH-12-ZIWEI-BEITU1959-1987-BOOKNO-3368-3288-RECOMPILATION-BOUNDARY-HT"
+    if batch12ht.get("batch_id") != bid12ht:
+        fail("Batch 12HT evidence identity mismatch")
+    c1959 = batch12ht.get("direct_1959_catalog_semantics", {})
+    if c1959.get("target_book_number") != "3368" or c1959.get("target_3368_semantics") != "DIRECT_1959_BOOK_NUMBER":
+        fail("Batch 12HT 1959 book-number semantics regressed")
+    if c1959.get("direct_book_number_rule") != "书名下方均著书号，以便检索。" or c1959.get("book_number_rule_pdf_page") != 8:
+        fail("Batch 12HT 1959 direct book-number rule regressed")
+    if c1959.get("target_donor_notation") != "瞿捐" or c1959.get("ocr_used") is not False:
+        fail("Batch 12HT 1959 target/no-OCR control regressed")
+    c1987 = batch12ht.get("direct_1987_catalog_semantics_and_recompilation_context", {})
+    if c1987.get("target_book_number") != "3288" or c1987.get("target_3288_semantics") != "DIRECT_1987_BOOK_NUMBER":
+        fail("Batch 12HT 1987 book-number semantics regressed")
+    if c1987.get("direct_book_number_rule") != "书号：各书名下方，均注明书号。" or c1987.get("book_number_rule_pdf_page") != 10:
+        fail("Batch 12HT 1987 direct book-number rule regressed")
+    fc12ht = c1987.get("foreword_controls", {})
+    if fc12ht.get("new_catalog_compilation_started") != "1986" or fc12ht.get("direct_correction_phrase") != "纠正了一些以往著录的失误":
+        fail("Batch 12HT 1987 recompilation/correction context regressed")
+    if fc12ht.get("corrected_prior_cataloging_errors") is not True or fc12ht.get("recompilation_or_revision_environment_closed") is not True:
+        fail("Batch 12HT 1987 correction-environment closure regressed")
+    seq12ht = batch12ht.get("cross_catalog_sequence_control", {})
+    if seq12ht.get("target_1959_book_number") != "3368" or seq12ht.get("target_1987_book_number") != "3288":
+        fail("Batch 12HT target cross-catalog numbers regressed")
+    if seq12ht.get("adjacent_1959_book_number") != "10010" or seq12ht.get("adjacent_1987_book_number") != "10010":
+        fail("Batch 12HT stable adjacent control regressed")
+    if seq12ht.get("blanket_global_or_local_arithmetic_offset") != "DISPROVEN" or seq12ht.get("exact_target_specific_change_record_recovered") is not False:
+        fail("Batch 12HT renumbering firewall regressed")
+    adj12ht = batch12ht.get("adjudication", {})
+    if adj12ht.get("both_historical_values_are_book_numbers") is not True:
+        fail("Batch 12HT dual-book-number semantics regressed")
+    if adj12ht.get("current_905s") != "03288" or adj12ht.get("current_sys") != "002838237" or adj12ht.get("current_uid") != "UCS01003868188":
+        fail("Batch 12HT current identifier layer regressed")
+    if adj12ht.get("exact_3368_to_3288_change_mechanism") != "UNRESOLVED" or adj12ht.get("candidates_ranked_or_winner_selected") is not False:
+        fail("Batch 12HT exact-mechanism fail-closed state regressed")
+    reg1959 = next((x for x in registry.get("sources", ()) if x.get("source_id") == "EXT-BEITU-1959-SHANBEN-V1-ZUOZHUAN-QU-DONATION"), None)
+    reg1987 = next((x for x in registry.get("sources", ()) if x.get("source_id") == "EXT-BEITU-1987-GUJISHANBEN-JINGBU-ZUOZHUAN-BOOKNO3288-CORRECTED"), None)
+    if reg1959 is None or reg1959.get("batch_12ht", {}).get("target_book_number") != "3368":
+        fail("Batch 12HT 1959 registry binding missing")
+    if reg1987 is None or reg1987.get("batch_12ht", {}).get("corrected_target_book_number") != "3288":
+        fail("Batch 12HT 1987 registry binding missing")
+    acct12ht = batch12ht.get("accounting", {})
+    if acct12ht.get("matrix_rows") != 198 or acct12ht.get("audited_rows") != 166 or acct12ht.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12HT matrix accounting unexpectedly changed")
+    if acct12ht.get("confirmed_provenance_metadata_defect_count") != 15 or acct12ht.get("repaired_provenance_metadata_defect_count") != 15 or acct12ht.get("confirmed_chart_algorithm_defect_count") != 0:
+        fail("Batch 12HT provenance/algorithm accounting regressed")
+    try:
+        schema12ht = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12HT state version is not numeric")
+    if schema12ht < (1, 232, 0):
+        fail("Batch 12HT state version regressed below 1.232.0")
+    if bid12ht not in audit_state.get("completed_batches", ()):
+        fail("Batch 12HT missing from completed state")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12HT latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")
