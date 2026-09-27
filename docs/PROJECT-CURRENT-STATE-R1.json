@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.223.0",
+  "schema_version": "1.224.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -305,9 +305,10 @@
       "BATCH-12-ZIWEI-WENWU-CANKAO-1951-V2N9-ZHAO-WANLI-ORIGINAL-ISSUE-PHYSICAL-HOLDINGS-HH",
       "BATCH-12-ZIWEI-WENWU-CANKAO-NDL-1951-H2-AND-RYUKOKU-1986-FACSIMILE-ACCESS-REDUNDANCY-HI",
       "BATCH-12-ZIWEI-ZHAO-WANLI-1951-QU-SIXTYTWO-DONATION-COUNT-CHRONOLOGY-FIREWALL-HJ",
-      "BATCH-12-ZIWEI-NLC-ZUOZHUAN-412004000069-TIEQIN-YUAN-IDENTITY-BIFURCATION-FIREWALL-HK"
+      "BATCH-12-ZIWEI-NLC-ZUOZHUAN-412004000069-TIEQIN-YUAN-IDENTITY-BIFURCATION-FIREWALL-HK",
+      "BATCH-12-ZIWEI-NLC-ZUOZHUAN-412004000069-NPM-SPLIT-SONG-COPY-PHYSICAL-DISTINCTNESS-HL"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-ZUOZHUAN-412004000069-TIEQIN-YUAN-IDENTITY-BIFURCATION-FIREWALL-HK.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-ZUOZHUAN-412004000069-NPM-SPLIT-SONG-COPY-PHYSICAL-DISTINCTNESS-HL.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -1333,7 +1334,13 @@
       "The historical Tieqin catalog records a 60-juan copy with 旧藏黄氏百宋一廛 and 10-line/17-character, double-line/23-character format, but its version language itself is layered. Generic title and ten-line similarity are therefore not unique identifiers.",
       "12HK forbids collapsing fid 412004000069 into the Tieqin-Yuan witness or into HJ's 1951 donated Song-printed member without a stable shelfmark/accession, provenance seal, unique defect/page fingerprint or explicit catalog crosswalk. Physical distinctness remains UNRESOLVED rather than assumed.",
       "No target 3482/3483 route changes. Matrix remains 198 / 166 / 10; provenance metadata defects 14/14 repaired; chart algorithm defects 0; DETERMINISTIC_FUSION_CHART_PRODUCT_R1 remains CLOSED.",
-      "Highest next gate: resolve the Tieqin-Yuan NLC shelfmark/digital ID and a provenance bridge for fid 412004000069; continue direct 1951/2011 page collation, 2018 pp.309–310 and 1997 pp.446–449."
+      "Highest next gate: resolve the Tieqin-Yuan NLC shelfmark/digital ID and a provenance bridge for fid 412004000069; continue direct 1951/2011 page collation, 2018 pp.309–310 and 1997 pp.446–449.",
+      "Batch 12HL adds a first-party National Palace Museum copy-identity bridge: the 2025 皕宋 exhibition identifies 故善001224-001238 as the Song Jian'an Liu Shugang ten-line Zuozhuan witness and explicitly states that NPM and the National Library of China each preserve half of the same copy.",
+      "The NPM-sourced Digital Archives record says 故善001224-001238 has 15 books and is missing juan 1-29; NLC fid 412004000069 independently has 15 books and its last observed book contains juan 28/29. Their complementary extent and edition metadata close fid 412004000069 at high confidence as the NLC first-half partner of the split Song Liu Shugang copy.",
+      "12HL forward-revises only HK's physical-object adjudication: fid 412004000069 and Zhang Lijuan's separately researched Tieqin-old-collection Yuan-engraved/Yuan-impression ten-line copy are RESOLVED_DISTINCT; same-physical-object collapse is forbidden. HK remains unchanged as the auditable earlier unresolved state.",
+      "This does not yet identify Zhao Wanli's 1951 宋刻《春秋左传注疏》 member. Both HJ-member->fid and HJ-member->Tieqin-Yuan mappings remain UNRESOLVED until an accession/donor/shelfmark/provenance bridge is recovered; the exact modern NLC shelfmark of the Tieqin-Yuan copy also remains unresolved.",
+      "Batch 12HL changes no target 3482/3483 transfer conclusion, Matrix count, runtime rule, algorithm reopen, candidate collapse or textual genealogy topology. Accounting remains 198 / 166 / 10, provenance metadata defects 14/14 repaired and chart algorithm defects 0.",
+      "Highest next gate: resolve the Tieqin-Yuan copy's modern NLC shelfmark/digital ID and the 1951 accession/provenance bridge for Zhao's donated Song member; continue direct 1951/2011 page collation, 2018 pp.309-310 and 1997 pp.446-449 in parallel."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10

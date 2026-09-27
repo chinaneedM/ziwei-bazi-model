@@ -9187,6 +9187,17 @@
         "format_display": "十行十六至十七字小字双行二十三字细黑口左右双边双鱼尾",
         "exact_tieqin_identity": "UNRESOLVED",
         "research_artifact": "docs/research/ZIWEI-NLC-ZUOZHUAN-412004000069-TIEQIN-YUAN-IDENTITY-BIFURCATION-FIREWALL-R1.json"
+      },
+      "batch_12hl": {
+        "role": "NLC_DIGITAL_HALF_OF_NPM_NLC_SPLIT_SONG_LIU_SHUGANG_COPY_AT_HIGH_CONFIDENCE",
+        "npm_partner_unified_id": "故善001224-001238",
+        "fid_book_count": 15,
+        "fid_last_observed_juan": 29,
+        "npm_partner_missing_range": "卷一－二十九",
+        "physical_distinctness_from_tieqin_yuan_copy": "RESOLVED_DISTINCT",
+        "exact_modern_nlc_shelfmark": "UNRESOLVED",
+        "hj_1951_member_identity": "UNRESOLVED",
+        "research_artifact": "docs/research/ZIWEI-NLC-ZUOZHUAN-412004000069-NPM-SPLIT-SONG-COPY-PHYSICAL-DISTINCTNESS-R1.json"
       }
     },
     {
@@ -9205,6 +9216,14 @@
         "exact_nlc_shelfmark": "UNRESOLVED",
         "exact_nlc_digital_fid": "UNRESOLVED",
         "research_artifact": "docs/research/ZIWEI-NLC-ZUOZHUAN-412004000069-TIEQIN-YUAN-IDENTITY-BIFURCATION-FIREWALL-R1.json"
+      },
+      "batch_12hl": {
+        "role": "SEPARATE_NLC_TIEQIN_YUAN_PHYSICAL_WITNESS_AFTER_SONG_SPLIT_COPY_CLOSURE",
+        "physical_distinctness_from_fid_412004000069": "RESOLVED_DISTINCT",
+        "exact_nlc_shelfmark": "UNRESOLVED",
+        "exact_nlc_digital_fid": "UNRESOLVED",
+        "hj_1951_member_identity": "UNRESOLVED",
+        "research_artifact": "docs/research/ZIWEI-NLC-ZUOZHUAN-412004000069-NPM-SPLIT-SONG-COPY-PHYSICAL-DISTINCTNESS-R1.json"
       }
     },
     {
@@ -9227,8 +9246,46 @@
         "exact_binding_to_fid_412004000069": "NOT_PROVED",
         "research_artifact": "docs/research/ZIWEI-NLC-ZUOZHUAN-412004000069-TIEQIN-YUAN-IDENTITY-BIFURCATION-FIREWALL-R1.json"
       }
+    },
+    {
+      "source_id": "EXT-NPM-TWOHUNDRED-ZUOZHUAN-SONG-LIU-SPLIT-HALF",
+      "title": "國立故宮博物院「皕宋──故宮宋版圖書觀止」《附釋音春秋左傳註疏》分藏说明",
+      "author": "國立故宮博物院",
+      "historical_period": "2025 first-party exhibition record describing an older split physical copy",
+      "provider": "國立故宮博物院",
+      "url": "https://theme.npm.edu.tw/exh114/TwoHundredTreasures/ch/page-8.html",
+      "source_role": "FIRST_PARTY_NPM_PHYSICAL_COPY_IDENTITY_AND_NPM_NLC_SPLIT_HOLDING_CONTROL",
+      "quality_notes": "The official NPM exhibition page identifies 故善001224-001238 as a Song Jian'an Liu Shugang ten-line Zuozhuan copy with Yuan repairs/supplements and explicitly says that the NPM and the National Library of China each preserve half. Batch 12HL combines this first-party split statement with NPM-sourced extent metadata and the NLC-backed fid extent; it does not treat the NPM page as an NLC modern-shelfmark record.",
+      "batch_12hl": {
+        "unified_id": "故善001224-001238",
+        "version_display": "宋建安劉叔剛刊元修配補元刊明印十行本",
+        "explicit_split_statement": "今由本院與中國國圖各存其半",
+        "npm_nlc_each_hold_half": true,
+        "exact_nlc_shelfmark_exposed": false,
+        "research_artifact": "docs/research/ZIWEI-NLC-ZUOZHUAN-412004000069-NPM-SPLIT-SONG-COPY-PHYSICAL-DISTINCTNESS-R1.json"
+      }
+    },
+    {
+      "source_id": "EXT-NPM-DIGITALARCHIVES-ZUOZHUAN-GUSHAN001224-001238",
+      "title": "數位典藏與數位學習聯合目錄《附釋音春秋左傳注疏》故善001224-001238",
+      "author": "資料來源：國立故宮博物院古籍輿圖檢索系統",
+      "historical_period": "institutional metadata record for the NPM-held half of the historical copy",
+      "provider": "數位典藏與數位學習聯合目錄 / 國立故宮博物院資料來源",
+      "url": "https://catalog.digitalarchives.tw/item/00/12/60/56.html",
+      "source_role": "NPM_SOURCED_INSTITUTIONAL_METADATA_CONTROL_FOR_COPY_EXTENT_AND_MISSING_JUAN",
+      "quality_notes": "The record binds the same unified ID 故善001224-001238, states fifteen books, and explicitly records preservation status 缺卷一－二十九. Its source field points to the NPM Ancient Books and Maps search system. Batch 12HL uses it only for NPM-half extent, in conjunction with the NPM first-party split statement; it does not promote the union catalog into an NLC shelfmark authority.",
+      "batch_12hl": {
+        "unified_id": "故善001224-001238",
+        "shelf_arrangement_number": "59",
+        "version_display": "宋建安劉叔剛一經堂刊配補元刊明修十行本",
+        "preservation_status": "缺卷一－二十九。",
+        "total_books": 15,
+        "source_system": "國立故宮博物院古籍輿圖檢索系統",
+        "complementary_nlc_range_inferred": "卷一－二十九",
+        "research_artifact": "docs/research/ZIWEI-NLC-ZUOZHUAN-412004000069-NPM-SPLIT-SONG-COPY-PHYSICAL-DISTINCTNESS-R1.json"
+      }
     }
   ],
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md",
-  "updated_at": "2026-09-25"
+  "updated_at": "2026-09-27"
 }

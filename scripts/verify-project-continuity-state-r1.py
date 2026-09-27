@@ -240,6 +240,8 @@ ZIWEI_ZHAO_QU_12HJ_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT
 ZIWEI_ZHAO_QU_12HJ_EVIDENCE = ROOT / "docs/research/ZIWEI-ZHAO-WANLI-1951-QU-SIXTYTWO-DONATION-COUNT-CHRONOLOGY-FIREWALL-R1.json"
 ZIWEI_NLC_ZUOZHUAN_12HK_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-ZUOZHUAN-412004000069-TIEQIN-YUAN-IDENTITY-BIFURCATION-FIREWALL-HK.md"
 ZIWEI_NLC_ZUOZHUAN_12HK_EVIDENCE = ROOT / "docs/research/ZIWEI-NLC-ZUOZHUAN-412004000069-TIEQIN-YUAN-IDENTITY-BIFURCATION-FIREWALL-R1.json"
+ZIWEI_NLC_ZUOZHUAN_12HL_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-ZUOZHUAN-412004000069-NPM-SPLIT-SONG-COPY-PHYSICAL-DISTINCTNESS-HL.md"
+ZIWEI_NLC_ZUOZHUAN_12HL_EVIDENCE = ROOT / "docs/research/ZIWEI-NLC-ZUOZHUAN-412004000069-NPM-SPLIT-SONG-COPY-PHYSICAL-DISTINCTNESS-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -586,9 +588,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-WENWU-CANKAO-NDL-1951-H2-AND-RYUKOKU-1986-FACSIMILE-ACCESS-REDUNDANCY-HI",
     "BATCH-12-ZIWEI-ZHAO-WANLI-1951-QU-SIXTYTWO-DONATION-COUNT-CHRONOLOGY-FIREWALL-HJ",
     "BATCH-12-ZIWEI-NLC-ZUOZHUAN-412004000069-TIEQIN-YUAN-IDENTITY-BIFURCATION-FIREWALL-HK",
+    "BATCH-12-ZIWEI-NLC-ZUOZHUAN-412004000069-NPM-SPLIT-SONG-COPY-PHYSICAL-DISTINCTNESS-HL",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-ZUOZHUAN-412004000069-TIEQIN-YUAN-IDENTITY-BIFURCATION-FIREWALL-HK.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-ZUOZHUAN-412004000069-NPM-SPLIT-SONG-COPY-PHYSICAL-DISTINCTNESS-HL.md"
 
 
 def fail(message: str) -> None:
@@ -8118,6 +8121,75 @@ def main() -> int:
         fail("Batch 12HK missing from completed state")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12HK latest-batch document mismatch")
+
+
+    # Batch 12HL: NPM/NLC split Song Liu Shugang copy closes physical distinctness from the Tieqin-Yuan witness.
+    for path in (ZIWEI_NLC_ZUOZHUAN_12HL_BATCH, ZIWEI_NLC_ZUOZHUAN_12HL_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12HL continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12hl=json.loads(ZIWEI_NLC_ZUOZHUAN_12HL_EVIDENCE.read_text(encoding="utf-8"))
+    bid12hl="BATCH-12-ZIWEI-NLC-ZUOZHUAN-412004000069-NPM-SPLIT-SONG-COPY-PHYSICAL-DISTINCTNESS-HL"
+    if batch12hl.get("batch_id") != bid12hl:
+        fail("Batch 12HL evidence identity mismatch")
+    fid12hl=batch12hl.get("nlc_fid_control",{})
+    if fid12hl.get("nlc_fid") != "412004000069" or fid12hl.get("public_backup_book_count_display") != 15:
+        fail("Batch 12HL NLC fid identity/extent regressed")
+    if fid12hl.get("observed_last_book") != ["卷第二十八","卷第二十九"] or fid12hl.get("observed_run_terminates_at_juan_29") is not True:
+        fail("Batch 12HL fid terminal-juan control regressed")
+    npm12hl=batch12hl.get("npm_official_split_copy_control",{})
+    if npm12hl.get("unified_id") != "故善001224-001238" or npm12hl.get("split_between_npm_and_nlc") is not True:
+        fail("Batch 12HL NPM split-copy identity regressed")
+    if npm12hl.get("explicit_split_statement") != "今由本院與中國國圖各存其半":
+        fail("Batch 12HL NPM first-party split statement regressed")
+    npmmeta12hl=batch12hl.get("npm_institutional_metadata_control",{})
+    if npmmeta12hl.get("npm_missing_range_normalized") != "卷一－二十九" or npmmeta12hl.get("npm_total_books") != 15:
+        fail("Batch 12HL NPM extent metadata regressed")
+    if npmmeta12hl.get("complementary_nlc_range_inference") != "卷一－二十九":
+        fail("Batch 12HL complementary NLC range inference regressed")
+    ident12hl=batch12hl.get("cross_object_adjudication",{})
+    if ident12hl.get("fid_412004000069_matches_nlc_half_of_split_song_copy") != "HIGH_CONFIDENCE_CLOSED_AT_CROSS_INSTITUTIONAL_EXTENT_AND_DIGITAL_METADATA_LEVEL":
+        fail("Batch 12HL split Song copy binding regressed")
+    if ident12hl.get("physical_distinctness_from_zhang_tieqin_yuan_copy") != "RESOLVED_DISTINCT" or ident12hl.get("fid_412004000069_equals_zhang_tieqin_yuan_copy") != "RESOLVED_FALSE":
+        fail("Batch 12HL physical distinctness adjudication regressed")
+    if ident12hl.get("same_physical_object_collapse_authorized") is not False or ident12hl.get("hk_unresolved_physical_distinctness_forward_revised") is not True:
+        fail("Batch 12HL forward-only same-object firewall regressed")
+    rel12hl=batch12hl.get("relation_to_hj",{})
+    if rel12hl.get("hj_named_song_member_equals_fid_412004000069") != "UNRESOLVED" or rel12hl.get("hj_named_song_member_equals_tieqin_yuan_copy") != "UNRESOLVED":
+        fail("Batch 12HL HJ acquisition-object firewall regressed")
+    tie12hl=batch12hl.get("nlc_tieqin_yuan_control",{})
+    if tie12hl.get("exact_modern_nlc_shelfmark") != "UNRESOLVED" or tie12hl.get("exact_nlc_digital_fid") != "UNRESOLVED":
+        fail("Batch 12HL Tieqin modern-ID boundary regressed")
+    srcmap12hl={x.get("source_id"):x for x in registry.get("sources",())}
+    if srcmap12hl.get("EXT-NPM-TWOHUNDRED-ZUOZHUAN-SONG-LIU-SPLIT-HALF",{}).get("batch_12hl",{}).get("npm_nlc_each_hold_half") is not True:
+        fail("Batch 12HL NPM first-party registry binding missing")
+    if srcmap12hl.get("EXT-NPM-DIGITALARCHIVES-ZUOZHUAN-GUSHAN001224-001238",{}).get("batch_12hl",{}).get("total_books") != 15:
+        fail("Batch 12HL NPM extent registry binding missing")
+    if srcmap12hl.get("EXT-NLC-DIGITAL-ZUOZHUAN-412004000069-COMMONS-BACKUP",{}).get("batch_12hl",{}).get("physical_distinctness_from_tieqin_yuan_copy") != "RESOLVED_DISTINCT":
+        fail("Batch 12HL fid registry extension missing")
+    if srcmap12hl.get("EXT-NOPSS-ZHANG-LIJUAN-NLC-TIEQIN-YUAN-ZUOZHUAN",{}).get("batch_12hl",{}).get("physical_distinctness_from_fid_412004000069") != "RESOLVED_DISTINCT":
+        fail("Batch 12HL Tieqin registry extension missing")
+    target12hl=batch12hl.get("target_volume_firewall",{})
+    if target12hl.get("target_transaction_route_changed") is not False or any(target12hl.get(k) for k in ("target_specific_purchase_route_selected","target_specific_donation_route_selected","target_specific_ding_intermediary_selected")):
+        fail("Batch 12HL target-route firewall regressed")
+    trans12hl=batch12hl.get("transmission_impact",{})
+    if trans12hl.get("nodes_added") != [] or trans12hl.get("edges_added") != [] or trans12hl.get("same_object_edge_rejected_between_fid_and_tieqin_yuan_copy") is not True or trans12hl.get("acquisition_edge_authorized") is not False:
+        fail("Batch 12HL transmission-impact firewall regressed")
+    rule12hl=batch12hl.get("chronology_and_rule_firewall",{})
+    if rule12hl.get("runtime_rule_change") is not False or rule12hl.get("algorithm_reopen_authorized") is not False or rule12hl.get("candidate_collapse_authorized") is not False or rule12hl.get("matrix_count_change") is not False:
+        fail("Batch 12HL product/matrix firewall regressed")
+    acct12hl=batch12hl.get("accounting",{})
+    if acct12hl.get("matrix_rows") != 198 or acct12hl.get("audited_rows") != 166 or acct12hl.get("current_missing_from_product_rows") != 10 or acct12hl.get("confirmed_chart_algorithm_defect_count") != 0:
+        fail("Batch 12HL accounting regressed")
+    try:
+        schema12hl=tuple(int(part) for part in state.get("schema_version","0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12HL state version is not numeric")
+    if schema12hl < (1,224,0):
+        fail("Batch 12HL state version regressed below 1.224.0")
+    if bid12hl not in audit_state.get("completed_batches",()):
+        fail("Batch 12HL missing from completed state")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12HL latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")
