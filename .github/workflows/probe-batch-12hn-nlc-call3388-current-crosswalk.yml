@@ -1,0 +1,139 @@
+name: probe-batch-12hn-nlc-call3388-current-crosswalk
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - '.github/workflows/probe-batch-12hn-nlc-call3388-current-crosswalk.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - name: Probe NLC current catalog for 1987 call number 3388
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/batch-12hn-nlc-call3388-current-crosswalk'
+          rm -rf "$ROOT"; mkdir -p "$ROOT/raw" "$ROOT/detail"
+          UA='Tianwen-Provenance-Audit/1.0'
+
+          cat > "$ROOT/queries.tsv" <<'EOF'
+          any-3388	3388	ANY	false
+          any-03388	03388	ANY	false
+          any-sbyl03388	SBYL:03388	ANY	false
+          any-nlcsbyl03388	NLC:SBYL:03388	ANY	false
+          any-title-call	附釋音春秋左傳註疏 3388	ANY	false
+          any-title-call0	附釋音春秋左傳註疏 03388	ANY	false
+          tit-trad-exact	附釋音春秋左傳註疏	TIT	true
+          tit-trad-loose	附釋音春秋左傳註疏	TIT	false
+          tit-short	春秋左傳註疏	TIT	false
+          EOF
+
+          : > "$ROOT/status.tsv"
+          while IFS=$'\t' read -r key q way exact; do
+            body=$(Q="$q" WAY="$way" EXACT="$exact" python - <<'PY'
+          import json,os
+          q=os.environ['Q']; way=os.environ['WAY']; exact=os.environ['EXACT'].lower()=='true'
+          print(json.dumps({
+            "q":q,"searchWay":way,"page_num":"1",
+            "query":q if way=="ANY" else way+"="+q,
+            "sort":[{"_score":"DESC"}],"size":200,"facetVal":[],"exactMatch":exact
+          },ensure_ascii=False,separators=(',',':')))
+          PY
+            )
+            out="$ROOT/raw/$key.json"
+            set +e
+            code=$(curl -L -sS --connect-timeout 7 --max-time 35 -A "$UA" \
+              -H 'Accept: application/json, text/javascript, */*; q=0.01' \
+              -H 'X-Requested-With: XMLHttpRequest' \
+              -H 'Referer: https://meta.nlc.cn/v2/search' \
+              -H 'Content-Type: application/x-www-form-urlencoded; charset=UTF-8' \
+              --data-binary "$body" -o "$out" -w '%{http_code}' \
+              'https://meta.nlc.cn/v2/doSearch?hight=false')
+            rc=$?; set -e
+            bytes=0; [ -f "$out" ] && bytes=$(wc -c < "$out")
+            printf '%s\trc=%s\thttp=%s\tbytes=%s\tq=%s\n' "$key" "$rc" "$code" "$bytes" "$q" >> "$ROOT/status.tsv"
+          done < "$ROOT/queries.tsv"
+
+          python - <<'PY'
+          from pathlib import Path
+          import json,re
+          root=Path('audit/batch-12hn-nlc-call3388-current-crosswalk')
+          out=[]; cand={}
+          title_terms=('附釋音春秋左傳註疏','附释音春秋左传注疏','春秋左傳註疏','春秋左传注疏')
+          call_terms=('3388','03388','SBYL')
+          for p in sorted((root/'raw').glob('*.json')):
+              out.append('### '+p.name)
+              try:o=json.loads(p.read_text('utf-8'))
+              except Exception as e:
+                  out.append('PARSE_ERROR '+repr(e)); continue
+              out.append('status='+repr(o.get('status'))+' total='+repr(o.get('total'))+' message='+repr(o.get('message')))
+              for i,row in enumerate(o.get('result') or [],1):
+                  s=row.get('_source') or {}
+                  blob=json.dumps(s,ensure_ascii=False,separators=(',',':'))
+                  tit=' | '.join(map(str,s.get('TIT') or []))
+                  hit_title=any(t in tit for t in title_terms)
+                  hit_call=any(t in blob for t in call_terms)
+                  if hit_title or hit_call:
+                      uid=s.get('UID') or row.get('_id')
+                      if uid: cand[str(uid)]=row
+                      out.append(('TARGET ' if hit_title else 'CALL_HIT ')+str(i)+' '+json.dumps(row,ensure_ascii=False,separators=(',',':')))
+          (root/'search-summary.txt').write_text('\n'.join(out)+'\n',encoding='utf-8')
+          (root/'uids.txt').write_text('\n'.join(cand)+'\n',encoding='utf-8')
+          print((root/'search-summary.txt').read_text('utf-8')[:160000])
+          PY
+
+          : > "$ROOT/detail-status.tsv"
+          while IFS= read -r uid; do
+            [ -z "$uid" ] && continue
+            out="$ROOT/detail/$uid.json"
+            set +e
+            code=$(curl -L -sS --connect-timeout 7 --max-time 25 -A "$UA" \
+              -H 'Accept: application/json, text/javascript, */*; q=0.01' \
+              -H 'X-Requested-With: XMLHttpRequest' \
+              -H "Referer: https://meta.nlc.cn/v2/detail/$uid" \
+              -X POST -o "$out" -w '%{http_code}' \
+              "https://meta.nlc.cn/api/v1/item/$uid/1/999")
+            rc=$?; set -e
+            printf '%s\trc=%s\thttp=%s\tbytes=%s\n' "$uid" "$rc" "$code" "$(wc -c < "$out" 2>/dev/null || echo 0)" >> "$ROOT/detail-status.tsv"
+          done < "$ROOT/uids.txt"
+
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          root=Path('audit/batch-12hn-nlc-call3388-current-crosswalk')
+          keys=('001','035a','049b','049c','200a','200b','200f','205a','210a','210c','210d','215a',
+                '300a','305a','307a','316a','3165','317a','423a','4231','455a','4551',
+                '610a','690a','701a','702a','801a','801b','801c','852a','905a','905b','905q','905s','910n','910l')
+          out=[]
+          for p in sorted((root/'detail').glob('*.json')):
+              out.append('### '+p.name)
+              try:o=json.loads(p.read_text('utf-8'))
+              except Exception as e: out.append('PARSE_ERROR '+repr(e)); continue
+              r=o.get('result') or {}; b=r.get('biblio') or {}; e=r.get('esBook') or {}
+              out.append('ES '+json.dumps({k:e.get(k) for k in ('SYS','UID','WDT','YEA','PUB','PAG','TIT','AUT','holdings')},ensure_ascii=False,separators=(',',':')))
+              out.append('BIB '+json.dumps({k:b.get(k) for k in keys if k in b},ensure_ascii=False,separators=(',',':')))
+              raw=json.dumps(r,ensure_ascii=False)
+              out.append('FLAGS '+json.dumps({t:(t in raw) for t in ['3388','03388','SBYL','铁琴','鐵琴','元刻明修','元刻元印','32册','32冊']},ensure_ascii=False))
+          (root/'detail-summary.txt').write_text('\n'.join(out)+'\n',encoding='utf-8')
+          print('===== DETAIL =====')
+          print((root/'detail-summary.txt').read_text('utf-8')[:160000])
+          PY
+
+          find "$ROOT" -type f -size +0c -print0 | xargs -0 -r sha256sum | sort -V > "$ROOT/files.sha256"
+          cat "$ROOT/status.tsv"
+          cat "$ROOT/detail-status.tsv"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12hn-nlc-call3388-current-crosswalk
+          path: audit/batch-12hn-nlc-call3388-current-crosswalk/
+          if-no-files-found: error
+          retention-days: 30
