@@ -9712,6 +9712,29 @@
         "target_book_number": "3368",
         "ocr_used": false,
         "research_artifact": "docs/research/ZIWEI-BEITU1959-1987-ZUOZHUAN-LOCAL-NEIGHBOR-SEQUENCE-CROSSWALK-R1.json"
+      },
+      "batch_12ia": {
+        "role": "HASH_BOUND_1959_SCAN_AUTHORITY_FOR_GBOOKS_3288_LOCATOR_FALSE_POSITIVE_REVIEW",
+        "source_pdf_sha256": "3f7eb1d2ab0057f4524eee2fb3dd3ca08561257302ffed32fe1960188184452f",
+        "locator_probe_run_id": 36334790433,
+        "locator_probe_job_id": 108663460114,
+        "locator_artifact_id": 10936499347,
+        "locator_artifact_digest": "sha256:290a530cdf292d6ca29fb5efb86108cea59eee9e7f3100a3de7381af30db41ad",
+        "reviewed_candidate_pdf_pages": [
+          26,
+          28,
+          52
+        ],
+        "reviewed_candidate_render_sha256": {
+          "26": "8765afd36b8347470201696d52002f51cb120d1a5f7369c3a64fec9e0de21332",
+          "28": "8e0494babfdc94a7e8230529d04e0a487a6b2c825e5997e7dc92e0d4c251d9e7",
+          "52": "6cdc7652422601d5bfaf6ef98df6f9b878c4233190e0a1be06760e09203864cf"
+        },
+        "exact_3288_observed_on_reviewed_candidate_pages": false,
+        "candidate_hits_closed_as_false_positive_locators": true,
+        "exhaustive_1959_3288_absence_claim": false,
+        "ocr_used_for_adjudication": false,
+        "research_artifact": "docs/research/ZIWEI-NLC-BEITU1959-3368-3288-SEARCH-INDEX-BOUNDARY-R1.json"
       }
     },
     {
@@ -9850,6 +9873,35 @@
         "defect_confirmed": true,
         "defect_repaired_forward_only": true,
         "research_artifact": "docs/research/ZIWEI-NLC-ZUOZHUAN-FID070-SECOND-17CHAR-LINE-GBT-FORMAT-DEFECT-CLOSURE-R1.json"
+      },
+      "batch_12ia": {
+        "role": "CURRENT_NLC_SEARCH_INDEX_CAPABILITY_BOUNDARY_FOR_HISTORICAL_3368_DISPOSITION",
+        "probe_runs": [
+          {
+            "run_id": 36334400075,
+            "job_id": 108662362799,
+            "artifact_id": 10936492350,
+            "artifact_digest": "sha256:4bc40a061980a0d6d004cd532d9dcd3897f517d15f9638f44aa26119736de07b"
+          },
+          {
+            "run_id": 36334535925,
+            "job_id": 108662747067,
+            "artifact_id": 10936103311,
+            "artifact_digest": "sha256:847c783f04dec894176723af108fa11ca0f2d78ea4241d5bff71fde0fd7b3ab1"
+          }
+        ],
+        "known_positive_current_905s": [
+          "03288",
+          "08643"
+        ],
+        "known_positive_any_search_results": [
+          "NO_MATCHING_RESULT",
+          "NO_MATCHING_RESULT"
+        ],
+        "disputed_03368_any_search_result": "NO_MATCHING_RESULT_AFTER_RETRY",
+        "adjudication": "ANY_SEARCH_DOES_NOT_INDEX_KNOWN_905S_VALUES_SUFFICIENTLY_FOR_ABSENCE_INFERENCE",
+        "negative_03368_absence_inference_authorized": false,
+        "research_artifact": "docs/research/ZIWEI-NLC-BEITU1959-3368-3288-SEARCH-INDEX-BOUNDARY-R1.json"
       }
     },
     {
@@ -9964,6 +10016,49 @@
         "pdf_page_index_zero_based": 20,
         "supports_full_line_semantics": true,
         "research_artifact": "docs/research/ZIWEI-NLC-ZUOZHUAN-FID070-SECOND-17CHAR-LINE-GBT-FORMAT-DEFECT-CLOSURE-R1.json"
+      }
+    },
+    {
+      "source_id": "EXT-GOOGLE-BOOKS-BEITU1959-V1-WITHIN-VOLUME-NUMBER-LOCATOR",
+      "title": "Google Books 1959《北京图书馆善本书目》第一册 SearchWithinVolume2 数字定位索引",
+      "provider": "Google Books",
+      "url": "https://books.google.com/books?id=8HUnrRREKsoC",
+      "historical_period": "modern search index over 1959 catalog surrogate",
+      "source_role": "NAVIGATION_LOCATOR_ONLY_NOT_TEXTUAL_AUTHORITY",
+      "quality_notes": "Navigation only. Batch 12IA demonstrates noisy matching; historical conclusions require direct review of the hash-bound 1959 scan.",
+      "batch_12ia": {
+        "volume_id": "8HUnrRREKsoC",
+        "query_tokens": {
+          "三三六八": [
+            "PP38",
+            "PP46",
+            "PP69"
+          ],
+          "三二八八": [
+            "PP34",
+            "PP36",
+            "PP60"
+          ],
+          "附釋音春秋左傳註疏 三三六八": [
+            "PP61",
+            "PP64"
+          ],
+          "附釋音春秋左傳註疏 三二八八": [
+            "PP61",
+            "PP64"
+          ]
+        },
+        "same_context_tokens_for_conflicting_numbers": true,
+        "target_calibration": "PP64_LOCATES_TARGET_CONTEXT_ASSOCIATED_WITH_DIRECT_PDF56",
+        "projected_3288_candidate_pdf_pages": [
+          26,
+          28,
+          52
+        ],
+        "direct_scan_exact_3288_on_projected_pages": false,
+        "false_positive_locator_hits_closed": true,
+        "exhaustive_absence_inference_authorized": false,
+        "research_artifact": "docs/research/ZIWEI-NLC-BEITU1959-3368-3288-SEARCH-INDEX-BOUNDARY-R1.json"
       }
     }
   ],

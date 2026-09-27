@@ -698,3 +698,14 @@ Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NL
 - Matrix/product accounting is unchanged: 198 rows / 166 audited / 10 MISSING_FROM_PRODUCT / 16 of 16 provenance defects repaired / zero chart-algorithm defects, reopens or candidate collapses.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-BEITU1959-1987-ZUOZHUAN-LOCAL-NEIGHBOR-SEQUENCE-CROSSWALK-HZ.md`. Research record: `docs/research/ZIWEI-BEITU1959-1987-ZUOZHUAN-LOCAL-NEIGHBOR-SEQUENCE-CROSSWALK-R1.json`.
+
+
+## Progress — Batch 12IA
+
+- Current NLC `meta.nlc.cn` ANY numeric search was calibrated against known-positive current `905s` values `03288` and `08643`; both return `no matching result`. Therefore the same result for disputed `03368` is an index-capability boundary, not absence evidence.
+- Google Books SearchWithinVolume2 for the 1959 catalog is retained only as a navigation locator. `三二八八` returned PP34/PP36/PP60, while title+3368 and title+3288 returned the same PP61/PP64 tokens, demonstrating noisy/non-exact matching.
+- Using the same-volume PP64→direct PDF56 target calibration, all three `三二八八` locator candidates were manually reviewed on the hash-bound 1959 scan at PDF26/PDF28/PDF52 without project OCR. None prints exact `三二八八 / 3288`; the three machine hits are false positives.
+- This does not prove global absence of 3288 in the whole 1959 catalog. HZ remains controlling: the observed `3368→3288` change is target-specific within the stable local neighborhood, while its causal mechanism remains unresolved.
+- Product/accounting remains 198 rows / 166 audited / 10 MISSING_FROM_PRODUCT / 16 of 16 provenance defects repaired / zero chart-algorithm defects, reopens or candidate collapses.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-BEITU1959-3368-3288-SEARCH-INDEX-BOUNDARY-IA.md`. Research record: `docs/research/ZIWEI-NLC-BEITU1959-3368-3288-SEARCH-INDEX-BOUNDARY-R1.json`.
