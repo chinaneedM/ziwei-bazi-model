@@ -266,6 +266,8 @@ ZIWEI_NLC_17LINE_12HW_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AU
 ZIWEI_NLC_17LINE_12HW_EVIDENCE = ROOT / "docs/research/ZIWEI-NLC-ZUOZHUAN-FID070-DIRECT-17CHAR-LINE-PHYSICAL-CONTROL-R1.json"
 ZIWEI_NLC_FORMAT_DEFECT_12HX_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID070-SECOND-17CHAR-LINE-GBT-FORMAT-DEFECT-CLOSURE-HX.md"
 ZIWEI_NLC_FORMAT_DEFECT_12HX_EVIDENCE = ROOT / "docs/research/ZIWEI-NLC-ZUOZHUAN-FID070-SECOND-17CHAR-LINE-GBT-FORMAT-DEFECT-CLOSURE-R1.json"
+ZIWEI_NLC_QUDONATION_12HY_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID070-QUDONATION-CHRONOLOGY-FIREWALL-HY.md"
+ZIWEI_NLC_QUDONATION_12HY_EVIDENCE = ROOT / "docs/research/ZIWEI-NLC-ZUOZHUAN-FID070-QUDONATION-CHRONOLOGY-FIREWALL-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -627,7 +629,7 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID070-SECOND-17CHAR-LINE-GBT-FORMAT-DEFECT-CLOSURE-HX",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID070-SECOND-17CHAR-LINE-GBT-FORMAT-DEFECT-CLOSURE-HX.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID070-QUDONATION-CHRONOLOGY-FIREWALL-HY.md"
 
 
 def fail(message: str) -> None:
@@ -9017,6 +9019,74 @@ def main() -> int:
         fail("Batch 12HX latest-batch document mismatch")
     if audit_state.get("confirmed_provenance_metadata_defect_count") != 16 or audit_state.get("repaired_provenance_metadata_defect_count") != 16:
         fail("Batch 12HX state provenance accounting mismatch")
+
+    # Batch 12HY: direct target 瞿捐 closes donation provenance, while exact Qu batch/date remains fail-closed.
+    for path in (ZIWEI_NLC_QUDONATION_12HY_BATCH, ZIWEI_NLC_QUDONATION_12HY_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12HY continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12hy = json.loads(ZIWEI_NLC_QUDONATION_12HY_EVIDENCE.read_text(encoding="utf-8"))
+    bid12hy = "BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID070-QUDONATION-CHRONOLOGY-FIREWALL-HY"
+    if batch12hy.get("batch_id") != bid12hy:
+        fail("Batch 12HY evidence identity mismatch")
+    target12hy = batch12hy.get("target_identity", {})
+    if target12hy.get("fid") != "412004000070" or target12hy.get("beitu1959_book_number") != "3368" or target12hy.get("beitu1987_book_number") != "3288" or target12hy.get("current_905s") != "03288":
+        fail("Batch 12HY target identifier firewall regressed")
+    direct12hy = batch12hy.get("direct_target_donation_control", {})
+    if direct12hy.get("direct_donor_notation") != "瞿捐" or direct12hy.get("direct_target_donation_provenance_closed") is not True:
+        fail("Batch 12HY direct Qu-donation control regressed")
+    if direct12hy.get("exact_donation_batch_printed") is not False or direct12hy.get("exact_donation_date_printed") is not False:
+        fail("Batch 12HY exact-date firewall regressed")
+    controls12hy = batch12hy.get("collection_level_chronology_controls", {})
+    nlc12hy = controls12hy.get("nlc_2024", {})
+    if nlc12hy.get("donation_activity_years") != [1950, 1953, 1954] or nlc12hy.get("target_year_selection_authorized") is not False:
+        fail("Batch 12HY NLC collection-year firewall regressed")
+    ji12hy = controls12hy.get("ji_derived_secondary", {})
+    if [x.get("date") for x in ji12hy.get("reported_events", ())] != ["1950-01-07", "1950-03", "1953-03"] or ji12hy.get("target_date_selection_authorized") is not False:
+        fail("Batch 12HY secondary chronology firewall regressed")
+    zhao12hy = batch12hy.get("zhao_1951_named_member_candidate_bridge", {})
+    if zhao12hy.get("named_member", {}).get("edition_display") != "宋刻" or zhao12hy.get("exact_identity_with_fid070") != "UNRESOLVED" or zhao12hy.get("same_object_collapse_authorized") is not False:
+        fail("Batch 12HY 1951 named-member identity firewall regressed")
+    gate12hy = batch12hy.get("catalog_number_gate", {})
+    if gate12hy.get("exact_3368_to_3288_mechanism") != "UNRESOLVED" or gate12hy.get("negative_search_is_absence_evidence") is not False:
+        fail("Batch 12HY 3368->3288 gate regressed")
+    if gate12hy.get("current_nlc_801c_may_be_used_as_acquisition_dates") is not False:
+        fail("Batch 12HY MARC-date firewall regressed")
+    adj12hy = batch12hy.get("adjudication", {})
+    if adj12hy.get("target_qu_donation_provenance") != "CLOSED_AT_DIRECT_1959_TARGET_ENTRY_LEVEL":
+        fail("Batch 12HY target donation status regressed")
+    if any(adj12hy.get(k) != "UNRESOLVED" for k in ("target_exact_donation_year","target_exact_donation_batch","target_exact_donation_date","zhao_1951_song_printed_member_equals_fid070","3368_to_3288_mechanism")):
+        fail("Batch 12HY unresolved gates were silently collapsed")
+    if any(adj12hy.get(k) for k in ("official_1950_1953_1954_years_are_exhaustive_target_candidate_set","secondary_1950_01_07_1950_03_1953_03_events_bind_target","named_1951_member_may_be_used_as_target_proxy","runtime_rule_change","algorithm_reopen_authorized","candidate_collapse_authorized","matrix_row_count_change","matrix_audited_row_count_change","transmission_topology_change")):
+        fail("Batch 12HY inference/product firewall regressed")
+    acct12hy = batch12hy.get("accounting", {})
+    if acct12hy.get("matrix_rows") != 198 or acct12hy.get("audited_rows") != 166 or acct12hy.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12HY matrix accounting regressed")
+    if acct12hy.get("confirmed_provenance_metadata_defect_count") != 16 or acct12hy.get("repaired_provenance_metadata_defect_count") != 16 or acct12hy.get("confirmed_chart_algorithm_defect_count") != 0:
+        fail("Batch 12HY defect/algorithm accounting regressed")
+    src1959hy = next((x for x in registry.get("sources", ()) if x.get("source_id") == "EXT-BEITU-1959-SHANBEN-V1-ZUOZHUAN-QU-DONATION"), None)
+    if src1959hy is None or src1959hy.get("batch_12hy", {}).get("direct_donor_notation") != "瞿捐":
+        fail("Batch 12HY 1959 registry binding missing")
+    srcnlchy = next((x for x in registry.get("sources", ()) if x.get("source_id") == "EXT-NLC-PCAB-ZHENG-ZHENDUO-QU-DONATION-AND-PRICED-ACQUISITION-2024"), None)
+    if srcnlchy is None or srcnlchy.get("batch_12hy", {}).get("qu_donation_activity_years") != [1950, 1953, 1954]:
+        fail("Batch 12HY NLC chronology registry binding missing")
+    srcjihy = next((x for x in registry.get("sources", ()) if x.get("source_id") == "EXT-SECONDARY-JI-CH9-TIEQIN-BATCH-CHRONOLOGY-1950-1953"), None)
+    if srcjihy is None or srcjihy.get("batch_12hy", {}).get("promoted_to_target_exact_date") is not False:
+        fail("Batch 12HY Ji chronology registry firewall missing")
+    srczhaohy = next((x for x in registry.get("sources", ()) if x.get("source_id") == "EXT-XIAO-LING-2026-ZHAO-WANLI-DING-HUIKANG-SIX-TITLE-QUOTE"), None)
+    if srczhaohy is None or srczhaohy.get("batch_12hy", {}).get("same_object_collapse_authorized") is not False:
+        fail("Batch 12HY Zhao named-member registry firewall missing")
+    try:
+        schema12hy = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12HY state version is not numeric")
+    if schema12hy < (1, 237, 0):
+        fail("Batch 12HY state version regressed below 1.237.0")
+    if bid12hy not in audit_state.get("completed_batches", ()):
+        fail("Batch 12HY missing from completed state")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12HY latest-batch document mismatch")
+    if audit_state.get("confirmed_provenance_metadata_defect_count") != 16 or audit_state.get("repaired_provenance_metadata_defect_count") != 16:
+        fail("Batch 12HY state provenance accounting mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

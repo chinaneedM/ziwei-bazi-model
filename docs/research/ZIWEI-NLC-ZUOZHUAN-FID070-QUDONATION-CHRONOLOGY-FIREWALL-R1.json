@@ -1,0 +1,153 @@
+{
+  "schema": "ZIWEI-NLC-ZUOZHUAN-FID070-QUDONATION-CHRONOLOGY-FIREWALL-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID070-QUDONATION-CHRONOLOGY-FIREWALL-HY",
+  "prior_batch_id": "BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID070-SECOND-17CHAR-LINE-GBT-FORMAT-DEFECT-CLOSURE-HX",
+  "question": "Can the exact Qu-family donation/accession batch and date for NLC FID 412004000070 be selected from the direct 1959 瞿捐 notation plus currently audited Qu/Tieqin chronology controls?",
+  "answer": "No. The exact target is directly classified by the 1959 Beijing Library rare-book catalog as 瞿捐, so Qu-surname donation provenance is closed at target-entry level. However, the catalog does not supply a donation date. NLC-hosted modern scholarship records Qu-family donation activity in 1950, 1953 and 1954 without enumerating the target contents; later Ji Shuying-derived secondary recounting gives exact 1950-01-07, 1950-03 and 1953-03 events but does not name FID070 or book no.3368. A 1951 Zhao Wanli quotation bridge names a Qu-donated 宋刻《春秋左传注疏》 among 62 titles, but exact identity with the physically re-adjudicated Yuan-impression FID070 remains unproved. Therefore no exact year, batch or date is selected.",
+  "target_identity": {
+    "title": "附釋音春秋左傳註疏六十卷",
+    "fid": "412004000070",
+    "current_uid": "UCS01003868188",
+    "current_sys": "002838237",
+    "current_905s": "03288",
+    "beitu1959_book_number": "3368",
+    "beitu1987_book_number": "3288",
+    "beitu1959_version": "元刻明修本",
+    "physical_research_adjudication": "元刻元印十行本",
+    "extent": "32冊"
+  },
+  "direct_target_donation_control": {
+    "source_id": "EXT-BEITU-1959-SHANBEN-V1-ZUOZHUAN-QU-DONATION",
+    "direct_donor_notation": "瞿捐",
+    "donor_notation_semantics": "QU_SURNAME_DONATION_SOURCE",
+    "direct_target_donation_provenance_closed": true,
+    "exact_donation_batch_printed": false,
+    "exact_donation_date_printed": false,
+    "latest_secure_chronology_bound": "BY_1959_CATALOG_PUBLICATION",
+    "ocr_used": false
+  },
+  "collection_level_chronology_controls": {
+    "nlc_2024": {
+      "source_id": "EXT-NLC-PCAB-ZHENG-ZHENDUO-QU-DONATION-AND-PRICED-ACQUISITION-2024",
+      "provider": "国家图书馆 / 中国古籍保护网",
+      "donation_activity_years": [
+        1950,
+        1953,
+        1954
+      ],
+      "exact_dates_and_contents_enumerated": false,
+      "target_fid070_named": false,
+      "target_book_number_3368_named": false,
+      "target_year_selection_authorized": false
+    },
+    "ji_derived_secondary": {
+      "source_id": "EXT-SECONDARY-JI-CH9-TIEQIN-BATCH-CHRONOLOGY-1950-1953",
+      "evidence_layer": "SECONDARY_RECOUNTING_PENDING_DIRECT_JI_CHAPTER_9_OR_ACCESSION_LEDGER_COLLATION",
+      "reported_events": [
+        {
+          "date": "1950-01-07",
+          "reported_donation_titles": 52,
+          "reported_sale_titles": 304
+        },
+        {
+          "date": "1950-03",
+          "reported_sale_titles": 123
+        },
+        {
+          "date": "1953-03",
+          "reported_donation_titles": 97,
+          "reported_sale_titles": "300+"
+        }
+      ],
+      "direct_ji_chapter_9_reviewed": false,
+      "target_fid070_named": false,
+      "target_book_number_3368_named": false,
+      "target_date_selection_authorized": false
+    }
+  },
+  "zhao_1951_named_member_candidate_bridge": {
+    "source_id": "EXT-XIAO-LING-2026-ZHAO-WANLI-DING-HUIKANG-SIX-TITLE-QUOTE",
+    "evidence_layer": "CONTEMPORARY_1951_PUBLICATION_TEXT_QUOTED_THROUGH_2011_COLLECTED_WORKS_AND_2026_SCHOLARLY_ARTICLE",
+    "lookback_scope": "近二年通过文物局送到我馆来的",
+    "qu_donors": [
+      "瞿济苍",
+      "瞿凤起",
+      "瞿旭初"
+    ],
+    "transaction_wording": "捐赠",
+    "donated_title_count": 62,
+    "named_member": {
+      "title": "春秋左传注疏",
+      "edition_display": "宋刻"
+    },
+    "exact_identity_with_fid070": "UNRESOLVED",
+    "identity_conflict_or_tension": "FID070 was historically cataloged 元刻明修 and physically re-adjudicated 元刻元印十行本; a stable accession/book-number/object bridge is still required before equating it with the 1951 宋刻 wording.",
+    "direct_1951_page_reviewed": false,
+    "direct_2011_page197_reviewed": false,
+    "same_object_collapse_authorized": false,
+    "exact_target_date_authorized": false
+  },
+  "catalog_number_gate": {
+    "beitu1959": "3368",
+    "beitu1987": "3288",
+    "current_905s": "03288",
+    "exact_3368_to_3288_mechanism": "UNRESOLVED",
+    "direct_target_specific_correction_card_or_slip_recovered": false,
+    "targeted_public_search_this_batch": "NO_DIRECT_OBJECT_LEVEL_CORRECTION_OR_PREPARATION_RECORD_LOCATED",
+    "negative_search_is_absence_evidence": false,
+    "current_nlc_801c_values": [
+      "20031212",
+      "20100923"
+    ],
+    "current_nlc_801c_may_be_used_as_acquisition_dates": false
+  },
+  "adjudication": {
+    "target_qu_donation_provenance": "CLOSED_AT_DIRECT_1959_TARGET_ENTRY_LEVEL",
+    "target_exact_donation_year": "UNRESOLVED",
+    "target_exact_donation_batch": "UNRESOLVED",
+    "target_exact_donation_date": "UNRESOLVED",
+    "official_1950_1953_1954_years_are_exhaustive_target_candidate_set": false,
+    "secondary_1950_01_07_1950_03_1953_03_events_bind_target": false,
+    "zhao_1951_song_printed_member_equals_fid070": "UNRESOLVED",
+    "named_1951_member_may_be_used_as_target_proxy": false,
+    "3368_to_3288_mechanism": "UNRESOLVED",
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "transmission_topology_change": false
+  },
+  "inference_firewall": {
+    "direct_qu_donation_notation_does_not_supply_exact_date": true,
+    "collection_level_years_do_not_bind_unlisted_target": true,
+    "secondary_exact_batch_dates_do_not_bind_unlisted_target": true,
+    "same_title_with_different_historical_edition_wording_does_not_prove_same_object": true,
+    "current_catalog_metadata_dates_do_not_equal_acquisition_dates_without_field_specific_evidence": true,
+    "failed_public_search_does_not_prove_no_internal_card_or_ledger_exists": true
+  },
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_added": [],
+    "topology_change": false,
+    "acquisition_date_edge_authorized": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 16,
+    "repaired_provenance_metadata_defect_count": 16,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Recover an object-specific catalog card, correction slip, catalog-preparation record or equivalent direct evidence explaining 1959 book no.3368 -> 1987 book no.3288.",
+    "Recover a Qu donation/accession list or ledger that names this exact title and/or 3368/FID070/stable object fingerprint, then assign the exact donation batch/date only from that binding.",
+    "Continue Zhang Lijuan 2018 full-text retrieval for shelfmark, catalog-number and physical-provenance details.",
+    "Continue exact source-copy binding for the 2017 Shanghai Ancient Books facsimile."
+  ],
+  "updated_at": "2026-09-28"
+}

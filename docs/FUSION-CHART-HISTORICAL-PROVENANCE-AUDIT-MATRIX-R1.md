@@ -676,3 +676,14 @@ Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DA
 - Accounting advances to 16 confirmed / 16 repaired provenance metadata defects. Matrix rows remain 198, audited rows 166, current MISSING_FROM_PRODUCT rows 10, chart algorithm defects/reopens/candidate collapses remain 0.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID070-SECOND-17CHAR-LINE-GBT-FORMAT-DEFECT-CLOSURE-HX.md`. Research record: `docs/research/ZIWEI-NLC-ZUOZHUAN-FID070-SECOND-17CHAR-LINE-GBT-FORMAT-DEFECT-CLOSURE-R1.json`.
+
+
+## Progress — Batch 12HY
+
+- The exact 1959 Beijing Library target entry for FID070 remains direct no-OCR evidence for `瞿捐`; this closes Qu-surname donation provenance at target-entry level but supplies no donation year, batch or exact accession date.
+- NLC-hosted 2024 scholarship records Qu-family donation activity in 1950, 1953 and 1954 without enumerating target contents. Ji Shuying-derived secondary recounting reports 1950-01-07, 1950-03 and 1953-03 events, but neither layer names FID070/book no.3368; no target date is selected.
+- Zhao Wanli's 1951 quotation bridge naming a Qu-donated `宋刻《春秋左传注疏》` among 62 titles is preserved as a candidate object bridge only. Exact identity with the physically re-adjudicated Yuan-impression FID070 remains unproved, so it cannot supply the target's exact transfer date.
+- The target-specific `1959 3368 → 1987 3288` mechanism remains unresolved; no public object-level card/correction/preparation record was recovered, and negative search is not treated as absence evidence.
+- Matrix/accounting remains 198 rows / 166 audited / 10 MISSING_FROM_PRODUCT / 16 of 16 provenance defects repaired; chart algorithm defects/reopens/candidate collapses remain 0.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID070-QUDONATION-CHRONOLOGY-FIREWALL-HY.md`. Research record: `docs/research/ZIWEI-NLC-ZUOZHUAN-FID070-QUDONATION-CHRONOLOGY-FIREWALL-R1.json`.
