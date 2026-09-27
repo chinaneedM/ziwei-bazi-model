@@ -1,0 +1,88 @@
+name: verify-batch-12hr-exact-head
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/verify-batch-12hr-exact-head.yml
+      - docs/research/ZIWEI-NLC-ZUOZHUAN-FID070-CURRENT-SYS-UID-SEARCH-CROSSWALK-R1.json
+      - docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID070-CURRENT-SYS-UID-SEARCH-CROSSWALK-HR.md
+      - docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json
+      - docs/PROJECT-CURRENT-STATE-R1.json
+      - scripts/verify-project-continuity-state-r1.py
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify Batch 12HR exact head
+        run: |
+          set -euo pipefail
+          python scripts/verify-tianwen-transmission-genealogy-r1.py
+          python scripts/verify-project-continuity-state-r1.py
+          python scripts/verify-fusion-chart-historical-provenance-audit-r1.py
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          bid = 'BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID070-CURRENT-SYS-UID-SEARCH-CROSSWALK-HR'
+          e = json.loads(Path('docs/research/ZIWEI-NLC-ZUOZHUAN-FID070-CURRENT-SYS-UID-SEARCH-CROSSWALK-R1.json').read_text(encoding='utf-8'))
+          assert e['batch_id'] == bid
+          p = e['source_probe']
+          assert p['workflow_run_id'] == 36317095311
+          assert p['workflow_job_id'] == 108613744263
+          assert p['job_conclusion'] == 'cancelled'
+          assert p['cancellation_scope'] == 'DETAIL_LOOP_AFTER_SUCCESSFUL_SEARCH_PHASE'
+          t = e['target_search_result']
+          assert t['uid'] == 'UCS01003868188'
+          assert t['sys'] == '002838237'
+          assert t['pagination'] == '32冊'
+          assert t['material_type'] == '善本'
+          assert t['holding_name'] == '国家图书馆'
+          c = e['adjacent_control_result']
+          assert c['uid'] == 'UCS01003868187'
+          assert c['sys'] == '002838236'
+          assert c['pagination'] == '15冊'
+          i = e['crosswalk_adjudication']
+          assert i['fid'] == '412004000070'
+          assert i['beitu1959_number'] == '3368'
+          assert i['beitu1987_book_number'] == '3388'
+          assert i['current_nlc_uid'] == 'UCS01003868188'
+          assert i['current_nlc_sys'] == '002838237'
+          assert i['current_905s'] == 'UNRESOLVED'
+          assert i['current_shelfmark'] == 'UNRESOLVED'
+          assert i['literal_03388_status'] == 'SEARCH_HYPOTHESIS_ONLY_NOT_ASSERTED_IDENTITY'
+          assert i['direct_3368_to_3388_succession_record'] is False
+
+          state = json.loads(Path('docs/PROJECT-CURRENT-STATE-R1.json').read_text(encoding='utf-8'))
+          assert tuple(int(x) for x in state['schema_version'].split('.')) >= (1,230,0)
+          assert bid in state['historical_audit']['completed_batches']
+          assert state['historical_audit']['latest_batch_doc'] == 'docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID070-CURRENT-SYS-UID-SEARCH-CROSSWALK-HR.md'
+
+          reg = json.loads(Path('docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json').read_text(encoding='utf-8'))
+          src = {x.get('source_id'): x for x in reg['sources']}
+          r = src['EXT-NLC-META-ZUOZHUAN-UCS01003868188-CURRENT-SEARCH-20260927']['batch_12hr']
+          assert r['target_uid'] == 'UCS01003868188'
+          assert r['target_sys'] == '002838237'
+          assert r['current_905s'] == 'UNRESOLVED'
+          assert r['current_shelfmark'] == 'UNRESOLVED'
+
+          a = e['accounting']
+          assert a['matrix_rows'] == 198
+          assert a['audited_rows'] == 166
+          assert a['current_missing_from_product_rows'] == 10
+          assert a['confirmed_provenance_metadata_defect_count'] == 14
+          assert a['repaired_provenance_metadata_defect_count'] == 14
+          assert a['confirmed_chart_algorithm_defect_count'] == 0
+          assert a['algorithm_reopen_count'] == 0
+          assert a['candidate_collapse_count'] == 0
+          PY
