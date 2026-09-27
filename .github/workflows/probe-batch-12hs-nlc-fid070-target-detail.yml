@@ -9,12 +9,25 @@ on:
 
 permissions:
   contents: read
+  statuses: write
 
 jobs:
   probe:
     runs-on: ubuntu-latest
     timeout-minutes: 6
     steps:
+      - name: Publish pending probe status
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.repos.createCommitStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              sha: context.sha,
+              state: 'pending',
+              context: 'tianwen/batch-12hs-probe',
+              description: 'Focused FID070 target-detail probe running'
+            })
       - uses: actions/checkout@v4
 
       - name: Probe only FID070 target and adjacent current NLC records
@@ -127,3 +140,38 @@ jobs:
           path: audit/batch-12hs-nlc-fid070-target-detail/
           if-no-files-found: warn
           retention-days: 30
+
+      - name: Publish probe completion status
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs')
+            const p = 'audit/batch-12hs-nlc-fid070-target-detail/detail/target-UCS01003868188.json'
+            let description = 'probe complete; target detail unavailable; no absence inference'
+            if (fs.existsSync(p)) {
+              try {
+                const o = JSON.parse(fs.readFileSync(p, 'utf8'))
+                const r = o.result || {}
+                const b = r.biblio || {}
+                const v905s = b['905s']
+                const v852a = b['852a']
+                if (v905s !== undefined && v905s !== null && String(v905s).length) {
+                  description = ('target detail HTTP200; 905s=' + JSON.stringify(v905s)).slice(0, 140)
+                } else if (v852a !== undefined && v852a !== null && String(v852a).length) {
+                  description = ('target detail HTTP200; 852a=' + JSON.stringify(v852a)).slice(0, 140)
+                } else {
+                  description = 'target detail HTTP200; 905s/852a not exposed in parsed fields'
+                }
+              } catch (e) {
+                description = 'target detail returned but JSON parse failed; inspect artifact'
+              }
+            }
+            await github.rest.repos.createCommitStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              sha: context.sha,
+              state: 'success',
+              context: 'tianwen/batch-12hs-probe',
+              description
+            })
