@@ -218,6 +218,8 @@ ZIWEI_WENJIN_RESOURCE_CENTER_12GY_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-P
 ZIWEI_WENJIN_RESOURCE_CENTER_12GY_EVIDENCE = ROOT / "docs/research/ZIWEI-WENJIN-XUEZHI-V3-NLCPRESS-PUBLIC-RESOURCE-CENTER-CROSSCHECK-BOUNDARY-R1.json"
 ZIWEI_WENJIN_DOWNLOAD_TEMPLATE_12GZ_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENJIN-XUEZHI-V3-NLCPRESS-GENERIC-RELATED-DOWNLOAD-TEMPLATE-CORRECTION-GZ.md"
 ZIWEI_WENJIN_DOWNLOAD_TEMPLATE_12GZ_EVIDENCE = ROOT / "docs/research/ZIWEI-WENJIN-XUEZHI-V3-NLCPRESS-GENERIC-RELATED-DOWNLOAD-TEMPLATE-CORRECTION-R1.json"
+ZIWEI_NLC_WANGCHONGMIN_12HA_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-WANGCHONGMIN-TIEQIN-20-DONATION-190-PURCHASE-INSTITUTIONAL-RETROSPECTIVE-SCOPE-HA.md"
+ZIWEI_NLC_WANGCHONGMIN_12HA_EVIDENCE = ROOT / "docs/research/ZIWEI-NLC-WANGCHONGMIN-TIEQIN-20-DONATION-190-PURCHASE-INSTITUTIONAL-RETROSPECTIVE-SCOPE-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -553,9 +555,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-WENJIN-XUEZHI-V3-NLCPRESS-OFFICIAL-DOWNLOAD-SURFACE-BOUNDARY-GX",
     "BATCH-12-ZIWEI-WENJIN-XUEZHI-V3-NLCPRESS-PUBLIC-RESOURCE-CENTER-CROSSCHECK-BOUNDARY-GY",
     "BATCH-12-ZIWEI-WENJIN-XUEZHI-V3-NLCPRESS-GENERIC-RELATED-DOWNLOAD-TEMPLATE-CORRECTION-GZ",
+    "BATCH-12-ZIWEI-NLC-WANGCHONGMIN-TIEQIN-20-DONATION-190-PURCHASE-INSTITUTIONAL-RETROSPECTIVE-SCOPE-HA",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENJIN-XUEZHI-V3-NLCPRESS-GENERIC-RELATED-DOWNLOAD-TEMPLATE-CORRECTION-GZ.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-WANGCHONGMIN-TIEQIN-20-DONATION-190-PURCHASE-INSTITUTIONAL-RETROSPECTIVE-SCOPE-HA.md"
 
 
 def fail(message: str) -> None:
@@ -7477,6 +7480,62 @@ def main() -> int:
         fail("Batch 12GZ missing from completed batch state")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12GZ latest-batch document state mismatch")
+
+    # Batch 12HA: NLC 2023 Wang Zhongmin retrospective Tieqin 20/190 cluster scope.
+    for path in (ZIWEI_NLC_WANGCHONGMIN_12HA_BATCH, ZIWEI_NLC_WANGCHONGMIN_12HA_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12HA continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12ha=json.loads(ZIWEI_NLC_WANGCHONGMIN_12HA_EVIDENCE.read_text(encoding="utf-8"))
+    bid12ha="BATCH-12-ZIWEI-NLC-WANGCHONGMIN-TIEQIN-20-DONATION-190-PURCHASE-INSTITUTIONAL-RETROSPECTIVE-SCOPE-HA"
+    if batch12ha.get("batch_id") != bid12ha:
+        fail("Batch 12HA evidence identity mismatch")
+    src12ha=batch12ha.get("first_party_source",{})
+    if src12ha.get("provider") != "国家图书馆" or src12ha.get("article") != "王重民与鼎新之际的国家图书馆" or src12ha.get("printed_page") != 18:
+        fail("Batch 12HA first-party source identity regressed")
+    if src12ha.get("author") != "马涛" or src12ha.get("affiliation") != "国家图书馆研究院":
+        fail("Batch 12HA author/affiliation control regressed")
+    ctx12ha=batch12ha.get("paragraph_context",{})
+    if ctx12ha.get("category_scope") != "接收政府调拨的珍贵文献":
+        fail("Batch 12HA paragraph category scope regressed")
+    if ctx12ha.get("contiguous_qu_tieqin_sequence") != "江苏瞿氏铁琴一张、铁琴铜剑楼匾额1方、善本书20种及收购书190种":
+        fail("Batch 12HA Tieqin sequence regressed")
+    ctrl12ha=batch12ha.get("institutional_retrospective_control",{})
+    if ctrl12ha.get("rare_book_title_count_display") != 20 or ctrl12ha.get("purchased_book_title_count_display") != 190:
+        fail("Batch 12HA 20/190 count control regressed")
+    if ctrl12ha.get("source_is_contemporaneous_1950_ledger") is not False or ctrl12ha.get("source_is_modern_nlc_institutional_retrospective") is not True:
+        fail("Batch 12HA retrospective-vs-ledger firewall regressed")
+    rel12ha=batch12ha.get("relation_to_prior_counts",{})
+    if rel12ha.get("count_normalization_authorized") is not False or rel12ha.get("fp_secondary_reported_1950_03_purchase_123_titles_not_reconciled_to_190") is not True or rel12ha.get("fp_secondary_reported_1953_purchase_300_plus_titles_not_reconciled_to_190") is not True:
+        fail("Batch 12HA count-reconciliation firewall regressed")
+    target12ha=batch12ha.get("target_volume_firewall",{})
+    if target12ha.get("target_named_in_source") is not False or target12ha.get("target_number_named_in_source") is not False:
+        fail("Batch 12HA target-name/number firewall regressed")
+    if target12ha.get("target_in_20_title_component") != "UNRESOLVED" or target12ha.get("target_in_190_title_component") != "UNRESOLVED":
+        fail("Batch 12HA target component status regressed")
+    if target12ha.get("target_specific_purchase_route_selected") is not False or target12ha.get("target_specific_donation_route_selected") is not False:
+        fail("Batch 12HA transaction-mode firewall regressed")
+    srcreg12ha=next((x for x in registry.get("sources",()) if x.get("source_id")=="EXT-NLC-WENJIN-2023-BEITU-HISTORY-1949-1966-BIBLIOGRAPHIC-CONTROL"),None)
+    if srcreg12ha is None or srcreg12ha.get("batch_12ha",{}).get("tieqin_cluster_purchased_book_title_count") != 190:
+        fail("Batch 12HA source-registry extension missing")
+    trans12ha=batch12ha.get("transmission_impact",{})
+    if trans12ha.get("nodes_added") != [] or trans12ha.get("edges_added") != [] or trans12ha.get("acquisition_edge_authorized") is not False:
+        fail("Batch 12HA genealogy firewall regressed")
+    rule12ha=batch12ha.get("chronology_and_rule_firewall",{})
+    if rule12ha.get("runtime_rule_change") is not False or rule12ha.get("algorithm_reopen_authorized") is not False or rule12ha.get("candidate_collapse_authorized") is not False or rule12ha.get("matrix_count_change") is not False:
+        fail("Batch 12HA product/matrix firewall regressed")
+    acct12ha=batch12ha.get("accounting",{})
+    if acct12ha.get("matrix_rows") != 198 or acct12ha.get("audited_rows") != 166 or acct12ha.get("current_missing_from_product_rows") != 10 or acct12ha.get("confirmed_chart_algorithm_defect_count") != 0:
+        fail("Batch 12HA accounting regressed")
+    try:
+        schema12ha=tuple(int(part) for part in state.get("schema_version","0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12HA current-state schema version is not numeric")
+    if schema12ha < (1,213,0):
+        fail("Batch 12HA current-state schema version regressed below 1.213.0")
+    if bid12ha not in audit_state.get("completed_batches",()):
+        fail("Batch 12HA missing from completed batch state")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12HA latest-batch document state mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

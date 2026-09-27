@@ -8436,8 +8436,8 @@
       "historical_period": "2023 NLC publication citing 1997 compilation",
       "provider": "国家图书馆",
       "url": "https://www.nlc.cn/upload/attachments/2023-12-18/56d6e51d.pdf",
-      "source_role": "FIRST_PARTY_NLC_PUBLICATION_INDEPENDENT_BIBLIOGRAPHIC_RANGE_CONTROL_FOR_1997_COMPILATION",
-      "quality_notes": "Batch 12GO directly reviews PDF page index 6 / printed p.22. Footnote ② visibly cites 《北京图书馆馆史资料汇编（二）（1949—1966）》, 北京图书馆出版社, 1997, p.606. This is independent NLC-hosted support for canonical range 1949—1966, not pp.446—449 target-page text.",
+      "source_role": "FIRST_PARTY_NLC_PUBLICATION_BIBLIOGRAPHIC_CONTROL_AND_MODERN_INSTITUTIONAL_RETROSPECTIVE_FOR_EARLY_BEIJING_LIBRARY_HOLDINGS",
+      "quality_notes": "Batch 12GO directly reviews PDF page index 6 / printed p.22. Footnote ② visibly cites 《北京图书馆馆史资料汇编（二）（1949—1966）》, 北京图书馆出版社, 1997, p.606. This is independent NLC-hosted support for canonical range 1949—1966, not pp.446—449 target-page text. Batch 12HA additionally reviews printed p.18 of the same first-party PDF: the government-allocation paragraph places 江苏瞿氏铁琴一张、铁琴铜剑楼匾额1方、善本书20种及收购书190种 in one contiguous Tieqin cluster. This is a modern NLC institutional retrospective, not a contemporaneous accession ledger; count reconciliation and target-item assignment remain forbidden.",
       "batch_12go": {
         "periodical": "文津流觞",
         "issue": "2023年第4期",
@@ -8447,6 +8447,20 @@
         "cited_page": 606,
         "direct_pp446_449_reviewed": false,
         "research_artifact": "docs/research/ZIWEI-BEITU-HISTORY-1997-1949-1966-BIBLIOGRAPHIC-RANGE-REPAIR-R1.json"
+      },
+      "source_role_original_batch_12go": "FIRST_PARTY_NLC_PUBLICATION_INDEPENDENT_BIBLIOGRAPHIC_RANGE_CONTROL_FOR_1997_COMPILATION",
+      "batch_12ha": {
+        "printed_page": 18,
+        "pdf_page_index_zero_based": 2,
+        "section": "一、珍贵典籍的搜访与整理",
+        "category_scope": "接收政府调拨的珍贵文献",
+        "tieqin_cluster_rare_book_title_count": 20,
+        "tieqin_cluster_purchased_book_title_count": 190,
+        "cluster_scope": "HIGH_CONFIDENCE_GRAMMATICAL_CONTIGUITY_NOT_ITEMIZED_LEDGER",
+        "contemporaneous_ledger": false,
+        "target_3482_3483_named": false,
+        "count_reconciliation_authorized": false,
+        "research_artifact": "docs/research/ZIWEI-NLC-WANGCHONGMIN-TIEQIN-20-DONATION-190-PURCHASE-INSTITUTIONAL-RETROSPECTIVE-SCOPE-R1.json"
       }
     },
     {

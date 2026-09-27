@@ -1,0 +1,121 @@
+{
+  "schema": "ZIWEI-NLC-WANGCHONGMIN-TIEQIN-20-DONATION-190-PURCHASE-INSTITUTIONAL-RETROSPECTIVE-SCOPE-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-NLC-WANGCHONGMIN-TIEQIN-20-DONATION-190-PURCHASE-INSTITUTIONAL-RETROSPECTIVE-SCOPE-HA",
+  "prior_batch_id": "BATCH-12-ZIWEI-WENJIN-XUEZHI-V3-NLCPRESS-GENERIC-RELATED-DOWNLOAD-TEMPLATE-CORRECTION-GZ",
+  "question": "Does the National Library of China Research Institute's 2023 first-party retrospective provide a new institutional count-level control for the Tieqin Tongjian Lou transfer program, and can that control identify the target 3482/3483 volume's transaction mode?",
+  "answer": "Yes for a new modern institutional retrospective control; no for target-item identification. In Ma Tao's 《王重民与鼎新之际的国家图书馆》, published by the National Library of China in 《文津流觞》2023年第4期, printed p.18 sits within the section 珍贵典籍的搜访与整理 and the paragraph describing Wang Zhongmin-era holdings growth through government-allocated precious materials. The first-party PDF text layer directly exposes a contiguous Qu-family cluster: 江苏瞿氏铁琴一张、铁琴铜剑楼匾额1方、善本书20种及收购书190种. This provides a National-Library institutional retrospective that places a 20-title rare-book component and a 190-title purchased-book component adjacent to the Qu/Tieqin objects. It independently strengthens the already-closed collection-level mixed-transfer proposition. However, it is a 2023 retrospective rather than a contemporaneous accession ledger; it gives no individual title list, batch date, accession number, price ledger, 3482/3483 identifier, 03482/03483 identifier, or 1823 Huang/Shiliju one-volume fingerprint. The exact grammatical/object scope of the 20 and 190 counts should therefore remain collection-cluster level and must not be promoted to an item-level transaction ledger.",
+  "first_party_source": {
+    "source_id": "EXT-NLC-WENJIN-2023-BEITU-HISTORY-1949-1966-BIBLIOGRAPHIC-CONTROL",
+    "provider": "国家图书馆",
+    "periodical": "文津流觞",
+    "issue": "2023年第4期 / 第八十四期",
+    "article": "王重民与鼎新之际的国家图书馆",
+    "author": "马涛",
+    "affiliation": "国家图书馆研究院",
+    "url": "https://www.nlc.cn/upload/attachments/2023-12-18/56d6e51d.pdf",
+    "issue_index_url": "https://www.nlc.cn/web/yejiefuwu/gtqk/wjls/wjqcsy/wj2023/wjd84/index.shtml",
+    "printed_page": 18,
+    "pdf_page_index_zero_based": 2,
+    "first_party_pdf_text_layer_directly_reviewed": true,
+    "screenshot_attempts": 2,
+    "screenshot_success": false,
+    "screenshot_failure_reason": "WEB_PDF_SCREENSHOT_TIMEOUT",
+    "secondary_container_download_attempted": true,
+    "secondary_container_download_success": false,
+    "visual_page_image_directly_reviewed": false
+  },
+  "paragraph_context": {
+    "section_heading": "一、珍贵典籍的搜访与整理",
+    "parent_claim": "王重民任北京图书馆代理馆长期间，通过多种形式补充文献，配合主渠道丰富馆藏",
+    "category_number": "一",
+    "category_scope": "接收政府调拨的珍贵文献",
+    "contiguous_qu_tieqin_sequence": "江苏瞿氏铁琴一张、铁琴铜剑楼匾额1方、善本书20种及收购书190种",
+    "followed_by_separate_culture_ministry_allocation": "宋、元、明刻本善本图书53种240册",
+    "qu_cluster_scope_assessment": "HIGH_CONFIDENCE_GRAMMATICAL_CONTIGUITY_NOT_ITEMIZED_LEDGER"
+  },
+  "institutional_retrospective_control": {
+    "qu_tieqin_instrument_count": 1,
+    "qu_tieqin_plaque_count": 1,
+    "rare_book_title_count_display": 20,
+    "purchased_book_title_count_display": 190,
+    "donation_word_literal_attached_to_20": false,
+    "purchase_word_literal_attached_to_190": true,
+    "source_is_contemporaneous_1950_ledger": false,
+    "source_is_modern_nlc_institutional_retrospective": true,
+    "exact_batch_date_for_20": "UNRESOLVED",
+    "exact_batch_date_for_190": "UNRESOLVED",
+    "exact_title_list_for_20": "UNRESOLVED",
+    "exact_title_list_for_190": "UNRESOLVED",
+    "exact_accession_identifiers": "UNRESOLVED",
+    "exact_price_or_payment_record": "UNRESOLVED"
+  },
+  "relation_to_prior_counts": {
+    "fp_mixed_transfer_program_remains_closed": true,
+    "fp_secondary_reported_1950_03_purchase_123_titles_not_reconciled_to_190": true,
+    "fp_secondary_reported_1953_purchase_300_plus_titles_not_reconciled_to_190": true,
+    "public_reports_of_1950_march_20_title_donation_not_silently_equated_to_this_20": true,
+    "count_normalization_authorized": false,
+    "reason": "DIFFERENT_RETROSPECTIVE_SOURCES_MAY_HAVE_DIFFERENT_BATCH_OR_AGGREGATION_SCOPE_AND_12HA_HAS_NO_DIRECT_ACCESSION_LEDGER"
+  },
+  "target_volume_firewall": {
+    "target_titles": [
+      "铜壶漏箭制度",
+      "准斋心制几漏图式"
+    ],
+    "historical_catalog_numbers": [
+      3482,
+      3483
+    ],
+    "current_catalog_number_candidates": [
+      "03482",
+      "03483"
+    ],
+    "target_named_in_source": false,
+    "target_number_named_in_source": false,
+    "huang_shiliju_1823_one_volume_fingerprint_named": false,
+    "target_in_20_title_component": "UNRESOLVED",
+    "target_in_190_title_component": "UNRESOLVED",
+    "target_specific_purchase_route_selected": false,
+    "target_specific_donation_route_selected": false,
+    "target_exact_acquisition_date": "UNRESOLVED",
+    "final_nlc_acquisition_transfer_path": "UNRESOLVED"
+  },
+  "adjudication": {
+    "nlc_2023_tieqin_20_190_cluster": "CLOSED_AT_MODERN_INSTITUTIONAL_RETROSPECTIVE_LEVEL",
+    "collection_level_mixed_transfer_independent_support_increment": 1,
+    "contemporaneous_ledger_increment": 0,
+    "target_item_transaction_increment": 0,
+    "acquisition_edge_authorized": false
+  },
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_added": [],
+    "direct_copy_edge_authorized": false,
+    "same_object_edge_authorized": false,
+    "acquisition_edge_authorized": false
+  },
+  "chronology_and_rule_firewall": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_count_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 14,
+    "repaired_provenance_metadata_defect_count": 14,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Trace the NLC 2023 retrospective's 20-title and 190-title counts to its underlying Beijing Library/NLC work reports, accession ledgers, acquisition lists or transfer records.",
+    "Do not reconcile 190 with secondary-reported 123 or 300+ purchase counts until direct batch scope is known.",
+    "Search the underlying direct records for 铜壶漏箭制度, 准斋心制几漏图式, 3482/3483, 03482/03483, or the 1823 Huang/Shiliju one-volume fingerprint.",
+    "Continue direct 1997 《北京图书馆馆史资料汇编（二）》 pp.446—449, Ji Shuying chapter 9, 2004 《冀淑英文集》 p.335/final 編后記 and 2010 supplement discovery in parallel."
+  ],
+  "updated_at": "2026-09-27"
+}
