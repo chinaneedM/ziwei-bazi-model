@@ -57,7 +57,8 @@ jobs:
           state=json.loads(Path('docs/PROJECT-CURRENT-STATE-R1.json').read_text(encoding='utf-8'))
           assert tuple(int(x) for x in state['schema_version'].split('.')) >= (1,214,0)
           assert bid in state['historical_audit']['completed_batches']
-          assert state['historical_audit']['latest_batch_doc']=='docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CAI-CHENGPU-2026-TIEQIN-1950-1954-FOUR-TRANSFER-699-AGGREGATE-SCOPE-HB.md'
+          latest=state['historical_audit']['latest_batch_doc']
+          assert isinstance(latest,str) and latest.startswith('docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-') and latest.endswith('.md')
           reg=json.loads(Path('docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json').read_text(encoding='utf-8'))
           src={x.get('source_id'):x for x in reg['sources']}
           assert src['EXT-STUDYTIMES-CAI-2026-TIEQIN-1950-1954-699-AGGREGATE']['batch_12hb']['later_aggregate_title_count']==699

@@ -222,6 +222,8 @@ ZIWEI_NLC_WANGCHONGMIN_12HA_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENA
 ZIWEI_NLC_WANGCHONGMIN_12HA_EVIDENCE = ROOT / "docs/research/ZIWEI-NLC-WANGCHONGMIN-TIEQIN-20-DONATION-190-PURCHASE-INSTITUTIONAL-RETROSPECTIVE-SCOPE-R1.json"
 ZIWEI_CAI_TIEQIN_12HB_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CAI-CHENGPU-2026-TIEQIN-1950-1954-FOUR-TRANSFER-699-AGGREGATE-SCOPE-HB.md"
 ZIWEI_CAI_TIEQIN_12HB_EVIDENCE = ROOT / "docs/research/ZIWEI-CAI-CHENGPU-2026-TIEQIN-1950-1954-FOUR-TRANSFER-699-AGGREGATE-SCOPE-R1.json"
+ZIWEI_NLC_TIEQIN_12HC_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-2020-TIEQIN-700PLUS-DING-FUBAO-SIX-BOOK-INTERMEDIARY-TRANSFER-SCOPE-HC.md"
+ZIWEI_NLC_TIEQIN_12HC_EVIDENCE = ROOT / "docs/research/ZIWEI-NLC-2020-TIEQIN-700PLUS-DING-FUBAO-SIX-BOOK-INTERMEDIARY-TRANSFER-SCOPE-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -559,9 +561,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-WENJIN-XUEZHI-V3-NLCPRESS-GENERIC-RELATED-DOWNLOAD-TEMPLATE-CORRECTION-GZ",
     "BATCH-12-ZIWEI-NLC-WANGCHONGMIN-TIEQIN-20-DONATION-190-PURCHASE-INSTITUTIONAL-RETROSPECTIVE-SCOPE-HA",
     "BATCH-12-ZIWEI-CAI-CHENGPU-2026-TIEQIN-1950-1954-FOUR-TRANSFER-699-AGGREGATE-SCOPE-HB",
+    "BATCH-12-ZIWEI-NLC-2020-TIEQIN-700PLUS-DING-FUBAO-SIX-BOOK-INTERMEDIARY-TRANSFER-SCOPE-HC",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CAI-CHENGPU-2026-TIEQIN-1950-1954-FOUR-TRANSFER-699-AGGREGATE-SCOPE-HB.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-2020-TIEQIN-700PLUS-DING-FUBAO-SIX-BOOK-INTERMEDIARY-TRANSFER-SCOPE-HC.md"
 
 
 def fail(message: str) -> None:
@@ -7590,6 +7593,55 @@ def main() -> int:
         fail("Batch 12HB missing from completed batch state")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12HB latest-batch document state mismatch")
+
+    # Batch 12HC: NLC-hosted 700+ aggregate and Ding Fubao six-book intermediary route.
+    for path in (ZIWEI_NLC_TIEQIN_12HC_BATCH, ZIWEI_NLC_TIEQIN_12HC_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12HC continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12hc=json.loads(ZIWEI_NLC_TIEQIN_12HC_EVIDENCE.read_text(encoding="utf-8"))
+    bid12hc="BATCH-12-ZIWEI-NLC-2020-TIEQIN-700PLUS-DING-FUBAO-SIX-BOOK-INTERMEDIARY-TRANSFER-SCOPE-HC"
+    if batch12hc.get("batch_id") != bid12hc:
+        fail("Batch 12HC evidence identity mismatch")
+    q12hc=batch12hc.get("direct_qu_family_aggregate",{})
+    if q12hc.get("approximate_rare_book_title_count") != "700+" or q12hc.get("transaction_wording") != "捐献、转让":
+        fail("Batch 12HC Qu aggregate regressed")
+    if q12hc.get("transfer_means_purchase_or_sale") != "NOT_PROVED":
+        fail("Batch 12HC transfer wording firewall regressed")
+    d12hc=batch12hc.get("ding_fubao_intermediary_route",{})
+    if d12hc.get("intermediary_person") != "丁福保" or d12hc.get("purchased_from_tieqin_dispersal_title_count") != 6 or d12hc.get("onward_donation_to_nlc") is not True:
+        fail("Batch 12HC Ding intermediary route regressed")
+    if d12hc.get("explicitly_named_example") != "忘忧清乐集":
+        fail("Batch 12HC Ding named example regressed")
+    topo12hc=batch12hc.get("transfer_topology_firewall",{})
+    if topo12hc.get("direct_qu_to_nlc_only_model_rejected_as_universal") is not True or topo12hc.get("ding_fubao_target_intermediary") != "NOT_PROVED":
+        fail("Batch 12HC transfer-topology firewall regressed")
+    target12hc=batch12hc.get("target_volume_firewall",{})
+    if target12hc.get("target_in_direct_qu_700plus") != "UNRESOLVED" or target12hc.get("target_in_ding_fubao_six") != "UNRESOLVED":
+        fail("Batch 12HC target membership regressed")
+    if any(target12hc.get(k) for k in ("target_specific_purchase_route_selected","target_specific_donation_route_selected","target_specific_intermediary_route_selected")):
+        fail("Batch 12HC target route firewall regressed")
+    srcreg12hc=next((x for x in registry.get("sources",()) if x.get("source_id")=="EXT-NLC-PCAB-2020-TIEQIN-700PLUS-DING-FUBAO-SIX-BOOK-ROUTE"),None)
+    if srcreg12hc is None or srcreg12hc.get("batch_12hc",{}).get("ding_fubao_intermediary_purchase_title_count") != 6:
+        fail("Batch 12HC registry binding missing")
+    trans12hc=batch12hc.get("transmission_impact",{})
+    if trans12hc.get("nodes_added") != [] or trans12hc.get("edges_added") != [] or trans12hc.get("acquisition_edge_authorized") is not False:
+        fail("Batch 12HC genealogy firewall regressed")
+    rule12hc=batch12hc.get("chronology_and_rule_firewall",{})
+    if rule12hc.get("runtime_rule_change") is not False or rule12hc.get("algorithm_reopen_authorized") is not False or rule12hc.get("candidate_collapse_authorized") is not False or rule12hc.get("matrix_count_change") is not False:
+        fail("Batch 12HC product/matrix firewall regressed")
+    acct12hc=batch12hc.get("accounting",{})
+    if acct12hc.get("matrix_rows") != 198 or acct12hc.get("audited_rows") != 166 or acct12hc.get("current_missing_from_product_rows") != 10 or acct12hc.get("confirmed_chart_algorithm_defect_count") != 0:
+        fail("Batch 12HC accounting regressed")
+    try:
+        schema12hc=tuple(int(part) for part in state.get("schema_version","0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12HC current-state schema version is not numeric")
+    if schema12hc < (1,215,0):
+        fail("Batch 12HC current-state schema version regressed below 1.215.0")
+    if bid12hc not in audit_state.get("completed_batches",()):
+        fail("Batch 12HC missing from completed batch state")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12HC latest-batch document state mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")
