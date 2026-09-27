@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.230.0",
+  "schema_version": "1.231.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -39,8 +39,8 @@
     "external_source_registry": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json",
     "row_count": 198,
     "audited_row_count": 166,
-    "confirmed_provenance_metadata_defect_count": 14,
-    "repaired_provenance_metadata_defect_count": 14,
+    "confirmed_provenance_metadata_defect_count": 15,
+    "repaired_provenance_metadata_defect_count": 15,
     "historical_candidate_registry_count": 3,
     "historical_candidate_runtime_resolver_count": 3,
     "identified_missing_candidate_family_count": 14,
@@ -312,9 +312,10 @@
       "BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID070-PROVENANCE-SEAL-VISUAL-BOUNDARY-HO",
       "BATCH-12-ZIWEI-BEITU1959-ZUOZHUAN-QU-DONATION-FID070-TIEQIN-IDENTITY-CLOSURE-HP",
       "BATCH-12-ZIWEI-NLC-2026-RAREBOOK-CALLNUMBER-FORMAT-3388-CURRENT-SEARCH-BOUNDARY-HQ",
-      "BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID070-CURRENT-SYS-UID-SEARCH-CROSSWALK-HR"
+      "BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID070-CURRENT-SYS-UID-SEARCH-CROSSWALK-HR",
+      "BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID070-905S03288-BOOKNO3288-FORWARD-CORRECTION-HS"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID070-CURRENT-SYS-UID-SEARCH-CROSSWALK-HR.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID070-905S03288-BOOKNO3288-FORWARD-CORRECTION-HS.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -1384,7 +1385,14 @@
       "The 12HR workflow run 36317095311 / job 108613744263 was cancelled only after the search phase printed the target rows; the later detail loop timed out. Therefore the emitted SYS/UID search result is retained, while unobserved 905s and physical shelfmark remain UNRESOLVED.",
       "Composite with the already closed FID412004000070 32-book object fingerprint yields CURRENT_NLC_SYS_UID_CROSSWALK=HIGH_CONFIDENCE_AT_CURRENT_SEARCH_RESULT_AND_PRIOR_32CE_OBJECT_FINGERPRINT_LEVEL. This does not authorize 3388=03388, does not infer a 3368→3388 renumbering rule, and does not close the exact Qu accession batch/date.",
       "Batch 12HR changes no Matrix count, runtime rule, algorithm reopen, candidate collapse or transmission genealogy topology. Accounting remains 198 / 166 / 10, provenance defects 14/14 repaired and chart algorithm defects 0.",
-      "Highest next gate: retrieve current detail/holding metadata for UCS01003868188 / SYS 002838237, especially 905s or an equivalent physical call-number/shelfmark; then continue direct 3368↔3388 succession documentation, exact Qu accession batch/date and Zhang Lijuan 2018 full-text retrieval."
+      "Highest next gate: retrieve current detail/holding metadata for UCS01003868188 / SYS 002838237, especially 905s or an equivalent physical call-number/shelfmark; then continue direct 3368↔3388 succession documentation, exact Qu accession batch/date and Zhang Lijuan 2018 full-text retrieval.",
+      "Batch 12HS closes the current NLC local holdings locator for the FID070 target at 905 tuple NLC / SBYL / 03288 (UID UCS01003868188 / SYS 002838237). Focused run 36319489516 / job 108620434290 returned HTTP 200 on first attempt and artifact 10932075967 (sha256:7fffceaac4ab10128ca638bfb79924649056663520c8bef217f332ff3d2b757d).",
+      "Batch 12HS forward-corrects the 1987 target book number: magnified direct visual reinspection of the hash-bound 1987 catalog p.104 reads 三二八八=3288, not the earlier project misreading 3388. This is PROV-DEFECT-015 and is repaired forward-only; HN-HR artifacts remain unchanged as auditable prior state.",
+      "The same-page Liu Shugang control independently closes 8643 -> current 905s 08643 / 3165 NLC:SBYL:08643, while the corrected target closes 3288 -> 03288. The former 03388 target-search hypothesis is rejected; blind zero-padding outside directly checked records remains forbidden.",
+      "1959 target number 3368 remains direct and distinct. The adjacent shared 春秋左傳註疏六十卷 stays 10010 in both 1959 and 1987, disproving a blanket local arithmetic offset; the exact 3368 -> 3288 catalog correction/succession mechanism remains UNRESOLVED.",
+      "A catalog-description tension remains: 1987 target says 十行十七字 while current NLC detail says 10行16字. It is retained as unresolved metadata variation and does not override the direct 3288 -> 03288 identifier bridge.",
+      "Batch 12HS changes no deterministic chart rule, Matrix row/audited count, runtime candidate or transmission topology. Accounting is now 198 rows / 166 audited / 10 MISSING_FROM_PRODUCT / provenance defects 15/15 repaired / chart algorithm defects 0.",
+      "Highest next gate: recover direct 1959 3368 -> 1987/current 3288 catalog-preparation/correction evidence; resolve exact Qu donation/accession batch/date; continue Zhang Lijuan 2018 full text; investigate the 17-vs-16 format-note tension separately."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10
