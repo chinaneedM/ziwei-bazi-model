@@ -1,0 +1,179 @@
+name: probe-batch-12hm-nlc-zuozhuan-current
+
+on:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - '.github/workflows/probe-batch-12hm-nlc-zuozhuan-current.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Probe current NLC Zuozhuan rare-book records
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/batch-12hm-nlc-zuozhuan-current'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT/raw" "$ROOT/detail"
+          UA='Tianwen-Provenance-Audit/1.0'
+
+          cat > "$ROOT/queries.tsv" <<'EOF'
+          tit-trad-exact	附釋音春秋左傳注疏	TIT	true
+          tit-simp-exact	附释音春秋左传注疏	TIT	true
+          tit-trad-loose	附釋音春秋左傳注疏	TIT	false
+          tit-simp-loose	附释音春秋左传注疏	TIT	false
+          tit-short-trad	春秋左傳注疏	TIT	false
+          tit-short-simp	春秋左传注疏	TIT	false
+          any-tieqin-trad	鐵琴銅劍樓	ANY	false
+          any-tieqin-simp	铁琴铜剑楼	ANY	false
+          any-yuanprint	元刻元印	ANY	false
+          any-yuanrepair	元刻明修	ANY	false
+          EOF
+
+          : > "$ROOT/status.tsv"
+          while IFS=$'\t' read -r key q way exact; do
+            body=$(Q="$q" WAY="$way" EXACT="$exact" python - <<'PY'
+          import json,os
+          q=os.environ['Q']; way=os.environ['WAY']; exact=os.environ['EXACT'].lower()=='true'
+          print(json.dumps({
+            "q":q,
+            "searchWay":way,
+            "page_num":"1",
+            "query":q if way=="ANY" else way+"="+q,
+            "sort":[{"_score":"DESC"}],
+            "size":100,
+            "facetVal":[],
+            "exactMatch":exact
+          },ensure_ascii=False,separators=(',',':')))
+          PY
+            )
+            out="$ROOT/raw/$key.json"
+            set +e
+            code=$(curl -L -sS --connect-timeout 8 --max-time 40 \
+              -A "$UA" \
+              -H 'Accept: application/json, text/javascript, */*; q=0.01' \
+              -H 'X-Requested-With: XMLHttpRequest' \
+              -H 'Referer: https://meta.nlc.cn/v2/search' \
+              -H 'Content-Type: application/x-www-form-urlencoded; charset=UTF-8' \
+              --data-binary "$body" \
+              -o "$out" -w '%{http_code}' \
+              'https://meta.nlc.cn/v2/doSearch?hight=false')
+            rc=$?
+            set -e
+            size=0; [ -f "$out" ] && size=$(wc -c < "$out")
+            printf '%s\trc=%s\thttp=%s\tbytes=%s\tq=%s\tway=%s\texact=%s\n' "$key" "$rc" "$code" "$size" "$q" "$way" "$exact" >> "$ROOT/status.tsv"
+          done < "$ROOT/queries.tsv"
+
+          python - <<'PY'
+          from pathlib import Path
+          import json,re
+          root=Path('audit/batch-12hm-nlc-zuozhuan-current')
+          summary=[]; candidates={}
+          target_terms=('附釋音春秋左傳注疏','附释音春秋左传注疏','春秋左傳注疏','春秋左传注疏')
+          provenance_terms=('鐵琴','铁琴','銅劍','铜剑','瞿','元刻元印','元刻明修')
+          for p in sorted((root/'raw').glob('*.json')):
+              summary.append('### '+p.name)
+              try:
+                  obj=json.loads(p.read_text('utf-8'))
+              except Exception as e:
+                  summary.append('PARSE_ERROR '+repr(e)); continue
+              summary.append('status='+repr(obj.get('status'))+' total='+repr(obj.get('total'))+' message='+repr(obj.get('message')))
+              rows=obj.get('result') or []
+              for i,row in enumerate(rows,1):
+                  src=row.get('_source') or {}
+                  titles=src.get('TIT') or []
+                  if isinstance(titles,str): titles=[titles]
+                  blob=json.dumps(src,ensure_ascii=False,separators=(',',':'))
+                  title_text=' | '.join(map(str,titles))
+                  is_title=any(t in title_text for t in target_terms)
+                  is_prov=any(t in blob for t in provenance_terms)
+                  if is_title or (p.stem.startswith('any-') and is_prov):
+                      uid=src.get('UID') or row.get('_id')
+                      if uid:
+                          candidates[str(uid)]={"row":row,"query_file":p.name}
+                      summary.append(('TARGET_ROW ' if is_title else 'PROV_ROW ')+str(i)+' '+json.dumps(row,ensure_ascii=False,separators=(',',':')))
+                  elif i<=8:
+                      summary.append('TOP_ROW '+str(i)+' '+json.dumps(row,ensure_ascii=False,separators=(',',':')))
+          root.joinpath('summary.txt').write_text('\n'.join(summary)+'\n',encoding='utf-8')
+          root.joinpath('candidates.json').write_text(json.dumps(candidates,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          root.joinpath('candidate-uids.txt').write_text('\n'.join(candidates)+'\n',encoding='utf-8')
+          PY
+
+          : > "$ROOT/detail-status.tsv"
+          while IFS= read -r uid; do
+            [ -z "$uid" ] && continue
+            out="$ROOT/detail/$uid.json"
+            set +e
+            code=$(curl -L -sS --connect-timeout 8 --max-time 40 \
+              -A "$UA" \
+              -H 'Accept: application/json, text/javascript, */*; q=0.01' \
+              -H 'X-Requested-With: XMLHttpRequest' \
+              -H "Referer: https://meta.nlc.cn/v2/detail/$uid" \
+              -X POST -o "$out" -w '%{http_code}' \
+              "https://meta.nlc.cn/api/v1/item/$uid/1/999")
+            rc=$?
+            set -e
+            size=0; [ -f "$out" ] && size=$(wc -c < "$out")
+            printf '%s\trc=%s\thttp=%s\tbytes=%s\n' "$uid" "$rc" "$code" "$size" >> "$ROOT/detail-status.tsv"
+          done < "$ROOT/candidate-uids.txt"
+
+          python - <<'PY'
+          from pathlib import Path
+          import json,re
+          root=Path('audit/batch-12hm-nlc-zuozhuan-current')
+          out=[]
+          keys=['001','035a','049b','049c','200a','200b','200f','205a','210a','210c','210d','215a',
+                '300a','305a','307a','316a','3165','317a','318a','321a','423a','4231','455a','4551',
+                '610a','690a','701a','702a','711a','712a','801a','801b','801c','852a','905a','905b',
+                '905q','905s','910n','910l']
+          prov=re.compile(r'鐵琴|铁琴|銅劍|铜剑|瞿|元刻|宋刻|明修|元印|善本|捐|购|購|旧藏|舊藏')
+          for p in sorted((root/'detail').glob('*.json')):
+              out.append('### '+p.name)
+              try: obj=json.loads(p.read_text('utf-8'))
+              except Exception as e: out.append('PARSE_ERROR '+repr(e)); continue
+              res=obj.get('result') or {}
+              bib=res.get('biblio') or {}
+              es=res.get('esBook') or {}
+              out.append('ESBOOK '+json.dumps({k:es.get(k) for k in ('SYS','UID','WDT','YEA','PUB','PAG','TIT','AUT','holdings')},ensure_ascii=False,separators=(',',':')))
+              out.append('BIBLIO '+json.dumps({k:bib.get(k) for k in keys if k in bib},ensure_ascii=False,separators=(',',':')))
+              out.append('HOLDING '+json.dumps(res.get('holding'),ensure_ascii=False,separators=(',',':')))
+              raw=json.dumps(res,ensure_ascii=False,separators=(',',':'))
+              hits=sorted(set(prov.findall(raw)))
+              out.append('PROVENANCE_TOKENS '+json.dumps(hits,ensure_ascii=False))
+          root.joinpath('detail-summary.txt').write_text('\n'.join(out)+'\n',encoding='utf-8')
+          print('===== STATUS =====')
+          print(root.joinpath('status.tsv').read_text('utf-8'))
+          print('===== SEARCH SUMMARY =====')
+          print(root.joinpath('summary.txt').read_text('utf-8')[:120000])
+          print('===== DETAIL STATUS =====')
+          print(root.joinpath('detail-status.tsv').read_text('utf-8'))
+          print('===== DETAIL SUMMARY =====')
+          print(root.joinpath('detail-summary.txt').read_text('utf-8')[:120000])
+          PY
+
+          find "$ROOT" -type f -size +0c -print0 | xargs -0 -r sha256sum | sort -V > "$ROOT/all-files.sha256"
+          printf '%s\n' \
+            'SOURCE=National Library of China current meta.nlc.cn /v2/doSearch plus /api/v1/item detail API' \
+            'PURPOSE=enumerate current records for 附釋音春秋左傳注疏 and resolve the modern SYS/UID/local-holdings identity of the Tieqin old-collection Yuan-engraved Yuan-impression ten-line copy' \
+            'QUERY_SCOPE=exact+loose title variants plus bounded provenance-term controls' \
+            'IDENTIFIER_FIREWALL=current SYS/UID != 905 local call number != digital fid != barcode != historical acquisition/donation identifier unless directly field-bound' \
+            'NEGATIVE_POLICY=zero result/timeout/nonmatching row is a current route/index observation only' \
+            'OCR_USED=false' > "$ROOT/manifest.txt"
+
+      - name: Upload Zuozhuan current-record probe
+        uses: actions/upload-artifact@v4
+        with:
+          name: batch-12hm-nlc-zuozhuan-current-probe
+          path: audit/batch-12hm-nlc-zuozhuan-current/
+          if-no-files-found: error
+          retention-days: 30
