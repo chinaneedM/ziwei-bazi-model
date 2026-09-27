@@ -204,3 +204,33 @@ jobs:
               context: resultContext.slice(0, 100),
               description: 'Machine-readable Batch 12HS target-detail outcome'
             })
+            await github.rest.repos.createCommitStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              sha: context.sha,
+              state: 'success',
+              context: ('tianwen/batch-12hs-run/' + context.runId).slice(0, 100),
+              description: 'GitHub Actions run id for Batch 12HS evidence'
+            })
+            if (fs.existsSync(p)) {
+              try {
+                const o = JSON.parse(fs.readFileSync(p, 'utf8'))
+                const b = ((o.result || {}).biblio || {})
+                const cleanField = v => String(Array.isArray(v) ? v.join(',') : v)
+                  .replace(/\s+/g, '')
+                  .replace(/[^0-9A-Za-z._:\-\u4e00-\u9fff]/g, '_')
+                  .slice(0, 52)
+                for (const key of ['905a','905b','905q','905s','852a','910n','910l']) {
+                  if (b[key] !== undefined && b[key] !== null && String(b[key]).length) {
+                    await github.rest.repos.createCommitStatus({
+                      owner: context.repo.owner,
+                      repo: context.repo.repo,
+                      sha: context.sha,
+                      state: 'success',
+                      context: ('tianwen/batch-12hs-field/' + key + ':' + cleanField(b[key])).slice(0, 100),
+                      description: 'Direct target detail field from current NLC response'
+                    })
+                  }
+                }
+              } catch (e) {}
+            }
