@@ -8735,8 +8735,8 @@
       "provider": "国家图书馆出版社",
       "identifier": "ProductView Id=4396 / ISBN 978-7-5013-4085-9",
       "url": "https://www.nlcpress.com/ProductView.aspx?Id=4396",
-      "source_role": "FIRST_PARTY_PUBLISHER_PRODUCT_IDENTITY_AND_OFFICIAL_TXT_TOC_ATTACHMENT_SURFACE_FOR_WENJIN_XUEZHI_V3",
-      "quality_notes": "Batch 12GX directly reviews the first-party publisher product page. It exposes exact volume metadata and the labels 图书文件下载（TXT） and 目录附件下载. The reviewed text interface does not expose the underlying attachment URLs; no attachment bytes, article byline or page range were recovered, and no endpoint was guessed.",
+      "source_role": "FIRST_PARTY_PUBLISHER_PRODUCT_IDENTITY_AND_GENERIC_RELATED_DOWNLOAD_LABEL_OBSERVATION_FOR_WENJIN_XUEZHI_V3_ATTACHMENT_OBJECT_EXISTENCE_UNRESOLVED",
+      "quality_notes": "Batch 12GX directly reviews the first-party publisher product page. It exposes exact volume metadata and the labels 图书文件下载（TXT） and 目录附件下载. The reviewed text interface does not expose the underlying attachment URLs; no attachment bytes, article byline or page range were recovered, and no endpoint was guessed. Batch 12GZ cross-product first-party controls show the same TXT/目录 label pair recurring on multiple unrelated product pages, including a future-dated 2030 listing. The literal labels remain valid, but label presence alone is no longer accepted as proof that product 4396 has product-specific attachment objects.",
       "batch_12gx": {
         "product_id": 4396,
         "isbn": "978-7-5013-4085-9",
@@ -8749,6 +8749,16 @@
         "attachment_bytes_recovered": false,
         "external_action_taken": false,
         "research_artifact": "docs/research/ZIWEI-WENJIN-XUEZHI-V3-NLCPRESS-OFFICIAL-DOWNLOAD-SURFACE-BOUNDARY-R1.json"
+      },
+      "source_role_original_batch_12gx": "FIRST_PARTY_PUBLISHER_PRODUCT_IDENTITY_AND_OFFICIAL_TXT_TOC_ATTACHMENT_SURFACE_FOR_WENJIN_XUEZHI_V3",
+      "revision_by_batch_12gz": {
+        "revised_on": "2026-09-27",
+        "original_literal_label_observation_retained": true,
+        "old_attachment_surface_inference": "SUPERSEDED_FOR_CURRENT_INFERENCE",
+        "product_specific_attachment_object_existence": "UNRESOLVED",
+        "direct_attachment_url": "UNRESOLVED",
+        "attachment_bytes": "NOT_RECOVERED",
+        "research_artifact": "docs/research/ZIWEI-WENJIN-XUEZHI-V3-NLCPRESS-GENERIC-RELATED-DOWNLOAD-TEMPLATE-CORRECTION-R1.json"
       }
     },
     {
@@ -8781,6 +8791,41 @@
         "attachment_bytes_recovered": false,
         "external_action_taken": false,
         "research_artifact": "docs/research/ZIWEI-WENJIN-XUEZHI-V3-NLCPRESS-PUBLIC-RESOURCE-CENTER-CROSSCHECK-BOUNDARY-R1.json"
+      },
+      "revision_by_batch_12gz": {
+        "revised_on": "2026-09-27",
+        "product_local_labels_semantics": "LITERAL_OBSERVATION_ONLY",
+        "product_specific_attachment_object_existence": "UNRESOLVED",
+        "research_artifact": "docs/research/ZIWEI-WENJIN-XUEZHI-V3-NLCPRESS-GENERIC-RELATED-DOWNLOAD-TEMPLATE-CORRECTION-R1.json"
+      }
+    },
+    {
+      "source_id": "EXT-NLCPRESS-RELATED-DOWNLOAD-LABEL-TEMPLATE-COMPARATORS",
+      "title": "国家图书馆出版社产品页“相关下载”通用标签跨产品对照",
+      "author": "国家图书馆出版社",
+      "historical_period": "2016 / 2020 / 2024 product pages plus future-dated 2030 listing, reviewed 2026-09-27",
+      "provider": "国家图书馆出版社",
+      "identifier": "ProductView Id=9992 / 11285 / 12345 / 12455",
+      "url": "https://www.nlcpress.com/ProductView.aspx?Id=11285",
+      "additional_urls": [
+        "https://www.nlcpress.com/ProductView.aspx?Id=9992",
+        "https://www.nlcpress.com/ProductView.aspx?Id=12345",
+        "https://www.nlcpress.com/ProductView.aspx?Id=12455"
+      ],
+      "source_role": "FIRST_PARTY_CROSS_PRODUCT_TEMPLATE_CONTROL_FOR_RELATED_DOWNLOAD_LABEL_SEMANTICS",
+      "quality_notes": "Four first-party product pages expose the identical 图书文件下载（TXT）/目录附件下载 label pair across different dates, stock states and product families. The 2030-dated listing is explicitly treated as a future-dated page relative to the 2026 review, not as a completed publication. The comparator set supports a generic/template-like control interpretation; it does not prove attachment absence.",
+      "batch_12gz": {
+        "comparator_product_ids": [
+          9992,
+          11285,
+          12345,
+          12455
+        ],
+        "identical_related_download_label_pair": true,
+        "generic_template_like_control": "HIGH_CONFIDENCE",
+        "label_presence_alone_proves_product_specific_attachment_object": false,
+        "target_product_4396_attachment_object_existence": "UNRESOLVED",
+        "research_artifact": "docs/research/ZIWEI-WENJIN-XUEZHI-V3-NLCPRESS-GENERIC-RELATED-DOWNLOAD-TEMPLATE-CORRECTION-R1.json"
       }
     }
   ],

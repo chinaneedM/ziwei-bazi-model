@@ -1,0 +1,139 @@
+{
+  "schema": "ZIWEI-WENJIN-XUEZHI-V3-NLCPRESS-GENERIC-RELATED-DOWNLOAD-TEMPLATE-CORRECTION-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-WENJIN-XUEZHI-V3-NLCPRESS-GENERIC-RELATED-DOWNLOAD-TEMPLATE-CORRECTION-GZ",
+  "prior_batch_id": "BATCH-12-ZIWEI-WENJIN-XUEZHI-V3-NLCPRESS-PUBLIC-RESOURCE-CENTER-CROSSCHECK-BOUNDARY-GY",
+  "question": "Does the literal appearance of 图书文件下载（TXT） and 目录附件下载 on National Library of China Press product 4396 prove that product-specific attachment objects exist for 《文津学志（第三辑）》?",
+  "answer": "No. The literal labels on product 4396 remain a valid first-party page observation, but cross-product controls show the same pair of labels recurring unchanged on multiple other NLC Press product pages across 2016, 2020 and 2024, and even on a future-dated 2030 product listing that currently exposes no directory block. Combined with Batch 12GY's global public resource-center nonlisting for product 4396, the labels are best classified as generic/template-like related-download controls. Label presence alone is insufficient to establish that product 4396 has product-specific TXT/TOC attachment objects. Product-specific attachment-object existence, direct URLs and bytes remain unresolved. This forward revision supersedes only the evidence-strength interpretation in 12GX/12GY; it does not erase their literal observations and changes no chart rule, Matrix row, genealogy edge or product invariant.",
+  "supersedes_interpretation_from_batches": [
+    "BATCH-12-ZIWEI-WENJIN-XUEZHI-V3-NLCPRESS-OFFICIAL-DOWNLOAD-SURFACE-BOUNDARY-GX",
+    "BATCH-12-ZIWEI-WENJIN-XUEZHI-V3-NLCPRESS-PUBLIC-RESOURCE-CENTER-CROSSCHECK-BOUNDARY-GY"
+  ],
+  "target_product": {
+    "product_id": 4396,
+    "title": "文津学志（第三辑）",
+    "isbn": "978-7-5013-4085-9",
+    "literal_labels_observed_on_first_party_page": [
+      "图书文件下载（TXT）",
+      "目录附件下载"
+    ],
+    "literal_label_observation_retained": true
+  },
+  "first_party_template_comparators": [
+    {
+      "product_id": 9992,
+      "title": "文津学志（第九辑）",
+      "publication_date_display": "2016-08-01",
+      "stock_display": "无书",
+      "url": "https://www.nlcpress.com/ProductView.aspx?Id=9992",
+      "related_download_labels": [
+        "图书文件下载（TXT）",
+        "目录附件下载"
+      ],
+      "same_label_pair_as_product_4396": true
+    },
+    {
+      "product_id": 11285,
+      "title": "文津学志（第十四辑）",
+      "publication_date_display": "2020-11-17",
+      "stock_display": "有书",
+      "url": "https://www.nlcpress.com/ProductView.aspx?Id=11285",
+      "related_download_labels": [
+        "图书文件下载（TXT）",
+        "目录附件下载"
+      ],
+      "same_label_pair_as_product_4396": true
+    },
+    {
+      "product_id": 12345,
+      "title": "文津学志（第二十一辑）",
+      "publication_date_display": "2024-01-31",
+      "stock_display": "有书",
+      "url": "https://www.nlcpress.com/ProductView.aspx?Id=12345",
+      "related_download_labels": [
+        "图书文件下载（TXT）",
+        "目录附件下载"
+      ],
+      "same_label_pair_as_product_4396": true
+    },
+    {
+      "product_id": 12455,
+      "title": "郑振铎藏文献保存同志会档案文献汇编（全八册）",
+      "publication_date_display": "2030-09-30",
+      "review_date": "2026-09-27",
+      "future_dated_listing_relative_to_review": true,
+      "stock_display": "无书",
+      "directory_block_exposed_in_reviewed_text_surface": false,
+      "url": "https://www.nlcpress.com/ProductView.aspx?Id=12455",
+      "related_download_labels": [
+        "图书文件下载（TXT）",
+        "目录附件下载"
+      ],
+      "same_label_pair_as_product_4396": true
+    }
+  ],
+  "global_resource_center_control_carried_forward": {
+    "url": "https://www.nlcpress.com/DownLoadList.aspx?Rid=2",
+    "current_toc_partial_content_listed_record_count": 1,
+    "sole_current_record": "《中国图书馆馆史》（全四册）综合索引",
+    "product_4396_listed": false,
+    "this_nonlisting_does_not_prove_attachment_nonexistence": true
+  },
+  "evidence_strength_revision": {
+    "labels_are_generic_template_like_controls": "HIGH_CONFIDENCE",
+    "label_presence_alone_proves_product_specific_attachment_object": false,
+    "gx_original_official_download_surface_exists_interpretation": "SUPERSEDED_FOR_CURRENT_INFERENCE",
+    "gy_product_local_labels_remain_valid_interpretation": "LITERAL_LABEL_OBSERVATION_ONLY",
+    "product_4396_product_specific_txt_attachment_object_existence": "UNRESOLVED",
+    "product_4396_product_specific_toc_attachment_object_existence": "UNRESOLVED",
+    "product_4396_direct_attachment_urls": "UNRESOLVED",
+    "product_4396_attachment_bytes": "NOT_RECOVERED",
+    "normal_interactive_browser_may_still_expose_product_specific_target": "UNRESOLVED_NOT_NEGATED"
+  },
+  "article_level_adjudication": {
+    "supplement_article_title": "《〈冀淑英文集〉补遣》",
+    "supplement_article_author": "UNRESOLVED",
+    "supplement_article_page_range": "UNRESOLVED",
+    "supplement_article_body": "NOT_REVIEWED",
+    "supplement_article_footnotes": "NOT_REVIEWED"
+  },
+  "access_firewall": {
+    "guessed_download_endpoint_attempted": false,
+    "endpoint_enumeration_attempted": false,
+    "login_attempted": false,
+    "token_or_cookie_reuse_attempted": false,
+    "account_or_identity_transmitted": false,
+    "fee_incurred": false
+  },
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_added": [],
+    "direct_copy_edge_authorized": false,
+    "same_object_edge_authorized": false,
+    "acquisition_edge_authorized": false
+  },
+  "chronology_and_rule_firewall": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_count_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 14,
+    "repaired_provenance_metadata_defect_count": 14,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Treat product 4396 attachment-object existence as unresolved until a product-specific file object, href/action target, normal-browser download result, or independent first-party resource record is directly observed.",
+    "Continue article-level reverse-index discovery for 《〈冀淑英文集〉补遣》 author and exact page span.",
+    "Continue direct 2004 《冀淑英文集》 p.335/neighbouring pages and final 《編后記》 recovery.",
+    "Continue direct 1997 《北京图书馆馆史资料汇编（二）：1949—1966》 pp.446—449 collation in parallel.",
+    "Any library reference/copy request remains an explicit user-authorized external action."
+  ],
+  "updated_at": "2026-09-27"
+}
