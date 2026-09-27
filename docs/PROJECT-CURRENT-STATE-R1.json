@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.234.0",
+  "schema_version": "1.235.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -316,9 +316,10 @@
       "BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID070-905S03288-BOOKNO3288-FORWARD-CORRECTION-HS",
       "BATCH-12-ZIWEI-BEITU1959-1987-BOOKNO-3368-3288-RECOMPILATION-BOUNDARY-HT",
       "BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID070-16-17-FORMAT-AUTHORITY-TRIANGULATION-HU",
-      "BATCH-12-ZIWEI-SHANGGU2017-ZUOZHUAN-17CHAR-PUBLICATION-PREVIEW-CONTROL-HV"
+      "BATCH-12-ZIWEI-SHANGGU2017-ZUOZHUAN-17CHAR-PUBLICATION-PREVIEW-CONTROL-HV",
+      "BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID070-DIRECT-17CHAR-LINE-PHYSICAL-CONTROL-HW"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-SHANGGU2017-ZUOZHUAN-17CHAR-PUBLICATION-PREVIEW-CONTROL-HV.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID070-DIRECT-17CHAR-LINE-PHYSICAL-CONTROL-HW.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -1408,7 +1409,11 @@
       "Batch 12HV adds a third convergent 17/23 description layer from the public preview of Shanghai Ancient Books Press 2017 ISBN 9787532584055: the target is described as 元刻明修本 / ten lines / 17 main characters / double-line commentary 23 / 32 original books.",
       "The 2017 public layer is retailer-hosted publication metadata and preview text, not a directly reviewed printed facsimile leaf or first-party source-copy record. It exposes neither NLC:SBYL:03288, FID412004000070 nor Tieqin provenance, so exact same-object collapse into FID070 remains forbidden.",
       "Public FID070 book1 body previews were bounded separately: preliminary pages 4-6 are excluded, body begins at reviewed page 7, and pages 7-9 mix main text with double-line commentary. No reproducible physical 16/17 count is declared from casual visual counting.",
-      "Batch 12HV strengthens the evidence direction to LEAN_17_STRENGTHENED_BY_2017_PUBLICATION_PREVIEW, but PROV-DEFECT-016 is still NOT created; provenance defects remain 15/15 repaired. Highest gates are exact 2017 source-copy binding, direct FID070 multi-line count, Zhang Lijuan 2018 full text, target-specific 3368→3288 preparation evidence, and exact Qu accession batch/date."
+      "Batch 12HV strengthens the evidence direction to LEAN_17_STRENGTHENED_BY_2017_PUBLICATION_PREVIEW, but PROV-DEFECT-016 is still NOT created; provenance defects remain 15/15 repaired. Highest gates are exact 2017 source-copy binding, direct FID070 multi-line count, Zhang Lijuan 2018 full text, target-specific 3368→3288 preparation evidence, and exact Qu accession batch/date.",
+      "Batch 12HW adds the first direct object-level physical 17-character main-text line on FID070: first-book PDF p12 right leaf visibly reads 周禮有史官掌邦國四方之事達四方之志, exactly 17 large Han characters, with no OCR and no double-line commentary inside the counted sequence.",
+      "The direct sample disproves a literal uniform maximum-16-only interpretation of the physical page, but it does not yet prove the current NLC 10行16字 field is a catalog defect because 行X字 field semantics and exceptional-line handling remain uncontrolled.",
+      "Page 9 mixed main text and 音義 is explicitly excluded from counting, and short paragraph-break lines on p11 are not used as nominal-capacity evidence. PROV-DEFECT-016 remains NOT created; provenance defects stay 15/15 repaired.",
+      "Highest next gate: obtain a second clean full FID070 main-text line on another page plus catalog-field semantics; continue Zhang Lijuan 2018 full-text retrieval, exact 2017 facsimile source-copy binding, target-specific 3368→3288 preparation evidence and exact Qu accession batch/date."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10
