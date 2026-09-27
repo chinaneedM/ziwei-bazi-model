@@ -224,6 +224,8 @@ ZIWEI_CAI_TIEQIN_12HB_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AU
 ZIWEI_CAI_TIEQIN_12HB_EVIDENCE = ROOT / "docs/research/ZIWEI-CAI-CHENGPU-2026-TIEQIN-1950-1954-FOUR-TRANSFER-699-AGGREGATE-SCOPE-R1.json"
 ZIWEI_NLC_TIEQIN_12HC_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-2020-TIEQIN-700PLUS-DING-FUBAO-SIX-BOOK-INTERMEDIARY-TRANSFER-SCOPE-HC.md"
 ZIWEI_NLC_TIEQIN_12HC_EVIDENCE = ROOT / "docs/research/ZIWEI-NLC-2020-TIEQIN-700PLUS-DING-FUBAO-SIX-BOOK-INTERMEDIARY-TRANSFER-SCOPE-R1.json"
+ZIWEI_SONG_DING_12HD_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-SONG-YUNBIN-1950-0211-DING-HUIKANG-FUBAO-INTERMEDIARY-ROUTE-SCOPE-HD.md"
+ZIWEI_SONG_DING_12HD_EVIDENCE = ROOT / "docs/research/ZIWEI-SONG-YUNBIN-1950-0211-DING-HUIKANG-FUBAO-INTERMEDIARY-ROUTE-SCOPE-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -562,9 +564,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-NLC-WANGCHONGMIN-TIEQIN-20-DONATION-190-PURCHASE-INSTITUTIONAL-RETROSPECTIVE-SCOPE-HA",
     "BATCH-12-ZIWEI-CAI-CHENGPU-2026-TIEQIN-1950-1954-FOUR-TRANSFER-699-AGGREGATE-SCOPE-HB",
     "BATCH-12-ZIWEI-NLC-2020-TIEQIN-700PLUS-DING-FUBAO-SIX-BOOK-INTERMEDIARY-TRANSFER-SCOPE-HC",
+    "BATCH-12-ZIWEI-SONG-YUNBIN-1950-0211-DING-HUIKANG-FUBAO-INTERMEDIARY-ROUTE-SCOPE-HD",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-2020-TIEQIN-700PLUS-DING-FUBAO-SIX-BOOK-INTERMEDIARY-TRANSFER-SCOPE-HC.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-SONG-YUNBIN-1950-0211-DING-HUIKANG-FUBAO-INTERMEDIARY-ROUTE-SCOPE-HD.md"
 
 
 def fail(message: str) -> None:
@@ -7642,6 +7645,57 @@ def main() -> int:
         fail("Batch 12HC missing from completed batch state")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12HC latest-batch document state mismatch")
+
+    # Batch 12HD: Song Yunbin 1950-02-11 Ding-family intermediary route.
+    for path in (ZIWEI_SONG_DING_12HD_BATCH, ZIWEI_SONG_DING_12HD_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12HD continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12hd=json.loads(ZIWEI_SONG_DING_12HD_EVIDENCE.read_text(encoding="utf-8"))
+    bid12hd="BATCH-12-ZIWEI-SONG-YUNBIN-1950-0211-DING-HUIKANG-FUBAO-INTERMEDIARY-ROUTE-SCOPE-HD"
+    if batch12hd.get("batch_id") != bid12hd:
+        fail("Batch 12HD evidence identity mismatch")
+    s12hd=batch12hd.get("source_control",{})
+    if s12hd.get("explicit_date_heading") != "1950-02-11" or s12hd.get("direct_2016_page_reviewed") is not False:
+        fail("Batch 12HD source/direct-page boundary regressed")
+    d12hd=batch12hd.get("diary_intermediary_statement",{})
+    if d12hd.get("named_informant") != "赵万里（斐云）" or d12hd.get("intermediary_person") != "丁惠康":
+        fail("Batch 12HD informant/intermediary identity regressed")
+    if d12hd.get("intermediary_relation") != "丁福保之子" or d12hd.get("ding_side_funding_amount") != "千万元":
+        fail("Batch 12HD Ding relationship/funding control regressed")
+    if d12hd.get("purchase_scope_wording") != "购铁琴铜剑楼书如干种" or d12hd.get("onward_donor_display") != "丁福保":
+        fail("Batch 12HD purchase/donor wording regressed")
+    rel12hd=batch12hd.get("relation_to_hc",{})
+    if rel12hd.get("same_underlying_six_book_event") != "STRONGLY_COMPATIBLE_NOT_PROVED":
+        fail("Batch 12HD HC identity firewall regressed")
+    if rel12hd.get("hc_six_title_count_may_fill_hd_ruganzhong") is not False or rel12hd.get("hc_named_wangyou_qingleji_may_be_projected_into_hd") is not False:
+        fail("Batch 12HD cross-source projection firewall regressed")
+    target12hd=batch12hd.get("target_volume_firewall",{})
+    if target12hd.get("target_in_ding_intermediary_purchase") != "UNRESOLVED" or target12hd.get("ding_family_target_intermediary") != "NOT_PROVED":
+        fail("Batch 12HD target intermediary status regressed")
+    if any(target12hd.get(k) for k in ("target_specific_purchase_route_selected","target_specific_donation_route_selected","target_specific_intermediary_route_selected")):
+        fail("Batch 12HD target-route firewall regressed")
+    srcreg12hd=next((x for x in registry.get("sources",()) if x.get("source_id")=="EXT-SBKSC-SONG-YUNBIN-DIARY-1950-0211-TIEQIN-EXCERPT"),None)
+    if srcreg12hd is None or srcreg12hd.get("batch_12hd",{}).get("intermediary_person") != "丁惠康":
+        fail("Batch 12HD registry extension missing")
+    trans12hd=batch12hd.get("transmission_impact",{})
+    if trans12hd.get("nodes_added") != [] or trans12hd.get("edges_added") != [] or trans12hd.get("acquisition_edge_authorized") is not False:
+        fail("Batch 12HD genealogy firewall regressed")
+    rule12hd=batch12hd.get("chronology_and_rule_firewall",{})
+    if rule12hd.get("runtime_rule_change") is not False or rule12hd.get("algorithm_reopen_authorized") is not False or rule12hd.get("candidate_collapse_authorized") is not False or rule12hd.get("matrix_count_change") is not False:
+        fail("Batch 12HD product/matrix firewall regressed")
+    acct12hd=batch12hd.get("accounting",{})
+    if acct12hd.get("matrix_rows") != 198 or acct12hd.get("audited_rows") != 166 or acct12hd.get("current_missing_from_product_rows") != 10 or acct12hd.get("confirmed_chart_algorithm_defect_count") != 0:
+        fail("Batch 12HD accounting regressed")
+    try:
+        schema12hd=tuple(int(part) for part in state.get("schema_version","0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12HD current-state schema version is not numeric")
+    if schema12hd < (1,216,0):
+        fail("Batch 12HD current-state schema version regressed below 1.216.0")
+    if bid12hd not in audit_state.get("completed_batches",()):
+        fail("Batch 12HD missing from completed batch state")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12HD latest-batch document state mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")
