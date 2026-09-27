@@ -687,3 +687,14 @@ Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NL
 - Matrix/accounting remains 198 rows / 166 audited / 10 MISSING_FROM_PRODUCT / 16 of 16 provenance defects repaired; chart algorithm defects/reopens/candidate collapses remain 0.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID070-QUDONATION-CHRONOLOGY-FIREWALL-HY.md`. Research record: `docs/research/ZIWEI-NLC-ZUOZHUAN-FID070-QUDONATION-CHRONOLOGY-FIREWALL-R1.json`.
+
+
+## Progress — Batch 12HZ
+
+- Direct no-OCR cross-collation of the hash-bound 1959 pp.55–56 and 1987 p.104 scans expands the local number control around FID070 from one stable neighbor to three.
+- The shared local core preserves order as `7283 → 8643 → TARGET → 10010`. The three flanking records retain `7283`, `8643`, and `10010` in both catalogs; only the target changes `3368 → 3288`.
+- This disproves a blanket local arithmetic offset and wholesale local resequencing for the shared four-record core, and closes the observed scope as `TARGET_SPECIFIC_WITHIN_SHARED_LOCAL_NEIGHBORHOOD`.
+- The exact causal mechanism remains unresolved: no 1959/1987 correction card, preparation slip or accession/crosswalk record has yet been recovered, so 1959 error vs 1987 correction vs target-specific reassignment is not ranked.
+- Matrix/product accounting is unchanged: 198 rows / 166 audited / 10 MISSING_FROM_PRODUCT / 16 of 16 provenance defects repaired / zero chart-algorithm defects, reopens or candidate collapses.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-BEITU1959-1987-ZUOZHUAN-LOCAL-NEIGHBOR-SEQUENCE-CROSSWALK-HZ.md`. Research record: `docs/research/ZIWEI-BEITU1959-1987-ZUOZHUAN-LOCAL-NEIGHBOR-SEQUENCE-CROSSWALK-R1.json`.

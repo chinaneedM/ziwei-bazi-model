@@ -268,6 +268,8 @@ ZIWEI_NLC_FORMAT_DEFECT_12HX_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVEN
 ZIWEI_NLC_FORMAT_DEFECT_12HX_EVIDENCE = ROOT / "docs/research/ZIWEI-NLC-ZUOZHUAN-FID070-SECOND-17CHAR-LINE-GBT-FORMAT-DEFECT-CLOSURE-R1.json"
 ZIWEI_NLC_QUDONATION_12HY_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID070-QUDONATION-CHRONOLOGY-FIREWALL-HY.md"
 ZIWEI_NLC_QUDONATION_12HY_EVIDENCE = ROOT / "docs/research/ZIWEI-NLC-ZUOZHUAN-FID070-QUDONATION-CHRONOLOGY-FIREWALL-R1.json"
+ZIWEI_BEITU_LOCAL_12HZ_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-BEITU1959-1987-ZUOZHUAN-LOCAL-NEIGHBOR-SEQUENCE-CROSSWALK-HZ.md"
+ZIWEI_BEITU_LOCAL_12HZ_EVIDENCE = ROOT / "docs/research/ZIWEI-BEITU1959-1987-ZUOZHUAN-LOCAL-NEIGHBOR-SEQUENCE-CROSSWALK-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -628,9 +630,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID070-DIRECT-17CHAR-LINE-PHYSICAL-CONTROL-HW",
     "BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID070-SECOND-17CHAR-LINE-GBT-FORMAT-DEFECT-CLOSURE-HX",
     "BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID070-QUDONATION-CHRONOLOGY-FIREWALL-HY",
+    "BATCH-12-ZIWEI-BEITU1959-1987-ZUOZHUAN-LOCAL-NEIGHBOR-SEQUENCE-CROSSWALK-HZ",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID070-QUDONATION-CHRONOLOGY-FIREWALL-HY.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-BEITU1959-1987-ZUOZHUAN-LOCAL-NEIGHBOR-SEQUENCE-CROSSWALK-HZ.md"
 
 
 def fail(message: str) -> None:
@@ -9088,6 +9091,56 @@ def main() -> int:
         fail("Batch 12HY latest-batch document mismatch")
     if audit_state.get("confirmed_provenance_metadata_defect_count") != 16 or audit_state.get("repaired_provenance_metadata_defect_count") != 16:
         fail("Batch 12HY state provenance accounting mismatch")
+
+    # Batch 12HZ: three stable flanking book numbers isolate 3368->3288 to the target inside the shared local core.
+    for path in (ZIWEI_BEITU_LOCAL_12HZ_BATCH, ZIWEI_BEITU_LOCAL_12HZ_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12HZ continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12hz = json.loads(ZIWEI_BEITU_LOCAL_12HZ_EVIDENCE.read_text(encoding="utf-8"))
+    bid12hz = "BATCH-12-ZIWEI-BEITU1959-1987-ZUOZHUAN-LOCAL-NEIGHBOR-SEQUENCE-CROSSWALK-HZ"
+    if batch12hz.get("batch_id") != bid12hz:
+        fail("Batch 12HZ evidence identity mismatch")
+    seq12hz = batch12hz.get("shared_local_sequence", {})
+    if seq12hz.get("beitu1959_shared_sequence") != ["7283", "8643", "3368", "10010"]:
+        fail("Batch 12HZ 1959 local sequence regressed")
+    if seq12hz.get("beitu1987_shared_sequence") != ["7283", "8643", "3288", "10010"]:
+        fail("Batch 12HZ 1987 local sequence regressed")
+    if seq12hz.get("flanking_control_count") != 3 or seq12hz.get("flanking_numbers_unchanged") is not True or seq12hz.get("shared_relative_order_preserved") is not True or seq12hz.get("target_only_number_difference_within_shared_core") is not True:
+        fail("Batch 12HZ local-neighborhood isolation regressed")
+    scope12hz = batch12hz.get("scope_adjudication", {})
+    if scope12hz.get("blanket_local_arithmetic_offset") != "DISPROVEN" or scope12hz.get("wholesale_local_resequencing_for_shared_four_record_core") != "DISPROVEN":
+        fail("Batch 12HZ local shift/resequence adjudication regressed")
+    if scope12hz.get("observed_change_scope") != "TARGET_SPECIFIC_WITHIN_SHARED_LOCAL_NEIGHBORHOOD":
+        fail("Batch 12HZ target-specific scope regressed")
+    if scope12hz.get("exact_target_specific_change_record_recovered") is not False or scope12hz.get("exact_causal_mechanism") != "UNRESOLVED" or scope12hz.get("candidates_ranked_or_winner_selected") is not False:
+        fail("Batch 12HZ causal firewall regressed")
+    inf12hz = batch12hz.get("inference_firewall", {})
+    if not all(inf12hz.get(k) is True for k in ("stable_neighbors_do_not_by_themselves_prove_1959_is_wrong","stable_neighbors_do_not_by_themselves_prove_1987_editorial_correction","observed_minus_80_target_delta_is_not_a_numbering_rule","no_unseen_catalog_card_or_slip_invented","no_negative_search_absence_inference")):
+        fail("Batch 12HZ inference firewall regressed")
+    pc12hz = batch12hz.get("project_consequence", {})
+    if any(pc12hz.get(k) for k in ("runtime_rule_change","algorithm_reopen_authorized","candidate_collapse_authorized","matrix_row_count_change","matrix_audited_row_count_change","transmission_topology_change","product_change")) or pc12hz.get("provenance_metadata_defect_count_change") != 0:
+        fail("Batch 12HZ product/accounting firewall regressed")
+    acct12hz = batch12hz.get("accounting", {})
+    if acct12hz.get("matrix_rows") != 198 or acct12hz.get("audited_rows") != 166 or acct12hz.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12HZ matrix accounting regressed")
+    if acct12hz.get("confirmed_provenance_metadata_defect_count") != 16 or acct12hz.get("repaired_provenance_metadata_defect_count") != 16 or acct12hz.get("confirmed_chart_algorithm_defect_count") != 0:
+        fail("Batch 12HZ defect/algorithm accounting regressed")
+    src1959hz = next((x for x in registry.get("sources", ()) if x.get("source_id") == "EXT-BEITU-1959-SHANBEN-V1-ZUOZHUAN-QU-DONATION"), None)
+    if src1959hz is None or src1959hz.get("batch_12hz", {}).get("shared_sequence") != ["7283", "8643", "3368", "10010"]:
+        fail("Batch 12HZ 1959 registry binding missing")
+    src1987hz = next((x for x in registry.get("sources", ()) if x.get("source_id") == "EXT-BEITU-1987-GUJISHANBEN-JINGBU-ZUOZHUAN-BOOKNO3288-CORRECTED"), None)
+    if src1987hz is None or src1987hz.get("batch_12hz", {}).get("shared_sequence") != ["7283", "8643", "3288", "10010"]:
+        fail("Batch 12HZ 1987 registry binding missing")
+    try:
+        schema12hz = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12HZ state version is not numeric")
+    if schema12hz < (1, 238, 0):
+        fail("Batch 12HZ state version regressed below 1.238.0")
+    if bid12hz not in audit_state.get("completed_batches", ()):
+        fail("Batch 12HZ missing from completed state")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12HZ latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

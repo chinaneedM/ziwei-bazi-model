@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.237.0",
+  "schema_version": "1.238.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -319,9 +319,10 @@
       "BATCH-12-ZIWEI-SHANGGU2017-ZUOZHUAN-17CHAR-PUBLICATION-PREVIEW-CONTROL-HV",
       "BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID070-DIRECT-17CHAR-LINE-PHYSICAL-CONTROL-HW",
       "BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID070-SECOND-17CHAR-LINE-GBT-FORMAT-DEFECT-CLOSURE-HX",
-      "BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID070-QUDONATION-CHRONOLOGY-FIREWALL-HY"
+      "BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID070-QUDONATION-CHRONOLOGY-FIREWALL-HY",
+      "BATCH-12-ZIWEI-BEITU1959-1987-ZUOZHUAN-LOCAL-NEIGHBOR-SEQUENCE-CROSSWALK-HZ"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID070-QUDONATION-CHRONOLOGY-FIREWALL-HY.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-BEITU1959-1987-ZUOZHUAN-LOCAL-NEIGHBOR-SEQUENCE-CROSSWALK-HZ.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -1422,7 +1423,10 @@
       "PROV-DEFECT-016 is repaired forward-only. Provenance accounting is now 16/16 repaired; Matrix rows/audited/missing remain 198/166/10 and chart algorithm defect/reopen/candidate-collapse remain 0. Highest next gates return to target-specific 3368→3288 correction evidence, exact Qu accession batch/date, Zhang Lijuan 2018 full text and exact 2017 facsimile source-copy binding.",
       "Batch 12HY preserves a strict acquisition-date firewall for FID070: the 1959 exact target entry directly closes 瞿捐 as Qu-surname donation provenance, but the target's exact Qu donation/accession batch and date remain unresolved.",
       "Collection-level chronology is intentionally not collapsed onto the target: the NLC-hosted 2024 study records Qu-family donation activity in 1950, 1953 and 1954, while later Ji Shuying-derived secondary recounting reports 1950-01-07, 1950-03 and 1953-03 events; none names FID070/book no.3368.",
-      "Zhao Wanli's 1951 quotation bridge naming a Qu-donated 宋刻《春秋左传注疏》 within a 62-title summary remains a candidate object bridge only; exact identity with the Yuan-impression FID070 is not proved. Highest gate remains target-specific 3368→3288 catalog correction/succession evidence, then a title/book-number/accession-level Qu batch/date record."
+      "Zhao Wanli's 1951 quotation bridge naming a Qu-donated 宋刻《春秋左传注疏》 within a 62-title summary remains a candidate object bridge only; exact identity with the Yuan-impression FID070 is not proved. Highest gate remains target-specific 3368→3288 catalog correction/succession evidence, then a title/book-number/accession-level Qu batch/date record.",
+      "Batch 12HZ directly cross-collates the shared local catalog neighborhood around FID070 across the hash-bound 1959 and 1987 scans without OCR: book numbers 7283, 8643 and 10010 remain stable in the same shared relative order, while the exact target alone changes 3368 -> 3288.",
+      "The observed scope of the number change is therefore closed as TARGET_SPECIFIC_WITHIN_SHARED_LOCAL_NEIGHBORHOOD; blanket local offset and wholesale local resequencing are disproved for the shared four-record core. The causal mechanism remains unresolved: 1959 error, 1987 correction, target-specific reassignment or another catalog-preparation change are not ranked.",
+      "Highest gate is now narrower: recover a target-specific catalog card/correction slip/preparation record or accession/crosswalk record that explains the already-isolated 3368 -> 3288 target change; exact Qu donation/accession date, Zhang 2018 full text and 2017 facsimile base-copy binding remain separately open."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10

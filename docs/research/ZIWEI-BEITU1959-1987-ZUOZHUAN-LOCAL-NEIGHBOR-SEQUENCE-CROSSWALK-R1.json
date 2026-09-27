@@ -1,0 +1,154 @@
+{
+  "schema": "ZIWEI-BEITU1959-1987-ZUOZHUAN-LOCAL-NEIGHBOR-SEQUENCE-CROSSWALK-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-BEITU1959-1987-ZUOZHUAN-LOCAL-NEIGHBOR-SEQUENCE-CROSSWALK-HZ",
+  "prior_batch_id": "BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID070-QUDONATION-CHRONOLOGY-FIREWALL-HY",
+  "question": "Does direct no-OCR cross-collation of the local catalog neighborhood surrounding the same FID070 target in the 1959 and 1987 Beijing Library rare-book catalogs show a local renumbering/resequencing pattern, or isolate the 3368 -> 3288 difference to the target within the shared neighborhood?",
+  "answer": "The difference is isolated to the target within the shared four-record neighborhood. Direct review of the hash-bound scans shows three flanking controls retaining the same book numbers and relative order across the two catalogs: 春秋左傳正義三十六卷 = 7283; the 宋劉叔剛刻本 / 十五冊 / 存二十九卷 copy of 附釋音春秋左傳註疏六十卷 = 8643; and the 明嘉靖李元陽刻十三經註疏本 / 二十三冊 春秋左傳註疏六十卷 = 10010. Between 8643 and 10010, the exact Yuan-engraved/Ming-repaired 32-book target changes from 3368 in 1959 to 3288 in 1987. Therefore a blanket local arithmetic offset or wholesale local resequencing is disproved for this shared core. The exact causal mechanism is still unresolved and no winner is selected among a 1959 catalog/printing error, 1987 target-specific correction, target-specific reassignment during recompilation, or another catalog-preparation change.",
+  "source_controls": {
+    "beitu1959": {
+      "title": "北京图书馆善本书目 第一册",
+      "publication_year": 1959,
+      "workflow_run_id": 36313051367,
+      "artifact_id": 10929183632,
+      "source_pdf_sha256": "3f7eb1d2ab0057f4524eee2fb3dd3ca08561257302ffed32fe1960188184452f",
+      "reviewed_pdf_pages": [
+        55,
+        56
+      ],
+      "page_render_sha256": {
+        "55": "a5b6db55e979c3530fa95273185bc2239ca347f959a89ecc2377a4b4b299541e",
+        "56": "39f4348a6d0c3edbf353452251a5037ab9d3b0c88a35533940051382ca689835"
+      },
+      "ocr_used": false,
+      "method": "DIRECT_MANUAL_VISUAL_COLLATION_OF_HASH_BOUND_SCAN"
+    },
+    "beitu1987": {
+      "title": "北京图书馆古籍善本书目·经部",
+      "publication_year": 1987,
+      "workflow_run_id": 36309374568,
+      "artifact_id": 10928625832,
+      "source_pdf_sha256": "9cb2ab3ff5d00fda316a9f0430096ca2a5e68fcd53609a878c0ed9d08a26d3ab",
+      "reviewed_pdf_pages": [
+        104
+      ],
+      "printed_page": 92,
+      "page_104_render_sha256": "04c1c3a8a33aaa3b401db2fd6ddcc77455a94098f01cc178a284ea8b2f42b6ce",
+      "ocr_used": false,
+      "method": "DIRECT_MANUAL_VISUAL_COLLATION_OF_HASH_BOUND_SCAN"
+    }
+  },
+  "shared_local_sequence": {
+    "catalog_order_controls": [
+      {
+        "role": "SECOND_PRECEDING_CONTROL",
+        "title": "春秋左傳正義三十六卷",
+        "distinguishing_profile": "唐孔穎達撰 / 宋慶元六年紹興府刻宋元遞修本",
+        "beitu1959_book_number": "7283",
+        "beitu1987_book_number": "7283",
+        "number_stable": true
+      },
+      {
+        "role": "IMMEDIATE_PRECEDING_CONTROL",
+        "title": "附釋音春秋左傳註疏六十卷",
+        "distinguishing_profile": "宋劉叔剛刻本 / 十五冊 / 存二十九卷一至二十九",
+        "beitu1959_book_number": "8643",
+        "beitu1987_book_number": "8643",
+        "number_stable": true
+      },
+      {
+        "role": "TARGET",
+        "title": "附釋音春秋左傳註疏六十卷",
+        "distinguishing_profile": "元刻明修本 / 三十二冊 / 1959 瞿捐",
+        "beitu1959_book_number": "3368",
+        "beitu1987_book_number": "3288",
+        "number_stable": false,
+        "observed_delta": -80
+      },
+      {
+        "role": "IMMEDIATE_FOLLOWING_CONTROL",
+        "title": "春秋左傳註疏六十卷",
+        "distinguishing_profile": "明嘉靖李元陽刻十三經註疏本 / 二十三冊",
+        "beitu1959_book_number": "10010",
+        "beitu1987_book_number": "10010",
+        "number_stable": true
+      }
+    ],
+    "beitu1959_shared_sequence": [
+      "7283",
+      "8643",
+      "3368",
+      "10010"
+    ],
+    "beitu1987_shared_sequence": [
+      "7283",
+      "8643",
+      "3288",
+      "10010"
+    ],
+    "flanking_control_count": 3,
+    "flanking_numbers_unchanged": true,
+    "shared_relative_order_preserved": true,
+    "target_only_number_difference_within_shared_core": true
+  },
+  "scope_adjudication": {
+    "blanket_local_arithmetic_offset": "DISPROVEN",
+    "wholesale_local_resequencing_for_shared_four_record_core": "DISPROVEN",
+    "observed_change_scope": "TARGET_SPECIFIC_WITHIN_SHARED_LOCAL_NEIGHBORHOOD",
+    "exact_target_specific_change_record_recovered": false,
+    "exact_causal_mechanism": "UNRESOLVED",
+    "candidates_preserved": [
+      "1959_TARGET_BOOK_NUMBER_CATALOG_OR_PRINTING_ERROR_LATER_CORRECTED",
+      "1987_TARGET_SPECIFIC_CATALOG_CORRECTION",
+      "TARGET_SPECIFIC_CATALOG_REASSIGNMENT_DURING_RECOMPILATION",
+      "OTHER_CATALOG_PREPARATION_CHANGE"
+    ],
+    "candidates_ranked_or_winner_selected": false,
+    "generic_1987_correction_statement_promoted_to_target_specific_proof": false
+  },
+  "relation_to_existing_crosswalk": {
+    "fid": "412004000070",
+    "current_uid": "UCS01003868188",
+    "current_sys": "002838237",
+    "current_905s": "03288",
+    "beitu1959_book_number": "3368",
+    "beitu1987_book_number": "3288",
+    "beitu1987_3288_to_current_03288": "CLOSED_IN_BATCH_12HS",
+    "exact_1959_3368_to_1987_3288_cause": "UNRESOLVED",
+    "new_increment": "LOCAL_SCOPE_ISOLATION_ONLY"
+  },
+  "inference_firewall": {
+    "stable_neighbors_do_not_by_themselves_prove_1959_is_wrong": true,
+    "stable_neighbors_do_not_by_themselves_prove_1987_editorial_correction": true,
+    "observed_minus_80_target_delta_is_not_a_numbering_rule": true,
+    "no_unseen_catalog_card_or_slip_invented": true,
+    "no_negative_search_absence_inference": true
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "transmission_topology_change": false,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 16,
+    "repaired_provenance_metadata_defect_count": 16,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Recover a target-specific 1959/1987 catalog card, correction slip, catalog-preparation note, accession register or explicit crosswalk naming 3368 and/or 3288.",
+    "Resolve the exact Qu donation/accession batch and date for the exact target through title/book-number/accession-level evidence.",
+    "Continue Zhang Lijuan 2018 full-text retrieval for direct shelfmark/catalog-number/physical-version detail.",
+    "Continue exact source-copy binding for the 2017 Shanghai Ancient Books facsimile."
+  ],
+  "updated_at": "2026-09-28"
+}
