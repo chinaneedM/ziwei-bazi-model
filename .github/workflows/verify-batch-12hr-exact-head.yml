@@ -15,12 +15,25 @@ on:
 
 permissions:
   contents: read
+  statuses: write
 
 jobs:
   verify:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
+      - name: Publish pending exact-head status
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.repos.createCommitStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              sha: context.sha,
+              state: 'pending',
+              context: 'tianwen/batch-12hr-exact-head',
+              description: 'Batch 12HR exact-head verification running'
+            })
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
@@ -87,3 +100,31 @@ jobs:
           assert a['algorithm_reopen_count'] == 0
           assert a['candidate_collapse_count'] == 0
           PY
+
+      - name: Publish successful exact-head status
+        if: success()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.repos.createCommitStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              sha: context.sha,
+              state: 'success',
+              context: 'tianwen/batch-12hr-exact-head',
+              description: 'Batch 12HR continuity + audit gates PASS'
+            })
+
+      - name: Publish failed exact-head status
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.repos.createCommitStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              sha: context.sha,
+              state: 'failure',
+              context: 'tianwen/batch-12hr-exact-head',
+              description: 'Batch 12HR exact-head verification FAILED'
+            })
