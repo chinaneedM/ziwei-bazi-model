@@ -1,0 +1,117 @@
+{
+  "schema": "ZIWEI-NLC-ZUOZHUAN-FID070-CURRENT-SYS-UID-SEARCH-CROSSWALK-R1",
+  "batch_id": "BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID070-CURRENT-SYS-UID-SEARCH-CROSSWALK-HR",
+  "status": "DIRECT_CURRENT_NLC_META_SEARCH_RECOVERS_HIGH_SPECIFICITY_32CE_SYS_UID_CANDIDATE_DETAIL_905S_REMAINS_UNRESOLVED",
+  "observed_at": "2026-09-27",
+  "source_probe": {
+    "provider": "National Library of China current meta.nlc.cn search service",
+    "workflow": ".github/workflows/probe-batch-12hr-nlc-zuozhuan-title-retry.yml",
+    "workflow_commit": "bfb44bdafceba986750ccc53c91b94540c019dbf",
+    "workflow_run_id": 36317095311,
+    "workflow_job_id": 108613744263,
+    "job_conclusion": "cancelled",
+    "cancellation_scope": "DETAIL_LOOP_AFTER_SUCCESSFUL_SEARCH_PHASE",
+    "search_results_visible_in_job_log": true,
+    "artifact_uploaded": false,
+    "ocr_used": false
+  },
+  "target_search_result": {
+    "uid": "UCS01003868188",
+    "sys": "002838237",
+    "title": [
+      "附釋音春秋左傳註疏",
+      "六十卷",
+      "fu shi yin chun qiu zuo zhuan zhu shu"
+    ],
+    "authors": [
+      "(晉)杜預注",
+      "(唐)孔穎達疏",
+      "(唐)陸德明釋文",
+      "杜预",
+      "孔颖达",
+      "陆德明"
+    ],
+    "pagination": "32冊",
+    "material_type": "善本",
+    "year": [
+      "1271"
+    ],
+    "holding_count": 1,
+    "holding_name": "国家图书馆",
+    "holding_url_embedded_doc_number": "002838237"
+  },
+  "adjacent_control_result": {
+    "uid": "UCS01003868187",
+    "sys": "002838236",
+    "title": [
+      "附釋音春秋左傳註疏",
+      "六十卷",
+      "fu shi yin chun qiu zuo zhuan zhu shu"
+    ],
+    "pagination": "15冊",
+    "material_type": "善本",
+    "year": [
+      "1279",
+      "0960"
+    ],
+    "purpose": "ADJACENT_SAME_TITLE_CONTROL_DISTINCT_FROM_32CE_TARGET"
+  },
+  "crosswalk_adjudication": {
+    "fid": "412004000070",
+    "beitu1959_number": "3368",
+    "beitu1987_book_number": "3388",
+    "current_nlc_uid": "UCS01003868188",
+    "current_nlc_sys": "002838237",
+    "matching_fingerprint": [
+      "附釋音春秋左傳註疏",
+      "六十卷",
+      "32冊",
+      "善本",
+      "杜預/孔穎達/陸德明",
+      "国家图书馆"
+    ],
+    "prior_fid070_32_fascicle_digital_object": true,
+    "exact_meta_search_sys_uid_bridge_status": "HIGH_CONFIDENCE_AT_CURRENT_SEARCH_RESULT_AND_PRIOR_32CE_OBJECT_FINGERPRINT_LEVEL",
+    "current_905s": "UNRESOLVED",
+    "current_shelfmark": "UNRESOLVED",
+    "literal_03388_status": "SEARCH_HYPOTHESIS_ONLY_NOT_ASSERTED_IDENTITY",
+    "direct_3368_to_3388_succession_record": false,
+    "exact_qu_accession_batch": "UNRESOLVED"
+  },
+  "epistemic_boundaries": {
+    "cancelled_job_does_not_invalidate_completed_search_output": true,
+    "cancelled_job_does_not_prove_unretrieved_detail_fields": true,
+    "search_result_sys_uid_does_not_equal_905s_or_shelfmark": true,
+    "year_1271_does_not_by_itself_prove_exact_impression": true,
+    "no_3388_to_03388_identity_inferred": true,
+    "no_3368_to_3388_arithmetic_rule_inferred": true
+  },
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_added": [],
+    "topology_change": false
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 14,
+    "repaired_provenance_metadata_defect_count": 14,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "retrieve current NLC detail/holding data for UCS01003868188 / SYS 002838237, especially 905s or equivalent shelfmark/call-number field",
+    "recover direct 1959 3368 ↔ 1987 3388 succession/renumbering documentation",
+    "resolve exact Qu donation/accession batch/date for the FID070 object",
+    "continue Zhang Lijuan 2018 full-text retrieval for identifier/detail bridge"
+  ]
+}
