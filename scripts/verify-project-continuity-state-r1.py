@@ -230,6 +230,8 @@ ZIWEI_TSINGHUA_DING_12HE_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE
 ZIWEI_TSINGHUA_DING_12HE_EVIDENCE = ROOT / "docs/research/ZIWEI-TSINGHUA-DING-HUIKANG-TIEQIN-1100PLUS-VOLUMES-FINANCING-SCOPE-R1.json"
 ZIWEI_ZHAO_DING_12HF_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHAO-WANLI-1951-DING-HUIKANG-SIX-TITLES-TWO-NAMED-CONTEMPORARY-PUBLICATION-BRIDGE-HF.md"
 ZIWEI_ZHAO_DING_12HF_EVIDENCE = ROOT / "docs/research/ZIWEI-ZHAO-WANLI-1951-DING-HUIKANG-SIX-TITLES-TWO-NAMED-CONTEMPORARY-PUBLICATION-BRIDGE-R1.json"
+ZIWEI_NDL_ZHAO_12HG_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NDL-ZHAO-WANLI-WENJI-P197-NIANPU-PP309-310-PHYSICAL-ACCESS-ROUTES-HG.md"
+ZIWEI_NDL_ZHAO_12HG_EVIDENCE = ROOT / "docs/research/ZIWEI-NDL-ZHAO-WANLI-WENJI-P197-NIANPU-PP309-310-PHYSICAL-ACCESS-ROUTES-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -571,9 +573,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-SONG-YUNBIN-1950-0211-DING-HUIKANG-FUBAO-INTERMEDIARY-ROUTE-SCOPE-HD",
     "BATCH-12-ZIWEI-TSINGHUA-DING-HUIKANG-TIEQIN-1100PLUS-VOLUMES-FINANCING-SCOPE-HE",
     "BATCH-12-ZIWEI-ZHAO-WANLI-1951-DING-HUIKANG-SIX-TITLES-TWO-NAMED-CONTEMPORARY-PUBLICATION-BRIDGE-HF",
+    "BATCH-12-ZIWEI-NDL-ZHAO-WANLI-WENJI-P197-NIANPU-PP309-310-PHYSICAL-ACCESS-ROUTES-HG",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHAO-WANLI-1951-DING-HUIKANG-SIX-TITLES-TWO-NAMED-CONTEMPORARY-PUBLICATION-BRIDGE-HF.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NDL-ZHAO-WANLI-WENJI-P197-NIANPU-PP309-310-PHYSICAL-ACCESS-ROUTES-HG.md"
 
 
 def fail(message: str) -> None:
@@ -7807,6 +7810,61 @@ def main() -> int:
         fail("Batch 12HF missing from completed batch state")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12HF latest-batch document state mismatch")
+
+    # Batch 12HG: exact NDL physical routes for 2011 p.197 and 2018 pp.309-310.
+    for path in (ZIWEI_NDL_ZHAO_12HG_BATCH, ZIWEI_NDL_ZHAO_12HG_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12HG continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12hg=json.loads(ZIWEI_NDL_ZHAO_12HG_EVIDENCE.read_text(encoding="utf-8"))
+    bid12hg="BATCH-12-ZIWEI-NDL-ZHAO-WANLI-WENJI-P197-NIANPU-PP309-310-PHYSICAL-ACCESS-ROUTES-HG"
+    if batch12hg.get("batch_id") != bid12hg:
+        fail("Batch 12HG evidence identity mismatch")
+    n18=batch12hg.get("ndl_nianpu_2018",{})
+    if n18.get("call_number") != "GK391-C34" or n18.get("ndl_bib_id") != "029360342" or n18.get("extent_pages") != 516:
+        fail("Batch 12HG 2018 NDL object regressed")
+    if n18.get("target_pages") != "309–310" or n18.get("target_pages_inside_extent") is not True or n18.get("direct_target_pages_reviewed") is not False:
+        fail("Batch 12HG 2018 target-page boundary regressed")
+    w11=batch12hg.get("ndl_wenji_2011",{})
+    if w11.get("call_number") != "UM11-C247" or w11.get("ndl_bib_id") != "023434359" or w11.get("extent_pages") != 504:
+        fail("Batch 12HG 2011 NDL object regressed")
+    if w11.get("target_page") != 197 or w11.get("target_page_inside_extent") is not True or w11.get("direct_target_page_reviewed") is not False:
+        fail("Batch 12HG 2011 target-page boundary regressed")
+    loc=batch12hg.get("nlc_2024_locator",{})
+    if loc.get("reference_number") != 30 or loc.get("ding_huikang_listed") is not True or "309–310" not in loc.get("reference_bibliography",""):
+        fail("Batch 12HG NLC ref30 locator regressed")
+    acc=batch12hg.get("access_firewall",{})
+    for key in ("no_copy_request_sent","no_library_account_action","no_identity_transmission","no_fee_incurred","no_claim_of_direct_page_review","physical_holding_does_not_equal_remote_copy_entitlement"):
+        if acc.get(key) is not True:
+            fail(f"Batch 12HG access firewall regressed: {key}")
+    srcmap12hg={x.get("source_id"):x for x in registry.get("sources",())}
+    if srcmap12hg.get("EXT-NDL-ZHAO-WANLI-NIANPU-2018-GK391-C34",{}).get("batch_12hg",{}).get("call_number") != "GK391-C34":
+        fail("Batch 12HG nianpu source binding missing")
+    if srcmap12hg.get("EXT-NDL-ZHAO-WANLI-WENJI-V1-2011-UM11-C247",{}).get("batch_12hg",{}).get("call_number") != "UM11-C247":
+        fail("Batch 12HG wenji source binding missing")
+    if srcmap12hg.get("EXT-NLC-PCAB-ZHENG-ZHENDUO-QU-DONATION-AND-PRICED-ACQUISITION-2024",{}).get("batch_12hg",{}).get("reference_number") != 30:
+        fail("Batch 12HG NLC source extension missing")
+    target12hg=batch12hg.get("target_volume_firewall",{})
+    if target12hg.get("target_membership_in_ding_six") != "UNRESOLVED" or target12hg.get("target_specific_ding_intermediary_selected") is not False:
+        fail("Batch 12HG target firewall regressed")
+    trans12hg=batch12hg.get("transmission_impact",{})
+    if trans12hg.get("nodes_added") != [] or trans12hg.get("edges_added") != [] or trans12hg.get("acquisition_edge_authorized") is not False:
+        fail("Batch 12HG genealogy firewall regressed")
+    rule12hg=batch12hg.get("chronology_and_rule_firewall",{})
+    if rule12hg.get("runtime_rule_change") is not False or rule12hg.get("algorithm_reopen_authorized") is not False or rule12hg.get("candidate_collapse_authorized") is not False or rule12hg.get("matrix_count_change") is not False:
+        fail("Batch 12HG product/matrix firewall regressed")
+    acct12hg=batch12hg.get("accounting",{})
+    if acct12hg.get("matrix_rows") != 198 or acct12hg.get("audited_rows") != 166 or acct12hg.get("current_missing_from_product_rows") != 10 or acct12hg.get("confirmed_chart_algorithm_defect_count") != 0:
+        fail("Batch 12HG accounting regressed")
+    try:
+        schema12hg=tuple(int(part) for part in state.get("schema_version","0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12HG state version is not numeric")
+    if schema12hg < (1,219,0):
+        fail("Batch 12HG state version regressed below 1.219.0")
+    if bid12hg not in audit_state.get("completed_batches",()):
+        fail("Batch 12HG missing from completed state")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12HG latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

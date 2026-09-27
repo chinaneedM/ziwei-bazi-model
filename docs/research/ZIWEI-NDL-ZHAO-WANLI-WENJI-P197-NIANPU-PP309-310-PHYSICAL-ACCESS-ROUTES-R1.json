@@ -1,0 +1,143 @@
+{
+  "schema": "ZIWEI-NDL-ZHAO-WANLI-WENJI-P197-NIANPU-PP309-310-PHYSICAL-ACCESS-ROUTES-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-NDL-ZHAO-WANLI-WENJI-P197-NIANPU-PP309-310-PHYSICAL-ACCESS-ROUTES-HG",
+  "prior_batch_id": "BATCH-12-ZIWEI-ZHAO-WANLI-1951-DING-HUIKANG-SIX-TITLES-TWO-NAMED-CONTEMPORARY-PUBLICATION-BRIDGE-HF",
+  "question": "Can the two highest-value Zhao Wanli page targets now be bound to exact physical library objects: 2011 《赵万里文集》第1卷 p.197 for the Ding Huikang six-title quotation and 2018 《赵万里先生年谱长编》 pp.309–310 for the NLC 2024 Ding Huikang donor reference?",
+  "answer": "Yes for exact physical-object access routing; no for page-text collation. NDL Search directly records the 2011 《赵万里文集》第1卷 as a National Diet Library holding, call number UM11-C247, bibliographic ID 023434359, 504 pages, ISBN 9787501346653; therefore p.197 is unambiguously inside the held volume. NDL Search also directly records Liu Bo's 2018 《赵万里先生年谱长编》 as an NDL holding, call number GK391-C34, bibliographic ID 029360342, 516 pages, ISBN 9787101125559; therefore pp.309–310 are unambiguously inside the held volume. The NLC-hosted 2024 article lists Ding Huikang among 1950 donors and assigns reference [30] to the 2018 chronology pp.309–310. No target page has been directly read or copied by the project, no copy request was sent, and object-specific remote-copy eligibility is not asserted.",
+  "nlc_2024_locator": {
+    "source_id": "EXT-NLC-PCAB-ZHENG-ZHENDUO-QU-DONATION-AND-PRICED-ACQUISITION-2024",
+    "url": "https://www.nlc.cn/pcab/zx/xw/20240701_2640245.shtml",
+    "article": "郑振铎对国家图书馆藏书建设的历史贡献",
+    "authors": "蔡成普；李静",
+    "donor_list_year": 1950,
+    "ding_huikang_listed": true,
+    "reference_number": 30,
+    "reference_bibliography": "刘波《赵万里先生年谱长编》, 中华书局, 2018, pp.309–310",
+    "direct_pp309_310_text_exposed_by_article": false
+  },
+  "ndl_nianpu_2018": {
+    "source_id": "EXT-NDL-ZHAO-WANLI-NIANPU-2018-GK391-C34",
+    "provider": "国立国会図書館 / NDL Search",
+    "url": "https://ndlsearch.ndl.go.jp/books/R100000002-I029360342",
+    "title": "趙萬裏先生年譜長編",
+    "author": "劉波 撰",
+    "publisher": "中華書局",
+    "publication_date": "2018.8",
+    "isbn": "9787101125559",
+    "extent_pages": 516,
+    "preliminary_pages": 3,
+    "plates": 4,
+    "call_number": "GK391-C34",
+    "ndl_bib_id": "029360342",
+    "holding_institution": "国立国会図書館",
+    "target_pages": "309–310",
+    "target_pages_inside_extent": true,
+    "physical_holding_route_closed": true,
+    "direct_target_pages_reviewed": false,
+    "copy_requested": false,
+    "object_specific_remote_copy_eligibility": "NOT_ADJUDICATED"
+  },
+  "ndl_wenji_2011": {
+    "source_id": "EXT-NDL-ZHAO-WANLI-WENJI-V1-2011-UM11-C247",
+    "provider": "国立国会図書館 / NDL Search",
+    "url": "https://ndlsearch.ndl.go.jp/books/R100000002-I023434359",
+    "title": "趙萬里文集 第1卷",
+    "series": "芸香閣叢書",
+    "editors": "冀淑英, 張志清, 劉波 主编",
+    "publisher": "國家圖書館出版社",
+    "co_publisher_note": "共同刊行:上海科學技術文獻出版社",
+    "publication_date": "2011.12",
+    "isbn": "9787501346653",
+    "extent_pages": 504,
+    "preliminary_pages": 2,
+    "call_number": "UM11-C247",
+    "ndl_bib_id": "023434359",
+    "holding_institution": "国立国会図書館",
+    "target_page": 197,
+    "target_page_inside_extent": true,
+    "physical_holding_route_closed": true,
+    "direct_target_page_reviewed": false,
+    "copy_requested": false,
+    "object_specific_remote_copy_eligibility": "NOT_ADJUDICATED"
+  },
+  "relation_to_hf": {
+    "hf_quotation_bridge_remains_valid": true,
+    "hf_direct_2011_page_status_changed_from_unlocated_to_physical_holding_route_closed": true,
+    "hf_direct_2011_page_text_status": "NOT_REVIEWED",
+    "hf_direct_1951_original_page_status": "NOT_REVIEWED",
+    "hf_remaining_four_titles": "UNRESOLVED"
+  },
+  "relation_to_nianpu_route": {
+    "ding_huikang_1950_ref30_locator_closed": true,
+    "pp309_310_physical_holding_route_closed": true,
+    "pp309_310_direct_text_status": "NOT_REVIEWED",
+    "underlying_sources_cited_on_pp309_310": "UNRESOLVED"
+  },
+  "access_firewall": {
+    "no_copy_request_sent": true,
+    "no_library_account_action": true,
+    "no_identity_transmission": true,
+    "no_fee_incurred": true,
+    "no_claim_of_direct_page_review": true,
+    "physical_holding_does_not_equal_remote_copy_entitlement": true
+  },
+  "target_volume_firewall": {
+    "target_titles": [
+      "铜壶漏箭制度",
+      "准斋心制几漏图式"
+    ],
+    "historical_catalog_numbers": [
+      3482,
+      3483
+    ],
+    "current_catalog_number_candidates": [
+      "03482",
+      "03483"
+    ],
+    "target_named_on_reviewed_ndl_catalog_pages": false,
+    "target_membership_in_ding_six": "UNRESOLVED",
+    "target_specific_ding_intermediary_selected": false,
+    "target_specific_purchase_route_selected": false,
+    "target_specific_donation_route_selected": false,
+    "target_exact_acquisition_date": "UNRESOLVED",
+    "final_nlc_acquisition_transfer_path": "UNRESOLVED"
+  },
+  "adjudication": {
+    "exact_physical_access_route_increment": 2,
+    "direct_page_text_increment": 0,
+    "direct_title_list_increment": 0,
+    "target_item_transaction_increment": 0,
+    "acquisition_edge_authorized": false
+  },
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_added": [],
+    "direct_copy_edge_authorized": false,
+    "same_object_edge_authorized": false,
+    "acquisition_edge_authorized": false
+  },
+  "chronology_and_rule_firewall": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_count_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 14,
+    "repaired_provenance_metadata_defect_count": 14,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Directly inspect NDL-held 《赵万里文集》第1卷 p.197 under lawful library access rules and collate the exact Ding Huikang six-title wording.",
+    "Directly inspect NDL-held 《赵万里先生年谱长编》 pp.309–310 and extract the exact 1950 Ding Huikang entry plus its underlying source notes.",
+    "Use those direct pages to test HF six-title identity against HC and to recover further title or transaction identifiers; do not merge before direct evidence.",
+    "Continue direct 1997 pp.446–449, Ji Shuying chapter 9, 2004 p.335/final 編后記 and 2010 supplement discovery in parallel."
+  ],
+  "updated_at": "2026-09-27"
+}
