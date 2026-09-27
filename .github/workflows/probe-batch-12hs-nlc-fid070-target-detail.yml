@@ -1,0 +1,129 @@
+name: probe-batch-12hs-nlc-fid070-target-detail
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - '.github/workflows/probe-batch-12hs-nlc-fid070-target-detail.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Probe only FID070 target and adjacent current NLC records
+        shell: bash
+        run: |
+          set -u
+          ROOT='audit/batch-12hs-nlc-fid070-target-detail'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT/detail" "$ROOT/holding"
+          UA='Tianwen-Provenance-Audit/1.0'
+
+          cat > "$ROOT/targets.tsv" <<'EOF'
+          target	UCS01003868188	002838237	32冊
+          adjacent-control	UCS01003868187	002838236	15冊
+          EOF
+
+          : > "$ROOT/detail-status.tsv"
+          while IFS=$'\t' read -r role uid sys extent; do
+            ok=0
+            for attempt in 1 2 3; do
+              out="$ROOT/detail/$role-$uid-attempt-$attempt.json"
+              code=$(curl -L -sS --connect-timeout 5 --max-time 15 \
+                -A "$UA" \
+                -H 'Accept: application/json, text/javascript, */*; q=0.01' \
+                -H 'X-Requested-With: XMLHttpRequest' \
+                -H "Referer: https://meta.nlc.cn/v2/detail/$uid" \
+                -X POST \
+                -o "$out" -w '%{http_code}' \
+                "https://meta.nlc.cn/api/v1/item/$uid/1/999" 2>"$ROOT/detail/$role-$uid-attempt-$attempt.stderr")
+              rc=$?
+              bytes=0
+              [ -f "$out" ] && bytes=$(wc -c < "$out")
+              printf '%s\tuid=%s\tsys=%s\textent=%s\tattempt=%s\trc=%s\thttp=%s\tbytes=%s\n' \
+                "$role" "$uid" "$sys" "$extent" "$attempt" "$rc" "$code" "$bytes" >> "$ROOT/detail-status.tsv"
+              if [ "$rc" -eq 0 ] && [ "$code" = "200" ] && [ "$bytes" -gt 100 ]; then
+                cp "$out" "$ROOT/detail/$role-$uid.json"
+                ok=1
+                break
+              fi
+              sleep 1
+            done
+            [ "$ok" -eq 1 ] || printf '%s\tuid=%s\tFINAL=NO_SUCCESSFUL_DETAIL\n' "$role" "$uid" >> "$ROOT/detail-status.tsv"
+
+            route="https://meta.nlc.cn/tc-nlcdata/holdingUrl?returnUrl=http%3A%2F%2Fsso1.nlc.cn%3A9080%2Fnlclogin%2Fssologin-url-find.jsp%3Furl%3Dhttp%253A%252F%252Fopac.nlc.cn%252FF%253Ffunc%253Ditem-global%2526doc_library%253DNLC01%2526doc_number%253D${sys}"
+            curl -L -sS --connect-timeout 5 --max-time 20 \
+              -A "$UA" -D "$ROOT/holding/$role-$sys.headers" \
+              -o "$ROOT/holding/$role-$sys.body" \
+              -w 'effective=%{url_effective}\thttp=%{http_code}\tbytes=%{size_download}\n' \
+              "$route" > "$ROOT/holding/$role-$sys.status" 2>"$ROOT/holding/$role-$sys.stderr" || true
+          done < "$ROOT/targets.tsv"
+
+          python - <<'PY'
+          from pathlib import Path
+          import json
+
+          root=Path('audit/batch-12hs-nlc-fid070-target-detail')
+          keys=('001','035a','049b','049c','200a','200b','200f','205a','210a','210c','210d','215a',
+                '300a','305a','307a','316a','3165','317a','318a','321a','423a','4231','455a','4551',
+                '610a','690a','701a','702a','711a','712a','801a','801b','801c','852a',
+                '905a','905b','905q','905s','910n','910l')
+          out=[]
+          for p in sorted((root/'detail').glob('*.json')):
+              if '-attempt-' in p.name:
+                  continue
+              out.append('### '+p.name)
+              try:
+                  o=json.loads(p.read_text('utf-8'))
+              except Exception as e:
+                  out.append('PARSE_ERROR '+repr(e))
+                  continue
+              r=o.get('result') or {}
+              b=r.get('biblio') or {}
+              e=r.get('esBook') or {}
+              out.append('ES '+json.dumps({k:e.get(k) for k in ('SYS','UID','WDT','YEA','PUB','PAG','TIT','AUT','holdings')},ensure_ascii=False,separators=(',',':')))
+              out.append('BIB '+json.dumps({k:b.get(k) for k in keys if k in b},ensure_ascii=False,separators=(',',':')))
+              out.append('HOLD '+json.dumps(r.get('holding'),ensure_ascii=False,separators=(',',':')))
+              raw=json.dumps(r,ensure_ascii=False)
+              out.append('FLAGS '+json.dumps({t:(t in raw) for t in [
+                  '铁琴','鐵琴','铜剑','銅劍','瞿','元刻明修','元刻元印','三十二册','三十二冊',
+                  '32册','32冊','3388','03388','3368','412004000070','002838237','UCS01003868188'
+              ]},ensure_ascii=False))
+          (root/'detail-summary.txt').write_text('\n'.join(out)+'\n',encoding='utf-8')
+
+          print('===== DETAIL STATUS =====')
+          print((root/'detail-status.tsv').read_text('utf-8'))
+          print('===== DETAIL SUMMARY =====')
+          print((root/'detail-summary.txt').read_text('utf-8'))
+          print('===== HOLDING ROUTE STATUS =====')
+          for p in sorted((root/'holding').glob('*.status')):
+              print(p.name, p.read_text('utf-8',errors='replace').strip())
+          PY
+
+          find "$ROOT" -type f -size +0c -print0 | xargs -0 -r sha256sum | sort -V > "$ROOT/files.sha256"
+          printf '%s\n' \
+            'SOURCE=National Library of China current meta.nlc.cn detail API and public holding redirect route' \
+            'PURPOSE=targeted detail retrieval for UID UCS01003868188 / SYS 002838237 with one adjacent control only' \
+            'TARGET_FID=412004000070' \
+            'TARGET_UID=UCS01003868188' \
+            'TARGET_SYS=002838237' \
+            'NO_NUMERIC_GUESSING=true' \
+            'NO_AUTH_BYPASS=true' \
+            'NEGATIVE_POLICY=route timeout or no-response is not absence evidence' \
+            'OCR_USED=false' > "$ROOT/manifest.txt"
+
+      - name: Upload probe evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: batch-12hs-nlc-fid070-target-detail
+          path: audit/batch-12hs-nlc-fid070-target-detail/
+          if-no-files-found: warn
+          retention-days: 30
