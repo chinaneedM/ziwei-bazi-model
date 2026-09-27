@@ -228,6 +228,8 @@ ZIWEI_SONG_DING_12HD_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUD
 ZIWEI_SONG_DING_12HD_EVIDENCE = ROOT / "docs/research/ZIWEI-SONG-YUNBIN-1950-0211-DING-HUIKANG-FUBAO-INTERMEDIARY-ROUTE-SCOPE-R1.json"
 ZIWEI_TSINGHUA_DING_12HE_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TSINGHUA-DING-HUIKANG-TIEQIN-1100PLUS-VOLUMES-FINANCING-SCOPE-HE.md"
 ZIWEI_TSINGHUA_DING_12HE_EVIDENCE = ROOT / "docs/research/ZIWEI-TSINGHUA-DING-HUIKANG-TIEQIN-1100PLUS-VOLUMES-FINANCING-SCOPE-R1.json"
+ZIWEI_ZHAO_DING_12HF_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHAO-WANLI-1951-DING-HUIKANG-SIX-TITLES-TWO-NAMED-CONTEMPORARY-PUBLICATION-BRIDGE-HF.md"
+ZIWEI_ZHAO_DING_12HF_EVIDENCE = ROOT / "docs/research/ZIWEI-ZHAO-WANLI-1951-DING-HUIKANG-SIX-TITLES-TWO-NAMED-CONTEMPORARY-PUBLICATION-BRIDGE-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -568,9 +570,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-NLC-2020-TIEQIN-700PLUS-DING-FUBAO-SIX-BOOK-INTERMEDIARY-TRANSFER-SCOPE-HC",
     "BATCH-12-ZIWEI-SONG-YUNBIN-1950-0211-DING-HUIKANG-FUBAO-INTERMEDIARY-ROUTE-SCOPE-HD",
     "BATCH-12-ZIWEI-TSINGHUA-DING-HUIKANG-TIEQIN-1100PLUS-VOLUMES-FINANCING-SCOPE-HE",
+    "BATCH-12-ZIWEI-ZHAO-WANLI-1951-DING-HUIKANG-SIX-TITLES-TWO-NAMED-CONTEMPORARY-PUBLICATION-BRIDGE-HF",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TSINGHUA-DING-HUIKANG-TIEQIN-1100PLUS-VOLUMES-FINANCING-SCOPE-HE.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHAO-WANLI-1951-DING-HUIKANG-SIX-TITLES-TWO-NAMED-CONTEMPORARY-PUBLICATION-BRIDGE-HF.md"
 
 
 def fail(message: str) -> None:
@@ -7753,6 +7756,57 @@ def main() -> int:
         fail("Batch 12HE missing from completed batch state")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12HE latest-batch document state mismatch")
+
+    # Batch 12HF: Zhao Wanli 1951 Ding Huikang six-title publication bridge.
+    for path in (ZIWEI_ZHAO_DING_12HF_BATCH, ZIWEI_ZHAO_DING_12HF_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12HF continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12hf=json.loads(ZIWEI_ZHAO_DING_12HF_EVIDENCE.read_text(encoding="utf-8"))
+    bid12hf="BATCH-12-ZIWEI-ZHAO-WANLI-1951-DING-HUIKANG-SIX-TITLES-TWO-NAMED-CONTEMPORARY-PUBLICATION-BRIDGE-HF"
+    if batch12hf.get("batch_id") != bid12hf:
+        fail("Batch 12HF evidence identity mismatch")
+    pub12hf=batch12hf.get("original_publication_bibliographic_control",{})
+    if pub12hf.get("target_author") != "赵万里" or pub12hf.get("target_periodical") != "文物参考资料":
+        fail("Batch 12HF original publication identity regressed")
+    if pub12hf.get("target_year") != 1951 or pub12hf.get("target_issue") != 9 or pub12hf.get("target_pages") != "221–233":
+        fail("Batch 12HF publication locator regressed")
+    quote12hf=batch12hf.get("quotation_bridge_control",{})
+    if quote12hf.get("quoted_edition_page") != 197 or quote12hf.get("quoted_ding_attribution") != "丁惠康先生捐赠" or quote12hf.get("quoted_total_title_count") != 6:
+        fail("Batch 12HF quotation bridge regressed")
+    if [x.get("title") for x in quote12hf.get("explicitly_named_members",[])] != ["东家杂记","太平乐府"]:
+        fail("Batch 12HF named members regressed")
+    rel12hf=batch12hf.get("relation_to_hc_and_hd",{})
+    if rel12hf.get("hf_six_equals_hc_six") != "STRONGLY_COMPATIBLE_NOT_PROVED":
+        fail("Batch 12HF HC identity firewall regressed")
+    if rel12hf.get("may_merge_wangyou_qingleji_into_hf_six") is not False or rel12hf.get("may_use_hf_six_to_fill_hd_ruganzhong") is not False:
+        fail("Batch 12HF projection firewall regressed")
+    target12hf=batch12hf.get("target_volume_firewall",{})
+    if target12hf.get("target_in_hf_six") != "UNRESOLVED" or target12hf.get("target_in_hc_six") != "UNRESOLVED" or target12hf.get("target_in_hd_ruganzhong") != "UNRESOLVED":
+        fail("Batch 12HF target membership regressed")
+    srcmap12hf={x.get("source_id"):x for x in registry.get("sources",())}
+    if srcmap12hf.get("EXT-NLC-LIUPENG-YONGLE-REVIEW-ZHAO1951-BIBLIOGRAPHIC-CONTROL",{}).get("batch_12hf",{}).get("target_pages") != "221–233":
+        fail("Batch 12HF NLC source binding missing")
+    if srcmap12hf.get("EXT-XIAO-LING-2026-ZHAO-WANLI-DING-HUIKANG-SIX-TITLE-QUOTE",{}).get("batch_12hf",{}).get("explicitly_named_titles") != ["东家杂记","太平乐府"]:
+        fail("Batch 12HF quote source binding missing")
+    trans12hf=batch12hf.get("transmission_impact",{})
+    if trans12hf.get("nodes_added") != [] or trans12hf.get("edges_added") != [] or trans12hf.get("acquisition_edge_authorized") is not False:
+        fail("Batch 12HF genealogy firewall regressed")
+    rule12hf=batch12hf.get("chronology_and_rule_firewall",{})
+    if rule12hf.get("runtime_rule_change") is not False or rule12hf.get("algorithm_reopen_authorized") is not False or rule12hf.get("candidate_collapse_authorized") is not False or rule12hf.get("matrix_count_change") is not False:
+        fail("Batch 12HF product/matrix firewall regressed")
+    acct12hf=batch12hf.get("accounting",{})
+    if acct12hf.get("matrix_rows") != 198 or acct12hf.get("audited_rows") != 166 or acct12hf.get("current_missing_from_product_rows") != 10 or acct12hf.get("confirmed_chart_algorithm_defect_count") != 0:
+        fail("Batch 12HF accounting regressed")
+    try:
+        schema12hf=tuple(int(part) for part in state.get("schema_version","0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12HF current-state schema version is not numeric")
+    if schema12hf < (1,218,0):
+        fail("Batch 12HF state version regressed below 1.218.0")
+    if bid12hf not in audit_state.get("completed_batches",()):
+        fail("Batch 12HF missing from completed batch state")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12HF latest-batch document state mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")
