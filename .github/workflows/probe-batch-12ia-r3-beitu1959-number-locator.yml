@@ -1,0 +1,109 @@
+name: probe-batch-12ia-r3-beitu1959-number-locator
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - '.github/workflows/probe-batch-12ia-r3-beitu1959-number-locator.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  statuses: write
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Probe Google Books within-volume index for 1959 3368 and 3288
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/batch-12ia-r3-beitu1959-number-locator'
+          rm -rf "$ROOT"; mkdir -p "$ROOT/raw"
+          VID='8HUnrRREKsoC'
+          UA='Tianwen-Provenance-Audit/1.0'
+
+          python - <<'PY'
+          from pathlib import Path
+          from urllib.parse import quote
+          import urllib.request, json, time
+          root=Path('audit/batch-12ia-r3-beitu1959-number-locator')
+          vid='8HUnrRREKsoC'
+          queries=[
+            ('ch-3368','三三六八'),
+            ('ch-3288','三二八八'),
+            ('ar-3368','3368'),
+            ('ar-3288','3288'),
+            ('context-3368','附釋音春秋左傳註疏 三三六八'),
+            ('context-3288','附釋音春秋左傳註疏 三二八八'),
+          ]
+          manifest=[]
+          for key,q in queries:
+              url='https://books.google.com/books?jscmd=SearchWithinVolume2&q='+quote(q)+'&vid='+vid
+              req=urllib.request.Request(url,headers={'User-Agent':'Tianwen-Provenance-Audit/1.0'})
+              out=root/'raw'/f'{key}.json'
+              try:
+                  with urllib.request.urlopen(req,timeout=30) as r:
+                      b=r.read()
+                  out.write_bytes(b)
+                  manifest.append({'key':key,'query':q,'bytes':len(b),'ok':True})
+              except Exception as e:
+                  out.write_text(json.dumps({'error':repr(e),'query':q,'url':url},ensure_ascii=False),encoding='utf-8')
+                  manifest.append({'key':key,'query':q,'ok':False,'error':repr(e)})
+              time.sleep(.4)
+          (root/'fetch-manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          PY
+
+          python - <<'PY'
+          from pathlib import Path
+          import json,re
+          root=Path('audit/batch-12ia-r3-beitu1959-number-locator')
+          out=[]
+          summary={}
+          for p in sorted((root/'raw').glob('*.json')):
+              raw=p.read_text('utf-8',errors='replace')
+              out.append('### '+p.name)
+              out.append(raw[:30000])
+              toks=set()
+              for pat in [
+                  r'"page_id"\s*:\s*"([^"]+)"',
+                  r'"pageId"\s*:\s*"([^"]+)"',
+                  r'"page"\s*:\s*"([^"]+)"',
+                  r'"page_number"\s*:\s*"([^"]+)"',
+              ]:
+                  toks.update(re.findall(pat,raw))
+              summary[p.stem]=sorted(toks)
+          (root/'raw-summary.txt').write_text('\n'.join(out)+'\n',encoding='utf-8')
+          (root/'page-tokens.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print((root/'fetch-manifest.json').read_text('utf-8'))
+          print((root/'page-tokens.json').read_text('utf-8'))
+          PY
+
+          printf '%s\n'             'SOURCE=Google Books SearchWithinVolume2 index for volume 8HUnrRREKsoC'             'UNDERLYING_OBJECT=1959 北京图书馆善本书目 第一册'             'ROLE=NAVIGATION_LOCATOR_ONLY_NOT_TEXTUAL_AUTHORITY'             'CALIBRATION_QUERY=三三六八 should locate the already visually closed target page if index coverage is usable'             'TEST_QUERY=三二八八 seeks any 1959 location for the later 1987 target number 3288'             'ADJUDICATION_RULE=any returned page token must be checked against the hash-bound 1959 scan before historical use'             'NO_OCR_PERFORMED_BY_PROJECT=true' > "$ROOT/manifest.txt"
+
+          find "$ROOT" -type f -size +0c -print0 | xargs -0 -r sha256sum | sort -V > "$ROOT/files.sha256"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12ia-r3-beitu1959-number-locator
+          path: audit/batch-12ia-r3-beitu1959-number-locator/
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Publish probe status
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.repos.createCommitStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              sha: context.sha,
+              state:'success',
+              context:'tianwen/batch-12ia-r3-probe',
+              description:'1959 Google Books 3368/3288 locator probe complete'
+            })
