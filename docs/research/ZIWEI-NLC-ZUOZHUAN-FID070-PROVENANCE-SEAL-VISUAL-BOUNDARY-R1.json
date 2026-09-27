@@ -1,0 +1,228 @@
+{
+  "schema": "ZIWEI-NLC-ZUOZHUAN-FID070-PROVENANCE-SEAL-VISUAL-BOUNDARY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID070-PROVENANCE-SEAL-VISUAL-BOUNDARY-HO",
+  "prior_batch_id": "BATCH-12-ZIWEI-BEITU1987-ZUOZHUAN-BOOKNO3388-FID070-CATALOG-CROSSWALK-HN",
+  "question": "Do direct visual images of the NLC-backed FID 412004000070 object expose a readable Tieqin Tongjian Lou or Huang Pilei / Baishong Yichan provenance seal sufficient to close identity with Zhang Lijuan's Tieqin-old-collection Yuan-impression copy?",
+  "answer": "Not yet. Direct, hash-bound visual review of FID070 book 1 establishes that its front/title leaf (PDF page 2) visibly carries pale provenance-seal impressions beneath and around the dark title/volume inscription. The seal traces are real physical marks, but the impressions are faded and overprinted/obscured by the black title inscription, so neither 《百宋一廛》, 《鐵琴銅劍樓》 nor another Qu-family seal can be read or uniquely matched with sufficient confidence. Strategic front and terminal leaves from books 2, 16 and 32 were independently rendered and visually reviewed; no directly readable target provenance seal was found in those reviewed leaves. Authoritative comparator sources confirm what the expected Huang and Tieqin seals look like and how they are cataloged, but shape-level similarity is not promoted into a target-object identification. Therefore the project advances from 'digital object not visually inspected for provenance' to 'provenance marks visually present but inscription unresolved'. FID070 == Zhang Lijuan's exact Tieqin physical copy remains STRONGLY_COMPATIBLE_NOT_PROVED; no same-object edge is authorized.",
+  "direct_visual_probes": {
+    "book1": {
+      "workflow_run_id": 36309706422,
+      "artifact_id": 10928835321,
+      "artifact_zip_sha256": "509ed98388f6941cc6226eddee7184de039b0f481cde36ea21740dd2a8681f48",
+      "commons_pageid": 124222155,
+      "file_title": "File:NLC892-412004000070-117576 附釋音春秋左傳註疏 第1冊.pdf",
+      "source_pdf_sha1": "b3ea46433dc5df7b056ac2b0fcf4c8d869aec151",
+      "source_pdf_sha256": "619451dbde84e806293d155a84f21f584e728107d08a139fcdc7ed335cd2ff8a",
+      "source_pdf_pages": 67,
+      "source_credit": "National Library of China",
+      "rendered_pages_front": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16
+      ],
+      "rendered_pages_tail": [
+        64,
+        65,
+        66,
+        67
+      ],
+      "page2_render_sha256": "63220165a9500dfd011e923ebe05b6f7eb772da79d03076d6db227e45d945f88",
+      "ocr_used": false
+    },
+    "strategic_multibook": {
+      "workflow_run_id": 36311131378,
+      "artifact_id": 10929560901,
+      "artifact_zip_sha256": "25980acc777c8b9f27d4d7251a21353aef2a2f0c16e93acb896803d4c05a664b",
+      "discovered_fid_file_count": 32,
+      "books": {
+        "2": {
+          "commons_pageid": 124222161,
+          "file_title": "File:NLC892-412004000070-117577 附釋音春秋左傳註疏 第2冊.pdf",
+          "source_pdf_sha1": "84d35f37387cfb630e1d9d45882591b5350e7a8c",
+          "source_pdf_sha256": "df966c6149ed8d6c677f0bfdaf6ac29adcdea08b3593f165596fa7ff01ad4ed9",
+          "pages": 58
+        },
+        "16": {
+          "commons_pageid": 124222389,
+          "file_title": "File:NLC892-412004000070-117769 附釋音春秋左傳註疏 第16冊.pdf",
+          "source_pdf_sha1": "46b09a9d9ede63906e302ad380dbd5ed8d9489a1",
+          "source_pdf_sha256": "9b40b7835ef39aa203879e8b54c301f9fd0c14d0b2f5349629ef03dd226678f5",
+          "pages": 36
+        },
+        "32": {
+          "commons_pageid": 124397565,
+          "file_title": "File:NLC892-412004000070-118003 附釋音春秋左傳註疏 第32冊.pdf",
+          "source_pdf_sha1": "783e6facb18fb582cd39ac3e023c35579addc2e8",
+          "source_pdf_sha256": "13e0323e849d6025a62a8ad157ca6ac28eba4294a21a738b0f90647e32b625b6",
+          "pages": 57
+        }
+      },
+      "rendered_front_pages_per_book": "1-12",
+      "rendered_terminal_pages_per_book": "last 5",
+      "ocr_used": false
+    }
+  },
+  "direct_visual_adjudication": {
+    "book1_page2": {
+      "physical_provenance_seal_traces_visible": true,
+      "exact_seal_count": "UNRESOLVED_DUE_TO_OVERLAP_AND_FADE",
+      "dark_title_or_volume_inscription_overlaps_pale_seal_traces": true,
+      "directly_readable_baisong_yichan": false,
+      "directly_readable_tieqin_tongjian_lou": false,
+      "directly_readable_qu_family_name": false,
+      "unique_seal_fingerprint_closed": false,
+      "target_leaf_status": "PROVENANCE_MARKS_PRESENT_INSCRIPTION_UNRESOLVED"
+    },
+    "book1_other_reviewed_pages": {
+      "reviewed_pages": [
+        1,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        64,
+        65,
+        66,
+        67
+      ],
+      "directly_readable_target_provenance_seal_found": false,
+      "absence_elsewhere_in_book1_authorized": false
+    },
+    "strategic_books_2_16_32": {
+      "reviewed_scope": "first 12 pages and terminal 5 pages of each selected book",
+      "directly_readable_target_provenance_seal_found": false,
+      "absence_elsewhere_in_32_book_object_authorized": false
+    },
+    "same_object_identity_upgrade_authorized": false
+  },
+  "authoritative_seal_comparators": {
+    "huang_baisong_yichan": {
+      "source_id": "EXT-FSN-BAISONG-YICHAN-SEAL",
+      "provider": "中央研究院歷史語言研究所傅斯年圖書館數位典藏計畫",
+      "url": "https://dap.ihp.sinica.edu.tw/material/41/",
+      "owner": "黃丕烈",
+      "seal_text": "百宋一廛",
+      "style": "小篆/陰刻",
+      "dimensions_cm": "2.73 × 1.31",
+      "engraver": "陳鴻壽",
+      "comparator_only": true,
+      "target_match_closed": false
+    },
+    "tieqin_tongjian_lou": {
+      "source_id": "EXT-TAIWAN-NCL-2018-TIEQIN-SEAL-FIG7",
+      "provider": "臺灣國家圖書館《國家圖書館館刊》",
+      "url": "https://nclfile.ncl.edu.tw/files/201903/638c7a79-fdd5-42f8-ab5a-54f3a45117db.pdf",
+      "article": "古籍裡的風景—國家圖書館的藏書印記初探",
+      "publication": "2018.12",
+      "figure": "圖7",
+      "seal_text": "鐵琴銅劍樓",
+      "cataloged_form": "白文長方印",
+      "comparator_only": true,
+      "target_match_closed": false
+    },
+    "comparator_firewall": "REFERENCE_SEAL_SHAPE_OR_CATALOG_DESCRIPTION_DOES_NOT_IDENTIFY_THE_TARGET_WHEN_THE_TARGET_IMPRESSION_IS_NOT_DIRECTLY_READABLE_OR_UNIQUELY_MATCHED"
+  },
+  "relation_to_historical_tieqin_catalog": {
+    "source_id": "EXT-TIEQIN-CATALOG-ZUOZHUAN-60-BAISONG-FINGERPRINT-SHIDIAN",
+    "title_entry": "附释音春秋左传注疏六十卷",
+    "old_provenance_statement": "旧藏黄氏百宋一廛",
+    "expected_provenance_signal_is_material": true,
+    "fid070_book1_has_provenance_seal_traces": true,
+    "direct_baisong_seal_reading_closed": false,
+    "direct_tieqin_seal_reading_closed": false
+  },
+  "identity_adjudication": {
+    "fid": "412004000070",
+    "historical_beitu_book_number": "3388",
+    "fid070_equals_1985_microfilm_original_control": "CLOSED",
+    "fid070_to_1987_book_number_3388": "HIGH_CONFIDENCE_CLOSED_AT_CATALOG_PROFILE_AND_CONTIGUOUS_GROUP_LEVEL",
+    "direct_provenance_marks_on_fid070": "CLOSED_PRESENT_ON_BOOK1_PAGE2",
+    "exact_provenance_seal_text": "UNRESOLVED",
+    "fid070_equals_zhang_tieqin_yuan_copy": "STRONGLY_COMPATIBLE_NOT_PROVED",
+    "same_object_edge_authorized": false,
+    "exact_tieqin_identity_promoted": false
+  },
+  "current_nlc_identifier_boundary": {
+    "historical_book_number": "3388",
+    "current_sys": "UNRESOLVED",
+    "current_uid": "UNRESOLVED",
+    "current_905s": "UNRESOLVED",
+    "current_shelfmark": "UNRESOLVED",
+    "zero_padding_3388_to_03388": "FORBIDDEN_WITHOUT_DIRECT_CURRENT_RECORD"
+  },
+  "relation_to_hj": {
+    "hj_named_member": "宋刻《春秋左传注疏》",
+    "hj_named_song_member_equals_fid070": "UNRESOLVED",
+    "provenance_visual_review_changes_hj_mapping": false
+  },
+  "target_volume_firewall": {
+    "target_titles": [
+      "铜壶漏箭制度",
+      "准斋心制几漏图式"
+    ],
+    "historical_catalog_numbers": [
+      3482,
+      3483
+    ],
+    "target_named_in_ho_sources": false,
+    "target_transaction_route_changed": false,
+    "target_specific_purchase_route_selected": false,
+    "target_specific_donation_route_selected": false,
+    "target_specific_ding_intermediary_selected": false
+  },
+  "transmission_impact": {
+    "scope": "OBJECT_LEVEL_PROVENANCE_VISUAL_AUDIT_OUTSIDE_CURRENT_ZIWEI_TEXTUAL_TRANSMISSION_GRAPH",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "same_object_edge_authorized": false,
+    "acquisition_edge_authorized": false
+  },
+  "chronology_and_rule_firewall": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_count_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 14,
+    "repaired_provenance_metadata_defect_count": 14,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Recover Zhang Lijuan's 2018 《国图藏元刻十行本〈附释音春秋左传注疏〉》 full text or another direct source that prints historical book number 3388, current NLC shelfmark, or a Tieqin provenance identifier.",
+    "Seek a cleaner direct image of FID070's provenance leaf or another leaf in the same physical object where the pale seal impression is not overwritten by black title text; do not infer seal text from shape alone.",
+    "Continue rare-book/legacy NLC catalog crosswalk work using literal historical 3388 without zero-padding.",
+    "Keep Zhao Wanli's 1951 Song member and target 3482/3483 acquisition paths separately unresolved."
+  ],
+  "updated_at": "2026-09-27"
+}

@@ -246,6 +246,8 @@ ZIWEI_NLC_ZUOZHUAN_12HM_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-
 ZIWEI_NLC_ZUOZHUAN_12HM_EVIDENCE = ROOT / "docs/research/ZIWEI-NLC-ZUOZHUAN-FID412004000070-MICROFILM-OLD-CATALOG-CROSSWALK-R1.json"
 ZIWEI_BEITU_12HN_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-BEITU1987-ZUOZHUAN-BOOKNO3388-FID070-CATALOG-CROSSWALK-HN.md"
 ZIWEI_BEITU_12HN_EVIDENCE = ROOT / "docs/research/ZIWEI-BEITU1987-ZUOZHUAN-BOOKNO3388-FID070-CATALOG-CROSSWALK-R1.json"
+ZIWEI_NLC_ZUOZHUAN_12HO_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID070-PROVENANCE-SEAL-VISUAL-BOUNDARY-HO.md"
+ZIWEI_NLC_ZUOZHUAN_12HO_EVIDENCE = ROOT / "docs/research/ZIWEI-NLC-ZUOZHUAN-FID070-PROVENANCE-SEAL-VISUAL-BOUNDARY-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -595,9 +597,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-NLC-ZUOZHUAN-412004000069-NPM-SPLIT-SONG-COPY-PHYSICAL-DISTINCTNESS-HL",
     "BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID412004000070-MICROFILM-OLD-CATALOG-CROSSWALK-HM",
     "BATCH-12-ZIWEI-BEITU1987-ZUOZHUAN-BOOKNO3388-FID070-CATALOG-CROSSWALK-HN",
+    "BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID070-PROVENANCE-SEAL-VISUAL-BOUNDARY-HO",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-BEITU1987-ZUOZHUAN-BOOKNO3388-FID070-CATALOG-CROSSWALK-HN.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID070-PROVENANCE-SEAL-VISUAL-BOUNDARY-HO.md"
 
 
 def fail(message: str) -> None:
@@ -8334,6 +8337,81 @@ def main() -> int:
         fail("Batch 12HN missing from completed state")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12HN latest-batch document mismatch")
+
+
+    # Batch 12HO: direct FID070 provenance-seal visual boundary.
+    for path in (ZIWEI_NLC_ZUOZHUAN_12HO_BATCH, ZIWEI_NLC_ZUOZHUAN_12HO_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12HO continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12ho=json.loads(ZIWEI_NLC_ZUOZHUAN_12HO_EVIDENCE.read_text(encoding="utf-8"))
+    bid12ho="BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID070-PROVENANCE-SEAL-VISUAL-BOUNDARY-HO"
+    if batch12ho.get("batch_id") != bid12ho:
+        fail("Batch 12HO evidence identity mismatch")
+    probes12ho=batch12ho.get("direct_visual_probes",{})
+    b1=probes12ho.get("book1",{})
+    if b1.get("workflow_run_id") != 36309706422 or b1.get("artifact_id") != 10928835321:
+        fail("Batch 12HO book1 probe identity regressed")
+    if b1.get("source_pdf_sha256") != "619451dbde84e806293d155a84f21f584e728107d08a139fcdc7ed335cd2ff8a" or b1.get("source_pdf_pages") != 67:
+        fail("Batch 12HO book1 source control regressed")
+    multi=probes12ho.get("strategic_multibook",{})
+    if multi.get("workflow_run_id") != 36311131378 or multi.get("artifact_id") != 10929560901 or multi.get("discovered_fid_file_count") != 32:
+        fail("Batch 12HO multibook probe identity/count regressed")
+    for key,sha,pages in (
+        ("2","df966c6149ed8d6c677f0bfdaf6ac29adcdea08b3593f165596fa7ff01ad4ed9",58),
+        ("16","9b40b7835ef39aa203879e8b54c301f9fd0c14d0b2f5349629ef03dd226678f5",36),
+        ("32","13e0323e849d6025a62a8ad157ca6ac28eba4294a21a738b0f90647e32b625b6",57),
+    ):
+        obj=multi.get("books",{}).get(key,{})
+        if obj.get("source_pdf_sha256") != sha or obj.get("pages") != pages:
+            fail(f"Batch 12HO strategic book {key} source control regressed")
+    vis12ho=batch12ho.get("direct_visual_adjudication",{})
+    p2=vis12ho.get("book1_page2",{})
+    if p2.get("physical_provenance_seal_traces_visible") is not True or p2.get("target_leaf_status") != "PROVENANCE_MARKS_PRESENT_INSCRIPTION_UNRESOLVED":
+        fail("Batch 12HO page2 provenance-mark observation regressed")
+    if any(p2.get(k) for k in ("directly_readable_baisong_yichan","directly_readable_tieqin_tongjian_lou","directly_readable_qu_family_name","unique_seal_fingerprint_closed")):
+        fail("Batch 12HO unreadable-seal firewall regressed")
+    strategic=vis12ho.get("strategic_books_2_16_32",{})
+    if strategic.get("directly_readable_target_provenance_seal_found") is not False or strategic.get("absence_elsewhere_in_32_book_object_authorized") is not False:
+        fail("Batch 12HO strategic negative-evidence firewall regressed")
+    comp12ho=batch12ho.get("authoritative_seal_comparators",{})
+    if comp12ho.get("huang_baisong_yichan",{}).get("seal_text") != "百宋一廛" or comp12ho.get("huang_baisong_yichan",{}).get("target_match_closed") is not False:
+        fail("Batch 12HO Huang comparator firewall regressed")
+    if comp12ho.get("tieqin_tongjian_lou",{}).get("seal_text") != "鐵琴銅劍樓" or comp12ho.get("tieqin_tongjian_lou",{}).get("target_match_closed") is not False:
+        fail("Batch 12HO Tieqin comparator firewall regressed")
+    ident12ho=batch12ho.get("identity_adjudication",{})
+    if ident12ho.get("direct_provenance_marks_on_fid070") != "CLOSED_PRESENT_ON_BOOK1_PAGE2" or ident12ho.get("exact_provenance_seal_text") != "UNRESOLVED":
+        fail("Batch 12HO provenance-layer adjudication regressed")
+    if ident12ho.get("fid070_equals_zhang_tieqin_yuan_copy") != "STRONGLY_COMPATIBLE_NOT_PROVED" or ident12ho.get("same_object_edge_authorized") is not False:
+        fail("Batch 12HO same-object firewall regressed")
+    cur12ho=batch12ho.get("current_nlc_identifier_boundary",{})
+    if cur12ho.get("current_905s") != "UNRESOLVED" or cur12ho.get("zero_padding_3388_to_03388") != "FORBIDDEN_WITHOUT_DIRECT_CURRENT_RECORD":
+        fail("Batch 12HO current-ID/zero-padding firewall regressed")
+    srcmap12ho={x.get("source_id"):x for x in registry.get("sources",())}
+    if srcmap12ho.get("EXT-FSN-BAISONG-YICHAN-SEAL",{}).get("batch_12ho",{}).get("target_fid070_match") != "UNRESOLVED":
+        fail("Batch 12HO Huang seal comparator registry binding missing")
+    if srcmap12ho.get("EXT-TAIWAN-NCL-2018-TIEQIN-SEAL-FIG7",{}).get("batch_12ho",{}).get("target_fid070_match") != "UNRESOLVED":
+        fail("Batch 12HO Tieqin seal comparator registry binding missing")
+    if srcmap12ho.get("EXT-NLC-DIGITAL-ZUOZHUAN-412004000070-COMMONS-BACKUP",{}).get("batch_12ho",{}).get("book1_page2_provenance_seal_traces_visible") is not True:
+        fail("Batch 12HO FID070 registry extension missing")
+    target12ho=batch12ho.get("target_volume_firewall",{})
+    if target12ho.get("target_transaction_route_changed") is not False or any(target12ho.get(k) for k in ("target_specific_purchase_route_selected","target_specific_donation_route_selected","target_specific_ding_intermediary_selected")):
+        fail("Batch 12HO target-route firewall regressed")
+    rule12ho=batch12ho.get("chronology_and_rule_firewall",{})
+    if any(rule12ho.get(k) for k in ("runtime_rule_change","algorithm_reopen_authorized","candidate_collapse_authorized","matrix_count_change")):
+        fail("Batch 12HO product/matrix firewall regressed")
+    acct12ho=batch12ho.get("accounting",{})
+    if acct12ho.get("matrix_rows") != 198 or acct12ho.get("audited_rows") != 166 or acct12ho.get("current_missing_from_product_rows") != 10 or acct12ho.get("confirmed_chart_algorithm_defect_count") != 0:
+        fail("Batch 12HO accounting regressed")
+    try:
+        schema12ho=tuple(int(part) for part in state.get("schema_version","0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12HO state version is not numeric")
+    if schema12ho < (1,227,0):
+        fail("Batch 12HO state version regressed below 1.227.0")
+    if bid12ho not in audit_state.get("completed_batches",()):
+        fail("Batch 12HO missing from completed state")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12HO latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

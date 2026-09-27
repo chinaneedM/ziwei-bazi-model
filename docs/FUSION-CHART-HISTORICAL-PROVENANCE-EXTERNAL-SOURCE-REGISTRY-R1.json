@@ -9245,6 +9245,16 @@
         "exact_fid070_identity": "STRONGLY_COMPATIBLE_NOT_PROVED",
         "same_object_edge_authorized": false,
         "research_artifact": "docs/research/ZIWEI-BEITU1987-ZUOZHUAN-BOOKNO3388-FID070-CATALOG-CROSSWALK-R1.json"
+      },
+      "batch_12ho": {
+        "role": "OFFICIAL_PHYSICAL_RESEARCH_COMPARATOR_AFTER_DIRECT_FID070_PROVENANCE_VISUAL_REVIEW",
+        "zhang_prior_catalog_classification": "元刻明修本",
+        "zhang_revised_physical_adjudication": "元刻元印十行本",
+        "fid070_provenance_marks_present": true,
+        "direct_tieqin_seal_reading_on_fid070": false,
+        "exact_fid070_identity": "STRONGLY_COMPATIBLE_NOT_PROVED",
+        "same_object_edge_authorized": false,
+        "research_artifact": "docs/research/ZIWEI-NLC-ZUOZHUAN-FID070-PROVENANCE-SEAL-VISUAL-BOUNDARY-R1.json"
       }
     },
     {
@@ -9266,6 +9276,14 @@
         "impression_language": "其为元时印本无疑",
         "exact_binding_to_fid_412004000069": "NOT_PROVED",
         "research_artifact": "docs/research/ZIWEI-NLC-ZUOZHUAN-412004000069-TIEQIN-YUAN-IDENTITY-BIFURCATION-FIREWALL-R1.json"
+      },
+      "batch_12ho": {
+        "role": "HISTORICAL_PROVENANCE_EXPECTATION_CONTROL_FOR_DIRECT_VISUAL_REVIEW",
+        "old_provenance": "旧藏黄氏百宋一廛",
+        "fid070_book1_provenance_marks_present": true,
+        "direct_baisong_seal_reading_closed": false,
+        "direct_tieqin_seal_reading_closed": false,
+        "research_artifact": "docs/research/ZIWEI-NLC-ZUOZHUAN-FID070-PROVENANCE-SEAL-VISUAL-BOUNDARY-R1.json"
       }
     },
     {
@@ -9376,6 +9394,22 @@
         "crosswalk_status": "HIGH_CONFIDENCE_CLOSED_AT_CATALOG_PROFILE_AND_CONTIGUOUS_GROUP_LEVEL",
         "current_905s": "UNRESOLVED",
         "research_artifact": "docs/research/ZIWEI-BEITU1987-ZUOZHUAN-BOOKNO3388-FID070-CATALOG-CROSSWALK-R1.json"
+      },
+      "batch_12ho": {
+        "direct_visual_review_completed": true,
+        "book1_page2_provenance_seal_traces_visible": true,
+        "directly_readable_baisong_yichan": false,
+        "directly_readable_tieqin_tongjian_lou": false,
+        "strategic_books_reviewed": [
+          2,
+          16,
+          32
+        ],
+        "strategic_scope": "first 12 + final 5 pages",
+        "directly_readable_repeated_target_seal_found": false,
+        "object_wide_absence_inference_authorized": false,
+        "exact_tieqin_identity": "STRONGLY_COMPATIBLE_NOT_PROVED",
+        "research_artifact": "docs/research/ZIWEI-NLC-ZUOZHUAN-FID070-PROVENANCE-SEAL-VISUAL-BOUNDARY-R1.json"
       }
     },
     {
@@ -9400,6 +9434,43 @@
         "target_book_number": "3388",
         "automatic_zero_padding_forbidden": true,
         "research_artifact": "docs/research/ZIWEI-BEITU1987-ZUOZHUAN-BOOKNO3388-FID070-CATALOG-CROSSWALK-R1.json"
+      }
+    },
+    {
+      "source_id": "EXT-FSN-BAISONG-YICHAN-SEAL",
+      "title": "傅斯年圖書館數位典藏計畫《百宋一廛》黃丕烈藏書印",
+      "author": "中央研究院歷史語言研究所傅斯年圖書館",
+      "historical_period": "Qing collector seal; modern institutional digital description",
+      "provider": "中央研究院歷史語言研究所傅斯年圖書館數位典藏計畫",
+      "url": "https://dap.ihp.sinica.edu.tw/material/41/",
+      "source_role": "AUTHORITATIVE_HUANG_PILEI_BAISONG_YICHAN_SEAL_COMPARATOR",
+      "quality_notes": "Institutional seal-database record. It identifies seal owner 黃丕烈, text 百宋一廛, 小篆/陰刻, dimensions 2.73×1.31 cm, engraver 陳鴻壽. Batch 12HO uses it only as a comparator; the faded FID070 seal trace is not directly readable or uniquely matched.",
+      "batch_12ho": {
+        "owner": "黃丕烈",
+        "seal_text": "百宋一廛",
+        "style": "小篆/陰刻",
+        "dimensions_cm": "2.73 × 1.31",
+        "target_fid070_match": "UNRESOLVED",
+        "comparator_only": true,
+        "research_artifact": "docs/research/ZIWEI-NLC-ZUOZHUAN-FID070-PROVENANCE-SEAL-VISUAL-BOUNDARY-R1.json"
+      }
+    },
+    {
+      "source_id": "EXT-TAIWAN-NCL-2018-TIEQIN-SEAL-FIG7",
+      "title": "《古籍裡的風景—國家圖書館的藏書印記初探》圖7〈鐵琴銅劍樓〉白文長方印",
+      "author": "張圍東",
+      "historical_period": "2018 institutional scholarly article illustrating an older Qu-family seal",
+      "provider": "臺灣國家圖書館《國家圖書館館刊》",
+      "url": "https://nclfile.ncl.edu.tw/files/201903/638c7a79-fdd5-42f8-ab5a-54f3a45117db.pdf",
+      "source_role": "AUTHORITATIVE_TIEQIN_TONGJIAN_LOU_SEAL_FORM_COMPARATOR",
+      "quality_notes": "Taiwan NCL scholarly article, Figure 7, explicitly captions 鐵琴銅劍樓 as a 白文長方印. It is a seal-form comparator only and does not identify the Beijing NLC target object. Batch 12HO forbids promoting shape similarity to same-object identity when the target impression is faded or overprinted.",
+      "batch_12ho": {
+        "figure": "圖7",
+        "seal_text": "鐵琴銅劍樓",
+        "form": "白文長方印",
+        "target_fid070_match": "UNRESOLVED",
+        "comparator_only": true,
+        "research_artifact": "docs/research/ZIWEI-NLC-ZUOZHUAN-FID070-PROVENANCE-SEAL-VISUAL-BOUNDARY-R1.json"
       }
     }
   ],
