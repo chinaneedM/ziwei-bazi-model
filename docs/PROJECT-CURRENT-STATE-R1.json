@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.229.0",
+  "schema_version": "1.230.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -311,9 +311,10 @@
       "BATCH-12-ZIWEI-BEITU1987-ZUOZHUAN-BOOKNO3388-FID070-CATALOG-CROSSWALK-HN",
       "BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID070-PROVENANCE-SEAL-VISUAL-BOUNDARY-HO",
       "BATCH-12-ZIWEI-BEITU1959-ZUOZHUAN-QU-DONATION-FID070-TIEQIN-IDENTITY-CLOSURE-HP",
-      "BATCH-12-ZIWEI-NLC-2026-RAREBOOK-CALLNUMBER-FORMAT-3388-CURRENT-SEARCH-BOUNDARY-HQ"
+      "BATCH-12-ZIWEI-NLC-2026-RAREBOOK-CALLNUMBER-FORMAT-3388-CURRENT-SEARCH-BOUNDARY-HQ",
+      "BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID070-CURRENT-SYS-UID-SEARCH-CROSSWALK-HR"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-2026-RAREBOOK-CALLNUMBER-FORMAT-3388-CURRENT-SEARCH-BOUNDARY-HQ.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID070-CURRENT-SYS-UID-SEARCH-CROSSWALK-HR.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -1378,7 +1379,12 @@
       "12HQ does not infer 3388=03388: the target is absent from the 2026 page and whether its leading-zero examples preserve 1987 printed semantics or reflect later normalization is unresolved. Automatic zero-padding as identity remains forbidden; literal 03388 is authorized only as a search hypothesis.",
       "1959 number 3368, 1987 book number 3388 and FID 412004000070 remain distinct identifier layers. The 3368↔3388 succession mechanism, exact current NLC machine identifiers and exact Qu donation/accession batch/date remain unresolved.",
       "Batch 12HQ changes no Matrix count, runtime rule, algorithm reopen, candidate collapse or transmission genealogy topology. Accounting remains 198 / 166 / 10, provenance defects 14/14 repaired and chart algorithm defects 0.",
-      "Highest next gate: recover an object-specific current NLC SYS/UID/905s/shelfmark bridge; recover direct 1959 3368↔1987 3388 succession documentation; resolve the exact Qu donation/accession batch/date; continue Zhang Lijuan 2018 full-text retrieval."
+      "Highest next gate: recover an object-specific current NLC SYS/UID/905s/shelfmark bridge; recover direct 1959 3368↔1987 3388 succession documentation; resolve the exact Qu donation/accession batch/date; continue Zhang Lijuan 2018 full-text retrieval.",
+      "Batch 12HR forward-revises the current NLC machine-identifier gate from fully unresolved to a direct current-search result: the exact 32冊 rare-book row is UID UCS01003868188 / SYS 002838237, with title 附釋音春秋左傳註疏 / 六十卷 and NLC holding; adjacent same-title 15冊 control is UID UCS01003868187 / SYS 002838236.",
+      "The 12HR workflow run 36317095311 / job 108613744263 was cancelled only after the search phase printed the target rows; the later detail loop timed out. Therefore the emitted SYS/UID search result is retained, while unobserved 905s and physical shelfmark remain UNRESOLVED.",
+      "Composite with the already closed FID412004000070 32-book object fingerprint yields CURRENT_NLC_SYS_UID_CROSSWALK=HIGH_CONFIDENCE_AT_CURRENT_SEARCH_RESULT_AND_PRIOR_32CE_OBJECT_FINGERPRINT_LEVEL. This does not authorize 3388=03388, does not infer a 3368→3388 renumbering rule, and does not close the exact Qu accession batch/date.",
+      "Batch 12HR changes no Matrix count, runtime rule, algorithm reopen, candidate collapse or transmission genealogy topology. Accounting remains 198 / 166 / 10, provenance defects 14/14 repaired and chart algorithm defects 0.",
+      "Highest next gate: retrieve current detail/holding metadata for UCS01003868188 / SYS 002838237, especially 905s or an equivalent physical call-number/shelfmark; then continue direct 3368↔3388 succession documentation, exact Qu accession batch/date and Zhang Lijuan 2018 full-text retrieval."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10
