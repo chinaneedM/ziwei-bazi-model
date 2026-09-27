@@ -1,0 +1,119 @@
+name: probe-batch-12ho-fid070-multibook-provenance
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - '.github/workflows/probe-batch-12ho-fid070-multibook-provenance.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch and render FID070 books 2, 16, 32 provenance pages
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/batch-12ho-fid070-multibook-provenance'
+          rm -rf "$ROOT"; mkdir -p "$ROOT/pdfs" "$ROOT/render"
+          UA='Tianwen-Provenance-Audit/1.0'
+
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils > /dev/null
+
+          # Discover exact Commons file titles from the FID, then select strategic books.
+          curl -L --fail --retry 3 --connect-timeout 10 --max-time 60 -A "$UA"             --get 'https://commons.wikimedia.org/w/api.php'             --data-urlencode 'action=query' --data-urlencode 'format=json'             --data-urlencode 'list=search' --data-urlencode 'srnamespace=6'             --data-urlencode 'srlimit=50'             --data-urlencode 'srsearch=412004000070 intitle:NLC892'             -o "$ROOT/search.json"
+
+          python - <<'PY'
+          from pathlib import Path
+          import json,re
+          root=Path('audit/batch-12ho-fid070-multibook-provenance')
+          o=json.loads((root/'search.json').read_text('utf-8'))
+          rows=(o.get('query') or {}).get('search') or []
+          selected={}
+          allrows=[]
+          for x in rows:
+              title=x.get('title','')
+              m=re.search(r'第(\d+)冊\.pdf$',title)
+              if m:
+                  n=int(m.group(1))
+                  allrows.append({'book':n,'title':title,'pageid':x.get('pageid')})
+                  if n in (2,16,32):
+                      selected[n]=title
+          root.joinpath('discovered.json').write_text(json.dumps({'all':sorted(allrows,key=lambda z:z['book']),'selected':selected},ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          missing=[n for n in (2,16,32) if n not in selected]
+          if missing:
+              raise SystemExit(f'missing selected books: {missing}; discovered={allrows}')
+          for n,title in selected.items():
+              root.joinpath(f'title-{n}.txt').write_text(title+'\n',encoding='utf-8')
+          print(json.dumps({'selected':selected,'count':len(allrows)},ensure_ascii=False))
+          PY
+
+          : > "$ROOT/download-summary.tsv"
+          for book in 2 16 32; do
+            title=$(cat "$ROOT/title-$book.txt")
+            curl -L --fail --retry 3 --connect-timeout 10 --max-time 60 -A "$UA"               --get 'https://commons.wikimedia.org/w/api.php'               --data-urlencode 'action=query' --data-urlencode 'format=json'               --data-urlencode "titles=$title"               --data-urlencode 'prop=imageinfo'               --data-urlencode 'iiprop=url|size|sha1|extmetadata'               -o "$ROOT/imageinfo-$book.json"
+
+            python - "$ROOT" "$book" <<'PY'
+          import json,sys
+          from pathlib import Path
+          root=Path(sys.argv[1]); book=int(sys.argv[2])
+          o=json.loads(root.joinpath(f'imageinfo-{book}.json').read_text('utf-8'))
+          p=next(iter((o.get('query') or {}).get('pages',{}).values()))
+          ii=(p.get('imageinfo') or [None])[0]
+          if not ii: raise SystemExit(f'no imageinfo for {book}')
+          d={'pageid':p.get('pageid'),'title':p.get('title'),'url':ii.get('url'),'sha1':ii.get('sha1'),'size':ii.get('size'),'pagecount':ii.get('pagecount'),'extmetadata':ii.get('extmetadata')}
+          root.joinpath(f'resolved-{book}.json').write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          root.joinpath(f'url-{book}.txt').write_text(d['url']+'\n',encoding='utf-8')
+          root.joinpath(f'sha1-{book}.txt').write_text((d.get('sha1') or '')+'\n',encoding='utf-8')
+          print(json.dumps({k:d.get(k) for k in ('title','pageid','sha1','size','pagecount')},ensure_ascii=False))
+          PY
+
+            url=$(cat "$ROOT/url-$book.txt")
+            curl -L --fail --retry 3 --retry-delay 2 --connect-timeout 10 --max-time 240 -A "$UA"               -o "$ROOT/pdfs/book-$book.pdf" "$url"
+            actual=$(sha1sum "$ROOT/pdfs/book-$book.pdf" | awk '{print $1}')
+            expected=$(cat "$ROOT/sha1-$book.txt")
+            test "$actual" = "$expected"
+            pages=$(pdfinfo "$ROOT/pdfs/book-$book.pdf" | awk '/^Pages:/ {print $2}')
+            sha256=$(sha256sum "$ROOT/pdfs/book-$book.pdf" | awk '{print $1}')
+            printf '%s\tpages=%s\tsha1=%s\tsha256=%s\n' "$book" "$pages" "$actual" "$sha256" >> "$ROOT/download-summary.tsv"
+
+            # Render first 12 and last 5 pages; seals are normally concentrated at fascicle boundaries.
+            mkdir -p "$ROOT/render/book-$book"
+            for p in $(seq 1 12); do
+              [ "$p" -le "$pages" ] || break
+              pdftoppm -f "$p" -l "$p" -jpeg -jpegopt quality=94 -r 225 -singlefile                 "$ROOT/pdfs/book-$book.pdf" "$ROOT/render/book-$book/page-$p"
+            done
+            start=$(( pages > 5 ? pages - 4 : 1 ))
+            for p in $(seq "$start" "$pages"); do
+              [ -f "$ROOT/render/book-$book/page-$p.jpg" ] && continue
+              pdftoppm -f "$p" -l "$p" -jpeg -jpegopt quality=94 -r 225 -singlefile                 "$ROOT/pdfs/book-$book.pdf" "$ROOT/render/book-$book/page-$p"
+            done
+          done
+
+          find "$ROOT/render" -type f -name '*.jpg' -print0 | xargs -0 sha256sum | sort -V > "$ROOT/render.sha256"
+          cat > "$ROOT/manual-visual-contract.txt" <<'EOF'
+          TARGET=NLC-backed FID 412004000070, strategic books 2 / 16 / 32
+          PURPOSE=look for repeated provenance seals/ownership notes that can disambiguate the obscured seal on book1 page2
+          TERMS_OF_INTEREST=百宋一廛|黃氏百宋一廛|黄氏百宋一廛|鐵琴銅劍樓|铁琴铜剑楼|虞山瞿紹基藏書之印|虞山瞿绍基藏书之印|古里瞿氏記|菰里瞿鏞|瞿氏
+          METHOD=manual visual inspection of hash-bound rendered pages
+          OCR_USED=false
+          NEGATIVE_POLICY=no seal on these strategic leaves does not prove absence elsewhere
+          POSITIVE_POLICY=identity promotion requires directly readable provenance text or a repeated unique seal matching an authoritative reference
+          EOF
+          echo '===== DISCOVERED ====='; cat "$ROOT/discovered.json"
+          echo '===== DOWNLOADS ====='; cat "$ROOT/download-summary.tsv"
+          echo '===== RENDER HASHES ====='; cat "$ROOT/render.sha256"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12ho-fid070-multibook-provenance
+          path: audit/batch-12ho-fid070-multibook-provenance/
+          if-no-files-found: error
+          retention-days: 30
