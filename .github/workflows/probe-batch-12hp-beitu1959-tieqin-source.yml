@@ -1,0 +1,127 @@
+name: probe-batch-12hp-beitu1959-tieqin-source
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - '.github/workflows/probe-batch-12hp-beitu1959-tieqin-source.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Probe 1959 Beijing Library catalog for Tieqin/source note
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/batch-12hp-beitu1959-tieqin-source'
+          rm -rf "$ROOT"; mkdir -p "$ROOT/gb" "$ROOT/render" "$ROOT/contact"
+          UA='Tianwen-Provenance-Audit/1.0'
+          PDF='https://upload.wikimedia.org/wikipedia/commons/2/28/SSID-12335507_%E5%8C%97%E4%BA%AC%E5%9C%96%E6%9B%B8%E9%A4%A8%E5%96%84%E6%9C%AC%E6%9B%B8%E7%9B%AE_1.pdf'
+
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils imagemagick > /dev/null
+
+          curl -L --fail --retry 3 --retry-delay 2 --connect-timeout 10 --max-time 180 -A "$UA"             -o "$ROOT/beitu1959-vol1.pdf" "$PDF"
+          sha256sum "$ROOT/beitu1959-vol1.pdf" > "$ROOT/pdf.sha256"
+          pdfinfo "$ROOT/beitu1959-vol1.pdf" > "$ROOT/pdfinfo.txt"
+
+          set +e
+          pdftotext -layout "$ROOT/beitu1959-vol1.pdf" "$ROOT/layout.txt"
+          pdftotext_rc=$?
+          set -e
+          echo "PDFTOTEXT_RC=$pdftotext_rc" > "$ROOT/text-layer-status.txt"
+          wc -c "$ROOT/layout.txt" >> "$ROOT/text-layer-status.txt" || true
+          grep -n -E '附釋音春秋左傳註疏|附释音春秋左传注疏|元刻明修|鐵琴|铁琴|瞿氏|海虞' "$ROOT/layout.txt"             > "$ROOT/text-layer-hits.txt" || true
+
+          python - <<'PY'
+          from urllib.parse import quote
+          from pathlib import Path
+          import urllib.request, json, os, time
+          root=Path('audit/batch-12hp-beitu1959-tieqin-source')
+          vid='8HUnrRREKsoC'
+          queries=[
+            '附釋音春秋左傳註疏',
+            '附释音春秋左传注疏',
+            '元刻明修本',
+            '铁琴铜剑楼',
+            '鐵琴銅劍樓',
+            '瞿氏',
+            '杜預 孔穎達 陸德明',
+          ]
+          for i,q in enumerate(queries,1):
+              url='https://books.google.com/books?jscmd=SearchWithinVolume2&q='+quote(q)+'&vid='+vid
+              req=urllib.request.Request(url,headers={'User-Agent':'Tianwen-Provenance-Audit/1.0'})
+              out=root/'gb'/f'{i:02d}.json'
+              try:
+                  with urllib.request.urlopen(req,timeout=30) as r:
+                      b=r.read()
+                  out.write_bytes(b)
+                  print('GB',i,q,'bytes',len(b),b[:200])
+              except Exception as e:
+                  out.write_text(json.dumps({'error':repr(e),'query':q,'url':url},ensure_ascii=False),encoding='utf-8')
+                  print('GBERR',i,q,repr(e))
+              time.sleep(.5)
+          PY
+
+          python - <<'PY'
+          from pathlib import Path
+          import json,re
+          root=Path('audit/batch-12hp-beitu1959-tieqin-source')
+          out=[]
+          page_tokens=set()
+          for p in sorted((root/'gb').glob('*.json')):
+              out.append('### '+p.name)
+              raw=p.read_text('utf-8',errors='replace')
+              out.append(raw[:20000])
+              for pat in [r'"page_id"\s*:\s*"([^"]+)"',r'"pageId"\s*:\s*"([^"]+)"',r'"page"\s*:\s*"([^"]+)"',r'"page_number"\s*:\s*"([^"]+)"']:
+                  for m in re.finditer(pat,raw):
+                      page_tokens.add(m.group(1))
+          (root/'gb-summary.txt').write_text('\n'.join(out)+'\n',encoding='utf-8')
+          (root/'gb-page-tokens.txt').write_text('\n'.join(sorted(page_tokens))+'\n',encoding='utf-8')
+          print('===== GB SUMMARY =====')
+          print((root/'gb-summary.txt').read_text('utf-8')[:120000])
+          print('PAGE_TOKENS',sorted(page_tokens))
+          PY
+
+          # Render all pages at modest resolution into six contact sheets for visual navigation.
+          pdftoppm -jpeg -jpegopt quality=85 -r 72 "$ROOT/beitu1959-vol1.pdf" "$ROOT/render/p" >/dev/null 2>&1
+          python - <<'PY'
+          from pathlib import Path
+          import subprocess, math
+          root=Path('audit/batch-12hp-beitu1959-tieqin-source')
+          imgs=sorted((root/'render').glob('p-*.jpg'), key=lambda p:int(p.stem.split('-')[-1]))
+          for si in range(0,len(imgs),20):
+              chunk=imgs[si:si+20]
+              out=root/'contact'/f'pages-{si+1:03d}-{si+len(chunk):03d}.jpg'
+              cmd=['montage',*map(str,chunk),'-thumbnail','250x510','-tile','4x5','-geometry','+4+4','-pointsize','18','-set','label','%t',str(out)]
+              subprocess.run(cmd,check=True)
+          PY
+
+          # Keep higher-resolution renders for likely 经部 / 春秋 range.
+          for p in $(seq 20 70); do
+            pdftoppm -f "$p" -l "$p" -jpeg -jpegopt quality=92 -r 150 -singlefile               "$ROOT/beitu1959-vol1.pdf" "$ROOT/render/hi-$p" >/dev/null 2>&1 || true
+          done
+
+          printf '%s\n'             'SOURCE=1959 北京图书馆善本书目 volume 1 public-domain Commons scan + Google Books search-within-volume index'             'PURPOSE=locate the exact 附释音春秋左传注疏 entry and test whether 1959 source/donor notation explicitly binds it to 瞿氏/铁琴铜剑楼'             'METHOD=public scan hash + Google Books indexing + no-OCR manual visual review package'             'OCR_USED=false'             'ABSENCE_POLICY=no negative provenance conclusion unless the exact target row is visually identified and its full note field reviewed'             'IDENTIFIER_FIREWALL=1959 catalog notation != 1987 book no.3388 != current SYS/UID/905s unless directly cross-bound'             > "$ROOT/manifest.txt"
+
+          find "$ROOT" -type f -size +0c -print0 | xargs -0 -r sha256sum | sort -V > "$ROOT/all-files.sha256"
+          echo '===== TEXT LAYER ====='
+          cat "$ROOT/text-layer-status.txt"
+          cat "$ROOT/text-layer-hits.txt" || true
+          echo '===== PDF INFO ====='
+          cat "$ROOT/pdfinfo.txt"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12hp-beitu1959-tieqin-source
+          path: audit/batch-12hp-beitu1959-tieqin-source/
+          if-no-files-found: error
+          retention-days: 30
