@@ -250,6 +250,8 @@ ZIWEI_NLC_ZUOZHUAN_12HO_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-
 ZIWEI_NLC_ZUOZHUAN_12HO_EVIDENCE = ROOT / "docs/research/ZIWEI-NLC-ZUOZHUAN-FID070-PROVENANCE-SEAL-VISUAL-BOUNDARY-R1.json"
 ZIWEI_BEITU_12HP_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-BEITU1959-ZUOZHUAN-QU-DONATION-FID070-TIEQIN-IDENTITY-CLOSURE-HP.md"
 ZIWEI_BEITU_12HP_EVIDENCE = ROOT / "docs/research/ZIWEI-BEITU1959-ZUOZHUAN-QU-DONATION-FID070-TIEQIN-IDENTITY-CLOSURE-R1.json"
+ZIWEI_NLC_CALLNUMBER_12HQ_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-2026-RAREBOOK-CALLNUMBER-FORMAT-3388-CURRENT-SEARCH-BOUNDARY-HQ.md"
+ZIWEI_NLC_CALLNUMBER_12HQ_EVIDENCE = ROOT / "docs/research/ZIWEI-NLC-2026-RAREBOOK-CALLNUMBER-FORMAT-3388-CURRENT-SEARCH-BOUNDARY-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -603,7 +605,7 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-BEITU1959-ZUOZHUAN-QU-DONATION-FID070-TIEQIN-IDENTITY-CLOSURE-HP",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-BEITU1959-ZUOZHUAN-QU-DONATION-FID070-TIEQIN-IDENTITY-CLOSURE-HP.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-2026-RAREBOOK-CALLNUMBER-FORMAT-3388-CURRENT-SEARCH-BOUNDARY-HQ.md"
 
 
 def fail(message: str) -> None:
@@ -8492,6 +8494,64 @@ def main() -> int:
         fail("Batch 12HP missing from completed state")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12HP latest-batch document mismatch")
+
+    # Batch 12HQ: current NLC call-number formatting/search boundary; no target identifier collapse.
+    for path in (ZIWEI_NLC_CALLNUMBER_12HQ_BATCH, ZIWEI_NLC_CALLNUMBER_12HQ_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12HQ continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12hq=json.loads(ZIWEI_NLC_CALLNUMBER_12HQ_EVIDENCE.read_text(encoding="utf-8"))
+    bid12hq="BATCH-12-ZIWEI-NLC-2026-RAREBOOK-CALLNUMBER-FORMAT-3388-CURRENT-SEARCH-BOUNDARY-HQ"
+    if batch12hq.get("batch_id") != bid12hq:
+        fail("Batch 12HQ evidence identity mismatch")
+    probe12hq=batch12hq.get("fresh_current_nlc_probe",{})
+    if probe12hq.get("rerun_attempt") != 2 or probe12hq.get("rerun_job_id") != 108608704600 or probe12hq.get("artifact_id") != 10930436779:
+        fail("Batch 12HQ fresh NLC probe identity regressed")
+    qo12hq=probe12hq.get("query_outcomes",{})
+    if qo12hq.get("any_3388") != "NO_MATCHING_RESULT" or qo12hq.get("any_03388") != "NO_MATCHING_RESULT" or qo12hq.get("any_sbyl_03388") != "NO_MATCHING_RESULT":
+        fail("Batch 12HQ current NLC search boundary regressed")
+    if probe12hq.get("target_current_crosswalk_recovered") is not False or probe12hq.get("negative_absence_inference_authorized") is not False:
+        fail("Batch 12HQ current-crosswalk/absence firewall regressed")
+    fmt12hq=batch12hq.get("nlc_2026_callnumber_format_control",{})
+    if fmt12hq.get("literal_label_used_on_page") != "索书号" or fmt12hq.get("leading_zero_five_digit_format_observed") is not True:
+        fail("Batch 12HQ NLC 2026 call-number format control regressed")
+    if [x.get("call_number") for x in fmt12hq.get("direct_examples",())] != ["02461","09373","11261"]:
+        fail("Batch 12HQ NLC 2026 call-number examples regressed")
+    if fmt12hq.get("target_3388_present") is not False or fmt12hq.get("direct_3388_to_03388_crosswalk") is not False:
+        fail("Batch 12HQ target-specific formatting firewall regressed")
+    ids12hq=batch12hq.get("identifier_adjudication",{})
+    if ids12hq.get("beitu1959_number") != "3368" or ids12hq.get("beitu1987_book_number") != "3388" or ids12hq.get("fid") != "412004000070":
+        fail("Batch 12HQ identifier-layer controls regressed")
+    if ids12hq.get("current_sys") != "UNRESOLVED" or ids12hq.get("current_uid") != "UNRESOLVED" or ids12hq.get("current_905s") != "UNRESOLVED":
+        fail("Batch 12HQ modern identifier boundary regressed")
+    if ids12hq.get("automatic_zero_padding_as_asserted_identity") != "FORBIDDEN" or ids12hq.get("literal_03388_as_search_candidate") != "AUTHORIZED_AS_SEARCH_ONLY_HYPOTHESIS":
+        fail("Batch 12HQ zero-padding/search-only adjudication regressed")
+    if ids12hq.get("direct_3368_to_3388_succession_record_recovered") is not False or ids12hq.get("direct_3388_to_03388_target_crosswalk_recovered") is not False:
+        fail("Batch 12HQ succession/crosswalk firewall regressed")
+    don12hq=batch12hq.get("donation_accession_boundary",{})
+    if don12hq.get("exact_qu_donation_or_accession_batch_for_fid070") != "UNRESOLVED" or don12hq.get("exact_qu_donation_or_accession_date_for_fid070") != "UNRESOLVED":
+        fail("Batch 12HQ exact Qu accession boundary regressed")
+    srcmap12hq={x.get("source_id"):x for x in registry.get("sources",())}
+    if srcmap12hq.get("EXT-NLC-PCAB-2026-BEITU-SHANBEN-PEIBU-CALLNUMBER-FORMAT",{}).get("batch_12hq",{}).get("target_3388_to_03388_crosswalk") is not False:
+        fail("Batch 12HQ source registry binding missing")
+    rel12hq=batch12hq.get("relation_to_hp",{})
+    if rel12hq.get("hp_identity_reopened") is not False or rel12hq.get("new_current_machine_identifier_closed") is not False:
+        fail("Batch 12HQ HP identity/current-ID firewall regressed")
+    rule12hq=batch12hq.get("chronology_and_rule_firewall",{})
+    if any(rule12hq.get(k) for k in ("runtime_rule_change","algorithm_reopen_authorized","candidate_collapse_authorized","matrix_count_change")):
+        fail("Batch 12HQ product/matrix firewall regressed")
+    acct12hq=batch12hq.get("accounting",{})
+    if acct12hq.get("matrix_rows") != 198 or acct12hq.get("audited_rows") != 166 or acct12hq.get("current_missing_from_product_rows") != 10 or acct12hq.get("confirmed_chart_algorithm_defect_count") != 0:
+        fail("Batch 12HQ accounting regressed")
+    try:
+        schema12hq=tuple(int(part) for part in state.get("schema_version","0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12HQ state version is not numeric")
+    if schema12hq < (1,229,0):
+        fail("Batch 12HQ state version regressed below 1.229.0")
+    if bid12hq not in audit_state.get("completed_batches",()):
+        fail("Batch 12HQ missing from completed state")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12HQ latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")
