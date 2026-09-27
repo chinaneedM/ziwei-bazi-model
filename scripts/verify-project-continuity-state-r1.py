@@ -236,6 +236,8 @@ ZIWEI_WENWU_12HH_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-B
 ZIWEI_WENWU_12HH_EVIDENCE = ROOT / "docs/research/ZIWEI-WENWU-CANKAO-1951-V2N9-ZHAO-WANLI-ORIGINAL-ISSUE-PHYSICAL-HOLDINGS-R1.json"
 ZIWEI_WENWU_12HI_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENWU-CANKAO-NDL-1951-H2-AND-RYUKOKU-1986-FACSIMILE-ACCESS-REDUNDANCY-HI.md"
 ZIWEI_WENWU_12HI_EVIDENCE = ROOT / "docs/research/ZIWEI-WENWU-CANKAO-NDL-1951-H2-AND-RYUKOKU-1986-FACSIMILE-ACCESS-REDUNDANCY-R1.json"
+ZIWEI_ZHAO_QU_12HJ_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHAO-WANLI-1951-QU-SIXTYTWO-DONATION-COUNT-CHRONOLOGY-FIREWALL-HJ.md"
+ZIWEI_ZHAO_QU_12HJ_EVIDENCE = ROOT / "docs/research/ZIWEI-ZHAO-WANLI-1951-QU-SIXTYTWO-DONATION-COUNT-CHRONOLOGY-FIREWALL-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -580,9 +582,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-NDL-ZHAO-WANLI-WENJI-P197-NIANPU-PP309-310-PHYSICAL-ACCESS-ROUTES-HG",
     "BATCH-12-ZIWEI-WENWU-CANKAO-1951-V2N9-ZHAO-WANLI-ORIGINAL-ISSUE-PHYSICAL-HOLDINGS-HH",
     "BATCH-12-ZIWEI-WENWU-CANKAO-NDL-1951-H2-AND-RYUKOKU-1986-FACSIMILE-ACCESS-REDUNDANCY-HI",
+    "BATCH-12-ZIWEI-ZHAO-WANLI-1951-QU-SIXTYTWO-DONATION-COUNT-CHRONOLOGY-FIREWALL-HJ",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENWU-CANKAO-NDL-1951-H2-AND-RYUKOKU-1986-FACSIMILE-ACCESS-REDUNDANCY-HI.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHAO-WANLI-1951-QU-SIXTYTWO-DONATION-COUNT-CHRONOLOGY-FIREWALL-HJ.md"
 
 
 def fail(message: str) -> None:
@@ -7985,6 +7988,70 @@ def main() -> int:
         fail("Batch 12HI missing from completed state")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12HI latest-batch document mismatch")
+
+    # Batch 12HJ: Zhao Wanli 1951 Qu-family 62-title donation count chronology firewall.
+    for path in (ZIWEI_ZHAO_QU_12HJ_BATCH, ZIWEI_ZHAO_QU_12HJ_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12HJ continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12hj=json.loads(ZIWEI_ZHAO_QU_12HJ_EVIDENCE.read_text(encoding="utf-8"))
+    bid12hj="BATCH-12-ZIWEI-ZHAO-WANLI-1951-QU-SIXTYTWO-DONATION-COUNT-CHRONOLOGY-FIREWALL-HJ"
+    if batch12hj.get("batch_id") != bid12hj:
+        fail("Batch 12HJ evidence identity mismatch")
+    pub12hj=batch12hj.get("original_publication_control",{})
+    if pub12hj.get("target_author") != "赵万里" or pub12hj.get("target_periodical") != "文物参考资料" or pub12hj.get("target_issue") != 9:
+        fail("Batch 12HJ original publication locator regressed")
+    if pub12hj.get("target_pages") != "221–233" or pub12hj.get("direct_original_pages_reviewed") is not False:
+        fail("Batch 12HJ original-page boundary regressed")
+    q12hj=batch12hj.get("quotation_bridge",{})
+    if q12hj.get("quoted_page") != 197 or q12hj.get("donated_title_count") != 62:
+        fail("Batch 12HJ 62-title quotation control regressed")
+    if q12hj.get("qu_donors") != ["瞿济苍","瞿凤起","瞿旭初"]:
+        fail("Batch 12HJ donor set regressed")
+    member12hj=q12hj.get("explicitly_named_member",{})
+    if member12hj.get("title") != "春秋左传注疏" or member12hj.get("edition_display") != "宋刻":
+        fail("Batch 12HJ named member regressed")
+    if q12hj.get("direct_2011_page_reviewed") is not False or q12hj.get("direct_1951_page_reviewed") is not False:
+        fail("Batch 12HJ direct-page firewall regressed")
+    earlier12hj=batch12hj.get("earlier_count_comparator",{})
+    if earlier12hj.get("report_date") != "1950-02-11" or earlier12hj.get("reported_donation_title_count") != 52:
+        fail("Batch 12HJ 52-title comparator regressed")
+    chrono12hj=batch12hj.get("chronology_and_count_adjudication",{})
+    if chrono12hj.get("raw_arithmetic_difference") != 10 or chrono12hj.get("arithmetic_difference_equals_new_later_donation") is not False:
+        fail("Batch 12HJ arithmetic firewall regressed")
+    if chrono12hj.get("monotonic_cumulative_interpretation_selected") is not False or chrono12hj.get("same_underlying_counting_scope") != "UNRESOLVED" or chrono12hj.get("count_normalization_authorized") is not False:
+        fail("Batch 12HJ chronology/count normalization firewall regressed")
+    anchor12hj=batch12hj.get("named_member_anchor",{})
+    if anchor12hj.get("anchor_status") != "EXPLICIT_MEMBER_EXAMPLE_OF_THE_1951_62_TITLE_QUOTATION_BRIDGE" or anchor12hj.get("full_62_title_list") != "UNRESOLVED":
+        fail("Batch 12HJ named-member anchor scope regressed")
+    srcmap12hj={x.get("source_id"):x for x in registry.get("sources",())}
+    if srcmap12hj.get("EXT-XIAO-LING-2026-ZHAO-WANLI-DING-HUIKANG-SIX-TITLE-QUOTE",{}).get("batch_12hj",{}).get("donated_title_count") != 62:
+        fail("Batch 12HJ Xiao registry extension missing")
+    if srcmap12hj.get("EXT-SBKSC-SONG-YUNBIN-DIARY-1950-0211-TIEQIN-EXCERPT",{}).get("batch_12hj",{}).get("reported_donation_title_count") != 52:
+        fail("Batch 12HJ Song comparator registry extension missing")
+    target12hj=batch12hj.get("target_volume_firewall",{})
+    if target12hj.get("target_in_qu_62") != "UNRESOLVED" or target12hj.get("target_in_feb1950_52") != "UNRESOLVED":
+        fail("Batch 12HJ target membership regressed")
+    if any(target12hj.get(k) for k in ("target_specific_purchase_route_selected","target_specific_donation_route_selected","target_specific_ding_intermediary_selected")):
+        fail("Batch 12HJ target route firewall regressed")
+    trans12hj=batch12hj.get("transmission_impact",{})
+    if trans12hj.get("nodes_added") != [] or trans12hj.get("edges_added") != [] or trans12hj.get("acquisition_edge_authorized") is not False:
+        fail("Batch 12HJ genealogy firewall regressed")
+    rule12hj=batch12hj.get("chronology_and_rule_firewall",{})
+    if rule12hj.get("runtime_rule_change") is not False or rule12hj.get("algorithm_reopen_authorized") is not False or rule12hj.get("candidate_collapse_authorized") is not False or rule12hj.get("matrix_count_change") is not False:
+        fail("Batch 12HJ product/matrix firewall regressed")
+    acct12hj=batch12hj.get("accounting",{})
+    if acct12hj.get("matrix_rows") != 198 or acct12hj.get("audited_rows") != 166 or acct12hj.get("current_missing_from_product_rows") != 10 or acct12hj.get("confirmed_chart_algorithm_defect_count") != 0:
+        fail("Batch 12HJ accounting regressed")
+    try:
+        schema12hj=tuple(int(part) for part in state.get("schema_version","0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12HJ state version is not numeric")
+    if schema12hj < (1,222,0):
+        fail("Batch 12HJ state version regressed below 1.222.0")
+    if bid12hj not in audit_state.get("completed_batches",()):
+        fail("Batch 12HJ missing from completed state")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12HJ latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")
