@@ -9224,6 +9224,17 @@
         "exact_nlc_digital_fid": "UNRESOLVED",
         "hj_1951_member_identity": "UNRESOLVED",
         "research_artifact": "docs/research/ZIWEI-NLC-ZUOZHUAN-412004000069-NPM-SPLIT-SONG-COPY-PHYSICAL-DISTINCTNESS-R1.json"
+      },
+      "batch_12hm": {
+        "role": "OFFICIAL_PHYSICAL_RESEARCH_COMPARATOR_FOR_FID070_OLD_CATALOG_PROFILE",
+        "prior_catalog_classification": "元刻明修本",
+        "revised_physical_adjudication": "元刻元印十行本",
+        "fid070_old_catalog_profile_compatibility": "STRONGLY_COMPATIBLE",
+        "exact_fid070_identity": "NOT_PROVED",
+        "exact_modern_nlc_sys": "UNRESOLVED",
+        "exact_modern_nlc_uid": "UNRESOLVED",
+        "exact_modern_nlc_905s": "UNRESOLVED",
+        "research_artifact": "docs/research/ZIWEI-NLC-ZUOZHUAN-FID412004000070-MICROFILM-OLD-CATALOG-CROSSWALK-R1.json"
       }
     },
     {
@@ -9283,6 +9294,62 @@
         "source_system": "國立故宮博物院古籍輿圖檢索系統",
         "complementary_nlc_range_inferred": "卷一－二十九",
         "research_artifact": "docs/research/ZIWEI-NLC-ZUOZHUAN-412004000069-NPM-SPLIT-SONG-COPY-PHYSICAL-DISTINCTNESS-R1.json"
+      }
+    },
+    {
+      "source_id": "EXT-NLC-MICROFILM-ZUOZHUAN-FID412004000070-OLD-CATALOG",
+      "title": "国家图书馆现行缩微记录《附释音春秋左传注疏》1985 元/明重修32册原文献控制号 412004000070",
+      "author": "全国图书馆文献缩微中心；原文献〔晋〕杜预注等",
+      "historical_period": "1985 microfilm catalog layer describing an older rare-book original; current NLC metadata reviewed 2026-09-27",
+      "provider": "国家图书馆 / 全国图书馆文献缩微中心",
+      "url": "https://meta.nlc.cn/v2/detail/UCS01003624709",
+      "additional_urls": [
+        "https://meta.nlc.cn/v2/detail/UCS01003601976",
+        "https://read.nlc.cn/allSearch/searchDetail?indexName=data_892&fid=412004000070"
+      ],
+      "source_role": "FIRST_PARTY_NLC_CURRENT_MICROFILM_METADATA_CROSSWALK_TO_FID412004000070_OLD_CATALOG_PROFILE",
+      "quality_notes": "Two independent current NLC microfilm records bind the same original-control value 412004000070. Both describe the original as 《附释音春秋左传注疏》刻本32册, 善本/重修, 元[1271-1368] and 明[1368-1644]重修. This closes the 1985 old-catalog-to-FID layer. It does not expose the modern original rare-book SYS/UID/905s or an explicit Tieqin provenance note.",
+      "batch_12hm": {
+        "work_sys": "003416361",
+        "work_uid": "UCS01003624709",
+        "distribution_sys": "003026493",
+        "distribution_uid": "UCS01003601976",
+        "embedded_original_control": "412004000070",
+        "original_book_count": 32,
+        "original_date_profile": "元[1271-1368] + 明[1368-1644]重修",
+        "original_material_profile": "善本 / 刻本 / 重修",
+        "microfilm_registration_905b": "00O003551",
+        "modern_original_905s": "UNRESOLVED",
+        "tieqin_identity": "STRONGLY_COMPATIBLE_NOT_PROVED",
+        "research_artifact": "docs/research/ZIWEI-NLC-ZUOZHUAN-FID412004000070-MICROFILM-OLD-CATALOG-CROSSWALK-R1.json"
+      }
+    },
+    {
+      "source_id": "EXT-NLC-DIGITAL-ZUOZHUAN-412004000070-COMMONS-BACKUP",
+      "title": "国家图书馆数字古籍 FID 412004000070《附釋音春秋左傳註疏》32册公开备份索引",
+      "author": "〔晋〕杜预注；数字文件来源署 National Library of China",
+      "historical_period": "underlying ancient-book witness; Commons NLC library backup reviewed 2026-09-27",
+      "provider": "Wikimedia Commons Library backup project / National Library of China source credit",
+      "identifier": "FID 412004000070",
+      "url": "https://commons.wikimedia.org/wiki/Commons:Library_back_up_project/file_list/NLC/%E6%95%B8%E5%AD%97%E5%8F%A4%E7%B1%8D/15",
+      "source_role": "PUBLIC_NLC_BACKUP_CONTROL_FOR_FID412004000070_COMPLETE_32_BOOK_DIGITAL_OBJECT",
+      "quality_notes": "The Commons NLC backup list exposes exactly 32 PDFs under FID 412004000070, from book 1 containing 卷首/卷1/卷2 through book 32 containing 卷59/卷60. Imageinfo credits the National Library of China. This independently corroborates the 1985 NLC old-catalog book count and original-control value, but no Tieqin seal/provenance or current NLC shelfmark is inferred from the backup.",
+      "batch_12hm": {
+        "fid": "412004000070",
+        "file_count": 32,
+        "first_book_contents": [
+          "卷首",
+          "卷第一",
+          "卷第二"
+        ],
+        "last_book_contents": [
+          "卷第五十九",
+          "卷第六十"
+        ],
+        "full_juan_extent_closed": true,
+        "nlc_credit": true,
+        "tieqin_identity": "STRONGLY_COMPATIBLE_NOT_PROVED",
+        "research_artifact": "docs/research/ZIWEI-NLC-ZUOZHUAN-FID412004000070-MICROFILM-OLD-CATALOG-CROSSWALK-R1.json"
       }
     }
   ],

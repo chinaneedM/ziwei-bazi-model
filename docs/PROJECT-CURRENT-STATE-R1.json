@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.224.0",
+  "schema_version": "1.225.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -306,9 +306,10 @@
       "BATCH-12-ZIWEI-WENWU-CANKAO-NDL-1951-H2-AND-RYUKOKU-1986-FACSIMILE-ACCESS-REDUNDANCY-HI",
       "BATCH-12-ZIWEI-ZHAO-WANLI-1951-QU-SIXTYTWO-DONATION-COUNT-CHRONOLOGY-FIREWALL-HJ",
       "BATCH-12-ZIWEI-NLC-ZUOZHUAN-412004000069-TIEQIN-YUAN-IDENTITY-BIFURCATION-FIREWALL-HK",
-      "BATCH-12-ZIWEI-NLC-ZUOZHUAN-412004000069-NPM-SPLIT-SONG-COPY-PHYSICAL-DISTINCTNESS-HL"
+      "BATCH-12-ZIWEI-NLC-ZUOZHUAN-412004000069-NPM-SPLIT-SONG-COPY-PHYSICAL-DISTINCTNESS-HL",
+      "BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID412004000070-MICROFILM-OLD-CATALOG-CROSSWALK-HM"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-ZUOZHUAN-412004000069-NPM-SPLIT-SONG-COPY-PHYSICAL-DISTINCTNESS-HL.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID412004000070-MICROFILM-OLD-CATALOG-CROSSWALK-HM.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -1340,7 +1341,13 @@
       "12HL forward-revises only HK's physical-object adjudication: fid 412004000069 and Zhang Lijuan's separately researched Tieqin-old-collection Yuan-engraved/Yuan-impression ten-line copy are RESOLVED_DISTINCT; same-physical-object collapse is forbidden. HK remains unchanged as the auditable earlier unresolved state.",
       "This does not yet identify Zhao Wanli's 1951 宋刻《春秋左传注疏》 member. Both HJ-member->fid and HJ-member->Tieqin-Yuan mappings remain UNRESOLVED until an accession/donor/shelfmark/provenance bridge is recovered; the exact modern NLC shelfmark of the Tieqin-Yuan copy also remains unresolved.",
       "Batch 12HL changes no target 3482/3483 transfer conclusion, Matrix count, runtime rule, algorithm reopen, candidate collapse or textual genealogy topology. Accounting remains 198 / 166 / 10, provenance metadata defects 14/14 repaired and chart algorithm defects 0.",
-      "Highest next gate: resolve the Tieqin-Yuan copy's modern NLC shelfmark/digital ID and the 1951 accession/provenance bridge for Zhao's donated Song member; continue direct 1951/2011 page collation, 2018 pp.309-310 and 1997 pp.446-449 in parallel."
+      "Highest next gate: resolve the Tieqin-Yuan copy's modern NLC shelfmark/digital ID and the 1951 accession/provenance bridge for Zhao's donated Song member; continue direct 1951/2011 page collation, 2018 pp.309-310 and 1997 pp.446-449 in parallel.",
+      "Batch 12HM closes the NLC 1985 microfilm old-catalog -> original control -> FID 412004000070 chain for 《附释音春秋左传注疏》. SYS 003416361 / UID UCS01003624709 and distribution SYS 003026493 / UID UCS01003601976 both embed 455$1 original control 001412004000070 and describe the original as 元 + 明重修 + 善本 + 32册.",
+      "The Commons NLC library-backup index independently exposes FID 412004000070 as exactly 32 digital books covering 卷首/卷1 through 卷60, with National Library of China credit. This closes FID070 as the digitized object referenced by the 1985 old-catalog/microfilm layer.",
+      "Zhang Lijuan's official project report says the NLC Tieqin-old-collection ten-line witness was formerly cataloged 元刻明修本 and physically re-adjudicated 元刻元印十行本. FID070 is therefore STRONGLY_COMPATIBLE_NOT_PROVED as Zhang's exact copy; no same-object edge is authorized until Tieqin provenance/seal, current 905s/shelfmark, accession record or unique fingerprint closes the bridge.",
+      "Literal FID 412004000070 currently returns no matching result through meta.nlc.cn ANY search, while read.nlc.cn timed out from the runner. These are current route/index boundaries, not absence evidence and not permission to invent a modern SYS/UID/905s.",
+      "Batch 12HM changes no Matrix count, target 3482/3483 acquisition conclusion, runtime rule, algorithm reopen or candidate collapse. Accounting remains 198 / 166 / 10, provenance metadata defects 14/14 repaired and chart algorithm defects 0.",
+      "Highest next gate: directly bind FID070 to Tieqin provenance via ownership seal/catalog note or resolve Zhang's current NLC SYS/UID/905s; then separately continue Zhao 1951/2011 and acquisition-record collation."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10
