@@ -232,6 +232,8 @@ ZIWEI_ZHAO_DING_12HF_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUD
 ZIWEI_ZHAO_DING_12HF_EVIDENCE = ROOT / "docs/research/ZIWEI-ZHAO-WANLI-1951-DING-HUIKANG-SIX-TITLES-TWO-NAMED-CONTEMPORARY-PUBLICATION-BRIDGE-R1.json"
 ZIWEI_NDL_ZHAO_12HG_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NDL-ZHAO-WANLI-WENJI-P197-NIANPU-PP309-310-PHYSICAL-ACCESS-ROUTES-HG.md"
 ZIWEI_NDL_ZHAO_12HG_EVIDENCE = ROOT / "docs/research/ZIWEI-NDL-ZHAO-WANLI-WENJI-P197-NIANPU-PP309-310-PHYSICAL-ACCESS-ROUTES-R1.json"
+ZIWEI_WENWU_12HH_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENWU-CANKAO-1951-V2N9-ZHAO-WANLI-ORIGINAL-ISSUE-PHYSICAL-HOLDINGS-HH.md"
+ZIWEI_WENWU_12HH_EVIDENCE = ROOT / "docs/research/ZIWEI-WENWU-CANKAO-1951-V2N9-ZHAO-WANLI-ORIGINAL-ISSUE-PHYSICAL-HOLDINGS-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -574,9 +576,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-TSINGHUA-DING-HUIKANG-TIEQIN-1100PLUS-VOLUMES-FINANCING-SCOPE-HE",
     "BATCH-12-ZIWEI-ZHAO-WANLI-1951-DING-HUIKANG-SIX-TITLES-TWO-NAMED-CONTEMPORARY-PUBLICATION-BRIDGE-HF",
     "BATCH-12-ZIWEI-NDL-ZHAO-WANLI-WENJI-P197-NIANPU-PP309-310-PHYSICAL-ACCESS-ROUTES-HG",
+    "BATCH-12-ZIWEI-WENWU-CANKAO-1951-V2N9-ZHAO-WANLI-ORIGINAL-ISSUE-PHYSICAL-HOLDINGS-HH",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NDL-ZHAO-WANLI-WENJI-P197-NIANPU-PP309-310-PHYSICAL-ACCESS-ROUTES-HG.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENWU-CANKAO-1951-V2N9-ZHAO-WANLI-ORIGINAL-ISSUE-PHYSICAL-HOLDINGS-HH.md"
 
 
 def fail(message: str) -> None:
@@ -7865,6 +7868,63 @@ def main() -> int:
         fail("Batch 12HG missing from completed state")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12HG latest-batch document mismatch")
+
+    # Batch 12HH: original 1951 Wenwu Cankao v2n9 physical holding routes.
+    for path in (ZIWEI_WENWU_12HH_BATCH, ZIWEI_WENWU_12HH_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12HH continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12hh=json.loads(ZIWEI_WENWU_12HH_EVIDENCE.read_text(encoding="utf-8"))
+    bid12hh="BATCH-12-ZIWEI-WENWU-CANKAO-1951-V2N9-ZHAO-WANLI-ORIGINAL-ISSUE-PHYSICAL-HOLDINGS-HH"
+    if batch12hh.get("batch_id") != bid12hh:
+        fail("Batch 12HH evidence identity mismatch")
+    loc12hh=batch12hh.get("target_article_locator_carried_forward",{})
+    if loc12hh.get("article_author") != "赵万里" or loc12hh.get("year") != 1951 or loc12hh.get("issue") != 9 or loc12hh.get("pages") != "221–233":
+        fail("Batch 12HH Zhao article locator regressed")
+    ci12hh=batch12hh.get("cinii_serial_control",{})
+    if ci12hh.get("ncid") != "AA11467834" or ci12hh.get("target_volume") != 2 or ci12hh.get("target_issue") != 9:
+        fail("Batch 12HH CiNii serial/issue identity regressed")
+    holds12hh=batch12hh.get("exact_issue_physical_holdings",[])
+    if len(holds12hh) != 5 or not all(x.get("target_issue_9_explicitly_included") is True for x in holds12hh):
+        fail("Batch 12HH exact issue holding set regressed")
+    omu12hh=next((x for x in holds12hh if x.get("institution")=="大阪公立大学 杉本図書館"),{})
+    if omu12hh.get("evidence_level") != "FIRST_PARTY_LIBRARY_OPAC" or "1951(1-7, 9-12)" not in omu12hh.get("holdings_display",""):
+        fail("Batch 12HH OMU first-party holding regressed")
+    acc12hh=batch12hh.get("access_adjudication",{})
+    if acc12hh.get("original_1951_v2n9_physical_access_route_closed") is not True or acc12hh.get("original_article_pages_221_233_directly_reviewed") is not False:
+        fail("Batch 12HH access/text boundary regressed")
+    for key in ("copy_request_sent","interlibrary_loan_request_sent","library_account_action_taken","identity_transmitted","fee_incurred","digital_scan_bytes_recovered"):
+        if acc12hh.get(key) is not False:
+            fail(f"Batch 12HH access-action firewall regressed: {key}")
+    rel12hh=batch12hh.get("relation_to_hf_hg",{})
+    if rel12hh.get("hf_remaining_four_titles") != "UNRESOLVED" or rel12hh.get("hc_hf_six_identity") != "STRONGLY_COMPATIBLE_NOT_PROVED":
+        fail("Batch 12HH HF/HC firewall regressed")
+    srcmap12hh={x.get("source_id"):x for x in registry.get("sources",())}
+    if srcmap12hh.get("EXT-CINII-WENWU-CANKAO-AA11467834-1951-V2N9-HOLDINGS",{}).get("batch_12hh",{}).get("target_issue") != 9:
+        fail("Batch 12HH CiNii registry binding missing")
+    if srcmap12hh.get("EXT-OMU-WENWU-CANKAO-1951-V2N9-SUGIMOTO",{}).get("batch_12hh",{}).get("target_issue_9_explicitly_included") is not True:
+        fail("Batch 12HH OMU registry binding missing")
+    target12hh=batch12hh.get("target_volume_firewall",{})
+    if target12hh.get("target_membership_in_ding_six") != "UNRESOLVED" or target12hh.get("target_specific_ding_intermediary_selected") is not False:
+        fail("Batch 12HH target firewall regressed")
+    trans12hh=batch12hh.get("transmission_impact",{})
+    if trans12hh.get("nodes_added") != [] or trans12hh.get("edges_added") != [] or trans12hh.get("acquisition_edge_authorized") is not False:
+        fail("Batch 12HH genealogy firewall regressed")
+    rule12hh=batch12hh.get("chronology_and_rule_firewall",{})
+    if rule12hh.get("runtime_rule_change") is not False or rule12hh.get("algorithm_reopen_authorized") is not False or rule12hh.get("candidate_collapse_authorized") is not False or rule12hh.get("matrix_count_change") is not False:
+        fail("Batch 12HH product/matrix firewall regressed")
+    acct12hh=batch12hh.get("accounting",{})
+    if acct12hh.get("matrix_rows") != 198 or acct12hh.get("audited_rows") != 166 or acct12hh.get("current_missing_from_product_rows") != 10 or acct12hh.get("confirmed_chart_algorithm_defect_count") != 0:
+        fail("Batch 12HH accounting regressed")
+    try:
+        schema12hh=tuple(int(part) for part in state.get("schema_version","0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12HH state version is not numeric")
+    if schema12hh < (1,220,0):
+        fail("Batch 12HH state version regressed below 1.220.0")
+    if bid12hh not in audit_state.get("completed_batches",()):
+        fail("Batch 12HH missing from completed state")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12HH latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

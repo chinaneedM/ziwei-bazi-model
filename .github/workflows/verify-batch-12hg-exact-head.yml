@@ -46,7 +46,8 @@ jobs:
           state=json.loads(Path('docs/PROJECT-CURRENT-STATE-R1.json').read_text(encoding='utf-8'))
           assert tuple(int(x) for x in state['schema_version'].split('.')) >= (1,219,0)
           assert bid in state['historical_audit']['completed_batches']
-          assert state['historical_audit']['latest_batch_doc']=='docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NDL-ZHAO-WANLI-WENJI-P197-NIANPU-PP309-310-PHYSICAL-ACCESS-ROUTES-HG.md'
+          latest=state['historical_audit']['latest_batch_doc']
+          assert isinstance(latest,str) and latest.startswith('docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-') and latest.endswith('.md')
           reg=json.loads(Path('docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json').read_text(encoding='utf-8'))
           src={x.get('source_id'):x for x in reg['sources']}
           assert src['EXT-NDL-ZHAO-WANLI-NIANPU-2018-GK391-C34']['batch_12hg']['call_number']=='GK391-C34'
