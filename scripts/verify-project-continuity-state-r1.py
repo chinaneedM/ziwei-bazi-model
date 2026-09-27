@@ -260,6 +260,8 @@ ZIWEI_BEITU_BOOKNO_12HT_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-
 ZIWEI_BEITU_BOOKNO_12HT_EVIDENCE = ROOT / "docs/research/ZIWEI-BEITU1959-1987-ZUOZHUAN-BOOKNO3368-3288-RECOMPILATION-BOUNDARY-R1.json"
 ZIWEI_NLC_FORMAT_12HU_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID070-16-17-FORMAT-AUTHORITY-TRIANGULATION-HU.md"
 ZIWEI_NLC_FORMAT_12HU_EVIDENCE = ROOT / "docs/research/ZIWEI-NLC-ZUOZHUAN-FID070-16-17-FORMAT-AUTHORITY-TRIANGULATION-R1.json"
+ZIWEI_SHANGGU_12HV_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-SHANGGU2017-ZUOZHUAN-17CHAR-PUBLICATION-PREVIEW-CONTROL-HV.md"
+ZIWEI_SHANGGU_12HV_EVIDENCE = ROOT / "docs/research/ZIWEI-SHANGGU2017-ZUOZHUAN-17CHAR-PUBLICATION-PREVIEW-CONTROL-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -616,9 +618,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID070-905S03288-BOOKNO3288-FORWARD-CORRECTION-HS",
     "BATCH-12-ZIWEI-BEITU1959-1987-BOOKNO-3368-3288-RECOMPILATION-BOUNDARY-HT",
     "BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID070-16-17-FORMAT-AUTHORITY-TRIANGULATION-HU",
+    "BATCH-12-ZIWEI-SHANGGU2017-ZUOZHUAN-17CHAR-PUBLICATION-PREVIEW-CONTROL-HV",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID070-16-17-FORMAT-AUTHORITY-TRIANGULATION-HU.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-SHANGGU2017-ZUOZHUAN-17CHAR-PUBLICATION-PREVIEW-CONTROL-HV.md"
 
 
 def fail(message: str) -> None:
@@ -8827,6 +8830,68 @@ def main() -> int:
         fail("Batch 12HU latest-batch document mismatch")
     if audit_state.get("confirmed_provenance_metadata_defect_count") != 15 or audit_state.get("repaired_provenance_metadata_defect_count") != 15:
         fail("Batch 12HU state provenance accounting mismatch")
+
+    # Batch 12HV: 2017 Shanghai Ancient Books publication preview adds a third 17/23 description layer without exact FID070 source-copy closure.
+    for path in (ZIWEI_SHANGGU_12HV_BATCH, ZIWEI_SHANGGU_12HV_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12HV continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12hv = json.loads(ZIWEI_SHANGGU_12HV_EVIDENCE.read_text(encoding="utf-8"))
+    bid12hv = "BATCH-12-ZIWEI-SHANGGU2017-ZUOZHUAN-17CHAR-PUBLICATION-PREVIEW-CONTROL-HV"
+    if batch12hv.get("batch_id") != bid12hv:
+        fail("Batch 12HV evidence identity mismatch")
+    p12hv = batch12hv.get("public_publication_preview", {})
+    if p12hv.get("isbn13") != "9787532584055" or p12hv.get("publisher") != "上海古籍出版社" or p12hv.get("publication_date") != "2017-05-01":
+        fail("Batch 12HV publication identity regressed")
+    t12hv = p12hv.get("target_record", {})
+    if t12hv.get("lines_per_half_leaf") != 10 or t12hv.get("main_chars_per_line") != 17 or t12hv.get("commentary_double_line_chars") != 23 or t12hv.get("original_extent") != "三十二冊":
+        fail("Batch 12HV publication-preview 10/17/23/32 control regressed")
+    if p12hv.get("physical_printed_page_directly_reviewed") is not False:
+        fail("Batch 12HV printed-page authority firewall regressed")
+    f12hv = batch12hv.get("independence_and_identity_firewall", {})
+    if f12hv.get("exact_same_object_as_fid070_proved") is not False or f12hv.get("same_object_collapse_authorized") is not False:
+        fail("Batch 12HV same-object firewall regressed")
+    if f12hv.get("independent_description_control_increment") != 1 or f12hv.get("independent_physical_witness_increment") != 0:
+        fail("Batch 12HV evidence increment scope regressed")
+    stack12hv = batch12hv.get("format_evidence_stack", {})
+    if stack12hv.get("convergent_17_description_layers") != 3 or stack12hv.get("exact_physical_main_line_count_layers") != 0 or stack12hv.get("commentary_23_convergence") is not True:
+        fail("Batch 12HV format evidence stack regressed")
+    scan12hv = batch12hv.get("fid070_public_scan_boundary", {})
+    if scan12hv.get("body_start_observed_page") != 7 or scan12hv.get("body_preview_pages_reviewed") != [7, 8, 9]:
+        fail("Batch 12HV FID070 body-preview boundary regressed")
+    if scan12hv.get("reproducible_multi_line_main_text_count_completed") is not False or scan12hv.get("physical_16_or_17_adjudication_closed") is not False:
+        fail("Batch 12HV physical-count firewall regressed")
+    ad12hv = batch12hv.get("adjudication", {})
+    if ad12hv.get("controlling_status") != "UNRESOLVED_HIGH_PRIORITY_METADATA_TENSION":
+        fail("Batch 12HV controlling status regressed")
+    if ad12hv.get("current_evidence_direction") != "LEAN_17_STRENGTHENED_BY_2017_PUBLICATION_PREVIEW_PENDING_DIRECT_PHYSICAL_LINE_COUNT_OR_EXACT_SAME_OBJECT_BINDING":
+        fail("Batch 12HV evidence direction regressed")
+    if ad12hv.get("current_nlc_16_metadata_defect_proved") is not False or ad12hv.get("defect_016_created") is not False or ad12hv.get("additional_provenance_defect_increment_authorized") is not False:
+        fail("Batch 12HV no-defect firewall regressed")
+    src12hv = next((x for x in registry.get("sources", ()) if x.get("source_id") == "EXT-SHANGGU2017-GUBEN13JING-ZUOZHUAN-PUBLICATION-PREVIEW-17CHAR"), None)
+    if src12hv is None:
+        fail("Batch 12HV registry source missing")
+    rb12hv = src12hv.get("batch_12hv", {})
+    if rb12hv.get("isbn13") != "9787532584055" or rb12hv.get("main_chars_per_line") != 17 or rb12hv.get("commentary_double_line_chars") != 23:
+        fail("Batch 12HV registry publication binding regressed")
+    if rb12hv.get("exact_fid070_source_copy_proved") is not False or rb12hv.get("current_nlc_16_metadata_defect_proved") is not False:
+        fail("Batch 12HV registry identity/defect firewall regressed")
+    acct12hv = batch12hv.get("accounting", {})
+    if acct12hv.get("matrix_rows") != 198 or acct12hv.get("audited_rows") != 166 or acct12hv.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12HV matrix accounting unexpectedly changed")
+    if acct12hv.get("confirmed_provenance_metadata_defect_count") != 15 or acct12hv.get("repaired_provenance_metadata_defect_count") != 15 or acct12hv.get("confirmed_chart_algorithm_defect_count") != 0:
+        fail("Batch 12HV defect/algorithm accounting regressed")
+    try:
+        schema12hv = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12HV state version is not numeric")
+    if schema12hv < (1, 234, 0):
+        fail("Batch 12HV state version regressed below 1.234.0")
+    if bid12hv not in audit_state.get("completed_batches", ()):
+        fail("Batch 12HV missing from completed state")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12HV latest-batch document mismatch")
+    if audit_state.get("confirmed_provenance_metadata_defect_count") != 15 or audit_state.get("repaired_provenance_metadata_defect_count") != 15:
+        fail("Batch 12HV state provenance accounting mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")
