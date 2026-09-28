@@ -1,0 +1,122 @@
+name: probe-batch-12ib-beitu1959-all-volumes-map
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - '.github/workflows/probe-batch-12ib-beitu1959-all-volumes-map.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  statuses: write
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Map Google Books volumes and Commons candidates
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/batch-12ib-beitu1959-all-volumes-map'
+          rm -rf "$ROOT"; mkdir -p "$ROOT"
+
+          python - <<'PY'
+          from urllib.parse import urlencode
+          from urllib.request import Request, urlopen
+          from pathlib import Path
+          import json, time
+          root=Path('audit/batch-12ib-beitu1959-all-volumes-map')
+          queries=[
+            'intitle:北京圖書館善本書目 inauthor:北京圖書館',
+            '"北京圖書館善本書目"',
+          ]
+          all_items={}
+          fetch=[]
+          for i,q in enumerate(queries,1):
+              url='https://www.googleapis.com/books/v1/volumes?'+urlencode({'q':q,'maxResults':40,'printType':'books'})
+              req=Request(url,headers={'User-Agent':'Tianwen-Provenance-Audit/1.0'})
+              try:
+                  with urlopen(req,timeout=30) as r:b=r.read()
+                  (root/f'gbooks-{i}.json').write_bytes(b)
+                  o=json.loads(b)
+                  for it in o.get('items') or []: all_items[it.get('id')]=it
+                  fetch.append({'query':q,'ok':True,'bytes':len(b),'totalItems':o.get('totalItems')})
+              except Exception as e:
+                  fetch.append({'query':q,'ok':False,'error':repr(e)})
+              time.sleep(.4)
+          rows=[]
+          for bid,it in all_items.items():
+              v=it.get('volumeInfo') or {}
+              title=v.get('title','')
+              if '北京圖書館善本書目' not in title and '北京图书馆善本书目' not in title:
+                  continue
+              rows.append({
+                  'id':bid,'title':title,'authors':v.get('authors'),
+                  'publisher':v.get('publisher'),'publishedDate':v.get('publishedDate'),
+                  'pageCount':v.get('pageCount'),'canonicalVolumeLink':v.get('canonicalVolumeLink'),
+                  'previewLink':v.get('previewLink'),'infoLink':v.get('infoLink')
+              })
+          (root/'gbooks-fetch.json').write_text(json.dumps(fetch,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          (root/'gbooks-matches.json').write_text(json.dumps(rows,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print('GBOOKS_FETCH',json.dumps(fetch,ensure_ascii=False))
+          print('GBOOKS_MATCHES',json.dumps(rows,ensure_ascii=False))
+          PY
+
+          python - <<'PY'
+          from urllib.parse import urlencode
+          from urllib.request import Request, urlopen
+          from pathlib import Path
+          import json, time
+          root=Path('audit/batch-12ib-beitu1959-all-volumes-map')
+          queries=['"北京圖書館善本書目"','"北京图书馆善本书目"']
+          rows=[]
+          for i,q in enumerate(queries,1):
+              params={'action':'query','format':'json','generator':'search','gsrsearch':q,'gsrnamespace':6,'gsrlimit':50,'prop':'imageinfo','iiprop':'url|size|sha1|mime'}
+              url='https://commons.wikimedia.org/w/api.php?'+urlencode(params)
+              req=Request(url,headers={'User-Agent':'Tianwen-Provenance-Audit/1.0'})
+              try:
+                  with urlopen(req,timeout=30) as r:b=r.read()
+                  (root/f'commons-{i}.json').write_bytes(b)
+                  o=json.loads(b)
+                  for p in (o.get('query') or {}).get('pages',{}).values():
+                      title=p.get('title',''); ii=(p.get('imageinfo') or [{}])[0]
+                      if '北京圖書館善本書目' in title or '北京图书馆善本书目' in title:
+                          rows.append({'query':q,'title':title,'url':ii.get('url'),'size':ii.get('size'),'sha1':ii.get('sha1'),'mime':ii.get('mime')})
+              except Exception as e:
+                  rows.append({'query':q,'error':repr(e)})
+              time.sleep(.4)
+          seen=set(); out=[]
+          for r in rows:
+              k=(r.get('title'),r.get('url'))
+              if k in seen: continue
+              seen.add(k); out.append(r)
+          (root/'commons-matches.json').write_text(json.dumps(out,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print('COMMONS_MATCHES',json.dumps(out,ensure_ascii=False))
+          PY
+
+          printf '%s\n'             'PURPOSE=map publicly discoverable routes for all eight 1959 北京图书馆善本书目 volumes before cross-volume 3288 collision testing'             'KNOWN_GOOGLE_VOLUME1=8HUnrRREKsoC'             'KNOWN_GOOGLE_VOLUME8=GY4Kvtc9lBwC'             'ROLE=route discovery only; missing API result is not bibliographic absence evidence' > "$ROOT/manifest.txt"
+
+          find "$ROOT" -type f -size +0c -print0 | xargs -0 -r sha256sum | sort -V > "$ROOT/files.sha256"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12ib-beitu1959-all-volumes-map
+          path: audit/batch-12ib-beitu1959-all-volumes-map/
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Publish probe status
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.repos.createCommitStatus({
+              owner: context.repo.owner, repo: context.repo.repo, sha: context.sha,
+              state:'success', context:'tianwen/batch-12ib-probe',
+              description:'1959 eight-volume route-map probe complete'
+            })
