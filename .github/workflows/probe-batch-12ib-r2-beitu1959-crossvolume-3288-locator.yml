@@ -1,0 +1,192 @@
+name: probe-batch-12ib-r2-beitu1959-crossvolume-3288-locator
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - '.github/workflows/probe-batch-12ib-r2-beitu1959-crossvolume-3288-locator.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  statuses: write
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download all eight 1959 catalog scans and run fail-closed numeral locator
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/batch-12ib-r2-beitu1959-crossvolume-3288-locator'
+          rm -rf "$ROOT"; mkdir -p "$ROOT/pdfs" "$ROOT/ocr" "$ROOT/candidates" "$ROOT/meta"
+          UA='Tianwen-Provenance-Audit/1.0'
+
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils tesseract-ocr tesseract-ocr-chi-tra imagemagick > /dev/null
+
+          cat > "$ROOT/volumes.tsv" <<'EOF'
+          1	12335507	https://upload.wikimedia.org/wikipedia/commons/2/28/SSID-12335507_%E5%8C%97%E4%BA%AC%E5%9C%96%E6%9B%B8%E9%A4%A8%E5%96%84%E6%9C%AC%E6%9B%B8%E7%9B%AE_1.pdf	3ff9c94a69a5b5b799d65fba4a6d00fc2daecc97
+          2	12335508	https://upload.wikimedia.org/wikipedia/commons/8/89/SSID-12335508_%E5%8C%97%E4%BA%AC%E5%9C%96%E6%9B%B8%E9%A4%A8%E5%96%84%E6%9C%AC%E6%9B%B8%E7%9B%AE_2.pdf	0aa66bca2fa78068712d28361d53dbe8a52d5590
+          3	12335509	https://upload.wikimedia.org/wikipedia/commons/a/ae/SSID-12335509_%E5%8C%97%E4%BA%AC%E5%9C%96%E6%9B%B8%E9%A4%A8%E5%96%84%E6%9C%AC%E6%9B%B8%E7%9B%AE_3.pdf	92f14b7818d4b8d01ca01d1d659fdfaf0a89b4a6
+          4	12335510	https://upload.wikimedia.org/wikipedia/commons/7/75/SSID-12335510_%E5%8C%97%E4%BA%AC%E5%9C%96%E6%9B%B8%E9%A4%A8%E5%96%84%E6%9C%AC%E6%9B%B8%E7%9B%AE_4.pdf	d400c10df649f2ff2ca85cedcc87c18128531c90
+          5	12335511	https://upload.wikimedia.org/wikipedia/commons/0/0a/SSID-12335511_%E5%8C%97%E4%BA%AC%E5%9C%96%E6%9B%B8%E9%A4%A8%E5%96%84%E6%9C%AC%E6%9B%B8%E7%9B%AE_5.pdf	1e4a7f26eb4d825a73e0cdc746adba71faab3579
+          6	12335512	https://upload.wikimedia.org/wikipedia/commons/a/a4/SSID-12335512_%E5%8C%97%E4%BA%AC%E5%9C%96%E6%9B%B8%E9%A4%A8%E5%96%84%E6%9C%AC%E6%9B%B8%E7%9B%AE_6.pdf	f981a9257737fa3dc136a5eb36b3616c60cdeefc
+          7	12335513	https://upload.wikimedia.org/wikipedia/commons/2/23/SSID-12335513_%E5%8C%97%E4%BA%AC%E5%9C%96%E6%9B%B8%E9%A4%A8%E5%96%84%E6%9C%AC%E6%9B%B8%E7%9B%AE_7.pdf	64edc5f16e1a24f610b52306b4f607124cbbe97a
+          8	12335514	https://upload.wikimedia.org/wikipedia/commons/0/08/SSID-12335514_%E5%8C%97%E4%BA%AC%E5%9C%96%E6%9B%B8%E9%A4%A8%E5%96%84%E6%9C%AC%E6%9B%B8%E7%9B%AE_8.pdf	e34d425ab6794e197d0ddf84b13e5a1b57d0912a
+          EOF
+
+          : > "$ROOT/download-status.tsv"
+          while IFS=$'\t' read -r vol ssid url expected_sha1; do
+            pdf="$ROOT/pdfs/v$vol.pdf"
+            curl -L --fail --retry 3 --retry-delay 2 --connect-timeout 10 --max-time 240 -A "$UA" -o "$pdf" "$url"
+            got_sha1=$(sha1sum "$pdf" | awk '{print $1}')
+            got_sha256=$(sha256sum "$pdf" | awk '{print $1}')
+            pages=$(pdfinfo "$pdf" | awk '/^Pages:/ {print $2}')
+            printf '%s\tssid=%s\tpages=%s\tsha1=%s\texpected_sha1=%s\tsha1_match=%s\tsha256=%s\n'               "$vol" "$ssid" "$pages" "$got_sha1" "$expected_sha1" "$([ "$got_sha1" = "$expected_sha1" ] && echo true || echo false)" "$got_sha256"               >> "$ROOT/download-status.tsv"
+            [ "$got_sha1" = "$expected_sha1" ] || { echo "SHA1 mismatch for volume $vol" >&2; exit 1; }
+          done < "$ROOT/volumes.tsv"
+
+          python - <<'PY'
+          from pathlib import Path
+          import subprocess, json, re, os, shutil, concurrent.futures, tempfile
+
+          root=Path('audit/batch-12ib-r2-beitu1959-crossvolume-3288-locator')
+          pdfdir=root/'pdfs'
+          ocrdir=root/'ocr'
+          canddir=root/'candidates'
+          meta=root/'meta'
+
+          # Locator only. OCR never establishes historical text or absence.
+          target_patterns=('三二八八','八八二三','3288')
+          controls={
+              (1,55):('七二八三','八六四三','10010'),
+              (1,56):('三三六八','10010'),
+          }
+
+          rows=[]
+          candidate_pages=set()
+          control_rows=[]
+
+          def page_count(pdf):
+              out=subprocess.check_output(['pdfinfo',str(pdf)],text=True,errors='replace')
+              m=re.search(r'^Pages:\s+(\d+)',out,re.M)
+              return int(m.group(1))
+
+          def ocr_one(vol,pno,pdf,tmpbase):
+              # Render at 150 dpi; crop bottom 32% where the printed book-number row appears.
+              img=tmpbase/f'v{vol}-p{pno}.png'
+              subprocess.run([
+                  'pdftoppm','-f',str(pno),'-l',str(pno),'-png','-r','150','-singlefile',
+                  str(pdf),str(img.with_suffix(''))
+              ],check=True,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
+              from PIL import Image, ImageOps, ImageEnhance, ImageFilter
+              im=Image.open(img).convert('L')
+              w,h=im.size
+              band=im.crop((0,int(h*0.66),w,int(h*0.97)))
+              # Rotate both ways because vertical top-to-bottom numerals may become LTR in only one orientation.
+              texts=[]
+              for rot in (90,270):
+                  rr=band.rotate(rot,expand=True,fillcolor=255)
+                  rr=ImageOps.autocontrast(rr)
+                  rr=ImageEnhance.Contrast(rr).enhance(1.6)
+                  rp=tmpbase/f'v{vol}-p{pno}-r{rot}.png'
+                  rr.save(rp)
+                  try:
+                      txt=subprocess.check_output([
+                          'tesseract',str(rp),'stdout','-l','chi_tra+eng','--psm','6',
+                          '-c','preserve_interword_spaces=1'
+                      ],stderr=subprocess.DEVNULL,text=True,errors='replace',timeout=25)
+                  except Exception:
+                      txt=''
+                  texts.append(txt)
+                  rp.unlink(missing_ok=True)
+              img.unlink(missing_ok=True)
+              joined='\n'.join(texts)
+              norm=re.sub(r'[\s\p{Punct}]','',joined) if False else re.sub(r'\s+','',joined)
+              return vol,pno,joined,norm
+
+          # Process sequentially by volume with moderate parallelism to avoid memory spikes.
+          for vol in range(1,9):
+              pdf=pdfdir/f'v{vol}.pdf'
+              n=page_count(pdf)
+              tmpbase=Path(tempfile.mkdtemp(prefix=f'ib-v{vol}-'))
+              try:
+                  with concurrent.futures.ThreadPoolExecutor(max_workers=4) as ex:
+                      futs=[ex.submit(ocr_one,vol,p,pdf,tmpbase) for p in range(1,n+1)]
+                      for fut in concurrent.futures.as_completed(futs):
+                          v,p,txt,norm=fut.result()
+                          hit=[pat for pat in target_patterns if pat in norm]
+                          ctl=[]
+                          if (v,p) in controls:
+                              ctl=[pat for pat in controls[(v,p)] if pat in norm]
+                              control_rows.append({
+                                  'volume':v,'page':p,'expected':controls[(v,p)],
+                                  'recognized':ctl,'raw_text':txt[:4000]
+                              })
+                          if hit:
+                              candidate_pages.add((v,p))
+                          rows.append({'volume':v,'page':p,'target_hits':hit,'control_hits':ctl,'text':txt[:2500]})
+              finally:
+                  shutil.rmtree(tmpbase,ignore_errors=True)
+
+          rows.sort(key=lambda x:(x['volume'],x['page']))
+          (ocrdir/'locator-results.json').write_text(json.dumps(rows,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          (ocrdir/'control-calibration.json').write_text(json.dumps(control_rows,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          (ocrdir/'candidate-pages.json').write_text(json.dumps(sorted(candidate_pages),ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+
+          # Render every machine candidate at 220 dpi for direct human visual adjudication.
+          for vol,p in sorted(candidate_pages):
+              out=canddir/f'v{vol}-p{p}'
+              subprocess.run([
+                  'pdftoppm','-f',str(p),'-l',str(p),'-jpeg','-jpegopt','quality=94',
+                  '-r','220','-singlefile',str(pdfdir/f'v{vol}.pdf'),str(out)
+              ],check=True,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
+
+          summary={
+              'method':'OCR_LOCATOR_ONLY_WITH_DIRECT_VISUAL_REVIEW_REQUIRED',
+              'ocr_authority':False,
+              'negative_absence_inference_authorized':False,
+              'target_patterns':target_patterns,
+              'control_pages':control_rows,
+              'candidate_pages':sorted(candidate_pages),
+              'candidate_count':len(candidate_pages),
+          }
+          (meta/'summary.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print(json.dumps(summary,ensure_ascii=False,indent=2))
+          PY
+
+          printf '%s\n'             'SOURCE=Wikimedia Commons complete eight-volume public scans SSID 12335507-12335514'             'PURPOSE=candidate localization only for possible printed book number 三二八八 / 3288 across all eight 1959 catalog volumes'             'METHOD=bottom-band OCR locator calibrated against known direct visual controls, followed by mandatory high-resolution human review of any candidate'             'OCR_IS_AUTHORITY=false'             'NEGATIVE_ABSENCE_INFERENCE_AUTHORIZED=false'             'KNOWN_DIRECT_TARGET=vol1 PDF56 prints target book number 三三六八 = 3368'             'KNOWN_LOCAL_CONTROLS=7283,8643,10010 stable around target from Batch 12HZ' > "$ROOT/manifest.txt"
+
+          cat "$ROOT/download-status.tsv"
+          cat "$ROOT/meta/summary.json"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12ib-r2-beitu1959-crossvolume-3288-locator
+          path: audit/batch-12ib-r2-beitu1959-crossvolume-3288-locator/
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Publish locator status
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs=require('fs')
+            const p='audit/batch-12ib-r2-beitu1959-crossvolume-3288-locator/meta/summary.json'
+            let desc='cross-volume 3288 locator complete; inspect artifact'
+            if (fs.existsSync(p)) {
+              try {
+                const s=JSON.parse(fs.readFileSync(p,'utf8'))
+                desc=('cross-volume locator candidates='+s.candidate_count+'; OCR is locator only').slice(0,140)
+              } catch(e) {}
+            }
+            await github.rest.repos.createCommitStatus({
+              owner:context.repo.owner,repo:context.repo.repo,sha:context.sha,
+              state:'success',context:'tianwen/batch-12ib-r2-probe',description:desc
+            })
