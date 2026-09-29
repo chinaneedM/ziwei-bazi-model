@@ -1,0 +1,91 @@
+name: verify-batch-12if-exact-head
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/verify-batch-12if-exact-head.yml
+      - docs/research/ZIWEI-WENWU-CANKAO-CAMBRIDGE-1951-V2-HOLDING-ROUTE-R1.json
+      - docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENWU-CANKAO-CAMBRIDGE-1951-V2-HOLDING-ROUTE-IF.md
+      - docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json
+      - docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.md
+      - docs/PROJECT-CURRENT-STATE-R1.json
+      - scripts/verify-project-continuity-state-r1.py
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  statuses: write
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Publish pending IF status
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.repos.createCommitStatus({
+              owner: context.repo.owner, repo: context.repo.repo, sha: context.sha,
+              state: 'pending', context: 'tianwen/batch-12if-exact-head',
+              description: 'Batch 12IF Cambridge holding verification running'
+            })
+
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Verify Batch 12IF exact head
+        run: |
+          set -euo pipefail
+          python scripts/verify-tianwen-transmission-genealogy-r1.py
+          python scripts/verify-project-continuity-state-r1.py
+          python scripts/verify-fusion-chart-historical-provenance-audit-r1.py
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          bid='BATCH-12-ZIWEI-WENWU-CANKAO-CAMBRIDGE-1951-V2-HOLDING-ROUTE-IF'
+          e=json.loads(Path('docs/research/ZIWEI-WENWU-CANKAO-CAMBRIDGE-1951-V2-HOLDING-ROUTE-R1.json').read_text(encoding='utf-8'))
+          assert e['batch_id']==bid
+          c=e['cambridge_first_party_holding']
+          assert c['call_number']=='FB.252:14'
+          assert c['target_volume']==2 and c['target_issue']==9
+          assert c['target_issue_explicitly_contained_in_volume2_i_xii'] is True
+          assert c['direct_target_pages_reviewed'] is False
+          assert c['digital_surrogate_exposed'] is False
+          assert e['needham_secondary_row']['exact_issue9_holding_increment']==0
+          a=e['adjudication']
+          assert a['cambridge_explicit_issue9_physical_route']=='CLOSED'
+          assert a['independent_original_periodical_holding_increment']==1
+          assert a['direct_article_text_recovered'] is False
+          assert a['target_2011_p197_direct_text_recovered'] is False
+          assert a['target_fid070_exact_donation_date']=='UNRESOLVED'
+          state=json.loads(Path('docs/PROJECT-CURRENT-STATE-R1.json').read_text(encoding='utf-8'))
+          assert tuple(int(x) for x in state['schema_version'].split('.')) >= (1,244,0)
+          assert bid in state['historical_audit']['completed_batches']
+          assert state['historical_audit']['latest_batch_doc']=='docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENWU-CANKAO-CAMBRIDGE-1951-V2-HOLDING-ROUTE-IF.md'
+          PY
+
+      - name: Publish successful IF status
+        if: success()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.repos.createCommitStatus({
+              owner: context.repo.owner, repo: context.repo.repo, sha: context.sha,
+              state: 'success', context: 'tianwen/batch-12if-exact-head',
+              description: 'Batch 12IF Cambridge holding gates PASS'
+            })
+
+      - name: Publish failed IF status
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.repos.createCommitStatus({
+              owner: context.repo.owner, repo: context.repo.repo, sha: context.sha,
+              state: 'failure', context: 'tianwen/batch-12if-exact-head',
+              description: 'Batch 12IF exact-head verification FAILED'
+            })
