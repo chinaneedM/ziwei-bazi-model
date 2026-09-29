@@ -272,6 +272,8 @@ ZIWEI_BEITU_LOCAL_12HZ_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-A
 ZIWEI_BEITU_LOCAL_12HZ_EVIDENCE = ROOT / "docs/research/ZIWEI-BEITU1959-1987-ZUOZHUAN-LOCAL-NEIGHBOR-SEQUENCE-CROSSWALK-R1.json"
 ZIWEI_SEARCH_INDEX_12IA_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-BEITU1959-3368-3288-SEARCH-INDEX-BOUNDARY-IA.md"
 ZIWEI_SEARCH_INDEX_12IA_EVIDENCE = ROOT / "docs/research/ZIWEI-NLC-BEITU1959-3368-3288-SEARCH-INDEX-BOUNDARY-R1.json"
+ZIWEI_LOCATOR_12IB_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-BEITU1959-CROSSVOLUME-3288-LOCATOR-CALIBRATION-BOUNDARY-IB.md"
+ZIWEI_LOCATOR_12IB_EVIDENCE = ROOT / "docs/research/ZIWEI-BEITU1959-CROSSVOLUME-3288-LOCATOR-CALIBRATION-BOUNDARY-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -634,9 +636,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID070-QUDONATION-CHRONOLOGY-FIREWALL-HY",
     "BATCH-12-ZIWEI-BEITU1959-1987-ZUOZHUAN-LOCAL-NEIGHBOR-SEQUENCE-CROSSWALK-HZ",
     "BATCH-12-ZIWEI-NLC-BEITU1959-3368-3288-SEARCH-INDEX-BOUNDARY-IA",
+    "BATCH-12-ZIWEI-BEITU1959-CROSSVOLUME-3288-LOCATOR-CALIBRATION-BOUNDARY-IB",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-BEITU1959-3368-3288-SEARCH-INDEX-BOUNDARY-IA.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-BEITU1959-CROSSVOLUME-3288-LOCATOR-CALIBRATION-BOUNDARY-IB.md"
 
 
 def fail(message: str) -> None:
@@ -9187,6 +9190,56 @@ def main() -> int:
         fail("Batch 12IA missing from completed state")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12IA latest-batch document mismatch")
+
+    # Batch 12IB: complete public scan-set locator remains fail-closed after known-positive calibration failure.
+    for path in (ZIWEI_LOCATOR_12IB_BATCH, ZIWEI_LOCATOR_12IB_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12IB continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12ib = json.loads(ZIWEI_LOCATOR_12IB_EVIDENCE.read_text(encoding="utf-8"))
+    bid12ib = "BATCH-12-ZIWEI-BEITU1959-CROSSVOLUME-3288-LOCATOR-CALIBRATION-BOUNDARY-IB"
+    if batch12ib.get("batch_id") != bid12ib:
+        fail("Batch 12IB evidence identity mismatch")
+    scan12ib = batch12ib.get("public_scan_set", {})
+    if len(scan12ib.get("volumes", ())) != 8 or scan12ib.get("all_eight_public_scans_mapped") is not True:
+        fail("Batch 12IB eight-volume route map regressed")
+    r5ib = batch12ib.get("probe_history", {}).get("r5_eight_volume", {})
+    pv12ib = r5ib.get("per_volume", ())
+    if [x.get("candidate_count") for x in pv12ib] != [0] * 8:
+        fail("Batch 12IB r5 per-volume zero-candidate observation regressed")
+    cal12ib = r5ib.get("known_positive_calibration", {})
+    if cal12ib.get("calibration_pass") is not False or cal12ib.get("recognized_on_page55") != [] or cal12ib.get("recognized_on_page56") != []:
+        fail("Batch 12IB r5 known-positive failure control regressed")
+    if r5ib.get("zero_candidate_result_usable_as_absence_evidence") is not False:
+        fail("Batch 12IB r5 absence firewall regressed")
+    ph12ib = batch12ib.get("probe_history", {})
+    if ph12ib.get("r6_r3_embedded_text_calibration", {}).get("known_positive_text_layer_pass") is not False:
+        fail("Batch 12IB embedded-text boundary regressed")
+    if ph12ib.get("r6_r2_conventional_calibration", {}).get("positive_variant_count") != 0:
+        fail("Batch 12IB conventional calibration control regressed")
+    if ph12ib.get("r6_r4_r3_vertical_calibration", {}).get("positive_variant_count") != 0:
+        fail("Batch 12IB vertical calibration control regressed")
+    adj12ib = batch12ib.get("method_adjudication", {})
+    if adj12ib.get("whole_catalog_3288_absence_proved") is not False:
+        fail("Batch 12IB whole-catalog absence firewall regressed")
+    if adj12ib.get("exact_3368_to_3288_causal_mechanism") != "UNRESOLVED":
+        fail("Batch 12IB causal mechanism was silently collapsed")
+    if adj12ib.get("target_specific_change_scope_from_hz") != "TARGET_SPECIFIC_WITHIN_SHARED_LOCAL_NEIGHBORHOOD":
+        fail("Batch 12IB HZ scope regressed")
+    acct12ib = batch12ib.get("accounting", {})
+    if acct12ib.get("matrix_rows") != 198 or acct12ib.get("audited_rows") != 166 or acct12ib.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12IB matrix accounting regressed")
+    if acct12ib.get("confirmed_provenance_metadata_defect_count") != 16 or acct12ib.get("repaired_provenance_metadata_defect_count") != 16 or acct12ib.get("confirmed_chart_algorithm_defect_count") != 0:
+        fail("Batch 12IB defect accounting regressed")
+    try:
+        schema12ib = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12IB state version is not numeric")
+    if schema12ib < (1, 240, 0):
+        fail("Batch 12IB state version regressed below 1.240.0")
+    if bid12ib not in audit_state.get("completed_batches", ()):
+        fail("Batch 12IB missing from completed state")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12IB latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")
