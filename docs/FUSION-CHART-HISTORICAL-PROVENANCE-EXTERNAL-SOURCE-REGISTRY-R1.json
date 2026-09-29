@@ -9339,6 +9339,18 @@
         "full_2018_article_retrieved": false,
         "exact_16_or_17_count_exposed_in_reviewed_official_summary": false,
         "research_artifact": "docs/research/ZIWEI-NLC-ZUOZHUAN-FID070-16-17-FORMAT-AUTHORITY-TRIANGULATION-R1.json"
+      },
+      "batch_12ic": {
+        "role": "OFFICIAL_ARTICLE_CITATION_AND_RESEARCH_SUMMARY_CONTROL",
+        "article_title": "国图藏元刻十行本《附释音春秋左传注疏》",
+        "author": "张丽娟",
+        "container": "《国学季刊》第十一期",
+        "publisher": "山东人民出版社",
+        "official_report_date_claim": "2018年9月",
+        "article_fulltext_exposed_on_reviewed_page": false,
+        "exact_issue_isbn": "UNRESOLVED",
+        "exact_publication_month_reconciled": false,
+        "research_artifact": "docs/research/ZIWEI-ZHANG-LIJUAN-GUOXUEJIKAN11-PUBLIC-FULLTEXT-ROUTE-BOUNDARY-R1.json"
       }
     },
     {
@@ -10082,6 +10094,41 @@
         "vertical_64_variant_positive_count": 0,
         "whole_catalog_3288_absence_inference_authorized": false,
         "research_artifact": "docs/research/ZIWEI-BEITU1959-CROSSVOLUME-3288-LOCATOR-CALIBRATION-BOUNDARY-R1.json"
+      }
+    },
+    {
+      "source_id": "EXT-KONGFZ-GUOXUEJIKAN-ISSUE11-RETAIL-METADATA",
+      "title": "孔夫子旧书网《国学季刊 第十一期》公开商品书目",
+      "provider": "孔夫子旧书网",
+      "url": "https://shop.kongfz.com/4639/type_2/",
+      "historical_period": "Modern commercial retail metadata for a 2018 publication",
+      "source_role": "COMMERCIAL_BIBLIOGRAPHIC_LOCATOR_AND_CONFLICT_CONTROL_NOT_PRIMARY_ARTICLE_AUTHORITY",
+      "quality_notes": "Batch 12IC public HTML directly exposes issue 11, the target Zhang Lijuan article in contents, ISBN 9787209115018 and publication time 2018-12. This conflicts with the NOPSS report's 2018年9月 and with Sanmin assigning the same ISBN to issue 12; therefore it is discovery/conflict evidence only.",
+      "batch_12ic": {
+        "issue_label": "第十一期",
+        "target_article_in_contents": true,
+        "isbn": "9787209115018",
+        "publication_date_claim": "2018-12",
+        "isbn_to_issue11_identity_authorized": false,
+        "commercial_metadata_override_authorized": false,
+        "research_artifact": "docs/research/ZIWEI-ZHANG-LIJUAN-GUOXUEJIKAN11-PUBLIC-FULLTEXT-ROUTE-BOUNDARY-R1.json"
+      }
+    },
+    {
+      "source_id": "EXT-SANMIN-GUOXUEJIKAN-ISSUE12-ISBN-CONFLICT",
+      "title": "三民网路书店《国学季刊·第十二期》公开商品书目",
+      "provider": "三民网路书店",
+      "url": "https://www.sanmin.com.tw/product/index/007234993",
+      "historical_period": "Modern commercial retail metadata for a 2019 publication",
+      "source_role": "COMMERCIAL_BIBLIOGRAPHIC_CONFLICT_CONTROL_NOT_PRIMARY_ARTICLE_AUTHORITY",
+      "quality_notes": "Batch 12IC public HTML directly labels ISBN 9787209115018 as 国学季刊第十二期 and gives 2019/05/01, conflicting with the Kongfz issue-11 assignment for the same ISBN. The conflict blocks silent ISBN-to-issue11 binding.",
+      "batch_12ic": {
+        "issue_label": "第十二期",
+        "isbn": "9787209115018",
+        "publication_date_claim": "2019-05-01",
+        "disproves_uncritical_isbn_to_issue11_binding": true,
+        "commercial_metadata_override_authorized": false,
+        "research_artifact": "docs/research/ZIWEI-ZHANG-LIJUAN-GUOXUEJIKAN11-PUBLIC-FULLTEXT-ROUTE-BOUNDARY-R1.json"
       }
     }
   ],
