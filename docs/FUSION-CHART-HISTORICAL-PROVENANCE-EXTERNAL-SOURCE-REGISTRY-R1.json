@@ -9351,6 +9351,17 @@
         "exact_issue_isbn": "UNRESOLVED",
         "exact_publication_month_reconciled": false,
         "research_artifact": "docs/research/ZIWEI-ZHANG-LIJUAN-GUOXUEJIKAN11-PUBLIC-FULLTEXT-ROUTE-BOUNDARY-R1.json"
+      },
+      "batch_12id": {
+        "role": "OFFICIAL_ISSUE11_MONTH_CORROBORATION_AFTER_RETAIL_ITEM_CORRECTION",
+        "article_title": "国图藏元刻十行本《附释音春秋左传注疏》",
+        "author": "张丽娟",
+        "container": "《国学季刊》第十一期",
+        "publisher": "山东人民出版社",
+        "publication_date_claim": "2018年9月",
+        "agrees_with_corrected_issue11_public_item_month": true,
+        "isbn_exposed": false,
+        "research_artifact": "docs/research/ZIWEI-GUOXUEJIKAN11-ITEM-LEVEL-ISBN-FORWARD-CORRECTION-R1.json"
       }
     },
     {
@@ -10098,12 +10109,12 @@
     },
     {
       "source_id": "EXT-KONGFZ-GUOXUEJIKAN-ISSUE11-RETAIL-METADATA",
-      "title": "孔夫子旧书网《国学季刊 第十一期》公开商品书目",
+      "title": "孔夫子旧书网《国学季刊 第十一期》公开单品书目",
       "provider": "孔夫子旧书网",
-      "url": "https://shop.kongfz.com/4639/type_2/",
-      "historical_period": "Modern commercial retail metadata for a 2018 publication",
-      "source_role": "COMMERCIAL_BIBLIOGRAPHIC_LOCATOR_AND_CONFLICT_CONTROL_NOT_PRIMARY_ARTICLE_AUTHORITY",
-      "quality_notes": "Batch 12IC public HTML directly exposes issue 11, the target Zhang Lijuan article in contents, ISBN 9787209115018 and publication time 2018-12. This conflicts with the NOPSS report's 2018年9月 and with Sanmin assigning the same ISBN to issue 12; therefore it is discovery/conflict evidence only.",
+      "url": "https://book.kongfz.com/4639/9902968122/",
+      "historical_period": "Modern commercial retail metadata for the 2018 issue-11 publication",
+      "source_role": "DIRECT_PUBLIC_SINGLE_ITEM_BIBLIOGRAPHIC_BINDING_NOT_PRIMARY_ARTICLE_OR_PUBLISHER_AUTHORITY",
+      "quality_notes": "Batch 12ID repairs PROV-DEFECT-017. Direct single-item page 9902968122 binds issue 11, Zhang Lijuan's target article in contents, ISBN 9787209115001, publication time 2018-09 and 222 pages. Batch 12IC's prior 9787209115018 / 2018-12 attribution came from the adjacent issue-12 record on a multi-item listing and is superseded forward-only.",
       "batch_12ic": {
         "issue_label": "第十一期",
         "target_article_in_contents": true,
@@ -10112,6 +10123,20 @@
         "isbn_to_issue11_identity_authorized": false,
         "commercial_metadata_override_authorized": false,
         "research_artifact": "docs/research/ZIWEI-ZHANG-LIJUAN-GUOXUEJIKAN11-PUBLIC-FULLTEXT-ROUTE-BOUNDARY-R1.json"
+      },
+      "batch_12id": {
+        "provenance_defect_id": "PROV-DEFECT-017",
+        "repair_status": "REPAIRED_FORWARD_ONLY_DURING_BATCH_12ID",
+        "prior_batch_12ic_isbn": "9787209115018",
+        "prior_batch_12ic_publication_date_claim": "2018-12",
+        "corrected_issue_label": "第十一期",
+        "corrected_isbn": "9787209115001",
+        "corrected_publication_date_claim": "2018-09",
+        "corrected_extent_pages": 222,
+        "target_article_in_contents": true,
+        "direct_item_id": "9902968122",
+        "publisher_or_institutional_authority": false,
+        "research_artifact": "docs/research/ZIWEI-GUOXUEJIKAN11-ITEM-LEVEL-ISBN-FORWARD-CORRECTION-R1.json"
       }
     },
     {
@@ -10120,8 +10145,8 @@
       "provider": "三民网路书店",
       "url": "https://www.sanmin.com.tw/product/index/007234993",
       "historical_period": "Modern commercial retail metadata for a 2019 publication",
-      "source_role": "COMMERCIAL_BIBLIOGRAPHIC_CONFLICT_CONTROL_NOT_PRIMARY_ARTICLE_AUTHORITY",
-      "quality_notes": "Batch 12IC public HTML directly labels ISBN 9787209115018 as 国学季刊第十二期 and gives 2019/05/01, conflicting with the Kongfz issue-11 assignment for the same ISBN. The conflict blocks silent ISBN-to-issue11 binding.",
+      "source_role": "COMMERCIAL_ISSUE12_DATE_TENSION_CONTROL_NOT_PRIMARY_BIBLIOGRAPHIC_AUTHORITY",
+      "quality_notes": "Batch 12ID reclassifies this source. Sanmin and the direct Kongfz issue-12 item agree on issue 12 and ISBN 9787209115018; Sanmin gives 2019/05/01 while Kongfz gives 2018-12. The remaining tension is secondary publication-date metadata for issue 12, not an issue-11/issue-12 ISBN conflict.",
       "batch_12ic": {
         "issue_label": "第十二期",
         "isbn": "9787209115018",
@@ -10129,6 +10154,33 @@
         "disproves_uncritical_isbn_to_issue11_binding": true,
         "commercial_metadata_override_authorized": false,
         "research_artifact": "docs/research/ZIWEI-ZHANG-LIJUAN-GUOXUEJIKAN11-PUBLIC-FULLTEXT-ROUTE-BOUNDARY-R1.json"
+      },
+      "batch_12id": {
+        "issue_label": "第十二期",
+        "isbn": "9787209115018",
+        "sanmin_publication_date_claim": "2019-05-01",
+        "kongfz_issue12_publication_date_claim": "2018-12",
+        "issue_number_and_isbn_agree": true,
+        "publication_date_tension": "UNRESOLVED_SECONDARY_METADATA_DIFFERENCE",
+        "disproves_issue11_binding": false,
+        "research_artifact": "docs/research/ZIWEI-GUOXUEJIKAN11-ITEM-LEVEL-ISBN-FORWARD-CORRECTION-R1.json"
+      }
+    },
+    {
+      "source_id": "EXT-KONGFZ-GUOXUEJIKAN-ISSUE12-RETAIL-METADATA",
+      "title": "孔夫子旧书网《国学季刊 第十二期》公开单品书目",
+      "provider": "孔夫子旧书网",
+      "url": "https://book.kongfz.com/4639/9902978870/",
+      "historical_period": "Modern commercial retail metadata for the 2018 issue-12 publication",
+      "source_role": "DIRECT_PUBLIC_SINGLE_ITEM_ADJACENT_RECORD_CONTROL_NOT_PUBLISHER_AUTHORITY",
+      "quality_notes": "Direct item page 9902978870 binds issue 12 to ISBN 9787209115018, publication time 2018-12 and 277 pages. This is the metadata Batch 12IC mistakenly attributed to issue 11.",
+      "batch_12id": {
+        "issue_label": "第十二期",
+        "isbn": "9787209115018",
+        "publication_date_claim": "2018-12",
+        "extent_pages": 277,
+        "direct_item_id": "9902978870",
+        "research_artifact": "docs/research/ZIWEI-GUOXUEJIKAN11-ITEM-LEVEL-ISBN-FORWARD-CORRECTION-R1.json"
       }
     }
   ],
