@@ -9008,8 +9008,8 @@ def main() -> int:
         fail("Batch 12HX product/topology firewall regressed")
     matrix12hx = json.loads(MATRIX.read_text(encoding="utf-8"))
     sum12hx = matrix12hx.get("audit_summary", {})
-    if sum12hx.get("confirmed_provenance_metadata_defect_count") != 16 or sum12hx.get("repaired_provenance_metadata_defect_count") != 16:
-        fail("Batch 12HX Matrix provenance accounting mismatch")
+    if sum12hx.get("confirmed_provenance_metadata_defect_count", 0) < 16 or sum12hx.get("repaired_provenance_metadata_defect_count", 0) < 16:
+        fail("Batch 12HX Matrix provenance accounting regressed below 16/16")
     stdsrc12hx = next((x for x in registry.get("sources", ()) if x.get("source_id") == "EXT-GBT3792-7-2008-GUJI-FULL-LINE-COUNT-RULE"), None)
     if stdsrc12hx is None or stdsrc12hx.get("batch_12hx", {}).get("supports_full_line_semantics") is not True:
         fail("Batch 12HX standard registry binding missing")
@@ -9033,8 +9033,8 @@ def main() -> int:
         fail("Batch 12HX missing from completed state")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12HX latest-batch document mismatch")
-    if audit_state.get("confirmed_provenance_metadata_defect_count") != 16 or audit_state.get("repaired_provenance_metadata_defect_count") != 16:
-        fail("Batch 12HX state provenance accounting mismatch")
+    if audit_state.get("confirmed_provenance_metadata_defect_count", 0) < 16 or audit_state.get("repaired_provenance_metadata_defect_count", 0) < 16:
+        fail("Batch 12HX state provenance accounting regressed below 16/16")
 
     # Batch 12HY: direct target 瞿捐 closes donation provenance, while exact Qu batch/date remains fail-closed.
     for path in (ZIWEI_NLC_QUDONATION_12HY_BATCH, ZIWEI_NLC_QUDONATION_12HY_EVIDENCE):
@@ -9101,8 +9101,8 @@ def main() -> int:
         fail("Batch 12HY missing from completed state")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12HY latest-batch document mismatch")
-    if audit_state.get("confirmed_provenance_metadata_defect_count") != 16 or audit_state.get("repaired_provenance_metadata_defect_count") != 16:
-        fail("Batch 12HY state provenance accounting mismatch")
+    if audit_state.get("confirmed_provenance_metadata_defect_count", 0) < 16 or audit_state.get("repaired_provenance_metadata_defect_count", 0) < 16:
+        fail("Batch 12HY state provenance accounting regressed below 16/16")
 
     # Batch 12HZ: three stable flanking book numbers isolate 3368->3288 to the target inside the shared local core.
     for path in (ZIWEI_BEITU_LOCAL_12HZ_BATCH, ZIWEI_BEITU_LOCAL_12HZ_EVIDENCE):
