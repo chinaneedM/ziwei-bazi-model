@@ -1,0 +1,80 @@
+name: probe-batch-12ic-r4-openlibrary-single-result
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - '.github/workflows/probe-batch-12ic-r4-openlibrary-single-result.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  statuses: write
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Resolve Open Library result
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/batch-12ic-r4-openlibrary'
+          rm -rf "$ROOT"; mkdir -p "$ROOT"
+          python - <<'PY'
+          from pathlib import Path
+          from urllib.parse import urlencode
+          from urllib.request import Request,urlopen
+          import json,time
+
+          root=Path('audit/batch-12ic-r4-openlibrary')
+          ua='Tianwen-Provenance-Audit/1.0'
+          endpoints=[
+            ('isbn','https://openlibrary.org/isbn/9787209115018.json'),
+            ('search','https://openlibrary.org/search.json?'+urlencode({
+              'title':'国学季刊',
+              'q':'第十一期 张丽娟',
+              'limit':50
+            }))
+          ]
+          results=[]
+          for key,url in endpoints:
+            req=Request(url,headers={'User-Agent':ua,'Accept':'application/json'})
+            try:
+              with urlopen(req,timeout=35) as r:
+                b=r.read()
+              (root/f'{key}.json').write_bytes(b)
+              o=json.loads(b)
+              results.append({'key':key,'ok':True,'json':o})
+            except Exception as e:
+              results.append({'key':key,'ok':False,'error':repr(e)})
+            time.sleep(.4)
+
+          summary={
+            'tested_isbn':'9787209115018',
+            'results':results,
+            'isbn_identity_to_issue11_authorized':False,
+            'fulltext_retrieved':False,
+            'negative_absence_inference_authorized':False
+          }
+          (root/'summary.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print(json.dumps(summary,ensure_ascii=False,indent=2)[:120000])
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12ic-r4-openlibrary
+          path: audit/batch-12ic-r4-openlibrary/
+          if-no-files-found: error
+          retention-days: 30
+      - name: Publish status
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.repos.createCommitStatus({
+              owner:context.repo.owner,repo:context.repo.repo,sha:context.sha,
+              state:'success',context:'tianwen/batch-12ic-r4-probe',
+              description:'Open Library issue-11 hypothesis probe complete'
+            })
