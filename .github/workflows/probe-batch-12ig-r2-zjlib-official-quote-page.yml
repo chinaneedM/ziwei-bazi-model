@@ -49,11 +49,14 @@ jobs:
                 'fengqi':'凤起' in norm,
                 'xuchu':'旭初' in norm,
                 'song_print':'宋刻' in norm,
-                'zuozhuan':'春秋左传注疏' in norm,
+                'zuozhuan_contiguous':'春秋左传注疏' in norm,
+                'zuozhuan_left_fragment':'春秋左' in norm,
+                'zuozhuan_right_fragment':'传注疏' in norm,
                 'sixty_two':'六十二种' in norm,
                 'ref_2_197':('［2］197' in norm or '[2]197' in norm),
               }
-              if all(tokens[k] for k in ('qu_jicang','fengqi','xuchu','song_print','zuozhuan','sixty_two')):
+              zuo_ok=tokens['zuozhuan_contiguous'] or (tokens['zuozhuan_left_fragment'] and tokens['zuozhuan_right_fragment'])
+              if all(tokens[k] for k in ('qu_jicang','fengqi','xuchu','song_print','sixty_two')) and zuo_ok:
                   i=norm.find('瞿济苍')
                   # Preserve a bounded direct-text excerpt around the hit for machine audit.
                   raw_i=raw.find('瞿济苍')
@@ -61,6 +64,7 @@ jobs:
                   hits.append({
                     'pdf_page':p,'tokens':tokens,
                     'normalized_exact_target':target in norm,
+                  'zuozhuan_fragment_fallback_used':not tokens['zuozhuan_contiguous'],
                     'normalized_context':norm[max(0,i-120):i+500] if i>=0 else '',
                     'raw_excerpt':excerpt
                   })
