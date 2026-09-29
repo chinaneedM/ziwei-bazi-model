@@ -1,0 +1,130 @@
+name: probe-batch-12ic-r2-internet-archive-article-locators
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - '.github/workflows/probe-batch-12ic-r2-internet-archive-article-locators.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  statuses: write
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - name: Expand Internet Archive phrase hits
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/batch-12ic-r2-ia'
+          rm -rf "$ROOT"; mkdir -p "$ROOT/raw"
+          python - <<'PY'
+          from pathlib import Path
+          from urllib.parse import urlencode, quote
+          from urllib.request import Request,urlopen
+          import json,time,re
+
+          root=Path('audit/batch-12ic-r2-ia')
+          ua='Tianwen-Provenance-Audit/1.0'
+          queries=[
+            ('phrase','"国图藏元刻十行本"'),
+            ('fulltitle','"国图藏元刻十行本《附释音春秋左传注疏》"'),
+            ('article-author','"国图藏元刻十行本" AND 张丽娟'),
+            ('container','"国学季刊" AND "第十一期"'),
+            ('title-core','"附释音春秋左传注疏" AND 张丽娟'),
+          ]
+          all_docs={}
+          runs=[]
+          for key,q in queries:
+              url='https://archive.org/advancedsearch.php?'+urlencode({
+                  'q':q,'fl[]':['identifier','title','creator','date','year','description','subject','mediatype'],
+                  'rows':100,'page':1,'output':'json'
+              },doseq=True)
+              req=Request(url,headers={'User-Agent':ua,'Accept':'application/json'})
+              try:
+                  with urlopen(req,timeout=40) as r:b=r.read()
+                  (root/'raw'/f'{key}.json').write_bytes(b)
+                  o=json.loads(b)
+                  docs=o.get('response',{}).get('docs',[])
+                  for d in docs:
+                      ident=d.get('identifier')
+                      if ident: all_docs[ident]=d
+                  runs.append({'key':key,'query':q,'ok':True,'numFound':o.get('response',{}).get('numFound'),'returned':len(docs)})
+              except Exception as e:
+                  runs.append({'key':key,'query':q,'ok':False,'error':repr(e)})
+              time.sleep(.5)
+
+          docs=list(all_docs.values())
+          docs.sort(key=lambda d:str(d.get('identifier')))
+          (root/'matches.json').write_text(json.dumps(docs,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+
+          # Fetch metadata only for candidates whose returned metadata contains target/container/author strings.
+          target_terms=('国图藏元刻十行本','附释音春秋左传注疏','国学季刊','张丽娟')
+          candidate_ids=[]
+          for d in docs:
+              blob=json.dumps(d,ensure_ascii=False)
+              if any(t in blob for t in target_terms):
+                  candidate_ids.append(d['identifier'])
+
+          meta=[]
+          for ident in candidate_ids[:50]:
+              url='https://archive.org/metadata/'+quote(ident,safe='')
+              req=Request(url,headers={'User-Agent':ua,'Accept':'application/json'})
+              try:
+                  with urlopen(req,timeout=40) as r:b=r.read()
+                  o=json.loads(b)
+                  md=o.get('metadata') or {}
+                  files=o.get('files') or []
+                  file_rows=[]
+                  for f in files:
+                      name=f.get('name','')
+                      if re.search(r'\.(pdf|djvu|txt|xml|epub)$',name,re.I) or 'text' in name.lower():
+                          file_rows.append({k:f.get(k) for k in ('name','size','format','source','md5','sha1')})
+                  meta.append({
+                      'identifier':ident,
+                      'metadata':{k:md.get(k) for k in ('title','creator','date','year','description','subject','mediatype','access-restricted-item','collection')},
+                      'candidate_files':file_rows[:100]
+                  })
+              except Exception as e:
+                  meta.append({'identifier':ident,'error':repr(e)})
+              time.sleep(.25)
+          (root/'candidate-metadata.json').write_text(json.dumps(meta,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+
+          summary={
+              'queries':runs,
+              'unique_returned_identifier_count':len(docs),
+              'metadata_candidate_ids':candidate_ids,
+              'metadata_candidate_count':len(candidate_ids),
+              'metadata_fetched_count':len(meta),
+              'fulltext_retrieved':False,
+              'negative_absence_inference_authorized':False,
+              'adjudication_required':'HUMAN_REVIEW_IDENTIFIERS_AND_METADATA_BEFORE_ANY_ROUTE_PROMOTION'
+          }
+          (root/'summary.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print('SUMMARY',json.dumps(summary,ensure_ascii=False))
+          print('MATCHES',json.dumps(docs,ensure_ascii=False)[:60000])
+          print('CANDIDATE_METADATA',json.dumps(meta,ensure_ascii=False)[:120000])
+          PY
+          find "$ROOT" -type f -size +0c -print0 | xargs -0 -r sha256sum | sort -V > "$ROOT/files.sha256"
+          printf '%s\n' 'ROLE=public locator expansion only' 'NO_FILE_DOWNLOAD=true' 'NEGATIVE_ABSENCE_INFERENCE_AUTHORIZED=false' > "$ROOT/manifest.txt"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12ic-r2-ia-article-locators
+          path: audit/batch-12ic-r2-ia/
+          if-no-files-found: error
+          retention-days: 30
+      - name: Publish status
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.repos.createCommitStatus({
+              owner:context.repo.owner,repo:context.repo.repo,sha:context.sha,
+              state:'success',context:'tianwen/batch-12ic-r2-probe',
+              description:'Internet Archive article-locator expansion complete'
+            })
