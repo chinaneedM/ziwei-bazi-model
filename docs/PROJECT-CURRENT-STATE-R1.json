@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.243.0",
+  "schema_version": "1.244.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -325,9 +325,10 @@
       "BATCH-12-ZIWEI-BEITU1959-CROSSVOLUME-3288-LOCATOR-CALIBRATION-BOUNDARY-IB",
       "BATCH-12-ZIWEI-ZHANG-LIJUAN-GUOXUEJIKAN11-PUBLIC-FULLTEXT-ROUTE-BOUNDARY-IC",
       "BATCH-12-ZIWEI-GUOXUEJIKAN11-ITEM-LEVEL-ISBN-FORWARD-CORRECTION-ID",
-      "BATCH-12-ZIWEI-GUOXUEJIKAN11-CORRECTED-ISBN-PUBLIC-ROUTE-RECHECK-IE"
+      "BATCH-12-ZIWEI-GUOXUEJIKAN11-CORRECTED-ISBN-PUBLIC-ROUTE-RECHECK-IE",
+      "BATCH-12-ZIWEI-WENWU-CANKAO-CAMBRIDGE-1951-V2-HOLDING-ROUTE-IF"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-GUOXUEJIKAN11-CORRECTED-ISBN-PUBLIC-ROUTE-RECHECK-IE.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENWU-CANKAO-CAMBRIDGE-1951-V2-HOLDING-ROUTE-IF.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -1450,7 +1451,11 @@
       "Batch 12IE reruns public discovery routes using corrected issue-11 ISBN 9787209115001 after PROV-DEFECT-017. Google Books API returns HTTP 429 for corrected ISBN/title requests, so the current Google status is RATE_LIMITED_UNRESOLVED, not zero-hit evidence.",
       "Batch 12IE Open Library corrected-ISBN endpoint returns HTTP 404 while ISBN/title searches return numFound=0; Internet Archive exact ISBN, quoted ISBN and exact issue-title queries return 0. These are current route boundaries only and authorize no nonexistence inference.",
       "Batch 12IE reconfirms the Internet Archive exact target-article-title hit as identifier 3_20260926_202609, already directly adjudicated in 12IC as an unrelated Taiping text-object false positive. No target article full text is recovered.",
-      "Highest next gate after 12IE: retry Google Books only after rate limiting clears; recover publisher/institutional metadata for 《国学季刊》第十一期 / ISBN 9787209115001 and lawful article pages; continue exact Qu donation/accession chronology independently."
+      "Highest next gate after 12IE: retry Google Books only after rate limiting clears; recover publisher/institutional metadata for 《国学季刊》第十一期 / ISBN 9787209115001 and lawful article pages; continue exact Qu donation/accession chronology independently.",
+      "Batch 12IF adds a new independent first-party Cambridge University Library original-periodical holding route for 1951 《文物参考资料》: the Chinese Periodicals page explicitly lists `卷2i-xii` under call `FB.252:14`, so target volume 2 issue 9 is directly contained.",
+      "Batch 12IF does not double-count Cambridge's separate Needham Research Institute `1951-58` row as a second exact issue-9 closure because that year-range row does not enumerate issue-level gaps.",
+      "Batch 12IF adds one independent original-periodical physical holding route but zero direct article-text increments: Zhao Wanli pp.221-233, 2011 《赵万里文集》第1卷 p.197, and the original Qu 62-title wording remain not directly collated.",
+      "Highest next gate after 12IF: prioritize lawful page-level recovery of the 1951 article or 2011 p.197 and direct Ji Shuying chapter-9 collation over further holding-count expansion; FID070 exact Qu donation batch/date remains UNRESOLVED."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10
