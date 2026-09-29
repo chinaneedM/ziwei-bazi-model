@@ -1,0 +1,134 @@
+{
+  "schema": "ZIWEI-ZHAO-WANLI-P197-OFFICIAL-JOURNAL-QUOTE-AUTHORITY-UPGRADE-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-ZHAO-WANLI-P197-OFFICIAL-JOURNAL-QUOTE-AUTHORITY-UPGRADE-IG",
+  "prior_batch_id": "BATCH-12-ZIWEI-WENWU-CANKAO-CAMBRIDGE-1951-V2-HOLDING-ROUTE-IF",
+  "question": "Can the existing 12HJ/12HY Zhao Wanli p.197 quotation bridge be upgraded from public reproductions to a directly retrieved official journal full-text object without overclaiming direct access to the 2011 collected-works page or the 1951 original?",
+  "answer": "Yes. Zhejiang Library's official 《图书馆研究与工作》 site exposes the 2026 issue-4 full PDF containing Xiao Ling's 《赵万里与古籍保护》. The official PDF is 3,023,670 bytes, SHA-256 2e0b9c1d59ccc95523b48144964cb8f528161c3b9201cb28da0cee41de9cd776. Direct text-layer review, without OCR, locates the relevant quotation on PDF page 92 and confirms the Qu donors 瞿济苍/凤起/旭初, donation wording, 宋刻, the title fragments 春秋左 + 传注疏, 六十二种, and citation [2]197. Reference [2] is the 2011 《赵万里文集：第一卷》. This upgrades only the authority of the 2026 quotation bridge. The 2011 p.197 page and 1951 original article remain unreviewed directly, and the quoted 宋刻 member must not be collapsed into FID070, which is physically re-adjudicated as 元刻元印十行本.",
+  "official_journal_object": {
+    "provider": "浙江图书馆《图书馆研究与工作》编辑部",
+    "official_issue_page": "https://bjb.zjlib.cn/CN/Y2026/V0/I4/2",
+    "official_pdf_url": "https://bjb.zjlib.cn/CN/PDF/1737",
+    "alternate_pdf_endpoint": "https://bjb.zjlib.cn/CN/article/downloadArticleFile.do?attachType=PDF&id=1737",
+    "issue": "2026年第4期",
+    "article": "肖玲《赵万里与古籍保护》",
+    "article_start_printed_page": 89,
+    "pdf_bytes": 3023670,
+    "pdf_pages": 96,
+    "pdf_sha256": "2e0b9c1d59ccc95523b48144964cb8f528161c3b9201cb28da0cee41de9cd776",
+    "text_layer_directly_readable": true,
+    "ocr_used": false
+  },
+  "page_level_direct_control": {
+    "pdf_page": 92,
+    "directly_observed_tokens": {
+      "qu_jicang": "瞿济苍",
+      "fengqi": "凤起",
+      "xuchu": "旭初",
+      "transaction_wording": "捐赠",
+      "edition_display": "宋刻",
+      "title_left_fragment": "春秋左",
+      "title_right_fragment": "传注疏",
+      "donated_title_count_display": "六十二种",
+      "citation_display": "[2]197"
+    },
+    "title_fragmentation_reason": "Two-column PDF text extraction splits the title across line/column ordering; page-local fragments jointly reconstruct the displayed title while the visual/text excerpt remains on the same PDF page.",
+    "normalized_full_title_claim": "春秋左传注疏",
+    "direct_quote_text_stored_in_research_record": false
+  },
+  "citation_chain": {
+    "xiao_2026_official_pdf_directly_reviewed": true,
+    "xiao_2026_cites_reference_number": 2,
+    "xiao_2026_cited_page": 197,
+    "reference_2": "冀淑英、张志清、刘波《赵万里文集：第一卷》，国家图书馆出版社，2011",
+    "direct_2011_page197_reviewed": false,
+    "direct_1951_original_article_reviewed": false,
+    "evidence_layer": "OFFICIAL_2026_JOURNAL_DIRECT_TEXT_QUOTING_2011_P197_WHICH_REPRINTS_OR_QUOTES_1951_TEXT"
+  },
+  "relation_to_existing_project_evidence": {
+    "source_id": "EXT-XIAO-LING-2026-ZHAO-WANLI-DING-HUIKANG-SIX-TITLE-QUOTE",
+    "batch_12hj_quote_bridge_preserved": true,
+    "batch_12hy_fid070_chronology_firewall_preserved": true,
+    "existing_qu_donor_count": 62,
+    "existing_named_member_title": "春秋左传注疏",
+    "existing_named_member_edition_display": "宋刻",
+    "authority_upgrade_only": true,
+    "new_historical_transaction_claim": false
+  },
+  "probe_evidence": {
+    "whole_pdf_probe": {
+      "workflow_run_id": 36601497696,
+      "job_id": 109519751702,
+      "artifact_id": 11048719164,
+      "artifact_digest": "sha256:d0d9a62e5d889d0c38d084ceaaee889ed16498a77dcfabbcf80edc0a5bed3b92",
+      "official_pdf_recovered": true,
+      "pdf_sha256": "2e0b9c1d59ccc95523b48144964cb8f528161c3b9201cb28da0cee41de9cd776"
+    },
+    "page_binding_probe": {
+      "workflow_run_id": 36601170241,
+      "job_id": 109518632133,
+      "artifact_id": 11049695243,
+      "artifact_digest": "sha256:9cf113f42d13607dbf157d09157cabfbf0a9fc128ab311db50e09c23bbd929e7",
+      "quote_pdf_page": 92,
+      "target_token_bundle_closed": true,
+      "citation_2_197_seen": true,
+      "ocr_used": false
+    }
+  },
+  "object_identity_firewall": {
+    "quoted_member_edition_display": "宋刻",
+    "fid070_prior_catalog_classification": "元刻明修本",
+    "fid070_physical_research_adjudication": "元刻元印十行本",
+    "exact_identity_with_fid070": "UNRESOLVED",
+    "same_object_collapse_authorized": false,
+    "exact_fid070_donation_batch_authorized": false,
+    "exact_fid070_donation_date_authorized": false,
+    "stable_accession_or_object_bridge_required": true
+  },
+  "adjudication": {
+    "official_2026_journal_fulltext_route": "CLOSED",
+    "official_2026_quote_page": "PDF_92",
+    "existing_12hj_12hy_quote_bridge_authority": "UPGRADED_TO_OFFICIAL_JOURNAL_DIRECT_ARTICLE_TEXT",
+    "direct_2011_page197": "NOT_REVIEWED",
+    "direct_1951_original_article": "NOT_REVIEWED",
+    "quoted_song_print_equals_fid070": "NOT_PROVED",
+    "fid070_exact_qu_donation_batch": "UNRESOLVED",
+    "fid070_exact_qu_donation_date": "UNRESOLVED",
+    "exact_3368_to_3288_causal_mechanism": "UNRESOLVED"
+  },
+  "inference_firewall": {
+    "official_2026_article_text_is_not_direct_2011_page197": true,
+    "official_2026_article_text_is_not_direct_1951_original": true,
+    "quoted_title_match_without_edition_object_bridge_does_not_prove_same_object": true,
+    "song_print_wording_cannot_be_normalized_to_yuan_impression_fid070": true,
+    "citation_page_number_does_not_equal_direct_page_review": true,
+    "no_new_donation_date_inference": true
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "transmission_topology_change": false,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Directly recover and review 《赵万里文集：第一卷》 p.197, preserving edition/page identity.",
+    "Recover Zhao Wanli's 1951 《〈永乐大典〉展览的意义》 original article pages 221–233 through a lawful page-level route and compare wording against the 2011/2026 chain.",
+    "Directly collate Ji Shuying chapter 9 for the 1950/1953 Qu transfer batches and underlying sources.",
+    "Do not bind the quoted 宋刻《春秋左传注疏》 to FID070 or assign an exact donation date until a stable accession/book-number/object bridge is recovered."
+  ],
+  "updated_at": "2026-09-29"
+}
