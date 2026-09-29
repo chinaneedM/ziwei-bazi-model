@@ -9050,7 +9050,7 @@
         "https://www.qikan.com.cn/article/2a8820260412.html"
       ],
       "source_role": "MODERN_SCHOLARLY_QUOTATION_BRIDGE_FOR_ZHAO_WANLI_1951_QU_AND_DING_DONATION_PASSAGE",
-      "quality_notes": "Quotes 《赵万里文集：第一卷》 p.197 and reproduces Ding Huikang's six-title donation statement, explicitly naming Song 《东家杂记》 and Yuan 《太平乐府》. Direct 2011 and 1951 pages remain unreviewed. Batch 12HJ additionally records the same p.197 quotation's Qu-family statement: Qu Jicang/Fengqi/Xuchu donated Song 《春秋左传注疏》 and other books totaling 62 titles. The original 1951 pages and 2011 p.197 remain unreviewed; 62 is not arithmetically normalized with the 1950 diary 52.",
+      "quality_notes": "Quotes 《赵万里文集：第一卷》 p.197 and reproduces Ding Huikang's six-title donation statement, explicitly naming Song 《东家杂记》 and Yuan 《太平乐府》. Direct 2011 and 1951 pages remain unreviewed. Batch 12HJ additionally records the same p.197 quotation's Qu-family statement: Qu Jicang/Fengqi/Xuchu donated Song 《春秋左传注疏》 and other books totaling 62 titles. The original 1951 pages and 2011 p.197 remain unreviewed; 62 is not arithmetically normalized with the 1950 diary 52. Batch 12IG upgrades the bridge to Zhejiang Library's official journal PDF: the target quotation token bundle is directly bound to PDF page 92 without OCR, while direct 2011 p.197 and the 1951 original remain unreviewed.",
       "batch_12hf": {
         "quoted_edition": "赵万里文集：第一卷",
         "quoted_page": 197,
@@ -9091,6 +9091,31 @@
         "same_object_collapse_authorized": false,
         "exact_target_date_authorized": false,
         "research_artifact": "docs/research/ZIWEI-NLC-ZUOZHUAN-FID070-QUDONATION-CHRONOLOGY-FIREWALL-R1.json"
+      },
+      "batch_12ig": {
+        "role": "AUTHORITY_UPGRADE_TO_OFFICIAL_ZHEJIANG_LIBRARY_JOURNAL_DIRECT_TEXT",
+        "official_issue_page": "https://bjb.zjlib.cn/CN/Y2026/V0/I4/2",
+        "official_pdf_url": "https://bjb.zjlib.cn/CN/PDF/1737",
+        "official_pdf_sha256": "2e0b9c1d59ccc95523b48144964cb8f528161c3b9201cb28da0cee41de9cd776",
+        "official_pdf_bytes": 3023670,
+        "quote_pdf_page": 92,
+        "quote_token_bundle": [
+          "瞿济苍",
+          "凤起",
+          "旭初",
+          "捐赠",
+          "宋刻",
+          "春秋左",
+          "传注疏",
+          "六十二种",
+          "[2]197"
+        ],
+        "direct_text_layer_reviewed": true,
+        "ocr_used": false,
+        "direct_2011_page197_reviewed": false,
+        "direct_1951_original_reviewed": false,
+        "fid070_same_object_collapse_authorized": false,
+        "research_artifact": "docs/research/ZIWEI-ZHAO-WANLI-P197-OFFICIAL-JOURNAL-QUOTE-AUTHORITY-UPGRADE-R1.json"
       }
     },
     {
@@ -10218,8 +10243,40 @@
         "artifact_digest": "sha256:20655cf6666e696b15fb70c15a5aed23fb325ba0f1c8be7883454e3d3a61ac3f",
         "research_artifact": "docs/research/ZIWEI-WENWU-CANKAO-CAMBRIDGE-1951-V2-HOLDING-ROUTE-R1.json"
       }
+    },
+    {
+      "source_id": "EXT-ZJLIB-TUSHUGUAN-YANJIU-YU-GONGZUO-2026-4-XIAO-ZHAO-WANLI-PDF",
+      "title": "浙江图书馆《图书馆研究与工作》2026年第4期：肖玲《赵万里与古籍保护》官方PDF",
+      "author": "肖玲",
+      "historical_period": "2026 official journal full-text carrier quoting 2011 p.197 / Zhao Wanli 1951 text",
+      "provider": "浙江图书馆《图书馆研究与工作》编辑部",
+      "url": "https://bjb.zjlib.cn/CN/Y2026/V0/I4/2",
+      "additional_urls": [
+        "https://bjb.zjlib.cn/CN/PDF/1737"
+      ],
+      "identifier": "article id 1737 / PDF SHA-256 2e0b9c1d59ccc95523b48144964cb8f528161c3b9201cb28da0cee41de9cd776",
+      "source_role": "FIRST_PARTY_OFFICIAL_JOURNAL_DIRECT_FULLTEXT_QUOTATION_BRIDGE_NOT_2011_OR_1951_ORIGINAL",
+      "quality_notes": "Batch 12IG directly retrieves the official 96-page PDF and reviews its text layer without OCR. PDF page 92 co-locates the Qu donor names, donation wording, Song-print label, the split title fragments 春秋左 + 传注疏, 六十二种 and citation [2]197. Reference [2] is the 2011 《赵万里文集：第一卷》. This upgrades the modern quotation carrier only; it does not equal direct review of 2011 p.197 or the 1951 original and does not authorize collapse to FID070.",
+      "batch_12ig": {
+        "issue": "2026年第4期",
+        "article": "赵万里与古籍保护",
+        "article_start_printed_page": 89,
+        "pdf_pages": 96,
+        "pdf_bytes": 3023670,
+        "pdf_sha256": "2e0b9c1d59ccc95523b48144964cb8f528161c3b9201cb28da0cee41de9cd776",
+        "quote_pdf_page": 92,
+        "page_binding_workflow_run_id": 36601170241,
+        "page_binding_artifact_id": 11049695243,
+        "page_binding_artifact_digest": "sha256:9cf113f42d13607dbf157d09157cabfbf0a9fc128ab311db50e09c23bbd929e7",
+        "target_token_bundle_closed": true,
+        "citation_2_197_seen": true,
+        "ocr_used": false,
+        "direct_2011_page197_reviewed": false,
+        "direct_1951_original_reviewed": false,
+        "research_artifact": "docs/research/ZIWEI-ZHAO-WANLI-P197-OFFICIAL-JOURNAL-QUOTE-AUTHORITY-UPGRADE-R1.json"
+      }
     }
   ],
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md",
-  "updated_at": "2026-09-29"
+  "updated_at": "2026-09-30"
 }
