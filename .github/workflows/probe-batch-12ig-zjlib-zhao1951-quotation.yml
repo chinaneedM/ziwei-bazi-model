@@ -136,7 +136,10 @@ jobs:
               for n in needles:
                   i=s.find(n)
                   if i>=0: contexts[n]=s[max(0,i-500):i+1600]
-              results.append({'pdf':str(pdf),'text_chars':len(s),'hits':hits,'contexts':contexts})
+              anchor=s.find('瞿济苍')
+              window=s[anchor:anchor+900] if anchor>=0 else ''
+              quote_anchor_window_match=all(x in window for x in ('瞿济苍','凤起','旭初','宋刻','春秋左','传注疏','六十二种'))
+              results.append({'pdf':str(pdf),'text_chars':len(s),'hits':hits,'contexts':contexts,'quote_anchor_window_match':quote_anchor_window_match,'quote_anchor_window':window if quote_anchor_window_match else ''})
           summary={
               'official_page':'https://bjb.zjlib.cn/CN/Y2026/V0/I4/2',
               'official_provider':'浙江图书馆《图书馆研究与工作》编辑部',
@@ -145,7 +148,7 @@ jobs:
               'pdf_count':len(pdfs),
               'text_extractions':results,
               'target_quote_directly_recovered_from_official_pdf':any(
-                  r.get('hits',{}).get('瞿济苍') and r.get('hits',{}).get('春秋左传注疏') and r.get('hits',{}).get('六十二种')
+                  r.get('quote_anchor_window_match') is True
                   for r in results
               ),
               'ocr_used':False,
