@@ -1,0 +1,177 @@
+{
+  "schema": "ZIWEI-ZHANG-LIJUAN-GUOXUEJIKAN11-PUBLIC-FULLTEXT-ROUTE-BOUNDARY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-ZHANG-LIJUAN-GUOXUEJIKAN11-PUBLIC-FULLTEXT-ROUTE-BOUNDARY-IC",
+  "prior_batch_id": "BATCH-12-ZIWEI-BEITU1959-CROSSVOLUME-3288-LOCATOR-CALIBRATION-BOUNDARY-IB",
+  "question": "Can Zhang Lijuan's 2018 article on the NLC Tieqin Yuan-impression ten-line 《附释音春秋左传注疏》 be recovered through current public full-text/preview routes, and can its issue date/ISBN be safely normalized?",
+  "answer": "The article is securely bound at official project-report level to Zhang Lijuan, 《国学季刊》第十一期, Shandong People's Publishing House, with the NOPSS report giving 2018年9月. No current public full text or usable preview was recovered. Google Books returned no candidate volume, Open Library returned 404 for ISBN 9787209115018 and zero for the issue/author search, and Internet Archive's single exact-full-title hit was a false positive unrelated 太平天国 text object. Public commercial metadata is internally inconsistent: a Kongfz listing calls the target container 第十一期, gives 2018-12 and ISBN 9787209115018, while Sanmin assigns the same ISBN to 第十二期 dated 2019-05-01. Therefore the official NOPSS citation remains the controlling article-level bibliographic statement; the exact physical issue object, ISBN binding and publication-month reconciliation remain unresolved, and no commercial metadata may silently overwrite the official report.",
+  "target_article": {
+    "title": "国图藏元刻十行本《附释音春秋左传注疏》",
+    "author": "张丽娟",
+    "subject_object": "中国国家图书馆铁琴铜剑楼旧藏元刻元印十行本《附释音春秋左传注疏》",
+    "related_fid": "412004000070",
+    "related_current_905s": "03288"
+  },
+  "official_bibliographic_control": {
+    "provider": "全国哲学社会科学工作办公室",
+    "url": "https://www.nopss.gov.cn/n1/2019/1118/c400941-31461052.html",
+    "article_title_seen": true,
+    "author_seen": true,
+    "container_seen": "《国学季刊》第十一期",
+    "publisher_seen": "山东人民出版社",
+    "publication_date_claim_seen": "2018年9月",
+    "source_role": "OFFICIAL_PROJECT_REPORT_BIBLIOGRAPHIC_AND_RESEARCH_SUMMARY_CONTROL",
+    "exact_journal_physical_copy_observed": false,
+    "article_fulltext_exposed": false
+  },
+  "public_route_probes": {
+    "r1_general_routes": {
+      "workflow_commit": "b2f69d270cedb4226ce75521923858563d8641c1",
+      "workflow_run_id": 36506728014,
+      "artifact_id": 11007546582,
+      "artifact_digest": "sha256:f61e7d04a6d7dc23bb52d5fdae81a7c08c269ab7a9f7a74fd2fba9df90de3bdc",
+      "google_books_matches": 0,
+      "google_within_volume_probe_count": 0,
+      "openlibrary_initial_result_count": 1,
+      "internet_archive_short_phrase_num_found": 27,
+      "internet_archive_exact_isbn_num_found": 0,
+      "fulltext_retrieved": false
+    },
+    "r2_internet_archive_expansion": {
+      "workflow_commit": "4b344b2b32acf1bbe36ad67c669e2571374785a0",
+      "workflow_run_id": 36506861577,
+      "artifact_id": 11007347249,
+      "artifact_digest": "sha256:922b012152b79a6618b13bf13bb2a4b86013db3e5604400b74a96b9f4dfea613",
+      "short_phrase_num_found": 27,
+      "exact_full_title_num_found": 1,
+      "phrase_and_author_num_found": 0,
+      "container_issue_query_num_found": 151,
+      "title_core_and_author_num_found": 0,
+      "metadata_candidate_count_after_literal_filter": 0
+    },
+    "r3_internet_archive_exact_title": {
+      "workflow_commit": "2f98dc2a51d65bc69998696d077207dcfe9f9598",
+      "workflow_run_id": 36507017697,
+      "artifact_id": 11007841198,
+      "artifact_digest": "sha256:91c5251e87411b590a0bd83461dcdb07ea31d7699b909ba8fe26b965c7987c98",
+      "exact_query_num_found": 1,
+      "returned_identifier": "3_20260926_202609",
+      "returned_object_title": "太平军中的婚姻状况与两性关系探析，太平天《《太平天国》第3可见鸡奸现象在太平军中是一个公开的秘密",
+      "returned_subject": "太平天国",
+      "returned_file_role": "UNRELATED_TEXT_OBJECT",
+      "target_article_identity_proved": false,
+      "exact_title_hit_adjudication": "FALSE_POSITIVE_INDEX_MATCH"
+    },
+    "r4_openlibrary": {
+      "workflow_commit": "5e195820439ca1ba1717a46f34736b8dd85360a5",
+      "workflow_run_id": 36507230953,
+      "artifact_id": 11006654874,
+      "artifact_digest": "sha256:f404dfcd1230bea9e193b8361f8b2ebe2c8ca07cebfc28aff38605ba0839a61b",
+      "isbn_tested": "9787209115018",
+      "isbn_endpoint_result": "HTTP_404",
+      "title_issue_author_search_num_found": 0,
+      "isbn_identity_to_issue11_authorized": false,
+      "negative_absence_inference_authorized": false
+    },
+    "r5_metadata_conflict_capture": {
+      "workflow_commit": "5c91d24d3a0c0ccdd2e932c3f04c2beea338637b",
+      "workflow_run_id": 36507356245,
+      "artifact_id": 11006604980,
+      "artifact_digest": "sha256:c4fe68e5c9a1ab5893c60b2a7755eb11fa8bc03daa91ab3747f9bb35031a9438",
+      "nopss": {
+        "fetch_ok": true,
+        "bytes": 45718,
+        "article_title_hit": true,
+        "container_issue11_hit": true,
+        "date_2018_09_hit": true,
+        "author_hit": true
+      },
+      "kongfz": {
+        "fetch_ok": true,
+        "bytes": 674427,
+        "issue11_hit": true,
+        "target_article_hit": true,
+        "isbn_9787209115018_hit": true,
+        "date_2018_12_hit": true
+      },
+      "sanmin": {
+        "fetch_ok": true,
+        "bytes": 74445,
+        "issue12_hit": true,
+        "isbn_9787209115018_hit": true,
+        "date_2019_05_01_hit": true
+      }
+    }
+  },
+  "bibliographic_conflict": {
+    "official_nopss": {
+      "issue": "第十一期",
+      "date_claim": "2018年9月",
+      "publisher": "山东人民出版社"
+    },
+    "kongfz_public_retail": {
+      "issue": "第十一期",
+      "date_claim": "2018-12",
+      "isbn": "9787209115018",
+      "page_count": 277
+    },
+    "sanmin_public_retail": {
+      "issue": "第十二期",
+      "date_claim": "2019-05-01",
+      "isbn": "9787209115018"
+    },
+    "issue11_supported_by_official_report": true,
+    "isbn_9787209115018_to_issue11_binding_authorized": false,
+    "publication_month_reconciliation": "UNRESOLVED",
+    "commercial_metadata_may_override_official_report": false
+  },
+  "adjudication": {
+    "article_identity_at_official_project_report_level": "CONFIRMED",
+    "article_container_issue_at_official_project_report_level": "GUOXUE_JIKAN_ISSUE_11",
+    "article_public_fulltext_route": "UNRESOLVED_NO_PUBLIC_FULLTEXT_RETRIEVED",
+    "article_fulltext_retrieved": false,
+    "exact_physical_issue_identity": "UNRESOLVED",
+    "exact_issue11_isbn": "UNRESOLVED",
+    "exact_publication_month": "UNRESOLVED_BETWEEN_OFFICIAL_REPORT_AND_COMMERCIAL_METADATA",
+    "internet_archive_exact_title_hit": "FALSE_POSITIVE",
+    "openlibrary_route": "NO_POSITIVE_RECORD_OBSERVED",
+    "google_books_route": "NO_POSITIVE_RECORD_OBSERVED",
+    "negative_absence_inference_authorized": false,
+    "exact_3368_to_3288_causal_mechanism": "UNRESOLVED"
+  },
+  "inference_firewall": {
+    "official_project_report_is_not_the_article_fulltext": true,
+    "retail_metadata_is_not_primary_authority_for_article_text": true,
+    "same_isbn_with_conflicting_issue_numbers_forbids_silent_issue_binding": true,
+    "no_public_route_match_does_not_prove_no_digital_copy_exists": true,
+    "internet_archive_index_match_requires_object_identity_review": true,
+    "article_summary_cannot_be_used_to_invent_unseen_shelfmarks_book_numbers_or_page_details": true
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "transmission_topology_change": false,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 16,
+    "repaired_provenance_metadata_defect_count": 16,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Recover an institutional-library or publisher-level record for the exact physical 《国学季刊》第十一期 object, preferably with stable ISBN/date/extent fields.",
+    "Recover Zhang Lijuan's article full text or direct page images through a lawful public or institutional route.",
+    "Search the recovered article for object-level NLC shelfmark/book-number/catalog-preparation detail relevant to the 3368 -> 3288 target-specific change.",
+    "Continue exact Qu donation/accession ledger discovery independently; do not wait on the article route."
+  ],
+  "updated_at": "2026-09-29"
+}
