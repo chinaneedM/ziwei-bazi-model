@@ -10060,8 +10060,31 @@
         "exhaustive_absence_inference_authorized": false,
         "research_artifact": "docs/research/ZIWEI-NLC-BEITU1959-3368-3288-SEARCH-INDEX-BOUNDARY-R1.json"
       }
+    },
+    {
+      "source_id": "EXT-WIKIMEDIA-COMMONS-BEITU1959-EIGHT-VOLUME-SCAN-SET",
+      "title": "1959《北京图书馆善本书目》八册公共扫描集",
+      "provider": "Wikimedia Commons",
+      "url": "https://commons.wikimedia.org/wiki/Category:北京圖書館善本書目",
+      "historical_period": "1959 catalog; modern public digital surrogates",
+      "source_role": "PUBLIC_DIGITAL_SURROGATE_SET_AND_MACHINE_NAVIGATION_INPUT_NOT_OCR_TEXTUAL_AUTHORITY",
+      "quality_notes": "Provider category exposes all eight public PDF volumes. Batch 12IB hash-binds the routes and tests machine navigation. Known-positive calibration fails for both conventional and native vertical OCR, and the positive pages have no embedded text layer; therefore all zero-candidate outputs are non-evidentiary for historical absence.",
+      "batch_12ib": {
+        "ssid_range": "12335507-12335514",
+        "volume_count": 8,
+        "route_map_workflow_run_id": 36363002709,
+        "route_map_artifact_id": 10946168006,
+        "r5_all_volume_workflow_run_id": 36503637232,
+        "r5_all_candidate_counts_zero": true,
+        "r5_known_positive_3368_calibration_pass": false,
+        "embedded_text_known_positive_pass": false,
+        "conventional_48_variant_positive_count": 0,
+        "vertical_64_variant_positive_count": 0,
+        "whole_catalog_3288_absence_inference_authorized": false,
+        "research_artifact": "docs/research/ZIWEI-BEITU1959-CROSSVOLUME-3288-LOCATOR-CALIBRATION-BOUNDARY-R1.json"
+      }
     }
   ],
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md",
-  "updated_at": "2026-09-28"
+  "updated_at": "2026-09-29"
 }
