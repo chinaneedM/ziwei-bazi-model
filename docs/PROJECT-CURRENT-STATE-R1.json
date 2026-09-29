@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.244.0",
+  "schema_version": "1.245.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -326,9 +326,10 @@
       "BATCH-12-ZIWEI-ZHANG-LIJUAN-GUOXUEJIKAN11-PUBLIC-FULLTEXT-ROUTE-BOUNDARY-IC",
       "BATCH-12-ZIWEI-GUOXUEJIKAN11-ITEM-LEVEL-ISBN-FORWARD-CORRECTION-ID",
       "BATCH-12-ZIWEI-GUOXUEJIKAN11-CORRECTED-ISBN-PUBLIC-ROUTE-RECHECK-IE",
-      "BATCH-12-ZIWEI-WENWU-CANKAO-CAMBRIDGE-1951-V2-HOLDING-ROUTE-IF"
+      "BATCH-12-ZIWEI-WENWU-CANKAO-CAMBRIDGE-1951-V2-HOLDING-ROUTE-IF",
+      "BATCH-12-ZIWEI-ZHAO-WANLI-P197-OFFICIAL-JOURNAL-QUOTE-AUTHORITY-UPGRADE-IG"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENWU-CANKAO-CAMBRIDGE-1951-V2-HOLDING-ROUTE-IF.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHAO-WANLI-P197-OFFICIAL-JOURNAL-QUOTE-AUTHORITY-UPGRADE-IG.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -1455,7 +1456,11 @@
       "Batch 12IF adds a new independent first-party Cambridge University Library original-periodical holding route for 1951 《文物参考资料》: the Chinese Periodicals page explicitly lists `卷2i-xii` under call `FB.252:14`, so target volume 2 issue 9 is directly contained.",
       "Batch 12IF does not double-count Cambridge's separate Needham Research Institute `1951-58` row as a second exact issue-9 closure because that year-range row does not enumerate issue-level gaps.",
       "Batch 12IF adds one independent original-periodical physical holding route but zero direct article-text increments: Zhao Wanli pp.221-233, 2011 《赵万里文集》第1卷 p.197, and the original Qu 62-title wording remain not directly collated.",
-      "Highest next gate after 12IF: prioritize lawful page-level recovery of the 1951 article or 2011 p.197 and direct Ji Shuying chapter-9 collation over further holding-count expansion; FID070 exact Qu donation batch/date remains UNRESOLVED."
+      "Highest next gate after 12IF: prioritize lawful page-level recovery of the 1951 article or 2011 p.197 and direct Ji Shuying chapter-9 collation over further holding-count expansion; FID070 exact Qu donation batch/date remains UNRESOLVED.",
+      "Batch 12IG upgrades the Zhao Wanli p.197 quotation bridge to a directly retrieved Zhejiang Library official 《图书馆研究与工作》 2026 issue-4 PDF. The PDF is 3,023,670 bytes / SHA-256 2e0b9c1d59ccc95523b48144964cb8f528161c3b9201cb28da0cee41de9cd776; no OCR is used.",
+      "Batch 12IG page-level probe binds the Qu-family donation quotation to official-PDF page 92: 瞿济苍 / 凤起 / 旭初 / 捐赠 / 宋刻 / title fragments 春秋左 + 传注疏 / 六十二种 / [2]197 are co-located. Reference [2] is the 2011 《赵万里文集：第一卷》.",
+      "Batch 12IG is an authority upgrade only. Direct 2011 p.197 and direct 1951 《文物参考资料》第9期 pp.221–233 remain NOT_REVIEWED. The quoted 宋刻《春秋左传注疏》 must not be collapsed into FID070, physically re-adjudicated as 元刻元印十行本; FID070 exact Qu donation batch/date and 3368->3288 mechanism remain UNRESOLVED.",
+      "Highest next gate after 12IG is direct-page acquisition rather than additional holding-count expansion: lawful recovery of 2011 p.197 or 1951 original pp.221–233, plus direct Ji Shuying chapter-9 collation. NDL remote-copy is a viable account/fee-dependent route because target journal/issue/pages are already known; no login, request or fee action is authorized without explicit user approval."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10
@@ -1495,7 +1500,7 @@
     "handoff_text_should_be_generated_from_repository_state_not_chat_memory": true,
     "new_chat_minimal_user_prompt": "继续项目。按仓库 docs/PROJECT-CONTINUITY-PROTOCOL-R1.md 启动，以 GitHub 远端最新状态为唯一事实源。"
   },
-  "updated_at": "2026-09-29",
+  "updated_at": "2026-09-30",
   "tianwen_identity": {
     "umbrella_name_zh": "天问",
     "umbrella_name_en": "TIANWEN",
