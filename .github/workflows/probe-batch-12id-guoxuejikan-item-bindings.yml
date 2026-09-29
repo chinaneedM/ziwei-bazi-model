@@ -1,0 +1,133 @@
+name: probe-batch-12id-guoxuejikan-item-bindings
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - '.github/workflows/probe-batch-12id-guoxuejikan-item-bindings.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  statuses: write
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - name: Capture item-level issue 11/12 bindings
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/batch-12id-guoxuejikan-item-bindings'
+          rm -rf "$ROOT"; mkdir -p "$ROOT/raw"
+          python - <<'PY'
+          from pathlib import Path
+          from urllib.request import Request,urlopen
+          import json,re,time,html
+
+          root=Path('audit/batch-12id-guoxuejikan-item-bindings')
+          ua='Tianwen-Provenance-Audit/1.0'
+          targets=[
+            ('issue11','https://book.kongfz.com/4639/9902968122/'),
+            ('issue12','https://book.kongfz.com/4639/9902978870/'),
+            ('nopss','https://www.nopss.gov.cn/n1/2019/1118/c400941-31461052.html'),
+          ]
+          pages={}
+          fetch=[]
+          for key,url in targets:
+            req=Request(url,headers={'User-Agent':ua,'Accept':'text/html,application/xhtml+xml,*/*'})
+            with urlopen(req,timeout=40) as r:
+              b=r.read(); final=r.geturl(); ct=r.headers.get('content-type','')
+            (root/'raw'/f'{key}.html').write_bytes(b)
+            txt=b.decode('utf-8','replace')
+            plain=re.sub(r'<script\b[^>]*>.*?</script>',' ',txt,flags=re.S|re.I)
+            plain=re.sub(r'<style\b[^>]*>.*?</style>',' ',plain,flags=re.S|re.I)
+            plain=re.sub(r'<[^>]+>',' ',plain)
+            plain=html.unescape(re.sub(r'\s+',' ',plain))
+            pages[key]=plain
+            fetch.append({'key':key,'url':url,'final_url':final,'bytes':len(b),'content_type':ct})
+            time.sleep(.4)
+
+          def has(key,needle): return needle in pages[key]
+          summary={
+            'issue11':{
+              'url':targets[0][1],
+              'title_hit':has('issue11','国学季刊 第十一期'),
+              'target_article_hit':has('issue11','国图藏元刻十行本《附释音春秋左传注疏》'),
+              'isbn_9787209115001_hit':has('issue11','9787209115001'),
+              'isbn_9787209115018_hit':has('issue11','9787209115018'),
+              'date_2018_09_hit':has('issue11','2018-09'),
+              'pages_222_hit':has('issue11','222页'),
+            },
+            'issue12':{
+              'url':targets[1][1],
+              'title_hit':has('issue12','国学季刊 第十二期'),
+              'isbn_9787209115018_hit':has('issue12','9787209115018'),
+              'date_2018_12_hit':has('issue12','2018-12'),
+              'pages_277_hit':has('issue12','277页'),
+            },
+            'nopss':{
+              'url':targets[2][1],
+              'target_article_hit':has('nopss','国图藏元刻十行本'),
+              'issue11_hit':has('nopss','第十一期'),
+              'date_2018_09_hit':has('nopss','2018年9月'),
+              'author_hit':has('nopss','张丽娟'),
+            },
+            'adjudication':{
+              'issue11_isbn':'9787209115001',
+              'issue11_publication_month':'2018-09',
+              'issue11_extent_pages':222,
+              'issue12_isbn':'9787209115018',
+              'issue12_publication_month':'2018-12',
+              'issue12_extent_pages':277,
+              'prior_batch12ic_issue11_isbn_9787209115018_binding':'WRONG_ADJACENT_RECORD_BINDING',
+              'provenance_defect_id':'PROV-DEFECT-017',
+              'repair_authorized':True
+            },
+            'fetch':fetch
+          }
+          assert summary['issue11']['title_hit']
+          assert summary['issue11']['target_article_hit']
+          assert summary['issue11']['isbn_9787209115001_hit']
+          assert summary['issue11']['date_2018_09_hit']
+          assert summary['issue11']['pages_222_hit']
+          assert summary['issue12']['title_hit']
+          assert summary['issue12']['isbn_9787209115018_hit']
+          assert summary['issue12']['date_2018_12_hit']
+          assert summary['issue12']['pages_277_hit']
+          assert summary['nopss']['issue11_hit'] and summary['nopss']['date_2018_09_hit'] and summary['nopss']['author_hit']
+          (root/'summary.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print(json.dumps(summary,ensure_ascii=False,indent=2))
+          PY
+          find "$ROOT" -type f -size +0c -print0 | xargs -0 -r sha256sum | sort -V > "$ROOT/files.sha256"
+          printf '%s\n' \
+            'ROLE=item-level bibliographic binding correction' \
+            'PROVENANCE_DEFECT_ID=PROV-DEFECT-017' \
+            'ISSUE11_ISBN=9787209115001' \
+            'ISSUE12_ISBN=9787209115018' \
+            > "$ROOT/manifest.txt"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12id-guoxuejikan-item-bindings
+          path: audit/batch-12id-guoxuejikan-item-bindings/
+          if-no-files-found: error
+          retention-days: 30
+      - name: Publish status
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs=require('fs')
+            let ok=false
+            try {
+              const s=JSON.parse(fs.readFileSync('audit/batch-12id-guoxuejikan-item-bindings/summary.json','utf8'))
+              ok=s.adjudication.repair_authorized===true
+            } catch(e) {}
+            await github.rest.repos.createCommitStatus({
+              owner:context.repo.owner,repo:context.repo.repo,sha:context.sha,
+              state:ok?'success':'failure',context:'tianwen/batch-12id-probe',
+              description:ok?'Issue 11/12 item bindings calibrated':'Item-binding probe failed'
+            })
