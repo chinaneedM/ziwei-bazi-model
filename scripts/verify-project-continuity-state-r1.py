@@ -274,6 +274,8 @@ ZIWEI_SEARCH_INDEX_12IA_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-
 ZIWEI_SEARCH_INDEX_12IA_EVIDENCE = ROOT / "docs/research/ZIWEI-NLC-BEITU1959-3368-3288-SEARCH-INDEX-BOUNDARY-R1.json"
 ZIWEI_LOCATOR_12IB_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-BEITU1959-CROSSVOLUME-3288-LOCATOR-CALIBRATION-BOUNDARY-IB.md"
 ZIWEI_LOCATOR_12IB_EVIDENCE = ROOT / "docs/research/ZIWEI-BEITU1959-CROSSVOLUME-3288-LOCATOR-CALIBRATION-BOUNDARY-R1.json"
+ZIWEI_ZHANG_IC_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHANG-LIJUAN-GUOXUEJIKAN11-PUBLIC-FULLTEXT-ROUTE-BOUNDARY-IC.md"
+ZIWEI_ZHANG_IC_EVIDENCE = ROOT / "docs/research/ZIWEI-ZHANG-LIJUAN-GUOXUEJIKAN11-PUBLIC-FULLTEXT-ROUTE-BOUNDARY-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -637,9 +639,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-BEITU1959-1987-ZUOZHUAN-LOCAL-NEIGHBOR-SEQUENCE-CROSSWALK-HZ",
     "BATCH-12-ZIWEI-NLC-BEITU1959-3368-3288-SEARCH-INDEX-BOUNDARY-IA",
     "BATCH-12-ZIWEI-BEITU1959-CROSSVOLUME-3288-LOCATOR-CALIBRATION-BOUNDARY-IB",
+    "BATCH-12-ZIWEI-ZHANG-LIJUAN-GUOXUEJIKAN11-PUBLIC-FULLTEXT-ROUTE-BOUNDARY-IC",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-BEITU1959-CROSSVOLUME-3288-LOCATOR-CALIBRATION-BOUNDARY-IB.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHANG-LIJUAN-GUOXUEJIKAN11-PUBLIC-FULLTEXT-ROUTE-BOUNDARY-IC.md"
 
 
 def fail(message: str) -> None:
@@ -9240,6 +9243,60 @@ def main() -> int:
         fail("Batch 12IB missing from completed state")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12IB latest-batch document mismatch")
+
+    # Batch 12IC: Zhang Lijuan article identity is official-report bound, while public fulltext and issue-object metadata remain fail-closed.
+    for path in (ZIWEI_ZHANG_IC_BATCH, ZIWEI_ZHANG_IC_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12IC continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12ic = json.loads(ZIWEI_ZHANG_IC_EVIDENCE.read_text(encoding="utf-8"))
+    bid12ic = "BATCH-12-ZIWEI-ZHANG-LIJUAN-GUOXUEJIKAN11-PUBLIC-FULLTEXT-ROUTE-BOUNDARY-IC"
+    if batch12ic.get("batch_id") != bid12ic:
+        fail("Batch 12IC evidence identity mismatch")
+    off12ic = batch12ic.get("official_bibliographic_control", {})
+    if off12ic.get("container_seen") != "《国学季刊》第十一期" or off12ic.get("publication_date_claim_seen") != "2018年9月":
+        fail("Batch 12IC official NOPSS citation control regressed")
+    if off12ic.get("article_fulltext_exposed") is not False:
+        fail("Batch 12IC official report/fulltext firewall regressed")
+    pr12ic = batch12ic.get("public_route_probes", {})
+    r3ic = pr12ic.get("r3_internet_archive_exact_title", {})
+    if r3ic.get("exact_query_num_found") != 1 or r3ic.get("exact_title_hit_adjudication") != "FALSE_POSITIVE_INDEX_MATCH":
+        fail("Batch 12IC IA exact-title false-positive control regressed")
+    if r3ic.get("returned_identifier") != "3_20260926_202609":
+        fail("Batch 12IC IA false-positive object identity regressed")
+    r4ic = pr12ic.get("r4_openlibrary", {})
+    if r4ic.get("isbn_endpoint_result") != "HTTP_404" or r4ic.get("title_issue_author_search_num_found") != 0:
+        fail("Batch 12IC Open Library route boundary regressed")
+    bc12ic = batch12ic.get("bibliographic_conflict", {})
+    if bc12ic.get("kongfz_public_retail", {}).get("isbn") != "9787209115018":
+        fail("Batch 12IC Kongfz ISBN conflict control missing")
+    if bc12ic.get("sanmin_public_retail", {}).get("issue") != "第十二期":
+        fail("Batch 12IC Sanmin issue-12 conflict control missing")
+    if bc12ic.get("isbn_9787209115018_to_issue11_binding_authorized") is not False:
+        fail("Batch 12IC ISBN-to-issue11 firewall regressed")
+    adj12ic = batch12ic.get("adjudication", {})
+    if adj12ic.get("article_identity_at_official_project_report_level") != "CONFIRMED":
+        fail("Batch 12IC article identity control regressed")
+    if adj12ic.get("article_fulltext_retrieved") is not False:
+        fail("Batch 12IC fulltext boundary regressed")
+    if adj12ic.get("exact_issue11_isbn") != "UNRESOLVED":
+        fail("Batch 12IC issue ISBN was silently collapsed")
+    if adj12ic.get("exact_3368_to_3288_causal_mechanism") != "UNRESOLVED":
+        fail("Batch 12IC 3368->3288 cause was silently collapsed")
+    acct12ic = batch12ic.get("accounting", {})
+    if acct12ic.get("matrix_rows") != 198 or acct12ic.get("audited_rows") != 166 or acct12ic.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12IC matrix accounting regressed")
+    if acct12ic.get("confirmed_provenance_metadata_defect_count") != 16 or acct12ic.get("repaired_provenance_metadata_defect_count") != 16 or acct12ic.get("confirmed_chart_algorithm_defect_count") != 0:
+        fail("Batch 12IC defect accounting regressed")
+    try:
+        schema12ic = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12IC state version is not numeric")
+    if schema12ic < (1, 241, 0):
+        fail("Batch 12IC state version regressed below 1.241.0")
+    if bid12ic not in audit_state.get("completed_batches", ()):
+        fail("Batch 12IC missing from completed state")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12IC latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")
