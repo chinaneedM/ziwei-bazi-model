@@ -1,0 +1,189 @@
+name: probe-batch-12ig-zjlib-zhao1951-quotation
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - '.github/workflows/probe-batch-12ig-zjlib-zhao1951-quotation.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  statuses: write
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Resolve official journal PDF and inspect target quotation
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/batch-12ig-zjlib-zhao1951'
+          TMP="$RUNNER_TEMP/ig"
+          rm -rf "$ROOT" "$TMP"; mkdir -p "$ROOT/raw" "$TMP"
+
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils > /dev/null
+
+          python - <<'PY'
+          from pathlib import Path
+          from urllib.request import Request, build_opener, HTTPRedirectHandler
+          from urllib.parse import urljoin
+          import re,json,html as htmllib,hashlib,os
+
+          root=Path('audit/batch-12ig-zjlib-zhao1951')
+          tmp=Path(os.environ['RUNNER_TEMP'])/'ig'
+          ua='Mozilla/5.0 Tianwen-Provenance-Audit/1.0'
+          page='https://bjb.zjlib.cn/CN/Y2026/V0/I4/2'
+          opener=build_opener(HTTPRedirectHandler())
+
+          req=Request(page,headers={'User-Agent':ua,'Accept':'text/html,application/xhtml+xml,*/*'})
+          with opener.open(req,timeout=40) as r:
+              body=r.read(); final=r.geturl(); ct=r.headers.get('content-type','')
+          (root/'raw'/'official-page.html').write_bytes(body)
+          txt=body.decode('utf-8','replace')
+
+          urls=[]
+          patterns=[
+            r'''(?:href|src)\s*=\s*["']([^"']+)["']''',
+            r'''["']([^"']*(?:pdf|PDF|downloadArticleFile|attach|file)[^"']*)["']''',
+          ]
+          for pat in patterns:
+              for m in re.finditer(pat,txt,re.I):
+                  u=htmllib.unescape(m.group(1)).strip()
+                  if not u or u.startswith(('javascript:','#','mailto:')): continue
+                  full=urljoin(final,u)
+                  if full not in urls: urls.append(full)
+
+          candidates=[]
+          for u in urls:
+              low=u.lower()
+              if any(x in low for x in ('pdf','downloadarticlefile','attach','fileup','download')):
+                  candidates.append(u)
+
+          attempts=[]
+          pdfs=[]
+          for idx,u in enumerate(candidates[:80]):
+              try:
+                  req=Request(u,headers={'User-Agent':ua,'Referer':final,'Accept':'application/pdf,text/html,*/*'})
+                  with opener.open(req,timeout=40) as r:
+                      b=r.read(20*1024*1024+1); fu=r.geturl(); ctype=r.headers.get('content-type','')
+                  rec={'url':u,'final_url':fu,'ok':True,'bytes':len(b),'content_type':ctype,'magic_pdf':b.startswith(b'%PDF-')}
+                  attempts.append(rec)
+                  if b.startswith(b'%PDF-') and len(b)<=20*1024*1024:
+                      fp=root/'raw'/f'candidate-{idx}.pdf'
+                      fp.write_bytes(b)
+                      pdfs.append({'path':str(fp),'url':u,'final_url':fu,'bytes':len(b),'sha256':hashlib.sha256(b).hexdigest()})
+              except Exception as e:
+                  attempts.append({'url':u,'ok':False,'error':repr(e)})
+
+          # Also try a small family of standard Magtech endpoints only when the page exposes article id 1737.
+          article_ids=sorted(set(re.findall(r'(?:article[Ii]d|articleid)\s*[=:]\s*["\']?(\d+)',txt)))
+          if '1737' in txt and '1737' not in article_ids: article_ids.append('1737')
+          templated=[]
+          for aid in article_ids[:10]:
+              for path in (
+                f'/CN/article/downloadArticleFile.do?attachType=PDF&id={aid}',
+                f'/EN/article/downloadArticleFile.do?attachType=PDF&id={aid}',
+                f'/CN/article/downloadArticleFile.do?attachType=PDF&articleId={aid}',
+                f'/EN/article/downloadArticleFile.do?attachType=PDF&articleId={aid}',
+              ):
+                  u=urljoin(final,path)
+                  if u in candidates: continue
+                  try:
+                      req=Request(u,headers={'User-Agent':ua,'Referer':final,'Accept':'application/pdf,*/*'})
+                      with opener.open(req,timeout=40) as r:
+                          b=r.read(20*1024*1024+1); fu=r.geturl(); ctype=r.headers.get('content-type','')
+                      rec={'url':u,'final_url':fu,'ok':True,'bytes':len(b),'content_type':ctype,'magic_pdf':b.startswith(b'%PDF-')}
+                      templated.append(rec)
+                      if b.startswith(b'%PDF-') and len(b)<=20*1024*1024:
+                          fp=root/'raw'/f'template-{aid}-{len(pdfs)}.pdf'
+                          fp.write_bytes(b)
+                          pdfs.append({'path':str(fp),'url':u,'final_url':fu,'bytes':len(b),'sha256':hashlib.sha256(b).hexdigest()})
+                  except Exception as e:
+                      templated.append({'url':u,'ok':False,'error':repr(e)})
+
+          (root/'page-links.json').write_text(json.dumps({'page':page,'final':final,'content_type':ct,'article_ids':article_ids,'urls':urls,'pdf_candidates':candidates},ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          (root/'download-attempts.json').write_text(json.dumps({'parsed':attempts,'templated':templated,'pdfs':pdfs},ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+
+          print('PAGE',json.dumps({'final':final,'bytes':len(body),'content_type':ct,'article_ids':article_ids},ensure_ascii=False))
+          print('PDFS',json.dumps(pdfs,ensure_ascii=False))
+          PY
+
+          # Extract text from any official PDF recovered, without OCR.
+          python - <<'PY'
+          from pathlib import Path
+          import subprocess,json,re
+          root=Path('audit/batch-12ig-zjlib-zhao1951')
+          pdfs=sorted((root/'raw').glob('*.pdf'))
+          results=[]
+          needles=['赵万里与古籍保护','瞿济苍','凤起','旭初','宋刻','春秋左传注疏','六十二种','赵万里文集']
+          for pdf in pdfs:
+              out=root/'raw'/(pdf.stem+'.txt')
+              try:
+                  subprocess.run(['pdftotext','-layout',str(pdf),str(out)],check=True,timeout=60)
+                  s=out.read_text('utf-8',errors='replace')
+              except Exception as e:
+                  results.append({'pdf':str(pdf),'error':repr(e)})
+                  continue
+              hits={n:(n in s) for n in needles}
+              contexts={}
+              for n in needles:
+                  i=s.find(n)
+                  if i>=0: contexts[n]=s[max(0,i-500):i+1600]
+              results.append({'pdf':str(pdf),'text_chars':len(s),'hits':hits,'contexts':contexts})
+          summary={
+              'official_page':'https://bjb.zjlib.cn/CN/Y2026/V0/I4/2',
+              'official_provider':'浙江图书馆《图书馆研究与工作》编辑部',
+              'issue':'2026年第4期',
+              'pdf_object_recovered':bool(pdfs),
+              'pdf_count':len(pdfs),
+              'text_extractions':results,
+              'target_quote_directly_recovered_from_official_pdf':any(
+                  r.get('hits',{}).get('瞿济苍') and r.get('hits',{}).get('春秋左传注疏') and r.get('hits',{}).get('六十二种')
+                  for r in results
+              ),
+              'ocr_used':False,
+              'negative_absence_inference_authorized':False
+          }
+          (root/'summary.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print(json.dumps(summary,ensure_ascii=False,indent=2)[:100000])
+          PY
+
+          find "$ROOT" -type f -size +0c -print0 | xargs -0 -r sha256sum | sort -V > "$ROOT/files.sha256"
+          printf '%s\n' \
+            'ROLE=official journal fulltext route probe' \
+            'PROVIDER=浙江图书馆 / 图书馆研究与工作' \
+            'OCR_USED=false' \
+            'NEGATIVE_ABSENCE_INFERENCE_AUTHORIZED=false' \
+            > "$ROOT/manifest.txt"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12ig-zjlib-zhao1951-quotation
+          path: audit/batch-12ig-zjlib-zhao1951/
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Publish probe status
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs=require('fs')
+            let recovered=false
+            try {
+              const s=JSON.parse(fs.readFileSync('audit/batch-12ig-zjlib-zhao1951/summary.json','utf8'))
+              recovered=!!s.target_quote_directly_recovered_from_official_pdf
+            } catch(e) {}
+            await github.rest.repos.createCommitStatus({
+              owner:context.repo.owner,repo:context.repo.repo,sha:context.sha,
+              state:'success',context:'tianwen/batch-12ig-probe',
+              description:recovered
+                ? 'official journal PDF target quotation recovered'
+                : 'official journal route probed; inspect boundary'
+            })
