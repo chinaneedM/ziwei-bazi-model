@@ -721,3 +721,14 @@ Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NL
 - Product/accounting remains 198 rows / 166 audited / 10 MISSING_FROM_PRODUCT / 16 of 16 provenance defects repaired / zero chart-algorithm defects, reopens or candidate collapses.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-BEITU1959-CROSSVOLUME-3288-LOCATOR-CALIBRATION-BOUNDARY-IB.md`. Research record: `docs/research/ZIWEI-BEITU1959-CROSSVOLUME-3288-LOCATOR-CALIBRATION-BOUNDARY-R1.json`.
+
+
+## Progress — Batch 12IC
+
+- Official NOPSS project-report evidence directly binds Zhang Lijuan's `国图藏元刻十行本《附释音春秋左传注疏》` to `《国学季刊》第十一期 / 山东人民出版社 / 2018年9月` at article-citation and research-summary level; the reviewed page is not the article full text.
+- Current public-route probes recover no usable full text: Google Books has no candidate volume; Open Library has no positive record; Internet Archive's sole exact-full-title hit is directly adjudicated as an unrelated 太平天国 text-object false positive.
+- Public retail metadata is contradictory: Kongfz binds target contents to issue 11 / ISBN `9787209115018` / `2018-12`, while Sanmin binds the same ISBN to issue 12 / `2019-05-01`. ISBN-to-issue11 identity and exact publication month remain unresolved; retail metadata cannot overwrite the official NOPSS report.
+- Highest next gate is an institutional-library or publisher-level issue-11 object plus lawful article full text/page images; recovered article pages are to be checked for object-level NLC shelfmark/book-number/catalog-preparation detail relevant to `3368→3288`.
+- Product/accounting remains 198 rows / 166 audited / 10 MISSING_FROM_PRODUCT / 16 of 16 provenance defects repaired / zero chart-algorithm defects, reopens or candidate collapses.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHANG-LIJUAN-GUOXUEJIKAN11-PUBLIC-FULLTEXT-ROUTE-BOUNDARY-IC.md`. Research record: `docs/research/ZIWEI-ZHANG-LIJUAN-GUOXUEJIKAN11-PUBLIC-FULLTEXT-ROUTE-BOUNDARY-R1.json`.
