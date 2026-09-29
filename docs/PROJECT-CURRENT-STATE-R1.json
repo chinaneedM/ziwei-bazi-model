@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.242.0",
+  "schema_version": "1.243.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -324,9 +324,10 @@
       "BATCH-12-ZIWEI-NLC-BEITU1959-3368-3288-SEARCH-INDEX-BOUNDARY-IA",
       "BATCH-12-ZIWEI-BEITU1959-CROSSVOLUME-3288-LOCATOR-CALIBRATION-BOUNDARY-IB",
       "BATCH-12-ZIWEI-ZHANG-LIJUAN-GUOXUEJIKAN11-PUBLIC-FULLTEXT-ROUTE-BOUNDARY-IC",
-      "BATCH-12-ZIWEI-GUOXUEJIKAN11-ITEM-LEVEL-ISBN-FORWARD-CORRECTION-ID"
+      "BATCH-12-ZIWEI-GUOXUEJIKAN11-ITEM-LEVEL-ISBN-FORWARD-CORRECTION-ID",
+      "BATCH-12-ZIWEI-GUOXUEJIKAN11-CORRECTED-ISBN-PUBLIC-ROUTE-RECHECK-IE"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-GUOXUEJIKAN11-ITEM-LEVEL-ISBN-FORWARD-CORRECTION-ID.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-GUOXUEJIKAN11-CORRECTED-ISBN-PUBLIC-ROUTE-RECHECK-IE.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -1445,7 +1446,11 @@
       "Batch 12ID confirms and repairs PROV-DEFECT-017: Batch 12IC incorrectly bound issue-12 metadata from a multi-item Kongfz listing to 《国学季刊》第十一期. The corrected direct single-item issue-11 record is ISBN 9787209115001 / 2018-09 / 222 pages; adjacent issue 12 is ISBN 9787209115018 / 2018-12 / 277 pages.",
       "Batch 12ID preserves Batch 12IC as historical audit trace rather than silently rewriting it. The 12IC public-fulltext boundary, Internet Archive false-positive closure and Open Library/Google route limits remain valid; only the issue-11 ISBN/date conflict adjudication is superseded.",
       "NOPSS official project-report citation (张丽娟 / 目标文章 / 《国学季刊》第十一期 / 山东人民出版社 / 2018年9月) now agrees with the corrected issue-11 public-item month. ISBN 9787209115001 is closed only at direct public retail item level; publisher/institutional-library binding remains UNRESOLVED.",
-      "Highest next gate after 12ID: recover publisher-level or institutional-library metadata for 《国学季刊》第十一期, then lawful article full text/page images; continue exact Qu donation/accession chronology in parallel."
+      "Highest next gate after 12ID: recover publisher-level or institutional-library metadata for 《国学季刊》第十一期, then lawful article full text/page images; continue exact Qu donation/accession chronology in parallel.",
+      "Batch 12IE reruns public discovery routes using corrected issue-11 ISBN 9787209115001 after PROV-DEFECT-017. Google Books API returns HTTP 429 for corrected ISBN/title requests, so the current Google status is RATE_LIMITED_UNRESOLVED, not zero-hit evidence.",
+      "Batch 12IE Open Library corrected-ISBN endpoint returns HTTP 404 while ISBN/title searches return numFound=0; Internet Archive exact ISBN, quoted ISBN and exact issue-title queries return 0. These are current route boundaries only and authorize no nonexistence inference.",
+      "Batch 12IE reconfirms the Internet Archive exact target-article-title hit as identifier 3_20260926_202609, already directly adjudicated in 12IC as an unrelated Taiping text-object false positive. No target article full text is recovered.",
+      "Highest next gate after 12IE: retry Google Books only after rate limiting clears; recover publisher/institutional metadata for 《国学季刊》第十一期 / ISBN 9787209115001 and lawful article pages; continue exact Qu donation/accession chronology independently."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10
