@@ -756,3 +756,14 @@ Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-GU
 - Product/accounting remains 198 rows / 166 audited / 10 MISSING_FROM_PRODUCT / 17 of 17 provenance defects repaired / zero chart-algorithm defects, reopens or candidate collapses.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-GUOXUEJIKAN11-CORRECTED-ISBN-PUBLIC-ROUTE-RECHECK-IE.md`. Research record: `docs/research/ZIWEI-GUOXUEJIKAN11-CORRECTED-ISBN-PUBLIC-ROUTE-RECHECK-R1.json`.
+
+
+## Progress — Batch 12IF
+
+- Cambridge University Library's first-party `Chinese Periodicals` union catalogue directly lists `文物参考资料` with holdings `卷2i-xii` under call `FB.252:14`; target 1951 volume 2 issue 9 is therefore explicitly contained.
+- The separate Needham Research Institute `1951-58` row on the same union catalogue is not counted as a second exact issue-9 closure because it does not enumerate issue-level gaps.
+- This adds one independent original-periodical physical holding route beyond the NDL original-bundle route and Ryukoku 1986 facsimile backup; it adds zero direct article-text evidence.
+- Zhao Wanli 1951 pp.221-233, NDL-held 2011 `赵万里文集` vol.1 p.197 and the Qu-family 62-title original wording remain not directly collated. FID070 exact Qu donation batch/date and `3368→3288` causal mechanism remain unresolved.
+- Product/accounting remains 198 rows / 166 audited / 10 MISSING_FROM_PRODUCT / 17 of 17 provenance defects repaired / zero chart-algorithm defects, reopens or candidate collapses.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENWU-CANKAO-CAMBRIDGE-1951-V2-HOLDING-ROUTE-IF.md`. Research record: `docs/research/ZIWEI-WENWU-CANKAO-CAMBRIDGE-1951-V2-HOLDING-ROUTE-R1.json`.
