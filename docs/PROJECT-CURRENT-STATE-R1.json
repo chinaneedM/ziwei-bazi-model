@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.239.0",
+  "schema_version": "1.240.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -321,9 +321,10 @@
       "BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID070-SECOND-17CHAR-LINE-GBT-FORMAT-DEFECT-CLOSURE-HX",
       "BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID070-QUDONATION-CHRONOLOGY-FIREWALL-HY",
       "BATCH-12-ZIWEI-BEITU1959-1987-ZUOZHUAN-LOCAL-NEIGHBOR-SEQUENCE-CROSSWALK-HZ",
-      "BATCH-12-ZIWEI-NLC-BEITU1959-3368-3288-SEARCH-INDEX-BOUNDARY-IA"
+      "BATCH-12-ZIWEI-NLC-BEITU1959-3368-3288-SEARCH-INDEX-BOUNDARY-IA",
+      "BATCH-12-ZIWEI-BEITU1959-CROSSVOLUME-3288-LOCATOR-CALIBRATION-BOUNDARY-IB"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-BEITU1959-3368-3288-SEARCH-INDEX-BOUNDARY-IA.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-BEITU1959-CROSSVOLUME-3288-LOCATOR-CALIBRATION-BOUNDARY-IB.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -1430,7 +1431,11 @@
       "Highest gate is now narrower: recover a target-specific catalog card/correction slip/preparation record or accession/crosswalk record that explains the already-isolated 3368 -> 3288 target change; exact Qu donation/accession date, Zhang 2018 full text and 2017 facsimile base-copy binding remain separately open.",
       "Batch 12IA closes a current-search capability boundary: NLC meta.nlc.cn ANY search does not discover known-positive current 905s 03288 or 08643, so the same no-result for 03368 cannot be used as absence evidence.",
       "Batch 12IA closes three Google Books 1959 三二八八 locator hits as false positives after no-OCR review of the hash-bound 1959 scan candidate pages PDF26/PDF28/PDF52; this does not prove global absence of 3288 from the 1959 catalog.",
-      "HZ remains controlling: 3368→3288 is target-specific within the stable local neighborhood, while the causal mechanism remains unresolved. Highest gate is a target-specific catalog card/correction slip/preparation note/accession or explicit crosswalk record."
+      "HZ remains controlling: 3368→3288 is target-specific within the stable local neighborhood, while the causal mechanism remains unresolved. Highest gate is a target-specific catalog card/correction slip/preparation note/accession or explicit crosswalk record.",
+      "Batch 12IB maps all eight public 1959 《北京图书馆善本书目》 scans but closes the tested whole-catalog machine locator as non-evidentiary: r5 returned zero candidates in all eight volumes while also failing to recall the directly known 3368/neighbor positive controls on volume-1 PDF55-56.",
+      "Batch 12IB independently confirms no usable embedded text layer on the known-positive PDF55-56 control pages, while both the 48-variant conventional OCR calibration and 64-variant chi_tra_vert calibration produce zero positive variants. Workflow completion must not be confused with research calibration success.",
+      "No inference that 3288 is absent from the complete 1959 catalog is authorized. HZ remains controlling for TARGET_SPECIFIC_WITHIN_SHARED_LOCAL_NEIGHBORHOOD and IA remains controlling for noisy/unindexed search surfaces; the exact 3368 -> 3288 causal mechanism remains UNRESOLVED.",
+      "Highest gate is documentary: recover a target-specific catalog card/correction slip/preparation note/accession register/explicit 1959->1987 crosswalk naming 3368 and/or 3288; continue Zhang Lijuan 2018 full-text retrieval and exact Qu donation/accession evidence in parallel."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10
@@ -1470,7 +1475,7 @@
     "handoff_text_should_be_generated_from_repository_state_not_chat_memory": true,
     "new_chat_minimal_user_prompt": "继续项目。按仓库 docs/PROJECT-CONTINUITY-PROTOCOL-R1.md 启动，以 GitHub 远端最新状态为唯一事实源。"
   },
-  "updated_at": "2026-09-28",
+  "updated_at": "2026-09-29",
   "tianwen_identity": {
     "umbrella_name_zh": "天问",
     "umbrella_name_en": "TIANWEN",
