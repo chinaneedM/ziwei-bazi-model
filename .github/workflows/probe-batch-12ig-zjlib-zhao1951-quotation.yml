@@ -125,7 +125,7 @@ jobs:
           for pdf in pdfs:
               out=root/'raw'/(pdf.stem+'.txt')
               try:
-                  subprocess.run(['pdftotext','-layout',str(pdf),str(out)],check=True,timeout=60)
+                  subprocess.run(['pdftotext','-raw',str(pdf),str(out)],check=True,timeout=60)
                   s=out.read_text('utf-8',errors='replace')
               except Exception as e:
                   results.append({'pdf':str(pdf),'error':repr(e)})
