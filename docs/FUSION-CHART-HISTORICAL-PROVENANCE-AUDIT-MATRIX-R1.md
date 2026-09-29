@@ -767,3 +767,15 @@ Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-GU
 - Product/accounting remains 198 rows / 166 audited / 10 MISSING_FROM_PRODUCT / 17 of 17 provenance defects repaired / zero chart-algorithm defects, reopens or candidate collapses.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENWU-CANKAO-CAMBRIDGE-1951-V2-HOLDING-ROUTE-IF.md`. Research record: `docs/research/ZIWEI-WENWU-CANKAO-CAMBRIDGE-1951-V2-HOLDING-ROUTE-R1.json`.
+
+
+## Progress — Batch 12IG
+
+- Zhejiang Library's official `《图书馆研究与工作》` 2026 issue-4 PDF is directly retrieved and hash-bound (`SHA-256 2e0b9c1d59ccc95523b48144964cb8f528161c3b9201cb28da0cee41de9cd776`), with a readable text layer and no OCR.
+- A page-level probe closes the Zhao Wanli donation quotation on official-PDF page 92: `瞿济苍 / 凤起 / 旭初 / 捐赠 / 宋刻 / 春秋左 + 传注疏 / 六十二种 / [2]197` are co-located. Reference `[2]` is the 2011 `《赵万里文集：第一卷》`.
+- This upgrades the existing 12HJ/12HY quotation bridge to official-journal direct article text only. It does not equal direct review of 2011 p.197 or the 1951 original `《文物参考资料》第9期 pp.221–233`.
+- The quoted `宋刻《春秋左传注疏》` is not collapsed into FID070, whose physical research adjudication is `元刻元印十行本`; exact FID070 Qu-donation batch/date and the `3368→3288` causal mechanism remain unresolved.
+- Highest next gate is lawful direct-page recovery rather than further holding-count expansion. NDL remote-copy is a viable account/fee-dependent route for the already-located 1951 article, but no login/request/payment is authorized without explicit user approval.
+- Product/accounting remains 198 rows / 166 audited / 10 MISSING_FROM_PRODUCT / 17 of 17 provenance defects repaired / zero chart-algorithm defects, reopens or candidate collapses.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHAO-WANLI-P197-OFFICIAL-JOURNAL-QUOTE-AUTHORITY-UPGRADE-IG.md`. Research record: `docs/research/ZIWEI-ZHAO-WANLI-P197-OFFICIAL-JOURNAL-QUOTE-AUTHORITY-UPGRADE-R1.json`.
