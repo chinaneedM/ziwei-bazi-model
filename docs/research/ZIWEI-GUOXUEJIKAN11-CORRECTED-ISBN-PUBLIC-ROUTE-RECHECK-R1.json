@@ -1,0 +1,124 @@
+{
+  "schema": "ZIWEI-GUOXUEJIKAN11-CORRECTED-ISBN-PUBLIC-ROUTE-RECHECK-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-GUOXUEJIKAN11-CORRECTED-ISBN-PUBLIC-ROUTE-RECHECK-IE",
+  "prior_batch_id": "BATCH-12-ZIWEI-GUOXUEJIKAN11-ITEM-LEVEL-ISBN-FORWARD-CORRECTION-ID",
+  "question": "After PROV-DEFECT-017 corrected issue 11 to ISBN 9787209115001, do public Google Books, Open Library or Internet Archive routes expose a bibliographic object, preview or full text that changes the 12IC full-text boundary?",
+  "answer": "No new positive public object was recovered, but the route statuses must be distinguished precisely. Google Books API requests for the corrected ISBN and title were HTTP 429 rate-limited, so Google Books is RATE_LIMITED_UNRESOLVED rather than a zero-hit result. Open Library's exact corrected-ISBN endpoint returned HTTP 404 and its ISBN/title searches returned numFound=0. Internet Archive returned numFound=0 for corrected ISBN, quoted corrected ISBN and exact phrase 《国学季刊 第十一期》; its broader 国学季刊 AND 第十一期 query returned 151 unrelated/noisy objects, and the exact target-article-title query again returned the previously adjudicated unrelated identifier 3_20260926_202609. No full text was retrieved. Thus the 12IC public-fulltext boundary remains substantively intact after the ISBN correction, while its Google Books route must be superseded by a rate-limit access boundary rather than a no-candidate claim.",
+  "corrected_identity_control": {
+    "provenance_defect_id": "PROV-DEFECT-017",
+    "issue": "《国学季刊》第十一期",
+    "isbn": "9787209115001",
+    "publication_month": "2018-09",
+    "public_item_extent_pages": 222,
+    "binding_source_batch": "BATCH-12-ZIWEI-GUOXUEJIKAN11-ITEM-LEVEL-ISBN-FORWARD-CORRECTION-ID"
+  },
+  "probe": {
+    "workflow_commit": "d30a39b6565700f3a37a13c586b32045df15cc9c",
+    "workflow_run_id": 36596350896,
+    "artifact_id": 11046237102,
+    "artifact_digest": "sha256:d2ec87961e90249d5d8b65a1a1e62273505081c8e0e9cc1a81adb02ed64035bb",
+    "role": "CORRECTED_ISBN_ROUTE_RECHECK_AFTER_PROVENANCE_REPAIR",
+    "google_books": {
+      "corrected_isbn_query": {
+        "result": "HTTP_429_TOO_MANY_REQUESTS",
+        "positive_or_negative_inference_authorized": false
+      },
+      "issue_title_query": {
+        "result": "HTTP_429_TOO_MANY_REQUESTS",
+        "positive_or_negative_inference_authorized": false
+      },
+      "intitle_query": {
+        "result": "HTTP_429_TOO_MANY_REQUESTS",
+        "positive_or_negative_inference_authorized": false
+      },
+      "adjudication": "RATE_LIMITED_UNRESOLVED"
+    },
+    "openlibrary": {
+      "exact_isbn_endpoint": {
+        "result": "HTTP_404_NOT_FOUND",
+        "absence_inference_authorized": false
+      },
+      "isbn_search": {
+        "numFound": 0,
+        "query_completed": true
+      },
+      "title_search": {
+        "numFound": 0,
+        "query_completed": true
+      },
+      "positive_record_observed": false,
+      "adjudication": "NO_POSITIVE_RECORD_OBSERVED_ON_TESTED_PUBLIC_ENDPOINTS"
+    },
+    "internet_archive": {
+      "isbn_field_query": {
+        "numFound": 0
+      },
+      "quoted_isbn_query": {
+        "numFound": 0
+      },
+      "exact_issue_title_query": {
+        "numFound": 0
+      },
+      "broad_container_issue_query": {
+        "numFound": 151,
+        "adjudication": "NOISY_NON_EXACT_INDEX_SURFACE"
+      },
+      "exact_article_title_query": {
+        "numFound": 1,
+        "identifier": "3_20260926_202609",
+        "adjudication": "PREVIOUSLY_CLOSED_FALSE_POSITIVE_UNRELATED_TAIPING_TEXT_OBJECT"
+      },
+      "positive_target_record_observed": false,
+      "adjudication": "NO_POSITIVE_TARGET_RECORD_OBSERVED_ON_EXACT_TESTS"
+    }
+  },
+  "adjudication": {
+    "corrected_isbn_route_recheck_completed": true,
+    "google_books_corrected_isbn_route": "RATE_LIMITED_UNRESOLVED",
+    "openlibrary_corrected_isbn_route": "NO_POSITIVE_RECORD_OBSERVED",
+    "internet_archive_corrected_isbn_route": "NO_POSITIVE_TARGET_RECORD_OBSERVED",
+    "target_article_public_fulltext_retrieved": false,
+    "issue11_publisher_or_institutional_catalog_binding": "UNRESOLVED",
+    "batch12ic_fulltext_boundary_substantively_preserved": true,
+    "batch12ic_google_books_no_candidate_wording_superseded": true,
+    "corrected_google_books_current_statement": "RATE_LIMITED_UNRESOLVED_NOT_NEGATIVE_EVIDENCE",
+    "exact_3368_to_3288_causal_mechanism": "UNRESOLVED",
+    "negative_absence_inference_authorized": false
+  },
+  "inference_firewall": {
+    "http_429_is_not_zero_results": true,
+    "http_404_or_zero_search_on_openlibrary_does_not_prove_nonexistence": true,
+    "internet_archive_zero_exact_query_does_not_prove_no_copy_exists": true,
+    "broad_index_hits_require_object_identity_review": true,
+    "corrected_isbn_does_not_itself_supply_article_text_or_nlc_object_identifiers": true,
+    "no_route_result_may_be_promoted_to_historical_absence": true
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "transmission_topology_change": false,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Retry Google Books corrected-ISBN/title access only when the endpoint is no longer rate-limited; do not infer a zero result from HTTP 429.",
+    "Recover publisher-level or institutional-library metadata for 《国学季刊》第十一期 / ISBN 9787209115001.",
+    "Recover lawful article full text/direct page images and inspect for NLC shelfmark, old/new book number or catalog correction details relevant to 3368 -> 3288.",
+    "Continue exact Qu donation/accession chronology independently."
+  ],
+  "updated_at": "2026-09-29"
+}
