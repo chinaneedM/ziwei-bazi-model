@@ -1,0 +1,144 @@
+name: probe-batch-12ie-corrected-isbn-public-routes
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - '.github/workflows/probe-batch-12ie-corrected-isbn-public-routes.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  statuses: write
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - name: Probe corrected issue-11 ISBN routes
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/batch-12ie-corrected-isbn-routes'
+          rm -rf "$ROOT"; mkdir -p "$ROOT/raw"
+
+          python - <<'PY'
+          from pathlib import Path
+          from urllib.parse import urlencode, quote
+          from urllib.request import Request,urlopen
+          import json,time
+
+          root=Path('audit/batch-12ie-corrected-isbn-routes')
+          ua='Tianwen-Provenance-Audit/1.0'
+          isbn='9787209115001'
+          fetch=[]
+
+          def get(key,url,timeout=40):
+              req=Request(url,headers={'User-Agent':ua,'Accept':'application/json,text/plain,text/html,*/*'})
+              try:
+                  with urlopen(req,timeout=timeout) as r:
+                      b=r.read(); final=r.geturl(); ct=r.headers.get('content-type','')
+                  (root/'raw'/f'{key}.bin').write_bytes(b)
+                  fetch.append({'key':key,'url':url,'final_url':final,'ok':True,'bytes':len(b),'content_type':ct})
+                  return b
+              except Exception as e:
+                  fetch.append({'key':key,'url':url,'ok':False,'error':repr(e)})
+                  return b''
+
+          # Google Books: corrected ISBN plus title/issue fallback.
+          gb=[]
+          for key,q in [
+              ('gb-isbn',f'isbn:{isbn}'),
+              ('gb-title','"国学季刊" "第十一期"'),
+              ('gb-title-en','intitle:国学季刊 第十一期'),
+          ]:
+              b=get(key,'https://www.googleapis.com/books/v1/volumes?'+urlencode({'q':q,'maxResults':40,'printType':'books'}))
+              if b:
+                  try:
+                      o=json.loads(b)
+                      gb.append({'key':key,'query':q,'totalItems':o.get('totalItems'),'items':[
+                          {
+                            'id':x.get('id'),
+                            'volumeInfo':{k:(x.get('volumeInfo') or {}).get(k) for k in ('title','subtitle','authors','publisher','publishedDate','pageCount','industryIdentifiers','previewLink','infoLink')},
+                            'accessInfo':{k:(x.get('accessInfo') or {}).get(k) for k in ('viewability','embeddable','publicDomain','pdf')}
+                          } for x in (o.get('items') or [])
+                      ]})
+                  except Exception as e:
+                      gb.append({'key':key,'query':q,'parse_error':repr(e)})
+              time.sleep(.4)
+
+          # Open Library exact ISBN and searches.
+          ol=[]
+          for key,url in [
+              ('ol-isbn',f'https://openlibrary.org/isbn/{isbn}.json'),
+              ('ol-isbn-search','https://openlibrary.org/search.json?'+urlencode({'isbn':isbn,'limit':50})),
+              ('ol-title-search','https://openlibrary.org/search.json?'+urlencode({'title':'国学季刊 第十一期','limit':50}))
+          ]:
+              b=get(key,url)
+              if b:
+                  try: ol.append({'key':key,'json':json.loads(b)})
+                  except Exception as e: ol.append({'key':key,'parse_error':repr(e)})
+              time.sleep(.4)
+
+          # Internet Archive corrected ISBN and exact container.
+          ia=[]
+          for i,q in enumerate([
+              f'isbn:{isbn}',
+              f'"{isbn}"',
+              '"国学季刊 第十一期"',
+              '"国学季刊" AND "第十一期"',
+              '"国图藏元刻十行本《附释音春秋左传注疏》"'
+          ]):
+              url='https://archive.org/advancedsearch.php?'+urlencode({
+                  'q':q,'fl[]':['identifier','title','creator','date','year','description','subject','mediatype'],
+                  'rows':100,'page':1,'output':'json'
+              },doseq=True)
+              b=get('ia-'+str(i),url)
+              if b:
+                  try:
+                      o=json.loads(b)
+                      ia.append({'query':q,'numFound':o.get('response',{}).get('numFound'),'docs':o.get('response',{}).get('docs',[])})
+                  except Exception as e: ia.append({'query':q,'parse_error':repr(e)})
+              time.sleep(.4)
+
+          summary={
+              'corrected_issue11_isbn':isbn,
+              'correction_source':'BATCH-12ID_PROV-DEFECT-017',
+              'google_books':gb,
+              'openlibrary':ol,
+              'internet_archive':ia,
+              'fetch_manifest':fetch,
+              'fulltext_retrieved':False,
+              'negative_absence_inference_authorized':False,
+              'role':'CORRECTED_ISBN_ROUTE_RECHECK_AFTER_PROVENANCE_REPAIR'
+          }
+          (root/'summary.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print(json.dumps(summary,ensure_ascii=False,indent=2)[:180000])
+          PY
+
+          find "$ROOT" -type f -size +0c -print0 | xargs -0 -r sha256sum | sort -V > "$ROOT/files.sha256"
+          printf '%s\n' \
+            'ROLE=corrected ISBN public route recheck after PROV-DEFECT-017' \
+            'ISSUE11_ISBN=9787209115001' \
+            'NEGATIVE_ABSENCE_INFERENCE_AUTHORIZED=false' \
+            > "$ROOT/manifest.txt"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12ie-corrected-isbn-public-routes
+          path: audit/batch-12ie-corrected-isbn-routes/
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Publish status
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.repos.createCommitStatus({
+              owner:context.repo.owner,repo:context.repo.repo,sha:context.sha,
+              state:'success',context:'tianwen/batch-12ie-probe',
+              description:'Corrected issue-11 ISBN route recheck complete'
+            })
