@@ -709,3 +709,15 @@ Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-BE
 - Product/accounting remains 198 rows / 166 audited / 10 MISSING_FROM_PRODUCT / 16 of 16 provenance defects repaired / zero chart-algorithm defects, reopens or candidate collapses.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-BEITU1959-3368-3288-SEARCH-INDEX-BOUNDARY-IA.md`. Research record: `docs/research/ZIWEI-NLC-BEITU1959-3368-3288-SEARCH-INDEX-BOUNDARY-R1.json`.
+
+
+## Progress — Batch 12IB
+
+- The complete public eight-volume 1959 《北京图书馆善本书目》 scan set is mapped through Wikimedia Commons (SSID 12335507–12335514).
+- r5 completed all eight volumes and emitted zero `三二八八 / 3288` candidates, but the same locator failed the already-directly-closed positive controls on volume-1 PDF55–56, including `三三六八 = 3368`. Therefore the zero-candidate output has no absence value.
+- A separate embedded-text calibration finds no usable text/font layer on the positive pages; 48 conventional OCR variants and 64 native Traditional-Chinese vertical OCR variants also produce zero positive variants.
+- The tested machine-locator family is closed as `FAILED_KNOWN_POSITIVE_RECALL`; whole-catalog absence remains unproved and no future zero-result may be promoted without first passing the known-positive calibration.
+- HZ and IA remain controlling for historical adjudication: the observed `3368→3288` change is target-specific within a stable local neighborhood, but the causal mechanism is still unresolved.
+- Product/accounting remains 198 rows / 166 audited / 10 MISSING_FROM_PRODUCT / 16 of 16 provenance defects repaired / zero chart-algorithm defects, reopens or candidate collapses.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-BEITU1959-CROSSVOLUME-3288-LOCATOR-CALIBRATION-BOUNDARY-IB.md`. Research record: `docs/research/ZIWEI-BEITU1959-CROSSVOLUME-3288-LOCATOR-CALIBRATION-BOUNDARY-R1.json`.
