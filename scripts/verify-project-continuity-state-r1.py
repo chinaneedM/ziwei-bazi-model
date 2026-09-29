@@ -282,6 +282,8 @@ ZIWEI_ZHANG_IE_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BAT
 ZIWEI_ZHANG_IE_EVIDENCE = ROOT / "docs/research/ZIWEI-GUOXUEJIKAN11-CORRECTED-ISBN-PUBLIC-ROUTE-RECHECK-R1.json"
 ZIWEI_WENWU_IF_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENWU-CANKAO-CAMBRIDGE-1951-V2-HOLDING-ROUTE-IF.md"
 ZIWEI_WENWU_IF_EVIDENCE = ROOT / "docs/research/ZIWEI-WENWU-CANKAO-CAMBRIDGE-1951-V2-HOLDING-ROUTE-R1.json"
+ZIWEI_ZHAO_IG_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHAO-WANLI-P197-OFFICIAL-JOURNAL-QUOTE-AUTHORITY-UPGRADE-IG.md"
+ZIWEI_ZHAO_IG_EVIDENCE = ROOT / "docs/research/ZIWEI-ZHAO-WANLI-P197-OFFICIAL-JOURNAL-QUOTE-AUTHORITY-UPGRADE-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -649,9 +651,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-GUOXUEJIKAN11-ITEM-LEVEL-ISBN-FORWARD-CORRECTION-ID",
     "BATCH-12-ZIWEI-GUOXUEJIKAN11-CORRECTED-ISBN-PUBLIC-ROUTE-RECHECK-IE",
     "BATCH-12-ZIWEI-WENWU-CANKAO-CAMBRIDGE-1951-V2-HOLDING-ROUTE-IF",
+    "BATCH-12-ZIWEI-ZHAO-WANLI-P197-OFFICIAL-JOURNAL-QUOTE-AUTHORITY-UPGRADE-IG",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENWU-CANKAO-CAMBRIDGE-1951-V2-HOLDING-ROUTE-IF.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHAO-WANLI-P197-OFFICIAL-JOURNAL-QUOTE-AUTHORITY-UPGRADE-IG.md"
 
 
 def fail(message: str) -> None:
@@ -9475,6 +9478,82 @@ def main() -> int:
         fail("Batch 12IF missing from completed state")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12IF latest-batch document mismatch")
+
+    # Batch 12IG: official Zhejiang Library journal quotation authority upgrade.
+    for path in (ZIWEI_ZHAO_IG_BATCH, ZIWEI_ZHAO_IG_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12IG continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12ig = json.loads(ZIWEI_ZHAO_IG_EVIDENCE.read_text(encoding="utf-8"))
+    bid12ig = "BATCH-12-ZIWEI-ZHAO-WANLI-P197-OFFICIAL-JOURNAL-QUOTE-AUTHORITY-UPGRADE-IG"
+    if batch12ig.get("batch_id") != bid12ig:
+        fail("Batch 12IG evidence identity mismatch")
+    obj12ig = batch12ig.get("official_journal_object", {})
+    if obj12ig.get("provider") != "浙江图书馆《图书馆研究与工作》编辑部":
+        fail("Batch 12IG official provider regressed")
+    if obj12ig.get("official_pdf_url") != "https://bjb.zjlib.cn/CN/PDF/1737":
+        fail("Batch 12IG official PDF route regressed")
+    if obj12ig.get("pdf_sha256") != "2e0b9c1d59ccc95523b48144964cb8f528161c3b9201cb28da0cee41de9cd776" or obj12ig.get("pdf_bytes") != 3023670:
+        fail("Batch 12IG official PDF identity regressed")
+    if obj12ig.get("text_layer_directly_readable") is not True or obj12ig.get("ocr_used") is not False:
+        fail("Batch 12IG direct-text/no-OCR control regressed")
+    page12ig = batch12ig.get("page_level_direct_control", {})
+    if page12ig.get("pdf_page") != 92:
+        fail("Batch 12IG quote page binding regressed")
+    toks12ig = page12ig.get("directly_observed_tokens", {})
+    expected12ig = {
+        "qu_jicang": "瞿济苍", "fengqi": "凤起", "xuchu": "旭初",
+        "transaction_wording": "捐赠", "edition_display": "宋刻",
+        "title_left_fragment": "春秋左", "title_right_fragment": "传注疏",
+        "donated_title_count_display": "六十二种", "citation_display": "[2]197",
+    }
+    if any(toks12ig.get(k) != v for k, v in expected12ig.items()):
+        fail("Batch 12IG quote token bundle regressed")
+    chain12ig = batch12ig.get("citation_chain", {})
+    if chain12ig.get("xiao_2026_official_pdf_directly_reviewed") is not True or chain12ig.get("xiao_2026_cited_page") != 197:
+        fail("Batch 12IG citation chain regressed")
+    if chain12ig.get("direct_2011_page197_reviewed") is not False or chain12ig.get("direct_1951_original_article_reviewed") is not False:
+        fail("Batch 12IG direct-page firewall regressed")
+    probe12ig = batch12ig.get("probe_evidence", {}).get("page_binding_probe", {})
+    if probe12ig.get("workflow_run_id") != 36601170241 or probe12ig.get("artifact_id") != 11049695243:
+        fail("Batch 12IG page-binding artifact identity regressed")
+    if probe12ig.get("quote_pdf_page") != 92 or probe12ig.get("target_token_bundle_closed") is not True or probe12ig.get("citation_2_197_seen") is not True or probe12ig.get("ocr_used") is not False:
+        fail("Batch 12IG page-binding result regressed")
+    fw12ig = batch12ig.get("object_identity_firewall", {})
+    if fw12ig.get("quoted_member_edition_display") != "宋刻" or fw12ig.get("fid070_physical_research_adjudication") != "元刻元印十行本":
+        fail("Batch 12IG edition/object distinction regressed")
+    if fw12ig.get("exact_identity_with_fid070") != "UNRESOLVED" or fw12ig.get("same_object_collapse_authorized") is not False:
+        fail("Batch 12IG FID070 identity firewall regressed")
+    if fw12ig.get("exact_fid070_donation_batch_authorized") is not False or fw12ig.get("exact_fid070_donation_date_authorized") is not False:
+        fail("Batch 12IG donation-date firewall regressed")
+    adj12ig = batch12ig.get("adjudication", {})
+    if adj12ig.get("official_2026_journal_fulltext_route") != "CLOSED" or adj12ig.get("official_2026_quote_page") != "PDF_92":
+        fail("Batch 12IG authority-upgrade adjudication regressed")
+    if adj12ig.get("direct_2011_page197") != "NOT_REVIEWED" or adj12ig.get("direct_1951_original_article") != "NOT_REVIEWED":
+        fail("Batch 12IG direct-source boundary regressed")
+    if adj12ig.get("fid070_exact_qu_donation_batch") != "UNRESOLVED" or adj12ig.get("fid070_exact_qu_donation_date") != "UNRESOLVED" or adj12ig.get("exact_3368_to_3288_causal_mechanism") != "UNRESOLVED":
+        fail("Batch 12IG unresolved target-provenance firewall regressed")
+    reg12ig = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    src12ig = next((x for x in reg12ig.get("sources", []) if x.get("source_id") == "EXT-ZJLIB-TUSHUGUAN-YANJIU-YU-GONGZUO-2026-4-XIAO-ZHAO-WANLI-PDF"), None)
+    if src12ig is None:
+        fail("Batch 12IG official journal registry source missing")
+    b12ig = src12ig.get("batch_12ig", {})
+    if b12ig.get("quote_pdf_page") != 92 or b12ig.get("target_token_bundle_closed") is not True or b12ig.get("ocr_used") is not False:
+        fail("Batch 12IG registry page binding regressed")
+    acct12ig = batch12ig.get("accounting", {})
+    if acct12ig.get("matrix_rows") != 198 or acct12ig.get("audited_rows") != 166 or acct12ig.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12IG matrix accounting regressed")
+    if acct12ig.get("confirmed_provenance_metadata_defect_count") != 17 or acct12ig.get("repaired_provenance_metadata_defect_count") != 17 or acct12ig.get("confirmed_chart_algorithm_defect_count") != 0:
+        fail("Batch 12IG defect accounting regressed")
+    try:
+        schema12ig = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12IG state version is not numeric")
+    if schema12ig < (1, 245, 0):
+        fail("Batch 12IG state version regressed below 1.245.0")
+    if bid12ig not in audit_state.get("completed_batches", ()):
+        fail("Batch 12IG missing from completed state")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12IG latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")
