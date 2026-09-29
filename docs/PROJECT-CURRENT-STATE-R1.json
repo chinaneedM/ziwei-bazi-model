@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.240.0",
+  "schema_version": "1.241.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -322,9 +322,10 @@
       "BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID070-QUDONATION-CHRONOLOGY-FIREWALL-HY",
       "BATCH-12-ZIWEI-BEITU1959-1987-ZUOZHUAN-LOCAL-NEIGHBOR-SEQUENCE-CROSSWALK-HZ",
       "BATCH-12-ZIWEI-NLC-BEITU1959-3368-3288-SEARCH-INDEX-BOUNDARY-IA",
-      "BATCH-12-ZIWEI-BEITU1959-CROSSVOLUME-3288-LOCATOR-CALIBRATION-BOUNDARY-IB"
+      "BATCH-12-ZIWEI-BEITU1959-CROSSVOLUME-3288-LOCATOR-CALIBRATION-BOUNDARY-IB",
+      "BATCH-12-ZIWEI-ZHANG-LIJUAN-GUOXUEJIKAN11-PUBLIC-FULLTEXT-ROUTE-BOUNDARY-IC"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-BEITU1959-CROSSVOLUME-3288-LOCATOR-CALIBRATION-BOUNDARY-IB.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHANG-LIJUAN-GUOXUEJIKAN11-PUBLIC-FULLTEXT-ROUTE-BOUNDARY-IC.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -1435,7 +1436,11 @@
       "Batch 12IB maps all eight public 1959 《北京图书馆善本书目》 scans but closes the tested whole-catalog machine locator as non-evidentiary: r5 returned zero candidates in all eight volumes while also failing to recall the directly known 3368/neighbor positive controls on volume-1 PDF55-56.",
       "Batch 12IB independently confirms no usable embedded text layer on the known-positive PDF55-56 control pages, while both the 48-variant conventional OCR calibration and 64-variant chi_tra_vert calibration produce zero positive variants. Workflow completion must not be confused with research calibration success.",
       "No inference that 3288 is absent from the complete 1959 catalog is authorized. HZ remains controlling for TARGET_SPECIFIC_WITHIN_SHARED_LOCAL_NEIGHBORHOOD and IA remains controlling for noisy/unindexed search surfaces; the exact 3368 -> 3288 causal mechanism remains UNRESOLVED.",
-      "Highest gate is documentary: recover a target-specific catalog card/correction slip/preparation note/accession register/explicit 1959->1987 crosswalk naming 3368 and/or 3288; continue Zhang Lijuan 2018 full-text retrieval and exact Qu donation/accession evidence in parallel."
+      "Highest gate is documentary: recover a target-specific catalog card/correction slip/preparation note/accession register/explicit 1959->1987 crosswalk naming 3368 and/or 3288; continue Zhang Lijuan 2018 full-text retrieval and exact Qu donation/accession evidence in parallel.",
+      "Batch 12IC directly rebinds Zhang Lijuan's article at official NOPSS project-report level: 《国图藏元刻十行本〈附释音春秋左传注疏〉》 / 张丽娟 / 《国学季刊》第十一期 / 山东人民出版社 / official report date claim 2018年9月. The reviewed official page is a project report/summary, not article full text.",
+      "Batch 12IC public-route probes recover no usable article full text: Google Books returns no candidate volume; Open Library ISBN 9787209115018 returns 404 and issue/author search zero; Internet Archive's single exact-full-title hit resolves to an unrelated 太平天国 text object and is closed as FALSE_POSITIVE_INDEX_MATCH.",
+      "Batch 12IC captures a bibliographic conflict firewall: Kongfz labels the target contents as 《国学季刊》第十一期 / ISBN 9787209115018 / 2018-12, while Sanmin labels the same ISBN as 第十二期 / 2019-05-01. ISBN-to-issue11 binding and exact publication-month reconciliation remain UNRESOLVED; commercial metadata cannot overwrite the official NOPSS citation.",
+      "Highest next gate: recover an institutional-library or publisher-level record for the exact 《国学季刊》第十一期 physical object and lawful full text/page images of Zhang Lijuan's article; inspect any recovered full text for NLC shelfmark/book-number/catalog-preparation detail relevant to 3368 -> 3288, while exact Qu donation/accession evidence continues in parallel."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10
