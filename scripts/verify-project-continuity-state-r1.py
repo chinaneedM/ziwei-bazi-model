@@ -9420,63 +9420,6 @@ def main() -> int:
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12IE latest-batch document mismatch")
 
-    # Batch 12IF: Cambridge explicit volume-2 holding route contains target issue 9, without article-text overclaim.
-    for path in (ZIWEI_WENWU_IF_BATCH, ZIWEI_WENWU_IF_EVIDENCE):
-        if not path.is_file():
-            fail(f"Batch 12IF continuity artifact missing: {path.relative_to(ROOT)}")
-    batch12if = json.loads(ZIWEI_WENWU_IF_EVIDENCE.read_text(encoding="utf-8"))
-    bid12if = "BATCH-12-ZIWEI-WENWU-CANKAO-CAMBRIDGE-1951-V2-HOLDING-ROUTE-IF"
-    if batch12if.get("batch_id") != bid12if:
-        fail("Batch 12IF evidence identity mismatch")
-    cam12if = batch12if.get("cambridge_first_party_holding", {})
-    if cam12if.get("call_number") != "FB.252:14":
-        fail("Batch 12IF Cambridge call-number control regressed")
-    if cam12if.get("explicit_holding_range") != "总1-6,8,卷2i-xii,总53-64,69-71,73-88,91-100":
-        fail("Batch 12IF Cambridge explicit range regressed")
-    if cam12if.get("target_volume") != 2 or cam12if.get("target_issue") != 9 or cam12if.get("target_issue_explicitly_contained_in_volume2_i_xii") is not True:
-        fail("Batch 12IF target issue containment regressed")
-    if cam12if.get("holding_route_status") != "CLOSED_FIRST_PARTY_EXPLICIT_RANGE":
-        fail("Batch 12IF holding-route closure regressed")
-    if cam12if.get("direct_target_pages_reviewed") is not False or cam12if.get("digital_surrogate_exposed") is not False:
-        fail("Batch 12IF holding/text access firewall regressed")
-    nri12if = batch12if.get("needham_secondary_row", {})
-    if nri12if.get("exact_issue9_explicitly_enumerated") is not False or nri12if.get("exact_issue9_holding_increment") != 0:
-        fail("Batch 12IF Needham non-double-count firewall regressed")
-    rel12if = batch12if.get("relation_to_prior_routes", {})
-    if rel12if.get("new_independent_cambridge_original_holding_increment") != 1 or rel12if.get("direct_article_text_increment") != 0:
-        fail("Batch 12IF route/text increment accounting regressed")
-    adj12if = batch12if.get("adjudication", {})
-    if adj12if.get("cambridge_explicit_issue9_physical_route") != "CLOSED" or adj12if.get("independent_original_periodical_holding_increment") != 1:
-        fail("Batch 12IF Cambridge holding adjudication regressed")
-    if adj12if.get("direct_article_text_recovered") is not False or adj12if.get("target_2011_p197_direct_text_recovered") is not False or adj12if.get("qu_62_title_original_wording_directly_collated") is not False:
-        fail("Batch 12IF direct-text firewall regressed")
-    if adj12if.get("target_fid070_exact_donation_date") != "UNRESOLVED":
-        fail("Batch 12IF FID070 donation-date firewall regressed")
-    reg12if = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
-    src12if = next((x for x in reg12if.get("sources", []) if x.get("source_id") == "EXT-CAMBRIDGE-WENWU-CANKAO-1951-V2-FB25214"), None)
-    if src12if is None:
-        fail("Batch 12IF Cambridge registry source missing")
-    b12if = src12if.get("batch_12if", {})
-    if b12if.get("call_number") != "FB.252:14" or b12if.get("target_issue") != 9 or b12if.get("target_issue_explicitly_contained") is not True:
-        fail("Batch 12IF registry binding regressed")
-    if b12if.get("needham_1951_58_row_exact_issue_increment") != 0:
-        fail("Batch 12IF registry Needham non-double-count control regressed")
-    acct12if = batch12if.get("accounting", {})
-    if acct12if.get("matrix_rows") != 198 or acct12if.get("audited_rows") != 166 or acct12if.get("current_missing_from_product_rows") != 10:
-        fail("Batch 12IF matrix accounting regressed")
-    if acct12if.get("confirmed_provenance_metadata_defect_count") != 17 or acct12if.get("repaired_provenance_metadata_defect_count") != 17 or acct12if.get("confirmed_chart_algorithm_defect_count") != 0:
-        fail("Batch 12IF defect accounting regressed")
-    try:
-        schema12if = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
-    except ValueError:
-        fail("Batch 12IF state version is not numeric")
-    if schema12if < (1, 244, 0):
-        fail("Batch 12IF state version regressed below 1.244.0")
-    if bid12if not in audit_state.get("completed_batches", ()):
-        fail("Batch 12IF missing from completed state")
-    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
-        fail("Batch 12IF latest-batch document mismatch")
-
     # Batch 12IF: independent Cambridge original-periodical holding route.
     for path in (ZIWEI_WENWU_IF_BATCH, ZIWEI_WENWU_IF_EVIDENCE):
         if not path.is_file():
