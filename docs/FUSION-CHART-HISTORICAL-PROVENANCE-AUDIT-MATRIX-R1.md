@@ -732,3 +732,15 @@ Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-BE
 - Product/accounting remains 198 rows / 166 audited / 10 MISSING_FROM_PRODUCT / 16 of 16 provenance defects repaired / zero chart-algorithm defects, reopens or candidate collapses.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHANG-LIJUAN-GUOXUEJIKAN11-PUBLIC-FULLTEXT-ROUTE-BOUNDARY-IC.md`. Research record: `docs/research/ZIWEI-ZHANG-LIJUAN-GUOXUEJIKAN11-PUBLIC-FULLTEXT-ROUTE-BOUNDARY-R1.json`.
+
+
+## Progress — Batch 12ID
+
+- `PROV-DEFECT-017` is confirmed and repaired forward-only: Batch 12IC used page-level co-occurrence on a multi-item Kongfz listing and incorrectly assigned adjacent issue-12 metadata to `《国学季刊》第十一期`.
+- Direct single-item review corrects issue 11 to `ISBN 9787209115001 / 2018-09 / 222 pages`, with Zhang Lijuan's target article in the contents. The adjacent issue 12 item is `ISBN 9787209115018 / 2018-12 / 277 pages`.
+- The official NOPSS project report independently gives the target article as `《国学季刊》第十一期 / 山东人民出版社 / 2018年9月`, agreeing with the corrected issue-11 month.
+- Batch 12IC remains preserved as historical audit trace. Its public-fulltext boundary, Internet Archive false-positive closure, Google Books no-candidate route and Open Library no-positive route remain valid; only the issue-11 ISBN/date conflict adjudication is superseded.
+- Sanmin's issue-12 record keeps ISBN `9787209115018` but gives `2019-05-01`; this is now an issue-12 secondary publication-date tension, not an issue-11/issue-12 ISBN conflict.
+- Accounting advances to 198 rows / 166 audited / 10 MISSING_FROM_PRODUCT / 17 of 17 provenance defects repaired / zero chart-algorithm defects, reopens or candidate collapses.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-GUOXUEJIKAN11-ITEM-LEVEL-ISBN-FORWARD-CORRECTION-ID.md`. Research record: `docs/research/ZIWEI-GUOXUEJIKAN11-ITEM-LEVEL-ISBN-FORWARD-CORRECTION-R1.json`.
