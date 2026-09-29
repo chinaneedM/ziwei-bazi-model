@@ -17,7 +17,7 @@ jobs:
     timeout-minutes: 6
     steps:
       - uses: actions/checkout@v4
-      - name: Capture item-level issue 11/12 bindings
+      - name: Capture item-level issue 11/12 bindings from listing neighborhoods
         shell: bash
         run: |
           set -euo pipefail
@@ -29,10 +29,9 @@ jobs:
           import json,re,time,html
 
           root=Path('audit/batch-12id-guoxuejikan-item-bindings')
-          ua='Tianwen-Provenance-Audit/1.0'
+          ua='Mozilla/5.0 Tianwen-Provenance-Audit/1.0'
           targets=[
-            ('issue11','https://book.kongfz.com/4639/9902968122/'),
-            ('issue12','https://book.kongfz.com/4639/9902978870/'),
+            ('kongfz','https://shop.kongfz.com/4639/type_2/'),
             ('nopss','https://www.nopss.gov.cn/n1/2019/1118/c400941-31461052.html'),
           ]
           pages={}
@@ -51,30 +50,43 @@ jobs:
             fetch.append({'key':key,'url':url,'final_url':final,'bytes':len(b),'content_type':ct})
             time.sleep(.4)
 
-          def has(key,needle): return needle in pages[key]
+          k=pages['kongfz']
+          def neighborhood(marker,next_marker=None,span=4500):
+            i=k.find(marker)
+            if i<0: return ''
+            if next_marker:
+              j=k.find(next_marker,i+len(marker))
+              if j>i: return k[i:j]
+            return k[i:i+span]
+
+          seg11=neighborhood('国学季刊 第十一期','国学季刊 第十期')
+          seg12=neighborhood('国学季刊 第十二期','国学季刊 第十一期')
+          n=pages['nopss']
+
           summary={
+            'listing_url':targets[0][1],
             'issue11':{
-              'url':targets[0][1],
-              'title_hit':has('issue11','国学季刊 第十一期'),
-              'target_article_hit':has('issue11','国图藏元刻十行本《附释音春秋左传注疏》'),
-              'isbn_9787209115001_hit':has('issue11','9787209115001'),
-              'isbn_9787209115018_hit':has('issue11','9787209115018'),
-              'date_2018_09_hit':has('issue11','2018-09'),
-              'pages_222_hit':has('issue11','222页'),
+              'title_hit':'国学季刊 第十一期' in seg11,
+              'target_article_hit':'国图藏元刻十行本《附释音春秋左传注疏》' in seg11,
+              'isbn_9787209115001_hit':'9787209115001' in seg11,
+              'isbn_9787209115018_hit':'9787209115018' in seg11,
+              'date_2018_09_hit':'2018-09' in seg11,
+              'pages_222_hit':'222页' in seg11,
+              'segment_prefix':seg11[:7000]
             },
             'issue12':{
-              'url':targets[1][1],
-              'title_hit':has('issue12','国学季刊 第十二期'),
-              'isbn_9787209115018_hit':has('issue12','9787209115018'),
-              'date_2018_12_hit':has('issue12','2018-12'),
-              'pages_277_hit':has('issue12','277页'),
+              'title_hit':'国学季刊 第十二期' in seg12,
+              'isbn_9787209115018_hit':'9787209115018' in seg12,
+              'isbn_9787209115001_hit':'9787209115001' in seg12,
+              'date_2018_12_hit':'2018-12' in seg12,
+              'pages_277_hit':'277页' in seg12,
+              'segment_prefix':seg12[:7000]
             },
             'nopss':{
-              'url':targets[2][1],
-              'target_article_hit':has('nopss','国图藏元刻十行本'),
-              'issue11_hit':has('nopss','第十一期'),
-              'date_2018_09_hit':has('nopss','2018年9月'),
-              'author_hit':has('nopss','张丽娟'),
+              'target_article_hit':'国图藏元刻十行本' in n,
+              'issue11_hit':'第十一期' in n,
+              'date_2018_09_hit':'2018年9月' in n,
+              'author_hit':'张丽娟' in n
             },
             'adjudication':{
               'issue11_isbn':'9787209115001',
@@ -83,7 +95,7 @@ jobs:
               'issue12_isbn':'9787209115018',
               'issue12_publication_month':'2018-12',
               'issue12_extent_pages':277,
-              'prior_batch12ic_issue11_isbn_9787209115018_binding':'WRONG_ADJACENT_RECORD_BINDING',
+              'prior_batch12ic_issue11_isbn_9787209115018_binding':'WRONG_PAGE_LEVEL_ADJACENT_RECORD_BINDING',
               'provenance_defect_id':'PROV-DEFECT-017',
               'repair_authorized':True
             },
@@ -92,10 +104,12 @@ jobs:
           assert summary['issue11']['title_hit']
           assert summary['issue11']['target_article_hit']
           assert summary['issue11']['isbn_9787209115001_hit']
+          assert not summary['issue11']['isbn_9787209115018_hit']
           assert summary['issue11']['date_2018_09_hit']
           assert summary['issue11']['pages_222_hit']
           assert summary['issue12']['title_hit']
           assert summary['issue12']['isbn_9787209115018_hit']
+          assert not summary['issue12']['isbn_9787209115001_hit']
           assert summary['issue12']['date_2018_12_hit']
           assert summary['issue12']['pages_277_hit']
           assert summary['nopss']['issue11_hit'] and summary['nopss']['date_2018_09_hit'] and summary['nopss']['author_hit']
@@ -104,7 +118,7 @@ jobs:
           PY
           find "$ROOT" -type f -size +0c -print0 | xargs -0 -r sha256sum | sort -V > "$ROOT/files.sha256"
           printf '%s\n' \
-            'ROLE=item-level bibliographic binding correction' \
+            'ROLE=item-neighborhood bibliographic binding correction' \
             'PROVENANCE_DEFECT_ID=PROV-DEFECT-017' \
             'ISSUE11_ISBN=9787209115001' \
             'ISSUE12_ISBN=9787209115018' \
