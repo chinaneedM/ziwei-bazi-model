@@ -278,6 +278,8 @@ ZIWEI_ZHANG_IC_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BAT
 ZIWEI_ZHANG_IC_EVIDENCE = ROOT / "docs/research/ZIWEI-ZHANG-LIJUAN-GUOXUEJIKAN11-PUBLIC-FULLTEXT-ROUTE-BOUNDARY-R1.json"
 ZIWEI_ZHANG_ID_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-GUOXUEJIKAN11-ITEM-LEVEL-ISBN-FORWARD-CORRECTION-ID.md"
 ZIWEI_ZHANG_ID_EVIDENCE = ROOT / "docs/research/ZIWEI-GUOXUEJIKAN11-ITEM-LEVEL-ISBN-FORWARD-CORRECTION-R1.json"
+ZIWEI_ZHANG_IE_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-GUOXUEJIKAN11-CORRECTED-ISBN-PUBLIC-ROUTE-RECHECK-IE.md"
+ZIWEI_ZHANG_IE_EVIDENCE = ROOT / "docs/research/ZIWEI-GUOXUEJIKAN11-CORRECTED-ISBN-PUBLIC-ROUTE-RECHECK-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -643,9 +645,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-BEITU1959-CROSSVOLUME-3288-LOCATOR-CALIBRATION-BOUNDARY-IB",
     "BATCH-12-ZIWEI-ZHANG-LIJUAN-GUOXUEJIKAN11-PUBLIC-FULLTEXT-ROUTE-BOUNDARY-IC",
     "BATCH-12-ZIWEI-GUOXUEJIKAN11-ITEM-LEVEL-ISBN-FORWARD-CORRECTION-ID",
+    "BATCH-12-ZIWEI-GUOXUEJIKAN11-CORRECTED-ISBN-PUBLIC-ROUTE-RECHECK-IE",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-GUOXUEJIKAN11-ITEM-LEVEL-ISBN-FORWARD-CORRECTION-ID.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-GUOXUEJIKAN11-CORRECTED-ISBN-PUBLIC-ROUTE-RECHECK-IE.md"
 
 
 def fail(message: str) -> None:
@@ -9361,6 +9364,58 @@ def main() -> int:
         fail("Batch 12ID missing from completed state")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12ID latest-batch document mismatch")
+
+    # Batch 12IE: corrected issue-11 ISBN public-route recheck.
+    for path in (ZIWEI_ZHANG_IE_BATCH, ZIWEI_ZHANG_IE_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12IE continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12ie = json.loads(ZIWEI_ZHANG_IE_EVIDENCE.read_text(encoding="utf-8"))
+    bid12ie = "BATCH-12-ZIWEI-GUOXUEJIKAN11-CORRECTED-ISBN-PUBLIC-ROUTE-RECHECK-IE"
+    if batch12ie.get("batch_id") != bid12ie:
+        fail("Batch 12IE evidence identity mismatch")
+    ctl12ie = batch12ie.get("corrected_identity_control", {})
+    if ctl12ie.get("provenance_defect_id") != "PROV-DEFECT-017" or ctl12ie.get("isbn") != "9787209115001":
+        fail("Batch 12IE corrected identity control regressed")
+    probe12ie = batch12ie.get("probe", {})
+    gb12ie = probe12ie.get("google_books", {})
+    if gb12ie.get("adjudication") != "RATE_LIMITED_UNRESOLVED":
+        fail("Batch 12IE Google Books rate-limit boundary regressed")
+    if any(x.get("result") != "HTTP_429_TOO_MANY_REQUESTS" for x in (gb12ie.get("corrected_isbn_query", {}), gb12ie.get("issue_title_query", {}), gb12ie.get("intitle_query", {}))):
+        fail("Batch 12IE Google Books 429 controls regressed")
+    ol12ie = probe12ie.get("openlibrary", {})
+    if ol12ie.get("exact_isbn_endpoint", {}).get("result") != "HTTP_404_NOT_FOUND" or ol12ie.get("isbn_search", {}).get("numFound") != 0 or ol12ie.get("title_search", {}).get("numFound") != 0:
+        fail("Batch 12IE Open Library route controls regressed")
+    ia12ie = probe12ie.get("internet_archive", {})
+    if ia12ie.get("isbn_field_query", {}).get("numFound") != 0 or ia12ie.get("quoted_isbn_query", {}).get("numFound") != 0 or ia12ie.get("exact_issue_title_query", {}).get("numFound") != 0:
+        fail("Batch 12IE IA corrected ISBN/issue exact controls regressed")
+    if ia12ie.get("exact_article_title_query", {}).get("identifier") != "3_20260926_202609" or ia12ie.get("exact_article_title_query", {}).get("adjudication") != "PREVIOUSLY_CLOSED_FALSE_POSITIVE_UNRELATED_TAIPING_TEXT_OBJECT":
+        fail("Batch 12IE IA exact-title false-positive control regressed")
+    adj12ie = batch12ie.get("adjudication", {})
+    if adj12ie.get("target_article_public_fulltext_retrieved") is not False:
+        fail("Batch 12IE fulltext boundary regressed")
+    if adj12ie.get("batch12ic_google_books_no_candidate_wording_superseded") is not True:
+        fail("Batch 12IE Google wording supersession marker missing")
+    if adj12ie.get("corrected_google_books_current_statement") != "RATE_LIMITED_UNRESOLVED_NOT_NEGATIVE_EVIDENCE":
+        fail("Batch 12IE Google negative-evidence firewall regressed")
+    reg12ie = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    src12ie = next((x for x in reg12ie.get("sources", []) if x.get("source_id") == "EXT-KONGFZ-GUOXUEJIKAN-ISSUE11-RETAIL-METADATA"), None)
+    if src12ie is None or src12ie.get("batch_12ie", {}).get("google_books") != "RATE_LIMITED_UNRESOLVED_HTTP_429":
+        fail("Batch 12IE registry route binding missing")
+    acct12ie = batch12ie.get("accounting", {})
+    if acct12ie.get("matrix_rows") != 198 or acct12ie.get("audited_rows") != 166 or acct12ie.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12IE matrix accounting regressed")
+    if acct12ie.get("confirmed_provenance_metadata_defect_count") != 17 or acct12ie.get("repaired_provenance_metadata_defect_count") != 17 or acct12ie.get("confirmed_chart_algorithm_defect_count") != 0:
+        fail("Batch 12IE defect accounting regressed")
+    try:
+        schema12ie = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12IE state version is not numeric")
+    if schema12ie < (1, 243, 0):
+        fail("Batch 12IE state version regressed below 1.243.0")
+    if bid12ie not in audit_state.get("completed_batches", ()):
+        fail("Batch 12IE missing from completed state")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12IE latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")
