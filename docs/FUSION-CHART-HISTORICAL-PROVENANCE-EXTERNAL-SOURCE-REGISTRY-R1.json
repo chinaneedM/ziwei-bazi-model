@@ -10275,6 +10275,43 @@
         "direct_1951_original_reviewed": false,
         "research_artifact": "docs/research/ZIWEI-ZHAO-WANLI-P197-OFFICIAL-JOURNAL-QUOTE-AUTHORITY-UPGRADE-R1.json"
       }
+    },
+    {
+      "source_id": "EXT-NDL-REMOTE-COPY-SERVICE-RULES-OFFICIAL",
+      "title": "国立国会図書館「遠隔複写（郵送受取）サービス」",
+      "author": "国立国会図書館",
+      "historical_period": "current official service policy reviewed 2026-09-30",
+      "provider": "国立国会図書館 / NDL Search",
+      "url": "https://ndlsearch.ndl.go.jp/help/remotecopy",
+      "source_role": "FIRST_PARTY_NDL_GENERAL_REMOTE_COPY_ELIGIBILITY_AND_REQUEST_SPECIFICATION_RULES",
+      "quality_notes": "Official NDL service policy: NDL holdings are generally remote-copy targets subject to listed exclusions; service is paid and requires registered users plus a precise page/article locator. Batch 12IH uses this only to close the policy-layer access route for already-located paper targets. No login, request, identity transfer or fee action was executed.",
+      "batch_12ih": {
+        "ndl_holdings_general_target": true,
+        "registered_user_required": true,
+        "paid_service": true,
+        "precise_location_required": true,
+        "target_2011_locator_complete": true,
+        "target_1951_locator_complete": true,
+        "exact_order_submitted": false,
+        "research_artifact": "docs/research/ZIWEI-NDL-DIRECT-PAGE-REMOTE-COPY-POLICY-BOUNDARY-R1.json"
+      }
+    },
+    {
+      "source_id": "EXT-NDL-COPYRIGHT-COPY-SCOPE-OFFICIAL",
+      "title": "国立国会図書館「著作権にかかわる注意事項」",
+      "author": "国立国会図書館",
+      "historical_period": "current official copying-scope policy reviewed 2026-09-30",
+      "provider": "国立国会図書館",
+      "url": "https://www.ndl.go.jp/copy/copyright",
+      "source_role": "FIRST_PARTY_NDL_COPY_SCOPE_RULES_FOR_BOOKS_AND_SUFFICIENTLY_OLD_PERIODICAL_ARTICLES",
+      "quality_notes": "Official NDL copying-scope policy distinguishes books from periodicals: books are generally limited to part of the work, while a single article in a sufficiently old periodical may be copied in full. Batch 12IH records this as library-service scope only; it does not declare any target public domain or replace exact-item staff processing.",
+      "batch_12ih": {
+        "general_book_scope": "PART_ONLY_GENERAL_HALF_RULE",
+        "old_periodical_single_article_scope": "WHOLE_ARTICLE_COPY_PERMITTED",
+        "public_domain_status_asserted": false,
+        "direct_target_page_reviewed": false,
+        "research_artifact": "docs/research/ZIWEI-NDL-DIRECT-PAGE-REMOTE-COPY-POLICY-BOUNDARY-R1.json"
+      }
     }
   ],
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md",

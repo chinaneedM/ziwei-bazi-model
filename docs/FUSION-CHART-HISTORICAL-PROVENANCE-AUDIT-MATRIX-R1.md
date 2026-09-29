@@ -779,3 +779,14 @@ Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WE
 - Product/accounting remains 198 rows / 166 audited / 10 MISSING_FROM_PRODUCT / 17 of 17 provenance defects repaired / zero chart-algorithm defects, reopens or candidate collapses.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHAO-WANLI-P197-OFFICIAL-JOURNAL-QUOTE-AUTHORITY-UPGRADE-IG.md`. Research record: `docs/research/ZIWEI-ZHAO-WANLI-P197-OFFICIAL-JOURNAL-QUOTE-AUTHORITY-UPGRADE-R1.json`.
+
+
+## Progress — Batch 12IH
+
+- NDL's current first-party remote-copy policy is now directly adjudicated against the two already-located paper targets: 2011 `《赵万里文集》第1卷` p.197 (`UM11-C247 / 023434359`) and 1951 `《文物参考资料》第9期` pp.221–233 (`Z8-AC150 / 2(7)-2(12) 1951`). The service requires a registered user, fees and precise page/article specification; both target locators are already complete.
+- NDL's copyright/copy-scope guidance keeps book copying at a partial-work layer while permitting a whole article from a sufficiently old periodical. This closes service-policy eligibility only; it does not declare public-domain status and does not prove exact-item staff acceptance.
+- No login, account action, identity transmission, copy request, delivery-mode selection or payment was executed. Direct 2011 p.197 and direct 1951 pp.221–233 remain `NOT_REVIEWED`.
+- The 12IG object firewall remains unchanged: quoted `宋刻《春秋左传注疏》` is not collapsed into FID070 (`元刻元印十行本`); exact Qu donation batch/date and `3368→3288` mechanism remain unresolved.
+- Product/accounting remains 198 rows / 166 audited / 10 MISSING_FROM_PRODUCT / 17 of 17 provenance defects repaired / zero chart-algorithm defects, reopens or candidate collapses.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NDL-DIRECT-PAGE-REMOTE-COPY-POLICY-BOUNDARY-IH.md`. Research record: `docs/research/ZIWEI-NDL-DIRECT-PAGE-REMOTE-COPY-POLICY-BOUNDARY-R1.json`.

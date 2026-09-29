@@ -1,0 +1,142 @@
+{
+  "schema": "ZIWEI-NDL-DIRECT-PAGE-REMOTE-COPY-POLICY-BOUNDARY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-NDL-DIRECT-PAGE-REMOTE-COPY-POLICY-BOUNDARY-IH",
+  "prior_batch_id": "BATCH-12-ZIWEI-ZHAO-WANLI-P197-OFFICIAL-JOURNAL-QUOTE-AUTHORITY-UPGRADE-IG",
+  "question": "Do the already-located NDL physical targets for 2011 《赵万里文集》第1卷 p.197 and the 1951 《文物参考资料》第9期 pp.221–233 have a lawful remote-copy route that can be closed at the official policy layer without logging in, paying, or pretending the pages were directly reviewed?",
+  "answer": "Yes at the NDL service-policy layer, but no page acquisition has occurred. NDL official rules make NDL holdings generally eligible for paid remote copying subject to listed exclusions, require a registered user and a precise page/article locator, and allow whole-article copying from a sufficiently old periodical while book copying remains partial-work scoped. Both project targets already have exact NDL paper-holding routes and exact locators, so access advances from unadjudicated service eligibility to policy-layer eligible / login-and-fee gated. Exact item acceptance, delivery mode, staff processing and page contents remain unreviewed because no account action, request or payment was made.",
+  "reviewed_official_policy_sources": [
+    {
+      "source_id": "EXT-NDL-REMOTE-COPY-SERVICE-RULES-OFFICIAL",
+      "provider": "国立国会図書館 / NDL Search",
+      "title": "遠隔複写（郵送受取）サービス",
+      "url": "https://ndlsearch.ndl.go.jp/help/remotecopy",
+      "reviewed_date": "2026-09-30",
+      "controls": {
+        "ndl_holdings_general_target": true,
+        "registered_user_required": true,
+        "paid_service": true,
+        "precise_location_required": true,
+        "book_locator_rule": "book title plus article/title locator or page",
+        "periodical_locator_rule": "periodical title plus issue/date and article/author locator or page"
+      }
+    },
+    {
+      "source_id": "EXT-NDL-COPYRIGHT-COPY-SCOPE-OFFICIAL",
+      "provider": "国立国会図書館",
+      "title": "著作権にかかわる注意事項",
+      "url": "https://www.ndl.go.jp/copy/copyright",
+      "reviewed_date": "2026-09-30",
+      "controls": {
+        "research_purpose_required": true,
+        "general_book_scope": "PART_ONLY_GENERAL_HALF_RULE",
+        "contributed_or_collected_work_scope": "EACH_WORK_PART_ONLY_GENERAL_HALF_RULE",
+        "sufficiently_old_periodical_single_article_scope": "WHOLE_ARTICLE_COPY_PERMITTED",
+        "policy_layer_not_a_public_domain_determination": true
+      }
+    }
+  ],
+  "targets": {
+    "wenji_2011_p197": {
+      "source_id": "EXT-NDL-ZHAO-WANLI-WENJI-V1-2011-UM11-C247",
+      "title": "趙萬里文集 第1卷",
+      "call_number": "UM11-C247",
+      "ndl_bib_id": "023434359",
+      "material_form": "PAPER_BOOK",
+      "extent_pages": 504,
+      "target_page": 197,
+      "target_page_inside_extent": true,
+      "request_locator_complete": true,
+      "policy_layer_route": "ELIGIBLE_GENERAL_NDL_PAPER_HOLDING_RULE",
+      "copyright_scope_control": "ONE_PAGE_REQUEST_IS_A_PARTIAL_BOOK_OR_CONTRIBUTION_REQUEST; FINAL_ACCEPTANCE_REMAINS_NDL_PROCESSING",
+      "object_specific_request_ui_reviewed": false,
+      "direct_target_page_reviewed": false
+    },
+    "wenwu_1951_issue9_pp221_233": {
+      "source_id": "EXT-NDL-WENWU-CANKAO-1951-V2-7-12-Z8-AC150",
+      "title": "文物参考资料",
+      "call_number": "Z8-AC150",
+      "serial_bib_id": "a0000051292",
+      "held_range": "2(7)-2(12) 1951",
+      "target_issue": 9,
+      "target_article": "永乐大典展览的意义——一九五一年八月北京图书馆举办",
+      "target_pages": "221–233",
+      "material_form": "PAPER_PERIODICAL",
+      "request_locator_complete": true,
+      "policy_layer_route": "ELIGIBLE_GENERAL_NDL_PAPER_HOLDING_RULE",
+      "copyright_scope_control": "SUFFICIENTLY_OLD_PERIODICAL_SINGLE_ARTICLE_MAY_BE_COPIED_IN_FULL_UNDER_NDL_SERVICE_RULES",
+      "object_specific_request_ui_reviewed": false,
+      "direct_target_pages_reviewed": false
+    }
+  },
+  "access_boundary": {
+    "policy_layer_remote_copy_route_closed": true,
+    "exact_item_request_submission_executed": false,
+    "ndl_login_executed": false,
+    "library_account_action_executed": false,
+    "identity_transmission_executed": false,
+    "payment_executed": false,
+    "fee_incurred": false,
+    "delivery_mode_selected": false,
+    "page_bytes_obtained": false,
+    "direct_page_text_increment": 0,
+    "boundary_status": "POLICY_LAYER_ELIGIBLE_LOGIN_AND_FEE_GATED_NOT_EXECUTED"
+  },
+  "legal_and_evidence_firewall": {
+    "public_domain_status_asserted": false,
+    "rights_bypass_attempted": false,
+    "general_service_policy_does_not_equal_staff_acceptance_of_a_specific_order": true,
+    "citation_page_number_does_not_equal_direct_page_review": true,
+    "physical_holding_does_not_equal_page_text": true
+  },
+  "object_identity_firewall": {
+    "quoted_1951_member": "宋刻《春秋左传注疏》",
+    "fid070_physical_research_adjudication": "元刻元印十行本",
+    "exact_identity_with_fid070": "UNRESOLVED",
+    "same_object_collapse_authorized": false,
+    "exact_fid070_donation_batch": "UNRESOLVED",
+    "exact_fid070_donation_date": "UNRESOLVED",
+    "exact_3368_to_3288_causal_mechanism": "UNRESOLVED"
+  },
+  "adjudication": {
+    "ndl_remote_copy_general_policy_route": "CLOSED",
+    "wenji_2011_p197_policy_eligibility": "CLOSED_AT_GENERAL_SERVICE_LAYER",
+    "wenwu_1951_pp221_233_policy_eligibility": "CLOSED_AT_GENERAL_SERVICE_LAYER",
+    "exact_request_execution": "NOT_EXECUTED_REQUIRES_EXPLICIT_USER_AUTHORIZATION_FOR_ACCOUNT_FEE_ACTION",
+    "direct_2011_page197": "NOT_REVIEWED",
+    "direct_1951_original_article": "NOT_REVIEWED",
+    "direct_ji_shuying_chapter9": "NOT_REVIEWED",
+    "chart_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false
+  },
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": [],
+    "direct_copy_edge_authorized": false,
+    "same_object_edge_authorized": false,
+    "acquisition_edge_authorized": false,
+    "remaining_lineage_questions": [
+      "Whether the 1951 quoted Song-print 《春秋左传注疏》 is the same physical object as FID070 remains unresolved.",
+      "The exact FID070 Qu donation batch/date and the 3368→3288 catalog-number mechanism remain unresolved."
+    ]
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Continue public lawful direct-page discovery for 2011 p.197 and 1951 pp.221–233 without adding further redundant holding-count routes.",
+    "Continue direct Ji Shuying chapter-9 page-range/full-text discovery from authoritative public sources.",
+    "If public direct-page routes remain closed, an NDL registered paid copy request is the next account/fee-dependent action and requires explicit user authorization before login, submission or payment."
+  ],
+  "updated_at": "2026-09-30"
+}

@@ -284,6 +284,8 @@ ZIWEI_WENWU_IF_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BAT
 ZIWEI_WENWU_IF_EVIDENCE = ROOT / "docs/research/ZIWEI-WENWU-CANKAO-CAMBRIDGE-1951-V2-HOLDING-ROUTE-R1.json"
 ZIWEI_ZHAO_IG_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHAO-WANLI-P197-OFFICIAL-JOURNAL-QUOTE-AUTHORITY-UPGRADE-IG.md"
 ZIWEI_ZHAO_IG_EVIDENCE = ROOT / "docs/research/ZIWEI-ZHAO-WANLI-P197-OFFICIAL-JOURNAL-QUOTE-AUTHORITY-UPGRADE-R1.json"
+ZIWEI_NDL_COPY_IH_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NDL-DIRECT-PAGE-REMOTE-COPY-POLICY-BOUNDARY-IH.md"
+ZIWEI_NDL_COPY_IH_EVIDENCE = ROOT / "docs/research/ZIWEI-NDL-DIRECT-PAGE-REMOTE-COPY-POLICY-BOUNDARY-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -652,9 +654,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-GUOXUEJIKAN11-CORRECTED-ISBN-PUBLIC-ROUTE-RECHECK-IE",
     "BATCH-12-ZIWEI-WENWU-CANKAO-CAMBRIDGE-1951-V2-HOLDING-ROUTE-IF",
     "BATCH-12-ZIWEI-ZHAO-WANLI-P197-OFFICIAL-JOURNAL-QUOTE-AUTHORITY-UPGRADE-IG",
+    "BATCH-12-ZIWEI-NDL-DIRECT-PAGE-REMOTE-COPY-POLICY-BOUNDARY-IH",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHAO-WANLI-P197-OFFICIAL-JOURNAL-QUOTE-AUTHORITY-UPGRADE-IG.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NDL-DIRECT-PAGE-REMOTE-COPY-POLICY-BOUNDARY-IH.md"
 
 
 def fail(message: str) -> None:
@@ -9554,6 +9557,63 @@ def main() -> int:
         fail("Batch 12IG missing from completed state")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12IG latest-batch document mismatch")
+
+    # Batch 12IH: NDL direct-page remote-copy policy boundary.
+    for path in (ZIWEI_NDL_COPY_IH_BATCH, ZIWEI_NDL_COPY_IH_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12IH continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12ih = json.loads(ZIWEI_NDL_COPY_IH_EVIDENCE.read_text(encoding="utf-8"))
+    bid12ih = "BATCH-12-ZIWEI-NDL-DIRECT-PAGE-REMOTE-COPY-POLICY-BOUNDARY-IH"
+    if batch12ih.get("batch_id") != bid12ih:
+        fail("Batch 12IH evidence identity mismatch")
+    pol12ih = batch12ih.get("reviewed_official_policy_sources", [])
+    ids12ih = {x.get("source_id") for x in pol12ih}
+    if ids12ih != {"EXT-NDL-REMOTE-COPY-SERVICE-RULES-OFFICIAL", "EXT-NDL-COPYRIGHT-COPY-SCOPE-OFFICIAL"}:
+        fail("Batch 12IH official policy source set regressed")
+    targets12ih = batch12ih.get("targets", {})
+    w12ih = targets12ih.get("wenji_2011_p197", {})
+    p12ih = targets12ih.get("wenwu_1951_issue9_pp221_233", {})
+    if w12ih.get("call_number") != "UM11-C247" or w12ih.get("ndl_bib_id") != "023434359" or w12ih.get("target_page") != 197:
+        fail("Batch 12IH 2011 target locator regressed")
+    if p12ih.get("call_number") != "Z8-AC150" or p12ih.get("target_issue") != 9 or p12ih.get("target_pages") != "221–233":
+        fail("Batch 12IH 1951 target locator regressed")
+    if w12ih.get("policy_layer_route") != "ELIGIBLE_GENERAL_NDL_PAPER_HOLDING_RULE" or p12ih.get("policy_layer_route") != "ELIGIBLE_GENERAL_NDL_PAPER_HOLDING_RULE":
+        fail("Batch 12IH policy-layer eligibility regressed")
+    if w12ih.get("direct_target_page_reviewed") is not False or p12ih.get("direct_target_pages_reviewed") is not False:
+        fail("Batch 12IH direct-page firewall regressed")
+    access12ih = batch12ih.get("access_boundary", {})
+    if access12ih.get("policy_layer_remote_copy_route_closed") is not True or access12ih.get("boundary_status") != "POLICY_LAYER_ELIGIBLE_LOGIN_AND_FEE_GATED_NOT_EXECUTED":
+        fail("Batch 12IH access-boundary adjudication regressed")
+    for key in ("exact_item_request_submission_executed", "ndl_login_executed", "library_account_action_executed", "identity_transmission_executed", "payment_executed", "fee_incurred", "delivery_mode_selected", "page_bytes_obtained"):
+        if access12ih.get(key) is not False:
+            fail(f"Batch 12IH prohibited external action flag regressed: {key}")
+    if access12ih.get("direct_page_text_increment") != 0:
+        fail("Batch 12IH direct-page increment regressed")
+    fw12ih = batch12ih.get("object_identity_firewall", {})
+    if fw12ih.get("exact_identity_with_fid070") != "UNRESOLVED" or fw12ih.get("same_object_collapse_authorized") is not False:
+        fail("Batch 12IH FID070 identity firewall regressed")
+    adj12ih = batch12ih.get("adjudication", {})
+    if adj12ih.get("direct_2011_page197") != "NOT_REVIEWED" or adj12ih.get("direct_1951_original_article") != "NOT_REVIEWED":
+        fail("Batch 12IH direct-source boundary regressed")
+    reg12ih = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    regids12ih = {x.get("source_id") for x in reg12ih.get("sources", [])}
+    if not {"EXT-NDL-REMOTE-COPY-SERVICE-RULES-OFFICIAL", "EXT-NDL-COPYRIGHT-COPY-SCOPE-OFFICIAL"}.issubset(regids12ih):
+        fail("Batch 12IH NDL official policy registry sources missing")
+    acct12ih = batch12ih.get("accounting", {})
+    if acct12ih.get("matrix_rows") != 198 or acct12ih.get("audited_rows") != 166 or acct12ih.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12IH matrix accounting regressed")
+    if acct12ih.get("confirmed_provenance_metadata_defect_count") != 17 or acct12ih.get("repaired_provenance_metadata_defect_count") != 17 or acct12ih.get("confirmed_chart_algorithm_defect_count") != 0:
+        fail("Batch 12IH defect accounting regressed")
+    try:
+        schema12ih = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12IH state version is not numeric")
+    if schema12ih < (1, 246, 0):
+        fail("Batch 12IH state version regressed below 1.246.0")
+    if bid12ih not in audit_state.get("completed_batches", ()):
+        fail("Batch 12IH missing from completed state")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12IH latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")
