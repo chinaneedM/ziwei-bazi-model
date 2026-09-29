@@ -276,6 +276,8 @@ ZIWEI_LOCATOR_12IB_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT
 ZIWEI_LOCATOR_12IB_EVIDENCE = ROOT / "docs/research/ZIWEI-BEITU1959-CROSSVOLUME-3288-LOCATOR-CALIBRATION-BOUNDARY-R1.json"
 ZIWEI_ZHANG_IC_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHANG-LIJUAN-GUOXUEJIKAN11-PUBLIC-FULLTEXT-ROUTE-BOUNDARY-IC.md"
 ZIWEI_ZHANG_IC_EVIDENCE = ROOT / "docs/research/ZIWEI-ZHANG-LIJUAN-GUOXUEJIKAN11-PUBLIC-FULLTEXT-ROUTE-BOUNDARY-R1.json"
+ZIWEI_ZHANG_ID_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-GUOXUEJIKAN11-ITEM-LEVEL-ISBN-FORWARD-CORRECTION-ID.md"
+ZIWEI_ZHANG_ID_EVIDENCE = ROOT / "docs/research/ZIWEI-GUOXUEJIKAN11-ITEM-LEVEL-ISBN-FORWARD-CORRECTION-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -640,9 +642,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-NLC-BEITU1959-3368-3288-SEARCH-INDEX-BOUNDARY-IA",
     "BATCH-12-ZIWEI-BEITU1959-CROSSVOLUME-3288-LOCATOR-CALIBRATION-BOUNDARY-IB",
     "BATCH-12-ZIWEI-ZHANG-LIJUAN-GUOXUEJIKAN11-PUBLIC-FULLTEXT-ROUTE-BOUNDARY-IC",
+    "BATCH-12-ZIWEI-GUOXUEJIKAN11-ITEM-LEVEL-ISBN-FORWARD-CORRECTION-ID",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHANG-LIJUAN-GUOXUEJIKAN11-PUBLIC-FULLTEXT-ROUTE-BOUNDARY-IC.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-GUOXUEJIKAN11-ITEM-LEVEL-ISBN-FORWARD-CORRECTION-ID.md"
 
 
 def fail(message: str) -> None:
@@ -9297,6 +9300,67 @@ def main() -> int:
         fail("Batch 12IC missing from completed state")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12IC latest-batch document mismatch")
+
+    # Batch 12ID: repair issue-11/issue-12 adjacent-record metadata binding.
+    for path in (ZIWEI_ZHANG_ID_BATCH, ZIWEI_ZHANG_ID_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12ID continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12id = json.loads(ZIWEI_ZHANG_ID_EVIDENCE.read_text(encoding="utf-8"))
+    bid12id = "BATCH-12-ZIWEI-GUOXUEJIKAN11-ITEM-LEVEL-ISBN-FORWARD-CORRECTION-ID"
+    if batch12id.get("batch_id") != bid12id:
+        fail("Batch 12ID evidence identity mismatch")
+    repair12id = batch12id.get("provenance_defect_repair", {})
+    if repair12id.get("provenance_defect_id") != "PROV-DEFECT-017":
+        fail("Batch 12ID provenance defect id mismatch")
+    if repair12id.get("repair_status") != "REPAIRED_FORWARD_ONLY_DURING_BATCH_12ID":
+        fail("Batch 12ID forward-only repair status regressed")
+    if repair12id.get("prior_batch_artifact_rewritten") is not False:
+        fail("Batch 12ID prior artifact history firewall regressed")
+    corr12id = repair12id.get("corrected_claim", {})
+    if corr12id.get("isbn") != "9787209115001" or corr12id.get("publication_date") != "2018-09" or corr12id.get("extent_pages") != 222:
+        fail("Batch 12ID corrected issue-11 binding regressed")
+    displaced12id = repair12id.get("displaced_adjacent_record", {})
+    if displaced12id.get("isbn") != "9787209115018" or displaced12id.get("publication_date") != "2018-12" or displaced12id.get("extent_pages") != 277:
+        fail("Batch 12ID issue-12 adjacent control regressed")
+    adj12id = batch12id.get("adjudication", {})
+    if adj12id.get("batch12ic_issue11_isbn_binding_superseded") is not True:
+        fail("Batch 12ID supersession marker missing")
+    if adj12id.get("issue11_public_item_isbn") != "9787209115001" or adj12id.get("issue12_public_item_isbn") != "9787209115018":
+        fail("Batch 12ID current item-level ISBN adjudication regressed")
+    if adj12id.get("issue11_institutional_or_publisher_catalog_binding") != "UNRESOLVED":
+        fail("Batch 12ID institutional/publisher authority was silently overclaimed")
+    reg12id = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    byid12id = {x.get("source_id"): x for x in reg12id.get("sources", [])}
+    issue11src12id = byid12id.get("EXT-KONGFZ-GUOXUEJIKAN-ISSUE11-RETAIL-METADATA")
+    if issue11src12id is None:
+        fail("Batch 12ID corrected issue-11 registry source missing")
+    b11 = issue11src12id.get("batch_12id", {})
+    if b11.get("provenance_defect_id") != "PROV-DEFECT-017" or b11.get("corrected_isbn") != "9787209115001" or b11.get("corrected_publication_date_claim") != "2018-09":
+        fail("Batch 12ID issue-11 registry repair regressed")
+    issue12src12id = byid12id.get("EXT-KONGFZ-GUOXUEJIKAN-ISSUE12-RETAIL-METADATA")
+    if issue12src12id is None or issue12src12id.get("batch_12id", {}).get("isbn") != "9787209115018":
+        fail("Batch 12ID issue-12 registry control missing")
+    matrix12id = json.loads(MATRIX.read_text(encoding="utf-8"))
+    sum12id = matrix12id.get("audit_summary", {})
+    if sum12id.get("confirmed_provenance_metadata_defect_count") != 17 or sum12id.get("repaired_provenance_metadata_defect_count") != 17:
+        fail("Batch 12ID matrix provenance accounting regressed")
+    acct12id = batch12id.get("accounting", {})
+    if acct12id.get("matrix_rows") != 198 or acct12id.get("audited_rows") != 166 or acct12id.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12ID matrix row accounting regressed")
+    if acct12id.get("confirmed_provenance_metadata_defect_count") != 17 or acct12id.get("repaired_provenance_metadata_defect_count") != 17 or acct12id.get("confirmed_chart_algorithm_defect_count") != 0:
+        fail("Batch 12ID defect accounting regressed")
+    if audit_state.get("confirmed_provenance_metadata_defect_count") != 17 or audit_state.get("repaired_provenance_metadata_defect_count") != 17:
+        fail("Batch 12ID current-state provenance accounting regressed")
+    try:
+        schema12id = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12ID state version is not numeric")
+    if schema12id < (1, 242, 0):
+        fail("Batch 12ID state version regressed below 1.242.0")
+    if bid12id not in audit_state.get("completed_batches", ()):
+        fail("Batch 12ID missing from completed state")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12ID latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")
