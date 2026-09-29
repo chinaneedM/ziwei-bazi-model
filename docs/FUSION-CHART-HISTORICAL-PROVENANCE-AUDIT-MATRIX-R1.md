@@ -744,3 +744,15 @@ Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZH
 - Accounting advances to 198 rows / 166 audited / 10 MISSING_FROM_PRODUCT / 17 of 17 provenance defects repaired / zero chart-algorithm defects, reopens or candidate collapses.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-GUOXUEJIKAN11-ITEM-LEVEL-ISBN-FORWARD-CORRECTION-ID.md`. Research record: `docs/research/ZIWEI-GUOXUEJIKAN11-ITEM-LEVEL-ISBN-FORWARD-CORRECTION-R1.json`.
+
+
+## Progress — Batch 12IE
+
+- Public discovery routes were rerun with corrected issue-11 ISBN `9787209115001` after `PROV-DEFECT-017`.
+- Google Books API requests for corrected ISBN/title are HTTP 429 rate-limited. Current status is `RATE_LIMITED_UNRESOLVED`; 429 must never be normalized to a zero-result claim.
+- Open Library exact ISBN returns HTTP 404 and corrected ISBN/title searches return `numFound=0`; Internet Archive exact ISBN, quoted ISBN and exact `国学季刊 第十一期` queries return 0. These are public-route boundaries only, not nonexistence evidence.
+- Internet Archive's exact target-article-title query again returns identifier `3_20260926_202609`, already adjudicated in 12IC as an unrelated 太平天国 text-object false positive.
+- No target article full text or publisher/institutional issue-11 object is recovered. The corrected public-fulltext boundary remains open, and `3368→3288` causal mechanism remains unresolved.
+- Product/accounting remains 198 rows / 166 audited / 10 MISSING_FROM_PRODUCT / 17 of 17 provenance defects repaired / zero chart-algorithm defects, reopens or candidate collapses.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-GUOXUEJIKAN11-CORRECTED-ISBN-PUBLIC-ROUTE-RECHECK-IE.md`. Research record: `docs/research/ZIWEI-GUOXUEJIKAN11-CORRECTED-ISBN-PUBLIC-ROUTE-RECHECK-R1.json`.
