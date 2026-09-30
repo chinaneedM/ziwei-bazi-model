@@ -143,6 +143,10 @@ jobs:
                           urljoin(r.url, html.unescape(x))
                           for x in re.findall(r"<script\\b[^>]*\\bsrc=[\\\"']([^\\\"']+)[\\\"']", decoded, re.I)
                       ][:80] if decoded else [],
+                      "js_path_tokens": sorted(set(
+                          urljoin(r.url, html.unescape(x))
+                          for x in re.findall(r"[^\\s\\\"'<>]+?\\.js(?:\\?[^\\s\\\"'<>]*)?", decoded, re.I)
+                      ))[:120] if decoded else [],
                       "login_marker": any(x in visible.lower() for x in ["login", "ログイン", "my library", "マイライブラリ"]),
                       "raw_html_saved": False,
                       "raw_html_logged": False,
