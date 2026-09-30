@@ -234,3 +234,54 @@ jobs:
         with:
           name: batch-12iq-ji15-japan-opac-rendered-dom
           path: ji15-japan-opac-rendered-dom.json
+      - name: Probe official openBD ISBN record without reproducing long text
+        run: |
+          python - <<'PY'
+          import hashlib, json
+          from pathlib import Path
+          import requests
+
+          url="https://api.openbd.jp/v1/get?isbn=9787501340637"
+          r=requests.get(url,timeout=45,headers={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; openBD public ISBN control)"})
+          body=r.content
+          result={
+              "url":url,
+              "status":r.status_code,
+              "content_type":r.headers.get("Content-Type"),
+              "bytes":len(body),
+              "sha256":hashlib.sha256(body).hexdigest(),
+              "json_parsed":False,
+              "record_is_null":None,
+              "record_count":None,
+              "top_level_keys":[],
+              "has_target_title":False,
+              "has_target_isbn":False,
+              "has_chapter_9_title":False,
+              "has_chapter_10_title":False,
+              "has_chapter_11_title":False,
+              "raw_response_saved":False,
+              "raw_response_logged":False,
+          }
+          try:
+              data=r.json()
+              result["json_parsed"]=True
+              result["record_count"]=len(data) if isinstance(data,list) else None
+              rec=data[0] if isinstance(data,list) and data else None
+              result["record_is_null"]=rec is None
+              if isinstance(rec,dict):
+                  result["top_level_keys"]=sorted(rec.keys())
+                  serialized=json.dumps(rec,ensure_ascii=False)
+                  result["has_target_title"]="冀淑英古籍善本十五讲" in serialized
+                  result["has_target_isbn"]="9787501340637" in serialized
+                  result["has_chapter_9_title"]="铁琴铜剑楼藏书的收购入藏" in serialized
+                  result["has_chapter_10_title"]="吴梅、朱偰、赵元方的捐赠" in serialized
+                  result["has_chapter_11_title"]="涵芬楼藏书" in serialized
+          except Exception as e:
+              result["json_error"]=f"{type(e).__name__}: {e}"
+          Path("ji15-openbd-public-isbn-control.json").write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(result,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12iq-ji15-openbd-public-isbn-control
+          path: ji15-openbd-public-isbn-control.json
