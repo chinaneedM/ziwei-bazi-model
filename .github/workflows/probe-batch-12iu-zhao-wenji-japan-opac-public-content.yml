@@ -1,0 +1,205 @@
+name: probe-batch-12iu-zhao-wenji-japan-opac-public-content
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12iu-zhao-wenji-japan-opac-public-content.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Probe source-emitted Japanese OPAC routes for Zhao Wanli Wenji vol.1
+        run: |
+          python - <<'PY'
+          import hashlib, html, json, re, time
+          from pathlib import Path
+          import requests
+
+          NCID="BB08679512"
+          ISBN="9787501346653"
+          TITLE_FORMS=("趙萬里文集","赵万里文集")
+          URLS={
+            "kansai":"https://www.lib.kansai-u.ac.jp/webopac/ufirdi.do?ncid=BB08679512&ufi_target=ctlsrh",
+            "kyoto":"https://kuline.kulib.kyoto-u.ac.jp/opac/opac_openurl/?ncid=BB08679512",
+            "saitama":"https://opac.lib.saitama-u.ac.jp/Main/OpenSearch?ncid=BB08679512",
+            "tohoku":"https://opac.library.tohoku.ac.jp/opac/opac_openurl/?ncid=BB08679512",
+            "nijl":"https://opac.nijl.ac.jp/opac/opac_openurl?ncid=BB08679512",
+          }
+          TERMS=[
+            ISBN,NCID,"第1卷","第1巻","第一卷","目次","内容","Contents","Summary",
+            "197","丁惠康","東家雜記","东家杂记","太平樂府","太平乐府",
+            "永樂大典","永乐大典","六種","六种"
+          ]
+          UA="Mozilla/5.0 (Tianwen provenance audit; anonymous exact OPAC metadata/content-surface probe)"
+          MAX_BYTES=2*1024*1024
+
+          def clean(raw):
+              raw=re.sub(r'<script\b.*?</script>',' ',raw,flags=re.I|re.S)
+              raw=re.sub(r'<style\b.*?</style>',' ',raw,flags=re.I|re.S)
+              raw=re.sub(r'<[^>]+>',' ',raw)
+              return re.sub(r'\s+',' ',html.unescape(raw)).strip()
+
+          def contexts(text,term,radius=140,limit=5):
+              out=[]; start=0
+              while len(out)<limit:
+                  i=text.find(term,start)
+                  if i<0: break
+                  out.append(text[max(0,i-radius):min(len(text),i+len(term)+radius)])
+                  start=i+len(term)
+              return out
+
+          s=requests.Session()
+          s.headers.update({"User-Agent":UA,"Accept-Language":"ja,en;q=0.8,zh-CN;q=0.7"})
+          results={}
+          for key,url in URLS.items():
+              row={"source_emitted_url":url}
+              try:
+                  r=s.get(url,timeout=45,allow_redirects=True,stream=True)
+                  data=bytearray(); truncated=False
+                  for chunk in r.iter_content(65536):
+                      if not chunk: continue
+                      if len(data)+len(chunk)>MAX_BYTES:
+                          take=MAX_BYTES-len(data)
+                          if take>0: data.extend(chunk[:take])
+                          truncated=True; break
+                      data.extend(chunk)
+                  body=bytes(data)
+                  ctype=r.headers.get("Content-Type","")
+                  raw=""
+                  if "text" in ctype.lower() or "html" in ctype.lower() or not ctype:
+                      for enc in (r.encoding,"utf-8","cp932","shift_jis","euc_jp"):
+                          if not enc: continue
+                          try:
+                              raw=body.decode(enc); break
+                          except Exception: pass
+                      if not raw: raw=body.decode("utf-8","replace")
+                  visible=clean(raw) if raw else ""
+                  row.update({
+                    "status":r.status_code,
+                    "final_url":r.url,
+                    "redirect_count":len(r.history),
+                    "content_type":ctype,
+                    "bytes_read":len(body),
+                    "truncated_at_2mib":truncated,
+                    "body_sha256":hashlib.sha256(body).hexdigest(),
+                    "visible_char_count":len(visible),
+                    "target_title_present":any(t in visible for t in TITLE_FORMS),
+                    "target_ncid_present":NCID in visible,
+                    "vol1_isbn_present":ISBN in visible.replace("-",""),
+                    "term_flags":{t:(t in visible) for t in TERMS},
+                    "selected_contexts":{
+                       t:contexts(visible,t) for t in ("第1卷","第1巻","目次","Contents","Summary","197","丁惠康","永樂大典","永乐大典")
+                       if t in visible
+                    },
+                    "raw_html_saved":False,
+                    "raw_html_logged":False,
+                  })
+              except Exception as e:
+                  row["error"]=f"{type(e).__name__}: {e}"
+              results[key]=row
+              time.sleep(0.5)
+
+          out={
+            "ncid":NCID,"vol1_isbn":ISBN,"target":"2011 《赵万里文集》第1卷 p.197",
+            "route_origin":"CiNii Books source-emitted holdings links for NCID BB08679512",
+            "results":results,
+            "security":{
+              "login_used":False,"account_action_used":False,"copy_request_used":False,
+              "payment_used":False,"captcha_bypass_used":False,"tls_verification_disabled":False
+            }
+          }
+          Path("zhao-wenji-japan-opac-static.json").write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12iu-zhao-wenji-japan-opac-static
+          path: zhao-wenji-japan-opac-static.json
+
+      - name: Render public OPAC routes in headless Chrome and classify content blocks
+        run: |
+          python - <<'PY'
+          import hashlib, html, json, re, shutil, subprocess
+          from pathlib import Path
+
+          src=json.loads(Path("zhao-wenji-japan-opac-static.json").read_text(encoding="utf-8"))
+          chrome=shutil.which("google-chrome") or shutil.which("google-chrome-stable") or shutil.which("chromium")
+          ISBN=src["vol1_isbn"]; NCID=src["ncid"]
+          TARGET_TERMS=[
+            "丁惠康","東家雜記","东家杂记","太平樂府","太平乐府",
+            "永樂大典","永乐大典","六十二","六種","六种"
+          ]
+
+          def clean(raw):
+              raw=re.sub(r'<script\b.*?</script>',' ',raw,flags=re.I|re.S)
+              raw=re.sub(r'<style\b.*?</style>',' ',raw,flags=re.I|re.S)
+              raw=re.sub(r'<[^>]+>',' ',raw)
+              return re.sub(r'\s+',' ',html.unescape(raw)).strip()
+
+          def contexts(text,term,radius=180,limit=6):
+              out=[]; start=0
+              while len(out)<limit:
+                  i=text.find(term,start)
+                  if i<0: break
+                  out.append(text[max(0,i-radius):min(len(text),i+len(term)+radius)])
+                  start=i+len(term)
+              return out
+
+          def block_text(dom,id_):
+              m=re.search(rf'<(?:span|div)[^>]+id=["\']{re.escape(id_)}["\'][^>]*>(.*?)</(?:span|div)>',dom,re.I|re.S)
+              return clean(m.group(1)) if m else None
+
+          out={"chrome_path":chrome,"routes":{},"raw_dom_saved":False,"raw_dom_logged":False}
+          for key,row in src["results"].items():
+              url=row["source_emitted_url"]
+              item={"url":url}
+              if not chrome:
+                  item["status"]="CHROME_NOT_AVAILABLE"; out["routes"][key]=item; continue
+              try:
+                  p=subprocess.run([
+                    chrome,"--headless=new","--no-sandbox","--disable-gpu","--disable-dev-shm-usage",
+                    "--virtual-time-budget=12000","--dump-dom",url
+                  ],capture_output=True,timeout=55,check=False)
+                  dom=p.stdout.decode("utf-8","replace")
+                  visible=clean(dom)
+                  item.update({
+                    "returncode":p.returncode,
+                    "dom_bytes":len(dom.encode("utf-8")),
+                    "dom_sha256":hashlib.sha256(dom.encode("utf-8")).hexdigest(),
+                    "visible_char_count":len(visible),
+                    "target_title_present":"趙萬里文集" in visible or "赵万里文集" in visible,
+                    "target_ncid_present":NCID in visible,
+                    "vol1_isbn_present":ISBN in visible.replace("-",""),
+                    "vol1_marker_present":any(x in visible for x in ("第1卷","第1巻","第一卷")),
+                    "p197_literal_present":bool(re.search(r'(?<!\d)197(?!\d)',visible)),
+                    "target_term_flags":{t:(t in visible) for t in TARGET_TERMS},
+                    "openbd_block_text":block_text(dom,"openbd_block"),
+                    "bookplus_block_text":block_text(dom,"bookplus_block"),
+                    "contents_summary_contexts":sum([contexts(visible,t) for t in ("目次","Contents","Summary") if t in visible],[])[:12],
+                    "p197_contexts":contexts(visible,"197")[:8],
+                    "raw_dom_saved":False,
+                    "raw_dom_logged":False,
+                    "stderr_tail":p.stderr.decode("utf-8","replace")[-800:]
+                  })
+              except Exception as e:
+                  item["error"]=f"{type(e).__name__}: {e}"
+              out["routes"][key]=item
+
+          Path("zhao-wenji-japan-opac-rendered.json").write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12iu-zhao-wenji-japan-opac-rendered
+          path: zhao-wenji-japan-opac-rendered.json
