@@ -1,0 +1,147 @@
+name: probe-batch-12jf-wenwu-manifest-source-emitted-routes
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12jf-wenwu-manifest-source-emitted-routes.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Probe public manifest pages without invoking download or purchase
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import hashlib, html, json, re
+          from pathlib import Path
+          from urllib.parse import urljoin, urlparse
+          import requests
+
+          UA={"User-Agent":"Mozilla/5.0 (compatible; TianwenHistoricalAudit/1.0; +https://github.com/chinaneedM/ziwei-bazi-model)"}
+          TARGET="wwck195109.pdf"
+          ROUTES=[
+            ("51gushu","https://www.51gushu.com/um006465s.html"),
+            ("xy980","https://xy980.com/e/action/ShowInfo.php?classid=1&id=157"),
+          ]
+
+          def decode_response(r):
+              enc=r.encoding
+              if not enc or enc.lower()=="iso-8859-1":
+                  enc=r.apparent_encoding or "utf-8"
+              try:
+                  return r.content.decode(enc,errors="replace")
+              except LookupError:
+                  return r.content.decode("utf-8",errors="replace")
+
+          def visible_text(body):
+              x=re.sub(r"<script\b.*?</script>"," ",body,flags=re.I|re.S)
+              x=re.sub(r"<style\b.*?</style>"," ",x,flags=re.I|re.S)
+              x=html.unescape(re.sub(r"<[^>]+>"," ",x))
+              return re.sub(r"\s+"," ",x).strip()
+
+          def emitted(base,body):
+              anchors=[]
+              for m in re.finditer(r"<a\b([^>]*)>(.*?)</a>",body,re.I|re.S):
+                  attrs,label=m.group(1),m.group(2)
+                  hm=re.search(r"href=[\"']([^\"']+)[\"']",attrs,re.I)
+                  if not hm: continue
+                  href=html.unescape(hm.group(1)).strip()
+                  full=urljoin(base,href)
+                  lab=re.sub(r"\s+"," ",html.unescape(re.sub(r"<[^>]+>"," ",label))).strip()
+                  anchors.append({"href":href,"url":full,"label":lab})
+              forms=[]
+              for m in re.finditer(r"<form\b([^>]*)>",body,re.I|re.S):
+                  attrs=m.group(1)
+                  am=re.search(r"action=[\"']([^\"']*)[\"']",attrs,re.I)
+                  mm=re.search(r"method=[\"']([^\"']*)[\"']",attrs,re.I)
+                  action=urljoin(base,html.unescape(am.group(1))) if am else base
+                  forms.append({"action":action,"method":(mm.group(1).upper() if mm else "GET")})
+              return anchors,forms
+
+          out={}
+          s=requests.Session(); s.headers.update(UA)
+          for key,url in ROUTES:
+              row={"requested_url":url}
+              try:
+                  r=s.get(url,timeout=45,allow_redirects=True)
+                  body=decode_response(r)
+                  vis=visible_text(body)
+                  anchors,forms=emitted(r.url,body)
+                  idx=vis.lower().find(TARGET.lower())
+                  context=vis[max(0,idx-500):idx+len(TARGET)+500] if idx>=0 else ""
+                  candidate=[]
+                  for a in anchors:
+                      hay=(a["href"]+" "+a["url"]+" "+a["label"]).lower()
+                      if any(t in hay for t in ("wwck195109",".pdf","download","附件","下载","样张","试看","网盘")):
+                          candidate.append(a)
+                  row.update({
+                    "status":r.status_code,
+                    "final_url":r.url,
+                    "content_type":r.headers.get("Content-Type"),
+                    "content_length_header":r.headers.get("Content-Length"),
+                    "bytes":len(r.content),
+                    "body_sha256":hashlib.sha256(r.content).hexdigest(),
+                    "visible_chars":len(vis),
+                    "target_filename_present":idx>=0,
+                    "target_size_9_73mb_present":bool(re.search(r"wwck195109\.pdf\s*9\.73\s*MB",vis,re.I)),
+                    "target_context":context,
+                    "target_context_sha256":hashlib.sha256(context.encode("utf-8")).hexdigest() if context else None,
+                    "anchor_count":len(anchors),
+                    "form_count":len(forms),
+                    "candidate_source_emitted_links":candidate[:100],
+                    "forms":forms[:30],
+                    "same_host_candidate_count":sum(1 for a in candidate if urlparse(a["url"]).hostname==urlparse(r.url).hostname),
+                    "direct_pdf_candidate_count":sum(1 for a in candidate if ".pdf" in a["url"].lower()),
+                    "purchase_or_payment_literal_present":bool(re.search(r"购买|付款|支付|价格|售价|积分|充值",vis,re.I)),
+                    "login_literal_present":bool(re.search(r"登录|登陆|注册",vis,re.I)),
+                  })
+              except Exception as e:
+                  row["error"]=f"{type(e).__name__}: {e}"
+              out[key]=row
+
+          # This workflow never follows candidate download/sample/payment links. It only
+          # reads the two already-public HTML manifest pages and records what they emit.
+          result={
+            "probe":"BATCH-12JF-WENWU-MANIFEST-SOURCE-EMITTED-ROUTES",
+            "target":{
+              "serial":"文物参考资料",
+              "year":1951,
+              "issue":9,
+              "filename":TARGET,
+              "expected_manifest_size":"9.73 MB",
+              "article":"永乐大典展览的意义——一九五一年八月北京图书馆举办",
+              "pages":"221-233"
+            },
+            "routes":out,
+            "security":{
+              "login_used":False,
+              "account_action_used":False,
+              "payment_used":False,
+              "captcha_bypass_used":False,
+              "candidate_download_link_followed":False,
+              "fulltext_download_invoked":False,
+              "purchase_link_followed":False,
+              "tls_verification_disabled":False
+            },
+            "adjudication_rule":"A filename/size manifest match is only a discovery locator. Promote nothing to page-text authority unless a lawful source-emitted public object is separately recovered and verified."
+          }
+          p=Path("artifacts/batch-12jf"); p.mkdir(parents=True,exist_ok=True)
+          (p/"probe.json").write_text(json.dumps(result,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+          print(json.dumps(result,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12jf-wenwu-manifest-source-emitted-routes
+          path: artifacts/batch-12jf
+          if-no-files-found: error
