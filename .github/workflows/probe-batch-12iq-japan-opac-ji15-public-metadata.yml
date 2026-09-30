@@ -133,6 +133,8 @@ jobs:
                       "toc_contexts": contexts(visible, "目次"),
                       "toc_controls": toc_controls(decoded, r.url) if decoded else [],
                       "bookdata_source_contexts": contexts(decoded, "BOOKデータASPサービス", radius=500, limit=4) if decoded else [],
+                      "view_bookplus_source_contexts": contexts(decoded, "view_bookplus", radius=1200, limit=10) if decoded else [],
+                      "view_openbd_source_contexts": contexts(decoded, "view_openbd", radius=1200, limit=10) if decoded else [],
                       "bookdata_url_candidates": sorted(set(
                           html.unescape(x) for x in re.findall(r"https?://[^\\s\\\"'<>]+", decoded, re.I)
                           if any(k in x.lower() for k in ("book", "asp", "nichigai", "contents", "toc"))
