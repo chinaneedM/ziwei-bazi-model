@@ -84,16 +84,16 @@ jobs:
             else
               # For a whole-issue PDF, article begins at printed p46; render a broad likely window after using text page mapping.
               python - <<'PY'
-from pathlib import Path
-text=Path('out/source.txt').read_text(encoding='utf-8',errors='replace')
-pages=text.split('\f')
-hits=[]
-for i,p in enumerate(pages,1):
-    if '郑振铎与铁琴铜剑楼藏书捐献' in p or '鄭振鐸與鐵琴銅劍樓藏書捐獻' in p:
-        hits.append(i)
-Path('out/text-page-hits.txt').write_text('\n'.join(map(str,hits))+'\n',encoding='utf-8')
-print('text_page_hits',hits)
-PY
+          from pathlib import Path
+          text=Path('out/source.txt').read_text(encoding='utf-8',errors='replace')
+          pages=text.split('\f')
+          hits=[]
+          for i,p in enumerate(pages,1):
+              if '郑振铎与铁琴铜剑楼藏书捐献' in p or '鄭振鐸與鐵琴銅劍樓藏書捐獻' in p:
+                  hits.append(i)
+          Path('out/text-page-hits.txt').write_text('\n'.join(map(str,hits))+'\n',encoding='utf-8')
+          print('text_page_hits',hits)
+          PY
               first=$(head -1 out/text-page-hits.txt 2>/dev/null || true)
               if [ -n "$first" ]; then
                 last=$((first+8))
