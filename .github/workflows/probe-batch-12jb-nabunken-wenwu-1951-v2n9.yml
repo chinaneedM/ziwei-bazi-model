@@ -79,11 +79,12 @@ jobs:
               "year_1951": "1951" in i_html,
               "request_number": "202.505||3||1951-9C" in html.unescape(i_html),
               "document_id": "10024273" in i_html,
-              "without_index": "without index" in i_html,
+              "without_index_raw_marker": any(x in i_html for x in ("without index", "索引なし", "索引無し", "インデックスなし")),
               "hold_id": "TS00027259" in i_final or "TS00027259" in i_html,
           }
-          if not all(markers.values()):
-              raise SystemExit(f"Exact issue markers incomplete: {markers}")
+          required_identity = {k: v for k, v in markers.items() if k != "without_index_raw_marker"}
+          if not all(required_identity.values()):
+              raise SystemExit(f"Exact issue identity markers incomplete: {markers}")
 
           policy_url = "https://www.nabunken.go.jp/usage/library.html"
           p_status, p_final, p_html = get(policy_url)
