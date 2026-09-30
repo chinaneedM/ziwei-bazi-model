@@ -8526,7 +8526,7 @@
       "identifier": "BZ0M0gEACAAJ / ISBN 7501314195 / 9787501314195",
       "url": "https://books.google.com/books?id=BZ0M0gEACAAJ",
       "source_role": "BIBLIOGRAPHIC_IDENTITY_CONTROL_FOR_1997_BEIJING_LIBRARY_HISTORY_COMPILATION_DATE_RANGE",
-      "quality_notes": "Batch 12GO uses the object only for canonical bibliographic identity: title/range 1949-1966, Volume 2, Beijing Library Press 1997, ISBN 7501314195/9787501314195, 1811 pages. It does not expose or authenticate pp.446—449 target text.",
+      "quality_notes": "Batch 12GO uses the object only for canonical bibliographic identity: title/range 1949-1966, Volume 2, Beijing Library Press 1997, ISBN 7501314195/9787501314195, 1811 pages. It does not expose or authenticate pp.446—449 target text. Batch 12IZ follows only source-emitted Google Books routes. The primary object has no usable in-book q= contract and its html_text route is 403; source-emitted alternate RuGEAAAAIAAJ is searchable but yields no usable pp.446-449 page numbers. Positive-looking 瞿氏/赵万里/quoted-phrase hits are context collisions or tokenized false positives and must not be promoted to Tieqin transaction evidence.",
       "batch_12go": {
         "canonical_range": "1949—1966",
         "volume_id": "BZ0M0gEACAAJ",
@@ -8535,6 +8535,29 @@
         "page_count": 1811,
         "direct_pp446_449_reviewed": false,
         "research_artifact": "docs/research/ZIWEI-BEITU-HISTORY-1997-1949-1966-BIBLIOGRAPHIC-RANGE-REPAIR-R1.json"
+      },
+      "batch_12iz": {
+        "primary_object_id": "BZ0M0gEACAAJ",
+        "primary_inbook_q_contract_observed": false,
+        "primary_source_emitted_html_text_http_status": 403,
+        "source_emitted_alternate_object_id": "RuGEAAAAIAAJ",
+        "alternate_inbook_q_contract_observed": true,
+        "alternate_targeted_search_authorized": true,
+        "direct_pp446_449_reviewed": false,
+        "usable_target_page_numbers_recovered": false,
+        "target_3482_3483_direct_match": false,
+        "zero_hit_has_fulltext_absence_authority": false,
+        "false_positive_controls": {
+          "qu_shi": "1932 瞿兑之 deposit record, not Tieqin Qu-family transfer",
+          "zhao_wanli": "staff chronology, not transaction record",
+          "intake_quote": "tokenized unrelated 善本/入藏 matches, literal NLC-2024 quote not recovered",
+          "national_crown_phrase": "general library-takeover statement, not Tieqin intake quotation"
+        },
+        "alternate_artifact_id": 11113255060,
+        "alternate_artifact_digest": "sha256:90fb5aae1f5a71b6faa007c18cb1cdd7e359bddfa2012d55c5f7404381155f6d",
+        "quote_classifier_artifact_id": 11113106133,
+        "quote_classifier_artifact_digest": "sha256:1dbca3366e77353bef6a46bbe1d9065782b50e838e3f6dae80ec63c954419d75",
+        "research_artifact": "docs/research/ZIWEI-BEITU1997-GOOGLE-BOOKS-ALTERNATE-INBOOK-SEARCH-BOUNDARY-R1.json"
       }
     },
     {

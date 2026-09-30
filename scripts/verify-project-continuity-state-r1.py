@@ -320,6 +320,8 @@ ZIWEI_JI_GOOGLE_IX_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT
 ZIWEI_JI_GOOGLE_IX_EVIDENCE = ROOT / "docs/research/ZIWEI-JI-SHUYING-2009-GOOGLE-BOOKS-PAGE-NUMBERED-SNIPPET-ANCHORS-R1.json"
 ZIWEI_JI_CHRONOLOGY_IY_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-2009-TIEQIN-DIRECT-TRANSACTION-CHRONOLOGY-IY.md"
 ZIWEI_JI_CHRONOLOGY_IY_EVIDENCE = ROOT / "docs/research/ZIWEI-JI-SHUYING-2009-TIEQIN-DIRECT-TRANSACTION-CHRONOLOGY-R1.json"
+ZIWEI_BEITU_GBOOKS_IZ_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-BEITU1997-GOOGLE-BOOKS-ALTERNATE-INBOOK-SEARCH-BOUNDARY-IZ.md"
+ZIWEI_BEITU_GBOOKS_IZ_EVIDENCE = ROOT / "docs/research/ZIWEI-BEITU1997-GOOGLE-BOOKS-ALTERNATE-INBOOK-SEARCH-BOUNDARY-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -705,10 +707,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-INSTITUTIONAL-CATALOG-HTML-BOUNDARY-IV",
     "BATCH-12-ZIWEI-JI-SHUYING-2009-STANFORD-EXACT-RECORD-ACCESS-BOUNDARY-IW",
     "BATCH-12-ZIWEI-JI-SHUYING-2009-GOOGLE-BOOKS-PAGE-NUMBERED-SNIPPET-ANCHORS-IX",
-    "BATCH-12-ZIWEI-JI-SHUYING-2009-TIEQIN-DIRECT-TRANSACTION-CHRONOLOGY-IY",
+    "BATCH-12-ZIWEI-JI-SHUYING-2009-TIEQIN-DIRECT-TRANSACTION-CHRONOLOGY-IY",    "BATCH-12-ZIWEI-BEITU1997-GOOGLE-BOOKS-ALTERNATE-INBOOK-SEARCH-BOUNDARY-IZ",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-2009-TIEQIN-DIRECT-TRANSACTION-CHRONOLOGY-IY.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-BEITU1997-GOOGLE-BOOKS-ALTERNATE-INBOOK-SEARCH-BOUNDARY-IZ.md"
 
 
 def fail(message: str) -> None:
@@ -10528,6 +10530,59 @@ def main() -> int:
         fail("Batch 12IY missing from completed state")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12IY latest-batch document mismatch")
+
+    # Batch 12IZ: Beitu 1997 Google Books alternate/search boundary.
+    for path in (ZIWEI_BEITU_GBOOKS_IZ_BATCH, ZIWEI_BEITU_GBOOKS_IZ_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12IZ continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12iz = json.loads(ZIWEI_BEITU_GBOOKS_IZ_EVIDENCE.read_text(encoding="utf-8"))
+    bid12iz = "BATCH-12-ZIWEI-BEITU1997-GOOGLE-BOOKS-ALTERNATE-INBOOK-SEARCH-BOUNDARY-IZ"
+    if batch12iz.get("batch_id") != bid12iz:
+        fail("Batch 12IZ evidence identity mismatch")
+    objs12iz = batch12iz.get("google_books_objects", {})
+    if objs12iz.get("primary", {}).get("object_id") != "BZ0M0gEACAAJ" or objs12iz.get("primary", {}).get("source_emitted_inbook_q_contract_observed") is not False:
+        fail("Batch 12IZ primary Google Books boundary regressed")
+    if objs12iz.get("primary", {}).get("source_emitted_other_version") != "RuGEAAAAIAAJ" or objs12iz.get("primary", {}).get("html_text_http_status") != 403:
+        fail("Batch 12IZ source-emitted primary routes regressed")
+    alt12iz = objs12iz.get("alternate", {})
+    if alt12iz.get("object_id") != "RuGEAAAAIAAJ" or alt12iz.get("source_emitted_inbook_q_contract_observed") is not True or alt12iz.get("targeted_search_authorized") is not True:
+        fail("Batch 12IZ alternate search contract regressed")
+    if alt12iz.get("direct_pp446_449_recovered") is not False or alt12iz.get("usable_page_numbers_for_target_queries") is not False:
+        fail("Batch 12IZ direct-page firewall regressed")
+    fp12iz = batch12iz.get("targeted_query_adjudication", {}).get("false_positive_controls", {})
+    if fp12iz.get("瞿氏", {}).get("classification") != "SURNAME_COLLISION_FALSE_POSITIVE":
+        fail("Batch 12IZ Qu-surname false-positive firewall regressed")
+    if fp12iz.get("赵万里", {}).get("classification") != "PERSON_NAME_CONTEXT_COLLISION":
+        fail("Batch 12IZ Zhao-name collision firewall regressed")
+    if fp12iz.get("这些善本入藏本馆", {}).get("classification") != "TOKENIZED_QUERY_FALSE_POSITIVE":
+        fail("Batch 12IZ tokenized quote firewall regressed")
+    if fp12iz.get("可为全国之冠", {}).get("classification") != "PHRASE_FRAGMENT_CONTEXT_COLLISION":
+        fail("Batch 12IZ phrase-fragment firewall regressed")
+    if batch12iz.get("targeted_query_adjudication", {}).get("zero_result_has_fulltext_absence_authority") is not False:
+        fail("Batch 12IZ zero-hit negative-evidence firewall regressed")
+    pp12iz = batch12iz.get("pp446_449_adjudication", {})
+    if pp12iz.get("nlc_2024_modern_citation_bridge_preserved") is not True or pp12iz.get("direct_page_text_reviewed") is not False or pp12iz.get("exact_internal_document_identity") != "UNRESOLVED":
+        fail("Batch 12IZ pp446-449 adjudication regressed")
+    target12iz = batch12iz.get("target_item_firewall", {})
+    if target12iz.get("target_3482_3483_batch_membership") != "UNRESOLVED" or target12iz.get("target_specific_sale_or_purchase_route_selected") is not False or target12iz.get("target_specific_donation_route_selected") is not False:
+        fail("Batch 12IZ target-item firewall regressed")
+    reg12iz = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    src12iz = next((x for x in reg12iz.get("sources", []) if x.get("source_id") == "EXT-GOOGLE-BOOKS-BEITU-HISTORY-1997-1949-1966-ISBN7501314195"), None)
+    if src12iz is None or src12iz.get("batch_12iz", {}).get("source_emitted_alternate_object_id") != "RuGEAAAAIAAJ" or src12iz.get("batch_12iz", {}).get("usable_target_page_numbers_recovered") is not False:
+        fail("Batch 12IZ registry binding missing")
+    acct12iz = batch12iz.get("accounting", {})
+    if acct12iz.get("matrix_rows") != 198 or acct12iz.get("audited_rows") != 166 or acct12iz.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12IZ accounting regressed")
+    try:
+        schema12iz = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12IZ state version is not numeric")
+    if schema12iz < (1, 264, 0):
+        fail("Batch 12IZ state version regressed below 1.264.0")
+    if bid12iz not in audit_state.get("completed_batches", ()):
+        fail("Batch 12IZ missing from completed state")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12IZ latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

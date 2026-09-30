@@ -977,3 +977,15 @@ Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI
 - No target 3482/3483 transaction mode or date is selected. Product/accounting remains 198 / 166 / 10 and 17/17 provenance repairs, with zero chart-algorithm defects, reopens or candidate collapses.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-2009-TIEQIN-DIRECT-TRANSACTION-CHRONOLOGY-IY.md`. Research record: `docs/research/ZIWEI-JI-SHUYING-2009-TIEQIN-DIRECT-TRANSACTION-CHRONOLOGY-R1.json`.
+
+
+## Progress — Batch 12IZ
+
+- Exact Google Books object `BZ0M0gEACAAJ` preserves the 1997 bibliographic identity but exposes no usable in-book q= contract; its source-emitted html_text route returns HTTP 403.
+- The primary object source-emits alternate `RuGEAAAAIAAJ`, which does expose in-book q= search links. Targeted search is therefore source-authorized, not guessed.
+- The alternate does **not** expose usable printed page numbers for pp.446–449. Searches for target titles and 3482/3483/03482/03483 do not produce direct target snippets, but zero hits carry no full-text absence authority.
+- Positive-looking hits are explicitly classified as false positives: 瞿氏 → 1932 瞿兑之 deposit record; 赵万里 → staff chronology; 这些善本入藏本馆 → tokenized unrelated 善本/入藏 passages; 可为全国之冠 → unrelated general library-takeover statement.
+- NLC-2024 pp.446–449 citation bridge remains intact, but direct 1997 page text/images and exact internal document identity remain unresolved. Target item transaction mode remains unresolved.
+- Product/accounting remains 198 / 166 / 10, provenance defects 17/17, and zero chart-algorithm defects/reopens/candidate collapses.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-BEITU1997-GOOGLE-BOOKS-ALTERNATE-INBOOK-SEARCH-BOUNDARY-IZ.md`. Research record: `docs/research/ZIWEI-BEITU1997-GOOGLE-BOOKS-ALTERNATE-INBOOK-SEARCH-BOUNDARY-R1.json`.

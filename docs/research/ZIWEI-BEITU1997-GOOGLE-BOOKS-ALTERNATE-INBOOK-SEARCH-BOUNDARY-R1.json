@@ -1,0 +1,263 @@
+{
+  "schema": "ZIWEI-BEITU1997-GOOGLE-BOOKS-ALTERNATE-INBOOK-SEARCH-BOUNDARY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-BEITU1997-GOOGLE-BOOKS-ALTERNATE-INBOOK-SEARCH-BOUNDARY-IZ",
+  "prior_batch_id": "BATCH-12-ZIWEI-JI-SHUYING-2009-TIEQIN-DIRECT-TRANSACTION-CHRONOLOGY-IY",
+  "question": "Can Google Books public surfaces for the exact 1997 《北京图书馆馆史资料汇编（二）：1949—1966》 directly recover or reliably page-locate pp.446—449, or bind target 3482/3483, without guessing object IDs/endpoints or overreading search-index hits?",
+  "answer": "No. The exact bibliographic object BZ0M0gEACAAJ confirms the 1997 ISBN/title/1811-page identity but emits no usable in-book q= contract; its source-emitted html_text route returns HTTP 403. It does source-emit alternate object RuGEAAAAIAAJ. That alternate independently preserves the same bibliographic identity and does emit in-book q= links, so targeted searches are authorized. However the resulting snippets expose no usable printed page numbers for pp.446—449 and do not directly recover those pages. Searches for target titles and 3482/3483/03482/03483 yield no direct target snippet, but those zero results have no full-text absence authority. Critically, apparently positive searches are demonstrably unsafe: 瞿氏 returns a 1932 瞿兑之 deposit passage unrelated to Tieqin Tongjian Lou, 赵万里 returns a staff chronology passage, the query 这些善本入藏本馆 is tokenized into unrelated 善本/入藏 snippets rather than the literal phrase, and 可为全国之冠 returns a general library-takeover statement rather than the NLC-2024 Tieqin intake quotation. Therefore Google Books currently supplies a searchable-index boundary and false-positive classifier, not direct pp.446—449 collation or item-level acquisition evidence.",
+  "controlling_probes": {
+    "primary_exact_object_run": {
+      "commit_sha": "72da89022033ba19995120d46e5a2863d15eb8f7",
+      "workflow_run_id": 36745956937,
+      "workflow_job_id": 109992088258,
+      "artifact_id": 11112536553,
+      "artifact_digest": "sha256:0e38d03bd194993ff367cb6cba6ec331e13229170f79907d3c98af686241f5f5"
+    },
+    "source_emitted_followup_run": {
+      "commit_sha": "02ccd99d298e1eef3923b81107fcec93825fc8ad",
+      "workflow_run_id": 36746124733,
+      "artifact_id": 11111799060,
+      "artifact_digest": "sha256:71966861b0fade4193ddb176d4a48c7fb27e9683b058bb767a24c863375fdae4"
+    },
+    "alternate_object_target_run": {
+      "commit_sha": "a60bf45ec09a2cfc0966e25a473f767534a1dcb7",
+      "workflow_run_id": 36746187628,
+      "workflow_job_id": 109992864160,
+      "artifact_id": 11113255060,
+      "artifact_digest": "sha256:90fb5aae1f5a71b6faa007c18cb1cdd7e359bddfa2012d55c5f7404381155f6d"
+    },
+    "bounded_quote_classifier_run": {
+      "commit_sha": "c6049745c4ae7d9b332297f4b43a33519f59a6bb",
+      "workflow_run_id": 36746802535,
+      "workflow_job_id": 109994929832,
+      "artifact_id": 11113106133,
+      "artifact_digest": "sha256:1dbca3366e77353bef6a46bbe1d9065782b50e838e3f6dae80ec63c954419d75"
+    }
+  },
+  "exact_edition": {
+    "canonical_title": "北京图书馆馆史资料汇编（二）：1949—1966",
+    "publisher": "北京图书馆出版社",
+    "publication_year": 1997,
+    "isbn_10": "7501314195",
+    "isbn_13": "9787501314195",
+    "aggregate_page_count_display": 1811,
+    "upper_volume_direct_target_pages": "446-449",
+    "canonical_range_repaired_by_batch_12go": true
+  },
+  "google_books_objects": {
+    "primary": {
+      "object_id": "BZ0M0gEACAAJ",
+      "exact_bibliographic_identity_present": true,
+      "ebook_unavailable_wording": true,
+      "source_emitted_inbook_q_contract_observed": false,
+      "source_emitted_html_text": true,
+      "html_text_http_status": 403,
+      "source_emitted_other_version": "RuGEAAAAIAAJ",
+      "direct_pp446_449_recovered": false
+    },
+    "alternate": {
+      "object_id": "RuGEAAAAIAAJ",
+      "discovery": "SOURCE_EMITTED_OTHER_VERSION_FROM_BZ0M0gEACAAJ",
+      "exact_bibliographic_identity_present": true,
+      "ebook_unavailable_wording": true,
+      "source_emitted_inbook_q_contract_observed": true,
+      "targeted_search_authorized": true,
+      "full_ebook_downloaded": false,
+      "full_page_image_corpus_downloaded": false,
+      "direct_pp446_449_recovered": false,
+      "usable_page_numbers_for_target_queries": false
+    }
+  },
+  "targeted_query_adjudication": {
+    "direct_target_queries": {
+      "3482": {
+        "result_count": 0,
+        "direct_target_snippet": false,
+        "page_number_recovered": false
+      },
+      "3483": {
+        "result_count": 0,
+        "direct_target_snippet": false,
+        "page_number_recovered": false
+      },
+      "铁琴铜剑楼": {
+        "result_count": 0,
+        "direct_target_snippet": false,
+        "page_number_recovered": false
+      },
+      "鐵琴銅劍樓": {
+        "result_count": 0,
+        "direct_target_snippet": false,
+        "page_number_recovered": false
+      },
+      "铜壶漏箭制度": {
+        "result_count": 0,
+        "direct_target_snippet": false,
+        "page_number_recovered": false
+      },
+      "銅壺漏箭制度": {
+        "result_count": 0,
+        "direct_target_snippet": false,
+        "page_number_recovered": false
+      },
+      "准斋心制几漏图式": {
+        "result_count": 0,
+        "direct_target_snippet": false,
+        "page_number_recovered": false
+      },
+      "準齋心制幾漏圖式": {
+        "result_count": 0,
+        "direct_target_snippet": false,
+        "page_number_recovered": false
+      },
+      "03482": {
+        "result_count": 0,
+        "direct_target_snippet": false,
+        "page_number_recovered": false
+      },
+      "03483": {
+        "result_count": 0,
+        "direct_target_snippet": false,
+        "page_number_recovered": false
+      }
+    },
+    "false_positive_controls": {
+      "瞿氏": {
+        "result_count": 1,
+        "observed_snippet_scope": "1932 瞿兑之寄存本馆中文书一千七百七十种等馆史材料",
+        "tieqin_qu_family_transaction_match": false,
+        "page_number_recovered": false,
+        "classification": "SURNAME_COLLISION_FALSE_POSITIVE"
+      },
+      "赵万里": {
+        "result_count": 1,
+        "observed_snippet_scope": "赵万里字斐云及善本部主任任职时间的人事/职员记录",
+        "tieqin_transaction_match": false,
+        "page_number_recovered": false,
+        "classification": "PERSON_NAME_CONTEXT_COLLISION"
+      },
+      "这些善本入藏本馆": {
+        "result_count": 5,
+        "literal_phrase_present_in_result_surface": false,
+        "observed_snippet_scope": "tokenized/broad 善本 + 入藏 matches including unrelated early-library history passages",
+        "nlc_2024_tieqin_quote_directly_recovered": false,
+        "page_number_recovered": false,
+        "classification": "TOKENIZED_QUERY_FALSE_POSITIVE"
+      },
+      "可为全国之冠": {
+        "result_count": 1,
+        "literal_phrase_present_in_result_surface": false,
+        "observed_snippet_scope": "general statement that the taken-over library's holdings/building/preservation were 为全国之冠",
+        "nlc_2024_tieqin_intake_quote_directly_recovered": false,
+        "page_number_recovered": false,
+        "classification": "PHRASE_FRAGMENT_CONTEXT_COLLISION"
+      }
+    },
+    "exact_phrase_controls": {
+      "本馆中文书藏地位将益形重要": {
+        "result_count": 0,
+        "direct_phrase_recovered": false
+      },
+      "陆续价购归公": {
+        "result_count": 0,
+        "direct_phrase_recovered": false
+      },
+      "瞿氏将所藏部分善本": {
+        "result_count": 0,
+        "direct_phrase_recovered": false
+      },
+      "让归政府": {
+        "result_count": 0,
+        "direct_phrase_recovered": false
+      }
+    },
+    "zero_result_has_fulltext_absence_authority": false
+  },
+  "pp446_449_adjudication": {
+    "nlc_2024_modern_citation_bridge_preserved": true,
+    "cited_pages": "446-449",
+    "direct_page_images_reviewed": false,
+    "direct_page_text_reviewed": false,
+    "exact_internal_document_identity": "UNRESOLVED",
+    "exact_quote_page_within_446_449": "UNRESOLVED",
+    "google_books_page_locator_status": "UNRESOLVED_NO_USABLE_PAGE_NUMBERS",
+    "source_emitted_alternate_search_route_status": "SEARCHABLE_INDEX_ONLY_NOT_DIRECT_PAGE_AUTHORITY"
+  },
+  "target_item_firewall": {
+    "target_titles": [
+      "铜壶漏箭制度",
+      "准斋心制几漏图式"
+    ],
+    "historical_catalog_numbers": [
+      3482,
+      3483
+    ],
+    "current_public_identifier_candidates": [
+      "03482",
+      "03483"
+    ],
+    "direct_target_match_in_google_books": false,
+    "zero_result_proves_absence": false,
+    "target_3482_3483_batch_membership": "UNRESOLVED",
+    "target_specific_sale_or_purchase_route_selected": false,
+    "target_specific_donation_route_selected": false,
+    "target_specific_other_transfer_route_selected": false,
+    "missing_qu_donation_mark_implies_sale": false
+  },
+  "evidence_firewall": {
+    "source_emitted_alternate_object_may_be_followed": true,
+    "source_emitted_inbook_contract_required_before_targeted_q": true,
+    "guessed_object_ids_forbidden": true,
+    "guessed_private_endpoints_forbidden": true,
+    "google_books_search_count_is_not_exact_phrase_proof": true,
+    "tokenized_search_hit_is_not_direct_quote": true,
+    "same_surname_hit_is_not_same_family_event": true,
+    "same_person_name_hit_is_not_same_transaction": true,
+    "snippet_zero_result_is_not_fulltext_negative_evidence": true,
+    "absent_printed_page_number_blocks_direct_page_claim": true
+  },
+  "security": {
+    "login_used": false,
+    "account_action_used": false,
+    "copy_request_used": false,
+    "payment_used": false,
+    "captcha_bypass_used": false,
+    "tls_verification_disabled": false,
+    "guessed_object_id_used": false,
+    "guessed_endpoint_used": false
+  },
+  "transmission_impact": {
+    "status": "NONE",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": [],
+    "reason": "Access/index boundary and false-positive classification only; no historical item-level relation is added."
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Stop treating Google Books search counts on RuGEAAAAIAAJ as page-level evidence; revisit only if the public object begins exposing printed page numbers or direct page content.",
+    "Use the already-closed NDL/Tokyo upper-volume holdings to lawfully obtain or inspect pp.446-449, or locate an authoritative/open page-level surrogate.",
+    "On direct pp.446-449 review, identify internal document title/date/office, exact quote boundaries, transfer counts/prices and all identifiers; search every line for target titles, 3482/3483/03482/03483 and the 1823 Huang/Shiliju bound-volume fingerprint.",
+    "Continue direct 2011 《赵万里文集》第1卷 p.197 and authoritative/open 1951 issue-9 pp.221-233 recovery in parallel."
+  ],
+  "updated_at": "2026-10-01"
+}

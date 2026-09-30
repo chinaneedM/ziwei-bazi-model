@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.263.0",
+  "schema_version": "1.264.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -345,9 +345,10 @@
       "BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-INSTITUTIONAL-CATALOG-HTML-BOUNDARY-IV",
       "BATCH-12-ZIWEI-JI-SHUYING-2009-STANFORD-EXACT-RECORD-ACCESS-BOUNDARY-IW",
       "BATCH-12-ZIWEI-JI-SHUYING-2009-GOOGLE-BOOKS-PAGE-NUMBERED-SNIPPET-ANCHORS-IX",
-      "BATCH-12-ZIWEI-JI-SHUYING-2009-TIEQIN-DIRECT-TRANSACTION-CHRONOLOGY-IY"
+      "BATCH-12-ZIWEI-JI-SHUYING-2009-TIEQIN-DIRECT-TRANSACTION-CHRONOLOGY-IY",
+      "BATCH-12-ZIWEI-BEITU1997-GOOGLE-BOOKS-ALTERNATE-INBOOK-SEARCH-BOUNDARY-IZ"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-2009-TIEQIN-DIRECT-TRANSACTION-CHRONOLOGY-IY.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-BEITU1997-GOOGLE-BOOKS-ALTERNATE-INBOOK-SEARCH-BOUNDARY-IZ.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -1550,7 +1551,11 @@
       "Batch 12IY uses the Batch 12IX source-emitted Google Books in-book search contract to collate Ji Shuying Chapter 9 transaction chronology directly at page-numbered snippet level.",
       "Direct p.139/p.140/p.143/p.155/p.162 evidence upgrades the three-batch mixed sale+donation structure, first-batch 304 sold + 52 donated, second-batch 123 sold, third-batch purchased-book character and Ding Fubao six-book intermediary route from secondary/modern-retrospective scope to direct Ji Chapter-9 support.",
       "Exact 1950-01-07, 1950-03 and 1953-03 strings are not closed by current snippets; donation 97 and sale 300-plus remain secondary/unresolved. NLC 20/190, StudyTimes 699, NLC 700-plus and Zhao 1951 62-title scopes remain unreconciled.",
-      "Highest next gate after 12IY: trace the now-direct Chapter-9 transaction skeleton to Beijing Library/NLC accession ledgers, acquisition lists, payment records and work reports; search those records for target 3482/3483 and the 1823 Huang/Shiliju bound-volume fingerprint. Zhao 2011 p.197 and 1951 issue-9 direct pages remain parallel gates."
+      "Highest next gate after 12IY: trace the now-direct Chapter-9 transaction skeleton to Beijing Library/NLC accession ledgers, acquisition lists, payment records and work reports; search those records for target 3482/3483 and the 1823 Huang/Shiliju bound-volume fingerprint. Zhao 2011 p.197 and 1951 issue-9 direct pages remain parallel gates.",
+      "Batch 12IZ closes the Google Books access/index boundary for the 1997 《北京图书馆馆史资料汇编（二）：1949—1966》 pp.446-449 route: primary BZ0M0gEACAAJ has no usable in-book q= contract; source-emitted alternate RuGEAAAAIAAJ does.",
+      "RuGEAAAAIAAJ is searchable but provides no usable printed page numbers for the target queries. Direct pp.446-449 text/images and exact internal document identity remain NOT_REVIEWED/UNRESOLVED.",
+      "12IZ explicitly classifies search false positives: 瞿氏 resolves to a 1932 瞿兑之 deposit record; 赵万里 to staff chronology; 这些善本入藏本馆 to tokenized unrelated 善本/入藏 matches; 可为全国之冠 to an unrelated general library-takeover statement.",
+      "Zero hits for target titles and 3482/3483/03482/03483 are not full-text negative evidence. Highest next gate after 12IZ: obtain/inspect pp.446-449 through the closed NDL/Tokyo upper-volume route or an authoritative open page-level surrogate, then search direct pages for target identifiers and the 1823 Huang/Shiliju fingerprint."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10
@@ -1590,7 +1595,7 @@
     "handoff_text_should_be_generated_from_repository_state_not_chat_memory": true,
     "new_chat_minimal_user_prompt": "继续项目。按仓库 docs/PROJECT-CONTINUITY-PROTOCOL-R1.md 启动，以 GitHub 远端最新状态为唯一事实源。"
   },
-  "updated_at": "2026-09-30",
+  "updated_at": "2026-10-01",
   "tianwen_identity": {
     "umbrella_name_zh": "天问",
     "umbrella_name_en": "TIANWEN",
