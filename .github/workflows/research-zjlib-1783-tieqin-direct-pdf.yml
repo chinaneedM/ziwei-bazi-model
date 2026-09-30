@@ -36,6 +36,10 @@ jobs:
           curl -L --compressed --retry 1 -A "$ua" -c out/cookies.txt -b out/cookies.txt -D out/lexeme.headers -o out/lexeme.html -w 'http_code=%{http_code}\\ncontent_type=%{content_type}\\nurl_effective=%{url_effective}\\nsize_download=%{size_download}\\n' "$lexeme" > out/lexeme.meta
           echo "curl_rc=$?" >> out/lexeme.meta
           set -e
+          set +e
+          curl -L --compressed -A "$ua" -c out/cookies.txt -b out/cookies.txt -D out/download_cn.headers -o out/download_cn.js -w 'http_code=%{http_code}\\ncontent_type=%{content_type}\\nurl_effective=%{url_effective}\\nsize_download=%{size_download}\\n' 'https://bjb.zjlib.cn/develop/static/common/js/download_cn.js' > out/download_cn.meta
+          echo "curl_rc=$?" >> out/download_cn.meta
+          set -e
           {
             echo "landing=$landing"
             echo "lexeme=$lexeme"
@@ -48,7 +52,9 @@ jobs:
             echo "--- lexeme emitted PDF/download fragments ---"
             grep -Eo 'href="[^"]*(PDF|pdf|downloadArticleFile)[^"]*"' out/lexeme.html | head -100 || true
             echo "--- lexeme all route/token clues ---"
-            grep -niE 'pdf|download|attach|1783|csrf|token|file|fulltext|articleID' out/lexeme.html | head -200 || true
+            grep -niE 'pdf|download|attach|1783|csrf|token|file|fulltext|articleID|onclick' out/lexeme.html | head -300 || true
+            echo "--- download_cn.js route clues ---"
+            grep -niE 'pdf|download|attach|article|file|href|location|ajax|post|get|csrf|token' out/download_cn.js | head -400 || true
           } > out/routes.txt
 
           fetch_pdf () {
@@ -118,12 +124,14 @@ jobs:
 
       - name: Summarize probe
         run: |
-          for f in out/landing.meta out/lexeme.meta out/article.meta out/article_alt.meta out/article_cn_pdf.meta out/fullissue.meta; do
+          for f in out/landing.meta out/lexeme.meta out/download_cn.meta out/article.meta out/article_alt.meta out/article_cn_pdf.meta out/fullissue.meta; do
             echo "--- $f ---"
             cat "$f" || true
           done
           echo '--- routes ---'
           cat out/routes.txt || true
+          echo '--- download_cn.js ---'
+          sed -n '1,360p' out/download_cn.js || true
           echo '--- article HTML response preview ---'
           if [ -f out/article.bin ]; then sed -n '1,160p' out/article.bin || true; fi
           echo '--- /CN/PDF/1783 response preview ---'
@@ -140,6 +148,7 @@ jobs:
           path: |
             out/*.meta
             out/*.headers
+            out/download_cn.js
             out/routes.txt
             out/pdfinfo.txt
             out/source.txt
