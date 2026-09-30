@@ -119,14 +119,18 @@ jobs:
           done
 
           preflight_status=$(sed -n 's/.*"status":\([0-9][0-9]*\).*/\1/p' out/show_pdf_cn.txt | head -1)
+          preflight_pdf_status=$(sed -n 's/.*"status":\([0-9][0-9]*\).*/\1/p' out/show_pdf.txt | head -1)
+          preflight_mobile_status=$(sed -n 's/.*"status":\([0-9][0-9]*\).*/\1/p' out/show_pdf_mobile.txt | head -1)
           token_pdf_cn_url=$(sed -n 's/.*"pdfCnUrl":"\([^"]*\)".*/\1/p' out/show_pdf_cn.txt | head -1)
+          token_pdf_url=$(sed -n 's/.*"pdfUrl":"\([^"]*\)".*/\1/p' out/show_pdf.txt | head -1)
+          token_pdf_mobile_url=$(sed -n 's/.*"pdfMobileUrl":"\([^"]*\)".*/\1/p' out/show_pdf_mobile.txt | head -1)
           {
             echo "preflight_pdf_cn_status=$preflight_status"
-            if [ -n "$token_pdf_cn_url" ]; then
-              echo "token_pdf_cn_route_present=true"
-            else
-              echo "token_pdf_cn_route_present=false"
-            fi
+            echo "preflight_pdf_status=$preflight_pdf_status"
+            echo "preflight_pdf_mobile_status=$preflight_mobile_status"
+            [ -n "$token_pdf_cn_url" ] && echo "token_pdf_cn_route_present=true" || echo "token_pdf_cn_route_present=false"
+            [ -n "$token_pdf_url" ] && echo "token_pdf_route_present=true" || echo "token_pdf_route_present=false"
+            [ -n "$token_pdf_mobile_url" ] && echo "token_pdf_mobile_route_present=true" || echo "token_pdf_mobile_route_present=false"
           } > out/token-route.meta
           if [ "$preflight_status" = "1" ] && [ -n "$token_pdf_cn_url" ]; then
             fetch_pdf token_pdf_cn "$token_pdf_cn_url"
@@ -157,7 +161,42 @@ jobs:
             echo "sha256=$(sha256sum out/token_pdf_cn_form.bin 2>/dev/null | awk '{print $1}' || true)" >> out/token_pdf_cn_form.meta
             echo "magic=$(xxd -l 8 -p out/token_pdf_cn_form.bin 2>/dev/null || true)" >> out/token_pdf_cn_form.meta
           else
-            echo "tokenized PDF fetch skipped: preflight status is not 1 or route missing" >> out/token-route.meta
+            echo "tokenized PDF_CN fetch skipped: preflight status is not 1 or route missing" >> out/token-route.meta
+          fi
+
+          # Reproduce the official helper against the exact URL family selected by each attachType.
+          if [ "$preflight_pdf_status" = "1" ] && [ -n "$token_pdf_url" ]; then
+            set +e
+            curl -L --compressed -A "$ua" -e "$lexeme" \
+              -H 'Origin: https://bjb.zjlib.cn' \
+              -H 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8' \
+              -c out/cookies.txt -b out/cookies.txt \
+              --data '' -D out/token_pdf_form.headers -o out/token_pdf_form.bin \
+              -w 'http_code=%{http_code}\ncontent_type=%{content_type}\nurl_effective=%{url_effective}\nsize_download=%{size_download}\n' \
+              "$token_pdf_url" > out/token_pdf_form.meta
+            rc=$?
+            set -e
+            echo "curl_rc=$rc" >> out/token_pdf_form.meta
+            echo "bytes=$(wc -c < out/token_pdf_form.bin 2>/dev/null || echo 0)" >> out/token_pdf_form.meta
+            echo "sha256=$(sha256sum out/token_pdf_form.bin 2>/dev/null | awk '{print $1}' || true)" >> out/token_pdf_form.meta
+            echo "magic=$(xxd -l 8 -p out/token_pdf_form.bin 2>/dev/null || true)" >> out/token_pdf_form.meta
+          fi
+
+          if [ "$preflight_mobile_status" = "1" ] && [ -n "$token_pdf_mobile_url" ]; then
+            set +e
+            curl -L --compressed -A "$ua" -e "$lexeme" \
+              -H 'Origin: https://bjb.zjlib.cn' \
+              -H 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8' \
+              -c out/cookies.txt -b out/cookies.txt \
+              --data '' -D out/token_pdf_mobile_form.headers -o out/token_pdf_mobile_form.bin \
+              -w 'http_code=%{http_code}\ncontent_type=%{content_type}\nurl_effective=%{url_effective}\nsize_download=%{size_download}\n' \
+              "$token_pdf_mobile_url" > out/token_pdf_mobile_form.meta
+            rc=$?
+            set -e
+            echo "curl_rc=$rc" >> out/token_pdf_mobile_form.meta
+            echo "bytes=$(wc -c < out/token_pdf_mobile_form.bin 2>/dev/null || echo 0)" >> out/token_pdf_mobile_form.meta
+            echo "sha256=$(sha256sum out/token_pdf_mobile_form.bin 2>/dev/null | awk '{print $1}' || true)" >> out/token_pdf_mobile_form.meta
+            echo "magic=$(xxd -l 8 -p out/token_pdf_mobile_form.bin 2>/dev/null || true)" >> out/token_pdf_mobile_form.meta
           fi
 
           fetch_pdf article "$article"
@@ -166,7 +205,7 @@ jobs:
           fetch_pdf fullissue "$fullissue"
 
           selected=''
-          for candidate in token_pdf_cn_form token_pdf_cn_post token_pdf_cn article article_alt article_cn_pdf fullissue; do
+          for candidate in token_pdf_form token_pdf_cn_form token_pdf_mobile_form token_pdf_cn_post token_pdf_cn article article_alt article_cn_pdf fullissue; do
             if [ -f "out/${candidate}.bin" ] && head -c 5 "out/${candidate}.bin" | grep -q '%PDF-'; then
               selected="out/${candidate}.bin"
               break
@@ -212,7 +251,7 @@ jobs:
 
       - name: Summarize probe
         run: |
-          for f in out/landing.meta out/lexeme.meta out/download_cn.meta out/token-route.meta out/token_pdf_cn.meta out/token_pdf_cn_post.meta out/token_pdf_cn_form.meta out/article.meta out/article_alt.meta out/article_cn_pdf.meta out/fullissue.meta; do
+          for f in out/landing.meta out/lexeme.meta out/download_cn.meta out/token-route.meta out/token_pdf_form.meta out/token_pdf_cn.meta out/token_pdf_cn_post.meta out/token_pdf_cn_form.meta out/token_pdf_mobile_form.meta out/article.meta out/article_alt.meta out/article_cn_pdf.meta out/fullissue.meta; do
             echo "--- $f ---"
             cat "$f" || true
           done
@@ -230,7 +269,7 @@ jobs:
           echo '--- download_cn.js ---'
           sed -n '1,360p' out/download_cn.js || true
           echo '--- tokenized PDF response diagnostics ---'
-          for stem in token_pdf_cn token_pdf_cn_post token_pdf_cn_form; do
+          for stem in token_pdf_form token_pdf_cn token_pdf_cn_post token_pdf_cn_form token_pdf_mobile_form; do
             body="out/${stem}.bin"
             headers="out/${stem}.headers"
             if [ -f "$headers" ]; then
