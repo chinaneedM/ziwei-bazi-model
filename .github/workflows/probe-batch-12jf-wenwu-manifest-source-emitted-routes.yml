@@ -24,9 +24,9 @@ jobs:
           set -euo pipefail
           python - <<'PY'
           import hashlib, html, json, re
+          import urllib.error, urllib.request
           from pathlib import Path
           from urllib.parse import urljoin, urlparse
-          import requests
 
           UA={"User-Agent":"Mozilla/5.0 (compatible; TianwenHistoricalAudit/1.0; +https://github.com/chinaneedM/ziwei-bazi-model)"}
           TARGET="wwck195109.pdf"
@@ -70,14 +70,12 @@ jobs:
               return anchors,forms
 
           out={}
-          s=requests.Session(); s.headers.update(UA)
           for key,url in ROUTES:
               row={"requested_url":url}
               try:
-                  r=s.get(url,timeout=45,allow_redirects=True)
-                  body=decode_response(r)
+                  status,final_url,ctype,clen,raw,body=get(url)
                   vis=visible_text(body)
-                  anchors,forms=emitted(r.url,body)
+                  anchors,forms=emitted(final_url,body)
                   idx=vis.lower().find(TARGET.lower())
                   context=vis[max(0,idx-500):idx+len(TARGET)+500] if idx>=0 else ""
                   candidate=[]
@@ -86,12 +84,12 @@ jobs:
                       if any(t in hay for t in ("wwck195109",".pdf","download","附件","下载","样张","试看","网盘")):
                           candidate.append(a)
                   row.update({
-                    "status":r.status_code,
-                    "final_url":r.url,
-                    "content_type":r.headers.get("Content-Type"),
-                    "content_length_header":r.headers.get("Content-Length"),
-                    "bytes":len(r.content),
-                    "body_sha256":hashlib.sha256(r.content).hexdigest(),
+                    "status":status,
+                    "final_url":final_url,
+                    "content_type":ctype,
+                    "content_length_header":clen,
+                    "bytes":len(raw),
+                    "body_sha256":hashlib.sha256(raw).hexdigest(),
                     "visible_chars":len(vis),
                     "target_filename_present":idx>=0,
                     "target_size_9_73mb_present":bool(re.search(r"wwck195109\.pdf\s*9\.73\s*MB",vis,re.I)),
@@ -101,11 +99,13 @@ jobs:
                     "form_count":len(forms),
                     "candidate_source_emitted_links":candidate[:100],
                     "forms":forms[:30],
-                    "same_host_candidate_count":sum(1 for a in candidate if urlparse(a["url"]).hostname==urlparse(r.url).hostname),
+                    "same_host_candidate_count":sum(1 for a in candidate if urlparse(a["url"]).hostname==urlparse(final_url).hostname),
                     "direct_pdf_candidate_count":sum(1 for a in candidate if ".pdf" in a["url"].lower()),
                     "purchase_or_payment_literal_present":bool(re.search(r"购买|付款|支付|价格|售价|积分|充值",vis,re.I)),
                     "login_literal_present":bool(re.search(r"登录|登陆|注册",vis,re.I)),
                   })
+              except urllib.error.HTTPError as e:
+                  row.update({"status":e.code,"final_url":e.geturl(),"error":f"HTTPError: {e.code} {e.reason}"})
               except Exception as e:
                   row["error"]=f"{type(e).__name__}: {e}"
               out[key]=row
