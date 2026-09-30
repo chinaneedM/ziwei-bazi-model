@@ -16,175 +16,79 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
-      - name: Calibrate and search NLC Press native public catalog
+      - name: Inspect NLC Press public product-list pager contract
         run: |
           python - <<'PY'
-          import json, re
-          from html.parser import HTMLParser
+          import json, re, html
           from pathlib import Path
-          from urllib.parse import urljoin
           import requests
 
-          BASE="https://www.nlcpress.com/"
-          LIST=urljoin(BASE,"ProductList.aspx")
-          headers={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; first-party public catalog search)"}
-          session=requests.Session(); session.headers.update(headers)
+          URL="https://www.nlcpress.com/ProductList.aspx"
+          r=requests.get(URL,headers={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; public pager probe)"},timeout=30)
+          body=r.text
 
-          class Parser(HTMLParser):
-              def __init__(self):
-                  super().__init__(); self.forms=[]; self.current_form=None; self.current_select=None
-              def handle_starttag(self,tag,attrs):
-                  d=dict(attrs); tag=tag.lower()
-                  if tag=="form":
-                      self.current_form={"attrs":d,"controls":[],"selects":[]}; self.forms.append(self.current_form)
-                  elif self.current_form is not None and tag=="input":
-                      self.current_form["controls"].append({k:v for k,v in d.items() if k in ("name","id","type","value")})
-                  elif self.current_form is not None and tag=="select":
-                      self.current_select={"name":d.get("name"),"id":d.get("id"),"options":[]}; self.current_form["selects"].append(self.current_select)
-                  elif self.current_select is not None and tag=="option":
-                      self.current_select["options"].append({"value":d.get("value",""),"selected":"selected" in d,"text":""})
-              def handle_data(self,data):
-                  if self.current_select is not None and self.current_select["options"]:
-                      self.current_select["options"][-1]["text"] += data
-              def handle_endtag(self,tag):
-                  if tag.lower()=="select": self.current_select=None
-                  elif tag.lower()=="form": self.current_form=None
+          def frag(marker, radius=1800):
+              i=body.find(marker)
+              return body[max(0,i-radius):i+radius] if i>=0 else None
 
-          def parse(html):
-              p=Parser(); p.feed(html); return p
+          # Raw anchors/buttons near the custom pager. Keep the exact source
+          # contract; do not guess hidden postback semantics yet.
+          anchors=[]
+          for m in re.finditer(r'<a\b[^>]*href=["\']([^"\']*)["\'][^>]*>(.*?)</a>',body,re.I|re.S):
+              href=html.unescape(m.group(1))
+              text=re.sub(r'<[^>]+>',' ',m.group(2))
+              text=re.sub(r'\s+',' ',html.unescape(text)).strip()
+              full=m.group(0)
+              if ("PageNavigator1" in full or "PageNavigator1" in href or
+                  text in {"首页","上页","下页","尾页"} or
+                  re.fullmatch(r'\d+',text or "")):
+                  anchors.append({"href":href,"text":text,"html":full[:1200]})
 
-          def hidden_fields(html):
-              fields={}
-              for m in re.finditer(r'<input[^>]+type=["\']hidden["\'][^>]*>',html,re.I):
-                  tag=m.group(0)
-                  nm=re.search(r'name=["\']([^"\']+)["\']',tag,re.I)
-                  val=re.search(r'value=["\']([^"\']*)["\']',tag,re.I)
-                  if nm: fields[nm.group(1)]=val.group(1) if val else ""
-              return fields
+          inputs=[]
+          for m in re.finditer(r'<input\b[^>]*>',body,re.I):
+              tag=m.group(0)
+              if "PageNavigator1" in tag:
+                  attrs={}
+                  for k,v in re.findall(r'(\w+)\s*=\s*["\']([^"\']*)["\']',tag):
+                      attrs[k.lower()]=html.unescape(v)
+                  inputs.append(attrs)
 
-          def product_links(html):
-              return sorted(set(re.findall(r'ProductView\.aspx\?Id=\d+',html,re.I)))
+          labels={}
+          for key in [
+              "PageNavigator1_txt_PageNow","PageNavigator1_txt_PageCount",
+              "PageNavigator1_PageNowLable","PageNavigator1_PageCountLable",
+              "PageNavigator1_Link_PageHome","PageNavigator1_Link_PageUp",
+              "PageNavigator1_Link_PageDown","PageNavigator1_Link_PageEnd",
+              "PageNavigator1_LinkNumbers","PageNavigator1_GoLable"
+          ]:
+              labels[key]=frag(key)
 
-          def textify(html):
-              s=re.sub(r'<script.*?</script>',' ',html,flags=re.I|re.S)
-              s=re.sub(r'<style.*?</style>',' ',s,flags=re.I|re.S)
-              s=re.sub(r'<[^>]+>',' ',s)
-              s=re.sub(r'&nbsp;',' ',s,flags=re.I)
-              return re.sub(r'\s+',' ',s)
-
-          first=session.get(LIST,timeout=30); first.raise_for_status()
-          p=parse(first.text); form=p.forms[0]
-          select_map={x["name"]:x["options"] for x in form["selects"]}
-          types=[o["value"] for o in select_map.get("Left1$BookType",[])]
-          queries=[o["value"] for o in select_map.get("Left1$BookQuery",[])]
-          base_hidden=hidden_fields(first.text)
-
-          def do_search(label,target,bt,bq):
-              data=dict(base_hidden)
-              data.update({
-                  "Left1$SearchKeyword":target,
-                  "Left1$BookType":bt,
-                  "Left1$BookQuery":bq,
-                  "Left1$SearchBtn.x":"1",
-                  "Left1$SearchBtn.y":"1",
-                  "__EVENTTARGET":"",
-                  "__EVENTARGUMENT":"",
-              })
-              r=session.post(LIST,data=data,timeout=30)
-              txt=textify(r.text)
-              links=product_links(r.text)
-              return {
-                  "label":label,"target":target,"book_type":bt,"book_query":bq,
-                  "status":r.status_code,"body_bytes":len(r.content),
-                  "product_links":links,
-                  "has_control_title":"史记十五讲" in txt,
-                  "has_control_isbn":"9787501343614" in txt.replace("-","").replace(" ",""),
-                  "has_target_title":"冀淑英古籍善本十五讲" in txt,
-                  "has_target_isbn":"9787501340637" in txt.replace("-","").replace(" ",""),
-              }
-
-          controls=[
-              ("control_title","史记十五讲"),
-              ("control_isbn","9787501343614"),
-              ("control_isbn_hyphen","978-7-5013-4361-4"),
-          ]
-          control_attempts=[]
-          viable=[]
-          for label,target in controls:
-              for bt in types:
-                  for bq in queries:
-                      row=do_search(label,target,bt,bq)
-                      control_attempts.append(row)
-                      print("CONTROL="+json.dumps(row,ensure_ascii=False))
-                      if ("ProductView.aspx?Id=4939" in row["product_links"] or
-                          row["has_control_title"] or row["has_control_isbn"]):
-                          viable.append({"book_type":bt,"book_query":bq,"control_label":label,"control_target":target})
-          # Deduplicate exact source-emitted viable contracts.
-          vv=[]; seen=set()
-          for x in viable:
-              k=(x["book_type"],x["book_query"])
-              if k not in seen: seen.add(k); vv.append(x)
-          viable=vv
-
-          targets=[
-              ("target_title","冀淑英古籍善本十五讲"),
-              ("target_isbn","9787501340637"),
-              ("target_isbn_hyphen","978-7-5013-4063-7"),
-          ]
-          target_attempts=[]
-          target_candidates=set()
-          for label,target in targets:
-              for v in viable:
-                  row=do_search(label,target,v["book_type"],v["book_query"])
-                  target_attempts.append(row)
-                  print("TARGET="+json.dumps(row,ensure_ascii=False))
-                  if row["has_target_title"] or row["has_target_isbn"]:
-                      target_candidates.update(row["product_links"])
-
-          inspected=[]
-          for rel in sorted(target_candidates):
-              url=urljoin(BASE,rel)
-              r=session.get(url,timeout=30); txt=textify(r.text)
-              hrefs=sorted(set(re.findall(r'href=["\']([^"\']+)["\']',r.text,re.I)))
-              snippets={}
-              for marker in ("冀淑英古籍善本十五讲","978-7-5013-4063-7","第九讲","铁琴铜剑楼藏书的收购入藏","第十讲","第十一讲","涵芬楼藏书","目录"):
-                  pos=txt.find(marker)
-                  if pos>=0: snippets[marker]=txt[max(0,pos-250):pos+1600]
-              inspected.append({
-                  "url":url,"status":r.status_code,"body_bytes":len(r.content),
-                  "exact_title":"冀淑英古籍善本十五讲" in txt,
-                  "isbn_compact":"9787501340637" in txt.replace("-","").replace(" ",""),
-                  "downloadish_hrefs":[h for h in hrefs if re.search(r'down|download|file|attach',h,re.I)][:80],
-                  "snippets":snippets,
-              })
+          # Also extract source-emitted product links with visible text/date
+          products=[]
+          for m in re.finditer(r'href=["\'](ProductView\.aspx\?Id=\d+)["\']',body,re.I):
+              lo=max(0,m.start()-1200); hi=min(len(body),m.end()+2200)
+              snippet=body[lo:hi]
+              txt=re.sub(r'<[^>]+>',' ',snippet)
+              txt=re.sub(r'\s+',' ',html.unescape(txt)).strip()
+              products.append({"href":m.group(1),"context":txt[:2000]})
 
           result={
-              "list_url":LIST,
-              "form_method":form["attrs"].get("method"),
-              "form_action":form["attrs"].get("action"),
-              "selects":select_map,
-              "known_positive_product":"ProductView.aspx?Id=4939",
-              "known_positive_title":"史记十五讲（中国典籍与文化第六辑）",
-              "known_positive_isbn":"978-7-5013-4361-4",
-              "control_attempt_count":len(control_attempts),
-              "control_attempts":control_attempts,
-              "viable_search_contracts":viable,
-              "target_attempt_count":len(target_attempts),
-              "target_attempts":target_attempts,
-              "target_candidate_product_links":sorted(target_candidates),
-              "target_candidate_pages":inspected,
-              "target_negative_authority": bool(viable),
-              "target_zero_result_if_any": bool(viable) and not target_candidates,
+              "url":URL,"status":r.status_code,"body_bytes":len(r.content),
+              "anchors":anchors[:100],
+              "inputs":inputs,
+              "labels":labels,
+              "product_count":len(set(x["href"] for x in products)),
+              "product_sample":products[:30],
               "tls_verified":True,
               "login_used":False,
               "purchase_invoked":False,
               "download_invoked":False,
           }
-          Path("nlcpress-ji15-calibrated-search.json").write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding="utf-8")
-          print("VIABLE="+json.dumps(viable,ensure_ascii=False))
-          print("RESULT="+json.dumps(result,ensure_ascii=False))
+          Path("nlcpress-productlist-pager-contract.json").write_text(
+              json.dumps(result,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(result,ensure_ascii=False,indent=2))
           PY
       - uses: actions/upload-artifact@v4
         with:
-          name: batch-12io-nlcpress-ji15-calibrated-search
-          path: nlcpress-ji15-calibrated-search.json
+          name: batch-12io-nlcpress-productlist-pager-contract
+          path: nlcpress-productlist-pager-contract.json
