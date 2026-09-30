@@ -1,4 +1,5 @@
 name: verify-batch-12in-exact-head
+# Durable exact-head gate; known-positive transport failure must never become target absence evidence.
 
 on:
   push:
@@ -54,7 +55,7 @@ jobs:
           assert e['probe_2']['viable_route_templates']==[]
           assert e['probe_2']['target_candidate_count_probed_after_control']==0
           assert e['security_and_evidence_firewall']['curl_insecure_flag_used'] is False
-          assert e['security_and_evidence_firewall']['target_absence_claim_authorized'] if False else True
+          assert e['access_adjudication']['target_absence_claim_authorized'] is False
           assert e['access_adjudication']['exact_target_cnki_code']=='UNRESOLVED'
           assert e['access_adjudication']['target_absence_claim_authorized'] is False
           assert e['project_consequence']['product_change'] is False
