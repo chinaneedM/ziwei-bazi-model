@@ -1,0 +1,133 @@
+name: research-zjlib-1783-tieqin-direct-pdf
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/research-zjlib-1783-tieqin-direct-pdf.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Probe Zhejiang Library official article PDF
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p out/render
+          landing='https://bjb.zjlib.cn/CN/Y2024/V0/I7/46'
+          lexeme='https://bjb.zjlib.cn/CN/lexeme/showArticleByLexeme.do?articleID=1783'
+          article='https://bjb.zjlib.cn/CN/article/downloadArticleFile.do?attachType=PDF&id=1783'
+          fullissue='https://bjb.zjlib.cn/CN/article/downloadArticleFile.do?attachType=PDF&id=1785'
+          ua='Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/154 Safari/537.36'
+
+          curl -L --compressed --fail --retry 2 -A "$ua" -o out/landing.html "$landing"
+          curl -L --compressed --fail --retry 2 -A "$ua" -o out/lexeme.html "$lexeme"
+          {
+            echo "landing=$landing"
+            echo "lexeme=$lexeme"
+            echo "article_candidate=$article"
+            echo "fullissue_candidate=$fullissue"
+            echo "--- landing emitted PDF/download fragments ---"
+            grep -Eo 'href="[^"]*(PDF|pdf|downloadArticleFile)[^"]*"' out/landing.html | head -100 || true
+            echo "--- lexeme emitted PDF/download fragments ---"
+            grep -Eo 'href="[^"]*(PDF|pdf|downloadArticleFile)[^"]*"' out/lexeme.html | head -100 || true
+          } > out/routes.txt
+
+          fetch_pdf () {
+            local name="$1" url="$2"
+            local headers="out/${name}.headers"
+            local body="out/${name}.bin"
+            local meta="out/${name}.meta"
+            set +e
+            curl -L --compressed -A "$ua" -e "$landing" -D "$headers" -o "$body"               -w 'http_code=%{http_code}\ncontent_type=%{content_type}\nurl_effective=%{url_effective}\nsize_download=%{size_download}\n'               "$url" > "$meta"
+            local rc=$?
+            set -e
+            echo "curl_rc=$rc" >> "$meta"
+            echo "bytes=$(wc -c < "$body" 2>/dev/null || echo 0)" >> "$meta"
+            echo "sha256=$(sha256sum "$body" 2>/dev/null | awk '{print $1}' || true)" >> "$meta"
+            echo "magic=$(xxd -l 8 -p "$body" 2>/dev/null || true)" >> "$meta"
+          }
+
+          fetch_pdf article "$article"
+          fetch_pdf fullissue "$fullissue"
+
+          selected=''
+          if head -c 5 out/article.bin | grep -q '%PDF-'; then
+            selected='out/article.bin'
+          elif head -c 5 out/fullissue.bin | grep -q '%PDF-'; then
+            selected='out/fullissue.bin'
+          fi
+          echo "selected_pdf=$selected" >> out/routes.txt
+
+          if [ -n "$selected" ]; then
+            cp "$selected" /tmp/source.pdf
+            pdfinfo /tmp/source.pdf > out/pdfinfo.txt || true
+            pdftotext -layout /tmp/source.pdf out/source.txt
+            {
+              echo "=== target lines ==="
+              grep -nE '铁琴铜剑楼|鄭振鐸|郑振铎|瞿濟蒼|瞿济苍|瞿鳳起|瞿凤起|瞿旭初|趙萬里|赵万里|北京图书馆馆史资料汇编|446|449|春秋左傳|春秋左传|銅壺漏箭|铜壶漏箭|準齋|准斋|3482|3483|03482|03483|半卖半送|捐献|捐贈|捐赠|1950|1953' out/source.txt || true
+              echo "=== bibliography-ish lines ==="
+              grep -nE '\[[0-9]+\]|参考文献|參考文獻|北京图书馆出版社|冀淑英|年谱|年譜|馆史|館史' out/source.txt || true
+            } > out/target-lines.txt
+
+            pages=$(pdfinfo /tmp/source.pdf | awk '/^Pages:/ {print $2}')
+            if [ -n "$pages" ] && [ "$pages" -le 15 ]; then
+              pdftoppm -png -r 140 /tmp/source.pdf out/render/page >/dev/null 2>&1
+            else
+              # For a whole-issue PDF, article begins at printed p46; render a broad likely window after using text page mapping.
+              python - <<'PY'
+from pathlib import Path
+text=Path('out/source.txt').read_text(encoding='utf-8',errors='replace')
+pages=text.split('\f')
+hits=[]
+for i,p in enumerate(pages,1):
+    if '郑振铎与铁琴铜剑楼藏书捐献' in p or '鄭振鐸與鐵琴銅劍樓藏書捐獻' in p:
+        hits.append(i)
+Path('out/text-page-hits.txt').write_text('\n'.join(map(str,hits))+'\n',encoding='utf-8')
+print('text_page_hits',hits)
+PY
+              first=$(head -1 out/text-page-hits.txt 2>/dev/null || true)
+              if [ -n "$first" ]; then
+                last=$((first+8))
+                if [ "$last" -gt "$pages" ]; then last="$pages"; fi
+                pdftoppm -png -r 140 -f "$first" -l "$last" /tmp/source.pdf out/render/page >/dev/null 2>&1
+              fi
+            fi
+          fi
+
+      - name: Summarize probe
+        run: |
+          echo '--- article.meta ---'
+          cat out/article.meta || true
+          echo '--- fullissue.meta ---'
+          cat out/fullissue.meta || true
+          echo '--- routes ---'
+          cat out/routes.txt || true
+          echo '--- pdfinfo ---'
+          cat out/pdfinfo.txt || true
+          echo '--- target lines ---'
+          cat out/target-lines.txt || true
+
+      - name: Upload research evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: zjlib-1783-tieqin-direct-pdf-probe
+          path: |
+            out/*.meta
+            out/*.headers
+            out/routes.txt
+            out/pdfinfo.txt
+            out/source.txt
+            out/target-lines.txt
+            out/text-page-hits.txt
+            out/render/*.png
+          if-no-files-found: warn
+          retention-days: 30
