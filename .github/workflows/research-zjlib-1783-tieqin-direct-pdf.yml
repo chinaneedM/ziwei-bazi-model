@@ -31,9 +31,9 @@ jobs:
           ua='Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/154 Safari/537.36'
 
           set +e
-          curl -L --compressed --retry 1 -A "$ua" -D out/landing.headers -o out/landing.html -w 'http_code=%{http_code}\\ncontent_type=%{content_type}\\nurl_effective=%{url_effective}\\nsize_download=%{size_download}\\n' "$landing" > out/landing.meta
+          curl -L --compressed --retry 1 -A "$ua" -c out/cookies.txt -b out/cookies.txt -D out/landing.headers -o out/landing.html -w 'http_code=%{http_code}\\ncontent_type=%{content_type}\\nurl_effective=%{url_effective}\\nsize_download=%{size_download}\\n' "$landing" > out/landing.meta
           echo "curl_rc=$?" >> out/landing.meta
-          curl -L --compressed --retry 1 -A "$ua" -D out/lexeme.headers -o out/lexeme.html -w 'http_code=%{http_code}\\ncontent_type=%{content_type}\\nurl_effective=%{url_effective}\\nsize_download=%{size_download}\\n' "$lexeme" > out/lexeme.meta
+          curl -L --compressed --retry 1 -A "$ua" -c out/cookies.txt -b out/cookies.txt -D out/lexeme.headers -o out/lexeme.html -w 'http_code=%{http_code}\\ncontent_type=%{content_type}\\nurl_effective=%{url_effective}\\nsize_download=%{size_download}\\n' "$lexeme" > out/lexeme.meta
           echo "curl_rc=$?" >> out/lexeme.meta
           set -e
           {
@@ -47,6 +47,8 @@ jobs:
             grep -Eo 'href="[^"]*(PDF|pdf|downloadArticleFile)[^"]*"' out/landing.html | head -100 || true
             echo "--- lexeme emitted PDF/download fragments ---"
             grep -Eo 'href="[^"]*(PDF|pdf|downloadArticleFile)[^"]*"' out/lexeme.html | head -100 || true
+            echo "--- lexeme all route/token clues ---"
+            grep -niE 'pdf|download|attach|1783|csrf|token|file|fulltext|articleID' out/lexeme.html | head -200 || true
           } > out/routes.txt
 
           fetch_pdf () {
@@ -122,6 +124,10 @@ jobs:
           done
           echo '--- routes ---'
           cat out/routes.txt || true
+          echo '--- article HTML response preview ---'
+          if [ -f out/article.bin ]; then sed -n '1,160p' out/article.bin || true; fi
+          echo '--- /CN/PDF/1783 response preview ---'
+          if [ -f out/article_cn_pdf.bin ]; then sed -n '1,160p' out/article_cn_pdf.bin || true; fi
           echo '--- pdfinfo ---'
           cat out/pdfinfo.txt || true
           echo '--- target lines ---'
