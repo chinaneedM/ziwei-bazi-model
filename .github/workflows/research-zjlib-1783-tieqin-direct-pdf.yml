@@ -72,6 +72,145 @@ jobs:
             echo "magic=$(xxd -l 8 -p "$body" 2>/dev/null || true)" >> "$meta"
           }
 
+          # Reproduce the site's official JS preflight: POST showArticleFile.do before any download.
+          for attach in PDF_CN PDF PDF_Mobile; do
+            safe=$(echo "$attach" | tr '[:upper:]' '[:lower:]')
+            ts=$(date +%s%3N)
+            set +e
+            curl -L --compressed -A "$ua" -e "$lexeme" -c out/cookies.txt -b out/cookies.txt \
+              -D "out/show_${safe}.headers" -o "out/show_${safe}.txt" \
+              -w 'http_code=%{http_code}\\ncontent_type=%{content_type}\\nurl_effective=%{url_effective}\\nsize_download=%{size_download}\\n' \
+              -X POST \
+              --data-urlencode "attachType=$attach" \
+              --data-urlencode 'id=1783' \
+              --data-urlencode 'json=true' \
+              "https://bjb.zjlib.cn/CN/article/showArticleFile.do?$ts" > "out/show_${safe}.meta"
+            echo "curl_rc=$?" >> "out/show_${safe}.meta"
+            set -e
+          done
+
+          python - <<'PY'
+import json
+from pathlib import Path
+out=[]
+for attach,safe in [('PDF_CN','pdf_cn'),('PDF','pdf'),('PDF_Mobile','pdf_mobile')]:
+    p=Path(f'out/show_{safe}.txt')
+    raw=p.read_text(encoding='utf-8',errors='replace').strip() if p.exists() else ''
+    rec={'attachType':attach,'raw_prefix':raw[:2000]}
+    if raw.startswith('[json]'):
+        try:
+            j=json.loads(raw[6:])
+            rec['json']=j
+            for k in ('pdfCnUrl','pdfUrl','pdfMobileUrl'):
+                v=j.get(k)
+                if v:
+                    out.append((attach,k,v,j.get('status')))
+        except Exception as e:
+            rec['parse_error']=repr(e)
+    Path(f'out/show_{safe}.parsed.json').write_text(json.dumps(rec,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+Path('out/resolved_urls.tsv').write_text(''.join(f'{a}\t{k}\t{s}\t{u}\n' for a,k,u,s in out),encoding='utf-8')
+PY
+
+          # Follow only server-returned status=1 download URLs. Do not invoke any shopping/payment endpoint.
+          idx=0
+          while IFS=
+          selected=''
+          for candidate in resolved_1 resolved_2 resolved_3 article article_alt article_cn_pdf fullissue; do
+            if [ -f "out/${candidate}.bin" ] && head -c 5 "out/${candidate}.bin" | grep -q '%PDF-'; then
+              selected="out/${candidate}.bin"
+              break
+            fi
+          done
+          echo "selected_pdf=$selected" >> out/routes.txt
+
+          if [ -n "$selected" ]; then
+            cp "$selected" /tmp/source.pdf
+            pdfinfo /tmp/source.pdf > out/pdfinfo.txt || true
+            pdftotext -layout /tmp/source.pdf out/source.txt
+            {
+              echo "=== target lines ==="
+              grep -nE '铁琴铜剑楼|鄭振鐸|郑振铎|瞿濟蒼|瞿济苍|瞿鳳起|瞿凤起|瞿旭初|趙萬里|赵万里|北京图书馆馆史资料汇编|446|449|春秋左傳|春秋左传|銅壺漏箭|铜壶漏箭|準齋|准斋|3482|3483|03482|03483|半卖半送|捐献|捐贈|捐赠|1950|1953' out/source.txt || true
+              echo "=== bibliography-ish lines ==="
+              grep -nE '\[[0-9]+\]|参考文献|參考文獻|北京图书馆出版社|冀淑英|年谱|年譜|馆史|館史' out/source.txt || true
+            } > out/target-lines.txt
+
+            pages=$(pdfinfo /tmp/source.pdf | awk '/^Pages:/ {print $2}')
+            if [ -n "$pages" ] && [ "$pages" -le 15 ]; then
+              pdftoppm -png -r 140 /tmp/source.pdf out/render/page >/dev/null 2>&1
+            else
+              # For a whole-issue PDF, article begins at printed p46; render a broad likely window after using text page mapping.
+              python - <<'PY'
+          from pathlib import Path
+          text=Path('out/source.txt').read_text(encoding='utf-8',errors='replace')
+          pages=text.split('\f')
+          hits=[]
+          for i,p in enumerate(pages,1):
+              if '郑振铎与铁琴铜剑楼藏书捐献' in p or '鄭振鐸與鐵琴銅劍樓藏書捐獻' in p:
+                  hits.append(i)
+          Path('out/text-page-hits.txt').write_text('\n'.join(map(str,hits))+'\n',encoding='utf-8')
+          print('text_page_hits',hits)
+          PY
+              first=$(head -1 out/text-page-hits.txt 2>/dev/null || true)
+              if [ -n "$first" ]; then
+                last=$((first+8))
+                if [ "$last" -gt "$pages" ]; then last="$pages"; fi
+                pdftoppm -png -r 140 -f "$first" -l "$last" /tmp/source.pdf out/render/page >/dev/null 2>&1
+              fi
+            fi
+          fi
+
+      - name: Summarize probe
+        run: |
+          for f in out/landing.meta out/lexeme.meta out/download_cn.meta out/show_*.meta out/article.meta out/article_alt.meta out/article_cn_pdf.meta out/fullissue.meta out/resolved_*.meta; do
+            echo "--- $f ---"
+            cat "$f" || true
+          done
+          echo '--- showArticleFile parsed responses ---'
+          for f in out/show_*.parsed.json; do echo "--- $f ---"; cat "$f" || true; done
+          echo '--- resolved URLs ---'
+          cat out/resolved_urls.tsv || true
+          echo '--- routes ---'
+          cat out/routes.txt || true
+          echo '--- download_cn.js ---'
+          sed -n '1,360p' out/download_cn.js || true
+          echo '--- article HTML response preview ---'
+          if [ -f out/article.bin ]; then sed -n '1,160p' out/article.bin || true; fi
+          echo '--- /CN/PDF/1783 response preview ---'
+          if [ -f out/article_cn_pdf.bin ]; then sed -n '1,160p' out/article_cn_pdf.bin || true; fi
+          echo '--- pdfinfo ---'
+          cat out/pdfinfo.txt || true
+          echo '--- target lines ---'
+          cat out/target-lines.txt || true
+
+      - name: Upload research evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: zjlib-1783-tieqin-direct-pdf-probe
+          path: |
+            out/*.meta
+            out/*.headers
+            out/download_cn.js
+            out/show_*.txt
+            out/show_*.parsed.json
+            out/resolved_urls.tsv
+            out/routes.txt
+            out/pdfinfo.txt
+            out/source.txt
+            out/target-lines.txt
+            out/text-page-hits.txt
+            out/render/*.png
+          if-no-files-found: warn
+          retention-days: 30
+\t' read -r attach field status resolved; do
+            [ -n "$resolved" ] || continue
+            if [ "$status" != "1" ]; then
+              continue
+            fi
+            idx=$((idx+1))
+            if [[ "$resolved" == /* ]]; then resolved="https://bjb.zjlib.cn$resolved"; fi
+            fetch_pdf "resolved_${idx}" "$resolved"
+          done < out/resolved_urls.tsv
+
           fetch_pdf article "$article"
           fetch_pdf article_alt "$article_alt"
           fetch_pdf article_cn_pdf "$article_cn_pdf"
