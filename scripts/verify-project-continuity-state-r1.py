@@ -302,6 +302,8 @@ ZIWEI_NLCPRESS_JI15_IO_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-A
 ZIWEI_NLCPRESS_JI15_IO_EVIDENCE = ROOT / "docs/research/ZIWEI-NLCPRESS-JI15-FIRST-PARTY-PRODUCT-IDENTITY-AND-TOC-ATTACHMENT-BOUNDARY-R1.json"
 ZIWEI_NLCPRESS_JI15_IP_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLCPRESS-JI15-FIRST-PARTY-BOOKTEXT-BOUNDED-PAYLOAD-BOUNDARY-IP.md"
 ZIWEI_NLCPRESS_JI15_IP_EVIDENCE = ROOT / "docs/research/ZIWEI-NLCPRESS-JI15-FIRST-PARTY-BOOKTEXT-BOUNDED-PAYLOAD-BOUNDARY-R1.json"
+ZIWEI_JI_JAPAN_OPAC_IQ_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-2009-JAPAN-OPAC-OPENBD-BOOKDATA-PUBLIC-CONTENT-BOUNDARY-IQ.md"
+ZIWEI_JI_JAPAN_OPAC_IQ_EVIDENCE = ROOT / "docs/research/ZIWEI-JI-SHUYING-2009-JAPAN-OPAC-OPENBD-BOOKDATA-PUBLIC-CONTENT-BOUNDARY-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -679,9 +681,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-CNKI-WENW195109-LEGACY-INDEX-TRANSPORT-BOUNDARY-IN",
     "BATCH-12-ZIWEI-NLCPRESS-JI15-FIRST-PARTY-PRODUCT-IDENTITY-AND-TOC-ATTACHMENT-BOUNDARY-IO",
     "BATCH-12-ZIWEI-NLCPRESS-JI15-FIRST-PARTY-BOOKTEXT-BOUNDED-PAYLOAD-BOUNDARY-IP",
+    "BATCH-12-ZIWEI-JI-SHUYING-2009-JAPAN-OPAC-OPENBD-BOOKDATA-PUBLIC-CONTENT-BOUNDARY-IQ",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLCPRESS-JI15-FIRST-PARTY-BOOKTEXT-BOUNDED-PAYLOAD-BOUNDARY-IP.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-2009-JAPAN-OPAC-OPENBD-BOOKDATA-PUBLIC-CONTENT-BOUNDARY-IQ.md"
 
 
 def fail(message: str) -> None:
@@ -10063,6 +10066,64 @@ def main() -> int:
         fail("Batch 12IP missing from completed state")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12IP latest-batch document mismatch")
+
+
+    # Batch 12IQ: Ji Shuying Japan OPAC/openBD/BOOK data public-content boundary.
+    for path in (ZIWEI_JI_JAPAN_OPAC_IQ_BATCH, ZIWEI_JI_JAPAN_OPAC_IQ_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12IQ continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12iq = json.loads(ZIWEI_JI_JAPAN_OPAC_IQ_EVIDENCE.read_text(encoding="utf-8"))
+    bid12iq = "BATCH-12-ZIWEI-JI-SHUYING-2009-JAPAN-OPAC-OPENBD-BOOKDATA-PUBLIC-CONTENT-BOUNDARY-IQ"
+    if batch12iq.get("batch_id") != bid12iq:
+        fail("Batch 12IQ evidence identity mismatch")
+    probe12iq = batch12iq.get("controlling_probe", {})
+    if probe12iq.get("workflow_run_id") != 36719801871:
+        fail("Batch 12IQ workflow binding regressed")
+    if probe12iq.get("static_metadata_artifact", {}).get("artifact_id") != 11097318421:
+        fail("Batch 12IQ static artifact binding regressed")
+    if probe12iq.get("rendered_dom_artifact", {}).get("artifact_id") != 11097417926:
+        fail("Batch 12IQ rendered artifact binding regressed")
+    if probe12iq.get("openbd_control_artifact", {}).get("artifact_id") != 11097921665:
+        fail("Batch 12IQ openBD artifact binding regressed")
+    routes12iq = batch12iq.get("anonymous_opac_routes", {})
+    if routes12iq.get("kyoto_u", {}).get("rendered_openbd_text") != "目次・あらすじの電子情報はありません。":
+        fail("Batch 12IQ Kyoto openBD boundary regressed")
+    if routes12iq.get("kyoto_u", {}).get("rendered_bookplus_text") != "あらすじ・目次の情報はありません。":
+        fail("Batch 12IQ Kyoto BOOK data boundary regressed")
+    if routes12iq.get("ritsumeikan", {}).get("rendered_bookplus_text") != "あらすじ・目次の情報はありません。":
+        fail("Batch 12IQ Ritsumeikan BOOK data boundary regressed")
+    if routes12iq.get("utokyo", {}).get("negative_content_claim_authorized") is not False:
+        fail("Batch 12IQ UTokyo negative-evidence firewall regressed")
+    openbd12iq = batch12iq.get("openbd_public_control", {})
+    if openbd12iq.get("http_status") != 200 or openbd12iq.get("response_bytes") != 6:
+        fail("Batch 12IQ openBD response boundary regressed")
+    if openbd12iq.get("response_sha256") != "1d8fc6ceb1f94c6326d6d5483d258fcb2e179e9869325b245d105c2219bf69fd" or openbd12iq.get("first_record_is_null") is not True:
+        fail("Batch 12IQ openBD null-record identity regressed")
+    adj12iq = batch12iq.get("adjudication", {})
+    if adj12iq.get("physical_book_toc_absence_claim_authorized") is not False or adj12iq.get("bookplus_global_absence_claim_authorized") is not False:
+        fail("Batch 12IQ scope firewall regressed")
+    pag12iq = batch12iq.get("pagination_adjudication", {})
+    if pag12iq.get("exact_chapter_9_page_range") != "UNRESOLVED" or pag12iq.get("direct_chapter_9_text") != "NOT_REVIEWED" or pag12iq.get("exact_chapter_10_11_pagination") != "UNRESOLVED":
+        fail("Batch 12IQ pagination unresolved state regressed")
+    if pag12iq.get("interpolation_to_chapter_9_authorized") is not False:
+        fail("Batch 12IQ anti-interpolation firewall regressed")
+    reg12iq = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    src12iq = next((x for x in reg12iq.get("sources", []) if x.get("source_id") == "EXT-JAPAN-OPAC-OPENBD-JI-SHUYING-2009-BB00252412"), None)
+    if src12iq is None or src12iq.get("batch_12iq", {}).get("openbd_first_record_is_null") is not True:
+        fail("Batch 12IQ registry source missing")
+    acct12iq = batch12iq.get("accounting", {})
+    if acct12iq.get("matrix_rows") != 198 or acct12iq.get("audited_rows") != 166 or acct12iq.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12IQ accounting regressed")
+    try:
+        schema12iq = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12IQ state version is not numeric")
+    if schema12iq < (1, 255, 0):
+        fail("Batch 12IQ state version regressed below 1.255.0")
+    if bid12iq not in audit_state.get("completed_batches", ()):
+        fail("Batch 12IQ missing from completed state")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12IQ latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

@@ -876,3 +876,15 @@ Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NL
 - Product/accounting remains 198 rows / 166 audited / 10 MISSING_FROM_PRODUCT / 17 of 17 provenance defects repaired / zero chart-algorithm defects, reopens or candidate collapses.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLCPRESS-JI15-FIRST-PARTY-BOOKTEXT-BOUNDED-PAYLOAD-BOUNDARY-IP.md`. Research record: `docs/research/ZIWEI-NLCPRESS-JI15-FIRST-PARTY-BOOKTEXT-BOUNDED-PAYLOAD-BOUNDARY-R1.json`.
+
+
+## Progress — Batch 12IQ
+
+- CiNii NCID `BB00252412` closes the exact 2009 / 241p / ISBN `9787501340637` object and source-emits Japanese university-library OPAC routes. This batch uses those routes for content-enhancement inspection, not for holding-count inflation.
+- Kyoto KULINE exact record source-emits both openBD and BOOKデータASP calls. A same-session headless-Chrome render returns `目次・あらすじの電子情報はありません。` for openBD and `あらすじ・目次の情報はありません。` for BOOKデータASP.
+- Ritsumeikan RUNNERS source-emits BOOKデータASP and the rendered block likewise returns `あらすじ・目次の情報はありません。`. Tenri exposes exact bibliographic identity but no observed content-enhancement block; UTokyo currently returns HTTP 202 with an empty body and carries no negative-content authority.
+- Official public openBD GET for ISBN `9787501340637` returns HTTP 200 / 6-byte JSON `[null]`, SHA-256 `1d8fc6ceb1f94c6326d6d5483d258fcb2e179e9869325b245d105c2219bf69fd`.
+- These results close only the tested current public content-enhancement routes. They do not prove the physical book lacks a contents page. Chapter 9 exact page range and direct text, plus Chapter 10/11 exact pagination, remain unresolved; interpolation remains forbidden.
+- Product/accounting remains 198 rows / 166 audited / 10 MISSING_FROM_PRODUCT / 17 of 17 provenance defects repaired / zero chart-algorithm defects, reopens or candidate collapses.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-2009-JAPAN-OPAC-OPENBD-BOOKDATA-PUBLIC-CONTENT-BOUNDARY-IQ.md`. Research record: `docs/research/ZIWEI-JI-SHUYING-2009-JAPAN-OPAC-OPENBD-BOOKDATA-PUBLIC-CONTENT-BOUNDARY-R1.json`.

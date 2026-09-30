@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.254.0",
+  "schema_version": "1.255.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -336,9 +336,10 @@
       "BATCH-12-ZIWEI-JI-SHUYING-2009-PAGINATION-ANCHOR-EXTENSION-IM",
       "BATCH-12-ZIWEI-CNKI-WENW195109-LEGACY-INDEX-TRANSPORT-BOUNDARY-IN",
       "BATCH-12-ZIWEI-NLCPRESS-JI15-FIRST-PARTY-PRODUCT-IDENTITY-AND-TOC-ATTACHMENT-BOUNDARY-IO",
-      "BATCH-12-ZIWEI-NLCPRESS-JI15-FIRST-PARTY-BOOKTEXT-BOUNDED-PAYLOAD-BOUNDARY-IP"
+      "BATCH-12-ZIWEI-NLCPRESS-JI15-FIRST-PARTY-BOOKTEXT-BOUNDED-PAYLOAD-BOUNDARY-IP",
+      "BATCH-12-ZIWEI-JI-SHUYING-2009-JAPAN-OPAC-OPENBD-BOOKDATA-PUBLIC-CONTENT-BOUNDARY-IQ"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLCPRESS-JI15-FIRST-PARTY-BOOKTEXT-BOUNDED-PAYLOAD-BOUNDARY-IP.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-2009-JAPAN-OPAC-OPENBD-BOOKDATA-PUBLIC-CONTENT-BOUNDARY-IQ.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -1505,7 +1506,11 @@
       "Batch 12IP directly invokes National Library of China Press Product 4660's source-emitted public Booktext postback under a metadata-first boundary: HTTP 200 / application/octet-stream / Content-Length 739 / attachment filename 冀淑英古籍善本十五讲.txt.",
       "A 4 KiB-bounded classifier then reads the complete 739-byte object only because it is below the hard limit: SHA-256 c79284ab5f39ed7b8b48e8b1071b008990c583314455c7abf00699cd1fe4d1d3 / GB18030 / 382 normalized chars. Raw text is not logged or saved.",
       "The current Booktext payload contains the target title and 目录 marker but none of the exact Chapter 9/10/11/12/15 titles. It is not usable as full-book text or a page-numbered fifteen-lecture TOC witness; Chapter 9 exact pagination and direct text remain UNRESOLVED / NOT_REVIEWED.",
-      "Highest next gate after 12IP: stop repeating Product 4660 Booktext unless its response contract or payload hash changes; continue lawful direct/page-numbered Chapter 9 or Chapter 10/11 pagination, Zhao 2011 p.197, and authoritative/open recovery of wwck195109.pdf."
+      "Highest next gate after 12IP: stop repeating Product 4660 Booktext unless its response contract or payload hash changes; continue lawful direct/page-numbered Chapter 9 or Chapter 10/11 pagination, Zhao 2011 p.197, and authoritative/open recovery of wwck195109.pdf.",
+      "Batch 12IQ follows CiNii NCID BB00252412 source-emitted Japanese OPAC routes for the exact 2009 / 241p / ISBN 9787501340637 object; the goal is public contents/page evidence rather than additional holding counts.",
+      "Kyoto KULINE source-emits openBD and BOOKデータASP callbacks for the exact ISBN/bibid. Same-session headless Chrome renders 目次・あらすじの電子情報はありません。 for openBD and あらすじ・目次の情報はありません。 for BOOKデータASP; Ritsumeikan BOOKデータASP renders the same no-information result.",
+      "Official openBD GET for ISBN 9787501340637 independently returns HTTP 200 with 6-byte JSON [null], SHA-256 1d8fc6ceb1f94c6326d6d5483d258fcb2e179e9869325b245d105c2219bf69fd. This is current-route evidence only and does not prove the physical book lacks a contents page.",
+      "Highest next gate after 12IQ: stop repeating the tested Japan OPAC/openBD content-enhancement routes unless their rendered state changes; continue lawful page-numbered Chapter 9 or Chapter 10/11 recovery, Zhao 2011 p.197, and authoritative/open recovery of wwck195109.pdf."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10

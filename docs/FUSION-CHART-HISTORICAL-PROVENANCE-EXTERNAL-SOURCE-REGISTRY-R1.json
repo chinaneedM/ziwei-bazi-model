@@ -10589,6 +10589,34 @@
         "raw_text_saved": false,
         "research_artifact": "docs/research/ZIWEI-NLCPRESS-JI15-FIRST-PARTY-BOOKTEXT-BOUNDED-PAYLOAD-BOUNDARY-R1.json"
       }
+    },
+    {
+      "source_id": "EXT-JAPAN-OPAC-OPENBD-JI-SHUYING-2009-BB00252412",
+      "title": "《冀淑英古籍善本十五讲》CiNii NCID BB00252412 与日本 OPAC/openBD 公共内容增强控制",
+      "author": "冀淑英",
+      "historical_period": "2009 publication / current Japanese library public metadata surfaces",
+      "provider": "CiNii Books; Kyoto University KULINE; Ritsumeikan RUNNERS; Tenri University OPAC; openBD",
+      "identifier": "NCID BB00252412 / ISBN 9787501340637 / KULINE bibid BB03342067 / RUNNERS bibid TT41845508",
+      "url": "https://ci.nii.ac.jp/ncid/BB00252412",
+      "source_role": "MODERN_BIBLIOGRAPHIC_AND_PUBLIC_CONTENT_ENHANCEMENT_ROUTE_BOUNDARY_FOR_JI_SHUYING_2009_NOT_DIRECT_CHAPTER_PAGE_AUTHORITY",
+      "quality_notes": "Batch 12IQ follows only CiNii source-emitted OPAC OpenURLs for the exact NCID. Kyoto and Ritsumeikan expose source-emitted BOOKデータASP calls; Kyoto additionally exposes openBD. Headless Chrome starts from the stable OpenURL so the page's own JavaScript runs in-session. Kyoto renders no electronic TOC/abstract from openBD and no abstract/TOC from BOOKデータASP; Ritsumeikan renders no abstract/TOC from BOOKデータASP. The official openBD ISBN GET independently returns HTTP 200 [null]. These are current route-scoped access/content-enhancement boundaries, not proof that the physical book has no contents page and not Chapter 9 page authority.",
+      "batch_12iq": {
+        "workflow_run_id": 36719801871,
+        "static_metadata_artifact_id": 11097318421,
+        "static_metadata_artifact_digest": "sha256:206c1420bbf8f3821c4ed69914a5abbaf4d561d8fef8a221b3cc735574c90eea",
+        "rendered_dom_artifact_id": 11097417926,
+        "rendered_dom_artifact_digest": "sha256:c1e4fa8103b624629833b6218d58244e703552084f3b8108b49b3f0ee43dcd86",
+        "openbd_control_artifact_id": 11097921665,
+        "openbd_control_artifact_digest": "sha256:21dec4bcff517fed583ec08a51808c0eff426bec6ad55e9c9aef48d26c9724f7",
+        "kyoto_openbd_text": "目次・あらすじの電子情報はありません。",
+        "kyoto_bookplus_text": "あらすじ・目次の情報はありません。",
+        "ritsumeikan_bookplus_text": "あらすじ・目次の情報はありません。",
+        "openbd_response_sha256": "1d8fc6ceb1f94c6326d6d5483d258fcb2e179e9869325b245d105c2219bf69fd",
+        "openbd_first_record_is_null": true,
+        "exact_chapter_9_page_range": "UNRESOLVED",
+        "direct_chapter_9_text": "NOT_REVIEWED",
+        "research_artifact": "docs/research/ZIWEI-JI-SHUYING-2009-JAPAN-OPAC-OPENBD-BOOKDATA-PUBLIC-CONTENT-BOUNDARY-R1.json"
+      }
     }
   ],
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md",

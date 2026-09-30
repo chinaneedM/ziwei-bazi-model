@@ -1,0 +1,157 @@
+{
+  "schema": "ZIWEI-JI-SHUYING-2009-JAPAN-OPAC-OPENBD-BOOKDATA-PUBLIC-CONTENT-BOUNDARY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-JI-SHUYING-2009-JAPAN-OPAC-OPENBD-BOOKDATA-PUBLIC-CONTENT-BOUNDARY-IQ",
+  "prior_batch_id": "BATCH-12-ZIWEI-NLCPRESS-JI15-FIRST-PARTY-BOOKTEXT-BOUNDED-PAYLOAD-BOUNDARY-IP",
+  "question": "Can CiNii source-emitted Japanese university-library OPAC records, their public BOOKデータASP/openBD content-enhancement blocks, or openBD itself expose a usable table of contents or Chapter 9/10/11 pagination for the exact 2009 《冀淑英古籍善本十五讲》?",
+  "answer": "No usable contents/page evidence is exposed on the tested current anonymous routes. CiNii NCID BB00252412 identifies the exact 2009 241-page ISBN 9787501340637 object and source-emits OPAC OpenURL routes. Kyoto University, Tenri University and Ritsumeikan return exact anonymous holdings/detail pages; UTokyo currently returns HTTP 202 with an empty body. Kyoto source directly emits both openBD and BOOKデータASP callbacks for the exact ISBN/bibid, while Ritsumeikan emits BOOKデータASP. Headless Chrome launched from the stable source-emitted OpenURL within one browser session executes those callbacks: Kyoto renders '目次・あらすじの電子情報はありません。' in openBD and 'あらすじ・目次の情報はありません。' in BOOKデータASP; Ritsumeikan renders the same BOOKデータASP no-information result. The official public openBD ISBN GET independently returns HTTP 200 with JSON [null] (6 bytes). These are current route-scoped content-enhancement boundaries only and do not prove the physical book lacks a contents page. Chapter 9 exact pagination/direct text and Chapter 10/11 exact pagination remain unresolved.",
+  "target_identity": {
+    "title": "冀淑英古籍善本十五讲",
+    "author": "冀淑英",
+    "illustrator": "李文洁",
+    "isbn_13": "9787501340637",
+    "cinii_ncid": "BB00252412",
+    "pages": "241p",
+    "publication": "国家图书馆出版社, 2009.7"
+  },
+  "controlling_probe": {
+    "commit_sha": "70b5eb7c2124dd5167e4d28de06c5261365fb9b7",
+    "workflow_run_id": 36719801871,
+    "static_metadata_artifact": {
+      "artifact_id": 11097318421,
+      "artifact_digest": "sha256:206c1420bbf8f3821c4ed69914a5abbaf4d561d8fef8a221b3cc735574c90eea"
+    },
+    "rendered_dom_artifact": {
+      "artifact_id": 11097417926,
+      "artifact_digest": "sha256:c1e4fa8103b624629833b6218d58244e703552084f3b8108b49b3f0ee43dcd86"
+    },
+    "openbd_control_artifact": {
+      "artifact_id": 11097921665,
+      "artifact_digest": "sha256:21dec4bcff517fed583ec08a51808c0eff426bec6ad55e9c9aef48d26c9724f7"
+    }
+  },
+  "anonymous_opac_routes": {
+    "kyoto_u": {
+      "source_emitted_openurl": "https://kuline.kulib.kyoto-u.ac.jp/opac/opac_openurl/?ncid=BB00252412",
+      "static_status": 200,
+      "exact_title": true,
+      "exact_isbn": true,
+      "local_bibid": "BB03342067",
+      "source_emitted_openbd_call": "view_openbd('/opac/opac_openbdinfo/','9787501340637','BB03342067',200)",
+      "source_emitted_bookplus_call": "view_bookplus('/opac/opac_bookplusinfo/','9787501340637','BB03342067',200,'0')",
+      "rendered_openbd_text": "目次・あらすじの電子情報はありません。",
+      "rendered_bookplus_text": "あらすじ・目次の情報はありません。",
+      "exact_target_chapter_hits": 0
+    },
+    "tenri_u": {
+      "source_emitted_openurl": "https://tclopac.tenri-u.ac.jp/opac/opac_openurl/?ncid=BB00252412",
+      "static_status": 200,
+      "exact_title": true,
+      "exact_isbn": true,
+      "local_bibid": "1000372839",
+      "toc_or_bookdata_block_observed": false,
+      "exact_target_chapter_hits": 0
+    },
+    "utokyo": {
+      "source_emitted_openurl": "https://opac.dl.itc.u-tokyo.ac.jp/opac/opac_openurl/?ncid=BB00252412",
+      "static_status": 202,
+      "body_bytes": 0,
+      "negative_content_claim_authorized": false
+    },
+    "ritsumeikan": {
+      "source_emitted_openurl": "https://runners.ritsumei.ac.jp/opac/opac_openurl/?ncid=BB00252412",
+      "static_status": 200,
+      "exact_title": true,
+      "exact_isbn": true,
+      "local_bibid": "TT41845508",
+      "source_emitted_bookplus_call": "view_bookplus('/opac/opac_bookplusinfo/','9787501340637','TT41845508',120,'0')",
+      "rendered_bookplus_text": "あらすじ・目次の情報はありません。",
+      "exact_target_chapter_hits": 0
+    }
+  },
+  "openbd_public_control": {
+    "documentation_root": "https://openbd.jp/",
+    "api_url": "https://api.openbd.jp/v1/get?isbn=9787501340637",
+    "http_status": 200,
+    "content_type": "application/json; charset=UTF-8",
+    "response_bytes": 6,
+    "response_sha256": "1d8fc6ceb1f94c6326d6d5483d258fcb2e179e9869325b245d105c2219bf69fd",
+    "json_parsed": true,
+    "record_count": 1,
+    "first_record_is_null": true,
+    "raw_response_saved": false,
+    "raw_response_logged": false,
+    "global_nonexistence_claim_authorized": false
+  },
+  "adjudication": {
+    "kyoto_openbd_current_contents_available": false,
+    "kyoto_bookdata_current_contents_available": false,
+    "ritsumeikan_bookdata_current_contents_available": false,
+    "openbd_current_isbn_record_available": false,
+    "current_public_content_enhancement_routes_resolve_chapter_9": false,
+    "current_public_content_enhancement_routes_resolve_chapter_10_11": false,
+    "physical_book_toc_absence_claim_authorized": false,
+    "bookplus_global_absence_claim_authorized": false,
+    "route_repeat_without_surface_change_authorized": false
+  },
+  "pagination_adjudication": {
+    "exact_chapter_9_title": "铁琴铜剑楼藏书的收购入藏",
+    "exact_chapter_9_page_range": "UNRESOLVED",
+    "direct_chapter_9_text": "NOT_REVIEWED",
+    "exact_chapter_10_11_pagination": "UNRESOLVED",
+    "interpolation_to_chapter_9_authorized": false,
+    "linear_interpolation_authorized": false,
+    "proportional_interpolation_authorized": false,
+    "direct_chapter_9_page_increment": 0,
+    "direct_chapter_9_text_increment": 0
+  },
+  "security_and_evidence_firewall": {
+    "only_cinii_source_emitted_opac_routes_used": true,
+    "stable_openurl_used_for_browser_render": true,
+    "source_page_javascript_executed_normally": true,
+    "private_api_parameter_guessing_used": false,
+    "login_executed": false,
+    "account_action_executed": false,
+    "copy_request_executed": false,
+    "payment_executed": false,
+    "captcha_bypass_attempted": false,
+    "tls_certificate_verification_disabled": false,
+    "raw_opac_html_saved": false,
+    "raw_rendered_dom_saved": false
+  },
+  "transmission_impact": {
+    "status": "NONE",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": [],
+    "reason": "Modern bibliographic/public-content-access route boundary only; no historical lineage relation is established."
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Do not repeat the tested Kyoto/Ritsumeikan BOOKデータASP or Kyoto/openBD routes unless the rendered content changes.",
+    "Continue lawful public/institutional discovery for an actual page-numbered contents page, direct Chapter 9 scan/text, or exact Chapter 10/11 pagination; preserve the anti-interpolation firewall.",
+    "Continue lawful direct/public-preview recovery of 2011 《赵万里文集》第1卷 p.197.",
+    "Continue authoritative/open-object recovery of wwck195109.pdf and bind bytes/hash/pagination before collating 1951 pp.221-233.",
+    "Tokyo/NDL reference or copy requests remain explicit-authorization-gated if public routes remain closed."
+  ],
+  "updated_at": "2026-09-30"
+}
