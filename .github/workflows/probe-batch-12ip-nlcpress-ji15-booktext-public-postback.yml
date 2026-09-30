@@ -16,7 +16,7 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
-      - name: Inspect public Booktext postback response metadata only
+      - name: Classify bounded public Booktext payload without logging text
         run: |
           python - <<'PY'
           import hashlib
@@ -29,7 +29,15 @@ jobs:
 
           URL = "https://www.nlcpress.com/ProductView.aspx?Id=4660"
           TARGET_TITLE = "冀淑英古籍善本十五讲"
-          UA = "Mozilla/5.0 (Tianwen provenance audit; public Booktext metadata-only inspection)"
+          UA = "Mozilla/5.0 (Tianwen provenance audit; bounded public Booktext payload classification)"
+          MAX_BYTES = 4096
+          CHAPTERS = {
+              "ch9": "铁琴铜剑楼藏书的收购入藏",
+              "ch10": "吴梅、朱偰、赵元方的捐赠",
+              "ch11": "涵芬楼藏书",
+              "ch12": "周叔弢先生与北京图书馆的深厚渊源",
+              "ch15": "国家图书馆藏《永乐大典》概述",
+          }
 
           class HiddenInputParser(HTMLParser):
               def __init__(self):
@@ -67,19 +75,22 @@ jobs:
                       keep[canonical] = v
               return keep
 
+          def repair_header_mojibake(value):
+              if value is None:
+                  return None
+              try:
+                  return value.encode("latin1").decode("utf-8")
+              except Exception:
+                  return value
+
           s = requests.Session()
           s.headers.update({"User-Agent": UA})
           g = s.get(URL, timeout=45)
           g.raise_for_status()
-
           visible = re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", g.text)))
           form = hidden_fields(g.text)
-          form.update({
-              "__EVENTTARGET": "Booktext",
-              "__EVENTARGUMENT": "",
-          })
+          form.update({"__EVENTTARGET": "Booktext", "__EVENTARGUMENT": ""})
 
-          # Metadata-only probe: do not consume POST response body and do not follow redirects.
           p = s.post(
               URL,
               data=form,
@@ -88,33 +99,92 @@ jobs:
               allow_redirects=False,
               headers={"Referer": URL, "User-Agent": UA},
           )
+          headers = safe_headers(p.headers)
+          declared_length = None
+          try:
+              declared_length = int(headers.get("Content-Length", ""))
+          except Exception:
+              pass
+
+          body = b""
+          bounded_read_performed = False
+          if declared_length is not None and declared_length <= MAX_BYTES:
+              chunks = []
+              total = 0
+              for chunk in p.iter_content(1024):
+                  if not chunk:
+                      continue
+                  total += len(chunk)
+                  if total > MAX_BYTES:
+                      raise RuntimeError("response exceeded bounded-read limit")
+                  chunks.append(chunk)
+              body = b"".join(chunks)
+              bounded_read_performed = True
+          p.close()
+
+          encoding = None
+          text = ""
+          if bounded_read_performed:
+              for enc in ("utf-8", "gb18030", "gbk"):
+                  try:
+                      text = body.decode(enc)
+                      encoding = enc
+                      break
+                  except UnicodeDecodeError:
+                      continue
+              if encoding is None:
+                  text = body.decode("utf-8", errors="replace")
+                  encoding = "utf-8-replacement"
+
+          normalized = re.sub(r"\s+", " ", text).strip()
+          chapter_matches = {k: (v in normalized) for k, v in CHAPTERS.items()}
+          chapter_positions = {k: (normalized.find(v) if v in normalized else None) for k, v in CHAPTERS.items()}
+          digit_tokens = sorted(set(re.findall(r"(?<!\d)\d{1,4}(?!\d)", normalized)), key=lambda x: (len(x), x))
+          marker_flags = {
+              "has_target_title": TARGET_TITLE in normalized,
+              "has_chapter_word": "第九讲" in normalized or "第9讲" in normalized,
+              "has_catalog_word": "目录" in normalized,
+              "has_error_word": "错误" in normalized or "出错" in normalized,
+              "has_notfound_word": "不存在" in normalized or "未找到" in normalized,
+              "has_empty_word": "暂无" in normalized or "没有" in normalized,
+          }
 
           result = {
               "product_url": URL,
               "get_status": g.status_code,
               "get_body_sha256": hashlib.sha256(g.content).hexdigest(),
               "get_has_target_title": TARGET_TITLE in visible,
-              "get_has_booktext_postback": "__doPostBack('Booktext','')" in g.text,
-              "hidden_field_count": len(form) - 2,
               "post_event_target": "Booktext",
               "post_status": p.status_code,
               "post_reason": p.reason,
-              "post_headers": safe_headers(p.headers),
+              "post_headers": {
+                  **headers,
+                  "Content-Disposition-Repaired": repair_header_mojibake(headers.get("Content-Disposition")),
+              },
               "post_is_redirect": bool(p.is_redirect or p.is_permanent_redirect),
-              "response_body_read": False,
+              "declared_content_length": declared_length,
+              "max_authorized_bytes": MAX_BYTES,
+              "bounded_read_performed": bounded_read_performed,
+              "bytes_read": len(body),
+              "body_sha256": hashlib.sha256(body).hexdigest() if body else None,
+              "decoded_encoding": encoding,
+              "decoded_char_count": len(normalized) if bounded_read_performed else None,
+              "chapter_matches": chapter_matches,
+              "chapter_positions": chapter_positions,
+              "digit_tokens": digit_tokens,
+              "marker_flags": marker_flags,
+              "raw_text_logged": False,
+              "raw_text_saved": False,
               "redirect_followed": False,
-              "download_bytes_read": 0,
               "tls_verified": True,
               "login_used": False,
               "purchase_invoked": False,
               "captcha_bypass_used": False,
               "permission_bypass_used": False,
-              "full_book_text_fetched": False,
+              "full_book_payload_expected_from_size": False if declared_length is not None and declared_length <= MAX_BYTES else None,
           }
 
-          p.close()
-
-          Path("nlcpress-ji15-booktext-postback-metadata.json").write_text(
+          Path("nlcpress-ji15-booktext-bounded-classification.json").write_text(
               json.dumps(result, ensure_ascii=False, indent=2),
               encoding="utf-8",
           )
@@ -122,5 +192,5 @@ jobs:
           PY
       - uses: actions/upload-artifact@v4
         with:
-          name: batch-12ip-nlcpress-ji15-booktext-postback-metadata
-          path: nlcpress-ji15-booktext-postback-metadata.json
+          name: batch-12ip-nlcpress-ji15-booktext-bounded-classification
+          path: nlcpress-ji15-booktext-bounded-classification.json
