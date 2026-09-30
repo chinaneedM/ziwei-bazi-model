@@ -912,3 +912,14 @@ Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZH
 - Product/accounting remains 198 rows / 166 audited / 10 MISSING_FROM_PRODUCT / 17 of 17 provenance defects repaired / zero chart-algorithm defects, reopens or candidate collapses.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NDL-WENWU-CANKAO-1951-H2-DIGITAL-PROVIDER-BOUNDARY-IS.md`. Research record: `docs/research/ZIWEI-NDL-WENWU-CANKAO-1951-H2-DIGITAL-PROVIDER-BOUNDARY-R1.json`.
+
+
+## Progress — Batch 12IT
+
+- Internet Archive Advanced Search returns zero for exact 1951 serial title, exact filename `wwck195109.pdf`, and the exact Zhao Wanli article title.
+- Open Library title/year search, Wikimedia Commons file-namespace search and Chinese Wikisource search also return zero on the tested public routes.
+- Google Books returns HTTP 429 quota exceeded and HathiTrust's tested catalog export returns HTTP 403; neither route is assigned negative evidentiary authority.
+- No open object ID, bytes, hash, page count or scan provenance is recovered for `wwck195109.pdf`; the commercial manifest remains locator-only.
+- Product/accounting remains 198 / 166 / 10 and 17/17 provenance repairs, with zero chart-algorithm defects, reopens or candidate collapses.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENWU-1951-V2N9-OPEN-REPOSITORY-CATALOG-BOUNDARY-IT.md`. Research record: `docs/research/ZIWEI-WENWU-1951-V2N9-OPEN-REPOSITORY-CATALOG-BOUNDARY-R1.json`.

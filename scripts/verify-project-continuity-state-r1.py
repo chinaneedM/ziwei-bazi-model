@@ -308,6 +308,8 @@ ZIWEI_ZHAO_WENJI_IR_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDI
 ZIWEI_ZHAO_WENJI_IR_EVIDENCE = ROOT / "docs/research/ZIWEI-ZHAO-WANLI-WENJI-V1-NLCPRESS-OPENLIBRARY-PUBLIC-PREVIEW-BOUNDARY-R1.json"
 ZIWEI_NDL_WENWU_IS_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NDL-WENWU-CANKAO-1951-H2-DIGITAL-PROVIDER-BOUNDARY-IS.md"
 ZIWEI_NDL_WENWU_IS_EVIDENCE = ROOT / "docs/research/ZIWEI-NDL-WENWU-CANKAO-1951-H2-DIGITAL-PROVIDER-BOUNDARY-R1.json"
+ZIWEI_WENWU_OPEN_IT_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENWU-1951-V2N9-OPEN-REPOSITORY-CATALOG-BOUNDARY-IT.md"
+ZIWEI_WENWU_OPEN_IT_EVIDENCE = ROOT / "docs/research/ZIWEI-WENWU-1951-V2N9-OPEN-REPOSITORY-CATALOG-BOUNDARY-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -688,9 +690,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-JI-SHUYING-2009-JAPAN-OPAC-OPENBD-BOOKDATA-PUBLIC-CONTENT-BOUNDARY-IQ",
     "BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-NLCPRESS-OPENLIBRARY-PUBLIC-PREVIEW-BOUNDARY-IR",
     "BATCH-12-ZIWEI-NDL-WENWU-CANKAO-1951-H2-DIGITAL-PROVIDER-BOUNDARY-IS",
+    "BATCH-12-ZIWEI-WENWU-1951-V2N9-OPEN-REPOSITORY-CATALOG-BOUNDARY-IT",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NDL-WENWU-CANKAO-1951-H2-DIGITAL-PROVIDER-BOUNDARY-IS.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENWU-1951-V2N9-OPEN-REPOSITORY-CATALOG-BOUNDARY-IT.md"
 
 
 def fail(message: str) -> None:
@@ -10255,6 +10258,54 @@ def main() -> int:
         fail("Batch 12IS missing from completed state")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12IS latest-batch document mismatch")
+
+
+    # Batch 12IT: open-repository discovery boundary.
+    for path in (ZIWEI_WENWU_OPEN_IT_BATCH, ZIWEI_WENWU_OPEN_IT_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12IT continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12it = json.loads(ZIWEI_WENWU_OPEN_IT_EVIDENCE.read_text(encoding="utf-8"))
+    bid12it = "BATCH-12-ZIWEI-WENWU-1951-V2N9-OPEN-REPOSITORY-CATALOG-BOUNDARY-IT"
+    if batch12it.get("batch_id") != bid12it:
+        fail("Batch 12IT evidence identity mismatch")
+    probe12it = batch12it.get("controlling_probe", {})
+    if probe12it.get("workflow_run_id") != 36728284207 or probe12it.get("artifact_id") != 11103188636:
+        fail("Batch 12IT probe binding regressed")
+    routes12it = batch12it.get("route_results", {})
+    ia12it = routes12it.get("internet_archive", {})
+    if ia12it.get("exact_serial_title_year", {}).get("num_found") != 0 or ia12it.get("exact_filename", {}).get("num_found") != 0 or ia12it.get("exact_article_title", {}).get("num_found") != 0:
+        fail("Batch 12IT Internet Archive boundary regressed")
+    if routes12it.get("open_library", {}).get("serial_title_year", {}).get("num_found") != 0:
+        fail("Batch 12IT Open Library boundary regressed")
+    if routes12it.get("wikimedia_commons", {}).get("filename_or_serial_search", {}).get("result_count") != 0 or routes12it.get("chinese_wikisource", {}).get("article_or_serial_search", {}).get("result_count") != 0:
+        fail("Batch 12IT Wikimedia boundary regressed")
+    if routes12it.get("google_books", {}).get("status") != 429 or routes12it.get("google_books", {}).get("negative_authority") is not False:
+        fail("Batch 12IT Google Books unresolved firewall regressed")
+    if routes12it.get("hathitrust", {}).get("status") != 403 or routes12it.get("hathitrust", {}).get("negative_authority") is not False:
+        fail("Batch 12IT HathiTrust unresolved firewall regressed")
+    target12it = batch12it.get("target_object_status", {})
+    if target12it.get("bytes_recovered") is not False or target12it.get("lawful_open_access_identity") != "UNRESOLVED" or target12it.get("direct_target_pages_reviewed") is not False:
+        fail("Batch 12IT target-object firewall regressed")
+    scope12it = batch12it.get("scope_firewall", {})
+    if scope12it.get("google_books_negative_claim_authorized") is not False or scope12it.get("hathitrust_negative_claim_authorized") is not False:
+        fail("Batch 12IT unresolved-route negative firewall regressed")
+    reg12it = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    src12it = next((x for x in reg12it.get("sources", []) if x.get("source_id") == "EXT-OPEN-REPOSITORIES-WENWU-1951-V2N9-DISCOVERY-BOUNDARY"), None)
+    if src12it is None or src12it.get("batch_12it", {}).get("wwck195109_pdf_recovered") is not False:
+        fail("Batch 12IT registry binding missing")
+    acct12it = batch12it.get("accounting", {})
+    if acct12it.get("matrix_rows") != 198 or acct12it.get("audited_rows") != 166 or acct12it.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12IT accounting regressed")
+    try:
+        schema12it = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12IT state version is not numeric")
+    if schema12it < (1, 258, 0):
+        fail("Batch 12IT state version regressed below 1.258.0")
+    if bid12it not in audit_state.get("completed_batches", ()):
+        fail("Batch 12IT missing from completed state")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12IT latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")
