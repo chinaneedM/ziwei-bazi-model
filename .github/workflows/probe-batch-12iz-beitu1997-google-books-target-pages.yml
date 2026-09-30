@@ -124,3 +124,89 @@ jobs:
         with:
           name: batch-12iz-beitu1997-google-books-target-pages
           path: beitu1997-google-books-target-pages.json
+
+      - name: Follow source-emitted html_text and alternate-version routes
+        run: |
+          python - <<'PY'
+          import hashlib, html, json, re, time
+          from pathlib import Path
+          from urllib.parse import urljoin, urlparse, parse_qs
+          import requests
+
+          ROUTES={
+            "primary_html_text":"https://books.google.com/books?id=BZ0M0gEACAAJ&hl=zh-CN&output=html_text",
+            "source_emitted_other_version":"https://books.google.com/books?id=RuGEAAAAIAAJ&hl=zh-CN&source=gbs_book_other_versions_r&cad=1"
+          }
+          TARGETS=("铁琴铜剑楼","鐵琴銅劍樓","瞿氏","瞿凤起","赵万里","304种","52种","123种",
+                   "铜壶漏箭制度","准斋心制几漏图式","3482","3483","这些善本入藏本馆","可为全国之冠")
+          UA="Mozilla/5.0 (Tianwen provenance audit; source-emitted Google Books route follow-up)"
+          MAX_BYTES=2*1024*1024
+
+          def visible(raw):
+              raw=re.sub(r'<script\b.*?</script>',' ',raw,flags=re.I|re.S)
+              raw=re.sub(r'<style\b.*?</style>',' ',raw,flags=re.I|re.S)
+              raw=re.sub(r'<[^>]+>',' ',raw)
+              return re.sub(r'\s+',' ',html.unescape(raw)).strip()
+          def contexts(text,term,radius=280,limit=5):
+              out=[];p=0
+              while len(out)<limit:
+                  i=text.find(term,p)
+                  if i<0:break
+                  out.append(text[max(0,i-radius):min(len(text),i+len(term)+radius)])
+                  p=i+len(term)
+              return out
+
+          s=requests.Session()
+          s.headers.update({"User-Agent":UA,"Accept-Language":"zh-CN,zh;q=0.9,en;q=0.7"})
+          out={"routes":{},"security":{"login_used":False,"account_action_used":False,"copy_request_used":False,
+               "payment_used":False,"captcha_bypass_used":False,"tls_verification_disabled":False,
+               "only_source_emitted_routes_followed":True}}
+          for key,url in ROUTES.items():
+              row={"url":url}
+              try:
+                  r=s.get(url,timeout=45,allow_redirects=True,stream=True)
+                  data=bytearray();tr=False
+                  for chunk in r.iter_content(65536):
+                      if not chunk:continue
+                      if len(data)+len(chunk)>MAX_BYTES:
+                          take=MAX_BYTES-len(data)
+                          if take>0:data.extend(chunk[:take])
+                          tr=True;break
+                      data.extend(chunk)
+                  b=bytes(data);raw=b.decode(r.encoding or "utf-8","replace");text=visible(raw)
+                  hrefs=[]
+                  for m in re.finditer(r'href=[\"\']([^\"\']+)[\"\']',raw,re.I):
+                      u=urljoin(r.url,html.unescape(m.group(1)))
+                      if urlparse(u).scheme in ("http","https") and "books.google." in u:hrefs.append(u)
+                  hrefs=list(dict.fromkeys(hrefs))
+                  inbook=[]
+                  for u in hrefs:
+                      p=urlparse(u);q=parse_qs(p.query);qv=(q.get("q") or [""])[0]
+                      if p.path=="/books" and "id" in q and "q" in q and not qv.startswith("editions:"):
+                          inbook.append(u)
+                  pages=[]
+                  for m in re.finditer(r'第\s*(\d{1,4})\s*页',text):
+                      n=int(m.group(1))
+                      if n not in pages:pages.append(n)
+                  row.update({
+                    "status":r.status_code,"final_url":r.url,"bytes_read":len(b),"truncated_at_2mib":tr,
+                    "body_sha256":hashlib.sha256(b).hexdigest(),
+                    "title_present":("北京图书馆馆史资料汇编" in text),
+                    "page_hits":pages[:40],
+                    "target_flags":{t:(t in text) for t in TARGETS},
+                    "target_contexts":{t:contexts(text,t) for t in TARGETS if t in text},
+                    "source_emitted_inbook_q_links":inbook[:20],
+                    "ebook_unavailable_wording":("未提供电子书" in text or "No eBook available" in text),
+                    "raw_body_saved":False,"raw_body_logged":False
+                  })
+              except Exception as e:
+                  row["error"]=f"{type(e).__name__}: {e}"
+              out["routes"][key]=row
+              time.sleep(0.4)
+          Path("beitu1997-google-books-source-emitted-followup.json").write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12iz-beitu1997-google-books-source-emitted-followup
+          path: beitu1997-google-books-source-emitted-followup.json
