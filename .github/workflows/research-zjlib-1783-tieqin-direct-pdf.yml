@@ -25,15 +25,23 @@ jobs:
           landing='https://bjb.zjlib.cn/CN/Y2024/V0/I7/46'
           lexeme='https://bjb.zjlib.cn/CN/lexeme/showArticleByLexeme.do?articleID=1783'
           article='https://bjb.zjlib.cn/CN/article/downloadArticleFile.do?attachType=PDF&id=1783'
+          article_alt='https://bjb.zjlib.cn/CN/article/downloadArticleFile.do?attachType=PDF&articleID=1783'
+          article_cn_pdf='https://bjb.zjlib.cn/CN/PDF/1783'
           fullissue='https://bjb.zjlib.cn/CN/article/downloadArticleFile.do?attachType=PDF&id=1785'
           ua='Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/154 Safari/537.36'
 
-          curl -L --compressed --fail --retry 2 -A "$ua" -o out/landing.html "$landing"
-          curl -L --compressed --fail --retry 2 -A "$ua" -o out/lexeme.html "$lexeme"
+          set +e
+          curl -L --compressed --retry 1 -A "$ua" -D out/landing.headers -o out/landing.html -w 'http_code=%{http_code}\\ncontent_type=%{content_type}\\nurl_effective=%{url_effective}\\nsize_download=%{size_download}\\n' "$landing" > out/landing.meta
+          echo "curl_rc=$?" >> out/landing.meta
+          curl -L --compressed --retry 1 -A "$ua" -D out/lexeme.headers -o out/lexeme.html -w 'http_code=%{http_code}\\ncontent_type=%{content_type}\\nurl_effective=%{url_effective}\\nsize_download=%{size_download}\\n' "$lexeme" > out/lexeme.meta
+          echo "curl_rc=$?" >> out/lexeme.meta
+          set -e
           {
             echo "landing=$landing"
             echo "lexeme=$lexeme"
             echo "article_candidate=$article"
+            echo "article_alt_candidate=$article_alt"
+            echo "article_cn_pdf_candidate=$article_cn_pdf"
             echo "fullissue_candidate=$fullissue"
             echo "--- landing emitted PDF/download fragments ---"
             grep -Eo 'href="[^"]*(PDF|pdf|downloadArticleFile)[^"]*"' out/landing.html | head -100 || true
@@ -57,14 +65,17 @@ jobs:
           }
 
           fetch_pdf article "$article"
+          fetch_pdf article_alt "$article_alt"
+          fetch_pdf article_cn_pdf "$article_cn_pdf"
           fetch_pdf fullissue "$fullissue"
 
           selected=''
-          if head -c 5 out/article.bin | grep -q '%PDF-'; then
-            selected='out/article.bin'
-          elif head -c 5 out/fullissue.bin | grep -q '%PDF-'; then
-            selected='out/fullissue.bin'
-          fi
+          for candidate in article article_alt article_cn_pdf fullissue; do
+            if [ -f "out/${candidate}.bin" ] && head -c 5 "out/${candidate}.bin" | grep -q '%PDF-'; then
+              selected="out/${candidate}.bin"
+              break
+            fi
+          done
           echo "selected_pdf=$selected" >> out/routes.txt
 
           if [ -n "$selected" ]; then
@@ -105,10 +116,10 @@ jobs:
 
       - name: Summarize probe
         run: |
-          echo '--- article.meta ---'
-          cat out/article.meta || true
-          echo '--- fullissue.meta ---'
-          cat out/fullissue.meta || true
+          for f in out/landing.meta out/lexeme.meta out/article.meta out/article_alt.meta out/article_cn_pdf.meta out/fullissue.meta; do
+            echo "--- $f ---"
+            cat "$f" || true
+          done
           echo '--- routes ---'
           cat out/routes.txt || true
           echo '--- pdfinfo ---'
