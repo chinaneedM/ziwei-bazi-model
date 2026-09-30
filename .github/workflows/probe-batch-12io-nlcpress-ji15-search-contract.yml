@@ -1,0 +1,85 @@
+name: probe-batch-12io-nlcpress-ji15-search-contract
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12io-nlcpress-ji15-search-contract.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inspect NLC Press public product-list search contract
+        run: |
+          python - <<'PY'
+          import json, re, html
+          from html.parser import HTMLParser
+          from pathlib import Path
+          import requests
+
+          URL="https://www.nlcpress.com/ProductList.aspx"
+          headers={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; first-party public catalog probe)"}
+          r=requests.get(URL,headers=headers,timeout=30)
+          body=r.text
+
+          class FormParser(HTMLParser):
+              def __init__(self):
+                  super().__init__()
+                  self.forms=[]
+                  self.current=None
+              def handle_starttag(self,tag,attrs):
+                  d=dict(attrs)
+                  if tag.lower()=="form":
+                      self.current={"attrs":d,"controls":[]}
+                      self.forms.append(self.current)
+                  elif self.current is not None and tag.lower() in ("input","select","button","textarea"):
+                      keep={k:v for k,v in d.items() if k in ("name","id","type","value","action","method","class","placeholder")}
+                      keep["tag"]=tag.lower()
+                      self.current["controls"].append(keep)
+              def handle_endtag(self,tag):
+                  if tag.lower()=="form":
+                      self.current=None
+
+          p=FormParser()
+          p.feed(body)
+
+          # Extract product-view links and pager/postback clues from the public HTML.
+          product_links=sorted(set(re.findall(r'ProductView\.aspx\?Id=\d+',body,re.I)))
+          postbacks=sorted(set(re.findall(r"__doPostBack\('([^']*)','([^']*)'\)",body)))
+          names=sorted(set(re.findall(r'(?:name|id)="([^"]+)"',body,re.I)))
+          target_markers={
+              "title_present":"冀淑英古籍善本十五讲" in body,
+              "isbn_compact_present":"9787501340637" in body,
+              "isbn_hyphen_present":"978-7-5013-4063-7" in body,
+          }
+          result={
+              "url":URL,
+              "http_status":r.status_code,
+              "final_url":r.url,
+              "content_type":r.headers.get("content-type"),
+              "body_bytes":len(r.content),
+              "forms":p.forms,
+              "control_names":names,
+              "product_link_sample":product_links[:30],
+              "product_link_count":len(product_links),
+              "postback_sample":postbacks[:80],
+              "target_markers":target_markers,
+              "tls_verified":True,
+              "login_used":False,
+              "download_invoked":False,
+          }
+          Path("nlcpress-productlist-search-contract.json").write_text(
+              json.dumps(result,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(result,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12io-nlcpress-ji15-search-contract
+          path: nlcpress-productlist-search-contract.json
