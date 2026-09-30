@@ -314,6 +314,8 @@ ZIWEI_ZHAO_JAPAN_IU_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDI
 ZIWEI_ZHAO_JAPAN_IU_EVIDENCE = ROOT / "docs/research/ZIWEI-ZHAO-WANLI-WENJI-V1-JAPAN-OPAC-PUBLIC-CONTENT-BOUNDARY-R1.json"
 ZIWEI_ZHAO_CATALOG_IV_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-INSTITUTIONAL-CATALOG-HTML-BOUNDARY-IV.md"
 ZIWEI_ZHAO_CATALOG_IV_EVIDENCE = ROOT / "docs/research/ZIWEI-ZHAO-WANLI-WENJI-V1-INSTITUTIONAL-CATALOG-HTML-BOUNDARY-R1.json"
+ZIWEI_JI_STANFORD_IW_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-2009-STANFORD-EXACT-RECORD-ACCESS-BOUNDARY-IW.md"
+ZIWEI_JI_STANFORD_IW_EVIDENCE = ROOT / "docs/research/ZIWEI-JI-SHUYING-2009-STANFORD-EXACT-RECORD-ACCESS-BOUNDARY-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -697,9 +699,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-WENWU-1951-V2N9-OPEN-REPOSITORY-CATALOG-BOUNDARY-IT",
     "BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-JAPAN-OPAC-PUBLIC-CONTENT-BOUNDARY-IU",
     "BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-INSTITUTIONAL-CATALOG-HTML-BOUNDARY-IV",
+    "BATCH-12-ZIWEI-JI-SHUYING-2009-STANFORD-EXACT-RECORD-ACCESS-BOUNDARY-IW",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-INSTITUTIONAL-CATALOG-HTML-BOUNDARY-IV.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-2009-STANFORD-EXACT-RECORD-ACCESS-BOUNDARY-IW.md"
 
 
 def fail(message: str) -> None:
@@ -10398,6 +10401,46 @@ def main() -> int:
         fail("Batch 12IV missing from completed state")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12IV latest-batch document mismatch")
+
+    # Batch 12IW: Stanford exact-record access boundary.
+    for path in (ZIWEI_JI_STANFORD_IW_BATCH, ZIWEI_JI_STANFORD_IW_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12IW continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12iw = json.loads(ZIWEI_JI_STANFORD_IW_EVIDENCE.read_text(encoding="utf-8"))
+    bid12iw = "BATCH-12-ZIWEI-JI-SHUYING-2009-STANFORD-EXACT-RECORD-ACCESS-BOUNDARY-IW"
+    if batch12iw.get("batch_id") != bid12iw:
+        fail("Batch 12IW evidence identity mismatch")
+    probe12iw = batch12iw.get("controlling_probe", {})
+    if probe12iw.get("workflow_run_id") != 36737151825:
+        fail("Batch 12IW probe binding regressed")
+    static12iw = batch12iw.get("static_route", {})
+    if static12iw.get("status") != 200 or static12iw.get("source_emitted_export_candidate_count") != 0:
+        fail("Batch 12IW static-shell boundary regressed")
+    rendered12iw = batch12iw.get("rendered_route", {})
+    if rendered12iw.get("visible_response_class") != "REQUEST_REJECTED" or rendered12iw.get("source_emitted_href_count") != 0:
+        fail("Batch 12IW rendered rejection boundary regressed")
+    if batch12iw.get("discovery_locator_firewall", {}).get("promoted_to_direct_first_party_record_content") is not False:
+        fail("Batch 12IW search-index promotion firewall regressed")
+    target12iw = batch12iw.get("target_status", {})
+    if target12iw.get("chapter_9_exact_page_range") != "UNRESOLVED" or target12iw.get("interpolation_from_existing_anchors_authorized") is not False:
+        fail("Batch 12IW chapter-pagination firewall regressed")
+    reg12iw = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    src12iw = next((x for x in reg12iw.get("sources", []) if x.get("source_id") == "EXT-JI-SHUYING-2009-STANFORD-8440171-ACCESS-BOUNDARY"), None)
+    if src12iw is None or src12iw.get("batch_12iw", {}).get("direct_first_party_record_content_recovered") is not False:
+        fail("Batch 12IW registry binding missing")
+    acct12iw = batch12iw.get("accounting", {})
+    if acct12iw.get("matrix_rows") != 198 or acct12iw.get("audited_rows") != 166 or acct12iw.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12IW accounting regressed")
+    try:
+        schema12iw = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12IW state version is not numeric")
+    if schema12iw < (1, 261, 0):
+        fail("Batch 12IW state version regressed below 1.261.0")
+    if bid12iw not in audit_state.get("completed_batches", ()):
+        fail("Batch 12IW missing from completed state")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12IW latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

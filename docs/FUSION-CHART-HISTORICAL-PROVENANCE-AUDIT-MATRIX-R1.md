@@ -945,3 +945,13 @@ Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZH
 - Direct 2011 p.197 remains NOT_REVIEWED. Product/accounting remains 198 / 166 / 10 and 17/17 provenance repairs, with zero chart-algorithm defects, reopens or candidate collapses.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-INSTITUTIONAL-CATALOG-HTML-BOUNDARY-IV.md`. Research record: `docs/research/ZIWEI-ZHAO-WANLI-WENJI-V1-INSTITUTIONAL-CATALOG-HTML-BOUNDARY-R1.json`.
+
+
+## Progress — Batch 12IW
+
+- Stanford SearchWorks record locator `8440171` was probed only through anonymous normal access. Static GET returns HTTP 200 but a 5101-byte frontend shell; no target title/ISBN/page-count field or source-emitted export route is present in that runner response.
+- Headless Chrome renders a 336-byte `Request Rejected` page rather than the bibliographic record, with zero source-emitted links. This is an execution-environment access boundary, not evidence that Stanford's underlying record lacks contents or pagination.
+- Public search indexing remains discovery-locator scope only and is not promoted to direct Stanford first-party record content. No Chapter 9 or Chapter 10/11 page inference is authorized.
+- Chapter 9 exact page range remains UNRESOLVED / direct text NOT_REVIEWED; accounting remains 198 / 166 / 10 and 17/17 provenance repairs, with zero chart-algorithm defects, reopens or candidate collapses.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-2009-STANFORD-EXACT-RECORD-ACCESS-BOUNDARY-IW.md`. Research record: `docs/research/ZIWEI-JI-SHUYING-2009-STANFORD-EXACT-RECORD-ACCESS-BOUNDARY-R1.json`.

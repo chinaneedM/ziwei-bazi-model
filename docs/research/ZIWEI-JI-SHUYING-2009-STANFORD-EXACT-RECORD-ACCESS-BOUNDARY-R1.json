@@ -1,0 +1,110 @@
+{
+  "schema": "ZIWEI-JI-SHUYING-2009-STANFORD-EXACT-RECORD-ACCESS-BOUNDARY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-JI-SHUYING-2009-STANFORD-EXACT-RECORD-ACCESS-BOUNDARY-IW",
+  "prior_batch_id": "BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-INSTITUTIONAL-CATALOG-HTML-BOUNDARY-IV",
+  "question": "Can Stanford SearchWorks exact record 8440171 expose page-numbered contents or source-emitted export metadata for the 2009 Ji Shuying volume under anonymous normal access?",
+  "answer": "No usable first-party record content was recovered in the current GitHub runner. Static GET returns HTTP 200 but only a 5101-byte frontend shell, with no target title/ISBN/page count and no source-emitted MARC/RIS/citation/export candidate. Headless Chrome reaches a 336-byte Stanford 'Request Rejected' DOM rather than the bibliographic record. This is an execution-environment access boundary only. Public search indexing can serve as a locator for record 8440171, but is not promoted to direct Stanford record content. Chapter 9 page range and Chapter 10/11 pagination remain unresolved.",
+  "target": {
+    "title": "冀淑英古籍善本十五讲",
+    "isbn_13": "9787501340637",
+    "edition": "国家图书馆出版社 2009",
+    "chapter_9": "铁琴铜剑楼藏书的收购入藏",
+    "stanford_record_id": "8440171",
+    "url": "https://searchworks.stanford.edu/view/8440171"
+  },
+  "controlling_probe": {
+    "final_commit_sha": "550b40b00008b94caa1e3b213c17f5a85f17fc74",
+    "workflow_run_id": 36737151825,
+    "workflow_job_id": 109961739855,
+    "static_artifact": {
+      "artifact_id": 11107378330,
+      "digest": "sha256:9f1a960a008fe774300e527cda769d3cd5c94d1bfbac45e432cb94fa64b2d643"
+    },
+    "rendered_artifact": {
+      "artifact_id": 11108240128,
+      "digest": "sha256:c4db51da277a05267695b70c30b5bde9cdc73ad614533028fa27dcf94f9b535d"
+    }
+  },
+  "static_route": {
+    "status": 200,
+    "bytes_read": 5101,
+    "body_sha256": "1edc8025a708c24dd3ee4ff800b250784c565e1fa47a1d1b78233b54905323c3",
+    "target_title_present": false,
+    "isbn_present": false,
+    "page_count_marker_present": false,
+    "chapter_9_or_10_11_term_present": false,
+    "source_emitted_href_count": 1,
+    "source_emitted_export_candidate_count": 0,
+    "adjudication": "FRONTEND_SHELL_ONLY_NO_NEGATIVE_BIBLIOGRAPHIC_AUTHORITY"
+  },
+  "rendered_route": {
+    "chrome_available": true,
+    "returncode": 0,
+    "dom_bytes": 336,
+    "dom_sha256": "0510e1f4e37ae5c9432affeda5c59b75dd6be61c26beaee40f85a7ce2c0ca0ee",
+    "visible_char_count": 221,
+    "visible_response_class": "REQUEST_REJECTED",
+    "target_title_present": false,
+    "isbn_present": false,
+    "chapter_9_or_10_11_term_present": false,
+    "source_emitted_href_count": 0,
+    "source_emitted_export_candidate_count": 0,
+    "adjudication": "CURRENT_RUNNER_HEADLESS_ACCESS_REJECTION_ONLY"
+  },
+  "discovery_locator_firewall": {
+    "public_search_index_record_locator": "8440171",
+    "search_index_reports_title_and_241p": true,
+    "promoted_to_direct_first_party_record_content": false,
+    "page_range_inference_authorized": false
+  },
+  "target_status": {
+    "chapter_9_exact_page_range": "UNRESOLVED",
+    "chapter_9_direct_text": "NOT_REVIEWED",
+    "chapter_10_11_exact_pagination": "UNRESOLVED",
+    "interpolation_from_existing_anchors_authorized": false
+  },
+  "security": {
+    "login_used": false,
+    "account_action_used": false,
+    "copy_request_used": false,
+    "payment_used": false,
+    "captcha_bypass_used": false,
+    "tls_verification_disabled": false,
+    "access_rejection_bypass_used": false,
+    "guessed_export_endpoint_used": false
+  },
+  "transmission_impact": {
+    "status": "NONE",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": []
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Do not repeat the current Stanford static/headless runner route unless its response or source-emitted link surface changes.",
+    "Recover page-numbered Chapter 9 contents/direct pages or an authoritative Chapter 10/11 start-page citation.",
+    "Continue lawful direct/public 2011 Zhao Wanli Wenji volume-1 p.197 discovery.",
+    "Continue authoritative/open page-level recovery of the 1951 issue-9 target."
+  ],
+  "updated_at": "2026-09-30"
+}

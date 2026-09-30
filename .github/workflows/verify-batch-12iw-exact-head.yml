@@ -1,0 +1,79 @@
+name: verify-batch-12iw-exact-head
+# Exact-head gate: Stanford Request Rejected is an access boundary, never contents absence.
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/verify-batch-12iw-exact-head.yml
+      - docs/research/ZIWEI-JI-SHUYING-2009-STANFORD-EXACT-RECORD-ACCESS-BOUNDARY-R1.json
+      - docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-2009-STANFORD-EXACT-RECORD-ACCESS-BOUNDARY-IW.md
+      - docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json
+      - docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.md
+      - docs/PROJECT-CURRENT-STATE-R1.json
+      - scripts/verify-project-continuity-state-r1.py
+      - .github/workflows/probe-batch-12iw-ji15-stanford-record-source-emitted-content.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  statuses: write
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Publish pending IW status
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.repos.createCommitStatus({
+              owner: context.repo.owner, repo: context.repo.repo, sha: context.sha,
+              state: 'pending', context: 'tianwen/batch-12iw-exact-head',
+              description: 'Batch 12IW Stanford boundary verification running'
+            })
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify Batch 12IW exact head
+        run: |
+          set -euo pipefail
+          python scripts/verify-tianwen-transmission-genealogy-r1.py
+          python scripts/verify-project-continuity-state-r1.py
+          python scripts/verify-fusion-chart-historical-provenance-audit-r1.py
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          e=json.loads(Path('docs/research/ZIWEI-JI-SHUYING-2009-STANFORD-EXACT-RECORD-ACCESS-BOUNDARY-R1.json').read_text(encoding='utf-8'))
+          assert e['batch_id']=='BATCH-12-ZIWEI-JI-SHUYING-2009-STANFORD-EXACT-RECORD-ACCESS-BOUNDARY-IW'
+          assert e['static_route']['status']==200
+          assert e['static_route']['source_emitted_export_candidate_count']==0
+          assert e['rendered_route']['visible_response_class']=='REQUEST_REJECTED'
+          assert e['rendered_route']['source_emitted_href_count']==0
+          assert e['discovery_locator_firewall']['promoted_to_direct_first_party_record_content'] is False
+          assert e['target_status']['chapter_9_exact_page_range']=='UNRESOLVED'
+          assert e['target_status']['interpolation_from_existing_anchors_authorized'] is False
+          assert e['project_consequence']['product_change'] is False
+          PY
+      - name: Publish success IW status
+        if: success()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.repos.createCommitStatus({
+              owner: context.repo.owner, repo: context.repo.repo, sha: context.sha,
+              state: 'success', context: 'tianwen/batch-12iw-exact-head',
+              description: 'Batch 12IW exact-head verification passed'
+            })
+      - name: Publish failure IW status
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.repos.createCommitStatus({
+              owner: context.repo.owner, repo: context.repo.repo, sha: context.sha,
+              state: 'failure', context: 'tianwen/batch-12iw-exact-head',
+              description: 'Batch 12IW exact-head verification failed'
+            })

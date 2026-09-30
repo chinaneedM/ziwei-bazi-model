@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.260.0",
+  "schema_version": "1.261.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -342,9 +342,10 @@
       "BATCH-12-ZIWEI-NDL-WENWU-CANKAO-1951-H2-DIGITAL-PROVIDER-BOUNDARY-IS",
       "BATCH-12-ZIWEI-WENWU-1951-V2N9-OPEN-REPOSITORY-CATALOG-BOUNDARY-IT",
       "BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-JAPAN-OPAC-PUBLIC-CONTENT-BOUNDARY-IU",
-      "BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-INSTITUTIONAL-CATALOG-HTML-BOUNDARY-IV"
+      "BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-INSTITUTIONAL-CATALOG-HTML-BOUNDARY-IV",
+      "BATCH-12-ZIWEI-JI-SHUYING-2009-STANFORD-EXACT-RECORD-ACCESS-BOUNDARY-IW"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-INSTITUTIONAL-CATALOG-HTML-BOUNDARY-IV.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-2009-STANFORD-EXACT-RECORD-ACCESS-BOUNDARY-IW.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -1535,7 +1536,11 @@
       "Batch 12IV opens the non-API Google Books ISBN HTML route after prior API 429: the page directly binds 《趙万里文集》 and ISBN 9787501346653 but explicitly says no ebook is provided and exposes no p.197 or target quotation term.",
       "The same Google Books aggregation surface displays 第3卷 / 526页 against publisher/Open Library/CiNii institutional volume-1 identity. This is quarantined as an external aggregation metadata conflict and cannot overwrite the controlling volume identity; provenance-defect accounting remains unchanged.",
       "HathiTrust 403, WorldCat 429/403, LOC exact ISBN/LCCN zero web-search results, Stanford nonbinding search shell and Princeton challenge are route-scoped access/discovery boundaries only.",
-      "Direct 2011 p.197 remains NOT_REVIEWED. Highest next gate after 12IV: pivot to newly discovered lawful page-level routes, authoritative/open wwck195109.pdf recovery, and direct Ji Shuying Chapter 9 / Chapter 10-11 pagination rather than repeating the now-closed catalog surfaces."
+      "Direct 2011 p.197 remains NOT_REVIEWED. Highest next gate after 12IV: pivot to newly discovered lawful page-level routes, authoritative/open wwck195109.pdf recovery, and direct Ji Shuying Chapter 9 / Chapter 10-11 pagination rather than repeating the now-closed catalog surfaces.",
+      "Batch 12IW tests Stanford SearchWorks record locator 8440171 without guessing endpoints: static GET returns only a frontend shell and emits no usable MARC/export candidate.",
+      "Headless Chrome for the same Stanford URL reaches a 336-byte Request Rejected page with zero source-emitted links. This is a current runner access boundary only, not negative evidence about the underlying record's contents or pagination.",
+      "Public search-index title/241p display remains locator scope and is not promoted to direct Stanford first-party metadata; Chapter 9 page range and Chapter 10/11 exact pagination remain UNRESOLVED, with interpolation forbidden.",
+      "Highest next gate after 12IW: stop repeating Stanford under the current access state; prioritize a page-numbered Chapter 9 TOC/direct scan or authoritative Chapter 10/11 start-page citation, while continuing Zhao 2011 p.197 and 1951 issue-9 page-level recovery."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10
