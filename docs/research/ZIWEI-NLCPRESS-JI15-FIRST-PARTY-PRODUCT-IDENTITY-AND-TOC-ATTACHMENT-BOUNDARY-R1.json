@@ -1,0 +1,191 @@
+{
+  "schema": "ZIWEI-NLCPRESS-JI15-FIRST-PARTY-PRODUCT-IDENTITY-AND-TOC-ATTACHMENT-BOUNDARY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-NLCPRESS-JI15-FIRST-PARTY-PRODUCT-IDENTITY-AND-TOC-ATTACHMENT-BOUNDARY-IO",
+  "prior_batch_id": "BATCH-12-ZIWEI-CNKI-WENW195109-LEGACY-INDEX-TRANSPORT-BOUNDARY-IN",
+  "question": "Can the exact 2009 《冀淑英古籍善本十五讲》 be recovered from the publisher's own current public catalog, and does the publisher expose a usable table-of-contents attachment that resolves Chapter 9 pagination?",
+  "answer": "Yes for exact first-party product identity, no for Chapter 9 pagination. The National Library of China Press ProductList pager was calibrated from its own ASP.NET postback contract, narrowing the 2009-07 window to page 361. That page source-emits ProductView.aspx?Id=4660 for 《冀淑英古籍善本十五讲》. Product 4660 returns HTTP 200 and directly binds the title, 冀淑英著 / 李文洁插图, ISBN 978-7-5013-4063-7, publication date 2009-07-29, edition B1 and print date 2009-07-01. The page's related-download area renders a Booktext postback plus an anchor id CatalogPrecisFile labelled 目录附件下载, but the reviewed HTML gives that catalog anchor no href, no matching script assignment and no matching hidden attachment field. The publisher's public Rid=2 目录及部分内容页 resource list currently has exactly one unrelated record and does not list this book. Therefore the publisher identity is first-party closed, while the product-specific TOC object, Chapter 9 exact page range and direct Chapter 9 text remain unresolved/not reviewed. No interpolation, login, purchase, full-book TXT download, guessed product id, or access bypass is authorized.",
+  "official_product_discovery": {
+    "provider": "国家图书馆出版社",
+    "product_list_url": "https://www.nlcpress.com/ProductList.aspx",
+    "calibrated_page_count": 600,
+    "target_list_page": 361,
+    "source_emitted_product_href": "ProductView.aspx?Id=4660",
+    "product_id": 4660,
+    "target_title": "冀淑英古籍善本十五讲",
+    "target_author": "冀淑英",
+    "id_guessing_used": false,
+    "pager_calibration": {
+      "commit_sha": "cedb9bfa0fd0a62b441e942238bc29ff10daefa5",
+      "workflow_run_id": 36710797712,
+      "job_id": 109871833996,
+      "artifact_id": 11093818228,
+      "artifact_digest": "sha256:99db1ef995f1eae2b07d27aee12e4523ab927eefbd5ed5bac31eb945bd771685",
+      "event_target": "PageNavigator1$LinkButton_Go",
+      "page_input": "PageNavigator1$txt_PageGo",
+      "exact_jump_samples": [
+        2,
+        100,
+        200,
+        300,
+        400,
+        500,
+        600
+      ]
+    },
+    "target_page_scan": {
+      "commit_sha": "8a8d38f467936914288f1b61bd16facff3892a77",
+      "workflow_run_id": 36711559988,
+      "job_id": 109874324811,
+      "artifact_id": 11094505753,
+      "artifact_digest": "sha256:15cdebddf1d8c812a76b4148abd36346fd5148dabe798b3425fba0f053baa1a8",
+      "page_361_has_target_title": true,
+      "page_361_has_target_author": true
+    }
+  },
+  "first_party_product_identity": {
+    "product_url": "https://www.nlcpress.com/ProductView.aspx?Id=4660",
+    "product_id": 4660,
+    "http_status": 200,
+    "title": "冀淑英古籍善本十五讲",
+    "responsibility_statement": "冀淑英著 李文洁插图",
+    "author": "冀淑英",
+    "illustrator": "李文洁",
+    "isbn_display": "978-7-5013-4063-7",
+    "isbn_13": "9787501340637",
+    "publication_date": "2009-07-29",
+    "edition": "B1",
+    "print_date": "2009-07-01",
+    "print_run": "Y1",
+    "price_cny": 48,
+    "clc": "G256.22",
+    "intro_mentions_national_library_lectures": true,
+    "intro_states_fifteen_lectures": true,
+    "intro_mentions_tieqin_tongjianlou": true,
+    "chapter_9_direct_page_text_exposed": false,
+    "recovery_probe": {
+      "commit_sha": "67a26ed55b9fa304d63b6f3433b2ce7f229e9a7c",
+      "workflow_run_id": 36711763098,
+      "job_id": 109874992289,
+      "artifact_id": 11094123701,
+      "artifact_digest": "sha256:9dfaffec27f9b696413cd0dbdbb501a7c4aebef9d0fcaf710918c9ba774716d3"
+    }
+  },
+  "related_download_template_boundary": {
+    "product_url": "https://www.nlcpress.com/ProductView.aspx?Id=4660",
+    "literal_booktext_anchor": {
+      "id": "Booktext",
+      "label": "图书文件下载（TXT）",
+      "href": "javascript:__doPostBack('Booktext','')"
+    },
+    "literal_catalog_anchor": {
+      "id": "CatalogPrecisFile",
+      "label": "目录附件下载",
+      "href": null
+    },
+    "catalog_anchor_has_href": false,
+    "catalog_anchor_matching_script_assignment": false,
+    "catalog_anchor_matching_hidden_attachment_field": false,
+    "product_specific_catalog_attachment_url": "UNRESOLVED",
+    "product_specific_catalog_attachment_object_existence": "UNRESOLVED",
+    "catalog_attachment_bytes_recovered": false,
+    "full_book_txt_postback_invoked": false,
+    "catalog_binding_probe": {
+      "commit_sha": "4bf5845589848efb0304643669e82192c91085bf",
+      "workflow_run_id": 36712225843,
+      "job_id": 109876501914,
+      "artifact_id": 11094289344,
+      "artifact_digest": "sha256:446c1ffad7f09d94e4b27537cc1c338be795cdcbeb0e18cb00c0e103221b2171"
+    }
+  },
+  "public_resource_center_crosscheck": {
+    "url": "https://www.nlcpress.com/DownLoadList.aspx?Rid=2",
+    "category": "目录及部分内容页",
+    "http_status": 200,
+    "page_count": 1,
+    "listed_record_count": 1,
+    "sole_listed_title": "《中国图书馆馆史》（全四册）综合索引",
+    "sole_listed_href": "DownloadView.aspx?RId=87",
+    "target_title_listed": false,
+    "target_author_listed": false,
+    "target_isbn_listed": false,
+    "target_attachment_absence_claim_authorized": false,
+    "route_specific_nonlisting_only": true,
+    "download_invoked": false,
+    "probe": {
+      "commit_sha": "1271c6220d639078fe3a5b5f19a21dab99e65c47",
+      "workflow_run_id": 36712336482,
+      "job_id": 109876861971,
+      "artifact_id": 11093734767,
+      "artifact_digest": "sha256:ded131eb297aec7a9783312d7724143e10ac2d9b472a8c54e046973feb43f45b"
+    }
+  },
+  "pagination_adjudication": {
+    "exact_chapter_9_title": "铁琴铜剑楼藏书的收购入藏",
+    "exact_chapter_9_page_range": "UNRESOLVED",
+    "direct_chapter_9_text": "NOT_REVIEWED",
+    "exact_chapter_10_11_pagination": "UNRESOLVED",
+    "interpolation_to_chapter_9_authorized": false,
+    "linear_interpolation_authorized": false,
+    "proportional_interpolation_authorized": false,
+    "direct_publisher_product_identity_increment": 1,
+    "direct_chapter_9_page_increment": 0,
+    "direct_chapter_9_text_increment": 0
+  },
+  "security_and_evidence_firewall": {
+    "source_emitted_product_id_is_first_party_identity": true,
+    "generic_related_download_label_is_not_product_specific_attachment_proof": true,
+    "no_href_catalog_anchor_is_not_attachment_url": true,
+    "rid2_nonlisting_does_not_prove_attachment_absence_elsewhere": true,
+    "full_book_txt_followed": false,
+    "product_id_guessed": false,
+    "tls_certificate_verification_disabled": false,
+    "login_executed": false,
+    "purchase_invoked": false,
+    "paid_endpoint_invoked": false,
+    "captcha_bypass_attempted": false,
+    "download_invoked": false
+  },
+  "target_object_firewall": {
+    "quoted_1951_member": "宋刻《春秋左传注疏》",
+    "fid070_physical_research_adjudication": "元刻元印十行本",
+    "same_object_collapse_authorized": false,
+    "exact_fid070_donation_batch": "UNRESOLVED",
+    "exact_fid070_donation_date": "UNRESOLVED",
+    "exact_3368_to_3288_causal_mechanism": "UNRESOLVED"
+  },
+  "transmission_impact": {
+    "status": "NONE",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": [],
+    "reason": "First-party modern publisher bibliographic/product-access control only; no historical lineage relation is established."
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Do not repeat ProductView 4660 CatalogPrecisFile or the current Rid=2 route merely because the literal label exists; retry only if the publisher source emits an actual attachment route/object or the public resource list changes.",
+    "Continue lawful page-numbered contents/direct-scan recovery for Chapter 9 and exact Chapter 10/11 pagination; preserve the anti-interpolation firewall.",
+    "Continue lawful direct/public-preview recovery of 2011 《赵万里文集》第1卷 p.197.",
+    "Continue authoritative/open-object recovery of wwck195109.pdf and bind bytes/hash/pagination before collating 1951 pp.221-233."
+  ],
+  "updated_at": "2026-09-30"
+}

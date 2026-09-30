@@ -298,6 +298,8 @@ ZIWEI_JI_PAGINATION_IM_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-A
 ZIWEI_JI_PAGINATION_IM_EVIDENCE = ROOT / "docs/research/ZIWEI-JI-SHUYING-2009-PAGINATION-ANCHOR-EXTENSION-R1.json"
 ZIWEI_CNKI_IN_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNKI-WENW195109-LEGACY-INDEX-TRANSPORT-BOUNDARY-IN.md"
 ZIWEI_CNKI_IN_EVIDENCE = ROOT / "docs/research/ZIWEI-CNKI-WENW195109-LEGACY-INDEX-TRANSPORT-BOUNDARY-R1.json"
+ZIWEI_NLCPRESS_JI15_IO_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLCPRESS-JI15-FIRST-PARTY-PRODUCT-IDENTITY-AND-TOC-ATTACHMENT-BOUNDARY-IO.md"
+ZIWEI_NLCPRESS_JI15_IO_EVIDENCE = ROOT / "docs/research/ZIWEI-NLCPRESS-JI15-FIRST-PARTY-PRODUCT-IDENTITY-AND-TOC-ATTACHMENT-BOUNDARY-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -675,7 +677,7 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-CNKI-WENW195109-LEGACY-INDEX-TRANSPORT-BOUNDARY-IN",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNKI-WENW195109-LEGACY-INDEX-TRANSPORT-BOUNDARY-IN.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLCPRESS-JI15-FIRST-PARTY-PRODUCT-IDENTITY-AND-TOC-ATTACHMENT-BOUNDARY-IO.md"
 
 
 def fail(message: str) -> None:
@@ -9944,6 +9946,65 @@ def main() -> int:
         fail("Batch 12IN missing from completed state")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12IN latest-batch document mismatch")
+
+    # Batch 12IO: National Library of China Press first-party Ji15 product identity and TOC-attachment boundary.
+    for path in (ZIWEI_NLCPRESS_JI15_IO_BATCH, ZIWEI_NLCPRESS_JI15_IO_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12IO continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12io = json.loads(ZIWEI_NLCPRESS_JI15_IO_EVIDENCE.read_text(encoding="utf-8"))
+    bid12io = "BATCH-12-ZIWEI-NLCPRESS-JI15-FIRST-PARTY-PRODUCT-IDENTITY-AND-TOC-ATTACHMENT-BOUNDARY-IO"
+    if batch12io.get("batch_id") != bid12io:
+        fail("Batch 12IO evidence identity mismatch")
+    discovery12io = batch12io.get("official_product_discovery", {})
+    if discovery12io.get("target_list_page") != 361 or discovery12io.get("source_emitted_product_href") != "ProductView.aspx?Id=4660" or discovery12io.get("product_id") != 4660:
+        fail("Batch 12IO source-emitted product discovery regressed")
+    if discovery12io.get("id_guessing_used") is not False:
+        fail("Batch 12IO product-id source firewall regressed")
+    ident12io = batch12io.get("first_party_product_identity", {})
+    if ident12io.get("product_id") != 4660 or ident12io.get("isbn_13") != "9787501340637" or ident12io.get("publication_date") != "2009-07-29":
+        fail("Batch 12IO first-party product identity regressed")
+    recovery12io = ident12io.get("recovery_probe", {})
+    if recovery12io.get("workflow_run_id") != 36711763098 or recovery12io.get("artifact_id") != 11094123701:
+        fail("Batch 12IO product recovery binding regressed")
+    attach12io = batch12io.get("related_download_template_boundary", {})
+    if attach12io.get("literal_catalog_anchor", {}).get("href") is not None:
+        fail("Batch 12IO catalog no-href boundary regressed")
+    if attach12io.get("catalog_anchor_matching_script_assignment") is not False or attach12io.get("catalog_anchor_matching_hidden_attachment_field") is not False:
+        fail("Batch 12IO catalog binding boundary regressed")
+    if attach12io.get("product_specific_catalog_attachment_url") != "UNRESOLVED" or attach12io.get("full_book_txt_postback_invoked") is not False:
+        fail("Batch 12IO attachment/TXT firewall regressed")
+    bindprobe12io = attach12io.get("catalog_binding_probe", {})
+    if bindprobe12io.get("workflow_run_id") != 36712225843 or bindprobe12io.get("artifact_id") != 11094289344:
+        fail("Batch 12IO catalog-binding probe identity regressed")
+    rid12io = batch12io.get("public_resource_center_crosscheck", {})
+    if rid12io.get("page_count") != 1 or rid12io.get("listed_record_count") != 1 or rid12io.get("sole_listed_title") != "《中国图书馆馆史》（全四册）综合索引":
+        fail("Batch 12IO Rid=2 control surface regressed")
+    if rid12io.get("target_title_listed") is not False or rid12io.get("target_attachment_absence_claim_authorized") is not False:
+        fail("Batch 12IO Rid=2 negative-evidence firewall regressed")
+    if rid12io.get("probe", {}).get("workflow_run_id") != 36712336482 or rid12io.get("probe", {}).get("artifact_id") != 11093734767:
+        fail("Batch 12IO Rid=2 probe binding regressed")
+    pag12io = batch12io.get("pagination_adjudication", {})
+    if pag12io.get("exact_chapter_9_page_range") != "UNRESOLVED" or pag12io.get("direct_chapter_9_text") != "NOT_REVIEWED":
+        fail("Batch 12IO Chapter-9 unresolved state regressed")
+    if pag12io.get("interpolation_to_chapter_9_authorized") is not False or pag12io.get("linear_interpolation_authorized") is not False or pag12io.get("proportional_interpolation_authorized") is not False:
+        fail("Batch 12IO anti-interpolation firewall regressed")
+    reg12io = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    src12io = next((x for x in reg12io.get("sources", []) if x.get("source_id") == "EXT-NLCPRESS-JI-SHUYING-2009-PRODUCT4660"), None)
+    if src12io is None or src12io.get("source_role") != "FIRST_PARTY_PUBLISHER_PRODUCT_IDENTITY_AND_RELATED_DOWNLOAD_TEMPLATE_BOUNDARY_FOR_JI_SHUYING_2009":
+        fail("Batch 12IO registry source missing")
+    acct12io = batch12io.get("accounting", {})
+    if acct12io.get("matrix_rows") != 198 or acct12io.get("audited_rows") != 166 or acct12io.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12IO matrix accounting regressed")
+    try:
+        schema12io = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12IO state version is not numeric")
+    if schema12io < (1, 253, 0):
+        fail("Batch 12IO state version regressed below 1.253.0")
+    if bid12io not in audit_state.get("completed_batches", ()):
+        fail("Batch 12IO missing from completed state")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12IO latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

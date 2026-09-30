@@ -854,3 +854,14 @@ Batch document: docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-
 - Product/accounting remains 198 / 166 / 10 and 17/17 provenance repairs, with zero chart-algorithm defects, reopens or candidate collapses.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNKI-WENW195109-LEGACY-INDEX-TRANSPORT-BOUNDARY-IN.md`. Research record: `docs/research/ZIWEI-CNKI-WENW195109-LEGACY-INDEX-TRANSPORT-BOUNDARY-R1.json`.
+
+## Progress — Batch 12IO
+
+- National Library of China Press first-party `ProductList.aspx` paging was calibrated using the source-emitted ASP.NET postback contract. The exact July-2009 window resolves to list page 361, which directly emits `ProductView.aspx?Id=4660` for 《冀淑英古籍善本十五讲》; no product-id guessing was used.
+- Product 4660 directly closes 冀淑英著 / 李文洁插图, ISBN `978-7-5013-4063-7`, publication date 2009-07-29, edition B1 and print date 2009-07-01. This is a first-party publisher identity upgrade, not direct Chapter-9 page evidence.
+- The product-page `CatalogPrecisFile` “目录附件下载” anchor has no `href`, no matching script assignment and no matching hidden attachment field on the reviewed HTML. The `Booktext` TXT postback was not invoked.
+- The publisher's current public Rid=2 “目录及部分内容页” list contains exactly one unrelated item, 《中国图书馆馆史》（全四册）综合索引. Target nonlisting is route-scoped only and does not authorize a no-attachment-ever inference.
+- Chapter 9 《铁琴铜剑楼藏书的收购入藏》 exact page range remains `UNRESOLVED`; direct Chapter-9 text remains `NOT_REVIEWED`. Linear/proportional interpolation remains forbidden.
+- Product/accounting remains 198 rows / 166 audited / 10 MISSING_FROM_PRODUCT / 17 of 17 provenance defects repaired / zero chart-algorithm defects, reopens or candidate collapses.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLCPRESS-JI15-FIRST-PARTY-PRODUCT-IDENTITY-AND-TOC-ATTACHMENT-BOUNDARY-IO.md`. Research record: `docs/research/ZIWEI-NLCPRESS-JI15-FIRST-PARTY-PRODUCT-IDENTITY-AND-TOC-ATTACHMENT-BOUNDARY-R1.json`.
