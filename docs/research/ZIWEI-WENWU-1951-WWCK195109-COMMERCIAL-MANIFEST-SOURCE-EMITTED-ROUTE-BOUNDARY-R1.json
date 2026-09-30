@@ -1,0 +1,128 @@
+{
+  "schema": "ZIWEI-WENWU-1951-WWCK195109-COMMERCIAL-MANIFEST-SOURCE-EMITTED-ROUTE-BOUNDARY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-WENWU-1951-WWCK195109-COMMERCIAL-MANIFEST-SOURCE-EMITTED-ROUTE-BOUNDARY-JF",
+  "prior_batch_id": "BATCH-12-ZIWEI-RMRB-OFFICIAL-ARCHIVE-PUBLIC-SEARCH-EXECUTION-BOUNDARY-JE",
+  "question": "Does the public 51古书网 manifest, or the independently indexed xy980 route, source-emit a lawful anonymous PDF/sample/download object for 《文物参考资料》1951年第9期 / wwck195109.pdf that can upgrade the project from filename/size locator to direct page evidence?",
+  "answer": "No public object is recovered. The hardened anonymous GET probe closes the current 51古书网页面 itself: HTTP 200, 48,390 response bytes, exact wwck195109.pdf and 9.73 MB manifest display present, but only two page anchors overall and zero candidate PDF/download/sample/attachment/net-disk links; zero direct-PDF candidates are source-emitted. The second xy980 discovery route cannot be adjudicated from the runner because the connection is refused, so it remains an unresolved search-index lead rather than an independent object witness. No candidate link was followed, no purchase/login/payment route was used, and the 1951 Zhao Wanli pp.221–233 remain NOT_REVIEWED.",
+  "target": {
+    "serial": "文物参考资料",
+    "year": 1951,
+    "issue": 9,
+    "filename": "wwck195109.pdf",
+    "manifest_display_size": "9.73 MB",
+    "target_article": "永乐大典展览的意义——一九五一年八月北京图书馆举办",
+    "target_pages": "221–233"
+  },
+  "reproducible_probe": {
+    "workflow": ".github/workflows/probe-batch-12jf-wenwu-manifest-source-emitted-routes.yml",
+    "exact_head": "60c25fd12848eef3bd1757b1dbc2961e78a322a3",
+    "workflow_run_id": 36774331720,
+    "artifact_id": 11125625596,
+    "artifact_name": "batch-12jf-wenwu-manifest-source-emitted-routes",
+    "artifact_digest": "sha256:2f2fcfb3976b2198ac36bf86cff46bd7c434e947191d4e6d5ac5b2409a405dd3",
+    "note": "Earlier runs 36774050887 and 36774221096 are non-controlling probe-script failures/empty evidence and are not historical evidence."
+  },
+  "source_routes": {
+    "51gushu": {
+      "provider": "51古书网",
+      "url": "https://www.51gushu.com/um006465s.html",
+      "http_status": 200,
+      "final_url": "https://www.51gushu.com/um006465s.html",
+      "content_type": "text/html; charset=UTF-8",
+      "response_bytes": 48390,
+      "response_sha256": "959db6931f9f51cce7f1349abd08829a4cfa261144d2076c4292f6ed5d9e82c0",
+      "visible_chars": 27250,
+      "target_filename_present": true,
+      "target_size_9_73mb_present": true,
+      "target_context_sha256": "980e97cc4b91176e4befb810a80096cdcae0b659b2fa46562cbbb56fde08e666",
+      "total_anchor_count": 2,
+      "form_count": 0,
+      "candidate_source_emitted_links": [],
+      "same_host_candidate_count": 0,
+      "direct_pdf_candidate_count": 0,
+      "purchase_or_payment_literal_present": false,
+      "login_literal_present": false,
+      "source_role": "PUBLIC_COMMERCIAL_MANIFEST_LOCATOR_ONLY"
+    },
+    "xy980": {
+      "provider_display": "史料文献馆 / xy980",
+      "url": "https://xy980.com/e/action/ShowInfo.php?classid=1&id=157",
+      "discovery_layer": "PUBLIC_SEARCH_INDEX_LEAD",
+      "runner_result": "URLError: <urlopen error [Errno 111] Connection refused>",
+      "direct_source_http_status": "UNRESOLVED",
+      "direct_source_reviewed": false,
+      "target_manifest_directly_verified": false,
+      "independent_object_identity_established": false,
+      "source_role": "UNRESOLVED_DISCOVERY_LEAD_ONLY"
+    }
+  },
+  "adjudication": {
+    "51gushu_exact_filename_size_manifest": "CLOSED_AT_PUBLIC_HTML_MANIFEST_LEVEL",
+    "51gushu_source_emitted_public_pdf_link_observed": false,
+    "51gushu_source_emitted_public_download_or_sample_link_observed": false,
+    "xy980_direct_route": "UNRESOLVED_CONNECTION_REFUSED",
+    "xy980_independent_object_witness_authorized": false,
+    "wwck195109_open_object_identifier": "UNRESOLVED",
+    "wwck195109_public_bytes_recovered": false,
+    "wwck195109_sha256": "UNRESOLVED",
+    "wwck195109_page_count": "UNRESOLVED",
+    "wwck195109_scan_provenance": "UNRESOLVED",
+    "wwck195109_lawful_open_access_identity": "UNRESOLVED",
+    "direct_1951_zhao_pp221_233": "NOT_REVIEWED",
+    "global_nonexistence_claim_authorized": false
+  },
+  "scope_firewall": {
+    "filename_size_match_is_not_page_text": true,
+    "commercial_manifest_is_not_scan_provenance": true,
+    "absence_of_source_emitted_links_on_one_page_is_not_global_absence": true,
+    "search_index_snippet_is_not_direct_source_review": true,
+    "connection_refused_is_not_negative_evidence": true,
+    "no_2011_p197_inference_from_1951_manifest": true,
+    "no_target_item_transaction_inference": true
+  },
+  "security": {
+    "login_used": false,
+    "account_action_used": false,
+    "payment_used": false,
+    "captcha_bypass_used": false,
+    "candidate_download_link_followed": false,
+    "fulltext_download_invoked": false,
+    "purchase_link_followed": false,
+    "tls_verification_disabled": false
+  },
+  "transmission_impact": {
+    "status": "NONE",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": [],
+    "reason": "Access/discovery boundary only; no historical text bytes or object-identity bridge recovered."
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Continue lawful direct page-level recovery of 2011 《赵万里文集》第1卷 p.197 as the highest-priority gate.",
+    "Continue institutional/open-object discovery for 1951 《文物参考资料》第9期 pp.221–233 or an equivalent provenance-bound scan; do not repeat the 51gushu page unless it starts source-emitting a new object/link.",
+    "Continue direct pp.446–449 recovery for the 1997 Beijing Library history compilation.",
+    "Revisit xy980 only through a normal public route if it becomes reachable; do not infer an independent object from search indexing alone."
+  ],
+  "updated_at": "2026-10-01"
+}

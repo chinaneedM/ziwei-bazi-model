@@ -332,6 +332,8 @@ ZIWEI_ZHENG_YONGLE_JD_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AU
 ZIWEI_ZHENG_YONGLE_JD_EVIDENCE = ROOT / "docs/research/ZIWEI-ZHENG-YONGLE-1951-0813-0831-PUBLICATION-DATE-CONFLICT-R1.json"
 ZIWEI_RMRB_JE_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-RMRB-OFFICIAL-ARCHIVE-PUBLIC-SEARCH-EXECUTION-BOUNDARY-JE.md"
 ZIWEI_RMRB_JE_EVIDENCE = ROOT / "docs/research/ZIWEI-RMRB-OFFICIAL-ARCHIVE-PUBLIC-SEARCH-EXECUTION-BOUNDARY-R1.json"
+ZIWEI_WENWU_MANIFEST_JF_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENWU-1951-WWCK195109-COMMERCIAL-MANIFEST-SOURCE-EMITTED-ROUTE-BOUNDARY-JF.md"
+ZIWEI_WENWU_MANIFEST_JF_EVIDENCE = ROOT / "docs/research/ZIWEI-WENWU-1951-WWCK195109-COMMERCIAL-MANIFEST-SOURCE-EMITTED-ROUTE-BOUNDARY-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -722,9 +724,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-WENWU-1951-CNBKSY-PUBLIC-SEARCH-CONTRACT-ACCESS-BOUNDARY-JC",
     "BATCH-12-ZIWEI-ZHENG-YONGLE-1951-0813-0831-PUBLICATION-DATE-CONFLICT-JD",
     "BATCH-12-ZIWEI-RMRB-OFFICIAL-ARCHIVE-PUBLIC-SEARCH-EXECUTION-BOUNDARY-JE",
+    "BATCH-12-ZIWEI-WENWU-1951-WWCK195109-COMMERCIAL-MANIFEST-SOURCE-EMITTED-ROUTE-BOUNDARY-JF",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-RMRB-OFFICIAL-ARCHIVE-PUBLIC-SEARCH-EXECUTION-BOUNDARY-JE.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENWU-1951-WWCK195109-COMMERCIAL-MANIFEST-SOURCE-EMITTED-ROUTE-BOUNDARY-JF.md"
 
 
 def fail(message: str) -> None:
@@ -10872,6 +10875,62 @@ def main() -> int:
         fail("Batch 12JE missing from completed state")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12JE latest-batch document mismatch")
+
+    # Batch 12JF: hardened commercial manifest source-emitted route boundary.
+    for path in (ZIWEI_WENWU_MANIFEST_JF_BATCH, ZIWEI_WENWU_MANIFEST_JF_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12JF continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12jf = json.loads(ZIWEI_WENWU_MANIFEST_JF_EVIDENCE.read_text(encoding="utf-8"))
+    bid12jf = "BATCH-12-ZIWEI-WENWU-1951-WWCK195109-COMMERCIAL-MANIFEST-SOURCE-EMITTED-ROUTE-BOUNDARY-JF"
+    if batch12jf.get("batch_id") != bid12jf:
+        fail("Batch 12JF evidence identity mismatch")
+    rp12jf = batch12jf.get("reproducible_probe", {})
+    if rp12jf.get("workflow_run_id") != 36774331720 or rp12jf.get("artifact_id") != 11125625596:
+        fail("Batch 12JF probe run/artifact binding regressed")
+    if rp12jf.get("artifact_digest") != "sha256:2f2fcfb3976b2198ac36bf86cff46bd7c434e947191d4e6d5ac5b2409a405dd3":
+        fail("Batch 12JF artifact digest regressed")
+    routes12jf = batch12jf.get("source_routes", {})
+    g12jf = routes12jf.get("51gushu", {})
+    if g12jf.get("http_status") != 200 or g12jf.get("response_bytes") != 48390:
+        fail("Batch 12JF 51gushu transport binding regressed")
+    if g12jf.get("response_sha256") != "959db6931f9f51cce7f1349abd08829a4cfa261144d2076c4292f6ed5d9e82c0":
+        fail("Batch 12JF 51gushu body digest regressed")
+    if g12jf.get("target_filename_present") is not True or g12jf.get("target_size_9_73mb_present") is not True:
+        fail("Batch 12JF exact manifest locator regressed")
+    if g12jf.get("total_anchor_count") != 2 or g12jf.get("candidate_source_emitted_links") != [] or g12jf.get("direct_pdf_candidate_count") != 0:
+        fail("Batch 12JF source-emitted-link boundary regressed")
+    x12jf = routes12jf.get("xy980", {})
+    if x12jf.get("direct_source_http_status") != "UNRESOLVED" or x12jf.get("direct_source_reviewed") is not False or x12jf.get("independent_object_identity_established") is not False:
+        fail("Batch 12JF xy980 unresolved firewall regressed")
+    adj12jf = batch12jf.get("adjudication", {})
+    if adj12jf.get("wwck195109_public_bytes_recovered") is not False or adj12jf.get("direct_1951_zhao_pp221_233") != "NOT_REVIEWED":
+        fail("Batch 12JF direct-object/page firewall regressed")
+    if adj12jf.get("global_nonexistence_claim_authorized") is not False or adj12jf.get("xy980_independent_object_witness_authorized") is not False:
+        fail("Batch 12JF scope firewall regressed")
+    sec12jf = batch12jf.get("security", {})
+    for key in ("login_used","account_action_used","payment_used","captcha_bypass_used","candidate_download_link_followed","fulltext_download_invoked","purchase_link_followed","tls_verification_disabled"):
+        if sec12jf.get(key) is not False:
+            fail(f"Batch 12JF security boundary regressed: {key}")
+    reg12jf = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    src12jf = next((x for x in reg12jf.get("sources", []) if x.get("source_id") == "EXT-51GUSHU-WENWU-KW143-WWCK195109-MANIFEST"), None)
+    if src12jf is None:
+        fail("Batch 12JF registry binding missing")
+    rjf = src12jf.get("batch_12jf", {})
+    if rjf.get("workflow_run_id") != 36774331720 or rjf.get("candidate_source_emitted_link_count") != 0 or rjf.get("direct_pdf_recovered") is not False:
+        fail("Batch 12JF registry route boundary regressed")
+    acct12jf = batch12jf.get("accounting", {})
+    if acct12jf.get("matrix_rows") != 198 or acct12jf.get("audited_rows") != 166 or acct12jf.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12JF accounting regressed")
+    try:
+        schema12jf = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12JF state version is not numeric")
+    if schema12jf < (1, 270, 0):
+        fail("Batch 12JF state version regressed below 1.270.0")
+    if bid12jf not in audit_state.get("completed_batches", ()):
+        fail("Batch 12JF missing from completed state")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12JF latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

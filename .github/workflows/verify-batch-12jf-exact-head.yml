@@ -1,0 +1,74 @@
+name: verify-batch-12jf-exact-head
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/verify-batch-12jf-exact-head.yml
+      - .github/workflows/probe-batch-12jf-wenwu-manifest-source-emitted-routes.yml
+      - docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENWU-1951-WWCK195109-COMMERCIAL-MANIFEST-SOURCE-EMITTED-ROUTE-BOUNDARY-JF.md
+      - docs/research/ZIWEI-WENWU-1951-WWCK195109-COMMERCIAL-MANIFEST-SOURCE-EMITTED-ROUTE-BOUNDARY-R1.json
+      - docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json
+      - docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.md
+      - docs/PROJECT-CURRENT-STATE-R1.json
+      - scripts/verify-project-continuity-state-r1.py
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  statuses: write
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Publish pending JF status
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.repos.createCommitStatus({owner: context.repo.owner, repo: context.repo.repo, sha: context.sha, state: 'pending', context: 'tianwen/batch-12jf-exact-head', description: 'Batch 12JF exact-head verification running'})
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify Batch 12JF exact head
+        run: |
+          set -euo pipefail
+          python scripts/verify-tianwen-transmission-genealogy-r1.py
+          python scripts/verify-project-continuity-state-r1.py
+          python scripts/verify-fusion-chart-historical-provenance-audit-r1.py
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          e=json.loads(Path('docs/research/ZIWEI-WENWU-1951-WWCK195109-COMMERCIAL-MANIFEST-SOURCE-EMITTED-ROUTE-BOUNDARY-R1.json').read_text(encoding='utf-8'))
+          assert e['batch_id']=='BATCH-12-ZIWEI-WENWU-1951-WWCK195109-COMMERCIAL-MANIFEST-SOURCE-EMITTED-ROUTE-BOUNDARY-JF'
+          rp=e['reproducible_probe']
+          assert rp['workflow_run_id']==36774331720
+          assert rp['artifact_id']==11125625596
+          assert rp['artifact_digest']=='sha256:2f2fcfb3976b2198ac36bf86cff46bd7c434e947191d4e6d5ac5b2409a405dd3'
+          g=e['source_routes']['51gushu']
+          assert g['http_status']==200 and g['response_bytes']==48390
+          assert g['response_sha256']=='959db6931f9f51cce7f1349abd08829a4cfa261144d2076c4292f6ed5d9e82c0'
+          assert g['target_filename_present'] is True and g['target_size_9_73mb_present'] is True
+          assert g['total_anchor_count']==2 and g['candidate_source_emitted_links']==[] and g['direct_pdf_candidate_count']==0
+          x=e['source_routes']['xy980']
+          assert x['direct_source_http_status']=='UNRESOLVED' and x['direct_source_reviewed'] is False
+          a=e['adjudication']
+          assert a['wwck195109_public_bytes_recovered'] is False
+          assert a['direct_1951_zhao_pp221_233']=='NOT_REVIEWED'
+          assert a['global_nonexistence_claim_authorized'] is False
+          assert e['project_consequence']['product_change'] is False
+          PY
+      - name: Publish success JF status
+        if: success()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.repos.createCommitStatus({owner: context.repo.owner, repo: context.repo.repo, sha: context.sha, state: 'success', context: 'tianwen/batch-12jf-exact-head', description: 'Batch 12JF exact-head verification passed'})
+      - name: Publish failure JF status
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.repos.createCommitStatus({owner: context.repo.owner, repo: context.repo.repo, sha: context.sha, state: 'failure', context: 'tianwen/batch-12jf-exact-head', description: 'Batch 12JF exact-head verification failed'})

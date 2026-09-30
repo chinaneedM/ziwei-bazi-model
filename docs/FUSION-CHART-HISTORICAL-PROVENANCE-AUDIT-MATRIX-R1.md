@@ -1044,3 +1044,14 @@ Batch document: docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHE
 - Direct 2011 p.197, direct 1951 pp.221–233 and direct 1997 pp.446–449 remain unresolved. Product/accounting remains 198 / 166 / 10 with provenance defects 17/17 and zero chart-algorithm defects, reopens or candidate collapses.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-RMRB-OFFICIAL-ARCHIVE-PUBLIC-SEARCH-EXECUTION-BOUNDARY-JE.md`. Research record: `docs/research/ZIWEI-RMRB-OFFICIAL-ARCHIVE-PUBLIC-SEARCH-EXECUTION-BOUNDARY-R1.json`.
+
+
+## Progress — Batch 12JF
+
+- Hardened anonymous probe run `36774331720` / artifact `11125625596` / digest `sha256:2f2fcfb3976b2198ac36bf86cff46bd7c434e947191d4e6d5ac5b2409a405dd3` directly rechecks the 51古书网 `wwck195109.pdf` manifest without login, payment, download-link following or TLS bypass.
+- The page is HTTP 200 / 48,390 bytes / SHA-256 `959db6931f9f51cce7f1349abd08829a4cfa261144d2076c4292f6ed5d9e82c0`, and directly contains the exact filename plus `9.73 MB`. It has only 2 anchors total and emits zero candidate PDF/download/sample/attachment/net-disk links and zero direct-PDF candidates.
+- Therefore `wwck195109.pdf` remains a commercial manifest filename/size locator; no open-object ID, bytes, hash of the target PDF, page count, scan provenance or lawful public-download identity is recovered. Direct Zhao pp.221–233 remain NOT_REVIEWED.
+- The separately indexed xy980 route is connection-refused from the controlling runner and remains an unresolved discovery lead only; this is not negative evidence and not an independent object witness.
+- Direct 2011 p.197 remains the highest next gate, with 1951 pp.221–233 and 1997 pp.446–449 in parallel. Product/accounting remains 198 / 166 / 10 and provenance defects 17/17, with zero chart-algorithm defects, reopens or candidate collapses.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENWU-1951-WWCK195109-COMMERCIAL-MANIFEST-SOURCE-EMITTED-ROUTE-BOUNDARY-JF.md`. Research record: `docs/research/ZIWEI-WENWU-1951-WWCK195109-COMMERCIAL-MANIFEST-SOURCE-EMITTED-ROUTE-BOUNDARY-R1.json`.

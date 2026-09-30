@@ -10484,7 +10484,7 @@
       "provider": "51古书网",
       "url": "https://www.51gushu.com/um006465s.html",
       "source_role": "PUBLIC_COMMERCIAL_SCAN_PACKAGE_MANIFEST_LOCATOR_ONLY",
-      "quality_notes": "Batch 12IK uses this page only as a filename/size locator. The page displays KW143, PDF package, target folder 1951.8-9, file wwck195109.pdf and displayed size 9.73 MB. No direct PDF URL/bytes/hash/page count, scan-source provenance, completeness or lawful public-download entitlement is established. The site's '原刊扫描' wording is an unverified package claim and is not promoted to provenance authority.",
+      "quality_notes": "Batch 12IK uses this page only as a filename/size locator. The page displays KW143, PDF package, target folder 1951.8-9, file wwck195109.pdf and displayed size 9.73 MB. Batch 12JF hardens that boundary with a reproducible anonymous GET: HTTP 200, exact filename/size present, but only two anchors on the page and zero source-emitted PDF/download/sample/attachment/net-disk candidate links. No direct PDF URL/bytes/hash/page count, scan-source provenance, completeness or lawful public-download entitlement is established. The site's '原刊扫描' wording remains an unverified package claim and is not promoted to provenance authority.",
       "batch_12ik": {
         "package_id": "KW143",
         "target_file_name": "wwck195109.pdf",
@@ -10494,6 +10494,23 @@
         "scan_provenance_closed": false,
         "lawful_public_download_closed": false,
         "research_artifact": "docs/research/ZIWEI-WENWU-CANKAO-1951-WWCK195109-SCAN-PACKAGE-LOCATOR-BOUNDARY-R1.json"
+      },
+      "batch_12jf": {
+        "workflow_run_id": 36774331720,
+        "artifact_id": 11125625596,
+        "artifact_digest": "sha256:2f2fcfb3976b2198ac36bf86cff46bd7c434e947191d4e6d5ac5b2409a405dd3",
+        "http_status": 200,
+        "response_bytes": 48390,
+        "response_sha256": "959db6931f9f51cce7f1349abd08829a4cfa261144d2076c4292f6ed5d9e82c0",
+        "target_filename_present": true,
+        "target_size_9_73mb_present": true,
+        "total_anchor_count": 2,
+        "candidate_source_emitted_link_count": 0,
+        "direct_pdf_candidate_count": 0,
+        "direct_pdf_recovered": false,
+        "lawful_public_download_closed": false,
+        "direct_target_pages_reviewed": false,
+        "research_artifact": "docs/research/ZIWEI-WENWU-1951-WWCK195109-COMMERCIAL-MANIFEST-SOURCE-EMITTED-ROUTE-BOUNDARY-R1.json"
       }
     },
     {
