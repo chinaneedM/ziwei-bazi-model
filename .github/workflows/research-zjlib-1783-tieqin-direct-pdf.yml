@@ -40,6 +40,36 @@ jobs:
           curl -L --compressed -A "$ua" -c out/cookies.txt -b out/cookies.txt -D out/download_cn.headers -o out/download_cn.js -w 'http_code=%{http_code}\\ncontent_type=%{content_type}\\nurl_effective=%{url_effective}\\nsize_download=%{size_download}\\n' 'https://bjb.zjlib.cn/develop/static/common/js/download_cn.js' > out/download_cn.meta
           echo "curl_rc=$?" >> out/download_cn.meta
           set -e
+
+          # Discover the exact mag_request helper used by the official page instead of guessing its request semantics.
+          grep -Eo '<script[^>]*src="[^"]+"' out/lexeme.html | sed -E 's/.*src="([^"]+)".*/\1/' > out/script-srcs.txt || true
+          : > out/mag-request-def.txt
+          script_index=0
+          while IFS= read -r src; do
+            [ -n "$src" ] || continue
+            script_index=$((script_index+1))
+            if [[ "$src" == //* ]]; then
+              script_url="https:$src"
+            elif [[ "$src" == /* ]]; then
+              script_url="https://bjb.zjlib.cn$src"
+            elif [[ "$src" == http://* || "$src" == https://* ]]; then
+              script_url="$src"
+            else
+              script_url="https://bjb.zjlib.cn/CN/lexeme/$src"
+            fi
+            tmp="/tmp/zjlib-script-$script_index.js"
+            set +e
+            curl -L --compressed -A "$ua" -c out/cookies.txt -b out/cookies.txt -sS -o "$tmp" "$script_url"
+            rc=$?
+            set -e
+            if [ "$rc" -eq 0 ] && grep -qE 'function[[:space:]]+mag_request|mag_request[[:space:]]*=' "$tmp"; then
+              {
+                echo "=== SCRIPT $script_url ==="
+                grep -nE -B25 -A100 'function[[:space:]]+mag_request|mag_request[[:space:]]*=' "$tmp" || true
+              } >> out/mag-request-def.txt
+            fi
+          done < out/script-srcs.txt
+
           {
             echo "landing=$landing"
             echo "lexeme=$lexeme"
@@ -176,6 +206,10 @@ jobs:
             echo "--- $f ---"
             cat "$f" || true
           done
+          echo '--- mag_request definition ---'
+          cat out/mag-request-def.txt || true
+          echo '--- script sources ---'
+          cat out/script-srcs.txt || true
           echo '--- routes ---'
           cat out/routes.txt || true
           echo '--- download_cn.js ---'
@@ -197,6 +231,8 @@ jobs:
             out/*.meta
             out/*.headers
             out/download_cn.js
+            out/script-srcs.txt
+            out/mag-request-def.txt
             out/show_*.txt
             out/routes.txt
             out/pdfinfo.txt
