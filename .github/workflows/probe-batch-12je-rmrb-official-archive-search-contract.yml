@@ -110,7 +110,7 @@ jobs:
               qtext=html.unescape(re.sub(r'<[^>]+>',' ',qb))
               qtext=re.sub(r'\\s+',' ',qtext)
               target_links=[]
-              for m in re.finditer(r'<a\\b[^>]*href=["\\']([^"\\']+)["\\'][^>]*>(.*?)</a>',qb,re.I|re.S):
+              for m in re.finditer(r'<a\b[^>]*href=["\']([^"\']+)["\'][^>]*>(.*?)</a>',qb,re.I|re.S):
                   href,label=m.group(1),re.sub(r'<[^>]+>',' ',m.group(2))
                   label=re.sub(r'\\s+',' ',html.unescape(label)).strip()
                   full=urljoin(qu,html.unescape(href))
