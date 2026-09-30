@@ -91,7 +91,7 @@ jobs:
                       time.sleep(attempt)
               return {"requested_page":target,"error":last_error}
 
-          pages=[330,350,370,390]
+          pages=[356,360,364,368]
           rows=[]
           for p in pages:
               rows.append(independent_jump(p))
