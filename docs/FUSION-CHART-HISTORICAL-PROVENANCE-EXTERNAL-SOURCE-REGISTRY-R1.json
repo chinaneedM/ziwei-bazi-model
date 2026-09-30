@@ -7141,6 +7141,15 @@
         "exact_record_displays_ndl_holding": false,
         "absolute_ndl_nonholding_claim_authorized": false,
         "note": "Display absence is used only as a bounded current catalog observation; final remote-copy eligibility remains for Tokyo Metropolitan Library to determine."
+      },
+      "batch_12ij": {
+        "role": "EXACT_2009_EDITION_IDENTITY_CARRIED_FORWARD_FOR_PAGINATION_CALIBRATION",
+        "isbn": "9787501340637",
+        "extent_pages": 241,
+        "chapter_9_title": "铁琴铜剑楼藏书的收购入藏",
+        "exact_chapter_9_page_range": "UNRESOLVED",
+        "direct_chapter_9_reviewed": false,
+        "research_artifact": "docs/research/ZIWEI-JI-SHUYING-2009-PUBLIC-PAGINATION-CALIBRATION-BOUNDARY-R1.json"
       }
     },
     {
@@ -8460,6 +8469,14 @@
         "pp446_449_citation_bridge_preserved": true,
         "direct_pages_still_unreviewed": true,
         "research_artifact": "docs/research/ZIWEI-BEITU-HISTORY-1997-1949-1966-BIBLIOGRAPHIC-RANGE-REPAIR-R1.json"
+      },
+      "batch_12ij": {
+        "role": "FIRST_PARTY_NLC_REFERENCE_LIST_PAGINATION_ANCHOR",
+        "cited_chapter": 3,
+        "cited_pages": "39-50",
+        "direct_2009_page_reviewed": false,
+        "chapter_9_page_range_inferred": false,
+        "research_artifact": "docs/research/ZIWEI-JI-SHUYING-2009-PUBLIC-PAGINATION-CALIBRATION-BOUNDARY-R1.json"
       }
     },
     {
@@ -10351,6 +10368,56 @@
         "artifact_id": 11082164368,
         "artifact_digest": "sha256:854e88d6cd0a1225f5995d6fcd811165cfca9c50d86964614cc28c4dadb1d796",
         "research_artifact": "docs/research/ZIWEI-ZJLIB-TIEQIN-2024-OFFICIAL-PDF-TOKEN-ROUTE-ACCESS-BOUNDARY-R1.json"
+      }
+    },
+    {
+      "source_id": "EXT-KCI-QIAN-2012-JI15-CH12-P190",
+      "title": "钱超尘《〈灵枢经〉版本简考》：十五讲第十二讲 p.190 引用",
+      "author": "钱超尘",
+      "historical_period": "2012 academic article citing 2009 edition",
+      "provider": "대한한의학원전학회 / KCI",
+      "url": "https://journal.kci.go.kr/jkmc/archive/articlePdf?artiId=ART001712121",
+      "source_role": "DIRECT_ACADEMIC_PDF_PAGINATION_ANCHOR_FOR_JI_2009_CHAPTER12",
+      "quality_notes": "Direct review of the public academic PDF shows its reference list citing the 2009 edition, Chapter 12, p.190. This is not direct review of the 2009 book page and does not authorize Chapter-9 interpolation.",
+      "batch_12ij": {
+        "chapter": 12,
+        "cited_page": 190,
+        "direct_citing_pdf_reviewed": true,
+        "direct_2009_page_reviewed": false,
+        "research_artifact": "docs/research/ZIWEI-JI-SHUYING-2009-PUBLIC-PAGINATION-CALIBRATION-BOUNDARY-R1.json"
+      }
+    },
+    {
+      "source_id": "EXT-SHIMANE-TOSAKI-JI15-CH15-P223",
+      "title": "户崎哲彦论文：十五讲第十五讲 p.223 引用",
+      "author": "户崎哲彦",
+      "historical_period": "modern scholarly article citing 2009 edition",
+      "provider": "岛根大学机构学术成果库",
+      "url": "https://ir.lib.shimane-u.ac.jp/28673/files/7444",
+      "source_role": "DIRECT_INSTITUTIONAL_REPOSITORY_PDF_PAGINATION_ANCHOR_FOR_JI_2009_CHAPTER15",
+      "quality_notes": "Direct review of the institutional-repository PDF shows footnote 49 citing the 2009 edition chapter 《邢之襄、陈清华先生的捐书》, p.223. It does not close Chapter 9.",
+      "batch_12ij": {
+        "chapter": 15,
+        "cited_page": 223,
+        "direct_citing_pdf_reviewed": true,
+        "direct_2009_page_reviewed": false,
+        "research_artifact": "docs/research/ZIWEI-JI-SHUYING-2009-PUBLIC-PAGINATION-CALIBRATION-BOUNDARY-R1.json"
+      }
+    },
+    {
+      "source_id": "EXT-KKNEWS-JI15-CH8-P125-126-LOCATOR",
+      "title": "《关于黑水城出土的浙刻本》：十五讲 pp.125–126 二手页码定位",
+      "historical_period": "modern public secondary article citing 2009 edition",
+      "provider": "每日头条",
+      "url": "https://kknews.cc/zh-sg/culture/3y692bo.html",
+      "source_role": "PUBLIC_SECONDARY_PAGINATION_LOCATOR_ONLY_FOR_JI_2009_CHAPTER8_REGION",
+      "quality_notes": "Secondary article cites pp.125–126 for a Yang Shoujing old-collection 《肇论中吴集解》 item, topically within Chapter 8. It is locator-only and cannot establish Chapter-9 start.",
+      "batch_12ij": {
+        "topical_chapter": 8,
+        "cited_pages": "125-126",
+        "direct_2009_page_reviewed": false,
+        "interpolation_authorized": false,
+        "research_artifact": "docs/research/ZIWEI-JI-SHUYING-2009-PUBLIC-PAGINATION-CALIBRATION-BOUNDARY-R1.json"
       }
     }
   ],

@@ -1,0 +1,80 @@
+name: verify-batch-12ij-exact-head
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/verify-batch-12ij-exact-head.yml
+      - docs/research/ZIWEI-JI-SHUYING-2009-PUBLIC-PAGINATION-CALIBRATION-BOUNDARY-R1.json
+      - docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-2009-PUBLIC-PAGINATION-CALIBRATION-BOUNDARY-IJ.md
+      - docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json
+      - docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.md
+      - docs/PROJECT-CURRENT-STATE-R1.json
+      - scripts/verify-project-continuity-state-r1.py
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  statuses: write
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Publish pending IJ status
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.repos.createCommitStatus({
+              owner: context.repo.owner, repo: context.repo.repo, sha: context.sha,
+              state: 'pending', context: 'tianwen/batch-12ij-exact-head',
+              description: 'Batch 12IJ pagination calibration verification running'
+            })
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify Batch 12IJ exact head
+        run: |
+          set -euo pipefail
+          python scripts/verify-tianwen-transmission-genealogy-r1.py
+          python scripts/verify-project-continuity-state-r1.py
+          python scripts/verify-fusion-chart-historical-provenance-audit-r1.py
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          e=json.loads(Path('docs/research/ZIWEI-JI-SHUYING-2009-PUBLIC-PAGINATION-CALIBRATION-BOUNDARY-R1.json').read_text(encoding='utf-8'))
+          assert e['batch_id']=='BATCH-12-ZIWEI-JI-SHUYING-2009-PUBLIC-PAGINATION-CALIBRATION-BOUNDARY-IJ'
+          assert e['exact_edition']['isbn']=='9787501340637'
+          assert e['exact_edition']['chapter_9_direct_pages_reviewed'] is False
+          a={x['chapter']:x for x in e['pagination_anchors']}
+          assert a[3]['cited_pages']=='39-50'
+          assert a[8]['evidence_class']=='PUBLIC_SECONDARY_PAGE_LOCATOR_ONLY'
+          assert a[12]['cited_pages']=='190' and a[12]['direct_source_pdf_reviewed'] is True
+          assert a[15]['cited_pages']=='223' and a[15]['direct_source_pdf_reviewed'] is True
+          assert e['calibration_adjudication']['exact_chapter_9_page_range']=='UNRESOLVED'
+          assert e['calibration_adjudication']['interpolation_to_exact_chapter_9_range_authorized'] is False
+          assert e['access_consequence']['remote_copy_request_submitted'] is False
+          assert e['project_consequence']['product_change'] is False
+          PY
+      - name: Publish success IJ status
+        if: success()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.repos.createCommitStatus({
+              owner: context.repo.owner, repo: context.repo.repo, sha: context.sha,
+              state: 'success', context: 'tianwen/batch-12ij-exact-head',
+              description: 'Batch 12IJ exact-head verification passed'
+            })
+      - name: Publish failure IJ status
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.repos.createCommitStatus({
+              owner: context.repo.owner, repo: context.repo.repo, sha: context.sha,
+              state: 'failure', context: 'tianwen/batch-12ij-exact-head',
+              description: 'Batch 12IJ exact-head verification failed'
+            })

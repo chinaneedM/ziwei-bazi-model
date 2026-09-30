@@ -288,6 +288,8 @@ ZIWEI_NDL_COPY_IH_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-
 ZIWEI_NDL_COPY_IH_EVIDENCE = ROOT / "docs/research/ZIWEI-NDL-DIRECT-PAGE-REMOTE-COPY-POLICY-BOUNDARY-R1.json"
 ZIWEI_ZJLIB_II_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZJLIB-TIEQIN-2024-OFFICIAL-PDF-TOKEN-ROUTE-ACCESS-BOUNDARY-II.md"
 ZIWEI_ZJLIB_II_EVIDENCE = ROOT / "docs/research/ZIWEI-ZJLIB-TIEQIN-2024-OFFICIAL-PDF-TOKEN-ROUTE-ACCESS-BOUNDARY-R1.json"
+ZIWEI_JI_PAGINATION_IJ_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-2009-PUBLIC-PAGINATION-CALIBRATION-BOUNDARY-IJ.md"
+ZIWEI_JI_PAGINATION_IJ_EVIDENCE = ROOT / "docs/research/ZIWEI-JI-SHUYING-2009-PUBLIC-PAGINATION-CALIBRATION-BOUNDARY-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -658,9 +660,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-ZHAO-WANLI-P197-OFFICIAL-JOURNAL-QUOTE-AUTHORITY-UPGRADE-IG",
     "BATCH-12-ZIWEI-NDL-DIRECT-PAGE-REMOTE-COPY-POLICY-BOUNDARY-IH",
     "BATCH-12-ZIWEI-ZJLIB-TIEQIN-2024-OFFICIAL-PDF-TOKEN-ROUTE-ACCESS-BOUNDARY-II",
+    "BATCH-12-ZIWEI-JI-SHUYING-2009-PUBLIC-PAGINATION-CALIBRATION-BOUNDARY-IJ",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZJLIB-TIEQIN-2024-OFFICIAL-PDF-TOKEN-ROUTE-ACCESS-BOUNDARY-II.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-2009-PUBLIC-PAGINATION-CALIBRATION-BOUNDARY-IJ.md"
 
 
 def fail(message: str) -> None:
@@ -9681,6 +9684,58 @@ def main() -> int:
         fail("Batch 12II missing from completed state")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12II latest-batch document mismatch")
+
+    # Batch 12IJ: Ji Shuying 2009 public pagination calibration boundary.
+    for path in (ZIWEI_JI_PAGINATION_IJ_BATCH, ZIWEI_JI_PAGINATION_IJ_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12IJ continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12ij = json.loads(ZIWEI_JI_PAGINATION_IJ_EVIDENCE.read_text(encoding="utf-8"))
+    bid12ij = "BATCH-12-ZIWEI-JI-SHUYING-2009-PUBLIC-PAGINATION-CALIBRATION-BOUNDARY-IJ"
+    if batch12ij.get("batch_id") != bid12ij:
+        fail("Batch 12IJ evidence identity mismatch")
+    edition12ij = batch12ij.get("exact_edition", {})
+    if edition12ij.get("isbn") != "9787501340637" or edition12ij.get("extent_pages") != 241:
+        fail("Batch 12IJ exact edition identity regressed")
+    if edition12ij.get("chapter_9_title") != "铁琴铜剑楼藏书的收购入藏" or edition12ij.get("chapter_9_direct_pages_reviewed") is not False:
+        fail("Batch 12IJ Chapter-9 identity/direct-page boundary regressed")
+    anchors12ij = {x.get("chapter"): x for x in batch12ij.get("pagination_anchors", [])}
+    if anchors12ij.get(3, {}).get("cited_pages") != "39-50":
+        fail("Batch 12IJ Chapter-3 anchor regressed")
+    if anchors12ij.get(8, {}).get("cited_pages") != "125-126" or anchors12ij.get(8, {}).get("evidence_class") != "PUBLIC_SECONDARY_PAGE_LOCATOR_ONLY":
+        fail("Batch 12IJ Chapter-8 locator scope regressed")
+    if anchors12ij.get(12, {}).get("cited_pages") != "190" or anchors12ij.get(12, {}).get("direct_source_pdf_reviewed") is not True:
+        fail("Batch 12IJ Chapter-12 anchor regressed")
+    if anchors12ij.get(15, {}).get("cited_pages") != "223" or anchors12ij.get(15, {}).get("direct_source_pdf_reviewed") is not True:
+        fail("Batch 12IJ Chapter-15 anchor regressed")
+    adj12ij = batch12ij.get("calibration_adjudication", {})
+    if adj12ij.get("exact_chapter_9_page_range") != "UNRESOLVED" or adj12ij.get("interpolation_to_exact_chapter_9_range_authorized") is not False:
+        fail("Batch 12IJ anti-interpolation firewall regressed")
+    if adj12ij.get("direct_chapter_9_text_increment") != 0 or adj12ij.get("target_3482_3483_transaction_increment") != 0:
+        fail("Batch 12IJ direct-text/transaction boundary regressed")
+    access12ij = batch12ij.get("access_consequence", {})
+    if access12ij.get("tokyo_call_number") != "C/022.3/6011/2009" or access12ij.get("tokyo_material_code") != "4001029913":
+        fail("Batch 12IJ Tokyo locator regressed")
+    if any(access12ij.get(k) for k in ("remote_copy_request_submitted", "library_account_action_taken", "identity_transmitted", "fee_incurred")):
+        fail("Batch 12IJ account/request/fee firewall regressed")
+    reg12ij = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    regids12ij = {x.get("source_id") for x in reg12ij.get("sources", [])}
+    if not {"EXT-KCI-QIAN-2012-JI15-CH12-P190", "EXT-SHIMANE-TOSAKI-JI15-CH15-P223", "EXT-KKNEWS-JI15-CH8-P125-126-LOCATOR"}.issubset(regids12ij):
+        fail("Batch 12IJ registry sources missing")
+    acct12ij = batch12ij.get("accounting", {})
+    if acct12ij.get("matrix_rows") != 198 or acct12ij.get("audited_rows") != 166 or acct12ij.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12IJ matrix accounting regressed")
+    if acct12ij.get("confirmed_provenance_metadata_defect_count") != 17 or acct12ij.get("repaired_provenance_metadata_defect_count") != 17 or acct12ij.get("confirmed_chart_algorithm_defect_count") != 0:
+        fail("Batch 12IJ defect accounting regressed")
+    try:
+        schema12ij = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12IJ state version is not numeric")
+    if schema12ij < (1, 248, 0):
+        fail("Batch 12IJ state version regressed below 1.248.0")
+    if bid12ij not in audit_state.get("completed_batches", ()):
+        fail("Batch 12IJ missing from completed state")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12IJ latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

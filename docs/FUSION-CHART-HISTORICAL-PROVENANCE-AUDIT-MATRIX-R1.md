@@ -800,3 +800,14 @@ Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ND
 - FID070 remains non-collapsed from the quoted Song-print object; exact Qu donation batch/date and `3368→3288` mechanism remain unresolved. Product/accounting remains 198 / 166 / 10 and 17/17 provenance repairs, with zero chart-algorithm defects, reopens or candidate collapses.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZJLIB-TIEQIN-2024-OFFICIAL-PDF-TOKEN-ROUTE-ACCESS-BOUNDARY-II.md`. Research record: `docs/research/ZIWEI-ZJLIB-TIEQIN-2024-OFFICIAL-PDF-TOKEN-ROUTE-ACCESS-BOUNDARY-R1.json`.
+
+
+## Progress — Batch 12IJ
+
+- Public pagination calibration for the exact 2009 《冀淑英古籍善本十五讲》 edition now has scoped anchors at Chapter 3 pp.39–50, Chapter-8-region pp.125–126 (secondary locator only), Chapter 12 p.190 (direct academic PDF citation), and Chapter 15 p.223 (direct institutional PDF citation).
+- The anchors are not promoted into an inferred Chapter-9 range. 《铁琴铜剑楼藏书的收购入藏》 exact pagination and direct text remain unresolved / not reviewed.
+- Tokyo Metropolitan holding C/022.3/6011/2009 / material 4001029913 remains the lawful fallback; no account, request, identity or fee action is executed.
+- No 3482/3483 transaction assignment, FID070 donation-date/batch upgrade, 3368→3288 causal upgrade, genealogy-topology change or product/runtime change occurs.
+- Accounting remains 198 / 166 / 10 and 17/17 provenance repairs, with zero chart-algorithm defects, reopens or candidate collapses.
+
+Batch document: docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-2009-PUBLIC-PAGINATION-CALIBRATION-BOUNDARY-IJ.md. Research record: docs/research/ZIWEI-JI-SHUYING-2009-PUBLIC-PAGINATION-CALIBRATION-BOUNDARY-R1.json.
