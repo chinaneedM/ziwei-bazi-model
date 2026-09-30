@@ -1,0 +1,276 @@
+name: probe-batch-12ir-zhao-wanli-wenji-public-preview
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12ir-zhao-wanli-wenji-public-preview.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Locate Zhao Wanli Wenji vol.1 from source-emitted NLC Press list and inspect public preview surfaces
+        run: |
+          python - <<'PY'
+          import hashlib, html, json, re, time
+          from html.parser import HTMLParser
+          from pathlib import Path
+          from urllib.parse import urljoin
+          import requests
+
+          LIST_URL="https://www.nlcpress.com/ProductList.aspx"
+          TARGET_TITLE_TERMS=["赵万里文集","趙萬里文集"]
+          TARGET_ISBN="9787501346653"
+          START_PAGE=260
+          END_PAGE=370
+          UA="Mozilla/5.0 (Tianwen provenance audit; Zhao Wanli Wenji source-emitted publisher discovery)"
+          MAX_SMALL_PAYLOAD=4096
+
+          class HiddenParser(HTMLParser):
+              def __init__(self):
+                  super().__init__(convert_charrefs=True)
+                  self.fields={}
+              def handle_starttag(self,tag,attrs):
+                  if tag.lower()!="input":
+                      return
+                  d={str(k):("" if v is None else str(v)) for k,v in attrs}
+                  if d.get("type","").lower()=="hidden" and d.get("name"):
+                      self.fields[d["name"]]=d.get("value","")
+
+          def hidden_fields(body):
+              p=HiddenParser(); p.feed(body); return p.fields
+
+          def clean(raw):
+              raw=re.sub(r'<script\b.*?</script>',' ',raw,flags=re.I|re.S)
+              raw=re.sub(r'<style\b.*?</style>',' ',raw,flags=re.I|re.S)
+              raw=re.sub(r'<[^>]+>',' ',raw)
+              return re.sub(r'\s+',' ',html.unescape(raw)).strip()
+
+          def product_links(raw):
+              out=[]
+              for m in re.finditer(r'<a\b[^>]*href=["\'](ProductView\.aspx\?Id=\d+)["\'][^>]*>(.*?)</a>',raw,re.I|re.S):
+                  href=html.unescape(m.group(1))
+                  txt=clean(m.group(2))
+                  out.append({"href":href,"text":txt})
+              return out
+
+          def page_now(raw):
+              m=re.search(r'id=["\']PageNavigator1_txt_PageNow["\'][^>]*>(\d+)<',raw,re.I)
+              return int(m.group(1)) if m else None
+
+          s=requests.Session()
+          s.headers.update({"User-Agent":UA})
+          g=s.get(LIST_URL,timeout=45)
+          g.raise_for_status()
+          current_html=g.text
+
+          matches=[]
+          sampled_dates={}
+          scanned=[]
+          for page in range(START_PAGE,END_PAGE+1):
+              fields=hidden_fields(current_html)
+              fields.update({
+                  "__EVENTTARGET":"PageNavigator1$LinkButton_Go",
+                  "__EVENTARGUMENT":"",
+                  "PageNavigator1$txt_PageGo":str(page),
+              })
+              r=s.post(LIST_URL,data=fields,timeout=45)
+              r.raise_for_status()
+              current_html=r.text
+              text=clean(current_html)
+              now=page_now(current_html)
+              dates=re.findall(r'出版时间[:：]?\s*(20\d{2}-\d{2}-\d{2})',text)
+              if page in (START_PAGE,280,300,320,340,360,END_PAGE):
+                  sampled_dates[str(page)]={"page_now":now,"dates":dates[:12]}
+              links=product_links(current_html)
+              target_here=[x for x in links if any(t in x["text"] for t in TARGET_TITLE_TERMS)]
+              if target_here:
+                  matches.append({"page":page,"page_now":now,"links":target_here})
+                  break
+              scanned.append(page)
+              time.sleep(0.12)
+
+          details=[]
+          for group in matches:
+              for item in group["links"]:
+                  url=urljoin(LIST_URL,item["href"])
+                  r=s.get(url,timeout=45)
+                  r.raise_for_status()
+                  raw=r.text
+                  visible=clean(raw)
+                  normalized=re.sub(r'[-\s]','',visible)
+                  anchors=[]
+                  for m in re.finditer(r'<a\b([^>]*)>(.*?)</a>',raw,re.I|re.S):
+                      attrs=html.unescape(m.group(1))
+                      label=clean(m.group(2))
+                      if any(k in label for k in ("图书文件下载","目录附件下载","電子書","电子书")):
+                          hm=re.search(r'href\s*=\s*["\']([^"\']*)["\']',attrs,re.I)
+                          anchors.append({"label":label,"href":html.unescape(hm.group(1)) if hm else None})
+                  details.append({
+                      "page":group["page"],
+                      "source_emitted_href":item["href"],
+                      "url":url,
+                      "status":r.status_code,
+                      "body_sha256":hashlib.sha256(r.content).hexdigest(),
+                      "title_link_text":item["text"],
+                      "has_target_title":any(t in visible for t in TARGET_TITLE_TERMS),
+                      "has_target_isbn":TARGET_ISBN in normalized,
+                      "has_p197_literal":bool(re.search(r'(?<!\d)197(?!\d)',visible)),
+                      "has_yongle_article":"永乐大典" in visible and ("展览" in visible or "展覽" in visible),
+                      "download_anchors":anchors,
+                      "booktext_postback_present":"__doPostBack('Booktext','')" in raw,
+                      "catalog_anchor_has_href":any(a["label"].startswith("目录附件下载") and a.get("href") for a in anchors),
+                  })
+
+          # For an exact product only, inspect Booktext response metadata; read body only if <=4 KiB.
+          booktext=[]
+          for d in details:
+              if not (d["has_target_title"] and d["has_target_isbn"] and d["booktext_postback_present"]):
+                  continue
+              rg=s.get(d["url"],timeout=45); rg.raise_for_status()
+              form=hidden_fields(rg.text)
+              form.update({"__EVENTTARGET":"Booktext","__EVENTARGUMENT":""})
+              p=s.post(d["url"],data=form,timeout=45,stream=True,allow_redirects=False,
+                       headers={"User-Agent":UA,"Referer":d["url"]})
+              clen=None
+              try: clen=int(p.headers.get("Content-Length",""))
+              except Exception: pass
+              row={
+                  "url":d["url"],
+                  "status":p.status_code,
+                  "content_type":p.headers.get("Content-Type"),
+                  "content_length":clen,
+                  "content_disposition":p.headers.get("Content-Disposition"),
+                  "redirect":bool(p.is_redirect or p.is_permanent_redirect),
+                  "bounded_body_read":False,
+                  "bytes_read":0,
+                  "body_sha256":None,
+                  "decoded_char_count":None,
+                  "p197_literal":False,
+                  "yongle_article_term":False,
+                  "raw_text_logged":False,
+                  "raw_text_saved":False,
+              }
+              if clen is not None and clen<=MAX_SMALL_PAYLOAD:
+                  chunks=[]; total=0
+                  for chunk in p.iter_content(1024):
+                      if not chunk: continue
+                      total+=len(chunk)
+                      if total>MAX_SMALL_PAYLOAD:
+                          raise RuntimeError("small-payload limit exceeded")
+                      chunks.append(chunk)
+                  body=b"".join(chunks)
+                  row["bounded_body_read"]=True
+                  row["bytes_read"]=len(body)
+                  row["body_sha256"]=hashlib.sha256(body).hexdigest()
+                  txt=""
+                  for enc in ("utf-8","gb18030","gbk"):
+                      try:
+                          txt=body.decode(enc); row["decoded_encoding"]=enc; break
+                      except Exception: pass
+                  if not txt:
+                      txt=body.decode("utf-8","replace"); row["decoded_encoding"]="utf-8-replacement"
+                  norm=re.sub(r'\s+',' ',txt)
+                  row["decoded_char_count"]=len(norm)
+                  row["p197_literal"]=bool(re.search(r'(?<!\d)197(?!\d)',norm))
+                  row["yongle_article_term"]="永乐大典" in norm and ("展览" in norm or "展覽" in norm)
+                  row["qu_donation_terms"]=all(x in norm for x in ("瞿","捐","六十二"))
+              p.close()
+              booktext.append(row)
+
+          out={
+              "list_url":LIST_URL,
+              "page_range":[START_PAGE,END_PAGE],
+              "pages_scanned_count":len(scanned)+(1 if matches else 0),
+              "sampled_dates":sampled_dates,
+              "matches":matches,
+              "details":details,
+              "booktext":booktext,
+              "target_isbn":TARGET_ISBN,
+              "product_id_guessing_used":False,
+              "only_source_emitted_product_links_followed":True,
+              "login_used":False,
+              "purchase_used":False,
+              "payment_used":False,
+              "captcha_bypass_used":False,
+              "tls_verification_disabled":False,
+          }
+          Path("zhao-wanli-wenji-nlcpress-public-preview.json").write_text(
+              json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12ir-zhao-wanli-wenji-nlcpress-public-preview
+          path: zhao-wanli-wenji-nlcpress-public-preview.json
+
+      - name: Probe lawful public bibliographic/preview APIs for exact ISBN
+        run: |
+          python - <<'PY'
+          import hashlib, json
+          from pathlib import Path
+          import requests
+
+          ISBN="9787501346653"
+          TITLE="赵万里文集"
+          UA={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; Zhao Wanli Wenji public preview route control)"}
+          routes={
+              "google_volumes_isbn":f"https://www.googleapis.com/books/v1/volumes?q=isbn:{ISBN}",
+              "google_volumes_title":"https://www.googleapis.com/books/v1/volumes?q=intitle:%E8%B5%B5%E4%B8%87%E9%87%8C%E6%96%87%E9%9B%86",
+              "openlibrary_isbn":f"https://openlibrary.org/isbn/{ISBN}.json",
+              "openlibrary_search":f"https://openlibrary.org/search.json?isbn={ISBN}",
+              "internet_archive_isbn":f"https://archive.org/advancedsearch.php?q=identifier%3A{ISBN}+OR+isbn%3A{ISBN}&fl%5B%5D=identifier,title&rows=20&page=1&output=json",
+          }
+          out={}
+          for key,url in routes.items():
+              row={"url":url}
+              try:
+                  r=requests.get(url,timeout=45,headers=UA)
+                  body=r.content
+                  row.update({
+                      "status":r.status_code,
+                      "content_type":r.headers.get("Content-Type"),
+                      "bytes":len(body),
+                      "sha256":hashlib.sha256(body).hexdigest(),
+                      "json_parsed":False,
+                      "target_isbn_present":ISBN in body.decode("utf-8","ignore"),
+                      "target_title_present":TITLE in body.decode("utf-8","ignore"),
+                      "raw_body_saved":False,
+                      "raw_body_logged":False,
+                  })
+                  try:
+                      data=r.json(); row["json_parsed"]=True
+                      if key.startswith("google_"):
+                          row["totalItems"]=data.get("totalItems")
+                          row["error_reason"]=((data.get("error") or {}).get("errors") or [{}])[0].get("reason")
+                          row["error_message"]=(data.get("error") or {}).get("message")
+                          row["volume_ids"]=[x.get("id") for x in data.get("items",[])[:10]]
+                      elif key=="openlibrary_isbn":
+                          row["keys"]=sorted(data.keys())[:50] if isinstance(data,dict) else []
+                      elif key=="openlibrary_search":
+                          row["numFound"]=data.get("numFound")
+                          row["docs_keys"]=[x.get("key") for x in data.get("docs",[])[:10]]
+                      elif key=="internet_archive_isbn":
+                          resp=data.get("response",{})
+                          row["numFound"]=resp.get("numFound")
+                          row["identifiers"]=[x.get("identifier") for x in resp.get("docs",[])[:20]]
+                  except Exception as e:
+                      row["json_error"]=f"{type(e).__name__}: {e}"
+              except Exception as e:
+                  row["error"]=f"{type(e).__name__}: {e}"
+              out[key]=row
+          Path("zhao-wanli-wenji-public-api-controls.json").write_text(
+              json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12ir-zhao-wanli-wenji-public-api-controls
+          path: zhao-wanli-wenji-public-api-controls.json
