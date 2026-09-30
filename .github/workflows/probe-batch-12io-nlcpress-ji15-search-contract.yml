@@ -16,79 +16,117 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
-      - name: Inspect NLC Press public product-list pager contract
+      - name: Calibrate NLC Press pager and sample chronology bands
         run: |
           python - <<'PY'
-          import json, re, html
+          import html, json, re
           from pathlib import Path
           import requests
 
           URL="https://www.nlcpress.com/ProductList.aspx"
-          r=requests.get(URL,headers={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; public pager probe)"},timeout=30)
-          body=r.text
+          UA={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; public pager calibration)"}
+          s=requests.Session()
+          s.headers.update(UA)
 
-          def frag(marker, radius=1800):
-              i=body.find(marker)
-              return body[max(0,i-radius):i+radius] if i>=0 else None
+          def hidden_fields(body):
+              out={}
+              for m in re.finditer(r'<input\b[^>]*>',body,re.I):
+                  tag=m.group(0)
+                  tm=re.search(r'type=["\']hidden["\']',tag,re.I)
+                  nm=re.search(r'name=["\']([^"\']+)["\']',tag,re.I)
+                  vm=re.search(r'value=["\']([^"\']*)["\']',tag,re.I)
+                  if tm and nm:
+                      out[html.unescape(nm.group(1))]=html.unescape(vm.group(1) if vm else "")
+              return out
 
-          # Raw anchors/buttons near the custom pager. Keep the exact source
-          # contract; do not guess hidden postback semantics yet.
-          anchors=[]
-          for m in re.finditer(r'<a\b[^>]*href=["\']([^"\']*)["\'][^>]*>(.*?)</a>',body,re.I|re.S):
-              href=html.unescape(m.group(1))
-              text=re.sub(r'<[^>]+>',' ',m.group(2))
-              text=re.sub(r'\s+',' ',html.unescape(text)).strip()
-              full=m.group(0)
-              if ("PageNavigator1" in full or "PageNavigator1" in href or
-                  text in {"首页","上页","下页","尾页"} or
-                  re.fullmatch(r'\d+',text or "")):
-                  anchors.append({"href":href,"text":text,"html":full[:1200]})
+          def page_now(body):
+              m=re.search(r'id=["\']PageNavigator1_txt_PageNow["\'][^>]*>(\d+)<',body,re.I)
+              return int(m.group(1)) if m else None
 
-          inputs=[]
-          for m in re.finditer(r'<input\b[^>]*>',body,re.I):
-              tag=m.group(0)
-              if "PageNavigator1" in tag:
-                  attrs={}
-                  for k,v in re.findall(r'(\w+)\s*=\s*["\']([^"\']*)["\']',tag):
-                      attrs[k.lower()]=html.unescape(v)
-                  inputs.append(attrs)
+          def page_count(body):
+              m=re.search(r'id=["\']PageNavigator1_txt_PageCount["\'][^>]*>(\d+)<',body,re.I)
+              return int(m.group(1)) if m else None
 
-          labels={}
-          for key in [
-              "PageNavigator1_txt_PageNow","PageNavigator1_txt_PageCount",
-              "PageNavigator1_PageNowLable","PageNavigator1_PageCountLable",
-              "PageNavigator1_Link_PageHome","PageNavigator1_Link_PageUp",
-              "PageNavigator1_Link_PageDown","PageNavigator1_Link_PageEnd",
-              "PageNavigator1_LinkNumbers","PageNavigator1_GoLable"
-          ]:
-              labels[key]=frag(key)
+          def products(body):
+              ids=[]
+              for x in re.findall(r'ProductView\.aspx\?Id=(\d+)',body,re.I):
+                  n=int(x)
+                  if n not in ids: ids.append(n)
+              text=re.sub(r'<[^>]+>',' ',body)
+              text=re.sub(r'\s+',' ',html.unescape(text))
+              dates=sorted(set(re.findall(r'20\d\d[-./年]\d{1,2}(?:[-./月]\d{1,2}日?)?',text)))
+              return {
+                  "ids":ids,
+                  "id_min":min(ids) if ids else None,
+                  "id_max":max(ids) if ids else None,
+                  "dates":dates[:80],
+                  "has_control_id_4939":"ProductView.aspx?Id=4939" in body,
+                  "has_control_title":"史记十五讲" in text,
+                  "has_target_title":"冀淑英古籍善本十五讲" in text,
+                  "has_target_isbn":"9787501340637" in text.replace("-","").replace(" ",""),
+              }
 
-          # Also extract source-emitted product links with visible text/date
-          products=[]
-          for m in re.finditer(r'href=["\'](ProductView\.aspx\?Id=\d+)["\']',body,re.I):
-              lo=max(0,m.start()-1200); hi=min(len(body),m.end()+2200)
-              snippet=body[lo:hi]
-              txt=re.sub(r'<[^>]+>',' ',snippet)
-              txt=re.sub(r'\s+',' ',html.unescape(txt)).strip()
-              products.append({"href":m.group(1),"context":txt[:2000]})
+          def jump(body,target):
+              data=hidden_fields(body)
+              data.update({
+                  "__EVENTTARGET":"PageNavigator1$LinkButton_Go",
+                  "__EVENTARGUMENT":"",
+                  "PageNavigator1$txt_PageGo":str(target),
+              })
+              r=s.post(URL,data=data,timeout=30)
+              return r
+
+          first=s.get(URL,timeout=30)
+          first.raise_for_status()
+          current=first
+          rows=[]
+          p=products(first.text)
+          rows.append({
+              "requested_page":1,"status":first.status_code,
+              "page_now":page_now(first.text),"page_count":page_count(first.text),
+              "body_bytes":len(first.content),**p
+          })
+
+          # Calibrate the exact source-emitted jump postback before using distant samples.
+          sample_pages=[2,100,200,300,400,500,600]
+          calibration_ok=True
+          for target in sample_pages:
+              r=jump(current.text,target)
+              row={
+                  "requested_page":target,"status":r.status_code,
+                  "page_now":page_now(r.text),"page_count":page_count(r.text),
+                  "body_bytes":len(r.content),**products(r.text)
+              }
+              rows.append(row)
+              if r.status_code!=200 or row["page_now"]!=target:
+                  calibration_ok=False
+                  break
+              current=r
 
           result={
-              "url":URL,"status":r.status_code,"body_bytes":len(r.content),
-              "anchors":anchors[:100],
-              "inputs":inputs,
-              "labels":labels,
-              "product_count":len(set(x["href"] for x in products)),
-              "product_sample":products[:30],
+              "url":URL,
+              "initial_status":first.status_code,
+              "initial_page_count":page_count(first.text),
+              "jump_event_target":"PageNavigator1$LinkButton_Go",
+              "jump_input":"PageNavigator1$txt_PageGo",
+              "sample_pages_requested":sample_pages,
+              "calibration_ok":calibration_ok,
+              "samples":rows,
+              "control_id":4939,
+              "target_title":"冀淑英古籍善本十五讲",
+              "target_isbn":"9787501340637",
               "tls_verified":True,
               "login_used":False,
               "purchase_invoked":False,
               "download_invoked":False,
+              "id_guessing_used":False,
+              "only_source_emitted_product_ids_recorded":True,
           }
-          Path("nlcpress-productlist-pager-contract.json").write_text(
+          Path("nlcpress-productlist-pager-calibration.json").write_text(
               json.dumps(result,ensure_ascii=False,indent=2),encoding="utf-8")
           print(json.dumps(result,ensure_ascii=False,indent=2))
           PY
       - uses: actions/upload-artifact@v4
         with:
-          name: batch-12io-nlcpress-productlist-pager-contract
-          path: nlcpress-productlist-pager-contract.json
+          name: batch-12io-nlcpress-productlist-pager-calibration
+          path: nlcpress-productlist-pager-calibration.json
