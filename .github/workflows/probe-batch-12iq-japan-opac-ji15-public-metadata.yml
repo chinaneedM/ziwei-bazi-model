@@ -176,3 +176,61 @@ jobs:
         with:
           name: batch-12iq-ji15-japan-opac-public-metadata
           path: ji15-japan-opac-public-metadata.json
+      - name: Execute source page JavaScript in public headless Chrome
+        run: |
+          python - <<'PY'
+          import hashlib, html, json, re, shutil, subprocess
+          from pathlib import Path
+
+          src=json.loads(Path("ji15-japan-opac-public-metadata.json").read_text(encoding="utf-8"))
+          chrome=shutil.which("google-chrome") or shutil.which("google-chrome-stable") or shutil.which("chromium") or shutil.which("chromium-browser")
+          targets={k:v.get("final_url") for k,v in src["results"].items() if k in ("kyoto_u","ritsumeikan") and v.get("status")==200 and v.get("final_url")}
+          exact_terms=[
+              "铁琴铜剑楼藏书的收购入藏","吴梅、朱偰、赵元方的捐赠","涵芬楼藏书",
+              "周叔弢先生与北京图书馆的深厚渊源","国家图书馆藏《永乐大典》概述"
+          ]
+          out={"chrome_path":chrome,"targets":{},"login_used":False,"account_action_used":False}
+          for key,url in targets.items():
+              row={"url":url}
+              if not chrome:
+                  row["status"]="CHROME_NOT_AVAILABLE"
+                  out["targets"][key]=row
+                  continue
+              try:
+                  p=subprocess.run([
+                      chrome,"--headless=new","--no-sandbox","--disable-gpu",
+                      "--disable-dev-shm-usage","--virtual-time-budget=10000",
+                      "--dump-dom",url
+                  ],capture_output=True,timeout=45,check=False)
+                  dom=p.stdout.decode("utf-8","replace")
+                  visible=re.sub(r"\\s+"," ",html.unescape(re.sub(r"<[^>]+>"," ",dom))).strip()
+                  def block(id_):
+                      m=re.search(rf'<span[^>]+id=["\\']{re.escape(id_)}["\\'][^>]*>(.*?)</span>',dom,re.I|re.S)
+                      return re.sub(r"\\s+"," ",html.unescape(re.sub(r"<[^>]+>"," ",m.group(1)))).strip() if m else None
+                  ob=block("openbd_block")
+                  bp=block("bookplus_block")
+                  row.update({
+                      "returncode":p.returncode,
+                      "dom_bytes":len(dom.encode("utf-8")),
+                      "dom_sha256":hashlib.sha256(dom.encode("utf-8")).hexdigest(),
+                      "visible_char_count":len(visible),
+                      "openbd_block_present":'id="openbd_block"' in dom or "id='openbd_block'" in dom,
+                      "openbd_block_text":ob[:2000] if ob else ob,
+                      "bookplus_block_present":'id="bookplus_block"' in dom or "id='bookplus_block'" in dom,
+                      "bookplus_block_text":bp[:4000] if bp else bp,
+                      "exact_chapter_flags":{x:(x in visible) for x in exact_terms},
+                      "target_title_present":"冀淑英古籍善本十五讲" in visible,
+                      "raw_dom_saved":False,
+                      "raw_dom_logged":False,
+                      "stderr_tail":p.stderr.decode("utf-8","replace")[-1000:],
+                  })
+              except Exception as e:
+                  row["error"]=f"{type(e).__name__}: {e}"
+              out["targets"][key]=row
+          Path("ji15-japan-opac-rendered-dom.json").write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12iq-ji15-japan-opac-rendered-dom
+          path: ji15-japan-opac-rendered-dom.json
