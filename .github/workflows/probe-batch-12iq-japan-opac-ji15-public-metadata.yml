@@ -1,0 +1,124 @@
+name: probe-batch-12iq-japan-opac-ji15-public-metadata
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12iq-japan-opac-ji15-public-metadata.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Probe CiNii source-emitted Japanese OPAC records anonymously
+        run: |
+          python - <<'PY'
+          import hashlib, html, json, re, time
+          from pathlib import Path
+          import requests
+
+          NCID = "BB00252412"
+          TITLE = "冀淑英古籍善本十五讲"
+          URLS = {
+              "kyoto_u": "https://kuline.kulib.kyoto-u.ac.jp/opac/opac_openurl/?ncid=BB00252412",
+              "tenri_u": "https://tclopac.tenri-u.ac.jp/opac/opac_openurl/?ncid=BB00252412",
+              "utokyo": "https://opac.dl.itc.u-tokyo.ac.jp/opac/opac_openurl/?ncid=BB00252412",
+              "ritsumeikan": "https://runners.ritsumei.ac.jp/opac/opac_openurl/?ncid=BB00252412",
+          }
+          TERMS = [
+              TITLE, NCID, "9787501340637", "目次", "内容", "注記",
+              "铁琴铜剑楼藏书的收购入藏", "吴梅", "涵芬楼", "周叔弢",
+              "第九讲", "第9讲"
+          ]
+          MAX_BYTES = 2 * 1024 * 1024
+          UA = "Mozilla/5.0 (Tianwen provenance audit; anonymous public OPAC metadata inspection)"
+
+          def clean(raw):
+              raw = re.sub(r'<script\b.*?</script>', ' ', raw, flags=re.I|re.S)
+              raw = re.sub(r'<style\b.*?</style>', ' ', raw, flags=re.I|re.S)
+              raw = re.sub(r'<[^>]+>', ' ', raw)
+              return re.sub(r'\s+', ' ', html.unescape(raw)).strip()
+
+          session = requests.Session()
+          session.headers.update({"User-Agent": UA, "Accept-Language": "ja,en;q=0.8,zh-CN;q=0.7"})
+          results = {}
+
+          for key, url in URLS.items():
+              row = {"source_emitted_url": url}
+              try:
+                  r = session.get(url, timeout=45, allow_redirects=True, stream=True)
+                  data = bytearray()
+                  truncated = False
+                  for chunk in r.iter_content(65536):
+                      if not chunk:
+                          continue
+                      if len(data) + len(chunk) > MAX_BYTES:
+                          take = MAX_BYTES - len(data)
+                          if take > 0:
+                              data.extend(chunk[:take])
+                          truncated = True
+                          break
+                      data.extend(chunk)
+                  body = bytes(data)
+                  ctype = r.headers.get("Content-Type", "")
+                  decoded = ""
+                  if "text" in ctype.lower() or "html" in ctype.lower() or not ctype:
+                      encs = [r.encoding, "utf-8", "shift_jis", "cp932", "euc_jp"]
+                      seen = set()
+                      for enc in encs:
+                          if not enc or enc in seen:
+                              continue
+                          seen.add(enc)
+                          try:
+                              decoded = body.decode(enc)
+                              break
+                          except Exception:
+                              pass
+                      if not decoded:
+                          decoded = body.decode("utf-8", errors="replace")
+                  visible = clean(decoded) if decoded else ""
+                  row.update({
+                      "status": r.status_code,
+                      "final_url": r.url,
+                      "redirect_count": len(r.history),
+                      "content_type": ctype,
+                      "bytes_read": len(body),
+                      "truncated_at_2mib": truncated,
+                      "body_sha256": hashlib.sha256(body).hexdigest(),
+                      "visible_char_count": len(visible),
+                      "term_flags": {term: (term in visible) for term in TERMS},
+                      "login_marker": any(x in visible.lower() for x in ["login", "ログイン", "my library", "マイライブラリ"]),
+                      "raw_html_saved": False,
+                      "raw_html_logged": False,
+                  })
+              except Exception as e:
+                  row.update({"error": f"{type(e).__name__}: {e}"})
+              results[key] = row
+              time.sleep(0.6)
+
+          out = {
+              "ncid": NCID,
+              "target_title": TITLE,
+              "route_origin": "CiNii Books source-emitted OPAC links for exact NCID BB00252412",
+              "results": results,
+              "login_used": False,
+              "account_action_used": False,
+              "copy_request_used": False,
+              "payment_used": False,
+              "captcha_bypass_used": False,
+              "tls_verification_disabled": False,
+          }
+          Path("ji15-japan-opac-public-metadata.json").write_text(
+              json.dumps(out, ensure_ascii=False, indent=2), encoding="utf-8")
+          print(json.dumps(out, ensure_ascii=False, indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12iq-ji15-japan-opac-public-metadata
+          path: ji15-japan-opac-public-metadata.json
