@@ -66,7 +66,8 @@ jobs:
           out={"book_id":BOOK_ID,"base":{},"queries":[],"security":{
             "login_used":False,"account_action_used":False,"copy_request_used":False,"payment_used":False,
             "captcha_bypass_used":False,"tls_verification_disabled":False,"guessed_object_id_used":False,
-            "targeted_q_executed_only_if_source_emitted_q_contract_observed":True
+            "targeted_q_executed_only_if_source_emitted_inbook_q_contract_observed":True,
+            "prior_classifier_bug_corrected":True
           }}
           r,b,raw,tr=fetch(s,START)
           text=visible(raw)
@@ -79,7 +80,9 @@ jobs:
           qlinks=[]
           for u in hrefs:
               q=parse_qs(urlparse(u).query)
-              if q.get("id")==[BOOK_ID] and "q" in q:
+              parsed=urlparse(u)
+              qval=(q.get("q") or [""])[0]
+              if parsed.path=="/books" and q.get("id")==[BOOK_ID] and "q" in q and not qval.startswith("editions:"):
                   qlinks.append(u)
           out["base"]={
             "status":r.status_code,"final_url":r.url,"bytes_read":len(b),"truncated_at_2mib":tr,
@@ -89,8 +92,9 @@ jobs:
             "isbn_13_present":"9787501314195" in text.replace("-","").replace(" ",""),
             "page_count_1811_present":("1811" in text),
             "ebook_unavailable_wording":("未提供电子书" in text or "No eBook available" in text),
-            "source_emitted_q_contract_observed":bool(qlinks),
-            "source_emitted_q_link_examples":qlinks[:8],
+            "source_emitted_inbook_q_contract_observed":bool(qlinks),
+            "source_emitted_inbook_q_link_examples":qlinks[:8],
+            "source_emitted_books_link_examples":[u for u in hrefs if urlparse(u).path=="/books"][:20],
             "raw_body_saved":False,"raw_body_logged":False
           }
           if qlinks:
