@@ -1,0 +1,142 @@
+name: probe-batch-12jb-nabunken-wenwu-1951-v2n9
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12jb-nabunken-wenwu-1951-v2n9.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Probe source-emitted CiNii to Nabunken exact issue route
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import html
+          import json
+          import re
+          import urllib.request
+          from pathlib import Path
+          from urllib.parse import urljoin
+
+          UA = "Mozilla/5.0 (compatible; TianwenHistoricalAudit/1.0; +https://github.com/chinaneedM/ziwei-bazi-model)"
+          def get(url):
+              req = urllib.request.Request(url, headers={"User-Agent": UA})
+              with urllib.request.urlopen(req, timeout=30) as resp:
+                  body = resp.read()
+                  return resp.status, resp.geturl(), body.decode("utf-8", errors="replace")
+
+          out = Path("artifacts/batch-12jb")
+          out.mkdir(parents=True, exist_ok=True)
+
+          cinii_url = "https://ci.nii.ac.jp/ncid/AA11467834"
+          c_status, c_final, c_html = get(cinii_url)
+          links = [html.unescape(x) for x in re.findall(r'href=["\']([^"\']+)["\']', c_html, re.I)]
+          nabunken_links = [urljoin(c_final, x) for x in links if "opac.nabunken.go.jp" in x]
+          if not nabunken_links:
+              raise SystemExit("No source-emitted Nabunken OPAC link found on CiNii")
+          opac_entry = nabunken_links[0]
+
+          s_status, s_final, s_html = get(opac_entry)
+          detail_links = [urljoin(s_final, html.unescape(x)) for x in re.findall(r'href=["\']([^"\']+)["\']', s_html, re.I)
+                          if "bibId=SB00333452" in html.unescape(x)]
+          if not detail_links:
+              # Keep this source-derived fallback tightly scoped to the local bib id visibly emitted by the live page.
+              ids = sorted(set(re.findall(r"bibId=([A-Za-z0-9]+)", s_html)))
+              if "SB00333452" not in ids:
+                  raise SystemExit(f"Expected source-emitted local bib id not observed: {ids}")
+              detail_links = [s_final]
+
+          # Follow any page that contains the local bibliography and find the exact issue-9 hold link.
+          d_status, d_final, d_html = get(detail_links[0])
+          candidates = []
+          for href in re.findall(r'href=["\']([^"\']+)["\']', d_html, re.I):
+              u = urljoin(d_final, html.unescape(href))
+              if "holdId=" in u:
+                  candidates.append(u)
+          # If first detail page is paginated/redirect shell, also accept exact live-page body route emitted after search.
+          issue9 = [u for u in candidates if "TS00027259" in u]
+          if not issue9:
+              # The exact hold id must be visible on the public source surface before use.
+              if "TS00027259" not in d_html:
+                  raise SystemExit("Exact issue-9 holdId TS00027259 not observed on first detail page")
+              issue9 = [u for u in candidates if "TS00027259" in u]
+          if not issue9:
+              raise SystemExit("Exact issue-9 link not recovered")
+
+          i_status, i_final, i_html = get(issue9[0])
+          markers = {
+              "title": "文物参攷資料" in i_html or "文物参考資料" in i_html,
+              "volume_issue": "Vol.2, no.9" in i_html,
+              "year_1951": "1951" in i_html,
+              "request_number": "202.505||3||1951-9C" in html.unescape(i_html),
+              "document_id": "10024273" in i_html,
+              "without_index": "without index" in i_html,
+              "hold_id": "TS00027259" in i_final or "TS00027259" in i_html,
+          }
+          if not all(markers.values()):
+              raise SystemExit(f"Exact issue markers incomplete: {markers}")
+
+          policy_url = "https://www.nabunken.go.jp/usage/library.html"
+          p_status, p_final, p_html = get(policy_url)
+          policy_text = html.unescape(re.sub(r"<[^>]+>", " ", p_html))
+          policy_text = re.sub(r"\s+", " ", policy_text)
+          policy_markers = {
+              "remote_use_heading": "遠隔地からの利用について" in policy_text,
+              "personal_copy_inquiry_not_accepted": "個人の方からの複写に関するお問い合わせは受け付けておりません" in policy_text,
+              "institution_or_public_library_route": "所属機関の図書館または最寄りの公共図書館へお問い合わせください" in policy_text,
+              "black_white_fee": "白黒：1枚60円＋送料" in policy_text,
+              "color_fee": "カラー：1枚200円＋送料" in policy_text,
+              "nacsis_ill": "NACSIS-ILL" in policy_text,
+          }
+          if not all(policy_markers.values()):
+              raise SystemExit(f"Remote-copy policy markers incomplete: {policy_markers}")
+
+          result = {
+              "probe": "BATCH-12JB-NABUNKEN-WENWU-1951-V2N9",
+              "cinii": {"requested_url": cinii_url, "status": c_status, "final_url": c_final},
+              "source_emitted_nabunken_entry": opac_entry,
+              "opac_search": {"status": s_status, "final_url": s_final},
+              "exact_issue": {
+                  "status": i_status,
+                  "final_url": i_final,
+                  "local_bib_id": "SB00333452",
+                  "hold_id": "TS00027259",
+                  "document_id": "10024273",
+                  "request_number": "202.505||3||1951-9C",
+                  "markers": markers,
+              },
+              "remote_copy_policy": {
+                  "requested_url": policy_url,
+                  "status": p_status,
+                  "final_url": p_final,
+                  "markers": policy_markers,
+              },
+              "security": {
+                  "login_used": False,
+                  "account_action_used": False,
+                  "copy_request_sent": False,
+                  "ill_request_sent": False,
+                  "payment_used": False,
+                  "captcha_bypass_used": False,
+                  "guessed_hold_id_used": False,
+              },
+          }
+          (out / "probe.json").write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+          (out / "exact-issue.html").write_text(i_html, encoding="utf-8")
+          (out / "remote-copy-policy.html").write_text(p_html, encoding="utf-8")
+          print(json.dumps(result, ensure_ascii=False, indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12jb-nabunken-wenwu-1951-v2n9
+          path: artifacts/batch-12jb
+          if-no-files-found: error
