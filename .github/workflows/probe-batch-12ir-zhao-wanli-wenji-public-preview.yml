@@ -16,37 +16,31 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
-
-      - name: Locate exact Zhao Wanli Wenji vol.1 from source-emitted NLC Press list
+      - name: Inspect exact NLC Press Product 5325 Booktext/Catalog attachment boundary
         run: |
           python - <<'PY'
-          import hashlib, html, json, re, time
+          import hashlib, html, json, re
           from html.parser import HTMLParser
           from pathlib import Path
-          from urllib.parse import urljoin
           import requests
 
-          LIST_URL="https://www.nlcpress.com/ProductList.aspx"
+          URL="https://www.nlcpress.com/ProductView.aspx?Id=5325"
+          TITLE="赵万里文集·第一卷"
           ISBN="9787501346653"
-          SERIES="赵万里文集"
-          EXACT_HINTS=("第一卷","第1卷","第一冊","第1冊")
-          START_PAGE=302
-          END_PAGE=370
-          UA="Mozilla/5.0 (Tianwen provenance audit; exact Zhao Wanli Wenji vol1 publisher discovery)"
+          UA="Mozilla/5.0 (Tianwen provenance audit; exact Zhao Wanli Wenji vol1 Booktext boundary)"
+          MAX_BYTES=4096
 
-          class HiddenParser(HTMLParser):
+          class Parser(HTMLParser):
               def __init__(self):
                   super().__init__(convert_charrefs=True)
-                  self.fields={}
+                  self.hidden={}
+                  self.anchors=[]
               def handle_starttag(self,tag,attrs):
-                  if tag.lower()!="input":
-                      return
                   d={str(k):("" if v is None else str(v)) for k,v in attrs}
-                  if d.get("type","").lower()=="hidden" and d.get("name"):
-                      self.fields[d["name"]]=d.get("value","")
-
-          def hidden_fields(body):
-              p=HiddenParser(); p.feed(body); return p.fields
+                  if tag.lower()=="input" and d.get("type","").lower()=="hidden" and d.get("name"):
+                      self.hidden[d["name"]]=d.get("value","")
+                  if tag.lower()=="a":
+                      self.anchors.append(d)
 
           def clean(raw):
               raw=re.sub(r'<script\b.*?</script>',' ',raw,flags=re.I|re.S)
@@ -54,237 +48,90 @@ jobs:
               raw=re.sub(r'<[^>]+>',' ',raw)
               return re.sub(r'\s+',' ',html.unescape(raw)).strip()
 
-          def links(raw):
-              out=[]
-              for m in re.finditer(r'<a\b[^>]*href=["\'](ProductView\.aspx\?Id=\d+)["\'][^>]*>(.*?)</a>',raw,re.I|re.S):
-                  out.append({"href":html.unescape(m.group(1)),"text":clean(m.group(2))})
-              return out
+          s=requests.Session(); s.headers.update({"User-Agent":UA})
+          g=s.get(URL,timeout=45); g.raise_for_status()
+          raw=g.text; vis=clean(raw); norm=re.sub(r'[-\s]','',vis)
+          p=Parser(); p.feed(raw)
 
-          def page_now(raw):
-              m=re.search(r'id=["\']PageNavigator1_txt_PageNow["\'][^>]*>(\d+)<',raw,re.I)
-              return int(m.group(1)) if m else None
+          # Source-emitted controls by id, parsed with HTMLParser so nested quotes in javascript href are preserved.
+          book_anchor=next((a for a in p.anchors if a.get("id")=="Booktext"),None)
+          cat_anchor=next((a for a in p.anchors if a.get("id")=="CatalogPrecisFile"),None)
 
-          s=requests.Session()
-          s.headers.update({"User-Agent":UA})
-          g=s.get(LIST_URL,timeout=45); g.raise_for_status()
-          current=g.text
-          samples={}
-          series_hits=[]
-          target=None
-
-          for page in range(START_PAGE,END_PAGE+1):
-              form=hidden_fields(current)
-              form.update({
-                  "__EVENTTARGET":"PageNavigator1$LinkButton_Go",
-                  "__EVENTARGUMENT":"",
-                  "PageNavigator1$txt_PageGo":str(page),
-              })
-              r=s.post(LIST_URL,data=form,timeout=45); r.raise_for_status()
-              current=r.text
-              text=clean(current)
-              ds=re.findall(r'出版时间[:：]?\s*(20\d{2}-\d{2}-\d{2})',text)
-              if page in (302,310,320,330,340,350,360,370):
-                  samples[str(page)]={"page_now":page_now(current),"dates":ds[:12]}
-              for item in links(current):
-                  if SERIES in item["text"]:
-                      rec={"page":page,**item}
-                      if rec not in series_hits:
-                          series_hits.append(rec)
-                      if any(h in item["text"] for h in EXACT_HINTS):
-                          target=rec
-              if target:
-                  break
-              time.sleep(0.08)
-
-          detail=None
-          if target:
-              url=urljoin(LIST_URL,target["href"])
-              r=s.get(url,timeout=45); r.raise_for_status()
-              raw=r.text; vis=clean(raw)
-              norm=re.sub(r'[-\s]','',vis)
-              anchors=[]
-              for m in re.finditer(r'<a\b([^>]*)>(.*?)</a>',raw,re.I|re.S):
-                  attrs=html.unescape(m.group(1)); label=clean(m.group(2))
-                  if any(k in label for k in ("图书文件下载","目录附件下载","电子书下载")):
-                      hm=re.search(r'href\s*=\s*["\']([^"\']*)["\']',attrs,re.I)
-                      anchors.append({"label":label,"href":html.unescape(hm.group(1)) if hm else None})
-              detail={
-                  "source_emitted_href":target["href"],
-                  "source_list_page":target["page"],
-                  "title_link_text":target["text"],
-                  "url":url,
-                  "status":r.status_code,
-                  "body_sha256":hashlib.sha256(r.content).hexdigest(),
-                  "has_series_title":SERIES in vis,
-                  "has_target_isbn":ISBN in norm,
-                  "has_first_volume_marker":any(h in vis for h in EXACT_HINTS),
-                  "has_p197_literal":bool(re.search(r'(?<!\d)197(?!\d)',vis)),
-                  "has_yongle_article":"永乐大典" in vis and ("展览" in vis or "展覽" in vis),
-                  "download_anchors":anchors,
-                  "catalog_anchor_has_href":any(a["label"].startswith("目录附件下载") and a.get("href") for a in anchors),
-                  "booktext_postback_present":"__doPostBack('Booktext','')" in raw,
-              }
-
-          out={
-              "list_url":LIST_URL,
-              "page_range":[START_PAGE,END_PAGE],
-              "sampled_dates":samples,
-              "series_hits":series_hits,
-              "exact_first_volume_target":target,
-              "detail":detail,
-              "target_isbn":ISBN,
-              "product_id_guessing_used":False,
-              "only_source_emitted_product_links_followed":True,
-              "login_used":False,
-              "purchase_used":False,
-              "payment_used":False,
-              "captcha_bypass_used":False,
-              "tls_verification_disabled":False,
-          }
-          Path("zhao-wanli-wenji-vol1-nlcpress-discovery.json").write_text(
-              json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8")
-          print(json.dumps(out,ensure_ascii=False,indent=2))
-          PY
-
-      - uses: actions/upload-artifact@v4
-        with:
-          name: batch-12ir-zhao-wanli-wenji-vol1-nlcpress-discovery
-          path: zhao-wanli-wenji-vol1-nlcpress-discovery.json
-
-      - name: Inspect Open Library exact edition/work/preview metadata
-        run: |
-          python - <<'PY'
-          import hashlib, json
-          from pathlib import Path
-          import requests
-
-          ISBN="9787501346653"
-          UA={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; Open Library exact-edition preview control)"}
-          urls={
-              "isbn":f"https://openlibrary.org/isbn/{ISBN}.json",
-              "search":f"https://openlibrary.org/search.json?isbn={ISBN}",
-              "books_api":f"https://openlibrary.org/api/books?bibkeys=ISBN:{ISBN}&jscmd=data&format=json",
+          result={
+              "product_url":URL,
+              "get_status":g.status_code,
+              "get_body_sha256":hashlib.sha256(g.content).hexdigest(),
+              "target_title_present":TITLE in vis or "赵万里文集" in vis,
+              "target_isbn_present":ISBN in norm,
+              "p197_literal_present":bool(re.search(r'(?<!\d)197(?!\d)',vis)),
+              "yongle_article_term_present":"永乐大典" in vis and ("展览" in vis or "展覽" in vis),
+              "booktext_anchor":book_anchor,
+              "catalog_anchor":cat_anchor,
+              "booktext_source_emitted":bool(book_anchor and "Booktext" in (book_anchor.get("href") or "")),
+              "catalog_href":cat_anchor.get("href") if cat_anchor else None,
+              "postback":None,
+              "raw_product_html_saved":False,
+              "raw_product_html_logged":False,
           }
 
-          out={}
-          parsed={}
-          for key,url in urls.items():
-              r=requests.get(url,timeout=45,headers=UA)
-              body=r.content
+          if result["booktext_source_emitted"]:
+              form=dict(p.hidden)
+              form.update({"__EVENTTARGET":"Booktext","__EVENTARGUMENT":""})
+              r=s.post(URL,data=form,timeout=45,stream=True,allow_redirects=False,
+                       headers={"User-Agent":UA,"Referer":URL})
+              clen=None
+              try: clen=int(r.headers.get("Content-Length",""))
+              except Exception: pass
               row={
-                  "url":url,
                   "status":r.status_code,
+                  "reason":r.reason,
                   "content_type":r.headers.get("Content-Type"),
-                  "bytes":len(body),
-                  "sha256":hashlib.sha256(body).hexdigest(),
-                  "json_parsed":False,
-                  "raw_body_saved":False,
-                  "raw_body_logged":False,
+                  "content_length":clen,
+                  "content_disposition":r.headers.get("Content-Disposition"),
+                  "is_redirect":bool(r.is_redirect or r.is_permanent_redirect),
+                  "bounded_read_performed":False,
+                  "bytes_read":0,
+                  "body_sha256":None,
+                  "decoded_encoding":None,
+                  "decoded_char_count":None,
+                  "p197_literal":False,
+                  "yongle_article_term":False,
+                  "qu_donation_terms":False,
+                  "raw_text_logged":False,
+                  "raw_text_saved":False,
               }
-              try:
-                  data=r.json(); parsed[key]=data; row["json_parsed"]=True
-                  if key=="isbn" and isinstance(data,dict):
-                      row.update({
-                          "key":data.get("key"),
-                          "title":data.get("title"),
-                          "subtitle":data.get("subtitle"),
-                          "pagination":data.get("pagination"),
-                          "publish_date":data.get("publish_date"),
-                          "publishers":data.get("publishers"),
-                          "edition_name":data.get("edition_name"),
-                          "isbn_13":data.get("isbn_13"),
-                          "oclc_numbers":data.get("oclc_numbers"),
-                          "lccn":data.get("lccn"),
-                          "source_records":data.get("source_records"),
-                          "works":data.get("works"),
-                          "ocaid":data.get("ocaid"),
-                          "covers":data.get("covers"),
-                      })
-                  elif key=="search":
-                      row["numFound"]=data.get("numFound") if isinstance(data,dict) else None
-                      row["docs"]=[
-                          {
-                              "key":x.get("key"),
-                              "title":x.get("title"),
-                              "edition_key":x.get("edition_key"),
-                              "isbn":x.get("isbn"),
-                              "publish_year":x.get("publish_year"),
-                          } for x in (data.get("docs",[])[:5] if isinstance(data,dict) else [])
-                      ]
-                  elif key=="books_api" and isinstance(data,dict):
-                      rec=data.get(f"ISBN:{ISBN}")
-                      row["record_present"]=isinstance(rec,dict)
-                      if isinstance(rec,dict):
-                          row.update({
-                              "title":rec.get("title"),
-                              "publish_date":rec.get("publish_date"),
-                              "publishers":rec.get("publishers"),
-                              "number_of_pages":rec.get("number_of_pages"),
-                              "preview":rec.get("preview"),
-                              "preview_url":rec.get("preview_url"),
-                              "info_url":rec.get("info_url"),
-                              "thumbnail_url":rec.get("thumbnail_url"),
-                              "ebooks":rec.get("ebooks"),
-                          })
-              except Exception as e:
-                  row["json_error"]=f"{type(e).__name__}: {e}"
-              out[key]=row
+              if clen is not None and clen<=MAX_BYTES:
+                  chunks=[]; total=0
+                  for chunk in r.iter_content(1024):
+                      if not chunk: continue
+                      total+=len(chunk)
+                      if total>MAX_BYTES:
+                          raise RuntimeError("bounded payload exceeded 4 KiB")
+                      chunks.append(chunk)
+                  body=b"".join(chunks)
+                  row["bounded_read_performed"]=True
+                  row["bytes_read"]=len(body)
+                  row["body_sha256"]=hashlib.sha256(body).hexdigest()
+                  txt=""
+                  for enc in ("utf-8","gb18030","gbk"):
+                      try:
+                          txt=body.decode(enc); row["decoded_encoding"]=enc; break
+                      except Exception: pass
+                  if not txt:
+                      txt=body.decode("utf-8","replace"); row["decoded_encoding"]="utf-8-replacement"
+                  normtxt=re.sub(r'\s+',' ',txt)
+                  row["decoded_char_count"]=len(normtxt)
+                  row["p197_literal"]=bool(re.search(r'(?<!\d)197(?!\d)',normtxt))
+                  row["yongle_article_term"]="永乐大典" in normtxt and ("展览" in normtxt or "展覽" in normtxt)
+                  row["qu_donation_terms"]=all(x in normtxt for x in ("瞿","捐","六十二"))
+              r.close()
+              result["postback"]=row
 
-          work_key=None
-          isbn_data=parsed.get("isbn")
-          if isinstance(isbn_data,dict):
-              works=isbn_data.get("works") or []
-              if works and isinstance(works[0],dict):
-                  work_key=works[0].get("key")
-          if not work_key:
-              s=parsed.get("search")
-              docs=s.get("docs",[]) if isinstance(s,dict) else []
-              if docs:
-                  work_key=docs[0].get("key")
-
-          if work_key:
-              for key,url in {
-                  "work":f"https://openlibrary.org{work_key}.json",
-                  "editions":f"https://openlibrary.org{work_key}/editions.json?limit=50",
-              }.items():
-                  r=requests.get(url,timeout=45,headers=UA); body=r.content
-                  row={
-                      "url":url,"status":r.status_code,"content_type":r.headers.get("Content-Type"),
-                      "bytes":len(body),"sha256":hashlib.sha256(body).hexdigest(),
-                      "json_parsed":False,"raw_body_saved":False,"raw_body_logged":False,
-                  }
-                  try:
-                      data=r.json(); row["json_parsed"]=True
-                      if key=="work" and isinstance(data,dict):
-                          row.update({
-                              "key":data.get("key"),"title":data.get("title"),
-                              "covers":data.get("covers"),"subjects":data.get("subjects"),
-                              "description_present":bool(data.get("description")),
-                          })
-                      elif key=="editions" and isinstance(data,dict):
-                          row["size"]=data.get("size")
-                          row["entries"]=[
-                              {
-                                  "key":e.get("key"),"title":e.get("title"),
-                                  "publish_date":e.get("publish_date"),
-                                  "pagination":e.get("pagination"),
-                                  "isbn_13":e.get("isbn_13"),
-                                  "ocaid":e.get("ocaid"),
-                                  "covers":e.get("covers"),
-                                  "source_records":e.get("source_records"),
-                              } for e in data.get("entries",[])[:50]
-                          ]
-                  except Exception as e:
-                      row["json_error"]=f"{type(e).__name__}: {e}"
-                  out[key]=row
-
-          out["work_key"]=work_key
-          Path("zhao-wanli-wenji-openlibrary-preview-control.json").write_text(
-              json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8")
-          print(json.dumps(out,ensure_ascii=False,indent=2))
+          Path("zhao-wanli-wenji-vol1-product5325-boundary.json").write_text(
+              json.dumps(result,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(result,ensure_ascii=False,indent=2))
           PY
-
       - uses: actions/upload-artifact@v4
         with:
-          name: batch-12ir-zhao-wanli-wenji-openlibrary-preview-control
-          path: zhao-wanli-wenji-openlibrary-preview-control.json
+          name: batch-12ir-zhao-wanli-wenji-vol1-product5325-boundary
+          path: zhao-wanli-wenji-vol1-product5325-boundary.json
