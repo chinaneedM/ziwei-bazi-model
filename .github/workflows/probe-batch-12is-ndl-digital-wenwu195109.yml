@@ -17,125 +17,105 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Query NDL Search public SRU for digital objects
+      - name: Calibrate NDL public APIs and query digital object providers
         run: |
           python - <<'PY'
           import hashlib, json, re
           import xml.etree.ElementTree as ET
           from pathlib import Path
-          from urllib.parse import quote
+          from urllib.parse import quote, urlencode
           import requests
 
-          BASE="https://ndlsearch.ndl.go.jp/api/sru"
-          UA={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; bounded NDL public SRU object discovery)"}
+          SRU="https://ndlsearch.ndl.go.jp/api/sru"
+          OS="https://ndlsearch.ndl.go.jp/api/opensearch"
+          UA={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; bounded NDL public object discovery)"}
+          s=requests.Session(); s.headers.update(UA)
 
-          # Small, exact query set only. No harvesting, pagination crawl, account action, or copy request.
-          queries=[
-              ("ndl_dl_title_trad_1951",'title="文物参考資料" AND from="1951" AND until="1951" AND dpid="ndl-dl"'),
-              ("ndl_dl_title_simp_1951",'title="文物参考资料" AND from="1951" AND until="1951" AND dpid="ndl-dl"'),
-              ("ndl_dl_open_title_trad_1951",'title="文物参考資料" AND from="1951" AND until="1951" AND dpid="ndl-dl-open"'),
-              ("ndl_dl_open_title_simp_1951",'title="文物参考资料" AND from="1951" AND until="1951" AND dpid="ndl-dl-open"'),
-              ("ndl_dl_article_trad",'title="永楽大典展覧の意義" AND dpid="ndl-dl"'),
-              ("ndl_dl_article_cn",'title="永乐大典展览的意义" AND dpid="ndl-dl"'),
-              ("ndl_dl_article_cn_trad",'title="永樂大典展覽的意義" AND dpid="ndl-dl"'),
-          ]
+          def local(tag):
+              return tag.rsplit("}",1)[-1]
 
-          ns={
-              "srw":"http://www.loc.gov/zing/srw/",
-              "dc":"http://purl.org/dc/elements/1.1/",
-              "dcterms":"http://purl.org/dc/terms/",
-              "rdf":"http://www.w3.org/1999/02/22-rdf-syntax-ns#",
-              "rdfs":"http://www.w3.org/2000/01/rdf-schema#",
-          }
-
-          def texts(root, local):
-              out=[]
+          def compact_xml(body):
+              root=ET.fromstring(body)
+              names={}
               for e in root.iter():
-                  if e.tag.rsplit("}",1)[-1]==local and (e.text or "").strip():
-                      out.append((e.text or "").strip())
-              return out
-
-          def attrs_with_value(root):
-              out=[]
+                  names[local(e.tag)]=names.get(local(e.tag),0)+1
+              text_items=[]
+              for e in root.iter():
+                  t=(e.text or "").strip()
+                  if t and local(e.tag) in ("numberOfRecords","diagnostic","uri","message","details","title","identifier","date","creator","rights","link"):
+                      text_items.append({"tag":local(e.tag),"text":t[:1000]})
+              attrs=[]
               for e in root.iter():
                   for k,v in e.attrib.items():
-                      if v:
-                          out.append(v)
-              return out
+                      if v and any(tok in v for tok in ("ndl.go.jp","ndljp","pid/","R100000039")):
+                          attrs.append(v)
+              return root,names,text_items,sorted(set(attrs))
 
-          results={}
-          session=requests.Session()
-          session.headers.update(UA)
+          # First calibrate the exact current SRU syntax against NDL's own documented example.
+          sru_queries=[
+              ("official_positive",'title="桜" AND from="2018"'),
+              ("target_serial_digital",'title="文物参考資料" AND from="1951" AND until="1951" AND dpid=ndl-dl'),
+              ("target_serial_digital_simp",'title="文物参考资料" AND from="1951" AND until="1951" AND dpid=ndl-dl'),
+              ("target_serial_open",'title="文物参考資料" AND from="1951" AND until="1951" AND dpid=ndl-dl-open'),
+              ("target_article_digital",'title="永樂大典展覽的意義" AND dpid=ndl-dl'),
+              ("target_article_simp_digital",'title="永乐大典展览的意义" AND dpid=ndl-dl'),
+          ]
+          out={"sru":{},"opensearch":{}}
 
-          for key,cql in queries:
-              url=f"{BASE}?operation=searchRetrieve&maximumRecords=20&recordSchema=dcndl_v3&query={quote(cql,safe='')}"
+          for key,cql in sru_queries:
+              url=f"{SRU}?operation=searchRetrieve&maximumRecords=20&query={quote(cql,safe='')}"
               row={"cql":cql,"url":url}
               try:
-                  r=session.get(url,timeout=45)
-                  body=r.content
-                  row.update({
-                      "status":r.status_code,
-                      "content_type":r.headers.get("Content-Type"),
-                      "bytes":len(body),
-                      "sha256":hashlib.sha256(body).hexdigest(),
-                      "xml_parsed":False,
-                      "raw_xml_saved":False,
-                      "raw_xml_logged":False,
-                  })
-                  root=ET.fromstring(body)
-                  row["xml_parsed"]=True
-                  nums=texts(root,"numberOfRecords")
+                  r=s.get(url,timeout=45); body=r.content
+                  row.update({"status":r.status_code,"content_type":r.headers.get("Content-Type"),"bytes":len(body),"sha256":hashlib.sha256(body).hexdigest(),"raw_xml_saved":False,"raw_xml_logged":False})
+                  root,names,items,attrs=compact_xml(body)
+                  row["root_tag"]=local(root.tag)
+                  row["tag_counts"]=names
+                  row["selected_text"]=items[:100]
+                  nums=[x["text"] for x in items if x["tag"]=="numberOfRecords"]
                   row["number_of_records"]=int(nums[0]) if nums and nums[0].isdigit() else (nums[0] if nums else None)
-
-                  recs=[]
-                  # Inspect each SRU record independently, retaining only compact bibliographic/object identifiers.
-                  for rec in root.iter():
-                      if rec.tag.rsplit("}",1)[-1]!="record":
-                          continue
-                      alltxt=" ".join((x.text or "").strip() for x in rec.iter() if (x.text or "").strip())
-                      vals=attrs_with_value(rec)
-                      identifiers=[
-                          x for x in (texts(rec,"identifier")+vals)
-                          if any(tok in x for tok in ("ndljp","ndl.go.jp","ndlsearch","R100000039","pid/"))
-                      ]
-                      titles=texts(rec,"title")
-                      dates=texts(rec,"date")
-                      creators=texts(rec,"creator")
-                      rights=texts(rec,"rights")
-                      recs.append({
-                          "titles":titles[:8],
-                          "dates":dates[:8],
-                          "creators":creators[:8],
-                          "rights":rights[:8],
-                          "identifiers":sorted(set(identifiers))[:30],
-                          "has_target_serial":("文物参考資料" in alltxt or "文物参考资料" in alltxt),
-                          "has_target_article":any(x in alltxt for x in ("永乐大典展览的意义","永樂大典展覽的意義","永楽大典展覧の意義")),
-                          "has_1951":("1951" in alltxt),
-                          "has_issue9":bool(re.search(r'(?<!\d)(?:9|09)(?!\d)',alltxt)),
-                      })
-                  row["records"]=recs[:20]
+                  row["ndl_object_attrs"]=attrs[:50]
               except Exception as e:
                   row["error"]=f"{type(e).__name__}: {e}"
-              results[key]=row
+              out["sru"][key]=row
 
-          out={
-              "endpoint":BASE,
-              "query_count":len(queries),
-              "results":results,
-              "login_used":False,
-              "account_action_used":False,
-              "copy_request_used":False,
-              "payment_used":False,
-              "captcha_bypass_used":False,
-              "tls_verification_disabled":False,
-              "harvest_or_bulk_enumeration_used":False,
+          # OpenSearch is independently documented and easier to scope by provider.
+          os_queries=[
+              ("target_serial_ndl_dl",{"cnt":"20","title":"文物参考資料","from":"1951","until":"1951","dpid":"ndl-dl"}),
+              ("target_serial_ndl_dl_simp",{"cnt":"20","title":"文物参考资料","from":"1951","until":"1951","dpid":"ndl-dl"}),
+              ("target_serial_ndl_dl_open",{"cnt":"20","title":"文物参考資料","from":"1951","until":"1951","dpid":"ndl-dl-open"}),
+              ("target_article_ndl_dl",{"cnt":"20","title":"永樂大典展覽的意義","dpid":"ndl-dl"}),
+              ("target_article_ndl_dl_simp",{"cnt":"20","title":"永乐大典展览的意义","dpid":"ndl-dl"}),
+          ]
+          for key,params in os_queries:
+              url=OS+"?"+urlencode(params)
+              row={"params":params,"url":url}
+              try:
+                  r=s.get(url,timeout=45); body=r.content
+                  row.update({"status":r.status_code,"content_type":r.headers.get("Content-Type"),"bytes":len(body),"sha256":hashlib.sha256(body).hexdigest(),"raw_xml_saved":False,"raw_xml_logged":False})
+                  root,names,items,attrs=compact_xml(body)
+                  row["root_tag"]=local(root.tag)
+                  row["tag_counts"]=names
+                  row["selected_text"]=items[:120]
+                  row["ndl_object_attrs"]=attrs[:50]
+                  titles=[x["text"] for x in items if x["tag"]=="title"]
+                  row["titles"]=titles[:30]
+                  row["target_serial_title_seen"]=any("文物参考" in x for x in titles)
+                  row["target_article_title_seen"]=any("永" in x and "大典" in x and ("意義" in x or "意义" in x) for x in titles)
+              except Exception as e:
+                  row["error"]=f"{type(e).__name__}: {e}"
+              out["opensearch"][key]=row
+
+          out["security"]={
+              "login_used":False,"account_action_used":False,"copy_request_used":False,
+              "payment_used":False,"captcha_bypass_used":False,"tls_verification_disabled":False,
+              "harvest_or_bulk_enumeration_used":False
           }
-          Path("ndl-digital-wenwu195109-sru.json").write_text(
-              json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8")
+          Path("ndl-digital-wenwu195109-api-calibration.json").write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8")
           print(json.dumps(out,ensure_ascii=False,indent=2))
           PY
 
       - uses: actions/upload-artifact@v4
         with:
-          name: batch-12is-ndl-digital-wenwu195109-sru
-          path: ndl-digital-wenwu195109-sru.json
+          name: batch-12is-ndl-digital-wenwu195109-api-calibration
+          path: ndl-digital-wenwu195109-api-calibration.json
