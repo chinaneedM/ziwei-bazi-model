@@ -1022,3 +1022,13 @@ Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WE
 - Direct 2011 p.197, direct 1951 pp.221–233, direct 1997 pp.446–449 and public `wwck195109.pdf` bytes all remain unresolved/not reviewed. Product/accounting remains 198 / 166 / 10 and provenance defects 17/17, with zero chart-algorithm defects, reopens or candidate collapses.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENWU-1951-CNBKSY-PUBLIC-SEARCH-CONTRACT-ACCESS-BOUNDARY-JC.md`. Research record: `docs/research/ZIWEI-WENWU-1951-CNBKSY-PUBLIC-SEARCH-CONTRACT-ACCESS-BOUNDARY-R1.json`.
+
+## Progress — Batch 12JD
+
+- NLC 2019 official reprint explicitly attributes Zheng Zhenduo's 《关于〈永乐大典〉》 to People's Daily 1951-08-13.
+- NLC 2025 official PDF exposes a conflicting 1951-08-31 bibliography-line date for that separate Zheng article while independently preserving the Zhao Wanli 1951 issue-9 pp.221–233 locator.
+- Probe run 36759879758 / artifact 11118018737 / digest sha256:27cbf81f6a2a68128afa7f7bb935532085d85f16c846cbea0d3edbed6fc4ac7d follows source-emitted August navigation. The public transcription contains the article on 8/13 page 3 and not on the source-emitted 8/31 page.
+- Current control: 1951-08-13 HIGH confidence; NLC-2025 1951-08-31 quarantined pending official newspaper-image review. No absolute physical 8/31 absence claim is made.
+- No change to direct-review status of 2011 p.197, 1951 pp.221–233 or 1997 pp.446–449; accounting remains 198 / 166 / 10 and provenance defects 17/17.
+
+Batch document: docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHENG-YONGLE-1951-0813-0831-PUBLICATION-DATE-CONFLICT-JD.md. Research record: docs/research/ZIWEI-ZHENG-YONGLE-1951-0813-0831-PUBLICATION-DATE-CONFLICT-R1.json.

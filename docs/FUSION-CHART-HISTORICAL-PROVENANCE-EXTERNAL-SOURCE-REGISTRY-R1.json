@@ -9061,7 +9061,7 @@
       "provider": "国家图书馆 / 国家图书馆古籍馆",
       "url": "https://www.nlc.cn/upload/attachments/2025-04-08/753b026e.pdf",
       "source_role": "FIRST_PARTY_NLC_BIBLIOGRAPHIC_CONTROL_FOR_ZHAO_WANLI_1951_YONGLE_DADIAN_EXHIBITION_ARTICLE",
-      "quality_notes": "Identifies Zhao Wanli's target article as 《文物参考资料》1951年第9期, pp.221–233. It closes publication identity, not the Ding paragraph text.",
+      "quality_notes": "Identifies Zhao Wanli's target article as 《文物参考资料》1951年第9期, pp.221–233. It closes publication identity, not the Ding paragraph text. Batch 12JD detects a separate Zheng-Zhenduo bibliography date conflict: this PDF displays 1951-08-31, whereas NLC's 2019 official reprint explicitly attributes the article to People's Daily 1951-08-13. The project quarantines 8/31 and uses 8/13 as the current high-confidence controlling date pending official newspaper-image review. Zhao's 1951 issue-9 pp.221–233 locator is unaffected.",
       "batch_12hf": {
         "target_article": "永乐大典展览的意义——一九五一年八月北京图书馆举办",
         "target_periodical": "文物参考资料",
@@ -9087,6 +9087,14 @@
         "target_pages": "221–233",
         "direct_original_pages_reviewed": false,
         "research_artifact": "docs/research/ZIWEI-ZHAO-WANLI-1951-QU-SIXTYTWO-DONATION-COUNT-CHRONOLOGY-FIREWALL-R1.json"
+      },
+      "batch_12jd": {
+        "separate_zheng_article": "关于永乐大典",
+        "displayed_date_in_this_pdf": "1951-08-31",
+        "conflict_with_nlc_2019_reprint_date": "1951-08-13",
+        "classification": "BIBLIOGRAPHIC_DATE_CONFLICT_QUARANTINED_PENDING_OFFICIAL_NEWSPAPER_SCAN",
+        "zhao_target_locator_affected": false,
+        "research_artifact": "docs/research/ZIWEI-ZHENG-YONGLE-1951-0813-0831-PUBLICATION-DATE-CONFLICT-R1.json"
       }
     },
     {
@@ -10936,6 +10944,41 @@
           "https://lib.shu.edu.cn/info/1023/5004.htm"
         ],
         "research_artifact": "docs/research/ZIWEI-WENWU-1951-CNBKSY-PUBLIC-SEARCH-CONTRACT-ACCESS-BOUNDARY-R1.json"
+      }
+    },
+    {
+      "source_id": "EXT-NLC-ZHENG-YONGLE-1951-0813-OFFICIAL-REPRINT",
+      "title": "郑振铎：关于《永乐大典》",
+      "author": "郑振铎",
+      "historical_period": "1951 article; NLC official reprint reviewed 2026-10-01",
+      "provider": "国家图书馆 / 中国古籍保护网",
+      "url": "https://www.nlc.cn/pcab/zx/xw/20190815_180607.shtml",
+      "source_role": "FIRST_PARTY_NLC_REPRINT_AND_1951_08_13_PEOPLES_DAILY_DATE_CONTROL_FOR_SEPARATE_ZHENG_CONTEXTUAL_ARTICLE",
+      "quality_notes": "NLC official reprint explicitly says the piece is reprinted from People's Daily and displays 1951-08-13. Batch 12JD uses it as the strongest current institutional date control for this separate Zheng article. It is contextual to the Yongle Dadian exhibition and cannot substitute for Zhao Wanli's direct 2011 p.197 or 1951 pp.221–233.",
+      "batch_12jd": {
+        "reported_date": "1951-08-13",
+        "reprint_from_peoples_daily": true,
+        "controlling_date_confidence": "HIGH",
+        "same_text_as_zhao_article_proved": false,
+        "research_artifact": "docs/research/ZIWEI-ZHENG-YONGLE-1951-0813-0831-PUBLICATION-DATE-CONFLICT-R1.json"
+      }
+    },
+    {
+      "source_id": "EXT-PUBLIC-RMRB-TRANSCRIPTION-ZHENG-YONGLE-1951-0813-0831",
+      "title": "《人民日报》1951-08逐日公开转录：8月13日 / 8月31日对照",
+      "historical_period": "1951 newspaper content; public transcription reviewed 2026-10-01",
+      "provider": "rmrb.zhouenlai.info public transcription",
+      "url": "https://rmrb.zhouenlai.info/%E4%BA%BA%E6%B0%91%E6%97%A5%E6%8A%A5%EF%BC%881946-2003%EF%BC%89/1951/08/1951-08-13.htm",
+      "source_role": "NONOFFICIAL_PUBLIC_DAILY_TRANSCRIPTION_CORROBORATION_FOR_DATE_CONFLICT_ONLY",
+      "quality_notes": "Batch 12JD follows the 8/13 page's own month-directory link to the source-emitted 8/31 page. The target Zheng article is present on 8/13 page 3 and absent from the 8/31 transcription. This is corroboration only, not an official People's Daily scan and not absolute negative evidence for the physical 8/31 newspaper.",
+      "batch_12jd": {
+        "day13_target_title_present": true,
+        "day13_page": "第3版",
+        "source_emitted_day31_followed": true,
+        "day31_target_title_present": false,
+        "official_newspaper_scan_reviewed": false,
+        "absolute_8_31_absence_claim_authorized": false,
+        "research_artifact": "docs/research/ZIWEI-ZHENG-YONGLE-1951-0813-0831-PUBLICATION-DATE-CONFLICT-R1.json"
       }
     }
   ],

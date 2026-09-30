@@ -328,6 +328,8 @@ ZIWEI_NABUNKEN_WENWU_JB_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-
 ZIWEI_NABUNKEN_WENWU_JB_EVIDENCE = ROOT / "docs/research/ZIWEI-WENWU-CANKAO-1951-V2N9-NABUNKEN-EXACT-ISSUE-AND-REMOTE-COPY-BOUNDARY-R1.json"
 ZIWEI_CNBKSY_JC_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENWU-1951-CNBKSY-PUBLIC-SEARCH-CONTRACT-ACCESS-BOUNDARY-JC.md"
 ZIWEI_CNBKSY_JC_EVIDENCE = ROOT / "docs/research/ZIWEI-WENWU-1951-CNBKSY-PUBLIC-SEARCH-CONTRACT-ACCESS-BOUNDARY-R1.json"
+ZIWEI_ZHENG_YONGLE_JD_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHENG-YONGLE-1951-0813-0831-PUBLICATION-DATE-CONFLICT-JD.md"
+ZIWEI_ZHENG_YONGLE_JD_EVIDENCE = ROOT / "docs/research/ZIWEI-ZHENG-YONGLE-1951-0813-0831-PUBLICATION-DATE-CONFLICT-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -716,9 +718,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-JI-SHUYING-2009-TIEQIN-DIRECT-TRANSACTION-CHRONOLOGY-IY",    "BATCH-12-ZIWEI-BEITU1997-GOOGLE-BOOKS-ALTERNATE-INBOOK-SEARCH-BOUNDARY-IZ",    "BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-GOOGLE-BOOKS-SOURCE-EMITTED-OBJECT-CONFLICT-JA",
     "BATCH-12-ZIWEI-WENWU-CANKAO-1951-V2N9-NABUNKEN-EXACT-ISSUE-AND-REMOTE-COPY-BOUNDARY-JB",
     "BATCH-12-ZIWEI-WENWU-1951-CNBKSY-PUBLIC-SEARCH-CONTRACT-ACCESS-BOUNDARY-JC",
+    "BATCH-12-ZIWEI-ZHENG-YONGLE-1951-0813-0831-PUBLICATION-DATE-CONFLICT-JD",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENWU-1951-CNBKSY-PUBLIC-SEARCH-CONTRACT-ACCESS-BOUNDARY-JC.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHENG-YONGLE-1951-0813-0831-PUBLICATION-DATE-CONFLICT-JD.md"
 
 
 def fail(message: str) -> None:
@@ -10747,6 +10750,62 @@ def main() -> int:
         fail("Batch 12JC missing from completed state")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12JC latest-batch document mismatch")
+
+    # Batch 12JD: Zheng Yongle 1951-08-13 vs 1951-08-31 publication-date conflict.
+    for path in (ZIWEI_ZHENG_YONGLE_JD_BATCH, ZIWEI_ZHENG_YONGLE_JD_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12JD continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12jd = json.loads(ZIWEI_ZHENG_YONGLE_JD_EVIDENCE.read_text(encoding="utf-8"))
+    bid12jd = "BATCH-12-ZIWEI-ZHENG-YONGLE-1951-0813-0831-PUBLICATION-DATE-CONFLICT-JD"
+    if batch12jd.get("batch_id") != bid12jd:
+        fail("Batch 12JD evidence identity mismatch")
+    p12jd = batch12jd.get("reproducible_probe", {})
+    if p12jd.get("workflow_run_id") != 36759879758 or p12jd.get("artifact_id") != 11118018737:
+        fail("Batch 12JD probe run/artifact binding regressed")
+    if p12jd.get("artifact_digest") != "sha256:27cbf81f6a2a68128afa7f7bb935532085d85f16c846cbea0d3edbed6fc4ac7d":
+        fail("Batch 12JD artifact digest regressed")
+    n19 = batch12jd.get("nlc_2019_official_reprint", {})
+    if n19.get("reported_publication_date") != "1951-08-13" or n19.get("reprint_attribution") != "转载自《人民日报》":
+        fail("Batch 12JD NLC-2019 date/reprint binding regressed")
+    n25 = batch12jd.get("nlc_2025_official_review", {})
+    if n25.get("reported_publication_date") != "1951-08-31" or n25.get("sha256") != "08bf6adcf9a2d200128a80b26156f9de06731094426a116c44ae02386822af20":
+        fail("Batch 12JD NLC-2025 conflicting date/PDF binding regressed")
+    pub12jd = batch12jd.get("public_people_daily_transcription_control", {})
+    if pub12jd.get("day13_target_title_present") is not True or pub12jd.get("day31_target_title_present") is not False:
+        fail("Batch 12JD public daily-transcription comparator regressed")
+    if pub12jd.get("direct_official_newspaper_scan_reviewed") is not False:
+        fail("Batch 12JD official-newspaper-scan firewall regressed")
+    adj12jd = batch12jd.get("adjudication", {})
+    if adj12jd.get("controlling_publication_date") != "1951-08-13" or adj12jd.get("controlling_date_confidence") != "HIGH":
+        fail("Batch 12JD controlling date adjudication regressed")
+    if adj12jd.get("nlc_2025_1951_08_31_classification") != "BIBLIOGRAPHIC_DATE_CONFLICT_QUARANTINED_PENDING_OFFICIAL_NEWSPAPER_SCAN":
+        fail("Batch 12JD conflict classification regressed")
+    if adj12jd.get("absolute_impossibility_of_1951_08_31_claimed") is not False or adj12jd.get("zheng_article_may_substitute_for_zhao_direct_page") is not False:
+        fail("Batch 12JD overclaim/scope firewall regressed")
+    sec12jd = batch12jd.get("security", {})
+    for key in ("login_used","account_action_used","payment_used","guessed_day31_url_used","ocr_used","captcha_bypass_used","tls_verification_disabled"):
+        if sec12jd.get(key) is not False:
+            fail(f"Batch 12JD security boundary regressed: {key}")
+    reg12jd = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    src19 = next((x for x in reg12jd.get("sources", []) if x.get("source_id") == "EXT-NLC-ZHENG-YONGLE-1951-0813-OFFICIAL-REPRINT"), None)
+    if src19 is None or src19.get("batch_12jd", {}).get("reported_date") != "1951-08-13":
+        fail("Batch 12JD NLC-2019 registry binding missing")
+    src25 = next((x for x in reg12jd.get("sources", []) if x.get("source_id") == "EXT-NLC-LIUPENG-YONGLE-REVIEW-ZHAO1951-BIBLIOGRAPHIC-CONTROL"), None)
+    if src25 is None or src25.get("batch_12jd", {}).get("displayed_date_in_this_pdf") != "1951-08-31":
+        fail("Batch 12JD NLC-2025 conflict registry binding missing")
+    acct12jd = batch12jd.get("accounting", {})
+    if acct12jd.get("matrix_rows") != 198 or acct12jd.get("audited_rows") != 166 or acct12jd.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12JD accounting regressed")
+    try:
+        schema12jd = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12JD state version is not numeric")
+    if schema12jd < (1, 268, 0):
+        fail("Batch 12JD state version regressed below 1.268.0")
+    if bid12jd not in audit_state.get("completed_batches", ()):
+        fail("Batch 12JD missing from completed state")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12JD latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

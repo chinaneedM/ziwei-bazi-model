@@ -1,0 +1,121 @@
+{
+  "schema": "ZIWEI-ZHENG-YONGLE-1951-0813-0831-PUBLICATION-DATE-CONFLICT-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-ZHENG-YONGLE-1951-0813-0831-PUBLICATION-DATE-CONFLICT-JD",
+  "prior_batch_id": "BATCH-12-ZIWEI-WENWU-1951-CNBKSY-PUBLIC-SEARCH-CONTRACT-ACCESS-BOUNDARY-JC",
+  "question": "How should the project adjudicate the conflict between NLC's 2019 official reprint dating Zheng Zhenduo's 《关于〈永乐大典〉》 to People's Daily 1951-08-13 and NLC's 2025 official review bibliography dating it to People's Daily 1951-08-31?",
+  "answer": "Use 1951-08-13 as the current high-confidence controlling publication date, while retaining the NLC-2025 1951-08-31 value as a quarantined bibliographic date conflict pending direct official People's Daily image review. NLC 2019 explicitly says the article is reprinted from People's Daily and gives 1951-08-13. A separate public day-by-day transcription places the target article on 1951-08-13 page 3; following only source-emitted month navigation, its 1951-08-31 page contains neither the target title nor Zheng Zhenduo. The transcription is not an official newspaper scan, so 8/31 is not declared absolutely impossible. This is contextual only and does not substitute for Zhao Wanli's 2011 p.197 or 1951 pp.221–233.",
+  "nlc_2019_official_reprint": {
+    "provider": "国家图书馆 / 中国古籍保护网",
+    "url": "https://www.nlc.cn/pcab/zx/xw/20190815_180607.shtml",
+    "http_status": 200,
+    "title_marker": "郑振铎：关于《永乐大典》",
+    "reprint_attribution": "转载自《人民日报》",
+    "reported_publication_date": "1951-08-13",
+    "body_controls": {
+      "soviet_leningrad_university_return_volumes": 11,
+      "commercial_press_donation_volumes": 21
+    },
+    "first_party_institutional_reprint": true
+  },
+  "nlc_2025_official_review": {
+    "source_id": "EXT-NLC-LIUPENG-YONGLE-REVIEW-ZHAO1951-BIBLIOGRAPHIC-CONTROL",
+    "url": "https://www.nlc.cn/upload/attachments/2025-04-08/753b026e.pdf",
+    "http_status": 200,
+    "bytes": 755701,
+    "sha256": "08bf6adcf9a2d200128a80b26156f9de06731094426a116c44ae02386822af20",
+    "ocr_used": false,
+    "zheng_bibliography_display": "郑振铎《关于永乐大典》，1951年8月31日《人民日报》",
+    "reported_publication_date": "1951-08-31",
+    "zhao_target_locator_preserved": true,
+    "zhao_target_issue": "1951年第9期",
+    "zhao_target_pages": "221–233",
+    "conflict_is_in_source_text_layer": true
+  },
+  "public_people_daily_transcription_control": {
+    "authority_scope": "PUBLIC_TRANSCRIPTION_NOT_OFFICIAL_NEWSPAPER_SCAN",
+    "day13_url": "https://rmrb.zhouenlai.info/%E4%BA%BA%E6%B0%91%E6%97%A5%E6%8A%A5%EF%BC%881946-2003%EF%BC%89/1951/08/1951-08-13.htm",
+    "day13_http_status": 200,
+    "day13_selected_encoding": "gbk",
+    "day13_page": "第3版",
+    "day13_target_title_present": true,
+    "day13_zheng_article_body_controls_closed": true,
+    "source_emitted_month_directory": "https://rmrb.zhouenlai.info/%E4%BA%BA%E6%B0%91%E6%97%A5%E6%8A%A5%EF%BC%881946-2003%EF%BC%89/1951/08/index.php",
+    "source_emitted_day31_url": "https://rmrb.zhouenlai.info/%E4%BA%BA%E6%B0%91%E6%97%A5%E6%8A%A5%EF%BC%881946-2003%EF%BC%89/1951/08/1951-08-31.htm",
+    "day31_http_status": 200,
+    "day31_target_title_present": false,
+    "day31_zheng_literal_present": false,
+    "direct_official_newspaper_scan_reviewed": false
+  },
+  "reproducible_probe": {
+    "workflow": ".github/workflows/probe-batch-12jd-zheng-yongle-date-conflict.yml",
+    "exact_head": "e254e3b30eeaa0eed352055dee2c8bb67dbd69e4",
+    "workflow_run_id": 36759879758,
+    "artifact_id": 11118018737,
+    "artifact_name": "batch-12jd-zheng-yongle-date-conflict",
+    "artifact_digest": "sha256:27cbf81f6a2a68128afa7f7bb935532085d85f16c846cbea0d3edbed6fc4ac7d"
+  },
+  "adjudication": {
+    "controlling_publication_date": "1951-08-13",
+    "controlling_date_confidence": "HIGH",
+    "nlc_2025_1951_08_31_classification": "BIBLIOGRAPHIC_DATE_CONFLICT_QUARANTINED_PENDING_OFFICIAL_NEWSPAPER_SCAN",
+    "nlc_2025_value_silently_normalized_or_deleted": false,
+    "official_people_daily_original_scan_reviewed": false,
+    "absolute_impossibility_of_1951_08_31_claimed": false,
+    "direct_2011_p197": "NOT_REVIEWED",
+    "direct_1951_zhao_pp221_233": "NOT_REVIEWED",
+    "zheng_article_equals_zhao_article": "NOT_PROVED",
+    "zheng_article_may_substitute_for_zhao_direct_page": false
+  },
+  "evidence_firewall": {
+    "nlc_2019_reprint_is_stronger_for_article_date_than_nlc_2025_bibliography_line": true,
+    "public_daily_transcription_is_corroboration_not_official_scan": true,
+    "absence_on_public_day31_transcription_is_not_absolute_physical_newspaper_absence": true,
+    "same_event_and_month_does_not_prove_same_text": true,
+    "date_correction_does_not_upgrade_zhao_text_authority": true
+  },
+  "security": {
+    "login_used": false,
+    "account_action_used": false,
+    "payment_used": false,
+    "guessed_day31_url_used": false,
+    "source_emitted_month_navigation_used": true,
+    "ocr_used": false,
+    "captcha_bypass_used": false,
+    "tls_verification_disabled": false
+  },
+  "transmission_impact": {
+    "status": "NONE",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": [],
+    "reason": "Contextual same-event bibliographic date adjudication only; no Zheng-to-Zhao text identity or historical transmission relation is established."
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Directly recover and review 2011 《赵万里文集》第1卷 p.197.",
+    "Recover and directly collate 1951 《文物参考资料》第9期 pp.221–233.",
+    "Recover direct 1997 《北京图书馆馆史资料汇编（二）》 pp.446–449.",
+    "If an authoritative/original People's Daily page image becomes publicly available, perform final image-level 1951-08-13 versus 1951-08-31 adjudication."
+  ],
+  "updated_at": "2026-10-01"
+}
