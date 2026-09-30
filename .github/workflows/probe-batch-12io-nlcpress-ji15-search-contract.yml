@@ -16,7 +16,7 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
-      - name: Search NLC Press public product catalog with native WebForms contract
+      - name: Calibrate and search NLC Press native public catalog
         run: |
           python - <<'PY'
           import json, re
@@ -28,36 +28,27 @@ jobs:
           BASE="https://www.nlcpress.com/"
           LIST=urljoin(BASE,"ProductList.aspx")
           headers={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; first-party public catalog search)"}
-          session=requests.Session()
-          session.headers.update(headers)
+          session=requests.Session(); session.headers.update(headers)
 
           class Parser(HTMLParser):
               def __init__(self):
-                  super().__init__()
-                  self.forms=[]
-                  self.current_form=None
-                  self.current_select=None
+                  super().__init__(); self.forms=[]; self.current_form=None; self.current_select=None
               def handle_starttag(self,tag,attrs):
                   d=dict(attrs); tag=tag.lower()
                   if tag=="form":
-                      self.current_form={"attrs":d,"controls":[],"selects":[]}
-                      self.forms.append(self.current_form)
+                      self.current_form={"attrs":d,"controls":[],"selects":[]}; self.forms.append(self.current_form)
                   elif self.current_form is not None and tag=="input":
                       self.current_form["controls"].append({k:v for k,v in d.items() if k in ("name","id","type","value")})
                   elif self.current_form is not None and tag=="select":
-                      self.current_select={"name":d.get("name"),"id":d.get("id"),"options":[]}
-                      self.current_form["selects"].append(self.current_select)
+                      self.current_select={"name":d.get("name"),"id":d.get("id"),"options":[]}; self.current_form["selects"].append(self.current_select)
                   elif self.current_select is not None and tag=="option":
                       self.current_select["options"].append({"value":d.get("value",""),"selected":"selected" in d,"text":""})
               def handle_data(self,data):
                   if self.current_select is not None and self.current_select["options"]:
                       self.current_select["options"][-1]["text"] += data
               def handle_endtag(self,tag):
-                  tag=tag.lower()
-                  if tag=="select":
-                      self.current_select=None
-                  elif tag=="form":
-                      self.current_form=None
+                  if tag.lower()=="select": self.current_select=None
+                  elif tag.lower()=="form": self.current_form=None
 
           def parse(html):
               p=Parser(); p.feed(html); return p
@@ -81,106 +72,119 @@ jobs:
               s=re.sub(r'&nbsp;',' ',s,flags=re.I)
               return re.sub(r'\s+',' ',s)
 
-          first=session.get(LIST,timeout=30)
-          first.raise_for_status()
-          p=parse(first.text)
-          form=p.forms[0]
+          first=session.get(LIST,timeout=30); first.raise_for_status()
+          p=parse(first.text); form=p.forms[0]
           select_map={x["name"]:x["options"] for x in form["selects"]}
-          print("SELECTS="+json.dumps(select_map,ensure_ascii=False))
-
-          # Keep all source-emitted select values; use each combination with exact
-          # target strings. Search is read-only catalog functionality.
-          types=[o["value"] for o in select_map.get("Left1$BookType",[]) if o.get("value") is not None]
-          queries=[o["value"] for o in select_map.get("Left1$BookQuery",[]) if o.get("value") is not None]
-          if not types: types=[""]
-          if not queries: queries=[""]
-
-          targets=[
-              ("title","冀淑英古籍善本十五讲"),
-              ("isbn_compact","9787501340637"),
-              ("isbn_hyphen","978-7-5013-4063-7"),
-          ]
-          attempts=[]
-          candidates=set()
+          types=[o["value"] for o in select_map.get("Left1$BookType",[])]
+          queries=[o["value"] for o in select_map.get("Left1$BookQuery",[])]
           base_hidden=hidden_fields(first.text)
-          for label,target in targets:
+
+          def do_search(label,target,bt,bq):
+              data=dict(base_hidden)
+              data.update({
+                  "Left1$SearchKeyword":target,
+                  "Left1$BookType":bt,
+                  "Left1$BookQuery":bq,
+                  "Left1$SearchBtn.x":"1",
+                  "Left1$SearchBtn.y":"1",
+                  "__EVENTTARGET":"",
+                  "__EVENTARGUMENT":"",
+              })
+              r=session.post(LIST,data=data,timeout=30)
+              txt=textify(r.text)
+              links=product_links(r.text)
+              return {
+                  "label":label,"target":target,"book_type":bt,"book_query":bq,
+                  "status":r.status_code,"body_bytes":len(r.content),
+                  "product_links":links,
+                  "has_control_title":"史记十五讲" in txt,
+                  "has_control_isbn":"9787501343614" in txt.replace("-","").replace(" ",""),
+                  "has_target_title":"冀淑英古籍善本十五讲" in txt,
+                  "has_target_isbn":"9787501340637" in txt.replace("-","").replace(" ",""),
+              }
+
+          controls=[
+              ("control_title","史记十五讲"),
+              ("control_isbn","9787501343614"),
+              ("control_isbn_hyphen","978-7-5013-4361-4"),
+          ]
+          control_attempts=[]
+          viable=[]
+          for label,target in controls:
               for bt in types:
                   for bq in queries:
-                      data=dict(base_hidden)
-                      data.update({
-                          "Left1$SearchKeyword":target,
-                          "Left1$BookType":bt,
-                          "Left1$BookQuery":bq,
-                          "Left1$SearchBtn.x":"1",
-                          "Left1$SearchBtn.y":"1",
-                      })
-                      # Remove event target/argument for image-button submit.
-                      data["__EVENTTARGET"]=""
-                      data["__EVENTARGUMENT"]=""
-                      r=session.post(LIST,data=data,timeout=30)
-                      txt=textify(r.text)
-                      links=product_links(r.text)
-                      exact_title="冀淑英古籍善本十五讲" in txt
-                      exact_isbn=("9787501340637" in txt.replace("-","").replace(" ","") or
-                                  "978-7-5013-4063-7" in txt)
-                      row={
-                          "label":label,"target":target,
-                          "book_type":bt,"book_query":bq,
-                          "status":r.status_code,"final_url":r.url,
-                          "body_bytes":len(r.content),
-                          "exact_title":exact_title,
-                          "exact_isbn":exact_isbn,
-                          "product_links":links[:80],
-                      }
-                      attempts.append(row)
-                      if exact_title or exact_isbn:
-                          candidates.update(links)
-                      print("ATTEMPT="+json.dumps(row,ensure_ascii=False))
-                      if candidates:
-                          break
-                  if candidates:
-                      break
-              if candidates:
-                  break
+                      row=do_search(label,target,bt,bq)
+                      control_attempts.append(row)
+                      print("CONTROL="+json.dumps(row,ensure_ascii=False))
+                      if ("ProductView.aspx?Id=4939" in row["product_links"] or
+                          row["has_control_title"] or row["has_control_isbn"]):
+                          viable.append({"book_type":bt,"book_query":bq,"control_label":label,"control_target":target})
+          # Deduplicate exact source-emitted viable contracts.
+          vv=[]; seen=set()
+          for x in viable:
+              k=(x["book_type"],x["book_query"])
+              if k not in seen: seen.add(k); vv.append(x)
+          viable=vv
+
+          targets=[
+              ("target_title","冀淑英古籍善本十五讲"),
+              ("target_isbn","9787501340637"),
+              ("target_isbn_hyphen","978-7-5013-4063-7"),
+          ]
+          target_attempts=[]
+          target_candidates=set()
+          for label,target in targets:
+              for v in viable:
+                  row=do_search(label,target,v["book_type"],v["book_query"])
+                  target_attempts.append(row)
+                  print("TARGET="+json.dumps(row,ensure_ascii=False))
+                  if row["has_target_title"] or row["has_target_isbn"]:
+                      target_candidates.update(row["product_links"])
 
           inspected=[]
-          for rel in sorted(candidates):
+          for rel in sorted(target_candidates):
               url=urljoin(BASE,rel)
-              r=session.get(url,timeout=30)
-              txt=textify(r.text)
+              r=session.get(url,timeout=30); txt=textify(r.text)
               hrefs=sorted(set(re.findall(r'href=["\']([^"\']+)["\']',r.text,re.I)))
-              downloadish=[h for h in hrefs if re.search(r'down|download|file|attach',h,re.I)]
               snippets={}
               for marker in ("冀淑英古籍善本十五讲","978-7-5013-4063-7","第九讲","铁琴铜剑楼藏书的收购入藏","第十讲","第十一讲","涵芬楼藏书","目录"):
                   pos=txt.find(marker)
-                  if pos>=0: snippets[marker]=txt[max(0,pos-250):pos+1200]
+                  if pos>=0: snippets[marker]=txt[max(0,pos-250):pos+1600]
               inspected.append({
                   "url":url,"status":r.status_code,"body_bytes":len(r.content),
                   "exact_title":"冀淑英古籍善本十五讲" in txt,
                   "isbn_compact":"9787501340637" in txt.replace("-","").replace(" ",""),
-                  "downloadish_hrefs":downloadish[:80],
+                  "downloadish_hrefs":[h for h in hrefs if re.search(r'down|download|file|attach',h,re.I)][:80],
                   "snippets":snippets,
               })
 
           result={
               "list_url":LIST,
-              "initial_status":first.status_code,
               "form_method":form["attrs"].get("method"),
               "form_action":form["attrs"].get("action"),
               "selects":select_map,
-              "attempt_count":len(attempts),
-              "attempts":attempts,
-              "candidate_product_links":sorted(candidates),
-              "candidate_pages":inspected,
+              "known_positive_product":"ProductView.aspx?Id=4939",
+              "known_positive_title":"史记十五讲（中国典籍与文化第六辑）",
+              "known_positive_isbn":"978-7-5013-4361-4",
+              "control_attempt_count":len(control_attempts),
+              "control_attempts":control_attempts,
+              "viable_search_contracts":viable,
+              "target_attempt_count":len(target_attempts),
+              "target_attempts":target_attempts,
+              "target_candidate_product_links":sorted(target_candidates),
+              "target_candidate_pages":inspected,
+              "target_negative_authority": bool(viable),
+              "target_zero_result_if_any": bool(viable) and not target_candidates,
               "tls_verified":True,
               "login_used":False,
               "purchase_invoked":False,
               "download_invoked":False,
           }
-          Path("nlcpress-ji15-native-search.json").write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding="utf-8")
+          Path("nlcpress-ji15-calibrated-search.json").write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding="utf-8")
+          print("VIABLE="+json.dumps(viable,ensure_ascii=False))
           print("RESULT="+json.dumps(result,ensure_ascii=False))
           PY
       - uses: actions/upload-artifact@v4
         with:
-          name: batch-12io-nlcpress-ji15-native-search
-          path: nlcpress-ji15-native-search.json
+          name: batch-12io-nlcpress-ji15-calibrated-search
+          path: nlcpress-ji15-calibrated-search.json
