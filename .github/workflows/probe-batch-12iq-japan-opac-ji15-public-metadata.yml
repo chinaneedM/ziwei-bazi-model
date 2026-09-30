@@ -16,11 +16,12 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
-      - name: Probe CiNii source-emitted Japanese OPAC records anonymously
+      - name: Probe CiNii source-emitted Japanese OPAC records and TOC controls anonymously
         run: |
           python - <<'PY'
           import hashlib, html, json, re, time
           from pathlib import Path
+          from urllib.parse import urljoin
           import requests
 
           NCID = "BB00252412"
@@ -44,6 +45,42 @@ jobs:
               raw = re.sub(r'<style\b.*?</style>', ' ', raw, flags=re.I|re.S)
               raw = re.sub(r'<[^>]+>', ' ', raw)
               return re.sub(r'\s+', ' ', html.unescape(raw)).strip()
+
+          def contexts(text, term, radius=120, limit=6):
+              out=[]
+              start=0
+              while len(out)<limit:
+                  i=text.find(term,start)
+                  if i<0: break
+                  out.append(text[max(0,i-radius):min(len(text),i+len(term)+radius)])
+                  start=i+len(term)
+              return out
+
+          def toc_controls(raw, base_url):
+              rows=[]
+              # Only preserve short source-emitted control metadata around anchors/buttons
+              # whose visible label or attributes mention 目次; never store the whole page.
+              for m in re.finditer(r'<a\b([^>]*)>(.*?)</a>', raw, re.I|re.S):
+                  attrs=html.unescape(m.group(1))
+                  visible=clean(m.group(2))
+                  if "目次" not in visible and "目次" not in attrs:
+                      continue
+                  hm=re.search(r'href\s*=\s*["\']([^"\']*)["\']', attrs, re.I)
+                  onclick=re.search(r'onclick\s*=\s*["\']([^"\']*)["\']', attrs, re.I)
+                  href=html.unescape(hm.group(1)) if hm else None
+                  rows.append({
+                      "tag":"a",
+                      "text":visible[:300],
+                      "href":href,
+                      "resolved_href":urljoin(base_url,href) if href and not href.lower().startswith("javascript:") else None,
+                      "onclick":html.unescape(onclick.group(1))[:500] if onclick else None,
+                  })
+              for m in re.finditer(r'<(?:button|input)\b([^>]*)>', raw, re.I|re.S):
+                  attrs=html.unescape(m.group(1))
+                  if "目次" not in attrs:
+                      continue
+                  rows.append({"tag":"button_or_input","attrs":re.sub(r'\s+',' ',attrs)[:800]})
+              return rows[:20]
 
           session = requests.Session()
           session.headers.update({"User-Agent": UA, "Accept-Language": "ja,en;q=0.8,zh-CN;q=0.7"})
@@ -93,6 +130,8 @@ jobs:
                       "body_sha256": hashlib.sha256(body).hexdigest(),
                       "visible_char_count": len(visible),
                       "term_flags": {term: (term in visible) for term in TERMS},
+                      "toc_contexts": contexts(visible, "目次"),
+                      "toc_controls": toc_controls(decoded, r.url) if decoded else [],
                       "login_marker": any(x in visible.lower() for x in ["login", "ログイン", "my library", "マイライブラリ"]),
                       "raw_html_saved": False,
                       "raw_html_logged": False,
