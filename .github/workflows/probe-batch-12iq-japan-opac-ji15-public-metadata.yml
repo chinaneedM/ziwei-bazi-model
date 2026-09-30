@@ -205,7 +205,7 @@ jobs:
                   dom=p.stdout.decode("utf-8","replace")
                   visible=re.sub(r"\\s+"," ",html.unescape(re.sub(r"<[^>]+>"," ",dom))).strip()
                   def block(id_):
-                      m=re.search(rf'<span[^>]+id=["\\']{re.escape(id_)}["\\'][^>]*>(.*?)</span>',dom,re.I|re.S)
+                      m=re.search(rf'<span[^>]+id="{re.escape(id_)}"[^>]*>(.*?)</span>',dom,re.I|re.S)
                       return re.sub(r"\\s+"," ",html.unescape(re.sub(r"<[^>]+>"," ",m.group(1)))).strip() if m else None
                   ob=block("openbd_block")
                   bp=block("bookplus_block")
