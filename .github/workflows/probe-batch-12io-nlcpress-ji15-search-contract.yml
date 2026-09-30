@@ -16,15 +16,26 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
-      - name: Robustly narrow NLC Press 2009-2010 product-list window
+      - name: Recover source-emitted Ji Shuying product link and inspect detail
         run: |
           python - <<'PY'
           import html, json, re, time
           from pathlib import Path
+          from urllib.parse import urljoin
           import requests
 
-          URL="https://www.nlcpress.com/ProductList.aspx"
-          UA={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; public pager window probe)"}
+          LIST_URL="https://www.nlcpress.com/ProductList.aspx"
+          TARGET_TITLE="冀淑英古籍善本十五讲"
+          TARGET_AUTHOR="冀淑英"
+          TARGET_ISBN="9787501340637"
+          TARGET_PAGE=361
+          UA={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; source-emitted publisher product recovery)"}
+
+          def clean_text(raw):
+              t=re.sub(r'<script\b.*?</script>',' ',raw,flags=re.I|re.S)
+              t=re.sub(r'<style\b.*?</style>',' ',t,flags=re.I|re.S)
+              t=re.sub(r'<[^>]+>',' ',t)
+              return re.sub(r'\s+',' ',html.unescape(t)).strip()
 
           def hidden_fields(body):
               out={}
@@ -38,86 +49,104 @@ jobs:
                       out[html.unescape(nm.group(1))]=html.unescape(vm.group(1) if vm else "")
               return out
 
-          def page_now(body):
-              m=re.search(r'id=["\']PageNavigator1_txt_PageNow["\'][^>]*>(\d+)<',body,re.I)
-              return int(m.group(1)) if m else None
+          s=requests.Session()
+          s.headers.update(UA)
+          g=s.get(LIST_URL,timeout=45)
+          g.raise_for_status()
+          data=hidden_fields(g.text)
+          data.update({
+              "__EVENTTARGET":"PageNavigator1$LinkButton_Go",
+              "__EVENTARGUMENT":"",
+              "PageNavigator1$txt_PageGo":str(TARGET_PAGE),
+          })
+          p=s.post(LIST_URL,data=data,timeout=45)
+          p.raise_for_status()
+          page_text=clean_text(p.text)
 
-          def summarize(body):
-              ids=[]
-              for x in re.findall(r'ProductView\.aspx\?Id=(\d+)',body,re.I):
-                  n=int(x)
-                  if n not in ids: ids.append(n)
-              text=re.sub(r'<[^>]+>',' ',body)
-              text=re.sub(r'\s+',' ',html.unescape(text))
-              dates=sorted(set(re.findall(r'20\d\d[-./年]\d{1,2}(?:[-./月]\d{1,2}日?)?',text)))
-              return {
-                  "ids":ids,
-                  "id_min":min(ids) if ids else None,
-                  "id_max":max(ids) if ids else None,
-                  "years":sorted(set(re.findall(r'20\d\d'," ".join(dates)))),
-                  "dates":dates[:80],
-                  "has_control_id_4939":"ProductView.aspx?Id=4939" in body,
-                  "has_control_title":"史记十五讲" in text,
-                  "has_target_title":"冀淑英古籍善本十五讲" in text,
-                  "has_target_author":"冀淑英" in text,
-                  "has_target_isbn":"9787501340637" in text.replace("-","").replace(" ",""),
-              }
+          page_now_m=re.search(r'id=["\']PageNavigator1_txt_PageNow["\'][^>]*>(\d+)<',p.text,re.I)
+          page_now=int(page_now_m.group(1)) if page_now_m else None
 
-          def independent_jump(target):
-              last_error=None
-              for attempt in range(1,4):
-                  try:
-                      s=requests.Session()
-                      s.headers.update(UA)
-                      g=s.get(URL,timeout=45)
-                      g.raise_for_status()
-                      data=hidden_fields(g.text)
-                      data.update({
-                          "__EVENTTARGET":"PageNavigator1$LinkButton_Go",
-                          "__EVENTARGUMENT":"",
-                          "PageNavigator1$txt_PageGo":str(target),
-                      })
-                      r=s.post(URL,data=data,timeout=45)
-                      return {
-                          "requested_page":target,
-                          "attempt":attempt,
-                          "status":r.status_code,
-                          "page_now":page_now(r.text),
-                          "body_bytes":len(r.content),
-                          **summarize(r.text)
-                      }
-                  except Exception as e:
-                      last_error=f"{type(e).__name__}: {e}"
-                      time.sleep(attempt)
-              return {"requested_page":target,"error":last_error}
+          # First prefer an anchor whose visible text itself contains the title.
+          direct_anchor_candidates=[]
+          for m in re.finditer(r'<a\b[^>]*href=["\'](ProductView\.aspx\?Id=\d+)["\'][^>]*>(.*?)</a>',p.text,re.I|re.S):
+              href=html.unescape(m.group(1))
+              anchor_text=clean_text(m.group(2))
+              if TARGET_TITLE in anchor_text or (TARGET_AUTHOR in anchor_text and "古籍善本十五讲" in anchor_text):
+                  direct_anchor_candidates.append({"href":href,"anchor_text":anchor_text})
 
-          pages=[361,362,363]
-          rows=[]
-          for p in pages:
-              rows.append(independent_jump(p))
+          # If the title is rendered outside the anchor, constrain candidates to source-emitted
+          # ProductView links in a small source window around the exact title occurrence.
+          contextual_candidates=[]
+          pos=p.text.find(TARGET_TITLE)
+          if pos>=0:
+              lo=max(0,pos-5000); hi=min(len(p.text),pos+5000)
+              frag=p.text[lo:hi]
+              for href in re.findall(r'ProductView\.aspx\?Id=\d+',frag,re.I):
+                  if href not in contextual_candidates:
+                      contextual_candidates.append(href)
+
+          candidate_hrefs=[]
+          for x in direct_anchor_candidates:
+              if x["href"] not in candidate_hrefs:
+                  candidate_hrefs.append(x["href"])
+          for href in contextual_candidates:
+              if href not in candidate_hrefs:
+                  candidate_hrefs.append(href)
+          candidate_hrefs=candidate_hrefs[:8]
+
+          detail_attempts=[]
+          matched=[]
+          for href in candidate_hrefs:
+              url=urljoin(LIST_URL,href)
+              try:
+                  r=s.get(url,timeout=45)
+                  text=clean_text(r.text)
+                  normalized=text.replace("-","").replace(" ","")
+                  row={
+                      "href":href,"url":url,"status":r.status_code,
+                      "body_bytes":len(r.content),
+                      "has_target_title":TARGET_TITLE in text,
+                      "has_target_author":TARGET_AUTHOR in text,
+                      "has_target_isbn":TARGET_ISBN in normalized,
+                      "has_catalog_keyword":"目录" in text,
+                      "has_chapter_9_title":"铁琴铜剑楼藏书的收购入藏" in text,
+                      "text_excerpt":text[:18000],
+                  }
+                  detail_attempts.append(row)
+                  if row["has_target_title"]:
+                      matched.append(row)
+              except Exception as e:
+                  detail_attempts.append({"href":href,"url":url,"error":f"{type(e).__name__}: {e}"})
               time.sleep(0.5)
 
           result={
-              "url":URL,
-              "pages_requested":pages,
-              "rows":rows,
-              "successful_pages":[x["requested_page"] for x in rows if x.get("status")==200 and x.get("page_now")==x.get("requested_page")],
-              "control_product_id":4939,
-              "control_title":"史记十五讲（中国典籍与文化第六辑）",
-              "target_title":"冀淑英古籍善本十五讲",
-              "target_isbn":"9787501340637",
+              "list_url":LIST_URL,
+              "requested_page":TARGET_PAGE,
+              "page_status":p.status_code,
+              "page_now":page_now,
+              "page_has_target_title":TARGET_TITLE in page_text,
+              "page_has_target_author":TARGET_AUTHOR in page_text,
+              "page_has_target_isbn":TARGET_ISBN in page_text.replace("-","").replace(" ",""),
+              "direct_anchor_candidates":direct_anchor_candidates,
+              "contextual_candidate_hrefs":contextual_candidates,
+              "candidate_hrefs_tested":candidate_hrefs,
+              "detail_attempts":detail_attempts,
+              "matched_target_detail_pages":matched,
+              "target_title":TARGET_TITLE,
+              "target_author":TARGET_AUTHOR,
+              "target_isbn":TARGET_ISBN,
               "tls_verified":True,
               "login_used":False,
               "purchase_invoked":False,
               "download_invoked":False,
               "id_guessing_used":False,
-              "only_source_emitted_product_ids_recorded":True,
+              "only_source_emitted_product_ids_followed":True,
           }
-          Path("nlcpress-2009-2010-window.json").write_text(
+          Path("nlcpress-ji15-product-recovery.json").write_text(
               json.dumps(result,ensure_ascii=False,indent=2),encoding="utf-8")
           print(json.dumps(result,ensure_ascii=False,indent=2))
           PY
       - uses: actions/upload-artifact@v4
         with:
-          name: batch-12io-nlcpress-2009-2010-window
-          path: nlcpress-2009-2010-window.json
+          name: batch-12io-nlcpress-ji15-product-recovery
+          path: nlcpress-ji15-product-recovery.json
