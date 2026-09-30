@@ -1,0 +1,137 @@
+{
+  "schema": "ZIWEI-WENWU-1951-CNBKSY-PUBLIC-SEARCH-CONTRACT-ACCESS-BOUNDARY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-WENWU-1951-CNBKSY-PUBLIC-SEARCH-CONTRACT-ACCESS-BOUNDARY-JC",
+  "prior_batch_id": "BATCH-12-ZIWEI-WENWU-CANKAO-1951-V2N9-NABUNKEN-EXACT-ISSUE-AND-REMOTE-COPY-BOUNDARY-JB",
+  "question": "Do the currently documented public CNBKSY entry surfaces expose an anonymous, source-emitted search contract that can lawfully be used to query Zhao Wanli's 1951 target without guessing APIs or bypassing institutional access?",
+  "answer": "No public search contract was observed. A controlled GitHub-runner probe requested only three entry URLs documented by university library guides: https://www.cnbksy.com/, /home and /v1. All three returned HTTP 412. None emitted a search form or same-host candidate search/query/article link. No target query was submitted. Current Fudan and Tsinghua library guides independently describe campus-network/IP access models (with Fudan off-campus VPN/proxy guidance). Therefore this batch closes only the current anonymous public-entry/search-contract boundary. It does not establish whether the target is present or absent in CNBKSY and does not authorize guessing private endpoints or bypassing institutional controls.",
+  "documented_access_guides": [
+    {
+      "institution": "复旦大学图书馆",
+      "url": "https://library.fudan.edu.cn/e8/8e/c42799a518286/page.htm",
+      "page_title": "中国近代报纸资源全库 - 主站使用说明",
+      "last_update_display": "2025-04-27",
+      "documented_entry": "https://www.cnbksy.com/v1",
+      "access_model": "校园网直接访问；校外通过VPN或图书馆代理服务器"
+    },
+    {
+      "institution": "清华大学图书馆",
+      "url": "https://lib.tsinghua.edu.cn/info/1077/7865.htm",
+      "page_title": "全国报刊索引-中国近代报纸资源全库开通试用",
+      "publication_date_display": "2026-01-05",
+      "trial_extension_display": "延长至2026-12-31",
+      "documented_entry": "http://www.cnbksy.com/",
+      "access_model": "通过校园网IP控制访问权限"
+    },
+    {
+      "institution": "上海大学图书馆",
+      "url": "https://lib.shu.edu.cn/info/1023/5004.htm",
+      "page_title": "图书馆电子资源使用指南",
+      "documented_entry": "https://www.cnbksy.com/home",
+      "role": "DOCUMENTED_ENTRY_LOCATOR_ONLY"
+    }
+  ],
+  "reproducible_probe": {
+    "workflow": ".github/workflows/probe-batch-12jc-cnbksy-public-search-contract.yml",
+    "exact_head": "6af8c874ec8ec71b15e7667428374b13c3d9a8d2",
+    "workflow_run_id": 36757445087,
+    "artifact_id": 11116971947,
+    "artifact_name": "batch-12jc-cnbksy-public-search-contract",
+    "artifact_digest": "sha256:cf98bdd869640721fddc9fe8b39719b859ea040b9055a6c4734e031d6f9fdfbf",
+    "entries": [
+      {
+        "url": "https://www.cnbksy.com/",
+        "http_status": 412,
+        "body_bytes_utf8": 2364,
+        "forms": 0,
+        "source_emitted_candidate_links": 0,
+        "ip_access_terms_present": true
+      },
+      {
+        "url": "https://www.cnbksy.com/home",
+        "http_status": 412,
+        "body_bytes_utf8": 2425,
+        "forms": 0,
+        "source_emitted_candidate_links": 0,
+        "ip_access_terms_present": false
+      },
+      {
+        "url": "https://www.cnbksy.com/v1",
+        "http_status": 412,
+        "body_bytes_utf8": 2486,
+        "forms": 0,
+        "source_emitted_candidate_links": 0,
+        "ip_access_terms_present": false
+      }
+    ],
+    "target_query_submitted": false
+  },
+  "adjudication": {
+    "anonymous_public_entry_status": "CLOSED_HTTP_412_ON_ALL_DOCUMENTED_ENTRY_SURFACES",
+    "source_emitted_search_form_observed": false,
+    "source_emitted_target_search_link_observed": false,
+    "public_search_contract_observed": false,
+    "target_query_submitted": false,
+    "target_result_count": "NOT_MEASURED",
+    "target_presence": "UNRESOLVED",
+    "target_absence": "UNRESOLVED",
+    "target_absence_inference_authorized": false,
+    "private_or_guessed_api_probe_authorized": false,
+    "institutional_access_bypass_authorized": false
+  },
+  "target_scope_firewall": {
+    "direct_2011_p197": "NOT_REVIEWED",
+    "direct_1951_pp221_233": "NOT_REVIEWED",
+    "direct_1997_pp446_449": "NOT_REVIEWED",
+    "wwck195109_public_bytes_recovered": false,
+    "cnbksy_412_is_not_zero_search_result": true,
+    "cnbksy_access_boundary_is_not_textual_negative_evidence": true
+  },
+  "security": {
+    "login_used": false,
+    "account_action_used": false,
+    "target_query_submitted": false,
+    "subscription_used": false,
+    "vpn_used": false,
+    "proxy_used": false,
+    "campus_ip_impersonation_used": false,
+    "guessed_api_endpoint_used": false,
+    "captcha_bypass_used": false,
+    "tls_verification_disabled": false,
+    "payment_used": false
+  },
+  "transmission_impact": {
+    "status": "NONE",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": [],
+    "reason": "Current digital-platform access-contract control only; no historical transmission relation or textual witness."
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Continue lawful public/institutional page-level recovery of 2011 《赵万里文集》第1卷 p.197.",
+    "Continue public-object recovery of 1951 《文物参考资料》第9期 pp.221–233 and wwck195109.pdf without bypassing CNBKSY access control.",
+    "Continue direct pp.446–449 recovery for the 1997 Beijing Library history compilation.",
+    "Revisit CNBKSY only if a public source-emitted search contract becomes observable or legitimate authorized institutional access is supplied."
+  ],
+  "updated_at": "2026-10-01"
+}

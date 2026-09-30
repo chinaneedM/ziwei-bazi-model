@@ -10909,6 +10909,34 @@
         "artifact_digest": "sha256:062324181d463477152c18c189152474d334ec842ac41ae09a0bf52304455884",
         "research_artifact": "docs/research/ZIWEI-WENWU-CANKAO-1951-V2N9-NABUNKEN-EXACT-ISSUE-AND-REMOTE-COPY-BOUNDARY-R1.json"
       }
+    },
+    {
+      "source_id": "EXT-CNBKSY-PUBLIC-ENTRY-SEARCH-CONTRACT-BOUNDARY-2026",
+      "title": "全国报刊索引 / 中国近代报纸资源全库当前匿名公开入口与检索契约边界",
+      "historical_period": "current digital access surface reviewed 2026-10-01",
+      "provider": "全国报刊索引 / 上海图书馆",
+      "url": "https://www.cnbksy.com/",
+      "source_role": "CURRENT_PUBLIC_ENTRY_AND_SEARCH_CONTRACT_ACCESS_BOUNDARY_ONLY",
+      "quality_notes": "Batch 12JC probes only documented public entry URLs. Root, /home and /v1 all return HTTP 412 to the anonymous GitHub runner and emit no search form or candidate search link. Fudan/Tsinghua current library guides independently describe campus-network/IP-controlled access. No target query was submitted. This record cannot support target absence, corpus-coverage absence or a textual claim.",
+      "batch_12jc": {
+        "workflow_run_id": 36757445087,
+        "artifact_id": 11116971947,
+        "artifact_digest": "sha256:cf98bdd869640721fddc9fe8b39719b859ea040b9055a6c4734e031d6f9fdfbf",
+        "documented_entry_http_statuses": {
+          "https://www.cnbksy.com/": 412,
+          "https://www.cnbksy.com/home": 412,
+          "https://www.cnbksy.com/v1": 412
+        },
+        "source_emitted_search_contract_observed": false,
+        "target_query_submitted": false,
+        "target_absence_inference_authorized": false,
+        "access_guide_urls": [
+          "https://library.fudan.edu.cn/e8/8e/c42799a518286/page.htm",
+          "https://lib.tsinghua.edu.cn/info/1077/7865.htm",
+          "https://lib.shu.edu.cn/info/1023/5004.htm"
+        ],
+        "research_artifact": "docs/research/ZIWEI-WENWU-1951-CNBKSY-PUBLIC-SEARCH-CONTRACT-ACCESS-BOUNDARY-R1.json"
+      }
     }
   ],
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md",

@@ -326,6 +326,8 @@ ZIWEI_ZHAO_GBOOKS_JA_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUD
 ZIWEI_ZHAO_GBOOKS_JA_EVIDENCE = ROOT / "docs/research/ZIWEI-ZHAO-WANLI-WENJI-V1-GOOGLE-BOOKS-SOURCE-EMITTED-OBJECT-CONFLICT-R1.json"
 ZIWEI_NABUNKEN_WENWU_JB_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENWU-CANKAO-1951-V2N9-NABUNKEN-EXACT-ISSUE-AND-REMOTE-COPY-BOUNDARY-JB.md"
 ZIWEI_NABUNKEN_WENWU_JB_EVIDENCE = ROOT / "docs/research/ZIWEI-WENWU-CANKAO-1951-V2N9-NABUNKEN-EXACT-ISSUE-AND-REMOTE-COPY-BOUNDARY-R1.json"
+ZIWEI_CNBKSY_JC_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENWU-1951-CNBKSY-PUBLIC-SEARCH-CONTRACT-ACCESS-BOUNDARY-JC.md"
+ZIWEI_CNBKSY_JC_EVIDENCE = ROOT / "docs/research/ZIWEI-WENWU-1951-CNBKSY-PUBLIC-SEARCH-CONTRACT-ACCESS-BOUNDARY-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -713,9 +715,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-JI-SHUYING-2009-GOOGLE-BOOKS-PAGE-NUMBERED-SNIPPET-ANCHORS-IX",
     "BATCH-12-ZIWEI-JI-SHUYING-2009-TIEQIN-DIRECT-TRANSACTION-CHRONOLOGY-IY",    "BATCH-12-ZIWEI-BEITU1997-GOOGLE-BOOKS-ALTERNATE-INBOOK-SEARCH-BOUNDARY-IZ",    "BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-GOOGLE-BOOKS-SOURCE-EMITTED-OBJECT-CONFLICT-JA",
     "BATCH-12-ZIWEI-WENWU-CANKAO-1951-V2N9-NABUNKEN-EXACT-ISSUE-AND-REMOTE-COPY-BOUNDARY-JB",
+    "BATCH-12-ZIWEI-WENWU-1951-CNBKSY-PUBLIC-SEARCH-CONTRACT-ACCESS-BOUNDARY-JC",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENWU-CANKAO-1951-V2N9-NABUNKEN-EXACT-ISSUE-AND-REMOTE-COPY-BOUNDARY-JB.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENWU-1951-CNBKSY-PUBLIC-SEARCH-CONTRACT-ACCESS-BOUNDARY-JC.md"
 
 
 def fail(message: str) -> None:
@@ -10690,6 +10693,60 @@ def main() -> int:
         fail("Batch 12JB missing from completed state")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12JB latest-batch document mismatch")
+
+    # Batch 12JC: CNBKSY anonymous public-entry/search-contract boundary.
+    for path in (ZIWEI_CNBKSY_JC_BATCH, ZIWEI_CNBKSY_JC_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12JC continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12jc = json.loads(ZIWEI_CNBKSY_JC_EVIDENCE.read_text(encoding="utf-8"))
+    bid12jc = "BATCH-12-ZIWEI-WENWU-1951-CNBKSY-PUBLIC-SEARCH-CONTRACT-ACCESS-BOUNDARY-JC"
+    if batch12jc.get("batch_id") != bid12jc:
+        fail("Batch 12JC evidence identity mismatch")
+    probe12jc = batch12jc.get("reproducible_probe", {})
+    if probe12jc.get("workflow_run_id") != 36757445087 or probe12jc.get("artifact_id") != 11116971947:
+        fail("Batch 12JC probe run/artifact binding regressed")
+    if probe12jc.get("artifact_digest") != "sha256:cf98bdd869640721fddc9fe8b39719b859ea040b9055a6c4734e031d6f9fdfbf":
+        fail("Batch 12JC artifact digest regressed")
+    entries12jc = probe12jc.get("entries", ())
+    expected12jc = {
+        "https://www.cnbksy.com/": 412,
+        "https://www.cnbksy.com/home": 412,
+        "https://www.cnbksy.com/v1": 412,
+    }
+    observed12jc = {x.get("url"): x.get("http_status") for x in entries12jc}
+    if observed12jc != expected12jc:
+        fail("Batch 12JC documented-entry HTTP boundary regressed")
+    if any(x.get("forms") != 0 or x.get("source_emitted_candidate_links") != 0 for x in entries12jc):
+        fail("Batch 12JC source-emitted search-contract classification regressed")
+    adj12jc = batch12jc.get("adjudication", {})
+    if adj12jc.get("public_search_contract_observed") is not False or adj12jc.get("target_query_submitted") is not False:
+        fail("Batch 12JC no-query/search-contract firewall regressed")
+    if adj12jc.get("target_absence_inference_authorized") is not False or adj12jc.get("private_or_guessed_api_probe_authorized") is not False:
+        fail("Batch 12JC target-absence/private-endpoint firewall regressed")
+    sec12jc = batch12jc.get("security", {})
+    for key in ("login_used", "account_action_used", "target_query_submitted", "subscription_used", "vpn_used", "proxy_used", "campus_ip_impersonation_used", "guessed_api_endpoint_used", "captcha_bypass_used", "tls_verification_disabled", "payment_used"):
+        if sec12jc.get(key) is not False:
+            fail(f"Batch 12JC security boundary regressed: {key}")
+    reg12jc = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    src12jc = next((x for x in reg12jc.get("sources", []) if x.get("source_id") == "EXT-CNBKSY-PUBLIC-ENTRY-SEARCH-CONTRACT-BOUNDARY-2026"), None)
+    if src12jc is None:
+        fail("Batch 12JC registry binding missing")
+    r12jc = src12jc.get("batch_12jc", {})
+    if r12jc.get("source_emitted_search_contract_observed") is not False or r12jc.get("target_query_submitted") is not False or r12jc.get("target_absence_inference_authorized") is not False:
+        fail("Batch 12JC registry firewall regressed")
+    acct12jc = batch12jc.get("accounting", {})
+    if acct12jc.get("matrix_rows") != 198 or acct12jc.get("audited_rows") != 166 or acct12jc.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12JC accounting regressed")
+    try:
+        schema12jc = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12JC state version is not numeric")
+    if schema12jc < (1, 267, 0):
+        fail("Batch 12JC state version regressed below 1.267.0")
+    if bid12jc not in audit_state.get("completed_batches", ()):
+        fail("Batch 12JC missing from completed state")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12JC latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

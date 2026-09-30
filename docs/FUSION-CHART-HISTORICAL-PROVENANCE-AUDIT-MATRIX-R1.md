@@ -1011,3 +1011,14 @@ Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZH
 - This is an item/access-policy precision upgrade only. Product/accounting remains 198 / 166 / 10, provenance defects 17/17, with zero chart-algorithm defects, reopens or candidate collapses and no transmission-graph change.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENWU-CANKAO-1951-V2N9-NABUNKEN-EXACT-ISSUE-AND-REMOTE-COPY-BOUNDARY-JB.md`. Research record: `docs/research/ZIWEI-WENWU-CANKAO-1951-V2N9-NABUNKEN-EXACT-ISSUE-AND-REMOTE-COPY-BOUNDARY-R1.json`.
+
+
+## Progress — Batch 12JC
+
+- Current university-library access guides document CNBKSY entry surfaces at `https://www.cnbksy.com/`, `/home` and `/v1`; Fudan describes campus-network access with off-campus VPN/proxy, while Tsinghua's 2026 trial notice describes campus-IP control.
+- Anonymous probe run `36757445087` / artifact `11116971947` / digest `sha256:cf98bdd869640721fddc9fe8b39719b859ea040b9055a6c4734e031d6f9fdfbf` returns HTTP 412 on all three documented entry URLs.
+- None of the three response surfaces emits a public search form or candidate search/query/article link. The probe therefore submits **no Zhao Wanli target query** and does not guess an API endpoint.
+- This is a current public access/search-contract boundary only. HTTP 412 is not a zero-result search and has no authority for target absence, corpus absence or text absence.
+- Direct 2011 p.197, direct 1951 pp.221–233, direct 1997 pp.446–449 and public `wwck195109.pdf` bytes all remain unresolved/not reviewed. Product/accounting remains 198 / 166 / 10 and provenance defects 17/17, with zero chart-algorithm defects, reopens or candidate collapses.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENWU-1951-CNBKSY-PUBLIC-SEARCH-CONTRACT-ACCESS-BOUNDARY-JC.md`. Research record: `docs/research/ZIWEI-WENWU-1951-CNBKSY-PUBLIC-SEARCH-CONTRACT-ACCESS-BOUNDARY-R1.json`.
