@@ -140,3 +140,74 @@ jobs:
         with:
           name: batch-12iw-ji15-stanford-record-source-emitted-content
           path: ji15-stanford-record-source-emitted-content.json
+
+      - name: Render exact Stanford record in headless Chrome
+        run: |
+          python - <<'PY'
+          import hashlib, html, json, re, shutil, subprocess
+          from pathlib import Path
+          from urllib.parse import urljoin, urlparse
+
+          BASE="https://searchworks.stanford.edu/view/8440171"
+          ISBN="9787501340637"
+          TARGETS=(
+            "铁琴铜剑楼藏书的收购入藏","鐵琴銅劍樓藏書的收購入藏",
+            "第九讲","第九講","第十讲","第十講","第十一讲","第十一講",
+            "铁琴铜剑楼","鐵琴銅劍樓","目录","目次","Contents","Table of contents"
+          )
+          def visible(raw):
+              raw=re.sub(r'<script\b.*?</script>',' ',raw,flags=re.I|re.S)
+              raw=re.sub(r'<style\b.*?</style>',' ',raw,flags=re.I|re.S)
+              raw=re.sub(r'<[^>]+>',' ',raw)
+              return re.sub(r'\s+',' ',html.unescape(raw)).strip()
+          def contexts(text,term,radius=220,limit=8):
+              out=[]; p=0
+              while len(out)<limit:
+                  i=text.find(term,p)
+                  if i<0: break
+                  out.append(text[max(0,i-radius):min(len(text),i+len(term)+radius)])
+                  p=i+len(term)
+              return out
+
+          chrome=shutil.which("google-chrome") or shutil.which("google-chrome-stable") or shutil.which("chromium")
+          out={"url":BASE,"chrome_path":chrome,"raw_dom_saved":False,"raw_dom_logged":False}
+          if chrome:
+              p=subprocess.run([
+                  chrome,"--headless=new","--no-sandbox","--disable-gpu","--disable-dev-shm-usage",
+                  "--virtual-time-budget=15000","--dump-dom",BASE
+              ],capture_output=True,timeout=60,check=False)
+              dom=p.stdout.decode("utf-8","replace")
+              text=visible(dom)
+              hrefs=[]
+              for m in re.finditer(r'href=[\"\']([^\"\']+)[\"\']',dom,re.I):
+                  u=urljoin(BASE,html.unescape(m.group(1)))
+                  if urlparse(u).scheme in ("http","https"):
+                      hrefs.append(u)
+              hrefs=list(dict.fromkeys(hrefs))
+              candidates=[u for u in hrefs if any(k in u.lower() for k in
+                  ("marc","ris","endnote","refworks","citation","export","json","format=","cite"))][:30]
+              out.update({
+                "returncode":p.returncode,
+                "dom_bytes":len(dom.encode("utf-8")),
+                "dom_sha256":hashlib.sha256(dom.encode("utf-8")).hexdigest(),
+                "visible_char_count":len(text),
+                "title_present":("冀淑英古籍善本十五讲" in text or "Ji Shuying gu ji shan ben shi wu jiang" in text),
+                "isbn_present":ISBN in text.replace("-","").replace(" ",""),
+                "page_count_markers":re.findall(r'(?<!\d)(?:241|240|242)\s*(?:p\.?|pages|页|頁)?',text,re.I)[:20],
+                "target_flags":{t:(t in text) for t in TARGETS},
+                "target_contexts":{t:contexts(text,t) for t in TARGETS if t in text},
+                "source_emitted_href_count":len(hrefs),
+                "source_emitted_candidate_links":candidates,
+                "visible_text_prefix":text[:1500],
+                "stderr_tail":p.stderr.decode("utf-8","replace")[-1200:]
+              })
+          else:
+              out["status"]="CHROME_NOT_AVAILABLE"
+          Path("ji15-stanford-record-rendered.json").write_text(
+              json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12iw-ji15-stanford-record-rendered
+          path: ji15-stanford-record-rendered.json
