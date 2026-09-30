@@ -16,63 +16,69 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
-      - name: Inspect Ji Shuying catalog-download binding
+      - name: Inspect NLC Press public TOC resource list
         run: |
           python - <<'PY'
           import html, json, re
           from pathlib import Path
           import requests
 
-          URL="https://www.nlcpress.com/ProductView.aspx?Id=4660"
+          URL="https://www.nlcpress.com/DownLoadList.aspx?Rid=2"
+          TITLE="冀淑英古籍善本十五讲"
+          ISBN="9787501340637"
           s=requests.Session()
-          s.headers.update({"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; catalog binding inspection)"})
+          s.headers.update({"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; public TOC resource list inspection)"})
           r=s.get(URL,timeout=45)
           r.raise_for_status()
           raw=r.text
+          text=re.sub(r'\s+',' ',html.unescape(re.sub(r'<[^>]+>',' ',raw)))
 
-          keys=["CatalogPrecisFile","Booktext","目录附件下载","Precis","Download","download","File"]
-          occurrences={}
-          for key in keys:
+          forms=[]
+          for m in re.finditer(r'<form\b([^>]*)>(.*?)</form>',raw,re.I|re.S):
+              forms.append(m.group(0)[:40000])
+          inputs=[html.unescape(x) for x in re.findall(r'<input\b[^>]*>',raw,re.I)]
+          selects=[html.unescape(x) for x in re.findall(r'<select\b.*?</select>',raw,re.I|re.S)]
+          anchors=[]
+          for m in re.finditer(r'<a\b([^>]*)>(.*?)</a>',raw,re.I|re.S):
+              attrs=html.unescape(m.group(1))
+              visible=re.sub(r'\s+',' ',html.unescape(re.sub(r'<[^>]+>',' ',m.group(2)))).strip()
+              hm=re.search(r'href\s*=\s*["\']([^"\']+)["\']',attrs,re.I)
+              href=html.unescape(hm.group(1)) if hm else None
+              if visible or href:
+                  anchors.append({"text":visible,"href":href})
+
+          snippets={}
+          for key in [TITLE,"冀淑英","十五讲","txt","Search","search","PageNavigator","下载"]:
               rows=[]
               start=0
               while True:
                   i=raw.find(key,start)
-                  if i<0 or len(rows)>=30: break
-                  rows.append(raw[max(0,i-900):min(len(raw),i+1800)])
+                  if i<0 or len(rows)>=20: break
+                  rows.append(raw[max(0,i-1000):min(len(raw),i+2200)])
                   start=i+len(key)
-              occurrences[key]=rows
-
-          scripts=[]
-          for m in re.finditer(r'<script\b[^>]*>(.*?)</script>',raw,re.I|re.S):
-              body=html.unescape(m.group(1))
-              if any(k in body for k in ["CatalogPrecisFile","Booktext","Precis"]):
-                  scripts.append(body[:30000])
-
-          hidden=[]
-          for m in re.finditer(r'<input\b[^>]*>',raw,re.I):
-              tag=html.unescape(m.group(0))
-              if any(k.lower() in tag.lower() for k in ["catalog","precis","file","booktext"]):
-                  hidden.append(tag[:3000])
+              snippets[key]=rows
 
           result={
               "url":URL,
               "status":r.status_code,
               "body_bytes":len(r.content),
-              "occurrence_counts":{k:len(v) for k,v in occurrences.items()},
-              "occurrences":occurrences,
-              "matching_scripts":scripts,
-              "matching_hidden_inputs":hidden,
+              "has_target_title":TITLE in text,
+              "has_target_author":"冀淑英" in text,
+              "has_target_isbn":ISBN in text.replace("-","").replace(" ",""),
+              "inputs":inputs,
+              "selects":selects,
+              "anchors":anchors[:400],
+              "snippets":snippets,
               "tls_verified":True,
               "login_used":False,
               "purchase_invoked":False,
-              "download_invoked":False,
-              "full_book_txt_followed":False
+              "download_invoked":False
           }
-          Path("nlcpress-ji15-catalog-binding.json").write_text(
+          Path("nlcpress-rid2-inspection.json").write_text(
               json.dumps(result,ensure_ascii=False,indent=2),encoding="utf-8")
           print(json.dumps(result,ensure_ascii=False,indent=2))
           PY
       - uses: actions/upload-artifact@v4
         with:
-          name: batch-12io-nlcpress-ji15-catalog-binding
-          path: nlcpress-ji15-catalog-binding.json
+          name: batch-12io-nlcpress-rid2-inspection
+          path: nlcpress-rid2-inspection.json
