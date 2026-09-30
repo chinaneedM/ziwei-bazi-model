@@ -1,0 +1,163 @@
+{
+  "schema": "ZIWEI-JI-SHUYING-2009-TIEQIN-DIRECT-TRANSACTION-CHRONOLOGY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-JI-SHUYING-2009-TIEQIN-DIRECT-TRANSACTION-CHRONOLOGY-IY",
+  "prior_batch_id": "BATCH-12-ZIWEI-JI-SHUYING-2009-GOOGLE-BOOKS-PAGE-NUMBERED-SNIPPET-ANCHORS-IX",
+  "question": "Which Tieqin transaction claims previously held as secondary recounting can now be promoted to direct Ji Shuying Chapter-9 page-numbered evidence?",
+  "answer": "The three-batch mixed sale-plus-donation structure is now directly supported by Ji Shuying Chapter 9 snippets. Page 140 directly gives first-batch 304 sold plus 52 donated. Page 143 directly gives second-batch 123 sold and also directly reproduces the Ding Fubao six-book purchase-then-donation intermediary route. Page 155 directly establishes a third batch of purchased books, and p.162 reviews the three batches. However exact 1950-01-07, 1950-03 and 1953-03 strings are not directly closed by the current snippet surface; 97-title donation and 300-plus third-batch counts are likewise not directly bound. Those dates/counts remain secondary or unresolved. No target 3482/3483 item-level transaction route is selected.",
+  "controlling_probes": {
+    "broad": {
+      "commit_sha": "3973de94455092e1655832b4c1bec728a2ae0300",
+      "workflow_run_id": 36744630435,
+      "artifact_id": 11112046784,
+      "artifact_digest": "sha256:9838f269e2be3f0bb08c4d10ded9453d3f28454894aeb3156c9ad01bbd832b55"
+    },
+    "exact": {
+      "commit_sha": "c5a3fe2a82ab83005095084e540f365a9c674be6",
+      "workflow_run_id": 36744770186,
+      "workflow_job_id": 109988032476,
+      "artifact_id": 11112376609,
+      "artifact_digest": "sha256:b3f48dc2b565c0b56ae892eeea26a5e38cf4c5e957f2bf55c36a217d248120c2"
+    }
+  },
+  "source_object": {
+    "google_books_id": "k4MzlCiOPIcC",
+    "isbn_13": "9787501340637",
+    "chapter_9_printed_span": "133-162",
+    "source_emitted_search_contract": true,
+    "full_book_acquired": false
+  },
+  "direct_chapter9_controls": {
+    "p139": {
+      "three_batch_structure": true,
+      "each_sale_batch_paired_with_donation_batch": true,
+      "majority_characterized_as_sold_to_library": true,
+      "donation_begins_year": 1950
+    },
+    "p140": {
+      "first_batch_sold_titles": 304,
+      "first_batch_donated_titles": 52,
+      "evidence_status": "DIRECT_PAGE_NUMBERED_SNIPPET"
+    },
+    "p143": {
+      "second_batch_sold_titles": 123,
+      "ding_fubao_intermediary_six_books": true,
+      "ding_fubao_route": "TIEQIN_ORIGIN -> DING_FUBAO_PURCHASE -> DING_FUBAO_DONATION_TO_BEIJING_LIBRARY",
+      "evidence_status": "DIRECT_PAGE_NUMBERED_SNIPPET"
+    },
+    "p155": {
+      "third_batch_exists": true,
+      "third_batch_transaction_character": "PURCHASED_BOOKS",
+      "third_batch_count": "UNRESOLVED",
+      "evidence_status": "DIRECT_PAGE_NUMBERED_SNIPPET"
+    },
+    "p162": {
+      "three_batches_reviewed_as_having_arrived_at_library": true,
+      "later_qu_fengqi_local_literature_donation_mentioned": true,
+      "evidence_status": "DIRECT_PAGE_NUMBERED_SNIPPET"
+    }
+  },
+  "direct_promotion_from_batch_12fp": {
+    "first_batch_304_sale": "PROMOTED_SECONDARY_TO_DIRECT_JI_CH9_P140",
+    "first_batch_52_donation": "PROMOTED_SECONDARY_TO_DIRECT_JI_CH9_P140",
+    "second_batch_123_sale": "PROMOTED_SECONDARY_TO_DIRECT_JI_CH9_P143",
+    "third_batch_existence": "PROMOTED_TO_DIRECT_JI_CH9_P155",
+    "third_batch_purchase_character": "PROMOTED_TO_DIRECT_JI_CH9_P155",
+    "ding_fubao_six_book_intermediary": "PROMOTED_TO_DIRECT_JI_CH9_P143"
+  },
+  "unresolved_or_not_promoted": {
+    "first_batch_exact_date_1950_01_07": {
+      "exact_query_result_count": 0,
+      "status": "NOT_DIRECTLY_CLOSED_BY_CURRENT_SNIPPETS"
+    },
+    "second_batch_exact_date_1950_03": {
+      "exact_query_result_count": 0,
+      "status": "NOT_DIRECTLY_CLOSED_BY_CURRENT_SNIPPETS"
+    },
+    "third_batch_exact_date_1953_03": {
+      "exact_query_result_count": 0,
+      "status": "NOT_DIRECTLY_CLOSED_BY_CURRENT_SNIPPETS"
+    },
+    "third_batch_donation_97": {
+      "exact_97_title_query_result_count": 0,
+      "exact_donation_97_query_result_count": 0,
+      "status": "SECONDARY_RECOUNTING_NOT_PROMOTED"
+    },
+    "third_batch_sale_300_plus": {
+      "exact_direct_page_binding": false,
+      "status": "SECONDARY_RECOUNTING_NOT_PROMOTED"
+    }
+  },
+  "count_scope_firewall": {
+    "nlc_2023_20_190": "NOT_RECONCILED",
+    "studytimes_2026_later_699": "NOT_RECONCILED",
+    "nlc_2020_700_plus": "NOT_RECONCILED",
+    "zhao_1951_62_donation_scope": "NOT_RECONCILED",
+    "arithmetic_normalization_authorized": false
+  },
+  "target_volume_firewall": {
+    "target_titles": [
+      "铜壶漏箭制度",
+      "准斋心制几漏图式"
+    ],
+    "historical_catalog_numbers": [
+      3482,
+      3483
+    ],
+    "current_catalog_number_candidates": [
+      "03482",
+      "03483"
+    ],
+    "target_named_in_direct_snippets": false,
+    "target_numbers_named_in_direct_snippets": false,
+    "target_in_first_batch": "UNRESOLVED",
+    "target_in_second_batch": "UNRESOLVED",
+    "target_in_third_batch": "UNRESOLVED",
+    "target_in_ding_fubao_six": "UNRESOLVED",
+    "target_specific_purchase_route_selected": false,
+    "target_specific_donation_route_selected": false,
+    "target_specific_intermediary_route_selected": false,
+    "target_exact_acquisition_date": "UNRESOLVED"
+  },
+  "evidence_firewall": {
+    "snippets_not_complete_chapter": true,
+    "search_zero_not_global_text_absence": true,
+    "raw_book_body_archived": false,
+    "full_page_image_corpus_acquired": false,
+    "secondary_1953_97_300plus_not_promoted": true
+  },
+  "transmission_impact": {
+    "status": "NONE",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": [],
+    "acquisition_edge_authorized": false
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Trace Ji Chapter 9's transaction narrative to Beijing Library/NLC accession ledgers, acquisition lists, payment records and work reports.",
+    "Search those direct records for 铜壶漏箭制度, 准斋心制几漏图式, 3482/3483, 03482/03483 and the 1823 Huang/Shiliju bound-volume fingerprint.",
+    "Keep 1953-03 / donation 97 / sale 300-plus at secondary/unresolved level until a direct page or ledger closes them.",
+    "Continue direct 2011 Zhao Wenji p.197 and authoritative/open 1951 issue-9 page recovery in parallel."
+  ],
+  "updated_at": "2026-10-01"
+}

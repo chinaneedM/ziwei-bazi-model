@@ -966,3 +966,14 @@ Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI
 - Product/accounting remains 198 / 166 / 10 and 17/17 provenance repairs, with zero chart-algorithm defects, reopens or candidate collapses.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-2009-GOOGLE-BOOKS-PAGE-NUMBERED-SNIPPET-ANCHORS-IX.md`. Research record: `docs/research/ZIWEI-JI-SHUYING-2009-GOOGLE-BOOKS-PAGE-NUMBERED-SNIPPET-ANCHORS-R1.json`.
+
+
+## Progress — Batch 12IY
+
+- Ji Shuying Chapter 9 page-numbered snippets now directly support the three-batch mixed sale+donation program: p.139 states three batches with sale and donation paired; p.162 reviews the three batches.
+- p.140 directly closes first-batch 304 sold + 52 donated. p.143 directly closes second-batch 123 sold and the Ding Fubao six-book purchase-to-donation intermediary route. p.155 directly establishes a third batch of purchased books.
+- Exact 1950-01-07, 1950-03 and 1953-03 strings are not directly closed on the current snippet surface. 97-title donation and 300-plus third-batch figures remain secondary/unresolved and are not promoted.
+- NLC 20/190, Study Times 699, NLC 700-plus and Zhao-1951 62-title scopes remain unreconciled; no arithmetic normalization is authorized.
+- No target 3482/3483 transaction mode or date is selected. Product/accounting remains 198 / 166 / 10 and 17/17 provenance repairs, with zero chart-algorithm defects, reopens or candidate collapses.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-2009-TIEQIN-DIRECT-TRANSACTION-CHRONOLOGY-IY.md`. Research record: `docs/research/ZIWEI-JI-SHUYING-2009-TIEQIN-DIRECT-TRANSACTION-CHRONOLOGY-R1.json`.

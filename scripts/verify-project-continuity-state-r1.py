@@ -318,6 +318,8 @@ ZIWEI_JI_STANFORD_IW_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUD
 ZIWEI_JI_STANFORD_IW_EVIDENCE = ROOT / "docs/research/ZIWEI-JI-SHUYING-2009-STANFORD-EXACT-RECORD-ACCESS-BOUNDARY-R1.json"
 ZIWEI_JI_GOOGLE_IX_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-2009-GOOGLE-BOOKS-PAGE-NUMBERED-SNIPPET-ANCHORS-IX.md"
 ZIWEI_JI_GOOGLE_IX_EVIDENCE = ROOT / "docs/research/ZIWEI-JI-SHUYING-2009-GOOGLE-BOOKS-PAGE-NUMBERED-SNIPPET-ANCHORS-R1.json"
+ZIWEI_JI_CHRONOLOGY_IY_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-2009-TIEQIN-DIRECT-TRANSACTION-CHRONOLOGY-IY.md"
+ZIWEI_JI_CHRONOLOGY_IY_EVIDENCE = ROOT / "docs/research/ZIWEI-JI-SHUYING-2009-TIEQIN-DIRECT-TRANSACTION-CHRONOLOGY-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -703,9 +705,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-INSTITUTIONAL-CATALOG-HTML-BOUNDARY-IV",
     "BATCH-12-ZIWEI-JI-SHUYING-2009-STANFORD-EXACT-RECORD-ACCESS-BOUNDARY-IW",
     "BATCH-12-ZIWEI-JI-SHUYING-2009-GOOGLE-BOOKS-PAGE-NUMBERED-SNIPPET-ANCHORS-IX",
+    "BATCH-12-ZIWEI-JI-SHUYING-2009-TIEQIN-DIRECT-TRANSACTION-CHRONOLOGY-IY",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-2009-GOOGLE-BOOKS-PAGE-NUMBERED-SNIPPET-ANCHORS-IX.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-2009-TIEQIN-DIRECT-TRANSACTION-CHRONOLOGY-IY.md"
 
 
 def fail(message: str) -> None:
@@ -10490,6 +10493,41 @@ def main() -> int:
         fail("Batch 12IX missing from completed state")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12IX latest-batch document mismatch")
+
+    # Batch 12IY: Ji Chapter-9 direct transaction chronology.
+    for path in (ZIWEI_JI_CHRONOLOGY_IY_BATCH, ZIWEI_JI_CHRONOLOGY_IY_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12IY continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12iy = json.loads(ZIWEI_JI_CHRONOLOGY_IY_EVIDENCE.read_text(encoding="utf-8"))
+    bid12iy = "BATCH-12-ZIWEI-JI-SHUYING-2009-TIEQIN-DIRECT-TRANSACTION-CHRONOLOGY-IY"
+    if batch12iy.get("batch_id") != bid12iy:
+        fail("Batch 12IY evidence identity mismatch")
+    direct12iy = batch12iy.get("direct_chapter9_controls", {})
+    if direct12iy.get("p140", {}).get("first_batch_sold_titles") != 304 or direct12iy.get("p140", {}).get("first_batch_donated_titles") != 52:
+        fail("Batch 12IY first-batch direct counts regressed")
+    if direct12iy.get("p143", {}).get("second_batch_sold_titles") != 123 or direct12iy.get("p143", {}).get("ding_fubao_intermediary_six_books") is not True:
+        fail("Batch 12IY second-batch/intermediary control regressed")
+    if direct12iy.get("p155", {}).get("third_batch_exists") is not True or direct12iy.get("p155", {}).get("third_batch_transaction_character") != "PURCHASED_BOOKS":
+        fail("Batch 12IY third-batch direct character regressed")
+    pending12iy = batch12iy.get("unresolved_or_not_promoted", {})
+    if pending12iy.get("third_batch_donation_97", {}).get("status") != "SECONDARY_RECOUNTING_NOT_PROMOTED" or pending12iy.get("third_batch_sale_300_plus", {}).get("status") != "SECONDARY_RECOUNTING_NOT_PROMOTED":
+        fail("Batch 12IY third-batch count firewall regressed")
+    target12iy = batch12iy.get("target_volume_firewall", {})
+    if target12iy.get("target_specific_purchase_route_selected") is not False or target12iy.get("target_specific_donation_route_selected") is not False:
+        fail("Batch 12IY target transaction firewall regressed")
+    reg12iy = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    src12iy = next((x for x in reg12iy.get("sources", []) if x.get("source_id") == "EXT-GOOGLE-BOOKS-JI15-TIEQIN-DIRECT-TRANSACTION-CHRONOLOGY"), None)
+    if src12iy is None or src12iy.get("batch_12iy", {}).get("second_batch_123_sale_direct") is not True:
+        fail("Batch 12IY registry binding missing")
+    acct12iy = batch12iy.get("accounting", {})
+    if acct12iy.get("matrix_rows") != 198 or acct12iy.get("audited_rows") != 166 or acct12iy.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12IY accounting regressed")
+    if tuple(int(p) for p in state.get("schema_version","0.0.0").split(".")) < (1,263,0):
+        fail("Batch 12IY state version regressed")
+    if bid12iy not in audit_state.get("completed_batches", ()):
+        fail("Batch 12IY missing from completed state")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12IY latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

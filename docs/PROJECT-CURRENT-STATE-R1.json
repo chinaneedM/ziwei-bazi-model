@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.262.0",
+  "schema_version": "1.263.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -344,9 +344,10 @@
       "BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-JAPAN-OPAC-PUBLIC-CONTENT-BOUNDARY-IU",
       "BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-INSTITUTIONAL-CATALOG-HTML-BOUNDARY-IV",
       "BATCH-12-ZIWEI-JI-SHUYING-2009-STANFORD-EXACT-RECORD-ACCESS-BOUNDARY-IW",
-      "BATCH-12-ZIWEI-JI-SHUYING-2009-GOOGLE-BOOKS-PAGE-NUMBERED-SNIPPET-ANCHORS-IX"
+      "BATCH-12-ZIWEI-JI-SHUYING-2009-GOOGLE-BOOKS-PAGE-NUMBERED-SNIPPET-ANCHORS-IX",
+      "BATCH-12-ZIWEI-JI-SHUYING-2009-TIEQIN-DIRECT-TRANSACTION-CHRONOLOGY-IY"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-2009-GOOGLE-BOOKS-PAGE-NUMBERED-SNIPPET-ANCHORS-IX.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-2009-TIEQIN-DIRECT-TRANSACTION-CHRONOLOGY-IY.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -1545,7 +1546,11 @@
       "Batch 12IX reopens Google Books through the exact ISBN public HTML rather than the quota-limited API. The page source-emits object k4MzlCiOPIcC, an alternate object 8vHm2Qj1JO8C, output=html_text and an in-book q= search contract; no guessed object ID or endpoint is used.",
       "Direct page-numbered TOC text closes Chapter 9 start p.133, Chapter 10 start p.163, Chapter 11 start p.179 and Chapter 12 start p.189. Direct snippets keep Chapter 9 text present through p.162 and Chapter 11 text through p.188.",
       "Chapter 9 is now DIRECTLY_CLOSED at pp.133-162. Its p.139 snippet directly describes the three sale batches paired with donation batches; p.140 directly exposes first-batch counts 304 sold / 52 donated. Chapter 10 start p.163 is direct but p.178 is not claimed directly reviewed; Chapter 11 pp.179-188 is directly closed.",
-      "Highest next gate after 12IX: stop spending effort on Ji15 pagination discovery; use the now page-bound Chapter 9 evidence to collate Tieqin 1950/1953 transaction chronology, while continuing direct Zhao 2011 p.197 and authoritative/open 1951 issue-9 recovery."
+      "Highest next gate after 12IX: stop spending effort on Ji15 pagination discovery; use the now page-bound Chapter 9 evidence to collate Tieqin 1950/1953 transaction chronology, while continuing direct Zhao 2011 p.197 and authoritative/open 1951 issue-9 recovery.",
+      "Batch 12IY uses the Batch 12IX source-emitted Google Books in-book search contract to collate Ji Shuying Chapter 9 transaction chronology directly at page-numbered snippet level.",
+      "Direct p.139/p.140/p.143/p.155/p.162 evidence upgrades the three-batch mixed sale+donation structure, first-batch 304 sold + 52 donated, second-batch 123 sold, third-batch purchased-book character and Ding Fubao six-book intermediary route from secondary/modern-retrospective scope to direct Ji Chapter-9 support.",
+      "Exact 1950-01-07, 1950-03 and 1953-03 strings are not closed by current snippets; donation 97 and sale 300-plus remain secondary/unresolved. NLC 20/190, StudyTimes 699, NLC 700-plus and Zhao 1951 62-title scopes remain unreconciled.",
+      "Highest next gate after 12IY: trace the now-direct Chapter-9 transaction skeleton to Beijing Library/NLC accession ledgers, acquisition lists, payment records and work reports; search those records for target 3482/3483 and the 1823 Huang/Shiliju bound-volume fingerprint. Zhao 2011 p.197 and 1951 issue-9 direct pages remain parallel gates."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10
