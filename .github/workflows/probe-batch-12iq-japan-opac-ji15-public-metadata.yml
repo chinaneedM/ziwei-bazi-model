@@ -134,12 +134,12 @@ jobs:
                       "toc_controls": toc_controls(decoded, r.url) if decoded else [],
                       "bookdata_source_contexts": contexts(decoded, "BOOKデータASPサービス", radius=500, limit=4) if decoded else [],
                       "bookdata_url_candidates": sorted(set(
-                          html.unescape(x) for x in re.findall(r'https?://[^"\\'<>\\s]+', decoded, re.I)
+                          html.unescape(x) for x in re.findall(r"https?://[^\\s\\\"'<>]+", decoded, re.I)
                           if any(k in x.lower() for k in ("book", "asp", "nichigai", "contents", "toc"))
                       ))[:50] if decoded else [],
                       "script_src_candidates": [
                           urljoin(r.url, html.unescape(x))
-                          for x in re.findall(r'<script\\b[^>]*\\bsrc=["\\']([^"\\']+)["\\']', decoded, re.I)
+                          for x in re.findall(r"<script\\b[^>]*\\bsrc=[\\\"']([^\\\"']+)[\\\"']", decoded, re.I)
                           if any(k in x.lower() for k in ("book", "asp", "opac", "detail"))
                       ][:50] if decoded else [],
                       "login_marker": any(x in visible.lower() for x in ["login", "ログイン", "my library", "マイライブラリ"]),
