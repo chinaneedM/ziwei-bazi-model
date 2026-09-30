@@ -19,7 +19,11 @@ jobs:
       - name: Inspect public Booktext postback response metadata only
         run: |
           python - <<'PY'
-          import hashlib, html, json, re
+          import hashlib
+          import html
+          import json
+          import re
+          from html.parser import HTMLParser
           from pathlib import Path
           import requests
 
@@ -27,27 +31,40 @@ jobs:
           TARGET_TITLE = "冀淑英古籍善本十五讲"
           UA = "Mozilla/5.0 (Tianwen provenance audit; public Booktext metadata-only inspection)"
 
+          class HiddenInputParser(HTMLParser):
+              def __init__(self):
+                  super().__init__(convert_charrefs=True)
+                  self.fields = {}
+              def handle_starttag(self, tag, attrs):
+                  if tag.lower() != "input":
+                      return
+                  d = {str(k): ("" if v is None else str(v)) for k, v in attrs}
+                  if d.get("type", "").lower() != "hidden":
+                      return
+                  name = d.get("name")
+                  if name:
+                      self.fields[name] = d.get("value", "")
+
           def hidden_fields(body):
-              out = {}
-              for m in re.finditer(r'<input\\b[^>]*>', body, re.I):
-                  tag = m.group(0)
-                  if not re.search(r'type=["\\']hidden["\\']', tag, re.I):
-                      continue
-                  nm = re.search(r'name=["\\']([^"\\']+)["\\']', tag, re.I)
-                  vm = re.search(r'value=["\\']([^"\\']*)["\\']', tag, re.I)
-                  if nm:
-                      out[html.unescape(nm.group(1))] = html.unescape(vm.group(1) if vm else "")
-              return out
+              parser = HiddenInputParser()
+              parser.feed(body)
+              return parser.fields
 
           def safe_headers(headers):
               keep = {}
               allowed = {
-                  "Content-Type", "Content-Disposition", "Content-Length",
-                  "Location", "Cache-Control", "Last-Modified", "ETag"
+                  "content-type": "Content-Type",
+                  "content-disposition": "Content-Disposition",
+                  "content-length": "Content-Length",
+                  "location": "Location",
+                  "cache-control": "Cache-Control",
+                  "last-modified": "Last-Modified",
+                  "etag": "ETag",
               }
               for k, v in headers.items():
-                  if k in allowed:
-                      keep[k] = v
+                  canonical = allowed.get(k.lower())
+                  if canonical:
+                      keep[canonical] = v
               return keep
 
           s = requests.Session()
@@ -55,15 +72,14 @@ jobs:
           g = s.get(URL, timeout=45)
           g.raise_for_status()
 
-          visible = re.sub(r'\\s+', ' ', html.unescape(re.sub(r'<[^>]+>', ' ', g.text)))
+          visible = re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", g.text)))
           form = hidden_fields(g.text)
           form.update({
               "__EVENTTARGET": "Booktext",
               "__EVENTARGUMENT": "",
           })
 
-          # Deliberately stream and do not read response content. Redirect following is
-          # disabled so any source-emitted download target is recorded rather than fetched.
+          # Metadata-only probe: do not consume POST response body and do not follow redirects.
           p = s.post(
               URL,
               data=form,
@@ -79,11 +95,12 @@ jobs:
               "get_body_sha256": hashlib.sha256(g.content).hexdigest(),
               "get_has_target_title": TARGET_TITLE in visible,
               "get_has_booktext_postback": "__doPostBack('Booktext','')" in g.text,
+              "hidden_field_count": len(form) - 2,
               "post_event_target": "Booktext",
               "post_status": p.status_code,
               "post_reason": p.reason,
               "post_headers": safe_headers(p.headers),
-              "post_is_redirect": p.is_redirect or p.is_permanent_redirect,
+              "post_is_redirect": bool(p.is_redirect or p.is_permanent_redirect),
               "response_body_read": False,
               "redirect_followed": False,
               "download_bytes_read": 0,
@@ -95,7 +112,6 @@ jobs:
               "full_book_text_fetched": False,
           }
 
-          # Close socket without consuming the body.
           p.close()
 
           Path("nlcpress-ji15-booktext-postback-metadata.json").write_text(
