@@ -888,3 +888,15 @@ Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NL
 - Product/accounting remains 198 rows / 166 audited / 10 MISSING_FROM_PRODUCT / 17 of 17 provenance defects repaired / zero chart-algorithm defects, reopens or candidate collapses.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-2009-JAPAN-OPAC-OPENBD-BOOKDATA-PUBLIC-CONTENT-BOUNDARY-IQ.md`. Research record: `docs/research/ZIWEI-JI-SHUYING-2009-JAPAN-OPAC-OPENBD-BOOKDATA-PUBLIC-CONTENT-BOUNDARY-R1.json`.
+
+
+## Progress — Batch 12IR
+
+- National Library of China Press ProductList page 315 source-emits `ProductView.aspx?Id=5325` for 《赵万里文集·第一卷》. Product 5325 directly matches the target series/first-volume identity and ISBN `9787501346653`; no product-id guessing is used.
+- Product 5325's public `Booktext` postback returns HTTP 200 / `application/octet-stream` / 464 bytes. The complete sub-4-KiB payload hashes to `6cc2f2aecebdbb31294bad9149075dba0aa0aa2bb2a9e778474fb44e9b43529e`, decodes as GB18030 to 245 normalized characters, and contains neither literal p.197 nor the target Yongle-exhibition or Qu-donation term sets. Raw text is not logged or saved.
+- `CatalogPrecisFile` has no href. The publisher's current public `Rid=3` ebook resource center has one page and lists neither the target title nor ISBN and exposes zero `DownloadView.aspx` objects. This is route-scoped nonlisting only.
+- Open Library independently binds ISBN `9787501346653` to edition `/books/OL30454631M` / work `/works/OL22369963W`, 2011, volume 1, first edition; current `ocaid=null` and covers=null, so no linked scan object is observed. Internet Archive exact-ISBN search returns zero, while Google Books remains HTTP 429 quota-limited.
+- Direct 2011 p.197 remains `NOT_REVIEWED`. Batch 12IG's official 2026 quotation bridge and Batch 12HG's NDL physical holding remain separate evidence layers; NDL paid remote copying remains explicit-authorization-gated by Batch 12IH.
+- Product/accounting remains 198 rows / 166 audited / 10 MISSING_FROM_PRODUCT / 17 of 17 provenance defects repaired / zero chart-algorithm defects, reopens or candidate collapses.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-NLCPRESS-OPENLIBRARY-PUBLIC-PREVIEW-BOUNDARY-IR.md`. Research record: `docs/research/ZIWEI-ZHAO-WANLI-WENJI-V1-NLCPRESS-OPENLIBRARY-PUBLIC-PREVIEW-BOUNDARY-R1.json`.

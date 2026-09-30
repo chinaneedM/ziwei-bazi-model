@@ -304,6 +304,8 @@ ZIWEI_NLCPRESS_JI15_IP_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-A
 ZIWEI_NLCPRESS_JI15_IP_EVIDENCE = ROOT / "docs/research/ZIWEI-NLCPRESS-JI15-FIRST-PARTY-BOOKTEXT-BOUNDED-PAYLOAD-BOUNDARY-R1.json"
 ZIWEI_JI_JAPAN_OPAC_IQ_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-2009-JAPAN-OPAC-OPENBD-BOOKDATA-PUBLIC-CONTENT-BOUNDARY-IQ.md"
 ZIWEI_JI_JAPAN_OPAC_IQ_EVIDENCE = ROOT / "docs/research/ZIWEI-JI-SHUYING-2009-JAPAN-OPAC-OPENBD-BOOKDATA-PUBLIC-CONTENT-BOUNDARY-R1.json"
+ZIWEI_ZHAO_WENJI_IR_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-NLCPRESS-OPENLIBRARY-PUBLIC-PREVIEW-BOUNDARY-IR.md"
+ZIWEI_ZHAO_WENJI_IR_EVIDENCE = ROOT / "docs/research/ZIWEI-ZHAO-WANLI-WENJI-V1-NLCPRESS-OPENLIBRARY-PUBLIC-PREVIEW-BOUNDARY-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -682,9 +684,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-NLCPRESS-JI15-FIRST-PARTY-PRODUCT-IDENTITY-AND-TOC-ATTACHMENT-BOUNDARY-IO",
     "BATCH-12-ZIWEI-NLCPRESS-JI15-FIRST-PARTY-BOOKTEXT-BOUNDED-PAYLOAD-BOUNDARY-IP",
     "BATCH-12-ZIWEI-JI-SHUYING-2009-JAPAN-OPAC-OPENBD-BOOKDATA-PUBLIC-CONTENT-BOUNDARY-IQ",
+    "BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-NLCPRESS-OPENLIBRARY-PUBLIC-PREVIEW-BOUNDARY-IR",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-2009-JAPAN-OPAC-OPENBD-BOOKDATA-PUBLIC-CONTENT-BOUNDARY-IQ.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-NLCPRESS-OPENLIBRARY-PUBLIC-PREVIEW-BOUNDARY-IR.md"
 
 
 def fail(message: str) -> None:
@@ -10124,6 +10127,70 @@ def main() -> int:
         fail("Batch 12IQ missing from completed state")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12IQ latest-batch document mismatch")
+
+
+    # Batch 12IR: Zhao Wanli Wenji vol.1 publisher/Open Library preview boundary.
+    for path in (ZIWEI_ZHAO_WENJI_IR_BATCH, ZIWEI_ZHAO_WENJI_IR_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12IR continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12ir = json.loads(ZIWEI_ZHAO_WENJI_IR_EVIDENCE.read_text(encoding="utf-8"))
+    bid12ir = "BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-NLCPRESS-OPENLIBRARY-PUBLIC-PREVIEW-BOUNDARY-IR"
+    if batch12ir.get("batch_id") != bid12ir:
+        fail("Batch 12IR evidence identity mismatch")
+    pub12ir = batch12ir.get("publisher_discovery", {})
+    if pub12ir.get("source_list_page") != 315 or pub12ir.get("source_emitted_product_href") != "ProductView.aspx?Id=5325" or pub12ir.get("product_id") != 5325:
+        fail("Batch 12IR source-emitted product discovery regressed")
+    if pub12ir.get("isbn_13") != "9787501346653" or pub12ir.get("product_id_guessing_used") is not False:
+        fail("Batch 12IR product identity/source firewall regressed")
+    p5325 = batch12ir.get("product5325_public_boundary", {})
+    if p5325.get("workflow_run_id") != 36722889232 or p5325.get("artifact_id") != 11101261183:
+        fail("Batch 12IR Product 5325 probe binding regressed")
+    bt12ir = p5325.get("booktext", {})
+    if bt12ir.get("content_length") != 464 or bt12ir.get("bytes_read") != 464:
+        fail("Batch 12IR Booktext length regressed")
+    if bt12ir.get("body_sha256") != "6cc2f2aecebdbb31294bad9149075dba0aa0aa2bb2a9e778474fb44e9b43529e" or bt12ir.get("decoded_char_count") != 245:
+        fail("Batch 12IR Booktext payload identity regressed")
+    if any(bt12ir.get(k) is not False for k in ("p197_literal", "yongle_article_term", "qu_donation_terms", "raw_text_logged", "raw_text_saved")):
+        fail("Batch 12IR Booktext evidence/copyright firewall regressed")
+    if p5325.get("catalog_anchor", {}).get("href") is not None:
+        fail("Batch 12IR catalog no-href boundary regressed")
+    rid12ir = batch12ir.get("publisher_ebook_resource_center", {})
+    if rid12ir.get("http_status") != 200 or rid12ir.get("page_count") != 1 or rid12ir.get("downloadview_count") != 0:
+        fail("Batch 12IR Rid=3 route state regressed")
+    if rid12ir.get("target_title_listed") is not False or rid12ir.get("target_isbn_listed") is not False or rid12ir.get("target_absence_claim_authorized") is not False:
+        fail("Batch 12IR Rid=3 negative-evidence firewall regressed")
+    ol12ir = batch12ir.get("openlibrary_control", {})
+    if ol12ir.get("edition_key") != "/books/OL30454631M" or ol12ir.get("work_key") != "/works/OL22369963W":
+        fail("Batch 12IR Open Library edition/work identity regressed")
+    if ol12ir.get("isbn_13") != "9787501346653" or ol12ir.get("publish_date") != "2011" or ol12ir.get("pagination") != "v. <1>":
+        fail("Batch 12IR Open Library bibliographic identity regressed")
+    if ol12ir.get("ocaid") is not None or ol12ir.get("linked_internet_archive_scan_observed") is not False:
+        fail("Batch 12IR Open Library preview boundary regressed")
+    p19712ir = batch12ir.get("p197_adjudication", {})
+    if p19712ir.get("direct_2011_p197") != "NOT_REVIEWED" or p19712ir.get("p197_public_preview_recovered") is not False:
+        fail("Batch 12IR p197 unresolved state regressed")
+    if p19712ir.get("ndl_paid_remote_copy_status") != "EXPLICIT_USER_AUTHORIZATION_REQUIRED_BY_BATCH_12IH":
+        fail("Batch 12IR NDL action boundary regressed")
+    reg12ir = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    srcp12ir = next((x for x in reg12ir.get("sources", []) if x.get("source_id") == "EXT-NLCPRESS-ZHAO-WANLI-WENJI-V1-PRODUCT5325"), None)
+    srcol12ir = next((x for x in reg12ir.get("sources", []) if x.get("source_id") == "EXT-OPENLIBRARY-ZHAO-WANLI-WENJI-V1-9787501346653"), None)
+    if srcp12ir is None or srcp12ir.get("batch_12ir", {}).get("booktext_bytes") != 464:
+        fail("Batch 12IR publisher registry source missing")
+    if srcol12ir is None or srcol12ir.get("batch_12ir", {}).get("linked_scan_observed") is not False:
+        fail("Batch 12IR Open Library registry source missing")
+    acct12ir = batch12ir.get("accounting", {})
+    if acct12ir.get("matrix_rows") != 198 or acct12ir.get("audited_rows") != 166 or acct12ir.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12IR accounting regressed")
+    try:
+        schema12ir = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12IR state version is not numeric")
+    if schema12ir < (1, 256, 0):
+        fail("Batch 12IR state version regressed below 1.256.0")
+    if bid12ir not in audit_state.get("completed_batches", ()):
+        fail("Batch 12IR missing from completed state")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12IR latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

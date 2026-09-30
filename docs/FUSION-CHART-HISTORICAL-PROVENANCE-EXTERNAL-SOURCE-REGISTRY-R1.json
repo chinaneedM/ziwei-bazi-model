@@ -10617,6 +10617,55 @@
         "direct_chapter_9_text": "NOT_REVIEWED",
         "research_artifact": "docs/research/ZIWEI-JI-SHUYING-2009-JAPAN-OPAC-OPENBD-BOOKDATA-PUBLIC-CONTENT-BOUNDARY-R1.json"
       }
+    },
+    {
+      "source_id": "EXT-NLCPRESS-ZHAO-WANLI-WENJI-V1-PRODUCT5325",
+      "title": "国家图书馆出版社《赵万里文集·第一卷》Product 5325",
+      "author": "赵万里",
+      "historical_period": "2011 publication / current first-party publisher product surface",
+      "edition": "第一卷 / ISBN 9787501346653",
+      "provider": "国家图书馆出版社",
+      "identifier": "ProductView Id=5325 / ProductList page 315 / ISBN 9787501346653",
+      "url": "https://www.nlcpress.com/ProductView.aspx?Id=5325",
+      "source_role": "FIRST_PARTY_PUBLISHER_PRODUCT_IDENTITY_AND_SMALL_BOOKTEXT_ACCESS_BOUNDARY_FOR_ZHAO_WANLI_WENJI_V1_P197",
+      "quality_notes": "Batch 12IR source-emits Product 5325 from publisher ProductList page 315 and closes exact first-volume/ISBN identity. Public Booktext returns a 464-byte GB18030 object, SHA-256 6cc2f2aecebdbb31294bad9149075dba0aa0aa2bb2a9e778474fb44e9b43529e, with no p.197 literal, target Yongle-exhibition term or Qu-donation term set. CatalogPrecisFile has no href; current Rid=3 ebook list does not list the target. These are current publisher access boundaries, not direct p.197 text.",
+      "batch_12ir": {
+        "source_list_page": 315,
+        "product_id": 5325,
+        "isbn_13": "9787501346653",
+        "booktext_bytes": 464,
+        "booktext_sha256": "6cc2f2aecebdbb31294bad9149075dba0aa0aa2bb2a9e778474fb44e9b43529e",
+        "p197_literal": false,
+        "yongle_article_term": false,
+        "qu_donation_terms": false,
+        "catalog_href": null,
+        "rid3_target_listed": false,
+        "direct_2011_p197": "NOT_REVIEWED",
+        "research_artifact": "docs/research/ZIWEI-ZHAO-WANLI-WENJI-V1-NLCPRESS-OPENLIBRARY-PUBLIC-PREVIEW-BOUNDARY-R1.json"
+      }
+    },
+    {
+      "source_id": "EXT-OPENLIBRARY-ZHAO-WANLI-WENJI-V1-9787501346653",
+      "title": "Open Library《赵万里文集》第1卷 ISBN 9787501346653 edition/work record",
+      "author": "赵万里",
+      "historical_period": "2011 bibliographic object / current Open Library metadata surface",
+      "edition": "/books/OL30454631M / v. <1> / Di 1 ban",
+      "provider": "Open Library",
+      "identifier": "ISBN 9787501346653 / OL30454631M / OL22369963W / OCLC 775628715 / LCCN 2011426732",
+      "url": "https://openlibrary.org/isbn/9787501346653.json",
+      "source_role": "INDEPENDENT_BIBLIOGRAPHIC_AND_CURRENT_PREVIEW_OBJECT_BOUNDARY_FOR_ZHAO_WANLI_WENJI_V1",
+      "quality_notes": "Batch 12IR exact-ISBN metadata independently binds the 2011 first-volume edition. Current edition/work surfaces expose one edition with ocaid=null and covers=null; no linked Internet Archive scan object is observed. This is a current Open Library state only and supplies no direct p.197 page evidence.",
+      "batch_12ir": {
+        "edition_key": "/books/OL30454631M",
+        "work_key": "/works/OL22369963W",
+        "publish_date": "2011",
+        "pagination": "v. <1>",
+        "edition_name": "Di 1 ban",
+        "ocaid": null,
+        "linked_scan_observed": false,
+        "direct_2011_p197": "NOT_REVIEWED",
+        "research_artifact": "docs/research/ZIWEI-ZHAO-WANLI-WENJI-V1-NLCPRESS-OPENLIBRARY-PUBLIC-PREVIEW-BOUNDARY-R1.json"
+      }
     }
   ],
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md",
