@@ -955,3 +955,14 @@ Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZH
 - Chapter 9 exact page range remains UNRESOLVED / direct text NOT_REVIEWED; accounting remains 198 / 166 / 10 and 17/17 provenance repairs, with zero chart-algorithm defects, reopens or candidate collapses.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-2009-STANFORD-EXACT-RECORD-ACCESS-BOUNDARY-IW.md`. Research record: `docs/research/ZIWEI-JI-SHUYING-2009-STANFORD-EXACT-RECORD-ACCESS-BOUNDARY-R1.json`.
+
+
+## Progress — Batch 12IX
+
+- Google Books exact ISBN public HTML source-emits object `k4MzlCiOPIcC`, `output=html_text`, an alternate object `8vHm2Qj1JO8C`, and the in-book `q=` search contract. No guessed object ID or endpoint is used.
+- Direct page-numbered TOC text closes Chapter 9 at p.133, Chapter 10 at p.163, Chapter 11 at p.179, Chapter 12 at p.189, with later starts p.201 / p.209 / p.223 and postscript p.239.
+- Direct in-book snippets show Chapter-9 material at p.162 while Chapter 10 starts p.163; Chapter 9 is therefore directly closed as pp.133–162. The three-batch sale/donation narrative is directly page-bound at p.139, and the first 304-sale / 52-donation figures at p.140.
+- Chapter 10 start p.163 is direct; its current structural interval is [163,179), while p.178 itself is not claimed as directly reviewed. Chapter 11 is directly closed as pp.179–188 because p.188 content is observed and Chapter 12 starts p.189.
+- Product/accounting remains 198 / 166 / 10 and 17/17 provenance repairs, with zero chart-algorithm defects, reopens or candidate collapses.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-2009-GOOGLE-BOOKS-PAGE-NUMBERED-SNIPPET-ANCHORS-IX.md`. Research record: `docs/research/ZIWEI-JI-SHUYING-2009-GOOGLE-BOOKS-PAGE-NUMBERED-SNIPPET-ANCHORS-R1.json`.

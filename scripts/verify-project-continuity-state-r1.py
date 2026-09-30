@@ -316,6 +316,8 @@ ZIWEI_ZHAO_CATALOG_IV_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AU
 ZIWEI_ZHAO_CATALOG_IV_EVIDENCE = ROOT / "docs/research/ZIWEI-ZHAO-WANLI-WENJI-V1-INSTITUTIONAL-CATALOG-HTML-BOUNDARY-R1.json"
 ZIWEI_JI_STANFORD_IW_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-2009-STANFORD-EXACT-RECORD-ACCESS-BOUNDARY-IW.md"
 ZIWEI_JI_STANFORD_IW_EVIDENCE = ROOT / "docs/research/ZIWEI-JI-SHUYING-2009-STANFORD-EXACT-RECORD-ACCESS-BOUNDARY-R1.json"
+ZIWEI_JI_GOOGLE_IX_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-2009-GOOGLE-BOOKS-PAGE-NUMBERED-SNIPPET-ANCHORS-IX.md"
+ZIWEI_JI_GOOGLE_IX_EVIDENCE = ROOT / "docs/research/ZIWEI-JI-SHUYING-2009-GOOGLE-BOOKS-PAGE-NUMBERED-SNIPPET-ANCHORS-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -700,9 +702,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-JAPAN-OPAC-PUBLIC-CONTENT-BOUNDARY-IU",
     "BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-INSTITUTIONAL-CATALOG-HTML-BOUNDARY-IV",
     "BATCH-12-ZIWEI-JI-SHUYING-2009-STANFORD-EXACT-RECORD-ACCESS-BOUNDARY-IW",
+    "BATCH-12-ZIWEI-JI-SHUYING-2009-GOOGLE-BOOKS-PAGE-NUMBERED-SNIPPET-ANCHORS-IX",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-2009-STANFORD-EXACT-RECORD-ACCESS-BOUNDARY-IW.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-2009-GOOGLE-BOOKS-PAGE-NUMBERED-SNIPPET-ANCHORS-IX.md"
 
 
 def fail(message: str) -> None:
@@ -10441,6 +10444,52 @@ def main() -> int:
         fail("Batch 12IW missing from completed state")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12IW latest-batch document mismatch")
+
+    # Batch 12IX: Google Books page-numbered TOC and in-book snippet anchors.
+    for path in (ZIWEI_JI_GOOGLE_IX_BATCH, ZIWEI_JI_GOOGLE_IX_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12IX continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12ix = json.loads(ZIWEI_JI_GOOGLE_IX_EVIDENCE.read_text(encoding="utf-8"))
+    bid12ix = "BATCH-12-ZIWEI-JI-SHUYING-2009-GOOGLE-BOOKS-PAGE-NUMBERED-SNIPPET-ANCHORS-IX"
+    if batch12ix.get("batch_id") != bid12ix:
+        fail("Batch 12IX evidence identity mismatch")
+    probe12ix = batch12ix.get("controlling_probe", {})
+    if probe12ix.get("workflow_run_id") != 36743418611 or probe12ix.get("workflow_job_id") != 109983419614:
+        fail("Batch 12IX probe binding regressed")
+    toc12ix = batch12ix.get("page_numbered_toc_direct", {})
+    expected_starts = {9:133, 10:163, 11:179, 12:189, 13:201, 14:209, 15:223}
+    for chapter, page in expected_starts.items():
+        if toc12ix.get(f"chapter_{chapter}", {}).get("start_page") != page:
+            fail(f"Batch 12IX chapter {chapter} TOC start-page binding regressed")
+    ch9 = batch12ix.get("chapter_9_direct_page_controls", {})
+    if ch9.get("exact_printed_span", {}).get("start_page") != 133 or ch9.get("exact_printed_span", {}).get("end_page") != 162 or ch9.get("exact_printed_span", {}).get("status") != "DIRECTLY_CLOSED":
+        fail("Batch 12IX Chapter 9 direct span regressed")
+    if 162 not in ch9.get("qu_fengqi_query", {}).get("page_hits", ()):
+        fail("Batch 12IX Chapter 9 terminal direct-page control regressed")
+    adj = batch12ix.get("adjacent_chapter_controls", {})
+    if adj.get("chapter_10", {}).get("start_page") != 163 or adj.get("chapter_10", {}).get("direct_end_page_content_reviewed") is not False:
+        fail("Batch 12IX Chapter 10 start/end firewall regressed")
+    if adj.get("chapter_11", {}).get("exact_printed_span", {}).get("end_page") != 188 or adj.get("chapter_12", {}).get("start_page") != 189:
+        fail("Batch 12IX Chapter 11/12 boundary regressed")
+    if batch12ix.get("evidence_firewall", {}).get("whole_book_acquired") is not False or batch12ix.get("evidence_firewall", {}).get("chapter10_p178_direct_content_claim_authorized") is not False:
+        fail("Batch 12IX full-book/Chapter10-end firewall regressed")
+    reg12ix = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    src12ix = next((x for x in reg12ix.get("sources", []) if x.get("source_id") == "EXT-GOOGLE-BOOKS-JI15-PAGE-NUMBERED-SNIPPET-ANCHORS"), None)
+    if src12ix is None or src12ix.get("batch_12ix", {}).get("chapter_9_exact_page_range") != "133-162":
+        fail("Batch 12IX registry binding missing")
+    acct12ix = batch12ix.get("accounting", {})
+    if acct12ix.get("matrix_rows") != 198 or acct12ix.get("audited_rows") != 166 or acct12ix.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12IX accounting regressed")
+    try:
+        schema12ix = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12IX state version is not numeric")
+    if schema12ix < (1, 262, 0):
+        fail("Batch 12IX state version regressed below 1.262.0")
+    if bid12ix not in audit_state.get("completed_batches", ()):
+        fail("Batch 12IX missing from completed state")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12IX latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")
