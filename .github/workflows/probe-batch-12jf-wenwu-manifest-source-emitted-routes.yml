@@ -35,6 +35,26 @@ jobs:
             ("xy980","https://xy980.com/e/action/ShowInfo.php?classid=1&id=157"),
           ]
 
+          def get(url):
+              req=urllib.request.Request(url,headers={**UA,"Accept":"text/html,application/xhtml+xml"})
+              with urllib.request.urlopen(req,timeout=45) as resp:
+                  raw=resp.read(3_000_000)
+                  ctype=resp.headers.get("Content-Type","")
+                  enc="utf-8"
+                  m=re.search(r"charset=([A-Za-z0-9._-]+)",ctype,re.I)
+                  if m:
+                      enc=m.group(1)
+                  else:
+                      try:
+                          raw.decode("utf-8")
+                      except UnicodeDecodeError:
+                          enc="gb18030"
+                  try:
+                      body=raw.decode(enc,errors="replace")
+                  except LookupError:
+                      body=raw.decode("utf-8",errors="replace")
+                  return resp.status,resp.geturl(),ctype,resp.headers.get("Content-Length"),raw,body
+
           def decode_response(r):
               enc=r.encoding
               if not enc or enc.lower()=="iso-8859-1":
@@ -109,6 +129,9 @@ jobs:
               except Exception as e:
                   row["error"]=f"{type(e).__name__}: {e}"
               out[key]=row
+
+          if not any("status" in row for row in out.values()):
+              raise RuntimeError("probe produced no HTTP status; treat as probe failure, not evidence")
 
           # This workflow never follows candidate download/sample/payment links. It only
           # reads the two already-public HTML manifest pages and records what they emit.
