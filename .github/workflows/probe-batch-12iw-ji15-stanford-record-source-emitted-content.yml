@@ -1,0 +1,142 @@
+name: probe-batch-12iw-ji15-stanford-record-source-emitted-content
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12iw-ji15-stanford-record-source-emitted-content.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Probe Stanford exact Ji15 record and only source-emitted content/export links
+        run: |
+          python - <<'PY'
+          import hashlib, html, json, re, time
+          from pathlib import Path
+          from urllib.parse import urljoin, urlparse
+          import requests
+
+          BASE="https://searchworks.stanford.edu/view/8440171"
+          ISBN="9787501340637"
+          TARGETS=(
+            "铁琴铜剑楼藏书的收购入藏","鐵琴銅劍樓藏書的收購入藏",
+            "第九讲","第九講","第十讲","第十講","第十一讲","第十一講",
+            "铁琴铜剑楼","鐵琴銅劍樓","目录","目次","Contents"
+          )
+          UA="Mozilla/5.0 (Tianwen provenance audit; anonymous Stanford exact-record source-emitted-link probe)"
+          MAX_BYTES=2*1024*1024
+
+          def decode_body(r,b):
+              for enc in (r.encoding,"utf-8","cp936","gb18030"):
+                  if not enc: continue
+                  try: return b.decode(enc)
+                  except Exception: pass
+              return b.decode("utf-8","replace")
+
+          def visible(raw):
+              raw=re.sub(r'<script\b.*?</script>',' ',raw,flags=re.I|re.S)
+              raw=re.sub(r'<style\b.*?</style>',' ',raw,flags=re.I|re.S)
+              raw=re.sub(r'<[^>]+>',' ',raw)
+              return re.sub(r'\s+',' ',html.unescape(raw)).strip()
+
+          def fetch(s,url):
+              r=s.get(url,timeout=45,allow_redirects=True,stream=True)
+              data=bytearray(); truncated=False
+              for chunk in r.iter_content(65536):
+                  if not chunk: continue
+                  if len(data)+len(chunk)>MAX_BYTES:
+                      take=MAX_BYTES-len(data)
+                      if take>0: data.extend(chunk[:take])
+                      truncated=True; break
+                  data.extend(chunk)
+              b=bytes(data)
+              raw=decode_body(r,b)
+              return r,b,raw,truncated
+
+          def contexts(text,term,radius=180,limit=6):
+              out=[]; p=0
+              while len(out)<limit:
+                  i=text.find(term,p)
+                  if i<0: break
+                  out.append(text[max(0,i-radius):min(len(text),i+len(term)+radius)])
+                  p=i+len(term)
+              return out
+
+          s=requests.Session()
+          s.headers.update({"User-Agent":UA,"Accept-Language":"en,zh-CN;q=0.9,zh;q=0.8"})
+          out={
+            "target":{"title":"冀淑英古籍善本十五讲","isbn":ISBN,"stanford_record_id":"8440171"},
+            "base":{},"source_emitted_candidates":[],"followed":[],"security":{
+              "login_used":False,"account_action_used":False,"copy_request_used":False,
+              "payment_used":False,"captcha_bypass_used":False,"tls_verification_disabled":False,
+              "guessed_export_endpoint_used":False
+            }
+          }
+
+          try:
+              r,b,raw,trunc=fetch(s,BASE)
+              text=visible(raw)
+              hrefs=[]
+              for m in re.finditer(r'href=[\"\']([^\"\']+)[\"\']',raw,re.I):
+                  u=urljoin(r.url,html.unescape(m.group(1)))
+                  if urlparse(u).scheme not in ("http","https"): continue
+                  hrefs.append(u)
+              hrefs=list(dict.fromkeys(hrefs))
+              candidates=[]
+              for u in hrefs:
+                  low=u.lower()
+                  if any(k in low for k in ("marc","ris","endnote","refworks","citation","export","json","format=","cite")):
+                      candidates.append(u)
+              candidates=candidates[:20]
+              out["base"]={
+                "status":r.status_code,"final_url":r.url,"content_type":r.headers.get("Content-Type",""),
+                "bytes_read":len(b),"truncated_at_2mib":trunc,"body_sha256":hashlib.sha256(b).hexdigest(),
+                "title_present":("冀淑英古籍善本十五讲" in text or "Ji Shuying gu ji shan ben shi wu jiang" in text),
+                "isbn_present":ISBN in text.replace("-","").replace(" ",""),
+                "page_count_markers":re.findall(r'(?<!\d)(?:241|240|242)\s*(?:p\.?|pages|页|頁)?',text,re.I)[:20],
+                "target_flags":{t:(t in text) for t in TARGETS},
+                "target_contexts":{t:contexts(text,t) for t in TARGETS if t in text},
+                "source_emitted_href_count":len(hrefs),
+                "source_emitted_candidate_count":len(candidates),
+                "raw_html_saved":False,"raw_html_logged":False
+              }
+              out["source_emitted_candidates"]=candidates
+
+              for u in candidates:
+                  row={"url":u}
+                  try:
+                      rr,bb,rrraw,rrtr=fetch(s,u)
+                      tt=visible(rrraw)
+                      row.update({
+                        "status":rr.status_code,"final_url":rr.url,"content_type":rr.headers.get("Content-Type",""),
+                        "bytes_read":len(bb),"truncated_at_2mib":rrtr,"body_sha256":hashlib.sha256(bb).hexdigest(),
+                        "title_present":("冀淑英古籍善本十五讲" in tt or "Ji Shuying gu ji shan ben shi wu jiang" in tt),
+                        "isbn_present":ISBN in tt.replace("-","").replace(" ",""),
+                        "target_flags":{t:(t in tt) for t in TARGETS},
+                        "target_contexts":{t:contexts(tt,t) for t in TARGETS if t in tt},
+                        "pagenumber_like_tokens":re.findall(r'(?<!\d)(?:1[2-9]\d|2[0-4]\d)(?!\d)',tt)[:80],
+                        "raw_body_saved":False,"raw_body_logged":False
+                      })
+                  except Exception as e:
+                      row["error"]=f"{type(e).__name__}: {e}"
+                  out["followed"].append(row)
+                  time.sleep(0.3)
+          except Exception as e:
+              out["base_error"]=f"{type(e).__name__}: {e}"
+
+          Path("ji15-stanford-record-source-emitted-content.json").write_text(
+              json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12iw-ji15-stanford-record-source-emitted-content
+          path: ji15-stanford-record-source-emitted-content.json
