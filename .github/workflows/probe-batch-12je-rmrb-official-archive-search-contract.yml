@@ -56,7 +56,7 @@ jobs:
                   out.append({'action':action,'method':method,'same_host':urlparse(action).hostname=='data.people.com.cn','fields':fields})
               return out
 
-          s,u,b=get(entry)
+          s,u,ct,b=get(entry)
           links=[]
           for m in re.finditer(r'<a\b[^>]*href=["\']([^"\']+)["\'][^>]*>(.*?)</a>',b,re.I|re.S):
               href,label=m.group(1),re.sub(r'<[^>]+>',' ',m.group(2))
@@ -69,7 +69,7 @@ jobs:
 
           search=None
           if source_search:
-              ss,su,sb=get(source_search)
+              ss,su,sct,sb=get(source_search)
               search={'status':ss,'final_url':su,'body_bytes_utf8':len(sb.encode('utf-8')),'forms':forms(su,sb),'login_literal_present':'未登录' in sb or '登录' in sb}
 
           result={
