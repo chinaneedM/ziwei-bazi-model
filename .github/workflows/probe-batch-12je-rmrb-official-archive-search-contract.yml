@@ -101,7 +101,7 @@ jobs:
           target_queries=[]
           current_article_links=[]
           for x in links:
-              if re.search(r'/rmrb/\\d{8}/\\d+/[0-9a-f]{32}(?:$|[?#])',x['url'],re.I) and len(x['label']) >= 6:
+              if re.search(r'[0-9a-f]{32}',x['url'],re.I) and len(x['label']) >= 6:
                   current_article_links.append(x)
           if entry_forms and entry_forms[0].get('method')=='GET' and entry_forms[0].get('same_host'):
               form=entry_forms[0]
@@ -182,6 +182,7 @@ jobs:
               'probe':'BATCH-12JE-RMRB-OFFICIAL-ARCHIVE-SEARCH-CONTRACT',
               'entry':{'requested_url':entry,'status':s,'final_url':u,'body_bytes_utf8':len(b.encode('utf-8')),'forms':entry_forms},
               'source_emitted_search_links':search_links[:20],
+              'source_emitted_current_article_candidates':current_article_links[:20],
               'source_emitted_search_surface':search,
               'positive_control_query':query_calibration,
               'target_query_submitted':bool(target_queries),
