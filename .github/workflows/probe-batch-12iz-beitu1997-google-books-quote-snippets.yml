@@ -1,0 +1,109 @@
+name: probe-batch-12iz-beitu1997-google-books-quote-snippets
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12iz-beitu1997-google-books-quote-snippets.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Probe bounded quoted-phrase snippets on source-emitted Beitu alternate
+        run: |
+          python - <<'PY'
+          import hashlib, html, json, re, time
+          from pathlib import Path
+          from urllib.parse import urlencode
+          import requests
+
+          BOOK_ID="RuGEAAAAIAAJ"
+          TERMS=[
+            "这些善本入藏本馆",
+            "本馆中文书藏地位将益形重要",
+            "可为全国之冠",
+            "陆续价购归公",
+            "爱护文物 信任政府",
+            "瞿氏将所藏部分善本",
+            "瞿氏三兄弟",
+            "铁琴铜剑楼藏书",
+            "1950年",
+            "一九五〇年"
+          ]
+          UA="Mozilla/5.0 (Tianwen provenance audit; bounded Google Books quote-snippet classifier)"
+          MAX_BYTES=2*1024*1024
+
+          def visible(raw):
+              raw=re.sub(r'<script\b.*?</script>',' ',raw,flags=re.I|re.S)
+              raw=re.sub(r'<style\b.*?</style>',' ',raw,flags=re.I|re.S)
+              raw=re.sub(r'<[^>]+>',' ',raw)
+              return re.sub(r'\s+',' ',html.unescape(raw)).strip()
+
+          def bounded_result_excerpt(text,limit=2200):
+              markers=["在该图书中搜索","在該圖書中搜索","Search in this book"]
+              starts=[text.find(m) for m in markers if text.find(m)>=0]
+              if starts:
+                  i=min(starts)
+              else:
+                  mm=re.search(r'共有\s*\d+\s*个结果',text)
+                  i=max(0,(mm.start()-500) if mm else 0)
+              return text[i:i+limit]
+
+          s=requests.Session()
+          s.headers.update({"User-Agent":UA,"Accept-Language":"zh-CN,zh;q=0.9,en;q=0.7"})
+          out={
+            "book_id":BOOK_ID,
+            "contract_basis":"RuGEAAAAIAAJ was source-emitted by BZ0M0gEACAAJ and directly emitted in-book q= links.",
+            "queries":[],
+            "security":{"login_used":False,"account_action_used":False,"copy_request_used":False,"payment_used":False,
+              "captcha_bypass_used":False,"tls_verification_disabled":False,"guessed_object_id_used":False,
+              "guessed_endpoint_used":False,"bounded_excerpt_only":True}
+          }
+
+          for term in TERMS:
+              url="https://books.google.com/books?"+urlencode({"id":BOOK_ID,"q":term,"hl":"zh-CN"})
+              row={"term":term,"url":url}
+              try:
+                  r=s.get(url,timeout=45,allow_redirects=True,stream=True)
+                  data=bytearray();tr=False
+                  for chunk in r.iter_content(65536):
+                      if not chunk:continue
+                      if len(data)+len(chunk)>MAX_BYTES:
+                          take=MAX_BYTES-len(data)
+                          if take>0:data.extend(chunk[:take])
+                          tr=True;break
+                      data.extend(chunk)
+                  b=bytes(data);raw=b.decode(r.encoding or "utf-8","replace");text=visible(raw)
+                  excerpt=bounded_result_excerpt(text)
+                  pages=[]
+                  for m in re.finditer(r'第\s*(\d{1,4})\s*[页頁]',excerpt):
+                      n=int(m.group(1))
+                      if n not in pages:pages.append(n)
+                  row.update({
+                    "status":r.status_code,"bytes_read":len(b),"body_sha256":hashlib.sha256(b).hexdigest(),
+                    "result_count_text":re.findall(r'共有\s*\d+\s*个结果',text)[:4],
+                    "term_literal_present":term in text,
+                    "page_hits_in_bounded_excerpt":pages[:30],
+                    "bounded_result_excerpt":excerpt,
+                    "excerpt_chars":len(excerpt),
+                    "raw_body_saved":False,"raw_body_logged":False
+                  })
+              except Exception as e:
+                  row["error"]=f"{type(e).__name__}: {e}"
+              out["queries"].append(row);time.sleep(0.3)
+
+          Path("beitu1997-google-books-quote-snippets.json").write_text(
+              json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12iz-beitu1997-google-books-quote-snippets
+          path: beitu1997-google-books-quote-snippets.json
