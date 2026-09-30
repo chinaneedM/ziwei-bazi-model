@@ -16,106 +16,84 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
-
-      - name: Calibrate NDL public APIs and query digital object providers
+      - name: Calibrate NDL OpenSearch digital-provider result counts
         run: |
           python - <<'PY'
-          import hashlib, json, re
+          import hashlib, json
           import xml.etree.ElementTree as ET
           from pathlib import Path
-          from urllib.parse import quote, urlencode
+          from urllib.parse import urlencode
           import requests
 
-          SRU="https://ndlsearch.ndl.go.jp/api/sru"
-          OS="https://ndlsearch.ndl.go.jp/api/opensearch"
-          UA={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; bounded NDL public object discovery)"}
-          s=requests.Session(); s.headers.update(UA)
-
-          def local(tag):
-              return tag.rsplit("}",1)[-1]
-
-          def compact_xml(body):
-              root=ET.fromstring(body)
-              names={}
-              for e in root.iter():
-                  names[local(e.tag)]=names.get(local(e.tag),0)+1
-              text_items=[]
-              for e in root.iter():
-                  t=(e.text or "").strip()
-                  if t and local(e.tag) in ("numberOfRecords","diagnostic","uri","message","details","title","identifier","date","creator","rights","link"):
-                      text_items.append({"tag":local(e.tag),"text":t[:1000]})
-              attrs=[]
-              for e in root.iter():
-                  for k,v in e.attrib.items():
-                      if v and any(tok in v for tok in ("ndl.go.jp","ndljp","pid/","R100000039")):
-                          attrs.append(v)
-              return root,names,text_items,sorted(set(attrs))
-
-          # First calibrate the exact current SRU syntax against NDL's own documented example.
-          sru_queries=[
-              ("official_positive",'title="桜" AND from="2018"'),
-              ("target_serial_digital",'title="文物参考資料" AND from="1951" AND until="1951" AND dpid=ndl-dl'),
-              ("target_serial_digital_simp",'title="文物参考资料" AND from="1951" AND until="1951" AND dpid=ndl-dl'),
-              ("target_serial_open",'title="文物参考資料" AND from="1951" AND until="1951" AND dpid=ndl-dl-open'),
-              ("target_article_digital",'title="永樂大典展覽的意義" AND dpid=ndl-dl'),
-              ("target_article_simp_digital",'title="永乐大典展览的意义" AND dpid=ndl-dl'),
-          ]
-          out={"sru":{},"opensearch":{}}
-
-          for key,cql in sru_queries:
-              url=f"{SRU}?operation=searchRetrieve&maximumRecords=20&query={quote(cql,safe='')}"
-              row={"cql":cql,"url":url}
-              try:
-                  r=s.get(url,timeout=45); body=r.content
-                  row.update({"status":r.status_code,"content_type":r.headers.get("Content-Type"),"bytes":len(body),"sha256":hashlib.sha256(body).hexdigest(),"raw_xml_saved":False,"raw_xml_logged":False})
-                  root,names,items,attrs=compact_xml(body)
-                  row["root_tag"]=local(root.tag)
-                  row["tag_counts"]=names
-                  row["selected_text"]=items[:100]
-                  nums=[x["text"] for x in items if x["tag"]=="numberOfRecords"]
-                  row["number_of_records"]=int(nums[0]) if nums and nums[0].isdigit() else (nums[0] if nums else None)
-                  row["ndl_object_attrs"]=attrs[:50]
-              except Exception as e:
-                  row["error"]=f"{type(e).__name__}: {e}"
-              out["sru"][key]=row
-
-          # OpenSearch is independently documented and easier to scope by provider.
-          os_queries=[
+          BASE="https://ndlsearch.ndl.go.jp/api/opensearch"
+          UA={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; bounded NDL OpenSearch calibration)"}
+          queries=[
+              ("positive_ndl_dl",{"cnt":"5","title":"吾輩は猫である","dpid":"ndl-dl"}),
               ("target_serial_ndl_dl",{"cnt":"20","title":"文物参考資料","from":"1951","until":"1951","dpid":"ndl-dl"}),
               ("target_serial_ndl_dl_simp",{"cnt":"20","title":"文物参考资料","from":"1951","until":"1951","dpid":"ndl-dl"}),
               ("target_serial_ndl_dl_open",{"cnt":"20","title":"文物参考資料","from":"1951","until":"1951","dpid":"ndl-dl-open"}),
               ("target_article_ndl_dl",{"cnt":"20","title":"永樂大典展覽的意義","dpid":"ndl-dl"}),
               ("target_article_ndl_dl_simp",{"cnt":"20","title":"永乐大典展览的意义","dpid":"ndl-dl"}),
+              ("target_serial_all_providers",{"cnt":"20","title":"文物参考資料","from":"1951","until":"1951"}),
           ]
-          for key,params in os_queries:
-              url=OS+"?"+urlencode(params)
-              row={"params":params,"url":url}
+
+          def local(tag): return tag.rsplit("}",1)[-1]
+          def alltext(e,name):
+              return [(x.text or "").strip() for x in e.iter() if local(x.tag)==name and (x.text or "").strip()]
+
+          s=requests.Session(); s.headers.update(UA)
+          out={}
+          for key,params in queries:
+              url=BASE+"?"+urlencode(params)
+              row={"url":url,"params":params}
               try:
                   r=s.get(url,timeout=45); body=r.content
-                  row.update({"status":r.status_code,"content_type":r.headers.get("Content-Type"),"bytes":len(body),"sha256":hashlib.sha256(body).hexdigest(),"raw_xml_saved":False,"raw_xml_logged":False})
-                  root,names,items,attrs=compact_xml(body)
-                  row["root_tag"]=local(root.tag)
-                  row["tag_counts"]=names
-                  row["selected_text"]=items[:120]
-                  row["ndl_object_attrs"]=attrs[:50]
-                  titles=[x["text"] for x in items if x["tag"]=="title"]
-                  row["titles"]=titles[:30]
-                  row["target_serial_title_seen"]=any("文物参考" in x for x in titles)
-                  row["target_article_title_seen"]=any("永" in x and "大典" in x and ("意義" in x or "意义" in x) for x in titles)
+                  root=ET.fromstring(body)
+                  totals=alltext(root,"totalResults")
+                  items=[x for x in root.iter() if local(x.tag)=="item"]
+                  recs=[]
+                  for item in items[:20]:
+                      titles=alltext(item,"title")
+                      links=alltext(item,"link")
+                      ids=alltext(item,"identifier")
+                      desc=alltext(item,"description")
+                      dates=alltext(item,"date")
+                      rights=alltext(item,"rights")
+                      attrs=[]
+                      for e in item.iter():
+                          attrs.extend(v for v in e.attrib.values() if v)
+                      vals=links+ids+attrs
+                      recs.append({
+                          "titles":titles[:5],"dates":dates[:5],"rights":rights[:5],
+                          "links":links[:10],
+                          "ndl_object_refs":sorted(set(v for v in vals if any(t in v for t in ("ndljp","ndl.go.jp","pid/","R100000039"))))[:30],
+                          "has_target_serial":any("文物参考" in t for t in titles+desc),
+                          "has_target_article":any(("永乐大典" in t or "永樂大典" in t) and ("意义" in t or "意義" in t) for t in titles+desc),
+                      })
+                  row.update({
+                      "status":r.status_code,"content_type":r.headers.get("Content-Type"),
+                      "bytes":len(body),"sha256":hashlib.sha256(body).hexdigest(),
+                      "total_results":int(totals[0]) if totals and totals[0].isdigit() else (totals[0] if totals else None),
+                      "item_count_returned":len(items),"items":recs,
+                      "raw_xml_saved":False,"raw_xml_logged":False,
+                  })
               except Exception as e:
                   row["error"]=f"{type(e).__name__}: {e}"
-              out["opensearch"][key]=row
+              out[key]=row
 
-          out["security"]={
-              "login_used":False,"account_action_used":False,"copy_request_used":False,
-              "payment_used":False,"captcha_bypass_used":False,"tls_verification_disabled":False,
-              "harvest_or_bulk_enumeration_used":False
+          final={
+              "endpoint":BASE,"queries":out,
+              "security":{
+                  "login_used":False,"account_action_used":False,"copy_request_used":False,
+                  "payment_used":False,"captcha_bypass_used":False,"tls_verification_disabled":False,
+                  "harvest_or_bulk_enumeration_used":False
+              }
           }
-          Path("ndl-digital-wenwu195109-api-calibration.json").write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8")
-          print(json.dumps(out,ensure_ascii=False,indent=2))
+          Path("ndl-digital-wenwu195109-opensearch-counts.json").write_text(
+              json.dumps(final,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(final,ensure_ascii=False,indent=2))
           PY
-
       - uses: actions/upload-artifact@v4
         with:
-          name: batch-12is-ndl-digital-wenwu195109-api-calibration
-          path: ndl-digital-wenwu195109-api-calibration.json
+          name: batch-12is-ndl-digital-wenwu195109-opensearch-counts
+          path: ndl-digital-wenwu195109-opensearch-counts.json
