@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.256.0",
+  "schema_version": "1.257.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -338,9 +338,10 @@
       "BATCH-12-ZIWEI-NLCPRESS-JI15-FIRST-PARTY-PRODUCT-IDENTITY-AND-TOC-ATTACHMENT-BOUNDARY-IO",
       "BATCH-12-ZIWEI-NLCPRESS-JI15-FIRST-PARTY-BOOKTEXT-BOUNDED-PAYLOAD-BOUNDARY-IP",
       "BATCH-12-ZIWEI-JI-SHUYING-2009-JAPAN-OPAC-OPENBD-BOOKDATA-PUBLIC-CONTENT-BOUNDARY-IQ",
-      "BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-NLCPRESS-OPENLIBRARY-PUBLIC-PREVIEW-BOUNDARY-IR"
+      "BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-NLCPRESS-OPENLIBRARY-PUBLIC-PREVIEW-BOUNDARY-IR",
+      "BATCH-12-ZIWEI-NDL-WENWU-CANKAO-1951-H2-DIGITAL-PROVIDER-BOUNDARY-IS"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-NLCPRESS-OPENLIBRARY-PUBLIC-PREVIEW-BOUNDARY-IR.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NDL-WENWU-CANKAO-1951-H2-DIGITAL-PROVIDER-BOUNDARY-IS.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -1515,7 +1516,11 @@
       "Batch 12IR source-emits National Library Press Product 5325 from ProductList page 315 and closes 《赵万里文集·第一卷》 / ISBN 9787501346653 at first-party publisher-product level.",
       "Product 5325 Booktext is a 464-byte GB18030 object (SHA-256 6cc2f2aecebdbb31294bad9149075dba0aa0aa2bb2a9e778474fb44e9b43529e / 245 normalized chars) with no p.197 literal, target Yongle-exhibition term or Qu-donation term set; CatalogPrecisFile has no href and current Rid=3 does not list the target.",
       "Open Library independently binds ISBN 9787501346653 to /books/OL30454631M / /works/OL22369963W / 2011 / volume 1 / first edition, but current ocaid and covers are null and no linked scan object is observed. Internet Archive exact ISBN is zero; Google Books remains rate-limited.",
-      "Direct 2011 《赵万里文集》第1卷 p.197 remains NOT_REVIEWED. Highest next gates are new lawful public/institutional p.197 surfaces, authoritative/open wwck195109.pdf recovery, and newly discovered Ji Chapter 9 / Chapter 10-11 page-number surfaces; NDL paid copy remains explicit-authorization-gated."
+      "Direct 2011 《赵万里文集》第1卷 p.197 remains NOT_REVIEWED. Highest next gates are new lawful public/institutional p.197 surfaces, authoritative/open wwck195109.pdf recovery, and newly discovered Ji Chapter 9 / Chapter 10-11 page-number surfaces; NDL paid copy remains explicit-authorization-gated.",
+      "Batch 12IS does not recount the Batch 12HI NDL paper holding; it upgrades the current digital-access boundary for exact item R100000002-Ia0000051292-i25241426 / 2(7)-2(12) 1951 / Z8-AC150.",
+      "NDL OpenSearch dpid=ndl-dl is positive-controlled by 165 digital results with dl.ndl.go.jp PID refs, while target 1951 文物参考資料/文物参考资料 and the Zhao Wanli article title return zero under ndl-dl; target serial also returns zero under ndl-dl-open.",
+      "Without the digital-provider restriction NDL Search returns the target paper object, and its exact public page states material form 紙 while exposing no dl.ndl.go.jp or PID link. This is a current NDL Digital route closure only, not a global no-digitization claim.",
+      "Highest next gate after 12IS: stop repeating the current NDL Digital provider queries; continue authoritative/open discovery of wwck195109.pdf, lawful direct/public recovery of Zhao 2011 p.197, and newly discovered direct/page-numbered Ji Chapter 9 or Chapter 10/11 pagination."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10

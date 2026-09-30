@@ -900,3 +900,15 @@ Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI
 - Product/accounting remains 198 rows / 166 audited / 10 MISSING_FROM_PRODUCT / 17 of 17 provenance defects repaired / zero chart-algorithm defects, reopens or candidate collapses.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-NLCPRESS-OPENLIBRARY-PUBLIC-PREVIEW-BOUNDARY-IR.md`. Research record: `docs/research/ZIWEI-ZHAO-WANLI-WENJI-V1-NLCPRESS-OPENLIBRARY-PUBLIC-PREVIEW-BOUNDARY-R1.json`.
+
+
+## Progress — Batch 12IS
+
+- Batch 12HI's NDL physical identity is not double-counted. The same exact paper bound volume `R100000002-Ia0000051292-i25241426` remains 《文物参考资料》 `2(7)-2(12) 1951`, call `Z8-AC150`, material form `紙`, and explicitly contains target volume-2 issue 9.
+- NDL OpenSearch `dpid=ndl-dl` is positive-controlled with 《吾輩は猫である》: HTTP 200 / 165 results and direct `dl.ndl.go.jp/pid/` references, proving the provider route is functioning.
+- Against that control, target serial traditional/simplified forms under `ndl-dl` return zero, target serial under `ndl-dl-open` returns zero, and the Zhao Wanli article title under `ndl-dl` returns zero. Without provider restriction, the 1951 serial query returns 8 results including the exact NDL paper bound volume.
+- The exact public item page has no `dl.ndl.go.jp` or PID link. This closes only the current NDL Digital/provider route; it is not a global no-digitization claim.
+- `wwck195109.pdf`, a direct issue-9 scan and Zhao Wanli pp.221–233 remain unrecovered/not reviewed. 2011 《赵万里文集》第1卷 p.197 remains not reviewed.
+- Product/accounting remains 198 rows / 166 audited / 10 MISSING_FROM_PRODUCT / 17 of 17 provenance defects repaired / zero chart-algorithm defects, reopens or candidate collapses.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NDL-WENWU-CANKAO-1951-H2-DIGITAL-PROVIDER-BOUNDARY-IS.md`. Research record: `docs/research/ZIWEI-NDL-WENWU-CANKAO-1951-H2-DIGITAL-PROVIDER-BOUNDARY-R1.json`.

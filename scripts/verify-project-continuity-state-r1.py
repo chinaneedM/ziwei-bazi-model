@@ -306,6 +306,8 @@ ZIWEI_JI_JAPAN_OPAC_IQ_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-A
 ZIWEI_JI_JAPAN_OPAC_IQ_EVIDENCE = ROOT / "docs/research/ZIWEI-JI-SHUYING-2009-JAPAN-OPAC-OPENBD-BOOKDATA-PUBLIC-CONTENT-BOUNDARY-R1.json"
 ZIWEI_ZHAO_WENJI_IR_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-NLCPRESS-OPENLIBRARY-PUBLIC-PREVIEW-BOUNDARY-IR.md"
 ZIWEI_ZHAO_WENJI_IR_EVIDENCE = ROOT / "docs/research/ZIWEI-ZHAO-WANLI-WENJI-V1-NLCPRESS-OPENLIBRARY-PUBLIC-PREVIEW-BOUNDARY-R1.json"
+ZIWEI_NDL_WENWU_IS_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NDL-WENWU-CANKAO-1951-H2-DIGITAL-PROVIDER-BOUNDARY-IS.md"
+ZIWEI_NDL_WENWU_IS_EVIDENCE = ROOT / "docs/research/ZIWEI-NDL-WENWU-CANKAO-1951-H2-DIGITAL-PROVIDER-BOUNDARY-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -685,9 +687,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-NLCPRESS-JI15-FIRST-PARTY-BOOKTEXT-BOUNDED-PAYLOAD-BOUNDARY-IP",
     "BATCH-12-ZIWEI-JI-SHUYING-2009-JAPAN-OPAC-OPENBD-BOOKDATA-PUBLIC-CONTENT-BOUNDARY-IQ",
     "BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-NLCPRESS-OPENLIBRARY-PUBLIC-PREVIEW-BOUNDARY-IR",
+    "BATCH-12-ZIWEI-NDL-WENWU-CANKAO-1951-H2-DIGITAL-PROVIDER-BOUNDARY-IS",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-NLCPRESS-OPENLIBRARY-PUBLIC-PREVIEW-BOUNDARY-IR.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NDL-WENWU-CANKAO-1951-H2-DIGITAL-PROVIDER-BOUNDARY-IS.md"
 
 
 def fail(message: str) -> None:
@@ -10191,6 +10194,67 @@ def main() -> int:
         fail("Batch 12IR missing from completed state")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12IR latest-batch document mismatch")
+
+
+    # Batch 12IS: NDL Wenwu 1951 H2 digital-provider boundary.
+    for path in (ZIWEI_NDL_WENWU_IS_BATCH, ZIWEI_NDL_WENWU_IS_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12IS continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12is = json.loads(ZIWEI_NDL_WENWU_IS_EVIDENCE.read_text(encoding="utf-8"))
+    bid12is = "BATCH-12-ZIWEI-NDL-WENWU-CANKAO-1951-H2-DIGITAL-PROVIDER-BOUNDARY-IS"
+    if batch12is.get("batch_id") != bid12is:
+        fail("Batch 12IS evidence identity mismatch")
+    cal12is = batch12is.get("opensearch_digital_provider_calibration", {})
+    if cal12is.get("workflow_run_id") != 36725564116 or cal12is.get("artifact_id") != 11101099530:
+        fail("Batch 12IS OpenSearch calibration binding regressed")
+    pos12is = cal12is.get("positive_control", {})
+    if pos12is.get("total_results") != 165 or pos12is.get("direct_dl_ndl_pid_refs_observed") is not True:
+        fail("Batch 12IS NDL Digital positive control regressed")
+    if cal12is.get("target_serial_traditional", {}).get("total_results") != 0 or cal12is.get("target_serial_simplified", {}).get("total_results") != 0:
+        fail("Batch 12IS target serial ndl-dl zero boundary regressed")
+    if cal12is.get("target_serial_open_provider", {}).get("total_results") != 0:
+        fail("Batch 12IS ndl-dl-open zero boundary regressed")
+    if cal12is.get("target_article_traditional", {}).get("total_results") != 0 or cal12is.get("target_article_simplified", {}).get("total_results") != 0:
+        fail("Batch 12IS target article ndl-dl zero boundary regressed")
+    all12is = cal12is.get("all_provider_target_serial", {})
+    if all12is.get("total_results") != 8 or all12is.get("exact_second_half_item_id") != "R100000002-Ia0000051292-i25241426":
+        fail("Batch 12IS all-provider target control regressed")
+    meta12is = batch12is.get("exact_item_metadata_resolution", {})
+    if meta12is.get("workflow_run_id") != 36726939009 or meta12is.get("artifact_id") != 11103381479:
+        fail("Batch 12IS item metadata binding regressed")
+    if meta12is.get("volume_display") != "2(7)-2(12) 1951" or meta12is.get("parent_bibliographic_id") != "a0000051292" or meta12is.get("target_issue_9_numerically_contained") is not True:
+        fail("Batch 12IS exact bound-volume identity regressed")
+    page12is = batch12is.get("exact_public_record_access_control", {})
+    if page12is.get("workflow_run_id") != 36727184158 or page12is.get("artifact_id") != 11102617533:
+        fail("Batch 12IS exact-page probe binding regressed")
+    if page12is.get("call_number") != "Z8-AC150" or page12is.get("material_form") != "紙":
+        fail("Batch 12IS paper-object control regressed")
+    if page12is.get("has_dl_ndl_link") is not False or page12is.get("has_pid_link") is not False:
+        fail("Batch 12IS exact-page digital-link boundary regressed")
+    adjud12is = batch12is.get("access_adjudication", {})
+    if adjud12is.get("exact_ndl_paper_bound_volume_closed") is not True or adjud12is.get("target_issue_9_contained_in_bound_range") is not True:
+        fail("Batch 12IS paper/issue containment adjudication regressed")
+    if adjud12is.get("target_issue_9_independent_digital_object_closed") is not False or adjud12is.get("target_article_digital_object_closed") is not False:
+        fail("Batch 12IS digital-object firewall regressed")
+    if adjud12is.get("global_no_digitization_claim_authorized") is not False or adjud12is.get("direct_pp221_233_reviewed") is not False:
+        fail("Batch 12IS negative/direct-text firewall regressed")
+    reg12is = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    src12is = next((x for x in reg12is.get("sources", []) if x.get("source_id") == "EXT-NDL-WENWU-CANKAO-1951-V2-7-12-Z8-AC150"), None)
+    if src12is is None or src12is.get("batch_12is", {}).get("target_serial_ndl_dl_total") != 0:
+        fail("Batch 12IS registry binding missing")
+    acct12is = batch12is.get("accounting", {})
+    if acct12is.get("matrix_rows") != 198 or acct12is.get("audited_rows") != 166 or acct12is.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12IS accounting regressed")
+    try:
+        schema12is = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12IS state version is not numeric")
+    if schema12is < (1, 257, 0):
+        fail("Batch 12IS state version regressed below 1.257.0")
+    if bid12is not in audit_state.get("completed_batches", ()):
+        fail("Batch 12IS missing from completed state")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12IS latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")
