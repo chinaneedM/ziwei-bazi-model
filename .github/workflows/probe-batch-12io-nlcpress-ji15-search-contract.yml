@@ -16,7 +16,7 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
-      - name: Calibrate NLC Press pager and sample chronology bands
+      - name: Narrow NLC Press 2009-2010 product-list window
         run: |
           python - <<'PY'
           import html, json, re
@@ -24,47 +24,20 @@ jobs:
           import requests
 
           URL="https://www.nlcpress.com/ProductList.aspx"
-          UA={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; public pager calibration)"}
           s=requests.Session()
-          s.headers.update(UA)
+          s.headers.update({"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; public pager window probe)"})
 
           def hidden_fields(body):
               out={}
               for m in re.finditer(r'<input\b[^>]*>',body,re.I):
                   tag=m.group(0)
-                  tm=re.search(r'type=["\']hidden["\']',tag,re.I)
+                  if not re.search(r'type=["\']hidden["\']',tag,re.I):
+                      continue
                   nm=re.search(r'name=["\']([^"\']+)["\']',tag,re.I)
                   vm=re.search(r'value=["\']([^"\']*)["\']',tag,re.I)
-                  if tm and nm:
+                  if nm:
                       out[html.unescape(nm.group(1))]=html.unescape(vm.group(1) if vm else "")
               return out
-
-          def page_now(body):
-              m=re.search(r'id=["\']PageNavigator1_txt_PageNow["\'][^>]*>(\d+)<',body,re.I)
-              return int(m.group(1)) if m else None
-
-          def page_count(body):
-              m=re.search(r'id=["\']PageNavigator1_txt_PageCount["\'][^>]*>(\d+)<',body,re.I)
-              return int(m.group(1)) if m else None
-
-          def products(body):
-              ids=[]
-              for x in re.findall(r'ProductView\.aspx\?Id=(\d+)',body,re.I):
-                  n=int(x)
-                  if n not in ids: ids.append(n)
-              text=re.sub(r'<[^>]+>',' ',body)
-              text=re.sub(r'\s+',' ',html.unescape(text))
-              dates=sorted(set(re.findall(r'20\d\d[-./年]\d{1,2}(?:[-./月]\d{1,2}日?)?',text)))
-              return {
-                  "ids":ids,
-                  "id_min":min(ids) if ids else None,
-                  "id_max":max(ids) if ids else None,
-                  "dates":dates[:80],
-                  "has_control_id_4939":"ProductView.aspx?Id=4939" in body,
-                  "has_control_title":"史记十五讲" in text,
-                  "has_target_title":"冀淑英古籍善本十五讲" in text,
-                  "has_target_isbn":"9787501340637" in text.replace("-","").replace(" ",""),
-              }
 
           def jump(body,target):
               data=hidden_fields(body)
@@ -73,46 +46,55 @@ jobs:
                   "__EVENTARGUMENT":"",
                   "PageNavigator1$txt_PageGo":str(target),
               })
-              r=s.post(URL,data=data,timeout=30)
-              return r
+              return s.post(URL,data=data,timeout=30)
+
+          def page_now(body):
+              m=re.search(r'id=["\']PageNavigator1_txt_PageNow["\'][^>]*>(\d+)<',body,re.I)
+              return int(m.group(1)) if m else None
+
+          def summarize(body):
+              ids=[]
+              for x in re.findall(r'ProductView\.aspx\?Id=(\d+)',body,re.I):
+                  n=int(x)
+                  if n not in ids: ids.append(n)
+              text=re.sub(r'<[^>]+>',' ',body)
+              text=re.sub(r'\s+',' ',html.unescape(text))
+              dates=sorted(set(re.findall(r'20\d\d[-./年]\d{1,2}(?:[-./月]\d{1,2}日?)?',text)))
+              years=sorted(set(re.findall(r'20\d\d', " ".join(dates))))
+              return {
+                  "ids":ids,
+                  "id_min":min(ids) if ids else None,
+                  "id_max":max(ids) if ids else None,
+                  "years":years,
+                  "dates":dates[:80],
+                  "has_control_id_4939":"ProductView.aspx?Id=4939" in body,
+                  "has_control_title":"史记十五讲" in text,
+                  "has_target_title":"冀淑英古籍善本十五讲" in text,
+                  "has_target_author":"冀淑英" in text,
+                  "has_target_isbn":"9787501340637" in text.replace("-","").replace(" ",""),
+              }
 
           first=s.get(URL,timeout=30)
           first.raise_for_status()
           current=first
+          pages=[310,320,330,340,350,360,370,380,390,400]
           rows=[]
-          p=products(first.text)
-          rows.append({
-              "requested_page":1,"status":first.status_code,
-              "page_now":page_now(first.text),"page_count":page_count(first.text),
-              "body_bytes":len(first.content),**p
-          })
-
-          # Calibrate the exact source-emitted jump postback before using distant samples.
-          sample_pages=[2,100,200,300,400,500,600]
-          calibration_ok=True
-          for target in sample_pages:
+          for target in pages:
               r=jump(current.text,target)
-              row={
-                  "requested_page":target,"status":r.status_code,
-                  "page_now":page_now(r.text),"page_count":page_count(r.text),
-                  "body_bytes":len(r.content),**products(r.text)
-              }
+              row={"requested_page":target,"status":r.status_code,"page_now":page_now(r.text),
+                   "body_bytes":len(r.content),**summarize(r.text)}
               rows.append(row)
               if r.status_code!=200 or row["page_now"]!=target:
-                  calibration_ok=False
                   break
               current=r
 
           result={
               "url":URL,
-              "initial_status":first.status_code,
-              "initial_page_count":page_count(first.text),
-              "jump_event_target":"PageNavigator1$LinkButton_Go",
-              "jump_input":"PageNavigator1$txt_PageGo",
-              "sample_pages_requested":sample_pages,
-              "calibration_ok":calibration_ok,
-              "samples":rows,
-              "control_id":4939,
+              "pages_requested":pages,
+              "rows":rows,
+              "all_page_jumps_exact":len(rows)==len(pages) and all(x["page_now"]==x["requested_page"] for x in rows),
+              "control_product_id":4939,
+              "control_title":"史记十五讲（中国典籍与文化第六辑）",
               "target_title":"冀淑英古籍善本十五讲",
               "target_isbn":"9787501340637",
               "tls_verified":True,
@@ -122,11 +104,11 @@ jobs:
               "id_guessing_used":False,
               "only_source_emitted_product_ids_recorded":True,
           }
-          Path("nlcpress-productlist-pager-calibration.json").write_text(
+          Path("nlcpress-2009-2010-window.json").write_text(
               json.dumps(result,ensure_ascii=False,indent=2),encoding="utf-8")
           print(json.dumps(result,ensure_ascii=False,indent=2))
           PY
       - uses: actions/upload-artifact@v4
         with:
-          name: batch-12io-nlcpress-productlist-pager-calibration
-          path: nlcpress-productlist-pager-calibration.json
+          name: batch-12io-nlcpress-2009-2010-window
+          path: nlcpress-2009-2010-window.json
