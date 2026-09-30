@@ -22,7 +22,7 @@ jobs:
           python - <<'PY'
           import html, json, re, urllib.request
           from pathlib import Path
-          from urllib.parse import urljoin, urlparse
+          from urllib.parse import urlencode, urljoin, urlparse
 
           UA='Mozilla/5.0 (compatible; TianwenHistoricalAudit/1.0; +https://github.com/chinaneedM/ziwei-bazi-model)'
           entry='https://data.people.com.cn/rmrb'
@@ -74,6 +74,7 @@ jobs:
               return out
 
           s,u,ct,b=get(entry)
+          entry_forms=forms(u,b)
           links=[]
           for m in re.finditer(r'<a\b[^>]*href=["\']([^"\']+)["\'][^>]*>(.*?)</a>',b,re.I|re.S):
               href,label=m.group(1),re.sub(r'<[^>]+>',' ',m.group(2))
@@ -89,17 +90,81 @@ jobs:
               ss,su,sct,sb=get(source_search)
               search={'status':ss,'final_url':su,'body_bytes_utf8':len(sb.encode('utf-8')),'forms':forms(su,sb),'login_literal_present':'未登录' in sb or '登录' in sb}
 
+          # Submit one target query using only the first source-emitted public form contract.
+          target_query=None
+          if entry_forms and entry_forms[0].get('method')=='GET' and entry_forms[0].get('same_host'):
+              form=entry_forms[0]
+              params={}
+              for fld in form.get('fields',[]):
+                  name=fld.get('name')
+                  if not name:
+                      continue
+                  typ=fld.get('type')
+                  if typ=='hidden' and fld.get('value') is not None:
+                      params[name]=fld.get('value')
+                  elif typ=='radio' and fld.get('checked') and fld.get('value') is not None:
+                      params[name]=fld.get('value')
+              params['queryStr']='关于《永乐大典》'
+              target_url=form['action']+'?'+urlencode(params)
+              qs,qu,qct,qb=get(target_url)
+              qtext=html.unescape(re.sub(r'<[^>]+>',' ',qb))
+              qtext=re.sub(r'\\s+',' ',qtext)
+              target_links=[]
+              for m in re.finditer(r'<a\\b[^>]*href=["\\']([^"\\']+)["\\'][^>]*>(.*?)</a>',qb,re.I|re.S):
+                  href,label=m.group(1),re.sub(r'<[^>]+>',' ',m.group(2))
+                  label=re.sub(r'\\s+',' ',html.unescape(label)).strip()
+                  full=urljoin(qu,html.unescape(href))
+                  if urlparse(full).hostname=='data.people.com.cn' and '关于' in label and '永乐大典' in label:
+                      target_links.append({'url':full,'label':label})
+              dedup=[]
+              seen=set()
+              for x in target_links:
+                  if x['url'] not in seen:
+                      seen.add(x['url']); dedup.append(x)
+              followed=[]
+              for x in dedup[:3]:
+                  fs,fu,fct,fb=get(x['url'])
+                  ftxt=html.unescape(re.sub(r'<[^>]+>',' ',fb))
+                  ftxt=re.sub(r'\\s+',' ',ftxt)
+                  followed.append({
+                      'url':x['url'],
+                      'status':fs,
+                      'final_url':fu,
+                      'label':x['label'],
+                      'body_bytes_utf8':len(fb.encode('utf-8')),
+                      'date_1951_08_13_present':'1951年8月13日' in ftxt or '1951-08-13' in ftxt,
+                      'date_1951_08_31_present':'1951年8月31日' in ftxt or '1951-08-31' in ftxt,
+                      'page3_present':'第3版' in ftxt or '第03版' in ftxt,
+                      'login_literal_present':'未登录' in ftxt,
+                  })
+              target_query={
+                  'source_emitted_action':form['action'],
+                  'method':'GET',
+                  'submitted_params':params,
+                  'requested_url':target_url,
+                  'status':qs,
+                  'final_url':qu,
+                  'body_bytes_utf8':len(qb.encode('utf-8')),
+                  'login_literal_present':'未登录' in qtext,
+                  'target_title_literal_present':'关于《永乐大典》' in qtext,
+                  'date_1951_08_13_present':'1951年8月13日' in qtext or '1951-08-13' in qtext,
+                  'date_1951_08_31_present':'1951年8月31日' in qtext or '1951-08-31' in qtext,
+                  'source_emitted_target_links':dedup[:20],
+                  'followed_target_links':followed,
+              }
+
           result={
               'probe':'BATCH-12JE-RMRB-OFFICIAL-ARCHIVE-SEARCH-CONTRACT',
-              'entry':{'requested_url':entry,'status':s,'final_url':u,'body_bytes_utf8':len(b.encode('utf-8')),'forms':forms(u,b)},
+              'entry':{'requested_url':entry,'status':s,'final_url':u,'body_bytes_utf8':len(b.encode('utf-8')),'forms':entry_forms},
               'source_emitted_search_links':search_links[:20],
               'source_emitted_search_surface':search,
-              'target_query_submitted':False,
+              'target_query_submitted':target_query is not None,
+              'target_query':target_query,
               'historical_date_url_guessed':False,
               'login_used':False,
               'account_action_used':False,
               'subscription_bypass_used':False,
-              'followup_rule':'Submit a 1951 target query only if the anonymous official source emits a concrete same-host search form/action contract usable without login.'
+              'followup_rule':'If the source-emitted target result is public, use its own metadata/link only; never synthesize historical-date URLs or bypass login/subscription controls.'
           }
           out=Path('artifacts/batch-12je'); out.mkdir(parents=True,exist_ok=True)
           (out/'probe.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
