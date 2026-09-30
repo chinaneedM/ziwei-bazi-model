@@ -16,136 +16,63 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
-      - name: Inspect source-emitted Ji Shuying TOC attachment
+      - name: Inspect Ji Shuying catalog-download binding
         run: |
           python - <<'PY'
-          import hashlib, html, io, json, os, re, shutil, subprocess, zipfile
+          import html, json, re
           from pathlib import Path
-          from urllib.parse import urljoin, urlparse
           import requests
 
-          PRODUCT_URL="https://www.nlcpress.com/ProductView.aspx?Id=4660"
-          TARGET_TITLE="冀淑英古籍善本十五讲"
-          CH9_TITLE="铁琴铜剑楼藏书的收购入藏"
-          UA={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; publisher TOC attachment recovery)"}
-          MAX_BYTES=8*1024*1024
-
-          def clean_text(raw):
-              raw=re.sub(r'<script\b.*?</script>',' ',raw,flags=re.I|re.S)
-              raw=re.sub(r'<style\b.*?</style>',' ',raw,flags=re.I|re.S)
-              raw=re.sub(r'<[^>]+>',' ',raw)
-              return re.sub(r'\s+',' ',html.unescape(raw)).strip()
-
+          URL="https://www.nlcpress.com/ProductView.aspx?Id=4660"
           s=requests.Session()
-          s.headers.update(UA)
-          r=s.get(PRODUCT_URL,timeout=45)
+          s.headers.update({"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; catalog binding inspection)"})
+          r=s.get(URL,timeout=45)
           r.raise_for_status()
+          raw=r.text
 
-          anchors=[]
-          for m in re.finditer(r'<a\b([^>]*)>(.*?)</a>',r.text,re.I|re.S):
-              attrs=m.group(1)
-              visible=clean_text(m.group(2))
-              hm=re.search(r'href\s*=\s*["\']([^"\']*)["\']',attrs,re.I)
-              href=html.unescape(hm.group(1)) if hm else None
-              if "目录附件下载" in visible or "图书文件下载" in visible:
-                  anchors.append({"text":visible,"href":href,"html":m.group(0)[:2000]})
+          keys=["CatalogPrecisFile","Booktext","目录附件下载","Precis","Download","download","File"]
+          occurrences={}
+          for key in keys:
+              rows=[]
+              start=0
+              while True:
+                  i=raw.find(key,start)
+                  if i<0 or len(rows)>=30: break
+                  rows.append(raw[max(0,i-900):min(len(raw),i+1800)])
+                  start=i+len(key)
+              occurrences[key]=rows
 
-          toc=[a for a in anchors if "目录附件下载" in a["text"] and a.get("href")]
+          scripts=[]
+          for m in re.finditer(r'<script\b[^>]*>(.*?)</script>',raw,re.I|re.S):
+              body=html.unescape(m.group(1))
+              if any(k in body for k in ["CatalogPrecisFile","Booktext","Precis"]):
+                  scripts.append(body[:30000])
+
+          hidden=[]
+          for m in re.finditer(r'<input\b[^>]*>',raw,re.I):
+              tag=html.unescape(m.group(0))
+              if any(k.lower() in tag.lower() for k in ["catalog","precis","file","booktext"]):
+                  hidden.append(tag[:3000])
+
           result={
-              "product_url":PRODUCT_URL,
-              "product_status":r.status_code,
-              "product_has_target_title":TARGET_TITLE in clean_text(r.text),
-              "download_anchors":anchors,
-              "toc_candidates":toc,
-              "toc_fetch":None,
+              "url":URL,
+              "status":r.status_code,
+              "body_bytes":len(r.content),
+              "occurrence_counts":{k:len(v) for k,v in occurrences.items()},
+              "occurrences":occurrences,
+              "matching_scripts":scripts,
+              "matching_hidden_inputs":hidden,
               "tls_verified":True,
               "login_used":False,
               "purchase_invoked":False,
-              "full_book_txt_followed":False,
+              "download_invoked":False,
+              "full_book_txt_followed":False
           }
-
-          if toc:
-              href=toc[0]["href"]
-              toc_url=urljoin(PRODUCT_URL,href)
-              tr=s.get(toc_url,timeout=45,stream=True,allow_redirects=True)
-              data=bytearray()
-              too_large=False
-              for chunk in tr.iter_content(65536):
-                  if not chunk:
-                      continue
-                  data.extend(chunk)
-                  if len(data)>MAX_BYTES:
-                      too_large=True
-                      break
-              raw=bytes(data[:MAX_BYTES])
-              ctype=tr.headers.get("Content-Type")
-              cdisp=tr.headers.get("Content-Disposition")
-              name=os.path.basename(urlparse(tr.url).path) or "toc-attachment"
-              out=Path(name)
-              out.write_bytes(raw)
-
-              extracted=""
-              extraction="none"
-              lower=(name+" "+str(ctype)+" "+str(cdisp)).lower()
-
-              if raw.startswith(b"PK"):
-                  try:
-                      with zipfile.ZipFile(io.BytesIO(raw)) as z:
-                          xml_parts=[]
-                          for zn in z.namelist():
-                              if zn.startswith("word/") and zn.endswith(".xml"):
-                                  xml_parts.append(z.read(zn).decode("utf-8","ignore"))
-                          if xml_parts:
-                              x=" ".join(xml_parts)
-                              x=re.sub(r'<[^>]+>',' ',x)
-                              extracted=re.sub(r'\s+',' ',html.unescape(x)).strip()
-                              extraction="docx-xml"
-                  except Exception as e:
-                      extraction=f"zip-error:{type(e).__name__}"
-
-              if not extracted and (raw.startswith(b"%PDF") or "pdf" in lower):
-                  if shutil.which("pdftotext"):
-                      try:
-                          p=subprocess.run(["pdftotext","-layout",str(out),"-"],
-                                           check=False,capture_output=True,timeout=30)
-                          extracted=p.stdout.decode("utf-8","ignore")
-                          extraction="pdftotext"
-                      except Exception as e:
-                          extraction=f"pdftotext-error:{type(e).__name__}"
-
-              if not extracted and ("text/" in str(ctype).lower() or name.lower().endswith((".txt",".htm",".html",".csv"))):
-                  extracted=raw.decode("utf-8","ignore")
-                  if not extracted.strip():
-                      extracted=raw.decode("gb18030","ignore")
-                  extraction="text-decode"
-
-              normalized=re.sub(r'\s+',' ',extracted).strip()
-              idx=normalized.find(CH9_TITLE)
-              ch9_context=normalized[max(0,idx-500):idx+1200] if idx>=0 else None
-
-              result["toc_fetch"]={
-                  "source_emitted_href":href,
-                  "resolved_url":toc_url,
-                  "final_url":tr.url,
-                  "status":tr.status_code,
-                  "content_type":ctype,
-                  "content_disposition":cdisp,
-                  "bytes_read":len(raw),
-                  "too_large_over_8mib":too_large,
-                  "sha256":hashlib.sha256(raw).hexdigest(),
-                  "local_name":name,
-                  "extraction":extraction,
-                  "extracted_chars":len(normalized),
-                  "has_chapter_9_title":CH9_TITLE in normalized,
-                  "chapter_9_context":ch9_context,
-                  "text_excerpt":normalized[:12000],
-              }
-
-          Path("nlcpress-ji15-toc-attachment.json").write_text(
+          Path("nlcpress-ji15-catalog-binding.json").write_text(
               json.dumps(result,ensure_ascii=False,indent=2),encoding="utf-8")
           print(json.dumps(result,ensure_ascii=False,indent=2))
           PY
       - uses: actions/upload-artifact@v4
         with:
-          name: batch-12io-nlcpress-ji15-toc-attachment-metadata
-          path: nlcpress-ji15-toc-attachment.json
+          name: batch-12io-nlcpress-ji15-catalog-binding
+          path: nlcpress-ji15-catalog-binding.json
