@@ -10761,7 +10761,7 @@
       "identifier": "ISBN 9787501346653 / OCLC 775628715 / LCCN 2011426732",
       "url": "https://books.google.com/books?vid=ISBN9787501346653",
       "source_role": "PUBLIC_CATALOG_AND_AGGREGATION_ACCESS_BOUNDARY_WITH_METADATA_CONFLICT_FIREWALL",
-      "quality_notes": "Batch 12IV establishes that the Google Books non-API ISBN HTML route is publicly reachable and binds the target title/ISBN while exposing no ebook or p.197. Its displayed volume-3/526-page metadata conflicts with first-party/institutional volume-1 identity and is quarantined. Other tested catalog routes are access/rate-limit/zero-search boundaries only.",
+      "quality_notes": "Batch 12IV establishes that the Google Books non-API ISBN HTML route is publicly reachable and binds the target title/ISBN while exposing no ebook or p.197. Its displayed volume-3/526-page metadata conflicts with first-party/institutional volume-1 identity and is quarantined. Other tested catalog routes are access/rate-limit/zero-search boundaries only. Batch 12JA resolves the exact-ISBN page's source-emitted Google object as swWenQAACAAJ. The object itself displays 第3卷 despite the ISBN being controlled elsewhere as volume 1, so the conflict is quarantined at source-emitted-object level. No in-book q= contract or p.197 page evidence is exposed.",
       "batch_12iv": {
         "workflow_run_id": 36735868424,
         "artifact_id": 11106488630,
@@ -10771,6 +10771,24 @@
         "google_volume_metadata_conflict": "QUARANTINED",
         "direct_2011_p197": "NOT_REVIEWED",
         "research_artifact": "docs/research/ZIWEI-ZHAO-WANLI-WENJI-V1-INSTITUTIONAL-CATALOG-HTML-BOUNDARY-R1.json"
+      },
+      "batch_12ja": {
+        "exact_isbn_route": "https://books.google.com/books?vid=ISBN9787501346653&hl=zh-CN",
+        "source_emitted_object_id": "swWenQAACAAJ",
+        "source_emitted_object_id_guessed": false,
+        "object_exact_isbn_present": true,
+        "object_visible_volume_marker": "第 3 卷",
+        "object_inbook_q_contract_observed": false,
+        "object_alternate_ids": [],
+        "classification": "SOURCE_EMITTED_GOOGLE_OBJECT_METADATA_CONFLICT_QUARANTINED",
+        "controlling_volume_identity": "VOLUME_1",
+        "google_object_may_overwrite_volume_identity": false,
+        "google_object_may_be_used_as_direct_p197_witness": false,
+        "direct_2011_p197": "NOT_REVIEWED",
+        "workflow_run_id": 36749027085,
+        "artifact_id": 11113473078,
+        "artifact_digest": "sha256:5cbc3a5ee908f54c7f9658d401539913173d31f165da58a36fbe1d3ba651037d",
+        "research_artifact": "docs/research/ZIWEI-ZHAO-WANLI-WENJI-V1-GOOGLE-BOOKS-SOURCE-EMITTED-OBJECT-CONFLICT-R1.json"
       }
     },
     {

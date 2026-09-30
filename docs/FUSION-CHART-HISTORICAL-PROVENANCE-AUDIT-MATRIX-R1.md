@@ -989,3 +989,14 @@ Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI
 - Product/accounting remains 198 / 166 / 10, provenance defects 17/17, and zero chart-algorithm defects/reopens/candidate collapses.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-BEITU1997-GOOGLE-BOOKS-ALTERNATE-INBOOK-SEARCH-BOUNDARY-IZ.md`. Research record: `docs/research/ZIWEI-BEITU1997-GOOGLE-BOOKS-ALTERNATE-INBOOK-SEARCH-BOUNDARY-R1.json`.
+
+
+## Progress — Batch 12JA
+
+- Exact ISBN Google Books HTML for 9787501346653 source-emits concrete object `swWenQAACAAJ`; the object ID is not guessed.
+- The object carries the same ISBN but visibly displays 第3卷 and exposes no usable in-book q= contract or alternate object. It therefore upgrades the existing 12IV Google metadata conflict to a source-emitted-object conflict, not a volume-1 recovery.
+- Volume-1 identity remains controlled by National Library of China Press Product 5325, NDL UM11-C247, Open Library OL30454631M and CiNii/Japanese institutional OPAC bindings.
+- `swWenQAACAAJ` is forbidden as a volume-1/p.197 witness. Direct 2011 p.197 remains NOT_REVIEWED.
+- Product/accounting remains 198 / 166 / 10, provenance defects 17/17, with zero chart-algorithm defects/reopens/candidate collapses.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-GOOGLE-BOOKS-SOURCE-EMITTED-OBJECT-CONFLICT-JA.md`. Research record: `docs/research/ZIWEI-ZHAO-WANLI-WENJI-V1-GOOGLE-BOOKS-SOURCE-EMITTED-OBJECT-CONFLICT-R1.json`.

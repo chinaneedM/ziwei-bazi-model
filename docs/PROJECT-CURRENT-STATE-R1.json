@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.264.0",
+  "schema_version": "1.265.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -346,9 +346,10 @@
       "BATCH-12-ZIWEI-JI-SHUYING-2009-STANFORD-EXACT-RECORD-ACCESS-BOUNDARY-IW",
       "BATCH-12-ZIWEI-JI-SHUYING-2009-GOOGLE-BOOKS-PAGE-NUMBERED-SNIPPET-ANCHORS-IX",
       "BATCH-12-ZIWEI-JI-SHUYING-2009-TIEQIN-DIRECT-TRANSACTION-CHRONOLOGY-IY",
-      "BATCH-12-ZIWEI-BEITU1997-GOOGLE-BOOKS-ALTERNATE-INBOOK-SEARCH-BOUNDARY-IZ"
+      "BATCH-12-ZIWEI-BEITU1997-GOOGLE-BOOKS-ALTERNATE-INBOOK-SEARCH-BOUNDARY-IZ",
+      "BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-GOOGLE-BOOKS-SOURCE-EMITTED-OBJECT-CONFLICT-JA"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-BEITU1997-GOOGLE-BOOKS-ALTERNATE-INBOOK-SEARCH-BOUNDARY-IZ.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-GOOGLE-BOOKS-SOURCE-EMITTED-OBJECT-CONFLICT-JA.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -1555,7 +1556,11 @@
       "Batch 12IZ closes the Google Books access/index boundary for the 1997 《北京图书馆馆史资料汇编（二）：1949—1966》 pp.446-449 route: primary BZ0M0gEACAAJ has no usable in-book q= contract; source-emitted alternate RuGEAAAAIAAJ does.",
       "RuGEAAAAIAAJ is searchable but provides no usable printed page numbers for the target queries. Direct pp.446-449 text/images and exact internal document identity remain NOT_REVIEWED/UNRESOLVED.",
       "12IZ explicitly classifies search false positives: 瞿氏 resolves to a 1932 瞿兑之 deposit record; 赵万里 to staff chronology; 这些善本入藏本馆 to tokenized unrelated 善本/入藏 matches; 可为全国之冠 to an unrelated general library-takeover statement.",
-      "Zero hits for target titles and 3482/3483/03482/03483 are not full-text negative evidence. Highest next gate after 12IZ: obtain/inspect pp.446-449 through the closed NDL/Tokyo upper-volume route or an authoritative open page-level surrogate, then search direct pages for target identifiers and the 1823 Huang/Shiliju fingerprint."
+      "Zero hits for target titles and 3482/3483/03482/03483 are not full-text negative evidence. Highest next gate after 12IZ: obtain/inspect pp.446-449 through the closed NDL/Tokyo upper-volume route or an authoritative open page-level surrogate, then search direct pages for target identifiers and the 1823 Huang/Shiliju fingerprint.",
+      "Batch 12JA resolves the exact-ISBN Google Books page for 9787501346653 to source-emitted object swWenQAACAAJ; this is a real page-emitted object ID, not a guessed ID.",
+      "swWenQAACAAJ carries the ISBN but visibly displays 第3卷 and emits no usable in-book q= contract or alternate object. It is therefore quarantined as a source-emitted Google aggregation metadata conflict, not promoted to volume 1.",
+      "Volume-1 identity remains controlled by National Library of China Press Product 5325, NDL UM11-C247, Open Library OL30454631M and CiNii/Japanese institutional OPAC evidence. swWenQAACAAJ is forbidden as a direct volume-1/p.197 witness.",
+      "Highest next gate after 12JA: new lawful public/institutional page-level recovery of 2011 p.197; in parallel continue 1951 issue-9 pp.221-233 and 1997 Beitu-history pp.446-449 direct-page recovery. Paid NDL requests remain explicit-user-authorization gated."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10

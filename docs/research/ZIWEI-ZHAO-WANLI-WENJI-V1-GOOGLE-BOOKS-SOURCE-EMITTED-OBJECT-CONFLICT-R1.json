@@ -1,0 +1,121 @@
+{
+  "schema": "ZIWEI-ZHAO-WANLI-WENJI-V1-GOOGLE-BOOKS-SOURCE-EMITTED-OBJECT-CONFLICT-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-GOOGLE-BOOKS-SOURCE-EMITTED-OBJECT-CONFLICT-JA",
+  "prior_batch_id": "BATCH-12-ZIWEI-BEITU1997-GOOGLE-BOOKS-ALTERNATE-INBOOK-SEARCH-BOUNDARY-IZ",
+  "question": "Does the exact ISBN Google Books HTML route for 9787501346653 source-emit a usable book object or alternate with in-book search capable of directly recovering 2011 《赵万里文集》第1卷 p.197?",
+  "answer": "The exact ISBN HTML route source-emits one concrete Google Books object, swWenQAACAAJ, through its about/book/content/buy/export links. This is a genuine source-emitted object discovery, not a guessed ID. However the object page visibly carries ISBN 9787501346653 while displaying 第 3 卷, reproducing the metadata conflict already quarantined in Batch 12IV. It emits no usable in-book q= contract, no source-emitted alternate object, and no target p.197 terms. Therefore swWenQAACAAJ must not be promoted to the controlling identity of volume 1 and cannot provide direct p.197 evidence. First-party/institutional controls from National Library of China Press Product 5325, NDL, Open Library and Japanese institutional OPACs continue to control ISBN 9787501346653 as volume 1. Direct 2011 p.197 remains NOT_REVIEWED.",
+  "controlling_probe": {
+    "commit_sha": "fde8f896a60deb69048d3a981829f8a50bea8912",
+    "workflow_run_id": 36749027085,
+    "workflow_job_id": 110002536544,
+    "artifact_id": 11113473078,
+    "artifact_digest": "sha256:5cbc3a5ee908f54c7f9658d401539913173d31f165da58a36fbe1d3ba651037d"
+  },
+  "exact_isbn_route": {
+    "url": "https://books.google.com/books?vid=ISBN9787501346653&hl=zh-CN",
+    "http_status": 200,
+    "body_sha256": "1f7d89af5d81cbdc3081282ee1a8d91824582086afe997221ca52f5da2c056ff",
+    "isbn_present": true,
+    "ebook_unavailable_wording": true,
+    "source_emitted_object_ids": [
+      "swWenQAACAAJ"
+    ],
+    "source_emitted_about_link_contains_title_slug": true,
+    "source_emitted_about_link_object_id": "swWenQAACAAJ",
+    "source_emitted_content_frontcover_object_id": "swWenQAACAAJ",
+    "source_emitted_export_links_object_id": "swWenQAACAAJ",
+    "source_emitted_object_id_guessed": false
+  },
+  "source_emitted_object": {
+    "object_id": "swWenQAACAAJ",
+    "http_status": 200,
+    "exact_isbn_present": true,
+    "visible_volume_markers": [
+      "第 3 卷"
+    ],
+    "ebook_unavailable_wording": true,
+    "source_emitted_inbook_q_contract_observed": false,
+    "source_emitted_alternate_ids": [],
+    "p197_directly_exposed": false,
+    "configured_target_terms_directly_exposed": false,
+    "target_search_executed": false,
+    "target_search_not_executed_reason": "No source-emitted in-book q= contract was observed on this object."
+  },
+  "volume_identity_conflict": {
+    "isbn": "9787501346653",
+    "google_source_emitted_object": "swWenQAACAAJ",
+    "google_object_displayed_volume": "第 3 卷",
+    "controlling_volume_identity": "VOLUME_1",
+    "controlling_identity_sources": [
+      "国家图书馆出版社 Product 5325 《赵万里文集·第一卷》",
+      "NDL Search UM11-C247 / NDLBibID 023434359 / 504 pages",
+      "Open Library OL30454631M / v. <1> / Di 1 ban",
+      "CiNii NCID BB08679512 plus Kansai/Kyoto/NIJL volume-1 institutional OPAC binding"
+    ],
+    "classification": "SOURCE_EMITTED_GOOGLE_OBJECT_METADATA_CONFLICT_QUARANTINED",
+    "google_object_may_overwrite_volume1_identity": false,
+    "google_object_may_be_used_as_direct_p197_witness": false
+  },
+  "p197_adjudication": {
+    "direct_2011_p197": "NOT_REVIEWED",
+    "google_books_source_emitted_object_route": "CLOSED_AS_METADATA_CONFLICT_NO_INBOOK_SEARCH",
+    "google_books_page_level_preview_recovered": false,
+    "official_2026_quote_bridge_remains_closed": true,
+    "ndl_physical_holding_remains_closed": true,
+    "ndl_paid_remote_copy_requires_explicit_user_authorization": true
+  },
+  "evidence_firewall": {
+    "source_emitted_object_id_is_stronger_than_guessed_object_id": true,
+    "source_emitted_object_id_does_not_override_higher_authority_volume_identity_when_metadata_conflicts": true,
+    "same_isbn_on_conflicting_aggregation_object_does_not_prove_same_volume": true,
+    "volume3_object_may_not_be_cited_as_volume1_page197": true,
+    "no_inbook_q_contract_means_no_targeted_q_execution": true,
+    "no_page_level_preview_means_no_direct_page_claim": true,
+    "public_html_nonobservation_is_not_physical_text_absence": true
+  },
+  "security": {
+    "login_used": false,
+    "account_action_used": false,
+    "copy_request_used": false,
+    "payment_used": false,
+    "captcha_bypass_used": false,
+    "tls_verification_disabled": false,
+    "guessed_object_id_used": false,
+    "guessed_endpoint_used": false
+  },
+  "transmission_impact": {
+    "status": "NONE",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": [],
+    "reason": "Modern aggregation metadata-conflict control only; no historical transmission relation."
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Do not use swWenQAACAAJ as a volume-1 or p.197 witness and do not repeat the object unless its source-emitted in-book/alternate contract changes.",
+    "Continue new lawful public/institutional page-level discovery for 2011 《赵万里文集》第1卷 p.197; NDL paid remote copy remains explicit-user-authorization gated.",
+    "Continue authoritative/open-object recovery of 1951 《文物参考资料》第9期 pp.221-233.",
+    "Continue direct pp.446-449 recovery for the 1997 Beijing Library history compilation through lawful NDL/Tokyo or authoritative open page-level routes."
+  ],
+  "updated_at": "2026-10-01"
+}

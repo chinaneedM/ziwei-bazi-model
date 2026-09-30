@@ -322,6 +322,8 @@ ZIWEI_JI_CHRONOLOGY_IY_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-A
 ZIWEI_JI_CHRONOLOGY_IY_EVIDENCE = ROOT / "docs/research/ZIWEI-JI-SHUYING-2009-TIEQIN-DIRECT-TRANSACTION-CHRONOLOGY-R1.json"
 ZIWEI_BEITU_GBOOKS_IZ_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-BEITU1997-GOOGLE-BOOKS-ALTERNATE-INBOOK-SEARCH-BOUNDARY-IZ.md"
 ZIWEI_BEITU_GBOOKS_IZ_EVIDENCE = ROOT / "docs/research/ZIWEI-BEITU1997-GOOGLE-BOOKS-ALTERNATE-INBOOK-SEARCH-BOUNDARY-R1.json"
+ZIWEI_ZHAO_GBOOKS_JA_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-GOOGLE-BOOKS-SOURCE-EMITTED-OBJECT-CONFLICT-JA.md"
+ZIWEI_ZHAO_GBOOKS_JA_EVIDENCE = ROOT / "docs/research/ZIWEI-ZHAO-WANLI-WENJI-V1-GOOGLE-BOOKS-SOURCE-EMITTED-OBJECT-CONFLICT-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -707,10 +709,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-INSTITUTIONAL-CATALOG-HTML-BOUNDARY-IV",
     "BATCH-12-ZIWEI-JI-SHUYING-2009-STANFORD-EXACT-RECORD-ACCESS-BOUNDARY-IW",
     "BATCH-12-ZIWEI-JI-SHUYING-2009-GOOGLE-BOOKS-PAGE-NUMBERED-SNIPPET-ANCHORS-IX",
-    "BATCH-12-ZIWEI-JI-SHUYING-2009-TIEQIN-DIRECT-TRANSACTION-CHRONOLOGY-IY",    "BATCH-12-ZIWEI-BEITU1997-GOOGLE-BOOKS-ALTERNATE-INBOOK-SEARCH-BOUNDARY-IZ",
+    "BATCH-12-ZIWEI-JI-SHUYING-2009-TIEQIN-DIRECT-TRANSACTION-CHRONOLOGY-IY",    "BATCH-12-ZIWEI-BEITU1997-GOOGLE-BOOKS-ALTERNATE-INBOOK-SEARCH-BOUNDARY-IZ",    "BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-GOOGLE-BOOKS-SOURCE-EMITTED-OBJECT-CONFLICT-JA",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-BEITU1997-GOOGLE-BOOKS-ALTERNATE-INBOOK-SEARCH-BOUNDARY-IZ.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-GOOGLE-BOOKS-SOURCE-EMITTED-OBJECT-CONFLICT-JA.md"
 
 
 def fail(message: str) -> None:
@@ -10583,6 +10585,47 @@ def main() -> int:
         fail("Batch 12IZ missing from completed state")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12IZ latest-batch document mismatch")
+
+    # Batch 12JA: Zhao Wenji Google Books source-emitted object conflict.
+    for path in (ZIWEI_ZHAO_GBOOKS_JA_BATCH, ZIWEI_ZHAO_GBOOKS_JA_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12JA continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12ja = json.loads(ZIWEI_ZHAO_GBOOKS_JA_EVIDENCE.read_text(encoding="utf-8"))
+    bid12ja = "BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-GOOGLE-BOOKS-SOURCE-EMITTED-OBJECT-CONFLICT-JA"
+    if batch12ja.get("batch_id") != bid12ja:
+        fail("Batch 12JA evidence identity mismatch")
+    route12ja = batch12ja.get("exact_isbn_route", {})
+    if route12ja.get("source_emitted_object_ids") != ["swWenQAACAAJ"] or route12ja.get("source_emitted_object_id_guessed") is not False:
+        fail("Batch 12JA source-emitted object binding regressed")
+    obj12ja = batch12ja.get("source_emitted_object", {})
+    if obj12ja.get("object_id") != "swWenQAACAAJ" or "第 3 卷" not in obj12ja.get("visible_volume_markers", ()):
+        fail("Batch 12JA Google object volume-conflict marker regressed")
+    if obj12ja.get("source_emitted_inbook_q_contract_observed") is not False or obj12ja.get("source_emitted_alternate_ids") != []:
+        fail("Batch 12JA object search/alternate firewall regressed")
+    conflict12ja = batch12ja.get("volume_identity_conflict", {})
+    if conflict12ja.get("classification") != "SOURCE_EMITTED_GOOGLE_OBJECT_METADATA_CONFLICT_QUARANTINED" or conflict12ja.get("controlling_volume_identity") != "VOLUME_1":
+        fail("Batch 12JA volume identity adjudication regressed")
+    if conflict12ja.get("google_object_may_overwrite_volume1_identity") is not False or conflict12ja.get("google_object_may_be_used_as_direct_p197_witness") is not False:
+        fail("Batch 12JA conflict firewall regressed")
+    if batch12ja.get("p197_adjudication", {}).get("direct_2011_p197") != "NOT_REVIEWED":
+        fail("Batch 12JA p197 status regressed")
+    reg12ja = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    src12ja = next((x for x in reg12ja.get("sources", []) if x.get("source_id") == "EXT-ZHAO-WANLI-WENJI-V1-INSTITUTIONAL-CATALOG-HTML-BOUNDARY"), None)
+    if src12ja is None or src12ja.get("batch_12ja", {}).get("source_emitted_object_id") != "swWenQAACAAJ" or src12ja.get("batch_12ja", {}).get("google_object_may_be_used_as_direct_p197_witness") is not False:
+        fail("Batch 12JA registry binding missing")
+    acct12ja = batch12ja.get("accounting", {})
+    if acct12ja.get("matrix_rows") != 198 or acct12ja.get("audited_rows") != 166 or acct12ja.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12JA accounting regressed")
+    try:
+        schema12ja = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12JA state version is not numeric")
+    if schema12ja < (1, 265, 0):
+        fail("Batch 12JA state version regressed below 1.265.0")
+    if bid12ja not in audit_state.get("completed_batches", ()):
+        fail("Batch 12JA missing from completed state")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12JA latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")
