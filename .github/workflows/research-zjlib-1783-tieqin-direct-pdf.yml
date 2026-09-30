@@ -229,6 +229,21 @@ jobs:
           cat out/routes.txt || true
           echo '--- download_cn.js ---'
           sed -n '1,360p' out/download_cn.js || true
+          echo '--- tokenized PDF response diagnostics ---'
+          for stem in token_pdf_cn token_pdf_cn_post token_pdf_cn_form; do
+            body="out/${stem}.bin"
+            headers="out/${stem}.headers"
+            if [ -f "$headers" ]; then
+              echo "--- $headers (Set-Cookie redacted) ---"
+              grep -vi '^set-cookie:' "$headers" | sed -n '1,160p' || true
+            fi
+            if [ -f "$body" ]; then
+              echo "--- $body classification clues ---"
+              grep -niE 'title>|error|login|forbid|denied|权限|登录|验证码|购买|购物车|download|pdf|token|window|location|script' "$body" | head -160 || true
+              echo "--- $body first 120 lines ---"
+              sed -n '1,120p' "$body" || true
+            fi
+          done
           echo '--- article HTML response preview ---'
           if [ -f out/article.bin ]; then sed -n '1,160p' out/article.bin || true; fi
           echo '--- /CN/PDF/1783 response preview ---'
