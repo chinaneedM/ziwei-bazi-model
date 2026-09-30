@@ -140,8 +140,7 @@ jobs:
                       "script_src_candidates": [
                           urljoin(r.url, html.unescape(x))
                           for x in re.findall(r"<script\\b[^>]*\\bsrc=[\\\"']([^\\\"']+)[\\\"']", decoded, re.I)
-                          if any(k in x.lower() for k in ("book", "asp", "opac", "detail"))
-                      ][:50] if decoded else [],
+                      ][:80] if decoded else [],
                       "login_marker": any(x in visible.lower() for x in ["login", "ログイン", "my library", "マイライブラリ"]),
                       "raw_html_saved": False,
                       "raw_html_logged": False,
