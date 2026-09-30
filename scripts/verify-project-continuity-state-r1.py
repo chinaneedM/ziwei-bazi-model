@@ -300,6 +300,8 @@ ZIWEI_CNKI_IN_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATC
 ZIWEI_CNKI_IN_EVIDENCE = ROOT / "docs/research/ZIWEI-CNKI-WENW195109-LEGACY-INDEX-TRANSPORT-BOUNDARY-R1.json"
 ZIWEI_NLCPRESS_JI15_IO_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLCPRESS-JI15-FIRST-PARTY-PRODUCT-IDENTITY-AND-TOC-ATTACHMENT-BOUNDARY-IO.md"
 ZIWEI_NLCPRESS_JI15_IO_EVIDENCE = ROOT / "docs/research/ZIWEI-NLCPRESS-JI15-FIRST-PARTY-PRODUCT-IDENTITY-AND-TOC-ATTACHMENT-BOUNDARY-R1.json"
+ZIWEI_NLCPRESS_JI15_IP_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLCPRESS-JI15-FIRST-PARTY-BOOKTEXT-BOUNDED-PAYLOAD-BOUNDARY-IP.md"
+ZIWEI_NLCPRESS_JI15_IP_EVIDENCE = ROOT / "docs/research/ZIWEI-NLCPRESS-JI15-FIRST-PARTY-BOOKTEXT-BOUNDED-PAYLOAD-BOUNDARY-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -676,9 +678,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-JI-SHUYING-2009-PAGINATION-ANCHOR-EXTENSION-IM",
     "BATCH-12-ZIWEI-CNKI-WENW195109-LEGACY-INDEX-TRANSPORT-BOUNDARY-IN",
     "BATCH-12-ZIWEI-NLCPRESS-JI15-FIRST-PARTY-PRODUCT-IDENTITY-AND-TOC-ATTACHMENT-BOUNDARY-IO",
+    "BATCH-12-ZIWEI-NLCPRESS-JI15-FIRST-PARTY-BOOKTEXT-BOUNDED-PAYLOAD-BOUNDARY-IP",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLCPRESS-JI15-FIRST-PARTY-PRODUCT-IDENTITY-AND-TOC-ATTACHMENT-BOUNDARY-IO.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLCPRESS-JI15-FIRST-PARTY-BOOKTEXT-BOUNDED-PAYLOAD-BOUNDARY-IP.md"
 
 
 def fail(message: str) -> None:
@@ -10006,6 +10009,60 @@ def main() -> int:
         fail("Batch 12IO missing from completed state")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12IO latest-batch document mismatch")
+
+
+    # Batch 12IP: NLC Press Ji15 Booktext bounded-payload boundary.
+    for path in (ZIWEI_NLCPRESS_JI15_IP_BATCH, ZIWEI_NLCPRESS_JI15_IP_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12IP continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12ip = json.loads(ZIWEI_NLCPRESS_JI15_IP_EVIDENCE.read_text(encoding="utf-8"))
+    bid12ip = "BATCH-12-ZIWEI-NLCPRESS-JI15-FIRST-PARTY-BOOKTEXT-BOUNDED-PAYLOAD-BOUNDARY-IP"
+    if batch12ip.get("batch_id") != bid12ip:
+        fail("Batch 12IP evidence identity mismatch")
+    meta12ip = batch12ip.get("probe_history", {}).get("metadata_only_probe", {})
+    if meta12ip.get("workflow_run_id") != 36715184159 or meta12ip.get("artifact_id") != 11095609154:
+        fail("Batch 12IP metadata probe binding regressed")
+    if meta12ip.get("response_body_read") is not False or meta12ip.get("download_bytes_read") != 0:
+        fail("Batch 12IP metadata-only read firewall regressed")
+    if meta12ip.get("post_status") != 200 or meta12ip.get("content_type") != "application/octet-stream" or meta12ip.get("content_length") != 739:
+        fail("Batch 12IP response metadata regressed")
+    bound12ip = batch12ip.get("probe_history", {}).get("bounded_payload_classification", {})
+    if bound12ip.get("workflow_run_id") != 36715372154 or bound12ip.get("artifact_id") != 11095604530:
+        fail("Batch 12IP bounded-probe binding regressed")
+    if bound12ip.get("bytes_read") != 739 or bound12ip.get("body_sha256") != "c79284ab5f39ed7b8b48e8b1071b008990c583314455c7abf00699cd1fe4d1d3":
+        fail("Batch 12IP bounded payload identity regressed")
+    if bound12ip.get("decoded_encoding") != "gb18030" or bound12ip.get("decoded_char_count") != 382:
+        fail("Batch 12IP payload decoding boundary regressed")
+    if bound12ip.get("raw_text_logged") is not False or bound12ip.get("raw_text_saved") is not False:
+        fail("Batch 12IP raw-text firewall regressed")
+    matches12ip = bound12ip.get("chapter_matches", {})
+    if any(matches12ip.get(k) is not False for k in ("ch9", "ch10", "ch11", "ch12", "ch15")):
+        fail("Batch 12IP chapter-match boundary regressed")
+    adjud12ip = batch12ip.get("payload_adjudication", {})
+    if adjud12ip.get("public_attachment_response_closed") is not True or adjud12ip.get("current_payload_is_full_book_text") is not False or adjud12ip.get("current_payload_is_usable_page_numbered_toc") is not False:
+        fail("Batch 12IP payload adjudication regressed")
+    pag12ip = batch12ip.get("pagination_adjudication", {})
+    if pag12ip.get("exact_chapter_9_page_range") != "UNRESOLVED" or pag12ip.get("direct_chapter_9_text") != "NOT_REVIEWED" or pag12ip.get("exact_chapter_10_11_pagination") != "UNRESOLVED":
+        fail("Batch 12IP pagination unresolved state regressed")
+    if pag12ip.get("interpolation_to_chapter_9_authorized") is not False:
+        fail("Batch 12IP anti-interpolation firewall regressed")
+    reg12ip = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    src12ip = next((x for x in reg12ip.get("sources", []) if x.get("source_id") == "EXT-NLCPRESS-JI-SHUYING-2009-PRODUCT4660"), None)
+    if src12ip is None or src12ip.get("batch_12ip", {}).get("body_sha256") != "c79284ab5f39ed7b8b48e8b1071b008990c583314455c7abf00699cd1fe4d1d3":
+        fail("Batch 12IP registry binding missing")
+    acct12ip = batch12ip.get("accounting", {})
+    if acct12ip.get("matrix_rows") != 198 or acct12ip.get("audited_rows") != 166 or acct12ip.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12IP accounting regressed")
+    try:
+        schema12ip = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12IP state version is not numeric")
+    if schema12ip < (1, 254, 0):
+        fail("Batch 12IP state version regressed below 1.254.0")
+    if bid12ip not in audit_state.get("completed_batches", ()):
+        fail("Batch 12IP missing from completed state")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12IP latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

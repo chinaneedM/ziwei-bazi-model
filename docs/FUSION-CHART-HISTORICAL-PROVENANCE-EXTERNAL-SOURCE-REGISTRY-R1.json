@@ -10548,7 +10548,7 @@
       "identifier": "ProductView Id=4660 / ISBN 978-7-5013-4063-7",
       "url": "https://www.nlcpress.com/ProductView.aspx?Id=4660",
       "source_role": "FIRST_PARTY_PUBLISHER_PRODUCT_IDENTITY_AND_RELATED_DOWNLOAD_TEMPLATE_BOUNDARY_FOR_JI_SHUYING_2009",
-      "quality_notes": "Batch 12IO recovers product 4660 only from the publisher's source-emitted ProductList page 361 and directly closes title, responsibility, ISBN and publication date. The product page's CatalogPrecisFile label has no href, matching script assignment or hidden attachment field on the reviewed HTML; the current Rid=2 public TOC/content resource list contains one unrelated record only. Therefore product identity is first-party closed, but product-specific TOC object existence, Chapter 9 exact pagination and Chapter 9 direct text remain unresolved/not reviewed. Generic related-download labels are not attachment-object proof.",
+      "quality_notes": "Batch 12IO recovers product 4660 only from the publisher's source-emitted ProductList page 361 and directly closes title, responsibility, ISBN and publication date. The product page's CatalogPrecisFile label has no href, matching script assignment or hidden attachment field on the reviewed HTML; the current Rid=2 public TOC/content resource list contains one unrelated record only. Therefore product identity is first-party closed, but product-specific TOC object existence, Chapter 9 exact pagination and Chapter 9 direct text remain unresolved/not reviewed. Generic related-download labels are not attachment-object proof. Batch 12IP directly invokes the source-emitted public Booktext postback under a metadata-first boundary. It returns HTTP 200 application/octet-stream, Content-Length 739 and a Content-Disposition filename for 冀淑英古籍善本十五讲.txt. A 4 KiB-bounded classifier reads the complete 739-byte object (SHA-256 c79284ab5f39ed7b8b48e8b1071b008990c583314455c7abf00699cd1fe4d1d3; GB18030; 382 normalized characters) without logging/saving raw text. The payload contains the target title and 目录 marker but none of the exact Chapter 9/10/11/12/15 titles, so it is not promoted to full-book text or a page-numbered TOC witness; Chapter 9 and Chapter 10/11 pagination remain unresolved.",
       "batch_12io": {
         "product_list_page": 361,
         "source_emitted_product_href": "ProductView.aspx?Id=4660",
@@ -10563,6 +10563,31 @@
         "exact_chapter_9_page_range": "UNRESOLVED",
         "direct_chapter_9_text": "NOT_REVIEWED",
         "research_artifact": "docs/research/ZIWEI-NLCPRESS-JI15-FIRST-PARTY-PRODUCT-IDENTITY-AND-TOC-ATTACHMENT-BOUNDARY-R1.json"
+      },
+      "batch_12ip": {
+        "event_target": "Booktext",
+        "post_status": 200,
+        "content_type": "application/octet-stream",
+        "content_length": 739,
+        "repaired_attachment_filename": "冀淑英古籍善本十五讲.txt",
+        "body_sha256": "c79284ab5f39ed7b8b48e8b1071b008990c583314455c7abf00699cd1fe4d1d3",
+        "decoded_encoding": "gb18030",
+        "normalized_char_count": 382,
+        "has_target_title": true,
+        "has_catalog_marker": true,
+        "exact_chapter_title_matches": {
+          "ch9": false,
+          "ch10": false,
+          "ch11": false,
+          "ch12": false,
+          "ch15": false
+        },
+        "current_payload_is_usable_page_numbered_toc": false,
+        "exact_chapter_9_page_range": "UNRESOLVED",
+        "direct_chapter_9_text": "NOT_REVIEWED",
+        "raw_text_logged": false,
+        "raw_text_saved": false,
+        "research_artifact": "docs/research/ZIWEI-NLCPRESS-JI15-FIRST-PARTY-BOOKTEXT-BOUNDED-PAYLOAD-BOUNDARY-R1.json"
       }
     }
   ],

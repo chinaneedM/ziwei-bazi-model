@@ -865,3 +865,14 @@ Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CN
 - Product/accounting remains 198 rows / 166 audited / 10 MISSING_FROM_PRODUCT / 17 of 17 provenance defects repaired / zero chart-algorithm defects, reopens or candidate collapses.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLCPRESS-JI15-FIRST-PARTY-PRODUCT-IDENTITY-AND-TOC-ATTACHMENT-BOUNDARY-IO.md`. Research record: `docs/research/ZIWEI-NLCPRESS-JI15-FIRST-PARTY-PRODUCT-IDENTITY-AND-TOC-ATTACHMENT-BOUNDARY-R1.json`.
+
+
+## Progress — Batch 12IP
+
+- National Library of China Press Product 4660's source-emitted public `Booktext` postback is now directly tested. The metadata-only probe returns HTTP 200 / `application/octet-stream` / `Content-Length: 739` with a repaired `Content-Disposition` filename `冀淑英古籍善本十五讲.txt`; no response body was read in that phase.
+- Because the declared object is only 739 bytes, a second probe allows a maximum 4096-byte read. It recovers exactly 739 bytes, SHA-256 `c79284ab5f39ed7b8b48e8b1071b008990c583314455c7abf00699cd1fe4d1d3`, decodes as GB18030 and normalizes to 382 characters. Raw text is neither logged nor saved.
+- The bounded payload contains the target book title and a `目录` marker, but none of the exact Chapter 9, 10, 11, 12 or 15 titles. It is therefore not promoted to full-book text or a page-numbered fifteen-lecture TOC witness.
+- Chapter 9 exact page range remains `UNRESOLVED`; direct Chapter-9 text remains `NOT_REVIEWED`; Chapter 10/11 exact pagination remains `UNRESOLVED`. Anti-interpolation controls remain unchanged.
+- Product/accounting remains 198 rows / 166 audited / 10 MISSING_FROM_PRODUCT / 17 of 17 provenance defects repaired / zero chart-algorithm defects, reopens or candidate collapses.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLCPRESS-JI15-FIRST-PARTY-BOOKTEXT-BOUNDED-PAYLOAD-BOUNDARY-IP.md`. Research record: `docs/research/ZIWEI-NLCPRESS-JI15-FIRST-PARTY-BOOKTEXT-BOUNDED-PAYLOAD-BOUNDARY-R1.json`.
