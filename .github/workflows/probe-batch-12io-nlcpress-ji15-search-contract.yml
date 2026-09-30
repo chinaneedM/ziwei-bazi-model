@@ -16,70 +16,171 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
-      - name: Inspect NLC Press public product-list search contract
+      - name: Search NLC Press public product catalog with native WebForms contract
         run: |
           python - <<'PY'
-          import json, re, html
+          import json, re
           from html.parser import HTMLParser
           from pathlib import Path
+          from urllib.parse import urljoin
           import requests
 
-          URL="https://www.nlcpress.com/ProductList.aspx"
-          headers={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; first-party public catalog probe)"}
-          r=requests.get(URL,headers=headers,timeout=30)
-          body=r.text
+          BASE="https://www.nlcpress.com/"
+          LIST=urljoin(BASE,"ProductList.aspx")
+          headers={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; first-party public catalog search)"}
+          session=requests.Session()
+          session.headers.update(headers)
 
-          class FormParser(HTMLParser):
+          class Parser(HTMLParser):
               def __init__(self):
                   super().__init__()
                   self.forms=[]
-                  self.current=None
+                  self.current_form=None
+                  self.current_select=None
               def handle_starttag(self,tag,attrs):
-                  d=dict(attrs)
-                  if tag.lower()=="form":
-                      self.current={"attrs":d,"controls":[]}
-                      self.forms.append(self.current)
-                  elif self.current is not None and tag.lower() in ("input","select","button","textarea"):
-                      keep={k:v for k,v in d.items() if k in ("name","id","type","value","action","method","class","placeholder")}
-                      keep["tag"]=tag.lower()
-                      self.current["controls"].append(keep)
+                  d=dict(attrs); tag=tag.lower()
+                  if tag=="form":
+                      self.current_form={"attrs":d,"controls":[],"selects":[]}
+                      self.forms.append(self.current_form)
+                  elif self.current_form is not None and tag=="input":
+                      self.current_form["controls"].append({k:v for k,v in d.items() if k in ("name","id","type","value")})
+                  elif self.current_form is not None and tag=="select":
+                      self.current_select={"name":d.get("name"),"id":d.get("id"),"options":[]}
+                      self.current_form["selects"].append(self.current_select)
+                  elif self.current_select is not None and tag=="option":
+                      self.current_select["options"].append({"value":d.get("value",""),"selected":"selected" in d,"text":""})
+              def handle_data(self,data):
+                  if self.current_select is not None and self.current_select["options"]:
+                      self.current_select["options"][-1]["text"] += data
               def handle_endtag(self,tag):
-                  if tag.lower()=="form":
-                      self.current=None
+                  tag=tag.lower()
+                  if tag=="select":
+                      self.current_select=None
+                  elif tag=="form":
+                      self.current_form=None
 
-          p=FormParser()
-          p.feed(body)
+          def parse(html):
+              p=Parser(); p.feed(html); return p
 
-          # Extract product-view links and pager/postback clues from the public HTML.
-          product_links=sorted(set(re.findall(r'ProductView\.aspx\?Id=\d+',body,re.I)))
-          postbacks=sorted(set(re.findall(r"__doPostBack\('([^']*)','([^']*)'\)",body)))
-          names=sorted(set(re.findall(r'(?:name|id)="([^"]+)"',body,re.I)))
-          target_markers={
-              "title_present":"冀淑英古籍善本十五讲" in body,
-              "isbn_compact_present":"9787501340637" in body,
-              "isbn_hyphen_present":"978-7-5013-4063-7" in body,
-          }
+          def hidden_fields(html):
+              fields={}
+              for m in re.finditer(r'<input[^>]+type=["\']hidden["\'][^>]*>',html,re.I):
+                  tag=m.group(0)
+                  nm=re.search(r'name=["\']([^"\']+)["\']',tag,re.I)
+                  val=re.search(r'value=["\']([^"\']*)["\']',tag,re.I)
+                  if nm: fields[nm.group(1)]=val.group(1) if val else ""
+              return fields
+
+          def product_links(html):
+              return sorted(set(re.findall(r'ProductView\.aspx\?Id=\d+',html,re.I)))
+
+          def textify(html):
+              s=re.sub(r'<script.*?</script>',' ',html,flags=re.I|re.S)
+              s=re.sub(r'<style.*?</style>',' ',s,flags=re.I|re.S)
+              s=re.sub(r'<[^>]+>',' ',s)
+              s=re.sub(r'&nbsp;',' ',s,flags=re.I)
+              return re.sub(r'\s+',' ',s)
+
+          first=session.get(LIST,timeout=30)
+          first.raise_for_status()
+          p=parse(first.text)
+          form=p.forms[0]
+          select_map={x["name"]:x["options"] for x in form["selects"]}
+          print("SELECTS="+json.dumps(select_map,ensure_ascii=False))
+
+          # Keep all source-emitted select values; use each combination with exact
+          # target strings. Search is read-only catalog functionality.
+          types=[o["value"] for o in select_map.get("Left1$BookType",[]) if o.get("value") is not None]
+          queries=[o["value"] for o in select_map.get("Left1$BookQuery",[]) if o.get("value") is not None]
+          if not types: types=[""]
+          if not queries: queries=[""]
+
+          targets=[
+              ("title","冀淑英古籍善本十五讲"),
+              ("isbn_compact","9787501340637"),
+              ("isbn_hyphen","978-7-5013-4063-7"),
+          ]
+          attempts=[]
+          candidates=set()
+          base_hidden=hidden_fields(first.text)
+          for label,target in targets:
+              for bt in types:
+                  for bq in queries:
+                      data=dict(base_hidden)
+                      data.update({
+                          "Left1$SearchKeyword":target,
+                          "Left1$BookType":bt,
+                          "Left1$BookQuery":bq,
+                          "Left1$SearchBtn.x":"1",
+                          "Left1$SearchBtn.y":"1",
+                      })
+                      # Remove event target/argument for image-button submit.
+                      data["__EVENTTARGET"]=""
+                      data["__EVENTARGUMENT"]=""
+                      r=session.post(LIST,data=data,timeout=30)
+                      txt=textify(r.text)
+                      links=product_links(r.text)
+                      exact_title="冀淑英古籍善本十五讲" in txt
+                      exact_isbn=("9787501340637" in txt.replace("-","").replace(" ","") or
+                                  "978-7-5013-4063-7" in txt)
+                      row={
+                          "label":label,"target":target,
+                          "book_type":bt,"book_query":bq,
+                          "status":r.status_code,"final_url":r.url,
+                          "body_bytes":len(r.content),
+                          "exact_title":exact_title,
+                          "exact_isbn":exact_isbn,
+                          "product_links":links[:80],
+                      }
+                      attempts.append(row)
+                      if exact_title or exact_isbn:
+                          candidates.update(links)
+                      print("ATTEMPT="+json.dumps(row,ensure_ascii=False))
+                      if candidates:
+                          break
+                  if candidates:
+                      break
+              if candidates:
+                  break
+
+          inspected=[]
+          for rel in sorted(candidates):
+              url=urljoin(BASE,rel)
+              r=session.get(url,timeout=30)
+              txt=textify(r.text)
+              hrefs=sorted(set(re.findall(r'href=["\']([^"\']+)["\']',r.text,re.I)))
+              downloadish=[h for h in hrefs if re.search(r'down|download|file|attach',h,re.I)]
+              snippets={}
+              for marker in ("冀淑英古籍善本十五讲","978-7-5013-4063-7","第九讲","铁琴铜剑楼藏书的收购入藏","第十讲","第十一讲","涵芬楼藏书","目录"):
+                  pos=txt.find(marker)
+                  if pos>=0: snippets[marker]=txt[max(0,pos-250):pos+1200]
+              inspected.append({
+                  "url":url,"status":r.status_code,"body_bytes":len(r.content),
+                  "exact_title":"冀淑英古籍善本十五讲" in txt,
+                  "isbn_compact":"9787501340637" in txt.replace("-","").replace(" ",""),
+                  "downloadish_hrefs":downloadish[:80],
+                  "snippets":snippets,
+              })
+
           result={
-              "url":URL,
-              "http_status":r.status_code,
-              "final_url":r.url,
-              "content_type":r.headers.get("content-type"),
-              "body_bytes":len(r.content),
-              "forms":p.forms,
-              "control_names":names,
-              "product_link_sample":product_links[:30],
-              "product_link_count":len(product_links),
-              "postback_sample":postbacks[:80],
-              "target_markers":target_markers,
+              "list_url":LIST,
+              "initial_status":first.status_code,
+              "form_method":form["attrs"].get("method"),
+              "form_action":form["attrs"].get("action"),
+              "selects":select_map,
+              "attempt_count":len(attempts),
+              "attempts":attempts,
+              "candidate_product_links":sorted(candidates),
+              "candidate_pages":inspected,
               "tls_verified":True,
               "login_used":False,
+              "purchase_invoked":False,
               "download_invoked":False,
           }
-          Path("nlcpress-productlist-search-contract.json").write_text(
-              json.dumps(result,ensure_ascii=False,indent=2),encoding="utf-8")
-          print(json.dumps(result,ensure_ascii=False,indent=2))
+          Path("nlcpress-ji15-native-search.json").write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding="utf-8")
+          print("RESULT="+json.dumps(result,ensure_ascii=False))
           PY
       - uses: actions/upload-artifact@v4
         with:
-          name: batch-12io-nlcpress-ji15-search-contract
-          path: nlcpress-productlist-search-contract.json
+          name: batch-12io-nlcpress-ji15-native-search
+          path: nlcpress-ji15-native-search.json
