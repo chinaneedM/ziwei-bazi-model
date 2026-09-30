@@ -16,16 +16,15 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
-      - name: Narrow NLC Press 2009-2010 product-list window
+      - name: Robustly narrow NLC Press 2009-2010 product-list window
         run: |
           python - <<'PY'
-          import html, json, re
+          import html, json, re, time
           from pathlib import Path
           import requests
 
           URL="https://www.nlcpress.com/ProductList.aspx"
-          s=requests.Session()
-          s.headers.update({"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; public pager window probe)"})
+          UA={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; public pager window probe)"}
 
           def hidden_fields(body):
               out={}
@@ -39,15 +38,6 @@ jobs:
                       out[html.unescape(nm.group(1))]=html.unescape(vm.group(1) if vm else "")
               return out
 
-          def jump(body,target):
-              data=hidden_fields(body)
-              data.update({
-                  "__EVENTTARGET":"PageNavigator1$LinkButton_Go",
-                  "__EVENTARGUMENT":"",
-                  "PageNavigator1$txt_PageGo":str(target),
-              })
-              return s.post(URL,data=data,timeout=30)
-
           def page_now(body):
               m=re.search(r'id=["\']PageNavigator1_txt_PageNow["\'][^>]*>(\d+)<',body,re.I)
               return int(m.group(1)) if m else None
@@ -60,12 +50,11 @@ jobs:
               text=re.sub(r'<[^>]+>',' ',body)
               text=re.sub(r'\s+',' ',html.unescape(text))
               dates=sorted(set(re.findall(r'20\d\d[-./年]\d{1,2}(?:[-./月]\d{1,2}日?)?',text)))
-              years=sorted(set(re.findall(r'20\d\d', " ".join(dates))))
               return {
                   "ids":ids,
                   "id_min":min(ids) if ids else None,
                   "id_max":max(ids) if ids else None,
-                  "years":years,
+                  "years":sorted(set(re.findall(r'20\d\d'," ".join(dates)))),
                   "dates":dates[:80],
                   "has_control_id_4939":"ProductView.aspx?Id=4939" in body,
                   "has_control_title":"史记十五讲" in text,
@@ -74,25 +63,45 @@ jobs:
                   "has_target_isbn":"9787501340637" in text.replace("-","").replace(" ",""),
               }
 
-          first=s.get(URL,timeout=30)
-          first.raise_for_status()
-          current=first
-          pages=[310,320,330,340,350,360,370,380,390,400]
+          def independent_jump(target):
+              last_error=None
+              for attempt in range(1,4):
+                  try:
+                      s=requests.Session()
+                      s.headers.update(UA)
+                      g=s.get(URL,timeout=45)
+                      g.raise_for_status()
+                      data=hidden_fields(g.text)
+                      data.update({
+                          "__EVENTTARGET":"PageNavigator1$LinkButton_Go",
+                          "__EVENTARGUMENT":"",
+                          "PageNavigator1$txt_PageGo":str(target),
+                      })
+                      r=s.post(URL,data=data,timeout=45)
+                      return {
+                          "requested_page":target,
+                          "attempt":attempt,
+                          "status":r.status_code,
+                          "page_now":page_now(r.text),
+                          "body_bytes":len(r.content),
+                          **summarize(r.text)
+                      }
+                  except Exception as e:
+                      last_error=f"{type(e).__name__}: {e}"
+                      time.sleep(attempt)
+              return {"requested_page":target,"error":last_error}
+
+          pages=[330,350,370,390]
           rows=[]
-          for target in pages:
-              r=jump(current.text,target)
-              row={"requested_page":target,"status":r.status_code,"page_now":page_now(r.text),
-                   "body_bytes":len(r.content),**summarize(r.text)}
-              rows.append(row)
-              if r.status_code!=200 or row["page_now"]!=target:
-                  break
-              current=r
+          for p in pages:
+              rows.append(independent_jump(p))
+              time.sleep(0.5)
 
           result={
               "url":URL,
               "pages_requested":pages,
               "rows":rows,
-              "all_page_jumps_exact":len(rows)==len(pages) and all(x["page_now"]==x["requested_page"] for x in rows),
+              "successful_pages":[x["requested_page"] for x in rows if x.get("status")==200 and x.get("page_now")==x.get("requested_page")],
               "control_product_id":4939,
               "control_title":"史记十五讲（中国典籍与文化第六辑）",
               "target_title":"冀淑英古籍善本十五讲",
