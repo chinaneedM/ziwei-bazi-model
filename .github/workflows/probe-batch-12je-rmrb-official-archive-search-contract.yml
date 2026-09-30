@@ -51,9 +51,26 @@ jobs:
                   for tag in re.findall(r'<(?:input|select|textarea)\b[^>]*>',inner,re.I):
                       nm=re.search(r'name=["\']([^"\']+)["\']',tag,re.I)
                       typ=re.search(r'type=["\']([^"\']+)["\']',tag,re.I)
+                      vm=re.search(r'value=["\']([^"\']*)["\']',tag,re.I)
                       if nm:
-                          fields.append({'name':html.unescape(nm.group(1)),'type':typ.group(1).lower() if typ else None})
-                  out.append({'action':action,'method':method,'same_host':urlparse(action).hostname=='data.people.com.cn','fields':fields})
+                          fields.append({
+                              'name':html.unescape(nm.group(1)),
+                              'type':typ.group(1).lower() if typ else None,
+                              'value':html.unescape(vm.group(1)) if vm else None,
+                              'checked':bool(re.search(r'\bchecked(?:\s*=|\s|>)',tag,re.I)),
+                          })
+                  selects=[]
+                  for sm in re.finditer(r'<select\b([^>]*)>(.*?)</select>',inner,re.I|re.S):
+                      sa,si=sm.group(1),sm.group(2)
+                      nm=re.search(r'name=["\']([^"\']+)["\']',sa,re.I)
+                      if not nm: continue
+                      opts=[]
+                      for om in re.finditer(r'<option\b([^>]*)>(.*?)</option>',si,re.I|re.S):
+                          oa,label=om.group(1),re.sub(r'<[^>]+>',' ',om.group(2))
+                          vm=re.search(r'value=["\']([^"\']*)["\']',oa,re.I)
+                          opts.append({'value':html.unescape(vm.group(1)) if vm else re.sub(r'\s+',' ',html.unescape(label)).strip(),'selected':bool(re.search(r'\bselected(?:\s*=|\s|>)',oa,re.I))})
+                      selects.append({'name':html.unescape(nm.group(1)),'options':opts[:200]})
+                  out.append({'action':action,'method':method,'same_host':urlparse(action).hostname=='data.people.com.cn','fields':fields,'selects':selects})
               return out
 
           s,u,ct,b=get(entry)
