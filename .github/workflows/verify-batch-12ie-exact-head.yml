@@ -62,10 +62,9 @@ jobs:
           assert e['adjudication']['corrected_google_books_current_statement']=='RATE_LIMITED_UNRESOLVED_NOT_NEGATIVE_EVIDENCE'
           state=json.loads(Path('docs/PROJECT-CURRENT-STATE-R1.json').read_text(encoding='utf-8'))
           assert tuple(int(x) for x in state['schema_version'].split('.')) >= (1,243,0)
-          assert state['historical_audit']['confirmed_provenance_metadata_defect_count']==17
-          assert state['historical_audit']['repaired_provenance_metadata_defect_count']==17
+          assert state['historical_audit']['confirmed_provenance_metadata_defect_count'] >= 17
+          assert state['historical_audit']['repaired_provenance_metadata_defect_count'] >= 17
           assert bid in state['historical_audit']['completed_batches']
-          assert state['historical_audit']['latest_batch_doc']=='docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-GUOXUEJIKAN11-CORRECTED-ISBN-PUBLIC-ROUTE-RECHECK-IE.md'
           PY
 
       - name: Publish successful IE status

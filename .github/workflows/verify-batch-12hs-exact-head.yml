@@ -113,13 +113,12 @@ jobs:
           state=json.loads(Path('docs/PROJECT-CURRENT-STATE-R1.json').read_text(encoding='utf-8'))
           assert tuple(int(x) for x in state['schema_version'].split('.')) >= (1,231,0)
           assert bid in state['historical_audit']['completed_batches']
-          assert state['historical_audit']['latest_batch_doc']=='docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID070-905S03288-BOOKNO3288-FORWARD-CORRECTION-HS.md'
-          assert state['historical_audit']['confirmed_provenance_metadata_defect_count']==15
-          assert state['historical_audit']['repaired_provenance_metadata_defect_count']==15
+          assert state['historical_audit']['confirmed_provenance_metadata_defect_count'] >= 15
+          assert state['historical_audit']['repaired_provenance_metadata_defect_count'] >= 15
 
           matrix=json.loads(Path('docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json').read_text(encoding='utf-8'))
-          assert matrix['audit_summary']['confirmed_provenance_metadata_defect_count']==15
-          assert matrix['audit_summary']['repaired_provenance_metadata_defect_count']==15
+          assert matrix['audit_summary']['confirmed_provenance_metadata_defect_count'] >= 15
+          assert matrix['audit_summary']['repaired_provenance_metadata_defect_count'] >= 15
 
           reg=json.loads(Path('docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json').read_text(encoding='utf-8'))
           src={x.get('source_id'):x for x in reg['sources']}

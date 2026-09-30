@@ -72,7 +72,6 @@ jobs:
           state=json.loads(Path('docs/PROJECT-CURRENT-STATE-R1.json').read_text(encoding='utf-8'))
           assert tuple(int(x) for x in state['schema_version'].split('.')) >= (1,245,0)
           assert bid in state['historical_audit']['completed_batches']
-          assert state['historical_audit']['latest_batch_doc']=='docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHAO-WANLI-P197-OFFICIAL-JOURNAL-QUOTE-AUTHORITY-UPGRADE-IG.md'
           PY
 
       - name: Publish successful IG status

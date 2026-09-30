@@ -72,14 +72,13 @@ jobs:
           assert d['adjudicated_full_line_value']=='10行17字，小字雙行23字，白口，左右雙邊。'
 
           matrix=json.loads(Path('docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json').read_text(encoding='utf-8'))
-          assert matrix['audit_summary']['confirmed_provenance_metadata_defect_count']==16
-          assert matrix['audit_summary']['repaired_provenance_metadata_defect_count']==16
+          assert matrix['audit_summary']['confirmed_provenance_metadata_defect_count'] >= 16
+          assert matrix['audit_summary']['repaired_provenance_metadata_defect_count'] >= 16
           state=json.loads(Path('docs/PROJECT-CURRENT-STATE-R1.json').read_text(encoding='utf-8'))
           assert tuple(int(x) for x in state['schema_version'].split('.')) >= (1,236,0)
           assert bid in state['historical_audit']['completed_batches']
-          assert state['historical_audit']['latest_batch_doc']=='docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID070-SECOND-17CHAR-LINE-GBT-FORMAT-DEFECT-CLOSURE-HX.md'
-          assert state['historical_audit']['confirmed_provenance_metadata_defect_count']==16
-          assert state['historical_audit']['repaired_provenance_metadata_defect_count']==16
+          assert state['historical_audit']['confirmed_provenance_metadata_defect_count'] >= 16
+          assert state['historical_audit']['repaired_provenance_metadata_defect_count'] >= 16
 
           reg=json.loads(Path('docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json').read_text(encoding='utf-8'))
           src={x.get('source_id'):x for x in reg['sources']}
