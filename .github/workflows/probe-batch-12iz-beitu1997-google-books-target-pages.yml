@@ -1,0 +1,122 @@
+name: probe-batch-12iz-beitu1997-google-books-target-pages
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12iz-beitu1997-google-books-target-pages.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Probe exact 1997 Beitu history Google Books object and source-emitted in-book search contract
+        run: |
+          python - <<'PY'
+          import hashlib, html, json, re, time
+          from pathlib import Path
+          from urllib.parse import urljoin, urlparse, parse_qs, urlencode
+          import requests
+
+          BOOK_ID="BZ0M0gEACAAJ"
+          START=f"https://books.google.com/books?id={BOOK_ID}"
+          TERMS=[
+            "铁琴铜剑楼","鐵琴銅劍樓","瞿氏","瞿凤起","瞿鳳起","赵万里","趙萬里",
+            "304种","52种","123种","铜壶漏箭制度","銅壺漏箭制度",
+            "准斋心制几漏图式","準齋心制幾漏圖式","3482","3483","03482","03483",
+            "这些善本入藏本馆","可为全国之冠"
+          ]
+          UA="Mozilla/5.0 (Tianwen provenance audit; exact Google Books object public-search probe)"
+          MAX_BYTES=2*1024*1024
+
+          def visible(raw):
+              raw=re.sub(r'<script\b.*?</script>',' ',raw,flags=re.I|re.S)
+              raw=re.sub(r'<style\b.*?</style>',' ',raw,flags=re.I|re.S)
+              raw=re.sub(r'<[^>]+>',' ',raw)
+              return re.sub(r'\s+',' ',html.unescape(raw)).strip()
+          def fetch(s,url):
+              r=s.get(url,timeout=45,allow_redirects=True,stream=True)
+              data=bytearray(); trunc=False
+              for chunk in r.iter_content(65536):
+                  if not chunk: continue
+                  if len(data)+len(chunk)>MAX_BYTES:
+                      take=MAX_BYTES-len(data)
+                      if take>0:data.extend(chunk[:take])
+                      trunc=True; break
+                  data.extend(chunk)
+              b=bytes(data); raw=b.decode(r.encoding or "utf-8","replace")
+              return r,b,raw,trunc
+          def contexts(text,term,radius=300,limit=8):
+              out=[]; p=0
+              while len(out)<limit:
+                  i=text.find(term,p)
+                  if i<0: break
+                  out.append(text[max(0,i-radius):min(len(text),i+len(term)+radius)])
+                  p=i+len(term)
+              return out
+
+          s=requests.Session()
+          s.headers.update({"User-Agent":UA,"Accept-Language":"zh-CN,zh;q=0.9,en;q=0.7"})
+          out={"book_id":BOOK_ID,"base":{},"queries":[],"security":{
+            "login_used":False,"account_action_used":False,"copy_request_used":False,"payment_used":False,
+            "captcha_bypass_used":False,"tls_verification_disabled":False,"guessed_object_id_used":False,
+            "targeted_q_executed_only_if_source_emitted_q_contract_observed":True
+          }}
+          r,b,raw,tr=fetch(s,START)
+          text=visible(raw)
+          hrefs=[]
+          for m in re.finditer(r'href=[\"\']([^\"\']+)[\"\']',raw,re.I):
+              u=urljoin(r.url,html.unescape(m.group(1)))
+              if urlparse(u).scheme in ("http","https") and "books.google." in u:
+                  hrefs.append(u)
+          hrefs=list(dict.fromkeys(hrefs))
+          qlinks=[]
+          for u in hrefs:
+              q=parse_qs(urlparse(u).query)
+              if q.get("id")==[BOOK_ID] and "q" in q:
+                  qlinks.append(u)
+          out["base"]={
+            "status":r.status_code,"final_url":r.url,"bytes_read":len(b),"truncated_at_2mib":tr,
+            "body_sha256":hashlib.sha256(b).hexdigest(),
+            "title_present":("北京图书馆馆史资料汇编" in text),
+            "isbn_10_present":"7501314195" in text.replace("-","").replace(" ",""),
+            "isbn_13_present":"9787501314195" in text.replace("-","").replace(" ",""),
+            "page_count_1811_present":("1811" in text),
+            "ebook_unavailable_wording":("未提供电子书" in text or "No eBook available" in text),
+            "source_emitted_q_contract_observed":bool(qlinks),
+            "source_emitted_q_link_examples":qlinks[:8],
+            "raw_body_saved":False,"raw_body_logged":False
+          }
+          if qlinks:
+              for term in TERMS:
+                  url="https://books.google.com/books?"+urlencode({"id":BOOK_ID,"q":term,"hl":"zh-CN"})
+                  row={"term":term,"url":url}
+                  try:
+                      rr,bb,rrraw,rrtr=fetch(s,url); tt=visible(rrraw)
+                      pages=[]
+                      for m in re.finditer(r'第\s*(\d{1,4})\s*页',tt):
+                          n=int(m.group(1))
+                          if n not in pages:pages.append(n)
+                      row.update({
+                        "status":rr.status_code,"bytes_read":len(bb),"body_sha256":hashlib.sha256(bb).hexdigest(),
+                        "term_visible":term in tt,"result_count_text":re.findall(r'共有\s*\d+\s*个结果',tt)[:4],
+                        "page_hits":pages[:40],"term_contexts":contexts(tt,term),
+                        "target_446_449_page_hit":any(446<=p<=449 for p in pages),
+                        "raw_body_saved":False,"raw_body_logged":False
+                      })
+                  except Exception as e:
+                      row["error"]=f"{type(e).__name__}: {e}"
+                  out["queries"].append(row); time.sleep(0.3)
+          Path("beitu1997-google-books-target-pages.json").write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12iz-beitu1997-google-books-target-pages
+          path: beitu1997-google-books-target-pages.json
