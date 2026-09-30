@@ -790,3 +790,13 @@ Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZH
 - Product/accounting remains 198 rows / 166 audited / 10 MISSING_FROM_PRODUCT / 17 of 17 provenance defects repaired / zero chart-algorithm defects, reopens or candidate collapses.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NDL-DIRECT-PAGE-REMOTE-COPY-POLICY-BOUNDARY-IH.md`. Research record: `docs/research/ZIWEI-NDL-DIRECT-PAGE-REMOTE-COPY-POLICY-BOUNDARY-R1.json`.
+
+## Progress — Batch 12II
+
+- Zhejiang Library's first-party 2024 article/index surface directly binds 蔡成普、李静《郑振铎与铁琴铜剑楼藏书捐献》 to `2024(7):46`, article id `1783`, and visibly advertises `PDF(549 KB)`.
+- The site's own download contract is closed at code/request level: `showArticleFile.do` returns `status=1` for `PDF`, `PDF_CN` and `PDF_Mobile`, and emits tokenized route families; `mag_request()` defaults to HTML-form POST with no extra hidden PDF data.
+- Exact source-emitted route probes for all three families return the identical 3,241-byte `text/html;charset=UTF-8` server `HTTP404 无法找到页面` wrapper (SHA-256 `9c47ea7957afef955da0248c47be6a49c274287abcbe061a7710d7bcbb9ca999`) and no PDF magic. This is a current public-route materialization boundary, not proof that the PDF does not exist.
+- No article full text, 2011 p.197, 1951 pp.221–233 or Ji Shuying chapter-9 direct page is newly reviewed; no shopping/payment endpoint, login or fee action is executed.
+- FID070 remains non-collapsed from the quoted Song-print object; exact Qu donation batch/date and `3368→3288` mechanism remain unresolved. Product/accounting remains 198 / 166 / 10 and 17/17 provenance repairs, with zero chart-algorithm defects, reopens or candidate collapses.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZJLIB-TIEQIN-2024-OFFICIAL-PDF-TOKEN-ROUTE-ACCESS-BOUNDARY-II.md`. Research record: `docs/research/ZIWEI-ZJLIB-TIEQIN-2024-OFFICIAL-PDF-TOKEN-ROUTE-ACCESS-BOUNDARY-R1.json`.

@@ -10312,6 +10312,46 @@
         "direct_target_page_reviewed": false,
         "research_artifact": "docs/research/ZIWEI-NDL-DIRECT-PAGE-REMOTE-COPY-POLICY-BOUNDARY-R1.json"
       }
+    },
+    {
+      "source_id": "EXT-ZJLIB-TIEQIN-DONATION-2024-ARTICLE1783",
+      "title": "蔡成普、李静《郑振铎与铁琴铜剑楼藏书捐献》",
+      "author": "蔡成普、李静",
+      "historical_period": "2024 institutional scholarly article; public download-route contract reviewed 2026-09-30",
+      "provider": "浙江图书馆《图书馆研究与工作》编辑部",
+      "url": "https://bjb.zjlib.cn/CN/Y2024/V0/I7/46",
+      "additional_urls": [
+        "https://bjb.zjlib.cn/CN/lexeme/showArticleByLexeme.do?articleID=1783",
+        "https://bjb.zjlib.cn/CN/Y2024/V0/I7"
+      ],
+      "identifier": "article id 1783 / 2024(7) / printed start p.46",
+      "source_role": "FIRST_PARTY_OFFICIAL_JOURNAL_ARTICLE_METADATA_AND_PUBLIC_DOWNLOAD_CONTRACT_BOUNDARY_NOT_DIRECT_FULLTEXT",
+      "quality_notes": "The Zhejiang Library-hosted article/index surface directly binds the title, authors, 2024 issue 7, printed start p.46 and a public PDF(549 KB) display. Batch 12II reviews the site's current download_cn.js/common_cn.js contract and exact source-emitted token routes. Preflight status=1 is returned for PDF/PDF_CN/PDF_Mobile, but exact form-equivalent POSTs to all three route families return the same 3,241-byte server HTTP404 wrapper rather than PDF bytes. This is a current public-route access boundary, not evidence that no PDF exists and not direct review of article full text.",
+      "batch_12ii": {
+        "article_id": 1783,
+        "issue": "2024年第7期",
+        "printed_start_page": 46,
+        "publication_date": "2024-07-10",
+        "public_surface_pdf_display": "PDF(549 KB)",
+        "preflight_status_by_attach_type": {
+          "PDF": 1,
+          "PDF_CN": 1,
+          "PDF_Mobile": 1
+        },
+        "exact_route_families_tested": [
+          "PDF",
+          "PDF_CN",
+          "PDF_Mobile"
+        ],
+        "identical_404_wrapper_bytes": 3241,
+        "identical_404_wrapper_sha256": "9c47ea7957afef955da0248c47be6a49c274287abcbe061a7710d7bcbb9ca999",
+        "direct_pdf_recovered": false,
+        "direct_fulltext_reviewed": false,
+        "workflow_run_id": 36683181763,
+        "artifact_id": 11082164368,
+        "artifact_digest": "sha256:854e88d6cd0a1225f5995d6fcd811165cfca9c50d86964614cc28c4dadb1d796",
+        "research_artifact": "docs/research/ZIWEI-ZJLIB-TIEQIN-2024-OFFICIAL-PDF-TOKEN-ROUTE-ACCESS-BOUNDARY-R1.json"
+      }
     }
   ],
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md",

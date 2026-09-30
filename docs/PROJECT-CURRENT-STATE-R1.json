@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.246.0",
+  "schema_version": "1.247.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -328,9 +328,10 @@
       "BATCH-12-ZIWEI-GUOXUEJIKAN11-CORRECTED-ISBN-PUBLIC-ROUTE-RECHECK-IE",
       "BATCH-12-ZIWEI-WENWU-CANKAO-CAMBRIDGE-1951-V2-HOLDING-ROUTE-IF",
       "BATCH-12-ZIWEI-ZHAO-WANLI-P197-OFFICIAL-JOURNAL-QUOTE-AUTHORITY-UPGRADE-IG",
-      "BATCH-12-ZIWEI-NDL-DIRECT-PAGE-REMOTE-COPY-POLICY-BOUNDARY-IH"
+      "BATCH-12-ZIWEI-NDL-DIRECT-PAGE-REMOTE-COPY-POLICY-BOUNDARY-IH",
+      "BATCH-12-ZIWEI-ZJLIB-TIEQIN-2024-OFFICIAL-PDF-TOKEN-ROUTE-ACCESS-BOUNDARY-II"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NDL-DIRECT-PAGE-REMOTE-COPY-POLICY-BOUNDARY-IH.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZJLIB-TIEQIN-2024-OFFICIAL-PDF-TOKEN-ROUTE-ACCESS-BOUNDARY-II.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -1465,7 +1466,11 @@
       "Batch 12IH closes the NDL remote-copy route at the official service-policy layer: NDL holdings are generally eligible for paid remote copying subject to exclusions, registered-user status and precise locator requirements. The project already has exact paper-holding/locator controls for 2011 《赵万里文集》第1卷 p.197 and 1951 《文物参考资料》第9期 pp.221–233.",
       "NDL copyright/service guidance separates book and periodical scope: book requests remain part-only at the general rule layer, while a single article in a sufficiently old periodical may be copied in full. This is a service-policy adjudication only, not a public-domain determination or proof that an exact order has been accepted.",
       "No NDL login, account action, identity transmission, copy request, delivery-mode selection or payment was executed in Batch 12IH. Direct 2011 p.197 and direct 1951 pp.221–233 remain NOT_REVIEWED; the quoted Song-print 《春秋左传注疏》 remains non-collapsed from FID070.",
-      "Highest next gate after 12IH: continue public lawful direct-page discovery for 2011 p.197 / 1951 pp.221–233 and authoritative Ji Shuying chapter-9 collation. If those public routes remain closed, an NDL registered paid copy request is the next account/fee-dependent action and requires explicit user authorization."
+      "Highest next gate after 12IH: continue public lawful direct-page discovery for 2011 p.197 / 1951 pp.221–233 and authoritative Ji Shuying chapter-9 collation. If those public routes remain closed, an NDL registered paid copy request is the next account/fee-dependent action and requires explicit user authorization.",
+      "Batch 12II closes the Zhejiang Library first-party public access contract for the 2024 article 《郑振铎与铁琴铜剑楼藏书捐献》 at the current anonymous-route layer: the official article/index surface identifies 蔡成普、李静 / 2024(7) / printed p.46 / article id 1783 and visibly advertises PDF(549 KB).",
+      "The site's own showArticleFile preflight returns status=1 for PDF, PDF_CN and PDF_Mobile and emits tokenized route families, while common_cn.js mag_request defaults to HTML-form POST. Exact helper-equivalent POSTs to all three source-emitted route families return the identical 3,241-byte text/html server HTTP404 wrapper (SHA-256 9c47ea7957afef95523b48144964c274287abcbe061a7710d7bcbb9ca999); selected_pdf remains empty.",
+      "Batch 12II is a public-access boundary only: no PDF bytes/full text were recovered, no shopping/payment endpoint was invoked, and no FID070 object-identity, Qu donation batch/date, or 3368→3288 causal claim is upgraded. The Song-print quotation remains non-collapsed from FID070's Yuan-print adjudication.",
+      "Highest next gate after 12II: stop repeating the closed Zhejiang token-route family and return priority to lawful direct 2011 p.197 / 1951 pp.221–233 recovery plus authoritative Ji Shuying chapter-9 collation. NDL paid remote-copy remains explicit-authorization-gated; no login/request/identity/payment action is authorized by this batch."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10

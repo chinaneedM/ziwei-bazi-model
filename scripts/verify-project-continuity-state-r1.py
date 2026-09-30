@@ -286,6 +286,8 @@ ZIWEI_ZHAO_IG_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATC
 ZIWEI_ZHAO_IG_EVIDENCE = ROOT / "docs/research/ZIWEI-ZHAO-WANLI-P197-OFFICIAL-JOURNAL-QUOTE-AUTHORITY-UPGRADE-R1.json"
 ZIWEI_NDL_COPY_IH_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NDL-DIRECT-PAGE-REMOTE-COPY-POLICY-BOUNDARY-IH.md"
 ZIWEI_NDL_COPY_IH_EVIDENCE = ROOT / "docs/research/ZIWEI-NDL-DIRECT-PAGE-REMOTE-COPY-POLICY-BOUNDARY-R1.json"
+ZIWEI_ZJLIB_II_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZJLIB-TIEQIN-2024-OFFICIAL-PDF-TOKEN-ROUTE-ACCESS-BOUNDARY-II.md"
+ZIWEI_ZJLIB_II_EVIDENCE = ROOT / "docs/research/ZIWEI-ZJLIB-TIEQIN-2024-OFFICIAL-PDF-TOKEN-ROUTE-ACCESS-BOUNDARY-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -655,9 +657,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-WENWU-CANKAO-CAMBRIDGE-1951-V2-HOLDING-ROUTE-IF",
     "BATCH-12-ZIWEI-ZHAO-WANLI-P197-OFFICIAL-JOURNAL-QUOTE-AUTHORITY-UPGRADE-IG",
     "BATCH-12-ZIWEI-NDL-DIRECT-PAGE-REMOTE-COPY-POLICY-BOUNDARY-IH",
+    "BATCH-12-ZIWEI-ZJLIB-TIEQIN-2024-OFFICIAL-PDF-TOKEN-ROUTE-ACCESS-BOUNDARY-II",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NDL-DIRECT-PAGE-REMOTE-COPY-POLICY-BOUNDARY-IH.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZJLIB-TIEQIN-2024-OFFICIAL-PDF-TOKEN-ROUTE-ACCESS-BOUNDARY-II.md"
 
 
 def fail(message: str) -> None:
@@ -9614,6 +9617,70 @@ def main() -> int:
         fail("Batch 12IH missing from completed state")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12IH latest-batch document mismatch")
+
+    # Batch 12II: Zhejiang Library 2024 Tieqin article official token-route access boundary.
+    for path in (ZIWEI_ZJLIB_II_BATCH, ZIWEI_ZJLIB_II_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12II continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12ii = json.loads(ZIWEI_ZJLIB_II_EVIDENCE.read_text(encoding="utf-8"))
+    bid12ii = "BATCH-12-ZIWEI-ZJLIB-TIEQIN-2024-OFFICIAL-PDF-TOKEN-ROUTE-ACCESS-BOUNDARY-II"
+    if batch12ii.get("batch_id") != bid12ii:
+        fail("Batch 12II evidence identity mismatch")
+    art12ii = batch12ii.get("official_public_article", {})
+    if art12ii.get("article_id") != 1783 or art12ii.get("year") != 2024 or art12ii.get("issue") != 7 or art12ii.get("printed_start_page") != 46:
+        fail("Batch 12II official article identity regressed")
+    front12ii = batch12ii.get("official_frontend_contract", {})
+    if front12ii.get("preflight_status_by_attach_type") != {"PDF": 1, "PDF_CN": 1, "PDF_Mobile": 1}:
+        fail("Batch 12II preflight status contract regressed")
+    if front12ii.get("mag_request_default_method") != "POST" or front12ii.get("mag_request_pdf_hidden_form_data") is not False:
+        fail("Batch 12II mag_request contract regressed")
+    if front12ii.get("shopping_or_payment_endpoint_invoked") is not False:
+        fail("Batch 12II shopping/payment firewall regressed")
+    probe12ii = batch12ii.get("exact_head_probe", {})
+    if probe12ii.get("workflow_run_id") != 36683181763 or probe12ii.get("artifact_id") != 11082164368:
+        fail("Batch 12II exact-head workflow binding regressed")
+    routes12ii = probe12ii.get("route_results", [])
+    if {x.get("attach_type") for x in routes12ii} != {"PDF", "PDF_CN", "PDF_Mobile"}:
+        fail("Batch 12II exact route-family set regressed")
+    for route in routes12ii:
+        if route.get("http_transport_status") != 200 or route.get("content_type") != "text/html;charset=UTF-8" or route.get("bytes") != 3241:
+            fail("Batch 12II route response shape regressed")
+        if route.get("sha256") != "9c47ea7957afef955da0248c47be6a49c274287abcbe061a7710d7bcbb9ca999" or route.get("content_class") != "SERVER_HTTP404_WRAPPER_HTML" or route.get("pdf_magic") is not False:
+            fail("Batch 12II route body adjudication regressed")
+    if probe12ii.get("selected_pdf") is not None or probe12ii.get("all_three_exact_route_families_same_404_body_hash") is not True:
+        fail("Batch 12II selected-PDF/hash firewall regressed")
+    access12ii = batch12ii.get("access_boundary", {})
+    if access12ii.get("public_direct_pdf_recovered") is not False or access12ii.get("direct_article_fulltext_reviewed") is not False or access12ii.get("direct_article_page_text_increment") != 0:
+        fail("Batch 12II direct-fulltext boundary regressed")
+    if access12ii.get("absence_of_pdf_globally_asserted") is not False or access12ii.get("shopping_or_payment_endpoint_invoked") is not False or access12ii.get("payment_executed") is not False:
+        fail("Batch 12II access/legal firewall regressed")
+    fw12ii = batch12ii.get("object_identity_firewall", {})
+    if fw12ii.get("exact_identity_with_fid070") != "UNRESOLVED" or fw12ii.get("same_object_collapse_authorized") is not False:
+        fail("Batch 12II FID070 identity firewall regressed")
+    if fw12ii.get("exact_fid070_donation_batch") != "UNRESOLVED" or fw12ii.get("exact_fid070_donation_date") != "UNRESOLVED" or fw12ii.get("exact_3368_to_3288_causal_mechanism") != "UNRESOLVED":
+        fail("Batch 12II unresolved target-provenance firewall regressed")
+    reg12ii = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    src12ii = next((x for x in reg12ii.get("sources", []) if x.get("source_id") == "EXT-ZJLIB-TIEQIN-DONATION-2024-ARTICLE1783"), None)
+    if src12ii is None:
+        fail("Batch 12II Zhejiang official article registry source missing")
+    b12ii = src12ii.get("batch_12ii", {})
+    if b12ii.get("article_id") != 1783 or b12ii.get("direct_pdf_recovered") is not False or b12ii.get("direct_fulltext_reviewed") is not False:
+        fail("Batch 12II registry route boundary regressed")
+    acct12ii = batch12ii.get("accounting", {})
+    if acct12ii.get("matrix_rows") != 198 or acct12ii.get("audited_rows") != 166 or acct12ii.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12II matrix accounting regressed")
+    if acct12ii.get("confirmed_provenance_metadata_defect_count") != 17 or acct12ii.get("repaired_provenance_metadata_defect_count") != 17 or acct12ii.get("confirmed_chart_algorithm_defect_count") != 0:
+        fail("Batch 12II defect accounting regressed")
+    try:
+        schema12ii = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12II state version is not numeric")
+    if schema12ii < (1, 247, 0):
+        fail("Batch 12II state version regressed below 1.247.0")
+    if bid12ii not in audit_state.get("completed_batches", ()):
+        fail("Batch 12II missing from completed state")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12II latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")
