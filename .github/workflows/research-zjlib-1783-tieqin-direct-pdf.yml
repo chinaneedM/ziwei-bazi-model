@@ -141,6 +141,21 @@ jobs:
             echo "bytes=$(wc -c < out/token_pdf_cn_post.bin 2>/dev/null || echo 0)" >> out/token_pdf_cn_post.meta
             echo "sha256=$(sha256sum out/token_pdf_cn_post.bin 2>/dev/null | awk '{print $1}' || true)" >> out/token_pdf_cn_post.meta
             echo "magic=$(xxd -l 8 -p out/token_pdf_cn_post.bin 2>/dev/null || true)" >> out/token_pdf_cn_post.meta
+
+            set +e
+            curl -L --compressed -A "$ua" -e "$lexeme" \
+              -H 'Origin: https://bjb.zjlib.cn' \
+              -H 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8' \
+              -c out/cookies.txt -b out/cookies.txt \
+              --data '' -D out/token_pdf_cn_form.headers -o out/token_pdf_cn_form.bin \
+              -w 'http_code=%{http_code}\ncontent_type=%{content_type}\nurl_effective=%{url_effective}\nsize_download=%{size_download}\n' \
+              "$token_pdf_cn_url" > out/token_pdf_cn_form.meta
+            form_rc=$?
+            set -e
+            echo "curl_rc=$form_rc" >> out/token_pdf_cn_form.meta
+            echo "bytes=$(wc -c < out/token_pdf_cn_form.bin 2>/dev/null || echo 0)" >> out/token_pdf_cn_form.meta
+            echo "sha256=$(sha256sum out/token_pdf_cn_form.bin 2>/dev/null | awk '{print $1}' || true)" >> out/token_pdf_cn_form.meta
+            echo "magic=$(xxd -l 8 -p out/token_pdf_cn_form.bin 2>/dev/null || true)" >> out/token_pdf_cn_form.meta
           else
             echo "tokenized PDF fetch skipped: preflight status is not 1 or route missing" >> out/token-route.meta
           fi
@@ -151,7 +166,7 @@ jobs:
           fetch_pdf fullissue "$fullissue"
 
           selected=''
-          for candidate in token_pdf_cn_post token_pdf_cn article article_alt article_cn_pdf fullissue; do
+          for candidate in token_pdf_cn_form token_pdf_cn_post token_pdf_cn article article_alt article_cn_pdf fullissue; do
             if [ -f "out/${candidate}.bin" ] && head -c 5 "out/${candidate}.bin" | grep -q '%PDF-'; then
               selected="out/${candidate}.bin"
               break
@@ -197,7 +212,7 @@ jobs:
 
       - name: Summarize probe
         run: |
-          for f in out/landing.meta out/lexeme.meta out/download_cn.meta out/token-route.meta out/token_pdf_cn.meta out/token_pdf_cn_post.meta out/article.meta out/article_alt.meta out/article_cn_pdf.meta out/fullissue.meta; do
+          for f in out/landing.meta out/lexeme.meta out/download_cn.meta out/token-route.meta out/token_pdf_cn.meta out/token_pdf_cn_post.meta out/token_pdf_cn_form.meta out/article.meta out/article_alt.meta out/article_cn_pdf.meta out/fullissue.meta; do
             echo "--- $f ---"
             cat "$f" || true
           done
