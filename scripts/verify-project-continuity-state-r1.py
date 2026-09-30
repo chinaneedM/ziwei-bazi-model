@@ -312,6 +312,8 @@ ZIWEI_WENWU_OPEN_IT_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDI
 ZIWEI_WENWU_OPEN_IT_EVIDENCE = ROOT / "docs/research/ZIWEI-WENWU-1951-V2N9-OPEN-REPOSITORY-CATALOG-BOUNDARY-R1.json"
 ZIWEI_ZHAO_JAPAN_IU_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-JAPAN-OPAC-PUBLIC-CONTENT-BOUNDARY-IU.md"
 ZIWEI_ZHAO_JAPAN_IU_EVIDENCE = ROOT / "docs/research/ZIWEI-ZHAO-WANLI-WENJI-V1-JAPAN-OPAC-PUBLIC-CONTENT-BOUNDARY-R1.json"
+ZIWEI_ZHAO_CATALOG_IV_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-INSTITUTIONAL-CATALOG-HTML-BOUNDARY-IV.md"
+ZIWEI_ZHAO_CATALOG_IV_EVIDENCE = ROOT / "docs/research/ZIWEI-ZHAO-WANLI-WENJI-V1-INSTITUTIONAL-CATALOG-HTML-BOUNDARY-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -694,9 +696,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-NDL-WENWU-CANKAO-1951-H2-DIGITAL-PROVIDER-BOUNDARY-IS",
     "BATCH-12-ZIWEI-WENWU-1951-V2N9-OPEN-REPOSITORY-CATALOG-BOUNDARY-IT",
     "BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-JAPAN-OPAC-PUBLIC-CONTENT-BOUNDARY-IU",
+    "BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-INSTITUTIONAL-CATALOG-HTML-BOUNDARY-IV",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-JAPAN-OPAC-PUBLIC-CONTENT-BOUNDARY-IU.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-INSTITUTIONAL-CATALOG-HTML-BOUNDARY-IV.md"
 
 
 def fail(message: str) -> None:
@@ -10353,6 +10356,48 @@ def main() -> int:
         fail("Batch 12IU missing from completed state")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12IU latest-batch document mismatch")
+
+    # Batch 12IV: exact-identifier institutional catalog HTML boundary.
+    for path in (ZIWEI_ZHAO_CATALOG_IV_BATCH, ZIWEI_ZHAO_CATALOG_IV_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12IV continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12iv = json.loads(ZIWEI_ZHAO_CATALOG_IV_EVIDENCE.read_text(encoding="utf-8"))
+    bid12iv = "BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-INSTITUTIONAL-CATALOG-HTML-BOUNDARY-IV"
+    if batch12iv.get("batch_id") != bid12iv:
+        fail("Batch 12IV evidence identity mismatch")
+    probe12iv = batch12iv.get("controlling_probe", {})
+    if probe12iv.get("workflow_run_id") != 36735868424 or probe12iv.get("artifact_id") != 11106488630:
+        fail("Batch 12IV probe binding regressed")
+    gb12iv = batch12iv.get("route_results", {}).get("google_books_vid", {})
+    if gb12iv.get("status") != 200 or gb12iv.get("target_title_present") is not True or gb12iv.get("isbn_present") is not True:
+        fail("Batch 12IV Google Books target binding regressed")
+    if gb12iv.get("p197_literal_present") is not False or gb12iv.get("page_level_preview_observed") is not False or gb12iv.get("no_ebook_wording_observed") is not True:
+        fail("Batch 12IV Google Books public-content boundary regressed")
+    conflict12iv = batch12iv.get("google_books_metadata_conflict", {})
+    if conflict12iv.get("controlling_volume_identity") != "VOLUME_1" or conflict12iv.get("google_displayed_volume") != "第3卷" or conflict12iv.get("google_display_may_overwrite_volume_identity") is not False:
+        fail("Batch 12IV Google Books volume-conflict firewall regressed")
+    routes12iv = batch12iv.get("route_results", {})
+    if routes12iv.get("hathitrust_isbn", {}).get("negative_authority") is not False or routes12iv.get("worldcat_isbn", {}).get("negative_authority") is not False or routes12iv.get("worldcat_oclc", {}).get("negative_authority") is not False:
+        fail("Batch 12IV access/rate-limit negative-authority firewall regressed")
+    if batch12iv.get("target_status", {}).get("direct_2011_p197") != "NOT_REVIEWED":
+        fail("Batch 12IV p197 status regressed")
+    reg12iv = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    src12iv = next((x for x in reg12iv.get("sources", []) if x.get("source_id") == "EXT-ZHAO-WANLI-WENJI-V1-INSTITUTIONAL-CATALOG-HTML-BOUNDARY"), None)
+    if src12iv is None or src12iv.get("batch_12iv", {}).get("google_volume_metadata_conflict") != "QUARANTINED":
+        fail("Batch 12IV registry binding missing")
+    acct12iv = batch12iv.get("accounting", {})
+    if acct12iv.get("matrix_rows") != 198 or acct12iv.get("audited_rows") != 166 or acct12iv.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12IV accounting regressed")
+    try:
+        schema12iv = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12IV state version is not numeric")
+    if schema12iv < (1, 260, 0):
+        fail("Batch 12IV state version regressed below 1.260.0")
+    if bid12iv not in audit_state.get("completed_batches", ()):
+        fail("Batch 12IV missing from completed state")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12IV latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

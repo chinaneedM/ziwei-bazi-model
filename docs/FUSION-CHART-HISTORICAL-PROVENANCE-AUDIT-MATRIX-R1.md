@@ -934,3 +934,14 @@ Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WE
 - Direct 2011 p.197 remains NOT_REVIEWED. Product/accounting remains 198 / 166 / 10 and 17/17 provenance repairs, with zero chart-algorithm defects, reopens or candidate collapses.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-JAPAN-OPAC-PUBLIC-CONTENT-BOUNDARY-IU.md`. Research record: `docs/research/ZIWEI-ZHAO-WANLI-WENJI-V1-JAPAN-OPAC-PUBLIC-CONTENT-BOUNDARY-R1.json`.
+
+
+## Progress — Batch 12IV
+
+- Google Books non-API public ISBN VID HTML returns HTTP 200 and visibly binds 《趙万里文集》 / ISBN `9787501346653` / 國家圖書館出版社 / 2011, while stating that no ebook is provided.
+- No literal p.197, configured target quotation term, or actual page-level preview is exposed.
+- The same Google aggregation page displays “第3卷” / 526 pages, conflicting with publisher/Open Library/CiNii institutional volume-1 identity. That Google display is quarantined as an external metadata conflict and cannot overwrite volume identity.
+- HathiTrust is 403; WorldCat is 429/403; LOC exact ISBN/LCCN web searches return zero current results; Stanford's current ISBN search shell does not bind the target; Princeton redirects to a challenge page. These are route-scoped boundaries only.
+- Direct 2011 p.197 remains NOT_REVIEWED. Product/accounting remains 198 / 166 / 10 and 17/17 provenance repairs, with zero chart-algorithm defects, reopens or candidate collapses.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-INSTITUTIONAL-CATALOG-HTML-BOUNDARY-IV.md`. Research record: `docs/research/ZIWEI-ZHAO-WANLI-WENJI-V1-INSTITUTIONAL-CATALOG-HTML-BOUNDARY-R1.json`.

@@ -1,0 +1,140 @@
+{
+  "schema": "ZIWEI-ZHAO-WANLI-WENJI-V1-INSTITUTIONAL-CATALOG-HTML-BOUNDARY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-INSTITUTIONAL-CATALOG-HTML-BOUNDARY-IV",
+  "prior_batch_id": "BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-JAPAN-OPAC-PUBLIC-CONTENT-BOUNDARY-IU",
+  "question": "Can exact ISBN/OCLC/LCCN public catalog and Google Books HTML routes expose direct 2011 《赵万里文集》第1卷 p.197 or a lawful page-level preview?",
+  "answer": "Google Books' non-API public ISBN VID HTML route returns HTTP 200 and visibly binds the target title and ISBN 9787501346653, while explicitly stating that no ebook is provided. It exposes no p.197 or target quotation terms. The same aggregation surface displays volume-3/526-page metadata in tension with publisher/Open Library/CiNii institutional evidence that binds this ISBN to volume 1, so that display is quarantined as an external metadata conflict and cannot overwrite volume identity. HathiTrust is HTTP 403; WorldCat is HTTP 429 for ISBN search and 403 for direct OCLC route; LOC exact ISBN/LCCN web searches return empty result lists; Stanford's current ISBN search shell does not bind the target; Princeton redirects to a challenge page. No login, bypass, copy request or payment was used. Direct 2011 p.197 remains NOT_REVIEWED.",
+  "controlling_probe": {
+    "commit_sha": "33e5f05400d1d2877f3934728e919f65bfb29317",
+    "workflow_run_id": 36735868424,
+    "workflow_job_id": 109957275103,
+    "artifact_id": 11106488630,
+    "artifact_digest": "sha256:b8d1d67465db34adcfd6be1463fa3e8aa62ee9dc79ee5c2aabb153256e2a2154"
+  },
+  "stable_identifiers": {
+    "isbn_13": "9787501346653",
+    "oclc": "775628715",
+    "lccn": "2011426732"
+  },
+  "route_results": {
+    "google_books_vid": {
+      "url": "https://books.google.com/books?vid=ISBN9787501346653",
+      "status": 200,
+      "body_sha256": "689185d33132116d43604a44ade581ad4e000d402a76b6411928e864c7bcf140",
+      "target_title_present": true,
+      "isbn_present": true,
+      "p197_literal_present": false,
+      "target_terms_present": false,
+      "no_ebook_wording_observed": true,
+      "displayed_publisher_year": "國家圖書館出版社 / 2011",
+      "displayed_page_count": 526,
+      "displayed_volume_marker": "第3卷",
+      "page_level_preview_observed": false
+    },
+    "google_books_search": {
+      "status": 200,
+      "redirected_to_google_book_search": true,
+      "target_binding_observed": false
+    },
+    "hathitrust_isbn": {
+      "status": 403,
+      "adjudication": "CURRENT_ACCESS_BOUNDARY_ONLY",
+      "negative_authority": false
+    },
+    "worldcat_isbn": {
+      "status": 429,
+      "adjudication": "CURRENT_RATE_LIMIT_BOUNDARY_ONLY",
+      "negative_authority": false
+    },
+    "worldcat_oclc": {
+      "status": 403,
+      "adjudication": "CURRENT_ACCESS_BOUNDARY_ONLY",
+      "negative_authority": false
+    },
+    "loc_lccn": {
+      "status": 200,
+      "result_count": 0,
+      "adjudication": "CURRENT_LOC_BOOKS_WEB_SEARCH_ZERO_ONLY",
+      "global_absence_claim_authorized": false
+    },
+    "loc_isbn": {
+      "status": 200,
+      "result_count": 0,
+      "adjudication": "CURRENT_LOC_BOOKS_WEB_SEARCH_ZERO_ONLY",
+      "global_absence_claim_authorized": false
+    },
+    "stanford_isbn": {
+      "status": 200,
+      "target_binding_observed": false,
+      "adjudication": "CURRENT_SEARCH_SHELL_NO_TARGET_BINDING"
+    },
+    "princeton_isbn": {
+      "status": 200,
+      "redirected_to_challenge": true,
+      "adjudication": "CURRENT_CHALLENGE_BOUNDARY_ONLY",
+      "bypass_used": false
+    }
+  },
+  "google_books_metadata_conflict": {
+    "isbn": "9787501346653",
+    "controlling_volume_identity": "VOLUME_1",
+    "controlling_identity_basis": [
+      "National Library of China Press Product 5325",
+      "Open Library OL30454631M",
+      "CiNii NCID BB08679512 + Kansai/Kyoto/NIJL institutional OPAC volume-1 binding"
+    ],
+    "google_displayed_volume": "第3卷",
+    "google_displayed_page_count": 526,
+    "adjudication": "QUARANTINED_EXTERNAL_AGGREGATION_METADATA_CONFLICT",
+    "google_display_may_overwrite_volume_identity": false,
+    "provenance_defect_count_change": 0
+  },
+  "target_status": {
+    "direct_2011_p197": "NOT_REVIEWED",
+    "page_level_preview_recovered": false,
+    "direct_page_increment": 0
+  },
+  "security": {
+    "login_used": false,
+    "account_action_used": false,
+    "copy_request_used": false,
+    "payment_used": false,
+    "captcha_bypass_used": false,
+    "tls_verification_disabled": false,
+    "challenge_bypass_used": false
+  },
+  "transmission_impact": {
+    "status": "NONE",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": []
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Do not repeat the current Google Books ISBN VID HTML, HathiTrust, WorldCat, LOC, Stanford ISBN shell or Princeton challenge routes unless their public state changes or a new source-emitted object identifier appears.",
+    "Continue new lawful institutional/page-level routes for direct 2011 《赵万里文集》第1卷 p.197.",
+    "Continue authoritative/open-object recovery of wwck195109.pdf or an equivalent provenance-bound 1951 issue-9 scan.",
+    "Prioritize direct/page-numbered Ji Shuying Chapter 9 or Chapter 10/11 evidence on newly discovered surfaces."
+  ],
+  "updated_at": "2026-09-30"
+}

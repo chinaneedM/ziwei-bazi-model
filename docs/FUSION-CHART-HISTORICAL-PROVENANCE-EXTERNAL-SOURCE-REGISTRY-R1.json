@@ -10729,6 +10729,26 @@
         "research_artifact": "docs/research/ZIWEI-ZHAO-WANLI-WENJI-V1-JAPAN-OPAC-PUBLIC-CONTENT-BOUNDARY-R1.json"
       },
       "url": "https://kuline.kulib.kyoto-u.ac.jp/opac/opac_openurl/?ncid=BB08679512"
+    },
+    {
+      "source_id": "EXT-ZHAO-WANLI-WENJI-V1-INSTITUTIONAL-CATALOG-HTML-BOUNDARY",
+      "title": "《赵万里文集》第1卷精确标识机构目录 / Google Books HTML 公共边界",
+      "historical_period": "current public catalog/aggregation surfaces reviewed 2026-09-30",
+      "provider": "Google Books / HathiTrust / WorldCat / Library of Congress / Stanford SearchWorks / Princeton Catalog",
+      "identifier": "ISBN 9787501346653 / OCLC 775628715 / LCCN 2011426732",
+      "url": "https://books.google.com/books?vid=ISBN9787501346653",
+      "source_role": "PUBLIC_CATALOG_AND_AGGREGATION_ACCESS_BOUNDARY_WITH_METADATA_CONFLICT_FIREWALL",
+      "quality_notes": "Batch 12IV establishes that the Google Books non-API ISBN HTML route is publicly reachable and binds the target title/ISBN while exposing no ebook or p.197. Its displayed volume-3/526-page metadata conflicts with first-party/institutional volume-1 identity and is quarantined. Other tested catalog routes are access/rate-limit/zero-search boundaries only.",
+      "batch_12iv": {
+        "workflow_run_id": 36735868424,
+        "artifact_id": 11106488630,
+        "artifact_digest": "sha256:b8d1d67465db34adcfd6be1463fa3e8aa62ee9dc79ee5c2aabb153256e2a2154",
+        "google_books_html_target_binding": true,
+        "google_books_no_ebook": true,
+        "google_volume_metadata_conflict": "QUARANTINED",
+        "direct_2011_p197": "NOT_REVIEWED",
+        "research_artifact": "docs/research/ZIWEI-ZHAO-WANLI-WENJI-V1-INSTITUTIONAL-CATALOG-HTML-BOUNDARY-R1.json"
+      }
     }
   ],
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md",
