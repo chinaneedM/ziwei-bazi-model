@@ -184,7 +184,7 @@ jobs:
 
           src=json.loads(Path("ji15-japan-opac-public-metadata.json").read_text(encoding="utf-8"))
           chrome=shutil.which("google-chrome") or shutil.which("google-chrome-stable") or shutil.which("chromium") or shutil.which("chromium-browser")
-          targets={k:v.get("final_url") for k,v in src["results"].items() if k in ("kyoto_u","ritsumeikan") and v.get("status")==200 and v.get("final_url")}
+          targets={k:v.get("source_emitted_url") for k,v in src["results"].items() if k in ("kyoto_u","ritsumeikan") and v.get("source_emitted_url")}
           exact_terms=[
               "铁琴铜剑楼藏书的收购入藏","吴梅、朱偰、赵元方的捐赠","涵芬楼藏书",
               "周叔弢先生与北京图书馆的深厚渊源","国家图书馆藏《永乐大典》概述"
