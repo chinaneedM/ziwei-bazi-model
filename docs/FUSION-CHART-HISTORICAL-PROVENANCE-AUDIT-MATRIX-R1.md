@@ -1000,3 +1000,14 @@ Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-BE
 - Product/accounting remains 198 / 166 / 10, provenance defects 17/17, with zero chart-algorithm defects/reopens/candidate collapses.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-GOOGLE-BOOKS-SOURCE-EMITTED-OBJECT-CONFLICT-JA.md`. Research record: `docs/research/ZIWEI-ZHAO-WANLI-WENJI-V1-GOOGLE-BOOKS-SOURCE-EMITTED-OBJECT-CONFLICT-R1.json`.
+
+
+## Progress — Batch 12JB
+
+- CiNii NCID `AA11467834` source-emits the 奈良文化財研究所 OPAC route; the first-party item closes the target as `Vol.2, no.9 / 1951`, local bib `SB00333452`, hold `TS00027259`, Document ID `10024273`, request number `202.505||3||1951-9C`.
+- Anonymous runner probe `36752861983` / artifact `11115411027` / digest `sha256:062324181d463477152c18c189152474d334ec842ac41ae09a0bf52304455884` reproduces both exact-item identity and the current Nabunken remote-copy policy.
+- The public item surface exposes no direct Zhao pp.221–233 page surrogate; original 1951 pages and direct 1951-vs-2011 textual identity remain NOT_REVIEWED / UNRESOLVED.
+- Current official policy does not accept direct copy inquiries from individuals; individuals are directed through an institution library or nearest public library, with listed B/W ¥60/page + shipping and color ¥200/page + shipping and an institutional NACSIS-ILL route. No request, ILL, identity transmission or payment was made.
+- This is an item/access-policy precision upgrade only. Product/accounting remains 198 / 166 / 10, provenance defects 17/17, with zero chart-algorithm defects, reopens or candidate collapses and no transmission-graph change.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENWU-CANKAO-1951-V2N9-NABUNKEN-EXACT-ISSUE-AND-REMOTE-COPY-BOUNDARY-JB.md`. Research record: `docs/research/ZIWEI-WENWU-CANKAO-1951-V2N9-NABUNKEN-EXACT-ISSUE-AND-REMOTE-COPY-BOUNDARY-R1.json`.

@@ -324,6 +324,8 @@ ZIWEI_BEITU_GBOOKS_IZ_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AU
 ZIWEI_BEITU_GBOOKS_IZ_EVIDENCE = ROOT / "docs/research/ZIWEI-BEITU1997-GOOGLE-BOOKS-ALTERNATE-INBOOK-SEARCH-BOUNDARY-R1.json"
 ZIWEI_ZHAO_GBOOKS_JA_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-GOOGLE-BOOKS-SOURCE-EMITTED-OBJECT-CONFLICT-JA.md"
 ZIWEI_ZHAO_GBOOKS_JA_EVIDENCE = ROOT / "docs/research/ZIWEI-ZHAO-WANLI-WENJI-V1-GOOGLE-BOOKS-SOURCE-EMITTED-OBJECT-CONFLICT-R1.json"
+ZIWEI_NABUNKEN_WENWU_JB_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENWU-CANKAO-1951-V2N9-NABUNKEN-EXACT-ISSUE-AND-REMOTE-COPY-BOUNDARY-JB.md"
+ZIWEI_NABUNKEN_WENWU_JB_EVIDENCE = ROOT / "docs/research/ZIWEI-WENWU-CANKAO-1951-V2N9-NABUNKEN-EXACT-ISSUE-AND-REMOTE-COPY-BOUNDARY-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -712,7 +714,7 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-JI-SHUYING-2009-TIEQIN-DIRECT-TRANSACTION-CHRONOLOGY-IY",    "BATCH-12-ZIWEI-BEITU1997-GOOGLE-BOOKS-ALTERNATE-INBOOK-SEARCH-BOUNDARY-IZ",    "BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-GOOGLE-BOOKS-SOURCE-EMITTED-OBJECT-CONFLICT-JA",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-GOOGLE-BOOKS-SOURCE-EMITTED-OBJECT-CONFLICT-JA.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENWU-CANKAO-1951-V2N9-NABUNKEN-EXACT-ISSUE-AND-REMOTE-COPY-BOUNDARY-JB.md"
 
 
 def fail(message: str) -> None:
@@ -10626,6 +10628,67 @@ def main() -> int:
         fail("Batch 12JA missing from completed state")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12JA latest-batch document mismatch")
+
+
+    # Batch 12JB: Nabunken first-party exact 1951 v2n9 item + mediated remote-copy boundary.
+    for path in (ZIWEI_NABUNKEN_WENWU_JB_BATCH, ZIWEI_NABUNKEN_WENWU_JB_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12JB continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12jb = json.loads(ZIWEI_NABUNKEN_WENWU_JB_EVIDENCE.read_text(encoding="utf-8"))
+    bid12jb = "BATCH-12-ZIWEI-WENWU-CANKAO-1951-V2N9-NABUNKEN-EXACT-ISSUE-AND-REMOTE-COPY-BOUNDARY-JB"
+    if batch12jb.get("batch_id") != bid12jb:
+        fail("Batch 12JB evidence identity mismatch")
+    item12jb = batch12jb.get("nabunken_exact_issue", {})
+    if item12jb.get("ncid") != "AA11467834" or item12jb.get("local_bib_id") != "SB00333452":
+        fail("Batch 12JB Nabunken serial/local-bib identity regressed")
+    if item12jb.get("hold_id") != "TS00027259" or item12jb.get("document_id") != "10024273":
+        fail("Batch 12JB exact hold/document identity regressed")
+    if item12jb.get("request_number") != "202.505||3||1951-9C" or item12jb.get("volume_issue") != "Vol.2, no.9" or item12jb.get("year") != 1951:
+        fail("Batch 12JB exact issue/request identity regressed")
+    if item12jb.get("first_party_exact_single_issue_identity_closed") is not True:
+        fail("Batch 12JB exact issue closure regressed")
+    if item12jb.get("public_page_level_surrogate_recovered") is not False or item12jb.get("direct_target_pages_221_233_reviewed") is not False:
+        fail("Batch 12JB direct-text firewall regressed")
+    probe12jb = batch12jb.get("reproducible_probe", {})
+    if probe12jb.get("workflow_run_id") != 36752861983 or probe12jb.get("artifact_id") != 11115411027:
+        fail("Batch 12JB probe run/artifact binding regressed")
+    if probe12jb.get("artifact_digest") != "sha256:062324181d463477152c18c189152474d334ec842ac41ae09a0bf52304455884":
+        fail("Batch 12JB artifact digest regressed")
+    if probe12jb.get("required_identity_markers_all_true") is not True or probe12jb.get("policy_markers_all_true") is not True:
+        fail("Batch 12JB probe marker closure regressed")
+    policy12jb = batch12jb.get("remote_copy_policy", {})
+    if policy12jb.get("direct_copy_inquiries_from_individuals_accepted") is not False:
+        fail("Batch 12JB individual-copy policy regressed")
+    if policy12jb.get("individual_must_use_institution_or_nearest_public_library_intermediary") is not True:
+        fail("Batch 12JB library-intermediary policy regressed")
+    if policy12jb.get("black_and_white_fee_yen_per_page") != 60 or policy12jb.get("color_fee_yen_per_page") != 200:
+        fail("Batch 12JB current copy-fee control regressed")
+    if policy12jb.get("nacsis_ill_route_observed") is not True or policy12jb.get("actual_request_requires_explicit_user_authorization") is not True:
+        fail("Batch 12JB external-action boundary regressed")
+    sec12jb = batch12jb.get("security", {})
+    for key in ("login_used", "account_action_used", "copy_request_sent", "interlibrary_loan_request_sent", "identity_transmitted", "payment_used", "captcha_bypass_used", "tls_verification_disabled", "guessed_hold_id_used"):
+        if sec12jb.get(key) is not False:
+            fail(f"Batch 12JB security boundary regressed: {key}")
+    reg12jb = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    src_item12jb = next((x for x in reg12jb.get("sources", []) if x.get("source_id") == "EXT-NABUNKEN-WENWU-CANKAO-1951-V2N9-EXACT-ISSUE-ITEM"), None)
+    if src_item12jb is None or src_item12jb.get("batch_12jb", {}).get("hold_id") != "TS00027259" or src_item12jb.get("batch_12jb", {}).get("direct_target_pages_reviewed") is not False:
+        fail("Batch 12JB exact-item registry binding missing")
+    src_policy12jb = next((x for x in reg12jb.get("sources", []) if x.get("source_id") == "EXT-NABUNKEN-LIBRARY-REMOTE-COPY-POLICY-2026"), None)
+    if src_policy12jb is None or src_policy12jb.get("batch_12jb", {}).get("explicit_user_authorization_required_for_actual_request") is not True:
+        fail("Batch 12JB policy registry binding missing")
+    acct12jb = batch12jb.get("accounting", {})
+    if acct12jb.get("matrix_rows") != 198 or acct12jb.get("audited_rows") != 166 or acct12jb.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12JB accounting regressed")
+    try:
+        schema12jb = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12JB state version is not numeric")
+    if schema12jb < (1, 266, 0):
+        fail("Batch 12JB state version regressed below 1.266.0")
+    if bid12jb not in audit_state.get("completed_batches", ()):
+        fail("Batch 12JB missing from completed state")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12JB latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

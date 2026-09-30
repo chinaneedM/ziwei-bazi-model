@@ -10859,6 +10859,56 @@
         "target_3482_3483_route": "UNRESOLVED",
         "research_artifact": "docs/research/ZIWEI-JI-SHUYING-2009-TIEQIN-DIRECT-TRANSACTION-CHRONOLOGY-R1.json"
       }
+    },
+    {
+      "source_id": "EXT-NABUNKEN-WENWU-CANKAO-1951-V2N9-EXACT-ISSUE-ITEM",
+      "title": "奈良文化財研究所《文物参攷資料》Vol.2 no.9 (1951) 精确单期 item",
+      "historical_period": "1951 original serial issue; current first-party item record reviewed 2026-10-01",
+      "provider": "奈良文化財研究所 図書資料室 OPAC",
+      "identifier": "NCID AA11467834 / local bib SB00333452 / hold TS00027259 / Document ID 10024273 / 202.505||3||1951-9C",
+      "url": "http://opac.nabunken.go.jp/gate?module=search&path=search.do&method=search&searchForm.library=true&searchForm.orderNumber=AA11467834",
+      "source_role": "FIRST_PARTY_LIBRARY_OPAC_EXACT_SINGLE_ISSUE_ITEM_CONTROL_FOR_1951_VOLUME2_ISSUE9",
+      "quality_notes": "Batch 12JB follows CiNii's source-emitted Nabunken route and closes a first-party single-issue item for Vol.2 no.9 / 1951. This is stronger item-level access routing than a union holding-range statement, but it does not expose Zhao Wanli pp.221–233 or a public page-level digital surrogate.",
+      "batch_12jb": {
+        "local_bib_id": "SB00333452",
+        "hold_id": "TS00027259",
+        "document_id": "10024273",
+        "request_number": "202.505||3||1951-9C",
+        "target_volume": 2,
+        "target_issue": 9,
+        "year": 1951,
+        "workflow_run_id": 36752861983,
+        "artifact_id": 11115411027,
+        "artifact_digest": "sha256:062324181d463477152c18c189152474d334ec842ac41ae09a0bf52304455884",
+        "direct_target_pages_reviewed": false,
+        "public_page_level_surrogate_recovered": false,
+        "research_artifact": "docs/research/ZIWEI-WENWU-CANKAO-1951-V2N9-NABUNKEN-EXACT-ISSUE-AND-REMOTE-COPY-BOUNDARY-R1.json"
+      }
+    },
+    {
+      "source_id": "EXT-NABUNKEN-LIBRARY-REMOTE-COPY-POLICY-2026",
+      "title": "奈良文化財研究所図書資料室 利用案内：遠隔地からの複写・ILL制度",
+      "historical_period": "current official access policy reviewed 2026-10-01",
+      "provider": "奈良文化財研究所",
+      "url": "https://www.nabunken.go.jp/usage/library.html",
+      "source_role": "FIRST_PARTY_CURRENT_REMOTE_COPY_AND_LIBRARY_INTERMEDIARY_POLICY_CONTROL",
+      "quality_notes": "Current official policy states that direct copy inquiries from individuals are not accepted and directs individuals through their institution library or nearest public library; it lists B/W and color per-page fees plus shipping and an institutional NACSIS-ILL route. This is an access-policy boundary only, not a copy entitlement, fulfillment, or text witness. No request or payment was made.",
+      "batch_12jb": {
+        "direct_copy_inquiries_from_individuals_accepted": false,
+        "institution_or_public_library_intermediary_required_for_individuals": true,
+        "black_and_white_fee_yen_per_page": 60,
+        "color_fee_yen_per_page": 200,
+        "shipping_additional": true,
+        "nacsis_ill_route_observed": true,
+        "copy_request_sent": false,
+        "ill_request_sent": false,
+        "payment_used": false,
+        "explicit_user_authorization_required_for_actual_request": true,
+        "workflow_run_id": 36752861983,
+        "artifact_id": 11115411027,
+        "artifact_digest": "sha256:062324181d463477152c18c189152474d334ec842ac41ae09a0bf52304455884",
+        "research_artifact": "docs/research/ZIWEI-WENWU-CANKAO-1951-V2N9-NABUNKEN-EXACT-ISSUE-AND-REMOTE-COPY-BOUNDARY-R1.json"
+      }
     }
   ],
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md",
