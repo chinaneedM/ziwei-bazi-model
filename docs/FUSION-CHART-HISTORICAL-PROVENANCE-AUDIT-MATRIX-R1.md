@@ -811,3 +811,14 @@ Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZJ
 - Accounting remains 198 / 166 / 10 and 17/17 provenance repairs, with zero chart-algorithm defects, reopens or candidate collapses.
 
 Batch document: docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-2009-PUBLIC-PAGINATION-CALIBRATION-BOUNDARY-IJ.md. Research record: docs/research/ZIWEI-JI-SHUYING-2009-PUBLIC-PAGINATION-CALIBRATION-BOUNDARY-R1.json.
+
+
+## Progress — Batch 12IK
+
+- A public commercial package manifest now supplies a stable filename locator for the exact 1951 issue-9 target: `KW143 / 1951.8-9 / wwck195109.pdf / 9.73 MB`.
+- This is access-locator metadata only. No PDF bytes, hash, page count, scan provenance, completeness or lawful public-download status is established; the package's `原刊扫描` wording is not promoted to provenance authority.
+- A second search-indexed xy980 surface reproduces the same manifest pattern but currently fetches as HTTP 502 and is treated only as a duplicated locator, not an independent scan witness.
+- Exact-filename and Internet Archive-domain discovery recovered no public direct object; those zero results remain route observations, not nonexistence evidence. No unverified mirror/commercial download is executed.
+- 1951 pp.221–233, 2011 p.197 and Ji Shuying Chapter 9 remain not directly reviewed. Accounting remains 198 / 166 / 10 and 17/17 provenance repairs, with zero chart-algorithm defects, reopens or candidate collapses.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENWU-CANKAO-1951-WWCK195109-SCAN-PACKAGE-LOCATOR-BOUNDARY-IK.md`. Research record: `docs/research/ZIWEI-WENWU-CANKAO-1951-WWCK195109-SCAN-PACKAGE-LOCATOR-BOUNDARY-R1.json`.
