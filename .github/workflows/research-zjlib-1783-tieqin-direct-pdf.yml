@@ -63,7 +63,9 @@ jobs:
             local body="out/${name}.bin"
             local meta="out/${name}.meta"
             set +e
-            curl -L --compressed -A "$ua" -e "$landing" -D "$headers" -o "$body"               -w 'http_code=%{http_code}\ncontent_type=%{content_type}\nurl_effective=%{url_effective}\nsize_download=%{size_download}\n'               "$url" > "$meta"
+            curl -L --compressed -A "$ua" -e "$lexeme" -c out/cookies.txt -b out/cookies.txt -D "$headers" -o "$body" \
+              -w 'http_code=%{http_code}\ncontent_type=%{content_type}\nurl_effective=%{url_effective}\nsize_download=%{size_download}\n' \
+              "$url" > "$meta"
             local rc=$?
             set -e
             echo "curl_rc=$rc" >> "$meta"
@@ -86,13 +88,29 @@ jobs:
             set -e
           done
 
+          preflight_status=$(sed -n 's/.*"status":\([0-9][0-9]*\).*/\1/p' out/show_pdf_cn.txt | head -1)
+          token_pdf_cn_url=$(sed -n 's/.*"pdfCnUrl":"\([^"]*\)".*/\1/p' out/show_pdf_cn.txt | head -1)
+          {
+            echo "preflight_pdf_cn_status=$preflight_status"
+            if [ -n "$token_pdf_cn_url" ]; then
+              echo "token_pdf_cn_route_present=true"
+            else
+              echo "token_pdf_cn_route_present=false"
+            fi
+          } > out/token-route.meta
+          if [ "$preflight_status" = "1" ] && [ -n "$token_pdf_cn_url" ]; then
+            fetch_pdf token_pdf_cn "$token_pdf_cn_url"
+          else
+            echo "tokenized PDF fetch skipped: preflight status is not 1 or route missing" >> out/token-route.meta
+          fi
+
           fetch_pdf article "$article"
           fetch_pdf article_alt "$article_alt"
           fetch_pdf article_cn_pdf "$article_cn_pdf"
           fetch_pdf fullissue "$fullissue"
 
           selected=''
-          for candidate in article article_alt article_cn_pdf fullissue; do
+          for candidate in token_pdf_cn article article_alt article_cn_pdf fullissue; do
             if [ -f "out/${candidate}.bin" ] && head -c 5 "out/${candidate}.bin" | grep -q '%PDF-'; then
               selected="out/${candidate}.bin"
               break
@@ -138,7 +156,7 @@ jobs:
 
       - name: Summarize probe
         run: |
-          for f in out/landing.meta out/lexeme.meta out/download_cn.meta out/article.meta out/article_alt.meta out/article_cn_pdf.meta out/fullissue.meta; do
+          for f in out/landing.meta out/lexeme.meta out/download_cn.meta out/token-route.meta out/token_pdf_cn.meta out/article.meta out/article_alt.meta out/article_cn_pdf.meta out/fullissue.meta; do
             echo "--- $f ---"
             cat "$f" || true
           done
