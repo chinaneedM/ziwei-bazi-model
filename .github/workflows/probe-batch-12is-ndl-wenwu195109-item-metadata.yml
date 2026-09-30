@@ -1,0 +1,157 @@
+name: probe-batch-12is-ndl-wenwu195109-item-metadata
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12is-ndl-wenwu195109-item-metadata.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Resolve exact 1951 periodical item metadata from NDL APIs
+        run: |
+          python - <<'PY'
+          import hashlib, json, re
+          import xml.etree.ElementTree as ET
+          from pathlib import Path
+          from urllib.parse import quote, urlencode
+          import requests
+
+          UA={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; exact NDL periodical-item metadata resolution)"}
+          OPENSEARCH="https://ndlsearch.ndl.go.jp/api/opensearch"
+          OAI="https://ndlsearch.ndl.go.jp/api/oaipmh"
+          EXACT_IDS=[
+              "R100000002-Ia0000051292-i25241419",
+              "R100000002-Ia0000051292-i25241426",
+              "R100000002-Ia0000051293-i25247613",
+              "R100000002-Ia0000051293-i25247622",
+          ]
+
+          def local(tag):
+              return tag.rsplit("}",1)[-1]
+
+          def textvals(root, name):
+              return [(x.text or "").strip() for x in root.iter() if local(x.tag)==name and (x.text or "").strip()]
+
+          def item_rows(xml_bytes):
+              root=ET.fromstring(xml_bytes)
+              rows=[]
+              for item in [x for x in root.iter() if local(x.tag)=="item"]:
+                  vals={}
+                  for e in item.iter():
+                      n=local(e.tag)
+                      t=(e.text or "").strip()
+                      if t:
+                          vals.setdefault(n,[]).append(t)
+                      for k,v in e.attrib.items():
+                          if v:
+                              vals.setdefault("@"+local(k),[]).append(v)
+                  flat=" ".join(sum(vals.values(),[]))
+                  ids=sorted(set(re.findall(r'R100000002-Ia\d+(?:-i\d+)?',flat)))
+                  rows.append({
+                      "record_ids":ids,
+                      "title":vals.get("title",[])[:10],
+                      "date":vals.get("date",[])[:10],
+                      "description":vals.get("description",[])[:20],
+                      "identifier":vals.get("identifier",[])[:20],
+                      "link":vals.get("link",[])[:20],
+                      "volume":vals.get("volume",[])[:10],
+                      "issue":vals.get("issue",[])[:10],
+                      "number":vals.get("number",[])[:10],
+                      "source":vals.get("source",[])[:10],
+                      "relation":vals.get("relation",[])[:20],
+                      "rights":vals.get("rights",[])[:10],
+                  })
+              return rows
+
+          s=requests.Session(); s.headers.update(UA)
+          params={"cnt":"100","title":"文物参考資料","from":"1951","until":"1951"}
+          u=OPENSEARCH+"?"+urlencode(params)
+          r=s.get(u,timeout=45); body=r.content
+          rows=item_rows(body)
+          exact_from_search={}
+          for target in EXACT_IDS:
+              exact_from_search[target]=[]
+              for row in rows:
+                  if target in row["record_ids"] or target in " ".join(row["identifier"]+row["link"]+row["relation"]):
+                      exact_from_search[target].append(row)
+
+          oai={}
+          for target in EXACT_IDS:
+              ident="oai:ndlsearch.ndl.go.jp:"+target
+              url=OAI+"?"+urlencode({
+                  "verb":"GetRecord",
+                  "metadataPrefix":"oai_dc",
+                  "identifier":ident,
+              })
+              row={"identifier":ident,"url":url}
+              try:
+                  rr=s.get(url,timeout=45); b=rr.content
+                  root=ET.fromstring(b)
+                  vals={}
+                  for e in root.iter():
+                      n=local(e.tag)
+                      t=(e.text or "").strip()
+                      if t:
+                          vals.setdefault(n,[]).append(t)
+                  row.update({
+                      "status":rr.status_code,
+                      "content_type":rr.headers.get("Content-Type"),
+                      "bytes":len(b),
+                      "sha256":hashlib.sha256(b).hexdigest(),
+                      "error":vals.get("error",[])[:10],
+                      "title":vals.get("title",[])[:20],
+                      "date":vals.get("date",[])[:20],
+                      "description":vals.get("description",[])[:30],
+                      "identifier_values":vals.get("identifier",[])[:30],
+                      "source":vals.get("source",[])[:20],
+                      "relation":vals.get("relation",[])[:30],
+                      "coverage":vals.get("coverage",[])[:20],
+                      "type":vals.get("type",[])[:20],
+                      "format":vals.get("format",[])[:20],
+                      "publisher":vals.get("publisher",[])[:20],
+                      "creator":vals.get("creator",[])[:20],
+                      "subject":vals.get("subject",[])[:30],
+                      "raw_xml_saved":False,
+                      "raw_xml_logged":False,
+                  })
+              except Exception as e:
+                  row["probe_error"]=f"{type(e).__name__}: {e}"
+              oai[target]=row
+
+          out={
+              "opensearch_url":u,
+              "opensearch_status":r.status_code,
+              "opensearch_bytes":len(body),
+              "opensearch_sha256":hashlib.sha256(body).hexdigest(),
+              "result_count":len(rows),
+              "exact_from_search":exact_from_search,
+              "oai_getrecord":oai,
+              "target_issue_terms":["1951","第9期","9期","第九期","9","221","233","永乐大典","永樂大典"],
+              "security":{
+                  "login_used":False,
+                  "account_action_used":False,
+                  "copy_request_used":False,
+                  "payment_used":False,
+                  "captcha_bypass_used":False,
+                  "tls_verification_disabled":False,
+                  "bulk_harvest_used":False,
+                  "fulltext_requested":False
+              }
+          }
+          Path("ndl-wenwu195109-item-metadata.json").write_text(
+              json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12is-ndl-wenwu195109-item-metadata
+          path: ndl-wenwu195109-item-metadata.json
