@@ -292,6 +292,8 @@ ZIWEI_JI_PAGINATION_IJ_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-A
 ZIWEI_JI_PAGINATION_IJ_EVIDENCE = ROOT / "docs/research/ZIWEI-JI-SHUYING-2009-PUBLIC-PAGINATION-CALIBRATION-BOUNDARY-R1.json"
 ZIWEI_WWCK_IK_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENWU-CANKAO-1951-WWCK195109-SCAN-PACKAGE-LOCATOR-BOUNDARY-IK.md"
 ZIWEI_WWCK_IK_EVIDENCE = ROOT / "docs/research/ZIWEI-WENWU-CANKAO-1951-WWCK195109-SCAN-PACKAGE-LOCATOR-BOUNDARY-R1.json"
+ZIWEI_GBOOKS_IL_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-GOOGLE-BOOKS-JI15-NONSEARCHABLE-AND-API-QUOTA-BOUNDARY-IL.md"
+ZIWEI_GBOOKS_IL_EVIDENCE = ROOT / "docs/research/ZIWEI-GOOGLE-BOOKS-JI15-NONSEARCHABLE-AND-API-QUOTA-BOUNDARY-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -664,9 +666,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-ZJLIB-TIEQIN-2024-OFFICIAL-PDF-TOKEN-ROUTE-ACCESS-BOUNDARY-II",
     "BATCH-12-ZIWEI-JI-SHUYING-2009-PUBLIC-PAGINATION-CALIBRATION-BOUNDARY-IJ",
     "BATCH-12-ZIWEI-WENWU-CANKAO-1951-WWCK195109-SCAN-PACKAGE-LOCATOR-BOUNDARY-IK",
+    "BATCH-12-ZIWEI-GOOGLE-BOOKS-JI15-NONSEARCHABLE-AND-API-QUOTA-BOUNDARY-IL",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENWU-CANKAO-1951-WWCK195109-SCAN-PACKAGE-LOCATOR-BOUNDARY-IK.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-GOOGLE-BOOKS-JI15-NONSEARCHABLE-AND-API-QUOTA-BOUNDARY-IL.md"
 
 
 def fail(message: str) -> None:
@@ -9786,6 +9789,57 @@ def main() -> int:
         fail("Batch 12IK missing from completed state")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12IK latest-batch document mismatch")
+
+    # Batch 12IL: Google Books public-index nonsearchable/API-quota boundary.
+    for path in (ZIWEI_GBOOKS_IL_BATCH, ZIWEI_GBOOKS_IL_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12IL continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12il = json.loads(ZIWEI_GBOOKS_IL_EVIDENCE.read_text(encoding="utf-8"))
+    bid12il = "BATCH-12-ZIWEI-GOOGLE-BOOKS-JI15-NONSEARCHABLE-AND-API-QUOTA-BOUNDARY-IL"
+    if batch12il.get("batch_id") != bid12il:
+        fail("Batch 12IL evidence identity mismatch")
+    probe12il = batch12il.get("exact_probe", {})
+    if probe12il.get("workflow_run_id") != 36701117083 or probe12il.get("job_id") != 109840523830 or probe12il.get("workflow_conclusion") != "success":
+        fail("Batch 12IL probe binding regressed")
+    api12il = batch12il.get("volume_api_boundary", {})
+    if api12il.get("quota_limit_value") != "0" or api12il.get("api_no_volume_claim_authorized") is not False:
+        fail("Batch 12IL API quota/no-volume firewall regressed")
+    if {x.get("http_status") for x in api12il.get("queries", [])} != {429}:
+        fail("Batch 12IL API status set regressed")
+    ji12il = batch12il.get("known_ji_volume_search_boundary", {})
+    if ji12il.get("google_books_volume_id") != "bAnzzgEACAAJ" or ji12il.get("tested_term_count") != 14:
+        fail("Batch 12IL Ji route identity/count regressed")
+    if ji12il.get("all_http_status_200") is not True or ji12il.get("all_number_of_results_zero") is not True or ji12il.get("all_searchable_false") is not True:
+        fail("Batch 12IL Ji SearchWithinVolume2 response boundary regressed")
+    if ji12il.get("negative_textual_inference_authorized") is not False or ji12il.get("direct_text_increment") != 0:
+        fail("Batch 12IL negative-text/direct-text firewall regressed")
+    fw12il = batch12il.get("interpretation_firewall", {})
+    if not all(fw12il.get(k) is True for k in ("http_429_is_not_no_volume","number_of_results_zero_with_searchable_false_is_not_term_absence","nonsearchable_public_index_is_not_fulltext_negative_evidence","no_cross_volume_zhao_search_claim_without_resolved_volume_id")):
+        fail("Batch 12IL interpretation firewall regressed")
+    adj12il = batch12il.get("adjudication", {})
+    if adj12il.get("ji_known_volume_in_book_search_route") != "CLOSED_NONSEARCHABLE_PUBLIC_INDEX" or adj12il.get("google_books_volume_api_current_route") != "RATE_LIMITED_QUOTA_ZERO_UNRESOLVED":
+        fail("Batch 12IL adjudication regressed")
+    if adj12il.get("ji_chapter_9_direct_text") != "NOT_REVIEWED" or adj12il.get("zhao_2011_p197_direct_text") != "NOT_REVIEWED":
+        fail("Batch 12IL direct-text boundary regressed")
+    reg12il = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    src12il = next((x for x in reg12il.get("sources", []) if x.get("source_id") == "EXT-GBOOKS-JI15-BANZZGEACAAJ-PUBLIC-INDEX-BOUNDARY"), None)
+    if src12il is None or src12il.get("source_role") != "PUBLIC_INDEX_ACCESS_BEHAVIOR_CONTROL_NOT_BIBLIOGRAPHIC_OR_TEXT_AUTHORITY":
+        fail("Batch 12IL registry route source missing")
+    acct12il = batch12il.get("accounting", {})
+    if acct12il.get("matrix_rows") != 198 or acct12il.get("audited_rows") != 166 or acct12il.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12IL matrix accounting regressed")
+    if acct12il.get("confirmed_provenance_metadata_defect_count") != 17 or acct12il.get("repaired_provenance_metadata_defect_count") != 17 or acct12il.get("confirmed_chart_algorithm_defect_count") != 0:
+        fail("Batch 12IL defect accounting regressed")
+    try:
+        schema12il = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12IL state version is not numeric")
+    if schema12il < (1, 250, 0):
+        fail("Batch 12IL state version regressed below 1.250.0")
+    if bid12il not in audit_state.get("completed_batches", ()):
+        fail("Batch 12IL missing from completed state")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12IL latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

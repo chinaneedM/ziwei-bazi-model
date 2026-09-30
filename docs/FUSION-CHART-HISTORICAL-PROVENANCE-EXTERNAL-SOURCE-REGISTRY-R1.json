@@ -10438,6 +10438,26 @@
         "lawful_public_download_closed": false,
         "research_artifact": "docs/research/ZIWEI-WENWU-CANKAO-1951-WWCK195109-SCAN-PACKAGE-LOCATOR-BOUNDARY-R1.json"
       }
+    },
+    {
+      "source_id": "EXT-GBOOKS-JI15-BANZZGEACAAJ-PUBLIC-INDEX-BOUNDARY",
+      "title": "Google Books `bAnzzgEACAAJ` public SearchWithinVolume2 route control",
+      "historical_period": "current Google Books public index surface probed 2026-09-30",
+      "provider": "Google Books",
+      "url": "https://books.google.com/books?id=bAnzzgEACAAJ",
+      "source_role": "PUBLIC_INDEX_ACCESS_BEHAVIOR_CONTROL_NOT_BIBLIOGRAPHIC_OR_TEXT_AUTHORITY",
+      "quality_notes": "Batch 12IL records only current public in-book search behavior for the already-selected Ji discovery route. Fourteen high-information queries returned HTTP 200 with number_of_results=0 and searchable=false. The latter field makes the zero counts unusable as negative textual evidence. Batch 12IL does not use this source to independently prove exact edition identity, page content or chapter pagination.",
+      "batch_12il": {
+        "volume_id": "bAnzzgEACAAJ",
+        "tested_term_count": 14,
+        "all_http_status_200": true,
+        "all_zero_results": true,
+        "all_searchable_false": true,
+        "negative_textual_inference_authorized": false,
+        "workflow_run_id": 36701117083,
+        "job_id": 109840523830,
+        "research_artifact": "docs/research/ZIWEI-GOOGLE-BOOKS-JI15-NONSEARCHABLE-AND-API-QUOTA-BOUNDARY-R1.json"
+      }
     }
   ],
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md",

@@ -822,3 +822,14 @@ Batch document: docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-
 - 1951 pp.221–233, 2011 p.197 and Ji Shuying Chapter 9 remain not directly reviewed. Accounting remains 198 / 166 / 10 and 17/17 provenance repairs, with zero chart-algorithm defects, reopens or candidate collapses.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENWU-CANKAO-1951-WWCK195109-SCAN-PACKAGE-LOCATOR-BOUNDARY-IK.md`. Research record: `docs/research/ZIWEI-WENWU-CANKAO-1951-WWCK195109-SCAN-PACKAGE-LOCATOR-BOUNDARY-R1.json`.
+
+
+## Progress — Batch 12IL
+
+- Google Books Volumes API probes for Ji 2009 and Zhao 2011 ISBN/title routes return explicit HTTP 429 `RESOURCE_EXHAUSTED` with daily project quota limit value `0`; this is an access/quota boundary, never a no-volume result.
+- Public `SearchWithinVolume2` on known Ji route `bAnzzgEACAAJ` was tested with 14 high-information terms. Every response is HTTP 200 with `number_of_results=0` and `searchable=false`; the zero counts therefore carry zero textual-absence authority.
+- No page ID, snippet, Chapter-9 text/range, Zhao 2011 p.197, or 1951 pp.221–233 is recovered. No account/purchase/bypass action is executed.
+- Highest next gate leaves this nonsearchable route and returns to lawful direct page/object discovery and the `wwck195109.pdf` locator.
+- Accounting remains 198 / 166 / 10 and 17/17 provenance repairs, with zero chart-algorithm defects, reopens or candidate collapses.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-GOOGLE-BOOKS-JI15-NONSEARCHABLE-AND-API-QUOTA-BOUNDARY-IL.md`. Research record: `docs/research/ZIWEI-GOOGLE-BOOKS-JI15-NONSEARCHABLE-AND-API-QUOTA-BOUNDARY-R1.json`.
