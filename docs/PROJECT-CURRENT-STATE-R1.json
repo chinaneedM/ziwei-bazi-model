@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.268.0",
+  "schema_version": "1.269.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -350,9 +350,10 @@
       "BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-GOOGLE-BOOKS-SOURCE-EMITTED-OBJECT-CONFLICT-JA",
       "BATCH-12-ZIWEI-WENWU-CANKAO-1951-V2N9-NABUNKEN-EXACT-ISSUE-AND-REMOTE-COPY-BOUNDARY-JB",
       "BATCH-12-ZIWEI-WENWU-1951-CNBKSY-PUBLIC-SEARCH-CONTRACT-ACCESS-BOUNDARY-JC",
-      "BATCH-12-ZIWEI-ZHENG-YONGLE-1951-0813-0831-PUBLICATION-DATE-CONFLICT-JD"
+      "BATCH-12-ZIWEI-ZHENG-YONGLE-1951-0813-0831-PUBLICATION-DATE-CONFLICT-JD",
+      "BATCH-12-ZIWEI-RMRB-OFFICIAL-ARCHIVE-PUBLIC-SEARCH-EXECUTION-BOUNDARY-JE"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHENG-YONGLE-1951-0813-0831-PUBLICATION-DATE-CONFLICT-JD.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-RMRB-OFFICIAL-ARCHIVE-PUBLIC-SEARCH-EXECUTION-BOUNDARY-JE.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -1575,7 +1576,11 @@
       "Batch 12JD closes an institutional bibliographic-date conflict for the separate Zheng Zhenduo 《关于〈永乐大典〉》: NLC 2019 official reprint reports People's Daily 1951-08-13, while NLC 2025 official review PDF reports 1951-08-31.",
       "Probe 36759879758 / artifact 11118018737 follows only source-emitted August navigation in a public daily transcription: target article appears on 1951-08-13 page 3; the source-emitted 1951-08-31 page contains neither target title nor Zheng. Because this is not an official newspaper scan, 8/31 is quarantined rather than declared absolutely impossible.",
       "Project control after 12JD: use 1951-08-13 as HIGH-confidence date for the separate Zheng article; preserve NLC-2025 1951-08-31 as conflicting metadata pending official People's Daily image review. This does not alter Zhao Wanli p.197 or issue-9 text authority.",
-      "Highest next gate remains direct lawful recovery of 2011 p.197; in parallel continue 1951 pp.221-233 / wwck195109 public-object recovery and 1997 pp.446-449 direct-page recovery."
+      "Highest next gate remains direct lawful recovery of 2011 p.197; in parallel continue 1951 pp.221-233 / wwck195109 public-object recovery and 1997 pp.446-449 direct-page recovery.",
+      "Batch 12JE directly observes the official People Data / People's Daily entry's same-host GET search form and source-emitted search-center route. The contract exists publicly; this is stronger than a guessed search endpoint.",
+      "12JE calibrates that official form with a current article title visibly source-emitted by the same entry page. The positive control and all three Yongle target queries return the identical 846-byte application-level '500页面 / 网络不给力' wrapper with SHA-256 d7aae3f0a88b671c7f7617d3ef8639f141e389d2396bfa967a743671cd9c8a7a.",
+      "Therefore the current anonymous official-archive search execution is not a calibrated result surface. No target zero result, no 1951-08-31 absence and no 1951-08-13 official-archive hit are authorized from this route.",
+      "12JD remains controlling without upgrade: 1951-08-13 HIGH confidence; NLC-2025 1951-08-31 quarantined pending official People's Daily scan. Highest next gate returns to direct 2011 p.197, with 1951 pp.221-233 and 1997 pp.446-449 in parallel."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10

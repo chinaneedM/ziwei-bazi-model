@@ -1032,3 +1032,15 @@ Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WE
 - No change to direct-review status of 2011 p.197, 1951 pp.221–233 or 1997 pp.446–449; accounting remains 198 / 166 / 10 and provenance defects 17/17.
 
 Batch document: docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHENG-YONGLE-1951-0813-0831-PUBLICATION-DATE-CONFLICT-JD.md. Research record: docs/research/ZIWEI-ZHENG-YONGLE-1951-0813-0831-PUBLICATION-DATE-CONFLICT-R1.json.
+
+
+## Progress — Batch 12JE
+
+- Official People Data / People's Daily entry `https://data.people.com.cn/rmrb` returns HTTP 200 and directly emits a same-host GET search form to `/rmrb/s` plus a source-emitted search-center link.
+- Probe run `36766920501` / artifact `11120444534` / digest `sha256:4cbe562934dfc3e4ee4cbb06bc93ca8493a8dd586290051de5ca3e101f4829e0` first calibrates the form with a current article title directly emitted by the same official entry page.
+- Positive control fails at the application layer: HTTP transport is 200, but the body is an 846-byte `500页面 / 网络不给力` wrapper with SHA-256 `d7aae3f0a88b671c7f7617d3ef8639f141e389d2396bfa967a743671cd9c8a7a`, no query literal and no result anchors.
+- `关于《永乐大典》`, `关于永乐大典` and `永乐大典` all return the identical 846-byte / identical-hash wrapper. Therefore these are not zero-result searches and cannot support 1951-08-31 absence or 1951-08-13 official-archive hit claims.
+- Batch 12JD remains unchanged: 1951-08-13 stays HIGH-confidence controlling date; 1951-08-31 remains quarantined pending official newspaper image review.
+- Direct 2011 p.197, direct 1951 pp.221–233 and direct 1997 pp.446–449 remain unresolved. Product/accounting remains 198 / 166 / 10 with provenance defects 17/17 and zero chart-algorithm defects, reopens or candidate collapses.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-RMRB-OFFICIAL-ARCHIVE-PUBLIC-SEARCH-EXECUTION-BOUNDARY-JE.md`. Research record: `docs/research/ZIWEI-RMRB-OFFICIAL-ARCHIVE-PUBLIC-SEARCH-EXECUTION-BOUNDARY-R1.json`.

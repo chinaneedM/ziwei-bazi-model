@@ -10980,6 +10980,27 @@
         "absolute_8_31_absence_claim_authorized": false,
         "research_artifact": "docs/research/ZIWEI-ZHENG-YONGLE-1951-0813-0831-PUBLICATION-DATE-CONFLICT-R1.json"
       }
+    },
+    {
+      "source_id": "EXT-PEOPLE-DATA-RMRB-PUBLIC-SEARCH-EXECUTION-BOUNDARY-2026",
+      "title": "人民日报官方数据档案公开搜索表单与匿名执行边界",
+      "historical_period": "current official archive surface reviewed 2026-10-01",
+      "provider": "人民数据 / 人民日报",
+      "url": "https://data.people.com.cn/rmrb",
+      "source_role": "FIRST_PARTY_OFFICIAL_ARCHIVE_PUBLIC_SEARCH_CONTRACT_AND_EXECUTION_BOUNDARY",
+      "quality_notes": "Batch 12JE directly observes a same-host GET search form emitted by the official RMRB entry page. The anonymous execution path is not currently calibrated: a current source-emitted article-title positive control and all three historical Yongle target queries return the same 846-byte application-level 500 wrapper with identical SHA-256. Therefore no zero-result or target-absence inference is authorized, and the route does not close the 1951-08-13/08-31 conflict at official-image level.",
+      "batch_12je": {
+        "workflow_run_id": 36766920501,
+        "artifact_id": 11120444534,
+        "artifact_digest": "sha256:4cbe562934dfc3e4ee4cbb06bc93ca8493a8dd586290051de5ca3e101f4829e0",
+        "source_emitted_form_action": "https://data.people.com.cn/rmrb/s",
+        "positive_control_body_bytes_utf8": 846,
+        "positive_control_body_sha256_utf8": "d7aae3f0a88b671c7f7617d3ef8639f141e389d2396bfa967a743671cd9c8a7a",
+        "target_queries_share_positive_control_error_wrapper": true,
+        "target_absence_inference_authorized": false,
+        "batch_12jd_date_control_changed": false,
+        "research_artifact": "docs/research/ZIWEI-RMRB-OFFICIAL-ARCHIVE-PUBLIC-SEARCH-EXECUTION-BOUNDARY-R1.json"
+      }
     }
   ],
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md",

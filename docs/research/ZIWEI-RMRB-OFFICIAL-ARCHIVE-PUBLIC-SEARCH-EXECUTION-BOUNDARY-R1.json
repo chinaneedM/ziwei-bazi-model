@@ -1,0 +1,154 @@
+{
+  "schema": "ZIWEI-RMRB-OFFICIAL-ARCHIVE-PUBLIC-SEARCH-EXECUTION-BOUNDARY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-RMRB-OFFICIAL-ARCHIVE-PUBLIC-SEARCH-EXECUTION-BOUNDARY-JE",
+  "prior_batch_id": "BATCH-12-ZIWEI-ZHENG-YONGLE-1951-0813-0831-PUBLICATION-DATE-CONFLICT-JD",
+  "question": "Can the public search form emitted by the official People Data / People's Daily archive be anonymously calibrated and used to resolve the 1951-08-13 versus 1951-08-31 publication-date conflict for Zheng Zhenduo's 《关于〈永乐大典〉》?",
+  "answer": "The official RMRB entry publicly emits a same-host GET search form and a search-center link, so a real source-emitted search contract exists. However the anonymous execution path is not currently usable as a result surface: a positive-control query using a current article title directly emitted by the same entry page returns an 846-byte application-level '500页面 / 网络不给力' wrapper, and all three historical target queries return the identical 846-byte body with the identical SHA-256 d7aae3f0a88b671c7f7617d3ef8639f141e389d2396bfa967a743671cd9c8a7a. Therefore no zero-result, target-absence, 1951-08-13 hit or 1951-08-31 absence conclusion is authorized. Batch 12JD's 1951-08-13 HIGH-confidence control remains unchanged pending official newspaper image review.",
+  "official_entry": {
+    "requested_url": "https://data.people.com.cn/rmrb",
+    "http_status": 200,
+    "current_final_url": "https://data.people.com.cn/rmrb/20260930/1?code=2",
+    "source_emitted_search_form": {
+      "action": "https://data.people.com.cn/rmrb/s",
+      "method": "GET",
+      "same_host": true,
+      "controlling_params": {
+        "type": "1",
+        "dataTime": "DESC",
+        "ty": "3",
+        "query_field": "queryStr"
+      }
+    },
+    "source_emitted_search_center": "https://data.people.com.cn/sc?cId=23",
+    "search_center_http_status": 200,
+    "search_center_login_literal_present": true,
+    "source_emitted_public_search_contract_observed": true
+  },
+  "reproducible_probe": {
+    "workflow": ".github/workflows/probe-batch-12je-rmrb-official-archive-search-contract.yml",
+    "exact_head": "a1ff4c9a4ac6553349b1025895a626b9f7e36bc6",
+    "workflow_run_id": 36766920501,
+    "artifact_id": 11120444534,
+    "artifact_name": "batch-12je-rmrb-official-archive-search-contract",
+    "artifact_digest": "sha256:4cbe562934dfc3e4ee4cbb06bc93ca8493a8dd586290051de5ca3e101f4829e0"
+  },
+  "positive_control": {
+    "query": "发挥文理工医交叉融合优势 努力在服务新时代国家战略中当先锋作表率",
+    "source_emitted_current_article_url": "https://data.people.com.cn/rmrb/20260930/1/effe4ee50d5148a7801495887f65ec85",
+    "source_emitted_on_entry_page": true,
+    "query_submitted_through_source_emitted_form": true,
+    "http_status": 200,
+    "body_bytes_utf8": 846,
+    "body_sha256_utf8": "d7aae3f0a88b671c7f7617d3ef8639f141e389d2396bfa967a743671cd9c8a7a",
+    "visible_application_error_wrapper": true,
+    "wrapper_markers": [
+      "500页面",
+      "网络不给力"
+    ],
+    "query_literal_present": false,
+    "same_host_result_anchor_count": 0,
+    "calibrated_search_success": false
+  },
+  "historical_target_queries": [
+    {
+      "query": "关于《永乐大典》",
+      "http_status": 200,
+      "body_bytes_utf8": 846,
+      "body_sha256_utf8": "d7aae3f0a88b671c7f7617d3ef8639f141e389d2396bfa967a743671cd9c8a7a",
+      "same_as_positive_control_error_wrapper": true,
+      "query_literal_present": false,
+      "target_title_present": false,
+      "date_1951_08_13_present": false,
+      "date_1951_08_31_present": false,
+      "same_host_result_anchor_count": 0
+    },
+    {
+      "query": "关于永乐大典",
+      "http_status": 200,
+      "body_bytes_utf8": 846,
+      "body_sha256_utf8": "d7aae3f0a88b671c7f7617d3ef8639f141e389d2396bfa967a743671cd9c8a7a",
+      "same_as_positive_control_error_wrapper": true,
+      "query_literal_present": false,
+      "target_title_present": false,
+      "date_1951_08_13_present": false,
+      "date_1951_08_31_present": false,
+      "same_host_result_anchor_count": 0
+    },
+    {
+      "query": "永乐大典",
+      "http_status": 200,
+      "body_bytes_utf8": 846,
+      "body_sha256_utf8": "d7aae3f0a88b671c7f7617d3ef8639f141e389d2396bfa967a743671cd9c8a7a",
+      "same_as_positive_control_error_wrapper": true,
+      "query_literal_present": false,
+      "target_title_present": false,
+      "date_1951_08_13_present": false,
+      "date_1951_08_31_present": false,
+      "same_host_result_anchor_count": 0
+    }
+  ],
+  "adjudication": {
+    "official_public_search_form_contract": "OBSERVED",
+    "anonymous_search_execution": "APPLICATION_LEVEL_ERROR_WRAPPER_NOT_CALIBRATED_RESULT_SURFACE",
+    "target_query_zero_result_established": false,
+    "target_absence_established": false,
+    "official_archive_hit_1951_08_13_established": false,
+    "official_archive_absence_1951_08_31_established": false,
+    "batch_12jd_controlling_publication_date": "1951-08-13",
+    "batch_12jd_controlling_date_confidence": "HIGH",
+    "batch_12jd_conflict_classification": "BIBLIOGRAPHIC_DATE_CONFLICT_QUARANTINED_PENDING_OFFICIAL_NEWSPAPER_SCAN",
+    "official_people_daily_original_scan_reviewed": false
+  },
+  "zhao_scope_firewall": {
+    "zheng_article_equals_zhao_article": "NOT_PROVED",
+    "zheng_article_may_substitute_for_zhao_direct_page": false,
+    "direct_2011_p197": "NOT_REVIEWED",
+    "direct_1951_zhao_pp221_233": "NOT_REVIEWED",
+    "direct_1997_beitu_pp446_449": "NOT_REVIEWED"
+  },
+  "security": {
+    "login_used": false,
+    "account_action_used": false,
+    "subscription_bypass_used": false,
+    "historical_date_url_guessed": false,
+    "private_endpoint_guessed": false,
+    "payment_used": false,
+    "captcha_bypass_used": false,
+    "tls_verification_disabled": false
+  },
+  "transmission_impact": {
+    "status": "NONE",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": [],
+    "reason": "Current official archive access/search execution control only; no historical text witness or transmission relation."
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Continue lawful direct page-level recovery of 2011 《赵万里文集》第1卷 p.197.",
+    "Continue 1951 《文物参考资料》第9期 pp.221–233 / wwck195109.pdf public-object recovery.",
+    "Continue direct pp.446–449 recovery for the 1997 Beijing Library history compilation.",
+    "Revisit official People's Daily archive search only when its source-emitted form passes a source-emitted positive control or an official historical page/image link becomes directly observable."
+  ],
+  "updated_at": "2026-10-01"
+}

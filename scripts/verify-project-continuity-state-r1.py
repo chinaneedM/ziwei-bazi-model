@@ -330,6 +330,8 @@ ZIWEI_CNBKSY_JC_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BA
 ZIWEI_CNBKSY_JC_EVIDENCE = ROOT / "docs/research/ZIWEI-WENWU-1951-CNBKSY-PUBLIC-SEARCH-CONTRACT-ACCESS-BOUNDARY-R1.json"
 ZIWEI_ZHENG_YONGLE_JD_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHENG-YONGLE-1951-0813-0831-PUBLICATION-DATE-CONFLICT-JD.md"
 ZIWEI_ZHENG_YONGLE_JD_EVIDENCE = ROOT / "docs/research/ZIWEI-ZHENG-YONGLE-1951-0813-0831-PUBLICATION-DATE-CONFLICT-R1.json"
+ZIWEI_RMRB_JE_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-RMRB-OFFICIAL-ARCHIVE-PUBLIC-SEARCH-EXECUTION-BOUNDARY-JE.md"
+ZIWEI_RMRB_JE_EVIDENCE = ROOT / "docs/research/ZIWEI-RMRB-OFFICIAL-ARCHIVE-PUBLIC-SEARCH-EXECUTION-BOUNDARY-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -719,9 +721,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-WENWU-CANKAO-1951-V2N9-NABUNKEN-EXACT-ISSUE-AND-REMOTE-COPY-BOUNDARY-JB",
     "BATCH-12-ZIWEI-WENWU-1951-CNBKSY-PUBLIC-SEARCH-CONTRACT-ACCESS-BOUNDARY-JC",
     "BATCH-12-ZIWEI-ZHENG-YONGLE-1951-0813-0831-PUBLICATION-DATE-CONFLICT-JD",
+    "BATCH-12-ZIWEI-RMRB-OFFICIAL-ARCHIVE-PUBLIC-SEARCH-EXECUTION-BOUNDARY-JE",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHENG-YONGLE-1951-0813-0831-PUBLICATION-DATE-CONFLICT-JD.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-RMRB-OFFICIAL-ARCHIVE-PUBLIC-SEARCH-EXECUTION-BOUNDARY-JE.md"
 
 
 def fail(message: str) -> None:
@@ -10806,6 +10809,69 @@ def main() -> int:
         fail("Batch 12JD missing from completed state")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12JD latest-batch document mismatch")
+
+    # Batch 12JE: official People Data / RMRB public search-contract execution boundary.
+    for path in (ZIWEI_RMRB_JE_BATCH, ZIWEI_RMRB_JE_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12JE continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12je = json.loads(ZIWEI_RMRB_JE_EVIDENCE.read_text(encoding="utf-8"))
+    bid12je = "BATCH-12-ZIWEI-RMRB-OFFICIAL-ARCHIVE-PUBLIC-SEARCH-EXECUTION-BOUNDARY-JE"
+    if batch12je.get("batch_id") != bid12je:
+        fail("Batch 12JE evidence identity mismatch")
+    rp12je = batch12je.get("reproducible_probe", {})
+    if rp12je.get("workflow_run_id") != 36766920501 or rp12je.get("artifact_id") != 11120444534:
+        fail("Batch 12JE probe run/artifact binding regressed")
+    if rp12je.get("artifact_digest") != "sha256:4cbe562934dfc3e4ee4cbb06bc93ca8493a8dd586290051de5ca3e101f4829e0":
+        fail("Batch 12JE artifact digest regressed")
+    entry12je = batch12je.get("official_entry", {})
+    form12je = entry12je.get("source_emitted_search_form", {})
+    if entry12je.get("source_emitted_public_search_contract_observed") is not True:
+        fail("Batch 12JE official public search contract regressed")
+    if form12je.get("action") != "https://data.people.com.cn/rmrb/s" or form12je.get("method") != "GET" or form12je.get("same_host") is not True:
+        fail("Batch 12JE source-emitted form identity regressed")
+    pc12je = batch12je.get("positive_control", {})
+    if pc12je.get("body_bytes_utf8") != 846 or pc12je.get("body_sha256_utf8") != "d7aae3f0a88b671c7f7617d3ef8639f141e389d2396bfa967a743671cd9c8a7a":
+        fail("Batch 12JE positive-control wrapper binding regressed")
+    if pc12je.get("source_emitted_on_entry_page") is not True or pc12je.get("calibrated_search_success") is not False:
+        fail("Batch 12JE positive-control calibration regressed")
+    targets12je = batch12je.get("historical_target_queries", ())
+    if [x.get("query") for x in targets12je] != ["关于《永乐大典》","关于永乐大典","永乐大典"]:
+        fail("Batch 12JE target-query set regressed")
+    for q in targets12je:
+        if q.get("body_bytes_utf8") != 846 or q.get("body_sha256_utf8") != "d7aae3f0a88b671c7f7617d3ef8639f141e389d2396bfa967a743671cd9c8a7a":
+            fail("Batch 12JE target wrapper mismatch")
+        if q.get("same_as_positive_control_error_wrapper") is not True or q.get("same_host_result_anchor_count") != 0:
+            fail("Batch 12JE target execution classification regressed")
+    adj12je = batch12je.get("adjudication", {})
+    if adj12je.get("target_query_zero_result_established") is not False or adj12je.get("target_absence_established") is not False:
+        fail("Batch 12JE target-absence firewall regressed")
+    if adj12je.get("batch_12jd_controlling_publication_date") != "1951-08-13" or adj12je.get("batch_12jd_controlling_date_confidence") != "HIGH":
+        fail("Batch 12JE JD date-control preservation regressed")
+    if adj12je.get("official_people_daily_original_scan_reviewed") is not False:
+        fail("Batch 12JE official-image firewall regressed")
+    sec12je = batch12je.get("security", {})
+    for key in ("login_used","account_action_used","subscription_bypass_used","historical_date_url_guessed","private_endpoint_guessed","payment_used","captcha_bypass_used","tls_verification_disabled"):
+        if sec12je.get(key) is not False:
+            fail(f"Batch 12JE security boundary regressed: {key}")
+    reg12je = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    src12je = next((x for x in reg12je.get("sources", []) if x.get("source_id") == "EXT-PEOPLE-DATA-RMRB-PUBLIC-SEARCH-EXECUTION-BOUNDARY-2026"), None)
+    if src12je is None:
+        fail("Batch 12JE registry binding missing")
+    if src12je.get("batch_12je", {}).get("target_absence_inference_authorized") is not False:
+        fail("Batch 12JE registry target-absence firewall regressed")
+    acct12je = batch12je.get("accounting", {})
+    if acct12je.get("matrix_rows") != 198 or acct12je.get("audited_rows") != 166 or acct12je.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12JE accounting regressed")
+    try:
+        schema12je = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12JE state version is not numeric")
+    if schema12je < (1, 269, 0):
+        fail("Batch 12JE state version regressed below 1.269.0")
+    if bid12je not in audit_state.get("completed_batches", ()):
+        fail("Batch 12JE missing from completed state")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12JE latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")
