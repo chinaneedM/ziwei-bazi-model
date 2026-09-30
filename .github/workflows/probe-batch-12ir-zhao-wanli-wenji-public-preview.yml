@@ -135,3 +135,68 @@ jobs:
         with:
           name: batch-12ir-zhao-wanli-wenji-vol1-product5325-boundary
           path: zhao-wanli-wenji-vol1-product5325-boundary.json
+
+
+      - name: Inspect NLC Press public ebook resource list Rid 3
+        run: |
+          python - <<'PY'
+          import hashlib, html, json, re
+          from pathlib import Path
+          import requests
+
+          URL="https://www.nlcpress.com/DownLoadList.aspx?Rid=3"
+          TITLE="赵万里文集"
+          ISBN="9787501346653"
+          UA={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; public ebook resource-list inspection)"}
+
+          def clean(raw):
+              raw=re.sub(r'<script\b.*?</script>',' ',raw,flags=re.I|re.S)
+              raw=re.sub(r'<style\b.*?</style>',' ',raw,flags=re.I|re.S)
+              raw=re.sub(r'<[^>]+>',' ',raw)
+              return re.sub(r'\s+',' ',html.unescape(raw)).strip()
+
+          r=requests.get(URL,timeout=45,headers=UA)
+          r.raise_for_status()
+          raw=r.text
+          visible=clean(raw)
+          anchors=[]
+          for m in re.finditer(r'<a\b([^>]*)>(.*?)</a>',raw,re.I|re.S):
+              attrs=html.unescape(m.group(1))
+              txt=clean(m.group(2))
+              hm=re.search(r'href\s*=\s*["\']([^"\']*)["\']',attrs,re.I)
+              href=html.unescape(hm.group(1)) if hm else None
+              if txt or href:
+                  anchors.append({"text":txt[:500],"href":href})
+          target=[a for a in anchors if TITLE in a["text"] or ISBN in a["text"].replace("-","").replace(" ","")]
+          page_count=None
+          m=re.search(r'(?:总页数|共)\s*[:：]?\s*(\d+)\s*页',visible)
+          if m: page_count=int(m.group(1))
+          out={
+              "url":URL,
+              "status":r.status_code,
+              "body_bytes":len(r.content),
+              "body_sha256":hashlib.sha256(r.content).hexdigest(),
+              "page_count_text":page_count,
+              "target_title_present":TITLE in visible,
+              "target_isbn_present":ISBN in visible.replace("-","").replace(" ",""),
+              "target_anchors":target[:30],
+              "downloadview_hrefs":sorted(set(
+                  a["href"] for a in anchors if a.get("href") and "DownloadView.aspx" in a["href"]
+              ))[:200],
+              "downloadview_count":len(set(
+                  a["href"] for a in anchors if a.get("href") and "DownloadView.aspx" in a["href"]
+              )),
+              "download_invoked":False,
+              "login_used":False,
+              "payment_used":False,
+              "raw_html_saved":False,
+              "raw_html_logged":False,
+          }
+          Path("zhao-wanli-wenji-rid3-ebook-list.json").write_text(
+              json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12ir-zhao-wanli-wenji-rid3-ebook-list
+          path: zhao-wanli-wenji-rid3-ebook-list.json
