@@ -294,6 +294,8 @@ ZIWEI_WWCK_IK_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATC
 ZIWEI_WWCK_IK_EVIDENCE = ROOT / "docs/research/ZIWEI-WENWU-CANKAO-1951-WWCK195109-SCAN-PACKAGE-LOCATOR-BOUNDARY-R1.json"
 ZIWEI_GBOOKS_IL_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-GOOGLE-BOOKS-JI15-NONSEARCHABLE-AND-API-QUOTA-BOUNDARY-IL.md"
 ZIWEI_GBOOKS_IL_EVIDENCE = ROOT / "docs/research/ZIWEI-GOOGLE-BOOKS-JI15-NONSEARCHABLE-AND-API-QUOTA-BOUNDARY-R1.json"
+ZIWEI_JI_PAGINATION_IM_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-2009-PAGINATION-ANCHOR-EXTENSION-IM.md"
+ZIWEI_JI_PAGINATION_IM_EVIDENCE = ROOT / "docs/research/ZIWEI-JI-SHUYING-2009-PAGINATION-ANCHOR-EXTENSION-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -667,9 +669,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-JI-SHUYING-2009-PUBLIC-PAGINATION-CALIBRATION-BOUNDARY-IJ",
     "BATCH-12-ZIWEI-WENWU-CANKAO-1951-WWCK195109-SCAN-PACKAGE-LOCATOR-BOUNDARY-IK",
     "BATCH-12-ZIWEI-GOOGLE-BOOKS-JI15-NONSEARCHABLE-AND-API-QUOTA-BOUNDARY-IL",
+    "BATCH-12-ZIWEI-JI-SHUYING-2009-PAGINATION-ANCHOR-EXTENSION-IM",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-GOOGLE-BOOKS-JI15-NONSEARCHABLE-AND-API-QUOTA-BOUNDARY-IL.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-2009-PAGINATION-ANCHOR-EXTENSION-IM.md"
 
 
 def fail(message: str) -> None:
@@ -9840,6 +9843,45 @@ def main() -> int:
         fail("Batch 12IL missing from completed state")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12IL latest-batch document mismatch")
+
+    # Batch 12IM: Ji Shuying pagination-anchor extension.
+    for path in (ZIWEI_JI_PAGINATION_IM_BATCH, ZIWEI_JI_PAGINATION_IM_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12IM continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12im = json.loads(ZIWEI_JI_PAGINATION_IM_EVIDENCE.read_text(encoding="utf-8"))
+    bid12im = "BATCH-12-ZIWEI-JI-SHUYING-2009-PAGINATION-ANCHOR-EXTENSION-IM"
+    if batch12im.get("batch_id") != bid12im:
+        fail("Batch 12IM evidence identity mismatch")
+    anchors12im = {x.get("topical_chapter"): x for x in batch12im.get("new_anchors", [])}
+    if anchors12im.get(5, {}).get("cited_pages") != "83" or anchors12im.get(5, {}).get("chapter_start_claim") is not False:
+        fail("Batch 12IM p83 anchor regressed")
+    if anchors12im.get(14, {}).get("cited_pages") != "210-211" or anchors12im.get(14, {}).get("subsection") != "张寿镛":
+        fail("Batch 12IM pp210-211 anchor regressed")
+    cal12im = batch12im.get("calibration_adjudication", {})
+    if cal12im.get("anchor_count_after_extension") != 6 or cal12im.get("exact_chapter_9_page_range") != "UNRESOLVED":
+        fail("Batch 12IM calibration state regressed")
+    if cal12im.get("interpolation_to_chapter_9_authorized") is not False or cal12im.get("linear_interpolation_authorized") is not False or cal12im.get("proportional_interpolation_authorized") is not False:
+        fail("Batch 12IM anti-interpolation firewall regressed")
+    fw12im = batch12im.get("evidence_firewall", {})
+    if not all(fw12im.get(k) is True for k in ("citation_page_is_not_direct_book_page_review","topical_chapter_binding_is_not_chapter_start_page","p83_is_not_chapter5_start_page","pp210_211_are_not_chapter14_start_or_end_pages","no_chapter9_bounds_inferred")):
+        fail("Batch 12IM evidence firewall regressed")
+    reg12im = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    regids12im = {x.get("source_id") for x in reg12im.get("sources", [])}
+    if not {"EXT-DONGGUAN-JOURNAL-ZHOU-LUNMING-JI15-P83-2017","EXT-LIN-ZONGMAO-2023-JI15-P210-211-AUTHOR-WORD","EXT-AQNU-LIN-ZONGMAO-GUJIZHENGLI-2023-05-PUBLICATION-CONFIRM"}.issubset(regids12im):
+        fail("Batch 12IM registry sources missing")
+    acct12im = batch12im.get("accounting", {})
+    if acct12im.get("matrix_rows") != 198 or acct12im.get("audited_rows") != 166 or acct12im.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12IM matrix accounting regressed")
+    try:
+        schema12im = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12IM state version is not numeric")
+    if schema12im < (1, 251, 0):
+        fail("Batch 12IM state version regressed below 1.251.0")
+    if bid12im not in audit_state.get("completed_batches", ()):
+        fail("Batch 12IM missing from completed state")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12IM latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

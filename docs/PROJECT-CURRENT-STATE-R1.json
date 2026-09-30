@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.250.0",
+  "schema_version": "1.251.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -332,9 +332,10 @@
       "BATCH-12-ZIWEI-ZJLIB-TIEQIN-2024-OFFICIAL-PDF-TOKEN-ROUTE-ACCESS-BOUNDARY-II",
       "BATCH-12-ZIWEI-JI-SHUYING-2009-PUBLIC-PAGINATION-CALIBRATION-BOUNDARY-IJ",
       "BATCH-12-ZIWEI-WENWU-CANKAO-1951-WWCK195109-SCAN-PACKAGE-LOCATOR-BOUNDARY-IK",
-      "BATCH-12-ZIWEI-GOOGLE-BOOKS-JI15-NONSEARCHABLE-AND-API-QUOTA-BOUNDARY-IL"
+      "BATCH-12-ZIWEI-GOOGLE-BOOKS-JI15-NONSEARCHABLE-AND-API-QUOTA-BOUNDARY-IL",
+      "BATCH-12-ZIWEI-JI-SHUYING-2009-PAGINATION-ANCHOR-EXTENSION-IM"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-GOOGLE-BOOKS-JI15-NONSEARCHABLE-AND-API-QUOTA-BOUNDARY-IL.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-2009-PAGINATION-ANCHOR-EXTENSION-IM.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -1485,7 +1486,11 @@
       "Batch 12IL closes the current Google Books public-index boundary: Ji/Zhao Volumes API ISBN/title queries return explicit HTTP 429 RESOURCE_EXHAUSTED with defaultPerDayPerProject quota limit value 0, so API non-retrieval has no 'no volume' value.",
       "For known Ji volume route `bAnzzgEACAAJ`, fourteen SearchWithinVolume2 probes all return HTTP 200 with `number_of_results=0` and `searchable=false`; therefore all tested zero hits have zero negative-textual authority and must not be used to infer term/chapter absence.",
       "No direct Ji Chapter 9 page/text, Zhao 2011 p.197 or 1951 pp.221-233 is recovered; no account, purchase or access-bypass action is executed; product/runtime/genealogy remain unchanged.",
-      "Highest next gate after 12IL: stop repeating the nonsearchable Ji Google Books route; prioritize lawful direct Chapter-9 page-numbered contents/direct scan, a resolved Zhao 2011 public-preview route, and authoritative/open-object recovery of `wwck195109.pdf`."
+      "Highest next gate after 12IL: stop repeating the nonsearchable Ji Google Books route; prioritize lawful direct Chapter-9 page-numbered contents/direct scan, a resolved Zhao 2011 public-preview route, and authoritative/open-object recovery of `wwck195109.pdf`.",
+      "Batch 12IM extends the exact 2009 Ji Shuying pagination calibration with two scoped scholarly anchors: Dongguan University of Technology Journal cites p.83 in a Lun Ming study; Lin Zongmao's authorized public author-text cites pp.210-211 for the Zhang Shouyong / Ming Ruyintang Luoyang Qielan Ji context, with AQNU independently confirming the article's publication in 《古籍整理研究学刊》2023(5).",
+      "Existing public chapter-structure control binds Lun Ming to Chapter 5 and Zhang Shouyong / Ming Ruyintang Luoyang Qielan Ji to Chapter 14. These are topical page anchors only, not chapter start/end pages.",
+      "The six-point calibration must not be linearly or proportionally interpolated into Chapter 9. Chapter 9 exact start/end pages and direct text remain UNRESOLVED / NOT_REVIEWED; no product/runtime/genealogy or target-acquisition adjudication changes.",
+      "Highest next gate after 12IM: exact Chapter 10/11 pagination or page-numbered contents/direct Chapter 9 pages; continue authoritative/open-object recovery of wwck195109.pdf and lawful direct/public-preview recovery of Zhao 2011 p.197."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10

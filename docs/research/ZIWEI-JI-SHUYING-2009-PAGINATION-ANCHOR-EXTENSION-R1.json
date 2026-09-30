@@ -1,0 +1,121 @@
+{
+  "schema": "ZIWEI-JI-SHUYING-2009-PAGINATION-ANCHOR-EXTENSION-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-JI-SHUYING-2009-PAGINATION-ANCHOR-EXTENSION-IM",
+  "prior_batch_id": "BATCH-12-ZIWEI-GOOGLE-BOOKS-JI15-NONSEARCHABLE-AND-API-QUOTA-BOUNDARY-IL",
+  "exact_edition": {
+    "title": "冀淑英古籍善本十五讲",
+    "publisher": "国家图书馆出版社",
+    "publication_date": "2009-07",
+    "isbn": "9787501340637",
+    "extent_pages": 241,
+    "chapter_9_title": "铁琴铜剑楼藏书的收购入藏",
+    "chapter_9_direct_pages_reviewed": false
+  },
+  "new_anchors": [
+    {
+      "topical_chapter": 5,
+      "chapter_title": "伦明藏书与清刻本的入善问题",
+      "cited_pages": "83",
+      "source_id": "EXT-DONGGUAN-JOURNAL-ZHOU-LUNMING-JI15-P83-2017",
+      "source_title": "周生杰《论伦明藏书成就与文化意义》",
+      "provider": "东莞理工学院学报",
+      "doi": "10.16002/j.cnki.10090312.2017.02.001",
+      "url": "https://dglg.cbpt.cnki.net/portal/journal/portal/client/paper/6d3f47e4f90042e261bee36874221c75",
+      "direct_journal_reference_reviewed": true,
+      "direct_2009_book_page_reviewed": false,
+      "chapter_start_claim": false
+    },
+    {
+      "topical_chapter": 14,
+      "chapter_title": "刘少山等藏书家的捐赠",
+      "subsection": "张寿镛",
+      "item": "明如隐堂刻《洛阳伽蓝记》",
+      "cited_pages": "210-211",
+      "source_id": "EXT-LIN-ZONGMAO-2023-JI15-P210-211-AUTHOR-WORD",
+      "source_title": "林宗毛《如隐堂本〈洛阳伽蓝记〉小考》",
+      "url": "https://www.sohu.com/a/736448272_121124384",
+      "publication_confirmation_source_id": "EXT-AQNU-LIN-ZONGMAO-GUJIZHENGLI-2023-05-PUBLICATION-CONFIRM",
+      "journal": "古籍整理研究学刊",
+      "issue": "2023年第5期",
+      "direct_author_text_reference_reviewed": true,
+      "direct_2009_book_page_reviewed": false,
+      "chapter_start_or_end_claim": false
+    }
+  ],
+  "prior_anchor_set_carried_forward": [
+    {
+      "chapter": 3,
+      "pages": "39-50"
+    },
+    {
+      "chapter": 8,
+      "pages": "125-126",
+      "scope": "SECONDARY_LOCATOR_ONLY"
+    },
+    {
+      "chapter": 12,
+      "pages": "190"
+    },
+    {
+      "chapter": 15,
+      "pages": "223"
+    }
+  ],
+  "calibration_adjudication": {
+    "anchor_count_after_extension": 6,
+    "exact_chapter_9_start_page": "UNRESOLVED",
+    "exact_chapter_9_end_page": "UNRESOLVED",
+    "exact_chapter_9_page_range": "UNRESOLVED",
+    "interpolation_to_chapter_9_authorized": false,
+    "linear_interpolation_authorized": false,
+    "proportional_interpolation_authorized": false,
+    "direct_chapter_9_text_increment": 0,
+    "direct_chapter_9_page_image_increment": 0
+  },
+  "evidence_firewall": {
+    "citation_page_is_not_direct_book_page_review": true,
+    "topical_chapter_binding_is_not_chapter_start_page": true,
+    "p83_is_not_chapter5_start_page": true,
+    "pp210_211_are_not_chapter14_start_or_end_pages": true,
+    "no_chapter9_bounds_inferred": true,
+    "public_summary_is_structure_control_not_direct_book_scan": true
+  },
+  "target_object_firewall": {
+    "target_3482_3483_transaction_increment": 0,
+    "fid070_exact_donation_batch": "UNRESOLVED",
+    "fid070_exact_donation_date": "UNRESOLVED",
+    "exact_3368_to_3288_causal_mechanism": "UNRESOLVED"
+  },
+  "transmission_impact": {
+    "status": "NONE",
+    "nodes_added": [],
+    "edges_added": [],
+    "reason": "Modern pagination calibration only."
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Find exact Chapter 10/11 pagination, page-numbered contents, or direct Chapter 9 pages; do not derive Chapter 9 from the six-point scale.",
+    "Continue authoritative/open-object recovery of wwck195109.pdf and direct 1951 pp.221-233.",
+    "Continue lawful public-preview/direct-page recovery of Zhao Wanli Wenji vol.1 p.197."
+  ],
+  "updated_at": "2026-09-30"
+}

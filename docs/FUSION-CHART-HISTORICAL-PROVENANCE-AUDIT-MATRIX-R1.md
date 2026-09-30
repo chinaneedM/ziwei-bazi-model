@@ -833,3 +833,13 @@ Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WE
 - Accounting remains 198 / 166 / 10 and 17/17 provenance repairs, with zero chart-algorithm defects, reopens or candidate collapses.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-GOOGLE-BOOKS-JI15-NONSEARCHABLE-AND-API-QUOTA-BOUNDARY-IL.md`. Research record: `docs/research/ZIWEI-GOOGLE-BOOKS-JI15-NONSEARCHABLE-AND-API-QUOTA-BOUNDARY-R1.json`.
+
+
+## Progress — Batch 12IM
+
+- The exact 2009 Ji Shuying pagination calibration gains scoped anchors at p.83 (Lun Ming; first-party journal reference) and pp.210–211 (Zhang Shouyong / Ming Ruyintang 《洛阳伽蓝记》; authorized author-text citation with institutional publication confirmation).
+- Existing chapter-structure control binds these contexts to Chapters 5 and 14 respectively. They are topical-page anchors only, not chapter start/end pages.
+- The six-point calibration remains anti-interpolation: Chapter 9 exact start/end pages and direct text remain unresolved/not reviewed.
+- No target-acquisition, genealogy, runtime or product change occurs; accounting remains 198 / 166 / 10 and 17/17 provenance repairs, with zero algorithm defects/reopens/candidate collapses.
+
+Batch document: docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-2009-PAGINATION-ANCHOR-EXTENSION-IM.md. Research record: docs/research/ZIWEI-JI-SHUYING-2009-PAGINATION-ANCHOR-EXTENSION-R1.json.
