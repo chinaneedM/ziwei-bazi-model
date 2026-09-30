@@ -32,7 +32,7 @@ jobs:
 
           def decode_html(body, content_type=""):
               candidates=[]
-              m=re.search(br'charset\\s*=\\s*["\\']?([A-Za-z0-9._-]+)', body[:20000], re.I)
+              m=re.search(br"charset\\s*=\\s*[\\\"']?([A-Za-z0-9._-]+)", body[:20000], re.I)
               if m:
                   candidates.append(m.group(1).decode("ascii",errors="ignore"))
               m2=re.search(r'charset=([A-Za-z0-9._-]+)', content_type or "", re.I)
