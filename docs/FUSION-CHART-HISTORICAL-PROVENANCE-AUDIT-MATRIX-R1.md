@@ -923,3 +923,14 @@ Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ND
 - Product/accounting remains 198 / 166 / 10 and 17/17 provenance repairs, with zero chart-algorithm defects, reopens or candidate collapses.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENWU-1951-V2N9-OPEN-REPOSITORY-CATALOG-BOUNDARY-IT.md`. Research record: `docs/research/ZIWEI-WENWU-1951-V2N9-OPEN-REPOSITORY-CATALOG-BOUNDARY-R1.json`.
+
+
+## Progress — Batch 12IU
+
+- Kansai University Library, Kyoto University KULINE and NIJL OPAC directly bind 《趙萬里文集》 volume 1 to NCID `BB08679512` and ISBN `9787501346653`.
+- Static and rendered public pages expose neither literal p.197 nor the configured target quotation terms.
+- Kansai renders that no electronic contents/summary information is available; Kyoto's openBD and BOOKデータASP blocks independently report no contents/summary information.
+- Saitama and Tohoku are current anonymous-route access boundaries (HTTP 403 in the static probe) and receive no negative textual authority.
+- Direct 2011 p.197 remains NOT_REVIEWED. Product/accounting remains 198 / 166 / 10 and 17/17 provenance repairs, with zero chart-algorithm defects, reopens or candidate collapses.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-JAPAN-OPAC-PUBLIC-CONTENT-BOUNDARY-IU.md`. Research record: `docs/research/ZIWEI-ZHAO-WANLI-WENJI-V1-JAPAN-OPAC-PUBLIC-CONTENT-BOUNDARY-R1.json`.

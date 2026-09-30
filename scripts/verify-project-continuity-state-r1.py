@@ -310,6 +310,8 @@ ZIWEI_NDL_WENWU_IS_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT
 ZIWEI_NDL_WENWU_IS_EVIDENCE = ROOT / "docs/research/ZIWEI-NDL-WENWU-CANKAO-1951-H2-DIGITAL-PROVIDER-BOUNDARY-R1.json"
 ZIWEI_WENWU_OPEN_IT_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENWU-1951-V2N9-OPEN-REPOSITORY-CATALOG-BOUNDARY-IT.md"
 ZIWEI_WENWU_OPEN_IT_EVIDENCE = ROOT / "docs/research/ZIWEI-WENWU-1951-V2N9-OPEN-REPOSITORY-CATALOG-BOUNDARY-R1.json"
+ZIWEI_ZHAO_JAPAN_IU_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-JAPAN-OPAC-PUBLIC-CONTENT-BOUNDARY-IU.md"
+ZIWEI_ZHAO_JAPAN_IU_EVIDENCE = ROOT / "docs/research/ZIWEI-ZHAO-WANLI-WENJI-V1-JAPAN-OPAC-PUBLIC-CONTENT-BOUNDARY-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -693,7 +695,7 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-WENWU-1951-V2N9-OPEN-REPOSITORY-CATALOG-BOUNDARY-IT",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENWU-1951-V2N9-OPEN-REPOSITORY-CATALOG-BOUNDARY-IT.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-JAPAN-OPAC-PUBLIC-CONTENT-BOUNDARY-IU.md"
 
 
 def fail(message: str) -> None:
@@ -10306,6 +10308,50 @@ def main() -> int:
         fail("Batch 12IT missing from completed state")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12IT latest-batch document mismatch")
+
+    # Batch 12IU: Japanese institutional OPAC public-content boundary.
+    for path in (ZIWEI_ZHAO_JAPAN_IU_BATCH, ZIWEI_ZHAO_JAPAN_IU_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12IU continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12iu = json.loads(ZIWEI_ZHAO_JAPAN_IU_EVIDENCE.read_text(encoding="utf-8"))
+    bid12iu = "BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-JAPAN-OPAC-PUBLIC-CONTENT-BOUNDARY-IU"
+    if batch12iu.get("batch_id") != bid12iu:
+        fail("Batch 12IU evidence identity mismatch")
+    probe12iu = batch12iu.get("controlling_probe", {})
+    if probe12iu.get("workflow_run_id") != 36730261776:
+        fail("Batch 12IU workflow binding regressed")
+    arts12iu = probe12iu.get("artifacts", {})
+    if arts12iu.get("static", {}).get("artifact_id") != 11105575170 or arts12iu.get("rendered", {}).get("artifact_id") != 11105525251:
+        fail("Batch 12IU artifact binding regressed")
+    routes12iu = batch12iu.get("route_results", {})
+    for key in ("kansai", "kyoto", "nijl"):
+        row = routes12iu.get(key, {})
+        if row.get("target_title_present") is not True or row.get("target_ncid_present") is not True or row.get("volume_1_isbn_present") is not True:
+            fail(f"Batch 12IU {key} bibliographic binding regressed")
+        if row.get("p197_literal_present") is not False or row.get("target_terms_present") is not False:
+            fail(f"Batch 12IU {key} target-public-content boundary regressed")
+    if routes12iu.get("saitama", {}).get("negative_textual_authority") is not False or routes12iu.get("tohoku", {}).get("negative_textual_authority") is not False:
+        fail("Batch 12IU access-boundary firewall regressed")
+    target12iu = batch12iu.get("target_status", {})
+    if target12iu.get("direct_2011_p197") != "NOT_REVIEWED" or target12iu.get("physical_volume_absence_claim_authorized") is not False:
+        fail("Batch 12IU p197/physical-absence firewall regressed")
+    reg12iu = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    src12iu = next((x for x in reg12iu.get("sources", []) if x.get("source_id") == "EXT-ZHAO-WANLI-WENJI-V1-JAPAN-OPAC-PUBLIC-CONTENT-BOUNDARY"), None)
+    if src12iu is None or src12iu.get("batch_12iu", {}).get("direct_2011_p197") != "NOT_REVIEWED":
+        fail("Batch 12IU registry binding missing")
+    acct12iu = batch12iu.get("accounting", {})
+    if acct12iu.get("matrix_rows") != 198 or acct12iu.get("audited_rows") != 166 or acct12iu.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12IU accounting regressed")
+    try:
+        schema12iu = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12IU state version is not numeric")
+    if schema12iu < (1, 259, 0):
+        fail("Batch 12IU state version regressed below 1.259.0")
+    if bid12iu not in audit_state.get("completed_batches", ()):
+        fail("Batch 12IU missing from completed state")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12IU latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")
