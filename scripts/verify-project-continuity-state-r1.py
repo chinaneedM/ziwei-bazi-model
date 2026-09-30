@@ -296,6 +296,8 @@ ZIWEI_GBOOKS_IL_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BA
 ZIWEI_GBOOKS_IL_EVIDENCE = ROOT / "docs/research/ZIWEI-GOOGLE-BOOKS-JI15-NONSEARCHABLE-AND-API-QUOTA-BOUNDARY-R1.json"
 ZIWEI_JI_PAGINATION_IM_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-2009-PAGINATION-ANCHOR-EXTENSION-IM.md"
 ZIWEI_JI_PAGINATION_IM_EVIDENCE = ROOT / "docs/research/ZIWEI-JI-SHUYING-2009-PAGINATION-ANCHOR-EXTENSION-R1.json"
+ZIWEI_CNKI_IN_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNKI-WENW195109-LEGACY-INDEX-TRANSPORT-BOUNDARY-IN.md"
+ZIWEI_CNKI_IN_EVIDENCE = ROOT / "docs/research/ZIWEI-CNKI-WENW195109-LEGACY-INDEX-TRANSPORT-BOUNDARY-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -670,9 +672,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-WENWU-CANKAO-1951-WWCK195109-SCAN-PACKAGE-LOCATOR-BOUNDARY-IK",
     "BATCH-12-ZIWEI-GOOGLE-BOOKS-JI15-NONSEARCHABLE-AND-API-QUOTA-BOUNDARY-IL",
     "BATCH-12-ZIWEI-JI-SHUYING-2009-PAGINATION-ANCHOR-EXTENSION-IM",
+    "BATCH-12-ZIWEI-CNKI-WENW195109-LEGACY-INDEX-TRANSPORT-BOUNDARY-IN",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-2009-PAGINATION-ANCHOR-EXTENSION-IM.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNKI-WENW195109-LEGACY-INDEX-TRANSPORT-BOUNDARY-IN.md"
 
 
 def fail(message: str) -> None:
@@ -9882,6 +9885,65 @@ def main() -> int:
         fail("Batch 12IM missing from completed state")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12IM latest-batch document mismatch")
+
+    # Batch 12IN: CNKI WENW195109 legacy static-index transport boundary.
+    for path in (ZIWEI_CNKI_IN_BATCH, ZIWEI_CNKI_IN_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12IN continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12in = json.loads(ZIWEI_CNKI_IN_EVIDENCE.read_text(encoding="utf-8"))
+    bid12in = "BATCH-12-ZIWEI-CNKI-WENW195109-LEGACY-INDEX-TRANSPORT-BOUNDARY-IN"
+    if batch12in.get("batch_id") != bid12in:
+        fail("Batch 12IN evidence identity mismatch")
+    lead12in = batch12in.get("legacy_id_discovery_control", {})
+    if lead12in.get("observed_cnki_code") != "WENW195106001" or lead12in.get("target_article_code_inferred") is not False:
+        fail("Batch 12IN legacy-ID discovery scope regressed")
+    p112in = batch12in.get("probe_1", {})
+    if p112in.get("workflow_run_id") != 36707671218 or p112in.get("artifact_id") != 11093090987:
+        fail("Batch 12IN probe-1 binding regressed")
+    if p112in.get("result_for_all_attempts") != "TLS_CERTIFICATE_VERIFY_FAILED_HOSTNAME_MISMATCH_BEFORE_CONTENT" or p112in.get("positive_hits_have_negative_authority") is not False:
+        fail("Batch 12IN probe-1 transport/negative firewall regressed")
+    p212in = batch12in.get("probe_2", {})
+    if p212in.get("workflow_run_id") != 36707936856 or p212in.get("artifact_id") != 11092358749:
+        fail("Batch 12IN probe-2 binding regressed")
+    if p212in.get("known_positive_control_code") != "WENW195106001" or p212in.get("tls_verification_bypassed") is not False:
+        fail("Batch 12IN known-positive/TLS control regressed")
+    if p212in.get("viable_route_templates") != [] or p212in.get("target_candidate_count_probed_after_control") != 0:
+        fail("Batch 12IN calibrated target-enumeration boundary regressed")
+    routes12in = p212in.get("control_routes", [])
+    if len(routes12in) != 4:
+        fail("Batch 12IN control-route count regressed")
+    if routes12in[0].get("curl_exit") != 60 or routes12in[0].get("result") != "TLS_CERTIFICATE_HOSTNAME_MISMATCH":
+        fail("Batch 12IN HTTPS-www control regressed")
+    if routes12in[2].get("http_code") != "418" or routes12in[2].get("body_chars") != 0:
+        fail("Batch 12IN HTTP-www control regressed")
+    fw12in = batch12in.get("security_and_evidence_firewall", {})
+    required12in = ("known_positive_failure_blocks_target_negative_inference","extrapolated_identifier_pattern_is_not_source_emitted_target_id","zero_positive_hits_do_not_prove_absence","transport_failure_does_not_prove_index_absence")
+    if not all(fw12in.get(k) is True for k in required12in):
+        fail("Batch 12IN evidence firewall regressed")
+    if fw12in.get("tls_certificate_verification_disabled") is not False or fw12in.get("curl_insecure_flag_used") is not False or fw12in.get("certificate_error_bypassed") is not False:
+        fail("Batch 12IN TLS-bypass firewall regressed")
+    adj12in = batch12in.get("access_adjudication", {})
+    if adj12in.get("exact_target_cnki_code") != "UNRESOLVED" or adj12in.get("target_absence_claim_authorized") is not False:
+        fail("Batch 12IN target-ID/absence adjudication regressed")
+    if adj12in.get("direct_article_text_increment") != 0 or adj12in.get("direct_article_page_increment") != 0:
+        fail("Batch 12IN direct-text boundary regressed")
+    reg12in = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    src12in = next((x for x in reg12in.get("sources", []) if x.get("source_id") == "EXT-WIKISOURCE-WENW195106001-CNKI-LEGACY-ID-LOCATOR"), None)
+    if src12in is None or src12in.get("source_role") != "SECONDARY_COMMUNITY_DISCOVERY_LEAD_FOR_LEGACY_CNKI_IDENTIFIER_PATTERN":
+        fail("Batch 12IN registry discovery lead missing")
+    acct12in = batch12in.get("accounting", {})
+    if acct12in.get("matrix_rows") != 198 or acct12in.get("audited_rows") != 166 or acct12in.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12IN matrix accounting regressed")
+    try:
+        schema12in = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12IN state version is not numeric")
+    if schema12in < (1, 252, 0):
+        fail("Batch 12IN state version regressed below 1.252.0")
+    if bid12in not in audit_state.get("completed_batches", ()):
+        fail("Batch 12IN missing from completed state")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12IN latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

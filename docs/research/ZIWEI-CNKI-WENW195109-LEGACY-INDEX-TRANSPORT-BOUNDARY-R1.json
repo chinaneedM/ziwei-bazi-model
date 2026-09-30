@@ -1,0 +1,154 @@
+{
+  "schema": "ZIWEI-CNKI-WENW195109-LEGACY-INDEX-TRANSPORT-BOUNDARY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-CNKI-WENW195109-LEGACY-INDEX-TRANSPORT-BOUNDARY-IN",
+  "prior_batch_id": "BATCH-12-ZIWEI-JI-SHUYING-2009-PAGINATION-ANCHOR-EXTENSION-IM",
+  "question": "Can the legacy CNKI static-index identifier pattern be safely used to enumerate the exact 1951 issue-9 Zhao Wanli article from the current public web without bypassing TLS verification, and what does a failed enumeration mean?",
+  "answer": "No target enumeration is currently valid. A public Wikisource discussion page supplies only a secondary discovery control showing that another 1951 《文物参考资料》 article is associated with legacy CNKI code WENW195106001. The first probe extrapolated hypothetical WENW195109001-040 URLs but every request failed before content retrieval because www.cnki.com.cn presented a certificate whose names did not match that host. A second calibrated probe tested the known-positive control WENW195106001 across four safe public host/scheme variants without disabling TLS verification: HTTPS www failed certificate hostname validation; HTTPS apex timed out; HTTP www returned an empty HTTP 418 response; HTTP apex timed out. No route passed the known-positive control, so the second probe deliberately enumerated zero target candidates. Therefore this closes only a current public transport/access boundary. It does not establish any target CNKI identifier, does not show the article is absent from CNKI, and contributes zero direct article text.",
+  "target_article": {
+    "author": "赵万里",
+    "title": "永乐大典展览的意义——一九五一年八月北京图书馆举办",
+    "periodical": "文物参考资料",
+    "year": 1951,
+    "volume": 2,
+    "issue": 9,
+    "pages": "221-233",
+    "locator_authority": "National Library of China bibliographic control carried forward",
+    "direct_original_pages_reviewed": false
+  },
+  "legacy_id_discovery_control": {
+    "source_id": "EXT-WIKISOURCE-WENW195106001-CNKI-LEGACY-ID-LOCATOR",
+    "provider": "维基文库讨论页",
+    "url": "https://zh.wikisource.org/zh-hans/Talk:%E7%A6%81%E6%AD%A2%E7%8F%8D%E8%B2%B4%E6%96%87%E7%89%A9%E5%9C%96%E6%9B%B8%E5%87%BA%E5%8F%A3%E6%9A%AB%E8%A1%8C%E8%BE%A6%E6%B3%95_%281951%E5%B9%B4%29",
+    "observed_periodical_locator": "文物参考资料,1951(06):2-3",
+    "observed_cnki_code": "WENW195106001",
+    "authority_class": "SECONDARY_COMMUNITY_DISCOVERY_LEAD_ONLY",
+    "target_issue_9_code_inferred": false,
+    "target_article_code_inferred": false
+  },
+  "probe_1": {
+    "purpose": "Attempt the extrapolated issue-9 legacy static URL family and detect whether any content can be retrieved.",
+    "workflow_file": ".github/workflows/probe-batch-12in-cnki-wenw195109.yml",
+    "commit_sha": "ff48283f5607e94d45700ab5494eede26173f0e2",
+    "workflow_run_id": 36707671218,
+    "job_id": 109861691360,
+    "artifact_id": 11093090987,
+    "artifact_digest": "sha256:56fdecf527b339c0e047c2a20f6fe9d553984b37b6bb65cf4be21ac838471bbd",
+    "attempted_hypothetical_codes": "WENW195109001-WENW195109040",
+    "route_template": "https://www.cnki.com.cn/Article/CJFDTotal-{code}.htm",
+    "result_for_all_attempts": "TLS_CERTIFICATE_VERIFY_FAILED_HOSTNAME_MISMATCH_BEFORE_CONTENT",
+    "positive_hits": 0,
+    "positive_hits_have_negative_authority": false,
+    "target_id_family_source_emitted": false
+  },
+  "probe_2": {
+    "purpose": "Calibrate transport on a known-positive legacy code before any target enumeration, using only normal TLS verification and public host/scheme variants.",
+    "commit_sha": "8bc1aeb079e4cfcc2bb00c37d7289f148b865541",
+    "workflow_run_id": 36707936856,
+    "job_id": 109862550347,
+    "artifact_id": 11092358749,
+    "artifact_digest": "sha256:ea2e08ee9b8caf39265ec8f25ba2f476f953266f4c42dd13ded0f6b60fbe84f2",
+    "known_positive_control_code": "WENW195106001",
+    "tls_verification_bypassed": false,
+    "control_routes": [
+      {
+        "route": "https://www.cnki.com.cn/Article/CJFDTotal-WENW195106001.htm",
+        "curl_exit": 60,
+        "http_code": "000",
+        "result": "TLS_CERTIFICATE_HOSTNAME_MISMATCH",
+        "body_chars": 0
+      },
+      {
+        "route": "https://cnki.com.cn/Article/CJFDTotal-WENW195106001.htm",
+        "curl_exit": 28,
+        "http_code": "000",
+        "result": "CONNECT_TIMEOUT_443",
+        "body_chars": 0
+      },
+      {
+        "route": "http://www.cnki.com.cn/Article/CJFDTotal-WENW195106001.htm",
+        "curl_exit": 0,
+        "http_code": "418",
+        "result": "EMPTY_HTTP_418",
+        "body_chars": 0
+      },
+      {
+        "route": "http://cnki.com.cn/Article/CJFDTotal-WENW195106001.htm",
+        "curl_exit": 28,
+        "http_code": "000",
+        "result": "CONNECT_TIMEOUT_80",
+        "body_chars": 0
+      }
+    ],
+    "viable_route_templates": [],
+    "target_candidate_count_probed_after_control": 0,
+    "target_positives": [],
+    "reason_no_target_enumeration": "NO_PUBLIC_ROUTE_PASSED_KNOWN_POSITIVE_CONTROL"
+  },
+  "access_adjudication": {
+    "legacy_static_pattern_exists_as_secondary_discovery_lead": true,
+    "exact_target_cnki_code": "UNRESOLVED",
+    "exact_target_cnki_static_page": "NOT_RECOVERED",
+    "known_positive_control_public_transport": "FAILED_ON_ALL_TESTED_SAFE_VARIANTS",
+    "target_candidate_enumeration_authorized": false,
+    "target_absence_claim_authorized": false,
+    "cnki_nonholding_or_nonindexing_claim_authorized": false,
+    "direct_article_text_increment": 0,
+    "direct_article_page_increment": 0,
+    "boundary_status": "CURRENT_PUBLIC_LEGACY_STATIC_INDEX_TRANSPORT_UNCALIBRATED_NO_NEGATIVE_AUTHORITY"
+  },
+  "security_and_evidence_firewall": {
+    "tls_certificate_verification_disabled": false,
+    "curl_insecure_flag_used": false,
+    "certificate_error_bypassed": false,
+    "login_executed": false,
+    "captcha_bypass_attempted": false,
+    "paid_or_download_endpoint_invoked": false,
+    "known_positive_failure_blocks_target_negative_inference": true,
+    "extrapolated_identifier_pattern_is_not_source_emitted_target_id": true,
+    "zero_positive_hits_do_not_prove_absence": true,
+    "transport_failure_does_not_prove_index_absence": true
+  },
+  "target_object_firewall": {
+    "quoted_1951_member": "宋刻《春秋左传注疏》",
+    "fid070_physical_research_adjudication": "元刻元印十行本",
+    "same_object_collapse_authorized": false,
+    "exact_fid070_donation_batch": "UNRESOLVED",
+    "exact_fid070_donation_date": "UNRESOLVED",
+    "exact_3368_to_3288_causal_mechanism": "UNRESOLVED"
+  },
+  "transmission_impact": {
+    "status": "NONE",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": [],
+    "reason": "Public index transport/access boundary only."
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Do not repeat the legacy CNKI static route unless a current source-emitted hostname/URL or a working known-positive control appears.",
+    "Continue lawful authoritative/open-object recovery of wwck195109.pdf; if bytes are recovered, hash and bind issue/pagination before pp.221-233 collation.",
+    "Continue direct/public-preview recovery of 2011 《赵万里文集》第1卷 p.197.",
+    "Continue exact Chapter 10/11 pagination or direct Chapter 9 page recovery for 冀淑英 2009."
+  ],
+  "updated_at": "2026-09-30"
+}

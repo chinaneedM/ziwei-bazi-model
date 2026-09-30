@@ -843,3 +843,14 @@ Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-GO
 - No target-acquisition, genealogy, runtime or product change occurs; accounting remains 198 / 166 / 10 and 17/17 provenance repairs, with zero algorithm defects/reopens/candidate collapses.
 
 Batch document: docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-2009-PAGINATION-ANCHOR-EXTENSION-IM.md. Research record: docs/research/ZIWEI-JI-SHUYING-2009-PAGINATION-ANCHOR-EXTENSION-R1.json.
+
+
+## Progress — Batch 12IN
+
+- A secondary Wikisource discovery control records another 1951 `《文物参考资料》` item as `CNKI WENW195106001`; this establishes only a legacy identifier-pattern lead, not the target issue-9 code.
+- Probe 1 attempted hypothetical `WENW195109001–040` static URLs and all failed before content retrieval on TLS certificate hostname mismatch. The resulting zero positives have no negative authority.
+- Probe 2 first calibrated known-positive `WENW195106001` on four safe public variants: HTTPS www = certificate hostname mismatch; HTTPS apex = timeout; HTTP www = empty HTTP 418; HTTP apex = timeout. With zero viable positive-control routes, target enumeration was deliberately skipped.
+- TLS verification was never disabled; no insecure curl, login, captcha bypass, paid/download endpoint or account action was used. Exact target CNKI ID, static page and direct 1951 article text remain unresolved/not reviewed.
+- Product/accounting remains 198 / 166 / 10 and 17/17 provenance repairs, with zero chart-algorithm defects, reopens or candidate collapses.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNKI-WENW195109-LEGACY-INDEX-TRANSPORT-BOUNDARY-IN.md`. Research record: `docs/research/ZIWEI-CNKI-WENW195109-LEGACY-INDEX-TRANSPORT-BOUNDARY-R1.json`.
