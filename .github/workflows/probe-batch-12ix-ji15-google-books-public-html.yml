@@ -116,3 +116,121 @@ jobs:
         with:
           name: batch-12ix-ji15-google-books-public-html
           path: ji15-google-books-public-html.json
+
+      - name: Follow only source-emitted Google Books object/search links
+        run: |
+          python - <<'PY'
+          import hashlib, html, json, re, time
+          from pathlib import Path
+          from urllib.parse import urljoin, urlparse, parse_qs, unquote
+          import requests
+
+          START="https://books.google.com/books?vid=ISBN9787501340637"
+          ISBN="9787501340637"
+          UA="Mozilla/5.0 (Tianwen provenance audit; source-emitted Google Books link follow-up)"
+          MAX_BYTES=2*1024*1024
+          TARGETS=("铁琴铜剑楼","鐵琴銅劍樓","瞿济苍","瞿濟蒼","瞿凤起","瞿鳳起","瞿旭初",
+                   "第九讲","第九講","第十讲","第十講","第十一讲","第十一講",
+                   "吴梅","吳梅","朱偰","赵元方","趙元方","涵芬楼","涵芬樓",
+                   "捐赠","捐贈","常熟","永乐大典","永樂大典")
+
+          def visible(raw):
+              raw=re.sub(r'<script\b.*?</script>',' ',raw,flags=re.I|re.S)
+              raw=re.sub(r'<style\b.*?</style>',' ',raw,flags=re.I|re.S)
+              raw=re.sub(r'<[^>]+>',' ',raw)
+              return re.sub(r'\s+',' ',html.unescape(raw)).strip()
+
+          def fetch(s,url):
+              r=s.get(url,timeout=45,allow_redirects=True,stream=True)
+              data=bytearray(); trunc=False
+              for chunk in r.iter_content(65536):
+                  if not chunk: continue
+                  if len(data)+len(chunk)>MAX_BYTES:
+                      take=MAX_BYTES-len(data)
+                      if take>0: data.extend(chunk[:take])
+                      trunc=True; break
+                  data.extend(chunk)
+              b=bytes(data)
+              raw=b.decode(r.encoding or "utf-8","replace")
+              return r,b,raw,trunc
+
+          def contexts(text,term,radius=220,limit=6):
+              out=[]; p=0
+              while len(out)<limit:
+                  i=text.find(term,p)
+                  if i<0: break
+                  out.append(text[max(0,i-radius):min(len(text),i+len(term)+radius)])
+                  p=i+len(term)
+              return out
+
+          s=requests.Session()
+          s.headers.update({"User-Agent":UA,"Accept-Language":"zh-CN,zh;q=0.9,en;q=0.7"})
+          out={"start":START,"discovered":[],"followed":[],"security":{
+              "login_used":False,"account_action_used":False,"copy_request_used":False,
+              "payment_used":False,"captcha_bypass_used":False,"tls_verification_disabled":False,
+              "guessed_object_id_used":False,"guessed_search_endpoint_used":False}}
+
+          r,b,raw,tr=fetch(s,START)
+          links=[]
+          for m in re.finditer(r'href=[\"\']([^\"\']+)[\"\']',raw,re.I):
+              u=urljoin(r.url,html.unescape(m.group(1)))
+              if urlparse(u).scheme not in ("http","https") or "books.google." not in u:
+                  continue
+              if "/books?" not in u:
+                  continue
+              if u not in links: links.append(u)
+
+          selected=[]
+          for u in links:
+              q=parse_qs(urlparse(u).query)
+              reason=None
+              if q.get("output")==["html_text"]:
+                  reason="SOURCE_EMITTED_HTML_TEXT"
+              elif "id" in q and "sitesec" not in q:
+                  if "q" not in q:
+                      reason="SOURCE_EMITTED_BOOK_OBJECT"
+                  else:
+                      term=unquote(q["q"][0])
+                      if term in ("捐赠","捐贈","常熟","永乐大典","永樂大典","藏书家","藏書家"):
+                          reason="SOURCE_EMITTED_WORD_CLOUD_TARGET_ADJACENT"
+              if reason:
+                  selected.append({"url":u,"reason":reason})
+          # Deduplicate and cap.
+          seen=set(); chosen=[]
+          for x in selected:
+              if x["url"] in seen: continue
+              seen.add(x["url"]); chosen.append(x)
+              if len(chosen)>=16: break
+          out["discovered"]=chosen
+
+          for x in chosen:
+              row=dict(x)
+              try:
+                  rr,bb,rrraw,rrtr=fetch(s,x["url"])
+                  text=visible(rrraw)
+                  row.update({
+                    "status":rr.status_code,"final_url":rr.url,"redirect_count":len(rr.history),
+                    "content_type":rr.headers.get("Content-Type",""),"bytes_read":len(bb),
+                    "truncated_at_2mib":rrtr,"body_sha256":hashlib.sha256(bb).hexdigest(),
+                    "isbn_present":ISBN in text.replace("-","").replace(" ",""),
+                    "target_flags":{t:(t in text) for t in TARGETS},
+                    "target_contexts":{t:contexts(text,t) for t in TARGETS if t in text},
+                    "page_tokens":re.findall(r'(?<!\d)(?:1[0-9]{2}|2[0-4][0-9])(?!\d)',text)[:120],
+                    "page_marker_contexts":contexts(text,"页")[:10]+contexts(text,"頁")[:10],
+                    "preview_markers":{t:(t.lower() in text.lower()) for t in
+                       ("preview","full view","read online","snippet","页面","頁面","Page")},
+                    "raw_body_saved":False,"raw_body_logged":False
+                  })
+              except Exception as e:
+                  row["error"]=f"{type(e).__name__}: {e}"
+              out["followed"].append(row)
+              time.sleep(0.35)
+
+          Path("ji15-google-books-source-emitted-followup.json").write_text(
+              json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12ix-ji15-google-books-source-emitted-followup
+          path: ji15-google-books-source-emitted-followup.json
