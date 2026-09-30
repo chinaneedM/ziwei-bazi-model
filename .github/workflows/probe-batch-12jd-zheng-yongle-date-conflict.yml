@@ -16,13 +16,16 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Install PDF text-layer parser
+        run: python -m pip install pypdf
       - name: Probe NLC official records and source-emitted newspaper month route
         run: |
           set -euo pipefail
           python - <<'PY'
-          import hashlib, html, json, re, subprocess, urllib.error, urllib.request
+          import hashlib, html, json, re, urllib.error, urllib.request
           from pathlib import Path
           from urllib.parse import urljoin
+          from pypdf import PdfReader
 
           UA="Mozilla/5.0 (compatible; TianwenHistoricalAudit/1.0; +https://github.com/chinaneedM/ziwei-bazi-model)"
           out=Path("artifacts/batch-12jd"); out.mkdir(parents=True,exist_ok=True)
@@ -52,12 +55,10 @@ jobs:
           s2,u2,b2=get(nlc2025,binary=True)
           (out/"nlc-2025.pdf").write_bytes(b2)
           pdf_sha=hashlib.sha256(b2).hexdigest()
-          # pdftotext is available on the hosted Ubuntu image; no OCR is used.
-          try:
-              subprocess.run(["pdftotext","-layout",str(out/"nlc-2025.pdf"),str(out/"nlc-2025.txt")],check=True,timeout=60)
-          except Exception as e:
-              raise SystemExit(f"pdftotext unavailable/failed: {e}")
-          txt=(out/"nlc-2025.txt").read_text(encoding="utf-8",errors="replace")
+          # Parse the embedded PDF text layer only; no OCR is used.
+          reader=PdfReader(str(out/"nlc-2025.pdf"))
+          txt="\n".join((page.extract_text() or "") for page in reader.pages)
+          (out/"nlc-2025.txt").write_text(txt,encoding="utf-8")
           txt_norm=re.sub(r"\s+","",txt)
           nlc2025_markers={
               "zheng_title":"郑振铎《关于永乐大典》" in txt_norm,
