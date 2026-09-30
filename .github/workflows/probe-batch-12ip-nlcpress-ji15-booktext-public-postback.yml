@@ -1,0 +1,110 @@
+name: probe-batch-12ip-nlcpress-ji15-booktext-public-postback
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12ip-nlcpress-ji15-booktext-public-postback.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inspect public Booktext postback response metadata only
+        run: |
+          python - <<'PY'
+          import hashlib, html, json, re
+          from pathlib import Path
+          import requests
+
+          URL = "https://www.nlcpress.com/ProductView.aspx?Id=4660"
+          TARGET_TITLE = "冀淑英古籍善本十五讲"
+          UA = "Mozilla/5.0 (Tianwen provenance audit; public Booktext metadata-only inspection)"
+
+          def hidden_fields(body):
+              out = {}
+              for m in re.finditer(r'<input\\b[^>]*>', body, re.I):
+                  tag = m.group(0)
+                  if not re.search(r'type=["\\']hidden["\\']', tag, re.I):
+                      continue
+                  nm = re.search(r'name=["\\']([^"\\']+)["\\']', tag, re.I)
+                  vm = re.search(r'value=["\\']([^"\\']*)["\\']', tag, re.I)
+                  if nm:
+                      out[html.unescape(nm.group(1))] = html.unescape(vm.group(1) if vm else "")
+              return out
+
+          def safe_headers(headers):
+              keep = {}
+              allowed = {
+                  "Content-Type", "Content-Disposition", "Content-Length",
+                  "Location", "Cache-Control", "Last-Modified", "ETag"
+              }
+              for k, v in headers.items():
+                  if k in allowed:
+                      keep[k] = v
+              return keep
+
+          s = requests.Session()
+          s.headers.update({"User-Agent": UA})
+          g = s.get(URL, timeout=45)
+          g.raise_for_status()
+
+          visible = re.sub(r'\\s+', ' ', html.unescape(re.sub(r'<[^>]+>', ' ', g.text)))
+          form = hidden_fields(g.text)
+          form.update({
+              "__EVENTTARGET": "Booktext",
+              "__EVENTARGUMENT": "",
+          })
+
+          # Deliberately stream and do not read response content. Redirect following is
+          # disabled so any source-emitted download target is recorded rather than fetched.
+          p = s.post(
+              URL,
+              data=form,
+              timeout=45,
+              stream=True,
+              allow_redirects=False,
+              headers={"Referer": URL, "User-Agent": UA},
+          )
+
+          result = {
+              "product_url": URL,
+              "get_status": g.status_code,
+              "get_body_sha256": hashlib.sha256(g.content).hexdigest(),
+              "get_has_target_title": TARGET_TITLE in visible,
+              "get_has_booktext_postback": "__doPostBack('Booktext','')" in g.text,
+              "post_event_target": "Booktext",
+              "post_status": p.status_code,
+              "post_reason": p.reason,
+              "post_headers": safe_headers(p.headers),
+              "post_is_redirect": p.is_redirect or p.is_permanent_redirect,
+              "response_body_read": False,
+              "redirect_followed": False,
+              "download_bytes_read": 0,
+              "tls_verified": True,
+              "login_used": False,
+              "purchase_invoked": False,
+              "captcha_bypass_used": False,
+              "permission_bypass_used": False,
+              "full_book_text_fetched": False,
+          }
+
+          # Close socket without consuming the body.
+          p.close()
+
+          Path("nlcpress-ji15-booktext-postback-metadata.json").write_text(
+              json.dumps(result, ensure_ascii=False, indent=2),
+              encoding="utf-8",
+          )
+          print(json.dumps(result, ensure_ascii=False, indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12ip-nlcpress-ji15-booktext-postback-metadata
+          path: nlcpress-ji15-booktext-postback-metadata.json
