@@ -85,6 +85,13 @@ jobs:
           if not fs["ok"]:
               raise RuntimeError("SASS first-party holding route failed: "+str(fs["error"]))
           r2=fs["response"]; raw2,enc2=decode_response(r2); t2=clean(raw2)
+          sh_start=t2.find("文汇报 ")
+          hk_pos=t2.find("文汇报(香港)")
+          if hk_pos<0:
+              hk_pos=t2.find("文汇报（香港）")
+          next_after_hk=t2.find("香港新晚报",hk_pos if hk_pos>=0 else 0)
+          sh_block=t2[sh_start:hk_pos] if sh_start>=0 and hk_pos>sh_start else ""
+          hk_block=t2[hk_pos:next_after_hk] if hk_pos>=0 and next_after_hk>hk_pos else ""
           sass={
               "decoded_encoding":enc2,
               "url":SASS,
@@ -92,10 +99,12 @@ jobs:
               "bytes":len(r2.content),
               "sha256":hashlib.sha256(r2.content).hexdigest(),
               "paper_directory_marker":"分部1号楼地下室旧报纸" in t2,
-              "shanghai_wenhui_1951_full_year":bool(re.search(r'文汇报\s*\|.*?1951年1[－-]12月',t2,re.S)),
-              "hongkong_wenhui_marker":"文汇报(香港)" in t2 or "文汇报（香港）" in t2,
-              "hongkong_wenhui_1951_only_q1":bool(re.search(r'文汇报\s*[（(]香港[）)]\s*\|.*?1951年1[－-]3月',t2,re.S)),
-              "shanghai_context":context(t2,"文汇报"),
+              "shanghai_wenhui_block_found":bool(sh_block),
+              "shanghai_wenhui_1951_full_year":"1951年1－12月" in sh_block or "1951年1-12月" in sh_block,
+              "hongkong_wenhui_marker":hk_pos>=0,
+              "hongkong_wenhui_1951_only_q1":"1951年1－3月" in hk_block or "1951年1-3月" in hk_block,
+              "shanghai_context":sh_block[:1200] if sh_block else None,
+              "hongkong_context":hk_block[:700] if hk_block else None,
               "public_page_specific_19510818_object_observed":False,
               "direct_article_text_observed":False,
               "classification":"FIRST_PARTY_PHYSICAL_NEWSPAPER_HOLDING_ROUTE_ONLY"
