@@ -11379,6 +11379,28 @@
         "item_level_wenhui_cdrom_identity_observed": false,
         "research_artifact": "docs/research/ZIWEI-WENHUI-60YEAR-CDROM-NLC-DONATION-AND-CURRENT-SERVICE-BOUNDARY-R1.json"
       }
+    },
+    {
+      "source_id": "EXT-NLC-SOURCE-EMITTED-OPAC-ELECTRONIC-NEWSPAPER-HTTP-ROUTES-2026",
+      "title": "国家图书馆当前首页 source-emitted OPAC / 电子报纸 HTTP 路由校准",
+      "provider": "国家图书馆",
+      "url": "https://www.nlc.cn/web/",
+      "source_role": "FIRST_PARTY_SOURCE_EMITTED_PUBLIC_ROUTE_AND_PROTOCOL_CALIBRATION",
+      "quality_notes": "NLC homepage directly emits HTTP OPAC and read.nlc.cn electronic-newspaper routes. Batch 12JT proves those exact HTTP routes are reachable on the GitHub runner while HTTPS comparison variants time out. The electronic-newspaper landing page exposes public search-field names but no target query is submitted and no Wenhui CD-ROM item identity is observed.",
+      "batch_12jt": {
+        "controlling_probe_run_id": 36844080482,
+        "controlling_probe_job_id": 110309901228,
+        "artifact_id": 11152368933,
+        "artifact_digest": "sha256:dc4f1f29fe9cff4c640b6ba34a29c7e0eab3c7a7fb20f22daaab6ef5c2c334d2",
+        "superseded_probe_run_id": 36843786769,
+        "superseded_probe_reason": "first corrected run proved source-emitted hrefs but tested only HTTPS variants; protocol-level conclusion withheld until exact HTTP routes were calibrated",
+        "opac_http_reached": true,
+        "opac_https_reached": false,
+        "electronic_newspapers_http_reached": true,
+        "electronic_newspapers_https_reached": false,
+        "target_query_submitted": false,
+        "research_artifact": "docs/research/ZIWEI-NLC-SOURCE-EMITTED-OPAC-ELECTRONIC-NEWSPAPER-HTTP-ROUTE-CALIBRATION-R1.json"
+      }
     }
   ],
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md",

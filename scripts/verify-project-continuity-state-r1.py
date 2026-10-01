@@ -360,6 +360,8 @@ ZIWEI_CNBKSY_SCOPE_JR_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AU
 ZIWEI_CNBKSY_SCOPE_JR_EVIDENCE = ROOT / "docs/research/ZIWEI-CNBKSY-2020-2026-OPEN-DATA-LISTING-SCOPE-CHRONOLOGY-R1.json"
 ZIWEI_WENHUI_CDROM_JS_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENHUI-60YEAR-CDROM-NLC-DONATION-AND-CURRENT-SERVICE-BOUNDARY-JS.md"
 ZIWEI_WENHUI_CDROM_JS_EVIDENCE = ROOT / "docs/research/ZIWEI-WENHUI-60YEAR-CDROM-NLC-DONATION-AND-CURRENT-SERVICE-BOUNDARY-R1.json"
+ZIWEI_NLC_ROUTE_JT_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-SOURCE-EMITTED-OPAC-ELECTRONIC-NEWSPAPER-HTTP-ROUTE-CALIBRATION-JT.md"
+ZIWEI_NLC_ROUTE_JT_EVIDENCE = ROOT / "docs/research/ZIWEI-NLC-SOURCE-EMITTED-OPAC-ELECTRONIC-NEWSPAPER-HTTP-ROUTE-CALIBRATION-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -764,9 +766,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-CNBKSY-2020-PUBLIC-API-SAMPLE-BUNDLE-JQ",
     "BATCH-12-ZIWEI-CNBKSY-2020-2026-OPEN-DATA-LISTING-SCOPE-CHRONOLOGY-JR",
     "BATCH-12-ZIWEI-WENHUI-60YEAR-CDROM-NLC-DONATION-AND-CURRENT-SERVICE-BOUNDARY-JS",
+    "BATCH-12-ZIWEI-NLC-SOURCE-EMITTED-OPAC-ELECTRONIC-NEWSPAPER-HTTP-ROUTE-CALIBRATION-JT",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENHUI-60YEAR-CDROM-NLC-DONATION-AND-CURRENT-SERVICE-BOUNDARY-JS.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-SOURCE-EMITTED-OPAC-ELECTRONIC-NEWSPAPER-HTTP-ROUTE-CALIBRATION-JT.md"
 
 
 def fail(message: str) -> None:
@@ -11614,6 +11617,57 @@ def main() -> int:
         fail("Batch 12JS missing from completed state")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12JS latest-batch document mismatch")
+
+
+    # Batch 12JT: NLC source-emitted HTTP route/protocol calibration.
+    for path in (ZIWEI_NLC_ROUTE_JT_BATCH, ZIWEI_NLC_ROUTE_JT_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12JT continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12jt = json.loads(ZIWEI_NLC_ROUTE_JT_EVIDENCE.read_text(encoding="utf-8"))
+    bid12jt = "BATCH-12-ZIWEI-NLC-SOURCE-EMITTED-OPAC-ELECTRONIC-NEWSPAPER-HTTP-ROUTE-CALIBRATION-JT"
+    if batch12jt.get("batch_id") != bid12jt:
+        fail("Batch 12JT evidence identity mismatch")
+    home12jt = batch12jt.get("source_home", {})
+    if home12jt.get("opac_url_source_emitted") is not True or home12jt.get("electronic_newspaper_route_source_emitted") is not True:
+        fail("Batch 12JT source-emitted route identity regressed")
+    routes12jt = batch12jt.get("route_calibration", {})
+    if routes12jt.get("opac_http", {}).get("http_status") != 200 or routes12jt.get("opac_http", {}).get("bytes") != 318:
+        fail("Batch 12JT OPAC HTTP control regressed")
+    en12jt = routes12jt.get("electronic_newspapers_http", {})
+    if en12jt.get("http_status") != 200 or en12jt.get("bytes") != 404829 or en12jt.get("sha256") != "b8991f6d96bb95e8fba6dff11866ece8b146ee097fa902d9afb25b0c7d7856cf":
+        fail("Batch 12JT electronic-newspaper HTTP object identity regressed")
+    if set(en12jt.get("input_names", ())) != {"type","urlType","searchName","ourReswords"}:
+        fail("Batch 12JT electronic-newspaper search-field contract regressed")
+    if routes12jt.get("opac_https", {}).get("reached") is not False or routes12jt.get("electronic_newspapers_https", {}).get("reached") is not False:
+        fail("Batch 12JT HTTPS comparison boundary regressed")
+    adj12jt = batch12jt.get("adjudication", {})
+    if adj12jt.get("source_emitted_http_routes") != "CLOSED" or adj12jt.get("protocol_asymmetry_observed") is not True:
+        fail("Batch 12JT protocol adjudication regressed")
+    if adj12jt.get("target_query_submitted") is not False or adj12jt.get("item_level_wenhui_cdrom_identity") != "UNRESOLVED":
+        fail("Batch 12JT target/item firewall regressed")
+    sec12jt = batch12jt.get("security", {})
+    for key in ("login_used","reader_account_used","registration_used","form_submitted","target_query_submitted","private_endpoint_guessed","captcha_bypass_used","tls_verification_disabled"):
+        if sec12jt.get(key) is not False:
+            fail(f"Batch 12JT security boundary regressed: {key}")
+    cp12jt = batch12jt.get("controlling_probe", {})
+    if cp12jt.get("workflow_run_id") != 36844080482 or cp12jt.get("artifact_id") != 11152368933:
+        fail("Batch 12JT controlling probe binding regressed")
+    reg12jt = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    if next((x for x in reg12jt.get("sources", []) if x.get("source_id") == "EXT-NLC-SOURCE-EMITTED-OPAC-ELECTRONIC-NEWSPAPER-HTTP-ROUTES-2026"), None) is None:
+        fail("Batch 12JT registry binding missing")
+    acct12jt = batch12jt.get("accounting", {})
+    if acct12jt.get("matrix_rows") != 198 or acct12jt.get("audited_rows") != 166 or acct12jt.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12JT accounting regressed")
+    try:
+        schema12jt = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12JT state version is not numeric")
+    if schema12jt < (1, 284, 0):
+        fail("Batch 12JT state version regressed below 1.284.0")
+    if bid12jt not in audit_state.get("completed_batches", ()):
+        fail("Batch 12JT missing from completed state")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12JT latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

@@ -1201,3 +1201,14 @@ Batch document: docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNB
 - Direct Wenhui 1951-08-18, Wenwu pp.221–233 and 2011 Wenji p.197 remain NOT_REVIEWED. Accounting remains 198 / 166 / 10; provenance defects 17/17; zero algorithm defects/reopens/candidate collapses. `TRANSMISSION_IMPACT=NONE`.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENHUI-60YEAR-CDROM-NLC-DONATION-AND-CURRENT-SERVICE-BOUNDARY-JS.md`. Research record: `docs/research/ZIWEI-WENHUI-60YEAR-CDROM-NLC-DONATION-AND-CURRENT-SERVICE-BOUNDARY-R1.json`.
+
+
+## Progress — Batch 12JT
+
+- The current NLC homepage is directly parsed and source-emits `http://opac.nlc.cn/` plus `http://read.nlc.cn/outRes/outResList?type=电子报纸`. The corrected controlling probe therefore distinguishes source-emitted HTTP from self-upgraded HTTPS.
+- Exact HTTP routes are reachable: OPAC root HTTP 200 / 318 bytes / SHA-256 `999e28e32e671494ad7a97c0a46446f192c8767264adca9d068ef0c3f4fe2a68`; electronic-newspaper page HTTP 200 / 404,829 bytes / SHA-256 `b8991f6d96bb95e8fba6dff11866ece8b146ee097fa902d9afb25b0c7d7856cf`. Both HTTPS comparison routes time out.
+- The electronic-newspaper landing page exposes fields `type`, `urlType`, `searchName`, and `ourReswords`, plus search/newspaper semantics, but no form is submitted. The page itself contains no `文汇报`, `文匯報`, `文汇报60年报纸光盘`, or `文汇报61年全文数据光盘` token.
+- The prior 12JT run `36843786769` is superseded for protocol adjudication because it tested HTTPS only after recovering source-emitted HTTP hrefs. Controlling run `36844080482` / job `110309901228` / artifact `11152368933` / digest `sha256:dc4f1f29fe9cff4c640b6ba34a29c7e0eab3c7a7fb20f22daaab6ef5c2c334d2`.
+- No login, reader account, form submission, target query, private endpoint or TLS bypass is used. Item-level Wenhui CD-ROM identity and direct 1951-08-18 page remain unresolved. Accounting remains 198 / 166 / 10; provenance defects 17/17; zero algorithm defects/reopens/candidate collapses. `TRANSMISSION_IMPACT=NONE`.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-SOURCE-EMITTED-OPAC-ELECTRONIC-NEWSPAPER-HTTP-ROUTE-CALIBRATION-JT.md`. Research record: `docs/research/ZIWEI-NLC-SOURCE-EMITTED-OPAC-ELECTRONIC-NEWSPAPER-HTTP-ROUTE-CALIBRATION-R1.json`.

@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.283.0",
+  "schema_version": "1.284.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -365,9 +365,10 @@
       "BATCH-12-ZIWEI-CNBKSY-CURRENT-OPEN-API-AUTH-BOUNDARY-JP",
       "BATCH-12-ZIWEI-CNBKSY-2020-PUBLIC-API-SAMPLE-BUNDLE-JQ",
       "BATCH-12-ZIWEI-CNBKSY-2020-2026-OPEN-DATA-LISTING-SCOPE-CHRONOLOGY-JR",
-      "BATCH-12-ZIWEI-WENHUI-60YEAR-CDROM-NLC-DONATION-AND-CURRENT-SERVICE-BOUNDARY-JS"
+      "BATCH-12-ZIWEI-WENHUI-60YEAR-CDROM-NLC-DONATION-AND-CURRENT-SERVICE-BOUNDARY-JS",
+      "BATCH-12-ZIWEI-NLC-SOURCE-EMITTED-OPAC-ELECTRONIC-NEWSPAPER-HTTP-ROUTE-CALIBRATION-JT"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENHUI-60YEAR-CDROM-NLC-DONATION-AND-CURRENT-SERVICE-BOUNDARY-JS.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-SOURCE-EMITTED-OPAC-ELECTRONIC-NEWSPAPER-HTTP-ROUTE-CALIBRATION-JT.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -1650,7 +1651,12 @@
       "The declared 1938-01..1998-12 coverage contains 1951-08-18, but target article/page presence is NOT_PROVED because no CD-ROM query or page view is performed. The contemporary reprint is not a first-party Wenhui host and is retained at that authority level.",
       "NLC's current public entry and service page are directly retrieved. They expose catalog/digital-resource services and the service page mentions optical discs, but neither tested surface names 《文汇报60年报纸光盘》 or emits an item-level catalog identity for it.",
       "The 2005 IFLA archive PDF route remains an access boundary on the controlling runner (503/connection failures), so the separately discovered '文汇报61年全文数据光盘' claim is NOT directly re-reviewed in 12JS. The 2003 60-year donation object and any 2005 61-year production object must not be collapsed.",
-      "Highest next gate is now to follow source-emitted NLC catalog/digital-resource routes for an item-level identity of the donated Wenhui CD-ROM, then seek lawful date/page access for 1951-08-18. Direct Wenhui 1951-08-18, Wenwu pp.221-233 and 2011 Wenji p.197 remain NOT_REVIEWED."
+      "Highest next gate is now to follow source-emitted NLC catalog/digital-resource routes for an item-level identity of the donated Wenhui CD-ROM, then seek lawful date/page access for 1951-08-18. Direct Wenhui 1951-08-18, Wenwu pp.221-233 and 2011 Wenji p.197 remain NOT_REVIEWED.",
+      "Batch 12JT directly parses the current NLC homepage and closes two source-emitted public routes: OPAC at http://opac.nlc.cn/ and electronic newspapers at http://read.nlc.cn/outRes/outResList?type=电子报纸.",
+      "Protocol matters: the exact source-emitted HTTP routes are reachable on the controlling runner, while HTTPS comparison routes time out. Prior HTTPS timeout must not be generalized into public-route unreachability.",
+      "The source-emitted OPAC HTTP root returns HTTP 200 / 318 bytes but exposes no forms or links on that root response. The electronic-newspaper HTTP page returns HTTP 200 / 404,829 bytes / SHA-256 b8991f6d96bb95e8fba6dff11866ece8b146ee097fa902d9afb25b0c7d7856cf and exposes search-related fields type, urlType, searchName and ourReswords.",
+      "No form or target query is submitted in 12JT. The electronic-newspaper landing page itself contains no 文汇报 / 文匯報 / 文汇报60年报纸光盘 / 文汇报61年全文数据光盘 token, so item identity remains unresolved rather than negatively disproved.",
+      "Next gate is to recover the page-emitted client-side search contract around searchName/ourReswords before submitting any anonymous public title search; direct Wenhui 1951-08-18, Wenwu pp.221-233 and 2011 Wenji p.197 remain NOT_REVIEWED."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10
