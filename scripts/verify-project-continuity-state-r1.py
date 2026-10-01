@@ -847,9 +847,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-CNBKSY-PRODUCT-TREE-NAVIGATION-CONTRACT-LO",
     "BATCH-12-ZIWEI-CNBKSY-ORDINARY-SEARCH-ESA-BOUNDARY-LP",
     "BATCH-12-ZIWEI-CNBKSY-USAGE-HELP-SURFACE-LQ",
+    "BATCH-12-ZIWEI-CNBKSY-HELP-DYNAMIC-CALLSITE-CONTRACT-LR",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-USAGE-HELP-SURFACE-LQ.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-HELP-DYNAMIC-CALLSITE-CONTRACT-LR.md"
 
 
 def fail(message: str) -> None:
@@ -12999,6 +13000,69 @@ def main() -> int:
         fail("Batch 12LQ state version regressed below 1.332.0")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12LQ latest-batch document mismatch")
+
+    # Batch 12LR: statically close active help-content callsites; invoke none.
+    lr_batch = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-HELP-DYNAMIC-CALLSITE-CONTRACT-LR.md"
+    lr_evidence = ROOT / "docs/research/ZIWEI-CNBKSY-HELP-DYNAMIC-CALLSITE-CONTRACT-R1.json"
+    if not lr_batch.is_file() or not lr_evidence.is_file():
+        fail("Batch 12LR continuity artifact missing")
+    lr = json.loads(lr_evidence.read_text(encoding="utf-8"))
+    if lr.get("batch_id") != "BATCH-12-ZIWEI-CNBKSY-HELP-DYNAMIC-CALLSITE-CONTRACT-LR":
+        fail("Batch 12LR evidence identity mismatch")
+    r = lr.get("response", {})
+    if r.get("http_status") != 200 or r.get("server_header") != "ESA" or r.get("bytes") != 43709:
+        fail("Batch 12LR help response identity regressed")
+    if r.get("sha256") != "93ba3392726bf038e9163a51508eb67aebd097c8a52c2c93cac164db62b795ee" or r.get("inline_script_count") != 7:
+        fail("Batch 12LR help response digest/script count regressed")
+    sc = lr.get("static_callsite_contract", {})
+    calls = {x.get("route"): x for x in sc.get("active_calls", ())}
+    expected_calls = {
+        "/portal/footCategory/footerList?id=61": ("{}", "94683298c45e39be62995a2a15417176a73cae0d2d77d0f9fa1e4d477a8e74a0"),
+        "/portal/footCategory/findNews?id=61": ("{}", "a713529a900b32b16716ffbb61b9428c36dcc4ce81c43049b7d64e4c2a0d47bf"),
+        "/portal/footCategory/findNews": ("{id:treeNode.id}", "d582b915ea7012a312e7170fb17461ed577499a24634a0938566fed3d8c0b58d"),
+    }
+    if set(calls) != set(expected_calls):
+        fail("Batch 12LR active help-call route set regressed")
+    for route, (payload, digest) in expected_calls.items():
+        c = calls.get(route, {})
+        if c.get("kind") != "BKSY_POST" or c.get("payload_expression") != payload or c.get("call_sha256") != digest:
+            fail(f"Batch 12LR active callsite regressed: {route}")
+    legacy = sc.get("commented_legacy", ())
+    if len(legacy) != 1 or legacy[0].get("comment_class") != "LINE_COMMENT":
+        fail("Batch 12LR legacy AJAX comment classification regressed")
+    if set(legacy[0].get("route_literals", ())) != {"/portal/footCategory/footerList?id=61", "/news/listTree?id=nc.id"}:
+        fail("Batch 12LR legacy route set regressed")
+    if legacy[0].get("call_sha256") != "1de433952f48a5dc3eee053aff7b595a90eab786cf60ed9a736f8db930a650f8":
+        fail("Batch 12LR legacy AJAX digest regressed")
+    transport = sc.get("transport_inherited_from_batch_12ll", {})
+    if transport.get("method") != "POST" or transport.get("csrf_location") != "URL_QUERY__csrf_FROM_PAGE_META" or transport.get("process_data_default") is not True:
+        fail("Batch 12LR inherited bksy.post transport regressed")
+    a = lr.get("adjudication", {})
+    for key in ("active_help_tree_transport_closed", "active_initial_help_content_transport_closed", "active_selected_help_content_transport_closed"):
+        if a.get(key) is not True:
+            fail(f"Batch 12LR active callsite closure regressed: {key}")
+    for key in ("legacy_jquery_ajax_active", "news_list_tree_active", "candidate_route_invoked", "target_term_submitted", "target_query_submitted", "login_used", "registration_used"):
+        if a.get(key) is not False:
+            fail(f"Batch 12LR no-action/comment firewall regressed: {key}")
+    p = lr.get("controlling_probe", {})
+    if p.get("workflow_run_id") != 36889506247 or p.get("workflow_job_id") != 110461242047 or p.get("artifact_id") != 11176381258:
+        fail("Batch 12LR controlling probe identity regressed")
+    if p.get("artifact_digest") != "sha256:deaabd53c1c66d0bd96990a913dca6c39ecc122a6cb894ebc4af3915e2415014":
+        fail("Batch 12LR artifact digest regressed")
+    srcmap_lr = {x.get("source_id"): x for x in registry.get("sources", ())}
+    reg_lr = srcmap_lr.get("EXT-CNBKSY-PUBLIC-SEARCH-SURFACE-2026", {}).get("batch_12lr", {})
+    if reg_lr.get("workflow_run_id") != 36889506247 or reg_lr.get("research_artifact") != "docs/research/ZIWEI-CNBKSY-HELP-DYNAMIC-CALLSITE-CONTRACT-R1.json":
+        fail("Batch 12LR external-source registry binding missing")
+    if "BATCH-12-ZIWEI-CNBKSY-HELP-DYNAMIC-CALLSITE-CONTRACT-LR" not in audit_state.get("completed_batches", ()):
+        fail("Batch 12LR missing from completed state")
+    try:
+        schema12lr = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12LR state version is not numeric")
+    if schema12lr < (1, 333, 0):
+        fail("Batch 12LR state version regressed below 1.333.0")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12LR latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

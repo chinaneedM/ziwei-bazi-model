@@ -12043,7 +12043,7 @@
       "provider": "上海图书馆《全国报刊索引》编辑部",
       "url": "https://www.cnbksy.com/",
       "source_role": "FIRST_PARTY_NEWSPAPER_INDEX_PUBLIC_ACCESS_SURFACE",
-      "quality_notes": "Batches 12LF–12LP close the search-access boundary without bypass or target query. Batch 12LQ retrieves the first-party 使用帮助 page at HTTP 200. Its visible body confirms search-mode navigation (普通/高级/专业/图片) but does not directly render field-level help semantics such as 题名/作者/刊名/分类号/年份/期号. Inline scripts contain help-content route literals, including findNews/footerList candidates, but their active/commented callsite status must be closed before any route is invoked.",
+      "quality_notes": "Batches 12LF–12LP close the search-access boundary without bypass or target query. Batch 12LQ retrieves the first-party 使用帮助 page and confirms search-mode navigation but no rendered field-level help semantics. Batch 12LR now statically closes the page's active dynamic-help contract: footerList?id=61, findNews?id=61 and findNews are active bksy.post calls, while the older $.ajax block and /news/listTree?id=nc.id are line-commented legacy code. No candidate route is invoked in 12LR; the next minimal gate is the empty-object footerList POST only.",
       "batch_12lf": {
         "workflow_run_id": 36877911774,
         "workflow_job_id": 110421993332,
@@ -12294,9 +12294,34 @@
         "candidate_route_invoked": false,
         "target_query_submitted": false,
         "research_artifact": "docs/research/ZIWEI-CNBKSY-USAGE-HELP-SURFACE-R1.json"
+      },
+      "batch_12lr": {
+        "workflow_run_id": 36889506247,
+        "workflow_job_id": 110461242047,
+        "artifact_id": 11176381258,
+        "artifact_digest": "sha256:deaabd53c1c66d0bd96990a913dca6c39ecc122a6cb894ebc4af3915e2415014",
+        "exact_head": "7d5477c31baa20999304624191e67fa45b78479d",
+        "route": "/portal/footCategory?id=61",
+        "response_status": 200,
+        "response_content_type": "text/html;charset=UTF-8",
+        "response_server": "ESA",
+        "response_bytes": 43709,
+        "response_sha256": "93ba3392726bf038e9163a51508eb67aebd097c8a52c2c93cac164db62b795ee",
+        "active_bksy_post_routes": [
+          "/portal/footCategory/footerList?id=61",
+          "/portal/footCategory/findNews?id=61",
+          "/portal/footCategory/findNews"
+        ],
+        "commented_legacy_ajax_routes": [
+          "/portal/footCategory/footerList?id=61",
+          "/news/listTree?id=nc.id"
+        ],
+        "candidate_route_invoked": false,
+        "target_query_submitted": false,
+        "research_artifact": "docs/research/ZIWEI-CNBKSY-HELP-DYNAMIC-CALLSITE-CONTRACT-R1.json"
       }
     }
   ],
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md",
-  "updated_at": "2026-10-01"
+  "updated_at": "2026-10-02"
 }

@@ -1,0 +1,126 @@
+{
+  "schema": "ZIWEI-CNBKSY-HELP-DYNAMIC-CALLSITE-CONTRACT-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-CNBKSY-HELP-DYNAMIC-CALLSITE-CONTRACT-LR",
+  "prior_batch_id": "BATCH-12-ZIWEI-CNBKSY-USAGE-HELP-SURFACE-LQ",
+  "question": "Which first-party help-content route occurrences are active versus commented, and what exact transport/data/callback contracts are source-closed without invoking any route?",
+  "answer": "The reviewed 使用帮助 page contains three active bksy.post callsites: footerList?id=61 with an empty object to initialize the help tree, findNews?id=61 with an empty object to render the initial title/content, and findNews with {id:treeNode.id} to render a selected node. The older $.ajax block, including /news/listTree?id=nc.id and a duplicate footerList literal, is line-commented. Batch 12LR invokes none of these routes. Combined with Batch 12LL, the active calls are statically closed as POST requests using page-meta _csrf in the URL query and normal jQuery form serialization.",
+  "controlling_probe": {
+    "workflow": ".github/workflows/probe-batch-12lr-cnbksy-help-dynamic-callsite-contract.yml",
+    "exact_head": "7d5477c31baa20999304624191e67fa45b78479d",
+    "workflow_run_id": 36889506247,
+    "workflow_job_id": 110461242047,
+    "artifact_id": 11176381258,
+    "artifact_digest": "sha256:deaabd53c1c66d0bd96990a913dca6c39ecc122a6cb894ebc4af3915e2415014"
+  },
+  "response": {
+    "url": "https://www.cnbksy.com/portal/footCategory?id=61",
+    "http_status": 200,
+    "content_type": "text/html;charset=UTF-8",
+    "server_header": "ESA",
+    "bytes": 43709,
+    "sha256": "93ba3392726bf038e9163a51508eb67aebd097c8a52c2c93cac164db62b795ee",
+    "inline_script_count": 7
+  },
+  "static_callsite_contract": {
+    "active_occurrence_count": 4,
+    "active_calls": [
+      {
+        "route": "/portal/footCategory/footerList?id=61",
+        "kind": "BKSY_POST",
+        "payload_expression": "{}",
+        "callback_role": "assign returned data to treeNodes and initialize/expand the zTree",
+        "call_sha256": "94683298c45e39be62995a2a15417176a73cae0d2d77d0f9fa1e4d477a8e74a0"
+      },
+      {
+        "route": "/portal/footCategory/findNews?id=61",
+        "kind": "BKSY_POST",
+        "payload_expression": "{}",
+        "callback_role": "render data.title into .newsTitle and data.content into #newContent during init()",
+        "response_hint": "json",
+        "call_sha256": "a713529a900b32b16716ffbb61b9428c36dcc4ce81c43049b7d64e4c2a0d47bf"
+      },
+      {
+        "route": "/portal/footCategory/findNews",
+        "kind": "BKSY_POST",
+        "payload_expression": "{id:treeNode.id}",
+        "callback_role": "render the selected help-node title/content in zTreeOnClick",
+        "response_hint": "json",
+        "call_sha256": "d582b915ea7012a312e7170fb17461ed577499a24634a0938566fed3d8c0b58d"
+      }
+    ],
+    "commented_legacy": [
+      {
+        "kind": "JQUERY_AJAX",
+        "comment_class": "LINE_COMMENT",
+        "route_literals": [
+          "/portal/footCategory/footerList?id=61",
+          "/news/listTree?id=nc.id"
+        ],
+        "call_sha256": "1de433952f48a5dc3eee053aff7b595a90eab786cf60ed9a736f8db930a650f8"
+      }
+    ],
+    "transport_inherited_from_batch_12ll": {
+      "method": "POST",
+      "csrf_location": "URL_QUERY__csrf_FROM_PAGE_META",
+      "data_expression": "params",
+      "process_data_default": true,
+      "data_type_default": "json",
+      "explicit_content_type_override": false,
+      "bksy_json_post_is_distinct": true
+    }
+  },
+  "adjudication": {
+    "active_help_tree_transport_closed": true,
+    "active_initial_help_content_transport_closed": true,
+    "active_selected_help_content_transport_closed": true,
+    "legacy_jquery_ajax_active": false,
+    "news_list_tree_active": false,
+    "candidate_route_invoked": false,
+    "target_term_submitted": false,
+    "target_query_submitted": false,
+    "login_used": false,
+    "registration_used": false
+  },
+  "security": {
+    "anonymous_get_only": true,
+    "csrf_value_recorded": false,
+    "credential_value_recorded": false,
+    "private_endpoint_guessed": false,
+    "captcha_bypass_used": false,
+    "tls_verification_disabled": false
+  },
+  "transmission_impact": {
+    "status": "NONE_ACCESS_BOUNDARY_ONLY",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": []
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Execute only the active /portal/footCategory/footerList?id=61 call through the already source-closed bksy.post semantics in the same anonymous session.",
+    "Use the page-meta _csrf value only in the request query and never persist the token.",
+    "Send an empty object/no target term and inventory only the returned JSON tree node IDs, labels, parent relations and basic shape.",
+    "Do not call /portal/footCategory/findNews?id=61 or /portal/footCategory/findNews in Batch 12LS."
+  ],
+  "updated_at": "2026-10-02"
+}
