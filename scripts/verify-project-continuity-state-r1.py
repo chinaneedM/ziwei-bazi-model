@@ -390,6 +390,8 @@ ZIWEI_NCPSSD_KG_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BA
 ZIWEI_NCPSSD_KG_EVIDENCE = ROOT / "docs/research/ZIWEI-NCPSSD-ZHAO-YONGLE-SOURCE-EMITTED-COOPERATION-ROUTE-R1.json"
 ZIWEI_NCPSSD_KH_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NCPSSD-PUBLIC-SEARCH-SURFACE-KH.md"
 ZIWEI_NCPSSD_KH_EVIDENCE = ROOT / "docs/research/ZIWEI-NCPSSD-PUBLIC-SEARCH-SURFACE-R1.json"
+ZIWEI_NCPSSD_KI_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NCPSSD-INLINE-SEARCH-CONTRACT-NEGATIVE-KI.md"
+ZIWEI_NCPSSD_KI_EVIDENCE = ROOT / "docs/research/ZIWEI-NCPSSD-INLINE-SEARCH-CONTRACT-NEGATIVE-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -809,9 +811,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-NLC-WENJIN-ZHAO-YONGLE-ARTICLE-DETAIL-KF",
     "BATCH-12-ZIWEI-NCPSSD-ZHAO-YONGLE-SOURCE-EMITTED-COOPERATION-ROUTE-KG",
     "BATCH-12-ZIWEI-NCPSSD-PUBLIC-SEARCH-SURFACE-KH",
+    "BATCH-12-ZIWEI-NCPSSD-INLINE-SEARCH-CONTRACT-NEGATIVE-KI",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NCPSSD-PUBLIC-SEARCH-SURFACE-KH.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NCPSSD-INLINE-SEARCH-CONTRACT-NEGATIVE-KI.md"
 
 
 def fail(message: str) -> None:
@@ -12072,6 +12075,42 @@ def main() -> int:
         fail("Batch 12KH state version regressed below 1.298.0")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12KH latest-batch document mismatch")
+
+    # Batch 12KI: target NCPSsd search functions are not defined inline.
+    for path in (ZIWEI_NCPSSD_KI_BATCH, ZIWEI_NCPSSD_KI_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12KI continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12ki = json.loads(ZIWEI_NCPSSD_KI_EVIDENCE.read_text(encoding="utf-8"))
+    if batch12ki.get("batch_id") != "BATCH-12-ZIWEI-NCPSSD-INLINE-SEARCH-CONTRACT-NEGATIVE-KI":
+        fail("Batch 12KI evidence identity mismatch")
+    home12ki = batch12ki.get("home_response", {})
+    if home12ki.get("http_status") != 200 or home12ki.get("bytes") != 198008 or home12ki.get("sha256") != "19823cf7d2d3a89bd3f86081b113f779507ebe45acb86273fd961b537b056544":
+        fail("Batch 12KI home object identity regressed")
+    inline12ki = batch12ki.get("inline_analysis", {})
+    if inline12ki.get("inline_script_count") != 6 or any(inline12ki.get("target_functions", {}).values()):
+        fail("Batch 12KI target inline-function boundary regressed")
+    if inline12ki.get("hideSearch", {}).get("found") is not True:
+        fail("Batch 12KI hideSearch positive control regressed")
+    adj12ki = batch12ki.get("adjudication", {})
+    if adj12ki.get("kh_likely_inline_hypothesis") != "REFUTED" or adj12ki.get("overall_executable_public_search_contract") != "UNRESOLVED_PENDING_ALL_SOURCE_EMITTED_SCRIPT_INVENTORY" or adj12ki.get("query_submitted") is not False:
+        fail("Batch 12KI contract/no-query adjudication regressed")
+    acct12ki = batch12ki.get("accounting", {})
+    if acct12ki.get("matrix_rows") != 198 or acct12ki.get("audited_rows") != 166 or acct12ki.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12KI accounting regressed")
+    reg12ki = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    src12ki = next((x for x in reg12ki.get("sources", []) if x.get("source_id") == "EXT-NCPSSD-PUBLIC-SEARCH-SURFACE-2026"), None)
+    if src12ki is None or src12ki.get("batch_12ki", {}).get("inline_contract_status") != "NOT_FOUND":
+        fail("Batch 12KI registry binding missing")
+    if "BATCH-12-ZIWEI-NCPSSD-INLINE-SEARCH-CONTRACT-NEGATIVE-KI" not in audit_state.get("completed_batches", ()):
+        fail("Batch 12KI missing from completed state")
+    try:
+        schema12ki = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12KI state version is not numeric")
+    if schema12ki < (1, 299, 0):
+        fail("Batch 12KI state version regressed below 1.299.0")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12KI latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

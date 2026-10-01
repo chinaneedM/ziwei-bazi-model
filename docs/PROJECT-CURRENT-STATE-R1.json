@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.298.0",
+  "schema_version": "1.299.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -380,9 +380,10 @@
       "BATCH-12-ZIWEI-NLC-WENJIN-ZHAO-YONGLE-ARTICLE-TITLE-SEARCH-KE",
       "BATCH-12-ZIWEI-NLC-WENJIN-ZHAO-YONGLE-ARTICLE-DETAIL-KF",
       "BATCH-12-ZIWEI-NCPSSD-ZHAO-YONGLE-SOURCE-EMITTED-COOPERATION-ROUTE-KG",
-      "BATCH-12-ZIWEI-NCPSSD-PUBLIC-SEARCH-SURFACE-KH"
+      "BATCH-12-ZIWEI-NCPSSD-PUBLIC-SEARCH-SURFACE-KH",
+      "BATCH-12-ZIWEI-NCPSSD-INLINE-SEARCH-CONTRACT-NEGATIVE-KI"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NCPSSD-PUBLIC-SEARCH-SURFACE-KH.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NCPSSD-INLINE-SEARCH-CONTRACT-NEGATIVE-KI.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -1720,7 +1721,10 @@
       "Batch 12KH closes the anonymous NCPSsd public search UI surface: ncpssd.cn and ncpssd.org currently serve an identical 198008-byte homepage object with basic/advanced search controls.",
       "The basic control is text_search + but_search onclick Basicsearch(), with hidden hidSearchType=0, hidSearchValue=0 and select_type=TS. No HTML form exists.",
       "12KH does not yet close the executable search URL/parameter contract; fetched external scripts are generic libraries and the relevant search logic appears inline. No query has been submitted.",
-      "Next gate 12KI extracts only first-party inline function bodies for Basicsearch / AdvancedSearch / Search_text / related functions; endpoint guessing remains forbidden."
+      "Next gate 12KI extracts only first-party inline function bodies for Basicsearch / AdvancedSearch / Search_text / related functions; endpoint guessing remains forbidden.",
+      "Batch 12KI directly refutes the KH working hypothesis that the NCPSsd search functions are defined inline: six inline scripts were inspected and Basicsearch / AdvancedSearch / Search_text / qkSearchCondition / Search_GJ / waiwen_search were all absent.",
+      "Only hideSearch() is defined inline. No target route/navigation expression or target control-ID read is recovered. No query was submitted.",
+      "The executable NCPSsd public search contract remains unresolved. Next gate 12KJ inventories every script src actually emitted by the homepage, including non-ncpssd hosts, and searches only those source-emitted scripts for the target definitions."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10
