@@ -1,0 +1,115 @@
+{
+  "schema": "ZIWEI-NCPSSD-SECURE-SHELL-HIDDEN-CONTRACT-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-NCPSSD-SECURE-SHELL-HIDDEN-CONTRACT-KX",
+  "prior_batch_id": "BATCH-12-ZIWEI-NCPSSD-ARTICLEINFO-SCRIPT-CONTRACT-KW",
+  "question": "What exact server-emitted hidden values does the source-derived Zhao secure-detail shell supply to articleinfo.js before the journal-detail data request?",
+  "answer": "The exact anonymous secure-detail shell directly emits ftl_urlId=1002462903, ftl_urlType=journalArticle, ftl_urlTypename=中文期刊文章 and ftl_urlPagetype='' together with nav=1 and other empty controls. None of id/type/typename is Base64, so articleinfo.js leaves them unchanged. Because ftl_urlPagetype is empty, the client expression resolves pageType=1. KX does not execute /articleinfoHandler/getjournalarticletable.",
+  "controlling_probe": {
+    "workflow": ".github/workflows/probe-batch-12kx-ncpssd-secure-shell-hidden-contract.yml",
+    "exact_head": "166f672a0366dce8eef8f9c49a8c586d8918fed6",
+    "workflow_run_id": 36867694113,
+    "workflow_job_id": 110387236499,
+    "artifact_id": 11163794065,
+    "artifact_name": "batch-12kx-ncpssd-secure-shell-hidden-contract",
+    "artifact_digest": "sha256:094d43a117ad9f7c13e7b51a09029e6f908a737535dbf6d50a98e8ec77b9542b"
+  },
+  "result_replay": {
+    "http_status": 200,
+    "bytes": 4352,
+    "sha256": "127b5a6f88382b1517cf2cbbe732a9af4c1491e9ce51b201c4aacf25909c57a4",
+    "target_total": 1
+  },
+  "detail_shell": {
+    "http_status": 200,
+    "bytes": 149306,
+    "sha256": "5ea62df5541d33d3c07828d070c5808bd9dc52c53dd8964f9fa445e599bfb25b",
+    "content_type": "text/html;charset=UTF-8"
+  },
+  "source_emitted_controls": {
+    "ftl_urlId": "1002462903",
+    "ftl_urlType": "journalArticle",
+    "ftl_urlTypename": "中文期刊文章",
+    "ftl_urlPagetype": "",
+    "ftl_urlNav": "1",
+    "ftl_urlSynUpdateType": "",
+    "ftl_urlBarcodenum": "",
+    "ftl_urlyulan": "",
+    "qkCoverImageHost": "https://ft.ncpssd.cn/image/get/qwcover",
+    "prpYears": "",
+    "prpNum": ""
+  },
+  "client_equivalent_resolution": {
+    "all_id_type_typename_base64": false,
+    "decoded_branch_taken": false,
+    "id": "1002462903",
+    "type": "journalArticle",
+    "typename": "中文期刊文章",
+    "pageType": 1,
+    "pageType_rule": "$(\"#ftl_urlPagetype\").val() === null || value === \"\" ? 1 : 2"
+  },
+  "next_detail_request_contract": {
+    "endpoint": "/articleinfoHandler/getjournalarticletable",
+    "method": "POST",
+    "content_type": "application/json; charset=utf-8",
+    "json_body": {
+      "lngid": "1002462903",
+      "type": "中文期刊文章",
+      "pageType": 1
+    },
+    "source": "12KW articleinfo.js + 12KX server-emitted hidden controls"
+  },
+  "adjudication": {
+    "target_row_recovered": true,
+    "secure_shell_retrieved": true,
+    "source_emitted_hidden_contract_recovered": true,
+    "detail_request_contract_fully_closed": true,
+    "detail_data_endpoint_executed": false,
+    "login_used": false
+  },
+  "security": {
+    "anonymous_search_replay_only": true,
+    "anonymous_get_only_for_secure_shell": true,
+    "reader_account_used": false,
+    "registration_used": false,
+    "detail_data_post_used": false,
+    "read_download_endpoint_used": false,
+    "state_changing_endpoint_used": false,
+    "private_endpoint_guessed": false,
+    "captcha_bypass_used": false,
+    "tls_verification_disabled": false
+  },
+  "transmission_impact": {
+    "status": "NONE_ACCESS_CONTRACT_ONLY",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": [],
+    "reason": "Detail client/server contract calibration only; no historical transmission relation."
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "POST exactly the source-closed JSON body {lngid:'1002462903', type:'中文期刊文章', pageType:1} to /articleinfoHandler/getjournalarticletable anonymously.",
+    "Inventory bibliographic fields and whether pdfUrl/read metadata is merely emitted; do not follow any pdfUrl, read, download, login, collection or user route.",
+    "Preserve the existing 文物 vs 文物参考资料 carrier-label tension unless the returned first-party detail explicitly supplies a stronger crosswalk."
+  ],
+  "updated_at": "2026-10-01"
+}

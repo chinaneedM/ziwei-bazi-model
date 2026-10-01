@@ -11713,7 +11713,7 @@
       "provider": "国家哲学社会科学文献中心（NCPSsd）",
       "url": "https://www.ncpssd.cn/",
       "source_role": "FIRST_PARTY_PUBLIC_SEARCH_UI_AND_CLIENT_CONTROL_SURFACE",
-      "quality_notes": "Batch 12KH-KW closes the current anonymous NCPSsd public search/result/detail client contract in stages: homepage UI; negative inline/external function search; source-emitted articlelist route; 20/20 Base64 grammar roundtrip; dynamic /searchHandler/search contract; exact jQuery absent/null serialization; 红楼梦 semantic positive control; exact Zhao Wanli title result; encryptedUrl secure-detail route; secure-shell login boundary; and source-emitted articleinfo.js detail-data contract. No login, download/read operation or guessed endpoint is used.",
+      "quality_notes": "Batch 12KH-KW closes the current anonymous NCPSsd public search/result/detail client contract in stages: homepage UI; negative inline/external function search; source-emitted articlelist route; 20/20 Base64 grammar roundtrip; dynamic /searchHandler/search contract; exact jQuery absent/null serialization; 红楼梦 semantic positive control; exact Zhao Wanli title result; encryptedUrl secure-detail route; secure-shell login boundary; and source-emitted articleinfo.js detail-data contract. No login, download/read operation or guessed endpoint is used. Batch 12KX closes the exact server-emitted secure-shell hidden values and resolves the next journal-detail request body without executing it.",
       "batch_12kh": {
         "workflow_run_id": 36857797158,
         "workflow_job_id": 110354359450,
@@ -11880,6 +11880,19 @@
         "journal_detail_endpoint": "/articleinfoHandler/getjournalarticletable",
         "discovered_endpoint_executed": false,
         "research_artifact": "docs/research/ZIWEI-NCPSSD-ARTICLEINFO-SCRIPT-CONTRACT-R1.json"
+      },
+      "batch_12kx": {
+        "workflow_run_id": 36867694113,
+        "workflow_job_id": 110387236499,
+        "artifact_id": 11163794065,
+        "artifact_digest": "sha256:094d43a117ad9f7c13e7b51a09029e6f908a737535dbf6d50a98e8ec77b9542b",
+        "target_id": "1002462903",
+        "target_type": "journalArticle",
+        "target_typename": "中文期刊文章",
+        "page_type": 1,
+        "hidden_contract_closed": true,
+        "detail_data_endpoint_executed": false,
+        "research_artifact": "docs/research/ZIWEI-NCPSSD-SECURE-SHELL-HIDDEN-CONTRACT-R1.json"
       }
     }
   ],

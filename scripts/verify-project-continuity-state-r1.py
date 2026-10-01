@@ -827,9 +827,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-NCPSSD-ZHAO-ROW-DETAIL-TOKEN-CONTRACT-KU",
     "BATCH-12-ZIWEI-NCPSSD-ZHAO-SECURE-DETAIL-BOUNDARY-KV",
     "BATCH-12-ZIWEI-NCPSSD-ARTICLEINFO-SCRIPT-CONTRACT-KW",
+    "BATCH-12-ZIWEI-NCPSSD-SECURE-SHELL-HIDDEN-CONTRACT-KX",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NCPSSD-ARTICLEINFO-SCRIPT-CONTRACT-KW.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NCPSSD-SECURE-SHELL-HIDDEN-CONTRACT-KX.md"
 
 
 def fail(message: str) -> None:
@@ -12267,6 +12268,36 @@ def main() -> int:
         fail("Batch 12KW state version regressed below 1.312.0")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12KW latest-batch document mismatch")
+
+    # Batch 12KX: secure-detail hidden fields close the exact journal-detail request.
+    kx_batch = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NCPSSD-SECURE-SHELL-HIDDEN-CONTRACT-KX.md"
+    kx_evidence = ROOT / "docs/research/ZIWEI-NCPSSD-SECURE-SHELL-HIDDEN-CONTRACT-R1.json"
+    if not kx_batch.is_file() or not kx_evidence.is_file():
+        fail("Batch 12KX continuity artifact missing")
+    kx = json.loads(kx_evidence.read_text(encoding="utf-8"))
+    if kx.get("batch_id") != "BATCH-12-ZIWEI-NCPSSD-SECURE-SHELL-HIDDEN-CONTRACT-KX":
+        fail("Batch 12KX evidence identity mismatch")
+    kxres = kx.get("client_equivalent_resolution", {})
+    if kxres.get("id") != "1002462903" or kxres.get("type") != "journalArticle" or kxres.get("typename") != "中文期刊文章" or kxres.get("pageType") != 1:
+        fail("Batch 12KX hidden-control resolution regressed")
+    kxreq = kx.get("next_detail_request_contract", {})
+    if kxreq.get("endpoint") != "/articleinfoHandler/getjournalarticletable" or kxreq.get("json_body") != {"lngid": "1002462903", "type": "中文期刊文章", "pageType": 1}:
+        fail("Batch 12KX detail-request contract regressed")
+    if kx.get("adjudication", {}).get("detail_data_endpoint_executed") is not False:
+        fail("Batch 12KX no-detail-POST firewall regressed")
+    kxacct = kx.get("accounting", {})
+    if kxacct.get("matrix_rows") != 198 or kxacct.get("audited_rows") != 166 or kxacct.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12KX accounting regressed")
+    if "BATCH-12-ZIWEI-NCPSSD-SECURE-SHELL-HIDDEN-CONTRACT-KX" not in audit_state.get("completed_batches", ()):
+        fail("Batch 12KX missing from completed state")
+    try:
+        schema12kx = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12KX state version is not numeric")
+    if schema12kx < (1, 313, 0):
+        fail("Batch 12KX state version regressed below 1.313.0")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12KX latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

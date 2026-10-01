@@ -1,0 +1,128 @@
+name: probe-batch-12ky-ncpssd-zhao-journal-detail-data
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12ky-ncpssd-zhao-journal-detail-data.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Execute only the source-closed anonymous journal-detail data request
+        run: |
+          python - <<'PY'
+          import hashlib, json
+          from pathlib import Path
+          import requests
+
+          BASE="https://www.ncpssd.cn"
+          ENDPOINT="/articleinfoHandler/getjournalarticletable"
+          BODY={"lngid":"1002462903","type":"中文期刊文章","pageType":1}
+          headers={
+              "User-Agent":"Mozilla/5.0 (Tianwen provenance audit; NCPSsd source-closed Zhao journal detail)",
+              "Content-Type":"application/json; charset=utf-8",
+              "X-Requested-With":"XMLHttpRequest",
+              "Referer":BASE+"/Literature/secure/articleinfo",
+              "Origin":BASE,
+          }
+          raw_body=json.dumps(BODY,ensure_ascii=False,separators=(",",":")).encode("utf-8")
+          r=requests.post(BASE+ENDPOINT,data=raw_body,headers=headers,timeout=45,allow_redirects=False)
+          raw=r.content
+          parsed=None; parse_error=None
+          try:
+              parsed=r.json()
+          except Exception as e:
+              parse_error=type(e).__name__+": "+str(e)[:500]
+
+          data=parsed.get("data") if isinstance(parsed,dict) else None
+          selected_keys=[
+              "lngid","titlec","titlee","showwriter","authore","showorgan","showorgane",
+              "mediac","mediae","years","num","month","beginPage","endPage","pagecount",
+              "intro","remark","keywordC","keywordE","clazz","gch","issn","doi",
+              "synUpdateType","replaceId","qkEncryptedUrl","pdfUrl","pdfurl","pdfsize",
+              "isRecom","imburse"
+          ]
+          selected={}
+          if isinstance(data,dict):
+              for k in selected_keys:
+                  if k in data:
+                      selected[k]=data.get(k)
+
+          def nonempty(v):
+              return v not in (None,"",[])
+
+          out={
+              "source_contract":{
+                  "parent_batch":"12KX",
+                  "endpoint":ENDPOINT,
+                  "method":"POST",
+                  "content_type":"application/json; charset=utf-8",
+                  "request_body":BODY,
+                  "request_source":"12KW articleinfo.js + 12KX server-emitted hidden controls",
+                  "only_detail_data_endpoint_executed":True
+              },
+              "serialized_request":{
+                  "body_utf8":raw_body.decode("utf-8"),
+                  "body_bytes":len(raw_body),
+                  "body_sha256":hashlib.sha256(raw_body).hexdigest()
+              },
+              "response":{
+                  "http_status":r.status_code,
+                  "content_type":r.headers.get("content-type",""),
+                  "location":r.headers.get("location"),
+                  "bytes":len(raw),
+                  "sha256":hashlib.sha256(raw).hexdigest(),
+                  "json_parsed":parsed is not None,
+                  "json_parse_error":parse_error,
+                  "top_level_code":parsed.get("code") if isinstance(parsed,dict) else None,
+                  "top_level_result":parsed.get("result") if isinstance(parsed,dict) else None,
+                  "top_level_msg":parsed.get("msg") if isinstance(parsed,dict) else None
+              },
+              "detail_data":{
+                  "is_object":isinstance(data,dict),
+                  "selected_fields":selected,
+                  "all_keys":sorted(data.keys()) if isinstance(data,dict) else [],
+                  "all_key_count":len(data.keys()) if isinstance(data,dict) else 0,
+                  "pdf_url_metadata_present":any(nonempty(data.get(k)) for k in ("pdfUrl","pdfurl")) if isinstance(data,dict) else False,
+                  "qk_encrypted_url_present":nonempty(data.get("qkEncryptedUrl")) if isinstance(data,dict) else False
+              },
+              "adjudication":{
+                  "detail_request_executed":True,
+                  "http_ok":r.status_code==200,
+                  "json_ok":parsed is not None,
+                  "detail_object_observed":isinstance(data,dict),
+                  "read_or_download_url_followed":False,
+                  "login_used":False
+              },
+              "evidence_firewall":{
+                  "emitted_pdf_metadata_is_not_equivalent_to_public_fulltext_access":True,
+                  "carrier_label_must_not_be_normalized_without_explicit_crosswalk":True,
+                  "no_read_download_login_or_collection_route_followed":True
+              },
+              "security":{
+                  "anonymous_read_only_detail_post":True,
+                  "reader_account_used":False,
+                  "registration_used":False,
+                  "read_download_endpoint_used":False,
+                  "state_changing_endpoint_used":False,
+                  "collection_user_endpoint_used":False,
+                  "private_endpoint_guessed":False,
+                  "captcha_bypass_used":False,
+                  "tls_verification_disabled":False
+              }
+          }
+          Path("batch-12ky-ncpssd-zhao-journal-detail-data.json").write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12ky-ncpssd-zhao-journal-detail-data
+          path: batch-12ky-ncpssd-zhao-journal-detail-data.json

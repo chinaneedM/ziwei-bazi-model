@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.312.0",
+  "schema_version": "1.313.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -394,9 +394,10 @@
       "BATCH-12-ZIWEI-NCPSSD-ZHAO-YONGLE-TITLE-QUERY-KT",
       "BATCH-12-ZIWEI-NCPSSD-ZHAO-ROW-DETAIL-TOKEN-CONTRACT-KU",
       "BATCH-12-ZIWEI-NCPSSD-ZHAO-SECURE-DETAIL-BOUNDARY-KV",
-      "BATCH-12-ZIWEI-NCPSSD-ARTICLEINFO-SCRIPT-CONTRACT-KW"
+      "BATCH-12-ZIWEI-NCPSSD-ARTICLEINFO-SCRIPT-CONTRACT-KW",
+      "BATCH-12-ZIWEI-NCPSSD-SECURE-SHELL-HIDDEN-CONTRACT-KX"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NCPSSD-ARTICLEINFO-SCRIPT-CONTRACT-KW.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NCPSSD-SECURE-SHELL-HIDDEN-CONTRACT-KX.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -1753,7 +1754,11 @@
       "Batch 12KT then queries the already-established traditional title root 永樂大典展覽的意義 through the same closed contract: exactly one result is returned, titled 永樂大典展覽的意義——一九五一年八月北京圖書舘舉辦, creator 趙萬里, type 中文期刊文章, data_id/id 1002462903, date 1951-09-01, carrier label 文物.",
       "Batch 12KU inventories the exact target row and its first-party encryptedUrl detail token; articlelist.js source-emits the secure detail builder /Literature/secure/articleinfo?params=<encryptedUrl>&pageUrl=<current URL>. No detail request is executed in KU.",
       "Batch 12KV follows exactly that source-derived secure-detail GET once without redirects: HTTP 200 generic NCPSsd shell, target title/author tokens absent, login tokens present, and /js/web/Literature/articleinfo.js is directly source-emitted. No read/download endpoint is executed.",
-      "Batch 12KW retrieves only that source-emitted articleinfo.js and recovers /articleinfoHandler/getjournalarticletable plus its client mapping for Chinese journal details. Read/download paths are login/signature gated and remain out of scope. Next gate 12KX extracts the secure shell's source-emitted hidden id/type/typename/pageType values before any detail-data POST."
+      "Batch 12KW retrieves only that source-emitted articleinfo.js and recovers /articleinfoHandler/getjournalarticletable plus its client mapping for Chinese journal details. Read/download paths are login/signature gated and remain out of scope. Next gate 12KX extracts the secure shell's source-emitted hidden id/type/typename/pageType values before any detail-data POST.",
+      "Batch 12KX closes the exact server-emitted secure-shell controls for the Zhao target: ftl_urlId=1002462903, ftl_urlType=journalArticle, ftl_urlTypename=中文期刊文章, ftl_urlPagetype='', ftl_urlNav=1.",
+      "The three id/type/typename values are not Base64, so articleinfo.js leaves them unchanged; empty ftl_urlPagetype resolves pageType=1.",
+      "12KW + 12KX therefore close the exact anonymous detail-data request as POST /articleinfoHandler/getjournalarticletable with JSON {lngid:'1002462903', type:'中文期刊文章', pageType:1}. No such POST is executed in KX.",
+      "Next gate 12KY executes only that source-closed read-only detail-data POST and inventories returned bibliographic/fulltext metadata without following any read/download/login/user route."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10
