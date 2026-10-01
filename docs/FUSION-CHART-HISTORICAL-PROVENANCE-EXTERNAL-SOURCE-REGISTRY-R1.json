@@ -12043,7 +12043,7 @@
       "provider": "上海图书馆《全国报刊索引》编辑部",
       "url": "https://www.cnbksy.com/",
       "source_role": "FIRST_PARTY_NEWSPAPER_INDEX_PUBLIC_ACCESS_SURFACE",
-      "quality_notes": "Batch 12LF records root/home HTTP 412 without a target query. Batch 12LG directly demonstrates that a same-domain first-party activity page returns HTTP 200 from the same ESA server header while the root returns an opaque JavaScript/cookie precondition surface. Therefore 412 alone is not evidence of a site-wide institutional-IP authorization wall. No search route, login, registration or target query is executed.",
+      "quality_notes": "Batch 12LF records root/home HTTP 412 without a target query. Batch 12LG proves a same-domain first-party activity page is anonymously HTTP 200 and narrows 412 to a path-scoped ESA/browser precondition rather than a demonstrated site-wide institutional-IP wall. Batch 12LH retrieves only the six source-emitted scripts: all are HTTP 200, but no CNBKSY business-search route literal is observed; third-party library query/find/search tokens are excluded as noise. No login, registration or target query is used.",
       "batch_12lf": {
         "workflow_run_id": 36877911774,
         "workflow_job_id": 110421993332,
@@ -12072,6 +12072,20 @@
         "target_query_submitted": false,
         "login_used": false,
         "research_artifact": "docs/research/ZIWEI-CNBKSY-412-AND-PUBLIC-ACTIVITY-CONTRACT-R1.json"
+      },
+      "batch_12lh": {
+        "workflow_run_id": 36879836981,
+        "workflow_job_id": 110428492239,
+        "artifact_id": 11170592063,
+        "artifact_digest": "sha256:2f30de9a909488452724ba671e03b8b8033497fac9c393bfe3b9999a8f2431bb",
+        "exact_head": "0ca02033ec670e021f212b69d0e452c217ea2c81",
+        "script_url_count": 6,
+        "http_200_count": 6,
+        "search_related_route_literal_count": 0,
+        "discovered_route_followed": false,
+        "target_query_submitted": false,
+        "login_or_registration_used": false,
+        "research_artifact": "docs/research/ZIWEI-CNBKSY-SOURCE-EMITTED-SCRIPT-CONTRACT-R1.json"
       }
     }
   ],

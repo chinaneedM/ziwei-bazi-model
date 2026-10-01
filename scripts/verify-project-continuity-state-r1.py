@@ -837,9 +837,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-NDL-ZHAO-WENJI-ITEM-ACCESS-BLOCK-LE",
     "BATCH-12-ZIWEI-CNBKSY-PUBLIC-SEARCH-SURFACE-LF",
     "BATCH-12-ZIWEI-CNBKSY-412-AND-PUBLIC-ACTIVITY-CONTRACT-LG",
+    "BATCH-12-ZIWEI-CNBKSY-SOURCE-EMITTED-SCRIPT-CONTRACT-LH",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-412-AND-PUBLIC-ACTIVITY-CONTRACT-LG.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-SOURCE-EMITTED-SCRIPT-CONTRACT-LH.md"
 
 
 def fail(message: str) -> None:
@@ -12589,6 +12590,40 @@ def main() -> int:
         fail("Batch 12LG state version regressed below 1.322.0")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12LG latest-batch document mismatch")
+
+    # Batch 12LH: source-emitted public-page scripts do not close a CNBKSY business search route.
+    lh_batch = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-SOURCE-EMITTED-SCRIPT-CONTRACT-LH.md"
+    lh_evidence = ROOT / "docs/research/ZIWEI-CNBKSY-SOURCE-EMITTED-SCRIPT-CONTRACT-R1.json"
+    if not lh_batch.is_file() or not lh_evidence.is_file():
+        fail("Batch 12LH continuity artifact missing")
+    lh = json.loads(lh_evidence.read_text(encoding="utf-8"))
+    if lh.get("batch_id") != "BATCH-12-ZIWEI-CNBKSY-SOURCE-EMITTED-SCRIPT-CONTRACT-LH":
+        fail("Batch 12LH evidence identity mismatch")
+    lhs = lh.get("scripts", [])
+    if len(lhs) != 6 or any(x.get("status") != 200 for x in lhs):
+        fail("Batch 12LH six-script HTTP-200 inventory regressed")
+    if any(x.get("search_related_route_literals") for x in lhs):
+        fail("Batch 12LH unexpected business search route literal")
+    lha = lh.get("adjudication", {})
+    if lha.get("third_party_library_keyword_noise_excluded") is not True or lha.get("public_newspaper_search_contract_closed") is not False:
+        fail("Batch 12LH library-noise/search-contract adjudication regressed")
+    if lha.get("discovered_route_followed") is not False or lha.get("target_query_submitted") is not False or lha.get("login_used") is not False:
+        fail("Batch 12LH no-route/no-query/no-login firewall regressed")
+    lhp = lh.get("controlling_probe", {})
+    if lhp.get("workflow_run_id") != 36879836981 or lhp.get("workflow_job_id") != 110428492239 or lhp.get("artifact_id") != 11170592063:
+        fail("Batch 12LH controlling probe identity regressed")
+    if lhp.get("artifact_digest") != "sha256:2f30de9a909488452724ba671e03b8b8033497fac9c393bfe3b9999a8f2431bb":
+        fail("Batch 12LH artifact digest regressed")
+    if "BATCH-12-ZIWEI-CNBKSY-SOURCE-EMITTED-SCRIPT-CONTRACT-LH" not in audit_state.get("completed_batches", ()):
+        fail("Batch 12LH missing from completed state")
+    try:
+        schema12lh = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12LH state version is not numeric")
+    if schema12lh < (1, 323, 0):
+        fail("Batch 12LH state version regressed below 1.323.0")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12LH latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.322.0",
+  "schema_version": "1.323.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -404,9 +404,10 @@
       "BATCH-12-ZIWEI-NDL-ZHAO-WENJI-PUBLIC-ACCESS-SIGNALS-LD",
       "BATCH-12-ZIWEI-NDL-ZHAO-WENJI-ITEM-ACCESS-BLOCK-LE",
       "BATCH-12-ZIWEI-CNBKSY-PUBLIC-SEARCH-SURFACE-LF",
-      "BATCH-12-ZIWEI-CNBKSY-412-AND-PUBLIC-ACTIVITY-CONTRACT-LG"
+      "BATCH-12-ZIWEI-CNBKSY-412-AND-PUBLIC-ACTIVITY-CONTRACT-LG",
+      "BATCH-12-ZIWEI-CNBKSY-SOURCE-EMITTED-SCRIPT-CONTRACT-LH"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-412-AND-PUBLIC-ACTIVITY-CONTRACT-LG.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-SOURCE-EMITTED-SCRIPT-CONTRACT-LH.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -1799,7 +1800,12 @@
       "The root returns HTTP 412 text/html from server header ESA, sets a cookie, and exposes an opaque JavaScript precondition surface; it contains no explicit login, authorization, captcha or Access Denied wording. The same-domain activity route returns HTTP 200 from the same ESA server header.",
       "The activity page source-emits /home, /signUp, /login and six script URLs. Therefore HTTP 412 alone does not demonstrate a site-wide institutional-IP authorization wall; the controlling classification is a PATH_SCOPED_ESA_BROWSER_PRECONDITION_BOUNDARY, with institutional-IP authorization still unproven for this route.",
       "No search route is followed and no Zhao/Wenhui target query is submitted in 12LG. Matrix remains 198 / 166 / 10; provenance defects remain 17/17; chart algorithm defects / reopens / candidate collapses remain 0.",
-      "Next gate 12LH fetches only the six script URLs source-emitted by the anonymous public activity page and inventories search-related function names, route literals and navigation/AJAX builders. It must not follow any discovered route, execute /login or /signUp, or submit the Zhao/Wenhui target query."
+      "Next gate 12LH fetches only the six script URLs source-emitted by the anonymous public activity page and inventories search-related function names, route literals and navigation/AJAX builders. It must not follow any discovered route, execute /login or /signUp, or submit the Zhao/Wenhui target query.",
+      "Batch 12LH exact-head run 36879836981 / job 110428492239 / artifact 11170592063 anonymously retrieves all six script URLs source-emitted by the Batch 12LG public activity page; every script returns HTTP 200 from server header ESA.",
+      "No search-related route literal is observed in any of the six scripts. The apparent query/find/search tokens in jQuery, Bootstrap and PDF.js are third-party library semantics and are explicitly excluded from CNBKSY business-search evidence.",
+      "The ESA dynamic script yields no configured search/query/find route or snippet. CNBKSY common.js exposes only function logout plus generic AJAX and Array.indexOf searchElement semantics under the configured inventory; no public newspaper-search contract is closed.",
+      "12LH follows no discovered route, submits no target query, and uses no login or registration. Matrix remains 198 / 166 / 10; provenance defects 17/17; chart algorithm defects / reopens / candidate collapses remain 0.",
+      "Next gate 12LI returns to the already-public HTTP-200 activity HTML and inventories only inline script blocks, forms/actions, input/select/textarea names, onclick handlers and route literals. No discovered route is executed and no Zhao/Wenhui query is submitted."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10

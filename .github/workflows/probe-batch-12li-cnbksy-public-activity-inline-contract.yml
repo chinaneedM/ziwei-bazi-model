@@ -1,0 +1,102 @@
+name: probe-batch-12li-cnbksy-public-activity-inline-contract
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12li-cnbksy-public-activity-inline-contract.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inventory only public activity inline forms and scripts without executing discovered routes
+        run: |
+          python - <<'PY'
+          import hashlib, html, json, re
+          from pathlib import Path
+          from urllib.parse import urljoin
+          import requests
+
+          UA={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; CNBKSY public activity inline contract)"}
+          url="https://www.cnbksy.com/portal/pushManager/pushItem?id=322&isActivity=true&source=index"
+          r=requests.get(url,headers=UA,timeout=45,allow_redirects=False)
+          raw=r.content
+          txt=raw.decode("utf-8","replace")
+
+          forms=[]
+          for fm in re.finditer(r"(?is)<form\b([^>]*)>(.*?)</form>",txt):
+              attrs,body=fm.group(1),fm.group(2)
+              am=re.search(r'''(?i)action\s*=\s*["']([^"']*)["']''',attrs)
+              mm=re.search(r'''(?i)method\s*=\s*["']([^"']*)["']''',attrs)
+              fields=[]
+              for tag in re.finditer(r"(?is)<(input|select|textarea)\b([^>]*)>",body):
+                  t,a=tag.group(1).lower(),tag.group(2)
+                  nm=re.search(r'''(?i)name\s*=\s*["']([^"']+)["']''',a)
+                  ident=re.search(r'''(?i)id\s*=\s*["']([^"']+)["']''',a)
+                  typ=re.search(r'''(?i)type\s*=\s*["']([^"']+)["']''',a)
+                  fields.append({"tag":t,"name":nm.group(1) if nm else None,"id":ident.group(1) if ident else None,"type":typ.group(1) if typ else None})
+              forms.append({
+                  "action":html.unescape(am.group(1)) if am else None,
+                  "absolute_action":urljoin(url,html.unescape(am.group(1))) if am and am.group(1) else None,
+                  "method":mm.group(1).upper() if mm else "GET_DEFAULT",
+                  "fields":fields
+              })
+
+          onclick=[]
+          for m in re.finditer(r'''(?is)<([a-z0-9]+)\b([^>]*?\bonclick\s*=\s*["']([^"']+)["'][^>]*)>''',txt):
+              onclick.append({"tag":m.group(1).lower(),"handler":html.unescape(m.group(3))[:1000]})
+
+          inline=[]
+          for m in re.finditer(r"(?is)<script\b(?![^>]*\bsrc\s*=)[^>]*>(.*?)</script>",txt):
+              body=m.group(1)
+              funcs=sorted(set(re.findall(r"(?i)function\s+([A-Za-z_$][\w$]*)\s*\(",body)))
+              routes=sorted(set(re.findall(r'''(?i)["']((?:https?://[^"'\s]+|/[A-Za-z0-9_./?=&%{}:$+-]+))["']''',body)))
+              keywords={}
+              for token in ["search","query","find","检索","搜索","window.location","location.href","location.replace","ajax","$.get","$.post","form.submit","submit("]:
+                  c=len(re.findall(re.escape(token),body,re.I))
+                  if c: keywords[token]=c
+              snippets=[]
+              for mm in re.finditer(r"(?i).{0,160}(?:search|query|find|检索|搜索|window\.location|location\.href|ajax|\$\.get|\$\.post|submit).{0,260}",body):
+                  s=re.sub(r"\s+"," ",mm.group(0)).strip()
+                  if s and s not in snippets: snippets.append(s[:700])
+                  if len(snippets)>=40: break
+              inline.append({
+                  "bytes":len(body.encode("utf-8")),
+                  "sha256":hashlib.sha256(body.encode("utf-8")).hexdigest(),
+                  "function_names":funcs[:300],
+                  "route_literals":routes[:500],
+                  "keyword_counts":keywords,
+                  "snippets":snippets
+              })
+
+          hrefs=[]
+          for m in re.finditer(r'''(?is)<a\b[^>]*?href\s*=\s*["']([^"']+)["'][^>]*>(.*?)</a>''',txt):
+              href=html.unescape(m.group(1)).strip()
+              label=html.unescape(re.sub(r"<[^>]+>"," ",m.group(2)))
+              label=re.sub(r"\s+"," ",label).strip()
+              hrefs.append({"href":href,"absolute_href":urljoin(url,href),"label":label[:300]})
+
+          out={
+              "source_contract":{"parent_batch":"12LH","url":url,"route_execution_authorized":False,"target_query_submitted":False},
+              "response":{"status":r.status_code,"content_type":r.headers.get("content-type"),"server":r.headers.get("server"),"bytes":len(raw),"sha256":hashlib.sha256(raw).hexdigest()},
+              "forms":forms,"form_count":len(forms),
+              "onclick_handlers":onclick,"onclick_count":len(onclick),
+              "inline_scripts":inline,"inline_script_count":len(inline),
+              "hrefs":hrefs[:300],"href_count":len(hrefs),
+              "adjudication":{"inventory_only":True,"discovered_route_followed":False,"form_submitted":False,"target_query_submitted":False,"login_used":False,"registration_used":False},
+              "security":{"anonymous_get_only":True,"post_request_used":False,"private_endpoint_guessed":False,"captcha_bypass_used":False,"tls_verification_disabled":False}
+          }
+          Path("batch-12li-cnbksy-public-activity-inline-contract.json").write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12li-cnbksy-public-activity-inline-contract
+          path: batch-12li-cnbksy-public-activity-inline-contract.json
