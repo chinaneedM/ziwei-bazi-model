@@ -1,0 +1,132 @@
+name: probe-batch-12ju-nlc-electronic-newspaper-search-contract
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12ju-nlc-electronic-newspaper-search-contract.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - name: Extract source-emitted public search contract without submitting a query
+        run: |
+          python - <<'PY'
+          import hashlib, json, re
+          from html.parser import HTMLParser
+          from pathlib import Path
+          from urllib.parse import urljoin, urlparse
+          import requests
+
+          UA={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; NLC public search-contract extraction)"}
+          PAGE="http://read.nlc.cn/outRes/outResList?type=%E7%94%B5%E5%AD%90%E6%8A%A5%E7%BA%B8"
+
+          def sha(b): return hashlib.sha256(b).hexdigest()
+          def decode(raw):
+              for enc in ("utf-8","utf-8-sig","gb18030","gbk"):
+                  try: return raw.decode(enc),enc
+                  except UnicodeDecodeError: pass
+              return raw.decode("utf-8","replace"),"utf-8-replacement"
+
+          class Scan(HTMLParser):
+              def __init__(self):
+                  super().__init__(); self.scripts=[]; self.forms=[]; self.inputs=[]; self.buttons=[]; self.links=[]
+              def handle_starttag(self,tag,attrs):
+                  d=dict(attrs)
+                  if tag=="script" and d.get("src"): self.scripts.append(d.get("src"))
+                  if tag=="form": self.forms.append({k:d.get(k) for k in ("action","method","id","name","onsubmit") if d.get(k) is not None})
+                  if tag=="input": self.inputs.append({k:d.get(k) for k in ("name","type","value","placeholder","id","onclick","onkeydown","onkeyup") if d.get(k) is not None})
+                  if tag=="button": self.buttons.append({k:d.get(k) for k in ("type","id","name","onclick","value") if d.get(k) is not None})
+                  if tag=="a" and d.get("href"): self.links.append(d.get("href"))
+
+          r=requests.get(PAGE,headers=UA,timeout=45,allow_redirects=True)
+          raw=r.content; txt,enc=decode(raw)
+          scan=Scan(); scan.feed(txt)
+          script_urls=[]
+          for src in scan.scripts:
+              u=urljoin(r.url,src)
+              if urlparse(u).hostname in ("read.nlc.cn","www.nlc.cn","nlc.cn") and u not in script_urls:
+                  script_urls.append(u)
+
+          needles=("ourReswords","searchName","urlType","outResList","search","检索","搜索")
+          inline_contexts=[]
+          for m in re.finditer("|".join(re.escape(x) for x in needles),txt,re.I):
+              s=max(0,m.start()-260); e=min(len(txt),m.end()+520)
+              piece=re.sub(r"\s+"," ",txt[s:e])
+              if piece not in inline_contexts: inline_contexts.append(piece[:900])
+              if len(inline_contexts)>=30: break
+
+          fetched_scripts=[]
+          for u in script_urls[:40]:
+              item={"url":u}
+              try:
+                  rr=requests.get(u,headers=UA,timeout=30,allow_redirects=True)
+                  item.update({"http_status":rr.status_code,"final_url":rr.url,"bytes":len(rr.content),"sha256":sha(rr.content),"content_type":rr.headers.get("Content-Type")})
+                  stxt,senc=decode(rr.content)
+                  item["decode_used"]=senc
+                  hits=[]
+                  for m in re.finditer("|".join(re.escape(x) for x in needles),stxt,re.I):
+                      s=max(0,m.start()-320); e=min(len(stxt),m.end()+900)
+                      piece=re.sub(r"\s+"," ",stxt[s:e])
+                      if piece not in hits: hits.append(piece[:1300])
+                      if len(hits)>=20: break
+                  item["contexts"]=hits
+                  item["contains_ourReswords"]="ourReswords" in stxt
+                  item["contains_searchName"]="searchName" in stxt
+                  item["contains_outResList"]="outResList" in stxt
+              except Exception as e:
+                  item["error_class"]=type(e).__name__
+              fetched_scripts.append(item)
+
+          result={
+            "page":{"url":PAGE,"http_status":r.status_code,"final_url":r.url,"bytes":len(raw),"sha256":sha(raw),"decode_used":enc},
+            "page_contract":{
+              "forms":scan.forms,
+              "inputs":scan.inputs,
+              "buttons":scan.buttons,
+              "script_urls":script_urls,
+              "inline_contexts":inline_contexts
+            },
+            "source_emitted_scripts":fetched_scripts,
+            "adjudication":{
+              "public_page_reached":r.status_code==200,
+              "ourReswords_field_present":any(x.get("name")=="ourReswords" for x in scan.inputs),
+              "searchName_field_present":any(x.get("name")=="searchName" for x in scan.inputs),
+              "search_action_contract_directly_observed":False,
+              "target_query_submitted":False,
+              "form_submitted":False,
+              "item_level_wenhui_identity_observed":False,
+              "direct_1951_08_18_page_reviewed":False
+            },
+            "security":{
+              "login_used":False,"reader_account_used":False,"registration_used":False,
+              "target_query_submitted":False,"form_submitted":False,"private_endpoint_guessed":False,
+              "captcha_bypass_used":False,"tls_verification_disabled":False
+            }
+          }
+
+          # A contract is "directly observed" only if page-emitted markup/script text contains both a search-field token
+          # and an explicit route/action-like string; no route is guessed and no request with a search term is sent.
+          contract_text="\n".join(inline_contexts)
+          for s in fetched_scripts:
+              contract_text += "\n" + "\n".join(s.get("contexts",[]))
+          result["adjudication"]["search_action_contract_directly_observed"] = (
+              ("ourReswords" in contract_text or "searchName" in contract_text)
+              and ("outResList" in contract_text or "location" in contract_text or "ajax" in contract_text.lower() or "$.get" in contract_text.lower() or "$.post" in contract_text.lower())
+          )
+
+          Path("batch-12ju-nlc-electronic-newspaper-search-contract.json").write_text(
+              json.dumps(result,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(result,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12ju-nlc-electronic-newspaper-search-contract
+          path: batch-12ju-nlc-electronic-newspaper-search-contract.json
