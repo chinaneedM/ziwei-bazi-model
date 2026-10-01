@@ -1,0 +1,132 @@
+{
+  "schema": "ZIWEI-NCPSSD-ARTICLELIST-BASE64-GRAMMAR-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-NCPSSD-ARTICLELIST-BASE64-GRAMMAR-KM",
+  "prior_batch_id": "BATCH-12-ZIWEI-NCPSSD-HOME-ROUTE-LITERAL-CONTRACT-KL",
+  "question": "Can the query-generation grammar for the 20 source-emitted NCPSsd /Literature/articlelist hot-topic links be deterministically decoded and byte-for-byte reconstructed without following any result route?",
+  "answer": "Yes. All 20 source-emitted hot-topic links decode cleanly. For every term T, search decodes to (IKTE=\"T\" OR IKPYTE=\"T\"  OR IKST=\"T\" OR IKET=\"T\" OR IKSE=\"T\") and searchname decodes to 题名/关键词=\"T\". Re-encoding those exact UTF-8 strings with standard Base64 reproduces the original search and searchname parameters byte-for-byte for all 20/20 links. The fixed parameters sType=0, nav=0 twice, and showBack=true also match 20/20. Therefore the articlelist query-generation grammar is closed from first-party emitted examples rather than guessed.",
+  "controlling_probe": {
+    "workflow": ".github/workflows/probe-batch-12km-ncpssd-articlelist-base64-roundtrip.yml",
+    "exact_head": "a4d831f29204996800f4aae2d4168fd0d6073b4c",
+    "workflow_run_id": 36862550453,
+    "workflow_job_id": 110370033920,
+    "artifact_id": 11162660752,
+    "artifact_name": "batch-12km-ncpssd-articlelist-base64-roundtrip",
+    "artifact_digest": "sha256:b22f441c753d4bb628c0ab9787c83bc1ca7e74ad828bf4044efdbd6f7f060735"
+  },
+  "home_response": {
+    "http_status": 200,
+    "url": "https://www.ncpssd.cn/",
+    "bytes": 198008,
+    "sha256": "19823cf7d2d3a89bd3f86081b113f779507ebe45acb86273fd961b537b056544",
+    "decode_used": "utf-8"
+  },
+  "route_contract": {
+    "path": "/Literature/articlelist",
+    "fixed_parameters": {
+      "sType": "0",
+      "nav": [
+        "0",
+        "0"
+      ],
+      "showBack": "true"
+    },
+    "parameter_names": [
+      "search",
+      "searchname"
+    ],
+    "search_template": "(IKTE=\"{T}\" OR IKPYTE=\"{T}\"  OR IKST=\"{T}\" OR IKET=\"{T}\" OR IKSE=\"{T}\")",
+    "searchname_template": "题名/关键词=\"{T}\"",
+    "parameter_encoding": "standard Base64 over UTF-8 bytes",
+    "url_parameter_transport": "raw emitted Base64 query value; preserve '+' before Base64 decoding"
+  },
+  "roundtrip_summary": {
+    "route_count": 20,
+    "search_roundtrip_match_count": 20,
+    "searchname_roundtrip_match_count": 20,
+    "fixed_parameter_match_count": 20,
+    "all_terms_recovered": true,
+    "all_roundtrip_equal": true,
+    "observed_terms": [
+      "国家安全",
+      "改革开放",
+      "乡村振兴",
+      "红色文化",
+      "习近平文化思想",
+      "大数据",
+      "心理健康",
+      "深度学习",
+      "意识形态",
+      "家庭教育",
+      "基层治理",
+      "思想政治教育",
+      "一带一路",
+      "红楼梦",
+      "中国式现代化",
+      "低空经济",
+      "数字经济",
+      "作风建设",
+      "新质生产力",
+      "人工智能"
+    ]
+  },
+  "adjudication": {
+    "query_generation_grammar_closed": true,
+    "result_route_family_closed": true,
+    "arbitrary_new_term_generation_authorized_by_reproducible_grammar": true,
+    "query_submitted": false,
+    "articlelist_route_followed": false,
+    "next_gate": "REPLAY_EXACT_SOURCE_EMITTED_HOT_LINK_AS_POSITIVE_CONTROL"
+  },
+  "evidence_firewall": {
+    "closed_generation_grammar_does_not_yet_prove_result_page_execution": true,
+    "positive_control_should_replay_an_exact_source_emitted_hot_link_before_target_query": true,
+    "generated_target_query_must_use_exact_closed_template_without_extra_fields": true
+  },
+  "security": {
+    "anonymous_get_only": true,
+    "reader_account_used": false,
+    "registration_used": false,
+    "post_request_used": false,
+    "state_changing_request_used": false,
+    "private_endpoint_guessed": false,
+    "search_endpoint_guessed": false,
+    "search_parameter_guessed": false,
+    "captcha_bypass_used": false,
+    "tls_verification_disabled": false
+  },
+  "transmission_impact": {
+    "status": "NONE_ACCESS_CONTRACT_ONLY",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": [],
+    "reason": "Query encoding grammar only; no historical text or transmission relation."
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Fetch the same current NCPSsd homepage and locate the exact source-emitted hot link whose decoded searchname is 题名/关键词=\"红楼梦\".",
+    "Follow that exact emitted route anonymously as the positive control; do not generate or request Zhao Wanli yet.",
+    "Record HTTP status, result-page identity, visible hot term and any result-count/list markers without login or downstream item clicks.",
+    "Only after positive control succeeds may the same closed grammar be used for the target traditional title."
+  ],
+  "updated_at": "2026-10-01"
+}
