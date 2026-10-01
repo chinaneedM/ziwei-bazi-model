@@ -28,8 +28,10 @@ jobs:
           UA={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; NLC public route calibration)"}
           HOME="https://www.nlc.cn/web/"
           ROUTES={
-            "opac":"https://opac.nlc.cn/",
-            "electronic_newspapers":"https://read.nlc.cn/outRes/outResList?type=%E7%94%B5%E5%AD%90%E6%8A%A5%E7%BA%B8",
+            "opac_http":"http://opac.nlc.cn/",
+            "opac_https":"https://opac.nlc.cn/",
+            "electronic_newspapers_http":"http://read.nlc.cn/outRes/outResList?type=%E7%94%B5%E5%AD%90%E6%8A%A5%E7%BA%B8",
+            "electronic_newspapers_https":"https://read.nlc.cn/outRes/outResList?type=%E7%94%B5%E5%AD%90%E6%8A%A5%E7%BA%B8",
           }
 
           def sha(b): return hashlib.sha256(b).hexdigest()
@@ -38,7 +40,7 @@ jobs:
                   try: return raw.decode(enc),enc
                   except UnicodeDecodeError: pass
               return raw.decode("utf-8","replace"),"utf-8-replacement"
-          def fetch(url,timeout=45):
+          def fetch(url,timeout=20):
               try:
                   r=requests.get(url,headers=UA,timeout=timeout,allow_redirects=True)
                   return {"ok":True,"response":r}
@@ -105,8 +107,10 @@ jobs:
           out["adjudication"]={
             "opac_route_source_emitted_by_nlc":out["source_home"].get("opac_url_source_emitted") is True,
             "electronic_newspaper_route_source_emitted_by_nlc":out["source_home"].get("electronic_newspaper_route_source_emitted") is True,
-            "opac_route_reached":out["routes"].get("opac",{}).get("reached") is True,
-            "electronic_newspaper_route_reached":out["routes"].get("electronic_newspapers",{}).get("reached") is True,
+            "opac_http_source_emitted_route_reached":out["routes"].get("opac_http",{}).get("reached") is True,
+            "opac_https_comparison_route_reached":out["routes"].get("opac_https",{}).get("reached") is True,
+            "electronic_newspaper_http_source_emitted_route_reached":out["routes"].get("electronic_newspapers_http",{}).get("reached") is True,
+            "electronic_newspaper_https_comparison_route_reached":out["routes"].get("electronic_newspapers_https",{}).get("reached") is True,
             "target_query_submitted":False,
             "item_level_wenhui_cdrom_identity_observed":False,
             "direct_1951_08_18_page_reviewed":False,
