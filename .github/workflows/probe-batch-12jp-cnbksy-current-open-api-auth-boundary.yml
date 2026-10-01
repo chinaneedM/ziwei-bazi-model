@@ -1,0 +1,143 @@
+name: probe-batch-12jp-cnbksy-current-open-api-auth-boundary
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12jp-cnbksy-current-open-api-auth-boundary.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Probe current official CNBKSY open-data API authentication boundary
+        run: |
+          python - <<'PY'
+          import hashlib, html, json, re
+          from pathlib import Path
+          import requests
+
+          UA={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; CNBKSY current official open-data API auth-boundary probe)"}
+          OPEN_DATA_PAGE="https://opendata.library.sh.cn/opendata/index.html"
+          API_DOC="https://opendata.library.sh.cn/download/docs/2026/%E4%B8%8A%E6%B5%B7%E5%9B%BE%E4%B9%A6%E9%A6%86%E5%BC%80%E6%94%BE%E6%95%B0%E6%8D%AE%E7%AB%9E%E8%B5%9B-%E5%85%A8%E5%9B%BD%E6%8A%A5%E5%88%8A%E7%B4%A2%E5%BC%95%E5%BC%80%E6%94%BE%E6%95%B0%E6%8D%AE%E6%8E%A5%E5%8F%A3%EF%BC%88API%EF%BC%89%E8%AF%B4%E6%98%8E%E4%B9%A6.pdf"
+          INTRO_2025="https://opendata.library.sh.cn/download/docs/2025/05%202025%E5%B9%B4%E5%BC%80%E6%94%BE%E6%95%B0%E6%8D%AE%E7%AB%9E%E8%B5%9B-%E3%80%8A%E5%85%A8%E5%9B%BD%E6%8A%A5%E5%88%8A%E7%B4%A2%E5%BC%95%E3%80%8B%E5%BC%80%E6%94%BE%E6%95%B0%E6%8D%AE%E4%BB%8B%E7%BB%8D.pdf"
+          API="https://data.cnbksy.com/competitionSearch"
+
+          def fetch(url,params=None):
+              try:
+                  r=requests.get(url,headers=UA,params=params,timeout=45,allow_redirects=True)
+                  return r,None
+              except Exception as e:
+                  return None,f"{type(e).__name__}: {e}"
+
+          def rec(url,r,e):
+              out={"requested_url":url,"fetch_error":e}
+              if r is not None:
+                  out.update({
+                      "status":r.status_code,
+                      "final_url":r.url,
+                      "content_type":r.headers.get("Content-Type"),
+                      "bytes":len(r.content),
+                      "sha256":hashlib.sha256(r.content).hexdigest()
+                  })
+              return out
+
+          out={}
+          r,e=fetch(OPEN_DATA_PAGE)
+          page=rec(OPEN_DATA_PAGE,r,e)
+          if r is not None:
+              t=r.text
+              page.update({
+                  "cnbksy_section_present":"全国报刊索引" in t,
+                  "api_pdf_link_present":"全国报刊索引开放数据接口" in t or "API" in t,
+                  "data_cnbksy_literal_present":"data.cnbksy.com" in t,
+                  "raw_html_saved":False,
+                  "raw_html_logged":False
+              })
+          out["current_open_data_page"]=page
+
+          for key,url in (("api_doc_2026",API_DOC),("intro_2025",INTRO_2025)):
+              r,e=fetch(url)
+              row=rec(url,r,e)
+              if r is not None:
+                  row["is_pdf"]=r.content.startswith(b"%PDF")
+              out[key]=row
+
+          # Official API endpoint exactly as documented. No key and no target query.
+          r,e=fetch(API)
+          bare=rec(API,r,e)
+          if r is not None:
+              txt=r.text[:10000]
+              bare.update({
+                  "body_text_sha256":hashlib.sha256(txt.encode("utf-8","replace")).hexdigest(),
+                  "key_terms_present":[x for x in ("key","apikey","APIKey","参数","验证","unauthorized","forbidden","缺少") if x.lower() in txt.lower()],
+                  "body_length_chars":len(r.text),
+                  "body_saved":False,
+                  "body_logged":False
+              })
+          out["api_bare_request"]=bare
+
+          # Documented sample query syntax, still with an empty key; never a target query.
+          sample_params={"key":"","searchContent":"TI:竞赛测试"}
+          r,e=fetch(API,sample_params)
+          sample=rec(API,r,e)
+          if r is not None:
+              txt=r.text[:10000]
+              sample.update({
+                  "body_text_sha256":hashlib.sha256(txt.encode("utf-8","replace")).hexdigest(),
+                  "key_terms_present":[x for x in ("key","apikey","APIKey","参数","验证","unauthorized","forbidden","缺少") if x.lower() in txt.lower()],
+                  "body_length_chars":len(r.text),
+                  "json_parseable":False,
+                  "status_field":None,
+                  "message_field":None,
+                  "entity_count":None,
+                  "body_saved":False,
+                  "body_logged":False
+              })
+              try:
+                  j=r.json()
+                  sample["json_parseable"]=True
+                  sample["status_field"]=j.get("status") if isinstance(j,dict) else None
+                  sample["message_field"]=j.get("message") if isinstance(j,dict) else None
+                  ent=j.get("entity") if isinstance(j,dict) else None
+                  sample["entity_count"]=len(ent) if isinstance(ent,list) else None
+              except Exception:
+                  pass
+          out["api_documented_sample_without_key"]=sample
+
+          out["adjudication"]={
+              "current_official_open_data_surface_reached":page.get("status")==200,
+              "current_api_doc_reached":out["api_doc_2026"].get("status")==200 and out["api_doc_2026"].get("is_pdf"),
+              "official_api_endpoint_identity_closed":True,
+              "api_key_required_by_official_documentation":True,
+              "api_key_available_to_probe":False,
+              "registration_or_account_action_performed":False,
+              "target_query_submitted":False,
+              "target_presence_or_absence_adjudicated":False,
+              "direct_1951_page_recovered":False
+          }
+          out["security"]={
+              "api_key_used":False,
+              "login_used":False,
+              "registration_used":False,
+              "email_action_used":False,
+              "payment_used":False,
+              "captcha_bypass_used":False,
+              "private_endpoint_guessed":False,
+              "target_query_submitted":False,
+              "tls_verification_disabled":False
+          }
+          Path("batch-12jp-cnbksy-current-open-api-auth-boundary.json").write_text(
+              json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12jp-cnbksy-current-open-api-auth-boundary
+          path: batch-12jp-cnbksy-current-open-api-auth-boundary.json
