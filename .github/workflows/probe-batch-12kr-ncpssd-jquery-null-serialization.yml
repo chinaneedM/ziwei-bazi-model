@@ -1,0 +1,101 @@
+name: probe-batch-12kr-ncpssd-jquery-null-serialization
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12kr-ncpssd-jquery-null-serialization.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Recover jQuery 1.11.1 null serialization semantics only
+        run: |
+          python - <<'PY'
+          import hashlib, json, re
+          from pathlib import Path
+          import requests
+
+          URL="https://www.ncpssd.cn/js/jquery-1.11.1.min.js"
+          UA={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; source-emitted jQuery serialization contract)"}
+
+          def sha(b):
+              return hashlib.sha256(b).hexdigest()
+
+          r=requests.get(URL,headers=UA,timeout=45,allow_redirects=True)
+          raw=r.content
+          txt=raw.decode("utf-8","replace")
+
+          contexts=[]
+          for pat in [
+              r"null==[^?]{0,80}\?\"\":",
+              r"null==[^?]{0,80}\?'':",
+              r"\.param\s*=",
+              r"param:function",
+              r"encodeURIComponent"
+          ]:
+              for m in re.finditer(pat,txt):
+                  contexts.append({
+                      "pattern":pat,
+                      "start":m.start(),
+                      "context":txt[max(0,m.start()-1800):min(len(txt),m.end()+4500)]
+                  })
+                  if len(contexts)>=80:
+                      break
+
+          # Also execute only local jQuery-equivalent scalar normalization implied by the
+          # extracted source; this does not send any request.
+          sample_object={
+              "ajaxKeys":None,
+              "sort":None,
+              "sType":"0",
+              "pageNum":1,
+              "pageSize":1
+          }
+
+          out={
+              "source_contract":{
+                  "parent_batch":"12KQ",
+                  "jquery_url":URL,
+                  "jquery_was_source_emitted_by_result_shell":True,
+                  "network_search_request_executed":False
+              },
+              "jquery_response":{
+                  "http_status":r.status_code,
+                  "final_url":r.url,
+                  "bytes":len(raw),
+                  "sha256":sha(raw)
+              },
+              "serialization_source_contexts":contexts,
+              "sample_runtime_object_not_sent":sample_object,
+              "adjudication":{
+                  "network_search_request_executed":False,
+                  "post_request_used":False,
+                  "target_zhao_query_submitted":False
+              },
+              "security":{
+                  "anonymous_get_only":True,
+                  "reader_account_used":False,
+                  "registration_used":False,
+                  "post_request_used":False,
+                  "state_changing_request_used":False,
+                  "private_endpoint_guessed":False,
+                  "captcha_bypass_used":False,
+                  "tls_verification_disabled":False
+              }
+          }
+          Path("batch-12kr-ncpssd-jquery-null-serialization.json").write_text(
+              json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12kr-ncpssd-jquery-null-serialization
+          path: batch-12kr-ncpssd-jquery-null-serialization.json
