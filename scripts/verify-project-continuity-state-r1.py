@@ -388,6 +388,8 @@ ZIWEI_NLC_ZHAO_KF_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-
 ZIWEI_NLC_ZHAO_KF_EVIDENCE = ROOT / "docs/research/ZIWEI-NLC-WENJIN-ZHAO-YONGLE-ARTICLE-DETAIL-R1.json"
 ZIWEI_NCPSSD_KG_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NCPSSD-ZHAO-YONGLE-SOURCE-EMITTED-COOPERATION-ROUTE-KG.md"
 ZIWEI_NCPSSD_KG_EVIDENCE = ROOT / "docs/research/ZIWEI-NCPSSD-ZHAO-YONGLE-SOURCE-EMITTED-COOPERATION-ROUTE-R1.json"
+ZIWEI_NCPSSD_KH_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NCPSSD-PUBLIC-SEARCH-SURFACE-KH.md"
+ZIWEI_NCPSSD_KH_EVIDENCE = ROOT / "docs/research/ZIWEI-NCPSSD-PUBLIC-SEARCH-SURFACE-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -806,9 +808,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-NLC-WENJIN-ZHAO-YONGLE-ARTICLE-TITLE-SEARCH-KE",
     "BATCH-12-ZIWEI-NLC-WENJIN-ZHAO-YONGLE-ARTICLE-DETAIL-KF",
     "BATCH-12-ZIWEI-NCPSSD-ZHAO-YONGLE-SOURCE-EMITTED-COOPERATION-ROUTE-KG",
+    "BATCH-12-ZIWEI-NCPSSD-PUBLIC-SEARCH-SURFACE-KH",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NCPSSD-ZHAO-YONGLE-SOURCE-EMITTED-COOPERATION-ROUTE-KG.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NCPSSD-PUBLIC-SEARCH-SURFACE-KH.md"
 
 
 def fail(message: str) -> None:
@@ -12032,6 +12035,43 @@ def main() -> int:
         fail("Batch 12KG state version regressed below 1.297.0")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12KG latest-batch document mismatch")
+
+    # Batch 12KH: NCPSsd public search UI/control surface; executable contract still unresolved.
+    for path in (ZIWEI_NCPSSD_KH_BATCH, ZIWEI_NCPSSD_KH_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12KH continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12kh = json.loads(ZIWEI_NCPSSD_KH_EVIDENCE.read_text(encoding="utf-8"))
+    if batch12kh.get("batch_id") != "BATCH-12-ZIWEI-NCPSSD-PUBLIC-SEARCH-SURFACE-KH":
+        fail("Batch 12KH evidence identity mismatch")
+    surface12kh = batch12kh.get("public_surface_identity", {})
+    if surface12kh.get("identical_object") is not True:
+        fail("Batch 12KH cn/org object identity regressed")
+    for key in ("cn","org"):
+        obj = surface12kh.get(key, {})
+        if obj.get("http_status") != 200 or obj.get("bytes") != 198008 or obj.get("sha256") != "19823cf7d2d3a89bd3f86081b113f779507ebe45acb86273fd961b537b056544":
+            fail(f"Batch 12KH public surface identity regressed: {key}")
+    ctrl12kh = batch12kh.get("observed_basic_controls", {})
+    if ctrl12kh.get("search_button", {}).get("onclick") != "Basicsearch()" or ctrl12kh.get("hidden_select_type", {}).get("value") != "TS" or ctrl12kh.get("html_form_count") != 0:
+        fail("Batch 12KH basic search control binding regressed")
+    adj12kh = batch12kh.get("adjudication", {})
+    if adj12kh.get("anonymous_public_search_ui_surface") != "CLOSED" or adj12kh.get("executable_public_search_contract") != "UNRESOLVED_PENDING_INLINE_FUNCTION_EXTRACTION" or adj12kh.get("query_submitted") is not False:
+        fail("Batch 12KH UI/contract firewall regressed")
+    acct12kh = batch12kh.get("accounting", {})
+    if acct12kh.get("matrix_rows") != 198 or acct12kh.get("audited_rows") != 166 or acct12kh.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12KH accounting regressed")
+    reg12kh = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    if next((x for x in reg12kh.get("sources", []) if x.get("source_id") == "EXT-NCPSSD-PUBLIC-SEARCH-SURFACE-2026"), None) is None:
+        fail("Batch 12KH registry binding missing")
+    if "BATCH-12-ZIWEI-NCPSSD-PUBLIC-SEARCH-SURFACE-KH" not in audit_state.get("completed_batches", ()):
+        fail("Batch 12KH missing from completed state")
+    try:
+        schema12kh = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12KH state version is not numeric")
+    if schema12kh < (1, 298, 0):
+        fail("Batch 12KH state version regressed below 1.298.0")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12KH latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

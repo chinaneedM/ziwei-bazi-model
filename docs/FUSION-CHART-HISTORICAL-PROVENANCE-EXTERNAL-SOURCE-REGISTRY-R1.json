@@ -11706,6 +11706,28 @@
         "form_submitted": false,
         "research_artifact": "docs/research/ZIWEI-NCPSSD-ZHAO-YONGLE-SOURCE-EMITTED-COOPERATION-ROUTE-R1.json"
       }
+    },
+    {
+      "source_id": "EXT-NCPSSD-PUBLIC-SEARCH-SURFACE-2026",
+      "title": "国家哲学社会科学文献中心匿名公开搜索 UI 面（2026）",
+      "provider": "国家哲学社会科学文献中心（NCPSsd）",
+      "url": "https://www.ncpssd.cn/",
+      "source_role": "FIRST_PARTY_PUBLIC_SEARCH_UI_AND_CLIENT_CONTROL_SURFACE",
+      "quality_notes": "Batch 12KH shows ncpssd.cn and ncpssd.org currently return the same homepage object. The page directly exposes text_search, Basicsearch(), select_type=TS and advanced-search controls but no HTML form. Executable endpoint/parameter mapping is not yet closed and no query is submitted.",
+      "batch_12kh": {
+        "workflow_run_id": 36857797158,
+        "workflow_job_id": 110354359450,
+        "artifact_id": 11160325519,
+        "artifact_digest": "sha256:a8609e084df0258ccd979fb84de5256411a3798dedfda25f7fae367010580cd1",
+        "homepage_bytes": 198008,
+        "homepage_sha256": "19823cf7d2d3a89bd3f86081b113f779507ebe45acb86273fd961b537b056544",
+        "cn_org_identical_object": true,
+        "basic_function": "Basicsearch",
+        "search_input_id": "text_search",
+        "select_type_value": "TS",
+        "query_submitted": false,
+        "research_artifact": "docs/research/ZIWEI-NCPSSD-PUBLIC-SEARCH-SURFACE-R1.json"
+      }
     }
   ],
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md",

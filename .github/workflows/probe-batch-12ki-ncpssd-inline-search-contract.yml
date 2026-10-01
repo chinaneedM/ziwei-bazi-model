@@ -1,0 +1,94 @@
+name: probe-batch-12ki-ncpssd-inline-search-contract
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12ki-ncpssd-inline-search-contract.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Extract only source-emitted NCPSsd inline search functions
+        run: |
+          python - <<'PY'
+          import hashlib, html, json, re
+          from pathlib import Path
+          import requests
+
+          URL="https://www.ncpssd.cn/"
+          UA={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; NCPSsd inline search-contract extraction)"}
+          NAMES=["Basicsearch","AdvancedSearch","Search_text","qkSearchCondition","Search_GJ","waiwen_search","hideSearch"]
+
+          def sha(b): return hashlib.sha256(b).hexdigest()
+          def decode(raw):
+              for enc in ("utf-8","utf-8-sig","gb18030","gbk","big5"):
+                  try:return raw.decode(enc),enc
+                  except UnicodeDecodeError:pass
+              return raw.decode("utf-8","replace"),"utf-8-replacement"
+
+          def extract_function(src,name):
+              pats=[rf"function\s+{re.escape(name)}\s*\([^)]*\)\s*\{{",rf"(?:var|let|const)\s+{re.escape(name)}\s*=\s*function\s*\([^)]*\)\s*\{{"]
+              for pat in pats:
+                  m=re.search(pat,src)
+                  if not m: continue
+                  brace=src.find("{",m.start())
+                  depth=0; quote=None; esc=False
+                  for i in range(brace,len(src)):
+                      c=src[i]
+                      if quote:
+                          if esc: esc=False
+                          elif c=="\\": esc=True
+                          elif c==quote: quote=None
+                          continue
+                      if c in ("'","\""): quote=c; continue
+                      if c=="{": depth+=1
+                      elif c=="}":
+                          depth-=1
+                          if depth==0: return src[m.start():i+1],m.start(),i+1
+              return None,None,None
+
+          r=requests.get(URL,headers=UA,timeout=45,allow_redirects=True)
+          raw=r.content; txt,enc=decode(raw)
+          inline_blocks=[m.group(1) for m in re.finditer(r"<script(?![^>]+src=)[^>]*>(.*?)</script>",txt,re.I|re.S)]
+          combined="\n".join(inline_blocks)
+
+          defs=[]
+          for name in NAMES:
+              body,start,end=extract_function(combined,name)
+              defs.append({"name":name,"found":body is not None,"start":start,"end":end,"sha256":sha(body.encode("utf-8")) if body else None,"body":body})
+
+          route_literals=[]
+          id_reads=[]
+          for d in defs:
+              name=d["name"]; body=d.get("body") or ""
+              for m in re.finditer(r"(?:window\.)?location(?:\.href)?\s*=\s*([^;]+)|(?:url\s*:\s*|\$\.get\(|\$\.post\()([^;\n]+)",body,re.I):
+                  route_literals.append({"function":name,"raw":m.group(0)[:3000],"start":m.start()})
+              for m in re.finditer(r"\$\([\"']#([^\"']+)[\"']\)\.(?:val|text|attr)\([^)]*\)|document\.getElementById\([\"']([^\"']+)[\"']\)",body):
+                  ident=m.group(1) or m.group(2)
+                  id_reads.append({"function":name,"id":ident,"raw":m.group(0)})
+
+          out={
+            "source_contract":{"parent_batch":"12KH","url":URL,"query_submitted":False,"search_endpoint_guessed":False,"search_parameter_guessed":False},
+            "home_response":{"http_status":r.status_code,"final_url":r.url,"bytes":len(raw),"sha256":sha(raw),"decode_used":enc},
+            "inline_script_count":len(inline_blocks),
+            "function_definitions":defs,
+            "route_or_navigation_expressions":route_literals,
+            "referenced_control_ids":id_reads,
+            "adjudication":{"query_submitted":False,"form_submitted":False,"login_used":False,"only_first_party_inline_source_inspected":True},
+            "security":{"anonymous_get_only":True,"reader_account_used":False,"registration_used":False,"post_request_used":False,"state_changing_request_used":False,"private_endpoint_guessed":False,"search_endpoint_guessed":False,"search_parameter_guessed":False,"captcha_bypass_used":False,"tls_verification_disabled":False}
+          }
+          Path("batch-12ki-ncpssd-inline-search-contract.json").write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12ki-ncpssd-inline-search-contract
+          path: batch-12ki-ncpssd-inline-search-contract.json
