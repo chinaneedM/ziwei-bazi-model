@@ -137,28 +137,35 @@ jobs:
                   row['error']=f'{type(e).__name__}: {e}'
               pages[key]=row
 
-          # Follow only source-emitted NLC JavaScript resources and inspect them for a Wenjin contract.
-          script_rows=[]
-          for url in script_candidates[:12]:
+          # Follow only source-emitted find.nlc.cn routes exactly as emitted; do not invent query params.
+          source_emitted_find_routes=[]
+          for key,row in pages.items():
+              for a in row.get('find_or_wenjin_anchors',[]):
+                  u=a.get('url') or ''
+                  if (urlparse(u).hostname or '').endswith('find.nlc.cn') and u not in source_emitted_find_routes:
+                      source_emitted_find_routes.append(u)
+
+          find_route_pages=[]
+          for url in source_emitted_find_routes[:5]:
+              row={'requested_url':url}
               try:
                   r=get(url,referer='https://www.nlc.cn/web/')
-                  body=r['body']
-                  relevant=('find.nlc.cn' in body or '文津' in body or 'wenjin' in body.lower())
-                  if relevant:
-                      contexts=[]
-                      for needle in ('find.nlc.cn','文津','wenjin'):
-                          start=0
-                          while len(contexts)<30:
-                              i=body.lower().find(needle.lower(),start)
-                              if i<0: break
-                              contexts.append({'needle':needle,'context':re.sub(r'\s+',' ',body[max(0,i-450):i+len(needle)+700])})
-                              start=i+len(needle)
-                      script_rows.append({
-                          'url':url,'status':r['status'],'bytes':r['bytes'],'sha256':r['sha256'],
-                          'relevant':True,'contexts':contexts
-                      })
+                  forms,anchors,scripts,contexts=parse(r['final_url'],r['body'])
+                  row.update({k:v for k,v in r.items() if k!='body'})
+                  row.update({
+                      'forms':forms,
+                      'find_or_wenjin_anchors':anchors[:100],
+                      'script_src_count':len(scripts),
+                      'script_srcs':scripts[:30],
+                      'contexts':contexts,
+                      'target_title_literal_present':TARGET_TITLE in r['body'] or TARGET_TITLE_TRAD in r['body'],
+                      'target_isbn_literal_present':TARGET_ISBN in r['body']
+                  })
+              except urllib.error.HTTPError as e:
+                  row.update({'status':e.code,'final_url':e.geturl(),'error':f'HTTPError: {e.code} {e.reason}'})
               except Exception as e:
-                  script_rows.append({'url':url,'error':f'{type(e).__name__}: {e}','relevant':'UNRESOLVED'})
+                  row['error']=f'{type(e).__name__}: {e}'
+              find_route_pages.append(row)
 
           # Only submit if the HTML itself emits a normal GET form whose action targets find.nlc.cn.
           emitted_get_forms=[]
@@ -166,6 +173,10 @@ jobs:
               for f in row.get('forms',[]):
                   if f.get('method')=='GET' and (f.get('host') or '').endswith('find.nlc.cn'):
                       emitted_get_forms.append({'source_page':key,**f})
+          for idx,row in enumerate(find_route_pages):
+              for f in row.get('forms',[]):
+                  if f.get('method')=='GET' and (f.get('host') or '').endswith('find.nlc.cn'):
+                      emitted_get_forms.append({'source_page':f'find_route_{idx}',**f})
 
           query_runs=[]
           if emitted_get_forms:
@@ -180,7 +191,11 @@ jobs:
                       sep='&' if '?' in url else '?'
                       qurl=url+sep+urlencode({field:q})
                       try:
-                          r=get(qurl,referer=pages[form['source_page']].get('final_url'))
+                          if form['source_page'].startswith('find_route_'):
+                              referer=find_route_pages[int(form['source_page'].split('_')[-1])].get('final_url')
+                          else:
+                              referer=pages[form['source_page']].get('final_url')
+                          r=get(qurl,referer=referer)
                           visible=re.sub(r'\s+',' ',html.unescape(re.sub(r'<[^>]+>',' ',r['body']))).strip()
                           query_runs.append({
                               'query':q,'field':field,'requested_url':qurl,
@@ -198,7 +213,8 @@ jobs:
               'probe':'BATCH-12JG-NLC-WENJIN-PUBLIC-SEARCH-CONTRACT',
               'target':{'title':TARGET_TITLE,'title_traditional':TARGET_TITLE_TRAD,'isbn':TARGET_ISBN,'volume':'第一卷','page':197},
               'pages':pages,
-              'source_emitted_relevant_scripts':script_rows,
+              'source_emitted_find_routes':source_emitted_find_routes,
+              'source_emitted_find_route_pages':find_route_pages,
               'source_emitted_find_get_forms':emitted_get_forms,
               'query_runs':query_runs,
               'search_query_submitted':bool(query_runs),
