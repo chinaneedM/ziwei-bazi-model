@@ -1,0 +1,92 @@
+name: probe-batch-12jy-nlc-yongle-review-zhao-bibliography
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12jy-nlc-yongle-review-zhao-bibliography.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Bind NLC first-party review PDF and Zhao 1951 bibliography
+        run: |
+          python - <<'PY'
+          import hashlib, json, re, shutil, subprocess
+          from pathlib import Path
+          import requests
+
+          URL="https://www.nlc.cn/upload/attachments/2025-04-08/753b026e.pdf"
+          UA={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; NLC first-party bibliography probe)"}
+          r=requests.get(URL,headers=UA,timeout=60,allow_redirects=True)
+          r.raise_for_status()
+          raw=r.content
+          p=Path("nlc-yongle-review.pdf"); p.write_bytes(raw)
+          pdftotext=shutil.which("pdftotext")
+          pdfinfo=shutil.which("pdfinfo")
+          if not pdftotext or not pdfinfo:
+              raise RuntimeError("poppler utilities unavailable")
+          tx=subprocess.run([pdftotext,"-layout",str(p),"-"],capture_output=True,text=True,encoding="utf-8",errors="replace",check=True).stdout
+          info=subprocess.run([pdfinfo,str(p)],capture_output=True,text=True,encoding="utf-8",errors="replace",check=True).stdout
+          pages=None
+          m=re.search(r"^Pages:\s*(\d+)\s*$",info,re.M)
+          if m: pages=int(m.group(1))
+          compact=re.sub(r"\s+"," ",tx)
+          needles=[
+            "清末以来（1908—2021）《永乐大典》研究综述",
+            "刘 鹏",
+            "国家图书馆古籍馆",
+            "赵万里",
+            "永乐大典展览的意义",
+            "一九五一年八月北京图书馆举办",
+            "文物参考资料",
+            "1951 年第 9 期",
+            "221—233",
+          ]
+          hits={n:(n in compact) for n in needles}
+          idx=compact.find("赵万里")
+          context=compact[max(0,idx-220):idx+620] if idx>=0 else ""
+          # Keep a short bibliographic context only; this is not a wholesale text capture.
+          result={
+            "pdf":{
+              "url":URL,"http_status":r.status_code,"final_url":r.url,
+              "bytes":len(raw),"sha256":hashlib.sha256(raw).hexdigest(),
+              "content_type":r.headers.get("Content-Type"),"pages":pages
+            },
+            "text_layer":{
+              "pdftotext_used":True,"ocr_used":False,
+              "needle_presence":hits,
+              "zhao_context":context[:900]
+            },
+            "bibliographic_adjudication":{
+              "author_affiliation_nlc_ancient_books_observed":("国家图书馆古籍馆" in compact),
+              "zhao_1951_wenwu_bibliography_observed":(
+                  "赵万里" in compact and "永乐大典展览的意义" in compact and
+                  "文物参考资料" in compact and "221—233" in compact
+              ),
+              "subtitle_observed":("一九五一年八月北京图书馆举办" in compact),
+              "direct_1951_article_page_reviewed":False,
+              "direct_2011_p197_reviewed":False,
+              "modern_bibliographic_bridge_only":True
+            },
+            "security":{
+              "login_used":False,"registration_used":False,"payment_used":False,
+              "target_query_submitted":False,"private_endpoint_guessed":False,
+              "tls_verification_disabled":False
+            }
+          }
+          Path("batch-12jy-nlc-yongle-review-zhao-bibliography.json").write_text(
+              json.dumps(result,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(result,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12jy-nlc-yongle-review-zhao-bibliography
+          path: batch-12jy-nlc-yongle-review-zhao-bibliography.json
