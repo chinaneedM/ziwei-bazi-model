@@ -1,0 +1,109 @@
+name: probe-batch-12lj-cnbksy-indexed-news-navigation-contract
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12lj-cnbksy-indexed-news-navigation-contract.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Follow only a navigation route emitted by a publicly indexed first-party CNBKSY news page
+        run: |
+          python - <<'PY'
+          import hashlib, html, json, re
+          from pathlib import Path
+          from urllib.parse import urljoin
+          import requests
+
+          UA={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; CNBKSY indexed-news navigation contract)"}
+          seed="https://www.cnbksy.com/portal/newsCategoryBrowse/newsContent?id=202"
+
+          def get(url):
+              r=requests.get(url,headers=UA,timeout=45,allow_redirects=False)
+              raw=r.content
+              return r,raw,raw.decode("utf-8","replace")
+
+          sr,sraw,stxt=get(seed)
+          links=[]
+          for m in re.finditer(r'''(?is)<a\b[^>]*?href\s*=\s*["']([^"']+)["'][^>]*>(.*?)</a>''',stxt):
+              href=html.unescape(m.group(1)).strip()
+              label=html.unescape(re.sub(r"<[^>]+>"," ",m.group(2)))
+              label=re.sub(r"\s+"," ",label).strip()
+              links.append({"href":href,"absolute_href":urljoin(seed,href),"label":label[:300]})
+
+          info=[x for x in links if "信息动态" in x["label"]]
+          followed=None
+          target=None
+          if info:
+              target=info[0]["absolute_href"]
+              tr,traw,ttxt=get(target)
+              followed=(tr,traw,ttxt)
+
+          forms=[]; onclick=[]; inline=[]
+          if followed:
+              tr,traw,ttxt=followed
+              for fm in re.finditer(r"(?is)<form\b([^>]*)>(.*?)</form>",ttxt):
+                  attrs,body=fm.group(1),fm.group(2)
+                  am=re.search(r'''(?i)action\s*=\s*["']([^"']*)["']''',attrs)
+                  mm=re.search(r'''(?i)method\s*=\s*["']([^"']*)["']''',attrs)
+                  fields=[]
+                  for tag in re.finditer(r"(?is)<(input|select|textarea)\b([^>]*)>",body):
+                      t,a=tag.group(1).lower(),tag.group(2)
+                      def attr(name):
+                          z=re.search(r'''(?i)\b'''+name+r'''\s*=\s*["']([^"']*)["']''',a)
+                          return html.unescape(z.group(1)) if z else None
+                      fields.append({"tag":t,"name":attr("name"),"id":attr("id"),"type":attr("type"),"placeholder":attr("placeholder")})
+                  forms.append({
+                      "action":html.unescape(am.group(1)) if am else None,
+                      "absolute_action":urljoin(target,html.unescape(am.group(1))) if am and am.group(1) else None,
+                      "method":mm.group(1).upper() if mm else "GET_DEFAULT",
+                      "fields":fields
+                  })
+              for m in re.finditer(r'''(?is)<([a-z0-9]+)\b([^>]*?\bonclick\s*=\s*["']([^"']+)["'][^>]*)>''',ttxt):
+                  onclick.append({"tag":m.group(1).lower(),"handler":html.unescape(m.group(3))[:1200]})
+              for m in re.finditer(r"(?is)<script\b(?![^>]*\bsrc\s*=)[^>]*>(.*?)</script>",ttxt):
+                  body=m.group(1)
+                  routes=sorted(set(re.findall(r'''(?i)["']((?:https?://[^"'\s]+|/[A-Za-z0-9_./?=&%{}:$+-]+))["']''',body)))
+                  funcs=sorted(set(re.findall(r"(?i)function\s+([A-Za-z_$][\w$]*)\s*\(",body)))
+                  snippets=[]
+                  for mm in re.finditer(r"(?i).{0,180}(?:search|query|检索|搜索|window\.location|location\.href|ajax|\$\.get|\$\.post|submit).{0,300}",body):
+                      s=re.sub(r"\s+"," ",mm.group(0)).strip()
+                      if s and s not in snippets: snippets.append(s[:800])
+                      if len(snippets)>=50: break
+                  inline.append({"bytes":len(body.encode("utf-8")),"sha256":hashlib.sha256(body.encode("utf-8")).hexdigest(),"function_names":funcs[:300],"route_literals":routes[:500],"snippets":snippets})
+
+          out={
+              "source_contract":{
+                  "parent_batch":"12LI",
+                  "seed_kind":"PUBLIC_SEARCH_ENGINE_INDEXED_FIRST_PARTY_URL",
+                  "seed_url":seed,
+                  "only_source_emitted_navigation_may_be_followed":True,
+                  "target_query_submitted":False
+              },
+              "seed_response":{"status":sr.status_code,"content_type":sr.headers.get("content-type"),"server":sr.headers.get("server"),"bytes":len(sraw),"sha256":hashlib.sha256(sraw).hexdigest()},
+              "seed_links":links[:300],
+              "information_dynamics_candidates":info,
+              "followed_navigation_url":target,
+              "followed_response":None if not followed else {"status":followed[0].status_code,"content_type":followed[0].headers.get("content-type"),"server":followed[0].headers.get("server"),"bytes":len(followed[1]),"sha256":hashlib.sha256(followed[1]).hexdigest()},
+              "forms":forms,"form_count":len(forms),
+              "onclick_handlers":onclick,"onclick_count":len(onclick),
+              "inline_scripts":inline,"inline_script_count":len(inline),
+              "adjudication":{"navigation_followed_only_if_source_emitted":bool(target),"form_submitted":False,"target_query_submitted":False,"login_used":False,"registration_used":False},
+              "security":{"anonymous_get_only":True,"post_request_used":False,"private_endpoint_guessed":False,"captcha_bypass_used":False,"tls_verification_disabled":False}
+          }
+          Path("batch-12lj-cnbksy-indexed-news-navigation-contract.json").write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12lj-cnbksy-indexed-news-navigation-contract
+          path: batch-12lj-cnbksy-indexed-news-navigation-contract.json

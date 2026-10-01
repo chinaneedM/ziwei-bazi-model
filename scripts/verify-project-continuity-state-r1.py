@@ -838,9 +838,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-CNBKSY-PUBLIC-SEARCH-SURFACE-LF",
     "BATCH-12-ZIWEI-CNBKSY-412-AND-PUBLIC-ACTIVITY-CONTRACT-LG",
     "BATCH-12-ZIWEI-CNBKSY-SOURCE-EMITTED-SCRIPT-CONTRACT-LH",
+    "BATCH-12-ZIWEI-CNBKSY-PUBLIC-ACTIVITY-INLINE-CONTRACT-LI",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-SOURCE-EMITTED-SCRIPT-CONTRACT-LH.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-PUBLIC-ACTIVITY-INLINE-CONTRACT-LI.md"
 
 
 def fail(message: str) -> None:
@@ -12624,6 +12625,43 @@ def main() -> int:
         fail("Batch 12LH state version regressed below 1.323.0")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12LH latest-batch document mismatch")
+
+    # Batch 12LI: the anonymous public activity HTML exposes no form/onclick/inline search contract.
+    li_batch = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-PUBLIC-ACTIVITY-INLINE-CONTRACT-LI.md"
+    li_evidence = ROOT / "docs/research/ZIWEI-CNBKSY-PUBLIC-ACTIVITY-INLINE-CONTRACT-R1.json"
+    if not li_batch.is_file() or not li_evidence.is_file():
+        fail("Batch 12LI continuity artifact missing")
+    li = json.loads(li_evidence.read_text(encoding="utf-8"))
+    if li.get("batch_id") != "BATCH-12-ZIWEI-CNBKSY-PUBLIC-ACTIVITY-INLINE-CONTRACT-LI":
+        fail("Batch 12LI evidence identity mismatch")
+    lir = li.get("response", {})
+    if lir.get("http_status") != 200 or lir.get("server_header") != "ESA" or lir.get("sha256") != "99d70e27f16ac5c32798a7947e5fbadb1f2a7494ee55e208e6736d9841ed2f09":
+        fail("Batch 12LI activity response identity regressed")
+    lis = li.get("static_surface", {})
+    if lis.get("form_count") != 0 or lis.get("onclick_count") != 0 or lis.get("inline_script_count") != 2:
+        fail("Batch 12LI static surface counts regressed")
+    if any(x.get("route_literals") for x in lis.get("inline_scripts", ())):
+        fail("Batch 12LI unexpected inline route literal")
+    lia = li.get("adjudication", {})
+    if lia.get("activity_page_contract_exhausted_for_configured_static_surface") is not True or lia.get("sitewide_search_absence_inference_authorized") is not False:
+        fail("Batch 12LI scope firewall regressed")
+    if lia.get("discovered_route_followed") is not False or lia.get("target_query_submitted") is not False or lia.get("login_used") is not False:
+        fail("Batch 12LI no-route/no-query/no-login firewall regressed")
+    lip = li.get("controlling_probe", {})
+    if lip.get("workflow_run_id") != 36880399113 or lip.get("workflow_job_id") != 110430406848 or lip.get("artifact_id") != 11170582729:
+        fail("Batch 12LI controlling probe identity regressed")
+    if lip.get("artifact_digest") != "sha256:7b16b2890d5015ba8259546c972ce8c1bdd10c6709aa3b3c5dfdac0170a419e6":
+        fail("Batch 12LI artifact digest regressed")
+    if "BATCH-12-ZIWEI-CNBKSY-PUBLIC-ACTIVITY-INLINE-CONTRACT-LI" not in audit_state.get("completed_batches", ()):
+        fail("Batch 12LI missing from completed state")
+    try:
+        schema12li = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12LI state version is not numeric")
+    if schema12li < (1, 324, 0):
+        fail("Batch 12LI state version regressed below 1.324.0")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12LI latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

@@ -12043,7 +12043,7 @@
       "provider": "上海图书馆《全国报刊索引》编辑部",
       "url": "https://www.cnbksy.com/",
       "source_role": "FIRST_PARTY_NEWSPAPER_INDEX_PUBLIC_ACCESS_SURFACE",
-      "quality_notes": "Batch 12LF records root/home HTTP 412 without a target query. Batch 12LG proves a same-domain first-party activity page is anonymously HTTP 200 and narrows 412 to a path-scoped ESA/browser precondition rather than a demonstrated site-wide institutional-IP wall. Batch 12LH retrieves only the six source-emitted scripts: all are HTTP 200, but no CNBKSY business-search route literal is observed; third-party library query/find/search tokens are excluded as noise. No login, registration or target query is used.",
+      "quality_notes": "Batch 12LF records root/home HTTP 412 without a target query. Batch 12LG narrows 412 to a path-scoped ESA/browser precondition because a same-domain activity page is anonymously HTTP 200. Batch 12LH finds no CNBKSY business-search route in the six source-emitted scripts. Batch 12LI finds no form, onclick handler or inline-script route/search signal on that activity page. The activity-page branch is therefore exhausted as a current public search-contract surface, without proving site-wide search absence. No login, registration or target query is used.",
       "batch_12lf": {
         "workflow_run_id": 36877911774,
         "workflow_job_id": 110421993332,
@@ -12086,6 +12086,22 @@
         "target_query_submitted": false,
         "login_or_registration_used": false,
         "research_artifact": "docs/research/ZIWEI-CNBKSY-SOURCE-EMITTED-SCRIPT-CONTRACT-R1.json"
+      },
+      "batch_12li": {
+        "workflow_run_id": 36880399113,
+        "workflow_job_id": 110430406848,
+        "artifact_id": 11170582729,
+        "artifact_digest": "sha256:7b16b2890d5015ba8259546c972ce8c1bdd10c6709aa3b3c5dfdac0170a419e6",
+        "exact_head": "2346585319ea83902ea0c78fdeeb3ea3d2279b2a",
+        "activity_status": 200,
+        "activity_sha256": "99d70e27f16ac5c32798a7947e5fbadb1f2a7494ee55e208e6736d9841ed2f09",
+        "form_count": 0,
+        "onclick_count": 0,
+        "inline_script_count": 2,
+        "inline_route_literal_count": 0,
+        "discovered_route_followed": false,
+        "target_query_submitted": false,
+        "research_artifact": "docs/research/ZIWEI-CNBKSY-PUBLIC-ACTIVITY-INLINE-CONTRACT-R1.json"
       }
     }
   ],
