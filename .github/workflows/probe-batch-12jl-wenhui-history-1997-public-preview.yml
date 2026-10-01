@@ -128,11 +128,11 @@ jobs:
                   forms=[]
                   for m in re.finditer(r'<form\\b([^>]*)>(.*?)</form>',raw,re.I|re.S):
                       attrs=m.group(1); inner=m.group(2)
-                      am=re.search(r'action=["\\']([^"\\']*)["\\']',attrs,re.I)
+                      am=re.search(r"action=[\"']([^\"']*)[\"']",attrs,re.I)
                       action=html.unescape(am.group(1)) if am else None
-                      inputs=sorted(set(html.unescape(x) for x in re.findall(r'name=["\\']([^"\\']+)["\\']',inner,re.I)))
+                      inputs=sorted(set(html.unescape(x) for x in re.findall(r"name=[\"']([^\"']+)[\"']",inner,re.I)))
                       forms.append({"action":action,"inputs":inputs})
-                  hrefs=[html.unescape(x) for x in re.findall(r'href=["\\']([^"\\']+)["\\']',raw,re.I)]
+                  hrefs=[html.unescape(x) for x in re.findall(r"href=[\"']([^\"']+)[\"']",raw,re.I)]
                   inbook=[x for x in hrefs if any(k in x.lower() for k in ("jscmd=searchwithinvolume","searchwithinvolume","q="))]
                   gobj.update({
                       "status":r.status_code,
