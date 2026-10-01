@@ -1,0 +1,146 @@
+name: probe-batch-12kt-ncpssd-zhao-yongle-title-query
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12kt-ncpssd-zhao-yongle-title-query.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Query the established Zhao Wanli title root through the closed public result contract
+        run: |
+          python - <<'PY'
+          import hashlib, json, re
+          from pathlib import Path
+          from urllib.parse import quote
+          import requests
+
+          BASE="https://www.ncpssd.cn"
+          ENDPOINT="/searchHandler/search"
+          TERM="永樂大典展覽的意義"
+          SEARCH='(IKTE="'+TERM+'" OR IKPYTE="'+TERM+'"  OR IKST="'+TERM+'" OR IKET="'+TERM+'" OR IKSE="'+TERM+'")'
+          SEARCHNAME='题名/关键词="'+TERM+'"'
+          ORDER="synUpdateType|DESC,date|DESC,ik_subject|DESC,id|DESC"
+          fields=[
+              ("search",SEARCH),
+              ("pageNum","1"),
+              ("pageSize","10"),
+              ("sort",ORDER),
+              ("sType","0"),
+              ("ajaxKeys",""),
+              ("customShowCondition",SEARCHNAME),
+          ]
+          def jq_quote(v):
+              return quote(str(v),safe="~()*!.'").replace("%20","+")
+          body="&".join(jq_quote(k)+"="+jq_quote(v) for k,v in fields)
+          headers={
+              "User-Agent":"Mozilla/5.0 (Tianwen provenance audit; NCPSsd Zhao Wanli title query)",
+              "Content-Type":"application/x-www-form-urlencoded; charset=UTF-8",
+              "X-Requested-With":"XMLHttpRequest",
+              "Referer":"https://www.ncpssd.cn/Literature/articlelist",
+              "Origin":BASE,
+          }
+
+          r=requests.post(BASE+ENDPOINT,data=body.encode("utf-8"),headers=headers,timeout=45,allow_redirects=False)
+          raw=r.content
+          try:
+              parsed=r.json(); parse_error=None
+          except Exception as e:
+              parsed=None; parse_error=type(e).__name__+": "+str(e)[:300]
+
+          payload=parsed.get("data") if isinstance(parsed,dict) else None
+          rows=payload.get("rows") if isinstance(payload,dict) else None
+          total=payload.get("total") if isinstance(payload,dict) else None
+          if not isinstance(rows,list): rows=[]
+
+          tokens=["永樂大典展覽的意義","永乐大典展览的意义","永樂大典","永乐大典","趙萬里","赵万里"]
+          token_hits={t:0 for t in tokens}
+          selected=[]
+          for row in rows[:20]:
+              if not isinstance(row,dict): continue
+              slim={}
+              for key in ("title","ik_title","creator","ik_creator","type","data_id","id","tab_name","date","year","cbw_name","source","keyword_s"):
+                  if key in row: slim[key]=row.get(key)
+              hay=" ".join(str(row.get(k,"")) for k in row.keys() if k in ("title","ik_title","creator","ik_creator","subject","keyword_s","cbw_name","source"))
+              hay_clean=re.sub(r"<[^>]+>","",hay)
+              for t in tokens:
+                  if t in hay_clean: token_hits[t]+=1
+              selected.append(slim)
+
+          out={
+              "source_contract":{
+                  "parent_batch":"12KS",
+                  "positive_control_closed_before_target_query":True,
+                  "target_title_root":TERM,
+                  "endpoint":ENDPOINT,
+                  "method":"POST",
+                  "query_grammar_source":"12KM 20/20 byte-roundtrip",
+                  "request_transport_source":"12KO-12KR + 12KS semantic positive control",
+                  "only_result_search_endpoint_executed":True,
+                  "log_facet_download_detail_endpoints_executed":False
+              },
+              "serialized_request":{
+                  "fields_in_source_order":fields,
+                  "body_utf8":body,
+                  "body_bytes":len(body.encode("utf-8")),
+                  "body_sha256":hashlib.sha256(body.encode("utf-8")).hexdigest()
+              },
+              "response":{
+                  "http_status":r.status_code,
+                  "content_type":r.headers.get("content-type",""),
+                  "location":r.headers.get("location"),
+                  "bytes":len(raw),
+                  "sha256":hashlib.sha256(raw).hexdigest(),
+                  "json_parsed":parsed is not None,
+                  "json_parse_error":parse_error
+              },
+              "result_summary":{
+                  "total":total,
+                  "returned_row_count":len(rows),
+                  "token_hit_row_counts_first_page":token_hits,
+                  "first_page_rows":selected
+              },
+              "adjudication":{
+                  "target_zhao_query_submitted":True,
+                  "target_query_http_ok":r.status_code==200,
+                  "target_query_json_ok":parsed is not None,
+                  "target_query_total":total,
+                  "target_or_author_token_observed_first_page":any(v>0 for v in token_hits.values()),
+                  "downstream_item_followed":False,
+                  "login_used":False
+              },
+              "evidence_firewall":{
+                  "zero_results_if_observed_do_not_prove_catalog_absence":True,
+                  "traditional_form_query_does_not_exhaust_simplified_or_author_variants":True,
+                  "no_result_detail_is_followed_in_same_batch":True
+              },
+              "security":{
+                  "anonymous_read_only_search_post":True,
+                  "reader_account_used":False,
+                  "registration_used":False,
+                  "state_changing_endpoint_used":False,
+                  "search_log_endpoint_used":False,
+                  "facet_endpoint_used":False,
+                  "download_read_endpoint_used":False,
+                  "detail_endpoint_used":False,
+                  "private_endpoint_guessed":False,
+                  "captcha_bypass_used":False,
+                  "tls_verification_disabled":False
+              }
+          }
+          Path("batch-12kt-ncpssd-zhao-yongle-title-query.json").write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12kt-ncpssd-zhao-yongle-title-query
+          path: batch-12kt-ncpssd-zhao-yongle-title-query.json
