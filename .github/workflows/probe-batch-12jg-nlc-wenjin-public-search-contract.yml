@@ -1,0 +1,219 @@
+name: probe-batch-12jg-nlc-wenjin-public-search-contract
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12jg-nlc-wenjin-public-search-contract.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Inspect source-emitted NLC Wenjin search contract
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import hashlib, html, json, re, urllib.error, urllib.request
+          from pathlib import Path
+          from urllib.parse import urljoin, urlparse
+
+          UA='Mozilla/5.0 (compatible; TianwenHistoricalAudit/1.0; +https://github.com/chinaneedM/ziwei-bazi-model)'
+          ENTRY=[
+              ('nlc_home','https://www.nlc.cn/web/'),
+              ('nlc_resource_search','https://www.nlc.cn/web/ziyuansousuo/index.shtml'),
+              ('wenjin_root','https://find.nlc.cn/'),
+          ]
+          TARGET_TITLE='赵万里文集'
+          TARGET_TITLE_TRAD='趙萬里文集'
+          TARGET_ISBN='9787501346653'
+
+          opener=urllib.request.build_opener()
+
+          def get(url, referer=None):
+              headers={'User-Agent':UA,'Accept':'text/html,application/xhtml+xml,*/*;q=0.8'}
+              if referer:
+                  headers['Referer']=referer
+              req=urllib.request.Request(url,headers=headers)
+              with opener.open(req,timeout=35) as resp:
+                  raw=resp.read(3_000_000)
+                  ctype=resp.headers.get('Content-Type','')
+                  enc='utf-8'
+                  m=re.search(r'charset=([A-Za-z0-9._-]+)',ctype,re.I)
+                  if m:
+                      enc=m.group(1)
+                  else:
+                      try: raw.decode('utf-8')
+                      except UnicodeDecodeError: enc='gb18030'
+                  try: body=raw.decode(enc,errors='replace')
+                  except LookupError: body=raw.decode('utf-8',errors='replace')
+                  return {
+                      'status':resp.status,'final_url':resp.geturl(),'content_type':ctype,
+                      'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest(),'body':body
+                  }
+
+          def parse(base, body):
+              forms=[]
+              for fm in re.finditer(r'<form\b([^>]*)>(.*?)</form>',body,re.I|re.S):
+                  attrs,inner=fm.group(1),fm.group(2)
+                  am=re.search(r'action=["\']([^"\']*)["\']',attrs,re.I)
+                  mm=re.search(r'method=["\']([^"\']*)["\']',attrs,re.I)
+                  action=urljoin(base,html.unescape(am.group(1))) if am else base
+                  fields=[]
+                  for tag in re.findall(r'<(?:input|button|select|textarea)\b[^>]*>',inner,re.I):
+                      nm=re.search(r'name=["\']([^"\']+)["\']',tag,re.I)
+                      typ=re.search(r'type=["\']([^"\']+)["\']',tag,re.I)
+                      vm=re.search(r'value=["\']([^"\']*)["\']',tag,re.I)
+                      ph=re.search(r'placeholder=["\']([^"\']*)["\']',tag,re.I)
+                      if nm or ph:
+                          fields.append({
+                              'name':html.unescape(nm.group(1)) if nm else None,
+                              'type':typ.group(1).lower() if typ else None,
+                              'value':html.unescape(vm.group(1)) if vm else None,
+                              'placeholder':html.unescape(ph.group(1)) if ph else None,
+                          })
+                  forms.append({
+                      'action':action,'method':mm.group(1).upper() if mm else 'GET',
+                      'host':urlparse(action).hostname,'fields':fields
+                  })
+
+              anchors=[]
+              for am in re.finditer(r'<a\b[^>]*href=["\']([^"\']+)["\'][^>]*>(.*?)</a>',body,re.I|re.S):
+                  href=html.unescape(am.group(1)).strip()
+                  full=urljoin(base,href)
+                  label=re.sub(r'\s+',' ',html.unescape(re.sub(r'<[^>]+>',' ',am.group(2)))).strip()
+                  if 'find.nlc.cn' in full or '文津' in label:
+                      anchors.append({'url':full,'label':label})
+
+              scripts=[]
+              for sm in re.finditer(r'<script\b([^>]*)>',body,re.I):
+                  attrs=sm.group(1)
+                  src=re.search(r'src=["\']([^"\']+)["\']',attrs,re.I)
+                  if src:
+                      scripts.append(urljoin(base,html.unescape(src.group(1))))
+              contexts=[]
+              for needle in ('find.nlc.cn','文津搜索','赵万里','趙萬里','9787501346653'):
+                  start=0
+                  while len(contexts)<40:
+                      i=body.find(needle,start)
+                      if i<0: break
+                      contexts.append({'needle':needle,'context':re.sub(r'\s+',' ',body[max(0,i-350):i+len(needle)+500])})
+                      start=i+len(needle)
+              return forms,anchors,scripts,contexts
+
+          pages={}
+          script_candidates=[]
+          for key,url in ENTRY:
+              row={'requested_url':url}
+              try:
+                  r=get(url)
+                  forms,anchors,scripts,contexts=parse(r['final_url'],r['body'])
+                  row.update({k:v for k,v in r.items() if k!='body'})
+                  row.update({
+                      'forms':forms,
+                      'find_or_wenjin_anchors':anchors[:100],
+                      'script_src_count':len(scripts),
+                      'script_srcs':scripts[:100],
+                      'target_title_literal_present':TARGET_TITLE in r['body'] or TARGET_TITLE_TRAD in r['body'],
+                      'target_isbn_literal_present':TARGET_ISBN in r['body'],
+                      'contexts':contexts
+                  })
+                  for s in scripts:
+                      host=urlparse(s).hostname or ''
+                      if host.endswith('nlc.cn') and s not in script_candidates:
+                          script_candidates.append(s)
+              except urllib.error.HTTPError as e:
+                  row.update({'status':e.code,'final_url':e.geturl(),'error':f'HTTPError: {e.code} {e.reason}'})
+              except Exception as e:
+                  row['error']=f'{type(e).__name__}: {e}'
+              pages[key]=row
+
+          # Follow only source-emitted NLC JavaScript resources and inspect them for a Wenjin contract.
+          script_rows=[]
+          for url in script_candidates[:40]:
+              try:
+                  r=get(url,referer='https://www.nlc.cn/web/')
+                  body=r['body']
+                  relevant=('find.nlc.cn' in body or '文津' in body or 'wenjin' in body.lower())
+                  if relevant:
+                      contexts=[]
+                      for needle in ('find.nlc.cn','文津','wenjin'):
+                          start=0
+                          while len(contexts)<30:
+                              i=body.lower().find(needle.lower(),start)
+                              if i<0: break
+                              contexts.append({'needle':needle,'context':re.sub(r'\s+',' ',body[max(0,i-450):i+len(needle)+700])})
+                              start=i+len(needle)
+                      script_rows.append({
+                          'url':url,'status':r['status'],'bytes':r['bytes'],'sha256':r['sha256'],
+                          'relevant':True,'contexts':contexts
+                      })
+              except Exception as e:
+                  script_rows.append({'url':url,'error':f'{type(e).__name__}: {e}','relevant':'UNRESOLVED'})
+
+          # Only submit if the HTML itself emits a normal GET form whose action targets find.nlc.cn.
+          emitted_get_forms=[]
+          for key,row in pages.items():
+              for f in row.get('forms',[]):
+                  if f.get('method')=='GET' and (f.get('host') or '').endswith('find.nlc.cn'):
+                      emitted_get_forms.append({'source_page':key,**f})
+
+          query_runs=[]
+          if emitted_get_forms:
+              # Determine a text-like field from source-emitted names/placeholders; never invent an endpoint.
+              form=emitted_get_forms[0]
+              candidates=[x for x in form.get('fields',[]) if x.get('name') and (x.get('type') in (None,'text','search') or '检索' in (x.get('placeholder') or '') or '搜索' in (x.get('placeholder') or ''))]
+              if candidates:
+                  field=candidates[0]['name']
+                  from urllib.parse import urlencode
+                  for q in ('史记',TARGET_TITLE,TARGET_TITLE_TRAD,TARGET_ISBN):
+                      url=form['action']
+                      sep='&' if '?' in url else '?'
+                      qurl=url+sep+urlencode({field:q})
+                      try:
+                          r=get(qurl,referer=pages[form['source_page']].get('final_url'))
+                          visible=re.sub(r'\s+',' ',html.unescape(re.sub(r'<[^>]+>',' ',r['body']))).strip()
+                          query_runs.append({
+                              'query':q,'field':field,'requested_url':qurl,
+                              'status':r['status'],'final_url':r['final_url'],'bytes':r['bytes'],'sha256':r['sha256'],
+                              'query_literal_present':q in visible,
+                              'target_title_present':TARGET_TITLE in visible or TARGET_TITLE_TRAD in visible,
+                              'target_isbn_present':TARGET_ISBN in visible,
+                              'login_literal_present':bool(re.search(r'登录|登陆|注册',visible)),
+                              'visible_prefix':visible[:500]
+                          })
+                      except Exception as e:
+                          query_runs.append({'query':q,'field':field,'requested_url':qurl,'error':f'{type(e).__name__}: {e}'})
+
+          result={
+              'probe':'BATCH-12JG-NLC-WENJIN-PUBLIC-SEARCH-CONTRACT',
+              'target':{'title':TARGET_TITLE,'title_traditional':TARGET_TITLE_TRAD,'isbn':TARGET_ISBN,'volume':'第一卷','page':197},
+              'pages':pages,
+              'source_emitted_relevant_scripts':script_rows,
+              'source_emitted_find_get_forms':emitted_get_forms,
+              'query_runs':query_runs,
+              'search_query_submitted':bool(query_runs),
+              'security':{
+                  'login_used':False,'account_action_used':False,'payment_used':False,'captcha_bypass_used':False,
+                  'private_endpoint_guessed':False,'search_endpoint_guessed':False,'tls_verification_disabled':False
+              },
+              'adjudication_rule':'Only source-emitted public search contracts may be executed. A timeout/error is an access boundary, not a zero result; bibliographic search results are not p.197 page text.'
+          }
+          out=Path('artifacts/batch-12jg'); out.mkdir(parents=True,exist_ok=True)
+          (out/'probe.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print(json.dumps(result,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12jg-nlc-wenjin-public-search-contract
+          path: artifacts/batch-12jg
+          if-no-files-found: error
