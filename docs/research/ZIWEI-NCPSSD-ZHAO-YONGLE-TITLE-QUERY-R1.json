@@ -1,0 +1,95 @@
+{
+  "schema": "ZIWEI-NCPSSD-ZHAO-YONGLE-TITLE-QUERY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-NCPSSD-ZHAO-YONGLE-TITLE-QUERY-KT",
+  "prior_batch_id": "BATCH-12-ZIWEI-NCPSSD-RED-CHAMBER-SEMANTIC-POSITIVE-CONTROL-KS",
+  "question": "What does the closed NCPSsd result contract return for the established traditional title root 永樂大典展覽的意義?",
+  "answer": "The anonymous read-only query returns exactly one row: 永樂大典展覽的意義——一九五一年八月北京圖書舘舉辦, creator 趙萬里, type 中文期刊文章, data_id/id 1002462903, date 1951-09-01, current carrier label 文物. No detail item is followed in KT.",
+  "controlling_probe": {
+    "workflow": ".github/workflows/probe-batch-12kt-ncpssd-zhao-yongle-title-query.yml",
+    "exact_head": "5b7e104a745a287d8c3320e95c143667cbea6585",
+    "workflow_run_id": 36865133428,
+    "workflow_job_id": 110378652719,
+    "artifact_id": 11162824609,
+    "artifact_name": "batch-12kt-ncpssd-zhao-yongle-title-query",
+    "artifact_digest": "sha256:fce4b78d22db96aa35e7d5b3739b5ffb4ba371c785281bcb6670a80779031ac7"
+  },
+  "response": {
+    "http_status": 200,
+    "content_type": "application/json",
+    "bytes": 4352,
+    "sha256": "127b5a6f88382b1517cf2cbbe732a9af4c1491e9ce51b201c4aacf25909c57a4"
+  },
+  "result_summary": {
+    "total": 1,
+    "returned_row_count": 1
+  },
+  "target_record": {
+    "title": "永樂大典展覽的意義——一九五一年八月北京圖書舘舉辦",
+    "creator": "趙萬里",
+    "type": "中文期刊文章",
+    "data_id": "1002462903",
+    "id": "1002462903",
+    "tab_name": "journalArticle",
+    "date": "1951-09-01T00:00:00.000+0000",
+    "cbw_name": "文物"
+  },
+  "evidence_firewall": {
+    "current_ncpssd_carrier_label_does_not_silently_resolve_wenwu_vs_wenwu_cankao_tension": true,
+    "direct_1951_pages_still_not_reviewed": true
+  },
+  "adjudication": {
+    "target_zhao_query_submitted": true,
+    "target_query_http_ok": true,
+    "target_query_json_ok": true,
+    "target_query_total": 1,
+    "target_or_author_token_observed_first_page": true,
+    "downstream_item_followed": false,
+    "login_used": false
+  },
+  "security": {
+    "anonymous_read_only_search_post": true,
+    "reader_account_used": false,
+    "registration_used": false,
+    "state_changing_endpoint_used": false,
+    "search_log_endpoint_used": false,
+    "facet_endpoint_used": false,
+    "download_read_endpoint_used": false,
+    "detail_endpoint_used": false,
+    "private_endpoint_guessed": false,
+    "captcha_bypass_used": false,
+    "tls_verification_disabled": false
+  },
+  "transmission_impact": {
+    "status": "NONE_ACCESS_CONTRACT_ONLY",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": [],
+    "reason": "Public access/client-contract calibration only; no new historical transmission relation."
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Replay only the same result query and inventory the exact row fields used by source-emitted hrefinfo(), especially encryptedUrl.",
+    "Do not follow the detail route in the same batch."
+  ],
+  "updated_at": "2026-10-01"
+}

@@ -1,0 +1,96 @@
+{
+  "schema": "ZIWEI-NCPSSD-ZHAO-ROW-DETAIL-TOKEN-CONTRACT-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-NCPSSD-ZHAO-ROW-DETAIL-TOKEN-CONTRACT-KU",
+  "prior_batch_id": "BATCH-12-ZIWEI-NCPSSD-ZHAO-YONGLE-TITLE-QUERY-KT",
+  "question": "Does the exact Zhao target result row contain the first-party token required by articlelist.js to construct the secure detail URL?",
+  "answer": "Yes. The exact single result row contains encryptedUrl as a non-empty string. articlelist.js hrefinfo() directly constructs /Literature/secure/articleinfo?params=<encryptedUrl>&pageUrl=<encoded current URL>. KU records the token and row identity but does not execute the detail route.",
+  "controlling_probe": {
+    "workflow": ".github/workflows/probe-batch-12ku-ncpssd-zhao-row-detail-token-contract.yml",
+    "exact_head": "9a033ab8d87e15770f05101ec15db3e056a96560",
+    "workflow_run_id": 36865479469,
+    "workflow_job_id": 110379805467,
+    "artifact_id": 11163685518,
+    "artifact_name": "batch-12ku-ncpssd-zhao-row-detail-token-contract",
+    "artifact_digest": "sha256:57c02c8a9af29115dd63cd51674ef85f91bcce91513512904450c0bb11c1ea79"
+  },
+  "response": {
+    "http_status": 200,
+    "bytes": 4352,
+    "sha256": "127b5a6f88382b1517cf2cbbe732a9af4c1491e9ce51b201c4aacf25909c57a4",
+    "total": 1,
+    "returned_row_count": 1
+  },
+  "target_row": {
+    "title": "永樂大典展覽的意義——一九五一年八月北京圖書舘舉辦",
+    "creator": "趙萬里",
+    "type": "中文期刊文章",
+    "data_id": "1002462903",
+    "id": "1002462903",
+    "tab_name": "journalArticle",
+    "encryptedUrl": "SXhCQ1hrWWNnU2d5MjR4NVoxOU8rblNVbldQQmk0M0ZEeFlnUWd0TzJLa2RGK2V4OSsxT3FUcWpWMGRkSDk3UnJUSzJSdGJPLzhabkY1Z1VDWUNlZXlpekpodTFyNXlrL3FZcHZDQ05mNE5XczlhYzFyR3VIQ0tnNjVSb2NBbnc",
+    "synUpdateType": null,
+    "date": "1951-09-01T00:00:00.000+0000",
+    "cbw_name": "文物",
+    "barcodenum": null,
+    "all_row_key_count": 108
+  },
+  "detail_route_contract": {
+    "builder": "window.open(encodeURI('/Literature/secure/articleinfo?params=' + encryptedUrl + '&pageUrl=' + encodeURIComponent(window.location.href)), '_blank')",
+    "route": "/Literature/secure/articleinfo",
+    "params_source": "target row encryptedUrl"
+  },
+  "adjudication": {
+    "exact_target_row_recovered": true,
+    "encryptedUrl_observed": true,
+    "secure_detail_route_derivable_from_first_party_source": true,
+    "detail_endpoint_executed": false,
+    "downstream_item_followed": false,
+    "login_used": false
+  },
+  "security": {
+    "anonymous_read_only_search_post": true,
+    "reader_account_used": false,
+    "registration_used": false,
+    "state_changing_endpoint_used": false,
+    "search_log_endpoint_used": false,
+    "facet_endpoint_used": false,
+    "download_read_endpoint_used": false,
+    "detail_endpoint_used": false,
+    "private_endpoint_guessed": false,
+    "captcha_bypass_used": false,
+    "tls_verification_disabled": false
+  },
+  "transmission_impact": {
+    "status": "NONE_ACCESS_CONTRACT_ONLY",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": [],
+    "reason": "Public access/client-contract calibration only; no new historical transmission relation."
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Follow exactly the source-derived secure detail GET once, without automatic redirects.",
+    "Inventory only returned HTML identity, target tokens and source-emitted scripts; no read/download action."
+  ],
+  "updated_at": "2026-10-01"
+}

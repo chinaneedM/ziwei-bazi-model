@@ -1,0 +1,113 @@
+{
+  "schema": "ZIWEI-NCPSSD-ZHAO-SECURE-DETAIL-BOUNDARY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-NCPSSD-ZHAO-SECURE-DETAIL-BOUNDARY-KV",
+  "prior_batch_id": "BATCH-12-ZIWEI-NCPSSD-ZHAO-ROW-DETAIL-TOKEN-CONTRACT-KU",
+  "question": "What anonymous boundary is returned by the exact first-party Zhao secure-detail URL built from encryptedUrl?",
+  "answer": "The source-derived secure detail GET returns HTTP 200 text/html, 149306 bytes, with generic title 国家哲学社会科学文献中心. The target title/author and 文物/1951 tokens are absent, while login markers are present. The shell directly emits /js/web/Literature/articleinfo.js. No read/download endpoint or login is used.",
+  "controlling_probe": {
+    "workflow": ".github/workflows/probe-batch-12kv-ncpssd-zhao-secure-detail-boundary.yml",
+    "exact_head": "ed1d8e675fbe9a90d6190bf9c9b4c0c7bc059695",
+    "workflow_run_id": 36865703472,
+    "workflow_job_id": 110380530783,
+    "artifact_id": 11164055802,
+    "artifact_name": "batch-12kv-ncpssd-zhao-secure-detail-boundary",
+    "artifact_digest": "sha256:8571770c43485d1aeda155922a69dfa3dcd3d1928dc079ac5356c93ee13b895f"
+  },
+  "result_replay": {
+    "http_status": 200,
+    "bytes": 4352,
+    "sha256": "127b5a6f88382b1517cf2cbbe732a9af4c1491e9ce51b201c4aacf25909c57a4",
+    "target_total": 1
+  },
+  "detail_response": {
+    "http_status": 200,
+    "content_type": "text/html;charset=UTF-8",
+    "location": null,
+    "bytes": 149306,
+    "sha256": "5ea62df5541d33d3c07828d070c5808bd9dc52c53dd8964f9fa445e599bfb25b",
+    "decode_used": "utf-8",
+    "title": "国家哲学社会科学文献中心"
+  },
+  "detail_token_counts": {
+    "1951": 0,
+    "永樂大典展覽的意義": 0,
+    "永乐大典展览的意义": 0,
+    "趙萬里": 0,
+    "赵万里": 0,
+    "文物": 0,
+    "登录": 3,
+    "login": 9
+  },
+  "source_emitted_script_srcs": [
+    "/js/vue/2.6.9/vue.min.js",
+    "/js/jquery-1.11.1.min.js",
+    "/js/jquery.hiSlider.js",
+    "/js/layui/layui.js",
+    "/js/common.js",
+    "/js/DateFormat.js",
+    "/js/jquery.base64.js",
+    "/js/autocomplete/jquery-ui.js",
+    "/js/web/Master.js?a=",
+    "/js/util/ms.util.js?b=",
+    "/js/sensorsdata.min.js",
+    "/js/grayscale.js",
+    "/js/gray_theme.js",
+    "/js/jquery.md5.js",
+    "/js/axios/axios.js",
+    "/js/web/xss.js",
+    "/js/web/Literature/articleinfo.js"
+  ],
+  "adjudication": {
+    "detail_request_executed": true,
+    "detail_http_200": true,
+    "redirect_boundary_observed": false,
+    "login_or_captcha_token_observed": true,
+    "target_title_or_author_observed": false,
+    "automatic_redirect_followed": false,
+    "download_or_read_endpoint_executed": false
+  },
+  "security": {
+    "anonymous_get_only_for_detail": true,
+    "reader_account_used": false,
+    "registration_used": false,
+    "search_log_endpoint_used": false,
+    "facet_endpoint_used": false,
+    "download_read_endpoint_used": false,
+    "private_endpoint_guessed": false,
+    "captcha_bypass_used": false,
+    "tls_verification_disabled": false
+  },
+  "transmission_impact": {
+    "status": "NONE_ACCESS_CONTRACT_ONLY",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": [],
+    "reason": "Public access/client-contract calibration only; no new historical transmission relation."
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Retrieve only the source-emitted /js/web/Literature/articleinfo.js and recover its detail-data contract.",
+    "Do not execute discovered detail-data, read, download, collect or user endpoints in the same batch."
+  ],
+  "updated_at": "2026-10-01"
+}

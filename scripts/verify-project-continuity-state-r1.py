@@ -815,9 +815,21 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-NCPSSD-PUBLIC-SEARCH-SURFACE-KH",
     "BATCH-12-ZIWEI-NCPSSD-INLINE-SEARCH-CONTRACT-NEGATIVE-KI",
     "BATCH-12-ZIWEI-NCPSSD-SOURCE-EMITTED-SCRIPT-SEARCH-CONTRACT-NEGATIVE-KJ",
+    "BATCH-12-ZIWEI-NCPSSD-HOME-ROUTE-LITERAL-CONTRACT-KL",
+    "BATCH-12-ZIWEI-NCPSSD-ARTICLELIST-BASE64-GRAMMAR-KM",
+    "BATCH-12-ZIWEI-NCPSSD-ARTICLELIST-HOTLINK-POSITIVE-CONTROL-KN",
+    "BATCH-12-ZIWEI-NCPSSD-ARTICLELIST-DYNAMIC-RESULT-CONTRACT-KO",
+    "BATCH-12-ZIWEI-NCPSSD-ARTICLELIST-INIT-REQUEST-CONTRACT-KP",
+    "BATCH-12-ZIWEI-NCPSSD-GETURLPARAM-ABSENT-SEMANTICS-KQ",
+    "BATCH-12-ZIWEI-NCPSSD-JQUERY-NULL-SERIALIZATION-KR",
+    "BATCH-12-ZIWEI-NCPSSD-RED-CHAMBER-SEMANTIC-POSITIVE-CONTROL-KS",
+    "BATCH-12-ZIWEI-NCPSSD-ZHAO-YONGLE-TITLE-QUERY-KT",
+    "BATCH-12-ZIWEI-NCPSSD-ZHAO-ROW-DETAIL-TOKEN-CONTRACT-KU",
+    "BATCH-12-ZIWEI-NCPSSD-ZHAO-SECURE-DETAIL-BOUNDARY-KV",
+    "BATCH-12-ZIWEI-NCPSSD-ARTICLEINFO-SCRIPT-CONTRACT-KW",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NCPSSD-SOURCE-EMITTED-SCRIPT-SEARCH-CONTRACT-NEGATIVE-KJ.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NCPSSD-ARTICLEINFO-SCRIPT-CONTRACT-KW.md"
 
 
 def fail(message: str) -> None:
@@ -12151,6 +12163,110 @@ def main() -> int:
         fail("Batch 12KJ state version regressed below 1.300.0")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12KJ latest-batch document mismatch")
+
+    # Batches 12KL-12KW: NCPSsd public search/result/detail contract closure.
+    post_kj_specs = [
+        ("BATCH-12-ZIWEI-NCPSSD-HOME-ROUTE-LITERAL-CONTRACT-KL",
+         "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NCPSSD-HOME-ROUTE-LITERAL-CONTRACT-KL.md",
+         "docs/research/ZIWEI-NCPSSD-HOME-ROUTE-LITERAL-CONTRACT-R1.json"),
+        ("BATCH-12-ZIWEI-NCPSSD-ARTICLELIST-BASE64-GRAMMAR-KM",
+         "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NCPSSD-ARTICLELIST-BASE64-GRAMMAR-KM.md",
+         "docs/research/ZIWEI-NCPSSD-ARTICLELIST-BASE64-GRAMMAR-R1.json"),
+        ("BATCH-12-ZIWEI-NCPSSD-ARTICLELIST-HOTLINK-POSITIVE-CONTROL-KN",
+         "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NCPSSD-ARTICLELIST-HOTLINK-POSITIVE-CONTROL-KN.md",
+         "docs/research/ZIWEI-NCPSSD-ARTICLELIST-HOTLINK-POSITIVE-CONTROL-R1.json"),
+        ("BATCH-12-ZIWEI-NCPSSD-ARTICLELIST-DYNAMIC-RESULT-CONTRACT-KO",
+         "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NCPSSD-ARTICLELIST-DYNAMIC-RESULT-CONTRACT-KO.md",
+         "docs/research/ZIWEI-NCPSSD-ARTICLELIST-DYNAMIC-RESULT-CONTRACT-R1.json"),
+        ("BATCH-12-ZIWEI-NCPSSD-ARTICLELIST-INIT-REQUEST-CONTRACT-KP",
+         "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NCPSSD-ARTICLELIST-INIT-REQUEST-CONTRACT-KP.md",
+         "docs/research/ZIWEI-NCPSSD-ARTICLELIST-INIT-REQUEST-CONTRACT-R1.json"),
+        ("BATCH-12-ZIWEI-NCPSSD-GETURLPARAM-ABSENT-SEMANTICS-KQ",
+         "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NCPSSD-GETURLPARAM-ABSENT-SEMANTICS-KQ.md",
+         "docs/research/ZIWEI-NCPSSD-GETURLPARAM-ABSENT-SEMANTICS-R1.json"),
+        ("BATCH-12-ZIWEI-NCPSSD-JQUERY-NULL-SERIALIZATION-KR",
+         "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NCPSSD-JQUERY-NULL-SERIALIZATION-KR.md",
+         "docs/research/ZIWEI-NCPSSD-JQUERY-NULL-SERIALIZATION-R1.json"),
+        ("BATCH-12-ZIWEI-NCPSSD-RED-CHAMBER-SEMANTIC-POSITIVE-CONTROL-KS",
+         "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NCPSSD-RED-CHAMBER-SEMANTIC-POSITIVE-CONTROL-KS.md",
+         "docs/research/ZIWEI-NCPSSD-RED-CHAMBER-SEMANTIC-POSITIVE-CONTROL-R1.json"),
+        ("BATCH-12-ZIWEI-NCPSSD-ZHAO-YONGLE-TITLE-QUERY-KT",
+         "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NCPSSD-ZHAO-YONGLE-TITLE-QUERY-KT.md",
+         "docs/research/ZIWEI-NCPSSD-ZHAO-YONGLE-TITLE-QUERY-R1.json"),
+        ("BATCH-12-ZIWEI-NCPSSD-ZHAO-ROW-DETAIL-TOKEN-CONTRACT-KU",
+         "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NCPSSD-ZHAO-ROW-DETAIL-TOKEN-CONTRACT-KU.md",
+         "docs/research/ZIWEI-NCPSSD-ZHAO-ROW-DETAIL-TOKEN-CONTRACT-R1.json"),
+        ("BATCH-12-ZIWEI-NCPSSD-ZHAO-SECURE-DETAIL-BOUNDARY-KV",
+         "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NCPSSD-ZHAO-SECURE-DETAIL-BOUNDARY-KV.md",
+         "docs/research/ZIWEI-NCPSSD-ZHAO-SECURE-DETAIL-BOUNDARY-R1.json"),
+        ("BATCH-12-ZIWEI-NCPSSD-ARTICLEINFO-SCRIPT-CONTRACT-KW",
+         "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NCPSSD-ARTICLEINFO-SCRIPT-CONTRACT-KW.md",
+         "docs/research/ZIWEI-NCPSSD-ARTICLEINFO-SCRIPT-CONTRACT-R1.json"),
+    ]
+    post_kj_records = {}
+    for batch_id, batch_doc, evidence_doc in post_kj_specs:
+        batch_path = ROOT / batch_doc
+        evidence_path = ROOT / evidence_doc
+        if not batch_path.is_file() or not evidence_path.is_file():
+            fail(f"{batch_id} continuity artifact missing")
+        record = json.loads(evidence_path.read_text(encoding="utf-8"))
+        if record.get("batch_id") != batch_id:
+            fail(f"{batch_id} evidence identity mismatch")
+        accounting = record.get("accounting", {})
+        if accounting.get("matrix_rows") != 198 or accounting.get("audited_rows") != 166 or accounting.get("current_missing_from_product_rows") != 10:
+            fail(f"{batch_id} accounting regressed")
+        if accounting.get("confirmed_provenance_metadata_defect_count") != 17 or accounting.get("repaired_provenance_metadata_defect_count") != 17:
+            fail(f"{batch_id} provenance accounting regressed")
+        if accounting.get("confirmed_chart_algorithm_defect_count") != 0 or accounting.get("algorithm_reopen_count") != 0 or accounting.get("candidate_collapse_count") != 0:
+            fail(f"{batch_id} deterministic-product invariant regressed")
+        if batch_id not in audit_state.get("completed_batches", ()):
+            fail(f"{batch_id} missing from completed state")
+        post_kj_records[batch_id] = record
+
+    kl = post_kj_records["BATCH-12-ZIWEI-NCPSSD-HOME-ROUTE-LITERAL-CONTRACT-KL"]
+    if kl.get("route_inventory", {}).get("source_emitted_articlelist_hot_route_count") != 20 or kl.get("route_inventory", {}).get("result_route_path") != "/Literature/articlelist":
+        fail("Batch 12KL route-literal contract regressed")
+    km = post_kj_records["BATCH-12-ZIWEI-NCPSSD-ARTICLELIST-BASE64-GRAMMAR-KM"]
+    if km.get("roundtrip_summary", {}).get("search_roundtrip_match_count") != 20 or km.get("roundtrip_summary", {}).get("searchname_roundtrip_match_count") != 20 or km.get("adjudication", {}).get("query_generation_grammar_closed") is not True:
+        fail("Batch 12KM query grammar regressed")
+    kn = post_kj_records["BATCH-12-ZIWEI-NCPSSD-ARTICLELIST-HOTLINK-POSITIVE-CONTROL-KN"]
+    if kn.get("adjudication", {}).get("source_emitted_result_route_transport_closed") is not True or kn.get("adjudication", {}).get("semantic_positive_control_closed") is not False:
+        fail("Batch 12KN dynamic-shell boundary regressed")
+    ko = post_kj_records["BATCH-12-ZIWEI-NCPSSD-ARTICLELIST-DYNAMIC-RESULT-CONTRACT-KO"]
+    if ko.get("main_result_api_contract", {}).get("endpoint") != "/searchHandler/search" or ko.get("adjudication", {}).get("dynamic_endpoint_executed") is not False:
+        fail("Batch 12KO dynamic-result contract regressed")
+    kp = post_kj_records["BATCH-12-ZIWEI-NCPSSD-ARTICLELIST-INIT-REQUEST-CONTRACT-KP"]
+    if kp.get("runtime_initialization", {}).get("page_size") != 10 or kp.get("runtime_initialization", {}).get("default_order") != "synUpdateType|DESC,date|DESC,ik_subject|DESC,id|DESC":
+        fail("Batch 12KP initialization contract regressed")
+    kq = post_kj_records["BATCH-12-ZIWEI-NCPSSD-GETURLPARAM-ABSENT-SEMANTICS-KQ"]
+    if kq.get("adjudication", {}).get("ajaxKeys_absent_from_positive_control_url") is not True or kq.get("get_url_param_contract", {}).get("absent_value") != "null":
+        fail("Batch 12KQ absent-parameter semantics regressed")
+    kr = post_kj_records["BATCH-12-ZIWEI-NCPSSD-JQUERY-NULL-SERIALIZATION-KR"]
+    if kr.get("adjudication", {}).get("null_serializes_as_empty_string") is not True or kr.get("adjudication", {}).get("network_search_request_executed") is not False:
+        fail("Batch 12KR jQuery null serialization regressed")
+    ks = post_kj_records["BATCH-12-ZIWEI-NCPSSD-RED-CHAMBER-SEMANTIC-POSITIVE-CONTROL-KS"]
+    if ks.get("adjudication", {}).get("semantic_positive_control_closed") is not True or ks.get("result_summary", {}).get("returned_row_count") != 10:
+        fail("Batch 12KS semantic positive control regressed")
+    kt = post_kj_records["BATCH-12-ZIWEI-NCPSSD-ZHAO-YONGLE-TITLE-QUERY-KT"]
+    if kt.get("result_summary", {}).get("total") != 1 or kt.get("target_record", {}).get("data_id") != "1002462903" or kt.get("target_record", {}).get("creator") != "趙萬里":
+        fail("Batch 12KT Zhao target identity regressed")
+    ku = post_kj_records["BATCH-12-ZIWEI-NCPSSD-ZHAO-ROW-DETAIL-TOKEN-CONTRACT-KU"]
+    if ku.get("adjudication", {}).get("encryptedUrl_observed") is not True or ku.get("adjudication", {}).get("detail_endpoint_executed") is not False:
+        fail("Batch 12KU detail-token boundary regressed")
+    kv = post_kj_records["BATCH-12-ZIWEI-NCPSSD-ZHAO-SECURE-DETAIL-BOUNDARY-KV"]
+    if kv.get("detail_response", {}).get("http_status") != 200 or kv.get("adjudication", {}).get("target_title_or_author_observed") is not False or kv.get("adjudication", {}).get("login_or_captcha_token_observed") is not True:
+        fail("Batch 12KV secure-detail boundary regressed")
+    kw = post_kj_records["BATCH-12-ZIWEI-NCPSSD-ARTICLEINFO-SCRIPT-CONTRACT-KW"]
+    if kw.get("script_response", {}).get("sha256") != "4f1d600ea6177e0e4cb3031892efb137a8d432d89daaff6506ac682dadc7f797" or kw.get("journal_detail_contract", {}).get("endpoint") != "/articleinfoHandler/getjournalarticletable" or kw.get("adjudication", {}).get("discovered_endpoint_executed") is not False:
+        fail("Batch 12KW articleinfo script contract regressed")
+    try:
+        schema12kw = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12KW state version is not numeric")
+    if schema12kw < (1, 312, 0):
+        fail("Batch 12KW state version regressed below 1.312.0")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12KW latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

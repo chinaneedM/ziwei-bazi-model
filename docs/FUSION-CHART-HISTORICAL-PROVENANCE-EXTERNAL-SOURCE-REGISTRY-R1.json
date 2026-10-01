@@ -11713,7 +11713,7 @@
       "provider": "国家哲学社会科学文献中心（NCPSsd）",
       "url": "https://www.ncpssd.cn/",
       "source_role": "FIRST_PARTY_PUBLIC_SEARCH_UI_AND_CLIENT_CONTROL_SURFACE",
-      "quality_notes": "Batch 12KH shows ncpssd.cn and ncpssd.org currently return the same homepage object. The page directly exposes text_search, Basicsearch(), select_type=TS and advanced-search controls but no HTML form. Executable endpoint/parameter mapping is not yet closed and no query is submitted. Batch 12KJ additionally exhausts all 13 source-emitted external scripts with zero target search-function name hits; executable endpoint/parameter mapping remains unresolved.",
+      "quality_notes": "Batch 12KH-KW closes the current anonymous NCPSsd public search/result/detail client contract in stages: homepage UI; negative inline/external function search; source-emitted articlelist route; 20/20 Base64 grammar roundtrip; dynamic /searchHandler/search contract; exact jQuery absent/null serialization; 红楼梦 semantic positive control; exact Zhao Wanli title result; encryptedUrl secure-detail route; secure-shell login boundary; and source-emitted articleinfo.js detail-data contract. No login, download/read operation or guessed endpoint is used.",
       "batch_12kh": {
         "workflow_run_id": 36857797158,
         "workflow_job_id": 110354359450,
@@ -11753,6 +11753,133 @@
         "executable_search_contract": "UNRESOLVED",
         "query_submitted": false,
         "research_artifact": "docs/research/ZIWEI-NCPSSD-SOURCE-EMITTED-SCRIPT-SEARCH-CONTRACT-NEGATIVE-R1.json"
+      },
+      "batch_12kl": {
+        "workflow_run_id": 36861820187,
+        "workflow_job_id": 110367617670,
+        "artifact_id": 11161209833,
+        "artifact_digest": "sha256:468ef29a508351dcb3c5c8deb2f9126a0c2099ee70fb2517d583ab1d668f39ea",
+        "articlelist_hot_link_count": 20,
+        "result_route": "/Literature/articlelist",
+        "query_submitted": false,
+        "research_artifact": "docs/research/ZIWEI-NCPSSD-HOME-ROUTE-LITERAL-CONTRACT-R1.json"
+      },
+      "batch_12km": {
+        "workflow_run_id": 36862550453,
+        "workflow_job_id": 110370033920,
+        "artifact_id": 11162660752,
+        "artifact_digest": "sha256:b22f441c753d4bb628c0ab9787c83bc1ca7e74ad828bf4044efdbd6f7f060735",
+        "roundtrip_count": 20,
+        "query_generation_grammar_closed": true,
+        "query_submitted": false,
+        "research_artifact": "docs/research/ZIWEI-NCPSSD-ARTICLELIST-BASE64-GRAMMAR-R1.json"
+      },
+      "batch_12kn": {
+        "workflow_run_id": 36862982889,
+        "workflow_job_id": 110371489532,
+        "artifact_id": 11162841396,
+        "artifact_digest": "sha256:1c3d18188f7bf3445d1030cd40e97bf031ab85bac753b445cc046f5f23570e36",
+        "http_status": 200,
+        "semantic_positive_control_closed": false,
+        "dynamic_result_shell": true,
+        "research_artifact": "docs/research/ZIWEI-NCPSSD-ARTICLELIST-HOTLINK-POSITIVE-CONTROL-R1.json"
+      },
+      "batch_12ko": {
+        "workflow_run_id": 36863343149,
+        "workflow_job_id": 110372692954,
+        "artifact_id": 11162327250,
+        "artifact_digest": "sha256:48d9be125c829130465920ffd52eb382b8985cc9b19bdbcb6aa5cf9a324d4729",
+        "result_endpoint": "/searchHandler/search",
+        "result_script_sha256": "d5d3ea90d14a6bf0cb58ca77625e2e0f1852b7ddf565175e671d51a4e5fb0bee",
+        "dynamic_endpoint_executed": false,
+        "research_artifact": "docs/research/ZIWEI-NCPSSD-ARTICLELIST-DYNAMIC-RESULT-CONTRACT-R1.json"
+      },
+      "batch_12kp": {
+        "workflow_run_id": 36864017249,
+        "workflow_job_id": 110374917367,
+        "artifact_id": 11162003453,
+        "artifact_digest": "sha256:219fa16aadebe60ae42a1f5a92004b7433377c848ec877b935fb492f2d0b5cb2",
+        "page_size": 10,
+        "default_order": "synUpdateType|DESC,date|DESC,ik_subject|DESC,id|DESC",
+        "dynamic_endpoint_executed": false,
+        "research_artifact": "docs/research/ZIWEI-NCPSSD-ARTICLELIST-INIT-REQUEST-CONTRACT-R1.json"
+      },
+      "batch_12kq": {
+        "workflow_run_id": 36864304640,
+        "workflow_job_id": 110375880379,
+        "artifact_id": 11162678885,
+        "artifact_digest": "sha256:37b28911de18718e261aa6746f342f3f3da9c1c8f94e9a84607fe10cd3459a2a",
+        "positive_control_has_ajaxKeys_parameter": false,
+        "getUrlParam_absent_value": "null",
+        "dynamic_endpoint_executed": false,
+        "research_artifact": "docs/research/ZIWEI-NCPSSD-GETURLPARAM-ABSENT-SEMANTICS-R1.json"
+      },
+      "batch_12kr": {
+        "workflow_run_id": 36864657833,
+        "workflow_job_id": 110377053487,
+        "artifact_id": 11161979359,
+        "artifact_digest": "sha256:cbef1cd07b28b11c16c24132f6822435e14fb35e045d2374c999385ed3c1e8c8",
+        "jquery_sha256": "f2451583f0034f71438fcfdacd0e0eefd7426683892f3b5f251d6ead294cd5ce",
+        "null_serializes_as_empty_string": true,
+        "network_search_request_executed": false,
+        "research_artifact": "docs/research/ZIWEI-NCPSSD-JQUERY-NULL-SERIALIZATION-R1.json"
+      },
+      "batch_12ks": {
+        "workflow_run_id": 36864946981,
+        "workflow_job_id": 110378030228,
+        "artifact_id": 11162359292,
+        "artifact_digest": "sha256:8db3c9855713cb671b2ec91e2c0a9cb7c54d8175d4504c00976cc941bede8871",
+        "positive_control_term": "红楼梦",
+        "http_status": 200,
+        "total": 19652,
+        "returned_row_count": 10,
+        "semantic_positive_control_closed": true,
+        "research_artifact": "docs/research/ZIWEI-NCPSSD-RED-CHAMBER-SEMANTIC-POSITIVE-CONTROL-R1.json"
+      },
+      "batch_12kt": {
+        "workflow_run_id": 36865133428,
+        "workflow_job_id": 110378652719,
+        "artifact_id": 11162824609,
+        "artifact_digest": "sha256:fce4b78d22db96aa35e7d5b3739b5ffb4ba371c785281bcb6670a80779031ac7",
+        "target_total": 1,
+        "target_data_id": "1002462903",
+        "target_creator": "趙萬里",
+        "target_carrier_label": "文物",
+        "research_artifact": "docs/research/ZIWEI-NCPSSD-ZHAO-YONGLE-TITLE-QUERY-R1.json"
+      },
+      "batch_12ku": {
+        "workflow_run_id": 36865479469,
+        "workflow_job_id": 110379805467,
+        "artifact_id": 11163685518,
+        "artifact_digest": "sha256:57c02c8a9af29115dd63cd51674ef85f91bcce91513512904450c0bb11c1ea79",
+        "target_data_id": "1002462903",
+        "encryptedUrl_observed": true,
+        "secure_detail_route_derivable": true,
+        "detail_endpoint_executed": false,
+        "research_artifact": "docs/research/ZIWEI-NCPSSD-ZHAO-ROW-DETAIL-TOKEN-CONTRACT-R1.json"
+      },
+      "batch_12kv": {
+        "workflow_run_id": 36865703472,
+        "workflow_job_id": 110380530783,
+        "artifact_id": 11164055802,
+        "artifact_digest": "sha256:8571770c43485d1aeda155922a69dfa3dcd3d1928dc079ac5356c93ee13b895f",
+        "detail_http_status": 200,
+        "detail_bytes": 149306,
+        "target_title_or_author_observed": false,
+        "login_token_observed": true,
+        "articleinfo_script_emitted": true,
+        "research_artifact": "docs/research/ZIWEI-NCPSSD-ZHAO-SECURE-DETAIL-BOUNDARY-R1.json"
+      },
+      "batch_12kw": {
+        "workflow_run_id": 36865867041,
+        "workflow_job_id": 110381080380,
+        "artifact_id": 11164580641,
+        "artifact_digest": "sha256:df67075add6d133c6b40cd9214a82b58521bc8d34d717a085885946b981ed0f4",
+        "articleinfo_script_sha256": "4f1d600ea6177e0e4cb3031892efb137a8d432d89daaff6506ac682dadc7f797",
+        "route_like_string_literal_count": 11,
+        "journal_detail_endpoint": "/articleinfoHandler/getjournalarticletable",
+        "discovered_endpoint_executed": false,
+        "research_artifact": "docs/research/ZIWEI-NCPSSD-ARTICLEINFO-SCRIPT-CONTRACT-R1.json"
       }
     }
   ],

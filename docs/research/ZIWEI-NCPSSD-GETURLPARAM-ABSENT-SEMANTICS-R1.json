@@ -1,0 +1,81 @@
+{
+  "schema": "ZIWEI-NCPSSD-GETURLPARAM-ABSENT-SEMANTICS-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-NCPSSD-GETURLPARAM-ABSENT-SEMANTICS-KQ",
+  "prior_batch_id": "BATCH-12-ZIWEI-NCPSSD-ARTICLELIST-INIT-REQUEST-CONTRACT-KP",
+  "question": "What value does the source-emitted client assign when ajaxKeys is absent from the exact articlelist positive-control URL?",
+  "answer": "The exact source-emitted 红楼梦 articlelist URL has no ajaxKeys parameter. The only recovered getUrlParam definition is in articlelist.js and returns decodeURI(r[2]) when present, otherwise null. Therefore the runtime ajaxKeys value is null before jQuery request serialization.",
+  "controlling_probe": {
+    "workflow": ".github/workflows/probe-batch-12kq-ncpssd-geturlparam-absent-semantics.yml",
+    "exact_head": "3352579841e5d44776b51e1656c7562b00f097a7",
+    "workflow_run_id": 36864304640,
+    "workflow_job_id": 110375880379,
+    "artifact_id": 11162678885,
+    "artifact_name": "batch-12kq-ncpssd-geturlparam-absent-semantics",
+    "artifact_digest": "sha256:37b28911de18718e261aa6746f342f3f3da9c1c8f94e9a84607fe10cd3459a2a"
+  },
+  "shell_response": {
+    "http_status": 200,
+    "bytes": 143907,
+    "sha256": "6c46f6861107b842d564adbf99c57baa6d80e806277638d2dc106bdc1743e905",
+    "decode_used": "utf-8"
+  },
+  "source_emitted_script_count": 16,
+  "get_url_param_contract": {
+    "script_url": "https://www.ncpssd.cn/js/web/Literature/articlelist.js",
+    "script_sha256": "d5d3ea90d14a6bf0cb58ca77625e2e0f1852b7ddf565175e671d51a4e5fb0bee",
+    "definition_count": 1,
+    "present_value": "decodeURI(r[2])",
+    "absent_value": "null"
+  },
+  "adjudication": {
+    "ajaxKeys_absent_from_positive_control_url": true,
+    "ajaxKeys_runtime_value_when_absent": "null",
+    "dynamic_endpoint_executed": false,
+    "post_request_used": false,
+    "target_zhao_query_submitted": false,
+    "login_used": false
+  },
+  "security": {
+    "anonymous_get_only": true,
+    "reader_account_used": false,
+    "registration_used": false,
+    "post_request_used": false,
+    "state_changing_request_used": false,
+    "private_endpoint_guessed": false,
+    "captcha_bypass_used": false,
+    "tls_verification_disabled": false
+  },
+  "transmission_impact": {
+    "status": "NONE_ACCESS_CONTRACT_ONLY",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": [],
+    "reason": "Public access/client-contract calibration only; no new historical transmission relation."
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Inspect the exact source-emitted jQuery version to determine how null object values are serialized into application/x-www-form-urlencoded data.",
+    "Do not send the result request yet."
+  ],
+  "updated_at": "2026-10-01"
+}

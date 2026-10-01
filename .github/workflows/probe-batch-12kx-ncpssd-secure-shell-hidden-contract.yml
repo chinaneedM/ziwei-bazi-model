@@ -1,0 +1,134 @@
+name: probe-batch-12kx-ncpssd-secure-shell-hidden-contract
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12kx-ncpssd-secure-shell-hidden-contract.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Extract source-emitted hidden detail values without calling the detail-data API
+        run: |
+          python - <<'PY'
+          import base64, hashlib, json
+          from html.parser import HTMLParser
+          from pathlib import Path
+          from urllib.parse import quote, urlencode
+          import requests
+
+          BASE="https://www.ncpssd.cn"
+          TERM="永樂大典展覽的意義"
+          SEARCH='(IKTE="'+TERM+'" OR IKPYTE="'+TERM+'"  OR IKST="'+TERM+'" OR IKET="'+TERM+'" OR IKSE="'+TERM+'")'
+          SEARCHNAME='题名/关键词="'+TERM+'"'
+          ORDER="synUpdateType|DESC,date|DESC,ik_subject|DESC,id|DESC"
+          UA="Mozilla/5.0 (Tianwen provenance audit; NCPSsd secure-shell hidden contract)"
+
+          def jq_quote(v):
+              from urllib.parse import quote as q
+              return q(str(v),safe="~()*!.'").replace("%20","+")
+          def b64(s):
+              return base64.b64encode(s.encode("utf-8")).decode("ascii")
+          def sha(b):
+              return hashlib.sha256(b).hexdigest()
+          def maybe_b64(v):
+              if not isinstance(v,str) or v=="":
+                  return {"is_base64":False,"decoded_utf8":None}
+              try:
+                  pad=v+"="*((4-len(v)%4)%4)
+                  raw=base64.b64decode(pad,validate=True)
+                  return {"is_base64":True,"decoded_utf8":raw.decode("utf-8")}
+              except Exception:
+                  return {"is_base64":False,"decoded_utf8":None}
+
+          fields=[("search",SEARCH),("pageNum","1"),("pageSize","10"),("sort",ORDER),("sType","0"),("ajaxKeys",""),("customShowCondition",SEARCHNAME)]
+          body="&".join(jq_quote(k)+"="+jq_quote(v) for k,v in fields)
+          s=requests.Session(); s.headers.update({"User-Agent":UA})
+          rr=s.post(BASE+"/searchHandler/search",data=body.encode("utf-8"),headers={
+              "Content-Type":"application/x-www-form-urlencoded; charset=UTF-8",
+              "X-Requested-With":"XMLHttpRequest","Referer":BASE+"/Literature/articlelist","Origin":BASE
+          },timeout=45,allow_redirects=False)
+          parsed=rr.json(); payload=parsed.get("data") if isinstance(parsed,dict) else None
+          rows=payload.get("rows") if isinstance(payload,dict) else []
+          match=next((x for x in rows if isinstance(x,dict) and TERM in str(x.get("title","")) and "趙萬里" in str(x.get("creator",""))),None)
+          if match is None: raise SystemExit("exact Zhao target row missing")
+          token=match.get("encryptedUrl")
+          if not isinstance(token,str) or not token: raise SystemExit("encryptedUrl missing")
+
+          article_params=[("sType","0"),("search",b64(SEARCH)),("searchname",b64(SEARCHNAME)),("nav","0"),("nav","0"),("showBack","true")]
+          page_url=BASE+"/Literature/articlelist?"+urlencode(article_params)
+          detail_url=BASE+"/Literature/secure/articleinfo?params="+quote(token,safe="")+"&pageUrl="+quote(page_url,safe="")
+          dr=s.get(detail_url,headers={"Referer":page_url},timeout=45,allow_redirects=False)
+
+          wanted={
+              "ftl_urlId","ftl_urlType","ftl_urlTypename","ftl_urlPagetype","ftl_urlSynUpdateType",
+              "ftl_urlyulan","ftl_urlNav","ftl_urlBarcodenum","prpYears","prpNum","qkCoverImageHost"
+          }
+          class Scan(HTMLParser):
+              def __init__(self):
+                  super().__init__(convert_charrefs=True); self.values={}
+              def handle_starttag(self,tag,attrs):
+                  d={k:v for k,v in attrs}; ident=d.get("id")
+                  if ident in wanted:
+                      self.values[ident]={"tag":tag,"type":d.get("type"),"name":d.get("name"),"value":d.get("value")}
+          scan=Scan(); scan.feed(dr.text)
+
+          triple={k:scan.values.get(k,{}).get("value") for k in ("ftl_urlId","ftl_urlType","ftl_urlTypename")}
+          decoded={k:maybe_b64(v) for k,v in triple.items()}
+          all_three_b64=all(decoded[k]["is_base64"] for k in decoded)
+          client_decoded={}
+          if all_three_b64:
+              client_decoded={
+                  "id":decoded["ftl_urlId"]["decoded_utf8"],
+                  "type":decoded["ftl_urlType"]["decoded_utf8"],
+                  "typename":decoded["ftl_urlTypename"]["decoded_utf8"]
+              }
+
+          out={
+              "source_contract":{
+                  "parent_batch":"12KW",
+                  "target_title_root":TERM,
+                  "secure_detail_route":"/Literature/secure/articleinfo",
+                  "hidden_ids_derived_only_from_source_emitted_articleinfo_js":True,
+                  "detail_data_endpoint_executed":False
+              },
+              "result_replay":{"http_status":rr.status_code,"bytes":len(rr.content),"sha256":sha(rr.content),"target_total":payload.get("total") if isinstance(payload,dict) else None},
+              "detail_shell":{"http_status":dr.status_code,"bytes":len(dr.content),"sha256":sha(dr.content),"content_type":dr.headers.get("content-type","")},
+              "source_emitted_controls":scan.values,
+              "source_emitted_control_count":len(scan.values),
+              "base64_assessment":{"triple":decoded,"all_three_base64":all_three_b64,"client_equivalent_decoded":client_decoded},
+              "adjudication":{
+                  "target_row_recovered":True,
+                  "secure_shell_retrieved":dr.status_code==200,
+                  "source_emitted_hidden_contract_recovered":all(k in scan.values for k in ("ftl_urlId","ftl_urlType","ftl_urlTypename","ftl_urlPagetype")),
+                  "detail_data_endpoint_executed":False,
+                  "login_used":False
+              },
+              "security":{
+                  "anonymous_search_replay_only":True,
+                  "anonymous_get_only_for_secure_shell":True,
+                  "reader_account_used":False,
+                  "registration_used":False,
+                  "detail_data_post_used":False,
+                  "read_download_endpoint_used":False,
+                  "state_changing_endpoint_used":False,
+                  "private_endpoint_guessed":False,
+                  "captcha_bypass_used":False,
+                  "tls_verification_disabled":False
+              }
+          }
+          Path("batch-12kx-ncpssd-secure-shell-hidden-contract.json").write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12kx-ncpssd-secure-shell-hidden-contract
+          path: batch-12kx-ncpssd-secure-shell-hidden-contract.json

@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.300.0",
+  "schema_version": "1.312.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -382,9 +382,21 @@
       "BATCH-12-ZIWEI-NCPSSD-ZHAO-YONGLE-SOURCE-EMITTED-COOPERATION-ROUTE-KG",
       "BATCH-12-ZIWEI-NCPSSD-PUBLIC-SEARCH-SURFACE-KH",
       "BATCH-12-ZIWEI-NCPSSD-INLINE-SEARCH-CONTRACT-NEGATIVE-KI",
-      "BATCH-12-ZIWEI-NCPSSD-SOURCE-EMITTED-SCRIPT-SEARCH-CONTRACT-NEGATIVE-KJ"
+      "BATCH-12-ZIWEI-NCPSSD-SOURCE-EMITTED-SCRIPT-SEARCH-CONTRACT-NEGATIVE-KJ",
+      "BATCH-12-ZIWEI-NCPSSD-HOME-ROUTE-LITERAL-CONTRACT-KL",
+      "BATCH-12-ZIWEI-NCPSSD-ARTICLELIST-BASE64-GRAMMAR-KM",
+      "BATCH-12-ZIWEI-NCPSSD-ARTICLELIST-HOTLINK-POSITIVE-CONTROL-KN",
+      "BATCH-12-ZIWEI-NCPSSD-ARTICLELIST-DYNAMIC-RESULT-CONTRACT-KO",
+      "BATCH-12-ZIWEI-NCPSSD-ARTICLELIST-INIT-REQUEST-CONTRACT-KP",
+      "BATCH-12-ZIWEI-NCPSSD-GETURLPARAM-ABSENT-SEMANTICS-KQ",
+      "BATCH-12-ZIWEI-NCPSSD-JQUERY-NULL-SERIALIZATION-KR",
+      "BATCH-12-ZIWEI-NCPSSD-RED-CHAMBER-SEMANTIC-POSITIVE-CONTROL-KS",
+      "BATCH-12-ZIWEI-NCPSSD-ZHAO-YONGLE-TITLE-QUERY-KT",
+      "BATCH-12-ZIWEI-NCPSSD-ZHAO-ROW-DETAIL-TOKEN-CONTRACT-KU",
+      "BATCH-12-ZIWEI-NCPSSD-ZHAO-SECURE-DETAIL-BOUNDARY-KV",
+      "BATCH-12-ZIWEI-NCPSSD-ARTICLEINFO-SCRIPT-CONTRACT-KW"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NCPSSD-SOURCE-EMITTED-SCRIPT-SEARCH-CONTRACT-NEGATIVE-KJ.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NCPSSD-ARTICLEINFO-SCRIPT-CONTRACT-KW.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -1729,7 +1741,19 @@
       "Batch 12KJ exhausts the source-emitted external-script branch: 13 external scripts are fetched successfully and none contains Basicsearch / AdvancedSearch / Search_text / qkSearchCondition / Search_GJ / waiwen_search.",
       "Combined with 12KI, the initial NCPSsd homepage has now been checked across 6 inline scripts and 13 source-emitted external scripts with zero target search-function definitions. The UI exists but the executable result-route contract remains UNRESOLVED.",
       "The observed POST /searchHandler/getautocomplete remains autocomplete-only and is not promoted to the result-search endpoint.",
-      "Next gate 12KL inventories only route literals, AJAX url values and navigation expressions already present in the homepage source; no candidate route is followed and no query is submitted."
+      "Next gate 12KL inventories only route literals, AJAX url values and navigation expressions already present in the homepage source; no candidate route is followed and no query is submitted.",
+      "Batch 12KL directly recovers 20 source-emitted /Literature/articlelist hot links and the first-party search/searchname parameter names; no result route is followed in KL.",
+      "Batch 12KM byte-roundtrips all 20 hot links: search/searchname/fixed parameters each match 20/20, closing the Base64 UTF-8 generation grammar.",
+      "Batch 12KN replays the exact source-emitted 红楼梦 hot link: transport is HTTP 200 but the initial HTML is only a dynamic result shell, so HTTP 200 is not misclassified as semantic result success.",
+      "Batch 12KO recovers the source-emitted dynamic result endpoint /searchHandler/search, its request fields and data.data total/rows response bindings; no newly discovered API is executed in KO.",
+      "Batch 12KP closes articlelist initialization values: nums=10, default order=synUpdateType|DESC,date|DESC,ik_subject|DESC,id|DESC; search/searchname are Base64-decoded from URL and ajaxKeys is read from the optional URL parameter.",
+      "Batch 12KQ proves the exact source-emitted positive-control URL has no ajaxKeys parameter and articlelist.js getUrlParam returns null when a parameter is absent.",
+      "Batch 12KR binds source-emitted jQuery 1.11.1 serialization: $.param normalizes null to an empty string, so absent ajaxKeys serializes as ajaxKeys=.",
+      "Batch 12KS executes only the established read-only result endpoint for 红楼梦: HTTP 200 JSON, total=19652, 10 returned rows and all 10 first-page rows contain the positive-control term. The semantic positive control is CLOSED.",
+      "Batch 12KT then queries the already-established traditional title root 永樂大典展覽的意義 through the same closed contract: exactly one result is returned, titled 永樂大典展覽的意義——一九五一年八月北京圖書舘舉辦, creator 趙萬里, type 中文期刊文章, data_id/id 1002462903, date 1951-09-01, carrier label 文物.",
+      "Batch 12KU inventories the exact target row and its first-party encryptedUrl detail token; articlelist.js source-emits the secure detail builder /Literature/secure/articleinfo?params=<encryptedUrl>&pageUrl=<current URL>. No detail request is executed in KU.",
+      "Batch 12KV follows exactly that source-derived secure-detail GET once without redirects: HTTP 200 generic NCPSsd shell, target title/author tokens absent, login tokens present, and /js/web/Literature/articleinfo.js is directly source-emitted. No read/download endpoint is executed.",
+      "Batch 12KW retrieves only that source-emitted articleinfo.js and recovers /articleinfoHandler/getjournalarticletable plus its client mapping for Chinese journal details. Read/download paths are login/signature gated and remain out of scope. Next gate 12KX extracts the secure shell's source-emitted hidden id/type/typename/pageType values before any detail-data POST."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10
