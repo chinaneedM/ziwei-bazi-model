@@ -11317,6 +11317,36 @@
         "direct_1951_page_reviewed": false,
         "research_artifact": "docs/research/ZIWEI-CNBKSY-2020-PUBLIC-API-SAMPLE-BUNDLE-R1.json"
       }
+    },
+    {
+      "source_id": "EXT-SHLIB-CNBKSY-2020-2026-OPEN-DATA-LISTING-CHRONOLOGY",
+      "title": "上海图书馆 / 全国报刊索引 2020–2026 开放数据年度清单与接口文档谱系",
+      "provider": "上海图书馆开放数据 / 《全国报刊索引》",
+      "url": "https://opendata.library.sh.cn/opendata/index.html",
+      "source_role": "FIRST_PARTY_ANNUAL_OPEN_DATA_LISTING_CHRONOLOGY_AND_API_DOCUMENT_LINEAGE",
+      "quality_notes": "First-party annual pages are digest-bound for 2020–2025 plus current 2026. They directly show 中国近代报纸数字文献全库 listed in 2020–2022 and not listed in 2023–current. This is listing-scope evidence only, not proof of database nonexistence or current competitionSearch target scope. The 2024, 2025-emitted and current 2026 API PDFs are byte-identical, so document persistence is firewalled from dataset-scope continuity.",
+      "batch_12jr": {
+        "controlling_probe_run_id": 36840258132,
+        "controlling_probe_job_id": 110297437835,
+        "artifact_id": 11150672206,
+        "artifact_digest": "sha256:f37730cb3c19bc1ca8e692a3b988ae585b03c13cf13985aacc65d916970936ea",
+        "superseded_probe_run_id": 36840111958,
+        "superseded_probe_reason": "requests.text charset fallback misdecoded Chinese annual pages; no research conclusion accepted from that run",
+        "modern_newspaper_listing_presence": {
+          "2020": true,
+          "2021": true,
+          "2022": true,
+          "2023": false,
+          "2024": false,
+          "2025": false,
+          "current_2026": false
+        },
+        "identical_2024_2025_2026_api_pdf_sha256": "7fc1d1d42bf30b639a03fee1a999d201d5c42f0a5272d8130fc03ea1b1877648",
+        "target_query_submitted": false,
+        "api_key_used": false,
+        "direct_1951_page_reviewed": false,
+        "research_artifact": "docs/research/ZIWEI-CNBKSY-2020-2026-OPEN-DATA-LISTING-SCOPE-CHRONOLOGY-R1.json"
+      }
     }
   ],
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md",

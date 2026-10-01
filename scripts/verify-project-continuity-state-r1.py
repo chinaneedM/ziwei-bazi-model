@@ -356,6 +356,8 @@ ZIWEI_CNBKSY_API_JP_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDI
 ZIWEI_CNBKSY_API_JP_EVIDENCE = ROOT / "docs/research/ZIWEI-CNBKSY-CURRENT-OPEN-API-AUTH-BOUNDARY-R1.json"
 ZIWEI_CNBKSY_2020_JQ_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-2020-PUBLIC-API-SAMPLE-BUNDLE-JQ.md"
 ZIWEI_CNBKSY_2020_JQ_EVIDENCE = ROOT / "docs/research/ZIWEI-CNBKSY-2020-PUBLIC-API-SAMPLE-BUNDLE-R1.json"
+ZIWEI_CNBKSY_SCOPE_JR_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-2020-2026-OPEN-DATA-LISTING-SCOPE-CHRONOLOGY-JR.md"
+ZIWEI_CNBKSY_SCOPE_JR_EVIDENCE = ROOT / "docs/research/ZIWEI-CNBKSY-2020-2026-OPEN-DATA-LISTING-SCOPE-CHRONOLOGY-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -758,9 +760,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-WENHUI-OFFICIAL-EPAPER-PUBLIC-DATE-CONTRACT-BOUNDARY-JO",
     "BATCH-12-ZIWEI-CNBKSY-CURRENT-OPEN-API-AUTH-BOUNDARY-JP",
     "BATCH-12-ZIWEI-CNBKSY-2020-PUBLIC-API-SAMPLE-BUNDLE-JQ",
+    "BATCH-12-ZIWEI-CNBKSY-2020-2026-OPEN-DATA-LISTING-SCOPE-CHRONOLOGY-JR",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-2020-PUBLIC-API-SAMPLE-BUNDLE-JQ.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-2020-2026-OPEN-DATA-LISTING-SCOPE-CHRONOLOGY-JR.md"
 
 
 def fail(message: str) -> None:
@@ -11497,6 +11500,65 @@ def main() -> int:
         fail("Batch 12JQ missing from completed state")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12JQ latest-batch document mismatch")
+
+    # Batch 12JR: first-party CNBKSY annual open-data listing chronology.
+    for path in (ZIWEI_CNBKSY_SCOPE_JR_BATCH, ZIWEI_CNBKSY_SCOPE_JR_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12JR continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12jr = json.loads(ZIWEI_CNBKSY_SCOPE_JR_EVIDENCE.read_text(encoding="utf-8"))
+    bid12jr = "BATCH-12-ZIWEI-CNBKSY-2020-2026-OPEN-DATA-LISTING-SCOPE-CHRONOLOGY-JR"
+    if batch12jr.get("batch_id") != bid12jr:
+        fail("Batch 12JR evidence identity mismatch")
+    listing12jr = batch12jr.get("listing_chronology", {})
+    expected_listing12jr = {"2020": True, "2021": True, "2022": True, "2023": False, "2024": False, "2025": False, "current_2026": False}
+    if listing12jr.get("modern_newspaper_listing_presence") != expected_listing12jr:
+        fail("Batch 12JR annual modern-newspaper listing chronology regressed")
+    if listing12jr.get("listed_2020_2022") is not True or listing12jr.get("not_listed_2023_current") is not True:
+        fail("Batch 12JR annual listing phase boundary regressed")
+    if listing12jr.get("database_nonexistence_inference_authorized") is not False:
+        fail("Batch 12JR omission/nonexistence firewall regressed")
+    lineage12jr = batch12jr.get("source_emitted_download_lineage", {})
+    if lineage12jr.get("identical_2024_2025_2026") is not True:
+        fail("Batch 12JR API-document lineage identity regressed")
+    for key in ("2024_pdf", "2025_emitted_pdf", "current_2026_pdf"):
+        obj = lineage12jr.get(key, {})
+        if obj.get("bytes") != 332913 or obj.get("sha256") != "7fc1d1d42bf30b639a03fee1a999d201d5c42f0a5272d8130fc03ea1b1877648":
+            fail(f"Batch 12JR repeated API PDF object identity regressed: {key}")
+    if lineage12jr.get("documentation_persistence_proves_dataset_scope_continuity") is not False:
+        fail("Batch 12JR documentation/scope firewall regressed")
+    adj12jr = batch12jr.get("adjudication", {})
+    if adj12jr.get("post_2022_database_nonexistence") != "NOT_PROVED":
+        fail("Batch 12JR database-existence firewall regressed")
+    if adj12jr.get("current_competition_api_1951_newspaper_scope") != "UNRESOLVED":
+        fail("Batch 12JR current target-scope adjudication regressed")
+    if adj12jr.get("target_query_submitted") is not False or adj12jr.get("direct_wenhui_1951_08_18") != "NOT_REVIEWED":
+        fail("Batch 12JR target/direct-page firewall regressed")
+    sec12jr = batch12jr.get("security", {})
+    for key in ("api_key_used", "credential_value_logged", "credential_value_saved", "login_used", "registration_used", "private_endpoint_guessed", "target_query_submitted", "tls_verification_disabled"):
+        if sec12jr.get(key) is not False:
+            fail(f"Batch 12JR security boundary regressed: {key}")
+    sup12jr = batch12jr.get("superseded_probe", {})
+    if sup12jr.get("accepted_as_research_evidence") is not False or sup12jr.get("workflow_run_id") != 36840111958:
+        fail("Batch 12JR superseded-probe audit trail regressed")
+    cp12jr = batch12jr.get("controlling_probe", {})
+    if cp12jr.get("workflow_run_id") != 36840258132 or cp12jr.get("artifact_id") != 11150672206:
+        fail("Batch 12JR controlling probe binding regressed")
+    reg12jr = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    if next((x for x in reg12jr.get("sources", []) if x.get("source_id") == "EXT-SHLIB-CNBKSY-2020-2026-OPEN-DATA-LISTING-CHRONOLOGY"), None) is None:
+        fail("Batch 12JR registry binding missing")
+    acct12jr = batch12jr.get("accounting", {})
+    if acct12jr.get("matrix_rows") != 198 or acct12jr.get("audited_rows") != 166 or acct12jr.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12JR accounting regressed")
+    try:
+        schema12jr = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12JR state version is not numeric")
+    if schema12jr < (1, 282, 0):
+        fail("Batch 12JR state version regressed below 1.282.0")
+    if bid12jr not in audit_state.get("completed_batches", ()):
+        fail("Batch 12JR missing from completed state")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12JR latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

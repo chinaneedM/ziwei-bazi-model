@@ -1,0 +1,192 @@
+{
+  "schema": "ZIWEI-CNBKSY-2020-2026-OPEN-DATA-LISTING-SCOPE-CHRONOLOGY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-CNBKSY-2020-2026-OPEN-DATA-LISTING-SCOPE-CHRONOLOGY-JR",
+  "prior_batch_id": "BATCH-12-ZIWEI-CNBKSY-2020-PUBLIC-API-SAMPLE-BUNDLE-JQ",
+  "question": "Across Shanghai Library's first-party annual open-data surfaces, is 中国近代报纸数字文献全库 continuously listed through the current competition surface, and can persistence of the CNBKSY API document prove current competitionSearch coverage of 1951 newspapers?",
+  "answer": "No continuous listing can be demonstrated. The database is explicitly listed in the 2020, 2021 and 2022 first-party open-data pages, but is not listed in 2023, 2024, 2025 or the current 2026 page. This omission is only a listing-scope observation and does not prove database nonexistence. The CNBKSY API documentation continues to be source-emitted, but the 2024 PDF, the PDF linked by the 2025 page and the current 2026 PDF are byte-identical, so documentation persistence cannot prove annual dataset-scope continuity. Current competitionSearch coverage of 1951 newspaper data therefore remains unresolved; no key or target query is used.",
+  "controlling_probe": {
+    "workflow": ".github/workflows/probe-batch-12jr-cnbksy-open-data-scope-chronology.yml",
+    "exact_head": "90ee45f228681412ecb7d7827209b90c79f2a4e1",
+    "workflow_run_id": 36840258132,
+    "workflow_job_id": 110297437835,
+    "artifact_id": 11150672206,
+    "artifact_name": "batch-12jr-cnbksy-open-data-scope-chronology",
+    "artifact_digest": "sha256:f37730cb3c19bc1ca8e692a3b988ae585b03c13cf13985aacc65d916970936ea"
+  },
+  "superseded_probe": {
+    "workflow_run_id": 36840111958,
+    "workflow_job_id": 110296950222,
+    "artifact_id": 11151511059,
+    "artifact_digest": "sha256:f4c65f7aad6492f430b27562cf188ba0b4f98e646662815441aac7201a12865c",
+    "accepted_as_research_evidence": false,
+    "reason": "requests.text used an incorrect charset fallback and misdecoded Chinese page content; the workflow was corrected before adjudication"
+  },
+  "annual_pages": {
+    "2020": {
+      "url": "https://opendata.library.sh.cn/2020/opendata/",
+      "http_status": 200,
+      "bytes": 38606,
+      "sha256": "6a2cb86a32ec7ea5baf18f57300fe09665df5f454e5d40661d8d4232fff4320d",
+      "modern_newspaper_fulltext_listed": true
+    },
+    "2021": {
+      "url": "https://opendata.library.sh.cn/2021/opendata/",
+      "http_status": 200,
+      "bytes": 52626,
+      "sha256": "654890eaa7ab074fe05f519e8c65ff0d92dfcce0a1bbfd978332b74f3ecb2c8b",
+      "modern_newspaper_fulltext_listed": true
+    },
+    "2022": {
+      "url": "https://opendata.library.sh.cn/2022/opendata/",
+      "http_status": 200,
+      "bytes": 77042,
+      "sha256": "f655f9c0697ba25d938bb0e1e053109bcb7d50c504997c0ce8d083c9a5bf19ad",
+      "modern_newspaper_fulltext_listed": true
+    },
+    "2023": {
+      "url": "https://opendata.library.sh.cn/2023/opendata/",
+      "http_status": 200,
+      "bytes": 79072,
+      "sha256": "6459873a9d496f8fa8d1615a171eee72329179efe5026810f7eec84609a2b55c",
+      "modern_newspaper_fulltext_listed": false
+    },
+    "2024": {
+      "url": "https://opendata.library.sh.cn/2024/opendata/",
+      "http_status": 200,
+      "bytes": 103695,
+      "sha256": "28850abd09dd867213782232be04661fd69b262029ea81c3a78dd2326a1f4525",
+      "modern_newspaper_fulltext_listed": false
+    },
+    "2025": {
+      "url": "https://opendata.library.sh.cn/2025/opendata/",
+      "http_status": 200,
+      "bytes": 86051,
+      "sha256": "557fc369ae95ad094dbff5d97a08201aa51c55825297239f109444a892cd7e7c",
+      "modern_newspaper_fulltext_listed": false
+    },
+    "current_2026": {
+      "url": "https://opendata.library.sh.cn/opendata/index.html",
+      "http_status": 200,
+      "bytes": 87082,
+      "sha256": "2e61210ff639c646c3e75ab543f2dbd3b0ceeadedee9e9ebe515c4b2e7bbb689",
+      "modern_newspaper_fulltext_listed": false
+    }
+  },
+  "listing_chronology": {
+    "modern_newspaper_listing_presence": {
+      "2020": true,
+      "2021": true,
+      "2022": true,
+      "2023": false,
+      "2024": false,
+      "2025": false,
+      "current_2026": false
+    },
+    "listed_2020_2022": true,
+    "not_listed_2023_current": true,
+    "first_observed_omission_year_on_reviewed_annual_pages": 2023,
+    "omission_interpretation": "ANNUAL_OPEN_DATA_LISTING_SCOPE_ONLY",
+    "database_nonexistence_inference_authorized": false
+  },
+  "source_emitted_download_lineage": {
+    "2020_zip": {
+      "bytes": 230672,
+      "sha256": "202429192ac1eb96193595099efb585e3221cea1d89726758f521c50f3013d79"
+    },
+    "2021_pdf": {
+      "bytes": 143557,
+      "sha256": "0f588eb12c9e906d61758fab7182f3ea83c70f3cd3b2598c2aa11c1fbf3df429"
+    },
+    "2022_pdf": {
+      "bytes": 323140,
+      "sha256": "6b3fe8057caf784c1d793a60adb6ad539facd7620f2aab734428c0586ce62b45"
+    },
+    "2023_pdf": {
+      "bytes": 328627,
+      "sha256": "7aae6a42d2eda4a1fc500490351fb430f79bb28cb479aae3f56fb3be046b2bed"
+    },
+    "2024_pdf": {
+      "bytes": 332913,
+      "sha256": "7fc1d1d42bf30b639a03fee1a999d201d5c42f0a5272d8130fc03ea1b1877648"
+    },
+    "2025_emitted_pdf": {
+      "bytes": 332913,
+      "sha256": "7fc1d1d42bf30b639a03fee1a999d201d5c42f0a5272d8130fc03ea1b1877648",
+      "source_emitted_path_contains_2024": true
+    },
+    "current_2026_pdf": {
+      "bytes": 332913,
+      "sha256": "7fc1d1d42bf30b639a03fee1a999d201d5c42f0a5272d8130fc03ea1b1877648"
+    },
+    "identical_2024_2025_2026": true,
+    "documentation_persistence_proves_dataset_scope_continuity": false
+  },
+  "adjudication": {
+    "annual_listing_chronology": "CLOSED_FOR_REVIEWED_2020_2026_SURFACES",
+    "modern_newspaper_database_continuously_listed_through_current": false,
+    "post_2022_database_nonexistence": "NOT_PROVED",
+    "current_competition_api_1951_newspaper_scope": "UNRESOLVED",
+    "current_api_key_requirement_from_batch_12jp": "CONTROLLING",
+    "authorized_api_key_available": false,
+    "target_query_submitted": false,
+    "target_presence_or_absence": "UNRESOLVED",
+    "direct_wenhui_1951_08_18": "NOT_REVIEWED",
+    "direct_wenwu_issue9_pp221_233": "NOT_REVIEWED",
+    "direct_2011_wenji_p197": "NOT_REVIEWED"
+  },
+  "evidence_firewall": {
+    "listing_omission_does_not_prove_database_nonexistence": true,
+    "api_document_persistence_does_not_prove_dataset_scope_continuity": true,
+    "identical_pdf_bytes_across_year_paths_do_not_prove_annual_revision": true,
+    "api_key_requirement_does_not_prove_target_dataset_inclusion": true,
+    "api_metadata_access_does_not_equal_direct_historical_page_review": true
+  },
+  "security": {
+    "api_key_used": false,
+    "credential_value_logged": false,
+    "credential_value_saved": false,
+    "login_used": false,
+    "registration_used": false,
+    "email_action_used": false,
+    "payment_used": false,
+    "captcha_bypass_used": false,
+    "private_endpoint_guessed": false,
+    "target_query_submitted": false,
+    "tls_verification_disabled": false
+  },
+  "transmission_impact": {
+    "status": "NONE",
+    "graph_change": false,
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": [],
+    "reason": "Modern open-data listing/API-document provenance only; no historical chart text or 1951 target page recovered."
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Do not infer current 1951 newspaper API coverage from the persistent API PDF or from the 2025 general database-introduction document alone.",
+    "Any competitionSearch target query still requires a legitimate APIKey and explicit authorization; interpret a future result as API-scope evidence before treating it as page-level evidence.",
+    "Continue public direct page-level recovery of Shanghai 《文汇报》 1951-08-18, 《文物参考资料》 no.9 pp.221-233 and 2011 《赵万里文集》第1卷 p.197."
+  ],
+  "updated_at": "2026-10-01"
+}

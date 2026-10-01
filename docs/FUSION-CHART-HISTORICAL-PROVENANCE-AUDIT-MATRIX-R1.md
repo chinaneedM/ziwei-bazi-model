@@ -1177,3 +1177,15 @@ Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CN
 - Accounting remains 198 / 166 / 10; provenance defects 17/17; zero algorithm defects/reopens/candidate collapses. `TRANSMISSION_IMPACT=NONE`.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-2020-PUBLIC-API-SAMPLE-BUNDLE-JQ.md`. Research record: `docs/research/ZIWEI-CNBKSY-2020-PUBLIC-API-SAMPLE-BUNDLE-R1.json`.
+
+
+## Progress — Batch 12JR
+
+- A corrected controlling runner probe directly retrieves Shanghai Library / CNBKSY annual open-data pages for 2020–2025 plus the current 2026 page, with page bytes and SHA-256 bound in the research record.
+- 《中国近代报纸数字文献全库》 is explicitly present in the 2020, 2021 and 2022 first-party open-data listings, and absent from the corresponding 2023, 2024, 2025 and current 2026 listings. This is a listing-scope observation only: omission does not prove database nonexistence.
+- Every annual page continues to source-emit a CNBKSY documentation/download object. The 2024 API PDF, the API PDF linked by the 2025 page, and the current 2026 API PDF are byte-identical: 332,913 bytes / SHA-256 7fc1d1d42bf30b639a03fee1a999d201d5c42f0a5272d8130fc03ea1b1877648. The 2025 page source-emits a /2024/ document path.
+- Therefore API-document persistence cannot prove current dataset-scope continuity. Batch 12JP's APIKey requirement remains controlling, but current competitionSearch coverage of 1951 newspaper data is still UNRESOLVED until an authorized query or an explicit current scope statement closes it.
+- The first 12JR probe run is explicitly superseded because requests.text misdecoded the Chinese pages; no research conclusion is accepted from that run. The corrected run is 36840258132 / job 110297437835 / artifact 11150672206 / digest sha256:f37730cb3c19bc1ca8e692a3b988ae585b03c13cf13985aacc65d916970936ea.
+- No key, registration, login or target query is used. Direct Wenhui 1951-08-18, Wenwu pp.221–233 and 2011 Wenji p.197 remain NOT_REVIEWED. Accounting remains 198 / 166 / 10; provenance defects 17/17; zero algorithm defects/reopens/candidate collapses. TRANSMISSION_IMPACT=NONE.
+
+Batch document: docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-2020-2026-OPEN-DATA-LISTING-SCOPE-CHRONOLOGY-JR.md. Research record: docs/research/ZIWEI-CNBKSY-2020-2026-OPEN-DATA-LISTING-SCOPE-CHRONOLOGY-R1.json.
