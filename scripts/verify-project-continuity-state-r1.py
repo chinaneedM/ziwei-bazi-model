@@ -832,9 +832,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-NCPSSD-ZHAO-DETAIL-SCALAR-INVENTORY-KZ",
     "BATCH-12-ZIWEI-WENWU-SERIAL-RENAME-CROSSWALK-LA",
     "BATCH-12-ZIWEI-NSSD-LEGACY-PDF-HEAD-BOUNDARY-LB",
+    "BATCH-12-ZIWEI-NSSD-LEGACY-PDF-PREFIX-BOUNDARY-LC",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NSSD-LEGACY-PDF-HEAD-BOUNDARY-LB.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NSSD-LEGACY-PDF-PREFIX-BOUNDARY-LC.md"
 
 
 def fail(message: str) -> None:
@@ -12442,6 +12443,31 @@ def main() -> int:
         fail("Batch 12LB state version regressed below 1.317.0")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12LB latest-batch document mismatch")
+
+    # Batch 12LC: legacy nssd.org prefix is a dead domain-sale HTML landing page.
+    lc_batch = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NSSD-LEGACY-PDF-PREFIX-BOUNDARY-LC.md"
+    lc_evidence = ROOT / "docs/research/ZIWEI-NSSD-LEGACY-PDF-PREFIX-BOUNDARY-R1.json"
+    if not lc_batch.is_file() or not lc_evidence.is_file():
+        fail("Batch 12LC continuity artifact missing")
+    lc = json.loads(lc_evidence.read_text(encoding="utf-8"))
+    if lc.get("batch_id") != "BATCH-12-ZIWEI-NSSD-LEGACY-PDF-PREFIX-BOUNDARY-LC":
+        fail("Batch 12LC evidence identity mismatch")
+    lcr = lc.get("response", {})
+    if lcr.get("http_status") != 200 or lcr.get("starts_pdf_signature") is not False or lcr.get("starts_html_like") is not True or lcr.get("bytes_read") != 4096:
+        fail("Batch 12LC prefix boundary regressed")
+    lca = lc.get("adjudication", {})
+    if lca.get("full_body_downloaded") is not False or lca.get("legacy_pdfurl_status") != "DEAD_DOMAIN_SALE_LANDING_PAGE":
+        fail("Batch 12LC dead-route/full-body firewall regressed")
+    if "BATCH-12-ZIWEI-NSSD-LEGACY-PDF-PREFIX-BOUNDARY-LC" not in audit_state.get("completed_batches", ()):
+        fail("Batch 12LC missing from completed state")
+    try:
+        schema12lc = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12LC state version is not numeric")
+    if schema12lc < (1, 318, 0):
+        fail("Batch 12LC state version regressed below 1.318.0")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12LC latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")
