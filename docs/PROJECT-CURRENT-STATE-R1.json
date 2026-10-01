@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.275.0",
+  "schema_version": "1.276.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -357,9 +357,10 @@
       "BATCH-12-ZIWEI-NDL-DIGITAL-ZHAO-WANLI-WENWU-SOURCE-EMITTED-SEARCH-BOUNDARY-JH",
       "BATCH-12-ZIWEI-ZHAO-WANLI-ZHUAN-NLCPRESS-EDITORIAL-BRIDGE-JI",
       "BATCH-12-ZIWEI-ZHAO-WANLI-WENHUIBAO-1951-0818-SASS-HOLDING-ROUTE-JJ",
-      "BATCH-12-ZIWEI-ZHAO-WANLI-WENWU-WENHUI-BIBLIOGRAPHIC-TENSION-JK"
+      "BATCH-12-ZIWEI-ZHAO-WANLI-WENWU-WENHUI-BIBLIOGRAPHIC-TENSION-JK",
+      "BATCH-12-ZIWEI-WENHUI-SHILUE-1997-PUBLIC-PREVIEW-BOUNDARY-JL"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHAO-WANLI-WENWU-WENHUI-BIBLIOGRAPHIC-TENSION-JK.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENHUI-SHILUE-1997-PUBLIC-PREVIEW-BOUNDARY-JL.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -1610,7 +1611,11 @@
       "Batch 12JK adds an official NLC-hosted modern scholarly bibliographic control: PDF page 5 / printed page 10 directly records Zhao Wanli 《永乐大典展览的意义——一九五一年八月北京图书馆举办》 in 《文物参考资料》1951年第9期 pp.221-233.",
       "The NLC review target page contains neither 《文汇报》 nor 8月18日, but this omission is explicitly non-negative evidence and does not disprove the Batch 12JJ secondary 1951-08-18 Shanghai Wenhui lead.",
       "Wenwu issue-9 is now HIGH-confidence at modern institutional bibliographic level while direct pp.221-233 remain NOT_REVIEWED; Shanghai Wenhui 1951-08-18 remains SECONDARY_LEAD_UNVERIFIED_BY_PRIMARY_PAGE.",
-      "The project preserves multiple possible transmission relationships and selects no winner. Highest next gates are direct Shanghai Wenhui 1951-08-18, direct Wenwu pp.221-233, and direct 2011 《赵万里文集》第1卷 p.197."
+      "The project preserves multiple possible transmission relationships and selects no winner. Highest next gates are direct Shanghai Wenhui 1951-08-18, direct Wenwu pp.221-233, and direct 2011 《赵万里文集》第1卷 p.197.",
+      "Batch 12JL closes the exact 1997 《文汇报史略：1949.6–1966.5》 public bibliographic identity through Open Library ISBN 7805314705 and the Google Books exact-ISBN surface.",
+      "Google Books source-emits object 4bmRAAAACAAJ and the controlling probe follows it without guessing; the object emits no form, no SearchWithinVolume-style contract and no snippet/full-view marker. Open Library has ocaid=null. Therefore this is a public-preview boundary, not a direct book-text witness.",
+      "The only q= URL emitted by the Google exact-ISBN page is a library-link redirect to WorldCat OCLC 1462561249 and is explicitly firewalled from in-book search semantics; CiNii HTTP 202/empty-body is likewise transport-only, not negative evidence.",
+      "Direct Shanghai 《文汇报》 1951-08-18, direct 《文物参考资料》 no.9 pp.221-233 and direct 2011 《赵万里文集》第1卷 p.197 all remain NOT_REVIEWED; first-publication and Wenhuibao-to-Wenwu transmission remain unresolved."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10

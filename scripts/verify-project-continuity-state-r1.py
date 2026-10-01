@@ -344,6 +344,8 @@ ZIWEI_ZHAO_WENHUI_JJ_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUD
 ZIWEI_ZHAO_WENHUI_JJ_EVIDENCE = ROOT / "docs/research/ZIWEI-ZHAO-WANLI-WENHUIBAO-1951-0818-SASS-HOLDING-ROUTE-R1.json"
 ZIWEI_ZHAO_BIB_TENSION_JK_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHAO-WANLI-WENWU-WENHUI-BIBLIOGRAPHIC-TENSION-JK.md"
 ZIWEI_ZHAO_BIB_TENSION_JK_EVIDENCE = ROOT / "docs/research/ZIWEI-ZHAO-WANLI-WENWU-WENHUI-BIBLIOGRAPHIC-TENSION-R1.json"
+ZIWEI_WENHUI_SHILUE_JL_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENHUI-SHILUE-1997-PUBLIC-PREVIEW-BOUNDARY-JL.md"
+ZIWEI_WENHUI_SHILUE_JL_EVIDENCE = ROOT / "docs/research/ZIWEI-WENHUI-SHILUE-1997-PUBLIC-PREVIEW-BOUNDARY-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -740,9 +742,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-ZHAO-WANLI-ZHUAN-NLCPRESS-EDITORIAL-BRIDGE-JI",
     "BATCH-12-ZIWEI-ZHAO-WANLI-WENHUIBAO-1951-0818-SASS-HOLDING-ROUTE-JJ",
     "BATCH-12-ZIWEI-ZHAO-WANLI-WENWU-WENHUI-BIBLIOGRAPHIC-TENSION-JK",
+    "BATCH-12-ZIWEI-WENHUI-SHILUE-1997-PUBLIC-PREVIEW-BOUNDARY-JL",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHAO-WANLI-WENWU-WENHUI-BIBLIOGRAPHIC-TENSION-JK.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENHUI-SHILUE-1997-PUBLIC-PREVIEW-BOUNDARY-JL.md"
 
 
 def fail(message: str) -> None:
@@ -11209,6 +11212,57 @@ def main() -> int:
         fail("Batch 12JK missing from completed state")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12JK latest-batch document mismatch")
+
+    # Batch 12JL: 1997 Wenhui internal-history public bibliographic/preview boundary.
+    for path in (ZIWEI_WENHUI_SHILUE_JL_BATCH, ZIWEI_WENHUI_SHILUE_JL_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12JL continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12jl = json.loads(ZIWEI_WENHUI_SHILUE_JL_EVIDENCE.read_text(encoding="utf-8"))
+    bid12jl = "BATCH-12-ZIWEI-WENHUI-SHILUE-1997-PUBLIC-PREVIEW-BOUNDARY-JL"
+    if batch12jl.get("batch_id") != bid12jl:
+        fail("Batch 12JL evidence identity mismatch")
+    ident12jl = batch12jl.get("exact_book_identity", {})
+    if ident12jl.get("isbn_10") != "7805314705" or ident12jl.get("publication_year") != 1997:
+        fail("Batch 12JL exact book identity regressed")
+    ol12jl = batch12jl.get("openlibrary", {})
+    if ol12jl.get("edition_key") != "/books/OL61042343M" or ol12jl.get("work_key") != "/works/OL44697053W" or ol12jl.get("ocaid") is not None:
+        fail("Batch 12JL Open Library identity/scan boundary regressed")
+    gb12jl = batch12jl.get("google_books_exact_isbn", {})
+    if gb12jl.get("source_emitted_object_id") != "4bmRAAAACAAJ" or gb12jl.get("source_emitted_object_id_guessed") is not False:
+        fail("Batch 12JL Google source-emitted object binding regressed")
+    if gb12jl.get("worldcat_redirect_is_inbook_search_contract") is not False:
+        fail("Batch 12JL WorldCat q-link firewall regressed")
+    obj12jl = batch12jl.get("google_books_source_emitted_object", {})
+    if obj12jl.get("forms_emitted") != 0 or obj12jl.get("source_emitted_inbook_candidate_link_count") != 0:
+        fail("Batch 12JL Google in-book contract boundary regressed")
+    adj12jl = batch12jl.get("adjudication", {})
+    if adj12jl.get("exact_1997_book_identity_publicly_bound") is not True or adj12jl.get("public_page_level_preview_observed") is not False:
+        fail("Batch 12JL identity/preview adjudication regressed")
+    if adj12jl.get("direct_wenhui_1951_08_18_page") != "NOT_REVIEWED" or adj12jl.get("direct_wenwu_issue9_pp221_233") != "NOT_REVIEWED" or adj12jl.get("direct_2011_wenji_p197") != "NOT_REVIEWED":
+        fail("Batch 12JL direct-page firewall regressed")
+    ci12jl = batch12jl.get("cinii_transport_control", {})
+    if ci12jl.get("http_status") != 202 or ci12jl.get("response_bytes") != 0 or ci12jl.get("negative_bibliographic_inference_authorized") is not False:
+        fail("Batch 12JL CiNii transport firewall regressed")
+    tx12jl = batch12jl.get("transmission_impact", {})
+    if tx12jl.get("status") != "NONE" or tx12jl.get("graph_change") is not False:
+        fail("Batch 12JL transmission-impact scope regressed")
+    reg12jl = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    src12jl = next((x for x in reg12jl.get("sources", []) if x.get("source_id") == "EXT-OPENLIBRARY-GOOGLEBOOKS-WENHUI-SHILUE-1997-PUBLIC-PREVIEW-BOUNDARY"), None)
+    if src12jl is None or src12jl.get("batch_12jl", {}).get("public_page_level_preview_observed") is not False:
+        fail("Batch 12JL registry binding/preview firewall regressed")
+    acct12jl = batch12jl.get("accounting", {})
+    if acct12jl.get("matrix_rows") != 198 or acct12jl.get("audited_rows") != 166 or acct12jl.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12JL accounting regressed")
+    try:
+        schema12jl = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12JL state version is not numeric")
+    if schema12jl < (1, 276, 0):
+        fail("Batch 12JL state version regressed below 1.276.0")
+    if bid12jl not in audit_state.get("completed_batches", ()):
+        fail("Batch 12JL missing from completed state")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12JL latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

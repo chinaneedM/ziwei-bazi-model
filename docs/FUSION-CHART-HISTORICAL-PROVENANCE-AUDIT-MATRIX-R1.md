@@ -1112,3 +1112,14 @@ Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZH
 - No direct 1951 target page or 2011 p.197 is newly reviewed. Product/accounting remains 198 / 166 / 10, provenance defects 17/17, and zero chart-algorithm defects/reopens/candidate collapses.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHAO-WANLI-WENWU-WENHUI-BIBLIOGRAPHIC-TENSION-JK.md`. Research record: `docs/research/ZIWEI-ZHAO-WANLI-WENWU-WENHUI-BIBLIOGRAPHIC-TENSION-R1.json`.
+
+
+## Progress — Batch 12JL
+
+- Open Library exact ISBN `7805314705` closes the 1997 《文汇报史略：1949.6–1966.5》 edition as `OL61042343M` / work `OL44697053W`, 330 pages, but `ocaid=null` and no linked scan.
+- Google Books exact-ISBN HTTP 200 binds the same title/ISBN/year and source-emits object `4bmRAAAACAAJ`. The controlling probe follows that object directly.
+- The followed object emits zero forms, zero `SearchWithinVolume`-style links, no snippet/full-view marker and no configured 1951 Zhao/Yongle target terms. The exact-ISBN page's sole `q=` link is a Google library-link redirect to WorldCat OCLC `1462561249`, not an in-book search contract.
+- CiNii exact CRID currently returns HTTP 202 / empty body on the controlling runner; this is a transport boundary only and carries zero negative bibliographic authority.
+- No 1951-08-18 newspaper page, no 《文物参考资料》 pp.221–233 text and no 2011 Wenji p.197 are recovered. First-publication/transmission status remains unresolved. Product/accounting remains 198 / 166 / 10; provenance defects 17/17; zero chart-algorithm defects/reopens/candidate collapses. `TRANSMISSION_IMPACT=NONE`.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENHUI-SHILUE-1997-PUBLIC-PREVIEW-BOUNDARY-JL.md`. Research record: `docs/research/ZIWEI-WENHUI-SHILUE-1997-PUBLIC-PREVIEW-BOUNDARY-R1.json`.

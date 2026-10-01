@@ -1,0 +1,154 @@
+{
+  "schema": "ZIWEI-WENHUI-SHILUE-1997-PUBLIC-PREVIEW-BOUNDARY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-WENHUI-SHILUE-1997-PUBLIC-PREVIEW-BOUNDARY-JL",
+  "prior_batch_id": "BATCH-12-ZIWEI-ZHAO-WANLI-WENWU-WENHUI-BIBLIOGRAPHIC-TENSION-JK",
+  "question": "Does the exact 1997 《文汇报史略：1949.6–1966.5》 bibliographic object expose any lawful public scan, snippet/full-view, or source-emitted in-book search contract that can test the unresolved 1951-08-18 Shanghai 《文汇报》 lead?",
+  "answer": "The 1997 book identity is independently bound by Open Library and Google Books using ISBN 7805314705. Open Library returns edition OL61042343M, work OL44697053W, publication year 1997, pagination 3,2,330 p., and ocaid=null with no linked scan. The Google Books exact-ISBN page source-emits object 4bmRAAAACAAJ, which was followed without guessing. The object page is HTTP 200 and rebinds title/ISBN/year, but emits no form, no SearchWithinVolume-style in-book link, no snippet/full-view marker and no configured 1951 Zhao/Yongle target terms. The sole q= link on the exact-ISBN surface is a Google library-link redirect to WorldCat OCLC 1462561249 and is explicitly not an in-book search contract. CiNii's exact CRID route returns HTTP 202 with an empty body on the controlling runner and is treated only as a current transport boundary. No target page or historical text is reviewed.",
+  "exact_book_identity": {
+    "title_display": "文匯報史略",
+    "scope_display": "1949.6-1966.5",
+    "compiler": "文汇报报史研究室",
+    "publication_year": 1997,
+    "publisher": "文汇出版社 / Wen hui chu ban she",
+    "isbn_10": "7805314705",
+    "pagination": "3, 2, 330 p.",
+    "identity_status": "CLOSED_AT_MULTI_SOURCE_MODERN_BIBLIOGRAPHIC_LEVEL"
+  },
+  "openlibrary": {
+    "url": "https://openlibrary.org/isbn/7805314705.json",
+    "http_status": 200,
+    "bytes": 1027,
+    "sha256": "99d85fe8f40b4501ac649778a6acca1e64b605a60f3b75b0f0c79f1f6d8f57f1",
+    "edition_key": "/books/OL61042343M",
+    "work_key": "/works/OL44697053W",
+    "publish_date": "1997",
+    "pagination": "3, 2, 330 p.",
+    "isbn_10": [
+      "7805314705"
+    ],
+    "ocaid": null,
+    "covers": null,
+    "source_record": "marc:harvard_bibliographic_metadata/20220215_025.bib.mrc:349239807:1610",
+    "linked_scan_observed": false
+  },
+  "google_books_exact_isbn": {
+    "url": "https://books.google.com/books?vid=ISBN7805314705&hl=zh-CN",
+    "http_status": 200,
+    "response_bytes": 80628,
+    "response_sha256": "310deff40d73782b0cb2f1a64b7c8decc8e7c0faca0304f278e3dd46f94cc268",
+    "title_present": true,
+    "isbn_present": true,
+    "year_1997_present": true,
+    "source_emitted_object_id": "4bmRAAAACAAJ",
+    "source_emitted_object_id_guessed": false,
+    "source_emitted_worldcat_redirect": "https://books.google.com/url?id=4bmRAAAACAAJ&q=http://worldcat.org/oclc/1462561249&clientid=librarylink&usg=AOvVaw1moGAe5MbtkUGhDnkahyxQ&source=gbs_buy_r",
+    "worldcat_oclc_from_source_emitted_redirect": "1462561249",
+    "worldcat_redirect_is_inbook_search_contract": false,
+    "snippet_marker_present": false,
+    "target_1951_terms_present": false
+  },
+  "google_books_source_emitted_object": {
+    "object_id": "4bmRAAAACAAJ",
+    "url": "https://books.google.com/books?id=4bmRAAAACAAJ&hl=zh-CN",
+    "http_status": 200,
+    "response_bytes": 80616,
+    "response_sha256": "549ac31d448eafe9becba0a6d48a8d353fe38d8a4cdfd6d31cac6ec8cc28355d",
+    "title_present": true,
+    "isbn_present": true,
+    "year_1997_present": true,
+    "forms_emitted": 0,
+    "source_emitted_inbook_candidate_link_count": 0,
+    "snippet_marker_present": false,
+    "full_view_marker_present": false,
+    "target_1951_terms_present": false,
+    "raw_html_saved": false,
+    "raw_html_logged": false
+  },
+  "cinii_transport_control": {
+    "url": "https://cir.nii.ac.jp/crid/1970586434863400340",
+    "http_status": 202,
+    "response_bytes": 0,
+    "response_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "classification": "CURRENT_RUNNER_TRANSPORT_BOUNDARY_ONLY",
+    "negative_bibliographic_inference_authorized": false
+  },
+  "controlling_probe": {
+    "workflow": ".github/workflows/probe-batch-12jl-wenhui-history-1997-public-preview.yml",
+    "exact_head": "f8362f44fdbe6f25955fcdd7ead5cccbeca2d480",
+    "workflow_run_id": 36831227298,
+    "workflow_job_id": 110268058311,
+    "artifact_id": 11146734959,
+    "artifact_name": "batch-12jl-wenhui-history-1997-public-preview",
+    "artifact_digest": "sha256:c80467b1ab681402842ca99ba2539f35beb0589dc4aefe6aa1f018ca200d7a7c"
+  },
+  "adjudication": {
+    "exact_1997_book_identity_publicly_bound": true,
+    "openlibrary_linked_scan_observed": false,
+    "google_source_emitted_object_observed": true,
+    "google_source_emitted_object_followed": true,
+    "google_object_inbook_contract_observed": false,
+    "public_page_level_preview_observed": false,
+    "target_1951_08_18_entry_directly_reviewed": false,
+    "target_article_directly_reviewed": false,
+    "direct_wenhui_1951_08_18_page": "NOT_REVIEWED",
+    "direct_wenwu_issue9_pp221_233": "NOT_REVIEWED",
+    "direct_2011_wenji_p197": "NOT_REVIEWED",
+    "relationship_to_1951_wenhui_lead": "UNRESOLVED",
+    "first_publication_status": "UNRESOLVED"
+  },
+  "evidence_firewall": {
+    "modern_newspaper_history_bibliography_is_not_1951_newspaper_page": true,
+    "source_emitted_google_book_object_is_not_a_scan": true,
+    "worldcat_library_link_q_parameter_is_not_inbook_search": true,
+    "no_snippet_marker_is_not_physical_book_text_absence": true,
+    "openlibrary_ocaid_null_is_current_linked_scan_boundary_not_global_nonexistence": true,
+    "cinii_http202_empty_body_is_not_negative_bibliographic_evidence": true,
+    "target_terms_absent_from_metadata_page_do_not_establish_absence_from_book": true
+  },
+  "security": {
+    "login_used": false,
+    "account_action_used": false,
+    "payment_used": false,
+    "captcha_bypass_used": false,
+    "private_endpoint_guessed": false,
+    "google_object_id_guessed": false,
+    "inbook_api_guessed": false,
+    "tls_verification_disabled": false
+  },
+  "transmission_impact": {
+    "status": "NONE",
+    "graph_change": false,
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": [],
+    "reason": "Modern bibliographic/public-preview boundary for a 1997 retrospective only; no historical text or transmission relation recovered."
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Continue direct page-level recovery of Shanghai 《文汇报》 1951-08-18; the 1997 internal newspaper-history public metadata route is now closed without a preview object.",
+    "Continue direct recovery of 《文物参考资料》 1951 no.9 pp.221-233 and compare only after one direct historical text is recovered.",
+    "Continue lawful direct recovery of 2011 《赵万里文集》第1卷 p.197 in parallel.",
+    "Revisit the 1997 history route only if Open Library gains a linked scan or Google Books begins emitting a snippet/full-view/in-book search contract."
+  ],
+  "updated_at": "2026-10-01"
+}
