@@ -11401,6 +11401,53 @@
         "target_query_submitted": false,
         "research_artifact": "docs/research/ZIWEI-NLC-SOURCE-EMITTED-OPAC-ELECTRONIC-NEWSPAPER-HTTP-ROUTE-CALIBRATION-R1.json"
       }
+    },
+    {
+      "source_id": "EXT-NLC-ELECTRONIC-NEWSPAPER-PUBLIC-SEARCH-CONTRACT-2026",
+      "title": "国家图书馆读者云门户外购资源库公开检索合同（2026）",
+      "provider": "国家图书馆",
+      "url": "http://read.nlc.cn/outRes/outResList?type=%E7%94%B5%E5%AD%90%E6%8A%A5%E7%BA%B8",
+      "source_role": "FIRST_PARTY_PUBLIC_CLIENT_SIDE_SEARCH_CONTRACT",
+      "quality_notes": "First-party page and source-emitted scripts inspected without submitting a query. The page directly defines getOutResSearch(): ourReswords -> searchName and GET navigation to /outRes/outResList?type=全部&searchName=<ourReswords>. This establishes only the current outRes public search contract, not OPAC holdings.",
+      "batch_12ju": {
+        "workflow_run_id": 36844745344,
+        "workflow_job_id": 110312077411,
+        "artifact_id": 11152144796,
+        "artifact_digest": "sha256:1fca09b8ec9b3db9a877c3d053601f9b9b8936bb65aeeb55d2b50b1beba0275f",
+        "landing_page_bytes": 404829,
+        "landing_page_sha256": "b8991f6d96bb95e8fba6dff11866ece8b146ee097fa902d9afb25b0c7d7856cf",
+        "target_query_submitted": false,
+        "research_artifact": "docs/research/ZIWEI-NLC-ELECTRONIC-NEWSPAPER-PUBLIC-SEARCH-CONTRACT-R1.json"
+      }
+    },
+    {
+      "source_id": "EXT-NLC-OUTRES-WENHUI-TITLE-SEARCH-ZERO-RESULT-BOUNDARY-2026",
+      "title": "国家图书馆 outRes 对《文汇报》资源题名的匿名公开检索零结果边界（2026）",
+      "provider": "国家图书馆",
+      "url": "http://read.nlc.cn/outRes/outResList",
+      "source_role": "FIRST_PARTY_CURRENT_EXTERNAL_RESOURCE_INDEX_TITLE_SEARCH_BOUNDARY",
+      "quality_notes": "Using only the first-party page-emitted GET contract, four Wenhui resource-title queries each return pageTotal=0. Search terms are echoed into searchName, so term presence in HTML is not a hit. The result is scoped to current anonymous outRes external resources and does not prove OPAC nonholding or negate the 2003 donation report.",
+      "batch_12jv": {
+        "workflow_run_id": 36845037948,
+        "workflow_job_id": 110313030409,
+        "artifact_id": 11153465153,
+        "artifact_digest": "sha256:82a139a7312863b38bb7096d4bb87c94d0790d16155e3b9f0475b46af86d5f64",
+        "query_terms": [
+          "文汇报60年报纸光盘",
+          "文汇报",
+          "文匯報",
+          "文汇报61年全文数据光盘"
+        ],
+        "result_counts": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "opac_nonholding_proved": false,
+        "direct_1951_page_reviewed": false,
+        "research_artifact": "docs/research/ZIWEI-NLC-WENHUI-RESOURCE-TITLE-SEARCH-ZERO-RESULT-BOUNDARY-R1.json"
+      }
     }
   ],
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md",

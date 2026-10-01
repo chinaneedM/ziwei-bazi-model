@@ -1212,3 +1212,23 @@ Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WE
 - No login, reader account, form submission, target query, private endpoint or TLS bypass is used. Item-level Wenhui CD-ROM identity and direct 1951-08-18 page remain unresolved. Accounting remains 198 / 166 / 10; provenance defects 17/17; zero algorithm defects/reopens/candidate collapses. `TRANSMISSION_IMPACT=NONE`.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-SOURCE-EMITTED-OPAC-ELECTRONIC-NEWSPAPER-HTTP-ROUTE-CALIBRATION-JT.md`. Research record: `docs/research/ZIWEI-NLC-SOURCE-EMITTED-OPAC-ELECTRONIC-NEWSPAPER-HTTP-ROUTE-CALIBRATION-R1.json`.
+
+
+## Progress — Batch 12JU
+
+- Direct inspection of the current NLC `read.nlc.cn` electronic-resource page closes the public search contract without issuing a search: the button calls `getOutResSearch()`, which reads `ourReswords`, fixes `typeName="全部"`, and navigates by GET to `/outRes/outResList?type=<typeName>&searchName=<ourReswords>`.
+- The same page's pagination code reuses the public `/outRes/outResList` path with `type`, `searchName`, `pageNo` and `urlType`. No form POST, login or private endpoint is required to describe this contract.
+- Controlling run `36844745344` / job `110312077411` / artifact `11152144796` / digest `sha256:1fca09b8ec9b3db9a877c3d053601f9b9b8936bb65aeeb55d2b50b1beba0275f`. No query was submitted in 12JU.
+- This contract is for NLC's current outRes external-resource list; it is not the OPAC catalog contract and cannot decide physical/CD-ROM holdings.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-ELECTRONIC-NEWSPAPER-PUBLIC-SEARCH-CONTRACT-JU.md`. Research record: `docs/research/ZIWEI-NLC-ELECTRONIC-NEWSPAPER-PUBLIC-SEARCH-CONTRACT-R1.json`.
+
+## Progress — Batch 12JV
+
+- Using only the 12JU page-emitted anonymous GET contract, four resource-title searches were executed: `文汇报60年报纸光盘`, `文汇报`, `文匯報`, and `文汇报61年全文数据光盘`.
+- All four return HTTP 200 and `pageTotal=0`. The queried term appears only as the page's `searchName` echo; no Wenhui result item/link is observed.
+- The zero result is therefore authoritative only for the current anonymous NLC outRes external-resource index. It does **not** prove NLC OPAC nonholding, does not invalidate the 2003 donation report, and does not establish absence of the 1951-08-18 newspaper page.
+- Controlling run `36845037948` / job `110313030409` / artifact `11153465153` / digest `sha256:82a139a7312863b38bb7096d4bb87c94d0790d16155e3b9f0475b46af86d5f64`. No person/date query, login, reader account or state-changing request is used.
+- Accounting remains 198 / 166 / 10; provenance defects 17/17; zero algorithm defects/reopens/candidate collapses. `TRANSMISSION_IMPACT=NONE`.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-WENHUI-RESOURCE-TITLE-SEARCH-ZERO-RESULT-BOUNDARY-JV.md`. Research record: `docs/research/ZIWEI-NLC-WENHUI-RESOURCE-TITLE-SEARCH-ZERO-RESULT-BOUNDARY-R1.json`.

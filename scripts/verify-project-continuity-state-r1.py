@@ -362,6 +362,10 @@ ZIWEI_WENHUI_CDROM_JS_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AU
 ZIWEI_WENHUI_CDROM_JS_EVIDENCE = ROOT / "docs/research/ZIWEI-WENHUI-60YEAR-CDROM-NLC-DONATION-AND-CURRENT-SERVICE-BOUNDARY-R1.json"
 ZIWEI_NLC_ROUTE_JT_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-SOURCE-EMITTED-OPAC-ELECTRONIC-NEWSPAPER-HTTP-ROUTE-CALIBRATION-JT.md"
 ZIWEI_NLC_ROUTE_JT_EVIDENCE = ROOT / "docs/research/ZIWEI-NLC-SOURCE-EMITTED-OPAC-ELECTRONIC-NEWSPAPER-HTTP-ROUTE-CALIBRATION-R1.json"
+ZIWEI_NLC_SEARCH_JU_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-ELECTRONIC-NEWSPAPER-PUBLIC-SEARCH-CONTRACT-JU.md"
+ZIWEI_NLC_SEARCH_JU_EVIDENCE = ROOT / "docs/research/ZIWEI-NLC-ELECTRONIC-NEWSPAPER-PUBLIC-SEARCH-CONTRACT-R1.json"
+ZIWEI_NLC_WENHUI_JV_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-WENHUI-RESOURCE-TITLE-SEARCH-ZERO-RESULT-BOUNDARY-JV.md"
+ZIWEI_NLC_WENHUI_JV_EVIDENCE = ROOT / "docs/research/ZIWEI-NLC-WENHUI-RESOURCE-TITLE-SEARCH-ZERO-RESULT-BOUNDARY-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -767,9 +771,11 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-CNBKSY-2020-2026-OPEN-DATA-LISTING-SCOPE-CHRONOLOGY-JR",
     "BATCH-12-ZIWEI-WENHUI-60YEAR-CDROM-NLC-DONATION-AND-CURRENT-SERVICE-BOUNDARY-JS",
     "BATCH-12-ZIWEI-NLC-SOURCE-EMITTED-OPAC-ELECTRONIC-NEWSPAPER-HTTP-ROUTE-CALIBRATION-JT",
+    "BATCH-12-ZIWEI-NLC-ELECTRONIC-NEWSPAPER-PUBLIC-SEARCH-CONTRACT-JU",
+    "BATCH-12-ZIWEI-NLC-WENHUI-RESOURCE-TITLE-SEARCH-ZERO-RESULT-BOUNDARY-JV",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-SOURCE-EMITTED-OPAC-ELECTRONIC-NEWSPAPER-HTTP-ROUTE-CALIBRATION-JT.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-WENHUI-RESOURCE-TITLE-SEARCH-ZERO-RESULT-BOUNDARY-JV.md"
 
 
 def fail(message: str) -> None:
@@ -11668,6 +11674,58 @@ def main() -> int:
         fail("Batch 12JT missing from completed state")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12JT latest-batch document mismatch")
+
+
+    # Batch 12JU/JV: public outRes search contract and scoped Wenhui zero-result boundary.
+    for path in (ZIWEI_NLC_SEARCH_JU_BATCH, ZIWEI_NLC_SEARCH_JU_EVIDENCE, ZIWEI_NLC_WENHUI_JV_BATCH, ZIWEI_NLC_WENHUI_JV_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12JU/JV continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12ju = json.loads(ZIWEI_NLC_SEARCH_JU_EVIDENCE.read_text(encoding="utf-8"))
+    batch12jv = json.loads(ZIWEI_NLC_WENHUI_JV_EVIDENCE.read_text(encoding="utf-8"))
+    if batch12ju.get("batch_id") != "BATCH-12-ZIWEI-NLC-ELECTRONIC-NEWSPAPER-PUBLIC-SEARCH-CONTRACT-JU" or batch12jv.get("batch_id") != "BATCH-12-ZIWEI-NLC-WENHUI-RESOURCE-TITLE-SEARCH-ZERO-RESULT-BOUNDARY-JV":
+        fail("Batch 12JU/JV identity mismatch")
+    contract12ju = batch12ju.get("direct_search_contract", {})
+    if contract12ju.get("method") != "GET" or contract12ju.get("path") != "/outRes/outResList" or contract12ju.get("fixed_type") != "全部":
+        fail("Batch 12JU direct search contract regressed")
+    if contract12ju.get("input_mapping") != "ourReswords -> searchName" or contract12ju.get("contract_directly_observed") is not True:
+        fail("Batch 12JU field/action binding regressed")
+    if batch12ju.get("adjudication", {}).get("query_submitted") is not False:
+        fail("Batch 12JU no-query firewall regressed")
+    queries12jv = batch12jv.get("queries", [])
+    if [q.get("term") for q in queries12jv] != ["文汇报60年报纸光盘","文汇报","文匯報","文汇报61年全文数据光盘"]:
+        fail("Batch 12JV query term set regressed")
+    if any(q.get("http_status") != 200 or q.get("page_total") != 0 or q.get("result_item_observed") is not False for q in queries12jv):
+        fail("Batch 12JV scoped zero-result controls regressed")
+    adj12jv = batch12jv.get("adjudication", {})
+    if adj12jv.get("nlc_opac_nonholding") != "NOT_PROVED" or adj12jv.get("donation_report_invalidated") is not False:
+        fail("Batch 12JV outRes/OPAC firewall regressed")
+    if adj12jv.get("direct_wenhui_1951_08_18") != "NOT_REVIEWED":
+        fail("Batch 12JV direct-page firewall regressed")
+    cp12ju = batch12ju.get("controlling_probe", {})
+    cp12jv = batch12jv.get("controlling_probe", {})
+    if cp12ju.get("workflow_run_id") != 36844745344 or cp12ju.get("artifact_id") != 11152144796:
+        fail("Batch 12JU controlling probe binding regressed")
+    if cp12jv.get("workflow_run_id") != 36845037948 or cp12jv.get("artifact_id") != 11153465153:
+        fail("Batch 12JV controlling probe binding regressed")
+    reg12jujv = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    for sid in ("EXT-NLC-ELECTRONIC-NEWSPAPER-PUBLIC-SEARCH-CONTRACT-2026","EXT-NLC-OUTRES-WENHUI-TITLE-SEARCH-ZERO-RESULT-BOUNDARY-2026"):
+        if next((x for x in reg12jujv.get("sources", []) if x.get("source_id") == sid), None) is None:
+            fail(f"Batch 12JU/JV registry binding missing: {sid}")
+    for batch in (batch12ju, batch12jv):
+        acct = batch.get("accounting", {})
+        if acct.get("matrix_rows") != 198 or acct.get("audited_rows") != 166 or acct.get("current_missing_from_product_rows") != 10:
+            fail("Batch 12JU/JV accounting regressed")
+    try:
+        schema12jv = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12JV state version is not numeric")
+    if schema12jv < (1, 286, 0):
+        fail("Batch 12JV state version regressed below 1.286.0")
+    for bid in ("BATCH-12-ZIWEI-NLC-ELECTRONIC-NEWSPAPER-PUBLIC-SEARCH-CONTRACT-JU","BATCH-12-ZIWEI-NLC-WENHUI-RESOURCE-TITLE-SEARCH-ZERO-RESULT-BOUNDARY-JV"):
+        if bid not in audit_state.get("completed_batches", ()):
+            fail(f"Batch 12JU/JV missing from completed state: {bid}")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12JV latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")
