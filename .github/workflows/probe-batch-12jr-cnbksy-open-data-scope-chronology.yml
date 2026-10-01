@@ -1,0 +1,129 @@
+name: probe-batch-12jr-cnbksy-open-data-scope-chronology
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12jr-cnbksy-open-data-scope-chronology.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inspect first-party CNBKSY annual open-data listings
+        run: |
+          python - <<'PY'
+          import hashlib, html, json, re
+          from pathlib import Path
+          from urllib.parse import unquote, urljoin, urlsplit, urlunsplit
+          import requests
+
+          UA={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; first-party CNBKSY annual listing probe)"}
+          PAGES={
+              "2020":"https://opendata.library.sh.cn/2020/opendata/",
+              "2021":"https://opendata.library.sh.cn/2021/opendata/",
+              "2022":"https://opendata.library.sh.cn/2022/opendata/",
+              "2023":"https://opendata.library.sh.cn/2023/opendata/",
+              "2024":"https://opendata.library.sh.cn/2024/opendata/",
+              "2025":"https://opendata.library.sh.cn/2025/opendata/",
+              "current_2026":"https://opendata.library.sh.cn/opendata/index.html",
+          }
+          FLAGS={
+              "late_qing_periodicals":"晚清期刊全文数据库",
+              "republic_periodicals":"民国时期期刊全文数据库",
+              "modern_newspaper_fulltext":"中国近代报纸数字文献全库",
+              "modern_book_fulltext":"中国近代图书全文数据库",
+              "periodical_index":"报刊索引数据库",
+              "current_periodical_index":"现刊索引数据库",
+          }
+
+          def sha(b): return hashlib.sha256(b).hexdigest()
+          def clean_url(u):
+              p=urlsplit(u)
+              return urlunsplit((p.scheme,p.netloc,p.path,"",""))
+          def fetch(url, timeout=45):
+              r=requests.get(url,headers=UA,timeout=timeout,allow_redirects=True)
+              r.raise_for_status()
+              return r
+
+          rows={}
+          all_downloads=[]
+          for label,url in PAGES.items():
+              r=fetch(url)
+              raw=r.content
+              text=r.text
+              row={
+                  "url":url,
+                  "final_url":r.url,
+                  "http_status":r.status_code,
+                  "bytes":len(raw),
+                  "sha256":sha(raw),
+                  "provider_label_present":("全国报刊索引" in text),
+                  "dataset_flags":{k:(v in text) for k,v in FLAGS.items()},
+                  "source_emitted_cnbksy_downloads":[],
+              }
+              # Follow only hrefs literally emitted by the first-party annual page.
+              for m in re.finditer(r'<a\b[^>]*\bhref=[\"\']([^\"\']+)[\"\'][^>]*>',text,re.I):
+                  href=html.unescape(m.group(1))
+                  absu=urljoin(r.url,href)
+                  dec=unquote(absu)
+                  if "全国报刊索引" in dec or "%E5%85%A8%E5%9B%BD%E6%8A%A5%E5%88%8A%E7%B4%A2%E5%BC%95" in absu:
+                      u=clean_url(absu)
+                      if u not in row["source_emitted_cnbksy_downloads"]:
+                          row["source_emitted_cnbksy_downloads"].append(u)
+              for u in row["source_emitted_cnbksy_downloads"]:
+                  item={"year_label":label,"url":u}
+                  try:
+                      d=fetch(u,timeout=60)
+                      item.update({
+                          "http_status":d.status_code,
+                          "final_url":clean_url(d.url),
+                          "content_type":d.headers.get("Content-Type"),
+                          "bytes":len(d.content),
+                          "sha256":sha(d.content),
+                      })
+                  except Exception as e:
+                      item["error_class"]=type(e).__name__
+                  all_downloads.append(item)
+              rows[label]=row
+
+          modern_presence={k:v["dataset_flags"]["modern_newspaper_fulltext"] for k,v in rows.items()}
+          result={
+              "pages":rows,
+              "source_emitted_download_objects":all_downloads,
+              "modern_newspaper_listing_presence":modern_presence,
+              "adjudication":{
+                  "listed_2020_2022":all(modern_presence.get(x) is True for x in ("2020","2021","2022")),
+                  "not_listed_2023_2025_and_current":all(modern_presence.get(x) is False for x in ("2023","2024","2025","current_2026")),
+                  "listing_omission_is_not_database_nonexistence":True,
+                  "listing_presence_is_not_api_scope_proof":True,
+                  "current_competition_api_1951_newspaper_scope_proved":False,
+                  "target_query_submitted":False,
+                  "api_key_used":False,
+                  "direct_target_page_recovered":False,
+              },
+              "security":{
+                  "api_key_used":False,
+                  "credential_value_logged":False,
+                  "credential_value_saved":False,
+                  "target_query_submitted":False,
+                  "private_endpoint_guessed":False,
+                  "login_used":False,
+                  "registration_used":False,
+                  "tls_verification_disabled":False,
+              }
+          }
+          Path("batch-12jr-cnbksy-open-data-scope-chronology.json").write_text(
+              json.dumps(result,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(result,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12jr-cnbksy-open-data-scope-chronology
+          path: batch-12jr-cnbksy-open-data-scope-chronology.json
