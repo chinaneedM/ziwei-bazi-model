@@ -11713,7 +11713,7 @@
       "provider": "国家哲学社会科学文献中心（NCPSsd）",
       "url": "https://www.ncpssd.cn/",
       "source_role": "FIRST_PARTY_PUBLIC_SEARCH_UI_AND_CLIENT_CONTROL_SURFACE",
-      "quality_notes": "Batch 12KH-KW closes the current anonymous NCPSsd public search/result/detail client contract in stages: homepage UI; negative inline/external function search; source-emitted articlelist route; 20/20 Base64 grammar roundtrip; dynamic /searchHandler/search contract; exact jQuery absent/null serialization; 红楼梦 semantic positive control; exact Zhao Wanli title result; encryptedUrl secure-detail route; secure-shell login boundary; and source-emitted articleinfo.js detail-data contract. No login, download/read operation or guessed endpoint is used. Batch 12KX closes the exact server-emitted secure-shell hidden values and resolves the next journal-detail request body without executing it. Batch 12KY executes the fully source-closed anonymous journal-detail POST and directly recovers the Zhao record's first-party title/author/carrier/year/issue/pagecount/classification/ISSN metadata; emitted pdf URL metadata is recorded but not followed.",
+      "quality_notes": "Batch 12KH-KW closes the current anonymous NCPSsd public search/result/detail client contract in stages: homepage UI; negative inline/external function search; source-emitted articlelist route; 20/20 Base64 grammar roundtrip; dynamic /searchHandler/search contract; exact jQuery absent/null serialization; 红楼梦 semantic positive control; exact Zhao Wanli title result; encryptedUrl secure-detail route; secure-shell login boundary; and source-emitted articleinfo.js detail-data contract. No login, download/read operation or guessed endpoint is used. Batch 12KX closes the exact server-emitted secure-shell hidden values and resolves the next journal-detail request body without executing it. Batch 12KY executes the fully source-closed anonymous journal-detail POST and directly recovers the Zhao record's first-party title/author/carrier/year/issue/pagecount/classification/ISSN metadata; emitted pdf URL metadata is recorded but not followed. Batch 12KZ closes the same record's lower-case page and scalar fields: pp.221-233, publishdate 1951-09-01, abstract and keywords, with no new endpoint or URL follow.",
       "batch_12kh": {
         "workflow_run_id": 36857797158,
         "workflow_job_id": 110354359450,
@@ -11914,6 +11914,20 @@
         "emitted_pdfurl_metadata": true,
         "pdfurl_followed": false,
         "research_artifact": "docs/research/ZIWEI-NCPSSD-ZHAO-JOURNAL-DETAIL-DATA-R1.json"
+      },
+      "batch_12kz": {
+        "workflow_run_id": 36870170475,
+        "workflow_job_id": 110395607091,
+        "artifact_id": 11166187855,
+        "artifact_digest": "sha256:8645f60140f9835a5ef32a32c76d649eb1e2a859f45c3fc1e3cdba1ac7c42e31",
+        "response_sha256": "90f093e92044908b8e16a0dc8147f408e875565a9bc82ccbddebc38c5a666243",
+        "beginpage": "221",
+        "endpage": "233",
+        "publishdate": "1951-09-01",
+        "source": "nssd",
+        "new_endpoint_executed": false,
+        "url_followed": false,
+        "research_artifact": "docs/research/ZIWEI-NCPSSD-ZHAO-DETAIL-SCALAR-INVENTORY-R1.json"
       }
     }
   ],

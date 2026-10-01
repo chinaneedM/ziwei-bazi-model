@@ -829,9 +829,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-NCPSSD-ARTICLEINFO-SCRIPT-CONTRACT-KW",
     "BATCH-12-ZIWEI-NCPSSD-SECURE-SHELL-HIDDEN-CONTRACT-KX",
     "BATCH-12-ZIWEI-NCPSSD-ZHAO-JOURNAL-DETAIL-DATA-KY",
+    "BATCH-12-ZIWEI-NCPSSD-ZHAO-DETAIL-SCALAR-INVENTORY-KZ",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NCPSSD-ZHAO-JOURNAL-DETAIL-DATA-KY.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NCPSSD-ZHAO-DETAIL-SCALAR-INVENTORY-KZ.md"
 
 
 def fail(message: str) -> None:
@@ -12340,6 +12341,43 @@ def main() -> int:
         fail("Batch 12KY state version regressed below 1.314.0")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12KY latest-batch document mismatch")
+
+    # Batch 12KZ: lower-case scalar fields close the exact page range and publication date.
+    kz_batch = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NCPSSD-ZHAO-DETAIL-SCALAR-INVENTORY-KZ.md"
+    kz_evidence = ROOT / "docs/research/ZIWEI-NCPSSD-ZHAO-DETAIL-SCALAR-INVENTORY-R1.json"
+    if not kz_batch.is_file() or not kz_evidence.is_file():
+        fail("Batch 12KZ continuity artifact missing")
+    kz = json.loads(kz_evidence.read_text(encoding="utf-8"))
+    if kz.get("batch_id") != "BATCH-12-ZIWEI-NCPSSD-ZHAO-DETAIL-SCALAR-INVENTORY-KZ":
+        fail("Batch 12KZ evidence identity mismatch")
+    kzsc = kz.get("scalar_inventory", {})
+    if kzsc.get("beginpage") != "221" or kzsc.get("endpage") != "233" or kzsc.get("publishdate") != "1951-09-01":
+        fail("Batch 12KZ page/date locator regressed")
+    if kzsc.get("firstwriter") != "趙萬里" or kzsc.get("source") != "nssd":
+        fail("Batch 12KZ writer/source locator regressed")
+    kzresp = kz.get("response", {})
+    if kzresp.get("http_status") != 200 or kzresp.get("sha256") != "90f093e92044908b8e16a0dc8147f408e875565a9bc82ccbddebc38c5a666243":
+        fail("Batch 12KZ response identity regressed")
+    kzadj = kz.get("adjudication", {})
+    if kzadj.get("new_endpoint_executed") is not False or kzadj.get("url_like_value_followed") is not False:
+        fail("Batch 12KZ access firewall regressed")
+    kzacct = kz.get("accounting", {})
+    if kzacct.get("matrix_rows") != 198 or kzacct.get("audited_rows") != 166 or kzacct.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12KZ accounting regressed")
+    if kzacct.get("confirmed_provenance_metadata_defect_count") != 17 or kzacct.get("repaired_provenance_metadata_defect_count") != 17:
+        fail("Batch 12KZ provenance accounting regressed")
+    if kzacct.get("confirmed_chart_algorithm_defect_count") != 0 or kzacct.get("algorithm_reopen_count") != 0 or kzacct.get("candidate_collapse_count") != 0:
+        fail("Batch 12KZ deterministic-product invariant regressed")
+    if "BATCH-12-ZIWEI-NCPSSD-ZHAO-DETAIL-SCALAR-INVENTORY-KZ" not in audit_state.get("completed_batches", ()):
+        fail("Batch 12KZ missing from completed state")
+    try:
+        schema12kz = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12KZ state version is not numeric")
+    if schema12kz < (1, 315, 0):
+        fail("Batch 12KZ state version regressed below 1.315.0")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12KZ latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

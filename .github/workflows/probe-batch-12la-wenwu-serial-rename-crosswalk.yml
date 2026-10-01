@@ -1,0 +1,100 @@
+name: probe-batch-12la-wenwu-serial-rename-crosswalk
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12la-wenwu-serial-rename-crosswalk.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Probe authoritative public predecessor-successor serial history
+        run: |
+          python - <<'PY'
+          import hashlib, html, json, re
+          from pathlib import Path
+          import requests
+
+          targets=[
+              ("cinii_predecessor","https://ci.nii.ac.jp/ncid/AA11467834"),
+              ("cinii_successor","https://ci.nii.ac.jp/ncid/AN00060837"),
+              ("publisher_history","https://www.zgwwcbcm.com/fzlc"),
+          ]
+          s=requests.Session()
+          s.headers.update({"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; Wenwu serial rename crosswalk)"})
+          rows={}
+          for key,url in targets:
+              r=s.get(url,timeout=45,allow_redirects=True)
+              raw=r.content
+              txt=raw.decode("utf-8","replace")
+              visible=html.unescape(re.sub(r"<[^>]+>"," ",txt))
+              visible=re.sub(r"\s+"," ",visible)
+              rows[key]={
+                  "requested_url":url,
+                  "final_url":r.url,
+                  "http_status":r.status_code,
+                  "bytes":len(raw),
+                  "sha256":hashlib.sha256(raw).hexdigest(),
+                  "markers":{
+                      "wenwu_cankao":("文物参攷資料" in txt or "文物参考資料" in txt or "文物参考资料" in txt),
+                      "wenwu":("文物" in txt),
+                      "predecessor_span_1950_1958":("1950.1-1958.12" in visible),
+                      "successor_start_1959":("1959.1-" in visible or "1959年1期" in visible),
+                      "general_101":("总101号" in visible or "總101號" in visible),
+                      "issn_05114772":("05114772" in visible or "0511-4772" in visible),
+                      "bibliographic_history_41870900":("41870900" in visible),
+                      "continuation_marker":("継続後誌" in txt or "Continues by" in txt),
+                      "predecessor_marker":("継続前誌" in txt or "Before Rename" in txt or "Continues" in txt),
+                      "official_1959_rename_sentence":("1959年1月" in visible and "文物参考资料" in visible and "改名" in visible and "文物" in visible)
+                  }
+              }
+              if key=="publisher_history":
+                  m=re.search(r"1959年1月.{0,160}?文物参考资料.{0,160}?改名.{0,80}?文物",visible)
+                  rows[key]["rename_context"]=m.group(0) if m else None
+
+          out={
+              "question":"Do authoritative public serial-history sources explicitly bind 1950-1958 《文物参考资料》 to the 1959- successor/current title 《文物》?",
+              "sources":rows,
+              "adjudication":{
+                  "cinii_predecessor_identity_closed":rows["cinii_predecessor"]["markers"]["predecessor_span_1950_1958"],
+                  "cinii_successor_identity_closed":rows["cinii_successor"]["markers"]["successor_start_1959"],
+                  "same_cinii_bibliographic_history_id":rows["cinii_predecessor"]["markers"]["bibliographic_history_41870900"] and rows["cinii_successor"]["markers"]["bibliographic_history_41870900"],
+                  "official_publisher_rename_statement_observed":rows["publisher_history"]["markers"]["official_1959_rename_sentence"],
+                  "rename_crosswalk_closed":(
+                      rows["cinii_predecessor"]["markers"]["predecessor_span_1950_1958"]
+                      and rows["cinii_successor"]["markers"]["successor_start_1959"]
+                      and rows["cinii_predecessor"]["markers"]["bibliographic_history_41870900"]
+                      and rows["cinii_successor"]["markers"]["bibliographic_history_41870900"]
+                      and rows["publisher_history"]["markers"]["official_1959_rename_sentence"]
+                  )
+              },
+              "evidence_firewall":{
+                  "1951_article_original_carrier_should_remain_historical_title":True,
+                  "modern_database_successor_title_may_be_normalized_label_if_same_article_locator_matches":True,
+                  "rename_relation_does_not_prove_any_newspaper_to_periodical_reprint_relation":True,
+                  "direct_1951_page_text_still_not_reviewed":True
+              },
+              "security":{
+                  "anonymous_get_only":True,
+                  "login_used":False,
+                  "state_changing_request_used":False,
+                  "private_endpoint_guessed":False,
+                  "captcha_bypass_used":False,
+                  "tls_verification_disabled":False
+              }
+          }
+          Path("batch-12la-wenwu-serial-rename-crosswalk.json").write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12la-wenwu-serial-rename-crosswalk
+          path: batch-12la-wenwu-serial-rename-crosswalk.json
