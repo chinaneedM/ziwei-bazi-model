@@ -336,6 +336,8 @@ ZIWEI_WENWU_MANIFEST_JF_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-
 ZIWEI_WENWU_MANIFEST_JF_EVIDENCE = ROOT / "docs/research/ZIWEI-WENWU-1951-WWCK195109-COMMERCIAL-MANIFEST-SOURCE-EMITTED-ROUTE-BOUNDARY-R1.json"
 ZIWEI_ZHAO_WENJIN_JG_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-NLC-WENJIN-PUBLIC-SEARCH-CONTRACT-BOUNDARY-JG.md"
 ZIWEI_ZHAO_WENJIN_JG_EVIDENCE = ROOT / "docs/research/ZIWEI-ZHAO-WANLI-WENJI-V1-NLC-WENJIN-PUBLIC-SEARCH-CONTRACT-BOUNDARY-R1.json"
+ZIWEI_NDL_DIGITAL_JH_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NDL-DIGITAL-ZHAO-WANLI-WENWU-SOURCE-EMITTED-SEARCH-BOUNDARY-JH.md"
+ZIWEI_NDL_DIGITAL_JH_EVIDENCE = ROOT / "docs/research/ZIWEI-NDL-DIGITAL-ZHAO-WANLI-WENWU-SOURCE-EMITTED-SEARCH-BOUNDARY-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -728,9 +730,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-RMRB-OFFICIAL-ARCHIVE-PUBLIC-SEARCH-EXECUTION-BOUNDARY-JE",
     "BATCH-12-ZIWEI-WENWU-1951-WWCK195109-COMMERCIAL-MANIFEST-SOURCE-EMITTED-ROUTE-BOUNDARY-JF",
     "BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-NLC-WENJIN-PUBLIC-SEARCH-CONTRACT-BOUNDARY-JG",
+    "BATCH-12-ZIWEI-NDL-DIGITAL-ZHAO-WANLI-WENWU-SOURCE-EMITTED-SEARCH-BOUNDARY-JH",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-NLC-WENJIN-PUBLIC-SEARCH-CONTRACT-BOUNDARY-JG.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NDL-DIGITAL-ZHAO-WANLI-WENWU-SOURCE-EMITTED-SEARCH-BOUNDARY-JH.md"
 
 
 def fail(message: str) -> None:
@@ -10995,6 +10998,63 @@ def main() -> int:
         fail("Batch 12JG missing from completed state")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12JG latest-batch document mismatch")
+
+    # Batch 12JH: NDL Digital source-emitted search contract / static shell boundary.
+    for path in (ZIWEI_NDL_DIGITAL_JH_BATCH, ZIWEI_NDL_DIGITAL_JH_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12JH continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12jh = json.loads(ZIWEI_NDL_DIGITAL_JH_EVIDENCE.read_text(encoding="utf-8"))
+    bid12jh = "BATCH-12-ZIWEI-NDL-DIGITAL-ZHAO-WANLI-WENWU-SOURCE-EMITTED-SEARCH-BOUNDARY-JH"
+    if batch12jh.get("batch_id") != bid12jh:
+        fail("Batch 12JH evidence identity mismatch")
+    cp12jh = batch12jh.get("controlling_probe", {})
+    if cp12jh.get("workflow_run_id") != 36819382858 or cp12jh.get("workflow_job_id") != 110231432661 or cp12jh.get("artifact_id") != 11142424009:
+        fail("Batch 12JH controlling probe binding regressed")
+    if cp12jh.get("artifact_digest") != "sha256:26e3cd1c25d2a755d753feda03b6faef8c5c49c18f92975b5b4a47504d9bb1bc":
+        fail("Batch 12JH artifact digest regressed")
+    ref12jh = batch12jh.get("official_reference_source", {})
+    if ref12jh.get("http_status") != 200 or ref12jh.get("source_emitted_host") != "dl.ndl.go.jp" or ref12jh.get("source_emitted_path") != "/search/searchResult":
+        fail("Batch 12JH first-party search-contract identity regressed")
+    if ref12jh.get("endpoint_guessed") is not False or ref12jh.get("parameter_names_guessed") is not False:
+        fail("Batch 12JH endpoint/parameter firewall regressed")
+    cal12jh = batch12jh.get("query_calibration", {})
+    if cal12jh.get("positive_control_http_status") != 200 or cal12jh.get("positive_control_result_surface_calibrated") is not False:
+        fail("Batch 12JH positive-control calibration boundary regressed")
+    if cal12jh.get("all_query_responses_same_sha256") is not True or cal12jh.get("positive_control_response_sha256") != "9464957293e820db57d597624e2797b50402f0c3434d62d6de9d656f7a187b4f":
+        fail("Batch 12JH static-shell identity regressed")
+    if cal12jh.get("source_emitted_external_script_srcs") != []:
+        fail("Batch 12JH source-emitted script boundary regressed")
+    q12jh = batch12jh.get("target_queries", [])
+    if len(q12jh) != 8 or any(x.get("http_status") != 200 or x.get("response_sha256") != "9464957293e820db57d597624e2797b50402f0c3434d62d6de9d656f7a187b4f" for x in q12jh):
+        fail("Batch 12JH query shell bundle regressed")
+    adj12jh = batch12jh.get("adjudication", {})
+    if adj12jh.get("target_queries_executed") is not True or adj12jh.get("target_zero_results_established") is not False or adj12jh.get("target_absence_established") is not False:
+        fail("Batch 12JH result/absence firewall regressed")
+    if adj12jh.get("target_pid_recovered") is not False or adj12jh.get("target_digital_object_recovered") is not False:
+        fail("Batch 12JH object firewall regressed")
+    if adj12jh.get("direct_2011_p197") != "NOT_REVIEWED" or adj12jh.get("direct_1951_zhao_pp221_233") != "NOT_REVIEWED":
+        fail("Batch 12JH direct-page firewall regressed")
+    sec12jh = batch12jh.get("security", {})
+    for key in ("login_used","account_action_used","payment_used","captcha_bypass_used","private_endpoint_guessed","search_endpoint_guessed","search_parameter_guessed","tls_verification_disabled"):
+        if sec12jh.get(key) is not False:
+            fail(f"Batch 12JH security boundary regressed: {key}")
+    reg12jh = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    src12jh = next((x for x in reg12jh.get("sources", []) if x.get("source_id") == "EXT-NDL-DIGITAL-SOURCE-EMITTED-SEARCH-CONTRACT-2026"), None)
+    if src12jh is None or src12jh.get("batch_12jh", {}).get("target_absence_inference_authorized") is not False:
+        fail("Batch 12JH registry binding/absence firewall regressed")
+    acct12jh = batch12jh.get("accounting", {})
+    if acct12jh.get("matrix_rows") != 198 or acct12jh.get("audited_rows") != 166 or acct12jh.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12JH accounting regressed")
+    try:
+        schema12jh = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12JH state version is not numeric")
+    if schema12jh < (1, 272, 0):
+        fail("Batch 12JH state version regressed below 1.272.0")
+    if bid12jh not in audit_state.get("completed_batches", ()):
+        fail("Batch 12JH missing from completed state")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12JH latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

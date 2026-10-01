@@ -1066,3 +1066,13 @@ Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WE
 - Product/accounting remains 198 / 166 / 10 and provenance defects 17/17, with zero chart-algorithm defects, reopens or candidate collapses.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-NLC-WENJIN-PUBLIC-SEARCH-CONTRACT-BOUNDARY-JG.md`. Research record: `docs/research/ZIWEI-ZHAO-WANLI-WENJI-V1-NLC-WENJIN-PUBLIC-SEARCH-CONTRACT-BOUNDARY-R1.json`.
+
+## Progress — Batch 12JH
+
+- Official NDL Reference Cooperative Database directly source-emits the NDL Digital Collection search URL and full public keyword parameter structure; endpoint/parameters are not guessed.
+- Controlling run `36819382858` / job `110231432661` / artifact `11142424009` / digest `sha256:26e3cd1c25d2a755d753feda03b6faef8c5c49c18f92975b5b4a47504d9bb1bc` executes the positive control and seven target variants.
+- Every query returns the identical 4,298-byte static shell (`sha256:9464957293e820db57d597624e2797b50402f0c3434d62d6de9d656f7a187b4f`) with no query echo, result count or PID; the positive control therefore does not calibrate a result surface.
+- No target zero-result/absence conclusion is authorized, no digital object is recovered, and direct 2011 p.197 / 1951 pp.221–233 remain NOT_REVIEWED.
+- Product/accounting remains 198 / 166 / 10, provenance defects 17/17, and zero chart-algorithm defects/reopens/candidate collapses.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NDL-DIGITAL-ZHAO-WANLI-WENWU-SOURCE-EMITTED-SEARCH-BOUNDARY-JH.md`. Research record: `docs/research/ZIWEI-NDL-DIGITAL-ZHAO-WANLI-WENWU-SOURCE-EMITTED-SEARCH-BOUNDARY-R1.json`.

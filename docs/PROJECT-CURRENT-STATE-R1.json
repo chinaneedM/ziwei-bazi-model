@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.271.0",
+  "schema_version": "1.272.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -353,9 +353,10 @@
       "BATCH-12-ZIWEI-ZHENG-YONGLE-1951-0813-0831-PUBLICATION-DATE-CONFLICT-JD",
       "BATCH-12-ZIWEI-RMRB-OFFICIAL-ARCHIVE-PUBLIC-SEARCH-EXECUTION-BOUNDARY-JE",
       "BATCH-12-ZIWEI-WENWU-1951-WWCK195109-COMMERCIAL-MANIFEST-SOURCE-EMITTED-ROUTE-BOUNDARY-JF",
-      "BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-NLC-WENJIN-PUBLIC-SEARCH-CONTRACT-BOUNDARY-JG"
+      "BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-NLC-WENJIN-PUBLIC-SEARCH-CONTRACT-BOUNDARY-JG",
+      "BATCH-12-ZIWEI-NDL-DIGITAL-ZHAO-WANLI-WENWU-SOURCE-EMITTED-SEARCH-BOUNDARY-JH"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-NLC-WENJIN-PUBLIC-SEARCH-CONTRACT-BOUNDARY-JG.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NDL-DIGITAL-ZHAO-WANLI-WENWU-SOURCE-EMITTED-SEARCH-BOUNDARY-JH.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -1590,7 +1591,11 @@
       "Batch 12JG closes the first-party identity of NLC Wenjin Search route: both NLC homepage and resource-search HTML directly source-emit http://find.nlc.cn/search/doSearch.",
       "12JG does not recover a reproducible anonymous query contract: reviewed NLC pages emit no HTML form or named query field, https://find.nlc.cn/ times out from the controlling runner, and the exact source-emitted doSearch route returns HTTP 500 without invented parameters.",
       "No Zhao-Wanli title or ISBN query was submitted in 12JG; HTTP 500/timeout therefore has zero target-absence authority. Direct 2011 《赵万里文集》第1卷 p.197 remains NOT_REVIEWED.",
-      "Highest next gate remains lawful direct p.197 recovery on a new public/institutional page-level surface; NDL paid remote copy remains explicit account/fee authorization gated. In parallel continue 1951 pp.221-233 and 1997 pp.446-449 direct-page recovery."
+      "Highest next gate remains lawful direct p.197 recovery on a new public/institutional page-level surface; NDL paid remote copy remains explicit account/fee authorization gated. In parallel continue 1951 pp.221-233 and 1997 pp.446-449 direct-page recovery.",
+      "Batch 12JH closes a first-party NDL Digital Collection search URL and parameter contract source-emitted by the official NDL Reference Cooperative Database.",
+      "The 12JH positive control 蒋介石 and all seven Zhao/Wenwu target variants return the identical 4,298-byte static shell with SHA-256 9464957293e820db57d597624e2797b50402f0c3434d62d6de9d656f7a187b4f, without query echo, result count or PID.",
+      "Therefore the NDL Digital static anonymous response is uncalibrated and carries zero target-absence authority; no internal API is guessed. Direct 2011 p.197 and direct 1951 pp.221-233 remain NOT_REVIEWED.",
+      "Highest next gate remains lawful direct 2011 《赵万里文集》第1卷 p.197 recovery; in parallel continue provenance-bound 1951 pp.221-233 and 1997 pp.446-449 direct-page recovery."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10
