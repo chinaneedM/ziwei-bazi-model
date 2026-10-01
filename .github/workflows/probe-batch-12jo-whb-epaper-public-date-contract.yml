@@ -1,0 +1,159 @@
+name: probe-batch-12jo-whb-epaper-public-date-contract
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12jo-whb-epaper-public-date-contract.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inspect official Wenhui e-paper public date-selection contract
+        run: |
+          python - <<'PY'
+          import hashlib, html, json, re
+          from pathlib import Path
+          from urllib.parse import urljoin, urlparse
+          import requests
+
+          UA={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; Wenhui official e-paper public-date-contract probe)"}
+          ENTRY="https://dzb.whb.cn/"
+          CONTROL="https://dzb.whb.cn/2024-12-31/1/index.html"
+          TARGET_DATE="1951-08-18"
+
+          def fetch(url):
+              try:
+                  r=requests.get(url,headers=UA,timeout=45,allow_redirects=True)
+                  return r,None
+              except Exception as e:
+                  return None,f"{type(e).__name__}: {e}"
+
+          def sha(b): return hashlib.sha256(b).hexdigest()
+
+          def classify(url,r):
+              raw=r.text
+              anchors=[]
+              for href in re.findall(r'href=["\']([^"\']+)["\']',raw,re.I):
+                  u=urljoin(r.url,html.unescape(href))
+                  anchors.append(u)
+              forms=[]
+              for m in re.finditer(r'<form\b([^>]*)>(.*?)</form>',raw,re.I|re.S):
+                  attrs,inner=m.group(1),m.group(2)
+                  am=re.search(r'action=["\']([^"\']*)["\']',attrs,re.I)
+                  mm=re.search(r'method=["\']([^"\']*)["\']',attrs,re.I)
+                  action=urljoin(r.url,html.unescape(am.group(1))) if am else r.url
+                  names=sorted(set(html.unescape(x) for x in re.findall(r'name=["\']([^"\']+)["\']',inner,re.I)))
+                  forms.append({"action":action,"method":(mm.group(1).upper() if mm else "GET"),"inputs":names})
+              scripts=[]
+              for src in re.findall(r'<script[^>]+src=["\']([^"\']+)["\']',raw,re.I):
+                  scripts.append(urljoin(r.url,html.unescape(src)))
+              date_links=sorted(set(u for u in anchors if re.search(r'/20\d{2}-\d{2}-\d{2}/',u)))
+              target_literal=TARGET_DATE in raw
+              date_terms=[x for x in ("日期选择","date","calendar","datepicker","chooseDate","selectDate") if x.lower() in raw.lower()]
+              return {
+                  "requested_url":url,
+                  "status":r.status_code,
+                  "final_url":r.url,
+                  "bytes":len(r.content),
+                  "sha256":sha(r.content),
+                  "forms":forms[:20],
+                  "anchor_count":len(set(anchors)),
+                  "source_emitted_date_links":date_links[:80],
+                  "source_emitted_date_link_count":len(date_links),
+                  "source_emitted_script_srcs":sorted(set(scripts))[:30],
+                  "date_selector_terms_present":date_terms,
+                  "target_date_literal_present":target_literal,
+                  "raw_html_saved":False,
+                  "raw_html_logged":False
+              }
+
+          out={"target_date":TARGET_DATE,"target_date_request_submitted":False}
+
+          for key,url in (("entry",ENTRY),("known_control",CONTROL)):
+              r,e=fetch(url)
+              rec={"url":url,"fetch_error":e}
+              if r is not None:
+                  rec.update(classify(url,r))
+              out[key]=rec
+
+          # Follow only same-host scripts source-emitted by the two official pages.
+          script_urls=[]
+          for rec in (out["entry"],out["known_control"]):
+              for u in rec.get("source_emitted_script_srcs",[]):
+                  if urlparse(u).hostname=="dzb.whb.cn":
+                      script_urls.append(u)
+          script_urls=sorted(set(script_urls))[:12]
+          scripts=[]
+          candidate_contracts=[]
+          for u in script_urls:
+              r,e=fetch(u)
+              row={"url":u,"fetch_error":e}
+              if r is not None:
+                  text=r.text
+                  row.update({
+                      "status":r.status_code,
+                      "bytes":len(r.content),
+                      "sha256":sha(r.content),
+                      "target_date_literal_present":TARGET_DATE in text,
+                      "date_terms_present":[x for x in ("日期","date","calendar","datepicker","chooseDate","selectDate") if x.lower() in text.lower()],
+                  })
+                  # Record only short source-emitted route/pattern literals, not full scripts.
+                  lits=set()
+                  for pat in (
+                      r'["\']([^"\']{0,160}(?:calendar|date|day|archive|history)[^"\']{0,160})["\']',
+                      r'["\']([^"\']*/\d{4}-\d{2}-\d{2}/[^"\']*)["\']',
+                  ):
+                      for m in re.finditer(pat,text,re.I):
+                          val=html.unescape(m.group(1))
+                          if len(val)<=320:
+                              lits.add(val)
+                  row["source_emitted_date_contract_literals"]=sorted(lits)[:80]
+                  candidate_contracts.extend(row["source_emitted_date_contract_literals"])
+              scripts.append(row)
+          out["same_host_scripts_followed"]=scripts
+          out["source_emitted_candidate_date_contracts"]=sorted(set(candidate_contracts))[:120]
+
+          out["adjudication"]={
+              "official_epaper_entry_reached":out["entry"].get("status")==200,
+              "known_dated_control_reached":out["known_control"].get("status")==200,
+              "public_date_selector_surface_observed":bool(
+                  out["entry"].get("date_selector_terms_present") or
+                  out["known_control"].get("date_selector_terms_present")
+              ),
+              "source_emitted_date_contract_observed":bool(
+                  out["entry"].get("source_emitted_date_link_count") or
+                  out["known_control"].get("source_emitted_date_link_count") or
+                  out["source_emitted_candidate_date_contracts"]
+              ),
+              "target_date_query_authorized_for_next_probe":bool(
+                  out["entry"].get("source_emitted_date_link_count") or
+                  out["known_control"].get("source_emitted_date_link_count") or
+                  out["source_emitted_candidate_date_contracts"]
+              ),
+              "target_1951_08_18_submitted":False,
+              "target_page_observed":False
+          }
+          out["security"]={
+              "login_used":False,
+              "payment_used":False,
+              "captcha_bypass_used":False,
+              "private_endpoint_guessed":False,
+              "target_date_path_guessed":False,
+              "tls_verification_disabled":False
+          }
+          Path("batch-12jo-whb-epaper-public-date-contract.json").write_text(
+              json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12jo-whb-epaper-public-date-contract
+          path: batch-12jo-whb-epaper-public-date-contract.json
