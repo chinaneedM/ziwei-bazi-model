@@ -350,6 +350,10 @@ ZIWEI_SHU_WENHUI_JM_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDI
 ZIWEI_SHU_WENHUI_JM_EVIDENCE = ROOT / "docs/research/ZIWEI-WENHUIBAO-1951-0818-SHU-BOUND-VOLUME-HOLDING-ROUTE-R1.json"
 ZIWEI_SHU_WENHUI_JN_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENHUIBAO-SHU-2025-CURRENT-LOCATOR-AND-DIGITAL-ACCESS-BOUNDARY-JN.md"
 ZIWEI_SHU_WENHUI_JN_EVIDENCE = ROOT / "docs/research/ZIWEI-WENHUIBAO-SHU-2025-CURRENT-LOCATOR-AND-DIGITAL-ACCESS-BOUNDARY-R1.json"
+ZIWEI_WHB_EPAPER_JO_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENHUI-OFFICIAL-EPAPER-PUBLIC-DATE-CONTRACT-BOUNDARY-JO.md"
+ZIWEI_WHB_EPAPER_JO_EVIDENCE = ROOT / "docs/research/ZIWEI-WENHUI-OFFICIAL-EPAPER-PUBLIC-DATE-CONTRACT-BOUNDARY-R1.json"
+ZIWEI_CNBKSY_API_JP_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-CURRENT-OPEN-API-AUTH-BOUNDARY-JP.md"
+ZIWEI_CNBKSY_API_JP_EVIDENCE = ROOT / "docs/research/ZIWEI-CNBKSY-CURRENT-OPEN-API-AUTH-BOUNDARY-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -749,9 +753,11 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-WENHUI-SHILUE-1997-PUBLIC-PREVIEW-BOUNDARY-JL",
     "BATCH-12-ZIWEI-WENHUIBAO-1951-0818-SHU-BOUND-VOLUME-HOLDING-ROUTE-JM",
     "BATCH-12-ZIWEI-WENHUIBAO-SHU-2025-CURRENT-LOCATOR-AND-DIGITAL-ACCESS-BOUNDARY-JN",
+    "BATCH-12-ZIWEI-WENHUI-OFFICIAL-EPAPER-PUBLIC-DATE-CONTRACT-BOUNDARY-JO",
+    "BATCH-12-ZIWEI-CNBKSY-CURRENT-OPEN-API-AUTH-BOUNDARY-JP",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENHUIBAO-SHU-2025-CURRENT-LOCATOR-AND-DIGITAL-ACCESS-BOUNDARY-JN.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-CURRENT-OPEN-API-AUTH-BOUNDARY-JP.md"
 
 
 def fail(message: str) -> None:
@@ -11368,6 +11374,76 @@ def main() -> int:
         fail("Batch 12JN missing from completed state")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12JN latest-batch document mismatch")
+
+    # Batch 12JO: official Wenhui e-paper date-contract runner boundary.
+    for path in (ZIWEI_WHB_EPAPER_JO_BATCH, ZIWEI_WHB_EPAPER_JO_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12JO continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12jo = json.loads(ZIWEI_WHB_EPAPER_JO_EVIDENCE.read_text(encoding="utf-8"))
+    bid12jo = "BATCH-12-ZIWEI-WENHUI-OFFICIAL-EPAPER-PUBLIC-DATE-CONTRACT-BOUNDARY-JO"
+    if batch12jo.get("batch_id") != bid12jo:
+        fail("Batch 12JO evidence identity mismatch")
+    adj12jo = batch12jo.get("adjudication", {})
+    if adj12jo.get("controlling_runner_surface") != "UNREACHED_TIMEOUT":
+        fail("Batch 12JO runner boundary regressed")
+    if adj12jo.get("target_date_query_authorized") is not False or adj12jo.get("target_1951_08_18_submitted") is not False:
+        fail("Batch 12JO target-date firewall regressed")
+    if adj12jo.get("direct_wenhui_1951_08_18") != "NOT_REVIEWED":
+        fail("Batch 12JO direct-page firewall regressed")
+    sec12jo=batch12jo.get("security",{})
+    if sec12jo.get("target_date_path_guessed") is not False or sec12jo.get("private_endpoint_guessed") is not False:
+        fail("Batch 12JO route-guess firewall regressed")
+    acct12jo=batch12jo.get("accounting",{})
+    if acct12jo.get("matrix_rows") != 198 or acct12jo.get("audited_rows") != 166 or acct12jo.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12JO accounting regressed")
+    if bid12jo not in audit_state.get("completed_batches", ()):
+        fail("Batch 12JO missing from completed state")
+
+    # Batch 12JP: current first-party CNBKSY API contract and APIKey boundary.
+    for path in (ZIWEI_CNBKSY_API_JP_BATCH, ZIWEI_CNBKSY_API_JP_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12JP continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12jp = json.loads(ZIWEI_CNBKSY_API_JP_EVIDENCE.read_text(encoding="utf-8"))
+    bid12jp = "BATCH-12-ZIWEI-CNBKSY-CURRENT-OPEN-API-AUTH-BOUNDARY-JP"
+    if batch12jp.get("batch_id") != bid12jp:
+        fail("Batch 12JP evidence identity mismatch")
+    cur12jp=batch12jp.get("current_official_surfaces",{})
+    if cur12jp.get("api_doc_2026",{}).get("api_key_required") is not True:
+        fail("Batch 12JP APIKey requirement regressed")
+    if cur12jp.get("intro_2025",{}).get("declared_year_scope") != "1850-1952" or cur12jp.get("intro_2025",{}).get("target_year_1951_inside_declared_scope") is not True:
+        fail("Batch 12JP official temporal-scope control regressed")
+    ep12jp=batch12jp.get("endpoint_probe",{})
+    if ep12jp.get("bare_request",{}).get("http_status") != 200 or ep12jp.get("documented_sample_without_key",{}).get("http_status") != 500:
+        fail("Batch 12JP live endpoint transport controls regressed")
+    adj12jp=batch12jp.get("adjudication",{})
+    if adj12jp.get("current_official_api_documentation") != "CLOSED" or adj12jp.get("endpoint_transport_alive") is not True:
+        fail("Batch 12JP API contract identity regressed")
+    if adj12jp.get("authorized_api_key_available") is not False or adj12jp.get("target_query_submitted") is not False:
+        fail("Batch 12JP authorization/target-query firewall regressed")
+    if adj12jp.get("direct_wenhui_1951_08_18") != "NOT_REVIEWED":
+        fail("Batch 12JP direct-page firewall regressed")
+    sec12jp=batch12jp.get("security",{})
+    for key in ("api_key_used","login_used","registration_used","email_action_used","private_endpoint_guessed","target_query_submitted","tls_verification_disabled"):
+        if sec12jp.get(key) is not False:
+            fail(f"Batch 12JP security boundary regressed: {key}")
+    reg12jp=json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    if next((x for x in reg12jp.get("sources",[]) if x.get("source_id")=="EXT-WHB-OFFICIAL-EPAPER-DATE-CONTRACT-BOUNDARY-2026"),None) is None:
+        fail("Batch 12JO registry binding missing")
+    if next((x for x in reg12jp.get("sources",[]) if x.get("source_id")=="EXT-SHLIB-CNBKSY-CURRENT-OPEN-API-CONTRACT-2026"),None) is None:
+        fail("Batch 12JP registry binding missing")
+    acct12jp=batch12jp.get("accounting",{})
+    if acct12jp.get("matrix_rows") != 198 or acct12jp.get("audited_rows") != 166 or acct12jp.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12JP accounting regressed")
+    try:
+        schema12jp=tuple(int(part) for part in state.get("schema_version","0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12JP state version is not numeric")
+    if schema12jp < (1, 280, 0):
+        fail("Batch 12JP state version regressed below 1.280.0")
+    if bid12jp not in audit_state.get("completed_batches",()):
+        fail("Batch 12JP missing from completed state")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12JP latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

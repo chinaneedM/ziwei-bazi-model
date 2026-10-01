@@ -1145,3 +1145,24 @@ Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WE
 - No email/appointment action is performed. Direct Wenhui 1951-08-18, Wenwu pp.221–233 and 2011 Wenji p.197 remain NOT_REVIEWED. Product/accounting remains 198 / 166 / 10; provenance defects 17/17; zero algorithm defects/reopens/candidate collapses. `TRANSMISSION_IMPACT=NONE`.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENHUIBAO-SHU-2025-CURRENT-LOCATOR-AND-DIGITAL-ACCESS-BOUNDARY-JN.md`. Research record: `docs/research/ZIWEI-WENHUIBAO-SHU-2025-CURRENT-LOCATOR-AND-DIGITAL-ACCESS-BOUNDARY-R1.json`.
+
+
+## Progress — Batch 12JO
+
+- Wenhui Daily's official e-paper host `dzb.whb.cn` is investigated as a possible public historical-date route without constructing a 1951 target URL.
+- Controlling run `36834874380` / job `110279768574` / artifact `11148592500` / digest `sha256:fdf0f44210a45e233995e7142734ac9e7d94c124d05c30dad1fdc83bd72b3783` times out on both the root and a known modern dated control.
+- No source-emitted date-selection contract can be calibrated on the runner. The target date 1951-08-18 is not submitted and no historical absence inference is authorized.
+- Direct Wenhui 1951-08-18, Wenwu pp.221-233 and 2011 Wenji p.197 remain NOT_REVIEWED. Accounting remains 198 / 166 / 10; provenance defects 17/17; zero algorithm defects/reopens/candidate collapses.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENHUI-OFFICIAL-EPAPER-PUBLIC-DATE-CONTRACT-BOUNDARY-JO.md`. Research record: `docs/research/ZIWEI-WENHUI-OFFICIAL-EPAPER-PUBLIC-DATE-CONTRACT-BOUNDARY-R1.json`.
+
+
+## Progress — Batch 12JP
+
+- Shanghai Library's current open-data surface and 2026 first-party CNBKSY API PDF are directly recovered. The documentation exposes `https://data.cnbksy.com/competitionSearch?key=[参数1]&searchContent=[参数2]` and explicitly requires a registration-issued APIKey.
+- Controlling run `36835297124` / job `110281139580` / artifact `11149230659` / digest `sha256:ba99886b0530d83d9ae9badb267ca01510315901eff56d6f70cac99120a9bcc4` confirms the endpoint is live: bare request HTTP 200/JSON; documented sample syntax with empty key HTTP 500/JSON.
+- No APIKey, registration, login, email action or target query is used. Empty-key failure is not a zero-result search and has no target absence authority.
+- Shanghai Library's 2025 official introduction declares 中国近代报纸数字文献全库 as 1850–1952 / 4000+ newspapers, so 1951 is inside declared temporal coverage; specific Shanghai Wenhui inclusion is still unproved.
+- Direct Wenhui 1951-08-18, Wenwu pp.221-233 and 2011 Wenji p.197 remain NOT_REVIEWED. Accounting remains 198 / 166 / 10; provenance defects 17/17; zero algorithm defects/reopens/candidate collapses.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-CURRENT-OPEN-API-AUTH-BOUNDARY-JP.md`. Research record: `docs/research/ZIWEI-CNBKSY-CURRENT-OPEN-API-AUTH-BOUNDARY-R1.json`.

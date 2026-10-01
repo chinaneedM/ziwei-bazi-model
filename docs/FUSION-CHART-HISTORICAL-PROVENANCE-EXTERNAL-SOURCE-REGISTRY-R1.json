@@ -11263,6 +11263,39 @@
         "appointment_requested": false,
         "research_artifact": "docs/research/ZIWEI-WENHUIBAO-SHU-2025-CURRENT-LOCATOR-AND-DIGITAL-ACCESS-BOUNDARY-R1.json"
       }
+    },
+    {
+      "source_id": "EXT-WHB-OFFICIAL-EPAPER-DATE-CONTRACT-BOUNDARY-2026",
+      "title": "文汇报官方电子报 dzb.whb.cn 公开日期契约访问边界",
+      "provider": "文汇报",
+      "url": "https://dzb.whb.cn/",
+      "source_role": "FIRST_PARTY_MODERN_EPAPER_ACCESS_CONTRACT_BOUNDARY_NOT_HISTORICAL_PAGE",
+      "quality_notes": "Official e-paper host; controlling GitHub runner timed out on root and known modern date control. No target date was guessed or submitted.",
+      "batch_12jo": {
+        "workflow_run_id": 36834874380,
+        "artifact_id": 11148592500,
+        "artifact_digest": "sha256:fdf0f44210a45e233995e7142734ac9e7d94c124d05c30dad1fdc83bd72b3783",
+        "target_date_submitted": false,
+        "direct_1951_page_reviewed": false,
+        "research_artifact": "docs/research/ZIWEI-WENHUI-OFFICIAL-EPAPER-PUBLIC-DATE-CONTRACT-BOUNDARY-R1.json"
+      }
+    },
+    {
+      "source_id": "EXT-SHLIB-CNBKSY-CURRENT-OPEN-API-CONTRACT-2026",
+      "title": "上海图书馆当前《全国报刊索引》开放数据 API 契约与鉴权边界",
+      "provider": "上海图书馆开放数据 / 全国报刊索引",
+      "url": "https://opendata.library.sh.cn/opendata/index.html",
+      "source_role": "FIRST_PARTY_CURRENT_OPEN_DATA_API_CONTRACT_AUTH_BOUNDARY",
+      "quality_notes": "Current 2026 first-party API documentation exposes competitionSearch and explicitly requires registration-issued APIKey. Endpoint is live without target-query authority. 2025 first-party introduction declares 中国近代报纸数字文献全库 1850–1952.",
+      "batch_12jp": {
+        "workflow_run_id": 36835297124,
+        "artifact_id": 11149230659,
+        "artifact_digest": "sha256:ba99886b0530d83d9ae9badb267ca01510315901eff56d6f70cac99120a9bcc4",
+        "api_key_used": false,
+        "target_query_submitted": false,
+        "direct_1951_page_reviewed": false,
+        "research_artifact": "docs/research/ZIWEI-CNBKSY-CURRENT-OPEN-API-AUTH-BOUNDARY-R1.json"
+      }
     }
   ],
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md",
