@@ -1189,3 +1189,15 @@ Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CN
 - No key, registration, login or target query is used. Direct Wenhui 1951-08-18, Wenwu pp.221–233 and 2011 Wenji p.197 remain NOT_REVIEWED. Accounting remains 198 / 166 / 10; provenance defects 17/17; zero algorithm defects/reopens/candidate collapses. TRANSMISSION_IMPACT=NONE.
 
 Batch document: docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-2020-2026-OPEN-DATA-LISTING-SCOPE-CHRONOLOGY-JR.md. Research record: docs/research/ZIWEI-CNBKSY-2020-2026-OPEN-DATA-LISTING-SCOPE-CHRONOLOGY-R1.json.
+
+
+## Progress — Batch 12JS
+
+- A 2003 contemporary web reprint explicitly labeled as sourced from 文汇报 directly reports donation to the National Library of China of 《文汇报60年报纸光盘》: 13 discs, declared coverage 1938-01 through 1998-12, all text and images, with date/name lookup. The retrieved object is 59,026 bytes / SHA-256 `3ff35d135af4fa2976273239ce08cf10a56526b3bd6b4634f8cdad075998071f`.
+- The declared date range includes 1951-08-18, but this is coverage-level evidence only. No CD-ROM target query is submitted, no target article presence is proved, and no 1951 page is directly reviewed.
+- NLC's current first-party main/service surfaces are directly retrieved. The service surface exposes catalog/digital-resource context and optical-disc service language, but neither reviewed page names 《文汇报60年报纸光盘》 or exposes an item-level record for it.
+- The 2005 IFLA archive PDF could not be directly retrieved on the controlling runner: tested archive routes return HTTP 503 or connection failures. Therefore the separately discovered “61年全文数据光盘” wording is not upgraded in 12JS and must not be collapsed with the 2003 60-year donated object.
+- Controlling run `36842368572` / job `110304235769` / artifact `11151074382` / digest `sha256:19b9a05049bbda7dcd43b92f151ab00f7aedb90d7e70bde64e6bf16b5cf8caad`. No login, reader account, registration, payment, copy request, private endpoint or target query is used.
+- Direct Wenhui 1951-08-18, Wenwu pp.221–233 and 2011 Wenji p.197 remain NOT_REVIEWED. Accounting remains 198 / 166 / 10; provenance defects 17/17; zero algorithm defects/reopens/candidate collapses. `TRANSMISSION_IMPACT=NONE`.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENHUI-60YEAR-CDROM-NLC-DONATION-AND-CURRENT-SERVICE-BOUNDARY-JS.md`. Research record: `docs/research/ZIWEI-WENHUI-60YEAR-CDROM-NLC-DONATION-AND-CURRENT-SERVICE-BOUNDARY-R1.json`.

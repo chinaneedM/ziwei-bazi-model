@@ -11347,6 +11347,38 @@
         "direct_1951_page_reviewed": false,
         "research_artifact": "docs/research/ZIWEI-CNBKSY-2020-2026-OPEN-DATA-LISTING-SCOPE-CHRONOLOGY-R1.json"
       }
+    },
+    {
+      "source_id": "EXT-WENHUI-2003-60YEAR-CDROM-NLC-DONATION-CONTEMPORARY-REPRINT",
+      "title": "2003 同时代网络转载：向国家图书馆赠送《文汇报60年报纸光盘》",
+      "provider": "新浪科技转载页（页面标注来源：文汇报）",
+      "url": "https://tech.sina.com.cn/me/2003-01-21/1231162357.shtml",
+      "source_role": "CONTEMPORARY_REPRINT_OF_WENHUI_REPORT_DIGITAL_OBJECT_DONATION_AND_DECLARED_COVERAGE",
+      "quality_notes": "HTTP 200 object directly bound in Batch 12JS. Page labels source as 文汇报 and contains the NLC donation, 13-disc count, 1938-01 to 1998-12 coverage, all-text-and-images statement and date/name lookup claims. Not a first-party Wenhui host; does not prove target article presence or current NLC item identity.",
+      "batch_12js": {
+        "bytes": 59026,
+        "sha256": "3ff35d135af4fa2976273239ce08cf10a56526b3bd6b4634f8cdad075998071f",
+        "decode_used": "gb18030",
+        "declared_coverage_includes_1951_08_18": true,
+        "target_article_presence_proved": false,
+        "research_artifact": "docs/research/ZIWEI-WENHUI-60YEAR-CDROM-NLC-DONATION-AND-CURRENT-SERVICE-BOUNDARY-R1.json"
+      }
+    },
+    {
+      "source_id": "EXT-NLC-CURRENT-DISC-DIGITAL-RESOURCE-SERVICE-SURFACE",
+      "title": "国家图书馆当前公开服务页：馆藏目录/数字资源/光盘服务边界",
+      "provider": "国家图书馆",
+      "url": "https://www.nlc.cn/web/dzzn/dsb_kgsj/index.shtml",
+      "source_role": "FIRST_PARTY_CURRENT_NLC_DISC_AND_DIGITAL_RESOURCE_SERVICE_SURFACE",
+      "quality_notes": "Current first-party NLC service surface retrieved in Batch 12JS. It exposes catalog/digital-resource service context and mentions optical discs, but the reviewed entry/service surfaces do not name 《文汇报60年报纸光盘》 or expose an item-level identity for it.",
+      "batch_12js": {
+        "service_page_bytes": 91623,
+        "service_page_sha256": "e29d3b7390b0ac3212d3392aee5d0b510570ef03b7501ca8fc1f7d9d6400431c",
+        "main_entry_bytes": 70374,
+        "main_entry_sha256": "7b00972aa48455db32714445aa637ee70a62a615341892aaee9fe97778e5f4d8",
+        "item_level_wenhui_cdrom_identity_observed": false,
+        "research_artifact": "docs/research/ZIWEI-WENHUI-60YEAR-CDROM-NLC-DONATION-AND-CURRENT-SERVICE-BOUNDARY-R1.json"
+      }
     }
   ],
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md",

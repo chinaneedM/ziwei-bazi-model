@@ -358,6 +358,8 @@ ZIWEI_CNBKSY_2020_JQ_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUD
 ZIWEI_CNBKSY_2020_JQ_EVIDENCE = ROOT / "docs/research/ZIWEI-CNBKSY-2020-PUBLIC-API-SAMPLE-BUNDLE-R1.json"
 ZIWEI_CNBKSY_SCOPE_JR_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-2020-2026-OPEN-DATA-LISTING-SCOPE-CHRONOLOGY-JR.md"
 ZIWEI_CNBKSY_SCOPE_JR_EVIDENCE = ROOT / "docs/research/ZIWEI-CNBKSY-2020-2026-OPEN-DATA-LISTING-SCOPE-CHRONOLOGY-R1.json"
+ZIWEI_WENHUI_CDROM_JS_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENHUI-60YEAR-CDROM-NLC-DONATION-AND-CURRENT-SERVICE-BOUNDARY-JS.md"
+ZIWEI_WENHUI_CDROM_JS_EVIDENCE = ROOT / "docs/research/ZIWEI-WENHUI-60YEAR-CDROM-NLC-DONATION-AND-CURRENT-SERVICE-BOUNDARY-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -761,9 +763,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-CNBKSY-CURRENT-OPEN-API-AUTH-BOUNDARY-JP",
     "BATCH-12-ZIWEI-CNBKSY-2020-PUBLIC-API-SAMPLE-BUNDLE-JQ",
     "BATCH-12-ZIWEI-CNBKSY-2020-2026-OPEN-DATA-LISTING-SCOPE-CHRONOLOGY-JR",
+    "BATCH-12-ZIWEI-WENHUI-60YEAR-CDROM-NLC-DONATION-AND-CURRENT-SERVICE-BOUNDARY-JS",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-2020-2026-OPEN-DATA-LISTING-SCOPE-CHRONOLOGY-JR.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENHUI-60YEAR-CDROM-NLC-DONATION-AND-CURRENT-SERVICE-BOUNDARY-JS.md"
 
 
 def fail(message: str) -> None:
@@ -11559,6 +11562,58 @@ def main() -> int:
         fail("Batch 12JR missing from completed state")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12JR latest-batch document mismatch")
+
+
+    # Batch 12JS: Wenhui 60-year CD-ROM donation provenance and current NLC service boundary.
+    for path in (ZIWEI_WENHUI_CDROM_JS_BATCH, ZIWEI_WENHUI_CDROM_JS_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12JS continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12js = json.loads(ZIWEI_WENHUI_CDROM_JS_EVIDENCE.read_text(encoding="utf-8"))
+    bid12js = "BATCH-12-ZIWEI-WENHUI-60YEAR-CDROM-NLC-DONATION-AND-CURRENT-SERVICE-BOUNDARY-JS"
+    if batch12js.get("batch_id") != bid12js:
+        fail("Batch 12JS evidence identity mismatch")
+    rep12js = batch12js.get("contemporary_reprint", {})
+    if rep12js.get("sha256") != "3ff35d135af4fa2976273239ce08cf10a56526b3bd6b4634f8cdad075998071f" or rep12js.get("disc_count") != 13:
+        fail("Batch 12JS contemporary reprint object identity regressed")
+    if rep12js.get("declared_coverage_start") != "1938-01" or rep12js.get("declared_coverage_end") != "1998-12" or rep12js.get("declared_coverage_includes_1951_08_18") is not True:
+        fail("Batch 12JS Wenhui CD-ROM coverage control regressed")
+    nlc12js = batch12js.get("current_nlc_surfaces", {})
+    if nlc12js.get("item_level_catalog_identity_observed") is not False:
+        fail("Batch 12JS NLC item-identity boundary regressed")
+    ifla12js = batch12js.get("ifla_2005_archive_boundary", {})
+    if ifla12js.get("direct_pdf_retrieved") is not False or ifla12js.get("direct_61year_phrase_reviewed") is not False:
+        fail("Batch 12JS IFLA direct-review firewall regressed")
+    adj12js = batch12js.get("adjudication", {})
+    if adj12js.get("target_article_presence_in_cdrom") != "NOT_PROVED" or adj12js.get("target_query_submitted") is not False:
+        fail("Batch 12JS target-presence/query firewall regressed")
+    if adj12js.get("60year_2003_and_61year_2005_same_object") != "NOT_PROVED":
+        fail("Batch 12JS 60/61-year object collapse firewall regressed")
+    if adj12js.get("direct_wenhui_1951_08_18") != "NOT_REVIEWED":
+        fail("Batch 12JS direct-page firewall regressed")
+    sec12js = batch12js.get("security", {})
+    for key in ("login_used","reader_account_used","registration_used","email_action_used","payment_used","copy_request_used","target_query_submitted","private_endpoint_guessed","tls_verification_disabled"):
+        if sec12js.get(key) is not False:
+            fail(f"Batch 12JS security boundary regressed: {key}")
+    reg12js = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    for sid in ("EXT-WENHUI-2003-60YEAR-CDROM-NLC-DONATION-CONTEMPORARY-REPRINT","EXT-NLC-CURRENT-DISC-DIGITAL-RESOURCE-SERVICE-SURFACE"):
+        if next((x for x in reg12js.get("sources", []) if x.get("source_id") == sid), None) is None:
+            fail(f"Batch 12JS registry binding missing: {sid}")
+    cp12js = batch12js.get("controlling_probe", {})
+    if cp12js.get("workflow_run_id") != 36842368572 or cp12js.get("artifact_id") != 11151074382:
+        fail("Batch 12JS controlling probe binding regressed")
+    acct12js = batch12js.get("accounting", {})
+    if acct12js.get("matrix_rows") != 198 or acct12js.get("audited_rows") != 166 or acct12js.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12JS accounting regressed")
+    try:
+        schema12js = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12JS state version is not numeric")
+    if schema12js < (1, 283, 0):
+        fail("Batch 12JS state version regressed below 1.283.0")
+    if bid12js not in audit_state.get("completed_batches", ()):
+        fail("Batch 12JS missing from completed state")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12JS latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")
