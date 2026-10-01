@@ -1,0 +1,106 @@
+name: probe-batch-12jj-zhao-wenhui-1951-sass-holding
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12jj-zhao-wenhui-1951-sass-holding.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Probe secondary publication lead and first-party SASS holding
+        run: |
+          python - <<'PY'
+          import hashlib, html, json, re
+          from pathlib import Path
+          import requests
+
+          UA={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; public Zhao Wanli Wenhui/SASS holding probe)"}
+          MASTERS="https://www.mastersart.org/index.php?a=show&c=index&catid=194&id=3436&m=content"
+          SASS="https://lib.sass.org.cn/2577/list.htm"
+
+          def clean(raw):
+              raw=re.sub(r'<script\b.*?</script>',' ',raw,flags=re.I|re.S)
+              raw=re.sub(r'<style\b.*?</style>',' ',raw,flags=re.I|re.S)
+              raw=re.sub(r'<[^>]+>',' ',raw)
+              return re.sub(r'\s+',' ',html.unescape(raw)).strip()
+
+          def context(text,needle,radius=260):
+              i=text.find(needle)
+              if i<0:
+                  return None
+              return text[max(0,i-radius):min(len(text),i+len(needle)+radius)]
+
+          s=requests.Session(); s.headers.update(UA)
+
+          r1=s.get(MASTERS,timeout=45); r1.raise_for_status()
+          t1=clean(r1.text)
+          lead_phrase="作《〈永乐大典〉展览的意义》，载8月18日上海《文汇报》"
+          secondary={
+              "url":MASTERS,
+              "status":r1.status_code,
+              "bytes":len(r1.content),
+              "sha256":hashlib.sha256(r1.content).hexdigest(),
+              "page_title_marker":"赵万里先生传略" in t1,
+              "article_title_present":"永乐大典" in t1 and "展览的意义" in t1,
+              "aug18_present":"8月18日" in t1,
+              "shanghai_wenhui_present":"上海《文汇报》" in t1 or "上海《文匯報》" in t1,
+              "exact_lead_phrase_present":lead_phrase in t1,
+              "context":context(t1,"8月18日"),
+              "classification":"SECONDARY_CHRONOLOGY_LEAD_ONLY"
+          }
+
+          r2=s.get(SASS,timeout=45); r2.raise_for_status()
+          t2=clean(r2.text)
+          sass={
+              "url":SASS,
+              "status":r2.status_code,
+              "bytes":len(r2.content),
+              "sha256":hashlib.sha256(r2.content).hexdigest(),
+              "paper_directory_marker":"分部1号楼地下室旧报纸" in t2,
+              "shanghai_wenhui_1951_full_year":bool(re.search(r'文汇报\s*\|.*?1951年1[－-]12月',t2,re.S)),
+              "hongkong_wenhui_marker":"文汇报(香港)" in t2 or "文汇报（香港）" in t2,
+              "hongkong_wenhui_1951_only_q1":bool(re.search(r'文汇报\s*[（(]香港[）)]\s*\|.*?1951年1[－-]3月',t2,re.S)),
+              "shanghai_context":context(t2,"文汇报"),
+              "public_page_specific_19510818_object_observed":False,
+              "direct_article_text_observed":False,
+              "classification":"FIRST_PARTY_PHYSICAL_NEWSPAPER_HOLDING_ROUTE_ONLY"
+          }
+
+          out={
+              "secondary_publication_lead":secondary,
+              "sass_first_party_holding":sass,
+              "adjudication":{
+                  "1951_08_18_wenhui_publication_directly_proved":False,
+                  "1951_08_18_wenhui_publication_secondary_lead_present":secondary["aug18_present"] and secondary["shanghai_wenhui_present"],
+                  "sass_1951_shanghai_wenhui_full_year_holding_closed":sass["shanghai_wenhui_1951_full_year"],
+                  "shanghai_vs_hongkong_wenhui_disambiguation_closed":sass["hongkong_wenhui_marker"] and sass["hongkong_wenhui_1951_only_q1"],
+                  "target_1951_08_18_issue_directly_reviewed":False,
+                  "target_article_directly_reviewed":False,
+                  "relationship_to_wenwu_cankao_issue9":"UNRESOLVED"
+              },
+              "security":{
+                  "login_used":False,
+                  "payment_used":False,
+                  "captcha_bypass_used":False,
+                  "private_endpoint_guessed":False,
+                  "search_endpoint_guessed":False,
+                  "tls_verification_disabled":False
+              }
+          }
+          Path("batch-12jj-zhao-wenhui-1951-sass-holding.json").write_text(
+              json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12jj-zhao-wenhui-1951-sass-holding
+          path: batch-12jj-zhao-wenhui-1951-sass-holding.json
