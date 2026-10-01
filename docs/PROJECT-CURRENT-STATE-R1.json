@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.299.0",
+  "schema_version": "1.300.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -381,9 +381,10 @@
       "BATCH-12-ZIWEI-NLC-WENJIN-ZHAO-YONGLE-ARTICLE-DETAIL-KF",
       "BATCH-12-ZIWEI-NCPSSD-ZHAO-YONGLE-SOURCE-EMITTED-COOPERATION-ROUTE-KG",
       "BATCH-12-ZIWEI-NCPSSD-PUBLIC-SEARCH-SURFACE-KH",
-      "BATCH-12-ZIWEI-NCPSSD-INLINE-SEARCH-CONTRACT-NEGATIVE-KI"
+      "BATCH-12-ZIWEI-NCPSSD-INLINE-SEARCH-CONTRACT-NEGATIVE-KI",
+      "BATCH-12-ZIWEI-NCPSSD-SOURCE-EMITTED-SCRIPT-SEARCH-CONTRACT-NEGATIVE-KJ"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NCPSSD-INLINE-SEARCH-CONTRACT-NEGATIVE-KI.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NCPSSD-SOURCE-EMITTED-SCRIPT-SEARCH-CONTRACT-NEGATIVE-KJ.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -1724,7 +1725,11 @@
       "Next gate 12KI extracts only first-party inline function bodies for Basicsearch / AdvancedSearch / Search_text / related functions; endpoint guessing remains forbidden.",
       "Batch 12KI directly refutes the KH working hypothesis that the NCPSsd search functions are defined inline: six inline scripts were inspected and Basicsearch / AdvancedSearch / Search_text / qkSearchCondition / Search_GJ / waiwen_search were all absent.",
       "Only hideSearch() is defined inline. No target route/navigation expression or target control-ID read is recovered. No query was submitted.",
-      "The executable NCPSsd public search contract remains unresolved. Next gate 12KJ inventories every script src actually emitted by the homepage, including non-ncpssd hosts, and searches only those source-emitted scripts for the target definitions."
+      "The executable NCPSsd public search contract remains unresolved. Next gate 12KJ inventories every script src actually emitted by the homepage, including non-ncpssd hosts, and searches only those source-emitted scripts for the target definitions.",
+      "Batch 12KJ exhausts the source-emitted external-script branch: 13 external scripts are fetched successfully and none contains Basicsearch / AdvancedSearch / Search_text / qkSearchCondition / Search_GJ / waiwen_search.",
+      "Combined with 12KI, the initial NCPSsd homepage has now been checked across 6 inline scripts and 13 source-emitted external scripts with zero target search-function definitions. The UI exists but the executable result-route contract remains UNRESOLVED.",
+      "The observed POST /searchHandler/getautocomplete remains autocomplete-only and is not promoted to the result-search endpoint.",
+      "Next gate 12KL inventories only route literals, AJAX url values and navigation expressions already present in the homepage source; no candidate route is followed and no query is submitted."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10

@@ -11713,7 +11713,7 @@
       "provider": "国家哲学社会科学文献中心（NCPSsd）",
       "url": "https://www.ncpssd.cn/",
       "source_role": "FIRST_PARTY_PUBLIC_SEARCH_UI_AND_CLIENT_CONTROL_SURFACE",
-      "quality_notes": "Batch 12KH shows ncpssd.cn and ncpssd.org currently return the same homepage object. The page directly exposes text_search, Basicsearch(), select_type=TS and advanced-search controls but no HTML form. Executable endpoint/parameter mapping is not yet closed and no query is submitted.",
+      "quality_notes": "Batch 12KH shows ncpssd.cn and ncpssd.org currently return the same homepage object. The page directly exposes text_search, Basicsearch(), select_type=TS and advanced-search controls but no HTML form. Executable endpoint/parameter mapping is not yet closed and no query is submitted. Batch 12KJ additionally exhausts all 13 source-emitted external scripts with zero target search-function name hits; executable endpoint/parameter mapping remains unresolved.",
       "batch_12kh": {
         "workflow_run_id": 36857797158,
         "workflow_job_id": 110354359450,
@@ -11740,6 +11740,19 @@
         "inline_contract_status": "NOT_FOUND",
         "query_submitted": false,
         "research_artifact": "docs/research/ZIWEI-NCPSSD-INLINE-SEARCH-CONTRACT-NEGATIVE-R1.json"
+      },
+      "batch_12kj": {
+        "workflow_run_id": 36859077093,
+        "workflow_job_id": 110358543477,
+        "artifact_id": 11160726318,
+        "artifact_digest": "sha256:781f93317cfc4e8a44e804cac08f8dc13a1f945be9c40dd12ffeb29091faa65b",
+        "homepage_sha256": "19823cf7d2d3a89bd3f86081b113f779507ebe45acb86273fd961b537b056544",
+        "external_script_count": 13,
+        "target_name_hit_count": 0,
+        "target_definition_count": 0,
+        "executable_search_contract": "UNRESOLVED",
+        "query_submitted": false,
+        "research_artifact": "docs/research/ZIWEI-NCPSSD-SOURCE-EMITTED-SCRIPT-SEARCH-CONTRACT-NEGATIVE-R1.json"
       }
     }
   ],
