@@ -378,6 +378,8 @@ ZIWEI_NLC_WENHUI_KA_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDI
 ZIWEI_NLC_WENHUI_KA_EVIDENCE = ROOT / "docs/research/ZIWEI-NLC-WENJIN-WENHUI-SOURCE-EMITTED-ITEM-CONTROLS-R1.json"
 ZIWEI_NLC_WENHUI_KB_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-WENJIN-WENHUI-2004-CDROM-1951-HK-SUPPLEMENT-DETAIL-KB.md"
 ZIWEI_NLC_WENHUI_KB_EVIDENCE = ROOT / "docs/research/ZIWEI-NLC-WENJIN-WENHUI-2004-CDROM-1951-HK-SUPPLEMENT-DETAIL-R1.json"
+ZIWEI_NLC_WENHUI_KC_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-WENJIN-WENHUI-2004-PUBLIC-SERVICE-CONTROLS-KC.md"
+ZIWEI_NLC_WENHUI_KC_EVIDENCE = ROOT / "docs/research/ZIWEI-NLC-WENJIN-WENHUI-2004-PUBLIC-SERVICE-CONTROLS-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -791,9 +793,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-NLC-WENJIN-OPAC-WENHUI-TITLE-SEARCH-EXECUTION-JZ",
     "BATCH-12-ZIWEI-NLC-WENJIN-WENHUI-SOURCE-EMITTED-ITEM-CONTROLS-KA",
     "BATCH-12-ZIWEI-NLC-WENJIN-WENHUI-2004-CDROM-1951-HK-SUPPLEMENT-DETAIL-KB",
+    "BATCH-12-ZIWEI-NLC-WENJIN-WENHUI-2004-PUBLIC-SERVICE-CONTROLS-KC",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-WENJIN-WENHUI-2004-CDROM-1951-HK-SUPPLEMENT-DETAIL-KB.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-WENJIN-WENHUI-2004-PUBLIC-SERVICE-CONTROLS-KC.md"
 
 
 def fail(message: str) -> None:
@@ -11897,6 +11900,55 @@ def main() -> int:
         fail("Batch 12KB state version regressed below 1.292.0")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12KB latest-batch document mismatch")
+
+    # Batch 12KC: current Wenhui 2004 item public-service control boundary.
+    for path in (ZIWEI_NLC_WENHUI_KC_BATCH, ZIWEI_NLC_WENHUI_KC_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12KC continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12kc = json.loads(ZIWEI_NLC_WENHUI_KC_EVIDENCE.read_text(encoding="utf-8"))
+    bid12kc = "BATCH-12-ZIWEI-NLC-WENJIN-WENHUI-2004-PUBLIC-SERVICE-CONTROLS-KC"
+    if batch12kc.get("batch_id") != bid12kc:
+        fail("Batch 12KC evidence identity mismatch")
+    if batch12kc.get("controlling_probe", {}).get("workflow_run_id") != 36854024255 or batch12kc.get("controlling_probe", {}).get("artifact_id") != 11157530228:
+        fail("Batch 12KC controlling probe binding regressed")
+    detail12kc = batch12kc.get("detail_response", {})
+    if detail12kc.get("sha256") != "8bd9bf6d8ec50ae70f0a19cd96a322de5558659e9cbd6ef16aba4e8414ffe1fb" or detail12kc.get("bytes") != 28830:
+        fail("Batch 12KC detail response identity regressed")
+    opac12kc = batch12kc.get("opac_cross_anchor", {})
+    inner12kc = opac12kc.get("wrapped_inner_catalog_locator", {})
+    if inner12kc.get("doc_library") != "NLC01" or inner12kc.get("doc_number") != "002860236":
+        fail("Batch 12KC OPAC cross-anchor regressed")
+    if opac12kc.get("wrapper_followed") is not False or opac12kc.get("inner_url_followed") is not False or opac12kc.get("sso_bypass_authorized") is not False:
+        fail("Batch 12KC SSO/inner-URL firewall regressed")
+    deliv12kc = batch12kc.get("document_delivery", {})
+    if deliv12kc.get("method") != "POST" or deliv12kc.get("submitted") is not False:
+        fail("Batch 12KC document-delivery action boundary regressed")
+    read12kc = batch12kc.get("online_reading_client_contract", {})
+    if read12kc.get("script_sha256") != "94a94b41d94e11b3f5d68ff23f5f62b6c46d9cefce87e5784e816fff0e04bbfe" or read12kc.get("concrete_uri_value_recovered_in_kc") is not False:
+        fail("Batch 12KC reading-contract identity/scope regressed")
+    adj12kc = batch12kc.get("adjudication", {})
+    if adj12kc.get("direct_public_date_or_page_object_recovered") is not False or adj12kc.get("direct_wenhui_1951_08_18") != "NOT_REVIEWED":
+        fail("Batch 12KC direct-page firewall regressed")
+    sec12kc = batch12kc.get("security", {})
+    for key in ("login_used","reader_account_used","registration_used","post_request_used","document_delivery_request_submitted","sso_wrapper_followed","inner_opac_url_followed","vpn_used","service_url_followed","private_endpoint_guessed","record_identifier_guessed","captcha_bypass_used","tls_verification_disabled","state_changing_request_used"):
+        if sec12kc.get(key) is not False:
+            fail(f"Batch 12KC security boundary regressed: {key}")
+    acct12kc = batch12kc.get("accounting", {})
+    if acct12kc.get("matrix_rows") != 198 or acct12kc.get("audited_rows") != 166 or acct12kc.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12KC accounting regressed")
+    reg12kc = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    if next((x for x in reg12kc.get("sources", []) if x.get("source_id") == "EXT-NLC-WENJIN-WENHUI-2004-PUBLIC-SERVICE-CONTROLS-2026"), None) is None:
+        fail("Batch 12KC registry binding missing")
+    if bid12kc not in audit_state.get("completed_batches", ()):
+        fail("Batch 12KC missing from completed state")
+    try:
+        schema12kc = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12KC state version is not numeric")
+    if schema12kc < (1, 293, 0):
+        fail("Batch 12KC state version regressed below 1.293.0")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12KC latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

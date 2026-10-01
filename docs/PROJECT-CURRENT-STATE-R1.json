@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.292.0",
+  "schema_version": "1.293.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -374,9 +374,10 @@
       "BATCH-12-ZIWEI-NLC-YONGLE-REVIEW-JK-SAME-OBJECT-REPLAY-DEDUP-JY",
       "BATCH-12-ZIWEI-NLC-WENJIN-OPAC-WENHUI-TITLE-SEARCH-EXECUTION-JZ",
       "BATCH-12-ZIWEI-NLC-WENJIN-WENHUI-SOURCE-EMITTED-ITEM-CONTROLS-KA",
-      "BATCH-12-ZIWEI-NLC-WENJIN-WENHUI-2004-CDROM-1951-HK-SUPPLEMENT-DETAIL-KB"
+      "BATCH-12-ZIWEI-NLC-WENJIN-WENHUI-2004-CDROM-1951-HK-SUPPLEMENT-DETAIL-KB",
+      "BATCH-12-ZIWEI-NLC-WENJIN-WENHUI-2004-PUBLIC-SERVICE-CONTROLS-KC"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-WENJIN-WENHUI-2004-CDROM-1951-HK-SUPPLEMENT-DETAIL-KB.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-WENJIN-WENHUI-2004-PUBLIC-SERVICE-CONTROLS-KC.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -1687,7 +1688,12 @@
       "Batch 12KB closes the 2004 NLC item-level object as 文汇报 / 计算机文件 / 点通数据有限公司 / 2004 / 其他题名信息 1938-1999 图文数据光盘 / ISBN 7-89999-583-3 / 13 DVD-ROM. Its declared span includes 1951-08-18.",
       "The 2004 13-DVD object is not collapsed into the 2003 donated 文汇报60年报纸光盘: the disc count matches, but the 2004 catalog year and 1938-1999 coverage wording differ from the 2003 report's 1938-01..1998-12 description. Exact object/edition continuity remains UNRESOLVED.",
       "Batch 12KB also closes the 1951 文汇报-副页 item as a Hong Kong publication. It is therefore excluded from the Shanghai 1951-08-18 target-carrier candidate set.",
-      "Highest next gate is public, source-emitted holdings/service/reading-route calibration for the 2004 NLC 13-DVD object without login/account action; direct Shanghai 文汇报 1951-08-18, 文物参考资料 no.9 pp.221-233 and 2011 赵万里文集 vol.1 p.197 remain NOT_REVIEWED."
+      "Highest next gate is public, source-emitted holdings/service/reading-route calibration for the 2004 NLC 13-DVD object without login/account action; direct Shanghai 文汇报 1951-08-18, 文物参考资料 no.9 pp.221-233 and 2011 赵万里文集 vol.1 p.197 remain NOT_REVIEWED.",
+      "Batch 12KC closes the public-service control surface for the NLC 2004 Wenhui 13-DVD item: online-reading, document-delivery and holdings controls are source-emitted, but no public date/page object is recovered.",
+      "12KC directly observes a source-emitted SSO-wrapped OPAC cross-anchor for NLC01 / doc_number 002860236. The SSO wrapper is not followed or bypassed; the inner OPAC URL remains an unexecuted catalog locator.",
+      "The source-emitted rdDetails.js / SHA-256 94a94b41d94e11b3f5d68ff23f5f62b6c46d9cefce87e5784e816fff0e04bbfe makes online-reading behavior dependent on uri/directLink plus login/network/VPN flags. The anonymous page displays a login-required marker; no reading action is executed.",
+      "Document delivery is a source-emitted POST form to wxtgzx.nlc.cn:8111 and fileTransfer() submits that form after a logging POST. No request is submitted; this remains an explicit user-authorization boundary.",
+      "Next gate 12KD is anonymous read-only extraction of the detail-page-emitted uri/directLink/VPN/login variables. No SSO, VPN, login, POST or service request is authorized by this step."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10
