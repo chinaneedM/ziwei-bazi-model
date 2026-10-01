@@ -59,8 +59,9 @@ jobs:
           fs=fetch(s,SASS)
           if not fs["ok"]:
               raise RuntimeError("SASS first-party holding route failed: "+str(fs["error"]))
-          r2=fs["response"]; t2=clean(r2.text)
+          r2=fs["response"]; raw2,enc2=decode_response(r2); t2=clean(raw2)
           sass={
+              "decoded_encoding":enc2,
               "url":SASS,
               "status":r2.status_code,
               "bytes":len(r2.content),
@@ -85,8 +86,9 @@ jobs:
               "classification":"INSTITUTIONAL_MODERN_RETROSPECTIVE_CORROBORATION_ONLY"
           }
           if ft["ok"]:
-              rt=ft["response"]; tt=clean(rt.text)
+              rt=ft["response"]; rawt,enct=decode_response(rt); tt=clean(rawt)
               tsinghua.update({
+                  "decoded_encoding":enct,
                   "status":rt.status_code,
                   "bytes":len(rt.content),
                   "sha256":hashlib.sha256(rt.content).hexdigest(),
@@ -114,8 +116,9 @@ jobs:
               "classification":"SECONDARY_CHRONOLOGY_LEAD_ONLY"
           }
           if fm["ok"]:
-              r1=fm["response"]; t1=clean(r1.text)
+              r1=fm["response"]; raw1,enc1=decode_response(r1); t1=clean(raw1)
               secondary.update({
+                  "decoded_encoding":enc1,
                   "status":r1.status_code,
                   "final_url":r1.url,
                   "bytes":len(r1.content),
