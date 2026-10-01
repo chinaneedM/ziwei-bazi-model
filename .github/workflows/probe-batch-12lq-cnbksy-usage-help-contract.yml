@@ -1,0 +1,122 @@
+name: probe-batch-12lq-cnbksy-usage-help-contract
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12lq-cnbksy-usage-help-contract.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inspect only source-emitted public usage-help contract
+        run: |
+          python - <<'PY'
+          import hashlib, html, json, re
+          from pathlib import Path
+          from urllib.parse import urljoin
+          import requests
+
+          url="https://www.cnbksy.com/portal/footCategory?id=61"
+          UA={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; CNBKSY usage-help contract)"}
+          r=requests.get(url,headers=UA,timeout=45,allow_redirects=False)
+          raw=r.content
+          txt=raw.decode("utf-8","replace")
+
+          visible=html.unescape(re.sub(r"(?is)<script\b.*?</script>|<style\b.*?</style>"," ",txt))
+          visible=re.sub(r"(?is)<[^>]+>"," ",visible)
+          visible=re.sub(r"\s+"," ",visible).strip()
+
+          tokens=["使用帮助","普通检索","高级检索","专业检索","文献检索","题名","作者","刊名","分类号","年份","期号","检索词","关键词","全文","图片检索","逻辑","布尔","结果"]
+          token_counts={t:len(re.findall(re.escape(t),visible,re.I)) for t in tokens}
+
+          contexts=[]
+          for t in tokens:
+              count=0
+              for m in re.finditer(re.escape(t),visible,re.I):
+                  a=max(0,m.start()-300); b=min(len(visible),m.end()+600)
+                  ctx=visible[a:b].strip()
+                  contexts.append({"token":t,"context":ctx[:1200],"sha256":hashlib.sha256(ctx.encode("utf-8")).hexdigest()})
+                  count+=1
+                  if count>=12: break
+
+          links=[]
+          for m in re.finditer(r'''(?is)<a\b[^>]*?href\s*=\s*["']([^"']+)["'][^>]*>(.*?)</a>''',txt):
+              href=html.unescape(m.group(1)).strip()
+              label=html.unescape(re.sub(r"<[^>]+>"," ",m.group(2)))
+              label=re.sub(r"\s+"," ",label).strip()
+              links.append({"href":href,"absolute_href":urljoin(url,href),"label":label[:400]})
+
+          ext=[]
+          for x in re.findall(r'''(?is)<script\b[^>]*?src\s*=\s*["']([^"']+)["']''',txt):
+              u=urljoin(url,html.unescape(x).strip())
+              if u not in ext: ext.append(u)
+
+          inline=[]
+          for i,m in enumerate(re.finditer(r"(?is)<script\b(?![^>]*\bsrc\s*=)[^>]*>(.*?)</script>",txt)):
+              body=m.group(1)
+              routes=sorted(set(re.findall(r'''(?i)["']((?:https?://[^"'\s]+|/[A-Za-z0-9_./?=&%{}:$+-]+))["']''',body)))
+              snippets=[]
+              for mm in re.finditer(r"(?i).{0,180}(?:help|search|检索|普通|高级|专业|query|ajax|url:).{0,360}",body):
+                  z=re.sub(r"\s+"," ",mm.group(0)).strip()
+                  if z and z not in snippets: snippets.append(z[:1000])
+                  if len(snippets)>=60: break
+              inline.append({
+                  "script_index":i,
+                  "bytes":len(body.encode("utf-8")),
+                  "sha256":hashlib.sha256(body.encode("utf-8")).hexdigest(),
+                  "route_literals":routes[:1000],
+                  "search_help_snippets":snippets
+              })
+
+          out={
+              "source_contract":{
+                  "parent_batch":"12LP",
+                  "route_source":"Batch 12LJ complete first-party seed_links inventory",
+                  "source_emitted_route":{"href":"/portal/footCategory?id=61","label":"使用帮助"},
+                  "url":url,
+                  "target_query_submitted":False
+              },
+              "response":{
+                  "status":r.status_code,
+                  "content_type":r.headers.get("content-type"),
+                  "location":r.headers.get("location"),
+                  "server":r.headers.get("server"),
+                  "bytes":len(raw),
+                  "sha256":hashlib.sha256(raw).hexdigest()
+              },
+              "visible_text_length":len(visible),
+              "token_counts":token_counts,
+              "search_help_contexts":contexts,
+              "links":links[:800],
+              "external_script_srcs":ext,
+              "inline_scripts":inline,
+              "adjudication":{
+                  "public_usage_help_surface_inventoried":True,
+                  "link_followed":False,
+                  "target_term_submitted":False,
+                  "target_query_submitted":False,
+                  "login_used":False,
+                  "registration_used":False
+              },
+              "security":{
+                  "anonymous_get_only":True,
+                  "private_endpoint_guessed":False,
+                  "captcha_bypass_used":False,
+                  "tls_verification_disabled":False
+              }
+          }
+          Path("batch-12lq-cnbksy-usage-help-contract.json").write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12lq-cnbksy-usage-help-contract
+          path: batch-12lq-cnbksy-usage-help-contract.json

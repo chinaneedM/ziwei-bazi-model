@@ -845,9 +845,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-CNBKSY-COMMON-HINTS-NULL-POST-LM",
     "BATCH-12-ZIWEI-CNBKSY-APPLICATION-SEARCH-ROUTE-INVENTORY-LN",
     "BATCH-12-ZIWEI-CNBKSY-PRODUCT-TREE-NAVIGATION-CONTRACT-LO",
+    "BATCH-12-ZIWEI-CNBKSY-ORDINARY-SEARCH-ESA-BOUNDARY-LP",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-PRODUCT-TREE-NAVIGATION-CONTRACT-LO.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-ORDINARY-SEARCH-ESA-BOUNDARY-LP.md"
 
 
 def fail(message: str) -> None:
@@ -12910,6 +12911,49 @@ def main() -> int:
         fail("Batch 12LO state version regressed below 1.330.0")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12LO latest-batch document mismatch")
+
+    # Batch 12LP: source-confirmed ordinary search exists but raw anonymous GET is blocked by ESA 412.
+    lp_batch = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-ORDINARY-SEARCH-ESA-BOUNDARY-LP.md"
+    lp_evidence = ROOT / "docs/research/ZIWEI-CNBKSY-ORDINARY-SEARCH-ESA-BOUNDARY-R1.json"
+    if not lp_batch.is_file() or not lp_evidence.is_file():
+        fail("Batch 12LP continuity artifact missing")
+    lp = json.loads(lp_evidence.read_text(encoding="utf-8"))
+    if lp.get("batch_id") != "BATCH-12-ZIWEI-CNBKSY-ORDINARY-SEARCH-ESA-BOUNDARY-LP":
+        fail("Batch 12LP evidence identity mismatch")
+    sc = lp.get("source_contract", {})
+    route = sc.get("source_emitted_route", {})
+    if route.get("href") != "/search" or route.get("label") != "普通检索":
+        fail("Batch 12LP ordinary-search source binding regressed")
+    r = lp.get("response", {})
+    if r.get("http_status") != 412 or r.get("server_header") != "ESA" or r.get("bytes") != 2461:
+        fail("Batch 12LP ESA response boundary regressed")
+    if r.get("sha256") != "391ddee6ecb570a5439f2ff05cafd72605e10459e86ceaec489f76d8943d9764":
+        fail("Batch 12LP ESA response digest regressed")
+    surf = lp.get("static_surface", {})
+    if surf.get("form_count") != 0 or surf.get("button_count") != 0 or surf.get("href_count") != 0:
+        fail("Batch 12LP challenge static surface regressed")
+    a = lp.get("adjudication", {})
+    if a.get("ordinary_search_route_existence_source_confirmed") is not True or a.get("anonymous_raw_http_application_surface_retrieved") is not False:
+        fail("Batch 12LP search-route/access adjudication regressed")
+    if a.get("institutional_ip_authorization_requirement_demonstrated") is not False or a.get("target_absence_inference_authorized") is not False or a.get("search_absence_inference_authorized") is not False:
+        fail("Batch 12LP absence/IP firewall regressed")
+    if a.get("esa_challenge_bypass_authorized") is not False or a.get("target_query_submitted") is not False:
+        fail("Batch 12LP ESA-bypass/no-query firewall regressed")
+    p = lp.get("controlling_probe", {})
+    if p.get("workflow_run_id") != 36887835713 or p.get("workflow_job_id") != 110455577866 or p.get("artifact_id") != 11175521408:
+        fail("Batch 12LP controlling probe identity regressed")
+    if p.get("artifact_digest") != "sha256:f11d84d84e8816a8a6141a4b9ddd31581a0f71fab28f7328dc76d487b7420eaa":
+        fail("Batch 12LP artifact digest regressed")
+    if "BATCH-12-ZIWEI-CNBKSY-ORDINARY-SEARCH-ESA-BOUNDARY-LP" not in audit_state.get("completed_batches", ()):
+        fail("Batch 12LP missing from completed state")
+    try:
+        schema12lp = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12LP state version is not numeric")
+    if schema12lp < (1, 331, 0):
+        fail("Batch 12LP state version regressed below 1.331.0")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12LP latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

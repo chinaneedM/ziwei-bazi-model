@@ -12043,7 +12043,7 @@
       "provider": "上海图书馆《全国报刊索引》编辑部",
       "url": "https://www.cnbksy.com/",
       "source_role": "FIRST_PARTY_NEWSPAPER_INDEX_PUBLIC_ACCESS_SURFACE",
-      "quality_notes": "Batches 12LF–12LN close the root/access/hints/application-script branches without target terms. Batch 12LO repairs a volatile-seed dependency and statically closes source-emitted productTree.js: it is a generic bksy.get(url,null,...) tree loader whose only fixed route is /product/detail/{id}; it does not expose a fixed search dataset endpoint. The repaired run's navigation page is HTTP 302, so no page-level tree initialization is recovered. The next route is the explicit 普通检索 /search href already captured in the Batch 12LJ complete seed-link inventory.",
+      "quality_notes": "Batches 12LF–12LO close access/hint/application/product-tree branches without target terms. Batch 12LP directly GETs the first-party source-emitted 普通检索 /search route with no query and receives an ESA HTTP 412 challenge surface containing no application search form. This confirms route existence while preserving the path-scoped browser-precondition classification; it does not prove target/search absence or institutional-IP authorization. The next source-emitted public route is 使用帮助 /portal/footCategory?id=61.",
       "batch_12lf": {
         "workflow_run_id": 36877911774,
         "workflow_job_id": 110421993332,
@@ -12238,6 +12238,31 @@
           "origin": "Batch 12LJ complete seed_links"
         },
         "research_artifact": "docs/research/ZIWEI-CNBKSY-PRODUCT-TREE-NAVIGATION-CONTRACT-R1.json"
+      },
+      "batch_12lp": {
+        "workflow_run_id": 36887835713,
+        "workflow_job_id": 110455577866,
+        "artifact_id": 11175521408,
+        "artifact_digest": "sha256:f11d84d84e8816a8a6141a4b9ddd31581a0f71fab28f7328dc76d487b7420eaa",
+        "exact_head": "ab0135072b42c859087b1dc28bf335f534c3127f",
+        "route": "/search",
+        "route_label": "普通检索",
+        "route_source": "Batch 12LJ complete first-party seed_links inventory",
+        "response_status": 412,
+        "response_content_type": "text/html; charset=utf-8",
+        "response_server": "ESA",
+        "response_bytes": 2461,
+        "response_sha256": "391ddee6ecb570a5439f2ff05cafd72605e10459e86ceaec489f76d8943d9764",
+        "form_count": 0,
+        "csrf_meta_present": false,
+        "target_term_submitted": false,
+        "target_query_submitted": false,
+        "next_source_closed_route": {
+          "href": "/portal/footCategory?id=61",
+          "label": "使用帮助",
+          "origin": "Batch 12LJ complete seed_links"
+        },
+        "research_artifact": "docs/research/ZIWEI-CNBKSY-ORDINARY-SEARCH-ESA-BOUNDARY-R1.json"
       }
     }
   ],
