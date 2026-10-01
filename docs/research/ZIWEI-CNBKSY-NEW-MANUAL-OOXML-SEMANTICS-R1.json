@@ -1,0 +1,182 @@
+{
+  "schema": "ZIWEI-CNBKSY-NEW-MANUAL-OOXML-SEMANTICS-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-CNBKSY-NEW-MANUAL-OOXML-SEMANTICS-LX",
+  "prior_batch_id": "BATCH-12-ZIWEI-CNBKSY-MANUAL-FILE-IDENTITY-CONTRACT-LW",
+  "question": "What search-mode semantics are explicitly documented by the first-party new-platform manual, and what remains unresolved before any target query?",
+  "answer": "The first-party new-platform OOXML manual is a 2024 operational document. It explicitly documents ordinary, advanced and professional search. Advanced search supports all-field or single-field conditions including 题名, 作者 and 文献来源, time-bounded precise/fuzzy search, and multiple conditions related by 与/或/非. Professional search uses category-dependent field-code tables and Solr field-code:content expressions, with AND for multiple conditions. The actual category-specific field-code table values are not closed by paragraph-text extraction and must not be guessed.",
+  "controlling_probe": {
+    "workflow": ".github/workflows/probe-batch-12lx-cnbksy-new-manual-ooxml-semantics.yml",
+    "exact_head": "97e5a720cebf5e9357be1fa62ebcaa1a4c95ca37",
+    "workflow_run_id": 36894241310,
+    "workflow_job_id": 110477103951,
+    "artifact_id": 11179100973,
+    "artifact_digest": "sha256:7be60491a29dc9d0612173e667eca8bbb336e76112b649b13e778b90549eb1f9"
+  },
+  "source_contract": {
+    "manual_binding": "Batch 12LV new-platform text-bearing anchor",
+    "url": "https://www.cnbksy.com/common/uploadFile/65e9592f7fa00c5f66cdb1f5",
+    "method": "GET",
+    "redirect_followed": false,
+    "full_object_retrieved": true,
+    "search_endpoint_invoked": false,
+    "target_term_submitted": false,
+    "target_query_submitted": false
+  },
+  "http": {
+    "status": 200,
+    "content_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document;charset=UTF-8",
+    "content_disposition": "attachment;filename=\"%E5%B9%B3%E5%8F%B0%E7%94%A8%E6%88%B7%E6%89%8B%E5%86%8C%EF%BC%88%E6%96%B0%E5%B9%B3%E5%8F%B0%EF%BC%89.docx\"",
+    "location": null,
+    "server": "ESA",
+    "bytes": 23137465,
+    "sha256": "51cdcd228ae5cc64708399fd0454c6629606a1fbe3364bd2079eec69742f5dcc",
+    "zip_magic": true
+  },
+  "ooxml": {
+    "member_count": 87,
+    "structure_ok": true,
+    "has_content_types": true,
+    "has_word_document_xml": true,
+    "document_xml_sha256": "daca1f2072457d63360655c44965afe6ab1a04780722ff38c92b8e9d91e347e3",
+    "core_properties": {
+      "creator": "Apache POI",
+      "lastModifiedBy": "王琳璘",
+      "created": "2024-02-06T05:23:00Z",
+      "modified": "2024-03-07T05:17:00Z"
+    },
+    "parse_error": null
+  },
+  "text_inventory": {
+    "paragraph_count": 182,
+    "text_length": 4706,
+    "text_sha256": "c2b2e343a49ece944590f03cc60cb03db7a93049011cc6b1ac4c8b744305de2",
+    "term_counts": {
+      "普通检索": 8,
+      "高级检索": 8,
+      "专业检索": 4,
+      "图片检索": 4,
+      "题名": 2,
+      "作者": 5,
+      "刊名": 5,
+      "分类号": 0,
+      "年份": 2,
+      "期号": 0,
+      "检索词": 0,
+      "关键词": 2,
+      "全文": 0,
+      "逻辑": 0,
+      "布尔": 0,
+      "逻辑关系": 0,
+      "检索字段": 0,
+      "数据库": 3,
+      "检索方式": 0,
+      "精确检索": 0,
+      "模糊检索": 0
+    },
+    "full_text_recorded": false
+  },
+  "semantic_adjudication": {
+    "evidence_scope": "MODERN_FIRST_PARTY_OPERATIONAL_MANUAL",
+    "new_platform_launch_statement": "2024年春季",
+    "ordinary_search": {
+      "documented": true,
+      "homepage_search_box_route_described": true,
+      "resource_category_filter_described": true
+    },
+    "advanced_search": {
+      "documented": true,
+      "content_tabs": [
+        "正文",
+        "图片",
+        "广告"
+      ],
+      "field_examples": [
+        "全字段",
+        "题名",
+        "作者",
+        "文献来源"
+      ],
+      "time_range_supported": true,
+      "precise_or_fuzzy_mode_described": true,
+      "multiple_conditions_supported": true,
+      "relation_labels": [
+        "与",
+        "或",
+        "非"
+      ],
+      "purchased_database_permission_filtering_described": true
+    },
+    "professional_search": {
+      "documented": true,
+      "content_tabs": [
+        "正文",
+        "图片",
+        "广告"
+      ],
+      "category_dependent_field_code_tables": true,
+      "engine_expression_label": "Solr检索表达式",
+      "syntax_semantics": "FIELD_CODE_COLON_CONTENT",
+      "multi_condition_operator": "AND",
+      "example_text_contains_labels": [
+        "全字段",
+        "提名",
+        "刊名/报名"
+      ],
+      "example_label_typos_preserved": true,
+      "actual_field_code_values_closed": false
+    }
+  },
+  "adjudication": {
+    "new_platform_manual_ooxml_structure_closed": true,
+    "manual_text_extracted_locally": true,
+    "modern_operational_semantics_closed": true,
+    "professional_field_code_table_values_closed": false,
+    "historical_provenance_rule_inferred": false,
+    "search_endpoint_invoked": false,
+    "target_term_submitted": false,
+    "target_query_submitted": false,
+    "login_used": false,
+    "registration_used": false
+  },
+  "security": {
+    "anonymous_get_only": true,
+    "credential_value_recorded": false,
+    "private_endpoint_guessed": false,
+    "captcha_bypass_used": false,
+    "tls_verification_disabled": false
+  },
+  "transmission_impact": {
+    "status": "NONE_ACCESS_BOUNDARY_ONLY",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": []
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Re-fetch only the already-bound new-platform manual and inspect OOXML document order around section 4.3 专业检索.",
+    "Map drawings/images occurring after 4.3 专业检索 and before 4.4 检索结果可视化 to relationship IDs and word/media targets.",
+    "Export only those section-local media objects plus a structural JSON inventory; do not OCR them and do not invoke a search endpoint.",
+    "Use image evidence only to close the official field-code table if the section-local media actually depicts it; otherwise preserve unresolved."
+  ],
+  "updated_at": "2026-10-02"
+}

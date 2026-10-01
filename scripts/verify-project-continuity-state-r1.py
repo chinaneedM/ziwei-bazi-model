@@ -853,9 +853,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-CNBKSY-USER-MANUAL-NODE-CONTRACT-LU",
     "BATCH-12-ZIWEI-CNBKSY-MANUAL-LINK-BINDING-CONTRACT-LV",
     "BATCH-12-ZIWEI-CNBKSY-MANUAL-FILE-IDENTITY-CONTRACT-LW",
+    "BATCH-12-ZIWEI-CNBKSY-NEW-MANUAL-OOXML-SEMANTICS-LX",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-MANUAL-FILE-IDENTITY-CONTRACT-LW.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-NEW-MANUAL-OOXML-SEMANTICS-LX.md"
 
 
 def fail(message: str) -> None:
@@ -13347,6 +13348,77 @@ def main() -> int:
         fail("Batch 12LW state version regressed below 1.338.0")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12LW latest-batch document mismatch")
+
+    # Batch 12LX: first-party 2024 new-platform manual OOXML operational semantics.
+    lx_batch = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-NEW-MANUAL-OOXML-SEMANTICS-LX.md"
+    lx_evidence = ROOT / "docs/research/ZIWEI-CNBKSY-NEW-MANUAL-OOXML-SEMANTICS-R1.json"
+    if not lx_batch.is_file() or not lx_evidence.is_file():
+        fail("Batch 12LX continuity artifact missing")
+    lx = json.loads(lx_evidence.read_text(encoding="utf-8"))
+    if lx.get("batch_id") != "BATCH-12-ZIWEI-CNBKSY-NEW-MANUAL-OOXML-SEMANTICS-LX":
+        fail("Batch 12LX evidence identity mismatch")
+    sc = lx.get("source_contract", {})
+    if sc.get("url") != "https://www.cnbksy.com/common/uploadFile/65e9592f7fa00c5f66cdb1f5" or sc.get("method") != "GET" or sc.get("redirect_followed") is not False:
+        fail("Batch 12LX source contract regressed")
+    for key in ("search_endpoint_invoked","target_term_submitted","target_query_submitted"):
+        if sc.get(key) is not False:
+            fail(f"Batch 12LX source no-query firewall regressed: {key}")
+    h = lx.get("http", {})
+    if h.get("status") != 200 or h.get("bytes") != 23137465 or h.get("sha256") != "51cdcd228ae5cc64708399fd0454c6629606a1fbe3364bd2079eec69742f5dcc":
+        fail("Batch 12LX manual file identity regressed")
+    if h.get("zip_magic") is not True or h.get("server") != "ESA":
+        fail("Batch 12LX manual transport/ZIP identity regressed")
+    ox = lx.get("ooxml", {})
+    if ox.get("member_count") != 87 or ox.get("structure_ok") is not True or ox.get("has_content_types") is not True or ox.get("has_word_document_xml") is not True:
+        fail("Batch 12LX OOXML structure regressed")
+    if ox.get("document_xml_sha256") != "daca1f2072457d63360655c44965afe6ab1a04780722ff38c92b8e9d91e347e3" or ox.get("parse_error") is not None:
+        fail("Batch 12LX document.xml identity regressed")
+    cp = ox.get("core_properties", {})
+    if cp.get("creator") != "Apache POI" or cp.get("created") != "2024-02-06T05:23:00Z" or cp.get("modified") != "2024-03-07T05:17:00Z":
+        fail("Batch 12LX core properties regressed")
+    ti = lx.get("text_inventory", {})
+    if ti.get("paragraph_count") != 182 or ti.get("text_length") != 4706 or ti.get("text_sha256") != "c2b2e343a49ece944590f03cc60cb03db7a93049011cc6b1ac4c8b744305de2":
+        fail("Batch 12LX extracted text identity regressed")
+    expected_counts = {"普通检索":8,"高级检索":8,"专业检索":4,"图片检索":4,"题名":2,"作者":5,"刊名":5,"分类号":0,"年份":2,"期号":0,"检索词":0,"关键词":2,"全文":0,"逻辑":0,"布尔":0,"逻辑关系":0,"检索字段":0,"数据库":3,"检索方式":0,"精确检索":0,"模糊检索":0}
+    if ti.get("term_counts") != expected_counts or ti.get("full_text_recorded") is not False:
+        fail("Batch 12LX bounded term inventory regressed")
+    sem = lx.get("semantic_adjudication", {})
+    if sem.get("evidence_scope") != "MODERN_FIRST_PARTY_OPERATIONAL_MANUAL":
+        fail("Batch 12LX evidence scope regressed")
+    if sem.get("advanced_search", {}).get("field_examples") != ["全字段","题名","作者","文献来源"]:
+        fail("Batch 12LX advanced field examples regressed")
+    if sem.get("advanced_search", {}).get("relation_labels") != ["与","或","非"]:
+        fail("Batch 12LX advanced relation semantics regressed")
+    prof = sem.get("professional_search", {})
+    if prof.get("category_dependent_field_code_tables") is not True or prof.get("engine_expression_label") != "Solr检索表达式" or prof.get("multi_condition_operator") != "AND":
+        fail("Batch 12LX professional search semantics regressed")
+    if prof.get("actual_field_code_values_closed") is not False:
+        fail("Batch 12LX field-code unresolved gate regressed")
+    a = lx.get("adjudication", {})
+    if a.get("new_platform_manual_ooxml_structure_closed") is not True or a.get("manual_text_extracted_locally") is not True or a.get("modern_operational_semantics_closed") is not True:
+        fail("Batch 12LX manual adjudication regressed")
+    for key in ("professional_field_code_table_values_closed","historical_provenance_rule_inferred","search_endpoint_invoked","target_term_submitted","target_query_submitted","login_used","registration_used"):
+        if a.get(key) is not False:
+            fail(f"Batch 12LX firewall regressed: {key}")
+    p = lx.get("controlling_probe", {})
+    if p.get("workflow_run_id") != 36894241310 or p.get("workflow_job_id") != 110477103951 or p.get("artifact_id") != 11179100973:
+        fail("Batch 12LX controlling probe identity regressed")
+    if p.get("artifact_digest") != "sha256:7be60491a29dc9d0612173e667eca8bbb336e76112b649b13e778b90549eb1f9":
+        fail("Batch 12LX artifact digest regressed")
+    srcmap_lx = {x.get("source_id"): x for x in registry.get("sources", ())}
+    reg_lx = srcmap_lx.get("EXT-CNBKSY-PUBLIC-SEARCH-SURFACE-2026", {}).get("batch_12lx", {})
+    if reg_lx.get("workflow_run_id") != 36894241310 or reg_lx.get("research_artifact") != "docs/research/ZIWEI-CNBKSY-NEW-MANUAL-OOXML-SEMANTICS-R1.json":
+        fail("Batch 12LX external-source registry binding missing")
+    if "BATCH-12-ZIWEI-CNBKSY-NEW-MANUAL-OOXML-SEMANTICS-LX" not in audit_state.get("completed_batches", ()):
+        fail("Batch 12LX missing from completed state")
+    try:
+        schema12lx = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12LX state version is not numeric")
+    if schema12lx < (1, 339, 0):
+        fail("Batch 12LX state version regressed below 1.339.0")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12LX latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

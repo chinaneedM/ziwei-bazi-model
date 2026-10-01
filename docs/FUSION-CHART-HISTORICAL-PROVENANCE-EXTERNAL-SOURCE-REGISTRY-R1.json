@@ -12043,7 +12043,7 @@
       "provider": "上海图书馆《全国报刊索引》编辑部",
       "url": "https://www.cnbksy.com/",
       "source_role": "FIRST_PARTY_NEWSPAPER_INDEX_PUBLIC_ACCESS_SURFACE",
-      "quality_notes": "Batches 12LF–12LP close the search-access boundary; 12LQ–12LV close the help shell, active callsites, tree, root content, manual node and text-bearing old/new manual href bindings without target queries. Batch 12LW performs bounded prefix identity checks on only those two primary hrefs. Both objects are ZIP/OOXML rather than legacy OLE; the old-platform visible `.doc` suffix is contradicted by Content-Disposition `平台用户手册.docx` and ZIP magic, so it is retained as a stale presentation label rather than file-format truth. No manual body text is parsed in 12LW.",
+      "quality_notes": "Batches 12LF–12LW close the public-search/help/manual access boundary and primary manual file identities without target queries. Batch 12LX retrieves only the text-bound new-platform official manual, validates its OOXML package and extracts bounded operational-search semantics. The manual documents the 2024 new platform and is treated as contemporary first-party operational evidence, not historical provenance. It confirms ordinary/advanced/professional search modes; advanced search uses selectable fields and combinable conditions, while professional search uses category-dependent field-code tables and Solr-style field:value expressions with AND. The actual field-code tables remain unclosed because they are not present as extracted paragraph text.",
       "batch_12lf": {
         "workflow_run_id": 36877911774,
         "workflow_job_id": 110421993332,
@@ -12503,6 +12503,77 @@
         "icon_upload_checked": false,
         "target_query_submitted": false,
         "research_artifact": "docs/research/ZIWEI-CNBKSY-MANUAL-FILE-IDENTITY-CONTRACT-R1.json"
+      },
+      "batch_12lx": {
+        "workflow_run_id": 36894241310,
+        "workflow_job_id": 110477103951,
+        "artifact_id": 11179100973,
+        "artifact_digest": "sha256:7be60491a29dc9d0612173e667eca8bbb336e76112b649b13e778b90549eb1f9",
+        "exact_head": "97e5a720cebf5e9357be1fa62ebcaa1a4c95ca37",
+        "manual_url": "https://www.cnbksy.com/common/uploadFile/65e9592f7fa00c5f66cdb1f5",
+        "response_status": 200,
+        "response_content_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document;charset=UTF-8",
+        "response_server": "ESA",
+        "file_bytes": 23137465,
+        "file_sha256": "51cdcd228ae5cc64708399fd0454c6629606a1fbe3364bd2079eec69742f5dcc",
+        "ooxml_member_count": 87,
+        "ooxml_structure_ok": true,
+        "document_xml_sha256": "daca1f2072457d63360655c44965afe6ab1a04780722ff38c92b8e9d91e347e3",
+        "core_properties": {
+          "creator": "Apache POI",
+          "lastModifiedBy": "王琳璘",
+          "created": "2024-02-06T05:23:00Z",
+          "modified": "2024-03-07T05:17:00Z"
+        },
+        "extracted_paragraph_count": 182,
+        "extracted_text_length": 4706,
+        "extracted_text_sha256": "c2b2e343a49ece944590f03cc60cb03db7a93049011cc6b1ac4c8b744305de2",
+        "audited_term_counts": {
+          "普通检索": 8,
+          "高级检索": 8,
+          "专业检索": 4,
+          "图片检索": 4,
+          "题名": 2,
+          "作者": 5,
+          "刊名": 5,
+          "分类号": 0,
+          "年份": 2,
+          "期号": 0,
+          "检索词": 0,
+          "关键词": 2,
+          "全文": 0,
+          "逻辑": 0,
+          "布尔": 0,
+          "逻辑关系": 0,
+          "检索字段": 0,
+          "数据库": 3,
+          "检索方式": 0,
+          "精确检索": 0,
+          "模糊检索": 0
+        },
+        "operational_semantics": {
+          "ordinary_search_documented": true,
+          "advanced_search_documented": true,
+          "professional_search_documented": true,
+          "advanced_single_fields_observed": [
+            "题名",
+            "作者",
+            "文献来源"
+          ],
+          "advanced_relation_semantics": [
+            "与",
+            "或",
+            "非"
+          ],
+          "professional_expression_engine": "Solr",
+          "professional_field_code_table_category_dependent": true,
+          "professional_multi_condition_operator": "AND",
+          "field_code_table_values_closed": false
+        },
+        "historical_provenance_weight": "MODERN_FIRST_PARTY_OPERATIONAL_ONLY",
+        "search_endpoint_invoked": false,
+        "target_query_submitted": false,
+        "research_artifact": "docs/research/ZIWEI-CNBKSY-NEW-MANUAL-OOXML-SEMANTICS-R1.json"
       }
     }
   ],
