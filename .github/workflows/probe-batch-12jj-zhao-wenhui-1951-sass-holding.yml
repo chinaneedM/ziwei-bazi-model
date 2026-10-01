@@ -35,6 +35,31 @@ jobs:
               raw=re.sub(r'<[^>]+>',' ',raw)
               return re.sub(r'\s+',' ',html.unescape(raw)).strip()
 
+          def decode_response(r):
+              candidates=[]
+              encs=[]
+              ct=r.headers.get("Content-Type","")
+              m=re.search(r'charset=([A-Za-z0-9._-]+)',ct,re.I)
+              if m:
+                  encs.append(m.group(1))
+              encs += ["utf-8","gb18030","gbk","big5"]
+              seen=set()
+              for enc in encs:
+                  if not enc or enc.lower() in seen:
+                      continue
+                  seen.add(enc.lower())
+                  try:
+                      txt=r.content.decode(enc)
+                  except Exception:
+                      continue
+                  han=sum(1 for ch in txt if '\u4e00' <= ch <= '\u9fff')
+                  replacement=txt.count("\ufffd")
+                  candidates.append((han,-replacement,enc,txt))
+              if not candidates:
+                  return r.content.decode("utf-8","replace"),"utf-8-replacement"
+              candidates.sort(reverse=True,key=lambda x:(x[0],x[1]))
+              return candidates[0][3],candidates[0][2]
+
           def context(text,needle,radius=260):
               i=text.find(needle)
               if i<0:
