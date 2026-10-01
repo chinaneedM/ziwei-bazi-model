@@ -67,31 +67,58 @@ jobs:
             "source_class":"CONTEMPORARY_WEB_REPRINT_LABELED_WENHUI_NOT_FIRST_PARTY_WENHUI_HOST",
           }
 
-          r=fetch(URLS["ifla_2005_pdf"])
-          pdf_path=Path("ifla-156e-yang-bin.pdf")
-          pdf_path.write_bytes(r.content)
-          pdf_text=""
-          pdftotext=shutil.which("pdftotext")
-          if pdftotext:
-              p=subprocess.run([pdftotext,"-layout",str(pdf_path),"-"],capture_output=True,text=True,encoding="utf-8",errors="replace",check=True)
-              pdf_text=p.stdout
+          ifla_candidates=[
+              "https://origin-archive.ifla.org/IV/ifla71/papers/156e-Yang-Bin.pdf",
+              "https://archive.ifla.org/IV/ifla71/papers/156e-Yang-Bin.pdf",
+              "http://archive.ifla.org/IV/ifla71/papers/156e-Yang-Bin.pdf",
+              "http://www.ifla.org/IV/ifla71/papers/156e-Yang-Bin.pdf",
+          ]
+          ifla_attempts=[]
+          ifla_obj=None
+          for u in ifla_candidates:
+              try:
+                  rr=requests.get(u,headers=UA,timeout=45,allow_redirects=True)
+                  att={"url":u,"http_status":rr.status_code,"final_url":rr.url,"bytes":len(rr.content),"sha256":digest(rr.content)}
+                  ifla_attempts.append(att)
+                  if rr.status_code==200 and rr.content[:4]==b"%PDF":
+                      pdf_path=Path("ifla-156e-yang-bin.pdf")
+                      pdf_path.write_bytes(rr.content)
+                      pdftotext=shutil.which("pdftotext")
+                      if not pdftotext:
+                          raise RuntimeError("pdftotext unavailable on runner")
+                      p=subprocess.run([pdftotext,"-layout",str(pdf_path),"-"],capture_output=True,text=True,encoding="utf-8",errors="replace",check=True)
+                      pdf_text=p.stdout
+                      compact=re.sub(r"\s+"," ",pdf_text)
+                      wh_idx=compact.find("文汇报")
+                      context=compact[max(0,wh_idx-180):wh_idx+260] if wh_idx>=0 else ""
+                      ifla_obj={
+                        "url":u,
+                        "http_status":rr.status_code,
+                        "final_url":rr.url,
+                        "bytes":len(rr.content),
+                        "sha256":digest(rr.content),
+                        "pdf_text_extracted":True,
+                        "datum_name_present":("点通" in pdf_text or "Datum" in pdf_text),
+                        "wenhui_61year_phrase_present":("文汇报" in pdf_text and "61年全文数据光盘" in pdf_text),
+                        "target_context_excerpt":context[:440],
+                        "source_class":"IFLA_2005_CONFERENCE_PAPER_OPERATIONAL_PRODUCTION_WITNESS",
+                      }
+                      break
+              except Exception as e:
+                  ifla_attempts.append({"url":u,"error_class":type(e).__name__})
+          if ifla_obj is None:
+              ifla_obj={
+                "retrieved":False,
+                "attempts":ifla_attempts,
+                "pdf_text_extracted":False,
+                "datum_name_present":False,
+                "wenhui_61year_phrase_present":False,
+                "source_class":"IFLA_2005_ARCHIVE_ACCESS_BOUNDARY_NOT_DIRECTLY_RETRIEVED",
+              }
           else:
-              raise RuntimeError("pdftotext unavailable on runner")
-          compact=re.sub(r"\s+"," ",pdf_text)
-          wh_idx=compact.find("文汇报")
-          context=compact[max(0,wh_idx-180):wh_idx+260] if wh_idx>=0 else ""
-          out["objects"]["ifla_2005_pdf"]={
-            "url":URLS["ifla_2005_pdf"],
-            "http_status":r.status_code,
-            "final_url":r.url,
-            "bytes":len(r.content),
-            "sha256":digest(r.content),
-            "pdf_text_extracted":True,
-            "datum_name_present":("点通" in pdf_text or "Datum" in pdf_text),
-            "wenhui_61year_phrase_present":("文汇报" in pdf_text and "61年全文数据光盘" in pdf_text),
-            "target_context_excerpt":context[:440],
-            "source_class":"IFLA_2005_CONFERENCE_PAPER_OPERATIONAL_PRODUCTION_WITNESS",
-          }
+              ifla_obj["retrieved"]=True
+              ifla_obj["attempts"]=ifla_attempts
+          out["objects"]["ifla_2005_pdf"]=ifla_obj
 
           for key in ("nlc_current_entry","nlc_current_service"):
               r=fetch(URLS[key])
@@ -114,7 +141,7 @@ jobs:
             "declared_coverage_includes_1951_08_18": True,
             "direct_1951_08_18_target_page_reviewed": False,
             "nlc_item_level_catalog_identity_observed": False,
-            "ifla_2005_wenhui_61year_production_object_observed": out["objects"]["ifla_2005_pdf"]["wenhui_61year_phrase_present"],
+            "ifla_2005_wenhui_61year_production_object_observed": out["objects"]["ifla_2005_pdf"].get("wenhui_61year_phrase_present",False),
             "60year_2003_and_61year_2005_same_object_proved": False,
             "60year_2003_and_61year_2005_shared_digitization_lineage_proved": False,
             "target_article_presence_in_cdrom_proved": False,
