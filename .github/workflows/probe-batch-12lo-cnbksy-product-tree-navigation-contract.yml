@@ -16,15 +16,16 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
-      - name: Inspect source-emitted product-tree navigation contract only; follow nothing
+      - name: Inspect source-closed product-tree navigation contract only; follow nothing
         run: |
           python - <<'PY'
-          import hashlib, html, json, re
+          import hashlib, json, re
           from pathlib import Path
-          from urllib.parse import urljoin
           import requests
 
-          seed="https://www.cnbksy.com/portal/newsCategoryBrowse/newsContent?id=202"
+          # These exact URLs were already source-closed by Batches 12LJ/12LL.
+          nav="https://www.cnbksy.com/portal/newsCategoryBrowse"
+          product_url="https://www.cnbksy.com/public/portal/js/productTree.js?version=V20241206"
           UA={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; CNBKSY product-tree navigation contract)"}
 
           def get(url):
@@ -32,30 +33,10 @@ jobs:
               raw=r.content
               return r,raw,raw.decode("utf-8","replace")
 
-          sr,sraw,stxt=get(seed)
-          nav=None
-          for m in re.finditer(r'''(?is)<a\b[^>]*?href\s*=\s*["']([^"']+)["'][^>]*>(.*?)</a>''',stxt):
-              href=html.unescape(m.group(1)).strip()
-              label=html.unescape(re.sub(r"<[^>]+>"," ",m.group(2)))
-              label=re.sub(r"\s+"," ",label).strip()
-              if "信息动态" in label:
-                  nav=urljoin(seed,href); break
-          if not nav:
-              raise SystemExit("source-emitted 信息动态 navigation missing")
-
           nr,nraw,ntxt=get(nav)
-          script_urls=[]
-          for m in re.finditer(r'''(?is)<script\b[^>]*?src\s*=\s*["']([^"']+)["']''',ntxt):
-              u=urljoin(nav,html.unescape(m.group(1)).strip())
-              if u not in script_urls: script_urls.append(u)
+          pr,praw,ptxt=get(product_url)
 
-          product_urls=[u for u in script_urls if "/public/portal/js/productTree.js" in u]
-          if len(product_urls)!=1:
-              raise SystemExit(f"expected exactly one source-emitted productTree.js, got {len(product_urls)}")
-
-          pr,praw,ptxt=get(product_urls[0])
           route_literals=sorted(set(re.findall(r'''(?i)["'](/[A-Za-z0-9_./?=&%{}:$+-]+)["']''',ptxt)))
-
           route_contexts=[]
           for lit in route_literals:
               positions=[m.start() for m in re.finditer(re.escape(lit),ptxt)]
@@ -68,11 +49,13 @@ jobs:
 
           keyword_contexts=[]
           for token in ["productId","productTree","resource","search","window.location","location.href","window.open","href","url:","jsonPost","bksy.post","bksy.get"]:
+              count=0
               for m in re.finditer(re.escape(token),ptxt,re.I):
                   a=max(0,m.start()-1800); b=min(len(ptxt),m.end()+3000)
                   ctx=re.sub(r"\s+"," ",ptxt[a:b]).strip()
                   keyword_contexts.append({"token":token,"context":ctx[:6500],"sha256":hashlib.sha256(ctx.encode("utf-8")).hexdigest()})
-                  if sum(1 for x in keyword_contexts if x["token"]==token)>=12: break
+                  count+=1
+                  if count>=12: break
 
           inline_contexts=[]
           for i,m in enumerate(re.finditer(r"(?is)<script\b(?![^>]*\bsrc\s*=)[^>]*>(.*?)</script>",ntxt)):
@@ -84,12 +67,14 @@ jobs:
           out={
               "source_contract":{
                   "parent_batch":"12LN",
-                  "seed_url":seed,
-                  "source_emitted_navigation_url":nav,
-                  "product_tree_script_url":product_urls[0],
+                  "navigation_url":nav,
+                  "navigation_source_binding":"SOURCE_CLOSED_BY_12LJ",
+                  "product_tree_script_url":product_url,
+                  "product_tree_source_binding":"SOURCE_CLOSED_BY_12LL",
                   "navigation_route_followed":False,
                   "target_query_submitted":False
               },
+              "navigation_response":{"status":nr.status_code,"content_type":nr.headers.get("content-type"),"bytes":len(nraw),"sha256":hashlib.sha256(nraw).hexdigest()},
               "product_tree_response":{"status":pr.status_code,"content_type":pr.headers.get("content-type"),"bytes":len(praw),"sha256":hashlib.sha256(praw).hexdigest()},
               "route_literals":route_literals,
               "route_contexts":route_contexts,
@@ -103,7 +88,7 @@ jobs:
                   "registration_used":False
               },
               "security":{
-                  "source_emitted_gets_only":True,
+                  "source_closed_gets_only":True,
                   "application_navigation_post_used":False,
                   "private_endpoint_guessed":False,
                   "captcha_bypass_used":False,
