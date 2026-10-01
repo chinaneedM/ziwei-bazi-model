@@ -1,0 +1,109 @@
+name: probe-batch-12kf-nlc-wenjin-zhao-yongle-article-detail
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12kf-nlc-wenjin-zhao-yongle-article-detail.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inspect only source-emitted anonymous article detail
+        run: |
+          python - <<'PY'
+          import hashlib, html, json, re
+          from pathlib import Path
+          import requests
+
+          BASE="http://find.nlc.cn/search/showDocDetails"
+          PARAMS={"docId":"149819805017800696","dataSource":"sky,wpqk","query":"永樂大典展覽的意義"}
+          UA={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; source-emitted NLC article detail)"}
+          TOKENS=["永樂大典展覽的意義","永乐大典展览的意义","趙萬里","赵万里","文物参考资料","文物參考資料","文物","1951","221","233","国家哲学社会科学文献中心","维普","可提供全文","在线阅读","摘要"]
+
+          def sha(b): return hashlib.sha256(b).hexdigest()
+          def decode(raw):
+              for enc in ("utf-8","utf-8-sig","gb18030","gbk","big5"):
+                  try:return raw.decode(enc),enc
+                  except UnicodeDecodeError:pass
+              return raw.decode("utf-8","replace"),"utf-8-replacement"
+          def strip_tags(s):
+              return re.sub(r"\s+"," ",html.unescape(re.sub(r"<[^>]+>"," ",s))).strip()
+          def js_value(v):
+              v=v.strip().rstrip(";").strip()
+              if v in ("true","false"): return v=="true"
+              if v in ("null","undefined"): return None
+              if len(v)>=2 and v[0] in ("'",'"') and v[-1]==v[0]:
+                  return html.unescape(v[1:-1].replace("\\'","'").replace('\\"','"'))
+              return v[:3000]
+
+          r=requests.get(BASE,params=PARAMS,headers=UA,timeout=45,allow_redirects=True)
+          raw=r.content; txt,enc=decode(raw); visible=strip_tags(txt)
+          contexts={}
+          for token in TOKENS:
+              arr=[]; pos=0
+              while True:
+                  i=visible.find(token,pos)
+                  if i<0: break
+                  arr.append(visible[max(0,i-500):min(len(visible),i+1400)])
+                  pos=i+len(token)
+                  if len(arr)>=10: break
+              if arr: contexts[token]=arr
+
+          vars={}
+          for name in ["uri","directLink","isVpnLink","vpnUrlPrefix","isUserLogin","isInnerIP","isTsingHuaTongFang","isSamlLink","docId","dataSourceName","title","author","mediaType","isbn","keywords"]:
+              arr=[]
+              for pat in (rf"(?:var|let|const)\s+{re.escape(name)}\s*=\s*([^;\n]+)",rf"(?<![\w$]){re.escape(name)}\s*=\s*([^;\n]+)"):
+                  for m in re.finditer(pat,txt):
+                      row={"value":js_value(m.group(1)),"raw":m.group(0)[:2400],"start":m.start()}
+                      if row not in arr: arr.append(row)
+              vars[name]=arr[:20]
+
+          emitted=[]
+          for m in re.finditer(r"https?://[^\"'<>\s]+",txt):
+              u=html.unescape(m.group(0))
+              if u not in emitted: emitted.append(u)
+
+          controls=[]
+          for m in re.finditer(r"<(?:a|form|input|span)\b[^>]*>",txt,re.I):
+              tag=html.unescape(m.group(0))
+              if re.search(r"在线阅读|全文|fileTransfer|login|hrefSrc|readingurl|文献传递|国家哲学|维普|vip|ncpssd|nssd|uri|directLink",tag,re.I):
+                  controls.append(tag[:5000])
+                  if len(controls)>=120: break
+
+          out={
+            "source_record":{"batch":"12KE","docId":"149819805017800696","dataSource":"sky,wpqk","query":"永樂大典展覽的意義"},
+            "detail_response":{"http_status":r.status_code,"final_url":r.url,"bytes":len(raw),"sha256":sha(raw),"decode_used":enc},
+            "token_contexts":contexts,
+            "source_emitted_variables":vars,
+            "source_emitted_urls_not_followed":emitted,
+            "relevant_controls_not_activated":controls,
+            "adjudication":{
+              "detail_followed_from_source_emitted_record":True,
+              "external_fulltext_url_followed":False,
+              "online_reading_executed":False,
+              "login_used":False,
+              "post_request_used":False,
+              "direct_1951_article_page_reviewed":False
+            },
+            "security":{
+              "anonymous_get_only":True,"reader_account_used":False,"registration_used":False,
+              "private_endpoint_guessed":False,"record_identifier_guessed":False,"data_source_guessed":False,
+              "captcha_bypass_used":False,"tls_verification_disabled":False,"state_changing_request_used":False
+            }
+          }
+          Path("batch-12kf-nlc-wenjin-zhao-yongle-article-detail.json").write_text(
+              json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12kf-nlc-wenjin-zhao-yongle-article-detail
+          path: batch-12kf-nlc-wenjin-zhao-yongle-article-detail.json
