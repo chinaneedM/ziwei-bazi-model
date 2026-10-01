@@ -1,0 +1,118 @@
+name: probe-batch-12jt-nlc-source-emitted-opac-electronic-newspaper-routes
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12jt-nlc-source-emitted-opac-electronic-newspaper-routes.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - name: Calibrate NLC source-emitted OPAC and electronic-newspaper routes
+        run: |
+          python - <<'PY'
+          import hashlib, json, re
+          from html.parser import HTMLParser
+          from pathlib import Path
+          from urllib.parse import urljoin
+          import requests
+
+          UA={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; NLC public route calibration)"}
+          HOME="https://www.nlc.cn/web/"
+          ROUTES={
+            "opac":"https://opac.nlc.cn/",
+            "electronic_newspapers":"https://read.nlc.cn/outRes/outResList?type=%E7%94%B5%E5%AD%90%E6%8A%A5%E7%BA%B8",
+          }
+
+          def sha(b): return hashlib.sha256(b).hexdigest()
+          def decode(raw):
+              for enc in ("utf-8","utf-8-sig","gb18030","gbk"):
+                  try: return raw.decode(enc),enc
+                  except UnicodeDecodeError: pass
+              return raw.decode("utf-8","replace"),"utf-8-replacement"
+          def fetch(url,timeout=45):
+              try:
+                  r=requests.get(url,headers=UA,timeout=timeout,allow_redirects=True)
+                  return {"ok":True,"response":r}
+              except Exception as e:
+                  return {"ok":False,"error_class":type(e).__name__,"error":str(e)[:300]}
+
+          class Scan(HTMLParser):
+              def __init__(self):
+                  super().__init__()
+                  self.links=[]; self.forms=[]; self.inputs=[]
+              def handle_starttag(self,tag,attrs):
+                  d=dict(attrs)
+                  if tag=="a" and d.get("href"): self.links.append(d["href"])
+                  if tag=="form": self.forms.append({"action":d.get("action"),"method":(d.get("method") or "get").lower()})
+                  if tag=="input": self.inputs.append({k:d.get(k) for k in ("name","type","value","placeholder") if d.get(k) is not None})
+
+          out={"source_home":{},"routes":{},"adjudication":{},"security":{}}
+          h=fetch(HOME)
+          if h["ok"]:
+              r=h["response"]; txt,enc=decode(r.content)
+              out["source_home"]={"http_status":r.status_code,"bytes":len(r.content),"sha256":sha(r.content),"decode_used":enc,
+                "opac_url_source_emitted":("https://opac.nlc.cn" in txt),
+                "electronic_newspaper_route_source_emitted":("outRes/outResList" in txt and "电子报纸" in txt)}
+          else:
+              out["source_home"]={"error_class":h["error_class"]}
+
+          for key,url in ROUTES.items():
+              f=fetch(url)
+              if not f["ok"]:
+                  out["routes"][key]={"url":url,"reached":False,"error_class":f["error_class"],"error":f["error"]}
+                  continue
+              r=f["response"]; raw=r.content; txt,enc=decode(raw)
+              scan=Scan()
+              try: scan.feed(txt)
+              except Exception: pass
+              out["routes"][key]={
+                "url":url,"reached":True,"http_status":r.status_code,"final_url":r.url,
+                "bytes":len(raw),"sha256":sha(raw),"decode_used":enc,
+                "content_type":r.headers.get("Content-Type"),
+                "forms":scan.forms[:20],
+                "inputs":scan.inputs[:60],
+                "link_count":len(scan.links),
+                "same_host_link_samples":[urljoin(r.url,x) for x in scan.links[:40]],
+                "target_title_tokens":{
+                  "wenhui_simplified":"文汇报" in txt,
+                  "wenhui_traditional":"文匯報" in txt,
+                  "60year_cdrom":"文汇报60年报纸光盘" in txt,
+                  "61year_cdrom":"文汇报61年全文数据光盘" in txt,
+                },
+                "search_semantics":{
+                  "search_word_present":("检索" in txt or "搜索" in txt),
+                  "catalog_word_present":("馆藏" in txt or "目录" in txt),
+                  "newspaper_word_present":("报纸" in txt),
+                }
+              }
+
+          out["adjudication"]={
+            "opac_route_source_emitted_by_nlc":out["source_home"].get("opac_url_source_emitted") is True,
+            "electronic_newspaper_route_source_emitted_by_nlc":out["source_home"].get("electronic_newspaper_route_source_emitted") is True,
+            "opac_route_reached":out["routes"].get("opac",{}).get("reached") is True,
+            "electronic_newspaper_route_reached":out["routes"].get("electronic_newspapers",{}).get("reached") is True,
+            "target_query_submitted":False,
+            "item_level_wenhui_cdrom_identity_observed":False,
+            "direct_1951_08_18_page_reviewed":False,
+          }
+          out["security"]={
+            "login_used":False,"reader_account_used":False,"registration_used":False,
+            "target_query_submitted":False,"form_submitted":False,"private_endpoint_guessed":False,
+            "captcha_bypass_used":False,"tls_verification_disabled":False
+          }
+          Path("batch-12jt-nlc-source-emitted-routes.json").write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12jt-nlc-source-emitted-routes
+          path: batch-12jt-nlc-source-emitted-routes.json
