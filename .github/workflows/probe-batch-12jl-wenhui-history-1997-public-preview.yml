@@ -115,6 +115,45 @@ jobs:
               })
           out["google_books"]=gb
 
+          # Follow only the object ID source-emitted by the exact-ISBN Google Books page.
+          gobj={"followed":False}
+          emitted_ids=gb.get("source_emitted_book_ids") or []
+          if emitted_ids:
+              oid=emitted_ids[0]
+              obj_url=f"https://books.google.com/books?id={oid}&hl=zh-CN"
+              r,e=fetch(obj_url)
+              gobj={"followed":True,"object_id":oid,"url":obj_url,"fetch_error":e}
+              if r is not None:
+                  raw=r.text; txt=clean(raw)
+                  forms=[]
+                  for m in re.finditer(r'<form\\b([^>]*)>(.*?)</form>',raw,re.I|re.S):
+                      attrs=m.group(1); inner=m.group(2)
+                      am=re.search(r'action=["\\']([^"\\']*)["\\']',attrs,re.I)
+                      action=html.unescape(am.group(1)) if am else None
+                      inputs=sorted(set(html.unescape(x) for x in re.findall(r'name=["\\']([^"\\']+)["\\']',inner,re.I)))
+                      forms.append({"action":action,"inputs":inputs})
+                  hrefs=[html.unescape(x) for x in re.findall(r'href=["\\']([^"\\']+)["\\']',raw,re.I)]
+                  inbook=[x for x in hrefs if any(k in x.lower() for k in ("jscmd=searchwithinvolume","searchwithinvolume","q="))]
+                  gobj.update({
+                      "status":r.status_code,
+                      "final_url":r.url,
+                      "bytes":len(r.content),
+                      "sha256":hashlib.sha256(r.content).hexdigest(),
+                      "target_title_present":TITLE in txt or "文匯報史略" in txt,
+                      "isbn_present":ISBN10 in re.sub(r'[-\\s]','',txt),
+                      "year_1997_present":"1997" in txt,
+                      "forms":forms[:20],
+                      "source_emitted_inbook_candidate_links":inbook[:30],
+                      "source_emitted_inbook_candidate_link_count":len(inbook),
+                      "snippet_term_present":"Snippet view" in txt or "片段" in txt or "摘录" in txt,
+                      "full_view_term_present":"Full view" in txt or "全文" in txt,
+                      "no_ebook_term_present":"No eBook available" in txt or "无电子书" in txt,
+                      "target_1951_terms_present":any(x in txt for x in ("1951年8月18日","赵万里","趙萬里","永乐大典","永樂大典")),
+                      "raw_html_saved":False,
+                      "raw_html_logged":False
+                  })
+          out["google_source_emitted_object"]=gobj
+
           out["adjudication"]={
               "exact_1997_book_identity_publicly_bound":bool(
                   ol.get("title") and (ol.get("publish_date")=="1997" or "1997" in str(ol.get("publish_date"))) and
@@ -122,7 +161,9 @@ jobs:
               ),
               "openlibrary_linked_scan_observed":bool(ol.get("linked_scan_observed")),
               "google_source_emitted_object_observed":bool(gb.get("source_emitted_book_id_count")),
-              "public_page_level_preview_observed":False,
+              "google_source_emitted_object_followed":bool(gobj.get("followed")),
+              "google_object_inbook_contract_observed":bool(gobj.get("source_emitted_inbook_candidate_link_count")),
+              "public_page_level_preview_observed":bool(gobj.get("snippet_term_present") or gobj.get("full_view_term_present")),
               "target_1951_08_18_entry_directly_reviewed":False,
               "target_article_directly_reviewed":False,
               "relationship_to_1951_wenhui_lead":"UNRESOLVED"
