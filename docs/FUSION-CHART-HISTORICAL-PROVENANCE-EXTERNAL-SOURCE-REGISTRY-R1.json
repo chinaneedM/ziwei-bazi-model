@@ -12043,7 +12043,7 @@
       "provider": "上海图书馆《全国报刊索引》编辑部",
       "url": "https://www.cnbksy.com/",
       "source_role": "FIRST_PARTY_NEWSPAPER_INDEX_PUBLIC_ACCESS_SURFACE",
-      "quality_notes": "Batches 12LF–12LP close the search-access boundary without bypass or target query. Batch 12LQ retrieves the first-party 使用帮助 page and confirms search-mode navigation but no rendered field-level help semantics. Batch 12LR now statically closes the page's active dynamic-help contract: footerList?id=61, findNews?id=61 and findNews are active bksy.post calls, while the older $.ajax block and /news/listTree?id=nc.id are line-commented legacy code. No candidate route is invoked in 12LR; the next minimal gate is the empty-object footerList POST only.",
+      "quality_notes": "Batches 12LF–12LP close the search-access boundary without bypass or target query. Batch 12LQ retrieves the public 使用帮助 shell; 12LR statically closes its active bksy.post help routes and separates a commented legacy AJAX block. Batch 12LS executes only the source-closed footerList?id=61 empty-object POST and recovers the first-party four-node help tree: 61 使用帮助 with children 64 包库用户常见问题, 81 镜像用户常见问题 and 161 用户手册下载. The tree itself exposes no 普通/高级/专业检索 help node. No findNews route or target query is invoked in 12LS.",
       "batch_12lf": {
         "workflow_run_id": 36877911774,
         "workflow_job_id": 110421993332,
@@ -12319,6 +12319,47 @@
         "candidate_route_invoked": false,
         "target_query_submitted": false,
         "research_artifact": "docs/research/ZIWEI-CNBKSY-HELP-DYNAMIC-CALLSITE-CONTRACT-R1.json"
+      },
+      "batch_12ls": {
+        "workflow_run_id": 36891525616,
+        "workflow_job_id": 110468062390,
+        "artifact_id": 11176896635,
+        "artifact_digest": "sha256:716f2b808a6e4f5d5e800220f0f3ce6e975355499ffe257a55fa3cedc9279dc0",
+        "exact_head": "f5a8c7c2c6d7e3c7fe2631e91f8496fdfb5309a3",
+        "endpoint": "/portal/footCategory/footerList?id=61",
+        "method": "POST",
+        "payload": "EMPTY_OBJECT",
+        "csrf_value_recorded": false,
+        "response_status": 200,
+        "response_content_type": "application/json;charset=UTF-8",
+        "response_server": "ESA",
+        "response_bytes": 195,
+        "response_sha256": "bad8c69f3448f4b0c6a534d675eca1f5cdbf40964f20ecea15794243c45e38a0",
+        "node_inventory": [
+          {
+            "id": 61,
+            "pId": 0,
+            "name": "使用帮助"
+          },
+          {
+            "id": 64,
+            "pId": 61,
+            "name": "包库用户常见问题"
+          },
+          {
+            "id": 81,
+            "pId": 61,
+            "name": "镜像用户常见问题"
+          },
+          {
+            "id": 161,
+            "pId": 61,
+            "name": "用户手册下载"
+          }
+        ],
+        "findNews_invoked": false,
+        "target_query_submitted": false,
+        "research_artifact": "docs/research/ZIWEI-CNBKSY-HELP-TREE-CONTRACT-R1.json"
       }
     }
   ],

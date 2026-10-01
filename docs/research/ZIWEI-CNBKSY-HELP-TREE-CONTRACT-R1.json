@@ -1,0 +1,140 @@
+{
+  "schema": "ZIWEI-CNBKSY-HELP-TREE-CONTRACT-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-CNBKSY-HELP-TREE-CONTRACT-LS",
+  "prior_batch_id": "BATCH-12-ZIWEI-CNBKSY-HELP-DYNAMIC-CALLSITE-CONTRACT-LR",
+  "question": "What first-party help-tree nodes are returned by the active footerList?id=61 empty-object POST, without following any content node or submitting a search term?",
+  "answer": "The source-closed anonymous POST returns exactly four JSON objects: root 61 使用帮助, plus children 64 包库用户常见问题, 81 镜像用户常见问题 and 161 用户手册下载. No ordinary/advanced/professional-search help node is present in this tree. This is a directory result only; Batch 12LS invokes no findNews content route and makes no inference about search-field semantics.",
+  "controlling_probe": {
+    "workflow": ".github/workflows/probe-batch-12ls-cnbksy-help-tree-contract.yml",
+    "exact_head": "f5a8c7c2c6d7e3c7fe2631e91f8496fdfb5309a3",
+    "workflow_run_id": 36891525616,
+    "workflow_job_id": 110468062390,
+    "artifact_id": 11176896635,
+    "artifact_digest": "sha256:716f2b808a6e4f5d5e800220f0f3ce6e975355499ffe257a55fa3cedc9279dc0"
+  },
+  "request_contract": {
+    "page_url": "https://www.cnbksy.com/portal/footCategory?id=61",
+    "endpoint": "/portal/footCategory/footerList?id=61",
+    "method": "POST",
+    "payload": "EMPTY_OBJECT",
+    "csrf_source": "page meta _csrf",
+    "csrf_value_recorded": false,
+    "same_anonymous_session": true
+  },
+  "page_response": {
+    "http_status": 200,
+    "content_type": "text/html;charset=UTF-8",
+    "server_header": "ESA",
+    "bytes": 43640,
+    "sha256": "93c96852d7e3f11d1c67087e50ab3f2d0218e8d57e733b8c4409a1f945384437",
+    "note": "The page shell contains session-bound CSRF material and is therefore not used as a cross-run stable-body fingerprint."
+  },
+  "tree_response": {
+    "http_status": 200,
+    "content_type": "application/json;charset=UTF-8",
+    "server_header": "ESA",
+    "bytes": 195,
+    "sha256": "bad8c69f3448f4b0c6a534d675eca1f5cdbf40964f20ecea15794243c45e38a0",
+    "json_type": "list",
+    "item_count": 4,
+    "item_type_counts": {
+      "dict": 4
+    },
+    "nodes": [
+      {
+        "id": 61,
+        "pId": 0,
+        "name": "使用帮助",
+        "keys": [
+          "id",
+          "name",
+          "pId"
+        ]
+      },
+      {
+        "id": 64,
+        "pId": 61,
+        "name": "包库用户常见问题",
+        "keys": [
+          "id",
+          "name",
+          "pId"
+        ]
+      },
+      {
+        "id": 81,
+        "pId": 61,
+        "name": "镜像用户常见问题",
+        "keys": [
+          "id",
+          "name",
+          "pId"
+        ]
+      },
+      {
+        "id": 161,
+        "pId": 61,
+        "name": "用户手册下载",
+        "keys": [
+          "id",
+          "name",
+          "pId"
+        ]
+      }
+    ]
+  },
+  "adjudication": {
+    "help_tree_first_party_ids_closed": true,
+    "ordinary_search_help_node_observed": false,
+    "advanced_search_help_node_observed": false,
+    "professional_search_help_node_observed": false,
+    "findNews_invoked": false,
+    "source_emitted_link_followed": false,
+    "target_term_submitted": false,
+    "target_query_submitted": false,
+    "login_used": false,
+    "registration_used": false
+  },
+  "security": {
+    "anonymous_session_only": true,
+    "csrf_value_recorded": false,
+    "credential_value_recorded": false,
+    "private_endpoint_guessed": false,
+    "captcha_bypass_used": false,
+    "tls_verification_disabled": false
+  },
+  "transmission_impact": {
+    "status": "NONE_ACCESS_BOUNDARY_ONLY",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": []
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Reproduce only the active init() call POST /portal/footCategory/findNews?id=61 with an empty object in the same anonymous session.",
+    "Carry page-meta _csrf only in the request query and never persist it.",
+    "Inventory returned JSON title/content, visible text and source-emitted href/src links; follow none of them.",
+    "Do not call the dynamic {id:treeNode.id} branch or submit any search term in Batch 12LT."
+  ],
+  "updated_at": "2026-10-02"
+}

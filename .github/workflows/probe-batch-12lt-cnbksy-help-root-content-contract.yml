@@ -1,0 +1,148 @@
+name: probe-batch-12lt-cnbksy-help-root-content-contract
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12lt-cnbksy-help-root-content-contract.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Execute only the source-closed root help-content init POST
+        run: |
+          python - <<'PY'
+          import hashlib, html, json, re
+          from pathlib import Path
+          from urllib.parse import urljoin
+          import requests
+
+          page="https://www.cnbksy.com/portal/footCategory?id=61"
+          endpoint_path="/portal/footCategory/findNews?id=61"
+          UA="Mozilla/5.0 (Tianwen provenance audit; CNBKSY root help content contract)"
+          s=requests.Session()
+          s.headers.update({"User-Agent":UA})
+
+          g=s.get(page,timeout=45,allow_redirects=False)
+          grow=g.content
+          gtxt=grow.decode("utf-8","replace")
+          csrf_m=re.search(r'''(?is)<meta\b[^>]*?name\s*=\s*["']_csrf["'][^>]*?content\s*=\s*["']([^"']+)["']''',gtxt)
+          if not csrf_m:
+              csrf_m=re.search(r'''(?is)<meta\b[^>]*?content\s*=\s*["']([^"']+)["'][^>]*?name\s*=\s*["']_csrf["']''',gtxt)
+
+          csrf_present=bool(csrf_m)
+          request_executed=False
+          response=None
+          parsed=None
+          content_inventory=None
+          if csrf_present:
+              csrf=csrf_m.group(1)
+              endpoint=urljoin(page,endpoint_path)
+              headers={
+                  "Referer":page,
+                  "X-Requested-With":"XMLHttpRequest",
+                  "Content-Type":"application/x-www-form-urlencoded; charset=UTF-8",
+              }
+              r=s.post(endpoint,params={"_csrf":csrf},data={},headers=headers,timeout=45,allow_redirects=False)
+              request_executed=True
+              raw=r.content
+              response={
+                  "status":r.status_code,
+                  "content_type":r.headers.get("content-type"),
+                  "location":r.headers.get("location"),
+                  "server":r.headers.get("server"),
+                  "bytes":len(raw),
+                  "sha256":hashlib.sha256(raw).hexdigest(),
+                  "starts_json_like":raw.lstrip()[:1] in (b"[",b"{"),
+              }
+              try:
+                  obj=r.json()
+                  if isinstance(obj,dict):
+                      parsed={"json_type":"dict","keys":sorted(str(k) for k in obj.keys())}
+                      title=obj.get("title")
+                      content=obj.get("content")
+                      if isinstance(content,str):
+                          visible=html.unescape(re.sub(r"<[^>]+>"," ",content))
+                          visible=re.sub(r"\s+"," ",visible).strip()
+                          links=[]
+                          for m in re.finditer(r'''(?is)\b(?:href|src)\s*=\s*["']([^"']+)["']''',content):
+                              u=html.unescape(m.group(1)).strip()
+                              if u and u not in links:
+                                  links.append(u)
+                          tokens=["普通检索","高级检索","专业检索","图片检索","题名","作者","刊名","分类号","年份","期号","检索词","关键词","全文","逻辑","布尔","用户手册","下载"]
+                          content_inventory={
+                              "title":title,
+                              "content_length":len(content),
+                              "content_sha256":hashlib.sha256(content.encode("utf-8")).hexdigest(),
+                              "visible_text_length":len(visible),
+                              "visible_text":visible[:20000],
+                              "token_counts":{t:visible.count(t) for t in tokens},
+                              "source_emitted_links":links[:200],
+                              "source_emitted_link_count":len(links),
+                              "link_followed":False,
+                          }
+                      else:
+                          content_inventory={"title":title,"content_type":type(content).__name__}
+                  else:
+                      parsed={"json_type":type(obj).__name__,"preview":str(obj)[:1000]}
+              except Exception as e:
+                  parsed={"json_parse_error":type(e).__name__}
+
+          out={
+              "source_contract":{
+                  "parent_batch":"12LS",
+                  "page_url":page,
+                  "endpoint":endpoint_path,
+                  "method":"POST",
+                  "payload":"EMPTY_OBJECT",
+                  "source_call_role":"active init() root help-content load",
+                  "csrf_source":"page meta _csrf",
+                  "csrf_value_recorded":False,
+                  "dynamic_tree_id_payload_used":False,
+                  "target_term_submitted":False,
+                  "target_query_submitted":False,
+              },
+              "page_response":{
+                  "status":g.status_code,
+                  "content_type":g.headers.get("content-type"),
+                  "server":g.headers.get("server"),
+                  "bytes":len(grow),
+                  "sha256":hashlib.sha256(grow).hexdigest(),
+              },
+              "csrf_present":csrf_present,
+              "request_executed":request_executed,
+              "response":response,
+              "parsed_response":parsed,
+              "content_inventory":content_inventory,
+              "adjudication":{
+                  "only_source_closed_root_findNews_post_used":request_executed,
+                  "dynamic_tree_id_payload_used":False,
+                  "source_emitted_link_followed":False,
+                  "target_term_submitted":False,
+                  "target_query_submitted":False,
+                  "login_used":False,
+                  "registration_used":False,
+              },
+              "security":{
+                  "anonymous_session_only":True,
+                  "csrf_value_recorded":False,
+                  "credential_value_recorded":False,
+                  "private_endpoint_guessed":False,
+                  "captcha_bypass_used":False,
+                  "tls_verification_disabled":False,
+              },
+          }
+          Path("batch-12lt-cnbksy-help-root-content-contract.json").write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12lt-cnbksy-help-root-content-contract
+          path: batch-12lt-cnbksy-help-root-content-contract.json

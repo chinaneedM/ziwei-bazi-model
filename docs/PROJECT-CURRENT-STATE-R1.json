@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.333.0",
+  "schema_version": "1.334.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -415,9 +415,10 @@
       "BATCH-12-ZIWEI-CNBKSY-PRODUCT-TREE-NAVIGATION-CONTRACT-LO",
       "BATCH-12-ZIWEI-CNBKSY-ORDINARY-SEARCH-ESA-BOUNDARY-LP",
       "BATCH-12-ZIWEI-CNBKSY-USAGE-HELP-SURFACE-LQ",
-      "BATCH-12-ZIWEI-CNBKSY-HELP-DYNAMIC-CALLSITE-CONTRACT-LR"
+      "BATCH-12-ZIWEI-CNBKSY-HELP-DYNAMIC-CALLSITE-CONTRACT-LR",
+      "BATCH-12-ZIWEI-CNBKSY-HELP-TREE-CONTRACT-LS"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-HELP-DYNAMIC-CALLSITE-CONTRACT-LR.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-HELP-TREE-CONTRACT-LS.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -1865,7 +1866,12 @@
       "12LR receives HTTP 200 text/html;charset=UTF-8 from ESA, 43709 bytes, SHA-256 93ba3392726bf038e9163a51508eb67aebd097c8a52c2c93cac164db62b795ee. Active code uses bksy.post for /portal/footCategory/footerList?id=61 with {}, /portal/footCategory/findNews?id=61 with {}, and /portal/footCategory/findNews with {id:treeNode.id}.",
       "The older $.ajax block is line-commented; its /news/listTree?id=nc.id and duplicate footerList occurrence are legacy/commented evidence only. Therefore listTree is not an active source-emitted application route on the reviewed help surface.",
       "No candidate route, target term, target query, login or registration is used in 12LR. Combined with 12LL, the active calls inherit bksy.post POST semantics with page-meta _csrf carried only in the request query and normal form serialization.",
-      "Next gate 12LS executes only the active /portal/footCategory/footerList?id=61 empty-object POST in the same anonymous session, inventories returned JSON tree IDs/labels/shape, never records the CSRF value, and does not call either findNews route. Matrix remains 198 / 166 / 10; provenance defects remain 17/17; chart algorithm defects / reopens / candidate collapses remain 0."
+      "Next gate 12LS executes only the active /portal/footCategory/footerList?id=61 empty-object POST in the same anonymous session, inventories returned JSON tree IDs/labels/shape, never records the CSRF value, and does not call either findNews route. Matrix remains 198 / 166 / 10; provenance defects remain 17/17; chart algorithm defects / reopens / candidate collapses remain 0.",
+      "Batch 12LS exact-head run 36891525616 / job 110468062390 / artifact 11176896635 executes only the source-closed anonymous /portal/footCategory/footerList?id=61 empty-object POST with same-session page CSRF carried in the request query and not recorded.",
+      "12LS returns HTTP 200 application/json;charset=UTF-8 from ESA, 195 bytes, SHA-256 bad8c69f3448f4b0c6a534d675eca1f5cdbf40964f20ecea15794243c45e38a0, parsing as a four-object list.",
+      "The first-party help tree is exactly 61 使用帮助 (pId 0), with children 64 包库用户常见问题, 81 镜像用户常见问题 and 161 用户手册下载 (all pId 61). No 普通检索/高级检索/专业检索 field-help node is exposed by this tree, so those labels must not be inferred from these IDs.",
+      "12LS does not invoke findNews, follow any help node, submit a target term/query, login or register. The next minimal gate 12LT reproduces the page's active init() call only: POST /portal/footCategory/findNews?id=61 with an empty object and inventories the returned root help title/content and source-emitted links without following them.",
+      "Matrix remains 198 / 166 / 10; provenance defects remain 17/17; chart algorithm defects / reopens / candidate collapses remain 0."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10

@@ -848,9 +848,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-CNBKSY-ORDINARY-SEARCH-ESA-BOUNDARY-LP",
     "BATCH-12-ZIWEI-CNBKSY-USAGE-HELP-SURFACE-LQ",
     "BATCH-12-ZIWEI-CNBKSY-HELP-DYNAMIC-CALLSITE-CONTRACT-LR",
+    "BATCH-12-ZIWEI-CNBKSY-HELP-TREE-CONTRACT-LS",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-HELP-DYNAMIC-CALLSITE-CONTRACT-LR.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-HELP-TREE-CONTRACT-LS.md"
 
 
 def fail(message: str) -> None:
@@ -13063,6 +13064,61 @@ def main() -> int:
         fail("Batch 12LR state version regressed below 1.333.0")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12LR latest-batch document mismatch")
+
+    # Batch 12LS: execute only the source-closed footerList help-tree POST.
+    ls_batch = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-HELP-TREE-CONTRACT-LS.md"
+    ls_evidence = ROOT / "docs/research/ZIWEI-CNBKSY-HELP-TREE-CONTRACT-R1.json"
+    if not ls_batch.is_file() or not ls_evidence.is_file():
+        fail("Batch 12LS continuity artifact missing")
+    ls = json.loads(ls_evidence.read_text(encoding="utf-8"))
+    if ls.get("batch_id") != "BATCH-12-ZIWEI-CNBKSY-HELP-TREE-CONTRACT-LS":
+        fail("Batch 12LS evidence identity mismatch")
+    req = ls.get("request_contract", {})
+    if req.get("endpoint") != "/portal/footCategory/footerList?id=61" or req.get("method") != "POST" or req.get("payload") != "EMPTY_OBJECT":
+        fail("Batch 12LS request contract regressed")
+    if req.get("csrf_value_recorded") is not False or req.get("same_anonymous_session") is not True:
+        fail("Batch 12LS CSRF/session firewall regressed")
+    tr = ls.get("tree_response", {})
+    if tr.get("http_status") != 200 or tr.get("content_type") != "application/json;charset=UTF-8" or tr.get("server_header") != "ESA":
+        fail("Batch 12LS tree response identity regressed")
+    if tr.get("bytes") != 195 or tr.get("sha256") != "bad8c69f3448f4b0c6a534d675eca1f5cdbf40964f20ecea15794243c45e38a0":
+        fail("Batch 12LS tree response digest regressed")
+    if tr.get("json_type") != "list" or tr.get("item_count") != 4 or tr.get("item_type_counts") != {"dict": 4}:
+        fail("Batch 12LS tree JSON shape regressed")
+    nodes = {(x.get("id"), x.get("pId"), x.get("name")) for x in tr.get("nodes", ())}
+    expected_nodes = {
+        (61, 0, "使用帮助"),
+        (64, 61, "包库用户常见问题"),
+        (81, 61, "镜像用户常见问题"),
+        (161, 61, "用户手册下载"),
+    }
+    if nodes != expected_nodes:
+        fail("Batch 12LS first-party help-tree node set regressed")
+    a = ls.get("adjudication", {})
+    if a.get("help_tree_first_party_ids_closed") is not True:
+        fail("Batch 12LS help-tree ID closure regressed")
+    for key in ("ordinary_search_help_node_observed", "advanced_search_help_node_observed", "professional_search_help_node_observed", "findNews_invoked", "source_emitted_link_followed", "target_term_submitted", "target_query_submitted", "login_used", "registration_used"):
+        if a.get(key) is not False:
+            fail(f"Batch 12LS no-inference/no-action firewall regressed: {key}")
+    p = ls.get("controlling_probe", {})
+    if p.get("workflow_run_id") != 36891525616 or p.get("workflow_job_id") != 110468062390 or p.get("artifact_id") != 11176896635:
+        fail("Batch 12LS controlling probe identity regressed")
+    if p.get("artifact_digest") != "sha256:716f2b808a6e4f5d5e800220f0f3ce6e975355499ffe257a55fa3cedc9279dc0":
+        fail("Batch 12LS artifact digest regressed")
+    srcmap_ls = {x.get("source_id"): x for x in registry.get("sources", ())}
+    reg_ls = srcmap_ls.get("EXT-CNBKSY-PUBLIC-SEARCH-SURFACE-2026", {}).get("batch_12ls", {})
+    if reg_ls.get("workflow_run_id") != 36891525616 or reg_ls.get("research_artifact") != "docs/research/ZIWEI-CNBKSY-HELP-TREE-CONTRACT-R1.json":
+        fail("Batch 12LS external-source registry binding missing")
+    if "BATCH-12-ZIWEI-CNBKSY-HELP-TREE-CONTRACT-LS" not in audit_state.get("completed_batches", ()):
+        fail("Batch 12LS missing from completed state")
+    try:
+        schema12ls = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12LS state version is not numeric")
+    if schema12ls < (1, 334, 0):
+        fail("Batch 12LS state version regressed below 1.334.0")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12LS latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")
