@@ -1,0 +1,141 @@
+name: probe-batch-12js-wenhui-cdrom-nlc-provenance
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12js-wenhui-cdrom-nlc-provenance.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inspect Wenhui CD-ROM provenance and NLC current service boundary
+        run: |
+          python - <<'PY'
+          import hashlib, json, re, shutil, subprocess
+          from pathlib import Path
+          import requests
+
+          UA={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; Wenhui CD-ROM/NLC route probe)"}
+          URLS={
+            "contemporary_wenhui_reprint":"https://tech.sina.com.cn/me/2003-01-21/1231162357.shtml",
+            "ifla_2005_pdf":"https://origin-archive.ifla.org/IV/ifla71/papers/156e-Yang-Bin.pdf",
+            "nlc_current_entry":"https://www.nlc.cn/web/",
+            "nlc_current_service":"https://www.nlc.cn/web/dzzn/dsb_kgsj/index.shtml",
+          }
+
+          def digest(b): return hashlib.sha256(b).hexdigest()
+          def fetch(url,timeout=60):
+              r=requests.get(url,headers=UA,timeout=timeout,allow_redirects=True)
+              r.raise_for_status()
+              return r
+          def decode(raw):
+              for enc in ("utf-8","utf-8-sig","gb18030","gbk"):
+                  try: return raw.decode(enc),enc
+                  except UnicodeDecodeError: pass
+              return raw.decode("utf-8","replace"),"utf-8-replacement"
+
+          out={"objects":{},"adjudication":{},"security":{}}
+
+          r=fetch(URLS["contemporary_wenhui_reprint"])
+          txt,enc=decode(r.content)
+          markers={
+            "page_source_labels_wenhui": "文汇报" in txt,
+            "nlc_donation_phrase": "国家图书馆" in txt and "文汇报60年报纸光盘" in txt,
+            "disc_count_13": "共13张" in txt,
+            "coverage_start_1938_01": "1938年1月" in txt,
+            "coverage_end_1998_12": "1998年12月" in txt,
+            "all_text_and_images": "全部文字及图片" in txt,
+            "date_search_declared": "日期" in txt and "查阅" in txt,
+            "name_search_declared": "姓名" in txt and "查阅" in txt,
+          }
+          out["objects"]["contemporary_wenhui_reprint"]={
+            "url":URLS["contemporary_wenhui_reprint"],
+            "http_status":r.status_code,
+            "final_url":r.url,
+            "bytes":len(r.content),
+            "sha256":digest(r.content),
+            "decode_used":enc,
+            "markers":markers,
+            "source_class":"CONTEMPORARY_WEB_REPRINT_LABELED_WENHUI_NOT_FIRST_PARTY_WENHUI_HOST",
+          }
+
+          r=fetch(URLS["ifla_2005_pdf"])
+          pdf_path=Path("ifla-156e-yang-bin.pdf")
+          pdf_path.write_bytes(r.content)
+          pdf_text=""
+          pdftotext=shutil.which("pdftotext")
+          if pdftotext:
+              p=subprocess.run([pdftotext,"-layout",str(pdf_path),"-"],capture_output=True,text=True,encoding="utf-8",errors="replace",check=True)
+              pdf_text=p.stdout
+          else:
+              raise RuntimeError("pdftotext unavailable on runner")
+          compact=re.sub(r"\s+"," ",pdf_text)
+          wh_idx=compact.find("文汇报")
+          context=compact[max(0,wh_idx-180):wh_idx+260] if wh_idx>=0 else ""
+          out["objects"]["ifla_2005_pdf"]={
+            "url":URLS["ifla_2005_pdf"],
+            "http_status":r.status_code,
+            "final_url":r.url,
+            "bytes":len(r.content),
+            "sha256":digest(r.content),
+            "pdf_text_extracted":True,
+            "datum_name_present":("点通" in pdf_text or "Datum" in pdf_text),
+            "wenhui_61year_phrase_present":("文汇报" in pdf_text and "61年全文数据光盘" in pdf_text),
+            "target_context_excerpt":context[:440],
+            "source_class":"IFLA_2005_CONFERENCE_PAPER_OPERATIONAL_PRODUCTION_WITNESS",
+          }
+
+          for key in ("nlc_current_entry","nlc_current_service"):
+              r=fetch(URLS[key])
+              txt,enc=decode(r.content)
+              out["objects"][key]={
+                "url":URLS[key],
+                "http_status":r.status_code,
+                "final_url":r.url,
+                "bytes":len(r.content),
+                "sha256":digest(r.content),
+                "decode_used":enc,
+                "catalog_search_present":("馆藏目录" in txt or "文津搜索" in txt),
+                "digital_resource_service_present":("数字资源" in txt),
+                "disc_service_present":("光盘" in txt),
+                "wenhui_60year_title_present":("文汇报60年报纸光盘" in txt),
+              }
+
+          out["adjudication"]={
+            "2003_donation_event_and_declared_coverage_supported_by_contemporary_reprint": all(markers.values()),
+            "declared_coverage_includes_1951_08_18": True,
+            "direct_1951_08_18_target_page_reviewed": False,
+            "nlc_item_level_catalog_identity_observed": False,
+            "ifla_2005_wenhui_61year_production_object_observed": out["objects"]["ifla_2005_pdf"]["wenhui_61year_phrase_present"],
+            "60year_2003_and_61year_2005_same_object_proved": False,
+            "60year_2003_and_61year_2005_shared_digitization_lineage_proved": False,
+            "target_article_presence_in_cdrom_proved": False,
+            "target_query_submitted": False,
+          }
+          out["security"]={
+            "login_used":False,
+            "reader_account_used":False,
+            "registration_used":False,
+            "email_action_used":False,
+            "payment_used":False,
+            "copy_request_used":False,
+            "target_query_submitted":False,
+            "private_endpoint_guessed":False,
+            "tls_verification_disabled":False,
+          }
+          Path("batch-12js-wenhui-cdrom-nlc-provenance.json").write_text(
+            json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12js-wenhui-cdrom-nlc-provenance
+          path: batch-12js-wenhui-cdrom-nlc-provenance.json
