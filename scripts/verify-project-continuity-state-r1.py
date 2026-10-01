@@ -835,9 +835,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-NSSD-LEGACY-PDF-PREFIX-BOUNDARY-LC",
     "BATCH-12-ZIWEI-NDL-ZHAO-WENJI-PUBLIC-ACCESS-SIGNALS-LD",
     "BATCH-12-ZIWEI-NDL-ZHAO-WENJI-ITEM-ACCESS-BLOCK-LE",
+    "BATCH-12-ZIWEI-CNBKSY-PUBLIC-SEARCH-SURFACE-LF",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NDL-ZHAO-WENJI-ITEM-ACCESS-BLOCK-LE.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-PUBLIC-SEARCH-SURFACE-LF.md"
 
 
 def fail(message: str) -> None:
@@ -12523,6 +12524,31 @@ def main() -> int:
         fail("Batch 12LE state version regressed below 1.320.0")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12LE latest-batch document mismatch")
+
+    # Batch 12LF: CNBKSY public search surfaces are blocked by HTTP 412 before query.
+    lf_batch = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-PUBLIC-SEARCH-SURFACE-LF.md"
+    lf_evidence = ROOT / "docs/research/ZIWEI-CNBKSY-PUBLIC-SEARCH-SURFACE-R1.json"
+    if not lf_batch.is_file() or not lf_evidence.is_file():
+        fail("Batch 12LF continuity artifact missing")
+    lf = json.loads(lf_evidence.read_text(encoding="utf-8"))
+    if lf.get("batch_id") != "BATCH-12-ZIWEI-CNBKSY-PUBLIC-SEARCH-SURFACE-LF":
+        fail("Batch 12LF evidence identity mismatch")
+    attempts = lf.get("attempts", [])
+    if [x.get("status") for x in attempts] != [412, 412]:
+        fail("Batch 12LF HTTP 412 boundary regressed")
+    lfa = lf.get("adjudication", {})
+    if lfa.get("public_surface_retrieved") is not False or lfa.get("target_query_submitted") is not False or lfa.get("search_contract_closed") is not False:
+        fail("Batch 12LF no-query/search-boundary regressed")
+    if "BATCH-12-ZIWEI-CNBKSY-PUBLIC-SEARCH-SURFACE-LF" not in audit_state.get("completed_batches", ()):
+        fail("Batch 12LF missing from completed state")
+    try:
+        schema12lf = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12LF state version is not numeric")
+    if schema12lf < (1, 321, 0):
+        fail("Batch 12LF state version regressed below 1.321.0")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12LF latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.320.0",
+  "schema_version": "1.321.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -402,9 +402,10 @@
       "BATCH-12-ZIWEI-NSSD-LEGACY-PDF-HEAD-BOUNDARY-LB",
       "BATCH-12-ZIWEI-NSSD-LEGACY-PDF-PREFIX-BOUNDARY-LC",
       "BATCH-12-ZIWEI-NDL-ZHAO-WENJI-PUBLIC-ACCESS-SIGNALS-LD",
-      "BATCH-12-ZIWEI-NDL-ZHAO-WENJI-ITEM-ACCESS-BLOCK-LE"
+      "BATCH-12-ZIWEI-NDL-ZHAO-WENJI-ITEM-ACCESS-BLOCK-LE",
+      "BATCH-12-ZIWEI-CNBKSY-PUBLIC-SEARCH-SURFACE-LF"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NDL-ZHAO-WENJI-ITEM-ACCESS-BLOCK-LE.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-PUBLIC-SEARCH-SURFACE-LF.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -1789,7 +1790,10 @@
       "Next gate 12LE isolates item-level main-content/action data from global navigation and checks embedded record data for a true digital-surrogate/access flag before abandoning this route.",
       "Batch 12LE isolates the NDL 2011 趙萬里文集 vol.1 main content and confirms no explicit item-level Digital Collections, internet-public, transmission, remote-copy, copy or online-access signal.",
       "Two apparent request/copy candidate URLs are Nuxt CSS assets, not object-specific access routes; the NDL p.197 path is therefore closed at PHYSICAL_HOLDING_ONLY and direct p.197 remains NOT_REVIEWED.",
-      "Next gate 12LF shifts to the Shanghai Wenhui 1951-08-18 lead and inspects only the first-party National Index to Chinese Newspapers & Periodicals public search surface before any target query."
+      "Next gate 12LF shifts to the Shanghai Wenhui 1951-08-18 lead and inspects only the first-party National Index to Chinese Newspapers & Periodicals public search surface before any target query.",
+      "Batch 12LF attempts only anonymous GETs to the National Index to Chinese Newspapers & Periodicals root and /home; both return HTTP 412 text/html and no target query is submitted.",
+      "The 412 boundary is not yet classified as institutional-IP authorization because WAF/browser preconditions remain possible.",
+      "Next gate 12LG compares the 412 response body/headers against a same-domain publicly retrievable activity page and inventories only source-emitted links/scripts."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10

@@ -1,0 +1,74 @@
+name: probe-batch-12lg-cnbksy-412-and-public-activity-contract
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12lg-cnbksy-412-and-public-activity-contract.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compare root 412 body with same-domain public activity page
+        run: |
+          python - <<'PY'
+          import hashlib, html, json, re
+          from pathlib import Path
+          from urllib.parse import urljoin
+          import requests
+
+          UA={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; CNBKSY 412 classification)"}
+          root="https://www.cnbksy.com/"
+          activity="https://www.cnbksy.com/portal/pushManager/pushItem?id=322&isActivity=true&source=index"
+
+          def fetch(url):
+              r=requests.get(url,headers=UA,timeout=45,allow_redirects=False)
+              raw=r.content
+              txt=raw.decode("utf-8","replace")
+              return r,raw,txt
+
+          rr,rraw,rtxt=fetch(root)
+          ar,araw,atxt=fetch(activity)
+
+          def meta(r,raw):
+              return {
+                  "status":r.status_code,"content_type":r.headers.get("content-type"),
+                  "content_length":r.headers.get("content-length"),"location":r.headers.get("location"),
+                  "server":r.headers.get("server"),"set_cookie_present":bool(r.headers.get("set-cookie")),
+                  "bytes":len(raw),"sha256":hashlib.sha256(raw).hexdigest()
+              }
+
+          root_tokens={}
+          for t in ["Precondition","412","cloud","waf","security","cookie","JavaScript","javascript","browser","Access Denied","IP","登录","授权","验证码","captcha"]:
+              root_tokens[t]=len(re.findall(re.escape(t),rtxt,re.I))
+
+          links=[]
+          for m in re.finditer(r'''(?is)<a\b[^>]*?href\s*=\s*["']([^"']+)["'][^>]*>(.*?)</a>''',atxt):
+              href=html.unescape(m.group(1)).strip()
+              label=html.unescape(re.sub(r"<[^>]+>"," ",m.group(2)))
+              label=re.sub(r"\s+"," ",label).strip()
+              links.append({"href":href,"absolute_href":urljoin(activity,href),"label":label[:300]})
+          scripts=[urljoin(activity,html.unescape(x)) for x in re.findall(r'''(?is)<script\b[^>]*?src\s*=\s*["']([^"']+)["']''',atxt)]
+          activity_tokens={t:len(re.findall(re.escape(t),atxt,re.I)) for t in ["注册","登录","检索","搜索","报纸","Chinese Newspaper","Advanced Search","Professional Search"]}
+
+          out={
+              "source_contract":{"parent_batch":"12LF","root_url":root,"public_activity_url":activity,"target_query_submitted":False},
+              "root_412":{"response":meta(rr,rraw),"token_counts":root_tokens,"body_prefix":rtxt[:1800]},
+              "public_activity":{"response":meta(ar,araw),"links":links[:100],"link_count":len(links),"source_emitted_script_srcs":list(dict.fromkeys(scripts))[:100],"script_count":len(list(dict.fromkeys(scripts))),"token_counts":activity_tokens},
+              "adjudication":{"root_still_412":rr.status_code==412,"same_domain_public_activity_retrieved":ar.status_code==200,"target_query_submitted":False,"search_route_followed":False,"login_used":False},
+              "security":{"anonymous_get_only":True,"reader_account_used":False,"registration_used":False,"post_request_used":False,"target_query_submitted":False,"private_endpoint_guessed":False,"captcha_bypass_used":False,"tls_verification_disabled":False}
+          }
+          Path("batch-12lg-cnbksy-412-and-public-activity-contract.json").write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12lg-cnbksy-412-and-public-activity-contract
+          path: batch-12lg-cnbksy-412-and-public-activity-contract.json
