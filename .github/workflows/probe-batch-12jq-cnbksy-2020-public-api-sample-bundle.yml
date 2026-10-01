@@ -1,0 +1,159 @@
+name: probe-batch-12jq-cnbksy-2020-public-api-sample-bundle
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12jq-cnbksy-2020-public-api-sample-bundle.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inspect first-party 2020 CNBKSY public API sample bundle
+        run: |
+          python - <<'PY'
+          import hashlib, io, json, re, zipfile
+          from pathlib import Path
+          from urllib.parse import urlsplit, urlunsplit
+          import requests
+
+          URL="https://opendata.library.sh.cn/2020/download/opendata/2020/%E5%85%A8%E5%9B%BD%E6%8A%A5%E5%88%8A%E7%B4%A2%E5%BC%95.zip"
+          UA={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; first-party public CNBKSY 2020 API sample-bundle probe)"}
+          MAX_ZIP=2_000_000
+          MAX_ENTRY=1_000_000
+
+          r=requests.get(URL,headers=UA,timeout=60,allow_redirects=True)
+          r.raise_for_status()
+          if len(r.content)>MAX_ZIP:
+              raise RuntimeError(f"bundle exceeds {MAX_ZIP} bytes")
+          if not zipfile.is_zipfile(io.BytesIO(r.content)):
+              raise RuntimeError("first-party object is not a ZIP archive")
+
+          def decode(b):
+              for enc in ("utf-8","utf-8-sig","gb18030","gbk","big5"):
+                  try:
+                      return b.decode(enc),enc
+                  except Exception:
+                      pass
+              return b.decode("utf-8","replace"),"utf-8-replacement"
+
+          def redact_url(u):
+              try:
+                  p=urlsplit(u)
+                  return urlunsplit((p.scheme,p.netloc,p.path,"<query-redacted>" if p.query else "",""))
+              except Exception:
+                  return "<unparsed-url>"
+
+          z=zipfile.ZipFile(io.BytesIO(r.content))
+          entries=[]
+          sample_schema=[]
+          credential_signal=False
+          target_signal=False
+          for info in z.infolist():
+              row={
+                  "name":info.filename,
+                  "compressed_size":info.compress_size,
+                  "uncompressed_size":info.file_size,
+                  "is_dir":info.is_dir(),
+              }
+              if info.is_dir():
+                  entries.append(row); continue
+              if info.file_size<=MAX_ENTRY:
+                  b=z.read(info)
+                  row["sha256"]=hashlib.sha256(b).hexdigest()
+                  low=info.filename.lower()
+                  if low.endswith((".json",".txt",".xml",".csv",".md",".html",".htm",".js",".properties",".ini",".yaml",".yml")):
+                      txt,enc=decode(b)
+                      row["decoded_encoding"]=enc
+                      row["text_chars"]=len(txt)
+                      # Detect but never expose credential-like values.
+                      cred_terms=[x for x in ("apikey","api_key","key=","token","password","passwd","secret") if x in txt.lower()]
+                      row["credential_terms_present"]=sorted(set(cred_terms))
+                      if cred_terms:
+                          credential_signal=True
+                      target_terms=[x for x in ("赵万里","趙萬里","永乐大典展览的意义","永樂大典展覽的意義","文汇报","文匯報","1951-08-18") if x in txt]
+                      row["configured_target_terms_present"]=target_terms
+                      if target_terms:
+                          target_signal=True
+                      urls=sorted(set(re.findall(r'https?://[^\s"\'<>]+',txt)))
+                      row["public_urls_redacted"]=sorted(set(redact_url(u) for u in urls))[:30]
+                      # Schema-only summaries; no sample values.
+                      try:
+                          j=json.loads(txt)
+                          row["json_parseable"]=True
+                          if isinstance(j,dict):
+                              row["json_top_level_keys"]=sorted(j.keys())
+                              ent=j.get("entity")
+                              if isinstance(ent,list):
+                                  row["entity_count"]=len(ent)
+                                  if ent and isinstance(ent[0],dict):
+                                      row["entity_first_record_keys"]=sorted(ent[0].keys())
+                                      sample_schema.append(sorted(ent[0].keys()))
+                          elif isinstance(j,list):
+                              row["json_list_count"]=len(j)
+                              if j and isinstance(j[0],dict):
+                                  row["json_first_record_keys"]=sorted(j[0].keys())
+                                  sample_schema.append(sorted(j[0].keys()))
+                      except Exception:
+                          row["json_parseable"]=False
+                      if low.endswith(".xml"):
+                          tags=sorted(set(re.findall(r'<\s*([A-Za-z_][\w:.-]*)',txt)))
+                          row["xml_tag_names"]=tags[:80]
+                  elif low.endswith(".pdf"):
+                      row["file_type"]="pdf"
+                  else:
+                      row["file_type"]="binary_or_office"
+              else:
+                  row["content_inspection_skipped"]="ENTRY_SIZE_BOUND"
+              entries.append(row)
+
+          out={
+              "bundle":{
+                  "url":URL,
+                  "http_status":r.status_code,
+                  "final_url":r.url,
+                  "content_type":r.headers.get("Content-Type"),
+                  "bytes":len(r.content),
+                  "sha256":hashlib.sha256(r.content).hexdigest(),
+                  "entry_count":len(entries)
+              },
+              "entries":entries,
+              "sample_record_schema_variants":sample_schema,
+              "credential_like_terms_observed":credential_signal,
+              "credential_values_recorded":False,
+              "credential_values_used":False,
+              "configured_target_terms_observed_in_bundle":target_signal,
+              "target_query_submitted":False,
+              "adjudication":{
+                  "first_party_public_sample_bundle_recovered":True,
+                  "bundle_structure_reviewed":True,
+                  "public_sample_is_not_authorization_to_reuse_credentials":True,
+                  "target_query_authorized":False,
+                  "direct_target_page_recovered":False
+              },
+              "security":{
+                  "api_key_used":False,
+                  "credential_value_logged":False,
+                  "credential_value_saved":False,
+                  "login_used":False,
+                  "registration_used":False,
+                  "target_query_submitted":False,
+                  "private_endpoint_guessed":False,
+                  "tls_verification_disabled":False
+              }
+          }
+          Path("batch-12jq-cnbksy-2020-public-api-sample-bundle.json").write_text(
+              json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12jq-cnbksy-2020-public-api-sample-bundle
+          path: batch-12jq-cnbksy-2020-public-api-sample-bundle.json
