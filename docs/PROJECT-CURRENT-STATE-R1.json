@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.329.0",
+  "schema_version": "1.330.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -411,9 +411,10 @@
       "BATCH-12-ZIWEI-CNBKSY-SHARED-SEARCH-CALLSITE-CONTEXT-LK",
       "BATCH-12-ZIWEI-CNBKSY-BKSY-POST-TRANSPORT-CONTRACT-LL",
       "BATCH-12-ZIWEI-CNBKSY-COMMON-HINTS-NULL-POST-LM",
-      "BATCH-12-ZIWEI-CNBKSY-APPLICATION-SEARCH-ROUTE-INVENTORY-LN"
+      "BATCH-12-ZIWEI-CNBKSY-APPLICATION-SEARCH-ROUTE-INVENTORY-LN",
+      "BATCH-12-ZIWEI-CNBKSY-PRODUCT-TREE-NAVIGATION-CONTRACT-LO"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-APPLICATION-SEARCH-ROUTE-INVENTORY-LN.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-PRODUCT-TREE-NAVIGATION-CONTRACT-LO.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -1841,7 +1842,12 @@
       "Only two /search route literals are observed: /search/detail/ and /search/picDetail/, both already bound to cart item.dataId/item.laId object-detail navigation. No search-named application function is observed and no free-text/list search route is source-closed on this surface.",
       "This negative result is scoped only to the reviewed public news-page application-script surface; it does not prove that CNBKSY lacks a search interface elsewhere.",
       "Next gate 12LO targets the source-emitted productTree.js and its page initialization only, inventorying product/resource/tree/navigation route construction and dynamic href/location behavior without following any route.",
-      "Matrix remains 198 / 166 / 10; provenance defects 17/17; chart algorithm defects / reopens / candidate collapses remain 0."
+      "Matrix remains 198 / 166 / 10; provenance defects 17/17; chart algorithm defects / reopens / candidate collapses remain 0.",
+      "Batch 12LO first attempt run 36886976335 / job 110452667879 failed before evidence generation because it required a volatile live seed page to re-emit the 信息动态 navigation; this failure is superseded and does not support a negative source conclusion.",
+      "Batch 12LO repaired exact-head run 36887246786 / job 110453592855 / artifact 11174663900 uses only routes already source-closed by prior batches and successfully retrieves productTree.js HTTP 200, 3913 bytes, SHA-256 9ff4fd3fbe01987a483576c1bfc36920ed18ee0f1584db7c6dcd17181e56ce0c.",
+      "productTree.js is a generic tree loader: initProductTree(url,...) and initProductTreeUnselect(url,...) call bksy.get(url,null,...); the only fixed route literal is /product/detail/ + treeNode.id for PREPARE leaf nodes. No fixed product/resource/search data endpoint is exposed by this script.",
+      "The source-closed navigation page request returns HTTP 302 in the repaired run, so no page-level product-tree initialization context is recovered. The tree branch therefore does not close a search dataset endpoint and authorizes no target query.",
+      "Next gate 12LP uses the first-party /search route already captured as href=/search label=普通检索 in Batch 12LJ complete seed-link inventory; it performs only an anonymous GET with no query string and inventories the resulting search-surface contract. Matrix remains 198 / 166 / 10; provenance defects 17/17; chart algorithm defects / reopens / candidate collapses remain 0."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10

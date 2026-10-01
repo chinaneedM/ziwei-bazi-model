@@ -844,9 +844,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-CNBKSY-BKSY-POST-TRANSPORT-CONTRACT-LL",
     "BATCH-12-ZIWEI-CNBKSY-COMMON-HINTS-NULL-POST-LM",
     "BATCH-12-ZIWEI-CNBKSY-APPLICATION-SEARCH-ROUTE-INVENTORY-LN",
+    "BATCH-12-ZIWEI-CNBKSY-PRODUCT-TREE-NAVIGATION-CONTRACT-LO",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-APPLICATION-SEARCH-ROUTE-INVENTORY-LN.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-PRODUCT-TREE-NAVIGATION-CONTRACT-LO.md"
 
 
 def fail(message: str) -> None:
@@ -12866,6 +12867,49 @@ def main() -> int:
         fail("Batch 12LN state version regressed below 1.329.0")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12LN latest-batch document mismatch")
+
+    # Batch 12LO: repaired productTree probe closes only a generic caller-supplied tree loader.
+    lo_batch = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-PRODUCT-TREE-NAVIGATION-CONTRACT-LO.md"
+    lo_evidence = ROOT / "docs/research/ZIWEI-CNBKSY-PRODUCT-TREE-NAVIGATION-CONTRACT-R1.json"
+    if not lo_batch.is_file() or not lo_evidence.is_file():
+        fail("Batch 12LO continuity artifact missing")
+    lo = json.loads(lo_evidence.read_text(encoding="utf-8"))
+    if lo.get("batch_id") != "BATCH-12-ZIWEI-CNBKSY-PRODUCT-TREE-NAVIGATION-CONTRACT-LO":
+        fail("Batch 12LO evidence identity mismatch")
+    hist = lo.get("probe_history", {})
+    sup = hist.get("superseded", {})
+    if sup.get("workflow_run_id") != 36886976335 or sup.get("negative_source_inference_authorized") is not False:
+        fail("Batch 12LO superseded-probe firewall regressed")
+    ctl = hist.get("controlling", {})
+    if ctl.get("workflow_run_id") != 36887246786 or ctl.get("workflow_job_id") != 110453592855 or ctl.get("artifact_id") != 11174663900:
+        fail("Batch 12LO controlling probe identity regressed")
+    if ctl.get("artifact_digest") != "sha256:dbb3f4f6a8c6b89cc78c146fc7029663365a50a4652acaa0ba134fc1c7544481":
+        fail("Batch 12LO artifact digest regressed")
+    resp = lo.get("responses", {})
+    pt = resp.get("product_tree", {})
+    if pt.get("http_status") != 200 or pt.get("bytes") != 3913 or pt.get("sha256") != "9ff4fd3fbe01987a483576c1bfc36920ed18ee0f1584db7c6dcd17181e56ce0c":
+        fail("Batch 12LO productTree response identity regressed")
+    pc = lo.get("product_tree_contract", {})
+    if pc.get("fixed_route_literals") != ["/product/detail/"] or pc.get("caller_supplied_tree_data_url") is not True:
+        fail("Batch 12LO productTree generic-loader contract regressed")
+    if pc.get("fixed_product_or_resource_tree_data_endpoint_observed") is not False or pc.get("page_inline_initialization_context_observed") is not False:
+        fail("Batch 12LO fixed-endpoint/inline-init firewall regressed")
+    n = lo.get("next_source_closed_route", {})
+    if n.get("href") != "/search" or n.get("label") != "普通检索":
+        fail("Batch 12LO next ordinary-search source binding regressed")
+    loa = lo.get("adjudication", {})
+    if loa.get("fixed_search_dataset_endpoint_observed") is not False or loa.get("target_query_submitted") is not False:
+        fail("Batch 12LO search-endpoint/no-query adjudication regressed")
+    if "BATCH-12-ZIWEI-CNBKSY-PRODUCT-TREE-NAVIGATION-CONTRACT-LO" not in audit_state.get("completed_batches", ()):
+        fail("Batch 12LO missing from completed state")
+    try:
+        schema12lo = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12LO state version is not numeric")
+    if schema12lo < (1, 330, 0):
+        fail("Batch 12LO state version regressed below 1.330.0")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12LO latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

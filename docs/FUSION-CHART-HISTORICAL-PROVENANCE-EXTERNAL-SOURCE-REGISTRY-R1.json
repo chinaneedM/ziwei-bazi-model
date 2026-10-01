@@ -12043,7 +12043,7 @@
       "provider": "上海图书馆《全国报刊索引》编辑部",
       "url": "https://www.cnbksy.com/",
       "source_role": "FIRST_PARTY_NEWSPAPER_INDEX_PUBLIC_ACCESS_SURFACE",
-      "quality_notes": "Batches 12LF–12LM close root access, hint transport and anonymous hint execution without target terms. Batch 12LN statically inventories /search-prefixed literals across the public news-page inline scripts and six first-party application scripts. Only /search/detail/ and /search/picDetail/ are present, both cart-derived object-detail routes; no free-text/list search route is exposed on this reviewed surface. This is surface-scoped and does not prove site-wide absence.",
+      "quality_notes": "Batches 12LF–12LN close the root/access/hints/application-script branches without target terms. Batch 12LO repairs a volatile-seed dependency and statically closes source-emitted productTree.js: it is a generic bksy.get(url,null,...) tree loader whose only fixed route is /product/detail/{id}; it does not expose a fixed search dataset endpoint. The repaired run's navigation page is HTTP 302, so no page-level tree initialization is recovered. The next route is the explicit 普通检索 /search href already captured in the Batch 12LJ complete seed-link inventory.",
       "batch_12lf": {
         "workflow_run_id": 36877911774,
         "workflow_job_id": 110421993332,
@@ -12212,6 +12212,32 @@
         "discovered_search_route_invoked": false,
         "target_query_submitted": false,
         "research_artifact": "docs/research/ZIWEI-CNBKSY-APPLICATION-SEARCH-ROUTE-INVENTORY-R1.json"
+      },
+      "batch_12lo": {
+        "superseded_run_id": 36886976335,
+        "superseded_job_id": 110452667879,
+        "superseded_reason": "volatile live seed did not re-emit 信息动态; probe exited before productTree retrieval",
+        "workflow_run_id": 36887246786,
+        "workflow_job_id": 110453592855,
+        "artifact_id": 11174663900,
+        "artifact_digest": "sha256:dbb3f4f6a8c6b89cc78c146fc7029663365a50a4652acaa0ba134fc1c7544481",
+        "exact_head": "827d83970f61851e72b4dfc927b786cd6ccd3b1c",
+        "navigation_status": 302,
+        "product_tree_url": "https://www.cnbksy.com/public/portal/js/productTree.js?version=V20241206",
+        "product_tree_status": 200,
+        "product_tree_bytes": 3913,
+        "product_tree_sha256": "9ff4fd3fbe01987a483576c1bfc36920ed18ee0f1584db7c6dcd17181e56ce0c",
+        "route_literals": [
+          "/product/detail/"
+        ],
+        "fixed_search_dataset_endpoint_observed": false,
+        "target_query_submitted": false,
+        "next_source_closed_route": {
+          "href": "/search",
+          "label": "普通检索",
+          "origin": "Batch 12LJ complete seed_links"
+        },
+        "research_artifact": "docs/research/ZIWEI-CNBKSY-PRODUCT-TREE-NAVIGATION-CONTRACT-R1.json"
       }
     }
   ],

@@ -1,0 +1,151 @@
+name: probe-batch-12lp-cnbksy-ordinary-search-surface
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12lp-cnbksy-ordinary-search-surface.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: GET only source-closed ordinary-search surface; submit no query
+        run: |
+          python - <<'PY'
+          import hashlib, html, json, re
+          from pathlib import Path
+          from urllib.parse import urljoin
+          import requests
+
+          url="https://www.cnbksy.com/search"
+          UA={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; CNBKSY ordinary search surface)"}
+          r=requests.get(url,headers=UA,timeout=45,allow_redirects=False)
+          raw=r.content
+          txt=raw.decode("utf-8","replace")
+
+          def attr(blob,name):
+              z=re.search(r'''(?i)\b'''+name+r'''\s*=\s*["']([^"']*)["']''',blob)
+              return html.unescape(z.group(1)) if z else None
+
+          csrf_present=bool(re.search(r'''(?is)<meta\b[^>]*?name\s*=\s*["']_csrf["']''',txt))
+
+          forms=[]
+          for fm in re.finditer(r"(?is)<form\b([^>]*)>(.*?)</form>",txt):
+              attrs,body=fm.group(1),fm.group(2)
+              fields=[]
+              for tag in re.finditer(r"(?is)<(input|select|textarea)\b([^>]*)>",body):
+                  t,a=tag.group(1).lower(),tag.group(2)
+                  fields.append({
+                      "tag":t,
+                      "name":attr(a,"name"),
+                      "id":attr(a,"id"),
+                      "type":attr(a,"type"),
+                      "placeholder":attr(a,"placeholder")
+                  })
+              action=attr(attrs,"action")
+              forms.append({
+                  "id":attr(attrs,"id"),
+                  "action":action,
+                  "absolute_action":urljoin(url,action) if action else None,
+                  "method":(attr(attrs,"method") or "GET_DEFAULT").upper(),
+                  "fields":fields
+              })
+
+          buttons=[]
+          for m in re.finditer(r"(?is)<(button|input)\b([^>]*)>",txt):
+              tag,attrs=m.group(1).lower(),m.group(2)
+              typ=attr(attrs,"type")
+              if tag=="button" or (typ and typ.lower() in ("submit","button","reset")):
+                  buttons.append({
+                      "tag":tag,"type":typ,"id":attr(attrs,"id"),"name":attr(attrs,"name"),
+                      "value":attr(attrs,"value"),"onclick_present":bool(re.search(r"(?i)\bonclick\s*=",attrs))
+                  })
+
+          ext=[]
+          for x in re.findall(r'''(?is)<script\b[^>]*?src\s*=\s*["']([^"']+)["']''',txt):
+              u=urljoin(url,html.unescape(x).strip())
+              if u not in ext: ext.append(u)
+
+          inline=[]
+          for m in re.finditer(r"(?is)<script\b(?![^>]*\bsrc\s*=)[^>]*>(.*?)</script>",txt):
+              body=m.group(1)
+              funcs=sorted(set(re.findall(r"(?i)function\s+([A-Za-z_$][\w$]*)\s*\(",body)))
+              routes=sorted(set(re.findall(r'''(?i)["']((?:https?://[^"'\s]+|/[A-Za-z0-9_./?=&%{}:$+-]+))["']''',body)))
+              snippets=[]
+              for mm in re.finditer(r"(?i).{0,180}(?:search|query|检索|搜索|submit|ajax|\$\.get|\$\.post|location\.href|productTree).{0,340}",body):
+                  z=re.sub(r"\s+"," ",mm.group(0)).strip()
+                  if z and z not in snippets: snippets.append(z[:1000])
+                  if len(snippets)>=100: break
+              inline.append({
+                  "bytes":len(body.encode("utf-8")),
+                  "sha256":hashlib.sha256(body.encode("utf-8")).hexdigest(),
+                  "function_names":funcs[:600],
+                  "route_literals":routes[:1200],
+                  "search_related_snippets":snippets
+              })
+
+          hrefs=[]
+          for m in re.finditer(r'''(?is)<a\b[^>]*?href\s*=\s*["']([^"']+)["'][^>]*>(.*?)</a>''',txt):
+              href=html.unescape(m.group(1)).strip()
+              label=html.unescape(re.sub(r"<[^>]+>"," ",m.group(2)))
+              label=re.sub(r"\s+"," ",label).strip()
+              hrefs.append({"href":href,"absolute_href":urljoin(url,href),"label":label[:300]})
+
+          out={
+              "source_contract":{
+                  "parent_batch":"12LO",
+                  "route_source":"Batch 12LJ complete first-party seed_links inventory",
+                  "source_emitted_route":{"href":"/search","label":"普通检索"},
+                  "url":url,
+                  "query_string_added":False,
+                  "target_term_submitted":False,
+                  "form_submitted":False
+              },
+              "response":{
+                  "status":r.status_code,
+                  "content_type":r.headers.get("content-type"),
+                  "location":r.headers.get("location"),
+                  "server":r.headers.get("server"),
+                  "bytes":len(raw),
+                  "sha256":hashlib.sha256(raw).hexdigest()
+              },
+              "csrf_meta_present":csrf_present,
+              "csrf_value_recorded":False,
+              "forms":forms,
+              "form_count":len(forms),
+              "buttons":buttons,
+              "external_script_srcs":ext,
+              "inline_scripts":inline,
+              "hrefs":hrefs[:800],
+              "adjudication":{
+                  "only_source_closed_ordinary_search_get_used":True,
+                  "query_string_added":False,
+                  "form_submitted":False,
+                  "target_term_submitted":False,
+                  "target_query_submitted":False,
+                  "login_used":False,
+                  "registration_used":False
+              },
+              "security":{
+                  "anonymous_get_only":True,
+                  "csrf_value_recorded":False,
+                  "credential_value_recorded":False,
+                  "private_endpoint_guessed":False,
+                  "captcha_bypass_used":False,
+                  "tls_verification_disabled":False
+              }
+          }
+          Path("batch-12lp-cnbksy-ordinary-search-surface.json").write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12lp-cnbksy-ordinary-search-surface
+          path: batch-12lp-cnbksy-ordinary-search-surface.json
