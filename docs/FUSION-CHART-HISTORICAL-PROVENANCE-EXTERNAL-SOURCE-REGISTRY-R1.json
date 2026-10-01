@@ -9225,7 +9225,7 @@
       "identifier": "NCID AA11467834",
       "url": "https://ci.nii.ac.jp/ncid/AA11467834",
       "source_role": "UNION_SERIAL_BIBLIOGRAPHY_AND_EXACT_1951_V2N9_PHYSICAL_HOLDING_CONTROL",
-      "quality_notes": "CiNii directly records 1951 as volume 2 issues 1–12 and lists multiple holdings whose explicit ranges include issue 9. Batch 12HH uses the record to close issue numbering and four additional exact-issue physical access routes, not article text or copy entitlement.",
+      "quality_notes": "CiNii directly records 1951 as volume 2 issues 1–12 and lists multiple holdings whose explicit ranges include issue 9. Batch 12HH uses the record to close issue numbering and four additional exact-issue physical access routes, not article text or copy entitlement. Batch 12LA additionally closes its explicit after-rename/continues-by relation to CiNii 《文物》 NCID AN00060837; both records share Bibliographic History ID 41870900.",
       "batch_12hh": {
         "target_year": 1951,
         "target_volume": 2,
@@ -9239,6 +9239,14 @@
         ],
         "direct_article_text_reviewed": false,
         "research_artifact": "docs/research/ZIWEI-WENWU-CANKAO-1951-V2N9-ZHAO-WANLI-ORIGINAL-ISSUE-PHYSICAL-HOLDINGS-R1.json"
+      },
+      "batch_12la": {
+        "role": "PREDECESSOR_SERIAL_CONTROL",
+        "workflow_run_id": 36870949644,
+        "artifact_id": 11166419064,
+        "bibliographic_history_id": "41870900",
+        "rename_crosswalk_closed": true,
+        "research_artifact": "docs/research/ZIWEI-WENWU-SERIAL-RENAME-CROSSWALK-R1.json"
       }
     },
     {
@@ -11667,7 +11675,7 @@
       "provider": "国家图书馆 / 文津搜索",
       "url": "https://www.nlc.cn/web/ziyuansousuo/index.shtml",
       "source_role": "FIRST_PARTY_CURRENT_FEDERATED_ARTICLE_DETAIL_AND_SOURCE_EMITTED_EXTERNAL_ROUTE",
-      "quality_notes": "Batch 12KF anonymously closes the complete article metadata and abstract-level record for 趙萬里《永樂大典展覽的意義——一九五一年八月北京圖書舘舉辦》, emitted as 文物 1951 no.9 pp.221-233, and directly exposes an NCPSsd CooperationUser URI. This is not the direct 1951 page text. 文物 vs 文物参考资料 remains an explicit carrier-label crosswalk tension.",
+      "quality_notes": "Batch 12KF anonymously closes the complete article metadata and abstract-level record for 趙萬里《永樂大典展覽的意義——一九五一年八月北京圖書舘舉辦》, emitted as 文物 1951 no.9 pp.221-233, and directly exposes an NCPSsd CooperationUser URI. This is not the direct 1951 page text. 文物 vs 文物参考资料 remains an explicit carrier-label crosswalk tension. Batch 12LA resolves the former 文物 vs 文物参考资料 carrier-label tension as a documented serial rename: historical 1951 citation remains 文物参考资料, while the federated label 文物 is a successor/current normalized title in the same serial chain.",
       "batch_12kf": {
         "workflow_run_id": 36855851382,
         "workflow_job_id": 110348023825,
@@ -11682,6 +11690,13 @@
         "ncpssd_uri_followed_in_kf": false,
         "direct_article_pages_reviewed": false,
         "research_artifact": "docs/research/ZIWEI-NLC-WENJIN-ZHAO-YONGLE-ARTICLE-DETAIL-R1.json"
+      },
+      "batch_12la": {
+        "carrier_label_tension": "RESOLVED_AS_SERIAL_RENAME_CROSSWALK",
+        "historical_1951_title": "文物参考资料",
+        "modern_successor_label": "文物",
+        "rename_effective": "1959-01",
+        "research_artifact": "docs/research/ZIWEI-WENWU-SERIAL-RENAME-CROSSWALK-R1.json"
       }
     },
     {
@@ -11713,7 +11728,7 @@
       "provider": "国家哲学社会科学文献中心（NCPSsd）",
       "url": "https://www.ncpssd.cn/",
       "source_role": "FIRST_PARTY_PUBLIC_SEARCH_UI_AND_CLIENT_CONTROL_SURFACE",
-      "quality_notes": "Batch 12KH-KW closes the current anonymous NCPSsd public search/result/detail client contract in stages: homepage UI; negative inline/external function search; source-emitted articlelist route; 20/20 Base64 grammar roundtrip; dynamic /searchHandler/search contract; exact jQuery absent/null serialization; 红楼梦 semantic positive control; exact Zhao Wanli title result; encryptedUrl secure-detail route; secure-shell login boundary; and source-emitted articleinfo.js detail-data contract. No login, download/read operation or guessed endpoint is used. Batch 12KX closes the exact server-emitted secure-shell hidden values and resolves the next journal-detail request body without executing it. Batch 12KY executes the fully source-closed anonymous journal-detail POST and directly recovers the Zhao record's first-party title/author/carrier/year/issue/pagecount/classification/ISSN metadata; emitted pdf URL metadata is recorded but not followed. Batch 12KZ closes the same record's lower-case page and scalar fields: pp.221-233, publishdate 1951-09-01, abstract and keywords, with no new endpoint or URL follow.",
+      "quality_notes": "Batch 12KH-KW closes the current anonymous NCPSsd public search/result/detail client contract in stages: homepage UI; negative inline/external function search; source-emitted articlelist route; 20/20 Base64 grammar roundtrip; dynamic /searchHandler/search contract; exact jQuery absent/null serialization; 红楼梦 semantic positive control; exact Zhao Wanli title result; encryptedUrl secure-detail route; secure-shell login boundary; and source-emitted articleinfo.js detail-data contract. No login, download/read operation or guessed endpoint is used. Batch 12KX closes the exact server-emitted secure-shell hidden values and resolves the next journal-detail request body without executing it. Batch 12KY executes the fully source-closed anonymous journal-detail POST and directly recovers the Zhao record's first-party title/author/carrier/year/issue/pagecount/classification/ISSN metadata; emitted pdf URL metadata is recorded but not followed. Batch 12KZ closes the same record's lower-case page and scalar fields: pp.221-233, publishdate 1951-09-01, abstract and keywords, with no new endpoint or URL follow. Batch 12LA resolves the former 文物 vs 文物参考资料 carrier-label tension as a documented serial rename: historical 1951 citation remains 文物参考资料, while the federated label 文物 is a successor/current normalized title in the same serial chain.",
       "batch_12kh": {
         "workflow_run_id": 36857797158,
         "workflow_job_id": 110354359450,
@@ -11928,6 +11943,53 @@
         "new_endpoint_executed": false,
         "url_followed": false,
         "research_artifact": "docs/research/ZIWEI-NCPSSD-ZHAO-DETAIL-SCALAR-INVENTORY-R1.json"
+      },
+      "batch_12la": {
+        "carrier_label_tension": "RESOLVED_AS_SERIAL_RENAME_CROSSWALK",
+        "historical_1951_title": "文物参考资料",
+        "modern_successor_label": "文物",
+        "rename_effective": "1959-01",
+        "research_artifact": "docs/research/ZIWEI-WENWU-SERIAL-RENAME-CROSSWALK-R1.json"
+      }
+    },
+    {
+      "source_id": "EXT-CINII-WENWU-AN00060837-SUCCESSOR",
+      "title": "CiNii Journals《文物》NCID AN00060837",
+      "provider": "CiNii / 国立情報学研究所",
+      "identifier": "NCID AN00060837 / ISSN 05114772",
+      "url": "https://ci.nii.ac.jp/ncid/AN00060837",
+      "historical_period": "1959.1- successor serial",
+      "source_role": "UNION_SERIAL_BIBLIOGRAPHY_SUCCESSOR_TITLE_CONTROL",
+      "quality_notes": "Batch 12LA records the successor/current serial as 文物 from 1959.1, starting 总101号, with a before-rename/continues relation and Bibliographic History ID 41870900 shared with predecessor 文物参攷資料 AA11467834.",
+      "batch_12la": {
+        "workflow_run_id": 36870949644,
+        "workflow_job_id": 110398272473,
+        "artifact_id": 11166419064,
+        "artifact_digest": "sha256:9418133824dc8378982fcbffb0ebc28a222fabd12e35a8c81ae50223283b27ea",
+        "publication_start": "1959.1",
+        "general_start": "总101号",
+        "issn": "05114772",
+        "bibliographic_history_id": "41870900",
+        "research_artifact": "docs/research/ZIWEI-WENWU-SERIAL-RENAME-CROSSWALK-R1.json"
+      }
+    },
+    {
+      "source_id": "EXT-WENWU-PRESS-DEVELOPMENT-HISTORY-1959-RENAME",
+      "title": "文物出版社发展历程：1959《文物参考资料》改名《文物》",
+      "provider": "文物出版社有限公司",
+      "url": "https://www.zgwwcbcm.com/fzlc",
+      "historical_period": "modern official institutional history describing January 1959 rename",
+      "source_role": "FIRST_PARTY_PUBLISHER_SERIAL_RENAME_STATEMENT",
+      "quality_notes": "Official publisher history explicitly states that in January 1959 《文物参考资料》月刊 was renamed 《文物》月刊. Used with CiNii predecessor/successor records to close the serial-title crosswalk; not primary evidence for Zhao's 1951 article text.",
+      "batch_12la": {
+        "workflow_run_id": 36870949644,
+        "workflow_job_id": 110398272473,
+        "artifact_id": 11166419064,
+        "artifact_digest": "sha256:9418133824dc8378982fcbffb0ebc28a222fabd12e35a8c81ae50223283b27ea",
+        "rename_effective": "1959-01",
+        "predecessor": "文物参考资料",
+        "successor": "文物",
+        "research_artifact": "docs/research/ZIWEI-WENWU-SERIAL-RENAME-CROSSWALK-R1.json"
       }
     }
   ],

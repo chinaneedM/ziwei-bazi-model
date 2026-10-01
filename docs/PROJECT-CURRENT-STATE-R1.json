@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.315.0",
+  "schema_version": "1.316.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -397,9 +397,10 @@
       "BATCH-12-ZIWEI-NCPSSD-ARTICLEINFO-SCRIPT-CONTRACT-KW",
       "BATCH-12-ZIWEI-NCPSSD-SECURE-SHELL-HIDDEN-CONTRACT-KX",
       "BATCH-12-ZIWEI-NCPSSD-ZHAO-JOURNAL-DETAIL-DATA-KY",
-      "BATCH-12-ZIWEI-NCPSSD-ZHAO-DETAIL-SCALAR-INVENTORY-KZ"
+      "BATCH-12-ZIWEI-NCPSSD-ZHAO-DETAIL-SCALAR-INVENTORY-KZ",
+      "BATCH-12-ZIWEI-WENWU-SERIAL-RENAME-CROSSWALK-LA"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NCPSSD-ZHAO-DETAIL-SCALAR-INVENTORY-KZ.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENWU-SERIAL-RENAME-CROSSWALK-LA.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -1768,7 +1769,11 @@
       "Batch 12KZ replays only the already-closed NCPSsd Zhao detail request and closes beginpage=221, endpage=233, publishdate=1951-09-01, source=nssd, the Chinese abstract and keyword metadata.",
       "KY+KZ now reproduce the same 1951 / issue 9 / pp.221-233 / 13-page locator already independently observed in NLC Wenjin and the NLC scholarly review.",
       "The remaining carrier-label issue is now isolated to an explicit serial-title crosswalk: modern NCPSsd/Wenjin emit 文物, while the 1951 original bibliographic carrier is 文物参考资料.",
-      "Next gate 12LA probes authoritative predecessor/successor serial-history sources to close the rename relation before normalizing the modern database label."
+      "Next gate 12LA probes authoritative predecessor/successor serial-history sources to close the rename relation before normalizing the modern database label.",
+      "Batch 12LA closes the explicit serial-title crosswalk: CiNii AA11467834 records 文物参攷資料 through 1958.12, CiNii AN00060837 records 文物 from 1959.1, both share Bibliographic History ID 41870900, and 文物出版社 explicitly states the January 1959 rename.",
+      "For Zhao Wanli's 1951 article, the historical carrier citation is therefore 文物参考资料; current NCPSsd/Wenjin label 文物 is treated as a successor/current normalized label in the same serial chain rather than an unrelated 1951 journal.",
+      "This rename crosswalk does not review the 1951 original pages and does not prove any Shanghai 文汇报 -> periodical reprint/revision relation.",
+      "Next highest gate returns to direct primary text: lawful public pp.221-233 of 1951 v2n9, then direct 1951-08-18 上海文汇报 and 2011 赵万里文集 vol.1 p.197."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10

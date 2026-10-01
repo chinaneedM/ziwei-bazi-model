@@ -830,9 +830,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-NCPSSD-SECURE-SHELL-HIDDEN-CONTRACT-KX",
     "BATCH-12-ZIWEI-NCPSSD-ZHAO-JOURNAL-DETAIL-DATA-KY",
     "BATCH-12-ZIWEI-NCPSSD-ZHAO-DETAIL-SCALAR-INVENTORY-KZ",
+    "BATCH-12-ZIWEI-WENWU-SERIAL-RENAME-CROSSWALK-LA",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NCPSSD-ZHAO-DETAIL-SCALAR-INVENTORY-KZ.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENWU-SERIAL-RENAME-CROSSWALK-LA.md"
 
 
 def fail(message: str) -> None:
@@ -12378,6 +12379,43 @@ def main() -> int:
         fail("Batch 12KZ state version regressed below 1.315.0")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12KZ latest-batch document mismatch")
+
+    # Batch 12LA: explicit serial rename crosswalk closes 文物参考资料 -> 文物.
+    la_batch = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENWU-SERIAL-RENAME-CROSSWALK-LA.md"
+    la_evidence = ROOT / "docs/research/ZIWEI-WENWU-SERIAL-RENAME-CROSSWALK-R1.json"
+    if not la_batch.is_file() or not la_evidence.is_file():
+        fail("Batch 12LA continuity artifact missing")
+    la = json.loads(la_evidence.read_text(encoding="utf-8"))
+    if la.get("batch_id") != "BATCH-12-ZIWEI-WENWU-SERIAL-RENAME-CROSSWALK-LA":
+        fail("Batch 12LA evidence identity mismatch")
+    lacw = la.get("crosswalk", {})
+    if lacw.get("historical_title_1950_1958") != "文物参考资料" or lacw.get("successor_title_from_1959") != "文物":
+        fail("Batch 12LA title crosswalk regressed")
+    if lacw.get("rename_effective") != "1959-01" or lacw.get("cinii_bibliographic_history_id") != "41870900":
+        fail("Batch 12LA rename/date/history-id regressed")
+    laad = la.get("adjudication", {})
+    if laad.get("rename_crosswalk_closed") is not True or laad.get("carrier_identity_tension_closed") is not True:
+        fail("Batch 12LA rename adjudication regressed")
+    rel = la.get("relation_to_zhao_1951", {})
+    if rel.get("direct_1951_pages_reviewed") is not False or rel.get("newspaper_to_periodical_reprint_edge_authorized") is not False:
+        fail("Batch 12LA primary-text/reprint firewall regressed")
+    laacct = la.get("accounting", {})
+    if laacct.get("matrix_rows") != 198 or laacct.get("audited_rows") != 166 or laacct.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12LA accounting regressed")
+    if laacct.get("confirmed_provenance_metadata_defect_count") != 17 or laacct.get("repaired_provenance_metadata_defect_count") != 17:
+        fail("Batch 12LA provenance accounting regressed")
+    if laacct.get("confirmed_chart_algorithm_defect_count") != 0 or laacct.get("algorithm_reopen_count") != 0 or laacct.get("candidate_collapse_count") != 0:
+        fail("Batch 12LA deterministic-product invariant regressed")
+    if "BATCH-12-ZIWEI-WENWU-SERIAL-RENAME-CROSSWALK-LA" not in audit_state.get("completed_batches", ()):
+        fail("Batch 12LA missing from completed state")
+    try:
+        schema12la = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12LA state version is not numeric")
+    if schema12la < (1, 316, 0):
+        fail("Batch 12LA state version regressed below 1.316.0")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12LA latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")
