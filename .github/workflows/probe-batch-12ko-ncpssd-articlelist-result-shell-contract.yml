@@ -1,0 +1,190 @@
+name: probe-batch-12ko-ncpssd-articlelist-result-shell-contract
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12ko-ncpssd-articlelist-result-shell-contract.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inspect the exact positive-control result shell and source-emitted scripts only
+        run: |
+          python - <<'PY'
+          import base64, hashlib, html, json, re
+          from html.parser import HTMLParser
+          from pathlib import Path
+          from urllib.parse import unquote, urljoin, urlparse
+          import requests
+
+          HOME="https://www.ncpssd.cn/"
+          UA={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; NCPSsd articlelist dynamic result-contract inspection)"}
+
+          def sha(b):
+              return hashlib.sha256(b).hexdigest()
+
+          def decode_text(raw):
+              for enc in ("utf-8","utf-8-sig","gb18030","gbk","big5"):
+                  try:
+                      return raw.decode(enc),enc
+                  except UnicodeDecodeError:
+                      pass
+              return raw.decode("utf-8","replace"),"utf-8-replacement"
+
+          def raw_params(url):
+              out={}
+              for part in url.split("?",1)[1].split("&"):
+                  if "=" in part:
+                      k,v=part.split("=",1)
+                      out.setdefault(unquote(k),[]).append(unquote(v))
+              return out
+
+          def b64d(v):
+              return base64.b64decode(v + "="*((4-len(v)%4)%4)).decode("utf-8")
+
+          class Scan(HTMLParser):
+              def __init__(self):
+                  super().__init__(convert_charrefs=False)
+                  self.scripts=[]
+              def handle_starttag(self,tag,attrs):
+                  if tag=="script":
+                      d={k:v for k,v in attrs}
+                      if d.get("src"):
+                          self.scripts.append(d["src"])
+
+          s=requests.Session()
+          s.headers.update(UA)
+          h=s.get(HOME,timeout=45,allow_redirects=True)
+          htxt,henc=decode_text(h.content)
+
+          chosen=None
+          for m in re.finditer(r"""(['"])(/Literature/articlelist\?[^'"]+)\1""",htxt):
+              route=html.unescape(m.group(2))
+              vals=raw_params(route)
+              if "searchname" not in vals:
+                  continue
+              try:
+                  decoded=b64d(vals["searchname"][0])
+              except Exception:
+                  continue
+              if decoded == '题名/关键词="红楼梦"':
+                  chosen=route
+                  break
+          if chosen is None:
+              raise SystemExit("positive-control route missing")
+
+          r=s.get(urljoin(h.url,chosen),timeout=45,allow_redirects=True)
+          raw=r.content
+          txt,enc=decode_text(raw)
+
+          sc=Scan()
+          sc.feed(txt)
+          scripts=[]
+          for src in sc.scripts:
+              u=urljoin(r.url,html.unescape(src))
+              if u not in scripts:
+                  scripts.append(u)
+
+          patterns=[
+              r"""(?is)\$\.(?:ajax|get|getJSON|post)\s*\([^;]{0,5000}""",
+              r"""(?is)\baxios\.(?:get|post)\s*\([^;]{0,5000}""",
+              r"""(?is)\bfetch\s*\([^;]{0,5000}""",
+              r"""(?is)\burl\s*:\s*['"][^'"]+['"]""",
+              r"""(?is)['"](/[^'"]*(?:search|article|literature|query|list|page|result)[^'"]*)['"]"""
+          ]
+
+          inline_hits=[]
+          for pat in patterns:
+              for m in re.finditer(pat,txt):
+                  frag=html.unescape(m.group(0))
+                  inline_hits.append({"pattern":pat,"start":m.start(),"fragment":frag[:8000],"context":txt[max(0,m.start()-1800):min(len(txt),m.end()+4500)]})
+
+          script_rows=[]
+          external_hits=[]
+          for u in scripts[:80]:
+              row={"url":u,"host":urlparse(u).hostname}
+              try:
+                  sr=s.get(u,timeout=30,allow_redirects=True)
+                  sraw=sr.content
+                  stxt,senc=decode_text(sraw)
+                  row.update({"http_status":sr.status_code,"final_url":sr.url,"bytes":len(sraw),"sha256":sha(sraw),"decode_used":senc})
+                  hits=[]
+                  for pat in patterns:
+                      for m in re.finditer(pat,stxt):
+                          frag=html.unescape(m.group(0))
+                          if re.search(r"article|literature|search|query|list|page|result",frag,re.I):
+                              hrow={"script_url":sr.url,"script_sha256":sha(sraw),"pattern":pat,"start":m.start(),"fragment":frag[:8000],"context":stxt[max(0,m.start()-1800):min(len(stxt),m.end()+4500)]}
+                              hits.append(hrow)
+                              external_hits.append(hrow)
+                              if len(hits)>=50:
+                                  break
+                      if len(hits)>=50:
+                          break
+                  row["relevant_hit_count"]=len(hits)
+              except Exception as e:
+                  row.update({"error_class":type(e).__name__,"error":str(e)[:500]})
+              script_rows.append(row)
+
+          control_contexts={}
+          for token in ["search","searchname","sType","showBack","articlelist","page","result","ajax","axios","fetch"]:
+              arr=[]
+              for m in re.finditer(re.escape(token),txt,re.I):
+                  arr.append(txt[max(0,m.start()-1800):min(len(txt),m.end()+4500)])
+                  if len(arr)>=20:
+                      break
+              control_contexts[token]=arr
+
+          out={
+              "source_contract":{
+                  "parent_batch":"12KN",
+                  "positive_control_term":"红楼梦",
+                  "selected_route":chosen,
+                  "dynamic_endpoint_executed":False,
+                  "target_zhao_query_submitted":False
+              },
+              "result_shell_response":{
+                  "http_status":r.status_code,
+                  "final_url":r.url,
+                  "bytes":len(raw),
+                  "sha256":sha(raw),
+                  "decode_used":enc
+              },
+              "source_emitted_script_urls":scripts,
+              "inline_dynamic_contract_hits":inline_hits[:200],
+              "external_script_probes":script_rows,
+              "external_dynamic_contract_hits":external_hits[:300],
+              "result_shell_control_contexts":control_contexts,
+              "adjudication":{
+                  "dynamic_endpoint_executed":False,
+                  "query_submitted_beyond_exact_positive_control_route":False,
+                  "downstream_item_followed":False,
+                  "login_used":False
+              },
+              "security":{
+                  "anonymous_get_only":True,
+                  "reader_account_used":False,
+                  "registration_used":False,
+                  "post_request_used":False,
+                  "state_changing_request_used":False,
+                  "private_endpoint_guessed":False,
+                  "dynamic_endpoint_guessed":False,
+                  "captcha_bypass_used":False,
+                  "tls_verification_disabled":False
+              }
+          }
+          Path("batch-12ko-ncpssd-articlelist-result-shell-contract.json").write_text(
+              json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12ko-ncpssd-articlelist-result-shell-contract
+          path: batch-12ko-ncpssd-articlelist-result-shell-contract.json
