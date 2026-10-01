@@ -12043,7 +12043,7 @@
       "provider": "上海图书馆《全国报刊索引》编辑部",
       "url": "https://www.cnbksy.com/",
       "source_role": "FIRST_PARTY_NEWSPAPER_INDEX_PUBLIC_ACCESS_SURFACE",
-      "quality_notes": "Batch 12LF records the anonymous root/home HTTP 412 boundary without submitting a target query or assuming that 412 equals an institutional-IP paywall.",
+      "quality_notes": "Batch 12LF records root/home HTTP 412 without a target query. Batch 12LG directly demonstrates that a same-domain first-party activity page returns HTTP 200 from the same ESA server header while the root returns an opaque JavaScript/cookie precondition surface. Therefore 412 alone is not evidence of a site-wide institutional-IP authorization wall. No search route, login, registration or target query is executed.",
       "batch_12lf": {
         "workflow_run_id": 36877911774,
         "workflow_job_id": 110421993332,
@@ -12052,6 +12052,26 @@
         "search_surface_retrieved": false,
         "target_query_submitted": false,
         "research_artifact": "docs/research/ZIWEI-CNBKSY-PUBLIC-SEARCH-SURFACE-R1.json"
+      },
+      "batch_12lg": {
+        "workflow_run_id": 36878743129,
+        "workflow_job_id": 110424801197,
+        "artifact_id": 11168979871,
+        "artifact_digest": "sha256:c3930c6b4c519202bfbe4e3b929cb953cde3051190366b0aa7af538f227eb596",
+        "exact_head": "648c6dfe004c36fae9fdcb79081bb36b076d0215",
+        "root_status": 412,
+        "root_server_header": "ESA",
+        "root_sha256": "324eff4822fc4959fd0a092786f4f5f1ec7b07b564a7f93ef5048b218f3a1670",
+        "root_set_cookie_present": true,
+        "same_domain_public_activity_url": "https://www.cnbksy.com/portal/pushManager/pushItem?id=322&isActivity=true&source=index",
+        "same_domain_public_activity_status": 200,
+        "same_domain_public_activity_server_header": "ESA",
+        "same_domain_public_activity_sha256": "ca880730bcdbfd1d892fa21e0021b82165cb7c67198e9d2964c2881bf70c1df0",
+        "source_emitted_script_count": 6,
+        "sitewide_institutional_ip_wall_demonstrated": false,
+        "target_query_submitted": false,
+        "login_used": false,
+        "research_artifact": "docs/research/ZIWEI-CNBKSY-412-AND-PUBLIC-ACTIVITY-CONTRACT-R1.json"
       }
     }
   ],

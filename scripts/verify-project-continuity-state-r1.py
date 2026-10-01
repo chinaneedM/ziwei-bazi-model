@@ -836,9 +836,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-NDL-ZHAO-WENJI-PUBLIC-ACCESS-SIGNALS-LD",
     "BATCH-12-ZIWEI-NDL-ZHAO-WENJI-ITEM-ACCESS-BLOCK-LE",
     "BATCH-12-ZIWEI-CNBKSY-PUBLIC-SEARCH-SURFACE-LF",
+    "BATCH-12-ZIWEI-CNBKSY-412-AND-PUBLIC-ACTIVITY-CONTRACT-LG",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-PUBLIC-SEARCH-SURFACE-LF.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-412-AND-PUBLIC-ACTIVITY-CONTRACT-LG.md"
 
 
 def fail(message: str) -> None:
@@ -12549,6 +12550,45 @@ def main() -> int:
         fail("Batch 12LF state version regressed below 1.321.0")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12LF latest-batch document mismatch")
+
+    # Batch 12LG: same-domain public activity 200 narrows the root 412 to a path-scoped ESA/browser precondition boundary.
+    lg_batch = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-412-AND-PUBLIC-ACTIVITY-CONTRACT-LG.md"
+    lg_evidence = ROOT / "docs/research/ZIWEI-CNBKSY-412-AND-PUBLIC-ACTIVITY-CONTRACT-R1.json"
+    if not lg_batch.is_file() or not lg_evidence.is_file():
+        fail("Batch 12LG continuity artifact missing")
+    lg = json.loads(lg_evidence.read_text(encoding="utf-8"))
+    if lg.get("batch_id") != "BATCH-12-ZIWEI-CNBKSY-412-AND-PUBLIC-ACTIVITY-CONTRACT-LG":
+        fail("Batch 12LG evidence identity mismatch")
+    lgr = lg.get("root_412", {})
+    if lgr.get("http_status") != 412 or lgr.get("server_header") != "ESA" or lgr.get("sha256") != "324eff4822fc4959fd0a092786f4f5f1ec7b07b564a7f93ef5048b218f3a1670":
+        fail("Batch 12LG root 412 identity regressed")
+    lga = lg.get("same_domain_public_activity", {})
+    if lga.get("http_status") != 200 or lga.get("server_header") != "ESA" or lga.get("sha256") != "ca880730bcdbfd1d892fa21e0021b82165cb7c67198e9d2964c2881bf70c1df0":
+        fail("Batch 12LG public activity identity regressed")
+    if len(lga.get("source_emitted_script_srcs", ())) != 6:
+        fail("Batch 12LG source-emitted script inventory regressed")
+    lgadj = lg.get("adjudication", {})
+    if lgadj.get("path_scoped_esa_browser_precondition_boundary") is not True:
+        fail("Batch 12LG path-scoped precondition classification regressed")
+    if lgadj.get("sitewide_institutional_ip_authorization_wall_demonstrated") is not False or lgadj.get("institutional_ip_requirement_inferred_from_412") is not False:
+        fail("Batch 12LG site-wide/IP authorization firewall regressed")
+    if lgadj.get("target_query_submitted") is not False or lgadj.get("search_route_followed") is not False or lgadj.get("login_used") is not False:
+        fail("Batch 12LG no-query/no-login firewall regressed")
+    lgprobe = lg.get("controlling_probe", {})
+    if lgprobe.get("workflow_run_id") != 36878743129 or lgprobe.get("workflow_job_id") != 110424801197 or lgprobe.get("artifact_id") != 11168979871:
+        fail("Batch 12LG controlling probe identity regressed")
+    if lgprobe.get("artifact_digest") != "sha256:c3930c6b4c519202bfbe4e3b929cb953cde3051190366b0aa7af538f227eb596":
+        fail("Batch 12LG artifact digest regressed")
+    if "BATCH-12-ZIWEI-CNBKSY-412-AND-PUBLIC-ACTIVITY-CONTRACT-LG" not in audit_state.get("completed_batches", ()):
+        fail("Batch 12LG missing from completed state")
+    try:
+        schema12lg = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12LG state version is not numeric")
+    if schema12lg < (1, 322, 0):
+        fail("Batch 12LG state version regressed below 1.322.0")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12LG latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")
