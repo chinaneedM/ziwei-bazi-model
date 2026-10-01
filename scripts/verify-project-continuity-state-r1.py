@@ -828,9 +828,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-NCPSSD-ZHAO-SECURE-DETAIL-BOUNDARY-KV",
     "BATCH-12-ZIWEI-NCPSSD-ARTICLEINFO-SCRIPT-CONTRACT-KW",
     "BATCH-12-ZIWEI-NCPSSD-SECURE-SHELL-HIDDEN-CONTRACT-KX",
+    "BATCH-12-ZIWEI-NCPSSD-ZHAO-JOURNAL-DETAIL-DATA-KY",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NCPSSD-SECURE-SHELL-HIDDEN-CONTRACT-KX.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NCPSSD-ZHAO-JOURNAL-DETAIL-DATA-KY.md"
 
 
 def fail(message: str) -> None:
@@ -12298,6 +12299,47 @@ def main() -> int:
         fail("Batch 12KX state version regressed below 1.313.0")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12KX latest-batch document mismatch")
+
+    # Batch 12KY: source-closed NCPSsd Zhao journal-detail metadata.
+    ky_batch = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NCPSSD-ZHAO-JOURNAL-DETAIL-DATA-KY.md"
+    ky_evidence = ROOT / "docs/research/ZIWEI-NCPSSD-ZHAO-JOURNAL-DETAIL-DATA-R1.json"
+    if not ky_batch.is_file() or not ky_evidence.is_file():
+        fail("Batch 12KY continuity artifact missing")
+    ky = json.loads(ky_evidence.read_text(encoding="utf-8"))
+    if ky.get("batch_id") != "BATCH-12-ZIWEI-NCPSSD-ZHAO-JOURNAL-DETAIL-DATA-KY":
+        fail("Batch 12KY evidence identity mismatch")
+    kydetail = ky.get("bibliographic_detail", {})
+    if kydetail.get("lngid") != "1002462903" or kydetail.get("showwriter") != "趙萬里":
+        fail("Batch 12KY target identity regressed")
+    if kydetail.get("titlec") != "永樂大典展覽的意義——一九五一年八月北京圖書舘舉辦":
+        fail("Batch 12KY target title regressed")
+    if kydetail.get("mediac") != "文物" or kydetail.get("years") != 1951 or kydetail.get("num") != "9" or kydetail.get("pagecount") != 13:
+        fail("Batch 12KY carrier/year/issue/pagecount regressed")
+    if kydetail.get("issn") != "0511-4772":
+        fail("Batch 12KY ISSN regressed")
+    kyresp = ky.get("response", {})
+    if kyresp.get("http_status") != 200 or kyresp.get("top_level_code") != 200 or kyresp.get("top_level_result") is not True:
+        fail("Batch 12KY detail response regressed")
+    kyfull = ky.get("emitted_navigation_or_fulltext_metadata", {})
+    if kyfull.get("pdfurl_present") is not True or kyfull.get("pdfurl_followed") is not False or kyfull.get("public_fulltext_access_inferred") is not False:
+        fail("Batch 12KY pdf metadata firewall regressed")
+    kyacct = ky.get("accounting", {})
+    if kyacct.get("matrix_rows") != 198 or kyacct.get("audited_rows") != 166 or kyacct.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12KY accounting regressed")
+    if kyacct.get("confirmed_provenance_metadata_defect_count") != 17 or kyacct.get("repaired_provenance_metadata_defect_count") != 17:
+        fail("Batch 12KY provenance accounting regressed")
+    if kyacct.get("confirmed_chart_algorithm_defect_count") != 0 or kyacct.get("algorithm_reopen_count") != 0 or kyacct.get("candidate_collapse_count") != 0:
+        fail("Batch 12KY deterministic-product invariant regressed")
+    if "BATCH-12-ZIWEI-NCPSSD-ZHAO-JOURNAL-DETAIL-DATA-KY" not in audit_state.get("completed_batches", ()):
+        fail("Batch 12KY missing from completed state")
+    try:
+        schema12ky = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12KY state version is not numeric")
+    if schema12ky < (1, 314, 0):
+        fail("Batch 12KY state version regressed below 1.314.0")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12KY latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

@@ -11713,7 +11713,7 @@
       "provider": "国家哲学社会科学文献中心（NCPSsd）",
       "url": "https://www.ncpssd.cn/",
       "source_role": "FIRST_PARTY_PUBLIC_SEARCH_UI_AND_CLIENT_CONTROL_SURFACE",
-      "quality_notes": "Batch 12KH-KW closes the current anonymous NCPSsd public search/result/detail client contract in stages: homepage UI; negative inline/external function search; source-emitted articlelist route; 20/20 Base64 grammar roundtrip; dynamic /searchHandler/search contract; exact jQuery absent/null serialization; 红楼梦 semantic positive control; exact Zhao Wanli title result; encryptedUrl secure-detail route; secure-shell login boundary; and source-emitted articleinfo.js detail-data contract. No login, download/read operation or guessed endpoint is used. Batch 12KX closes the exact server-emitted secure-shell hidden values and resolves the next journal-detail request body without executing it.",
+      "quality_notes": "Batch 12KH-KW closes the current anonymous NCPSsd public search/result/detail client contract in stages: homepage UI; negative inline/external function search; source-emitted articlelist route; 20/20 Base64 grammar roundtrip; dynamic /searchHandler/search contract; exact jQuery absent/null serialization; 红楼梦 semantic positive control; exact Zhao Wanli title result; encryptedUrl secure-detail route; secure-shell login boundary; and source-emitted articleinfo.js detail-data contract. No login, download/read operation or guessed endpoint is used. Batch 12KX closes the exact server-emitted secure-shell hidden values and resolves the next journal-detail request body without executing it. Batch 12KY executes the fully source-closed anonymous journal-detail POST and directly recovers the Zhao record's first-party title/author/carrier/year/issue/pagecount/classification/ISSN metadata; emitted pdf URL metadata is recorded but not followed.",
       "batch_12kh": {
         "workflow_run_id": 36857797158,
         "workflow_job_id": 110354359450,
@@ -11893,6 +11893,27 @@
         "hidden_contract_closed": true,
         "detail_data_endpoint_executed": false,
         "research_artifact": "docs/research/ZIWEI-NCPSSD-SECURE-SHELL-HIDDEN-CONTRACT-R1.json"
+      },
+      "batch_12ky": {
+        "workflow_run_id": 36868341358,
+        "workflow_job_id": 110389410761,
+        "artifact_id": 11166270400,
+        "artifact_digest": "sha256:3ce20951eee1ba6acec548fe854c0a2873d72fcfc76e66ab2005ff5e98bdbb67",
+        "http_status": 200,
+        "response_sha256": "90f093e92044908b8e16a0dc8147f408e875565a9bc82ccbddebc38c5a666243",
+        "detail_object_key_count": 101,
+        "target_id": "1002462903",
+        "title": "永樂大典展覽的意義——一九五一年八月北京圖書舘舉辦",
+        "author": "趙萬里",
+        "carrier": "文物",
+        "carrier_english": "Cultural Relics",
+        "year": 1951,
+        "issue": "9",
+        "pagecount": 13,
+        "issn": "0511-4772",
+        "emitted_pdfurl_metadata": true,
+        "pdfurl_followed": false,
+        "research_artifact": "docs/research/ZIWEI-NCPSSD-ZHAO-JOURNAL-DETAIL-DATA-R1.json"
       }
     }
   ],
