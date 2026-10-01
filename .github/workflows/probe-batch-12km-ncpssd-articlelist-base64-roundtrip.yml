@@ -1,0 +1,157 @@
+name: probe-batch-12km-ncpssd-articlelist-base64-roundtrip
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12km-ncpssd-articlelist-base64-roundtrip.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Decode and byte-roundtrip all source-emitted articlelist hot links
+        run: |
+          python - <<'PY'
+          import base64, hashlib, html, json, re
+          from pathlib import Path
+          from urllib.parse import unquote
+          import requests
+
+          URL="https://www.ncpssd.cn/"
+          UA={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; NCPSsd articlelist encoding roundtrip)"}
+
+          def sha(b):
+              return hashlib.sha256(b).hexdigest()
+
+          def decode_text(raw):
+              for enc in ("utf-8","utf-8-sig","gb18030","gbk","big5"):
+                  try:
+                      return raw.decode(enc),enc
+                  except UnicodeDecodeError:
+                      pass
+              return raw.decode("utf-8","replace"),"utf-8-replacement"
+
+          def b64d(v):
+              return base64.b64decode(v + "="*((4-len(v)%4)%4)).decode("utf-8")
+
+          def b64e(s):
+              return base64.b64encode(s.encode("utf-8")).decode("ascii")
+
+          def raw_params(url):
+              q=url.split("?",1)[1]
+              out=[]
+              for part in q.split("&"):
+                  if "=" in part:
+                      k,v=part.split("=",1)
+                      out.append((unquote(k),unquote(v)))
+              return out
+
+          r=requests.get(URL,headers=UA,timeout=45,allow_redirects=True)
+          raw=r.content
+          txt,enc=decode_text(raw)
+
+          routes=[]
+          seen=set()
+          for m in re.finditer(r"""(['"])(/Literature/articlelist\?[^'"]+)\1""",txt):
+              u=html.unescape(m.group(2))
+              if u not in seen:
+                  seen.add(u)
+                  routes.append(u)
+
+          rows=[]
+          for u in routes:
+              pairs=raw_params(u)
+              vals={}
+              for k,v in pairs:
+                  vals.setdefault(k,[]).append(v)
+              search=vals.get("search",[""])[0]
+              searchname=vals.get("searchname",[""])[0]
+              decoded_search=b64d(search)
+              decoded_searchname=b64d(searchname)
+              match=re.fullmatch(r'题名/关键词="(.*)"',decoded_searchname)
+              term=match.group(1) if match else None
+              expected_search=None
+              expected_searchname=None
+              if term is not None:
+                  expected_search='(IKTE="'+term+'" OR IKPYTE="'+term+'"  OR IKST="'+term+'" OR IKET="'+term+'" OR IKSE="'+term+'")'
+                  expected_searchname='题名/关键词="'+term+'"'
+              re_search=b64e(expected_search) if expected_search is not None else None
+              re_searchname=b64e(expected_searchname) if expected_searchname is not None else None
+              fixed_ok=(vals.get("sType")==["0"] and vals.get("nav")==["0","0"] and vals.get("showBack")==["true"])
+              rows.append({
+                  "route":u,
+                  "decoded_search":decoded_search,
+                  "decoded_searchname":decoded_searchname,
+                  "term":term,
+                  "expected_search":expected_search,
+                  "search_roundtrip_equal":re_search==search,
+                  "searchname_roundtrip_equal":re_searchname==searchname,
+                  "fixed_parameters_equal":fixed_ok,
+                  "original_search":search,
+                  "reencoded_search":re_search,
+                  "original_searchname":searchname,
+                  "reencoded_searchname":re_searchname
+              })
+
+          all_equal=bool(rows) and all(
+              x["search_roundtrip_equal"] and x["searchname_roundtrip_equal"] and x["fixed_parameters_equal"]
+              for x in rows
+          )
+          out={
+              "source_contract":{
+                  "parent_batch":"12KL",
+                  "home_url":URL,
+                  "query_submitted":False,
+                  "articlelist_route_followed":False
+              },
+              "home_response":{
+                  "http_status":r.status_code,
+                  "final_url":r.url,
+                  "bytes":len(raw),
+                  "sha256":sha(raw),
+                  "decode_used":enc
+              },
+              "route_count":len(routes),
+              "roundtrip_rows":rows,
+              "summary":{
+                  "all_route_count_20":len(routes)==20,
+                  "search_roundtrip_match_count":sum(1 for x in rows if x["search_roundtrip_equal"]),
+                  "searchname_roundtrip_match_count":sum(1 for x in rows if x["searchname_roundtrip_equal"]),
+                  "fixed_parameter_match_count":sum(1 for x in rows if x["fixed_parameters_equal"]),
+                  "all_terms_recovered":all(x["term"] is not None for x in rows),
+                  "all_roundtrip_equal":all_equal
+              },
+              "adjudication":{
+                  "query_generation_grammar_closed":all_equal,
+                  "query_submitted":False,
+                  "articlelist_route_followed":False,
+                  "login_used":False
+              },
+              "security":{
+                  "anonymous_get_only":True,
+                  "reader_account_used":False,
+                  "registration_used":False,
+                  "post_request_used":False,
+                  "state_changing_request_used":False,
+                  "private_endpoint_guessed":False,
+                  "search_endpoint_guessed":False,
+                  "search_parameter_guessed":False,
+                  "captcha_bypass_used":False,
+                  "tls_verification_disabled":False
+              }
+          }
+          Path("batch-12km-ncpssd-articlelist-base64-roundtrip.json").write_text(
+              json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12km-ncpssd-articlelist-base64-roundtrip
+          path: batch-12km-ncpssd-articlelist-base64-roundtrip.json
