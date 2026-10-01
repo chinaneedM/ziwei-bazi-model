@@ -11018,6 +11018,31 @@
         "batch_12jd_date_control_changed": false,
         "research_artifact": "docs/research/ZIWEI-RMRB-OFFICIAL-ARCHIVE-PUBLIC-SEARCH-EXECUTION-BOUNDARY-R1.json"
       }
+    },
+    {
+      "source_id": "EXT-NLC-WENJIN-PUBLIC-SEARCH-CONTRACT-2026",
+      "title": "国家图书馆文津搜索公开入口与 source-emitted search route",
+      "historical_period": "current public access surface reviewed 2026-10-01",
+      "provider": "中国国家图书馆",
+      "url": "https://www.nlc.cn/web/",
+      "source_role": "FIRST_PARTY_NLC_DISCOVERY_SEARCH_CONTRACT_BOUNDARY_ONLY",
+      "quality_notes": "NLC homepage and resource-search page directly emit http://find.nlc.cn/search/doSearch as the Wenjin Search route, but neither page emits an HTML form or named query parameter. The Wenjin root times out from the controlling runner and the exact source-emitted route returns HTTP 500 without parameters. No title/ISBN query is submitted; this establishes route identity and an anonymous execution boundary only, not target absence.",
+      "batch_12jg": {
+        "workflow_run_id": 36816684951,
+        "workflow_job_id": 110223169684,
+        "artifact_id": 11141249055,
+        "artifact_digest": "sha256:6bc3cb1978f42e452b0845edd65839ac55aa67b4e866fa19b957126885ad1ec4",
+        "nlc_home_status": 200,
+        "nlc_resource_search_status": 200,
+        "source_emitted_route": "http://find.nlc.cn/search/doSearch",
+        "source_emitted_route_http_status": 500,
+        "source_emitted_get_form_count": 0,
+        "named_query_parameter_observed": false,
+        "target_search_executed": false,
+        "target_absence_inference_authorized": false,
+        "direct_2011_p197_reviewed": false,
+        "research_artifact": "docs/research/ZIWEI-ZHAO-WANLI-WENJI-V1-NLC-WENJIN-PUBLIC-SEARCH-CONTRACT-BOUNDARY-R1.json"
+      }
     }
   ],
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md",

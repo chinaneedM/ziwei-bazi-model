@@ -1055,3 +1055,14 @@ Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-RM
 - Direct 2011 p.197 remains the highest next gate, with 1951 pp.221–233 and 1997 pp.446–449 in parallel. Product/accounting remains 198 / 166 / 10 and provenance defects 17/17, with zero chart-algorithm defects, reopens or candidate collapses.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENWU-1951-WWCK195109-COMMERCIAL-MANIFEST-SOURCE-EMITTED-ROUTE-BOUNDARY-JF.md`. Research record: `docs/research/ZIWEI-WENWU-1951-WWCK195109-COMMERCIAL-MANIFEST-SOURCE-EMITTED-ROUTE-BOUNDARY-R1.json`.
+
+
+## Progress — Batch 12JG
+
+- NLC homepage and resource-search page are both HTTP 200 and directly source-emit `http://find.nlc.cn/search/doSearch` as the “文津搜索” destination, closing route identity at first-party level.
+- Neither reviewed NLC page emits an HTML form or named query parameter. The visible search input is JavaScript-controlled and has no reproducible field name.
+- Controlling probe run `36816684951` / job `110223169684` / artifact `11141249055` / digest `sha256:6bc3cb1978f42e452b0845edd65839ac55aa67b4e866fa19b957126885ad1ec4` gets a timeout on `https://find.nlc.cn/` and HTTP 500 on the exact source-emitted `http://find.nlc.cn/search/doSearch` route with no invented parameters.
+- No target title/ISBN query is submitted. Therefore no Wenjin zero-result/absence conclusion is authorized, and direct 2011 p.197 remains NOT_REVIEWED.
+- Product/accounting remains 198 / 166 / 10 and provenance defects 17/17, with zero chart-algorithm defects, reopens or candidate collapses.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-NLC-WENJIN-PUBLIC-SEARCH-CONTRACT-BOUNDARY-JG.md`. Research record: `docs/research/ZIWEI-ZHAO-WANLI-WENJI-V1-NLC-WENJIN-PUBLIC-SEARCH-CONTRACT-BOUNDARY-R1.json`.

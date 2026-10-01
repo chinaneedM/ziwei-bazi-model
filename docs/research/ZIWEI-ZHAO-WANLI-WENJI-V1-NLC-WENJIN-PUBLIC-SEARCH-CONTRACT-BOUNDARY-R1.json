@@ -1,0 +1,142 @@
+{
+  "schema": "ZIWEI-ZHAO-WANLI-WENJI-V1-NLC-WENJIN-PUBLIC-SEARCH-CONTRACT-BOUNDARY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-NLC-WENJIN-PUBLIC-SEARCH-CONTRACT-BOUNDARY-JG",
+  "prior_batch_id": "BATCH-12-ZIWEI-WENWU-1951-WWCK195109-COMMERCIAL-MANIFEST-SOURCE-EMITTED-ROUTE-BOUNDARY-JF",
+  "question": "Does the National Library of China public website expose a reproducible anonymous Wenjin Search contract that can lawfully query the exact 2011 《赵万里文集》第1卷 / ISBN 9787501346653 and potentially recover p.197 without guessing endpoints or parameters?",
+  "answer": "The National Library of China public homepage and resource-search page are anonymously reachable and directly source-emit the Wenjin destination http://find.nlc.cn/search/doSearch. This closes the route identity as first-party rather than guessed. However neither reviewed NLC page emits an HTML form or a named query parameter: the search field is a JavaScript-controlled input without a name attribute. The Wenjin root https://find.nlc.cn/ times out from the controlling runner, and the exact source-emitted route http://find.nlc.cn/search/doSearch returns HTTP 500 when requested as emitted with no invented parameters. Therefore no calibrated anonymous search contract is currently available, no title/ISBN query was submitted, and no zero-result or target-absence conclusion is authorized. Direct 2011 p.197 remains NOT_REVIEWED.",
+  "target": {
+    "title_simplified": "赵万里文集",
+    "title_traditional": "趙萬里文集",
+    "volume": "第一卷",
+    "isbn": "9787501346653",
+    "target_page": 197
+  },
+  "controlling_probe": {
+    "workflow": ".github/workflows/probe-batch-12jg-nlc-wenjin-public-search-contract.yml",
+    "exact_head": "a9f0c31c4e8cdbeb4b984ea45d7abf1ac8a8b955",
+    "workflow_run_id": 36816684951,
+    "workflow_job_id": 110223169684,
+    "artifact_id": 11141249055,
+    "artifact_name": "batch-12jg-nlc-wenjin-public-search-contract",
+    "artifact_digest": "sha256:6bc3cb1978f42e452b0845edd65839ac55aa67b4e866fa19b957126885ad1ec4"
+  },
+  "nlc_public_surfaces": {
+    "home": {
+      "url": "https://www.nlc.cn/web/",
+      "http_status": 200,
+      "response_bytes": 70374,
+      "response_sha256": "7b00972aa48455db32714445aa637ee70a62a615341892aaee9fe97778e5f4d8",
+      "html_form_count": 0,
+      "source_emitted_wenjin_route": "http://find.nlc.cn/search/doSearch",
+      "source_emitted_route_observed": true,
+      "search_input_placeholder": "请输入您要检索信息",
+      "search_input_name_observed": false
+    },
+    "resource_search": {
+      "url": "https://www.nlc.cn/web/ziyuansousuo/index.shtml",
+      "http_status": 200,
+      "response_bytes": 40920,
+      "response_sha256": "5ee279212c918dd3340e726a98399541c05ece2ab54a67038b4cc5ae9a317e0b",
+      "html_form_count": 0,
+      "source_emitted_wenjin_route": "http://find.nlc.cn/search/doSearch",
+      "source_emitted_route_observed": true
+    },
+    "wenjin_root": {
+      "url": "https://find.nlc.cn/",
+      "controlling_runner_result": "URLError: <urlopen error timed out>",
+      "result_class": "CURRENT_EXECUTION_ENVIRONMENT_ACCESS_BOUNDARY",
+      "negative_authority": false
+    },
+    "source_emitted_route_execution": {
+      "requested_url": "http://find.nlc.cn/search/doSearch",
+      "source_emitted_by_nlc_html": true,
+      "endpoint_guessed": false,
+      "query_parameter_guessed": false,
+      "http_status": 500,
+      "final_url": "http://find.nlc.cn/search/doSearch",
+      "result_class": "SOURCE_EMITTED_ROUTE_APPLICATION_ERROR_NO_QUERY_CONTRACT"
+    }
+  },
+  "query_execution": {
+    "source_emitted_get_form_count": 0,
+    "source_emitted_named_query_field_observed": false,
+    "title_query_submitted": false,
+    "isbn_query_submitted": false,
+    "search_query_submitted": false,
+    "reason": "No source-emitted named query parameter/form contract was recovered, and the exact source-emitted route returned HTTP 500 without parameters."
+  },
+  "adjudication": {
+    "nlc_first_party_wenjin_route_identity": "CLOSED",
+    "anonymous_wenjin_search_parameter_contract": "UNRESOLVED",
+    "source_emitted_route_no_parameter_execution": "HTTP_500",
+    "target_search_executed": false,
+    "target_zero_result_established": false,
+    "target_absence_established": false,
+    "target_bibliographic_record_recovered_from_wenjin": false,
+    "p197_page_level_object_recovered": false,
+    "direct_2011_p197": "NOT_REVIEWED"
+  },
+  "evidence_firewall": {
+    "search_box_visibility_does_not_equal_reproducible_search_contract": true,
+    "source_emitted_route_identity_does_not_authorize_parameter_guessing": true,
+    "http_500_is_not_zero_result": true,
+    "timeout_is_not_negative_evidence": true,
+    "no_query_execution_means_no_target_presence_or_absence_claim": true,
+    "bibliographic_hit_if_later_recovered_would_not_equal_p197_page_text": true,
+    "existing_2026_quote_bridge_is_not_direct_2011_p197": true
+  },
+  "security": {
+    "login_used": false,
+    "account_action_used": false,
+    "payment_used": false,
+    "captcha_bypass_used": false,
+    "private_endpoint_guessed": false,
+    "search_endpoint_guessed": false,
+    "search_parameter_guessed": false,
+    "tls_verification_disabled": false
+  },
+  "relation_to_existing_routes": {
+    "ndl_physical_holding": "CLOSED_BY_BATCH_12HG",
+    "ndl_remote_copy_general_policy": "CLOSED_BY_BATCH_12IH_LOGIN_AND_FEE_GATED_NOT_EXECUTED",
+    "nlcpublisher_product_and_openlibrary": "CLOSED_AS_PUBLIC_PREVIEW_BOUNDARY_BY_BATCH_12IR",
+    "japan_opac_public_content": "CLOSED_BY_BATCH_12IU",
+    "google_books_conflicting_object": "QUARANTINED_BY_BATCH_12JA",
+    "nlc_wenjin": "CURRENT_ANONYMOUS_SEARCH_CONTRACT_UNRESOLVED_BY_12JG"
+  },
+  "transmission_impact": {
+    "status": "NONE",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": [],
+    "reason": "Modern discovery/access-contract boundary only; no historical text witness recovered."
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Continue lawful direct page-level discovery for 2011 《赵万里文集》第1卷 p.197 on new public or institutional surfaces; do not invent Wenjin query parameters.",
+    "Revisit Wenjin only when its first-party page or source-emitted resource exposes a named query contract or the source-emitted route returns a usable search page.",
+    "Continue provenance-bound recovery of 1951 《文物参考资料》第9期 pp.221–233 / wwck195109.pdf in parallel.",
+    "Continue direct 1997 pp.446–449 recovery in parallel.",
+    "NDL registered paid remote copy remains an explicit account/fee action requiring user authorization before execution."
+  ],
+  "updated_at": "2026-10-01"
+}

@@ -334,6 +334,8 @@ ZIWEI_RMRB_JE_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATC
 ZIWEI_RMRB_JE_EVIDENCE = ROOT / "docs/research/ZIWEI-RMRB-OFFICIAL-ARCHIVE-PUBLIC-SEARCH-EXECUTION-BOUNDARY-R1.json"
 ZIWEI_WENWU_MANIFEST_JF_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENWU-1951-WWCK195109-COMMERCIAL-MANIFEST-SOURCE-EMITTED-ROUTE-BOUNDARY-JF.md"
 ZIWEI_WENWU_MANIFEST_JF_EVIDENCE = ROOT / "docs/research/ZIWEI-WENWU-1951-WWCK195109-COMMERCIAL-MANIFEST-SOURCE-EMITTED-ROUTE-BOUNDARY-R1.json"
+ZIWEI_ZHAO_WENJIN_JG_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-NLC-WENJIN-PUBLIC-SEARCH-CONTRACT-BOUNDARY-JG.md"
+ZIWEI_ZHAO_WENJIN_JG_EVIDENCE = ROOT / "docs/research/ZIWEI-ZHAO-WANLI-WENJI-V1-NLC-WENJIN-PUBLIC-SEARCH-CONTRACT-BOUNDARY-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -725,9 +727,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-ZHENG-YONGLE-1951-0813-0831-PUBLICATION-DATE-CONFLICT-JD",
     "BATCH-12-ZIWEI-RMRB-OFFICIAL-ARCHIVE-PUBLIC-SEARCH-EXECUTION-BOUNDARY-JE",
     "BATCH-12-ZIWEI-WENWU-1951-WWCK195109-COMMERCIAL-MANIFEST-SOURCE-EMITTED-ROUTE-BOUNDARY-JF",
+    "BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-NLC-WENJIN-PUBLIC-SEARCH-CONTRACT-BOUNDARY-JG",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENWU-1951-WWCK195109-COMMERCIAL-MANIFEST-SOURCE-EMITTED-ROUTE-BOUNDARY-JF.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-NLC-WENJIN-PUBLIC-SEARCH-CONTRACT-BOUNDARY-JG.md"
 
 
 def fail(message: str) -> None:
@@ -10931,6 +10934,67 @@ def main() -> int:
         fail("Batch 12JF missing from completed state")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12JF latest-batch document mismatch")
+
+    # Batch 12JG: NLC Wenjin public search-contract boundary for Zhao p.197.
+    for path in (ZIWEI_ZHAO_WENJIN_JG_BATCH, ZIWEI_ZHAO_WENJIN_JG_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12JG continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12jg = json.loads(ZIWEI_ZHAO_WENJIN_JG_EVIDENCE.read_text(encoding="utf-8"))
+    bid12jg = "BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-NLC-WENJIN-PUBLIC-SEARCH-CONTRACT-BOUNDARY-JG"
+    if batch12jg.get("batch_id") != bid12jg:
+        fail("Batch 12JG evidence identity mismatch")
+    cp12jg = batch12jg.get("controlling_probe", {})
+    if cp12jg.get("workflow_run_id") != 36816684951 or cp12jg.get("workflow_job_id") != 110223169684 or cp12jg.get("artifact_id") != 11141249055:
+        fail("Batch 12JG probe binding regressed")
+    if cp12jg.get("artifact_digest") != "sha256:6bc3cb1978f42e452b0845edd65839ac55aa67b4e866fa19b957126885ad1ec4":
+        fail("Batch 12JG artifact digest regressed")
+    surf12jg = batch12jg.get("nlc_public_surfaces", {})
+    home12jg = surf12jg.get("home", {})
+    res12jg = surf12jg.get("resource_search", {})
+    if home12jg.get("http_status") != 200 or res12jg.get("http_status") != 200:
+        fail("Batch 12JG NLC first-party entry transport regressed")
+    if home12jg.get("source_emitted_wenjin_route") != "http://find.nlc.cn/search/doSearch" or home12jg.get("source_emitted_route_observed") is not True:
+        fail("Batch 12JG homepage Wenjin route identity regressed")
+    if res12jg.get("source_emitted_wenjin_route") != "http://find.nlc.cn/search/doSearch" or res12jg.get("source_emitted_route_observed") is not True:
+        fail("Batch 12JG resource-search Wenjin route identity regressed")
+    route12jg = surf12jg.get("source_emitted_route_execution", {})
+    if route12jg.get("source_emitted_by_nlc_html") is not True or route12jg.get("endpoint_guessed") is not False or route12jg.get("query_parameter_guessed") is not False:
+        fail("Batch 12JG source-emitted route firewall regressed")
+    if route12jg.get("http_status") != 500:
+        fail("Batch 12JG source-emitted route execution status regressed")
+    q12jg = batch12jg.get("query_execution", {})
+    if q12jg.get("source_emitted_get_form_count") != 0 or q12jg.get("source_emitted_named_query_field_observed") is not False:
+        fail("Batch 12JG query-contract boundary regressed")
+    if q12jg.get("search_query_submitted") is not False or q12jg.get("title_query_submitted") is not False or q12jg.get("isbn_query_submitted") is not False:
+        fail("Batch 12JG no-query firewall regressed")
+    adj12jg = batch12jg.get("adjudication", {})
+    if adj12jg.get("target_zero_result_established") is not False or adj12jg.get("target_absence_established") is not False:
+        fail("Batch 12JG target-absence firewall regressed")
+    if adj12jg.get("direct_2011_p197") != "NOT_REVIEWED" or adj12jg.get("p197_page_level_object_recovered") is not False:
+        fail("Batch 12JG p197 direct-page firewall regressed")
+    sec12jg = batch12jg.get("security", {})
+    for key in ("login_used","account_action_used","payment_used","captcha_bypass_used","private_endpoint_guessed","search_endpoint_guessed","search_parameter_guessed","tls_verification_disabled"):
+        if sec12jg.get(key) is not False:
+            fail(f"Batch 12JG security boundary regressed: {key}")
+    reg12jg = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    src12jg = next((x for x in reg12jg.get("sources", []) if x.get("source_id") == "EXT-NLC-WENJIN-PUBLIC-SEARCH-CONTRACT-2026"), None)
+    if src12jg is None:
+        fail("Batch 12JG external-source registry binding missing")
+    if src12jg.get("batch_12jg", {}).get("target_absence_inference_authorized") is not False:
+        fail("Batch 12JG registry absence firewall regressed")
+    acct12jg = batch12jg.get("accounting", {})
+    if acct12jg.get("matrix_rows") != 198 or acct12jg.get("audited_rows") != 166 or acct12jg.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12JG accounting regressed")
+    try:
+        schema12jg = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12JG state version is not numeric")
+    if schema12jg < (1, 271, 0):
+        fail("Batch 12JG state version regressed below 1.271.0")
+    if bid12jg not in audit_state.get("completed_batches", ()):
+        fail("Batch 12JG missing from completed state")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12JG latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")
