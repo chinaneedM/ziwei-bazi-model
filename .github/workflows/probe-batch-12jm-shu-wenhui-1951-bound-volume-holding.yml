@@ -1,0 +1,149 @@
+name: probe-batch-12jm-shu-wenhui-1951-bound-volume-holding
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12jm-shu-wenhui-1951-bound-volume-holding.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Probe Shanghai University first-party Wenhui bound-volume holding
+        run: |
+          python - <<'PY'
+          import hashlib, html, json, re, time
+          from pathlib import Path
+          import requests
+
+          URL="https://lib.shu.edu.cn/gybengua/bggk/lhtsg/bz_hdb_gzml.htm"
+          UA={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; SHU 1951 Wenhui holding probe)"}
+
+          def fetch(url, attempts=3):
+              last=None
+              for n in range(attempts):
+                  try:
+                      r=requests.get(url,headers=UA,timeout=45,allow_redirects=True)
+                      r.raise_for_status()
+                      return r,None,n+1
+                  except Exception as e:
+                      last=f"{type(e).__name__}: {e}"
+                      time.sleep(1+n)
+              return None,last,attempts
+
+          def decode_response(r):
+              encs=[]
+              ct=r.headers.get("Content-Type","")
+              m=re.search(r'charset=([A-Za-z0-9._-]+)',ct,re.I)
+              if m:
+                  encs.append(m.group(1))
+              encs += ["utf-8","gb18030","gbk","big5"]
+              candidates=[]; seen=set()
+              for enc in encs:
+                  if not enc or enc.lower() in seen:
+                      continue
+                  seen.add(enc.lower())
+                  try:
+                      txt=r.content.decode(enc)
+                  except Exception:
+                      continue
+                  han=sum(1 for ch in txt if '\u4e00' <= ch <= '\u9fff')
+                  candidates.append((han,-txt.count("\ufffd"),enc,txt))
+              if not candidates:
+                  return r.content.decode("utf-8","replace"),"utf-8-replacement"
+              candidates.sort(reverse=True,key=lambda x:(x[0],x[1]))
+              return candidates[0][3],candidates[0][2]
+
+          def clean(raw):
+              raw=re.sub(r'<script\b.*?</script>',' ',raw,flags=re.I|re.S)
+              raw=re.sub(r'<style\b.*?</style>',' ',raw,flags=re.I|re.S)
+              raw=re.sub(r'<[^>]+>',' ',raw)
+              return re.sub(r'\s+',' ',html.unescape(raw)).strip()
+
+          def cell_text(raw):
+              return clean(raw)
+
+          r,err,attempt=fetch(URL)
+          if r is None:
+              raise RuntimeError("SHU first-party route failed: "+str(err))
+          raw,enc=decode_response(r)
+          visible=clean(raw)
+
+          rows=[]
+          for rm in re.finditer(r'<tr\b[^>]*>(.*?)</tr>',raw,re.I|re.S):
+              cells=[cell_text(x) for x in re.findall(r'<t[dh]\b[^>]*>(.*?)</t[dh]>',rm.group(1),re.I|re.S)]
+              if cells and any("文汇报" in x or "文匯報" in x for x in cells):
+                  rows.append(cells)
+
+          target_rows=[]
+          for cells in rows:
+              joined=" | ".join(cells)
+              if "1951" in joined:
+                  target_rows.append({
+                      "cells":cells,
+                      "joined":joined,
+                      "may_to_august_literal":bool(re.search(r'1951\s*\(?5\s*[-－—~～至]\s*8\)?',joined)),
+                      "contains_august":("1951(5-8)" in joined or "1951（5-8）" in joined or "1951(5－8)" in joined or "1951（5－8）" in joined),
+                      "new_campus_present":"新校区" in joined,
+                      "jiading_present":"嘉定校区" in joined,
+                      "shelf_6_10_present":bool(re.search(r'6\s*[-－—~～]{1,2}\s*10',joined))
+                  })
+
+          # Visible-text fallback for legacy table structures with rowspan.
+          i=visible.find("文汇报")
+          context=visible[max(0,i-250):min(len(visible),i+1200)] if i>=0 else None
+          coverage_literal=any(x in visible for x in (
+              "1951(5-8)","1951（5-8）","1951(5－8)","1951（5－8）",
+              "1951(5—8)","1951（5—8）"
+          ))
+
+          result={
+              "url":URL,
+              "status":r.status_code,
+              "final_url":r.url,
+              "attempt":attempt,
+              "decoded_encoding":enc,
+              "body_bytes":len(r.content),
+              "body_sha256":hashlib.sha256(r.content).hexdigest(),
+              "page_title":(re.search(r'<title[^>]*>(.*?)</title>',raw,re.I|re.S).group(1).strip()
+                            if re.search(r'<title[^>]*>(.*?)</title>',raw,re.I|re.S) else None),
+              "target_title_present":"文汇报" in visible or "文匯報" in visible,
+              "parsed_wenhui_rows":rows,
+              "parsed_1951_target_rows":target_rows,
+              "visible_1951_may_august_literal":coverage_literal,
+              "target_context":context,
+              "direct_1951_08_18_page_observed":False,
+              "direct_article_text_observed":False,
+              "raw_html_saved":False,
+              "raw_html_logged":False,
+              "adjudication":{
+                  "shu_first_party_holding_route_reached":True,
+                  "1951_may_august_coverage_observed":bool(target_rows and any(x["contains_august"] or x["may_to_august_literal"] for x in target_rows)) or coverage_literal,
+                  "coverage_includes_1951_08_18_calendar_date":bool(target_rows and any(x["contains_august"] or x["may_to_august_literal"] for x in target_rows)) or coverage_literal,
+                  "specific_1951_08_18_issue_directly_reviewed":False,
+                  "target_article_directly_reviewed":False,
+                  "holding_route_is_textual_evidence":False
+              },
+              "security":{
+                  "login_used":False,
+                  "payment_used":False,
+                  "captcha_bypass_used":False,
+                  "private_endpoint_guessed":False,
+                  "tls_verification_disabled":False
+              }
+          }
+          Path("batch-12jm-shu-wenhui-1951-bound-volume-holding.json").write_text(
+              json.dumps(result,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(result,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12jm-shu-wenhui-1951-bound-volume-holding
+          path: batch-12jm-shu-wenhui-1951-bound-volume-holding.json
