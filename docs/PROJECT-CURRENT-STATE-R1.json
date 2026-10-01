@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.328.0",
+  "schema_version": "1.329.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -410,9 +410,10 @@
       "BATCH-12-ZIWEI-CNBKSY-INDEXED-NEWS-NAVIGATION-CONTRACT-LJ",
       "BATCH-12-ZIWEI-CNBKSY-SHARED-SEARCH-CALLSITE-CONTEXT-LK",
       "BATCH-12-ZIWEI-CNBKSY-BKSY-POST-TRANSPORT-CONTRACT-LL",
-      "BATCH-12-ZIWEI-CNBKSY-COMMON-HINTS-NULL-POST-LM"
+      "BATCH-12-ZIWEI-CNBKSY-COMMON-HINTS-NULL-POST-LM",
+      "BATCH-12-ZIWEI-CNBKSY-APPLICATION-SEARCH-ROUTE-INVENTORY-LN"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-COMMON-HINTS-NULL-POST-LM.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-APPLICATION-SEARCH-ROUTE-INVENTORY-LN.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -1835,7 +1836,12 @@
       "The request returns HTTP 200 application/json;charset=UTF-8 from ESA, 2 bytes, SHA-256 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945, parsing exactly as an empty JSON list [].",
       "Therefore the anonymous common-hints branch is operational but yields zero hint items in this context. It provides no target locator and no authorization to infer database absence.",
       "No Zhao/Wenhui or other target term is submitted; no login/registration or credential value is used or recorded. Matrix remains 198 / 166 / 10; provenance defects 17/17; algorithm defects/reopens/collapses remain 0.",
-      "Next gate 12LN statically inventories all /search-prefixed route literals and call-site contexts in first-party application scripts source-emitted by the same public page, excluding third-party library noise and without invoking any discovered search route."
+      "Next gate 12LN statically inventories all /search-prefixed route literals and call-site contexts in first-party application scripts source-emitted by the same public page, excluding third-party library noise and without invoking any discovered search route.",
+      "Batch 12LN exact-head run 36886453562 / job 110450892439 / artifact 11173764426 statically inventories /search-prefixed route literals across the same page's inline scripts plus six source-emitted first-party application scripts.",
+      "Only two /search route literals are observed: /search/detail/ and /search/picDetail/, both already bound to cart item.dataId/item.laId object-detail navigation. No search-named application function is observed and no free-text/list search route is source-closed on this surface.",
+      "This negative result is scoped only to the reviewed public news-page application-script surface; it does not prove that CNBKSY lacks a search interface elsewhere.",
+      "Next gate 12LO targets the source-emitted productTree.js and its page initialization only, inventorying product/resource/tree/navigation route construction and dynamic href/location behavior without following any route.",
+      "Matrix remains 198 / 166 / 10; provenance defects 17/17; chart algorithm defects / reopens / candidate collapses remain 0."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10

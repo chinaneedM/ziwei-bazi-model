@@ -1,0 +1,119 @@
+name: probe-batch-12lo-cnbksy-product-tree-navigation-contract
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12lo-cnbksy-product-tree-navigation-contract.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inspect source-emitted product-tree navigation contract only; follow nothing
+        run: |
+          python - <<'PY'
+          import hashlib, html, json, re
+          from pathlib import Path
+          from urllib.parse import urljoin
+          import requests
+
+          seed="https://www.cnbksy.com/portal/newsCategoryBrowse/newsContent?id=202"
+          UA={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; CNBKSY product-tree navigation contract)"}
+
+          def get(url):
+              r=requests.get(url,headers=UA,timeout=45,allow_redirects=False)
+              raw=r.content
+              return r,raw,raw.decode("utf-8","replace")
+
+          sr,sraw,stxt=get(seed)
+          nav=None
+          for m in re.finditer(r'''(?is)<a\b[^>]*?href\s*=\s*["']([^"']+)["'][^>]*>(.*?)</a>''',stxt):
+              href=html.unescape(m.group(1)).strip()
+              label=html.unescape(re.sub(r"<[^>]+>"," ",m.group(2)))
+              label=re.sub(r"\s+"," ",label).strip()
+              if "信息动态" in label:
+                  nav=urljoin(seed,href); break
+          if not nav:
+              raise SystemExit("source-emitted 信息动态 navigation missing")
+
+          nr,nraw,ntxt=get(nav)
+          script_urls=[]
+          for m in re.finditer(r'''(?is)<script\b[^>]*?src\s*=\s*["']([^"']+)["']''',ntxt):
+              u=urljoin(nav,html.unescape(m.group(1)).strip())
+              if u not in script_urls: script_urls.append(u)
+
+          product_urls=[u for u in script_urls if "/public/portal/js/productTree.js" in u]
+          if len(product_urls)!=1:
+              raise SystemExit(f"expected exactly one source-emitted productTree.js, got {len(product_urls)}")
+
+          pr,praw,ptxt=get(product_urls[0])
+          route_literals=sorted(set(re.findall(r'''(?i)["'](/[A-Za-z0-9_./?=&%{}:$+-]+)["']''',ptxt)))
+
+          route_contexts=[]
+          for lit in route_literals:
+              positions=[m.start() for m in re.finditer(re.escape(lit),ptxt)]
+              ctxs=[]
+              for pos in positions[:8]:
+                  a=max(0,pos-2200); b=min(len(ptxt),pos+len(lit)+3600)
+                  ctx=re.sub(r"\s+"," ",ptxt[a:b]).strip()
+                  ctxs.append({"context":ctx[:7500],"sha256":hashlib.sha256(ctx.encode("utf-8")).hexdigest()})
+              route_contexts.append({"route_literal":lit,"occurrence_count":len(positions),"contexts":ctxs})
+
+          keyword_contexts=[]
+          for token in ["productId","productTree","resource","search","window.location","location.href","window.open","href","url:","jsonPost","bksy.post","bksy.get"]:
+              for m in re.finditer(re.escape(token),ptxt,re.I):
+                  a=max(0,m.start()-1800); b=min(len(ptxt),m.end()+3000)
+                  ctx=re.sub(r"\s+"," ",ptxt[a:b]).strip()
+                  keyword_contexts.append({"token":token,"context":ctx[:6500],"sha256":hashlib.sha256(ctx.encode("utf-8")).hexdigest()})
+                  if sum(1 for x in keyword_contexts if x["token"]==token)>=12: break
+
+          inline_contexts=[]
+          for i,m in enumerate(re.finditer(r"(?is)<script\b(?![^>]*\bsrc\s*=)[^>]*>(.*?)</script>",ntxt)):
+              body=m.group(1)
+              if re.search(r"productTree|productId|resourceTree|tree",body,re.I):
+                  ctx=re.sub(r"\s+"," ",body).strip()
+                  inline_contexts.append({"script_index":i,"context":ctx[:12000],"sha256":hashlib.sha256(ctx.encode("utf-8")).hexdigest()})
+
+          out={
+              "source_contract":{
+                  "parent_batch":"12LN",
+                  "seed_url":seed,
+                  "source_emitted_navigation_url":nav,
+                  "product_tree_script_url":product_urls[0],
+                  "navigation_route_followed":False,
+                  "target_query_submitted":False
+              },
+              "product_tree_response":{"status":pr.status_code,"content_type":pr.headers.get("content-type"),"bytes":len(praw),"sha256":hashlib.sha256(praw).hexdigest()},
+              "route_literals":route_literals,
+              "route_contexts":route_contexts,
+              "keyword_contexts":keyword_contexts,
+              "page_inline_product_tree_contexts":inline_contexts,
+              "adjudication":{
+                  "product_tree_static_contract_inventoried":True,
+                  "navigation_route_followed":False,
+                  "target_query_submitted":False,
+                  "login_used":False,
+                  "registration_used":False
+              },
+              "security":{
+                  "source_emitted_gets_only":True,
+                  "application_navigation_post_used":False,
+                  "private_endpoint_guessed":False,
+                  "captcha_bypass_used":False,
+                  "tls_verification_disabled":False
+              }
+          }
+          Path("batch-12lo-cnbksy-product-tree-navigation-contract.json").write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12lo-cnbksy-product-tree-navigation-contract
+          path: batch-12lo-cnbksy-product-tree-navigation-contract.json

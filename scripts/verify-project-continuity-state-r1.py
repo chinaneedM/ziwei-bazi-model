@@ -843,9 +843,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-CNBKSY-SHARED-SEARCH-CALLSITE-CONTEXT-LK",
     "BATCH-12-ZIWEI-CNBKSY-BKSY-POST-TRANSPORT-CONTRACT-LL",
     "BATCH-12-ZIWEI-CNBKSY-COMMON-HINTS-NULL-POST-LM",
+    "BATCH-12-ZIWEI-CNBKSY-APPLICATION-SEARCH-ROUTE-INVENTORY-LN",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-COMMON-HINTS-NULL-POST-LM.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-APPLICATION-SEARCH-ROUTE-INVENTORY-LN.md"
 
 
 def fail(message: str) -> None:
@@ -12831,6 +12832,40 @@ def main() -> int:
         fail("Batch 12LM state version regressed below 1.328.0")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12LM latest-batch document mismatch")
+
+    # Batch 12LN: reviewed first-party application scripts expose only object-detail /search literals.
+    ln_batch = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-APPLICATION-SEARCH-ROUTE-INVENTORY-LN.md"
+    ln_evidence = ROOT / "docs/research/ZIWEI-CNBKSY-APPLICATION-SEARCH-ROUTE-INVENTORY-R1.json"
+    if not ln_batch.is_file() or not ln_evidence.is_file():
+        fail("Batch 12LN continuity artifact missing")
+    ln = json.loads(ln_evidence.read_text(encoding="utf-8"))
+    if ln.get("batch_id") != "BATCH-12-ZIWEI-CNBKSY-APPLICATION-SEARCH-ROUTE-INVENTORY-LN":
+        fail("Batch 12LN evidence identity mismatch")
+    inv = ln.get("route_inventory", [])
+    if [x.get("route_literal") for x in inv] != ["/search/detail/", "/search/picDetail/"]:
+        fail("Batch 12LN search-route inventory regressed")
+    if any(x.get("classification") != "CART_OBJECT_DETAIL_ROUTE" for x in inv):
+        fail("Batch 12LN detail-route classification regressed")
+    lna = ln.get("adjudication", {})
+    if lna.get("static_route_inventory_completed") is not True or lna.get("free_text_or_list_search_route_observed") is not False:
+        fail("Batch 12LN free-text search adjudication regressed")
+    if lna.get("sitewide_search_absence_inference_authorized") is not False or lna.get("discovered_search_route_invoked") is not False or lna.get("target_query_submitted") is not False:
+        fail("Batch 12LN scope/no-route/no-query firewall regressed")
+    lnp = ln.get("controlling_probe", {})
+    if lnp.get("workflow_run_id") != 36886453562 or lnp.get("workflow_job_id") != 110450892439 or lnp.get("artifact_id") != 11173764426:
+        fail("Batch 12LN controlling probe identity regressed")
+    if lnp.get("artifact_digest") != "sha256:8d7cab17e5407b61579d2bc31cfabf4761b13c5b7ee698abe2c11c7bb0d3c675":
+        fail("Batch 12LN artifact digest regressed")
+    if "BATCH-12-ZIWEI-CNBKSY-APPLICATION-SEARCH-ROUTE-INVENTORY-LN" not in audit_state.get("completed_batches", ()):
+        fail("Batch 12LN missing from completed state")
+    try:
+        schema12ln = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12LN state version is not numeric")
+    if schema12ln < (1, 329, 0):
+        fail("Batch 12LN state version regressed below 1.329.0")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12LN latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

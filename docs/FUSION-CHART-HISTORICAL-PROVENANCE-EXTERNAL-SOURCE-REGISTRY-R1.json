@@ -12043,7 +12043,7 @@
       "provider": "上海图书馆《全国报刊索引》编辑部",
       "url": "https://www.cnbksy.com/",
       "source_role": "FIRST_PARTY_NEWSPAPER_INDEX_PUBLIC_ACCESS_SURFACE",
-      "quality_notes": "Batches 12LF–12LL close the access, hint-callsite and transport contracts without a target query. Batch 12LM executes only the source-closed anonymous POST /common/hints with page CSRF and null payload; it returns HTTP 200 JSON [] (2 bytes). Thus the hint endpoint is operational but supplies no anonymous hint items in this context. This is not evidence of target/database absence. No target term, login or credential value is used.",
+      "quality_notes": "Batches 12LF–12LM close root access, hint transport and anonymous hint execution without target terms. Batch 12LN statically inventories /search-prefixed literals across the public news-page inline scripts and six first-party application scripts. Only /search/detail/ and /search/picDetail/ are present, both cart-derived object-detail routes; no free-text/list search route is exposed on this reviewed surface. This is surface-scoped and does not prove site-wide absence.",
       "batch_12lf": {
         "workflow_run_id": 36877911774,
         "workflow_job_id": 110421993332,
@@ -12194,6 +12194,24 @@
         "item_count": 0,
         "target_term_submitted": false,
         "research_artifact": "docs/research/ZIWEI-CNBKSY-COMMON-HINTS-NULL-POST-R1.json"
+      },
+      "batch_12ln": {
+        "workflow_run_id": 36886453562,
+        "workflow_job_id": 110450892439,
+        "artifact_id": 11173764426,
+        "artifact_digest": "sha256:8d7cab17e5407b61579d2bc31cfabf4761b13c5b7ee698abe2c11c7bb0d3c675",
+        "exact_head": "e25f7c19046f90661f796128f901d129201d0a62",
+        "source_emitted_external_script_count": 39,
+        "first_party_application_script_count": 6,
+        "search_route_literal_count": 2,
+        "observed_search_route_literals": [
+          "/search/detail/",
+          "/search/picDetail/"
+        ],
+        "free_text_search_route_observed": false,
+        "discovered_search_route_invoked": false,
+        "target_query_submitted": false,
+        "research_artifact": "docs/research/ZIWEI-CNBKSY-APPLICATION-SEARCH-ROUTE-INVENTORY-R1.json"
       }
     }
   ],

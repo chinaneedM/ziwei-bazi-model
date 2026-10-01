@@ -1,0 +1,107 @@
+{
+  "schema": "ZIWEI-CNBKSY-APPLICATION-SEARCH-ROUTE-INVENTORY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-CNBKSY-APPLICATION-SEARCH-ROUTE-INVENTORY-LN",
+  "prior_batch_id": "BATCH-12-ZIWEI-CNBKSY-COMMON-HINTS-NULL-POST-LM",
+  "question": "Do the source-emitted first-party application scripts on the publicly accessible CNBKSY news surface expose a free-text/list search route under /search, without invoking anything?",
+  "answer": "No on this reviewed surface. The only /search-prefixed literals are /search/detail/ and /search/picDetail/, both cart-derived object-detail routes using item.dataId and item.laId. No search-named application function or free-text/list search route is observed. This does not authorize a site-wide absence inference.",
+  "controlling_probe": {
+    "workflow": ".github/workflows/probe-batch-12ln-cnbksy-application-search-route-inventory.yml",
+    "exact_head": "e25f7c19046f90661f796128f901d129201d0a62",
+    "workflow_run_id": 36886453562,
+    "workflow_job_id": 110450892439,
+    "artifact_id": 11173764426,
+    "artifact_digest": "sha256:8d7cab17e5407b61579d2bc31cfabf4761b13c5b7ee698abe2c11c7bb0d3c675"
+  },
+  "source_contract": {
+    "seed_url": "https://www.cnbksy.com/portal/newsCategoryBrowse/newsContent?id=202",
+    "source_emitted_navigation_url": "https://www.cnbksy.com/portal/newsCategoryBrowse",
+    "source_emitted_external_script_count": 39,
+    "first_party_application_script_count": 6,
+    "discovered_search_route_invoked": false,
+    "target_query_submitted": false
+  },
+  "first_party_application_scripts": [
+    "/public/layui/layui.js?version=V20241206",
+    "/public/portal/js/productTree.js?version=V20241206",
+    "/public/portal/js/app4O.js?version=V20241206",
+    "/public/common/js/common.js?version=V20241206",
+    "/public/portal/js/sdUtils.js?version=V20241206",
+    "/public/portal/js/promptMsg.js?version=V20241206"
+  ],
+  "route_inventory": [
+    {
+      "route_literal": "/search/detail/",
+      "source": "inline:2",
+      "occurrence_count": 1,
+      "classification": "CART_OBJECT_DETAIL_ROUTE",
+      "parameter_source": [
+        "item.dataId",
+        "item.laId",
+        "item.laId"
+      ],
+      "context_sha256": "418e2d7e8b5c4f9c18ab79262a80f3704538bc16ba2722dc0d096d0542fd0d76"
+    },
+    {
+      "route_literal": "/search/picDetail/",
+      "source": "inline:2",
+      "occurrence_count": 1,
+      "classification": "CART_OBJECT_DETAIL_ROUTE",
+      "parameter_source": [
+        "item.dataId",
+        "item.laId",
+        "item.laId"
+      ],
+      "context_sha256": "fce4cb02543ca474e8dd36c99f19b47ad82eb467fcce93ab35f4d1e3639c4d05"
+    }
+  ],
+  "adjudication": {
+    "static_route_inventory_completed": true,
+    "free_text_or_list_search_route_observed": false,
+    "search_named_application_function_observed": false,
+    "sitewide_search_absence_inference_authorized": false,
+    "discovered_search_route_invoked": false,
+    "target_query_submitted": false,
+    "login_used": false,
+    "registration_used": false
+  },
+  "security": {
+    "source_emitted_gets_only": true,
+    "application_search_post_used": false,
+    "private_endpoint_guessed": false,
+    "captcha_bypass_used": false,
+    "tls_verification_disabled": false
+  },
+  "transmission_impact": {
+    "status": "NONE_ACCESS_BOUNDARY_ONLY",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": []
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Inspect only the source-emitted productTree.js plus the public page's product-tree initialization context.",
+    "Inventory product/resource/tree route literals and dynamic href/location construction without following any route.",
+    "Do not submit a target term or infer a route not present in source."
+  ],
+  "updated_at": "2026-10-01"
+}
