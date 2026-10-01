@@ -59,9 +59,16 @@ jobs:
           h=fetch(HOME)
           if h["ok"]:
               r=h["response"]; txt,enc=decode(r.content)
+              home_scan=Scan()
+              try: home_scan.feed(txt)
+              except Exception: pass
+              home_links=[urljoin(r.url,x) for x in home_scan.links]
               out["source_home"]={"http_status":r.status_code,"bytes":len(r.content),"sha256":sha(r.content),"decode_used":enc,
-                "opac_url_source_emitted":("https://opac.nlc.cn" in txt),
-                "electronic_newspaper_route_source_emitted":("outRes/outResList" in txt and "电子报纸" in txt)}
+                "link_count":len(home_links),
+                "opac_url_source_emitted":any("opac.nlc.cn" in x for x in home_links),
+                "electronic_newspaper_route_source_emitted":any("read.nlc.cn" in x and "outResList" in x and ("%E7%94%B5%E5%AD%90%E6%8A%A5%E7%BA%B8" in x or "电子报纸" in x) for x in home_links),
+                "opac_link_samples":[x for x in home_links if "opac.nlc.cn" in x][:5],
+                "electronic_newspaper_link_samples":[x for x in home_links if "read.nlc.cn" in x and "outResList" in x][:10]}
           else:
               out["source_home"]={"error_class":h["error_class"]}
 
