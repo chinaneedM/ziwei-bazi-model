@@ -839,9 +839,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-CNBKSY-412-AND-PUBLIC-ACTIVITY-CONTRACT-LG",
     "BATCH-12-ZIWEI-CNBKSY-SOURCE-EMITTED-SCRIPT-CONTRACT-LH",
     "BATCH-12-ZIWEI-CNBKSY-PUBLIC-ACTIVITY-INLINE-CONTRACT-LI",
+    "BATCH-12-ZIWEI-CNBKSY-INDEXED-NEWS-NAVIGATION-CONTRACT-LJ",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-PUBLIC-ACTIVITY-INLINE-CONTRACT-LI.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-INDEXED-NEWS-NAVIGATION-CONTRACT-LJ.md"
 
 
 def fail(message: str) -> None:
@@ -12662,6 +12663,51 @@ def main() -> int:
         fail("Batch 12LI state version regressed below 1.324.0")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12LI latest-batch document mismatch")
+
+    # Batch 12LJ: a publicly indexed first-party seed yields a source-emitted site-news filter plus shared search candidates.
+    lj_batch = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-INDEXED-NEWS-NAVIGATION-CONTRACT-LJ.md"
+    lj_evidence = ROOT / "docs/research/ZIWEI-CNBKSY-INDEXED-NEWS-NAVIGATION-CONTRACT-R1.json"
+    if not lj_batch.is_file() or not lj_evidence.is_file():
+        fail("Batch 12LJ continuity artifact missing")
+    lj = json.loads(lj_evidence.read_text(encoding="utf-8"))
+    if lj.get("batch_id") != "BATCH-12-ZIWEI-CNBKSY-INDEXED-NEWS-NAVIGATION-CONTRACT-LJ":
+        fail("Batch 12LJ evidence identity mismatch")
+    ljs = lj.get("seed", {})
+    if ljs.get("http_status") != 200 or ljs.get("sha256") != "ecfdd4f39f861143ff1efd7ebbea03814ab8b29064fea7c1517769026d49d3e0":
+        fail("Batch 12LJ indexed seed identity regressed")
+    ljn = lj.get("followed_navigation", {})
+    if ljn.get("http_status") != 200 or ljn.get("sha256") != "8648badbfe1c751170a90797d40e05aab968fa93483cfe5102ecb27e74ee985b":
+        fail("Batch 12LJ followed navigation identity regressed")
+    ljf = lj.get("news_filter_contract", {})
+    if ljf.get("form_count") != 1 or ljf.get("method") != "POST":
+        fail("Batch 12LJ news-filter form contract regressed")
+    if [x.get("name") for x in ljf.get("fields", ())] != ["title", "startDate", "endDate"]:
+        fail("Batch 12LJ news-filter fields regressed")
+    if ljf.get("classification") != "SITE_NEWS_FILTER_NOT_HISTORICAL_NEWSPAPER_DATABASE_SEARCH":
+        fail("Batch 12LJ news-vs-newspaper firewall regressed")
+    ljc = lj.get("shared_inline_candidates", {})
+    if ljc.get("hint_route") != "/common/hints" or "/search/detail/" not in ljc.get("detail_routes", ()) or "/search/picDetail/" not in ljc.get("detail_routes", ()):
+        fail("Batch 12LJ shared search candidates regressed")
+    lja = lj.get("adjudication", {})
+    if lja.get("news_filter_contract_closed") is not True or lja.get("news_filter_is_historical_newspaper_search") is not False:
+        fail("Batch 12LJ news-filter adjudication regressed")
+    if lja.get("shared_search_candidate_followed") is not False or lja.get("form_submitted") is not False or lja.get("target_query_submitted") is not False:
+        fail("Batch 12LJ no-follow/no-submit firewall regressed")
+    ljp = lj.get("controlling_probe", {})
+    if ljp.get("workflow_run_id") != 36880973426 or ljp.get("workflow_job_id") != 110432320720 or ljp.get("artifact_id") != 11171282570:
+        fail("Batch 12LJ controlling probe identity regressed")
+    if ljp.get("artifact_digest") != "sha256:858825c80e60875936f2f2c5933d567fbb9781dc11f4b58fd9a0ef72a1a06a30":
+        fail("Batch 12LJ artifact digest regressed")
+    if "BATCH-12-ZIWEI-CNBKSY-INDEXED-NEWS-NAVIGATION-CONTRACT-LJ" not in audit_state.get("completed_batches", ()):
+        fail("Batch 12LJ missing from completed state")
+    try:
+        schema12lj = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12LJ state version is not numeric")
+    if schema12lj < (1, 325, 0):
+        fail("Batch 12LJ state version regressed below 1.325.0")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12LJ latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

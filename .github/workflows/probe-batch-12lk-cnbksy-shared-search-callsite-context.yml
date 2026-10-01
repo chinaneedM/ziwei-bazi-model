@@ -1,0 +1,136 @@
+name: probe-batch-12lk-cnbksy-shared-search-callsite-context
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12lk-cnbksy-shared-search-callsite-context.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Extract static call-site context only; do not invoke discovered search routes
+        run: |
+          python - <<'PY'
+          import hashlib, html, json, re
+          from pathlib import Path
+          from urllib.parse import urljoin
+          import requests
+
+          UA={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; CNBKSY shared-search callsite context)"}
+          seed="https://www.cnbksy.com/portal/newsCategoryBrowse/newsContent?id=202"
+
+          def get(url):
+              r=requests.get(url,headers=UA,timeout=45,allow_redirects=False)
+              raw=r.content
+              return r,raw,raw.decode("utf-8","replace")
+
+          sr,sraw,stxt=get(seed)
+          nav=None
+          for m in re.finditer(r'''(?is)<a\b[^>]*?href\s*=\s*["']([^"']+)["'][^>]*>(.*?)</a>''',stxt):
+              href=html.unescape(m.group(1)).strip()
+              label=html.unescape(re.sub(r"<[^>]+>"," ",m.group(2)))
+              label=re.sub(r"\s+"," ",label).strip()
+              if "信息动态" in label:
+                  nav=urljoin(seed,href)
+                  break
+          if not nav:
+              raise SystemExit("source-emitted 信息动态 navigation missing")
+
+          nr,nraw,ntxt=get(nav)
+          scripts=[m.group(1) for m in re.finditer(r"(?is)<script\b(?![^>]*\bsrc\s*=)[^>]*>(.*?)</script>",ntxt)]
+
+          targets=[
+              "searchHint",
+              "/common/hints",
+              "/search/detail/",
+              "/search/picDetail/",
+              "/portal/newsCategoryBrowse/listPortal",
+          ]
+          contexts=[]
+          for si,body in enumerate(scripts):
+              for token in targets:
+                  for m in re.finditer(re.escape(token),body):
+                      a=max(0,m.start()-2200)
+                      b=min(len(body),m.end()+3200)
+                      ctx=re.sub(r"\s+"," ",body[a:b]).strip()
+                      contexts.append({
+                          "script_index":si,
+                          "token":token,
+                          "context":ctx[:7000],
+                          "context_sha256":hashlib.sha256(ctx.encode("utf-8")).hexdigest(),
+                      })
+
+          callsites=[]
+          for si,body in enumerate(scripts):
+              for m in re.finditer(r"(?i)searchHint\s*\(([^)]*)\)",body):
+                  callsites.append({"script_index":si,"call":m.group(0)[:1200],"arguments":m.group(1)[:1000]})
+
+          ajax_contexts=[]
+          for si,body in enumerate(scripts):
+              for m in re.finditer(r"(?is)\$\.ajax\s*\(\s*\{",body):
+                  a=max(0,m.start()-400)
+                  b=min(len(body),m.start()+2600)
+                  ctx=re.sub(r"\s+"," ",body[a:b]).strip()
+                  if "/common/hints" in ctx or "searchHint" in ctx:
+                      ajax_contexts.append({"script_index":si,"context":ctx[:5000],"sha256":hashlib.sha256(ctx.encode("utf-8")).hexdigest()})
+
+          forms=[]
+          for fm in re.finditer(r"(?is)<form\b([^>]*)>(.*?)</form>",ntxt):
+              attrs,body=fm.group(1),fm.group(2)
+              idm=re.search(r'''(?i)\bid\s*=\s*["']([^"']+)["']''',attrs)
+              am=re.search(r'''(?i)\baction\s*=\s*["']([^"']*)["']''',attrs)
+              mm=re.search(r'''(?i)\bmethod\s*=\s*["']([^"']*)["']''',attrs)
+              forms.append({
+                  "id":idm.group(1) if idm else None,
+                  "action":am.group(1) if am else None,
+                  "method":mm.group(1).upper() if mm else "GET_DEFAULT",
+                  "html_prefix":re.sub(r"\s+"," ",fm.group(0))[:5000]
+              })
+
+          out={
+              "source_contract":{
+                  "parent_batch":"12LJ",
+                  "seed_url":seed,
+                  "source_emitted_navigation_url":nav,
+                  "only_static_context_extraction":True,
+                  "discovered_route_invoked":False,
+                  "target_query_submitted":False
+              },
+              "seed_response":{"status":sr.status_code,"sha256":hashlib.sha256(sraw).hexdigest()},
+              "navigation_response":{"status":nr.status_code,"sha256":hashlib.sha256(nraw).hexdigest()},
+              "inline_script_count":len(scripts),
+              "target_contexts":contexts,
+              "search_hint_callsites":callsites,
+              "common_hints_ajax_contexts":ajax_contexts,
+              "forms":forms,
+              "adjudication":{
+                  "callsite_context_extracted":True,
+                  "discovered_route_invoked":False,
+                  "form_submitted":False,
+                  "target_query_submitted":False,
+                  "login_used":False,
+                  "registration_used":False
+              },
+              "security":{
+                  "anonymous_get_only":True,
+                  "post_request_used":False,
+                  "private_endpoint_guessed":False,
+                  "captcha_bypass_used":False,
+                  "tls_verification_disabled":False
+              }
+          }
+          Path("batch-12lk-cnbksy-shared-search-callsite-context.json").write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12lk-cnbksy-shared-search-callsite-context
+          path: batch-12lk-cnbksy-shared-search-callsite-context.json

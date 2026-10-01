@@ -12043,7 +12043,7 @@
       "provider": "上海图书馆《全国报刊索引》编辑部",
       "url": "https://www.cnbksy.com/",
       "source_role": "FIRST_PARTY_NEWSPAPER_INDEX_PUBLIC_ACCESS_SURFACE",
-      "quality_notes": "Batch 12LF records root/home HTTP 412 without a target query. Batch 12LG narrows 412 to a path-scoped ESA/browser precondition because a same-domain activity page is anonymously HTTP 200. Batch 12LH finds no CNBKSY business-search route in the six source-emitted scripts. Batch 12LI finds no form, onclick handler or inline-script route/search signal on that activity page. The activity-page branch is therefore exhausted as a current public search-contract surface, without proving site-wide search absence. No login, registration or target query is used.",
+      "quality_notes": "Batches 12LF–12LI close the root-412/activity-page access branch without any target query. Batch 12LJ begins from a publicly indexed first-party CNBKSY news page and follows only its source-emitted 信息动态 route. The resulting POST title/startDate/endDate form is classified as a site-news filter, not the historical newspaper database. Shared inline scripts separately emit /common/hints, /search/detail/ and /search/picDetail/ candidates, but 12LJ does not call them. No login, registration or target query is used.",
       "batch_12lf": {
         "workflow_run_id": 36877911774,
         "workflow_job_id": 110421993332,
@@ -12102,6 +12102,33 @@
         "discovered_route_followed": false,
         "target_query_submitted": false,
         "research_artifact": "docs/research/ZIWEI-CNBKSY-PUBLIC-ACTIVITY-INLINE-CONTRACT-R1.json"
+      },
+      "batch_12lj": {
+        "workflow_run_id": 36880973426,
+        "workflow_job_id": 110432320720,
+        "artifact_id": 11171282570,
+        "artifact_digest": "sha256:858825c80e60875936f2f2c5933d567fbb9781dc11f4b58fd9a0ef72a1a06a30",
+        "exact_head": "138782e377ddcc68a369eefe956edd3982bfd98a",
+        "seed_url": "https://www.cnbksy.com/portal/newsCategoryBrowse/newsContent?id=202",
+        "seed_status": 200,
+        "seed_sha256": "ecfdd4f39f861143ff1efd7ebbea03814ab8b29064fea7c1517769026d49d3e0",
+        "source_emitted_information_dynamics_url": "https://www.cnbksy.com/portal/newsCategoryBrowse",
+        "followed_status": 200,
+        "followed_sha256": "8648badbfe1c751170a90797d40e05aab968fa93483cfe5102ecb27e74ee985b",
+        "news_form_method": "POST",
+        "news_form_fields": [
+          "title",
+          "startDate",
+          "endDate"
+        ],
+        "shared_source_emitted_candidates": [
+          "/common/hints",
+          "/search/detail/",
+          "/search/picDetail/"
+        ],
+        "form_submitted": false,
+        "target_query_submitted": false,
+        "research_artifact": "docs/research/ZIWEI-CNBKSY-INDEXED-NEWS-NAVIGATION-CONTRACT-R1.json"
       }
     }
   ],
