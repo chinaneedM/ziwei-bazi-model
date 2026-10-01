@@ -1,0 +1,144 @@
+name: probe-batch-12jl-wenhui-history-1997-public-preview
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12jl-wenhui-history-1997-public-preview.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Probe exact 1997 Wenhui history public metadata and preview surfaces
+        run: |
+          python - <<'PY'
+          import hashlib, html, json, re
+          from pathlib import Path
+          import requests
+
+          UA={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; exact Wenhui history 1997 public-preview probe)"}
+          ISBN10="7805314705"
+          TITLE="文汇报史略"
+          OPENLIB="https://openlibrary.org/isbn/7805314705.json"
+          CI="https://cir.nii.ac.jp/crid/1970586434863400340"
+          GOOGLE="https://books.google.com/books?vid=ISBN7805314705&hl=zh-CN"
+
+          def clean(raw):
+              raw=re.sub(r'<script\b.*?</script>',' ',raw,flags=re.I|re.S)
+              raw=re.sub(r'<style\b.*?</style>',' ',raw,flags=re.I|re.S)
+              raw=re.sub(r'<[^>]+>',' ',raw)
+              return re.sub(r'\s+',' ',html.unescape(raw)).strip()
+
+          def fetch(url):
+              try:
+                  r=requests.get(url,headers=UA,timeout=45,allow_redirects=True)
+                  return r,None
+              except Exception as e:
+                  return None,f"{type(e).__name__}: {e}"
+
+          out={"targets":{"isbn10":ISBN10,"title":TITLE}}
+
+          r,e=fetch(OPENLIB)
+          ol={"url":OPENLIB,"fetch_error":e}
+          if r is not None:
+              ol.update({"status":r.status_code,"bytes":len(r.content),"sha256":hashlib.sha256(r.content).hexdigest()})
+              try:
+                  j=r.json()
+                  ol.update({
+                      "key":j.get("key"),
+                      "title":j.get("title"),
+                      "publish_date":j.get("publish_date"),
+                      "pagination":j.get("pagination"),
+                      "publishers":j.get("publishers"),
+                      "isbn_10":j.get("isbn_10"),
+                      "isbn_13":j.get("isbn_13"),
+                      "ocaid":j.get("ocaid"),
+                      "covers":j.get("covers"),
+                      "works":j.get("works"),
+                      "source_records":j.get("source_records"),
+                      "linked_scan_observed":bool(j.get("ocaid"))
+                  })
+              except Exception as ex:
+                  ol["json_error"]=f"{type(ex).__name__}: {ex}"
+          out["openlibrary"]=ol
+
+          r,e=fetch(CI)
+          ci={"url":CI,"fetch_error":e}
+          if r is not None:
+              txt=clean(r.text)
+              ci.update({
+                  "status":r.status_code,
+                  "bytes":len(r.content),
+                  "sha256":hashlib.sha256(r.content).hexdigest(),
+                  "target_title_present":TITLE in txt or "文匯報史略" in txt,
+                  "year_1997_present":"1997" in txt,
+                  "publisher_present":"文汇出版社" in txt or "文匯出版社" in txt,
+                  "page_count_330_present":"330" in txt,
+                  "isbn_present":ISBN10 in txt,
+                  "preview_terms_present":any(x in txt for x in ("本文","全文","プレビュー","Preview","電子")),
+                  "target_1951_terms_present":any(x in txt for x in ("1951年8月18日","赵万里","趙萬里","永乐大典","永樂大典"))
+              })
+          out["cinii"]=ci
+
+          r,e=fetch(GOOGLE)
+          gb={"url":GOOGLE,"fetch_error":e}
+          if r is not None:
+              raw=r.text; txt=clean(raw)
+              ids=sorted(set(re.findall(r'/books\?id=([A-Za-z0-9_-]{5,})',raw)))
+              if not ids:
+                  ids=sorted(set(re.findall(r'books\.google\.[^/]+/books\?id=([A-Za-z0-9_-]{5,})',raw)))
+              qlinks=[html.unescape(x) for x in re.findall(r'href=["\']([^"\']*(?:jscmd=SearchWithinVolume|q=)[^"\']*)["\']',raw,re.I)]
+              gb.update({
+                  "status":r.status_code,
+                  "final_url":r.url,
+                  "bytes":len(r.content),
+                  "sha256":hashlib.sha256(r.content).hexdigest(),
+                  "target_title_present":TITLE in txt or "文匯報史略" in txt,
+                  "isbn_present":ISBN10 in re.sub(r'[-\s]','',txt),
+                  "year_1997_present":"1997" in txt,
+                  "source_emitted_book_ids":ids[:20],
+                  "source_emitted_book_id_count":len(ids),
+                  "source_emitted_inbook_or_q_links":qlinks[:30],
+                  "source_emitted_inbook_or_q_link_count":len(qlinks),
+                  "snippet_term_present":"Snippet view" in txt or "片段" in txt or "摘录" in txt,
+                  "no_ebook_term_present":"No eBook available" in txt or "无电子书" in txt,
+                  "target_1951_terms_present":any(x in txt for x in ("1951年8月18日","赵万里","趙萬里","永乐大典","永樂大典")),
+                  "raw_html_saved":False,
+                  "raw_html_logged":False
+              })
+          out["google_books"]=gb
+
+          out["adjudication"]={
+              "exact_1997_book_identity_publicly_bound":bool(
+                  ol.get("title") and (ol.get("publish_date")=="1997" or "1997" in str(ol.get("publish_date"))) and
+                  ci.get("target_title_present")
+              ),
+              "openlibrary_linked_scan_observed":bool(ol.get("linked_scan_observed")),
+              "google_source_emitted_object_observed":bool(gb.get("source_emitted_book_id_count")),
+              "public_page_level_preview_observed":False,
+              "target_1951_08_18_entry_directly_reviewed":False,
+              "target_article_directly_reviewed":False,
+              "relationship_to_1951_wenhui_lead":"UNRESOLVED"
+          }
+          out["security"]={
+              "login_used":False,
+              "payment_used":False,
+              "captcha_bypass_used":False,
+              "private_endpoint_guessed":False,
+              "tls_verification_disabled":False
+          }
+          Path("batch-12jl-wenhui-history-1997-public-preview.json").write_text(
+              json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12jl-wenhui-history-1997-public-preview
+          path: batch-12jl-wenhui-history-1997-public-preview.json
