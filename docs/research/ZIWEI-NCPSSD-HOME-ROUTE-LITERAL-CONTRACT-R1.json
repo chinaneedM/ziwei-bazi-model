@@ -1,0 +1,106 @@
+{
+  "schema": "ZIWEI-NCPSSD-HOME-ROUTE-LITERAL-CONTRACT-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-NCPSSD-HOME-ROUTE-LITERAL-CONTRACT-KL",
+  "prior_batch_id": "BATCH-12-ZIWEI-NCPSSD-SOURCE-EMITTED-SCRIPT-SEARCH-CONTRACT-NEGATIVE-KJ",
+  "question": "Does the current NCPSsd public homepage itself source-emit any concrete result-route literals or navigation/AJAX expressions that narrow the unresolved executable search contract without guessing endpoints?",
+  "answer": "Yes. The same 198,008-byte homepage source directly emits 74 search-related route/URL literals and 12 AJAX/navigation expressions. Critically, it contains 20 concrete hot-topic links whose route is /Literature/articlelist with fixed sType=0, nav=0 (duplicated in the emitted query string), showBack=true, and two opaque parameters named search and searchname. These links are direct first-party result-route witnesses and close the result endpoint family at the route-literal level. KL does not yet claim the rule for generating search/searchname for a new target term.",
+  "controlling_probe": {
+    "workflow": ".github/workflows/probe-batch-12kl-ncpssd-home-route-literals.yml",
+    "exact_head": "fe36617667b396b94b32ce5498b9ea3980b367af",
+    "workflow_run_id": 36861820187,
+    "workflow_job_id": 110367617670,
+    "artifact_id": 11161209833,
+    "artifact_name": "batch-12kl-ncpssd-home-route-literals",
+    "artifact_digest": "sha256:468ef29a508351dcb3c5c8deb2f9126a0c2099ee70fb2517d583ab1d668f39ea"
+  },
+  "home_response": {
+    "http_status": 200,
+    "url": "https://www.ncpssd.cn/",
+    "bytes": 198008,
+    "sha256": "19823cf7d2d3a89bd3f86081b113f779507ebe45acb86273fd961b537b056544",
+    "decode_used": "utf-8"
+  },
+  "route_inventory": {
+    "search_related_literal_count": 74,
+    "ajax_and_navigation_expression_count": 12,
+    "source_emitted_articlelist_hot_route_count": 20,
+    "result_route_path": "/Literature/articlelist",
+    "observed_fixed_parameters": {
+      "sType": "0",
+      "nav": [
+        "0",
+        "0"
+      ],
+      "showBack": "true"
+    },
+    "observed_opaque_parameters": [
+      "search",
+      "searchname"
+    ],
+    "autocomplete_endpoint": "/searchHandler/getautocomplete",
+    "autocomplete_classification": "AUTOCOMPLETE_ONLY_NOT_RESULT_SEARCH_CONTRACT"
+  },
+  "adjudication": {
+    "source_emitted_result_route_family_recovered": true,
+    "result_route_path_recovered": true,
+    "target_parameter_names_recovered": true,
+    "new_term_encoding_grammar_closed": false,
+    "target_query_generated": false,
+    "candidate_route_followed": false,
+    "query_submitted": false,
+    "next_gate": "BASE64_DECODE_AND_ROUNDTRIP_ALL_20_SOURCE_EMITTED_HOT_LINKS"
+  },
+  "evidence_firewall": {
+    "source_emitted_hot_link_does_not_yet_authorize_arbitrary_term_generation": true,
+    "base64_like_parameters_require_roundtrip_closure_before_target_query": true,
+    "articlelist_route_is_distinct_from_autocomplete_endpoint": true
+  },
+  "security": {
+    "anonymous_get_only": true,
+    "reader_account_used": false,
+    "registration_used": false,
+    "post_request_used": false,
+    "candidate_route_followed": false,
+    "state_changing_request_used": false,
+    "private_endpoint_guessed": false,
+    "search_endpoint_guessed": false,
+    "search_parameter_guessed": false,
+    "captcha_bypass_used": false,
+    "tls_verification_disabled": false
+  },
+  "transmission_impact": {
+    "status": "NONE_ACCESS_CONTRACT_ONLY",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": [],
+    "reason": "Public client route-contract recovery only; no historical text or transmission relation."
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Extract the 20 source-emitted /Literature/articlelist hot-topic links from the same homepage object.",
+    "Decode search and searchname as emitted, infer the term only from decoded source-emitted text, reconstruct and Base64-reencode the parameters.",
+    "Require byte-for-byte round-trip equality for every observed link before treating the generation grammar as closed.",
+    "Do not request /Literature/articlelist in the same batch."
+  ],
+  "updated_at": "2026-10-01"
+}
