@@ -131,6 +131,45 @@ jobs:
               }
               result_rows.append(row)
 
+          # Follow only scripts source-emitted by the calibrated positive-control shell.
+          pos_url=build('蒋介石')
+          pos=fetch(pos_url,referer=REF_URL)
+          script_srcs=[]
+          for src in re.findall(r'<script\\b[^>]*src=["\\\']([^"\\\']+)["\\\']',pos['body'],re.I):
+              full=urljoin(pos['final_url'],html.unescape(src))
+              host=urlparse(full).hostname or ''
+              if host.endswith('ndl.go.jp') and full not in script_srcs:
+                  script_srcs.append(full)
+
+          script_contracts=[]
+          for surl in script_srcs[:15]:
+              row={'url':surl}
+              try:
+                  sr=fetch(surl,referer=pos['final_url'])
+                  body=sr['body']
+                  row.update({'status':sr['status'],'bytes':sr['bytes'],'sha256':sr['sha256']})
+                  contexts=[]
+                  candidates=[]
+                  for m in re.finditer(r'https?://[^\\s"\\\'<>]+',body,re.I):
+                      s=m.group(0)
+                      if any(k in s.lower() for k in ('search','api','keyword','result','fulltext','pid','metadata','content')):
+                          candidates.append(s[:800])
+                  for m in re.finditer(r'/(?:api|search|result|content|contents|item|items|metadata|fulltext)[A-Za-z0-9_./?=&%:\\-]*',body,re.I):
+                      s=m.group(0)
+                      if any(k in s.lower() for k in ('search','api','keyword','result','fulltext','pid','metadata','content')):
+                          candidates.append(s[:800])
+                  for needle in ('keywordFulltext','keyword','searchResult','/api/','fetch(','axios','XMLHttpRequest','pid'):
+                      start=0
+                      while len(contexts)<80:
+                          i=body.find(needle,start)
+                          if i<0: break
+                          contexts.append({'needle':needle,'context':re.sub(r'\\s+',' ',body[max(0,i-500):i+len(needle)+900])[:1600]})
+                          start=i+len(needle)
+                  row['candidate_contract_strings']=sorted(set(candidates))[:120]
+                  row['contexts']=contexts
+              except Exception as e:
+                  row['error']=f'{type(e).__name__}: {e}'
+              script_contracts.append(row)
           result={
             'probe':'BATCH-12JH-NDL-DIGITAL-SOURCE-EMITTED-SEARCH',
             'official_reference_source':{
@@ -142,6 +181,8 @@ jobs:
               'source_emitted_keyword_keys':keyword_keys
             },
             'queries':result_rows,
+            'source_emitted_shell_scripts':script_srcs,
+            'source_emitted_script_contracts':script_contracts,
             'security':{
               'login_used':False,'account_action_used':False,'payment_used':False,'captcha_bypass_used':False,
               'private_endpoint_guessed':False,'search_endpoint_guessed':False,'search_parameter_guessed':False,
