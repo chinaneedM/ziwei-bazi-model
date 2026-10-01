@@ -11527,6 +11527,66 @@
         "direct_1951_08_18_page_reviewed": false,
         "research_artifact": "docs/research/ZIWEI-NLC-WENJIN-OPAC-WENHUI-TITLE-SEARCH-EXECUTION-R1.json"
       }
+    },
+    {
+      "source_id": "EXT-NLC-WENJIN-WENHUI-SOURCE-EMITTED-ITEM-CONTROLS-2026",
+      "title": "国家图书馆文津《文汇报》结果页 source-emitted item/detail 控件",
+      "provider": "国家图书馆 / 文津搜索",
+      "url": "http://find.nlc.cn/search/doSearch",
+      "source_role": "FIRST_PARTY_SOURCE_EMITTED_CATALOG_ITEM_CONTROL_AND_DETAIL_CONTRACT",
+      "quality_notes": "Batch 12KA binds the JZ 2004 computer-file and 1951 supplement rows to source-emitted docId/dataSource values and a source-emitted makeDetailUrl implementation. This closes catalog navigation identity only; it is not historical page text and does not itself identify the 2003 donation object.",
+      "batch_12ka": {
+        "workflow_run_id": 36852114147,
+        "workflow_job_id": 110335954125,
+        "artifact_id": 11156211973,
+        "artifact_digest": "sha256:067d0c5b82c075207a9392525c56d5ebc22663cbf84e73fdda5013505cd54c47",
+        "search_response_sha256": "794b16327b6eb4211603b8aeb3659f6d3eb6bc2ec20117474f670b97d30775cd",
+        "result_list_script_sha256": "90b95a7268acd8e44ad2b7ee00b0dd6364634108f6d2abc245a6b574ec727310",
+        "computer_file_docId": "-7686431772105481921",
+        "supplement_docId": "-2284569176548744322",
+        "dataSource": "ucs01",
+        "record_identifier_guessed": false,
+        "research_artifact": "docs/research/ZIWEI-NLC-WENJIN-WENHUI-SOURCE-EMITTED-ITEM-CONTROLS-R1.json"
+      }
+    },
+    {
+      "source_id": "EXT-NLC-WENJIN-WENHUI-2004-1938-1999-13DVD-DETAIL",
+      "title": "国家图书馆文津《文汇报》2004 计算机文件：1938-1999 图文数据光盘 / 13 DVD-ROM",
+      "provider": "国家图书馆 / 文津搜索",
+      "url": "http://find.nlc.cn/search/showDocDetails?docId=-7686431772105481921&dataSource=ucs01&query=%E6%96%87%E6%B1%87%E6%8A%A5",
+      "source_role": "FIRST_PARTY_CURRENT_NLC_ITEM_LEVEL_WENHUI_DIGITAL_DISC_CATALOG_OBJECT",
+      "quality_notes": "Batch 12KB directly binds the current NLC item metadata: 文汇报, computer file, 点通数据有限公司, 2004, 1938-1999 图文数据光盘, Wenhui Daily, ISBN 7-89999-583-3, 13 DVD-ROM. The declared span includes 1951-08-18. Exact identity with the 2003 reported 60-year donation remains unresolved because year/coverage wording differs despite the same 13-disc count.",
+      "batch_12kb": {
+        "workflow_run_id": 36852359421,
+        "workflow_job_id": 110336742604,
+        "artifact_id": 11155253790,
+        "artifact_digest": "sha256:58844e0f6dac4668619eb48a84ca89ae667c0ce442a2de55a3790e0e5d9f6ae3",
+        "response_sha256": "a76daf5e6c6867d2a9b9ff01c5dce914cf4513702a22c22014f01d8945c1afdf",
+        "isbn": "7-89999-583-3",
+        "carrier": "13光盘（DVD-ROM）",
+        "other_title_information": "1938-1999 图文数据光盘",
+        "declared_span_includes_1951_08_18": true,
+        "exact_identity_with_2003_donation": "UNRESOLVED_DO_NOT_COLLAPSE",
+        "research_artifact": "docs/research/ZIWEI-NLC-WENJIN-WENHUI-2004-CDROM-1951-HK-SUPPLEMENT-DETAIL-R1.json"
+      }
+    },
+    {
+      "source_id": "EXT-NLC-WENJIN-WENHUI-1951-HK-SUPPLEMENT-DETAIL",
+      "title": "国家图书馆文津《文汇报-副页》1951 香港报纸条目",
+      "provider": "国家图书馆 / 文津搜索",
+      "url": "http://find.nlc.cn/search/showDocDetails?docId=-2284569176548744322&dataSource=ucs01&query=%E6%96%87%E6%B1%87%E6%8A%A5",
+      "source_role": "FIRST_PARTY_CURRENT_NLC_ITEM_LEVEL_HONG_KONG_WENHUI_SUPPLEMENT_CATALOG_OBJECT",
+      "quality_notes": "Batch 12KB directly records 文汇报-副页 / 报纸 / 文汇报编辑部 / 1951 / publication place 香港. This first-party detail excludes the record from the Shanghai 1951-08-18 target-carrier candidate set; it does not supply the Shanghai newspaper page.",
+      "batch_12kb": {
+        "workflow_run_id": 36852359421,
+        "workflow_job_id": 110336742604,
+        "artifact_id": 11155253790,
+        "artifact_digest": "sha256:58844e0f6dac4668619eb48a84ca89ae667c0ce442a2de55a3790e0e5d9f6ae3",
+        "response_sha256": "a3af1371c8f8f2b5d5462bde984deec7e57fc68b79f858e8bf98991f2d61d62a",
+        "publication_place": "香港",
+        "shanghai_target_candidate": false,
+        "research_artifact": "docs/research/ZIWEI-NLC-WENJIN-WENHUI-2004-CDROM-1951-HK-SUPPLEMENT-DETAIL-R1.json"
+      }
     }
   ],
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md",

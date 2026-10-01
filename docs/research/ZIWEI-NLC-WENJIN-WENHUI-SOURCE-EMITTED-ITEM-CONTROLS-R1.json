@@ -1,0 +1,115 @@
+{
+  "schema": "ZIWEI-NLC-WENJIN-WENHUI-SOURCE-EMITTED-ITEM-CONTROLS-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-NLC-WENJIN-WENHUI-SOURCE-EMITTED-ITEM-CONTROLS-KA",
+  "prior_batch_id": "BATCH-12-ZIWEI-NLC-WENJIN-OPAC-WENHUI-TITLE-SEARCH-EXECUTION-JZ",
+  "question": "Can the current NLC Wenjin broad Wenhui results expose reproducible item/detail controls for the 2004 computer-file and 1951 supplement candidates without guessing record identifiers or detail endpoints?",
+  "answer": "Yes. The 12JZ Wenjin broad-result page directly source-emits makeDetailUrl controls. The matching result rows bind the 2004 点通数据有限公司 computer-file candidate to docId -7686431772105481921 / dataSource ucs01 and the 1951 文汇报-副页 newspaper candidate to docId -2284569176548744322 / dataSource ucs01. The source-emitted resultList.js defines makeDetailUrl as /search/showDocDetails? + docId + dataSource + query. No record ID, data source or endpoint is guessed. KA closes the item-control contract only; it does not yet use item metadata as historical page text.",
+  "controlling_probe": {
+    "workflow": ".github/workflows/probe-batch-12ka-nlc-wenjin-wenhui-item-controls.yml",
+    "exact_head": "2458941eddd8c3d063bb18e321f13b9ab7033525",
+    "workflow_run_id": 36852114147,
+    "workflow_job_id": 110335954125,
+    "artifact_id": 11156211973,
+    "artifact_name": "batch-12ka-nlc-wenjin-wenhui-item-controls",
+    "artifact_digest": "sha256:067d0c5b82c075207a9392525c56d5ebc22663cbf84e73fdda5013505cd54c47"
+  },
+  "search_response": {
+    "http_status": 200,
+    "bytes": 141873,
+    "sha256": "794b16327b6eb4211603b8aeb3659f6d3eb6bc2ec20117474f670b97d30775cd",
+    "query": "文汇报",
+    "source_contract": "12JX"
+  },
+  "item_control_contract": {
+    "result_list_script": {
+      "url": "http://find.nlc.cn/js/resultList.js",
+      "sha256": "90b95a7268acd8e44ad2b7ee00b0dd6364634108f6d2abc245a6b574ec727310"
+    },
+    "function": "makeDetailUrl(obj, url, docID, dataSource, query)",
+    "rule": "url + 'docId=' + docID + '&dataSource=' + dataSource + '&query=' + encodeURIComponent(query)",
+    "detail_path": "/search/showDocDetails?",
+    "candidates": {
+      "computer_file_2004": {
+        "rank": 7,
+        "title": "文汇报",
+        "type": "计算机文件",
+        "author": "点通数据有限公司",
+        "year": 2004,
+        "publisher": "电子出版物数据中心文汇出版社",
+        "docId": "-7686431772105481921",
+        "dataSource": "ucs01",
+        "query": "文汇报",
+        "source_emitted": true
+      },
+      "supplement_1951": {
+        "rank": 10,
+        "title": "文汇报-副页",
+        "type": "报纸",
+        "author": "文汇报编辑部",
+        "year": 1951,
+        "publisher": "该社",
+        "docId": "-2284569176548744322",
+        "dataSource": "ucs01",
+        "query": "文汇报",
+        "source_emitted": true
+      }
+    }
+  },
+  "adjudication": {
+    "source_emitted_item_controls_closed": true,
+    "record_identifier_guessed": false,
+    "data_source_guessed": false,
+    "detail_endpoint_guessed": false,
+    "item_detail_executed_in_this_batch": false
+  },
+  "evidence_firewall": {
+    "search_result_record_id_is_catalog_locator_not_historical_text": true,
+    "item_control_identity_does_not_prove_2003_donation_object_identity": true,
+    "item_control_identity_does_not_prove_1951_08_18_page": true
+  },
+  "security": {
+    "login_used": false,
+    "reader_account_used": false,
+    "registration_used": false,
+    "private_endpoint_guessed": false,
+    "record_identifier_guessed": false,
+    "data_source_guessed": false,
+    "captcha_bypass_used": false,
+    "tls_verification_disabled": false,
+    "state_changing_request_used": false
+  },
+  "transmission_impact": {
+    "status": "NONE",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": [],
+    "reason": "Modern first-party catalog-control closure only; no historical text or physical-copy lineage edge is established."
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Execute only the source-emitted detail GET for the two item controls and bind the returned first-party metadata.",
+    "Do not infer identity with the 2003 donated 60-year CD-ROM from disc count or title family alone.",
+    "Continue direct page recovery for Shanghai 文汇报 1951-08-18, 文物参考资料 1951 no.9 pp.221-233, and 2011 赵万里文集 vol.1 p.197."
+  ],
+  "updated_at": "2026-10-01"
+}

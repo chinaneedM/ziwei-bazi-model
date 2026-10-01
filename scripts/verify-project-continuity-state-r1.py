@@ -374,6 +374,10 @@ ZIWEI_NLC_DEDUP_JY_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT
 ZIWEI_NLC_DEDUP_JY_EVIDENCE = ROOT / "docs/research/ZIWEI-NLC-YONGLE-REVIEW-JK-SAME-OBJECT-REPLAY-DEDUP-R1.json"
 ZIWEI_NLC_WENHUI_JZ_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-WENJIN-OPAC-WENHUI-TITLE-SEARCH-EXECUTION-JZ.md"
 ZIWEI_NLC_WENHUI_JZ_EVIDENCE = ROOT / "docs/research/ZIWEI-NLC-WENJIN-OPAC-WENHUI-TITLE-SEARCH-EXECUTION-R1.json"
+ZIWEI_NLC_WENHUI_KA_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-WENJIN-WENHUI-SOURCE-EMITTED-ITEM-CONTROLS-KA.md"
+ZIWEI_NLC_WENHUI_KA_EVIDENCE = ROOT / "docs/research/ZIWEI-NLC-WENJIN-WENHUI-SOURCE-EMITTED-ITEM-CONTROLS-R1.json"
+ZIWEI_NLC_WENHUI_KB_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-WENJIN-WENHUI-2004-CDROM-1951-HK-SUPPLEMENT-DETAIL-KB.md"
+ZIWEI_NLC_WENHUI_KB_EVIDENCE = ROOT / "docs/research/ZIWEI-NLC-WENJIN-WENHUI-2004-CDROM-1951-HK-SUPPLEMENT-DETAIL-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -785,9 +789,11 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-NLC-WENJIN-OPAC-SOURCE-EMITTED-GET-SEARCH-CONTRACT-JX",
     "BATCH-12-ZIWEI-NLC-YONGLE-REVIEW-JK-SAME-OBJECT-REPLAY-DEDUP-JY",
     "BATCH-12-ZIWEI-NLC-WENJIN-OPAC-WENHUI-TITLE-SEARCH-EXECUTION-JZ",
+    "BATCH-12-ZIWEI-NLC-WENJIN-WENHUI-SOURCE-EMITTED-ITEM-CONTROLS-KA",
+    "BATCH-12-ZIWEI-NLC-WENJIN-WENHUI-2004-CDROM-1951-HK-SUPPLEMENT-DETAIL-KB",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-WENJIN-OPAC-WENHUI-TITLE-SEARCH-EXECUTION-JZ.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-WENJIN-WENHUI-2004-CDROM-1951-HK-SUPPLEMENT-DETAIL-KB.md"
 
 
 def fail(message: str) -> None:
@@ -11839,6 +11845,58 @@ def main() -> int:
         fail("Batch 12JZ state version regressed below 1.290.0")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12JZ latest-batch document mismatch")
+
+    # Batch 12KA/KB: Wenjin source-emitted item controls and item detail adjudication.
+    for path in (ZIWEI_NLC_WENHUI_KA_BATCH, ZIWEI_NLC_WENHUI_KA_EVIDENCE, ZIWEI_NLC_WENHUI_KB_BATCH, ZIWEI_NLC_WENHUI_KB_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12KA/KB continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12ka = json.loads(ZIWEI_NLC_WENHUI_KA_EVIDENCE.read_text(encoding="utf-8"))
+    batch12kb = json.loads(ZIWEI_NLC_WENHUI_KB_EVIDENCE.read_text(encoding="utf-8"))
+    if batch12ka.get("batch_id") != "BATCH-12-ZIWEI-NLC-WENJIN-WENHUI-SOURCE-EMITTED-ITEM-CONTROLS-KA" or batch12kb.get("batch_id") != "BATCH-12-ZIWEI-NLC-WENJIN-WENHUI-2004-CDROM-1951-HK-SUPPLEMENT-DETAIL-KB":
+        fail("Batch 12KA/KB evidence identity mismatch")
+    controls12ka = batch12ka.get("item_control_contract", {})
+    cand12ka = controls12ka.get("candidates", {})
+    if controls12ka.get("result_list_script", {}).get("sha256") != "90b95a7268acd8e44ad2b7ee00b0dd6364634108f6d2abc245a6b574ec727310":
+        fail("Batch 12KA resultList script identity regressed")
+    if cand12ka.get("computer_file_2004", {}).get("docId") != "-7686431772105481921" or cand12ka.get("supplement_1951", {}).get("docId") != "-2284569176548744322":
+        fail("Batch 12KA source-emitted item identifiers regressed")
+    if cand12ka.get("computer_file_2004", {}).get("dataSource") != "ucs01" or cand12ka.get("supplement_1951", {}).get("dataSource") != "ucs01":
+        fail("Batch 12KA dataSource binding regressed")
+    if batch12ka.get("adjudication", {}).get("record_identifier_guessed") is not False or batch12ka.get("adjudication", {}).get("source_emitted_item_controls_closed") is not True:
+        fail("Batch 12KA source-emitted/no-guess firewall regressed")
+    items12kb = batch12kb.get("items", {})
+    disc12kb = items12kb.get("computer_file_2004", {})
+    if disc12kb.get("response_sha256") != "a76daf5e6c6867d2a9b9ff01c5dce914cf4513702a22c22014f01d8945c1afdf" or disc12kb.get("isbn") != "7-89999-583-3":
+        fail("Batch 12KB 2004 Wenhui item identity regressed")
+    if disc12kb.get("other_title_information") != "1938-1999 图文数据光盘" or disc12kb.get("carrier") != "13光盘（DVD-ROM）" or disc12kb.get("declared_span_includes_1951_08_18") is not True:
+        fail("Batch 12KB 2004 disc scope/carrier regressed")
+    supp12kb = items12kb.get("supplement_1951", {})
+    if supp12kb.get("response_sha256") != "a3af1371c8f8f2b5d5462bde984deec7e57fc68b79f858e8bf98991f2d61d62a" or supp12kb.get("publication_place") != "香港":
+        fail("Batch 12KB 1951 Hong Kong supplement identity regressed")
+    adj12kb = batch12kb.get("adjudication", {})
+    if adj12kb.get("exact_identity_with_2003_donated_60year_cdrom") != "UNRESOLVED_DO_NOT_COLLAPSE" or adj12kb.get("1951_supplement_is_shanghai_target") is not False:
+        fail("Batch 12KB object/target identity firewall regressed")
+    if adj12kb.get("direct_wenhui_1951_08_18") != "NOT_REVIEWED" or adj12kb.get("document_delivery_request_not_executed") is not True:
+        fail("Batch 12KB direct-page/action firewall regressed")
+    for batch in (batch12ka, batch12kb):
+        acct = batch.get("accounting", {})
+        if acct.get("matrix_rows") != 198 or acct.get("audited_rows") != 166 or acct.get("current_missing_from_product_rows") != 10:
+            fail("Batch 12KA/KB accounting regressed")
+    reg12kakb = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    for sid in ("EXT-NLC-WENJIN-WENHUI-SOURCE-EMITTED-ITEM-CONTROLS-2026", "EXT-NLC-WENJIN-WENHUI-2004-1938-1999-13DVD-DETAIL", "EXT-NLC-WENJIN-WENHUI-1951-HK-SUPPLEMENT-DETAIL"):
+        if next((x for x in reg12kakb.get("sources", []) if x.get("source_id") == sid), None) is None:
+            fail(f"Batch 12KA/KB registry binding missing: {sid}")
+    for bid in ("BATCH-12-ZIWEI-NLC-WENJIN-WENHUI-SOURCE-EMITTED-ITEM-CONTROLS-KA", "BATCH-12-ZIWEI-NLC-WENJIN-WENHUI-2004-CDROM-1951-HK-SUPPLEMENT-DETAIL-KB"):
+        if bid not in audit_state.get("completed_batches", ()):
+            fail(f"Batch 12KA/KB missing from completed state: {bid}")
+    try:
+        schema12kb = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12KB state version is not numeric")
+    if schema12kb < (1, 292, 0):
+        fail("Batch 12KB state version regressed below 1.292.0")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12KB latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")
