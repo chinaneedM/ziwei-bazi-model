@@ -57,13 +57,26 @@ jobs:
           for label,url in PAGES.items():
               r=fetch(url)
               raw=r.content
-              text=r.text
+              # The annual pages may omit an HTTP charset; do not trust requests' ISO-8859-1 fallback.
+              text=None
+              decode_used=None
+              for enc in ("utf-8","utf-8-sig","gb18030","gbk"):
+                  try:
+                      text=raw.decode(enc)
+                      decode_used=enc
+                      break
+                  except UnicodeDecodeError:
+                      pass
+              if text is None:
+                  text=raw.decode("utf-8","replace")
+                  decode_used="utf-8-replacement"
               row={
                   "url":url,
                   "final_url":r.url,
                   "http_status":r.status_code,
                   "bytes":len(raw),
                   "sha256":sha(raw),
+                  "decode_used":decode_used,
                   "provider_label_present":("全国报刊索引" in text),
                   "dataset_flags":{k:(v in text) for k,v in FLAGS.items()},
                   "source_emitted_cnbksy_downloads":[],
