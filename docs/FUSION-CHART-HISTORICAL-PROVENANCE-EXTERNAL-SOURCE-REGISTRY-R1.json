@@ -11450,6 +11450,30 @@
         "research_artifact": "docs/research/ZIWEI-NLC-WENHUI-RESOURCE-TITLE-SEARCH-ZERO-RESULT-BOUNDARY-R1.json",
         "source_emitted_http_search_path": "http://read.nlc.cn/outRes/outResList"
       }
+    },
+    {
+      "source_id": "EXT-NLC-OPAC-PUBLIC-SEARCH-CONTRACT-TRANSPORT-BOUNDARY-2026",
+      "title": "国家图书馆 OPAC 公开搜索合同传输边界（2026）",
+      "provider": "国家图书馆",
+      "url": "https://www.nlc.cn/web/",
+      "source_role": "FIRST_PARTY_SOURCE_EMITTED_OPAC_ROUTE_TRANSPORT_AND_SEARCH_CONTRACT_BOUNDARY",
+      "quality_notes": "NLC homepage source-emits the OPAC root and /F/?func=file&file_name=login-session HTTP route. Batch 12JW reaches the root but the login-session route times out on the controlling runner. No public OPAC search form/contract is recovered and no Aleph find parameter is guessed. This is not a nonholding result.",
+      "batch_12jw": {
+        "workflow_run_id": 36845686120,
+        "workflow_job_id": 110315142748,
+        "artifact_id": 11153541592,
+        "artifact_digest": "sha256:2933160c6211d76c6ea25264241975fffed1f75f719b81acd509144ea770d039",
+        "source_emitted_opac_root": "http://opac.nlc.cn/",
+        "source_emitted_login_session": "http://opac.nlc.cn/F/?func=file&file_name=login-session",
+        "root_http_status": 200,
+        "root_bytes": 318,
+        "root_sha256": "999e28e32e671494ad7a97c0a46446f192c8767264adca9d068ef0c3f4fe2a68",
+        "login_session_reached": false,
+        "login_session_error_class": "ConnectTimeout",
+        "public_search_contract_observed": false,
+        "target_query_submitted": false,
+        "research_artifact": "docs/research/ZIWEI-NLC-OPAC-PUBLIC-SEARCH-CONTRACT-TRANSPORT-BOUNDARY-R1.json"
+      }
     }
   ],
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md",

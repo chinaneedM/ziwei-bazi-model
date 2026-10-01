@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.286.0",
+  "schema_version": "1.287.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -368,9 +368,10 @@
       "BATCH-12-ZIWEI-WENHUI-60YEAR-CDROM-NLC-DONATION-AND-CURRENT-SERVICE-BOUNDARY-JS",
       "BATCH-12-ZIWEI-NLC-SOURCE-EMITTED-OPAC-ELECTRONIC-NEWSPAPER-HTTP-ROUTE-CALIBRATION-JT",
       "BATCH-12-ZIWEI-NLC-ELECTRONIC-NEWSPAPER-PUBLIC-SEARCH-CONTRACT-JU",
-      "BATCH-12-ZIWEI-NLC-WENHUI-RESOURCE-TITLE-SEARCH-ZERO-RESULT-BOUNDARY-JV"
+      "BATCH-12-ZIWEI-NLC-WENHUI-RESOURCE-TITLE-SEARCH-ZERO-RESULT-BOUNDARY-JV",
+      "BATCH-12-ZIWEI-NLC-OPAC-PUBLIC-SEARCH-CONTRACT-TRANSPORT-BOUNDARY-JW"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-WENHUI-RESOURCE-TITLE-SEARCH-ZERO-RESULT-BOUNDARY-JV.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-OPAC-PUBLIC-SEARCH-CONTRACT-TRANSPORT-BOUNDARY-JW.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -1663,7 +1664,12 @@
       "12JU submits no query. It closes only the source-emitted anonymous GET contract and preserves the distinction between the external-resource list and NLC OPAC/catalog holdings.",
       "Batch 12JV executes only that page-emitted anonymous GET contract for four resource-title strings: 文汇报60年报纸光盘, 文汇报, 文匯報, 文汇报61年全文数据光盘. All four return HTTP 200 with pageTotal=0 on the current outRes external-resource list.",
       "The Wenhui strings visible in each 12JV response are searchName echo, not result records. No Wenhui item/result link is observed. Therefore the zero result is scoped only to the current anonymous NLC outRes external-resource index; NLC OPAC holding/nonholding, the 2003 donation object's current catalog identity, and the 1951-08-18 page remain unresolved.",
-      "Next gate: follow the NLC-homepage-emitted OPAC HTTP route and its source-emitted /F/?func=file&file_name=login-session navigation to recover the public OPAC search contract before any OPAC title query. Direct Wenhui 1951-08-18, Wenwu pp.221-233 and 2011 Wenji p.197 remain NOT_REVIEWED."
+      "Next gate: follow the NLC-homepage-emitted OPAC HTTP route and its source-emitted /F/?func=file&file_name=login-session navigation to recover the public OPAC search contract before any OPAC title query. Direct Wenhui 1951-08-18, Wenwu pp.221-233 and 2011 Wenji p.197 remain NOT_REVIEWED.",
+      "Batch 12JW directly calibrates the NLC-homepage-emitted OPAC route without submitting a catalog query. The OPAC HTTP root remains reachable at HTTP 200 / 318 bytes / SHA-256 999e28e32e671494ad7a97c0a46446f192c8767264adca9d068ef0c3f4fe2a68.",
+      "The separately source-emitted http://opac.nlc.cn/F/?func=file&file_name=login-session route times out on the controlling runner after 35 seconds, so no forms, input fields or source-emitted catalog search action can be recovered in 12JW.",
+      "12JW therefore closes only an OPAC transport/search-contract boundary: root reachable, login-session public navigation currently not reproducible, public search contract NOT_OBSERVED, no title/person/date query, no guessed Aleph find-* parameters.",
+      "The current NLC outRes zero result from 12JV remains separate from OPAC holdings. Next route priority is an already source-emitted/current NLC public catalog alternative such as 文津搜索 only if its contract is first-party and reproducible; do not infer OPAC nonholding from transport failure.",
+      "Direct Wenhui 1951-08-18, Wenwu pp.221-233 and 2011 Wenji p.197 remain NOT_REVIEWED."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10

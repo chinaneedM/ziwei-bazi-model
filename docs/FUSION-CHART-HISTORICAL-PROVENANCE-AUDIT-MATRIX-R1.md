@@ -1232,3 +1232,15 @@ Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NL
 - Accounting remains 198 / 166 / 10; provenance defects 17/17; zero algorithm defects/reopens/candidate collapses. `TRANSMISSION_IMPACT=NONE`.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-WENHUI-RESOURCE-TITLE-SEARCH-ZERO-RESULT-BOUNDARY-JV.md`. Research record: `docs/research/ZIWEI-NLC-WENHUI-RESOURCE-TITLE-SEARCH-ZERO-RESULT-BOUNDARY-R1.json`.
+
+
+## Progress — Batch 12JW
+
+- The NLC-homepage-emitted OPAC HTTP root is directly reachable on the controlling runner: HTTP 200 / 318 bytes / SHA-256 `999e28e32e671494ad7a97c0a46446f192c8767264adca9d068ef0c3f4fe2a68`.
+- The separately source-emitted `http://opac.nlc.cn/F/?func=file&file_name=login-session` navigation times out on the same runner after 35 seconds. Therefore no form, input field or public catalog search action can be recovered from that page in 12JW.
+- This is a transport/search-contract boundary only. No `func=find-*` or other Aleph query parameter is guessed, no title/person/date query is submitted, and no OPAC holding/nonholding conclusion is authorized.
+- Batch 12JV's outRes zero-result boundary remains isolated from OPAC holdings. A current first-party public catalog alternative may be pursued only from source-emitted/reproducible routes.
+- Controlling run `36845686120` / job `110315142748` / artifact `11153541592` / digest `sha256:2933160c6211d76c6ea25264241975fffed1f75f719b81acd509144ea770d039`.
+- Direct Wenhui 1951-08-18, Wenwu pp.221–233 and 2011 Wenji p.197 remain NOT_REVIEWED. Accounting remains 198 / 166 / 10; provenance defects 17/17; zero algorithm defects/reopens/candidate collapses.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-OPAC-PUBLIC-SEARCH-CONTRACT-TRANSPORT-BOUNDARY-JW.md`. Research record: `docs/research/ZIWEI-NLC-OPAC-PUBLIC-SEARCH-CONTRACT-TRANSPORT-BOUNDARY-R1.json`.

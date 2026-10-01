@@ -366,6 +366,8 @@ ZIWEI_NLC_SEARCH_JU_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDI
 ZIWEI_NLC_SEARCH_JU_EVIDENCE = ROOT / "docs/research/ZIWEI-NLC-ELECTRONIC-NEWSPAPER-PUBLIC-SEARCH-CONTRACT-R1.json"
 ZIWEI_NLC_WENHUI_JV_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-WENHUI-RESOURCE-TITLE-SEARCH-ZERO-RESULT-BOUNDARY-JV.md"
 ZIWEI_NLC_WENHUI_JV_EVIDENCE = ROOT / "docs/research/ZIWEI-NLC-WENHUI-RESOURCE-TITLE-SEARCH-ZERO-RESULT-BOUNDARY-R1.json"
+ZIWEI_NLC_OPAC_JW_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-OPAC-PUBLIC-SEARCH-CONTRACT-TRANSPORT-BOUNDARY-JW.md"
+ZIWEI_NLC_OPAC_JW_EVIDENCE = ROOT / "docs/research/ZIWEI-NLC-OPAC-PUBLIC-SEARCH-CONTRACT-TRANSPORT-BOUNDARY-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -773,9 +775,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-NLC-SOURCE-EMITTED-OPAC-ELECTRONIC-NEWSPAPER-HTTP-ROUTE-CALIBRATION-JT",
     "BATCH-12-ZIWEI-NLC-ELECTRONIC-NEWSPAPER-PUBLIC-SEARCH-CONTRACT-JU",
     "BATCH-12-ZIWEI-NLC-WENHUI-RESOURCE-TITLE-SEARCH-ZERO-RESULT-BOUNDARY-JV",
+    "BATCH-12-ZIWEI-NLC-OPAC-PUBLIC-SEARCH-CONTRACT-TRANSPORT-BOUNDARY-JW",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-WENHUI-RESOURCE-TITLE-SEARCH-ZERO-RESULT-BOUNDARY-JV.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-OPAC-PUBLIC-SEARCH-CONTRACT-TRANSPORT-BOUNDARY-JW.md"
 
 
 def fail(message: str) -> None:
@@ -11726,6 +11729,49 @@ def main() -> int:
             fail(f"Batch 12JU/JV missing from completed state: {bid}")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12JV latest-batch document mismatch")
+
+
+    # Batch 12JW: NLC OPAC public search-contract transport boundary.
+    for path in (ZIWEI_NLC_OPAC_JW_BATCH, ZIWEI_NLC_OPAC_JW_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12JW continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12jw = json.loads(ZIWEI_NLC_OPAC_JW_EVIDENCE.read_text(encoding="utf-8"))
+    bid12jw = "BATCH-12-ZIWEI-NLC-OPAC-PUBLIC-SEARCH-CONTRACT-TRANSPORT-BOUNDARY-JW"
+    if batch12jw.get("batch_id") != bid12jw:
+        fail("Batch 12JW evidence identity mismatch")
+    routes12jw = batch12jw.get("routes", {})
+    root12jw = routes12jw.get("opac_root", {})
+    if root12jw.get("http_status") != 200 or root12jw.get("bytes") != 318 or root12jw.get("sha256") != "999e28e32e671494ad7a97c0a46446f192c8767264adca9d068ef0c3f4fe2a68":
+        fail("Batch 12JW OPAC root object identity regressed")
+    login12jw = routes12jw.get("source_emitted_login_session", {})
+    if login12jw.get("reached") is not False or login12jw.get("error_class") != "ConnectTimeout":
+        fail("Batch 12JW login-session transport boundary regressed")
+    adj12jw = batch12jw.get("adjudication", {})
+    if adj12jw.get("public_search_contract") != "NOT_OBSERVED" or adj12jw.get("guessed_find_parameters_used") is not False:
+        fail("Batch 12JW OPAC contract/guess firewall regressed")
+    if adj12jw.get("target_title_query_submitted") is not False or adj12jw.get("nlc_opac_nonholding") != "NOT_PROVED":
+        fail("Batch 12JW target/nonholding firewall regressed")
+    if adj12jw.get("direct_wenhui_1951_08_18") != "NOT_REVIEWED":
+        fail("Batch 12JW direct-page firewall regressed")
+    cp12jw = batch12jw.get("controlling_probe", {})
+    if cp12jw.get("workflow_run_id") != 36845686120 or cp12jw.get("artifact_id") != 11153541592:
+        fail("Batch 12JW controlling probe binding regressed")
+    reg12jw = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    if next((x for x in reg12jw.get("sources", []) if x.get("source_id") == "EXT-NLC-OPAC-PUBLIC-SEARCH-CONTRACT-TRANSPORT-BOUNDARY-2026"), None) is None:
+        fail("Batch 12JW registry binding missing")
+    acct12jw = batch12jw.get("accounting", {})
+    if acct12jw.get("matrix_rows") != 198 or acct12jw.get("audited_rows") != 166 or acct12jw.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12JW accounting regressed")
+    try:
+        schema12jw = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12JW state version is not numeric")
+    if schema12jw < (1, 287, 0):
+        fail("Batch 12JW state version regressed below 1.287.0")
+    if bid12jw not in audit_state.get("completed_batches", ()):
+        fail("Batch 12JW missing from completed state")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12JW latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")
