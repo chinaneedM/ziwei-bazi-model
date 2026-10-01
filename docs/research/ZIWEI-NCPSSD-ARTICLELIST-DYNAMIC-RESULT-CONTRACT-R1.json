@@ -1,0 +1,146 @@
+{
+  "schema": "ZIWEI-NCPSSD-ARTICLELIST-DYNAMIC-RESULT-CONTRACT-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-NCPSSD-ARTICLELIST-DYNAMIC-RESULT-CONTRACT-KO",
+  "prior_batch_id": "BATCH-12-ZIWEI-NCPSSD-ARTICLELIST-HOTLINK-POSITIVE-CONTROL-KN",
+  "question": "What first-party dynamic data contract is source-emitted by the NCPSsd /Literature/articlelist positive-control result shell, without executing any newly discovered API?",
+  "answer": "The exact source-emitted 红楼梦 result shell emits 16 script resources, including the result-specific first-party /js/web/Literature/articlelist.js. That script directly defines search(search,pageIndex,pageSize,order,ajaxKeys), which sends the main result request to /searchHandler/search with fields search, pageNum, pageSize, sort, sType, ajaxKeys and customShowCondition. A separate searchcount() uses the same endpoint with pageNum=1, pageSize=1 and sort=null. Main response data is read from data.data, with total and rows. The same script emits secure article-detail navigation using the returned encryptedUrl. No discovered dynamic endpoint is executed in KO.",
+  "controlling_probe": {
+    "workflow": ".github/workflows/probe-batch-12ko-ncpssd-articlelist-result-shell-contract.yml",
+    "exact_head": "b28e5e9ceefe4757ba3ee67e8ec59a57ca0d1e27",
+    "workflow_run_id": 36863343149,
+    "workflow_job_id": 110372692954,
+    "artifact_id": 11162327250,
+    "artifact_name": "batch-12ko-ncpssd-articlelist-result-shell-contract",
+    "artifact_digest": "sha256:48d9be125c829130465920ffd52eb382b8985cc9b19bdbcb6aa5cf9a324d4729"
+  },
+  "result_shell_response": {
+    "http_status": 200,
+    "bytes": 143907,
+    "sha256": "6c46f6861107b842d564adbf99c57baa6d80e806277638d2dc106bdc1743e905",
+    "decode_used": "utf-8"
+  },
+  "source_emitted_script_surface": {
+    "script_count": 16,
+    "result_specific_script": "https://www.ncpssd.cn/js/web/Literature/articlelist.js",
+    "result_specific_script_sha256": "d5d3ea90d14a6bf0cb58ca77625e2e0f1852b7ddf565175e671d51a4e5fb0bee",
+    "result_specific_script_relevant_hit_count": 50,
+    "secondary_script": "https://www.ncpssd.cn/js/web/UserControls/rightclustertools.js",
+    "secondary_script_sha256": "fdbaa5d4a9254f1042d3bafd46d32b618a77bfce64e260f3d3eac2a5cd79ada3"
+  },
+  "main_result_api_contract": {
+    "method": "POST",
+    "endpoint": "/searchHandler/search",
+    "function": "search(search, pageIndex, pageSize, order, ajaxKeys)",
+    "request_fields": [
+      "search",
+      "pageNum",
+      "pageSize",
+      "sort",
+      "sType",
+      "ajaxKeys",
+      "customShowCondition"
+    ],
+    "request_field_bindings": {
+      "search": "function argument search",
+      "pageNum": "function argument pageIndex",
+      "pageSize": "function argument pageSize",
+      "sort": "function argument order",
+      "sType": "getUrlParam(\"sType\")",
+      "ajaxKeys": "function argument ajaxKeys",
+      "customShowCondition": "global searchname"
+    },
+    "response_bindings": {
+      "envelope": "data.data",
+      "total": "data.data.total",
+      "rows": "data.data.rows"
+    },
+    "executed_in_ko": false
+  },
+  "count_api_contract": {
+    "method": "POST",
+    "endpoint": "/searchHandler/search",
+    "function": "searchcount(search, pageIndex, pageSize, order, ajaxKeys)",
+    "fixed_request_values": {
+      "pageNum": 1,
+      "pageSize": 1,
+      "sort": null
+    },
+    "request_fields": [
+      "search",
+      "pageNum",
+      "pageSize",
+      "sort",
+      "sType"
+    ],
+    "executed_in_ko": false
+  },
+  "detail_route_contract": {
+    "route": "/Literature/secure/articleinfo?params=<encryptedUrl>&pageUrl=<encoded current URL>",
+    "identifier_source": "result row encryptedUrl",
+    "detail_route_followed": false
+  },
+  "other_observed_endpoints_not_executed": [
+    "/searchHandler/addEsSearchLog",
+    "/searchHandler/getdatabasecollectkind",
+    "/articlelistHandler/getdowndorread",
+    "/articlelistHandler/getdowndAndread",
+    "/searchHandler/addsearchlog",
+    "/searchHandler/solrseachfacet"
+  ],
+  "adjudication": {
+    "dynamic_result_endpoint_recovered": true,
+    "request_field_names_recovered": true,
+    "response_row_total_bindings_recovered": true,
+    "runtime_initial_values_fully_closed": false,
+    "dynamic_endpoint_executed": false,
+    "target_zhao_query_submitted": false,
+    "next_gate": "RECOVER_PAGE_INITIALIZATION_AND_URL_DECODE_CALL_CHAIN"
+  },
+  "security": {
+    "anonymous_get_only": true,
+    "reader_account_used": false,
+    "registration_used": false,
+    "post_request_used": false,
+    "dynamic_endpoint_executed": false,
+    "state_changing_request_used": false,
+    "private_endpoint_guessed": false,
+    "dynamic_endpoint_guessed": false,
+    "captcha_bypass_used": false,
+    "tls_verification_disabled": false
+  },
+  "transmission_impact": {
+    "status": "NONE_ACCESS_CONTRACT_ONLY",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": [],
+    "reason": "Dynamic search client-contract recovery only; no historical text or transmission relation."
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Read only the already source-emitted articlelist.js object.",
+    "Extract page initialization, URL parameter decoding, Base64 handling, pageSize/order/ajaxKeys initial values and initial search/searchcount call sites.",
+    "Do not execute /searchHandler/search in the same batch.",
+    "Once runtime values are closed, execute only the 红楼梦 positive-control API before any Zhao target request."
+  ],
+  "updated_at": "2026-10-01"
+}
