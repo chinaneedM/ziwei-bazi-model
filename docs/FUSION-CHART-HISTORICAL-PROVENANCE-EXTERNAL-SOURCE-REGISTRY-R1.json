@@ -12043,7 +12043,7 @@
       "provider": "上海图书馆《全国报刊索引》编辑部",
       "url": "https://www.cnbksy.com/",
       "source_role": "FIRST_PARTY_NEWSPAPER_INDEX_PUBLIC_ACCESS_SURFACE",
-      "quality_notes": "Batches 12LF–12LO close access/hint/application/product-tree branches without target terms. Batch 12LP directly GETs the first-party source-emitted 普通检索 /search route with no query and receives an ESA HTTP 412 challenge surface containing no application search form. This confirms route existence while preserving the path-scoped browser-precondition classification; it does not prove target/search absence or institutional-IP authorization. The next source-emitted public route is 使用帮助 /portal/footCategory?id=61.",
+      "quality_notes": "Batches 12LF–12LP close the search-access boundary without bypass or target query. Batch 12LQ retrieves the first-party 使用帮助 page at HTTP 200. Its visible body confirms search-mode navigation (普通/高级/专业/图片) but does not directly render field-level help semantics such as 题名/作者/刊名/分类号/年份/期号. Inline scripts contain help-content route literals, including findNews/footerList candidates, but their active/commented callsite status must be closed before any route is invoked.",
       "batch_12lf": {
         "workflow_run_id": 36877911774,
         "workflow_job_id": 110421993332,
@@ -12263,6 +12263,37 @@
           "origin": "Batch 12LJ complete seed_links"
         },
         "research_artifact": "docs/research/ZIWEI-CNBKSY-ORDINARY-SEARCH-ESA-BOUNDARY-R1.json"
+      },
+      "batch_12lq": {
+        "workflow_run_id": 36888840223,
+        "workflow_job_id": 110458979575,
+        "artifact_id": 11175557446,
+        "artifact_digest": "sha256:814009359f6f745bd742b2e5bd1053e668f9be38da7f20ce34f3a6a27a34f55d",
+        "exact_head": "fe6aa0848c23bd839295d9ac105d558924f83d8f",
+        "route": "/portal/footCategory?id=61",
+        "route_label": "使用帮助",
+        "response_status": 200,
+        "response_content_type": "text/html;charset=UTF-8",
+        "response_server": "ESA",
+        "response_bytes": 43685,
+        "response_sha256": "b1eb40bfc76842b2d4cb4d33527cfbda52075b31ebd90aa93cd27b22699a8226",
+        "visible_text_length": 179,
+        "search_mode_navigation": [
+          "文献检索",
+          "普通检索",
+          "高级检索",
+          "专业检索",
+          "图片检索"
+        ],
+        "field_semantic_tokens_observed": [],
+        "dynamic_help_route_candidates": [
+          "/portal/footCategory/findNews",
+          "/portal/footCategory/findNews?id=61",
+          "/portal/footCategory/footerList?id=61"
+        ],
+        "candidate_route_invoked": false,
+        "target_query_submitted": false,
+        "research_artifact": "docs/research/ZIWEI-CNBKSY-USAGE-HELP-SURFACE-R1.json"
       }
     }
   ],

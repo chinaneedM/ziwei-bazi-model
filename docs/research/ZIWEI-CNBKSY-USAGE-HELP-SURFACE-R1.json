@@ -1,0 +1,113 @@
+{
+  "schema": "ZIWEI-CNBKSY-USAGE-HELP-SURFACE-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-CNBKSY-USAGE-HELP-SURFACE-LQ",
+  "prior_batch_id": "BATCH-12-ZIWEI-CNBKSY-ORDINARY-SEARCH-ESA-BOUNDARY-LP",
+  "question": "Does the first-party public 使用帮助 page directly expose field-level ordinary/advanced/professional search semantics, and what source-emitted dynamic-help candidates exist if it does not?",
+  "answer": "The page is anonymously HTTP 200 and confirms the navigation taxonomy 文献检索 / 普通检索 / 高级检索 / 专业检索 / 图片检索. However the rendered visible text is only 179 characters and contains no 题名/作者/刊名/分类号/年份/期号/检索词/关键词/全文/逻辑/布尔 semantics. Inline scripts expose findNews/footerList route literals, but captured snippets include commented AJAX text, so no candidate may be invoked until active/commented callsite status and transport are statically closed.",
+  "controlling_probe": {
+    "workflow": ".github/workflows/probe-batch-12lq-cnbksy-usage-help-contract.yml",
+    "exact_head": "fe6aa0848c23bd839295d9ac105d558924f83d8f",
+    "workflow_run_id": 36888840223,
+    "workflow_job_id": 110458979575,
+    "artifact_id": 11175557446,
+    "artifact_digest": "sha256:814009359f6f745bd742b2e5bd1053e668f9be38da7f20ce34f3a6a27a34f55d"
+  },
+  "response": {
+    "url": "https://www.cnbksy.com/portal/footCategory?id=61",
+    "http_status": 200,
+    "content_type": "text/html;charset=UTF-8",
+    "server_header": "ESA",
+    "bytes": 43685,
+    "sha256": "b1eb40bfc76842b2d4cb4d33527cfbda52075b31ebd90aa93cd27b22699a8226"
+  },
+  "visible_surface": {
+    "visible_text_length": 179,
+    "navigation_token_counts": {
+      "使用帮助": 4,
+      "普通检索": 1,
+      "高级检索": 1,
+      "专业检索": 1,
+      "文献检索": 1,
+      "图片检索": 1
+    },
+    "field_semantic_token_counts": {
+      "题名": 0,
+      "作者": 0,
+      "刊名": 0,
+      "分类号": 0,
+      "年份": 0,
+      "期号": 0,
+      "检索词": 0,
+      "关键词": 0,
+      "全文": 0,
+      "逻辑": 0,
+      "布尔": 0,
+      "结果": 0
+    },
+    "field_level_help_directly_rendered": false
+  },
+  "dynamic_help_candidates": {
+    "inline_script_index": 4,
+    "inline_script_sha256": "31d79f13a7e09d7328d76bdc2f521356614e17561b9084de129a6794fdc1d018",
+    "route_literals": [
+      "/news/listTree?id=nc.id",
+      "/portal/footCategory/findNews",
+      "/portal/footCategory/findNews?id=61",
+      "/portal/footCategory/footerList?id=61"
+    ],
+    "captured_snippet_has_commented_ajax": true,
+    "active_transport_closed": false,
+    "route_invocation_authorized": false
+  },
+  "adjudication": {
+    "public_usage_help_surface_retrieved": true,
+    "search_mode_navigation_confirmed": true,
+    "field_level_help_semantics_observed": false,
+    "dynamic_help_callsite_contract_closed": false,
+    "candidate_route_invoked": false,
+    "target_term_submitted": false,
+    "target_query_submitted": false,
+    "login_used": false,
+    "registration_used": false
+  },
+  "security": {
+    "anonymous_get_only": true,
+    "private_endpoint_guessed": false,
+    "captcha_bypass_used": false,
+    "tls_verification_disabled": false
+  },
+  "transmission_impact": {
+    "status": "NONE_ACCESS_BOUNDARY_ONLY",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": []
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Re-fetch only the first-party 使用帮助 page.",
+    "For /portal/footCategory/findNews, /portal/footCategory/findNews?id=61, /portal/footCategory/footerList?id=61 and /news/listTree?id=nc.id, classify every occurrence as active, line-commented, block-commented or HTML-commented.",
+    "Extract nearby $.ajax / $.get / $.post / bksy.get / bksy.post call syntax, method, data expression and callback target without invoking any route.",
+    "Do not submit a target term or query."
+  ],
+  "updated_at": "2026-10-01"
+}

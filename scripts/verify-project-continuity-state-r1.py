@@ -846,9 +846,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-CNBKSY-APPLICATION-SEARCH-ROUTE-INVENTORY-LN",
     "BATCH-12-ZIWEI-CNBKSY-PRODUCT-TREE-NAVIGATION-CONTRACT-LO",
     "BATCH-12-ZIWEI-CNBKSY-ORDINARY-SEARCH-ESA-BOUNDARY-LP",
+    "BATCH-12-ZIWEI-CNBKSY-USAGE-HELP-SURFACE-LQ",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-ORDINARY-SEARCH-ESA-BOUNDARY-LP.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-USAGE-HELP-SURFACE-LQ.md"
 
 
 def fail(message: str) -> None:
@@ -12954,6 +12955,50 @@ def main() -> int:
         fail("Batch 12LP state version regressed below 1.331.0")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12LP latest-batch document mismatch")
+
+    # Batch 12LQ: public usage-help page confirms search-mode navigation but renders no field-level help semantics.
+    lq_batch = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-USAGE-HELP-SURFACE-LQ.md"
+    lq_evidence = ROOT / "docs/research/ZIWEI-CNBKSY-USAGE-HELP-SURFACE-R1.json"
+    if not lq_batch.is_file() or not lq_evidence.is_file():
+        fail("Batch 12LQ continuity artifact missing")
+    lq = json.loads(lq_evidence.read_text(encoding="utf-8"))
+    if lq.get("batch_id") != "BATCH-12-ZIWEI-CNBKSY-USAGE-HELP-SURFACE-LQ":
+        fail("Batch 12LQ evidence identity mismatch")
+    r = lq.get("response", {})
+    if r.get("http_status") != 200 or r.get("server_header") != "ESA" or r.get("bytes") != 43685:
+        fail("Batch 12LQ help response identity regressed")
+    if r.get("sha256") != "b1eb40bfc76842b2d4cb4d33527cfbda52075b31ebd90aa93cd27b22699a8226":
+        fail("Batch 12LQ help response digest regressed")
+    vis = lq.get("visible_surface", {})
+    if vis.get("visible_text_length") != 179 or vis.get("field_level_help_directly_rendered") is not False:
+        fail("Batch 12LQ visible help surface regressed")
+    ft = vis.get("field_semantic_token_counts", {})
+    for key in ("题名","作者","刊名","分类号","年份","期号","检索词","关键词","全文","逻辑","布尔"):
+        if ft.get(key) != 0:
+            fail(f"Batch 12LQ unexpected field semantic token: {key}")
+    dyn = lq.get("dynamic_help_candidates", {})
+    if dyn.get("active_transport_closed") is not False or dyn.get("route_invocation_authorized") is not False:
+        fail("Batch 12LQ dynamic-help authorization firewall regressed")
+    a = lq.get("adjudication", {})
+    if a.get("search_mode_navigation_confirmed") is not True or a.get("field_level_help_semantics_observed") is not False:
+        fail("Batch 12LQ help adjudication regressed")
+    if a.get("candidate_route_invoked") is not False or a.get("target_query_submitted") is not False:
+        fail("Batch 12LQ no-route/no-query firewall regressed")
+    p = lq.get("controlling_probe", {})
+    if p.get("workflow_run_id") != 36888840223 or p.get("workflow_job_id") != 110458979575 or p.get("artifact_id") != 11175557446:
+        fail("Batch 12LQ controlling probe identity regressed")
+    if p.get("artifact_digest") != "sha256:814009359f6f745bd742b2e5bd1053e668f9be38da7f20ce34f3a6a27a34f55d":
+        fail("Batch 12LQ artifact digest regressed")
+    if "BATCH-12-ZIWEI-CNBKSY-USAGE-HELP-SURFACE-LQ" not in audit_state.get("completed_batches", ()):
+        fail("Batch 12LQ missing from completed state")
+    try:
+        schema12lq = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12LQ state version is not numeric")
+    if schema12lq < (1, 332, 0):
+        fail("Batch 12LQ state version regressed below 1.332.0")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12LQ latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

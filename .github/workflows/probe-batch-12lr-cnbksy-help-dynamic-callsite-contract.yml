@@ -1,0 +1,135 @@
+name: probe-batch-12lr-cnbksy-help-dynamic-callsite-contract
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12lr-cnbksy-help-dynamic-callsite-contract.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Classify help-content route callsites statically; invoke none
+        run: |
+          python - <<'PY'
+          import hashlib, html, json, re
+          from pathlib import Path
+          import requests
+
+          url="https://www.cnbksy.com/portal/footCategory?id=61"
+          UA={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; CNBKSY help dynamic callsite contract)"}
+          r=requests.get(url,headers=UA,timeout=45,allow_redirects=False)
+          raw=r.content
+          txt=raw.decode("utf-8","replace")
+          scripts=[m.group(1) for m in re.finditer(r"(?is)<script\b(?![^>]*\bsrc\s*=)[^>]*>(.*?)</script>",txt)]
+
+          targets=[
+              "/portal/footCategory/findNews",
+              "/portal/footCategory/findNews?id=61",
+              "/portal/footCategory/footerList?id=61",
+              "/news/listTree?id=nc.id",
+          ]
+
+          def comment_class(body,pos):
+              line_start=body.rfind("\n",0,pos)+1
+              prefix=body[line_start:pos]
+              if prefix.lstrip().startswith("//"):
+                  return "LINE_COMMENT"
+              last_open=body.rfind("/*",0,pos)
+              last_close=body.rfind("*/",0,pos)
+              if last_open>last_close:
+                  return "BLOCK_COMMENT"
+              last_html_open=body.rfind("<!--",0,pos)
+              last_html_close=body.rfind("-->",0,pos)
+              if last_html_open>last_html_close:
+                  return "HTML_COMMENT"
+              return "ACTIVE_OR_STRING_IN_ACTIVE_CODE"
+
+          occurrences=[]
+          for si,body in enumerate(scripts):
+              for token in targets:
+                  for m in re.finditer(re.escape(token),body):
+                      a=max(0,m.start()-2200); b=min(len(body),m.end()+3200)
+                      ctx=re.sub(r"\s+"," ",body[a:b]).strip()
+                      occurrences.append({
+                          "script_index":si,
+                          "token":token,
+                          "comment_class":comment_class(body,m.start()),
+                          "context":ctx[:7500],
+                          "context_sha256":hashlib.sha256(ctx.encode("utf-8")).hexdigest()
+                      })
+
+          callsites=[]
+          patterns=[
+              ("JQUERY_AJAX",r"(?is)\$\.ajax\s*\(\s*\{.{0,5000}?\}\s*\)"),
+              ("JQUERY_GET",r"(?is)\$\.get\s*\([^;]{0,3000}\)"),
+              ("JQUERY_POST",r"(?is)\$\.post\s*\([^;]{0,3000}\)"),
+              ("BKSY_GET",r"(?is)bksy\.get\s*\([^;]{0,3000}\)"),
+              ("BKSY_POST",r"(?is)bksy\.post\s*\([^;]{0,3000}\)"),
+              ("BKSY_JSONPOST",r"(?is)bksy\.jsonPost\s*\([^;]{0,3000}\)")
+          ]
+          for si,body in enumerate(scripts):
+              for kind,pat in patterns:
+                  for m in re.finditer(pat,body):
+                      call=m.group(0)
+                      matched=[t for t in targets if t in call]
+                      if matched:
+                          callsites.append({
+                              "script_index":si,
+                              "kind":kind,
+                              "matched_targets":matched,
+                              "comment_class":comment_class(body,m.start()),
+                              "call":re.sub(r"\s+"," ",call).strip()[:7000],
+                              "sha256":hashlib.sha256(re.sub(r"\s+"," ",call).strip().encode("utf-8")).hexdigest()
+                          })
+
+          active=[x for x in occurrences if x["comment_class"]=="ACTIVE_OR_STRING_IN_ACTIVE_CODE"]
+
+          out={
+              "source_contract":{
+                  "parent_batch":"12LQ",
+                  "url":url,
+                  "static_analysis_only":True,
+                  "candidate_route_invoked":False,
+                  "target_query_submitted":False
+              },
+              "response":{
+                  "status":r.status_code,
+                  "content_type":r.headers.get("content-type"),
+                  "server":r.headers.get("server"),
+                  "bytes":len(raw),
+                  "sha256":hashlib.sha256(raw).hexdigest()
+              },
+              "inline_script_count":len(scripts),
+              "target_occurrences":occurrences,
+              "active_occurrence_count":len(active),
+              "candidate_callsites":callsites,
+              "adjudication":{
+                  "comment_and_callsite_inventory_completed":True,
+                  "candidate_route_invoked":False,
+                  "target_term_submitted":False,
+                  "target_query_submitted":False,
+                  "login_used":False,
+                  "registration_used":False
+              },
+              "security":{
+                  "anonymous_get_only":True,
+                  "private_endpoint_guessed":False,
+                  "captcha_bypass_used":False,
+                  "tls_verification_disabled":False
+              }
+          }
+          Path("batch-12lr-cnbksy-help-dynamic-callsite-contract.json").write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12lr-cnbksy-help-dynamic-callsite-contract
+          path: batch-12lr-cnbksy-help-dynamic-callsite-contract.json

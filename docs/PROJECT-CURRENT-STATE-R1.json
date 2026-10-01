@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.331.0",
+  "schema_version": "1.332.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -413,9 +413,10 @@
       "BATCH-12-ZIWEI-CNBKSY-COMMON-HINTS-NULL-POST-LM",
       "BATCH-12-ZIWEI-CNBKSY-APPLICATION-SEARCH-ROUTE-INVENTORY-LN",
       "BATCH-12-ZIWEI-CNBKSY-PRODUCT-TREE-NAVIGATION-CONTRACT-LO",
-      "BATCH-12-ZIWEI-CNBKSY-ORDINARY-SEARCH-ESA-BOUNDARY-LP"
+      "BATCH-12-ZIWEI-CNBKSY-ORDINARY-SEARCH-ESA-BOUNDARY-LP",
+      "BATCH-12-ZIWEI-CNBKSY-USAGE-HELP-SURFACE-LQ"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-ORDINARY-SEARCH-ESA-BOUNDARY-LP.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-USAGE-HELP-SURFACE-LQ.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -1853,7 +1854,12 @@
       "The route returns HTTP 412 text/html; charset=utf-8 from server header ESA, 2461 bytes, SHA-256 391ddee6ecb570a5439f2ff05cafd72605e10459e86ceaec489f76d8943d9764. The returned challenge surface contains no search form, buttons or hrefs and emits only an ESA script plus three inline challenge blocks.",
       "Therefore ordinary search existence is source-confirmed while anonymous raw-HTTP access to its application surface remains blocked by an ESA/browser precondition. This does not prove target absence, search absence or an institutional-IP authorization requirement.",
       "No target term, query string, login, registration or credential value is used. The search page's ESA challenge must not be bypassed.",
-      "Next gate 12LQ uses the first-party source-emitted 使用帮助 route /portal/footCategory?id=61 and inventories only public help text, links and static scripts for ordinary/advanced/professional search semantics. Matrix remains 198 / 166 / 10; provenance defects 17/17; chart algorithm defects / reopens / candidate collapses remain 0."
+      "Next gate 12LQ uses the first-party source-emitted 使用帮助 route /portal/footCategory?id=61 and inventories only public help text, links and static scripts for ordinary/advanced/professional search semantics. Matrix remains 198 / 166 / 10; provenance defects 17/17; chart algorithm defects / reopens / candidate collapses remain 0.",
+      "Batch 12LQ exact-head run 36888840223 / job 110458979575 / artifact 11175557446 anonymously retrieves the first-party source-emitted 使用帮助 page /portal/footCategory?id=61 and receives HTTP 200 from ESA, 43685 bytes, SHA-256 b1eb40bfc76842b2d4cb4d33527cfbda52075b31ebd90aa93cd27b22699a8226.",
+      "The rendered visible-text surface is only 179 characters and confirms navigation labels 文献检索 / 普通检索 / 高级检索 / 专业检索 / 图片检索, but contains zero occurrences of 题名, 作者, 刊名, 分类号, 年份, 期号, 检索词, 关键词, 全文, 逻辑 or 布尔. Therefore field-level search-help semantics are not directly rendered.",
+      "Inline script literals expose /portal/footCategory/findNews, /portal/footCategory/findNews?id=61 and /portal/footCategory/footerList?id=61 candidates, but the captured snippets include commented AJAX text and are insufficient to authorize invoking any candidate route.",
+      "Next gate 12LR statically classifies each help-content route occurrence as active/commented and extracts surrounding AJAX/bksy call parameters and HTTP semantics without invoking any route. No target query is submitted.",
+      "Matrix remains 198 / 166 / 10; provenance defects remain 17/17; chart algorithm defects / reopens / candidate collapses remain 0."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10
