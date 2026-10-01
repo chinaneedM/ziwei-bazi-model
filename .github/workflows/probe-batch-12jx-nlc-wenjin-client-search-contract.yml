@@ -1,0 +1,148 @@
+name: probe-batch-12jx-nlc-wenjin-client-search-contract
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12jx-nlc-wenjin-client-search-contract.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inspect NLC-emitted Wenjin client-side contract without querying
+        run: |
+          python - <<'PY'
+          import hashlib, json, re
+          from html.parser import HTMLParser
+          from pathlib import Path
+          from urllib.parse import urljoin, urlparse
+          import requests
+
+          UA={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; NLC Wenjin client-contract probe)"}
+          PAGES=[
+            "https://www.nlc.cn/web/",
+            "https://www.nlc.cn/web/ziyuansousuo/index.shtml",
+          ]
+          ROUTE="http://find.nlc.cn/search/doSearch"
+
+          def sha(b): return hashlib.sha256(b).hexdigest()
+          def dec(raw):
+              for enc in ("utf-8","utf-8-sig","gb18030","gbk"):
+                  try: return raw.decode(enc),enc
+                  except UnicodeDecodeError: pass
+              return raw.decode("utf-8","replace"),"utf-8-replacement"
+
+          class Scan(HTMLParser):
+              def __init__(self):
+                  super().__init__(); self.scripts=[]; self.inputs=[]; self.buttons=[]; self.forms=[]
+              def handle_starttag(self,tag,attrs):
+                  d=dict(attrs)
+                  if tag=="script" and d.get("src"): self.scripts.append(d["src"])
+                  if tag=="input": self.inputs.append({k:d.get(k) for k in ("id","name","type","placeholder","value","onclick","onkeydown","onkeyup") if d.get(k) is not None})
+                  if tag=="button": self.buttons.append({k:d.get(k) for k in ("id","name","type","value","onclick") if d.get(k) is not None})
+                  if tag=="form": self.forms.append({k:d.get(k) for k in ("id","name","action","method","onsubmit") if d.get(k) is not None})
+
+          def contexts(txt, needles, limit=60):
+              out=[]
+              for needle in needles:
+                  for m in re.finditer(re.escape(needle),txt,re.I):
+                      s=max(0,m.start()-600); e=min(len(txt),m.end()+1800)
+                      piece=re.sub(r"\s+"," ",txt[s:e])[:2400]
+                      key=(needle,piece)
+                      if key not in [(x["needle"],x["context"]) for x in out]:
+                          out.append({"needle":needle,"context":piece})
+                      if len(out)>=limit: return out
+              return out
+
+          page_rows=[]
+          script_urls=[]
+          needles=("find.nlc.cn","search/doSearch","文津搜索","doSearch","searchInput","keyword","query","检索","搜索")
+          for url in PAGES:
+              r=requests.get(url,headers=UA,timeout=45,allow_redirects=True)
+              txt,enc=dec(r.content)
+              sc=Scan(); sc.feed(txt)
+              scripts=[]
+              for src in sc.scripts:
+                  u=urljoin(r.url,src)
+                  host=urlparse(u).hostname or ""
+                  if host.endswith("nlc.cn") and u not in scripts:
+                      scripts.append(u)
+                  if host.endswith("nlc.cn") and u not in script_urls:
+                      script_urls.append(u)
+              page_rows.append({
+                "url":url,"http_status":r.status_code,"final_url":r.url,"bytes":len(r.content),
+                "sha256":sha(r.content),"decode_used":enc,
+                "forms":sc.forms,"inputs":sc.inputs,"buttons":sc.buttons,
+                "source_emitted_nlc_scripts":scripts,
+                "route_literal_present":ROUTE in txt,
+                "contexts":contexts(txt,needles)
+              })
+
+          scripts=[]
+          for u in script_urls[:80]:
+              item={"url":u}
+              try:
+                  r=requests.get(u,headers=UA,timeout=30,allow_redirects=True)
+                  txt,enc=dec(r.content)
+                  item.update({
+                    "http_status":r.status_code,"final_url":r.url,"bytes":len(r.content),
+                    "sha256":sha(r.content),"decode_used":enc,
+                    "route_literal_present":ROUTE in txt,
+                    "contexts":contexts(txt,needles,limit=30)
+                  })
+              except Exception as e:
+                  item["error_class"]=type(e).__name__; item["error"]=str(e)[:300]
+              scripts.append(item)
+
+          all_context="\n".join(
+              x["context"] for p in page_rows for x in p.get("contexts",[])
+          )+"\n"+"\n".join(
+              x["context"] for s in scripts for x in s.get("contexts",[])
+          )
+          likely_params=sorted(set(re.findall(r'(?:name|data|params?)\s*[:=]\s*[{\"\']?([A-Za-z_][A-Za-z0-9_-]{1,40})',all_context)))
+          result={
+            "pages":page_rows,
+            "source_emitted_scripts":scripts,
+            "contract_analysis":{
+              "route":ROUTE,
+              "route_literal_observed":any(p["route_literal_present"] for p in page_rows) or any(s.get("route_literal_present") for s in scripts),
+              "candidate_parameter_tokens_from_context":likely_params[:100],
+              "named_query_contract_directly_observed":False,
+              "query_submitted":False
+            },
+            "security":{
+              "login_used":False,"reader_account_used":False,"registration_used":False,
+              "target_query_submitted":False,"form_submitted":False,"private_endpoint_guessed":False,
+              "search_parameter_guessed":False,"captcha_bypass_used":False,"tls_verification_disabled":False
+            }
+          }
+
+          # Directly observed only if the same captured context ties ROUTE to an explicit object/query-string assignment.
+          direct=False
+          for p in page_rows:
+              for x in p["contexts"]:
+                  c=x["context"]
+                  if ("find.nlc.cn" in c or "search/doSearch" in c) and re.search(r'(?:\?|&|data\s*[:=]\s*\{)[^\n]{0,800}(?:keyword|query|search|word|key|q)\s*[:=]',c,re.I):
+                      direct=True
+          for s in scripts:
+              for x in s.get("contexts",[]):
+                  c=x["context"]
+                  if ("find.nlc.cn" in c or "search/doSearch" in c) and re.search(r'(?:\?|&|data\s*[:=]\s*\{)[^\n]{0,800}(?:keyword|query|search|word|key|q)\s*[:=]',c,re.I):
+                      direct=True
+          result["contract_analysis"]["named_query_contract_directly_observed"]=direct
+
+          Path("batch-12jx-nlc-wenjin-client-search-contract.json").write_text(
+              json.dumps(result,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(result,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12jx-nlc-wenjin-client-search-contract
+          path: batch-12jx-nlc-wenjin-client-search-contract.json
