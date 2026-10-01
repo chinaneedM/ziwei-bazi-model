@@ -1,0 +1,135 @@
+name: probe-batch-12jn-shu-current-wenhui-locator-digital-access
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12jn-shu-current-wenhui-locator-digital-access.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Probe SHU current Wenhui locator and digital-platform access boundary
+        run: |
+          python - <<'PY'
+          import hashlib, html, json, re
+          from pathlib import Path
+          import requests
+
+          DIR='https://lib.shu.edu.cn/info/1064/3453.htm'
+          DIGITAL='https://lib.shu.edu.cn/info/1002/3913.htm'
+          UA={'User-Agent':'Mozilla/5.0 (Tianwen provenance audit; SHU current Wenhui locator/access probe)'}
+
+          def fetch(url):
+              r=requests.get(url,headers=UA,timeout=45,allow_redirects=True)
+              r.raise_for_status()
+              return r
+
+          def decode(r):
+              encs=['utf-8','gb18030','gbk','big5']
+              ct=r.headers.get('Content-Type','')
+              m=re.search(r'charset=([A-Za-z0-9._-]+)',ct,re.I)
+              if m: encs.insert(0,m.group(1))
+              cand=[]; seen=set()
+              for enc in encs:
+                  if enc.lower() in seen: continue
+                  seen.add(enc.lower())
+                  try: txt=r.content.decode(enc)
+                  except Exception: continue
+                  han=sum(1 for ch in txt if '\u4e00' <= ch <= '\u9fff')
+                  cand.append((han,-txt.count('\ufffd'),enc,txt))
+              cand.sort(reverse=True,key=lambda x:(x[0],x[1]))
+              return (cand[0][3],cand[0][2]) if cand else (r.content.decode('utf-8','replace'),'utf-8-replacement')
+
+          def clean(raw):
+              raw=re.sub(r'<script\b.*?</script>',' ',raw,flags=re.I|re.S)
+              raw=re.sub(r'<style\b.*?</style>',' ',raw,flags=re.I|re.S)
+              raw=re.sub(r'<[^>]+>',' ',raw)
+              return re.sub(r'\s+',' ',html.unescape(raw)).strip()
+
+          rd=fetch(DIR); rawd,encd=decode(rd); vd=clean(rawd)
+          titlem=re.search(r'<title[^>]*>(.*?)</title>',rawd,re.I|re.S)
+          dir_title=clean(titlem.group(1)) if titlem else None
+          # Current-page visible-text extraction. The page text is authoritative for the locator,
+          # but still only at holding/access scope.
+          rowm=re.search(r'7\s+文汇报\s+(A\s*7-1|A7-1)\s+(1951\(5-8\).*?2001-2010;)\s+B\s+L',vd,re.S)
+          row_context=None
+          idx=vd.find('7 文汇报')
+          if idx<0: idx=vd.find('文汇报 A7-1')
+          if idx>=0: row_context=vd[max(0,idx-180):min(len(vd),idx+800)]
+          codes={
+              'B_new_campus_current_newspaper':'B表示新校区期刊室收藏当年报纸' in vd,
+              'W_yanchang_current_newspaper':'W表示延长校区期刊室收藏当年报纸' in vd,
+              'L_jiading_current_newspaper':'L表示嘉定校区期刊室收藏当年报纸' in vd,
+          }
+          current={
+              'url':DIR,'status':rd.status_code,'bytes':len(rd.content),'sha256':hashlib.sha256(rd.content).hexdigest(),
+              'decoded_encoding':encd,'page_title':dir_title,
+              'update_2025_10_title_marker':bool(dir_title and '2025.10' in dir_title),
+              'header_has_binding_and_holding_columns':all(x in vd for x in ('架号','收藏情况','装订馆','收藏馆')),
+              'code_legend':codes,
+              'target_row_regex_closed':bool(rowm),
+              'target_title_present':'文汇报' in vd,
+              'rack_a7_1_present':'文汇报 A7-1' in vd or '文汇报 A 7-1' in vd,
+              'coverage_1951_5_8_present':'1951(5-8)' in vd,
+              'binding_holding_codes_b_l_present':bool(re.search(r'文汇报\s+A\s*7-1\s+1951\(5-8\).*?\sB\s+L(?:\s|$)',vd,re.S)),
+              'row_context':row_context,
+              'specific_1951_08_18_issue_directly_reviewed':False,
+              'direct_article_text_observed':False,
+              'raw_html_saved':False,'raw_html_logged':False
+          }
+
+          rg=fetch(DIGITAL); rawg,encg=decode(rg); vg=clean(rawg)
+          tm=re.search(r'<title[^>]*>(.*?)</title>',rawg,re.I|re.S)
+          digital_title=clean(tm.group(1)) if tm else None
+          digital={
+              'url':DIGITAL,'status':rg.status_code,'bytes':len(rg.content),'sha256':hashlib.sha256(rg.content).hexdigest(),
+              'decoded_encoding':encg,'page_title':digital_title,
+              'platform_marker':'图书馆数字倍增平台现已开通' in vg,
+              'resource_volume_approx_300k':'约30万册' in vg,
+              'email_appointment_required':'可通过邮件的方式提出预约' in vg,
+              'staff_reply_required':'等图书馆工作人员答复后' in vg,
+              'on_site_fifth_floor_terminal_required':'前往校本部图书馆五楼电子阅览室指定位置使用' in vg,
+              'target_wenhui_1951_named':'文汇报' in vg and '1951' in vg,
+              'target_object_identifier_observed':False,
+              'public_remote_view_contract_observed':False,
+              'email_action_performed':False,
+              'appointment_performed':False,
+              'login_used':False,
+              'raw_html_saved':False,'raw_html_logged':False
+          }
+
+          out={
+              'current_directory':current,
+              'digital_platform':digital,
+              'adjudication':{
+                  'current_locator_a7_1_closed':current['rack_a7_1_present'] and current['coverage_1951_5_8_present'],
+                  'legacy_12jm_shelf_6_10_should_be_treated_as_prior_directory_locator':True,
+                  'current_directory_supersedes_legacy_locator_for_present_access_planning':current['rack_a7_1_present'],
+                  'target_holding_coverage_changed_from_12jm':False,
+                  'target_coverage_still_1951_5_8':current['coverage_1951_5_8_present'],
+                  'digital_platform_is_mediated_on_site_access':digital['email_appointment_required'] and digital['on_site_fifth_floor_terminal_required'],
+                  'digital_platform_target_wenhui_object_binding':'NOT_OBSERVED',
+                  'public_remote_target_page_observed':False,
+                  'specific_1951_08_18_issue_directly_reviewed':False,
+                  'target_article_directly_reviewed':False
+              },
+              'security':{
+                  'login_used':False,'email_sent':False,'appointment_requested':False,'payment_used':False,
+                  'captcha_bypass_used':False,'private_endpoint_guessed':False,'tls_verification_disabled':False
+              }
+          }
+          Path('batch-12jn-shu-current-wenhui-locator-digital-access.json').write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding='utf-8')
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12jn-shu-current-wenhui-locator-digital-access
+          path: batch-12jn-shu-current-wenhui-locator-digital-access.json
