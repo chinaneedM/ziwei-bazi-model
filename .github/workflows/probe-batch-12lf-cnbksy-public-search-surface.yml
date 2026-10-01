@@ -1,0 +1,106 @@
+name: probe-batch-12lf-cnbksy-public-search-surface
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12lf-cnbksy-public-search-surface.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inspect only the public National Index search surface without submitting a target query
+        run: |
+          python - <<'PY'
+          import hashlib, html, json, re
+          from pathlib import Path
+          from urllib.parse import urljoin
+          import requests
+
+          candidates=["https://www.cnbksy.com/","https://www.cnbksy.com/home"]
+          UA={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; CNBKSY public search surface)"}
+          attempts=[]
+          chosen=None
+          for u in candidates:
+              try:
+                  r=requests.get(u,headers=UA,timeout=45,allow_redirects=True)
+                  raw=r.content
+                  item={"requested_url":u,"status":r.status_code,"final_url":r.url,"content_type":r.headers.get("content-type",""),"bytes":len(raw),"sha256":hashlib.sha256(raw).hexdigest()}
+                  attempts.append(item)
+                  if r.status_code==200 and raw:
+                      chosen=(r,raw); break
+              except Exception as e:
+                  attempts.append({"requested_url":u,"error":type(e).__name__+": "+str(e)[:500]})
+
+          forms=[];links=[];scripts=[];tokens={}
+          if chosen:
+              r,raw=chosen
+              txt=raw.decode("utf-8","replace")
+              for fm in re.finditer(r"(?is)<form\b([^>]*)>(.*?)</form>",txt):
+                  attrs=fm.group(1); body=fm.group(2)
+                  actionm=re.search(r'''(?i)action\s*=\s*["']([^"']*)["']''',attrs)
+                  methodm=re.search(r'''(?i)method\s*=\s*["']([^"']*)["']''',attrs)
+                  names=re.findall(r'''(?is)<(?:input|select|textarea)\b[^>]*?name\s*=\s*["']([^"']+)["']''',body)
+                  forms.append({"action":html.unescape(actionm.group(1)) if actionm else None,"method":methodm.group(1).upper() if methodm else "GET_DEFAULT","field_names":list(dict.fromkeys(names))})
+              for m in re.finditer(r'''(?is)<a\b[^>]*?href\s*=\s*["']([^"']+)["'][^>]*>(.*?)</a>''',txt):
+                  href=html.unescape(m.group(1)).strip()
+                  label=html.unescape(re.sub(r"<[^>]+>"," ",m.group(2)))
+                  label=re.sub(r"\s+"," ",label).strip()
+                  if re.search(r"search|检索|报纸|newspaper|资源|resource|login|登录|user",href+" "+label,re.I):
+                      links.append({"href":href,"absolute_href":urljoin(r.url,href),"label":label[:300]})
+              for m in re.finditer(r'''(?is)<script\b[^>]*?src\s*=\s*["']([^"']+)["']''',txt):
+                  scripts.append(urljoin(r.url,html.unescape(m.group(1)).strip()))
+              for t in ["Chinese Newspaper","中国近代报纸","报纸","检索","Advanced Search","Professional Search","登录","Login","IP","授权","试用"]:
+                  tokens[t]=len(re.findall(re.escape(t),txt,re.I))
+
+          out={
+              "source_contract":{
+                  "parent_batch":"12LE",
+                  "provider":"全国报刊索引 / 上海图书馆",
+                  "candidate_public_urls":candidates,
+                  "target_query_submitted":False,
+                  "login_used":False
+              },
+              "attempts":attempts,
+              "surface":{
+                  "retrieved":chosen is not None,
+                  "forms":forms,
+                  "form_count":len(forms),
+                  "search_related_links":links[:100],
+                  "search_related_link_count":len(links),
+                  "source_emitted_script_srcs":list(dict.fromkeys(scripts))[:100],
+                  "source_emitted_script_count":len(list(dict.fromkeys(scripts))),
+                  "token_counts":tokens
+              },
+              "adjudication":{
+                  "public_surface_retrieved":chosen is not None,
+                  "target_query_submitted":False,
+                  "search_contract_closed":False,
+                  "source_emitted_search_route_followed":False,
+                  "login_used":False
+              },
+              "security":{
+                  "anonymous_get_only":True,
+                  "reader_account_used":False,
+                  "registration_used":False,
+                  "post_request_used":False,
+                  "target_query_submitted":False,
+                  "private_endpoint_guessed":False,
+                  "captcha_bypass_used":False,
+                  "tls_verification_disabled":False
+              }
+          }
+          Path("batch-12lf-cnbksy-public-search-surface.json").write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12lf-cnbksy-public-search-surface
+          path: batch-12lf-cnbksy-public-search-surface.json

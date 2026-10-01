@@ -9204,7 +9204,7 @@
       "provider": "国立国会図書館 / NDL Search",
       "url": "https://ndlsearch.ndl.go.jp/books/R100000002-I023434359",
       "source_role": "FIRST_PARTY_NDL_EXACT_PHYSICAL_HOLDING_ROUTE_FOR_ZHAO_WANLI_WENJI_V1_P197",
-      "quality_notes": "NDL directly records the exact 2011 National Library Press volume as its holding, call UM11-C247, NDLBibID 023434359, 504 pages, ISBN 9787501346653. This closes physical access to p.197 but not its text or object-specific remote-copy entitlement. Batch 12LD anonymously replays the exact NDL Search record and finds no explicit item-specific digital-collection/internet-public/remote-copy token; generic access-help links are not treated as object-specific entitlement.",
+      "quality_notes": "NDL directly records the exact 2011 National Library Press volume as its holding, call UM11-C247, NDLBibID 023434359, 504 pages, ISBN 9787501346653. This closes physical access to p.197 but not its text or object-specific remote-copy entitlement. Batch 12LD anonymously replays the exact NDL Search record and finds no explicit item-specific digital-collection/internet-public/remote-copy token; generic access-help links are not treated as object-specific entitlement. Batch 12LE removes global footer/help noise and confirms the item main-content block still emits no object-specific digital collection, internet-public, personal/library transmission or remote-copy signal. Nuxt request/copy CSS asset names are explicitly rejected as access routes.",
       "batch_12hg": {
         "call_number": "UM11-C247",
         "ndl_bib_id": "023434359",
@@ -9225,6 +9225,16 @@
         "copy_request_submitted": false,
         "source_emitted_link_followed": false,
         "research_artifact": "docs/research/ZIWEI-NDL-ZHAO-WENJI-PUBLIC-ACCESS-SIGNALS-R1.json"
+      },
+      "batch_12le": {
+        "workflow_run_id": 36876673520,
+        "workflow_job_id": 110417773346,
+        "artifact_id": 11169027334,
+        "artifact_digest": "sha256:5d19d8d71529f525ca60a4ecfc8e014a4ec77bb5780994fb2b595dcb7e6a8bf1",
+        "route_status": "PHYSICAL_HOLDING_ONLY",
+        "item_specific_access_url_emitted": false,
+        "direct_target_page_reviewed": false,
+        "research_artifact": "docs/research/ZIWEI-NDL-ZHAO-WENJI-ITEM-ACCESS-BLOCK-R1.json"
       }
     },
     {

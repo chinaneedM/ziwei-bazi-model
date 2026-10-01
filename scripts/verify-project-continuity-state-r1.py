@@ -834,9 +834,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-NSSD-LEGACY-PDF-HEAD-BOUNDARY-LB",
     "BATCH-12-ZIWEI-NSSD-LEGACY-PDF-PREFIX-BOUNDARY-LC",
     "BATCH-12-ZIWEI-NDL-ZHAO-WENJI-PUBLIC-ACCESS-SIGNALS-LD",
+    "BATCH-12-ZIWEI-NDL-ZHAO-WENJI-ITEM-ACCESS-BLOCK-LE",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NDL-ZHAO-WENJI-PUBLIC-ACCESS-SIGNALS-LD.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NDL-ZHAO-WENJI-ITEM-ACCESS-BLOCK-LE.md"
 
 
 def fail(message: str) -> None:
@@ -12494,6 +12495,34 @@ def main() -> int:
         fail("Batch 12LD state version regressed below 1.319.0")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12LD latest-batch document mismatch")
+
+    # Batch 12LE: NDL Wenji item main content remains physical-holding-only.
+    le_batch = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NDL-ZHAO-WENJI-ITEM-ACCESS-BLOCK-LE.md"
+    le_evidence = ROOT / "docs/research/ZIWEI-NDL-ZHAO-WENJI-ITEM-ACCESS-BLOCK-R1.json"
+    if not le_batch.is_file() or not le_evidence.is_file():
+        fail("Batch 12LE continuity artifact missing")
+    le = json.loads(le_evidence.read_text(encoding="utf-8"))
+    if le.get("batch_id") != "BATCH-12-ZIWEI-NDL-ZHAO-WENJI-ITEM-ACCESS-BLOCK-LE":
+        fail("Batch 12LE evidence identity mismatch")
+    lea = le.get("adjudication", {})
+    if lea.get("route_status") != "PHYSICAL_HOLDING_ONLY" or lea.get("item_specific_access_url_emitted") is not False or lea.get("direct_target_page_reviewed") is not False:
+        fail("Batch 12LE item access adjudication regressed")
+    if lea.get("heuristic_css_assets_are_not_entitlement") is not True:
+        fail("Batch 12LE CSS false-positive firewall regressed")
+    letok = le.get("main_content_token_counts", {})
+    for key in ("国立国会図書館デジタルコレクション", "デジタルコレクション", "インターネット公開", "図書館・個人送信", "遠隔複写", "複写", "オンライン"):
+        if letok.get(key) != 0:
+            fail(f"Batch 12LE unexpected item-level access token: {key}")
+    if "BATCH-12-ZIWEI-NDL-ZHAO-WENJI-ITEM-ACCESS-BLOCK-LE" not in audit_state.get("completed_batches", ()):
+        fail("Batch 12LE missing from completed state")
+    try:
+        schema12le = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12LE state version is not numeric")
+    if schema12le < (1, 320, 0):
+        fail("Batch 12LE state version regressed below 1.320.0")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12LE latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")
