@@ -1,0 +1,148 @@
+name: probe-batch-12ks-ncpssd-red-chamber-semantic-positive-control
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12ks-ncpssd-red-chamber-semantic-positive-control.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Execute one source-derived read-only result-search positive control
+        run: |
+          python - <<'PY'
+          import hashlib, json, re
+          from pathlib import Path
+          from urllib.parse import quote
+          import requests
+
+          BASE="https://www.ncpssd.cn"
+          ENDPOINT="/searchHandler/search"
+          REFERER="https://www.ncpssd.cn/Literature/articlelist?sType=0&search=KElLVEU9Iue6oualvOaipiIgT1IgSUtQWVRFPSLnuqLmpbzmoqYiICBPUiBJS1NUPSLnuqLmpbzmoqYiIE9SIElLRVQ9Iue6oualvOaipiIgT1IgSUtTRT0i57qi5qW85qKmIik=&searchname=6aKY5ZCNL+WFs+mUruivjT0i57qi5qW85qKmIg==&nav=0&nav=0&showBack=true"
+          TERM="红楼梦"
+          SEARCH='(IKTE="红楼梦" OR IKPYTE="红楼梦"  OR IKST="红楼梦" OR IKET="红楼梦" OR IKSE="红楼梦")'
+          SEARCHNAME='题名/关键词="红楼梦"'
+          ORDER="synUpdateType|DESC,date|DESC,ik_subject|DESC,id|DESC"
+
+          # Preserve the source-observed object insertion order and jQuery 1.11.1 scalar
+          # serialization semantics. KQ: absent ajaxKeys -> null. KR: null -> "" in $.param.
+          fields=[
+              ("search",SEARCH),
+              ("pageNum","1"),
+              ("pageSize","10"),
+              ("sort",ORDER),
+              ("sType","0"),
+              ("ajaxKeys",""),
+              ("customShowCondition",SEARCHNAME),
+          ]
+          def jq_quote(v):
+              return quote(str(v),safe="~()*!.'").replace("%20","+")
+          body="&".join(jq_quote(k)+"="+jq_quote(v) for k,v in fields)
+
+          headers={
+              "User-Agent":"Mozilla/5.0 (Tianwen provenance audit; NCPSsd source-derived semantic positive control)",
+              "Content-Type":"application/x-www-form-urlencoded; charset=UTF-8",
+              "X-Requested-With":"XMLHttpRequest",
+              "Referer":REFERER,
+              "Origin":BASE,
+          }
+
+          r=requests.post(BASE+ENDPOINT,data=body.encode("utf-8"),headers=headers,timeout=45,allow_redirects=False)
+          raw=r.content
+          ctype=r.headers.get("content-type","")
+          parsed=None
+          parse_error=None
+          try:
+              parsed=r.json()
+          except Exception as e:
+              parse_error=type(e).__name__+": "+str(e)[:300]
+
+          payload=parsed.get("data") if isinstance(parsed,dict) else None
+          rows=payload.get("rows") if isinstance(payload,dict) else None
+          total=payload.get("total") if isinstance(payload,dict) else None
+          if not isinstance(rows,list): rows=[]
+
+          selected=[]
+          positive_term_row_count=0
+          for row in rows[:20]:
+              if not isinstance(row,dict): continue
+              slim={}
+              for key in ("title","ik_title","creator","ik_creator","type","data_id","id","tab_name","date","year","cbw_name"):
+                  if key in row:
+                      slim[key]=row.get(key)
+              hay=" ".join(str(row.get(k,"")) for k in ("title","ik_title","subject","keyword_s","tab_name"))
+              if TERM in re.sub(r"<[^>]+>","",hay):
+                  positive_term_row_count+=1
+              selected.append(slim)
+
+          out={
+              "source_contract":{
+                  "parent_batch":"12KR",
+                  "positive_control_term":TERM,
+                  "endpoint":ENDPOINT,
+                  "method":"POST",
+                  "request_fields_in_source_order":fields,
+                  "ajaxKeys_source_semantics":"URL parameter absent -> getUrlParam returns null -> jQuery 1.11.1 $.param serializes null as empty string",
+                  "only_result_search_endpoint_executed":True,
+                  "log_facet_download_detail_endpoints_executed":False,
+                  "target_zhao_query_submitted":False
+              },
+              "serialized_request":{
+                  "content_type":"application/x-www-form-urlencoded; charset=UTF-8",
+                  "body_utf8":body,
+                  "body_bytes":len(body.encode("utf-8")),
+                  "body_sha256":hashlib.sha256(body.encode("utf-8")).hexdigest()
+              },
+              "response":{
+                  "http_status":r.status_code,
+                  "content_type":ctype,
+                  "location":r.headers.get("location"),
+                  "bytes":len(raw),
+                  "sha256":hashlib.sha256(raw).hexdigest(),
+                  "json_parsed":parsed is not None,
+                  "json_parse_error":parse_error
+              },
+              "result_summary":{
+                  "total":total,
+                  "returned_row_count":len(rows),
+                  "positive_term_row_count_first_page":positive_term_row_count,
+                  "first_page_rows":selected
+              },
+              "adjudication":{
+                  "semantic_positive_control_closed":bool(r.status_code==200 and isinstance(total,(int,float)) and total>0 and len(rows)>0),
+                  "positive_control_term_observed_in_first_page_rows":positive_term_row_count>0,
+                  "result_search_post_executed":True,
+                  "only_read_result_endpoint_executed":True,
+                  "target_zhao_query_submitted":False,
+                  "downstream_item_followed":False,
+                  "login_used":False
+              },
+              "security":{
+                  "anonymous_read_only_search_post":True,
+                  "reader_account_used":False,
+                  "registration_used":False,
+                  "state_changing_endpoint_used":False,
+                  "search_log_endpoint_used":False,
+                  "facet_endpoint_used":False,
+                  "download_read_endpoint_used":False,
+                  "detail_endpoint_used":False,
+                  "private_endpoint_guessed":False,
+                  "captcha_bypass_used":False,
+                  "tls_verification_disabled":False
+              }
+          }
+          Path("batch-12ks-ncpssd-red-chamber-semantic-positive-control.json").write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12ks-ncpssd-red-chamber-semantic-positive-control
+          path: batch-12ks-ncpssd-red-chamber-semantic-positive-control.json
