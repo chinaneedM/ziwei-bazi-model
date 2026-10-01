@@ -1,0 +1,122 @@
+name: probe-batch-12ke-nlc-wenjin-yongle-article-title-search
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12ke-nlc-wenjin-yongle-article-title-search.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Search Zhao Wanli Yongle article with first-party Wenjin contract only
+        run: |
+          python - <<'PY'
+          import hashlib, html, json, re
+          from pathlib import Path
+          from urllib.parse import urlencode
+          import requests
+
+          BASE="http://find.nlc.cn/search/doSearch"
+          UA={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; NLC Wenjin source-emitted GET contract)"}
+          QUERIES=[
+            {"kind":"positive_control","term":"史记"},
+            {"kind":"target","term":"永乐大典展览的意义"},
+            {"kind":"target","term":"永樂大典展覽的意義"},
+            {"kind":"target","term":"赵万里 永乐大典展览的意义"},
+            {"kind":"target","term":"趙萬里 永樂大典展覽的意義"},
+            {"kind":"target","term":"永乐大典展览的意义 一九五一年八月北京图书馆举办"}
+          ]
+          TOKENS=["永乐大典展览的意义","永樂大典展覽的意義","赵万里","趙萬里","文物参考资料","文物參考資料","文汇报","文匯報","1951","221","233","一九五一年八月北京图书馆举办"]
+
+          def sha(b): return hashlib.sha256(b).hexdigest()
+          def decode(raw):
+              for enc in ("utf-8","utf-8-sig","gb18030","gbk","big5"):
+                  try:return raw.decode(enc),enc
+                  except UnicodeDecodeError:pass
+              return raw.decode("utf-8","replace"),"utf-8-replacement"
+          def strip_tags(s):
+              return re.sub(r"\s+"," ",html.unescape(re.sub(r"<[^>]+>"," ",s))).strip()
+
+          out=[]
+          for q in QUERIES:
+              params=[
+                ("query",q["term"]),("secQuery",""),("actualQuery",q["term"]),
+                ("searchType","2"),("docType","全部"),("isGroup","isGroup"),
+                ("targetFieldLog","全部字段"),("fromHome","true")
+              ]
+              r=requests.get(BASE,params=params,headers=UA,timeout=45,allow_redirects=True)
+              raw=r.content; txt,enc=decode(raw); visible=strip_tags(txt)
+              m=re.search(r'var\s+resultCount\s*=\s*["\']?([0-9,]+)',txt)
+              count=m.group(1) if m else None
+              neg=("抱歉,没有找到相关的结果" in visible) or ("没有找到相关的结果" in visible)
+              contexts={}
+              for token in TOKENS:
+                  frags=[]
+                  pos=0
+                  while True:
+                      i=visible.find(token,pos)
+                      if i<0: break
+                      frags.append(visible[max(0,i-350):min(len(visible),i+900)])
+                      pos=i+len(token)
+                      if len(frags)>=12: break
+                  if frags: contexts[token]=frags
+              controls=[]
+              # Capture only record controls already emitted in returned HTML.
+              for m2 in re.finditer(r'<[^>]+(?:showDocDetails|makeDetailUrl)[^>]*>',txt,re.I):
+                  tag=html.unescape(m2.group(0))
+                  doc=re.search(r"(-?\d{6,})",tag)
+                  ds=re.search(r"(?:dataSource|datasource)[^A-Za-z0-9]+([A-Za-z0-9_-]+)",tag,re.I)
+                  controls.append({"raw":tag[:5000],"doc_id_candidate":doc.group(1) if doc else None,"data_source_candidate":ds.group(1) if ds else None})
+                  if len(controls)>=80: break
+              # Also capture source-emitted onclick argument groups with docId/dataSource.
+              for m2 in re.finditer(r'onclick=["\'][^"\']*(?:makeDetailUrl|showDocDetails)[^"\']*["\']',txt,re.I):
+                  tag=html.unescape(m2.group(0))
+                  if not any(x["raw"]==tag for x in controls):
+                      controls.append({"raw":tag[:5000],"doc_id_candidate":None,"data_source_candidate":None})
+              out.append({
+                "kind":q["kind"],"term":q["term"],"http_status":r.status_code,
+                "final_url":r.url,"bytes":len(raw),"sha256":sha(raw),"decode_used":enc,
+                "result_count":count,"negative_marker":neg,
+                "query_echoed":q["term"] in txt or q["term"] in visible,
+                "token_contexts":contexts,
+                "source_emitted_record_controls":controls
+              })
+
+          result={
+            "contract":{
+              "source":"Batch 12JX / NLC first-party index.main.js",
+              "route":BASE,"method":"GET",
+              "user_value_parameters":["query","actualQuery"],
+              "fixed_parameters":{"secQuery":"","searchType":"2","docType":"全部","isGroup":"isGroup","targetFieldLog":"全部字段","fromHome":"true"}
+            },
+            "queries":out,
+            "adjudication":{
+              "only_source_emitted_get_contract_used":True,
+              "record_detail_followed":False,
+              "login_used":False,
+              "post_request_used":False,
+              "direct_1951_article_page_reviewed":False
+            },
+            "security":{
+              "anonymous_get_only":True,"reader_account_used":False,"registration_used":False,
+              "private_endpoint_guessed":False,"search_parameter_guessed":False,
+              "record_identifier_guessed":False,"captcha_bypass_used":False,
+              "tls_verification_disabled":False,"state_changing_request_used":False
+            }
+          }
+          Path("batch-12ke-nlc-wenjin-yongle-article-title-search.json").write_text(
+              json.dumps(result,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(result,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12ke-nlc-wenjin-yongle-article-title-search
+          path: batch-12ke-nlc-wenjin-yongle-article-title-search.json
