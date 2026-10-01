@@ -1,0 +1,148 @@
+{
+  "schema": "ZIWEI-ZHAO-WANLI-ZHUAN-NLCPRESS-EDITORIAL-BRIDGE-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-ZHAO-WANLI-ZHUAN-NLCPRESS-EDITORIAL-BRIDGE-JI",
+  "prior_batch_id": "BATCH-12-ZIWEI-NDL-DIGITAL-ZHAO-WANLI-WENWU-SOURCE-EMITTED-SEARCH-BOUNDARY-JH",
+  "question": "Can the first-party National Library of China Press public product/Booktext route for Liu Bo's 2021 《赵万里传》 provide a lawful direct recovery of 2011 《赵万里文集》第1卷 p.197, or at least a tightly scoped editorial-provenance bridge?",
+  "answer": "The first-party publisher product page closes the 2021 biography identity, Liu Bo authorship, ISBN, a public TXT postback, the Chapter 8 headings 劝导藏家捐赠图书 (p.255) and 大举购入善本古籍 (p.258), and Liu Bo's statement that he joined the 《赵万里文集》 editorial team in 2010. The literal number 197 on this page is independently bound by the same public TOC to the unrelated biography subsection 弢翁挚友 / 197, so it is not the target 2011 Wenji p.197. The source-emitted Booktext postback returns a bounded 6,496-byte GB18030 TXT payload (SHA-256 3da910b9bd88ef8fe6fe3318c814faeda10e2283b12e038760b0b523aa4a4312); it contains the product/editorial/TOC markers but none of the configured Qu/Ding/1951 target quotation tokens. This route is therefore a first-party modern editorial-retrospective bridge and access-boundary witness only, not direct 2011 p.197 or 1951 original text.",
+  "publisher_product": {
+    "provider": "国家图书馆出版社",
+    "url": "https://www.nlcpress.com/ProductView.aspx?Id=11443",
+    "product_id": 11443,
+    "title": "赵万里传",
+    "author": "刘波",
+    "isbn_13": "9787501371655",
+    "publication_date": "2021-07-30",
+    "edition_display": "B1",
+    "get_http_status": 200,
+    "get_body_bytes": 60523,
+    "get_body_sha256": "79fb6e07d788caef37dead090f2c7242021591d20b668cc72dc2c2302b9abcc8",
+    "source_emitted_booktext_postback": true,
+    "catalog_attachment_href": null,
+    "public_toc": {
+      "literal_197_present": true,
+      "literal_197_context": "弢翁挚友 / 197",
+      "literal_197_is_target_wenji_page": false,
+      "donation_section": "劝导藏家捐赠图书 / 255",
+      "purchase_section": "大举购入善本古籍 / 258",
+      "chapter_body_exposed_by_product_page": false
+    },
+    "editorial_provenance": {
+      "liu_bo_states_joined_wenji_editorial_team": true,
+      "joined_year": 2010,
+      "wenji_editorial_team_term_present": true,
+      "modern_editorial_relationship_closed": true,
+      "direct_2011_page_review_implied": false
+    }
+  },
+  "controlling_probe": {
+    "workflow": ".github/workflows/probe-batch-12ji-zhao-wanli-zhuan-nlcpress-editorial-bridge.yml",
+    "exact_head": "38a9ab8cd86febb6b69bd1999586149f9d02d833",
+    "workflow_run_id": 36824880534,
+    "workflow_job_id": 110248229760,
+    "artifact_id": 11144523100,
+    "artifact_name": "batch-12ji-zhao-wanli-zhuan-nlcpress-editorial-bridge",
+    "artifact_digest": "sha256:a734134d74bbe1de922954f1b4f0977168827ce3320a03ee2ae45e3db69cf885"
+  },
+  "public_booktext": {
+    "http_status": 200,
+    "content_type": "application/octet-stream",
+    "content_length": 6496,
+    "bytes_read": 6496,
+    "body_sha256": "3da910b9bd88ef8fe6fe3318c814faeda10e2283b12e038760b0b523aa4a4312",
+    "decoded_encoding": "gb18030",
+    "decoded_char_count": 3682,
+    "bounded_read_limit_bytes": 8192,
+    "raw_text_logged": false,
+    "raw_text_saved": false,
+    "markers_present": {
+      "title": true,
+      "isbn": true,
+      "author_liu_bo": true,
+      "wenji_editorial_team": true,
+      "donation_chapter_heading": true,
+      "purchase_chapter_heading": true,
+      "literal_197": true
+    },
+    "configured_target_tokens_present": {
+      "qu_jicang": false,
+      "qu_fengqi": false,
+      "qu_xuchu": false,
+      "sixty_two_titles": false,
+      "zuozhuan": false,
+      "ding_huikang": false,
+      "dongjia_zaji": false,
+      "taiping_yuefu": false,
+      "wenwu_cankao": false,
+      "year_1951": false
+    },
+    "configured_target_token_hit_count": 0,
+    "absence_scope": "PUBLIC_BOOKTEXT_PAYLOAD_ONLY_NOT_PHYSICAL_BOOK"
+  },
+  "adjudication": {
+    "publisher_product_identity": "CLOSED",
+    "liu_bo_wenji_editorial_relationship": "CLOSED_AT_FIRST_PARTY_MODERN_RETROSPECTIVE_LEVEL",
+    "biography_literal_197_classification": "UNRELATED_BIOGRAPHY_TOC_PAGE_NUMBER",
+    "chapter_8_donation_purchase_headings": "CLOSED",
+    "chapter_8_body_text": "NOT_REVIEWED",
+    "public_booktext_target_quote_bundle": "NOT_OBSERVED_IN_BOUNDED_PUBLIC_PAYLOAD",
+    "direct_2011_p197": "NOT_REVIEWED",
+    "direct_1951_zhao_pp221_233": "NOT_REVIEWED",
+    "direct_1997_beitu_pp446_449": "NOT_REVIEWED",
+    "target_absence_from_physical_biography_established": false,
+    "direct_page_increment": 0
+  },
+  "evidence_firewall": {
+    "same_number_197_does_not_imply_same_page_object": true,
+    "biography_page_197_is_not_wenji_page_197": true,
+    "editor_participation_does_not_equal_direct_page_review": true,
+    "chapter_heading_does_not_equal_chapter_body": true,
+    "modern_retrospective_does_not_equal_1951_primary_text": true,
+    "public_booktext_payload_does_not_establish_full_physical_book_absence": true,
+    "first_party_publisher_identity_does_not_upgrade_target_text_without_page_level_evidence": true
+  },
+  "security": {
+    "login_used": false,
+    "account_action_used": false,
+    "payment_used": false,
+    "captcha_bypass_used": false,
+    "private_endpoint_guessed": false,
+    "postback_target_guessed": false,
+    "source_emitted_contract_only": true,
+    "tls_verification_disabled": false
+  },
+  "transmission_impact": {
+    "status": "NONE",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": [],
+    "reason": "Modern publisher/editorial-provenance and public-access boundary only; no historical source text or direct 2011/1951 page recovered."
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Continue new lawful direct page-level recovery of 2011 《赵万里文集》第1卷 p.197; the unrelated biography TOC page 197 is permanently firewalled from that target.",
+    "If a lawful public page-level surface for 《赵万里传》 pp.255–258 appears, use it only as a modern editorial-retrospective bridge unless it source-cites or reproduces the target original with explicit provenance.",
+    "Continue provenance-bound direct recovery of 1951 《文物参考资料》第9期 pp.221–233 and 1997 《北京图书馆馆史资料汇编（二）》 pp.446–449 in parallel.",
+    "Do not invoke paid/mediated copy services without explicit user authorization."
+  ],
+  "updated_at": "2026-10-01"
+}

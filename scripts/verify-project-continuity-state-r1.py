@@ -338,6 +338,8 @@ ZIWEI_ZHAO_WENJIN_JG_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUD
 ZIWEI_ZHAO_WENJIN_JG_EVIDENCE = ROOT / "docs/research/ZIWEI-ZHAO-WANLI-WENJI-V1-NLC-WENJIN-PUBLIC-SEARCH-CONTRACT-BOUNDARY-R1.json"
 ZIWEI_NDL_DIGITAL_JH_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NDL-DIGITAL-ZHAO-WANLI-WENWU-SOURCE-EMITTED-SEARCH-BOUNDARY-JH.md"
 ZIWEI_NDL_DIGITAL_JH_EVIDENCE = ROOT / "docs/research/ZIWEI-NDL-DIGITAL-ZHAO-WANLI-WENWU-SOURCE-EMITTED-SEARCH-BOUNDARY-R1.json"
+ZIWEI_ZHAO_BIO_JI_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHAO-WANLI-ZHUAN-NLCPRESS-EDITORIAL-BRIDGE-JI.md"
+ZIWEI_ZHAO_BIO_JI_EVIDENCE = ROOT / "docs/research/ZIWEI-ZHAO-WANLI-ZHUAN-NLCPRESS-EDITORIAL-BRIDGE-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -731,9 +733,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-WENWU-1951-WWCK195109-COMMERCIAL-MANIFEST-SOURCE-EMITTED-ROUTE-BOUNDARY-JF",
     "BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-NLC-WENJIN-PUBLIC-SEARCH-CONTRACT-BOUNDARY-JG",
     "BATCH-12-ZIWEI-NDL-DIGITAL-ZHAO-WANLI-WENWU-SOURCE-EMITTED-SEARCH-BOUNDARY-JH",
+    "BATCH-12-ZIWEI-ZHAO-WANLI-ZHUAN-NLCPRESS-EDITORIAL-BRIDGE-JI",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NDL-DIGITAL-ZHAO-WANLI-WENWU-SOURCE-EMITTED-SEARCH-BOUNDARY-JH.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHAO-WANLI-ZHUAN-NLCPRESS-EDITORIAL-BRIDGE-JI.md"
 
 
 def fail(message: str) -> None:
@@ -11055,6 +11058,52 @@ def main() -> int:
         fail("Batch 12JH missing from completed state")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12JH latest-batch document mismatch")
+
+    # Batch 12JI: first-party NLC Press modern editorial bridge; biography TOC page 197 is not Wenji p.197.
+    for path in (ZIWEI_ZHAO_BIO_JI_BATCH, ZIWEI_ZHAO_BIO_JI_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12JI continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12ji = json.loads(ZIWEI_ZHAO_BIO_JI_EVIDENCE.read_text(encoding="utf-8"))
+    bid12ji = "BATCH-12-ZIWEI-ZHAO-WANLI-ZHUAN-NLCPRESS-EDITORIAL-BRIDGE-JI"
+    if batch12ji.get("batch_id") != bid12ji:
+        fail("Batch 12JI evidence identity mismatch")
+    pub12ji = batch12ji.get("publisher_product", {})
+    toc12ji = pub12ji.get("public_toc", {})
+    if pub12ji.get("product_id") != 11443 or pub12ji.get("isbn_13") != "9787501371655":
+        fail("Batch 12JI publisher object identity regressed")
+    if toc12ji.get("literal_197_context") != "弢翁挚友 / 197" or toc12ji.get("literal_197_is_target_wenji_page") is not False:
+        fail("Batch 12JI page-197 disambiguation firewall regressed")
+    if toc12ji.get("donation_section") != "劝导藏家捐赠图书 / 255" or toc12ji.get("purchase_section") != "大举购入善本古籍 / 258":
+        fail("Batch 12JI Chapter-8 heading controls regressed")
+    if pub12ji.get("editorial_provenance", {}).get("liu_bo_states_joined_wenji_editorial_team") is not True:
+        fail("Batch 12JI editorial-team provenance bridge regressed")
+    book12ji = batch12ji.get("public_booktext", {})
+    if book12ji.get("content_length") != 6496 or book12ji.get("body_sha256") != "3da910b9bd88ef8fe6fe3318c814faeda10e2283b12e038760b0b523aa4a4312":
+        fail("Batch 12JI public Booktext payload identity regressed")
+    if book12ji.get("configured_target_token_hit_count") != 0 or book12ji.get("absence_scope") != "PUBLIC_BOOKTEXT_PAYLOAD_ONLY_NOT_PHYSICAL_BOOK":
+        fail("Batch 12JI Booktext target/absence firewall regressed")
+    adj12ji = batch12ji.get("adjudication", {})
+    if adj12ji.get("direct_2011_p197") != "NOT_REVIEWED" or adj12ji.get("direct_1951_zhao_pp221_233") != "NOT_REVIEWED":
+        fail("Batch 12JI direct-page firewall regressed")
+    if adj12ji.get("target_absence_from_physical_biography_established") is not False:
+        fail("Batch 12JI physical-biography absence firewall regressed")
+    reg12ji = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    src12ji = next((x for x in reg12ji.get("sources", []) if x.get("source_id") == "EXT-NLCPRESS-ZHAO-WANLI-ZHUAN-PRODUCT11443-2021"), None)
+    if src12ji is None or src12ji.get("batch_12ji", {}).get("direct_2011_p197_reviewed") is not False:
+        fail("Batch 12JI registry binding/direct-page firewall regressed")
+    acct12ji = batch12ji.get("accounting", {})
+    if acct12ji.get("matrix_rows") != 198 or acct12ji.get("audited_rows") != 166 or acct12ji.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12JI accounting regressed")
+    try:
+        schema12ji = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12JI state version is not numeric")
+    if schema12ji < (1, 273, 0):
+        fail("Batch 12JI state version regressed below 1.273.0")
+    if bid12ji not in audit_state.get("completed_batches", ()):
+        fail("Batch 12JI missing from completed state")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12JI latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

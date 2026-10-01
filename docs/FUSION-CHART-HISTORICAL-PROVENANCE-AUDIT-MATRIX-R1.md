@@ -1076,3 +1076,15 @@ Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZH
 - Product/accounting remains 198 / 166 / 10, provenance defects 17/17, and zero chart-algorithm defects/reopens/candidate collapses.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NDL-DIGITAL-ZHAO-WANLI-WENWU-SOURCE-EMITTED-SEARCH-BOUNDARY-JH.md`. Research record: `docs/research/ZIWEI-NDL-DIGITAL-ZHAO-WANLI-WENWU-SOURCE-EMITTED-SEARCH-BOUNDARY-R1.json`.
+
+
+## Progress — Batch 12JI
+
+- National Library of China Press Product 11443 directly binds Liu Bo's 2021 《赵万里传》, ISBN 9787501371655, and a source-emitted public Booktext postback.
+- The same first-party page states Liu Bo joined the 《赵万里文集》 editorial team in 2010 and exposes Chapter 8 headings `劝导藏家捐赠图书 / 255` and `大举购入善本古籍 / 258`.
+- The literal `197` on this biography page is not the target 2011 Wenji page: the first-party TOC binds it to the unrelated entry `弢翁挚友 / 197`. Same page number therefore cannot be collapsed across works.
+- Probe run `36824880534` / job `110248229760` / artifact `11144523100` / digest `sha256:a734134d74bbe1de922954f1b4f0977168827ce3320a03ee2ae45e3db69cf885` follows only the source-emitted Booktext postback. It returns 6,496 bytes, GB18030, SHA-256 `3da910b9bd88ef8fe6fe3318c814faeda10e2283b12e038760b0b523aa4a4312`; raw text is neither logged nor stored.
+- The bounded public payload contains none of the configured Qu/Ding/1951 target quotation tokens. This is a payload-scoped boundary, not an absence claim about the physical biography.
+- Direct 2011 《赵万里文集》第1卷 p.197, direct 1951 pp.221–233 and direct 1997 pp.446–449 remain NOT_REVIEWED. Product/accounting remains 198 / 166 / 10, provenance defects 17/17, and zero chart-algorithm defects/reopens/candidate collapses. `TRANSMISSION_IMPACT=NONE`.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHAO-WANLI-ZHUAN-NLCPRESS-EDITORIAL-BRIDGE-JI.md`. Research record: `docs/research/ZIWEI-ZHAO-WANLI-ZHUAN-NLCPRESS-EDITORIAL-BRIDGE-R1.json`.
