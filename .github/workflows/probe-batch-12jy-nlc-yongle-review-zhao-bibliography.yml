@@ -16,71 +16,63 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
+      - name: Install deterministic PDF text reader
+        run: python -m pip install --disable-pip-version-check --quiet pypdf==6.1.1
       - name: Bind NLC first-party review PDF and Zhao 1951 bibliography
         run: |
           python - <<'PY'
-          import hashlib, json, re, shutil, subprocess
+          import hashlib, json, re
           from pathlib import Path
           import requests
+          from pypdf import PdfReader
 
           URL="https://www.nlc.cn/upload/attachments/2025-04-08/753b026e.pdf"
           UA={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; NLC first-party bibliography probe)"}
-          r=requests.get(URL,headers=UA,timeout=60,allow_redirects=True)
-          r.raise_for_status()
+          r=requests.get(URL,headers=UA,timeout=60,allow_redirects=True); r.raise_for_status()
           raw=r.content
           p=Path("nlc-yongle-review.pdf"); p.write_bytes(raw)
-          pdftotext=shutil.which("pdftotext")
-          pdfinfo=shutil.which("pdfinfo")
-          if not pdftotext or not pdfinfo:
-              raise RuntimeError("poppler utilities unavailable")
-          tx=subprocess.run([pdftotext,"-layout",str(p),"-"],capture_output=True,text=True,encoding="utf-8",errors="replace",check=True).stdout
-          info=subprocess.run([pdfinfo,str(p)],capture_output=True,text=True,encoding="utf-8",errors="replace",check=True).stdout
-          pages=None
-          m=re.search(r"^Pages:\s*(\d+)\s*$",info,re.M)
-          if m: pages=int(m.group(1))
+          reader=PdfReader(str(p))
+          tx="\n".join((page.extract_text() or "") for page in reader.pages)
           compact=re.sub(r"\s+"," ",tx)
-          needles=[
-            "清末以来（1908—2021）《永乐大典》研究综述",
-            "刘 鹏",
-            "国家图书馆古籍馆",
-            "赵万里",
-            "永乐大典展览的意义",
-            "一九五一年八月北京图书馆举办",
-            "文物参考资料",
-            "1951 年第 9 期",
-            "221—233",
-          ]
-          hits={n:(n in compact) for n in needles}
-          idx=compact.find("赵万里")
-          context=compact[max(0,idx-220):idx+620] if idx>=0 else ""
-          # Keep a short bibliographic context only; this is not a wholesale text capture.
+          tight=re.sub(r"\s+","",tx)
+          keys={
+              "review_title":"清末以来（1908—2021）《永乐大典》研究综述",
+              "author":"刘鹏",
+              "affiliation":"国家图书馆古籍馆",
+              "zhao":"赵万里",
+              "article":"永乐大典展览的意义",
+              "subtitle":"一九五一年八月北京图书馆举办",
+              "journal":"文物参考资料",
+              "issue":"1951年第9期",
+              "pages":"221—233",
+          }
+          hits={k:(v in tight) for k,v in keys.items()}
+          idx=tight.find("赵万里")
+          # Use compact text only for a short human audit context; no OCR and no wholesale reproduction.
+          cidx=compact.find("赵万里")
+          context=compact[max(0,cidx-180):cidx+520] if cidx>=0 else ""
           result={
-            "pdf":{
-              "url":URL,"http_status":r.status_code,"final_url":r.url,
-              "bytes":len(raw),"sha256":hashlib.sha256(raw).hexdigest(),
-              "content_type":r.headers.get("Content-Type"),"pages":pages
-            },
-            "text_layer":{
-              "pdftotext_used":True,"ocr_used":False,
-              "needle_presence":hits,
-              "zhao_context":context[:900]
-            },
-            "bibliographic_adjudication":{
-              "author_affiliation_nlc_ancient_books_observed":("国家图书馆古籍馆" in compact),
-              "zhao_1951_wenwu_bibliography_observed":(
-                  "赵万里" in compact and "永乐大典展览的意义" in compact and
-                  "文物参考资料" in compact and "221—233" in compact
-              ),
-              "subtitle_observed":("一九五一年八月北京图书馆举办" in compact),
-              "direct_1951_article_page_reviewed":False,
-              "direct_2011_p197_reviewed":False,
-              "modern_bibliographic_bridge_only":True
-            },
-            "security":{
-              "login_used":False,"registration_used":False,"payment_used":False,
-              "target_query_submitted":False,"private_endpoint_guessed":False,
-              "tls_verification_disabled":False
-            }
+              "pdf":{
+                  "url":URL,"http_status":r.status_code,"final_url":r.url,"bytes":len(raw),
+                  "sha256":hashlib.sha256(raw).hexdigest(),"content_type":r.headers.get("Content-Type"),
+                  "pages":len(reader.pages)
+              },
+              "text_layer":{
+                  "reader":"pypdf-6.1.1","ocr_used":False,
+                  "token_presence":hits,"short_zhao_context":context[:700]
+              },
+              "bibliographic_adjudication":{
+                  "nlc_ancient_books_affiliation_observed":hits["affiliation"],
+                  "zhao_1951_wenwu_bibliography_observed":all(hits[k] for k in ("zhao","article","journal","issue","pages")),
+                  "subtitle_observed":hits["subtitle"],
+                  "direct_1951_article_page_reviewed":False,
+                  "direct_2011_p197_reviewed":False,
+                  "modern_bibliographic_bridge_only":True
+              },
+              "security":{
+                  "login_used":False,"registration_used":False,"payment_used":False,
+                  "target_query_submitted":False,"private_endpoint_guessed":False,"tls_verification_disabled":False
+              }
           }
           Path("batch-12jy-nlc-yongle-review-zhao-bibliography.json").write_text(
               json.dumps(result,ensure_ascii=False,indent=2),encoding="utf-8")
