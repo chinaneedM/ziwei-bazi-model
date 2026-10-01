@@ -346,6 +346,8 @@ ZIWEI_ZHAO_BIB_TENSION_JK_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANC
 ZIWEI_ZHAO_BIB_TENSION_JK_EVIDENCE = ROOT / "docs/research/ZIWEI-ZHAO-WANLI-WENWU-WENHUI-BIBLIOGRAPHIC-TENSION-R1.json"
 ZIWEI_WENHUI_SHILUE_JL_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENHUI-SHILUE-1997-PUBLIC-PREVIEW-BOUNDARY-JL.md"
 ZIWEI_WENHUI_SHILUE_JL_EVIDENCE = ROOT / "docs/research/ZIWEI-WENHUI-SHILUE-1997-PUBLIC-PREVIEW-BOUNDARY-R1.json"
+ZIWEI_SHU_WENHUI_JM_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENHUIBAO-1951-0818-SHU-BOUND-VOLUME-HOLDING-ROUTE-JM.md"
+ZIWEI_SHU_WENHUI_JM_EVIDENCE = ROOT / "docs/research/ZIWEI-WENHUIBAO-1951-0818-SHU-BOUND-VOLUME-HOLDING-ROUTE-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -743,9 +745,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-ZHAO-WANLI-WENHUIBAO-1951-0818-SASS-HOLDING-ROUTE-JJ",
     "BATCH-12-ZIWEI-ZHAO-WANLI-WENWU-WENHUI-BIBLIOGRAPHIC-TENSION-JK",
     "BATCH-12-ZIWEI-WENHUI-SHILUE-1997-PUBLIC-PREVIEW-BOUNDARY-JL",
+    "BATCH-12-ZIWEI-WENHUIBAO-1951-0818-SHU-BOUND-VOLUME-HOLDING-ROUTE-JM",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENHUI-SHILUE-1997-PUBLIC-PREVIEW-BOUNDARY-JL.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENHUIBAO-1951-0818-SHU-BOUND-VOLUME-HOLDING-ROUTE-JM.md"
 
 
 def fail(message: str) -> None:
@@ -11263,6 +11266,53 @@ def main() -> int:
         fail("Batch 12JL missing from completed state")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12JL latest-batch document mismatch")
+
+    # Batch 12JM: Shanghai University first-party bound-volume Wenhui holding route.
+    for path in (ZIWEI_SHU_WENHUI_JM_BATCH, ZIWEI_SHU_WENHUI_JM_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12JM continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12jm = json.loads(ZIWEI_SHU_WENHUI_JM_EVIDENCE.read_text(encoding="utf-8"))
+    bid12jm = "BATCH-12-ZIWEI-WENHUIBAO-1951-0818-SHU-BOUND-VOLUME-HOLDING-ROUTE-JM"
+    if batch12jm.get("batch_id") != bid12jm:
+        fail("Batch 12JM evidence identity mismatch")
+    page12jm = batch12jm.get("first_party_page", {})
+    if page12jm.get("response_sha256") != "a3a9b77e4eb0ab5b53d0c35ea7c9fc0de9bd6401eabf585a13da52c0f8734198" or page12jm.get("response_bytes") != 164150:
+        fail("Batch 12JM first-party page identity regressed")
+    sh12jm = batch12jm.get("shanghai_wenhui_row", {})
+    if sh12jm.get("row_number") != "7" or sh12jm.get("target_1951_coverage") != "1951(5-8)" or sh12jm.get("shelf_range") != "6--10":
+        fail("Batch 12JM Shanghai Wenhui holding row regressed")
+    if sh12jm.get("target_calendar_date_1951_08_18_inside_coverage") is not True or sh12jm.get("specific_target_issue_reviewed") is not False:
+        fail("Batch 12JM target-date/issue firewall regressed")
+    hk12jm = batch12jm.get("hong_kong_wenhui_control", {})
+    if hk12jm.get("row_number") != "53" or hk12jm.get("title") != "文汇报(香港版)" or hk12jm.get("separately_named_on_same_first_party_page") is not True:
+        fail("Batch 12JM Hong Kong edition control regressed")
+    if hk12jm.get("collapse_with_shanghai_row_forbidden") is not True:
+        fail("Batch 12JM Shanghai/Hong-Kong identity firewall regressed")
+    adj12jm = batch12jm.get("adjudication", {})
+    if adj12jm.get("direct_wenhui_1951_08_18_page") != "NOT_REVIEWED" or adj12jm.get("holding_route_is_textual_evidence") is not False:
+        fail("Batch 12JM holding/text firewall regressed")
+    if adj12jm.get("secondary_1951_08_18_publication_claim_upgraded_to_primary_text") is not False:
+        fail("Batch 12JM secondary-to-primary upgrade firewall regressed")
+    tx12jm = batch12jm.get("transmission_impact", {})
+    if tx12jm.get("status") != "NONE" or tx12jm.get("graph_change") is not False:
+        fail("Batch 12JM transmission-impact scope regressed")
+    reg12jm = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    src12jm = next((x for x in reg12jm.get("sources", []) if x.get("source_id") == "EXT-SHU-WENHUIBAO-1951-MAY-AUG-BOUND-VOLUME-HOLDING"), None)
+    if src12jm is None or src12jm.get("batch_12jm", {}).get("target_1951_08_18_page_reviewed") is not False:
+        fail("Batch 12JM registry binding/direct-page firewall regressed")
+    acct12jm = batch12jm.get("accounting", {})
+    if acct12jm.get("matrix_rows") != 198 or acct12jm.get("audited_rows") != 166 or acct12jm.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12JM accounting regressed")
+    try:
+        schema12jm = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12JM state version is not numeric")
+    if schema12jm < (1, 277, 0):
+        fail("Batch 12JM state version regressed below 1.277.0")
+    if bid12jm not in audit_state.get("completed_batches", ()):
+        fail("Batch 12JM missing from completed state")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12JM latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

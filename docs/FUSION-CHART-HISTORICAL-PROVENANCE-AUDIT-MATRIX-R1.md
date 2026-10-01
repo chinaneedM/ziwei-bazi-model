@@ -1123,3 +1123,14 @@ Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZH
 - No 1951-08-18 newspaper page, no 《文物参考资料》 pp.221–233 text and no 2011 Wenji p.197 are recovered. First-publication/transmission status remains unresolved. Product/accounting remains 198 / 166 / 10; provenance defects 17/17; zero chart-algorithm defects/reopens/candidate collapses. `TRANSMISSION_IMPACT=NONE`.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENHUI-SHILUE-1997-PUBLIC-PREVIEW-BOUNDARY-JL.md`. Research record: `docs/research/ZIWEI-WENHUI-SHILUE-1997-PUBLIC-PREVIEW-BOUNDARY-R1.json`.
+
+
+## Progress — Batch 12JM
+
+- Shanghai University Library's first-party 《报纸（合订本）馆藏目录》 is directly retrieved: HTTP 200 / 164,150 bytes / SHA-256 `a3a9b77e4eb0ab5b53d0c35ea7c9fc0de9bd6401eabf585a13da52c0f8734198`.
+- Row 7 directly lists Shanghai 《文汇报》 with `1951(5-8)`, 新校区 / 嘉定校区 and shelves `6--10`. That holding range includes the calendar date 1951-08-18.
+- The same first-party page separately lists row 53 《文汇报(香港版)》, so the Shanghai and Hong Kong newspaper identities are not collapsed.
+- This closes an independent physical bound-volume access route only. No specific 1951-08-18 issue/page, Zhao article, or article text is directly reviewed; the secondary publication claim is not upgraded to primary-text status.
+- Direct Wenhui 1951-08-18, direct Wenwu pp.221–233 and direct 2011 Wenji p.197 remain NOT_REVIEWED. Product/accounting remains 198 / 166 / 10; provenance defects 17/17; zero chart-algorithm defects/reopens/candidate collapses. `TRANSMISSION_IMPACT=NONE`.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENHUIBAO-1951-0818-SHU-BOUND-VOLUME-HOLDING-ROUTE-JM.md`. Research record: `docs/research/ZIWEI-WENHUIBAO-1951-0818-SHU-BOUND-VOLUME-HOLDING-ROUTE-R1.json`.

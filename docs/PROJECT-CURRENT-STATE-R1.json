@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.276.0",
+  "schema_version": "1.277.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -358,9 +358,10 @@
       "BATCH-12-ZIWEI-ZHAO-WANLI-ZHUAN-NLCPRESS-EDITORIAL-BRIDGE-JI",
       "BATCH-12-ZIWEI-ZHAO-WANLI-WENHUIBAO-1951-0818-SASS-HOLDING-ROUTE-JJ",
       "BATCH-12-ZIWEI-ZHAO-WANLI-WENWU-WENHUI-BIBLIOGRAPHIC-TENSION-JK",
-      "BATCH-12-ZIWEI-WENHUI-SHILUE-1997-PUBLIC-PREVIEW-BOUNDARY-JL"
+      "BATCH-12-ZIWEI-WENHUI-SHILUE-1997-PUBLIC-PREVIEW-BOUNDARY-JL",
+      "BATCH-12-ZIWEI-WENHUIBAO-1951-0818-SHU-BOUND-VOLUME-HOLDING-ROUTE-JM"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENHUI-SHILUE-1997-PUBLIC-PREVIEW-BOUNDARY-JL.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENHUIBAO-1951-0818-SHU-BOUND-VOLUME-HOLDING-ROUTE-JM.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -1615,7 +1616,11 @@
       "Batch 12JL closes the exact 1997 《文汇报史略：1949.6–1966.5》 public bibliographic identity through Open Library ISBN 7805314705 and the Google Books exact-ISBN surface.",
       "Google Books source-emits object 4bmRAAAACAAJ and the controlling probe follows it without guessing; the object emits no form, no SearchWithinVolume-style contract and no snippet/full-view marker. Open Library has ocaid=null. Therefore this is a public-preview boundary, not a direct book-text witness.",
       "The only q= URL emitted by the Google exact-ISBN page is a library-link redirect to WorldCat OCLC 1462561249 and is explicitly firewalled from in-book search semantics; CiNii HTTP 202/empty-body is likewise transport-only, not negative evidence.",
-      "Direct Shanghai 《文汇报》 1951-08-18, direct 《文物参考资料》 no.9 pp.221-233 and direct 2011 《赵万里文集》第1卷 p.197 all remain NOT_REVIEWED; first-publication and Wenhuibao-to-Wenwu transmission remain unresolved."
+      "Direct Shanghai 《文汇报》 1951-08-18, direct 《文物参考资料》 no.9 pp.221-233 and direct 2011 《赵万里文集》第1卷 p.197 all remain NOT_REVIEWED; first-publication and Wenhuibao-to-Wenwu transmission remain unresolved.",
+      "Batch 12JM adds an independent first-party Shanghai University Library bound-newspaper holding route: row 7 《文汇报》 explicitly covers 1951(5-8), 新校区 / 嘉定校区, shelves 6--10.",
+      "The same SHU page separately lists row 53 《文汇报(香港版)》, so Shanghai-vs-Hong-Kong identity is directly disambiguated on this first-party holding surface. The Shanghai row's May-August coverage includes the 1951-08-18 calendar date.",
+      "This is physical holding/access evidence only: the specific 1951-08-18 issue, page and Zhao article remain NOT_REVIEWED, and the secondary Wenhui publication claim is not upgraded to primary-text status.",
+      "Highest next gates remain direct Shanghai 《文汇报》 1951-08-18, direct 《文物参考资料》 no.9 pp.221-233 and direct 2011 《赵万里文集》第1卷 p.197; first-publication and cross-carrier transmission remain unresolved."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10
