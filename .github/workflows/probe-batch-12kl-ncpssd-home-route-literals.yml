@@ -1,0 +1,89 @@
+name: probe-batch-12kl-ncpssd-home-route-literals
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12kl-ncpssd-home-route-literals.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inventory source-observed search route literals without following them
+        run: |
+          python - <<'PY'
+          import hashlib, html, json, re
+          from pathlib import Path
+          import requests
+
+          URL="https://www.ncpssd.cn/"
+          UA={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; NCPSsd homepage route-literal inventory)"}
+          KEYWORDS=re.compile(r"search|literature|article|journal|result|query|keyword|text_search|select_type|hidSearch",re.I)
+
+          def sha(b): return hashlib.sha256(b).hexdigest()
+          def decode(raw):
+              for enc in ("utf-8","utf-8-sig","gb18030","gbk","big5"):
+                  try:return raw.decode(enc),enc
+                  except UnicodeDecodeError:pass
+              return raw.decode("utf-8","replace"),"utf-8-replacement"
+
+          r=requests.get(URL,headers=UA,timeout=45,allow_redirects=True)
+          raw=r.content; txt,enc=decode(raw)
+
+          literals=[]
+          for m in re.finditer(r"""(['"])(/[^'"]{1,500}|https?://[^'"]{1,800})\1""",txt):
+              value=html.unescape(m.group(2))
+              if KEYWORDS.search(value):
+                  literals.append({"value":value,"start":m.start(),"context":txt[max(0,m.start()-1200):min(len(txt),m.end()+2500)]})
+
+          expressions=[]
+          patterns=[
+              r"""(?is)\$\.(?:ajax|get|post)\s*\(\s*(?:\{.{0,3000}?\burl\s*:\s*['"][^'"]+['"]|['"][^'"]+['"])""",
+              r"""(?is)\b(?:window\.)?location(?:\.href)?\s*=\s*['"][^'"]+['"]""",
+              r"""(?is)\bwindow\.open\s*\(\s*['"][^'"]+['"]""",
+              r"""(?is)\burl\s*:\s*['"][^'"]+['"]"""
+          ]
+          for pat in patterns:
+              for m in re.finditer(pat,txt):
+                  frag=html.unescape(m.group(0))
+                  expressions.append({"expression":frag[:5000],"start":m.start(),"context":txt[max(0,m.start()-1400):min(len(txt),m.end()+3000)]})
+
+          contexts={}
+          for token in ["Basicsearch","AdvancedSearch","Search_text","qkSearchCondition","Search_GJ","waiwen_search","text_search","select_type","hidSearchType","hidSearchValue","searchHandler"]:
+              arr=[]
+              for m in re.finditer(re.escape(token),txt):
+                  arr.append(txt[max(0,m.start()-1800):min(len(txt),m.end()+4500)])
+                  if len(arr)>=20: break
+              contexts[token]=arr
+
+          def dedupe(rows,key):
+              seen=set(); out=[]
+              for row in rows:
+                  val=row[key]
+                  if val in seen: continue
+                  seen.add(val); out.append(row)
+              return out
+
+          out={
+            "source_contract":{"parent_batch":"12KJ","home_url":URL,"query_submitted":False,"candidate_route_followed":False,"search_endpoint_guessed":False,"search_parameter_guessed":False},
+            "home_response":{"http_status":r.status_code,"final_url":r.url,"bytes":len(raw),"sha256":sha(raw),"decode_used":enc},
+            "search_related_literal_routes":dedupe(literals,"value"),
+            "ajax_and_navigation_expressions":dedupe(expressions,"expression"),
+            "known_control_contexts":contexts,
+            "adjudication":{"query_submitted":False,"candidate_route_followed":False,"form_submitted":False,"login_used":False,"homepage_source_only":True},
+            "security":{"anonymous_get_only":True,"reader_account_used":False,"registration_used":False,"post_request_used":False,"state_changing_request_used":False,"private_endpoint_guessed":False,"search_endpoint_guessed":False,"search_parameter_guessed":False,"captcha_bypass_used":False,"tls_verification_disabled":False}
+          }
+          Path("batch-12kl-ncpssd-home-route-literals.json").write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12kl-ncpssd-home-route-literals
+          path: batch-12kl-ncpssd-home-route-literals.json

@@ -1,0 +1,98 @@
+{
+  "schema": "ZIWEI-NCPSSD-SOURCE-EMITTED-SCRIPT-SEARCH-CONTRACT-NEGATIVE-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-NCPSSD-SOURCE-EMITTED-SCRIPT-SEARCH-CONTRACT-NEGATIVE-KJ",
+  "prior_batch_id": "BATCH-12-ZIWEI-NCPSSD-INLINE-SEARCH-CONTRACT-NEGATIVE-KI",
+  "question": "Do any scripts actually source-emitted by the current NCPSsd public homepage define Basicsearch/AdvancedSearch/Search_text/qkSearchCondition/Search_GJ/waiwen_search and thereby close the executable public search contract?",
+  "answer": "No. The current homepage emits 13 external script src URLs. All 13 fetch successfully and none contains any of the six target function names. Combined with 12KI's six-inline-script negative result, the executable definitions are absent from both classes of scripts directly emitted by the initial homepage HTML. The homepage still visibly calls Basicsearch and related functions, so the UI exists, but no source-observed route/parameter contract is yet available. Endpoint or parameter guessing remains forbidden.",
+  "controlling_probe": {
+    "workflow": ".github/workflows/probe-batch-12kj-ncpssd-source-emitted-script-search-contract.yml",
+    "exact_head": "4dd1b138bb1f26b3cf5fc908dd34ee44ed1ee8c6",
+    "workflow_run_id": 36859077093,
+    "workflow_job_id": 110358543477,
+    "artifact_id": 11160726318,
+    "artifact_name": "batch-12kj-ncpssd-source-emitted-script-search-contract",
+    "artifact_digest": "sha256:781f93317cfc4e8a44e804cac08f8dc13a1f945be9c40dd12ffeb29091faa65b"
+  },
+  "home_response": {
+    "http_status": 200,
+    "url": "https://www.ncpssd.cn/",
+    "bytes": 198008,
+    "sha256": "19823cf7d2d3a89bd3f86081b113f779507ebe45acb86273fd961b537b056544",
+    "decode_used": "utf-8"
+  },
+  "target_functions": [
+    "Basicsearch",
+    "AdvancedSearch",
+    "Search_text",
+    "qkSearchCondition",
+    "Search_GJ",
+    "waiwen_search"
+  ],
+  "source_emitted_script_count": 13,
+  "external_target_name_hit_count": 0,
+  "external_target_definition_count": 0,
+  "target_function_hits": [],
+  "combined_localization_adjudication": {
+    "inline_script_count_from_12ki": 6,
+    "inline_target_definition_count": 0,
+    "external_source_emitted_script_count": 13,
+    "external_target_name_hit_count": 0,
+    "external_target_definition_count": 0,
+    "executable_public_search_contract": "UNRESOLVED",
+    "endpoint_guessing_authorized": false,
+    "parameter_guessing_authorized": false,
+    "query_submitted": false
+  },
+  "observed_non_result_contract": {
+    "autocomplete_endpoint": "/searchHandler/getautocomplete",
+    "method": "POST",
+    "classification": "AUTOCOMPLETE_ONLY_NOT_RESULT_SEARCH_CONTRACT",
+    "promoted_to_result_search_endpoint": false
+  },
+  "security": {
+    "anonymous_get_only": true,
+    "reader_account_used": false,
+    "registration_used": false,
+    "post_request_used": false,
+    "state_changing_request_used": false,
+    "private_endpoint_guessed": false,
+    "search_endpoint_guessed": false,
+    "search_parameter_guessed": false,
+    "captcha_bypass_used": false,
+    "tls_verification_disabled": false
+  },
+  "transmission_impact": {
+    "status": "NONE_ACCESS_CONTRACT_ONLY",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": [],
+    "reason": "Client contract localization only; no historical text or transmission relation."
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Inventory only route-like literals, AJAX url values, navigation assignments and search-related path constants already present in the current homepage HTML and its six inline scripts.",
+    "Do not follow any extracted route or submit a query in the same batch.",
+    "Use any source-observed route/control binding to construct the next minimal contract-calibration batch; if no result route is emitted, preserve the unresolved boundary rather than guessing."
+  ],
+  "updated_at": "2026-10-01"
+}
