@@ -11163,6 +11163,18 @@
         "omission_negative_inference_authorized": false,
         "direct_1951_pages_reviewed": false,
         "research_artifact": "docs/research/ZIWEI-ZHAO-WANLI-WENWU-WENHUI-BIBLIOGRAPHIC-TENSION-R1.json"
+      },
+      "batch_12jy": {
+        "role": "SAME_OBJECT_REPLAY_DEDUP_CONTROL",
+        "workflow_run_id": 36847389443,
+        "workflow_job_id": 110320683285,
+        "artifact_id": 11153598753,
+        "artifact_digest": "sha256:d48f3e3d55e8e02c9363627a6b10519dbae4e1f0c9a614217345148a59cbf1b6",
+        "same_pdf_as_batch_12jk": true,
+        "pdf_sha256": "08bf6adcf9a2d200128a80b26156f9de06731094426a116c44ae02386822af20",
+        "independent_evidence_vote_increment": 0,
+        "direct_1951_pages_reviewed": false,
+        "research_artifact": "docs/research/ZIWEI-NLC-YONGLE-REVIEW-JK-SAME-OBJECT-REPLAY-DEDUP-R1.json"
       }
     },
     {
@@ -11473,6 +11485,47 @@
         "public_search_contract_observed": false,
         "target_query_submitted": false,
         "research_artifact": "docs/research/ZIWEI-NLC-OPAC-PUBLIC-SEARCH-CONTRACT-TRANSPORT-BOUNDARY-R1.json"
+      }
+    },
+    {
+      "source_id": "EXT-NLC-WENJIN-OPAC-SOURCE-EMITTED-GET-SEARCH-CONTRACT-2026",
+      "title": "国家图书馆当前文津搜索 / OPAC 第一方客户端 GET 检索合同（2026）",
+      "provider": "国家图书馆",
+      "url": "https://www.nlc.cn/web/ziyuansousuo/index.shtml",
+      "source_role": "FIRST_PARTY_SOURCE_EMITTED_CLIENT_SIDE_GET_SEARCH_CONTRACT",
+      "quality_notes": "Batch 12JX follows only NLC pages and their source-emitted index.main.js?v=1212. The script directly constructs Wenjin query/actualQuery and OPAC request/func=find-m/find_code=WRD/FIND_BASE=NLC01,NLC09. This refines earlier HTML/root-level nonobservation; no query is submitted in JX and no parameter is guessed.",
+      "batch_12jx": {
+        "workflow_run_id": 36847389376,
+        "workflow_job_id": 110320682834,
+        "artifact_id": 11153204934,
+        "artifact_digest": "sha256:5a0644d8eb6a297b32e5ccb79036593abda06597f3bed389ed81fece3d3d45a9",
+        "contract_script_url": "https://www.nlc.cn/template_resource/20241/index.main.js?v=1212",
+        "contract_script_sha256": "89714aa2de74ff6f170bb33590b945ff3c41b3377864f0fcd6579fb51bbc575c",
+        "wenjin_contract_closed": true,
+        "opac_contract_closed": true,
+        "target_query_submitted": false,
+        "research_artifact": "docs/research/ZIWEI-NLC-WENJIN-OPAC-SOURCE-EMITTED-GET-SEARCH-CONTRACT-R1.json"
+      }
+    },
+    {
+      "source_id": "EXT-NLC-WENJIN-OPAC-WENHUI-TITLE-SEARCH-EXECUTION-2026",
+      "title": "国家图书馆文津 / OPAC《文汇报》题名检索执行边界（2026）",
+      "provider": "国家图书馆",
+      "url": "https://www.nlc.cn/web/ziyuansousuo/index.shtml",
+      "source_role": "FIRST_PARTY_CURRENT_PUBLIC_SEARCH_EXECUTION_AND_BIBLIOGRAPHIC_CANDIDATE_SURFACE",
+      "quality_notes": "Batch 12JZ uses only the 12JX first-party source-emitted GET contracts. Wenjin exact 60-year/61-year title strings explicitly return resultCount=0, scoped only to Wenjin; broad Wenhui searches expose a 2004 computer-file candidate and a 1951 supplement candidate. OPAC broad Wenhui executes with 117 foreign and 246 Chinese/special records, while exact-long-title OPAC responses are non-calibrated and do not authorize nonholding claims.",
+      "batch_12jz": {
+        "workflow_run_id": 36847667928,
+        "workflow_job_id": 110321594775,
+        "artifact_id": 11154276297,
+        "artifact_digest": "sha256:72929d94b5e818503b3c37af6e15441e9d4858f067e144cdcc1a16f76d9740b4",
+        "wenjin_exact_60year_result_count": 0,
+        "wenjin_exact_61year_result_count": 0,
+        "opac_nonholding_proved": false,
+        "wenjin_2004_computer_file_candidate_observed": true,
+        "wenjin_1951_supplement_candidate_observed": true,
+        "direct_1951_08_18_page_reviewed": false,
+        "research_artifact": "docs/research/ZIWEI-NLC-WENJIN-OPAC-WENHUI-TITLE-SEARCH-EXECUTION-R1.json"
       }
     }
   ],

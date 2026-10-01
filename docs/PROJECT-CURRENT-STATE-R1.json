@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.287.0",
+  "schema_version": "1.290.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -369,9 +369,12 @@
       "BATCH-12-ZIWEI-NLC-SOURCE-EMITTED-OPAC-ELECTRONIC-NEWSPAPER-HTTP-ROUTE-CALIBRATION-JT",
       "BATCH-12-ZIWEI-NLC-ELECTRONIC-NEWSPAPER-PUBLIC-SEARCH-CONTRACT-JU",
       "BATCH-12-ZIWEI-NLC-WENHUI-RESOURCE-TITLE-SEARCH-ZERO-RESULT-BOUNDARY-JV",
-      "BATCH-12-ZIWEI-NLC-OPAC-PUBLIC-SEARCH-CONTRACT-TRANSPORT-BOUNDARY-JW"
+      "BATCH-12-ZIWEI-NLC-OPAC-PUBLIC-SEARCH-CONTRACT-TRANSPORT-BOUNDARY-JW",
+      "BATCH-12-ZIWEI-NLC-WENJIN-OPAC-SOURCE-EMITTED-GET-SEARCH-CONTRACT-JX",
+      "BATCH-12-ZIWEI-NLC-YONGLE-REVIEW-JK-SAME-OBJECT-REPLAY-DEDUP-JY",
+      "BATCH-12-ZIWEI-NLC-WENJIN-OPAC-WENHUI-TITLE-SEARCH-EXECUTION-JZ"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-OPAC-PUBLIC-SEARCH-CONTRACT-TRANSPORT-BOUNDARY-JW.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-WENJIN-OPAC-WENHUI-TITLE-SEARCH-EXECUTION-JZ.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -1669,7 +1672,15 @@
       "The separately source-emitted http://opac.nlc.cn/F/?func=file&file_name=login-session route times out on the controlling runner after 35 seconds, so no forms, input fields or source-emitted catalog search action can be recovered in 12JW.",
       "12JW therefore closes only an OPAC transport/search-contract boundary: root reachable, login-session public navigation currently not reproducible, public search contract NOT_OBSERVED, no title/person/date query, no guessed Aleph find-* parameters.",
       "The current NLC outRes zero result from 12JV remains separate from OPAC holdings. Next route priority is an already source-emitted/current NLC public catalog alternative such as 文津搜索 only if its contract is first-party and reproducible; do not infer OPAC nonholding from transport failure.",
-      "Direct Wenhui 1951-08-18, Wenwu pp.221-233 and 2011 Wenji p.197 remain NOT_REVIEWED."
+      "Direct Wenhui 1951-08-18, Wenwu pp.221-233 and 2011 Wenji p.197 remain NOT_REVIEWED.",
+      "Batch 12JX directly closes the current NLC first-party client-side GET contracts for both Wenjin Search and OPAC from source-emitted index.main.js?v=1212 / SHA-256 89714aa2de74ff6f170bb33590b945ff3c41b3377864f0fcd6579fb51bbc575c. This refines, rather than erases, the earlier 12JG/12JW HTML/root-level nonobservation boundaries; no guessed query parameter is used.",
+      "Batch 12JY is an explicit dedup replay: its NLC Liu Peng Yongle-review PDF has the same URL, 755701 bytes, 17 pages and SHA-256 08bf6adcf9a2d200128a80b26156f9de06731094426a116c44ae02386822af20 as Batch 12JK. It reconfirms the Zhao Wanli / Wenwu Cankao 1951 no.9 pp.221-233 bibliography but contributes zero independent evidence vote and no Transmission Graph node/edge.",
+      "Batch 12JZ executes only the 12JX source-emitted contracts with positive controls. Wenjin 史记 yields an explicit approximate 67000 results; broad 文汇报/文匯報 searches are positive; OPAC broad 文汇报/文匯報 visibly reports 117 foreign and 246 Chinese/special-collection records.",
+      "Batch 12JZ Wenjin exact strings 文汇报60年报纸光盘 and 文汇报61年全文数据光盘 each explicitly return resultCount=0. This is scoped only to the current Wenjin all-fields surface and does not prove OPAC nonholding or invalidate the 2003 donation report.",
+      "Batch 12JZ exact long-title OPAC responses do not echo the query and therefore authorize no zero-result/nonholding conclusion.",
+      "Batch 12JZ broad Wenjin results expose two item-level candidates requiring identity closure: a 2004 点通数据有限公司 文汇报 computer-file record and a 1951 文汇报-副页 newspaper record. Neither is yet the exact 2003 donated CD-ROM object or the 1951-08-18 target page.",
+      "Direct Shanghai 文汇报 1951-08-18, 文物参考资料 1951 no.9 pp.221-233, and 2011 赵万里文集 vol.1 p.197 all remain NOT_REVIEWED. Highest-value next gate is source-emitted item/detail recovery for the 2004 computer-file and 1951 supplement candidates, without record-ID guessing.",
+      "Matrix remains 198 rows / 166 audited / 10 current MISSING_FROM_PRODUCT; provenance defects remain 17 confirmed / 17 repaired; confirmed chart algorithm defects, algorithm reopen and candidate collapse remain 0."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10

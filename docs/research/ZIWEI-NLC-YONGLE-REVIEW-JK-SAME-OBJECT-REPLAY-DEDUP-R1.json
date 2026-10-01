@@ -1,0 +1,101 @@
+{
+  "schema": "ZIWEI-NLC-YONGLE-REVIEW-JK-SAME-OBJECT-REPLAY-DEDUP-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-NLC-YONGLE-REVIEW-JK-SAME-OBJECT-REPLAY-DEDUP-JY",
+  "prior_batch_id": "BATCH-12-ZIWEI-NLC-WENJIN-OPAC-SOURCE-EMITTED-GET-SEARCH-CONTRACT-JX",
+  "question": "Does the 12JY probe add an independent modern bibliographic witness beyond Batch 12JK for Zhao Wanli's 1951 article?",
+  "answer": "No. JY retrieves the exact same NLC-hosted PDF already bound by 12JK: identical URL, byte length, page count and SHA-256. It independently replays the text-layer extraction and re-confirms the Zhao Wanli / 文物参考资料 1951年第9期 / pp.221-233 bibliographic bundle, but it must not be counted as a new independent source or transmission vote.",
+  "controlling_probe": {
+    "workflow": ".github/workflows/probe-batch-12jy-nlc-yongle-review-zhao-bibliography.yml",
+    "exact_head": "3062fdc5d9ae6cc9c97af7c2cfe7fe8748f54b1a",
+    "workflow_run_id": 36847389443,
+    "workflow_job_id": 110320683285,
+    "artifact_id": 11153598753,
+    "artifact_name": "batch-12jy-nlc-yongle-review-zhao-bibliography",
+    "artifact_digest": "sha256:d48f3e3d55e8e02c9363627a6b10519dbae4e1f0c9a614217345148a59cbf1b6",
+    "supersedes_failed_probe_run_id": 36846917167
+  },
+  "object_identity": {
+    "source_id": "EXT-NLC-LIUPENG-YONGLE-REVIEW-ZHAO1951-WENWU-BIB-CONTROL",
+    "url": "https://www.nlc.cn/upload/attachments/2025-04-08/753b026e.pdf",
+    "http_status": 200,
+    "bytes": 755701,
+    "sha256": "08bf6adcf9a2d200128a80b26156f9de06731094426a116c44ae02386822af20",
+    "pages": 17,
+    "content_type": "application/pdf",
+    "identical_to_batch_12jk_object": true,
+    "new_independent_source": false
+  },
+  "replay": {
+    "reader": "pypdf-6.1.1",
+    "ocr_used": false,
+    "observed_tokens": {
+      "review_title": true,
+      "author": true,
+      "affiliation": true,
+      "zhao_wanli": true,
+      "article_title": true,
+      "event_subtitle": true,
+      "carrier": true,
+      "issue": true,
+      "pages": true
+    },
+    "bibliographic_bundle": "赵万里《永乐大典展览的意义——一九五一年八月北京图书馆举办》 / 《文物参考资料》1951年第9期 / 221–233",
+    "direct_1951_article_pages_reviewed": false,
+    "direct_2011_p197_reviewed": false
+  },
+  "adjudication": {
+    "same_digital_object_as_batch_12jk": true,
+    "independent_evidence_vote_increment": 0,
+    "bibliographic_conclusion_change": false,
+    "first_publication_status": "UNRESOLVED",
+    "direct_1951_article_page": "NOT_REVIEWED",
+    "direct_wenhui_1951_08_18": "NOT_REVIEWED"
+  },
+  "evidence_firewall": {
+    "same_url_bytes_pages_sha256_requires_dedup": true,
+    "replay_reproducibility_does_not_create_independent_witness": true,
+    "modern_bibliographic_bridge_is_not_primary_1951_text": true
+  },
+  "security": {
+    "login_used": false,
+    "registration_used": false,
+    "payment_used": false,
+    "target_query_submitted": false,
+    "private_endpoint_guessed": false,
+    "tls_verification_disabled": false
+  },
+  "transmission_impact": {
+    "status": "DEDUP_NO_GRAPH_CHANGE",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": [],
+    "same_object_edge_authorized": false,
+    "reason": "Exact replay of the Batch 12JK NLC PDF; no additional historical object exists to add to the graph."
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Do not count more downloads/citations of this same modern PDF as independent evidence.",
+    "Continue direct recovery of Shanghai 文汇报 1951-08-18 and 文物参考资料 1951年第9期 pp.221-233."
+  ],
+  "updated_at": "2026-10-01"
+}

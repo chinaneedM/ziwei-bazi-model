@@ -1,0 +1,220 @@
+{
+  "schema": "ZIWEI-NLC-WENJIN-OPAC-WENHUI-TITLE-SEARCH-EXECUTION-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-NLC-WENJIN-OPAC-WENHUI-TITLE-SEARCH-EXECUTION-JZ",
+  "prior_batch_id": "BATCH-12-ZIWEI-NLC-YONGLE-REVIEW-JK-SAME-OBJECT-REPLAY-DEDUP-JY",
+  "question": "What do current NLC Wenjin and OPAC return for calibrated positive control and scoped Wenhui title queries when only the first-party source-emitted GET contracts from 12JX are used?",
+  "answer": "Both contracts execute. Wenjin returns a large positive control for 史记 and broad 文汇报 searches expose bibliographic rows including a 2004 computer-file record and a 1951 文汇报-副页 record. Exact 文汇报60年报纸光盘 and 文汇报61年全文数据光盘 return explicit resultCount=0 only on Wenjin. OPAC broad 文汇报/文匯報 queries visibly execute with 117 foreign plus 246 Chinese/special records, while exact-long-title OPAC responses do not echo the query and cannot support zero-result/nonholding claims. No direct 1951-08-18 page is reviewed.",
+  "controlling_probe": {
+    "workflow": ".github/workflows/probe-batch-12jz-nlc-wenjin-opac-wenhui-title-search.yml",
+    "exact_head": "a6c338a6e3cea1b0b484118dfe28d5523a1b84af",
+    "workflow_run_id": 36847667928,
+    "workflow_job_id": 110321594775,
+    "artifact_id": 11154276297,
+    "artifact_name": "batch-12jz-nlc-wenjin-opac-wenhui-title-search",
+    "artifact_digest": "sha256:72929d94b5e818503b3c37af6e15441e9d4858f067e144cdcc1a16f76d9740b4"
+  },
+  "contract_source": {
+    "batch": "12JX",
+    "script_url": "https://www.nlc.cn/template_resource/20241/index.main.js?v=1212",
+    "script_sha256": "89714aa2de74ff6f170bb33590b945ff3c41b3377864f0fcd6579fb51bbc575c",
+    "private_endpoint_guessed": false,
+    "search_parameter_guessed": false
+  },
+  "positive_control": {
+    "term": "史记",
+    "wenjin": {
+      "http_status": 200,
+      "bytes": 165872,
+      "sha256": "417b7caf933e7d28341563b3b872c8157c63ffa3a54fd5d1470bed8220eb0fff",
+      "query_term_visible": true,
+      "approx_result_count": 67000
+    },
+    "opac": {
+      "http_status": 200,
+      "bytes": 11060,
+      "sha256": "4a22843845c8b069ca87557ea61a7c49f2573d64e5c8bc1e0bc23e95c3c099f4",
+      "query_term_visible": true,
+      "multidatabase_counts": {
+        "foreign": 1000,
+        "chinese_and_special": 1000
+      }
+    }
+  },
+  "target_queries": {
+    "wenjin_exact_60year": {
+      "term": "文汇报60年报纸光盘",
+      "http_status": 200,
+      "bytes": 25081,
+      "sha256": "1ce9e0341c43f9efcab4af057554f1acf846d8b7e6f12aca9b275c57ddeeb5f3",
+      "query_term_visible": true,
+      "explicit_resultCount": 0,
+      "negative_marker": "没有找到",
+      "scope": "WENJIN_CURRENT_ALL_FIELDS_ONLY"
+    },
+    "wenjin_broad_simplified": {
+      "term": "文汇报",
+      "http_status": 200,
+      "bytes": 141873,
+      "sha256": "794b16327b6eb4211603b8aeb3659f6d3eb6bc2ec20117474f670b97d30775cd",
+      "query_term_visible": true,
+      "approx_result_count": 78000,
+      "first_page_notable_rows": [
+        {
+          "rank": 1,
+          "title": "文汇报",
+          "type": "缩微文献",
+          "author": "克明",
+          "year": 1987,
+          "publisher": "全国图书馆文献缩微中心"
+        },
+        {
+          "rank": 6,
+          "title": "文汇报",
+          "type": "报纸",
+          "author": "文汇报编辑部",
+          "year": 1938,
+          "publisher": "香港文汇报有限公司"
+        },
+        {
+          "rank": 7,
+          "title": "文汇报",
+          "type": "计算机文件",
+          "author": "点通数据有限公司",
+          "year": 2004,
+          "publisher": "电子出版物数据中心文汇出版社"
+        },
+        {
+          "rank": 10,
+          "title": "文汇报-副页",
+          "type": "报纸",
+          "author": "文汇报编辑部",
+          "year": 1951,
+          "publisher": "该社"
+        }
+      ]
+    },
+    "wenjin_broad_traditional": {
+      "term": "文匯報",
+      "http_status": 200,
+      "bytes": 141858,
+      "sha256": "9976ec19ef14bba00fc8d66b249bdfeacbe55c5d0c597f496e57824d969a6019",
+      "query_term_visible": true,
+      "approx_result_count": 86000
+    },
+    "wenjin_exact_61year": {
+      "term": "文汇报61年全文数据光盘",
+      "http_status": 200,
+      "bytes": 25105,
+      "sha256": "9824ea9ca18d781c8672fd9bb4a3c93a1306f8345233370af18828fa2c1242c8",
+      "query_term_visible": true,
+      "explicit_resultCount": 0,
+      "negative_marker": "没有找到",
+      "scope": "WENJIN_CURRENT_ALL_FIELDS_ONLY"
+    },
+    "opac_broad_simplified": {
+      "term": "文汇报",
+      "http_status": 200,
+      "bytes": 11066,
+      "sha256": "e510a2f560abe250e42e2d5ce07aa0da770441862d3d8b25f12f001ef9064840",
+      "query_term_visible": true,
+      "multidatabase_counts": {
+        "foreign": 117,
+        "chinese_and_special": 246
+      }
+    },
+    "opac_broad_traditional": {
+      "term": "文匯報",
+      "http_status": 200,
+      "bytes": 11066,
+      "sha256": "55b731622361dcb0b1fe86d944b66ccab46581e944928be227b12ddfc020363c",
+      "query_term_visible": true,
+      "multidatabase_counts": {
+        "foreign": 117,
+        "chinese_and_special": 246
+      }
+    },
+    "opac_exact_60year": {
+      "term": "文汇报60年报纸光盘",
+      "http_status": 200,
+      "bytes": 78610,
+      "sha256": "8a395113735fdbe0a5bc7b747a25e5e66b9f8c32fb3fa9ef5c11b3a3a7abfd8f",
+      "query_term_visible": false,
+      "zero_result_authorized": false,
+      "nonholding_authorized": false
+    },
+    "opac_exact_61year": {
+      "term": "文汇报61年全文数据光盘",
+      "http_status": 200,
+      "bytes": 78616,
+      "sha256": "37bfe9f19a8d4e11b8b5c1df94a8a20890d0cfa42f4664faf71f5413613e3a6d",
+      "query_term_visible": false,
+      "zero_result_authorized": false,
+      "nonholding_authorized": false
+    }
+  },
+  "adjudication": {
+    "source_emitted_contract_execution_calibrated": true,
+    "wenjin_exact_long_title_zero_result_scoped": true,
+    "opac_exact_long_title_zero_result_established": false,
+    "nlc_opac_nonholding_proved": false,
+    "broad_wenhui_holdings_surface_positive": true,
+    "wenjin_2004_computer_file_candidate_observed": true,
+    "wenjin_1951_supplement_candidate_observed": true,
+    "exact_identity_with_2003_60year_cdrom": "UNRESOLVED",
+    "direct_wenhui_1951_08_18": "NOT_REVIEWED",
+    "direct_wenwu_1951_no9_pp221_233": "NOT_REVIEWED",
+    "direct_2011_p197": "NOT_REVIEWED"
+  },
+  "evidence_firewall": {
+    "broad_title_hit_is_not_exact_cdrom_identity": true,
+    "computer_file_2004_is_not_automatically_2003_donation_object": true,
+    "supplement_1951_is_not_1951_08_18_page": true,
+    "wenjin_zero_result_does_not_prove_opac_nonholding": true,
+    "opac_response_without_query_echo_is_not_negative_evidence": true,
+    "current_catalog_metadata_is_not_primary_article_text": true
+  },
+  "security": {
+    "login_used": false,
+    "reader_account_used": false,
+    "registration_used": false,
+    "private_endpoint_guessed": false,
+    "search_parameter_guessed": false,
+    "captcha_bypass_used": false,
+    "tls_verification_disabled": false,
+    "state_changing_request_used": false
+  },
+  "transmission_impact": {
+    "status": "NONE_PENDING_ITEM_IDENTITY",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": [],
+    "reason": "Current search evidence exposes candidate records but does not yet bind the 2003 donated CD-ROM or 1951-08-18 newspaper page as exact historical objects."
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Follow only source-emitted Wenjin item/detail controls for the 2004 点通数据有限公司 computer-file row and determine relation to the 2003 donated 60-year CD-ROM.",
+    "Follow the source-emitted item/detail control for the 1951 文汇报-副页 row to identify date/coverage without guessing record identifiers.",
+    "Continue direct recovery for Shanghai 文汇报 1951-08-18, 文物参考资料 1951 no.9 pp.221-233, and 2011 赵万里文集 vol.1 p.197."
+  ],
+  "updated_at": "2026-10-01"
+}

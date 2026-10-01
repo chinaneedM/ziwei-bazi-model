@@ -368,6 +368,12 @@ ZIWEI_NLC_WENHUI_JV_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDI
 ZIWEI_NLC_WENHUI_JV_EVIDENCE = ROOT / "docs/research/ZIWEI-NLC-WENHUI-RESOURCE-TITLE-SEARCH-ZERO-RESULT-BOUNDARY-R1.json"
 ZIWEI_NLC_OPAC_JW_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-OPAC-PUBLIC-SEARCH-CONTRACT-TRANSPORT-BOUNDARY-JW.md"
 ZIWEI_NLC_OPAC_JW_EVIDENCE = ROOT / "docs/research/ZIWEI-NLC-OPAC-PUBLIC-SEARCH-CONTRACT-TRANSPORT-BOUNDARY-R1.json"
+ZIWEI_NLC_CONTRACT_JX_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-WENJIN-OPAC-SOURCE-EMITTED-GET-SEARCH-CONTRACT-JX.md"
+ZIWEI_NLC_CONTRACT_JX_EVIDENCE = ROOT / "docs/research/ZIWEI-NLC-WENJIN-OPAC-SOURCE-EMITTED-GET-SEARCH-CONTRACT-R1.json"
+ZIWEI_NLC_DEDUP_JY_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-YONGLE-REVIEW-JK-SAME-OBJECT-REPLAY-DEDUP-JY.md"
+ZIWEI_NLC_DEDUP_JY_EVIDENCE = ROOT / "docs/research/ZIWEI-NLC-YONGLE-REVIEW-JK-SAME-OBJECT-REPLAY-DEDUP-R1.json"
+ZIWEI_NLC_WENHUI_JZ_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-WENJIN-OPAC-WENHUI-TITLE-SEARCH-EXECUTION-JZ.md"
+ZIWEI_NLC_WENHUI_JZ_EVIDENCE = ROOT / "docs/research/ZIWEI-NLC-WENJIN-OPAC-WENHUI-TITLE-SEARCH-EXECUTION-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -778,7 +784,7 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-NLC-OPAC-PUBLIC-SEARCH-CONTRACT-TRANSPORT-BOUNDARY-JW",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-OPAC-PUBLIC-SEARCH-CONTRACT-TRANSPORT-BOUNDARY-JW.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-WENJIN-OPAC-WENHUI-TITLE-SEARCH-EXECUTION-JZ.md"
 
 
 def fail(message: str) -> None:
@@ -11772,6 +11778,64 @@ def main() -> int:
         fail("Batch 12JW missing from completed state")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12JW latest-batch document mismatch")
+
+    # Batch 12JX/JY/JZ: first-party client contracts, same-object dedup replay, and Wenhui search execution.
+    for path in (ZIWEI_NLC_CONTRACT_JX_BATCH, ZIWEI_NLC_CONTRACT_JX_EVIDENCE, ZIWEI_NLC_DEDUP_JY_BATCH, ZIWEI_NLC_DEDUP_JY_EVIDENCE, ZIWEI_NLC_WENHUI_JZ_BATCH, ZIWEI_NLC_WENHUI_JZ_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12JX/JY/JZ continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12jx = json.loads(ZIWEI_NLC_CONTRACT_JX_EVIDENCE.read_text(encoding="utf-8"))
+    batch12jy = json.loads(ZIWEI_NLC_DEDUP_JY_EVIDENCE.read_text(encoding="utf-8"))
+    batch12jz = json.loads(ZIWEI_NLC_WENHUI_JZ_EVIDENCE.read_text(encoding="utf-8"))
+    if batch12jx.get("batch_id") != "BATCH-12-ZIWEI-NLC-WENJIN-OPAC-SOURCE-EMITTED-GET-SEARCH-CONTRACT-JX" or batch12jy.get("batch_id") != "BATCH-12-ZIWEI-NLC-YONGLE-REVIEW-JK-SAME-OBJECT-REPLAY-DEDUP-JY" or batch12jz.get("batch_id") != "BATCH-12-ZIWEI-NLC-WENJIN-OPAC-WENHUI-TITLE-SEARCH-EXECUTION-JZ":
+        fail("Batch 12JX/JY/JZ evidence identity mismatch")
+    contracts12jx = batch12jx.get("contracts", {})
+    if contracts12jx.get("wenjin", {}).get("user_value_parameters") != ["query", "actualQuery"] or contracts12jx.get("opac", {}).get("user_value_parameters") != ["request"]:
+        fail("Batch 12JX source-emitted user-value contract regressed")
+    if contracts12jx.get("opac", {}).get("fixed_parameters", {}).get("FIND_BASE") != ["NLC01", "NLC09"]:
+        fail("Batch 12JX OPAC fixed-parameter contract regressed")
+    if batch12jx.get("first_party_surfaces", {}).get("contract_script", {}).get("sha256") != "89714aa2de74ff6f170bb33590b945ff3c41b3377864f0fcd6579fb51bbc575c":
+        fail("Batch 12JX contract-script identity regressed")
+    if batch12jx.get("adjudication", {}).get("named_query_contract_directly_observed") is not True or batch12jx.get("adjudication", {}).get("query_submitted") is not False:
+        fail("Batch 12JX contract/no-query firewall regressed")
+    obj12jy = batch12jy.get("object_identity", {})
+    if obj12jy.get("sha256") != "08bf6adcf9a2d200128a80b26156f9de06731094426a116c44ae02386822af20" or obj12jy.get("bytes") != 755701 or obj12jy.get("pages") != 17:
+        fail("Batch 12JY same-object identity regressed")
+    if obj12jy.get("identical_to_batch_12jk_object") is not True or obj12jy.get("new_independent_source") is not False or batch12jy.get("adjudication", {}).get("independent_evidence_vote_increment") != 0:
+        fail("Batch 12JY dedup firewall regressed")
+    tq12jz = batch12jz.get("target_queries", {})
+    if tq12jz.get("wenjin_exact_60year", {}).get("explicit_resultCount") != 0 or tq12jz.get("wenjin_exact_61year", {}).get("explicit_resultCount") != 0:
+        fail("Batch 12JZ Wenjin exact-title scoped zero result regressed")
+    if tq12jz.get("opac_broad_simplified", {}).get("multidatabase_counts") != {"foreign": 117, "chinese_and_special": 246}:
+        fail("Batch 12JZ OPAC broad Wenhui calibrated counts regressed")
+    if tq12jz.get("opac_exact_60year", {}).get("zero_result_authorized") is not False or tq12jz.get("opac_exact_61year", {}).get("nonholding_authorized") is not False:
+        fail("Batch 12JZ OPAC exact-long-title negative firewall regressed")
+    adj12jz = batch12jz.get("adjudication", {})
+    if adj12jz.get("wenjin_2004_computer_file_candidate_observed") is not True or adj12jz.get("wenjin_1951_supplement_candidate_observed") is not True:
+        fail("Batch 12JZ item-candidate observations regressed")
+    if adj12jz.get("exact_identity_with_2003_60year_cdrom") != "UNRESOLVED" or adj12jz.get("direct_wenhui_1951_08_18") != "NOT_REVIEWED":
+        fail("Batch 12JZ identity/direct-page firewall regressed")
+    for batch in (batch12jx, batch12jy, batch12jz):
+        acct = batch.get("accounting", {})
+        if acct.get("matrix_rows") != 198 or acct.get("audited_rows") != 166 or acct.get("current_missing_from_product_rows") != 10:
+            fail("Batch 12JX/JY/JZ accounting regressed")
+    reg12jxyz = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    for sid in ("EXT-NLC-WENJIN-OPAC-SOURCE-EMITTED-GET-SEARCH-CONTRACT-2026", "EXT-NLC-WENJIN-OPAC-WENHUI-TITLE-SEARCH-EXECUTION-2026"):
+        if next((x for x in reg12jxyz.get("sources", []) if x.get("source_id") == sid), None) is None:
+            fail(f"Batch 12JX/JZ registry binding missing: {sid}")
+    dedup_source = next((x for x in reg12jxyz.get("sources", []) if x.get("source_id") == "EXT-NLC-LIUPENG-YONGLE-REVIEW-ZHAO1951-WENWU-BIB-CONTROL"), None)
+    if dedup_source is None or dedup_source.get("batch_12jy", {}).get("independent_evidence_vote_increment") != 0:
+        fail("Batch 12JY registry dedup binding missing")
+    for bid in ("BATCH-12-ZIWEI-NLC-WENJIN-OPAC-SOURCE-EMITTED-GET-SEARCH-CONTRACT-JX", "BATCH-12-ZIWEI-NLC-YONGLE-REVIEW-JK-SAME-OBJECT-REPLAY-DEDUP-JY", "BATCH-12-ZIWEI-NLC-WENJIN-OPAC-WENHUI-TITLE-SEARCH-EXECUTION-JZ"):
+        if bid not in audit_state.get("completed_batches", ()):
+            fail(f"Batch 12JX/JY/JZ missing from completed state: {bid}")
+    try:
+        schema12jz = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12JZ state version is not numeric")
+    if schema12jz < (1, 290, 0):
+        fail("Batch 12JZ state version regressed below 1.290.0")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12JZ latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")
