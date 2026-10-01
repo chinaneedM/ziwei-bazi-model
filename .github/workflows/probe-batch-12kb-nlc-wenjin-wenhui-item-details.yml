@@ -1,0 +1,135 @@
+name: probe-batch-12kb-nlc-wenjin-wenhui-item-details
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12kb-nlc-wenjin-wenhui-item-details.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Follow only 12KA source-emitted Wenjin detail controls
+        run: |
+          python - <<'PY'
+          import hashlib, html, json, re
+          from html.parser import HTMLParser
+          from pathlib import Path
+          from urllib.parse import urlencode, urljoin
+          import requests
+
+          UA={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; NLC public item-detail calibration)"}
+          ROOT="http://find.nlc.cn"
+          QUERY="文汇报"
+          TARGETS=[
+              {"key":"computer_file_2004","docId":"-7686431772105481921","dataSource":"ucs01","list_title":"文汇报","list_type":"计算机文件","list_author":"点通数据有限公司","list_year":"2004"},
+              {"key":"supplement_1951","docId":"-2284569176548744322","dataSource":"ucs01","list_title":"文汇报-副页","list_type":"报纸","list_author":"文汇报编辑部","list_year":"1951"},
+          ]
+          MAKE_DETAIL_SCRIPT={
+              "url":"http://find.nlc.cn/js/resultList.js",
+              "sha256":"90b95a7268acd8e44ad2b7ee00b0dd6364634108f6d2abc245a6b574ec727310",
+              "function":"makeDetailUrl(obj, url, docID, dataSource, query)",
+              "rule":"url + 'docId=' + docID + '&dataSource=' + dataSource + '&query=' + encodeURIComponent(query)"
+          }
+
+          def sha(b): return hashlib.sha256(b).hexdigest()
+          def decode(raw):
+              for enc in ("utf-8","utf-8-sig","gb18030","gbk","big5"):
+                  try: return raw.decode(enc),enc
+                  except UnicodeDecodeError: pass
+              return raw.decode("utf-8","replace"),"utf-8-replacement"
+          def visible(txt):
+              return re.sub(r"\s+"," ",html.unescape(re.sub(r"<[^>]+>"," ",txt))).strip()
+
+          class Collector(HTMLParser):
+              def __init__(self):
+                  super().__init__(convert_charrefs=False); self.anchors=[]; self.forms=[]; self.scripts=[]; self.tags=[]
+              def handle_starttag(self,tag,attrs):
+                  d={k:v for k,v in attrs}; raw=self.get_starttag_text()
+                  if tag=="a": self.anchors.append({"attrs":d,"raw":raw})
+                  elif tag=="form": self.forms.append({"attrs":d,"raw":raw})
+                  elif tag=="script" and d.get("src"): self.scripts.append(d.get("src"))
+                  if any(k in d for k in ("onclick","data-docid","data-source","data-sourceen","href","action")):
+                      self.tags.append({"tag":tag,"attrs":d,"raw":raw})
+
+          s=requests.Session(); s.headers.update(UA)
+          results=[]
+          for t in TARGETS:
+              params=[("docId",t["docId"]),("dataSource",t["dataSource"]),("query",QUERY)]
+              url=ROOT+"/search/showDocDetails?"+urlencode(params)
+              row={"target":t,"source_emitted_detail_url":url}
+              try:
+                  r=s.get(url,timeout=45,allow_redirects=True)
+                  raw=r.content; txt,enc=decode(raw); vis=visible(txt)
+                  p=Collector()
+                  try:p.feed(txt)
+                  except Exception:pass
+                  tokens=[
+                      t["list_title"],t["list_author"],t["list_year"],"文汇报60年报纸光盘","60年",
+                      "61年","光盘","全文","1951","2003","2004","8月18","08-18","8/18","副页",
+                      "馆藏信息","索书号","出版","责任者","载体","计算机文件"
+                  ]
+                  contexts=[]
+                  for tok in tokens:
+                      if not tok: continue
+                      for m in re.finditer(re.escape(tok),vis,re.I):
+                          contexts.append({"token":tok,"text":vis[max(0,m.start()-320):m.end()+780]})
+                          if len([x for x in contexts if x["token"]==tok])>=3: break
+                  relevant_tags=[]
+                  for tag in p.tags:
+                      blob=html.unescape(tag["raw"])
+                      if any(x in blob for x in ("馆藏","rack","location","detail","docId","dataSource","onclick")):
+                          relevant_tags.append({"tag":tag["tag"],"attrs":tag["attrs"],"raw":tag["raw"][:1800]})
+                  row.update({
+                      "http_status":r.status_code,"final_url":r.url,"bytes":len(raw),"sha256":sha(raw),"decode_used":enc,
+                      "title_tag":(re.search(r"<title[^>]*>(.*?)</title>",txt,re.I|re.S).group(1).strip() if re.search(r"<title[^>]*>(.*?)</title>",txt,re.I|re.S) else None),
+                      "query_term_visible":QUERY in vis,
+                      "list_title_visible":t["list_title"] in vis,
+                      "list_author_visible":t["list_author"] in vis,
+                      "list_year_visible":t["list_year"] in vis,
+                      "contexts":contexts[:80],
+                      "forms":p.forms[:20],
+                      "relevant_tags":relevant_tags[:120],
+                      "source_emitted_script_urls":sorted(set(urljoin(r.url,x) for x in p.scripts)),
+                      "login_marker":bool(re.search(r"登录|登陆|注册",vis)),
+                      "captcha_marker":bool(re.search(r"验证码|captcha",vis,re.I))
+                  })
+              except Exception as e:
+                  row.update({"error_class":type(e).__name__,"error":str(e)[:500]})
+              results.append(row)
+
+          out={
+              "source_contract":{
+                  "parent_batch":"12KA",
+                  "make_detail_script":MAKE_DETAIL_SCRIPT,
+                  "detail_path":"/search/showDocDetails?",
+                  "record_identifier_guessed":False,
+                  "data_source_guessed":False
+              },
+              "results":results,
+              "adjudication":{
+                  "only_12ka_source_emitted_docids_used":True,
+                  "only_12ka_source_emitted_data_source_used":True,
+                  "detail_get_executed":True,
+                  "holdings_or_secondary_routes_followed":False
+              },
+              "security":{
+                  "login_used":False,"reader_account_used":False,"registration_used":False,
+                  "private_endpoint_guessed":False,"record_identifier_guessed":False,"data_source_guessed":False,
+                  "captcha_bypass_used":False,"tls_verification_disabled":False,"state_changing_request_used":False
+              }
+          }
+          Path("batch-12kb-nlc-wenjin-wenhui-item-details.json").write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12kb-nlc-wenjin-wenhui-item-details
+          path: batch-12kb-nlc-wenjin-wenhui-item-details.json
