@@ -1,0 +1,103 @@
+{
+  "schema": "ZIWEI-CNBKSY-BKSY-POST-TRANSPORT-CONTRACT-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-CNBKSY-BKSY-POST-TRANSPORT-CONTRACT-LL",
+  "prior_batch_id": "BATCH-12-ZIWEI-CNBKSY-SHARED-SEARCH-CALLSITE-CONTEXT-LK",
+  "question": "What transport does the source-emitted bksy.post helper actually use for searchHint('/common/hints', null), before any application POST is executed?",
+  "answer": "Source-emitted common.js defines bksy.post as a jQuery AJAX POST. It appends the page meta _csrf value to the URL query, passes data=params, leaves processData true by default, expects JSON by default, and is async by default. It does not set an explicit contentType. bksy.jsonPost is a distinct application/json + JSON.stringify transport and must not be used for the searchHint call.",
+  "controlling_probe": {
+    "workflow": ".github/workflows/probe-batch-12ll-cnbksy-bksy-post-transport-contract.yml",
+    "exact_head": "71d4ecd07a8051b2220db46af9ec754f0e274793",
+    "workflow_run_id": 36885241710,
+    "workflow_job_id": 110446759625,
+    "artifact_id": 11174411314,
+    "artifact_digest": "sha256:21c94d6f348874bf97c2c41650759a26ed51e0d9430b39048cf27be68358ec22"
+  },
+  "source_contract": {
+    "seed_url": "https://www.cnbksy.com/portal/newsCategoryBrowse/newsContent?id=202",
+    "source_emitted_navigation_url": "https://www.cnbksy.com/portal/newsCategoryBrowse",
+    "source_emitted_external_script_count": 39,
+    "application_endpoint_invoked": false,
+    "target_query_submitted": false
+  },
+  "transport_source": {
+    "url": "https://www.cnbksy.com/public/common/js/common.js?version=V20241206",
+    "http_status": 200,
+    "definition_context_sha256": "4a03c60fee1586bdea2c7d6517bdb8578b4be382213cc079c7bd6e88adc89b2d"
+  },
+  "bksy_post": {
+    "signature": "bksy.post(url, params, callback, type, async, processData, unmask)",
+    "csrf_behavior": "append _csrf from meta[name=_csrf] to URL query",
+    "method": "POST",
+    "process_data": "processData != undefined ? processData : true",
+    "request_data": "params",
+    "explicit_content_type": null,
+    "response_data_type": "type ? type : 'json'",
+    "async": "async != undefined ? async : true",
+    "error_behavior": "optional unmask; visible toastr error disabled in this helper"
+  },
+  "bksy_json_post_firewall": {
+    "signature": "bksy.jsonPost(url, params, callback, type, async, processData)",
+    "method": "POST",
+    "content_type": "application/json",
+    "request_data": "JSON.stringify(params)",
+    "adjudication": "SEPARATE_TRANSPORT_NOT_USED_BY_SEARCHHINT_COMMON_HINTS"
+  },
+  "application_to_hint_bridge": {
+    "call_from_12lk": "bksy.post('/common/hints', null, callback)",
+    "effective_params": null,
+    "expected_response_type": "json",
+    "csrf_required_by_helper": true,
+    "csrf_value_persist_authorized": false
+  },
+  "adjudication": {
+    "bksy_post_transport_closed": true,
+    "common_hints_transport_closed": true,
+    "common_hints_endpoint_invoked": false,
+    "application_post_used": false,
+    "target_query_submitted": false,
+    "login_used": false,
+    "registration_used": false
+  },
+  "security": {
+    "source_emitted_script_gets_only": true,
+    "application_post_used": false,
+    "csrf_value_recorded": false,
+    "private_endpoint_guessed": false,
+    "captcha_bypass_used": false,
+    "tls_verification_disabled": false
+  },
+  "transmission_impact": {
+    "status": "NONE_ACCESS_BOUNDARY_ONLY",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": []
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Use one anonymous requests.Session to GET the same public seed and its source-emitted navigation page.",
+    "Read but do not persist the page meta _csrf value.",
+    "Execute only POST /common/hints with _csrf in the URL query and an empty/null payload, using the source-closed bksy.post semantics.",
+    "Do not send any Zhao/Wenhui or other target search term."
+  ],
+  "updated_at": "2026-10-01"
+}

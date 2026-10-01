@@ -841,9 +841,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-CNBKSY-PUBLIC-ACTIVITY-INLINE-CONTRACT-LI",
     "BATCH-12-ZIWEI-CNBKSY-INDEXED-NEWS-NAVIGATION-CONTRACT-LJ",
     "BATCH-12-ZIWEI-CNBKSY-SHARED-SEARCH-CALLSITE-CONTEXT-LK",
+    "BATCH-12-ZIWEI-CNBKSY-BKSY-POST-TRANSPORT-CONTRACT-LL",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-SHARED-SEARCH-CALLSITE-CONTEXT-LK.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-BKSY-POST-TRANSPORT-CONTRACT-LL.md"
 
 
 def fail(message: str) -> None:
@@ -12750,6 +12751,46 @@ def main() -> int:
         fail("Batch 12LK state version regressed below 1.326.0")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12LK latest-batch document mismatch")
+
+    # Batch 12LL: source-emitted common.js closes bksy.post transport before any application POST.
+    ll_batch = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-BKSY-POST-TRANSPORT-CONTRACT-LL.md"
+    ll_evidence = ROOT / "docs/research/ZIWEI-CNBKSY-BKSY-POST-TRANSPORT-CONTRACT-R1.json"
+    if not ll_batch.is_file() or not ll_evidence.is_file():
+        fail("Batch 12LL continuity artifact missing")
+    ll = json.loads(ll_evidence.read_text(encoding="utf-8"))
+    if ll.get("batch_id") != "BATCH-12-ZIWEI-CNBKSY-BKSY-POST-TRANSPORT-CONTRACT-LL":
+        fail("Batch 12LL evidence identity mismatch")
+    llp = ll.get("bksy_post", {})
+    if llp.get("method") != "POST" or llp.get("request_data") != "params" or llp.get("response_data_type") != "type ? type : 'json'":
+        fail("Batch 12LL bksy.post core transport regressed")
+    if llp.get("csrf_behavior") != "append _csrf from meta[name=_csrf] to URL query" or llp.get("explicit_content_type") is not None:
+        fail("Batch 12LL CSRF/content-type transport regressed")
+    llj = ll.get("bksy_json_post_firewall", {})
+    if llj.get("content_type") != "application/json" or llj.get("adjudication") != "SEPARATE_TRANSPORT_NOT_USED_BY_SEARCHHINT_COMMON_HINTS":
+        fail("Batch 12LL jsonPost firewall regressed")
+    llb = ll.get("application_to_hint_bridge", {})
+    if llb.get("effective_params", "sentinel") is not None or llb.get("expected_response_type") != "json" or llb.get("csrf_value_persist_authorized") is not False:
+        fail("Batch 12LL hint bridge/CSRF persistence firewall regressed")
+    lla = ll.get("adjudication", {})
+    if lla.get("bksy_post_transport_closed") is not True or lla.get("common_hints_transport_closed") is not True:
+        fail("Batch 12LL transport adjudication regressed")
+    if lla.get("common_hints_endpoint_invoked") is not False or lla.get("application_post_used") is not False or lla.get("target_query_submitted") is not False:
+        fail("Batch 12LL no-POST/no-query firewall regressed")
+    llprobe = ll.get("controlling_probe", {})
+    if llprobe.get("workflow_run_id") != 36885241710 or llprobe.get("workflow_job_id") != 110446759625 or llprobe.get("artifact_id") != 11174411314:
+        fail("Batch 12LL controlling probe identity regressed")
+    if llprobe.get("artifact_digest") != "sha256:21c94d6f348874bf97c2c41650759a26ed51e0d9430b39048cf27be68358ec22":
+        fail("Batch 12LL artifact digest regressed")
+    if "BATCH-12-ZIWEI-CNBKSY-BKSY-POST-TRANSPORT-CONTRACT-LL" not in audit_state.get("completed_batches", ()):
+        fail("Batch 12LL missing from completed state")
+    try:
+        schema12ll = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12LL state version is not numeric")
+    if schema12ll < (1, 327, 0):
+        fail("Batch 12LL state version regressed below 1.327.0")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12LL latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

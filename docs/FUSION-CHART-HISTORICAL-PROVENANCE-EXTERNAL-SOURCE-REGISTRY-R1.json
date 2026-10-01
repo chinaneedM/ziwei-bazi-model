@@ -12043,7 +12043,7 @@
       "provider": "上海图书馆《全国报刊索引》编辑部",
       "url": "https://www.cnbksy.com/",
       "source_role": "FIRST_PARTY_NEWSPAPER_INDEX_PUBLIC_ACCESS_SURFACE",
-      "quality_notes": "Batches 12LF–12LI close the root/activity access branch. 12LJ separates site-news filtering from shared search-related scripts. Batch 12LK statically closes the shared hint callsite: searchHint(fields,hideclass) invokes bksy.post('/common/hints', null, callback) and uses the returned collection only for local typeahead matching. /search/detail/ and /search/picDetail/ are cart-derived object-detail routes parameterized by dataId/laId, not a free-text search contract. No discovered endpoint is invoked and no target query is submitted.",
+      "quality_notes": "Batches 12LF–12LK move from the root-412 boundary to a source-emitted /common/hints callsite without target queries. Batch 12LL statically closes bksy.post in source-emitted common.js: CSRF is appended to the URL query, transport is POST, data=params, processData defaults true, dataType defaults json, and async defaults true; bksy.post has no explicit contentType override. bksy.jsonPost is a separate application/json transport. No application endpoint is invoked in 12LL.",
       "batch_12lf": {
         "workflow_run_id": 36877911774,
         "workflow_job_id": 110421993332,
@@ -12148,6 +12148,33 @@
         "discovered_route_invoked": false,
         "target_query_submitted": false,
         "research_artifact": "docs/research/ZIWEI-CNBKSY-SHARED-SEARCH-CALLSITE-CONTEXT-R1.json"
+      },
+      "batch_12ll": {
+        "workflow_run_id": 36885241710,
+        "workflow_job_id": 110446759625,
+        "artifact_id": 11174411314,
+        "artifact_digest": "sha256:21c94d6f348874bf97c2c41650759a26ed51e0d9430b39048cf27be68358ec22",
+        "exact_head": "71d4ecd07a8051b2220db46af9ec754f0e274793",
+        "source_emitted_external_script_count": 39,
+        "transport_source": "https://www.cnbksy.com/public/common/js/common.js?version=V20241206",
+        "bksy_post": {
+          "method": "POST",
+          "csrf_location": "URL_QUERY__csrf_FROM_PAGE_META",
+          "process_data_default": true,
+          "data_expression": "params",
+          "data_type_default": "json",
+          "async_default": true,
+          "explicit_content_type_override": false
+        },
+        "bksy_json_post": {
+          "method": "POST",
+          "csrf_location": "URL_QUERY__csrf_FROM_PAGE_META",
+          "content_type": "application/json",
+          "data_expression": "JSON.stringify(params)"
+        },
+        "application_endpoint_invoked": false,
+        "target_query_submitted": false,
+        "research_artifact": "docs/research/ZIWEI-CNBKSY-BKSY-POST-TRANSPORT-CONTRACT-R1.json"
       }
     }
   ],
