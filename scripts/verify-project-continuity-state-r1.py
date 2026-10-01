@@ -840,9 +840,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-CNBKSY-SOURCE-EMITTED-SCRIPT-CONTRACT-LH",
     "BATCH-12-ZIWEI-CNBKSY-PUBLIC-ACTIVITY-INLINE-CONTRACT-LI",
     "BATCH-12-ZIWEI-CNBKSY-INDEXED-NEWS-NAVIGATION-CONTRACT-LJ",
+    "BATCH-12-ZIWEI-CNBKSY-SHARED-SEARCH-CALLSITE-CONTEXT-LK",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-INDEXED-NEWS-NAVIGATION-CONTRACT-LJ.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-SHARED-SEARCH-CALLSITE-CONTEXT-LK.md"
 
 
 def fail(message: str) -> None:
@@ -12708,6 +12709,47 @@ def main() -> int:
         fail("Batch 12LJ state version regressed below 1.325.0")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12LJ latest-batch document mismatch")
+
+    # Batch 12LK: source-emitted shared search callsites close hint payload semantics but not bksy.post transport.
+    lk_batch = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-SHARED-SEARCH-CALLSITE-CONTEXT-LK.md"
+    lk_evidence = ROOT / "docs/research/ZIWEI-CNBKSY-SHARED-SEARCH-CALLSITE-CONTEXT-R1.json"
+    if not lk_batch.is_file() or not lk_evidence.is_file():
+        fail("Batch 12LK continuity artifact missing")
+    lk = json.loads(lk_evidence.read_text(encoding="utf-8"))
+    if lk.get("batch_id") != "BATCH-12-ZIWEI-CNBKSY-SHARED-SEARCH-CALLSITE-CONTEXT-LK":
+        fail("Batch 12LK evidence identity mismatch")
+    lkh = lk.get("hint_callsite", {})
+    if lkh.get("function_signature") != "searchHint(fields, hideclass)" or lkh.get("payload_at_callsite", "sentinel") is not None:
+        fail("Batch 12LK hint callsite/payload regressed")
+    if lkh.get("http_transport_semantics_closed") is not False or lkh.get("context_sha256") != "3a09c804c4d66100c52764695d81116eab4b92fa1f92dda35cc9b9b11350f020":
+        fail("Batch 12LK transport-open/context identity regressed")
+    lkdet = lk.get("object_detail_routes", {})
+    if lkdet.get("text", {}).get("route_template") != "/search/detail/{dataId}/{laId}/{laId}":
+        fail("Batch 12LK text detail route regressed")
+    if lkdet.get("image", {}).get("route_template") != "/search/picDetail/{dataId}/{laId}/{laId}":
+        fail("Batch 12LK image detail route regressed")
+    if lkdet.get("adjudication") != "OBJECT_DETAIL_ROUTES_NOT_FREE_TEXT_SEARCH_ENDPOINTS":
+        fail("Batch 12LK detail-route firewall regressed")
+    lka = lk.get("adjudication", {})
+    if lka.get("common_hints_callsite_closed") is not True or lka.get("common_hints_http_transport_closed") is not False:
+        fail("Batch 12LK hints adjudication regressed")
+    if lka.get("target_term_transmitted_by_hint_call") is not False or lka.get("discovered_route_invoked") is not False or lka.get("target_query_submitted") is not False:
+        fail("Batch 12LK no-query/no-route firewall regressed")
+    lkp = lk.get("controlling_probe", {})
+    if lkp.get("workflow_run_id") != 36884632716 or lkp.get("workflow_job_id") != 110444683909 or lkp.get("artifact_id") != 11173687084:
+        fail("Batch 12LK controlling probe identity regressed")
+    if lkp.get("artifact_digest") != "sha256:a0ef4c32000ee750948c5f9a60b7ebdf9645862a204b4d2ead00af874b0bddbd":
+        fail("Batch 12LK artifact digest regressed")
+    if "BATCH-12-ZIWEI-CNBKSY-SHARED-SEARCH-CALLSITE-CONTEXT-LK" not in audit_state.get("completed_batches", ()):
+        fail("Batch 12LK missing from completed state")
+    try:
+        schema12lk = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12LK state version is not numeric")
+    if schema12lk < (1, 326, 0):
+        fail("Batch 12LK state version regressed below 1.326.0")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12LK latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

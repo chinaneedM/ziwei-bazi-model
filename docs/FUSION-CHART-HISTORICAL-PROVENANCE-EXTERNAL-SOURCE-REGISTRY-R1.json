@@ -12043,7 +12043,7 @@
       "provider": "上海图书馆《全国报刊索引》编辑部",
       "url": "https://www.cnbksy.com/",
       "source_role": "FIRST_PARTY_NEWSPAPER_INDEX_PUBLIC_ACCESS_SURFACE",
-      "quality_notes": "Batches 12LF–12LI close the root-412/activity-page access branch without any target query. Batch 12LJ begins from a publicly indexed first-party CNBKSY news page and follows only its source-emitted 信息动态 route. The resulting POST title/startDate/endDate form is classified as a site-news filter, not the historical newspaper database. Shared inline scripts separately emit /common/hints, /search/detail/ and /search/picDetail/ candidates, but 12LJ does not call them. No login, registration or target query is used.",
+      "quality_notes": "Batches 12LF–12LI close the root/activity access branch. 12LJ separates site-news filtering from shared search-related scripts. Batch 12LK statically closes the shared hint callsite: searchHint(fields,hideclass) invokes bksy.post('/common/hints', null, callback) and uses the returned collection only for local typeahead matching. /search/detail/ and /search/picDetail/ are cart-derived object-detail routes parameterized by dataId/laId, not a free-text search contract. No discovered endpoint is invoked and no target query is submitted.",
       "batch_12lf": {
         "workflow_run_id": 36877911774,
         "workflow_job_id": 110421993332,
@@ -12129,6 +12129,25 @@
         "form_submitted": false,
         "target_query_submitted": false,
         "research_artifact": "docs/research/ZIWEI-CNBKSY-INDEXED-NEWS-NAVIGATION-CONTRACT-R1.json"
+      },
+      "batch_12lk": {
+        "workflow_run_id": 36884632716,
+        "workflow_job_id": 110444683909,
+        "artifact_id": 11173687084,
+        "artifact_digest": "sha256:a0ef4c32000ee750948c5f9a60b7ebdf9645862a204b4d2ead00af874b0bddbd",
+        "exact_head": "ca62dc9074dc04f4bffc410d8b8f2170217d2ff5",
+        "hint_route": "/common/hints",
+        "hint_call": "bksy.post('/common/hints', null, callback)",
+        "hint_payload_contract": "NULL_AT_CALLSITE",
+        "hint_result_use": "LOCAL_TYPEAHEAD_CONDITIONS",
+        "detail_route_contracts": {
+          "text": "/search/detail/{dataId}/{laId}/{laId}",
+          "image": "/search/picDetail/{dataId}/{laId}/{laId}",
+          "parameter_source": "cart item.dataId + item.laId"
+        },
+        "discovered_route_invoked": false,
+        "target_query_submitted": false,
+        "research_artifact": "docs/research/ZIWEI-CNBKSY-SHARED-SEARCH-CALLSITE-CONTEXT-R1.json"
       }
     }
   ],
