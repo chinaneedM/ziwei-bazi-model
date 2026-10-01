@@ -348,6 +348,8 @@ ZIWEI_WENHUI_SHILUE_JL_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-A
 ZIWEI_WENHUI_SHILUE_JL_EVIDENCE = ROOT / "docs/research/ZIWEI-WENHUI-SHILUE-1997-PUBLIC-PREVIEW-BOUNDARY-R1.json"
 ZIWEI_SHU_WENHUI_JM_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENHUIBAO-1951-0818-SHU-BOUND-VOLUME-HOLDING-ROUTE-JM.md"
 ZIWEI_SHU_WENHUI_JM_EVIDENCE = ROOT / "docs/research/ZIWEI-WENHUIBAO-1951-0818-SHU-BOUND-VOLUME-HOLDING-ROUTE-R1.json"
+ZIWEI_SHU_WENHUI_JN_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENHUIBAO-SHU-2025-CURRENT-LOCATOR-AND-DIGITAL-ACCESS-BOUNDARY-JN.md"
+ZIWEI_SHU_WENHUI_JN_EVIDENCE = ROOT / "docs/research/ZIWEI-WENHUIBAO-SHU-2025-CURRENT-LOCATOR-AND-DIGITAL-ACCESS-BOUNDARY-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -746,9 +748,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-ZHAO-WANLI-WENWU-WENHUI-BIBLIOGRAPHIC-TENSION-JK",
     "BATCH-12-ZIWEI-WENHUI-SHILUE-1997-PUBLIC-PREVIEW-BOUNDARY-JL",
     "BATCH-12-ZIWEI-WENHUIBAO-1951-0818-SHU-BOUND-VOLUME-HOLDING-ROUTE-JM",
+    "BATCH-12-ZIWEI-WENHUIBAO-SHU-2025-CURRENT-LOCATOR-AND-DIGITAL-ACCESS-BOUNDARY-JN",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENHUIBAO-1951-0818-SHU-BOUND-VOLUME-HOLDING-ROUTE-JM.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENHUIBAO-SHU-2025-CURRENT-LOCATOR-AND-DIGITAL-ACCESS-BOUNDARY-JN.md"
 
 
 def fail(message: str) -> None:
@@ -11313,6 +11316,58 @@ def main() -> int:
         fail("Batch 12JM missing from completed state")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12JM latest-batch document mismatch")
+
+    # Batch 12JN: current SHU locator reconciliation and mediated digital-access boundary.
+    for path in (ZIWEI_SHU_WENHUI_JN_BATCH, ZIWEI_SHU_WENHUI_JN_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12JN continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12jn = json.loads(ZIWEI_SHU_WENHUI_JN_EVIDENCE.read_text(encoding="utf-8"))
+    bid12jn = "BATCH-12-ZIWEI-WENHUIBAO-SHU-2025-CURRENT-LOCATOR-AND-DIGITAL-ACCESS-BOUNDARY-JN"
+    if batch12jn.get("batch_id") != bid12jn:
+        fail("Batch 12JN evidence identity mismatch")
+    cur12jn = batch12jn.get("current_directory", {})
+    if cur12jn.get("response_sha256") != "f421d3fbfdf3b508f50f8e4298e0d34f7649e8e3206e8da129c5841b65816a9c":
+        fail("Batch 12JN current-directory identity regressed")
+    row12jn = cur12jn.get("current_row", {})
+    if row12jn.get("rack") != "A7-1" or row12jn.get("coverage") != "1951(5-8)" or row12jn.get("binding_code") != "B" or row12jn.get("holding_code") != "L":
+        fail("Batch 12JN current locator row regressed")
+    rec12jn = batch12jn.get("legacy_locator_reconciliation", {})
+    if rec12jn.get("batch_12jm_legacy_shelf_literal") != "6--10" or rec12jn.get("current_2025_rack") != "A7-1" or rec12jn.get("silent_overwrite_forbidden") is not True:
+        fail("Batch 12JN forward-only locator reconciliation regressed")
+    dig12jn = batch12jn.get("digital_platform", {})
+    if dig12jn.get("target_binding_status") != "NOT_OBSERVED" or dig12jn.get("public_remote_view_contract_observed") is not False:
+        fail("Batch 12JN digital target/public-view firewall regressed")
+    if dig12jn.get("email_appointment_required") is not True or dig12jn.get("on_site_fifth_floor_terminal_required") is not True:
+        fail("Batch 12JN mediated-access model regressed")
+    sec12jn = batch12jn.get("security", {})
+    if sec12jn.get("email_sent") is not False or sec12jn.get("appointment_requested") is not False or sec12jn.get("login_used") is not False:
+        fail("Batch 12JN account-action boundary regressed")
+    adj12jn = batch12jn.get("adjudication", {})
+    if adj12jn.get("target_holding_coverage_changed_from_12jm") is not False or adj12jn.get("current_directory_supersedes_legacy_locator_for_present_access_planning") is not True:
+        fail("Batch 12JN locator adjudication regressed")
+    if adj12jn.get("direct_wenhui_1951_08_18_page") != "NOT_REVIEWED":
+        fail("Batch 12JN direct-page firewall regressed")
+    tx12jn = batch12jn.get("transmission_impact", {})
+    if tx12jn.get("status") != "NONE" or tx12jn.get("graph_change") is not False:
+        fail("Batch 12JN transmission-impact scope regressed")
+    reg12jn = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    srca12jn = next((x for x in reg12jn.get("sources", []) if x.get("source_id") == "EXT-SHU-WENHUIBAO-2025-CURRENT-NEWSPAPER-DIRECTORY"), None)
+    srcb12jn = next((x for x in reg12jn.get("sources", []) if x.get("source_id") == "EXT-SHU-DIGITAL-DOUBLING-PLATFORM-MEDIATED-ACCESS"), None)
+    if srca12jn is None or srcb12jn is None:
+        fail("Batch 12JN registry bindings missing")
+    acct12jn = batch12jn.get("accounting", {})
+    if acct12jn.get("matrix_rows") != 198 or acct12jn.get("audited_rows") != 166 or acct12jn.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12JN accounting regressed")
+    try:
+        schema12jn = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12JN state version is not numeric")
+    if schema12jn < (1, 278, 0):
+        fail("Batch 12JN state version regressed below 1.278.0")
+    if bid12jn not in audit_state.get("completed_batches", ()):
+        fail("Batch 12JN missing from completed state")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12JN latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

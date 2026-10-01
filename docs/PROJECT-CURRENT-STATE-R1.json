@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.277.0",
+  "schema_version": "1.278.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -359,9 +359,10 @@
       "BATCH-12-ZIWEI-ZHAO-WANLI-WENHUIBAO-1951-0818-SASS-HOLDING-ROUTE-JJ",
       "BATCH-12-ZIWEI-ZHAO-WANLI-WENWU-WENHUI-BIBLIOGRAPHIC-TENSION-JK",
       "BATCH-12-ZIWEI-WENHUI-SHILUE-1997-PUBLIC-PREVIEW-BOUNDARY-JL",
-      "BATCH-12-ZIWEI-WENHUIBAO-1951-0818-SHU-BOUND-VOLUME-HOLDING-ROUTE-JM"
+      "BATCH-12-ZIWEI-WENHUIBAO-1951-0818-SHU-BOUND-VOLUME-HOLDING-ROUTE-JM",
+      "BATCH-12-ZIWEI-WENHUIBAO-SHU-2025-CURRENT-LOCATOR-AND-DIGITAL-ACCESS-BOUNDARY-JN"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENHUIBAO-1951-0818-SHU-BOUND-VOLUME-HOLDING-ROUTE-JM.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENHUIBAO-SHU-2025-CURRENT-LOCATOR-AND-DIGITAL-ACCESS-BOUNDARY-JN.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -1620,7 +1621,11 @@
       "Batch 12JM adds an independent first-party Shanghai University Library bound-newspaper holding route: row 7 《文汇报》 explicitly covers 1951(5-8), 新校区 / 嘉定校区, shelves 6--10.",
       "The same SHU page separately lists row 53 《文汇报(香港版)》, so Shanghai-vs-Hong-Kong identity is directly disambiguated on this first-party holding surface. The Shanghai row's May-August coverage includes the 1951-08-18 calendar date.",
       "This is physical holding/access evidence only: the specific 1951-08-18 issue, page and Zhao article remain NOT_REVIEWED, and the secondary Wenhui publication claim is not upgraded to primary-text status.",
-      "Highest next gates remain direct Shanghai 《文汇报》 1951-08-18, direct 《文物参考资料》 no.9 pp.221-233 and direct 2011 《赵万里文集》第1卷 p.197; first-publication and cross-carrier transmission remain unresolved."
+      "Highest next gates remain direct Shanghai 《文汇报》 1951-08-18, direct 《文物参考资料》 no.9 pp.221-233 and direct 2011 《赵万里文集》第1卷 p.197; first-publication and cross-carrier transmission remain unresolved.",
+      "Batch 12JN reconciles Batch 12JM's legacy Shanghai University locator with the first-party 2025.10 current newspaper directory: Shanghai 《文汇报》 keeps 1951(5-8) coverage but is now listed at rack A7-1 with B/L binding/holding codes.",
+      "The 2025.10 legend maps B to 新校区期刊室 and L to 嘉定校区期刊室. The legacy 6--10 locator is preserved as a prior-directory capture; present access planning should use A7-1/B-L.",
+      "SHU's Digital Doubling Platform is first-party documented as email-appointment + staff-reply + on-site fifth-floor-terminal access. Its public page does not name the 1951 Wenhui target, expose a target object ID or provide a public remote-view contract; no email or appointment action is performed.",
+      "Direct Shanghai 《文汇报》 1951-08-18, direct 《文物参考资料》 no.9 pp.221-233 and direct 2011 《赵万里文集》第1卷 p.197 remain NOT_REVIEWED; first-publication status remains unresolved."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10

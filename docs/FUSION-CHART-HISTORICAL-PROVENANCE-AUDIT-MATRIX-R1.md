@@ -1134,3 +1134,14 @@ Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WE
 - Direct Wenhui 1951-08-18, direct Wenwu pp.221–233 and direct 2011 Wenji p.197 remain NOT_REVIEWED. Product/accounting remains 198 / 166 / 10; provenance defects 17/17; zero chart-algorithm defects/reopens/candidate collapses. `TRANSMISSION_IMPACT=NONE`.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENHUIBAO-1951-0818-SHU-BOUND-VOLUME-HOLDING-ROUTE-JM.md`. Research record: `docs/research/ZIWEI-WENHUIBAO-1951-0818-SHU-BOUND-VOLUME-HOLDING-ROUTE-R1.json`.
+
+
+## Progress — Batch 12JN
+
+- Shanghai University Library's first-party `馆藏报纸目录（2025.10更新版）` is HTTP 200 / 338,548 bytes / SHA-256 `f421d3fbfdf3b508f50f8e4298e0d34f7649e8e3206e8da129c5841b65816a9c`.
+- The current row 7 keeps Shanghai 《文汇报》 coverage `1951(5-8)` but now exposes rack `A7-1` and B/L under binding/holding columns. The same page legend maps B to 新校区期刊室 and L to 嘉定校区期刊室.
+- Batch 12JM's legacy `6--10` locator is preserved as an earlier directory capture; present access planning uses the 2025.10 A7-1/B-L metadata. Coverage has not changed.
+- SHU's first-party Digital Doubling Platform page is HTTP 200 / SHA-256 `9a9a79219c8271c13db9c31248d7d8fc4e32c5be773b8320442464e2e2c92ae5` and explicitly requires email appointment, staff reply and on-site fifth-floor terminal use. It does not bind the target Wenhui object and exposes no public remote target page.
+- No email/appointment action is performed. Direct Wenhui 1951-08-18, Wenwu pp.221–233 and 2011 Wenji p.197 remain NOT_REVIEWED. Product/accounting remains 198 / 166 / 10; provenance defects 17/17; zero algorithm defects/reopens/candidate collapses. `TRANSMISSION_IMPACT=NONE`.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENHUIBAO-SHU-2025-CURRENT-LOCATOR-AND-DIGITAL-ACCESS-BOUNDARY-JN.md`. Research record: `docs/research/ZIWEI-WENHUIBAO-SHU-2025-CURRENT-LOCATOR-AND-DIGITAL-ACCESS-BOUNDARY-R1.json`.

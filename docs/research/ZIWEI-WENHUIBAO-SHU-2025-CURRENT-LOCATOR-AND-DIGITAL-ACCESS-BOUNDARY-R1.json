@@ -1,0 +1,152 @@
+{
+  "schema": "ZIWEI-WENHUIBAO-SHU-2025-CURRENT-LOCATOR-AND-DIGITAL-ACCESS-BOUNDARY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-WENHUIBAO-SHU-2025-CURRENT-LOCATOR-AND-DIGITAL-ACCESS-BOUNDARY-JN",
+  "prior_batch_id": "BATCH-12-ZIWEI-WENHUIBAO-1951-0818-SHU-BOUND-VOLUME-HOLDING-ROUTE-JM",
+  "question": "How should Batch 12JM's legacy Shanghai University locator be reconciled with the library's current 2025.10 newspaper directory, and does SHU's Digital Doubling Platform expose a public remote target object for the 1951 Wenhui issue?",
+  "answer": "The 2025.10 SHU newspaper directory preserves the same Shanghai 《文汇报》 coverage 1951(5-8) but gives current rack A7-1 and row codes B/L under 装订馆/收藏馆. The page legend maps B to 新校区期刊室 and L to 嘉定校区期刊室. Therefore Batch 12JM's legacy 6--10 locator remains a prior-directory fact, while present access planning should use the current A7-1 row and B/L metadata. SHU's Digital Doubling Platform is a mediated on-site service: its public page requires email appointment, staff response, then use at a designated terminal on the fifth floor of the main-campus library. The platform page does not name the 1951 Wenhui target, emit a target object ID, or expose a public remote-view contract. No email, appointment, login or other account action was performed.",
+  "current_directory": {
+    "provider": "上海大学图书馆",
+    "title": "馆藏报纸目录（2025.10更新版）",
+    "url": "https://lib.shu.edu.cn/info/1064/3453.htm",
+    "http_status": 200,
+    "response_bytes": 338548,
+    "response_sha256": "f421d3fbfdf3b508f50f8e4298e0d34f7649e8e3206e8da129c5841b65816a9c",
+    "decoded_encoding": "utf-8",
+    "page_title": "馆藏报纸目录（2025.10更新版）-上海大学图书馆",
+    "current_row": {
+      "row_number": "7",
+      "title": "文汇报",
+      "rack": "A7-1",
+      "coverage": "1951(5-8)",
+      "binding_code": "B",
+      "holding_code": "L"
+    },
+    "code_legend": {
+      "B": "新校区期刊室",
+      "W": "延长校区期刊室",
+      "L": "嘉定校区期刊室"
+    },
+    "header_columns": [
+      "序号",
+      "名称",
+      "架号",
+      "收藏情况",
+      "装订馆",
+      "收藏馆"
+    ],
+    "current_locator_status": "CLOSED",
+    "target_coverage_changed_from_batch_12jm": false,
+    "raw_html_saved": false,
+    "raw_html_logged": false
+  },
+  "legacy_locator_reconciliation": {
+    "batch_12jm_legacy_page_url": "https://lib.shu.edu.cn/gybengua/bggk/lhtsg/bz_hdb_gzml.htm",
+    "batch_12jm_legacy_shelf_literal": "6--10",
+    "current_2025_rack": "A7-1",
+    "current_binding_code": "B",
+    "current_holding_code": "L",
+    "policy": "PRESERVE_LEGACY_LOCATOR_AS_HISTORICAL_CAPTURE; USE_2025_10_DIRECTORY_FOR_PRESENT_ACCESS_PLANNING",
+    "silent_overwrite_forbidden": true
+  },
+  "digital_platform": {
+    "provider": "上海大学图书馆",
+    "title": "图书馆数字倍增平台",
+    "url": "https://lib.shu.edu.cn/info/1002/3913.htm",
+    "http_status": 200,
+    "response_bytes": 24879,
+    "response_sha256": "9a9a79219c8271c13db9c31248d7d8fc4e32c5be773b8320442464e2e2c92ae5",
+    "decoded_encoding": "utf-8",
+    "resource_volume_display": "约30万册",
+    "email_appointment_required": true,
+    "staff_reply_required": true,
+    "on_site_fifth_floor_terminal_required": true,
+    "target_wenhui_1951_named": false,
+    "target_object_identifier_observed": false,
+    "public_remote_view_contract_observed": false,
+    "target_binding_status": "NOT_OBSERVED",
+    "email_action_performed": false,
+    "appointment_performed": false,
+    "login_used": false,
+    "raw_html_saved": false,
+    "raw_html_logged": false
+  },
+  "controlling_probe": {
+    "workflow": ".github/workflows/probe-batch-12jn-shu-current-wenhui-locator-digital-access.yml",
+    "exact_head": "ff349b405d07454bba82377df5d274a40f325ff7",
+    "workflow_run_id": 36833087275,
+    "workflow_job_id": 110273972471,
+    "artifact_id": 11147354008,
+    "artifact_name": "batch-12jn-shu-current-wenhui-locator-digital-access",
+    "artifact_digest": "sha256:56e180e465a397afe542a728e036480dfe023e07cfc6315f5ad31fd1f465f95d"
+  },
+  "adjudication": {
+    "current_locator_a7_1": "CLOSED",
+    "legacy_12jm_locator_status": "PRIOR_DIRECTORY_LOCATOR_PRESERVED",
+    "current_directory_supersedes_legacy_locator_for_present_access_planning": true,
+    "target_holding_coverage_changed_from_12jm": false,
+    "target_coverage_still_1951_5_8": true,
+    "digital_platform_access_model": "MEDIATED_ON_SITE_AFTER_EMAIL_APPOINTMENT_AND_STAFF_REPLY",
+    "digital_platform_target_wenhui_object_binding": "NOT_OBSERVED",
+    "public_remote_target_page_observed": false,
+    "specific_1951_08_18_issue_directly_reviewed": false,
+    "target_article_directly_reviewed": false,
+    "direct_wenhui_1951_08_18_page": "NOT_REVIEWED",
+    "direct_wenwu_issue9_pp221_233": "NOT_REVIEWED",
+    "direct_2011_wenji_p197": "NOT_REVIEWED",
+    "first_publication_status": "UNRESOLVED"
+  },
+  "evidence_firewall": {
+    "current_locator_update_does_not_rewrite_prior_capture": true,
+    "current_physical_locator_does_not_equal_target_page_review": true,
+    "generic_digital_platform_does_not_imply_target_object_in_platform": true,
+    "mediated_on_site_platform_is_not_public_remote_view": true,
+    "no_target_binding_on_platform_page_is_not_target_absence_from_platform": true,
+    "no_email_or_appointment_action_without_explicit_user_authorization": true
+  },
+  "security": {
+    "login_used": false,
+    "email_sent": false,
+    "appointment_requested": false,
+    "account_action_used": false,
+    "payment_used": false,
+    "captcha_bypass_used": false,
+    "private_endpoint_guessed": false,
+    "tls_verification_disabled": false
+  },
+  "transmission_impact": {
+    "status": "NONE",
+    "graph_change": false,
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": [],
+    "reason": "Modern access-locator reconciliation and mediated-service boundary only; no historical page or transmission relation recovered."
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Use SHU 2025.10 rack A7-1 and B/L metadata for current physical access planning; retain Batch 12JM 6--10 only as prior-directory evidence.",
+    "Do not infer that the Digital Doubling Platform contains the target newspaper; no target binding is publicly exposed.",
+    "Do not email or request an appointment without explicit user authorization.",
+    "Continue public direct page-level recovery of Shanghai 《文汇报》 1951-08-18, 《文物参考资料》 1951 no.9 pp.221-233, and 2011 《赵万里文集》第1卷 p.197."
+  ],
+  "updated_at": "2026-10-01"
+}
