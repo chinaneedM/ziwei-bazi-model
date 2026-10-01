@@ -1,0 +1,123 @@
+{
+  "schema": "ZIWEI-CNBKSY-2020-PUBLIC-API-SAMPLE-BUNDLE-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-CNBKSY-2020-PUBLIC-API-SAMPLE-BUNDLE-JQ",
+  "prior_batch_id": "BATCH-12-ZIWEI-CNBKSY-CURRENT-OPEN-API-AUTH-BOUNDARY-JP",
+  "question": "Does Shanghai Library's first-party 2020 open-data surface still expose a recoverable CNBKSY API documentation/sample bundle, and does recovery of that historical public bundle authorize present-day target queries?",
+  "answer": "Yes, the first-party 2020 public ZIP is directly recoverable and contains two PDF documents whose object identity is bound by digest. This batch does not inspect PDF body text or any credential-like sample values, records or uses no credential, and submits no target query. The historical public bundle therefore establishes a 2020 public documentation/sample distribution route only; it does not supersede the current 2026 registration-issued APIKey requirement closed by Batch 12JP.",
+  "public_bundle": {
+    "url": "https://opendata.library.sh.cn/2020/download/opendata/2020/%E5%85%A8%E5%9B%BD%E6%8A%A5%E5%88%8A%E7%B4%A2%E5%BC%95.zip",
+    "http_status": 200,
+    "content_type": "application/x-zip-compressed",
+    "response_bytes": 230672,
+    "response_sha256": "202429192ac1eb96193595099efb585e3221cea1d89726758f521c50f3013d79",
+    "entry_count": 3,
+    "normalized_directory_name": "全国报刊索引开放数据接口（API）说明书+样例/",
+    "filename_normalization_note": "The workflow log shows legacy ZIP names decoded as CP437 mojibake; reversible CP437-byte to GBK decoding restores the displayed Chinese filenames. This normalization changes no file bytes or digests."
+  },
+  "archive_entries": [
+    {
+      "type": "PDF",
+      "normalized_filename": "2020上海图书馆开放数据竞赛-全国报刊索引开放数据接口（API）使用样例.pdf",
+      "compressed_size": 135819,
+      "uncompressed_size": 224440,
+      "sha256": "66ddfa18bb82f1207dbe5baae1062344cecd15e6a4759745827ed1c2c324cde9",
+      "pdf_body_reviewed": false
+    },
+    {
+      "type": "PDF",
+      "normalized_filename": "2020上海图书馆开放数据竞赛上海图书馆开放数据应用开发竞赛-全国报刊索引开放数据接口（API）说明书.pdf",
+      "compressed_size": 93901,
+      "uncompressed_size": 186381,
+      "sha256": "61fadcda0a8617db389f4e8fbde05025a3ebed92a7b10584157b657cceb3f301",
+      "pdf_body_reviewed": false
+    }
+  ],
+  "controlling_probe": {
+    "workflow": ".github/workflows/probe-batch-12jq-cnbksy-2020-public-api-sample-bundle.yml",
+    "exact_head": "ac81d20ebfe94d7e2775f1da66fd406beec6aa31",
+    "workflow_run_id": 36836265483,
+    "workflow_job_id": 110284300861,
+    "artifact_id": 11149681093,
+    "artifact_name": "batch-12jq-cnbksy-2020-public-api-sample-bundle",
+    "artifact_digest": "sha256:de809928034c1fcf97d7d1c7265a373ffd5a1b29f3e2d3a66ee4d7cc4fbdc784"
+  },
+  "inspection_scope": {
+    "zip_structure_reviewed": true,
+    "pdf_object_identity_bound_by_digest": true,
+    "pdf_body_text_reviewed": false,
+    "sample_record_schema_variants_observed": [],
+    "credential_like_terms_in_pdf_body_reviewed": false,
+    "credential_values_recorded": false,
+    "credential_values_used": false,
+    "configured_target_terms_in_pdf_body_reviewed": false,
+    "target_query_submitted": false
+  },
+  "adjudication": {
+    "first_party_2020_public_sample_bundle_identity": "CLOSED",
+    "historical_public_api_documentation_sample_distribution_route": true,
+    "current_2026_api_key_boundary_remains_controlling": true,
+    "historical_bundle_is_present_day_authorization": false,
+    "pdf_body_contract_details": "NOT_REVIEWED",
+    "target_query_submitted": false,
+    "target_presence_or_absence": "UNRESOLVED",
+    "direct_wenhui_1951_08_18": "NOT_REVIEWED",
+    "direct_wenwu_issue9_pp221_233": "NOT_REVIEWED",
+    "direct_2011_wenji_p197": "NOT_REVIEWED"
+  },
+  "evidence_firewall": {
+    "public_historical_sample_bundle_does_not_authorize_current_api_use": true,
+    "pdf_object_identity_does_not_equal_pdf_body_review": true,
+    "unreviewed_example_credentials_must_not_be_inferred_or_reused": true,
+    "current_2026_api_key_requirement_supersedes_historical_access_assumptions": true,
+    "api_documentation_identity_does_not_equal_historical_newspaper_page_access": true
+  },
+  "security": {
+    "api_key_used": false,
+    "credential_value_logged": false,
+    "credential_value_saved": false,
+    "credential_value_used": false,
+    "login_used": false,
+    "registration_used": false,
+    "email_action_used": false,
+    "payment_used": false,
+    "captcha_bypass_used": false,
+    "private_endpoint_guessed": false,
+    "target_query_submitted": false,
+    "tls_verification_disabled": false
+  },
+  "transmission_impact": {
+    "status": "NONE",
+    "graph_change": false,
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": [],
+    "reason": "Modern/historical API documentation-distribution provenance only; no 1951 newspaper page or historical chart-rule text recovered."
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Keep Batch 12JP's current 2026 registration-issued APIKey requirement controlling for any target query.",
+    "If the 2020 PDFs are later inspected for API-contract genealogy, review documentation text only, redact credential-like values, and never reuse sample credentials.",
+    "Continue public direct page-level recovery of Shanghai 《文汇报》 1951-08-18, 《文物参考资料》 no.9 pp.221-233 and 2011 《赵万里文集》第1卷 p.197."
+  ],
+  "updated_at": "2026-10-01"
+}

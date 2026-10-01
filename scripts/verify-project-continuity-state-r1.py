@@ -354,6 +354,8 @@ ZIWEI_WHB_EPAPER_JO_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDI
 ZIWEI_WHB_EPAPER_JO_EVIDENCE = ROOT / "docs/research/ZIWEI-WENHUI-OFFICIAL-EPAPER-PUBLIC-DATE-CONTRACT-BOUNDARY-R1.json"
 ZIWEI_CNBKSY_API_JP_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-CURRENT-OPEN-API-AUTH-BOUNDARY-JP.md"
 ZIWEI_CNBKSY_API_JP_EVIDENCE = ROOT / "docs/research/ZIWEI-CNBKSY-CURRENT-OPEN-API-AUTH-BOUNDARY-R1.json"
+ZIWEI_CNBKSY_2020_JQ_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-2020-PUBLIC-API-SAMPLE-BUNDLE-JQ.md"
+ZIWEI_CNBKSY_2020_JQ_EVIDENCE = ROOT / "docs/research/ZIWEI-CNBKSY-2020-PUBLIC-API-SAMPLE-BUNDLE-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -755,9 +757,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-WENHUIBAO-SHU-2025-CURRENT-LOCATOR-AND-DIGITAL-ACCESS-BOUNDARY-JN",
     "BATCH-12-ZIWEI-WENHUI-OFFICIAL-EPAPER-PUBLIC-DATE-CONTRACT-BOUNDARY-JO",
     "BATCH-12-ZIWEI-CNBKSY-CURRENT-OPEN-API-AUTH-BOUNDARY-JP",
+    "BATCH-12-ZIWEI-CNBKSY-2020-PUBLIC-API-SAMPLE-BUNDLE-JQ",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-CURRENT-OPEN-API-AUTH-BOUNDARY-JP.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-2020-PUBLIC-API-SAMPLE-BUNDLE-JQ.md"
 
 
 def fail(message: str) -> None:
@@ -11444,6 +11447,56 @@ def main() -> int:
         fail("Batch 12JP missing from completed state")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12JP latest-batch document mismatch")
+
+
+    # Batch 12JQ: first-party 2020 CNBKSY public API documentation/sample bundle.
+    for path in (ZIWEI_CNBKSY_2020_JQ_BATCH, ZIWEI_CNBKSY_2020_JQ_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12JQ continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12jq = json.loads(ZIWEI_CNBKSY_2020_JQ_EVIDENCE.read_text(encoding="utf-8"))
+    bid12jq = "BATCH-12-ZIWEI-CNBKSY-2020-PUBLIC-API-SAMPLE-BUNDLE-JQ"
+    if batch12jq.get("batch_id") != bid12jq:
+        fail("Batch 12JQ evidence identity mismatch")
+    bundle12jq = batch12jq.get("public_bundle", {})
+    if bundle12jq.get("http_status") != 200 or bundle12jq.get("response_bytes") != 230672:
+        fail("Batch 12JQ public bundle transport/size control regressed")
+    if bundle12jq.get("response_sha256") != "202429192ac1eb96193595099efb585e3221cea1d89726758f521c50f3013d79" or bundle12jq.get("entry_count") != 3:
+        fail("Batch 12JQ public bundle identity regressed")
+    entries12jq = batch12jq.get("archive_entries", [])
+    digests12jq = {x.get("sha256") for x in entries12jq if isinstance(x, dict)}
+    if digests12jq != {
+        "66ddfa18bb82f1207dbe5baae1062344cecd15e6a4759745827ed1c2c324cde9",
+        "61fadcda0a8617db389f4e8fbde05025a3ebed92a7b10584157b657cceb3f301",
+    }:
+        fail("Batch 12JQ PDF object digest set regressed")
+    scope12jq = batch12jq.get("inspection_scope", {})
+    if scope12jq.get("pdf_body_text_reviewed") is not False or scope12jq.get("credential_values_recorded") is not False or scope12jq.get("credential_values_used") is not False:
+        fail("Batch 12JQ PDF-body/credential firewall regressed")
+    adj12jq = batch12jq.get("adjudication", {})
+    if adj12jq.get("current_2026_api_key_boundary_remains_controlling") is not True or adj12jq.get("historical_bundle_is_present_day_authorization") is not False:
+        fail("Batch 12JQ current authorization firewall regressed")
+    if adj12jq.get("target_query_submitted") is not False or adj12jq.get("direct_wenhui_1951_08_18") != "NOT_REVIEWED":
+        fail("Batch 12JQ target/direct-page firewall regressed")
+    sec12jq = batch12jq.get("security", {})
+    for key in ("api_key_used","credential_value_logged","credential_value_saved","credential_value_used","registration_used","private_endpoint_guessed","target_query_submitted","tls_verification_disabled"):
+        if sec12jq.get(key) is not False:
+            fail(f"Batch 12JQ security boundary regressed: {key}")
+    reg12jq = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    if next((x for x in reg12jq.get("sources", []) if x.get("source_id") == "EXT-SHLIB-CNBKSY-2020-PUBLIC-API-SAMPLE-BUNDLE"), None) is None:
+        fail("Batch 12JQ registry binding missing")
+    acct12jq = batch12jq.get("accounting", {})
+    if acct12jq.get("matrix_rows") != 198 or acct12jq.get("audited_rows") != 166 or acct12jq.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12JQ accounting regressed")
+    try:
+        schema12jq = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12JQ state version is not numeric")
+    if schema12jq < (1, 281, 0):
+        fail("Batch 12JQ state version regressed below 1.281.0")
+    if bid12jq not in audit_state.get("completed_batches", ()):
+        fail("Batch 12JQ missing from completed state")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12JQ latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

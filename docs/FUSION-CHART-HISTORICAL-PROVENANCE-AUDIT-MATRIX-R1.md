@@ -1166,3 +1166,14 @@ Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WE
 - Direct Wenhui 1951-08-18, Wenwu pp.221-233 and 2011 Wenji p.197 remain NOT_REVIEWED. Accounting remains 198 / 166 / 10; provenance defects 17/17; zero algorithm defects/reopens/candidate collapses.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-CURRENT-OPEN-API-AUTH-BOUNDARY-JP.md`. Research record: `docs/research/ZIWEI-CNBKSY-CURRENT-OPEN-API-AUTH-BOUNDARY-R1.json`.
+
+
+## Progress — Batch 12JQ
+
+- Shanghai Library's first-party 2020 全国报刊索引 API sample bundle is directly recovered from the official open-data host: HTTP 200 / 230,672 bytes / SHA-256 `202429192ac1eb96193595099efb585e3221cea1d89726758f521c50f3013d79`.
+- The ZIP contains one directory plus two PDFs. The logged legacy ZIP filenames reversibly normalize to a 2020 API 使用样例 PDF and a 2020 API 说明书 PDF; their SHA-256 values are `66ddfa18bb82f1207dbe5baae1062344cecd15e6a4759745827ed1c2c324cde9` and `61fadcda0a8617db389f4e8fbde05025a3ebed92a7b10584157b657cceb3f301`.
+- 12JQ closes only public bundle/document identity. PDF body text and any credential-like example values are NOT_REVIEWED; no credential value is logged, saved or used and no target query is submitted.
+- Historical public sample distribution does not grant current authorization and does not supersede Batch 12JP's 2026 registration-issued APIKey boundary. Direct Wenhui 1951-08-18, Wenwu pp.221–233 and 2011 Wenji p.197 remain NOT_REVIEWED.
+- Accounting remains 198 / 166 / 10; provenance defects 17/17; zero algorithm defects/reopens/candidate collapses. `TRANSMISSION_IMPACT=NONE`.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-2020-PUBLIC-API-SAMPLE-BUNDLE-JQ.md`. Research record: `docs/research/ZIWEI-CNBKSY-2020-PUBLIC-API-SAMPLE-BUNDLE-R1.json`.
