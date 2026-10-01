@@ -133,7 +133,7 @@ jobs:
                       inputs=sorted(set(html.unescape(x) for x in re.findall(r"name=[\"']([^\"']+)[\"']",inner,re.I)))
                       forms.append({"action":action,"inputs":inputs})
                   hrefs=[html.unescape(x) for x in re.findall(r"href=[\"']([^\"']+)[\"']",raw,re.I)]
-                  inbook=[x for x in hrefs if any(k in x.lower() for k in ("jscmd=searchwithinvolume","searchwithinvolume","q="))]
+                  inbook=[x for x in hrefs if any(k in x.lower() for k in ("jscmd=searchwithinvolume","searchwithinvolume"))]
                   gobj.update({
                       "status":r.status_code,
                       "final_url":r.url,
@@ -157,8 +157,10 @@ jobs:
           out["adjudication"]={
               "exact_1997_book_identity_publicly_bound":bool(
                   ol.get("title") and (ol.get("publish_date")=="1997" or "1997" in str(ol.get("publish_date"))) and
-                  ci.get("target_title_present")
+                  gb.get("target_title_present") and gb.get("isbn_present") and gb.get("year_1997_present") and
+                  gobj.get("target_title_present") and gobj.get("isbn_present") and gobj.get("year_1997_present")
               ),
+              "cinii_current_transport_boundary":("status" in ci and ci.get("status")==202 and ci.get("bytes")==0),
               "openlibrary_linked_scan_observed":bool(ol.get("linked_scan_observed")),
               "google_source_emitted_object_observed":bool(gb.get("source_emitted_book_id_count")),
               "google_source_emitted_object_followed":bool(gobj.get("followed")),
