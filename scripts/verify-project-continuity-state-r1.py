@@ -851,9 +851,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-CNBKSY-HELP-TREE-CONTRACT-LS",
     "BATCH-12-ZIWEI-CNBKSY-HELP-ROOT-CONTENT-CONTRACT-LT",
     "BATCH-12-ZIWEI-CNBKSY-USER-MANUAL-NODE-CONTRACT-LU",
+    "BATCH-12-ZIWEI-CNBKSY-MANUAL-LINK-BINDING-CONTRACT-LV",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-USER-MANUAL-NODE-CONTRACT-LU.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-MANUAL-LINK-BINDING-CONTRACT-LV.md"
 
 
 def fail(message: str) -> None:
@@ -13230,6 +13231,59 @@ def main() -> int:
         fail("Batch 12LU state version regressed below 1.336.0")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12LU latest-batch document mismatch")
+
+    # Batch 12LV: statically bind text-bearing old/new manual anchors to exact uploadFile hrefs.
+    lv_batch = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-MANUAL-LINK-BINDING-CONTRACT-LV.md"
+    lv_evidence = ROOT / "docs/research/ZIWEI-CNBKSY-MANUAL-LINK-BINDING-CONTRACT-R1.json"
+    if not lv_batch.is_file() or not lv_evidence.is_file():
+        fail("Batch 12LV continuity artifact missing")
+    lv = json.loads(lv_evidence.read_text(encoding="utf-8"))
+    if lv.get("batch_id") != "BATCH-12-ZIWEI-CNBKSY-MANUAL-LINK-BINDING-CONTRACT-LV":
+        fail("Batch 12LV evidence identity mismatch")
+    r = lv.get("response", {})
+    if r.get("http_status") != 200 or r.get("content_type") != "application/json;charset=UTF-8" or r.get("server_header") != "ESA":
+        fail("Batch 12LV response identity regressed")
+    if r.get("bytes") != 6491 or r.get("content_sha256") != "2906c292cb3b417cab8149aa0bc87ece4994adbb2ac745eb0df52866a4336408":
+        fail("Batch 12LV content identity regressed")
+    pb = lv.get("primary_bindings", {})
+    old = pb.get("old_platform", {})
+    new = pb.get("new_platform", {})
+    if old.get("href") != "/common/uploadFile/5efc186123b099148b42c395" or old.get("visible_text") != "平台用户手册（老平台）.doc":
+        fail("Batch 12LV old-platform anchor binding regressed")
+    if old.get("html_title_or_textvalue") != "平台用户手册（老平台）.docx" or old.get("extension_tension") != "VISIBLE_.doc_VS_HTML_TITLE_.docx__UNRESOLVED":
+        fail("Batch 12LV old-platform extension tension regressed")
+    if new.get("href") != "https://www.cnbksy.com/common/uploadFile/65e9592f7fa00c5f66cdb1f5" or new.get("visible_text") != "平台用户手册（新平台）.docx":
+        fail("Batch 12LV new-platform anchor binding regressed")
+    aux = lv.get("auxiliary_bindings", {})
+    if aux.get("generic_manual_empty_anchor", {}).get("href") != "https://www.cnbksy.com/common/uploadFile/65c1fb6bf74f7f939f8cec86" or aux.get("generic_manual_empty_anchor", {}).get("visible_text") != "":
+        fail("Batch 12LV auxiliary empty anchor regressed")
+    if aux.get("legacy_icon_upload", {}).get("src") != "/common/uploadFile/65d85a357fa00c579dfdc79e" or aux.get("legacy_icon_upload", {}).get("alt") != "icon_txt.gif":
+        fail("Batch 12LV icon/manual separation regressed")
+    a = lv.get("adjudication", {})
+    if a.get("old_platform_text_href_binding_closed") is not True or a.get("new_platform_text_href_binding_closed") is not True:
+        fail("Batch 12LV primary binding closure regressed")
+    for key in ("old_platform_extension_identity_closed","auxiliary_empty_anchor_promoted","icon_upload_promoted_to_manual","source_emitted_link_followed","file_downloaded","target_term_submitted","target_query_submitted"):
+        if a.get(key) is not False:
+            fail(f"Batch 12LV firewall regressed: {key}")
+    p = lv.get("controlling_probe", {})
+    if p.get("workflow_run_id") != 36893032541 or p.get("workflow_job_id") != 110473087527 or p.get("artifact_id") != 11178090449:
+        fail("Batch 12LV controlling probe identity regressed")
+    if p.get("artifact_digest") != "sha256:8294ba61cb385c51b67a8fd9273f718b49941d16189d0fc70be168a5e0bf28fd":
+        fail("Batch 12LV artifact digest regressed")
+    srcmap_lv = {x.get("source_id"): x for x in registry.get("sources", ())}
+    reg_lv = srcmap_lv.get("EXT-CNBKSY-PUBLIC-SEARCH-SURFACE-2026", {}).get("batch_12lv", {})
+    if reg_lv.get("workflow_run_id") != 36893032541 or reg_lv.get("research_artifact") != "docs/research/ZIWEI-CNBKSY-MANUAL-LINK-BINDING-CONTRACT-R1.json":
+        fail("Batch 12LV external-source registry binding missing")
+    if "BATCH-12-ZIWEI-CNBKSY-MANUAL-LINK-BINDING-CONTRACT-LV" not in audit_state.get("completed_batches", ()):
+        fail("Batch 12LV missing from completed state")
+    try:
+        schema12lv = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12LV state version is not numeric")
+    if schema12lv < (1, 337, 0):
+        fail("Batch 12LV state version regressed below 1.337.0")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12LV latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

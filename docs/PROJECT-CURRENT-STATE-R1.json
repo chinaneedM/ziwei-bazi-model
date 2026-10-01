@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.336.0",
+  "schema_version": "1.337.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -418,9 +418,10 @@
       "BATCH-12-ZIWEI-CNBKSY-HELP-DYNAMIC-CALLSITE-CONTRACT-LR",
       "BATCH-12-ZIWEI-CNBKSY-HELP-TREE-CONTRACT-LS",
       "BATCH-12-ZIWEI-CNBKSY-HELP-ROOT-CONTENT-CONTRACT-LT",
-      "BATCH-12-ZIWEI-CNBKSY-USER-MANUAL-NODE-CONTRACT-LU"
+      "BATCH-12-ZIWEI-CNBKSY-USER-MANUAL-NODE-CONTRACT-LU",
+      "BATCH-12-ZIWEI-CNBKSY-MANUAL-LINK-BINDING-CONTRACT-LV"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-USER-MANUAL-NODE-CONTRACT-LU.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-MANUAL-LINK-BINDING-CONTRACT-LV.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -1883,7 +1884,12 @@
       "The response is HTTP 200 application/json;charset=UTF-8 from ESA, 6491 bytes, SHA-256 29d7bae0aacb4a06d9c8fcce5aefd2ada352469cb2e1d5a2469c130823a78815. JSON title is 用户手册下载; content length 1546 / SHA-256 2906c292cb3b417cab8149aa0bc87ece4994adbb2ac745eb0df52866a4336408; stripped visible text is 82 characters.",
       "Visible text names two manual artifacts: 平台用户手册（老平台）.doc and 平台用户手册（新平台）.docx, followed by a statement that they describe search methods for different databases. The content itself still has zero audited ordinary/advanced/professional-search and field-semantic tokens.",
       "Five source-emitted href/src values are present, including four uploadFile objects and one UEditor file-type icon. Because 12LU intentionally flattened href/src values, it does not yet bind a specific uploadFile object to the old/new manual label.",
-      "Next gate 12LV re-fetches only node 161 and statically binds each <a> anchor text to its href and nested image src values; it follows/downloads none. Matrix remains 198 / 166 / 10; provenance defects remain 17/17; chart algorithm defects / reopens / candidate collapses remain 0."
+      "Next gate 12LV re-fetches only node 161 and statically binds each <a> anchor text to its href and nested image src values; it follows/downloads none. Matrix remains 198 / 166 / 10; provenance defects remain 17/17; chart algorithm defects / reopens / candidate collapses remain 0.",
+      "Batch 12LV exact-head run 36893032541 / job 110473087527 / artifact 11178090449 statically re-fetches node 161 and binds anchor text to hrefs without following or downloading any source-emitted object.",
+      "The text-bearing old-platform anchor binds 平台用户手册（老平台）.doc to /common/uploadFile/5efc186123b099148b42c395. Its HTML title/textvalue says 平台用户手册（老平台）.docx, so the .doc versus .docx extension tension must be preserved until file magic/headers are checked.",
+      "The text-bearing new-platform anchor binds 平台用户手册（新平台）.docx to https://www.cnbksy.com/common/uploadFile/65e9592f7fa00c5f66cdb1f5. An additional empty anchor points to https://www.cnbksy.com/common/uploadFile/65c1fb6bf74f7f939f8cec86 with title 平台用户手册.docx; it is auxiliary/unbound and must not replace the explicit text-bearing new-platform binding.",
+      "An image src /common/uploadFile/65d85a357fa00c579dfdc79e carries alt=icon_txt.gif and is an image/icon context, not a text-bound manual file. Top-level linkUrl/linkItemId are null.",
+      "Next gate 12LW performs only bounded Range GET identity checks on the two text-bearing old/new manual hrefs, captures status/content headers and first-byte magic, follows no redirects and does not parse manual text. Matrix remains 198 / 166 / 10; provenance defects remain 17/17; algorithm defects / reopens / collapses remain 0."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10

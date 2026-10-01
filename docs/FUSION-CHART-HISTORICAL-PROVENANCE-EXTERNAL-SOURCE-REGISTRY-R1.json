@@ -12043,7 +12043,7 @@
       "provider": "上海图书馆《全国报刊索引》编辑部",
       "url": "https://www.cnbksy.com/",
       "source_role": "FIRST_PARTY_NEWSPAPER_INDEX_PUBLIC_ACCESS_SURFACE",
-      "quality_notes": "Batches 12LF–12LP close the search-access boundary; 12LQ–12LT close the public help shell, active callsites, help tree and root content without target queries. Batch 12LU follows only first-party tree node 161 用户手册下载 through the source-emitted POST contract. Its visible content names old-platform .doc and new-platform .docx manuals and states that they describe database search methods, while direct search-field semantics are still absent from the node text. Five href/src values are emitted, but 12LU deliberately does not yet bind flattened links to manual labels or download any object.",
+      "quality_notes": "Batches 12LF–12LP close the search-access boundary; 12LQ–12LU close the public help shell, callsites, help tree, root content and first-party user-manual node without target queries. Batch 12LV statically binds the visible old-platform manual label to uploadFile/5efc... and the visible new-platform label to uploadFile/65e959..., while preserving an old-label .doc vs HTML-title .docx tension and keeping empty-anchor/icon objects separate. No emitted file is downloaded in 12LV.",
       "batch_12lf": {
         "workflow_run_id": 36877911774,
         "workflow_job_id": 110421993332,
@@ -12423,6 +12423,42 @@
         "source_emitted_link_followed": false,
         "target_query_submitted": false,
         "research_artifact": "docs/research/ZIWEI-CNBKSY-USER-MANUAL-NODE-CONTRACT-R1.json"
+      },
+      "batch_12lv": {
+        "workflow_run_id": 36893032541,
+        "workflow_job_id": 110473087527,
+        "artifact_id": 11178090449,
+        "artifact_digest": "sha256:8294ba61cb385c51b67a8fd9273f718b49941d16189d0fc70be168a5e0bf28fd",
+        "exact_head": "29615172edf2ae81ff1226a121147141b4f17fc1",
+        "node_id": 161,
+        "response_status": 200,
+        "response_content_type": "application/json;charset=UTF-8",
+        "response_server": "ESA",
+        "response_bytes": 6491,
+        "response_sha256": "3a3b5fa45cfe28a53a05f230b70086396b14e8f9bc65aa7d6875769728bdce91",
+        "content_sha256": "2906c292cb3b417cab8149aa0bc87ece4994adbb2ac745eb0df52866a4336408",
+        "old_platform_manual_binding": {
+          "visible_text": "平台用户手册（老平台）.doc",
+          "html_title_or_textvalue": "平台用户手册（老平台）.docx",
+          "href": "/common/uploadFile/5efc186123b099148b42c395",
+          "extension_tension_preserved": true
+        },
+        "new_platform_manual_binding": {
+          "visible_text": "平台用户手册（新平台）.docx",
+          "html_title": "平台用户手册（新平台）.docx",
+          "href": "https://www.cnbksy.com/common/uploadFile/65e9592f7fa00c5f66cdb1f5"
+        },
+        "auxiliary_empty_anchor": {
+          "href": "https://www.cnbksy.com/common/uploadFile/65c1fb6bf74f7f939f8cec86",
+          "title": "平台用户手册.docx"
+        },
+        "icon_upload_object": {
+          "src": "/common/uploadFile/65d85a357fa00c579dfdc79e",
+          "alt": "icon_txt.gif"
+        },
+        "source_emitted_link_followed": false,
+        "file_downloaded": false,
+        "research_artifact": "docs/research/ZIWEI-CNBKSY-MANUAL-LINK-BINDING-CONTRACT-R1.json"
       }
     }
   ],
