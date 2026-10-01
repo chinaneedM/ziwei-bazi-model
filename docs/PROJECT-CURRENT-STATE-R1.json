@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.334.0",
+  "schema_version": "1.335.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -416,9 +416,10 @@
       "BATCH-12-ZIWEI-CNBKSY-ORDINARY-SEARCH-ESA-BOUNDARY-LP",
       "BATCH-12-ZIWEI-CNBKSY-USAGE-HELP-SURFACE-LQ",
       "BATCH-12-ZIWEI-CNBKSY-HELP-DYNAMIC-CALLSITE-CONTRACT-LR",
-      "BATCH-12-ZIWEI-CNBKSY-HELP-TREE-CONTRACT-LS"
+      "BATCH-12-ZIWEI-CNBKSY-HELP-TREE-CONTRACT-LS",
+      "BATCH-12-ZIWEI-CNBKSY-HELP-ROOT-CONTENT-CONTRACT-LT"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-HELP-TREE-CONTRACT-LS.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-HELP-ROOT-CONTENT-CONTRACT-LT.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -1871,6 +1872,11 @@
       "12LS returns HTTP 200 application/json;charset=UTF-8 from ESA, 195 bytes, SHA-256 bad8c69f3448f4b0c6a534d675eca1f5cdbf40964f20ecea15794243c45e38a0, parsing as a four-object list.",
       "The first-party help tree is exactly 61 使用帮助 (pId 0), with children 64 包库用户常见问题, 81 镜像用户常见问题 and 161 用户手册下载 (all pId 61). No 普通检索/高级检索/专业检索 field-help node is exposed by this tree, so those labels must not be inferred from these IDs.",
       "12LS does not invoke findNews, follow any help node, submit a target term/query, login or register. The next minimal gate 12LT reproduces the page's active init() call only: POST /portal/footCategory/findNews?id=61 with an empty object and inventories the returned root help title/content and source-emitted links without following them.",
+      "Matrix remains 198 / 166 / 10; provenance defects remain 17/17; chart algorithm defects / reopens / candidate collapses remain 0.",
+      "Batch 12LT exact-head run 36892057259 / job 110469837665 / artifact 11177147183 reproduces only the page's active init() POST /portal/footCategory/findNews?id=61 with an empty object; no dynamic tree-id payload or search query is used.",
+      "The root help-content response is HTTP 200 application/json;charset=UTF-8 from ESA, 3831 bytes, SHA-256 9d3e42888751ff998e76508b2325962ab1ffa7101f6721e85c1f21e5c5734ca6. JSON title is 使用帮助; content length 591 / SHA-256 55be4b4fb7cc3bd728c733690ebe55778252ff5ae07cdfad93e39dd6a7fab35f; stripped visible text is 131 characters.",
+      "The root content is generic browser/support-contact guidance only. 普通检索/高级检索/专业检索/图片检索 and all audited field-semantic tokens 题名/作者/刊名/分类号/年份/期号/检索词/关键词/全文/逻辑/布尔 are zero. One source-emitted href-like value http://service@cnbksy.com is recorded but not followed and is not normalized into an email/URL claim.",
+      "Next gate 12LU uses the already first-party-closed tree node 161 用户手册下载 and the active zTreeOnClick contract only: POST /portal/footCategory/findNews with form payload id=161, inventory title/content and source-emitted links, follow none, and submit no target search term.",
       "Matrix remains 198 / 166 / 10; provenance defects remain 17/17; chart algorithm defects / reopens / candidate collapses remain 0."
     ],
     "historical_candidate_extension_count": 6,

@@ -849,9 +849,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-CNBKSY-USAGE-HELP-SURFACE-LQ",
     "BATCH-12-ZIWEI-CNBKSY-HELP-DYNAMIC-CALLSITE-CONTRACT-LR",
     "BATCH-12-ZIWEI-CNBKSY-HELP-TREE-CONTRACT-LS",
+    "BATCH-12-ZIWEI-CNBKSY-HELP-ROOT-CONTENT-CONTRACT-LT",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-HELP-TREE-CONTRACT-LS.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-HELP-ROOT-CONTENT-CONTRACT-LT.md"
 
 
 def fail(message: str) -> None:
@@ -13119,6 +13120,60 @@ def main() -> int:
         fail("Batch 12LS state version regressed below 1.334.0")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12LS latest-batch document mismatch")
+
+    # Batch 12LT: reproduce only the active root help-content init POST.
+    lt_batch = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-HELP-ROOT-CONTENT-CONTRACT-LT.md"
+    lt_evidence = ROOT / "docs/research/ZIWEI-CNBKSY-HELP-ROOT-CONTENT-CONTRACT-R1.json"
+    if not lt_batch.is_file() or not lt_evidence.is_file():
+        fail("Batch 12LT continuity artifact missing")
+    lt = json.loads(lt_evidence.read_text(encoding="utf-8"))
+    if lt.get("batch_id") != "BATCH-12-ZIWEI-CNBKSY-HELP-ROOT-CONTENT-CONTRACT-LT":
+        fail("Batch 12LT evidence identity mismatch")
+    req = lt.get("request_contract", {})
+    if req.get("endpoint") != "/portal/footCategory/findNews?id=61" or req.get("method") != "POST" or req.get("payload") != "EMPTY_OBJECT":
+        fail("Batch 12LT request contract regressed")
+    if req.get("dynamic_tree_id_payload_used") is not False or req.get("csrf_value_recorded") is not False:
+        fail("Batch 12LT request firewall regressed")
+    r = lt.get("response", {})
+    if r.get("http_status") != 200 or r.get("content_type") != "application/json;charset=UTF-8" or r.get("server_header") != "ESA":
+        fail("Batch 12LT root-content response identity regressed")
+    if r.get("bytes") != 3831 or r.get("sha256") != "9d3e42888751ff998e76508b2325962ab1ffa7101f6721e85c1f21e5c5734ca6":
+        fail("Batch 12LT root-content response digest regressed")
+    ci = lt.get("content_inventory", {})
+    if ci.get("title") != "使用帮助" or ci.get("content_length") != 591 or ci.get("visible_text_length") != 131:
+        fail("Batch 12LT content identity regressed")
+    if ci.get("content_sha256") != "55be4b4fb7cc3bd728c733690ebe55778252ff5ae07cdfad93e39dd6a7fab35f":
+        fail("Batch 12LT content digest regressed")
+    for key in ("普通检索","高级检索","专业检索","图片检索","题名","作者","刊名","分类号","年份","期号","检索词","关键词","全文","逻辑","布尔"):
+        if ci.get("token_counts", {}).get(key) != 0:
+            fail(f"Batch 12LT unexpected search semantic token: {key}")
+    if ci.get("source_emitted_links") != ["http://service@cnbksy.com"] or ci.get("source_emitted_link_followed") is not False or ci.get("href_like_value_normalized") is not False:
+        fail("Batch 12LT source-emitted-link firewall regressed")
+    a = lt.get("adjudication", {})
+    if a.get("root_help_content_closed") is not True or a.get("field_level_search_semantics_observed") is not False:
+        fail("Batch 12LT root-help adjudication regressed")
+    for key in ("dynamic_tree_id_payload_used","source_emitted_link_followed","target_term_submitted","target_query_submitted","login_used","registration_used"):
+        if a.get(key) is not False:
+            fail(f"Batch 12LT no-action firewall regressed: {key}")
+    p = lt.get("controlling_probe", {})
+    if p.get("workflow_run_id") != 36892057259 or p.get("workflow_job_id") != 110469837665 or p.get("artifact_id") != 11177147183:
+        fail("Batch 12LT controlling probe identity regressed")
+    if p.get("artifact_digest") != "sha256:336b0c50b25c43a40f1e9eef3a966b6df1987e9a03c1b209dc32b0c5542ed0a0":
+        fail("Batch 12LT artifact digest regressed")
+    srcmap_lt = {x.get("source_id"): x for x in registry.get("sources", ())}
+    reg_lt = srcmap_lt.get("EXT-CNBKSY-PUBLIC-SEARCH-SURFACE-2026", {}).get("batch_12lt", {})
+    if reg_lt.get("workflow_run_id") != 36892057259 or reg_lt.get("research_artifact") != "docs/research/ZIWEI-CNBKSY-HELP-ROOT-CONTENT-CONTRACT-R1.json":
+        fail("Batch 12LT external-source registry binding missing")
+    if "BATCH-12-ZIWEI-CNBKSY-HELP-ROOT-CONTENT-CONTRACT-LT" not in audit_state.get("completed_batches", ()):
+        fail("Batch 12LT missing from completed state")
+    try:
+        schema12lt = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12LT state version is not numeric")
+    if schema12lt < (1, 335, 0):
+        fail("Batch 12LT state version regressed below 1.335.0")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12LT latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

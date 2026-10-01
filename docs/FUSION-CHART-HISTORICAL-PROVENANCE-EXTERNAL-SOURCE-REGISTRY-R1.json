@@ -12043,7 +12043,7 @@
       "provider": "上海图书馆《全国报刊索引》编辑部",
       "url": "https://www.cnbksy.com/",
       "source_role": "FIRST_PARTY_NEWSPAPER_INDEX_PUBLIC_ACCESS_SURFACE",
-      "quality_notes": "Batches 12LF–12LP close the search-access boundary without bypass or target query. Batch 12LQ retrieves the public 使用帮助 shell; 12LR statically closes its active bksy.post help routes and separates a commented legacy AJAX block. Batch 12LS executes only the source-closed footerList?id=61 empty-object POST and recovers the first-party four-node help tree: 61 使用帮助 with children 64 包库用户常见问题, 81 镜像用户常见问题 and 161 用户手册下载. The tree itself exposes no 普通/高级/专业检索 help node. No findNews route or target query is invoked in 12LS.",
+      "quality_notes": "Batches 12LF–12LP close the search-access boundary without bypass or target query. 12LQ retrieves the public 使用帮助 shell; 12LR closes active help callsites; 12LS recovers the four-node first-party help tree. Batch 12LT reproduces only the active init() findNews?id=61 empty-object POST. Its root content is generic browser/support guidance and contains no audited ordinary/advanced/professional-search or field-level semantics. The source-emitted tree node 161 用户手册下载 is therefore the next evidence-scoped help branch; it has not yet been followed in 12LT.",
       "batch_12lf": {
         "workflow_run_id": 36877911774,
         "workflow_job_id": 110421993332,
@@ -12360,6 +12360,32 @@
         "findNews_invoked": false,
         "target_query_submitted": false,
         "research_artifact": "docs/research/ZIWEI-CNBKSY-HELP-TREE-CONTRACT-R1.json"
+      },
+      "batch_12lt": {
+        "workflow_run_id": 36892057259,
+        "workflow_job_id": 110469837665,
+        "artifact_id": 11177147183,
+        "artifact_digest": "sha256:336b0c50b25c43a40f1e9eef3a966b6df1987e9a03c1b209dc32b0c5542ed0a0",
+        "exact_head": "c240d0564fa06838ac666ed20502be4f1cd16839",
+        "endpoint": "/portal/footCategory/findNews?id=61",
+        "method": "POST",
+        "payload": "EMPTY_OBJECT",
+        "response_status": 200,
+        "response_content_type": "application/json;charset=UTF-8",
+        "response_server": "ESA",
+        "response_bytes": 3831,
+        "response_sha256": "9d3e42888751ff998e76508b2325962ab1ffa7101f6721e85c1f21e5c5734ca6",
+        "title": "使用帮助",
+        "content_length": 591,
+        "content_sha256": "55be4b4fb7cc3bd728c733690ebe55778252ff5ae07cdfad93e39dd6a7fab35f",
+        "visible_text_length": 131,
+        "audited_search_semantic_token_hits": 0,
+        "source_emitted_links": [
+          "http://service@cnbksy.com"
+        ],
+        "source_emitted_link_followed": false,
+        "target_query_submitted": false,
+        "research_artifact": "docs/research/ZIWEI-CNBKSY-HELP-ROOT-CONTENT-CONTRACT-R1.json"
       }
     }
   ],
