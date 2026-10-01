@@ -1088,3 +1088,15 @@ Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ND
 - Direct 2011 《赵万里文集》第1卷 p.197, direct 1951 pp.221–233 and direct 1997 pp.446–449 remain NOT_REVIEWED. Product/accounting remains 198 / 166 / 10, provenance defects 17/17, and zero chart-algorithm defects/reopens/candidate collapses. `TRANSMISSION_IMPACT=NONE`.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHAO-WANLI-ZHUAN-NLCPRESS-EDITORIAL-BRIDGE-JI.md`. Research record: `docs/research/ZIWEI-ZHAO-WANLI-ZHUAN-NLCPRESS-EDITORIAL-BRIDGE-R1.json`.
+
+
+## Progress — Batch 12JJ
+
+- Shanghai Academy of Social Sciences Library's first-party old-newspaper directory directly closes a Shanghai 《文汇报》 holding covering 1951年1－12月. The same page separately lists 《文汇报(香港)》 with 1951年1－3月, so the Shanghai/Hong Kong same-title ambiguity is controlled at holding level.
+- Tsinghua Alumni's institutional retrospective independently corroborates that Zhao Wanli hosted the 《永乐大典》 exhibition in 1951 and wrote 《〈永乐大典〉展览的意义》. It does not provide an August 18 date or Wenhui publication venue.
+- Public Web discovery supplies a secondary chronology lead claiming publication on 1951-08-18 in Shanghai 《文汇报》, but the controlling GitHub runner cannot directly retrieve that secondary page under the tested public HTTPS/HTTP routes. It remains discovery scope only.
+- Probe run `36828765852` / job `110260317546` / artifact `11146151782` / digest `sha256:c922718224ac493d59328c98e49fd99f1a181158e6855e13a982736106578f61` closes the SASS exact-year holding/disambiguation route and the Tsinghua article-identity control; it recovers no 1951-08-18 newspaper page or article text.
+- Therefore 1951-08-18 Shanghai Wenhui publication remains `SECONDARY_LEAD_UNVERIFIED_BY_PRIMARY_PAGE`; first-publication status and the textual relationship to 《文物参考资料》 vol.2 no.9 pp.221-233 remain unresolved.
+- Direct 2011 p.197 and direct 1951 《文物参考资料》 pp.221–233 remain NOT_REVIEWED. Product/accounting remains 198 / 166 / 10, provenance defects 17/17, zero chart-algorithm defects/reopens/candidate collapses, and `TRANSMISSION_IMPACT=NONE`.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHAO-WANLI-WENHUIBAO-1951-0818-SASS-HOLDING-ROUTE-JJ.md`. Research record: `docs/research/ZIWEI-ZHAO-WANLI-WENHUIBAO-1951-0818-SASS-HOLDING-ROUTE-R1.json`.
