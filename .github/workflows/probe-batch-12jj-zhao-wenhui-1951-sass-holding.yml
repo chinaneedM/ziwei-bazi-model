@@ -16,16 +16,18 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
-      - name: Probe secondary publication lead and first-party SASS holding
+      - name: Probe publication lead, institutional corroboration and SASS holding
         run: |
           python - <<'PY'
-          import hashlib, html, json, re
+          import hashlib, html, json, re, time
           from pathlib import Path
           import requests
 
           UA={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; public Zhao Wanli Wenhui/SASS holding probe)"}
-          MASTERS="https://www.mastersart.org/index.php?a=show&c=index&catid=194&id=3436&m=content"
           SASS="https://lib.sass.org.cn/2577/list.htm"
+          TSINGHUA="https://www.tsinghua.org.cn/info/1952/16563.htm"
+          MASTERS_HTTPS="https://www.mastersart.org/index.php?a=show&c=index&catid=194&id=3436&m=content"
+          MASTERS_HTTP="http://www.mastersart.org/index.php?a=show&c=index&catid=194&id=3436&m=content"
 
           def clean(raw):
               raw=re.sub(r'<script\b.*?</script>',' ',raw,flags=re.I|re.S)
@@ -39,27 +41,25 @@ jobs:
                   return None
               return text[max(0,i-radius):min(len(text),i+len(needle)+radius)]
 
+          def fetch(session,url,attempts=3):
+              last=None
+              for n in range(attempts):
+                  try:
+                      r=session.get(url,timeout=45,allow_redirects=True)
+                      r.raise_for_status()
+                      return {"ok":True,"response":r,"error":None,"attempt":n+1}
+                  except Exception as e:
+                      last=f"{type(e).__name__}: {e}"
+                      time.sleep(1+n)
+              return {"ok":False,"response":None,"error":last,"attempt":attempts}
+
           s=requests.Session(); s.headers.update(UA)
 
-          r1=s.get(MASTERS,timeout=45); r1.raise_for_status()
-          t1=clean(r1.text)
-          lead_phrase="作《〈永乐大典〉展览的意义》，载8月18日上海《文汇报》"
-          secondary={
-              "url":MASTERS,
-              "status":r1.status_code,
-              "bytes":len(r1.content),
-              "sha256":hashlib.sha256(r1.content).hexdigest(),
-              "page_title_marker":"赵万里先生传略" in t1,
-              "article_title_present":"永乐大典" in t1 and "展览的意义" in t1,
-              "aug18_present":"8月18日" in t1,
-              "shanghai_wenhui_present":"上海《文汇报》" in t1 or "上海《文匯報》" in t1,
-              "exact_lead_phrase_present":lead_phrase in t1,
-              "context":context(t1,"8月18日"),
-              "classification":"SECONDARY_CHRONOLOGY_LEAD_ONLY"
-          }
-
-          r2=s.get(SASS,timeout=45); r2.raise_for_status()
-          t2=clean(r2.text)
+          # First-party SASS route is the controlling physical-holding gate.
+          fs=fetch(s,SASS)
+          if not fs["ok"]:
+              raise RuntimeError("SASS first-party holding route failed: "+str(fs["error"]))
+          r2=fs["response"]; t2=clean(r2.text)
           sass={
               "url":SASS,
               "status":r2.status_code,
@@ -75,12 +75,66 @@ jobs:
               "classification":"FIRST_PARTY_PHYSICAL_NEWSPAPER_HOLDING_ROUTE_ONLY"
           }
 
+          # Tsinghua alumni article corroborates the 1951 article/exhibition identity,
+          # but does not close an outlet/date.
+          ft=fetch(s,TSINGHUA)
+          tsinghua={
+              "url":TSINGHUA,
+              "fetch_ok":ft["ok"],
+              "error":ft["error"],
+              "classification":"INSTITUTIONAL_MODERN_RETROSPECTIVE_CORROBORATION_ONLY"
+          }
+          if ft["ok"]:
+              rt=ft["response"]; tt=clean(rt.text)
+              tsinghua.update({
+                  "status":rt.status_code,
+                  "bytes":len(rt.content),
+                  "sha256":hashlib.sha256(rt.content).hexdigest(),
+                  "zhao_wanli_present":"赵万里" in tt,
+                  "year_1951_present":"1951" in tt,
+                  "article_title_present":"永乐大典" in tt and "展览的意义" in tt,
+                  "exhibition_context_present":"展览" in tt,
+                  "aug18_present":"8月18日" in tt,
+                  "wenhui_present":"文汇报" in tt,
+                  "context":context(tt,"展览的意义")
+              })
+
+          # Secondary chronology lead: keep transport failure as a route boundary;
+          # try both public HTTPS and HTTP forms, never disable TLS verification.
+          fm=fetch(s,MASTERS_HTTPS,attempts=2)
+          used=MASTERS_HTTPS
+          if not fm["ok"]:
+              fm=fetch(s,MASTERS_HTTP,attempts=2)
+              used=MASTERS_HTTP
+          secondary={
+              "requested_https_url":MASTERS_HTTPS,
+              "final_attempt_url":used,
+              "fetch_ok":fm["ok"],
+              "error":fm["error"],
+              "classification":"SECONDARY_CHRONOLOGY_LEAD_ONLY"
+          }
+          if fm["ok"]:
+              r1=fm["response"]; t1=clean(r1.text)
+              secondary.update({
+                  "status":r1.status_code,
+                  "final_url":r1.url,
+                  "bytes":len(r1.content),
+                  "sha256":hashlib.sha256(r1.content).hexdigest(),
+                  "page_title_marker":"赵万里先生传略" in t1,
+                  "article_title_present":"永乐大典" in t1 and "展览的意义" in t1,
+                  "aug18_present":"8月18日" in t1,
+                  "shanghai_wenhui_present":"上海《文汇报》" in t1 or "上海《文匯報》" in t1,
+                  "context":context(t1,"8月18日")
+              })
+
           out={
-              "secondary_publication_lead":secondary,
               "sass_first_party_holding":sass,
+              "tsinghua_retrospective_control":tsinghua,
+              "secondary_publication_lead":secondary,
               "adjudication":{
+                  "1951_article_identity_institutionally_corrobated":bool(tsinghua.get("article_title_present") and tsinghua.get("year_1951_present")),
                   "1951_08_18_wenhui_publication_directly_proved":False,
-                  "1951_08_18_wenhui_publication_secondary_lead_present":secondary["aug18_present"] and secondary["shanghai_wenhui_present"],
+                  "1951_08_18_wenhui_publication_secondary_lead_runner_closed":bool(secondary.get("fetch_ok") and secondary.get("aug18_present") and secondary.get("shanghai_wenhui_present")),
                   "sass_1951_shanghai_wenhui_full_year_holding_closed":sass["shanghai_wenhui_1951_full_year"],
                   "shanghai_vs_hongkong_wenhui_disambiguation_closed":sass["hongkong_wenhui_marker"] and sass["hongkong_wenhui_1951_only_q1"],
                   "target_1951_08_18_issue_directly_reviewed":False,
