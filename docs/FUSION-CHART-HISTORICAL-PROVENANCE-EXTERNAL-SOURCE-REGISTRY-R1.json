@@ -11728,7 +11728,7 @@
       "provider": "国家哲学社会科学文献中心（NCPSsd）",
       "url": "https://www.ncpssd.cn/",
       "source_role": "FIRST_PARTY_PUBLIC_SEARCH_UI_AND_CLIENT_CONTROL_SURFACE",
-      "quality_notes": "Batch 12KH-KW closes the current anonymous NCPSsd public search/result/detail client contract in stages: homepage UI; negative inline/external function search; source-emitted articlelist route; 20/20 Base64 grammar roundtrip; dynamic /searchHandler/search contract; exact jQuery absent/null serialization; 红楼梦 semantic positive control; exact Zhao Wanli title result; encryptedUrl secure-detail route; secure-shell login boundary; and source-emitted articleinfo.js detail-data contract. No login, download/read operation or guessed endpoint is used. Batch 12KX closes the exact server-emitted secure-shell hidden values and resolves the next journal-detail request body without executing it. Batch 12KY executes the fully source-closed anonymous journal-detail POST and directly recovers the Zhao record's first-party title/author/carrier/year/issue/pagecount/classification/ISSN metadata; emitted pdf URL metadata is recorded but not followed. Batch 12KZ closes the same record's lower-case page and scalar fields: pp.221-233, publishdate 1951-09-01, abstract and keywords, with no new endpoint or URL follow. Batch 12LA resolves the former 文物 vs 文物参考资料 carrier-label tension as a documented serial rename: historical 1951 citation remains 文物参考资料, while the federated label 文物 is a successor/current normalized title in the same serial chain.",
+      "quality_notes": "Batch 12KH-KW closes the current anonymous NCPSsd public search/result/detail client contract in stages: homepage UI; negative inline/external function search; source-emitted articlelist route; 20/20 Base64 grammar roundtrip; dynamic /searchHandler/search contract; exact jQuery absent/null serialization; 红楼梦 semantic positive control; exact Zhao Wanli title result; encryptedUrl secure-detail route; secure-shell login boundary; and source-emitted articleinfo.js detail-data contract. No login, download/read operation or guessed endpoint is used. Batch 12KX closes the exact server-emitted secure-shell hidden values and resolves the next journal-detail request body without executing it. Batch 12KY executes the fully source-closed anonymous journal-detail POST and directly recovers the Zhao record's first-party title/author/carrier/year/issue/pagecount/classification/ISSN metadata; emitted pdf URL metadata is recorded but not followed. Batch 12KZ closes the same record's lower-case page and scalar fields: pp.221-233, publishdate 1951-09-01, abstract and keywords, with no new endpoint or URL follow. Batch 12LA resolves the former 文物 vs 文物参考资料 carrier-label tension as a documented serial rename: historical 1951 citation remains 文物参考资料, while the federated label 文物 is a successor/current normalized title in the same serial chain. Batch 12LB probes only HEAD metadata for the source-emitted legacy nssd.org pdfurl: HTTP 200 text/html, no redirect, no body download; public-PDF status remains unresolved.",
       "batch_12kh": {
         "workflow_run_id": 36857797158,
         "workflow_job_id": 110354359450,
@@ -11950,6 +11950,17 @@
         "modern_successor_label": "文物",
         "rename_effective": "1959-01",
         "research_artifact": "docs/research/ZIWEI-WENWU-SERIAL-RENAME-CROSSWALK-R1.json"
+      },
+      "batch_12lb": {
+        "workflow_run_id": 36874923001,
+        "workflow_job_id": 110411776086,
+        "artifact_id": 11167604568,
+        "artifact_digest": "sha256:f4c22565823f284630e0f61949d017fc32a1d04a76564c0187bc66fd5a693d0b",
+        "status": 200,
+        "content_type": "text/html; charset=utf-8",
+        "body_downloaded": false,
+        "public_pdf_metadata_observed": false,
+        "research_artifact": "docs/research/ZIWEI-NSSD-LEGACY-PDF-HEAD-BOUNDARY-R1.json"
       }
     },
     {

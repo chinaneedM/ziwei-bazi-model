@@ -831,9 +831,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-NCPSSD-ZHAO-JOURNAL-DETAIL-DATA-KY",
     "BATCH-12-ZIWEI-NCPSSD-ZHAO-DETAIL-SCALAR-INVENTORY-KZ",
     "BATCH-12-ZIWEI-WENWU-SERIAL-RENAME-CROSSWALK-LA",
+    "BATCH-12-ZIWEI-NSSD-LEGACY-PDF-HEAD-BOUNDARY-LB",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENWU-SERIAL-RENAME-CROSSWALK-LA.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NSSD-LEGACY-PDF-HEAD-BOUNDARY-LB.md"
 
 
 def fail(message: str) -> None:
@@ -12416,6 +12417,31 @@ def main() -> int:
         fail("Batch 12LA state version regressed below 1.316.0")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12LA latest-batch document mismatch")
+
+    # Batch 12LB: source-emitted legacy PDF URL HEAD boundary.
+    lb_batch = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NSSD-LEGACY-PDF-HEAD-BOUNDARY-LB.md"
+    lb_evidence = ROOT / "docs/research/ZIWEI-NSSD-LEGACY-PDF-HEAD-BOUNDARY-R1.json"
+    if not lb_batch.is_file() or not lb_evidence.is_file():
+        fail("Batch 12LB continuity artifact missing")
+    lb = json.loads(lb_evidence.read_text(encoding="utf-8"))
+    if lb.get("batch_id") != "BATCH-12-ZIWEI-NSSD-LEGACY-PDF-HEAD-BOUNDARY-LB":
+        fail("Batch 12LB evidence identity mismatch")
+    lbh = lb.get("head_response", {})
+    if lbh.get("status") != 200 or lbh.get("content_type") != "text/html; charset=utf-8" or lbh.get("location") is not None:
+        fail("Batch 12LB HEAD boundary regressed")
+    lba = lb.get("adjudication", {})
+    if lba.get("body_downloaded") is not False or lba.get("get_request_used") is not False or lba.get("public_pdf_metadata_observed") is not False:
+        fail("Batch 12LB no-body/public-PDF firewall regressed")
+    if "BATCH-12-ZIWEI-NSSD-LEGACY-PDF-HEAD-BOUNDARY-LB" not in audit_state.get("completed_batches", ()):
+        fail("Batch 12LB missing from completed state")
+    try:
+        schema12lb = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12LB state version is not numeric")
+    if schema12lb < (1, 317, 0):
+        fail("Batch 12LB state version regressed below 1.317.0")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12LB latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")
