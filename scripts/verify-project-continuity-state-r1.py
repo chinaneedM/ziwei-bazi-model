@@ -833,9 +833,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-WENWU-SERIAL-RENAME-CROSSWALK-LA",
     "BATCH-12-ZIWEI-NSSD-LEGACY-PDF-HEAD-BOUNDARY-LB",
     "BATCH-12-ZIWEI-NSSD-LEGACY-PDF-PREFIX-BOUNDARY-LC",
+    "BATCH-12-ZIWEI-NDL-ZHAO-WENJI-PUBLIC-ACCESS-SIGNALS-LD",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NSSD-LEGACY-PDF-PREFIX-BOUNDARY-LC.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NDL-ZHAO-WENJI-PUBLIC-ACCESS-SIGNALS-LD.md"
 
 
 def fail(message: str) -> None:
@@ -12468,6 +12469,31 @@ def main() -> int:
         fail("Batch 12LC state version regressed below 1.318.0")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12LC latest-batch document mismatch")
+
+    # Batch 12LD: exact NDL Wenji public record exposes no item-specific digital access signal.
+    ld_batch = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NDL-ZHAO-WENJI-PUBLIC-ACCESS-SIGNALS-LD.md"
+    ld_evidence = ROOT / "docs/research/ZIWEI-NDL-ZHAO-WENJI-PUBLIC-ACCESS-SIGNALS-R1.json"
+    if not ld_batch.is_file() or not ld_evidence.is_file():
+        fail("Batch 12LD continuity artifact missing")
+    ld = json.loads(ld_evidence.read_text(encoding="utf-8"))
+    if ld.get("batch_id") != "BATCH-12-ZIWEI-NDL-ZHAO-WENJI-PUBLIC-ACCESS-SIGNALS-LD":
+        fail("Batch 12LD evidence identity mismatch")
+    ldid = ld.get("target_identity", {})
+    if ldid.get("call_number") != "UM11-C247" or ldid.get("ndl_bib_id") != "023434359" or ldid.get("target_page") != 197:
+        fail("Batch 12LD target identity regressed")
+    lda = ld.get("adjudication", {})
+    if lda.get("record_retrieved") is not True or lda.get("item_specific_digital_access_demonstrated") is not False or lda.get("copy_request_submitted") is not False:
+        fail("Batch 12LD access adjudication regressed")
+    if "BATCH-12-ZIWEI-NDL-ZHAO-WENJI-PUBLIC-ACCESS-SIGNALS-LD" not in audit_state.get("completed_batches", ()):
+        fail("Batch 12LD missing from completed state")
+    try:
+        schema12ld = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12LD state version is not numeric")
+    if schema12ld < (1, 319, 0):
+        fail("Batch 12LD state version regressed below 1.319.0")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12LD latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

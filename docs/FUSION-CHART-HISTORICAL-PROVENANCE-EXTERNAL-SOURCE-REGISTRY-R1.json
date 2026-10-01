@@ -9204,7 +9204,7 @@
       "provider": "国立国会図書館 / NDL Search",
       "url": "https://ndlsearch.ndl.go.jp/books/R100000002-I023434359",
       "source_role": "FIRST_PARTY_NDL_EXACT_PHYSICAL_HOLDING_ROUTE_FOR_ZHAO_WANLI_WENJI_V1_P197",
-      "quality_notes": "NDL directly records the exact 2011 National Library Press volume as its holding, call UM11-C247, NDLBibID 023434359, 504 pages, ISBN 9787501346653. This closes physical access to p.197 but not its text or object-specific remote-copy entitlement.",
+      "quality_notes": "NDL directly records the exact 2011 National Library Press volume as its holding, call UM11-C247, NDLBibID 023434359, 504 pages, ISBN 9787501346653. This closes physical access to p.197 but not its text or object-specific remote-copy entitlement. Batch 12LD anonymously replays the exact NDL Search record and finds no explicit item-specific digital-collection/internet-public/remote-copy token; generic access-help links are not treated as object-specific entitlement.",
       "batch_12hg": {
         "call_number": "UM11-C247",
         "ndl_bib_id": "023434359",
@@ -9214,6 +9214,17 @@
         "direct_target_page_reviewed": false,
         "copy_requested": false,
         "research_artifact": "docs/research/ZIWEI-NDL-ZHAO-WANLI-WENJI-P197-NIANPU-PP309-310-PHYSICAL-ACCESS-ROUTES-R1.json"
+      },
+      "batch_12ld": {
+        "workflow_run_id": 36876093767,
+        "workflow_job_id": 110415795113,
+        "artifact_id": 11168722610,
+        "artifact_digest": "sha256:fdf365761480b87bd7fbec2e8200ab7d8f5c1de70d275fda1b2b1b8717e8cc85",
+        "public_record_http_status": 200,
+        "item_specific_digital_access_demonstrated": false,
+        "copy_request_submitted": false,
+        "source_emitted_link_followed": false,
+        "research_artifact": "docs/research/ZIWEI-NDL-ZHAO-WENJI-PUBLIC-ACCESS-SIGNALS-R1.json"
       }
     },
     {

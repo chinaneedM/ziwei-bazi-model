@@ -1,0 +1,84 @@
+name: probe-batch-12le-ndl-zhao-wenji-item-access-block
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12le-ndl-zhao-wenji-item-access-block.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Isolate item-level NDL access blocks and embedded record data
+        run: |
+          python - <<'PY'
+          import hashlib, html, json, re
+          from pathlib import Path
+          import requests
+
+          URL="https://ndlsearch.ndl.go.jp/books/R100000002-I023434359"
+          r=requests.get(URL,headers={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; NDL item-level access block)"},timeout=45)
+          txt=r.text
+
+          # Remove global footer so generic help links cannot masquerade as item-level access.
+          main=txt
+          m=re.search(r"(?is)<footer\b",main)
+          if m: main=main[:m.start()]
+
+          item_tokens=[
+              "国立国会図書館デジタルコレクション","デジタルコレクション","インターネット公開",
+              "図書館・個人送信","遠隔複写","複写","オンライン","利用登録","ログイン",
+              "UM11-C247","023434359","趙萬里文集"
+          ]
+          counts={t:len(re.findall(re.escape(t),main,re.I)) for t in item_tokens}
+
+          urls=[]
+          for m in re.finditer(r'''(?is)href\s*=\s*["']([^"']+)["']''',main):
+              href=html.unescape(m.group(1)).strip()
+              if any(x in href.lower() for x in ("dl.ndl.go.jp","digital","copy","request","online","remote","viewer")):
+                  urls.append(href)
+          urls=list(dict.fromkeys(urls))
+
+          # Inventory embedded script payloads containing the exact bib id.
+          payload_snippets=[]
+          for m in re.finditer(r"(?is)<script\b[^>]*>(.*?)</script>",txt):
+              s=m.group(1)
+              if "023434359" in s or "UM11-C247" in s:
+                  compact=re.sub(r"\s+"," ",s)
+                  payload_snippets.append(compact[:8000])
+
+          signal_words=["digital","digitized","online","internet","copy","remote","available","利用","閲覧","複写","送信"]
+          embedded_signal_counts={w:sum(x.lower().count(w.lower()) for x in payload_snippets) for w in signal_words}
+
+          out={
+              "source_contract":{"parent_batch":"12LD","url":URL,"main_content_only":True,"footer_removed":True,"source_emitted_link_followed":False},
+              "response":{"http_status":r.status_code,"bytes":len(r.content),"sha256":hashlib.sha256(r.content).hexdigest()},
+              "main_content_token_counts":counts,
+              "item_level_candidate_urls":urls,
+              "item_level_candidate_url_count":len(urls),
+              "embedded_record_payload_count":len(payload_snippets),
+              "embedded_signal_counts":embedded_signal_counts,
+              "adjudication":{
+                  "target_identity_present_in_main":counts["UM11-C247"]>0 and counts["023434359"]>0,
+                  "explicit_item_digital_collection_signal":counts["デジタルコレクション"]>0 or counts["国立国会図書館デジタルコレクション"]>0,
+                  "explicit_item_internet_public_signal":counts["インターネット公開"]>0,
+                  "item_level_digital_candidate_url_emitted":len(urls)>0,
+                  "copy_request_submitted":False,
+                  "source_emitted_link_followed":False
+              },
+              "security":{"anonymous_get_only":True,"reader_account_used":False,"registration_used":False,"copy_request_used":False,"payment_used":False,"source_emitted_link_followed":False,"private_endpoint_guessed":False,"captcha_bypass_used":False,"tls_verification_disabled":False}
+          }
+          Path("batch-12le-ndl-zhao-wenji-item-access-block.json").write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12le-ndl-zhao-wenji-item-access-block
+          path: batch-12le-ndl-zhao-wenji-item-access-block.json
