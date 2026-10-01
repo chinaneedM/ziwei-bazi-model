@@ -1,0 +1,145 @@
+name: probe-batch-12ka-nlc-wenjin-wenhui-item-controls
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12ka-nlc-wenjin-wenhui-item-controls.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inspect only source-emitted Wenjin item controls for Wenhui candidates
+        run: |
+          python - <<'PY'
+          import hashlib, html, json, re
+          from html.parser import HTMLParser
+          from pathlib import Path
+          from urllib.parse import urljoin
+          import requests
+
+          UA={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; NLC public item-control calibration)"}
+          BASE="http://find.nlc.cn/search/doSearch"
+          TERM="文汇报"
+          PARAMS=[
+              ("query",TERM),("secQuery",""),("actualQuery",TERM),("searchType","2"),
+              ("docType","全部"),("isGroup","isGroup"),("targetFieldLog","全部字段"),("fromHome","true")
+          ]
+          TARGETS={
+              "computer_file_2004":["点通数据有限公司","2004","计算机文件"],
+              "supplement_1951":["文汇报-副页","1951","报纸"],
+          }
+
+          def sha(b): return hashlib.sha256(b).hexdigest()
+          def decode(raw):
+              for enc in ("utf-8","utf-8-sig","gb18030","gbk","big5"):
+                  try: return raw.decode(enc),enc
+                  except UnicodeDecodeError: pass
+              return raw.decode("utf-8","replace"),"utf-8-replacement"
+
+          class TagCollector(HTMLParser):
+              def __init__(self):
+                  super().__init__(convert_charrefs=False); self.tags=[]
+              def handle_starttag(self,tag,attrs):
+                  self.tags.append({"tag":tag,"attrs":{k:v for k,v in attrs},"raw":self.get_starttag_text()})
+              def handle_startendtag(self,tag,attrs):
+                  self.tags.append({"tag":tag,"attrs":{k:v for k,v in attrs},"raw":self.get_starttag_text()})
+
+          s=requests.Session(); s.headers.update(UA)
+          r=s.get(BASE,params=PARAMS,timeout=45,allow_redirects=True)
+          raw=r.content; txt,enc=decode(raw)
+
+          def snippets(tokens,radius=7000,maxn=4):
+              out=[]
+              for token in tokens:
+                  for m in re.finditer(re.escape(token),txt):
+                      a=max(0,m.start()-radius); b=min(len(txt),m.end()+radius)
+                      frag=txt[a:b]
+                      visible=html.unescape(re.sub(r"<[^>]+>"," ",frag))
+                      if all(t in visible for t in tokens):
+                          out.append({"token":token,"start":a,"end":b,"sha256":sha(frag.encode("utf-8")),"raw":frag})
+                          if len(out)>=maxn: return out
+              return out
+
+          targets={}
+          fn_names=set()
+          for key,tokens in TARGETS.items():
+              rows=[]
+              for sn in snippets(tokens):
+                  p=TagCollector()
+                  try: p.feed(sn["raw"])
+                  except Exception: pass
+                  controls=[]
+                  for tag in p.tags:
+                      attrs={k:v for k,v in tag["attrs"].items() if k in ("href","onclick","id","name","value","title","class","target","action","method") or k.startswith("data-")}
+                      if not attrs: continue
+                      blob=" ".join(str(v or "") for v in attrs.values())
+                      if any(t in html.unescape(tag["raw"]) for t in tokens) or any(x in blob.lower() for x in ("detail","show","view","record","javascript")):
+                          controls.append({"tag":tag["tag"],"attrs":attrs,"raw":tag["raw"][:1800]})
+                          for v in attrs.values():
+                              if isinstance(v,str):
+                                  for fm in re.finditer(r"\b([A-Za-z_$][\w$]*)\s*\(",v):
+                                      fn_names.add(fm.group(1))
+                  rows.append({
+                      "token":sn["token"],"start":sn["start"],"end":sn["end"],"sha256":sn["sha256"],
+                      "controls":controls[:120],"raw_excerpt":sn["raw"][:14000]
+                  })
+              targets[key]={"tokens":tokens,"snippet_count":len(rows),"snippets":rows}
+
+          inline_defs=[]
+          for fn in sorted(fn_names):
+              for pat in (rf"function\s+{re.escape(fn)}\s*\(",rf"{re.escape(fn)}\s*=\s*function\s*\("):
+                  m=re.search(pat,txt)
+                  if m:
+                      a=max(0,m.start()-1200); b=min(len(txt),m.start()+6000); frag=txt[a:b]
+                      inline_defs.append({"name":fn,"start":a,"excerpt_sha256":sha(frag.encode("utf-8")),"raw_excerpt":frag})
+                      break
+
+          scripts=[]
+          for m in re.finditer(r"<script[^>]+src=[\"']([^\"']+)[\"']",txt,re.I):
+              scripts.append(urljoin(r.url,html.unescape(m.group(1))))
+          scripts=sorted(set(scripts))
+
+          script_probes=[]; external_defs=[]
+          for u in scripts[:30]:
+              row={"url":u}
+              try:
+                  sr=s.get(u,timeout=30,allow_redirects=True); stxt,senc=decode(sr.content)
+                  row.update({"http_status":sr.status_code,"final_url":sr.url,"bytes":len(sr.content),"sha256":sha(sr.content),"decode_used":senc})
+                  for fn in sorted(fn_names):
+                      for pat in (rf"function\s+{re.escape(fn)}\s*\(",rf"{re.escape(fn)}\s*=\s*function\s*\("):
+                          fm=re.search(pat,stxt)
+                          if fm:
+                              a=max(0,fm.start()-1200); b=min(len(stxt),fm.start()+6000); frag=stxt[a:b]
+                              external_defs.append({"name":fn,"script_url":sr.url,"script_sha256":sha(sr.content),"start":a,"excerpt_sha256":sha(frag.encode("utf-8")),"raw_excerpt":frag})
+                              break
+              except Exception as e:
+                  row.update({"error_class":type(e).__name__,"error":str(e)[:350]})
+              script_probes.append(row)
+
+          out={
+              "contract_source":{"batch":"12JX","search_term":TERM,"search_parameter_guessed":False,"private_endpoint_guessed":False},
+              "search_response":{"http_status":r.status_code,"final_url":r.url,"bytes":len(raw),"sha256":sha(raw),"decode_used":enc},
+              "targets":targets,
+              "candidate_emitted_function_names":sorted(fn_names),
+              "inline_function_definitions":inline_defs,
+              "source_emitted_script_urls":scripts,
+              "source_emitted_script_probes":script_probes,
+              "external_function_definitions":external_defs,
+              "adjudication":{"item_detail_route_followed":False,"record_identifier_guessed":False,"only_source_emitted_controls_inspected":True,"only_source_emitted_scripts_fetched":True},
+              "security":{"login_used":False,"reader_account_used":False,"registration_used":False,"private_endpoint_guessed":False,"record_identifier_guessed":False,"captcha_bypass_used":False,"tls_verification_disabled":False,"state_changing_request_used":False},
+          }
+          Path("batch-12ka-nlc-wenjin-wenhui-item-controls.json").write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12ka-nlc-wenjin-wenhui-item-controls
+          path: batch-12ka-nlc-wenjin-wenhui-item-controls.json
