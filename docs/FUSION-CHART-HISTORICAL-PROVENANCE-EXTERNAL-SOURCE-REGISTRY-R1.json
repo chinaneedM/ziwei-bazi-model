@@ -12043,7 +12043,7 @@
       "provider": "上海图书馆《全国报刊索引》编辑部",
       "url": "https://www.cnbksy.com/",
       "source_role": "FIRST_PARTY_NEWSPAPER_INDEX_PUBLIC_ACCESS_SURFACE",
-      "quality_notes": "Batches 12LF–12LP close the search-access boundary without bypass or target query. 12LQ retrieves the public 使用帮助 shell; 12LR closes active help callsites; 12LS recovers the four-node first-party help tree. Batch 12LT reproduces only the active init() findNews?id=61 empty-object POST. Its root content is generic browser/support guidance and contains no audited ordinary/advanced/professional-search or field-level semantics. The source-emitted tree node 161 用户手册下载 is therefore the next evidence-scoped help branch; it has not yet been followed in 12LT.",
+      "quality_notes": "Batches 12LF–12LP close the search-access boundary; 12LQ–12LT close the public help shell, active callsites, help tree and root content without target queries. Batch 12LU follows only first-party tree node 161 用户手册下载 through the source-emitted POST contract. Its visible content names old-platform .doc and new-platform .docx manuals and states that they describe database search methods, while direct search-field semantics are still absent from the node text. Five href/src values are emitted, but 12LU deliberately does not yet bind flattened links to manual labels or download any object.",
       "batch_12lf": {
         "workflow_run_id": 36877911774,
         "workflow_job_id": 110421993332,
@@ -12386,6 +12386,43 @@
         "source_emitted_link_followed": false,
         "target_query_submitted": false,
         "research_artifact": "docs/research/ZIWEI-CNBKSY-HELP-ROOT-CONTENT-CONTRACT-R1.json"
+      },
+      "batch_12lu": {
+        "workflow_run_id": 36892505113,
+        "workflow_job_id": 110471322678,
+        "artifact_id": 11176554703,
+        "artifact_digest": "sha256:a0f6fa95c777e2aa149a6971a7ae5f7b7f8322cdda6fb3476296b1ea331ab97c",
+        "exact_head": "2ca2d750e47f99ad59812de19cff4c5b9009a056",
+        "node_id": 161,
+        "node_label": "用户手册下载",
+        "endpoint": "/portal/footCategory/findNews",
+        "method": "POST",
+        "payload": {
+          "id": 161
+        },
+        "response_status": 200,
+        "response_content_type": "application/json;charset=UTF-8",
+        "response_server": "ESA",
+        "response_bytes": 6491,
+        "response_sha256": "29d7bae0aacb4a06d9c8fcce5aefd2ada352469cb2e1d5a2469c130823a78815",
+        "content_length": 1546,
+        "content_sha256": "2906c292cb3b417cab8149aa0bc87ece4994adbb2ac745eb0df52866a4336408",
+        "visible_text_length": 82,
+        "manual_labels": [
+          "平台用户手册（老平台）.doc",
+          "平台用户手册（新平台）.docx"
+        ],
+        "source_emitted_links": [
+          "/common/uploadFile/65d85a357fa00c579dfdc79e",
+          "/common/uploadFile/5efc186123b099148b42c395",
+          "https://www.cnbksy.com/public/plugin/ueditor/dialogs/attachment/fileTypeImages/icon_txt.gif",
+          "https://www.cnbksy.com/common/uploadFile/65e9592f7fa00c5f66cdb1f5",
+          "https://www.cnbksy.com/common/uploadFile/65c1fb6bf74f7f939f8cec86"
+        ],
+        "link_label_binding_closed": false,
+        "source_emitted_link_followed": false,
+        "target_query_submitted": false,
+        "research_artifact": "docs/research/ZIWEI-CNBKSY-USER-MANUAL-NODE-CONTRACT-R1.json"
       }
     }
   ],

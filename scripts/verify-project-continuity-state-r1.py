@@ -850,9 +850,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-CNBKSY-HELP-DYNAMIC-CALLSITE-CONTRACT-LR",
     "BATCH-12-ZIWEI-CNBKSY-HELP-TREE-CONTRACT-LS",
     "BATCH-12-ZIWEI-CNBKSY-HELP-ROOT-CONTENT-CONTRACT-LT",
+    "BATCH-12-ZIWEI-CNBKSY-USER-MANUAL-NODE-CONTRACT-LU",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-HELP-ROOT-CONTENT-CONTRACT-LT.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-USER-MANUAL-NODE-CONTRACT-LU.md"
 
 
 def fail(message: str) -> None:
@@ -13174,6 +13175,61 @@ def main() -> int:
         fail("Batch 12LT state version regressed below 1.335.0")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12LT latest-batch document mismatch")
+
+    # Batch 12LU: first-party help-tree node 161 exposes manual labels and unresolved file candidates.
+    lu_batch = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-USER-MANUAL-NODE-CONTRACT-LU.md"
+    lu_evidence = ROOT / "docs/research/ZIWEI-CNBKSY-USER-MANUAL-NODE-CONTRACT-R1.json"
+    if not lu_batch.is_file() or not lu_evidence.is_file():
+        fail("Batch 12LU continuity artifact missing")
+    lu = json.loads(lu_evidence.read_text(encoding="utf-8"))
+    if lu.get("batch_id") != "BATCH-12-ZIWEI-CNBKSY-USER-MANUAL-NODE-CONTRACT-LU":
+        fail("Batch 12LU evidence identity mismatch")
+    req = lu.get("request_contract", {})
+    if req.get("node_id") != 161 or req.get("node_label") != "用户手册下载" or req.get("endpoint") != "/portal/footCategory/findNews":
+        fail("Batch 12LU request identity regressed")
+    if req.get("payload") != {"id": 161} or req.get("csrf_value_recorded") is not False:
+        fail("Batch 12LU request/CSRF firewall regressed")
+    r = lu.get("response", {})
+    if r.get("http_status") != 200 or r.get("content_type") != "application/json;charset=UTF-8" or r.get("server_header") != "ESA":
+        fail("Batch 12LU response identity regressed")
+    if r.get("bytes") != 6491 or r.get("sha256") != "29d7bae0aacb4a06d9c8fcce5aefd2ada352469cb2e1d5a2469c130823a78815":
+        fail("Batch 12LU response digest regressed")
+    ci = lu.get("content_inventory", {})
+    if ci.get("title") != "用户手册下载" or ci.get("content_length") != 1546 or ci.get("visible_text_length") != 82:
+        fail("Batch 12LU content identity regressed")
+    if ci.get("content_sha256") != "2906c292cb3b417cab8149aa0bc87ece4994adbb2ac745eb0df52866a4336408":
+        fail("Batch 12LU content digest regressed")
+    if ci.get("manual_labels") != ["平台用户手册（老平台）.doc", "平台用户手册（新平台）.docx"]:
+        fail("Batch 12LU manual labels regressed")
+    if ci.get("source_emitted_links") != ["/common/uploadFile/65d85a357fa00c579dfdc79e","/common/uploadFile/5efc186123b099148b42c395","https://www.cnbksy.com/public/plugin/ueditor/dialogs/attachment/fileTypeImages/icon_txt.gif","https://www.cnbksy.com/common/uploadFile/65e9592f7fa00c5f66cdb1f5","https://www.cnbksy.com/common/uploadFile/65c1fb6bf74f7f939f8cec86"]:
+        fail("Batch 12LU source-emitted link inventory regressed")
+    if ci.get("link_label_binding_closed") is not False or ci.get("link_followed") is not False:
+        fail("Batch 12LU link-binding/download firewall regressed")
+    a = lu.get("adjudication", {})
+    if a.get("first_party_user_manual_node_closed") is not True or a.get("manual_artifacts_named") is not True:
+        fail("Batch 12LU manual node adjudication regressed")
+    for key in ("manual_link_label_binding_closed","field_level_search_semantics_observed","source_emitted_link_followed","target_term_submitted","target_query_submitted","login_used","registration_used"):
+        if a.get(key) is not False:
+            fail(f"Batch 12LU no-inference/no-action firewall regressed: {key}")
+    p = lu.get("controlling_probe", {})
+    if p.get("workflow_run_id") != 36892505113 or p.get("workflow_job_id") != 110471322678 or p.get("artifact_id") != 11176554703:
+        fail("Batch 12LU controlling probe identity regressed")
+    if p.get("artifact_digest") != "sha256:a0f6fa95c777e2aa149a6971a7ae5f7b7f8322cdda6fb3476296b1ea331ab97c":
+        fail("Batch 12LU artifact digest regressed")
+    srcmap_lu = {x.get("source_id"): x for x in registry.get("sources", ())}
+    reg_lu = srcmap_lu.get("EXT-CNBKSY-PUBLIC-SEARCH-SURFACE-2026", {}).get("batch_12lu", {})
+    if reg_lu.get("workflow_run_id") != 36892505113 or reg_lu.get("research_artifact") != "docs/research/ZIWEI-CNBKSY-USER-MANUAL-NODE-CONTRACT-R1.json":
+        fail("Batch 12LU external-source registry binding missing")
+    if "BATCH-12-ZIWEI-CNBKSY-USER-MANUAL-NODE-CONTRACT-LU" not in audit_state.get("completed_batches", ()):
+        fail("Batch 12LU missing from completed state")
+    try:
+        schema12lu = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12LU state version is not numeric")
+    if schema12lu < (1, 336, 0):
+        fail("Batch 12LU state version regressed below 1.336.0")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12LU latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")
