@@ -1,0 +1,170 @@
+name: probe-batch-12lx-cnbksy-new-manual-ooxml-semantics
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12lx-cnbksy-new-manual-ooxml-semantics.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Retrieve only the first-party-bound new-platform manual and extract bounded OOXML semantics
+        run: |
+          python - <<'PY'
+          import hashlib, io, json, re, zipfile
+          from pathlib import Path
+          import xml.etree.ElementTree as ET
+          import requests
+
+          url="https://www.cnbksy.com/common/uploadFile/65e9592f7fa00c5f66cdb1f5"
+          UA="Mozilla/5.0 (Tianwen provenance audit; CNBKSY new-platform manual OOXML semantics)"
+          r=requests.get(
+              url,
+              headers={"User-Agent":UA,"Referer":"https://www.cnbksy.com/portal/footCategory?id=61"},
+              timeout=90,
+              allow_redirects=False,
+          )
+          raw=r.content
+          file_sha=hashlib.sha256(raw).hexdigest()
+          zip_magic=raw.startswith(b"PK\x03\x04")
+          members=[]
+          core_props={}
+          doc_xml=None
+          doc_xml_sha=None
+          text=""
+          para_texts=[]
+          structure_ok=False
+          parse_error=None
+
+          try:
+              with zipfile.ZipFile(io.BytesIO(raw)) as z:
+                  members=z.namelist()
+                  structure_ok=("[Content_Types].xml" in members and "word/document.xml" in members)
+                  if "docProps/core.xml" in members:
+                      croot=ET.fromstring(z.read("docProps/core.xml"))
+                      for el in croot.iter():
+                          tag=el.tag.rsplit("}",1)[-1]
+                          if tag in {"title","subject","creator","keywords","description","lastModifiedBy","created","modified"}:
+                              core_props[tag]=(el.text or "")
+                  if "word/document.xml" in members:
+                      doc_xml=z.read("word/document.xml")
+                      doc_xml_sha=hashlib.sha256(doc_xml).hexdigest()
+                      root=ET.fromstring(doc_xml)
+                      ns="{http://schemas.openxmlformats.org/wordprocessingml/2006/main}"
+                      for p in root.iter(ns+"p"):
+                          parts=[]
+                          for el in p.iter():
+                              if el.tag==ns+"t":
+                                  parts.append(el.text or "")
+                              elif el.tag==ns+"tab":
+                                  parts.append("\t")
+                              elif el.tag==ns+"br":
+                                  parts.append("\n")
+                          s="".join(parts)
+                          s=re.sub(r"[ \t]+"," ",s).strip()
+                          if s:
+                              para_texts.append(s)
+                      text="\n".join(para_texts)
+          except Exception as e:
+              parse_error=f"{type(e).__name__}: {e}"
+
+          terms=[
+              "普通检索","高级检索","专业检索","图片检索",
+              "题名","作者","刊名","分类号","年份","期号",
+              "检索词","关键词","全文","逻辑","布尔","逻辑关系",
+              "检索字段","数据库","检索方式","精确检索","模糊检索"
+          ]
+          counts={t:text.count(t) for t in terms}
+          contexts={}
+          for term in terms:
+              hits=[]
+              start=0
+              while len(hits)<8:
+                  i=text.find(term,start)
+                  if i<0: break
+                  a=max(0,i-180); b=min(len(text),i+len(term)+220)
+                  snippet=re.sub(r"\s+"," ",text[a:b]).strip()
+                  hits.append(snippet)
+                  start=i+len(term)
+              if hits:
+                  contexts[term]=hits
+
+          heading_like=[]
+          for p in para_texts:
+              if len(p)<=120 and any(t in p for t in ("检索","查询","搜索","数据库","用户手册")):
+                  heading_like.append(p)
+              if len(heading_like)>=80:
+                  break
+
+          out={
+              "source_contract":{
+                  "parent_batch":"12LW",
+                  "manual_binding":"Batch 12LV new-platform text-bearing anchor",
+                  "url":url,
+                  "method":"GET",
+                  "redirect_followed":False,
+                  "full_object_retrieved":True,
+                  "search_endpoint_invoked":False,
+                  "target_term_submitted":False,
+                  "target_query_submitted":False,
+              },
+              "http":{
+                  "status":r.status_code,
+                  "content_type":r.headers.get("content-type"),
+                  "content_disposition":r.headers.get("content-disposition"),
+                  "location":r.headers.get("location"),
+                  "server":r.headers.get("server"),
+                  "bytes":len(raw),
+                  "sha256":file_sha,
+                  "zip_magic":zip_magic,
+              },
+              "ooxml":{
+                  "member_count":len(members),
+                  "structure_ok":structure_ok,
+                  "has_content_types":"[Content_Types].xml" in members,
+                  "has_word_document_xml":"word/document.xml" in members,
+                  "document_xml_sha256":doc_xml_sha,
+                  "core_properties":core_props,
+                  "parse_error":parse_error,
+              },
+              "text_inventory":{
+                  "paragraph_count":len(para_texts),
+                  "text_length":len(text),
+                  "text_sha256":hashlib.sha256(text.encode("utf-8")).hexdigest(),
+                  "term_counts":counts,
+                  "bounded_contexts":contexts,
+                  "heading_like_lines":heading_like,
+                  "full_text_recorded":False,
+              },
+              "adjudication":{
+                  "new_platform_manual_ooxml_structure_closed":bool(r.status_code==200 and zip_magic and structure_ok and parse_error is None),
+                  "manual_text_extracted_locally":bool(text),
+                  "search_endpoint_invoked":False,
+                  "target_term_submitted":False,
+                  "target_query_submitted":False,
+                  "login_used":False,
+                  "registration_used":False,
+              },
+              "security":{
+                  "anonymous_get_only":True,
+                  "credential_value_recorded":False,
+                  "private_endpoint_guessed":False,
+                  "captcha_bypass_used":False,
+                  "tls_verification_disabled":False,
+              },
+          }
+          Path("batch-12lx-cnbksy-new-manual-ooxml-semantics.json").write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12lx-cnbksy-new-manual-ooxml-semantics
+          path: batch-12lx-cnbksy-new-manual-ooxml-semantics.json

@@ -852,9 +852,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-CNBKSY-HELP-ROOT-CONTENT-CONTRACT-LT",
     "BATCH-12-ZIWEI-CNBKSY-USER-MANUAL-NODE-CONTRACT-LU",
     "BATCH-12-ZIWEI-CNBKSY-MANUAL-LINK-BINDING-CONTRACT-LV",
+    "BATCH-12-ZIWEI-CNBKSY-MANUAL-FILE-IDENTITY-CONTRACT-LW",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-MANUAL-LINK-BINDING-CONTRACT-LV.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-MANUAL-FILE-IDENTITY-CONTRACT-LW.md"
 
 
 def fail(message: str) -> None:
@@ -13284,6 +13285,68 @@ def main() -> int:
         fail("Batch 12LV state version regressed below 1.337.0")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12LV latest-batch document mismatch")
+
+    # Batch 12LW: bounded file-identity checks close old/new manual formats before body parsing.
+    lw_batch = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-MANUAL-FILE-IDENTITY-CONTRACT-LW.md"
+    lw_evidence = ROOT / "docs/research/ZIWEI-CNBKSY-MANUAL-FILE-IDENTITY-CONTRACT-R1.json"
+    if not lw_batch.is_file() or not lw_evidence.is_file():
+        fail("Batch 12LW continuity artifact missing")
+    lw = json.loads(lw_evidence.read_text(encoding="utf-8"))
+    if lw.get("batch_id") != "BATCH-12-ZIWEI-CNBKSY-MANUAL-FILE-IDENTITY-CONTRACT-LW":
+        fail("Batch 12LW evidence identity mismatch")
+    sc = lw.get("source_contract", {})
+    if sc.get("targets") != "ONLY_TEXT_BEARING_OLD_AND_NEW_MANUAL_ANCHORS" or sc.get("range_header") != "bytes=0-8191":
+        fail("Batch 12LW source contract regressed")
+    if sc.get("max_body_bytes_read_per_target") != 8192 or sc.get("redirect_followed") is not False or sc.get("full_manual_parsed") is not False:
+        fail("Batch 12LW bounded-read firewall regressed")
+    rs = lw.get("results", {})
+    old = rs.get("old_platform", {})
+    new = rs.get("new_platform", {})
+    if old.get("url") != "https://www.cnbksy.com/common/uploadFile/5efc186123b099148b42c395" or old.get("status") != 200 or old.get("server") != "ESA":
+        fail("Batch 12LW old-platform response identity regressed")
+    if old.get("content_disposition") != "attachment;filename=\"%E5%B9%B3%E5%8F%B0%E7%94%A8%E6%88%B7%E6%89%8B%E5%86%8C.docx\"" or old.get("decoded_disposition_filename") != "平台用户手册.docx":
+        fail("Batch 12LW old-platform filename adjudication regressed")
+    if old.get("bytes_read") != 8192 or old.get("prefix_sha256") != "c83320fc600ae209df89d0c827155d665f1ad5afa7519b4842fc2b43e8a82276":
+        fail("Batch 12LW old-platform prefix evidence regressed")
+    if old.get("zip_magic") is not True or old.get("ole_cfb_magic") is not False or not old.get("magic_hex","").startswith("504b0304"):
+        fail("Batch 12LW old-platform OOXML/ZIP identity regressed")
+    if new.get("url") != "https://www.cnbksy.com/common/uploadFile/65e9592f7fa00c5f66cdb1f5" or new.get("status") != 200 or new.get("server") != "ESA":
+        fail("Batch 12LW new-platform response identity regressed")
+    if new.get("content_type") != "application/vnd.openxmlformats-officedocument.wordprocessingml.document;charset=UTF-8":
+        fail("Batch 12LW new-platform MIME regressed")
+    if new.get("content_disposition") != "attachment;filename=\"%E5%B9%B3%E5%8F%B0%E7%94%A8%E6%88%B7%E6%89%8B%E5%86%8C%EF%BC%88%E6%96%B0%E5%B9%B3%E5%8F%B0%EF%BC%89.docx\"" or new.get("decoded_disposition_filename") != "平台用户手册（新平台）.docx":
+        fail("Batch 12LW new-platform filename regressed")
+    if new.get("bytes_read") != 8192 or new.get("prefix_sha256") != "d0112260febfc4a485b470d217a7c562a99742774d62c4a5dfccd2718a1cf96a":
+        fail("Batch 12LW new-platform prefix evidence regressed")
+    if new.get("zip_magic") is not True or new.get("ole_cfb_magic") is not False or not new.get("magic_hex","").startswith("504b0304"):
+        fail("Batch 12LW new-platform OOXML/ZIP identity regressed")
+    a = lw.get("adjudication", {})
+    if a.get("old_platform_object_format") != "OOXML_ZIP_DOCX" or a.get("old_platform_visible_doc_suffix_stale") is not True or a.get("old_platform_extension_identity_closed") is not True:
+        fail("Batch 12LW old-platform format adjudication regressed")
+    if a.get("new_platform_object_format") != "OOXML_ZIP_DOCX" or a.get("new_platform_extension_identity_closed") is not True:
+        fail("Batch 12LW new-platform format adjudication regressed")
+    for key in ("auxiliary_empty_anchor_checked","icon_upload_checked","redirect_followed","full_manual_parsed","target_term_submitted","target_query_submitted"):
+        if a.get(key) is not False:
+            fail(f"Batch 12LW no-action firewall regressed: {key}")
+    p = lw.get("controlling_probe", {})
+    if p.get("workflow_run_id") != 36893554861 or p.get("workflow_job_id") != 110474819282 or p.get("artifact_id") != 11179105119:
+        fail("Batch 12LW controlling probe identity regressed")
+    if p.get("artifact_digest") != "sha256:67451534e9d85a78965ca70f00cb294992b19166bffcb26356b2a37e60154675":
+        fail("Batch 12LW artifact digest regressed")
+    srcmap_lw = {x.get("source_id"): x for x in registry.get("sources", ())}
+    reg_lw = srcmap_lw.get("EXT-CNBKSY-PUBLIC-SEARCH-SURFACE-2026", {}).get("batch_12lw", {})
+    if reg_lw.get("workflow_run_id") != 36893554861 or reg_lw.get("research_artifact") != "docs/research/ZIWEI-CNBKSY-MANUAL-FILE-IDENTITY-CONTRACT-R1.json":
+        fail("Batch 12LW external-source registry binding missing")
+    if "BATCH-12-ZIWEI-CNBKSY-MANUAL-FILE-IDENTITY-CONTRACT-LW" not in audit_state.get("completed_batches", ()):
+        fail("Batch 12LW missing from completed state")
+    try:
+        schema12lw = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12LW state version is not numeric")
+    if schema12lw < (1, 338, 0):
+        fail("Batch 12LW state version regressed below 1.338.0")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12LW latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

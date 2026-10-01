@@ -12043,7 +12043,7 @@
       "provider": "上海图书馆《全国报刊索引》编辑部",
       "url": "https://www.cnbksy.com/",
       "source_role": "FIRST_PARTY_NEWSPAPER_INDEX_PUBLIC_ACCESS_SURFACE",
-      "quality_notes": "Batches 12LF–12LP close the search-access boundary; 12LQ–12LU close the public help shell, callsites, help tree, root content and first-party user-manual node without target queries. Batch 12LV statically binds the visible old-platform manual label to uploadFile/5efc... and the visible new-platform label to uploadFile/65e959..., while preserving an old-label .doc vs HTML-title .docx tension and keeping empty-anchor/icon objects separate. No emitted file is downloaded in 12LV.",
+      "quality_notes": "Batches 12LF–12LP close the search-access boundary; 12LQ–12LV close the help shell, active callsites, tree, root content, manual node and text-bearing old/new manual href bindings without target queries. Batch 12LW performs bounded prefix identity checks on only those two primary hrefs. Both objects are ZIP/OOXML rather than legacy OLE; the old-platform visible `.doc` suffix is contradicted by Content-Disposition `平台用户手册.docx` and ZIP magic, so it is retained as a stale presentation label rather than file-format truth. No manual body text is parsed in 12LW.",
       "batch_12lf": {
         "workflow_run_id": 36877911774,
         "workflow_job_id": 110421993332,
@@ -12459,6 +12459,50 @@
         "source_emitted_link_followed": false,
         "file_downloaded": false,
         "research_artifact": "docs/research/ZIWEI-CNBKSY-MANUAL-LINK-BINDING-CONTRACT-R1.json"
+      },
+      "batch_12lw": {
+        "workflow_run_id": 36893554861,
+        "workflow_job_id": 110474819282,
+        "artifact_id": 11179105119,
+        "artifact_digest": "sha256:67451534e9d85a78965ca70f00cb294992b19166bffcb26356b2a37e60154675",
+        "exact_head": "03fc4ae73445643e0538edbd25636d25ba8fcd0b",
+        "range_header": "bytes=0-8191",
+        "max_body_bytes_read_per_target": 8192,
+        "redirect_followed": false,
+        "full_manual_parsed": false,
+        "old_platform": {
+          "visible_label": "平台用户手册（老平台）.doc",
+          "url": "https://www.cnbksy.com/common/uploadFile/5efc186123b099148b42c395",
+          "status": 200,
+          "content_type": "null;charset=UTF-8;charset=UTF-8",
+          "content_disposition": "attachment;filename=\"%E5%B9%B3%E5%8F%B0%E7%94%A8%E6%88%B7%E6%89%8B%E5%86%8C.docx\"",
+          "decoded_disposition_filename": "平台用户手册.docx",
+          "bytes_read": 8192,
+          "prefix_sha256": "c83320fc600ae209df89d0c827155d665f1ad5afa7519b4842fc2b43e8a82276",
+          "magic_hex": "504b03041400060008000000210040be",
+          "zip_magic": true,
+          "ole_cfb_magic": false,
+          "adjudicated_format": "OOXML_ZIP_DOCX",
+          "visible_extension_stale": true
+        },
+        "new_platform": {
+          "visible_label": "平台用户手册（新平台）.docx",
+          "url": "https://www.cnbksy.com/common/uploadFile/65e9592f7fa00c5f66cdb1f5",
+          "status": 200,
+          "content_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document;charset=UTF-8",
+          "content_disposition": "attachment;filename=\"%E5%B9%B3%E5%8F%B0%E7%94%A8%E6%88%B7%E6%89%8B%E5%86%8C%EF%BC%88%E6%96%B0%E5%B9%B3%E5%8F%B0%EF%BC%89.docx\"",
+          "decoded_disposition_filename": "平台用户手册（新平台）.docx",
+          "bytes_read": 8192,
+          "prefix_sha256": "d0112260febfc4a485b470d217a7c562a99742774d62c4a5dfccd2718a1cf96a",
+          "magic_hex": "504b03041400060008000000210041d9",
+          "zip_magic": true,
+          "ole_cfb_magic": false,
+          "adjudicated_format": "OOXML_ZIP_DOCX"
+        },
+        "auxiliary_empty_anchor_checked": false,
+        "icon_upload_checked": false,
+        "target_query_submitted": false,
+        "research_artifact": "docs/research/ZIWEI-CNBKSY-MANUAL-FILE-IDENTITY-CONTRACT-R1.json"
       }
     }
   ],

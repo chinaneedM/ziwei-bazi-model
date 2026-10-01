@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.337.0",
+  "schema_version": "1.338.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -419,9 +419,10 @@
       "BATCH-12-ZIWEI-CNBKSY-HELP-TREE-CONTRACT-LS",
       "BATCH-12-ZIWEI-CNBKSY-HELP-ROOT-CONTENT-CONTRACT-LT",
       "BATCH-12-ZIWEI-CNBKSY-USER-MANUAL-NODE-CONTRACT-LU",
-      "BATCH-12-ZIWEI-CNBKSY-MANUAL-LINK-BINDING-CONTRACT-LV"
+      "BATCH-12-ZIWEI-CNBKSY-MANUAL-LINK-BINDING-CONTRACT-LV",
+      "BATCH-12-ZIWEI-CNBKSY-MANUAL-FILE-IDENTITY-CONTRACT-LW"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-MANUAL-LINK-BINDING-CONTRACT-LV.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-MANUAL-FILE-IDENTITY-CONTRACT-LW.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -1889,7 +1890,12 @@
       "The text-bearing old-platform anchor binds 平台用户手册（老平台）.doc to /common/uploadFile/5efc186123b099148b42c395. Its HTML title/textvalue says 平台用户手册（老平台）.docx, so the .doc versus .docx extension tension must be preserved until file magic/headers are checked.",
       "The text-bearing new-platform anchor binds 平台用户手册（新平台）.docx to https://www.cnbksy.com/common/uploadFile/65e9592f7fa00c5f66cdb1f5. An additional empty anchor points to https://www.cnbksy.com/common/uploadFile/65c1fb6bf74f7f939f8cec86 with title 平台用户手册.docx; it is auxiliary/unbound and must not replace the explicit text-bearing new-platform binding.",
       "An image src /common/uploadFile/65d85a357fa00c579dfdc79e carries alt=icon_txt.gif and is an image/icon context, not a text-bound manual file. Top-level linkUrl/linkItemId are null.",
-      "Next gate 12LW performs only bounded Range GET identity checks on the two text-bearing old/new manual hrefs, captures status/content headers and first-byte magic, follows no redirects and does not parse manual text. Matrix remains 198 / 166 / 10; provenance defects remain 17/17; algorithm defects / reopens / collapses remain 0."
+      "Next gate 12LW performs only bounded Range GET identity checks on the two text-bearing old/new manual hrefs, captures status/content headers and first-byte magic, follows no redirects and does not parse manual text. Matrix remains 198 / 166 / 10; provenance defects remain 17/17; algorithm defects / reopens / collapses remain 0.",
+      "Batch 12LW exact-head run 36893554861 / job 110474819282 / artifact 11179105119 performs bounded Range GET identity checks only on the two text-bearing manual hrefs, follows no redirects, reads at most 8192 bytes per object and parses no manual body text.",
+      "The old-platform text-bound object /common/uploadFile/5efc186123b099148b42c395 is HTTP 200 from ESA; Content-Disposition names 平台用户手册.docx and the prefix begins PK/ZIP (504b0304), not OLE CFB. Therefore the visible anchor suffix .doc is stale/inaccurate and the object format is OOXML/ZIP-compatible .docx.",
+      "The new-platform text-bound object /common/uploadFile/65e9592f7fa00c5f66cdb1f5 is HTTP 200 application/vnd.openxmlformats-officedocument.wordprocessingml.document;charset=UTF-8 from ESA; Content-Disposition names 平台用户手册（新平台）.docx and the prefix likewise begins PK/ZIP.",
+      "12LW does not check the auxiliary empty anchor or icon object and does not parse either manual. The next gate 12LX retrieves only the text-bound new-platform manual object, verifies its OOXML package locally, extracts bounded textual/structural evidence and audited search-semantic contexts, and invokes no search endpoint.",
+      "Matrix remains 198 / 166 / 10; provenance defects remain 17/17; chart algorithm defects / reopens / candidate collapses remain 0."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10
