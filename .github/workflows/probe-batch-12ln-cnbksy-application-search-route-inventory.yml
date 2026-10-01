@@ -1,0 +1,135 @@
+name: probe-batch-12ln-cnbksy-application-search-route-inventory
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12ln-cnbksy-application-search-route-inventory.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inventory first-party application search routes statically; invoke none
+        run: |
+          python - <<'PY'
+          import hashlib, html, json, re
+          from pathlib import Path
+          from urllib.parse import urljoin, urlparse
+          import requests
+
+          seed="https://www.cnbksy.com/portal/newsCategoryBrowse/newsContent?id=202"
+          UA={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; CNBKSY application search-route inventory)"}
+
+          def get(url):
+              r=requests.get(url,headers=UA,timeout=45,allow_redirects=False)
+              raw=r.content
+              return r,raw,raw.decode("utf-8","replace")
+
+          sr,sraw,stxt=get(seed)
+          nav=None
+          for m in re.finditer(r'''(?is)<a\b[^>]*?href\s*=\s*["']([^"']+)["'][^>]*>(.*?)</a>''',stxt):
+              href=html.unescape(m.group(1)).strip()
+              label=html.unescape(re.sub(r"<[^>]+>"," ",m.group(2)))
+              label=re.sub(r"\s+"," ",label).strip()
+              if "信息动态" in label:
+                  nav=urljoin(seed,href)
+                  break
+          if not nav:
+              raise SystemExit("source-emitted 信息动态 navigation missing")
+          nr,nraw,ntxt=get(nav)
+
+          sources=[]
+          for i,m in enumerate(re.finditer(r"(?is)<script\b(?![^>]*\bsrc\s*=)[^>]*>(.*?)</script>",ntxt)):
+              sources.append({"kind":"inline","id":f"inline:{i}","url":None,"text":m.group(1)})
+
+          ext=[]
+          for m in re.finditer(r'''(?is)<script\b[^>]*?src\s*=\s*["']([^"']+)["']''',ntxt):
+              u=urljoin(nav,html.unescape(m.group(1)).strip())
+              if u not in ext: ext.append(u)
+
+          app_ext=[
+              u for u in ext
+              if (
+                  "/public/portal/js/" in u
+                  or "/public/common/js/" in u
+                  or "/public/layui/" in u
+              )
+          ]
+          for u in app_ext:
+              try:
+                  r,raw,txt=get(u)
+                  sources.append({"kind":"external","id":u,"url":u,"status":r.status_code,"sha256":hashlib.sha256(raw).hexdigest(),"text":txt})
+              except Exception as e:
+                  sources.append({"kind":"external","id":u,"url":u,"error":type(e).__name__+": "+str(e)[:500],"text":""})
+
+          route_rows=[]
+          for src in sources:
+              txt=src.get("text","")
+              # Literal /search routes only; do not infer or compose new paths.
+              lits=sorted(set(re.findall(r'''(?i)["'](/search[^"'\s<]*)["']''',txt)))
+              for lit in lits:
+                  positions=[m.start() for m in re.finditer(re.escape(lit),txt)]
+                  contexts=[]
+                  for pos in positions[:5]:
+                      a=max(0,pos-2200); b=min(len(txt),pos+len(lit)+3200)
+                      ctx=re.sub(r"\s+"," ",txt[a:b]).strip()
+                      contexts.append({"context":ctx[:7000],"sha256":hashlib.sha256(ctx.encode("utf-8")).hexdigest()})
+                  route_rows.append({
+                      "source_id":src["id"],"source_kind":src["kind"],
+                      "route_literal":lit,"occurrence_count":len(positions),"contexts":contexts
+                  })
+
+          search_functions=[]
+          for src in sources:
+              txt=src.get("text","")
+              for m in re.finditer(r"(?i)(?:function\s+([A-Za-z_$][\w$]*search[\w$]*)\s*\([^)]*\)|([A-Za-z_$][\w$]*search[\w$]*)\s*=\s*function\s*\([^)]*\))",txt):
+                  name=m.group(1) or m.group(2)
+                  a=max(0,m.start()-1000); b=min(len(txt),m.start()+5000)
+                  ctx=re.sub(r"\s+"," ",txt[a:b]).strip()
+                  search_functions.append({"source_id":src["id"],"name":name,"context":ctx[:7000],"sha256":hashlib.sha256(ctx.encode("utf-8")).hexdigest()})
+
+          out={
+              "source_contract":{
+                  "parent_batch":"12LM",
+                  "seed_url":seed,
+                  "source_emitted_navigation_url":nav,
+                  "source_emitted_external_script_count":len(ext),
+                  "first_party_application_script_count":len(app_ext),
+                  "discovered_search_route_invoked":False,
+                  "target_query_submitted":False
+              },
+              "seed_response":{"status":sr.status_code,"sha256":hashlib.sha256(sraw).hexdigest()},
+              "navigation_response":{"status":nr.status_code,"sha256":hashlib.sha256(nraw).hexdigest()},
+              "first_party_application_script_urls":app_ext,
+              "search_route_rows":route_rows,
+              "search_route_literal_count":len(route_rows),
+              "search_named_function_contexts":search_functions,
+              "adjudication":{
+                  "static_route_inventory_completed":True,
+                  "discovered_search_route_invoked":False,
+                  "target_query_submitted":False,
+                  "login_used":False,
+                  "registration_used":False
+              },
+              "security":{
+                  "source_emitted_gets_only":True,
+                  "application_search_post_used":False,
+                  "private_endpoint_guessed":False,
+                  "captcha_bypass_used":False,
+                  "tls_verification_disabled":False
+              }
+          }
+          Path("batch-12ln-cnbksy-application-search-route-inventory.json").write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12ln-cnbksy-application-search-route-inventory
+          path: batch-12ln-cnbksy-application-search-route-inventory.json

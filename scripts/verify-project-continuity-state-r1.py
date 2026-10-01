@@ -842,9 +842,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-CNBKSY-INDEXED-NEWS-NAVIGATION-CONTRACT-LJ",
     "BATCH-12-ZIWEI-CNBKSY-SHARED-SEARCH-CALLSITE-CONTEXT-LK",
     "BATCH-12-ZIWEI-CNBKSY-BKSY-POST-TRANSPORT-CONTRACT-LL",
+    "BATCH-12-ZIWEI-CNBKSY-COMMON-HINTS-NULL-POST-LM",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-BKSY-POST-TRANSPORT-CONTRACT-LL.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-COMMON-HINTS-NULL-POST-LM.md"
 
 
 def fail(message: str) -> None:
@@ -12791,6 +12792,45 @@ def main() -> int:
         fail("Batch 12LL state version regressed below 1.327.0")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12LL latest-batch document mismatch")
+
+    # Batch 12LM: exact anonymous null-payload common-hints POST returns JSON [].
+    lm_batch = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-COMMON-HINTS-NULL-POST-LM.md"
+    lm_evidence = ROOT / "docs/research/ZIWEI-CNBKSY-COMMON-HINTS-NULL-POST-R1.json"
+    if not lm_batch.is_file() or not lm_evidence.is_file():
+        fail("Batch 12LM continuity artifact missing")
+    lm = json.loads(lm_evidence.read_text(encoding="utf-8"))
+    if lm.get("batch_id") != "BATCH-12-ZIWEI-CNBKSY-COMMON-HINTS-NULL-POST-LM":
+        fail("Batch 12LM evidence identity mismatch")
+    lmr = lm.get("request_contract", {})
+    if lmr.get("endpoint") != "/common/hints" or lmr.get("method") != "POST" or lmr.get("payload") != "NULL_EMPTY":
+        fail("Batch 12LM request contract regressed")
+    if lmr.get("csrf_value_recorded") is not False or lmr.get("target_term_submitted") is not False:
+        fail("Batch 12LM CSRF/target-term firewall regressed")
+    lmresp = lm.get("response", {})
+    if lmresp.get("http_status") != 200 or lmresp.get("bytes") != 2 or lmresp.get("sha256") != "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945":
+        fail("Batch 12LM response identity regressed")
+    if lmresp.get("parsed_json_type") != "list" or lmresp.get("item_count") != 0 or lmresp.get("exact_semantic_value") != "EMPTY_LIST":
+        fail("Batch 12LM empty-list semantics regressed")
+    lma = lm.get("adjudication", {})
+    if lma.get("common_hints_anonymous_route_operational") is not True or lma.get("anonymous_hint_items_observed") is not False:
+        fail("Batch 12LM route/hint adjudication regressed")
+    if lma.get("target_absence_inference_authorized") is not False or lma.get("target_query_submitted") is not False:
+        fail("Batch 12LM target-absence/no-query firewall regressed")
+    lmp = lm.get("controlling_probe", {})
+    if lmp.get("workflow_run_id") != 36885859818 or lmp.get("workflow_job_id") != 110448859960 or lmp.get("artifact_id") != 11174726972:
+        fail("Batch 12LM controlling probe identity regressed")
+    if lmp.get("artifact_digest") != "sha256:daa64849ff045f2555cd696bcf23f07b62edb12e1007df87f770f5c1ae4d7aa7":
+        fail("Batch 12LM artifact digest regressed")
+    if "BATCH-12-ZIWEI-CNBKSY-COMMON-HINTS-NULL-POST-LM" not in audit_state.get("completed_batches", ()):
+        fail("Batch 12LM missing from completed state")
+    try:
+        schema12lm = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12LM state version is not numeric")
+    if schema12lm < (1, 328, 0):
+        fail("Batch 12LM state version regressed below 1.328.0")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12LM latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

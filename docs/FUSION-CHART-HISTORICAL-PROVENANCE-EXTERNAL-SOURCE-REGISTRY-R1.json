@@ -12043,7 +12043,7 @@
       "provider": "上海图书馆《全国报刊索引》编辑部",
       "url": "https://www.cnbksy.com/",
       "source_role": "FIRST_PARTY_NEWSPAPER_INDEX_PUBLIC_ACCESS_SURFACE",
-      "quality_notes": "Batches 12LF–12LK move from the root-412 boundary to a source-emitted /common/hints callsite without target queries. Batch 12LL statically closes bksy.post in source-emitted common.js: CSRF is appended to the URL query, transport is POST, data=params, processData defaults true, dataType defaults json, and async defaults true; bksy.post has no explicit contentType override. bksy.jsonPost is a separate application/json transport. No application endpoint is invoked in 12LL.",
+      "quality_notes": "Batches 12LF–12LL close the access, hint-callsite and transport contracts without a target query. Batch 12LM executes only the source-closed anonymous POST /common/hints with page CSRF and null payload; it returns HTTP 200 JSON [] (2 bytes). Thus the hint endpoint is operational but supplies no anonymous hint items in this context. This is not evidence of target/database absence. No target term, login or credential value is used.",
       "batch_12lf": {
         "workflow_run_id": 36877911774,
         "workflow_job_id": 110421993332,
@@ -12175,6 +12175,25 @@
         "application_endpoint_invoked": false,
         "target_query_submitted": false,
         "research_artifact": "docs/research/ZIWEI-CNBKSY-BKSY-POST-TRANSPORT-CONTRACT-R1.json"
+      },
+      "batch_12lm": {
+        "workflow_run_id": 36885859818,
+        "workflow_job_id": 110448859960,
+        "artifact_id": 11174726972,
+        "artifact_digest": "sha256:daa64849ff045f2555cd696bcf23f07b62edb12e1007df87f770f5c1ae4d7aa7",
+        "exact_head": "81da897ed3e448a075c2f7c39ab965838cbdf347",
+        "endpoint": "/common/hints",
+        "method": "POST",
+        "payload": "NULL_EMPTY",
+        "csrf_value_recorded": false,
+        "response_status": 200,
+        "response_content_type": "application/json;charset=UTF-8",
+        "response_bytes": 2,
+        "response_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "json_type": "list",
+        "item_count": 0,
+        "target_term_submitted": false,
+        "research_artifact": "docs/research/ZIWEI-CNBKSY-COMMON-HINTS-NULL-POST-R1.json"
       }
     }
   ],
