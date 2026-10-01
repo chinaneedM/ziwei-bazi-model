@@ -1,0 +1,126 @@
+name: probe-batch-12jv-nlc-wenhui-resource-title-search
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12jv-nlc-wenhui-resource-title-search.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run only the page-emitted anonymous GET title searches
+        run: |
+          python - <<'PY'
+          import hashlib, json, re
+          from pathlib import Path
+          from urllib.parse import urlencode
+          import requests
+
+          UA={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; NLC public title-search calibration)"}
+          BASE="http://read.nlc.cn/outRes/outResList"
+          TERMS=[
+            "文汇报60年报纸光盘",
+            "文汇报",
+            "文匯報",
+            "文汇报61年全文数据光盘",
+          ]
+
+          def sha(b): return hashlib.sha256(b).hexdigest()
+          def decode(raw):
+              for enc in ("utf-8","utf-8-sig","gb18030","gbk"):
+                  try: return raw.decode(enc),enc
+                  except UnicodeDecodeError: pass
+              return raw.decode("utf-8","replace"),"utf-8-replacement"
+          def clean(s):
+              return re.sub(r"\s+"," ",re.sub(r"<[^>]+>"," ",s)).strip()
+
+          results=[]
+          for term in TERMS:
+              # Exact contract emitted by getOutResSearch():
+              # /outRes/outResList?type=全部&searchName=<ourReswords>
+              url=BASE+"?"+urlencode({"type":"全部","searchName":term})
+              item={"term":term,"url":url}
+              try:
+                  r=requests.get(url,headers=UA,timeout=45,allow_redirects=True)
+                  raw=r.content; txt,enc=decode(raw)
+                  counts=[]
+                  for pat in (r"共\s*(\d+)\s*条", r"pageTotal\s*=\s*['\"]?(\d+)"):
+                      for m in re.finditer(pat,txt,re.I):
+                          try: counts.append(int(m.group(1)))
+                          except: pass
+                  term_contexts=[]
+                  for token in ("文汇报60年报纸光盘","文汇报61年全文数据光盘","文汇报","文匯報"):
+                      for m in re.finditer(re.escape(token),txt):
+                          s=max(0,m.start()-350); e=min(len(txt),m.end()+900)
+                          snippet=clean(txt[s:e])[:1200]
+                          if snippet and snippet not in term_contexts: term_contexts.append(snippet)
+                          if len(term_contexts)>=20: break
+                  # capture source-emitted result/item URLs around Wenhui tokens only
+                  hrefs=[]
+                  for m in re.finditer(r'href=["\']([^"\']+)["\']',txt,re.I):
+                      href=m.group(1)
+                      start=max(0,m.start()-500); end=min(len(txt),m.end()+800)
+                      ctx=txt[start:end]
+                      if ("文汇报" in ctx or "文匯報" in ctx) and href not in hrefs:
+                          hrefs.append(href)
+                  item.update({
+                    "http_status":r.status_code,
+                    "final_url":r.url,
+                    "bytes":len(raw),
+                    "sha256":sha(raw),
+                    "decode_used":enc,
+                    "count_candidates":sorted(set(counts)),
+                    "query_term_present_in_response":term in txt,
+                    "wenhui_simplified_present":"文汇报" in txt,
+                    "wenhui_traditional_present":"文匯報" in txt,
+                    "cdrom60_exact_present":"文汇报60年报纸光盘" in txt,
+                    "cdrom61_exact_present":"文汇报61年全文数据光盘" in txt,
+                    "contexts":term_contexts,
+                    "source_emitted_wenhui_hrefs":hrefs[:30],
+                  })
+              except Exception as e:
+                  item["error_class"]=type(e).__name__
+                  item["error"]=str(e)[:300]
+              results.append(item)
+
+          out={
+            "contract":{
+              "source":"Batch 12JU direct page-emitted getOutResSearch()",
+              "method":"GET",
+              "path":"/outRes/outResList",
+              "parameters":{"type":"全部","searchName":"<ourReswords>"},
+              "private_endpoint_guessed":False
+            },
+            "queries":results,
+            "adjudication":{
+              "anonymous_public_title_search_executed":True,
+              "only_source_emitted_contract_used":True,
+              "login_used":False,
+              "reader_account_used":False,
+              "registration_used":False,
+              "target_person_query_submitted":False,
+              "target_date_query_submitted":False,
+              "direct_1951_08_18_page_reviewed":False
+            },
+            "security":{
+              "login_used":False,"reader_account_used":False,"registration_used":False,
+              "private_endpoint_guessed":False,"captcha_bypass_used":False,
+              "tls_verification_disabled":False,"state_changing_request_used":False
+            }
+          }
+          Path("batch-12jv-nlc-wenhui-resource-title-search.json").write_text(
+              json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12jv-nlc-wenhui-resource-title-search
+          path: batch-12jv-nlc-wenhui-resource-title-search.json
