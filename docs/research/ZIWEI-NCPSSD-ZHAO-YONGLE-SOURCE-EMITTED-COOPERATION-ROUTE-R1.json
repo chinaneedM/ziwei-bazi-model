@@ -1,0 +1,124 @@
+{
+  "schema": "ZIWEI-NCPSSD-ZHAO-YONGLE-SOURCE-EMITTED-COOPERATION-ROUTE-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-NCPSSD-ZHAO-YONGLE-SOURCE-EMITTED-COOPERATION-ROUTE-KG",
+  "prior_batch_id": "BATCH-12-ZIWEI-NLC-WENJIN-ZHAO-YONGLE-ARTICLE-DETAIL-KF",
+  "question": "Does the exact NCPSsd CooperationUser URI source-emitted by the NLC Wenjin article detail anonymously resolve to Zhao Wanli's article metadata/fulltext, or does it terminate at an authentication boundary?",
+  "answer": "The exact source-emitted HTTP URI redirects once to the same NCPSsd CooperationUser path over HTTPS and returns HTTP 200, but the returned page is an NLC-to-NCPSsd cooperation authentication bridge rather than the article. It contains SSO ticket/login logic and permission/error-state handling, with no Zhao title/author metadata, article link, PDF/fulltext URL, or download route. No form is submitted and no SSO URL is followed. Credential-looking gt_123 / gt123 text is treated as inert page template/example content and is not used. Therefore the source-emitted cooperation route is closed as an anonymous SSO/account boundary and does not recover the 1951 article pages.",
+  "controlling_probe": {
+    "workflow": ".github/workflows/probe-batch-12kg-ncpssd-zhao-yongle-source-emitted-route.yml",
+    "exact_head": "ace6538dcca178aa8919463ad2f76ceef3f8d766",
+    "workflow_run_id": 36857003478,
+    "workflow_job_id": 110351771726,
+    "artifact_id": 11158129541,
+    "artifact_name": "batch-12kg-ncpssd-zhao-yongle-source-emitted-route",
+    "artifact_digest": "sha256:50cf88454dcd9465914e99f36354bb315e88e0d5f3100b6a8f8946ecc8e112b5"
+  },
+  "source_contract": {
+    "parent_batch": "12KF",
+    "source_emitted_uri": "http://www.ncpssd.org/Cooperation/CooperationUser.aspx?UrlReferrer=http%3A%2F%2Fwww.ncpssd.org%2FLiterature%2Farticleinfo.aspx%3Fid%3DMTAwMjQ2MjkwMw%3D%3D%26type%3Dam91cm5hbEFydGljbGU%3D%26datatype%3Dam91cm5hbEFydGljbGU%3D%26typename%3D5Lit5paH5pyf5YiK5paH56ug",
+    "route_guessed": false,
+    "provider_identifier_guessed": false
+  },
+  "response": {
+    "initial_status": 302,
+    "redirect_count": 1,
+    "redirect_location": "https://www.ncpssd.org:443/Cooperation/CooperationUser.aspx?UrlReferrer=http%3A%2F%2Fwww.ncpssd.org%2FLiterature%2Farticleinfo.aspx%3Fid%3DMTAwMjQ2MjkwMw%3D%3D%26type%3Dam91cm5hbEFydGljbGU%3D%26datatype%3Dam91cm5hbEFydGljbGU%3D%26typename%3D5Lit5paH5pyf5YiK5paH56ug",
+    "final_status": 200,
+    "final_url": "https://www.ncpssd.org:443/Cooperation/CooperationUser.aspx?UrlReferrer=http%3A%2F%2Fwww.ncpssd.org%2FLiterature%2Farticleinfo.aspx%3Fid%3DMTAwMjQ2MjkwMw%3D%3D%26type%3Dam91cm5hbEFydGljbGU%3D%26datatype%3Dam91cm5hbEFydGljbGU%3D%26typename%3D5Lit5paH5pyf5YiK5paH56ug",
+    "final_host": "www.ncpssd.org",
+    "content_type": "text/html;charset=UTF-8",
+    "bytes": 15630,
+    "sha256": "8566a299bdf36b03fcdc19990be8c361eaa852d4bd9ca157dd4d3e291333c390",
+    "decode_used": "utf-8"
+  },
+  "anonymous_surface": {
+    "zhao_title_present": false,
+    "zhao_author_present": false,
+    "article_metadata_present": false,
+    "pdf_or_fulltext_url_present": false,
+    "article_like_url_present": false,
+    "form_present": true,
+    "form_submitted": false,
+    "sso_ticket_route_emitted": "https://sso1.nlc.cn/sso/foreign/authenManager/get-sso-ticket?rand=",
+    "sso_login_route_emitted": "https://sso1.nlc.cn/sso/foreign/authenManager/sso-login",
+    "nlc_login_route_emitted": true,
+    "permission_state_markers": [
+      "没有权限访问当前资源",
+      "用户账号不存在",
+      "没有可访问的资源列表",
+      "令牌不能空",
+      "令牌不存在"
+    ],
+    "credential_like_template_text_observed": true,
+    "credential_like_template_text_used": false
+  },
+  "adjudication": {
+    "exact_source_emitted_uri_followed": true,
+    "only_server_redirects_followed": true,
+    "cooperation_route_class": "ANONYMOUS_SSO_ACCOUNT_BOUNDARY",
+    "article_page_reached": false,
+    "public_article_metadata_recovered": false,
+    "public_fulltext_or_pdf_recovered": false,
+    "direct_1951_article_pages_reviewed": false,
+    "direct_wenwu_1951_no9_pp221_233": "NOT_REVIEWED",
+    "direct_wenhui_1951_08_18": "NOT_REVIEWED",
+    "direct_2011_p197": "NOT_REVIEWED"
+  },
+  "evidence_firewall": {
+    "encoded_UrlReferrer_not_separately_requested": true,
+    "sso_bridge_does_not_equal_article_page": true,
+    "template_credential_like_text_is_not_authorization": true,
+    "login_or_ticket_routes_not_followed": true,
+    "cooperation_failure_or_auth_boundary_does_not_disprove_provider_holding": true
+  },
+  "security": {
+    "anonymous_get_only": true,
+    "login_used": false,
+    "reader_account_used": false,
+    "registration_used": false,
+    "post_request_used": false,
+    "form_submitted": false,
+    "sso_route_followed": false,
+    "provider_identifier_guessed": false,
+    "private_endpoint_guessed": false,
+    "credential_like_template_text_used": false,
+    "captcha_bypass_used": false,
+    "tls_verification_disabled": false,
+    "state_changing_request_used": false
+  },
+  "transmission_impact": {
+    "status": "NONE_ACCESS_BOUNDARY_ONLY",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": [],
+    "reason": "Authentication/access route only; no primary 1951 text or historical transmission relation."
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Do not continue through the NLC SSO cooperation bridge anonymously; that route is closed at the account boundary.",
+    "Inspect only NCPSsd first-party public home/search surfaces and source-emitted forms/scripts to recover a reproducible anonymous public search contract before submitting any Zhao-title query.",
+    "If a public search contract is recovered, query the traditional title/author forms without decoding or reusing hidden identifiers from the SSO bridge.",
+    "Continue Shanghai 文汇报 1951-08-18 and 2011 赵万里文集 vol.1 p.197 direct discovery in parallel."
+  ],
+  "updated_at": "2026-10-01"
+}

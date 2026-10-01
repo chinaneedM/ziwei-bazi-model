@@ -1,0 +1,87 @@
+name: probe-batch-12kh-ncpssd-public-search-contract
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12kh-ncpssd-public-search-contract.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inspect NCPSsd public first-party search contract without submitting a query
+        run: |
+          python - <<'PY'
+          import hashlib, html, json, re
+          from html.parser import HTMLParser
+          from pathlib import Path
+          from urllib.parse import urljoin, urlparse
+          import requests
+
+          TARGETS=["https://www.ncpssd.cn/","https://www.ncpssd.org/"]
+          UA={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; NCPSsd public search-contract calibration)"}
+
+          def sha(b): return hashlib.sha256(b).hexdigest()
+          def decode(raw):
+              for enc in ("utf-8","utf-8-sig","gb18030","gbk","big5"):
+                  try:return raw.decode(enc),enc
+                  except UnicodeDecodeError:pass
+              return raw.decode("utf-8","replace"),"utf-8-replacement"
+
+          class Scan(HTMLParser):
+              def __init__(self):
+                  super().__init__(convert_charrefs=False)
+                  self.forms=[]; self.inputs=[]; self.scripts=[]; self.anchors=[]
+              def handle_starttag(self,tag,attrs):
+                  d={k:v for k,v in attrs}; raw=self.get_starttag_text()
+                  if tag=="form": self.forms.append({"attrs":d,"raw":raw})
+                  elif tag in ("input","select","textarea","button"): self.inputs.append({"tag":tag,"attrs":d,"raw":raw})
+                  elif tag=="script" and d.get("src"): self.scripts.append(d["src"])
+                  elif tag=="a" and d.get("href"): self.anchors.append({"attrs":d,"raw":raw})
+
+          s=requests.Session(); s.headers.update(UA)
+          surfaces=[]; all_scripts=[]
+          for u in TARGETS:
+              row={"requested_url":u}
+              try:
+                  r=s.get(u,timeout=45,allow_redirects=True)
+                  raw=r.content; txt,enc=decode(raw); sc=Scan(); sc.feed(txt)
+                  row.update({"http_status":r.status_code,"final_url":r.url,"final_host":urlparse(r.url).hostname,"bytes":len(raw),"sha256":sha(raw),"decode_used":enc,"forms":sc.forms[:40],"input_controls":sc.inputs[:120],"search_like_anchors":[a for a in sc.anchors if re.search(r"search|检索|搜索|literature|article|journal",html.unescape(a["raw"]),re.I)][:80]})
+                  for src in sc.scripts:
+                      su=urljoin(r.url,html.unescape(src)); host=urlparse(su).hostname or ""
+                      if "ncpssd" in host and su not in all_scripts: all_scripts.append(su)
+              except Exception as e:
+                  row.update({"error_class":type(e).__name__,"error":str(e)[:500]})
+              surfaces.append(row)
+
+          script_rows=[]; excerpts=[]
+          for u in all_scripts[:50]:
+              row={"url":u}
+              try:
+                  r=s.get(u,timeout=30,allow_redirects=True)
+                  raw=r.content; txt,enc=decode(raw)
+                  row.update({"http_status":r.status_code,"final_url":r.url,"bytes":len(raw),"sha256":sha(raw),"decode_used":enc})
+                  for m in re.finditer(r"(?i)(search|检索|搜索|keyword|query|literature|article|journal|window\.location|location\.href|ajax|url\s*:)",txt):
+                      a=max(0,m.start()-1000); b=min(len(txt),m.start()+4500); frag=txt[a:b]
+                      excerpts.append({"script_url":r.url,"script_sha256":sha(raw),"start":a,"excerpt_sha256":sha(frag.encode("utf-8")),"raw_excerpt":frag})
+                      if len(excerpts)>=160: break
+              except Exception as e:
+                  row.update({"error_class":type(e).__name__,"error":str(e)[:500]})
+              script_rows.append(row)
+              if len(excerpts)>=160: break
+
+          out={"source_contract":{"parent_batch":"12KG","targets":TARGETS,"query_submitted":False,"search_endpoint_guessed":False,"search_parameter_guessed":False},"public_surfaces":surfaces,"source_emitted_first_party_scripts":script_rows,"search_contract_excerpts":excerpts,"adjudication":{"query_submitted":False,"form_submitted":False,"login_used":False,"only_first_party_public_pages_and_source_emitted_scripts_fetched":True},"security":{"anonymous_get_only":True,"reader_account_used":False,"registration_used":False,"post_request_used":False,"state_changing_request_used":False,"private_endpoint_guessed":False,"search_endpoint_guessed":False,"search_parameter_guessed":False,"captcha_bypass_used":False,"tls_verification_disabled":False}}
+          Path("batch-12kh-ncpssd-public-search-contract.json").write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12kh-ncpssd-public-search-contract
+          path: batch-12kh-ncpssd-public-search-contract.json

@@ -11683,6 +11683,29 @@
         "direct_article_pages_reviewed": false,
         "research_artifact": "docs/research/ZIWEI-NLC-WENJIN-ZHAO-YONGLE-ARTICLE-DETAIL-R1.json"
       }
+    },
+    {
+      "source_id": "EXT-NCPSSD-NLC-COOPERATION-SSO-BOUNDARY-2026",
+      "title": "国家哲学社会科学文献中心 / 国家图书馆 CooperationUser 匿名 SSO 边界",
+      "provider": "国家哲学社会科学文献中心（NCPSsd）",
+      "url": "https://www.ncpssd.org/",
+      "source_role": "FIRST_PARTY_COOPERATION_AUTHENTICATION_BOUNDARY_REACHED_FROM_NLC_SOURCE_EMITTED_ROUTE",
+      "quality_notes": "Batch 12KG follows only the exact NCPSsd CooperationUser URI emitted by NLC Wenjin and its single server redirect. The final HTTP 200 page is an NLC SSO cooperation/authentication bridge with no Zhao article metadata, PDF/fulltext or article link. No login or form submission is performed; credential-like template/example text is not used.",
+      "batch_12kg": {
+        "workflow_run_id": 36857003478,
+        "workflow_job_id": 110351771726,
+        "artifact_id": 11158129541,
+        "artifact_digest": "sha256:50cf88454dcd9465914e99f36354bb315e88e0d5f3100b6a8f8946ecc8e112b5",
+        "source_emitted_http_uri": "http://www.ncpssd.org/Cooperation/CooperationUser.aspx?UrlReferrer=http%3A%2F%2Fwww.ncpssd.org%2FLiterature%2Farticleinfo.aspx%3Fid%3DMTAwMjQ2MjkwMw%3D%3D%26type%3Dam91cm5hbEFydGljbGU%3D%26datatype%3Dam91cm5hbEFydGljbGU%3D%26typename%3D5Lit5paH5pyf5YiK5paH56ug",
+        "final_https_url": "https://www.ncpssd.org:443/Cooperation/CooperationUser.aspx?UrlReferrer=http%3A%2F%2Fwww.ncpssd.org%2FLiterature%2Farticleinfo.aspx%3Fid%3DMTAwMjQ2MjkwMw%3D%3D%26type%3Dam91cm5hbEFydGljbGU%3D%26datatype%3Dam91cm5hbEFydGljbGU%3D%26typename%3D5Lit5paH5pyf5YiK5paH56ug",
+        "final_response_sha256": "8566a299bdf36b03fcdc19990be8c361eaa852d4bd9ca157dd4d3e291333c390",
+        "route_class": "ANONYMOUS_SSO_ACCOUNT_BOUNDARY",
+        "article_page_reached": false,
+        "public_fulltext_or_pdf_recovered": false,
+        "login_used": false,
+        "form_submitted": false,
+        "research_artifact": "docs/research/ZIWEI-NCPSSD-ZHAO-YONGLE-SOURCE-EMITTED-COOPERATION-ROUTE-R1.json"
+      }
     }
   ],
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md",

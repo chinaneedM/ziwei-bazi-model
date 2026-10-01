@@ -386,6 +386,8 @@ ZIWEI_NLC_ZHAO_KE_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-
 ZIWEI_NLC_ZHAO_KE_EVIDENCE = ROOT / "docs/research/ZIWEI-NLC-WENJIN-ZHAO-YONGLE-ARTICLE-TITLE-SEARCH-R1.json"
 ZIWEI_NLC_ZHAO_KF_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-WENJIN-ZHAO-YONGLE-ARTICLE-DETAIL-KF.md"
 ZIWEI_NLC_ZHAO_KF_EVIDENCE = ROOT / "docs/research/ZIWEI-NLC-WENJIN-ZHAO-YONGLE-ARTICLE-DETAIL-R1.json"
+ZIWEI_NCPSSD_KG_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NCPSSD-ZHAO-YONGLE-SOURCE-EMITTED-COOPERATION-ROUTE-KG.md"
+ZIWEI_NCPSSD_KG_EVIDENCE = ROOT / "docs/research/ZIWEI-NCPSSD-ZHAO-YONGLE-SOURCE-EMITTED-COOPERATION-ROUTE-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -803,9 +805,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-NLC-WENJIN-WENHUI-2004-ANONYMOUS-READING-VARIABLES-KD",
     "BATCH-12-ZIWEI-NLC-WENJIN-ZHAO-YONGLE-ARTICLE-TITLE-SEARCH-KE",
     "BATCH-12-ZIWEI-NLC-WENJIN-ZHAO-YONGLE-ARTICLE-DETAIL-KF",
+    "BATCH-12-ZIWEI-NCPSSD-ZHAO-YONGLE-SOURCE-EMITTED-COOPERATION-ROUTE-KG",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-WENJIN-ZHAO-YONGLE-ARTICLE-DETAIL-KF.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NCPSSD-ZHAO-YONGLE-SOURCE-EMITTED-COOPERATION-ROUTE-KG.md"
 
 
 def fail(message: str) -> None:
@@ -11992,6 +11995,43 @@ def main() -> int:
         fail("Batch 12KF state version regressed below 1.296.0")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12KF latest-batch document mismatch")
+
+    # Batch 12KG: NCPSsd source-emitted cooperation route closes at anonymous SSO boundary.
+    for path in (ZIWEI_NCPSSD_KG_BATCH, ZIWEI_NCPSSD_KG_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12KG continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12kg = json.loads(ZIWEI_NCPSSD_KG_EVIDENCE.read_text(encoding="utf-8"))
+    if batch12kg.get("batch_id") != "BATCH-12-ZIWEI-NCPSSD-ZHAO-YONGLE-SOURCE-EMITTED-COOPERATION-ROUTE-KG":
+        fail("Batch 12KG evidence identity mismatch")
+    response12kg = batch12kg.get("response", {})
+    if response12kg.get("initial_status") != 302 or response12kg.get("final_status") != 200 or response12kg.get("sha256") != "8566a299bdf36b03fcdc19990be8c361eaa852d4bd9ca157dd4d3e291333c390":
+        fail("Batch 12KG response identity regressed")
+    surface12kg = batch12kg.get("anonymous_surface", {})
+    if surface12kg.get("article_metadata_present") is not False or surface12kg.get("pdf_or_fulltext_url_present") is not False or surface12kg.get("credential_like_template_text_used") is not False:
+        fail("Batch 12KG auth/template firewall regressed")
+    adj12kg = batch12kg.get("adjudication", {})
+    if adj12kg.get("cooperation_route_class") != "ANONYMOUS_SSO_ACCOUNT_BOUNDARY" or adj12kg.get("article_page_reached") is not False or adj12kg.get("direct_1951_article_pages_reviewed") is not False:
+        fail("Batch 12KG route/direct-text adjudication regressed")
+    sec12kg = batch12kg.get("security", {})
+    for key in ("login_used","reader_account_used","registration_used","post_request_used","form_submitted","sso_route_followed","credential_like_template_text_used","captcha_bypass_used","tls_verification_disabled","state_changing_request_used"):
+        if sec12kg.get(key) is not False:
+            fail(f"Batch 12KG security boundary regressed: {key}")
+    acct12kg = batch12kg.get("accounting", {})
+    if acct12kg.get("matrix_rows") != 198 or acct12kg.get("audited_rows") != 166 or acct12kg.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12KG accounting regressed")
+    reg12kg = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    if next((x for x in reg12kg.get("sources", []) if x.get("source_id") == "EXT-NCPSSD-NLC-COOPERATION-SSO-BOUNDARY-2026"), None) is None:
+        fail("Batch 12KG registry binding missing")
+    if "BATCH-12-ZIWEI-NCPSSD-ZHAO-YONGLE-SOURCE-EMITTED-COOPERATION-ROUTE-KG" not in audit_state.get("completed_batches", ()):
+        fail("Batch 12KG missing from completed state")
+    try:
+        schema12kg = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12KG state version is not numeric")
+    if schema12kg < (1, 297, 0):
+        fail("Batch 12KG state version regressed below 1.297.0")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12KG latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")
