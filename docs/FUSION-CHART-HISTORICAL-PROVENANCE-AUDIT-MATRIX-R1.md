@@ -1100,3 +1100,15 @@ Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZH
 - Direct 2011 p.197 and direct 1951 《文物参考资料》 pp.221–233 remain NOT_REVIEWED. Product/accounting remains 198 / 166 / 10, provenance defects 17/17, zero chart-algorithm defects/reopens/candidate collapses, and `TRANSMISSION_IMPACT=NONE`.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHAO-WANLI-WENHUIBAO-1951-0818-SASS-HOLDING-ROUTE-JJ.md`. Research record: `docs/research/ZIWEI-ZHAO-WANLI-WENHUIBAO-1951-0818-SASS-HOLDING-ROUTE-R1.json`.
+
+
+## Progress — Batch 12JK
+
+- National Library of China's official-hosted Liu Peng review PDF is directly recovered: 755,701 bytes / 17 pages / SHA-256 `08bf6adcf9a2d200128a80b26156f9de06731094426a116c44ae02386822af20`.
+- No-OCR extraction of PDF page 5 / printed page 10 closes the bibliographic bundle: Zhao Wanli, 《永乐大典展览的意义——一九五一年八月北京图书馆举办》, 《文物参考资料》, 1951年第9期, pp.221–233.
+- Probe run `36829969296` / job `110264093618` / artifact `11147240797` / digest `sha256:4c19f7cff9fdec4c2e24b8fef12578345ba8c195cc3594810924311a2a215c60` reproduces the official PDF and target text-layer bundle without OCR.
+- The target review page contains neither 《文汇报》 nor 8月18日, but that omission has zero authority to disprove the Batch 12JJ secondary newspaper lead. Modern review bibliography is not primary 1951 publication evidence.
+- Therefore Wenwu issue-9 is HIGH-confidence modern institutional bibliographic control; 1951-08-18 Shanghai Wenhui remains `SECONDARY_LEAD_UNVERIFIED_BY_PRIMARY_PAGE`; first-publication status and Wenhui↔Wenwu textual/transmission relation remain unresolved.
+- No direct 1951 target page or 2011 p.197 is newly reviewed. Product/accounting remains 198 / 166 / 10, provenance defects 17/17, and zero chart-algorithm defects/reopens/candidate collapses.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHAO-WANLI-WENWU-WENHUI-BIBLIOGRAPHIC-TENSION-JK.md`. Research record: `docs/research/ZIWEI-ZHAO-WANLI-WENWU-WENHUI-BIBLIOGRAPHIC-TENSION-R1.json`.

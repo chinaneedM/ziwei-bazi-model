@@ -1,0 +1,130 @@
+{
+  "schema": "ZIWEI-ZHAO-WANLI-WENWU-WENHUI-BIBLIOGRAPHIC-TENSION-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-ZHAO-WANLI-WENWU-WENHUI-BIBLIOGRAPHIC-TENSION-JK",
+  "prior_batch_id": "BATCH-12-ZIWEI-ZHAO-WANLI-WENHUIBAO-1951-0818-SASS-HOLDING-ROUTE-JJ",
+  "question": "How should the secondary chronology claim of a 1951-08-18 Shanghai 《文汇报》 publication be reconciled with an official National Library of China scholarly review that bibliographically records Zhao Wanli's article in 《文物参考资料》 1951 no.9 pp.221-233?",
+  "answer": "The official NLC-hosted scholarly review PDF provides a stronger modern bibliographic control for the 《文物参考资料》 carrier: its PDF page 5 / printed page 10 directly lists Zhao Wanli's 《永乐大典展览的意义——一九五一年八月北京图书馆举办》 in 《文物参考资料》1951年第9期, pp.221-233. This does not resolve first publication. The target review page contains neither 《文汇报》 nor 8月18日, but that omission has no authority to disprove an earlier newspaper appearance. Therefore the project preserves a bibliographic tension rather than selecting a winner: Wenwu issue-9 carrier is HIGH-confidence modern institutional bibliographic control; the 1951-08-18 Shanghai Wenhui claim remains a secondary lead pending direct newspaper-page evidence; Wenhui-to-Wenwu transmission/revision/reprint relation remains unresolved.",
+  "official_nlc_review": {
+    "provider": "国家图书馆 / 国家图书馆古籍馆",
+    "article_title": "清末以来（1908—2021）《永乐大典》研究综述",
+    "author": "刘鹏",
+    "affiliation": "国家图书馆古籍馆",
+    "url": "https://www.nlc.cn/upload/attachments/2025-04-08/753b026e.pdf",
+    "http_status": 200,
+    "content_type": "application/pdf",
+    "bytes": 755701,
+    "sha256": "08bf6adcf9a2d200128a80b26156f9de06731094426a116c44ae02386822af20",
+    "pdf_pages": 17,
+    "target_pdf_page": 5,
+    "target_printed_page": 10,
+    "text_layer_extracted": true,
+    "ocr_used": false,
+    "page_text_chars": 1603,
+    "target_bibliographic_bundle": {
+      "zhao_wanli_present": true,
+      "article_title_present": true,
+      "event_subtitle_present": true,
+      "event_subtitle": "一九五一年八月北京图书馆举办",
+      "carrier": "文物参考资料",
+      "year": 1951,
+      "issue": 9,
+      "pages": "221—233",
+      "bundle_closed": true
+    },
+    "target_page_wenhui_present": false,
+    "target_page_aug18_present": false,
+    "omission_is_negative_wenhui_evidence": false,
+    "first_publication_adjudication_authorized": false,
+    "classification": "OFFICIAL_NLC_HOSTED_MODERN_SCHOLARLY_BIBLIOGRAPHIC_CONTROL_NOT_PRIMARY_1951_TEXT"
+  },
+  "controlling_probe": {
+    "workflow": ".github/workflows/probe-batch-12jk-nlc-review-wenwu-wenhui-bibliographic-tension.yml",
+    "exact_head": "a57d0cba8916d3c79ad66ea28705e9572778cfaf",
+    "workflow_run_id": 36829969296,
+    "workflow_job_id": 110264093618,
+    "artifact_id": 11147240797,
+    "artifact_name": "batch-12jk-nlc-review-wenwu-wenhui-bibliographic-tension",
+    "artifact_digest": "sha256:4c19f7cff9fdec4c2e24b8fef12578345ba8c195cc3594810924311a2a215c60"
+  },
+  "compared_evidence": {
+    "wenwu_issue9": {
+      "status": "HIGH_CONFIDENCE_MODERN_INSTITUTIONAL_BIBLIOGRAPHIC_CONTROL",
+      "direct_1951_pages_reviewed": false,
+      "carrier_identity": "文物参考资料 1951年第9期 pp.221-233"
+    },
+    "shanghai_wenhui_1951_08_18": {
+      "status": "SECONDARY_LEAD_UNVERIFIED_BY_PRIMARY_PAGE",
+      "direct_newspaper_page_reviewed": false,
+      "first_party_sass_full_year_holding_route_closed_by_batch_12jj": true
+    }
+  },
+  "adjudication": {
+    "wenwu_issue9_bibliographic_carrier": "CLOSED_AT_OFFICIAL_MODERN_SCHOLARLY_REVIEW_LEVEL",
+    "direct_wenwu_issue9_pp221_233": "NOT_REVIEWED",
+    "wanhui_1951_08_18_publication": "SECONDARY_LEAD_UNVERIFIED_BY_PRIMARY_PAGE",
+    "direct_wenhui_1951_08_18_page": "NOT_REVIEWED",
+    "first_publication_status": "UNRESOLVED",
+    "relationship_wenhui_to_wenwu_issue9": "UNRESOLVED",
+    "possible_relationships_preserved": [
+      "NEWSPAPER_FIRST_THEN_PERIODICAL_REPRINT",
+      "NEWSPAPER_EXCERPT_OR_ABRIDGMENT",
+      "SAME_TITLE_DIFFERENT_REVISION",
+      "SECONDARY_CHRONOLOGY_MISATTRIBUTION",
+      "OTHER_UNRESOLVED_TRANSMISSION"
+    ],
+    "direct_2011_p197": "NOT_REVIEWED",
+    "no_winner_selected": true
+  },
+  "evidence_firewall": {
+    "official_modern_bibliography_is_not_primary_1951_text": true,
+    "omission_of_wenhui_from_review_page_is_not_disproof": true,
+    "secondary_newspaper_claim_is_not_primary_page": true,
+    "same_title_does_not_prove_same_text": true,
+    "periodical_bibliography_does_not_prove_first_publication": true,
+    "newspaper_date_claim_does_not_disprove_periodical_carrier": true,
+    "direct_textual_comparison_required_before_reprint_or_revision_edge": true
+  },
+  "transmission_impact": {
+    "status": "UNRESOLVED_QUESTION_ONLY",
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "1951-08-18 Shanghai Wenhui -> 1951 Wenwu Cankao issue 9 direct reprint edge NOT_PROVED",
+      "1951 Wenwu Cankao issue 9 -> Shanghai Wenhui direct reprint edge NOT_PROVED"
+    ],
+    "unresolved_lineage_questions": [
+      "Did the article first appear in Shanghai 《文汇报》 on 1951-08-18?",
+      "If both carriers exist, are they textually identical, abridged, revised, or independently titled?",
+      "What is the exact chronological relation between the newspaper claim and 《文物参考资料》 issue 9 pp.221-233?"
+    ],
+    "graph_change": false
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Directly recover and review Shanghai 《文汇报》 1951-08-18 before upgrading or rejecting the secondary publication claim.",
+    "Directly recover 《文物参考资料》 1951 no.9 pp.221-233 and compare article text with any recovered Wenhui version before asserting a reprint/revision edge.",
+    "Continue lawful direct recovery of 2011 《赵万里文集》第1卷 p.197 in parallel.",
+    "Do not treat absence of Wenhui metadata in the NLC modern review as proof of no newspaper publication."
+  ],
+  "updated_at": "2026-10-01"
+}
