@@ -16,18 +16,19 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
-      - name: Map only section 4.3 professional-search OOXML media; no OCR
+      - name: Map only the actual body section 4.3 professional-search OOXML media; no OCR
         run: |
           python - <<'PY'
-          import hashlib, io, json, os, posixpath, re, shutil, zipfile
+          import hashlib, io, json, posixpath, re, struct, zipfile
           from pathlib import Path
           import xml.etree.ElementTree as ET
           import requests
 
           url="https://www.cnbksy.com/common/uploadFile/65e9592f7fa00c5f66cdb1f5"
+          expected="51cdcd228ae5cc64708399fd0454c6629606a1fbe3364bd2079eec69742f5dcc"
           r=requests.get(
               url,
-              headers={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; CNBKSY professional-section media map)",
+              headers={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; CNBKSY professional-section media map repaired)",
                        "Referer":"https://www.cnbksy.com/portal/footCategory?id=61"},
               timeout=90,
               allow_redirects=False,
@@ -42,13 +43,15 @@ jobs:
           V="urn:schemas-microsoft-com:vml"
           PR="http://schemas.openxmlformats.org/package/2006/relationships"
 
-          inventory={
+          out={
               "source_contract":{
                   "parent_batch":"12LX",
                   "manual_url":url,
-                  "manual_expected_sha256":"51cdcd228ae5cc64708399fd0454c6629606a1fbe3364bd2079eec69742f5dcc",
-                  "section_start":"4.3 专业检索",
-                  "section_end":"4.4 检索结果可视化",
+                  "manual_expected_sha256":expected,
+                  "section_start_exact":"4.3 专业检索",
+                  "section_end_exact":"4.4 检索结果可视化",
+                  "scope_repair_reason":"initial 12LY run matched the table-of-contents block because it used substring search; this run requires exact normalized heading text and a body-order control after 4. 高级功能",
+                  "initial_run_superseded":36894975137,
                   "ocr_used":False,
                   "search_endpoint_invoked":False,
                   "target_term_submitted":False,
@@ -62,6 +65,7 @@ jobs:
                   "content_disposition":r.headers.get("content-disposition"),
                   "server":r.headers.get("server"),
               },
+              "heading_occurrences":{},
               "section":{
                   "start_found":False,
                   "end_found":False,
@@ -72,7 +76,8 @@ jobs:
                   "media":[],
               },
               "adjudication":{
-                  "section_local_media_mapped":False,
+                  "initial_run_scope_defect_confirmed":True,
+                  "actual_body_section_local_media_mapped":False,
                   "ocr_used":False,
                   "media_text_inferred":False,
                   "search_endpoint_invoked":False,
@@ -88,7 +93,12 @@ jobs:
               },
           }
 
-          if r.status_code==200 and hashlib.sha256(raw).hexdigest()==inventory["source_contract"]["manual_expected_sha256"]:
+          def png_dims(data):
+              if len(data)>=24 and data[:8]==b"\x89PNG\r\n\x1a\n" and data[12:16]==b"IHDR":
+                  return list(struct.unpack(">II",data[16:24]))
+              return None
+
+          if r.status_code==200 and hashlib.sha256(raw).hexdigest()==expected:
               with zipfile.ZipFile(io.BytesIO(raw)) as z:
                   doc=ET.fromstring(z.read("word/document.xml"))
                   body=doc.find(f"{{{W}}}body")
@@ -102,6 +112,7 @@ jobs:
                       }
 
                   children=list(body) if body is not None else []
+
                   def visible_text(el):
                       parts=[]
                       for n in el.iter():
@@ -110,38 +121,46 @@ jobs:
                           elif n.tag==f"{{{W}}}br": parts.append("\n")
                       return re.sub(r"\s+"," ","".join(parts)).strip()
 
-                  start=None; end=None
-                  for idx,ch in enumerate(children):
-                      txt=visible_text(ch)
-                      if start is None and "4.3 专业检索" in txt:
-                          start=idx
-                          inventory["section"]["start_found"]=True
-                          inventory["section"]["body_child_start_index"]=idx
-                          continue
-                      if start is not None and idx>start and "4.4 检索结果可视化" in txt:
-                          end=idx
-                          inventory["section"]["end_found"]=True
-                          inventory["section"]["body_child_end_index"]=idx
-                          break
-                  if start is not None:
-                      if end is None: end=len(children)
+                  texts=[visible_text(ch) for ch in children]
+                  for label in ("4. 高级功能","4.3 专业检索","4.4 检索结果可视化"):
+                      out["heading_occurrences"][label]=[i for i,t in enumerate(texts) if t==label]
+
+                  advanced=out["heading_occurrences"]["4. 高级功能"]
+                  starts=out["heading_occurrences"]["4.3 专业检索"]
+                  ends=out["heading_occurrences"]["4.4 检索结果可视化"]
+                  advanced_idx=advanced[-1] if advanced else None
+                  start=next((i for i in starts if advanced_idx is not None and i>advanced_idx),None)
+                  end=next((i for i in ends if start is not None and i>start),None)
+
+                  if start is not None and end is not None:
+                      out["section"]["start_found"]=True
+                      out["section"]["end_found"]=True
+                      out["section"]["body_child_start_index"]=start
+                      out["section"]["body_child_end_index"]=end
+
                       rid_order=[]
+                      rid_body={}
                       for idx in range(start,end):
                           ch=children[idx]
-                          txt=visible_text(ch)
+                          txt=texts[idx]
                           if txt:
-                              inventory["section"]["text_blocks"].append({"body_index":idx,"text":txt[:1000]})
+                              out["section"]["text_blocks"].append({"body_index":idx,"text":txt[:1200]})
+                          local=[]
                           for blip in ch.iter(f"{{{A}}}blip"):
                               rid=blip.attrib.get(f"{{{R}}}embed") or blip.attrib.get(f"{{{R}}}link")
-                              if rid and rid not in rid_order: rid_order.append(rid)
+                              if rid: local.append(rid)
                           for im in ch.iter(f"{{{V}}}imagedata"):
                               rid=im.attrib.get(f"{{{R}}}id")
-                              if rid and rid not in rid_order: rid_order.append(rid)
-                      inventory["section"]["relationship_ids"]=rid_order
+                              if rid: local.append(rid)
+                          for rid in local:
+                              if rid not in rid_order: rid_order.append(rid)
+                              rid_body.setdefault(rid,[]).append(idx)
+
+                      out["section"]["relationship_ids"]=rid_order
                       for ordinal,rid in enumerate(rid_order):
                           rel=rels.get(rid,{})
                           target=rel.get("target")
-                          rec={"ordinal":ordinal,"rid":rid,**rel}
+                          rec={"ordinal":ordinal,"rid":rid,"body_indices":rid_body.get(rid,[]),**rel}
                           if target and rel.get("target_mode")!="External":
                               norm=posixpath.normpath(posixpath.join("word",target))
                               if norm in z.namelist():
@@ -153,18 +172,17 @@ jobs:
                                       "zip_member":norm,
                                       "bytes":len(data),
                                       "sha256":hashlib.sha256(data).hexdigest(),
+                                      "png_dimensions":png_dims(data),
                                       "exported_file":dest.name,
                                   })
-                          inventory["section"]["media"].append(rec)
+                          out["section"]["media"].append(rec)
 
-                  inventory["adjudication"]["section_local_media_mapped"]=bool(
-                      inventory["section"]["start_found"] and inventory["section"]["end_found"]
-                  )
+                      out["adjudication"]["actual_body_section_local_media_mapped"]=True
 
           (outdir/"batch-12ly-professional-section-media-map.json").write_text(
-              json.dumps(inventory,ensure_ascii=False,indent=2),encoding="utf-8"
+              json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8"
           )
-          print(json.dumps(inventory,ensure_ascii=False,indent=2))
+          print(json.dumps(out,ensure_ascii=False,indent=2))
           PY
       - uses: actions/upload-artifact@v4
         with:
