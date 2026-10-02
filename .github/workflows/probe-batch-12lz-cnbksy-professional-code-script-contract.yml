@@ -16,7 +16,7 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
-      - name: Scan only source-emitted first-party scripts for professional field codes and request builders
+      - name: Repair 12LZ with exact lexical field-code matching and labeled navigation inventory
         run: |
           python - <<'PY'
           import hashlib, html, json, re
@@ -26,75 +26,118 @@ jobs:
 
           seed="https://www.cnbksy.com/portal/newsCategoryBrowse/newsContent?id=202"
           nav="https://www.cnbksy.com/portal/newsCategoryBrowse"
-          UA={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; CNBKSY professional code static script contract)"}
+          UA={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; CNBKSY professional-code exact static contract)"}
           s=requests.Session()
           s.headers.update(UA)
 
           pages=[]
           scripts=[]
+          labeled_links=[]
           for page_url in (seed,nav):
               r=s.get(page_url,timeout=45,allow_redirects=False)
               raw=r.content
               txt=raw.decode("utf-8","replace")
-              pages.append({"url":page_url,"status":r.status_code,"bytes":len(raw),"sha256":hashlib.sha256(raw).hexdigest(),"server":r.headers.get("server")})
+              pages.append({
+                  "url":page_url,
+                  "status":r.status_code,
+                  "bytes":len(raw),
+                  "sha256":hashlib.sha256(raw).hexdigest(),
+                  "server":r.headers.get("server")
+              })
               for m in re.finditer(r'''(?is)<script\b[^>]*?\bsrc\s*=\s*["']([^"']+)["'][^>]*>''',txt):
                   src=html.unescape(m.group(1)).strip()
                   u=urljoin(page_url,src)
                   host=urlparse(u).netloc.lower()
                   if host in ("www.cnbksy.com","cnbksy.com") and u not in scripts:
                       scripts.append(u)
+              for m in re.finditer(r'''(?is)<a\b[^>]*?\bhref\s*=\s*["']([^"']+)["'][^>]*>(.*?)</a>''',txt):
+                  href=html.unescape(m.group(1)).strip()
+                  label=html.unescape(re.sub(r"<[^>]+>"," ",m.group(2)))
+                  label=re.sub(r"\s+"," ",label).strip()
+                  if any(k in label for k in ("普通检索","高级检索","专业检索","图片检索","文献检索")):
+                      labeled_links.append({
+                          "page_url":page_url,
+                          "label":label,
+                          "href":href,
+                          "absolute_href":urljoin(page_url,href)
+                      })
 
-          tokens=["JTI","PTI","ADTI","FXJG","NATI","TSCT","ADPB","ADPR","Solr","专业检索","/search"]
-          request_terms=["$.ajax","$.post","$.get","bksy.post","bksy.get","jsonPost","url:","type:","method:"]
+          field_codes=["JTI","PTI","ADTI","FXJG","NATI","TSCT","ADPB","ADPR"]
+          text_tokens=["Solr","专业检索"]
+          app_prefixes=("/public/portal/js/","/public/common/js/")
           results=[]
           for u in scripts:
               r=s.get(u,timeout=45,allow_redirects=False)
               raw=r.content
               txt=raw.decode("utf-8","replace")
-              hits=[]
-              for token in tokens:
-                  for m in re.finditer(re.escape(token),txt,re.I):
-                      a=max(0,m.start()-1800); b=min(len(txt),m.end()+2600)
+              path=urlparse(u).path
+              app_script=any(path.startswith(p) for p in app_prefixes)
+              exact_hits=[]
+              for token in field_codes:
+                  pat=re.compile(rf'(?<![A-Za-z0-9_]){re.escape(token)}(?![A-Za-z0-9_])')
+                  for m in pat.finditer(txt):
+                      a=max(0,m.start()-1600); b=min(len(txt),m.end()+2600)
                       ctx=re.sub(r"\s+"," ",txt[a:b]).strip()
-                      hits.append({
+                      exact_hits.append({
+                          "token":token,
+                          "match_kind":"EXACT_LEXICAL_FIELD_CODE",
+                          "context":ctx[:6000],
+                          "context_sha256":hashlib.sha256(ctx.encode("utf-8")).hexdigest()
+                      })
+              text_hits=[]
+              for token in text_tokens:
+                  for m in re.finditer(re.escape(token),txt,re.I):
+                      a=max(0,m.start()-1600); b=min(len(txt),m.end()+2600)
+                      ctx=re.sub(r"\s+"," ",txt[a:b]).strip()
+                      text_hits.append({
                           "token":token,
                           "context":ctx[:6000],
-                          "context_sha256":hashlib.sha256(ctx.encode("utf-8")).hexdigest(),
-                          "request_builder_terms_present":[x for x in request_terms if x.lower() in ctx.lower()]
+                          "context_sha256":hashlib.sha256(ctx.encode("utf-8")).hexdigest()
                       })
+              route_literals=sorted(set(re.findall(
+                  r'''["'](/[^"'\\\s]{1,220})["']''',txt
+              )))
+              search_route_literals=[x for x in route_literals if "search" in x.lower()]
               results.append({
                   "url":u,
+                  "path":path,
+                  "application_script":app_script,
                   "status":r.status_code,
                   "bytes":len(raw),
                   "sha256":hashlib.sha256(raw).hexdigest(),
-                  "hit_count":len(hits),
-                  "hits":hits
+                  "exact_field_code_hits":exact_hits,
+                  "text_hits":text_hits,
+                  "search_route_literals":search_route_literals[:300]
               })
 
-          hit_scripts=[x for x in results if x["hit_count"]]
+          app_results=[x for x in results if x["application_script"]]
           out={
               "source_contract":{
                   "parent_batch":"12LY",
+                  "superseded_run_id":37020017898,
+                  "repair_reason":"prior run used substring matching for short field codes and produced vendor/minified-library false positives",
                   "seed_urls":[seed,nav],
-                  "distinctive_field_codes":["JTI","PTI","ADTI","FXJG","NATI","TSCT","ADPB","ADPR"],
+                  "field_codes":field_codes,
                   "application_route_invoked":False,
                   "target_term_submitted":False,
                   "target_query_submitted":False
               },
               "pages":pages,
+              "labeled_search_navigation_links":labeled_links,
               "source_emitted_first_party_script_count":len(scripts),
-              "source_emitted_first_party_scripts":scripts,
+              "application_script_count":len(app_results),
               "script_results":results,
               "summary":{
-                  "scripts_with_hits":len(hit_scripts),
-                  "total_hits":sum(x["hit_count"] for x in results),
-                  "tokens_observed":sorted({h["token"] for x in results for h in x["hits"]}),
-                  "request_builder_context_hit_count":sum(
-                      1 for x in results for h in x["hits"] if h["request_builder_terms_present"]
-                  )
+                  "exact_field_code_hit_count":sum(len(x["exact_field_code_hits"]) for x in results),
+                  "exact_field_codes_observed":sorted({h["token"] for x in results for h in x["exact_field_code_hits"]}),
+                  "application_exact_field_code_hit_count":sum(len(x["exact_field_code_hits"]) for x in app_results),
+                  "application_text_hit_count":sum(len(x["text_hits"]) for x in app_results),
+                  "application_search_route_literals":sorted({r for x in app_results for r in x["search_route_literals"]}),
+                  "labeled_search_navigation_link_count":len(labeled_links)
               },
               "adjudication":{
-                  "static_scan_only":True,
+                  "prior_substring_probe_superseded":True,
+                  "exact_lexical_static_scan_completed":True,
                   "application_route_invoked":False,
                   "target_term_submitted":False,
                   "target_query_submitted":False,
@@ -108,7 +151,9 @@ jobs:
                   "tls_verification_disabled":False
               }
           }
-          Path("batch-12lz-cnbksy-professional-code-script-contract.json").write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8")
+          Path("batch-12lz-cnbksy-professional-code-script-contract.json").write_text(
+              json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8"
+          )
           print(json.dumps(out,ensure_ascii=False,indent=2))
           PY
       - uses: actions/upload-artifact@v4
