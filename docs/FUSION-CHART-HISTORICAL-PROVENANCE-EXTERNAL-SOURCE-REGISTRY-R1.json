@@ -11311,7 +11311,7 @@
       "provider": "文汇报",
       "url": "https://dzb.whb.cn/",
       "source_role": "FIRST_PARTY_MODERN_EPAPER_ACCESS_CONTRACT_BOUNDARY_NOT_HISTORICAL_PAGE",
-      "quality_notes": "Official e-paper host; controlling GitHub runner timed out on root and known modern date control. No target date was guessed or submitted.",
+      "quality_notes": "Batch 12JO established that the controlling GitHub runner timed out on both the official dzb.whb.cn root and a known modern dated control, so no source-emitted date contract was calibrated and 1951-08-18 was not requested. Batch 12MC independently recalibrates only the root with redirects disabled and again receives ConnectTimeout after 45 seconds. This is a reachability boundary, not page/date absence; direct 1951-08-18 remains unreviewed and target-path guessing/bypass remains forbidden.",
       "batch_12jo": {
         "workflow_run_id": 36834874380,
         "artifact_id": 11148592500,
@@ -11319,6 +11319,26 @@
         "target_date_submitted": false,
         "direct_1951_page_reviewed": false,
         "research_artifact": "docs/research/ZIWEI-WENHUI-OFFICIAL-EPAPER-PUBLIC-DATE-CONTRACT-BOUNDARY-R1.json"
+      },
+      "batch_12mc": {
+        "workflow_run_id": 37023569701,
+        "workflow_job_id": 110892443388,
+        "artifact_id": 11234345292,
+        "artifact_digest": "sha256:bce74a374b720f064faf87359ec9cf307ee5dfad7797167d1854473d8296bb15",
+        "exact_head": "a31ae1aee678af027bc9d98c558e48fd586305b2",
+        "official_root": "https://dzb.whb.cn/",
+        "method": "GET",
+        "allow_redirects": false,
+        "fetch_error_class": "ConnectTimeout",
+        "connect_timeout_seconds": 45,
+        "root_reached": false,
+        "source_emitted_date_contract_observed": false,
+        "historical_target_date": "1951-08-18",
+        "historical_target_path_guessed": false,
+        "historical_target_request_submitted": false,
+        "direct_1951_page_reviewed": false,
+        "branch_status": "STOPPED_PENDING_MATERIALLY_NEW_FIRST_PARTY_ACCESS_MECHANISM",
+        "research_artifact": "docs/research/ZIWEI-WENHUI-EPAPER-ROOT-DATE-CONTRACT-RECALIBRATION-R1.json"
       }
     },
     {

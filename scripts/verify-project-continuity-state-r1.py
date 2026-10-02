@@ -858,9 +858,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-CNBKSY-PROFESSIONAL-CODE-SCRIPT-CONTRACT-LZ",
     "BATCH-12-ZIWEI-CNBKSY-PROFESSIONAL-SEARCH-ESA-BOUNDARY-MA",
     "BATCH-12-ZIWEI-CNBKSY-ADVANCED-SEARCH-ESA-BOUNDARY-MB",
+    "BATCH-12-ZIWEI-WENHUI-EPAPER-ROOT-DATE-CONTRACT-RECALIBRATION-MC",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-ADVANCED-SEARCH-ESA-BOUNDARY-MB.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENHUI-EPAPER-ROOT-DATE-CONTRACT-RECALIBRATION-MC.md"
 
 
 def fail(message: str) -> None:
@@ -13645,6 +13646,55 @@ def main() -> int:
         fail("Batch 12MB state version regressed below 1.343.0")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12MB latest-batch document mismatch")
+
+    # Batch 12MC: official Wenhui e-paper root recalibration reproduces the runner timeout boundary.
+    mc_batch = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENHUI-EPAPER-ROOT-DATE-CONTRACT-RECALIBRATION-MC.md"
+    mc_evidence = ROOT / "docs/research/ZIWEI-WENHUI-EPAPER-ROOT-DATE-CONTRACT-RECALIBRATION-R1.json"
+    if not mc_batch.is_file() or not mc_evidence.is_file():
+        fail("Batch 12MC continuity artifact missing")
+    mc = json.loads(mc_evidence.read_text(encoding="utf-8"))
+    if mc.get("batch_id") != "BATCH-12-ZIWEI-WENHUI-EPAPER-ROOT-DATE-CONTRACT-RECALIBRATION-MC":
+        fail("Batch 12MC evidence identity mismatch")
+    p = mc.get("controlling_probe", {})
+    if p.get("workflow_run_id") != 37023569701 or p.get("workflow_job_id") != 110892443388 or p.get("artifact_id") != 11234345292:
+        fail("Batch 12MC controlling probe identity regressed")
+    if p.get("artifact_digest") != "sha256:bce74a374b720f064faf87359ec9cf307ee5dfad7797167d1854473d8296bb15":
+        fail("Batch 12MC artifact digest regressed")
+    sc = mc.get("source_contract", {})
+    if sc.get("official_root") != "https://dzb.whb.cn/" or sc.get("method") != "GET" or sc.get("allow_redirects") is not False:
+        fail("Batch 12MC root request contract regressed")
+    if sc.get("historical_target_date") != "1951-08-18" or sc.get("historical_target_path_guessed") is not False or sc.get("historical_target_request_submitted") is not False:
+        fail("Batch 12MC target-date firewall regressed")
+    r = mc.get("response", {})
+    if r.get("http_response_obtained") is not False or r.get("fetch_error_class") != "ConnectTimeout" or r.get("connect_timeout_seconds") != 45:
+        fail("Batch 12MC timeout identity regressed")
+    rel = mc.get("relation_to_12jo", {})
+    if rel.get("batch_12jo_root_timed_out") is not True or rel.get("batch_12jo_known_modern_control_timed_out") is not True or rel.get("batch_12mc_root_timed_out") is not True:
+        fail("Batch 12MC 12JO comparison regressed")
+    if rel.get("materially_new_first_party_date_contract_observed") is not False or rel.get("timeout_is_historical_absence") is not False or rel.get("duplicate_evidence_vote_increment") != 0:
+        fail("Batch 12MC no-new-contract/absence firewall regressed")
+    a = mc.get("adjudication", {})
+    if a.get("root_reached") is not False or a.get("source_emitted_date_contract_observed") is not False or a.get("direct_1951_08_18_page_reviewed") is not False:
+        fail("Batch 12MC access adjudication regressed")
+    if a.get("date_or_page_absence_inference_authorized") is not False or a.get("branch_status") != "STOPPED_PENDING_MATERIALLY_NEW_FIRST_PARTY_ACCESS_MECHANISM":
+        fail("Batch 12MC branch-stop/absence firewall regressed")
+    for key in ("historical_target_request_submitted","login_used","registration_used"):
+        if a.get(key) is not False:
+            fail(f"Batch 12MC no-action firewall regressed: {key}")
+    srcmap_mc = {x.get("source_id"): x for x in registry.get("sources", ())}
+    reg_mc = srcmap_mc.get("EXT-WHB-OFFICIAL-EPAPER-DATE-CONTRACT-BOUNDARY-2026", {}).get("batch_12mc", {})
+    if reg_mc.get("workflow_run_id") != 37023569701 or reg_mc.get("fetch_error_class") != "ConnectTimeout" or reg_mc.get("historical_target_request_submitted") is not False:
+        fail("Batch 12MC external-source registry binding missing")
+    if "BATCH-12-ZIWEI-WENHUI-EPAPER-ROOT-DATE-CONTRACT-RECALIBRATION-MC" not in audit_state.get("completed_batches", ()):
+        fail("Batch 12MC missing from completed state")
+    try:
+        schema12mc = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12MC state version is not numeric")
+    if schema12mc < (1, 344, 0):
+        fail("Batch 12MC state version regressed below 1.344.0")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12MC latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")
