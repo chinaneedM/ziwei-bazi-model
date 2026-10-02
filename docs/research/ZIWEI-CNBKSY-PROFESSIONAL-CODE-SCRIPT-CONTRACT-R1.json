@@ -1,0 +1,169 @@
+{
+  "schema": "ZIWEI-CNBKSY-PROFESSIONAL-CODE-SCRIPT-CONTRACT-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-CNBKSY-PROFESSIONAL-CODE-SCRIPT-CONTRACT-LZ",
+  "prior_batch_id": "BATCH-12-ZIWEI-CNBKSY-PROFESSIONAL-SECTION-MEDIA-MAP-LY",
+  "question": "Do the currently source-emitted first-party scripts expose exact professional-search field codes or a request builder, and what labeled search navigation routes are explicitly emitted by the reviewed public pages?",
+  "answer": "After repairing a substring false-positive defect, no exact professional field-code token is present in the 39 reviewed same-domain source-emitted scripts, including the five first-party application scripts. The public first-party pages nevertheless explicitly bind 专业检索 to /search/special, alongside /search, /search/advance and /search/pic/. Thus the professional page route is source-closed without guessing, while its request-builder implementation remains unobserved.",
+  "superseded_probe": {
+    "workflow": ".github/workflows/probe-batch-12lz-cnbksy-professional-code-script-contract.yml",
+    "exact_head": "6ebde5bd4711295be2c35a42769ac690402badab",
+    "workflow_run_id": 37020017898,
+    "workflow_job_id": 110880618487,
+    "artifact_id": 11232333861,
+    "artifact_digest": "sha256:e7d15c4d6d3cef8b56aa1772d233a1cfe54b45857cb3f162f39a83a08f5a3bdc",
+    "defect": "SHORT_CODE_SUBSTRING_FALSE_POSITIVES_IN_VENDOR_MINIFIED_LIBRARIES",
+    "reported_total_hits": 2528,
+    "reported_tokens": [
+      "ADPR",
+      "NATI",
+      "PTI"
+    ],
+    "strict_lexical_exact_hits_after_review": 0,
+    "controlling": false
+  },
+  "controlling_probe": {
+    "workflow": ".github/workflows/probe-batch-12lz-cnbksy-professional-code-script-contract.yml",
+    "exact_head": "f5430c69cc5f56822e2ac02ed5f50ccdb9c95c1f",
+    "workflow_run_id": 37021258360,
+    "workflow_job_id": 110884629398,
+    "artifact_id": 11233850753,
+    "artifact_digest": "sha256:086b1aedc1240dc1dff69380de92b2f0bfabdad4d4eb37e03223e3a20b8cad60"
+  },
+  "reviewed_public_pages": [
+    {
+      "url": "https://www.cnbksy.com/portal/newsCategoryBrowse/newsContent?id=202",
+      "http_status": 200,
+      "bytes": 41248,
+      "sha256": "66e6b12bb89bd09e4982655e60bb945b541a49ca586f376b81fac565b58ee6c3"
+    },
+    {
+      "url": "https://www.cnbksy.com/portal/newsCategoryBrowse",
+      "http_status": 200,
+      "bytes": 42678,
+      "sha256": "737b9519691c87ea5fc938ed73a69cd4ffe00e8557ec77a960c6c1d33681db95"
+    }
+  ],
+  "static_script_scan": {
+    "source_emitted_first_party_script_count": 39,
+    "application_script_count": 5,
+    "application_scripts": [
+      {
+        "url": "https://www.cnbksy.com/public/portal/js/productTree.js?version=V20241206",
+        "bytes": 3913,
+        "sha256": "9ff4fd3fbe01987a483576c1bfc36920ed18ee0f1584db7c6dcd17181e56ce0c"
+      },
+      {
+        "url": "https://www.cnbksy.com/public/portal/js/app4O.js?version=V20241206",
+        "bytes": 14486,
+        "sha256": "a92bc558bc203545aeb39e5ef631461684fc29a9e0fcee6eadc57cd0a9544a66"
+      },
+      {
+        "url": "https://www.cnbksy.com/public/common/js/common.js?version=V20241206",
+        "bytes": 4273,
+        "sha256": "3d7d6379e4b86c54612aab7b98887ea2ba0b372a4ecf871fb66fe0b8c012a78d"
+      },
+      {
+        "url": "https://www.cnbksy.com/public/portal/js/sdUtils.js?version=V20241206",
+        "bytes": 4896,
+        "sha256": "7240d9f387f2ec1dce5aca351acbb27dd0336a2a396dbd2a5ecb6edbda762093"
+      },
+      {
+        "url": "https://www.cnbksy.com/public/portal/js/promptMsg.js?version=V20241206",
+        "bytes": 1317,
+        "sha256": "0a4187b4047a419761bbccfbc9b67b32ebe3fbfb7a0c64a8f9d3da2c119ee479"
+      }
+    ],
+    "field_codes_searched": [
+      "JTI",
+      "PTI",
+      "ADTI",
+      "FXJG",
+      "NATI",
+      "TSCT",
+      "ADPB",
+      "ADPR"
+    ],
+    "exact_field_code_hit_count": 0,
+    "exact_field_codes_observed": [],
+    "application_exact_field_code_hit_count": 0,
+    "application_text_hit_count": 0,
+    "application_search_route_literals": []
+  },
+  "labeled_navigation": {
+    "source_pages_each_emit_same_route_set": true,
+    "routes": [
+      {
+        "label": "文献检索",
+        "href": "#"
+      },
+      {
+        "label": "普通检索",
+        "href": "/search"
+      },
+      {
+        "label": "高级检索",
+        "href": "/search/advance"
+      },
+      {
+        "label": "专业检索",
+        "href": "/search/special"
+      },
+      {
+        "label": "图片检索",
+        "href": "/search/pic/"
+      }
+    ],
+    "professional_route_source_closed": true
+  },
+  "adjudication": {
+    "prior_substring_probe_superseded": true,
+    "exact_lexical_static_scan_completed": true,
+    "professional_route_source_closed": true,
+    "professional_request_builder_observed": false,
+    "application_route_invoked": false,
+    "target_term_submitted": false,
+    "target_query_submitted": false,
+    "login_used": false,
+    "registration_used": false
+  },
+  "security": {
+    "anonymous_get_only": true,
+    "private_endpoint_guessed": false,
+    "captcha_bypass_used": false,
+    "tls_verification_disabled": false
+  },
+  "transmission_impact": {
+    "status": "NONE_MODERN_OPERATIONAL_EVIDENCE_ONLY",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": []
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Re-fetch one reviewed public first-party page only to preserve the source-emitted 专业检索=/search/special binding.",
+    "Perform a single anonymous GET of https://www.cnbksy.com/search/special with no query parameters and redirects disabled.",
+    "Inventory only response status/content headers/body digest plus static forms, CSRF meta, script src values and visible search-related labels if the page is returned.",
+    "Do not bypass ESA/browser challenges, do not submit a target term/query, and do not invoke any form or API endpoint."
+  ],
+  "updated_at": "2026-10-02"
+}

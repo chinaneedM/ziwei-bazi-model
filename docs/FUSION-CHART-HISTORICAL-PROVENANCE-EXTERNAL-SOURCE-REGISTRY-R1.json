@@ -12043,7 +12043,7 @@
       "provider": "上海图书馆《全国报刊索引》编辑部",
       "url": "https://www.cnbksy.com/",
       "source_role": "FIRST_PARTY_NEWSPAPER_INDEX_PUBLIC_ACCESS_SURFACE",
-      "quality_notes": "Batches 12LF–12LX close the public access/help/manual chain without bypass or target query. Batch 12LY repairs an initial TOC-scope error and binds the actual 4.3 专业检索 body range to six first-party manual screenshots. Direct no-OCR visual collation closes the documented field-code tables and ALL/TI/JTI examples, while preserving the manual's 铁报/轶报 internal inconsistency. No live search is executed; the next gate is static first-party script scanning only.",
+      "quality_notes": "Batches 12LF–12LY close the public access/help/manual chain without bypass or target query. Batch 12LZ repairs a false-positive substring scan and confirms zero exact professional field-code hits across the currently source-emitted first-party script surface. More importantly, two public first-party pages explicitly emit 专业检索=/search/special (with 普通=/search, 高级=/search/advance, 图片=/search/pic/). No route is invoked in LZ; 12MA may therefore test only the source-emitted professional page with a no-query anonymous GET.",
       "batch_12lf": {
         "workflow_run_id": 36877911774,
         "workflow_job_id": 110421993332,
@@ -12608,6 +12608,39 @@
         "search_endpoint_invoked": false,
         "target_query_submitted": false,
         "research_artifact": "docs/research/ZIWEI-CNBKSY-PROFESSIONAL-SECTION-MEDIA-MAP-R1.json"
+      },
+      "batch_12lz": {
+        "superseded_probe": {
+          "workflow_run_id": 37020017898,
+          "workflow_job_id": 110880618487,
+          "artifact_id": 11232333861,
+          "artifact_digest": "sha256:e7d15c4d6d3cef8b56aa1772d233a1cfe54b45857cb3f162f39a83a08f5a3bdc",
+          "exact_head": "6ebde5bd4711295be2c35a42769ac690402badab",
+          "reason": "substring matching of short field codes produced vendor/minified-library false positives",
+          "reported_total_hits": 2528,
+          "strict_exact_field_code_hits_after_review": 0
+        },
+        "controlling_probe": {
+          "workflow_run_id": 37021258360,
+          "workflow_job_id": 110884629398,
+          "artifact_id": 11233850753,
+          "artifact_digest": "sha256:086b1aedc1240dc1dff69380de92b2f0bfabdad4d4eb37e03223e3a20b8cad60",
+          "exact_head": "f5430c69cc5f56822e2ac02ed5f50ccdb9c95c1f"
+        },
+        "source_emitted_first_party_script_count": 39,
+        "application_script_count": 5,
+        "exact_field_code_hit_count": 0,
+        "application_exact_field_code_hit_count": 0,
+        "application_search_route_literals": [],
+        "labeled_search_routes": {
+          "ordinary": "/search",
+          "advanced": "/search/advance",
+          "professional": "/search/special",
+          "image": "/search/pic/"
+        },
+        "application_route_invoked": false,
+        "target_query_submitted": false,
+        "research_artifact": "docs/research/ZIWEI-CNBKSY-PROFESSIONAL-CODE-SCRIPT-CONTRACT-R1.json"
       }
     }
   ],

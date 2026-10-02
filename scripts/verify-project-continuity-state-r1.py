@@ -855,9 +855,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-CNBKSY-MANUAL-FILE-IDENTITY-CONTRACT-LW",
     "BATCH-12-ZIWEI-CNBKSY-NEW-MANUAL-OOXML-SEMANTICS-LX",
     "BATCH-12-ZIWEI-CNBKSY-PROFESSIONAL-SECTION-MEDIA-MAP-LY",
+    "BATCH-12-ZIWEI-CNBKSY-PROFESSIONAL-CODE-SCRIPT-CONTRACT-LZ",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-PROFESSIONAL-SECTION-MEDIA-MAP-LY.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-PROFESSIONAL-CODE-SCRIPT-CONTRACT-LZ.md"
 
 
 def fail(message: str) -> None:
@@ -13493,6 +13494,55 @@ def main() -> int:
         fail("Batch 12LY state version regressed below 1.340.0")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12LY latest-batch document mismatch")
+
+    # Batch 12LZ: repair short-code substring false positives and bind source-emitted professional route.
+    lz_batch = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-PROFESSIONAL-CODE-SCRIPT-CONTRACT-LZ.md"
+    lz_evidence = ROOT / "docs/research/ZIWEI-CNBKSY-PROFESSIONAL-CODE-SCRIPT-CONTRACT-R1.json"
+    if not lz_batch.is_file() or not lz_evidence.is_file():
+        fail("Batch 12LZ continuity artifact missing")
+    lz = json.loads(lz_evidence.read_text(encoding="utf-8"))
+    if lz.get("batch_id") != "BATCH-12-ZIWEI-CNBKSY-PROFESSIONAL-CODE-SCRIPT-CONTRACT-LZ":
+        fail("Batch 12LZ evidence identity mismatch")
+    sup = lz.get("superseded_probe", {})
+    if sup.get("workflow_run_id") != 37020017898 or sup.get("reported_total_hits") != 2528 or sup.get("strict_lexical_exact_hits_after_review") != 0 or sup.get("controlling") is not False:
+        fail("Batch 12LZ superseded substring-probe record regressed")
+    p = lz.get("controlling_probe", {})
+    if p.get("workflow_run_id") != 37021258360 or p.get("workflow_job_id") != 110884629398 or p.get("artifact_id") != 11233850753:
+        fail("Batch 12LZ controlling probe identity regressed")
+    if p.get("artifact_digest") != "sha256:086b1aedc1240dc1dff69380de92b2f0bfabdad4d4eb37e03223e3a20b8cad60":
+        fail("Batch 12LZ controlling artifact digest regressed")
+    scan = lz.get("static_script_scan", {})
+    if scan.get("source_emitted_first_party_script_count") != 39 or scan.get("application_script_count") != 5:
+        fail("Batch 12LZ script inventory regressed")
+    if scan.get("exact_field_code_hit_count") != 0 or scan.get("application_exact_field_code_hit_count") != 0:
+        fail("Batch 12LZ exact field-code zero-hit control regressed")
+    nav = lz.get("labeled_navigation", {})
+    route_map = {x.get("label"): x.get("href") for x in nav.get("routes", ())}
+    expected_routes = {"文献检索":"#","普通检索":"/search","高级检索":"/search/advance","专业检索":"/search/special","图片检索":"/search/pic/"}
+    if route_map != expected_routes or nav.get("professional_route_source_closed") is not True:
+        fail("Batch 12LZ labeled search-route binding regressed")
+    a = lz.get("adjudication", {})
+    if a.get("prior_substring_probe_superseded") is not True or a.get("exact_lexical_static_scan_completed") is not True or a.get("professional_route_source_closed") is not True:
+        fail("Batch 12LZ adjudication regressed")
+    if a.get("professional_request_builder_observed") is not False:
+        fail("Batch 12LZ request-builder boundary regressed")
+    for key in ("application_route_invoked","target_term_submitted","target_query_submitted","login_used","registration_used"):
+        if a.get(key) is not False:
+            fail(f"Batch 12LZ no-action firewall regressed: {key}")
+    srcmap_lz = {x.get("source_id"): x for x in registry.get("sources", ())}
+    reg_lz = srcmap_lz.get("EXT-CNBKSY-PUBLIC-SEARCH-SURFACE-2026", {}).get("batch_12lz", {})
+    if reg_lz.get("controlling_probe", {}).get("workflow_run_id") != 37021258360 or reg_lz.get("labeled_search_routes", {}).get("professional") != "/search/special":
+        fail("Batch 12LZ external-source registry binding missing")
+    if "BATCH-12-ZIWEI-CNBKSY-PROFESSIONAL-CODE-SCRIPT-CONTRACT-LZ" not in audit_state.get("completed_batches", ()):
+        fail("Batch 12LZ missing from completed state")
+    try:
+        schema12lz = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12LZ state version is not numeric")
+    if schema12lz < (1, 341, 0):
+        fail("Batch 12LZ state version regressed below 1.341.0")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12LZ latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")
