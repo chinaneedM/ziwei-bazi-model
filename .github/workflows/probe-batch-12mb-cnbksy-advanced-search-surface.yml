@@ -1,0 +1,134 @@
+name: probe-batch-12mb-cnbksy-advanced-search-surface
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12mb-cnbksy-advanced-search-surface.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: GET only the source-emitted advanced-search page with no query
+        run: |
+          python - <<'PY'
+          import hashlib, html, json, re
+          from pathlib import Path
+          from urllib.parse import urljoin
+          import requests
+
+          seed="https://www.cnbksy.com/portal/newsCategoryBrowse/newsContent?id=202"
+          target="https://www.cnbksy.com/search/advance"
+          UA="Mozilla/5.0 (Tianwen provenance audit; CNBKSY advanced-search no-query surface)"
+          s=requests.Session()
+          s.headers.update({"User-Agent":UA})
+
+          sr=s.get(seed,timeout=45,allow_redirects=False)
+          stxt=sr.content.decode("utf-8","replace")
+          advanced_links=[]
+          for m in re.finditer(r'''(?is)<a\b[^>]*?\bhref\s*=\s*["']([^"']+)["'][^>]*>(.*?)</a>''',stxt):
+              href=html.unescape(m.group(1)).strip()
+              label=html.unescape(re.sub(r"<[^>]+>"," ",m.group(2)))
+              label=re.sub(r"\s+"," ",label).strip()
+              if "高级检索" in label:
+                  advanced_links.append({"label":label,"href":href,"absolute_href":urljoin(seed,href)})
+          source_closed=any(x["absolute_href"]==target for x in advanced_links)
+
+          response=None
+          static_surface=None
+          if source_closed:
+              r=s.get(target,timeout=45,allow_redirects=False)
+              raw=r.content
+              txt=raw.decode("utf-8","replace")
+              forms=[]
+              for fm in re.finditer(r"(?is)<form\b([^>]*)>(.*?)</form>",txt):
+                  attrs=fm.group(1)
+                  method_m=re.search(r'''(?is)\bmethod\s*=\s*["']([^"']+)["']''',attrs)
+                  action_m=re.search(r'''(?is)\baction\s*=\s*["']([^"']+)["']''',attrs)
+                  fields=sorted(set(re.findall(r'''(?is)<(?:input|select|textarea)\b[^>]*?\bname\s*=\s*["']([^"']+)["']''',fm.group(0))))
+                  forms.append({
+                      "method":method_m.group(1) if method_m else None,
+                      "action":action_m.group(1) if action_m else None,
+                      "fields":fields
+                  })
+              scripts=[html.unescape(x) for x in re.findall(r'''(?is)<script\b[^>]*?\bsrc\s*=\s*["']([^"']+)["'][^>]*>''',txt)]
+              csrf_present=bool(re.search(r'''(?is)<meta\b[^>]*?\bname\s*=\s*["']_csrf["']''',txt))
+              visible=re.sub(r"(?is)<script\b.*?</script>"," ",txt)
+              visible=re.sub(r"(?is)<style\b.*?</style>"," ",visible)
+              visible=html.unescape(re.sub(r"<[^>]+>"," ",visible))
+              visible=re.sub(r"\s+"," ",visible).strip()
+              tokens=["高级检索","题名","作者","文献来源","全字段","精确","模糊","与","或","非","检索","登录"]
+              response={
+                  "status":r.status_code,
+                  "content_type":r.headers.get("content-type"),
+                  "server":r.headers.get("server"),
+                  "location":r.headers.get("location"),
+                  "bytes":len(raw),
+                  "sha256":hashlib.sha256(raw).hexdigest()
+              }
+              static_surface={
+                  "form_count":len(forms),
+                  "forms":forms,
+                  "csrf_meta_present":csrf_present,
+                  "external_script_count":len(scripts),
+                  "external_scripts":scripts,
+                  "inline_script_count":len(re.findall(r"(?is)<script\b(?![^>]*\bsrc\s*=)[^>]*>",txt)),
+                  "visible_text_length":len(visible),
+                  "visible_text_preview":visible[:3000],
+                  "token_counts":{t:visible.count(t) for t in tokens}
+              }
+
+          out={
+              "source_contract":{
+                  "parent_batch":"12MA",
+                  "seed_url":seed,
+                  "target_url":target,
+                  "advanced_route_source_closed":source_closed,
+                  "advanced_links":advanced_links,
+                  "method":"GET",
+                  "query_parameters_submitted":False,
+                  "target_term_submitted":False,
+                  "target_query_submitted":False
+              },
+              "seed_response":{
+                  "status":sr.status_code,
+                  "bytes":len(sr.content),
+                  "sha256":hashlib.sha256(sr.content).hexdigest(),
+                  "server":sr.headers.get("server")
+              },
+              "response":response,
+              "static_surface":static_surface,
+              "adjudication":{
+                  "only_source_closed_advanced_page_get_used":source_closed,
+                  "form_submitted":False,
+                  "application_endpoint_invoked_beyond_page_get":False,
+                  "target_term_submitted":False,
+                  "target_query_submitted":False,
+                  "login_used":False,
+                  "registration_used":False,
+                  "esa_challenge_bypass_used":False
+              },
+              "security":{
+                  "anonymous_session_only":True,
+                  "credential_value_recorded":False,
+                  "private_endpoint_guessed":False,
+                  "captcha_bypass_used":False,
+                  "tls_verification_disabled":False
+              }
+          }
+          Path("batch-12mb-cnbksy-advanced-search-surface.json").write_text(
+              json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8"
+          )
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12mb-cnbksy-advanced-search-surface
+          path: batch-12mb-cnbksy-advanced-search-surface.json

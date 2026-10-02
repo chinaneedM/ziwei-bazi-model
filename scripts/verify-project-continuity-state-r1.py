@@ -856,9 +856,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-CNBKSY-NEW-MANUAL-OOXML-SEMANTICS-LX",
     "BATCH-12-ZIWEI-CNBKSY-PROFESSIONAL-SECTION-MEDIA-MAP-LY",
     "BATCH-12-ZIWEI-CNBKSY-PROFESSIONAL-CODE-SCRIPT-CONTRACT-LZ",
+    "BATCH-12-ZIWEI-CNBKSY-PROFESSIONAL-SEARCH-ESA-BOUNDARY-MA",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-PROFESSIONAL-CODE-SCRIPT-CONTRACT-LZ.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-PROFESSIONAL-SEARCH-ESA-BOUNDARY-MA.md"
 
 
 def fail(message: str) -> None:
@@ -13543,6 +13544,53 @@ def main() -> int:
         fail("Batch 12LZ state version regressed below 1.341.0")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12LZ latest-batch document mismatch")
+
+    # Batch 12MA: source-emitted professional search page closes at ESA 412 with no application surface.
+    ma_batch = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-PROFESSIONAL-SEARCH-ESA-BOUNDARY-MA.md"
+    ma_evidence = ROOT / "docs/research/ZIWEI-CNBKSY-PROFESSIONAL-SEARCH-ESA-BOUNDARY-R1.json"
+    if not ma_batch.is_file() or not ma_evidence.is_file():
+        fail("Batch 12MA continuity artifact missing")
+    ma = json.loads(ma_evidence.read_text(encoding="utf-8"))
+    if ma.get("batch_id") != "BATCH-12-ZIWEI-CNBKSY-PROFESSIONAL-SEARCH-ESA-BOUNDARY-MA":
+        fail("Batch 12MA evidence identity mismatch")
+    p = ma.get("controlling_probe", {})
+    if p.get("workflow_run_id") != 37021666728 or p.get("workflow_job_id") != 110886009080 or p.get("artifact_id") != 11233786634:
+        fail("Batch 12MA controlling probe identity regressed")
+    if p.get("artifact_digest") != "sha256:8d6ea085f1cd72896b9892fd3fa67bdc80e496c7f59cd529f81822c0533845bd":
+        fail("Batch 12MA artifact digest regressed")
+    rb = ma.get("source_route_binding", {})
+    if rb.get("label") != "专业检索" or rb.get("href") != "/search/special" or rb.get("source_closed") is not True:
+        fail("Batch 12MA source route binding regressed")
+    r = ma.get("response", {})
+    if r.get("http_status") != 412 or r.get("server_header") != "ESA" or r.get("bytes") != 2418:
+        fail("Batch 12MA professional response identity regressed")
+    if r.get("sha256") != "3a3fb4f8f92ef234e97b025b2643dc792e7a48902be30fd3a8c2894ac980b3e0" or r.get("query_parameters_submitted") is not False:
+        fail("Batch 12MA response digest/no-query control regressed")
+    s = ma.get("static_surface", {})
+    if s.get("form_count") != 0 or s.get("csrf_meta_present") is not False or s.get("external_script_count") != 1 or s.get("inline_script_count") != 3 or s.get("visible_text_length") != 0:
+        fail("Batch 12MA challenge static surface regressed")
+    a = ma.get("adjudication", {})
+    if a.get("professional_search_route_existence_source_confirmed") is not True or a.get("anonymous_raw_http_application_surface_retrieved") is not False:
+        fail("Batch 12MA route/access adjudication regressed")
+    if a.get("search_absence_inference_authorized") is not False or a.get("target_absence_inference_authorized") is not False or a.get("esa_challenge_bypass_authorized") is not False:
+        fail("Batch 12MA absence/bypass firewall regressed")
+    for key in ("form_submitted","application_endpoint_invoked_beyond_page_get","target_term_submitted","target_query_submitted","login_used","registration_used","esa_challenge_bypass_used"):
+        if a.get(key) is not False:
+            fail(f"Batch 12MA no-action firewall regressed: {key}")
+    srcmap_ma = {x.get("source_id"): x for x in registry.get("sources", ())}
+    reg_ma = srcmap_ma.get("EXT-CNBKSY-PUBLIC-SEARCH-SURFACE-2026", {}).get("batch_12ma", {})
+    if reg_ma.get("workflow_run_id") != 37021666728 or reg_ma.get("route") != "/search/special" or reg_ma.get("response_status") != 412:
+        fail("Batch 12MA external-source registry binding missing")
+    if "BATCH-12-ZIWEI-CNBKSY-PROFESSIONAL-SEARCH-ESA-BOUNDARY-MA" not in audit_state.get("completed_batches", ()):
+        fail("Batch 12MA missing from completed state")
+    try:
+        schema12ma = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12MA state version is not numeric")
+    if schema12ma < (1, 342, 0):
+        fail("Batch 12MA state version regressed below 1.342.0")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12MA latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")
