@@ -12043,7 +12043,7 @@
       "provider": "上海图书馆《全国报刊索引》编辑部",
       "url": "https://www.cnbksy.com/",
       "source_role": "FIRST_PARTY_NEWSPAPER_INDEX_PUBLIC_ACCESS_SURFACE",
-      "quality_notes": "Batches 12LF–12LW close the public-search/help/manual access boundary and primary manual file identities without target queries. Batch 12LX retrieves only the text-bound new-platform official manual, validates its OOXML package and extracts bounded operational-search semantics. The manual documents the 2024 new platform and is treated as contemporary first-party operational evidence, not historical provenance. It confirms ordinary/advanced/professional search modes; advanced search uses selectable fields and combinable conditions, while professional search uses category-dependent field-code tables and Solr-style field:value expressions with AND. The actual field-code tables remain unclosed because they are not present as extracted paragraph text.",
+      "quality_notes": "Batches 12LF–12LX close the public access/help/manual chain without bypass or target query. Batch 12LY repairs an initial TOC-scope error and binds the actual 4.3 专业检索 body range to six first-party manual screenshots. Direct no-OCR visual collation closes the documented field-code tables and ALL/TI/JTI examples, while preserving the manual's 铁报/轶报 internal inconsistency. No live search is executed; the next gate is static first-party script scanning only.",
       "batch_12lf": {
         "workflow_run_id": 36877911774,
         "workflow_job_id": 110421993332,
@@ -12574,6 +12574,40 @@
         "search_endpoint_invoked": false,
         "target_query_submitted": false,
         "research_artifact": "docs/research/ZIWEI-CNBKSY-NEW-MANUAL-OOXML-SEMANTICS-R1.json"
+      },
+      "batch_12ly": {
+        "superseded_probe": {
+          "workflow_run_id": 36894975137,
+          "workflow_job_id": 110479567906,
+          "artifact_id": 11179041729,
+          "artifact_digest": "sha256:e0cec29d2a41bd1a6b3a4a462db31cc1890b36f9feb3f39c57dfa7e3720e0dc3",
+          "exact_head": "abec77a7c75b4ee53d048b526e03bf6a950f69fe",
+          "reason": "substring match selected TOC body index 1 and over-included 59 media objects"
+        },
+        "controlling_probe": {
+          "workflow_run_id": 37018829441,
+          "workflow_job_id": 110876339613,
+          "artifact_id": 11232711441,
+          "artifact_digest": "sha256:f46145373e738aeb21161535afcef9e1e575a545a855143cbf1237fd2869f7f6",
+          "exact_head": "94436ea5c40fa3a688e7bde3e57fa76f746a0931"
+        },
+        "manual_sha256": "51cdcd228ae5cc64708399fd0454c6629606a1fbe3364bd2079eec69742f5dcc",
+        "exact_section_start_body_index": 195,
+        "exact_section_end_body_index": 213,
+        "section_local_media_count": 6,
+        "field_code_core": {
+          "ALL": "全字段",
+          "TI": "题名",
+          "PD": "时间",
+          "JTI": "刊名/报名",
+          "PTI": "图片标题",
+          "FAP": "图片责任者",
+          "ADTI": "广告标题",
+          "ADPB": "广告发布者"
+        },
+        "search_endpoint_invoked": false,
+        "target_query_submitted": false,
+        "research_artifact": "docs/research/ZIWEI-CNBKSY-PROFESSIONAL-SECTION-MEDIA-MAP-R1.json"
       }
     }
   ],

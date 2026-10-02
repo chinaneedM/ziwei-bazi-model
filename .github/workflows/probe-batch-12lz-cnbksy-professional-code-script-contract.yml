@@ -1,0 +1,117 @@
+name: probe-batch-12lz-cnbksy-professional-code-script-contract
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12lz-cnbksy-professional-code-script-contract.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Scan only source-emitted first-party scripts for professional field codes and request builders
+        run: |
+          python - <<'PY'
+          import hashlib, html, json, re
+          from pathlib import Path
+          from urllib.parse import urljoin, urlparse
+          import requests
+
+          seed="https://www.cnbksy.com/portal/newsCategoryBrowse/newsContent?id=202"
+          nav="https://www.cnbksy.com/portal/newsCategoryBrowse"
+          UA={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; CNBKSY professional code static script contract)"}
+          s=requests.Session()
+          s.headers.update(UA)
+
+          pages=[]
+          scripts=[]
+          for page_url in (seed,nav):
+              r=s.get(page_url,timeout=45,allow_redirects=False)
+              raw=r.content
+              txt=raw.decode("utf-8","replace")
+              pages.append({"url":page_url,"status":r.status_code,"bytes":len(raw),"sha256":hashlib.sha256(raw).hexdigest(),"server":r.headers.get("server")})
+              for m in re.finditer(r'''(?is)<script\b[^>]*?\bsrc\s*=\s*["']([^"']+)["'][^>]*>''',txt):
+                  src=html.unescape(m.group(1)).strip()
+                  u=urljoin(page_url,src)
+                  host=urlparse(u).netloc.lower()
+                  if host in ("www.cnbksy.com","cnbksy.com") and u not in scripts:
+                      scripts.append(u)
+
+          tokens=["JTI","PTI","ADTI","FXJG","NATI","TSCT","ADPB","ADPR","Solr","专业检索","/search"]
+          request_terms=["$.ajax","$.post","$.get","bksy.post","bksy.get","jsonPost","url:","type:","method:"]
+          results=[]
+          for u in scripts:
+              r=s.get(u,timeout=45,allow_redirects=False)
+              raw=r.content
+              txt=raw.decode("utf-8","replace")
+              hits=[]
+              for token in tokens:
+                  for m in re.finditer(re.escape(token),txt,re.I):
+                      a=max(0,m.start()-1800); b=min(len(txt),m.end()+2600)
+                      ctx=re.sub(r"\s+"," ",txt[a:b]).strip()
+                      hits.append({
+                          "token":token,
+                          "context":ctx[:6000],
+                          "context_sha256":hashlib.sha256(ctx.encode("utf-8")).hexdigest(),
+                          "request_builder_terms_present":[x for x in request_terms if x.lower() in ctx.lower()]
+                      })
+              results.append({
+                  "url":u,
+                  "status":r.status_code,
+                  "bytes":len(raw),
+                  "sha256":hashlib.sha256(raw).hexdigest(),
+                  "hit_count":len(hits),
+                  "hits":hits
+              })
+
+          hit_scripts=[x for x in results if x["hit_count"]]
+          out={
+              "source_contract":{
+                  "parent_batch":"12LY",
+                  "seed_urls":[seed,nav],
+                  "distinctive_field_codes":["JTI","PTI","ADTI","FXJG","NATI","TSCT","ADPB","ADPR"],
+                  "application_route_invoked":False,
+                  "target_term_submitted":False,
+                  "target_query_submitted":False
+              },
+              "pages":pages,
+              "source_emitted_first_party_script_count":len(scripts),
+              "source_emitted_first_party_scripts":scripts,
+              "script_results":results,
+              "summary":{
+                  "scripts_with_hits":len(hit_scripts),
+                  "total_hits":sum(x["hit_count"] for x in results),
+                  "tokens_observed":sorted({h["token"] for x in results for h in x["hits"]}),
+                  "request_builder_context_hit_count":sum(
+                      1 for x in results for h in x["hits"] if h["request_builder_terms_present"]
+                  )
+              },
+              "adjudication":{
+                  "static_scan_only":True,
+                  "application_route_invoked":False,
+                  "target_term_submitted":False,
+                  "target_query_submitted":False,
+                  "login_used":False,
+                  "registration_used":False
+              },
+              "security":{
+                  "anonymous_get_only":True,
+                  "private_endpoint_guessed":False,
+                  "captcha_bypass_used":False,
+                  "tls_verification_disabled":False
+              }
+          }
+          Path("batch-12lz-cnbksy-professional-code-script-contract.json").write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12lz-cnbksy-professional-code-script-contract
+          path: batch-12lz-cnbksy-professional-code-script-contract.json

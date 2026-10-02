@@ -1,0 +1,490 @@
+{
+  "schema": "ZIWEI-CNBKSY-PROFESSIONAL-SECTION-MEDIA-MAP-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-CNBKSY-PROFESSIONAL-SECTION-MEDIA-MAP-LY",
+  "prior_batch_id": "BATCH-12-ZIWEI-CNBKSY-NEW-MANUAL-OOXML-SEMANTICS-LX",
+  "question": "Which OOXML media objects truly belong to the body section 4.3 专业检索, and what field-code semantics are directly visible in those section-local screenshots without OCR or live search execution?",
+  "answer": "The initial 12LY probe was methodologically over-broad because substring matching hit the TOC block. A repaired exact-heading/body-order probe closes the true 4.3 range at body indices 195–212 and maps exactly six screenshots rId62–rId67. Direct visual review without OCR closes the displayed 正文/图片/广告 field-code tables and the ALL/TI/JTI Solr examples. No live search endpoint is invoked.",
+  "superseded_probe": {
+    "workflow": ".github/workflows/probe-batch-12ly-cnbksy-professional-section-media-map.yml",
+    "exact_head": "abec77a7c75b4ee53d048b526e03bf6a950f69fe",
+    "workflow_run_id": 36894975137,
+    "workflow_job_id": 110479567906,
+    "artifact_id": 11179041729,
+    "artifact_digest": "sha256:e0cec29d2a41bd1a6b3a4a462db31cc1890b36f9feb3f39c57dfa7e3720e0dc3",
+    "defect": "SUBSTRING_MATCH_HIT_TABLE_OF_CONTENTS_AT_BODY_INDEX_1",
+    "overincluded_media_count": 59,
+    "controlling": false
+  },
+  "controlling_probe": {
+    "workflow": ".github/workflows/probe-batch-12ly-cnbksy-professional-section-media-map.yml",
+    "exact_head": "94436ea5c40fa3a688e7bde3e57fa76f746a0931",
+    "workflow_run_id": 37018829441,
+    "workflow_job_id": 110876339613,
+    "artifact_id": 11232711441,
+    "artifact_digest": "sha256:f46145373e738aeb21161535afcef9e1e575a545a855143cbf1237fd2869f7f6"
+  },
+  "manual_identity": {
+    "url": "https://www.cnbksy.com/common/uploadFile/65e9592f7fa00c5f66cdb1f5",
+    "bytes": 23137465,
+    "sha256": "51cdcd228ae5cc64708399fd0454c6629606a1fbe3364bd2079eec69742f5dcc",
+    "format": "OOXML_DOCX"
+  },
+  "section_scope": {
+    "exact_heading_occurrences": {
+      "4. 高级功能": [
+        179
+      ],
+      "4.3 专业检索": [
+        195
+      ],
+      "4.4 检索结果可视化": [
+        213
+      ]
+    },
+    "body_child_start_index": 195,
+    "body_child_end_index_exclusive": 213,
+    "media_count": 6,
+    "media": [
+      {
+        "rid": "rId62",
+        "body_index": 198,
+        "zip_member": "word/media/image54.png",
+        "bytes": 218016,
+        "sha256": "be6e4a654267775232103ff678a11052e2718e6b6da3e2728f6ab5d2bcc30299",
+        "width": 1265,
+        "height": 616
+      },
+      {
+        "rid": "rId63",
+        "body_index": 200,
+        "zip_member": "word/media/image55.png",
+        "bytes": 171297,
+        "sha256": "48a14ba2973dddff193091ff79770e927df163102091f642d88ee79c4303ca9d",
+        "width": 1265,
+        "height": 616
+      },
+      {
+        "rid": "rId64",
+        "body_index": 202,
+        "zip_member": "word/media/image56.png",
+        "bytes": 176007,
+        "sha256": "c0b63ca5736d9219a07da2f2c2d57e0728fa58837b65d40639ed118cf2dc496e",
+        "width": 1265,
+        "height": 616
+      },
+      {
+        "rid": "rId65",
+        "body_index": 206,
+        "zip_member": "word/media/image57.png",
+        "bytes": 220869,
+        "sha256": "563b0d4e03b22ab8041186748391d2aa02e06487e452cbca5040105d8517a354",
+        "width": 1265,
+        "height": 616
+      },
+      {
+        "rid": "rId66",
+        "body_index": 208,
+        "zip_member": "word/media/image58.png",
+        "bytes": 222884,
+        "sha256": "ab96ce6b7e00b041138c55419709455a541fc88029959e32018e3ed6e9298608",
+        "width": 1265,
+        "height": 616
+      },
+      {
+        "rid": "rId67",
+        "body_index": 212,
+        "zip_member": "word/media/image59.png",
+        "bytes": 193986,
+        "sha256": "3aa196005f40af3773d635861c26e3bbeb896d38744248a869a926369de3444b",
+        "width": 1265,
+        "height": 616
+      }
+    ]
+  },
+  "direct_visual_collation_no_ocr": {
+    "reviewer_method": "DIRECT_IMAGE_REVIEW_NO_OCR",
+    "text_tab": {
+      "image_sha256": "be6e4a654267775232103ff678a11052e2718e6b6da3e2728f6ab5d2bcc30299",
+      "groups": {
+        "通用": [
+          [
+            "全字段",
+            "ALL"
+          ],
+          [
+            "题名",
+            "TI"
+          ],
+          [
+            "时间",
+            "PD"
+          ],
+          [
+            "刊名/报名",
+            "JTI"
+          ]
+        ],
+        "近代期刊": [
+          [
+            "正文类别",
+            "AT"
+          ],
+          [
+            "正文栏目",
+            "ACOL"
+          ],
+          [
+            "期",
+            "ISS"
+          ],
+          [
+            "卷",
+            "VO"
+          ],
+          [
+            "分类号",
+            "CLC"
+          ],
+          [
+            "摘要",
+            "AB"
+          ],
+          [
+            "全文",
+            "CT"
+          ]
+        ],
+        "现代期刊": [
+          [
+            "期",
+            "ISS"
+          ],
+          [
+            "卷",
+            "VO"
+          ],
+          [
+            "主题词",
+            "SU"
+          ],
+          [
+            "分类号",
+            "CLC"
+          ],
+          [
+            "摘要",
+            "AB"
+          ]
+        ],
+        "外文报纸": [
+          [
+            "新闻来源",
+            "NS"
+          ],
+          [
+            "卷期",
+            "VI"
+          ],
+          [
+            "新闻发生时间",
+            "NOD"
+          ],
+          [
+            "题中人名",
+            "NATI"
+          ],
+          [
+            "正文类别",
+            "AT"
+          ],
+          [
+            "版别",
+            "BC"
+          ],
+          [
+            "附属报名",
+            "SNTI"
+          ],
+          [
+            "新闻发布地",
+            "NOP"
+          ],
+          [
+            "正文栏目",
+            "ACOL"
+          ]
+        ],
+        "行名录": [
+          [
+            "行名",
+            "IN"
+          ],
+          [
+            "中文行名",
+            "CNI"
+          ],
+          [
+            "行名拼音",
+            "PIN"
+          ],
+          [
+            "机构负责人",
+            "PIC"
+          ],
+          [
+            "版本",
+            "ED"
+          ],
+          [
+            "行名地址",
+            "IA"
+          ]
+        ],
+        "中文报纸": [
+          [
+            "卷期",
+            "VI"
+          ],
+          [
+            "新闻发生时间",
+            "NOD"
+          ],
+          [
+            "题中人名",
+            "NATI"
+          ],
+          [
+            "版别",
+            "BC"
+          ],
+          [
+            "附属报名",
+            "SNTI"
+          ],
+          [
+            "新闻来源",
+            "NS"
+          ],
+          [
+            "正文类别",
+            "AT"
+          ],
+          [
+            "正文栏目",
+            "ACOL"
+          ],
+          [
+            "全文",
+            "NCT"
+          ]
+        ],
+        "测试": [
+          [
+            "",
+            "TEST"
+          ]
+        ],
+        "近代图书": [
+          [
+            "发行制作",
+            "FXJG"
+          ],
+          [
+            "出版时间",
+            "YEAR"
+          ],
+          [
+            "出版者",
+            "CBGJ"
+          ],
+          [
+            "责任者/作者",
+            "ZRZ"
+          ],
+          [
+            "内容提要",
+            "NRTY"
+          ],
+          [
+            "主题词",
+            "ZTC"
+          ],
+          [
+            "全文",
+            "TSCT"
+          ]
+        ]
+      }
+    },
+    "image_tab": {
+      "image_sha256": "48a14ba2973dddff193091ff79770e927df163102091f642d88ee79c4303ca9d",
+      "groups": {
+        "通用": [
+          [
+            "全字段",
+            "ALL"
+          ],
+          [
+            "图片标题",
+            "PTI"
+          ],
+          [
+            "图片责任者",
+            "FAP"
+          ],
+          [
+            "时间",
+            "PD"
+          ],
+          [
+            "文献来源",
+            "JTI"
+          ]
+        ],
+        "中文报纸": [
+          [
+            "图片说明",
+            "CAP"
+          ]
+        ],
+        "近代期刊": [
+          [
+            "图片说明",
+            "CAP"
+          ],
+          [
+            "图片类别",
+            "AT"
+          ],
+          [
+            "图片栏目",
+            "ACOL"
+          ]
+        ]
+      }
+    },
+    "advertisement_tab": {
+      "image_sha256": "c0b63ca5736d9219a07da2f2c2d57e0728fa58837b65d40639ed118cf2dc496e",
+      "groups": {
+        "通用": [
+          [
+            "全字段",
+            "ALL"
+          ],
+          [
+            "广告标题",
+            "ADTI"
+          ],
+          [
+            "广告发布者",
+            "ADPB"
+          ],
+          [
+            "文献来源",
+            "JTI"
+          ]
+        ],
+        "外文报纸": [
+          [
+            "广告语",
+            "SL"
+          ],
+          [
+            "广告产品",
+            "ADPR"
+          ]
+        ],
+        "中文报纸": [
+          [
+            "广告语",
+            "SL"
+          ],
+          [
+            "广告产品",
+            "ADPR"
+          ]
+        ],
+        "近代期刊": [
+          [
+            "广告语",
+            "SL"
+          ],
+          [
+            "广告产品",
+            "ADPR"
+          ],
+          [
+            "广告栏目",
+            "ACOL"
+          ]
+        ]
+      }
+    },
+    "examples": [
+      {
+        "image_sha256": "563b0d4e03b22ab8041186748391d2aa02e06487e452cbca5040105d8517a354",
+        "expression": "ALL: 鲁迅"
+      },
+      {
+        "image_sha256": "ab96ce6b7e00b041138c55419709455a541fc88029959e32018e3ed6e9298608",
+        "expression": "ALL: 鲁迅 AND TI: 鲁迅先生"
+      },
+      {
+        "image_sha256": "3aa196005f40af3773d635861c26e3bbeb896d38744248a869a926369de3444b",
+        "expression": "ALL: 鲁迅 AND TI: 鲁迅先生 AND JTI: 铁报"
+      }
+    ],
+    "narrative_example_text_from_ooxml": "此处示例搜索条件为 “全字段：鲁迅，提名：鲁迅先生，刊名/报名：轶报”；",
+    "internal_inconsistencies": [
+      "OOXML narrative says 提名 while the field table and screenshots use 题名/TI.",
+      "OOXML narrative says 刊名/报名：轶报 while the screenshot expression uses JTI: 铁报 and the displayed result is 《铁报》.",
+      "These are preserved as modern-manual inconsistencies; no silent normalization is authorized."
+    ]
+  },
+  "adjudication": {
+    "initial_probe_scope_defect_confirmed": true,
+    "repaired_section_scope_closed": true,
+    "section_local_media_count": 6,
+    "field_code_tables_visually_collated": true,
+    "ocr_used": false,
+    "search_endpoint_invoked": false,
+    "target_term_submitted": false,
+    "target_query_submitted": false,
+    "login_used": false,
+    "registration_used": false
+  },
+  "transmission_impact": {
+    "status": "NONE_MODERN_OPERATIONAL_EVIDENCE_ONLY",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": []
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Use only first-party JavaScript already source-emitted by the public CNBKSY seed/navigation pages.",
+    "Search statically for distinctive professional field codes (JTI, PTI, ADTI, FXJG, NATI, TSCT), Solr wording, and nearby AJAX/bksy request-builder context.",
+    "Do not invoke any discovered application route and do not submit a target term or query.",
+    "If no request-builder context is found, record the negative result only for that reviewed script surface."
+  ],
+  "updated_at": "2026-10-02"
+}

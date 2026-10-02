@@ -854,9 +854,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-CNBKSY-MANUAL-LINK-BINDING-CONTRACT-LV",
     "BATCH-12-ZIWEI-CNBKSY-MANUAL-FILE-IDENTITY-CONTRACT-LW",
     "BATCH-12-ZIWEI-CNBKSY-NEW-MANUAL-OOXML-SEMANTICS-LX",
+    "BATCH-12-ZIWEI-CNBKSY-PROFESSIONAL-SECTION-MEDIA-MAP-LY",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-NEW-MANUAL-OOXML-SEMANTICS-LX.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-PROFESSIONAL-SECTION-MEDIA-MAP-LY.md"
 
 
 def fail(message: str) -> None:
@@ -13419,6 +13420,79 @@ def main() -> int:
         fail("Batch 12LX state version regressed below 1.339.0")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12LX latest-batch document mismatch")
+
+    # Batch 12LY: repair TOC scope and bind actual 4.3 professional-search media/code tables.
+    ly_batch = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-PROFESSIONAL-SECTION-MEDIA-MAP-LY.md"
+    ly_evidence = ROOT / "docs/research/ZIWEI-CNBKSY-PROFESSIONAL-SECTION-MEDIA-MAP-R1.json"
+    if not ly_batch.is_file() or not ly_evidence.is_file():
+        fail("Batch 12LY continuity artifact missing")
+    ly = json.loads(ly_evidence.read_text(encoding="utf-8"))
+    if ly.get("batch_id") != "BATCH-12-ZIWEI-CNBKSY-PROFESSIONAL-SECTION-MEDIA-MAP-LY":
+        fail("Batch 12LY evidence identity mismatch")
+    sup = ly.get("superseded_probe", {})
+    if sup.get("workflow_run_id") != 36894975137 or sup.get("overincluded_media_count") != 59 or sup.get("controlling") is not False:
+        fail("Batch 12LY superseded-run scope record regressed")
+    p = ly.get("controlling_probe", {})
+    if p.get("workflow_run_id") != 37018829441 or p.get("workflow_job_id") != 110876339613 or p.get("artifact_id") != 11232711441:
+        fail("Batch 12LY controlling probe identity regressed")
+    if p.get("artifact_digest") != "sha256:f46145373e738aeb21161535afcef9e1e575a545a855143cbf1237fd2869f7f6":
+        fail("Batch 12LY controlling artifact digest regressed")
+    sc = ly.get("section_scope", {})
+    occ = sc.get("exact_heading_occurrences", {})
+    if occ.get("4. 高级功能") != [179] or occ.get("4.3 专业检索") != [195] or occ.get("4.4 检索结果可视化") != [213]:
+        fail("Batch 12LY repaired heading positions regressed")
+    if sc.get("body_child_start_index") != 195 or sc.get("body_child_end_index_exclusive") != 213 or sc.get("media_count") != 6:
+        fail("Batch 12LY repaired section scope regressed")
+    media = sc.get("media", ())
+    expected_hashes = [
+        "be6e4a654267775232103ff678a11052e2718e6b6da3e2728f6ab5d2bcc30299",
+        "48a14ba2973dddff193091ff79770e927df163102091f642d88ee79c4303ca9d",
+        "c0b63ca5736d9219a07da2f2c2d57e0728fa58837b65d40639ed118cf2dc496e",
+        "563b0d4e03b22ab8041186748391d2aa02e06487e452cbca5040105d8517a354",
+        "ab96ce6b7e00b041138c55419709455a541fc88029959e32018e3ed6e9298608",
+        "3aa196005f40af3773d635861c26e3bbeb896d38744248a869a926369de3444b",
+    ]
+    if [x.get("sha256") for x in media] != expected_hashes:
+        fail("Batch 12LY media hash sequence regressed")
+    if not all(x.get("width") == 1265 and x.get("height") == 616 for x in media):
+        fail("Batch 12LY media dimensions regressed")
+    vc = ly.get("direct_visual_collation_no_ocr", {})
+    if vc.get("reviewer_method") != "DIRECT_IMAGE_REVIEW_NO_OCR":
+        fail("Batch 12LY no-OCR visual method regressed")
+    text_common = dict(vc.get("text_tab", {}).get("groups", {}).get("通用", ()))
+    if text_common != {"全字段":"ALL","题名":"TI","时间":"PD","刊名/报名":"JTI"}:
+        fail("Batch 12LY text/common code table regressed")
+    image_common = dict(vc.get("image_tab", {}).get("groups", {}).get("通用", ()))
+    if image_common != {"全字段":"ALL","图片标题":"PTI","图片责任者":"FAP","时间":"PD","文献来源":"JTI"}:
+        fail("Batch 12LY image/common code table regressed")
+    ad_common = dict(vc.get("advertisement_tab", {}).get("groups", {}).get("通用", ()))
+    if ad_common != {"全字段":"ALL","广告标题":"ADTI","广告发布者":"ADPB","文献来源":"JTI"}:
+        fail("Batch 12LY advertisement/common code table regressed")
+    expressions = [x.get("expression") for x in vc.get("examples", ())]
+    if expressions != ["ALL: 鲁迅","ALL: 鲁迅 AND TI: 鲁迅先生","ALL: 鲁迅 AND TI: 鲁迅先生 AND JTI: 铁报"]:
+        fail("Batch 12LY professional-search example sequence regressed")
+    if len(vc.get("internal_inconsistencies", ())) != 3:
+        fail("Batch 12LY manual inconsistency firewall regressed")
+    a = ly.get("adjudication", {})
+    if a.get("initial_probe_scope_defect_confirmed") is not True or a.get("repaired_section_scope_closed") is not True or a.get("field_code_tables_visually_collated") is not True:
+        fail("Batch 12LY adjudication regressed")
+    for key in ("ocr_used","search_endpoint_invoked","target_term_submitted","target_query_submitted","login_used","registration_used"):
+        if a.get(key) is not False:
+            fail(f"Batch 12LY no-action firewall regressed: {key}")
+    srcmap_ly = {x.get("source_id"): x for x in registry.get("sources", ())}
+    reg_ly = srcmap_ly.get("EXT-CNBKSY-PUBLIC-SEARCH-SURFACE-2026", {}).get("batch_12ly", {})
+    if reg_ly.get("controlling_probe", {}).get("workflow_run_id") != 37018829441 or reg_ly.get("section_local_media_count") != 6:
+        fail("Batch 12LY external-source registry binding missing")
+    if "BATCH-12-ZIWEI-CNBKSY-PROFESSIONAL-SECTION-MEDIA-MAP-LY" not in audit_state.get("completed_batches", ()):
+        fail("Batch 12LY missing from completed state")
+    try:
+        schema12ly = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12LY state version is not numeric")
+    if schema12ly < (1, 340, 0):
+        fail("Batch 12LY state version regressed below 1.340.0")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12LY latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")
