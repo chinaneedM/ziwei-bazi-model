@@ -857,9 +857,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-CNBKSY-PROFESSIONAL-SECTION-MEDIA-MAP-LY",
     "BATCH-12-ZIWEI-CNBKSY-PROFESSIONAL-CODE-SCRIPT-CONTRACT-LZ",
     "BATCH-12-ZIWEI-CNBKSY-PROFESSIONAL-SEARCH-ESA-BOUNDARY-MA",
+    "BATCH-12-ZIWEI-CNBKSY-ADVANCED-SEARCH-ESA-BOUNDARY-MB",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-PROFESSIONAL-SEARCH-ESA-BOUNDARY-MA.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-ADVANCED-SEARCH-ESA-BOUNDARY-MB.md"
 
 
 def fail(message: str) -> None:
@@ -13591,6 +13592,59 @@ def main() -> int:
         fail("Batch 12MA state version regressed below 1.342.0")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12MA latest-batch document mismatch")
+
+    # Batch 12MB: source-emitted advanced search page closes at ESA 412; raw-HTTP text-search branch stops.
+    mb_batch = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-ADVANCED-SEARCH-ESA-BOUNDARY-MB.md"
+    mb_evidence = ROOT / "docs/research/ZIWEI-CNBKSY-ADVANCED-SEARCH-ESA-BOUNDARY-R1.json"
+    if not mb_batch.is_file() or not mb_evidence.is_file():
+        fail("Batch 12MB continuity artifact missing")
+    mb = json.loads(mb_evidence.read_text(encoding="utf-8"))
+    if mb.get("batch_id") != "BATCH-12-ZIWEI-CNBKSY-ADVANCED-SEARCH-ESA-BOUNDARY-MB":
+        fail("Batch 12MB evidence identity mismatch")
+    p = mb.get("controlling_probe", {})
+    if p.get("workflow_run_id") != 37022520964 or p.get("workflow_job_id") != 110888882297 or p.get("artifact_id") != 11233262837:
+        fail("Batch 12MB controlling probe identity regressed")
+    if p.get("artifact_digest") != "sha256:64379d4e37675ae45a78f386a422d2d664b391dbe5982f9fa6d3418b06226e5f":
+        fail("Batch 12MB artifact digest regressed")
+    rb = mb.get("source_route_binding", {})
+    if rb.get("label") != "高级检索" or rb.get("href") != "/search/advance" or rb.get("source_closed") is not True:
+        fail("Batch 12MB source route binding regressed")
+    r = mb.get("response", {})
+    if r.get("http_status") != 412 or r.get("server_header") != "ESA" or r.get("bytes") != 2464:
+        fail("Batch 12MB advanced response identity regressed")
+    if r.get("sha256") != "ad3f22dbf7ca055c9f53b1cfbb17e06d8b1c2a6937facde89ab4f8a8a766d918" or r.get("query_parameters_submitted") is not False:
+        fail("Batch 12MB response digest/no-query control regressed")
+    s = mb.get("static_surface", {})
+    if s.get("form_count") != 0 or s.get("csrf_meta_present") is not False or s.get("external_script_count") != 1 or s.get("inline_script_count") != 3 or s.get("visible_text_length") != 0:
+        fail("Batch 12MB challenge static surface regressed")
+    cross = mb.get("cross_route_adjudication", {})
+    if cross.get("all_source_emitted_text_search_routes_tested") is not True or cross.get("all_close_at_esa_http_412") is not True:
+        fail("Batch 12MB cross-route closure regressed")
+    if cross.get("raw_http_text_search_branch_status") != "STOPPED_PENDING_MATERIALLY_NEW_FIRST_PARTY_ACCESS_MECHANISM":
+        fail("Batch 12MB branch-stop adjudication regressed")
+    for key in ("search_absence_inference_authorized","target_absence_inference_authorized","institutional_ip_requirement_demonstrated"):
+        if cross.get(key) is not False:
+            fail(f"Batch 12MB inference firewall regressed: {key}")
+    a = mb.get("adjudication", {})
+    if a.get("advanced_search_route_existence_source_confirmed") is not True or a.get("anonymous_raw_http_application_surface_retrieved") is not False:
+        fail("Batch 12MB route/access adjudication regressed")
+    for key in ("form_submitted","application_endpoint_invoked_beyond_page_get","target_term_submitted","target_query_submitted","login_used","registration_used","esa_challenge_bypass_authorized","esa_challenge_bypass_used"):
+        if a.get(key) is not False:
+            fail(f"Batch 12MB no-action firewall regressed: {key}")
+    srcmap_mb = {x.get("source_id"): x for x in registry.get("sources", ())}
+    reg_mb = srcmap_mb.get("EXT-CNBKSY-PUBLIC-SEARCH-SURFACE-2026", {}).get("batch_12mb", {})
+    if reg_mb.get("workflow_run_id") != 37022520964 or reg_mb.get("route") != "/search/advance" or reg_mb.get("response_status") != 412:
+        fail("Batch 12MB external-source registry binding missing")
+    if "BATCH-12-ZIWEI-CNBKSY-ADVANCED-SEARCH-ESA-BOUNDARY-MB" not in audit_state.get("completed_batches", ()):
+        fail("Batch 12MB missing from completed state")
+    try:
+        schema12mb = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12MB state version is not numeric")
+    if schema12mb < (1, 343, 0):
+        fail("Batch 12MB state version regressed below 1.343.0")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12MB latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

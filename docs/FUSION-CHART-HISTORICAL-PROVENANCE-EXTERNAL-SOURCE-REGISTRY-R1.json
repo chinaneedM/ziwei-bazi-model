@@ -12043,7 +12043,7 @@
       "provider": "上海图书馆《全国报刊索引》编辑部",
       "url": "https://www.cnbksy.com/",
       "source_role": "FIRST_PARTY_NEWSPAPER_INDEX_PUBLIC_ACCESS_SURFACE",
-      "quality_notes": "Batches 12LF–12LZ close the public access/help/manual chain without bypass or target query. Batch 12MA now follows only the first-party source-emitted 专业检索=/search/special page with no query and receives an ESA HTTP 412 challenge surface: no form, no CSRF meta and no visible search content. This source-confirms the route but not the application surface. 12MB may test only the independently source-emitted 高级检索=/search/advance page; no challenge bypass is authorized.",
+      "quality_notes": "Batches 12LF–12MB close the current raw-HTTP public/search/help/manual access chain without bypass or target query. Source-emitted /search, /search/special and /search/advance all return ESA HTTP 412 challenge surfaces with no usable static search application. This is an access-boundary result only and does not prove search/target absence or institutional-IP requirements. The raw-HTTP text-search branch is stopped pending a materially new first-party access mechanism.",
       "batch_12lf": {
         "workflow_run_id": 36877911774,
         "workflow_job_id": 110421993332,
@@ -12662,6 +12662,27 @@
         "target_term_submitted": false,
         "target_query_submitted": false,
         "research_artifact": "docs/research/ZIWEI-CNBKSY-PROFESSIONAL-SEARCH-ESA-BOUNDARY-R1.json"
+      },
+      "batch_12mb": {
+        "workflow_run_id": 37022520964,
+        "workflow_job_id": 110888882297,
+        "artifact_id": 11233262837,
+        "artifact_digest": "sha256:64379d4e37675ae45a78f386a422d2d664b391dbe5982f9fa6d3418b06226e5f",
+        "exact_head": "b8e0fb38cff11058fc874e6c5585291fc316f65e",
+        "route": "/search/advance",
+        "route_label": "高级检索",
+        "route_source": "Batch 12LZ source-emitted labeled navigation",
+        "response_status": 412,
+        "response_content_type": "text/html; charset=utf-8",
+        "response_server": "ESA",
+        "response_bytes": 2464,
+        "response_sha256": "ad3f22dbf7ca055c9f53b1cfbb17e06d8b1c2a6937facde89ab4f8a8a766d918",
+        "form_count": 0,
+        "csrf_meta_present": false,
+        "visible_text_length": 0,
+        "target_term_submitted": false,
+        "target_query_submitted": false,
+        "research_artifact": "docs/research/ZIWEI-CNBKSY-ADVANCED-SEARCH-ESA-BOUNDARY-R1.json"
       }
     }
   ],

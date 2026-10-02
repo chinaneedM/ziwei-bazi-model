@@ -1,0 +1,138 @@
+{
+  "schema": "ZIWEI-CNBKSY-ADVANCED-SEARCH-ESA-BOUNDARY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-CNBKSY-ADVANCED-SEARCH-ESA-BOUNDARY-MB",
+  "prior_batch_id": "BATCH-12-ZIWEI-CNBKSY-PROFESSIONAL-SEARCH-ESA-BOUNDARY-MA",
+  "question": "What does a single anonymous no-query GET of the first-party source-emitted 高级检索 route /search/advance return, and does it complete the raw-HTTP text-search access-boundary comparison?",
+  "answer": "The advanced route exists and is source-confirmed, but the anonymous raw-HTTP request returns an ESA HTTP 412 challenge rather than the application surface. Together with ordinary /search and professional /search/special, all three text-search pages now close at the same browser/precondition boundary. No target query or bypass is used; therefore the CNBKSY raw-HTTP text-search branch should stop unless a materially new first-party access mechanism appears.",
+  "controlling_probe": {
+    "workflow": ".github/workflows/probe-batch-12mb-cnbksy-advanced-search-surface.yml",
+    "exact_head": "b8e0fb38cff11058fc874e6c5585291fc316f65e",
+    "workflow_run_id": 37022520964,
+    "workflow_job_id": 110888882297,
+    "artifact_id": 11233262837,
+    "artifact_digest": "sha256:64379d4e37675ae45a78f386a422d2d664b391dbe5982f9fa6d3418b06226e5f"
+  },
+  "source_route_binding": {
+    "seed_url": "https://www.cnbksy.com/portal/newsCategoryBrowse/newsContent?id=202",
+    "seed_status": 200,
+    "seed_bytes": 41244,
+    "seed_sha256": "aec0bb77d16336eee5f7d0632749202c0ab79cc9c6a7bb3dab0d575979177c5a",
+    "label": "高级检索",
+    "href": "/search/advance",
+    "absolute_href": "https://www.cnbksy.com/search/advance",
+    "source_closed": true
+  },
+  "response": {
+    "url": "https://www.cnbksy.com/search/advance",
+    "method": "GET",
+    "query_parameters_submitted": false,
+    "http_status": 412,
+    "content_type": "text/html; charset=utf-8",
+    "server_header": "ESA",
+    "location": null,
+    "bytes": 2464,
+    "sha256": "ad3f22dbf7ca055c9f53b1cfbb17e06d8b1c2a6937facde89ab4f8a8a766d918"
+  },
+  "static_surface": {
+    "form_count": 0,
+    "forms": [],
+    "csrf_meta_present": false,
+    "external_script_count": 1,
+    "external_scripts": [
+      "/oYqhkoXXrsR7/FRfMdL7TavJA.cfd114a.js"
+    ],
+    "inline_script_count": 3,
+    "visible_text_length": 0,
+    "token_counts": {
+      "高级检索": 0,
+      "题名": 0,
+      "作者": 0,
+      "文献来源": 0,
+      "全字段": 0,
+      "精确": 0,
+      "模糊": 0,
+      "与": 0,
+      "或": 0,
+      "非": 0,
+      "检索": 0,
+      "登录": 0
+    }
+  },
+  "cross_route_adjudication": {
+    "ordinary_route": {
+      "route": "/search",
+      "batch": "12LP",
+      "status": 412
+    },
+    "professional_route": {
+      "route": "/search/special",
+      "batch": "12MA",
+      "status": 412
+    },
+    "advanced_route": {
+      "route": "/search/advance",
+      "batch": "12MB",
+      "status": 412
+    },
+    "all_source_emitted_text_search_routes_tested": true,
+    "all_close_at_esa_http_412": true,
+    "raw_http_text_search_branch_status": "STOPPED_PENDING_MATERIALLY_NEW_FIRST_PARTY_ACCESS_MECHANISM",
+    "search_absence_inference_authorized": false,
+    "target_absence_inference_authorized": false,
+    "institutional_ip_requirement_demonstrated": false
+  },
+  "adjudication": {
+    "advanced_search_route_existence_source_confirmed": true,
+    "anonymous_raw_http_application_surface_retrieved": false,
+    "access_boundary": "ESA_HTTP_412_BROWSER_PRECONDITION",
+    "form_submitted": false,
+    "application_endpoint_invoked_beyond_page_get": false,
+    "target_term_submitted": false,
+    "target_query_submitted": false,
+    "login_used": false,
+    "registration_used": false,
+    "esa_challenge_bypass_authorized": false,
+    "esa_challenge_bypass_used": false
+  },
+  "security": {
+    "anonymous_session_only": true,
+    "credential_value_recorded": false,
+    "private_endpoint_guessed": false,
+    "captcha_bypass_used": false,
+    "tls_verification_disabled": false
+  },
+  "transmission_impact": {
+    "status": "NONE_ACCESS_BOUNDARY_ONLY",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": []
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Stop the CNBKSY raw-HTTP text-search branch; do not probe sibling search routes merely to repeat the ESA boundary.",
+    "Return to direct lawful page-level recovery of Shanghai 文汇报 1951-08-18.",
+    "Recalibrate only the official dzb.whb.cn e-paper root in the controlling GitHub environment and inventory root status/redirect plus source-emitted date-navigation contracts.",
+    "Do not guess or request a 1951-08-18 path until a first-party source-emitted historical date-selection mechanism is demonstrated."
+  ],
+  "updated_at": "2026-10-02"
+}
