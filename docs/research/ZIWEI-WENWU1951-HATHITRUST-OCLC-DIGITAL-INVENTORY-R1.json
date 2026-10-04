@@ -1,0 +1,2195 @@
+{
+  "schema": "ZIWEI-WENWU1951-HATHITRUST-OCLC-DIGITAL-INVENTORY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-WENWU1951-HATHITRUST-OCLC-DIGITAL-INVENTORY-MG",
+  "prior_batch_id": "BATCH-12-ZIWEI-WENWU1951-CADAL-PUBLIC-SEARCH-REDIRECT-BOUNDARY-MF",
+  "question": "Can a materially new documented HathiTrust identifier lookup recover actual digital serial objects beyond the Batch 12IT catalog-export access boundary, and bind the target original issue?",
+  "answer": "Yes for serial digital-object identity: the documented brief/full OCLC lookup returns record 007245565, actual MARC 880 title 文物参考資料, and 39 unique digital items. No for exact 1951 issue 9 or original-page review: explicitly year-labelled 1951 items cover only issues 1–4; unyear-labelled aggregate no.13–18/no.19–24 are not silently assigned to the target year. All 39 items carry the US-region descriptor Limited (search-only), and a single source-emitted aggregate viewer GET returns HTTP 403 in the current execution environment.",
+  "execution": {
+    "environment": "LOCAL_WORK_MODE_NETWORK",
+    "observed_date": "2026-10-04",
+    "repository_base_head": "f62ffaeff1eeb0706302d947fa272b7471647b85",
+    "repository_base_tree": "c24bea73aaabb1e81a1b649ebcf8a0452edbb214",
+    "github_runner_probe_claimed": false,
+    "method": "BOUNDED_PUBLIC_GET_NO_LOGIN",
+    "bytes_limit_per_object": 2000000,
+    "private_endpoint_guessed": false
+  },
+  "objects": {
+    "positive_control": {
+      "url": "https://catalog.hathitrust.org/api/volumes/brief/oclc/424023.json",
+      "final_url": "https://catalog.hathitrust.org/api/volumes/brief/oclc/424023.json",
+      "status": 200,
+      "content_type": "application/json; charset=UTF-8",
+      "bytes": 761,
+      "sha256": "237746ff16d44fa8ce53b3ee63a142ed9325d2140405664e1e08f0a6eaf32e2b",
+      "evidence_file": "docs/research/evidence/batch-12mg/positive-control.json"
+    },
+    "predecessor_serial": {
+      "url": "https://catalog.hathitrust.org/api/volumes/brief/oclc/18030125.json",
+      "final_url": "https://catalog.hathitrust.org/api/volumes/brief/oclc/18030125.json",
+      "status": 200,
+      "content_type": "application/json; charset=UTF-8",
+      "bytes": 10689,
+      "sha256": "d4a98b1efcfa08ac4de89acbd5f8ee563b006ae4a5a53800f8fbb17c653129d1",
+      "evidence_file": "docs/research/evidence/batch-12mg/serial-brief.json"
+    },
+    "full_record": {
+      "url": "https://catalog.hathitrust.org/api/volumes/full/oclc/18030125.json",
+      "final_url": "https://catalog.hathitrust.org/api/volumes/full/oclc/18030125.json",
+      "status": 200,
+      "content_type": "application/json; charset=UTF-8",
+      "bytes": 36301,
+      "sha256": "b6a2a8447c2854a474e7d8d0f4329c039ec622e1bbd43eea2b836d510331dcf3",
+      "evidence_file": "docs/research/evidence/batch-12mg/serial-full.json"
+    }
+  },
+  "api_contract": {
+    "source": "CURRENT_FIRST_PARTY_DOCUMENTATION",
+    "id_type": "oclc",
+    "target_id": "18030125",
+    "positive_control_id": "424023",
+    "response_kind": "BIBLIOGRAPHIC_IDENTIFIER_LOOKUP_NOT_KEYWORD_SEARCH",
+    "control_record": "000578050",
+    "control_title": "Infinite series",
+    "positive_control_status": 200
+  },
+  "serial_binding": {
+    "record_id": "007245565",
+    "oclc": "18030125",
+    "romanized_title": "Wen wu can kao zi liao",
+    "marc_880_title": "文物参考資料",
+    "record_publication_span": "1950–1958",
+    "marc_fields": [
+      {
+        "tag": "035",
+        "subfields": [
+          {
+            "code": "a",
+            "value": "sdr-ucsd.991018031009706535"
+          }
+        ]
+      },
+      {
+        "tag": "035",
+        "subfields": [
+          {
+            "code": "a",
+            "value": "sdr-ucd.990022440100403126"
+          }
+        ]
+      },
+      {
+        "tag": "035",
+        "subfields": [
+          {
+            "code": "a",
+            "value": "sdr-ucla3978805"
+          }
+        ]
+      },
+      {
+        "tag": "035",
+        "subfields": [
+          {
+            "code": "z",
+            "value": "(UCSDmil).b22906733"
+          }
+        ]
+      },
+      {
+        "tag": "035",
+        "subfields": [
+          {
+            "code": "a",
+            "value": "(EXLNZ-01UCS_NETWORK)9912383409706531"
+          }
+        ]
+      },
+      {
+        "tag": "035",
+        "subfields": [
+          {
+            "code": "a",
+            "value": "(OCoLC)18030125"
+          }
+        ]
+      },
+      {
+        "tag": "035",
+        "subfields": [
+          {
+            "code": "a",
+            "value": "(CU-S)b22906733-01ucs_sdi"
+          }
+        ]
+      },
+      {
+        "tag": "245",
+        "subfields": [
+          {
+            "code": "6",
+            "value": "880-01"
+          },
+          {
+            "code": "a",
+            "value": "Wen wu can kao zi liao"
+          }
+        ]
+      },
+      {
+        "tag": "260",
+        "subfields": [
+          {
+            "code": "a",
+            "value": "[Peking] :"
+          },
+          {
+            "code": "b",
+            "value": "[publisher not identified],"
+          },
+          {
+            "code": "c",
+            "value": "1950-1958"
+          }
+        ]
+      },
+      {
+        "tag": "362",
+        "subfields": [
+          {
+            "code": "6",
+            "value": "880-02"
+          },
+          {
+            "code": "a",
+            "value": "Di 1 qi (1950 nian 1 yue [Jan. 1950])-zong 100 hao (1958 nian 12 yue [Dec. 1958])"
+          }
+        ]
+      },
+      {
+        "tag": "880",
+        "subfields": [
+          {
+            "code": "6",
+            "value": "260-00"
+          },
+          {
+            "code": "a",
+            "value": "北京 :"
+          },
+          {
+            "code": "b",
+            "value": "該室,"
+          },
+          {
+            "code": "c",
+            "value": "1950-1958"
+          }
+        ]
+      },
+      {
+        "tag": "880",
+        "subfields": [
+          {
+            "code": "6",
+            "value": "785-04"
+          },
+          {
+            "code": "t",
+            "value": "文物"
+          }
+        ]
+      },
+      {
+        "tag": "880",
+        "subfields": [
+          {
+            "code": "6",
+            "value": "710-03"
+          },
+          {
+            "code": "a",
+            "value": "China."
+          },
+          {
+            "code": "b",
+            "value": "文物局"
+          }
+        ]
+      },
+      {
+        "tag": "880",
+        "subfields": [
+          {
+            "code": "6",
+            "value": "362-02"
+          },
+          {
+            "code": "a",
+            "value": "第1期 (1950年1月 [Jan. 1950])-总100号(1958年12月[Dec. 1958])"
+          }
+        ]
+      },
+      {
+        "tag": "880",
+        "subfields": [
+          {
+            "code": "6",
+            "value": "245-01"
+          },
+          {
+            "code": "a",
+            "value": "文物参考資料"
+          }
+        ]
+      },
+      {
+        "tag": "974",
+        "subfields": [
+          {
+            "code": "b",
+            "value": "UC"
+          },
+          {
+            "code": "c",
+            "value": "UCSD"
+          },
+          {
+            "code": "d",
+            "value": "20260320"
+          },
+          {
+            "code": "s",
+            "value": "google"
+          },
+          {
+            "code": "u",
+            "value": "uc1.31822021132311"
+          },
+          {
+            "code": "z",
+            "value": "v.2 no.4"
+          },
+          {
+            "code": "y",
+            "value": "1958"
+          },
+          {
+            "code": "r",
+            "value": "und"
+          },
+          {
+            "code": "q",
+            "value": "bib"
+          },
+          {
+            "code": "t",
+            "value": "non-US bib date2 >= 1931"
+          }
+        ]
+      },
+      {
+        "tag": "974",
+        "subfields": [
+          {
+            "code": "b",
+            "value": "UC"
+          },
+          {
+            "code": "c",
+            "value": "UCD"
+          },
+          {
+            "code": "d",
+            "value": "20250529"
+          },
+          {
+            "code": "s",
+            "value": "google"
+          },
+          {
+            "code": "u",
+            "value": "uc1.31175002281346"
+          },
+          {
+            "code": "z",
+            "value": "no.1-12"
+          },
+          {
+            "code": "y",
+            "value": "1958"
+          },
+          {
+            "code": "r",
+            "value": "und"
+          },
+          {
+            "code": "q",
+            "value": "bib"
+          },
+          {
+            "code": "t",
+            "value": "non-US bib date2 >= 1931"
+          }
+        ]
+      },
+      {
+        "tag": "974",
+        "subfields": [
+          {
+            "code": "b",
+            "value": "UC"
+          },
+          {
+            "code": "c",
+            "value": "UCD"
+          },
+          {
+            "code": "d",
+            "value": "20250529"
+          },
+          {
+            "code": "s",
+            "value": "google"
+          },
+          {
+            "code": "u",
+            "value": "uc1.31175002281353"
+          },
+          {
+            "code": "z",
+            "value": "no.13-18"
+          },
+          {
+            "code": "y",
+            "value": "1958"
+          },
+          {
+            "code": "r",
+            "value": "und"
+          },
+          {
+            "code": "q",
+            "value": "bib"
+          },
+          {
+            "code": "t",
+            "value": "non-US bib date2 >= 1931"
+          }
+        ]
+      },
+      {
+        "tag": "974",
+        "subfields": [
+          {
+            "code": "b",
+            "value": "UC"
+          },
+          {
+            "code": "c",
+            "value": "UCD"
+          },
+          {
+            "code": "d",
+            "value": "20250529"
+          },
+          {
+            "code": "s",
+            "value": "google"
+          },
+          {
+            "code": "u",
+            "value": "uc1.31175002281361"
+          },
+          {
+            "code": "z",
+            "value": "no.19-24"
+          },
+          {
+            "code": "y",
+            "value": "1958"
+          },
+          {
+            "code": "r",
+            "value": "und"
+          },
+          {
+            "code": "q",
+            "value": "bib"
+          },
+          {
+            "code": "t",
+            "value": "non-US bib date2 >= 1931"
+          }
+        ]
+      },
+      {
+        "tag": "974",
+        "subfields": [
+          {
+            "code": "b",
+            "value": "UC"
+          },
+          {
+            "code": "c",
+            "value": "UCD"
+          },
+          {
+            "code": "d",
+            "value": "20250529"
+          },
+          {
+            "code": "s",
+            "value": "google"
+          },
+          {
+            "code": "u",
+            "value": "uc1.31175002281379"
+          },
+          {
+            "code": "z",
+            "value": "no.25-27"
+          },
+          {
+            "code": "y",
+            "value": "1958"
+          },
+          {
+            "code": "r",
+            "value": "und"
+          },
+          {
+            "code": "q",
+            "value": "bib"
+          },
+          {
+            "code": "t",
+            "value": "non-US bib date2 >= 1931"
+          }
+        ]
+      },
+      {
+        "tag": "974",
+        "subfields": [
+          {
+            "code": "b",
+            "value": "UC"
+          },
+          {
+            "code": "c",
+            "value": "UCD"
+          },
+          {
+            "code": "d",
+            "value": "20250529"
+          },
+          {
+            "code": "s",
+            "value": "google"
+          },
+          {
+            "code": "u",
+            "value": "uc1.31175002281387"
+          },
+          {
+            "code": "z",
+            "value": "no.33-39 incompl."
+          },
+          {
+            "code": "y",
+            "value": "1958"
+          },
+          {
+            "code": "r",
+            "value": "und"
+          },
+          {
+            "code": "q",
+            "value": "bib"
+          },
+          {
+            "code": "t",
+            "value": "non-US bib date2 >= 1931"
+          }
+        ]
+      },
+      {
+        "tag": "974",
+        "subfields": [
+          {
+            "code": "b",
+            "value": "UC"
+          },
+          {
+            "code": "c",
+            "value": "UCD"
+          },
+          {
+            "code": "d",
+            "value": "20250529"
+          },
+          {
+            "code": "s",
+            "value": "google"
+          },
+          {
+            "code": "u",
+            "value": "uc1.31175002281395"
+          },
+          {
+            "code": "z",
+            "value": "no.41-46"
+          },
+          {
+            "code": "y",
+            "value": "1958"
+          },
+          {
+            "code": "r",
+            "value": "und"
+          },
+          {
+            "code": "q",
+            "value": "bib"
+          },
+          {
+            "code": "t",
+            "value": "non-US bib date2 >= 1931"
+          }
+        ]
+      },
+      {
+        "tag": "974",
+        "subfields": [
+          {
+            "code": "b",
+            "value": "UC"
+          },
+          {
+            "code": "c",
+            "value": "UCD"
+          },
+          {
+            "code": "d",
+            "value": "20250529"
+          },
+          {
+            "code": "s",
+            "value": "google"
+          },
+          {
+            "code": "u",
+            "value": "uc1.31175002281403"
+          },
+          {
+            "code": "z",
+            "value": "no.47-52"
+          },
+          {
+            "code": "y",
+            "value": "1958"
+          },
+          {
+            "code": "r",
+            "value": "und"
+          },
+          {
+            "code": "q",
+            "value": "bib"
+          },
+          {
+            "code": "t",
+            "value": "non-US bib date2 >= 1931"
+          }
+        ]
+      },
+      {
+        "tag": "974",
+        "subfields": [
+          {
+            "code": "b",
+            "value": "UC"
+          },
+          {
+            "code": "c",
+            "value": "UCD"
+          },
+          {
+            "code": "d",
+            "value": "20260806"
+          },
+          {
+            "code": "s",
+            "value": "google"
+          },
+          {
+            "code": "u",
+            "value": "uc1.31175002281411"
+          },
+          {
+            "code": "z",
+            "value": "no.53-58"
+          },
+          {
+            "code": "y",
+            "value": "1958"
+          },
+          {
+            "code": "r",
+            "value": "und"
+          },
+          {
+            "code": "q",
+            "value": "bib"
+          },
+          {
+            "code": "t",
+            "value": "non-US bib date2 >= 1931"
+          }
+        ]
+      },
+      {
+        "tag": "974",
+        "subfields": [
+          {
+            "code": "b",
+            "value": "UC"
+          },
+          {
+            "code": "c",
+            "value": "UCD"
+          },
+          {
+            "code": "d",
+            "value": "20250529"
+          },
+          {
+            "code": "s",
+            "value": "google"
+          },
+          {
+            "code": "u",
+            "value": "uc1.31175007140604"
+          },
+          {
+            "code": "z",
+            "value": "no.59-64"
+          },
+          {
+            "code": "y",
+            "value": "1958"
+          },
+          {
+            "code": "r",
+            "value": "und"
+          },
+          {
+            "code": "q",
+            "value": "bib"
+          },
+          {
+            "code": "t",
+            "value": "non-US bib date2 >= 1931"
+          }
+        ]
+      },
+      {
+        "tag": "974",
+        "subfields": [
+          {
+            "code": "b",
+            "value": "UC"
+          },
+          {
+            "code": "c",
+            "value": "UCD"
+          },
+          {
+            "code": "d",
+            "value": "20250529"
+          },
+          {
+            "code": "s",
+            "value": "google"
+          },
+          {
+            "code": "u",
+            "value": "uc1.31175002281437"
+          },
+          {
+            "code": "z",
+            "value": "no.65-76"
+          },
+          {
+            "code": "y",
+            "value": "1958"
+          },
+          {
+            "code": "r",
+            "value": "und"
+          },
+          {
+            "code": "q",
+            "value": "bib"
+          },
+          {
+            "code": "t",
+            "value": "non-US bib date2 >= 1931"
+          }
+        ]
+      },
+      {
+        "tag": "974",
+        "subfields": [
+          {
+            "code": "b",
+            "value": "UC"
+          },
+          {
+            "code": "c",
+            "value": "UCD"
+          },
+          {
+            "code": "d",
+            "value": "20250529"
+          },
+          {
+            "code": "s",
+            "value": "google"
+          },
+          {
+            "code": "u",
+            "value": "uc1.31175002281445"
+          },
+          {
+            "code": "z",
+            "value": "no.77-88"
+          },
+          {
+            "code": "y",
+            "value": "1958"
+          },
+          {
+            "code": "r",
+            "value": "und"
+          },
+          {
+            "code": "q",
+            "value": "bib"
+          },
+          {
+            "code": "t",
+            "value": "non-US bib date2 >= 1931"
+          }
+        ]
+      },
+      {
+        "tag": "974",
+        "subfields": [
+          {
+            "code": "b",
+            "value": "UC"
+          },
+          {
+            "code": "c",
+            "value": "UCD"
+          },
+          {
+            "code": "d",
+            "value": "20250529"
+          },
+          {
+            "code": "s",
+            "value": "google"
+          },
+          {
+            "code": "u",
+            "value": "uc1.31175002281452"
+          },
+          {
+            "code": "z",
+            "value": "no.89-100"
+          },
+          {
+            "code": "y",
+            "value": "1958"
+          },
+          {
+            "code": "r",
+            "value": "und"
+          },
+          {
+            "code": "q",
+            "value": "bib"
+          },
+          {
+            "code": "t",
+            "value": "non-US bib date2 >= 1931"
+          }
+        ]
+      },
+      {
+        "tag": "974",
+        "subfields": [
+          {
+            "code": "b",
+            "value": "UC"
+          },
+          {
+            "code": "c",
+            "value": "UCLA"
+          },
+          {
+            "code": "d",
+            "value": "20250510"
+          },
+          {
+            "code": "s",
+            "value": "google"
+          },
+          {
+            "code": "u",
+            "value": "uc1.l0084846419"
+          },
+          {
+            "code": "z",
+            "value": "yr.1950 no.1-7"
+          },
+          {
+            "code": "y",
+            "value": "1950"
+          },
+          {
+            "code": "r",
+            "value": "ic"
+          },
+          {
+            "code": "q",
+            "value": "bib"
+          },
+          {
+            "code": "t",
+            "value": "non-US serial item date >= 1931"
+          }
+        ]
+      },
+      {
+        "tag": "974",
+        "subfields": [
+          {
+            "code": "b",
+            "value": "UC"
+          },
+          {
+            "code": "c",
+            "value": "UCLA"
+          },
+          {
+            "code": "d",
+            "value": "20250510"
+          },
+          {
+            "code": "s",
+            "value": "google"
+          },
+          {
+            "code": "u",
+            "value": "uc1.l0084846377"
+          },
+          {
+            "code": "z",
+            "value": "yr.1950 no.8"
+          },
+          {
+            "code": "y",
+            "value": "1950"
+          },
+          {
+            "code": "r",
+            "value": "ic"
+          },
+          {
+            "code": "q",
+            "value": "bib"
+          },
+          {
+            "code": "t",
+            "value": "non-US serial item date >= 1931"
+          }
+        ]
+      },
+      {
+        "tag": "974",
+        "subfields": [
+          {
+            "code": "b",
+            "value": "UC"
+          },
+          {
+            "code": "c",
+            "value": "UCLA"
+          },
+          {
+            "code": "d",
+            "value": "20250510"
+          },
+          {
+            "code": "s",
+            "value": "google"
+          },
+          {
+            "code": "u",
+            "value": "uc1.l0084846294"
+          },
+          {
+            "code": "z",
+            "value": "yr.1950 no.9-11"
+          },
+          {
+            "code": "y",
+            "value": "1950"
+          },
+          {
+            "code": "r",
+            "value": "ic"
+          },
+          {
+            "code": "q",
+            "value": "bib"
+          },
+          {
+            "code": "t",
+            "value": "non-US serial item date >= 1931"
+          }
+        ]
+      },
+      {
+        "tag": "974",
+        "subfields": [
+          {
+            "code": "b",
+            "value": "UC"
+          },
+          {
+            "code": "c",
+            "value": "UCLA"
+          },
+          {
+            "code": "d",
+            "value": "20250510"
+          },
+          {
+            "code": "s",
+            "value": "google"
+          },
+          {
+            "code": "u",
+            "value": "uc1.l0084846336"
+          },
+          {
+            "code": "z",
+            "value": "yr.1950 no.12"
+          },
+          {
+            "code": "y",
+            "value": "1950"
+          },
+          {
+            "code": "r",
+            "value": "ic"
+          },
+          {
+            "code": "q",
+            "value": "bib"
+          },
+          {
+            "code": "t",
+            "value": "non-US serial item date >= 1931"
+          }
+        ]
+      },
+      {
+        "tag": "974",
+        "subfields": [
+          {
+            "code": "b",
+            "value": "UC"
+          },
+          {
+            "code": "c",
+            "value": "UCLA"
+          },
+          {
+            "code": "d",
+            "value": "20250510"
+          },
+          {
+            "code": "s",
+            "value": "google"
+          },
+          {
+            "code": "u",
+            "value": "uc1.l0084846252"
+          },
+          {
+            "code": "z",
+            "value": "yr.1951 no.1-2"
+          },
+          {
+            "code": "y",
+            "value": "1951"
+          },
+          {
+            "code": "r",
+            "value": "ic"
+          },
+          {
+            "code": "q",
+            "value": "bib"
+          },
+          {
+            "code": "t",
+            "value": "non-US serial item date >= 1931"
+          }
+        ]
+      },
+      {
+        "tag": "974",
+        "subfields": [
+          {
+            "code": "b",
+            "value": "UC"
+          },
+          {
+            "code": "c",
+            "value": "UCLA"
+          },
+          {
+            "code": "d",
+            "value": "20250510"
+          },
+          {
+            "code": "s",
+            "value": "google"
+          },
+          {
+            "code": "u",
+            "value": "uc1.l0084846211"
+          },
+          {
+            "code": "z",
+            "value": "yr.1951 no.3-4"
+          },
+          {
+            "code": "y",
+            "value": "1951"
+          },
+          {
+            "code": "r",
+            "value": "ic"
+          },
+          {
+            "code": "q",
+            "value": "bib"
+          },
+          {
+            "code": "t",
+            "value": "non-US serial item date >= 1931"
+          }
+        ]
+      },
+      {
+        "tag": "974",
+        "subfields": [
+          {
+            "code": "b",
+            "value": "UC"
+          },
+          {
+            "code": "c",
+            "value": "UCLA"
+          },
+          {
+            "code": "d",
+            "value": "20250510"
+          },
+          {
+            "code": "s",
+            "value": "google"
+          },
+          {
+            "code": "u",
+            "value": "uc1.l0084846427"
+          },
+          {
+            "code": "z",
+            "value": "yr.1953 no.1-2"
+          },
+          {
+            "code": "y",
+            "value": "1953"
+          },
+          {
+            "code": "r",
+            "value": "ic"
+          },
+          {
+            "code": "q",
+            "value": "bib"
+          },
+          {
+            "code": "t",
+            "value": "non-US serial item date >= 1931"
+          }
+        ]
+      },
+      {
+        "tag": "974",
+        "subfields": [
+          {
+            "code": "b",
+            "value": "UC"
+          },
+          {
+            "code": "c",
+            "value": "UCLA"
+          },
+          {
+            "code": "d",
+            "value": "20250510"
+          },
+          {
+            "code": "s",
+            "value": "google"
+          },
+          {
+            "code": "u",
+            "value": "uc1.l0084846468"
+          },
+          {
+            "code": "z",
+            "value": "yr.1953 no.3"
+          },
+          {
+            "code": "y",
+            "value": "1953"
+          },
+          {
+            "code": "r",
+            "value": "ic"
+          },
+          {
+            "code": "q",
+            "value": "bib"
+          },
+          {
+            "code": "t",
+            "value": "non-US serial item date >= 1931"
+          }
+        ]
+      },
+      {
+        "tag": "974",
+        "subfields": [
+          {
+            "code": "b",
+            "value": "UC"
+          },
+          {
+            "code": "c",
+            "value": "UCLA"
+          },
+          {
+            "code": "d",
+            "value": "20250510"
+          },
+          {
+            "code": "s",
+            "value": "google"
+          },
+          {
+            "code": "u",
+            "value": "uc1.l0084846500"
+          },
+          {
+            "code": "z",
+            "value": "yr.1953 no.4-7"
+          },
+          {
+            "code": "y",
+            "value": "1953"
+          },
+          {
+            "code": "r",
+            "value": "ic"
+          },
+          {
+            "code": "q",
+            "value": "bib"
+          },
+          {
+            "code": "t",
+            "value": "non-US serial item date >= 1931"
+          }
+        ]
+      },
+      {
+        "tag": "974",
+        "subfields": [
+          {
+            "code": "b",
+            "value": "UC"
+          },
+          {
+            "code": "c",
+            "value": "UCLA"
+          },
+          {
+            "code": "d",
+            "value": "20250510"
+          },
+          {
+            "code": "s",
+            "value": "google"
+          },
+          {
+            "code": "u",
+            "value": "uc1.l0084846542"
+          },
+          {
+            "code": "z",
+            "value": "yr.1953 no.8"
+          },
+          {
+            "code": "y",
+            "value": "1953"
+          },
+          {
+            "code": "r",
+            "value": "ic"
+          },
+          {
+            "code": "q",
+            "value": "bib"
+          },
+          {
+            "code": "t",
+            "value": "non-US serial item date >= 1931"
+          }
+        ]
+      },
+      {
+        "tag": "974",
+        "subfields": [
+          {
+            "code": "b",
+            "value": "UC"
+          },
+          {
+            "code": "c",
+            "value": "UCLA"
+          },
+          {
+            "code": "d",
+            "value": "20250510"
+          },
+          {
+            "code": "s",
+            "value": "google"
+          },
+          {
+            "code": "u",
+            "value": "uc1.l0084846583"
+          },
+          {
+            "code": "z",
+            "value": "yr.1953 no.9"
+          },
+          {
+            "code": "y",
+            "value": "1953"
+          },
+          {
+            "code": "r",
+            "value": "ic"
+          },
+          {
+            "code": "q",
+            "value": "bib"
+          },
+          {
+            "code": "t",
+            "value": "non-US serial item date >= 1931"
+          }
+        ]
+      },
+      {
+        "tag": "974",
+        "subfields": [
+          {
+            "code": "b",
+            "value": "UC"
+          },
+          {
+            "code": "c",
+            "value": "UCLA"
+          },
+          {
+            "code": "d",
+            "value": "20250510"
+          },
+          {
+            "code": "s",
+            "value": "google"
+          },
+          {
+            "code": "u",
+            "value": "uc1.l0084782531"
+          },
+          {
+            "code": "z",
+            "value": "yr.1953 no.10"
+          },
+          {
+            "code": "y",
+            "value": "1953"
+          },
+          {
+            "code": "r",
+            "value": "ic"
+          },
+          {
+            "code": "q",
+            "value": "bib"
+          },
+          {
+            "code": "t",
+            "value": "non-US serial item date >= 1931"
+          }
+        ]
+      },
+      {
+        "tag": "974",
+        "subfields": [
+          {
+            "code": "b",
+            "value": "UC"
+          },
+          {
+            "code": "c",
+            "value": "UCLA"
+          },
+          {
+            "code": "d",
+            "value": "20250510"
+          },
+          {
+            "code": "s",
+            "value": "google"
+          },
+          {
+            "code": "u",
+            "value": "uc1.l0084846625"
+          },
+          {
+            "code": "z",
+            "value": "yr.1953 no.11"
+          },
+          {
+            "code": "y",
+            "value": "1953"
+          },
+          {
+            "code": "r",
+            "value": "ic"
+          },
+          {
+            "code": "q",
+            "value": "bib"
+          },
+          {
+            "code": "t",
+            "value": "non-US serial item date >= 1931"
+          }
+        ]
+      },
+      {
+        "tag": "974",
+        "subfields": [
+          {
+            "code": "b",
+            "value": "UC"
+          },
+          {
+            "code": "c",
+            "value": "UCLA"
+          },
+          {
+            "code": "d",
+            "value": "20250510"
+          },
+          {
+            "code": "s",
+            "value": "google"
+          },
+          {
+            "code": "u",
+            "value": "uc1.l0084846666"
+          },
+          {
+            "code": "z",
+            "value": "yr.1953 no.12"
+          },
+          {
+            "code": "y",
+            "value": "1953"
+          },
+          {
+            "code": "r",
+            "value": "ic"
+          },
+          {
+            "code": "q",
+            "value": "bib"
+          },
+          {
+            "code": "t",
+            "value": "non-US serial item date >= 1931"
+          }
+        ]
+      },
+      {
+        "tag": "974",
+        "subfields": [
+          {
+            "code": "b",
+            "value": "UC"
+          },
+          {
+            "code": "c",
+            "value": "UCLA"
+          },
+          {
+            "code": "d",
+            "value": "20250510"
+          },
+          {
+            "code": "s",
+            "value": "google"
+          },
+          {
+            "code": "u",
+            "value": "uc1.l0084846153"
+          },
+          {
+            "code": "z",
+            "value": "yr.1954 no.1-2"
+          },
+          {
+            "code": "y",
+            "value": "1954"
+          },
+          {
+            "code": "r",
+            "value": "ic"
+          },
+          {
+            "code": "q",
+            "value": "bib"
+          },
+          {
+            "code": "t",
+            "value": "non-US serial item date >= 1931"
+          }
+        ]
+      },
+      {
+        "tag": "974",
+        "subfields": [
+          {
+            "code": "b",
+            "value": "UC"
+          },
+          {
+            "code": "c",
+            "value": "UCLA"
+          },
+          {
+            "code": "d",
+            "value": "20250510"
+          },
+          {
+            "code": "s",
+            "value": "google"
+          },
+          {
+            "code": "u",
+            "value": "uc1.l0084846112"
+          },
+          {
+            "code": "z",
+            "value": "yr.1954 no.3-6"
+          },
+          {
+            "code": "y",
+            "value": "1954"
+          },
+          {
+            "code": "r",
+            "value": "ic"
+          },
+          {
+            "code": "q",
+            "value": "bib"
+          },
+          {
+            "code": "t",
+            "value": "non-US serial item date >= 1931"
+          }
+        ]
+      },
+      {
+        "tag": "974",
+        "subfields": [
+          {
+            "code": "b",
+            "value": "UC"
+          },
+          {
+            "code": "c",
+            "value": "UCLA"
+          },
+          {
+            "code": "d",
+            "value": "20250510"
+          },
+          {
+            "code": "s",
+            "value": "google"
+          },
+          {
+            "code": "u",
+            "value": "uc1.l0084846070"
+          },
+          {
+            "code": "z",
+            "value": "yr.1954 no.7-12"
+          },
+          {
+            "code": "y",
+            "value": "1954"
+          },
+          {
+            "code": "r",
+            "value": "ic"
+          },
+          {
+            "code": "q",
+            "value": "bib"
+          },
+          {
+            "code": "t",
+            "value": "non-US serial item date >= 1931"
+          }
+        ]
+      },
+      {
+        "tag": "974",
+        "subfields": [
+          {
+            "code": "b",
+            "value": "UC"
+          },
+          {
+            "code": "c",
+            "value": "UCLA"
+          },
+          {
+            "code": "d",
+            "value": "20250510"
+          },
+          {
+            "code": "s",
+            "value": "google"
+          },
+          {
+            "code": "u",
+            "value": "uc1.l0084846039"
+          },
+          {
+            "code": "z",
+            "value": "yr.1955 no.1-6"
+          },
+          {
+            "code": "y",
+            "value": "1955"
+          },
+          {
+            "code": "r",
+            "value": "ic"
+          },
+          {
+            "code": "q",
+            "value": "bib"
+          },
+          {
+            "code": "t",
+            "value": "non-US serial item date >= 1931"
+          }
+        ]
+      },
+      {
+        "tag": "974",
+        "subfields": [
+          {
+            "code": "b",
+            "value": "UC"
+          },
+          {
+            "code": "c",
+            "value": "UCLA"
+          },
+          {
+            "code": "d",
+            "value": "20250510"
+          },
+          {
+            "code": "s",
+            "value": "google"
+          },
+          {
+            "code": "u",
+            "value": "uc1.l0084845999"
+          },
+          {
+            "code": "z",
+            "value": "yr.1955 no.7-12"
+          },
+          {
+            "code": "y",
+            "value": "1955"
+          },
+          {
+            "code": "r",
+            "value": "ic"
+          },
+          {
+            "code": "q",
+            "value": "bib"
+          },
+          {
+            "code": "t",
+            "value": "non-US serial item date >= 1931"
+          }
+        ]
+      },
+      {
+        "tag": "974",
+        "subfields": [
+          {
+            "code": "b",
+            "value": "UC"
+          },
+          {
+            "code": "c",
+            "value": "UCLA"
+          },
+          {
+            "code": "d",
+            "value": "20250510"
+          },
+          {
+            "code": "s",
+            "value": "google"
+          },
+          {
+            "code": "u",
+            "value": "uc1.l0082942228"
+          },
+          {
+            "code": "z",
+            "value": "yr.1956 no.1"
+          },
+          {
+            "code": "y",
+            "value": "1956"
+          },
+          {
+            "code": "r",
+            "value": "ic"
+          },
+          {
+            "code": "q",
+            "value": "bib"
+          },
+          {
+            "code": "t",
+            "value": "non-US serial item date >= 1931"
+          }
+        ]
+      },
+      {
+        "tag": "974",
+        "subfields": [
+          {
+            "code": "b",
+            "value": "UC"
+          },
+          {
+            "code": "c",
+            "value": "UCLA"
+          },
+          {
+            "code": "d",
+            "value": "20250510"
+          },
+          {
+            "code": "s",
+            "value": "google"
+          },
+          {
+            "code": "u",
+            "value": "uc1.l0084845916"
+          },
+          {
+            "code": "z",
+            "value": "yr.1956 no.2"
+          },
+          {
+            "code": "y",
+            "value": "1956"
+          },
+          {
+            "code": "r",
+            "value": "ic"
+          },
+          {
+            "code": "q",
+            "value": "bib"
+          },
+          {
+            "code": "t",
+            "value": "non-US serial item date >= 1931"
+          }
+        ]
+      },
+      {
+        "tag": "974",
+        "subfields": [
+          {
+            "code": "b",
+            "value": "UC"
+          },
+          {
+            "code": "c",
+            "value": "UCLA"
+          },
+          {
+            "code": "d",
+            "value": "20250510"
+          },
+          {
+            "code": "s",
+            "value": "google"
+          },
+          {
+            "code": "u",
+            "value": "uc1.l0084845874"
+          },
+          {
+            "code": "z",
+            "value": "yr.1956 no.3"
+          },
+          {
+            "code": "y",
+            "value": "1956"
+          },
+          {
+            "code": "r",
+            "value": "ic"
+          },
+          {
+            "code": "q",
+            "value": "bib"
+          },
+          {
+            "code": "t",
+            "value": "non-US serial item date >= 1931"
+          }
+        ]
+      },
+      {
+        "tag": "974",
+        "subfields": [
+          {
+            "code": "b",
+            "value": "UC"
+          },
+          {
+            "code": "c",
+            "value": "UCLA"
+          },
+          {
+            "code": "d",
+            "value": "20250510"
+          },
+          {
+            "code": "s",
+            "value": "google"
+          },
+          {
+            "code": "u",
+            "value": "uc1.l0084845833"
+          },
+          {
+            "code": "z",
+            "value": "yr.1956 no.4-6"
+          },
+          {
+            "code": "y",
+            "value": "1956"
+          },
+          {
+            "code": "r",
+            "value": "ic"
+          },
+          {
+            "code": "q",
+            "value": "bib"
+          },
+          {
+            "code": "t",
+            "value": "non-US serial item date >= 1931"
+          }
+        ]
+      },
+      {
+        "tag": "974",
+        "subfields": [
+          {
+            "code": "b",
+            "value": "UC"
+          },
+          {
+            "code": "c",
+            "value": "UCLA"
+          },
+          {
+            "code": "d",
+            "value": "20250510"
+          },
+          {
+            "code": "s",
+            "value": "google"
+          },
+          {
+            "code": "u",
+            "value": "uc1.l0084845759"
+          },
+          {
+            "code": "z",
+            "value": "yr.1957 no.1-6"
+          },
+          {
+            "code": "y",
+            "value": "1957"
+          },
+          {
+            "code": "r",
+            "value": "ic"
+          },
+          {
+            "code": "q",
+            "value": "bib"
+          },
+          {
+            "code": "t",
+            "value": "non-US serial item date >= 1931"
+          }
+        ]
+      },
+      {
+        "tag": "974",
+        "subfields": [
+          {
+            "code": "b",
+            "value": "UC"
+          },
+          {
+            "code": "c",
+            "value": "UCLA"
+          },
+          {
+            "code": "d",
+            "value": "20250510"
+          },
+          {
+            "code": "s",
+            "value": "google"
+          },
+          {
+            "code": "u",
+            "value": "uc1.l0084845718"
+          },
+          {
+            "code": "z",
+            "value": "yr.1957 no.7-12"
+          },
+          {
+            "code": "y",
+            "value": "1957"
+          },
+          {
+            "code": "r",
+            "value": "ic"
+          },
+          {
+            "code": "q",
+            "value": "bib"
+          },
+          {
+            "code": "t",
+            "value": "non-US serial item date >= 1931"
+          }
+        ]
+      },
+      {
+        "tag": "974",
+        "subfields": [
+          {
+            "code": "b",
+            "value": "UC"
+          },
+          {
+            "code": "c",
+            "value": "UCLA"
+          },
+          {
+            "code": "d",
+            "value": "20250510"
+          },
+          {
+            "code": "s",
+            "value": "google"
+          },
+          {
+            "code": "u",
+            "value": "uc1.l0084846120"
+          },
+          {
+            "code": "z",
+            "value": "yr.1958 no.1-12"
+          },
+          {
+            "code": "y",
+            "value": "1958"
+          },
+          {
+            "code": "r",
+            "value": "ic"
+          },
+          {
+            "code": "q",
+            "value": "bib"
+          },
+          {
+            "code": "t",
+            "value": "non-US serial item date >= 1931"
+          }
+        ]
+      }
+    ],
+    "api_issns": [
+      "1001-6430"
+    ],
+    "issn_historical_assignment_adjudicated": false,
+    "unique_digital_item_count": 39,
+    "rights_counts": {
+      "und": 13,
+      "ic": 26
+    },
+    "us_rights_descriptor_counts": {
+      "Limited (search-only)": 39
+    }
+  },
+  "chronology": {
+    "explicit_1951_items": [
+      {
+        "orig": "University of California",
+        "fromRecord": "007245565",
+        "htid": "uc1.l0084846252",
+        "itemURL": "https://babel.hathitrust.org/cgi/pt?id=uc1.l0084846252",
+        "rightsCode": "ic",
+        "lastUpdate": "20250510",
+        "enumcron": "yr.1951 no.1-2",
+        "usRightsString": "Limited (search-only)"
+      },
+      {
+        "orig": "University of California",
+        "fromRecord": "007245565",
+        "htid": "uc1.l0084846211",
+        "itemURL": "https://babel.hathitrust.org/cgi/pt?id=uc1.l0084846211",
+        "rightsCode": "ic",
+        "lastUpdate": "20250510",
+        "enumcron": "yr.1951 no.3-4",
+        "usRightsString": "Limited (search-only)"
+      }
+    ],
+    "year_unbound_aggregate_items": [
+      {
+        "orig": "University of California",
+        "fromRecord": "007245565",
+        "htid": "uc1.31175002281353",
+        "itemURL": "https://babel.hathitrust.org/cgi/pt?id=uc1.31175002281353",
+        "rightsCode": "und",
+        "lastUpdate": "20250529",
+        "enumcron": "no.13-18",
+        "usRightsString": "Limited (search-only)"
+      },
+      {
+        "orig": "University of California",
+        "fromRecord": "007245565",
+        "htid": "uc1.31175002281361",
+        "itemURL": "https://babel.hathitrust.org/cgi/pt?id=uc1.31175002281361",
+        "rightsCode": "und",
+        "lastUpdate": "20250529",
+        "enumcron": "no.19-24",
+        "usRightsString": "Limited (search-only)"
+      }
+    ],
+    "provisional_viewer_item": "uc1.31175002281361",
+    "provisional_item_marc_974": {
+      "tag": "974",
+      "subfields": [
+        {
+          "code": "b",
+          "value": "UC"
+        },
+        {
+          "code": "c",
+          "value": "UCD"
+        },
+        {
+          "code": "d",
+          "value": "20250529"
+        },
+        {
+          "code": "s",
+          "value": "google"
+        },
+        {
+          "code": "u",
+          "value": "uc1.31175002281361"
+        },
+        {
+          "code": "z",
+          "value": "no.19-24"
+        },
+        {
+          "code": "y",
+          "value": "1958"
+        },
+        {
+          "code": "r",
+          "value": "und"
+        },
+        {
+          "code": "q",
+          "value": "bib"
+        },
+        {
+          "code": "t",
+          "value": "non-US bib date2 >= 1931"
+        }
+      ]
+    },
+    "marc_974_y1958_is_target_issue_year": false,
+    "original_issue9_object_bound": false,
+    "negative_scope": "NO_EXPLICIT_1951_ISSUE9_ENUMERATION_IN_THIS_SINGLE_RECORD_RESPONSE_ONLY_NOT_GLOBAL_ABSENCE",
+    "aggregate_19_24_equals_1951_issue9_claimed": false,
+    "aggregate_19_24_target_year_identity": "UNRESOLVED"
+  },
+  "viewer_response": {
+    "url": "https://babel.hathitrust.org/cgi/pt?id=uc1.31175002281361",
+    "error_type": "HTTPError",
+    "error": "HTTP Error 403: Forbidden"
+  },
+  "identifier_discovery": {
+    "first_party_marc_source": "https://opac.sciencelib.ge/cgi-bin/koha/opac-MARCdetail.pl?biblionumber=110938",
+    "web_retrieval": "MARC780_PREDECESSOR_WEN_WU_CAN_KAO_ZI_LIAO_OCLC18030125_REVIEWED",
+    "local_fetch_status": 502,
+    "local_fetches": 2,
+    "local_source_bytes_obtained": false,
+    "georgian_record_is_1951_holding": false,
+    "target_oclc_independently_reconfirmed_in_hathitrust_response": true
+  },
+  "adjudication": {
+    "new_serial_digital_inventory_recovered": true,
+    "prior_12it_export_observation_erased": false,
+    "exact_issue9_binding": "UNRESOLVED",
+    "direct_1951_pages_reviewed": false,
+    "primary_text_upgrade_authorized": false,
+    "target_global_absence_claim_authorized": false,
+    "public_fulltext_access_proved": false,
+    "us_descriptor_is_global_access_verdict": false,
+    "evidence_vote_increment": 0
+  },
+  "security": {
+    "login_attempted": false,
+    "credential_used": false,
+    "rights_bypass_used": false,
+    "private_endpoint_guessed": false,
+    "copy_request_submitted": false,
+    "payment_action_used": false,
+    "fulltext_download_invoked": false
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "transmission_impact": {
+    "status": "NONE_HISTORICAL_TEXT_LINEAGE_UNCHANGED_DIGITAL_METADATA_ONLY",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": []
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "12MH: use the newly exposed UCD originating-record identifier sdr-ucd.990022440100403126 (MARC 035) to seek a first-party UC Davis catalogue binding of the aggregate no.13–18/no.19–24 chronology and any published lawful access route. Read the public catalogue contract before identifier querying; do not guess private Alma APIs.",
+    "Do not equate aggregate no.19–24 with 1951 vol.2 no.9, or MARC 974 subfield y=1958 with the individual issue date, without a direct institutional or physical numbering bridge.",
+    "Do not repeat the HathiTrust 403 viewer route or bypass rights. Direct 1951 pp.221–233, 2011 Wenji p.197 and Shanghai Wenhui 1951-08-18 remain unresolved in parallel."
+  ],
+  "updated_at": "2026-10-04",
+  "documentation_response": {
+    "url": "https://www.hathitrust.org/member-libraries/resources-for-librarians/data-resources/bibliographic-api/",
+    "final_url": "https://www.hathitrust.org/member-libraries/resources-for-librarians/data-resources/bibliographic-api/",
+    "status": 200,
+    "content_type": "text/html; charset=UTF-8",
+    "bytes": 33424,
+    "sha256": "f6a681707878842352eb92cabb164289c502c4a4915f1c5cbfabc03c508591ba"
+  },
+  "catalog_response": {
+    "url": "https://catalog.hathitrust.org/Record/007245565",
+    "final_url": "https://catalog.hathitrust.org/Record/007245565",
+    "status": 200,
+    "content_type": "text/html; charset=UTF-8",
+    "bytes": 46919,
+    "sha256": "a9bc6c4d9c0bcf31516b2fbe4365fc06f3ec35e7cea8c08bcb5ca893e4e6583a"
+  }
+}

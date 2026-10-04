@@ -12808,6 +12808,42 @@
         "evidence_vote_increment": 0,
         "research_artifact": "docs/research/ZIWEI-WENWU1951-CADAL-PUBLIC-SEARCH-REDIRECT-BOUNDARY-R1.json"
       }
+    },
+    {
+      "source_id": "EXT-HATHITRUST-DOCUMENTED-BIBLIOGRAPHIC-API-2026",
+      "title": "HathiTrust 官方 Bibliographic API 标识查询文档",
+      "provider": "HathiTrust Digital Library",
+      "url": "https://www.hathitrust.org/member-libraries/resources-for-librarians/data-resources/bibliographic-api/",
+      "historical_period": "Current service documentation observed 2026-10-04",
+      "source_role": "CURRENT_FIRST_PARTY_PUBLIC_IDENTIFIER_LOOKUP_CONTRACT",
+      "quality_notes": "Official documentation binds the brief/full standard-identifier lookup syntax, supports OCLC identifiers, distinguishes records from scanned-volume items, and defines enumcron and the US-region rights description. It is current operational evidence, not historical article text.",
+      "batch_12mg": {
+        "record_id": "007245565",
+        "oclc": "18030125",
+        "unique_digital_item_count": 39,
+        "direct_1951_pages_reviewed": false,
+        "exact_issue9_bound": false,
+        "evidence_vote_increment": 0,
+        "research_artifact": "docs/research/ZIWEI-WENWU1951-HATHITRUST-OCLC-DIGITAL-INVENTORY-R1.json"
+      }
+    },
+    {
+      "source_id": "EXT-HATHITRUST-WENWU-CANKAO-OCLC18030125-RECORD007245565",
+      "title": "HathiTrust 文物参考資料 OCLC18030125 / record007245565 数字卷册清单",
+      "provider": "HathiTrust Digital Library",
+      "url": "https://catalog.hathitrust.org/Record/007245565",
+      "historical_period": "1950–1958 serial; current metadata observed 2026-10-04",
+      "source_role": "FIRST_PARTY_DIGITAL_SERIAL_OBJECT_METADATA_NOT_ORIGINAL_ARTICLE_TEXT",
+      "quality_notes": "Yes for serial digital-object identity: the documented brief/full OCLC lookup returns record 007245565, actual MARC 880 title 文物参考資料, and 39 unique digital items. No for exact 1951 issue 9 or original-page review: explicitly year-labelled 1951 items cover only issues 1–4; unyear-labelled aggregate no.13–18/no.19–24 are not silently assigned to the target year. All 39 items carry the US-region descriptor Limited (search-only), and a single source-emitted aggregate viewer GET returns HTTP 403 in the current execution environment.",
+      "batch_12mg": {
+        "record_id": "007245565",
+        "oclc": "18030125",
+        "unique_digital_item_count": 39,
+        "direct_1951_pages_reviewed": false,
+        "exact_issue9_bound": false,
+        "evidence_vote_increment": 0,
+        "research_artifact": "docs/research/ZIWEI-WENWU1951-HATHITRUST-OCLC-DIGITAL-INVENTORY-R1.json"
+      }
     }
   ],
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md",

@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.347.0",
+  "schema_version": "1.348.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -429,9 +429,10 @@
       "BATCH-12-ZIWEI-WENHUI-EPAPER-ROOT-DATE-CONTRACT-RECALIBRATION-MC",
       "BATCH-12-ZIWEI-ZJLIB-ZHAO-WANLI-ARTICLE-ROUTE-MD",
       "BATCH-12-ZIWEI-WENJI-P197-DUXIU-SSLIBRARY-PREQUERY-AUTH-BOUNDARY-ME",
-      "BATCH-12-ZIWEI-WENWU1951-CADAL-PUBLIC-SEARCH-REDIRECT-BOUNDARY-MF"
+      "BATCH-12-ZIWEI-WENWU1951-CADAL-PUBLIC-SEARCH-REDIRECT-BOUNDARY-MF",
+      "BATCH-12-ZIWEI-WENWU1951-HATHITRUST-OCLC-DIGITAL-INVENTORY-MG"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENWU1951-CADAL-PUBLIC-SEARCH-REDIRECT-BOUNDARY-MF.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENWU1951-HATHITRUST-OCLC-DIGITAL-INVENTORY-MG.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -1952,6 +1953,12 @@
       "12MG: seek a materially new first-party serial-object or functioning public digital-catalog route for direct 1951 vol.2 no.9 pp.221–233. HathiTrust remains access-unresolved; do not convert transport failures into absence.",
       "Before any provider query, deduplicate against existing 12IT open-repository controls and 12IN CNKI boundary. Require a newly source-emitted identifier or access mechanism; do not repeat CADAL POST/term variants on the same redirect surface.",
       "Keep direct 2011 Wenji vol.1 p.197 and Shanghai Wenhui 1951-08-18 unresolved in parallel. A reproduction request, payment or authenticated service action requires the existing explicit authorization gate.",
+      "Matrix remains 198 / 166 / 10; provenance defects remain 17/17; chart algorithm defects / reopens / candidate collapses remain 0.",
+      "Batch 12MG restores a materially new documented HathiTrust brief/full OCLC lookup route in LOCAL_WORK_MODE_NETWORK: positive control 424023 and target 18030125 both return HTTP 200. Target record 007245565 is directly bound by OCLC, MARC 880 文物参考資料 and 1950–1958 serial span, with 39 unique digital items. Raw response bytes and SHA-256 are repository-preserved; this is not a GitHub-runner probe claim.",
+      "Explicit year-labelled 1951 items cover only no.1–2 and no.3–4 in this response. UCD aggregate no.13–18/no.19–24 remain YEAR_UNBOUND; do not infer target issue 9 or use MARC 974 y=1958 as individual issue date. All 39 items have the US-region descriptor Limited (search-only), and the source-emitted no.19–24 viewer returns HTTP 403 in the current environment. Exact 1951 issue9 and direct pp.221–233 remain unresolved; historical text vote increment is 0.",
+      "12MH: use the newly exposed UCD originating-record identifier sdr-ucd.990022440100403126 (MARC 035) to seek a first-party UC Davis catalogue binding of the aggregate no.13–18/no.19–24 chronology and any published lawful access route. Read the public catalogue contract before identifier querying; do not guess private Alma APIs.",
+      "Do not equate aggregate no.19–24 with 1951 vol.2 no.9, or MARC 974 subfield y=1958 with the individual issue date, without a direct institutional or physical numbering bridge.",
+      "Do not repeat the HathiTrust 403 viewer route or bypass rights. Direct 1951 pp.221–233, 2011 Wenji p.197 and Shanghai Wenhui 1951-08-18 remain unresolved in parallel.",
       "Matrix remains 198 / 166 / 10; provenance defects remain 17/17; chart algorithm defects / reopens / candidate collapses remain 0."
     ],
     "historical_candidate_extension_count": 6,

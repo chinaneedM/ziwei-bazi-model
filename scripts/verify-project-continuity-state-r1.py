@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
+import hashlib
 import json
 from pathlib import Path
 
@@ -862,9 +863,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-ZJLIB-ZHAO-WANLI-ARTICLE-ROUTE-MD",
     "BATCH-12-ZIWEI-WENJI-P197-DUXIU-SSLIBRARY-PREQUERY-AUTH-BOUNDARY-ME",
     "BATCH-12-ZIWEI-WENWU1951-CADAL-PUBLIC-SEARCH-REDIRECT-BOUNDARY-MF",
+    "BATCH-12-ZIWEI-WENWU1951-HATHITRUST-OCLC-DIGITAL-INVENTORY-MG",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENWU1951-CADAL-PUBLIC-SEARCH-REDIRECT-BOUNDARY-MF.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENWU1951-HATHITRUST-OCLC-DIGITAL-INVENTORY-MG.md"
 
 
 def fail(message: str) -> None:
@@ -13862,6 +13864,49 @@ def main() -> int:
         fail("Batch 12MF registry binding missing")
     if mf.get("accounting") != me.get("accounting") or mf.get("project_consequence") != me.get("project_consequence"):
         fail("Batch 12MF zero-product-impact accounting drift")
+
+    # Batch 12MG: digital object inventory is not exact issue/page evidence.
+    mg = json.loads((ROOT / "docs/research/ZIWEI-WENWU1951-HATHITRUST-OCLC-DIGITAL-INVENTORY-R1.json").read_text(encoding="utf-8"))
+    if mg.get("batch_id") != "BATCH-12-ZIWEI-WENWU1951-HATHITRUST-OCLC-DIGITAL-INVENTORY-MG":
+        fail("Batch 12MG evidence identity mismatch")
+    objs = mg.get("objects", {})
+    for name, obj in objs.items():
+        raw_path = ROOT / obj.get("evidence_file", "")
+        if not raw_path.is_file():
+            fail(f"Batch 12MG raw evidence missing: {name}")
+        body = raw_path.read_bytes()
+        if len(body) != obj.get("bytes") or hashlib.sha256(body).hexdigest() != obj.get("sha256"):
+            fail(f"Batch 12MG raw evidence identity drift: {name}")
+    control = json.loads((ROOT / objs["positive_control"]["evidence_file"]).read_bytes())
+    if "000578050" not in control.get("records", {}):
+        fail("Batch 12MG positive-control record missing")
+    brief = json.loads((ROOT / objs["predecessor_serial"]["evidence_file"]).read_bytes())
+    full = json.loads((ROOT / objs["full_record"]["evidence_file"]).read_bytes())
+    rec = full.get("records", {}).get("007245565", {})
+    if "18030125" not in rec.get("oclcs", ()) or "文物参考資料" not in rec.get("marc-xml", ""):
+        fail("Batch 12MG OCLC/vernacular title binding missing")
+    items = full.get("items", [])
+    if items != brief.get("items") or len(items) != 39 or len({x.get("htid") for x in items}) != 39:
+        fail("Batch 12MG serial digital-item inventory drift")
+    if any(x.get("usRightsString") != "Limited (search-only)" for x in items):
+        fail("Batch 12MG region-scoped rights evidence drift")
+    if {x.get("enumcron") for x in items if str(x.get("enumcron")).startswith("yr.1951")} != {"yr.1951 no.1-2", "yr.1951 no.3-4"}:
+        fail("Batch 12MG explicit year/issue inventory drift")
+    ch = mg.get("chronology", {})
+    for key in ("aggregate_19_24_equals_1951_issue9_claimed", "marc_974_y1958_is_target_issue_year", "original_issue9_object_bound"):
+        if ch.get(key) is not False:
+            fail(f"Batch 12MG issue/year inference firewall regressed: {key}")
+    adj = mg.get("adjudication", {})
+    for key in ("direct_1951_pages_reviewed", "primary_text_upgrade_authorized", "target_global_absence_claim_authorized", "public_fulltext_access_proved", "us_descriptor_is_global_access_verdict"):
+        if adj.get(key) is not False:
+            fail(f"Batch 12MG scope firewall regressed: {key}")
+    if adj.get("evidence_vote_increment") != 0 or mg.get("accounting") != mf.get("accounting"):
+        fail("Batch 12MG text-witness/accounting drift")
+    if mg.get("execution", {}).get("github_runner_probe_claimed") is not False:
+        fail("Batch 12MG execution provenance mismatch")
+    source_ids = {x.get("source_id") for x in registry.get("sources", ())}
+    if "EXT-HATHITRUST-WENWU-CANKAO-OCLC18030125-RECORD007245565" not in source_ids:
+        fail("Batch 12MG source registry binding missing")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

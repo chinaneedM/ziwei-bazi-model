@@ -1254,3 +1254,13 @@ Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NL
 - 无规则或传承图变更：198 / 166 / 10，17/17 provenance defects repaired，算法缺陷/重开/候选折叠均 0。
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENWU1951-CADAL-PUBLIC-SEARCH-REDIRECT-BOUNDARY-MF.md`. Research record: `docs/research/ZIWEI-WENWU1951-CADAL-PUBLIC-SEARCH-REDIRECT-BOUNDARY-R1.json`.
+
+
+## Progress — Batch 12MG
+
+- Documented HathiTrust brief/full OCLC lookup restores actual serial record 007245565 / OCLC18030125 / MARC880 文物参考資料 and 39 distinct digital items. Raw public response bytes are hash-bound and stored in the repository.
+- Explicit 1951 items cover no.1–4; unyear-labelled UCD aggregate no.13–18/no.19–24 remain unbound to target issue 9. MARC974 y=1958 is not promoted to individual issue date.
+- US metadata descriptors are Limited (search-only) for all 39 items; one source-emitted viewer GET is HTTP403. No original page is reviewed, no global absence or unrestricted-download claim is authorized.
+- Next 12MH follows the newly recovered originating UCD record identity for chronological/access bridging. Matrix/accounting and historical text lineage remain unchanged.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENWU1951-HATHITRUST-OCLC-DIGITAL-INVENTORY-MG.md`. Research record: `docs/research/ZIWEI-WENWU1951-HATHITRUST-OCLC-DIGITAL-INVENTORY-R1.json`.
