@@ -1,0 +1,67 @@
+{
+  "schema": "BAZI-NATAL-FOUR-PILLAR-COMPOSITION-REPLAY-EVIDENCE-R1",
+  "batch_id": "BATCH-12-BAZI-NATAL-FOUR-PILLAR-COMPOSITION-AUDIT-MS",
+  "source_head": "5e30a06c097fb3b1b7f8e73f53d641b123ef622f",
+  "source_tree": "c813df2735e9227408de9ede96204196a6410727",
+  "controls": {
+    "year_identity": {
+      "modern_anchor": "1984 post-Lichun = 甲子 identity",
+      "runtime_formula": "(pillar_year - 4) % 60",
+      "scope": "IDENTITY_ONLY_BOUNDARY_GOVERNED_UPSTREAM"
+    },
+    "five_tigers": {
+      "received_groups": [
+        "甲己→丙寅",
+        "乙庚→戊寅",
+        "丙辛→庚寅",
+        "丁壬→壬寅",
+        "戊癸→甲寅"
+      ],
+      "executable_coverage": "10 year stems at 寅 start + 12 forward month positions"
+    },
+    "day_identity": {
+      "normative_anchor": "1949-10-01 Beijing date = 甲子 day",
+      "compatibility_anchor": "2000-01-07 Gregorian = 甲子 day",
+      "runtime_formula": "(JDN + 49) % 60",
+      "executable_coverage": "60 consecutive dates traverse all indices 0..59"
+    },
+    "double_hour_branch": {
+      "partition": [
+        "23:00..00:59 子",
+        "01:00..02:59 丑",
+        "03:00..04:59 寅",
+        "05:00..06:59 卯",
+        "07:00..08:59 辰",
+        "09:00..10:59 巳",
+        "11:00..12:59 午",
+        "13:00..14:59 未",
+        "15:00..16:59 申",
+        "17:00..18:59 酉",
+        "19:00..20:59 戌",
+        "21:00..22:59 亥"
+      ],
+      "historical_clock_equivalence_claimed": false
+    },
+    "five_rats": {
+      "received_groups": [
+        "甲己→甲子",
+        "乙庚→丙子",
+        "丙辛→戊子",
+        "丁壬→庚子",
+        "戊癸→壬子"
+      ],
+      "executable_coverage": "10 day stems × 12 branches = 120 coordinates"
+    },
+    "late_zi_firewall": {
+      "expected_examples": {
+        "classical_continuous": "day 甲子 / hour 丙子",
+        "current_day_stem": "day 甲子 / hour 甲子",
+        "zi_start_rollover": "day 乙丑 / hour 丙子"
+      },
+      "winner_selected": false
+    }
+  },
+  "expected_runtime_change": false,
+  "expected_schema_or_hash_change": false,
+  "expected_algorithm_reopen": false
+}

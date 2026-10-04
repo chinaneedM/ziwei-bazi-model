@@ -43,20 +43,20 @@
     "algorithm_reopen_authorized"
   ],
   "inventory_summary": {
-    "row_count": 201,
+    "row_count": 206,
     "status_counts": {
-      "MODERN_COMPATIBILITY_ONLY": 35,
-      "HISTORICALLY_SUPPORTED": 95,
+      "MODERN_COMPATIBILITY_ONLY": 39,
+      "HISTORICALLY_SUPPORTED": 97,
       "DISPUTED_MULTIPLE_CANDIDATES": 29,
       "SUPPORTED_BUT_SCHOOL_SPECIFIC": 18,
-      "IMPLEMENTATION_REVIEW_REQUIRED": 4,
       "SOURCE_INSUFFICIENT": 9,
+      "IMPLEMENTATION_REVIEW_REQUIRED": 3,
       "MISSING_FROM_PRODUCT": 10,
       "NOT_YET_FORMALIZED": 1
     },
     "module_counts": {
       "Time / Calendar": 23,
-      "四柱本命": 1,
+      "四柱本命": 6,
       "八字派生字段": 31,
       "大运": 16,
       "小运": 2,
@@ -81,7 +81,7 @@
       "candidate/profile rules": 2,
       "provenance / hashes / lineage": 2
     },
-    "audited_row_count": 178
+    "audited_row_count": 184
   },
   "rows": [
     {
@@ -348,22 +348,206 @@
       "system": "BAZI",
       "module": "四柱本命",
       "rule_or_field": "Four-pillar natal generation",
-      "current_implementation": "BAZI-NATAL-GENERATOR-V1 generates year/month/day/hour Ganzhi from resolved Bazi time candidate.",
-      "current_profile": "BAZI-FOUNDATION-V1-R1",
-      "primary_source": "S11 + Time/Calendar foundation",
-      "source_quote": "PENDING_VERBATIM_EXTRACTION",
-      "source_quote_location": "docs/BAZI-CHART-ENGINE-V1-FOUNDATION.md",
-      "historical_period": "PENDING_BIBLIOGRAPHIC_DATING",
-      "later_witnesses": "PENDING_LATER_WITNESS_AUDIT",
-      "school_attribution": "PENDING_SCHOOL_ATTRIBUTION_AUDIT",
+      "current_implementation": "BAZI-NATAL-GENERATOR-V1 is a modern composition over the resolved Bazi time candidate. The four displayed pillars are not treated as one monolithic historical rule: year/month/day/hour identities inherit separately governed boundary, cycle and stem-derivation rules.",
+      "current_profile": "BAZI-FOUNDATION-V1-R1 consuming TIME-CALENDAR-FOUNDATION / BAZI-TIME-RESOLVER-V1",
+      "primary_source": "Modern natal composition over HPA-TIME-003/007/008, HPA-BTIME-001..004 and decomposed HPA-BAZI-016..020. Historical authority remains attached to each component rule rather than to the software bundle.",
+      "source_quote": "Four ordered pillars are composed only after the selected time/calendar candidate has independently resolved annual/monthly boundaries, effective day date and hour-stem source date.",
+      "source_quote_location": "src/fortune_training/calendar_foundation/bazi.py BaziTimeResolver.resolve_year_month/resolve; docs/BAZI-CHART-ENGINE-V1-FOUNDATION.md",
+      "historical_period": "MODERN_SOFTWARE_COMPOSITION_OVER_SEPARATELY_GOVERNED_HISTORICAL_AND_MODERN_COORDINATE_RULES",
+      "later_witnesses": "Historical Five-Tigers/Five-Rats and year/month/day-boundary witnesses remain attached to their component rows. Modern GB/T sexagenary calibration is used only for coordinate verification, not back-dated as classical Bazi authority.",
+      "school_attribution": "MODERN_NATAL_COMPOSER_PRESERVING_SOURCE_SCOPED_TIME_AND_LATE_ZI_CANDIDATES",
       "competing_methods": [
-        "late-Zi/date boundary profiles"
+        "MIDNIGHT vs ZI_START_23 day boundary remains HPA-TIME-007.",
+        "CLASSICAL_CONTINUOUS vs CURRENT_DAY_STEM vs ZI_START_ROLLOVER remains HPA-TIME-008.",
+        "Local apparent-solar input is a declared modern time-coordinate choice under HPA-TIME-003, not a universal ancient Bazi doctrine."
       ],
-      "current_implementation_match": "PENDING_RULE_BY_RULE_REPLAY",
-      "confidence": "INVENTORY_CONFIDENCE_HIGH",
-      "audit_status": "IMPLEMENTATION_REVIEW_REQUIRED",
-      "proposed_action": "Decompose pillar rules into source-specific subrules during Bazi historical pass.",
-      "algorithm_reopen_authorized": false
+      "current_implementation_match": "DECOMPOSED_COMPONENT_REPLAY. Year identity bridge, Five-Tigers month stem, Gregorian/JDN day identity, selected-clock double-hour branch and Five-Rats hour stem are independently replayed; existing Lichun/Jie/day-boundary/late-Zi governance remains upstream and unchanged.",
+      "confidence": "HIGH_FOR_COMPOSITION_AND_COMPONENT_REPLAY; COMPONENT_HISTORICAL_SCOPE_VARIES_BY_RULE",
+      "audit_status": "MODERN_COMPATIBILITY_ONLY",
+      "proposed_action": "No algorithm reopen. Keep Natal generation as a deterministic composition layer; preserve component provenance and explicit day/late-Zi candidates instead of promoting one aggregate software output to a single classical doctrine.",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-12-BAZI-NATAL-FOUR-PILLAR-COMPOSITION-AUDIT-MS",
+      "historical_scope": "MODERN_NATAL_COMPOSITION_ONLY_COMPONENT_RULES_RETAIN_SEPARATE_AUTHORITY",
+      "child_rule_ids": [
+        "HPA-BAZI-016",
+        "HPA-BAZI-017",
+        "HPA-BAZI-018",
+        "HPA-BAZI-019",
+        "HPA-BAZI-020"
+      ],
+      "upstream_rule_ids": [
+        "HPA-TIME-003",
+        "HPA-TIME-007",
+        "HPA-TIME-008",
+        "HPA-BTIME-001",
+        "HPA-BTIME-002",
+        "HPA-BTIME-003",
+        "HPA-BTIME-004"
+      ],
+      "component_firewall": {
+        "year_boundary": "HPA-BTIME-002/HPA-BTIME-004",
+        "year_identity_bridge": "HPA-BAZI-016",
+        "month_branch_boundary": "HPA-BTIME-003/HPA-BTIME-004",
+        "month_stem": "HPA-BAZI-017",
+        "day_clock_and_boundary": "HPA-TIME-003/HPA-TIME-007",
+        "day_identity_bridge": "HPA-BAZI-018",
+        "hour_branch": "HPA-BAZI-019",
+        "hour_stem": "HPA-BAZI-020",
+        "late_zi_hour_stem_source": "HPA-TIME-008",
+        "monolithic_classical_natal_rule_claimed": false,
+        "candidate_collapse_authorized": false
+      },
+      "runtime_change": false,
+      "provenance_defect_increment": 0,
+      "audit_evidence": "docs/research/BAZI-NATAL-FOUR-PILLAR-COMPOSITION-AUDIT-R1.json"
+    },
+    {
+      "rule_id": "HPA-BAZI-016",
+      "system": "BAZI",
+      "module": "四柱本命",
+      "rule_or_field": "Resolved pillar-year integer → sexagenary year identity bridge",
+      "current_implementation": "After HPA-BTIME-002/004 select pillar_year, resolve_year_month computes year_index=(pillar_year-4)%60 and materializes the corresponding legal sexagenary year pillar.",
+      "current_profile": "TIME-CALENDAR-FOUNDATION / BAZI-TIME-RESOLVER-V1",
+      "primary_source": "EXT-SAMR-GBT33661-2017-GANZHI-CYCLE as modern sexagenary-cycle calibration; Bazi Lichun boundary authority remains separately governed by HPA-BTIME-002/004.",
+      "source_quote": "GB/T 33661-2017 supplies a modern sexagenary-year reference cycle; runtime uses it only to calibrate modulo-60 year identity after the Bazi pillar-year boundary has already been selected.",
+      "source_quote_location": "EXT-SAMR-GBT33661-2017-GANZHI-CYCLE; src/fortune_training/calendar_foundation/bazi.py resolve_year_month",
+      "historical_period": "MODERN_COORDINATE_BRIDGE; NOT_A_CLAIM_ABOUT_CLASSICAL_BAZI_YEAR_BOUNDARY",
+      "later_witnesses": "Modern calendrical tables use the same sixty-name cycle. Exact historical genealogy of the integer-year arithmetic is not required for this software bridge.",
+      "school_attribution": "MODERN_SEXAGENARY_IDENTITY_CALIBRATION_ONLY",
+      "competing_methods": [
+        "Lunar-year naming and Bazi Lichun pillar-year selection are distinct boundary questions and are not merged here."
+      ],
+      "current_implementation_match": "MOD60_IDENTITY_CALIBRATED: 1984 post-Lichun resolves 甲子 and subsequent pillar years advance one legal Jiazi step; 60-year periodicity is preserved.",
+      "confidence": "HIGH_FOR_MODERN_COORDINATE_BRIDGE",
+      "audit_status": "MODERN_COMPATIBILITY_ONLY",
+      "proposed_action": "No reopen. Keep year-boundary doctrine in HPA-BTIME-002/004 and this row limited to the already-selected integer year's modulo-60 identity.",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-12-BAZI-NATAL-FOUR-PILLAR-COMPOSITION-AUDIT-MS",
+      "historical_scope": "MODERN_YEAR_INTEGER_TO_GANZHI_IDENTITY_ONLY",
+      "upstream_rule_ids": [
+        "HPA-BTIME-002",
+        "HPA-BTIME-004"
+      ],
+      "audit_evidence": "docs/research/BAZI-NATAL-FOUR-PILLAR-COMPOSITION-AUDIT-R1.json"
+    },
+    {
+      "rule_id": "HPA-BAZI-017",
+      "system": "BAZI",
+      "module": "四柱本命",
+      "rule_or_field": "Bazi month stem by Five Tigers after Jie month-branch resolution",
+      "current_implementation": "resolve_year_month derives the 寅-month start stem from the resolved year stem, then advances one stem per month branch while HPA-BTIME-003/004 independently govern the Jie boundary.",
+      "current_profile": "TIME-CALENDAR-FOUNDATION / BAZI-TIME-RESOLVER-V1",
+      "primary_source": "EXT-CTEXT-WUXING-JINGJI-V28; EXT-CTEXT-SHENFENG-TONGKAO-QIBAZI; EXT-WIKISOURCE-XINGLI-KAOYUAN-WUHU-WUSHU",
+      "source_quote": "甲己之年丙作首，乙庚之岁戊为头；丙辛起庚，丁壬起壬，戊癸起甲。",
+      "source_quote_location": "EXT-CTEXT-WUXING-JINGJI-V28; EXT-CTEXT-SHENFENG-TONGKAO-QIBAZI lines 281-284; EXT-WIKISOURCE-XINGLI-KAOYUAN-WUHU-WUSHU 五虎遁",
+      "historical_period": "SONG_RECEIVED_WITNESS_WITH_MING_BAZI_AND_QING_RECEIVED_CORROBORATION",
+      "later_witnesses": "《神峰通考》起八字诀 and 《御定星厯考原》五虎遁 preserve the same five start-stem groups and forward month sequence.",
+      "school_attribution": "RECEIVED_FIVE_TIGERS_YEAR_STEM_TO_MONTH_STEM_MECHANIC",
+      "competing_methods": [
+        "Solar-term/Jie month-boundary selection is separate HPA-BTIME-003/004 and is not inferred from the Five-Tigers mnemonic."
+      ],
+      "current_implementation_match": "EXACT_FIVE_GROUP_START_STEM_AND_FORWARD_SEQUENCE_MATCH: all 10 year stems map to the five received 寅-month starts and the 12 month positions advance cyclically without redefining the Jie boundary.",
+      "confidence": "HIGH",
+      "audit_status": "HISTORICALLY_SUPPORTED",
+      "proposed_action": "No reopen. Retain one shared Five-Tigers calculation path and keep its historical mechanics separate from astronomical month-boundary realization.",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-12-BAZI-NATAL-FOUR-PILLAR-COMPOSITION-AUDIT-MS",
+      "historical_scope": "RECEIVED_FIVE_TIGERS_MONTH_STEM_MECHANIC_ONLY",
+      "upstream_rule_ids": [
+        "HPA-BAZI-016",
+        "HPA-BTIME-003",
+        "HPA-BTIME-004"
+      ],
+      "audit_evidence": "docs/research/BAZI-NATAL-FOUR-PILLAR-COMPOSITION-AUDIT-R1.json"
+    },
+    {
+      "rule_id": "HPA-BAZI-018",
+      "system": "BAZI",
+      "module": "四柱本命",
+      "rule_or_field": "Effective Gregorian date → sexagenary day identity bridge",
+      "current_implementation": "sexagenary_day_index converts the already-selected effective proleptic-Gregorian date to JDN and applies (JDN+49)%60. Day-boundary choice remains outside this primitive.",
+      "current_profile": "TIME-CALENDAR-FOUNDATION / sexagenary.py",
+      "primary_source": "EXT-SAMR-GBT33661-2017-GANZHI-CYCLE as modern day-cycle calibration; HPA-TIME-007 independently governs which effective date supplies the day pillar.",
+      "source_quote": "GB/T 33661-2017 identifies Beijing-date 1949-10-01 as a 甲子 day; the runtime bridge returns cycle index 0 for that date and advances continuously modulo 60.",
+      "source_quote_location": "EXT-SAMR-GBT33661-2017-GANZHI-CYCLE clause 6.3.2 public-text collation; src/fortune_training/calendar_foundation/sexagenary.py",
+      "historical_period": "MODERN_GREGORIAN_JDN_TO_SEXAGENARY_COORDINATE_BRIDGE",
+      "later_witnesses": "The existing 2000-01-07 JDN 2451551 = 甲子 implementation anchor is congruent with the 1949 national-standard calibration by an integral number of 60-day cycles.",
+      "school_attribution": "MODERN_CALENDAR_COORDINATE_REALIZATION_ONLY",
+      "competing_methods": [
+        "MIDNIGHT vs ZI_START_23 determines effective_day_date upstream under HPA-TIME-007 and is not decided by this bridge."
+      ],
+      "current_implementation_match": "EXACT_MOD60_DAY_CYCLE_MATCH: 1949-10-01→甲子, the next 60 dates traverse all 60 identities once, and 2000-01-07 returns to 甲子.",
+      "confidence": "HIGH_FOR_MODERN_COORDINATE_BRIDGE",
+      "audit_status": "MODERN_COMPATIBILITY_ONLY",
+      "proposed_action": "No reopen. Keep Gregorian/JDN arithmetic as modern infrastructure and day-boundary doctrine as an explicit separate policy.",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-12-BAZI-NATAL-FOUR-PILLAR-COMPOSITION-AUDIT-MS",
+      "historical_scope": "MODERN_EFFECTIVE_DATE_TO_GANZHI_IDENTITY_ONLY",
+      "upstream_rule_ids": [
+        "HPA-TIME-007"
+      ],
+      "audit_evidence": "docs/research/BAZI-NATAL-FOUR-PILLAR-COMPOSITION-AUDIT-R1.json"
+    },
+    {
+      "rule_id": "HPA-BAZI-019",
+      "system": "BAZI",
+      "module": "四柱本命",
+      "rule_or_field": "Selected local clock → twelve double-hour branch projection",
+      "current_implementation": "double_hour_branch_index maps the selected naive local apparent-solar clock by ((hour+1)//2)%12: 23:00..00:59→子, then two clock hours per branch through 21:00..22:59→亥.",
+      "current_profile": "TIME-CALENDAR-FOUNDATION / sexagenary.py over HPA-TIME-003 local-apparent-solar clock",
+      "primary_source": "Modern deterministic clock-coordinate policy over HPA-TIME-003; EXT-CTEXT-BUSHI-QUANSHU-YEAR-MONTH-HOUR is retained as a historical timekeeping contrast, not as authority for the exact modern clock mapping.",
+      "source_quote": "The received 定寅時法 varies 寅-hour determination seasonally; therefore the runtime's fixed modern two-hour clock projection is not back-dated as a universal premodern timekeeping rule.",
+      "source_quote_location": "src/fortune_training/calendar_foundation/sexagenary.py double_hour_branch_index; EXT-CTEXT-BUSHI-QUANSHU-YEAR-MONTH-HOUR lines 292-293",
+      "historical_period": "MODERN_CLOCK_COORDINATE_REALIZATION_WITH_PREMODERN_TIMEKEEPING_CONTRAST",
+      "later_witnesses": "Modern Bazi software commonly maps Zi to the 23:00/00:00 double-hour, but time-standard selection and historical clock realization remain separate research questions.",
+      "school_attribution": "MODERN_SELECTED_CLOCK_TO_BRANCH_PROJECTION_ONLY",
+      "competing_methods": [
+        "civil/standard time",
+        "local mean solar time",
+        "local apparent solar time",
+        "historical seasonal/observational timekeeping"
+      ],
+      "current_implementation_match": "EXACT_24_HOUR_PARTITION_MATCH: every integer clock hour maps to the intended branch; Zi wraps across midnight and each other branch covers two adjacent hours.",
+      "confidence": "HIGH_FOR_RUNTIME_MECHANICS; LOW_FOR_UNIVERSAL_PREMODERN_CLOCK_EQUIVALENCE",
+      "audit_status": "MODERN_COMPATIBILITY_ONLY",
+      "proposed_action": "No reopen. Preserve the explicit selected-clock provenance and do not relabel the fixed modern two-hour mapping as unique ancient timekeeping.",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-12-BAZI-NATAL-FOUR-PILLAR-COMPOSITION-AUDIT-MS",
+      "historical_scope": "MODERN_SELECTED_CLOCK_TO_DOUBLE_HOUR_BRANCH_ONLY",
+      "upstream_rule_ids": [
+        "HPA-TIME-003"
+      ],
+      "audit_evidence": "docs/research/BAZI-NATAL-FOUR-PILLAR-COMPOSITION-AUDIT-R1.json"
+    },
+    {
+      "rule_id": "HPA-BAZI-020",
+      "system": "BAZI",
+      "module": "四柱本命",
+      "rule_or_field": "Hour stem by Five Rats from explicit day-stem source",
+      "current_implementation": "five_rats_hour_pillar derives the Zi-hour start stem from the supplied day stem (甲己→甲, 乙庚→丙, 丙辛→戊, 丁壬→庚, 戊癸→壬) and advances by the resolved double-hour branch.",
+      "current_profile": "TIME-CALENDAR-FOUNDATION / sexagenary.py",
+      "primary_source": "EXT-CTEXT-SHENFENG-TONGKAO-QIBAZI; EXT-WIKISOURCE-XINGLI-KAOYUAN-WUHU-WUSHU; EXT-CTEXT-BUSHI-QUANSHU-YEAR-MONTH-HOUR",
+      "source_quote": "日上遁时：甲己还加甲，乙庚丙作初，丙辛从戊起，丁壬庚子居，戊癸起壬子。",
+      "source_quote_location": "EXT-CTEXT-SHENFENG-TONGKAO-QIBAZI lines 281-284; EXT-WIKISOURCE-XINGLI-KAOYUAN-WUHU-WUSHU 五鼠遁; EXT-CTEXT-BUSHI-QUANSHU-YEAR-MONTH-HOUR lines 288-291",
+      "historical_period": "MING_RECEIVED_BAZI_WITNESS_WITH_QING_RECEIVED_CORROBORATION",
+      "later_witnesses": "《御定星厯考原》 explicitly explains 甲子日起甲子时 and the following day's 子时 as 丙子, preserving the 60-hour cycle.",
+      "school_attribution": "RECEIVED_FIVE_RATS_DAY_STEM_TO_HOUR_STEM_MECHANIC",
+      "competing_methods": [
+        "Which civil/effective date supplies the late-Zi day stem remains HPA-TIME-008 and is not selected by the Five-Rats primitive."
+      ],
+      "current_implementation_match": "EXACT_FIVE_GROUP_AND_12_BRANCH_REPLAY: all 10 day stems × 12 double-hour branches match the received start-stem groups and forward cyclic sequence.",
+      "confidence": "HIGH_FOR_MECHANICAL_MAPPING",
+      "audit_status": "HISTORICALLY_SUPPORTED",
+      "proposed_action": "No reopen. Keep Five-Rats as a pure mapping from an explicit day-stem source; preserve late-Zi source-day candidates separately.",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-12-BAZI-NATAL-FOUR-PILLAR-COMPOSITION-AUDIT-MS",
+      "historical_scope": "RECEIVED_FIVE_RATS_HOUR_STEM_MECHANIC_ONLY",
+      "upstream_rule_ids": [
+        "HPA-BAZI-018",
+        "HPA-BAZI-019",
+        "HPA-TIME-008"
+      ],
+      "audit_evidence": "docs/research/BAZI-NATAL-FOUR-PILLAR-COMPOSITION-AUDIT-R1.json"
     },
     {
       "rule_id": "HPA-BAZI-002",
@@ -6508,7 +6692,13 @@
     "HPA-BAZI-FLOW-006",
     "HPA-BAZI-FLOW-007",
     "HPA-BAZI-FLOW-001",
-    "HPA-COMB-004"
+    "HPA-COMB-004",
+    "HPA-BAZI-001",
+    "HPA-BAZI-016",
+    "HPA-BAZI-017",
+    "HPA-BAZI-018",
+    "HPA-BAZI-019",
+    "HPA-BAZI-020"
   ],
   "audit_summary": {
     "confirmed_chart_algorithm_defect_count": 0,
@@ -6531,6 +6721,7 @@
     "BATCH-12-BAZI-TEMPORAL-SHENSHA-SOURCE-SCOPE-PROJECTION-AUDIT-MO",
     "BATCH-12-BAZI-STRUCTURAL-CONTEXT-SOURCE-PRESERVING-PROJECTION-AUDIT-MP",
     "BATCH-12-BAZI-STRUCTURAL-SUPPORT-EVIDENCE-CLASS-PROJECTION-AUDIT-MQ",
-    "BATCH-12-BAZI-COMBINED-UNIFIED-TARGET-TIMELINE-COMPOSITION-AUDIT-MR"
+    "BATCH-12-BAZI-COMBINED-UNIFIED-TARGET-TIMELINE-COMPOSITION-AUDIT-MR",
+    "BATCH-12-BAZI-NATAL-FOUR-PILLAR-COMPOSITION-AUDIT-MS"
   ]
 }

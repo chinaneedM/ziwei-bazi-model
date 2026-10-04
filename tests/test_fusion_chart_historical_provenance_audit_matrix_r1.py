@@ -875,5 +875,43 @@ class HistoricalProvenanceAuditMatrixR1Test(unittest.TestCase):
         self.assertIn("HPA-COMB-004", self.payload["audited_row_ids"])
 
 
+    def test_batch_12ms_four_pillar_natal_generation_is_decomposed(self) -> None:
+        by_id = {row["rule_id"]: row for row in self.rows}
+        parent = by_id["HPA-BAZI-001"]
+        self.assertEqual("MODERN_COMPATIBILITY_ONLY", parent["audit_status"])
+        self.assertEqual(
+            "BATCH-12-BAZI-NATAL-FOUR-PILLAR-COMPOSITION-AUDIT-MS",
+            parent["audit_batch"],
+        )
+        child_ids = [
+            "HPA-BAZI-016",
+            "HPA-BAZI-017",
+            "HPA-BAZI-018",
+            "HPA-BAZI-019",
+            "HPA-BAZI-020",
+        ]
+        self.assertEqual(child_ids, parent["child_rule_ids"])
+        expected_statuses = {
+            "HPA-BAZI-016": "MODERN_COMPATIBILITY_ONLY",
+            "HPA-BAZI-017": "HISTORICALLY_SUPPORTED",
+            "HPA-BAZI-018": "MODERN_COMPATIBILITY_ONLY",
+            "HPA-BAZI-019": "MODERN_COMPATIBILITY_ONLY",
+            "HPA-BAZI-020": "HISTORICALLY_SUPPORTED",
+        }
+        for rule_id, expected_status in expected_statuses.items():
+            row = by_id[rule_id]
+            self.assertEqual(expected_status, row["audit_status"])
+            self.assertEqual(parent["audit_batch"], row["audit_batch"])
+            self.assertFalse(row["algorithm_reopen_authorized"])
+            self.assertIn(rule_id, self.payload["audited_row_ids"])
+        self.assertIn("HPA-BAZI-001", self.payload["audited_row_ids"])
+        self.assertFalse(parent["component_firewall"]["monolithic_classical_natal_rule_claimed"])
+        self.assertFalse(parent["component_firewall"]["candidate_collapse_authorized"])
+        self.assertIn("EXT-CTEXT-SHENFENG-TONGKAO-QIBAZI", self.sources)
+        self.assertIn("EXT-WIKISOURCE-XINGLI-KAOYUAN-WUHU-WUSHU", self.sources)
+        self.assertIn("EXT-CTEXT-BUSHI-QUANSHU-YEAR-MONTH-HOUR", self.sources)
+        self.assertIn("EXT-SAMR-GBT33661-2017-GANZHI-CYCLE", self.sources)
+
+
 if __name__ == "__main__":
     unittest.main()

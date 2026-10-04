@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.359.0",
+  "schema_version": "1.360.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -37,8 +37,8 @@
     "matrix_json": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json",
     "matrix_md": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.md",
     "external_source_registry": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json",
-    "row_count": 201,
-    "audited_row_count": 178,
+    "row_count": 206,
+    "audited_row_count": 184,
     "confirmed_provenance_metadata_defect_count": 17,
     "repaired_provenance_metadata_defect_count": 17,
     "historical_candidate_registry_count": 3,
@@ -441,9 +441,10 @@
       "BATCH-12-BAZI-TEMPORAL-SHENSHA-SOURCE-SCOPE-PROJECTION-AUDIT-MO",
       "BATCH-12-BAZI-STRUCTURAL-CONTEXT-SOURCE-PRESERVING-PROJECTION-AUDIT-MP",
       "BATCH-12-BAZI-STRUCTURAL-SUPPORT-EVIDENCE-CLASS-PROJECTION-AUDIT-MQ",
-      "BATCH-12-BAZI-COMBINED-UNIFIED-TARGET-TIMELINE-COMPOSITION-AUDIT-MR"
+      "BATCH-12-BAZI-COMBINED-UNIFIED-TARGET-TIMELINE-COMPOSITION-AUDIT-MR",
+      "BATCH-12-BAZI-NATAL-FOUR-PILLAR-COMPOSITION-AUDIT-MS"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-COMBINED-UNIFIED-TARGET-TIMELINE-COMPOSITION-AUDIT-MR.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-NATAL-FOUR-PILLAR-COMPOSITION-AUDIT-MS.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -2034,7 +2035,12 @@
       "Combined Target Flow requires exact Bazi base equality, Bazi target-flow integrity/full replay and target input/profile equality. Ziwei selection metadata does not recompute Bazi target flow; Ziwei/Bazi calendar and day-boundary policies remain independent; target uncertainty is never collapsed.",
       "No runtime algorithm/schema/hash version changes and no new provenance defect. Matrix is now 201 / 178 / 10; provenance defects remain 17/17; chart algorithm defects / reopens / candidate collapses remain 0.",
       "12MS: audit HPA-BAZI-001 Four-pillar natal generation as a composition of separately governed year/month/day/hour and calendar/date-boundary rules. Identify any remaining source-specific subrule gaps without treating the modern Natal bundle as one monolithic classical rule.",
-      "Original Wenwu1951 primary targets remain NOT_REVIEWED and the anonymous recovery branch remains paused pending a materially new lawful access route."
+      "Original Wenwu1951 primary targets remain NOT_REVIEWED and the anonymous recovery branch remains paused pending a materially new lawful access route.",
+      "Batch 12MS decomposes HPA-BAZI-001 Four-pillar natal generation into five independently governed child rules instead of treating the software Natal bundle as one monolithic classical doctrine.",
+      "HPA-BAZI-017 Five Tigers and HPA-BAZI-020 Five Rats are HISTORICALLY_SUPPORTED within their mechanical scopes, using received Song/Ming/Qing witnesses; Jie/Lichun boundaries and late-Zi source-day selection remain separate upstream rules.",
+      "HPA-BAZI-016 pillar-year integer→Ganzhi, HPA-BAZI-018 Gregorian/JDN→day Ganzhi and HPA-BAZI-019 selected modern clock→double-hour branch are MODERN_COMPATIBILITY_ONLY coordinate bridges. GB/T 33661-2017 is calibration, not ancient Bazi authority.",
+      "No runtime algorithm/schema/hash changes and no new provenance defect. Matrix is now 206 / 184 / 10; provenance defects remain 17/17; chart algorithm defects / reopens / candidate collapses remain 0.",
+      "12MT: audit HPA-STRUCT-003 R3 borrow projection as the next unaudited IMPLEMENTATION_REVIEW_REQUIRED row in Matrix order. Separate neutral projection mechanics from source-specific interpretive doctrine and preserve upstream candidate lineage."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10

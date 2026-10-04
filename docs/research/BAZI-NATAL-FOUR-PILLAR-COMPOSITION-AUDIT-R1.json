@@ -1,0 +1,93 @@
+{
+  "schema": "BAZI-NATAL-FOUR-PILLAR-COMPOSITION-AUDIT-R1",
+  "batch_id": "BATCH-12-BAZI-NATAL-FOUR-PILLAR-COMPOSITION-AUDIT-MS",
+  "prior_batch_id": "BATCH-12-BAZI-COMBINED-UNIFIED-TARGET-TIMELINE-COMPOSITION-AUDIT-MR",
+  "parent_rule_id": "HPA-BAZI-001",
+  "child_rule_ids": [
+    "HPA-BAZI-016",
+    "HPA-BAZI-017",
+    "HPA-BAZI-018",
+    "HPA-BAZI-019",
+    "HPA-BAZI-020"
+  ],
+  "audit_scope": "DECOMPOSE_RELEASED_FOUR_PILLAR_NATAL_GENERATION_INTO_SEPARATELY_GOVERNED_YEAR_MONTH_DAY_HOUR_IDENTITY_BOUNDARY_AND_CLOCK_RULES_WITHOUT_MONOLITHIC_CLASSICAL_BUNDLE_CLAIM",
+  "adjudication": {
+    "parent_status": "MODERN_COMPATIBILITY_ONLY",
+    "child_statuses": {
+      "HPA-BAZI-016": "MODERN_COMPATIBILITY_ONLY",
+      "HPA-BAZI-017": "HISTORICALLY_SUPPORTED",
+      "HPA-BAZI-018": "MODERN_COMPATIBILITY_ONLY",
+      "HPA-BAZI-019": "MODERN_COMPATIBILITY_ONLY",
+      "HPA-BAZI-020": "HISTORICALLY_SUPPORTED"
+    },
+    "monolithic_classical_natal_rule_claimed": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false
+  },
+  "component_contract": {
+    "time_standard": "HPA-TIME-003 local apparent solar time remains a modern declared coordinate",
+    "year_boundary": [
+      "HPA-BTIME-001",
+      "HPA-BTIME-002",
+      "HPA-BTIME-004"
+    ],
+    "year_identity": "HPA-BAZI-016",
+    "month_boundary": [
+      "HPA-BTIME-003",
+      "HPA-BTIME-004"
+    ],
+    "month_stem": "HPA-BAZI-017",
+    "day_boundary": "HPA-TIME-007",
+    "day_identity": "HPA-BAZI-018",
+    "hour_branch": "HPA-BAZI-019",
+    "hour_stem": "HPA-BAZI-020",
+    "late_zi_hour_stem_source": "HPA-TIME-008",
+    "candidate_preservation": "MIDNIGHT/ZI_START_23 and CLASSICAL_CONTINUOUS/CURRENT_DAY_STEM/ZI_START_ROLLOVER remain explicit; 12MS selects no new winner."
+  },
+  "runtime_files": [
+    {
+      "path": "src/fortune_training/calendar_foundation/bazi.py",
+      "blob_sha": "414f87e082451d0bd3e5b0e710de1ee94371da57",
+      "unchanged_from_base": true
+    },
+    {
+      "path": "src/fortune_training/calendar_foundation/sexagenary.py",
+      "blob_sha": "aeaa1f136af92bc1aee1e9e2872ddc1818f5919a",
+      "unchanged_from_base": true
+    }
+  ],
+  "source_registry_additions": [
+    "EXT-CTEXT-SHENFENG-TONGKAO-QIBAZI",
+    "EXT-WIKISOURCE-XINGLI-KAOYUAN-WUHU-WUSHU",
+    "EXT-CTEXT-BUSHI-QUANSHU-YEAR-MONTH-HOUR",
+    "EXT-SAMR-GBT33661-2017-GANZHI-CYCLE"
+  ],
+  "replay_evidence": "docs/research/evidence/batch-12ms/natal-pillar-replay.json",
+  "verification": {
+    "new_test_file": "tests/test_bazi_natal_four_pillar_composition_audit_r1.py",
+    "new_test_count": 6,
+    "matrix_test_extended": true,
+    "exact_head_ci_status_at_commit_creation": "PENDING_BY_DEFINITION",
+    "note": "Exact-head Actions can only be observed after the commit exists."
+  },
+  "accounting": {
+    "rows_before": 201,
+    "rows_after": 206,
+    "audited_rows_before": 178,
+    "audited_rows_after": 184,
+    "current_missing_from_product_rows": 10,
+    "provenance_defects_confirmed": 17,
+    "provenance_defects_repaired": 17,
+    "chart_algorithm_defects": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0
+  },
+  "transmission_impact": {
+    "status": "NONE",
+    "reason": "Received-text corroborations and modern coordinate calibration add no newly adjudicated physical-witness ancestry, copying relation or school-transmission edge."
+  },
+  "next_gate": [
+    "12MT: audit HPA-STRUCT-003 R3 borrow projection as the next unaudited IMPLEMENTATION_REVIEW_REQUIRED row in Matrix order.",
+    "Original Wenwu1951 recovery remains paused pending a materially new lawful access mechanism."
+  ]
+}
