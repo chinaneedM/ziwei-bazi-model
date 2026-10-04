@@ -868,9 +868,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-WENWU1951-UCD-PHYSICAL-DIGITAL-COPY-BINDING-MH",
     "BATCH-12-ZIWEI-WENWU1951-GOOGLE-AGGREGATE-YEAR-BOUNDARY-MI",
     "BATCH-12-ZIWEI-WENWU1951-NABUNKEN-REPOSITORY-RECOVERY-CLOSURE-MJ",
+    "BATCH-12-ZIWEI-BODY-PALACE-GANZHI-PROJECTION-AUDIT-MK",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENWU1951-NABUNKEN-REPOSITORY-RECOVERY-CLOSURE-MJ.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-BODY-PALACE-GANZHI-PROJECTION-AUDIT-MK.md"
 
 
 def fail(message: str) -> None:
@@ -5198,15 +5199,17 @@ def main() -> int:
     if not registry12bb or registry12bb.get("first_party_physical_holding_bound") is not True or registry12bb.get("exact_1594_or_wanli_22_proven") is not False or registry12bb.get("independent_exact_1594_material_witness_increment") != 0:
         fail("Batch 12BB Fudan registry evidence firewall regressed")
 
-    # Provenance/access-only batches can advance without changing any Matrix row.
-    # The Matrix batch ledger remains an exact prefix; state may append explicitly
-    # documented zero-row-effect batches after that prefix.
+    # Preserve the accepted main ledger prefix and supplemental chronology.
+    # Later row-affecting supplemental audits are enrolled separately in Matrix.
     matrix_batches = matrix.get("historical_research_batches", [])
     state_batches = audit_state.get("completed_batches", [])
     if state_batches[: len(matrix_batches)] != matrix_batches:
         fail("current-state completed batch prefix differs from Historical Audit Matrix")
     if state_batches[len(matrix_batches) :] != SUPPLEMENTAL_BATCH_IDS:
         fail("unexpected supplemental provenance/access batch list after Historical Audit Matrix prefix")
+    rule_batches = matrix.get("supplemental_rule_audit_batches", [])
+    if len(rule_batches) != len(set(rule_batches)) or any(batch not in SUPPLEMENTAL_BATCH_IDS for batch in rule_batches):
+        fail("supplemental Matrix rule-audit ledger is invalid or absent from continuity chronology")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail(f"current-state latest batch drift: {audit_state.get('latest_batch_doc')!r}")
 
@@ -14027,7 +14030,7 @@ def main() -> int:
 
     # A functioning public repository can still contain only unrelated title hits.
     mj = json.loads((ROOT / "docs/research/ZIWEI-WENWU1951-NABUNKEN-REPOSITORY-RECOVERY-CLOSURE-R1.json").read_text(encoding="utf-8"))
-    if mj.get("batch_id") != LATEST_BATCH_ID or mj.get("prior_batch_id") != mi.get("batch_id"):
+    if mj.get("batch_id") != "BATCH-12-ZIWEI-WENWU1951-NABUNKEN-REPOSITORY-RECOVERY-CLOSURE-MJ" or mj.get("prior_batch_id") != mi.get("batch_id"):
         fail("Batch 12MJ lineage mismatch")
     expected_mj_files = {"observations.json", *(f"nabunken-{key}.html" for key in (
         "help", "library", "root", "serial", "article", "control",
@@ -14065,6 +14068,35 @@ def main() -> int:
         fail("Batch 12MJ execution/next-work scope drift")
     if "EXT-NABUNKEN-REPOSITORY-WENWU1951-DISCOVERY-CLOSURE" not in {x.get("source_id") for x in registry.get("sources", ())}:
         fail("Batch 12MJ source registry binding missing")
+
+    # Projection evidence inherits historical parent scope; it is not a new doctrine.
+    mk = json.loads((ROOT / "docs/research/ZIWEI-BODY-PALACE-GANZHI-PROJECTION-AUDIT-R1.json").read_text(encoding="utf-8"))
+    mk_id = "BATCH-12-ZIWEI-BODY-PALACE-GANZHI-PROJECTION-AUDIT-MK"
+    if mk.get("batch_id") != mk_id or mk.get("prior_batch_id") != mj.get("batch_id") or mk_id not in rule_batches:
+        fail("Batch 12MK chronology/rule ledger mismatch")
+    body_row = next(row for row in matrix["rows"] if row["rule_id"] == "HPA-ZIWEI-013")
+    if body_row.get("audit_batch") != mk_id or body_row.get("historical_scope") != "INHERITED_RULES_MODERN_PRESENTATION_ONLY" or body_row.get("audit_status") != "HISTORICALLY_SUPPORTED":
+        fail("Batch 12MK inherited projection scope drift")
+    if body_row.get("upstream_rule_ids") != ["HPA-ZIWEI-002", "HPA-ZIWEI-004"] or body_row.get("algorithm_reopen_authorized") is not False:
+        fail("Batch 12MK parent/algorithm scope drift")
+    if "HPA-ZIWEI-013" not in matrix["audited_row_ids"] or mk.get("accounting", {}).get("audited_rows_after") != 167:
+        fail("Batch 12MK audited-row accounting drift")
+    if mk.get("row_adjudication", {}).get("new_independent_historical_witness_count") != 0 or mk.get("transmission_impact", {}).get("status") != "NONE":
+        fail("Batch 12MK modern projection promoted to independent historical witness")
+    replay_path = "docs/research/evidence/batch-12mk/projection-replay.json"
+    obj = mk.get("evidence_objects", {}).get(replay_path, {})
+    raw = (ROOT / replay_path).read_bytes()
+    if len(raw) != obj.get("byte_count") or hashlib.sha256(raw).hexdigest() != obj.get("sha256"):
+        fail("Batch 12MK executed replay evidence drift")
+    replay = json.loads(raw)
+    if replay.get("ordinary_case_count") != 1440 or replay.get("ordinary_cases_identical_before_after") is not True or replay.get("ordinary_cases_equal_released_identity_join") is not True:
+        fail("Batch 12MK valid projection preservation drift")
+    if any(control.get("after") != {"value": "-"} for control in replay.get("abnormal_controls", [])) or len(replay.get("abnormal_controls", [])) != 3:
+        fail("Batch 12MK abnormal identity fallback drift")
+    if replay.get("chart_algorithm_changed") is not False or mk.get("presentation_defect", {}).get("chart_algorithm_defect") is not False:
+        fail("Batch 12MK UI/algorithm distinction regressed")
+    if mk.get("execution", {}).get("github_runner_replay_claimed") is not False or sum(t.get("test_count", 0) for t in mk.get("executed_tests", [])) != 19:
+        fail("Batch 12MK local test provenance drift")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

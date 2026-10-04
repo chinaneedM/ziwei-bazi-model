@@ -34,7 +34,7 @@ Every row carries:
 - proposed action;
 - explicit algorithm-reopen authorization, which is **false for every inventory row at creation**.
 
-The initial inventory contained **107 rule/field families**. After Batches 01–12E and explicit splitting of historically distinct candidate families, the current machine-readable inventory contains **198 rows**, with **166 audited rows**. It intentionally keeps unresolved source work explicit rather than converting uncertainty into a chart defect. The current audit ledger records **17 confirmed provenance metadata defects repaired forward-only at the provenance/hash-lineage layer, 0 chart algorithm defects, 0 algorithm reopens, 14 cumulatively identified missing candidate families, 10 rows currently `MISSING_FROM_PRODUCT`, 6 historical candidate extensions, 3 source-scoped historical candidate registries, and 3 runtime-resolver components**.
+The initial inventory contained **107 rule/field families**. Through Batch 12MK and explicit splitting of historically distinct candidate families, the current machine-readable inventory contains **198 rows**, with **167 audited rows**. It intentionally keeps unresolved source work explicit rather than converting uncertainty into a chart defect. The current audit ledger records **17 confirmed provenance metadata defects repaired forward-only at the provenance/hash-lineage layer, 0 chart algorithm defects, 0 algorithm reopens, 14 cumulatively identified missing candidate families, 10 rows currently `MISSING_FROM_PRODUCT`, 6 historical candidate extensions, 3 source-scoped historical candidate registries, and 3 runtime-resolver components**.
 
 ## Research-corpus authority
 
@@ -1283,3 +1283,5 @@ Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WE
 - Next 12MJ deduplicates known exact-issue holdings before seeking a materially new first-party page mechanism. No repeat of failed endpoints without a new mechanism; all accounting and historical text votes remain unchanged.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENWU1951-GOOGLE-AGGREGATE-YEAR-BOUNDARY-MI.md`. Research record: `docs/research/ZIWEI-WENWU1951-GOOGLE-AGGREGATE-YEAR-BOUNDARY-R1.json`.
+
+- Batch 12MK: HPA-ZIWEI-013 closes as a modern identity projection inheriting audited HPA-ZIWEI-002/004. A UI-only malformed/duplicate guard is repaired; 1440 normal JS outputs are unchanged. Matrix now has 198 rows / 167 audited / 10 missing-product rows; no chart algorithm reopen or new historical witness. See `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-BODY-PALACE-GANZHI-PROJECTION-AUDIT-MK.md`.

@@ -30,3 +30,7 @@ No stem is synthesized in the browser.
 - Regression: `tests/test_combined_workbench_ziwei_body_palace_ganzhi_r1.py`
 
 The existing Field Parity row `ZIWEI_LIFE_BODY_PALACE_BRANCHES` remains intentionally scoped to palace branches. This milestone records the additional Body-Palace Ganzhi visibility without changing natal engine semantics.
+
+## Historical projection audit and identity guard — Batch 12MK
+
+The display inherits the audited Life/Body placement (HPA-ZIWEI-002) and palace stem assignment (HPA-ZIWEI-004); it is not an independent classical rule. The identity join now counts all address matches before checking the stem, and malformed attribute containers or out-of-range address indices return `-`. Actual JavaScript replay preserves all 1440 ordinary month/hour/year-stem outputs. See the Batch 12MK audit and regression tests.

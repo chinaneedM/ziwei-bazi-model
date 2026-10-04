@@ -46,10 +46,10 @@
     "row_count": 198,
     "status_counts": {
       "MODERN_COMPATIBILITY_ONLY": 31,
-      "HISTORICALLY_SUPPORTED": 88,
+      "HISTORICALLY_SUPPORTED": 89,
       "DISPUTED_MULTIPLE_CANDIDATES": 30,
       "SUPPORTED_BUT_SCHOOL_SPECIFIC": 18,
-      "IMPLEMENTATION_REVIEW_REQUIRED": 11,
+      "IMPLEMENTATION_REVIEW_REQUIRED": 10,
       "SOURCE_INSUFFICIENT": 9,
       "MISSING_FROM_PRODUCT": 10,
       "NOT_YET_FORMALIZED": 1
@@ -81,7 +81,7 @@
       "candidate/profile rules": 2,
       "provenance / hashes / lineage": 2
     },
-    "audited_row_count": 166
+    "audited_row_count": 167
   },
   "rows": [
     {
@@ -1830,18 +1830,28 @@
       "rule_or_field": "Body-palace Ganzhi visibility",
       "current_implementation": "Product surface exposes released Body-palace stem/branch identity.",
       "current_profile": "ZIWEI-CHART-ENGINE-V1",
-      "primary_source": "upstream natal structure",
-      "source_quote": "PENDING_VERBATIM_EXTRACTION",
-      "source_quote_location": "docs/FUSION-CHART-ZIWEI-BODY-PALACE-GANZHI-R1.md",
-      "historical_period": "PENDING_BIBLIOGRAPHIC_DATING",
-      "later_witnesses": "PENDING_LATER_WITNESS_AUDIT",
-      "school_attribution": "PENDING_SCHOOL_ATTRIBUTION_AUDIT",
-      "competing_methods": [],
-      "current_implementation_match": "PENDING_RULE_BY_RULE_REPLAY",
-      "confidence": "INVENTORY_CONFIDENCE_HIGH",
-      "audit_status": "IMPLEMENTATION_REVIEW_REQUIRED",
-      "proposed_action": "Verify it is a pure projection of audited palace stem/branch rules.",
-      "algorithm_reopen_authorized": false
+      "primary_source": "Inherited received-Fullbook rule scope from HPA-ZIWEI-002 Life/Body placement and HPA-ZIWEI-004 palace stem assignment; modern display identity projection only",
+      "source_quote": "Upstream placement: 大抵人命，俱从寅上起正月，顺数至本生月止。又自人生月上起子时，逆至本生时安命，顺至本生时安身。 Upstream stems: 甲己之岁起丙寅，乙庚之岁起戊寅，丙辛之岁起庚寅；丁壬之岁起壬寅，戊癸之岁起甲寅。",
+      "source_quote_location": "S01:ZZQS-A-1744 and ZZQS-A-1755..1756 (received Fullbook atoms already audited in Batch 06); src/fortune_training/combined_chart_application/ziwei_basic_info_assets.py:palaceGanzhi",
+      "historical_period": "MODERN_PRESENTATION_OF_AUDITED_RECEIVED_FULLBOOK_NATAL_IDENTITIES; NO_NEW_CLASSICAL_DISPLAY_DOCTRINE",
+      "later_witnesses": "No additional historical witness claimed; released natal contract, actual JavaScript replay, and existing combined workbench regression supply implementation evidence.",
+      "school_attribution": "INHERITS_PARENT_NATAL_MONTH_HOUR_AND_PALACE_STEM_PROFILE_SCOPE; NO_INDEPENDENT_BODY_GANZHI_SCHOOL_RULE",
+      "competing_methods": [
+        "Upstream leap-month/time-coordinate profiles remain separate; the display chooses no candidate."
+      ],
+      "current_implementation_match": "PURE_INDEX_AND_BRANCH_IDENTITY_JOIN; 1440_ORDINARY_CASES_EQUAL_RELEASED_DATA_AND_UNCHANGED_BEFORE_AFTER; MALFORMED_OR_NON_UNIQUE_IDENTITY_FAILS_CLOSED_AFTER_UI_ONLY_REPAIR",
+      "confidence": "HIGH_FOR_EXECUTED_IDENTITY_PROJECTION; HISTORICAL_SCOPE_INHERITED_FROM_AUDITED_PARENTS",
+      "audit_status": "HISTORICALLY_SUPPORTED",
+      "proposed_action": "Projection audit closed. Keep uniqueness before stem validation and retain source/profile lineage from parents. Do not cite this modern display as an independent ancient rule.",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-12-ZIWEI-BODY-PALACE-GANZHI-PROJECTION-AUDIT-MK",
+      "historical_scope": "INHERITED_RULES_MODERN_PRESENTATION_ONLY",
+      "upstream_rule_ids": [
+        "HPA-ZIWEI-002",
+        "HPA-ZIWEI-004"
+      ],
+      "presentation_repair_id": "UI-BODY-GANZHI-IDENTITY-GUARD-001",
+      "research_artifact": "docs/research/ZIWEI-BODY-PALACE-GANZHI-PROJECTION-AUDIT-R1.json"
     },
     {
       "rule_id": "HPA-ZT-001",
@@ -6197,7 +6207,8 @@
     "HPA-DAYUN-CAL-005",
     "HPA-DAYUN-CAL-006",
     "HPA-DAYUN-CAL-007",
-    "HPA-ZDATE-006"
+    "HPA-ZDATE-006",
+    "HPA-ZIWEI-013"
   ],
   "audit_summary": {
     "confirmed_chart_algorithm_defect_count": 0,
@@ -6211,5 +6222,8 @@
     "historical_candidate_runtime_resolver_count": 3,
     "current_missing_from_product_row_count": 10
   },
-  "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md"
+  "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md",
+  "supplemental_rule_audit_batches": [
+    "BATCH-12-ZIWEI-BODY-PALACE-GANZHI-PROJECTION-AUDIT-MK"
+  ]
 }

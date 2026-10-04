@@ -123,16 +123,17 @@ ZIWEI_BASIC_INFO_JS = r"""
     if (
       !structure ||
       !Number.isInteger(palaceAddress?.index) ||
+      palaceAddress.index < 0 || palaceAddress.index > 11 ||
       typeof palaceAddress?.branch !== 'string' ||
-      !palaceAddress.branch
+      !palaceAddress.branch ||
+      !Array.isArray(structure.address_attributes)
     ) return '-';
-    const matches = (structure.address_attributes || []).filter((row) => (
+    const matches = structure.address_attributes.filter((row) => (
       row?.address?.index === palaceAddress.index &&
-      row?.address?.branch === palaceAddress.branch &&
-      typeof row?.stem === 'string' &&
-      row.stem
+      row?.address?.branch === palaceAddress.branch
     ));
     if (matches.length !== 1) return '-';
+    if (typeof matches[0].stem !== 'string' || !matches[0].stem) return '-';
     return `${matches[0].stem}${palaceAddress.branch}`;
   }
 

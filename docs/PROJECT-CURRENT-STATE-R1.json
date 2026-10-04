@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.351.0",
+  "schema_version": "1.352.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -38,7 +38,7 @@
     "matrix_md": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.md",
     "external_source_registry": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json",
     "row_count": 198,
-    "audited_row_count": 166,
+    "audited_row_count": 167,
     "confirmed_provenance_metadata_defect_count": 17,
     "repaired_provenance_metadata_defect_count": 17,
     "historical_candidate_registry_count": 3,
@@ -433,9 +433,10 @@
       "BATCH-12-ZIWEI-WENWU1951-HATHITRUST-OCLC-DIGITAL-INVENTORY-MG",
       "BATCH-12-ZIWEI-WENWU1951-UCD-PHYSICAL-DIGITAL-COPY-BINDING-MH",
       "BATCH-12-ZIWEI-WENWU1951-GOOGLE-AGGREGATE-YEAR-BOUNDARY-MI",
-      "BATCH-12-ZIWEI-WENWU1951-NABUNKEN-REPOSITORY-RECOVERY-CLOSURE-MJ"
+      "BATCH-12-ZIWEI-WENWU1951-NABUNKEN-REPOSITORY-RECOVERY-CLOSURE-MJ",
+      "BATCH-12-ZIWEI-BODY-PALACE-GANZHI-PROJECTION-AUDIT-MK"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENWU1951-NABUNKEN-REPOSITORY-RECOVERY-CLOSURE-MJ.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-BODY-PALACE-GANZHI-PROJECTION-AUDIT-MK.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -1979,7 +1980,11 @@
       "12MK: audit HPA-ZIWEI-013 Body-palace Ganzhi visibility as a read-only identity projection. Trace body_address to audited HPA-ZIWEI-002 and address_attributes.stem to audited HPA-ZIWEI-004; replay the existing model/UI regressions and malformed/non-unique identity fallback before adjudicating the row.",
       "The current anonymous Wenwu1951 recovery branch is PAUSED_ACCESS_UNRESOLVED_PENDING_MATERIALLY_NEW_ROUTE. Reopen only for a newly published first-party exact issue/page object, a materially new documented access mechanism, or separately authorized institutional recovery; do not repeat closed provider queries or challenges.",
       "Preserve direct 1951 pp.221–233, 2011 Wenji vol.1 p.197 and Shanghai Wenhui 1951-08-18 as NOT_REVIEWED. Ding-six remaining-four-title and original/reprint identity questions remain unresolved; no acquisition or textual lineage edge is authorized.",
-      "Matrix remains 198 / 166 / 10; provenance defects remain 17/17; chart algorithm defects / reopens / candidate collapses remain 0."
+      "Matrix remains 198 / 166 / 10; provenance defects remain 17/17; chart algorithm defects / reopens / candidate collapses remain 0.",
+      "Yes, within the audited parents’ source/profile scope. A UI-only uniqueness/shape guard defect is repaired: duplicate identity rows are counted before stem validation, malformed attribute containers and out-of-range indices return a placeholder. All 1440 valid ordinary coordinates retain identical output. No chart algorithm or historical candidate selection changes.",
+      "12ML: audit HPA-BAZI-FLOW-002 Target-layer Ten-God projection. Trace the source day-master/target Ganzhi anchor and exact reuse of the already audited natal Ten-God mapping; execute legal target-layer cases and preserve fact-only semantics.",
+      "Original Wenwu1951 recovery remains PAUSED_ACCESS_UNRESOLVED_PENDING_MATERIALLY_NEW_ROUTE. No repeat of closed provider surfaces; direct 1951 pp.221–233, 2011 Wenji p.197 and Wenhui1951-08-18 remain NOT_REVIEWED.",
+      "Matrix is now 198 / 167 / 10; provenance defects remain 17/17; chart algorithm defects / reopens / candidate collapses remain 0. UI-only identity guard repair does not reopen chart algorithms."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10

@@ -838,6 +838,12 @@ def main() -> int:
     audited_ids=data.get("audited_row_ids",())
     if summary.get("audited_row_count")!=len(audited_ids) or len(audited_ids) < 165:
         raise SystemExit("historical audited-row accounting mismatch or regressed below Batch 07A")
+    supplemental_rule_batches=data.get("supplemental_rule_audit_batches",())
+    if len(supplemental_rule_batches)!=len(set(supplemental_rule_batches)):
+        raise SystemExit("duplicate supplemental rule-audit batch")
+    for batch in supplemental_rule_batches:
+        if not any(row.get("audit_batch")==batch and row["rule_id"] in audited_ids for row in rows):
+            raise SystemExit("supplemental rule-audit batch has no audited rule row")
     batches=data.get("historical_research_batches",())
     if "BATCH-06-ZIWEI-NATAL-FOUNDATIONS" not in batches:
         raise SystemExit("Batch 06 Ziwei natal foundations audit is missing")
@@ -1417,7 +1423,7 @@ def main() -> int:
         "deterministic_product":"CLOSED",
         "self_inward_transformation":"NOT_YET_FORMALIZED",
         "algorithm_reopen_authorized_count":sum(bool(r["algorithm_reopen_authorized"]) for r in rows),
-        "historical_research_batch_count":len(data.get("historical_research_batches",())),
+        "historical_research_batch_count":len(data.get("historical_research_batches",()))+len(supplemental_rule_batches),
         "audited_row_count":len(data.get("audited_row_ids",())),
         "confirmed_chart_algorithm_defect_count":audit_summary.get("confirmed_chart_algorithm_defect_count"),
         "confirmed_provenance_metadata_defect_count":audit_summary.get("confirmed_provenance_metadata_defect_count"),

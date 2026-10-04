@@ -1,0 +1,161 @@
+{
+  "schema": "ZIWEI-BODY-PALACE-GANZHI-PROJECTION-AUDIT-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-BODY-PALACE-GANZHI-PROJECTION-AUDIT-MK",
+  "prior_batch_id": "BATCH-12-ZIWEI-WENWU1951-NABUNKEN-REPOSITORY-RECOVERY-CLOSURE-MJ",
+  "question": "Is the displayed Body-palace Ganzhi purely inherited natal identity data, with no separate classical calculation rule or browser algorithm?",
+  "answer": "Yes, within the audited parents’ source/profile scope. A UI-only uniqueness/shape guard defect is repaired: duplicate identity rows are counted before stem validation, malformed attribute containers and out-of-range indices return a placeholder. All 1440 valid ordinary coordinates retain identical output. No chart algorithm or historical candidate selection changes.",
+  "execution": {
+    "base_head": "f62ee9637f7ed4cac68a6824139ae04d3b5c1345",
+    "base_tree": "c6ea623dbe5aef7dc6e7e7a19b754fd69112dbd1",
+    "observed_date": "2026-10-04",
+    "github_runner_replay_claimed": false,
+    "environment": "LOCAL_WORK_MODE_PYTHON_AND_NODE"
+  },
+  "upstream_rules": [
+    {
+      "rule_id": "HPA-ZIWEI-002",
+      "primary_source": "S01 frozen received Fullbook: ZZQS-A-1744..1746",
+      "source_quote": "大抵人命，俱从寅上起正月，顺数至本生月止。又自人生月上起子时，逆至本生时安命，顺至本生时安身。",
+      "source_quote_location": "S01:ZZQS-A-1744; worked examples S01:ZZQS-A-1745; leap-month Fullbook method S01:ZZQS-A-1746",
+      "historical_period": "RECEIVED_FULLBOOK_TEXT_TRADITION; exact edition dating remains separate bibliographic work",
+      "audit_status": "HISTORICALLY_SUPPORTED",
+      "audit_batch": "BATCH-06-ZIWEI-NATAL-FOUNDATIONS"
+    },
+    {
+      "rule_id": "HPA-ZIWEI-004",
+      "primary_source": "S01 frozen received Fullbook: 起五寅例 ZZQS-A-1755..1756",
+      "source_quote": "甲己之岁起丙寅，乙庚之岁起戊寅，丙辛之岁起庚寅；丁壬之岁起壬寅，戊癸之岁起甲寅。",
+      "source_quote_location": "S01:ZZQS-A-1755; S01:ZZQS-A-1756",
+      "historical_period": "RECEIVED_FULLBOOK_TEXT_TRADITION",
+      "audit_status": "HISTORICALLY_SUPPORTED",
+      "audit_batch": "BATCH-06-ZIWEI-NATAL-FOUNDATIONS"
+    }
+  ],
+  "prior_row": {
+    "rule_id": "HPA-ZIWEI-013",
+    "system": "ZIWEI",
+    "module": "紫微本命",
+    "rule_or_field": "Body-palace Ganzhi visibility",
+    "current_implementation": "Product surface exposes released Body-palace stem/branch identity.",
+    "current_profile": "ZIWEI-CHART-ENGINE-V1",
+    "primary_source": "upstream natal structure",
+    "source_quote": "PENDING_VERBATIM_EXTRACTION",
+    "source_quote_location": "docs/FUSION-CHART-ZIWEI-BODY-PALACE-GANZHI-R1.md",
+    "historical_period": "PENDING_BIBLIOGRAPHIC_DATING",
+    "later_witnesses": "PENDING_LATER_WITNESS_AUDIT",
+    "school_attribution": "PENDING_SCHOOL_ATTRIBUTION_AUDIT",
+    "competing_methods": [],
+    "current_implementation_match": "PENDING_RULE_BY_RULE_REPLAY",
+    "confidence": "INVENTORY_CONFIDENCE_HIGH",
+    "audit_status": "IMPLEMENTATION_REVIEW_REQUIRED",
+    "proposed_action": "Verify it is a pure projection of audited palace stem/branch rules.",
+    "algorithm_reopen_authorized": false
+  },
+  "row_adjudication": {
+    "rule_id": "HPA-ZIWEI-013",
+    "prior_status": "IMPLEMENTATION_REVIEW_REQUIRED",
+    "new_status": "HISTORICALLY_SUPPORTED",
+    "scope": "INHERITED_RULES_MODERN_PRESENTATION_ONLY",
+    "new_independent_historical_witness_count": 0,
+    "new_classical_display_doctrine_claimed": false,
+    "source_edition_date_upgrade_claimed": false,
+    "upstream_profile_selection_changed": false
+  },
+  "evidence_objects": {
+    "docs/research/evidence/batch-12mk/projection-replay.json": {
+      "byte_count": 1156,
+      "sha256": "6a32a4b810fbfccc8b3e6da342653f4c901f65acf8c0177ff1ea887e64b0a78a",
+      "unchanged_from_base": false
+    },
+    "src/fortune_training/combined_chart_application/ziwei_basic_info_assets.py": {
+      "byte_count": 26867,
+      "sha256": "466f076da1fd338cee0d2e8b2128ea6d44a17087fe761a7bb51dd5895acd685d",
+      "unchanged_from_base": false
+    },
+    "tests/test_combined_workbench_ziwei_body_palace_ganzhi_r1.py": {
+      "byte_count": 7477,
+      "sha256": "4b2428614461c7d04a1bf308f959589bb52313c315c0df104dfb0a36f15ca936",
+      "unchanged_from_base": false
+    },
+    "src/fortune_training/ziwei_chart/natal.py": {
+      "byte_count": 6879,
+      "sha256": "20ad5b8caa17886364128a0919641985d0c4049c21339ade7dc08ab2563dacae",
+      "unchanged_from_base": true
+    },
+    "src/fortune_training/ziwei_chart/models.py": {
+      "byte_count": 4480,
+      "sha256": "d25a0d612c7bd7893d5af3930c5461f0479368cf1038c913cc183184fec357ca",
+      "unchanged_from_base": true
+    },
+    "src/fortune_training/ziwei_chart/registries.py": {
+      "byte_count": 3349,
+      "sha256": "c5892fb353be869cf46b66ad5292d8781ffcc998daf4b9cd5c61bcaaf3e536c9",
+      "unchanged_from_base": true
+    },
+    "sources/canonical/S01_统一输入排盘与坐标冻结库.txt": {
+      "byte_count": 679266,
+      "sha256": "84f997b234ee6be92a8ba303a56e83ec147958f8544890b861bd556eb82ca1ac",
+      "unchanged_from_base": true
+    }
+  },
+  "executed_tests": [
+    {
+      "command": "python -m unittest discover -s tests -p 'test_combined_workbench_ziwei_body_palace_ganzhi_r1.py' -v",
+      "test_count": 5,
+      "status": "PASS",
+      "skipped": 0,
+      "ordinary_js_replay_case_count": 1440,
+      "guard_cases": 14
+    },
+    {
+      "command": "python -m unittest discover -s tests -p 'test_fusion_chart_field_parity_ziwei_body_palace_ganzhi_r1.py' -v",
+      "test_count": 3,
+      "status": "PASS",
+      "skipped": 0
+    },
+    {
+      "command": "python -m unittest discover -s tests -p 'test_ziwei_chart_foundation.py' -v",
+      "test_count": 11,
+      "status": "PASS",
+      "skipped": 0
+    }
+  ],
+  "presentation_defect": {
+    "id": "UI-BODY-GANZHI-IDENTITY-GUARD-001",
+    "scope": "Malformed/non-unique display inputs only; valid generated chart output unchanged",
+    "duplicate_identity_filtered_before_uniqueness_before": true,
+    "non_array_attributes_threw_before": true,
+    "out_of_range_address_displayed_before": true,
+    "repaired": true,
+    "chart_algorithm_defect": false,
+    "historical_provenance_metadata_defect": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows_before": 166,
+    "audited_rows_after": 167,
+    "newly_audited_rule_ids": [
+      "HPA-ZIWEI-013"
+    ],
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "transmission_impact": {
+    "status": "NONE",
+    "reason": "No new historical text or lineage claim; inherited parent rule scope only.",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": []
+  },
+  "next_gate": [
+    "12ML: audit HPA-BAZI-FLOW-002 Target-layer Ten-God projection. Trace the source day-master/target Ganzhi anchor and exact reuse of the already audited natal Ten-God mapping; execute legal target-layer cases and preserve fact-only semantics.",
+    "Original Wenwu1951 recovery remains PAUSED_ACCESS_UNRESOLVED_PENDING_MATERIALLY_NEW_ROUTE. No repeat of closed provider surfaces; direct 1951 pp.221–233, 2011 Wenji p.197 and Wenhui1951-08-18 remain NOT_REVIEWED."
+  ],
+  "updated_at": "2026-10-04"
+}
