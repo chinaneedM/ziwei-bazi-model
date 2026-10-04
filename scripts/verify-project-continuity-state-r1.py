@@ -877,9 +877,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-BAZI-STRUCTURAL-SUPPORT-EVIDENCE-CLASS-PROJECTION-AUDIT-MQ",
     "BATCH-12-BAZI-COMBINED-UNIFIED-TARGET-TIMELINE-COMPOSITION-AUDIT-MR",
     "BATCH-12-BAZI-NATAL-FOUR-PILLAR-COMPOSITION-AUDIT-MS",
+    "BATCH-12-ZIWEI-R3-BORROW-PROJECTION-SCHOOL-MECHANICS-AND-MODERN-CLOSURE-AUDIT-MT",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-NATAL-FOUR-PILLAR-COMPOSITION-AUDIT-MS.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-R3-BORROW-PROJECTION-SCHOOL-MECHANICS-AND-MODERN-CLOSURE-AUDIT-MT.md"
 
 
 def fail(message: str) -> None:
@@ -14467,6 +14468,54 @@ def main() -> int:
     mr_replay_repair = json.loads((ROOT / "docs/research/evidence/batch-12mr/composition-replay.json").read_text(encoding="utf-8"))
     if mr_replay_repair.get("pre_dayun_interval_frame_preserved") is not True or mr_replay_repair.get("pre_dayun_synthetic_ganzhi_emitted") is not False:
         fail("PROV-DEFECT-018 PRE_DAYUN replay semantics drift")
+
+    # Batch 12MT: R3 borrow projection separates Zhongzhou mechanics from modern closure.
+    mt_path = ROOT / "docs/research/ZIWEI-R3-BORROW-PROJECTION-AUDIT-R1.json"
+    mt_replay_path = ROOT / "docs/research/evidence/batch-12mt/borrow-projection-replay.json"
+    mt_doc = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-R3-BORROW-PROJECTION-SCHOOL-MECHANICS-AND-MODERN-CLOSURE-AUDIT-MT.md"
+    for path in (mt_path, mt_replay_path, mt_doc):
+        if not path.is_file():
+            fail(f"Batch 12MT continuity artifact missing: {path.relative_to(ROOT)}")
+    mt = json.loads(mt_path.read_text(encoding="utf-8"))
+    mt_id = "BATCH-12-ZIWEI-R3-BORROW-PROJECTION-SCHOOL-MECHANICS-AND-MODERN-CLOSURE-AUDIT-MT"
+    if mt.get("batch_id") != mt_id or mt.get("prior_batch_id") != ms_id or mt_id not in rule_batches:
+        fail("Batch 12MT chronology/rule ledger mismatch")
+    struct3 = next(row for row in matrix["rows"] if row["rule_id"] == "HPA-STRUCT-003")
+    mt_children = ["HPA-STRUCT-009", "HPA-STRUCT-010", "HPA-STRUCT-011", "HPA-STRUCT-012"]
+    if struct3.get("audit_status") != "MODERN_COMPATIBILITY_ONLY" or struct3.get("audit_batch") != mt_id or struct3.get("child_rule_ids") != mt_children:
+        fail("Batch 12MT R3 parent decomposition drift")
+    mt_rowmap = {row["rule_id"]: row for row in matrix["rows"]}
+    for rule_id in mt_children[:3]:
+        if mt_rowmap.get(rule_id, {}).get("audit_status") != "SUPPORTED_BUT_SCHOOL_SPECIFIC":
+            fail(f"Batch 12MT school-specific child drift: {rule_id}")
+    if mt_rowmap.get("HPA-STRUCT-012", {}).get("audit_status") != "MODERN_COMPATIBILITY_ONLY":
+        fail("Batch 12MT modern closure child drift")
+    for rule_id in ["HPA-STRUCT-003", *mt_children]:
+        if rule_id not in matrix["audited_row_ids"]:
+            fail(f"Batch 12MT audited ledger drift: {rule_id}")
+    mt_src = next((source for source in registry.get("sources", []) if source.get("source_id") == "EXT-WANGTINGZHI-ZHONGZHOU-CHUJI"), None)
+    if mt_src is None or mt_src.get("batch_12mt", {}).get("school_scope") != "ZHONGZHOU" or mt_src.get("batch_12mt", {}).get("earliest_genealogy_closed") is not False:
+        fail("Batch 12MT source-registry school scope drift")
+    mt_acct = mt.get("accounting", {})
+    if mt_acct.get("rows_after") != 210 or mt_acct.get("audited_rows_after") != 189 or mt_acct.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12MT row accounting drift")
+    if mt_acct.get("provenance_defects_confirmed") != 18 or mt_acct.get("provenance_defects_repaired") != 18 or mt_acct.get("chart_algorithm_defects") != 0 or mt_acct.get("algorithm_reopens") != 0 or mt_acct.get("candidate_collapses") != 0:
+        fail("Batch 12MT defect/reopen accounting drift")
+    mt_replay = json.loads(mt_replay_path.read_text(encoding="utf-8"))
+    coverage_mt = mt_replay.get("controls", {}).get("coverage", {})
+    firewall_mt = mt_replay.get("controls", {}).get("engineering_firewall", {})
+    provenance_mt = mt_replay.get("controls", {}).get("provenance_boundary", {})
+    if coverage_mt.get("evaluation_origins") != 12 or coverage_mt.get("member_offsets") != [0, 4, 6, 8] or coverage_mt.get("expected_member_facts") != 48 or coverage_mt.get("principal_star_entity_count") != 14:
+        fail("Batch 12MT replay coverage drift")
+    if firewall_mt.get("recursive_projection") is not False or firewall_mt.get("engineering_details_claimed_as_classical_doctrine") is not False or firewall_mt.get("physical_dedup_key") is not True:
+        fail("Batch 12MT engineering/classical firewall drift")
+    if provenance_mt.get("per_member_source_root_atom_ids_serialized") is not False or provenance_mt.get("fabricated_source_root_mapping_authorized") is not False:
+        fail("Batch 12MT provenance granularity firewall drift")
+    for obj in mt.get("runtime_files", []):
+        if obj.get("unchanged_from_base") is not True:
+            fail("Batch 12MT released runtime mutation claim drift")
+    if mt.get("transmission_impact", {}).get("status") != "NONE":
+        fail("Batch 12MT transmission scope drift")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")
