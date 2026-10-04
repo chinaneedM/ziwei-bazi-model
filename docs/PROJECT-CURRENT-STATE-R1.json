@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.356.0",
+  "schema_version": "1.357.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -38,7 +38,7 @@
     "matrix_md": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.md",
     "external_source_registry": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json",
     "row_count": 201,
-    "audited_row_count": 174,
+    "audited_row_count": 175,
     "confirmed_provenance_metadata_defect_count": 17,
     "repaired_provenance_metadata_defect_count": 17,
     "historical_candidate_registry_count": 3,
@@ -438,9 +438,10 @@
       "BATCH-12-BAZI-TEMPORAL-TEN-GOD-PROJECTION-AUDIT-ML",
       "BATCH-12-BAZI-STEM-FIVE-COMBINATION-IDENTITY-AUDIT-MM",
       "BATCH-12-BAZI-TEMPORAL-CLASSICAL-IDENTITY-PROJECTION-AUDIT-MN",
-      "BATCH-12-BAZI-TEMPORAL-SHENSHA-SOURCE-SCOPE-PROJECTION-AUDIT-MO"
+      "BATCH-12-BAZI-TEMPORAL-SHENSHA-SOURCE-SCOPE-PROJECTION-AUDIT-MO",
+      "BATCH-12-BAZI-STRUCTURAL-CONTEXT-SOURCE-PRESERVING-PROJECTION-AUDIT-MP"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-TEMPORAL-SHENSHA-SOURCE-SCOPE-PROJECTION-AUDIT-MO.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-STRUCTURAL-CONTEXT-SOURCE-PRESERVING-PROJECTION-AUDIT-MP.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -2010,6 +2011,13 @@
       "The 21 upstream HPA-SHENSHA rows are synchronized from stale shared profile descriptor 1.7.0 to live 1.7.1. Tiande's Batch 03 source-scope extension was already counted as a historical candidate extension; Yuancheng's stale CH016→CH015 repair remains PROV-DEFECT-003. This batch adds no provenance defect.",
       "Matrix is now 201 / 174 / 10; provenance defects remain 17/17; chart algorithm defects / reopens / candidate collapses remain 0.",
       "12MP: audit HPA-BAZI-FLOW-006 Structural Context target projection. Separate neutral structural facts from later interpretive schools and verify temporal projection does not promote context facts into strength/pattern/judgment semantics.",
+      "Original Wenwu1951 primary targets remain NOT_REVIEWED and the anonymous recovery branch remains paused pending a materially new lawful access route.",
+      "Batch 12MP audits HPA-BAZI-FLOW-006 as MODERN_COMPATIBILITY_ONLY. Structural Context is a modern neutral composition over already-audited hidden-stem, Ten-God, exposure, affinity and raw-relation primitives; it is not promoted into a classical unified structural doctrine.",
+      "Coverage remains explicitly DAYUN/ANNUAL/MONTHLY only. Xiaoyun/Daily/Hourly stay excluded; PRE_DAYUN creates no Dayun occurrence. Equal characters in different frames retain separate occurrence IDs and all projected facts retain source rule-set IDs/refs and parent hashes.",
+      "HPA-BAZI-005 remains DISPUTED_MULTIPLE_CANDIDATES. Structural Context consumes only the released raw core; BAZI-HISTORICAL-RELATION-CANDIDATES-R1 remains PRESERVED_NOT_SELECTED and is not silently injected or ranked by the structural composition.",
+      "No effect, strength, root grade, relation priority, cancellation, transformation-success, pattern, useful-god, ShenSha meaning or prediction semantics are authorized by 12MP.",
+      "Matrix is now 201 / 175 / 10; provenance defects remain 17/17; chart algorithm defects / reopens / candidate collapses remain 0.",
+      "12MQ: audit HPA-BAZI-FLOW-007 Structural Support candidate projection. Verify that support evidence candidates remain evidence-only, preserve competing anchors/profiles, and are never upgraded into ROOT/NO_ROOT, strength, weight, score, rank or winner verdicts.",
       "Original Wenwu1951 primary targets remain NOT_REVIEWED and the anonymous recovery branch remains paused pending a materially new lawful access route."
     ],
     "historical_candidate_extension_count": 6,

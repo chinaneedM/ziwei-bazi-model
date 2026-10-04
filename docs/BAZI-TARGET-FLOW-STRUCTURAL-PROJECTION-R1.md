@@ -96,3 +96,10 @@ contract. The downstream `Bazi Structural Support Foundation R1` remains a
 separate evidence layer and is not mixed into this Structural Context
 projection; its own target-flow projection is documented in
 `docs/BAZI-TARGET-FLOW-STRUCTURAL-SUPPORT-PROJECTION-R1.md`.
+
+
+## Batch 12MP provenance adjudication
+
+This target-flow projection is audited as a read-only modern compatibility surface over `BAZI-STRUCTURAL-CONTEXT-R1@1.1.0`. It preserves source Structural FactHash/ComputationHash, frame-bound participant identity, upstream rule-set/source references and the explicit layer boundary `DAYUN/ANNUAL/MONTHLY`; it does not claim that historical texts defined this software object.
+
+The projection must continue to exclude `XIAOYUN/DAILY/HOURLY`, omit a Dayun participant during `PRE_DAYUN`, and keep the HPA-BAZI-005 historical relation candidate sidecar separate from the released raw core. Any future projection of source-scoped historical relation candidates requires its own versioned contract rather than silent core expansion.

@@ -1,0 +1,109 @@
+{
+  "schema": "BAZI-STRUCTURAL-CONTEXT-SOURCE-PRESERVING-PROJECTION-AUDIT-R1",
+  "batch_id": "BATCH-12-BAZI-STRUCTURAL-CONTEXT-SOURCE-PRESERVING-PROJECTION-AUDIT-MP",
+  "prior_batch_id": "BATCH-12-BAZI-TEMPORAL-SHENSHA-SOURCE-SCOPE-PROJECTION-AUDIT-MO",
+  "rule_id": "HPA-BAZI-FLOW-006",
+  "audit_scope": "VERIFY_BAZI_STRUCTURAL_CONTEXT_AND_TARGET_FLOW_PROJECTION_REUSE_AUDITED_NEUTRAL_PRIMITIVES_WITHOUT_PROMOTING_MODERN_COMPOSITION_OR_DISPUTED_RELATION_CANDIDATES_TO_CLASSICAL_DOCTRINE",
+  "adjudication": {
+    "audit_status": "MODERN_COMPATIBILITY_ONLY",
+    "historical_scope": "MODERN_NEUTRAL_STRUCTURAL_COMPOSITION_ONLY_UPSTREAM_HISTORICAL_IDENTITIES_RETAIN_AUTHORITY",
+    "classical_unified_structural_object_claimed": false,
+    "interpretive_semantics_authorized": false,
+    "algorithm_reopen_authorized": false
+  },
+  "upstream_rule_ids": [
+    "HPA-BAZI-002",
+    "HPA-BAZI-003",
+    "HPA-BAZI-004",
+    "HPA-BAZI-005",
+    "HPA-BAZI-013",
+    "HPA-BAFF-002"
+  ],
+  "crosscheck_rule_ids": [
+    "HPA-BAZI-FLOW-002",
+    "HPA-BAZI-FLOW-003"
+  ],
+  "implementation_contract": {
+    "context_profile": "BAZI-STRUCTURAL-CONTEXT-R1@1.1.0",
+    "projection_schema": "BAZI-TARGET-FLOW-STRUCTURAL-PROJECTION-R1",
+    "projection_algorithm_version": "1.1.0",
+    "supported_layers": [
+      "DAYUN",
+      "ANNUAL",
+      "MONTHLY"
+    ],
+    "excluded_layers": [
+      "XIAOYUN",
+      "DAILY",
+      "HOURLY"
+    ],
+    "pre_dayun_behavior": "NO_DAYUN_PARTICIPANT",
+    "ten_god_anchor": "TRUE_NATAL_DAY_MASTER",
+    "relation_scope_values": [
+      "CROSS_LAYER",
+      "TEMPORAL_ONLY"
+    ],
+    "semantic_scope": "NEUTRAL_STRUCTURAL_OCCURRENCES_ONLY_NO_EFFECT_STRENGTH_OR_TRANSFORMATION_SUCCESS",
+    "historical_relation_sidecar_policy": "PRESERVED_NOT_SELECTED_AND_NOT_PROJECTED_INTO_RELEASED_RAW_CORE"
+  },
+  "runtime_files": [
+    {
+      "path": "src/fortune_training/bazi_structural/generation.py",
+      "blob_sha": "2b6653fb2d73b9c5bde43ef1986d98661f5adb8f",
+      "unchanged_from_base": true
+    },
+    {
+      "path": "src/fortune_training/bazi_structural/profile.py",
+      "blob_sha": "332d2938e771826aac4dd5fd883e72b9645a5e2f",
+      "unchanged_from_base": true
+    },
+    {
+      "path": "src/fortune_training/bazi_application/structural_projection.py",
+      "blob_sha": "8ca68839f838ca6d06449b2000bb81be1f08119a",
+      "unchanged_from_base": true
+    },
+    {
+      "path": "src/fortune_training/bazi_chart/relations.py",
+      "blob_sha": "5fc3b890b37451b4ecc863dda509c91b08354b9c",
+      "unchanged_from_base": true
+    },
+    {
+      "path": "src/fortune_training/bazi_chart/historical_relation_candidates.py",
+      "blob_sha": "006405cf5b65a2b6cc492c59561c5f82a563de4d",
+      "unchanged_from_base": true
+    }
+  ],
+  "replay_evidence": "docs/research/evidence/batch-12mp/projection-replay.json",
+  "relation_candidate_firewall": {
+    "production_core_rule": "HPA-BAZI-005 released raw core",
+    "historical_sidecar": "BAZI-HISTORICAL-RELATION-CANDIDATES-R1",
+    "historical_sidecar_selection_status": "PRESERVED_NOT_SELECTED",
+    "structural_context_includes_sidecar": false,
+    "rationale": "The structural layer reuses generate_raw_relations from the released core. Source-scoped excluded relation families remain a separate unselected runtime and are not promoted by composition."
+  },
+  "verification": {
+    "new_test_file": "tests/test_bazi_structural_context_source_preserving_projection_audit_r1.py",
+    "new_test_count": 5,
+    "exact_head_ci_status_at_commit_creation": "PENDING_BY_DEFINITION"
+  },
+  "accounting": {
+    "rows_before": 201,
+    "rows_after": 201,
+    "audited_rows_before": 174,
+    "audited_rows_after": 175,
+    "current_missing_from_product_rows": 10,
+    "provenance_defects_confirmed": 17,
+    "provenance_defects_repaired": 17,
+    "chart_algorithm_defects": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0
+  },
+  "transmission_impact": {
+    "status": "NONE",
+    "reason": "No new historical witness, edition/copy ancestry, terminology transmission or school lineage is adjudicated. The batch only audits a modern composition boundary over already-audited primitives."
+  },
+  "next_gate": [
+    "12MQ: audit HPA-BAZI-FLOW-007 Structural Support candidate projection. Preserve evidence-only candidates and prevent ROOT/NO_ROOT, strength, weight, score, rank or winner promotion.",
+    "Original Wenwu1951 recovery remains paused pending a materially new lawful access mechanism."
+  ]
+}

@@ -223,7 +223,7 @@ Fusion Chart Capability & Performance Acceptance R1 已正式收口。最终执�
 
 ## Fusion Chart Historical Provenance & School Audit R1
 
-最新规则审计闭环为 **Batch 12MO**：HPA-BAZI-FLOW-005 以 `MODERN_COMPATIBILITY_ONLY` 闭合——动态神煞层只对 1.7.1 来源候选做工程 target-match，不宣称古典岁运适用性。代表性 38 候选目录分为 32 个可投影单目标候选与 6 个结构型排除；60 个合法目标干支×7 个已解析槽位完成 420 槽 / 12,000 次候选层级核对，`ONLY_DAY`、结构排除、小运双候选和 `NOT_CLASSICALLY_ARBITRATED` 边界均保持。21 条上游神煞 Matrix profile 同步到实际 `1.7.1`；天德拆分沿用既有历史候选扩展，垣城 CH016→CH015 沿用 `PROV-DEFECT-003`，不重复计缺陷。Matrix 为 201 项、已审 174 项、缺失候选 10；来源缺陷 17/17，算法缺陷/重开/候选折叠 0。下一门为 Structural Context 目标投影审计，见 `docs/PROJECT-CURRENT-STATE-R1.json`。
+最新规则审计闭环为 **Batch 12MP**：HPA-BAZI-FLOW-006 以 `MODERN_COMPATIBILITY_ONLY` 闭合。`BAZI-STRUCTURAL-CONTEXT-R1@1.1.0` 与 target-flow structural projection 只把已审藏干、十神、透干/亲和及 raw-relation core 组合成 DAYUN/ANNUAL/MONTHLY 的中性结构事实；Xiaoyun/Daily/Hourly 继续排除，PRE_DAYUN 不造大运参与者。HPA-BAZI-005 的历史关系 sidecar 仍为 `PRESERVED_NOT_SELECTED`，不会被结构层静默合并；合化元素只保留名义元数据，不输出成化、强弱、优先级、格局、用神或预测。Matrix 为 201 项、已审 175 项、缺失候选 10；来源缺陷 17/17，算法缺陷/重开/候选折叠 0。下一门为 Structural Support candidate projection 审计，见 `docs/PROJECT-CURRENT-STATE-R1.json`。
 
 ```text
 FUSION_CHART_HISTORICAL_PROVENANCE_AUDIT_R1=IN_PROGRESS

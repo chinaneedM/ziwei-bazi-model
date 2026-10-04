@@ -777,5 +777,29 @@ class HistoricalProvenanceAuditMatrixR1Test(unittest.TestCase):
         )
 
 
+    def test_batch_12mp_structural_context_is_modern_source_preserving_composition(self) -> None:
+        by_id = {row["rule_id"]: row for row in self.rows}
+        flow = by_id["HPA-BAZI-FLOW-006"]
+        self.assertEqual("MODERN_COMPATIBILITY_ONLY", flow["audit_status"])
+        self.assertEqual(
+            "BAZI-STRUCTURAL-CONTEXT-R1@1.1.0 + BAZI-TARGET-FLOW-STRUCTURAL-PROJECTION-R1@1.1.0",
+            flow["current_profile"],
+        )
+        self.assertEqual(
+            "BATCH-12-BAZI-STRUCTURAL-CONTEXT-SOURCE-PRESERVING-PROJECTION-AUDIT-MP",
+            flow["audit_batch"],
+        )
+        self.assertEqual(
+            ["HPA-BAZI-002", "HPA-BAZI-003", "HPA-BAZI-004", "HPA-BAZI-005", "HPA-BAZI-013", "HPA-BAFF-002"],
+            flow["upstream_rule_ids"],
+        )
+        firewall = flow["relation_candidate_firewall"]
+        self.assertEqual("PRESERVED_NOT_SELECTED", firewall["historical_sidecar_selection_status"])
+        self.assertFalse(firewall["historical_sidecar_projected_into_structural_context"])
+        self.assertFalse(firewall["candidate_collapse_authorized"])
+        self.assertIn("HPA-BAZI-FLOW-006", self.payload["audited_row_ids"])
+        self.assertEqual("DISPUTED_MULTIPLE_CANDIDATES", by_id["HPA-BAZI-005"]["audit_status"])
+
+
 if __name__ == "__main__":
     unittest.main()

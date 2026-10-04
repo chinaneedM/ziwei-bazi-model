@@ -873,9 +873,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-BAZI-STEM-FIVE-COMBINATION-IDENTITY-AUDIT-MM",
     "BATCH-12-BAZI-TEMPORAL-CLASSICAL-IDENTITY-PROJECTION-AUDIT-MN",
     "BATCH-12-BAZI-TEMPORAL-SHENSHA-SOURCE-SCOPE-PROJECTION-AUDIT-MO",
+    "BATCH-12-BAZI-STRUCTURAL-CONTEXT-SOURCE-PRESERVING-PROJECTION-AUDIT-MP",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-TEMPORAL-SHENSHA-SOURCE-SCOPE-PROJECTION-AUDIT-MO.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-STRUCTURAL-CONTEXT-SOURCE-PRESERVING-PROJECTION-AUDIT-MP.md"
 
 
 def fail(message: str) -> None:
@@ -14263,6 +14264,43 @@ def main() -> int:
         fail("Batch 12MO upstream metadata dedup drift")
     if mo.get("verification", {}).get("new_test_count") != 5 or mo.get("transmission_impact", {}).get("status") != "NONE":
         fail("Batch 12MO verification/transmission scope drift")
+
+
+    # Batch 12MP: Bazi Structural Context is a modern neutral composition over audited primitives.
+    mp = json.loads((ROOT / "docs/research/BAZI-STRUCTURAL-CONTEXT-SOURCE-PRESERVING-PROJECTION-AUDIT-R1.json").read_text(encoding="utf-8"))
+    mp_id = "BATCH-12-BAZI-STRUCTURAL-CONTEXT-SOURCE-PRESERVING-PROJECTION-AUDIT-MP"
+    if mp.get("batch_id") != mp_id or mp.get("prior_batch_id") != mo_id or mp_id not in rule_batches:
+        fail("Batch 12MP chronology/rule ledger mismatch")
+    flow6 = next(row for row in matrix["rows"] if row["rule_id"] == "HPA-BAZI-FLOW-006")
+    if flow6.get("audit_status") != "MODERN_COMPATIBILITY_ONLY" or flow6.get("audit_batch") != mp_id:
+        fail("Batch 12MP FLOW-006 status/batch drift")
+    if flow6.get("current_profile") != "BAZI-STRUCTURAL-CONTEXT-R1@1.1.0 + BAZI-TARGET-FLOW-STRUCTURAL-PROJECTION-R1@1.1.0":
+        fail("Batch 12MP structural profile drift")
+    if flow6.get("historical_scope") != "MODERN_NEUTRAL_STRUCTURAL_COMPOSITION_ONLY_UPSTREAM_HISTORICAL_IDENTITIES_RETAIN_AUTHORITY" or flow6.get("algorithm_reopen_authorized") is not False:
+        fail("Batch 12MP historical/composition scope drift")
+    expected_upstream_mp = ["HPA-BAZI-002", "HPA-BAZI-003", "HPA-BAZI-004", "HPA-BAZI-005", "HPA-BAZI-013", "HPA-BAFF-002"]
+    if flow6.get("upstream_rule_ids") != expected_upstream_mp or "HPA-BAZI-FLOW-006" not in matrix["audited_row_ids"]:
+        fail("Batch 12MP upstream/audited ledger drift")
+    firewall_mp = flow6.get("relation_candidate_firewall", {})
+    if firewall_mp.get("historical_sidecar") != "BAZI-HISTORICAL-RELATION-CANDIDATES-R1" or firewall_mp.get("historical_sidecar_selection_status") != "PRESERVED_NOT_SELECTED" or firewall_mp.get("historical_sidecar_projected_into_structural_context") is not False or firewall_mp.get("candidate_collapse_authorized") is not False:
+        fail("Batch 12MP historical relation sidecar firewall drift")
+    if next(row for row in matrix["rows"] if row["rule_id"] == "HPA-BAZI-005").get("audit_status") != "DISPUTED_MULTIPLE_CANDIDATES":
+        fail("Batch 12MP HPA-BAZI-005 disputed-candidate status drift")
+    acct_mp = mp.get("accounting", {})
+    if acct_mp.get("rows_after") != 201 or acct_mp.get("audited_rows_after") != 175 or acct_mp.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12MP row accounting drift")
+    if acct_mp.get("provenance_defects_confirmed") != 17 or acct_mp.get("provenance_defects_repaired") != 17 or acct_mp.get("chart_algorithm_defects") != 0 or acct_mp.get("algorithm_reopens") != 0 or acct_mp.get("candidate_collapses") != 0:
+        fail("Batch 12MP defect/reopen accounting drift")
+    replay_mp = json.loads((ROOT / "docs/research/evidence/batch-12mp/projection-replay.json").read_text(encoding="utf-8"))
+    if replay_mp.get("fixture_target_count") != 4 or replay_mp.get("supported_layer_count") != 3 or replay_mp.get("excluded_layer_count") != 3 or replay_mp.get("upstream_rule_count") != 6:
+        fail("Batch 12MP replay scope cardinality drift")
+    if replay_mp.get("pre_dayun_fabricated_participant") is not False or replay_mp.get("historical_relation_sidecar_projected") is not False or replay_mp.get("interpretive_semantics_imported") is not False or replay_mp.get("chart_algorithm_changed") is not False:
+        fail("Batch 12MP layer/sidecar/semantic firewall drift")
+    for obj in mp.get("runtime_files", []):
+        if obj.get("unchanged_from_base") is not True:
+            fail("Batch 12MP released runtime mutation claim drift")
+    if mp.get("verification", {}).get("new_test_count") != 5 or mp.get("transmission_impact", {}).get("status") != "NONE":
+        fail("Batch 12MP verification/transmission scope drift")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

@@ -90,3 +90,12 @@ The public contract is `schemas/bazi-structural-context-r1.schema.json`. Require
 ## Non-goals
 
 R1 does not implement any 害/相穿 effect, 破, 半合, 三会, hidden combinations, combination-transformation success, cancellation, suppression, rescue, release, reactivation, interpretive priority, strength/root weights, seasonal scoring, 旺衰, 格局, 用神, 忌神, 调候, 病药, ShenSha, prediction, Ziwei fusion, or direct mutable UI behavior.
+
+
+## Batch 12MP historical-audit boundary
+
+12MP classifies this object as `MODERN_COMPATIBILITY_ONLY` at the composition level. Historical authority remains on the shared primitives it reuses: hidden-stem membership, Ten-God identity, exact exposure, neutral affinity and the released raw-relation core. The combined `DAYUN/ANNUAL/MONTHLY` Structural Context, its participant namespaces and hashes are modern software composition.
+
+The raw-relation boundary is explicit: the current Structural Context consumes the released production raw core only. Source-scoped historical relation candidates in `BAZI-HISTORICAL-RELATION-CANDIDATES-R1` remain `PRESERVED_NOT_SELECTED`; 12MP does not inject them into the structural view, merge them with core relations or select a historical winner.
+
+No composition field licenses root strength, transformation success, relation priority, cancellation, pattern, useful-god or prediction. `nominal_transformation_element` remains registry metadata only. See `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-STRUCTURAL-CONTEXT-SOURCE-PRESERVING-PROJECTION-AUDIT-MP.md`.

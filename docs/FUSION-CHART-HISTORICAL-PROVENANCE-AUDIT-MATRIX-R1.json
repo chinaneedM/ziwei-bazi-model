@@ -45,11 +45,11 @@
   "inventory_summary": {
     "row_count": 201,
     "status_counts": {
-      "MODERN_COMPATIBILITY_ONLY": 32,
+      "MODERN_COMPATIBILITY_ONLY": 33,
       "HISTORICALLY_SUPPORTED": 95,
       "DISPUTED_MULTIPLE_CANDIDATES": 30,
       "SUPPORTED_BUT_SCHOOL_SPECIFIC": 18,
-      "IMPLEMENTATION_REVIEW_REQUIRED": 6,
+      "IMPLEMENTATION_REVIEW_REQUIRED": 5,
       "SOURCE_INSUFFICIENT": 9,
       "MISSING_FROM_PRODUCT": 10,
       "NOT_YET_FORMALIZED": 1
@@ -81,7 +81,7 @@
       "candidate/profile rules": 2,
       "provenance / hashes / lineage": 2
     },
-    "audited_row_count": 174
+    "audited_row_count": 175
   },
   "rows": [
     {
@@ -1568,20 +1568,45 @@
       "system": "BAZI",
       "module": "八字动态时限",
       "rule_or_field": "Structural Context target projection",
-      "current_implementation": "Projects neutral dynamic stems/branches, exposures, affinities and raw relations.",
-      "current_profile": "BAZI Structural Context R1",
-      "primary_source": "S11/S14 facts",
-      "source_quote": "PENDING_VERBATIM_EXTRACTION",
-      "source_quote_location": "docs/BAZI-TARGET-FLOW-STRUCTURAL-PROJECTION-R1.md",
-      "historical_period": "PENDING_BIBLIOGRAPHIC_DATING",
-      "later_witnesses": "PENDING_LATER_WITNESS_AUDIT",
-      "school_attribution": "PENDING_SCHOOL_ATTRIBUTION_AUDIT",
-      "competing_methods": [],
-      "current_implementation_match": "PENDING_RULE_BY_RULE_REPLAY",
-      "confidence": "INVENTORY_CONFIDENCE_HIGH",
-      "audit_status": "IMPLEMENTATION_REVIEW_REQUIRED",
-      "proposed_action": "Audit neutral-fact boundary versus later interpretive schools.",
-      "algorithm_reopen_authorized": false
+      "current_implementation": "BAZI-STRUCTURAL-CONTEXT-R1@1.1.0 materializes DAYUN/ANNUAL/MONTHLY temporal occurrences only, directly reuses the released hidden-stem, Ten-God, exact-exposure, affinity and raw-relation primitives, and BAZI-TARGET-FLOW-STRUCTURAL-PROJECTION-R1@1.1.0 exposes that neutral fact surface read-only. Xiaoyun/Daily/Hourly remain excluded and PRE_DAYUN creates no Dayun participant.",
+      "current_profile": "BAZI-STRUCTURAL-CONTEXT-R1@1.1.0 + BAZI-TARGET-FLOW-STRUCTURAL-PROJECTION-R1@1.1.0",
+      "primary_source": "Modern structural composition over audited HPA-BAZI-002/003/004/005/013 and HPA-BAFF-002 primitives. The released raw-relation core is consumed exactly; BAZI-HISTORICAL-RELATION-CANDIDATES-R1 remains a separate PRESERVED_NOT_SELECTED sidecar and is not silently injected into Structural Context.",
+      "source_quote": "NEUTRAL_STRUCTURAL_OCCURRENCES_ONLY_NO_EFFECT_STRENGTH_OR_TRANSFORMATION_SUCCESS; released composition reuses shared generators and preserves source rule-set IDs/refs.",
+      "source_quote_location": "docs/BAZI-STRUCTURAL-CONTEXT-R1.md; docs/BAZI-TARGET-FLOW-STRUCTURAL-PROJECTION-R1.md; src/fortune_training/bazi_structural/generation.py; src/fortune_training/bazi_application/structural_projection.py",
+      "historical_period": "MODERN_STRUCTURAL_COMPOSITION_OVER_HISTORICALLY_SCOPED_NEUTRAL_PRIMITIVES",
+      "later_witnesses": "Historical witnesses remain attached to each upstream primitive. No independent historical witness is claimed for one unified modern DAYUN/ANNUAL/MONTHLY Structural Context object or its hashes.",
+      "school_attribution": "MODERN_SOURCE_PRESERVING_COMPOSITION; RAW_RELATION_CORE_AND_UNSELECTED_HISTORICAL_RELATION_SIDECAR_REMAIN_SEPARATE",
+      "competing_methods": [
+        "HPA-BAZI-005 historical relation sidecar candidates remain source-scoped and unselected; they are not promoted into the production raw core by this projection.",
+        "Root-strength, transformation-success, relation priority, cancellation, pattern and useful-god schools remain separate interpretive layers."
+      ],
+      "current_implementation_match": "EXACT SHARED-PRIMITIVE REUSE AND LAYER FIREWALL: DAYUN/ANNUAL/MONTHLY only; PRE_DAYUN omits Dayun; temporal hidden stems and Ten Gods retain the natal day-master anchor; exposure/affinity/relation IDs and source refs survive projection; equal characters retain frame-bound occurrence identity; raw relations use only the released core rule set; no historical sidecar candidate, effect, strength, winner, transformation-success, pattern, useful-god or prediction field is introduced.",
+      "confidence": "HIGH_FOR_ENGINEERING_COMPOSITION_AND_SOURCE_PRESERVATION; NO_CLASSICAL_UNIFIED_STRUCTURAL_OBJECT_CLAIM",
+      "audit_status": "MODERN_COMPATIBILITY_ONLY",
+      "proposed_action": "No algorithm reopen. Keep the three-layer coverage explicit; preserve occurrence identity and upstream source lineage; keep HPA-BAZI-005 historical candidates outside the production raw core unless a separately source-scoped structural candidate projection is versioned; do not import strength, root grade, transformation success, priority or interpretation semantics.",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-12-BAZI-STRUCTURAL-CONTEXT-SOURCE-PRESERVING-PROJECTION-AUDIT-MP",
+      "historical_scope": "MODERN_NEUTRAL_STRUCTURAL_COMPOSITION_ONLY_UPSTREAM_HISTORICAL_IDENTITIES_RETAIN_AUTHORITY",
+      "upstream_rule_ids": [
+        "HPA-BAZI-002",
+        "HPA-BAZI-003",
+        "HPA-BAZI-004",
+        "HPA-BAZI-005",
+        "HPA-BAZI-013",
+        "HPA-BAFF-002"
+      ],
+      "crosscheck_rule_ids": [
+        "HPA-BAZI-FLOW-002",
+        "HPA-BAZI-FLOW-003"
+      ],
+      "relation_candidate_firewall": {
+        "production_relation_rule": "HPA-BAZI-005 released raw core",
+        "historical_sidecar": "BAZI-HISTORICAL-RELATION-CANDIDATES-R1",
+        "historical_sidecar_selection_status": "PRESERVED_NOT_SELECTED",
+        "historical_sidecar_projected_into_structural_context": false,
+        "candidate_collapse_authorized": false
+      },
+      "audit_evidence": "docs/research/BAZI-STRUCTURAL-CONTEXT-SOURCE-PRESERVING-PROJECTION-AUDIT-R1.json"
     },
     {
       "rule_id": "HPA-BAZI-FLOW-007",
@@ -6380,7 +6405,8 @@
     "HPA-BAZI-FLOW-008",
     "HPA-BAZI-FLOW-009",
     "HPA-BAZI-FLOW-010",
-    "HPA-BAZI-FLOW-005"
+    "HPA-BAZI-FLOW-005",
+    "HPA-BAZI-FLOW-006"
   ],
   "audit_summary": {
     "confirmed_chart_algorithm_defect_count": 0,
@@ -6400,6 +6426,7 @@
     "BATCH-12-BAZI-TEMPORAL-TEN-GOD-PROJECTION-AUDIT-ML",
     "BATCH-12-BAZI-STEM-FIVE-COMBINATION-IDENTITY-AUDIT-MM",
     "BATCH-12-BAZI-TEMPORAL-CLASSICAL-IDENTITY-PROJECTION-AUDIT-MN",
-    "BATCH-12-BAZI-TEMPORAL-SHENSHA-SOURCE-SCOPE-PROJECTION-AUDIT-MO"
+    "BATCH-12-BAZI-TEMPORAL-SHENSHA-SOURCE-SCOPE-PROJECTION-AUDIT-MO",
+    "BATCH-12-BAZI-STRUCTURAL-CONTEXT-SOURCE-PRESERVING-PROJECTION-AUDIT-MP"
   ]
 }
