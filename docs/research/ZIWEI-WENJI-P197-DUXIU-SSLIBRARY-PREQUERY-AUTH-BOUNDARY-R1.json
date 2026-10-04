@@ -1,0 +1,114 @@
+{
+  "schema": "ZIWEI-WENJI-P197-DUXIU-SSLIBRARY-PREQUERY-AUTH-BOUNDARY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-WENJI-P197-DUXIU-SSLIBRARY-PREQUERY-AUTH-BOUNDARY-ME",
+  "prior_batch_id": "BATCH-12-ZIWEI-ZJLIB-ZHAO-WANLI-ARTICLE-ROUTE-MD",
+  "question": "Can the previously untested Duxiu / SSLibrary family lawfully expose an anonymous public search contract capable of locating 2011 《赵万里文集》第一卷 / ISBN 9787501346653 before any account action?",
+  "answer": "No anonymous target query is authorized from the controlling execution environment. SSLibrary redirects into login before exposing a source-emitted search contract; Duxiu redirects to a first-party login page that explicitly states the runner IP is outside the service range and presents account/institution/CARSI/CAPTCHA login controls. This closes only the pre-query public access route for the current environment. It does not prove target-book absence and does not review p.197.",
+  "sslibrary_probe": {
+    "workflow": ".github/workflows/probe-batch-12me-sslibrary-public-search-contract.yml",
+    "exact_head": "dc7602a88a9ec7d748121e9c2a24663b7d568c14",
+    "exact_tree": "7a6bb74bc23630e9af66c745fa006cd3d1443d53",
+    "workflow_run_id": 37175159409,
+    "workflow_job_id": 111356154814,
+    "artifact_id": 11292524671,
+    "artifact_digest": "sha256:461f1cc7c0acc16e7bb283365745cc851e3b91d5e78b71dce49132b58d4388f0",
+    "root_response": {
+      "status": 302,
+      "location": "https://www.sslibrary.com/entry/login",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "login_hop_response": {
+      "status": 302,
+      "location": "https://www.sslibrary.com/user/login/showlogin",
+      "bytes": 192,
+      "sha256": "b34c69f804a3dd4582d14990c33b272d17887fa1170300e549e4205b6e3caf2b"
+    },
+    "forms": [],
+    "source_emitted_scripts": [],
+    "public_search_contract_recovered": false,
+    "target_query_submitted": false
+  },
+  "duxiu_probe": {
+    "workflow": ".github/workflows/probe-batch-12me-duxiu-prequery-access-boundary.yml",
+    "exact_head": "a13a1c660e9c9ab3787de1355dce695a73b35bce",
+    "exact_tree": "a9f369e5077929cc414ae7bbd4237390ad1159c2",
+    "workflow_run_id": 37175296972,
+    "workflow_job_id": 111356561245,
+    "artifact_id": 11293245695,
+    "artifact_digest": "sha256:819fd12ed264cabfaeaded6f86132b5d752574bfd21c47b862e710d0dc4cfea8",
+    "root_response": {
+      "status": 302,
+      "location": "https://edu.duxiu.com/login.jsp",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "login_page_response": {
+      "status": 200,
+      "bytes": 18764,
+      "sha256": "e081a0a390703c7f576ad2c1ccc0604e79ae3c1137552411115392ca53ab0196"
+    },
+    "visible_controls": {
+      "system_login": true,
+      "institution_user": true,
+      "personal_user": true,
+      "carsi_login": true,
+      "captcha": true,
+      "service_range_denial": true
+    },
+    "target_query_submitted": false
+  },
+  "adjudication": {
+    "sslibrary_branch_status": "CLOSED_AS_PREQUERY_AUTH_REDIRECT_BOUNDARY",
+    "duxiu_branch_status": "CLOSED_AS_PREQUERY_IP_ACCOUNT_AUTH_BOUNDARY",
+    "target_title_or_isbn_query_submitted": false,
+    "target_book_presence_or_absence_adjudicated": false,
+    "target_book_object_bound": false,
+    "wenji_p197_direct_page_claimed_reviewed": false,
+    "primary_text_upgrade_authorized": false,
+    "login_or_account_action_authorized": false,
+    "evidence_vote_increment": 0
+  },
+  "security": {
+    "anonymous_get_only": true,
+    "login_attempted": false,
+    "credential_used": false,
+    "captcha_bypass_used": false,
+    "private_endpoint_guessed": false,
+    "account_action_used": false,
+    "payment_action_used": false
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "transmission_impact": {
+    "status": "NONE_ACCESS_BOUNDARY_ONLY",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": []
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Do not repeat SSLibrary/Duxiu target querying from the current runner unless a materially new first-party anonymous access mechanism appears.",
+    "Prioritize a materially new lawful open/institutional serial-object route for direct 1951 《文物参考资料》 vol.2 no.9 pp.221–233, which is stronger primary evidence than another modern quotation bridge.",
+    "Keep 2011 《赵万里文集》第一卷 p.197 and Shanghai 《文汇报》 1951-08-18 open in parallel; NDL paid/mediated copy and NLC/NCPSsd login paths remain explicit-user-authorization or authentication gated."
+  ],
+  "updated_at": "2026-10-04"
+}

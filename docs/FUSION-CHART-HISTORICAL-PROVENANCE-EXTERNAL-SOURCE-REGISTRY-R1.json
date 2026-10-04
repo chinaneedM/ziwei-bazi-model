@@ -12731,6 +12731,62 @@
         "target_query_submitted": false,
         "research_artifact": "docs/research/ZIWEI-CNBKSY-ADVANCED-SEARCH-ESA-BOUNDARY-R1.json"
       }
+    },
+    {
+      "source_id": "EXT-SSLIBRARY-PUBLIC-PREQUERY-AUTH-BOUNDARY-2026",
+      "title": "超星汇雅 / SSLibrary 当前公开入口查询前认证边界（2026）",
+      "provider": "超星汇雅 / SSLibrary",
+      "url": "https://www.sslibrary.com/",
+      "historical_period": "2026 current public access surface",
+      "source_role": "CURRENT_PLATFORM_PREQUERY_AUTH_REDIRECT_BOUNDARY_ONLY_NOT_TARGET_BOOK_ABSENCE",
+      "quality_notes": "Batch 12ME exact-head anonymous GET reaches HTTP 302 /entry/login and then HTTP 302 /user/login/showlogin before any source-emitted public search contract can be recovered. No title/ISBN query, login, credential, CAPTCHA bypass or private endpoint is used. This is an execution-environment access boundary only; it does not establish whether 《赵万里文集》第一卷 exists in the platform and supplies no p.197 text.",
+      "batch_12me": {
+        "workflow_run_id": 37175159409,
+        "workflow_job_id": 111356154814,
+        "artifact_id": 11292524671,
+        "artifact_digest": "sha256:461f1cc7c0acc16e7bb283365745cc851e3b91d5e78b71dce49132b58d4388f0",
+        "exact_head": "dc7602a88a9ec7d748121e9c2a24663b7d568c14",
+        "exact_tree": "7a6bb74bc23630e9af66c745fa006cd3d1443d53",
+        "root_status": 302,
+        "root_location": "https://www.sslibrary.com/entry/login",
+        "login_hop_status": 302,
+        "login_hop_location": "https://www.sslibrary.com/user/login/showlogin",
+        "source_emitted_public_query_contract_recovered": false,
+        "target_query_submitted": false,
+        "target_book_bound": false,
+        "direct_2011_page197_reviewed": false,
+        "research_artifact": "docs/research/ZIWEI-WENJI-P197-DUXIU-SSLIBRARY-PREQUERY-AUTH-BOUNDARY-R1.json"
+      }
+    },
+    {
+      "source_id": "EXT-DUXIU-PUBLIC-PREQUERY-IP-AUTH-BOUNDARY-2026",
+      "title": "读秀学术搜索当前查询前 IP / 账号认证边界（2026）",
+      "provider": "读秀学术搜索",
+      "url": "https://edu.duxiu.com/",
+      "historical_period": "2026 current public access surface",
+      "source_role": "CURRENT_PLATFORM_PREQUERY_IP_ACCOUNT_AUTH_BOUNDARY_ONLY_NOT_TARGET_BOOK_ABSENCE",
+      "quality_notes": "Batch 12ME exact-head anonymous GET is redirected to /login.jsp. The first-party login page explicitly states that the current runner IP is outside the service range and asks for account login; institution, Duxiu-card/personal, CARSI and CAPTCHA/login controls are visible. No title/ISBN query, login, credential, CAPTCHA bypass or private endpoint is used. This is a pre-query access boundary only and supplies no evidence of target-book absence or p.197 text.",
+      "batch_12me": {
+        "workflow_run_id": 37175296972,
+        "workflow_job_id": 111356561245,
+        "artifact_id": 11293245695,
+        "artifact_digest": "sha256:819fd12ed264cabfaeaded6f86132b5d752574bfd21c47b862e710d0dc4cfea8",
+        "exact_head": "a13a1c660e9c9ab3787de1355dce695a73b35bce",
+        "exact_tree": "a9f369e5077929cc414ae7bbd4237390ad1159c2",
+        "root_status": 302,
+        "root_location": "https://edu.duxiu.com/login.jsp",
+        "login_page_status": 200,
+        "login_page_bytes": 18764,
+        "login_page_sha256": "e081a0a390703c7f576ad2c1ccc0604e79ae3c1137552411115392ca53ab0196",
+        "service_range_denial_visible": true,
+        "institution_login_visible": true,
+        "carsi_login_visible": true,
+        "captcha_visible": true,
+        "target_query_submitted": false,
+        "target_book_bound": false,
+        "direct_2011_page197_reviewed": false,
+        "research_artifact": "docs/research/ZIWEI-WENJI-P197-DUXIU-SSLIBRARY-PREQUERY-AUTH-BOUNDARY-R1.json"
+      }
     }
   ],
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md",

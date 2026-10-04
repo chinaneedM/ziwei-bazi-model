@@ -860,9 +860,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-CNBKSY-ADVANCED-SEARCH-ESA-BOUNDARY-MB",
     "BATCH-12-ZIWEI-WENHUI-EPAPER-ROOT-DATE-CONTRACT-RECALIBRATION-MC",
     "BATCH-12-ZIWEI-ZJLIB-ZHAO-WANLI-ARTICLE-ROUTE-MD",
+    "BATCH-12-ZIWEI-WENJI-P197-DUXIU-SSLIBRARY-PREQUERY-AUTH-BOUNDARY-ME",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZJLIB-ZHAO-WANLI-ARTICLE-ROUTE-MD.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENJI-P197-DUXIU-SSLIBRARY-PREQUERY-AUTH-BOUNDARY-ME.md"
 
 
 def fail(message: str) -> None:
@@ -13764,6 +13765,69 @@ def main() -> int:
         fail("Batch 12MD state version regressed below 1.345.0")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12MD latest-batch document mismatch")
+
+
+    # Batch 12ME: Duxiu / SSLibrary pre-query authentication boundaries.
+    me_batch = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENJI-P197-DUXIU-SSLIBRARY-PREQUERY-AUTH-BOUNDARY-ME.md"
+    me_evidence = ROOT / "docs/research/ZIWEI-WENJI-P197-DUXIU-SSLIBRARY-PREQUERY-AUTH-BOUNDARY-R1.json"
+    if not me_batch.is_file() or not me_evidence.is_file():
+        fail("Batch 12ME continuity artifact missing")
+    me = json.loads(me_evidence.read_text(encoding="utf-8"))
+    if me.get("batch_id") != "BATCH-12-ZIWEI-WENJI-P197-DUXIU-SSLIBRARY-PREQUERY-AUTH-BOUNDARY-ME":
+        fail("Batch 12ME evidence identity mismatch")
+    ss = me.get("sslibrary_probe", {})
+    if ss.get("workflow_run_id") != 37175159409 or ss.get("workflow_job_id") != 111356154814 or ss.get("artifact_id") != 11292524671:
+        fail("Batch 12ME SSLibrary probe identity regressed")
+    if ss.get("artifact_digest") != "sha256:461f1cc7c0acc16e7bb283365745cc851e3b91d5e78b71dce49132b58d4388f0":
+        fail("Batch 12ME SSLibrary artifact digest regressed")
+    if ss.get("exact_head") != "dc7602a88a9ec7d748121e9c2a24663b7d568c14" or ss.get("exact_tree") != "7a6bb74bc23630e9af66c745fa006cd3d1443d53":
+        fail("Batch 12ME SSLibrary exact-head/tree binding regressed")
+    if ss.get("root_response", {}).get("status") != 302 or ss.get("root_response", {}).get("location") != "https://www.sslibrary.com/entry/login":
+        fail("Batch 12ME SSLibrary root auth redirect regressed")
+    if ss.get("login_hop_response", {}).get("status") != 302 or ss.get("login_hop_response", {}).get("location") != "https://www.sslibrary.com/user/login/showlogin":
+        fail("Batch 12ME SSLibrary login-hop redirect regressed")
+    if ss.get("forms") != [] or ss.get("source_emitted_scripts") != [] or ss.get("public_search_contract_recovered") is not False or ss.get("target_query_submitted") is not False:
+        fail("Batch 12ME SSLibrary pre-query firewall regressed")
+    dx = me.get("duxiu_probe", {})
+    if dx.get("workflow_run_id") != 37175296972 or dx.get("workflow_job_id") != 111356561245 or dx.get("artifact_id") != 11293245695:
+        fail("Batch 12ME Duxiu probe identity regressed")
+    if dx.get("artifact_digest") != "sha256:819fd12ed264cabfaeaded6f86132b5d752574bfd21c47b862e710d0dc4cfea8":
+        fail("Batch 12ME Duxiu artifact digest regressed")
+    if dx.get("exact_head") != "a13a1c660e9c9ab3787de1355dce695a73b35bce" or dx.get("exact_tree") != "a9f369e5077929cc414ae7bbd4237390ad1159c2":
+        fail("Batch 12ME Duxiu exact-head/tree binding regressed")
+    if dx.get("root_response", {}).get("status") != 302 or dx.get("root_response", {}).get("location") != "https://edu.duxiu.com/login.jsp":
+        fail("Batch 12ME Duxiu root login redirect regressed")
+    if dx.get("login_page_response", {}).get("status") != 200 or dx.get("login_page_response", {}).get("bytes") != 18764 or dx.get("login_page_response", {}).get("sha256") != "e081a0a390703c7f576ad2c1ccc0604e79ae3c1137552411115392ca53ab0196":
+        fail("Batch 12ME Duxiu login-page identity regressed")
+    controls = dx.get("visible_controls", {})
+    for k in ("system_login", "institution_user", "personal_user", "carsi_login", "captcha", "service_range_denial"):
+        if controls.get(k) is not True:
+            fail(f"Batch 12ME Duxiu auth-control binding regressed: {k}")
+    if dx.get("target_query_submitted") is not False:
+        fail("Batch 12ME Duxiu no-query firewall regressed")
+    adj = me.get("adjudication", {})
+    if adj.get("sslibrary_branch_status") != "CLOSED_AS_PREQUERY_AUTH_REDIRECT_BOUNDARY" or adj.get("duxiu_branch_status") != "CLOSED_AS_PREQUERY_IP_ACCOUNT_AUTH_BOUNDARY":
+        fail("Batch 12ME branch status regressed")
+    for k in ("target_title_or_isbn_query_submitted", "target_book_presence_or_absence_adjudicated", "target_book_object_bound", "wenji_p197_direct_page_claimed_reviewed", "primary_text_upgrade_authorized", "login_or_account_action_authorized"):
+        if adj.get(k) is not False:
+            fail(f"Batch 12ME no-query/no-upgrade firewall regressed: {k}")
+    if adj.get("evidence_vote_increment") != 0:
+        fail("Batch 12ME evidence-vote firewall regressed")
+    srcmap_me = {x.get("source_id"): x for x in registry.get("sources", ())}
+    if srcmap_me.get("EXT-SSLIBRARY-PUBLIC-PREQUERY-AUTH-BOUNDARY-2026", {}).get("batch_12me", {}).get("target_query_submitted") is not False:
+        fail("Batch 12ME SSLibrary registry binding missing")
+    if srcmap_me.get("EXT-DUXIU-PUBLIC-PREQUERY-IP-AUTH-BOUNDARY-2026", {}).get("batch_12me", {}).get("service_range_denial_visible") is not True:
+        fail("Batch 12ME Duxiu registry binding missing")
+    if "BATCH-12-ZIWEI-WENJI-P197-DUXIU-SSLIBRARY-PREQUERY-AUTH-BOUNDARY-ME" not in audit_state.get("completed_batches", ()):
+        fail("Batch 12ME missing from completed state")
+    try:
+        schema12me = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12ME state version is not numeric")
+    if schema12me < (1, 346, 0):
+        fail("Batch 12ME state version regressed below 1.346.0")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12ME latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")
