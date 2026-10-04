@@ -223,7 +223,7 @@ Fusion Chart Capability & Performance Acceptance R1 已正式收口。最终执�
 
 ## Fusion Chart Historical Provenance & School Audit R1
 
-最新规则审计闭环为 **Batch 12MQ**：HPA-BAZI-FLOW-007 以 `MODERN_COMPATIBILITY_ONLY` 闭合。`EXACT_HIDDEN_STEM_MATCH` 与 `SAME_ELEMENT_HIDDEN_SUPPORT` 被确认是可并存、不可互换的现代 evidence classes，而不是两个需要择一的历史流派；前者必须绑定上游透干 link，后者显式扣除 exact identity 且不得伪造 exposure。`NATAL_MONTH_COMMAND` 与 `ACTIVE_FLOW_SOLAR_MONTH` 两套 candidate-ID scope 始终分离，PRE_DAYUN 不造大运证据，重复字符保留 occurrence identity。任何 evidence 都不得提升为 ROOT/NO_ROOT、得令/通根、强弱、权重、评分、排名、winner 或预测。Matrix 为 201 项、已审 176 项、缺失候选 10；来源缺陷 17/17，算法缺陷/重开/候选折叠 0。下一门为统一 target timeline 组合层审计，见 `docs/PROJECT-CURRENT-STATE-R1.json`。
+最新规则审计闭环为 **Batch 12MR**：HPA-BAZI-FLOW-001 与 HPA-COMB-004 同批闭合。`BAZI-UNIFIED-TARGET-TIMELINE-R1` 的七层顺序只是一条现代只读组合链，年/月、日/时直接复用 released upstream frame，PRE_DAYUN 不造柱；小运继续保留两套方法，民岁连接明确是 `ENGINEERING_LINKAGE_COORDINATE` 且古典年龄边界 `NOT_ARBITRATED`。Combined Target Flow R1 只做 `INDEPENDENT_BUNDLE_IDENTITY_COMPOSITION_ONLY`，必须通过 Bazi base equality、完整 replay、target input/profile equality；Ziwei/Bazi 历法与换日策略互不覆盖，uncertainty 不折叠。Matrix 为 201 项、已审 178 项、缺失候选 10；来源缺陷 17/17，算法缺陷/重开/候选折叠 0。下一门为四柱本命总生成规则分解审计，见 `docs/PROJECT-CURRENT-STATE-R1.json`。
 
 ```text
 FUSION_CHART_HISTORICAL_PROVENANCE_AUDIT_R1=IN_PROGRESS

@@ -839,5 +839,41 @@ class HistoricalProvenanceAuditMatrixR1Test(unittest.TestCase):
         self.assertIn("HPA-BAZI-FLOW-007", self.payload["audited_row_ids"])
 
 
+    def test_batch_12mr_unified_target_timeline_and_combined_composition_are_modern_layers(self) -> None:
+        by_id = {row["rule_id"]: row for row in self.rows}
+        flow = by_id["HPA-BAZI-FLOW-001"]
+        combined = by_id["HPA-COMB-004"]
+        self.assertEqual("MODERN_COMPATIBILITY_ONLY", flow["audit_status"])
+        self.assertEqual("MODERN_COMPATIBILITY_ONLY", combined["audit_status"])
+        self.assertEqual(
+            "BATCH-12-BAZI-COMBINED-UNIFIED-TARGET-TIMELINE-COMPOSITION-AUDIT-MR",
+            flow["audit_batch"],
+        )
+        self.assertEqual(flow["audit_batch"], combined["audit_batch"])
+        self.assertEqual(
+            ["NATAL", "DAYUN", "XIAOYUN", "ANNUAL", "MONTHLY", "DAILY", "HOURLY"],
+            flow["component_firewall"]["layer_order"],
+        )
+        self.assertEqual(
+            "UNRESOLVED_CLASSICAL_METHOD_ALTERNATIVES",
+            flow["xiaoyun_firewall"]["selection_status"],
+        )
+        self.assertEqual(
+            "NOT_ARBITRATED",
+            flow["xiaoyun_firewall"]["classical_age_boundary_status"],
+        )
+        self.assertFalse(flow["xiaoyun_firewall"]["winner_selection_authorized"])
+        self.assertEqual(
+            "INDEPENDENT_BUNDLE_IDENTITY_COMPOSITION_ONLY",
+            combined["composition_firewall"]["composition_semantics"],
+        )
+        self.assertFalse(
+            combined["composition_firewall"]["cross_system_calendar_unification_authorized"]
+        )
+        self.assertFalse(combined["composition_firewall"]["upstream_uncertainty_collapsed"])
+        self.assertIn("HPA-BAZI-FLOW-001", self.payload["audited_row_ids"])
+        self.assertIn("HPA-COMB-004", self.payload["audited_row_ids"])
+
+
 if __name__ == "__main__":
     unittest.main()

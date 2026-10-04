@@ -875,9 +875,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-BAZI-TEMPORAL-SHENSHA-SOURCE-SCOPE-PROJECTION-AUDIT-MO",
     "BATCH-12-BAZI-STRUCTURAL-CONTEXT-SOURCE-PRESERVING-PROJECTION-AUDIT-MP",
     "BATCH-12-BAZI-STRUCTURAL-SUPPORT-EVIDENCE-CLASS-PROJECTION-AUDIT-MQ",
+    "BATCH-12-BAZI-COMBINED-UNIFIED-TARGET-TIMELINE-COMPOSITION-AUDIT-MR",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-STRUCTURAL-SUPPORT-EVIDENCE-CLASS-PROJECTION-AUDIT-MQ.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-COMBINED-UNIFIED-TARGET-TIMELINE-COMPOSITION-AUDIT-MR.md"
 
 
 def fail(message: str) -> None:
@@ -14342,6 +14343,49 @@ def main() -> int:
             fail("Batch 12MQ released runtime mutation claim drift")
     if mq.get("verification", {}).get("new_test_count") != 5 or mq.get("transmission_impact", {}).get("status") != "NONE":
         fail("Batch 12MQ verification/transmission scope drift")
+
+
+    # Batch 12MR: unified target timelines are modern composition over released subsystem facts.
+    mr = json.loads((ROOT / "docs/research/BAZI-COMBINED-UNIFIED-TARGET-TIMELINE-COMPOSITION-AUDIT-R1.json").read_text(encoding="utf-8"))
+    mr_id = "BATCH-12-BAZI-COMBINED-UNIFIED-TARGET-TIMELINE-COMPOSITION-AUDIT-MR"
+    if mr.get("batch_id") != mr_id or mr.get("prior_batch_id") != mq_id or mr_id not in rule_batches:
+        fail("Batch 12MR chronology/rule ledger mismatch")
+    flow1 = next(row for row in matrix["rows"] if row["rule_id"] == "HPA-BAZI-FLOW-001")
+    comb4 = next(row for row in matrix["rows"] if row["rule_id"] == "HPA-COMB-004")
+    if flow1.get("audit_status") != "MODERN_COMPATIBILITY_ONLY" or flow1.get("audit_batch") != mr_id:
+        fail("Batch 12MR FLOW-001 status/batch drift")
+    if comb4.get("audit_status") != "MODERN_COMPATIBILITY_ONLY" or comb4.get("audit_batch") != mr_id:
+        fail("Batch 12MR COMB-004 status/batch drift")
+    if flow1.get("current_profile") != "BAZI-APPLICATION-FLOW-COMPOSER-R1@1.5.0 / BAZI-UNIFIED-TARGET-TIMELINE-R1":
+        fail("Batch 12MR Bazi timeline profile drift")
+    if flow1.get("historical_scope") != "MODERN_TIMELINE_COMPOSITION_ONLY_COMPONENT_RULES_RETAIN_HISTORICAL_AUTHORITY" or comb4.get("historical_scope") != "MODERN_CROSS_SYSTEM_IDENTITY_COMPOSITION_ONLY_NO_SHARED_CALENDAR_VERDICT":
+        fail("Batch 12MR historical composition scope drift")
+    if "HPA-BAZI-FLOW-001" not in matrix["audited_row_ids"] or "HPA-COMB-004" not in matrix["audited_row_ids"]:
+        fail("Batch 12MR audited ledger drift")
+    comp_mr = flow1.get("component_firewall", {})
+    if comp_mr.get("layer_order") != ["NATAL", "DAYUN", "XIAOYUN", "ANNUAL", "MONTHLY", "DAILY", "HOURLY"] or comp_mr.get("annual_monthly_recomputed_by_timeline") is not False or comp_mr.get("daily_hourly_recomputed_by_timeline") is not False or comp_mr.get("pre_dayun_synthetic_ganzhi_authorized") is not False:
+        fail("Batch 12MR Bazi layer firewall drift")
+    xy_mr = flow1.get("xiaoyun_firewall", {})
+    if xy_mr.get("selection_status") != "UNRESOLVED_CLASSICAL_METHOD_ALTERNATIVES" or xy_mr.get("released_method_candidate_count") != 2 or xy_mr.get("age_coordinate_source_class") != "ENGINEERING_LINKAGE_COORDINATE" or xy_mr.get("classical_age_boundary_status") != "NOT_ARBITRATED" or xy_mr.get("winner_selection_authorized") is not False:
+        fail("Batch 12MR Xiaoyun firewall drift")
+    cc_mr = comb4.get("composition_firewall", {})
+    if cc_mr.get("composition_semantics") != "INDEPENDENT_BUNDLE_IDENTITY_COMPOSITION_ONLY" or cc_mr.get("bazi_base_object_equality_required") is not True or cc_mr.get("bazi_target_flow_full_replay_required") is not True or cc_mr.get("ziwei_metadata_recomputes_bazi_target_flow") is not False or cc_mr.get("upstream_uncertainty_collapsed") is not False or cc_mr.get("cross_system_calendar_unification_authorized") is not False:
+        fail("Batch 12MR combined composition firewall drift")
+    acct_mr = mr.get("accounting", {})
+    if acct_mr.get("rows_after") != 201 or acct_mr.get("audited_rows_after") != 178 or acct_mr.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12MR row accounting drift")
+    if acct_mr.get("provenance_defects_confirmed") != 17 or acct_mr.get("provenance_defects_repaired") != 17 or acct_mr.get("chart_algorithm_defects") != 0 or acct_mr.get("algorithm_reopens") != 0 or acct_mr.get("candidate_collapses") != 0:
+        fail("Batch 12MR defect/reopen accounting drift")
+    replay_mr = json.loads((ROOT / "docs/research/evidence/batch-12mr/composition-replay.json").read_text(encoding="utf-8"))
+    if replay_mr.get("bazi_layer_count") != 7 or replay_mr.get("xiaoyun_released_method_candidate_count") != 2 or replay_mr.get("bazi_upstream_integrity_component_count") != 5 or replay_mr.get("scenario_count") != 5:
+        fail("Batch 12MR replay scope cardinality drift")
+    if replay_mr.get("annual_monthly_recomputed_by_timeline") is not False or replay_mr.get("daily_hourly_recomputed_by_timeline") is not False or replay_mr.get("pre_dayun_synthetic_ganzhi_emitted") is not False or replay_mr.get("xiaoyun_winner_selected") is not False or replay_mr.get("ziwei_bazi_calendar_policies_unified") is not False or replay_mr.get("upstream_uncertainty_collapsed") is not False or replay_mr.get("cross_system_interpretation_imported") is not False or replay_mr.get("chart_algorithm_changed") is not False:
+        fail("Batch 12MR composition/semantic firewall drift")
+    for obj in mr.get("runtime_files", []):
+        if obj.get("unchanged_from_base") is not True:
+            fail("Batch 12MR released runtime mutation claim drift")
+    if mr.get("verification", {}).get("new_test_count") != 5 or mr.get("transmission_impact", {}).get("status") != "NONE":
+        fail("Batch 12MR verification/transmission scope drift")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

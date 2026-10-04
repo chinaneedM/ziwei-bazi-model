@@ -1,0 +1,45 @@
+{
+  "schema": "BAZI-COMBINED-UNIFIED-TARGET-TIMELINE-COMPOSITION-REPLAY-R1",
+  "batch_id": "BATCH-12-BAZI-COMBINED-UNIFIED-TARGET-TIMELINE-COMPOSITION-AUDIT-MR",
+  "verification_model": "Bazi timeline source-object replay plus Combined identity-only composition replay",
+  "bazi_layer_count": 7,
+  "bazi_layer_order": [
+    "NATAL",
+    "DAYUN",
+    "XIAOYUN",
+    "ANNUAL",
+    "MONTHLY",
+    "DAILY",
+    "HOURLY"
+  ],
+  "xiaoyun_released_method_candidate_count": 2,
+  "xiaoyun_selection_status": "UNRESOLVED_CLASSICAL_METHOD_ALTERNATIVES",
+  "xiaoyun_age_coordinate_profile": "TARGET-CIVIL-YEAR-NOMINAL-AGE-R1",
+  "xiaoyun_age_coordinate_source_class": "ENGINEERING_LINKAGE_COORDINATE",
+  "xiaoyun_classical_age_boundary_status": "NOT_ARBITRATED",
+  "bazi_upstream_integrity_component_count": 5,
+  "bazi_upstream_integrity_components": [
+    "target_coordinate",
+    "flow",
+    "daily_hourly",
+    "structural",
+    "structural_support"
+  ],
+  "combined_composition_semantics": "INDEPENDENT_BUNDLE_IDENTITY_COMPOSITION_ONLY",
+  "scenario_count": 5,
+  "scenarios": [
+    "ordinary_bazi_timeline_source_object_equality",
+    "pre_dayun_and_xiaoyun_boundary",
+    "target_uncertainty_candidate_lineage",
+    "ziwei_annual_independence_from_bazi_flow",
+    "combined_full_replay_tamper_firewall"
+  ],
+  "annual_monthly_recomputed_by_timeline": false,
+  "daily_hourly_recomputed_by_timeline": false,
+  "pre_dayun_synthetic_ganzhi_emitted": false,
+  "xiaoyun_winner_selected": false,
+  "ziwei_bazi_calendar_policies_unified": false,
+  "upstream_uncertainty_collapsed": false,
+  "cross_system_interpretation_imported": false,
+  "chart_algorithm_changed": false
+}

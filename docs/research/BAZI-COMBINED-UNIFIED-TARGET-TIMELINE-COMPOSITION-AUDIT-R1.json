@@ -1,0 +1,131 @@
+{
+  "schema": "BAZI-COMBINED-UNIFIED-TARGET-TIMELINE-COMPOSITION-AUDIT-R1",
+  "batch_id": "BATCH-12-BAZI-COMBINED-UNIFIED-TARGET-TIMELINE-COMPOSITION-AUDIT-MR",
+  "prior_batch_id": "BATCH-12-BAZI-STRUCTURAL-SUPPORT-EVIDENCE-CLASS-PROJECTION-AUDIT-MQ",
+  "rule_ids": [
+    "HPA-BAZI-FLOW-001",
+    "HPA-COMB-004"
+  ],
+  "audit_scope": "VERIFY_SEVEN_LAYER_BAZI_TIMELINE_AND_CROSS_SYSTEM_TARGET_FLOW_ARE_SOURCE_PRESERVING_MODERN_COMPOSITION_LAYERS_WITHOUT_NEW_CLASSICAL_OR_SHARED_CALENDAR_DOCTRINE",
+  "adjudication": {
+    "HPA-BAZI-FLOW-001": {
+      "audit_status": "MODERN_COMPATIBILITY_ONLY",
+      "historical_scope": "MODERN_TIMELINE_COMPOSITION_ONLY_COMPONENT_RULES_RETAIN_HISTORICAL_AUTHORITY",
+      "classical_unified_seven_layer_doctrine_claimed": false
+    },
+    "HPA-COMB-004": {
+      "audit_status": "MODERN_COMPATIBILITY_ONLY",
+      "historical_scope": "MODERN_CROSS_SYSTEM_IDENTITY_COMPOSITION_ONLY_NO_SHARED_CALENDAR_VERDICT",
+      "historical_cross_system_synthesis_claimed": false
+    },
+    "algorithm_reopen_authorized": false
+  },
+  "implementation_contract": {
+    "bazi_flow_composer": "BAZI-APPLICATION-FLOW-COMPOSER-R1@1.5.0",
+    "bazi_timeline_schema": "BAZI-UNIFIED-TARGET-TIMELINE-R1",
+    "bazi_semantic_scope": "TEMPORAL_COORDINATES_ONLY_NO_INTERPRETATION",
+    "combined_composer": "ZIWEI-BAZI-COMBINED-TARGET-FLOW-COMPOSER-R1@1.0.0",
+    "combined_profile": "ZIWEI-BAZI-COMBINED-LOCAL-SHELL-V1-R1@1.0.0",
+    "combined_composition_semantics": "INDEPENDENT_BUNDLE_IDENTITY_COMPOSITION_ONLY"
+  },
+  "bazi_timeline_firewall": {
+    "layer_order": [
+      "NATAL",
+      "DAYUN",
+      "XIAOYUN",
+      "ANNUAL",
+      "MONTHLY",
+      "DAILY",
+      "HOURLY"
+    ],
+    "annual_monthly_are_upstream_flow_frames": true,
+    "daily_hourly_are_upstream_sidecar_frames": true,
+    "pre_dayun_absence_preserved": true,
+    "xiaoyun_selection_status": "UNRESOLVED_CLASSICAL_METHOD_ALTERNATIVES",
+    "xiaoyun_age_coordinate_source_class": "ENGINEERING_LINKAGE_COORDINATE",
+    "xiaoyun_classical_age_boundary_status": "NOT_ARBITRATED",
+    "interpretation_or_prediction_authorized": false
+  },
+  "combined_firewall": {
+    "bazi_base_object_equality_required": true,
+    "bazi_target_flow_integrity_required": true,
+    "bazi_target_flow_full_replay_required": true,
+    "target_input_and_profile_equality_required": true,
+    "ziwei_selected_metadata_recomputes_bazi": false,
+    "independent_calendar_and_day_boundary_policies_preserved": true,
+    "uncertainty_preserved": true
+  },
+  "runtime_files": [
+    {
+      "path": "src/fortune_training/bazi_application/flow_service.py",
+      "blob_sha": "28feed2787fb10c997c2f99bc176b1d3c074537c",
+      "unchanged_from_base": true
+    },
+    {
+      "path": "src/fortune_training/bazi_application/flow_models.py",
+      "blob_sha": "f48f1583c12ce9122bc035de9c91a7bed849cd97",
+      "unchanged_from_base": true
+    },
+    {
+      "path": "src/fortune_training/bazi_application/flow_integrity.py",
+      "blob_sha": "0980100a962ec75337dc8152c08e7cc68a393bec",
+      "unchanged_from_base": true
+    },
+    {
+      "path": "src/fortune_training/bazi_application/flow_replay.py",
+      "blob_sha": "efafba69db5882f236aa6e07a2c51a942aa675b4",
+      "unchanged_from_base": true
+    },
+    {
+      "path": "src/fortune_training/combined_chart_application/flow_service.py",
+      "blob_sha": "47988a9938089693279a445f952caefe93a582c7",
+      "unchanged_from_base": true
+    },
+    {
+      "path": "src/fortune_training/combined_chart_application/flow_models.py",
+      "blob_sha": "7775c6fab07f3cd1d1a6e46dc2f1a92eb2a343b5",
+      "unchanged_from_base": true
+    },
+    {
+      "path": "src/fortune_training/combined_chart_application/flow_integrity.py",
+      "blob_sha": "9b542cdf4a17f08d2eb51d3c7a648f100a00ba4f",
+      "unchanged_from_base": true
+    },
+    {
+      "path": "src/fortune_training/combined_chart_application/flow_replay.py",
+      "blob_sha": "657e62ce95e0e0f94e2f53e87ebd88fc6bd492bc",
+      "unchanged_from_base": true
+    },
+    {
+      "path": "src/fortune_training/combined_chart_application/profile.py",
+      "blob_sha": "b938ac622b89404eaaffed938d8c563b34bef188",
+      "unchanged_from_base": true
+    }
+  ],
+  "replay_evidence": "docs/research/evidence/batch-12mr/composition-replay.json",
+  "verification": {
+    "new_test_file": "tests/test_bazi_combined_unified_target_timeline_composition_audit_r1.py",
+    "new_test_count": 5,
+    "exact_head_ci_status_at_commit_creation": "PENDING_BY_DEFINITION"
+  },
+  "accounting": {
+    "rows_before": 201,
+    "rows_after": 201,
+    "audited_rows_before": 176,
+    "audited_rows_after": 178,
+    "current_missing_from_product_rows": 10,
+    "provenance_defects_confirmed": 17,
+    "provenance_defects_repaired": 17,
+    "chart_algorithm_defects": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0
+  },
+  "transmission_impact": {
+    "status": "NONE",
+    "reason": "No historical transmission edge is adjudicated. This batch audits modern composition and lineage preservation only."
+  },
+  "next_gate": [
+    "12MS: audit HPA-BAZI-001 Four-pillar natal generation by decomposing year/month/day/hour and time/calendar/date-boundary inputs into their already-audited or still-missing source-specific subrules.",
+    "Original Wenwu1951 recovery remains paused pending a materially new lawful access mechanism."
+  ]
+}

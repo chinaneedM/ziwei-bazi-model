@@ -45,11 +45,11 @@
   "inventory_summary": {
     "row_count": 201,
     "status_counts": {
-      "MODERN_COMPATIBILITY_ONLY": 34,
+      "MODERN_COMPATIBILITY_ONLY": 35,
       "HISTORICALLY_SUPPORTED": 95,
       "DISPUTED_MULTIPLE_CANDIDATES": 29,
       "SUPPORTED_BUT_SCHOOL_SPECIFIC": 18,
-      "IMPLEMENTATION_REVIEW_REQUIRED": 5,
+      "IMPLEMENTATION_REVIEW_REQUIRED": 4,
       "SOURCE_INSUFFICIENT": 9,
       "MISSING_FROM_PRODUCT": 10,
       "NOT_YET_FORMALIZED": 1
@@ -81,7 +81,7 @@
       "candidate/profile rules": 2,
       "provenance / hashes / lineage": 2
     },
-    "audited_row_count": 176
+    "audited_row_count": 178
   },
   "rows": [
     {
@@ -1388,22 +1388,60 @@
       "system": "BAZI",
       "module": "八字动态时限",
       "rule_or_field": "Unified target timeline 原局→大运→小运→流年→流月→流日→流时",
-      "current_implementation": "Target temporal engine produces auditable target coordinates while preserving absent/uncertain layers.",
-      "current_profile": "BAZI target temporal profiles",
-      "primary_source": "S15 + released temporal engines",
-      "source_quote": "PENDING_VERBATIM_EXTRACTION",
-      "source_quote_location": "docs/BAZI-ZIWEI-UNIFIED-TARGET-TIMELINE-R1.md",
-      "historical_period": "PENDING_BIBLIOGRAPHIC_DATING",
-      "later_witnesses": "PENDING_LATER_WITNESS_AUDIT",
-      "school_attribution": "PENDING_SCHOOL_ATTRIBUTION_AUDIT",
+      "current_implementation": "BAZI-APPLICATION-FLOW-COMPOSER-R1@1.5.0 emits BAZI-UNIFIED-TARGET-TIMELINE-R1 by binding one target-coordinate candidate to the already released Natal, Dayun, Xiaoyun-candidate, Annual, Monthly, Daily and Hourly objects. Annual/Monthly and Daily/Hourly frames are copied from upstream objects; no second Ganzhi path is calculated by the timeline.",
+      "current_profile": "BAZI-APPLICATION-FLOW-COMPOSER-R1@1.5.0 / BAZI-UNIFIED-TARGET-TIMELINE-R1",
+      "primary_source": "Modern composition over released Bazi temporal engines and already-audited target-layer projections. Historical authority remains in the subsystem rules for each layer; the seven-layer ordered timeline has no independent classical authority.",
+      "source_quote": "semantic_scope=TEMPORAL_COORDINATES_ONLY_NO_INTERPRETATION; Xiaoyun selection_status=UNRESOLVED_CLASSICAL_METHOD_ALTERNATIVES; nominal-age source_class=ENGINEERING_LINKAGE_COORDINATE; classical_age_boundary_status=NOT_ARBITRATED",
+      "source_quote_location": "src/fortune_training/bazi_application/flow_service.py BaziApplicationFlowService._build_view; src/fortune_training/bazi_application/flow_integrity.py; docs/BAZI-ZIWEI-UNIFIED-TARGET-TIMELINE-R1.md",
+      "historical_period": "MODERN_SOFTWARE_COMPOSITION_OVER_SEPARATELY_AUDITED_TEMPORAL_RULES",
+      "later_witnesses": "N/A as an independent historical doctrine. Historical witnesses remain attached to the layer-specific Dayun/Xiaoyun/year/month/day/hour and annotation rows.",
+      "school_attribution": "MODERN_COMPOSITION_LAYER_PRESERVING_SOURCE_SCOPED_BAZI_METHOD_CANDIDATES",
       "competing_methods": [
-        "school-specific Xiaoyun candidates"
+        "Released Xiaoyun method candidates remain separate and unresolved.",
+        "The timeline's target-civil-year nominal-age match is an engineering linkage coordinate, not a classical age-boundary ruling.",
+        "Absent PRE_DAYUN Ganzhi remains absent; no synthetic Dayun pillar is minted by composition."
       ],
-      "current_implementation_match": "PENDING_RULE_BY_RULE_REPLAY",
-      "confidence": "INVENTORY_CONFIDENCE_HIGH",
-      "audit_status": "IMPLEMENTATION_REVIEW_REQUIRED",
-      "proposed_action": "Audit each layer generator separately; combined timeline itself is composition.",
-      "algorithm_reopen_authorized": false
+      "current_implementation_match": "EXACT COMPOSITION REPLAY. Layer order is NATAL→DAYUN→XIAOYUN→ANNUAL→MONTHLY→DAILY→HOURLY. Annual/Monthly equal the upstream Flow frames and Daily/Hourly equal the daily-hourly sidecar; target candidate ID, source application IDs, source temporal indices and all source hashes are integrity-bound. Full replay re-executes the released stack.",
+      "confidence": "HIGH_FOR_ENGINEERING_COMPOSITION; NO_SINGLE_CLASSICAL_SEVEN_LAYER_DOCTRINE_CLAIM",
+      "audit_status": "MODERN_COMPATIBILITY_ONLY",
+      "proposed_action": "No algorithm reopen. Keep the seven-layer timeline as a read-only composition view; preserve missing/uncertain layers, Xiaoyun alternatives, target candidate lineage and each subsystem's independent historical authority.",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-12-BAZI-COMBINED-UNIFIED-TARGET-TIMELINE-COMPOSITION-AUDIT-MR",
+      "historical_scope": "MODERN_TIMELINE_COMPOSITION_ONLY_COMPONENT_RULES_RETAIN_HISTORICAL_AUTHORITY",
+      "component_firewall": {
+        "layer_order": [
+          "NATAL",
+          "DAYUN",
+          "XIAOYUN",
+          "ANNUAL",
+          "MONTHLY",
+          "DAILY",
+          "HOURLY"
+        ],
+        "annual_monthly_recomputed_by_timeline": false,
+        "daily_hourly_recomputed_by_timeline": false,
+        "pre_dayun_synthetic_ganzhi_authorized": false,
+        "interpretation_or_prediction_authorized": false
+      },
+      "xiaoyun_firewall": {
+        "selection_status": "UNRESOLVED_CLASSICAL_METHOD_ALTERNATIVES",
+        "released_method_candidate_count": 2,
+        "age_coordinate_profile": "TARGET-CIVIL-YEAR-NOMINAL-AGE-R1",
+        "age_coordinate_source_class": "ENGINEERING_LINKAGE_COORDINATE",
+        "classical_age_boundary_status": "NOT_ARBITRATED",
+        "winner_selection_authorized": false
+      },
+      "lineage_firewall": {
+        "target_coordinate_candidate_id_preserved": true,
+        "source_application_candidate_ids_preserved": true,
+        "source_temporal_candidate_indices_preserved": true,
+        "source_flow_candidate_index_preserved": true,
+        "source_target_coordinate_candidate_index_preserved": true,
+        "full_replay_required": true
+      },
+      "runtime_change": false,
+      "provenance_defect_increment": 0,
+      "audit_evidence": "docs/research/BAZI-COMBINED-UNIFIED-TARGET-TIMELINE-COMPOSITION-AUDIT-R1.json"
     },
     {
       "rule_id": "HPA-BAZI-FLOW-002",
@@ -2607,20 +2645,39 @@
       "system": "COMBINED",
       "module": "八字动态时限",
       "rule_or_field": "Unified target timeline composition",
-      "current_implementation": "Combined target coordinates join Bazi and Ziwei read-only projections without changing source rules.",
-      "current_profile": "Combined target flow",
-      "primary_source": "composition of released subsystem rules",
-      "source_quote": "PENDING_VERBATIM_EXTRACTION",
-      "source_quote_location": "docs/BAZI-ZIWEI-UNIFIED-TARGET-TIMELINE-R1.md",
+      "current_implementation": "ZIWEI-BAZI-COMBINED-TARGET-FLOW-COMPOSER-R1@1.0.0 binds the immutable base combined manifest, Ziwei base bundle identity, Bazi base bundle identity, released Bazi target-flow bundle, target-coordinate hashes/profile and target input under composition_semantics=INDEPENDENT_BUNDLE_IDENTITY_COMPOSITION_ONLY.",
+      "current_profile": "ZIWEI-BAZI-COMBINED-TARGET-FLOW-COMPOSER-R1@1.0.0 + ZIWEI-BAZI-COMBINED-LOCAL-SHELL-V1-R1@1.0.0",
+      "primary_source": "Modern software composition of released subsystem bundles; no historical source is claimed for the cross-system object.",
+      "source_quote": "composition_semantics=INDEPENDENT_BUNDLE_IDENTITY_COMPOSITION_ONLY",
+      "source_quote_location": "src/fortune_training/combined_chart_application/flow_service.py; src/fortune_training/combined_chart_application/flow_integrity.py; src/fortune_training/combined_chart_application/profile.py; docs/BAZI-ZIWEI-UNIFIED-TARGET-TIMELINE-R1.md",
       "historical_period": "MODERN",
       "later_witnesses": "N/A",
-      "school_attribution": "MODERN_SOFTWARE_ARCHITECTURE",
-      "competing_methods": [],
-      "current_implementation_match": "MATCHES_DECLARED_COMPOSITION_SCOPE",
+      "school_attribution": "MODERN_SOFTWARE_ARCHITECTURE_PRESERVING_INDEPENDENT_ZIWEI_AND_BAZI_POLICIES",
+      "competing_methods": [
+        "Ziwei and Bazi calendar/day-boundary policies remain independent and are not reconciled by this composition layer.",
+        "Any upstream target uncertainty or Bazi candidate multiplicity remains UNCERTAINTY_PRESENT rather than being collapsed."
+      ],
+      "current_implementation_match": "MATCHES DECLARED IDENTITY-ONLY COMPOSITION. Combined service requires the Bazi base object to equal the base combined Bazi bundle, validates Bazi target-flow structural integrity and full replay, requires target input/profile equality, then binds bundle/hash identities. Ziwei selected annual metadata can change without mutating the Bazi target-flow bundle.",
       "confidence": "HIGH",
       "audit_status": "MODERN_COMPATIBILITY_ONLY",
-      "proposed_action": "Audit only composition correctness; historical authority remains in subsystem rows.",
-      "algorithm_reopen_authorized": false
+      "proposed_action": "No algorithm reopen. Keep cross-system composition identity-only; never use the combined object to force one calendar, one late-Zi rule, one Xiaoyun method, one uncertainty winner, or cross-system interpretation.",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-12-BAZI-COMBINED-UNIFIED-TARGET-TIMELINE-COMPOSITION-AUDIT-MR",
+      "historical_scope": "MODERN_CROSS_SYSTEM_IDENTITY_COMPOSITION_ONLY_NO_SHARED_CALENDAR_VERDICT",
+      "composition_firewall": {
+        "composition_semantics": "INDEPENDENT_BUNDLE_IDENTITY_COMPOSITION_ONLY",
+        "bazi_base_object_equality_required": true,
+        "bazi_target_flow_integrity_required": true,
+        "bazi_target_flow_full_replay_required": true,
+        "target_input_and_profile_equality_required": true,
+        "ziwei_metadata_recomputes_bazi_target_flow": false,
+        "upstream_uncertainty_collapsed": false,
+        "cross_system_calendar_unification_authorized": false,
+        "cross_system_interpretation_authorized": false
+      },
+      "runtime_change": false,
+      "provenance_defect_increment": 0,
+      "audit_evidence": "docs/research/BAZI-COMBINED-UNIFIED-TARGET-TIMELINE-COMPOSITION-AUDIT-R1.json"
     },
     {
       "rule_id": "HPA-COMB-005",
@@ -6449,7 +6506,9 @@
     "HPA-BAZI-FLOW-010",
     "HPA-BAZI-FLOW-005",
     "HPA-BAZI-FLOW-006",
-    "HPA-BAZI-FLOW-007"
+    "HPA-BAZI-FLOW-007",
+    "HPA-BAZI-FLOW-001",
+    "HPA-COMB-004"
   ],
   "audit_summary": {
     "confirmed_chart_algorithm_defect_count": 0,
@@ -6471,6 +6530,7 @@
     "BATCH-12-BAZI-TEMPORAL-CLASSICAL-IDENTITY-PROJECTION-AUDIT-MN",
     "BATCH-12-BAZI-TEMPORAL-SHENSHA-SOURCE-SCOPE-PROJECTION-AUDIT-MO",
     "BATCH-12-BAZI-STRUCTURAL-CONTEXT-SOURCE-PRESERVING-PROJECTION-AUDIT-MP",
-    "BATCH-12-BAZI-STRUCTURAL-SUPPORT-EVIDENCE-CLASS-PROJECTION-AUDIT-MQ"
+    "BATCH-12-BAZI-STRUCTURAL-SUPPORT-EVIDENCE-CLASS-PROJECTION-AUDIT-MQ",
+    "BATCH-12-BAZI-COMBINED-UNIFIED-TARGET-TIMELINE-COMPOSITION-AUDIT-MR"
   ]
 }

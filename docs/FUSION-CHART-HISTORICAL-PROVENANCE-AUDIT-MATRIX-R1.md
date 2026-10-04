@@ -34,7 +34,7 @@ Every row carries:
 - proposed action;
 - explicit algorithm-reopen authorization, which is **false for every inventory row at creation**.
 
-The initial inventory contained **107 rule/field families**. Through Batch 12MQ and explicit splitting of historically distinct candidate families, the current machine-readable inventory contains **201 rows**, with **176 audited rows**. It intentionally keeps unresolved source work explicit rather than converting uncertainty into a chart defect. The current audit ledger records **17 confirmed provenance metadata defects repaired forward-only at the provenance/hash-lineage layer, 0 chart algorithm defects, 0 algorithm reopens, 14 cumulatively identified missing candidate families, 10 rows currently `MISSING_FROM_PRODUCT`, 6 historical candidate extensions, 3 source-scoped historical candidate registries, and 3 runtime-resolver components**.
+The initial inventory contained **107 rule/field families**. Through Batch 12MR and explicit splitting of historically distinct candidate families, the current machine-readable inventory contains **201 rows**, with **178 audited rows**. It intentionally keeps unresolved source work explicit rather than converting uncertainty into a chart defect. The current audit ledger records **17 confirmed provenance metadata defects repaired forward-only at the provenance/hash-lineage layer, 0 chart algorithm defects, 0 algorithm reopens, 14 cumulatively identified missing candidate families, 10 rows currently `MISSING_FROM_PRODUCT`, 6 historical candidate extensions, 3 source-scoped historical candidate registries, and 3 runtime-resolver components**.
 
 ## Research-corpus authority
 
@@ -1301,3 +1301,6 @@ Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WE
 
 
 - Batch 12MQ: HPA-BAZI-FLOW-007 closes as `MODERN_COMPATIBILITY_ONLY`. Exact-hidden-stem and same-element/different-stem support are preserved as two non-ranking evidence classes over audited hidden-stem/affinity/exposure primitives; they are not treated as rival historical schools or collapsed to a root verdict. Natal month-command and active Flow solar-month candidate scopes remain separate; PRE_DAYUN cannot fabricate Dayun evidence; no strength/weight/score/rank/winner semantics are authorized. Matrix remains 201 rows, now 176 audited. See `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-STRUCTURAL-SUPPORT-EVIDENCE-CLASS-PROJECTION-AUDIT-MQ.md`.
+
+
+- Batch 12MR: HPA-BAZI-FLOW-001 and HPA-COMB-004 close together as modern composition layers. The Bazi seven-layer timeline reuses released layer facts, preserves PRE_DAYUN absence and unresolved Xiaoyun methods, and does not create a second Ganzhi calculation path. Combined Target Flow binds independent Ziwei/Bazi bundle identities and target-coordinate lineage without unifying calendars, day boundaries or uncertainty. Matrix remains 201 rows, now 178 audited. See `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-COMBINED-UNIFIED-TARGET-TIMELINE-COMPOSITION-AUDIT-MR.md`.

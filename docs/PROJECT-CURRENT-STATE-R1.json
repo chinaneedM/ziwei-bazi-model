@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.358.0",
+  "schema_version": "1.359.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -38,7 +38,7 @@
     "matrix_md": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.md",
     "external_source_registry": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json",
     "row_count": 201,
-    "audited_row_count": 176,
+    "audited_row_count": 178,
     "confirmed_provenance_metadata_defect_count": 17,
     "repaired_provenance_metadata_defect_count": 17,
     "historical_candidate_registry_count": 3,
@@ -440,9 +440,10 @@
       "BATCH-12-BAZI-TEMPORAL-CLASSICAL-IDENTITY-PROJECTION-AUDIT-MN",
       "BATCH-12-BAZI-TEMPORAL-SHENSHA-SOURCE-SCOPE-PROJECTION-AUDIT-MO",
       "BATCH-12-BAZI-STRUCTURAL-CONTEXT-SOURCE-PRESERVING-PROJECTION-AUDIT-MP",
-      "BATCH-12-BAZI-STRUCTURAL-SUPPORT-EVIDENCE-CLASS-PROJECTION-AUDIT-MQ"
+      "BATCH-12-BAZI-STRUCTURAL-SUPPORT-EVIDENCE-CLASS-PROJECTION-AUDIT-MQ",
+      "BATCH-12-BAZI-COMBINED-UNIFIED-TARGET-TIMELINE-COMPOSITION-AUDIT-MR"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-STRUCTURAL-SUPPORT-EVIDENCE-CLASS-PROJECTION-AUDIT-MQ.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-COMBINED-UNIFIED-TARGET-TIMELINE-COMPOSITION-AUDIT-MR.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -2026,6 +2027,13 @@
       "PRE_DAYUN fabricates no Dayun support evidence. Xiaoyun/Daily/Hourly remain outside the released Structural Support coverage inherited from Structural Context. The internal BAZI-ROOT-SUPPORT-EVIDENCE-CANDIDATE-R1 name is treated as a modern identifier only, not an interpretive authorization.",
       "No runtime algorithm, schema or hash version changes. Matrix is now 201 / 176 / 10; provenance defects remain 17/17; chart algorithm defects / reopens / candidate collapses remain 0.",
       "12MR: audit HPA-BAZI-FLOW-001 together with HPA-COMB-004 unified target timeline composition. Verify that the combined 原局→大运→小运→流年→流月→流日→流时 object is software composition over separately audited layer generators, preserves candidate lineage, and is not back-projected as a single classical doctrine.",
+      "Original Wenwu1951 primary targets remain NOT_REVIEWED and the anonymous recovery branch remains paused pending a materially new lawful access route.",
+      "Batch 12MR audits HPA-BAZI-FLOW-001 and HPA-COMB-004 together. The seven-layer Bazi timeline is a modern read-only composition over separately released generators; Combined Target Flow R1 is an independent bundle-identity composition, not a shared Ziwei/Bazi calendar doctrine.",
+      "BAZI-UNIFIED-TARGET-TIMELINE-R1 preserves fixed layer order NATAL→DAYUN→XIAOYUN→ANNUAL→MONTHLY→DAILY→HOURLY, but Annual/Monthly and Daily/Hourly are exact upstream objects rather than recalculated pillars. PRE_DAYUN absence stays explicit.",
+      "Xiaoyun keeps two released method candidates with UNRESOLVED_CLASSICAL_METHOD_ALTERNATIVES. TARGET-CIVIL-YEAR-NOMINAL-AGE-R1 remains ENGINEERING_LINKAGE_COORDINATE and classical_age_boundary_status remains NOT_ARBITRATED; no winner is selected.",
+      "Combined Target Flow requires exact Bazi base equality, Bazi target-flow integrity/full replay and target input/profile equality. Ziwei selection metadata does not recompute Bazi target flow; Ziwei/Bazi calendar and day-boundary policies remain independent; target uncertainty is never collapsed.",
+      "No runtime algorithm/schema/hash version changes and no new provenance defect. Matrix is now 201 / 178 / 10; provenance defects remain 17/17; chart algorithm defects / reopens / candidate collapses remain 0.",
+      "12MS: audit HPA-BAZI-001 Four-pillar natal generation as a composition of separately governed year/month/day/hour and calendar/date-boundary rules. Identify any remaining source-specific subrule gaps without treating the modern Natal bundle as one monolithic classical rule.",
       "Original Wenwu1951 primary targets remain NOT_REVIEWED and the anonymous recovery branch remains paused pending a materially new lawful access route."
     ],
     "historical_candidate_extension_count": 6,

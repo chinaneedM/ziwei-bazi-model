@@ -121,3 +121,14 @@ Machine-readable contracts:
 ## Non-goals
 
 R1 does not decide a Xiaoyun school, decide leap-month Ziwei flow doctrine, promote case-only flow-hour evidence into a global active-address rule, merge Bazi and Ziwei day boundaries, calculate strength/pattern/useful-god/favorable elements, activate ShenSha meanings, or produce event judgments, interpretations, training data, or predictions.
+
+
+## Batch 12MR historical audit closure
+
+The unified target timeline and Combined Target Flow R1 are formally classified as **modern composition layers**, not as evidence for a single historical seven-layer Bazi doctrine or a historical Ziwei+Bazi calendar synthesis.
+
+For Bazi, the ordered `NATAL → DAYUN → XIAOYUN → ANNUAL → MONTHLY → DAILY → HOURLY` surface is a replayable view. Annual/Monthly are copied from released Flow frames; Daily/Hourly are copied from the released daily-hourly sidecar; PRE_DAYUN absence is preserved. The two Xiaoyun methods remain `UNRESOLVED_CLASSICAL_METHOD_ALTERNATIVES`; the target-civil-year nominal-age formula remains an `ENGINEERING_LINKAGE_COORDINATE` with `classical_age_boundary_status=NOT_ARBITRATED`.
+
+For the cross-system R1 object, `INDEPENDENT_BUNDLE_IDENTITY_COMPOSITION_ONLY` is treated literally. The combined layer validates and binds the existing Bazi target-flow object and the independent Ziwei/base identities; it does not reconcile their calendars, day boundaries, late-Zi policies or method candidates. Upstream uncertainty remains uncertainty.
+
+No algorithm, schema or hash version changes are authorized by this audit. See `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-COMBINED-UNIFIED-TARGET-TIMELINE-COMPOSITION-AUDIT-MR.md`.
