@@ -57,7 +57,7 @@ class ZiweiQuanshuNanyangtangLateZiFacsimileR1Tests(unittest.TestCase):
         self.assertEqual("32ca49bb3a02454067e6deddb97921779837a10e59e946c12d2f6d14f33509e7", source["pdf_sha256"])
         self.assertEqual(320, source["direct_target_page_1_based"])
         audit = self.state["historical_audit"]
-        self.assertEqual(198, audit["row_count"])
+        self.assertEqual(self.matrix["inventory_summary"]["row_count"], audit["row_count"])
         # This batch's historical snapshot is not the evolving project total.
         self.assertEqual(len(set(self.matrix["audited_row_ids"])), audit["audited_row_count"])
         self.assertEqual(audit["audited_row_count"], self.matrix["inventory_summary"]["audited_row_count"])

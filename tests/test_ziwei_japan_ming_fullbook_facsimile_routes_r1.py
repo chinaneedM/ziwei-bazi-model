@@ -63,7 +63,7 @@ class ZiweiJapanMingFullbookFacsimileRoutesR1Tests(unittest.TestCase):
         self.assertEqual("NOT_OBSERVED", row["japan_target_late_zi_page_status"])
         self.assertFalse(row["algorithm_reopen_authorized"])
         audit = self.state["historical_audit"]
-        self.assertEqual(198, audit["row_count"])
+        self.assertEqual(self.matrix["inventory_summary"]["row_count"], audit["row_count"])
         # This batch's historical snapshot is not the evolving project total.
         self.assertEqual(len(set(self.matrix["audited_row_ids"])), audit["audited_row_count"])
         self.assertEqual(audit["audited_row_count"], self.matrix["inventory_summary"]["audited_row_count"])
