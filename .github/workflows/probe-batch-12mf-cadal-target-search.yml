@@ -1,0 +1,120 @@
+name: probe-batch-12mf-cadal-target-search
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12mf-cadal-target-search.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Execute only the CADAL homepage-emitted target search contract
+        run: |
+          python - <<'PY'
+          import hashlib, html, json, re
+          from pathlib import Path
+          from urllib.parse import urljoin, urlparse
+          import requests
+
+          root="https://cadal.edu.cn/index/home"
+          endpoint="https://cadal.edu.cn/cadalinfo/search"
+          queries=[
+              {"label":"target_serial","searchContent":"文物参考资料","searchType":"sw","oneOrSecond":"first"},
+              {"label":"target_article_traditional","searchContent":"永樂大典展覽的意義","searchType":"sw","oneOrSecond":"first"},
+              {"label":"target_article_simplified","searchContent":"永乐大典展览的意义","searchType":"sw","oneOrSecond":"first"}
+          ]
+          UA={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; CADAL target search)"}
+          s=requests.Session()
+          s.headers.update(UA)
+
+          def post(data):
+              try:
+                  r=s.post(endpoint,data=data,timeout=45,allow_redirects=False,headers={"Referer":root})
+                  return r,None
+              except Exception as e:
+                  return None,f"{type(e).__name__}: {e}"
+
+          def attrs(tag):
+              out={}
+              for m in re.finditer(r'''(?is)([a-zA-Z_:][-a-zA-Z0-9_:.]*)\s*=\s*(["'])(.*?)\2''',tag):
+                  out[m.group(1).lower()]=html.unescape(m.group(3))
+              return out
+
+          def anchors(base,text):
+              out=[]
+              for m in re.finditer(r'''(?is)<a\b([^>]*)>(.*?)</a>''',text):
+                  a=attrs(m.group(1))
+                  if "href" not in a: continue
+                  label=html.unescape(re.sub(r"<[^>]+>"," ",m.group(2)))
+                  label=re.sub(r"\s+"," ",label).strip()
+                  out.append({"label":label,"href":a["href"],"absolute_href":urljoin(base,a["href"])})
+              return out
+
+          records=[]
+          for q in queries:
+              r,e=post({k:v for k,v in q.items() if k!="label"})
+              rec={"label":q["label"],"request":q,"fetch_error":e}
+              if r is not None:
+                  rec.update({
+                      "status":r.status_code,
+                      "location":r.headers.get("location"),
+                      "content_type":r.headers.get("content-type"),
+                      "bytes":len(r.content),
+                      "sha256":hashlib.sha256(r.content).hexdigest()
+                  })
+                  if r.status_code==200:
+                      text=r.content.decode("utf-8","replace")
+                      vis=html.unescape(re.sub(r"<[^>]+>"," ",text))
+                      vis=re.sub(r"\s+"," ",vis)
+                      tokens=("文物参考资料","文物參考資料","永樂大典展覽的意義","永乐大典展览的意义","赵万里","趙萬里","1951","221","233")
+                      rec["visible_token_counts"]={t:vis.count(t) for t in tokens}
+                      aa=anchors(r.url,text)
+                      relevant=[]
+                      for a in aa:
+                          hay=" ".join((a.get("label") or "",a.get("href") or ""))
+                          if any(t in hay for t in ("文物参考资料","文物參考資料","永樂大典","永乐大典","赵万里","趙萬里","1951")):
+                              relevant.append(a)
+                      rec["relevant_source_emitted_anchors"]=relevant[:200]
+                      rec["anchor_count"]=len(aa)
+              records.append(rec)
+
+          out={
+              "source_contract":{
+                  "parent_probe_run":37175585343,
+                  "parent_probe_artifact_id":11292709922,
+                  "homepage_emitted_endpoint":endpoint,
+                  "method":"POST",
+                  "fields":{"searchContent":"<query>","searchType":"sw","oneOrSecond":"first"},
+                  "anonymous_target_search_only":True,
+                  "login_attempted":False,
+                  "credential_used":False,
+                  "private_endpoint_guessed":False,
+                  "result_anchor_followed":False,
+                  "reader_or_download_route_followed":False
+              },
+              "query_records":records,
+              "adjudication":{
+                  "only_source_emitted_search_contract_executed":True,
+                  "source_emitted_target_result_anchor_followed":False,
+                  "target_serial_or_article_object_claimed_bound":False,
+                  "direct_1951_pages_reviewed":False,
+                  "primary_text_upgrade_authorized":False
+              }
+          }
+          Path("batch-12mf-cadal-target-search.json").write_text(
+              json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8"
+          )
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12mf-cadal-target-search
+          path: batch-12mf-cadal-target-search.json
