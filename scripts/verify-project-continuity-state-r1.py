@@ -867,9 +867,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-WENWU1951-HATHITRUST-OCLC-DIGITAL-INVENTORY-MG",
     "BATCH-12-ZIWEI-WENWU1951-UCD-PHYSICAL-DIGITAL-COPY-BINDING-MH",
     "BATCH-12-ZIWEI-WENWU1951-GOOGLE-AGGREGATE-YEAR-BOUNDARY-MI",
+    "BATCH-12-ZIWEI-WENWU1951-NABUNKEN-REPOSITORY-RECOVERY-CLOSURE-MJ",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENWU1951-GOOGLE-AGGREGATE-YEAR-BOUNDARY-MI.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENWU1951-NABUNKEN-REPOSITORY-RECOVERY-CLOSURE-MJ.md"
 
 
 def fail(message: str) -> None:
@@ -14023,6 +14024,47 @@ def main() -> int:
         fail("Batch 12MI execution provenance drift")
     if "EXT-GOOGLE-WENWU-CANKAO-AGGREGATE19-24-RGCXTEPNOQC" not in {x.get("source_id") for x in registry.get("sources", ())}:
         fail("Batch 12MI source registry binding missing")
+
+    # A functioning public repository can still contain only unrelated title hits.
+    mj = json.loads((ROOT / "docs/research/ZIWEI-WENWU1951-NABUNKEN-REPOSITORY-RECOVERY-CLOSURE-R1.json").read_text(encoding="utf-8"))
+    if mj.get("batch_id") != LATEST_BATCH_ID or mj.get("prior_batch_id") != mi.get("batch_id"):
+        fail("Batch 12MJ lineage mismatch")
+    expected_mj_files = {"observations.json", *(f"nabunken-{key}.html" for key in (
+        "help", "library", "root", "serial", "article", "control",
+        "item-1863", "item-731", "item-7539", "item-7719", "item-7827",
+    ))}
+    if set(mj.get("evidence_objects", {})) != expected_mj_files:
+        fail("Batch 12MJ public surface evidence inventory drift")
+    for name, obj in mj["evidence_objects"].items():
+        if obj.get("evidence_file") != f"docs/research/evidence/batch-12mj/{name}":
+            fail("Batch 12MJ evidence path drift")
+        raw = (ROOT / obj["evidence_file"]).read_bytes()
+        if len(raw) != obj.get("byte_count") or hashlib.sha256(raw).hexdigest() != obj.get("sha256"):
+            fail(f"Batch 12MJ preserved evidence identity drift: {name}")
+    observations = json.loads((ROOT / mj["evidence_objects"]["observations.json"]["evidence_file"]).read_text(encoding="utf-8"))
+    if len(observations) != 11 or any(obj.get("status") != 200 for obj in observations.values()):
+        fail("Batch 12MJ successful surface accounting drift")
+    for key, total in (("control", 1183), ("serial", 5), ("article", 0)):
+        raw = (ROOT / f"docs/research/evidence/batch-12mj/nabunken-{key}.html").read_text(encoding="utf-8")
+        marker = "該当するレコードはありませんでした。" if key == "article" else f"/ {total}."
+        if observations[key].get("reported_total") != total or marker not in raw:
+            fail("Batch 12MJ query-result/positive-control scope drift")
+    result = mj.get("repository_result", {})
+    if result.get("serial_result_handles") != ["11177/1863", "11177/731", "11177/7539", "11177/7719", "11177/7827"] or result.get("serial_items_individually_reviewed") != 5:
+        fail("Batch 12MJ modern item exclusion inventory drift")
+    if result.get("target_serial_issue_record_recovered") is not False or result.get("target_page_object_recovered") is not False or result.get("pdf_download_count") != 0:
+        fail("Batch 12MJ target/PDF scope drift")
+    disposition = mj.get("branch_disposition", {})
+    if disposition.get("status") != "PAUSED_ACCESS_UNRESOLVED_PENDING_MATERIALLY_NEW_ROUTE" or set(disposition.get("primary_targets", {}).values()) != {"NOT_REVIEWED"}:
+        fail("Batch 12MJ unresolved-primary-target state drift")
+    if any(mj.get("adjudication", {}).values()) or any(mj.get("security", {}).values()):
+        fail("Batch 12MJ absence/text/action firewall regressed")
+    if mj.get("accounting") != mi.get("accounting") or mj.get("project_consequence") != mi.get("project_consequence") or mj.get("transmission_impact", {}).get("status") != "NONE":
+        fail("Batch 12MJ zero-rule-impact accounting drift")
+    if mj.get("execution", {}).get("github_runner_probe_claimed") is not False or "HPA-ZIWEI-013" not in " ".join(mj.get("next_gate", ())):
+        fail("Batch 12MJ execution/next-work scope drift")
+    if "EXT-NABUNKEN-REPOSITORY-WENWU1951-DISCOVERY-CLOSURE" not in {x.get("source_id") for x in registry.get("sources", ())}:
+        fail("Batch 12MJ source registry binding missing")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

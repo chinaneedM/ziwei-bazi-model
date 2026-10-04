@@ -223,7 +223,7 @@ Fusion Chart Capability & Performance Acceptance R1 已正式收口。最终执�
 
 ## Fusion Chart Historical Provenance & School Audit R1
 
-最新定位审计闭环为 **Batch 12MI**：新增 Google Books 第 19–24 号对象，出版年与 UCD 具体副本对应仍未闭合；访问失败与成功书目摘要分别记账，未新增目标原文票。计数保持 198 / 166 / 10、来源元数据缺陷 17/17 已修复，算法缺陷/重开/候选折叠为 0。当前工作与下一门见 `docs/PROJECT-CURRENT-STATE-R1.json`。
+最新访问审计闭环为 **Batch 12MJ**：奈文研公开仓储正控制成功，刊名命中的五篇现代材料均已排除，目标原文仍未取得；当前匿名原刊恢复分支暂停为访问未决，下一门回到身宫干支纯投影审计。计数保持 198 / 166 / 10、来源元数据缺陷 17/17 已修复，算法缺陷/重开/候选折叠为 0。当前工作与下一门见 `docs/PROJECT-CURRENT-STATE-R1.json`。
 
 ```text
 FUSION_CHART_HISTORICAL_PROVENANCE_AUDIT_R1=IN_PROGRESS
