@@ -1244,3 +1244,13 @@ Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NL
 - Direct Wenhui 1951-08-18, Wenwu pp.221–233 and 2011 Wenji p.197 remain NOT_REVIEWED. Accounting remains 198 / 166 / 10; provenance defects 17/17; zero algorithm defects/reopens/candidate collapses.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-OPAC-PUBLIC-SEARCH-CONTRACT-TRANSPORT-BOUNDARY-JW.md`. Research record: `docs/research/ZIWEI-NLC-OPAC-PUBLIC-SEARCH-CONTRACT-TRANSPORT-BOUNDARY-R1.json`.
+
+
+## Progress — Batch 12MF
+
+- CADAL 首页公开 POST 检索表单已绑定；刊名及繁简文章名三个查询，首次与同会话校准均 HTTP 302 返回首页，未恢复目标对象。
+- 这是访问重定向边界，不是零结果或目标缺失；原因未决，当前请求分支停止等待新第一方机制。
+- 控制性 artifact ZIP 摘要已独立核验，成员 JSON 与任务日志一致。原刊 pp.221–233、2011 p.197 与上海文汇报日期页保持未核读。
+- 无规则或传承图变更：198 / 166 / 10，17/17 provenance defects repaired，算法缺陷/重开/候选折叠均 0。
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENWU1951-CADAL-PUBLIC-SEARCH-REDIRECT-BOUNDARY-MF.md`. Research record: `docs/research/ZIWEI-WENWU1951-CADAL-PUBLIC-SEARCH-REDIRECT-BOUNDARY-R1.json`.

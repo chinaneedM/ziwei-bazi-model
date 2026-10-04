@@ -861,9 +861,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-WENHUI-EPAPER-ROOT-DATE-CONTRACT-RECALIBRATION-MC",
     "BATCH-12-ZIWEI-ZJLIB-ZHAO-WANLI-ARTICLE-ROUTE-MD",
     "BATCH-12-ZIWEI-WENJI-P197-DUXIU-SSLIBRARY-PREQUERY-AUTH-BOUNDARY-ME",
+    "BATCH-12-ZIWEI-WENWU1951-CADAL-PUBLIC-SEARCH-REDIRECT-BOUNDARY-MF",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENJI-P197-DUXIU-SSLIBRARY-PREQUERY-AUTH-BOUNDARY-ME.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENWU1951-CADAL-PUBLIC-SEARCH-REDIRECT-BOUNDARY-MF.md"
 
 
 def fail(message: str) -> None:
@@ -13828,6 +13829,39 @@ def main() -> int:
         fail("Batch 12ME state version regressed below 1.346.0")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12ME latest-batch document mismatch")
+
+    # Batch 12MF: public search redirects must never become target-absence evidence.
+    mf_path = ROOT / "docs/research/ZIWEI-WENWU1951-CADAL-PUBLIC-SEARCH-REDIRECT-BOUNDARY-R1.json"
+    if not mf_path.is_file() or not (ROOT / LATEST_BATCH_DOC).is_file():
+        fail("Batch 12MF continuity artifact missing")
+    mf = json.loads(mf_path.read_text(encoding="utf-8"))
+    if mf.get("batch_id") != "BATCH-12-ZIWEI-WENWU1951-CADAL-PUBLIC-SEARCH-REDIRECT-BOUNDARY-MF":
+        fail("Batch 12MF evidence identity mismatch")
+    ps = mf.get("probes", [])
+    if len(ps) != 3 or [x.get("workflow_run_id") for x in ps] != [37175585343, 37175671876, 37175777604]:
+        fail("Batch 12MF probe lineage mismatch")
+    form = ps[0].get("search_form", {})
+    if form.get("method") != "POST" or form.get("action") != "/cadalinfo/search":
+        fail("Batch 12MF first-party search contract mismatch")
+    if ps[2].get("same_anonymous_session") is not True or ps[2].get("home_response", {}).get("search_form_contract_reconfirmed") is not True:
+        fail("Batch 12MF same-session calibration missing")
+    for probe in ps[1:]:
+        records = probe.get("query_records", [])
+        if len(records) != 3 or any(x.get("status") != 302 or x.get("location") != "/index/home" or x.get("bytes") != 0 for x in records):
+            fail("Batch 12MF redirect evidence mismatch")
+    if ps[2].get("artifact_id") != 11293252198 or ps[2].get("artifact_digest") != "sha256:b67ff21326676916eac800607163a4bf80be1dd809693ff5c9cc3bd0c0ba725a":
+        fail("Batch 12MF controlling artifact identity mismatch")
+    adj = mf.get("adjudication", {})
+    for key in ("authentication_requirement_proved", "zero_result_search_observed", "target_presence_or_absence_adjudicated", "target_object_bound", "direct_1951_pages_reviewed", "primary_text_upgrade_authorized"):
+        if adj.get(key) is not False:
+            fail(f"Batch 12MF absence/direct-page firewall regressed: {key}")
+    if adj.get("redirect_reason") != "UNRESOLVED" or adj.get("evidence_vote_increment") != 0:
+        fail("Batch 12MF inference/vote firewall regressed")
+    src_mf = next((x for x in registry.get("sources", ()) if x.get("source_id") == "EXT-CADAL-WENWU1951-PUBLIC-SEARCH-REDIRECT-BOUNDARY-2026"), {})
+    if src_mf.get("batch_12mf", {}).get("artifact_id") != 11293252198:
+        fail("Batch 12MF registry binding missing")
+    if mf.get("accounting") != me.get("accounting") or mf.get("project_consequence") != me.get("project_consequence"):
+        fail("Batch 12MF zero-product-impact accounting drift")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

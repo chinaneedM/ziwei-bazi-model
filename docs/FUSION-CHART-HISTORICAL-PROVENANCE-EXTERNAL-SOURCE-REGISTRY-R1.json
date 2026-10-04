@@ -12787,8 +12787,29 @@
         "direct_2011_page197_reviewed": false,
         "research_artifact": "docs/research/ZIWEI-WENJI-P197-DUXIU-SSLIBRARY-PREQUERY-AUTH-BOUNDARY-R1.json"
       }
+    },
+    {
+      "source_id": "EXT-CADAL-WENWU1951-PUBLIC-SEARCH-REDIRECT-BOUNDARY-2026",
+      "title": "CADAL 1951 文物参考资料公开检索重定向边界",
+      "provider": "CADAL",
+      "url": "https://cadal.edu.cn/index/home",
+      "historical_period": "2026 public service surface; target 1951 issue remains unreviewed",
+      "source_role": "CURRENT_PUBLIC_SEARCH_REDIRECT_BOUNDARY_ONLY_NOT_HISTORICAL_TEXT",
+      "quality_notes": "The homepage publicly emits a POST search form, but each of the three documented target queries returns HTTP 302 to /index/home with an empty body, both initially and after homepage/form reconfirmation in the same session. This is a search-redirect access boundary in the controlling runner, not a zero-result search and not proof of authentication requirements or corpus absence.",
+      "batch_12mf": {
+        "workflow_run_id": 37175777604,
+        "workflow_job_id": 111357960349,
+        "artifact_id": 11293252198,
+        "artifact_digest": "sha256:b67ff21326676916eac800607163a4bf80be1dd809693ff5c9cc3bd0c0ba725a",
+        "exact_head": "5e24fbde1b0dca32b5027602caeb485823bf9eda",
+        "exact_tree": "e2ed2a577b0f7d850016af4a9dded634408e55df",
+        "same_session_redirect_reconfirmed": true,
+        "direct_1951_pages_reviewed": false,
+        "evidence_vote_increment": 0,
+        "research_artifact": "docs/research/ZIWEI-WENWU1951-CADAL-PUBLIC-SEARCH-REDIRECT-BOUNDARY-R1.json"
+      }
     }
   ],
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md",
-  "updated_at": "2026-10-02"
+  "updated_at": "2026-10-04"
 }

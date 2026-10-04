@@ -223,6 +223,8 @@ Fusion Chart Capability & Performance Acceptance R1 已正式收口。最终执�
 
 ## Fusion Chart Historical Provenance & School Audit R1
 
+最新访问审计闭环为 **Batch 12MF**：CADAL 的公开检索表单已确认，但同会话目标查询仍重定向回首页，未获取 1951 年原刊页面。累计计数保持 198 / 166 / 10、来源元数据缺陷 17/17 已修复，算法缺陷/重开/候选折叠为 0。当前工作与下一门见 `docs/PROJECT-CURRENT-STATE-R1.json`。
+
 ```text
 FUSION_CHART_HISTORICAL_PROVENANCE_AUDIT_R1=IN_PROGRESS
 HISTORICAL_PROVENANCE_INVENTORY=COMPLETE
