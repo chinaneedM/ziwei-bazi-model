@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.361.0",
+  "schema_version": "1.362.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -37,8 +37,8 @@
     "matrix_json": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json",
     "matrix_md": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.md",
     "external_source_registry": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json",
-    "row_count": 206,
-    "audited_row_count": 184,
+    "row_count": 210,
+    "audited_row_count": 189,
     "confirmed_provenance_metadata_defect_count": 18,
     "repaired_provenance_metadata_defect_count": 18,
     "historical_candidate_registry_count": 3,
@@ -442,9 +442,10 @@
       "BATCH-12-BAZI-STRUCTURAL-CONTEXT-SOURCE-PRESERVING-PROJECTION-AUDIT-MP",
       "BATCH-12-BAZI-STRUCTURAL-SUPPORT-EVIDENCE-CLASS-PROJECTION-AUDIT-MQ",
       "BATCH-12-BAZI-COMBINED-UNIFIED-TARGET-TIMELINE-COMPOSITION-AUDIT-MR",
-      "BATCH-12-BAZI-NATAL-FOUR-PILLAR-COMPOSITION-AUDIT-MS"
+      "BATCH-12-BAZI-NATAL-FOUR-PILLAR-COMPOSITION-AUDIT-MS",
+      "BATCH-12-ZIWEI-R3-BORROW-PROJECTION-SCHOOL-MECHANICS-AND-MODERN-CLOSURE-AUDIT-MT"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-NATAL-FOUR-PILLAR-COMPOSITION-AUDIT-MS.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-R3-BORROW-PROJECTION-SCHOOL-MECHANICS-AND-MODERN-CLOSURE-AUDIT-MT.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -2041,7 +2042,12 @@
       "HPA-BAZI-016 pillar-year integer→Ganzhi, HPA-BAZI-018 Gregorian/JDN→day Ganzhi and HPA-BAZI-019 selected modern clock→double-hour branch are MODERN_COMPATIBILITY_ONLY coordinate bridges. GB/T 33661-2017 is calibration, not ancient Bazi authority.",
       "No runtime algorithm/schema/hash changes and no new provenance defect. Matrix is now 206 / 184 / 10; provenance defects remain 17/17; chart algorithm defects / reopens / candidate collapses remain 0.",
       "12MT: audit HPA-STRUCT-003 R3 borrow projection as the next unaudited IMPLEMENTATION_REVIEW_REQUIRED row in Matrix order. Separate neutral projection mechanics from source-specific interpretive doctrine and preserve upstream candidate lineage.",
-      "PROV-DEFECT-018 repaired: Batch 12MR conflated the released PRE_DAYUN interval frame with a synthetic Dayun Ganzhi. Runtime correctly preserves PreDayunFrame as the active interval while emitting no Dayun Ganzhi; only audit prose/evidence/test changed. Runtime bytes and hashes unchanged; provenance defects are 18/18."
+      "PROV-DEFECT-018 repaired: Batch 12MR conflated the released PRE_DAYUN interval frame with a synthetic Dayun Ganzhi. Runtime correctly preserves PreDayunFrame as the active interval while emitting no Dayun Ganzhi; only audit prose/evidence/test changed. Runtime bytes and hashes unchanged; provenance defects are 18/18.",
+      "Batch 12MT decomposes HPA-STRUCT-003 R3 borrow projection into three Zhongzhou-school mechanical rules plus one explicitly modern software closure rule; the R3 aggregate is MODERN_COMPATIBILITY_ONLY rather than a monolithic historical doctrine.",
+      "HPA-STRUCT-009 empty-palace eligibility, HPA-STRUCT-010 opposite-palace all-star borrowing and HPA-STRUCT-011 pre-borrow of empty Sanfang/Sizheng members are SUPPORTED_BUT_SCHOOL_SPECIFIC from the S06 normalized Wang Tingzhi route / EXT-WANGTINGZHI-ZHONGZHOU-CHUJI.",
+      "HPA-STRUCT-012 immutable projection, one-step non-recursion/fail-closed, zero-second-contribution and STRUCTURE_PHYSICAL_KEY dedup are MODERN_COMPATIBILITY_ONLY engineering semantics. They are not back-dated as Zhongzhou doctrine.",
+      "No R3 runtime/schema/hash changes and no new provenance defect. Matrix is now 210 / 189 / 10; provenance defects remain 18/18; chart algorithm defects / reopens / candidate collapses remain 0.",
+      "12MU: audit HPA-STRUCT-005 R5 borrow-resolved Sanfang/Sizheng composition as the next unaudited IMPLEMENTATION_REVIEW_REQUIRED row in Matrix order. Keep R3 borrow mechanics, R4 named semantics and R5 composition authority separately scoped."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10

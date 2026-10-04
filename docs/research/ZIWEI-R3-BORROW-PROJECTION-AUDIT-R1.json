@@ -1,0 +1,115 @@
+{
+  "schema": "ZIWEI-R3-BORROW-PROJECTION-AUDIT-R1",
+  "batch_id": "BATCH-12-ZIWEI-R3-BORROW-PROJECTION-SCHOOL-MECHANICS-AND-MODERN-CLOSURE-AUDIT-MT",
+  "prior_batch_id": "BATCH-12-BAZI-NATAL-FOUR-PILLAR-COMPOSITION-AUDIT-MS",
+  "parent_rule_id": "HPA-STRUCT-003",
+  "child_rule_ids": [
+    "HPA-STRUCT-009",
+    "HPA-STRUCT-010",
+    "HPA-STRUCT-011",
+    "HPA-STRUCT-012"
+  ],
+  "audit_scope": "DECOMPOSE_R3_BORROW_PROJECTION_INTO_ZHONGZHOU_SCHOOL_MECHANICS_AND_EXPLICITLY_MODERN_ENGINEERING_CLOSURE_WITHOUT_BACK_DATING_SOFTWARE_DEDUP_OR_HASH_SEMANTICS",
+  "adjudication": {
+    "parent_status": "MODERN_COMPATIBILITY_ONLY",
+    "child_statuses": {
+      "HPA-STRUCT-009": "SUPPORTED_BUT_SCHOOL_SPECIFIC",
+      "HPA-STRUCT-010": "SUPPORTED_BUT_SCHOOL_SPECIFIC",
+      "HPA-STRUCT-011": "SUPPORTED_BUT_SCHOOL_SPECIFIC",
+      "HPA-STRUCT-012": "MODERN_COMPATIBILITY_ONLY"
+    },
+    "algorithm_reopen_authorized": false,
+    "alternate_school_winner_selected": false,
+    "named_sanfang_semantics_imported": false
+  },
+  "source_scope": {
+    "canonical_runtime_segment": "sources/canonical-runtime/S06/segment-0039.txt",
+    "canonical_runtime_segment_blob_sha": "0ee924ab0a29d217e57c87ba4e83ae30ca5220be",
+    "normalized_source_line_ids": [
+      "ZZTERM-L-0212",
+      "ZZTERM-L-0219",
+      "ZZTERM-L-0226"
+    ],
+    "executable_rule_ids": [
+      "BORROW_RULE_01",
+      "BORROW_RULE_02",
+      "BORROW_RULE_03",
+      "BORROW_RULE_04",
+      "BORROW_RULE_05"
+    ],
+    "external_school_witness": "EXT-WANGTINGZHI-ZHONGZHOU-CHUJI",
+    "bibliographic_witness": "EXT-XINGQIAO-WANGTINGZHI-ZHONGZHOU-CHUJI",
+    "earliest_genealogy_closed": false,
+    "prior_teacher_transmission_claim_treated_as_independent_ancestry_proof": false
+  },
+  "runtime_contract": {
+    "member_offsets": [
+      0,
+      4,
+      6,
+      8
+    ],
+    "evaluation_origin_count": 12,
+    "member_fact_count": 48,
+    "principal_star_emptiness_count": 14,
+    "opposite_only_borrow": true,
+    "project_all_physical_placements": true,
+    "project_source_transformations_as_overlays": true,
+    "physical_relocation": false,
+    "recursive_borrow": false,
+    "double_empty_fail_closed": true,
+    "zero_second_contribution": true,
+    "structure_physical_key_dedup": true,
+    "active_time_layer": "NATAL",
+    "source_root_atom_ids_present_per_member_fact": false,
+    "source_root_note": "R3 computation lineage binds global S06 source refs; the released member-fact schema does not serialize per-row SOURCE_ROOT_ATOM_IDS. 12MT records this as a provenance-boundary limitation, not a chart-algorithm defect or an invented source-root mapping."
+  },
+  "runtime_files": [
+    {
+      "path": "src/fortune_training/ziwei_structural/r3/projection.py",
+      "blob_sha": "8d9edfda856d8de05a2357921420b5a77d93b8e5",
+      "unchanged_from_base": true
+    },
+    {
+      "path": "src/fortune_training/ziwei_structural/r3/engine.py",
+      "blob_sha": "d18a4a2ac4425dd96a196c3fe2262d036eda40bd",
+      "unchanged_from_base": true
+    },
+    {
+      "path": "src/fortune_training/ziwei_structural/r3/profile.py",
+      "blob_sha": "feeb2771312f4580e3d19f10f0d4c5814cf84247",
+      "unchanged_from_base": true
+    },
+    {
+      "path": "src/fortune_training/ziwei_structural/r3/integrity.py",
+      "blob_sha": "85eb1a005521d618bc743add216e96193688ab32",
+      "unchanged_from_base": true
+    },
+    {
+      "path": "docs/ZIWEI-STRUCTURAL-RUNTIME-V2-R3.md",
+      "blob_sha": "a7a4a167e54fe69f69cf198b18f1ad6a1deb9e79",
+      "unchanged_from_base": true
+    }
+  ],
+  "replay_evidence": "docs/research/evidence/batch-12mt/borrow-projection-replay.json",
+  "accounting": {
+    "rows_before": 206,
+    "rows_after": 210,
+    "audited_rows_before": 184,
+    "audited_rows_after": 189,
+    "current_missing_from_product_rows": 10,
+    "provenance_defects_confirmed": 18,
+    "provenance_defects_repaired": 18,
+    "chart_algorithm_defects": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0
+  },
+  "transmission_impact": {
+    "status": "NONE",
+    "reason": "The batch attributes mechanics to a modern Zhongzhou-school witness but does not prove a new physical-witness ancestry, copying relation, or earlier school-transmission edge. No genealogy edge is added."
+  },
+  "next_gate": [
+    "12MU: audit HPA-STRUCT-005 R5 borrow-resolved Sanfang/Sizheng composition; keep R3 borrow mechanics and R4 named semantics independently scoped.",
+    "Original Wenwu1951 recovery remains paused pending a materially new lawful access mechanism."
+  ]
+}

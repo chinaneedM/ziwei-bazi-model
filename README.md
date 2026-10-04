@@ -223,7 +223,7 @@ Fusion Chart Capability & Performance Acceptance R1 已正式收口。最终执�
 
 ## Fusion Chart Historical Provenance & School Audit R1
 
-最新规则审计闭环为 **Batch 12MS**：HPA-BAZI-001 已拆成五条独立受控子规则，不再把现代四柱 Natal bundle 倒推为一条古典总规则。五虎遁（HPA-BAZI-017）与五鼠遁（HPA-BAZI-020）有 received 宋/明/清机械见证；pillar-year→干支、Gregorian/JDN→日干支、选定 modern clock→十二时支三条桥明确归为 `MODERN_COMPATIBILITY_ONLY`。立春/交节、日界、晚子时与 local-apparent-solar time 继续由既有独立规则管理且不选新赢家。Matrix 为 206 项、已审 184 项、缺失候选 10；来源缺陷 18/18（新增 PROV-DEFECT-018 为 12MR 审计断言修复，不改运行时），算法缺陷/重开/候选折叠 0。下一门为 `HPA-STRUCT-003` Structural R3 borrow projection，见 `docs/PROJECT-CURRENT-STATE-R1.json`。
+最新规则审计闭环为 **Batch 12MT**：`HPA-STRUCT-003` R3 borrow projection 已拆为三条中州派借星机械规则（HPA-STRUCT-009 空宫资格、HPA-STRUCT-010 对宫全星借入、HPA-STRUCT-011 三方四正成员先借后会）与一条现代工程闭包（HPA-STRUCT-012 不物理迁移、一次投影/双空 fail-closed、零二次贡献与物理键去重）。R3 总层因此归为 `MODERN_COMPATIBILITY_ONLY`，前三条为 `SUPPORTED_BUT_SCHOOL_SPECIFIC`；不把 hash、去重和 fail-closed 工程语义倒推成传统教义。Matrix 为 210 项、已审 189 项、缺失候选 10；来源缺陷 18/18，算法缺陷/重开/候选折叠 0。下一门为 `HPA-STRUCT-005` R5 borrow-resolved Sanfang/Sizheng composition，见 `docs/PROJECT-CURRENT-STATE-R1.json`。
 
 ```text
 FUSION_CHART_HISTORICAL_PROVENANCE_AUDIT_R1=IN_PROGRESS

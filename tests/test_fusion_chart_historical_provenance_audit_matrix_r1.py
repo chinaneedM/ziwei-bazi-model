@@ -913,5 +913,35 @@ class HistoricalProvenanceAuditMatrixR1Test(unittest.TestCase):
         self.assertIn("EXT-SAMR-GBT33661-2017-GANZHI-CYCLE", self.sources)
 
 
+    def test_batch_12mt_r3_borrow_projection_is_decomposed(self) -> None:
+        by_id = {row["rule_id"]: row for row in self.rows}
+        parent = by_id["HPA-STRUCT-003"]
+        self.assertEqual("MODERN_COMPATIBILITY_ONLY", parent["audit_status"])
+        self.assertEqual(
+            "BATCH-12-ZIWEI-R3-BORROW-PROJECTION-SCHOOL-MECHANICS-AND-MODERN-CLOSURE-AUDIT-MT",
+            parent["audit_batch"],
+        )
+        child_ids = [
+            "HPA-STRUCT-009",
+            "HPA-STRUCT-010",
+            "HPA-STRUCT-011",
+            "HPA-STRUCT-012",
+        ]
+        self.assertEqual(child_ids, parent["child_rule_ids"])
+        for rule_id in child_ids[:3]:
+            self.assertEqual("SUPPORTED_BUT_SCHOOL_SPECIFIC", by_id[rule_id]["audit_status"])
+        self.assertEqual("MODERN_COMPATIBILITY_ONLY", by_id["HPA-STRUCT-012"]["audit_status"])
+        for rule_id in ["HPA-STRUCT-003", *child_ids]:
+            self.assertIn(rule_id, self.payload["audited_row_ids"])
+            self.assertFalse(by_id[rule_id]["algorithm_reopen_authorized"])
+        firewall = parent["component_firewall"]
+        self.assertFalse(firewall["named_sanfang_sizheng_semantics_imported"])
+        self.assertFalse(firewall["borrowed_stars_physically_relocated"])
+        self.assertFalse(firewall["alternate_school_winner_selected"])
+        source = self.sources["EXT-WANGTINGZHI-ZHONGZHOU-CHUJI"]
+        self.assertEqual("ZHONGZHOU", source["batch_12mt"]["school_scope"])
+        self.assertFalse(source["batch_12mt"]["earliest_genealogy_closed"])
+
+
 if __name__ == "__main__":
     unittest.main()

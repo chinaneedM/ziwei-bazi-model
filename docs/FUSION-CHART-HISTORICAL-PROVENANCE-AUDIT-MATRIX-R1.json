@@ -43,14 +43,14 @@
     "algorithm_reopen_authorized"
   ],
   "inventory_summary": {
-    "row_count": 206,
+    "row_count": 210,
     "status_counts": {
-      "MODERN_COMPATIBILITY_ONLY": 39,
+      "MODERN_COMPATIBILITY_ONLY": 41,
       "HISTORICALLY_SUPPORTED": 97,
       "DISPUTED_MULTIPLE_CANDIDATES": 29,
-      "SUPPORTED_BUT_SCHOOL_SPECIFIC": 18,
+      "SUPPORTED_BUT_SCHOOL_SPECIFIC": 21,
       "SOURCE_INSUFFICIENT": 9,
-      "IMPLEMENTATION_REVIEW_REQUIRED": 3,
+      "IMPLEMENTATION_REVIEW_REQUIRED": 2,
       "MISSING_FROM_PRODUCT": 10,
       "NOT_YET_FORMALIZED": 1
     },
@@ -76,12 +76,12 @@
       "动态辅助星": 12,
       "流日": 2,
       "流时": 3,
-      "Structural R1–R8": 8,
+      "Structural R1–R8": 12,
       "Combined Fusion": 4,
       "candidate/profile rules": 2,
       "provenance / hashes / lineage": 2
     },
-    "audited_row_count": 184
+    "audited_row_count": 189
   },
   "rows": [
     {
@@ -2647,22 +2647,150 @@
       "system": "ZIWEI",
       "module": "Structural R1–R8",
       "rule_or_field": "R3 borrow projection",
-      "current_implementation": "S06-BORROW-CLOSURE-R1 projects borrow relation on R2 coordinates.",
-      "current_profile": "ZIWEI-STRUCTURAL-RUNTIME-V2-R3",
-      "primary_source": "S06",
-      "source_quote": "PENDING_VERBATIM_EXTRACTION",
-      "source_quote_location": "src/fortune_training/ziwei_structural/r3/profile.py",
-      "historical_period": "PENDING_BIBLIOGRAPHIC_DATING",
-      "later_witnesses": "PENDING_LATER_WITNESS_AUDIT",
-      "school_attribution": "PENDING_SCHOOL_ATTRIBUTION_AUDIT",
+      "current_implementation": "ZIWEI-STRUCTURAL-RUNTIME-V2-R3 composes source-scoped Zhongzhou borrow mechanics with modern immutable-state projection, one-step fail-closed closure, deduplication and hash lineage over neutral R2 coordinates.",
+      "current_profile": "ZIWEI-STRUCTURAL-RUNTIME-V2-R3@1.0.0 / S06-BORROW-CLOSURE-R1@1.0.0",
+      "primary_source": "S06 normalized Wang Tingzhi Zhongzhou borrow-method route plus EXT-WANGTINGZHI-ZHONGZHOU-CHUJI; modern closure semantics are software infrastructure, not back-dated doctrine.",
+      "source_quote": "Source-scoped borrow mechanics require an empty main-star palace to borrow the opposite; empty Sanfang/Sizheng members borrow before conjunction. R3 then adds modern non-relocation, one-step closure and deduplication.",
+      "source_quote_location": "S06:ZZTERM-L-0212, ZZTERM-L-0219, ZZTERM-L-0226; sources/canonical-runtime/S06/segment-0039.txt BORROW_RULE_01..05 and ZZTERM_BORROW_CLOSURE; src/fortune_training/ziwei_structural/r3/projection.py",
+      "historical_period": "MODERN_ZHONGZHOU_SCHOOL_WITNESS_COMPOSED_WITH_MODERN_SOFTWARE_CLOSURE",
+      "later_witnesses": "EXT-XINGQIAO-WANGTINGZHI-ZHONGZHOU-CHUJI corroborates bibliographic identity only. The source's claim of transmission from prior Zhongzhou teachers is retained as an internal lineage statement, not independent proof of earlier textual ancestry.",
+      "school_attribution": "ZHONGZHOU_SCHOOL_BORROW_MECHANICS_PLUS_MODERN_PROJECTION_INFRASTRUCTURE",
       "competing_methods": [
-        "alternate 借星/借宫 conventions"
+        "Other Ziwei schools may use different empty-palace/borrow conventions or weighting semantics.",
+        "R3 deliberately excludes interpretive borrow-weight ranking and does not claim the engineering zero-second-contribution rule is classical doctrine."
       ],
-      "current_implementation_match": "PENDING_RULE_BY_RULE_REPLAY",
-      "confidence": "INVENTORY_CONFIDENCE_HIGH",
-      "audit_status": "IMPLEMENTATION_REVIEW_REQUIRED",
-      "proposed_action": "Extract S06 clauses and trace school lineage.",
-      "algorithm_reopen_authorized": false
+      "current_implementation_match": "DECOMPOSED_MATCH. HPA-STRUCT-009..011 replay the school-specific empty-palace, all-star opposite borrowing and pre-Sanfang member borrowing rules; HPA-STRUCT-012 isolates modern immutable projection, non-recursion/fail-closed and physical-key dedup semantics. Existing R3 tests cover 12×4=48 member facts, all-star projection, transformation overlays, double-empty fail-closed and deduplication.",
+      "confidence": "HIGH_FOR_MODERN_ZHONGZHOU_TEXT_AND_RUNTIME_MECHANICS; MEDIUM_LOW_FOR_EARLIER_SCHOOL_GENEALOGY",
+      "audit_status": "MODERN_COMPATIBILITY_ONLY",
+      "proposed_action": "No algorithm reopen. Retain R3 as a modern composition layer; keep school-specific borrow mechanics separately attributed and keep engineering closure/dedup semantics explicitly modern.",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-12-ZIWEI-R3-BORROW-PROJECTION-SCHOOL-MECHANICS-AND-MODERN-CLOSURE-AUDIT-MT",
+      "historical_scope": "MODERN_R3_COMPOSER_OVER_ZHONGZHOU_SCHOOL_BORROW_MECHANICS_AND_ENGINEERING_CLOSURE",
+      "child_rule_ids": [
+        "HPA-STRUCT-009",
+        "HPA-STRUCT-010",
+        "HPA-STRUCT-011",
+        "HPA-STRUCT-012"
+      ],
+      "upstream_rule_ids": [
+        "HPA-STRUCT-001",
+        "HPA-STRUCT-002"
+      ],
+      "component_firewall": {
+        "school_specific_mechanics": [
+          "HPA-STRUCT-009",
+          "HPA-STRUCT-010",
+          "HPA-STRUCT-011"
+        ],
+        "modern_engineering_closure": "HPA-STRUCT-012",
+        "named_sanfang_sizheng_semantics_imported": false,
+        "borrowed_stars_physically_relocated": false,
+        "interpretation_or_prediction_authorized": false,
+        "alternate_school_winner_selected": false
+      },
+      "runtime_change": false,
+      "provenance_defect_increment": 0,
+      "audit_evidence": "docs/research/ZIWEI-R3-BORROW-PROJECTION-AUDIT-R1.json"
+    },
+    {
+      "rule_id": "HPA-STRUCT-009",
+      "system": "ZIWEI",
+      "module": "Structural R1–R8",
+      "rule_or_field": "R3 Zhongzhou empty-palace borrow eligibility by absence of fourteen principal stars",
+      "current_implementation": "BorrowProjectionGenerator treats a target as borrow-eligible when it contains none of the frozen fourteen V1 principal-star identities; auxiliary/assistant/malefic/miscellaneous placements do not block borrowing.",
+      "current_profile": "ZIWEI-STRUCTURAL-RUNTIME-V2-R3@1.0.0",
+      "primary_source": "S06:ZZTERM-L-0212 plus BORROW_RULE_01; EXT-WANGTINGZHI-ZHONGZHOU-CHUJI modern Zhongzhou-school witness.",
+      "source_quote": "无正曜坐守时借对宫；辅佐煞杂曜不改变无正曜状态。",
+      "source_quote_location": "sources/canonical-runtime/S06/segment-0039.txt ZZTERM-L-0212 and BORROW_RULE_01; EXT-WANGTINGZHI-ZHONGZHOU-CHUJI",
+      "historical_period": "MODERN_ZHONGZHOU_SCHOOL_WITNESS",
+      "later_witnesses": "S06 encodes the same rule in both normalized source-segment and executable borrow-rule layers.",
+      "school_attribution": "ZHONGZHOU_SCHOOL_BORROW_STAR_METHOD",
+      "competing_methods": [
+        "Alternate schools may define empty-palace handling or borrow weighting differently."
+      ],
+      "current_implementation_match": "EXACT_WITHIN_SCHOOL_SCOPE: runtime emptiness domain is exactly the frozen fourteen principal stars; auxiliary-only target remains borrow-eligible.",
+      "confidence": "HIGH_FOR_SCHOOL_TEXT_AND_RUNTIME_MATCH; LOW_FOR_EARLIEST_GENEALOGY",
+      "audit_status": "SUPPORTED_BUT_SCHOOL_SPECIFIC",
+      "proposed_action": "No reopen. Keep eligibility explicitly Zhongzhou-scoped; do not universalize it to all Ziwei schools.",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-12-ZIWEI-R3-BORROW-PROJECTION-SCHOOL-MECHANICS-AND-MODERN-CLOSURE-AUDIT-MT",
+      "historical_scope": "MODERN_ZHONGZHOU_EMPTY_PALACE_BORROW_ELIGIBILITY_ONLY",
+      "audit_evidence": "docs/research/ZIWEI-R3-BORROW-PROJECTION-AUDIT-R1.json"
+    },
+    {
+      "rule_id": "HPA-STRUCT-010",
+      "system": "ZIWEI",
+      "module": "Structural R1–R8",
+      "rule_or_field": "R3 Zhongzhou opposite-palace all-star borrow projection",
+      "current_implementation": "For an eligible empty target, R3 reads only the physical opposite and projects all physical placements there; source-side transformation activations are carried as overlays rather than limiting the projection to principal stars.",
+      "current_profile": "ZIWEI-STRUCTURAL-RUNTIME-V2-R3@1.0.0",
+      "primary_source": "S06:ZZTERM-L-0219 plus BORROW_RULE_02; EXT-WANGTINGZHI-ZHONGZHOU-CHUJI.",
+      "source_quote": "借星安宫须借对宫全部星曜，不只借正曜。",
+      "source_quote_location": "sources/canonical-runtime/S06/segment-0039.txt ZZTERM-L-0219 and BORROW_RULE_02; EXT-WANGTINGZHI-ZHONGZHOU-CHUJI",
+      "historical_period": "MODERN_ZHONGZHOU_SCHOOL_WITNESS",
+      "later_witnesses": "S06 basic-chart rows independently bind empty-palace borrow targets to their physical opposites.",
+      "school_attribution": "ZHONGZHOU_SCHOOL_BORROW_STAR_METHOD",
+      "competing_methods": [
+        "Schools may differ on whether borrowed content is weighted, interpreted or restricted; those semantics are outside this row."
+      ],
+      "current_implementation_match": "MECHANICAL_MATCH_WITH_MODERN_DATA REPRESENTATION: opposite-only source and all physical placements match the source rule; transformation state is represented by source-bound overlay objects.",
+      "confidence": "HIGH_FOR_SCHOOL_TEXT_AND_RUNTIME_MECHANICS",
+      "audit_status": "SUPPORTED_BUT_SCHOOL_SPECIFIC",
+      "proposed_action": "No reopen. Preserve all-star opposite borrowing without importing downstream strength, auspiciousness or prediction semantics.",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-12-ZIWEI-R3-BORROW-PROJECTION-SCHOOL-MECHANICS-AND-MODERN-CLOSURE-AUDIT-MT",
+      "historical_scope": "MODERN_ZHONGZHOU_OPPOSITE_ALL_STAR_BORROW_ONLY",
+      "audit_evidence": "docs/research/ZIWEI-R3-BORROW-PROJECTION-AUDIT-R1.json"
+    },
+    {
+      "rule_id": "HPA-STRUCT-011",
+      "system": "ZIWEI",
+      "module": "Structural R1–R8",
+      "rule_or_field": "R3 Zhongzhou pre-borrow of empty Sanfang/Sizheng member palaces",
+      "current_implementation": "R3 evaluates neutral member offsets {0,4,6,8}; each empty member is independently resolved against its own physical opposite before downstream R4/R5 named structural composition.",
+      "current_profile": "ZIWEI-STRUCTURAL-RUNTIME-V2-R3@1.0.0",
+      "primary_source": "S06:ZZTERM-L-0226 plus BORROW_RULE_03; EXT-WANGTINGZHI-ZHONGZHOU-CHUJI.",
+      "source_quote": "三方四正成员若无正曜，先向其自身对宫借星，再参与会合。",
+      "source_quote_location": "sources/canonical-runtime/S06/segment-0039.txt ZZTERM-L-0226 and BORROW_RULE_03; EXT-WANGTINGZHI-ZHONGZHOU-CHUJI",
+      "historical_period": "MODERN_ZHONGZHOU_SCHOOL_WITNESS",
+      "later_witnesses": "R3 deliberately keeps +4/+8 as neutral offsets because the source route does not mechanically settle left/right 合宫 naming.",
+      "school_attribution": "ZHONGZHOU_SCHOOL_BORROW_STAR_METHOD",
+      "competing_methods": [
+        "Named Sanfang/Sizheng semantics are governed separately by HPA-STRUCT-004 and downstream R5 composition."
+      ],
+      "current_implementation_match": "MATCHES_SEQUENCE_AND_SCOPE: all four neutral member coordinates are resolved first; R3 itself emits no named Sanfang/Sizheng interpretation.",
+      "confidence": "HIGH_FOR_SCHOOL_SEQUENCE; HIGH_FOR_RUNTIME_BOUNDARY",
+      "audit_status": "SUPPORTED_BUT_SCHOOL_SPECIFIC",
+      "proposed_action": "No reopen. Preserve pre-borrow sequencing and keep named structural semantics downstream.",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-12-ZIWEI-R3-BORROW-PROJECTION-SCHOOL-MECHANICS-AND-MODERN-CLOSURE-AUDIT-MT",
+      "historical_scope": "MODERN_ZHONGZHOU_PRE_SANFANG_MEMBER_BORROW_SEQUENCE_ONLY",
+      "audit_evidence": "docs/research/ZIWEI-R3-BORROW-PROJECTION-AUDIT-R1.json"
+    },
+    {
+      "rule_id": "HPA-STRUCT-012",
+      "system": "ZIWEI",
+      "module": "Structural R1–R8",
+      "rule_or_field": "R3 immutable one-step borrow closure, fail-closed recursion boundary and physical deduplication",
+      "current_implementation": "Borrowed content remains references to immutable physical placements; recursive borrowing is forbidden; double-empty opposition fails closed; structure_physical_key deduplicates the same physical fact across evaluation views; borrowed projections carry zero_second_contribution.",
+      "current_profile": "ZIWEI-STRUCTURAL-RUNTIME-V2-R3@1.0.0 / ZIWEI-BORROW-PROJECTION-STATE-V2-R3",
+      "primary_source": "Modern software integrity contract informed by S06 BORROW_RULE_04/05 and ZZTERM_BORROW_CLOSURE; no premodern textual claim is made for hash keys, object immutability or fail-closed state representation.",
+      "source_quote": "R3 records borrow as a non-relocating projection and prevents duplicate base contribution; one-step/fail-closed behavior is an engineering closure.",
+      "source_quote_location": "docs/ZIWEI-STRUCTURAL-RUNTIME-V2-R3.md; src/fortune_training/ziwei_structural/r3/projection.py; r3/integrity.py; S06 BORROW_RULE_04/05",
+      "historical_period": "MODERN_SOFTWARE_INTEGRITY_MODEL",
+      "later_witnesses": "N/A as a historical doctrine. S06 provides semantic constraints that motivate the engineering representation.",
+      "school_attribution": "MODERN_COMPUTATIONAL_PROVENANCE_AND_DEDUP_LAYER",
+      "competing_methods": [
+        "A future provenance sidecar may add finer per-row source-root links without changing physical borrow facts."
+      ],
+      "current_implementation_match": "MATCHES_DECLARED_MODERN_SCOPE: one-step opposite projection, double-empty fail-closed, immutable upstream objects and deterministic physical-key dedup are covered by released R3 tests.",
+      "confidence": "HIGH",
+      "audit_status": "MODERN_COMPATIBILITY_ONLY",
+      "proposed_action": "No reopen. Do not back-date hash/dedup/fail-closed implementation details as Zhongzhou doctrine; keep any finer source-root lineage additive and provenance-only.",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-12-ZIWEI-R3-BORROW-PROJECTION-SCHOOL-MECHANICS-AND-MODERN-CLOSURE-AUDIT-MT",
+      "historical_scope": "MODERN_ENGINEERING_BORROW_CLOSURE_AND_DEDUP_ONLY",
+      "audit_evidence": "docs/research/ZIWEI-R3-BORROW-PROJECTION-AUDIT-R1.json"
     },
     {
       "rule_id": "HPA-STRUCT-004",
@@ -6704,7 +6832,12 @@
     "HPA-BAZI-017",
     "HPA-BAZI-018",
     "HPA-BAZI-019",
-    "HPA-BAZI-020"
+    "HPA-BAZI-020",
+    "HPA-STRUCT-003",
+    "HPA-STRUCT-009",
+    "HPA-STRUCT-010",
+    "HPA-STRUCT-011",
+    "HPA-STRUCT-012"
   ],
   "audit_summary": {
     "confirmed_chart_algorithm_defect_count": 0,
@@ -6728,6 +6861,7 @@
     "BATCH-12-BAZI-STRUCTURAL-CONTEXT-SOURCE-PRESERVING-PROJECTION-AUDIT-MP",
     "BATCH-12-BAZI-STRUCTURAL-SUPPORT-EVIDENCE-CLASS-PROJECTION-AUDIT-MQ",
     "BATCH-12-BAZI-COMBINED-UNIFIED-TARGET-TIMELINE-COMPOSITION-AUDIT-MR",
-    "BATCH-12-BAZI-NATAL-FOUR-PILLAR-COMPOSITION-AUDIT-MS"
+    "BATCH-12-BAZI-NATAL-FOUR-PILLAR-COMPOSITION-AUDIT-MS",
+    "BATCH-12-ZIWEI-R3-BORROW-PROJECTION-SCHOOL-MECHANICS-AND-MODERN-CLOSURE-AUDIT-MT"
   ]
 }
