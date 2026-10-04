@@ -151,7 +151,10 @@ class BaziCombinedUnifiedTargetTimelineCompositionAuditR1Tests(unittest.TestCase
         )
         timeline = result.candidates[0].view["timeline"]
         self.assertEqual("PRE_DAYUN", timeline["dayun"]["kind"])
-        self.assertIsNone(timeline["dayun"]["frame"])
+        self.assertIsNotNone(timeline["dayun"]["frame"])
+        self.assertTrue(timeline["dayun"]["frame"]["frame_id"].startswith("PRE_DAYUN:"))
+        self.assertNotIn("ganzhi", timeline["dayun"]["frame"])
+        self.assertNotIn("sexagenary_index", timeline["dayun"]["frame"])
         xiaoyun = timeline["xiaoyun"]
         self.assertEqual("UNRESOLVED_CLASSICAL_METHOD_ALTERNATIVES", xiaoyun["selection_status"])
         self.assertEqual(2, len(xiaoyun["candidates"]))

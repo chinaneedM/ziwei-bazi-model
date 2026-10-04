@@ -1585,7 +1585,7 @@
         "The timeline's target-civil-year nominal-age match is an engineering linkage coordinate, not a classical age-boundary ruling.",
         "Absent PRE_DAYUN Ganzhi remains absent; no synthetic Dayun pillar is minted by composition."
       ],
-      "current_implementation_match": "EXACT COMPOSITION REPLAY. Layer order is NATAL→DAYUN→XIAOYUN→ANNUAL→MONTHLY→DAILY→HOURLY. Annual/Monthly equal the upstream Flow frames and Daily/Hourly equal the daily-hourly sidecar; target candidate ID, source application IDs, source temporal indices and all source hashes are integrity-bound. Full replay re-executes the released stack.",
+      "current_implementation_match": "EXACT COMPOSITION REPLAY. Layer order is NATAL→DAYUN→XIAOYUN→ANNUAL→MONTHLY→DAILY→HOURLY. PRE_DAYUN preserves the released PreDayunFrame interval identity but carries no Dayun Ganzhi fields; Annual/Monthly equal the upstream Flow frames and Daily/Hourly equal the daily-hourly sidecar; target candidate ID, source application IDs, source temporal indices and all source hashes are integrity-bound. Full replay re-executes the released stack.",
       "confidence": "HIGH_FOR_ENGINEERING_COMPOSITION; NO_SINGLE_CLASSICAL_SEVEN_LAYER_DOCTRINE_CLAIM",
       "audit_status": "MODERN_COMPATIBILITY_ONLY",
       "proposed_action": "No algorithm reopen. Keep the seven-layer timeline as a read-only composition view; preserve missing/uncertain layers, Xiaoyun alternatives, target candidate lineage and each subsystem's independent historical authority.",
@@ -1624,8 +1624,14 @@
         "full_replay_required": true
       },
       "runtime_change": false,
-      "provenance_defect_increment": 0,
-      "audit_evidence": "docs/research/BAZI-COMBINED-UNIFIED-TARGET-TIMELINE-COMPOSITION-AUDIT-R1.json"
+      "provenance_defect_increment": 1,
+      "audit_evidence": "docs/research/BAZI-COMBINED-UNIFIED-TARGET-TIMELINE-COMPOSITION-AUDIT-R1.json",
+      "defect_id": "PROV-DEFECT-018",
+      "defect_type": "AUDIT_EXPECTATION_CONFLATED_PRE_DAYUN_INTERVAL_FRAME_WITH_SYNTHETIC_DAYUN_GANZHI",
+      "defect_scope": "Batch 12MR audit prose/test incorrectly asserted PRE_DAYUN active_dayun_frame must be absent. Released BaziFlowContext preserves the PreDayunFrame interval while emitting no synthetic Dayun Ganzhi.",
+      "repair_status": "REPAIRED_FORWARD_ONLY_AFTER_BATCH_12MS_CI",
+      "repair_action": "Corrected 12MR prose, evidence and regression expectation to preserve the released PreDayunFrame interval while continuing to forbid synthetic pre-Dayun Ganzhi. Runtime bytes and flow hashes are unchanged.",
+      "repair_artifact": "docs/research/BAZI-COMBINED-UNIFIED-TARGET-TIMELINE-PRE-DAYUN-AUDIT-REPAIR-R1.json"
     },
     {
       "rule_id": "HPA-BAZI-FLOW-002",
@@ -6702,8 +6708,8 @@
   ],
   "audit_summary": {
     "confirmed_chart_algorithm_defect_count": 0,
-    "confirmed_provenance_metadata_defect_count": 17,
-    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_provenance_metadata_defect_count": 18,
+    "repaired_provenance_metadata_defect_count": 18,
     "algorithm_reopen_count": 0,
     "candidate_collapse_count": 0,
     "historical_candidate_extension_count": 6,

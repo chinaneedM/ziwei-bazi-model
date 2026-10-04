@@ -9578,15 +9578,15 @@ def main() -> int:
         fail("Batch 12ID issue-12 registry control missing")
     matrix12id = json.loads(MATRIX.read_text(encoding="utf-8"))
     sum12id = matrix12id.get("audit_summary", {})
-    if sum12id.get("confirmed_provenance_metadata_defect_count") != 17 or sum12id.get("repaired_provenance_metadata_defect_count") != 17:
-        fail("Batch 12ID matrix provenance accounting regressed")
+    if sum12id.get("confirmed_provenance_metadata_defect_count", 0) < 17 or sum12id.get("repaired_provenance_metadata_defect_count", 0) < 17:
+        fail("Batch 12ID matrix provenance accounting regressed below 17/17")
     acct12id = batch12id.get("accounting", {})
     if acct12id.get("matrix_rows") != 198 or acct12id.get("audited_rows") != 166 or acct12id.get("current_missing_from_product_rows") != 10:
         fail("Batch 12ID matrix row accounting regressed")
     if acct12id.get("confirmed_provenance_metadata_defect_count") != 17 or acct12id.get("repaired_provenance_metadata_defect_count") != 17 or acct12id.get("confirmed_chart_algorithm_defect_count") != 0:
         fail("Batch 12ID defect accounting regressed")
-    if audit_state.get("confirmed_provenance_metadata_defect_count") != 17 or audit_state.get("repaired_provenance_metadata_defect_count") != 17:
-        fail("Batch 12ID current-state provenance accounting regressed")
+    if audit_state.get("confirmed_provenance_metadata_defect_count", 0) < 17 or audit_state.get("repaired_provenance_metadata_defect_count", 0) < 17:
+        fail("Batch 12ID current-state provenance accounting regressed below 17/17")
     try:
         schema12id = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
     except ValueError:
@@ -14449,6 +14449,24 @@ def main() -> int:
             fail("Batch 12MS released runtime mutation claim drift")
     if ms.get("verification", {}).get("new_test_count") != 6 or ms.get("transmission_impact", {}).get("status") != "NONE":
         fail("Batch 12MS verification/transmission scope drift")
+
+    # Post-12MS repair: 12MR must preserve the PRE_DAYUN interval frame without inventing Ganzhi.
+    repair18_path = ROOT / "docs/research/BAZI-COMBINED-UNIFIED-TARGET-TIMELINE-PRE-DAYUN-AUDIT-REPAIR-R1.json"
+    if not repair18_path.is_file():
+        fail("PROV-DEFECT-018 repair artifact missing")
+    repair18 = json.loads(repair18_path.read_text(encoding="utf-8"))
+    if repair18.get("defect_id") != "PROV-DEFECT-018" or repair18.get("repair", {}).get("runtime_change") is not False:
+        fail("PROV-DEFECT-018 repair identity/runtime firewall drift")
+    flow1_repair = next(row for row in matrix["rows"] if row["rule_id"] == "HPA-BAZI-FLOW-001")
+    if flow1_repair.get("defect_id") != "PROV-DEFECT-018" or flow1_repair.get("repair_status") != "REPAIRED_FORWARD_ONLY_AFTER_BATCH_12MS_CI":
+        fail("PROV-DEFECT-018 Matrix binding drift")
+    if audit_summary.get("confirmed_provenance_metadata_defect_count") != 18 or audit_summary.get("repaired_provenance_metadata_defect_count") != 18:
+        fail("current Matrix provenance defect accounting must be 18/18 after PROV-DEFECT-018")
+    if audit_state.get("confirmed_provenance_metadata_defect_count") != 18 or audit_state.get("repaired_provenance_metadata_defect_count") != 18:
+        fail("current-state provenance defect accounting must be 18/18 after PROV-DEFECT-018")
+    mr_replay_repair = json.loads((ROOT / "docs/research/evidence/batch-12mr/composition-replay.json").read_text(encoding="utf-8"))
+    if mr_replay_repair.get("pre_dayun_interval_frame_preserved") is not True or mr_replay_repair.get("pre_dayun_synthetic_ganzhi_emitted") is not False:
+        fail("PROV-DEFECT-018 PRE_DAYUN replay semantics drift")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

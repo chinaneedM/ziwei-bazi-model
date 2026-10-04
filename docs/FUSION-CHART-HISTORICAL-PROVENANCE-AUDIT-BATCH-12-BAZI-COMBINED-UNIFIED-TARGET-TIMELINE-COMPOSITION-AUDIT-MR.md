@@ -12,7 +12,7 @@ Status: **HPA-BAZI-FLOW-001 + HPA-COMB-004 AUDITED AS MODERN_COMPATIBILITY_ONLY 
 
 `NATAL → DAYUN → XIAOYUN → ANNUAL → MONTHLY → DAILY → HOURLY`
 
-但 Annual/Monthly 直接等于 released Flow frames，Daily/Hourly 直接等于 daily-hourly sidecar；timeline 本身不重算干支。PRE_DAYUN 保持无 Dayun frame，不制造柱。
+但 Annual/Monthly 直接等于 released Flow frames，Daily/Hourly 直接等于 daily-hourly sidecar；timeline 本身不重算干支。PRE_DAYUN 保留 released `PreDayunFrame` 的起止区间身份，但该 frame 不含 Dayun 干支字段，timeline 不制造 PRE_DAYUN 大运柱。
 
 小运继续保存两个 released method candidates；`TARGET-CIVIL-YEAR-NOMINAL-AGE-R1` 明确是 `ENGINEERING_LINKAGE_COORDINATE`，`classical_age_boundary_status=NOT_ARBITRATED`，因此不能把民岁连接公式倒推成古典年龄边界裁决。
 
@@ -31,3 +31,7 @@ Matrix 201 rows，audited rows 176→**178**；missing-product 仍 10；provenan
 下一门 **12MS**：HPA-BAZI-001 Four-pillar natal generation。
 
 研究记录：`docs/research/BAZI-COMBINED-UNIFIED-TARGET-TIMELINE-COMPOSITION-AUDIT-R1.json`；回放摘要：`docs/research/evidence/batch-12mr/composition-replay.json`。
+
+## Post-12MS repair — PROV-DEFECT-018
+
+12MS exact-head full unittest 暴露了 12MR 回归断言的元数据错误：测试曾把 `PRE_DAYUN` 的区间 frame 误断言为 `None`。released runtime 自始至终以 `PreDayunFrame(start_utc,end_utc,interval_semantics)` 标记交运前的时间区间；真正被禁止的是虚构 PRE_DAYUN 大运干支，而不是区间对象本身。该缺陷仅修正文档、证据与测试期待，不修改 flow runtime、schema 或 hash。当前项目 provenance defect 总账因此升为 18/18；本批原始时点账本 17/17 保留为历史快照。

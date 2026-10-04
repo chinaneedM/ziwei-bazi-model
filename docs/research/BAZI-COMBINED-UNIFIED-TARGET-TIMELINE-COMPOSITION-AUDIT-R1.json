@@ -40,11 +40,12 @@
     ],
     "annual_monthly_are_upstream_flow_frames": true,
     "daily_hourly_are_upstream_sidecar_frames": true,
-    "pre_dayun_absence_preserved": true,
     "xiaoyun_selection_status": "UNRESOLVED_CLASSICAL_METHOD_ALTERNATIVES",
     "xiaoyun_age_coordinate_source_class": "ENGINEERING_LINKAGE_COORDINATE",
     "xiaoyun_classical_age_boundary_status": "NOT_ARBITRATED",
-    "interpretation_or_prediction_authorized": false
+    "interpretation_or_prediction_authorized": false,
+    "pre_dayun_interval_frame_preserved": true,
+    "pre_dayun_synthetic_ganzhi_emitted": false
   },
   "combined_firewall": {
     "bazi_base_object_equality_required": true,
@@ -127,5 +128,15 @@
   "next_gate": [
     "12MS: audit HPA-BAZI-001 Four-pillar natal generation by decomposing year/month/day/hour and time/calendar/date-boundary inputs into their already-audited or still-missing source-specific subrules.",
     "Original Wenwu1951 recovery remains paused pending a materially new lawful access mechanism."
+  ],
+  "post_batch_repairs": [
+    {
+      "defect_id": "PROV-DEFECT-018",
+      "defect_type": "AUDIT_EXPECTATION_CONFLATED_PRE_DAYUN_INTERVAL_FRAME_WITH_SYNTHETIC_DAYUN_GANZHI",
+      "repair_status": "REPAIRED_FORWARD_ONLY_AFTER_BATCH_12MS_CI",
+      "runtime_change": false,
+      "hash_change": false,
+      "repair_artifact": "docs/research/BAZI-COMBINED-UNIFIED-TARGET-TIMELINE-PRE-DAYUN-AUDIT-REPAIR-R1.json"
+    }
   ]
 }
