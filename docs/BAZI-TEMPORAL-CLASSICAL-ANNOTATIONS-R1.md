@@ -111,3 +111,18 @@ HPA-BAZI-FLOW-002 now closes within the historical scope of audited HPA-BAZI-003
 Local annotation/hash validation proves internal consistency only. Rebuilding every annotation under a substituted day master and recomputing local hashes can pass local structural validation; the complete request-bound upstream replay rejects the substitution. Keep both validation layers. This is the released contract, not a newly discovered chart defect. No strength, pattern, useful-god or interpretation authority follows from the identity mapping.
 
 The physical witness is a catalog-assigned 1926 received edition; it does not prove earliest rule origin or a classical seven-layer software interface. See `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-TEMPORAL-TEN-GOD-PROJECTION-AUDIT-ML.md` and `docs/research/BAZI-TEMPORAL-TEN-GOD-PROJECTION-AUDIT-R1.json`. Runtime, schemas, hashes and profile versions remain unchanged.
+
+
+### Batch 12MN NaYin / XunKong / Twelve-Growth projection decomposition
+
+HPA-BAZI-FLOW-004 is now a decomposed composition summary rather than a single unresolved historical claim. The runtime continues to use `BAZI-TEMPORAL-CLASSICAL-ANNOTATION-PROJECTION-R1@1.0.2`; the audit separates three child projections:
+
+- `HPA-BAZI-FLOW-008`: target-Ganzhi NaYin identity, inherited unchanged from audited `HPA-BAZI-006`;
+- `HPA-BAZI-FLOW-009`: target-Ganzhi six-Xun XunKong identity, inherited unchanged from audited `HPA-BAZI-007`;
+- `HPA-BAZI-FLOW-010`: Twelve-Growth identity under the released source-scoped profile, preserving two distinct anchors: natal day master → target branch and target stem → its target branch, inherited from audited `HPA-BAZI-008`.
+
+The audit replays 600 natal-day-master × legal-Ganzhi coordinates and 4,200 resolved Dayun / two Xiaoyun candidates / annual / monthly / daily / hourly slots against the already-audited parent APIs. Illegal Ganzhi remain rejected before component projection. Equal Xiaoyun facts do not select a candidate; before formal Dayun, no synthetic Dayun Ganzhi is created.
+
+This closes identity inheritance only. It does **not** establish that historical texts taught a seven-layer software composition, does not convert Twelve-Growth phase names into strength judgments, and does not add XunKong auspiciousness, NaYin omen, pattern, useful-god, event or prediction semantics. Any alternate Twelve-Growth profile remains separately source-scoped and unranked.
+
+The Matrix description for HPA-BAZI-FLOW-004 had lagged the Batch 11A runtime profile bump and still named `@1.0.1`. It is synchronized to the live `@1.0.2` descriptor here as downstream bookkeeping of the already-counted `PROV-DEFECT-009`; no new defect is counted and no runtime/schema/hash calculation changes. See `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-TEMPORAL-CLASSICAL-IDENTITY-PROJECTION-AUDIT-MN.md` and `docs/research/BAZI-TEMPORAL-CLASSICAL-IDENTITY-PROJECTION-AUDIT-R1.json`.

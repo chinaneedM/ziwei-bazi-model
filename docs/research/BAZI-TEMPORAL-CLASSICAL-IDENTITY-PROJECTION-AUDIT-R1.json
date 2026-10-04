@@ -1,0 +1,90 @@
+{
+  "schema": "BAZI-TEMPORAL-CLASSICAL-IDENTITY-PROJECTION-AUDIT-R1",
+  "batch_id": "BATCH-12-BAZI-TEMPORAL-CLASSICAL-IDENTITY-PROJECTION-AUDIT-MN",
+  "prior_batch_id": "BATCH-12-BAZI-STEM-FIVE-COMBINATION-IDENTITY-AUDIT-MM",
+  "parent_rule_id": "HPA-BAZI-FLOW-004",
+  "child_rule_ids": [
+    "HPA-BAZI-FLOW-008",
+    "HPA-BAZI-FLOW-009",
+    "HPA-BAZI-FLOW-010"
+  ],
+  "audit_scope": "DECOMPOSE_COMPOSITE_TARGET_ANNOTATION_INTO_INHERITED_NAYIN_XUNKONG_TWELVE_GROWTH_IDENTITY_PROJECTIONS",
+  "parent_rules": {
+    "nayin": "HPA-BAZI-006",
+    "xunkong": "HPA-BAZI-007",
+    "twelve_growth": "HPA-BAZI-008"
+  },
+  "implementation_contract": {
+    "target_ganzhi_must_be_legal_sexagenary_identity": true,
+    "nayin_anchor": "TARGET_GANZHI",
+    "xunkong_anchor": "TARGET_GANZHI",
+    "day_master_twelve_growth_anchor": "TRUE_NATAL_DAY_MASTER_TO_TARGET_BRANCH",
+    "self_twelve_growth_anchor": "TARGET_STEM_TO_TARGET_BRANCH",
+    "xiaoyun_selection": "PRESERVE_BOTH_CANDIDATES_NO_WINNER",
+    "pre_dayun_behavior": "NO_SYNTHETIC_GANZHI_ANNOTATION",
+    "semantic_scope": "IDENTITY_ONLY_NO_STRENGTH_PATTERN_AUSPICIOUSNESS_OR_INTERPRETATION"
+  },
+  "runtime_files": [
+    {
+      "path": "src/fortune_training/bazi_application/temporal_annotations.py",
+      "blob_sha": "bdf13e8db05d3ea5f0f13674fe08e9922eae1e0d",
+      "unchanged_from_base": true
+    },
+    {
+      "path": "src/fortune_training/bazi_application/classical_annotations.py",
+      "blob_sha": "7d133594ce77c6b73ee77fd37f8aff236d6f22ee",
+      "unchanged_from_base": true
+    },
+    {
+      "path": "src/fortune_training/bazi_nayin_annotation/registry.py",
+      "blob_sha": "412db3efe5e0dc16bdee50914716e07c09fea9e7",
+      "unchanged_from_base": true
+    },
+    {
+      "path": "src/fortune_training/bazi_chart/registries.py",
+      "blob_sha": "af2fd3388cb86f1a7b4a928a7e8103605cef1b24",
+      "unchanged_from_base": true
+    }
+  ],
+  "replay_evidence": "docs/research/evidence/batch-12mn/projection-replay.json",
+  "profile_metadata_sync": {
+    "matrix_prior_descriptor": "BAZI-TEMPORAL-CLASSICAL-ANNOTATION-PROJECTION-R1@1.0.1",
+    "live_runtime_descriptor": "BAZI-TEMPORAL-CLASSICAL-ANNOTATION-PROJECTION-R1@1.0.2",
+    "cause": "Batch 11A PROV-DEFECT-009 already bumped the live profile for hidden-stem order-lineage semantics; FLOW-004 descriptive metadata lagged.",
+    "new_provenance_defect_increment": 0,
+    "runtime_changed_in_this_batch": false
+  },
+  "verification": {
+    "new_test_file": "tests/test_bazi_temporal_classical_identity_projection_audit_r1.py",
+    "new_test_count": 5,
+    "exact_head_ci_status_at_commit_creation": "PENDING_BY_DEFINITION",
+    "note": "The batch does not claim a pre-existing exact-head CI result for a commit that did not yet exist."
+  },
+  "accounting": {
+    "rows_before": 198,
+    "rows_after": 201,
+    "audited_rows_before": 169,
+    "audited_rows_after": 173,
+    "current_missing_from_product_rows": 10,
+    "provenance_defects_confirmed": 17,
+    "provenance_defects_repaired": 17,
+    "chart_algorithm_defects": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0
+  },
+  "adjudication": {
+    "parent_status": "HISTORICALLY_SUPPORTED",
+    "historical_scope": "DECOMPOSED_INHERITED_IDENTITIES_MODERN_TEMPORAL_PROJECTION_ONLY",
+    "classical_seven_layer_software_doctrine_claimed": false,
+    "interpretive_application_authorized": false,
+    "algorithm_reopen_authorized": false
+  },
+  "transmission_impact": {
+    "status": "NONE",
+    "reason": "No new witness, ancestry edge, copy relation or school transmission is adjudicated; the batch only verifies projection inheritance from already-audited component rules."
+  },
+  "next_gate": [
+    "12MO: audit HPA-BAZI-FLOW-005 Temporal ShenSha target projection. Verify exact source/natal anchors and target-coordinate use per ShenSha family, preserve source/profile candidate differences, and do not infer activation/omen semantics from identity projection.",
+    "Original Wenwu1951 recovery remains paused pending a materially new lawful access mechanism."
+  ]
+}

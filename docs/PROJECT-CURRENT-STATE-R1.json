@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.354.0",
+  "schema_version": "1.355.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -37,8 +37,8 @@
     "matrix_json": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json",
     "matrix_md": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.md",
     "external_source_registry": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json",
-    "row_count": 198,
-    "audited_row_count": 169,
+    "row_count": 201,
+    "audited_row_count": 173,
     "confirmed_provenance_metadata_defect_count": 17,
     "repaired_provenance_metadata_defect_count": 17,
     "historical_candidate_registry_count": 3,
@@ -436,9 +436,10 @@
       "BATCH-12-ZIWEI-WENWU1951-NABUNKEN-REPOSITORY-RECOVERY-CLOSURE-MJ",
       "BATCH-12-ZIWEI-BODY-PALACE-GANZHI-PROJECTION-AUDIT-MK",
       "BATCH-12-BAZI-TEMPORAL-TEN-GOD-PROJECTION-AUDIT-ML",
-      "BATCH-12-BAZI-STEM-FIVE-COMBINATION-IDENTITY-AUDIT-MM"
+      "BATCH-12-BAZI-STEM-FIVE-COMBINATION-IDENTITY-AUDIT-MM",
+      "BATCH-12-BAZI-TEMPORAL-CLASSICAL-IDENTITY-PROJECTION-AUDIT-MN"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-STEM-FIVE-COMBINATION-IDENTITY-AUDIT-MM.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-TEMPORAL-CLASSICAL-IDENTITY-PROJECTION-AUDIT-MN.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -1995,7 +1996,13 @@
       "Batch 12MM closes HPA-BAZI-014 only for five exact stem-pair identities and neutral instance presentation. NTL-9900014379 PDF p23 / printed三 is directly visually collated; received 五行大義 干合 and 星厯考原 五合 corroborate the member pairs without ancestry or earliest-date claims.",
       "All 100 ordered pairs and 10000 four-stem grids agree; 6000 instance relations and repeated-pair occurrences remain distinct. Presentation still omits nominal transformation elements and outcomes; runtime/profile/schema/hash versions are unchanged.",
       "12MN: decompose HPA-BAZI-FLOW-004 Target-layer NaYin/XunKong/Twelve Growth into three inherited identity projections. Replay audited natal primitives HPA-BAZI-006/007/008 on legal target Ganzhi and the true natal day master where required; preserve disputed school/profile candidates and do not infer classical seven-layer software doctrine.",
-      "Matrix is now 198 / 169 / 10; provenance defects 17/17; chart algorithm defects / reopens / candidate collapses 0. Original Wenwu1951 primary targets remain NOT_REVIEWED pending a materially new access route."
+      "Matrix is now 198 / 169 / 10; provenance defects 17/17; chart algorithm defects / reopens / candidate collapses 0. Original Wenwu1951 primary targets remain NOT_REVIEWED pending a materially new access route.",
+      "Batch 12MN decomposes HPA-BAZI-FLOW-004 into HPA-BAZI-FLOW-008/009/010 for target-layer NaYin, XunKong and Twelve-Growth identities. All three are audited only as modern projections inheriting HPA-BAZI-006/007/008; no classical seven-layer software doctrine is claimed.",
+      "The temporal composer is replayed over 600 natal-day-master × legal-Ganzhi coordinates and 4200 resolved layer annotations. NaYin and XunKong remain target-Ganzhi identities; Twelve Growth keeps natal-day-master→target-branch and target-stem→target-branch views separate; Xiaoyun candidates remain unranked and pre-Dayun remains absent.",
+      "HPA-BAZI-FLOW-004 descriptive profile metadata is synchronized from stale @1.0.1 to live @1.0.2. This is downstream bookkeeping of the already-counted Batch 11A PROV-DEFECT-009 profile bump, so provenance defect accounting remains 17/17; runtime bytes, schema, hash algorithm and chart coordinates are unchanged.",
+      "Matrix is now 201 / 173 / 10; provenance defects remain 17/17; chart algorithm defects / reopens / candidate collapses remain 0.",
+      "12MO: audit HPA-BAZI-FLOW-005 Temporal ShenSha target projection. Trace every emitted ShenSha to its natal/source anchor and target coordinate, preserve rule-specific scope/candidate differences, and do not infer omen, strength or activation authority merely from identity projection.",
+      "Original Wenwu1951 primary targets remain NOT_REVIEWED and the anonymous recovery branch remains paused pending a materially new lawful access route."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10

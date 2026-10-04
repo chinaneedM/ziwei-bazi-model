@@ -722,5 +722,23 @@ class HistoricalProvenanceAuditMatrixR1Test(unittest.TestCase):
         self.assertIn("test_fusion_chart_historical_provenance_audit_matrix_r1.py", ci)
 
 
+    def test_batch_12mn_temporal_classical_identity_projection_is_decomposed(self) -> None:
+        by_id = {row["rule_id"]: row for row in self.rows}
+        parent = by_id["HPA-BAZI-FLOW-004"]
+        self.assertEqual("HISTORICALLY_SUPPORTED", parent["audit_status"])
+        self.assertEqual("BAZI-TEMPORAL-CLASSICAL-ANNOTATION-PROJECTION-R1@1.0.2 inside BAZI target annotations", parent["current_profile"])
+        self.assertEqual(["HPA-BAZI-FLOW-008", "HPA-BAZI-FLOW-009", "HPA-BAZI-FLOW-010"], parent["child_rule_ids"])
+        self.assertEqual("PROV-DEFECT-009 / Batch 11A hidden-stem order-lineage repair", parent["profile_metadata_sync"]["root_repair"])
+        self.assertEqual(0, parent["profile_metadata_sync"]["new_provenance_defect_increment"])
+        for rule_id, upstream in (("HPA-BAZI-FLOW-008", "HPA-BAZI-006"), ("HPA-BAZI-FLOW-009", "HPA-BAZI-007"), ("HPA-BAZI-FLOW-010", "HPA-BAZI-008")):
+            row = by_id[rule_id]
+            self.assertEqual("HISTORICALLY_SUPPORTED", row["audit_status"])
+            self.assertEqual([upstream], row["upstream_rule_ids"])
+            self.assertEqual("BATCH-12-BAZI-TEMPORAL-CLASSICAL-IDENTITY-PROJECTION-AUDIT-MN", row["audit_batch"])
+            self.assertFalse(row["algorithm_reopen_authorized"])
+        for rule_id in ("HPA-BAZI-FLOW-004", "HPA-BAZI-FLOW-008", "HPA-BAZI-FLOW-009", "HPA-BAZI-FLOW-010"):
+            self.assertIn(rule_id, self.payload["audited_row_ids"])
+
+
 if __name__ == "__main__":
     unittest.main()

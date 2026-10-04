@@ -871,9 +871,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-BODY-PALACE-GANZHI-PROJECTION-AUDIT-MK",
     "BATCH-12-BAZI-TEMPORAL-TEN-GOD-PROJECTION-AUDIT-ML",
     "BATCH-12-BAZI-STEM-FIVE-COMBINATION-IDENTITY-AUDIT-MM",
+    "BATCH-12-BAZI-TEMPORAL-CLASSICAL-IDENTITY-PROJECTION-AUDIT-MN",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-STEM-FIVE-COMBINATION-IDENTITY-AUDIT-MM.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-TEMPORAL-CLASSICAL-IDENTITY-PROJECTION-AUDIT-MN.md"
 
 
 def fail(message: str) -> None:
@@ -14168,6 +14169,54 @@ def main() -> int:
         fail("Batch 12MM independent physical pair oracle drift")
     if sum(t.get("test_count", 0) for t in mm.get("executed_tests", [])) != 27 or mm.get("transmission_impact", {}).get("status") != "NONE":
         fail("Batch 12MM execution/lineage scope drift")
+
+
+    # Batch 12MN: composite temporal classical annotations are audited as inherited identities only.
+    mn = json.loads((ROOT / "docs/research/BAZI-TEMPORAL-CLASSICAL-IDENTITY-PROJECTION-AUDIT-R1.json").read_text(encoding="utf-8"))
+    mn_id = "BATCH-12-BAZI-TEMPORAL-CLASSICAL-IDENTITY-PROJECTION-AUDIT-MN"
+    if mn.get("batch_id") != mn_id or mn.get("prior_batch_id") != mm_id or mn_id not in rule_batches:
+        fail("Batch 12MN chronology/rule ledger mismatch")
+    by_rule_mn = {row["rule_id"]: row for row in matrix["rows"]}
+    parent_mn = by_rule_mn["HPA-BAZI-FLOW-004"]
+    child_ids_mn = ["HPA-BAZI-FLOW-008", "HPA-BAZI-FLOW-009", "HPA-BAZI-FLOW-010"]
+    if parent_mn.get("audit_status") != "HISTORICALLY_SUPPORTED" or parent_mn.get("audit_batch") != mn_id or parent_mn.get("child_rule_ids") != child_ids_mn:
+        fail("Batch 12MN parent decomposition drift")
+    if parent_mn.get("current_profile") != "BAZI-TEMPORAL-CLASSICAL-ANNOTATION-PROJECTION-R1@1.0.2 inside BAZI target annotations":
+        fail("Batch 12MN live temporal profile descriptor drift")
+    sync_mn = parent_mn.get("profile_metadata_sync", {})
+    if sync_mn.get("root_repair") != "PROV-DEFECT-009 / Batch 11A hidden-stem order-lineage repair" or sync_mn.get("new_provenance_defect_increment") != 0:
+        fail("Batch 12MN profile metadata sync/dedup drift")
+    expected_upstream_mn = {
+        "HPA-BAZI-FLOW-008": ["HPA-BAZI-006"],
+        "HPA-BAZI-FLOW-009": ["HPA-BAZI-007"],
+        "HPA-BAZI-FLOW-010": ["HPA-BAZI-008"],
+    }
+    for rule_id, upstream in expected_upstream_mn.items():
+        row = by_rule_mn.get(rule_id)
+        if not row or row.get("audit_status") != "HISTORICALLY_SUPPORTED" or row.get("audit_batch") != mn_id or row.get("upstream_rule_ids") != upstream or row.get("algorithm_reopen_authorized") is not False:
+            fail(f"Batch 12MN child identity scope drift: {rule_id}")
+    if any(rule_id not in matrix["audited_row_ids"] for rule_id in ["HPA-BAZI-FLOW-004", *child_ids_mn]):
+        fail("Batch 12MN audited-row ledger drift")
+    acct_mn = mn.get("accounting", {})
+    if acct_mn.get("rows_after") != 201 or acct_mn.get("audited_rows_after") != 173 or acct_mn.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12MN row accounting drift")
+    if acct_mn.get("provenance_defects_confirmed") != 17 or acct_mn.get("provenance_defects_repaired") != 17 or acct_mn.get("chart_algorithm_defects") != 0 or acct_mn.get("algorithm_reopens") != 0 or acct_mn.get("candidate_collapses") != 0:
+        fail("Batch 12MN defect/reopen accounting drift")
+    replay_mn = json.loads((ROOT / "docs/research/evidence/batch-12mn/projection-replay.json").read_text(encoding="utf-8"))
+    if replay_mn.get("direct_annotation_count") != 600 or replay_mn.get("projection_coordinate_count") != 600 or replay_mn.get("resolved_layer_annotation_count") != 4200 or replay_mn.get("illegal_ganzhi_day_master_rejection_count") != 600:
+        fail("Batch 12MN replay cardinality drift")
+    components_mn = replay_mn.get("component_comparisons", {})
+    if set(components_mn.values()) != {4800} or len(components_mn) != 4:
+        fail("Batch 12MN component inheritance comparison drift")
+    if replay_mn.get("xiaoyun_candidates_preserved") is not True or replay_mn.get("xiaoyun_winner_selected") is not False or replay_mn.get("pre_dayun_synthetic_ganzhi_emitted") is not False:
+        fail("Batch 12MN candidate/pre-Dayun boundary drift")
+    if replay_mn.get("classical_seven_layer_doctrine_claimed") is not False or replay_mn.get("interpretive_semantics_imported") is not False or replay_mn.get("chart_algorithm_changed") is not False:
+        fail("Batch 12MN doctrine/interpretation/algorithm firewall drift")
+    for obj in mn.get("runtime_files", []):
+        if obj.get("unchanged_from_base") is not True:
+            fail("Batch 12MN released runtime mutation claim drift")
+    if mn.get("verification", {}).get("new_test_count") != 5 or mn.get("transmission_impact", {}).get("status") != "NONE":
+        fail("Batch 12MN verification/transmission scope drift")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

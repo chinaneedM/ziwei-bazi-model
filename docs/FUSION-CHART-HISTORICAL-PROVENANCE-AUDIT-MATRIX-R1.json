@@ -43,13 +43,13 @@
     "algorithm_reopen_authorized"
   ],
   "inventory_summary": {
-    "row_count": 198,
+    "row_count": 201,
     "status_counts": {
       "MODERN_COMPATIBILITY_ONLY": 31,
-      "HISTORICALLY_SUPPORTED": 91,
+      "HISTORICALLY_SUPPORTED": 95,
       "DISPUTED_MULTIPLE_CANDIDATES": 30,
       "SUPPORTED_BUT_SCHOOL_SPECIFIC": 18,
-      "IMPLEMENTATION_REVIEW_REQUIRED": 8,
+      "IMPLEMENTATION_REVIEW_REQUIRED": 7,
       "SOURCE_INSUFFICIENT": 9,
       "MISSING_FROM_PRODUCT": 10,
       "NOT_YET_FORMALIZED": 1
@@ -61,7 +61,7 @@
       "大运": 16,
       "小运": 2,
       "神煞": 21,
-      "八字动态时限": 8,
+      "八字动态时限": 11,
       "紫微本命": 8,
       "十二宫": 4,
       "主星": 2,
@@ -81,7 +81,7 @@
       "candidate/profile rules": 2,
       "provenance / hashes / lineage": 2
     },
-    "audited_row_count": 169
+    "audited_row_count": 173
   },
   "rows": [
     {
@@ -1451,25 +1451,47 @@
       "system": "BAZI",
       "module": "八字动态时限",
       "rule_or_field": "Target-layer NaYin/XunKong/Twelve Growth",
-      "current_implementation": "Projects released NaYin/XunKong/Twelve-Growth identities for dynamic Ganzhi through BAZI-TEMPORAL-CLASSICAL-ANNOTATION-PROJECTION-R1@1.0.1.",
-      "current_profile": "BAZI-TEMPORAL-CLASSICAL-ANNOTATION-PROJECTION-R1@1.0.1 inside BAZI target annotations",
-      "primary_source": "NaYin S11:YHZP-CH-014; XunKong S14:YHZP-CH-047 / S14:7.7; Twelve Growth S11:YHZP-CH-015 with later ZPZQ witnesses",
-      "source_quote": "Component identities reuse the already audited natal/derived NaYin, XunKong and Twelve-Growth registries; no new interpretive meaning is introduced at target projection.",
-      "source_quote_location": "src/fortune_training/bazi_application/temporal_annotations.py; component source locations in HPA-BAZI-006/007/008/009",
-      "historical_period": "PENDING_BIBLIOGRAPHIC_DATING",
-      "later_witnesses": "S12:ZPZQ-CH-05 and S12:ZPZQ-R-0006 remain later Twelve-Growth witnesses.",
-      "school_attribution": "COMPOSED_DYNAMIC_PROJECTION_OF_ALREADY_AUDITED_IDENTITY_RULES; TEMPORAL_APPLICATION_SCOPE_STILL_REQUIRES_SEPARATE_HISTORICAL_AUDIT",
-      "competing_methods": [],
-      "current_implementation_match": "COMPONENT_LINEAGE_REPAIRED_AND_MATCHES_RELEASED_NAYIN_XUNKONG_TWELVE_GROWTH_IDENTITIES; TEMPORAL_APPLICATION_AUTHORITY_NOT_YET_FULLY_ADJUDICATED",
-      "confidence": "HIGH_FOR_COMPONENT_PROVENANCE_REPAIR_MEDIUM_FOR_HISTORICAL_TEMPORAL_APPLICATION_SCOPE",
-      "audit_status": "IMPLEMENTATION_REVIEW_REQUIRED",
-      "proposed_action": "Keep identity-only projection; separately audit historical authority for applying each natal identity annotation to every dynamic layer. Do not add interpretive semantics.",
+      "current_implementation": "Projects released NaYin, XunKong and Twelve-Growth identities for each resolved legal dynamic Ganzhi through BAZI-TEMPORAL-CLASSICAL-ANNOTATION-PROJECTION-R1@1.0.2. NaYin/XunKong are target-Ganzhi identities; Twelve Growth preserves both natal-day-master→target-branch and target-stem→target-branch identity views.",
+      "current_profile": "BAZI-TEMPORAL-CLASSICAL-ANNOTATION-PROJECTION-R1@1.0.2 inside BAZI target annotations",
+      "primary_source": "Inherited audited component rules HPA-BAZI-006 (NaYin: S11:YHZP-CH-014), HPA-BAZI-007 (XunKong: S14:YHZP-CH-047 / S14:7.7), and HPA-BAZI-008 (Twelve Growth: S11:YHZP-CH-015 with S12 ZPZQ witnesses).",
+      "source_quote": "The temporal composer introduces no new NaYin, XunKong or Twelve-Growth table: it reuses the audited component identities on legal target Ganzhi; Twelve Growth retains the true natal day-master anchor where that view is requested.",
+      "source_quote_location": "src/fortune_training/bazi_application/temporal_annotations.py; src/fortune_training/bazi_application/classical_annotations.py; src/fortune_training/bazi_nayin_annotation/registry.py; inherited source locations in HPA-BAZI-006/007/008",
+      "historical_period": "DERIVED_REUSE_OF_AUDITED_COMPONENT_IDENTITIES; MODERN_MULTI_LAYER_COMPOSITION",
+      "later_witnesses": "Inherited component witnesses remain scoped to HPA-BAZI-006/007/008. No independent historical witness is claimed for a classical seven-layer software composition.",
+      "school_attribution": "COMPOSITE_MODERN_IDENTITY_PROJECTION_OF_AUDITED_SOURCE_SCOPED_COMPONENTS",
+      "competing_methods": [
+        "Any alternate Twelve-Growth direction/profile family remains an upstream source/profile question and is not selected or collapsed by temporal projection."
+      ],
+      "current_implementation_match": "DECOMPOSED_TO_HPA-BAZI-FLOW-008/009/010; 600 legal day-master/Ganzhi coordinates and 4200 resolved layer annotations are replayed against the already-audited parent APIs; illegal sexagenary coordinates remain rejected; Xiaoyun candidates remain unranked; pre-Dayun remains absent.",
+      "confidence": "HIGH_WITHIN_INHERITED_IDENTITY_SCOPE; NO_CLASSICAL_SEVEN_LAYER_DOCTRINE_CLAIM",
+      "audit_status": "HISTORICALLY_SUPPORTED",
+      "proposed_action": "No algorithm reopen. Keep the three component projections independently source-scoped, preserve the natal day-master anchor for day-master Twelve Growth, retain target-self Twelve Growth separately, and import no strength/auspiciousness/interpretation semantics.",
       "algorithm_reopen_authorized": false,
       "defect_id": "PROV-DEFECT-006",
       "defect_type": "STALE_DOWNSTREAM_COMPOSITE_SOURCE_REFS_AFTER_PROVENANCE_REPAIR",
       "defect_scope": "Temporal annotation top-level lineage still carried obsolete NaYin S01:ZZZA-PR-010/011 and wrong Twelve-Growth S12:YHZP-CH-016 after component provenance had been repaired.",
       "repair_status": "REPAIRED_FORWARD_ONLY_DURING_BATCH_07_CI_CLOSURE",
-      "repair_action": "Bumped temporal classical annotation profile 1.0.0→1.0.1 and replaced stale composite refs with S11:YHZP-CH-014 and S11:YHZP-CH-015; schema updated; no calculation formula changed."
+      "repair_action": "Bumped temporal classical annotation profile 1.0.0→1.0.1 and replaced stale composite refs with S11:YHZP-CH-014 and S11:YHZP-CH-015; schema updated; no calculation formula changed.",
+      "audit_batch": "BATCH-12-BAZI-TEMPORAL-CLASSICAL-IDENTITY-PROJECTION-AUDIT-MN",
+      "historical_scope": "DECOMPOSED_INHERITED_IDENTITIES_MODERN_TEMPORAL_PROJECTION_ONLY",
+      "upstream_rule_ids": [
+        "HPA-BAZI-006",
+        "HPA-BAZI-007",
+        "HPA-BAZI-008"
+      ],
+      "child_rule_ids": [
+        "HPA-BAZI-FLOW-008",
+        "HPA-BAZI-FLOW-009",
+        "HPA-BAZI-FLOW-010"
+      ],
+      "audit_evidence": "docs/research/BAZI-TEMPORAL-CLASSICAL-IDENTITY-PROJECTION-AUDIT-R1.json",
+      "profile_metadata_sync": {
+        "previous_matrix_descriptor": "BAZI-TEMPORAL-CLASSICAL-ANNOTATION-PROJECTION-R1@1.0.1",
+        "live_runtime_descriptor": "BAZI-TEMPORAL-CLASSICAL-ANNOTATION-PROJECTION-R1@1.0.2",
+        "root_repair": "PROV-DEFECT-009 / Batch 11A hidden-stem order-lineage repair",
+        "new_provenance_defect_increment": 0,
+        "rationale": "This row lagged an already-counted runtime profile bump; synchronizing the descriptive profile does not create a second defect or change runtime bytes."
+      }
     },
     {
       "rule_id": "HPA-BAZI-FLOW-005",
@@ -6015,6 +6037,86 @@
       "confidence": "HIGH",
       "audit_status": "MODERN_COMPATIBILITY_ONLY",
       "proposed_action": "Retain explicit profile identity; future historical calendar schedule must be a separate candidate."
+    },
+    {
+      "rule_id": "HPA-BAZI-FLOW-008",
+      "system": "BAZI",
+      "module": "八字动态时限",
+      "rule_or_field": "Target-layer NaYin identity projection",
+      "current_implementation": "For every resolved legal target Ganzhi, temporal_classical_annotation calls the released BAZI-NAYIN-REGISTRY-R1 entry_for_ganzhi and projects semantic_id/display_name/element plus registry/profile identity unchanged.",
+      "current_profile": "BAZI-TEMPORAL-CLASSICAL-ANNOTATION-PROJECTION-R1@1.0.2 + BAZI-NAYIN-ANNOTATION-R1@1.0.1",
+      "primary_source": "Inherited HPA-BAZI-006 / S11:YHZP-CH-014 sixty-Jiazi NaYin table.",
+      "source_quote": "甲子乙丑海中金，丙寅丁卯炉中火",
+      "source_quote_location": "HPA-BAZI-006; S11:YHZP-CH-014; src/fortune_training/bazi_nayin_annotation/registry.py",
+      "historical_period": "DERIVED_REUSE_OF_HISTORICALLY_SUPPORTED_NAYIN_IDENTITY",
+      "later_witnesses": "Inherited Ming 《三命通会》 corroboration remains attached to HPA-BAZI-006; no layer-specific NaYin doctrine is inferred.",
+      "school_attribution": "PURE_TARGET_GANZHI_NAYIN_REGISTRY_REUSE",
+      "competing_methods": [],
+      "current_implementation_match": "EXACT_PARENT_API_REUSE_FOR_ALL_60_LEGAL_GANZHI; 4200 RESOLVED LAYER COMPARISONS MATCH; CONTEXT/HASH IDENTITY REMAINS LAYER-SPECIFIC; NO INTERPRETIVE SEMANTICS",
+      "confidence": "HIGH",
+      "audit_status": "HISTORICALLY_SUPPORTED",
+      "proposed_action": "No reopen. Keep NaYin as target-Ganzhi identity only; no strength, omen or event meaning follows from projection.",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-12-BAZI-TEMPORAL-CLASSICAL-IDENTITY-PROJECTION-AUDIT-MN",
+      "historical_scope": "INHERITED_NAYIN_IDENTITY_MODERN_TEMPORAL_PROJECTION_ONLY",
+      "upstream_rule_ids": [
+        "HPA-BAZI-006"
+      ],
+      "audit_evidence": "docs/research/BAZI-TEMPORAL-CLASSICAL-IDENTITY-PROJECTION-AUDIT-R1.json"
+    },
+    {
+      "rule_id": "HPA-BAZI-FLOW-009",
+      "system": "BAZI",
+      "module": "八字动态时限",
+      "rule_or_field": "Target-layer XunKong identity projection",
+      "current_implementation": "For every resolved legal target Ganzhi, temporal_classical_annotation calls the released six-Xun xunkong_for_ganzhi identity function and preserves the Xun start plus two void branches unchanged.",
+      "current_profile": "BAZI-TEMPORAL-CLASSICAL-ANNOTATION-PROJECTION-R1@1.0.2 + BAZI-XUNKONG-YHZP-R1@1.0.0",
+      "primary_source": "Inherited HPA-BAZI-007 / S14:YHZP-CH-047 and S14:7.7 six-Xun void identity table.",
+      "source_quote": "甲子旬空戌亥，甲戌旬空申酉",
+      "source_quote_location": "HPA-BAZI-007; S14:YHZP-CH-047; S14:7.7; src/fortune_training/bazi_application/classical_annotations.py",
+      "historical_period": "DERIVED_REUSE_OF_HISTORICALLY_SUPPORTED_SIX_XUN_VOID_IDENTITY",
+      "later_witnesses": "Inherited Ming 《三命通会》 mechanical corroboration remains attached to HPA-BAZI-007; no layer-specific auspiciousness doctrine is inferred.",
+      "school_attribution": "PURE_TARGET_GANZHI_SIX_XUN_IDENTITY_REUSE",
+      "competing_methods": [],
+      "current_implementation_match": "EXACT_PARENT_API_REUSE_FOR_ALL_60_LEGAL_GANZHI_AND_ALL_SIX_XUN_PAIRS; 4200 RESOLVED LAYER COMPARISONS MATCH; NO AUSPICIOUSNESS OR EVENT SEMANTICS",
+      "confidence": "HIGH",
+      "audit_status": "HISTORICALLY_SUPPORTED",
+      "proposed_action": "No reopen. Preserve identity-only semantics and keep any downstream void-effect interpretation outside this projection.",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-12-BAZI-TEMPORAL-CLASSICAL-IDENTITY-PROJECTION-AUDIT-MN",
+      "historical_scope": "INHERITED_XUNKONG_IDENTITY_MODERN_TEMPORAL_PROJECTION_ONLY",
+      "upstream_rule_ids": [
+        "HPA-BAZI-007"
+      ],
+      "audit_evidence": "docs/research/BAZI-TEMPORAL-CLASSICAL-IDENTITY-PROJECTION-AUDIT-R1.json"
+    },
+    {
+      "rule_id": "HPA-BAZI-FLOW-010",
+      "system": "BAZI",
+      "module": "八字动态时限",
+      "rule_or_field": "Target-layer Twelve-Growth identity projections",
+      "current_implementation": "Each resolved target layer emits two separate phase identities using the released Twelve-Growth profile: natal day master against target branch, and target stem against its own target branch. The two anchors are never conflated.",
+      "current_profile": "BAZI-TEMPORAL-CLASSICAL-ANNOTATION-PROJECTION-R1@1.0.2 + BAZI-TWELVE-GROWTH-YIN-YANG-R1@1.0.1",
+      "primary_source": "Inherited HPA-BAZI-008 / S11:YHZP-CH-015 with later S12:ZPZQ-CH-05 and S12:ZPZQ-R-0006 witnesses.",
+      "source_quote": "HPA-BAZI-008 binds the ten-stem Twelve-Growth source table; this child reuses that exact source/profile rather than creating a temporal-layer table.",
+      "source_quote_location": "HPA-BAZI-008; S11:YHZP-CH-015; src/fortune_training/bazi_application/classical_annotations.py; src/fortune_training/bazi_application/temporal_annotations.py",
+      "historical_period": "DERIVED_REUSE_OF_HISTORICALLY_SUPPORTED_TWELVE_GROWTH_PROFILE",
+      "later_witnesses": "Inherited ZPZQ witnesses remain later source controls. No source is promoted here into proof of a classical seven-layer application stack.",
+      "school_attribution": "SOURCE_SCOPED_TWELVE_GROWTH_PROFILE_REUSED_WITH_TWO_EXPLICIT_ANCHORS",
+      "competing_methods": [
+        "Any alternate Twelve-Growth direction/profile family must remain separately source-scoped; this projection does not rank or collapse it."
+      ],
+      "current_implementation_match": "600 DAY_MASTER×LEGAL_GANZHI PAIRS AND 4200 RESOLVED LAYER DAY-MASTER PHASES MATCH THE PARENT API; 60 UNIQUE TARGET-SELF PAIRS REPEAT CONSISTENTLY ACROSS 4200 LAYERS; TRUE NATAL DAY MASTER REMAINS THE DAY-MASTER VIEW ANCHOR",
+      "confidence": "HIGH_WITHIN_RELEASED_PARENT_PROFILE_SCOPE",
+      "audit_status": "HISTORICALLY_SUPPORTED",
+      "proposed_action": "No reopen. Keep day-master and target-self phase identities separate; phase labels do not establish strength, favorable/unfavorable status, pattern or prediction.",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-12-BAZI-TEMPORAL-CLASSICAL-IDENTITY-PROJECTION-AUDIT-MN",
+      "historical_scope": "INHERITED_TWELVE_GROWTH_IDENTITY_MODERN_TEMPORAL_PROJECTION_ONLY",
+      "upstream_rule_ids": [
+        "HPA-BAZI-008"
+      ],
+      "audit_evidence": "docs/research/BAZI-TEMPORAL-CLASSICAL-IDENTITY-PROJECTION-AUDIT-R1.json"
     }
   ],
   "historical_research_batches": [
@@ -6225,7 +6327,11 @@
     "HPA-ZDATE-006",
     "HPA-ZIWEI-013",
     "HPA-BAZI-FLOW-002",
-    "HPA-BAZI-014"
+    "HPA-BAZI-014",
+    "HPA-BAZI-FLOW-004",
+    "HPA-BAZI-FLOW-008",
+    "HPA-BAZI-FLOW-009",
+    "HPA-BAZI-FLOW-010"
   ],
   "audit_summary": {
     "confirmed_chart_algorithm_defect_count": 0,
@@ -6243,6 +6349,7 @@
   "supplemental_rule_audit_batches": [
     "BATCH-12-ZIWEI-BODY-PALACE-GANZHI-PROJECTION-AUDIT-MK",
     "BATCH-12-BAZI-TEMPORAL-TEN-GOD-PROJECTION-AUDIT-ML",
-    "BATCH-12-BAZI-STEM-FIVE-COMBINATION-IDENTITY-AUDIT-MM"
+    "BATCH-12-BAZI-STEM-FIVE-COMBINATION-IDENTITY-AUDIT-MM",
+    "BATCH-12-BAZI-TEMPORAL-CLASSICAL-IDENTITY-PROJECTION-AUDIT-MN"
   ]
 }
