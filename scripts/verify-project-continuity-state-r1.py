@@ -872,9 +872,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-BAZI-TEMPORAL-TEN-GOD-PROJECTION-AUDIT-ML",
     "BATCH-12-BAZI-STEM-FIVE-COMBINATION-IDENTITY-AUDIT-MM",
     "BATCH-12-BAZI-TEMPORAL-CLASSICAL-IDENTITY-PROJECTION-AUDIT-MN",
+    "BATCH-12-BAZI-TEMPORAL-SHENSHA-SOURCE-SCOPE-PROJECTION-AUDIT-MO",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-TEMPORAL-CLASSICAL-IDENTITY-PROJECTION-AUDIT-MN.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-TEMPORAL-SHENSHA-SOURCE-SCOPE-PROJECTION-AUDIT-MO.md"
 
 
 def fail(message: str) -> None:
@@ -14217,6 +14218,51 @@ def main() -> int:
             fail("Batch 12MN released runtime mutation claim drift")
     if mn.get("verification", {}).get("new_test_count") != 5 or mn.get("transmission_impact", {}).get("status") != "NONE":
         fail("Batch 12MN verification/transmission scope drift")
+
+
+    # Batch 12MO: temporal ShenSha remains a modern source-preserving target-match wrapper.
+    mo = json.loads((ROOT / "docs/research/BAZI-TEMPORAL-SHENSHA-SOURCE-SCOPE-PROJECTION-AUDIT-R1.json").read_text(encoding="utf-8"))
+    mo_id = "BATCH-12-BAZI-TEMPORAL-SHENSHA-SOURCE-SCOPE-PROJECTION-AUDIT-MO"
+    if mo.get("batch_id") != mo_id or mo.get("prior_batch_id") != mn_id or mo_id not in rule_batches:
+        fail("Batch 12MO chronology/rule ledger mismatch")
+    flow5 = next(row for row in matrix["rows"] if row["rule_id"] == "HPA-BAZI-FLOW-005")
+    if flow5.get("audit_status") != "MODERN_COMPATIBILITY_ONLY" or flow5.get("audit_batch") != mo_id:
+        fail("Batch 12MO FLOW-005 status/batch drift")
+    if flow5.get("current_profile") != "BAZI-TEMPORAL-SHENSHA-TARGET-PROJECTION-R1@1.0.0 consuming BAZI-CLASSICAL-SHENSHA-FACTS-R1@1.7.1":
+        fail("Batch 12MO temporal/source profile drift")
+    if flow5.get("historical_scope") != "MODERN_SOURCE_PRESERVING_TARGET_MATCH_ONLY_TEMPORAL_APPLICABILITY_UNADJUDICATED" or flow5.get("algorithm_reopen_authorized") is not False:
+        fail("Batch 12MO temporal applicability/reopen firewall drift")
+    if "HPA-BAZI-FLOW-005" not in matrix["audited_row_ids"] or len(flow5.get("upstream_rule_ids", [])) != 21:
+        fail("Batch 12MO audited/upstream rule ledger drift")
+    shensha_rows_mo = [row for row in matrix["rows"] if row["rule_id"].startswith("HPA-SHENSHA-")]
+    if len(shensha_rows_mo) != 21 or any(row.get("current_profile") != "BAZI-CLASSICAL-SHENSHA-FACTS-R1@1.7.1" for row in shensha_rows_mo):
+        fail("Batch 12MO shared ShenSha profile sync drift")
+    tiande_mo = next(row for row in shensha_rows_mo if row["rule_id"] == "HPA-SHENSHA-008")
+    if "EXT:CTEXT-SMTHE-V3-TIANYUEDE" not in tiande_mo.get("source_quote_location", "") or tiande_mo.get("profile_metadata_sync", {}).get("new_provenance_defect_increment") != 0:
+        fail("Batch 12MO Tiande source-scope sync drift")
+    yuancheng_mo = next(row for row in shensha_rows_mo if row["rule_id"] == "HPA-SHENSHA-019")
+    if "S11:YHZP-CH-015" not in yuancheng_mo.get("source_quote_location", "") or "S12:YHZP-CH-016" in yuancheng_mo.get("source_quote_location", "") or yuancheng_mo.get("defect_id") != "PROV-DEFECT-003":
+        fail("Batch 12MO Yuancheng provenance sync drift")
+    acct_mo = mo.get("accounting", {})
+    if acct_mo.get("rows_after") != 201 or acct_mo.get("audited_rows_after") != 174 or acct_mo.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12MO row accounting drift")
+    if acct_mo.get("provenance_defects_confirmed") != 17 or acct_mo.get("provenance_defects_repaired") != 17 or acct_mo.get("chart_algorithm_defects") != 0 or acct_mo.get("algorithm_reopens") != 0 or acct_mo.get("candidate_collapses") != 0:
+        fail("Batch 12MO defect/reopen accounting drift")
+    replay_mo = json.loads((ROOT / "docs/research/evidence/batch-12mo/projection-replay.json").read_text(encoding="utf-8"))
+    if replay_mo.get("source_candidate_count") != 38 or replay_mo.get("eligible_source_candidate_count") != 32 or replay_mo.get("structural_excluded_candidate_count") != 6 or replay_mo.get("only_day_candidate_count") != 4:
+        fail("Batch 12MO source-candidate partition drift")
+    if replay_mo.get("legal_target_ganzhi_count") != 60 or replay_mo.get("resolved_slot_count") != 420 or replay_mo.get("candidate_layer_evaluation_count") != 12000 or replay_mo.get("illegal_target_ganzhi_count") != 60:
+        fail("Batch 12MO exhaustive target replay cardinality drift")
+    if replay_mo.get("temporal_applicability_adjudicated") is not False or replay_mo.get("xiaoyun_winner_selected") is not False or replay_mo.get("pre_dayun_synthetic_projection_emitted") is not False or replay_mo.get("interpretive_semantics_imported") is not False:
+        fail("Batch 12MO temporal semantics/candidate firewall drift")
+    for obj in mo.get("runtime_files", []):
+        if obj.get("unchanged_from_base") is not True:
+            fail("Batch 12MO released runtime mutation claim drift")
+    sync_mo = mo.get("profile_metadata_sync", {})
+    if sync_mo.get("upstream_live_version") != "1.7.1" or sync_mo.get("yuancheng_root_repair") != "PROV-DEFECT-003" or sync_mo.get("new_provenance_defect_increment") != 0:
+        fail("Batch 12MO upstream metadata dedup drift")
+    if mo.get("verification", {}).get("new_test_count") != 5 or mo.get("transmission_impact", {}).get("status") != "NONE":
+        fail("Batch 12MO verification/transmission scope drift")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

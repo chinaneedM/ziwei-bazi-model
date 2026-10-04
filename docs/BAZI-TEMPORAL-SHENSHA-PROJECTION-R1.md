@@ -124,3 +124,21 @@ R1.7 首先发布本文件描述的内部 target-match 内核；该阶段历史�
 
 - `docs/BAZI-TEMPORAL-SHENSHA-SIDECAR-R1.md`；
 - `docs/BAZI-TEMPORAL-SHENSHA-SIDECAR-HARDENING-R1.md`。
+
+
+## 9. Batch 12MO 历史审计闭合
+
+12MO 将 HPA-BAZI-FLOW-005 裁定为 `MODERN_COMPATIBILITY_ONLY`，而不是“古典岁运神煞适用性已经证实”。原因是本层唯一可证明的事情是：现代工程投影完整保留已经审计的原局/来源候选身份，并对合法目标干支做机械比较。
+
+专项重放使用实时 `BAZI-CLASSICAL-SHENSHA-FACTS-R1@1.7.1` 目录：38 个来源候选中，32 个为 `STEM/BRANCH/GANZHI` 单目标候选，6 个结构候选（三奇 3、夹禄 2、垣城 1）明确排除。对全部 60 个合法目标干支，每个目标同时展开大运、两套小运候选、流年、流月、流日、流时七个已解析槽位，共 420 槽、12,000 次候选×层级评估。每条输出都逐字段回放 candidate ID、锚点、target kind/value、match scope、selection/qualification state 与 source refs。
+
+审计边界不变：
+
+- `ONLY_DAY` 仅进入 `DAILY`；
+- `STEM_SEQUENCE`、`BRANCH_PAIR`、`HOUR_BRANCH_LONGSHENG_LIUHE_YIMA` 不降格为单目标命中；
+- 两套小运候选不选赢家；
+- PRE_DAYUN 不制造干支投影；
+- 每条命中继续标记 `NOT_CLASSICALLY_ARBITRATED`；
+- 不加入吉凶、旺衰、激活、事件、应期或预测语义。
+
+同时回填 Batch 03 已经发生但部分文档未同步的共享 ShenSha profile：运行时为 `1.7.1`。天德双来源范围候选已经计入历史候选扩展；垣城 CH016→CH015 是既有 `PROV-DEFECT-003`，12MO 不重复增加 provenance defect。

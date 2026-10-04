@@ -13,7 +13,7 @@ R1.7 发布二十一个来源明确、可以机械复算的神煞/禄法身份�
 | 华盖 | `S11:YHZP-USR-S00296` | 寅午戌戌、巳酉丑丑、申子辰辰、亥卯未未 |
 | 月德 | `S11:YHZP-USR-S00255`、`S00256` | 月令三合局定丙壬甲庚，按原文只验日干 |
 | 月德合 | `S11:YHZP-USR-S00262` | 月令三合局定辛丁己乙；落柱未明，日干与四干扫描分列 |
-| 天德 | `S11:YHZP-USR-S00264` | 月令定干或支，保留原文混合目标类型 |
+| 天德 | `S11:YHZP-USR-S00264`、`EXT:CTEXT-SMTHE-V3-TIANYUEDE` | 月令定干或支；《渊海子平》全柱注释范围与《三命通会》日位范围分列为两个 `CANDIDATE_NOT_ARBITRATED` 候选 |
 | 天厨 | `S11:YHZP-USR-S00268`、`S00304` | 食神之禄位；年干、日干候选分列 |
 | 福星 | `S11:YHZP-USR-S00272` | 原诀逐干目标支；年干、日干候选分列 |
 | 太极 | `S11:YHZP-USR-S00243`、`S00244` | 原文明定只以生年干为主，不制造日干候选 |
@@ -24,7 +24,7 @@ R1.7 发布二十一个来源明确、可以机械复算的神煞/禄法身份�
 | 暗禄 | `S11:YHZP-USR-S00324`、`S11:YHZP-USR-S00278`、`S14:YHZP-CH-007` | 原文以甲禄寅合亥、乙禄卯合戌为例并写“其余仿此”；由十干禄位取其地支六合伙伴。正文基础身份与同条记录中的“眉批：四柱无禄”资格分层；年干、日干候选分列 |
 | 夹禄 | `S11:YHZP-USR-S00327`、`S11:YHZP-CH-044`、`S11:YHZP-USR-S00278` | 原文以甲禄寅见丑卯、乙禄卯见寅辰为例并写“其他仿此”；机械取十干禄位左右相邻两支，必须两支同时出现；“生人”锚点未明，年干、日干候选分列 |
 | 拱禄 | `S11:YHZP-USR-S00315`、`S00316`、`S00317`、`S11:YHZP-CH-041` | 原文只许可 `戊辰↔丙午`、`丁巳↔己未` 四个互见关系；“生人”锚点未明确年/日，故 `YEAR_GANZHI`、`DAY_GANZHI` 候选分列 |
-| 垣城 | `S11:YHZP-USR-S00330`、`S11:YHZP-CH-045`、`S12:YHZP-CH-016`、`S11:YHZP-USR-S00285`、`S14:YHZP-CH-007` | 原文明定取日干长生，并以甲辰日、亥时、辰马寅、亥寅六合为完整示例；实际时支必须处于日干长生位，同时该时支须与日支驿马六合。日柱锚点明确，单一 `SOURCE_EXPLICIT` 结构事实 |
+| 垣城 | `S11:YHZP-USR-S00330`、`S11:YHZP-CH-045`、`S11:YHZP-CH-015`、`S11:YHZP-USR-S00285`、`S14:YHZP-CH-007` | 原文明定取日干长生，并以甲辰日、亥时、辰马寅、亥寅六合为完整示例；实际时支必须处于日干长生位，同时该时支须与日支驿马六合。日柱锚点明确，单一 `SOURCE_EXPLICIT` 结构事实 |
 | 羊刃 | `S11:YHZP-USR-S00282`、`S02740` | 只登记五阳干刃位；年干、日干候选分列 |
 | 飞刃 | `S11:YHZP-USR-S00378`–`S11:YHZP-USR-S00388` | 原文逐十干给出飞刃支；年干、日干候选分列。运行时使用独立显式十干表，不从羊刃结果反推 |
 
@@ -162,4 +162,11 @@ Presentation 层遵守以下边界：
 - `candidates[]` 不再按 `present` 过滤，因此未命中候选的 provenance 同样可审计；
 - 同名候选不合并，飞刃 `YEAR_STEM` 与 `DAY_STEM` 等独立候选继续分别显示；
 - `occurrences` 只展开 backend 已给出的柱位、天干、地支事实，不做浏览器侧 rematch；
-- 本闭合只改变 Workbench presentation，不修改 ShenSha registry、显式表、公式、candidate arbitration 或 `SHENSHA_PROFILE_VERSION = 1.7.0`。
+- 本闭合只改变 Workbench presentation，不修改 ShenSha registry、显式表、公式或 candidate arbitration。当前运行时 `SHENSHA_PROFILE_VERSION = 1.7.1`；该版本来自 Batch 03 已审的天德双来源范围候选与垣城 `PROV-DEFECT-003` 来源修复，不是 Workbench presentation 所引入。
+
+
+## Batch 12MO 动态投影审计回填
+
+当前 `BAZI-CLASSICAL-SHENSHA-FACTS-R1@1.7.1` 是动态投影的唯一来源候选目录。12MO 不新增神煞公式，只校验 `BAZI-TEMPORAL-SHENSHA-TARGET-PROJECTION-R1@1.0.0` 是否原样携带 candidate ID、锚点、目标类型/值、match scope、selection/qualification state 与 source refs。
+
+动态命中一律是工程 target-match，`temporal_applicability_status=NOT_CLASSICALLY_ARBITRATED`；不能据此推出某神煞古典上“适用于”大运、小运、流年、流月、流日或流时。详见 `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-TEMPORAL-SHENSHA-SOURCE-SCOPE-PROJECTION-AUDIT-MO.md`。

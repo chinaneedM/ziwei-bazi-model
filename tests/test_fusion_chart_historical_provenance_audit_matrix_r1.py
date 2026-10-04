@@ -740,5 +740,42 @@ class HistoricalProvenanceAuditMatrixR1Test(unittest.TestCase):
             self.assertIn(rule_id, self.payload["audited_row_ids"])
 
 
+    def test_batch_12mo_temporal_shensha_is_modern_source_preserving_projection(self) -> None:
+        by_id = {row["rule_id"]: row for row in self.rows}
+        flow = by_id["HPA-BAZI-FLOW-005"]
+        self.assertEqual("MODERN_COMPATIBILITY_ONLY", flow["audit_status"])
+        self.assertEqual(
+            "BAZI-TEMPORAL-SHENSHA-TARGET-PROJECTION-R1@1.0.0 consuming BAZI-CLASSICAL-SHENSHA-FACTS-R1@1.7.1",
+            flow["current_profile"],
+        )
+        self.assertEqual(
+            "BATCH-12-BAZI-TEMPORAL-SHENSHA-SOURCE-SCOPE-PROJECTION-AUDIT-MO",
+            flow["audit_batch"],
+        )
+        self.assertEqual(21, len(flow["upstream_rule_ids"]))
+        self.assertEqual(0, flow["profile_metadata_sync"]["new_provenance_defect_increment"])
+        self.assertIn("HPA-BAZI-FLOW-005", self.payload["audited_row_ids"])
+
+        shensha_rows = [row for row in self.rows if row["rule_id"].startswith("HPA-SHENSHA-")]
+        self.assertEqual(21, len(shensha_rows))
+        self.assertTrue(
+            all(
+                row["current_profile"] == "BAZI-CLASSICAL-SHENSHA-FACTS-R1@1.7.1"
+                for row in shensha_rows
+            )
+        )
+        tiande = by_id["HPA-SHENSHA-008"]
+        self.assertIn("EXT:CTEXT-SMTHE-V3-TIANYUEDE", tiande["source_quote_location"])
+        self.assertTrue(tiande["profile_metadata_sync"]["historical_candidate_extension_already_counted"])
+        yuancheng = by_id["HPA-SHENSHA-019"]
+        self.assertIn("S11:YHZP-CH-015", yuancheng["source_quote_location"])
+        self.assertNotIn("S12:YHZP-CH-016", yuancheng["source_quote_location"])
+        self.assertEqual("PROV-DEFECT-003", yuancheng["defect_id"])
+        self.assertEqual(
+            "PROV-DEFECT-003 / Batch 03 stale Twelve-Growth source-ref repair",
+            yuancheng["profile_metadata_sync"]["root_repair"],
+        )
+
+
 if __name__ == "__main__":
     unittest.main()

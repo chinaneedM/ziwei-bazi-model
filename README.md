@@ -223,7 +223,7 @@ Fusion Chart Capability & Performance Acceptance R1 已正式收口。最终执�
 
 ## Fusion Chart Historical Provenance & School Audit R1
 
-最新规则审计闭环为 **Batch 12MN**：将 HPA-BAZI-FLOW-004 分解为目标层纳音、旬空、十二长生三个继承身份投影；600 个本命日主×合法干支坐标与 4,200 个已解析时限槽位均按已审父规则重放，候选不折叠，也不把现代七槽软件组合倒推为古典教义。FLOW-004 的陈旧 profile 描述同步到实际 `1.0.2`，归入既有 Batch 11A/PROV-DEFECT-009 的下游同步，不重复计缺陷。Matrix 为 201 项、已审 173 项、缺失候选 10；来源缺陷 17/17，算法缺陷/重开/候选折叠 0。下一门为目标层神煞投影审计，见 `docs/PROJECT-CURRENT-STATE-R1.json`。
+最新规则审计闭环为 **Batch 12MO**：HPA-BAZI-FLOW-005 以 `MODERN_COMPATIBILITY_ONLY` 闭合——动态神煞层只对 1.7.1 来源候选做工程 target-match，不宣称古典岁运适用性。代表性 38 候选目录分为 32 个可投影单目标候选与 6 个结构型排除；60 个合法目标干支×7 个已解析槽位完成 420 槽 / 12,000 次候选层级核对，`ONLY_DAY`、结构排除、小运双候选和 `NOT_CLASSICALLY_ARBITRATED` 边界均保持。21 条上游神煞 Matrix profile 同步到实际 `1.7.1`；天德拆分沿用既有历史候选扩展，垣城 CH016→CH015 沿用 `PROV-DEFECT-003`，不重复计缺陷。Matrix 为 201 项、已审 174 项、缺失候选 10；来源缺陷 17/17，算法缺陷/重开/候选折叠 0。下一门为 Structural Context 目标投影审计，见 `docs/PROJECT-CURRENT-STATE-R1.json`。
 
 ```text
 FUSION_CHART_HISTORICAL_PROVENANCE_AUDIT_R1=IN_PROGRESS

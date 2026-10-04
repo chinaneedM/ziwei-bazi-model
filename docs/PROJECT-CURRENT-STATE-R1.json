@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.355.0",
+  "schema_version": "1.356.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -38,7 +38,7 @@
     "matrix_md": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.md",
     "external_source_registry": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json",
     "row_count": 201,
-    "audited_row_count": 173,
+    "audited_row_count": 174,
     "confirmed_provenance_metadata_defect_count": 17,
     "repaired_provenance_metadata_defect_count": 17,
     "historical_candidate_registry_count": 3,
@@ -437,9 +437,10 @@
       "BATCH-12-ZIWEI-BODY-PALACE-GANZHI-PROJECTION-AUDIT-MK",
       "BATCH-12-BAZI-TEMPORAL-TEN-GOD-PROJECTION-AUDIT-ML",
       "BATCH-12-BAZI-STEM-FIVE-COMBINATION-IDENTITY-AUDIT-MM",
-      "BATCH-12-BAZI-TEMPORAL-CLASSICAL-IDENTITY-PROJECTION-AUDIT-MN"
+      "BATCH-12-BAZI-TEMPORAL-CLASSICAL-IDENTITY-PROJECTION-AUDIT-MN",
+      "BATCH-12-BAZI-TEMPORAL-SHENSHA-SOURCE-SCOPE-PROJECTION-AUDIT-MO"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-TEMPORAL-CLASSICAL-IDENTITY-PROJECTION-AUDIT-MN.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-TEMPORAL-SHENSHA-SOURCE-SCOPE-PROJECTION-AUDIT-MO.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -2002,6 +2003,13 @@
       "HPA-BAZI-FLOW-004 descriptive profile metadata is synchronized from stale @1.0.1 to live @1.0.2. This is downstream bookkeeping of the already-counted Batch 11A PROV-DEFECT-009 profile bump, so provenance defect accounting remains 17/17; runtime bytes, schema, hash algorithm and chart coordinates are unchanged.",
       "Matrix is now 201 / 173 / 10; provenance defects remain 17/17; chart algorithm defects / reopens / candidate collapses remain 0.",
       "12MO: audit HPA-BAZI-FLOW-005 Temporal ShenSha target projection. Trace every emitted ShenSha to its natal/source anchor and target coordinate, preserve rule-specific scope/candidate differences, and do not infer omen, strength or activation authority merely from identity projection.",
+      "Original Wenwu1951 primary targets remain NOT_REVIEWED and the anonymous recovery branch remains paused pending a materially new lawful access route.",
+      "Batch 12MO audits HPA-BAZI-FLOW-005 as MODERN_COMPATIBILITY_ONLY: the temporal ShenSha wrapper is an engineering target-match over already-audited source candidates, not proof that classical texts applied every ShenSha to the modern seven resolved slots.",
+      "A representative live 1.7.1 source catalog has 38 candidates: 32 simple projectable candidates and 6 explicit structural exclusions. Exhaustive replay over all 60 legal target Ganzhi and seven resolved slots covers 420 slots / 12000 candidate-layer evaluations while preserving source candidate IDs, anchors, target kinds/values, match scopes, selection/qualification states and source refs.",
+      "ONLY_DAY candidates remain DAILY-only; SANQI/JIALU/YUANCHENG remain structural exclusions; Xiaoyun candidates remain separate; PRE_DAYUN remains absent; all emitted matches remain NOT_CLASSICALLY_ARBITRATED with no omen/strength/activation/event semantics.",
+      "The 21 upstream HPA-SHENSHA rows are synchronized from stale shared profile descriptor 1.7.0 to live 1.7.1. Tiande's Batch 03 source-scope extension was already counted as a historical candidate extension; Yuancheng's stale CH016→CH015 repair remains PROV-DEFECT-003. This batch adds no provenance defect.",
+      "Matrix is now 201 / 174 / 10; provenance defects remain 17/17; chart algorithm defects / reopens / candidate collapses remain 0.",
+      "12MP: audit HPA-BAZI-FLOW-006 Structural Context target projection. Separate neutral structural facts from later interpretive schools and verify temporal projection does not promote context facts into strength/pattern/judgment semantics.",
       "Original Wenwu1951 primary targets remain NOT_REVIEWED and the anonymous recovery branch remains paused pending a materially new lawful access route."
     ],
     "historical_candidate_extension_count": 6,

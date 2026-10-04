@@ -1,0 +1,50 @@
+{
+  "schema": "BAZI-TEMPORAL-SHENSHA-SOURCE-SCOPE-PROJECTION-REPLAY-R1",
+  "batch_id": "BATCH-12-BAZI-TEMPORAL-SHENSHA-SOURCE-SCOPE-PROJECTION-AUDIT-MO",
+  "verification_model": "EXHAUSTIVE_LEGAL_TARGET_MATCH_REPLAY_AGAINST_LIVE_SOURCE_CANDIDATE_CATALOG",
+  "source_profile": "BAZI-CLASSICAL-SHENSHA-FACTS-R1@1.7.1",
+  "projection_profile": "BAZI-TEMPORAL-SHENSHA-TARGET-PROJECTION-R1@1.0.0",
+  "representative_source_chart": {
+    "YEAR": "甲戌",
+    "MONTH": "己巳",
+    "DAY": "癸卯",
+    "HOUR": "己未"
+  },
+  "source_candidate_count": 38,
+  "eligible_source_candidate_count": 32,
+  "structural_excluded_candidate_count": 6,
+  "structural_excluded_families": [
+    "SANQI",
+    "JIALU",
+    "YUANCHENG"
+  ],
+  "only_day_candidate_count": 4,
+  "legal_target_ganzhi_count": 60,
+  "resolved_slots_per_target": 7,
+  "resolved_slot_count": 420,
+  "candidate_layer_evaluation_count": 12000,
+  "illegal_target_ganzhi_count": 60,
+  "source_fields_replayed": [
+    "candidate_id",
+    "shensha_id",
+    "display_name",
+    "anchor_basis",
+    "anchor_value",
+    "target_kind",
+    "target_values",
+    "match_scope",
+    "selection_status",
+    "qualification_status",
+    "source_refs"
+  ],
+  "only_day_daily_only": true,
+  "structural_candidates_degraded_to_single_target": false,
+  "temporal_applicability_status": "NOT_CLASSICALLY_ARBITRATED",
+  "temporal_applicability_adjudicated": false,
+  "xiaoyun_candidates_preserved": true,
+  "xiaoyun_winner_selected": false,
+  "pre_dayun_synthetic_projection_emitted": false,
+  "interpretive_semantics_imported": false,
+  "chart_algorithm_changed": false,
+  "execution_status": "ASSERTED_BY_NEW_TESTS_EXACT_HEAD_CI_PENDING_AT_COMMIT_CREATION"
+}
