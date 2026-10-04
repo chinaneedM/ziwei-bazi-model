@@ -1274,3 +1274,12 @@ Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WE
 - Next 12MI seeks direct numbering/year evidence and the source-record MARC776 Online version OCLC647437409. Accounting and historical text lineage remain unchanged.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENWU1951-UCD-PHYSICAL-DIGITAL-COPY-BINDING-MH.md`. Research record: `docs/research/ZIWEI-WENWU1951-UCD-PHYSICAL-DIGITAL-COPY-BINDING-R1.json`.
+
+
+## Progress — Batch 12MI
+
+- New Google Books no.19–24 object -RGcXtePnoQC is bound as a locator; generic UC origin and digitization date do not bind UCD copy or publication year.
+- One source-emitted thumbnail was reviewed without resolving the target date or pp.221–233. Google API quota/CAPTCHA, HathiTrust target/control 403 and NLA challenge are access observations, not absence evidence.
+- Next 12MJ deduplicates known exact-issue holdings before seeking a materially new first-party page mechanism. No repeat of failed endpoints without a new mechanism; all accounting and historical text votes remain unchanged.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENWU1951-GOOGLE-AGGREGATE-YEAR-BOUNDARY-MI.md`. Research record: `docs/research/ZIWEI-WENWU1951-GOOGLE-AGGREGATE-YEAR-BOUNDARY-R1.json`.

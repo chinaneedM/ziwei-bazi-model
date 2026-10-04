@@ -1,0 +1,215 @@
+{
+  "schema": "ZIWEI-WENWU1951-GOOGLE-AGGREGATE-YEAR-BOUNDARY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-WENWU1951-GOOGLE-AGGREGATE-YEAR-BOUNDARY-MI",
+  "prior_batch_id": "BATCH-12-ZIWEI-WENWU1951-UCD-PHYSICAL-DIGITAL-COPY-BINDING-MH",
+  "question": "Does the new Google no.19–24 object or MARC776 digital counterpart supply a direct year/issue bridge?",
+  "answer": "Google Books exposes a distinct no.19–24 volume and University of California origin, but no publication year or UCD barcode. Its source-emitted tiny thumbnail supplies no legible numbering/year bridge. MARC776 OCLC647437409 and the known-positive HathiTrust control both return identical 403 bodies. No exact 1951 issue or target text is resolved.",
+  "execution": {
+    "observed_date": "2026-10-04",
+    "repository_base_head": "6a8f0a51c2711a2a496c07d00a08571c9794b30d",
+    "repository_base_tree": "f94b9c7fda02e7a71227304e9960dcd5522e706e",
+    "metadata_environment": "WEB_SEARCH_SERVICE_OPEN",
+    "access_probe_environment": "LOCAL_WORK_MODE_NETWORK",
+    "github_runner_probe_claimed": false,
+    "preliminary_probes_first_committed_here": true
+  },
+  "evidence_objects": {
+    "access-observations.json": {
+      "evidence_file": "docs/research/evidence/batch-12mi/access-observations.json",
+      "byte_count": 3632,
+      "sha256": "c546164f4b0900513d56cf22304cbc44e8538725e36859fd1c3d6f5b0272620c"
+    },
+    "google-metadata-observation.json": {
+      "evidence_file": "docs/research/evidence/batch-12mi/google-metadata-observation.json",
+      "byte_count": 818,
+      "sha256": "d67bd7c6950d8a707c8999d826785011181b8eacabd2bdf6e19d9f133f6c7c68"
+    },
+    "google-frontcover-thumbnail.jpg": {
+      "evidence_file": "docs/research/evidence/batch-12mi/google-frontcover-thumbnail.jpg",
+      "byte_count": 7506,
+      "sha256": "a917bbddeecf0a004b391eda3b65a75b06602f8a49c0fbb6b273fbcaacb5837d"
+    }
+  },
+  "google_object": {
+    "schema": "GOOGLE-BOOKS-PUBLIC-METADATA-OBSERVATION-R1",
+    "retrieval": "WEB_SEARCH_SERVICE_OPEN_NOT_LOCAL_RAW_HTTP",
+    "source_url": "https://books.google.de/books?cad=2&hl=de&id=-RGcXtePnoQC&source=gbs_book_other_versions_r",
+    "observed_date": "2026-10-04",
+    "volume_id": "-RGcXtePnoQC",
+    "source_locator": "other-edition link from Google Books volume RInzR1RfiMgC (no.59–64)",
+    "title": "文物参考資料, Ausgaben 19-24",
+    "contributor": "China. 文物局",
+    "original_from": "University of California",
+    "digitized_date": "2024-06-14",
+    "publication_year_field_observed": false,
+    "ucd_barcode_field_observed": false,
+    "common_term_observed": "永樂大典",
+    "common_term_is_article_identification": false,
+    "raw_origin_html_stored": false,
+    "metadata_summary_is_original_page_text": false
+  },
+  "thumbnail": {
+    "url": "https://books.google.de/books/content?id=-RGcXtePnoQC&img=1&imgtk=AFLRE72zuaENRH6c7T7qhphCU6XgG0bfiuo19AAtH4QRc_svHC55yf3ILSEOso1HDlu4kWkYmSzJC6Dh6EZ6cpbejYAgzNb3xwwy0ONPQgNqvNDSK0sgown6vVPKL27MZtBifHorNJWW&printsec=frontcover&zoom=1",
+    "started_at": "2026-10-04T09:22:18.807438+00:00",
+    "status": 200,
+    "final_url": "https://books.google.de/books/content?id=-RGcXtePnoQC&img=1&imgtk=AFLRE72zuaENRH6c7T7qhphCU6XgG0bfiuo19AAtH4QRc_svHC55yf3ILSEOso1HDlu4kWkYmSzJC6Dh6EZ6cpbejYAgzNb3xwwy0ONPQgNqvNDSK0sgown6vVPKL27MZtBifHorNJWW&printsec=frontcover&zoom=1",
+    "content_type": "image/jpeg",
+    "bytes": 7506,
+    "sha256": "a917bbddeecf0a004b391eda3b65a75b06602f8a49c0fbb6b273fbcaacb5837d",
+    "evidence_file": "docs/research/evidence/batch-12mi/google-frontcover-thumbnail.jpg",
+    "visual_observation": "Small vertical Chinese list page; not a legible dated cover or issue-number/year bridge. No target pp.221–233 collation."
+  },
+  "access_observations": {
+    "google-volume": {
+      "url": "https://books.google.de/books?cad=2&hl=de&id=-RGcXtePnoQC&source=gbs_book_other_versions_r",
+      "started_at": "2026-10-04T09:18:13Z",
+      "execution": "LOCAL_WORK_MODE_NETWORK",
+      "status": 429,
+      "final_url": "https://www.google.com/sorry/index?continue=https://books.google.de/books%3Fcad%3D2%26hl%3Dde%26id%3D-RGcXtePnoQC%26source%3Dgbs_book_other_versions_r&hl=de&q=EhAqE5UAAeQITwAAAAABjQFRGNyziNYGIi7oF8dOFyljNgrzfOOdiKc5cqBDuXSYIh3BD1qb_KdSWy3Ph3EzVN6tQhzJWhcVMgJyUloBQw",
+      "content_type": "text/html",
+      "bytes": 3627,
+      "sha256": "c1156d4f411bb250f754422e03a18266b4e31662c272cd8ad467436cf46a38c6",
+      "boundary": "CAPTCHA_REDIRECT",
+      "raw_body_stored_in_repository": false
+    },
+    "google-api": {
+      "url": "https://www.googleapis.com/books/v1/volumes/-RGcXtePnoQC",
+      "started_at": "2026-10-04T09:21:04.106924+00:00",
+      "execution": "LOCAL_WORK_MODE_NETWORK",
+      "status": 429,
+      "final_url": "https://www.googleapis.com/books/v1/volumes/-RGcXtePnoQC",
+      "content_type": "application/json; charset=UTF-8",
+      "bytes": 1306,
+      "sha256": "0acce297db508a309986c5bba994091015dc6c9b76dcb661d9712647fb0e75ce",
+      "boundary": "RESOURCE_EXHAUSTED_QUOTA",
+      "raw_body_stored_in_repository": false
+    },
+    "hathitrust-online-oclc": {
+      "url": "https://catalog.hathitrust.org/api/volumes/brief/oclc/647437409.json",
+      "started_at": "2026-10-04T09:02:43Z",
+      "role": "READ_ONLY_12MI_PRELIMINARY_NOT_COMMITTED_12MH_EVIDENCE",
+      "status": 403,
+      "bytes": 239,
+      "sha256": "ab768623070128ccef048c88def86155dbe776c3d8db423cc8fa89432673d8a8",
+      "error": "Expecting value: line 1 column 1 (char 0)",
+      "execution": "LOCAL_WORK_MODE_NETWORK",
+      "collected_before_12MH_commit": true,
+      "first_committed_batch": "BATCH-12-ZIWEI-WENWU1951-GOOGLE-AGGREGATE-YEAR-BOUNDARY-MI",
+      "raw_body_stored_in_repository": false
+    },
+    "hathitrust-positive-control": {
+      "url": "https://catalog.hathitrust.org/api/volumes/brief/oclc/424023.json",
+      "execution": "LOCAL_WORK_MODE_NETWORK",
+      "observed_date": "2026-10-04",
+      "exact_timestamp_preserved": false,
+      "collected_before_12MH_commit": true,
+      "first_committed_batch": "BATCH-12-ZIWEI-WENWU1951-GOOGLE-AGGREGATE-YEAR-BOUNDARY-MI",
+      "status": 403,
+      "bytes": 239,
+      "sha256": "ab768623070128ccef048c88def86155dbe776c3d8db423cc8fa89432673d8a8",
+      "boundary": "SAME_403_AS_TARGET",
+      "raw_body_stored_in_repository": false
+    },
+    "google-endnote": {
+      "url": "https://books.google.de/books/download/%E6%96%87%E7%89%A9%E5%8F%82%E8%80%83%E8%B3%87%E6%96%99.enw?hl=de&id=-RGcXtePnoQC&output=enw",
+      "execution": "LOCAL_WORK_MODE_NETWORK",
+      "observed_date": "2026-10-04",
+      "exact_timestamp_preserved": false,
+      "collected_before_12MH_commit": true,
+      "first_committed_batch": "BATCH-12-ZIWEI-WENWU1951-GOOGLE-AGGREGATE-YEAR-BOUNDARY-MI",
+      "status": 429,
+      "bytes": 3731,
+      "sha256": "0847cea60bfbcf7f37f642cc70e512009b7f155a04298bb5f925e98032a476eb",
+      "boundary": "CAPTCHA",
+      "raw_body_stored_in_repository": false
+    },
+    "nla-catalogue": {
+      "url": "https://catalogue.nla.gov.au/catalog/1841982",
+      "execution": "LOCAL_WORK_MODE_NETWORK",
+      "observed_date": "2026-10-04",
+      "exact_timestamp_preserved": false,
+      "collected_before_12MH_commit": true,
+      "first_committed_batch": "BATCH-12-ZIWEI-WENWU1951-GOOGLE-AGGREGATE-YEAR-BOUNDARY-MI",
+      "status": 200,
+      "bytes": 7438,
+      "sha256": "4679b0b32ac7c6eb3bdc24ac9bf66a11fa8d6a561bf230342437bfcdd794ab33",
+      "boundary": "ANUBIS_CHALLENGE_NOT_CATALOGUE",
+      "raw_body_stored_in_repository": false
+    }
+  },
+  "documentation": {
+    "google_volume_get": "https://developers.google.com/books/docs/v1/reference/volumes/get",
+    "documented_request": "GET https://www.googleapis.com/books/v1/volumes/{volumeId}",
+    "api_success_claimed": false
+  },
+  "source_emitted_common_term_link": {
+    "url": "https://books.google.de/books?cad=3&hl=de&id=-RGcXtePnoQC&q=%E6%B0%B8%E6%A8%82%E5%A4%A7%E5%85%B8&source=gbs_word_cloud_r",
+    "execution": "WEB_SEARCH_SERVICE_CLICK",
+    "outcome": "NON_RETRYABLE_TOOL_FETCH_FAILURE_WITH_GOOGLE_SORRY_REDIRECT",
+    "origin_http_status_claimed": false,
+    "snippet_obtained": false
+  },
+  "chronology": {
+    "google_equals_ucd_copy_bound": false,
+    "google_publication_year_bound": false,
+    "aggregate_19_24_equals_1951_issue9_claimed": false,
+    "digitized_date_used_as_publication_year": false,
+    "serial_number_arithmetic_used_as_direct_bridge": false,
+    "prior_cinii_numbering_is_new_vote": false
+  },
+  "adjudication": {
+    "exact_issue9_bound": false,
+    "direct_1951_pages_reviewed": false,
+    "target_article_text_reviewed": false,
+    "original_target_text_vote_increment": 0,
+    "evidence_vote_increment": 0,
+    "thumbnail_images_reviewed": 1,
+    "thumbnail_is_target_page": false,
+    "primary_text_upgrade_authorized": false,
+    "target_global_absence_claim_authorized": false,
+    "public_fulltext_access_proved": false
+  },
+  "security": {
+    "login_attempted": false,
+    "credential_used": false,
+    "rights_bypass_used": false,
+    "challenge_solved": false,
+    "private_endpoint_guessed": false,
+    "copy_request_submitted": false,
+    "payment_action_used": false,
+    "failed_routes_retried_after_boundary": false
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "transmission_impact": {
+    "status": "NONE_HISTORICAL_TEXT_LINEAGE_UNCHANGED_LOCATOR_ONLY",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": []
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "12MJ: return to exact 1951 vol.2 no.9 issue-level page recovery. Deduplicate the existing Nabunken exact issue (Document10024273 / SB00333452 / TS00027259) and Japanese physical-holdings work before looking for a materially new first-party public digitization or page mechanism.",
+    "Do not repeat Google CAPTCHA/quota endpoints, HathiTrust 403 target/control queries or the NLA Anubis page without a materially new published access mechanism. Google -RGcXtePnoQC remains an unyear-labelled locator; shared no.19–24 and generic University of California origin do not bind the UCD barcode.",
+    "If no materially new anonymous issue-page route is available, close that recovery branch as access-unresolved and preserve the primary targets for later authorized institutional recovery. Direct 1951 pp.221–233, 2011 Wenji p.197 and Shanghai Wenhui 1951-08-18 remain NOT_REVIEWED."
+  ],
+  "updated_at": "2026-10-04"
+}

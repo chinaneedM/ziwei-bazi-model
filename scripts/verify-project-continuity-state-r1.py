@@ -866,9 +866,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-WENWU1951-CADAL-PUBLIC-SEARCH-REDIRECT-BOUNDARY-MF",
     "BATCH-12-ZIWEI-WENWU1951-HATHITRUST-OCLC-DIGITAL-INVENTORY-MG",
     "BATCH-12-ZIWEI-WENWU1951-UCD-PHYSICAL-DIGITAL-COPY-BINDING-MH",
+    "BATCH-12-ZIWEI-WENWU1951-GOOGLE-AGGREGATE-YEAR-BOUNDARY-MI",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENWU1951-UCD-PHYSICAL-DIGITAL-COPY-BINDING-MH.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENWU1951-GOOGLE-AGGREGATE-YEAR-BOUNDARY-MI.md"
 
 
 def fail(message: str) -> None:
@@ -13981,6 +13982,47 @@ def main() -> int:
         fail("Batch 12MH execution/response scope drift")
     if "EXT-UCD-WENWU-CANKAO-PHYSICAL-DIGITAL-COPY-BINDING" not in {x.get("source_id") for x in registry.get("sources", ())}:
         fail("Batch 12MH source registry binding missing")
+
+    # Batch 12MI: a new aggregate locator must not become a date or original-text vote.
+    mi = json.loads((ROOT / "docs/research/ZIWEI-WENWU1951-GOOGLE-AGGREGATE-YEAR-BOUNDARY-R1.json").read_text(encoding="utf-8"))
+    if mi.get("batch_id") != "BATCH-12-ZIWEI-WENWU1951-GOOGLE-AGGREGATE-YEAR-BOUNDARY-MI" or mi.get("prior_batch_id") != mh.get("batch_id"):
+        fail("Batch 12MI lineage mismatch")
+    mi_expected_objects = {'access-observations.json': {'evidence_file': 'docs/research/evidence/batch-12mi/access-observations.json', 'byte_count': 3632, 'sha256': 'c546164f4b0900513d56cf22304cbc44e8538725e36859fd1c3d6f5b0272620c'}, 'google-metadata-observation.json': {'evidence_file': 'docs/research/evidence/batch-12mi/google-metadata-observation.json', 'byte_count': 818, 'sha256': 'd67bd7c6950d8a707c8999d826785011181b8eacabd2bdf6e19d9f133f6c7c68'}, 'google-frontcover-thumbnail.jpg': {'evidence_file': 'docs/research/evidence/batch-12mi/google-frontcover-thumbnail.jpg', 'byte_count': 7506, 'sha256': 'a917bbddeecf0a004b391eda3b65a75b06602f8a49c0fbb6b273fbcaacb5837d'}}
+    if mi.get("evidence_objects") != mi_expected_objects:
+        fail("Batch 12MI evidence object manifest drift")
+    for name, expected in mi.get("evidence_objects", {}).items():
+        raw = (ROOT / expected["evidence_file"]).read_bytes()
+        if len(raw) != expected["byte_count"] or hashlib.sha256(raw).hexdigest() != expected["sha256"]:
+            fail(f"Batch 12MI preserved evidence identity drift: {name}")
+    observation = json.loads((ROOT / "docs/research/evidence/batch-12mi/google-metadata-observation.json").read_text(encoding="utf-8"))
+    if observation != mi.get("google_object") or observation.get("volume_id") != "-RGcXtePnoQC" or observation.get("digitized_date") != "2024-06-14":
+        fail("Batch 12MI Google locator binding drift")
+    if observation.get("retrieval") != "WEB_SEARCH_SERVICE_OPEN_NOT_LOCAL_RAW_HTTP" or observation.get("publication_year_field_observed") is not False or observation.get("ucd_barcode_field_observed") is not False:
+        fail("Batch 12MI source/date scope drift")
+    if observation.get("title") != "文物参考資料, Ausgaben 19-24" or observation.get("original_from") != "University of California" or observation.get("common_term_is_article_identification") is not False:
+        fail("Batch 12MI title/origin/index scope drift")
+    cover = mi.get("thumbnail", {})
+    if cover.get("status") != 200 or cover.get("bytes") != 7506 or cover.get("sha256") != "a917bbddeecf0a004b391eda3b65a75b06602f8a49c0fbb6b273fbcaacb5837d":
+        fail("Batch 12MI thumbnail identity drift")
+    access = json.loads((ROOT / "docs/research/evidence/batch-12mi/access-observations.json").read_text(encoding="utf-8"))
+    if access != mi.get("access_observations"):
+        fail("Batch 12MI access evidence drift")
+    for name in ("hathitrust-online-oclc", "hathitrust-positive-control"):
+        if access[name].get("status") != 403 or access[name].get("bytes") != 239 or access[name].get("sha256") != "ab768623070128ccef048c88def86155dbe776c3d8db423cc8fa89432673d8a8":
+            fail("Batch 12MI positive-control access boundary drift")
+    if access["google-api"].get("status") != 429 or access["google-api"].get("boundary") != "RESOURCE_EXHAUSTED_QUOTA" or access["nla-catalogue"].get("boundary") != "ANUBIS_CHALLENGE_NOT_CATALOGUE":
+        fail("Batch 12MI quota/challenge scope drift")
+    if any(mi.get("chronology", {}).values()) or any(mi.get("security", {}).values()):
+        fail("Batch 12MI chronology/action firewall regressed")
+    adj = mi.get("adjudication", {})
+    if adj.get("thumbnail_images_reviewed") != 1 or any(v for k, v in adj.items() if k != "thumbnail_images_reviewed"):
+        fail("Batch 12MI thumbnail/target-text scope drift")
+    if mi.get("accounting") != mh.get("accounting") or mi.get("project_consequence") != mh.get("project_consequence"):
+        fail("Batch 12MI zero-product-impact accounting drift")
+    if mi.get("execution", {}).get("github_runner_probe_claimed") is not False:
+        fail("Batch 12MI execution provenance drift")
+    if "EXT-GOOGLE-WENWU-CANKAO-AGGREGATE19-24-RGCXTEPNOQC" not in {x.get("source_id") for x in registry.get("sources", ())}:
+        fail("Batch 12MI source registry binding missing")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

@@ -223,7 +223,7 @@ Fusion Chart Capability & Performance Acceptance R1 已正式收口。最终执�
 
 ## Fusion Chart Historical Provenance & School Audit R1
 
-最新副本身份审计闭环为 **Batch 12MH**：UC Davis 12 册实物条码与 HathiTrust UCD 数字卷册标识、号段全部对应；逐册年份、目标 1951 第 9 期与原刊正文仍未闭合。计数保持 198 / 166 / 10、来源元数据缺陷 17/17 已修复，算法缺陷/重开/候选折叠为 0。当前工作与下一门见 `docs/PROJECT-CURRENT-STATE-R1.json`。
+最新定位审计闭环为 **Batch 12MI**：新增 Google Books 第 19–24 号对象，出版年与 UCD 具体副本对应仍未闭合；访问失败与成功书目摘要分别记账，未新增目标原文票。计数保持 198 / 166 / 10、来源元数据缺陷 17/17 已修复，算法缺陷/重开/候选折叠为 0。当前工作与下一门见 `docs/PROJECT-CURRENT-STATE-R1.json`。
 
 ```text
 FUSION_CHART_HISTORICAL_PROVENANCE_AUDIT_R1=IN_PROGRESS
