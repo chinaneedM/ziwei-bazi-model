@@ -876,9 +876,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-BAZI-STRUCTURAL-CONTEXT-SOURCE-PRESERVING-PROJECTION-AUDIT-MP",
     "BATCH-12-BAZI-STRUCTURAL-SUPPORT-EVIDENCE-CLASS-PROJECTION-AUDIT-MQ",
     "BATCH-12-BAZI-COMBINED-UNIFIED-TARGET-TIMELINE-COMPOSITION-AUDIT-MR",
+    "BATCH-12-BAZI-NATAL-FOUR-PILLAR-COMPOSITION-AUDIT-MS",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-COMBINED-UNIFIED-TARGET-TIMELINE-COMPOSITION-AUDIT-MR.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-NATAL-FOUR-PILLAR-COMPOSITION-AUDIT-MS.md"
 
 
 def fail(message: str) -> None:
@@ -14386,6 +14387,68 @@ def main() -> int:
             fail("Batch 12MR released runtime mutation claim drift")
     if mr.get("verification", {}).get("new_test_count") != 5 or mr.get("transmission_impact", {}).get("status") != "NONE":
         fail("Batch 12MR verification/transmission scope drift")
+
+    # Batch 12MS: natal four-pillar output is a modern composition over separately governed rules.
+    ms_path = ROOT / "docs/research/BAZI-NATAL-FOUR-PILLAR-COMPOSITION-AUDIT-R1.json"
+    ms_replay_path = ROOT / "docs/research/evidence/batch-12ms/natal-pillar-replay.json"
+    ms_doc = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-NATAL-FOUR-PILLAR-COMPOSITION-AUDIT-MS.md"
+    for path in (ms_path, ms_replay_path, ms_doc):
+        if not path.is_file():
+            fail(f"Batch 12MS continuity artifact missing: {path.relative_to(ROOT)}")
+    ms = json.loads(ms_path.read_text(encoding="utf-8"))
+    ms_id = "BATCH-12-BAZI-NATAL-FOUR-PILLAR-COMPOSITION-AUDIT-MS"
+    if ms.get("batch_id") != ms_id or ms.get("prior_batch_id") != mr_id or ms_id not in rule_batches:
+        fail("Batch 12MS chronology/rule ledger mismatch")
+    parent_ms = next(row for row in matrix["rows"] if row["rule_id"] == "HPA-BAZI-001")
+    child_ids_ms = ["HPA-BAZI-016", "HPA-BAZI-017", "HPA-BAZI-018", "HPA-BAZI-019", "HPA-BAZI-020"]
+    if parent_ms.get("audit_status") != "MODERN_COMPATIBILITY_ONLY" or parent_ms.get("audit_batch") != ms_id or parent_ms.get("child_rule_ids") != child_ids_ms:
+        fail("Batch 12MS parent decomposition drift")
+    statuses_ms = {
+        "HPA-BAZI-016": "MODERN_COMPATIBILITY_ONLY",
+        "HPA-BAZI-017": "HISTORICALLY_SUPPORTED",
+        "HPA-BAZI-018": "MODERN_COMPATIBILITY_ONLY",
+        "HPA-BAZI-019": "MODERN_COMPATIBILITY_ONLY",
+        "HPA-BAZI-020": "HISTORICALLY_SUPPORTED",
+    }
+    rowmap_ms = {row["rule_id"]: row for row in matrix["rows"]}
+    for rule_id, expected_status in statuses_ms.items():
+        row = rowmap_ms.get(rule_id)
+        if row is None or row.get("audit_status") != expected_status or row.get("audit_batch") != ms_id or rule_id not in matrix["audited_row_ids"]:
+            fail(f"Batch 12MS child rule drift: {rule_id}")
+    if "HPA-BAZI-001" not in matrix["audited_row_ids"]:
+        fail("Batch 12MS parent audited-ledger drift")
+    fw_ms = parent_ms.get("component_firewall", {})
+    if fw_ms.get("monolithic_classical_natal_rule_claimed") is not False or fw_ms.get("candidate_collapse_authorized") is not False:
+        fail("Batch 12MS composition/candidate firewall drift")
+    registry_ids_ms = {source.get("source_id") for source in registry.get("sources", [])}
+    required_sources_ms = {
+        "EXT-CTEXT-SHENFENG-TONGKAO-QIBAZI",
+        "EXT-WIKISOURCE-XINGLI-KAOYUAN-WUHU-WUSHU",
+        "EXT-CTEXT-BUSHI-QUANSHU-YEAR-MONTH-HOUR",
+        "EXT-SAMR-GBT33661-2017-GANZHI-CYCLE",
+    }
+    if not required_sources_ms.issubset(registry_ids_ms):
+        fail("Batch 12MS source-registry binding drift")
+    acct_ms = ms.get("accounting", {})
+    if acct_ms.get("rows_after") != 206 or acct_ms.get("audited_rows_after") != 184 or acct_ms.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12MS row accounting drift")
+    if acct_ms.get("provenance_defects_confirmed") != 17 or acct_ms.get("provenance_defects_repaired") != 17 or acct_ms.get("chart_algorithm_defects") != 0 or acct_ms.get("algorithm_reopens") != 0 or acct_ms.get("candidate_collapses") != 0:
+        fail("Batch 12MS defect/reopen accounting drift")
+    replay_ms = json.loads(ms_replay_path.read_text(encoding="utf-8"))
+    controls_ms = replay_ms.get("controls", {})
+    if controls_ms.get("year_identity", {}).get("runtime_formula") != "(pillar_year - 4) % 60":
+        fail("Batch 12MS year identity replay drift")
+    if controls_ms.get("day_identity", {}).get("runtime_formula") != "(JDN + 49) % 60":
+        fail("Batch 12MS day identity replay drift")
+    if controls_ms.get("five_rats", {}).get("executable_coverage") != "10 day stems × 12 branches = 120 coordinates":
+        fail("Batch 12MS Five-Rats replay cardinality drift")
+    if controls_ms.get("late_zi_firewall", {}).get("winner_selected") is not False:
+        fail("Batch 12MS late-Zi candidate firewall drift")
+    for obj in ms.get("runtime_files", []):
+        if obj.get("unchanged_from_base") is not True:
+            fail("Batch 12MS released runtime mutation claim drift")
+    if ms.get("verification", {}).get("new_test_count") != 6 or ms.get("transmission_impact", {}).get("status") != "NONE":
+        fail("Batch 12MS verification/transmission scope drift")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")
