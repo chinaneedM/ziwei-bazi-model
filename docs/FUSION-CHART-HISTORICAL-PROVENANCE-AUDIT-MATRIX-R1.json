@@ -45,9 +45,9 @@
   "inventory_summary": {
     "row_count": 201,
     "status_counts": {
-      "MODERN_COMPATIBILITY_ONLY": 33,
+      "MODERN_COMPATIBILITY_ONLY": 34,
       "HISTORICALLY_SUPPORTED": 95,
-      "DISPUTED_MULTIPLE_CANDIDATES": 30,
+      "DISPUTED_MULTIPLE_CANDIDATES": 29,
       "SUPPORTED_BUT_SCHOOL_SPECIFIC": 18,
       "IMPLEMENTATION_REVIEW_REQUIRED": 5,
       "SOURCE_INSUFFICIENT": 9,
@@ -81,7 +81,7 @@
       "candidate/profile rules": 2,
       "provenance / hashes / lineage": 2
     },
-    "audited_row_count": 175
+    "audited_row_count": 176
   },
   "rows": [
     {
@@ -1613,23 +1613,65 @@
       "system": "BAZI",
       "module": "八字动态时限",
       "rule_or_field": "Structural Support candidate projection",
-      "current_implementation": "Preserves exact-hidden-stem vs same-five-element support candidates without strength judgment.",
-      "current_profile": "BAZI Structural Support R1",
-      "primary_source": "S11/S12 source families",
-      "source_quote": "PENDING_VERBATIM_EXTRACTION",
-      "source_quote_location": "docs/BAZI-TARGET-FLOW-STRUCTURAL-SUPPORT-PROJECTION-R1.md",
-      "historical_period": "PENDING_BIBLIOGRAPHIC_DATING",
-      "later_witnesses": "PENDING_LATER_WITNESS_AUDIT",
-      "school_attribution": "PENDING_SCHOOL_ATTRIBUTION_AUDIT",
+      "current_implementation": "BAZI-STRUCTURAL-SUPPORT-FOUNDATION-R1@1.0.0 and BAZI-TARGET-FLOW-STRUCTURAL-SUPPORT-PROJECTION-R1@1.0.0 project two non-interchangeable evidence classes from already materialized hidden-stem/affinity/exposure occurrences. Exact hidden-stem identity binds upstream exposure links; same-element/different-stem evidence explicitly subtracts exact identity and carries no invented exposure link.",
+      "current_profile": "BAZI-STRUCTURAL-SUPPORT-FOUNDATION-R1@1.0.0 + BAZI-TARGET-FLOW-STRUCTURAL-SUPPORT-PROJECTION-R1@1.0.0",
+      "primary_source": "Upstream audited HPA-BAZI-002 hidden-stem membership, HPA-BAZI-004/HPA-BAFF-002 neutral stem-branch affinity, HPA-BAZI-013 exact exposure, plus HPA-BAZI-FLOW-003 and HPA-BAZI-FLOW-006 target occurrence composition. The Structural Support object itself is a modern engineering layer.",
+      "source_quote": "Two non-equivalent candidate classes are preserved: EXACT_HIDDEN_STEM_MATCH and SAME_ELEMENT_HIDDEN_SUPPORT; the projection never collapses them to a boolean root verdict.",
+      "source_quote_location": "docs/BAZI-STRUCTURAL-SUPPORT-FOUNDATION-R1.md; docs/BAZI-TARGET-FLOW-STRUCTURAL-SUPPORT-PROJECTION-R1.md; src/fortune_training/bazi_structural_support/generation.py; src/fortune_training/bazi_application/structural_support_projection.py",
+      "historical_period": "MODERN_ENGINEERING_EVIDENCE_COMPOSITION_OVER_HISTORICALLY_SUPPORTED_IDENTITY_PRIMITIVES",
+      "later_witnesses": "Traditional 通根/得地/旺衰 discussions are deliberately not imported into this fact type. No classical witness is claimed for the exact R1 evidence object, candidate IDs, scoped role sets, hashes or seven-stage software composition.",
+      "school_attribution": "MODERN_NEUTRAL_EVIDENCE_COMPOSITION; INTERPRETIVE_ROOT_STRENGTH_SCHOOLS_OUT_OF_SCOPE",
       "competing_methods": [
-        "exact hidden-stem match",
-        "same-five-element support"
+        "EXACT_HIDDEN_STEM_MATCH is exact-character evidence and must retain its upstream exposure links.",
+        "SAME_ELEMENT_HIDDEN_SUPPORT is broader same-five-element/different-stem evidence and must not invent exposure links.",
+        "These two classes are not rival historical schools and no winner is selected; interpretive 通根/得地/root-strength systems require separate source-scoped profiles."
       ],
-      "current_implementation_match": "PENDING_RULE_BY_RULE_REPLAY",
-      "confidence": "INVENTORY_CONFIDENCE_HIGH",
-      "audit_status": "DISPUTED_MULTIPLE_CANDIDATES",
-      "proposed_action": "Audit whether candidates represent distinct schools or merely computational hypotheses; do not rank.",
-      "algorithm_reopen_authorized": false
+      "current_implementation_match": "SOURCE-PRESERVING EVIDENCE REPLAY. All four released discrimination targets rebuild support from upstream occurrence-specific affinity/exposure facts. Exact and same-element classes remain distinct; exact membership is subtracted from same-element-only membership; NATAL_MONTH_COMMAND and ACTIVE_FLOW_SOLAR_MONTH candidate-ID scopes remain independent; PRE_DAYUN fabricates no Dayun evidence; repeated characters remain separate occurrences.",
+      "confidence": "HIGH_FOR_ENGINEERING_REPLAY; NO_CLASSICAL_ROOT_OR_STRENGTH_VERDICT_CLAIM",
+      "audit_status": "MODERN_COMPATIBILITY_ONLY",
+      "proposed_action": "No algorithm reopen. Preserve both evidence classes, occurrence identity, seasonal scoped sets and upstream hashes. Never promote evidence to ROOT/NO_ROOT, root grade, strength, weight, score, rank, winner, pattern, useful-god or prediction semantics.",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-12-BAZI-STRUCTURAL-SUPPORT-EVIDENCE-CLASS-PROJECTION-AUDIT-MQ",
+      "historical_scope": "MODERN_EVIDENCE_CLASS_COMPOSITION_ONLY_UPSTREAM_HISTORICAL_IDENTITIES_RETAIN_AUTHORITY",
+      "upstream_rule_ids": [
+        "HPA-BAZI-002",
+        "HPA-BAZI-004",
+        "HPA-BAZI-013",
+        "HPA-BAFF-002",
+        "HPA-BAZI-FLOW-003",
+        "HPA-BAZI-FLOW-006"
+      ],
+      "audit_evidence": "docs/research/BAZI-STRUCTURAL-SUPPORT-EVIDENCE-CLASS-PROJECTION-AUDIT-R1.json",
+      "evidence_class_firewall": {
+        "classes": [
+          "EXACT_HIDDEN_STEM_MATCH",
+          "SAME_ELEMENT_HIDDEN_SUPPORT"
+        ],
+        "classes_are_competing_historical_school_candidates": false,
+        "exact_requires_upstream_exposure_links": true,
+        "same_element_subtracts_exact_identity": true,
+        "same_element_invents_exposure_links": false,
+        "class_collapse_authorized": false,
+        "winner_selection_authorized": false,
+        "root_or_strength_verdict_authorized": false
+      },
+      "seasonal_role_firewall": {
+        "roles": [
+          "NATAL_MONTH_COMMAND",
+          "ACTIVE_FLOW_SOLAR_MONTH"
+        ],
+        "scoped_candidate_sets_merged": false,
+        "natal_role_rewritten_by_target_month": false,
+        "active_flow_role_substituted_for_natal_month_command": false,
+        "role_membership_implies_root_or_strength": false
+      },
+      "internal_rule_set_nomenclature": {
+        "rule_set_id": "BAZI-ROOT-SUPPORT-EVIDENCE-CANDIDATE-R1",
+        "interpretation": "MODERN_INTERNAL_IDENTIFIER_ONLY",
+        "root_verdict_authorized": false
+      },
+      "runtime_change": false,
+      "provenance_defect_increment": 0
     },
     {
       "rule_id": "HPA-ZIWEI-001",
@@ -6406,7 +6448,8 @@
     "HPA-BAZI-FLOW-009",
     "HPA-BAZI-FLOW-010",
     "HPA-BAZI-FLOW-005",
-    "HPA-BAZI-FLOW-006"
+    "HPA-BAZI-FLOW-006",
+    "HPA-BAZI-FLOW-007"
   ],
   "audit_summary": {
     "confirmed_chart_algorithm_defect_count": 0,
@@ -6427,6 +6470,7 @@
     "BATCH-12-BAZI-STEM-FIVE-COMBINATION-IDENTITY-AUDIT-MM",
     "BATCH-12-BAZI-TEMPORAL-CLASSICAL-IDENTITY-PROJECTION-AUDIT-MN",
     "BATCH-12-BAZI-TEMPORAL-SHENSHA-SOURCE-SCOPE-PROJECTION-AUDIT-MO",
-    "BATCH-12-BAZI-STRUCTURAL-CONTEXT-SOURCE-PRESERVING-PROJECTION-AUDIT-MP"
+    "BATCH-12-BAZI-STRUCTURAL-CONTEXT-SOURCE-PRESERVING-PROJECTION-AUDIT-MP",
+    "BATCH-12-BAZI-STRUCTURAL-SUPPORT-EVIDENCE-CLASS-PROJECTION-AUDIT-MQ"
   ]
 }

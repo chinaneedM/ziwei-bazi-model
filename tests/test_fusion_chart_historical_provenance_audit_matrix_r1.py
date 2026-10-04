@@ -801,5 +801,43 @@ class HistoricalProvenanceAuditMatrixR1Test(unittest.TestCase):
         self.assertEqual("DISPUTED_MULTIPLE_CANDIDATES", by_id["HPA-BAZI-005"]["audit_status"])
 
 
+    def test_batch_12mq_structural_support_evidence_classes_are_modern_nonranking_projection(self) -> None:
+        by_id = {row["rule_id"]: row for row in self.rows}
+        flow = by_id["HPA-BAZI-FLOW-007"]
+        self.assertEqual("MODERN_COMPATIBILITY_ONLY", flow["audit_status"])
+        self.assertEqual(
+            "BAZI-STRUCTURAL-SUPPORT-FOUNDATION-R1@1.0.0 + BAZI-TARGET-FLOW-STRUCTURAL-SUPPORT-PROJECTION-R1@1.0.0",
+            flow["current_profile"],
+        )
+        self.assertEqual(
+            "BATCH-12-BAZI-STRUCTURAL-SUPPORT-EVIDENCE-CLASS-PROJECTION-AUDIT-MQ",
+            flow["audit_batch"],
+        )
+        self.assertEqual(
+            [
+                "HPA-BAZI-002",
+                "HPA-BAZI-004",
+                "HPA-BAZI-013",
+                "HPA-BAFF-002",
+                "HPA-BAZI-FLOW-003",
+                "HPA-BAZI-FLOW-006",
+            ],
+            flow["upstream_rule_ids"],
+        )
+        firewall = flow["evidence_class_firewall"]
+        self.assertEqual(
+            ["EXACT_HIDDEN_STEM_MATCH", "SAME_ELEMENT_HIDDEN_SUPPORT"],
+            firewall["classes"],
+        )
+        self.assertFalse(firewall["classes_are_competing_historical_school_candidates"])
+        self.assertFalse(firewall["class_collapse_authorized"])
+        self.assertFalse(firewall["winner_selection_authorized"])
+        self.assertFalse(firewall["root_or_strength_verdict_authorized"])
+        roles = flow["seasonal_role_firewall"]
+        self.assertFalse(roles["scoped_candidate_sets_merged"])
+        self.assertFalse(roles["role_membership_implies_root_or_strength"])
+        self.assertIn("HPA-BAZI-FLOW-007", self.payload["audited_row_ids"])
+
+
 if __name__ == "__main__":
     unittest.main()

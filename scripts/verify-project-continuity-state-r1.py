@@ -874,9 +874,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-BAZI-TEMPORAL-CLASSICAL-IDENTITY-PROJECTION-AUDIT-MN",
     "BATCH-12-BAZI-TEMPORAL-SHENSHA-SOURCE-SCOPE-PROJECTION-AUDIT-MO",
     "BATCH-12-BAZI-STRUCTURAL-CONTEXT-SOURCE-PRESERVING-PROJECTION-AUDIT-MP",
+    "BATCH-12-BAZI-STRUCTURAL-SUPPORT-EVIDENCE-CLASS-PROJECTION-AUDIT-MQ",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-STRUCTURAL-CONTEXT-SOURCE-PRESERVING-PROJECTION-AUDIT-MP.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-STRUCTURAL-SUPPORT-EVIDENCE-CLASS-PROJECTION-AUDIT-MQ.md"
 
 
 def fail(message: str) -> None:
@@ -14301,6 +14302,46 @@ def main() -> int:
             fail("Batch 12MP released runtime mutation claim drift")
     if mp.get("verification", {}).get("new_test_count") != 5 or mp.get("transmission_impact", {}).get("status") != "NONE":
         fail("Batch 12MP verification/transmission scope drift")
+
+
+    # Batch 12MQ: Structural Support evidence classes stay non-ranking modern evidence.
+    mq = json.loads((ROOT / "docs/research/BAZI-STRUCTURAL-SUPPORT-EVIDENCE-CLASS-PROJECTION-AUDIT-R1.json").read_text(encoding="utf-8"))
+    mq_id = "BATCH-12-BAZI-STRUCTURAL-SUPPORT-EVIDENCE-CLASS-PROJECTION-AUDIT-MQ"
+    if mq.get("batch_id") != mq_id or mq.get("prior_batch_id") != mp_id or mq_id not in rule_batches:
+        fail("Batch 12MQ chronology/rule ledger mismatch")
+    flow7 = next(row for row in matrix["rows"] if row["rule_id"] == "HPA-BAZI-FLOW-007")
+    if flow7.get("audit_status") != "MODERN_COMPATIBILITY_ONLY" or flow7.get("audit_batch") != mq_id:
+        fail("Batch 12MQ FLOW-007 status/batch drift")
+    if flow7.get("current_profile") != "BAZI-STRUCTURAL-SUPPORT-FOUNDATION-R1@1.0.0 + BAZI-TARGET-FLOW-STRUCTURAL-SUPPORT-PROJECTION-R1@1.0.0":
+        fail("Batch 12MQ profile drift")
+    if flow7.get("historical_scope") != "MODERN_EVIDENCE_CLASS_COMPOSITION_ONLY_UPSTREAM_HISTORICAL_IDENTITIES_RETAIN_AUTHORITY" or flow7.get("algorithm_reopen_authorized") is not False:
+        fail("Batch 12MQ historical/composition scope drift")
+    expected_upstream_mq = ["HPA-BAZI-002", "HPA-BAZI-004", "HPA-BAZI-013", "HPA-BAFF-002", "HPA-BAZI-FLOW-003", "HPA-BAZI-FLOW-006"]
+    if flow7.get("upstream_rule_ids") != expected_upstream_mq or "HPA-BAZI-FLOW-007" not in matrix["audited_row_ids"]:
+        fail("Batch 12MQ upstream/audited ledger drift")
+    firewall_mq = flow7.get("evidence_class_firewall", {})
+    if firewall_mq.get("classes") != ["EXACT_HIDDEN_STEM_MATCH", "SAME_ELEMENT_HIDDEN_SUPPORT"] or firewall_mq.get("classes_are_competing_historical_school_candidates") is not False or firewall_mq.get("class_collapse_authorized") is not False or firewall_mq.get("winner_selection_authorized") is not False or firewall_mq.get("root_or_strength_verdict_authorized") is not False:
+        fail("Batch 12MQ evidence-class firewall drift")
+    roles_mq = flow7.get("seasonal_role_firewall", {})
+    if roles_mq.get("roles") != ["NATAL_MONTH_COMMAND", "ACTIVE_FLOW_SOLAR_MONTH"] or roles_mq.get("scoped_candidate_sets_merged") is not False or roles_mq.get("role_membership_implies_root_or_strength") is not False:
+        fail("Batch 12MQ seasonal-role firewall drift")
+    if flow7.get("internal_rule_set_nomenclature", {}).get("root_verdict_authorized") is not False or flow7.get("runtime_change") is not False or flow7.get("provenance_defect_increment") != 0:
+        fail("Batch 12MQ nomenclature/runtime/provenance drift")
+    acct_mq = mq.get("accounting", {})
+    if acct_mq.get("rows_after") != 201 or acct_mq.get("audited_rows_after") != 176 or acct_mq.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12MQ row accounting drift")
+    if acct_mq.get("provenance_defects_confirmed") != 17 or acct_mq.get("provenance_defects_repaired") != 17 or acct_mq.get("chart_algorithm_defects") != 0 or acct_mq.get("algorithm_reopens") != 0 or acct_mq.get("candidate_collapses") != 0:
+        fail("Batch 12MQ defect/reopen accounting drift")
+    replay_mq = json.loads((ROOT / "docs/research/evidence/batch-12mq/projection-replay.json").read_text(encoding="utf-8"))
+    if replay_mq.get("fixture_target_count") != 4 or replay_mq.get("evidence_class_count") != 2 or replay_mq.get("seasonal_role_count") != 2 or replay_mq.get("supported_participant_layer_count") != 4 or replay_mq.get("excluded_temporal_layer_count") != 3 or replay_mq.get("upstream_rule_count") != 6:
+        fail("Batch 12MQ replay scope cardinality drift")
+    if replay_mq.get("same_element_subtracts_exact_identity") is not True or replay_mq.get("same_element_invents_exposure_links") is not False or replay_mq.get("seasonal_scoped_candidate_sets_merged") is not False or replay_mq.get("root_verdict_emitted") is not False or replay_mq.get("strength_weight_grade_score_emitted") is not False or replay_mq.get("rank_or_winner_emitted") is not False or replay_mq.get("pre_dayun_fabricated_dayun_evidence") is not False or replay_mq.get("repeated_occurrences_collapsed") is not False or replay_mq.get("chart_algorithm_changed") is not False:
+        fail("Batch 12MQ evidence/semantic firewall drift")
+    for obj in mq.get("runtime_files", []):
+        if obj.get("unchanged_from_base") is not True:
+            fail("Batch 12MQ released runtime mutation claim drift")
+    if mq.get("verification", {}).get("new_test_count") != 5 or mq.get("transmission_impact", {}).get("status") != "NONE":
+        fail("Batch 12MQ verification/transmission scope drift")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

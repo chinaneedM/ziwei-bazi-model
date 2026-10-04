@@ -1,0 +1,131 @@
+{
+  "schema": "BAZI-STRUCTURAL-SUPPORT-EVIDENCE-CLASS-PROJECTION-AUDIT-R1",
+  "batch_id": "BATCH-12-BAZI-STRUCTURAL-SUPPORT-EVIDENCE-CLASS-PROJECTION-AUDIT-MQ",
+  "prior_batch_id": "BATCH-12-BAZI-STRUCTURAL-CONTEXT-SOURCE-PRESERVING-PROJECTION-AUDIT-MP",
+  "rule_id": "HPA-BAZI-FLOW-007",
+  "audit_scope": "VERIFY_STRUCTURAL_SUPPORT_EVIDENCE_CLASSES_REPLAY_AUDITED_IDENTITY_PRIMITIVES_WITHOUT_PROMOTION_TO_ROOT_STRENGTH_WEIGHT_SCORE_RANK_OR_WINNER_SEMANTICS",
+  "adjudication": {
+    "audit_status": "MODERN_COMPATIBILITY_ONLY",
+    "historical_scope": "MODERN_EVIDENCE_CLASS_COMPOSITION_ONLY_UPSTREAM_HISTORICAL_IDENTITIES_RETAIN_AUTHORITY",
+    "candidate_classes_are_historical_school_alternatives": false,
+    "classical_unified_support_object_claimed": false,
+    "interpretive_root_or_strength_semantics_authorized": false,
+    "algorithm_reopen_authorized": false
+  },
+  "upstream_rule_ids": [
+    "HPA-BAZI-002",
+    "HPA-BAZI-004",
+    "HPA-BAZI-013",
+    "HPA-BAFF-002",
+    "HPA-BAZI-FLOW-003",
+    "HPA-BAZI-FLOW-006"
+  ],
+  "implementation_contract": {
+    "foundation_profile": "BAZI-STRUCTURAL-SUPPORT-FOUNDATION-R1@1.0.0",
+    "projection_schema": "BAZI-TARGET-FLOW-STRUCTURAL-SUPPORT-PROJECTION-R1",
+    "projection_algorithm_version": "1.0.0",
+    "semantic_scope": "NEUTRAL_SUPPORT_EVIDENCE_CANDIDATES_ONLY_NO_ROOT_STRENGTH_OR_WEIGHT",
+    "evidence_classes": [
+      "EXACT_HIDDEN_STEM_MATCH",
+      "SAME_ELEMENT_HIDDEN_SUPPORT"
+    ],
+    "seasonal_roles": [
+      "NATAL_MONTH_COMMAND",
+      "ACTIVE_FLOW_SOLAR_MONTH"
+    ],
+    "participant_layers": [
+      "NATAL",
+      "DAYUN",
+      "ANNUAL",
+      "MONTHLY"
+    ],
+    "excluded_temporal_layers": [
+      "XIAOYUN",
+      "DAILY",
+      "HOURLY"
+    ],
+    "pre_dayun_behavior": "NO_DAYUN_SUPPORT_EVIDENCE"
+  },
+  "evidence_class_firewall": {
+    "exact_hidden_stem_match": "Requires exact visible-stem == hidden-stem identity and binds the already existing exposure links.",
+    "same_element_hidden_support": "Uses same-five-element hidden stems after subtracting exact stem identities and carries no exposure links.",
+    "coexistence": "Both classes may coexist; neither ranks or defeats the other.",
+    "prohibited_promotions": [
+      "ROOT",
+      "NO_ROOT",
+      "ROOT_GRADE",
+      "STRENGTH",
+      "WEIGHT",
+      "SCORE",
+      "RANK",
+      "WINNER",
+      "PATTERN",
+      "USEFUL_GOD",
+      "PREDICTION"
+    ]
+  },
+  "seasonal_role_firewall": {
+    "natal_month_command": "Fixed to natal MONTH.BRANCH and natal lineage.",
+    "active_flow_solar_month": "Bound to active MonthlyFrame / Structural MONTHLY branch occurrence.",
+    "candidate_sets_merged": false,
+    "role_membership_implies_strength": false
+  },
+  "internal_rule_set_nomenclature": {
+    "rule_set_id": "BAZI-ROOT-SUPPORT-EVIDENCE-CANDIDATE-R1",
+    "treatment": "MODERN_INTERNAL_IDENTIFIER_ONLY",
+    "historical_root_doctrine_claim": false
+  },
+  "runtime_files": [
+    {
+      "path": "src/fortune_training/bazi_structural_support/generation.py",
+      "blob_sha": "6ef9c310985e6ee6b70685e513ba8d79a9b1011e",
+      "unchanged_from_base": true
+    },
+    {
+      "path": "src/fortune_training/bazi_structural_support/profile.py",
+      "blob_sha": "1c3c126ef14d1faec3ab64fb675a124bade10baf",
+      "unchanged_from_base": true
+    },
+    {
+      "path": "src/fortune_training/bazi_structural_support/models.py",
+      "blob_sha": "2b871ea856ebae6181cfd9da39165122cd63a3f4",
+      "unchanged_from_base": true
+    },
+    {
+      "path": "src/fortune_training/bazi_structural_support/integrity.py",
+      "blob_sha": "f4b243ff73eb58428406bf04e6eb1e1692c2acc9",
+      "unchanged_from_base": true
+    },
+    {
+      "path": "src/fortune_training/bazi_application/structural_support_projection.py",
+      "blob_sha": "d4ffe3aa4ed7f9bdf9a8685d9285449eabb8e036",
+      "unchanged_from_base": true
+    }
+  ],
+  "replay_evidence": "docs/research/evidence/batch-12mq/projection-replay.json",
+  "verification": {
+    "new_test_file": "tests/test_bazi_structural_support_evidence_class_projection_audit_r1.py",
+    "new_test_count": 5,
+    "exact_head_ci_status_at_commit_creation": "PENDING_BY_DEFINITION"
+  },
+  "accounting": {
+    "rows_before": 201,
+    "rows_after": 201,
+    "audited_rows_before": 175,
+    "audited_rows_after": 176,
+    "current_missing_from_product_rows": 10,
+    "provenance_defects_confirmed": 17,
+    "provenance_defects_repaired": 17,
+    "chart_algorithm_defects": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0
+  },
+  "transmission_impact": {
+    "status": "NONE",
+    "reason": "No new edition/copy witness, ancestry edge, school lineage or terminology transmission is adjudicated. This batch classifies a modern evidence-composition layer over already-audited primitives."
+  },
+  "next_gate": [
+    "12MR: audit HPA-BAZI-FLOW-001 together with HPA-COMB-004 unified target timeline composition; keep historical authority in the separately audited layer generators and preserve all candidate lineage.",
+    "Original Wenwu1951 recovery remains paused pending a materially new lawful access mechanism."
+  ]
+}

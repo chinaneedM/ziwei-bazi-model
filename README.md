@@ -223,7 +223,7 @@ Fusion Chart Capability & Performance Acceptance R1 已正式收口。最终执�
 
 ## Fusion Chart Historical Provenance & School Audit R1
 
-最新规则审计闭环为 **Batch 12MP**：HPA-BAZI-FLOW-006 以 `MODERN_COMPATIBILITY_ONLY` 闭合。`BAZI-STRUCTURAL-CONTEXT-R1@1.1.0` 与 target-flow structural projection 只把已审藏干、十神、透干/亲和及 raw-relation core 组合成 DAYUN/ANNUAL/MONTHLY 的中性结构事实；Xiaoyun/Daily/Hourly 继续排除，PRE_DAYUN 不造大运参与者。HPA-BAZI-005 的历史关系 sidecar 仍为 `PRESERVED_NOT_SELECTED`，不会被结构层静默合并；合化元素只保留名义元数据，不输出成化、强弱、优先级、格局、用神或预测。Matrix 为 201 项、已审 175 项、缺失候选 10；来源缺陷 17/17，算法缺陷/重开/候选折叠 0。下一门为 Structural Support candidate projection 审计，见 `docs/PROJECT-CURRENT-STATE-R1.json`。
+最新规则审计闭环为 **Batch 12MQ**：HPA-BAZI-FLOW-007 以 `MODERN_COMPATIBILITY_ONLY` 闭合。`EXACT_HIDDEN_STEM_MATCH` 与 `SAME_ELEMENT_HIDDEN_SUPPORT` 被确认是可并存、不可互换的现代 evidence classes，而不是两个需要择一的历史流派；前者必须绑定上游透干 link，后者显式扣除 exact identity 且不得伪造 exposure。`NATAL_MONTH_COMMAND` 与 `ACTIVE_FLOW_SOLAR_MONTH` 两套 candidate-ID scope 始终分离，PRE_DAYUN 不造大运证据，重复字符保留 occurrence identity。任何 evidence 都不得提升为 ROOT/NO_ROOT、得令/通根、强弱、权重、评分、排名、winner 或预测。Matrix 为 201 项、已审 176 项、缺失候选 10；来源缺陷 17/17，算法缺陷/重开/候选折叠 0。下一门为统一 target timeline 组合层审计，见 `docs/PROJECT-CURRENT-STATE-R1.json`。
 
 ```text
 FUSION_CHART_HISTORICAL_PROVENANCE_AUDIT_R1=IN_PROGRESS

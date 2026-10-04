@@ -34,7 +34,7 @@ Every row carries:
 - proposed action;
 - explicit algorithm-reopen authorization, which is **false for every inventory row at creation**.
 
-The initial inventory contained **107 rule/field families**. Through Batch 12MP and explicit splitting of historically distinct candidate families, the current machine-readable inventory contains **201 rows**, with **175 audited rows**. It intentionally keeps unresolved source work explicit rather than converting uncertainty into a chart defect. The current audit ledger records **17 confirmed provenance metadata defects repaired forward-only at the provenance/hash-lineage layer, 0 chart algorithm defects, 0 algorithm reopens, 14 cumulatively identified missing candidate families, 10 rows currently `MISSING_FROM_PRODUCT`, 6 historical candidate extensions, 3 source-scoped historical candidate registries, and 3 runtime-resolver components**.
+The initial inventory contained **107 rule/field families**. Through Batch 12MQ and explicit splitting of historically distinct candidate families, the current machine-readable inventory contains **201 rows**, with **176 audited rows**. It intentionally keeps unresolved source work explicit rather than converting uncertainty into a chart defect. The current audit ledger records **17 confirmed provenance metadata defects repaired forward-only at the provenance/hash-lineage layer, 0 chart algorithm defects, 0 algorithm reopens, 14 cumulatively identified missing candidate families, 10 rows currently `MISSING_FROM_PRODUCT`, 6 historical candidate extensions, 3 source-scoped historical candidate registries, and 3 runtime-resolver components**.
 
 ## Research-corpus authority
 
@@ -1298,3 +1298,6 @@ Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WE
 
 
 - Batch 12MP: HPA-BAZI-FLOW-006 closes as `MODERN_COMPATIBILITY_ONLY`. Structural Context and its target-flow projection reuse audited hidden-stem/Ten-God/exposure/affinity/raw-core relation primitives on DAYUN/ANNUAL/MONTHLY only. HPA-BAZI-005 remains disputed: the unselected historical relation sidecar is not injected into the production Structural Context. No effect, root strength, transformation success, priority, pattern, useful-god or prediction semantics are inferred. Matrix remains 201 rows, now 175 audited. See `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-STRUCTURAL-CONTEXT-SOURCE-PRESERVING-PROJECTION-AUDIT-MP.md`.
+
+
+- Batch 12MQ: HPA-BAZI-FLOW-007 closes as `MODERN_COMPATIBILITY_ONLY`. Exact-hidden-stem and same-element/different-stem support are preserved as two non-ranking evidence classes over audited hidden-stem/affinity/exposure primitives; they are not treated as rival historical schools or collapsed to a root verdict. Natal month-command and active Flow solar-month candidate scopes remain separate; PRE_DAYUN cannot fabricate Dayun evidence; no strength/weight/score/rank/winner semantics are authorized. Matrix remains 201 rows, now 176 audited. See `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-STRUCTURAL-SUPPORT-EVIDENCE-CLASS-PROJECTION-AUDIT-MQ.md`.

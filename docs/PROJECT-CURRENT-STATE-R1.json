@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.357.0",
+  "schema_version": "1.358.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -38,7 +38,7 @@
     "matrix_md": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.md",
     "external_source_registry": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json",
     "row_count": 201,
-    "audited_row_count": 175,
+    "audited_row_count": 176,
     "confirmed_provenance_metadata_defect_count": 17,
     "repaired_provenance_metadata_defect_count": 17,
     "historical_candidate_registry_count": 3,
@@ -439,9 +439,10 @@
       "BATCH-12-BAZI-STEM-FIVE-COMBINATION-IDENTITY-AUDIT-MM",
       "BATCH-12-BAZI-TEMPORAL-CLASSICAL-IDENTITY-PROJECTION-AUDIT-MN",
       "BATCH-12-BAZI-TEMPORAL-SHENSHA-SOURCE-SCOPE-PROJECTION-AUDIT-MO",
-      "BATCH-12-BAZI-STRUCTURAL-CONTEXT-SOURCE-PRESERVING-PROJECTION-AUDIT-MP"
+      "BATCH-12-BAZI-STRUCTURAL-CONTEXT-SOURCE-PRESERVING-PROJECTION-AUDIT-MP",
+      "BATCH-12-BAZI-STRUCTURAL-SUPPORT-EVIDENCE-CLASS-PROJECTION-AUDIT-MQ"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-STRUCTURAL-CONTEXT-SOURCE-PRESERVING-PROJECTION-AUDIT-MP.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-STRUCTURAL-SUPPORT-EVIDENCE-CLASS-PROJECTION-AUDIT-MQ.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -2018,6 +2019,13 @@
       "No effect, strength, root grade, relation priority, cancellation, transformation-success, pattern, useful-god, ShenSha meaning or prediction semantics are authorized by 12MP.",
       "Matrix is now 201 / 175 / 10; provenance defects remain 17/17; chart algorithm defects / reopens / candidate collapses remain 0.",
       "12MQ: audit HPA-BAZI-FLOW-007 Structural Support candidate projection. Verify that support evidence candidates remain evidence-only, preserve competing anchors/profiles, and are never upgraded into ROOT/NO_ROOT, strength, weight, score, rank or winner verdicts.",
+      "Original Wenwu1951 primary targets remain NOT_REVIEWED and the anonymous recovery branch remains paused pending a materially new lawful access route.",
+      "Batch 12MQ audits HPA-BAZI-FLOW-007 as MODERN_COMPATIBILITY_ONLY. EXACT_HIDDEN_STEM_MATCH and SAME_ELEMENT_HIDDEN_SUPPORT are coexisting modern evidence classes derived from audited identity primitives, not rival historical schools and not a root verdict.",
+      "Exact evidence retains upstream exposure links. Same-element/different-stem evidence explicitly subtracts exact hidden-stem identities and carries no invented exposure. Repeated characters retain occurrence identity across Natal/Dayun/Annual/Monthly.",
+      "NATAL_MONTH_COMMAND and ACTIVE_FLOW_SOLAR_MONTH remain separate typed references with independent support-candidate ID sets. The target month cannot rewrite the natal month-command reference; neither scoped set implies 得令、通根、ROOT/NO_ROOT、强弱、权重、评分、排名或 winner.",
+      "PRE_DAYUN fabricates no Dayun support evidence. Xiaoyun/Daily/Hourly remain outside the released Structural Support coverage inherited from Structural Context. The internal BAZI-ROOT-SUPPORT-EVIDENCE-CANDIDATE-R1 name is treated as a modern identifier only, not an interpretive authorization.",
+      "No runtime algorithm, schema or hash version changes. Matrix is now 201 / 176 / 10; provenance defects remain 17/17; chart algorithm defects / reopens / candidate collapses remain 0.",
+      "12MR: audit HPA-BAZI-FLOW-001 together with HPA-COMB-004 unified target timeline composition. Verify that the combined 原局→大运→小运→流年→流月→流日→流时 object is software composition over separately audited layer generators, preserves candidate lineage, and is not back-projected as a single classical doctrine.",
       "Original Wenwu1951 primary targets remain NOT_REVIEWED and the anonymous recovery branch remains paused pending a materially new lawful access route."
     ],
     "historical_candidate_extension_count": 6,
@@ -2058,7 +2066,7 @@
     "handoff_text_should_be_generated_from_repository_state_not_chat_memory": true,
     "new_chat_minimal_user_prompt": "继续项目。按仓库 docs/PROJECT-CONTINUITY-PROTOCOL-R1.md 启动，以 GitHub 远端最新状态为唯一事实源。"
   },
-  "updated_at": "2026-10-04",
+  "updated_at": "2026-10-05",
   "tianwen_identity": {
     "umbrella_name_zh": "天问",
     "umbrella_name_en": "TIANWEN",

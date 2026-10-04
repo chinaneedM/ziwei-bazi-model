@@ -129,3 +129,14 @@ combinations, ShenSha, prediction, Ziwei fusion, or mutable/verdict UI behavior.
 The separate read-only application composition is documented in
 `docs/BAZI-TARGET-FLOW-STRUCTURAL-SUPPORT-PROJECTION-R1.md`; it does not change
 this generator or its coverage.
+
+
+## Batch 12MQ 历史审计闭合
+
+12MQ 将 HPA-BAZI-FLOW-007 裁定为 `MODERN_COMPATIBILITY_ONLY`。本层的历史权威不来自一个可证的“古典 Structural Support 对象”，而来自已经分别审过的藏干 membership、干支亲和、同五行 identity、exact exposure 与动态 occurrence 投影。
+
+`EXACT_HIDDEN_STEM_MATCH` 与 `SAME_ELEMENT_HIDDEN_SUPPORT` 不是两个相互竞争、需要择一的流派。它们是现代软件为避免把不同证据强行压成布尔“有根”而保留的两个 evidence classes：exact 类必须携带真实 upstream exposure links；same-element 类必须先扣除 exact hidden-stem identity，并且不得制造 exposure link。
+
+`NATAL_MONTH_COMMAND` 与 `ACTIVE_FLOW_SOLAR_MONTH` 只是两个 typed seasonal references。它们各自的 candidate-ID scope 不合并，也不授权“得令”“通根”“强弱”等解释。内部规则名 `BAZI-ROOT-SUPPORT-EVIDENCE-CANDIDATE-R1` 仅视为现代工程 identifier；其中的 `ROOT` 字样不构成 root verdict。
+
+审计继续禁止 `ROOT/NO_ROOT`、主根/次根、强弱、权重、评分、排序、winner、格局、用神、调候、合化成功或预测。运行时算法、schema、hash 版本均不修改。详见 `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-STRUCTURAL-SUPPORT-EVIDENCE-CLASS-PROJECTION-AUDIT-MQ.md`。

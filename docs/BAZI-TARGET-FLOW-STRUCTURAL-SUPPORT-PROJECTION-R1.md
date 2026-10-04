@@ -93,3 +93,12 @@ strength, weights, scores, 得令/得地/得势, 旺衰, 格局, 用神/忌神, 
 transformation success, judgments, training data, interpretations, or
 predictions. Xiaoyun, Daily, and Hourly remain outside the released Structural
 Context and Support coverage.
+
+
+## Batch 12MQ audit closure
+
+This projection is formally audited as `MODERN_COMPATIBILITY_ONLY`. It is a source-preserving application view over Structural Support Foundation R1, not evidence that a historical source defined one unified target-flow root/support doctrine.
+
+The two published evidence classes are coexisting typed evidence, not competing school winners. `EXACT_HIDDEN_STEM_MATCH` must retain exposure lineage; `SAME_ELEMENT_HIDDEN_SUPPORT` must contain only same-element/different-stem hidden identities and must carry no invented exposure link. The two seasonal scoped candidate sets remain independently derived and never become root/strength verdicts.
+
+The application validator's forbidden-field boundary is therefore historical as well as engineering governance: support evidence cannot be promoted to root, strength, weight, grade, score, winner, interpretation or prediction fields. PRE_DAYUN and occurrence-identity behavior remain unchanged. See `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-STRUCTURAL-SUPPORT-EVIDENCE-CLASS-PROJECTION-AUDIT-MQ.md`.
