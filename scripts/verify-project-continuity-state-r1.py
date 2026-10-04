@@ -4,6 +4,7 @@ from __future__ import annotations
 import hashlib
 import json
 from pathlib import Path
+from xml.etree import ElementTree
 
 ROOT = Path(__file__).resolve().parents[1]
 STATE = ROOT / "docs" / "PROJECT-CURRENT-STATE-R1.json"
@@ -864,9 +865,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-WENJI-P197-DUXIU-SSLIBRARY-PREQUERY-AUTH-BOUNDARY-ME",
     "BATCH-12-ZIWEI-WENWU1951-CADAL-PUBLIC-SEARCH-REDIRECT-BOUNDARY-MF",
     "BATCH-12-ZIWEI-WENWU1951-HATHITRUST-OCLC-DIGITAL-INVENTORY-MG",
+    "BATCH-12-ZIWEI-WENWU1951-UCD-PHYSICAL-DIGITAL-COPY-BINDING-MH",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENWU1951-HATHITRUST-OCLC-DIGITAL-INVENTORY-MG.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENWU1951-UCD-PHYSICAL-DIGITAL-COPY-BINDING-MH.md"
 
 
 def fail(message: str) -> None:
@@ -13907,6 +13909,78 @@ def main() -> int:
     source_ids = {x.get("source_id") for x in registry.get("sources", ())}
     if "EXT-HATHITRUST-WENWU-CANKAO-OCLC18030125-RECORD007245565" not in source_ids:
         fail("Batch 12MG source registry binding missing")
+
+    # Batch 12MH: copy provenance must not become an issue-year or text vote.
+    mh = json.loads((ROOT / "docs/research/ZIWEI-WENWU1951-UCD-PHYSICAL-DIGITAL-COPY-BINDING-R1.json").read_text(encoding="utf-8"))
+    if mh.get("batch_id") != "BATCH-12-ZIWEI-WENWU1951-UCD-PHYSICAL-DIGITAL-COPY-BINDING-MH" or mh.get("prior_batch_id") != mg.get("batch_id"):
+        fail("Batch 12MH evidence lineage mismatch")
+    mh_objects = mh.get("objects", {})
+    mh_raw = {}
+    for name, obj in mh_objects.items():
+        raw_path = ROOT / obj.get("evidence_file", "")
+        if not raw_path.is_file():
+            fail(f"Batch 12MH raw evidence missing: {name}")
+        body = raw_path.read_bytes()
+        if len(body) != obj.get("byte_count") or hashlib.sha256(body).hexdigest() != obj.get("sha256"):
+            fail(f"Batch 12MH raw evidence identity drift: {name}")
+        if name != "holdings-request" and obj.get("status") != 200:
+            fail(f"Batch 12MH response contract drift: {name}")
+        mh_raw[name] = body.decode("utf-8") if name == "source-marc" else json.loads(body)
+    pnx = mh_raw["target-pnx"]
+    if pnx["pnx"]["control"]["recordid"] != ["alma990022440100403126"] or "文物参考資料." not in pnx["pnx"]["display"]["vertitle"] or pnx["pnx"]["addata"]["oclcid"] != ["(ocolc)18030125"]:
+        fail("Batch 12MH originating serial identity drift")
+    if not any("990022440100403126" in x for x in mh_raw["successor-control"]["pnx"]["display"]["relation"]):
+        fail("Batch 12MH successor control binding missing")
+    for fragment in ("001\t9912383409706531", "996\t##$a990022440100403126", "(OCoLC)647437409"):
+        if fragment not in mh_raw["source-marc"]:
+            fail("Batch 12MH network/local/digital-locator MARC bridge drift")
+    holding_data = mh_raw["holdings"]["data"]
+    location = holding_data["itemInfo"]["locations"][0]
+    physical_items = location["items"]
+    if len(physical_items) != 12 or holding_data["itemInfo"]["no-items"] != 12 or location["partial"] is not False or location["current-start-pos"] != 13:
+        fail("Batch 12MH expanded physical inventory drift")
+    if mh_raw["title-services"]["data"]["itemInfo"]["no-items"] != 0 or holding_data["possibleFilters"]["years"] != ["Other.."]:
+        fail("Batch 12MH unexpanded/undated response scope drift")
+    request = mh_raw["holdings-request"]
+    if request["filters"]["ilsRecordList"] != [{"institution": "01UCD_INST", "recordId": "990022440100403126"}] or request["filters"]["noItem"] != 20 or request["locations"][0]["holdId"] != "22237179290003126":
+        fail("Batch 12MH published read-only holdings query drift")
+    if mh_objects["holdings"].get("semantics") != "READ_ONLY_HOLDINGS_QUERY_NOT_CIRCULATION_REQUEST":
+        fail("Batch 12MH query/action distinction missing")
+    physical_by_barcode = {x["itembarcode"]: x for x in physical_items}
+    hathi_marc = ElementTree.fromstring(full["records"]["007245565"]["marc-xml"])
+    hathi_ucd = {}
+    for field in hathi_marc.findall('.//{http://www.loc.gov/MARC21/slim}datafield[@tag="974"]'):
+        subfields = {x.get("code"): x.text for x in field}
+        if subfields.get("c") == "UCD":
+            hathi_ucd[subfields["u"]] = subfields["z"]
+    matches = mh.get("physical_digital_binding", {}).get("matches", [])
+    if len(matches) != 12 or {x["hathitrust_htid"] for x in matches} != set(hathi_ucd):
+        fail("Batch 12MH digital copy inventory mismatch")
+    for match in matches:
+        barcode = match["hathitrust_htid"].split(".", 1)[1]
+        item = physical_by_barcode.get(barcode, {})
+        if match.get("ucd_itembarcode") != barcode or match.get("ucd_itemid") != item.get("itemid") or match.get("ucd_itemdescription") != item.get("itemdescription") or item.get("itemdescription") != hathi_ucd[match["hathitrust_htid"]] or match.get("individual_issue_year_bound") is not False:
+            fail("Batch 12MH barcode/description or undated-item firewall drift")
+    for key in ("aggregate_19_24_equals_1951_issue9_claimed", "whole_serial_dates_used_as_item_dates", "hathitrust_marc974_y_1958_used_as_item_date", "individual_item_year_field_observed"):
+        if mh.get("chronology", {}).get(key) is not False:
+            fail(f"Batch 12MH chronology firewall regressed: {key}")
+    for key in ("exact_issue9_bound", "direct_1951_pages_reviewed", "primary_text_upgrade_authorized", "target_global_absence_claim_authorized", "public_fulltext_access_proved"):
+        if mh.get("adjudication", {}).get(key) is not False:
+            fail(f"Batch 12MH original-text/access firewall regressed: {key}")
+    for key in ("login_attempted", "credential_used", "rights_bypass_used", "private_endpoint_guessed", "copy_request_submitted", "circulation_request_submitted", "guest_jwt_acquired_or_used", "hathitrust_403_viewer_repeated", "authorization_header_sent"):
+        if mh.get("security", {}).get(key) is not False:
+            fail(f"Batch 12MH anonymous metadata boundary drift: {key}")
+    for key in ("available_in_library_means_online_readable", "loanable_means_unrestricted_fulltext_permission", "report_problem_submitted"):
+        if mh.get("response_scope", {}).get(key) is not False:
+            fail(f"Batch 12MH access/action scope drift: {key}")
+    if mh.get("physical_digital_binding", {}).get("new_independent_physical_text_witness_count") != 0:
+        fail("Batch 12MH copy provenance/text witness distinction drift")
+    if mh.get("adjudication", {}).get("evidence_vote_increment") != 0 or mh.get("accounting") != mg.get("accounting") or mh.get("project_consequence") != mg.get("project_consequence"):
+        fail("Batch 12MH zero-product-impact accounting drift")
+    if mh.get("execution", {}).get("github_runner_probe_claimed") is not False or mh.get("response_scope", {}).get("initial_zero_items_is_absence_proof") is not False:
+        fail("Batch 12MH execution/response scope drift")
+    if "EXT-UCD-WENWU-CANKAO-PHYSICAL-DIGITAL-COPY-BINDING" not in {x.get("source_id") for x in registry.get("sources", ())}:
+        fail("Batch 12MH source registry binding missing")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

@@ -1264,3 +1264,13 @@ Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WE
 - Next 12MH follows the newly recovered originating UCD record identity for chronological/access bridging. Matrix/accounting and historical text lineage remain unchanged.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENWU1951-HATHITRUST-OCLC-DIGITAL-INVENTORY-MG.md`. Research record: `docs/research/ZIWEI-WENWU1951-HATHITRUST-OCLC-DIGITAL-INVENTORY-R1.json`.
+
+
+## Progress — Batch 12MH
+
+- UC Davis originating record and raw UC network MARC are bound. Published anonymous frontend catalogue retrieval expands the initially empty item summary into 12 physical bound issues.
+- All 12 physical barcodes and descriptions match the corresponding HathiTrust UCD htid suffixes and MARC974 enumeration; this is copy provenance, not 12 independent text votes.
+- Explicit item years remain unavailable (year filter Other..); no.19–24 is not assigned to 1951 issue9. No original page or unrestricted-access claim, circulation request or reproduction submission is added.
+- Next 12MI seeks direct numbering/year evidence and the source-record MARC776 Online version OCLC647437409. Accounting and historical text lineage remain unchanged.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENWU1951-UCD-PHYSICAL-DIGITAL-COPY-BINDING-MH.md`. Research record: `docs/research/ZIWEI-WENWU1951-UCD-PHYSICAL-DIGITAL-COPY-BINDING-R1.json`.
