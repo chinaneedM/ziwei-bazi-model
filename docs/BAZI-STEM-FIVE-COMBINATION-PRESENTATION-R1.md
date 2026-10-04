@@ -9,7 +9,7 @@ The Ba Zi natal foundation already releases `BaziNatalState.raw_relations`, incl
 
 The presentation sidecar does not generate stem combinations. It filters the exact released `STEM_COMBINATION` rows from the replayed natal candidate and presents their exact stem instances.
 
-## Canonical source closure
+## Released corpus and historical audit
 
 The released registry in `src/fortune_training/bazi_chart/relations.py` contains the five source-backed identities:
 
@@ -19,7 +19,9 @@ The released registry in `src/fortune_training/bazi_chart/relations.py` contains
 - 丁 + 壬;
 - 戊 + 癸.
 
-Their canonical evidence is S14, `八字合冲刑害墓库与结构变化库`, section 7.1 (`天干五合事实表`). The sidecar does not read or reinterpret the source corpus at runtime; it projects only the already-released relation facts after natal replay and hash validation.
+Their released corpus route is S14, `八字合冲刑害墓库与结构变化库`, section 7.1 (`天干五合事实表`). S14 is the project research corpus; its legacy canonical storage path is not an infallible historical authority. Batch 12MM directly collates the received physical table in NTL-9900014379, PDF p23 / printed三, and rechecks the received `五行大義` 干合 and `星厯考原` 五合 passages. These support the five member identities within the received-text scope without closing earliest chronology or direct ancestry. See `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-STEM-FIVE-COMBINATION-IDENTITY-AUDIT-MM.md`.
+
+The sidecar does not read or reinterpret the source corpus at runtime; it projects only the already-released relation facts after natal replay and hash validation. The audit's independent physical oracle covers 100 ordered pairs and 10,000 four-stem grids, retaining all 6,000 distinct participant occurrences. This verifies identity presentation without making transformation outcomes authoritative.
 
 ## Semantic boundary
 

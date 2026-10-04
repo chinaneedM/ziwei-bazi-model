@@ -46,10 +46,10 @@
     "row_count": 198,
     "status_counts": {
       "MODERN_COMPATIBILITY_ONLY": 31,
-      "HISTORICALLY_SUPPORTED": 90,
+      "HISTORICALLY_SUPPORTED": 91,
       "DISPUTED_MULTIPLE_CANDIDATES": 30,
       "SUPPORTED_BUT_SCHOOL_SPECIFIC": 18,
-      "IMPLEMENTATION_REVIEW_REQUIRED": 9,
+      "IMPLEMENTATION_REVIEW_REQUIRED": 8,
       "SOURCE_INSUFFICIENT": 9,
       "MISSING_FROM_PRODUCT": 10,
       "NOT_YET_FORMALIZED": 1
@@ -81,7 +81,7 @@
       "candidate/profile rules": 2,
       "provenance / hashes / lineage": 2
     },
-    "audited_row_count": 168
+    "audited_row_count": 169
   },
   "rows": [
     {
@@ -652,20 +652,27 @@
       "rule_or_field": "Stem five-combination identity",
       "current_implementation": "Released neutral stem-combination facts.",
       "current_profile": "BAZI structural presentation",
-      "primary_source": "S14 canonical routes",
-      "source_quote": "PENDING_VERBATIM_EXTRACTION",
-      "source_quote_location": "docs/BAZI-STEM-FIVE-COMBINATION-PRESENTATION-R1.md",
-      "historical_period": "PENDING_BIBLIOGRAPHIC_DATING",
-      "later_witnesses": "PENDING_LATER_WITNESS_AUDIT",
-      "school_attribution": "PENDING_SCHOOL_ATTRIBUTION_AUDIT",
+      "primary_source": "S14 §7.1 / YHZP-CH-004; EXT-NTL-9900014379-YHZP-TEN-GOD-TABLE additional direct p23 collation",
+      "source_quote": "甲與己合、乙與庚合、丙與辛合、丁與壬合、戊與癸合。",
+      "source_quote_location": "NTL-9900014379 PDF p23 / printed三 / 天干相合; S14 canonical-runtime segment-0001.txt §7.1",
+      "historical_period": "RECEIVED_YHZP_PAIR_IDENTITY; NTL_CATALOG_ASSIGNED_PUBLICATION_1926; NO_RULE_ORIGIN_DATE_CLAIM",
+      "later_witnesses": "Received 五行大義 卷二 第八論合 干合 and 御定星厯考原 四庫全書本 卷一 五合 directly corroborate all five member pairs. These digital transcriptions do not prove earliest chronology or independent stemma.",
+      "school_attribution": "FIVE_STEM_PAIR_IDENTITY_ONLY; SOURCE_EXPLANATIONS_AND_TRANSFORMATION_CONDITIONS_SEPARATE",
       "competing_methods": [
-        "combination-transformation success rules"
+        "combination-transformation success/eligibility rules remain separate",
+        "五行大義 selected-day 五合 is a distinct calendrical category, not another stem-pair table"
       ],
-      "current_implementation_match": "PENDING_RULE_BY_RULE_REPLAY",
-      "confidence": "INVENTORY_CONFIDENCE_HIGH",
-      "audit_status": "IMPLEMENTATION_REVIEW_REQUIRED",
-      "proposed_action": "Keep identity separate from 化成/成局 judgments; audit source table.",
-      "algorithm_reopen_authorized": false
+      "current_implementation_match": "100_ORDERED_PAIR_IDENTITIES_AND_10000_FOUR_STEM_GRIDS_MATCH_PHYSICAL_ORACLE; 6000_EXACT_INSTANCE_RELATIONS_PROJECTED; REPEATED_PAIRS_PRESERVED; PRESENTATION_OMITS_NOMINAL_TARGET_AND_OUTCOMES",
+      "confidence": "HIGH_WITHIN_PAIR_IDENTITY_SCOPE",
+      "audit_status": "HISTORICALLY_SUPPORTED",
+      "proposed_action": "No algorithm reopen. Keep neutral instance occurrence and hash/candidate binding. Neither nominal element nor a pair occurrence establishes transformation, strength, pattern, precedence or prediction.",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-12-BAZI-STEM-FIVE-COMBINATION-IDENTITY-AUDIT-MM",
+      "historical_scope": "RECEIVED_PAIR_IDENTITY_MODERN_NEUTRAL_PRESENTATION_ONLY",
+      "upstream_rule_ids": [
+        "HPA-BAZI-005"
+      ],
+      "audit_evidence": "docs/research/BAZI-STEM-FIVE-COMBINATION-IDENTITY-AUDIT-R1.json"
     },
     {
       "rule_id": "HPA-DAYUN-001",
@@ -6217,7 +6224,8 @@
     "HPA-DAYUN-CAL-007",
     "HPA-ZDATE-006",
     "HPA-ZIWEI-013",
-    "HPA-BAZI-FLOW-002"
+    "HPA-BAZI-FLOW-002",
+    "HPA-BAZI-014"
   ],
   "audit_summary": {
     "confirmed_chart_algorithm_defect_count": 0,
@@ -6234,6 +6242,7 @@
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md",
   "supplemental_rule_audit_batches": [
     "BATCH-12-ZIWEI-BODY-PALACE-GANZHI-PROJECTION-AUDIT-MK",
-    "BATCH-12-BAZI-TEMPORAL-TEN-GOD-PROJECTION-AUDIT-ML"
+    "BATCH-12-BAZI-TEMPORAL-TEN-GOD-PROJECTION-AUDIT-ML",
+    "BATCH-12-BAZI-STEM-FIVE-COMBINATION-IDENTITY-AUDIT-MM"
   ]
 }

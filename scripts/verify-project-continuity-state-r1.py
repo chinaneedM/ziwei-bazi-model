@@ -870,9 +870,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-WENWU1951-NABUNKEN-REPOSITORY-RECOVERY-CLOSURE-MJ",
     "BATCH-12-ZIWEI-BODY-PALACE-GANZHI-PROJECTION-AUDIT-MK",
     "BATCH-12-BAZI-TEMPORAL-TEN-GOD-PROJECTION-AUDIT-ML",
+    "BATCH-12-BAZI-STEM-FIVE-COMBINATION-IDENTITY-AUDIT-MM",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-TEMPORAL-TEN-GOD-PROJECTION-AUDIT-ML.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-STEM-FIVE-COMBINATION-IDENTITY-AUDIT-MM.md"
 
 
 def fail(message: str) -> None:
@@ -14138,6 +14139,35 @@ def main() -> int:
     ci_repair = ml.get("ci_accounting_repair", {})
     if ci_repair.get("failure_count") != 8 or ci_repair.get("affected_regression_test_count") != 39 or ci_repair.get("historical_snapshots_rewritten") is not False:
         fail("Batch 12ML prior CI/global-accounting repair drift")
+
+    # Five-combination membership and instance projection do not establish transformation.
+    mm = json.loads((ROOT / "docs/research/BAZI-STEM-FIVE-COMBINATION-IDENTITY-AUDIT-R1.json").read_text(encoding="utf-8"))
+    mm_id = "BATCH-12-BAZI-STEM-FIVE-COMBINATION-IDENTITY-AUDIT-MM"
+    if mm.get("batch_id") != mm_id or mm.get("prior_batch_id") != ml_id or mm_id not in rule_batches:
+        fail("Batch 12MM chronology/rule ledger mismatch")
+    stem_row = next(row for row in matrix["rows"] if row["rule_id"] == "HPA-BAZI-014")
+    if stem_row.get("audit_batch") != mm_id or stem_row.get("audit_status") != "HISTORICALLY_SUPPORTED" or stem_row.get("historical_scope") != "RECEIVED_PAIR_IDENTITY_MODERN_NEUTRAL_PRESENTATION_ONLY":
+        fail("Batch 12MM pair identity/presentation scope drift")
+    if stem_row.get("algorithm_reopen_authorized") is not False or "HPA-BAZI-014" not in matrix["audited_row_ids"] or mm.get("accounting", {}).get("audited_rows_after") != 169:
+        fail("Batch 12MM reopen/accounting drift")
+    for name, obj in mm.get("evidence_objects", {}).items():
+        if name.startswith(("src/", "sources/")):
+            if obj.get("unchanged_from_base") is not True:
+                fail("Batch 12MM released-algorithm scope drift")
+            continue
+        raw = (ROOT / name).read_bytes()
+        if len(raw) != obj.get("byte_count") or hashlib.sha256(raw).hexdigest() != obj.get("sha256"):
+            fail(f"Batch 12MM preserved evidence identity drift: {name}")
+    replay = json.loads((ROOT / "docs/research/evidence/batch-12mm/identity-replay.json").read_text(encoding="utf-8"))
+    if replay.get("ordered_pair_count") != 100 or replay.get("four_stem_grid_count") != 10000 or replay.get("relation_occurrence_count") != 6000 or replay.get("duplicate_member_control", {}).get("distinct_occurrence_count") != 4:
+        fail("Batch 12MM pair/instance replay drift")
+    if replay.get("nominal_transformation_element_exposed") is not False or replay.get("transformation_outcome_released") is not False or replay.get("chart_algorithm_changed") is not False:
+        fail("Batch 12MM nominal-target/outcome/algorithm boundary drift")
+    oracle = json.loads((ROOT / "tests/fixtures/bazi-stem-five-combination-physical-oracle-r1.json").read_text(encoding="utf-8"))
+    if oracle.get("reading_method") != "DIRECT_VISUAL_NO_OCR" or oracle.get("pdf_page_1_based") != 23 or {frozenset(p["members"]) for p in oracle.get("pairs", [])} != {frozenset(p) for p in (("甲", "己"), ("乙", "庚"), ("丙", "辛"), ("丁", "壬"), ("戊", "癸"))}:
+        fail("Batch 12MM independent physical pair oracle drift")
+    if sum(t.get("test_count", 0) for t in mm.get("executed_tests", [])) != 27 or mm.get("transmission_impact", {}).get("status") != "NONE":
+        fail("Batch 12MM execution/lineage scope drift")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

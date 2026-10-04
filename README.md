@@ -223,7 +223,7 @@ Fusion Chart Capability & Performance Acceptance R1 已正式收口。最终执�
 
 ## Fusion Chart Historical Provenance & School Audit R1
 
-最新规则审计闭环为 **Batch 12ML**：动态十神保持本命日主锚点，100 组直接目验配对与 4200 条目标层注记一致；完整重放检出重算哈希后的错误锚点。旧批次的全局计数断言已改为真实矩阵一致性检查。Matrix 为 198 项、已审 168 项、缺失候选 10；来源缺陷 17/17，算法缺陷/重开/候选折叠 0。下一门为天干五合身份审计，见 `docs/PROJECT-CURRENT-STATE-R1.json`。
+最新规则审计闭环为 **Batch 12MM**：直接目验《渊海子平》天干相合表，并复核《五行大义》《星历考原》受传配对。100 组有序干配对、10,000 组四干网格及 6,000 条参与实例全部一致；展示保留关系身份，不输出合化成立。Matrix 为 198 项、已审 169 项、缺失候选 10；来源缺陷 17/17，算法缺陷/重开/候选折叠 0。下一门为目标层纳音、旬空、十二长生投影分解审计，见 `docs/PROJECT-CURRENT-STATE-R1.json`。
 
 ```text
 FUSION_CHART_HISTORICAL_PROVENANCE_AUDIT_R1=IN_PROGRESS
