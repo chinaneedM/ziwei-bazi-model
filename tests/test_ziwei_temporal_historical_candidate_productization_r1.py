@@ -49,7 +49,10 @@ class ZiweiTemporalHistoricalCandidateProductizationR1Tests(unittest.TestCase):
         self.assertEqual(6, summary["historical_candidate_extension_count"])
         self.assertEqual(3, summary["historical_candidate_registry_count"])
         self.assertEqual(3, summary["historical_candidate_runtime_resolver_count"])
-        self.assertEqual(88, self.matrix["inventory_summary"]["status_counts"]["HISTORICALLY_SUPPORTED"])
+        self.assertEqual(
+            sum(row["audit_status"] == "HISTORICALLY_SUPPORTED" for row in self.matrix["rows"]),
+            self.matrix["inventory_summary"]["status_counts"]["HISTORICALLY_SUPPORTED"],
+        )
         self.assertEqual(18, self.matrix["inventory_summary"]["status_counts"]["SUPPORTED_BUT_SCHOOL_SPECIFIC"])
 
     def test_state_preserves_closed_product_and_g893_boundaries(self) -> None:

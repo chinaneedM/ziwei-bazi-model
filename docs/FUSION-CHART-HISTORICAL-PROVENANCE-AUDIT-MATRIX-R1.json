@@ -46,10 +46,10 @@
     "row_count": 198,
     "status_counts": {
       "MODERN_COMPATIBILITY_ONLY": 31,
-      "HISTORICALLY_SUPPORTED": 89,
+      "HISTORICALLY_SUPPORTED": 90,
       "DISPUTED_MULTIPLE_CANDIDATES": 30,
       "SUPPORTED_BUT_SCHOOL_SPECIFIC": 18,
-      "IMPLEMENTATION_REVIEW_REQUIRED": 10,
+      "IMPLEMENTATION_REVIEW_REQUIRED": 9,
       "SOURCE_INSUFFICIENT": 9,
       "MISSING_FROM_PRODUCT": 10,
       "NOT_YET_FORMALIZED": 1
@@ -81,7 +81,7 @@
       "candidate/profile rules": 2,
       "provenance / hashes / lineage": 2
     },
-    "audited_row_count": 167
+    "audited_row_count": 168
   },
   "rows": [
     {
@@ -1392,18 +1392,26 @@
       "rule_or_field": "Target-layer Ten-God projection",
       "current_implementation": "Projects Ten-God identity from natal day master to legal target Ganzhi.",
       "current_profile": "BAZI target annotations",
-      "primary_source": "S11 ten-god rule set",
-      "source_quote": "PENDING_VERBATIM_EXTRACTION",
-      "source_quote_location": "docs/BAZI-TEMPORAL-CLASSICAL-ANNOTATIONS-R1.md",
-      "historical_period": "PENDING_BIBLIOGRAPHIC_DATING",
-      "later_witnesses": "PENDING_LATER_WITNESS_AUDIT",
-      "school_attribution": "PENDING_SCHOOL_ATTRIBUTION_AUDIT",
+      "primary_source": "HPA-BAZI-003 audited received YHZP Ten-God mapping; HPA-BAZI-002/FLOW-003 hidden-stem membership; EXT-NTL-9900014379-YHZP-TEN-GOD-TABLE physical corroboration",
+      "source_quote": "剋我者為正官偏官，生我者為正印偏印，我剋者為正財偏財，我生者為傷官食神；以日為己身。配對範圍由五陽/五陰通變表分別校驗。",
+      "source_quote_location": "Inherited S11:YHZP-CH-016|017|057|065; NTL-9900014379 PDF pp37-39 / printed18-20 table; PDF p64 / printed47 day-self anchor; source content and locations are distinct from modern layer/API composition.",
+      "historical_period": "RECEIVED_YHZP_RULE_SCOPE; NTL_CATALOG_ASSIGNED_PUBLICATION_1926; NO_EARLIEST_EDITION_OR_RULE_DATE_CLAIM",
+      "later_witnesses": "Directly reviewed NTL/Commons physical surrogate corroborates the 100 stem pairs and day-self anchor. No claim of textual-stemma independence or classical seven-layer API.",
+      "school_attribution": "ZIPING_DAY_MASTER_RELATION_FAMILY; MODERN_NEUTRAL_TEMPORAL_IDENTITY_CONSUMER",
       "competing_methods": [],
-      "current_implementation_match": "PENDING_RULE_BY_RULE_REPLAY",
-      "confidence": "INVENTORY_CONFIDENCE_HIGH",
-      "audit_status": "IMPLEMENTATION_REVIEW_REQUIRED",
-      "proposed_action": "Confirm pure reuse of natal Ten-God mapping.",
-      "algorithm_reopen_authorized": false
+      "current_implementation_match": "EXACT_RELEASED_TEN_GOD_REUSE; TRUE_NATAL_DAY_MASTER_BINDING; 4200_ANNOTATIONS_AND_9800_HIDDEN_ROLE_COMPARISONS_MATCH_DIRECT_TABLE; FULL_REPLAY_REJECTS_LOCALLY_REHASHED_WRONG_ANCHOR",
+      "confidence": "HIGH_WITHIN_INHERITED_IDENTITY_SCOPE",
+      "audit_status": "HISTORICALLY_SUPPORTED",
+      "proposed_action": "No algorithm reopen. Keep natal day-master anchor; retain Xiaoyun candidates and pre-Dayun absence; require full upstream replay for anchor authenticity. Interpretive application remains outside scope.",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-12-BAZI-TEMPORAL-TEN-GOD-PROJECTION-AUDIT-ML",
+      "historical_scope": "INHERITED_RULES_MODERN_TEMPORAL_IDENTITY_ONLY",
+      "upstream_rule_ids": [
+        "HPA-BAZI-003",
+        "HPA-BAZI-002",
+        "HPA-BAZI-FLOW-003"
+      ],
+      "audit_evidence": "docs/research/BAZI-TEMPORAL-TEN-GOD-PROJECTION-AUDIT-R1.json"
     },
     {
       "rule_id": "HPA-BAZI-FLOW-003",
@@ -6208,7 +6216,8 @@
     "HPA-DAYUN-CAL-006",
     "HPA-DAYUN-CAL-007",
     "HPA-ZDATE-006",
-    "HPA-ZIWEI-013"
+    "HPA-ZIWEI-013",
+    "HPA-BAZI-FLOW-002"
   ],
   "audit_summary": {
     "confirmed_chart_algorithm_defect_count": 0,
@@ -6224,6 +6233,7 @@
   },
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md",
   "supplemental_rule_audit_batches": [
-    "BATCH-12-ZIWEI-BODY-PALACE-GANZHI-PROJECTION-AUDIT-MK"
+    "BATCH-12-ZIWEI-BODY-PALACE-GANZHI-PROJECTION-AUDIT-MK",
+    "BATCH-12-BAZI-TEMPORAL-TEN-GOD-PROJECTION-AUDIT-ML"
   ]
 }

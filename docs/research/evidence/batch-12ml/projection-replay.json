@@ -1,0 +1,52 @@
+{
+  "schema": "BAZI-TEMPORAL-TEN-GOD-EXECUTED-REPLAY-R1",
+  "executed_at_utc": "2026-10-04T14:25:16.805575+00:00",
+  "environment": "LOCAL_WORK_MODE_PYTHON",
+  "day_master_count": 10,
+  "legal_ganzhi_count": 60,
+  "coordinate_count": 600,
+  "annotation_layer_count": 7,
+  "annotation_count": 4200,
+  "hidden_stem_role_comparison_count": 9800,
+  "all_visible_and_hidden_roles_equal_physical_table": true,
+  "normal_values_sha256": "85c9273abd3ffc9362a7c3564bd91d35c5fc4541ffbf3ec41f1cdaedfa74708e",
+  "invalid_ganzhi_rejection_count": 600,
+  "application_natal_anchor_case_count": 10,
+  "equal_xiaoyun_candidates_preserved": true,
+  "pre_dayun_no_annotation_preserved": true,
+  "wrong_anchor_control": {
+    "original": "丁",
+    "substituted": "甲",
+    "all_local_hashes_rebuilt": true,
+    "structural_validator": "PASS",
+    "full_replay_validator": "FAIL",
+    "diagnostic": "FULL_REPLAY_MISMATCH"
+  },
+  "chart_algorithm_changed": false,
+  "executed_tests": [
+    {
+      "pattern": "test_bazi_temporal_ten_god_projection_audit_r1.py",
+      "test_count": 4,
+      "status": "PASS",
+      "skipped": 0
+    },
+    {
+      "pattern": "test_bazi_application_flow_integration_r1.py",
+      "test_count": 26,
+      "status": "PASS",
+      "skipped": 0
+    },
+    {
+      "pattern": "test_bazi_chart_foundation.py",
+      "test_count": 10,
+      "status": "PASS",
+      "skipped": 0
+    },
+    {
+      "pattern": "test_bazi_temporal_hidden_stem_order_lineage_r1.py",
+      "test_count": 2,
+      "status": "PASS",
+      "skipped": 0
+    }
+  ]
+}

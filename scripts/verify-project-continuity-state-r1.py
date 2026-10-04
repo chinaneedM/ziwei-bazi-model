@@ -869,9 +869,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-WENWU1951-GOOGLE-AGGREGATE-YEAR-BOUNDARY-MI",
     "BATCH-12-ZIWEI-WENWU1951-NABUNKEN-REPOSITORY-RECOVERY-CLOSURE-MJ",
     "BATCH-12-ZIWEI-BODY-PALACE-GANZHI-PROJECTION-AUDIT-MK",
+    "BATCH-12-BAZI-TEMPORAL-TEN-GOD-PROJECTION-AUDIT-ML",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-BODY-PALACE-GANZHI-PROJECTION-AUDIT-MK.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-TEMPORAL-TEN-GOD-PROJECTION-AUDIT-ML.md"
 
 
 def fail(message: str) -> None:
@@ -14097,6 +14098,46 @@ def main() -> int:
         fail("Batch 12MK UI/algorithm distinction regressed")
     if mk.get("execution", {}).get("github_runner_replay_claimed") is not False or sum(t.get("test_count", 0) for t in mk.get("executed_tests", [])) != 19:
         fail("Batch 12MK local test provenance drift")
+
+    # Temporal identity inherits natal rules; local consistency is not anchor proof.
+    ml = json.loads((ROOT / "docs/research/BAZI-TEMPORAL-TEN-GOD-PROJECTION-AUDIT-R1.json").read_text(encoding="utf-8"))
+    ml_id = "BATCH-12-BAZI-TEMPORAL-TEN-GOD-PROJECTION-AUDIT-ML"
+    if ml.get("batch_id") != ml_id or ml.get("prior_batch_id") != mk_id or ml_id not in rule_batches:
+        fail("Batch 12ML chronology/rule ledger mismatch")
+    ten_row = next(row for row in matrix["rows"] if row["rule_id"] == "HPA-BAZI-FLOW-002")
+    if ten_row.get("audit_batch") != ml_id or ten_row.get("audit_status") != "HISTORICALLY_SUPPORTED" or ten_row.get("historical_scope") != "INHERITED_RULES_MODERN_TEMPORAL_IDENTITY_ONLY":
+        fail("Batch 12ML inherited Ten-God identity scope drift")
+    if ten_row.get("upstream_rule_ids") != ["HPA-BAZI-003", "HPA-BAZI-002", "HPA-BAZI-FLOW-003"] or ten_row.get("algorithm_reopen_authorized") is not False:
+        fail("Batch 12ML anchor/parent scope drift")
+    if "HPA-BAZI-FLOW-002" not in matrix["audited_row_ids"] or ml.get("accounting", {}).get("audited_rows_after") != 168:
+        fail("Batch 12ML audited-row accounting drift")
+    for name, obj in ml.get("evidence_objects", {}).items():
+        if name.startswith(("src/", "sources/")):
+            if obj.get("unchanged_from_base") is not True:
+                fail("Batch 12ML released-algorithm execution scope drift")
+            continue
+        raw = (ROOT / name).read_bytes()
+        if len(raw) != obj.get("byte_count") or hashlib.sha256(raw).hexdigest() != obj.get("sha256"):
+            fail(f"Batch 12ML preserved evidence identity drift: {name}")
+    replay = json.loads((ROOT / "docs/research/evidence/batch-12ml/projection-replay.json").read_text(encoding="utf-8"))
+    if replay.get("coordinate_count") != 600 or replay.get("annotation_count") != 4200 or replay.get("hidden_stem_role_comparison_count") != 9800 or replay.get("all_visible_and_hidden_roles_equal_physical_table") is not True:
+        fail("Batch 12ML executed identity replay drift")
+    wrong_anchor = replay.get("wrong_anchor_control", {})
+    if wrong_anchor.get("structural_validator") != "PASS" or wrong_anchor.get("full_replay_validator") != "FAIL" or wrong_anchor.get("diagnostic") != "FULL_REPLAY_MISMATCH":
+        fail("Batch 12ML local-consistency/full-anchor-replay boundary drift")
+    if replay.get("chart_algorithm_changed") is not False or sum(t.get("test_count", 0) for t in ml.get("executed_tests", [])) != 42:
+        fail("Batch 12ML runtime/test execution scope drift")
+    physical = ml.get("physical_source", {})
+    if physical.get("direct_table_pages_1_based") != [37, 38, 39] or physical.get("pdf_sha256") != "664bccd1ea4706c609df8ea6cd69a4565db97dc277e876fc22eb125ea41dcc9f" or physical.get("catalog_binding", {}).get("catalog_publication_year") != 1926:
+        fail("Batch 12ML physical table/date binding drift")
+    if physical.get("source_id") not in {x.get("source_id") for x in registry.get("sources", ())} or ml.get("direct_collation", {}).get("classical_seven_layer_api_claimed") is not False or ml.get("transmission_impact", {}).get("status") != "NONE":
+        fail("Batch 12ML source/API/lineage scope drift")
+    oracle = json.loads((ROOT / "tests/fixtures/bazi-temporal-ten-god-physical-table-oracle-r1.json").read_text(encoding="utf-8"))
+    if len(oracle.get("roles", {})) != 10 or any(len(targets) != 10 for targets in oracle["roles"].values()) or oracle.get("reading_method") != "DIRECT_VISUAL_NO_OCR":
+        fail("Batch 12ML independent 100-pair oracle scope drift")
+    ci_repair = ml.get("ci_accounting_repair", {})
+    if ci_repair.get("failure_count") != 8 or ci_repair.get("affected_regression_test_count") != 39 or ci_repair.get("historical_snapshots_rewritten") is not False:
+        fail("Batch 12ML prior CI/global-accounting repair drift")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

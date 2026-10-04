@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="zh_tw">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+<meta http-equiv="X-UA-Compatible" content="IE=11" />
+<title> 臺灣華文電子書庫</title>
+<link rel="stylesheet" type="text/css" href="https://taiwanebook.ncl.edu.tw/semantic/dist/semantic.css">
+<link rel="stylesheet" type="text/css" href="https://taiwanebook.ncl.edu.tw/build/jquery-colorbox/colorbox.css"/>
+
+<script src="https://taiwanebook.ncl.edu.tw/build/jquery/dist/jquery.js"></script>
+<script src="https://taiwanebook.ncl.edu.tw/semantic/dist/semantic.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://taiwanebook.ncl.edu.tw/build/jquery-colorbox/jquery.colorbox-min.js"></script>
+<script type="text/javascript" nonce="6x3YPxU3J4nJNFG18wJAyZmJM1kOSlCaPQqKtXp4">
+    var CaptchaCallback = function() {
+      if (document.getElementById('RecaptchaField1')) {
+        grecaptcha.render('RecaptchaField1', {'sitekey' : '6LcGkrojAAAAADPFFu-RvFcIeg_JOofdwFL-iqRZ'});
+      }
+      if (document.getElementById('RecaptchaField2')) {
+        grecaptcha.render('RecaptchaField2', {'sitekey' : '6LcGkrojAAAAADPFFu-RvFcIeg_JOofdwFL-iqRZ'});
+      }
+    };
+</script>
+<script src="https://www.google.com/recaptcha/api.js?onload=CaptchaCallback&render=explicit" async defer></script>
+<link rel="preload" as="style" href="https://taiwanebook.ncl.edu.tw/build/assets/app.1573ee83.css" nonce="6x3YPxU3J4nJNFG18wJAyZmJM1kOSlCaPQqKtXp4" /><link rel="modulepreload" href="https://taiwanebook.ncl.edu.tw/build/assets/app.3364191a.js" nonce="6x3YPxU3J4nJNFG18wJAyZmJM1kOSlCaPQqKtXp4" /><link rel="stylesheet" href="https://taiwanebook.ncl.edu.tw/build/assets/app.1573ee83.css" nonce="6x3YPxU3J4nJNFG18wJAyZmJM1kOSlCaPQqKtXp4" /><script type="module" src="https://taiwanebook.ncl.edu.tw/build/assets/app.3364191a.js" nonce="6x3YPxU3J4nJNFG18wJAyZmJM1kOSlCaPQqKtXp4"></script><!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id="></script>
+<script nonce="6x3YPxU3J4nJNFG18wJAyZmJM1kOSlCaPQqKtXp4">
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-9N8KEDYCG5');
+</script>
+
+</head>
+<body>
+<nav class="ui menu borderless orange item inverted esico nav">
+    <div class="right menu">
+        <style nonce="6x3YPxU3J4nJNFG18wJAyZmJM1kOSlCaPQqKtXp4">
+            @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+                .navabout {
+                    padding-right: 18px !important;
+                }
+            }
+        </style>
+        <a class="ui item navabout w-3-rem" href="#" accesskey="U">:::</a>
+        <p class="ui item w-1-rem">|</p>
+                    <a class="ui item navabout w-7dot3-rem text-right right-minus-dot6-rem talkopen" target="_blank"
+               href="https://www.ncl.edu.tw/">國圖首頁</a>
+                        <p class="ui item w-1-rem pb-0">|</p>
+        <a class="ui item navabout w-6-rem" href="https://taiwanebook.ncl.edu.tw/zh-tw/about">
+            網站簡介
+        </a>
+        <p class="ui item w-1-rem pb-0">|</p>
+                    <a class="ui item navabout w-5-rem talk" target="_blank"
+               href="https://taiwanebook.ncl.edu.tw/digitcenter/NCLSert_Guide_tw.pdf">操作說明</a>
+                        <p class="ui item w-1-rem pb-0">|</p>
+        <a class="ui item navabout w-6-rem" href="https://taiwanebook.ncl.edu.tw/zh-tw/sitemap">
+                            網站導覽
+                                </a>
+        <p class="ui item w-1-rem pb-0">|</p>
+        <a class="ui item inline w-6-rem"
+           href="#inline_content">聯絡我們</a>
+
+        <div class="d-none">
+            <div class="ui container bg-white p-10-px w-90" id='inline_content'>
+                <form id="contact-us-form" class="ui form" action="https://taiwanebook.ncl.edu.tw/zh-tw/send"
+                      method="POST">
+                    <h2>聯絡我們</h2>
+                                        *：必填
+                    <br/>
+                    <div class="field d-none">
+                        <label>問題網址</label>
+
+                        <input class="report" type="text" name="url" id="path" readonly=""
+                               value="https://taiwanebook.ncl.edu.tw/zh-tw/book/NTL-9900014379">
+                    </div>
+                    <div class="field">
+                        <label>姓名*</label>
+                        <input class="report" type="text" name="name" id="name" placeholder="">
+                    </div>
+                    <div class="field">
+                        <label>聯絡電話*</label>
+                        <input class="report" type="text" name="phonenum" id="phonenum" placeholder="">
+                    </div>
+                    <div class="field">
+                        <label>電子信箱*</label>
+                        <input class="report" type="text" name="email" id="email" placeholder="">
+                    </div>
+                    <div class="field">
+                        <label>請寫下您的訊息*</label>
+                        <textarea class="report" rows="3" name="content" id="content"></textarea>
+                    </div>
+                    <div class="inline field">
+                        <div id="RecaptchaField1"></div>
+                        
+                    </div>
+
+                    <button class="ui button"
+                            type="submit">送出</button>
+                    <input type="hidden" name="_token" value="kV6sogDORG30h3dV9SYiq9dHINAsux54w3CW31WJ">
+                </form>
+            </div>
+        </div>
+                <p class="ui item w-1-rem pb-0">|</p>
+        <a class="ui item w-5-rem" href="https://taiwanebook.ncl.edu.tw/en/book/NTL-9900014379">English</a>
+
+    </div>
+    <script nonce="6x3YPxU3J4nJNFG18wJAyZmJM1kOSlCaPQqKtXp4">
+      $(document).ready(function () {
+        $('a.talkopen').on('click', talkopen)
+        $('a.talkopenen').on('click', talkopenen)
+        $('a.talk').on('click', talk)
+        $('a.talken').on('click', talken)
+        $('#contact-us-form').on('submit', function () {
+          return checkform()
+        })
+      })
+
+      function talk () {
+        alert('將下載pdf檔案，請注意')
+      }
+
+      function talken () {
+        alert('Pay attention,will download pdf file')
+      }
+
+      function talkopen () {
+        alert('將開啟新分頁，請注意')
+      }
+
+      function talkopenen () {
+        alert('Pay attention,will oepn page on new web.')
+      }
+
+      function pdfDownloadError () {
+        alert('不好意思，此電子書未開放下載')
+      }
+
+      function checkform () {
+        const form = document.getElementById('contact-us-form')
+        const name = form.querySelector('#name').value
+        const phonenum = form.querySelector('#phonenum').value
+        const email = form.querySelector('#email').value
+        const content = form.querySelector('#content').value
+        const email_at = form.querySelector('#email').value.indexOf('@')
+        const email_d = form.querySelector('#email').value.indexOf('.')
+
+        if (name != '' && phonenum != '' && email != '' && content != '' && email_at != -1 && email_d != -1) {
+          document.form1.submit()
+        } else {
+          if (name == '' || phonenum == '' || email == '' || content == '') {
+            alert('請確認全部欄位是否都已填寫完成')
+            return false
+          }
+          alert('請確認email格式是否正確')
+          return false
+        }
+      }
+    </script>
+</nav> <!-- end nav -->
+
+<main class="ui page book-head" >
+    <div class="ui column grid container default-search-bg">
+    <a href="https://taiwanebook.ncl.edu.tw/zh-tw">
+      <div class="ui five wide computer six wide tablet sixteen wide mobile column">
+                    <img class="ui centered medium image" src="https://taiwanebook.ncl.edu.tw/style/img/logo_big.png" alt="台灣華文苑SERT">
+                </div>
+    </a>
+    <div class="ui ten wide computer five wide tablet three wide mobile column">
+        <div class="ui column icon aligned input grid top-2-rem">
+            <div class="ui five wide computer eight wide tablet eight wide mobile column ">
+                <div class="ui search">
+                <input id="iSearchInput" class="search_input prompt pr-1-rem w-220-px" type="text"
+                       placeholder="查詢全部範圍">　
+                    </div>
+            </div>
+            <div class="ui one wide computer two wide tablet two wide mobile column ">
+                <div class="ui icon buttons">
+                    <button class="ui black basic button focus_border" id="search_btn">
+                        <i class="search icon"></i>
+                    </button>
+                </div>
+            </div>
+			<div class="ui four wide computer six wide tablet six wide mobile column ">
+				<a class="ui black basic button focus_border" href="https://taiwanebook.ncl.edu.tw/zh-tw/search">進階檢索</a>
+			</div>
+        </div>
+    </div>
+</div>
+        <main class="ui page">
+        <div class="ui container grid esico">
+            <div class="ui row">
+                <div class="ui fifteen wide column grid">
+                    <div class="row">
+                        <div class="sixteen wide column">
+                            <div class="ui breadcrumb">
+                                <a href="#" accesskey="C">:::</a>
+                                <a class="section"
+                                   href="https://taiwanebook.ncl.edu.tw/zh-tw">首頁</a>
+                                <i class="right angle icon divider"></i>
+                                <a class="section"
+                                   href="#">圖書資訊</a>
+                                <i class="right angle icon divider"></i>
+
+                                <div class="active section">淵海子平子平真詮</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="ui row mt-minus-2-rem">
+                <div class="four wide computer four wide tablet sixteen wide mobile column">
+                    <div class="ui medium image text-center">
+                                                <a href="https://taiwanebook.ncl.edu.tw/zh-tw/book/NTL-9900014379/reader" target="">
+                            <div class="ui image">
+                                <img
+                                        src="https://taiwanebook.ncl.edu.tw/cover/eyJpdiI6InVWeDAyeVBRT0lHcVAxUDZscjhWY3c9PSIsInZhbHVlIjoiM0dTWEVZS2k3R2IxR1hVaTBkcFhXMFYxM0FvTzJ4U2VOWXVGVzN5dDgwND0iLCJtYWMiOiI4NmQ2MGU3NzY1M2VkODNjOWNjYTViYTBhYTg4YTYwNTFkZWU1NDFmNTcyYjk3Zjg1NWNmMTNjNTkzMzM1MWFiIiwidGFnIjoiIn0="
+                                        alt="淵海子平子平真詮">
+                            </div>
+                        </a>
+                        <br>
+                        <br>
+                        <!--檢視電子書-->
+                        <a class="ui cetered blue button focus_border"
+                           href="https://taiwanebook.ncl.edu.tw/zh-tw/book/NTL-9900014379/reader" target="">
+                            檢視電子書
+                            <i class="right chevron icon"></i>
+                        </a>
+                                            </div>
+                </div>
+                <div class="twelve wide computer twelve wide tablet sixteen wide mobile column">
+                    <div class="ui four column grid">
+                        <div class="sixteen wide row">
+                            <div class="sixteen wide column">
+                                <h2>
+                                                                            淵海子平子平真詮
+                                                                                                                v.1
+                                                                        <a class="ui inline teal label" href="#inline_report">
+                                        問題回報</a>
+                                </h2>
+                                                                    <h6>
+                                        <noscript>
+                                            您的瀏覽器不支援JavaScript功能，「問題回報」將無法正常使用，請開啟瀏覽器JavaScript狀態
+                                        </noscript>
+                                    </h6>
+                                                            </div>
+                        </div>
+                        <div class="row">
+                                                                                        <div class="three wide computer four wide tablet four wide mobile column text-justify">
+                                    <h4>作　　者:</h4>
+                                </div>
+                                <div class="thirteen wide computer twelve wide tablet twelve wide mobile column">
+                                    秦慎安 校勘
+                                    <br>
+                                    <br>
+
+                                </div>
+                                                                                        <div class="three wide computer four wide tablet four wide mobile column text-justify">
+                                    <h4>出　版　地:</h4>
+                                </div>
+                                <div class="thirteen wide computer twelve wide tablet twelve wide mobile column">
+                                    不詳
+                                    <br>
+                                    <br>
+                                </div>
+                                                                                        <div class="three wide computer four wide tablet four wide mobile column text-justify">
+                                    <h4>出　版　者: </h4>
+                                </div>
+                                <div class="thirteen wide computer twelve wide tablet twelve wide mobile column text-justify">
+                                    文明
+                                    <br>
+                                    <br>
+                                </div>
+                                                                                        <div class="three wide computer three wide tablet four wide mobile column float-start">
+                                    <h4>出　版　年:</h4>
+                                </div>
+                                <div class="five wide computer five wide tablet twelve wide mobile column text-justify">
+                                    1926
+                                    <br>
+                                    <br>
+                                </div>
+                            
+                            
+
+                                                            <div class="three wide computer three wide tablet four wide mobile column float-start">
+                                    <h4>頁　　數:</h4>
+                                </div>
+                                <div class="five wide computer five wide tablet twelve wide mobile column text-justify">
+                                    207
+                                    <br>
+                                    <br>
+                                </div>
+                            
+
+                            <div class="three wide computer three wide tablet four wide mobile column float-start">
+                                <h4>登　錄　號:</h4>
+                            </div>
+                            <div class="five wide computer five wide tablet twelve wide mobile column text-justify">
+                                31111003618756
+                                <br>
+                                <br>
+                            </div>
+
+                            
+                                                            <div class="three wide computer three wide tablet four wide mobile column float-start">
+
+                                    <h4>影像來源:</h4>
+                                </div>
+                                <div class="five wide computer  five wide tablet twelve wide mobile column text-justify">
+
+                                    國立臺灣圖書館
+                                    <br>
+                                    <br>
+
+                                </div>
+                                                                                        <div class="three wide computer three wide tablet four wide mobile column float-start">
+
+                                    <h4>典藏機構:</h4>
+                                </div>
+                                <div class="five wide computer five wide tablet twelve wide mobile column text-justify">
+
+                                    國立臺灣圖書館
+                                    <br>
+                                    <br>
+
+                                </div>
+                                                                                        <div class="three wide computer three wide tablet four wide mobile column text-left float-start">
+                                    <h4> 類　　別:</h4>
+                                </div>
+                                <div class="five wide computer five wide tablet twelve wide mobile column text-justify">
+                                                                                                                                                                                                                <a href="https://taiwanebook.ncl.edu.tw/zh-tw/category/philosophy-and-religion">哲學宗教</a>
+                                                                                                                                                            <br>
+                                    <br>
+                                </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="d-none">
+            <div class="ui container p-10-px bg-white w-90" id='inline_report'>
+                <form id="book-form" class="ui form" action="https://taiwanebook.ncl.edu.tw/zh-tw/sendC" method="POST">
+                    <h2>問題回報</h2>
+                                        *：必填
+                    <div class="field">
+                        <label>問題網址*</label>
+                        <input class="report" type="text" name="url" id="path" readonly=""
+                               value="https://taiwanebook.ncl.edu.tw/zh-tw/book/NTL-9900014379">
+                    </div>
+                    <div class="field">
+                        <label>姓名*</label>
+                        <input class="report" type="text" name="name_2" id="name_2" placeholder="">
+                    </div>
+                    <div class="field">
+                        <label>聯絡電話*</label>
+                        <input class="report" type="text" name="phonenum_2" id="phonenum_2" placeholder="">
+                    </div>
+                    <div class="field">
+                        <label>電子信箱*</label>
+                        <input class="report" type="text" name="email_2" id="email_2" placeholder="">
+                    </div>
+                    <div class="field">
+                        <label>問題說明*</label>
+                        <textarea class="report" rows="3" name="content_2" id="content_2"></textarea>
+                    </div>
+                    <div id="recaptcha1">
+                        <div class="inline field">
+                            <div id="RecaptchaField2"></div>
+                            
+                        </div>
+                    </div>
+                    <button class="ui button"
+                            type="submit">送出</button>
+                    <input type="hidden" name="_token" value="kV6sogDORG30h3dV9SYiq9dHINAsux54w3CW31WJ">
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="column ml-1dot3-rem">
+                <p>
+
+                <h2>推薦圖書:</h2></p>
+            </div>
+        </div>
+        </div>
+    </main>
+    <div class="ui grid bg-aliceblue">
+        <div class="ui centered row">
+            <div class="ui twelve wide column divided doubling grid">
+                <div class="row centered">
+                                            <div class="three wide computer four wide tablet eight wide mobile column text-center">
+                                                            <a href="https://taiwanebook.ncl.edu.tw/zh-tw/book/NCYU-G0168745">
+                                <div class="ui image">
+                                    <img class="ui small centered image" alt="金陵神學院叢書 基督教與中國鄉村建設運動"
+                                         src="https://taiwanebook.ncl.edu.tw/cover/eyJpdiI6ImVWREQwSWxSNUN6T2ROSDJTZGhKY3c9PSIsInZhbHVlIjoidURLeXd5cTh5aGZRNVJUZ1d6eVJabDJxZHU0Z0VQZGl4dWRzWXNRa3pMND0iLCJtYWMiOiI5NmRkNTkwYmIxZWZlYzRlMTk4N2FhYjdiNDcyYzJhMTU2YmQ3Mjc5NTc5MDk1MGFkYjdiNDhiMGRlNGE2M2YyIiwidGFnIjoiIn0=">
+                                    金陵神學院叢書 基督教與中國鄉村建設運動
+                                </div>
+                            </a>
+                        </div>
+                                            <div class="three wide computer four wide tablet eight wide mobile column text-center">
+                                                            <a href="https://taiwanebook.ncl.edu.tw/zh-tw/book/NCL-A006088">
+                                <div class="ui image">
+                                    <img class="ui small centered image" alt="道南源委 二"
+                                         src="https://taiwanebook.ncl.edu.tw/cover/eyJpdiI6IjZnQlA2ajBYL2ZIZGZLUFErd0k0R1E9PSIsInZhbHVlIjoiL2lxRjRTbzRnS2hsaU5tT2xtcjg0L3J1ZnJkZGJSb1pJRXgyMDczTEM0UT0iLCJtYWMiOiIyZmM4YzhjYmEwNDJkZGMzNjA4ZDBiOTYwNTdhNDRiNGVjNDQ1YzhmMjYxOWY0ZjRjYTEyYThkN2ZhMjg1YmVjIiwidGFnIjoiIn0=">
+                                    道南源委 二
+                                </div>
+                            </a>
+                        </div>
+                                            <div class="three wide computer four wide tablet eight wide mobile column text-center">
+                                                            <a href="https://taiwanebook.ncl.edu.tw/zh-tw/book/PTHS-003847">
+                                <div class="ui image">
+                                    <img class="ui small centered image" alt="四書箋義(二)"
+                                         src="https://taiwanebook.ncl.edu.tw/cover/eyJpdiI6ImlhWkpSUENLNy93LzJRUVJxeVpzSGc9PSIsInZhbHVlIjoieVlqTG1MaFJ6MVdqSjhuMlF0ZCthalFJNU1JamJPVUtsM2FIN1AveUNIST0iLCJtYWMiOiJhYjc5YmE0ZTA0OThkMzVkYzViY2MwZjIyOThiMjM0ZGQ5ZGMxZTg2OGQyNmFiZDExMmMyZTEwZTgyYjhhYTBiIiwidGFnIjoiIn0=">
+                                    四書箋義(二)
+                                </div>
+                            </a>
+                        </div>
+                                            <div class="three wide computer four wide tablet eight wide mobile column text-center">
+                                                            <a href="https://taiwanebook.ncl.edu.tw/zh-tw/book/PTHS-003840">
+                                <div class="ui image">
+                                    <img class="ui small centered image" alt="三禮考、禮經奧旨、鶴山渠陽讀書雜鈔"
+                                         src="https://taiwanebook.ncl.edu.tw/cover/eyJpdiI6ImQzNllpU2JNMVlxQlMwUWp6RmpRenc9PSIsInZhbHVlIjoidjJsbXc5WkJpZEJGK0ZqcXZ2T1BPL0h5aHM0UmlkV1NmdG9pb1VzTVR3UT0iLCJtYWMiOiIxOGFjODRhOGRkOTdmMWI1MTA5MTNjNGU0MmRkMDA5NDI2NDM2ZTVlMjVjYjI5YmU2ZDhhOWMwZDNkODYzMTc0IiwidGFnIjoiIn0=">
+                                    三禮考、禮經奧旨、鶴山渠陽讀書雜鈔
+                                </div>
+                            </a>
+                        </div>
+                                            <div class="three wide computer four wide tablet eight wide mobile column text-center">
+                                                            <a href="https://taiwanebook.ncl.edu.tw/zh-tw/book/PTHS-003822">
+                                <div class="ui image">
+                                    <img class="ui small centered image" alt="七經孟子考文並補遺(十)"
+                                         src="https://taiwanebook.ncl.edu.tw/cover/eyJpdiI6InV1REsvbERPU0kwdlgvRUJVNDczTEE9PSIsInZhbHVlIjoiYngyaFp1dENITDJadkQwQ2M0WjdyQmlZc2pYcmJ1bzNPclJqUFF0aSs5dz0iLCJtYWMiOiJhNzkzMGQyNTllMDI4NWQzYTQ2ZDE4ZDFkMDhiNjE4NzhkYmM5ODdiODFkOWI2ODM0ZDllMzA1ZTFlOWI2MGI4IiwidGFnIjoiIn0=">
+                                    七經孟子考文並補遺(十)
+                                </div>
+                            </a>
+                        </div>
+                                    </div>
+            </div>
+        </div>
+    </div>
+    <script type="module" nonce="6x3YPxU3J4nJNFG18wJAyZmJM1kOSlCaPQqKtXp4">
+      $('#book-form').on('submit', function () {
+        return checkform_2()
+      })
+
+      function checkform_2 () {
+        const name_2 = document.getElementById('name_2').value
+        const phonenum_2 = document.getElementById('phonenum_2').value
+        const email_2 = document.getElementById('email_2').value
+        const content_2 = document.getElementById('content_2').value
+        const email_at_2 = document.getElementById('email_2').value.indexOf('@')
+        const email_d_2 = document.getElementById('email_2').value.indexOf('.')
+
+        if (name_2 != '' && phonenum_2 != '' && email_2 != '' && content_2 != '' && email_at_2 != -1 && email_d_2 != -1) {
+          document.form1.submit()
+        } else {
+          if (name_2 == '' || phonenum_2 == '' || email_2 == '' || content_2 == '') {
+            alert('請確認全部欄位是否都已填寫完成')
+            return false
+          }
+          alert('請確認email格式是否正確')
+          return false
+        }
+      }
+    </script>
+</main>
+
+<script nonce="6x3YPxU3J4nJNFG18wJAyZmJM1kOSlCaPQqKtXp4">
+  (function (i, s, o, g, r, a, m) {
+    i['GoogleAnalyticsObject'] = r;
+    i[r] = i[r] || function () {
+      (i[r].q = i[r].q || []).push(arguments)
+    }, i[r].l = 1 * new Date();
+    a = s.createElement(o),
+      m = s.getElementsByTagName(o)[0];
+    a.async = 1;
+    a.src = g;
+    m.parentNode.insertBefore(a, m)
+  })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+  ga('create', 'UA-71788687-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<div class="ui footer text-center background footer-background">
+    <div class="ui three column doubling stackable grid container">
+        <div class="ui one wide computer sixteen wide tablet sixteen wide mobile column">
+            <a href="#" accesskey="Z">:::</a>
+        </div>
+        <div class="ui four wide computer sixteen wide tablet sixteen wide mobile column">
+                            <img class="ui medium image " src="https://taiwanebook.ncl.edu.tw/style/img/logo_ncl.png" alt="NCL國家圖書館">
+                    </div>
+        <div class="ui eight wide computer sixteen wide tablet sixteen wide mobile column">
+                            <p class="fw-700">
+                    
+                    國家圖書館版權所有，僅供網路瀏覽，禁止轉載 ©2016, All Rights Reserved<br>
+                    最佳解析度　1024x768以上 |瀏覽器: Chrome, Firefox, IE11以上
+                </p>
+                    </div>
+        <div class="ui three wide computer sixteen wide tablet sixteen wide mobile column">
+                            <span class="fw-700">   瀏覽人次 : 6,876,833</span>
+                    </div>
+    </div>
+
+    <div class="ui container column grid d-none py-1-rem">
+        <div class="ui row">
+            <div class="ui three wide computer sixteen wide tablet sixteen wide mobile doubling stackable grid">
+                                    <img class="ui medium image top-1dot5-rem h-100" src="https://taiwanebook.ncl.edu.tw/style/img/logo_ncl.png"
+                         alt="NCL國家圖書館">
+                
+            </div>
+
+            <div class="ui nine wide computer eleven wide tablet sixteen wide mobile doubling stackable grid">
+                                    <p class="fw-700 ml-20-px"><br>
+                        
+                        國家圖書館版權所有，僅供網路瀏覽，禁止轉載 ©2016, All Rights Reserved<br>
+                        最佳解析度　1024x768以上 |瀏覽器: Chrome, Firefox, IE11以上
+                    </p>
+                            </div>
+            <div class="ui four wide computer five wide tablet sixteen wide mobile doubling stackable grid">
+                <!--
+                <img class="ui image bottom aligned" src="https://taiwanebook.ncl.edu.tw/style/img/aplus.gif" >
+                -->
+                                    <span class="fw-700">   瀏覽人次 : 6,876,833</span>
+                            </div>
+        </div>
+    </div>
+</div>
+<link rel="modulepreload" href="https://taiwanebook.ncl.edu.tw/build/assets/main.f38152cc.js" nonce="6x3YPxU3J4nJNFG18wJAyZmJM1kOSlCaPQqKtXp4" /><script type="module" src="https://taiwanebook.ncl.edu.tw/build/assets/main.f38152cc.js" nonce="6x3YPxU3J4nJNFG18wJAyZmJM1kOSlCaPQqKtXp4"></script><script src="https://taiwanebook.ncl.edu.tw/pdfjs/build/pdf.mjs" type="module"></script>
+<script nonce="6x3YPxU3J4nJNFG18wJAyZmJM1kOSlCaPQqKtXp4">
+
+    $("#search_btn").click(function () {
+        var search_terms = $("input.search_input").val();
+        if (search_terms.length != 0) {
+            search_terms = encodeURIComponent(search_terms);
+            window.location.href = 'https://taiwanebook.ncl.edu.tw/zh-tw/search/' + search_terms +'/all';
+        }
+    });
+
+    $('#iSearchInput').keypress(function(event){
+        var keycode = (event.keyCode ? event.keyCode : event.which);
+        if(keycode == '13'){
+            var search_terms = $("input.search_input").val();
+            if (search_terms.length != 0) {
+                search_terms = encodeURIComponent(search_terms);
+                window.location.href = 'https://taiwanebook.ncl.edu.tw/zh-tw/search/' + search_terms +'/all';
+            }
+        }
+    });
+</script>
+</body>
+</html>

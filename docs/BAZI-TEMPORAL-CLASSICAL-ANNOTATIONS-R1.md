@@ -103,3 +103,11 @@ A provenance/hash defect was therefore repaired forward-only:
 
 This matches the natal foundation contract: membership is a fact, display order
 is lineage. No ordinal is a root-strength grade.
+
+### Batch 12ML natal-day-master / Ten-God projection audit
+
+HPA-BAZI-FLOW-002 now closes within the historical scope of audited HPA-BAZI-003, with direct NTL-9900014379 five-yang/five-yin table corroboration. The target composer calls the same natal `ten_god` function for visible and hidden stems; all seven annotation slots use the natal day master, not the target daily stem. 100 stem pairs and 4200 legal layer annotations replay against a visually collated oracle. Equal Xiaoyun candidates remain separate; pre-Dayun emits no synthetic annotation.
+
+Local annotation/hash validation proves internal consistency only. Rebuilding every annotation under a substituted day master and recomputing local hashes can pass local structural validation; the complete request-bound upstream replay rejects the substitution. Keep both validation layers. This is the released contract, not a newly discovered chart defect. No strength, pattern, useful-god or interpretation authority follows from the identity mapping.
+
+The physical witness is a catalog-assigned 1926 received edition; it does not prove earliest rule origin or a classical seven-layer software interface. See `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-TEMPORAL-TEN-GOD-PROJECTION-AUDIT-ML.md` and `docs/research/BAZI-TEMPORAL-TEN-GOD-PROJECTION-AUDIT-R1.json`. Runtime, schemas, hashes and profile versions remain unchanged.

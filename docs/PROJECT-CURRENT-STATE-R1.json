@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.352.0",
+  "schema_version": "1.353.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -38,7 +38,7 @@
     "matrix_md": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.md",
     "external_source_registry": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json",
     "row_count": 198,
-    "audited_row_count": 167,
+    "audited_row_count": 168,
     "confirmed_provenance_metadata_defect_count": 17,
     "repaired_provenance_metadata_defect_count": 17,
     "historical_candidate_registry_count": 3,
@@ -434,9 +434,10 @@
       "BATCH-12-ZIWEI-WENWU1951-UCD-PHYSICAL-DIGITAL-COPY-BINDING-MH",
       "BATCH-12-ZIWEI-WENWU1951-GOOGLE-AGGREGATE-YEAR-BOUNDARY-MI",
       "BATCH-12-ZIWEI-WENWU1951-NABUNKEN-REPOSITORY-RECOVERY-CLOSURE-MJ",
-      "BATCH-12-ZIWEI-BODY-PALACE-GANZHI-PROJECTION-AUDIT-MK"
+      "BATCH-12-ZIWEI-BODY-PALACE-GANZHI-PROJECTION-AUDIT-MK",
+      "BATCH-12-BAZI-TEMPORAL-TEN-GOD-PROJECTION-AUDIT-ML"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-BODY-PALACE-GANZHI-PROJECTION-AUDIT-MK.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-TEMPORAL-TEN-GOD-PROJECTION-AUDIT-ML.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -1984,7 +1985,12 @@
       "Yes, within the audited parents’ source/profile scope. A UI-only uniqueness/shape guard defect is repaired: duplicate identity rows are counted before stem validation, malformed attribute containers and out-of-range indices return a placeholder. All 1440 valid ordinary coordinates retain identical output. No chart algorithm or historical candidate selection changes.",
       "12ML: audit HPA-BAZI-FLOW-002 Target-layer Ten-God projection. Trace the source day-master/target Ganzhi anchor and exact reuse of the already audited natal Ten-God mapping; execute legal target-layer cases and preserve fact-only semantics.",
       "Original Wenwu1951 recovery remains PAUSED_ACCESS_UNRESOLVED_PENDING_MATERIALLY_NEW_ROUTE. No repeat of closed provider surfaces; direct 1951 pp.221–233, 2011 Wenji p.197 and Wenhui1951-08-18 remain NOT_REVIEWED.",
-      "Matrix is now 198 / 167 / 10; provenance defects remain 17/17; chart algorithm defects / reopens / candidate collapses remain 0. UI-only identity guard repair does not reopen chart algorithms."
+      "Matrix is now 198 / 167 / 10; provenance defects remain 17/17; chart algorithm defects / reopens / candidate collapses remain 0. UI-only identity guard repair does not reopen chart algorithms.",
+      "Batch 12ML audits HPA-BAZI-FLOW-002 as inherited natal Ten-God identity projection, with directly collated NTL-9900014379 physical five-yang/five-yin relation tables. The 1926 date is catalog-assigned publication metadata, not rule formation or earliest-copy evidence.",
+      "All 100 stem pairs, 4200 legal target annotations and 9800 hidden-stem relation comparisons agree. Ten true natal day masters remain the anchor. Equal Xiaoyun annotations never select or merge candidates; pre-Dayun has no synthetic annotation. A locally rebuilt wrong day master is rejected by full upstream replay.",
+      "The previous exact-HEAD CI exposed eight stale global-count assertions (166/88). Forward-only tests now reconcile actual Matrix rows, audited IDs and current state; historical batch snapshots remain unchanged. The affected 39 regression tests pass.",
+      "12MM: audit HPA-BAZI-014 Stem five-combination identity. Bind the five exact stem pairs to a directly readable historical table and verify the released neutral presentation; keep combination identity separate from transformation success, pattern or interpretation.",
+      "Matrix is now 198 / 168 / 10; provenance defects 17/17; chart algorithm defects / reopens / candidate collapses 0. Original Wenwu1951 primary targets remain NOT_REVIEWED and the anonymous recovery branch remains paused pending a materially new route."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10

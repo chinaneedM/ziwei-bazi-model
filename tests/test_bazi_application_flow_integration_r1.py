@@ -32,6 +32,7 @@ from fortune_training.bazi_application.flow_local_app import (
 )
 from fortune_training.bazi_application.local_app import LocalBaziApplication
 from fortune_training.bazi_chart import (
+    BaziChartRequest,
     bazi_foundation_v1_profile,
     bazi_foundation_zi_start_23_r1_profile,
 )
@@ -47,6 +48,9 @@ from fortune_training.bazi_temporal import (
 from fortune_training.calendar_foundation import BirthInput
 from fortune_training.calendar_foundation.models import json_value
 from fortune_training.util import object_sha256
+from fortune_training.bazi_application.temporal_annotations import (
+    temporal_classical_annotation_projection,
+)
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -238,6 +242,56 @@ class BaziApplicationFlowIntegrationR1Tests(unittest.TestCase):
         for layer in ("annual", "monthly", "daily", "hourly"):
             self.assertEqual("RESOLVED", projection[layer]["status"])
         jsonschema.Draft202012Validator(self.schema).validate(json_value(result))
+
+    def test_temporal_ten_gods_keep_all_ten_true_natal_day_masters(self) -> None:
+        oracle = json.loads((ROOT / "tests/fixtures/bazi-temporal-ten-god-physical-table-oracle-r1.json").read_text(encoding="utf-8"))["roles"]
+        anchors = set()
+        for offset in range(10):
+            birth = replace(self.birth, reported_local_datetime=self.birth.reported_local_datetime + timedelta(days=offset))
+            base = self._base_request(birth=birth)
+            natal = self.base_service.chart_foundation.resolve_typed(
+                BaziChartRequest(birth=birth, profile=base.natal_profile)
+            ).candidates[0].chart
+            anchors.add(natal.day_master_stem)
+            result = self._resolve(self._target(datetime(2036, 6, 1, 12, 0)), base_request=base)
+            self.assertEqual("PASS", result.integrity.status)
+            for candidate in result.candidates:
+                timeline = candidate.view["timeline"]
+                projection = timeline["classical_annotations"]
+                self.assertEqual(natal.day_master_stem, projection["day_master_stem"])
+                slots = [projection[layer] for layer in ("dayun", "annual", "monthly", "daily", "hourly")]
+                slots += projection["xiaoyun_candidates"]
+                self.assertEqual(7, len(slots))
+                for slot in slots:
+                    self.assertEqual("RESOLVED", slot["status"])
+                    a = slot["annotation"]
+                    self.assertEqual(natal.day_master_stem, a["day_master_stem"])
+                    self.assertEqual(oracle[natal.day_master_stem][a["stem"]], a["visible_ten_god"]["semantic_role_id"])
+                    for hidden in a["hidden_stems"]:
+                        self.assertEqual(oracle[natal.day_master_stem][hidden["stem"]], hidden["ten_god_semantic_role_id"])
+        self.assertEqual(set(oracle), anchors)
+
+    def test_locally_rebuilt_wrong_day_master_fails_full_replay(self) -> None:
+        request = self._request(self._target(datetime(2026, 6, 1, 12, 0)))
+        result = self.flow_service.resolve(request)
+        row = result.candidates[0]
+        changed_view = copy.deepcopy(row.view)
+        timeline = changed_view["timeline"]
+        self.assertEqual("丁", timeline["classical_annotations"]["day_master_stem"])
+        timeline["classical_annotations"] = temporal_classical_annotation_projection(
+            "甲", dayun_kind=timeline["dayun"]["kind"], dayun_frame=timeline["dayun"]["frame"],
+            xiaoyun_candidates=timeline["xiaoyun"]["candidates"], annual_frame=timeline["annual"],
+            monthly_frame=timeline["monthly"], daily_frame=timeline["daily"], hourly_frame=timeline["hourly"],
+        )
+        changed_row = replace(row, view=changed_view, view_hash=object_sha256({"view_schema": row.view_schema, "view": changed_view}))
+        changed_row = replace(changed_row, candidate_id=application_flow_candidate_id(changed_row))
+        tampered = replace(result, candidates=(changed_row,))
+        tampered = replace(tampered, view_hash=application_flow_view_hash(tampered))
+        tampered = replace(tampered, bundle_hash=application_flow_bundle_hash(tampered))
+        self.assertEqual("PASS", validate_application_flow_resolution(tampered).status)
+        replay = validate_application_flow_full_replay(self.flow_service, request, tampered)
+        self.assertEqual("FAIL", replay.status)
+        self.assertIn("FULL_REPLAY_MISMATCH", replay.diagnostics)
 
     def test_structural_projection_preserves_neutral_relation_lineage(self) -> None:
         result = self._resolve(self._target(datetime(2026, 6, 1, 12, 0)))
