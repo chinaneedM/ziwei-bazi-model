@@ -10359,7 +10359,7 @@
       ],
       "identifier": "article id 1737 / PDF SHA-256 2e0b9c1d59ccc95523b48144964cb8f528161c3b9201cb28da0cee41de9cd776",
       "source_role": "FIRST_PARTY_OFFICIAL_JOURNAL_DIRECT_FULLTEXT_QUOTATION_BRIDGE_NOT_2011_OR_1951_ORIGINAL",
-      "quality_notes": "Batch 12IG directly retrieves the official 96-page PDF and reviews its text layer without OCR. PDF page 92 co-locates the Qu donor names, donation wording, Song-print label, the split title fragments 春秋左 + 传注疏, 六十二种 and citation [2]197. Reference [2] is the 2011 《赵万里文集：第一卷》. This upgrades the modern quotation carrier only; it does not equal direct review of 2011 p.197 or the 1951 original and does not authorize collapse to FID070.",
+      "quality_notes": "Batch 12IG directly retrieves the official 96-page PDF and reviews its text layer without OCR. PDF page 92 co-locates the Qu donor names, donation wording, Song-print label, the split title fragments 春秋左 + 传注疏, 六十二种 and citation [2]197. Reference [2] is the 2011 《赵万里文集：第一卷》. This upgrades the modern quotation carrier only; it does not equal direct review of 2011 p.197 or the 1951 original and does not authorize collapse to FID070. Batch 12MD independently closes the first-party archive→2026 No.4 issue route but finds no Zhao/Xiao target anchor on that reviewed issue HTML; because Batch 12IG already bound and reviewed the exact official article/PDF object, 12MD is deduplicated as route provenance only and adds zero historical witness votes.",
       "batch_12ig": {
         "issue": "2026年第4期",
         "article": "赵万里与古籍保护",
@@ -10377,6 +10377,33 @@
         "direct_2011_page197_reviewed": false,
         "direct_1951_original_reviewed": false,
         "research_artifact": "docs/research/ZIWEI-ZHAO-WANLI-P197-OFFICIAL-JOURNAL-QUOTE-AUTHORITY-UPGRADE-R1.json"
+      },
+      "batch_12md": {
+        "role": "FIRST_PARTY_ARCHIVE_TO_ISSUE_ROUTE_DEDUP_CONTROL",
+        "workflow_run_id": 37025054121,
+        "workflow_job_id": 110897449245,
+        "artifact_id": 11234512700,
+        "artifact_digest": "sha256:48418d990c59fec5dae0126b91f66a471ebd177332db76a8e0ded73934654abf",
+        "exact_head": "121a7aa5d200ee66d98a0c2da356191f1ccaacd0",
+        "archive_url": "https://bjb.zjlib.cn/CN/archive_by_years",
+        "archive_sha256": "9a7503c31b8d4360a465dbcbf4c50e28de819f0209e1ddf118fe92554a2a59d2",
+        "source_emitted_issue_url": "https://bjb.zjlib.cn/CN/Y2026/V0/I4",
+        "issue_sha256": "2cac8afd9f72f67429fd97a149c9a593bd27bc13ec766614fbf81f14c41a4429",
+        "target_article_anchor_observed_on_issue_surface": false,
+        "target_token_counts": {
+          "赵万里": 0,
+          "趙萬里": 0,
+          "肖玲": 0,
+          "赵万里与古籍保护": 0
+        },
+        "article_route_followed": false,
+        "pdf_route_followed": false,
+        "pdf_downloaded": false,
+        "same_official_article_pdf_already_closed_by_batch_12ig": true,
+        "duplicate_evidence_vote_increment": 0,
+        "direct_2011_page197_reviewed": false,
+        "direct_1951_original_reviewed": false,
+        "research_artifact": "docs/research/ZIWEI-ZJLIB-ZHAO-WANLI-ARTICLE-ROUTE-R1.json"
       }
     },
     {

@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.344.0",
+  "schema_version": "1.345.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -426,9 +426,10 @@
       "BATCH-12-ZIWEI-CNBKSY-PROFESSIONAL-CODE-SCRIPT-CONTRACT-LZ",
       "BATCH-12-ZIWEI-CNBKSY-PROFESSIONAL-SEARCH-ESA-BOUNDARY-MA",
       "BATCH-12-ZIWEI-CNBKSY-ADVANCED-SEARCH-ESA-BOUNDARY-MB",
-      "BATCH-12-ZIWEI-WENHUI-EPAPER-ROOT-DATE-CONTRACT-RECALIBRATION-MC"
+      "BATCH-12-ZIWEI-WENHUI-EPAPER-ROOT-DATE-CONTRACT-RECALIBRATION-MC",
+      "BATCH-12-ZIWEI-ZJLIB-ZHAO-WANLI-ARTICLE-ROUTE-MD"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENHUI-EPAPER-ROOT-DATE-CONTRACT-RECALIBRATION-MC.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZJLIB-ZHAO-WANLI-ARTICLE-ROUTE-MD.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -1935,6 +1936,10 @@
       "12MC materially reconfirms Batch 12JO's runner reachability boundary rather than historical absence: 12JO had already timed out on the same official root and on a known modern dated control page. No target-date path guessing, TLS disabling, login, registration or bypass is authorized.",
       "The Wenhui e-paper direct-runner branch is STOPPED_PENDING_MATERIALLY_NEW_FIRST_PARTY_ACCESS_MECHANISM. Direct Shanghai Wenhui 1951-08-18 remains NOT_REVIEWED; timeout cannot support date/page absence inference.",
       "Next gate 12MD pivots to an independent lawful scholarly witness route. It first fetches Zhejiang Library's official journal archive page, follows only the source-emitted 2026 No.4 issue link, and inventories source-emitted anchors/PDF links for 肖玲《赵万里与古籍保护》 without downloading the PDF. Any later p.197 citation recovered there is modern secondary evidence only.",
+      "Matrix remains 198 / 166 / 10; provenance defects remain 17/17; chart algorithm defects / reopens / candidate collapses remain 0.",
+      "Batch 12MD closes the Zhejiang Library first-party archive→2026 No.4 issue route on exact-head run 37025054121: archive and issue both return HTTP 200, the archive source-emits /CN/Y2026/V0/I4, and the reviewed issue HTML contains zero 赵万里/趙萬里/肖玲/赵万里与古籍保护 tokens and zero Zhao/Xiao relevant anchors. The only PDF-like anchor is a non-object javascript:; display; no article or PDF route is followed.",
+      "Batch 12MD is a provenance-route deduplication, not a new scholarly witness: existing registry source EXT-ZJLIB-TUSHUGUAN-YANJIU-YU-GONGZUO-2026-4-XIAO-ZHAO-WANLI-PDF / Batch 12IG already directly bound the official article page /CN/Y2026/V0/I4/2 and official PDF /CN/PDF/1737 (SHA-256 2e0b9c1d59ccc95523b48144964cb8f528161c3b9201cb28da0cee41de9cd776) and reviewed the p.92 [2]197 quotation bridge. Duplicate evidence vote increment is 0.",
+      "Direct 2011 《赵万里文集》第一卷 p.197 and the 1951 original remain NOT_REVIEWED. Next gate 12ME returns to a materially new lawful public/institutional direct-page recovery route for 2011 p.197; the NDL paid/mediated copy path remains explicit-user-authorization gated, while 1951 《文物参考资料》 pp.221–233 and Shanghai 《文汇报》 1951-08-18 remain parallel unresolved primary targets.",
       "Matrix remains 198 / 166 / 10; provenance defects remain 17/17; chart algorithm defects / reopens / candidate collapses remain 0."
     ],
     "historical_candidate_extension_count": 6,
@@ -1975,7 +1980,7 @@
     "handoff_text_should_be_generated_from_repository_state_not_chat_memory": true,
     "new_chat_minimal_user_prompt": "继续项目。按仓库 docs/PROJECT-CONTINUITY-PROTOCOL-R1.md 启动，以 GitHub 远端最新状态为唯一事实源。"
   },
-  "updated_at": "2026-10-02",
+  "updated_at": "2026-10-04",
   "tianwen_identity": {
     "umbrella_name_zh": "天问",
     "umbrella_name_en": "TIANWEN",

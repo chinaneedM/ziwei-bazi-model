@@ -859,9 +859,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-CNBKSY-PROFESSIONAL-SEARCH-ESA-BOUNDARY-MA",
     "BATCH-12-ZIWEI-CNBKSY-ADVANCED-SEARCH-ESA-BOUNDARY-MB",
     "BATCH-12-ZIWEI-WENHUI-EPAPER-ROOT-DATE-CONTRACT-RECALIBRATION-MC",
+    "BATCH-12-ZIWEI-ZJLIB-ZHAO-WANLI-ARTICLE-ROUTE-MD",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENHUI-EPAPER-ROOT-DATE-CONTRACT-RECALIBRATION-MC.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZJLIB-ZHAO-WANLI-ARTICLE-ROUTE-MD.md"
 
 
 def fail(message: str) -> None:
@@ -13695,6 +13696,74 @@ def main() -> int:
         fail("Batch 12MC state version regressed below 1.344.0")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail("Batch 12MC latest-batch document mismatch")
+
+
+    # Batch 12MD: Zhejiang Library archive→issue route closes as a deduplicated provenance route.
+    md_batch = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZJLIB-ZHAO-WANLI-ARTICLE-ROUTE-MD.md"
+    md_evidence = ROOT / "docs/research/ZIWEI-ZJLIB-ZHAO-WANLI-ARTICLE-ROUTE-R1.json"
+    if not md_batch.is_file() or not md_evidence.is_file():
+        fail("Batch 12MD continuity artifact missing")
+    md = json.loads(md_evidence.read_text(encoding="utf-8"))
+    if md.get("batch_id") != "BATCH-12-ZIWEI-ZJLIB-ZHAO-WANLI-ARTICLE-ROUTE-MD":
+        fail("Batch 12MD evidence identity mismatch")
+    p = md.get("controlling_probe", {})
+    if p.get("workflow_run_id") != 37025054121 or p.get("workflow_job_id") != 110897449245 or p.get("artifact_id") != 11234512700:
+        fail("Batch 12MD controlling probe identity regressed")
+    if p.get("artifact_digest") != "sha256:48418d990c59fec5dae0126b91f66a471ebd177332db76a8e0ded73934654abf":
+        fail("Batch 12MD artifact digest regressed")
+    if p.get("exact_head") != "121a7aa5d200ee66d98a0c2da356191f1ccaacd0" or p.get("exact_tree") != "da079cf1d285337d8d5296156bc2b68fc49e1f43":
+        fail("Batch 12MD exact-head/tree binding regressed")
+    ar = md.get("archive_response", {})
+    if ar.get("status") != 200 or ar.get("bytes") != 64415 or ar.get("sha256") != "9a7503c31b8d4360a465dbcbf4c50e28de819f0209e1ddf118fe92554a2a59d2":
+        fail("Batch 12MD archive response identity regressed")
+    binds = md.get("source_emitted_issue_bindings", [])
+    if len(binds) != 1 or binds[0].get("label") != "No. 4" or binds[0].get("absolute_href") != "https://bjb.zjlib.cn/CN/Y2026/V0/I4":
+        fail("Batch 12MD source-emitted issue binding regressed")
+    ir = md.get("issue_response", {})
+    if ir.get("status") != 200 or ir.get("bytes") != 30046 or ir.get("sha256") != "2cac8afd9f72f67429fd97a149c9a593bd27bc13ec766614fbf81f14c41a4429":
+        fail("Batch 12MD issue response identity regressed")
+    tc = ir.get("token_counts", {})
+    for token in ("赵万里", "趙萬里", "肖玲", "赵万里与古籍保护"):
+        if tc.get(token) != 0:
+            fail(f"Batch 12MD target-token zero-surface control regressed: {token}")
+    if md.get("zhao_or_xiao_relevant_anchors") != []:
+        fail("Batch 12MD target-anchor surface regressed")
+    pdf_like = md.get("pdf_like_anchors", [])
+    if len(pdf_like) != 1 or pdf_like[0].get("label") != "PDF全文" or pdf_like[0].get("href") != "javascript:;":
+        fail("Batch 12MD PDF-like static anchor control regressed")
+    d = md.get("existing_repository_dedup_control", {})
+    if d.get("source_id") != "EXT-ZJLIB-TUSHUGUAN-YANJIU-YU-GONGZUO-2026-4-XIAO-ZHAO-WANLI-PDF":
+        fail("Batch 12MD prior-source dedup identity regressed")
+    if d.get("official_pdf_sha256") != "2e0b9c1d59ccc95523b48144964cb8f528161c3b9201cb28da0cee41de9cd776" or d.get("quote_pdf_page") != 92:
+        fail("Batch 12MD prior 12IG PDF/page binding regressed")
+    if d.get("same_underlying_official_article_pdf") is not True or d.get("new_historical_witness_increment") != 0:
+        fail("Batch 12MD evidence dedup firewall regressed")
+    a = md.get("adjudication", {})
+    if a.get("issue_route_source_closed") is not True or a.get("target_article_anchor_observed_on_reviewed_issue_html") is not False:
+        fail("Batch 12MD source-closure/static-target boundary regressed")
+    if a.get("zero_target_tokens_is_article_or_corpus_absence") is not False or a.get("duplicate_evidence_vote_increment") != 0:
+        fail("Batch 12MD absence/dedup firewall regressed")
+    for key in ("article_route_followed", "pdf_route_followed", "pdf_downloaded", "wenji_p197_direct_page_claimed_reviewed", "primary_text_upgrade_authorized"):
+        if a.get(key) is not False:
+            fail(f"Batch 12MD no-follow/no-upgrade firewall regressed: {key}")
+    if a.get("branch_status") != "CLOSED_AS_SOURCE_ROUTE_DEDUP_NO_NEW_WITNESS":
+        fail("Batch 12MD branch status regressed")
+    srcmap_md = {x.get("source_id"): x for x in registry.get("sources", ())}
+    reg_md = srcmap_md.get("EXT-ZJLIB-TUSHUGUAN-YANJIU-YU-GONGZUO-2026-4-XIAO-ZHAO-WANLI-PDF", {}).get("batch_12md", {})
+    if reg_md.get("workflow_run_id") != 37025054121 or reg_md.get("artifact_id") != 11234512700 or reg_md.get("duplicate_evidence_vote_increment") != 0:
+        fail("Batch 12MD external-source registry binding missing")
+    if reg_md.get("same_official_article_pdf_already_closed_by_batch_12ig") is not True or reg_md.get("direct_2011_page197_reviewed") is not False:
+        fail("Batch 12MD registry dedup/direct-page firewall regressed")
+    if "BATCH-12-ZIWEI-ZJLIB-ZHAO-WANLI-ARTICLE-ROUTE-MD" not in audit_state.get("completed_batches", ()):
+        fail("Batch 12MD missing from completed state")
+    try:
+        schema12md = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12MD state version is not numeric")
+    if schema12md < (1, 345, 0):
+        fail("Batch 12MD state version regressed below 1.345.0")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
+        fail("Batch 12MD latest-batch document mismatch")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

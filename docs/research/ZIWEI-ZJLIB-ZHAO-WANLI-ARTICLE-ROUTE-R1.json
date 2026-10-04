@@ -1,0 +1,138 @@
+{
+  "schema": "ZIWEI-ZJLIB-ZHAO-WANLI-ARTICLE-ROUTE-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-ZJLIB-ZHAO-WANLI-ARTICLE-ROUTE-MD",
+  "prior_batch_id": "BATCH-12-ZIWEI-WENHUI-EPAPER-ROOT-DATE-CONTRACT-RECALIBRATION-MC",
+  "question": "Does Zhejiang Library's official journal archive source-emit the 2026 No.4 issue route, and does that issue HTML itself expose a Zhao Wanli/Xiao Ling target article or direct PDF route that adds a new evidentiary witness?",
+  "answer": "The archive source-emits the 2026 No.4 issue and both pages return HTTP 200. The reviewed issue HTML exposes no Zhao Wanli/Xiao Ling target anchor or target-title token and only a non-object javascript:; PDF display anchor. No article/PDF route is followed in 12MD. Repository evidence already closed the exact official article/PDF in Batch 12IG, so 12MD adds route provenance only, zero new witness votes, and no upgrade of direct 2011 p.197 or 1951 primary-text status.",
+  "controlling_probe": {
+    "workflow": ".github/workflows/probe-batch-12md-zjlib-zhao-wanli-article-route.yml",
+    "exact_head": "121a7aa5d200ee66d98a0c2da356191f1ccaacd0",
+    "exact_tree": "da079cf1d285337d8d5296156bc2b68fc49e1f43",
+    "workflow_run_id": 37025054121,
+    "workflow_job_id": 110897449245,
+    "artifact_id": 11234512700,
+    "artifact_digest": "sha256:48418d990c59fec5dae0126b91f66a471ebd177332db76a8e0ded73934654abf"
+  },
+  "source_contract": {
+    "archive_url": "https://bjb.zjlib.cn/CN/archive_by_years",
+    "expected_issue_path": "/CN/Y2026/V0/I4",
+    "issue_route_must_be_source_emitted": true,
+    "article_route_followed": false,
+    "pdf_route_followed": false,
+    "pdf_downloaded": false,
+    "account_action_used": false,
+    "payment_action_used": false
+  },
+  "archive_response": {
+    "url": "https://bjb.zjlib.cn/CN/archive_by_years",
+    "fetch_error": null,
+    "status": 200,
+    "content_type": "text/html;charset=UTF-8",
+    "server": "nginx/1.30.4",
+    "bytes": 64415,
+    "sha256": "9a7503c31b8d4360a465dbcbf4c50e28de819f0209e1ddf118fe92554a2a59d2"
+  },
+  "source_emitted_issue_bindings": [
+    {
+      "label": "No. 4",
+      "title": null,
+      "href": "https://bjb.zjlib.cn/CN/Y2026/V0/I4",
+      "absolute_href": "https://bjb.zjlib.cn/CN/Y2026/V0/I4"
+    }
+  ],
+  "issue_url_followed": "https://bjb.zjlib.cn/CN/Y2026/V0/I4",
+  "issue_response": {
+    "url": "https://bjb.zjlib.cn/CN/Y2026/V0/I4",
+    "fetch_error": null,
+    "status": 200,
+    "content_type": "text/html;charset=UTF-8",
+    "server": "nginx/1.30.4",
+    "bytes": 30046,
+    "sha256": "2cac8afd9f72f67429fd97a149c9a593bd27bc13ec766614fbf81f14c41a4429",
+    "token_counts": {
+      "2026": 4,
+      "赵万里": 0,
+      "趙萬里": 0,
+      "肖玲": 0,
+      "赵万里与古籍保护": 0,
+      "第4期": 2
+    }
+  },
+  "zhao_or_xiao_relevant_anchors": [],
+  "pdf_like_anchors": [
+    {
+      "label": "PDF全文",
+      "title": null,
+      "href": "javascript:;",
+      "absolute_href": "javascript:;"
+    }
+  ],
+  "existing_repository_dedup_control": {
+    "source_id": "EXT-ZJLIB-TUSHUGUAN-YANJIU-YU-GONGZUO-2026-4-XIAO-ZHAO-WANLI-PDF",
+    "prior_batch_id": "BATCH-12-ZIWEI-ZHAO-WANLI-P197-OFFICIAL-JOURNAL-QUOTE-AUTHORITY-UPGRADE-IG",
+    "official_article_url": "https://bjb.zjlib.cn/CN/Y2026/V0/I4/2",
+    "official_pdf_url": "https://bjb.zjlib.cn/CN/PDF/1737",
+    "official_pdf_sha256": "2e0b9c1d59ccc95523b48144964cb8f528161c3b9201cb28da0cee41de9cd776",
+    "quote_pdf_page": 92,
+    "citation_2_197_seen": true,
+    "same_underlying_official_article_pdf": true,
+    "new_historical_witness_increment": 0,
+    "direct_2011_page197_reviewed": false,
+    "direct_1951_original_reviewed": false
+  },
+  "adjudication": {
+    "archive_page_get_only_before_source_binding": true,
+    "issue_route_source_closed": true,
+    "only_source_emitted_issue_route_followed": true,
+    "target_article_anchor_observed_on_reviewed_issue_html": false,
+    "zero_target_tokens_is_article_or_corpus_absence": false,
+    "article_route_followed": false,
+    "pdf_route_followed": false,
+    "pdf_downloaded": false,
+    "same_official_target_already_closed_by_batch_12ig": true,
+    "duplicate_evidence_vote_increment": 0,
+    "wenji_p197_direct_page_claimed_reviewed": false,
+    "primary_text_upgrade_authorized": false,
+    "branch_status": "CLOSED_AS_SOURCE_ROUTE_DEDUP_NO_NEW_WITNESS"
+  },
+  "security": {
+    "anonymous_get_only": true,
+    "credential_value_recorded": false,
+    "private_endpoint_guessed": false,
+    "captcha_bypass_used": false,
+    "tls_verification_disabled": false
+  },
+  "transmission_impact": {
+    "status": "NONE_DEDUP_ROUTE_ONLY",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": []
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Do not re-download or re-count the already closed Batch 12IG Zhejiang Library official article/PDF object merely through a second route.",
+    "Return to a materially new lawful public/institutional route capable of directly exposing 2011 《赵万里文集》第一卷 p.197. No account, payment, remote-copy or mediated-copy action may be taken without explicit user authorization where required.",
+    "Keep direct 1951 《文物参考资料》 vol.2 no.9 pp.221–233 and Shanghai 《文汇报》 1951-08-18 as parallel primary targets; route/access failures are not text-absence evidence."
+  ],
+  "updated_at": "2026-10-04"
+}
