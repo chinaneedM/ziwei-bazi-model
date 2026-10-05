@@ -1,0 +1,68 @@
+{
+  "schema": "ZIWEI-FOUR-TRANSFORMATION-WHOLE-TABLE-CANDIDATE-PRODUCTIZATION-R1",
+  "version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-FOUR-TRANSFORMATION-WHOLE-TABLE-CANDIDATE-PRODUCTIZATION-OK",
+  "date": "2026-10-06",
+  "target_rule_id": "HPA-ZIWEI-014",
+  "classification": "PRODUCTIZATION_CLOSURE_OVER_12OJ_WHOLE_TABLE_CANDIDATES",
+  "product_contract": {
+    "candidate_api_id": "ZIWEI-FOUR-TRANSFORMATION-HISTORICAL-CANDIDATE-API-R1",
+    "candidate_api_version": "1.0.0",
+    "registry_id": "ZIWEI-FOUR-TRANSFORMATION-HISTORICAL-CANDIDATES-R1",
+    "registry_version": "1.0.0",
+    "runtime_resolver_id": "ZIWEI-FOUR-TRANSFORMATION-SOURCE-SCOPED-CANDIDATE-RUNTIME-R1",
+    "runtime_resolver_version": "1.0.0",
+    "selection_status": "PRESERVED_NOT_SELECTED",
+    "candidate_ids": [
+      "RECEIVED-FULLBOOK-SHIDIAN-V3-FOUR-TRANSFORMATION-R1",
+      "ZHONGZHOU-WANGTINGZHI-FOUR-TRANSFORMATION-R1"
+    ],
+    "workbench_api_endpoint": "/api/ziwei-four-transformation-candidates",
+    "simultaneous_candidate_display": true,
+    "user_winner_selector": false,
+    "production_profile_selector_added": false
+  },
+  "source_binding": {
+    "exact_combined_manifest_hash_returned": true,
+    "exact_ziwei_bundle_hash_returned": true,
+    "source_natal_fact_hash_returned": true,
+    "source_natal_computation_hash_returned": true,
+    "registry_hash_returned": true,
+    "per_candidate_runtime_hash_returned": true,
+    "source_stem_derived_from_validated_ziwei_bundle": true
+  },
+  "browser_firewall": {
+    "read_only": true,
+    "candidate_table_constants_present": false,
+    "candidate_cell_formulas_present": false,
+    "cell_level_editing_present": false,
+    "candidate_family_winner_control_present": false,
+    "production_profile_selector_added": false,
+    "rendered_assignments_are_backend_returned_only": true
+  },
+  "whole_table_firewall": {
+    "whole_table_only": true,
+    "cell_level_hybridization_allowed": false,
+    "one_candidate_runtime_payload_is_source_family_atomic": true
+  },
+  "production_boundary": {
+    "production_rule_set_id": "S08_CURRENT_40_ASSIGNMENT_R1",
+    "production_default_changed": false,
+    "candidate_winner_selected": false,
+    "chart_algorithm_reopened": false
+  },
+  "outcome": {
+    "status_before": "MISSING_FROM_PRODUCT",
+    "status_after": "HISTORICALLY_SUPPORTED",
+    "matrix_rows_after": 222,
+    "audited_rows_after": 222,
+    "historically_supported_after": 103,
+    "current_missing_from_product_after": 6,
+    "historical_candidate_extension_count_after": 13,
+    "historical_candidate_registry_count_after": 4,
+    "historical_candidate_runtime_resolver_count_after": 4,
+    "provenance_defects_after": 43,
+    "repaired_provenance_defects_after": 43
+  },
+  "next": "12OL — re-rank the six remaining MISSING_FROM_PRODUCT rows and select the highest implementation-ready family."
+}
