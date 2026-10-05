@@ -1,0 +1,148 @@
+{
+  "schema": "ZIWEI-JIELAN-DIGNITY-CH69-CH70-CELL-CROSS-COLLATION-R1",
+  "version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-JIELAN-DIGNITY-CH69-CH70-CELL-CROSS-COLLATION-ON",
+  "date": "2026-10-06",
+  "target_rule_id": "HPA-ZIWEI-018",
+  "source_scope": {
+    "ch69": {
+      "source_ref": "EXT-ZIWEI-JIELAN-1581:CH69",
+      "title": "辨十二宫诸星庙陷诀",
+      "orientation": "PALACE_ORIENTED",
+      "public_url": "https://tianjihq.com/zh-CN/learn/books/ziwei-jielan/69"
+    },
+    "ch70": {
+      "source_ref": "EXT-ZIWEI-JIELAN-1581:CH70",
+      "title": "辨诸星十二宫庙陷诀与前诀参看",
+      "orientation": "STAR_ORIENTED",
+      "public_url": "https://tianjihq.com/zh-CN/learn/books/ziwei-jielan/70"
+    }
+  },
+  "method": {
+    "grid": "25 CH70 named entities/groups × 12 branches = 300 cells",
+    "ch70_role": "PRIMARY_RAW_LEXEME_CANDIDATE_REMAINS_UNCHANGED",
+    "ch69_role": "PARALLEL_PALACE_ORIENTED_EVIDENCE_ONLY",
+    "permitted_relations": [
+      "EXACT_LEXEME_OVERLAP",
+      "SOURCE_EXPLICIT_EQUIVALENT",
+      "SOURCE_LOCAL_POLARITY_CONFLICT",
+      "ATTESTED_NON_EQUIVALENT_NO_DIRECT_GLOSS",
+      "CH69_UNSTATED",
+      "CH69_TEXT_UNRESOLVED",
+      "CH70_UNSTATED"
+    ],
+    "no_transitive_gloss_collapse": true,
+    "no_modern_grade_coercion": true,
+    "no_cross_chapter_fill": true,
+    "no_winner_selection": true
+  },
+  "relation_counts": {
+    "EXACT_LEXEME_OVERLAP": 97,
+    "SOURCE_EXPLICIT_EQUIVALENT": 37,
+    "SOURCE_LOCAL_POLARITY_CONFLICT": 54,
+    "ATTESTED_NON_EQUIVALENT_NO_DIRECT_GLOSS": 21,
+    "CH69_UNSTATED": 82,
+    "CH69_TEXT_UNRESOLVED": 8,
+    "CH70_UNSTATED": 1
+  },
+  "unresolved_ch69_cells": [
+    [
+      "文昌",
+      "子",
+      "singular 文 cannot safely choose 文昌 vs 文曲"
+    ],
+    [
+      "文曲",
+      "子",
+      "singular 文 cannot safely choose 文昌 vs 文曲"
+    ],
+    [
+      "擎羊",
+      "丑",
+      "天哭羊陀火破祥 category scope conflicts with following 上六星皆庙 note"
+    ],
+    [
+      "陀罗",
+      "丑",
+      "same unresolved group scope"
+    ],
+    [
+      "火星",
+      "丑",
+      "same unresolved group scope"
+    ],
+    [
+      "破军",
+      "丑",
+      "same unresolved group scope"
+    ],
+    [
+      "太阳",
+      "辰",
+      "transcription 辰午... is not silently repaired to 辰日..."
+    ],
+    [
+      "文昌",
+      "寅",
+      "line ends 曲与 and is truncated; 文昌 not inferred"
+    ]
+  ],
+  "preserved_ch70_anomalies": [
+    [
+      "紫微",
+      "午",
+      [
+        "庙",
+        "平"
+      ],
+      "SOURCE_CONFLICT_REMAINS"
+    ],
+    [
+      "巨门",
+      "丑",
+      [
+        "局",
+        "陷"
+      ],
+      "SOURCE_CONFLICT_REMAINS"
+    ],
+    [
+      "天机",
+      "巳",
+      [],
+      "UNSTATED_IN_CH70_REMAINS_UNFILLED_DESPITE_CH69_兴"
+    ]
+  ],
+  "interpretation_boundary": {
+    "source_local_polarity_role": "FLAG_ONLY_FOR_OBVIOUS_SEMANTIC_DIRECTION_CLASH; NOT_A_GRADE_SCALE",
+    "production_r4_reference_used": false,
+    "production_dignity_registry_changed": false,
+    "ch69_used_to_fill_ch70": false,
+    "ch70_used_to_overwrite_ch69": false,
+    "candidate_selection_status": "PRESERVED_NOT_SELECTED"
+  },
+  "implementation": [
+    "src/fortune_training/ziwei_chart/dignity_historical_cross_collation.py",
+    "tests/test_ziwei_jielan_1581_dignity_ch69_ch70_cross_collation_r1.py"
+  ],
+  "adjudication": {
+    "status_before": "MISSING_FROM_PRODUCT",
+    "status_after": "MISSING_FROM_PRODUCT",
+    "ch69_ch70_cell_level_cross_collation_complete": true,
+    "remaining_gap": "explicit read-only candidate API / Workbench surface; source lexeme candidate must remain separate from production R4",
+    "chart_algorithm_reopened": false
+  },
+  "accounting": {
+    "matrix_row_count_after": 222,
+    "audited_row_count_after": 222,
+    "historical_candidate_extension_count_after": 14,
+    "historical_candidate_registry_count_after": 5,
+    "historical_candidate_runtime_resolver_count_after": 5,
+    "current_missing_from_product_after": 6,
+    "provenance_defects_after": [
+      43,
+      43
+    ]
+  },
+  "next": "12OO — expose the reconciled Jielan dignity source-lexeme candidate through a read-only product API/Workbench surface without modern grade coercion."
+}
