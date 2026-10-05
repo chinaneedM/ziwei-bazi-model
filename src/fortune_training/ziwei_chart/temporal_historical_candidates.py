@@ -11,16 +11,16 @@ from .registries import EARTHLY_BRANCHES, branch_index
 ZIWEI_TEMPORAL_HISTORICAL_CANDIDATE_API_ID = (
     "ZIWEI-TEMPORAL-HISTORICAL-CANDIDATE-API-R1"
 )
-ZIWEI_TEMPORAL_HISTORICAL_CANDIDATE_API_VERSION = "1.1.0"
+ZIWEI_TEMPORAL_HISTORICAL_CANDIDATE_API_VERSION = "1.2.0"
 TEMPORAL_HISTORICAL_CANDIDATE_SELECTION_STATUS = "PRESERVED_NOT_SELECTED"
 ZIWEI_TEMPORAL_HISTORICAL_CANDIDATE_REGISTRY_ID = (
     "ZIWEI-TEMPORAL-HISTORICAL-CANDIDATE-REGISTRY-R1"
 )
-ZIWEI_TEMPORAL_HISTORICAL_CANDIDATE_REGISTRY_VERSION = "1.0.0"
+ZIWEI_TEMPORAL_HISTORICAL_CANDIDATE_REGISTRY_VERSION = "1.1.0"
 ZIWEI_TEMPORAL_HISTORICAL_CANDIDATE_RUNTIME_RESOLVER_ID = (
     "ZIWEI-TEMPORAL-HISTORICAL-CANDIDATE-RUNTIME-R1"
 )
-ZIWEI_TEMPORAL_HISTORICAL_CANDIDATE_RUNTIME_RESOLVER_VERSION = "1.0.0"
+ZIWEI_TEMPORAL_HISTORICAL_CANDIDATE_RUNTIME_RESOLVER_VERSION = "1.1.0"
 
 JIELAN_1581_DAY_ANCHORED_FLOW_HOUR_METHOD_ID = (
     "JIELAN-1581-DAY-ANCHORED-FLOW-HOUR-R1"
@@ -42,6 +42,9 @@ ZHONGZHOU_LEAP_MONTH_HALF_SPLIT_SOURCE_REFS = (
     "S10:ZZTERM-P-0274",
     "S10:ZZTERM-P-0280",
     "S10:ZZTERM-P-0281",
+    "S10:ZZTERM-P-0282",
+    "S10:ZZTERM-P-0283",
+    "S10:ZZTERM-P-0287",
 )
 ZHONGZHOU_LEAP_MONTH_HALF_SPLIT_AUTHORITY_STATUS = (
     "SOURCE_CLOSED_MODERN_ZHONGZHOU_SCHOOL_METHOD"
@@ -209,6 +212,7 @@ def resolve_zhongzhou_leap_month_half_split_candidate(
     leap_lunar_year: int,
     leap_lunar_month: int,
     leap_lunar_day: int,
+    previous_regular_month_day_count: int,
     previous_month_temporal_year: int,
     previous_month_number: int,
     previous_month_frame_id: str,
@@ -220,12 +224,14 @@ def resolve_zhongzhou_leap_month_half_split_candidate(
     following_month_ganzhi: str,
     following_month_active_branch: str,
 ) -> dict[str, object]:
-    """Resolve Zhongzhou leap-month assignment without inventing day geometry.
+    """Resolve the source-scoped Zhongzhou leap-month month/day geometry.
 
-    S10:ZZTERM-P-0280 closes the half split and the no-reset-at-half-split
-    constraint. It does not by itself close the leap-month day-one origin.
-    Therefore this API records month assignment and continuity semantics while
-    deliberately emitting no derived leap-month daily active palace.
+    S10:ZZTERM-P-0280..0283 and P-0287 jointly close more than the half-month
+    month assignment. P-0282 explicitly continues the preceding regular month's
+    flow-day sequence into leap-day one, while P-0283 switches the lower half to
+    the following regular month's flow-month basis. The ordinary released Ziwei
+    month/day projection remains fail-closed; this resolver only preserves the
+    Zhongzhou method as an unselected historical candidate.
     """
 
     if leap_lunar_year < 1:
@@ -234,6 +240,8 @@ def resolve_zhongzhou_leap_month_half_split_candidate(
         raise ValueError("leap_lunar_month must be in [1, 12]")
     if not 1 <= leap_lunar_day <= 30:
         raise ValueError("leap_lunar_day must be in [1, 30]")
+    if previous_regular_month_day_count not in (29, 30):
+        raise ValueError("previous_regular_month_day_count must be 29 or 30")
     if previous_month_temporal_year < 1:
         raise ValueError("previous-month temporal year must be positive")
     if previous_month_number != leap_lunar_month:
@@ -241,7 +249,9 @@ def resolve_zhongzhou_leap_month_half_split_candidate(
 
     expected_following_month = 1 if leap_lunar_month == 12 else leap_lunar_month + 1
     expected_following_year = (
-        previous_month_temporal_year + 1 if leap_lunar_month == 12 else previous_month_temporal_year
+        previous_month_temporal_year + 1
+        if leap_lunar_month == 12
+        else previous_month_temporal_year
     )
     if (
         following_month_number != expected_following_month
@@ -267,6 +277,19 @@ def resolve_zhongzhou_leap_month_half_split_candidate(
             "ganzhi": previous_month_ganzhi,
             "active_address_branch": previous_month_active_branch,
         }
+        leap_day_one_active_branch = _advance_branch(
+            previous_month_active_branch,
+            previous_regular_month_day_count,
+        )
+        daily_active_branch = _advance_branch(
+            leap_day_one_active_branch,
+            leap_lunar_day - 1,
+        )
+        daily_origin_semantics = (
+            "PREVIOUS_REGULAR_MONTH_FLOW_DAY_CONTINUES_TO_LEAP_DAY_ONE"
+        )
+        daily_basis_branch = leap_day_one_active_branch
+        daily_basis_day_ordinal = 1
     else:
         segment = "FOLLOWING_MONTH"
         assigned = {
@@ -276,6 +299,19 @@ def resolve_zhongzhou_leap_month_half_split_candidate(
             "ganzhi": following_month_ganzhi,
             "active_address_branch": following_month_active_branch,
         }
+        leap_day_one_active_branch = _advance_branch(
+            previous_month_active_branch,
+            previous_regular_month_day_count,
+        )
+        daily_active_branch = _advance_branch(
+            following_month_active_branch,
+            leap_lunar_day - 1,
+        )
+        daily_origin_semantics = (
+            "FOLLOWING_REGULAR_MONTH_ACTIVE_ADDRESS_AS_DAY_ONE_BASIS_WITH_LEAP_DAY_ORDINAL"
+        )
+        daily_basis_branch = following_month_active_branch
+        daily_basis_day_ordinal = 1
 
     payload: dict[str, object] = {
         "schema": "ZIWEI-ZHONGZHOU-LEAP-MONTH-HALF-SPLIT-CANDIDATE-R1",
@@ -294,6 +330,7 @@ def resolve_zhongzhou_leap_month_half_split_candidate(
         "leap_lunar_year": leap_lunar_year,
         "leap_lunar_month": leap_lunar_month,
         "leap_lunar_day": leap_lunar_day,
+        "previous_regular_month_day_count": previous_regular_month_day_count,
         "segment": segment,
         "assigned_regular_month": assigned,
         "previous_regular_month": {
@@ -302,6 +339,7 @@ def resolve_zhongzhou_leap_month_half_split_candidate(
             "frame_id": previous_month_frame_id,
             "ganzhi": previous_month_ganzhi,
             "active_address_branch": previous_month_active_branch,
+            "day_count": previous_regular_month_day_count,
         },
         "following_regular_month": {
             "temporal_year": following_month_temporal_year,
@@ -312,12 +350,22 @@ def resolve_zhongzhou_leap_month_half_split_candidate(
         },
         "flow_day_continuity": {
             "half_split_reset": False,
-            "direction": "FORWARD_CONTINUOUS",
-            "daily_active_address_emitted": False,
-            "daily_origin_semantics": "NOT_CLOSED_BY_THIS_MONTH_POLICY_API",
+            "half_split_basis_switch": True,
+            "direction": "FORWARD",
+            "daily_active_address_emitted": True,
+            "daily_origin_semantics": daily_origin_semantics,
+            "leap_day_one_active_branch": leap_day_one_active_branch,
+            "daily_basis_branch": daily_basis_branch,
+            "daily_basis_day_ordinal": daily_basis_day_ordinal,
+            "daily_active_address_branch": daily_active_branch,
+            "source_closed_by": (
+                "S10:ZZTERM-P-0282",
+                "S10:ZZTERM-P-0283",
+                "S10:ZZTERM-P-0287",
+            ),
         },
         "downstream_projection_status": (
-            "MONTH_ASSIGNMENT_CANDIDATE_ONLY_DAILY_GEOMETRY_REMAINS_FAIL_CLOSED"
+            "SOURCE_SCOPED_MONTH_AND_DAILY_GEOMETRY_COMPLETE_PRESERVED_NO_SELECTION"
         ),
     }
     return {
