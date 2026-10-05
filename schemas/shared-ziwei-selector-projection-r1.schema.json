@@ -1703,6 +1703,7 @@
         "leap_lunar_year",
         "leap_lunar_month",
         "leap_lunar_day",
+        "previous_regular_month_day_count",
         "segment",
         "assigned_regular_month",
         "previous_regular_month",
@@ -1719,7 +1720,7 @@
           "const": "ZIWEI-TEMPORAL-HISTORICAL-CANDIDATE-API-R1"
         },
         "api_version": {
-          "const": "1.1.0"
+          "const": "1.2.0"
         },
         "method_id": {
           "const": "ZHONGZHOU-LEAP-MONTH-HALF-SPLIT-R1"
@@ -1732,7 +1733,7 @@
         },
         "source_refs": {
           "type": "array",
-          "minItems": 4,
+          "minItems": 7,
           "items": {
             "type": "string",
             "minLength": 1
@@ -1775,27 +1776,102 @@
           "additionalProperties": false,
           "required": [
             "half_split_reset",
+            "half_split_basis_switch",
             "direction",
             "daily_active_address_emitted",
-            "daily_origin_semantics"
+            "daily_origin_semantics",
+            "leap_day_one_active_branch",
+            "daily_basis_branch",
+            "daily_basis_day_ordinal",
+            "daily_active_address_branch",
+            "source_closed_by"
           ],
           "properties": {
             "half_split_reset": {
               "const": false
             },
+            "half_split_basis_switch": {
+              "const": true
+            },
             "direction": {
-              "const": "FORWARD_CONTINUOUS"
+              "const": "FORWARD"
             },
             "daily_active_address_emitted": {
-              "const": false
+              "const": true
             },
             "daily_origin_semantics": {
-              "const": "NOT_CLOSED_BY_THIS_MONTH_POLICY_API"
+              "enum": [
+                "PREVIOUS_REGULAR_MONTH_FLOW_DAY_CONTINUES_TO_LEAP_DAY_ONE",
+                "FOLLOWING_REGULAR_MONTH_ACTIVE_ADDRESS_AS_DAY_ONE_BASIS_WITH_LEAP_DAY_ORDINAL"
+              ]
+            },
+            "leap_day_one_active_branch": {
+              "type": "string",
+              "enum": [
+                "子",
+                "丑",
+                "寅",
+                "卯",
+                "辰",
+                "巳",
+                "午",
+                "未",
+                "申",
+                "酉",
+                "戌",
+                "亥"
+              ]
+            },
+            "daily_basis_branch": {
+              "type": "string",
+              "enum": [
+                "子",
+                "丑",
+                "寅",
+                "卯",
+                "辰",
+                "巳",
+                "午",
+                "未",
+                "申",
+                "酉",
+                "戌",
+                "亥"
+              ]
+            },
+            "daily_basis_day_ordinal": {
+              "const": 1
+            },
+            "daily_active_address_branch": {
+              "type": "string",
+              "enum": [
+                "子",
+                "丑",
+                "寅",
+                "卯",
+                "辰",
+                "巳",
+                "午",
+                "未",
+                "申",
+                "酉",
+                "戌",
+                "亥"
+              ]
+            },
+            "source_closed_by": {
+              "type": "array",
+              "minItems": 3,
+              "maxItems": 3,
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
             }
           }
         },
         "downstream_projection_status": {
-          "const": "MONTH_ASSIGNMENT_CANDIDATE_ONLY_DAILY_GEOMETRY_REMAINS_FAIL_CLOSED"
+          "const": "SOURCE_SCOPED_MONTH_AND_DAILY_GEOMETRY_COMPLETE_PRESERVED_NO_SELECTION"
         },
         "candidate_hash": {
           "$ref": "#/$defs/hash"
@@ -1804,7 +1880,7 @@
           "const": "ZIWEI-TEMPORAL-HISTORICAL-CANDIDATE-REGISTRY-R1"
         },
         "registry_version": {
-          "const": "1.0.0"
+          "const": "1.1.0"
         },
         "registry_hash": {
           "$ref": "#/$defs/hash"
@@ -1813,7 +1889,14 @@
           "const": "ZIWEI-TEMPORAL-HISTORICAL-CANDIDATE-RUNTIME-R1"
         },
         "runtime_resolver_version": {
-          "const": "1.0.0"
+          "const": "1.1.0"
+        },
+        "previous_regular_month_day_count": {
+          "type": "integer",
+          "enum": [
+            29,
+            30
+          ]
         }
       }
     }
