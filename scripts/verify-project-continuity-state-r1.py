@@ -885,9 +885,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-R7-ONE-SIX-SOURCE-PHILOLOGY-SCOPE-AUDIT-MY",
     "BATCH-12-ZIWEI-R8-ADJACENT-PALACE-SOURCE-PHILOLOGY-SCOPE-AUDIT-MZ",
     "BATCH-12-ZIWEI-R1-NEUTRAL-Z12-TOPOLOGY-AUDIT-NA",
+    "BATCH-12-ZIWEI-R2-RELATIVE-PALACE-FRAME-AUDIT-NB",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-R1-NEUTRAL-Z12-TOPOLOGY-AUDIT-NA.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-R2-RELATIVE-PALACE-FRAME-AUDIT-NB.md"
 
 
 def fail(message: str) -> None:
@@ -14723,6 +14724,47 @@ def main() -> int:
             fail(f"Batch 12NA frozen file drift: {obj['path']}")
     if na.get("algorithm_reopen_authorized") is not False or na["transmission_impact"].get("status") != "NONE":
         fail("Batch 12NA reopen/transmission scope drift")
+
+    # Batch 12NB: R2 relative-palace frame is modern coordinate rotation over audited V1/R1 anchors.
+    nb = json.loads((ROOT / "docs/research/ZIWEI-R2-RELATIVE-PALACE-FRAME-AUDIT-R1.json").read_text())
+    nb_id = "BATCH-12-ZIWEI-R2-RELATIVE-PALACE-FRAME-AUDIT-NB"
+    if nb.get("batch_id") != nb_id or nb.get("prior_batch_id") != na_id or nb_id not in rule_batches:
+        fail("Batch 12NB chronology drift")
+    row_nb = next(r for r in matrix["rows"] if r["rule_id"] == "HPA-STRUCT-002")
+    if row_nb.get("audit_status") != "MODERN_COMPATIBILITY_ONLY" or row_nb.get("audit_batch") != nb_id or "HPA-STRUCT-002" not in matrix["audited_row_ids"]:
+        fail("Batch 12NB R2 audit row drift")
+    if nb["upstream_historical_anchor"].get("rule_id") != "HPA-ZIWEI-003" or nb["upstream_historical_anchor"].get("status") != "HISTORICALLY_SUPPORTED":
+        fail("Batch 12NB upstream historical anchor drift")
+    hscope_nb = nb["historical_scope"]
+    if hscope_nb.get("palace_designation_order_is_historically_audited_upstream") is not True or hscope_nb.get("r2_144_fact_matrix_claimed_as_classical") is not False or hscope_nb.get("named_downstream_structural_terms_claimed_by_r2") is not False:
+        fail("Batch 12NB historical/modern scope firewall drift")
+    firewall_nb = nb["semantic_firewall"]
+    if firewall_nb.get("named_traditional_semantics_enabled") is not False or firewall_nb.get("semantic_rule_set_id") is not None or firewall_nb.get("semantic_rule_set_version") is not None:
+        fail("Batch 12NB semantic firewall drift")
+    replay_nb = json.loads((ROOT / nb["replay_evidence"]).read_text())
+    records_nb = replay_nb["records"]
+    if len(records_nb) != 1728 or hashlib.sha256(json.dumps(records_nb, sort_keys=True, separators=(",", ":")).encode()).hexdigest() != replay_nb["records_sha256"]:
+        fail("Batch 12NB replay integrity drift")
+    for rec_nb in records_nb:
+        j_nb = rec_nb["relative_ordinal"] - 1
+        if rec_nb["clockwise_offset"] != (-j_nb) % 12:
+            fail("Batch 12NB relative offset drift")
+    repair_nb = nb["provenance_repair"]
+    if repair_nb.get("defect_id") != "PROV-DEFECT-020" or repair_nb.get("chart_algorithm_effect") is not False or repair_nb.get("candidate_effect") is not False:
+        fail("Batch 12NB PROV-DEFECT-020 repair identity drift")
+    if audit_summary.get("confirmed_provenance_metadata_defect_count", 0) < 20 or audit_summary.get("repaired_provenance_metadata_defect_count", 0) < 20:
+        fail("Batch 12NB Matrix provenance accounting must retain at least 20/20")
+    if audit_state.get("confirmed_provenance_metadata_defect_count", 0) < 20 or audit_state.get("repaired_provenance_metadata_defect_count", 0) < 20:
+        fail("Batch 12NB state provenance accounting must retain at least 20/20")
+    matrix_md_nb = (ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.md").read_text()
+    if "**20 confirmed provenance metadata defects" not in matrix_md_nb:
+        fail("Batch 12NB current Matrix Markdown provenance overview drift")
+    for obj in nb["frozen_files"]:
+        raw_nb = (ROOT / obj["path"]).read_bytes()
+        if hashlib.sha1(b"blob " + str(len(raw_nb)).encode() + b"\0" + raw_nb).hexdigest() != obj["blob_sha"]:
+            fail(f"Batch 12NB frozen file drift: {obj['path']}")
+    if nb.get("algorithm_reopen_authorized") is not False or nb["transmission_impact"].get("status") != "NONE":
+        fail("Batch 12NB reopen/transmission scope drift")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

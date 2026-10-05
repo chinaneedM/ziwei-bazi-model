@@ -223,7 +223,7 @@ Fusion Chart Capability & Performance Acceptance R1 已正式收口。最终执�
 
 ## Fusion Chart Historical Provenance & School Audit R1
 
-最新规则审计闭环为 **Batch 12NA**：R1 neutral Z12 topology 正式确认为纯现代、解释中性的坐标底座——完整 12×12 有序地址对共 144 个 topology facts，偏移严格为 `(target-source) mod 12`；semantic rule set 保持禁用，不把任何 offset 偷渡命名为三方四正、对宫、夹宫、气数位或一六共宗。R1 runtime/schema/hash/V1 natal 均不改。Matrix 220 项、已审 205 项、缺失候选 10；来源缺陷 19/19，算法缺陷/重开/候选折叠 0。下一门 12NB 为 R2 relative-palace frame。
+最新规则审计闭环为 **Batch 12NB**：R2 relative-palace frame 正式确认为纯现代相对坐标层——复用已审 HPA-ZIWEI-003 十二宫顺序与 R1 中性 Z12 topology，对 12 种命宫物理旋转 × 12 本宫 × 12 ordinal 共 1728 条 frame facts 全量回放一致；semantic rule set 继续 fail-closed，不在 R2 偷渡三方四正、对宫、气数位、一六共宗、邻宫/夹宫或预测语义。PROV-DEFECT-020 修复 Matrix Markdown 当前总览的来源缺陷计数陈旧。R2 runtime/schema/hash/V1/R1 均不改。Matrix 220 项、已审 206 项、缺失候选 10；来源缺陷 20/20，算法缺陷/重开/候选折叠 0。下一门 12NC 为 HPA-TIME-001 Civil timezone/TZDB instant resolution。
 
 ```text
 FUSION_CHART_HISTORICAL_PROVENANCE_AUDIT_R1=IN_PROGRESS

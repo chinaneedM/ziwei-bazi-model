@@ -34,7 +34,7 @@ Every row carries:
 - proposed action;
 - explicit algorithm-reopen authorization, which is **false for every inventory row at creation**.
 
-The initial inventory contained **107 rule/field families**. Through Batch 12NA and explicit splitting of historically distinct candidate families, the current machine-readable inventory contains **220 rows**, with **205 audited rows**. It intentionally keeps unresolved source work explicit rather than converting uncertainty into a chart defect. The current audit ledger records **18 confirmed provenance metadata defects repaired forward-only at the provenance/hash-lineage layer, 0 chart algorithm defects, 0 algorithm reopens, 14 cumulatively identified missing candidate families, 10 rows currently `MISSING_FROM_PRODUCT`, 6 historical candidate extensions, 3 source-scoped historical candidate registries, and 3 runtime-resolver components**.
+The initial inventory contained **107 rule/field families**. Through Batch 12NB and explicit splitting of historically distinct candidate families, the current machine-readable inventory contains **220 rows**, with **206 audited rows**. It intentionally keeps unresolved source work explicit rather than converting uncertainty into a chart defect. The current audit ledger records **20 confirmed provenance metadata defects repaired forward-only at the provenance/hash-lineage layer, 0 chart algorithm defects, 0 algorithm reopens, 14 cumulatively identified missing candidate families, 10 rows currently `MISSING_FROM_PRODUCT`, 6 historical candidate extensions, 3 source-scoped historical candidate registries, and 3 runtime-resolver components**.
 
 ## Research-corpus authority
 
@@ -1354,3 +1354,10 @@ Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-R8
 HPA-STRUCT-001 R1 neutral Z12 topology is formally audited as MODERN_COMPATIBILITY_ONLY. It is a modern interpretation-free coordinate substrate: 12 canonical branch addresses × 12 targets = 144 ordered facts, with clockwise_offset=(target-source) mod 12. The semantic rule-set binding remains disabled/fail-closed, so pure geometry is not silently renamed as 三方四正、对宫、夹宫、气数位、一六共宗 or any predictive doctrine. Runtime/schema/hash/V1 natal bytes remain unchanged. Matrix220/205/10, provenance19/19, algorithm defects/reopens/collapses0. No transmission edge.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-R1-NEUTRAL-Z12-TOPOLOGY-AUDIT-NA.md`. Research record: `docs/research/ZIWEI-R1-NEUTRAL-Z12-TOPOLOGY-AUDIT-R1.json`.
+
+
+## Progress — Batch 12NB
+
+HPA-STRUCT-002 R2 relative-palace frame is formally audited as MODERN_COMPATIBILITY_ONLY. It rotates the historically audited V1 twelve-palace designation order around each local origin and requires every physical edge to exist in the audited R1 neutral Z12 topology; it does not claim that the resulting 144-row frame matrix, hash/schema or integrity machinery is classical doctrine. Independent replay covers 12 LIFE physical rotations × 12 origins × 12 relative ordinals = 1728 rows, all matching target designation/address, relative role/ordinal and clockwise offset. Named 三方四正、对宫、气数位、一六共宗、邻宫/夹宫、借星 and predictive semantics remain fail-closed at R2. PROV-DEFECT-020 corrects the stale current-overview provenance count left at 18 after authoritative 12MZ state had reached 19/19; historical snapshots are untouched. Matrix220/206/10, provenance20/20, algorithm defects/reopens/collapses0. Structural R1-R8 current rows are fully audited.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-R2-RELATIVE-PALACE-FRAME-AUDIT-NB.md`. Research record: `docs/research/ZIWEI-R2-RELATIVE-PALACE-FRAME-AUDIT-R1.json`.
