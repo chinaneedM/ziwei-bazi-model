@@ -1,0 +1,81 @@
+{
+  "schema": "ZIWEI-JIELAN-SOURCE-SCOPED-NATAL-CANDIDATE-PRODUCTIZATION-R1",
+  "version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-JIELAN-SOURCE-SCOPED-NATAL-CANDIDATE-PRODUCTIZATION-OI",
+  "date": "2026-10-06",
+  "classification": "PRODUCTIZATION_CLOSURE_OVER_ALREADY_AUDITED_HISTORICAL_CANDIDATES",
+  "target_rows": [
+    "HPA-ZIWEI-015",
+    "HPA-ZIWEI-016",
+    "HPA-ZIWEI-022"
+  ],
+  "historical_authority_unchanged": true,
+  "product_contract": {
+    "candidate_api_id": "ZIWEI-JIELAN-1581-HISTORICAL-CANDIDATE-API-R1",
+    "candidate_api_version": "1.0.0",
+    "rule_set_id": "ZIWEI-JIELAN-1581-HISTORICAL-CANDIDATES-R1",
+    "rule_set_version": "1.1.0",
+    "runtime_resolver_id": "ZIWEI-JIELAN-1581-SOURCE-SCOPED-CANDIDATE-RUNTIME-R1",
+    "runtime_resolver_version": "1.0.0",
+    "selection_status": "PRESERVED_NOT_SELECTED",
+    "released_fact_keys": [
+      "kui_yue",
+      "fire_bell",
+      "mingzhu"
+    ],
+    "workbench_api_endpoint": "/api/ziwei-jielan-1581-candidate",
+    "profile_metadata_endpoint": "/api/profiles",
+    "production_winner_selected": false,
+    "production_profile_changed": false
+  },
+  "source_binding": {
+    "exact_combined_manifest_hash_returned": true,
+    "exact_ziwei_bundle_hash_returned": true,
+    "source_natal_fact_hash_returned": true,
+    "source_natal_computation_hash_returned": true,
+    "registry_hash_returned": true,
+    "candidate_runtime_hash_returned": true
+  },
+  "browser_firewall": {
+    "read_only": true,
+    "candidate_formulas_present": false,
+    "winner_control_present": false,
+    "production_profile_selector_added": false,
+    "rendered_fields_are_backend_returned_only": true
+  },
+  "excluded_facts": [
+    "four_transformations",
+    "tianshang_tianshi",
+    "changsheng",
+    "shenzhu",
+    "daxian",
+    "minor_limit",
+    "boshi",
+    "dignity"
+  ],
+  "exclusions_reason": {
+    "dignity": "SOURCE_TABLE_PRESENT_NORMALIZATION_PENDING",
+    "shenzhu": "ZI_WU_TEXTUAL_COMPOSITE_FIRE_BELL_NOT_UNIQUELY_ARBITRATED",
+    "remaining": "Outside the three Matrix product gaps selected by Batch 12OH."
+  },
+  "outcome": {
+    "product_gaps_closed": [
+      "HPA-ZIWEI-015",
+      "HPA-ZIWEI-016",
+      "HPA-ZIWEI-022"
+    ],
+    "matrix_row_count_after": 222,
+    "audited_row_count_after": 222,
+    "current_missing_from_product_row_count_after": 7,
+    "historical_candidate_extension_count_after": 11,
+    "historical_candidate_registry_count_after": 3,
+    "historical_candidate_runtime_resolver_count_after": 3,
+    "identified_missing_candidate_family_count_after": 14,
+    "confirmed_provenance_metadata_defect_count_after": 43,
+    "repaired_provenance_metadata_defect_count_after": 43,
+    "production_default_changed": false,
+    "candidate_winner_selected": false,
+    "chart_algorithm_reopened": false
+  },
+  "next": "12OJ — audit HPA-ZIWEI-014 whole-table Four-Transformation source families and candidate readiness."
+}
