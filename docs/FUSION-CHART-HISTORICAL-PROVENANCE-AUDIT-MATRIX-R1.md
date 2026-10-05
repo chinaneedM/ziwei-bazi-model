@@ -34,7 +34,7 @@ Every row carries:
 - proposed action;
 - explicit algorithm-reopen authorization, which is **false for every inventory row at creation**.
 
-The initial inventory contained **107 rule/field families**. Through Batch 12NF and explicit splitting of historically distinct candidate families, the current machine-readable inventory contains **220 rows**, with **210 audited rows**. It intentionally keeps unresolved source work explicit rather than converting uncertainty into a chart defect. The current audit ledger records **27 confirmed provenance metadata defects repaired forward-only at the provenance/hash-lineage layer, 0 chart algorithm defects, 0 algorithm reopens, 14 cumulatively identified missing candidate families, 10 rows currently `MISSING_FROM_PRODUCT`, 6 historical candidate extensions, 3 source-scoped historical candidate registries, and 3 runtime-resolver components**.
+The initial inventory contained **107 rule/field families**. Through Batch 12NG and explicit splitting of historically distinct candidate families, the current machine-readable inventory contains **220 rows**, with **211 audited rows**. It intentionally keeps unresolved source work explicit rather than converting uncertainty into a chart defect. The current audit ledger records **28 confirmed provenance metadata defects repaired forward-only at the provenance/hash-lineage layer, 0 chart algorithm defects, 0 algorithm reopens, 14 cumulatively identified missing candidate families, 10 rows currently `MISSING_FROM_PRODUCT`, 6 historical candidate extensions, 3 source-scoped historical candidate registries, and 3 runtime-resolver components**.
 
 ## Research-corpus authority
 
@@ -1407,3 +1407,16 @@ HPA-TIME-011 Approximate birth-time candidate sampling is formally audited as **
 The actual sample set and all classification mechanics are unchanged. Non-zero uncertainty therefore reports `continuous_interval_exhaustive=false` and `classification_scope=SAMPLED_POINTS_ONLY`; a zero-width input reports exact-point scope. Matrix220/210/10, provenance27/27, chart algorithm defects/reopens/candidate collapses0. No traditional transmission edge.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-TIME-APPROXIMATE-BIRTH-TIME-SAMPLING-AUDIT-NF.md`. Research record: `docs/research/TIME-APPROXIMATE-BIRTH-TIME-SAMPLING-AUDIT-R1.json`.
+
+
+## Progress — Batch 12NG
+
+HPA-DAYUN-006 Wenzhen China Dayun compatibility realization is formally audited as **MODERN_COMPATIBILITY_ONLY**. The A7–A11 fixture is an explicitly project-captured third-party software witness: `authority_class=THIRD_PARTY_COMPATIBILITY_WITNESS`, `canonical_calendar_truth=false`, and the captured UI certifies symbolic age only to year/month/day/hour, not transition minute/second.
+
+The compatibility profile is therefore an isolated comparison layer, not a historical Dayun authority. Its Wenzhen-specific delta consists of the mixed coordinate `BIRTH_LOCAL_APPARENT_SOLAR_CLOCK_TO_JIE_CHINA_STANDARD_CLOCK`, combined Gregorian calendar-month displacement before day/hour residuals, and China-standard-time ten-year anniversaries. Direction, Jie anchoring, the three-days-one-year symbolic ratio, and Dayun Ganzhi sequence have their own independent historical audit rows and are not re-attributed to Wenzhen by this profile.
+
+**PROV-DEFECT-028** repairs the Matrix row's stale/nonexistent profile identifier `BAZI-TEMPORAL-V1-WENZHEN-CHINA-COMPATIBILITY-R1` to the actual runtime/fixture identity `BAZI-TEMPORAL-WENZHEN-CHINA-COMPATIBILITY-R1`. No runtime code, fixture observation, candidate, transition instant, Dayun pillar, default profile, or historical winner changes.
+
+Matrix220/211/10, provenance28/28, chart algorithm defects/reopens/candidate collapses0. `transmission_impact=NONE`: a modern product-compatibility witness creates no historical text/school/person transmission edge.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-DAYUN-WENZHEN-COMPATIBILITY-SCOPE-AUDIT-NG.md`. Research record: `docs/research/BAZI-DAYUN-WENZHEN-COMPATIBILITY-SCOPE-AUDIT-R1.json`.

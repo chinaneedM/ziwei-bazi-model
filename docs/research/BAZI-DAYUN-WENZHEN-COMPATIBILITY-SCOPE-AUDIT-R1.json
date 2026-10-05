@@ -1,0 +1,84 @@
+{
+  "schema": "BAZI-DAYUN-WENZHEN-COMPATIBILITY-SCOPE-AUDIT-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-BAZI-DAYUN-WENZHEN-COMPATIBILITY-SCOPE-AUDIT-NG",
+  "prior_batch_id": "BATCH-12-TIME-APPROXIMATE-BIRTH-TIME-SAMPLING-AUDIT-NF",
+  "rule_id": "HPA-DAYUN-006",
+  "audit_status": "MODERN_COMPATIBILITY_ONLY",
+  "algorithm_reopen_authorized": false,
+  "compatibility_witness": {
+    "fixture_set_id": "BAZI-DAYUN-WENZHEN-COMPATIBILITY-R1",
+    "cases": [
+      "A7",
+      "A8",
+      "A9",
+      "A10",
+      "A11"
+    ],
+    "authority_class": "THIRD_PARTY_COMPATIBILITY_WITNESS",
+    "canonical_calendar_truth": false,
+    "observed_ui_symbolic_age_precision": "YEAR_MONTH_DAY_HOUR",
+    "transition_minute_second_certified": false
+  },
+  "runtime_scope": {
+    "profile_id": "BAZI-TEMPORAL-WENZHEN-CHINA-COMPATIBILITY-R1",
+    "profile_version": "1.0.0",
+    "algorithm_id": "BAZI-DAYUN-TEMPORAL-ENGINE-V1",
+    "algorithm_version": "1.1.1",
+    "interval_coordinate_policy": "BIRTH_LOCAL_APPARENT_SOLAR_CLOCK_TO_JIE_CHINA_STANDARD_CLOCK",
+    "calendar_realization_rule_set": "CALENDAR_MONTH_DISPLACEMENT_THEN_DAY_HOUR_R1",
+    "calendar_realization_source_class": "THIRD_PARTY_COMPATIBILITY_WITNESS",
+    "dayun_boundary_rule_set": "PROLEPTIC_GREGORIAN_10Y_CHINA_STANDARD_ANNIVERSARY"
+  },
+  "historical_scope_firewall": {
+    "shared_direction_rule_re_attributed_to_wenzhen": false,
+    "shared_jie_anchor_rule_re_attributed_to_wenzhen": false,
+    "shared_three_days_one_year_ratio_re_attributed_to_wenzhen": false,
+    "shared_dayun_sequence_re_attributed_to_wenzhen": false,
+    "wenzhen_profile_is_historical_authority": false,
+    "wenzhen_profile_selects_historical_calendar_realization_winner": false
+  },
+  "provenance_repairs": [
+    {
+      "defect_id": "PROV-DEFECT-028",
+      "defect": "HPA_DAYUN_006_MATRIX_CURRENT_PROFILE_USED_NONEXISTENT_STALE_ID",
+      "repair": "Replace BAZI-TEMPORAL-V1-WENZHEN-CHINA-COMPATIBILITY-R1 with the actual runtime/fixture profile identity BAZI-TEMPORAL-WENZHEN-CHINA-COMPATIBILITY-R1.",
+      "chart_algorithm_effect": false,
+      "candidate_effect": false
+    }
+  ],
+  "unchanged_mechanics": [
+    "Dayun direction",
+    "Jie anchor selection",
+    "mixed-clock interval calculation",
+    "three-days-one-year symbolic conversion",
+    "calendar-month displacement realization",
+    "ten-year Dayun boundary realization",
+    "Dayun Ganzhi sequence",
+    "A7-A11 fixture observations"
+  ],
+  "evidence": "docs/research/evidence/batch-12ng/wenzhen-dayun-compatibility-scope.json",
+  "accounting": {
+    "rows_before": 220,
+    "rows_after": 220,
+    "audited_rows_before": 210,
+    "audited_rows_after": 211,
+    "current_missing_from_product_rows": 10,
+    "provenance_defects_confirmed_before": 27,
+    "provenance_defects_confirmed_after": 28,
+    "provenance_defects_repaired_before": 27,
+    "provenance_defects_repaired_after": 28,
+    "chart_algorithm_defects": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0,
+    "new_provenance_defects": 1
+  },
+  "transmission_impact": {
+    "status": "NONE",
+    "reason": "A modern third-party compatibility witness does not establish a historical text, school, person, edition or transmission edge."
+  },
+  "next_gate": [
+    "12NH: audit HPA-DAYUN-007 Exact-Jie tie handling as a modern fail-closed boundary policy.",
+    "Do not invent a classical equality rule without scoped evidence."
+  ]
+}
