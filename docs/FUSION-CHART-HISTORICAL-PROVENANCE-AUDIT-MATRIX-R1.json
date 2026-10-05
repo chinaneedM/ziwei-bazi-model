@@ -43,12 +43,12 @@
     "algorithm_reopen_authorized"
   ],
   "inventory_summary": {
-    "row_count": 214,
+    "row_count": 216,
     "status_counts": {
-      "MODERN_COMPATIBILITY_ONLY": 44,
-      "HISTORICALLY_SUPPORTED": 96,
+      "HISTORICALLY_SUPPORTED": 95,
+      "SUPPORTED_BUT_SCHOOL_SPECIFIC": 23,
       "DISPUTED_MULTIPLE_CANDIDATES": 30,
-      "SUPPORTED_BUT_SCHOOL_SPECIFIC": 22,
+      "MODERN_COMPATIBILITY_ONLY": 46,
       "SOURCE_INSUFFICIENT": 11,
       "MISSING_FROM_PRODUCT": 10,
       "NOT_YET_FORMALIZED": 1
@@ -75,12 +75,12 @@
       "动态辅助星": 12,
       "流日": 2,
       "流时": 3,
-      "Structural R1–R8": 14,
+      "Structural R1–R8": 16,
       "Combined Fusion": 4,
       "candidate/profile rules": 2,
       "provenance / hashes / lineage": 2
     },
-    "audited_row_count": 195
+    "audited_row_count": 198
   },
   "rows": [
     {
@@ -2919,20 +2919,49 @@
       "rule_or_field": "R6 气数位",
       "current_implementation": "ZIWEI-QISHU-POSITION-PROJECTION uses relative ordinal 9 / clockwise offset 4, source section 十四、气数位.",
       "current_profile": "ZIWEI-STRUCTURAL-RUNTIME-V2-R6",
-      "primary_source": "S04",
-      "source_quote": "PENDING_VERBATIM_EXTRACTION",
-      "source_quote_location": "src/fortune_training/ziwei_structural/r6/profile.py",
-      "historical_period": "PENDING_BIBLIOGRAPHIC_DATING",
-      "later_witnesses": "PENDING_LATER_WITNESS_AUDIT",
-      "school_attribution": "PENDING_SCHOOL_ATTRIBUTION_AUDIT",
+      "primary_source": "Modern R6 composition of HPA-STRUCT-015 Heluo/Qishu coordinate mechanics and HPA-STRUCT-016 engineering semantic closure.",
+      "source_quote": "Modern received Heluo text defines 气数位 as the inclusive reverse ninth / each palace's relative 官禄宫; S04 fixed support meanings are a separate modern neutralization layer.",
+      "source_quote_location": "docs/research/ZIWEI-R6-QISHU-SOURCE-PHILOLOGY-SCOPE-AUDIT-R1.json",
+      "historical_period": "MODERN_HELUO_RECEIVED_MECHANICS_AND_ENGINEERING_COMPOSITION; PREMODERN_ORIGIN_UNRESOLVED",
+      "later_witnesses": "Multiple modern received Heluo/Four-Transformation surfaces repeat inverse-ninth / relative-Career identity; no premodern physical witness is closed.",
+      "school_attribution": "MODERN_WRAPPER_WITH_SCOPED_HELUO_QISHU_MECHANICAL_WITNESS",
       "competing_methods": [
         "school-specific 气数位 definitions"
       ],
-      "current_implementation_match": "MATCHES_REPOSITORY_CANONICAL_SOURCE",
-      "confidence": "HIGH",
-      "audit_status": "HISTORICALLY_SUPPORTED",
-      "proposed_action": "Trace S04 source back to dated text/school witness; verify relative ordinal semantics.",
-      "algorithm_reopen_authorized": false
+      "current_implementation_match": "ALL_12_ORIGINS_X_12_PHYSICAL_ROTATIONS_MATCH; INCLUSIVE_REVERSE_9_EQ_CLOCKWISE_OFFSET_4; RUNTIME_AND_S04_BYTES_UNCHANGED",
+      "confidence": "HIGH_FOR_MODERN_COORDINATES; LIMITED_FOR_PREMODERN_DATE_AND_SEMANTIC_ANCESTRY",
+      "audit_status": "MODERN_COMPATIBILITY_ONLY",
+      "proposed_action": "Aggregate audited. Preserve modern Heluo school scope; do not backdate S04 fixed-support wording; seek edition-bound earlier witness. No algorithm reopen.",
+      "algorithm_reopen_authorized": false,
+      "prior_audit_snapshots": [
+        {
+          "rule_id": "HPA-STRUCT-006",
+          "system": "ZIWEI",
+          "module": "Structural R1–R8",
+          "rule_or_field": "R6 气数位",
+          "current_implementation": "ZIWEI-QISHU-POSITION-PROJECTION uses relative ordinal 9 / clockwise offset 4, source section 十四、气数位.",
+          "current_profile": "ZIWEI-STRUCTURAL-RUNTIME-V2-R6",
+          "primary_source": "S04",
+          "source_quote": "PENDING_VERBATIM_EXTRACTION",
+          "source_quote_location": "src/fortune_training/ziwei_structural/r6/profile.py",
+          "historical_period": "PENDING_BIBLIOGRAPHIC_DATING",
+          "later_witnesses": "PENDING_LATER_WITNESS_AUDIT",
+          "school_attribution": "PENDING_SCHOOL_ATTRIBUTION_AUDIT",
+          "competing_methods": [
+            "school-specific 气数位 definitions"
+          ],
+          "current_implementation_match": "MATCHES_REPOSITORY_CANONICAL_SOURCE",
+          "confidence": "HIGH",
+          "audit_status": "HISTORICALLY_SUPPORTED",
+          "proposed_action": "Trace S04 source back to dated text/school witness; verify relative ordinal semantics.",
+          "algorithm_reopen_authorized": false
+        }
+      ],
+      "audit_batch": "BATCH-12-ZIWEI-R6-QISHU-SOURCE-PHILOLOGY-SCOPE-AUDIT-MX",
+      "child_rule_ids": [
+        "HPA-STRUCT-015",
+        "HPA-STRUCT-016"
+      ]
     },
     {
       "rule_id": "HPA-STRUCT-007",
@@ -6809,6 +6838,50 @@
       "confidence": "HIGH_FOR_ENGINEERING_SCOPE",
       "audit_status": "MODERN_COMPATIBILITY_ONLY",
       "proposed_action": "Keep payload identity and neutral geometry distinct from interpretation; no reopening."
+    },
+    {
+      "system": "ZIWEI",
+      "module": "Structural R1–R8",
+      "current_profile": "ZIWEI-STRUCTURAL-RUNTIME-V2-R6@1.0.0",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-12-ZIWEI-R6-QISHU-SOURCE-PHILOLOGY-SCOPE-AUDIT-MX",
+      "competing_methods": [
+        "school-specific 气数位 definitions and interpretive doctrines"
+      ],
+      "source_quote_location": "docs/research/ZIWEI-R6-QISHU-SOURCE-PHILOLOGY-SCOPE-AUDIT-R1.json",
+      "rule_id": "HPA-STRUCT-015",
+      "rule_or_field": "R6 气数位 inverse-ninth / relative-Career coordinate identity",
+      "current_implementation": "For every origin palace, select R2 relative ordinal 9 / CAREER role; inclusive reverse ninth equals clockwise physical offset +4.",
+      "primary_source": "EXT-DADE-ZIWEI-JINGCHENG-QISHU-RECEIVED plus EXT-HELUO-TONGBU-QISHU-RECEIVED modern Heluo/Four-Transformation received witnesses.",
+      "source_quote": "从本宫为1数起，逆数到第9宫，称为本宫的“气数位”",
+      "historical_period": "MODERN_HELUO_FOUR_TRANSFORMATION_RECEIVED_TEXT; EXACT_PHYSICAL_EDITION_AND_PREMODERN_ORIGIN_UNRESOLVED",
+      "later_witnesses": "Modern web/transcribed Heluo materials repeat that each palace's relative 官禄宫 is its 气数位; these are not independent ancient witnesses.",
+      "school_attribution": "HELUO_FOUR_TRANSFORMATION_MECHANICAL_WITNESS_NOT_UNIVERSAL_ZIWEI",
+      "current_implementation_match": "144_NAMED_COORDINATES_MATCH_INDEPENDENT_TABLE; ORDINAL_9_AND_OFFSET_4_EQUIVALENT",
+      "confidence": "HIGH_FOR_MODERN_SCHOOL_COORDINATES; NO_PREMODERN_OR_EARLIEST_DATE_CLOSURE",
+      "audit_status": "SUPPORTED_BUT_SCHOOL_SPECIFIC",
+      "proposed_action": "Keep qishu coordinate mechanics school-scoped; seek edition-bound earlier attestations without source-count voting or importing categorical prediction semantics."
+    },
+    {
+      "system": "ZIWEI",
+      "module": "Structural R1–R8",
+      "current_profile": "ZIWEI-STRUCTURAL-RUNTIME-V2-R6@1.0.0",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-12-ZIWEI-R6-QISHU-SOURCE-PHILOLOGY-SCOPE-AUDIT-MX",
+      "competing_methods": [],
+      "source_quote_location": "docs/research/ZIWEI-R6-QISHU-SOURCE-PHILOLOGY-SCOPE-AUDIT-R1.json",
+      "rule_id": "HPA-STRUCT-016",
+      "rule_or_field": "R6 fixed-support meanings, NATAL-only/hash binding and neutral result firewall",
+      "current_implementation": "Twelve S04 fixed_support_meaning strings plus NATAL-only projection, stable source mapping IDs, upstream R2 hash binding and explicit prohibition of one-signal result judgments.",
+      "primary_source": "R6 released engine/models/integrity/profile plus S04 section 十四 as a modern project semantic contract.",
+      "source_quote": "气数位只表示现实承接，不是成功宫、失败宫、评分宫或终点宫",
+      "historical_period": "MODERN_SOFTWARE_CONTRACT",
+      "later_witnesses": "Reviewed modern Heluo received text uses stronger success/failure and vitality claims; it does not establish S04's neutral fixed-support table as inherited historical wording.",
+      "school_attribution": "ENGINEERING_NOT_HISTORICAL_SCHOOL",
+      "current_implementation_match": "RELEASED_MAPPING_IDS_MEANINGS_TIME_LAYER_HASHES_AND_FAIL_CLOSED_SEMANTICS_PRESERVED",
+      "confidence": "HIGH_FOR_ENGINEERING_SCOPE; NOT_A_HISTORICAL_SEMANTIC_ATTRIBUTION",
+      "audit_status": "MODERN_COMPATIBILITY_ONLY",
+      "proposed_action": "Preserve the neutral semantic firewall and provenance contract; any future interpretive qishu doctrine must be separately source-scoped and cannot replace this coordinate identity silently."
     }
   ],
   "historical_research_batches": [
@@ -7045,7 +7118,10 @@
     "HPA-ZIWEI-026",
     "HPA-STRUCT-004",
     "HPA-STRUCT-013",
-    "HPA-STRUCT-014"
+    "HPA-STRUCT-014",
+    "HPA-STRUCT-006",
+    "HPA-STRUCT-015",
+    "HPA-STRUCT-016"
   ],
   "audit_summary": {
     "confirmed_chart_algorithm_defect_count": 0,
@@ -7073,6 +7149,7 @@
     "BATCH-12-ZIWEI-R3-BORROW-PROJECTION-SCHOOL-MECHANICS-AND-MODERN-CLOSURE-AUDIT-MT",
     "BATCH-12-ZIWEI-R5-BORROW-RESOLVED-SANFANG-COMPOSITION-AUDIT-MU",
     "BATCH-12-ZIWEI-THREE-RING-SOURCE-SCOPE-AND-IDENTITY-AUDIT-MV",
-    "BATCH-12-ZIWEI-R4-SOURCE-PHILOLOGY-SCOPE-AUDIT-MW"
+    "BATCH-12-ZIWEI-R4-SOURCE-PHILOLOGY-SCOPE-AUDIT-MW",
+    "BATCH-12-ZIWEI-R6-QISHU-SOURCE-PHILOLOGY-SCOPE-AUDIT-MX"
   ]
 }

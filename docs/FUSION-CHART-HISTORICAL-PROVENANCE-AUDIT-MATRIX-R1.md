@@ -34,7 +34,7 @@ Every row carries:
 - proposed action;
 - explicit algorithm-reopen authorization, which is **false for every inventory row at creation**.
 
-The initial inventory contained **107 rule/field families**. Through Batch 12MW and explicit splitting of historically distinct candidate families, the current machine-readable inventory contains **214 rows**, with **195 audited rows**. It intentionally keeps unresolved source work explicit rather than converting uncertainty into a chart defect. The current audit ledger records **18 confirmed provenance metadata defects repaired forward-only at the provenance/hash-lineage layer, 0 chart algorithm defects, 0 algorithm reopens, 14 cumulatively identified missing candidate families, 10 rows currently `MISSING_FROM_PRODUCT`, 6 historical candidate extensions, 3 source-scoped historical candidate registries, and 3 runtime-resolver components**.
+The initial inventory contained **107 rule/field families**. Through Batch 12MX and explicit splitting of historically distinct candidate families, the current machine-readable inventory contains **216 rows**, with **198 audited rows**. It intentionally keeps unresolved source work explicit rather than converting uncertainty into a chart defect. The current audit ledger records **18 confirmed provenance metadata defects repaired forward-only at the provenance/hash-lineage layer, 0 chart algorithm defects, 0 algorithm reopens, 14 cumulatively identified missing candidate families, 10 rows currently `MISSING_FROM_PRODUCT`, 6 historical candidate extensions, 3 source-scoped historical candidate registries, and 3 runtime-resolver components**.
 
 ## Research-corpus authority
 
@@ -1326,3 +1326,10 @@ Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TH
 R4 HPA-STRUCT-004 is a modern composition, decomposed into HPA-STRUCT-013 school-scoped four-palace coordinates and HPA-STRUCT-014 engineering identity closure. Explicit Zi example and 144 rotated named frames agree. Local 三方/四正 inclusion and 三会局 wording are normalized only in their enumerated contexts; earliest definition, exact impression and direct lineage remain open. Old inventory row is preserved; source/runtime bytes unchanged. Matrix214/195/10, provenance18/18, algorithm defects/reopens/collapses0.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-R4-SOURCE-PHILOLOGY-SCOPE-AUDIT-MW.md`. Research record: `docs/research/ZIWEI-R4-SOURCE-PHILOLOGY-SCOPE-AUDIT-R1.json`.
+
+
+## Progress — Batch 12MX
+
+R6 HPA-STRUCT-006 is decomposed into HPA-STRUCT-015 school-scoped qishu coordinate identity and HPA-STRUCT-016 modern engineering semantic closure. Modern Heluo received text directly supports inclusive reverse ninth / each palace's relative Career palace; it does not establish a premodern origin or S04's twelve neutral fixed-support meanings. Independent 12 physical LIFE rotations × 12 named origins reproduce all 144 coordinates with ordinal 9 = clockwise offset 4. Matrix216/198/10, provenance18/18, algorithm defects/reopens/collapses0. No transmission edge.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-R6-QISHU-SOURCE-PHILOLOGY-SCOPE-AUDIT-MX.md`. Research record: `docs/research/ZIWEI-R6-QISHU-SOURCE-PHILOLOGY-SCOPE-AUDIT-R1.json`.

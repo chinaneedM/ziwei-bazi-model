@@ -881,9 +881,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-R5-BORROW-RESOLVED-SANFANG-COMPOSITION-AUDIT-MU",
     "BATCH-12-ZIWEI-THREE-RING-SOURCE-SCOPE-AND-IDENTITY-AUDIT-MV",
     "BATCH-12-ZIWEI-R4-SOURCE-PHILOLOGY-SCOPE-AUDIT-MW",
+    "BATCH-12-ZIWEI-R6-QISHU-SOURCE-PHILOLOGY-SCOPE-AUDIT-MX",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-R4-SOURCE-PHILOLOGY-SCOPE-AUDIT-MW.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-R6-QISHU-SOURCE-PHILOLOGY-SCOPE-AUDIT-MX.md"
 
 
 def fail(message: str) -> None:
@@ -14606,6 +14607,30 @@ def main() -> int:
             fail(f"Batch 12MW frozen file drift: {obj['path']}")
     if mw.get("algorithm_reopen_authorized") is not False or mw["transmission_impact"].get("status") != "NONE":
         fail("Batch 12MW reopen/transmission scope drift")
+
+    # Batch 12MX: qishu coordinate mechanics vs modern semantic closure.
+    mx = json.loads((ROOT / "docs/research/ZIWEI-R6-QISHU-SOURCE-PHILOLOGY-SCOPE-AUDIT-R1.json").read_text())
+    mx_id = "BATCH-12-ZIWEI-R6-QISHU-SOURCE-PHILOLOGY-SCOPE-AUDIT-MX"
+    if mx.get("batch_id") != mx_id or mx.get("prior_batch_id") != mw_id or mx_id not in rule_batches:
+        fail("Batch 12MX chronology drift")
+    for rid, expected in (("HPA-STRUCT-006", "MODERN_COMPATIBILITY_ONLY"), ("HPA-STRUCT-015", "SUPPORTED_BUT_SCHOOL_SPECIFIC"), ("HPA-STRUCT-016", "MODERN_COMPATIBILITY_ONLY")):
+        row_mx = next(r for r in matrix["rows"] if r["rule_id"] == rid)
+        if row_mx.get("audit_status") != expected or row_mx.get("audit_batch") != mx_id or rid not in matrix["audited_row_ids"]:
+            fail(f"Batch 12MX row scope drift: {rid}")
+    if mx["historical_scope"].get("premodern_qishu_attestation_closed") is not False or mx["historical_scope"].get("earliest_qishu_definition_closed") is not False or mx["historical_scope"].get("exact_physical_edition_bound") is not False:
+        fail("Batch 12MX unproved historical date/edition promoted")
+    if mx["semantic_firewall"].get("project_fixed_support_meanings_are_verbatim_historical_text") is not False:
+        fail("Batch 12MX engineering meanings backdated")
+    replay_mx = json.loads((ROOT / mx["replay_evidence"]).read_text())
+    records_mx = replay_mx["records"]
+    if len(records_mx) != 144 or hashlib.sha256(json.dumps(records_mx, sort_keys=True, separators=(",", ":")).encode()).hexdigest() != replay_mx["records_sha256"]:
+        fail("Batch 12MX replay integrity drift")
+    for obj in mx["frozen_files"]:
+        raw_mx = (ROOT / obj["path"]).read_bytes()
+        if hashlib.sha1(b"blob " + str(len(raw_mx)).encode() + b"\0" + raw_mx).hexdigest() != obj["blob_sha"]:
+            fail(f"Batch 12MX frozen file drift: {obj['path']}")
+    if mx.get("algorithm_reopen_authorized") is not False or mx["transmission_impact"].get("status") != "NONE":
+        fail("Batch 12MX reopen/transmission scope drift")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

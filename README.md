@@ -223,7 +223,7 @@ Fusion Chart Capability & Performance Acceptance R1 已正式收口。最终执�
 
 ## Fusion Chart Historical Provenance & School Audit R1
 
-最新规则审计闭环为 **Batch 12MW**：R4 三方四正分为有现代中州讲义支持的坐标规则与现代工程封装。子宫示例及全部 12 旋转 × 12 主题宫共 144 个 frame 一致；古籍传录仅支持术语使用，最早完整定义与具体印次仍未闭合。保留旧行快照，默认算法及 S04 字节不变。Matrix 214 项、已审 195 项、缺失候选 10；来源缺陷 18/18，算法缺陷/重开/候选折叠 0。下一门 12MX 为 R6 气数位。
+最新规则审计闭环为 **Batch 12MX**：R6 气数位拆为现代河洛/四化流派支持的“本宫含首逆数第九＝相对官禄宫”坐标规则，以及 S04/R6 的现代中性语义与工程封装。全部 12 命宫物理旋转 × 12 本宫共 144 个气数位坐标一致；前现代起源、最早定义和具体印次仍未闭合。默认算法及 S04/R6 字节不变。Matrix 216 项、已审 198 项、缺失候选 10；来源缺陷 18/18，算法缺陷/重开/候选折叠 0。下一门 12MY 为 R7 一六共宗。
 
 ```text
 FUSION_CHART_HISTORICAL_PROVENANCE_AUDIT_R1=IN_PROGRESS
