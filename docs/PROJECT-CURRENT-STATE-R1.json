@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.406.0",
+  "schema_version": "1.407.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -41,8 +41,8 @@
     "audited_row_count": 222,
     "confirmed_provenance_metadata_defect_count": 43,
     "repaired_provenance_metadata_defect_count": 43,
-    "historical_candidate_registry_count": 4,
-    "historical_candidate_runtime_resolver_count": 4,
+    "historical_candidate_registry_count": 5,
+    "historical_candidate_runtime_resolver_count": 5,
     "identified_missing_candidate_family_count": 14,
     "completed_batches": [
       "BATCH-01-TIME-DAYUN-XIAOYUN",
@@ -487,9 +487,10 @@
       "BATCH-12-ZIWEI-JIELAN-SOURCE-SCOPED-NATAL-CANDIDATE-PRODUCTIZATION-OI",
       "BATCH-12-ZIWEI-FOUR-TRANSFORMATION-WHOLE-TABLE-CANDIDATE-READINESS-OJ",
       "BATCH-12-ZIWEI-FOUR-TRANSFORMATION-WHOLE-TABLE-CANDIDATE-PRODUCTIZATION-OK",
-      "BATCH-12-REMAINING-PRODUCT-GAP-REPRIORITIZATION-OL"
+      "BATCH-12-REMAINING-PRODUCT-GAP-REPRIORITIZATION-OL",
+      "BATCH-12-ZIWEI-JIELAN-DIGNITY-SOURCE-LEXEME-CANDIDATE-OM"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-REMAINING-PRODUCT-GAP-REPRIORITIZATION-OL.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JIELAN-DIGNITY-SOURCE-LEXEME-CANDIDATE-OM.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -2356,9 +2357,16 @@
       "Batch 12OL completed: six remaining MISSING_FROM_PRODUCT rows were re-ranked by source closure, deterministic implementation readiness, ambiguity-preserving representation and dependency depth.",
       "Priority 1 is HPA-ZIWEI-018 Jielan historical dignity; CH69/CH70 can be represented as source lexemes/gloss classes without coercing them into production R4 seven-grade semantics.",
       "Priority 2 HPA-ZT-015 still needs leap-month day-one daily-origin geometry; priorities 3-6 remain blocked by historical calendar/time-coordinate dependencies.",
-      "12OM: build a source-faithful Jielan dignity raw-lexeme / explicit-gloss candidate while keeping OPERATIONAL-ZIWEI-DIGNITY-R4 separate."
+      "12OM: build a source-faithful Jielan dignity raw-lexeme / explicit-gloss candidate while keeping OPERATIONAL-ZIWEI-DIGNITY-R4 separate.",
+      "Batch 12OM completed: HPA-ZIWEI-018 now has an internal Jielan CH70 source-lexeme candidate with 25 entities/groups and 300 branch cells.",
+      "The candidate preserves source lexemes and source-explicit gloss relations only; production Dignity R4 grade mapping is absent by design.",
+      "CH70 anomalies remain explicit: Ziwei-Wu carries both Miao and Ping, Jumen-Chou carries both Ju and Xian, and Tianji-Si is UNSTATED; none is auto-repaired.",
+      "Candidate identity is JIELAN-1581-DIGNITY-CH70-SOURCE-LEXEME-R1 under ZIWEI-JIELAN-1581-DIGNITY-LEXEME-CANDIDATES-R1@1.0.0 / runtime 1.0.0 / PRESERVED_NOT_SELECTED.",
+      "HPA-ZIWEI-018 remains MISSING_FROM_PRODUCT until CH69/CH70 cell-level cross-collation and a read-only product surface close.",
+      "Matrix remains 222/222 audited / 6 current missing; candidate extensions 14; registries/runtime resolvers 5/5; provenance defects 43/43.",
+      "12ON: cross-collate Jielan CH69 palace-oriented dignity text against CH70 raw lexeme cells without modern-grade coercion."
     ],
-    "historical_candidate_extension_count": 13,
+    "historical_candidate_extension_count": 14,
     "current_missing_from_product_row_count": 6
   },
   "new_chat_bootstrap_order": [
