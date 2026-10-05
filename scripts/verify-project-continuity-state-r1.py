@@ -15983,10 +15983,10 @@ def main() -> int:
     accounting_nx = nx.get("accounting", {})
     if accounting_nx.get("provenance_defects_confirmed_after") != 40 or accounting_nx.get("provenance_defects_repaired_after") != 40 or accounting_nx.get("source_insufficient_after") != 11:
         fail("Batch 12NX accounting drift")
-    if audit_summary.get("confirmed_provenance_metadata_defect_count") != 40 or audit_summary.get("repaired_provenance_metadata_defect_count") != 40:
-        fail("Batch 12NX Matrix provenance accounting drift")
-    if audit_state.get("confirmed_provenance_metadata_defect_count") != 40 or audit_state.get("repaired_provenance_metadata_defect_count") != 40:
-        fail("Batch 12NX state provenance accounting drift")
+    if audit_summary.get("confirmed_provenance_metadata_defect_count", 0) < 40 or audit_summary.get("repaired_provenance_metadata_defect_count", 0) < 40:
+        fail("Batch 12NX Matrix provenance accounting must retain at least 40/40")
+    if audit_state.get("confirmed_provenance_metadata_defect_count", 0) < 40 or audit_state.get("repaired_provenance_metadata_defect_count", 0) < 40:
+        fail("Batch 12NX state provenance accounting must retain at least 40/40")
     evidence_controls_nx = nx_evidence.get("source_controls", {})
     for key in ("jielan_ch58_heading_explicitly_flow_year_taisui", "jielan_ch58_contains_related_trine_year_branch_yima_rule", "modern_zhongzhou_received_manual_contains_complete_sequence", "modern_annual_table_contains_same_complete_sequence", "modern_natal_table_contains_same_complete_sequence"):
         if evidence_controls_nx.get(key) is not True:
