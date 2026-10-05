@@ -1,0 +1,61 @@
+{
+  "schema": "BAZI-DAYUN-HISTORICAL-CALENDAR-CANDIDATE-PRODUCT-SURFACE-RECONCILIATION-EVIDENCE-R1",
+  "schema_version": "1.0.0",
+  "parent_head": "75acb5a689d1e68e8d90fe4eea94bebf5ac03354",
+  "historical_calendar_contract": {
+    "path": "src/fortune_training/historical_calendar/contract.py",
+    "blob_sha": "dd077159ce54fcb3c90020fa79913e10e43038b0",
+    "registered_regimes": [
+      "MING-DATONG-CALENDAR-CONTEXT-R1",
+      "QING-SHIXIAN-1645-CALENDAR-CONTEXT-R1"
+    ],
+    "qianli_republican_regime_registered": false,
+    "operations": [
+      "MAP_CIVIL_DATE_TO_HISTORICAL_LUNISOLAR",
+      "REALIZE_DAYUN_HANDOVER",
+      "ADD_CALENDAR_YEARS"
+    ],
+    "fail_closed_adapter_exists": true,
+    "certified_calendar_arithmetic_present": false
+  },
+  "bazi_temporal_runtime": {
+    "engine_path": "src/fortune_training/bazi_temporal/engine.py",
+    "engine_blob_sha": "fecd235ac5c4f53c3fc3308d48eb92b7734c6310",
+    "profile_path": "src/fortune_training/bazi_temporal/profile.py",
+    "profile_blob_sha": "894b610576438b5713ceae6632fab4c37d636d80",
+    "engine_imports_historical_calendar": false,
+    "historical_boundary_branch_exists": false,
+    "historical_temporal_profile_exists": false,
+    "current_profiles_are_continuous_and_wenzhen_only": true
+  },
+  "local_product_surface": {
+    "path": "src/fortune_training/combined_chart_application/local_app.py",
+    "blob_sha": "8ef6d471499018b5dc027cf8acf29b3e118233cc",
+    "temporal_options": [
+      "BAZI-TEMPORAL-V1-CONTINUOUS-R1",
+      "BAZI-TEMPORAL-WENZHEN-CHINA-COMPATIBILITY-R1"
+    ],
+    "historical_temporal_option": false
+  },
+  "contract_tests": {
+    "path": "tests/test_historical_calendar_adapter_contract_r1.py",
+    "blob_sha": "6c3d8b646dc6640b01c153560867a15ee5b19175",
+    "asserts_contract_only_no_certified_arithmetic": true,
+    "asserts_fail_closed_no_modern_fallback": true
+  },
+  "adjudication": {
+    "statuses": {
+      "HPA-DAYUN-CAL-002": "MISSING_FROM_PRODUCT",
+      "HPA-DAYUN-CAL-003": "MISSING_FROM_PRODUCT",
+      "HPA-DAYUN-CAL-004": "MISSING_FROM_PRODUCT"
+    },
+    "new_provenance_defects": [
+      "PROV-DEFECT-039"
+    ],
+    "repair_metadata_only": true,
+    "runtime_behavior_changed": false,
+    "candidate_selection_changed": false,
+    "production_default_changed": false,
+    "transmission_edge_created": false
+  }
+}
