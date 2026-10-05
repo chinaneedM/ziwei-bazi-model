@@ -171,6 +171,9 @@ def main() -> int:
         "RULE-FAMILY-ZIWEI-ANNUAL-YUEDE-ZI-START",
         "RULE-FAMILY-ZIWEI-NATAL-TIANDE-YOU-START",
         "RULE-FAMILY-ZIWEI-ANNUAL-TIANDE-YOU-START",
+        "PASSAGE-JIELAN-1581-CH35-TIANCAI-TIANSHOU",
+        "RULE-FAMILY-ZIWEI-NATAL-TIANCAI-LIFE-BASIS",
+        "RULE-FAMILY-ZIWEI-NATAL-TIANSHOU-BODY-BASIS",
     }
     if not required_nodes.issubset(set(node_ids)):
         fail("Transmission graph seed nodes incomplete")
@@ -215,6 +218,17 @@ def main() -> int:
         fail("Batch 12OE YueDe temporal-identity non-edge missing")
     if not any(x.get("from")=="RULE-FAMILY-ZIWEI-NATAL-TIANDE-YOU-START" and x.get("to")=="RULE-FAMILY-ZIWEI-ANNUAL-TIANDE-YOU-START" and x.get("status")=="DISPROVED" for x in oe_non_edges):
         fail("Batch 12OE TianDe temporal-identity non-edge missing")
+
+    # Batch 12OF: Jielan chapter 35 transmits complementary TianCai/TianShou bases.
+    of_edges={e.get("edge_id"): e for e in edges if e.get("edge_id") in {"TG-E0152","TG-E0153","TG-E0154"}}
+    if set(of_edges) != {"TG-E0152","TG-E0153","TG-E0154"}:
+        fail("Batch 12OF transmission edges missing")
+    if of_edges["TG-E0152"].get("from")!="PASSAGE-JIELAN-1581-CH35-TIANCAI-TIANSHOU" or of_edges["TG-E0152"].get("to")!="RULE-FAMILY-ZIWEI-NATAL-TIANCAI-LIFE-BASIS" or of_edges["TG-E0152"].get("status")!="CONFIRMED":
+        fail("Batch 12OF TianCai Life-basis transmission binding regressed")
+    if of_edges["TG-E0153"].get("from")!="PASSAGE-JIELAN-1581-CH35-TIANCAI-TIANSHOU" or of_edges["TG-E0153"].get("to")!="RULE-FAMILY-ZIWEI-NATAL-TIANSHOU-BODY-BASIS" or of_edges["TG-E0153"].get("status")!="CONFIRMED":
+        fail("Batch 12OF TianShou Body-basis transmission binding regressed")
+    if of_edges["TG-E0154"].get("relation")!="PARALLEL_COEXISTS_WITH" or of_edges["TG-E0154"].get("status")!="CONFIRMED":
+        fail("Batch 12OF complementary Life/Body rule-pair typing regressed")
 
     e3 = next((e for e in edges if e.get("edge_id") == "TG-E0003"), None)
     if not e3 or e3.get("relation") != "PARALLEL_COEXISTS_WITH" or e3.get("status") != "CONFIRMED":
