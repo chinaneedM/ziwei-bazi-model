@@ -3465,6 +3465,48 @@
         "HPA-ZTEMP-007"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-YUEDE-TIANDE-TEMPORAL-SCOPE-CLOSURE-OE"
+    },
+    {
+      "node_id": "PASSAGE-JIELAN-1581-CH35-TIANCAI-TIANSHOU",
+      "node_type": "PASSAGE",
+      "label": "1581《紫微斗数捷览》卷一第35章·安天才天寿台辅封诰星诀",
+      "system_scope": "ZIWEI_NATAL_TIANCAI_TIANSHOU_BASIS_PAIR",
+      "date": "1581_MING_WANLI9_PRINT_TRADITION",
+      "evidence": [
+        "EXT-ZIWEI-JIELAN-1581",
+        "EXT-SHANGHAI-LIB-JIELAN-1581",
+        "HPA-ZMINOR-019",
+        "HPA-ZMINOR-008"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-TIANSHOU-BODY-BASIS-EARLY-PRINT-CLOSURE-OF"
+    },
+    {
+      "node_id": "RULE-FAMILY-ZIWEI-NATAL-TIANCAI-LIFE-BASIS",
+      "node_type": "RULE_FAMILY",
+      "label": "紫微本命天才·命宫起子顺至生年支",
+      "system_scope": "ZIWEI_NATAL_TIANCAI",
+      "date": "MING_1581_JIELAN_ATTESTED",
+      "mechanics": "命宫为子年起点，按出生年支顺行",
+      "evidence": [
+        "EXT-ZIWEI-JIELAN-1581",
+        "HPA-ZMINOR-019"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-TIANSHOU-BODY-BASIS-EARLY-PRINT-CLOSURE-OF"
+    },
+    {
+      "node_id": "RULE-FAMILY-ZIWEI-NATAL-TIANSHOU-BODY-BASIS",
+      "node_type": "RULE_FAMILY",
+      "label": "紫微本命天寿·身宫起子顺至生年支",
+      "system_scope": "ZIWEI_NATAL_TIANSHOU",
+      "date": "MING_1581_JIELAN_ATTESTED",
+      "mechanics": "身宫为子年起点，按出生年支顺行",
+      "evidence": [
+        "EXT-ZIWEI-JIELAN-1581",
+        "S01:ZZZA-A-0830",
+        "S01:ZZZA-A-0831",
+        "HPA-ZMINOR-008"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-TIANSHOU-BODY-BASIS-EARLY-PRINT-CLOSURE-OF"
     }
   ],
   "edges": [
@@ -5789,6 +5831,51 @@
       ],
       "scope_note": "Same anchor geometry does not make natal and annual temporal identities identical.",
       "adjudication_batch": "BATCH-12-ZIWEI-YUEDE-TIANDE-TEMPORAL-SCOPE-CLOSURE-OE"
+    },
+    {
+      "edge_id": "TG-E0152",
+      "from": "PASSAGE-JIELAN-1581-CH35-TIANCAI-TIANSHOU",
+      "relation": "TRANSMITS_RULE",
+      "to": "RULE-FAMILY-ZIWEI-NATAL-TIANCAI-LIFE-BASIS",
+      "status": "CONFIRMED",
+      "confidence": "VERY_HIGH",
+      "evidence_class": "DIRECT_EARLY_PRINT_TRANSCRIPTION_MNEMONIC_PLUS_WORKED_EXAMPLES",
+      "evidence": [
+        "EXT-ZIWEI-JIELAN-1581",
+        "HPA-ZMINOR-019"
+      ],
+      "scope_note": "Life palace is explicitly the TianCai origin.",
+      "adjudication_batch": "BATCH-12-ZIWEI-TIANSHOU-BODY-BASIS-EARLY-PRINT-CLOSURE-OF"
+    },
+    {
+      "edge_id": "TG-E0153",
+      "from": "PASSAGE-JIELAN-1581-CH35-TIANCAI-TIANSHOU",
+      "relation": "TRANSMITS_RULE",
+      "to": "RULE-FAMILY-ZIWEI-NATAL-TIANSHOU-BODY-BASIS",
+      "status": "CONFIRMED",
+      "confidence": "VERY_HIGH",
+      "evidence_class": "DIRECT_EARLY_PRINT_TRANSCRIPTION_MNEMONIC_PLUS_TWO_WORKED_EXAMPLES",
+      "evidence": [
+        "EXT-ZIWEI-JIELAN-1581",
+        "HPA-ZMINOR-008"
+      ],
+      "scope_note": "Body palace is explicit in mnemonic and repeated in both JiaZi/YiChou examples.",
+      "adjudication_batch": "BATCH-12-ZIWEI-TIANSHOU-BODY-BASIS-EARLY-PRINT-CLOSURE-OF"
+    },
+    {
+      "edge_id": "TG-E0154",
+      "from": "RULE-FAMILY-ZIWEI-NATAL-TIANCAI-LIFE-BASIS",
+      "relation": "PARALLEL_COEXISTS_WITH",
+      "to": "RULE-FAMILY-ZIWEI-NATAL-TIANSHOU-BODY-BASIS",
+      "status": "CONFIRMED",
+      "confidence": "VERY_HIGH",
+      "evidence_class": "SAME_PASSAGE_COMPLEMENTARY_RULE_PAIR",
+      "evidence": [
+        "EXT-ZIWEI-JIELAN-1581",
+        "docs/research/ZIWEI-TIANSHOU-BODY-BASIS-EARLY-PRINT-CLOSURE-R1.json"
+      ],
+      "scope_note": "The same chapter deliberately uses different base palaces for two different stars; Life-vs-Body is complementarity, not a TianShou candidate dispute.",
+      "adjudication_batch": "BATCH-12-ZIWEI-TIANSHOU-BODY-BASIS-EARLY-PRINT-CLOSURE-OF"
     }
   ],
   "lineage_hypotheses": [
