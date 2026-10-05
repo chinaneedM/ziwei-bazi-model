@@ -1,0 +1,68 @@
+{
+  "schema": "ZIWEI-TIANSHOU-BODY-BASIS-EARLY-PRINT-CLOSURE-R1",
+  "version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-TIANSHOU-BODY-BASIS-EARLY-PRINT-CLOSURE-OF",
+  "date": "2026-10-06",
+  "target_rule_id": "HPA-ZMINOR-008",
+  "question": "Whether natal TianShou is anchored from Body palace or Life palace, and whether the prior Body/Life 'source conflict' is a real source-scoped alternative.",
+  "controlling_sources": [
+    {
+      "source_id": "EXT-ZIWEI-JIELAN-1581",
+      "locator": "卷一第35章《安天才天寿台辅封诰星诀》 / public chapter route /35",
+      "text": [
+        "命宫起子天才顺，身宫起子天寿堂。",
+        "假如甲子生人，命立寅宫，则天才在寅，身立午宫，则天寿在午。",
+        "如乙丑生人……如身立午宫，则自午宫起子年，顺数至未宫为丑，即安天寿在未宫。"
+      ],
+      "adjudication": "DIRECT_EARLY_PRINT_LINE_BODY_BASIS_PLUS_TWO_WORKED_EXAMPLES"
+    },
+    {
+      "source_id": "EXT-SHANGHAI-LIB-JIELAN-1581",
+      "locator": "子4051",
+      "adjudication": "INDEPENDENT_BIBLIOGRAPHIC_IDENTITY_FOR_1581_JIELAN_EDITION_NOT_RULE_TEXT"
+    }
+  ],
+  "repository_controls": [
+    {
+      "refs": [
+        "S01:ZZZA-A-0830",
+        "S01:ZZZA-A-0831",
+        "S01:ZZZA-A-0833",
+        "S01:ZZZA-A-0834"
+      ],
+      "observed_semantics": "All extracted TianShou placement atoms use 身宫 as 子位 and advance by birth-year branch."
+    },
+    {
+      "ref": "S01:ZZZA-PR-042",
+      "observed_semantics": "Normalized route says Body-basis placement but appends an unlocated 'source text/table-header basis conflict' note."
+    },
+    {
+      "ref": "COMPAT:WENMO-TIANSHOU-BODY-BASIS:1992-06-10T14:00",
+      "observed_semantics": "Operational discriminator has Life=亥, Body=丑, birth-year branch=申; Wenmo TianShou=酉. Body-basis yields 酉, Life-basis would yield 未."
+    }
+  ],
+  "philology": {
+    "paired_rule_structure": "The chapter intentionally contrasts 命宫起子 for 天才 with 身宫起子 for 天寿. This is not an incidental isolated glyph; the two worked examples repeat the same Life/Body distinction.",
+    "body_character_robustness": "Even if the mnemonic glyph were questioned, the examples independently say 身立午宫 and derive TianShou from 午 for both 子 and 丑 years.",
+    "life_basis_witness_status": "No edition-bound Life-palace TianShou rule was identified in the reviewed source package. The prior Matrix conflict note does not name, quote, locate or bind such a source.",
+    "source_scope": "Public chapter transcription is not a physical facsimile glyph witness, but the claim is semantically overdetermined by mnemonic plus two worked examples and is already within the repository's accepted Jielan early-print transcription evidence policy."
+  },
+  "adjudication": {
+    "audit_status_before": "DISPUTED_MULTIPLE_CANDIDATES",
+    "audit_status_after": "HISTORICALLY_SUPPORTED",
+    "selected_historical_geometry": "BODY_PALACE_AS_ZI_YEAR_ORIGIN_PLUS_BIRTH_YEAR_BRANCH_OFFSET",
+    "life_basis_candidate_preserved": false,
+    "reason_no_life_candidate": "No source-scoped Life-basis method is presently bound; preserving an unbound placeholder would manufacture a candidate rather than preserve evidence.",
+    "runtime_change_required": false,
+    "production_default_changed": false,
+    "chart_algorithm_reopened": false
+  },
+  "provenance_repair": {
+    "defect_id": "PROV-DEFECT-042",
+    "defect": "HPA-ZMINOR-008 and earlier Batch 07 notes represented TianShou as a Body/Life source conflict even though the bound early-print chapter and current extracted S01 atoms support Body basis, while no competing Life-basis source was identified.",
+    "repair": "Reclassify HPA-ZMINOR-008 as historically supported for Body basis, remove the unbound Life-basis candidate claim from the current Matrix, and retain old batch documents as historical audit snapshots.",
+    "canonical_source_rewrite": false,
+    "forward_only": true
+  },
+  "next": "12OG — HPA-ZMINOR-007 TianChu competing stem tables and source closure."
+}
