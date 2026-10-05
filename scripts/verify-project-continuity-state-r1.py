@@ -914,9 +914,21 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-TIANYUE-MODERN-RECEIVED-SOURCE-BOUNDARY-OB",
     "BATCH-12-ZIWEI-YINSHA-MODERN-RECEIVED-SOURCE-BOUNDARY-OC",
     "BATCH-12-UNRESOLVED-HISTORICAL-STATUS-REPRIORITIZATION-OD",
+    "BATCH-12-ZIWEI-YUEDE-TIANDE-TEMPORAL-SCOPE-CLOSURE-OE",
+    "BATCH-12-ZIWEI-TIANSHOU-BODY-BASIS-EARLY-PRINT-CLOSURE-OF",
+    "BATCH-12-ZIWEI-TIANCHU-PREMODERN-TABLE-AND-SOURCE-BOUNDARY-OG",
+    "BATCH-12-UNRESOLVED-CANDIDATE-PRODUCTIZATION-REPRIORITIZATION-OH",
+    "BATCH-12-ZIWEI-JIELAN-SOURCE-SCOPED-NATAL-CANDIDATE-PRODUCTIZATION-OI",
+    "BATCH-12-ZIWEI-FOUR-TRANSFORMATION-WHOLE-TABLE-CANDIDATE-READINESS-OJ",
+    "BATCH-12-ZIWEI-FOUR-TRANSFORMATION-WHOLE-TABLE-CANDIDATE-PRODUCTIZATION-OK",
+    "BATCH-12-REMAINING-PRODUCT-GAP-REPRIORITIZATION-OL",
+    "BATCH-12-ZIWEI-JIELAN-DIGNITY-SOURCE-LEXEME-CANDIDATE-OM",
+    "BATCH-12-ZIWEI-JIELAN-DIGNITY-CH69-CH70-CELL-CROSS-COLLATION-ON",
+    "BATCH-12-ZIWEI-JIELAN-DIGNITY-CANDIDATE-PRODUCTIZATION-OO",
+    "BATCH-12-ZIWEI-ZHONGZHOU-LEAP-MONTH-DAILY-GEOMETRY-CLOSURE-OP",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-UNRESOLVED-HISTORICAL-STATUS-REPRIORITIZATION-OD.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHONGZHOU-LEAP-MONTH-DAILY-GEOMETRY-CLOSURE-OP.md"
 
 
 def fail(message: str) -> None:
@@ -15445,12 +15457,12 @@ def main() -> int:
         fail("Batch 12NQ target-row audit/reconciliation lineage drift")
     row_nq = next(r for r in matrix["rows"] if r["rule_id"] == "HPA-ZT-015")
     related_nq = next(r for r in matrix["rows"] if r["rule_id"] == "HPA-ZTEMP-006")
-    if row_nq.get("audit_status") != "MISSING_FROM_PRODUCT":
-        fail("Batch 12NQ broader leap-month frame gap must remain missing")
     if related_nq.get("audit_status") != "SUPPORTED_BUT_SCHOOL_SPECIFIC":
-        fail("Batch 12NQ productized Zhongzhou candidate status drift")
-    if row_nq.get("reconciliation_batch") != nq_id:
-        fail("Batch 12NQ reconciliation batch binding drift")
+        fail("Batch 12NQ/12OP Zhongzhou candidate school scope drift")
+    if row_nq.get("audit_status") != "SUPPORTED_BUT_SCHOOL_SPECIFIC":
+        fail("Batch 12OP live HPA-ZT-015 school-scoped closure drift")
+    if row_nq.get("reconciliation_batch") != "BATCH-12-ZIWEI-ZHONGZHOU-LEAP-MONTH-DAILY-GEOMETRY-CLOSURE-OP":
+        fail("Batch 12OP live HPA-ZT-015 reconciliation binding drift")
     observed_nq = nq.get("observed_runtime", {})
     if observed_nq.get("historical_candidate_method_id") != "ZHONGZHOU-LEAP-MONTH-HALF-SPLIT-R1":
         fail("Batch 12NQ historical candidate method drift")
@@ -15487,8 +15499,8 @@ def main() -> int:
     evidence_adj_nq = nq_evidence.get("adjudication", {})
     if evidence_adj_nq.get("hpa_zt_015_status_after") != "MISSING_FROM_PRODUCT" or evidence_adj_nq.get("runtime_behavior_changed") is not False:
         fail("Batch 12NQ reconciliation scope drift")
-    if row_nq.get("defect_id") != "PROV-DEFECT-036" or row_nq.get("algorithm_reopen_authorized") is not False:
-        fail("Batch 12NQ Matrix defect/reopen scope drift")
+    if row_nq.get("defect_id") != "PROV-DEFECT-044" or row_nq.get("repair_status") != "REPAIRED_IN_BATCH_12OP_FORWARD_ONLY" or row_nq.get("algorithm_reopen_authorized") is not False:
+        fail("Batch 12OP live Matrix defect/reopen scope drift")
     accounting_nq = nq.get("accounting", {})
     if accounting_nq.get("missing_from_product_before") != 10 or accounting_nq.get("missing_from_product_after") != 10:
         fail("Batch 12NQ missing-product accounting drift")
@@ -15518,20 +15530,19 @@ def main() -> int:
         fail("Batch 12NR reconciliation result drift")
     rows_nr = {r["rule_id"]: r for r in matrix["rows"] if r["rule_id"] in target_ids_nr}
     if set(rows_nr) != target_ids_nr:
-        fail("Batch 12NR Matrix target rows missing")
+        fail("Batch 12NR/12OI Matrix target rows missing")
     for rule_id, row in rows_nr.items():
-        if row.get("audit_status") != "MISSING_FROM_PRODUCT":
-            fail(f"Batch 12NR target status drift: {rule_id}")
-        if row.get("reconciliation_batch") != nr_id or row.get("reconciliation_status") != "MISSING_FROM_PRODUCT_CONFIRMED":
-            fail(f"Batch 12NR reconciliation binding drift: {rule_id}")
+        if row.get("audit_status") != "HISTORICALLY_SUPPORTED":
+            fail(f"Batch 12OI live target status drift: {rule_id}")
+        if row.get("reconciliation_batch") != "BATCH-12-ZIWEI-JIELAN-SOURCE-SCOPED-NATAL-CANDIDATE-PRODUCTIZATION-OI":
+            fail(f"Batch 12OI live reconciliation binding drift: {rule_id}")
+        if row.get("selection_status") != "PRESERVED_NOT_SELECTED":
+            fail(f"Batch 12OI selection firewall drift: {rule_id}")
         surface = row.get("product_surface_reconciliation", {})
-        if surface.get("source_scoped_runtime_resolver_exists") is not True or surface.get("deterministic_runtime_replay_tested") is not True:
-            fail(f"Batch 12NR internal runtime evidence drift: {rule_id}")
-        if surface.get("selection_status") != "PRESERVED_NOT_SELECTED":
-            fail(f"Batch 12NR selection firewall drift: {rule_id}")
-        for key in ("package_root_public_export", "local_ziwei_candidate_profile_selector", "workbench_candidate_profile_selector", "production_default_changed"):
-            if surface.get(key) is not False:
-                fail(f"Batch 12NR product-surface firewall drift: {rule_id}:{key}")
+        if surface.get("workbench_read_only_candidate_api") is not True:
+            fail(f"Batch 12OI read-only product surface drift: {rule_id}")
+        if surface.get("production_default_changed") is not False or surface.get("production_winner_selected") is not False:
+            fail(f"Batch 12OI production/winner firewall drift: {rule_id}")
     runtime_nr = nr.get("internal_runtime", {})
     if runtime_nr.get("runtime_resolver_id") != "ZIWEI-JIELAN-1581-SOURCE-SCOPED-CANDIDATE-RUNTIME-R1":
         fail("Batch 12NR Jielan runtime resolver drift")
@@ -15588,39 +15599,34 @@ def main() -> int:
         fail("Batch 12NS reconciliation result drift")
     rows_ns = {r["rule_id"]: r for r in matrix["rows"] if r["rule_id"] in target_ids_ns}
     if set(rows_ns) != target_ids_ns:
-        fail("Batch 12NS Matrix target rows missing")
+        fail("Batch 12NS/12OK/12OO Matrix target rows missing")
     for rule_id, row in rows_ns.items():
-        if row.get("audit_status") != "MISSING_FROM_PRODUCT":
-            fail(f"Batch 12NS target status drift: {rule_id}")
-        if row.get("reconciliation_batch") != ns_id or row.get("reconciliation_status") != "MISSING_FROM_PRODUCT_CONFIRMED":
-            fail(f"Batch 12NS reconciliation binding drift: {rule_id}")
+        if row.get("audit_status") != "HISTORICALLY_SUPPORTED":
+            fail(f"later product closure status drift: {rule_id}")
         if row.get("algorithm_reopen_authorized") is not False:
-            fail(f"Batch 12NS algorithm-reopen firewall drift: {rule_id}")
+            fail(f"Batch 12NS+ algorithm-reopen firewall drift: {rule_id}")
 
     row14_ns = rows_ns["HPA-ZIWEI-014"]
     if row14_ns.get("defect_id") != "PROV-DEFECT-037" or row14_ns.get("repair_status") != "REPAIRED_IN_BATCH_12NS_FORWARD_ONLY":
         fail("Batch 12NS HPA-ZIWEI-014 provenance repair drift")
+    if row14_ns.get("reconciliation_batch") != "BATCH-12-ZIWEI-FOUR-TRANSFORMATION-WHOLE-TABLE-CANDIDATE-PRODUCTIZATION-OK":
+        fail("Batch 12OK HPA-ZIWEI-014 live reconciliation drift")
     surface14_ns = row14_ns.get("product_surface_reconciliation", {})
-    for key in ("jielan_complete_ten_stem_source_table_registered", "jielan_source_scoped_runtime_resolver_exists", "jielan_targets_exactly_match_current_s08"):
-        if surface14_ns.get(key) is not True:
-            fail(f"Batch 12NS Four-Transformation partial-coverage evidence drift: {key}")
-    for key in ("received_fullbook_complete_selectable_candidate_profile", "zhongzhou_complete_selectable_candidate_profile", "local_ziwei_table_family_selector", "workbench_table_family_selector", "production_default_changed"):
-        if surface14_ns.get(key) is not False:
-            fail(f"Batch 12NS Four-Transformation product-gap firewall drift: {key}")
+    if surface14_ns.get("public_read_only_candidate_api") is not True or surface14_ns.get("workbench_table_family_surface") is not True:
+        fail("Batch 12OK Four-Transformation public product surface drift")
+    if surface14_ns.get("production_default_changed") is not False or surface14_ns.get("production_winner_selected") is not False:
+        fail("Batch 12OK Four-Transformation production/winner firewall drift")
 
     row18_ns = rows_ns["HPA-ZIWEI-018"]
     if row18_ns.get("defect_id") != "PROV-DEFECT-038" or row18_ns.get("repair_status") != "REPAIRED_IN_BATCH_12NS_FORWARD_ONLY":
         fail("Batch 12NS HPA-ZIWEI-018 provenance repair drift")
-    if "ZIWEI-JIELAN-1581-HISTORICAL-CANDIDATES-R1@1.1.0" not in row18_ns.get("current_profile", ""):
-        fail("Batch 12NS HPA-ZIWEI-018 live registry version not bound")
+    if row18_ns.get("reconciliation_batch") != "BATCH-12-ZIWEI-JIELAN-DIGNITY-CANDIDATE-PRODUCTIZATION-OO":
+        fail("Batch 12OO HPA-ZIWEI-018 live reconciliation drift")
     surface18_ns = row18_ns.get("product_surface_reconciliation", {})
-    if surface18_ns.get("jielan_dignity_source_family_registered") is not True or surface18_ns.get("source_scoped_resolver_emits_dignity_status") is not True:
-        fail("Batch 12NS Jielan dignity source-status coverage drift")
-    if surface18_ns.get("source_scoped_resolver_runtime_normalized") is not False or surface18_ns.get("source_faithful_closed_runtime_dignity_table") is not False:
-        fail("Batch 12NS Jielan dignity normalization firewall drift")
-    for key in ("local_historical_dignity_candidate_profile_selector", "workbench_historical_dignity_candidate_profile_selector", "production_default_changed"):
-        if surface18_ns.get(key) is not False:
-            fail(f"Batch 12NS dignity product-gap firewall drift: {key}")
+    if surface18_ns.get("public_read_only_candidate_api") is not True or surface18_ns.get("workbench_candidate_surface") is not True:
+        fail("Batch 12OO dignity public product surface drift")
+    if surface18_ns.get("production_default_changed") is not False or surface18_ns.get("production_winner_selected") is not False:
+        fail("Batch 12OO dignity production/winner firewall drift")
 
     repairs_ns = {x.get("defect_id") for x in ns.get("provenance_repairs", ())}
     if repairs_ns != {"PROV-DEFECT-037", "PROV-DEFECT-038"}:
@@ -16490,6 +16496,24 @@ def main() -> int:
     psource = next((s for s in registry.get("sources", []) if s.get("source_id") == "EXT-ZIWEI-ZHANGGUO-NLC-PRINCETON-NJPX95-B1857"), None)
     if psource is None or psource.get("record_id") != "NJPX95-B1857" or psource.get("shelf_or_collection_number") != "TC183/2991":
         fail("Batch 12BE external-source registry binding missing")
+
+    op_path = ROOT / "docs/research/ZIWEI-ZHONGZHOU-LEAP-MONTH-DAILY-GEOMETRY-CLOSURE-R1.json"
+    if not op_path.is_file():
+        fail("Batch 12OP research record missing")
+    op = json.loads(op_path.read_text(encoding="utf-8"))
+    if op.get("batch_id") != "BATCH-12-ZIWEI-ZHONGZHOU-LEAP-MONTH-DAILY-GEOMETRY-CLOSURE-OP":
+        fail("Batch 12OP identity drift")
+    op_product = op.get("productization", {})
+    if op_product.get("selection_status") != "PRESERVED_NOT_SELECTED" or op_product.get("production_default_changed") is not False:
+        fail("Batch 12OP production/non-selection firewall drift")
+    if op.get("provenance_repair", {}).get("defect_id") != "PROV-DEFECT-044":
+        fail("Batch 12OP provenance repair identity drift")
+    if audit_state.get("current_missing_from_product_row_count") != 4:
+        fail("Batch 12OP current missing-product count drift")
+    if audit_state.get("confirmed_provenance_metadata_defect_count") != 44 or audit_state.get("repaired_provenance_metadata_defect_count") != 44:
+        fail("Batch 12OP provenance accounting drift")
+    if state.get("schema_version") != "1.410.0":
+        fail("Batch 12OP continuity schema version drift")
 
     contract = state.get("continuity_contract", {})
     if contract.get("ci_gate_required") is not True:
