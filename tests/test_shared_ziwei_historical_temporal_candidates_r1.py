@@ -123,10 +123,26 @@ class SharedZiweiHistoricalTemporalCandidatesR1Tests(unittest.TestCase):
         self.assertEqual("ZHONGZHOU-LEAP-MONTH-HALF-SPLIT-R1", candidate["method_id"])
         self.assertEqual("PRESERVED_NOT_SELECTED", candidate["selection_status"])
         self.assertFalse(candidate["flow_day_continuity"]["half_split_reset"])
-        self.assertFalse(candidate["flow_day_continuity"]["daily_active_address_emitted"])
-        self.assertEqual(
-            "NOT_CLOSED_BY_THIS_MONTH_POLICY_API",
+        self.assertTrue(candidate["flow_day_continuity"]["half_split_basis_switch"])
+        self.assertTrue(candidate["flow_day_continuity"]["daily_active_address_emitted"])
+        self.assertIn(
             candidate["flow_day_continuity"]["daily_origin_semantics"],
+            {
+                "PREVIOUS_REGULAR_MONTH_FLOW_DAY_CONTINUES_TO_LEAP_DAY_ONE",
+                "FOLLOWING_REGULAR_MONTH_ACTIVE_ADDRESS_AS_DAY_ONE_BASIS_WITH_LEAP_DAY_ORDINAL",
+            },
+        )
+        self.assertIn(
+            candidate["previous_regular_month_day_count"],
+            (29, 30),
+        )
+        self.assertIn(
+            candidate["flow_day_continuity"]["daily_active_address_branch"],
+            tuple("子丑寅卯辰巳午未申酉戌亥"),
+        )
+        self.assertEqual(
+            "SOURCE_SCOPED_MONTH_AND_DAILY_GEOMETRY_COMPLETE_PRESERVED_NO_SELECTION",
+            candidate["downstream_projection_status"],
         )
         self.assertEqual(
             "NO_SOURCE_SCOPED_PARENT_DAILY_FRAME",
