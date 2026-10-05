@@ -1,0 +1,124 @@
+{
+  "schema": "ZIWEI-JIANGQIAN-TEMPORAL-SOURCE-SCOPE-CLOSURE-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-JIANGQIAN-TEMPORAL-SOURCE-SCOPE-EVIDENCE-CLOSURE-NX",
+  "prior_batch_id": "BATCH-12-ZIWEI-ZI-WU-SHENZHU-FIRE-BELL-EVIDENCE-CLOSURE-NW",
+  "batch_classification": "POST_AUDIT_EVIDENCE_CLOSURE_NOT_SUPPLEMENTAL_RULE_AUDIT",
+  "target_rule_ids": [
+    "HPA-ZIWEI-026"
+  ],
+  "target_status_before": "SOURCE_INSUFFICIENT",
+  "target_status_after": "SOURCE_INSUFFICIENT",
+  "adjudication": "NATAL_AND_ANNUAL_ARE_DISTINCT_TEMPORAL_APPLICATIONS_NOT_MUTUALLY_EXCLUSIVE_WINNERS; EARLY_COMPLETE_TWELVE_MEMBER_RING_REMAINS_UNCLOSED",
+  "mechanical_rule": {
+    "members": [
+      "将星",
+      "攀鞍",
+      "岁驿",
+      "息神",
+      "华盖",
+      "劫煞",
+      "灾煞",
+      "天煞",
+      "指背",
+      "咸池",
+      "月煞",
+      "亡神"
+    ],
+    "anchor_pairs": {
+      "申子辰": "子",
+      "寅午戌": "午",
+      "巳酉丑": "酉",
+      "亥卯未": "卯"
+    },
+    "direction": "FORWARD",
+    "geometry_changed": false
+  },
+  "historical_controls": [
+    {
+      "source": "EXT-ZIWEI-JIELAN-1581:CH58",
+      "url": "https://tianjihq.com/zh-TW/learn/books/ziwei-jielan/58",
+      "authority_class": "PUBLIC_TRANSCRIPTION_OF_1581_JIELAN_LINE_WITH_INDEPENDENT_EDITION_IDENTITY_ALREADY_REGISTERED",
+      "heading": "新刻纂集紫微斗数捷览卷之一·定流年太岁所值凶星图",
+      "reading": "驿马：按甲子辰年马在寅，巳酉丑年马在亥，寅午戌年马在申，亥卯未年马在巳",
+      "finding": "An early Ziwei textual line explicitly places a related trine/year-branch shensha rule under a flow-year TaiSui chapter.",
+      "complete_jiangqian_twelve_member_ring_attested": false,
+      "physical_target_page_reviewed_in_this_batch": false
+    },
+    {
+      "source": "EXT-WANGTINGZHI-ANXING-RECEIVED-RING-TEXT",
+      "url": "https://pdfcoffee.com/--11875-pdf-free.html",
+      "authority_class": "MODERN_ZHONGZHOU_RECEIVED_MANUAL_NOT_EARLY_CLASSICAL_AUTHORITY",
+      "heading": "40 安将前诸星 年支",
+      "reading": "将星三合起旺地，攀鞍岁驿息神方，华盖劫灾天三煞，指背咸池月煞亡",
+      "finding": "The complete twelve-member order and trine-wang geometry are attested in a modern Zhongzhou-school received manual.",
+      "heading_alone_selects_birth_year_or_flow_year_exclusively": false
+    }
+  ],
+  "modern_temporal_layer_controls": [
+    {
+      "url": "https://www.ziweicn.com/show/3085.html",
+      "authority_class": "MODERN_DERIVED_RULE_SURFACE_NOT_HISTORICAL_AUTHORITY",
+      "finding": "Publishes the same complete sequence and an explicit 安流年将前诸星表 keyed by 流年支."
+    },
+    {
+      "url": "https://www.tangshifu.cn/ziwei/17469.html",
+      "authority_class": "MODERN_DERIVED_RULE_SURFACE_NOT_HISTORICAL_AUTHORITY",
+      "finding": "Publishes the same complete sequence as 安生年将前十二星 keyed by 出生年支."
+    }
+  ],
+  "temporal_scope_adjudication": {
+    "natal_birth_year_application_attested_in_modern_received_practice": true,
+    "annual_target_year_application_attested_in_modern_received_practice": true,
+    "early_ziwei_flow_year_related_shensha_context_attested": true,
+    "early_complete_jiangqian_twelve_member_sequence_attested": false,
+    "natal_and_annual_are_mutually_exclusive_candidates": false,
+    "same_geometry_can_be_reapplied_with_different_year_branch_contexts": true,
+    "annual_runtime_productization_authorized": false,
+    "reason": "Temporal context is a separate input layer. Evidence supports preserving natal and annual applications separately, but does not close an edition-bound early complete twelve-member Jiangqian table or authorize silently converting the natal ring into a flow-year ring."
+  },
+  "runtime_boundary": {
+    "active_product_layer": "NATAL",
+    "generator": "WenmoDefaultRingGenerator.jiangqian",
+    "engine_caller": "ZiweiChartFoundation._generate_chart",
+    "runtime_year_branch_input": "structure.ziwei_birth_year_branch",
+    "ring_id": "RING.JIANGQIAN12",
+    "source_refs": [
+      "S01:ZZZA-PR-059",
+      "COMPAT:WENMO-CHARTDIFF-006"
+    ],
+    "annual_target_ring_materialized": false,
+    "runtime_behavior_changed": false,
+    "rule_set_changed": false,
+    "algorithm_version_changed": false,
+    "hash_payload_changed": false,
+    "candidate_selection_changed": false
+  },
+  "matrix_repair": {
+    "confirmed_new_provenance_defect": false,
+    "reason": "The existing HPA-ZIWEI-026 row already warned that annual-target presentation required a separately sourced temporal layer. Batch 12NX narrows the interpretation from apparent method competition to distinct temporal applications without treating the prior wording as a confirmed metadata defect.",
+    "status_changed": false
+  },
+  "accounting": {
+    "rows": 220,
+    "audited_rows": 220,
+    "current_missing_from_product": 10,
+    "provenance_defects_confirmed_before": 40,
+    "provenance_defects_confirmed_after": 40,
+    "provenance_defects_repaired_before": 40,
+    "provenance_defects_repaired_after": 40,
+    "source_insufficient_before": 11,
+    "source_insufficient_after": 11,
+    "chart_algorithm_defects": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0
+  },
+  "transmission_impact": {
+    "status": "NONE",
+    "reason": "The batch reuses already registered Jielan and modern Zhongzhou/derived public surfaces to narrow temporal scope; it establishes no new physical witness, copying relation or ancestry edge."
+  },
+  "next_gate": [
+    "12NY: audit HPA-ZMINOR-020 standalone Feilian identity collision without merging Boshi 飞廉, year-branch 蜚廉 or same-coordinate facts.",
+    "Keep HPA-ZIWEI-026 SOURCE_INSUFFICIENT until an edition-bound early complete Jiangqian twelve-member passage is directly closed."
+  ]
+}
