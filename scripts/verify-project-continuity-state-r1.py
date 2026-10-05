@@ -908,9 +908,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-UNRESOLVED-HISTORICAL-STATUS-PRIORITIZATION-NV",
     "BATCH-12-ZIWEI-ZI-WU-SHENZHU-FIRE-BELL-EVIDENCE-CLOSURE-NW",
     "BATCH-12-ZIWEI-JIANGQIAN-TEMPORAL-SOURCE-SCOPE-EVIDENCE-CLOSURE-NX",
+    "BATCH-12-ZIWEI-STANDALONE-FEILIAN-HISTORICAL-IDENTITY-CLOSURE-NY",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JIANGQIAN-TEMPORAL-SOURCE-SCOPE-EVIDENCE-CLOSURE-NX.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-STANDALONE-FEILIAN-HISTORICAL-IDENTITY-CLOSURE-NY.md"
 
 
 def fail(message: str) -> None:
@@ -16020,6 +16021,105 @@ def main() -> int:
         fail("Batch 12NX state version is not numeric")
     if schema12nx < (1, 392, 0):
         fail("Batch 12NX state version regressed below 1.392.0")
+
+    # Batch 12NY: close standalone Feilian historical geometry while preserving Boshi identity separation.
+    ny_path = ROOT / "docs/research/ZIWEI-STANDALONE-FEILIAN-HISTORICAL-IDENTITY-CLOSURE-R1.json"
+    ny_evidence_path = ROOT / "docs/research/evidence/batch-12ny/ziwei-standalone-feilian-historical-identity-evidence.json"
+    if not ny_path.is_file() or not ny_evidence_path.is_file():
+        fail("Batch 12NY research/evidence record missing")
+    ny = json.loads(ny_path.read_text(encoding="utf-8"))
+    ny_evidence = json.loads(ny_evidence_path.read_text(encoding="utf-8"))
+    ny_id = "BATCH-12-ZIWEI-STANDALONE-FEILIAN-HISTORICAL-IDENTITY-CLOSURE-NY"
+    if ny.get("batch_id") != ny_id or ny.get("prior_batch_id") != nx_id:
+        fail("Batch 12NY chronology drift")
+    if ny_id in rule_batches:
+        fail("Batch 12NY evidence closure must not be enrolled as a supplemental rule-audit batch")
+    if ny.get("batch_classification") != "POST_AUDIT_EVIDENCE_CLOSURE_NOT_SUPPLEMENTAL_RULE_AUDIT":
+        fail("Batch 12NY batch classification drift")
+    if ny.get("target_rule_ids") != ["HPA-ZMINOR-020"] or ny.get("target_status_after") != "HISTORICALLY_SUPPORTED":
+        fail("Batch 12NY target/status drift")
+    row20_ny = next((r for r in matrix["rows"] if r["rule_id"] == "HPA-ZMINOR-020"), None)
+    if row20_ny is None or row20_ny.get("audit_status") != "HISTORICALLY_SUPPORTED":
+        fail("Batch 12NY HPA-ZMINOR-020 status drift")
+    if row20_ny.get("evidence_closure_batch") != ny_id or row20_ny.get("evidence_closure_status") != "STANDALONE_GEOMETRY_HISTORICALLY_CLOSED_ZIWEI_ADOPTION_PATH_OPEN_BOSHI_IDENTITY_SEPARATED":
+        fail("Batch 12NY Matrix closure binding drift")
+    ident_ny = row20_ny.get("identity_reconciliation", {})
+    if ident_ny.get("standalone_entity_id") != "STAR.FEILIAN" or ident_ny.get("boshi_member_id") != "RING.BOSHI12.FEILIAN":
+        fail("Batch 12NY identity binding drift")
+    if ident_ny.get("same_mechanical_rule") is not False or ident_ny.get("collision_implies_identity") is not False or ident_ny.get("runtime_changed") is not False:
+        fail("Batch 12NY identity firewall drift")
+    if ident_ny.get("legal_jiazi_coordinate_collision_count") != 4 or ident_ny.get("collision_cases") != ["甲子", "乙丑", "庚午", "辛未"]:
+        fail("Batch 12NY coordinate-collision control drift")
+    closure_ny = ny.get("historical_geometry_closure", {})
+    if closure_ny.get("exact_match_count") != 12 or closure_ny.get("exact_match_total") != 12 or closure_ny.get("coordinate_reopen_required") is not False:
+        fail("Batch 12NY 12-of-12 historical geometry closure drift")
+    status_ny = ny.get("status_adjudication", {})
+    if status_ny.get("algorithm_reopen_authorized") is not False or status_ny.get("production_default_changed") is not False or status_ny.get("candidate_created") is not False:
+        fail("Batch 12NY no-reopen/default/candidate firewall drift")
+    earlier_ny = ny.get("earlier_citation_boundary", {})
+    if earlier_ny.get("lishimingyuan_explicitly_cites_guangshengli_for_feilian_table") is not True or earlier_ny.get("xingli_kaoyuan_explicitly_cites_guangshengli_for_feilian_table") is not True:
+        fail("Batch 12NY Guangshengli citation bridge drift")
+    if earlier_ny.get("exact_identity_between_cited_guangshengli_recension_and_songshi_bibliographic_item") != "UNRESOLVED" or earlier_ny.get("direct_surviving_guangshengli_rule_text_reviewed") is not False:
+        fail("Batch 12NY Guangshengli recension firewall drift")
+    accounting_ny = ny.get("accounting", {})
+    if accounting_ny.get("source_insufficient_after") != 10 or accounting_ny.get("historically_supported_after") != 95:
+        fail("Batch 12NY status accounting drift")
+    if accounting_ny.get("provenance_defects_confirmed_after") != 40 or accounting_ny.get("provenance_defects_repaired_after") != 40:
+        fail("Batch 12NY provenance accounting drift")
+    if audit_summary.get("confirmed_provenance_metadata_defect_count", 0) < 40 or audit_summary.get("repaired_provenance_metadata_defect_count", 0) < 40:
+        fail("Batch 12NY Matrix provenance accounting must retain at least 40/40")
+    if audit_state.get("confirmed_provenance_metadata_defect_count", 0) < 40 or audit_state.get("repaired_provenance_metadata_defect_count", 0) < 40:
+        fail("Batch 12NY state provenance accounting must retain at least 40/40")
+    controls_ny = ny_evidence.get("historical_controls", {})
+    for key in ("lishimingyuan_public_transcription_contains_guangshengli_feilian_table", "xingli_kaoyuan_1713_received_text_contains_same_table", "xieji_bianfang_received_text_contains_same_table_and_mechanical_gloss", "songshi_bibliography_records_miao_rui_xin_shan_ding_guangshengli_two_juan"):
+        if controls_ny.get(key) is not True:
+            fail(f"Batch 12NY historical positive control drift: {key}")
+    for key in ("exact_guangshengli_recension_identity_closed", "direct_surviving_guangshengli_rule_text_reviewed"):
+        if controls_ny.get(key) is not False:
+            fail(f"Batch 12NY historical non-closure drift: {key}")
+    mechanical_ny = ny_evidence.get("mechanical_comparison", {})
+    if mechanical_ny.get("year_branch_values_checked") != 12 or mechanical_ny.get("year_branch_values_matched") != 12:
+        fail("Batch 12NY runtime/source table replay drift")
+    if mechanical_ny.get("legal_jiazi_checked") != 60 or mechanical_ny.get("same_coordinate_cases") != 4 or mechanical_ny.get("same_coordinate_proves_identity") is not False:
+        fail("Batch 12NY Jiazi identity-collision replay drift")
+    registry_ny = json.loads((ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json").read_text(encoding="utf-8"))
+    registry_ids_ny = {row.get("source_id") for row in registry_ny.get("sources", ())}
+    for source_id in ("EXT-SHIDIAN-LISHIMINGYUAN-FEILIAN", "EXT-CTEXT-XINGLI-KAOYUAN-FEILIAN", "EXT-WIKISOURCE-XIEJI-BIANFANG-FEILIAN", "EXT-WIKISOURCE-SONGSHI-GUANGSHENGLI-BIBLIOGRAPHY"):
+        if source_id not in registry_ids_ny:
+            fail(f"Batch 12NY external source registry binding missing: {source_id}")
+    genealogy_ny = json.loads((ROOT / "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json").read_text(encoding="utf-8"))
+    genealogy_node_ids_ny = {row.get("node_id") for row in genealogy_ny.get("nodes", ())}
+    for node_id in ("RULE-FAMILY-FEILIAN-YEAR-BRANCH", "RULE-FAMILY-ZIWEI-BOSHI-FEILIAN", "SOURCE-FAMILY-GUANGSHENGLI-CITED-FEILIAN"):
+        if node_id not in genealogy_node_ids_ny:
+            fail(f"Batch 12NY genealogy node missing: {node_id}")
+    edge_ids_ny = {row.get("edge_id") for row in genealogy_ny.get("edges", ())}
+    for edge_id in ("TG-E0117", "TG-E0118", "TG-E0119", "TG-E0120", "TG-E0121", "TG-E0122", "TG-E0123", "TG-E0124"):
+        if edge_id not in edge_ids_ny:
+            fail(f"Batch 12NY genealogy edge missing: {edge_id}")
+    nonedge_ny = next((row for row in genealogy_ny.get("explicit_non_edges", ()) if row.get("from") == "RULE-FAMILY-FEILIAN-YEAR-BRANCH" and row.get("relation") == "SAME_MECHANICAL_RULE_AS" and row.get("to") == "RULE-FAMILY-ZIWEI-BOSHI-FEILIAN"), None)
+    if nonedge_ny is None or nonedge_ny.get("status") != "DISPROVED":
+        fail("Batch 12NY Feilian non-identity graph firewall missing")
+    minor_text_ny = (ROOT / "src/fortune_training/ziwei_chart/minor_stars.py").read_text(encoding="utf-8")
+    for phrase in ('"子": "申"', '"丑": "酉"', '"寅": "戌"', '"酉": "亥"', '"戌": "子"', '"亥": "丑"', '_branch_placement("STAR.FEILIAN", "蜚廉", feilian'):
+        if phrase not in minor_text_ny:
+            fail(f"Batch 12NY standalone Feilian runtime geometry missing: {phrase}")
+    rings_text_ny = (ROOT / "src/fortune_training/ziwei_chart/rings.py").read_text(encoding="utf-8")
+    if '("ZOUSHU", "奏书"),\n    ("FEILIAN", "飞廉"),\n    ("XISHEN", "喜神"),' not in rings_text_ny:
+        fail("Batch 12NY Boshi Feilian ordinal identity drift")
+    adj_ny = ny_evidence.get("adjudication", {})
+    if adj_ny.get("row_status_after") != "HISTORICALLY_SUPPORTED" or adj_ny.get("historical_support_scope_limited_to_geometry_and_year_deity_identity") is not True:
+        fail("Batch 12NY evidence adjudication drift")
+    for key in ("ziwei_adoption_lineage_closed", "boshi_identity_merged", "runtime_behavior_changed", "algorithm_reopen", "candidate_selection_changed", "provenance_defect_count_changed"):
+        if adj_ny.get(key) is not False:
+            fail(f"Batch 12NY evidence firewall drift: {key}")
+    if ny.get("transmission_impact", {}).get("status") != "GRAPH_UPDATE_REQUIRED":
+        fail("Batch 12NY transmission impact drift")
+    try:
+        schema12ny = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12NY state version is not numeric")
+    if schema12ny < (1, 393, 0):
+        fail("Batch 12NY state version regressed below 1.393.0")
 
     try:
         schema12ns = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
