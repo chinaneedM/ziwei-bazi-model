@@ -186,7 +186,7 @@ class ZiweiFourTransformationCandidateProductizationR1Tests(unittest.TestCase):
 
     def test_workbench_version_bumped_without_legacy_health_change(self) -> None:
         self.assertEqual(
-            "CombinedChartWorkbenchLocalApp/1.14",
+            "CombinedChartWorkbenchLocalApp/1.15",
             _WorkbenchHandler.server_version,
         )
         health = self.app.health()
