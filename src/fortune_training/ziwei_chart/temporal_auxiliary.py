@@ -53,6 +53,17 @@ TEMPORAL_TIANMA_ALGORITHM_VERSION = "1.0.0"
 LIMIT_TIANMA_METHOD_ID = "S10-LIMIT-PALACE-BRANCH-TIANMA-CASE-R1"
 ANNUAL_TIANMA_METHOD_ID = "S10-ANNUAL-BRANCH-TIANMA-CASE-R1"
 TIANMA_SELECTION_STATUS = "CASE_METHOD_CANDIDATE_PRESERVED_NO_SELECTION"
+TEMPORAL_YUEDE_RULE_ID = "RECEIVED-FULLBOOK-ANNUAL-YUEDE-CANDIDATE-R1"
+TEMPORAL_YUEDE_GENERATOR_ID = "ZIWEI-ANNUAL-YUEDE-RECEIVED-FULLBOOK-CANDIDATE-V1"
+TEMPORAL_YUEDE_ALGORITHM_VERSION = "1.0.0"
+ANNUAL_YUEDE_METHOD_ID = "RECEIVED-FULLBOOK-ANNUAL-YUEDE-ZI-START-R1"
+YUEDE_SELECTION_STATUS = "SOURCE_SCOPED_CANDIDATE_PRESERVED_NO_SELECTION"
+YUEDE_ENTITY_IDS = ("STAR.YUEDE",)
+YUEDE_SOURCE_REFS = (
+    "EXT-ZIWEI-QUANSHU-RECEIVED",
+    "EXT-WIKISOURCE-ZWDSQS-V2",
+    "S01:ZZQS-A-1944",
+)
 
 
 # S10:ZZZA-A-1101 / S10:ZZZA-A-1102. The source table intentionally has no
@@ -399,6 +410,89 @@ class TemporalAuxiliaryGenerator:
             context_id=context_id,
             entity_ids=TIANMA_ENTITY_IDS,
             selection_status=TIANMA_SELECTION_STATUS,
+            method_candidates=(method,),
+            source_refs=source_refs,
+            fact_hash="",
+            computation_hash="",
+        )
+        fact_hash, computation_hash = temporal_auxiliary_candidate_set_hashes(
+            provisional_set
+        )
+        return replace(
+            provisional_set,
+            fact_hash=fact_hash,
+            computation_hash=computation_hash,
+        )
+
+    @classmethod
+    def annual_yuede_candidate_set(
+        cls,
+        source_branch: str,
+        *,
+        source_stem: str,
+        source_layer: str,
+        context_id: str,
+        temporal_source_refs: tuple[str, ...],
+    ) -> TemporalAuxiliaryCandidateSet:
+        """Preserve received-Fullbook 流年月德 without changing natal 月德.
+
+        《紫微斗数全书》 says 月德从子上起子，顺数至流年太岁上是也,
+        so the annual source branch maps directly to the same target branch.
+        This is an unselected annual candidate, not authority to rewrite the
+        natal STAR.YUEDE rule or to infer a universal historical winner.
+        """
+        if source_layer != "ANNUAL":
+            raise ValueError(
+                "received-Fullbook YueDe candidate is scoped to ANNUAL only"
+            )
+        try:
+            target_index = BRANCH_TO_INDEX[source_branch]
+        except KeyError as exc:
+            raise ValueError(
+                f"unsupported annual source branch for YueDe: {source_branch}"
+            ) from exc
+
+        candidate_id = f"{context_id}:YUEDE:{ANNUAL_YUEDE_METHOD_ID}"
+        source_refs = temporal_source_refs + YUEDE_SOURCE_REFS
+        activation = TemporalAuxiliaryActivation(
+            activation_id=f"{candidate_id}:STAR.YUEDE",
+            entity_id="STAR.YUEDE",
+            display_name="月德",
+            target_address=address(target_index),
+            source_layer=source_layer,
+            source_stem=source_stem,
+            context_id=context_id,
+            rule_id=TEMPORAL_YUEDE_RULE_ID,
+            generator_id=TEMPORAL_YUEDE_GENERATOR_ID,
+            algorithm_version=TEMPORAL_YUEDE_ALGORITHM_VERSION,
+            source_refs=source_refs,
+        )
+        provisional_method = TemporalAuxiliaryMethodCandidate(
+            candidate_id=candidate_id,
+            method_id=ANNUAL_YUEDE_METHOD_ID,
+            authority_status="RECEIVED_FULLBOOK_ANNUAL_SOURCE_SCOPED_METHOD",
+            activations=(activation,),
+            source_refs=source_refs,
+            fact_hash="",
+            computation_hash="",
+        )
+        method_fact_hash, method_computation_hash = (
+            temporal_auxiliary_method_candidate_hashes(provisional_method)
+        )
+        method = replace(
+            provisional_method,
+            fact_hash=method_fact_hash,
+            computation_hash=method_computation_hash,
+        )
+        provisional_set = TemporalAuxiliaryCandidateSet(
+            candidate_set_id=f"{context_id}:YUEDE:CANDIDATE_SET:{ANNUAL_YUEDE_METHOD_ID}",
+            source_layer=source_layer,
+            source_stem=source_stem,
+            source_basis_type="BRANCH",
+            source_basis_value=source_branch,
+            context_id=context_id,
+            entity_ids=YUEDE_ENTITY_IDS,
+            selection_status=YUEDE_SELECTION_STATUS,
             method_candidates=(method,),
             source_refs=source_refs,
             fact_hash="",
