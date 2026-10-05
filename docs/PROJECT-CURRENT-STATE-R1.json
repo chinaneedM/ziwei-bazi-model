@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.408.0",
+  "schema_version": "1.409.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -489,9 +489,10 @@
       "BATCH-12-ZIWEI-FOUR-TRANSFORMATION-WHOLE-TABLE-CANDIDATE-PRODUCTIZATION-OK",
       "BATCH-12-REMAINING-PRODUCT-GAP-REPRIORITIZATION-OL",
       "BATCH-12-ZIWEI-JIELAN-DIGNITY-SOURCE-LEXEME-CANDIDATE-OM",
-      "BATCH-12-ZIWEI-JIELAN-DIGNITY-CH69-CH70-CELL-CROSS-COLLATION-ON"
+      "BATCH-12-ZIWEI-JIELAN-DIGNITY-CH69-CH70-CELL-CROSS-COLLATION-ON",
+      "BATCH-12-ZIWEI-JIELAN-DIGNITY-CANDIDATE-PRODUCTIZATION-OO"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JIELAN-DIGNITY-CH69-CH70-CELL-CROSS-COLLATION-ON.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JIELAN-DIGNITY-CANDIDATE-PRODUCTIZATION-OO.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -2372,10 +2373,17 @@
       "CH70 anomalies remain intact: 紫微午=庙+平, 巨门丑=局+陷, 天机巳=UNSTATED. CH69 never fills or overwrites CH70.",
       "HPA-ZIWEI-018 remains MISSING_FROM_PRODUCT only because a read-only candidate API/Workbench surface is still absent; production OPERATIONAL-ZIWEI-DIGNITY-R4 remains untouched.",
       "Matrix remains 222/222 audited / 6 current missing; candidate extensions 14; registries/runtime resolvers 5/5; provenance defects 43/43.",
-      "12OO: expose the reconciled Jielan dignity source-lexeme candidate through a read-only product API/Workbench surface without grade coercion."
+      "12OO: expose the reconciled Jielan dignity source-lexeme candidate through a read-only product API/Workbench surface without grade coercion.",
+      "Batch 12OO completed: HPA-ZIWEI-018 Jielan historical dignity candidate now has an explicit read-only API and Workbench surface.",
+      "The API returns 300 CH70 source-lexeme rows plus 300 CH69↔CH70 cross-collation rows, exact source chart hashes, registry/runtime/cross-collation hashes and frozen relation counts.",
+      "Browser rendering consumes backend rows only; source tables, cross-collation rules and production dignity grade formulas are absent from browser code.",
+      "The non-selection firewall remains intact: production_grade_mapping_present=false, CH69 does not fill CH70, no winner selector exists and production OPERATIONAL-ZIWEI-DIGNITY-R4 remains unchanged.",
+      "HPA-ZIWEI-018 changes MISSING_FROM_PRODUCT -> HISTORICALLY_SUPPORTED because the audited historical candidate is now fully represented and read-only visible, not because a new historical winner was selected.",
+      "Matrix remains 222/222 audited; HISTORICALLY_SUPPORTED=104; current MISSING_FROM_PRODUCT=5; candidate extensions 14; registries/runtime resolvers 5/5; provenance defects 43/43.",
+      "12OP: audit HPA-ZT-015 leap-month day-one daily-origin geometry / historical candidate closure."
     ],
     "historical_candidate_extension_count": 14,
-    "current_missing_from_product_row_count": 6
+    "current_missing_from_product_row_count": 5
   },
   "new_chat_bootstrap_order": [
     "read live GitHub branch HEAD and tree SHA",
