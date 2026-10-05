@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.382.0",
+  "schema_version": "1.383.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -38,9 +38,9 @@
     "matrix_md": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.md",
     "external_source_registry": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json",
     "row_count": 220,
-    "audited_row_count": 218,
-    "confirmed_provenance_metadata_defect_count": 33,
-    "repaired_provenance_metadata_defect_count": 33,
+    "audited_row_count": 219,
+    "confirmed_provenance_metadata_defect_count": 34,
+    "repaired_provenance_metadata_defect_count": 34,
     "historical_candidate_registry_count": 3,
     "historical_candidate_runtime_resolver_count": 3,
     "identified_missing_candidate_family_count": 14,
@@ -463,9 +463,10 @@
       "BATCH-12-COMBINED-INDEPENDENT-DATE-CALENDAR-POLICY-PRESERVATION-AUDIT-NK",
       "BATCH-12-COMBINED-CANDIDATE-LINEAGE-PRESERVATION-AUDIT-NL",
       "BATCH-12-COMBINED-SHARED-TARGET-ZIWEI-PROJECTION-AUDIT-NM",
-      "BATCH-12-COMBINED-TARGET-FLOW-FUSION-R2-AUDIT-NN"
+      "BATCH-12-COMBINED-TARGET-FLOW-FUSION-R2-AUDIT-NN",
+      "BATCH-12-COMBINED-RESOLVED-PROFILE-RULE-ALGORITHM-LINEAGE-AUDIT-NO"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-COMBINED-TARGET-FLOW-FUSION-R2-AUDIT-NN.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-COMBINED-RESOLVED-PROFILE-RULE-ALGORITHM-LINEAGE-AUDIT-NO.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -2171,7 +2172,14 @@
       "R2 stores Ziwei selector candidate count plus selector fact/computation hashes; the complete selector object remains upstream/returned separately and its current historical candidate families are transitively bound by those hashes and full replay rather than reinterpreted by R2.",
       "PROV-DEFECT-033 repaired forward-only: HPA-COMB-006 retained PENDING_VERBATIM_EXTRACTION and document-only provenance despite the live composer/local endpoint/Workbench/replay contract.",
       "No runtime/schema/hash/status-rule/candidate change: Matrix 220 rows / 218 audited / 10 missing; provenance defects 33/33; chart algorithm defects / reopens / candidate collapses 0.",
-      "12NO: audit HPA-COMB-007 Resolved profile/rule/algorithm lineage; distinguish software provenance identity from historical school/source lineage."
+      "12NO: audit HPA-COMB-007 Resolved profile/rule/algorithm lineage; distinguish software provenance identity from historical school/source lineage.",
+      "Batch 12NO completed: HPA-COMB-007 Resolved profile/rule/algorithm lineage audited as MODERN_COMPATIBILITY_ONLY.",
+      "Combined runtime lineage is a reproducibility namespace: combined + six resolved subsystem profiles are validated; ManifestHash directly binds profile identities while subsystem validators/replay bind the released RuleSet/Algorithm snapshot.",
+      "Historical source/edition/school/transmission identity remains a separate evidence namespace governed by the Historical Provenance Matrix, external source registry and Transmission Genealogy Graph; runtime profile identity is not historical authority.",
+      "Compatibility profiles remain explicitly compatibility-scoped (for example, third-party compatibility witness metadata) and do not become classical authority merely because they have stable Profile/RuleSet/Algorithm IDs.",
+      "PROV-DEFECT-034 repaired forward-only: HPA-COMB-007 proposed extending historical edition/school IDs into runtime lineage, conflating software computation provenance with historical transmission provenance; the repair requires explicit cross-reference rather than namespace merger.",
+      "No runtime/profile/schema/hash/rule/candidate/algorithm change: Matrix 220 rows / 219 audited / 10 missing; provenance defects 34/34; chart algorithm defects / reopens / candidate collapses 0.",
+      "12NP: audit HPA-COMB-008 Fact/computation/view/manifest hashes; separate integrity/hash-domain semantics from historical evidence authority and confirm replay/tamper boundaries."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10

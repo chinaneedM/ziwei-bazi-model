@@ -80,7 +80,7 @@
       "candidate/profile rules": 2,
       "provenance / hashes / lineage": 2
     },
-    "audited_row_count": 218
+    "audited_row_count": 219
   },
   "rows": [
     {
@@ -3273,20 +3273,29 @@
       "system": "COMBINED",
       "module": "provenance / hashes / lineage",
       "rule_or_field": "Resolved profile/rule/algorithm lineage",
-      "current_implementation": "Manifest binds combined and subsystem profile identities; validators bind rule/algorithm versions.",
-      "current_profile": "ZIWEI-BAZI-COMBINED-LOCAL-SHELL-V1-R1",
-      "primary_source": "software provenance architecture",
-      "source_quote": "PENDING_VERBATIM_EXTRACTION",
-      "source_quote_location": "docs/COMBINED-RESOLVED-PROFILE-LINEAGE-R1.md",
-      "historical_period": "MODERN",
-      "later_witnesses": "N/A",
-      "school_attribution": "MODERN_SOFTWARE_ARCHITECTURE",
-      "competing_methods": [],
-      "current_implementation_match": "MATCHES_DECLARED_LINEAGE_SCOPE",
-      "confidence": "HIGH",
+      "current_implementation": "CombinedChartApplicationResolution carries the combined profile plus six resolved subsystem profiles. combined_manifest_payload() directly binds the combined profile identity/algorithm/semantics and each subsystem profile_id/profile_version, while validate_combined_resolution() revalidates profile contracts, subsystem bundle replay/equality bindings, shared-time/candidate lineage and ManifestHash. Each resolved profile validator separately constrains supported RuleSet/Algorithm identities and versions; the Workbench renders only the validated backend snapshot.",
+      "current_profile": "ZIWEI-BAZI-COMBINED-LOCAL-SHELL-V1-R1 + resolved subsystem profiles",
+      "primary_source": "Modern deterministic software provenance architecture; historical source/edition/school authority remains in the Historical Provenance Matrix, external-source registry and Transmission Genealogy Graph rather than the runtime profile namespace.",
+      "source_quote": "Profile identity means only: this exact resolved chart used this versioned rule snapshot.",
+      "source_quote_location": "docs/COMBINED-RESOLVED-PROFILE-LINEAGE-R1.md Semantic boundary; src/fortune_training/combined_chart_application/service.py combined_manifest_payload/validate_combined_resolution; subsystem profile validators; src/fortune_training/combined_chart_application/resolved_profile_lineage_assets.py; focused product/workbench/manifest tests",
+      "historical_period": "MODERN_SOFTWARE_PROVENANCE_ARCHITECTURE",
+      "later_witnesses": "Historical Provenance Matrix and Transmission Genealogy Graph remain separate rule-centric and lineage-centric research layers; Workbench 1.12 exposes the validated computation snapshot without browser-side registry or doctrinal selection.",
+      "school_attribution": "MODERN_SOFTWARE_ARCHITECTURE_NOT_HISTORICAL_SCHOOL_LINEAGE",
+      "competing_methods": [
+        "RUNTIME_PROFILE_IDENTITY_EQUALS_HISTORICAL_EDITION_OR_SCHOOL_AUTHORITY",
+        "INJECT_HISTORICAL_EDITION_SCHOOL_IDS_INTO_RUNTIME_PROFILE_NAMESPACE",
+        "KEEP_COMPUTATION_LINEAGE_AND_HISTORICAL_PROVENANCE_NAMESPACES_SEPARATE_WITH_EXPLICIT_CROSS_REFERENCES"
+      ],
+      "current_implementation_match": "EXACT_FOR_SOFTWARE_LINEAGE: resolved profiles and validators bind reproducible computation identities; compatibility profiles remain explicitly compatibility-scoped; browser rendering is read-only and non-arbitrating. Historical text/edition/school lineage is intentionally not encoded as runtime profile authority.",
+      "confidence": "HIGH_FOR_RUNTIME_PROFILE_RULE_ALGORITHM_PROVENANCE; HISTORICAL_SOURCE_SCHOOL_AUTHORITY_REQUIRES_SEPARATE_EVIDENCE_GRAPH",
       "audit_status": "MODERN_COMPATIBILITY_ONLY",
-      "proposed_action": "Extend lineage to historical source edition/school IDs during this audit stage.",
-      "algorithm_reopen_authorized": false
+      "proposed_action": "Do not merge historical edition/school identity into runtime Profile/RuleSet/Algorithm IDs. Keep software computation lineage reproducible in resolved profiles/ManifestHash, and connect historically audited rules to source editions, schools and transmission nodes through explicit Matrix/source-registry/Transmission-Graph cross-references. A compatibility profile must remain a compatibility witness unless separately supported by historical evidence.",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-12-COMBINED-RESOLVED-PROFILE-RULE-ALGORITHM-LINEAGE-AUDIT-NO",
+      "defect_id": "PROV-DEFECT-034",
+      "defect_type": "HPA_COMB_007_PROPOSED_ACTION_CONFLATED_RUNTIME_COMPUTATION_LINEAGE_WITH_HISTORICAL_SOURCE_EDITION_SCHOOL_LINEAGE",
+      "repair_status": "REPAIRED_IN_BATCH_12NO_FORWARD_ONLY",
+      "repair_action": "Replaced PENDING_VERBATIM_EXTRACTION with the explicit semantic-boundary statement and corrected the proposed action: runtime profile/rule/algorithm identity remains software provenance; historical edition/school/transmission identity remains evidence-scoped in the historical Matrix/source registry/graph and is linked by cross-reference rather than merged into runtime IDs. No runtime, profile, schema, hash, rule, candidate, or algorithm change."
     },
     {
       "rule_id": "HPA-COMB-008",
@@ -7351,12 +7360,13 @@
     "HPA-COMB-002",
     "HPA-COMB-003",
     "HPA-COMB-005",
-    "HPA-COMB-006"
+    "HPA-COMB-006",
+    "HPA-COMB-007"
   ],
   "audit_summary": {
     "confirmed_chart_algorithm_defect_count": 0,
-    "confirmed_provenance_metadata_defect_count": 33,
-    "repaired_provenance_metadata_defect_count": 33,
+    "confirmed_provenance_metadata_defect_count": 34,
+    "repaired_provenance_metadata_defect_count": 34,
     "algorithm_reopen_count": 0,
     "candidate_collapse_count": 0,
     "historical_candidate_extension_count": 6,
@@ -7396,6 +7406,7 @@
     "BATCH-12-COMBINED-INDEPENDENT-DATE-CALENDAR-POLICY-PRESERVATION-AUDIT-NK",
     "BATCH-12-COMBINED-CANDIDATE-LINEAGE-PRESERVATION-AUDIT-NL",
     "BATCH-12-COMBINED-SHARED-TARGET-ZIWEI-PROJECTION-AUDIT-NM",
-    "BATCH-12-COMBINED-TARGET-FLOW-FUSION-R2-AUDIT-NN"
+    "BATCH-12-COMBINED-TARGET-FLOW-FUSION-R2-AUDIT-NN",
+    "BATCH-12-COMBINED-RESOLVED-PROFILE-RULE-ALGORITHM-LINEAGE-AUDIT-NO"
   ]
 }

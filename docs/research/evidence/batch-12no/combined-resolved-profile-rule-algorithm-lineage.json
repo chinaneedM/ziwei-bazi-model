@@ -1,0 +1,71 @@
+{
+  "schema": "COMBINED-RESOLVED-PROFILE-RULE-ALGORITHM-LINEAGE-EVIDENCE-R1",
+  "schema_version": "1.0.0",
+  "parent_head": "3b483c006c93c55bc2ebcd02367081916e06816b",
+  "implementation": {
+    "combined_service_path": "src/fortune_training/combined_chart_application/service.py",
+    "combined_service_blob_sha": "6fc08e88ea89f171da26455248b20e2a6ee296a4",
+    "combined_profile_path": "src/fortune_training/combined_chart_application/profile.py",
+    "combined_profile_blob_sha": "b938ac622b89404eaaffed938d8c563b34bef188",
+    "ziwei_profile_path": "src/fortune_training/ziwei_chart/profile.py",
+    "ziwei_profile_blob_sha": "c7481cd8a3d5723a45ddf6028cd12b6355140104",
+    "bazi_natal_profile_path": "src/fortune_training/bazi_chart/profile.py",
+    "bazi_natal_profile_blob_sha": "18660c695cce881be34f9ba2aa5839590e4abb89",
+    "bazi_temporal_profile_path": "src/fortune_training/bazi_temporal/profile.py",
+    "bazi_temporal_profile_blob_sha": "894b610576438b5713ceae6632fab4c37d636d80",
+    "ziwei_application_profile_path": "src/fortune_training/ziwei_application/profile.py",
+    "ziwei_application_profile_blob_sha": "eb1a651f7c02ac8e37f4ade753bf81e602644f9a",
+    "bazi_application_profile_path": "src/fortune_training/bazi_application/profile.py",
+    "bazi_application_profile_blob_sha": "64f73f3399467f9865ee002a5f24c2544f99c4ce",
+    "local_app_path": "src/fortune_training/combined_chart_application/local_app.py",
+    "local_app_blob_sha": "8ef6d471499018b5dc027cf8acf29b3e118233cc",
+    "workbench_asset_path": "src/fortune_training/combined_chart_application/resolved_profile_lineage_assets.py",
+    "workbench_asset_blob_sha": "a2340284dfdda6f2f1b8259e4b3e1b021647cddd",
+    "manifest_schema_path": "schemas/ziwei-bazi-combined-manifest-v1.schema.json",
+    "manifest_schema_blob_sha": "ef4d83822025980f85e1df83b059c9ef2ebf9e0e",
+    "contract_doc": "docs/COMBINED-RESOLVED-PROFILE-LINEAGE-R1.md",
+    "contract_doc_blob_sha": "0f08f024446eaa6252f7ba8bc6efbcdfeb457b96"
+  },
+  "focused_regressions": {
+    "product_closure_test": "tests/test_combined_resolved_profile_lineage_product_closure_r1.py",
+    "product_closure_test_blob_sha": "30172c89b298aa1b359a01cee4b303be6f8b54dd",
+    "workbench_test": "tests/test_resolved_profile_lineage_workbench_r1.py",
+    "workbench_test_blob_sha": "6cb883abc25f883cf5b3f0a2cca5c4ddbd62009e",
+    "manifest_schema_test": "tests/test_combined_chart_manifest_schema_v1.py",
+    "manifest_schema_test_blob_sha": "c2c18c5bb151c687b2bdd8be54e532ec088d9717",
+    "field_parity_matrix_path": "docs/FUSION-CHART-FIELD-PARITY-MATRIX-R1.json",
+    "field_parity_matrix_blob_sha": "eeb1021ff846b6cf48cf7f191d38018433770b9e"
+  },
+  "research_governance": {
+    "research_authority_policy_path": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md",
+    "research_authority_policy_blob_sha": "284b8db97271815f08cbc98a318ff6e9a41bcc08",
+    "transmission_protocol_path": "docs/TRANSMISSION-GENEALOGY-PROTOCOL-R1.md",
+    "transmission_protocol_blob_sha": "fb165969d31f7ec876cdb912e1075bdff696d294",
+    "tianwen_charter_path": "docs/TIANWEN-SYSTEM-CHARTER-R1.md",
+    "tianwen_charter_blob_sha": "0aba4f4068588a4a3e4285b1563b32f5d6b7c853"
+  },
+  "observed_contract": {
+    "manifest_direct_profile_binding": true,
+    "validators_restrict_rule_algorithm_versions": true,
+    "compatibility_source_class_preserved": true,
+    "workbench_requires_integrity_pass": true,
+    "browser_hardcoded_profile_registry_absent": true,
+    "browser_doctrinal_selection_absent": true,
+    "historical_lineage_not_runtime_profile_authority": true
+  },
+  "provenance_repair": {
+    "defect_id": "PROV-DEFECT-034",
+    "before": "HPA-COMB-007 had PENDING_VERBATIM_EXTRACTION and proposed extending historical source edition/school IDs into runtime lineage.",
+    "after": "Use the explicit semantic-boundary quote and keep software computation lineage separate from historical source/edition/school/transmission lineage, connected by explicit cross-references.",
+    "reason": "Historical governance requires source authority to be evidence-scoped by edition/transmission/school, while runtime Profile/RuleSet/Algorithm IDs identify reproducible software snapshots.",
+    "runtime_behavior_changed": false
+  },
+  "adjudication": {
+    "status": "MODERN_COMPATIBILITY_ONLY",
+    "algorithm_reopen_authorized": false,
+    "runtime_profile_change_authorized": false,
+    "candidate_change_authorized": false,
+    "historical_doctrine_claim_authorized": false,
+    "transmission_edge_created": false
+  }
+}

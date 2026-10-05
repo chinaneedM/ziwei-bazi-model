@@ -34,7 +34,7 @@ Every row carries:
 - proposed action;
 - explicit algorithm-reopen authorization, which is **false for every inventory row at creation**.
 
-The initial inventory contained **107 rule/field families**. Through Batch 12NN and explicit splitting of historically distinct candidate families, the current machine-readable inventory contains **220 rows**, with **218 audited rows**. It intentionally keeps unresolved source work explicit rather than converting uncertainty into a chart defect. The current audit ledger records **33 confirmed provenance metadata defects repaired forward-only at the provenance/hash-lineage layer, 0 chart algorithm defects, 0 algorithm reopens, 14 cumulatively identified missing candidate families, 10 rows currently `MISSING_FROM_PRODUCT`, 6 historical candidate extensions, 3 source-scoped historical candidate registries, and 3 runtime-resolver components**.
+The initial inventory contained **107 rule/field families**. Through Batch 12NO and explicit splitting of historically distinct candidate families, the current machine-readable inventory contains **220 rows**, with **219 audited rows**. It intentionally keeps unresolved source work explicit rather than converting uncertainty into a chart defect. The current audit ledger records **34 confirmed provenance metadata defects repaired forward-only at the provenance/hash-lineage layer, 0 chart algorithm defects, 0 algorithm reopens, 14 cumulatively identified missing candidate families, 10 rows currently `MISSING_FROM_PRODUCT`, 6 historical candidate extensions, 3 source-scoped historical candidate registries, and 3 runtime-resolver components**.
 
 ## Research-corpus authority
 
@@ -1507,3 +1507,18 @@ HPA-COMB-006 Combined Target Flow Fusion R2 is audited as **MODERN_COMPATIBILITY
 No runtime, schema, hash algorithm, status rule, candidate or subsystem computation changed. Matrix220/218/10; provenance33/33; chart algorithm defects/reopens/candidate collapses0. `transmission_impact=NONE`.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-COMBINED-TARGET-FLOW-FUSION-R2-AUDIT-NN.md`. Research record: `docs/research/COMBINED-TARGET-FLOW-FUSION-R2-AUDIT-R1.json`.
+
+
+## Progress — Batch 12NO
+
+HPA-COMB-007 Resolved profile / RuleSet / algorithm lineage is audited as **MODERN_COMPATIBILITY_ONLY**.
+
+The combined runtime lineage is a software reproducibility namespace: the combined profile plus six resolved subsystem profiles are carried by the validated resolution; `ManifestHash` directly binds profile identities, while profile validators and subsystem replay/profile equality checks bind the supported RuleSet/Algorithm snapshot. The Workbench renders only the backend-provided snapshot after integrity PASS and does not maintain a browser-side rule registry or choose a doctrinal winner.
+
+Historical source / edition / school / person / transmission identity remains in the Historical Provenance Matrix, external-source registry and Transmission Genealogy Graph. Those evidence namespaces should cross-reference runtime rule identities where warranted, but must not be merged into runtime Profile/RuleSet/Algorithm IDs.
+
+**PROV-DEFECT-034** repairs the prior `PENDING_VERBATIM_EXTRACTION` and the proposed action that would have conflated runtime computation lineage with historical source/edition/school lineage. Compatibility profiles remain compatibility witnesses unless independently supported by historical evidence.
+
+No runtime, profile, schema, hash, rule, candidate or algorithm changed. Matrix220/219/10; provenance34/34; chart algorithm defects/reopens/candidate collapses0. `transmission_impact=NONE`.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-COMBINED-RESOLVED-PROFILE-RULE-ALGORITHM-LINEAGE-AUDIT-NO.md`. Research record: `docs/research/COMBINED-RESOLVED-PROFILE-RULE-ALGORITHM-LINEAGE-AUDIT-R1.json`.

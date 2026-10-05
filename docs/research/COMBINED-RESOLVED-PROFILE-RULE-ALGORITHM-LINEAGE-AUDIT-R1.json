@@ -1,0 +1,76 @@
+{
+  "schema": "COMBINED-RESOLVED-PROFILE-RULE-ALGORITHM-LINEAGE-AUDIT-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-COMBINED-RESOLVED-PROFILE-RULE-ALGORITHM-LINEAGE-AUDIT-NO",
+  "prior_batch_id": "BATCH-12-COMBINED-TARGET-FLOW-FUSION-R2-AUDIT-NN",
+  "rule_id": "HPA-COMB-007",
+  "audit_status": "MODERN_COMPATIBILITY_ONLY",
+  "algorithm_reopen_authorized": false,
+  "software_lineage_contract": {
+    "combined_profile_carried": true,
+    "six_subsystem_profiles_carried": true,
+    "manifest_directly_binds_profile_id_version_pairs": true,
+    "combined_profile_algorithm_and_semantics_directly_bound": true,
+    "subsystem_bundle_hashes_bound": true,
+    "profile_validators_bind_supported_rule_algorithm_versions": true,
+    "subsystem_replay_and_profile_equality_binding": true,
+    "workbench_backend_snapshot_only": true,
+    "browser_parallel_profile_registry": false,
+    "browser_doctrine_winner_selection": false
+  },
+  "semantic_boundary": {
+    "profile_identity_means_versioned_computation_snapshot": true,
+    "profile_identity_means_historical_authority": false,
+    "compatibility_profile_promoted_to_classical_authority": false,
+    "historical_source_edition_school_ids_belong_to_runtime_profile_namespace": false,
+    "historical_provenance_layers": [
+      "Historical Provenance Matrix",
+      "external source registry",
+      "Transmission Genealogy Graph"
+    ],
+    "connection_model": "EXPLICIT_CROSS_REFERENCE_NOT_NAMESPACE_MERGER"
+  },
+  "policy_alignment": {
+    "modern_reference_software_is_compatibility_witness_only": true,
+    "historical_authority_scoped_by_edition_wording_transmission_school": true,
+    "matrix_is_rule_centric_ledger": true,
+    "genealogy_graph_is_lineage_centric_evidence_network": true,
+    "matrix_and_graph_cross_reference_but_do_not_replace_each_other": true
+  },
+  "provenance_repairs": [
+    {
+      "defect_id": "PROV-DEFECT-034",
+      "defect": "HPA_COMB_007_PROPOSED_ACTION_CONFLATED_RUNTIME_COMPUTATION_LINEAGE_WITH_HISTORICAL_SOURCE_EDITION_SCHOOL_LINEAGE",
+      "repair": "Keep runtime Profile/RuleSet/Algorithm identity as software provenance and link separately audited source/edition/school/transmission identities through Matrix/source-registry/graph cross-references. Replace PENDING_VERBATIM_EXTRACTION with the explicit semantic-boundary statement.",
+      "chart_algorithm_effect": false,
+      "runtime_profile_effect": false,
+      "schema_effect": false,
+      "hash_effect": false,
+      "candidate_effect": false
+    }
+  ],
+  "evidence": "docs/research/evidence/batch-12no/combined-resolved-profile-rule-algorithm-lineage.json",
+  "accounting": {
+    "rows_before": 220,
+    "rows_after": 220,
+    "audited_rows_before": 218,
+    "audited_rows_after": 219,
+    "current_missing_from_product_rows": 10,
+    "provenance_defects_confirmed_before": 33,
+    "provenance_defects_confirmed_after": 34,
+    "provenance_defects_repaired_before": 33,
+    "provenance_defects_repaired_after": 34,
+    "chart_algorithm_defects": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0,
+    "new_provenance_defects": 1
+  },
+  "transmission_impact": {
+    "status": "NONE",
+    "reason": "This batch clarifies the boundary between modern software computation provenance and historical transmission provenance; it creates no new historical lineage edge."
+  },
+  "next_gate": [
+    "12NP: audit HPA-COMB-008 Fact/computation/view/manifest hashes.",
+    "Separate integrity/hash-domain semantics from historical evidence authority and verify replay/tamper boundaries."
+  ]
+}

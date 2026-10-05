@@ -337,3 +337,14 @@ HPA-COMB-006 Combined Target Flow Fusion R2 is audited as **MODERN_COMPATIBILITY
 Matrix220/218/10, provenance33/33, chart algorithm defects/reopens/candidate collapses0. No runtime or candidate-selection change. `transmission_impact=NONE`.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-COMBINED-TARGET-FLOW-FUSION-R2-AUDIT-NN.md`. Research record: `docs/research/COMBINED-TARGET-FLOW-FUSION-R2-AUDIT-R1.json`.
+
+
+## Progress — Batch 12NO
+
+HPA-COMB-007 Resolved profile / RuleSet / algorithm lineage is audited as **MODERN_COMPATIBILITY_ONLY**. Runtime Profile/RuleSet/Algorithm identities remain reproducible software computation lineage; they are not historical source, edition, school or transmission authority.
+
+**PROV-DEFECT-034** corrects the prior proposal to merge historical edition/school IDs into runtime lineage. Historical authority remains evidence-scoped in the Historical Provenance Matrix, external-source registry and Transmission Genealogy Graph, with explicit cross-references rather than an ID-namespace merger.
+
+Matrix220/219/10, provenance34/34, chart algorithm defects/reopens/candidate collapses0. No runtime/profile/schema/hash/rule/candidate/algorithm change. `transmission_impact=NONE`.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-COMBINED-RESOLVED-PROFILE-RULE-ALGORITHM-LINEAGE-AUDIT-NO.md`. Research record: `docs/research/COMBINED-RESOLVED-PROFILE-RULE-ALGORITHM-LINEAGE-AUDIT-R1.json`.
