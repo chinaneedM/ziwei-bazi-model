@@ -46,11 +46,11 @@
     "row_count": 222,
     "status_counts": {
       "MODERN_COMPATIBILITY_ONLY": 50,
-      "HISTORICALLY_SUPPORTED": 102,
+      "HISTORICALLY_SUPPORTED": 103,
       "DISPUTED_MULTIPLE_CANDIDATES": 27,
       "SUPPORTED_BUT_SCHOOL_SPECIFIC": 24,
       "SOURCE_INSUFFICIENT": 11,
-      "MISSING_FROM_PRODUCT": 7,
+      "MISSING_FROM_PRODUCT": 6,
       "NOT_YET_FORMALIZED": 1
     },
     "module_counts": {
@@ -3364,8 +3364,8 @@
       "rule_id": "HPA-ZIWEI-014",
       "module": "四化",
       "rule_or_field": "Competing Four-Transformation table families",
-      "current_implementation": "Production activates only S08_CURRENT_40_ASSIGNMENT_R1. Jielan 1581 remains a complete source-scoped target-identical historical identity. Batch 12OJ additionally registers two genuinely divergent complete internal candidates: RECEIVED-FULLBOOK-SHIDIAN-V3-FOUR-TRANSFORMATION-R1 and ZHONGZHOU-WANGTINGZHI-FOUR-TRANSFORMATION-R1, both resolved only as whole-table PRESERVED_NOT_SELECTED families. No public candidate product surface is exposed yet.",
-      "current_profile": "S08_CURRENT_40_ASSIGNMENT_R1 production + Jielan 1581 source identity + ZIWEI-FOUR-TRANSFORMATION-HISTORICAL-CANDIDATES-R1@1.0.0 / ZIWEI-FOUR-TRANSFORMATION-SOURCE-SCOPED-CANDIDATE-RUNTIME-R1@1.0.0 internal whole-table candidates / PRESERVED_NOT_SELECTED",
+      "current_implementation": "Production remains S08_CURRENT_40_ASSIGNMENT_R1. The two divergent 12OJ whole-table candidates are now exported, profile-advertised and exposed through the read-only /api/ziwei-four-transformation-candidates Workbench surface. The endpoint returns both candidates simultaneously for the validated natal source stem; it accepts no winner selector and changes no production profile.",
+      "current_profile": "S08_CURRENT_40_ASSIGNMENT_R1 production + ZIWEI-FOUR-TRANSFORMATION-HISTORICAL-CANDIDATES-R1@1.0.0 / ZIWEI-FOUR-TRANSFORMATION-SOURCE-SCOPED-CANDIDATE-RUNTIME-R1@1.0.0 / ZIWEI-FOUR-TRANSFORMATION-HISTORICAL-CANDIDATE-API-R1@1.0.0 / PRESERVED_NOT_SELECTED",
       "primary_source": "EXT-ZIWEI-JIELAN-1581:CH23; EXT-SHIDIAN-ZWDSQS-FOUR-TRANSFORMATIONS; EXT-WANGTINGZHI-ZHONGZHOU-CHUJI with S01:ZZZA-A-0391..0395",
       "source_quote": "Jielan: 戊贪月弼机、庚日武阴同、壬梁紫左武. Shidian received Fullbook: 戊贪月弼机、庚日武同相、壬梁紫府武. Zhongzhou: 戊贪阴阳机、庚阳武府同、壬梁紫府武.",
       "source_quote_location": "EXT-ZIWEI-JIELAN-1581:CH23; EXT-SHIDIAN-ZWDSQS-FOUR-TRANSFORMATIONS; S01:ZZZA-A-0393..0395",
@@ -3377,17 +3377,17 @@
         "RECEIVED-FULLBOOK-SHIDIAN-V3-FOUR-TRANSFORMATION-R1 complete whole-table candidate",
         "ZHONGZHOU-WANGTINGZHI-FOUR-TRANSFORMATION-R1 complete whole-table candidate"
       ],
-      "current_implementation_match": "INTERNAL_WHOLE_TABLE_CANDIDATE_READINESS_CLOSED_BUT_PUBLIC_PRODUCT_GAP_REMAINS: two divergent complete source-scoped tables now have immutable registry/resolver identities and regression-tested cell-level-hybridization firewall; no public read-only table-family product surface exists yet.",
+      "current_implementation_match": "WHOLE_TABLE_CANDIDATE_PRODUCT_SURFACE_CLOSED_WITHOUT_SELECTION: both divergent complete source-scoped tables are deterministic, hash-bound and simultaneously inspectable; browser contains no table constants or cell formulas; production S08 remains unchanged.",
       "confidence": "HIGH_FOR_ALL_THREE_COMPLETE_TABLE_IDENTITIES_AND_DETERMINISTIC_REPLAY; MEDIUM_FOR_RECEIVED_FULLBOOK_RECENSION_GENERALIZATION_SO_SOURCE_SCOPE_IS_MANDATORY",
-      "audit_status": "MISSING_FROM_PRODUCT",
-      "proposed_action": "12OK: expose the two divergent whole-table candidates through a read-only source-scoped API/Workbench surface. Preserve whole-table identity, source refs, registry/runtime hashes and PRESERVED_NOT_SELECTED. Do not expose cell-level mixing, production selector or winner semantics.",
+      "audit_status": "HISTORICALLY_SUPPORTED",
+      "proposed_action": "Keep all three table identities separate. Preserve Shidian received-Fullbook and Wang Tingzhi Zhongzhou as read-only PRESERVED_NOT_SELECTED whole-table candidates beside production/Jielan. Never permit cell-level hybridization or infer historical winner status from product visibility.",
       "defect_id": "PROV-DEFECT-037",
       "defect_type": "HPA_ZIWEI_014_STALE_RUNTIME_SCOPE_FAILED_TO_SEPARATE_EXISTING_JIELAN_SOURCE_CANDIDATE_FROM_MISSING_DIVERGENT_TABLE_FAMILIES",
       "defect_scope": "The row said competing tables were not runtime candidates even though the complete Jielan 1581 ten-stem table was already present in the historical registry/resolver. The real unresolved product gap concerns divergent received-Fullbook/Zhongzhou families and selectable profile lineage.",
       "repair_status": "REPAIRED_IN_BATCH_12NS_FORWARD_ONLY",
       "repair_action": "Updated the row to recognize Jielan 1581 as an existing source-scoped PRESERVED_NOT_SELECTED runtime identity that exactly matches current S08 targets, while retaining MISSING_FROM_PRODUCT for genuinely competing complete/selectable table families. No runtime, candidate selection or production default changed.",
-      "reconciliation_batch": "BATCH-12-ZIWEI-FOUR-TRANSFORMATION-WHOLE-TABLE-CANDIDATE-READINESS-OJ",
-      "reconciliation_status": "INTERNAL_CANDIDATE_READINESS_CLOSED_PUBLIC_PRODUCT_SURFACE_PENDING",
+      "reconciliation_batch": "BATCH-12-ZIWEI-FOUR-TRANSFORMATION-WHOLE-TABLE-CANDIDATE-PRODUCTIZATION-OK",
+      "reconciliation_status": "PRODUCT_GAP_CLOSED_IN_BATCH_12OK",
       "product_surface_reconciliation": {
         "jielan_complete_ten_stem_source_table_registered": true,
         "jielan_targets_exactly_match_current_s08": true,
@@ -3395,12 +3395,19 @@
         "divergent_whole_table_registry_version": "1.0.0",
         "divergent_runtime_resolver_id": "ZIWEI-FOUR-TRANSFORMATION-SOURCE-SCOPED-CANDIDATE-RUNTIME-R1",
         "divergent_runtime_resolver_version": "1.0.0",
+        "candidate_api_id": "ZIWEI-FOUR-TRANSFORMATION-HISTORICAL-CANDIDATE-API-R1",
+        "candidate_api_version": "1.0.0",
+        "workbench_api_endpoint": "/api/ziwei-four-transformation-candidates",
         "fullbook_shidian_complete_internal_candidate": true,
         "zhongzhou_wangtingzhi_complete_internal_candidate": true,
         "whole_table_only": true,
         "cell_level_hybridization_allowed": false,
-        "public_read_only_candidate_api": false,
-        "workbench_table_family_surface": false,
+        "public_read_only_candidate_api": true,
+        "workbench_table_family_surface": true,
+        "simultaneous_candidate_display": true,
+        "browser_contains_table_constants": false,
+        "browser_contains_cell_formula": false,
+        "candidate_family_winner_control": false,
         "production_default_changed": false,
         "production_winner_selected": false
       },
@@ -3417,7 +3424,8 @@
         "TG-E0160",
         "TG-E0161",
         "TG-E0162"
-      ]
+      ],
+      "productization_doc": "docs/ZIWEI-FOUR-TRANSFORMATION-HISTORICAL-CANDIDATE-PRODUCTIZATION-R1.md"
     },
     {
       "system": "ZIWEI",
@@ -7898,7 +7906,7 @@
     "identified_missing_candidate_family_count": 14,
     "historical_candidate_registry_count": 4,
     "historical_candidate_runtime_resolver_count": 4,
-    "current_missing_from_product_row_count": 7
+    "current_missing_from_product_row_count": 6
   },
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md",
   "supplemental_rule_audit_batches": [
