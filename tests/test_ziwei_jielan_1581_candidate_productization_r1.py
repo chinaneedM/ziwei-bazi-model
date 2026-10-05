@@ -60,8 +60,12 @@ class ZiweiJielan1581CandidateProductizationR1Tests(unittest.TestCase):
     def test_profile_metadata_advertises_unselected_candidate_api(self) -> None:
         metadata = self.app.profile_metadata()
         rows = metadata["ziwei_historical_candidates"]
-        self.assertEqual(1, len(rows))
-        row = rows[0]
+        self.assertEqual(2, len(rows))
+        row = next(
+            item
+            for item in rows
+            if item["candidate_api_id"] == JIELAN_1581_CANDIDATE_API_ID
+        )
         self.assertEqual(JIELAN_1581_CANDIDATE_API_ID, row["candidate_api_id"])
         self.assertEqual(JIELAN_1581_CANDIDATE_API_VERSION, row["candidate_api_version"])
         self.assertEqual(JIELAN_1581_RULE_SET_ID, row["rule_set_id"])
@@ -167,7 +171,7 @@ class ZiweiJielan1581CandidateProductizationR1Tests(unittest.TestCase):
 
     def test_workbench_bumps_without_changing_legacy_health_contract(self) -> None:
         self.assertEqual(
-            "CombinedChartWorkbenchLocalApp/1.13",
+            "CombinedChartWorkbenchLocalApp/1.14",
             _WorkbenchHandler.server_version,
         )
         health = self.app.health()
