@@ -29,7 +29,18 @@ from fortune_training.ziwei_application import (
     ziwei_application_default_presentation_profile,
     ziwei_application_v1_profile,
 )
-from fortune_training.ziwei_chart import build_production_ziwei_profile
+from fortune_training.ziwei_chart import (
+    JIELAN_1581_CANDIDATE_API_ID,
+    JIELAN_1581_CANDIDATE_API_VERSION,
+    JIELAN_1581_PRODUCT_FACT_KEYS,
+    JIELAN_1581_RULE_SET_ID,
+    JIELAN_1581_RULE_SET_VERSION,
+    JIELAN_1581_RUNTIME_RESOLVER_ID,
+    JIELAN_1581_RUNTIME_RESOLVER_VERSION,
+    JIELAN_1581_SELECTION_STATUS,
+    build_production_ziwei_profile,
+    historical_candidate_hash,
+)
 
 from .local_app_assets import APP_JS, INDEX_HTML, STYLE_CSS
 from .location_catalog import OfflineLocationCatalog
@@ -192,6 +203,22 @@ class LocalCombinedChartApplication:
                     "BAZI-TEMPORAL-WENZHEN-CHINA-COMPATIBILITY-R1"
                 ),
             },
+            "ziwei_historical_candidates": (
+                {
+                    "candidate_api_id": JIELAN_1581_CANDIDATE_API_ID,
+                    "candidate_api_version": JIELAN_1581_CANDIDATE_API_VERSION,
+                    "rule_set_id": JIELAN_1581_RULE_SET_ID,
+                    "rule_set_version": JIELAN_1581_RULE_SET_VERSION,
+                    "selection_status": JIELAN_1581_SELECTION_STATUS,
+                    "runtime_resolver_id": JIELAN_1581_RUNTIME_RESOLVER_ID,
+                    "runtime_resolver_version": JIELAN_1581_RUNTIME_RESOLVER_VERSION,
+                    "registry_hash": historical_candidate_hash(),
+                    "released_fact_keys": JIELAN_1581_PRODUCT_FACT_KEYS,
+                    "workbench_api_endpoint": "/api/ziwei-jielan-1581-candidate",
+                    "production_winner_selected": False,
+                    "production_profile_changed": False,
+                },
+            ),
             "location_catalog": self.location_catalog.metadata(),
         }
 
