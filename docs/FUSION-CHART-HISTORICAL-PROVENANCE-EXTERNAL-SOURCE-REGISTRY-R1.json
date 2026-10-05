@@ -211,7 +211,11 @@
       "quality_notes": "Edition-specific modern school witness. Used for Zhongzhou-specific 流昌流曲 and flowing auxiliary scope; never back-dated as Ming/Qing authority. Bibliographic identity independently checked against UIBE library catalog.",
       "bibliographic_witnesses": [
         "EXT-UIBE-WANGTINGZHI-ANXING-2013"
-      ]
+      ],
+      "batch_12mz": {
+        "scope": "MODERN_ZHONGZHOU_LATER_EDITION_CORROBORATION_FOR_BASIC_ADJACENT_AND_FLANK_TERMS",
+        "historical_backdating_authorized": false
+      }
     },
     {
       "source_id": "EXT-UIBE-WANGTINGZHI-ANXING-2013",
@@ -256,6 +260,13 @@
         "earliest_genealogy_closed": false,
         "internal_claim_of_prior_teacher_transmission_is_independent_ancestry_proof": false,
         "runtime_winner_selected": false,
+        "algorithm_reopen_authorized": false
+      },
+      "batch_12mz": {
+        "rule_id": "HPA-STRUCT-019",
+        "scope": "MODERN_ZHONGZHOU_GENERIC_ADJACENT_PALACE_TERM_AND_GEOMETRY",
+        "exact_term_scope": "邻宫＝相夹本宫的两个宫垣；相夹 is separately conditioned on stars occupying those neighbor positions.",
+        "earliest_genealogy_closed": false,
         "algorithm_reopen_authorized": false
       }
     },
@@ -13115,6 +13126,17 @@
       "source_role": "MODERN_ZIWEI_DIRECT_RELATIVE_SIX_AND_TWELVE_PAIR_WITNESS",
       "quality_notes": "Chapter text explicitly says 命宫为一、逆时钟至疾厄为六, then states that changing the taiji point yields twelve one-six palace pairs and enumerates all twelve. It also contains stronger same-fortune/event interpretations which R7 intentionally does not import. Exact physical impression remains unbound.",
       "batch_id": "BATCH-12-ZIWEI-R7-ONE-SIX-SOURCE-PHILOLOGY-SCOPE-AUDIT-MY",
+      "physical_glyph_authority": false,
+      "access_date": "2026-10-05"
+    },
+    {
+      "source_id": "EXT-WIKISOURCE-QUANSHU-FLANK-RECEIVED",
+      "title": "《紫微斗数全书》received 夹贵/夹败/三夹六夹 passages",
+      "url": "https://zh.wikisource.org/wiki/%E7%B4%AB%E5%BE%AE%E6%96%97%E6%95%B8%E5%85%A8%E6%9B%B8/%E5%85%A8%E8%A6%BD",
+      "provider": "Wikisource public transcription",
+      "source_role": "PREMODERN_RECEIVED_SPECIFIC_FLANK_PATTERN_WITNESS_NOT_GENERIC_ADJACENT_TERM_DEFINITION",
+      "quality_notes": "Received Fullbook text contains specific flank configurations such as 夹贵格、夹败格 and 三夹命/六夹命. It establishes an older flank-pattern tradition, but this batch does not treat it as a generic definition of 邻宫 for every rotating subject palace, an exact physical-edition glyph witness, or a direct transmission bridge into modern Zhongzhou terminology.",
+      "batch_id": "BATCH-12-ZIWEI-R8-ADJACENT-PALACE-SOURCE-PHILOLOGY-SCOPE-AUDIT-MZ",
       "physical_glyph_authority": false,
       "access_date": "2026-10-05"
     }

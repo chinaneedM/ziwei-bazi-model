@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.367.0",
+  "schema_version": "1.368.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -37,10 +37,10 @@
     "matrix_json": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json",
     "matrix_md": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.md",
     "external_source_registry": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json",
-    "row_count": 218,
-    "audited_row_count": 201,
-    "confirmed_provenance_metadata_defect_count": 18,
-    "repaired_provenance_metadata_defect_count": 18,
+    "row_count": 220,
+    "audited_row_count": 204,
+    "confirmed_provenance_metadata_defect_count": 19,
+    "repaired_provenance_metadata_defect_count": 19,
     "historical_candidate_registry_count": 3,
     "historical_candidate_runtime_resolver_count": 3,
     "identified_missing_candidate_family_count": 14,
@@ -448,9 +448,10 @@
       "BATCH-12-ZIWEI-THREE-RING-SOURCE-SCOPE-AND-IDENTITY-AUDIT-MV",
       "BATCH-12-ZIWEI-R4-SOURCE-PHILOLOGY-SCOPE-AUDIT-MW",
       "BATCH-12-ZIWEI-R6-QISHU-SOURCE-PHILOLOGY-SCOPE-AUDIT-MX",
-      "BATCH-12-ZIWEI-R7-ONE-SIX-SOURCE-PHILOLOGY-SCOPE-AUDIT-MY"
+      "BATCH-12-ZIWEI-R7-ONE-SIX-SOURCE-PHILOLOGY-SCOPE-AUDIT-MY",
+      "BATCH-12-ZIWEI-R8-ADJACENT-PALACE-SOURCE-PHILOLOGY-SCOPE-AUDIT-MZ"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-R7-ONE-SIX-SOURCE-PHILOLOGY-SCOPE-AUDIT-MY.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-R8-ADJACENT-PALACE-SOURCE-PHILOLOGY-SCOPE-AUDIT-MZ.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -2068,7 +2069,12 @@
       "Batch 12MY completed: HPA-STRUCT-007 R7 一六共宗 decomposed into HPA-STRUCT-017 modern Heluo-Ziwei relative-six coordinates and HPA-STRUCT-018 modern directed-identity/hash/result-permission closure. All 144 named-palace physical rotations match ordinal 6 / clockwise offset 7; R7/S04 bytes unchanged.",
       "Premodern received Qingnang/Yangzhai texts attest 一六共宗 at the Hetu/geomancy number-pair layer only. They do not prove Ziwei twelve-palace relative-six usage; modern Ziwei received text supplies the explicit twelve rotating pairs. Direct transmission remains unresolved.",
       "Matrix is now 218 / 201 / 10; provenance defects remain 18/18; chart algorithm defects / reopens / candidate collapses remain 0.",
-      "12MZ: audit HPA-STRUCT-008 R8 太极点/主题宫 composition. Separate inherited relative-frame mechanics from modern composition and any school-specific naming; preserve R4/R6/R7 edition and direct-lineage gaps."
+      "12MZ: audit HPA-STRUCT-008 R8 太极点/主题宫 composition. Separate inherited relative-frame mechanics from modern composition and any school-specific naming; preserve R4/R6/R7 edition and direct-lineage gaps.",
+      "PROV-DEFECT-019 repaired forward-only: Batch 12MY next-gate/current-focus misidentified HPA-STRUCT-008 as R8 太极点/主题宫 composition. Canonical Matrix/runtime/product closure identify HPA-STRUCT-008 as R8 邻宫 bilateral geometry. The 12MY historical snapshot is retained; this 12MZ note supersedes the planning description.",
+      "Batch 12MZ completed: HPA-STRUCT-008 R8 adjacent-palace geometry decomposed into HPA-STRUCT-019 modern Zhongzhou generic bilateral adjacency and HPA-STRUCT-020 modern NATAL/hash/no-flank/no-event/no-score closure. All 144 bilateral facts / 288 neighbor endpoints match ordinals 2/12 and offsets 11/1; R8/S04/S05 bytes unchanged.",
+      "Premodern received Fullbook text attests specific 夹贵/夹败/三夹六夹 patterns, but this does not prove the generic rotating term definition 邻宫 or a direct Fullbook→Zhongzhou terminology lineage. No transmission edge is added.",
+      "Matrix is now 220 / 204 / 10; provenance defects are 19/19; chart algorithm defects / reopens / candidate collapses remain 0.",
+      "12NA: audit HPA-STRUCT-001 R1 neutral Z12 topology as modern coordinate infrastructure, then HPA-STRUCT-002 R2 relative-palace frame before leaving Structural R1-R8."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10

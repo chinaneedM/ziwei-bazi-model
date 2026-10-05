@@ -883,9 +883,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-R4-SOURCE-PHILOLOGY-SCOPE-AUDIT-MW",
     "BATCH-12-ZIWEI-R6-QISHU-SOURCE-PHILOLOGY-SCOPE-AUDIT-MX",
     "BATCH-12-ZIWEI-R7-ONE-SIX-SOURCE-PHILOLOGY-SCOPE-AUDIT-MY",
+    "BATCH-12-ZIWEI-R8-ADJACENT-PALACE-SOURCE-PHILOLOGY-SCOPE-AUDIT-MZ",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-R7-ONE-SIX-SOURCE-PHILOLOGY-SCOPE-AUDIT-MY.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-R8-ADJACENT-PALACE-SOURCE-PHILOLOGY-SCOPE-AUDIT-MZ.md"
 
 
 def fail(message: str) -> None:
@@ -14658,6 +14659,41 @@ def main() -> int:
             fail(f"Batch 12MY frozen file drift: {obj['path']}")
     if my.get("algorithm_reopen_authorized") is not False or my["transmission_impact"].get("status") != "NONE":
         fail("Batch 12MY reopen/transmission scope drift")
+
+    # Batch 12MZ: generic adjacent-palace geometry vs flank semantics, plus forward-only next-gate correction.
+    mz = json.loads((ROOT / "docs/research/ZIWEI-R8-ADJACENT-PALACE-SOURCE-PHILOLOGY-SCOPE-AUDIT-R1.json").read_text())
+    mz_id = "BATCH-12-ZIWEI-R8-ADJACENT-PALACE-SOURCE-PHILOLOGY-SCOPE-AUDIT-MZ"
+    if mz.get("batch_id") != mz_id or mz.get("prior_batch_id") != my_id or mz_id not in rule_batches:
+        fail("Batch 12MZ chronology drift")
+    for rid, expected in (("HPA-STRUCT-008", "MODERN_COMPATIBILITY_ONLY"), ("HPA-STRUCT-019", "SUPPORTED_BUT_SCHOOL_SPECIFIC"), ("HPA-STRUCT-020", "MODERN_COMPATIBILITY_ONLY")):
+        row_mz = next(r for r in matrix["rows"] if r["rule_id"] == rid)
+        if row_mz.get("audit_status") != expected or row_mz.get("audit_batch") != mz_id or rid not in matrix["audited_row_ids"]:
+            fail(f"Batch 12MZ row scope drift: {rid}")
+    parent_mz = next(r for r in matrix["rows"] if r["rule_id"] == "HPA-STRUCT-008")
+    if parent_mz.get("defect_id") != "PROV-DEFECT-019" or parent_mz.get("provenance_defect_increment") != 1 or parent_mz.get("defect_repaired") is not True:
+        fail("Batch 12MZ provenance correction row drift")
+    hs_mz = mz["historical_scope"]
+    if hs_mz.get("premodern_specific_flank_patterns_attested") is not True or hs_mz.get("premodern_generic_adjacent_term_definition_attested") is not False or hs_mz.get("direct_fullbook_to_zhongzhou_term_transmission_closed") is not False:
+        fail("Batch 12MZ ancient-flank/generic-neighbor scope drift")
+    fw_mz = mz["engineering_firewall"]
+    for key in ("flank_semantics_permission", "direct_event_permission", "direct_endpoint_permission", "direct_score_permission", "premodern_flank_patterns_imported"):
+        if fw_mz.get(key) is not False:
+            fail(f"Batch 12MZ result firewall drift: {key}")
+    correction_mz = mz["provenance_correction"]
+    if correction_mz.get("defect_id") != "PROV-DEFECT-019" or correction_mz.get("repaired") is not True or correction_mz.get("original_historical_snapshot_rewritten") is not False:
+        fail("Batch 12MZ next-gate correction drift")
+    if audit_summary.get("confirmed_provenance_metadata_defect_count") != 19 or audit_summary.get("repaired_provenance_metadata_defect_count") != 19:
+        fail("Batch 12MZ provenance defect accounting drift")
+    replay_mz = json.loads((ROOT / mz["replay_evidence"]).read_text())
+    records_mz = replay_mz["records"]
+    if len(records_mz) != 144 or hashlib.sha256(json.dumps(records_mz, sort_keys=True, separators=(",", ":")).encode()).hexdigest() != replay_mz["records_sha256"]:
+        fail("Batch 12MZ replay integrity drift")
+    for obj in mz["frozen_files"]:
+        raw_mz = (ROOT / obj["path"]).read_bytes()
+        if hashlib.sha1(b"blob " + str(len(raw_mz)).encode() + b"\0" + raw_mz).hexdigest() != obj["blob_sha"]:
+            fail(f"Batch 12MZ frozen file drift: {obj['path']}")
+    if mz.get("algorithm_reopen_authorized") is not False or mz["transmission_impact"].get("status") != "NONE":
+        fail("Batch 12MZ reopen/transmission scope drift")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

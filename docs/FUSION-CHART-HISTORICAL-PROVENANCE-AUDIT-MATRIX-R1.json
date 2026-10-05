@@ -43,12 +43,12 @@
     "algorithm_reopen_authorized"
   ],
   "inventory_summary": {
-    "row_count": 218,
+    "row_count": 220,
     "status_counts": {
-      "HISTORICALLY_SUPPORTED": 95,
-      "SUPPORTED_BUT_SCHOOL_SPECIFIC": 23,
+      "HISTORICALLY_SUPPORTED": 94,
+      "SUPPORTED_BUT_SCHOOL_SPECIFIC": 24,
       "DISPUTED_MULTIPLE_CANDIDATES": 30,
-      "MODERN_COMPATIBILITY_ONLY": 48,
+      "MODERN_COMPATIBILITY_ONLY": 50,
       "SOURCE_INSUFFICIENT": 11,
       "MISSING_FROM_PRODUCT": 10,
       "NOT_YET_FORMALIZED": 1
@@ -75,12 +75,12 @@
       "动态辅助星": 12,
       "流日": 2,
       "流时": 3,
-      "Structural R1–R8": 18,
+      "Structural R1–R8": 20,
       "Combined Fusion": 4,
       "candidate/profile rules": 2,
       "provenance / hashes / lineage": 2
     },
-    "audited_row_count": 201
+    "audited_row_count": 204
   },
   "rows": [
     {
@@ -3021,20 +3021,54 @@
       "rule_or_field": "R8 邻宫 bilateral geometry",
       "current_implementation": "ZIWEI-ADJACENT-PALACE-PAIR-PROJECTION binds S04 paragraph/segment/relation IDs and forbids flank semantics.",
       "current_profile": "ZIWEI-STRUCTURAL-RUNTIME-V2-R8",
-      "primary_source": "S04 紫微斗数基础术语数据库 十五、邻宫",
-      "source_quote": "PENDING_VERBATIM_EXTRACTION",
-      "source_quote_location": "src/fortune_training/ziwei_structural/r8/profile.py",
-      "historical_period": "PENDING_BIBLIOGRAPHIC_DATING",
-      "later_witnesses": "PENDING_LATER_WITNESS_AUDIT",
-      "school_attribution": "PENDING_SCHOOL_ATTRIBUTION_AUDIT",
+      "primary_source": "Modern R8 composition of HPA-STRUCT-019 Zhongzhou generic adjacent-palace geometry and HPA-STRUCT-020 engineering result-permission closure; premodern specific flank patterns are historical context only.",
+      "source_quote": "Modern Zhongzhou text explicitly defines 邻宫 as the two palaces adjacent to the local origin; premodern Fullbook received text attests specific 夹 patterns without a generic rotating-neighbor definition.",
+      "source_quote_location": "docs/research/ZIWEI-R8-ADJACENT-PALACE-SOURCE-PHILOLOGY-SCOPE-AUDIT-R1.json",
+      "historical_period": "PREMODERN_SPECIFIC_FLANK_PATTERNS_PLUS_MODERN_ZHONGZHOU_GENERIC_ADJACENCY_AND_ENGINEERING_COMPOSITION; EARLIEST_GENERIC_TERM_UNRESOLVED",
+      "later_witnesses": "Premodern received Fullbook 夹贵/夹败/三夹六夹 passages; modern Wang Tingzhi Zhongzhou term lists explicitly define 邻宫 and 相夹 separately.",
+      "school_attribution": "MODERN_WRAPPER_WITH_SCOPED_ZHONGZHOU_GENERIC_ADJACENCY_WITNESS",
       "competing_methods": [
         "夹宫/夹制 interpretive semantics deliberately excluded"
       ],
-      "current_implementation_match": "MATCHES_REPOSITORY_CANONICAL_SOURCE",
-      "confidence": "HIGH",
-      "audit_status": "HISTORICALLY_SUPPORTED",
-      "proposed_action": "Trace source genealogy; keep geometry distinct from interpretive flank semantics.",
-      "algorithm_reopen_authorized": false
+      "current_implementation_match": "ALL_12_ORIGINS_X_12_PHYSICAL_ROTATIONS_MATCH; ORDINAL_2_12_EQ_OFFSETS_11_1; RUNTIME_AND_S04_S05_BYTES_UNCHANGED",
+      "confidence": "HIGH_FOR_MODERN_ZHONGZHOU_GEOMETRY; HIGH_FOR_PREMODERN_SPECIFIC_FLANK_TRADITION; LIMITED_FOR_GENERIC_TERM_ANTIQUITY_AND_DIRECT_TRANSMISSION",
+      "audit_status": "MODERN_COMPATIBILITY_ONLY",
+      "proposed_action": "Aggregate audited. Keep generic adjacency geometry, specific flank-pattern doctrine and engineering result firewall separately scoped; seek earlier explicit generic-neighbor witness without source-count voting.",
+      "algorithm_reopen_authorized": false,
+      "prior_audit_snapshots": [
+        {
+          "rule_id": "HPA-STRUCT-008",
+          "system": "ZIWEI",
+          "module": "Structural R1–R8",
+          "rule_or_field": "R8 邻宫 bilateral geometry",
+          "current_implementation": "ZIWEI-ADJACENT-PALACE-PAIR-PROJECTION binds S04 paragraph/segment/relation IDs and forbids flank semantics.",
+          "current_profile": "ZIWEI-STRUCTURAL-RUNTIME-V2-R8",
+          "primary_source": "S04 紫微斗数基础术语数据库 十五、邻宫",
+          "source_quote": "PENDING_VERBATIM_EXTRACTION",
+          "source_quote_location": "src/fortune_training/ziwei_structural/r8/profile.py",
+          "historical_period": "PENDING_BIBLIOGRAPHIC_DATING",
+          "later_witnesses": "PENDING_LATER_WITNESS_AUDIT",
+          "school_attribution": "PENDING_SCHOOL_ATTRIBUTION_AUDIT",
+          "competing_methods": [
+            "夹宫/夹制 interpretive semantics deliberately excluded"
+          ],
+          "current_implementation_match": "MATCHES_REPOSITORY_CANONICAL_SOURCE",
+          "confidence": "HIGH",
+          "audit_status": "HISTORICALLY_SUPPORTED",
+          "proposed_action": "Trace source genealogy; keep geometry distinct from interpretive flank semantics.",
+          "algorithm_reopen_authorized": false
+        }
+      ],
+      "audit_batch": "BATCH-12-ZIWEI-R8-ADJACENT-PALACE-SOURCE-PHILOLOGY-SCOPE-AUDIT-MZ",
+      "child_rule_ids": [
+        "HPA-STRUCT-019",
+        "HPA-STRUCT-020"
+      ],
+      "provenance_defect_increment": 1,
+      "defect_id": "PROV-DEFECT-019",
+      "defect_type": "NEXT_GATE_RULE_IDENTITY_MISLABEL",
+      "defect_scope": "Batch 12MY next-gate/current-focus misidentified HPA-STRUCT-008 as R8 太极点/主题宫 composition; canonical Matrix/runtime/product closure identify R8 邻宫 bilateral geometry. Historical snapshot retained and superseded forward-only in 12MZ.",
+      "defect_repaired": true
     },
     {
       "rule_id": "HPA-COMB-001",
@@ -6955,6 +6989,50 @@
       "confidence": "HIGH_FOR_ENGINEERING_SCOPE; NOT_A_HISTORICAL_INTERPRETIVE_ATTRIBUTION",
       "audit_status": "MODERN_COMPATIBILITY_ONLY",
       "proposed_action": "Keep neutral directed identity separate from interpretive doctrine. Future same-fortune/activation/event rules require their own source-scoped candidates and cannot silently alter R7."
+    },
+    {
+      "system": "ZIWEI",
+      "module": "Structural R1–R8",
+      "current_profile": "ZIWEI-STRUCTURAL-RUNTIME-V2-R8@1.0.0",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-12-ZIWEI-R8-ADJACENT-PALACE-SOURCE-PHILOLOGY-SCOPE-AUDIT-MZ",
+      "competing_methods": [
+        "specific 夹宫/夹格 doctrines are separate from neutral adjacency geometry"
+      ],
+      "source_quote_location": "docs/research/ZIWEI-R8-ADJACENT-PALACE-SOURCE-PHILOLOGY-SCOPE-AUDIT-R1.json",
+      "rule_id": "HPA-STRUCT-019",
+      "rule_or_field": "R8 generic bilateral adjacent-palace geometry",
+      "current_implementation": "For every local origin, counterclockwise neighbor = R2 ordinal 2 / SIBLINGS / clockwise offset 11; clockwise neighbor = R2 ordinal 12 / PARENTS / clockwise offset 1.",
+      "primary_source": "EXT-WANGTINGZHI-ZHONGZHOU-CHUJI with EXT-WANGTINGZHI-ANXING-2013 corroboration; EXT-WIKISOURCE-QUANSHU-FLANK-RECEIVED is older specific-flank context only.",
+      "source_quote": "邻宫：相夹本宫的两个宫垣",
+      "historical_period": "MODERN_ZHONGZHOU_GENERIC_TERM_AND_GEOMETRY; PREMODERN_SPECIFIC_FLANK_PATTERNS_ATTESTED_SEPARATELY; EARLIEST_GENERIC_TERM_UNRESOLVED",
+      "later_witnesses": "Modern term lists give 子-origin examples and distinguish 邻宫 position from 相夹 star condition. Received Fullbook tradition preserves older 夹 pattern vocabulary without the generic definition.",
+      "school_attribution": "ZHONGZHOU_GENERIC_ADJACENCY_TERM_NOT_UNIVERSAL_OR_PREMODERN_GENERIC_API",
+      "current_implementation_match": "144_BILATERAL_FACTS_288_ENDPOINTS_MATCH_INDEPENDENT_ORACLE; ORDINALS_2_12_EQ_OFFSETS_11_1",
+      "confidence": "HIGH_FOR_MODERN_SCHOOL_GEOMETRY; PREMODERN_GENERIC_TERM_AND_DIRECT_TRANSMISSION_NOT_CLOSED",
+      "audit_status": "SUPPORTED_BUT_SCHOOL_SPECIFIC",
+      "proposed_action": "Preserve neutral bilateral geometry as school-scoped terminology; ancient specific flank patterns may inform separate candidates but cannot silently activate R8 flank judgments."
+    },
+    {
+      "system": "ZIWEI",
+      "module": "Structural R1–R8",
+      "current_profile": "ZIWEI-STRUCTURAL-RUNTIME-V2-R8@1.0.0",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-12-ZIWEI-R8-ADJACENT-PALACE-SOURCE-PHILOLOGY-SCOPE-AUDIT-MZ",
+      "competing_methods": [],
+      "source_quote_location": "docs/research/ZIWEI-R8-ADJACENT-PALACE-SOURCE-PHILOLOGY-SCOPE-AUDIT-R1.json",
+      "rule_id": "HPA-STRUCT-020",
+      "rule_or_field": "R8 NATAL/hash binding and no-flank/no-event/no-score result firewall",
+      "current_implementation": "BILATERAL_ADJACENT_PALACE_GEOMETRY_ONLY; NATAL-only; upstream R2 hash binding; flank_semantics_permission=false; direct event/endpoint/score permissions false.",
+      "primary_source": "R8 released engine/models/integrity/profile plus S04/S05 term binding as a modern project contract.",
+      "source_quote": "BILATERAL_ADJACENT_PALACE_GEOMETRY_ONLY",
+      "historical_period": "MODERN_SOFTWARE_CONTRACT",
+      "later_witnesses": "Premodern and modern sources contain actual flank-pattern interpretations; their existence is precisely why R8 keeps position geometry separate from pattern/result semantics.",
+      "school_attribution": "ENGINEERING_NOT_HISTORICAL_SCHOOL",
+      "current_implementation_match": "RELEASED_BILATERAL_GEOMETRY_TIME_LAYER_HASH_AND_RESULT_PERMISSION_FIREWALL_PRESERVED",
+      "confidence": "HIGH_FOR_ENGINEERING_SCOPE; NOT_A_HISTORICAL_FLANK_INTERPRETATION",
+      "audit_status": "MODERN_COMPATIBILITY_ONLY",
+      "proposed_action": "Keep R8 as geometry only. Any 夹宫/夹格, auspiciousness, strength or event rule must be separately sourced, modeled and audited."
     }
   ],
   "historical_research_batches": [
@@ -7197,12 +7275,15 @@
     "HPA-STRUCT-016",
     "HPA-STRUCT-007",
     "HPA-STRUCT-017",
-    "HPA-STRUCT-018"
+    "HPA-STRUCT-018",
+    "HPA-STRUCT-008",
+    "HPA-STRUCT-019",
+    "HPA-STRUCT-020"
   ],
   "audit_summary": {
     "confirmed_chart_algorithm_defect_count": 0,
-    "confirmed_provenance_metadata_defect_count": 18,
-    "repaired_provenance_metadata_defect_count": 18,
+    "confirmed_provenance_metadata_defect_count": 19,
+    "repaired_provenance_metadata_defect_count": 19,
     "algorithm_reopen_count": 0,
     "candidate_collapse_count": 0,
     "historical_candidate_extension_count": 6,
@@ -7227,6 +7308,7 @@
     "BATCH-12-ZIWEI-THREE-RING-SOURCE-SCOPE-AND-IDENTITY-AUDIT-MV",
     "BATCH-12-ZIWEI-R4-SOURCE-PHILOLOGY-SCOPE-AUDIT-MW",
     "BATCH-12-ZIWEI-R6-QISHU-SOURCE-PHILOLOGY-SCOPE-AUDIT-MX",
-    "BATCH-12-ZIWEI-R7-ONE-SIX-SOURCE-PHILOLOGY-SCOPE-AUDIT-MY"
+    "BATCH-12-ZIWEI-R7-ONE-SIX-SOURCE-PHILOLOGY-SCOPE-AUDIT-MY",
+    "BATCH-12-ZIWEI-R8-ADJACENT-PALACE-SOURCE-PHILOLOGY-SCOPE-AUDIT-MZ"
   ]
 }

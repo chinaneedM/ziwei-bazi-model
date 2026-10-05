@@ -223,7 +223,7 @@ Fusion Chart Capability & Performance Acceptance R1 已正式收口。最终执�
 
 ## Fusion Chart Historical Provenance & School Audit R1
 
-最新规则审计闭环为 **Batch 12MY**：R7 一六共宗拆为现代河洛紫微支持的“本宫含首第六＝相对疾厄宫”坐标规则，以及只保留有向身份、禁止直接事件/终点判断的现代工程封装。古《青囊经》/清代阳宅资料只用于证明“一六共宗”河图词组的前现代存在，不反推紫微十二宫算法；全部 12 命宫物理旋转 × 12 本宫共 144 个坐标一致。默认算法及 S04/R7 字节不变。Matrix 218 项、已审 201 项、缺失候选 10；来源缺陷 18/18，算法缺陷/重开/候选折叠 0。下一门 12MZ 为 R8 太极点/主题宫组合。
+最新规则审计闭环为 **Batch 12MZ**：R8 邻宫拆为现代中州派支持的“本宫左右两侧双邻宫”坐标规则，以及禁止直接夹格/评分/事件/终点判断的现代工程封装。明代《全书》received 传统已有具体“夹贵/夹败”等夹法，但不据此反推通用“邻宫”术语定义；全部 12 命宫物理旋转 × 12 本宫共 144 个 bilateral facts / 288 个邻宫端点一致。PROV-DEFECT-019 修复 12MY next-gate 将 HPA-STRUCT-008 错写为“太极点/主题宫”的研究元数据错误。默认算法及 S04/S05/R8 字节不变。Matrix 220 项、已审 204 项、缺失候选 10；来源缺陷 19/19，算法缺陷/重开/候选折叠 0。下一门 12NA 为 R1 neutral Z12 topology。
 
 ```text
 FUSION_CHART_HISTORICAL_PROVENANCE_AUDIT_R1=IN_PROGRESS
