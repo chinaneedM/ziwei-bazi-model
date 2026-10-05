@@ -1824,3 +1824,27 @@ The transmission graph now records the Jielan chapter as one passage transmittin
 Next: **12OG — HPA-ZMINOR-007 TianChu competing heavenly-stem tables and source closure.**
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TIANSHOU-BODY-BASIS-EARLY-PRINT-CLOSURE-OF.md`. Research record: `docs/research/ZIWEI-TIANSHOU-BODY-BASIS-EARLY-PRINT-CLOSURE-R1.json`.
+
+## Progress — Batch 12OG
+
+`HPA-ZMINOR-007` **TianChu heavenly-stem table** is upgraded from `DISPUTED_MULTIPLE_CANDIDATES` to `HISTORICALLY_SUPPORTED` for placement geometry.
+
+Ming Wan Minying's `星學大成` received Siku text, juan 1 `論天厨`, preserves the TianChu verse and identifies the star as `食神祿`. Parsed across all ten heavenly stems, its table is:
+
+`甲巳、乙午、丙子、丁巳、戊午、己申、庚寅、辛午、壬酉、癸亥`.
+
+The current runtime table matches **10/10**. Star identity and input dimension also agree: TianChu keyed by birth-year heavenly stem.
+
+This closes the existence and exact geometry of the premodern TianChu table. It does **not** close the exact documentary path by which the table entered Ziwei. The transmission graph therefore records a high-confidence premodern rule witness and only a `PROBABLE` structural mechanism bridge into the modern Ziwei TianChu rule family.
+
+**PROV-DEFECT-043** is repaired forward-only. The old Matrix described a competing “Fullbook variant table pending extraction” based solely on the normalized S01 note `标记与全书异表`. No verbatim competing table, frozen `ZZQS` atom, locator or edition-bound source side is currently bound. The live Matrix therefore no longer manufactures that unbound method as a historical candidate.
+
+This is a bounded conclusion, not a global claim that every Fullbook recension lacks TianChu. Any future competing variant must be quoted, located and edition-bound before entering candidate state.
+
+No runtime, production default or chart algorithm changes.
+
+Matrix remains **222/222 audited / 10 current missing**. Status distribution becomes HISTORICALLY_SUPPORTED 99 / SUPPORTED_BUT_SCHOOL_SPECIFIC 24 / DISPUTED_MULTIPLE_CANDIDATES 27 / MODERN_COMPATIBILITY_ONLY 50 / SOURCE_INSUFFICIENT 11 / MISSING_FROM_PRODUCT 10 / NOT_YET_FORMALIZED 1. Provenance defects are **43/43 repaired**; historical candidate extensions remain **8**.
+
+Next: **12OH — re-rank the remaining active DISPUTED_MULTIPLE_CANDIDATES queue after TianShou/TianChu closure.**
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TIANCHU-PREMODERN-TABLE-AND-SOURCE-BOUNDARY-OG.md`. Research record: `docs/research/ZIWEI-TIANCHU-PREMODERN-TABLE-AND-SOURCE-BOUNDARY-R1.json`.
