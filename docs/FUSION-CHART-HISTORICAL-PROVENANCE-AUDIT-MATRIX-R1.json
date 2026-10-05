@@ -46,11 +46,11 @@
     "row_count": 222,
     "status_counts": {
       "MODERN_COMPATIBILITY_ONLY": 50,
-      "HISTORICALLY_SUPPORTED": 99,
+      "HISTORICALLY_SUPPORTED": 102,
       "DISPUTED_MULTIPLE_CANDIDATES": 27,
       "SUPPORTED_BUT_SCHOOL_SPECIFIC": 24,
       "SOURCE_INSUFFICIENT": 11,
-      "MISSING_FROM_PRODUCT": 10,
+      "MISSING_FROM_PRODUCT": 7,
       "NOT_YET_FORMALIZED": 1
     },
     "module_counts": {
@@ -3406,8 +3406,8 @@
       "rule_id": "HPA-ZIWEI-015",
       "module": "辅星",
       "rule_or_field": "1581 Jielan Kui/Yue Geng-stem variant",
-      "current_implementation": "Historical registry v1.1.0 preserves Jielan 1581 庚辛→午寅 and a source-scoped deterministic runtime resolver materializes the pair without selecting it for production; current QS family uses 庚→丑未 and Wenmo additionally reverses 辛 pair.",
-      "current_profile": "ZIWEI-JIELAN-1581-HISTORICAL-CANDIDATES-R1@1.1.0 (PRESERVED_NOT_SELECTED) + ZIWEI-JIELAN-1581-SOURCE-SCOPED-CANDIDATE-RUNTIME-R1@1.0.0",
+      "current_implementation": "Jielan 1581 庚辛→午寅 is deterministically resolved by the source-scoped runtime and is now exposed through the read-only historical-candidate API/Workbench surface; production QS/Wenmo auxiliary families remain unchanged.",
+      "current_profile": "ZIWEI-JIELAN-1581-HISTORICAL-CANDIDATES-R1@1.1.0 / ZIWEI-JIELAN-1581-HISTORICAL-CANDIDATE-API-R1@1.0.0 / PRESERVED_NOT_SELECTED",
       "primary_source": "《紫微斗数捷览》1581·安天魁天钺诀",
       "source_quote": "庚辛逢马虎，午寅二宫",
       "source_quote_location": "EXT-ZIWEI-JIELAN-1581:CH25",
@@ -3419,33 +3419,38 @@
         "received/QS 庚丑未 辛午寅",
         "Wenmo 辛寅午"
       ],
-      "current_implementation_match": "SOURCE_SCOPED_INTERNAL_RUNTIME_CONFIRMED_BUT_PRODUCT_GAP_REMAINS: JIELAN_1581_KUI_YUE_BY_STEM is resolved deterministically with source refs and PRESERVED_NOT_SELECTED, but the general Jielan resolver is not exported from the ziwei_chart package root and no Ziwei historical candidate-profile selector exists in local API/Workbench.",
+      "current_implementation_match": "SOURCE_SCOPED_RUNTIME_AND_PRODUCT_SURFACE_AVAILABLE_PRESERVED_NOT_SELECTED: Jielan Kui/Yue source refs, registry/runtime identity, exact source bundle hashes and candidate runtime hash are visible without selecting the method.",
       "confidence": "HIGH",
-      "audit_status": "MISSING_FROM_PRODUCT",
-      "proposed_action": "Keep the existing Jielan Kui/Yue source-scoped resolver PRESERVED_NOT_SELECTED. Product closure still requires an explicit candidate-profile API/Workbench lineage that exposes method identity/source refs without changing the production default or silently selecting the candidate.",
+      "audit_status": "HISTORICALLY_SUPPORTED",
+      "proposed_action": "Keep the Jielan Kui/Yue candidate public and PRESERVED_NOT_SELECTED beside production. Do not select a historical winner from product visibility or collapse it into QS/Wenmo families.",
       "defect_id": "PROV-DEFECT-004",
       "defect_type": "STALE_CANDIDATE_REGISTRY_VERSION_IN_AUDIT_MATRIX",
       "defect_scope": "HPA-ZIWEI-015/HPA-ZIWEI-016 previously referenced registry 1.0.0 after the source registry advanced to 1.1.0.",
       "repair_status": "REPAIRED_IN_BATCH_05_FORWARD_ONLY",
       "repair_action": "Updated affected Matrix profile identities to Jielan registry 1.1.0 and bound the new source-scoped runtime resolver; no chart algorithm changed.",
-      "reconciliation_batch": "BATCH-12-POST-AUDIT-JIELAN-SOURCE-SCOPED-CANDIDATE-PRODUCT-SURFACE-RECONCILIATION-NR",
-      "reconciliation_status": "MISSING_FROM_PRODUCT_CONFIRMED",
+      "reconciliation_batch": "BATCH-12-ZIWEI-JIELAN-SOURCE-SCOPED-NATAL-CANDIDATE-PRODUCTIZATION-OI",
+      "reconciliation_status": "PRODUCT_GAP_CLOSED_IN_BATCH_12OI",
       "product_surface_reconciliation": {
         "source_scoped_runtime_resolver_exists": true,
         "deterministic_runtime_replay_tested": true,
-        "selection_status": "PRESERVED_NOT_SELECTED",
-        "package_root_public_export": false,
-        "local_ziwei_candidate_profile_selector": false,
-        "workbench_candidate_profile_selector": false,
-        "production_default_changed": false,
-        "evidence_paths": [
-          "src/fortune_training/ziwei_chart/historical_candidates.py",
-          "src/fortune_training/ziwei_chart/__init__.py",
-          "src/fortune_training/combined_chart_application/local_app.py",
-          "src/fortune_training/combined_chart_application/workbench_local_app.py",
-          "tests/test_ziwei_jielan_1581_historical_candidates_r1.py"
-        ]
-      }
+        "package_root_public_export": true,
+        "profile_metadata_public": true,
+        "workbench_read_only_candidate_api": true,
+        "workbench_api_endpoint": "/api/ziwei-jielan-1581-candidate",
+        "released_fact_whitelist": [
+          "kui_yue",
+          "fire_bell",
+          "mingzhu"
+        ],
+        "exact_source_ziwei_bundle_hash_bound": true,
+        "source_natal_fact_and_computation_hashes_bound": true,
+        "registry_and_candidate_runtime_hashes_bound": true,
+        "browser_contains_candidate_placement_formula": false,
+        "production_winner_selected": false,
+        "production_profile_changed": false
+      },
+      "productization_doc": "docs/ZIWEI-JIELAN-1581-HISTORICAL-CANDIDATE-PRODUCTIZATION-R1.md",
+      "selection_status": "PRESERVED_NOT_SELECTED"
     },
     {
       "system": "ZIWEI",
@@ -3454,8 +3459,8 @@
       "rule_id": "HPA-ZIWEI-016",
       "module": "辅星",
       "rule_or_field": "1581 Jielan Fire/Bell 巳酉丑 starting-branch variant",
-      "current_implementation": "Historical registry v1.1.0 preserves 巳酉丑 子时起 火戌/铃卯 and a source-scoped deterministic runtime resolver advances both by birth-hour ordinal; current Wenmo-compatible production uses 火卯/铃戌.",
-      "current_profile": "ZIWEI-JIELAN-1581-HISTORICAL-CANDIDATES-R1@1.1.0 (PRESERVED_NOT_SELECTED) + ZIWEI-JIELAN-1581-SOURCE-SCOPED-CANDIDATE-RUNTIME-R1@1.0.0",
+      "current_implementation": "Jielan 巳酉丑 火戌/铃卯 starts plus birth-hour advancement are deterministically resolved and now exposed through the read-only historical-candidate API/Workbench surface; production Fire/Bell remains unchanged.",
+      "current_profile": "ZIWEI-JIELAN-1581-HISTORICAL-CANDIDATES-R1@1.1.0 / ZIWEI-JIELAN-1581-HISTORICAL-CANDIDATE-API-R1@1.0.0 / PRESERVED_NOT_SELECTED",
       "primary_source": "《紫微斗数捷览》1581·安火铃星诀",
       "source_quote": "巳酉丑人戌火卯铃",
       "source_quote_location": "EXT-ZIWEI-JIELAN-1581:CH27",
@@ -3466,28 +3471,33 @@
         "Jielan 火戌铃卯",
         "received Fullbook/Wenmo 火卯铃戌"
       ],
-      "current_implementation_match": "SOURCE_SCOPED_INTERNAL_RUNTIME_CONFIRMED_BUT_PRODUCT_GAP_REMAINS: Jielan 巳酉丑 火戌/铃卯 start branches and birth-hour advancement are deterministic and source-bound in the internal resolver, but no public candidate-profile API/Workbench wiring exposes this family beside the current production Fire/Bell method.",
+      "current_implementation_match": "SOURCE_SCOPED_RUNTIME_AND_PRODUCT_SURFACE_AVAILABLE_PRESERVED_NOT_SELECTED: Jielan Fire/Bell start/resolved branches and lineage are publicly inspectable without replacing or hybridizing production.",
       "confidence": "HIGH",
-      "audit_status": "MISSING_FROM_PRODUCT",
-      "proposed_action": "Expose the existing source-closed Jielan Fire/Bell family through an explicit candidate-profile API/Workbench surface, preserving method identity and PRESERVED_NOT_SELECTED; do not replace or hybridize the current production family.",
-      "reconciliation_batch": "BATCH-12-POST-AUDIT-JIELAN-SOURCE-SCOPED-CANDIDATE-PRODUCT-SURFACE-RECONCILIATION-NR",
-      "reconciliation_status": "MISSING_FROM_PRODUCT_CONFIRMED",
+      "audit_status": "HISTORICALLY_SUPPORTED",
+      "proposed_action": "Keep the complete Jielan Fire/Bell family source-scoped and PRESERVED_NOT_SELECTED. Never hybridize its start branches with production or infer winner status from UI exposure.",
+      "reconciliation_batch": "BATCH-12-ZIWEI-JIELAN-SOURCE-SCOPED-NATAL-CANDIDATE-PRODUCTIZATION-OI",
+      "reconciliation_status": "PRODUCT_GAP_CLOSED_IN_BATCH_12OI",
       "product_surface_reconciliation": {
         "source_scoped_runtime_resolver_exists": true,
         "deterministic_runtime_replay_tested": true,
-        "selection_status": "PRESERVED_NOT_SELECTED",
-        "package_root_public_export": false,
-        "local_ziwei_candidate_profile_selector": false,
-        "workbench_candidate_profile_selector": false,
-        "production_default_changed": false,
-        "evidence_paths": [
-          "src/fortune_training/ziwei_chart/historical_candidates.py",
-          "src/fortune_training/ziwei_chart/__init__.py",
-          "src/fortune_training/combined_chart_application/local_app.py",
-          "src/fortune_training/combined_chart_application/workbench_local_app.py",
-          "tests/test_ziwei_jielan_1581_historical_candidates_r1.py"
-        ]
-      }
+        "package_root_public_export": true,
+        "profile_metadata_public": true,
+        "workbench_read_only_candidate_api": true,
+        "workbench_api_endpoint": "/api/ziwei-jielan-1581-candidate",
+        "released_fact_whitelist": [
+          "kui_yue",
+          "fire_bell",
+          "mingzhu"
+        ],
+        "exact_source_ziwei_bundle_hash_bound": true,
+        "source_natal_fact_and_computation_hashes_bound": true,
+        "registry_and_candidate_runtime_hashes_bound": true,
+        "browser_contains_candidate_placement_formula": false,
+        "production_winner_selected": false,
+        "production_profile_changed": false
+      },
+      "productization_doc": "docs/ZIWEI-JIELAN-1581-HISTORICAL-CANDIDATE-PRODUCTIZATION-R1.md",
+      "selection_status": "PRESERVED_NOT_SELECTED"
     },
     {
       "system": "ZIWEI",
@@ -3627,8 +3637,8 @@
       "rule_id": "HPA-ZIWEI-022",
       "module": "紫微本命",
       "rule_or_field": "1581 Jielan Mingzhu birth-year-branch basis",
-      "current_implementation": "Historical registry v1.1.0 preserves the same seven-star mapping values as current Mingzhu but keyed by Ziwei birth-year branch; the source-scoped runtime resolver materializes that basis explicitly while production remains keyed by Life-palace branch.",
-      "current_profile": "ZIWEI-JIELAN-1581-HISTORICAL-CANDIDATES-R1@1.1.0 (PRESERVED_NOT_SELECTED) + ZIWEI-JIELAN-1581-SOURCE-SCOPED-CANDIDATE-RUNTIME-R1@1.0.0",
+      "current_implementation": "Jielan Mingzhu is deterministically resolved from Ziwei birth-year branch and now exposed through the read-only historical-candidate API/Workbench surface; production Mingzhu remains keyed by Life-palace branch.",
+      "current_profile": "ZIWEI-JIELAN-1581-HISTORICAL-CANDIDATES-R1@1.1.0 / ZIWEI-JIELAN-1581-HISTORICAL-CANDIDATE-API-R1@1.0.0 / PRESERVED_NOT_SELECTED",
       "primary_source": "1581 《紫微斗数捷览》定命主诀",
       "source_quote": "凡命俱以生年十二支为主",
       "source_quote_location": "EXT-ZIWEI-JIELAN-1581:CH31",
@@ -3639,28 +3649,33 @@
         "Jielan birth-year branch",
         "Fullbook Life-palace branch"
       ],
-      "current_implementation_match": "SOURCE_SCOPED_INTERNAL_RUNTIME_CONFIRMED_BUT_PRODUCT_GAP_REMAINS: Jielan Mingzhu is deterministically resolved with basis ZIWEI_BIRTH_YEAR_BRANCH and source refs, while production remains LIFE_PALACE_BRANCH; the historical resolver is not wired into a user-selectable candidate-profile API/Workbench lineage.",
+      "current_implementation_match": "SOURCE_SCOPED_RUNTIME_AND_PRODUCT_SURFACE_AVAILABLE_PRESERVED_NOT_SELECTED: candidate basis=ZIWEI_BIRTH_YEAR_BRANCH, basis value, display name, source refs and lineage hashes are visible while production remains LIFE_PALACE_BRANCH.",
       "confidence": "HIGH",
-      "audit_status": "MISSING_FROM_PRODUCT",
-      "proposed_action": "Expose the existing Jielan Mingzhu birth-year-basis candidate through candidate-profile API/Workbench lineage with explicit basis/method/source identity, preserving production Life-palace-basis behavior and PRESERVED_NOT_SELECTED.",
-      "reconciliation_batch": "BATCH-12-POST-AUDIT-JIELAN-SOURCE-SCOPED-CANDIDATE-PRODUCT-SURFACE-RECONCILIATION-NR",
-      "reconciliation_status": "MISSING_FROM_PRODUCT_CONFIRMED",
+      "audit_status": "HISTORICALLY_SUPPORTED",
+      "proposed_action": "Keep Jielan birth-year-basis Mingzhu visible as an unselected historical candidate beside the production Fullbook/Life-palace method; product visibility is not historical arbitration.",
+      "reconciliation_batch": "BATCH-12-ZIWEI-JIELAN-SOURCE-SCOPED-NATAL-CANDIDATE-PRODUCTIZATION-OI",
+      "reconciliation_status": "PRODUCT_GAP_CLOSED_IN_BATCH_12OI",
       "product_surface_reconciliation": {
         "source_scoped_runtime_resolver_exists": true,
         "deterministic_runtime_replay_tested": true,
-        "selection_status": "PRESERVED_NOT_SELECTED",
-        "package_root_public_export": false,
-        "local_ziwei_candidate_profile_selector": false,
-        "workbench_candidate_profile_selector": false,
-        "production_default_changed": false,
-        "evidence_paths": [
-          "src/fortune_training/ziwei_chart/historical_candidates.py",
-          "src/fortune_training/ziwei_chart/__init__.py",
-          "src/fortune_training/combined_chart_application/local_app.py",
-          "src/fortune_training/combined_chart_application/workbench_local_app.py",
-          "tests/test_ziwei_jielan_1581_historical_candidates_r1.py"
-        ]
-      }
+        "package_root_public_export": true,
+        "profile_metadata_public": true,
+        "workbench_read_only_candidate_api": true,
+        "workbench_api_endpoint": "/api/ziwei-jielan-1581-candidate",
+        "released_fact_whitelist": [
+          "kui_yue",
+          "fire_bell",
+          "mingzhu"
+        ],
+        "exact_source_ziwei_bundle_hash_bound": true,
+        "source_natal_fact_and_computation_hashes_bound": true,
+        "registry_and_candidate_runtime_hashes_bound": true,
+        "browser_contains_candidate_placement_formula": false,
+        "production_winner_selected": false,
+        "production_profile_changed": false
+      },
+      "productization_doc": "docs/ZIWEI-JIELAN-1581-HISTORICAL-CANDIDATE-PRODUCTIZATION-R1.md",
+      "selection_status": "PRESERVED_NOT_SELECTED"
     },
     {
       "system": "ZIWEI",
@@ -7859,11 +7874,11 @@
     "repaired_provenance_metadata_defect_count": 43,
     "algorithm_reopen_count": 0,
     "candidate_collapse_count": 0,
-    "historical_candidate_extension_count": 8,
+    "historical_candidate_extension_count": 11,
     "identified_missing_candidate_family_count": 14,
     "historical_candidate_registry_count": 3,
     "historical_candidate_runtime_resolver_count": 3,
-    "current_missing_from_product_row_count": 10
+    "current_missing_from_product_row_count": 7
   },
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md",
   "supplemental_rule_audit_batches": [
