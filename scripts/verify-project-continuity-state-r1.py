@@ -891,9 +891,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-TIME-MODERN-CHINESE-CALENDAR-CONSTRUCTION-AUDIT-NE",
     "BATCH-12-TIME-APPROXIMATE-BIRTH-TIME-SAMPLING-AUDIT-NF",
     "BATCH-12-BAZI-DAYUN-WENZHEN-COMPATIBILITY-SCOPE-AUDIT-NG",
+    "BATCH-12-BAZI-DAYUN-EXACT-JIE-TIE-HANDLING-AUDIT-NH",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-DAYUN-WENZHEN-COMPATIBILITY-SCOPE-AUDIT-NG.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-DAYUN-EXACT-JIE-TIE-HANDLING-AUDIT-NH.md"
 
 
 def fail(message: str) -> None:
@@ -14920,6 +14921,35 @@ def main() -> int:
         fail("Batch 12NG provenance accounting must retain at least 28/28")
     if ng.get("algorithm_reopen_authorized") is not False or ng.get("transmission_impact", {}).get("status") != "NONE":
         fail("Batch 12NG reopen/transmission scope drift")
+
+    # Batch 12NH: exact-Jie equality stays fail-closed unless source-scoped mechanics close it.
+    nh_path = ROOT / "docs/research/BAZI-DAYUN-EXACT-JIE-TIE-HANDLING-AUDIT-R1.json"
+    if not nh_path.is_file():
+        fail("Batch 12NH research record missing")
+    nh = json.loads(nh_path.read_text(encoding="utf-8"))
+    nh_id = "BATCH-12-BAZI-DAYUN-EXACT-JIE-TIE-HANDLING-AUDIT-NH"
+    if nh.get("batch_id") != nh_id or nh.get("prior_batch_id") != ng_id or nh_id not in rule_batches:
+        fail("Batch 12NH chronology drift")
+    row_nh = next(r for r in matrix["rows"] if r["rule_id"] == "HPA-DAYUN-007")
+    if row_nh.get("audit_status") != "MODERN_COMPATIBILITY_ONLY" or row_nh.get("audit_batch") != nh_id or "HPA-DAYUN-007" not in matrix["audited_row_ids"]:
+        fail("Batch 12NH exact-Jie audit row drift")
+    repairs_nh = {x.get("defect_id") for x in nh.get("provenance_repairs", ())}
+    if repairs_nh != {"PROV-DEFECT-029"}:
+        fail("Batch 12NH provenance repair identity drift")
+    runtime_nh = nh.get("runtime_scope", {})
+    if runtime_nh.get("exact_jie_tie_policy") != "FAIL_CLOSED" or runtime_nh.get("diagnostic") != "EXACT_JIE_TIE_UNRESOLVED":
+        fail("Batch 12NH fail-closed runtime contract drift")
+    if set(runtime_nh.get("profiles", ())) != {"BAZI-TEMPORAL-V1-CONTINUOUS-R1", "BAZI-TEMPORAL-WENZHEN-CHINA-COMPATIBILITY-R1"}:
+        fail("Batch 12NH profile scope drift")
+    historical_nh = nh.get("historical_scope", {})
+    if historical_nh.get("exact_equality_explicitly_resolved") is not False or historical_nh.get("adjudication") != "STRICT_BEFORE_AFTER_LANGUAGE_DOES_NOT_SUPPLY_AN_EQUALITY_OPERATOR":
+        fail("Batch 12NH historical equality firewall drift")
+    if historical_nh.get("exhaustive_absence_claim") is not False:
+        fail("Batch 12NH exhaustive-absence overclaim")
+    if audit_summary.get("confirmed_provenance_metadata_defect_count", 0) < 29 or audit_summary.get("repaired_provenance_metadata_defect_count", 0) < 29:
+        fail("Batch 12NH provenance accounting must retain at least 29/29")
+    if nh.get("algorithm_reopen_authorized") is not False or nh.get("transmission_impact", {}).get("status") != "NONE":
+        fail("Batch 12NH reopen/transmission scope drift")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

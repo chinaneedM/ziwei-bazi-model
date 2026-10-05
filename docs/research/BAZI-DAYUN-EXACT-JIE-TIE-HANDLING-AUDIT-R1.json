@@ -1,0 +1,79 @@
+{
+  "schema": "BAZI-DAYUN-EXACT-JIE-TIE-HANDLING-AUDIT-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-BAZI-DAYUN-EXACT-JIE-TIE-HANDLING-AUDIT-NH",
+  "prior_batch_id": "BATCH-12-BAZI-DAYUN-WENZHEN-COMPATIBILITY-SCOPE-AUDIT-NG",
+  "rule_id": "HPA-DAYUN-007",
+  "audit_status": "MODERN_COMPATIBILITY_ONLY",
+  "algorithm_reopen_authorized": false,
+  "runtime_scope": {
+    "exact_jie_tie_policy": "FAIL_CLOSED",
+    "diagnostic": "EXACT_JIE_TIE_UNRESOLVED",
+    "profiles": [
+      "BAZI-TEMPORAL-V1-CONTINUOUS-R1",
+      "BAZI-TEMPORAL-WENZHEN-CHINA-COMPATIBILITY-R1"
+    ],
+    "implementation_condition": "birth_utc == previous_jie_utc",
+    "runtime_behavior": "NO_JIAOYUN_CANDIDATE_IS_SELECTED_FOR_EXACT_EQUALITY"
+  },
+  "historical_scope": {
+    "source_ids": [
+      "EXT-CTEXT-WUXING-JINGJI-V33-DAYUN",
+      "EXT-CTEXT-SANMING-V2-DAYUN"
+    ],
+    "attested_directional_wording": "生日后未来节气 / 生日前过去节气",
+    "exact_equality_explicitly_resolved": false,
+    "adjudication": "STRICT_BEFORE_AFTER_LANGUAGE_DOES_NOT_SUPPLY_AN_EQUALITY_OPERATOR",
+    "exhaustive_absence_claim": false
+  },
+  "philology": {
+    "生日后": "strictly after birth in the attested counting instruction",
+    "生日前": "strictly before birth in the attested counting instruction",
+    "未来节气": "future Jie used for forward counting",
+    "过去节气": "past Jie used for reverse counting",
+    "equality_inference": "NOT_AUTHORIZED"
+  },
+  "provenance_repairs": [
+    {
+      "defect_id": "PROV-DEFECT-029",
+      "defect": "HPA_DAYUN_007_MODERN_STANDARD_LABEL_AND_VAGUE_PROFILE_SCOPE_OVERSTATED_THE_PROJECT_FAIL_CLOSED_POLICY",
+      "repair": "Relabel as a modern fail-closed boundary policy over a historically unresolved equality case, and bind the exact two released temporal profiles.",
+      "chart_algorithm_effect": false,
+      "candidate_effect": false
+    }
+  ],
+  "unchanged_mechanics": [
+    "exact UTC equality comparison",
+    "FAIL_CLOSED policy",
+    "EXACT_JIE_TIE_UNRESOLVED diagnostic",
+    "Dayun direction",
+    "Jie anchor rules away from equality",
+    "symbolic age",
+    "calendar realization",
+    "Dayun sequence"
+  ],
+  "evidence": "docs/research/evidence/batch-12nh/dayun-exact-jie-tie-handling.json",
+  "accounting": {
+    "rows_before": 220,
+    "rows_after": 220,
+    "audited_rows_before": 211,
+    "audited_rows_after": 212,
+    "current_missing_from_product_rows": 10,
+    "provenance_defects_confirmed_before": 28,
+    "provenance_defects_confirmed_after": 29,
+    "provenance_defects_repaired_before": 28,
+    "provenance_defects_repaired_after": 29,
+    "chart_algorithm_defects": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0,
+    "new_provenance_defects": 1
+  },
+  "transmission_impact": {
+    "status": "NONE",
+    "reason": "The fail-closed equality policy is modern software governance; the historical witnesses refine semantic scope but create no new transmission edge."
+  },
+  "next_gate": [
+    "12NI: audit HPA-ZT-016 Self/inward transformation direction.",
+    "Keep NOT_YET_FORMALIZED unless source-scoped direction semantics and replayable mechanics are established."
+  ]
+}

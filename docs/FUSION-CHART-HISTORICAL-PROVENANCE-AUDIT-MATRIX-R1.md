@@ -34,7 +34,7 @@ Every row carries:
 - proposed action;
 - explicit algorithm-reopen authorization, which is **false for every inventory row at creation**.
 
-The initial inventory contained **107 rule/field families**. Through Batch 12NG and explicit splitting of historically distinct candidate families, the current machine-readable inventory contains **220 rows**, with **211 audited rows**. It intentionally keeps unresolved source work explicit rather than converting uncertainty into a chart defect. The current audit ledger records **28 confirmed provenance metadata defects repaired forward-only at the provenance/hash-lineage layer, 0 chart algorithm defects, 0 algorithm reopens, 14 cumulatively identified missing candidate families, 10 rows currently `MISSING_FROM_PRODUCT`, 6 historical candidate extensions, 3 source-scoped historical candidate registries, and 3 runtime-resolver components**.
+The initial inventory contained **107 rule/field families**. Through Batch 12NH and explicit splitting of historically distinct candidate families, the current machine-readable inventory contains **220 rows**, with **212 audited rows**. It intentionally keeps unresolved source work explicit rather than converting uncertainty into a chart defect. The current audit ledger records **29 confirmed provenance metadata defects repaired forward-only at the provenance/hash-lineage layer, 0 chart algorithm defects, 0 algorithm reopens, 14 cumulatively identified missing candidate families, 10 rows currently `MISSING_FROM_PRODUCT`, 6 historical candidate extensions, 3 source-scoped historical candidate registries, and 3 runtime-resolver components**.
 
 ## Research-corpus authority
 
@@ -1420,3 +1420,16 @@ The compatibility profile is therefore an isolated comparison layer, not a histo
 Matrix220/211/10, provenance28/28, chart algorithm defects/reopens/candidate collapses0. `transmission_impact=NONE`: a modern product-compatibility witness creates no historical text/school/person transmission edge.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-DAYUN-WENZHEN-COMPATIBILITY-SCOPE-AUDIT-NG.md`. Research record: `docs/research/BAZI-DAYUN-WENZHEN-COMPATIBILITY-SCOPE-AUDIT-R1.json`.
+
+
+## Progress — Batch 12NH
+
+HPA-DAYUN-007 Exact-Jie tie handling is formally audited as **MODERN_COMPATIBILITY_ONLY**. Both released Bazi temporal profiles use `exact_jie_tie_policy=FAIL_CLOSED`; when `birth_utc == previous_jie_utc`, the runtime emits `EXACT_JIE_TIE_UNRESOLVED` rather than silently assigning the equality instant to a preceding or following Jie.
+
+The bound Song/Ming Dayun witnesses use strict relative wording: forward counting from the birth to the future Jie and reverse counting to the past Jie. That closes the directional before/after structure but does not state an equality operator or zero-interval rule. The audit therefore does not infer `>=`, `<=`, immediate handover, or an adjacent-Jie reassignment from textual silence.
+
+**PROV-DEFECT-029** repairs the Matrix label `MODERN_STANDARD` and vague `BAZI temporal profiles` scope. The row now identifies this as a project fail-closed boundary policy over a historically unresolved equality case and binds the exact continuous + Wenzhen compatibility profiles. No runtime mechanics, candidates, Dayun coordinates, or historical winner change.
+
+Matrix220/212/10, provenance29/29, chart algorithm defects/reopens/candidate collapses0. `transmission_impact=NONE`.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-DAYUN-EXACT-JIE-TIE-HANDLING-AUDIT-NH.md`. Research record: `docs/research/BAZI-DAYUN-EXACT-JIE-TIE-HANDLING-AUDIT-R1.json`.
