@@ -3624,6 +3624,44 @@
         "HPA-ZIWEI-014"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-FOUR-TRANSFORMATION-WHOLE-TABLE-CANDIDATE-READINESS-OJ"
+    },
+    {
+      "node_id": "PASSAGE-JIELAN-1581-CH69-DIGNITY-PALACE",
+      "node_type": "PASSAGE",
+      "label": "1581《紫微斗数捷览》CH69·十二宫诸星庙陷诀",
+      "system_scope": "ZIWEI_DIGNITY_PALACE_ORIENTED_SOURCE_LEXEMES",
+      "date": "1581_MING_WANLI9_PRINT_TRADITION",
+      "evidence": [
+        "EXT-ZIWEI-JIELAN-1581:CH69",
+        "HPA-ZIWEI-018"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-JIELAN-DIGNITY-CH69-CH70-CELL-CROSS-COLLATION-ON"
+    },
+    {
+      "node_id": "PASSAGE-JIELAN-1581-CH70-DIGNITY-STAR",
+      "node_type": "PASSAGE",
+      "label": "1581《紫微斗数捷览》CH70·诸星十二宫庙陷诀",
+      "system_scope": "ZIWEI_DIGNITY_STAR_ORIENTED_SOURCE_LEXEMES",
+      "date": "1581_MING_WANLI9_PRINT_TRADITION",
+      "evidence": [
+        "EXT-ZIWEI-JIELAN-1581:CH70",
+        "HPA-ZIWEI-018"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-JIELAN-DIGNITY-CH69-CH70-CELL-CROSS-COLLATION-ON"
+    },
+    {
+      "node_id": "RULE-FAMILY-JIELAN-1581-DIGNITY-SOURCE-LEXEMES",
+      "node_type": "RULE_FAMILY",
+      "label": "1581《捷览》庙陷原始语词规则族",
+      "system_scope": "ZIWEI_HISTORICAL_DIGNITY_SOURCE_LEXEME_FAMILY_NO_MODERN_GRADE_COERCION",
+      "date": "MING_1581_ATTESTED",
+      "mechanics": "CH70 star-oriented 25×12 raw lexemes plus CH69 palace-oriented parallel evidence; preserved not selected",
+      "evidence": [
+        "docs/research/ZIWEI-JIELAN-DIGNITY-SOURCE-LEXEME-CANDIDATE-R1.json",
+        "docs/research/ZIWEI-JIELAN-DIGNITY-CH69-CH70-CELL-CROSS-COLLATION-R1.json",
+        "HPA-ZIWEI-018"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-JIELAN-DIGNITY-CH69-CH70-CELL-CROSS-COLLATION-ON"
     }
   ],
   "edges": [
@@ -6116,6 +6154,50 @@
       ],
       "scope_note": "Distinct source-scoped whole-table candidates; no hybridization.",
       "adjudication_batch": "BATCH-12-ZIWEI-FOUR-TRANSFORMATION-WHOLE-TABLE-CANDIDATE-READINESS-OJ"
+    },
+    {
+      "edge_id": "TG-E0163",
+      "from": "PASSAGE-JIELAN-1581-CH69-DIGNITY-PALACE",
+      "relation": "TRANSMITS_RULE",
+      "to": "RULE-FAMILY-JIELAN-1581-DIGNITY-SOURCE-LEXEMES",
+      "status": "HIGH_CONFIDENCE",
+      "confidence": "HIGH_FOR_PALACE_ORIENTED_RECEIVED_TEXT_WITH_8_TYPED_UNRESOLVED_CELLS",
+      "evidence_class": "EARLY_PRINT_TRANSCRIPTION_PALACE_ORIENTED_DIGNITY_TEXT",
+      "evidence": [
+        "EXT-ZIWEI-JIELAN-1581:CH69",
+        "docs/research/ZIWEI-JIELAN-DIGNITY-CH69-CH70-CELL-CROSS-COLLATION-R1.json"
+      ],
+      "scope_note": "CH69 contributes parallel raw evidence only; unresolved/truncated tokens are not silently repaired.",
+      "adjudication_batch": "BATCH-12-ZIWEI-JIELAN-DIGNITY-CH69-CH70-CELL-CROSS-COLLATION-ON"
+    },
+    {
+      "edge_id": "TG-E0164",
+      "from": "PASSAGE-JIELAN-1581-CH70-DIGNITY-STAR",
+      "relation": "TRANSMITS_RULE",
+      "to": "RULE-FAMILY-JIELAN-1581-DIGNITY-SOURCE-LEXEMES",
+      "status": "CONFIRMED",
+      "confidence": "VERY_HIGH_FOR_25_BY_12_RAW_LEXEME_EXTRACTION_WITH_PRESERVED_SOURCE_ANOMALIES",
+      "evidence_class": "EARLY_PRINT_TRANSCRIPTION_STAR_ORIENTED_DIGNITY_TEXT",
+      "evidence": [
+        "EXT-ZIWEI-JIELAN-1581:CH70",
+        "docs/research/ZIWEI-JIELAN-DIGNITY-SOURCE-LEXEME-CANDIDATE-R1.json"
+      ],
+      "scope_note": "CH70 remains the primary raw-lexeme candidate; conflicts and the unstated cell remain source facts.",
+      "adjudication_batch": "BATCH-12-ZIWEI-JIELAN-DIGNITY-CH69-CH70-CELL-CROSS-COLLATION-ON"
+    },
+    {
+      "edge_id": "TG-E0165",
+      "from": "PASSAGE-JIELAN-1581-CH69-DIGNITY-PALACE",
+      "relation": "PARALLEL_COEXISTS_WITH",
+      "to": "PASSAGE-JIELAN-1581-CH70-DIGNITY-STAR",
+      "status": "CONFIRMED",
+      "confidence": "VERY_HIGH_FOR_SAME_WORK_PARALLEL_TABLES_WITH_300_CELL_CROSS_COLLATION",
+      "evidence_class": "CELL_LEVEL_SOURCE_LEXEME_CROSS_COLLATION",
+      "evidence": [
+        "docs/research/evidence/batch-12on/ziwei-jielan-dignity-ch69-ch70-cross-collation-evidence.json"
+      ],
+      "scope_note": "Parallel source layers are compared but never merged into a synthetic winner or production grade table.",
+      "adjudication_batch": "BATCH-12-ZIWEI-JIELAN-DIGNITY-CH69-CH70-CELL-CROSS-COLLATION-ON"
     }
   ],
   "lineage_hypotheses": [
