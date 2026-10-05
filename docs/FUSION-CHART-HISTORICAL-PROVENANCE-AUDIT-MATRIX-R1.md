@@ -1980,3 +1980,27 @@ CH69 remains a parallel palace-oriented source table and is not used to silently
 Accounting: **222/222 audited**, **6 current missing**, candidate extensions **14**, registries/runtime resolvers **5/5**, provenance defects **43/43**.
 
 Next: **12ON — CH69/CH70 cell-level dignity cross-collation.**
+
+## Progress — Batch 12ON
+
+`HPA-ZIWEI-018` now has complete **CH69↔CH70 cell-level cross-collation**.
+
+The comparison grid is 25 CH70 entities/groups × 12 branches = **300 cells**. The frozen relation counts are:
+
+- 97 exact lexeme overlaps;
+- 37 source-explicit direct equivalents;
+- 54 source-local polarity conflicts;
+- 21 cells where both chapters attest values but no direct gloss proves equivalence;
+- 82 CH69 unstated cells;
+- 8 CH69 text-unresolved cells;
+- 1 CH70 unstated cell.
+
+The eight CH69 unresolved cells are not silently repaired. The parser refuses to split singular `文` into 文昌/文曲, refuses to assign the ambiguous 丑 `羊陀火破` group a category, refuses to rewrite 辰 `午` to `日`, and refuses to infer 文昌 from the truncated 寅 `曲与`.
+
+The three controlling anomalies remain explicit: 紫微午 keeps CH70 `庙+平`; 巨门丑 keeps CH70 `局+陷`; 天机巳 remains CH70-un-stated even though CH69 records `兴`. CH69 is therefore parallel evidence, **not a fill source**.
+
+No production R4 grade/status is inferred. No chapter is allowed to overwrite the other. No historical winner is selected.
+
+`HPA-ZIWEI-018` remains `MISSING_FROM_PRODUCT`, but the remaining gap is now only the explicit read-only candidate API / Workbench surface. Internal raw candidate plus source reconciliation are complete.
+
+Next: **12OO — read-only Jielan dignity candidate product surface.**
