@@ -904,9 +904,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-POST-AUDIT-JIELAN-SOURCE-SCOPED-CANDIDATE-PRODUCT-SURFACE-RECONCILIATION-NR",
     "BATCH-12-POST-AUDIT-FOUR-TRANSFORMATION-DIGNITY-PRODUCT-BOUNDARY-RECONCILIATION-NS",
     "BATCH-12-POST-AUDIT-NANYANGTANG-LATE-ZI-NATAL-CANDIDATE-PRODUCT-SURFACE-RECONCILIATION-NT",
+    "BATCH-12-POST-AUDIT-DAYUN-HISTORICAL-CALENDAR-CANDIDATE-PRODUCT-SURFACE-RECONCILIATION-NU",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-POST-AUDIT-NANYANGTANG-LATE-ZI-NATAL-CANDIDATE-PRODUCT-SURFACE-RECONCILIATION-NT.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-POST-AUDIT-DAYUN-HISTORICAL-CALENDAR-CANDIDATE-PRODUCT-SURFACE-RECONCILIATION-NU.md"
 
 
 def fail(message: str) -> None:
@@ -15704,6 +15705,96 @@ def main() -> int:
         fail("Batch 12NT state version is not numeric")
     if schema12nt < (1, 388, 0):
         fail("Batch 12NT state version regressed below 1.388.0")
+
+
+    # Batch 12NU: historical-calendar contract coverage is architecture-only until an explicit regime/runtime profile exists.
+    nu_path = ROOT / "docs/research/BAZI-DAYUN-HISTORICAL-CALENDAR-CANDIDATE-PRODUCT-SURFACE-RECONCILIATION-R1.json"
+    nu_evidence_path = ROOT / "docs/research/evidence/batch-12nu/bazi-dayun-historical-calendar-candidate-product-surface-reconciliation.json"
+    if not nu_path.is_file() or not nu_evidence_path.is_file():
+        fail("Batch 12NU research/evidence record missing")
+    nu = json.loads(nu_path.read_text(encoding="utf-8"))
+    nu_evidence = json.loads(nu_evidence_path.read_text(encoding="utf-8"))
+    nu_id = "BATCH-12-POST-AUDIT-DAYUN-HISTORICAL-CALENDAR-CANDIDATE-PRODUCT-SURFACE-RECONCILIATION-NU"
+    if nu.get("batch_id") != nu_id or nu.get("prior_batch_id") != nt_id:
+        fail("Batch 12NU chronology drift")
+    if nu_id in rule_batches:
+        fail("Batch 12NU post-audit reconciliation must not be enrolled as a supplemental rule-audit batch")
+    if nu.get("batch_classification") != "POST_AUDIT_RECONCILIATION_NOT_SUPPLEMENTAL_RULE_AUDIT":
+        fail("Batch 12NU batch classification drift")
+    target_ids_nu = {"HPA-DAYUN-CAL-002", "HPA-DAYUN-CAL-003", "HPA-DAYUN-CAL-004"}
+    if set(nu.get("target_rule_ids", ())) != target_ids_nu:
+        fail("Batch 12NU target rule set drift")
+    rows_nu = {r["rule_id"]: r for r in matrix["rows"] if r["rule_id"] in target_ids_nu}
+    if set(rows_nu) != target_ids_nu:
+        fail("Batch 12NU Matrix target rows missing")
+    for rule_id, row_nu in rows_nu.items():
+        if row_nu.get("audit_status") != "MISSING_FROM_PRODUCT":
+            fail(f"Batch 12NU target status drift: {rule_id}")
+        if row_nu.get("reconciliation_batch") != nu_id or row_nu.get("reconciliation_status") != "MISSING_FROM_PRODUCT_CONFIRMED":
+            fail(f"Batch 12NU reconciliation binding drift: {rule_id}")
+        if row_nu.get("algorithm_reopen_authorized") is not False:
+            fail(f"Batch 12NU algorithm-reopen firewall drift: {rule_id}")
+
+    row2_nu = rows_nu["HPA-DAYUN-CAL-002"]
+    s2_nu = row2_nu.get("product_surface_reconciliation", {})
+    if s2_nu.get("ming_datong_regime_descriptor_registered") is not True or s2_nu.get("fail_closed_historical_calendar_adapter_exists") is not True:
+        fail("Batch 12NU Ming contract partial coverage drift")
+    for key in ("certified_ming_datong_calendar_arithmetic_adapter", "bazi_temporal_engine_imports_historical_calendar", "bazi_historical_temporal_profile", "local_product_historical_temporal_profile_option", "production_default_changed"):
+        if s2_nu.get(key) is not False:
+            fail(f"Batch 12NU Ming product-gap firewall drift: {key}")
+
+    row3_nu = rows_nu["HPA-DAYUN-CAL-003"]
+    if row3_nu.get("defect_id") != "PROV-DEFECT-039" or row3_nu.get("repair_status") != "REPAIRED_IN_BATCH_12NU_FORWARD_ONLY":
+        fail("Batch 12NU Qianli provenance repair drift")
+    s3_nu = row3_nu.get("product_surface_reconciliation", {})
+    if s3_nu.get("generic_historical_calendar_contract_can_support_future_regime") is not True:
+        fail("Batch 12NU generic contract capability drift")
+    for key in ("qianli_republican_regime_descriptor_registered", "fail_closed_qianli_adapter_instantiable_by_registered_id", "bazi_temporal_engine_imports_historical_calendar", "qianli_historical_temporal_profile", "local_product_qianli_temporal_profile_option", "production_default_changed"):
+        if s3_nu.get(key) is not False:
+            fail(f"Batch 12NU Qianli product-gap firewall drift: {key}")
+
+    row4_nu = rows_nu["HPA-DAYUN-CAL-004"]
+    s4_nu = row4_nu.get("product_surface_reconciliation", {})
+    if s4_nu.get("historical_contract_add_calendar_years_operation_exists") is not True or s4_nu.get("historical_contract_forbids_implicit_gregorian_anniversary") is not True:
+        fail("Batch 12NU recurrence contract coverage drift")
+    for key in ("bazi_temporal_engine_imports_historical_calendar", "historical_recurrence_runtime_branch", "local_product_historical_recurrence_profile_option", "production_default_changed"):
+        if s4_nu.get(key) is not False:
+            fail(f"Batch 12NU recurrence product-gap firewall drift: {key}")
+
+    repairs_nu = {x.get("defect_id") for x in nu.get("provenance_repairs", ())}
+    if repairs_nu != {"PROV-DEFECT-039"}:
+        fail("Batch 12NU provenance repair identity drift")
+    accounting_nu = nu.get("accounting", {})
+    if accounting_nu.get("missing_from_product_after") != 10 or accounting_nu.get("reconciled_missing_product_rows_after") != 10:
+        fail("Batch 12NU missing-product reconciliation accounting drift")
+    if accounting_nu.get("provenance_defects_confirmed_after") != 39 or accounting_nu.get("provenance_defects_repaired_after") != 39:
+        fail("Batch 12NU provenance accounting drift")
+    if audit_summary.get("confirmed_provenance_metadata_defect_count", 0) < 39 or audit_summary.get("repaired_provenance_metadata_defect_count", 0) < 39:
+        fail("Batch 12NU Matrix provenance accounting must retain at least 39/39")
+    if audit_state.get("confirmed_provenance_metadata_defect_count", 0) < 39 or audit_state.get("repaired_provenance_metadata_defect_count", 0) < 39:
+        fail("Batch 12NU state provenance accounting must retain at least 39/39")
+    adj_nu = nu_evidence.get("adjudication", {})
+    if set(adj_nu.get("new_provenance_defects", ())) != {"PROV-DEFECT-039"}:
+        fail("Batch 12NU evidence provenance repair set drift")
+    if adj_nu.get("repair_metadata_only") is not True or adj_nu.get("runtime_behavior_changed") is not False or adj_nu.get("candidate_selection_changed") is not False or adj_nu.get("production_default_changed") is not False:
+        fail("Batch 12NU evidence adjudication firewall drift")
+    unresolved_nu = nu.get("unresolved_status_inventory_after", {})
+    if unresolved_nu != {
+        "disputed_multiple_candidates": 30,
+        "source_insufficient": 11,
+        "not_yet_formalized": 1,
+        "missing_from_product": 10,
+        "missing_from_product_all_post_audit_reconciled": True,
+    }:
+        fail("Batch 12NU unresolved-status inventory drift")
+    if nu.get("algorithm_reopen_authorized") is not False or nu.get("transmission_impact", {}).get("status") != "NONE":
+        fail("Batch 12NU reopen/transmission scope drift")
+    try:
+        schema12nu = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12NU state version is not numeric")
+    if schema12nu < (1, 389, 0):
+        fail("Batch 12NU state version regressed below 1.389.0")
     try:
         schema12ns = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
     except ValueError:
