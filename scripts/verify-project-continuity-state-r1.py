@@ -15429,8 +15429,11 @@ def main() -> int:
     closure_np = np.get("matrix_closure", {})
     if closure_np.get("rows") != 220 or closure_np.get("audited_rows_after") != 220 or closure_np.get("all_existing_rows_audited") is not True:
         fail("Batch 12NP 220/220 Matrix closure drift")
-    if len(matrix.get("rows", ())) != 220 or len(set(matrix.get("audited_row_ids", ()))) != 220:
-        fail("Batch 12NP Matrix row/audited cardinality drift")
+    # Batch 12NP froze a 220/220 closure snapshot. Later forward-only
+    # decomposition may add audited rows, so current cardinality is monotonic,
+    # not permanently equal to the historical snapshot.
+    if len(matrix.get("rows", ())) < 220 or len(set(matrix.get("audited_row_ids", ()))) < 220:
+        fail("Batch 12NP Matrix row/audited cardinality regressed below 220/220")
     if audit_summary.get("confirmed_provenance_metadata_defect_count", 0) < 35 or audit_summary.get("repaired_provenance_metadata_defect_count", 0) < 35:
         fail("Batch 12NP provenance accounting must retain at least 35/35")
     if np.get("algorithm_reopen_authorized") is not False or np.get("transmission_impact", {}).get("status") != "NONE":
