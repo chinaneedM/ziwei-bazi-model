@@ -80,7 +80,7 @@
       "candidate/profile rules": 2,
       "provenance / hashes / lineage": 2
     },
-    "audited_row_count": 212
+    "audited_row_count": 213
   },
   "rows": [
     {
@@ -2633,22 +2633,25 @@
       "system": "ZIWEI",
       "module": "四化",
       "rule_or_field": "Self/inward transformation direction",
-      "current_implementation": "Runtime intentionally does not generate a deterministic inward/outward direction formula.",
+      "current_implementation": "Runtime intentionally emits only neutral palace-stem transformation topology and does not generate inward/outward direction.",
       "current_profile": "NOT_YET_FORMALIZED",
-      "primary_source": "S08 defines object semantics but no unique replayable direction rule in current corpus",
-      "source_quote": "PENDING_VERBATIM_EXTRACTION",
-      "source_quote_location": "docs/S08-SELF-TRANSFORMATION-DETERMINISTIC-AUDIT-R1.md",
-      "historical_period": "PENDING_BIBLIOGRAPHIC_DATING",
-      "later_witnesses": "PENDING_LATER_WITNESS_AUDIT",
-      "school_attribution": "PENDING_SCHOOL_ATTRIBUTION_AUDIT",
+      "primary_source": "Project corpus S08 for normalized object vocabulary; modern school scope witnesses EXT-XUQUANREN-ZIWEI-MINGLIXUE-ZHENGJIE-2013-BIBLIOGRAPHY, EXT-XUQUANREN-LUCKYZIWEI-OFFICIAL-TEACHING-SITE, and EXT-ZIWEICN-XUQUANREN-ADVANCED-27-SELF-TRANSFORMATION-TRANSCRIPT. No release-grade target selector source is closed.",
+      "source_quote": "Modern Xu-attributed secondary transcript distinguishes self-transformation/centrifugal from equivalent-self/centripetal; exact original audio/diagram remains unbound.",
+      "source_quote_location": "EXT-ZIWEICN-XUQUANREN-ADVANCED-27-SELF-TRANSFORMATION-TRANSCRIPT; docs/research/evidence/batch-12ni/ziwei-self-inward-transformation-direction-source-scope.json",
+      "historical_period": "MODERN_SCHOOL_METHOD_FAMILY; CLASSICAL_OR_EARLY_PROVENANCE_NOT_CLOSED",
+      "later_witnesses": "2013 Xu Quanren bibliography/TOC; Xu-supervised Qintian teaching site; secondary transcript of advanced-class episode 27; current secondary terminology-variation control.",
+      "school_attribution": "MODERN_XU_QUANREN_QINTIAN_FEIGONG_ATTRIBUTED_WITNESS; S08_ZHONGZHOU_SOURCE_FAMILY_NOT_CROSSBOUND_TO_IT",
       "competing_methods": [
-        "school-specific self-transformation direction methods"
+        "Xu-attributed transcript vocabulary: 自化/离心力 versus 视同自化/向心力",
+        "current three-label secondary taxonomy separating 向心自化, 离心自化 and 视同自化",
+        "other school-specific directional-arrow conventions remain independently source-auditable"
       ],
-      "current_implementation_match": "NOT_IMPLEMENTED_BY_DESIGN",
-      "confidence": "HIGH",
+      "current_implementation_match": "CORRECTLY_NOT_IMPLEMENTED: released SAME_PALACE / OPPOSITE_PALACE / OTHER_PALACE topology remains neutral and does not infer direction.",
+      "confidence": "HIGH_FOR_NOT_YET_FORMALIZED_DECISION; MEDIUM_FOR_MODERN_XU_QUANREN_METHOD_FAMILY_IDENTITY; LOW_FOR_UNIQUE_SELECTOR_OR_EARLY_GENEALOGY",
       "audit_status": "NOT_YET_FORMALIZED",
-      "proposed_action": "Search primary/early sources and school manuals for a complete mechanical trigger/direction rule; keep closed product unchanged.",
-      "algorithm_reopen_authorized": false
+      "proposed_action": "Keep direction absent. Obtain edition-bound target pages and/or original audio/diagram, close terminology/name bridges and exact same/opposite selector mechanics, then preserve source-scoped candidates if competing methods remain.",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-12-ZIWEI-SELF-INWARD-TRANSFORMATION-DIRECTION-SOURCE-SCOPE-AUDIT-NI"
     },
     {
       "rule_id": "HPA-STRUCT-001",
@@ -7306,7 +7309,8 @@
     "HPA-TIME-004",
     "HPA-TIME-011",
     "HPA-DAYUN-006",
-    "HPA-DAYUN-007"
+    "HPA-DAYUN-007",
+    "HPA-ZT-016"
   ],
   "audit_summary": {
     "confirmed_chart_algorithm_defect_count": 0,
@@ -7345,6 +7349,7 @@
     "BATCH-12-TIME-MODERN-CHINESE-CALENDAR-CONSTRUCTION-AUDIT-NE",
     "BATCH-12-TIME-APPROXIMATE-BIRTH-TIME-SAMPLING-AUDIT-NF",
     "BATCH-12-BAZI-DAYUN-WENZHEN-COMPATIBILITY-SCOPE-AUDIT-NG",
-    "BATCH-12-BAZI-DAYUN-EXACT-JIE-TIE-HANDLING-AUDIT-NH"
+    "BATCH-12-BAZI-DAYUN-EXACT-JIE-TIE-HANDLING-AUDIT-NH",
+    "BATCH-12-ZIWEI-SELF-INWARD-TRANSFORMATION-DIRECTION-SOURCE-SCOPE-AUDIT-NI"
   ]
 }

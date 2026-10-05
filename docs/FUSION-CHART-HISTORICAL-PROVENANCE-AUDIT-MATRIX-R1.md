@@ -34,7 +34,7 @@ Every row carries:
 - proposed action;
 - explicit algorithm-reopen authorization, which is **false for every inventory row at creation**.
 
-The initial inventory contained **107 rule/field families**. Through Batch 12NH and explicit splitting of historically distinct candidate families, the current machine-readable inventory contains **220 rows**, with **212 audited rows**. It intentionally keeps unresolved source work explicit rather than converting uncertainty into a chart defect. The current audit ledger records **29 confirmed provenance metadata defects repaired forward-only at the provenance/hash-lineage layer, 0 chart algorithm defects, 0 algorithm reopens, 14 cumulatively identified missing candidate families, 10 rows currently `MISSING_FROM_PRODUCT`, 6 historical candidate extensions, 3 source-scoped historical candidate registries, and 3 runtime-resolver components**.
+The initial inventory contained **107 rule/field families**. Through Batch 12NI and explicit splitting of historically distinct candidate families, the current machine-readable inventory contains **220 rows**, with **213 audited rows**. It intentionally keeps unresolved source work explicit rather than converting uncertainty into a chart defect. The current audit ledger records **29 confirmed provenance metadata defects repaired forward-only at the provenance/hash-lineage layer, 0 chart algorithm defects, 0 algorithm reopens, 14 cumulatively identified missing candidate families, 10 rows currently `MISSING_FROM_PRODUCT`, 6 historical candidate extensions, 3 source-scoped historical candidate registries, and 3 runtime-resolver components**.
 
 ## Research-corpus authority
 
@@ -1433,3 +1433,16 @@ The bound Song/Ming Dayun witnesses use strict relative wording: forward countin
 Matrix220/212/10, provenance29/29, chart algorithm defects/reopens/candidate collapses0. `transmission_impact=NONE`.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-DAYUN-EXACT-JIE-TIE-HANDLING-AUDIT-NH.md`. Research record: `docs/research/BAZI-DAYUN-EXACT-JIE-TIE-HANDLING-AUDIT-R1.json`.
+
+
+## Progress — Batch 12NI
+
+HPA-ZT-016 Self/inward transformation direction has now been fully source-scope audited while intentionally remaining **NOT_YET_FORMALIZED**. The released 12×4 palace-stem transformation topology remains neutral geometry only: `SAME_PALACE`, `OPPOSITE_PALACE`, and `OTHER_PALACE` are not promoted to outward/inward direction.
+
+S08 preserves normalized self/inward enums and a recovered source-family identity `S08-SRC-ZHONGZHOU-TRANSFORMATION / 中州派四化曜.txt`, but its own release proof remains `NOT_PROVEN`; the recovered RAW surface does not close an exact `向心力 / 離心力 / 視同自化 / 本宫宫干 / 对宫宫干` selector. Under the research-authority policy, S08 therefore remains project corpus, not a self-authenticating historical/school authority.
+
+Modern evidence now narrows the method family without closing it. Xu Quanren's 2013 `紫微斗數命理學正解(一)` bibliography/TOC directly establishes dedicated 飛宮四化 and 自化 sections; a Xu-supervised public teaching site establishes the modern 欽天四化 teaching identity; and a secondary transcript of advanced-class episode 27 explicitly maps 自化 toward a centrifugal vocabulary and 視同自化 toward a centripetal vocabulary. However the target book pages, original audio and diagram coordinates are not directly bound. Current secondary literature also uses a three-label taxonomy that separates 向心自化 / 離心自化 / 視同自化, so terminology cannot be normalized by name alone.
+
+No runtime selector or candidate is added. The formalization gate remains closed until an edition-bound or equivalent first-party school witness supplies a complete replayable selector, scope, diagram/coordinate semantics and terminology bridge. Matrix220/213/10; provenance29/29; chart algorithm defects/reopens/candidate collapses0. `transmission_impact=DEFERRED_NO_EDGE` because no direct lineage from the S08 Zhongzhou-labelled source family to the Xu/Qintian family is established.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-SELF-INWARD-TRANSFORMATION-DIRECTION-SOURCE-SCOPE-AUDIT-NI.md`. Research record: `docs/research/ZIWEI-SELF-INWARD-TRANSFORMATION-DIRECTION-SOURCE-SCOPE-AUDIT-R1.json`.
