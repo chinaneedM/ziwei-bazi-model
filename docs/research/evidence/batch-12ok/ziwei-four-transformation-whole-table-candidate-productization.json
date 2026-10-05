@@ -1,0 +1,37 @@
+{
+  "schema": "ZIWEI-FOUR-TRANSFORMATION-WHOLE-TABLE-CANDIDATE-PRODUCTIZATION-EVIDENCE-R1",
+  "batch_id": "BATCH-12-ZIWEI-FOUR-TRANSFORMATION-WHOLE-TABLE-CANDIDATE-PRODUCTIZATION-OK",
+  "code_surfaces": [
+    "src/fortune_training/ziwei_chart/four_transformation_historical_candidates.py",
+    "src/fortune_training/ziwei_chart/__init__.py",
+    "src/fortune_training/combined_chart_application/local_app.py",
+    "src/fortune_training/combined_chart_application/ziwei_four_transformation_historical_candidate_local_app.py",
+    "src/fortune_training/combined_chart_application/ziwei_four_transformation_historical_candidate_assets.py",
+    "src/fortune_training/combined_chart_application/workbench_local_app.py",
+    "tests/test_ziwei_four_transformation_historical_candidates_r1.py",
+    "tests/test_ziwei_four_transformation_candidate_productization_r1.py",
+    "tests/test_ziwei_jielan_1581_candidate_productization_r1.py"
+  ],
+  "public_api": {
+    "endpoint": "/api/ziwei-four-transformation-candidates",
+    "returns_both_candidates": true,
+    "requires_candidate_winner_input": false,
+    "candidate_ids": [
+      "RECEIVED-FULLBOOK-SHIDIAN-V3-FOUR-TRANSFORMATION-R1",
+      "ZHONGZHOU-WANGTINGZHI-FOUR-TRANSFORMATION-R1"
+    ]
+  },
+  "workbench": {
+    "panel": "四化整表历史候选",
+    "simultaneous_read_only_cards": 2,
+    "formulas_in_browser": false,
+    "winner_button": false,
+    "production_switch": false
+  },
+  "regression_expectations": {
+    "workbench_server_version": "CombinedChartWorkbenchLocalApp/1.14",
+    "legacy_health_application_version": "1.1.0",
+    "jielan_candidate_surface_retained": true,
+    "production_s08_unchanged": true
+  }
+}
