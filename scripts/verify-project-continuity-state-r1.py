@@ -14467,10 +14467,10 @@ def main() -> int:
     flow1_repair = next(row for row in matrix["rows"] if row["rule_id"] == "HPA-BAZI-FLOW-001")
     if flow1_repair.get("defect_id") != "PROV-DEFECT-018" or flow1_repair.get("repair_status") != "REPAIRED_FORWARD_ONLY_AFTER_BATCH_12MS_CI":
         fail("PROV-DEFECT-018 Matrix binding drift")
-    if audit_summary.get("confirmed_provenance_metadata_defect_count") != 18 or audit_summary.get("repaired_provenance_metadata_defect_count") != 18:
-        fail("current Matrix provenance defect accounting must be 18/18 after PROV-DEFECT-018")
-    if audit_state.get("confirmed_provenance_metadata_defect_count") != 18 or audit_state.get("repaired_provenance_metadata_defect_count") != 18:
-        fail("current-state provenance defect accounting must be 18/18 after PROV-DEFECT-018")
+    if audit_summary.get("confirmed_provenance_metadata_defect_count", 0) < 18 or audit_summary.get("repaired_provenance_metadata_defect_count", 0) < 18:
+        fail("current Matrix provenance defect accounting must retain at least 18/18 after PROV-DEFECT-018")
+    if audit_state.get("confirmed_provenance_metadata_defect_count", 0) < 18 or audit_state.get("repaired_provenance_metadata_defect_count", 0) < 18:
+        fail("current-state provenance defect accounting must retain at least 18/18 after PROV-DEFECT-018")
     mr_replay_repair = json.loads((ROOT / "docs/research/evidence/batch-12mr/composition-replay.json").read_text(encoding="utf-8"))
     if mr_replay_repair.get("pre_dayun_interval_frame_preserved") is not True or mr_replay_repair.get("pre_dayun_synthetic_ganzhi_emitted") is not False:
         fail("PROV-DEFECT-018 PRE_DAYUN replay semantics drift")
@@ -14682,8 +14682,8 @@ def main() -> int:
     correction_mz = mz["provenance_correction"]
     if correction_mz.get("defect_id") != "PROV-DEFECT-019" or correction_mz.get("repaired") is not True or correction_mz.get("original_historical_snapshot_rewritten") is not False:
         fail("Batch 12MZ next-gate correction drift")
-    if audit_summary.get("confirmed_provenance_metadata_defect_count") != 19 or audit_summary.get("repaired_provenance_metadata_defect_count") != 19:
-        fail("Batch 12MZ provenance defect accounting drift")
+    if audit_summary.get("confirmed_provenance_metadata_defect_count", 0) < 19 or audit_summary.get("repaired_provenance_metadata_defect_count", 0) < 19:
+        fail("Batch 12MZ provenance defect accounting must retain at least 19/19")
     replay_mz = json.loads((ROOT / mz["replay_evidence"]).read_text())
     records_mz = replay_mz["records"]
     if len(records_mz) != 144 or hashlib.sha256(json.dumps(records_mz, sort_keys=True, separators=(",", ":")).encode()).hexdigest() != replay_mz["records_sha256"]:
