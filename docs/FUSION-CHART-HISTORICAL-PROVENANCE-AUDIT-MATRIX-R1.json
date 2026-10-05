@@ -4307,20 +4307,76 @@
       "rule_id": "HPA-ZMINOR-024",
       "rule_or_field": "天巫 lunar-month table",
       "current_implementation": "正五九月巳、二六十月申、三七十一月寅、四八十二月亥.",
-      "primary_source": "S01:ZZZA-PR-048 (project research corpus only); no qualifying Ziwei historical placement witness established",
-      "source_quote": "The current four-palace monthly table is present in the project corpus; the classical same-name material found externally belongs to calendrical/Qizheng contexts and uses different logic.",
-      "source_quote_location": "S01:ZZZA-PR-048; external negative/source-domain check: Tianji Ziwei glossary 天巫",
-      "historical_period": "CURRENT_ZIWEI_MONTH_TABLE_GENEALOGY_UNRESOLVED; SAME_NAME_CLASSICAL_NON_ZIWEI_MATERIAL_EXISTS",
-      "later_witnesses": "Modern Ziwei implementations reproduce the current table. 《御定星历考原》 contains a same-name monthly deity but does not establish this Ziwei coordinate table.",
-      "school_attribution": "CURRENT_MODERN_ZIWEI_MONTH_TABLE_WITH_CROSS_SYSTEM_HOMONYM_RISK",
+      "primary_source": "Premodern calendrical Tianwu is attested in Cao Zhengui's Lishimingyuan, 1713 Yuding Xingli Kaoyuan and Qing Xieji Bianfang Shu, but all reviewed witnesses use 常居月建前二辰, which does not reproduce the current Ziwei four-horse table.",
+      "source_quote": "总要历 treats 天巫 as a monthly auspicious deity; 历例 gives 常居月建前二辰. Xingli Kaoyuan's neighboring Fude examples fix 前二辰 as month-build plus two branches.",
+      "source_quote_location": "EXT-SHIDIAN-LISHIMINGYUAN-TIANWU; EXT-CTEXT-XINGLI-KAOYUAN-TIANWU; EXT-WIKISOURCE-XIEJI-BIANFANG-TIANWU; docs/research/ZIWEI-TIANWU-HOMONYM-MECHANICAL-SEPARATION-R1.json",
+      "historical_period": "PREMODERN_CALENDRICAL_TIANWU_HOMONYM_ATTESTED; CURRENT_ZIWEI_FOUR_HORSE_MONTH_TABLE_GENEALOGY_STILL_UNRESOLVED",
+      "later_witnesses": "Modern Ziwei manuals and implementations reproduce the current 巳申寅亥 four-horse cycle. The premodern calendrical Tianwu witness is a different 12-value plus-two-branches mechanic and cannot be used as historical proof for the current Ziwei table.",
+      "school_attribution": "CURRENT_MODERN_ZIWEI_FOUR_HORSE_MONTH_TABLE_WITH_PREMODERN_CALENDRICAL_HOMONYM_MECHANICALLY_SEPARATED",
       "competing_methods": [
-        "current Ziwei four-palace monthly table",
-        "non-Ziwei calendrical 天巫 rules (not imported as candidates)"
+        "Current Ziwei Tianwu: lunar-month four-horse cycle 巳、申、寅、亥 repeated every four months.",
+        "Premodern calendrical Tianwu: 月建前二辰, yielding 辰巳午未申酉戌亥子丑寅卯 for months 1..12.",
+        "The two are same-name temporal neighbors, not mutually substitutable candidates."
       ],
-      "current_implementation_match": "DETERMINISTIC_OPERATIONAL_MATCH_ONLY; CLASSICAL_ZIWEI_PROVENANCE_NOT_ESTABLISHED",
-      "confidence": "HIGH_FOR_SOURCE_DOMAIN_MISMATCH",
+      "current_implementation_match": "PREMODERN_CALENDRICAL_HOMONYM_REJECTED_AS_RUNTIME_SOURCE: 2_OF_12_COORDINATES_MATCH_ONLY; CURRENT_ZIWEI_TABLE_REMAINS_DETERMINISTIC_OPERATIONAL_MATCH_WITHOUT_PREMODERN_ZIWEI_PROVENANCE",
+      "confidence": "VERY_HIGH_FOR_MECHANICAL_NON_EQUIVALENCE_AND_SOURCE_DOMAIN_SEPARATION; LOW_FOR_PREMODERN_ZIWEI_FOUR_HORSE_GENEALOGY",
       "audit_status": "SOURCE_INSUFFICIENT",
-      "proposed_action": "Do not use same-name Qizheng/calendar material as proof. Retain current behavior as compatibility/profile data pending Ziwei-specific historical evidence."
+      "proposed_action": "No coordinate reopen. Preserve current profile behavior while continuing to seek an edition-bound Ziwei-specific witness for the 巳申寅亥 month table; never use the calendrical 常居月建前二辰 homonym as proof.",
+      "evidence_closure_batch": "BATCH-12-ZIWEI-TIANWU-HOMONYM-MECHANICAL-SEPARATION-OA",
+      "evidence_closure_status": "CLASSICAL_TIANWU_HOMONYM_MECHANICALLY_REJECTED_AS_RUNTIME_ANCESTOR_ZIWEI_TABLE_STILL_SOURCE_INSUFFICIENT",
+      "mechanical_reconciliation": {
+        "classical_rule": "MONTH_BUILD_PLUS_TWO_BRANCHES",
+        "classical_table": {
+          "1": "辰",
+          "2": "巳",
+          "3": "午",
+          "4": "未",
+          "5": "申",
+          "6": "酉",
+          "7": "戌",
+          "8": "亥",
+          "9": "子",
+          "10": "丑",
+          "11": "寅",
+          "12": "卯"
+        },
+        "runtime_rule": "FOUR_HORSE_PALACE_CYCLE",
+        "runtime_table": {
+          "1": "巳",
+          "2": "申",
+          "3": "寅",
+          "4": "亥",
+          "5": "巳",
+          "6": "申",
+          "7": "寅",
+          "8": "亥",
+          "9": "巳",
+          "10": "申",
+          "11": "寅",
+          "12": "亥"
+        },
+        "exact_match_count": 2,
+        "exact_mismatch_count": 10,
+        "matching_months": [
+          8,
+          11
+        ],
+        "same_mechanical_rule": false,
+        "same_name_proves_identity": false,
+        "runtime_changed": false
+      },
+      "transmission_graph_bindings": [
+        "TG-E0135",
+        "TG-E0136",
+        "TG-E0137",
+        "TG-E0138",
+        "TG-E0139",
+        "TG-E0140",
+        "TG-E0141",
+        "TG-E0142",
+        "TG-E0143",
+        "TG-E0144"
+      ]
     },
     {
       "system": "ZIWEI",
