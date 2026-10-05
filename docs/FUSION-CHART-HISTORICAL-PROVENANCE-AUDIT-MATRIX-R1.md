@@ -1802,3 +1802,25 @@ The transmission graph now separates natal and annual TianDe/YueDe rule families
 Next: **12OF — HPA-ZMINOR-008 TianShou Body/Life basis source and candidate closure.**
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-YUEDE-TIANDE-TEMPORAL-SCOPE-CLOSURE-OE.md`. Research record: `docs/research/ZIWEI-YUEDE-TIANDE-TEMPORAL-SCOPE-CLOSURE-R1.json`.
+
+## Progress — Batch 12OF
+
+`HPA-ZMINOR-008` **TianShou Body/Life basis conflict** is closed as a provenance overclaim rather than a real two-candidate rule dispute.
+
+1581 `EXT-ZIWEI-JIELAN-1581`, chapter 35 `安天才天寿台辅封诰星诀`, states `命宫起子天才顺，身宫起子天寿堂`. The same chapter then gives two worked examples: for 甲子, Body in 午 gives TianShou in 午; for 乙丑, Body in 午 advances one palace to 未. The Life/Body distinction is therefore repeated by both mnemonic and examples.
+
+The current S01 extraction is likewise internally consistent: `ZZZA-A-0830`, `0831`, `0833`, and `0834` all use Body palace as TianShou's 子-year origin. The old normalized `ZZZA-PR-042` note that a source-body/table-header basis conflict existed does not identify or locate a competing Life-basis source side.
+
+The frozen Wenmo discriminator independently separates the formulas operationally: with Life=亥, Body=丑, birth-year branch=申, Wenmo gives TianShou=酉; Body-basis yields 酉 while Life-basis would yield 未. This is compatibility evidence only, but it agrees with the early-print rule.
+
+**PROV-DEFECT-042** is repaired forward-only. The current Matrix no longer manufactures an unbound Life-basis candidate. This does not assert global nonexistence of another tradition; any future Life-basis method must arrive with a quoted, located, source-scoped witness before entering the candidate registry.
+
+`HPA-ZMINOR-008` changes `DISPUTED_MULTIPLE_CANDIDATES -> HISTORICALLY_SUPPORTED`. `HPA-ZMINOR-019` is also updated so its TianCai row no longer claims TianShou remains disputed.
+
+No production coordinate, default or chart algorithm changes. Matrix remains **222/222 audited / 10 current missing**. Status distribution becomes HISTORICALLY_SUPPORTED 98 / SUPPORTED_BUT_SCHOOL_SPECIFIC 24 / DISPUTED_MULTIPLE_CANDIDATES 28 / MODERN_COMPATIBILITY_ONLY 50 / SOURCE_INSUFFICIENT 11 / MISSING_FROM_PRODUCT 10 / NOT_YET_FORMALIZED 1. Provenance defects are **42/42 repaired**; historical candidate extensions remain **8**.
+
+The transmission graph now records the Jielan chapter as one passage transmitting two complementary rules: Life-basis TianCai and Body-basis TianShou.
+
+Next: **12OG — HPA-ZMINOR-007 TianChu competing heavenly-stem tables and source closure.**
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TIANSHOU-BODY-BASIS-EARLY-PRINT-CLOSURE-OF.md`. Research record: `docs/research/ZIWEI-TIANSHOU-BODY-BASIS-EARLY-PRINT-CLOSURE-R1.json`.
