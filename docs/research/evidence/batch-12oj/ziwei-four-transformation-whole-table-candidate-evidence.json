@@ -1,0 +1,103 @@
+{
+  "schema": "ZIWEI-FOUR-TRANSFORMATION-WHOLE-TABLE-CANDIDATE-EVIDENCE-R1",
+  "batch_id": "BATCH-12-ZIWEI-FOUR-TRANSFORMATION-WHOLE-TABLE-CANDIDATE-READINESS-OJ",
+  "transformation_order": [
+    "化禄",
+    "化权",
+    "化科",
+    "化忌"
+  ],
+  "current_production_table": {
+    "甲": [
+      "廉贞",
+      "破军",
+      "武曲",
+      "太阳"
+    ],
+    "乙": [
+      "天机",
+      "天梁",
+      "紫微",
+      "太阴"
+    ],
+    "丙": [
+      "天同",
+      "天机",
+      "文昌",
+      "廉贞"
+    ],
+    "丁": [
+      "太阴",
+      "天同",
+      "天机",
+      "巨门"
+    ],
+    "戊": [
+      "贪狼",
+      "太阴",
+      "右弼",
+      "天机"
+    ],
+    "己": [
+      "武曲",
+      "贪狼",
+      "天梁",
+      "文曲"
+    ],
+    "庚": [
+      "太阳",
+      "武曲",
+      "太阴",
+      "天同"
+    ],
+    "辛": [
+      "巨门",
+      "太阳",
+      "文曲",
+      "文昌"
+    ],
+    "壬": [
+      "天梁",
+      "紫微",
+      "左辅",
+      "武曲"
+    ],
+    "癸": [
+      "破军",
+      "巨门",
+      "太阴",
+      "贪狼"
+    ]
+  },
+  "source_families": {
+    "fullbook_shidian": {
+      "source_id": "EXT-SHIDIAN-ZWDSQS-FOUR-TRANSFORMATIONS",
+      "verse": "甲廉破武阳为伴；乙机梁紫月交侵；丙同机昌廉贞位；丁月同机巨门寻；戊贪月弼机为主；己武贪梁曲最平；庚日武同相为首；辛巨阳曲昌至临；壬梁紫府武宿是；癸破巨阴贪狼停。",
+      "complete": true,
+      "physical_glyph_authority": false
+    },
+    "zhongzhou_wangtingzhi": {
+      "source_refs": [
+        "S01:ZZZA-A-0391",
+        "S01:ZZZA-A-0392",
+        "S01:ZZZA-A-0393",
+        "S01:ZZZA-A-0394",
+        "S01:ZZZA-A-0395"
+      ],
+      "verse": "甲廉破武阳；乙机梁紫阴；丙同机昌廉；丁阴同机巨；戊贪阴阳机；己武贪梁曲；庚阳武府同；辛巨阳曲昌；壬梁紫府武；癸破巨阴贪。",
+      "complete": true,
+      "modern_school_scope": true
+    }
+  },
+  "implementation_files": [
+    "src/fortune_training/ziwei_chart/four_transformation_historical_candidates.py",
+    "tests/test_ziwei_four_transformation_historical_candidates_r1.py"
+  ],
+  "firewalls": [
+    "whole_table_only=true",
+    "cell_level_hybridization_allowed=false",
+    "selection_status=PRESERVED_NOT_SELECTED",
+    "production S08 untouched",
+    "no public product selector in 12OJ"
+  ]
+}
