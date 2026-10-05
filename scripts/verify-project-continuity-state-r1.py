@@ -894,9 +894,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-BAZI-DAYUN-EXACT-JIE-TIE-HANDLING-AUDIT-NH",
     "BATCH-12-ZIWEI-SELF-INWARD-TRANSFORMATION-DIRECTION-SOURCE-SCOPE-AUDIT-NI",
     "BATCH-12-COMBINED-SHARED-TIME-CREDENTIAL-SCOPE-AUDIT-NJ",
+    "BATCH-12-COMBINED-INDEPENDENT-DATE-CALENDAR-POLICY-PRESERVATION-AUDIT-NK",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-COMBINED-SHARED-TIME-CREDENTIAL-SCOPE-AUDIT-NJ.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-COMBINED-INDEPENDENT-DATE-CALENDAR-POLICY-PRESERVATION-AUDIT-NK.md"
 
 
 def fail(message: str) -> None:
@@ -15052,6 +15053,57 @@ def main() -> int:
         fail("Batch 12NJ provenance accounting must retain at least 30/30")
     if nj.get("algorithm_reopen_authorized") is not False or nj.get("transmission_impact", {}).get("status") != "NONE":
         fail("Batch 12NJ reopen/transmission scope drift")
+
+    # Batch 12NK: shared physical time must preserve independent Ziwei/Bazi date/calendar policies.
+    nk_path = ROOT / "docs/research/COMBINED-INDEPENDENT-DATE-CALENDAR-POLICY-PRESERVATION-AUDIT-R1.json"
+    nk_evidence_path = ROOT / "docs/research/evidence/batch-12nk/combined-independent-date-calendar-policy-preservation.json"
+    if not nk_path.is_file() or not nk_evidence_path.is_file():
+        fail("Batch 12NK research/evidence record missing")
+    nk = json.loads(nk_path.read_text(encoding="utf-8"))
+    nk_evidence = json.loads(nk_evidence_path.read_text(encoding="utf-8"))
+    nk_id = "BATCH-12-COMBINED-INDEPENDENT-DATE-CALENDAR-POLICY-PRESERVATION-AUDIT-NK"
+    if nk.get("batch_id") != nk_id or nk.get("prior_batch_id") != nj_id or nk_id not in rule_batches:
+        fail("Batch 12NK chronology drift")
+    row_nk = next(r for r in matrix["rows"] if r["rule_id"] == "HPA-COMB-002")
+    if row_nk.get("audit_status") != "MODERN_COMPATIBILITY_ONLY" or row_nk.get("audit_batch") != nk_id or "HPA-COMB-002" not in matrix["audited_row_ids"]:
+        fail("Batch 12NK combined policy-preservation audit row drift")
+    architecture_nk = nk.get("architecture_contract", {})
+    if architecture_nk.get("policy_namespace_collapse") is not False:
+        fail("Batch 12NK subsystem policy namespaces collapsed")
+    if architecture_nk.get("shared_equalities") != ["time_calendar_policy_registry_version", "civil_ambiguous_time_policy"]:
+        fail("Batch 12NK shared-equality contract drift")
+    runtime_nk = nk.get("runtime_adjudication", {})
+    for key in (
+        "ziwei_and_bazi_time_results_resolved_separately",
+        "shared_credential_constructed_after_separate_resolution",
+        "selected_policy_snapshots_kept_in_separate_namespaces",
+        "validator_reconstructs_and_compares_separate_policy_snapshots",
+        "combined_service_reuses_shared_physical_facts_without_overwriting_subsystem_rules",
+    ):
+        if runtime_nk.get(key) is not True:
+            fail(f"Batch 12NK runtime policy-preservation drift: {key}")
+    regression_nk = nk.get("regression_adjudication", {})
+    for key in (
+        "late_zi_case_proves_distinct_day_boundaries_on_same_physical_time",
+        "standalone_ziwei_bundle_hash_matches_combined",
+        "standalone_bazi_bundle_hash_matches_combined",
+        "mixed_uncertainty_preserves_shared_candidate_branches_without_forcing_subsystem_winner",
+    ):
+        if regression_nk.get(key) is not True:
+            fail(f"Batch 12NK regression firewall drift: {key}")
+    defects_nk = nk.get("provenance_defects", {})
+    if defects_nk.get("new_confirmed") != 0 or defects_nk.get("new_repaired") != 0:
+        fail("Batch 12NK invented provenance defect accounting")
+    evidence_contract_nk = nk_evidence.get("shared_policy_contract", {})
+    if evidence_contract_nk.get("system_specific_calendar_policy_collapse") is not False:
+        fail("Batch 12NK evidence policy-collapse firewall drift")
+    late_zi_nk = nk_evidence.get("late_zi_oracle", {})
+    if late_zi_nk.get("ziwei_day_boundary_policy") != "ZI_START_23" or late_zi_nk.get("bazi_day_boundary_policy") != "MIDNIGHT" or late_zi_nk.get("bazi_late_zi_hour_stem_policy") != "CLASSICAL_CONTINUOUS":
+        fail("Batch 12NK late-Zi independent policy oracle drift")
+    if audit_summary.get("confirmed_provenance_metadata_defect_count", 0) < 30 or audit_summary.get("repaired_provenance_metadata_defect_count", 0) < 30:
+        fail("Batch 12NK provenance accounting regressed below 30/30")
+    if nk.get("algorithm_reopen_authorized") is not False or nk.get("transmission_impact", {}).get("status") != "NONE":
+        fail("Batch 12NK reopen/transmission scope drift")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")
