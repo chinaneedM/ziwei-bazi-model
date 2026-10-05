@@ -393,6 +393,13 @@ class ZiweiTemporalEngine:
                     context_id=frame_id,
                     temporal_source_refs=ANNUAL_AUXILIARY_SOURCE_REFS,
                 ),
+                self.auxiliaries.annual_tiande_candidate_set(
+                    year_branch,
+                    source_stem=year_stem,
+                    source_layer="ANNUAL",
+                    context_id=frame_id,
+                    temporal_source_refs=ANNUAL_AUXILIARY_SOURCE_REFS,
+                ),
             ),
         )
 
