@@ -1,0 +1,112 @@
+{
+  "schema": "ZIWEI-JIELAN-DIGNITY-CH69-CH70-CROSS-COLLATION-EVIDENCE-R1",
+  "batch_id": "BATCH-12-ZIWEI-JIELAN-DIGNITY-CH69-CH70-CELL-CROSS-COLLATION-ON",
+  "sources": [
+    {
+      "source_ref": "EXT-ZIWEI-JIELAN-1581:CH69",
+      "orientation": "PALACE_ORIENTED",
+      "reviewed": true
+    },
+    {
+      "source_ref": "EXT-ZIWEI-JIELAN-1581:CH70",
+      "orientation": "STAR_ORIENTED",
+      "reviewed": true
+    }
+  ],
+  "frozen_counts": {
+    "EXACT_LEXEME_OVERLAP": 97,
+    "SOURCE_EXPLICIT_EQUIVALENT": 37,
+    "SOURCE_LOCAL_POLARITY_CONFLICT": 54,
+    "ATTESTED_NON_EQUIVALENT_NO_DIRECT_GLOSS": 21,
+    "CH69_UNSTATED": 82,
+    "CH69_TEXT_UNRESOLVED": 8,
+    "CH70_UNSTATED": 1
+  },
+  "cell_count": 300,
+  "unresolved_ch69_cell_count": 8,
+  "ch70_source_conflict_cell_count": 2,
+  "ch70_unstated_cell_count": 1,
+  "controls": [
+    {
+      "cell": [
+        "紫微",
+        "午"
+      ],
+      "ch69": [
+        "庙"
+      ],
+      "ch70": [
+        "庙",
+        "平"
+      ],
+      "relation": "EXACT_LEXEME_OVERLAP",
+      "note": "CH70 conflict is not collapsed."
+    },
+    {
+      "cell": [
+        "巨门",
+        "丑"
+      ],
+      "ch69": [
+        "陷"
+      ],
+      "ch70": [
+        "局",
+        "陷"
+      ],
+      "relation": "EXACT_LEXEME_OVERLAP",
+      "note": "CH70 conflict is not collapsed."
+    },
+    {
+      "cell": [
+        "天机",
+        "巳"
+      ],
+      "ch69": [
+        "兴"
+      ],
+      "ch70": [],
+      "relation": "CH70_UNSTATED",
+      "note": "CH69 does not fill CH70."
+    },
+    {
+      "cell": [
+        "天机",
+        "子"
+      ],
+      "ch69": [
+        "陷"
+      ],
+      "ch70": [
+        "得地"
+      ],
+      "relation": "SOURCE_LOCAL_POLARITY_CONFLICT",
+      "note": "Source-local direction clash only; no R4 mapping."
+    },
+    {
+      "cell": [
+        "文昌",
+        "子"
+      ],
+      "ch69": [],
+      "relation": "CH69_TEXT_UNRESOLVED",
+      "note": "Singular 文 is not split silently."
+    },
+    {
+      "cell": [
+        "太阳",
+        "辰"
+      ],
+      "ch69": [],
+      "relation": "CH69_TEXT_UNRESOLVED",
+      "note": "No silent 午-to-日 glyph repair."
+    }
+  ],
+  "firewalls": [
+    "CH69 never fills a CH70 blank.",
+    "CH70 never overwrites a CH69 reading.",
+    "No transitive gloss chain is collapsed into a synthetic lexeme.",
+    "No OPERATIONAL-ZIWEI-DIGNITY-R4 status/grade is inferred.",
+    "No historical winner is selected."
+  ]
+}
