@@ -1,0 +1,51 @@
+{
+  "schema": "HISTORICAL-UNRESOLVED-STATUS-PRIORITIZATION-EVIDENCE-R1",
+  "schema_version": "1.0.0",
+  "parent_head": "3f806f0f891e9429879d482d6a7739a564f9646e",
+  "matrix_blob_sha": "bc3121dd9b36289652fb8455ba81d002f4907563",
+  "priority_controls": {
+    "HPA-ZIWEI-023": {
+      "status": "SOURCE_INSUFFICIENT",
+      "current_implementation": "Strict QS raises QS_SHENZHU_ZI_WU_TEXTUAL_AMBIGUITY; production Wenmo profile resolves Zi/Wu to Fire.",
+      "confidence": "HIGH_FOR_AMBIGUITY_LOW_FOR_UNIQUE_FIRE_HISTORICAL_CLAIM",
+      "algorithm_reopen_authorized": false
+    },
+    "HPA-ZIWEI-026": {
+      "status": "SOURCE_INSUFFICIENT",
+      "current_implementation": "RING.JIANGQIAN12 uses birth-year trine-wang anchor 子午卯酉, fixed order and forward traversal independent of sex.",
+      "confidence": "HIGH_FOR_CURRENT_MECHANICS; INSUFFICIENT_FOR_EARLY_EDITION_AND_UNIQUE_TEMPORAL_SCOPE"
+    },
+    "HPA-ZMINOR-020": {
+      "status": "SOURCE_INSUFFICIENT",
+      "current_implementation": "Standalone STAR.FEILIAN uses 子丑寅→申酉戌、卯辰巳→巳午未、午未申→寅卯辰、酉戌亥→亥子丑. Product separately implements RING.BOSHI12.FEILIAN from 禄存 and sex/year-polarity direction.",
+      "confidence": "HIGH_FOR_SOURCE_GAP_AND_IDENTITY_COLLISION; LOW_FOR_STANDALONE_TABLE_GENEALOGY"
+    },
+    "HPA-ZT-016": {
+      "status": "NOT_YET_FORMALIZED",
+      "current_implementation": "Runtime intentionally emits only neutral palace-stem transformation topology and does not generate inward/outward direction.",
+      "confidence": "HIGH_FOR_NOT_YET_FORMALIZED_DECISION; MEDIUM_FOR_MODERN_XU_QUANREN_METHOD_FAMILY_IDENTITY; LOW_FOR_UNIQUE_SELECTOR_OR_EARLY_GENEALOGY"
+    }
+  },
+  "shenzhu_runtime_and_source_controls": {
+    "roles_path": "src/fortune_training/ziwei_chart/roles.py",
+    "roles_blob_sha": "28c1624f059a37293bab4ac7ddacd660838ec0c7",
+    "production_zi_wu_fire_selection": true,
+    "strict_qs_zi_wu_ambiguity_error": true,
+    "jielan_registry_path": "src/fortune_training/ziwei_chart/historical_candidates.py",
+    "jielan_registry_blob_sha": "1403c6c4dc3bf5fed8c12b1d20b2ffe985fee4ad",
+    "jielan_shenzhu_status": "TEXTUAL_COMPOSITE_FIRE_BELL_NOT_UNIQUELY_ARBITRATED",
+    "jielan_source_ref": "EXT-ZIWEI-JIELAN-1581:CH32",
+    "jielan_runtime_winner_selected": false,
+    "regression_path": "tests/test_ziwei_jielan_1581_historical_candidates_r1.py",
+    "regression_blob_sha": "a16794b837e06a71088257ef61c2527f4537bcac"
+  },
+  "adjudication": {
+    "selected_next_rule_id": "HPA-ZIWEI-023",
+    "matrix_status_changed": false,
+    "runtime_behavior_changed": false,
+    "candidate_selection_changed": false,
+    "production_default_changed": false,
+    "provenance_defect_count_changed": false,
+    "transmission_edge_created": false
+  }
+}
