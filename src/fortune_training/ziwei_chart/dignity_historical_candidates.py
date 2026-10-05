@@ -12,6 +12,7 @@ JIELAN_1581_DIGNITY_LEXEME_RESOLVER_ID = (
 )
 JIELAN_1581_DIGNITY_LEXEME_RESOLVER_VERSION = "1.0.0"
 JIELAN_1581_DIGNITY_SELECTION_STATUS = "PRESERVED_NOT_SELECTED"
+JIELAN_1581_DIGNITY_LEXEME_CANDIDATE_ID = "JIELAN-1581-DIGNITY-CH70-SOURCE-LEXEME-R1"
 JIELAN_1581_DIGNITY_SOURCE_ID = "EXT-ZIWEI-JIELAN-1581"
 JIELAN_1581_DIGNITY_PRIMARY_SOURCE_REF = (
     "EXT-ZIWEI-JIELAN-1581:CH70"
@@ -174,6 +175,7 @@ def jielan_1581_dignity_lexeme_registry_payload() -> dict[str, object]:
         "registry_id": JIELAN_1581_DIGNITY_LEXEME_REGISTRY_ID,
         "registry_version": JIELAN_1581_DIGNITY_LEXEME_REGISTRY_VERSION,
         "selection_status": JIELAN_1581_DIGNITY_SELECTION_STATUS,
+        "candidate_id": JIELAN_1581_DIGNITY_LEXEME_CANDIDATE_ID,
         "source_id": JIELAN_1581_DIGNITY_SOURCE_ID,
         "primary_source_ref": JIELAN_1581_DIGNITY_PRIMARY_SOURCE_REF,
         "parallel_source_ref": JIELAN_1581_DIGNITY_PARALLEL_SOURCE_REF,
@@ -230,6 +232,7 @@ def resolve_jielan_1581_dignity_lexeme_candidate(
         "registry_version": JIELAN_1581_DIGNITY_LEXEME_REGISTRY_VERSION,
         "registry_hash": jielan_1581_dignity_lexeme_registry_hash(),
         "selection_status": JIELAN_1581_DIGNITY_SELECTION_STATUS,
+        "candidate_id": JIELAN_1581_DIGNITY_LEXEME_CANDIDATE_ID,
         "source_id": JIELAN_1581_DIGNITY_SOURCE_ID,
         "primary_source_ref": JIELAN_1581_DIGNITY_PRIMARY_SOURCE_REF,
         "parallel_source_ref": JIELAN_1581_DIGNITY_PARALLEL_SOURCE_REF,
