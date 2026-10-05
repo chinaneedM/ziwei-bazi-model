@@ -1701,3 +1701,20 @@ No runtime/profile/rule-set/hash/candidate change and no algorithm reopen. Matri
 Next: **12OA — HPA-ZMINOR-024 Tianwu lunar-month table**. First mechanically test whether the premodern phrase `常居月建前二辰` reproduces the runtime four-palace table; same-name evidence alone is insufficient.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-MONTH-JIESHEN-HISTORICAL-IDENTITY-CLOSURE-NZ.md`. Research record: `docs/research/ZIWEI-MONTH-JIESHEN-HISTORICAL-IDENTITY-CLOSURE-R1.json`.
+
+
+## Progress — Batch 12OA
+
+`HPA-ZMINOR-024` **Tianwu lunar-month table** remains `SOURCE_INSUFFICIENT`.
+
+Premodern same-name Tianwu is now mechanically separated from the current Ziwei rule. `历事明原`, the 1713 `御定星历考原`, and Qing `钦定协纪辨方书` preserve Tianwu as a calendrical month deity with `常居月建前二辰`. The Xingli Kaoyuan neighborhood disambiguates that phrase through explicit Fude examples as month-build branch plus two positions.
+
+Replaying that mechanic gives `辰巳午未申酉戌亥子丑寅卯` for lunar months 1..12. Current `STAR.TIANWU` uses `巳申寅亥` repeated every four months. The tables match only in months 8 and 11 (**2/12**) and differ in the other ten months. The classical Tianwu homonym is therefore **disproved as the direct mechanical source** of the current Ziwei four-horse table.
+
+This is source-domain closure, not an algorithm change. The historical calendrical Tianwu remains valid in its own tradition; the current Ziwei table still lacks an edition-bound premodern Ziwei placement witness. Same name and two coordinate coincidences do not authorize identity collapse.
+
+No runtime/profile/rule-set/hash/candidate/default change and no algorithm reopen. Matrix remains 220/220 audited / 10 current missing; provenance defects 40/40; status distribution remains HISTORICALLY_SUPPORTED 96 / SOURCE_INSUFFICIENT 9 / DISPUTED_MULTIPLE_CANDIDATES 30 / NOT_YET_FORMALIZED 1.
+
+Next: **12OB — HPA-ZMINOR-025 Tianyue lunar-month twelve-value table**, preserving the source-domain firewall against 天月德 / 天月德合 and other homonyms.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TIANWU-HOMONYM-MECHANICAL-SEPARATION-OA.md`. Research record: `docs/research/ZIWEI-TIANWU-HOMONYM-MECHANICAL-SEPARATION-R1.json`.
