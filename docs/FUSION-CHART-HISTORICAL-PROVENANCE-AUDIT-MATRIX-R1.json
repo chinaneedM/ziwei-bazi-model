@@ -4158,21 +4158,50 @@
       "audit_batch": "BATCH-07-ZIWEI-MINOR-STARS-C",
       "rule_id": "HPA-ZMINOR-020",
       "rule_or_field": "Standalone 蜚廉 birth-year-branch table vs 博士十二神 飞/蜚廉 identity",
-      "current_implementation": "Standalone STAR.FEILIAN uses 子丑寅→申酉戌、卯辰巳→巳午未、午未申→寅卯辰、酉戌亥→亥子丑. Product separately implements RING.BOSHI12.FEILIAN from 禄存 and sex/year-polarity direction.",
-      "primary_source": "S01:ZZZA-PR-033 for the standalone table (project research corpus only); EXT-ZIWEI-JIELAN-1581 and EXT-ZIWEI-QUANSHU-RECEIVED witness a distinct 博士十二神 飞/蜚廉 member",
-      "source_quote": "Current project route supplies the standalone four-sector table; early Ziwei witnesses instead place 飞/蜚廉 inside 博士十二神.",
-      "source_quote_location": "S01:ZZZA-PR-033; EXT-ZIWEI-JIELAN-1581 / 卷一第50章《安生年博士十二神诀》; EXT-ZIWEI-QUANSHU-RECEIVED / 卷二《安十二宫太岁杀禄诀》",
-      "historical_period": "STANDALONE_TABLE_HISTORICAL_BINDING_NOT_ESTABLISHED; EARLY_PRINT_RING_HOMONYM_SEPARATELY_WITNESSED",
-      "later_witnesses": "Modern setup manuals reproduce the standalone table, but they are not promoted to historical authority. Runtime keeps standalone STAR.FEILIAN and RING.BOSHI12.FEILIAN as distinct identities.",
-      "school_attribution": "CURRENT_STANDALONE_ZHONGZHOU_STYLE_TABLE_VS_EARLY_BOSHI_RING_HOMONYM",
+      "current_implementation": "Standalone STAR.FEILIAN is generated from ziwei_birth_year_branch by the fixed 12-value table 子→申、丑→酉、寅→戌、卯→巳、辰→午、巳→未、午→寅、未→卯、申→辰、酉→亥、戌→子、亥→丑. Product separately implements RING.BOSHI12.FEILIAN as ordinal 6 from Lucun; the ring member therefore lands opposite Lucun regardless of forward/reverse traversal.",
+      "primary_source": "曹震圭《历事明原》飞廉条 (premodern received transcription) explicitly cites 《广圣历》 for the full year-branch table; 1713 《御定星历考原》卷二 and Qing 《钦定协纪辨方书》卷三 repeat the same 12-value rule, with the latter adding a trine 生/旺/墓 reverse-traversal explanation.",
+      "source_quote": "《广圣历》曰：子年在申，丑年在酉，寅年在戌……戌年在子，亥年在丑。",
+      "source_quote_location": "EXT-SHIDIAN-LISHIMINGYUAN-FEILIAN; EXT-CTEXT-XINGLI-KAOYUAN-FEILIAN; EXT-WIKISOURCE-XIEJI-BIANFANG-FEILIAN; docs/research/ZIWEI-STANDALONE-FEILIAN-HISTORICAL-IDENTITY-CLOSURE-R1.json",
+      "historical_period": "YUAN_RECEIVED_TEXT_TRADITION_AND_QING_OFFICIAL_RECEIVED_WITNESSES; EARLIER_GUANGSHENGLI_CITATION_LAYER_PRESENT_BUT_EXACT_RECENSION_UNRESOLVED",
+      "later_witnesses": "Modern Ziwei runtime/S01 reproduces the same 12-of-12 year-branch geometry. The Ziwei Boshi ring separately transmits a 飞/蜚廉 member anchored from Lucun and must not be merged with this standalone year-deity rule.",
+      "school_attribution": "PREMODERN_CALENDRICAL_YEAR_DEITY_FEILIAN_RULE_LATER_PRESENT_IN_MODERN_ZIWEI; EXACT_ZIWEI_ADOPTION_LINEAGE_UNRESOLVED",
       "competing_methods": [
-        "standalone birth-year-branch 蜚廉 table",
-        "博士十二神 飞/蜚廉 anchored at 禄存 with directional traversal"
+        "Standalone year-branch Feilian: fixed 12-value year-deity table, now historically supported in premodern calendrical/selective literature.",
+        "Ziwei Boshi-ring Feilian: a separate ring-member identity, ordinal 6 from Lucun, historically supported by Jielan/received Fullbook.",
+        "These are identity neighbors/homonyms, not mutually exclusive candidate methods."
       ],
-      "current_implementation_match": "STANDALONE_RUNTIME_IS_DETERMINISTIC_BUT_QUALIFYING_HISTORICAL_PLACEMENT_WITNESS_NOT_ESTABLISHED; RING_HOMONYM_IS_SEPARATE",
-      "confidence": "HIGH_FOR_SOURCE_GAP_AND_IDENTITY_COLLISION; LOW_FOR_STANDALONE_TABLE_GENEALOGY",
-      "audit_status": "SOURCE_INSUFFICIENT",
-      "proposed_action": "Do not reopen coordinates. Keep STAR.FEILIAN and RING.BOSHI12.FEILIAN identity-separated; seek an edition-bound historical witness for the standalone table."
+      "current_implementation_match": "EXACT_12_OF_12_MATCH_TO_PREMODERN_YEAR_BRANCH_TABLE; BOSHI_RING_MEMBER_REMAINS_MECHANICALLY_DISTINCT. Across 60 legal Jiazi only 甲子、乙丑、庚午、辛未 share the same coordinate, which does not merge identities.",
+      "confidence": "HIGH_FOR_STANDALONE_YEAR_BRANCH_GEOMETRY_AND_PREMODERN_RULE_IDENTITY; HIGH_FOR_NONIDENTITY_WITH_BOSHI_RING; LOW_TO_MODERATE_FOR_EXACT_ZIWEI_ADOPTION_PATH_AND_EARLIEST_GUANGSHENGLI_RECENSION",
+      "audit_status": "HISTORICALLY_SUPPORTED",
+      "proposed_action": "No coordinate or algorithm reopen. Preserve STAR.FEILIAN and RING.BOSHI12.FEILIAN as separate typed identities. Continue genealogy work on the cited Guangshengli recension and on when the standalone year-deity table entered Ziwei practice; do not downgrade the now-closed placement geometry while that adoption path remains unresolved.",
+      "evidence_closure_batch": "BATCH-12-ZIWEI-STANDALONE-FEILIAN-HISTORICAL-IDENTITY-CLOSURE-NY",
+      "evidence_closure_status": "STANDALONE_GEOMETRY_HISTORICALLY_CLOSED_ZIWEI_ADOPTION_PATH_OPEN_BOSHI_IDENTITY_SEPARATED",
+      "identity_reconciliation": {
+        "standalone_entity_id": "STAR.FEILIAN",
+        "boshi_member_id": "RING.BOSHI12.FEILIAN",
+        "standalone_basis": "BIRTH_YEAR_BRANCH_FIXED_TABLE",
+        "boshi_basis": "LUCUN_OPPOSITE_VIA_ORDINAL_6",
+        "same_mechanical_rule": false,
+        "legal_jiazi_coordinate_collision_count": 4,
+        "collision_cases": [
+          "甲子",
+          "乙丑",
+          "庚午",
+          "辛未"
+        ],
+        "collision_implies_identity": false,
+        "runtime_changed": false
+      },
+      "transmission_graph_bindings": [
+        "TG-E0117",
+        "TG-E0118",
+        "TG-E0119",
+        "TG-E0120",
+        "TG-E0121",
+        "TG-E0122",
+        "TG-E0123",
+        "TG-E0124"
+      ]
     },
     {
       "system": "ZIWEI",
