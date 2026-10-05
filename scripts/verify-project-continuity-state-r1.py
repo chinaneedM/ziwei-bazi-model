@@ -911,9 +911,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-STANDALONE-FEILIAN-HISTORICAL-IDENTITY-CLOSURE-NY",
     "BATCH-12-ZIWEI-MONTH-JIESHEN-HISTORICAL-IDENTITY-CLOSURE-NZ",
     "BATCH-12-ZIWEI-TIANWU-HOMONYM-MECHANICAL-SEPARATION-OA",
+    "BATCH-12-ZIWEI-TIANYUE-MODERN-RECEIVED-SOURCE-BOUNDARY-OB",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TIANWU-HOMONYM-MECHANICAL-SEPARATION-OA.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TIANYUE-MODERN-RECEIVED-SOURCE-BOUNDARY-OB.md"
 
 
 def fail(message: str) -> None:
@@ -16281,6 +16282,56 @@ def main() -> int:
         fail("Batch 12OA state version is not numeric")
     if schema12oa < (1, 395, 0):
         fail("Batch 12OA state version regressed below 1.395.0")
+
+    # Batch 12OB: keep modern Tianyue received-table evidence separate from premodern historical authority.
+    ob_path = ROOT / "docs/research/ZIWEI-TIANYUE-MODERN-RECEIVED-SOURCE-BOUNDARY-R1.json"
+    ob_evidence_path = ROOT / "docs/research/evidence/batch-12ob/ziwei-tianyue-modern-received-source-boundary-evidence.json"
+    if not ob_path.is_file() or not ob_evidence_path.is_file():
+        fail("Batch 12OB research/evidence record missing")
+    ob = json.loads(ob_path.read_text(encoding="utf-8"))
+    ob_evidence = json.loads(ob_evidence_path.read_text(encoding="utf-8"))
+    ob_id = "BATCH-12-ZIWEI-TIANYUE-MODERN-RECEIVED-SOURCE-BOUNDARY-OB"
+    if ob.get("batch_id") != ob_id or ob.get("prior_batch_id") != oa_id:
+        fail("Batch 12OB chronology drift")
+    if ob_id in rule_batches:
+        fail("Batch 12OB source-boundary closure must not be enrolled as a supplemental rule-audit batch")
+    if ob.get("target_rule_ids") != ["HPA-ZMINOR-025"] or ob.get("target_status_after") != "SOURCE_INSUFFICIENT":
+        fail("Batch 12OB target/status drift")
+    row25_ob = next((r for r in matrix["rows"] if r["rule_id"] == "HPA-ZMINOR-025"), None)
+    if row25_ob is None or row25_ob.get("audit_status") != "SOURCE_INSUFFICIENT":
+        fail("Batch 12OB HPA-ZMINOR-025 status drift")
+    if row25_ob.get("evidence_closure_batch") != ob_id:
+        fail("Batch 12OB Matrix closure binding drift")
+    modern_ob = ob_evidence.get("modern_received_controls", {})
+    for key in ("iztro_exact_mnemonic_match", "xstars_exact_table_match", "xstars_marks_classical_source_unresolved", "modern_repetition_is_not_premodern_authority"):
+        if modern_ob.get(key) is not True:
+            fail(f"Batch 12OB modern received control drift: {key}")
+    historical_ob = ob_evidence.get("historical_controls", {})
+    if historical_ob.get("qualifying_premodern_ziwei_exact_table_witness_established") is not False or historical_ob.get("sanming_tianyue_de_is_same_identity") is not False:
+        fail("Batch 12OB historical/homonym firewall drift")
+    status_ob = ob.get("status_adjudication", {})
+    if status_ob.get("row_status_remains") != "SOURCE_INSUFFICIENT" or status_ob.get("algorithm_reopen_authorized") is not False or status_ob.get("production_default_changed") is not False or status_ob.get("candidate_created") is not False:
+        fail("Batch 12OB no-reopen/default/candidate firewall drift")
+    accounting_ob = ob.get("accounting", {})
+    if accounting_ob.get("source_insufficient_after") != 9 or accounting_ob.get("historically_supported_after") != 96:
+        fail("Batch 12OB status accounting drift")
+    registry_ob = json.loads((ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json").read_text(encoding="utf-8"))
+    registry_ids_ob = {row.get("source_id") for row in registry_ob.get("sources", ())}
+    for source_id in ("EXT-IZTRO-TIANYUE-MODERN", "EXT-XSTARS-TIANYUE-MODERN", "EXT:CTEXT-SMTHE-V3-TIANYUEDE"):
+        if source_id not in registry_ids_ob:
+            fail(f"Batch 12OB source registry binding missing: {source_id}")
+    minor_text_ob = (ROOT / "src/fortune_training/ziwei_chart/minor_stars.py").read_text(encoding="utf-8")
+    for phrase in ('1: "戌", 2: "巳", 3: "辰", 4: "寅"', '5: "未", 6: "卯", 7: "亥", 8: "未"', '9: "寅", 10: "午", 11: "戌", 12: "寅"'):
+        if phrase not in minor_text_ob:
+            fail(f"Batch 12OB runtime Tianyue geometry missing: {phrase}")
+    if ob.get("transmission_impact", {}).get("status") != "NONE":
+        fail("Batch 12OB transmission impact must remain NONE without a premodern edge")
+    try:
+        schema12ob = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12OB state version is not numeric")
+    if schema12ob < (1, 396, 0):
+        fail("Batch 12OB state version regressed below 1.396.0")
 
     try:
         schema12ns = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
