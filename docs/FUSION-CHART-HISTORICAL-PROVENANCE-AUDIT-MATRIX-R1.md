@@ -1669,3 +1669,19 @@ No new provenance defect was confirmed because Batch 12MV already required separ
 Next: **12NY — HPA-ZMINOR-020 standalone Feilian identity collision**, preserving identity boundaries among Boshi 飞廉, year-branch 蜚廉 and same-coordinate facts.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JIANGQIAN-TEMPORAL-SOURCE-SCOPE-EVIDENCE-CLOSURE-NX.md`. Research record: `docs/research/ZIWEI-JIANGQIAN-TEMPORAL-SOURCE-SCOPE-CLOSURE-R1.json`.
+
+## Progress — Batch 12NY
+
+`HPA-ZMINOR-020` **standalone 蜚廉 birth-year-branch table vs 博士十二神 飞/蜚廉 identity** is upgraded from `SOURCE_INSUFFICIENT` to `HISTORICALLY_SUPPORTED` for the standalone placement geometry.
+
+The current `STAR.FEILIAN` table matches the premodern received year-deity rule **12/12**. Cao Zhengui's `历事明原` Feilian passage explicitly cites `广圣历` for the table; the 1713 `御定星历考原` repeats the same twelve positions; the Qing `钦定协纪辨方书` again repeats them and explains the reverse traversal through trine 生/旺/墓 states. The Songshi bibliography separately records Miao Rui's `新删定广圣历` in two juan, but the exact cited recension remains unresolved and is not treated as directly reviewed rule text.
+
+Identity remains fail-closed. `STAR.FEILIAN` is keyed by birth-year branch. `RING.BOSHI12.FEILIAN` is ordinal 6 from Lucun, hence the Lucun-opposite palace regardless of ring direction. Across all 60 legal Jiazi, only 甲子、乙丑、庚午、辛未 happen to share coordinates. Same/variant glyph or coordinate coincidence does not merge the two facts.
+
+The transmission graph now records the premodern calendrical Feilian rule family, explicit Guangshengli citation layer, Qing transmission witnesses, and a disproved same-mechanical-rule edge against the Ziwei Boshi member. What remains open is the **Ziwei adoption path**, not the standalone geometry.
+
+No runtime/profile/rule-set/hash/candidate change and no algorithm reopen. Matrix remains 220/220 audited / 10 current missing; provenance defects 40/40; chart algorithm defects/reopens/candidate collapses 0. Status distribution becomes HISTORICALLY_SUPPORTED 95 and SOURCE_INSUFFICIENT 10.
+
+Next: **12NZ — HPA-ZMINOR-023 month Jieshen/Yuejie provenance**, preserving the month-table identity separately from year-based 解神/年解.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-STANDALONE-FEILIAN-HISTORICAL-IDENTITY-CLOSURE-NY.md`. Research record: `docs/research/ZIWEI-STANDALONE-FEILIAN-HISTORICAL-IDENTITY-CLOSURE-R1.json`.
