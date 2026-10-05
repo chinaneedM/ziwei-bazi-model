@@ -1,0 +1,89 @@
+{
+  "schema": "ZIWEI-NANYANGTANG-LATE-ZI-NATAL-CANDIDATE-PRODUCT-SURFACE-RECONCILIATION-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-POST-AUDIT-NANYANGTANG-LATE-ZI-NATAL-CANDIDATE-PRODUCT-SURFACE-RECONCILIATION-NT",
+  "prior_batch_id": "BATCH-12-POST-AUDIT-FOUR-TRANSFORMATION-DIGNITY-PRODUCT-BOUNDARY-RECONCILIATION-NS",
+  "batch_classification": "POST_AUDIT_RECONCILIATION_NOT_SUPPLEMENTAL_RULE_AUDIT",
+  "target_rule_ids": [
+    "HPA-ZDATE-006"
+  ],
+  "reconciliation_result": "MISSING_FROM_PRODUCT_STATUS_CONFIRMED_NO_NEW_PROVENANCE_DEFECT",
+  "algorithm_reopen_authorized": false,
+  "candidate_identity": {
+    "method_id": "NANYANGTANG-FULLBOOK-ZI-TEN-KE-HAI-SPLIT-R1",
+    "selection_status": "NOT_IMPLEMENTED",
+    "source_id": "EXT-ZIWEI-QUANSHU-NANYANGTANG-SCAN",
+    "source_quote": "如子時有十刻上五刻屬昨夜亥時下五刻屬今日子時"
+  },
+  "runtime_boundary": {
+    "natal_path": "src/fortune_training/ziwei_chart/natal.py",
+    "current_mapping": "LOCAL_APPARENT_SOLAR_23_00_TO_00_59_UNIFORMLY_ZI",
+    "resolved_profile_has_hour_branch_reclassification_policy": false,
+    "ziwei_policy_registry_keys": [
+      "ziwei.calendar_date_policy",
+      "ziwei.life_body_leap_month_policy"
+    ],
+    "ziwei_natal_hour_branch_policy_present": false,
+    "production_single_profile": true,
+    "nanyang_source_scoped_natal_runtime_resolver_exists": false
+  },
+  "adjacent_candidate_boundary": {
+    "temporal_historical_candidate_api_exists": true,
+    "jielan_flow_hour_candidate_exists": true,
+    "zhongzhou_leap_month_candidate_exists": true,
+    "those_candidates_are_natal_hour_branch_reclassification": false,
+    "nanyang_method_present_in_temporal_candidate_registry": false
+  },
+  "product_surface": {
+    "ziwei_package_root_exports_nanyang_candidate": false,
+    "combined_local_request_has_ziwei_historical_natal_candidate_selector": false,
+    "combined_profiles_expose_multiple_ziwei_calculation_options": false,
+    "workbench_exposes_nanyang_late_zi_selector": false,
+    "production_default_changed": false
+  },
+  "source_scope_boundary": {
+    "direct_nanyangtang_target_rule_attested": true,
+    "direct_guangyi_fullbook_hai_witness_attested": true,
+    "generic_upper_lower_half_orientation_closed": true,
+    "explicit_hai_universal_across_received_ziwei_transmission": false,
+    "runtime_time_standard_binding_closed": false,
+    "fullbook_source_scoped_inclement_current_time_procedure_closed": false,
+    "candidate_runtime_selection_authorized": false
+  },
+  "provenance_adjudication": {
+    "new_provenance_defect": false,
+    "existing_matrix_gap_description_materially_stale": false,
+    "existing_defect_id": "PROV-DEFECT-010",
+    "existing_defect_status": "ALREADY_REPAIRED_FORWARD_ONLY_DURING_BATCH_12AH",
+    "reason": "The Matrix already states that the current natal runtime cannot express upper-half-Zi as Hai, that the time-standard binding is unresolved, and that no algorithm reopen is authorized. 12NT confirms those statements against current source and product surfaces."
+  },
+  "accounting": {
+    "rows": 220,
+    "audited_rows": 220,
+    "missing_from_product_before": 10,
+    "missing_from_product_after": 10,
+    "provenance_defects_confirmed_before": 38,
+    "provenance_defects_confirmed_after": 38,
+    "provenance_defects_repaired_before": 38,
+    "provenance_defects_repaired_after": 38,
+    "chart_algorithm_defects": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0
+  },
+  "matrix_membership": {
+    "historical_completed_batch": true,
+    "supplemental_rule_audit_batch": false,
+    "target_row_keeps_original_audit_batch": true,
+    "reconciliation_batch": "BATCH-12-POST-AUDIT-NANYANGTANG-LATE-ZI-NATAL-CANDIDATE-PRODUCT-SURFACE-RECONCILIATION-NT"
+  },
+  "evidence": "docs/research/evidence/batch-12nt/ziwei-nanyangtang-late-zi-natal-candidate-product-surface-reconciliation.json",
+  "transmission_impact": {
+    "status": "NONE",
+    "reason": "This batch only reconciles existing historical evidence and current software/product surfaces. It adds no historical witness and changes no transmission-genealogy node or edge."
+  },
+  "next_gate": [
+    "12NU: reconcile HPA-DAYUN-CAL-002 classical lunisolar first Jiaoyun calendarization.",
+    "12NU: reconcile HPA-DAYUN-CAL-003 later calendar-age years plus remainder-days method.",
+    "12NU: reconcile HPA-DAYUN-CAL-004 ten-year Dayun recurrence from first handover."
+  ]
+}
