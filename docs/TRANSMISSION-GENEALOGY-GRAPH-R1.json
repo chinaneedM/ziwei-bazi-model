@@ -3507,6 +3507,44 @@
         "HPA-ZMINOR-008"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-TIANSHOU-BODY-BASIS-EARLY-PRINT-CLOSURE-OF"
+    },
+    {
+      "node_id": "PASSAGE-XINGXUE-DACHENG-V1-TIANCHU",
+      "node_type": "PASSAGE",
+      "label": "《星学大成》卷一·论天厨",
+      "system_scope": "PREMODERN_ASTROLOGICAL_TIANCHU_HEAVENLY_STEM_TABLE",
+      "date": "MING_WORK_RECEIVED_IN_QING_SIKU_RECENSION",
+      "evidence": [
+        "EXT-WIKISOURCE-XINGXUE-DACHENG-TIANCHU",
+        "HPA-ZMINOR-007"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-TIANCHU-PREMODERN-TABLE-AND-SOURCE-BOUNDARY-OG"
+    },
+    {
+      "node_id": "RULE-FAMILY-PREMODERN-TIANCHU-STEM-TABLE",
+      "node_type": "RULE_FAMILY",
+      "label": "前现代天厨十干食神禄表规则族",
+      "system_scope": "PREMODERN_TIANCHU_SAME_NAME_SAME_STEM_INPUT_GEOMETRY",
+      "date": "MING_ATTESTED_IN_RECEIVED_TEXT",
+      "mechanics": "甲巳、乙午、丙子、丁巳、戊午、己申、庚寅、辛午、壬酉、癸亥",
+      "evidence": [
+        "EXT-WIKISOURCE-XINGXUE-DACHENG-TIANCHU",
+        "docs/research/ZIWEI-TIANCHU-PREMODERN-TABLE-AND-SOURCE-BOUNDARY-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-TIANCHU-PREMODERN-TABLE-AND-SOURCE-BOUNDARY-OG"
+    },
+    {
+      "node_id": "RULE-FAMILY-ZIWEI-NATAL-TIANCHU-CURRENT",
+      "node_type": "RULE_FAMILY",
+      "label": "现代紫微本命天厨十干表规则族",
+      "system_scope": "ZIWEI_NATAL_BIRTH_YEAR_STEM_TIANCHU",
+      "date": "MODERN_ZIWEI_RECEIVED; PREMODERN_ADOPTION_PATH_UNRESOLVED",
+      "mechanics": "甲巳、乙午、丙子、丁巳、戊午、己申、庚寅、辛午、壬酉、癸亥",
+      "evidence": [
+        "S01:ZZZA-PR-023",
+        "HPA-ZMINOR-007"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-TIANCHU-PREMODERN-TABLE-AND-SOURCE-BOUNDARY-OG"
     }
   ],
   "edges": [
@@ -5876,6 +5914,37 @@
       ],
       "scope_note": "The same chapter deliberately uses different base palaces for two different stars; Life-vs-Body is complementarity, not a TianShou candidate dispute.",
       "adjudication_batch": "BATCH-12-ZIWEI-TIANSHOU-BODY-BASIS-EARLY-PRINT-CLOSURE-OF"
+    },
+    {
+      "edge_id": "TG-E0155",
+      "from": "PASSAGE-XINGXUE-DACHENG-V1-TIANCHU",
+      "relation": "TRANSMITS_RULE",
+      "to": "RULE-FAMILY-PREMODERN-TIANCHU-STEM-TABLE",
+      "status": "HIGH_CONFIDENCE",
+      "confidence": "HIGH_FOR_EXACT_RECEIVED_10_OF_10_TABLE_AND_FOOD-GOD-LU_GLOSS_NOT_PHYSICAL_GLYPH_AUTHORITY",
+      "evidence_class": "PREMODERN_RECEIVED_TEXT_EXACT_TABLE_WITH_MECHANICAL_GLOSS",
+      "evidence": [
+        "EXT-WIKISOURCE-XINGXUE-DACHENG-TIANCHU",
+        "docs/research/ZIWEI-TIANCHU-PREMODERN-TABLE-AND-SOURCE-BOUNDARY-R1.json"
+      ],
+      "scope_note": "Closes premodern TianChu geometry at received-text level; no physical target leaf claim.",
+      "adjudication_batch": "BATCH-12-ZIWEI-TIANCHU-PREMODERN-TABLE-AND-SOURCE-BOUNDARY-OG"
+    },
+    {
+      "edge_id": "TG-E0156",
+      "from": "RULE-FAMILY-PREMODERN-TIANCHU-STEM-TABLE",
+      "relation": "STRUCTURAL_MECHANISM_CANDIDATE_FOR",
+      "to": "RULE-FAMILY-ZIWEI-NATAL-TIANCHU-CURRENT",
+      "status": "PROBABLE",
+      "confidence": "HIGH_FOR_SAME_NAME_SAME_STEM_INPUT_AND_10_OF_10_GEOMETRY_MEDIUM_FOR_TRANSMISSION_CONTINUITY_LOW_FOR_EXACT_ADOPTION_PATH",
+      "evidence_class": "EXACT_MECHANICAL_IDENTITY_ACROSS_PREMODERN_AND_MODERN_ZIWEI_DOMAINS",
+      "evidence": [
+        "EXT-WIKISOURCE-XINGXUE-DACHENG-TIANCHU",
+        "S01:ZZZA-PR-023",
+        "HPA-ZMINOR-007"
+      ],
+      "scope_note": "Exact table identity makes structural continuity probable, but no direct documentary chain proves when/how the rule entered Ziwei.",
+      "adjudication_batch": "BATCH-12-ZIWEI-TIANCHU-PREMODERN-TABLE-AND-SOURCE-BOUNDARY-OG"
     }
   ],
   "lineage_hypotheses": [
