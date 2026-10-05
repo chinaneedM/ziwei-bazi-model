@@ -46,11 +46,11 @@
     "row_count": 222,
     "status_counts": {
       "MODERN_COMPATIBILITY_ONLY": 50,
-      "HISTORICALLY_SUPPORTED": 103,
+      "HISTORICALLY_SUPPORTED": 104,
       "DISPUTED_MULTIPLE_CANDIDATES": 27,
       "SUPPORTED_BUT_SCHOOL_SPECIFIC": 24,
       "SOURCE_INSUFFICIENT": 11,
-      "MISSING_FROM_PRODUCT": 6,
+      "MISSING_FROM_PRODUCT": 5,
       "NOT_YET_FORMALIZED": 1
     },
     "module_counts": {
@@ -3558,30 +3558,30 @@
       "rule_id": "HPA-ZIWEI-018",
       "module": "庙旺落陷",
       "rule_or_field": "1581 Jielan historical dignity table",
-      "current_implementation": "Production continues to use OPERATIONAL-ZIWEI-DIGNITY-R4@4.0.0. Historical sidecar keeps JIELAN-1581-DIGNITY-CH70-SOURCE-LEXEME-R1 as the primary raw-lexeme candidate and now adds a complete 300-cell CH69↔CH70 cross-collation layer. The cross-collation preserves raw source lexemes, unresolved CH69 text, CH70 source conflicts and the CH70 unstated cell without grade coercion or cross-chapter fill.",
-      "current_profile": "ZIWEI-JIELAN-1581-DIGNITY-LEXEME-CANDIDATES-R1@1.0.0 / CH70 source-lexeme candidate + ZIWEI-JIELAN-1581-DIGNITY-CH69-CH70-CROSS-COLLATION-R1@1.0.0 / PRESERVED_NOT_SELECTED; production OPERATIONAL-ZIWEI-DIGNITY-R4@4.0.0 separate",
+      "current_implementation": "Production remains OPERATIONAL-ZIWEI-DIGNITY-R4@4.0.0. The historical sidecar now exposes the complete JIELAN-1581-DIGNITY-CH70-SOURCE-LEXEME-R1 raw candidate plus the 300-cell CH69↔CH70 cross-collation through a read-only Workbench API. Backend rows preserve source conflicts, unresolved CH69 text and the CH70 unstated cell; browser code contains no source table or grade formula.",
+      "current_profile": "ZIWEI-JIELAN-1581-DIGNITY-LEXEME-CANDIDATES-R1@1.0.0 / ZIWEI-JIELAN-1581-DIGNITY-CH69-CH70-CROSS-COLLATION-R1@1.0.0 / ZIWEI-JIELAN-1581-DIGNITY-HISTORICAL-CANDIDATE-API-R1@1.0.0 / PRESERVED_NOT_SELECTED; production OPERATIONAL-ZIWEI-DIGNITY-R4@4.0.0 separate",
       "primary_source": "《紫微斗数捷览》1581 卷二·辨十二宫诸星庙陷诀 / 与前诀参看",
       "source_quote": "天机…卯辰戌亥入庙庭；子午二宫皆得地",
       "source_quote_location": "EXT-ZIWEI-JIELAN-1581:CH69|CH70",
       "historical_period": "MING_WANLI_9_1581",
-      "later_witnesses": "Batch 12ON cross-collates the palace-oriented CH69 against star-oriented CH70 across the full 25×12 grid. The result freezes exact overlap/equivalence/conflict/unresolved categories but does not merge the chapters or normalize them to R4.",
+      "later_witnesses": "12OM preserves CH70 raw lexemes; 12ON cross-collates CH69/CH70 across all 300 cells; 12OO exposes both read-only with exact combined/Ziwei source hashes. Received Fullbook/Quanshu and modern operational tables remain separate candidate/source families.",
       "school_attribution": "JIELAN_1581_DIGNITY_FAMILY",
       "competing_methods": [
         "Jielan 1581",
         "received Fullbook/Quanshu",
         "current operational/Wenmo-calibrated"
       ],
-      "current_implementation_match": "INTERNAL HISTORICAL CANDIDATE READINESS NOW INCLUDES CH70 RAW-LEXEME GRID PLUS COMPLETE CH69↔CH70 CELL CROSS-COLLATION. Product gap remains only because an explicit read-only candidate API / Workbench surface is still absent.",
-      "confidence": "HIGH_FOR_CH70_SOURCE_LEXEME_EXTRACTION; HIGH_FOR_300_CELL_CH69_CH70_CROSS_COLLATION_ACCOUNTING; HIGH_FOR_NON_COERCION_BOUNDARY; SOURCE_TEXT_UNRESOLVED_CELLS_REMAIN_EXPLICIT",
-      "audit_status": "MISSING_FROM_PRODUCT",
-      "proposed_action": "12OO: expose the reconciled historical source-lexeme candidate and cross-collation through a read-only product API/Workbench surface. Do not map to production R4 seven-grade semantics, do not fill CH70 from CH69, and do not select a winner.",
+      "current_implementation_match": "HISTORICAL SOURCE CANDIDATE IS NOW INTERNALLY REPRESENTED, CELL-CROSS-COLLATED AND PUBLICLY VISIBLE THROUGH A READ-ONLY WORKBENCH SIDECAR. Production dignity mapping remains separate and unchanged.",
+      "confidence": "HIGH_FOR_CH70_SOURCE_LEXEME_EXTRACTION; HIGH_FOR_300_CELL_CH69_CH70_CROSS_COLLATION; HIGH_FOR_READ_ONLY_PRODUCT_BINDING_AND_NON_COERCION_FIREWALL; SOURCE_TEXT_UNRESOLVED_CELLS_REMAIN_EXPLICIT",
+      "audit_status": "HISTORICALLY_SUPPORTED",
+      "proposed_action": "Retain the read-only historical source-lexeme candidate and non-coercion firewall. Continue external/edition collation for unresolved source cells and received Fullbook comparison, but do not map Jielan lexemes to production R4 grades or select a historical winner without a separately audited rule.",
       "defect_id": "PROV-DEFECT-038",
       "defect_type": "HPA_ZIWEI_018_STALE_JIELAN_HISTORICAL_CANDIDATE_REGISTRY_VERSION",
       "defect_scope": "The row still named ZIWEI-JIELAN-1581-HISTORICAL-CANDIDATES-R1@1.0.0 after the live source registry advanced to 1.1.0. The SOURCE_TABLE_PRESENT_NORMALIZATION_PENDING boundary itself remained correct.",
       "repair_status": "REPAIRED_IN_BATCH_12NS_FORWARD_ONLY",
       "repair_action": "Updated HPA-ZIWEI-018 to Jielan registry 1.1.0 and bound the existing source-scoped resolver/status boundary. No dignity cells were normalized, no runtime algorithm changed and no historical candidate was selected.",
-      "reconciliation_batch": "BATCH-12-ZIWEI-JIELAN-DIGNITY-CH69-CH70-CELL-CROSS-COLLATION-ON",
-      "reconciliation_status": "CH69_CH70_CELL_LEVEL_CROSS_COLLATION_COMPLETE_READ_ONLY_PRODUCT_SURFACE_PENDING",
+      "reconciliation_batch": "BATCH-12-ZIWEI-JIELAN-DIGNITY-CANDIDATE-PRODUCTIZATION-OO",
+      "reconciliation_status": "READ_ONLY_SOURCE_LEXEME_CANDIDATE_PRODUCT_SURFACE_CLOSED_NO_PRODUCTION_GRADE_COERCION",
       "product_surface_reconciliation": {
         "candidate_registry_id": "ZIWEI-JIELAN-1581-DIGNITY-LEXEME-CANDIDATES-R1",
         "candidate_registry_version": "1.0.0",
@@ -3609,16 +3609,23 @@
         "ch69_used_to_fill_ch70": false,
         "ch70_used_to_overwrite_ch69": false,
         "production_grade_mapping_present": false,
-        "public_read_only_candidate_api": false,
-        "workbench_candidate_surface": false,
+        "public_read_only_candidate_api": true,
+        "workbench_candidate_surface": true,
         "production_default_changed": false,
-        "production_winner_selected": false
+        "production_winner_selected": false,
+        "candidate_api_id": "ZIWEI-JIELAN-1581-DIGNITY-HISTORICAL-CANDIDATE-API-R1",
+        "candidate_api_version": "1.0.0",
+        "workbench_api_endpoint": "/api/ziwei-jielan-1581-dignity-candidate",
+        "browser_contains_source_table_constants": false,
+        "browser_contains_cross_collation_formula": false,
+        "browser_contains_production_grade_formula": false,
+        "candidate_winner_control": false
       },
       "candidate_method_ids": [
         "JIELAN-1581-DIGNITY-CH70-SOURCE-LEXEME-R1"
       ],
       "selection_status": "PRESERVED_NOT_SELECTED",
-      "candidate_readiness_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JIELAN-DIGNITY-CH69-CH70-CELL-CROSS-COLLATION-ON.md",
+      "candidate_readiness_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JIELAN-DIGNITY-CANDIDATE-PRODUCTIZATION-OO.md",
       "transmission_graph_bindings": [
         "TG-E0163",
         "TG-E0164",
@@ -7938,7 +7945,7 @@
     "identified_missing_candidate_family_count": 14,
     "historical_candidate_registry_count": 5,
     "historical_candidate_runtime_resolver_count": 5,
-    "current_missing_from_product_row_count": 6
+    "current_missing_from_product_row_count": 5
   },
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md",
   "supplemental_rule_audit_batches": [
