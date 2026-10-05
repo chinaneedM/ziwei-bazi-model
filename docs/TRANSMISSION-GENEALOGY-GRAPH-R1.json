@@ -3545,6 +3545,85 @@
         "HPA-ZMINOR-007"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-TIANCHU-PREMODERN-TABLE-AND-SOURCE-BOUNDARY-OG"
+    },
+    {
+      "node_id": "PASSAGE-JIELAN-1581-CH23-FOUR-TRANSFORM",
+      "node_type": "PASSAGE",
+      "label": "1581《紫微斗数捷览》卷一第23章·安禄权科忌四化诀",
+      "system_scope": "ZIWEI_FOUR_TRANSFORMATION_COMPLETE_TABLE",
+      "date": "1581_MING_WANLI9_PRINT_TRADITION",
+      "evidence": [
+        "EXT-ZIWEI-JIELAN-1581",
+        "HPA-ZIWEI-014"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-FOUR-TRANSFORMATION-WHOLE-TABLE-CANDIDATE-READINESS-OJ"
+    },
+    {
+      "node_id": "RULE-FAMILY-JIELAN-1581-FOUR-TRANSFORM",
+      "node_type": "RULE_FAMILY",
+      "label": "1581《捷览》十干四化整表规则族",
+      "system_scope": "ZIWEI_FOUR_TRANSFORMATION_WHOLE_TABLE",
+      "date": "MING_1581_ATTESTED",
+      "mechanics": "10 stems × 禄权科忌; targets exactly equal current production S08",
+      "evidence": [
+        "EXT-ZIWEI-JIELAN-1581:CH23",
+        "HPA-ZIWEI-014"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-FOUR-TRANSFORMATION-WHOLE-TABLE-CANDIDATE-READINESS-OJ"
+    },
+    {
+      "node_id": "PASSAGE-FULLBOOK-SHIDIAN-V3-FOUR-TRANSFORM",
+      "node_type": "PASSAGE",
+      "label": "识典 received《紫微斗数全书》卷之三·安禄权科忌四星变化诀",
+      "system_scope": "SOURCE_SCOPED_RECEIVED_FULLBOOK_FOUR_TRANSFORMATION_COMPLETE_TABLE",
+      "date": "RECEIVED_FULLBOOK_DIGITAL_TRANSCRIPTION",
+      "evidence": [
+        "EXT-SHIDIAN-ZWDSQS-FOUR-TRANSFORMATIONS",
+        "HPA-ZIWEI-014"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-FOUR-TRANSFORMATION-WHOLE-TABLE-CANDIDATE-READINESS-OJ"
+    },
+    {
+      "node_id": "RULE-FAMILY-FULLBOOK-SHIDIAN-V3-FOUR-TRANSFORM",
+      "node_type": "RULE_FAMILY",
+      "label": "识典 received《全书》十干四化整表规则族",
+      "system_scope": "SOURCE_SCOPED_FULLBOOK_FOUR_TRANSFORMATION_WHOLE_TABLE",
+      "date": "RECEIVED_TEXT_ATTESTED_PHYSICAL_RECENSION_UNBOUND",
+      "mechanics": "Current differs at 庚科=天同、庚忌=天相、壬科=天府",
+      "evidence": [
+        "EXT-SHIDIAN-ZWDSQS-FOUR-TRANSFORMATIONS",
+        "HPA-ZIWEI-014"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-FOUR-TRANSFORMATION-WHOLE-TABLE-CANDIDATE-READINESS-OJ"
+    },
+    {
+      "node_id": "PASSAGE-ZHONGZHOU-WANGTINGZHI-FOUR-TRANSFORM",
+      "node_type": "PASSAGE",
+      "label": "王亭之《中州派紫微斗数初级讲义》安四化星诀",
+      "system_scope": "MODERN_ZHONGZHOU_FOUR_TRANSFORMATION_COMPLETE_TABLE",
+      "date": "MODERN_ZHONGZHOU",
+      "evidence": [
+        "EXT-WANGTINGZHI-ZHONGZHOU-CHUJI",
+        "S01:ZZZA-A-0391",
+        "S01:ZZZA-A-0392",
+        "S01:ZZZA-A-0393",
+        "S01:ZZZA-A-0394",
+        "S01:ZZZA-A-0395"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-FOUR-TRANSFORMATION-WHOLE-TABLE-CANDIDATE-READINESS-OJ"
+    },
+    {
+      "node_id": "RULE-FAMILY-ZHONGZHOU-WANGTINGZHI-FOUR-TRANSFORM",
+      "node_type": "RULE_FAMILY",
+      "label": "王亭之中州十干四化整表规则族",
+      "system_scope": "MODERN_ZHONGZHOU_FOUR_TRANSFORMATION_WHOLE_TABLE",
+      "date": "MODERN_SCHOOL_ATTESTED",
+      "mechanics": "Current differs at 戊科=太阳、庚科=天府、壬科=天府",
+      "evidence": [
+        "EXT-WANGTINGZHI-ZHONGZHOU-CHUJI",
+        "HPA-ZIWEI-014"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-FOUR-TRANSFORMATION-WHOLE-TABLE-CANDIDATE-READINESS-OJ"
     }
   ],
   "edges": [
@@ -5945,6 +6024,98 @@
       ],
       "scope_note": "Exact table identity makes structural continuity probable, but no direct documentary chain proves when/how the rule entered Ziwei.",
       "adjudication_batch": "BATCH-12-ZIWEI-TIANCHU-PREMODERN-TABLE-AND-SOURCE-BOUNDARY-OG"
+    },
+    {
+      "edge_id": "TG-E0157",
+      "from": "PASSAGE-JIELAN-1581-CH23-FOUR-TRANSFORM",
+      "relation": "TRANSMITS_RULE",
+      "to": "RULE-FAMILY-JIELAN-1581-FOUR-TRANSFORM",
+      "status": "CONFIRMED",
+      "confidence": "VERY_HIGH_FOR_COMPLETE_RECEIVED_CHAPTER_TABLE",
+      "evidence_class": "EARLY_PRINT_TRANSCRIPTION_COMPLETE_TABLE",
+      "evidence": [
+        "EXT-ZIWEI-JIELAN-1581:CH23",
+        "docs/research/ZIWEI-FOUR-TRANSFORMATION-WHOLE-TABLE-CANDIDATE-READINESS-R1.json"
+      ],
+      "scope_note": "Complete ten-stem table; product target identity does not erase source identity.",
+      "adjudication_batch": "BATCH-12-ZIWEI-FOUR-TRANSFORMATION-WHOLE-TABLE-CANDIDATE-READINESS-OJ"
+    },
+    {
+      "edge_id": "TG-E0158",
+      "from": "PASSAGE-FULLBOOK-SHIDIAN-V3-FOUR-TRANSFORM",
+      "relation": "TRANSMITS_RULE",
+      "to": "RULE-FAMILY-FULLBOOK-SHIDIAN-V3-FOUR-TRANSFORM",
+      "status": "HIGH_CONFIDENCE",
+      "confidence": "HIGH_FOR_COMPLETE_DIGITAL_RECEIVED_TABLE_NOT_PHYSICAL_RECENSION_AUTHORITY",
+      "evidence_class": "SOURCE_SCOPED_RECEIVED_FULLBOOK_DIGITAL_TRANSCRIPTION",
+      "evidence": [
+        "EXT-SHIDIAN-ZWDSQS-FOUR-TRANSFORMATIONS",
+        "docs/research/ZIWEI-FOUR-TRANSFORMATION-WHOLE-TABLE-CANDIDATE-READINESS-R1.json"
+      ],
+      "scope_note": "Do not generalize this Geng reading to every Fullbook recension.",
+      "adjudication_batch": "BATCH-12-ZIWEI-FOUR-TRANSFORMATION-WHOLE-TABLE-CANDIDATE-READINESS-OJ"
+    },
+    {
+      "edge_id": "TG-E0159",
+      "from": "PASSAGE-ZHONGZHOU-WANGTINGZHI-FOUR-TRANSFORM",
+      "relation": "TRANSMITS_RULE",
+      "to": "RULE-FAMILY-ZHONGZHOU-WANGTINGZHI-FOUR-TRANSFORM",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_FOR_MODERN_SCHOOL_COMPLETE_TABLE",
+      "evidence_class": "MODERN_ZHONGZHOU_DIRECT_RULE_TEXT_PLUS_BIBLIOGRAPHIC_CONTROL",
+      "evidence": [
+        "EXT-WANGTINGZHI-ZHONGZHOU-CHUJI",
+        "EXT-XINGQIAO-WANGTINGZHI-ZHONGZHOU-CHUJI",
+        "S01:ZZZA-A-0391",
+        "S01:ZZZA-A-0392",
+        "S01:ZZZA-A-0393",
+        "S01:ZZZA-A-0394",
+        "S01:ZZZA-A-0395"
+      ],
+      "scope_note": "Modern school rule family; not backdated.",
+      "adjudication_batch": "BATCH-12-ZIWEI-FOUR-TRANSFORMATION-WHOLE-TABLE-CANDIDATE-READINESS-OJ"
+    },
+    {
+      "edge_id": "TG-E0160",
+      "from": "RULE-FAMILY-JIELAN-1581-FOUR-TRANSFORM",
+      "relation": "PARALLEL_COEXISTS_WITH",
+      "to": "RULE-FAMILY-FULLBOOK-SHIDIAN-V3-FOUR-TRANSFORM",
+      "status": "CONFIRMED",
+      "confidence": "VERY_HIGH_FOR_DISTINCT_COMPLETE_TABLE_IDENTITIES",
+      "evidence_class": "WHOLE_TABLE_CELL_COMPARISON",
+      "evidence": [
+        "docs/research/evidence/batch-12oj/ziwei-four-transformation-whole-table-candidate-evidence.json"
+      ],
+      "scope_note": "Three cells differ; no winner or direct ancestry inferred.",
+      "adjudication_batch": "BATCH-12-ZIWEI-FOUR-TRANSFORMATION-WHOLE-TABLE-CANDIDATE-READINESS-OJ"
+    },
+    {
+      "edge_id": "TG-E0161",
+      "from": "RULE-FAMILY-JIELAN-1581-FOUR-TRANSFORM",
+      "relation": "PARALLEL_COEXISTS_WITH",
+      "to": "RULE-FAMILY-ZHONGZHOU-WANGTINGZHI-FOUR-TRANSFORM",
+      "status": "CONFIRMED",
+      "confidence": "VERY_HIGH_FOR_DISTINCT_COMPLETE_TABLE_IDENTITIES",
+      "evidence_class": "WHOLE_TABLE_CELL_COMPARISON",
+      "evidence": [
+        "docs/research/evidence/batch-12oj/ziwei-four-transformation-whole-table-candidate-evidence.json"
+      ],
+      "scope_note": "Three cells differ; modern Zhongzhou chronology remains separate.",
+      "adjudication_batch": "BATCH-12-ZIWEI-FOUR-TRANSFORMATION-WHOLE-TABLE-CANDIDATE-READINESS-OJ"
+    },
+    {
+      "edge_id": "TG-E0162",
+      "from": "RULE-FAMILY-FULLBOOK-SHIDIAN-V3-FOUR-TRANSFORM",
+      "relation": "PARALLEL_COEXISTS_WITH",
+      "to": "RULE-FAMILY-ZHONGZHOU-WANGTINGZHI-FOUR-TRANSFORM",
+      "status": "CONFIRMED",
+      "confidence": "VERY_HIGH_FOR_DISTINCT_COMPLETE_TABLE_IDENTITIES",
+      "evidence_class": "WHOLE_TABLE_CELL_COMPARISON",
+      "evidence": [
+        "docs/research/evidence/batch-12oj/ziwei-four-transformation-whole-table-candidate-evidence.json"
+      ],
+      "scope_note": "Distinct source-scoped whole-table candidates; no hybridization.",
+      "adjudication_batch": "BATCH-12-ZIWEI-FOUR-TRANSFORMATION-WHOLE-TABLE-CANDIDATE-READINESS-OJ"
     }
   ],
   "lineage_hypotheses": [
