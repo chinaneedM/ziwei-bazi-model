@@ -7089,21 +7089,34 @@
       "audit_batch": "BATCH-12-ZIWEI-THREE-RING-SOURCE-SCOPE-AND-IDENTITY-AUDIT-MV",
       "rule_id": "HPA-ZIWEI-026",
       "rule_or_field": "Jiangqian twelve-member trine-wang ring and temporal/source scope",
-      "current_implementation": "RING.JIANGQIAN12 uses birth-year trine-wang anchor 子午卯酉, fixed order and forward traversal independent of sex.",
-      "primary_source": "S01 PR-059 / ZZZA-A-1058..1063 normalized project text; modern Wang Tingzhi received manual heading 40 is corroboration, not classical Fullbook evidence.",
-      "source_quote": "将星三合起旺地，攀鞍岁驿息神方",
-      "source_quote_location": "EXT-WANGTINGZHI-ANXING-RECEIVED-RING-TEXT printed pp47–48 heading40; S01:ZZZA-PR-059; docs/research/ZIWEI-THREE-RING-SOURCE-SCOPE-AUDIT-R1.json",
-      "historical_period": "MODERN_SCHOOL_RECEIVED_TABLE_ATTESTED; EARLY_EDITION_ATTRIBUTION_UNRESOLVED",
-      "later_witnesses": "Modern received ring sequence agrees; 年支 heading alone does not settle birth-year vs annual-target application.",
-      "school_attribution": "MODERN_TABLE_MATCH_WITH_EARLY_SOURCE_AND_TIME_LAYER_GAP",
+      "current_implementation": "RING.JIANGQIAN12 is materialized only in the natal chart pipeline. WenmoDefaultRingGenerator.jiangqian receives structure.ziwei_birth_year_branch, applies the trine-wang anchor 子午卯酉, then traverses the fixed twelve-member order forward independent of sex.",
+      "primary_source": "Modern Zhongzhou received manual preserves the complete twelve-member verse/order; the 1581 Jielan line independently attests a related trine/year-branch shensha rule under the explicitly flow-year chapter 定流年太岁所值凶星图. No edition-bound early complete Jiangqian twelve-member table is yet directly closed.",
+      "source_quote": "将星三合起旺地，攀鞍岁驿息神方 / 捷览卷一：定流年太岁所值凶星图（驿马按年支三合）",
+      "source_quote_location": "EXT-WANGTINGZHI-ANXING-RECEIVED-RING-TEXT printed pp47–48 heading40; EXT-ZIWEI-JIELAN-1581:CH58; docs/research/ZIWEI-JIANGQIAN-TEMPORAL-SOURCE-SCOPE-CLOSURE-R1.json",
+      "historical_period": "MING_1581_RELATED_FLOW_YEAR_SHENSHA_LAYER_ATTESTED; MODERN_ZHONGZHOU_COMPLETE_RING_ATTESTED; EARLY_COMPLETE_RING_ATTRIBUTION_UNRESOLVED",
+      "later_witnesses": "Modern received/derived practice attests both natal birth-year and annual target-year applications with the same twelve-member geometry. These are separate temporal contexts, not mutually exclusive winner methods. Modern surfaces do not backdate the complete ring to the Ming witness.",
+      "school_attribution": "MODERN_ZHONGZHOU_COMPLETE_RING_WITH_EARLY_ZIWEI_FLOW_YEAR_RELATED_SHENSHA_CONTEXT; COMPLETE_EARLY_RING_SOURCE_GAP",
       "competing_methods": [
-        "Current natal birth-year layer",
-        "Annual-target presentation elsewhere requires separately sourced and implemented temporal layer"
+        "Natal birth-year application: current productized RING.JIANGQIAN12 and modern received practice.",
+        "Annual target-year application: modern received/derived practice; must remain a separately scoped temporal projection.",
+        "These temporal applications are not mutually exclusive candidates and do not select one historical winner over the other."
       ],
-      "current_implementation_match": "ALL_12_BIRTH_BRANCH_TRINE_WANG_ANCHORS_AND_CURRENT_ORDERS_MATCH_UNIT_ORACLE; NO_VERIFIED_EARLY_FULLBOOK_PASSAGE",
-      "confidence": "HIGH_FOR_CURRENT_MECHANICS; INSUFFICIENT_FOR_EARLY_EDITION_AND_UNIQUE_TEMPORAL_SCOPE",
+      "current_implementation_match": "CURRENT_NATAL_GEOMETRY_MATCHES_COMPLETE_MODERN_RECEIVED_RING; EARLY_ZIWEI_FLOW_YEAR_CONTEXT_IS_ATTESTED_FOR_RELATED_TRINE_SHENSHA; EDITION_BOUND_EARLY_COMPLETE_TWELVE_MEMBER_RING_AND_EXPLICIT_DUAL_LAYER_INSTRUCTION_REMAIN_UNCLOSED",
+      "confidence": "HIGH_FOR_CURRENT_NATAL_MECHANICS_AND_MODERN_DUAL_TEMPORAL_APPLICATION; MODERATE_FOR_EARLY_FLOW_YEAR_FAMILY_CONTEXT; INSUFFICIENT_FOR_EARLY_COMPLETE_RING_ATTRIBUTION",
       "audit_status": "SOURCE_INSUFFICIENT",
-      "proposed_action": "Retrieve primary edition-bound Jiangqian passage and temporal-layer instruction; do not backdate modern school text or convert natal rings into annual rings."
+      "proposed_action": "Keep SOURCE_INSUFFICIENT and current natal runtime unchanged. Treat natal and annual as separate temporal applications, not competing winners. Seek an edition-bound early complete Jiangqian twelve-member passage and explicit scope instruction before any annual-target productization or historical backdating.",
+      "evidence_closure_batch": "BATCH-12-ZIWEI-JIANGQIAN-TEMPORAL-SOURCE-SCOPE-EVIDENCE-CLOSURE-NX",
+      "evidence_closure_status": "TEMPORAL_LAYERS_SEPARATED_EARLY_COMPLETE_RING_NOT_CLOSED",
+      "temporal_layer_reconciliation": {
+        "natal_birth_year_productized": true,
+        "annual_target_productized": false,
+        "natal_and_annual_mutually_exclusive": false,
+        "modern_complete_ring_natal_attested": true,
+        "modern_complete_ring_annual_attested": true,
+        "early_flow_year_related_shensha_context_attested": true,
+        "early_complete_twelve_member_ring_attested": false,
+        "runtime_changed": false
+      }
     },
     {
       "system": "ZIWEI",
