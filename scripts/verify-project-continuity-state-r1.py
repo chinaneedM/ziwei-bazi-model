@@ -15541,7 +15541,7 @@ def main() -> int:
         surface = row.get("product_surface_reconciliation", {})
         if surface.get("workbench_read_only_candidate_api") is not True:
             fail(f"Batch 12OI read-only product surface drift: {rule_id}")
-        if surface.get("production_default_changed") is not False or surface.get("production_winner_selected") is not False:
+        if surface.get("production_profile_changed") is not False or surface.get("production_winner_selected") is not False:
             fail(f"Batch 12OI production/winner firewall drift: {rule_id}")
     runtime_nr = nr.get("internal_runtime", {})
     if runtime_nr.get("runtime_resolver_id") != "ZIWEI-JIELAN-1581-SOURCE-SCOPED-CANDIDATE-RUNTIME-R1":
