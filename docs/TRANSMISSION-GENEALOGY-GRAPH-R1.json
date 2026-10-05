@@ -3212,6 +3212,94 @@
         "HPA-ZMINOR-020"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-STANDALONE-FEILIAN-HISTORICAL-IDENTITY-CLOSURE-NY"
+    },
+    {
+      "node_id": "PASSAGE-LISHIMINGYUAN-JIESHEN",
+      "node_type": "PASSAGE",
+      "label": "《历事明原》第二·解神",
+      "system_scope": "MONTH_JIESHEN_TABLE_AND_ZONGYAOLI_LILI_ATTRIBUTION",
+      "date": "YUAN_TEXT_TRADITION; REVIEWED_MODERN_TRANSCRIPTION",
+      "evidence": [
+        "EXT-SHIDIAN-LISHIMINGYUAN-JIESHEN"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-MONTH-JIESHEN-HISTORICAL-IDENTITY-CLOSURE-NZ"
+    },
+    {
+      "node_id": "PASSAGE-XINGLI-KAOYUAN-JIESHEN",
+      "node_type": "PASSAGE",
+      "label": "《御定星历考原》卷三·解神",
+      "system_scope": "MONTH_JIESHEN_TABLE",
+      "date": "1713_RECEIVED_TEXT",
+      "evidence": [
+        "EXT-CTEXT-XINGLI-KAOYUAN-JIESHEN"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-MONTH-JIESHEN-HISTORICAL-IDENTITY-CLOSURE-NZ"
+    },
+    {
+      "node_id": "PASSAGE-XIEJI-BIANFANG-JIESHEN",
+      "node_type": "PASSAGE",
+      "label": "《钦定协纪辨方书》卷五·解神",
+      "system_scope": "MONTH_JIESHEN_TABLE_AND_MECHANICAL_GLOSS",
+      "date": "QING_RECEIVED_TEXT",
+      "evidence": [
+        "EXT-WIKISOURCE-XIEJI-BIANFANG-JIESHEN"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-MONTH-JIESHEN-HISTORICAL-IDENTITY-CLOSURE-NZ"
+    },
+    {
+      "node_id": "SOURCE-FAMILY-ZONGYAOLI-CITED-JIESHEN",
+      "node_type": "TEXT_WORK",
+      "label": "被解神条引用的《总要历》来源层",
+      "system_scope": "CITED_CALENDAR_SOURCE_FAMILY_FOR_MONTH_DEITY_DEFINITION_EXACT_BIBLIOGRAPHIC_IDENTITY_UNRESOLVED",
+      "date": "PRE_YUAN_CITATION_SOURCE_FAMILY; EXACT_RECENSION_UNRESOLVED",
+      "evidence": [
+        "EXT-SHIDIAN-LISHIMINGYUAN-JIESHEN",
+        "EXT-CTEXT-XINGLI-KAOYUAN-JIESHEN",
+        "EXT-WIKISOURCE-XIEJI-BIANFANG-JIESHEN"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-MONTH-JIESHEN-HISTORICAL-IDENTITY-CLOSURE-NZ"
+    },
+    {
+      "node_id": "SOURCE-FAMILY-LILI-CITED-JIESHEN",
+      "node_type": "TEXT_WORK",
+      "label": "被解神条引用的《历例》来源层",
+      "system_scope": "CITED_CALENDAR_SOURCE_FAMILY_FOR_MONTH_TABLE_EXACT_BIBLIOGRAPHIC_IDENTITY_UNRESOLVED",
+      "date": "PRE_YUAN_CITATION_SOURCE_FAMILY; EXACT_RECENSION_UNRESOLVED",
+      "evidence": [
+        "EXT-SHIDIAN-LISHIMINGYUAN-JIESHEN",
+        "EXT-CTEXT-XINGLI-KAOYUAN-JIESHEN",
+        "EXT-WIKISOURCE-XIEJI-BIANFANG-JIESHEN"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-MONTH-JIESHEN-HISTORICAL-IDENTITY-CLOSURE-NZ"
+    },
+    {
+      "node_id": "RULE-FAMILY-JIESHEN-MONTH",
+      "node_type": "RULE_FAMILY",
+      "label": "月解／month-based 解神十二月规则族",
+      "system_scope": "CALENDRICAL_MONTH_DEITY_RULE_LATER_USED_AS_ZIWEI_MINOR_STAR",
+      "date": "PREMODERN_ATTESTED; ZIWEI_ADOPTION_DATE_UNRESOLVED",
+      "mechanics": "正二申、三四戌、五六子、七八寅、九十辰、十一十二午",
+      "evidence": [
+        "EXT-SHIDIAN-LISHIMINGYUAN-JIESHEN",
+        "EXT-CTEXT-XINGLI-KAOYUAN-JIESHEN",
+        "EXT-WIKISOURCE-XIEJI-BIANFANG-JIESHEN",
+        "HPA-ZMINOR-023"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-MONTH-JIESHEN-HISTORICAL-IDENTITY-CLOSURE-NZ"
+    },
+    {
+      "node_id": "RULE-FAMILY-ZIWEI-JIESHEN-YEAR",
+      "node_type": "RULE_FAMILY",
+      "label": "紫微年支解神／现代显示年解规则族",
+      "system_scope": "ZIWEI_YEAR_BASED_JIESHEN_NIANJIE_DISTINCT_FROM_MONTH_JIESHEN",
+      "date": "RECEIVED_FULLBOOK_ATTESTED",
+      "mechanics": "子年戌起，随年支逆行；项目显示为年解以消歧",
+      "evidence": [
+        "EXT-ZIWEI-QUANSHU-RECEIVED",
+        "HPA-ZMINOR-006",
+        "HPA-ZMINOR-023"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-MONTH-JIESHEN-HISTORICAL-IDENTITY-CLOSURE-NZ"
     }
   ],
   "edges": [
@@ -5127,6 +5215,160 @@
       "scope_note": "Same/variant display name does not merge identities. Standalone uses birth-year branch fixed table; Boshi member uses Lucun anchor and ordinal 6. Four of sixty legal Jiazi coordinates coincide without identity collapse.",
       "adjudication_batch": "BATCH-12-ZIWEI-STANDALONE-FEILIAN-HISTORICAL-IDENTITY-CLOSURE-NY",
       "edge_id": "TG-E0124"
+    },
+    {
+      "from": "PASSAGE-LISHIMINGYUAN-JIESHEN",
+      "relation": "TRANSMITS_RULE",
+      "to": "RULE-FAMILY-JIESHEN-MONTH",
+      "status": "HIGH_CONFIDENCE",
+      "confidence": "HIGH_FOR_RULE_IDENTITY_WITH_OCR_GLYPH_CAVEAT",
+      "evidence_class": "PREMODERN_RECEIVED_MONTH_JIESHEN_TEXT",
+      "evidence": [
+        "docs/research/ZIWEI-MONTH-JIESHEN-HISTORICAL-IDENTITY-CLOSURE-R1.json"
+      ],
+      "scope_note": "Closes the month-based Jieshen rule geometry in the received premodern tradition; does not prove Ziwei adoption route or physical glyph state.",
+      "adjudication_batch": "BATCH-12-ZIWEI-MONTH-JIESHEN-HISTORICAL-IDENTITY-CLOSURE-NZ",
+      "edge_id": "TG-E0125"
+    },
+    {
+      "from": "PASSAGE-LISHIMINGYUAN-JIESHEN",
+      "relation": "EXPLICITLY_CITES",
+      "to": "SOURCE-FAMILY-ZONGYAOLI-CITED-JIESHEN",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_FOR_EXPLICIT_SOURCE_LABEL_LOW_FOR_EXACT_BIBLIOGRAPHIC_IDENTITY",
+      "evidence_class": "EXPLICIT_ZONGYAOLI_SOURCE_LABEL",
+      "evidence": [
+        "EXT-SHIDIAN-LISHIMINGYUAN-JIESHEN",
+        "EXT-CTEXT-XINGLI-KAOYUAN-JIESHEN",
+        "EXT-WIKISOURCE-XIEJI-BIANFANG-JIESHEN"
+      ],
+      "scope_note": "Definition source label only; exact work/recension and direct surviving rule text remain unresolved.",
+      "adjudication_batch": "BATCH-12-ZIWEI-MONTH-JIESHEN-HISTORICAL-IDENTITY-CLOSURE-NZ",
+      "edge_id": "TG-E0126"
+    },
+    {
+      "from": "PASSAGE-LISHIMINGYUAN-JIESHEN",
+      "relation": "EXPLICITLY_CITES",
+      "to": "SOURCE-FAMILY-LILI-CITED-JIESHEN",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_FOR_EXPLICIT_SOURCE_LABEL_LOW_FOR_EXACT_BIBLIOGRAPHIC_IDENTITY",
+      "evidence_class": "EXPLICIT_LILI_SOURCE_LABEL",
+      "evidence": [
+        "EXT-SHIDIAN-LISHIMINGYUAN-JIESHEN",
+        "EXT-CTEXT-XINGLI-KAOYUAN-JIESHEN",
+        "EXT-WIKISOURCE-XIEJI-BIANFANG-JIESHEN"
+      ],
+      "scope_note": "Month-table source label only; exact work/recension and direct surviving rule text remain unresolved.",
+      "adjudication_batch": "BATCH-12-ZIWEI-MONTH-JIESHEN-HISTORICAL-IDENTITY-CLOSURE-NZ",
+      "edge_id": "TG-E0127"
+    },
+    {
+      "from": "PASSAGE-XINGLI-KAOYUAN-JIESHEN",
+      "relation": "TRANSMITS_RULE",
+      "to": "RULE-FAMILY-JIESHEN-MONTH",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_FOR_EXACT_12_MONTH_RECEIVED_GEOMETRY",
+      "evidence_class": "PREMODERN_RECEIVED_MONTH_JIESHEN_TEXT",
+      "evidence": [
+        "docs/research/ZIWEI-MONTH-JIESHEN-HISTORICAL-IDENTITY-CLOSURE-R1.json"
+      ],
+      "scope_note": "Closes the month-based Jieshen rule geometry in the received premodern tradition; does not prove Ziwei adoption route or physical glyph state.",
+      "adjudication_batch": "BATCH-12-ZIWEI-MONTH-JIESHEN-HISTORICAL-IDENTITY-CLOSURE-NZ",
+      "edge_id": "TG-E0128"
+    },
+    {
+      "from": "PASSAGE-XINGLI-KAOYUAN-JIESHEN",
+      "relation": "EXPLICITLY_CITES",
+      "to": "SOURCE-FAMILY-ZONGYAOLI-CITED-JIESHEN",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_FOR_EXPLICIT_SOURCE_LABEL_LOW_FOR_EXACT_BIBLIOGRAPHIC_IDENTITY",
+      "evidence_class": "EXPLICIT_ZONGYAOLI_SOURCE_LABEL",
+      "evidence": [
+        "EXT-SHIDIAN-LISHIMINGYUAN-JIESHEN",
+        "EXT-CTEXT-XINGLI-KAOYUAN-JIESHEN",
+        "EXT-WIKISOURCE-XIEJI-BIANFANG-JIESHEN"
+      ],
+      "scope_note": "Definition source label only; exact work/recension and direct surviving rule text remain unresolved.",
+      "adjudication_batch": "BATCH-12-ZIWEI-MONTH-JIESHEN-HISTORICAL-IDENTITY-CLOSURE-NZ",
+      "edge_id": "TG-E0129"
+    },
+    {
+      "from": "PASSAGE-XINGLI-KAOYUAN-JIESHEN",
+      "relation": "EXPLICITLY_CITES",
+      "to": "SOURCE-FAMILY-LILI-CITED-JIESHEN",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_FOR_EXPLICIT_SOURCE_LABEL_LOW_FOR_EXACT_BIBLIOGRAPHIC_IDENTITY",
+      "evidence_class": "EXPLICIT_LILI_SOURCE_LABEL",
+      "evidence": [
+        "EXT-SHIDIAN-LISHIMINGYUAN-JIESHEN",
+        "EXT-CTEXT-XINGLI-KAOYUAN-JIESHEN",
+        "EXT-WIKISOURCE-XIEJI-BIANFANG-JIESHEN"
+      ],
+      "scope_note": "Month-table source label only; exact work/recension and direct surviving rule text remain unresolved.",
+      "adjudication_batch": "BATCH-12-ZIWEI-MONTH-JIESHEN-HISTORICAL-IDENTITY-CLOSURE-NZ",
+      "edge_id": "TG-E0130"
+    },
+    {
+      "from": "PASSAGE-XIEJI-BIANFANG-JIESHEN",
+      "relation": "TRANSMITS_RULE",
+      "to": "RULE-FAMILY-JIESHEN-MONTH",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_FOR_EXACT_12_MONTH_RECEIVED_GEOMETRY",
+      "evidence_class": "PREMODERN_RECEIVED_MONTH_JIESHEN_TEXT",
+      "evidence": [
+        "docs/research/ZIWEI-MONTH-JIESHEN-HISTORICAL-IDENTITY-CLOSURE-R1.json"
+      ],
+      "scope_note": "Closes the month-based Jieshen rule geometry in the received premodern tradition; does not prove Ziwei adoption route or physical glyph state.",
+      "adjudication_batch": "BATCH-12-ZIWEI-MONTH-JIESHEN-HISTORICAL-IDENTITY-CLOSURE-NZ",
+      "edge_id": "TG-E0131"
+    },
+    {
+      "from": "PASSAGE-XIEJI-BIANFANG-JIESHEN",
+      "relation": "EXPLICITLY_CITES",
+      "to": "SOURCE-FAMILY-ZONGYAOLI-CITED-JIESHEN",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_FOR_EXPLICIT_SOURCE_LABEL_LOW_FOR_EXACT_BIBLIOGRAPHIC_IDENTITY",
+      "evidence_class": "EXPLICIT_ZONGYAOLI_SOURCE_LABEL",
+      "evidence": [
+        "EXT-SHIDIAN-LISHIMINGYUAN-JIESHEN",
+        "EXT-CTEXT-XINGLI-KAOYUAN-JIESHEN",
+        "EXT-WIKISOURCE-XIEJI-BIANFANG-JIESHEN"
+      ],
+      "scope_note": "Definition source label only; exact work/recension and direct surviving rule text remain unresolved.",
+      "adjudication_batch": "BATCH-12-ZIWEI-MONTH-JIESHEN-HISTORICAL-IDENTITY-CLOSURE-NZ",
+      "edge_id": "TG-E0132"
+    },
+    {
+      "from": "PASSAGE-XIEJI-BIANFANG-JIESHEN",
+      "relation": "EXPLICITLY_CITES",
+      "to": "SOURCE-FAMILY-LILI-CITED-JIESHEN",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_FOR_EXPLICIT_SOURCE_LABEL_LOW_FOR_EXACT_BIBLIOGRAPHIC_IDENTITY",
+      "evidence_class": "EXPLICIT_LILI_SOURCE_LABEL",
+      "evidence": [
+        "EXT-SHIDIAN-LISHIMINGYUAN-JIESHEN",
+        "EXT-CTEXT-XINGLI-KAOYUAN-JIESHEN",
+        "EXT-WIKISOURCE-XIEJI-BIANFANG-JIESHEN"
+      ],
+      "scope_note": "Month-table source label only; exact work/recension and direct surviving rule text remain unresolved.",
+      "adjudication_batch": "BATCH-12-ZIWEI-MONTH-JIESHEN-HISTORICAL-IDENTITY-CLOSURE-NZ",
+      "edge_id": "TG-E0133"
+    },
+    {
+      "from": "RULE-FAMILY-JIESHEN-MONTH",
+      "relation": "PARALLEL_COEXISTS_WITH",
+      "to": "RULE-FAMILY-ZIWEI-JIESHEN-YEAR",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_FOR_DISTINCT_TEMPORAL_INPUT_AND_RUNTIME_IDENTITIES",
+      "evidence_class": "RUNTIME_TEMPORAL_DIMENSION_COMPARISON_PLUS_RECEIVED_TEXT",
+      "evidence": [
+        "HPA-ZMINOR-006",
+        "HPA-ZMINOR-023",
+        "docs/research/ZIWEI-MONTH-JIESHEN-HISTORICAL-IDENTITY-CLOSURE-R1.json"
+      ],
+      "scope_note": "Monthly 解神 and year-based 解神/年解 are separate typed runtime facts. Same historical display term does not prove one identity across temporal layers.",
+      "adjudication_batch": "BATCH-12-ZIWEI-MONTH-JIESHEN-HISTORICAL-IDENTITY-CLOSURE-NZ",
+      "edge_id": "TG-E0134"
     }
   ],
   "lineage_hypotheses": [
@@ -5966,6 +6208,19 @@
         "docs/research/evidence/batch-12ny/ziwei-standalone-feilian-historical-identity-evidence.json"
       ],
       "adjudication_batch": "BATCH-12-ZIWEI-STANDALONE-FEILIAN-HISTORICAL-IDENTITY-CLOSURE-NY"
+    },
+    {
+      "from": "RULE-FAMILY-JIESHEN-MONTH",
+      "relation": "SAME_MECHANICAL_RULE_AS",
+      "to": "RULE-FAMILY-ZIWEI-JIESHEN-YEAR",
+      "status": "DISPROVED",
+      "reason": "Month Jieshen uses lunar month with a two-month-per-palace table; the received Ziwei year Jieshen uses birth-year branch with a reverse sequence from Zi-year Xu. Shared term 解神 does not make the mechanics or temporal identities identical.",
+      "evidence": [
+        "docs/research/ZIWEI-MONTH-JIESHEN-HISTORICAL-IDENTITY-CLOSURE-R1.json",
+        "HPA-ZMINOR-006",
+        "HPA-ZMINOR-023"
+      ],
+      "adjudication_batch": "BATCH-12-ZIWEI-MONTH-JIESHEN-HISTORICAL-IDENTITY-CLOSURE-NZ"
     }
   ],
   "backfill": {
