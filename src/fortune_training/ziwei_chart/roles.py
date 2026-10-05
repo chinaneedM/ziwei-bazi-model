@@ -45,6 +45,10 @@ SHENZHU_COMMON_BY_YEAR_BRANCH = {
     "亥": ("STAR.TIANJI", "天机"),
 }
 
+# Zi/Wu -> Fire is the operational compatibility default retained from the S01
+# normalized table. The early Jielan/Fullbook wording is composite Fire/Bell, and
+# no dedicated Wenmo Zi/Wu ROLE.SHENZHU fixture is currently bound. Do not treat
+# this lookup as historical arbitration or independently observed compatibility.
 WENMO_SHENZHU_BY_YEAR_BRANCH = {
     **SHENZHU_COMMON_BY_YEAR_BRANCH,
     "子": ("STAR.HUOXING", "火星"),
@@ -119,7 +123,13 @@ class QSRoleGenerator:
 
 
 class WenmoDefaultRoleGenerator(QSRoleGenerator):
-    """Operational role bindings matching Wenmo's default convention without mutating QS."""
+    """Operational bindings for the Wenmo-named profile without mutating strict QS.
+
+    Zi/Wu -> Fire is an operational compatibility default inherited from the
+    internal S01 normalization. No dedicated Wenmo Zi/Wu Shenzhu fixture is
+    currently bound, so this class does not claim historical arbitration or
+    independently observed compatibility closure for that branch pair.
+    """
 
     rule_set_id = WENMO_DEFAULT_ROLE_RULE_SET_ID
     rule_set_version = WENMO_DEFAULT_ROLE_RULE_SET_VERSION
