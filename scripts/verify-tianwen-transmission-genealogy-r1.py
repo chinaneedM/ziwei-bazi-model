@@ -177,6 +177,12 @@ def main() -> int:
         "PASSAGE-XINGXUE-DACHENG-V1-TIANCHU",
         "RULE-FAMILY-PREMODERN-TIANCHU-STEM-TABLE",
         "RULE-FAMILY-ZIWEI-NATAL-TIANCHU-CURRENT",
+        "PASSAGE-JIELAN-1581-CH23-FOUR-TRANSFORM",
+        "RULE-FAMILY-JIELAN-1581-FOUR-TRANSFORM",
+        "PASSAGE-FULLBOOK-SHIDIAN-V3-FOUR-TRANSFORM",
+        "RULE-FAMILY-FULLBOOK-SHIDIAN-V3-FOUR-TRANSFORM",
+        "PASSAGE-ZHONGZHOU-WANGTINGZHI-FOUR-TRANSFORM",
+        "RULE-FAMILY-ZHONGZHOU-WANGTINGZHI-FOUR-TRANSFORM",
     }
     if not required_nodes.issubset(set(node_ids)):
         fail("Transmission graph seed nodes incomplete")
@@ -245,6 +251,24 @@ def main() -> int:
         fail("Batch 12OG TianChu adoption-path firewall regressed")
     if og_edges["TG-E0156"].get("to")!="RULE-FAMILY-ZIWEI-NATAL-TIANCHU-CURRENT":
         fail("Batch 12OG modern Ziwei TianChu rule-family binding regressed")
+
+    # Batch 12OJ: preserve three complete Four-Transformation table identities without ancestry collapse.
+    oj_edges={e.get("edge_id"):e for e in edges if e.get("edge_id") in {
+        "TG-E0157","TG-E0158","TG-E0159","TG-E0160","TG-E0161","TG-E0162"
+    }}
+    if set(oj_edges)!={"TG-E0157","TG-E0158","TG-E0159","TG-E0160","TG-E0161","TG-E0162"}:
+        fail("Batch 12OJ transmission edges missing")
+    if oj_edges["TG-E0157"].get("from")!="PASSAGE-JIELAN-1581-CH23-FOUR-TRANSFORM" or oj_edges["TG-E0157"].get("to")!="RULE-FAMILY-JIELAN-1581-FOUR-TRANSFORM" or oj_edges["TG-E0157"].get("relation")!="TRANSMITS_RULE" or oj_edges["TG-E0157"].get("status")!="CONFIRMED":
+        fail("Batch 12OJ Jielan table transmission binding regressed")
+    if oj_edges["TG-E0158"].get("from")!="PASSAGE-FULLBOOK-SHIDIAN-V3-FOUR-TRANSFORM" or oj_edges["TG-E0158"].get("to")!="RULE-FAMILY-FULLBOOK-SHIDIAN-V3-FOUR-TRANSFORM" or oj_edges["TG-E0158"].get("relation")!="TRANSMITS_RULE" or oj_edges["TG-E0158"].get("status")!="HIGH_CONFIDENCE":
+        fail("Batch 12OJ Fullbook-Shidian table transmission binding regressed")
+    if "Do not generalize" not in oj_edges["TG-E0158"].get("scope_note",""):
+        fail("Batch 12OJ Fullbook recension-scope firewall missing")
+    if oj_edges["TG-E0159"].get("from")!="PASSAGE-ZHONGZHOU-WANGTINGZHI-FOUR-TRANSFORM" or oj_edges["TG-E0159"].get("to")!="RULE-FAMILY-ZHONGZHOU-WANGTINGZHI-FOUR-TRANSFORM" or oj_edges["TG-E0159"].get("relation")!="TRANSMITS_RULE" or oj_edges["TG-E0159"].get("status")!="CONFIRMED":
+        fail("Batch 12OJ Zhongzhou table transmission binding regressed")
+    for eid in ("TG-E0160","TG-E0161","TG-E0162"):
+        if oj_edges[eid].get("relation")!="PARALLEL_COEXISTS_WITH" or oj_edges[eid].get("status")!="CONFIRMED":
+            fail(f"Batch 12OJ parallel whole-table identity regressed: {eid}")
 
     e3 = next((e for e in edges if e.get("edge_id") == "TG-E0003"), None)
     if not e3 or e3.get("relation") != "PARALLEL_COEXISTS_WITH" or e3.get("status") != "CONFIRMED":
