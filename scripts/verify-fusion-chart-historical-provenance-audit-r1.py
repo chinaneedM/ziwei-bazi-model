@@ -684,8 +684,10 @@ def main() -> int:
     if audit_summary.get("identified_missing_candidate_family_count", 0) < 14:
         raise SystemExit("cumulative historical candidate discovery accounting regressed")
     current_missing = sum(row.get("audit_status") == "MISSING_FROM_PRODUCT" for row in rows)
-    if current_missing != 10 or audit_summary.get("current_missing_from_product_row_count") != 10:
-        raise SystemExit("current MISSING_FROM_PRODUCT row accounting mismatch after Batch 12A Ziwei Fullbook facsimile discovery")
+    if audit_summary.get("current_missing_from_product_row_count") != current_missing:
+        raise SystemExit("current MISSING_FROM_PRODUCT row accounting does not match live Matrix rows")
+    if current_missing > 10:
+        raise SystemExit("current MISSING_FROM_PRODUCT row count regressed above the Batch 12A ceiling")
     row_nanyang=next((row for row in rows if row.get("rule_id") == "HPA-ZDATE-006"), None)
     if row_nanyang is None or row_nanyang.get("audit_status") != "MISSING_FROM_PRODUCT":
         raise SystemExit("Batch 12A HPA-ZDATE-006 missing-product row is absent")
@@ -1012,24 +1014,24 @@ def main() -> int:
     }
     if {x.get("candidate_id") for x in oj.get("candidates",())} != expected_oj_ids:
         raise SystemExit("Batch 12OJ candidate identities regressed")
+    # Batch 12OJ is an immutable readiness snapshot. The live Matrix is
+    # allowed to advance in later batches (12OK closes this product gap), so
+    # snapshot accounting belongs to the OJ artifact rather than current-row
+    # status fields.
+    oj_accounting=oj.get("accounting",{})
+    if oj_accounting.get("current_missing_from_product_after")!=7:
+        raise SystemExit("Batch 12OJ historical missing-product snapshot regressed")
+    if oj_accounting.get("historical_candidate_extension_count_after")!=13:
+        raise SystemExit("Batch 12OJ historical candidate-extension snapshot regressed")
+    if oj_accounting.get("historical_candidate_registry_count_after")!=4 or oj_accounting.get("historical_candidate_runtime_resolver_count_after")!=4:
+        raise SystemExit("Batch 12OJ historical registry/runtime snapshot regressed")
     row014=next((r for r in rows if r.get("rule_id")=="HPA-ZIWEI-014"),None)
-    if row014 is None or row014.get("audit_status")!="MISSING_FROM_PRODUCT":
-        raise SystemExit("Batch 12OJ HPA-ZIWEI-014 product-gap status regressed")
-    if row014.get("reconciliation_batch")!="BATCH-12-ZIWEI-FOUR-TRANSFORMATION-WHOLE-TABLE-CANDIDATE-READINESS-OJ":
-        raise SystemExit("Batch 12OJ Matrix reconciliation identity regressed")
+    if row014 is None:
+        raise SystemExit("Batch 12OJ/12OK HPA-ZIWEI-014 row is missing")
     if set(row014.get("candidate_method_ids",())) != expected_oj_ids:
-        raise SystemExit("Batch 12OJ Matrix candidate method IDs regressed")
-    ps=row014.get("product_surface_reconciliation",{})
-    if ps.get("fullbook_shidian_complete_internal_candidate") is not True or ps.get("zhongzhou_wangtingzhi_complete_internal_candidate") is not True:
-        raise SystemExit("Batch 12OJ complete internal candidates regressed")
-    if ps.get("whole_table_only") is not True or ps.get("cell_level_hybridization_allowed") is not False:
-        raise SystemExit("Batch 12OJ Matrix hybridization firewall regressed")
-    if ps.get("public_read_only_candidate_api") is not False or ps.get("workbench_table_family_surface") is not False:
-        raise SystemExit("Batch 12OJ public product gap unexpectedly closed")
-    if ps.get("production_default_changed") is not False or ps.get("production_winner_selected") is not False:
-        raise SystemExit("Batch 12OJ unexpectedly changed production/winner")
+        raise SystemExit("Batch 12OJ candidate method IDs were lost from the live Matrix")
     if row014.get("selection_status")!="PRESERVED_NOT_SELECTED":
-        raise SystemExit("Batch 12OJ selection status regressed")
+        raise SystemExit("Batch 12OJ/12OK selection status regressed")
     summary=data.get("audit_summary",{})
     if summary.get("historical_candidate_extension_count",0)<13:
         raise SystemExit("Batch 12OJ candidate extension accounting regressed")
@@ -1213,6 +1215,39 @@ def main() -> int:
     if summary.get("historical_candidate_extension_count",0)<14 or summary.get("historical_candidate_registry_count",0)<5 or summary.get("historical_candidate_runtime_resolver_count",0)<5:
         raise SystemExit("Batch 12OO candidate accounting regressed")
 
+    # Batch 12OP: Zhongzhou leap-month day-one and daily geometry are
+    # complete as a source-scoped school candidate, without changing the
+    # ordinary fail-closed production month/day frames.
+    op_path=ROOT/"docs"/"research"/"ZIWEI-ZHONGZHOU-LEAP-MONTH-DAILY-GEOMETRY-CLOSURE-R1.json"
+    if not op_path.is_file():
+        raise SystemExit("Batch 12OP Zhongzhou leap-month closure artifact is missing")
+    op=json.loads(op_path.read_text(encoding="utf-8"))
+    if op.get("batch_id")!="BATCH-12-ZIWEI-ZHONGZHOU-LEAP-MONTH-DAILY-GEOMETRY-CLOSURE-OP":
+        raise SystemExit("Batch 12OP research identity mismatch")
+    op_mech=op.get("mechanical_resolution",{})
+    if op_mech.get("previous_regular_month_day_count_domain")!=[29,30]:
+        raise SystemExit("Batch 12OP previous-regular-month day-count domain regressed")
+    if op_mech.get("half_split_basis_switch") is not True or op_mech.get("half_split_reset") is not False:
+        raise SystemExit("Batch 12OP basis-switch/reset semantics regressed")
+    op_product=op.get("productization",{})
+    if op_product.get("api")!="ZIWEI-TEMPORAL-HISTORICAL-CANDIDATE-API-R1@1.2.0":
+        raise SystemExit("Batch 12OP temporal candidate API version regressed")
+    if op_product.get("registry")!="ZIWEI-TEMPORAL-HISTORICAL-CANDIDATE-REGISTRY-R1@1.1.0" or op_product.get("runtime")!="ZIWEI-TEMPORAL-HISTORICAL-CANDIDATE-RUNTIME-R1@1.1.0":
+        raise SystemExit("Batch 12OP temporal registry/runtime version regressed")
+    if op_product.get("selection_status")!="PRESERVED_NOT_SELECTED" or op_product.get("production_default_changed") is not False:
+        raise SystemExit("Batch 12OP non-selection/production firewall regressed")
+    rowzt015=next((r for r in rows if r.get("rule_id")=="HPA-ZT-015"),None)
+    if rowzt015 is None or rowzt015.get("audit_status")!="SUPPORTED_BUT_SCHOOL_SPECIFIC":
+        raise SystemExit("Batch 12OP HPA-ZT-015 school-scoped closure regressed")
+    if rowzt015.get("reconciliation_batch")!="BATCH-12-ZIWEI-ZHONGZHOU-LEAP-MONTH-DAILY-GEOMETRY-CLOSURE-OP":
+        raise SystemExit("Batch 12OP Matrix reconciliation identity regressed")
+    if rowzt015.get("defect_id")!="PROV-DEFECT-044" or rowzt015.get("repair_status")!="REPAIRED_IN_BATCH_12OP_FORWARD_ONLY":
+        raise SystemExit("Batch 12OP provenance repair binding regressed")
+    if audit_summary.get("confirmed_provenance_metadata_defect_count",0)<44 or audit_summary.get("repaired_provenance_metadata_defect_count",0)<44:
+        raise SystemExit("Batch 12OP provenance-defect accounting regressed")
+    if audit_summary.get("current_missing_from_product_row_count",999)>4:
+        raise SystemExit("Batch 12OP missing-product accounting regressed")
+
     defect_ids=[row.get("defect_id") for row in rows if row.get("defect_id")]
     if len(defect_ids)!=len(set(defect_ids)):
         raise SystemExit("duplicate historical provenance defect_id")
@@ -1319,8 +1354,10 @@ def main() -> int:
             raise SystemExit(f"Ziwei temporal candidate incorrectly reopened production: {row['rule_id']}")
     if "TIME_STANDARD_SPECIFIC_PARENT_DAILY_FRAME_REQUIRED" not in ztemp004.get("current_implementation_match",""):
         raise SystemExit("1581 historical hour candidate lost parent-day/time-standard binding")
-    if "DAILY_ACTIVE_ADDRESS_NOT_EMITTED" not in ztemp006.get("current_implementation_match",""):
-        raise SystemExit("Zhongzhou leap-month candidate invented unresolved daily geometry")
+    if "DAILY_ACTIVE_ADDRESS_EMITTED" not in ztemp006.get("current_implementation_match",""):
+        raise SystemExit("Batch 12OP Zhongzhou leap-month daily geometry closure is missing")
+    if "LEAP_DAY_ONE_CONTINUES_AFTER_PREVIOUS_REGULAR_MONTH_DAY_29_OR_30" not in ztemp006.get("current_implementation_match",""):
+        raise SystemExit("Batch 12OP leap-day-one source closure regressed")
 
     temporal_candidate_paths=(
         ROOT/"src"/"fortune_training"/"ziwei_chart"/"temporal_historical_candidates.py",
@@ -1339,7 +1376,8 @@ def main() -> int:
         "JIELAN-1581-DAY-ANCHORED-FLOW-HOUR-R1",
         "ZHONGZHOU-LEAP-MONTH-HALF-SPLIT-R1",
         "PRESERVED_NOT_SELECTED",
-        "NOT_CLOSED_BY_THIS_MONTH_POLICY_API",
+        "SOURCE_SCOPED_MONTH_AND_DAILY_GEOMETRY_COMPLETE_PRESERVED_NO_SELECTION",
+        "previous_regular_month_day_count",
     ):
         if token not in temporal_candidate_source:
             raise SystemExit(f"Ziwei temporal candidate source contract missing: {token}")
