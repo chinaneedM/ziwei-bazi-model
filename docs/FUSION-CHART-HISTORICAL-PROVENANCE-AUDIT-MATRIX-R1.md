@@ -1868,3 +1868,41 @@ No Matrix status, production default, candidate selection or provenance-defect c
 Next: **12OI — productize the Jielan 1581 source-scoped natal candidate runtime as an explicit read-only candidate-profile API / Workbench lineage surface.**
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-UNRESOLVED-CANDIDATE-PRODUCTIZATION-REPRIORITIZATION-OH.md`. Research record: `docs/research/HISTORICAL-CANDIDATE-PRODUCTIZATION-REPRIORITIZATION-OH-R1.json`.
+
+## Progress — Batch 12OI
+
+The Tier-1 action selected by 12OH is now productized: the existing Jielan 1581 historical candidate resolver has an explicit **read-only** candidate-profile API and Workbench surface.
+
+Closed product gaps:
+
+- `HPA-ZIWEI-015` — Jielan Kui/Yue Geng-stem variant;
+- `HPA-ZIWEI-016` — Jielan Fire/Bell 巳酉丑 start-family variant;
+- `HPA-ZIWEI-022` — Jielan Mingzhu birth-year-branch basis.
+
+The public identity is:
+
+`ZIWEI-JIELAN-1581-HISTORICAL-CANDIDATE-API-R1@1.0.0`
+
+over:
+
+- registry `ZIWEI-JIELAN-1581-HISTORICAL-CANDIDATES-R1@1.1.0`;
+- runtime resolver `ZIWEI-JIELAN-1581-SOURCE-SCOPED-CANDIDATE-RUNTIME-R1@1.0.0`;
+- `selection_status=PRESERVED_NOT_SELECTED`.
+
+Only `kui_yue`, `fire_bell` and `mingzhu` are released. The browser renders backend-returned facts and does not contain candidate placement formulas. No production selector, rank, winner or chart mutation was added.
+
+The payload binds the exact combined manifest, Ziwei source bundle, natal fact/computation hashes, registry hash and candidate-runtime hash. Product visibility therefore remains auditable without becoming historical arbitration.
+
+Accounting after 12OI:
+
+- Matrix: **222/222 audited**;
+- HISTORICALLY_SUPPORTED: **102**;
+- current MISSING_FROM_PRODUCT: **7**;
+- historical candidate extensions: **11**;
+- candidate registries / runtime resolvers: **3 / 3**;
+- provenance defects: **43 / 43 repaired**;
+- production default / candidate winner / algorithm reopen: **unchanged / none / 0**.
+
+Next: **12OJ — HPA-ZIWEI-014 whole-table Four-Transformation source families and candidate readiness.**
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JIELAN-SOURCE-SCOPED-NATAL-CANDIDATE-PRODUCTIZATION-OI.md`.
