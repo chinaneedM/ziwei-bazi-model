@@ -20,6 +20,7 @@ ZIWEI_JIELAN_AQ = ROOT / "docs" / "research" / "ZIWEI-JIELAN-BIBLIOGRAPHIC-IMPRI
 ZIWEI_JIELAN_AR = ROOT / "docs" / "research" / "ZIWEI-JIELAN-PT49-PUBLIC-PREVIEW-ACCESS-BOUNDARY-R1.json"
 ZIWEI_YUEDE_TIANDE_OE = ROOT / "docs" / "research" / "ZIWEI-YUEDE-TIANDE-TEMPORAL-SCOPE-CLOSURE-R1.json"
 ZIWEI_TIANSHOU_OF = ROOT / "docs" / "research" / "ZIWEI-TIANSHOU-BODY-BASIS-EARLY-PRINT-CLOSURE-R1.json"
+ZIWEI_TIANCHU_OG = ROOT / "docs" / "research" / "ZIWEI-TIANCHU-PREMODERN-TABLE-AND-SOURCE-BOUNDARY-R1.json"
 ZIWEI_INDEPENDENT_EDITION_ROUTES = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-INDEPENDENT-EDITION-ROUTES-R1.json"
 ZIWEI_WENGUANG_GOOGLE_INDEX = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-WENGUANG-GOOGLE-INDEX-PREVIEW-R1.json"
 ZIWEI_JINGLUNTANG_PHYSICAL_ROUTE = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-JINGLUNTANG-PHYSICAL-ROUTE-R1.json"
@@ -893,6 +894,41 @@ def main() -> int:
         raise SystemExit("Batch 12OF provenance defect accounting regressed")
     if data.get("audit_summary",{}).get("repaired_provenance_metadata_defect_count",0) < 42:
         raise SystemExit("Batch 12OF provenance repair accounting regressed")
+
+    # Batch 12OG: premodern TianChu table is exact 10/10; unbound Fullbook variant retired.
+    if not ZIWEI_TIANCHU_OG.is_file():
+        raise SystemExit("Batch 12OG TianChu research record is missing")
+    og=json.loads(ZIWEI_TIANCHU_OG.read_text(encoding="utf-8"))
+    if og.get("batch_id") != "BATCH-12-ZIWEI-TIANCHU-PREMODERN-TABLE-AND-SOURCE-BOUNDARY-OG":
+        raise SystemExit("Batch 12OG research identity mismatch")
+    xingxue=by_source_id.get("EXT-WIKISOURCE-XINGXUE-DACHENG-TIANCHU")
+    if xingxue is None:
+        raise SystemExit("Batch 12OG Xingxue Dacheng TianChu source missing")
+    if xingxue.get("source_role")!="PREMODERN_CROSS_DOMAIN_EXACT_TIANCHU_HEAVENLY_STEM_TABLE_WITNESS_NOT_DIRECT_ZIWEI_ADOPTION_PROOF":
+        raise SystemExit("Batch 12OG TianChu source authority scope regressed")
+    row007=next((r for r in rows if r.get("rule_id")=="HPA-ZMINOR-007"), None)
+    if row007 is None or row007.get("audit_status")!="HISTORICALLY_SUPPORTED":
+        raise SystemExit("Batch 12OG TianChu historical status regressed")
+    if row007.get("defect_id")!="PROV-DEFECT-043":
+        raise SystemExit("Batch 12OG TianChu provenance defect binding regressed")
+    mech=row007.get("mechanical_reconciliation",{})
+    if mech.get("exact_match_count")!=10 or mech.get("exact_mismatch_count")!=0:
+        raise SystemExit("Batch 12OG TianChu 10/10 table closure regressed")
+    if mech.get("same_name") is not True or mech.get("same_input_dimension") is not True:
+        raise SystemExit("Batch 12OG TianChu identity/input bridge regressed")
+    if mech.get("ziwei_adoption_path_closed") is not False:
+        raise SystemExit("Batch 12OG TianChu adoption genealogy was overclaimed")
+    if any("Fullbook variant table pending" in x for x in row007.get("competing_methods",())):
+        raise SystemExit("Batch 12OG phantom Fullbook TianChu candidate reintroduced")
+    fullbook_og=og.get("fullbook_variant_audit",{})
+    if fullbook_og.get("quoted_fullbook_variant_found") is not False or fullbook_og.get("located_fullbook_variant_found") is not False:
+        raise SystemExit("Batch 12OG Fullbook variant boundary regressed")
+    if og.get("adjudication",{}).get("runtime_change_required") is not False:
+        raise SystemExit("Batch 12OG unexpectedly changed runtime")
+    if data.get("audit_summary",{}).get("confirmed_provenance_metadata_defect_count",0) < 43:
+        raise SystemExit("Batch 12OG provenance defect accounting regressed")
+    if data.get("audit_summary",{}).get("repaired_provenance_metadata_defect_count",0) < 43:
+        raise SystemExit("Batch 12OG provenance repair accounting regressed")
 
     defect_ids=[row.get("defect_id") for row in rows if row.get("defect_id")]
     if len(defect_ids)!=len(set(defect_ids)):
