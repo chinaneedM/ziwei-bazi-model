@@ -1,0 +1,39 @@
+{
+  "schema": "ZIWEI-YUEDE-TIANDE-TEMPORAL-SCOPE-EVIDENCE-R1",
+  "batch_id": "BATCH-12-ZIWEI-YUEDE-TIANDE-TEMPORAL-SCOPE-CLOSURE-OE",
+  "source_bindings": [
+    {
+      "source": "EXT-ZIWEI-QUANSHU-RECEIVED",
+      "refs": [
+        "S01:ZZQS-A-1943",
+        "S01:ZZQS-A-1944",
+        "S01:ZZQS-A-1945"
+      ],
+      "role": "SAME_LOCAL_PASSAGE_TEMPORAL_SCOPE_CONTROL"
+    },
+    {
+      "source": "EXT-WIKISOURCE-ZWDSQS-V2",
+      "role": "RECEIVED_TEXT_CORROBORATION_ONLY"
+    },
+    {
+      "source": "EXT-CTEXT-SHENFENG-TONGKAO",
+      "role": "PREMODERN_CROSS_DOMAIN_START_ANCHOR_GEOMETRY_WITNESS"
+    }
+  ],
+  "decisive_claims": [
+    "Fullbook TianDe explicitly says 流年太岁.",
+    "Fullbook YueDe explicitly says 流年太岁.",
+    "Fullbook JieShen in the same local sequence explicitly says 当生年太岁.",
+    "Shenfeng preserves TianDe You-start and YueDe Si-start geometry but does not by itself establish Ziwei natal adoption."
+  ],
+  "excluded_shortcuts": [
+    "Do not treat annual Fullbook YueDe Zi-start as a natal alternative to current natal Si-start.",
+    "Do not treat annual Fullbook TianDe You-start as proof of current natal TianDe temporal scope.",
+    "Do not backdate a page merely labelled 捷览 when its internal title/chapter framing identifies Fullbook/Nanyangtang transmission.",
+    "Do not select either annual candidate as a universal winner."
+  ],
+  "runtime_methods": [
+    "RECEIVED-FULLBOOK-ANNUAL-YUEDE-ZI-START-R1",
+    "RECEIVED-FULLBOOK-ANNUAL-TIANDE-YOU-START-R1"
+  ]
+}
