@@ -1954,3 +1954,29 @@ Firewalls remain:
 Accordingly `HPA-ZIWEI-014` changes `MISSING_FROM_PRODUCT -> HISTORICALLY_SUPPORTED`. Matrix remains **222/222 audited**, HISTORICALLY_SUPPORTED becomes **103**, current MISSING_FROM_PRODUCT becomes **6**, candidate extensions remain **13**, registries/runtime resolvers **4/4**, provenance defects **43/43**.
 
 Next: **12OL — re-rank the six remaining product gaps.**
+
+## Progress — Batch 12OM
+
+`HPA-ZIWEI-018` now has an internal **source-lexeme** dignity candidate rather than a forced modern-grade table.
+
+Registry:
+
+`ZIWEI-JIELAN-1581-DIGNITY-LEXEME-CANDIDATES-R1@1.0.0`
+
+Candidate:
+
+`JIELAN-1581-DIGNITY-CH70-SOURCE-LEXEME-R1`
+
+Runtime:
+
+`ZIWEI-JIELAN-1581-DIGNITY-LEXEME-RUNTIME-R1@1.0.0`
+
+The CH70 star-oriented table is represented as 25 entities/groups × 12 branches = **300 cells**. Each cell preserves its source lexeme set, attested/un-stated status and conflict flag. Explicit gloss relations are stored as lexical relations only; no OPERATIONAL-ZIWEI-DIGNITY-R4 grade is inferred.
+
+Preserved anomalies include 紫微午宫 `庙 + 平`, 巨门丑宫 `局 + 陷`, and 天机巳宫 `UNSTATED_IN_CH70_STAR_VERSE`.
+
+CH69 remains a parallel palace-oriented source table and is not used to silently fill or adjudicate CH70. That cross-collation is the next batch.
+
+Accounting: **222/222 audited**, **6 current missing**, candidate extensions **14**, registries/runtime resolvers **5/5**, provenance defects **43/43**.
+
+Next: **12ON — CH69/CH70 cell-level dignity cross-collation.**
