@@ -1,0 +1,90 @@
+{
+  "schema": "ZIWEI-YINSHA-MODERN-RECEIVED-SOURCE-BOUNDARY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-YINSHA-MODERN-RECEIVED-SOURCE-BOUNDARY-OC",
+  "prior_batch_id": "BATCH-12-ZIWEI-TIANYUE-MODERN-RECEIVED-SOURCE-BOUNDARY-OB",
+  "batch_classification": "POST_AUDIT_SOURCE_BOUNDARY_CLOSURE_NOT_SUPPLEMENTAL_RULE_AUDIT",
+  "target_rule_ids": [
+    "HPA-ZMINOR-026"
+  ],
+  "target_status_before": "SOURCE_INSUFFICIENT",
+  "target_status_after": "SOURCE_INSUFFICIENT",
+  "adjudication": "CURRENT_YINSHA_6_PALACE_MONTH_CYCLE_IS_STABLE_IN_MODERN_ZIWEI_RECEIVED_TRADITION_BUT_NO_QUALIFYING_PREMODERN_ZIWEI_PLACEMENT_WITNESS_WAS_ESTABLISHED; CROSS_SYSTEM_YINSHA_HOMONYMS_REMAIN_EXCLUDED",
+  "runtime_rule": {
+    "entity_id": "STAR.YINSHA",
+    "display_name": "阴煞",
+    "input": "raw_lunar_month after explicit Ziwei month/leap-month coordinate resolution",
+    "source_ref": "S01:ZZZA-PR-050",
+    "table": {
+      "1": "寅",
+      "2": "子",
+      "3": "戌",
+      "4": "申",
+      "5": "午",
+      "6": "辰",
+      "7": "寅",
+      "8": "子",
+      "9": "戌",
+      "10": "申",
+      "11": "午",
+      "12": "辰"
+    },
+    "runtime_path": "src/fortune_training/ziwei_chart/minor_stars.py",
+    "algorithm_changed": false
+  },
+  "modern_received_witnesses": [
+    {
+      "source_id": "EXT-IZTRO-YINSHA-MODERN",
+      "surface": "紫微研习社 iztro 安星诀",
+      "finding": "Repeats the exact six-palace month cycle 正七寅、二八子、三九戌、四十申、五十一午、六十二辰.",
+      "role": "MODERN_ZIWEI_RECEIVED_EXACT_TABLE_WITNESS_NOT_HISTORICAL_AUTHORITY"
+    },
+    {
+      "source_id": "EXT-XSTARS-YINSHA-MODERN",
+      "surface": "xstars source documentation",
+      "finding": "Implements the same six-palace cycle and labels the provenance 古籍待考、后世悬曜增补.",
+      "role": "MODERN_IMPLEMENTATION_AND_SOURCE_UNCERTAINTY_WITNESS"
+    }
+  ],
+  "source_domain_firewall": {
+    "same_name_cross_system_references_prove_identity": false,
+    "reason": "Non-Ziwei 阴煞 references with different inputs/semantics are not accepted as provenance for the Ziwei lunar-month placement cycle."
+  },
+  "search_boundary": {
+    "exact_cycle_modern_web_hits_present": true,
+    "qualifying_premodern_ziwei_exact_cycle_witness_established": false,
+    "absence_claim_scope": "No qualifying premodern Ziwei placement witness was established in the reviewed public-search surfaces; this is not an absolute claim that none exists.",
+    "direct_physical_copy_reviewed": false
+  },
+  "status_adjudication": {
+    "row_status_remains": "SOURCE_INSUFFICIENT",
+    "algorithm_reopen_authorized": false,
+    "production_default_changed": false,
+    "candidate_created": false,
+    "provenance_defect_created": false
+  },
+  "accounting": {
+    "rows": 220,
+    "audited_rows": 220,
+    "current_missing_from_product": 10,
+    "provenance_defects_confirmed_before": 40,
+    "provenance_defects_confirmed_after": 40,
+    "provenance_defects_repaired_before": 40,
+    "provenance_defects_repaired_after": 40,
+    "source_insufficient_before": 9,
+    "source_insufficient_after": 9,
+    "historically_supported_before": 96,
+    "historically_supported_after": 96,
+    "chart_algorithm_defects": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0
+  },
+  "transmission_impact": {
+    "status": "NONE",
+    "reason": "No new premodern transmission edge is established; modern exact-table witnesses only bound the received compatibility layer."
+  },
+  "next_gate": [
+    "12OD: re-rank the remaining SOURCE_INSUFFICIENT / NOT_YET_FORMALIZED rows after completing the active month-table trio 023-026.",
+    "Continue seeking edition-bound premodern Ziwei Yinsha placement evidence without importing cross-system homonyms."
+  ]
+}
