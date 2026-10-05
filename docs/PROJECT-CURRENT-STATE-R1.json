@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.391.0",
+  "schema_version": "1.392.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -472,9 +472,10 @@
       "BATCH-12-POST-AUDIT-NANYANGTANG-LATE-ZI-NATAL-CANDIDATE-PRODUCT-SURFACE-RECONCILIATION-NT",
       "BATCH-12-POST-AUDIT-DAYUN-HISTORICAL-CALENDAR-CANDIDATE-PRODUCT-SURFACE-RECONCILIATION-NU",
       "BATCH-12-UNRESOLVED-HISTORICAL-STATUS-PRIORITIZATION-NV",
-      "BATCH-12-ZIWEI-ZI-WU-SHENZHU-FIRE-BELL-EVIDENCE-CLOSURE-NW"
+      "BATCH-12-ZIWEI-ZI-WU-SHENZHU-FIRE-BELL-EVIDENCE-CLOSURE-NW",
+      "BATCH-12-ZIWEI-JIANGQIAN-TEMPORAL-SOURCE-SCOPE-EVIDENCE-CLOSURE-NX"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZI-WU-SHENZHU-FIRE-BELL-EVIDENCE-CLOSURE-NW.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JIANGQIAN-TEMPORAL-SOURCE-SCOPE-EVIDENCE-CLOSURE-NX.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -2243,7 +2244,15 @@
       "PROV-DEFECT-040 repaired forward-only: WenmoDefaultRoleGenerator's docstring previously said it matched Wenmo's default convention without scoping the unverified Zi/Wu Fire branch. The docstring/comment now state that Zi/Wu Fire is an operational compatibility default inherited from S01 normalization, not independently observed Wenmo compatibility or historical closure.",
       "HPA-ZIWEI-023 remains SOURCE_INSUFFICIENT; strict QS continues QS_SHENZHU_ZI_WU_TEXTUAL_AMBIGUITY, Jielan sidecar keeps winner_selected=false, and production Fire remains an operational compatibility default only.",
       "No role value, source_refs tuple, rule-set identity, computation hash, candidate selection or chart algorithm changed. Matrix 220/220 audited / 10 current missing; provenance defects 40/40; chart algorithm defects / reopens / candidate collapses 0.",
-      "12NX: perform evidence/source/temporal-scope closure on HPA-ZIWEI-026 Jiangqian twelve-spirit family without conflating natal and annual use."
+      "12NX: perform evidence/source/temporal-scope closure on HPA-ZIWEI-026 Jiangqian twelve-spirit family without conflating natal and annual use.",
+      "Batch 12NX completed: HPA-ZIWEI-026 Jiangqian temporal/source-scope evidence closure separated rule geometry from temporal application while retaining SOURCE_INSUFFICIENT.",
+      "Current RING.JIANGQIAN12 remains a natal fact: ZiweiChartFoundation passes structure.ziwei_birth_year_branch to WenmoDefaultRingGenerator.jiangqian; no annual-target Jiangqian ring is materialized.",
+      "The 1581 Jielan line explicitly preserves a flow-year TaiSui shensha chapter and a trine/year-branch Yima rule, which closes an early Ziwei flow-year related-shensha context but not a complete twelve-member Jiangqian ring.",
+      "Modern Zhongzhou/derived evidence preserves the complete twelve-member geometry in both birth-year and flow-year applications. Natal and annual use are therefore distinct temporal layers, not mutually exclusive winner candidates.",
+      "The remaining source gate is an edition-bound early complete Jiangqian twelve-member passage plus explicit scope instruction; modern manuals and software are not backdated as Ming authority.",
+      "No new provenance defect was confirmed because 12MV already required separate annual-target sourcing/implementation. Provenance remains 40/40.",
+      "No runtime/profile/schema/hash/rule/candidate/chart-algorithm change: Matrix 220/220 audited / 10 current missing; chart algorithm defects / reopens / candidate collapses 0.",
+      "12NY: audit HPA-ZMINOR-020 standalone Feilian identity collision without merging Boshi 飞廉, year-branch 蜚廉 or same-coordinate facts."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10
