@@ -43,14 +43,13 @@
     "algorithm_reopen_authorized"
   ],
   "inventory_summary": {
-    "row_count": 210,
+    "row_count": 212,
     "status_counts": {
       "MODERN_COMPATIBILITY_ONLY": 42,
       "HISTORICALLY_SUPPORTED": 97,
-      "DISPUTED_MULTIPLE_CANDIDATES": 29,
+      "DISPUTED_MULTIPLE_CANDIDATES": 30,
       "SUPPORTED_BUT_SCHOOL_SPECIFIC": 21,
-      "SOURCE_INSUFFICIENT": 9,
-      "IMPLEMENTATION_REVIEW_REQUIRED": 1,
+      "SOURCE_INSUFFICIENT": 11,
       "MISSING_FROM_PRODUCT": 10,
       "NOT_YET_FORMALIZED": 1
     },
@@ -63,7 +62,7 @@
       "神煞": 21,
       "八字动态时限": 11,
       "紫微本命": 8,
-      "十二宫": 4,
+      "十二宫": 6,
       "主星": 2,
       "辅星": 4,
       "杂曜": 28,
@@ -81,7 +80,7 @@
       "candidate/profile rules": 2,
       "provenance / hashes / lineage": 2
     },
-    "audited_row_count": 190
+    "audited_row_count": 192
   },
   "rows": [
     {
@@ -2161,21 +2160,52 @@
       "rule_or_field": "博士/将前/岁前三环",
       "current_implementation": "Production ring generator creates natal ring identities.",
       "current_profile": "ZIWEI-CHART-ENGINE-V1",
-      "primary_source": "Mixed ring families; Changsheng ring directly witnessed by 1581 Jielan; Boshi and others have received Fullbook routes",
-      "source_quote": "金生在巳，木生在亥，火生在寅，水土长生居申",
-      "source_quote_location": "EXT-ZIWEI-JIELAN-1581:CH19; S01:ZZZA-PR-057..060",
-      "historical_period": "MING_1581_PLUS_RECEIVED_TEXT",
-      "later_witnesses": "received Fullbook includes Boshi ring order/direction; Taisui/Jiangqian remain to be separately edition-audited",
-      "school_attribution": "RING_SUBFAMILIES_REQUIRE_SEPARATE_LINEAGE",
+      "primary_source": "Decomposed ring-family records HPA-ZIWEI-019/024/025/026; no single historical authority for the whole runtime bundle.",
+      "source_quote": "Five-bureau Changsheng quote belongs to HPA-ZIWEI-019. Boshi has independent received evidence; TaiSui labels differ; Jiangqian early attribution remains unverified.",
+      "source_quote_location": "docs/research/ZIWEI-THREE-RING-SOURCE-SCOPE-AUDIT-R1.json",
+      "historical_period": "MIXED_EDITION_SCOPED_RECEIVED_AND_MODERN_RING_FAMILIES",
+      "later_witnesses": "Modern normalization tables do not certify a unified ancient ring bundle.",
+      "school_attribution": "SEPARATE_RING_FAMILIES_AND_TIME_LAYERS",
       "competing_methods": [
         "school-specific ring anchors/directions where attested"
       ],
-      "current_implementation_match": "CHANGSHENG_RING_MATCHES_1581; WHOLE_RING_BUNDLE_NOT_YET_FULLY_AUDITED",
-      "confidence": "HIGH_FOR_CHANGSHENG_MEDIUM_FOR_WHOLE_RING_BUNDLE",
-      "audit_status": "IMPLEMENTATION_REVIEW_REQUIRED",
-      "proposed_action": "Split Changsheng/Boshi/Taisui/Jiangqian into independent matrix rows and audit each source family.",
+      "current_implementation_match": "DECOMPOSED_REVIEW_COMPLETE; CHILD_SOURCE_GAPS_PRESERVED; NATAL_RING_UNIT_REPLAY_MATCHES_DECLARED_CURRENT_TABLES",
+      "confidence": "HIGH_FOR_RUNTIME_SCOPE; CHILD_HISTORICAL_CLOSURE_VARIES",
+      "audit_status": "SOURCE_INSUFFICIENT",
+      "proposed_action": "Broad implementation review decomposed. Continue TaiSui naming/edition bridges and Jiangqian primary-source/time-layer evidence separately; reuse prior Changsheng/Boshi audits.",
       "algorithm_reopen_authorized": false,
-      "audit_batch": "BATCH-04-ZIWEI-EARLY-PRINT-CORE"
+      "audit_batch": "BATCH-12-ZIWEI-THREE-RING-SOURCE-SCOPE-AND-IDENTITY-AUDIT-MV",
+      "prior_audit_snapshots": [
+        {
+          "rule_id": "HPA-ZIWEI-011",
+          "system": "ZIWEI",
+          "module": "十二宫",
+          "rule_or_field": "博士/将前/岁前三环",
+          "current_implementation": "Production ring generator creates natal ring identities.",
+          "current_profile": "ZIWEI-CHART-ENGINE-V1",
+          "primary_source": "Mixed ring families; Changsheng ring directly witnessed by 1581 Jielan; Boshi and others have received Fullbook routes",
+          "source_quote": "金生在巳，木生在亥，火生在寅，水土长生居申",
+          "source_quote_location": "EXT-ZIWEI-JIELAN-1581:CH19; S01:ZZZA-PR-057..060",
+          "historical_period": "MING_1581_PLUS_RECEIVED_TEXT",
+          "later_witnesses": "received Fullbook includes Boshi ring order/direction; Taisui/Jiangqian remain to be separately edition-audited",
+          "school_attribution": "RING_SUBFAMILIES_REQUIRE_SEPARATE_LINEAGE",
+          "competing_methods": [
+            "school-specific ring anchors/directions where attested"
+          ],
+          "current_implementation_match": "CHANGSHENG_RING_MATCHES_1581; WHOLE_RING_BUNDLE_NOT_YET_FULLY_AUDITED",
+          "confidence": "HIGH_FOR_CHANGSHENG_MEDIUM_FOR_WHOLE_RING_BUNDLE",
+          "audit_status": "IMPLEMENTATION_REVIEW_REQUIRED",
+          "proposed_action": "Split Changsheng/Boshi/Taisui/Jiangqian into independent matrix rows and audit each source family.",
+          "algorithm_reopen_authorized": false,
+          "audit_batch": "BATCH-04-ZIWEI-EARLY-PRINT-CORE"
+        }
+      ],
+      "child_rule_ids": [
+        "HPA-ZIWEI-019",
+        "HPA-ZIWEI-024",
+        "HPA-ZIWEI-025",
+        "HPA-ZIWEI-026"
+      ]
     },
     {
       "rule_id": "HPA-ZIWEI-012",
@@ -3387,7 +3417,13 @@
       "current_implementation_match": "ANCHOR_DIRECTION_AND_TWELVE_MEMBER_ORDER_EXACT_MATCH",
       "confidence": "HIGH",
       "audit_status": "HISTORICALLY_SUPPORTED",
-      "proposed_action": "No reopen; correct provenance interpretation so WENMO_DEFAULT name is not mistaken for historical origin."
+      "proposed_action": "No reopen; correct provenance interpretation so WENMO_DEFAULT name is not mistaken for historical origin.",
+      "supplemental_audit": {
+        "batch_id": "BATCH-12-ZIWEI-THREE-RING-SOURCE-SCOPE-AND-IDENTITY-AUDIT-MV",
+        "source_scope_record": "docs/research/ZIWEI-THREE-RING-SOURCE-SCOPE-AUDIT-R1.json",
+        "member_order_scope": "Ordinal roles match; received Fullbook 官府 is not the identical display string 官符.",
+        "homonym_merge_authorized": false
+      }
     },
     {
       "system": "ZIWEI",
@@ -6630,6 +6666,80 @@
         "HPA-BAZI-008"
       ],
       "audit_evidence": "docs/research/BAZI-TEMPORAL-CLASSICAL-IDENTITY-PROJECTION-AUDIT-R1.json"
+    },
+    {
+      "system": "ZIWEI",
+      "module": "十二宫",
+      "current_profile": "WENMO_DEFAULT_RING_R1@1.0.0",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-12-ZIWEI-THREE-RING-SOURCE-SCOPE-AND-IDENTITY-AUDIT-MV",
+      "rule_id": "HPA-ZIWEI-025",
+      "rule_or_field": "TaiSui / Suiqian twelve-member birth-branch ring: geometry vs label candidates",
+      "current_implementation": "RING.TAISUI12 anchors at Ziwei birth-year branch and traverses forward for every sex; current names use normalized PR-058.",
+      "primary_source": "Received Jielan 安生年太岁十二神诀 through EXT-ZIWEI-JIELAN-SHIXINGJI-RECEIVED-RINGS; S01 PR-058 is normalized project witness.",
+      "source_quote": "太岁太阳丧门起，太阴官符死符比。岁破龙德白虎神，福德吊客病符止。",
+      "source_quote_location": "EXT-ZIWEI-JIELAN-SHIXINGJI-RECEIVED-RINGS 卷一（五）; docs/research/ZIWEI-THREE-RING-SOURCE-SCOPE-AUDIT-R1.json",
+      "historical_period": "1581_EDITION_TRADITION_THROUGH_MODERN_RECEIVED_SURROGATE_NOT_DIRECT_GLYPH_REVIEW",
+      "later_witnesses": "Modern Wang Tingzhi received manual headings 39/40 and PR-058 use the current normalized names; exact label transmission not closed.",
+      "school_attribution": "RECEIVED_JIELAN_VS_CURRENT_MODERN_LABEL_FAMILIES",
+      "competing_methods": [
+        "Received labels 太阳/太阴/死符/福德 at ordinals 1/3/5/9",
+        "Current labels 晦气/贯索/小耗/天德 at ordinals 1/3/5/9"
+      ],
+      "current_implementation_match": "BIRTH_BRANCH_ANCHOR_AND_FORWARD_GEOMETRY_MATCH; FOUR_LABEL_EQUIVALENCE_BRIDGES_UNRESOLVED",
+      "confidence": "HIGH_FOR_RECEIVED_SURFACE_AND_RUNTIME_COMPARISON; NO_NEW_PHYSICAL_GLYPH_AUTHORITY",
+      "audit_status": "DISPUTED_MULTIPLE_CANDIDATES",
+      "proposed_action": "Preserve received/current label sets independently; obtain edition-bound naming bridges before claiming synonyms or changing a profile.",
+      "label_variants": [
+        {
+          "ordinal": 1,
+          "received_jielan": "太阳",
+          "current_runtime": "晦气",
+          "alias_equivalence_established": false
+        },
+        {
+          "ordinal": 3,
+          "received_jielan": "太阴",
+          "current_runtime": "贯索",
+          "alias_equivalence_established": false
+        },
+        {
+          "ordinal": 5,
+          "received_jielan": "死符",
+          "current_runtime": "小耗",
+          "alias_equivalence_established": false
+        },
+        {
+          "ordinal": 9,
+          "received_jielan": "福德",
+          "current_runtime": "天德",
+          "alias_equivalence_established": false
+        }
+      ]
+    },
+    {
+      "system": "ZIWEI",
+      "module": "十二宫",
+      "current_profile": "WENMO_DEFAULT_RING_R1@1.0.0",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-12-ZIWEI-THREE-RING-SOURCE-SCOPE-AND-IDENTITY-AUDIT-MV",
+      "rule_id": "HPA-ZIWEI-026",
+      "rule_or_field": "Jiangqian twelve-member trine-wang ring and temporal/source scope",
+      "current_implementation": "RING.JIANGQIAN12 uses birth-year trine-wang anchor 子午卯酉, fixed order and forward traversal independent of sex.",
+      "primary_source": "S01 PR-059 / ZZZA-A-1058..1063 normalized project text; modern Wang Tingzhi received manual heading 40 is corroboration, not classical Fullbook evidence.",
+      "source_quote": "将星三合起旺地，攀鞍岁驿息神方",
+      "source_quote_location": "EXT-WANGTINGZHI-ANXING-RECEIVED-RING-TEXT printed pp47–48 heading40; S01:ZZZA-PR-059; docs/research/ZIWEI-THREE-RING-SOURCE-SCOPE-AUDIT-R1.json",
+      "historical_period": "MODERN_SCHOOL_RECEIVED_TABLE_ATTESTED; EARLY_EDITION_ATTRIBUTION_UNRESOLVED",
+      "later_witnesses": "Modern received ring sequence agrees; 年支 heading alone does not settle birth-year vs annual-target application.",
+      "school_attribution": "MODERN_TABLE_MATCH_WITH_EARLY_SOURCE_AND_TIME_LAYER_GAP",
+      "competing_methods": [
+        "Current natal birth-year layer",
+        "Annual-target presentation elsewhere requires separately sourced and implemented temporal layer"
+      ],
+      "current_implementation_match": "ALL_12_BIRTH_BRANCH_TRINE_WANG_ANCHORS_AND_CURRENT_ORDERS_MATCH_UNIT_ORACLE; NO_VERIFIED_EARLY_FULLBOOK_PASSAGE",
+      "confidence": "HIGH_FOR_CURRENT_MECHANICS; INSUFFICIENT_FOR_EARLY_EDITION_AND_UNIQUE_TEMPORAL_SCOPE",
+      "audit_status": "SOURCE_INSUFFICIENT",
+      "proposed_action": "Retrieve primary edition-bound Jiangqian passage and temporal-layer instruction; do not backdate modern school text or convert natal rings into annual rings."
     }
   ],
   "historical_research_batches": [
@@ -6861,7 +6971,9 @@
     "HPA-STRUCT-010",
     "HPA-STRUCT-011",
     "HPA-STRUCT-012",
-    "HPA-STRUCT-005"
+    "HPA-STRUCT-005",
+    "HPA-ZIWEI-025",
+    "HPA-ZIWEI-026"
   ],
   "audit_summary": {
     "confirmed_chart_algorithm_defect_count": 0,
@@ -6887,6 +6999,7 @@
     "BATCH-12-BAZI-COMBINED-UNIFIED-TARGET-TIMELINE-COMPOSITION-AUDIT-MR",
     "BATCH-12-BAZI-NATAL-FOUR-PILLAR-COMPOSITION-AUDIT-MS",
     "BATCH-12-ZIWEI-R3-BORROW-PROJECTION-SCHOOL-MECHANICS-AND-MODERN-CLOSURE-AUDIT-MT",
-    "BATCH-12-ZIWEI-R5-BORROW-RESOLVED-SANFANG-COMPOSITION-AUDIT-MU"
+    "BATCH-12-ZIWEI-R5-BORROW-RESOLVED-SANFANG-COMPOSITION-AUDIT-MU",
+    "BATCH-12-ZIWEI-THREE-RING-SOURCE-SCOPE-AND-IDENTITY-AUDIT-MV"
   ]
 }

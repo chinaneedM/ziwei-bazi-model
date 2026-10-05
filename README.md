@@ -223,7 +223,7 @@ Fusion Chart Capability & Performance Acceptance R1 已正式收口。最终执�
 
 ## Fusion Chart Historical Provenance & School Audit R1
 
-最新规则审计闭环为 **Batch 12MU**：`HPA-STRUCT-005` R5 借星后三方四正组合归为 `MODERN_COMPATIBILITY_ONLY`，只引用 R3 物理身份与 R4 三方四正命名身份；不复制星曜、不进行第二次借星、不新增独立证据贡献。R4 的历史出处、训诂与年代仍待实审，本批不替它背书。Matrix 为 210 项、已审 190 项、缺失候选 10；来源缺陷 18/18，算法缺陷/重开/候选折叠 0。主 CI 中写死流派规则计数的测试已改为按实际矩阵核对。下一门为 `HPA-ZIWEI-011` 博士/将前/岁前三环，之后优先补 R4 的历史来源缺口，见 `docs/PROJECT-CURRENT-STATE-R1.json`。
+最新规则审计闭环为 **Batch 12MV**：`HPA-ZIWEI-011` 博士/将前/岁前三环已分拆。长生、博士复用既有审计；岁前环保留《捷览》与当前四个名称位置的未决桥接，将前环保留早期古籍归属与时层缺口。完成 60 干支 × 男女的三环回放，共 4320 个成员；默认算法不变。Matrix 为 212 项、已审 192 项、缺失候选 10；来源缺陷 18/18，算法缺陷/重开/候选折叠均 0。下一批 12MW 审核 R4 三方四正的原文、训诂和年代。
 
 ```text
 FUSION_CHART_HISTORICAL_PROVENANCE_AUDIT_R1=IN_PROGRESS

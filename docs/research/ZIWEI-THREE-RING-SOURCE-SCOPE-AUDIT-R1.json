@@ -1,0 +1,236 @@
+{
+  "schema": "ZIWEI-THREE-RING-SOURCE-SCOPE-AUDIT-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-THREE-RING-SOURCE-SCOPE-AND-IDENTITY-AUDIT-MV",
+  "prior_batch_id": "BATCH-12-ZIWEI-R5-BORROW-RESOLVED-SANFANG-COMPOSITION-AUDIT-MU",
+  "parent_rule_id": "HPA-ZIWEI-011",
+  "parent_status": "SOURCE_INSUFFICIENT",
+  "reused_audited_rows": [
+    "HPA-ZIWEI-019",
+    "HPA-ZIWEI-024"
+  ],
+  "new_child_rows": [
+    "HPA-ZIWEI-025",
+    "HPA-ZIWEI-026"
+  ],
+  "audit_scope": "DECOMPOSE_BROAD_RING_REVIEW_WITHOUT_CERTIFYING_A_UNIFIED_CLASSICAL_FOUR_RING_BUNDLE",
+  "coverage": {
+    "CHANGSHENG": "Existing HPA-ZIWEI-019; quoted five-bureau anchor passage belongs here, not to the three-ring title. No duplicate row.",
+    "BOSHI": "Existing HPA-ZIWEI-024; Lucun anchor, stem-polarity/sex direction and twelve ordinal roles. No duplicate row.",
+    "TAISUI": "New HPA-ZIWEI-025; birth-branch anchor and forward geometry separately from label identities.",
+    "JIANGQIAN": "New HPA-ZIWEI-026; current birth-branch trine-wang anchor and modern sequence separately from unverified early Fullbook attribution."
+  },
+  "witnesses": [
+    {
+      "source_id": "EXT-ZIWEI-JIELAN-SHIXINGJI-RECEIVED-RINGS",
+      "url": "https://shixingji.club/public/ziweidoushujielan",
+      "surface": "Modern received edited/transcribed text, not direct 1581 facsimile. Page declares 2015 editorial revision and 2025 web/text revision; these are not the original work/edition date.",
+      "locators": [
+        "卷一（五）安生年太岁十二神诀",
+        "卷一（五）安生年博士十二神诀"
+      ],
+      "glyph_authority": false,
+      "independent_physical_witness_increment": 0
+    },
+    {
+      "source_id": "EXT-WANGTINGZHI-ANXING-RECEIVED-RING-TEXT",
+      "url": "https://pdfcoffee.com/--11875-pdf-free.html",
+      "surface": "Searchable/OCR received manual text attributed to Wang Tingzhi; printed pp47-48 headings 39/40/41. Exact digital object binding to the catalogued 2013 edition is not closed.",
+      "locators": [
+        "39 安太岁十二神年支",
+        "40 安将前诸星年支",
+        "41 安生年博士十二神"
+      ],
+      "classical_authority": false,
+      "ocr_or_transcription_can_certify_glyphs": false
+    }
+  ],
+  "taisui": {
+    "rule_id": "HPA-ZIWEI-025",
+    "status": "DISPUTED_MULTIPLE_CANDIDATES",
+    "received_sequence": [
+      "太岁",
+      "太阳",
+      "丧门",
+      "太阴",
+      "官符",
+      "死符",
+      "岁破",
+      "龙德",
+      "白虎",
+      "福德",
+      "吊客",
+      "病符"
+    ],
+    "current_sequence": [
+      "岁建",
+      "晦气",
+      "丧门",
+      "贯索",
+      "官符",
+      "小耗",
+      "岁破",
+      "龙德",
+      "白虎",
+      "天德",
+      "吊客",
+      "病符"
+    ],
+    "received_instruction": "以生年为主，假如甲子生人，不问男女，俱在子宫安太岁，顺行，每宫安一神",
+    "anchor": "BIRTH_YEAR_BRANCH",
+    "direction": "FORWARD_WITHOUT_SEX_REVERSAL",
+    "label_variants": [
+      {
+        "ordinal": 1,
+        "received_jielan": "太阳",
+        "current_runtime": "晦气",
+        "alias_equivalence_established": false
+      },
+      {
+        "ordinal": 3,
+        "received_jielan": "太阴",
+        "current_runtime": "贯索",
+        "alias_equivalence_established": false
+      },
+      {
+        "ordinal": 5,
+        "received_jielan": "死符",
+        "current_runtime": "小耗",
+        "alias_equivalence_established": false
+      },
+      {
+        "ordinal": 9,
+        "received_jielan": "福德",
+        "current_runtime": "天德",
+        "alias_equivalence_established": false
+      }
+    ],
+    "ordinal_zero_bridge": {
+      "received": "太岁",
+      "current": "岁建",
+      "scope": "Contextual head-of-ring label bridge only; not the physical Sun, every TaiSui usage or an annual-target rewrite."
+    },
+    "label_difference_is_proven_algorithm_error": false,
+    "current_runtime_is_exact_jielan_label_table": false,
+    "longde_prior_row": "HPA-ZMINOR-021",
+    "longde_ordinal_7_support_does_not_certify_all_12_names": true,
+    "received_label_candidate_preserved_in_research_only": true
+  },
+  "jiangqian": {
+    "rule_id": "HPA-ZIWEI-026",
+    "status": "SOURCE_INSUFFICIENT",
+    "current_sequence": [
+      "将星",
+      "攀鞍",
+      "岁驿",
+      "息神",
+      "华盖",
+      "劫煞",
+      "灾煞",
+      "天煞",
+      "指背",
+      "咸池",
+      "月煞",
+      "亡神"
+    ],
+    "modern_manual_short_quote": "将星三合起旺地，攀鞍岁驿息神方",
+    "anchor_pairs": {
+      "申子辰": "子",
+      "寅午戌": "午",
+      "巳酉丑": "酉",
+      "亥卯未": "卯"
+    },
+    "current_direction": "FORWARD",
+    "current_basis": "NATAL_BIRTH_YEAR_BRANCH",
+    "modern_manual_sequence_and_trine_wang_agree": true,
+    "modern_manual_year_branch_heading_alone_proves_exclusive_birth_time_layer": false,
+    "received_fullbook_attribution_verified": false,
+    "earliest_date_or_direct_ancestry_closed": false,
+    "whole_jielan_or_fullbook_nonattestation_claimed": false,
+    "remaining_gate": "Retrieve edition-bound primary passage for full Jiangqian table and explicit temporal-layer usage; do not promote web Fullbook attributions or project normalized atoms."
+  },
+  "boshi": {
+    "reused_rule_id": "HPA-ZIWEI-024",
+    "status": "HISTORICALLY_SUPPORTED",
+    "anchor": "RELEASED_LUCUN_PLACEMENT",
+    "direction": "YANG_MALE_YIN_FEMALE_FORWARD_OTHERWISE_REVERSE",
+    "current_and_received_jielan_last_member": "官符",
+    "received_fullbook_last_member": "官府",
+    "small_gloss": "Jielan received edited text explicitly glosses 小 as 小耗.",
+    "philology": "官符/官府 and 飞廉/蜚廉 are compared only within this twelve-member ordinal context; neither bridge equates TaiSui 官符 or standalone STAR.FEILIAN with Boshi members. Fullbook display glyphs are not claimed identical.",
+    "direct_new_physical_collation_performed": false
+  },
+  "runtime_contract": {
+    "active_time_layer": "NATAL",
+    "caller": "ZiweiChartFoundation generates from structure.ziwei_birth_year_stem/branch and released STAR.LUCUN address.",
+    "normalized_pr_refs": [
+      "S01:ZZZA-PR-057",
+      "S01:ZZZA-PR-058",
+      "S01:ZZZA-PR-059",
+      "S01:ZZZA-PR-060"
+    ],
+    "normalized_pr_atom_is_classical_authority": false,
+    "annual_target_ring_materialization_claimed": false,
+    "ring_members_are_physical_star_placements": false,
+    "same_name_or_same_coordinate_merges_identity": false,
+    "default_profile_or_hash_schema_changed": false,
+    "algorithm_reopen_authorized": false,
+    "prediction_interpretation_authorized": false
+  },
+  "access_boundaries": {
+    "tianji_chapter_49_50_this_session": "Chapter endpoints timed out/inaccessible; existing index and received alternative are usable, no text-absence inference.",
+    "nanyangtang_artifact_id": 10016416872,
+    "artifact_archive_recovery": "Connector returned archive reference; executor transfer exceeds 32 MiB, alternate file URL returned 403. No new facsimile-page review.",
+    "public_pdf_web_open": "36,203,879-byte PDF rejected for content length; not a source-negative result."
+  },
+  "accounting": {
+    "rows_before": 210,
+    "rows_after": 212,
+    "audited_rows_before": 190,
+    "audited_rows_after": 192,
+    "current_missing_from_product_rows": 10,
+    "provenance_defects_confirmed": 18,
+    "provenance_defects_repaired": 18,
+    "chart_algorithm_defects": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0,
+    "new_historical_candidate_runtime_count": 0,
+    "implementation_review_required_after": 0
+  },
+  "runtime_files": [
+    {
+      "path": "src/fortune_training/ziwei_chart/rings.py",
+      "blob_sha": "e4a5adaab7fe84262df6762dd29551e393d10b9b",
+      "unchanged_from_base": true
+    },
+    {
+      "path": "src/fortune_training/ziwei_chart/engine.py",
+      "blob_sha": "f23a764383b7357cffbdc130f1bcc9be7bf24850",
+      "unchanged_from_base": true
+    }
+  ],
+  "replay_evidence": "docs/research/evidence/batch-12mv/three-ring-replay.json",
+  "transmission_impact": {
+    "status": "NONE",
+    "reason": "Received surrogates and a modern manual comparison refine scope; no new independent physical witness or proven ancestry edge."
+  },
+  "next_gate": [
+    "12MW: audit HPA-STRUCT-004 三方四正 source text, terminology, edition/dating and school scope; its initial HISTORICALLY_SUPPORTED inventory label is not an audited verdict. Preserve the separate unresolved TaiSui label bridges and Jiangqian early-text attribution from 12MV.",
+    "Wenwu1951 recovery remains PAUSED_ACCESS_UNRESOLVED_PENDING_MATERIALLY_NEW_ROUTE; direct 1951 pp221–233, 2011 Wenji p197 and Wenhui1951-08-18 remain NOT_REVIEWED."
+  ],
+  "verification": {
+    "new_test_count": 6,
+    "ring_existing_test_count": 9,
+    "matrix_regression_test_count": 38,
+    "candidate_productization_regression_test_count": 5,
+    "focused_tests_status": "PASS",
+    "gates_passed": [
+      "project continuity",
+      "historical provenance matrix",
+      "transmission genealogy",
+      "deterministic product",
+      "capability/performance"
+    ],
+    "exact_head_ci_policy": "Inspect all push workflow pages for the published live HEAD and inspect the main full-test/smoke job; startup CI is not a substitute."
+  }
+}

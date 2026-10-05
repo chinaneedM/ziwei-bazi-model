@@ -879,9 +879,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-BAZI-NATAL-FOUR-PILLAR-COMPOSITION-AUDIT-MS",
     "BATCH-12-ZIWEI-R3-BORROW-PROJECTION-SCHOOL-MECHANICS-AND-MODERN-CLOSURE-AUDIT-MT",
     "BATCH-12-ZIWEI-R5-BORROW-RESOLVED-SANFANG-COMPOSITION-AUDIT-MU",
+    "BATCH-12-ZIWEI-THREE-RING-SOURCE-SCOPE-AND-IDENTITY-AUDIT-MV",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-R5-BORROW-RESOLVED-SANFANG-COMPOSITION-AUDIT-MU.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-THREE-RING-SOURCE-SCOPE-AND-IDENTITY-AUDIT-MV.md"
 
 
 def fail(message: str) -> None:
@@ -14554,6 +14555,34 @@ def main() -> int:
             fail(f"Batch 12MU released runtime/schema contract drift: {obj.get('path')}")
     if mu.get("adjudication", {}).get("r4_historical_authority_certified") is not False or mu.get("transmission_impact", {}).get("status") != "NONE":
         fail("Batch 12MU upstream authority/transmission scope drift")
+
+    # Batch 12MV: separate ring-family evidence and unresolved label/time-layer bridges.
+    mv = json.loads((ROOT / "docs/research/ZIWEI-THREE-RING-SOURCE-SCOPE-AUDIT-R1.json").read_text())
+    mv_id = "BATCH-12-ZIWEI-THREE-RING-SOURCE-SCOPE-AND-IDENTITY-AUDIT-MV"
+    if mv.get("batch_id") != mv_id or mv.get("prior_batch_id") != mu_id or mv_id not in rule_batches:
+        fail("Batch 12MV chronology/rule ledger drift")
+    mv_rows = {r["rule_id"]: r for r in matrix["rows"]}
+    for rid, expected in (("HPA-ZIWEI-011", "SOURCE_INSUFFICIENT"), ("HPA-ZIWEI-025", "DISPUTED_MULTIPLE_CANDIDATES"), ("HPA-ZIWEI-026", "SOURCE_INSUFFICIENT")):
+        if mv_rows[rid].get("audit_status") != expected or mv_rows[rid].get("audit_batch") != mv_id or rid not in matrix["audited_row_ids"]:
+            fail(f"Batch 12MV row scope drift: {rid}")
+    if mv.get("reused_audited_rows") != ["HPA-ZIWEI-019", "HPA-ZIWEI-024"] or mv.get("new_child_rows") != ["HPA-ZIWEI-025", "HPA-ZIWEI-026"]:
+        fail("Batch 12MV duplicate/new child scope drift")
+    if any(v.get("alias_equivalence_established") is not False for v in mv["taisui"]["label_variants"]) or mv["jiangqian"].get("received_fullbook_attribution_verified") is not False:
+        fail("Batch 12MV unresolved historical bridge silently closed")
+    if mv["runtime_contract"].get("annual_target_ring_materialization_claimed") is not False or mv["runtime_contract"].get("normalized_pr_atom_is_classical_authority") is not False:
+        fail("Batch 12MV source/time-layer scope drift")
+    if mv["accounting"].get("rows_after") != 212 or mv["accounting"].get("audited_rows_after") != 192:
+        fail("Batch 12MV historical accounting snapshot drift")
+    replay_mv = json.loads((ROOT / mv["replay_evidence"]).read_text())
+    records_mv = replay_mv.get("records", [])
+    if len(records_mv) != 120 or replay_mv.get("members_checked") != 4320 or hashlib.sha256(json.dumps(records_mv, sort_keys=True, separators=(",", ":")).encode()).hexdigest() != replay_mv.get("records_sha256"):
+        fail("Batch 12MV finite replay integrity drift")
+    for obj in mv.get("runtime_files", []):
+        content_mv = (ROOT / obj["path"]).read_bytes()
+        if hashlib.sha1(b"blob " + str(len(content_mv)).encode() + b"\0" + content_mv).hexdigest() != obj.get("blob_sha") or obj.get("unchanged_from_base") is not True:
+            fail(f"Batch 12MV runtime drift: {obj['path']}")
+    if mv.get("transmission_impact", {}).get("status") != "NONE":
+        fail("Batch 12MV transmission scope drift")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

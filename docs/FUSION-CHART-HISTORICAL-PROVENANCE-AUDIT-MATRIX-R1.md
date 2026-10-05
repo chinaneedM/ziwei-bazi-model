@@ -34,7 +34,7 @@ Every row carries:
 - proposed action;
 - explicit algorithm-reopen authorization, which is **false for every inventory row at creation**.
 
-The initial inventory contained **107 rule/field families**. Through Batch 12MU and explicit splitting of historically distinct candidate families, the current machine-readable inventory contains **210 rows**, with **190 audited rows**. It intentionally keeps unresolved source work explicit rather than converting uncertainty into a chart defect. The current audit ledger records **18 confirmed provenance metadata defects repaired forward-only at the provenance/hash-lineage layer, 0 chart algorithm defects, 0 algorithm reopens, 14 cumulatively identified missing candidate families, 10 rows currently `MISSING_FROM_PRODUCT`, 6 historical candidate extensions, 3 source-scoped historical candidate registries, and 3 runtime-resolver components**.
+The initial inventory contained **107 rule/field families**. Through Batch 12MV and explicit splitting of historically distinct candidate families, the current machine-readable inventory contains **212 rows**, with **192 audited rows**. It intentionally keeps unresolved source work explicit rather than converting uncertainty into a chart defect. The current audit ledger records **18 confirmed provenance metadata defects repaired forward-only at the provenance/hash-lineage layer, 0 chart algorithm defects, 0 algorithm reopens, 14 cumulatively identified missing candidate families, 10 rows currently `MISSING_FROM_PRODUCT`, 6 historical candidate extensions, 3 source-scoped historical candidate registries, and 3 runtime-resolver components**.
 
 ## Research-corpus authority
 
@@ -1312,3 +1312,10 @@ Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WE
 - Batch 12MT: HPA-STRUCT-003 R3 borrow projection is decomposed into three modern Zhongzhou-school mechanics (HPA-STRUCT-009 empty-palace eligibility, HPA-STRUCT-010 opposite all-star borrow, HPA-STRUCT-011 pre-borrow of empty structural members) and one modern engineering closure rule (HPA-STRUCT-012 immutable projection / non-recursion / fail-closed / zero-second contribution / physical-key dedup). The aggregate R3 layer is `MODERN_COMPATIBILITY_ONLY`; the three source mechanics are `SUPPORTED_BUT_SCHOOL_SPECIFIC`. Matrix is 210 / 189 / 10; provenance defects remain 18/18 after PROV-DEFECT-018; chart algorithm defects/reopens/candidate collapses remain 0. See `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-R3-BORROW-PROJECTION-SCHOOL-MECHANICS-AND-MODERN-CLOSURE-AUDIT-MT.md`.
 
 - Batch 12MU: HPA-STRUCT-005 R5 closes only as a modern R3/R4 reference join. Two identity domains, no duplicated payload/second borrow/new evidence cause; R4 historical dating and source attribution remain unaudited. Matrix is 210 / 190 / 10, provenance defects 18/18, algorithm defects/reopens/collapses 0. Main-CI stale school-specific count assertion repaired by row reconciliation. See `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-R5-BORROW-RESOLVED-SANFANG-COMPOSITION-AUDIT-MU.md`.
+
+
+## Progress — Batch 12MV
+
+HPA-ZIWEI-011 leaves IMPLEMENTATION_REVIEW_REQUIRED as a decomposed SOURCE_INSUFFICIENT parent. Existing Changsheng/Boshi rows 019/024 are reused; new TaiSui 025 preserves four label bridges and Jiangqian 026 preserves primary-edition/temporal scope gaps. Natal ring members remain separate from physical stars and annual target layers. Generator replay covers 120 legal year/sex cases, 360 rings, 4320 members. Matrix 212 / 192 / 10; provenance 18/18 and algorithm defects/reopens/collapses 0. No transmission edge.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-THREE-RING-SOURCE-SCOPE-AND-IDENTITY-AUDIT-MV.md`. Research record: `docs/research/ZIWEI-THREE-RING-SOURCE-SCOPE-AUDIT-R1.json`.
