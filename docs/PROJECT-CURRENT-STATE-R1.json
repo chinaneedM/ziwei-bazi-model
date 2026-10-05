@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.398.0",
+  "schema_version": "1.399.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -37,10 +37,10 @@
     "matrix_json": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json",
     "matrix_md": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.md",
     "external_source_registry": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json",
-    "row_count": 220,
-    "audited_row_count": 220,
-    "confirmed_provenance_metadata_defect_count": 40,
-    "repaired_provenance_metadata_defect_count": 40,
+    "row_count": 222,
+    "audited_row_count": 222,
+    "confirmed_provenance_metadata_defect_count": 41,
+    "repaired_provenance_metadata_defect_count": 41,
     "historical_candidate_registry_count": 3,
     "historical_candidate_runtime_resolver_count": 3,
     "identified_missing_candidate_family_count": 14,
@@ -479,9 +479,10 @@
       "BATCH-12-ZIWEI-TIANWU-HOMONYM-MECHANICAL-SEPARATION-OA",
       "BATCH-12-ZIWEI-TIANYUE-MODERN-RECEIVED-SOURCE-BOUNDARY-OB",
       "BATCH-12-ZIWEI-YINSHA-MODERN-RECEIVED-SOURCE-BOUNDARY-OC",
-      "BATCH-12-UNRESOLVED-HISTORICAL-STATUS-REPRIORITIZATION-OD"
+      "BATCH-12-UNRESOLVED-HISTORICAL-STATUS-REPRIORITIZATION-OD",
+      "BATCH-12-ZIWEI-YUEDE-TIANDE-TEMPORAL-SCOPE-CLOSURE-OE"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-UNRESOLVED-HISTORICAL-STATUS-REPRIORITIZATION-OD.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-YUEDE-TIANDE-TEMPORAL-SCOPE-CLOSURE-OE.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -2297,9 +2298,17 @@
       "Priority returns to active DISPUTED_MULTIPLE_CANDIDATES where production selects one concrete method while historical alternatives remain unproductized.",
       "HPA-ZMINOR-022 YueDe is selected next: current production uses Zi-year Si-start; received Fullbook has a competing Zi-start family and temporal scope remains unresolved.",
       "Second tier after YueDe: HPA-ZMINOR-008 TianShou Body/Life basis, then HPA-ZMINOR-007 TianChu competing tables.",
-      "12OE: audit HPA-ZMINOR-022 YueDe start-anchor families and natal/flow temporal candidate closure."
+      "12OE: audit HPA-ZMINOR-022 YueDe start-anchor families and natal/flow temporal candidate closure.",
+      "Batch 12OE completed: received Fullbook TianDe/YueDe are now typed as ANNUAL rules because the same local passage explicitly says 流年太岁, while JieShen explicitly says 当生年太岁.",
+      "The apparent HPA-ZMINOR-022 Si-start vs Zi-start natal conflict is decomposed by temporal layer: natal YueDe remains Si-start in production, while the Fullbook Zi-start method is an unselected annual candidate.",
+      "Received-Fullbook annual YueDe method RECEIVED-FULLBOOK-ANNUAL-YUEDE-ZI-START-R1 and annual TianDe method RECEIVED-FULLBOOK-ANNUAL-TIANDE-YOU-START-R1 are both exposed through AnnualFrame candidate sets with SOURCE_SCOPED_CANDIDATE_PRESERVED_NO_SELECTION; natal STAR.YUEDE/STAR.TIANDE remain unchanged.",
+      "PROV-DEFECT-041 repaired forward-only: HPA-ZMINOR-006 no longer uses a flow-year TianDe sentence to support a natal TianDe implementation and now tracks only birth-year JieShen/NianJie.",
+      "HPA-ZMINOR-022 is now SOURCE_INSUFFICIENT for premodern Ziwei natal YueDe adoption; new HPA-ZMINOR-027 is SOURCE_INSUFFICIENT for natal TianDe adoption; new HPA-ZTEMP-007 is HISTORICALLY_SUPPORTED for received-Fullbook annual TianDe/YueDe source-scoped replay.",
+      "Shenfeng Tongkao remains a premodern cross-domain geometry witness for You-start TianDe / Si-start YueDe, not a substitute for edition-bound Ziwei natal adoption evidence.",
+      "Matrix is now 222/222 audited / 10 current missing; provenance defects 41/41; historical candidate extensions 8; chart algorithm defects / reopens / candidate collapses remain 0.",
+      "12OF: audit HPA-ZMINOR-008 TianShou Body/Life basis source and candidate closure; keep HPA-ZMINOR-007 TianChu competing tables as the next tier."
     ],
-    "historical_candidate_extension_count": 6,
+    "historical_candidate_extension_count": 8,
     "current_missing_from_product_row_count": 10
   },
   "new_chat_bootstrap_order": [
