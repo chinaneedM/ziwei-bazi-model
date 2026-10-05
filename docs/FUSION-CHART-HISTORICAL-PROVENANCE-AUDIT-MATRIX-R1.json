@@ -46,8 +46,8 @@
     "row_count": 222,
     "status_counts": {
       "MODERN_COMPATIBILITY_ONLY": 50,
-      "HISTORICALLY_SUPPORTED": 97,
-      "DISPUTED_MULTIPLE_CANDIDATES": 29,
+      "HISTORICALLY_SUPPORTED": 98,
+      "DISPUTED_MULTIPLE_CANDIDATES": 28,
       "SUPPORTED_BUT_SCHOOL_SPECIFIC": 24,
       "SOURCE_INSUFFICIENT": 11,
       "MISSING_FROM_PRODUCT": 10,
@@ -3901,22 +3901,41 @@
       "algorithm_reopen_authorized": false,
       "audit_batch": "BATCH-07-ZIWEI-MINOR-STARS-A",
       "rule_id": "HPA-ZMINOR-008",
-      "rule_or_field": "天寿 Body/Life basis conflict",
-      "current_implementation": "R4 uses Body palace as 子位 and advances by birth-year branch; Wenmo fixture selects Body basis.",
-      "primary_source": "S01 normalized route ZZZZA-PR-042 plus frozen Wenmo discriminator",
-      "source_quote": "身宫所在地支作为子位，顺布十二支至生年支；来源正文/表头基础字段冲突需保留。",
-      "source_quote_location": "S01:ZZZA-PR-042; src/fortune_training/ziwei_chart/minor_stars_r4.py",
-      "historical_period": "SOURCE_CONFLICT_PRESERVED; HISTORICAL_EDITION_BINDING_PENDING",
-      "later_witnesses": "COMPAT:WENMO-TIANSHOU-BODY-BASIS selects Body-basis operational behavior.",
-      "school_attribution": "SOURCE_BASIS_CONFLICT_WITH_MODERN_COMPATIBILITY_SELECTION",
+      "rule_or_field": "天寿 Body-palace basis + birth-year-branch offset",
+      "current_implementation": "R4 anchors STAR.TIANSHOU at Body palace as the 子-year position and advances by the Ziwei birth-year branch offset.",
+      "primary_source": "EXT-ZIWEI-JIELAN-1581; edition identity independently corroborated by EXT-SHANGHAI-LIB-JIELAN-1581",
+      "source_quote": "命宫起子天才顺，身宫起子天寿堂。甲子例身立午宫则天寿在午；乙丑例自午宫起子年顺至未宫为丑，即安天寿在未。",
+      "source_quote_location": "EXT-ZIWEI-JIELAN-1581 / 卷一第35章《安天才天寿台辅封诰星诀》; S01:ZZZA-A-0830..0834",
+      "historical_period": "MING_WANLI_1581_JIELAN_PRINT_TRADITION; ONLINE_TRANSCRIPTION_RULE_TEXT_WITH_INDEPENDENT_LIBRARY_EDITION_IDENTITY",
+      "later_witnesses": "S01 extracted atoms ZZZZA-A-0830/0831/0833/0834 preserve the same Body-palace basis. The frozen Wenmo discriminator independently selects Body over Life when the two palaces differ.",
+      "school_attribution": "JIELAN_1581_BODY_PALACE_BASIS_TIANSHOU_RULE",
       "competing_methods": [
-        "Body-palace basis",
-        "competing source/table-header basis pending extraction"
+        "No edition-bound Life-palace TianShou method is currently bound in the reviewed source package. The prior unlocated 'source/table-header conflict' note is not retained as a source-scoped candidate."
       ],
-      "current_implementation_match": "MATCHES_WENMO_SELECTED_BODY_BASIS; UNIQUE_CLASSICAL_WINNER_NOT_ESTABLISHED",
-      "confidence": "HIGH_FOR_OPERATIONAL_SELECTION_AND_EXISTENCE_OF_SOURCE_CONFLICT",
-      "audit_status": "DISPUTED_MULTIPLE_CANDIDATES",
-      "proposed_action": "Preserve Body-basis production behavior but extract both source sides into versioned candidates before any historical winner claim."
+      "current_implementation_match": "EXACT_BODY_BASIS_AND_YEAR_OFFSET_MATCH; JIELAN MNEMONIC PLUS JIAZI/YICHOU WORKED EXAMPLES ALL AGREE WITH R4",
+      "confidence": "HIGH_FOR_EARLY_PRINT_RULE_GEOMETRY_AND_OPERATIONAL_MATCH; MEDIUM_HIGH_FOR TRANSCRIPTION-LEVEL GLYPH FIDELITY BECAUSE NO PHYSICAL TARGET PAGE WAS REQUIRED/REVIEWED",
+      "audit_status": "HISTORICALLY_SUPPORTED",
+      "proposed_action": "No reopen. Keep Body-basis production behavior. Do not materialize a Life-basis candidate unless a quoted, located, source-scoped witness is later found.",
+      "evidence_closure_batch": "BATCH-12-ZIWEI-TIANSHOU-BODY-BASIS-EARLY-PRINT-CLOSURE-OF",
+      "evidence_closure_status": "BODY_BASIS_EARLY_PRINT_GEOMETRY_CLOSED_UNBOUND_LIFE_BASIS_CONFLICT_RETIRED",
+      "defect_id": "PROV-DEFECT-042",
+      "defect_type": "HPA_ZMINOR_008_UNBOUND_LIFE_BASIS_CONFLICT_OVERCLAIM",
+      "defect_scope": "Earlier audit metadata represented TianShou as a Body/Life source conflict but did not bind the Life-basis side to any quoted or located source. The bound Jielan chapter and current S01 extracted atoms all use Body basis.",
+      "repair_status": "REPAIRED_IN_BATCH_12OF_FORWARD_ONLY",
+      "repair_action": "Reclassified HPA-ZMINOR-008 as historically supported for Body basis, removed the unbound Life-basis candidate claim from the current Matrix, retained historical Batch 07 documents unchanged, and made no runtime coordinate/default change.",
+      "product_surface_reconciliation": {
+        "entity_id": "STAR.TIANSHOU",
+        "runtime_basis": "BODY_PALACE_PLUS_BIRTH_YEAR_BRANCH_OFFSET",
+        "jielan_exact_match": true,
+        "wenmo_discriminator_exact_match": true,
+        "life_basis_source_bound": false,
+        "runtime_changed": false
+      },
+      "transmission_graph_bindings": [
+        "TG-E0152",
+        "TG-E0153",
+        "TG-E0154"
+      ]
     },
     {
       "system": "ZIWEI",
@@ -4147,15 +4166,20 @@
       "primary_source": "EXT-ZIWEI-JIELAN-1581; edition identity independently corroborated by EXT-SHANGHAI-LIB-JIELAN-1581",
       "source_quote": "“命宫起子天才顺”；乙丑例由命宫起子顺至下一宫安天才。",
       "source_quote_location": "EXT-ZIWEI-JIELAN-1581 / 卷一第35章《安天才天寿台辅封诰星诀》; S01:ZZZA-PR-041",
-      "later_witnesses": "S01 normalized route ZZZZA-PR-041 preserves the same Life-palace basis; TianShou remains separately disputed in HPA-ZMINOR-008.",
+      "later_witnesses": "S01 normalized route ZZZZA-PR-041 preserves the same Life-palace basis. Batch 12OF independently closes the adjacent TianShou rule as Body-palace based from the same Jielan chapter.",
       "school_attribution": "JIELAN_1581_LIFE_PALACE_BASIS_TIANCAI_RULE",
       "competing_methods": [
-        "Do not infer TianShou closure from this row; TianShou source-basis conflict remains separate."
+        "TianCai and TianShou are complementary rules in the same Jielan chapter: TianCai uses Life palace; TianShou uses Body palace. They are not competing basis methods for one star."
       ],
       "current_implementation_match": "EXACT_LIFE_BASIS_AND_YEAR_OFFSET_MATCH",
       "confidence": "HIGH",
       "audit_status": "HISTORICALLY_SUPPORTED",
-      "proposed_action": "No reopen; close TianCai independently while leaving TianShou candidate conflict untouched."
+      "proposed_action": "No reopen. Preserve TianCai Life-basis rule; Batch 12OF separately closes TianShou Body-basis and removes the earlier unbound conflict claim.",
+      "transmission_graph_bindings": [
+        "TG-E0152",
+        "TG-E0153",
+        "TG-E0154"
+      ]
     },
     {
       "system": "ZIWEI",
@@ -7789,8 +7813,8 @@
   ],
   "audit_summary": {
     "confirmed_chart_algorithm_defect_count": 0,
-    "confirmed_provenance_metadata_defect_count": 41,
-    "repaired_provenance_metadata_defect_count": 41,
+    "confirmed_provenance_metadata_defect_count": 42,
+    "repaired_provenance_metadata_defect_count": 42,
     "algorithm_reopen_count": 0,
     "candidate_collapse_count": 0,
     "historical_candidate_extension_count": 8,
