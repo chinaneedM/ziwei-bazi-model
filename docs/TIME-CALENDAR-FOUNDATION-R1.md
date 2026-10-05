@@ -66,7 +66,7 @@ or lunar date into another official calendar day.
 
 | Component | Choice | License / authority | R1 precision and portability decision |
 |---|---|---|---|
-| Timezone | Python `zoneinfo` + first-party `tzdata` | Python / IANA tzdb | Cross-platform; exact tzdata version is emitted. Pre-1970 results carry reduced confidence because IANA defines location-zone agreement primarily since 1970. |
+| Timezone | Python `zoneinfo` + first-party `tzdata` fallback | Python / IANA tzdb | Cross-platform; metadata follows the source that `ZoneInfo` actually searches first: system TZPATH is reported as `SYSTEM-TZDB-UNVERSIONED`, while the PyPI `tzdata` version is emitted only when package fallback supplies the zone. Historical confidence is keyed to the UTC POSIX epoch, not the local calendar year. |
 | Solar and lunar events | Astronomy Engine 2.1.x | MIT; VSOP87/NOVAS-based, tested upstream against JPL Horizons | Pure Python, no downloaded ephemeris, advertised position accuracy within 1 arcminute; exact installed version and accuracy claim are emitted. |
 | Modern Chinese calendar | Repository algorithm using astronomical events; fixed UTC+08:00 calendar standard time | GB/T 33661-2017 governance; HKO rules/oracles | Month starts, winter-solstice month and no-principal-term leap rule are calculated, not table-looked-up. R1 validated range is 1901–2100. Historical civil DST is not used as the lunar-calendar day boundary. |
 
@@ -75,6 +75,28 @@ Authority fixtures live in
 USNO/NOAA-style equation-of-time calculation are regression oracles, not the
 production algorithm. Wenmo/Wenzhen observations are explicitly tagged as
 compatibility-only.
+
+### Civil timezone authority and historical scope
+
+The IANA tz database is modern civil-time infrastructure. It is **not** a
+classical Ziwei/Bazi rule, and IANA itself states that the database is not
+authoritative and contains errors. Its location-zone design boundary is the
+POSIX epoch `1970-01-01 00:00:00 UTC`; pre-1970 transitions can be useful but
+do not provide complete historical civil-time coverage. R1 therefore labels a
+resolved wall coordinate as post-1970 only when its possible UTC realization(s)
+are on or after that epoch, and otherwise retains reduced historical confidence.
+
+For China, the IANA 2026e `asia` source represents Beijing time with
+`Asia/Shanghai` and a distinct Xinjiang-time tradition with `Asia/Urumqi`.
+The resolver does not infer which civil standard a historical birth record used
+from longitude alone: `timezone_id` is explicit record semantics. This remains
+separate from the Chinese-calendar adapter's fixed UTC+08:00 day boundary.
+
+Python `zoneinfo` searches system `TZPATH` before falling back to the
+first-party PyPI `tzdata` package. Provenance metadata now mirrors that lookup:
+a system-sourced zone is never mislabeled with an installed-but-unused package
+version. Exact byte-for-byte tzdb reproducibility still requires pinning or
+controlling the actual zoneinfo source.
 
 ## Policy registry
 

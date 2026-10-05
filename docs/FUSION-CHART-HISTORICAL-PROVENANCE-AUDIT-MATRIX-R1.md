@@ -34,7 +34,7 @@ Every row carries:
 - proposed action;
 - explicit algorithm-reopen authorization, which is **false for every inventory row at creation**.
 
-The initial inventory contained **107 rule/field families**. Through Batch 12NB and explicit splitting of historically distinct candidate families, the current machine-readable inventory contains **220 rows**, with **206 audited rows**. It intentionally keeps unresolved source work explicit rather than converting uncertainty into a chart defect. The current audit ledger records **20 confirmed provenance metadata defects repaired forward-only at the provenance/hash-lineage layer, 0 chart algorithm defects, 0 algorithm reopens, 14 cumulatively identified missing candidate families, 10 rows currently `MISSING_FROM_PRODUCT`, 6 historical candidate extensions, 3 source-scoped historical candidate registries, and 3 runtime-resolver components**.
+The initial inventory contained **107 rule/field families**. Through Batch 12NC and explicit splitting of historically distinct candidate families, the current machine-readable inventory contains **220 rows**, with **207 audited rows**. It intentionally keeps unresolved source work explicit rather than converting uncertainty into a chart defect. The current audit ledger records **22 confirmed provenance metadata defects repaired forward-only at the provenance/hash-lineage layer, 0 chart algorithm defects, 0 algorithm reopens, 14 cumulatively identified missing candidate families, 10 rows currently `MISSING_FROM_PRODUCT`, 6 historical candidate extensions, 3 source-scoped historical candidate registries, and 3 runtime-resolver components**.
 
 ## Research-corpus authority
 
@@ -1361,3 +1361,14 @@ Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-R1
 HPA-STRUCT-002 R2 relative-palace frame is formally audited as MODERN_COMPATIBILITY_ONLY. It rotates the historically audited V1 twelve-palace designation order around each local origin and requires every physical edge to exist in the audited R1 neutral Z12 topology; it does not claim that the resulting 144-row frame matrix, hash/schema or integrity machinery is classical doctrine. Independent replay covers 12 LIFE physical rotations × 12 origins × 12 relative ordinals = 1728 rows, all matching target designation/address, relative role/ordinal and clockwise offset. Named 三方四正、对宫、气数位、一六共宗、邻宫/夹宫、借星 and predictive semantics remain fail-closed at R2. PROV-DEFECT-020 corrects the stale current-overview provenance count left at 18 after authoritative 12MZ state had reached 19/19; historical snapshots are untouched. Matrix220/206/10, provenance20/20, algorithm defects/reopens/collapses0. Structural R1-R8 current rows are fully audited.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-R2-RELATIVE-PALACE-FRAME-AUDIT-NB.md`. Research record: `docs/research/ZIWEI-R2-RELATIVE-PALACE-FRAME-AUDIT-R1.json`.
+
+
+## Progress — Batch 12NC
+
+HPA-TIME-001 Civil timezone/TZDB instant resolution is formally audited as **MODERN_COMPATIBILITY_ONLY**. IANA tzdb and Python zoneinfo are modern civil-time infrastructure, not classical Ziwei/Bazi doctrine. The location-zone design boundary is the UTC POSIX epoch; pre-1970 records remain explicitly incomplete/non-authoritative. China also preserves distinct Beijing-time (`Asia/Shanghai`) and Xinjiang-time (`Asia/Urumqi`) civil-time identities instead of a longitude-derived automatic winner.
+
+**PROV-DEFECT-021** replaces the old local-calendar-year confidence test with a UTC-epoch test. **PROV-DEFECT-022** makes `tzdb_version` follow Python `ZoneInfo` source precedence: a system TZPATH zone is reported as `SYSTEM-TZDB-UNVERSIONED`; PyPI `tzdata` version metadata is used only for package fallback.
+
+UTC candidate generation, offsets, DST, folds, gaps, ambiguity handling and candidate multiplicity are unchanged. This is provenance/confidence repair only; chart algorithm defects/reopens remain 0. Matrix220/207/10, provenance22/22, candidate collapses0. No traditional transmission edge is created.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-TIME-CIVIL-TZDB-INSTANT-RESOLUTION-NC.md`. Research record: `docs/research/TIME-CIVIL-TZDB-INSTANT-RESOLUTION-AUDIT-R1.json`.

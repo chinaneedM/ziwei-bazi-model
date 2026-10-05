@@ -80,7 +80,7 @@
       "candidate/profile rules": 2,
       "provenance / hashes / lineage": 2
     },
-    "audited_row_count": 206
+    "audited_row_count": 207
   },
   "rows": [
     {
@@ -90,20 +90,22 @@
       "rule_or_field": "Civil timezone/TZDB instant resolution",
       "current_implementation": "calendar_foundation/timezone.py resolves local civil time to UTC candidate(s), offset, DST/fold/gap state.",
       "current_profile": "TIME-CALENDAR-POLICY-REGISTRY-V1",
-      "primary_source": "Modern civil-time standards / IANA TZDB",
-      "source_quote": "PENDING_VERBATIM_EXTRACTION",
-      "source_quote_location": "docs/TIME-CALENDAR-FOUNDATION-R1.md §Components/Source hierarchy",
-      "historical_period": "MODERN_STANDARD",
-      "later_witnesses": "IANA TZDB; historical zone databases",
-      "school_attribution": "MODERN_CIVIL_TIME",
+      "primary_source": "IANA tzdb 2026e theory/scope + IANA tzdb 2026e asia source + Python zoneinfo data-source contract",
+      "source_quote": "clocks all agree about timestamps that occur after the POSIX Epoch (1970-01-01 00:00:00 UTC)",
+      "source_quote_location": "IANA tzdb 2026e theory.html §Scope/Accuracy; tzdb-2026e/asia China zones; Python 3.14 zoneinfo §Data sources",
+      "historical_period": "MODERN_CIVIL_TIME_STANDARD_WITH_EXPLICIT_PRE_1970_LIMIT",
+      "later_witnesses": "Python zoneinfo runtime contract; IANA 2026e Asia/Shanghai and Asia/Urumqi source commentary",
+      "school_attribution": "MODERN_CIVIL_TIME_INFRASTRUCTURE_NOT_CLASSICAL_ZIWEI_BAZI_DOCTRINE",
       "competing_methods": [
-        "fixed UTC+08 compatibility clock"
+        "fixed UTC+08 compatibility clock",
+        "explicit Asia/Urumqi civil-time input where the historical record follows Xinjiang time"
       ],
-      "current_implementation_match": "MATCHES_DECLARED_MODERN_SCOPE",
-      "confidence": "HIGH",
+      "current_implementation_match": "UTC/OFFSET/DST/FOLD/GAP_MECHANICS_MATCH; PROV-DEFECT-021 UTC_EPOCH_CONFIDENCE_BOUNDARY_REPAIRED; PROV-DEFECT-022 ACTUAL_ZONEINFO_SOURCE_LABEL_REPAIRED",
+      "confidence": "HIGH_POST_1970; REDUCED_PRE_1970_BY_DESIGN",
       "audit_status": "MODERN_COMPATIBILITY_ONLY",
-      "proposed_action": "Document modern-standard authority and historical-China timezone scope; do not recast as classical rule.",
-      "algorithm_reopen_authorized": false
+      "proposed_action": "Retain IANA/zoneinfo as modern civil-time infrastructure. Preserve explicit timezone_id, UTC-epoch confidence firewall and actual source provenance; do not recast TZDB history as classical doctrine.",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-12-TIME-CIVIL-TZDB-INSTANT-RESOLUTION-AUDIT-NC"
     },
     {
       "rule_id": "HPA-TIME-002",
@@ -7282,12 +7284,13 @@
     "HPA-STRUCT-019",
     "HPA-STRUCT-020",
     "HPA-STRUCT-001",
-    "HPA-STRUCT-002"
+    "HPA-STRUCT-002",
+    "HPA-TIME-001"
   ],
   "audit_summary": {
     "confirmed_chart_algorithm_defect_count": 0,
-    "confirmed_provenance_metadata_defect_count": 20,
-    "repaired_provenance_metadata_defect_count": 20,
+    "confirmed_provenance_metadata_defect_count": 22,
+    "repaired_provenance_metadata_defect_count": 22,
     "algorithm_reopen_count": 0,
     "candidate_collapse_count": 0,
     "historical_candidate_extension_count": 6,
@@ -7315,6 +7318,7 @@
     "BATCH-12-ZIWEI-R7-ONE-SIX-SOURCE-PHILOLOGY-SCOPE-AUDIT-MY",
     "BATCH-12-ZIWEI-R8-ADJACENT-PALACE-SOURCE-PHILOLOGY-SCOPE-AUDIT-MZ",
     "BATCH-12-ZIWEI-R1-NEUTRAL-Z12-TOPOLOGY-AUDIT-NA",
-    "BATCH-12-ZIWEI-R2-RELATIVE-PALACE-FRAME-AUDIT-NB"
+    "BATCH-12-ZIWEI-R2-RELATIVE-PALACE-FRAME-AUDIT-NB",
+    "BATCH-12-TIME-CIVIL-TZDB-INSTANT-RESOLUTION-AUDIT-NC"
   ]
 }

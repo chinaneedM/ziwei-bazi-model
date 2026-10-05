@@ -2,10 +2,13 @@ from __future__ import annotations
 
 import json
 import math
+import tempfile
 import unittest
+from unittest.mock import patch
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
+import fortune_training.calendar_foundation.timezone as timezone_module
 from fortune_training.calendar_foundation import (
     BirthInput,
     ChineseCalendarEngine,
@@ -17,7 +20,7 @@ from fortune_training.calendar_foundation import (
     TimeCalendarFoundation,
 )
 from fortune_training.calendar_foundation.bazi import BaziTimeResolver
-from fortune_training.calendar_foundation.models import CivilTimeStatus
+from fortune_training.calendar_foundation.models import CivilTimeStatus, HistoricalTimezoneConfidence
 from fortune_training.calendar_foundation.policies import PolicySelection
 from fortune_training.calendar_foundation.ziwei import ZiweiCalendarResolver
 
@@ -51,6 +54,41 @@ class TimeCalendarFoundationTests(unittest.TestCase):
         self.assertEqual("2000-01-08T04:00:00+00:00", resolved.selected_candidate.utc_instant.isoformat())
         self.assertEqual(8 * 3600, resolved.selected_candidate.utc_offset_seconds)
         self.assertEqual(0, resolved.selected_candidate.daylight_saving_seconds)
+
+    def test_tzdb_confidence_uses_utc_posix_epoch_not_local_calendar_year(self):
+        shanghai = CivilTimeResolver().resolve(
+            birth(datetime(1970, 1, 1, 0, 30), "Shanghai", 121.4737, "Asia/Shanghai")
+        )
+        self.assertEqual("1969-12-31T16:30:00+00:00", shanghai.selected_candidate.utc_instant.isoformat())
+        self.assertEqual(HistoricalTimezoneConfidence.TZDB_PRE_1970_REDUCED, shanghai.historical_confidence)
+        self.assertIn("IANA tzdb does not guarantee complete pre-1970 historical coverage", shanghai.warnings)
+
+        new_york = CivilTimeResolver().resolve(
+            birth(datetime(1969, 12, 31, 19, 30), "New York", -74.006, "America/New_York")
+        )
+        self.assertEqual("1970-01-01T00:30:00+00:00", new_york.selected_candidate.utc_instant.isoformat())
+        self.assertEqual(HistoricalTimezoneConfidence.TZDB_POST_1970, new_york.historical_confidence)
+        self.assertNotIn("IANA tzdb does not guarantee complete pre-1970 historical coverage", new_york.warnings)
+
+    def test_tzdb_version_metadata_follows_zoneinfo_source_precedence(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            zone_file = Path(tmp) / "Asia" / "Shanghai"
+            zone_file.parent.mkdir(parents=True)
+            zone_file.write_bytes(b"synthetic-zone-file")
+            with (
+                patch.object(timezone_module.zoneinfo, "TZPATH", (tmp,)),
+                patch.object(timezone_module, "version", return_value="2099.1"),
+            ):
+                self.assertEqual(
+                    "SYSTEM-TZDB-UNVERSIONED",
+                    CivilTimeResolver._tzdb_version("Asia/Shanghai"),
+                )
+
+        with (
+            patch.object(timezone_module.zoneinfo, "TZPATH", ()),
+            patch.object(timezone_module, "version", return_value="2099.1"),
+        ):
+            self.assertEqual("2099.1", CivilTimeResolver._tzdb_version("Asia/Shanghai"))
 
     def test_true_solar_time_crosses_hour_and_preserves_seconds(self):
         resolved = CivilTimeResolver().resolve(

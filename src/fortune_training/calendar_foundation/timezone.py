@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from datetime import datetime, timezone
 from importlib.metadata import PackageNotFoundError, version
+from pathlib import Path
+import zoneinfo
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 from .models import (
@@ -23,16 +25,28 @@ class CivilTimeResolver:
     algorithm_id = "PYTHON-ZONEINFO-IANA-V1"
 
     @staticmethod
-    def _tzdb_version() -> str:
+    def _tzdb_version(timezone_id: str) -> str:
+        # ZoneInfo searches TZPATH before falling back to the first-party tzdata
+        # package. Never report an installed package version when a system zone
+        # file is the object that actually wins that lookup.
+        for root in zoneinfo.TZPATH:
+            if (Path(root) / timezone_id).is_file():
+                return "SYSTEM-TZDB-UNVERSIONED"
         try:
             return version("tzdata")
         except PackageNotFoundError:
             return "SYSTEM-TZDB-UNVERSIONED"
 
     @staticmethod
-    def _confidence(local_datetime: datetime) -> HistoricalTimezoneConfidence:
-        # IANA defines post-1970 timestamps as the design scope of location zones.
-        if local_datetime.year >= 1970:
+    def _confidence(local_datetime: datetime, zone: ZoneInfo) -> HistoricalTimezoneConfidence:
+        # IANA's location-zone design boundary is the POSIX Epoch in UTC, not
+        # the wall clock's calendar year. Use both folds conservatively.
+        epoch = datetime(1970, 1, 1, tzinfo=timezone.utc)
+        possible_utc = {
+            local_datetime.replace(tzinfo=zone, fold=fold).astimezone(timezone.utc)
+            for fold in (0, 1)
+        }
+        if possible_utc and min(possible_utc) >= epoch:
             return HistoricalTimezoneConfidence.TZDB_POST_1970
         return HistoricalTimezoneConfidence.TZDB_PRE_1970_REDUCED
 
@@ -75,7 +89,7 @@ class CivilTimeResolver:
                 candidates=(),
                 selected_candidate=None,
                 timezone_id=timezone_id,
-                tzdb_version=self._tzdb_version(),
+                tzdb_version=self._tzdb_version(timezone_id),
                 historical_confidence=HistoricalTimezoneConfidence.NOT_RESOLVED,
                 warnings=("UTC cannot be derived unless input_time_type is CIVIL",),
             )
@@ -90,7 +104,8 @@ class CivilTimeResolver:
             if candidate is not None:
                 candidates_by_utc.setdefault(candidate.utc_instant, candidate)
         candidates = tuple(sorted(candidates_by_utc.values(), key=lambda item: item.utc_instant))
-        confidence = self._confidence(local_datetime)
+        tzdb_version = self._tzdb_version(timezone_id)
+        confidence = self._confidence(local_datetime, zone)
         warnings: list[str] = []
         if confidence is HistoricalTimezoneConfidence.TZDB_PRE_1970_REDUCED:
             warnings.append("IANA tzdb does not guarantee complete pre-1970 historical coverage")
@@ -101,7 +116,7 @@ class CivilTimeResolver:
                 candidates=(),
                 selected_candidate=None,
                 timezone_id=timezone_id,
-                tzdb_version=self._tzdb_version(),
+                tzdb_version=tzdb_version,
                 historical_confidence=confidence,
                 warnings=tuple(warnings + ["reported wall time falls in a timezone gap"]),
             )
@@ -111,7 +126,7 @@ class CivilTimeResolver:
                 candidates=candidates,
                 selected_candidate=candidates[0],
                 timezone_id=timezone_id,
-                tzdb_version=self._tzdb_version(),
+                tzdb_version=tzdb_version,
                 historical_confidence=confidence,
                 warnings=tuple(warnings),
             )
@@ -126,7 +141,7 @@ class CivilTimeResolver:
             candidates=candidates,
             selected_candidate=selected,
             timezone_id=timezone_id,
-            tzdb_version=self._tzdb_version(),
+            tzdb_version=tzdb_version,
             historical_confidence=confidence,
             warnings=tuple(warnings + (["ambiguous wall time requires an explicit fold policy"] if selected is None else [])),
         )
