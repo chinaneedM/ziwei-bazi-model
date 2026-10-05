@@ -1,0 +1,146 @@
+{
+  "schema": "ZIWEI-MONTH-JIESHEN-HISTORICAL-IDENTITY-CLOSURE-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-MONTH-JIESHEN-HISTORICAL-IDENTITY-CLOSURE-NZ",
+  "prior_batch_id": "BATCH-12-ZIWEI-STANDALONE-FEILIAN-HISTORICAL-IDENTITY-CLOSURE-NY",
+  "batch_classification": "POST_AUDIT_EVIDENCE_CLOSURE_NOT_SUPPLEMENTAL_RULE_AUDIT",
+  "target_rule_ids": [
+    "HPA-ZMINOR-023"
+  ],
+  "target_status_before": "SOURCE_INSUFFICIENT",
+  "target_status_after": "HISTORICALLY_SUPPORTED",
+  "adjudication": "MONTH_BASED_JIESHEN_GEOMETRY_IS_PREMODERN_HISTORICALLY_ATTESTED; ZIWEI_ADOPTION_PATH_REMAINS_UNRESOLVED; YEAR_BASED_JIESHEN_NIANJIE_REMAINS_A_SEPARATE_TEMPORAL_IDENTITY",
+  "runtime_rule": {
+    "entity_id": "STAR.JIESHEN",
+    "display_name": "解神",
+    "project_disambiguation_name": "月解 / month-based 解神",
+    "input": "raw_lunar_month after explicit Wenmo leap-month coordinate policy",
+    "source_ref": "S01:ZZZA-PR-047",
+    "table": {
+      "1": "申",
+      "2": "申",
+      "3": "戌",
+      "4": "戌",
+      "5": "子",
+      "6": "子",
+      "7": "寅",
+      "8": "寅",
+      "9": "辰",
+      "10": "辰",
+      "11": "午",
+      "12": "午"
+    },
+    "runtime_path": "src/fortune_training/ziwei_chart/minor_stars.py",
+    "algorithm_changed": false
+  },
+  "historical_geometry_closure": {
+    "month_values_checked": 12,
+    "month_values_matched": 12,
+    "table": {
+      "1": "申",
+      "2": "申",
+      "3": "戌",
+      "4": "戌",
+      "5": "子",
+      "6": "子",
+      "7": "寅",
+      "8": "寅",
+      "9": "辰",
+      "10": "辰",
+      "11": "午",
+      "12": "午"
+    },
+    "coordinate_reopen_required": false,
+    "scope": "MONTH_BASED_PLACEMENT_GEOMETRY_AND_MONTH_DEITY_IDENTITY_ONLY"
+  },
+  "historical_witnesses": [
+    {
+      "source_id": "EXT-SHIDIAN-LISHIMINGYUAN-JIESHEN",
+      "work": "《历事明原》第二",
+      "attribution": "[元]曹震圭",
+      "date_scope": "Yuan textual tradition; reviewed surface is modern digital transcription, not a physical Yuan copy.",
+      "passage_scope": "总要历曰解神者月中善神也；历例列正二申、三四戌、五六子、七八寅、九十辰、十一十二午；曹震圭解释其常居与月建相对之阳辰。",
+      "role": "PREMODERN_TEXTUAL_WITNESS_FOR_MONTH_JIESHEN_RULE_WITH_OCR_GLYPH_NOISE",
+      "direct_physical_copy_reviewed": false,
+      "transcription_noise_note": "Reviewed Shidian surface contains OCR-corrupted tokens around 戌/十二/月午; exact geometry is cross-controlled by the clean Qing received witnesses and is not glyph-adjudicated from this surface alone."
+    },
+    {
+      "source_id": "EXT-CTEXT-XINGLI-KAOYUAN-JIESHEN",
+      "work": "《御定星历考原》卷三",
+      "date_scope": "康熙五十二年（1713）御定; reviewed surface is received digital transcription.",
+      "passage_scope": "解神条明载正二月申、三四月戌、五六月子、七八月寅、九十月辰、十一月十二月午，并引总要历、历例及曹震圭义。",
+      "role": "CLEAN_QING_RECEIVED_WITNESS_FOR_EXACT_12_MONTH_GEOMETRY",
+      "direct_physical_copy_reviewed": false
+    },
+    {
+      "source_id": "EXT-WIKISOURCE-XIEJI-BIANFANG-JIESHEN",
+      "work": "《钦定协纪辨方书》卷五",
+      "date_scope": "Qianlong official compilation; reviewed surface is Siku received transcription.",
+      "passage_scope": "重录同一十二月解神表，并进一步解释六阳辰/六阴辰为何取冲与阳辰之冲。",
+      "role": "QING_OFFICIAL_RECEIVED_WITNESS_FOR_EXACT_TABLE_AND_MECHANICAL_GLOSS",
+      "direct_physical_copy_reviewed": false
+    }
+  ],
+  "earlier_citation_boundary": {
+    "cited_sources": [
+      "《总要历》",
+      "《历例》"
+    ],
+    "lishimingyuan_explicitly_attributes_definition_to_zongyaoli": true,
+    "lishimingyuan_explicitly_attributes_month_table_to_lili": true,
+    "xingli_kaoyuan_preserves_same_attributions": true,
+    "xieji_bianfang_preserves_same_attributions": true,
+    "exact_bibliographic_identity_of_zongyaoli": "UNRESOLVED",
+    "exact_bibliographic_identity_of_lili": "UNRESOLVED",
+    "surviving_direct_rule_text_from_those_cited_source_works_reviewed": false,
+    "ancestry_claim": "CITATION_LAYER_EXISTS; EXACT_SOURCE_WORK_RECENSION_AND_DIRECT_TEXTUAL_ANCESTRY_NOT_CLOSED"
+  },
+  "identity_firewall": {
+    "month_identity": "STAR.JIESHEN",
+    "month_basis": "LUNAR_MONTH_TWO_MONTH_PER_PALACE_TABLE",
+    "year_identity": "STAR.NIANJIE",
+    "year_display_name": "年解",
+    "year_basis": "BIRTH_YEAR_BRANCH_REVERSE_SEQUENCE_FROM_ZI_YEAR_XU",
+    "year_rule_matrix_id": "HPA-ZMINOR-006",
+    "same_historical_identity_proved": false,
+    "same_algorithm": false,
+    "same_input_dimension": false,
+    "historical_same_term_note": "Premodern calendrical texts call the monthly deity 解神; received Ziwei Fullbook also uses 解神 for a year-based rule. Project display 年解 is an explicit disambiguation label, not proof of ancient terminology separation.",
+    "runtime_identity_merge": false
+  },
+  "status_adjudication": {
+    "historically_supported_scope": "The month-based 解神 table and its identity as a 月中善神 are directly attested in premodern received textual tradition.",
+    "not_closed_scope": [
+      "When and through which textual/school route the month-based 解神 table entered Ziwei Doushu practice.",
+      "Exact bibliographic/recensional identities of the cited 总要历 and 历例 sources.",
+      "Any historical assertion that month 解神 and year 解神 were always treated as one or as two entities across all traditions."
+    ],
+    "algorithm_reopen_authorized": false,
+    "production_default_changed": false,
+    "candidate_created": false
+  },
+  "accounting": {
+    "rows": 220,
+    "audited_rows": 220,
+    "current_missing_from_product": 10,
+    "provenance_defects_confirmed_before": 40,
+    "provenance_defects_confirmed_after": 40,
+    "provenance_defects_repaired_before": 40,
+    "provenance_defects_repaired_after": 40,
+    "source_insufficient_before": 10,
+    "source_insufficient_after": 9,
+    "historically_supported_before": 95,
+    "historically_supported_after": 96,
+    "chart_algorithm_defects": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0
+  },
+  "transmission_impact": {
+    "status": "GRAPH_UPDATE_REQUIRED",
+    "reason": "The month-based Jieshen rule now has a premodern calendrical transmission layer and must be graph-separated from the received Ziwei year-based Jieshen/Nianjie identity."
+  },
+  "next_gate": [
+    "12OA: audit HPA-ZMINOR-024 Tianwu lunar-month table; derive whether the historical 常居月建前二辰 rule equals the current four-palace table before any status change.",
+    "Continue seeking edition-bound Ziwei adoption evidence for month Jieshen without reopening its now-closed historical placement geometry."
+  ]
+}
