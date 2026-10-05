@@ -1,0 +1,196 @@
+{
+  "schema": "ZIWEI-TIANWU-HOMONYM-MECHANICAL-SEPARATION-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-TIANWU-HOMONYM-MECHANICAL-SEPARATION-OA",
+  "prior_batch_id": "BATCH-12-ZIWEI-MONTH-JIESHEN-HISTORICAL-IDENTITY-CLOSURE-NZ",
+  "batch_classification": "POST_AUDIT_NEGATIVE_SOURCE_DOMAIN_CLOSURE_NOT_SUPPLEMENTAL_RULE_AUDIT",
+  "target_rule_ids": [
+    "HPA-ZMINOR-024"
+  ],
+  "target_status_before": "SOURCE_INSUFFICIENT",
+  "target_status_after": "SOURCE_INSUFFICIENT",
+  "adjudication": "PREMODERN_CALENDRICAL_TIANWU_IS_HISTORICALLY_ATTESTED_BUT_MECHANICALLY_NON_EQUIVALENT_TO_THE_CURRENT_ZIWEI_FOUR_HORSE_MONTH_TABLE; HOMONYM_EVIDENCE_IS_REJECTED_AS_RUNTIME_PROVENANCE",
+  "runtime_rule": {
+    "entity_id": "STAR.TIANWU",
+    "display_name": "天巫",
+    "input": "raw_lunar_month after explicit Ziwei month/leap-month coordinate resolution",
+    "source_ref": "S01:ZZZA-PR-048",
+    "table": {
+      "1": "巳",
+      "2": "申",
+      "3": "寅",
+      "4": "亥",
+      "5": "巳",
+      "6": "申",
+      "7": "寅",
+      "8": "亥",
+      "9": "巳",
+      "10": "申",
+      "11": "寅",
+      "12": "亥"
+    },
+    "runtime_path": "src/fortune_training/ziwei_chart/minor_stars.py",
+    "algorithm_changed": false
+  },
+  "historical_homonym_rule": {
+    "domain": "PREMODERN_CALENDRICAL_SELECTION_MONTH_DEITY",
+    "mechanical_phrase": "历例曰：常居月建前二辰。",
+    "interpretation_control": "Xingli Kaoyuan's neighboring Fude explanation gives 正月建寅→辰、二月建卯→巳、三月建辰→午, fixing 前二辰 as forward two branches.",
+    "lunar_month_build_branches": {
+      "1": "寅",
+      "2": "卯",
+      "3": "辰",
+      "4": "巳",
+      "5": "午",
+      "6": "未",
+      "7": "申",
+      "8": "酉",
+      "9": "戌",
+      "10": "亥",
+      "11": "子",
+      "12": "丑"
+    },
+    "derived_table": {
+      "1": "辰",
+      "2": "巳",
+      "3": "午",
+      "4": "未",
+      "5": "申",
+      "6": "酉",
+      "7": "戌",
+      "8": "亥",
+      "9": "子",
+      "10": "丑",
+      "11": "寅",
+      "12": "卯"
+    },
+    "source_family_labels": [
+      "《总要历》",
+      "《历例》"
+    ]
+  },
+  "mechanical_comparison": {
+    "month_values_checked": 12,
+    "exact_match_count": 2,
+    "exact_mismatch_count": 10,
+    "matching_months": [
+      8,
+      11
+    ],
+    "mismatching_months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      9,
+      10,
+      12
+    ],
+    "runtime_table": {
+      "1": "巳",
+      "2": "申",
+      "3": "寅",
+      "4": "亥",
+      "5": "巳",
+      "6": "申",
+      "7": "寅",
+      "8": "亥",
+      "9": "巳",
+      "10": "申",
+      "11": "寅",
+      "12": "亥"
+    },
+    "classical_table": {
+      "1": "辰",
+      "2": "巳",
+      "3": "午",
+      "4": "未",
+      "5": "申",
+      "6": "酉",
+      "7": "戌",
+      "8": "亥",
+      "9": "子",
+      "10": "丑",
+      "11": "寅",
+      "12": "卯"
+    },
+    "same_mechanical_rule": false,
+    "coordinate_coincidence_proves_identity": false,
+    "runtime_provenance_closed_by_classical_homonym": false
+  },
+  "historical_witnesses": [
+    {
+      "source_id": "EXT-SHIDIAN-LISHIMINGYUAN-TIANWU",
+      "work": "《历事明原》第二",
+      "role": "PREMODERN_HOMONYM_WITNESS_FOR_A_DIFFERENT_MONTH_MECHANIC",
+      "direct_physical_copy_reviewed": false
+    },
+    {
+      "source_id": "EXT-CTEXT-XINGLI-KAOYUAN-TIANWU",
+      "work": "《御定星历考原》卷三",
+      "role": "QING_RECEIVED_MECHANICAL_DISAMBIGUATION_WITNESS",
+      "direct_physical_copy_reviewed": false
+    },
+    {
+      "source_id": "EXT-WIKISOURCE-XIEJI-BIANFANG-TIANWU",
+      "work": "《钦定协纪辨方书》卷四",
+      "role": "QING_OFFICIAL_DOMAIN_AND_MECHANIC_WITNESS",
+      "direct_physical_copy_reviewed": false
+    }
+  ],
+  "earlier_citation_boundary": {
+    "cited_sources": [
+      "《总要历》",
+      "《历例》"
+    ],
+    "exact_bibliographic_identity_of_zongyaoli": "UNRESOLVED",
+    "exact_bibliographic_identity_of_lili": "UNRESOLVED",
+    "direct_surviving_rule_text_from_those_cited_source_works_reviewed": false,
+    "ancestry_claim": "CITATION_LAYER_EXISTS_FOR_THE_CALENDRICAL_HOMONYM_ONLY; IT_DOES_NOT_CLOSE_ZIWEI_RUNTIME_ANCESTRY"
+  },
+  "identity_firewall": {
+    "calendrical_identity": "PREMODERN_TIANWU_MONTH_DEITY",
+    "calendrical_basis": "MONTH_BUILD_PLUS_TWO_BRANCHES",
+    "ziwei_identity": "STAR.TIANWU",
+    "ziwei_basis": "FOUR_HORSE_PALACE_CYCLE_SI_SHEN_YIN_HAI_BY_LUNAR_MONTH",
+    "same_name_proves_identity": false,
+    "same_mechanical_rule": false,
+    "same_table": false,
+    "runtime_identity_merge": false
+  },
+  "status_adjudication": {
+    "row_status_remains": "SOURCE_INSUFFICIENT",
+    "reason": "The reviewed premodern mechanic is not the current Ziwei table, and no qualifying premodern Ziwei-specific witness for the four-horse table is established.",
+    "algorithm_reopen_authorized": false,
+    "production_default_changed": false,
+    "candidate_created": false,
+    "provenance_defect_created": false
+  },
+  "accounting": {
+    "rows": 220,
+    "audited_rows": 220,
+    "current_missing_from_product": 10,
+    "provenance_defects_confirmed_before": 40,
+    "provenance_defects_confirmed_after": 40,
+    "provenance_defects_repaired_before": 40,
+    "provenance_defects_repaired_after": 40,
+    "source_insufficient_before": 9,
+    "source_insufficient_after": 9,
+    "historically_supported_before": 96,
+    "historically_supported_after": 96,
+    "chart_algorithm_defects": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0
+  },
+  "transmission_impact": {
+    "status": "GRAPH_UPDATE_REQUIRED",
+    "reason": "Separate the premodern calendrical Tianwu homonym from the modern Ziwei four-horse Tianwu rule and reject false same-name ancestry."
+  },
+  "next_gate": [
+    "12OB: audit HPA-ZMINOR-025 Tianyue lunar-month twelve-value table without importing 天月德/天月德合 homonyms.",
+    "Continue seeking an edition-bound premodern Ziwei Tianwu four-horse table."
+  ]
+}
