@@ -34,7 +34,7 @@ Every row carries:
 - proposed action;
 - explicit algorithm-reopen authorization, which is **false for every inventory row at creation**.
 
-The initial inventory contained **107 rule/field families**. Through Batch 12NR and explicit splitting of historically distinct candidate families, the current machine-readable inventory contains **220 rows**, with **220 audited rows**. It intentionally keeps unresolved source work explicit rather than converting uncertainty into a chart defect. The current audit ledger records **39 confirmed provenance metadata defects repaired forward-only at the provenance/hash-lineage layer, 0 chart algorithm defects, 0 algorithm reopens, 14 cumulatively identified missing candidate families, 10 rows currently `MISSING_FROM_PRODUCT`, 6 historical candidate extensions, 3 source-scoped historical candidate registries, and 3 runtime-resolver components**.
+The initial inventory contained **107 rule/field families**. Through Batch 12NR and explicit splitting of historically distinct candidate families, the current machine-readable inventory contains **220 rows**, with **220 audited rows**. It intentionally keeps unresolved source work explicit rather than converting uncertainty into a chart defect. The current audit ledger records **40 confirmed provenance metadata defects repaired forward-only at the provenance/hash-lineage layer, 0 chart algorithm defects, 0 algorithm reopens, 14 cumulatively identified missing candidate families, 10 rows currently `MISSING_FROM_PRODUCT`, 6 historical candidate extensions, 3 source-scoped historical candidate registries, and 3 runtime-resolver components**.
 
 ## Research-corpus authority
 
@@ -1637,4 +1637,20 @@ No Matrix status, runtime, candidate selection, production default, provenance c
 Next: **12NW — HPA-ZIWEI-023 Zi/Wu Shenzhu Fire/Bell evidence closure**. A Fire or Bell winner remains forbidden unless edition/source/commentary evidence actually closes it.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-UNRESOLVED-HISTORICAL-STATUS-PRIORITIZATION-NV.md`. Research record: `docs/research/HISTORICAL-UNRESOLVED-STATUS-PRIORITIZATION-R1.json`.
+
+## Progress — Batch 12NW
+
+HPA-ZIWEI-023 **Zi/Wu Shenzhu Fire/Bell textual composite** remains `SOURCE_INSUFFICIENT`.
+
+The 1581 Jielan source still reads `子午生人铃火宿` and then glosses Zi/Wu as `火铃为身主`; the received Fullbook corpus likewise preserves `火玲/火铃` composite wording. Nothing in those source surfaces uniquely selects Fire. Public modern commentary does not close the gap: one editorial surface calls `火玲星` the base reading and Fire the common reading, while another current rules surface maps Zi/Wu to Bell. These are modern interpretation/compatibility surfaces, not Ming textual arbitration.
+
+The repository boundary is now explicit. Strict QS continues to raise `QS_SHENZHU_ZI_WU_TEXTUAL_AMBIGUITY`; the Jielan sidecar keeps `TEXTUAL_COMPOSITE_FIRE_BELL_NOT_UNIQUELY_ARBITRATED` and `winner_selected=false`; production still maps Zi/Wu to Fire. Existing Wenmo role fixtures do **not** independently test Zi/Wu Shenzhu: the role fixture observes a Si-year Tianji binding, while Zi-year fixtures only discriminate the separately placed Fire/Bell stars.
+
+**PROV-DEFECT-040** repaired a documentation/provenance-scope overclaim: `WenmoDefaultRoleGenerator` previously described the full table as matching Wenmo's default convention without identifying the unverified Zi/Wu branch pair. The runtime docstring/comment now records Zi/Wu Fire as an operational compatibility default inherited from S01 normalization, not historical closure or independently observed Wenmo compatibility.
+
+No role value, source_refs tuple, rule-set identity, fact/computation hash, candidate selection or chart algorithm changed. Matrix220/220/10; provenance40/40; chart algorithm defects/reopens/candidate collapses0. `transmission_impact=NONE`.
+
+Next: **12NX — HPA-ZIWEI-026 Jiangqian temporal/source-scope evidence closure**.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZI-WU-SHENZHU-FIRE-BELL-EVIDENCE-CLOSURE-NW.md`. Research record: `docs/research/ZIWEI-ZI-WU-SHENZHU-FIRE-BELL-EVIDENCE-CLOSURE-R1.json`.
 
