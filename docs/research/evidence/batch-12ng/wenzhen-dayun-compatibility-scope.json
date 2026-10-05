@@ -1,0 +1,58 @@
+{
+  "schema": "BAZI-DAYUN-WENZHEN-COMPATIBILITY-SCOPE-EVIDENCE-R1",
+  "schema_version": "1.0.0",
+  "parent_head": "9686c6526a948139888948851c254494cb9b0a2f",
+  "fixture": {
+    "path": "tests/fixtures/bazi-dayun-wenzhen-compatibility-r1.json",
+    "git_blob_sha": "88f59ecf384d6549befc9c2c757ed8dc949900c1",
+    "fixture_set_id": "BAZI-DAYUN-WENZHEN-COMPATIBILITY-R1",
+    "fixture_set_version": "1.0.0",
+    "authority_class": "THIRD_PARTY_COMPATIBILITY_WITNESS",
+    "canonical_calendar_truth": false,
+    "profile_id": "BAZI-TEMPORAL-WENZHEN-CHINA-COMPATIBILITY-R1",
+    "profile_version": "1.0.0",
+    "ui_symbolic_age_precision": "YEAR_MONTH_DAY_HOUR",
+    "transition_minute_second_certified": false,
+    "case_ids": [
+      "A7",
+      "A8",
+      "A9",
+      "A10",
+      "A11"
+    ]
+  },
+  "runtime_profile": {
+    "path": "src/fortune_training/bazi_temporal/profile.py",
+    "git_blob_sha": "894b610576438b5713ceae6632fab4c37d636d80",
+    "profile_id": "BAZI-TEMPORAL-WENZHEN-CHINA-COMPATIBILITY-R1",
+    "profile_version": "1.0.0",
+    "algorithm_id": "BAZI-DAYUN-TEMPORAL-ENGINE-V1",
+    "algorithm_version": "1.1.1",
+    "interval_coordinate_policy": "BIRTH_LOCAL_APPARENT_SOLAR_CLOCK_TO_JIE_CHINA_STANDARD_CLOCK",
+    "interval_granularity_rule_set": "WENZHEN_UI_HOUR_OBSERVED_INTERNAL_MICROSECOND_R1",
+    "calendar_realization_rule_set": "CALENDAR_MONTH_DISPLACEMENT_THEN_DAY_HOUR_R1",
+    "calendar_realization_source_class": "THIRD_PARTY_COMPATIBILITY_WITNESS",
+    "dayun_boundary_rule_set": "PROLEPTIC_GREGORIAN_10Y_CHINA_STANDARD_ANNIVERSARY"
+  },
+  "regression_surface": {
+    "compatibility_test_path": "tests/test_bazi_temporal_wenzhen_compatibility.py",
+    "compatibility_test_blob_sha": "0d074a1e257e5d24bbb49d19a8b10c9fee51cbe7",
+    "jie_boundary_test_path": "tests/test_bazi_temporal_wenzhen_jie_boundary.py",
+    "jie_boundary_test_blob_sha": "89a5fd61f37764ff7b200dddd4a6fb60687b8e66",
+    "documentation_path": "docs/BAZI-TEMPORAL-V1-R1.md",
+    "documentation_blob_sha": "4c4caeef4cf5a187fdd4440105cf46ee46aa3425"
+  },
+  "matrix_profile_id_repair": {
+    "defect_id": "PROV-DEFECT-028",
+    "before": "BAZI-TEMPORAL-V1-WENZHEN-CHINA-COMPATIBILITY-R1",
+    "after": "BAZI-TEMPORAL-WENZHEN-CHINA-COMPATIBILITY-R1",
+    "runtime_behavior_changed": false
+  },
+  "authority_firewall": {
+    "historical_authority": false,
+    "classical_dayun_winner_selected": false,
+    "reference_product_behavior_only": true,
+    "ui_transition_minute_second_certified": false,
+    "transmission_edge_created": false
+  }
+}

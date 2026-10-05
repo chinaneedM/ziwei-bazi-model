@@ -996,21 +996,24 @@
       "module": "大运",
       "rule_or_field": "Wenzhen China Dayun compatibility realization",
       "current_implementation": "Explicit compatibility profile inferred from external observed fixtures.",
-      "current_profile": "BAZI-TEMPORAL-V1-WENZHEN-CHINA-COMPATIBILITY-R1",
-      "primary_source": "External Wenzhen observations A7–A11",
-      "source_quote": "PENDING_VERBATIM_EXTRACTION",
-      "source_quote_location": "src/fortune_training/bazi_temporal/profile.py wenzhen compatibility profile",
+      "current_profile": "BAZI-TEMPORAL-WENZHEN-CHINA-COMPATIBILITY-R1",
+      "primary_source": "Project-captured Wenzhen A7-A11 modern software observations (compatibility fixture; not historical authority)",
+      "source_quote": "authority_class=THIRD_PARTY_COMPATIBILITY_WITNESS; canonical_calendar_truth=false; transition_minute_second_certified=false",
+      "source_quote_location": "tests/fixtures/bazi-dayun-wenzhen-compatibility-r1.json authority/capture/model contract",
       "historical_period": "MODERN_SOFTWARE_WITNESS",
-      "later_witnesses": "Wenzhen fixtures",
-      "school_attribution": "WENZHEN_COMPATIBILITY",
+      "later_witnesses": "Focused Wenzhen compatibility and mixed-clock Jie-boundary regressions",
+      "school_attribution": "WENZHEN_COMPATIBILITY_WITNESS_NOT_HISTORICAL_SCHOOL_AUTHORITY",
       "competing_methods": [
-        "continuous canonical-oriented profile"
+        "MODERN_CONTINUOUS_RATIO_120X engineering profile",
+        "historical lunisolar calendarized Dayun schedule family",
+        "later Qianli calendarized handover method"
       ],
-      "current_implementation_match": "MATCHES_DECLARED_COMPAT_SCOPE",
-      "confidence": "HIGH",
+      "current_implementation_match": "MATCHES_RECORDED_A7_A11_COMPATIBILITY_SCOPE; PROV-DEFECT-028 repairs stale Matrix profile ID only",
+      "confidence": "HIGH_FOR_RECORDED_A7_A11_COMPATIBILITY_BEHAVIOR; UI_PRECISION_CEILING_HOUR; NONE_FOR_HISTORICAL_AUTHORITY",
       "audit_status": "MODERN_COMPATIBILITY_ONLY",
-      "proposed_action": "Retain comparison-only; never promote external behavior to historical authority.",
-      "algorithm_reopen_authorized": false
+      "proposed_action": "Retain comparison-only. Keep mixed-clock interval, Gregorian month displacement and China-standard anniversary behavior scoped to the named Wenzhen compatibility profile; never use it to select a historical winner.",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-12-BAZI-DAYUN-WENZHEN-COMPATIBILITY-SCOPE-AUDIT-NG"
     },
     {
       "rule_id": "HPA-DAYUN-007",
@@ -7297,12 +7300,13 @@
     "HPA-TIME-001",
     "HPA-TIME-002",
     "HPA-TIME-004",
-    "HPA-TIME-011"
+    "HPA-TIME-011",
+    "HPA-DAYUN-006"
   ],
   "audit_summary": {
     "confirmed_chart_algorithm_defect_count": 0,
-    "confirmed_provenance_metadata_defect_count": 27,
-    "repaired_provenance_metadata_defect_count": 27,
+    "confirmed_provenance_metadata_defect_count": 28,
+    "repaired_provenance_metadata_defect_count": 28,
     "algorithm_reopen_count": 0,
     "candidate_collapse_count": 0,
     "historical_candidate_extension_count": 6,
@@ -7334,6 +7338,7 @@
     "BATCH-12-TIME-CIVIL-TZDB-INSTANT-RESOLUTION-AUDIT-NC",
     "BATCH-12-TIME-AMBIGUOUS-CIVIL-FOLD-GAP-HANDLING-AUDIT-ND",
     "BATCH-12-TIME-MODERN-CHINESE-CALENDAR-CONSTRUCTION-AUDIT-NE",
-    "BATCH-12-TIME-APPROXIMATE-BIRTH-TIME-SAMPLING-AUDIT-NF"
+    "BATCH-12-TIME-APPROXIMATE-BIRTH-TIME-SAMPLING-AUDIT-NF",
+    "BATCH-12-BAZI-DAYUN-WENZHEN-COMPATIBILITY-SCOPE-AUDIT-NG"
   ]
 }

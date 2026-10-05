@@ -890,9 +890,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-TIME-AMBIGUOUS-CIVIL-FOLD-GAP-HANDLING-AUDIT-ND",
     "BATCH-12-TIME-MODERN-CHINESE-CALENDAR-CONSTRUCTION-AUDIT-NE",
     "BATCH-12-TIME-APPROXIMATE-BIRTH-TIME-SAMPLING-AUDIT-NF",
+    "BATCH-12-BAZI-DAYUN-WENZHEN-COMPATIBILITY-SCOPE-AUDIT-NG",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-TIME-APPROXIMATE-BIRTH-TIME-SAMPLING-AUDIT-NF.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-DAYUN-WENZHEN-COMPATIBILITY-SCOPE-AUDIT-NG.md"
 
 
 def fail(message: str) -> None:
@@ -14889,6 +14890,36 @@ def main() -> int:
         fail("Batch 12NF provenance accounting must retain at least 27/27")
     if nf.get("algorithm_reopen_authorized") is not False or nf.get("transmission_impact", {}).get("status") != "NONE":
         fail("Batch 12NF reopen/transmission scope drift")
+
+    # Batch 12NG: Wenzhen China Dayun behavior is a modern third-party compatibility witness only.
+    ng_path = ROOT / "docs/research/BAZI-DAYUN-WENZHEN-COMPATIBILITY-SCOPE-AUDIT-R1.json"
+    if not ng_path.is_file():
+        fail("Batch 12NG research record missing")
+    ng = json.loads(ng_path.read_text(encoding="utf-8"))
+    ng_id = "BATCH-12-BAZI-DAYUN-WENZHEN-COMPATIBILITY-SCOPE-AUDIT-NG"
+    if ng.get("batch_id") != ng_id or ng.get("prior_batch_id") != nf_id or ng_id not in rule_batches:
+        fail("Batch 12NG chronology drift")
+    row_ng = next(r for r in matrix["rows"] if r["rule_id"] == "HPA-DAYUN-006")
+    if row_ng.get("audit_status") != "MODERN_COMPATIBILITY_ONLY" or row_ng.get("audit_batch") != ng_id or "HPA-DAYUN-006" not in matrix["audited_row_ids"]:
+        fail("Batch 12NG Wenzhen compatibility audit row drift")
+    if row_ng.get("current_profile") != "BAZI-TEMPORAL-WENZHEN-CHINA-COMPATIBILITY-R1":
+        fail("Batch 12NG Wenzhen profile identity drift")
+    repairs_ng = {x.get("defect_id") for x in ng.get("provenance_repairs", ())}
+    if repairs_ng != {"PROV-DEFECT-028"}:
+        fail("Batch 12NG provenance repair identity drift")
+    witness_ng = ng.get("compatibility_witness", {})
+    if witness_ng.get("authority_class") != "THIRD_PARTY_COMPATIBILITY_WITNESS" or witness_ng.get("canonical_calendar_truth") is not False or witness_ng.get("transition_minute_second_certified") is not False:
+        fail("Batch 12NG compatibility authority/precision firewall drift")
+    runtime_ng = ng.get("runtime_scope", {})
+    if runtime_ng.get("profile_id") != "BAZI-TEMPORAL-WENZHEN-CHINA-COMPATIBILITY-R1" or runtime_ng.get("algorithm_version") != "1.1.1" or runtime_ng.get("calendar_realization_source_class") != "THIRD_PARTY_COMPATIBILITY_WITNESS":
+        fail("Batch 12NG runtime compatibility scope drift")
+    firewall_ng = ng.get("historical_scope_firewall", {})
+    if firewall_ng.get("wenzhen_profile_is_historical_authority") is not False or firewall_ng.get("wenzhen_profile_selects_historical_calendar_realization_winner") is not False:
+        fail("Batch 12NG historical-authority firewall drift")
+    if audit_summary.get("confirmed_provenance_metadata_defect_count", 0) < 28 or audit_summary.get("repaired_provenance_metadata_defect_count", 0) < 28:
+        fail("Batch 12NG provenance accounting must retain at least 28/28")
+    if ng.get("algorithm_reopen_authorized") is not False or ng.get("transmission_impact", {}).get("status") != "NONE":
+        fail("Batch 12NG reopen/transmission scope drift")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")
