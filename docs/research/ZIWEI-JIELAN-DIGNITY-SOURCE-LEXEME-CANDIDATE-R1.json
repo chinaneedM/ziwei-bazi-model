@@ -1,0 +1,84 @@
+{
+  "schema": "ZIWEI-JIELAN-DIGNITY-SOURCE-LEXEME-CANDIDATE-R1",
+  "version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-JIELAN-DIGNITY-SOURCE-LEXEME-CANDIDATE-OM",
+  "date": "2026-10-06",
+  "target_rule_id": "HPA-ZIWEI-018",
+  "source_scope": {
+    "primary": "EXT-ZIWEI-JIELAN-1581:CH70",
+    "parallel": "EXT-ZIWEI-JIELAN-1581:CH69",
+    "primary_role": "STAR_ORIENTED_RAW_LEXEME_CANDIDATE_BASIS",
+    "parallel_role": "PALACE_ORIENTED_PARALLEL_TABLE_PENDING_CELL_LEVEL_CROSS_COLLATION"
+  },
+  "representation": {
+    "registry_id": "ZIWEI-JIELAN-1581-DIGNITY-LEXEME-CANDIDATES-R1",
+    "registry_version": "1.0.0",
+    "runtime_resolver_id": "ZIWEI-JIELAN-1581-DIGNITY-LEXEME-RUNTIME-R1",
+    "runtime_resolver_version": "1.0.0",
+    "selection_status": "PRESERVED_NOT_SELECTED",
+    "normalization_status": "SOURCE_LEXEME_ONLY_NO_PRODUCTION_GRADE_COERCION",
+    "production_grade_mapping_present": false,
+    "entity_count": 25,
+    "cell_count": 300
+  },
+  "source_explicit_gloss_relations": {
+    "旺": "庙",
+    "利": "旺",
+    "平": "闲",
+    "得地": "旺",
+    "嗔": "陷",
+    "地": "得地",
+    "局": "得地",
+    "庭": "庙",
+    "旺地": "旺"
+  },
+  "preserved_anomalies": {
+    "source_conflicts": [
+      {
+        "display_name": "紫微",
+        "branch": "午",
+        "source_lexemes": [
+          "庙",
+          "平"
+        ]
+      },
+      {
+        "display_name": "巨门",
+        "branch": "丑",
+        "source_lexemes": [
+          "局",
+          "陷"
+        ]
+      }
+    ],
+    "unstated_cells": [
+      {
+        "display_name": "天机",
+        "branch": "巳",
+        "status": "UNSTATED_IN_CH70_STAR_VERSE"
+      }
+    ],
+    "repair_or_fill_permission": false
+  },
+  "boundary": {
+    "ch69_used_to_fill_ch70": false,
+    "modern_r4_grade_mapping_permitted": false,
+    "transitive_gloss_collapse_permitted": false,
+    "production_dignity_registry_changed": false,
+    "winner_selected": false
+  },
+  "adjudication": {
+    "status_before": "MISSING_FROM_PRODUCT",
+    "status_after": "MISSING_FROM_PRODUCT",
+    "internal_candidate_readiness": "CH70_RAW_LEXEME_CANDIDATE_READY",
+    "remaining_gap": "CH69/CH70 cell-level reconciliation plus explicit read-only product surface",
+    "chart_algorithm_reopened": false
+  },
+  "accounting": {
+    "historical_candidate_extension_count_after": 14,
+    "historical_candidate_registry_count_after": 5,
+    "historical_candidate_runtime_resolver_count_after": 5,
+    "current_missing_from_product_after": 6
+  },
+  "next": "12ON — cell-level cross-collate Jielan CH69 palace-oriented dignity statements against the CH70 raw-lexeme candidate, preserving corrupt/truncated or contradictory cells."
+}
