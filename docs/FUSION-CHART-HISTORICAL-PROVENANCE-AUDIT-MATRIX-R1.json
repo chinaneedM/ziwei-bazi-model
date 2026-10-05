@@ -45,11 +45,11 @@
   "inventory_summary": {
     "row_count": 220,
     "status_counts": {
-      "HISTORICALLY_SUPPORTED": 95,
+      "HISTORICALLY_SUPPORTED": 96,
       "SUPPORTED_BUT_SCHOOL_SPECIFIC": 24,
       "DISPUTED_MULTIPLE_CANDIDATES": 30,
       "MODERN_COMPATIBILITY_ONLY": 50,
-      "SOURCE_INSUFFICIENT": 10,
+      "SOURCE_INSUFFICIENT": 9,
       "MISSING_FROM_PRODUCT": 10,
       "NOT_YET_FORMALIZED": 1
     },
@@ -4256,21 +4256,47 @@
       "audit_batch": "BATCH-07-ZIWEI-MINOR-STARS-C",
       "rule_id": "HPA-ZMINOR-023",
       "rule_or_field": "月解 / month-based 解神 two-month table",
-      "current_implementation": "STAR.JIESHEN uses 正二申、三四戌、五六子、七八寅、九十辰、十一十二午.",
-      "primary_source": "S01:ZZZA-PR-047 (project research corpus only); no qualifying early/received Ziwei witness for this month table established in Batch 07C",
-      "source_quote": "The project route records a two-month-per-palace 月解 table; received Fullbook's 解神 is instead year-based and already mapped separately to 年解.",
-      "source_quote_location": "S01:ZZZA-PR-047; EXT-ZIWEI-QUANSHU-RECEIVED / 卷二《安天德月德解神诀》",
-      "historical_period": "MODERN_OR_LATER_MONTH_JIESHEN_RULE_GENEALOGY_UNRESOLVED",
-      "later_witnesses": "Modern Zhongzhou-derived manuals reproduce the month table. The early received Fullbook evidence found in this batch supports the distinct year-based 解神, not this 月解 table.",
-      "school_attribution": "CURRENT_MONTH_JIESHEN_YUEJIE_COMPATIBILITY_RULE",
+      "current_implementation": "STAR.JIESHEN uses the month table 正二申、三四戌、五六子、七八寅、九十辰、十一十二午 after the profile's explicit lunar-month/leap-month coordinate resolution. The separate STAR.NIANJIE uses birth-year-branch geometry and is displayed as 年解 for product disambiguation.",
+      "primary_source": "曹震圭《历事明原》第二 preserves 解神 as a 月中善神 and attributes the month table to 历例; 1713 《御定星历考原》卷三 and Qing 《钦定协纪辨方书》卷五 preserve the exact twelve-month table, with the latter retaining a mechanical gloss.",
+      "source_quote": "总要历曰解神者月中善神也；历例曰正二月申三四月戌五六月子七八月寅九十月辰十一月十二月午也。",
+      "source_quote_location": "EXT-SHIDIAN-LISHIMINGYUAN-JIESHEN; EXT-CTEXT-XINGLI-KAOYUAN-JIESHEN; EXT-WIKISOURCE-XIEJI-BIANFANG-JIESHEN; docs/research/ZIWEI-MONTH-JIESHEN-HISTORICAL-IDENTITY-CLOSURE-R1.json",
+      "historical_period": "YUAN_RECEIVED_TEXT_TRADITION_AND_QING_OFFICIAL_RECEIVED_WITNESSES; EARLIER_ZONGYAOLI_AND_LILI_CITATION_LAYERS_PRESENT_BUT_EXACT_BIBLIOGRAPHIC_IDENTITIES_UNRESOLVED",
+      "later_witnesses": "Modern Ziwei/S01 reproduces the same 12-of-12 month geometry. Received Ziwei Fullbook separately transmits a year-based 解神 rule, represented in the product as STAR.NIANJIE/年解; the shared term does not merge temporal identities.",
+      "school_attribution": "PREMODERN_CALENDRICAL_MONTH_DEITY_JIESHEN_RULE_LATER_PRESENT_IN_MODERN_ZIWEI; EXACT_ZIWEI_ADOPTION_LINEAGE_UNRESOLVED",
       "competing_methods": [
-        "month-based 月解 two-month table",
-        "year-based 解神/modern 年解 (separate entity already audited)"
+        "Month-based 解神/月解: lunar-month two-month-per-palace table, now historically supported in premodern calendrical/selective literature.",
+        "Year-based 解神 / modern display 年解: separate received-Ziwei year-branch rule already audited under HPA-ZMINOR-006.",
+        "These are temporal identity neighbors/homonyms, not mutually exclusive candidate methods."
       ],
-      "current_implementation_match": "CURRENT_MONTH_RULE_IS_INTERNALLY_CONSISTENT; HISTORICAL_ZIWEI_BINDING_NOT_ESTABLISHED",
-      "confidence": "HIGH_FOR_SOURCE_GAP_AND_YEAR_MONTH_DISTINCTION",
-      "audit_status": "SOURCE_INSUFFICIENT",
-      "proposed_action": "No coordinate reopen; keep 月解 and 年解 as separate identities and seek edition-bound provenance for the month table."
+      "current_implementation_match": "EXACT_12_OF_12_MONTH_MATCH_TO_PREMODERN_RECEIVED_TABLE; YEAR_BASED JIESHEN_NIANJIE REMAINS_MECHANICALLY_AND_TEMPORALLY_DISTINCT",
+      "confidence": "HIGH_FOR_MONTH_TABLE_GEOMETRY_AND_PREMODERN_MONTH_DEITY_IDENTITY; HIGH_FOR_RUNTIME_SEPARATION_FROM_YEAR_RULE; LOW_TO_MODERATE_FOR_EXACT_ZIWEI_ADOPTION_PATH_AND_EARLIEST_ZONGYAOLI_LILI_RECENSIONS",
+      "audit_status": "HISTORICALLY_SUPPORTED",
+      "proposed_action": "No coordinate or algorithm reopen. Preserve STAR.JIESHEN and STAR.NIANJIE as separate typed temporal identities. Continue genealogy work on 总要历/历例 and on the route by which the month deity table entered Ziwei practice; do not downgrade the now-closed month geometry while that adoption path remains unresolved.",
+      "evidence_closure_batch": "BATCH-12-ZIWEI-MONTH-JIESHEN-HISTORICAL-IDENTITY-CLOSURE-NZ",
+      "evidence_closure_status": "MONTH_GEOMETRY_HISTORICALLY_CLOSED_ZIWEI_ADOPTION_PATH_OPEN_YEAR_IDENTITY_SEPARATED",
+      "identity_reconciliation": {
+        "month_entity_id": "STAR.JIESHEN",
+        "year_entity_id": "STAR.NIANJIE",
+        "month_basis": "LUNAR_MONTH_TWO_MONTH_PER_PALACE_TABLE",
+        "year_basis": "BIRTH_YEAR_BRANCH_REVERSE_SEQUENCE",
+        "same_mechanical_rule": false,
+        "same_input_dimension": false,
+        "historical_same_term_proves_identity": false,
+        "runtime_identity_merge": false,
+        "runtime_changed": false
+      },
+      "transmission_graph_bindings": [
+        "TG-E0125",
+        "TG-E0126",
+        "TG-E0127",
+        "TG-E0128",
+        "TG-E0129",
+        "TG-E0130",
+        "TG-E0131",
+        "TG-E0132",
+        "TG-E0133",
+        "TG-E0134"
+      ]
     },
     {
       "system": "ZIWEI",
