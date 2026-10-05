@@ -3300,6 +3300,93 @@
         "HPA-ZMINOR-023"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-MONTH-JIESHEN-HISTORICAL-IDENTITY-CLOSURE-NZ"
+    },
+    {
+      "node_id": "PASSAGE-LISHIMINGYUAN-TIANWU",
+      "node_type": "PASSAGE",
+      "label": "《历事明原》第二·天巫",
+      "system_scope": "CALENDRICAL_MONTH_TIANWU_PLUS_TWO_BRANCH_RULE_AND_SOURCE_ATTRIBUTION",
+      "date": "YUAN_TEXT_TRADITION; REVIEWED_MODERN_TRANSCRIPTION",
+      "evidence": [
+        "EXT-SHIDIAN-LISHIMINGYUAN-TIANWU"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-TIANWU-HOMONYM-MECHANICAL-SEPARATION-OA"
+    },
+    {
+      "node_id": "PASSAGE-XINGLI-KAOYUAN-TIANWU",
+      "node_type": "PASSAGE",
+      "label": "《御定星历考原》卷三·天巫",
+      "system_scope": "CALENDRICAL_MONTH_TIANWU_PLUS_TWO_BRANCH_RULE",
+      "date": "1713_RECEIVED_TEXT",
+      "evidence": [
+        "EXT-CTEXT-XINGLI-KAOYUAN-TIANWU"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-TIANWU-HOMONYM-MECHANICAL-SEPARATION-OA"
+    },
+    {
+      "node_id": "PASSAGE-XIEJI-BIANFANG-TIANWU",
+      "node_type": "PASSAGE",
+      "label": "《钦定协纪辨方书》卷四·天巫",
+      "system_scope": "CALENDRICAL_JIANCHU_MAN_TIANWU_RULE",
+      "date": "QING_RECEIVED_TEXT",
+      "evidence": [
+        "EXT-WIKISOURCE-XIEJI-BIANFANG-TIANWU"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-TIANWU-HOMONYM-MECHANICAL-SEPARATION-OA"
+    },
+    {
+      "node_id": "SOURCE-FAMILY-ZONGYAOLI-CITED-TIANWU",
+      "node_type": "TEXT_WORK",
+      "label": "被天巫条引用的《总要历》来源层",
+      "system_scope": "CITED_CALENDAR_SOURCE_FAMILY_FOR_TIANWU_DEFINITION_EXACT_BIBLIOGRAPHIC_IDENTITY_UNRESOLVED",
+      "date": "PRE_YUAN_CITATION_SOURCE_FAMILY; EXACT_RECENSION_UNRESOLVED",
+      "evidence": [
+        "EXT-SHIDIAN-LISHIMINGYUAN-TIANWU",
+        "EXT-CTEXT-XINGLI-KAOYUAN-TIANWU",
+        "EXT-WIKISOURCE-XIEJI-BIANFANG-TIANWU"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-TIANWU-HOMONYM-MECHANICAL-SEPARATION-OA"
+    },
+    {
+      "node_id": "SOURCE-FAMILY-LILI-CITED-TIANWU",
+      "node_type": "TEXT_WORK",
+      "label": "被天巫条引用的《历例》来源层",
+      "system_scope": "CITED_CALENDAR_SOURCE_FAMILY_FOR_TIANWU_PLUS_TWO_BRANCH_RULE_EXACT_BIBLIOGRAPHIC_IDENTITY_UNRESOLVED",
+      "date": "PRE_YUAN_CITATION_SOURCE_FAMILY; EXACT_RECENSION_UNRESOLVED",
+      "evidence": [
+        "EXT-SHIDIAN-LISHIMINGYUAN-TIANWU",
+        "EXT-CTEXT-XINGLI-KAOYUAN-TIANWU",
+        "EXT-WIKISOURCE-XIEJI-BIANFANG-TIANWU"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-TIANWU-HOMONYM-MECHANICAL-SEPARATION-OA"
+    },
+    {
+      "node_id": "RULE-FAMILY-TIANWU-CALENDRICAL-MONTH",
+      "node_type": "RULE_FAMILY",
+      "label": "历法／择日天巫月建前二辰规则族",
+      "system_scope": "PREMODERN_CALENDRICAL_MONTH_DEITY_RULE_NOT_CURRENT_ZIWEI_FOUR_HORSE_TABLE",
+      "date": "PREMODERN_ATTESTED",
+      "mechanics": "月建顺推二支：辰巳午未申酉戌亥子丑寅卯",
+      "evidence": [
+        "EXT-SHIDIAN-LISHIMINGYUAN-TIANWU",
+        "EXT-CTEXT-XINGLI-KAOYUAN-TIANWU",
+        "EXT-WIKISOURCE-XIEJI-BIANFANG-TIANWU",
+        "HPA-ZMINOR-024"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-TIANWU-HOMONYM-MECHANICAL-SEPARATION-OA"
+    },
+    {
+      "node_id": "RULE-FAMILY-ZIWEI-TIANWU-FOUR-HORSE-MONTH",
+      "node_type": "RULE_FAMILY",
+      "label": "紫微天巫四马地月表规则族",
+      "system_scope": "CURRENT_ZIWEI_MONTH_TABLE_HISTORICAL_GENEALOGY_UNRESOLVED",
+      "date": "MODERN_RECEIVED_ZIWEI_ATTESTED; PREMODERN_ZIWEI_ADOPTION_UNRESOLVED",
+      "mechanics": "正五九巳、二六十申、三七十一寅、四八十二亥",
+      "evidence": [
+        "S01:ZZZA-PR-048",
+        "HPA-ZMINOR-024"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-TIANWU-HOMONYM-MECHANICAL-SEPARATION-OA"
     }
   ],
   "edges": [
@@ -5369,6 +5456,156 @@
       "scope_note": "Monthly 解神 and year-based 解神/年解 are separate typed runtime facts. Same historical display term does not prove one identity across temporal layers.",
       "adjudication_batch": "BATCH-12-ZIWEI-MONTH-JIESHEN-HISTORICAL-IDENTITY-CLOSURE-NZ",
       "edge_id": "TG-E0134"
+    },
+    {
+      "edge_id": "TG-E0135",
+      "from": "PASSAGE-LISHIMINGYUAN-TIANWU",
+      "relation": "TRANSMITS_RULE",
+      "to": "RULE-FAMILY-TIANWU-CALENDRICAL-MONTH",
+      "status": "HIGH_CONFIDENCE",
+      "confidence": "HIGH",
+      "evidence_class": "BATCH_12OA_SOURCE_DOMAIN_AND_MECHANICAL_CONTROL",
+      "evidence": [
+        "docs/research/ZIWEI-TIANWU-HOMONYM-MECHANICAL-SEPARATION-R1.json",
+        "docs/research/evidence/batch-12oa/ziwei-tianwu-homonym-mechanical-evidence.json"
+      ],
+      "scope_note": "Attests the calendrical/source layer only; does not prove current Ziwei four-horse-table ancestry.",
+      "adjudication_batch": "BATCH-12-ZIWEI-TIANWU-HOMONYM-MECHANICAL-SEPARATION-OA"
+    },
+    {
+      "edge_id": "TG-E0136",
+      "from": "PASSAGE-LISHIMINGYUAN-TIANWU",
+      "relation": "EXPLICITLY_CITES",
+      "to": "SOURCE-FAMILY-ZONGYAOLI-CITED-TIANWU",
+      "status": "CONFIRMED",
+      "confidence": "HIGH",
+      "evidence_class": "BATCH_12OA_SOURCE_DOMAIN_AND_MECHANICAL_CONTROL",
+      "evidence": [
+        "docs/research/ZIWEI-TIANWU-HOMONYM-MECHANICAL-SEPARATION-R1.json",
+        "docs/research/evidence/batch-12oa/ziwei-tianwu-homonym-mechanical-evidence.json"
+      ],
+      "scope_note": "Attests the calendrical/source layer only; does not prove current Ziwei four-horse-table ancestry.",
+      "adjudication_batch": "BATCH-12-ZIWEI-TIANWU-HOMONYM-MECHANICAL-SEPARATION-OA"
+    },
+    {
+      "edge_id": "TG-E0137",
+      "from": "PASSAGE-LISHIMINGYUAN-TIANWU",
+      "relation": "EXPLICITLY_CITES",
+      "to": "SOURCE-FAMILY-LILI-CITED-TIANWU",
+      "status": "CONFIRMED",
+      "confidence": "HIGH",
+      "evidence_class": "BATCH_12OA_SOURCE_DOMAIN_AND_MECHANICAL_CONTROL",
+      "evidence": [
+        "docs/research/ZIWEI-TIANWU-HOMONYM-MECHANICAL-SEPARATION-R1.json",
+        "docs/research/evidence/batch-12oa/ziwei-tianwu-homonym-mechanical-evidence.json"
+      ],
+      "scope_note": "Attests the calendrical/source layer only; does not prove current Ziwei four-horse-table ancestry.",
+      "adjudication_batch": "BATCH-12-ZIWEI-TIANWU-HOMONYM-MECHANICAL-SEPARATION-OA"
+    },
+    {
+      "edge_id": "TG-E0138",
+      "from": "PASSAGE-XINGLI-KAOYUAN-TIANWU",
+      "relation": "TRANSMITS_RULE",
+      "to": "RULE-FAMILY-TIANWU-CALENDRICAL-MONTH",
+      "status": "CONFIRMED",
+      "confidence": "HIGH",
+      "evidence_class": "BATCH_12OA_SOURCE_DOMAIN_AND_MECHANICAL_CONTROL",
+      "evidence": [
+        "docs/research/ZIWEI-TIANWU-HOMONYM-MECHANICAL-SEPARATION-R1.json",
+        "docs/research/evidence/batch-12oa/ziwei-tianwu-homonym-mechanical-evidence.json"
+      ],
+      "scope_note": "Attests the calendrical/source layer only; does not prove current Ziwei four-horse-table ancestry.",
+      "adjudication_batch": "BATCH-12-ZIWEI-TIANWU-HOMONYM-MECHANICAL-SEPARATION-OA"
+    },
+    {
+      "edge_id": "TG-E0139",
+      "from": "PASSAGE-XINGLI-KAOYUAN-TIANWU",
+      "relation": "EXPLICITLY_CITES",
+      "to": "SOURCE-FAMILY-ZONGYAOLI-CITED-TIANWU",
+      "status": "CONFIRMED",
+      "confidence": "HIGH",
+      "evidence_class": "BATCH_12OA_SOURCE_DOMAIN_AND_MECHANICAL_CONTROL",
+      "evidence": [
+        "docs/research/ZIWEI-TIANWU-HOMONYM-MECHANICAL-SEPARATION-R1.json",
+        "docs/research/evidence/batch-12oa/ziwei-tianwu-homonym-mechanical-evidence.json"
+      ],
+      "scope_note": "Attests the calendrical/source layer only; does not prove current Ziwei four-horse-table ancestry.",
+      "adjudication_batch": "BATCH-12-ZIWEI-TIANWU-HOMONYM-MECHANICAL-SEPARATION-OA"
+    },
+    {
+      "edge_id": "TG-E0140",
+      "from": "PASSAGE-XINGLI-KAOYUAN-TIANWU",
+      "relation": "EXPLICITLY_CITES",
+      "to": "SOURCE-FAMILY-LILI-CITED-TIANWU",
+      "status": "CONFIRMED",
+      "confidence": "HIGH",
+      "evidence_class": "BATCH_12OA_SOURCE_DOMAIN_AND_MECHANICAL_CONTROL",
+      "evidence": [
+        "docs/research/ZIWEI-TIANWU-HOMONYM-MECHANICAL-SEPARATION-R1.json",
+        "docs/research/evidence/batch-12oa/ziwei-tianwu-homonym-mechanical-evidence.json"
+      ],
+      "scope_note": "Attests the calendrical/source layer only; does not prove current Ziwei four-horse-table ancestry.",
+      "adjudication_batch": "BATCH-12-ZIWEI-TIANWU-HOMONYM-MECHANICAL-SEPARATION-OA"
+    },
+    {
+      "edge_id": "TG-E0141",
+      "from": "PASSAGE-XIEJI-BIANFANG-TIANWU",
+      "relation": "TRANSMITS_RULE",
+      "to": "RULE-FAMILY-TIANWU-CALENDRICAL-MONTH",
+      "status": "CONFIRMED",
+      "confidence": "HIGH",
+      "evidence_class": "BATCH_12OA_SOURCE_DOMAIN_AND_MECHANICAL_CONTROL",
+      "evidence": [
+        "docs/research/ZIWEI-TIANWU-HOMONYM-MECHANICAL-SEPARATION-R1.json",
+        "docs/research/evidence/batch-12oa/ziwei-tianwu-homonym-mechanical-evidence.json"
+      ],
+      "scope_note": "Attests the calendrical/source layer only; does not prove current Ziwei four-horse-table ancestry.",
+      "adjudication_batch": "BATCH-12-ZIWEI-TIANWU-HOMONYM-MECHANICAL-SEPARATION-OA"
+    },
+    {
+      "edge_id": "TG-E0142",
+      "from": "PASSAGE-XIEJI-BIANFANG-TIANWU",
+      "relation": "EXPLICITLY_CITES",
+      "to": "SOURCE-FAMILY-ZONGYAOLI-CITED-TIANWU",
+      "status": "CONFIRMED",
+      "confidence": "HIGH",
+      "evidence_class": "BATCH_12OA_SOURCE_DOMAIN_AND_MECHANICAL_CONTROL",
+      "evidence": [
+        "docs/research/ZIWEI-TIANWU-HOMONYM-MECHANICAL-SEPARATION-R1.json",
+        "docs/research/evidence/batch-12oa/ziwei-tianwu-homonym-mechanical-evidence.json"
+      ],
+      "scope_note": "Attests the calendrical/source layer only; does not prove current Ziwei four-horse-table ancestry.",
+      "adjudication_batch": "BATCH-12-ZIWEI-TIANWU-HOMONYM-MECHANICAL-SEPARATION-OA"
+    },
+    {
+      "edge_id": "TG-E0143",
+      "from": "PASSAGE-XIEJI-BIANFANG-TIANWU",
+      "relation": "EXPLICITLY_CITES",
+      "to": "SOURCE-FAMILY-LILI-CITED-TIANWU",
+      "status": "CONFIRMED",
+      "confidence": "HIGH",
+      "evidence_class": "BATCH_12OA_SOURCE_DOMAIN_AND_MECHANICAL_CONTROL",
+      "evidence": [
+        "docs/research/ZIWEI-TIANWU-HOMONYM-MECHANICAL-SEPARATION-R1.json",
+        "docs/research/evidence/batch-12oa/ziwei-tianwu-homonym-mechanical-evidence.json"
+      ],
+      "scope_note": "Attests the calendrical/source layer only; does not prove current Ziwei four-horse-table ancestry.",
+      "adjudication_batch": "BATCH-12-ZIWEI-TIANWU-HOMONYM-MECHANICAL-SEPARATION-OA"
+    },
+    {
+      "edge_id": "TG-E0144",
+      "from": "RULE-FAMILY-TIANWU-CALENDRICAL-MONTH",
+      "relation": "PARALLEL_COEXISTS_WITH",
+      "to": "RULE-FAMILY-ZIWEI-TIANWU-FOUR-HORSE-MONTH",
+      "status": "CONFIRMED",
+      "confidence": "VERY_HIGH_FOR_DISTINCT_MECHANICAL_IDENTITIES",
+      "evidence_class": "BATCH_12OA_SOURCE_DOMAIN_AND_MECHANICAL_CONTROL",
+      "evidence": [
+        "docs/research/ZIWEI-TIANWU-HOMONYM-MECHANICAL-SEPARATION-R1.json",
+        "docs/research/evidence/batch-12oa/ziwei-tianwu-homonym-mechanical-evidence.json"
+      ],
+      "scope_note": "Same name does not imply same rule; only months 8 and 11 coincide.",
+      "adjudication_batch": "BATCH-12-ZIWEI-TIANWU-HOMONYM-MECHANICAL-SEPARATION-OA"
     }
   ],
   "lineage_hypotheses": [
@@ -6221,6 +6458,19 @@
         "HPA-ZMINOR-023"
       ],
       "adjudication_batch": "BATCH-12-ZIWEI-MONTH-JIESHEN-HISTORICAL-IDENTITY-CLOSURE-NZ"
+    },
+    {
+      "from": "RULE-FAMILY-TIANWU-CALENDRICAL-MONTH",
+      "relation": "SAME_MECHANICAL_RULE_AS",
+      "to": "RULE-FAMILY-ZIWEI-TIANWU-FOUR-HORSE-MONTH",
+      "status": "DISPROVED",
+      "reason": "The calendrical rule 月建前二辰 yields 辰巳午未申酉戌亥子丑寅卯, while the current Ziwei table cycles 巳申寅亥. Only months 8 and 11 coincide; 10 of 12 coordinates differ.",
+      "evidence": [
+        "docs/research/ZIWEI-TIANWU-HOMONYM-MECHANICAL-SEPARATION-R1.json",
+        "docs/research/evidence/batch-12oa/ziwei-tianwu-homonym-mechanical-evidence.json",
+        "HPA-ZMINOR-024"
+      ],
+      "adjudication_batch": "BATCH-12-ZIWEI-TIANWU-HOMONYM-MECHANICAL-SEPARATION-OA"
     }
   ],
   "backfill": {
