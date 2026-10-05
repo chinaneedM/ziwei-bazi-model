@@ -1930,3 +1930,27 @@ The transmission graph now contains separate Jielan 1581, Shidian received-Fullb
 `HPA-ZIWEI-014` remains **MISSING_FROM_PRODUCT** because the two divergent families are internal candidates only. Accounting: **222/222 audited**, **7 current missing**, candidate extensions **13**, candidate registries/runtime resolvers **4/4**, provenance defects **43/43**, algorithm reopens **0**.
 
 Next: **12OK — read-only Four-Transformation whole-table candidate productization.**
+
+## Progress — Batch 12OK
+
+`HPA-ZIWEI-014` competing Four-Transformation table families now have an explicit read-only product surface.
+
+Public contract:
+
+`ZIWEI-FOUR-TRANSFORMATION-HISTORICAL-CANDIDATE-API-R1@1.0.0`
+
+The endpoint `/api/ziwei-four-transformation-candidates` derives the natal source stem from the exact validated Ziwei bundle and returns **both** divergent whole-table candidates simultaneously. It takes no historical winner input.
+
+The response binds the combined manifest, Ziwei bundle, natal FactHash/ComputationHash, registry hash, candidate runtime hashes and source refs. The Workbench renders only returned assignment fields; it contains no Four-Transformation table constants or cell-level calculation rules.
+
+Firewalls remain:
+
+- `whole_table_only=true`;
+- `cell_level_hybridization_allowed=false`;
+- `selection_status=PRESERVED_NOT_SELECTED`;
+- production `S08_CURRENT_40_ASSIGNMENT_R1` unchanged;
+- no winner button or production profile selector.
+
+Accordingly `HPA-ZIWEI-014` changes `MISSING_FROM_PRODUCT -> HISTORICALLY_SUPPORTED`. Matrix remains **222/222 audited**, HISTORICALLY_SUPPORTED becomes **103**, current MISSING_FROM_PRODUCT becomes **6**, candidate extensions remain **13**, registries/runtime resolvers **4/4**, provenance defects **43/43**.
+
+Next: **12OL — re-rank the six remaining product gaps.**
