@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.399.0",
+  "schema_version": "1.400.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -39,8 +39,8 @@
     "external_source_registry": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json",
     "row_count": 222,
     "audited_row_count": 222,
-    "confirmed_provenance_metadata_defect_count": 41,
-    "repaired_provenance_metadata_defect_count": 41,
+    "confirmed_provenance_metadata_defect_count": 42,
+    "repaired_provenance_metadata_defect_count": 42,
     "historical_candidate_registry_count": 3,
     "historical_candidate_runtime_resolver_count": 3,
     "identified_missing_candidate_family_count": 14,
@@ -480,9 +480,10 @@
       "BATCH-12-ZIWEI-TIANYUE-MODERN-RECEIVED-SOURCE-BOUNDARY-OB",
       "BATCH-12-ZIWEI-YINSHA-MODERN-RECEIVED-SOURCE-BOUNDARY-OC",
       "BATCH-12-UNRESOLVED-HISTORICAL-STATUS-REPRIORITIZATION-OD",
-      "BATCH-12-ZIWEI-YUEDE-TIANDE-TEMPORAL-SCOPE-CLOSURE-OE"
+      "BATCH-12-ZIWEI-YUEDE-TIANDE-TEMPORAL-SCOPE-CLOSURE-OE",
+      "BATCH-12-ZIWEI-TIANSHOU-BODY-BASIS-EARLY-PRINT-CLOSURE-OF"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-YUEDE-TIANDE-TEMPORAL-SCOPE-CLOSURE-OE.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TIANSHOU-BODY-BASIS-EARLY-PRINT-CLOSURE-OF.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -2306,7 +2307,14 @@
       "HPA-ZMINOR-022 is now SOURCE_INSUFFICIENT for premodern Ziwei natal YueDe adoption; new HPA-ZMINOR-027 is SOURCE_INSUFFICIENT for natal TianDe adoption; new HPA-ZTEMP-007 is HISTORICALLY_SUPPORTED for received-Fullbook annual TianDe/YueDe source-scoped replay.",
       "Shenfeng Tongkao remains a premodern cross-domain geometry witness for You-start TianDe / Si-start YueDe, not a substitute for edition-bound Ziwei natal adoption evidence.",
       "Matrix is now 222/222 audited / 10 current missing; provenance defects 41/41; historical candidate extensions 8; chart algorithm defects / reopens / candidate collapses remain 0.",
-      "12OF: audit HPA-ZMINOR-008 TianShou Body/Life basis source and candidate closure; keep HPA-ZMINOR-007 TianChu competing tables as the next tier."
+      "12OF: audit HPA-ZMINOR-008 TianShou Body/Life basis source and candidate closure; keep HPA-ZMINOR-007 TianChu competing tables as the next tier.",
+      "Batch 12OF completed: HPA-ZMINOR-008 TianShou is upgraded from DISPUTED_MULTIPLE_CANDIDATES to HISTORICALLY_SUPPORTED for Body-palace basis plus birth-year-branch offset.",
+      "1581 Jielan chapter 35 explicitly pairs Life-origin TianCai with Body-origin TianShou; the mnemonic is reinforced by JiaZi and YiChou worked examples.",
+      "S01 extracted TianShou atoms ZZZZA-A-0830/0831/0833/0834 are all Body-based; the old normalized 'source/table-header conflict' note has no bound competing source side in the reviewed package.",
+      "PROV-DEFECT-042 repaired forward-only: the unbound Life-basis TianShou candidate claim is removed from the current Matrix; old Batch 07 documents remain historical snapshots.",
+      "Production R4 already matches the 1581 geometry and Wenmo discriminator; no coordinate/default/hash algorithm reopen was required.",
+      "Matrix remains 222/222 audited / 10 current missing; status distribution is HISTORICALLY_SUPPORTED 98 / DISPUTED_MULTIPLE_CANDIDATES 28 / SOURCE_INSUFFICIENT 11; provenance defects 42/42; candidate extensions 8.",
+      "12OG: audit HPA-ZMINOR-007 TianChu competing heavenly-stem tables and source closure."
     ],
     "historical_candidate_extension_count": 8,
     "current_missing_from_product_row_count": 10
