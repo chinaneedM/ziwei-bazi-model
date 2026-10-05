@@ -376,3 +376,12 @@ The Zhongzhou half-split candidate is already productized and visible as `PRESER
 Next: **12NR** reconciliation of the three Jielan 1581 source-scoped runtime candidates still marked missing from user-selectable product surfaces.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-POST-AUDIT-MISSING-PRODUCT-RECONCILIATION-LEAP-MONTH-NQ.md`.
+
+
+## Progress — Batch 12NR
+
+Post-audit reconciliation confirms that **HPA-ZIWEI-015 / 016 / 022** remain `MISSING_FROM_PRODUCT`. Jielan 1581 Kui/Yue, Fire/Bell and Mingzhu facts already exist in a deterministic source-scoped internal resolver with `PRESERVED_NOT_SELECTED`, but the resolver is not wired into package-root/public candidate-profile API or Workbench selection.
+
+No new provenance defect was found; the existing Matrix gap descriptions remain materially correct. Matrix220/220/10, provenance36/36, chart algorithm defects/reopens/candidate collapses0. No runtime or production-default change.
+
+Next: **12NS** reconciliation of competing Four-Transformation families and the Jielan historical dignity normalization/product boundary.

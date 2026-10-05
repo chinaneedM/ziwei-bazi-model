@@ -3402,15 +3402,33 @@
         "received/QS 庚丑未 辛午寅",
         "Wenmo 辛寅午"
       ],
-      "current_implementation_match": "SOURCE_SCOPED_RUNTIME_CANDIDATE_EXISTS_BUT_USER_SELECTABLE_PRODUCT_PROFILE_NOT_YET_WIRED",
+      "current_implementation_match": "SOURCE_SCOPED_INTERNAL_RUNTIME_CONFIRMED_BUT_PRODUCT_GAP_REMAINS: JIELAN_1581_KUI_YUE_BY_STEM is resolved deterministically with source refs and PRESERVED_NOT_SELECTED, but the general Jielan resolver is not exported from the ziwei_chart package root and no Ziwei historical candidate-profile selector exists in local API/Workbench.",
       "confidence": "HIGH",
       "audit_status": "MISSING_FROM_PRODUCT",
-      "proposed_action": "Wire the existing source-scoped runtime resolver into candidate-profile API/UI lineage; preserve production default and method identity.",
+      "proposed_action": "Keep the existing Jielan Kui/Yue source-scoped resolver PRESERVED_NOT_SELECTED. Product closure still requires an explicit candidate-profile API/Workbench lineage that exposes method identity/source refs without changing the production default or silently selecting the candidate.",
       "defect_id": "PROV-DEFECT-004",
       "defect_type": "STALE_CANDIDATE_REGISTRY_VERSION_IN_AUDIT_MATRIX",
       "defect_scope": "HPA-ZIWEI-015/HPA-ZIWEI-016 previously referenced registry 1.0.0 after the source registry advanced to 1.1.0.",
       "repair_status": "REPAIRED_IN_BATCH_05_FORWARD_ONLY",
-      "repair_action": "Updated affected Matrix profile identities to Jielan registry 1.1.0 and bound the new source-scoped runtime resolver; no chart algorithm changed."
+      "repair_action": "Updated affected Matrix profile identities to Jielan registry 1.1.0 and bound the new source-scoped runtime resolver; no chart algorithm changed.",
+      "reconciliation_batch": "BATCH-12-POST-AUDIT-JIELAN-SOURCE-SCOPED-CANDIDATE-PRODUCT-SURFACE-RECONCILIATION-NR",
+      "reconciliation_status": "MISSING_FROM_PRODUCT_CONFIRMED",
+      "product_surface_reconciliation": {
+        "source_scoped_runtime_resolver_exists": true,
+        "deterministic_runtime_replay_tested": true,
+        "selection_status": "PRESERVED_NOT_SELECTED",
+        "package_root_public_export": false,
+        "local_ziwei_candidate_profile_selector": false,
+        "workbench_candidate_profile_selector": false,
+        "production_default_changed": false,
+        "evidence_paths": [
+          "src/fortune_training/ziwei_chart/historical_candidates.py",
+          "src/fortune_training/ziwei_chart/__init__.py",
+          "src/fortune_training/combined_chart_application/local_app.py",
+          "src/fortune_training/combined_chart_application/workbench_local_app.py",
+          "tests/test_ziwei_jielan_1581_historical_candidates_r1.py"
+        ]
+      }
     },
     {
       "system": "ZIWEI",
@@ -3431,10 +3449,28 @@
         "Jielan 火戌铃卯",
         "received Fullbook/Wenmo 火卯铃戌"
       ],
-      "current_implementation_match": "SOURCE_SCOPED_RUNTIME_CANDIDATE_EXISTS_BUT_USER_SELECTABLE_PRODUCT_PROFILE_NOT_YET_WIRED",
+      "current_implementation_match": "SOURCE_SCOPED_INTERNAL_RUNTIME_CONFIRMED_BUT_PRODUCT_GAP_REMAINS: Jielan 巳酉丑 火戌/铃卯 start branches and birth-hour advancement are deterministic and source-bound in the internal resolver, but no public candidate-profile API/Workbench wiring exposes this family beside the current production Fire/Bell method.",
       "confidence": "HIGH",
       "audit_status": "MISSING_FROM_PRODUCT",
-      "proposed_action": "Wire both source-closed Fire/Bell families into candidate-profile API/UI lineage; preserve current production default until profile governance closes scope."
+      "proposed_action": "Expose the existing source-closed Jielan Fire/Bell family through an explicit candidate-profile API/Workbench surface, preserving method identity and PRESERVED_NOT_SELECTED; do not replace or hybridize the current production family.",
+      "reconciliation_batch": "BATCH-12-POST-AUDIT-JIELAN-SOURCE-SCOPED-CANDIDATE-PRODUCT-SURFACE-RECONCILIATION-NR",
+      "reconciliation_status": "MISSING_FROM_PRODUCT_CONFIRMED",
+      "product_surface_reconciliation": {
+        "source_scoped_runtime_resolver_exists": true,
+        "deterministic_runtime_replay_tested": true,
+        "selection_status": "PRESERVED_NOT_SELECTED",
+        "package_root_public_export": false,
+        "local_ziwei_candidate_profile_selector": false,
+        "workbench_candidate_profile_selector": false,
+        "production_default_changed": false,
+        "evidence_paths": [
+          "src/fortune_training/ziwei_chart/historical_candidates.py",
+          "src/fortune_training/ziwei_chart/__init__.py",
+          "src/fortune_training/combined_chart_application/local_app.py",
+          "src/fortune_training/combined_chart_application/workbench_local_app.py",
+          "tests/test_ziwei_jielan_1581_historical_candidates_r1.py"
+        ]
+      }
     },
     {
       "system": "ZIWEI",
@@ -3569,10 +3605,28 @@
         "Jielan birth-year branch",
         "Fullbook Life-palace branch"
       ],
-      "current_implementation_match": "SOURCE_SCOPED_RUNTIME_CANDIDATE_EXISTS_AND_BASIS_IS_EXPLICIT_BUT_USER_SELECTABLE_PRODUCT_PROFILE_NOT_YET_WIRED",
+      "current_implementation_match": "SOURCE_SCOPED_INTERNAL_RUNTIME_CONFIRMED_BUT_PRODUCT_GAP_REMAINS: Jielan Mingzhu is deterministically resolved with basis ZIWEI_BIRTH_YEAR_BRANCH and source refs, while production remains LIFE_PALACE_BRANCH; the historical resolver is not wired into a user-selectable candidate-profile API/Workbench lineage.",
       "confidence": "HIGH",
       "audit_status": "MISSING_FROM_PRODUCT",
-      "proposed_action": "Wire the existing Jielan role candidate into candidate-profile API/UI lineage with explicit birth-year basis; never merge the two lookup bases."
+      "proposed_action": "Expose the existing Jielan Mingzhu birth-year-basis candidate through candidate-profile API/Workbench lineage with explicit basis/method/source identity, preserving production Life-palace-basis behavior and PRESERVED_NOT_SELECTED.",
+      "reconciliation_batch": "BATCH-12-POST-AUDIT-JIELAN-SOURCE-SCOPED-CANDIDATE-PRODUCT-SURFACE-RECONCILIATION-NR",
+      "reconciliation_status": "MISSING_FROM_PRODUCT_CONFIRMED",
+      "product_surface_reconciliation": {
+        "source_scoped_runtime_resolver_exists": true,
+        "deterministic_runtime_replay_tested": true,
+        "selection_status": "PRESERVED_NOT_SELECTED",
+        "package_root_public_export": false,
+        "local_ziwei_candidate_profile_selector": false,
+        "workbench_candidate_profile_selector": false,
+        "production_default_changed": false,
+        "evidence_paths": [
+          "src/fortune_training/ziwei_chart/historical_candidates.py",
+          "src/fortune_training/ziwei_chart/__init__.py",
+          "src/fortune_training/combined_chart_application/local_app.py",
+          "src/fortune_training/combined_chart_application/workbench_local_app.py",
+          "tests/test_ziwei_jielan_1581_historical_candidates_r1.py"
+        ]
+      }
     },
     {
       "system": "ZIWEI",

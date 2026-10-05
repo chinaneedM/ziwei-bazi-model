@@ -1,0 +1,58 @@
+{
+  "schema": "ZIWEI-JIELAN-SOURCE-SCOPED-CANDIDATE-PRODUCT-SURFACE-RECONCILIATION-EVIDENCE-R1",
+  "schema_version": "1.0.0",
+  "parent_head": "dfd169665069a81e1b662109089440dab5899ddb",
+  "internal_runtime": {
+    "path": "src/fortune_training/ziwei_chart/historical_candidates.py",
+    "blob_sha": "1403c6c4dc3bf5fed8c12b1d20b2ffe985fee4ad",
+    "resolver_symbol": "resolve_jielan_1581_source_scoped_candidate",
+    "selection_status": "PRESERVED_NOT_SELECTED",
+    "materialized_facts": [
+      "four_transformations",
+      "kui_yue",
+      "fire_bell",
+      "mingzhu",
+      "shenzhu",
+      "daxian",
+      "minor_limit",
+      "boshi",
+      "dignity_source_status"
+    ]
+  },
+  "public_surface_checks": {
+    "ziwei_package_init_path": "src/fortune_training/ziwei_chart/__init__.py",
+    "ziwei_package_init_blob_sha": "647e407563568c3f6c33d4318ccea7fd4a70350e",
+    "package_root_contains_general_jielan_resolver": false,
+    "combined_local_app_path": "src/fortune_training/combined_chart_application/local_app.py",
+    "combined_local_app_blob_sha": "8ef6d471499018b5dc027cf8acf29b3e118233cc",
+    "local_app_contains_general_jielan_resolver": false,
+    "local_app_contains_jielan_registry_id": false,
+    "local_app_contains_ziwei_candidate_profile_selector": false,
+    "workbench_local_app_path": "src/fortune_training/combined_chart_application/workbench_local_app.py",
+    "workbench_local_app_blob_sha": "29cb21dcef67ec61810afabcba3a21d80a7f6f90",
+    "workbench_contains_general_jielan_resolver": false,
+    "resolved_profile_asset_path": "src/fortune_training/combined_chart_application/resolved_profile_lineage_assets.py",
+    "resolved_profile_asset_blob_sha": "a2340284dfdda6f2f1b8259e4b3e1b021647cddd",
+    "resolved_profile_asset_contains_jielan_candidate_profile": false
+  },
+  "regression": {
+    "test_path": "tests/test_ziwei_jielan_1581_historical_candidates_r1.py",
+    "test_blob_sha": "a16794b837e06a71088257ef61c2527f4537bcac",
+    "direct_submodule_import_of_historical_candidates": true,
+    "source_scoped_runtime_deterministic": true,
+    "invalid_input_fails_closed": true,
+    "production_selection_asserted": false
+  },
+  "adjudication": {
+    "statuses": {
+      "HPA-ZIWEI-015": "MISSING_FROM_PRODUCT",
+      "HPA-ZIWEI-016": "MISSING_FROM_PRODUCT",
+      "HPA-ZIWEI-022": "MISSING_FROM_PRODUCT"
+    },
+    "internal_runtime_is_not_equivalent_to_product_candidate_profile": true,
+    "new_provenance_defect": false,
+    "runtime_behavior_changed": false,
+    "candidate_selection_changed": false,
+    "transmission_edge_created": false
+  }
+}

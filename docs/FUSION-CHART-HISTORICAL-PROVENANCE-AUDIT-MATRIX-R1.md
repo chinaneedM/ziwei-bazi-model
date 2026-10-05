@@ -34,7 +34,7 @@ Every row carries:
 - proposed action;
 - explicit algorithm-reopen authorization, which is **false for every inventory row at creation**.
 
-The initial inventory contained **107 rule/field families**. Through Batch 12NQ and explicit splitting of historically distinct candidate families, the current machine-readable inventory contains **220 rows**, with **220 audited rows**. It intentionally keeps unresolved source work explicit rather than converting uncertainty into a chart defect. The current audit ledger records **36 confirmed provenance metadata defects repaired forward-only at the provenance/hash-lineage layer, 0 chart algorithm defects, 0 algorithm reopens, 14 cumulatively identified missing candidate families, 10 rows currently `MISSING_FROM_PRODUCT`, 6 historical candidate extensions, 3 source-scoped historical candidate registries, and 3 runtime-resolver components**.
+The initial inventory contained **107 rule/field families**. Through Batch 12NR and explicit splitting of historically distinct candidate families, the current machine-readable inventory contains **220 rows**, with **220 audited rows**. It intentionally keeps unresolved source work explicit rather than converting uncertainty into a chart defect. The current audit ledger records **36 confirmed provenance metadata defects repaired forward-only at the provenance/hash-lineage layer, 0 chart algorithm defects, 0 algorithm reopens, 14 cumulatively identified missing candidate families, 10 rows currently `MISSING_FROM_PRODUCT`, 6 historical candidate extensions, 3 source-scoped historical candidate registries, and 3 runtime-resolver components**.
 
 ## Research-corpus authority
 
@@ -1558,3 +1558,18 @@ Matrix220/220/10; provenance36/36; chart algorithm defects/reopens/candidate col
 Next: **12NR** — reconcile HPA-ZIWEI-015 / 016 / 022 against the Jielan 1581 source-scoped runtime and actual API/Workbench product surfaces.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-POST-AUDIT-MISSING-PRODUCT-RECONCILIATION-LEAP-MONTH-NQ.md`. Research record: `docs/research/ZIWEI-LEAP-MONTH-MISSING-PRODUCT-RECONCILIATION-R1.json`.
+
+
+## Progress — Batch 12NR
+
+Post-audit product-surface reconciliation confirms that **HPA-ZIWEI-015 Kui/Yue**, **HPA-ZIWEI-016 Fire/Bell**, and **HPA-ZIWEI-022 Mingzhu basis** remain `MISSING_FROM_PRODUCT`.
+
+The Jielan 1581 source-scoped resolver already materializes these facts deterministically with source refs and `PRESERVED_NOT_SELECTED`. However, the general Jielan resolver/registry is not exported from the `fortune_training.ziwei_chart` package root, the local combined request exposes no Ziwei historical candidate-profile selector, `/api/profiles` exposes no Jielan candidate profiles, and Workbench has no corresponding candidate selector.
+
+Therefore internal runtime availability is not treated as product closure. Product closure still requires an explicit candidate-profile API/Workbench lineage that preserves method/source identity without changing the production default.
+
+No new provenance defect was found: these rows already correctly described the internal-runtime-versus-product-surface gap. Matrix220/220/10; provenance36/36; chart algorithm defects/reopens/candidate collapses0. `transmission_impact=NONE`.
+
+Next: **12NS** — reconcile HPA-ZIWEI-014 competing Four-Transformation tables and HPA-ZIWEI-018 Jielan historical dignity table.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-POST-AUDIT-JIELAN-SOURCE-SCOPED-CANDIDATE-PRODUCT-SURFACE-RECONCILIATION-NR.md`. Research record: `docs/research/ZIWEI-JIELAN-SOURCE-SCOPED-CANDIDATE-PRODUCT-SURFACE-RECONCILIATION-R1.json`.

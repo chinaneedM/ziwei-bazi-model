@@ -901,9 +901,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-COMBINED-RESOLVED-PROFILE-RULE-ALGORITHM-LINEAGE-AUDIT-NO",
     "BATCH-12-COMBINED-FACT-COMPUTATION-VIEW-MANIFEST-HASH-AUDIT-NP",
     "BATCH-12-POST-AUDIT-MISSING-PRODUCT-RECONCILIATION-LEAP-MONTH-NQ",
+    "BATCH-12-POST-AUDIT-JIELAN-SOURCE-SCOPED-CANDIDATE-PRODUCT-SURFACE-RECONCILIATION-NR",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-POST-AUDIT-MISSING-PRODUCT-RECONCILIATION-LEAP-MONTH-NQ.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-POST-AUDIT-JIELAN-SOURCE-SCOPED-CANDIDATE-PRODUCT-SURFACE-RECONCILIATION-NR.md"
 
 
 def fail(message: str) -> None:
@@ -15483,6 +15484,76 @@ def main() -> int:
         fail("Batch 12NQ provenance accounting must retain at least 36/36")
     if nq.get("algorithm_reopen_authorized") is not False or nq.get("transmission_impact", {}).get("status") != "NONE":
         fail("Batch 12NQ reopen/transmission scope drift")
+
+    # Batch 12NR: internal Jielan source-scoped runtime does not by itself close product candidate-profile wiring.
+    nr_path = ROOT / "docs/research/ZIWEI-JIELAN-SOURCE-SCOPED-CANDIDATE-PRODUCT-SURFACE-RECONCILIATION-R1.json"
+    nr_evidence_path = ROOT / "docs/research/evidence/batch-12nr/ziwei-jielan-source-scoped-candidate-product-surface-reconciliation.json"
+    if not nr_path.is_file() or not nr_evidence_path.is_file():
+        fail("Batch 12NR research/evidence record missing")
+    nr = json.loads(nr_path.read_text(encoding="utf-8"))
+    nr_evidence = json.loads(nr_evidence_path.read_text(encoding="utf-8"))
+    nr_id = "BATCH-12-POST-AUDIT-JIELAN-SOURCE-SCOPED-CANDIDATE-PRODUCT-SURFACE-RECONCILIATION-NR"
+    if nr.get("batch_id") != nr_id or nr.get("prior_batch_id") != nq_id:
+        fail("Batch 12NR chronology drift")
+    if nr_id in rule_batches:
+        fail("Batch 12NR post-audit reconciliation must not be enrolled as a supplemental rule-audit batch")
+    if nr.get("batch_classification") != "POST_AUDIT_RECONCILIATION_NOT_SUPPLEMENTAL_RULE_AUDIT":
+        fail("Batch 12NR batch classification drift")
+    target_ids_nr = {"HPA-ZIWEI-015", "HPA-ZIWEI-016", "HPA-ZIWEI-022"}
+    if set(nr.get("target_rule_ids", ())) != target_ids_nr:
+        fail("Batch 12NR target rule set drift")
+    if nr.get("reconciliation_result") != "ALL_THREE_MISSING_FROM_PRODUCT_STATUSES_CONFIRMED":
+        fail("Batch 12NR reconciliation result drift")
+    rows_nr = {r["rule_id"]: r for r in matrix["rows"] if r["rule_id"] in target_ids_nr}
+    if set(rows_nr) != target_ids_nr:
+        fail("Batch 12NR Matrix target rows missing")
+    for rule_id, row in rows_nr.items():
+        if row.get("audit_status") != "MISSING_FROM_PRODUCT":
+            fail(f"Batch 12NR target status drift: {rule_id}")
+        if row.get("reconciliation_batch") != nr_id or row.get("reconciliation_status") != "MISSING_FROM_PRODUCT_CONFIRMED":
+            fail(f"Batch 12NR reconciliation binding drift: {rule_id}")
+        surface = row.get("product_surface_reconciliation", {})
+        if surface.get("source_scoped_runtime_resolver_exists") is not True or surface.get("deterministic_runtime_replay_tested") is not True:
+            fail(f"Batch 12NR internal runtime evidence drift: {rule_id}")
+        if surface.get("selection_status") != "PRESERVED_NOT_SELECTED":
+            fail(f"Batch 12NR selection firewall drift: {rule_id}")
+        for key in ("package_root_public_export", "local_ziwei_candidate_profile_selector", "workbench_candidate_profile_selector", "production_default_changed"):
+            if surface.get(key) is not False:
+                fail(f"Batch 12NR product-surface firewall drift: {rule_id}:{key}")
+    runtime_nr = nr.get("internal_runtime", {})
+    if runtime_nr.get("runtime_resolver_id") != "ZIWEI-JIELAN-1581-SOURCE-SCOPED-CANDIDATE-RUNTIME-R1":
+        fail("Batch 12NR Jielan runtime resolver drift")
+    if runtime_nr.get("selection_status") != "PRESERVED_NOT_SELECTED":
+        fail("Batch 12NR Jielan selection status drift")
+    for key in ("source_scoped_resolver_exists", "deterministic_replay_tested", "kui_yue_materialized", "fire_bell_materialized", "mingzhu_materialized"):
+        if runtime_nr.get(key) is not True:
+            fail(f"Batch 12NR runtime fact materialization drift: {key}")
+    product_nr = nr.get("product_surface", {})
+    if product_nr.get("local_app_uses_single_production_ziwei_profile") is not True:
+        fail("Batch 12NR local production-profile binding drift")
+    for key in (
+        "ziwei_package_root_exports_general_jielan_resolver",
+        "ziwei_package_root_exports_jielan_registry",
+        "local_request_has_ziwei_historical_candidate_profile_selector",
+        "api_profiles_exposes_jielan_candidate_profiles",
+        "workbench_exposes_jielan_candidate_profile_selector",
+        "production_default_changed",
+    ):
+        if product_nr.get(key) is not False:
+            fail(f"Batch 12NR product-surface absence drift: {key}")
+    provenance_nr = nr.get("provenance_adjudication", {})
+    if provenance_nr.get("new_provenance_defect") is not False or provenance_nr.get("existing_matrix_gap_description_materially_stale") is not False:
+        fail("Batch 12NR provenance adjudication drift")
+    accounting_nr = nr.get("accounting", {})
+    if accounting_nr.get("missing_from_product_before") != 10 or accounting_nr.get("missing_from_product_after") != 10:
+        fail("Batch 12NR missing-product accounting drift")
+    if accounting_nr.get("provenance_defects_confirmed_after") != 36 or accounting_nr.get("provenance_defects_repaired_after") != 36:
+        fail("Batch 12NR provenance accounting drift")
+    evidence_adj_nr = nr_evidence.get("adjudication", {})
+    if evidence_adj_nr.get("new_provenance_defect") is not False or evidence_adj_nr.get("runtime_behavior_changed") is not False or evidence_adj_nr.get("candidate_selection_changed") is not False:
+        fail("Batch 12NR evidence adjudication drift")
+    if nr.get("algorithm_reopen_authorized") is not False or nr.get("transmission_impact", {}).get("status") != "NONE":
+        fail("Batch 12NR reopen/transmission scope drift")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")
