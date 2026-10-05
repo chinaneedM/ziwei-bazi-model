@@ -49,6 +49,12 @@ class TimeCalendarApproximateSamplingR1Tests(unittest.TestCase):
         self.assertEqual("APPROXIMATE", result["input"]["precision"])
         self.assertEqual(120, result["input"]["uncertainty_seconds"])
         self.assertEqual(120, result["input_interval"]["uncertainty_seconds_each_side"])
+        self.assertEqual("DETERMINISTIC-WALL-TIME-POINT-GRID-R1", result["input_interval"]["sampling_strategy"])
+        self.assertEqual(2001, result["input_interval"]["sample_cap"])
+        self.assertEqual(60, result["input_interval"]["nominal_step_seconds"])
+        self.assertEqual(60, result["input_interval"]["max_sample_gap_seconds"])
+        self.assertFalse(result["input_interval"]["continuous_interval_exhaustive"])
+        self.assertEqual("SAMPLED_POINTS_ONLY", result["input_interval"]["classification_scope"])
         self.assertEqual("MULTI_CANDIDATE_OR_BOUNDARY_UNCERTAINTY", result["status"])
         self.assertGreater(result["classification_count"], 1)
         self.assertGreater(len(result["branches"]), 1)
@@ -86,6 +92,21 @@ class TimeCalendarApproximateSamplingR1Tests(unittest.TestCase):
             },
             pillars,
         )
+
+    def test_wide_approximate_interval_exposes_sparse_sampling_contract(self):
+        request = self.beijing(
+            precision=TimePrecision.APPROXIMATE,
+            uncertainty_seconds=100 * 24 * 60 * 60,
+            local=datetime(1994, 5, 17, 23, 11),
+        )
+        samples = self.foundation._sample_wall_times(request)
+        metadata = self.foundation._sampling_metadata(request, samples)
+
+        self.assertEqual(2001, len(samples))
+        self.assertEqual(8648, metadata["nominal_step_seconds"])
+        self.assertEqual(8648, metadata["max_sample_gap_seconds"])
+        self.assertFalse(metadata["continuous_interval_exhaustive"])
+        self.assertEqual("SAMPLED_POINTS_ONLY", metadata["classification_scope"])
 
     def test_approximate_zero_uncertainty_remains_fail_closed(self):
         with self.assertRaisesRegex(

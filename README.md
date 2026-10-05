@@ -223,7 +223,7 @@ Fusion Chart Capability & Performance Acceptance R1 已正式收口。最终执�
 
 ## Fusion Chart Historical Provenance & School Audit R1
 
-最新规则审计闭环为 **Batch 12NE**：HPA-TIME-004 Chinese lunar calendar construction 确认为现代兼容层。当前 engine 与 GB/T 33661-2017 的现代编排规则结构一致，但 Astronomy Engine 实现未在本项目中证明满足国标 IERS 模型与朔/节气 1 秒精度门槛，因此不再标成严格国标认证；PROV-DEFECT-025 已修复该认证边界。PROV-DEFECT-024 又把 1901–2100 从“validated range”纠正为 HKO 公布对照表对应的运行支持/oracle 范围，并保留 HKO 对 2057/2089/2097 近午夜新月可能造成一日差的官方警告。历法运算本身未改，历史明大统/清时宪适配仍 fail-closed。Matrix 220 项、已审 209 项、缺失候选 10；来源缺陷 25/25，算法缺陷/重开/候选折叠 0。下一门 12NF 为 HPA-TIME-011 Approximate birth-time candidate sampling。
+最新规则审计闭环为 **Batch 12NF**：HPA-TIME-011 Approximate birth-time candidate sampling 确认为现代操作层。现有 start/center/end、24 小时内分钟网格、宽区间小时级以上步长与 2001 点上限全部保持不变；PROV-DEFECT-026 补齐 strategy/cap/step/max-gap provenance，PROV-DEFECT-027 则明确 `RESOLVED_RANGE_SINGLE_CLASSIFICATION` 只表示“所有已采样点同类”，不是连续区间的数学穷举证明。非零不确定区间统一标记 `SAMPLED_POINTS_ONLY` / `continuous_interval_exhaustive=false`。Matrix 220 项、已审 210 项、缺失候选 10；来源缺陷 27/27，算法缺陷/重开/候选折叠 0。下一门 12NG 为 HPA-DAYUN-006 Wenzhen China Dayun compatibility realization。
 
 ```text
 FUSION_CHART_HISTORICAL_PROVENANCE_AUDIT_R1=IN_PROGRESS

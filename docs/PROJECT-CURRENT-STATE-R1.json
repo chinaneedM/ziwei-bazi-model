@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.373.0",
+  "schema_version": "1.374.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -38,9 +38,9 @@
     "matrix_md": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.md",
     "external_source_registry": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json",
     "row_count": 220,
-    "audited_row_count": 209,
-    "confirmed_provenance_metadata_defect_count": 25,
-    "repaired_provenance_metadata_defect_count": 25,
+    "audited_row_count": 210,
+    "confirmed_provenance_metadata_defect_count": 27,
+    "repaired_provenance_metadata_defect_count": 27,
     "historical_candidate_registry_count": 3,
     "historical_candidate_runtime_resolver_count": 3,
     "identified_missing_candidate_family_count": 14,
@@ -454,9 +454,10 @@
       "BATCH-12-ZIWEI-R2-RELATIVE-PALACE-FRAME-AUDIT-NB",
       "BATCH-12-TIME-CIVIL-TZDB-INSTANT-RESOLUTION-AUDIT-NC",
       "BATCH-12-TIME-AMBIGUOUS-CIVIL-FOLD-GAP-HANDLING-AUDIT-ND",
-      "BATCH-12-TIME-MODERN-CHINESE-CALENDAR-CONSTRUCTION-AUDIT-NE"
+      "BATCH-12-TIME-MODERN-CHINESE-CALENDAR-CONSTRUCTION-AUDIT-NE",
+      "BATCH-12-TIME-APPROXIMATE-BIRTH-TIME-SAMPLING-AUDIT-NF"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-TIME-MODERN-CHINESE-CALENDAR-CONSTRUCTION-AUDIT-NE.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-TIME-APPROXIMATE-BIRTH-TIME-SAMPLING-AUDIT-NF.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -2108,7 +2109,13 @@
       "PROV-DEFECT-025 repaired forward-only: GB/T rule/governance reference was not clearly separated from strict numerical model/precision certification. Calendar runtime and audit trace now expose non-certified conformance scope explicitly.",
       "HKO future near-midnight uncertainty is preserved for new moons on 2057-09-28, 2089-09-04 and 2097-08-07; these warnings do not authorize arbitrary date correction or algorithm reopen.",
       "New-moon search, fixed UTC+08 date boundary, winter-solstice month, principal-term containment, leap selection, month numbering and lunar-day mechanics are unchanged. Matrix 220 rows / 209 audited / 10 missing; provenance defects 25/25; chart algorithm defects / reopens / candidate collapses 0.",
-      "12NF: audit HPA-TIME-011 Approximate birth-time candidate sampling as modern operational uncertainty policy; verify interval coverage and reproducibility without recasting sampling as classical doctrine."
+      "12NF: audit HPA-TIME-011 Approximate birth-time candidate sampling as modern operational uncertainty policy; verify interval coverage and reproducibility without recasting sampling as classical doctrine.",
+      "Batch 12NF completed: HPA-TIME-011 Approximate birth-time candidate sampling audited as MODERN_COMPATIBILITY_ONLY. It is deterministic point sampling, not continuous interval arithmetic or classical doctrine.",
+      "PROV-DEFECT-026 repaired forward-only: result provenance previously exposed only uncertainty/sample counts and omitted strategy ID, 2001-point cap, nominal step, observed maximum sample gap and interval-completeness scope.",
+      "PROV-DEFECT-027 repaired forward-only: RESOLVED_RANGE_SINGLE_CLASSIFICATION could be read as continuous-range proof. Stable status ID is preserved, but non-zero intervals now explicitly report classification_scope=SAMPLED_POINTS_ONLY and continuous_interval_exhaustive=false.",
+      "Sampling geometry and candidate classifications are unchanged: start/center/end retention, minute grid up to 24-hour total span, wider hourly-or-larger stride and 2001-point cap remain exactly as released.",
+      "Matrix 220 rows / 210 audited / 10 missing; provenance defects 27/27; chart algorithm defects / reopens / candidate collapses 0.",
+      "12NG: audit HPA-DAYUN-006 Wenzhen China Dayun compatibility realization as comparison-only modern behavior; do not promote reference-product behavior to historical authority."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10

@@ -889,9 +889,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-TIME-CIVIL-TZDB-INSTANT-RESOLUTION-AUDIT-NC",
     "BATCH-12-TIME-AMBIGUOUS-CIVIL-FOLD-GAP-HANDLING-AUDIT-ND",
     "BATCH-12-TIME-MODERN-CHINESE-CALENDAR-CONSTRUCTION-AUDIT-NE",
+    "BATCH-12-TIME-APPROXIMATE-BIRTH-TIME-SAMPLING-AUDIT-NF",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-TIME-MODERN-CHINESE-CALENDAR-CONSTRUCTION-AUDIT-NE.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-TIME-APPROXIMATE-BIRTH-TIME-SAMPLING-AUDIT-NF.md"
 
 
 def fail(message: str) -> None:
@@ -14857,6 +14858,37 @@ def main() -> int:
         fail("Batch 12NE provenance accounting must retain at least 25/25")
     if ne.get("algorithm_reopen_authorized") is not False or ne.get("transmission_impact", {}).get("status") != "NONE":
         fail("Batch 12NE reopen/transmission scope drift")
+
+    # Batch 12NF: approximate birth-time handling is deterministic point sampling, not interval arithmetic.
+    nf_path = ROOT / "docs/research/TIME-APPROXIMATE-BIRTH-TIME-SAMPLING-AUDIT-R1.json"
+    if not nf_path.is_file():
+        fail("Batch 12NF research record missing")
+    nf = json.loads(nf_path.read_text(encoding="utf-8"))
+    nf_id = "BATCH-12-TIME-APPROXIMATE-BIRTH-TIME-SAMPLING-AUDIT-NF"
+    if nf.get("batch_id") != nf_id or nf.get("prior_batch_id") != ne_id or nf_id not in rule_batches:
+        fail("Batch 12NF chronology drift")
+    row_nf = next(r for r in matrix["rows"] if r["rule_id"] == "HPA-TIME-011")
+    if row_nf.get("audit_status") != "MODERN_COMPATIBILITY_ONLY" or row_nf.get("audit_batch") != nf_id or "HPA-TIME-011" not in matrix["audited_row_ids"]:
+        fail("Batch 12NF uncertainty-sampling audit row drift")
+    repairs_nf = {x.get("defect_id") for x in nf.get("provenance_repairs", ())}
+    if repairs_nf != {"PROV-DEFECT-026", "PROV-DEFECT-027"}:
+        fail("Batch 12NF provenance repair identities drift")
+    scope_nf = nf.get("operational_scope", {})
+    if scope_nf.get("sampling_strategy") != "DETERMINISTIC-WALL-TIME-POINT-GRID-R1" or scope_nf.get("sample_cap") != 2001:
+        fail("Batch 12NF sampling strategy/cap drift")
+    semantics_nf = nf.get("semantic_scope", {})
+    if semantics_nf.get("continuous_interval_proof") is not False or semantics_nf.get("nonzero_interval_classification_scope") != "SAMPLED_POINTS_ONLY":
+        fail("Batch 12NF sampled-only semantic firewall drift")
+    replay_nf = json.loads((ROOT / nf["replay_evidence"]).read_text(encoding="utf-8"))
+    cases_nf = {x["uncertainty_seconds_each_side"]: x for x in replay_nf.get("cases", ())}
+    if cases_nf.get(120, {}).get("sample_count") != 5 or cases_nf.get(8640000, {}).get("sample_count") != 2001:
+        fail("Batch 12NF sampling replay cardinality drift")
+    if cases_nf.get(8640000, {}).get("nominal_step_seconds") != 8648 or cases_nf.get(43200000, {}).get("nominal_step_seconds") != 43243:
+        fail("Batch 12NF wide-interval step replay drift")
+    if audit_summary.get("confirmed_provenance_metadata_defect_count", 0) < 27 or audit_summary.get("repaired_provenance_metadata_defect_count", 0) < 27:
+        fail("Batch 12NF provenance accounting must retain at least 27/27")
+    if nf.get("algorithm_reopen_authorized") is not False or nf.get("transmission_impact", {}).get("status") != "NONE":
+        fail("Batch 12NF reopen/transmission scope drift")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

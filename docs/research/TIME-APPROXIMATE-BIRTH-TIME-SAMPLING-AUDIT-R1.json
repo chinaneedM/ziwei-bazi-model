@@ -1,0 +1,80 @@
+{
+  "schema": "TIME-APPROXIMATE-BIRTH-TIME-SAMPLING-AUDIT-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-TIME-APPROXIMATE-BIRTH-TIME-SAMPLING-AUDIT-NF",
+  "prior_batch_id": "BATCH-12-TIME-MODERN-CHINESE-CALENDAR-CONSTRUCTION-AUDIT-NE",
+  "rule_id": "HPA-TIME-011",
+  "audit_status": "MODERN_COMPATIBILITY_ONLY",
+  "algorithm_reopen_authorized": false,
+  "operational_scope": {
+    "classical_doctrine": false,
+    "policy_type": "DETERMINISTIC_SOFTWARE_UNCERTAINTY_POINT_SAMPLING",
+    "sampling_strategy": "DETERMINISTIC-WALL-TIME-POINT-GRID-R1",
+    "sample_cap": 2001,
+    "total_span_up_to_24h_nominal_step_seconds": 60,
+    "wider_span_minimum_nominal_step_seconds": 3600,
+    "wide_span_formula": "max(3600, int(total_span_seconds / 1998))",
+    "mandatory_points": [
+      "interval_start",
+      "reported_center",
+      "interval_end"
+    ]
+  },
+  "semantic_scope": {
+    "stable_status_id": "RESOLVED_RANGE_SINGLE_CLASSIFICATION",
+    "corrected_meaning": "ALL_SAMPLED_POINTS_SHARE_ONE_OBSERVED_CLASSIFICATION",
+    "continuous_interval_proof": false,
+    "nonzero_interval_classification_scope": "SAMPLED_POINTS_ONLY",
+    "zero_width_classification_scope": "EXACT_POINT"
+  },
+  "provenance_repairs": [
+    {
+      "defect_id": "PROV-DEFECT-026",
+      "defect": "UNCERTAINTY_SAMPLING_STRATEGY_CAP_STEP_AND_GAP_NOT_EXPOSED_IN_RESULT_PROVENANCE",
+      "repair": "Emit strategy ID, sample cap, nominal step, observed maximum sample gap, interval exhaustiveness and classification scope.",
+      "chart_algorithm_effect": false,
+      "candidate_effect": false
+    },
+    {
+      "defect_id": "PROV-DEFECT-027",
+      "defect": "RESOLVED_RANGE_SINGLE_CLASSIFICATION_SCOPE_NOT_EXPLICITLY_LIMITED_TO_SAMPLED_POINTS",
+      "repair": "Preserve stable status ID while explicitly scoping any non-zero uncertainty classification to sampled points and marking continuous_interval_exhaustive=false.",
+      "chart_algorithm_effect": false,
+      "candidate_effect": false
+    }
+  ],
+  "unchanged_mechanics": [
+    "effective uncertainty floors",
+    "interval start/center/end retention",
+    "minute-grid alignment",
+    "wide-span hour-grid alignment",
+    "step formula",
+    "2001-point cap",
+    "civil-time resolution",
+    "classification signatures"
+  ],
+  "replay_evidence": "docs/research/evidence/batch-12nf/approximate-birth-time-sampling-replay.json",
+  "accounting": {
+    "rows_before": 220,
+    "rows_after": 220,
+    "audited_rows_before": 209,
+    "audited_rows_after": 210,
+    "current_missing_from_product_rows": 10,
+    "provenance_defects_confirmed_before": 25,
+    "provenance_defects_confirmed_after": 27,
+    "provenance_defects_repaired_before": 25,
+    "provenance_defects_repaired_after": 27,
+    "chart_algorithm_defects": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0,
+    "new_provenance_defects": 2
+  },
+  "transmission_impact": {
+    "status": "NONE",
+    "reason": "Modern software uncertainty sampling creates no historical Ziwei/Bazi transmission edge."
+  },
+  "next_gate": [
+    "12NG: audit HPA-DAYUN-006 Wenzhen China Dayun compatibility realization as comparison-only modern behavior.",
+    "Reference-product behavior must not be promoted to historical authority."
+  ]
+}

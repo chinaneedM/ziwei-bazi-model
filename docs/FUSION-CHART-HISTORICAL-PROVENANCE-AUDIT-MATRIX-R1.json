@@ -80,7 +80,7 @@
       "candidate/profile rules": 2,
       "provenance / hashes / lineage": 2
     },
-    "audited_row_count": 209
+    "audited_row_count": 210
   },
   "rows": [
     {
@@ -335,18 +335,23 @@
       "rule_or_field": "Approximate birth-time candidate sampling",
       "current_implementation": "Foundation branches candidate instants rather than silently picking one.",
       "current_profile": "TIME-CALENDAR-FOUNDATION-R1",
-      "primary_source": "Modern uncertainty-handling policy",
-      "source_quote": "PENDING_VERBATIM_EXTRACTION",
-      "source_quote_location": "docs/TIME-CALENDAR-FOUNDATION-R1.md uncertainty branches",
-      "historical_period": "MODERN_STANDARD",
-      "later_witnesses": "N/A",
-      "school_attribution": "MODERN_OPERATIONAL",
-      "competing_methods": [],
-      "current_implementation_match": "MATCHES_DECLARED_MODERN_SCOPE",
-      "confidence": "HIGH",
+      "primary_source": "Repository deterministic uncertainty-sampling contract (modern operational policy)",
+      "source_quote": "Non-zero reported-time uncertainty is handled by deterministic point sampling, not continuous interval arithmetic.",
+      "source_quote_location": "docs/TIME-CALENDAR-FOUNDATION-R1.md §Reported-time uncertainty sampling contract",
+      "historical_period": "MODERN_OPERATIONAL_POLICY",
+      "later_witnesses": "Runtime sampling metadata and focused sampling regression tests",
+      "school_attribution": "MODERN_OPERATIONAL_NOT_CLASSICAL_ZIWEI_BAZI_DOCTRINE",
+      "competing_methods": [
+        "continuous interval boundary solver",
+        "manual candidate interval enumeration",
+        "single-point midpoint approximation"
+      ],
+      "current_implementation_match": "SAMPLE_GEOMETRY_UNCHANGED; PROV-DEFECT-026 SAMPLING_STRATEGY_LIMITS_NOW_EMITTED; PROV-DEFECT-027 SINGLE_CLASSIFICATION_SCOPE_NOW_EXPLICITLY_SAMPLED_POINTS_ONLY",
+      "confidence": "HIGH_FOR_DETERMINISTIC_SAMPLING_MECHANICS; NON_EXHAUSTIVE_FOR_CONTINUOUS_INTERVAL",
       "audit_status": "MODERN_COMPATIBILITY_ONLY",
-      "proposed_action": "Retain as operational uncertainty policy, not classical doctrine.",
-      "algorithm_reopen_authorized": false
+      "proposed_action": "Retain deterministic point sampling as an operational policy with explicit strategy/cap/step/gap metadata. Preserve stable status IDs but define range classification as sampled-point evidence only; any future interval-complete solver must be separately versioned.",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-12-TIME-APPROXIMATE-BIRTH-TIME-SAMPLING-AUDIT-NF"
     },
     {
       "rule_id": "HPA-BAZI-001",
@@ -7291,12 +7296,13 @@
     "HPA-STRUCT-002",
     "HPA-TIME-001",
     "HPA-TIME-002",
-    "HPA-TIME-004"
+    "HPA-TIME-004",
+    "HPA-TIME-011"
   ],
   "audit_summary": {
     "confirmed_chart_algorithm_defect_count": 0,
-    "confirmed_provenance_metadata_defect_count": 25,
-    "repaired_provenance_metadata_defect_count": 25,
+    "confirmed_provenance_metadata_defect_count": 27,
+    "repaired_provenance_metadata_defect_count": 27,
     "algorithm_reopen_count": 0,
     "candidate_collapse_count": 0,
     "historical_candidate_extension_count": 6,
@@ -7327,6 +7333,7 @@
     "BATCH-12-ZIWEI-R2-RELATIVE-PALACE-FRAME-AUDIT-NB",
     "BATCH-12-TIME-CIVIL-TZDB-INSTANT-RESOLUTION-AUDIT-NC",
     "BATCH-12-TIME-AMBIGUOUS-CIVIL-FOLD-GAP-HANDLING-AUDIT-ND",
-    "BATCH-12-TIME-MODERN-CHINESE-CALENDAR-CONSTRUCTION-AUDIT-NE"
+    "BATCH-12-TIME-MODERN-CHINESE-CALENDAR-CONSTRUCTION-AUDIT-NE",
+    "BATCH-12-TIME-APPROXIMATE-BIRTH-TIME-SAMPLING-AUDIT-NF"
   ]
 }

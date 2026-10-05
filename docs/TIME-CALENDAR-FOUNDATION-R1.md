@@ -200,6 +200,36 @@ The full result conforms to
 `schemas/time-calendar-foundation-v1.schema.json` and includes installed
 algorithm/tzdb versions and the selected registry version.
 
+## Reported-time uncertainty sampling contract
+
+Non-zero reported-time uncertainty is handled by deterministic **point
+sampling**. R1 does not implement continuous interval arithmetic and does not
+claim that unsampled instants inside the wall-time interval have been
+exhaustively classified.
+
+The stable sampling strategy is
+`DETERMINISTIC-WALL-TIME-POINT-GRID-R1`:
+
+- always retain the interval start, reported center and interval end;
+- for total spans up to 24 hours, add minute-grid samples;
+- for wider spans, use at least an hourly stride and increase the stride as
+  needed to cap the sample set at 2001 points;
+- preserve the existing deterministic alignment to the next whole minute or
+  whole hour before stepping through the interval.
+
+Every result now emits the sampling strategy ID, point cap, nominal step,
+observed maximum sample gap and classification scope. A zero-width input is an
+exact point. Any non-zero uncertainty interval is labeled
+`continuous_interval_exhaustive=false` and
+`classification_scope=SAMPLED_POINTS_ONLY`.
+
+The backward-compatible status
+`RESOLVED_RANGE_SINGLE_CLASSIFICATION` therefore means that **all sampled
+points** produced one observed classification. It is not a mathematical proof
+that the full continuous interval contains no unsampled classification
+boundary. A future interval-complete boundary solver must use a separately
+versioned policy rather than silently changing this R1 contract.
+
 ## Boundary and regression coverage
 
 `tests/test_time_calendar_foundation.py` and

@@ -18,6 +18,8 @@ from .ziwei import ZiweiCalendarResolver
 class TimeCalendarFoundation:
     schema = "TIME-CALENDAR-FOUNDATION-RESULT-V1"
     bazi_schema = "TIME-CALENDAR-BAZI-PROJECTION-V1"
+    sampling_strategy_id = "DETERMINISTIC-WALL-TIME-POINT-GRID-R1"
+    sampling_max_points = 2001
 
     def __init__(self, policy_registry: PolicyRegistry) -> None:
         self.policy_registry = policy_registry
@@ -32,24 +34,51 @@ class TimeCalendarFoundation:
     def from_repository(cls, repository_root: Path) -> "TimeCalendarFoundation":
         return cls(PolicyRegistry.from_file(repository_root / "config" / "time-calendar-policies.json"))
 
-    @staticmethod
-    def _sample_wall_times(birth: BirthInput) -> tuple[datetime, ...]:
+    @classmethod
+    def _sampling_step_seconds(cls, birth: BirthInput) -> int:
+        uncertainty = birth.effective_uncertainty_seconds
+        if uncertainty == 0:
+            return 0
+        span_seconds = uncertainty * 2
+        return 60 if span_seconds <= 86_400 else max(3600, int(span_seconds / 1998))
+
+    @classmethod
+    def _sample_wall_times(cls, birth: BirthInput) -> tuple[datetime, ...]:
         uncertainty = birth.effective_uncertainty_seconds
         center = birth.reported_local_datetime
         if uncertainty == 0:
             return (center,)
         start = center - timedelta(seconds=uncertainty)
         end = center + timedelta(seconds=uncertainty)
-        span_seconds = (end - start).total_seconds()
-        step_seconds = 60 if span_seconds <= 86_400 else max(3600, int(span_seconds / 1998))
+        step_seconds = cls._sampling_step_seconds(birth)
         rows = {start, center, end}
         cursor = start.replace(second=0, microsecond=0) + timedelta(minutes=1)
         if step_seconds >= 3600:
             cursor = start.replace(minute=0, second=0, microsecond=0) + timedelta(hours=1)
-        while cursor < end and len(rows) < 2001:
+        while cursor < end and len(rows) < cls.sampling_max_points:
             rows.add(cursor)
             cursor += timedelta(seconds=step_seconds)
         return tuple(sorted(rows))
+
+    @classmethod
+    def _sampling_metadata(
+        cls,
+        birth: BirthInput,
+        sampled_wall_times: tuple[datetime, ...],
+    ) -> dict[str, Any]:
+        gaps = [
+            int((following - previous).total_seconds())
+            for previous, following in zip(sampled_wall_times, sampled_wall_times[1:])
+        ]
+        is_exact_point = birth.effective_uncertainty_seconds == 0
+        return {
+            "sampling_strategy": cls.sampling_strategy_id,
+            "sample_cap": cls.sampling_max_points,
+            "nominal_step_seconds": cls._sampling_step_seconds(birth),
+            "max_sample_gap_seconds": max(gaps, default=0),
+            "continuous_interval_exhaustive": is_exact_point,
+            "classification_scope": "EXACT_POINT" if is_exact_point else "SAMPLED_POINTS_ONLY",
+        }
 
     @staticmethod
     def _point_sample_birth(birth: BirthInput, wall_time: datetime) -> BirthInput:
@@ -383,6 +412,7 @@ class TimeCalendarFoundation:
                 "uncertainty_seconds_each_side": birth.effective_uncertainty_seconds,
                 "sample_count": len(sampled_wall_times),
                 "ambiguous_sample_count": ambiguous_samples,
+                **self._sampling_metadata(birth, sampled_wall_times),
             },
             "policy_registry_version": self.policy_registry.version,
             "selected_policies": json_value(selected),
@@ -438,6 +468,7 @@ class TimeCalendarFoundation:
                 "uncertainty_seconds_each_side": birth.effective_uncertainty_seconds,
                 "sample_count": len(sampled_wall_times),
                 "ambiguous_sample_count": ambiguous_samples,
+                **self._sampling_metadata(birth, sampled_wall_times),
             },
             "policy_registry_version": self.policy_registry.version,
             "selected_policies": json_value(selected),

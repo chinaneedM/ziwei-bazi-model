@@ -1,0 +1,59 @@
+{
+  "schema": "APPROXIMATE-BIRTH-TIME-SAMPLING-REPLAY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-TIME-APPROXIMATE-BIRTH-TIME-SAMPLING-AUDIT-NF",
+  "center_local_wall_time": "1994-05-17T23:11:00",
+  "cases": [
+    {
+      "uncertainty_seconds_each_side": 30,
+      "sample_count": 3,
+      "nominal_step_seconds": 60,
+      "max_sample_gap_seconds": 30,
+      "continuous_interval_exhaustive": false
+    },
+    {
+      "uncertainty_seconds_each_side": 120,
+      "sample_count": 5,
+      "nominal_step_seconds": 60,
+      "max_sample_gap_seconds": 60,
+      "continuous_interval_exhaustive": false
+    },
+    {
+      "uncertainty_seconds_each_side": 1800,
+      "sample_count": 61,
+      "nominal_step_seconds": 60,
+      "max_sample_gap_seconds": 60,
+      "continuous_interval_exhaustive": false
+    },
+    {
+      "uncertainty_seconds_each_side": 43200,
+      "sample_count": 1441,
+      "nominal_step_seconds": 60,
+      "max_sample_gap_seconds": 60,
+      "continuous_interval_exhaustive": false
+    },
+    {
+      "uncertainty_seconds_each_side": 86400,
+      "sample_count": 51,
+      "nominal_step_seconds": 3600,
+      "max_sample_gap_seconds": 3600,
+      "continuous_interval_exhaustive": false
+    },
+    {
+      "uncertainty_seconds_each_side": 8640000,
+      "sample_count": 2001,
+      "nominal_step_seconds": 8648,
+      "max_sample_gap_seconds": 8648,
+      "continuous_interval_exhaustive": false
+    },
+    {
+      "uncertainty_seconds_each_side": 43200000,
+      "sample_count": 2001,
+      "nominal_step_seconds": 43243,
+      "max_sample_gap_seconds": 43243,
+      "continuous_interval_exhaustive": false
+    }
+  ],
+  "sampling_geometry_changed": false,
+  "output_provenance_changed": true
+}

@@ -34,7 +34,7 @@ Every row carries:
 - proposed action;
 - explicit algorithm-reopen authorization, which is **false for every inventory row at creation**.
 
-The initial inventory contained **107 rule/field families**. Through Batch 12NE and explicit splitting of historically distinct candidate families, the current machine-readable inventory contains **220 rows**, with **209 audited rows**. It intentionally keeps unresolved source work explicit rather than converting uncertainty into a chart defect. The current audit ledger records **25 confirmed provenance metadata defects repaired forward-only at the provenance/hash-lineage layer, 0 chart algorithm defects, 0 algorithm reopens, 14 cumulatively identified missing candidate families, 10 rows currently `MISSING_FROM_PRODUCT`, 6 historical candidate extensions, 3 source-scoped historical candidate registries, and 3 runtime-resolver components**.
+The initial inventory contained **107 rule/field families**. Through Batch 12NF and explicit splitting of historically distinct candidate families, the current machine-readable inventory contains **220 rows**, with **210 audited rows**. It intentionally keeps unresolved source work explicit rather than converting uncertainty into a chart defect. The current audit ledger records **27 confirmed provenance metadata defects repaired forward-only at the provenance/hash-lineage layer, 0 chart algorithm defects, 0 algorithm reopens, 14 cumulatively identified missing candidate families, 10 rows currently `MISSING_FROM_PRODUCT`, 6 historical candidate extensions, 3 source-scoped historical candidate registries, and 3 runtime-resolver components**.
 
 ## Research-corpus authority
 
@@ -1396,3 +1396,14 @@ HPA-TIME-004 Chinese lunar calendar construction is formally audited as **MODERN
 Runtime calendar mechanics are unchanged. Audit trace now records standard reference, conformance scope, support range and range basis. Historical Ming/Qing calendar arithmetic remains behind the fail-closed historical-calendar adapter contract. Matrix220/209/10, provenance25/25, algorithm defects/reopens/collapses0. No transmission edge.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-TIME-MODERN-CHINESE-CALENDAR-CONSTRUCTION-AUDIT-NE.md`. Research record: `docs/research/TIME-MODERN-CHINESE-CALENDAR-CONSTRUCTION-AUDIT-R1.json`.
+
+
+## Progress — Batch 12NF
+
+HPA-TIME-011 Approximate birth-time candidate sampling is formally audited as **MODERN_COMPATIBILITY_ONLY**. The released foundation uses deterministic wall-time point sampling, not continuous interval arithmetic. Start/center/end are always retained; spans up to 24 hours use a minute grid; wider spans use at least an hourly stride and increase the step as needed to cap the set at 2001 points.
+
+**PROV-DEFECT-026** repairs missing sampling provenance by emitting strategy ID, sample cap, nominal step, observed maximum sample gap and classification scope. **PROV-DEFECT-027** repairs the semantic overreach risk in `RESOLVED_RANGE_SINGLE_CLASSIFICATION`: the stable status ID is retained, but it now explicitly means all **sampled points** produced one observed classification, not that every instant of a continuous interval was exhaustively proven equivalent.
+
+The actual sample set and all classification mechanics are unchanged. Non-zero uncertainty therefore reports `continuous_interval_exhaustive=false` and `classification_scope=SAMPLED_POINTS_ONLY`; a zero-width input reports exact-point scope. Matrix220/210/10, provenance27/27, chart algorithm defects/reopens/candidate collapses0. No traditional transmission edge.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-TIME-APPROXIMATE-BIRTH-TIME-SAMPLING-AUDIT-NF.md`. Research record: `docs/research/TIME-APPROXIMATE-BIRTH-TIME-SAMPLING-AUDIT-R1.json`.
