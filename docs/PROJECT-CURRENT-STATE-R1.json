@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.376.0",
+  "schema_version": "1.377.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -38,7 +38,7 @@
     "matrix_md": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.md",
     "external_source_registry": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json",
     "row_count": 220,
-    "audited_row_count": 212,
+    "audited_row_count": 213,
     "confirmed_provenance_metadata_defect_count": 29,
     "repaired_provenance_metadata_defect_count": 29,
     "historical_candidate_registry_count": 3,
@@ -457,9 +457,10 @@
       "BATCH-12-TIME-MODERN-CHINESE-CALENDAR-CONSTRUCTION-AUDIT-NE",
       "BATCH-12-TIME-APPROXIMATE-BIRTH-TIME-SAMPLING-AUDIT-NF",
       "BATCH-12-BAZI-DAYUN-WENZHEN-COMPATIBILITY-SCOPE-AUDIT-NG",
-      "BATCH-12-BAZI-DAYUN-EXACT-JIE-TIE-HANDLING-AUDIT-NH"
+      "BATCH-12-BAZI-DAYUN-EXACT-JIE-TIE-HANDLING-AUDIT-NH",
+      "BATCH-12-ZIWEI-SELF-INWARD-TRANSFORMATION-DIRECTION-SOURCE-SCOPE-AUDIT-NI"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-DAYUN-EXACT-JIE-TIE-HANDLING-AUDIT-NH.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-SELF-INWARD-TRANSFORMATION-DIRECTION-SOURCE-SCOPE-AUDIT-NI.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -2129,7 +2130,14 @@
       "PROV-DEFECT-029 repaired forward-only: Matrix MODERN_STANDARD and vague BAZI temporal profiles scope overstated a project fail-closed policy. The row now binds the exact continuous and Wenzhen compatibility profiles.",
       "No >=/<= convention, immediate handover, adjacent-Jie reassignment or pseudo-candidate is inferred from source silence; runtime mechanics remain unchanged.",
       "Matrix 220 rows / 212 audited / 10 missing; provenance defects 29/29; chart algorithm defects / reopens / candidate collapses 0.",
-      "12NI: audit HPA-ZT-016 Self/inward transformation direction; preserve NOT_YET_FORMALIZED unless source-scoped direction semantics and replayable mechanics are established."
+      "12NI: audit HPA-ZT-016 Self/inward transformation direction; preserve NOT_YET_FORMALIZED unless source-scoped direction semantics and replayable mechanics are established.",
+      "Batch 12NI completed: HPA-ZT-016 Self/inward transformation direction is source-scope audited while retaining NOT_YET_FORMALIZED.",
+      "Released palace-stem transformation topology remains neutral SAME_PALACE / OPPOSITE_PALACE / OTHER_PALACE geometry; no inward/outward selector or direction candidate is emitted.",
+      "S08 normalized enums and S08-SRC-ZHONGZHOU-TRANSFORMATION / 中州派四化曜.txt source-family identity are preserved, but S08 release proof remains NOT_PROVEN and exact RAW selector wording is not closed.",
+      "Modern Xu Quanren witnesses are now scoped: 2013 bibliography/TOC confirms dedicated 飛宮四化 and 自化 sections; Xu-supervised Qintian teaching identity is corroborated; a secondary advanced-class transcript maps 自化/离心 and 视同自化/向心 but original audio/diagram is not directly bound.",
+      "Modern terminology remains non-uniform, including three-label usage separating 向心自化 / 离心自化 / 视同自化; contextual name bridging remains required before any mechanical normalization.",
+      "No new provenance defect: the row was explicitly pending by design. Matrix 220 rows / 213 audited / 10 missing; provenance defects remain 29/29; chart algorithm defects / reopens / candidate collapses 0.",
+      "12NJ: audit HPA-COMB-001 Shared time credential as modern combined-runtime infrastructure; keep combined provenance mechanics separate from classical doctrine."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10

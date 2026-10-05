@@ -1,0 +1,119 @@
+{
+  "schema": "ZIWEI-SELF-INWARD-TRANSFORMATION-DIRECTION-SOURCE-SCOPE-AUDIT-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-SELF-INWARD-TRANSFORMATION-DIRECTION-SOURCE-SCOPE-AUDIT-NI",
+  "prior_batch_id": "BATCH-12-BAZI-DAYUN-EXACT-JIE-TIE-HANDLING-AUDIT-NH",
+  "rule_id": "HPA-ZT-016",
+  "audit_status": "NOT_YET_FORMALIZED",
+  "algorithm_reopen_authorized": false,
+  "product_status": {
+    "direction_field": "NOT_YET_FORMALIZED",
+    "palace_stem_transformation_topology": "RELEASED_NEUTRAL_GEOMETRY_ONLY",
+    "released_direction_selector": false,
+    "candidate_direction_selector": false
+  },
+  "project_corpus_scope": {
+    "s08_status": "PROJECT_RESEARCH_CORPUS_NOT_INERRANT_AUTHORITY",
+    "source_family_id": "S08-SRC-ZHONGZHOU-TRANSFORMATION",
+    "source_original_filename": "中州派四化曜.txt",
+    "final_release_runtime_proof_status": "NOT_PROVEN",
+    "normalized_object_semantics_present": true,
+    "exact_raw_direction_selector_closed": false,
+    "raw_selector_term_hits": {
+      "向心力": 0,
+      "離心力": 0,
+      "视同自化": 0,
+      "視同自化": 0,
+      "本宫宫干": 0,
+      "对宫宫干": 0
+    }
+  },
+  "modern_school_witnesses": [
+    {
+      "source_id": "EXT-XUQUANREN-ZIWEI-MINGLIXUE-ZHENGJIE-2013-BIBLIOGRAPHY",
+      "scope": "BIBLIOGRAPHIC_IDENTITY_AND_TOC_ONLY",
+      "finding": "2013 reprint is author-bound and contains dedicated 飛宮四化象 and 自化理念 sections; target rule page is not exposed."
+    },
+    {
+      "source_id": "EXT-XUQUANREN-LUCKYZIWEI-OFFICIAL-TEACHING-SITE",
+      "scope": "AUTHOR_SUPERVISED_SCHOOL_IDENTITY_ONLY",
+      "finding": "Public surface corroborates modern 欽天四化 teaching identity but does not expose the target selector."
+    },
+    {
+      "source_id": "EXT-ZIWEICN-XUQUANREN-ADVANCED-27-SELF-TRANSFORMATION-TRANSCRIPT",
+      "scope": "SECONDARY_TRANSCRIPT_DISCOVERY_ONLY",
+      "finding": "Transcript maps 自化 to 离心力 and 视同自化 to 向心力, but original audio/diagram and exact physical publication are not independently bound."
+    }
+  ],
+  "philology_and_terminology": {
+    "normalized_project_terms": [
+      "离心",
+      "向心",
+      "自化",
+      "向心化"
+    ],
+    "secondary_transcript_terms": [
+      "自化",
+      "视同自化",
+      "离心力",
+      "向心力"
+    ],
+    "current_secondary_variant_terms": [
+      "向心自化",
+      "离心自化",
+      "视同自化"
+    ],
+    "adjudication": "SAME_OR_SIMILAR_LABELS_DO_NOT_YET_PROVE_ONE_MECHANICAL_SELECTOR",
+    "homonym_separation_required": true,
+    "source_scoped_name_bridge_required": true
+  },
+  "formalization_gate": {
+    "edition_bound_target_passage": false,
+    "original_audio_or_diagram_bound": false,
+    "exact_source_palace_rule": false,
+    "exact_target_palace_rule": false,
+    "exact_same_vs_opposite_selector": false,
+    "inward_outward_arrow_semantics_bound": false,
+    "time_layer_scope_bound": false,
+    "candidate_family_scope_closed": false,
+    "hash_and_replay_contract": false,
+    "gate_passed": false
+  },
+  "unchanged_mechanics": [
+    "ten-stem four-transformation target table",
+    "palace-stem transformation generation",
+    "12x4 neutral topology rows",
+    "SAME_PALACE / OPPOSITE_PALACE / OTHER_PALACE classification",
+    "existing transformation lineage and hashes",
+    "Workbench prohibition on generating inward/outward direction"
+  ],
+  "provenance_defects": {
+    "new_confirmed": 0,
+    "new_repaired": 0,
+    "reason": "The pre-audit row was explicitly PENDING/NOT_YET_FORMALIZED rather than falsely released; this batch closes research scope without reclassifying that pending state as a prior defect."
+  },
+  "evidence": "docs/research/evidence/batch-12ni/ziwei-self-inward-transformation-direction-source-scope.json",
+  "accounting": {
+    "rows_before": 220,
+    "rows_after": 220,
+    "audited_rows_before": 212,
+    "audited_rows_after": 213,
+    "current_missing_from_product_rows": 10,
+    "provenance_defects_confirmed_before": 29,
+    "provenance_defects_confirmed_after": 29,
+    "provenance_defects_repaired_before": 29,
+    "provenance_defects_repaired_after": 29,
+    "chart_algorithm_defects": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0,
+    "new_candidate_families": 0
+  },
+  "transmission_impact": {
+    "status": "DEFERRED_NO_EDGE",
+    "reason": "Modern Xu Quanren/Qintian witnesses are now scoped, but no direct transmission edge to S08's 中州派四化曜 family or unique terminology ancestry is established."
+  },
+  "next_gate": [
+    "12NJ: audit HPA-COMB-001 Shared time credential as modern combined-runtime infrastructure.",
+    "Keep combined provenance mechanisms separate from classical Ziwei/Bazi doctrine."
+  ]
+}

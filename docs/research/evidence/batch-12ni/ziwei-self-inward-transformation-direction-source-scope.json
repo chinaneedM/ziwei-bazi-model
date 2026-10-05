@@ -1,0 +1,113 @@
+{
+  "schema": "ZIWEI-SELF-INWARD-TRANSFORMATION-DIRECTION-SOURCE-SCOPE-EVIDENCE-R1",
+  "schema_version": "1.0.0",
+  "parent_head": "ffecc6348702d8b8e85572bc395ee6150517dda0",
+  "rule_id": "HPA-ZT-016",
+  "current_product_boundary": {
+    "direction_status": "NOT_YET_FORMALIZED",
+    "topology_profile": "ZIWEI-PALACE-STEM-TRANSFORMATION-TOPOLOGY-R1",
+    "topology_classes": [
+      "SAME_PALACE",
+      "OPPOSITE_PALACE",
+      "OTHER_PALACE"
+    ],
+    "topology_is_direction_semantics": false,
+    "runtime_direction_fields_released": false,
+    "implicit_same_to_outward_mapping_forbidden": true,
+    "implicit_opposite_to_inward_mapping_forbidden": true
+  },
+  "repository_evidence": {
+    "s08_project_corpus": {
+      "path": "sources/canonical/S08_十干四化自化与禄忌线库.txt",
+      "git_blob_sha": "f990e7e8f6670ec82f33fc2ffb57693457dcc23f",
+      "source_family_id": "S08-SRC-ZHONGZHOU-TRANSFORMATION",
+      "source_original_filename": "中州派四化曜.txt",
+      "source_raw_recovery_authority": true,
+      "final_release_runtime_proof_status": "NOT_PROVEN",
+      "normalized_direction_enum": [
+        "OUTWARD_DISSIPATION",
+        "INWARD_RECEPTION"
+      ],
+      "normalized_kind_enum": [
+        "SELF_LU",
+        "SELF_QUAN",
+        "SELF_KE",
+        "SELF_JI",
+        "OPPOSITE_LU",
+        "OPPOSITE_QUAN",
+        "OPPOSITE_KE",
+        "OPPOSITE_JI"
+      ],
+      "raw_exact_selector_term_search": {
+        "向心力": 0,
+        "離心力": 0,
+        "视同自化": 0,
+        "視同自化": 0,
+        "本宫宫干": 0,
+        "对宫宫干": 0
+      },
+      "interpretation": "S08 preserves normalized object vocabulary and a recovered modern source family, but the release-grade mechanical selector is not traceably closed to exact RAW wording."
+    },
+    "deterministic_audit": {
+      "path": "docs/S08-SELF-TRANSFORMATION-DETERMINISTIC-AUDIT-R1.md",
+      "git_blob_sha": "f4593a838327bf62a7db6a3cb1ae93f1cb2a67e8",
+      "conclusion": "NO_UNIQUE_REPLAYABLE_DIRECTION_SELECTOR_RELEASED"
+    },
+    "topology_contract": {
+      "path": "docs/ZIWEI-PALACE-STEM-TRANSFORMATION-TOPOLOGY-R1.md",
+      "git_blob_sha": "adb9bbb7ec329dfdeb47718933b33d9a7f6e7403",
+      "test_path": "tests/test_ziwei_palace_stem_transformation_topology_r1.py",
+      "test_blob_sha": "b227b556a17eeba449d46943cc5166b548f733a6",
+      "neutral_geometry_only": true
+    }
+  },
+  "external_witnesses": {
+    "registered_source_ids": [
+      "EXT-XUQUANREN-ZIWEI-MINGLIXUE-ZHENGJIE-2013-BIBLIOGRAPHY",
+      "EXT-XUQUANREN-LUCKYZIWEI-OFFICIAL-TEACHING-SITE",
+      "EXT-ZIWEICN-XUQUANREN-ADVANCED-27-SELF-TRANSFORMATION-TRANSCRIPT"
+    ],
+    "book_bibliography": {
+      "work": "許銓仁《紫微斗數命理學正解(一)》",
+      "edition_date": "2013-05-21",
+      "pages": 340,
+      "toc_attests": "第三章第四節飛宮四化象理念闡微與理則詮釋；第五節自化理念之闡微及象的分類與總彙",
+      "target_rule_page_directly_observed": false
+    },
+    "secondary_transcript": {
+      "attributed_speaker": "許銓仁",
+      "episode": 27,
+      "wording_summary": [
+        "自化与视同自化（离心力与向心力）",
+        "A宫自化相当于离心力",
+        "A宫视同自化…相当于向心力"
+      ],
+      "original_audio_bound": false,
+      "omitted_diagram_directly_bound": false,
+      "release_grade_selector_authority": false
+    },
+    "terminology_conflict_control": {
+      "url": "https://yuetianai.com/articles/ziwei-zihua-fangxiang-xiangxin-lixin-shitong.html",
+      "observed_taxonomy": "向心自化、离心自化、视同自化 treated as three distinct labels",
+      "role": "CURRENT_SECONDARY_TERMINOLOGY_VARIATION_CONTROL_NOT_AUTHORITY",
+      "implication": "Modern terminology is not stable enough to normalize by label alone."
+    }
+  },
+  "adjudication": {
+    "modern_school_family_exists": true,
+    "modern_self_transformation_direction_vocabulary_exists": true,
+    "edition_bound_target_passage_obtained": false,
+    "original_audio_or_diagram_obtained": false,
+    "exact_mechanical_selector_source_closed": false,
+    "s08_source_family_equals_xu_quanren_qintian_family_proven": false,
+    "terminology_normalization_closed": false,
+    "status": "NOT_YET_FORMALIZED",
+    "algorithm_reopen_authorized": false,
+    "candidate_addition_authorized": false,
+    "direction_selector_release_authorized": false
+  },
+  "transmission_impact": {
+    "status": "DEFERRED_NO_EDGE",
+    "reason": "Xu Quanren/Qintian modern school witnesses are now bibliographically scoped, but no evidence closes a direct transmission edge from S08's 中州派四化曜 source family to that school, nor a unique lineage for inward/outward terminology."
+  }
+}

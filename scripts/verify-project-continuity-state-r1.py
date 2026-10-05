@@ -892,9 +892,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-TIME-APPROXIMATE-BIRTH-TIME-SAMPLING-AUDIT-NF",
     "BATCH-12-BAZI-DAYUN-WENZHEN-COMPATIBILITY-SCOPE-AUDIT-NG",
     "BATCH-12-BAZI-DAYUN-EXACT-JIE-TIE-HANDLING-AUDIT-NH",
+    "BATCH-12-ZIWEI-SELF-INWARD-TRANSFORMATION-DIRECTION-SOURCE-SCOPE-AUDIT-NI",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-DAYUN-EXACT-JIE-TIE-HANDLING-AUDIT-NH.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-SELF-INWARD-TRANSFORMATION-DIRECTION-SOURCE-SCOPE-AUDIT-NI.md"
 
 
 def fail(message: str) -> None:
@@ -14950,6 +14951,61 @@ def main() -> int:
         fail("Batch 12NH provenance accounting must retain at least 29/29")
     if nh.get("algorithm_reopen_authorized") is not False or nh.get("transmission_impact", {}).get("status") != "NONE":
         fail("Batch 12NH reopen/transmission scope drift")
+
+    # Batch 12NI: self/inward direction is audited but intentionally remains unformalized.
+    ni_path = ROOT / "docs/research/ZIWEI-SELF-INWARD-TRANSFORMATION-DIRECTION-SOURCE-SCOPE-AUDIT-R1.json"
+    ni_evidence_path = ROOT / "docs/research/evidence/batch-12ni/ziwei-self-inward-transformation-direction-source-scope.json"
+    if not ni_path.is_file() or not ni_evidence_path.is_file():
+        fail("Batch 12NI research/evidence record missing")
+    ni = json.loads(ni_path.read_text(encoding="utf-8"))
+    ni_evidence = json.loads(ni_evidence_path.read_text(encoding="utf-8"))
+    ni_id = "BATCH-12-ZIWEI-SELF-INWARD-TRANSFORMATION-DIRECTION-SOURCE-SCOPE-AUDIT-NI"
+    if ni.get("batch_id") != ni_id or ni.get("prior_batch_id") != nh_id or ni_id not in rule_batches:
+        fail("Batch 12NI chronology drift")
+    row_ni = next(r for r in matrix["rows"] if r["rule_id"] == "HPA-ZT-016")
+    if row_ni.get("audit_status") != "NOT_YET_FORMALIZED" or row_ni.get("audit_batch") != ni_id or "HPA-ZT-016" not in matrix["audited_row_ids"]:
+        fail("Batch 12NI self/inward direction audit row drift")
+    if row_ni.get("current_profile") != "NOT_YET_FORMALIZED":
+        fail("Batch 12NI direction profile was silently formalized")
+    product_ni = ni.get("product_status", {})
+    if product_ni.get("direction_field") != "NOT_YET_FORMALIZED" or product_ni.get("released_direction_selector") is not False or product_ni.get("candidate_direction_selector") is not False:
+        fail("Batch 12NI product direction firewall drift")
+    corpus_ni = ni.get("project_corpus_scope", {})
+    if corpus_ni.get("source_family_id") != "S08-SRC-ZHONGZHOU-TRANSFORMATION" or corpus_ni.get("source_original_filename") != "中州派四化曜.txt" or corpus_ni.get("final_release_runtime_proof_status") != "NOT_PROVEN":
+        fail("Batch 12NI S08 source-family/proof boundary drift")
+    if corpus_ni.get("exact_raw_direction_selector_closed") is not False:
+        fail("Batch 12NI S08 selector was silently overclaimed")
+    gate_ni = ni.get("formalization_gate", {})
+    if gate_ni.get("gate_passed") is not False or any(gate_ni.get(k) is not False for k in (
+        "edition_bound_target_passage",
+        "original_audio_or_diagram_bound",
+        "exact_source_palace_rule",
+        "exact_target_palace_rule",
+        "exact_same_vs_opposite_selector",
+        "inward_outward_arrow_semantics_bound",
+        "time_layer_scope_bound",
+        "candidate_family_scope_closed",
+        "hash_and_replay_contract",
+    )):
+        fail("Batch 12NI formalization gate drift")
+    adj_ni = ni_evidence.get("adjudication", {})
+    if adj_ni.get("status") != "NOT_YET_FORMALIZED" or adj_ni.get("direction_selector_release_authorized") is not False or adj_ni.get("candidate_addition_authorized") is not False:
+        fail("Batch 12NI evidence adjudication drift")
+    source_ids_ni = {s.get("source_id") for s in registry.get("sources", ())}
+    required_ni_sources = {
+        "EXT-XUQUANREN-ZIWEI-MINGLIXUE-ZHENGJIE-2013-BIBLIOGRAPHY",
+        "EXT-XUQUANREN-LUCKYZIWEI-OFFICIAL-TEACHING-SITE",
+        "EXT-ZIWEICN-XUQUANREN-ADVANCED-27-SELF-TRANSFORMATION-TRANSCRIPT",
+    }
+    if not required_ni_sources.issubset(source_ids_ni):
+        fail("Batch 12NI modern school source registry binding drift")
+    prov_ni = ni.get("provenance_defects", {})
+    if prov_ni.get("new_confirmed") != 0 or prov_ni.get("new_repaired") != 0:
+        fail("Batch 12NI invented provenance defect accounting")
+    if audit_summary.get("confirmed_provenance_metadata_defect_count") != 29 or audit_summary.get("repaired_provenance_metadata_defect_count") != 29:
+        fail("Batch 12NI provenance accounting drift")
+    if ni.get("algorithm_reopen_authorized") is not False or ni.get("transmission_impact", {}).get("status") != "DEFERRED_NO_EDGE":
+        fail("Batch 12NI reopen/transmission scope drift")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")
