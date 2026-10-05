@@ -1685,3 +1685,19 @@ No runtime/profile/rule-set/hash/candidate change and no algorithm reopen. Matri
 Next: **12NZ — HPA-ZMINOR-023 month Jieshen/Yuejie provenance**, preserving the month-table identity separately from year-based 解神/年解.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-STANDALONE-FEILIAN-HISTORICAL-IDENTITY-CLOSURE-NY.md`. Research record: `docs/research/ZIWEI-STANDALONE-FEILIAN-HISTORICAL-IDENTITY-CLOSURE-R1.json`.
+
+## Progress — Batch 12NZ
+
+`HPA-ZMINOR-023` **month-based 解神 / 月解** is upgraded from `SOURCE_INSUFFICIENT` to `HISTORICALLY_SUPPORTED` for its month geometry.
+
+The current table `正二申、三四戌、五六子、七八寅、九十辰、十一十二午` matches premodern received calendrical tradition **12/12**. `历事明原` defines 解神 as a month deity and attributes the table to `历例`; the 1713 `御定星历考原` and Qing `钦定协纪辨方书` preserve a clean exact table, while `协纪辨方书` also supplies the opposing-yang-branch mechanical explanation. The Lishimingyuan public transcription has OCR noise, so it is not used alone for glyph adjudication.
+
+Identity remains separated from `HPA-ZMINOR-006`: received Ziwei also has a year-based 解神 rule, represented in the product as `STAR.NIANJIE / 年解`. Month 解神 is keyed by lunar month; year 解神 is keyed by birth-year branch. The product label 年解 is a modern disambiguation label and is not back-projected as fixed ancient terminology.
+
+The transmission graph now records the month Jieshen rule family, explicit `总要历` / `历例` citation layers, three premodern/Qing transmission passages, parallel coexistence with the year rule, and a DISPROVED same-mechanical-rule non-edge. Exact cited-source identities and the Ziwei adoption route remain open.
+
+No runtime/profile/rule-set/hash/candidate change and no algorithm reopen. Matrix 220/220 audited / 10 current missing; provenance defects 40/40; chart algorithm defects/reopens/candidate collapses 0. Status distribution becomes HISTORICALLY_SUPPORTED 96 and SOURCE_INSUFFICIENT 9.
+
+Next: **12OA — HPA-ZMINOR-024 Tianwu lunar-month table**. First mechanically test whether the premodern phrase `常居月建前二辰` reproduces the runtime four-palace table; same-name evidence alone is insufficient.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-MONTH-JIESHEN-HISTORICAL-IDENTITY-CLOSURE-NZ.md`. Research record: `docs/research/ZIWEI-MONTH-JIESHEN-HISTORICAL-IDENTITY-CLOSURE-R1.json`.
