@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.393.0",
+  "schema_version": "1.394.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -474,9 +474,10 @@
       "BATCH-12-UNRESOLVED-HISTORICAL-STATUS-PRIORITIZATION-NV",
       "BATCH-12-ZIWEI-ZI-WU-SHENZHU-FIRE-BELL-EVIDENCE-CLOSURE-NW",
       "BATCH-12-ZIWEI-JIANGQIAN-TEMPORAL-SOURCE-SCOPE-EVIDENCE-CLOSURE-NX",
-      "BATCH-12-ZIWEI-STANDALONE-FEILIAN-HISTORICAL-IDENTITY-CLOSURE-NY"
+      "BATCH-12-ZIWEI-STANDALONE-FEILIAN-HISTORICAL-IDENTITY-CLOSURE-NY",
+      "BATCH-12-ZIWEI-MONTH-JIESHEN-HISTORICAL-IDENTITY-CLOSURE-NZ"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-STANDALONE-FEILIAN-HISTORICAL-IDENTITY-CLOSURE-NY.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-MONTH-JIESHEN-HISTORICAL-IDENTITY-CLOSURE-NZ.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -2262,7 +2263,16 @@
       "Transmission graph now records the calendrical Feilian rule family, Guangshengli citation layer, Qing transmission witnesses, parallel coexistence with the Ziwei Boshi member, and a DISPROVED same-mechanical-rule non-edge.",
       "No runtime/profile/rule-set/hash/candidate/chart-algorithm change and no new provenance defect. Matrix 220/220 audited / 10 current missing; provenance defects 40/40; chart algorithm defects / reopens / candidate collapses 0.",
       "Unresolved-status distribution after 12NY: HISTORICALLY_SUPPORTED 95; SOURCE_INSUFFICIENT 10; DISPUTED_MULTIPLE_CANDIDATES 30; NOT_YET_FORMALIZED 1.",
-      "12NZ: audit HPA-ZMINOR-023 month Jieshen/Yuejie provenance while preserving the month-table identity separately from year-based 解神/年解."
+      "12NZ: audit HPA-ZMINOR-023 month Jieshen/Yuejie provenance while preserving the month-table identity separately from year-based 解神/年解.",
+      "Batch 12NZ completed: HPA-ZMINOR-023 month-based 解神/月解 geometry is upgraded from SOURCE_INSUFFICIENT to HISTORICALLY_SUPPORTED.",
+      "Premodern received evidence closes the 12/12 month table: 历事明原 defines 解神 as 月中善神 and attributes the table to 历例; 1713 御定星历考原 and 钦定协纪辨方书 preserve the exact clean table, with the latter retaining a mechanical gloss.",
+      "The public 历事明原 transcription contains OCR noise and is not used alone for glyph adjudication; the clean Qing received witnesses control exact table reading.",
+      "STAR.JIESHEN and STAR.NIANJIE remain separate temporal identities: month 解神 is keyed by lunar month, while the received-Ziwei year rule is keyed by birth-year branch and displayed as 年解 for product disambiguation.",
+      "The shared historical term 解神 does not prove one identity across month/year layers; project display 年解 is not back-projected as fixed ancient terminology.",
+      "Transmission graph now records the month Jieshen rule family, 总要历/历例 citation layers, three received transmission passages, parallel coexistence with year Jieshen/Nianjie, and a DISPROVED same-mechanical-rule non-edge.",
+      "Exact bibliographic identities of the cited 总要历/历例 and the path by which the month rule entered Ziwei remain unresolved.",
+      "Unresolved-status distribution after 12NZ: HISTORICALLY_SUPPORTED 96; SOURCE_INSUFFICIENT 9; DISPUTED_MULTIPLE_CANDIDATES 30; NOT_YET_FORMALIZED 1.",
+      "12OA: audit HPA-ZMINOR-024 Tianwu lunar-month table by mechanically testing whether premodern 常居月建前二辰 equals the runtime four-palace table before any status upgrade."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10
