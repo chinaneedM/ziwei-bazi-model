@@ -3387,6 +3387,84 @@
         "HPA-ZMINOR-024"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-TIANWU-HOMONYM-MECHANICAL-SEPARATION-OA"
+    },
+    {
+      "node_id": "PASSAGE-ZIWEI-FULLBOOK-ANNUAL-ERDE-JIESHEN",
+      "node_type": "PASSAGE",
+      "label": "received《紫微斗数全书》安天德月德解神诀同段",
+      "system_scope": "ZIWEI_ANNUAL_TIANDE_YUEDE_AND_NATAL_YEAR_JIESHEN_TEMPORAL_SCOPE_CONTROL",
+      "date": "RECEIVED_FULLBOOK_TEXT_TRADITION",
+      "evidence": [
+        "EXT-ZIWEI-QUANSHU-RECEIVED",
+        "EXT-WIKISOURCE-ZWDSQS-V2",
+        "S01:ZZQS-A-1943",
+        "S01:ZZQS-A-1944",
+        "S01:ZZQS-A-1945"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-YUEDE-TIANDE-TEMPORAL-SCOPE-CLOSURE-OE"
+    },
+    {
+      "node_id": "PASSAGE-SHENFENG-ERDE-START-ANCHORS",
+      "node_type": "PASSAGE",
+      "label": "《神峰通考》鸾喜二德解神歌·天德酉起/月德巳起",
+      "system_scope": "PREMODERN_CROSS_DOMAIN_TIANDE_YUEDE_START_ANCHOR_GEOMETRY",
+      "date": "MING_RECEIVED_TEXT",
+      "evidence": [
+        "EXT-CTEXT-SHENFENG-TONGKAO"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-YUEDE-TIANDE-TEMPORAL-SCOPE-CLOSURE-OE"
+    },
+    {
+      "node_id": "RULE-FAMILY-ZIWEI-NATAL-YUEDE-SI-START",
+      "node_type": "RULE_FAMILY",
+      "label": "紫微本命月德·子年巳起顺行规则族",
+      "system_scope": "ZIWEI_NATAL_BIRTH_YEAR_BRANCH_YUEDE",
+      "date": "MODERN_PROJECT_RECEIVED; PREMODERN_ZIWEI_ADOPTION_UNRESOLVED",
+      "mechanics": "子年巳宫起，随出生年支顺行",
+      "evidence": [
+        "S01:ZZZA-PR-038",
+        "HPA-ZMINOR-022"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-YUEDE-TIANDE-TEMPORAL-SCOPE-CLOSURE-OE"
+    },
+    {
+      "node_id": "RULE-FAMILY-ZIWEI-ANNUAL-YUEDE-ZI-START",
+      "node_type": "RULE_FAMILY",
+      "label": "received Fullbook 流年月德·子起顺至流年太岁",
+      "system_scope": "ZIWEI_ANNUAL_TARGET_YEAR_BRANCH_YUEDE",
+      "date": "RECEIVED_FULLBOOK_ATTESTED",
+      "mechanics": "子宫起子，顺数至流年太岁；等价于目标宫=流年太岁支宫",
+      "evidence": [
+        "S01:ZZQS-A-1944",
+        "HPA-ZTEMP-007"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-YUEDE-TIANDE-TEMPORAL-SCOPE-CLOSURE-OE"
+    },
+    {
+      "node_id": "RULE-FAMILY-ZIWEI-NATAL-TIANDE-YOU-START",
+      "node_type": "RULE_FAMILY",
+      "label": "紫微本命天德·子年酉起顺行规则族",
+      "system_scope": "ZIWEI_NATAL_BIRTH_YEAR_BRANCH_TIANDE",
+      "date": "MODERN_PROJECT_RECEIVED; PREMODERN_ZIWEI_ADOPTION_UNRESOLVED",
+      "mechanics": "子年酉宫起，随出生年支顺行",
+      "evidence": [
+        "S01:ZZZA-PR-039",
+        "HPA-ZMINOR-027"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-YUEDE-TIANDE-TEMPORAL-SCOPE-CLOSURE-OE"
+    },
+    {
+      "node_id": "RULE-FAMILY-ZIWEI-ANNUAL-TIANDE-YOU-START",
+      "node_type": "RULE_FAMILY",
+      "label": "received Fullbook 流年天德·酉起子顺至流年太岁",
+      "system_scope": "ZIWEI_ANNUAL_TARGET_YEAR_BRANCH_TIANDE",
+      "date": "RECEIVED_FULLBOOK_ATTESTED",
+      "mechanics": "酉宫起子，顺数至流年太岁",
+      "evidence": [
+        "S01:ZZQS-A-1943",
+        "HPA-ZTEMP-007"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-YUEDE-TIANDE-TEMPORAL-SCOPE-CLOSURE-OE"
     }
   ],
   "edges": [
@@ -5606,6 +5684,111 @@
       ],
       "scope_note": "Same name does not imply same rule; only months 8 and 11 coincide.",
       "adjudication_batch": "BATCH-12-ZIWEI-TIANWU-HOMONYM-MECHANICAL-SEPARATION-OA"
+    },
+    {
+      "edge_id": "TG-E0145",
+      "from": "PASSAGE-ZIWEI-FULLBOOK-ANNUAL-ERDE-JIESHEN",
+      "relation": "TRANSMITS_RULE",
+      "to": "RULE-FAMILY-ZIWEI-ANNUAL-YUEDE-ZI-START",
+      "status": "CONFIRMED",
+      "confidence": "VERY_HIGH",
+      "evidence_class": "DIRECT_RECEIVED_TEXT_EXPLICIT_FLOW_YEAR_SCOPE",
+      "evidence": [
+        "S01:ZZQS-A-1944",
+        "docs/research/ZIWEI-YUEDE-TIANDE-TEMPORAL-SCOPE-CLOSURE-R1.json"
+      ],
+      "scope_note": "Explicitly says 流年太岁; does not attest natal scope.",
+      "adjudication_batch": "BATCH-12-ZIWEI-YUEDE-TIANDE-TEMPORAL-SCOPE-CLOSURE-OE"
+    },
+    {
+      "edge_id": "TG-E0146",
+      "from": "PASSAGE-ZIWEI-FULLBOOK-ANNUAL-ERDE-JIESHEN",
+      "relation": "TRANSMITS_RULE",
+      "to": "RULE-FAMILY-ZIWEI-ANNUAL-TIANDE-YOU-START",
+      "status": "CONFIRMED",
+      "confidence": "VERY_HIGH",
+      "evidence_class": "DIRECT_RECEIVED_TEXT_EXPLICIT_FLOW_YEAR_SCOPE",
+      "evidence": [
+        "S01:ZZQS-A-1943",
+        "docs/research/ZIWEI-YUEDE-TIANDE-TEMPORAL-SCOPE-CLOSURE-R1.json"
+      ],
+      "scope_note": "Explicitly says 流年太岁; does not attest natal scope.",
+      "adjudication_batch": "BATCH-12-ZIWEI-YUEDE-TIANDE-TEMPORAL-SCOPE-CLOSURE-OE"
+    },
+    {
+      "edge_id": "TG-E0147",
+      "from": "PASSAGE-ZIWEI-FULLBOOK-ANNUAL-ERDE-JIESHEN",
+      "relation": "TRANSMITS_RULE",
+      "to": "RULE-FAMILY-ZIWEI-JIESHEN-YEAR",
+      "status": "CONFIRMED",
+      "confidence": "VERY_HIGH",
+      "evidence_class": "DIRECT_RECEIVED_TEXT_EXPLICIT_BIRTH_YEAR_SCOPE",
+      "evidence": [
+        "S01:ZZQS-A-1945",
+        "HPA-ZMINOR-006"
+      ],
+      "scope_note": "Same local sequence says 当生年太岁, providing the temporal contrast with TianDe/YueDe.",
+      "adjudication_batch": "BATCH-12-ZIWEI-YUEDE-TIANDE-TEMPORAL-SCOPE-CLOSURE-OE"
+    },
+    {
+      "edge_id": "TG-E0148",
+      "from": "PASSAGE-SHENFENG-ERDE-START-ANCHORS",
+      "relation": "STRUCTURAL_MECHANISM_CANDIDATE_FOR",
+      "to": "RULE-FAMILY-ZIWEI-NATAL-YUEDE-SI-START",
+      "status": "POSSIBLE",
+      "confidence": "HIGH_FOR_SI_START_GEOMETRY_LOW_FOR_ZIWEI_NATAL_ADOPTION",
+      "evidence_class": "PREMODERN_CROSS_DOMAIN_START_ANCHOR_PARALLEL",
+      "evidence": [
+        "EXT-CTEXT-SHENFENG-TONGKAO",
+        "HPA-ZMINOR-022"
+      ],
+      "scope_note": "Attests Si-start YueDe geometry, not an edition-bound Ziwei natal adoption path.",
+      "adjudication_batch": "BATCH-12-ZIWEI-YUEDE-TIANDE-TEMPORAL-SCOPE-CLOSURE-OE"
+    },
+    {
+      "edge_id": "TG-E0149",
+      "from": "PASSAGE-SHENFENG-ERDE-START-ANCHORS",
+      "relation": "STRUCTURAL_MECHANISM_CANDIDATE_FOR",
+      "to": "RULE-FAMILY-ZIWEI-NATAL-TIANDE-YOU-START",
+      "status": "POSSIBLE",
+      "confidence": "HIGH_FOR_YOU_START_GEOMETRY_LOW_FOR_ZIWEI_NATAL_ADOPTION",
+      "evidence_class": "PREMODERN_CROSS_DOMAIN_START_ANCHOR_PARALLEL",
+      "evidence": [
+        "EXT-CTEXT-SHENFENG-TONGKAO",
+        "HPA-ZMINOR-027"
+      ],
+      "scope_note": "Attests You-start TianDe geometry, not an edition-bound Ziwei natal adoption path.",
+      "adjudication_batch": "BATCH-12-ZIWEI-YUEDE-TIANDE-TEMPORAL-SCOPE-CLOSURE-OE"
+    },
+    {
+      "edge_id": "TG-E0150",
+      "from": "RULE-FAMILY-ZIWEI-NATAL-YUEDE-SI-START",
+      "relation": "PARALLEL_COEXISTS_WITH",
+      "to": "RULE-FAMILY-ZIWEI-ANNUAL-YUEDE-ZI-START",
+      "status": "CONFIRMED",
+      "confidence": "VERY_HIGH_FOR_TYPED_TEMPORAL_NONIDENTITY",
+      "evidence_class": "SOURCE_SCOPE_PLUS_RUNTIME_INPUT_DIMENSION",
+      "evidence": [
+        "HPA-ZMINOR-022",
+        "HPA-ZTEMP-007"
+      ],
+      "scope_note": "Natal birth-year and annual target-year rules are distinct typed facts; coexistence is not a winner contest.",
+      "adjudication_batch": "BATCH-12-ZIWEI-YUEDE-TIANDE-TEMPORAL-SCOPE-CLOSURE-OE"
+    },
+    {
+      "edge_id": "TG-E0151",
+      "from": "RULE-FAMILY-ZIWEI-NATAL-TIANDE-YOU-START",
+      "relation": "PARALLEL_COEXISTS_WITH",
+      "to": "RULE-FAMILY-ZIWEI-ANNUAL-TIANDE-YOU-START",
+      "status": "CONFIRMED",
+      "confidence": "VERY_HIGH_FOR_TYPED_TEMPORAL_NONIDENTITY",
+      "evidence_class": "SOURCE_SCOPE_PLUS_RUNTIME_INPUT_DIMENSION",
+      "evidence": [
+        "HPA-ZMINOR-027",
+        "HPA-ZTEMP-007"
+      ],
+      "scope_note": "Same anchor geometry does not make natal and annual temporal identities identical.",
+      "adjudication_batch": "BATCH-12-ZIWEI-YUEDE-TIANDE-TEMPORAL-SCOPE-CLOSURE-OE"
     }
   ],
   "lineage_hypotheses": [
@@ -6471,6 +6654,32 @@
         "HPA-ZMINOR-024"
       ],
       "adjudication_batch": "BATCH-12-ZIWEI-TIANWU-HOMONYM-MECHANICAL-SEPARATION-OA"
+    },
+    {
+      "from": "RULE-FAMILY-ZIWEI-NATAL-YUEDE-SI-START",
+      "relation": "SAME_TYPED_TEMPORAL_RULE_AS",
+      "to": "RULE-FAMILY-ZIWEI-ANNUAL-YUEDE-ZI-START",
+      "status": "DISPROVED",
+      "reason": "Natal YueDe is keyed by birth-year branch while the received-Fullbook Zi-start method explicitly advances to 流年太岁. Different source layers and input dimensions forbid identity collapse.",
+      "evidence": [
+        "HPA-ZMINOR-022",
+        "HPA-ZTEMP-007",
+        "docs/research/ZIWEI-YUEDE-TIANDE-TEMPORAL-SCOPE-CLOSURE-R1.json"
+      ],
+      "adjudication_batch": "BATCH-12-ZIWEI-YUEDE-TIANDE-TEMPORAL-SCOPE-CLOSURE-OE"
+    },
+    {
+      "from": "RULE-FAMILY-ZIWEI-NATAL-TIANDE-YOU-START",
+      "relation": "SAME_TYPED_TEMPORAL_RULE_AS",
+      "to": "RULE-FAMILY-ZIWEI-ANNUAL-TIANDE-YOU-START",
+      "status": "DISPROVED",
+      "reason": "Natal TianDe is keyed by birth-year branch while the received-Fullbook line explicitly advances to 流年太岁. Shared You-start geometry does not erase temporal-layer identity.",
+      "evidence": [
+        "HPA-ZMINOR-027",
+        "HPA-ZTEMP-007",
+        "docs/research/ZIWEI-YUEDE-TIANDE-TEMPORAL-SCOPE-CLOSURE-R1.json"
+      ],
+      "adjudication_batch": "BATCH-12-ZIWEI-YUEDE-TIANDE-TEMPORAL-SCOPE-CLOSURE-OE"
     }
   ],
   "backfill": {
