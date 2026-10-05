@@ -339,7 +339,6 @@ def resolve_zhongzhou_leap_month_half_split_candidate(
             "frame_id": previous_month_frame_id,
             "ganzhi": previous_month_ganzhi,
             "active_address_branch": previous_month_active_branch,
-            "day_count": previous_regular_month_day_count,
         },
         "following_regular_month": {
             "temporal_year": following_month_temporal_year,
