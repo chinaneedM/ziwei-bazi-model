@@ -63,5 +63,12 @@
   "next_gate": [
     "12NR: reconcile HPA-ZIWEI-015, HPA-ZIWEI-016 and HPA-ZIWEI-022 against the Jielan 1581 source-scoped runtime.",
     "Verify whether candidate-profile API/Workbench wiring still remains absent before preserving or changing MISSING_FROM_PRODUCT."
-  ]
+  ],
+  "batch_classification": "POST_AUDIT_RECONCILIATION_NOT_SUPPLEMENTAL_RULE_AUDIT",
+  "matrix_membership": {
+    "historical_completed_batch": true,
+    "supplemental_rule_audit_batch": false,
+    "target_row_audit_batch_preserved": "BATCH-08-ZIWEI-TEMPORAL-FRAMES-B",
+    "target_row_reconciliation_batch": "BATCH-12-POST-AUDIT-MISSING-PRODUCT-RECONCILIATION-LEAP-MONTH-NQ"
+  }
 }

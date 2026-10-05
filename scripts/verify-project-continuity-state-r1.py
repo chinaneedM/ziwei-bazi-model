@@ -15419,8 +15419,17 @@ def main() -> int:
     nq = json.loads(nq_path.read_text(encoding="utf-8"))
     nq_evidence = json.loads(nq_evidence_path.read_text(encoding="utf-8"))
     nq_id = "BATCH-12-POST-AUDIT-MISSING-PRODUCT-RECONCILIATION-LEAP-MONTH-NQ"
-    if nq.get("batch_id") != nq_id or nq.get("prior_batch_id") != np_id or nq_id not in rule_batches:
+    if nq.get("batch_id") != nq_id or nq.get("prior_batch_id") != np_id:
         fail("Batch 12NQ chronology drift")
+    if nq_id in rule_batches:
+        fail("Batch 12NQ post-audit reconciliation must not be enrolled as a supplemental rule-audit batch")
+    if nq.get("batch_classification") != "POST_AUDIT_RECONCILIATION_NOT_SUPPLEMENTAL_RULE_AUDIT":
+        fail("Batch 12NQ batch classification drift")
+    membership_nq = nq.get("matrix_membership", {})
+    if membership_nq.get("historical_completed_batch") is not True or membership_nq.get("supplemental_rule_audit_batch") is not False:
+        fail("Batch 12NQ Matrix membership classification drift")
+    if membership_nq.get("target_row_audit_batch_preserved") != "BATCH-08-ZIWEI-TEMPORAL-FRAMES-B" or membership_nq.get("target_row_reconciliation_batch") != nq_id:
+        fail("Batch 12NQ target-row audit/reconciliation lineage drift")
     row_nq = next(r for r in matrix["rows"] if r["rule_id"] == "HPA-ZT-015")
     related_nq = next(r for r in matrix["rows"] if r["rule_id"] == "HPA-ZTEMP-006")
     if row_nq.get("audit_status") != "MISSING_FROM_PRODUCT":
