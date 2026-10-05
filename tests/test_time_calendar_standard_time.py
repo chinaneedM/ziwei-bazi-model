@@ -20,6 +20,23 @@ class ChineseCalendarStandardTimeRegressionTests(unittest.TestCase):
         self.assertEqual("UTC+08:00", calendar.calendar_zone)
         self.assertEqual("BEIJING_STANDARD_TIME", calendar.calendar_time_standard)
 
+    def test_calendar_standard_scope_metadata_does_not_overclaim_certification(self):
+        calendar = ChineseCalendarEngine()
+        self.assertEqual("GB/T 33661-2017", calendar.standard_reference)
+        self.assertEqual(
+            "RULE_STRUCTURE_COMPATIBLE_NOT_CERTIFIED_FOR_IERS_MODEL_OR_1S_EVENT_TIMING",
+            calendar.standard_conformance,
+        )
+        self.assertEqual(
+            "HKO_PUBLIC_CONVERSION_TABLE_RANGE_NOT_EXHAUSTIVE_FULL_RANGE_VALIDATION",
+            calendar.support_range_basis,
+        )
+        self.assertEqual((1901, 2100), calendar.supported_years)
+        self.assertEqual(
+            ("2057-09-28", "2089-09-04", "2097-08-07"),
+            calendar.hko_forecast_new_moon_boundary_uncertainty_dates,
+        )
+
     def test_approximate_precision_requires_explicit_uncertainty(self):
         with self.assertRaisesRegex(ValueError, "APPROXIMATE precision requires uncertainty_seconds > 0"):
             BirthInput(

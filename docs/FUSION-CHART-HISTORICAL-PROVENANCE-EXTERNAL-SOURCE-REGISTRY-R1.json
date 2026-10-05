@@ -13194,6 +13194,61 @@
       "batch_id": "BATCH-12-TIME-AMBIGUOUS-CIVIL-FOLD-GAP-HANDLING-AUDIT-ND",
       "physical_glyph_authority": false,
       "access_date": "2026-10-05"
+    },
+    {
+      "source_id": "EXT-SAMR-GBT33661-2017-CURRENT-STATUS",
+      "title": "GB/T 33661-2017《农历的编算和颁行》国家标准现行状态",
+      "url": "https://std.samr.gov.cn/gb/search/gbDetailed?id=n4aXcLrEnvA%3D&mode=p",
+      "provider": "全国标准信息公共服务平台 / 国家市场监督管理总局国家标准化管理委员会",
+      "source_role": "PRIMARY_OFFICIAL_STANDARD_STATUS_AND_GOVERNANCE_RECORD",
+      "quality_notes": "Official record identifies GB/T 33661-2017 as current, issued 2017-05-12, effective 2017-09-01, drafted by Purple Mountain Observatory, with 2023-12-28 review conclusion continue valid. It establishes the current standard identity/governance, not by itself proof that this repository's numerical engine is certified compliant.",
+      "batch_id": "BATCH-12-TIME-MODERN-CHINESE-CALENDAR-CONSTRUCTION-AUDIT-NE",
+      "physical_glyph_authority": false,
+      "access_date": "2026-10-05"
+    },
+    {
+      "source_id": "EXT-PMO-MODERN-CHINESE-CALENDAR-BASIC-TERMS",
+      "title": "中国科学院紫金山天文台《历书基本术语简介》",
+      "url": "https://www.pmo.cas.cn/xwdt2019/kpdt2019/202203/t20220314_6389637.html",
+      "provider": "中国科学院紫金山天文台",
+      "source_role": "PRIMARY_OFFICIAL_DRAFTER_INSTITUTION_RULE_EXPLANATION",
+      "quality_notes": "Official PMO explanation states that the date containing the new moon is the first day of the lunar month, the month containing winter solstice is month 11, and in a 13-month interval the first month without a principal term is leap. Used to bind modern rule structure, not historical dynasty arithmetic.",
+      "batch_id": "BATCH-12-TIME-MODERN-CHINESE-CALENDAR-CONSTRUCTION-AUDIT-NE",
+      "physical_glyph_authority": false,
+      "access_date": "2026-10-05"
+    },
+    {
+      "source_id": "EXT-PMO-GBT33661-INTERPRETATION-1S",
+      "title": "中国科学院紫金山天文台《国家标准〈农历的编算和颁行〉解读材料》",
+      "url": "https://pmo.cas.cn/xwdt2019/kpdt2019/202203/P020240201504886119982.pdf",
+      "provider": "中国科学院紫金山天文台",
+      "source_role": "PRIMARY_OFFICIAL_DRAFTER_INTERPRETATION_FOR_MODEL_AND_PRECISION_SCOPE",
+      "quality_notes": "Official drafter interpretation explains the Beijing-time rule structure and states that new-moon and solar-term calculation used for date determination should reach 1-second precision, with calculation based on the prescribed basic-astronomy/IERS framework. This is the strict numerical-conformance gate R1 has not certified.",
+      "batch_id": "BATCH-12-TIME-MODERN-CHINESE-CALENDAR-CONSTRUCTION-AUDIT-NE",
+      "physical_glyph_authority": false,
+      "access_date": "2026-10-05"
+    },
+    {
+      "source_id": "EXT-HKO-GREGORIAN-LUNAR-1901-2100-UNCERTAINTY",
+      "title": "Hong Kong Observatory Gregorian-Lunar Calendar Conversion Table 1901-2100",
+      "url": "https://www.hko.gov.hk/en/gts/time/conversion.htm",
+      "provider": "Hong Kong Observatory",
+      "source_role": "OFFICIAL_DATE_ORACLE_HORIZON_AND_FUTURE_NEAR_MIDNIGHT_UNCERTAINTY",
+      "quality_notes": "Official HKO table surface spans 1901-2100 and warns that moon-phase/solar-term predictions decades ahead may be uncertain by minutes; near midnight this can shift the relevant lunar-month or solar-term date by one day. It explicitly lists new moons on 2057-09-28, 2089-09-04 and 2097-08-07 among such cases. The published horizon is not exhaustive validation of this repository.",
+      "batch_id": "BATCH-12-TIME-MODERN-CHINESE-CALENDAR-CONSTRUCTION-AUDIT-NE",
+      "physical_glyph_authority": false,
+      "access_date": "2026-10-05"
+    },
+    {
+      "source_id": "EXT-ASTRONOMY-ENGINE-UPSTREAM-ACCURACY",
+      "title": "Astronomy Engine upstream accuracy and model contract",
+      "url": "https://github.com/cosinekitty/astronomy",
+      "provider": "Astronomy Engine upstream",
+      "source_role": "UPSTREAM_NUMERICAL_ENGINE_ACCURACY_CONTRACT",
+      "quality_notes": "Upstream describes Astronomy Engine as a compact VSOP87/NOVAS-based library designed for accuracy within approximately plus/minus one arcminute and validated against NOVAS/JPL sources. This is useful modern astronomical infrastructure but does not establish repository certification to GB/T 33661's IERS-model and 1-second event-time requirement.",
+      "batch_id": "BATCH-12-TIME-MODERN-CHINESE-CALENDAR-CONSTRUCTION-AUDIT-NE",
+      "physical_glyph_authority": false,
+      "access_date": "2026-10-05"
     }
   ],
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md",

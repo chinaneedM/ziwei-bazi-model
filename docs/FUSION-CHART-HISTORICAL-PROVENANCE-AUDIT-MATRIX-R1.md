@@ -34,7 +34,7 @@ Every row carries:
 - proposed action;
 - explicit algorithm-reopen authorization, which is **false for every inventory row at creation**.
 
-The initial inventory contained **107 rule/field families**. Through Batch 12ND and explicit splitting of historically distinct candidate families, the current machine-readable inventory contains **220 rows**, with **208 audited rows**. It intentionally keeps unresolved source work explicit rather than converting uncertainty into a chart defect. The current audit ledger records **23 confirmed provenance metadata defects repaired forward-only at the provenance/hash-lineage layer, 0 chart algorithm defects, 0 algorithm reopens, 14 cumulatively identified missing candidate families, 10 rows currently `MISSING_FROM_PRODUCT`, 6 historical candidate extensions, 3 source-scoped historical candidate registries, and 3 runtime-resolver components**.
+The initial inventory contained **107 rule/field families**. Through Batch 12NE and explicit splitting of historically distinct candidate families, the current machine-readable inventory contains **220 rows**, with **209 audited rows**. It intentionally keeps unresolved source work explicit rather than converting uncertainty into a chart defect. The current audit ledger records **25 confirmed provenance metadata defects repaired forward-only at the provenance/hash-lineage layer, 0 chart algorithm defects, 0 algorithm reopens, 14 cumulatively identified missing candidate families, 10 rows currently `MISSING_FROM_PRODUCT`, 6 historical candidate extensions, 3 source-scoped historical candidate registries, and 3 runtime-resolver components**.
 
 ## Research-corpus authority
 
@@ -1385,3 +1385,14 @@ The released resolver is generic rather than “one-hour DST” specific: New Yo
 No UTC resolution algorithm, candidate count rule, chart fact, hash, candidate winner or classical rule changes. Matrix220/208/10, provenance23/23, algorithm defects/reopens/collapses0. No transmission edge.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-TIME-AMBIGUOUS-CIVIL-FOLD-GAP-HANDLING-ND.md`. Research record: `docs/research/TIME-AMBIGUOUS-CIVIL-FOLD-GAP-HANDLING-AUDIT-R1.json`.
+
+
+## Progress — Batch 12NE
+
+HPA-TIME-004 Chinese lunar calendar construction is formally audited as **MODERN_COMPATIBILITY_ONLY**. The released engine matches the modern rule structure (Beijing Standard Time, new-moon day as day 1, winter-solstice month 11, first no-principal-term month as leap when 13 months occur) but is not certified here to GB/T 33661-2017's prescribed numerical-model / 1-second event-time requirement. Astronomy Engine remains explicit modern infrastructure with emitted version provenance.
+
+**PROV-DEFECT-024** relabels 1901–2100 from “validated range” to operational support matching HKO's published conversion-table horizon; selected HKO regression points are not exhaustive 200-year validation. **PROV-DEFECT-025** separates GB/T rule compatibility from strict numerical certification. HKO's official warning that near-midnight future moon phases/solar terms can shift dates by one day is retained, including new moons on 2057-09-28, 2089-09-04 and 2097-08-07.
+
+Runtime calendar mechanics are unchanged. Audit trace now records standard reference, conformance scope, support range and range basis. Historical Ming/Qing calendar arithmetic remains behind the fail-closed historical-calendar adapter contract. Matrix220/209/10, provenance25/25, algorithm defects/reopens/collapses0. No transmission edge.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-TIME-MODERN-CHINESE-CALENDAR-CONSTRUCTION-AUDIT-NE.md`. Research record: `docs/research/TIME-MODERN-CHINESE-CALENDAR-CONSTRUCTION-AUDIT-R1.json`.

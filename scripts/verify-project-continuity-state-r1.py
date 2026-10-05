@@ -888,9 +888,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-R2-RELATIVE-PALACE-FRAME-AUDIT-NB",
     "BATCH-12-TIME-CIVIL-TZDB-INSTANT-RESOLUTION-AUDIT-NC",
     "BATCH-12-TIME-AMBIGUOUS-CIVIL-FOLD-GAP-HANDLING-AUDIT-ND",
+    "BATCH-12-TIME-MODERN-CHINESE-CALENDAR-CONSTRUCTION-AUDIT-NE",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-TIME-AMBIGUOUS-CIVIL-FOLD-GAP-HANDLING-ND.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-TIME-MODERN-CHINESE-CALENDAR-CONSTRUCTION-AUDIT-NE.md"
 
 
 def fail(message: str) -> None:
@@ -14817,6 +14818,45 @@ def main() -> int:
         fail("Batch 12ND provenance accounting must retain at least 23/23")
     if nd.get("algorithm_reopen_authorized") is not False or nd.get("transmission_impact", {}).get("status") != "NONE":
         fail("Batch 12ND reopen/transmission scope drift")
+
+    # Batch 12NE: modern Chinese-calendar rule compatibility is not strict GB/T numerical certification.
+    ne_path = ROOT / "docs/research/TIME-MODERN-CHINESE-CALENDAR-CONSTRUCTION-AUDIT-R1.json"
+    if not ne_path.is_file():
+        fail("Batch 12NE research record missing")
+    ne = json.loads(ne_path.read_text(encoding="utf-8"))
+    ne_id = "BATCH-12-TIME-MODERN-CHINESE-CALENDAR-CONSTRUCTION-AUDIT-NE"
+    if ne.get("batch_id") != ne_id or ne.get("prior_batch_id") != nd_id or ne_id not in rule_batches:
+        fail("Batch 12NE chronology drift")
+    row_ne = next(r for r in matrix["rows"] if r["rule_id"] == "HPA-TIME-004")
+    if row_ne.get("audit_status") != "MODERN_COMPATIBILITY_ONLY" or row_ne.get("audit_batch") != ne_id or "HPA-TIME-004" not in matrix["audited_row_ids"]:
+        fail("Batch 12NE modern Chinese-calendar audit row drift")
+    repairs_ne = {x.get("defect_id") for x in ne.get("provenance_repairs", ())}
+    if repairs_ne != {"PROV-DEFECT-024", "PROV-DEFECT-025"}:
+        fail("Batch 12NE provenance repair identities drift")
+    numeric_ne = ne.get("numerical_conformance_boundary", {})
+    if numeric_ne.get("standard_event_time_precision_seconds") != 1 or numeric_ne.get("strict_gbt_model_conformance_certified") is not False or numeric_ne.get("strict_gbt_one_second_event_timing_certified") is not False:
+        fail("Batch 12NE strict numerical-conformance firewall drift")
+    range_ne = ne.get("support_range_boundary", {})
+    if range_ne.get("repository_supported_years") != [1901, 2100] or range_ne.get("hko_published_conversion_table_years") != [1901, 2100]:
+        fail("Batch 12NE support-range identity drift")
+    if range_ne.get("interpretation") != "OPERATIONAL_SUPPORT_AND_OFFICIAL_ORACLE_HORIZON_NOT_EXHAUSTIVE_FULL_RANGE_VALIDATION":
+        fail("Batch 12NE support-range provenance boundary drift")
+    if range_ne.get("hko_forecast_new_moon_near_midnight_dates") != ["2057-09-28", "2089-09-04", "2097-08-07"]:
+        fail("Batch 12NE HKO forecast-boundary dates drift")
+    source_ids = {s.get("source_id") for s in registry.get("sources", ())}
+    required_ne_sources = {
+        "EXT-SAMR-GBT33661-2017-CURRENT-STATUS",
+        "EXT-PMO-MODERN-CHINESE-CALENDAR-BASIC-TERMS",
+        "EXT-PMO-GBT33661-INTERPRETATION-1S",
+        "EXT-HKO-GREGORIAN-LUNAR-1901-2100-UNCERTAINTY",
+        "EXT-ASTRONOMY-ENGINE-UPSTREAM-ACCURACY",
+    }
+    if not required_ne_sources.issubset(source_ids):
+        fail("Batch 12NE external source registry binding drift")
+    if audit_summary.get("confirmed_provenance_metadata_defect_count", 0) < 25 or audit_summary.get("repaired_provenance_metadata_defect_count", 0) < 25:
+        fail("Batch 12NE provenance accounting must retain at least 25/25")
+    if ne.get("algorithm_reopen_authorized") is not False or ne.get("transmission_impact", {}).get("status") != "NONE":
+        fail("Batch 12NE reopen/transmission scope drift")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

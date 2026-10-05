@@ -68,13 +68,47 @@ or lunar date into another official calendar day.
 |---|---|---|---|
 | Timezone | Python `zoneinfo` + first-party `tzdata` fallback | Python / IANA tzdb | Cross-platform; metadata follows the source that `ZoneInfo` actually searches first: system TZPATH is reported as `SYSTEM-TZDB-UNVERSIONED`, while the PyPI `tzdata` version is emitted only when package fallback supplies the zone. Historical confidence is keyed to the UTC POSIX epoch, not the local calendar year. |
 | Solar and lunar events | Astronomy Engine 2.1.x | MIT; VSOP87/NOVAS-based, tested upstream against JPL Horizons | Pure Python, no downloaded ephemeris, advertised position accuracy within 1 arcminute; exact installed version and accuracy claim are emitted. |
-| Modern Chinese calendar | Repository algorithm using astronomical events; fixed UTC+08:00 calendar standard time | GB/T 33661-2017 governance; HKO rules/oracles | Month starts, winter-solstice month and no-principal-term leap rule are calculated, not table-looked-up. R1 validated range is 1901–2100. Historical civil DST is not used as the lunar-calendar day boundary. |
+| Modern Chinese calendar | Repository algorithm using astronomical events; fixed UTC+08:00 calendar standard time | GB/T 33661-2017 rule/governance reference; PMO/HKO rules and date oracles | Month starts, winter-solstice month and no-principal-term leap rule are calculated, not table-looked-up. R1 operational support is 1901–2100 because that is the published HKO conversion-table horizon; this is not exhaustive full-range validation or certification to GB/T's IERS-model / 1-second event-time requirement. Historical civil DST is not used as the lunar-calendar day boundary. |
 
 Authority fixtures live in
 `tests/fixtures/time-calendar-foundation-r1.json`. HKO tables and an independent
 USNO/NOAA-style equation-of-time calculation are regression oracles, not the
 production algorithm. Wenmo/Wenzhen observations are explicitly tagged as
 compatibility-only.
+
+### Modern Chinese-calendar authority and conformance boundary
+
+GB/T 33661-2017 is the current national standard for calculation and
+promulgation of the Chinese calendar. Its rule layer uses Beijing Standard Time,
+takes the new-moon day as day 1, fixes the month containing winter solstice as
+month 11, and in a 13-month interval makes the first month without a principal
+term the leap month. The Purple Mountain Observatory's public terminology
+material states the same modern arrangement.
+
+R1 implements that **rule structure**, but it is not represented as a certified
+GB/T numerical implementation. The standard's calculation layer requires the
+Sun/Moon positions to follow IERS-prescribed models and requires Beijing-time
+new-moon and solar-term event calculation to reach 1-second precision. The
+repository instead uses Astronomy Engine, whose upstream design target is
+approximately ±1 arcminute positional accuracy and whose compact VSOP87/NOVAS
+implementation has not been certified here against the GB/T calculation model
+or the 1-second timing gate. The installed Astronomy Engine version remains
+emitted in each lunar-date fact for replay provenance.
+
+The engine's `1901..2100` guard is an operational support range aligned to the
+Hong Kong Observatory's published Gregorian–Lunar conversion-table horizon.
+It is **not** an assertion that every day in those 200 years has been
+independently validated. HKO itself warns that predicted moon phases and solar
+terms decades ahead can carry several minutes of uncertainty near midnight and
+explicitly identifies new moons on 2057-09-28, 2089-09-04 and 2097-08-07 as
+cases where the relevant lunar-month date may differ by one day.
+
+Accordingly, the adapter is suitable as a deterministic modern compatibility
+realization with explicit algorithm/version provenance. It must not be promoted
+to (a) certified GB/T 33661 numerical compliance, (b) a historical dynastic
+calendar, or (c) a claim that HKO's publication range is exhaustive validation.
+The separate historical-calendar adapter contract remains fail-closed for Ming,
+Qing and other regime-specific arithmetic.
 
 ### Civil timezone authority and historical scope
 

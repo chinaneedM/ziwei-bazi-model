@@ -153,7 +153,14 @@ class TimeCalendarFoundation:
                 "local_solar_lunar_date": ziwei.local_solar_lunar_date,
                 "events": ziwei.events,
             },
-            {"algorithm": self.calendar.algorithm_id, "calendar_zone": self.calendar.calendar_zone},
+            {
+                "algorithm": self.calendar.algorithm_id,
+                "calendar_zone": self.calendar.calendar_zone,
+                "standard_reference": self.calendar.standard_reference,
+                "standard_conformance": self.calendar.standard_conformance,
+                "support_range": list(self.calendar.supported_years),
+                "support_range_basis": self.calendar.support_range_basis,
+            },
         )
         trace.add(
             "select_ziwei_calendar_date",

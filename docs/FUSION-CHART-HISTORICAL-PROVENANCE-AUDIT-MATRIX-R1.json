@@ -80,7 +80,7 @@
       "candidate/profile rules": 2,
       "provenance / hashes / lineage": 2
     },
-    "audited_row_count": 208
+    "audited_row_count": 209
   },
   "rows": [
     {
@@ -165,20 +165,22 @@
       "rule_or_field": "Chinese lunar calendar construction",
       "current_implementation": "Astronomical new moons, winter-solstice month, no-principal-term leap rule, fixed UTC+08 calendar standard time.",
       "current_profile": "TIME-CALENDAR-FOUNDATION-R1",
-      "primary_source": "GB/T 33661-2017 governance; HKO oracle",
-      "source_quote": "PENDING_VERBATIM_EXTRACTION",
-      "source_quote_location": "docs/TIME-CALENDAR-FOUNDATION-R1.md Source hierarchy",
-      "historical_period": "MODERN_STANDARD",
-      "later_witnesses": "HKO / GB/T witnesses",
-      "school_attribution": "MODERN_CALENDAR_STANDARD",
+      "primary_source": "GB/T 33661-2017 current national-standard status; Purple Mountain Observatory modern-calendar rule explanation; HKO 1901-2100 conversion oracles; Astronomy Engine upstream accuracy contract",
+      "source_quote": "农历以月亮朔的时刻所在的日期作为每月的月首",
+      "source_quote_location": "Purple Mountain Observatory《历书基本术语简介》; GB/T 33661-2017 §§4-5 via official drafter interpretation; HKO conversion-table remarks",
+      "historical_period": "MODERN_STANDARD_WITH_EXPLICIT_NUMERICAL_CONFORMANCE_LIMIT",
+      "later_witnesses": "HKO Gregorian-Lunar Calendar Conversion Table 1901-2100; PMO calendar publications under GB/T 33661-2017",
+      "school_attribution": "MODERN_CHINESE_CALENDAR_STANDARD_NOT_HISTORICAL_DYNASTIC_CALENDAR",
       "competing_methods": [
-        "historical tabular calendars / era-specific calendars"
+        "historical tabular calendars / era-specific calendars",
+        "strict GB/T 33661 numerical implementation using IERS-prescribed models and 1-second event-time accuracy"
       ],
-      "current_implementation_match": "MATCHES_DECLARED_MODERN_SCOPE",
-      "confidence": "HIGH",
+      "current_implementation_match": "RULE_STRUCTURE_MATCHES_MODERN_STANDARD; STRICT_GBT_IERS_MODEL_AND_1S_EVENT_TIMING_NOT_CERTIFIED; 1901_2100_IS_OPERATIONAL_HKO_TABLE_HORIZON_NOT_EXHAUSTIVE_VALIDATION",
+      "confidence": "HIGH_RULE_STRUCTURE; MODERATE_NUMERICAL_CONFORMANCE_SCOPE",
       "audit_status": "MODERN_COMPATIBILITY_ONLY",
-      "proposed_action": "Keep modern calendar realization clearly labeled; audit historical range assumptions separately.",
-      "algorithm_reopen_authorized": false
+      "proposed_action": "Retain the modern astronomical adapter with explicit GB/T rule-reference but non-certified numerical scope. Keep 1901-2100 as operational support/HKO oracle horizon, expose algorithm/version provenance, preserve HKO near-midnight forecast uncertainty, and never substitute it for a historical dynastic calendar.",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-12-TIME-MODERN-CHINESE-CALENDAR-CONSTRUCTION-AUDIT-NE"
     },
     {
       "rule_id": "HPA-TIME-005",
@@ -7288,12 +7290,13 @@
     "HPA-STRUCT-001",
     "HPA-STRUCT-002",
     "HPA-TIME-001",
-    "HPA-TIME-002"
+    "HPA-TIME-002",
+    "HPA-TIME-004"
   ],
   "audit_summary": {
     "confirmed_chart_algorithm_defect_count": 0,
-    "confirmed_provenance_metadata_defect_count": 23,
-    "repaired_provenance_metadata_defect_count": 23,
+    "confirmed_provenance_metadata_defect_count": 25,
+    "repaired_provenance_metadata_defect_count": 25,
     "algorithm_reopen_count": 0,
     "candidate_collapse_count": 0,
     "historical_candidate_extension_count": 6,
@@ -7323,6 +7326,7 @@
     "BATCH-12-ZIWEI-R1-NEUTRAL-Z12-TOPOLOGY-AUDIT-NA",
     "BATCH-12-ZIWEI-R2-RELATIVE-PALACE-FRAME-AUDIT-NB",
     "BATCH-12-TIME-CIVIL-TZDB-INSTANT-RESOLUTION-AUDIT-NC",
-    "BATCH-12-TIME-AMBIGUOUS-CIVIL-FOLD-GAP-HANDLING-AUDIT-ND"
+    "BATCH-12-TIME-AMBIGUOUS-CIVIL-FOLD-GAP-HANDLING-AUDIT-ND",
+    "BATCH-12-TIME-MODERN-CHINESE-CALENDAR-CONSTRUCTION-AUDIT-NE"
   ]
 }

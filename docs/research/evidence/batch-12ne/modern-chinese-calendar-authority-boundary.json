@@ -1,0 +1,29 @@
+{
+  "schema": "MODERN-CHINESE-CALENDAR-AUTHORITY-BOUNDARY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-TIME-MODERN-CHINESE-CALENDAR-CONSTRUCTION-AUDIT-NE",
+  "official_sources": {
+    "standard_status": "EXT-SAMR-GBT33661-2017-CURRENT-STATUS",
+    "rule_explanation": "EXT-PMO-MODERN-CHINESE-CALENDAR-BASIC-TERMS",
+    "precision_interpretation": "EXT-PMO-GBT33661-INTERPRETATION-1S",
+    "hko_oracle_horizon": "EXT-HKO-GREGORIAN-LUNAR-1901-2100-UNCERTAINTY",
+    "numerical_engine": "EXT-ASTRONOMY-ENGINE-UPSTREAM-ACCURACY"
+  },
+  "adjudication": {
+    "rule_structure_compatible": true,
+    "strict_numerical_standard_certified": false,
+    "range_1901_2100_is_exhaustively_validated": false,
+    "range_1901_2100_is_operationally_supported": true,
+    "historical_dynastic_authority": false,
+    "algorithm_reopen_authorized": false
+  },
+  "known_hko_future_boundary_uncertainty": {
+    "new_moon_dates": [
+      "2057-09-28",
+      "2089-09-04",
+      "2097-08-07"
+    ],
+    "consequence": "RELEVANT_LUNAR_MONTH_DATE_MAY_DIFFER_BY_ONE_DAY",
+    "current_algorithm_changed": false
+  }
+}

@@ -24,7 +24,7 @@ class _LunarMonth:
 
 
 class ChineseCalendarEngine:
-    """Astronomically derive the modern Chinese calendar for 1901..2100.
+    """Astronomically derive a modern Chinese-calendar adapter for 1901..2100.
 
     R1 applies the modern national-calendar day boundary in Beijing Standard
     Time: fixed UTC+08:00 (the standard time of 120 degrees east longitude).
@@ -32,14 +32,28 @@ class ChineseCalendarEngine:
     because historical DST must not move an official Chinese-calendar day
     boundary. Month starts are civil dates containing geocentric new moons;
     month 11 contains winter solstice; in a 13-month sui the first subsequent
-    month without a principal term is leap. Historical calendar regimes are
-    intentionally outside this adapter.
+    month without a principal term is leap.
+
+    The rule structure follows the current GB/T 33661-2017 arrangement, but R1
+    is not certified to the standard's IERS-model / one-second event-time
+    requirement. Its 1901..2100 guard matches the published HKO conversion-table
+    horizon and is an operational support range, not proof of exhaustive
+    date-level validation. Historical calendar regimes remain outside this
+    adapter.
     """
 
     algorithm_id = "MODERN-CHINESE-CALENDAR-ASTRONOMICAL-V1"
     calendar_zone = "UTC+08:00"
     calendar_time_standard = "BEIJING_STANDARD_TIME"
     supported_years = (1901, 2100)
+    standard_reference = "GB/T 33661-2017"
+    standard_conformance = "RULE_STRUCTURE_COMPATIBLE_NOT_CERTIFIED_FOR_IERS_MODEL_OR_1S_EVENT_TIMING"
+    support_range_basis = "HKO_PUBLIC_CONVERSION_TABLE_RANGE_NOT_EXHAUSTIVE_FULL_RANGE_VALIDATION"
+    hko_forecast_new_moon_boundary_uncertainty_dates = (
+        "2057-09-28",
+        "2089-09-04",
+        "2097-08-07",
+    )
 
     def __init__(self, solar_terms: SolarTermEngine | None = None) -> None:
         self.solar_terms = solar_terms or SolarTermEngine()

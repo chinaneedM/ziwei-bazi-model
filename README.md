@@ -223,7 +223,7 @@ Fusion Chart Capability & Performance Acceptance R1 已正式收口。最终执�
 
 ## Fusion Chart Historical Provenance & School Audit R1
 
-最新规则审计闭环为 **Batch 12ND**：HPA-TIME-002 Ambiguous civil time fold/gap handling 正式确认为现代操作层。PEP 495 / Python zoneinfo 的 fold=0 较早读数、fold=1 较晚读数与当前 resolver 一致；New York 一小时 DST、Lord Howe 半小时 fold/gap、Kyiv 1990 非典型回拨均验证通过。PROV-DEFECT-023 修复 REJECT 文案：它不是“整单停止并强迫用户立即选边”，而是“拒绝静默选 winner、保留全部合法 UTC 候选”；显式 earlier/later 只选择分支，不抹掉 AMBIGUOUS provenance。Matrix 220 项、已审 208 项、缺失候选 10；来源缺陷 23/23，算法缺陷/重开/候选折叠 0。下一门 12NE 为 HPA-TIME-004 Chinese lunar calendar construction。
+最新规则审计闭环为 **Batch 12NE**：HPA-TIME-004 Chinese lunar calendar construction 确认为现代兼容层。当前 engine 与 GB/T 33661-2017 的现代编排规则结构一致，但 Astronomy Engine 实现未在本项目中证明满足国标 IERS 模型与朔/节气 1 秒精度门槛，因此不再标成严格国标认证；PROV-DEFECT-025 已修复该认证边界。PROV-DEFECT-024 又把 1901–2100 从“validated range”纠正为 HKO 公布对照表对应的运行支持/oracle 范围，并保留 HKO 对 2057/2089/2097 近午夜新月可能造成一日差的官方警告。历法运算本身未改，历史明大统/清时宪适配仍 fail-closed。Matrix 220 项、已审 209 项、缺失候选 10；来源缺陷 25/25，算法缺陷/重开/候选折叠 0。下一门 12NF 为 HPA-TIME-011 Approximate birth-time candidate sampling。
 
 ```text
 FUSION_CHART_HISTORICAL_PROVENANCE_AUDIT_R1=IN_PROGRESS
