@@ -80,7 +80,7 @@
       "candidate/profile rules": 2,
       "provenance / hashes / lineage": 2
     },
-    "audited_row_count": 214
+    "audited_row_count": 215
   },
   "rows": [
     {
@@ -3128,18 +3128,22 @@
       "rule_or_field": "Independent Ziwei/Bazi date/calendar policy preservation",
       "current_implementation": "Fusion time layer forbids one subsystem policy from overwriting the other.",
       "current_profile": "ZIWEI-BAZI-COMBINED-LOCAL-SHELL-V1-R1",
-      "primary_source": "architecture preserving disputed school rules",
-      "source_quote": "PENDING_VERBATIM_EXTRACTION",
-      "source_quote_location": "docs/ZIWEI-BAZI-SHARED-TIME-CREDENTIAL-R1.md",
-      "historical_period": "MODERN",
-      "later_witnesses": "N/A",
-      "school_attribution": "MODERN_SOFTWARE_ARCHITECTURE",
-      "competing_methods": [],
-      "current_implementation_match": "MATCHES_DECLARED_COMPOSITION_SCOPE",
-      "confidence": "HIGH",
+      "primary_source": "Repository combined-runtime policy isolation contract: fusion_time.py + service.py + shared-time credential documentation",
+      "source_quote": "Unify physical time facts without collapsing system-specific conventions.",
+      "source_quote_location": "src/fortune_training/combined_chart_application/fusion_time.py validate_shared_policy_contract; docs/ZIWEI-BAZI-SHARED-TIME-CREDENTIAL-R1.md §不合并两门术数的换日规则",
+      "historical_period": "MODERN_SOFTWARE_ARCHITECTURE",
+      "later_witnesses": "Combined late-Zi day-boundary independence and selected-policy integrity regressions",
+      "school_attribution": "ENGINEERING_POLICY_ISOLATION_NOT_HISTORICAL_DOCTRINE",
+      "competing_methods": [
+        "collapse Ziwei and Bazi to one day-boundary/calendar convention",
+        "resolve subsystem clocks independently with no shared physical-time contract"
+      ],
+      "current_implementation_match": "EXACT: only policy-registry version and civil ambiguity policy are shared constraints; Ziwei calendar/leap/day-boundary and full Bazi time-policy snapshots remain independent and integrity-bound",
+      "confidence": "HIGH_FOR_RELEASED_SOFTWARE_CONTRACT",
       "audit_status": "MODERN_COMPATIBILITY_ONLY",
-      "proposed_action": "Keep invariant; historical audits may change subsystem profiles only with evidence.",
-      "algorithm_reopen_authorized": false
+      "proposed_action": "Keep invariant. Historical audits may alter a subsystem profile only through that subsystem's evidence/candidate process; combined fusion must preserve the selected profiles without cross-overwrite.",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-12-COMBINED-INDEPENDENT-DATE-CALENDAR-POLICY-PRESERVATION-AUDIT-NK"
     },
     {
       "rule_id": "HPA-COMB-003",
@@ -7319,7 +7323,8 @@
     "HPA-DAYUN-006",
     "HPA-DAYUN-007",
     "HPA-ZT-016",
-    "HPA-COMB-001"
+    "HPA-COMB-001",
+    "HPA-COMB-002"
   ],
   "audit_summary": {
     "confirmed_chart_algorithm_defect_count": 0,
@@ -7360,6 +7365,7 @@
     "BATCH-12-BAZI-DAYUN-WENZHEN-COMPATIBILITY-SCOPE-AUDIT-NG",
     "BATCH-12-BAZI-DAYUN-EXACT-JIE-TIE-HANDLING-AUDIT-NH",
     "BATCH-12-ZIWEI-SELF-INWARD-TRANSFORMATION-DIRECTION-SOURCE-SCOPE-AUDIT-NI",
-    "BATCH-12-COMBINED-SHARED-TIME-CREDENTIAL-SCOPE-AUDIT-NJ"
+    "BATCH-12-COMBINED-SHARED-TIME-CREDENTIAL-SCOPE-AUDIT-NJ",
+    "BATCH-12-COMBINED-INDEPENDENT-DATE-CALENDAR-POLICY-PRESERVATION-AUDIT-NK"
   ]
 }

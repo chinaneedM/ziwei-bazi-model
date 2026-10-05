@@ -34,7 +34,7 @@ Every row carries:
 - proposed action;
 - explicit algorithm-reopen authorization, which is **false for every inventory row at creation**.
 
-The initial inventory contained **107 rule/field families**. Through Batch 12NJ and explicit splitting of historically distinct candidate families, the current machine-readable inventory contains **220 rows**, with **214 audited rows**. It intentionally keeps unresolved source work explicit rather than converting uncertainty into a chart defect. The current audit ledger records **30 confirmed provenance metadata defects repaired forward-only at the provenance/hash-lineage layer, 0 chart algorithm defects, 0 algorithm reopens, 14 cumulatively identified missing candidate families, 10 rows currently `MISSING_FROM_PRODUCT`, 6 historical candidate extensions, 3 source-scoped historical candidate registries, and 3 runtime-resolver components**.
+The initial inventory contained **107 rule/field families**. Through Batch 12NK and explicit splitting of historically distinct candidate families, the current machine-readable inventory contains **220 rows**, with **215 audited rows**. It intentionally keeps unresolved source work explicit rather than converting uncertainty into a chart defect. The current audit ledger records **30 confirmed provenance metadata defects repaired forward-only at the provenance/hash-lineage layer, 0 chart algorithm defects, 0 algorithm reopens, 14 cumulatively identified missing candidate families, 10 rows currently `MISSING_FROM_PRODUCT`, 6 historical candidate extensions, 3 source-scoped historical candidate registries, and 3 runtime-resolver components**.
 
 ## Research-corpus authority
 
@@ -1457,3 +1457,14 @@ HPA-COMB-001 Shared time credential is formally audited as **MODERN_COMPATIBILIT
 No schema, hash algorithm, chart fact, candidate, policy default or subsystem computation changes. Matrix220/214/10, provenance30/30, chart algorithm defects/reopens/candidate collapses0. No historical transmission edge.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-COMBINED-SHARED-TIME-CREDENTIAL-SCOPE-AUDIT-NJ.md`. Research record: `docs/research/COMBINED-SHARED-TIME-CREDENTIAL-SCOPE-AUDIT-R1.json`.
+
+
+## Progress — Batch 12NK
+
+HPA-COMB-002 Independent Ziwei/Bazi date/calendar policy preservation is formally audited as **MODERN_COMPATIBILITY_ONLY**. The combined runtime shares physical-time facts and requires only a common time/calendar policy-registry version plus civil ambiguous-time policy; it does not require identical Ziwei/Bazi day-boundary, calendar-date or late-Zi conventions.
+
+The credential stores separate `selected_policies.ziwei` and `selected_policies.bazi` snapshots, and combined integrity reconstructs those snapshots from the active subsystem profiles. The released late-Zi regression proves that one shared local-apparent-solar instant can simultaneously use Ziwei `ZI_START_23` and Bazi `MIDNIGHT` + `CLASSICAL_CONTINUOUS` without cross-overwrite.
+
+No new provenance defect and no algorithm reopen. Matrix220/215/10, provenance30/30, chart algorithm defects/reopens/candidate collapses0. No historical transmission edge.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-COMBINED-INDEPENDENT-DATE-CALENDAR-POLICY-PRESERVATION-AUDIT-NK.md`. Research record: `docs/research/COMBINED-INDEPENDENT-DATE-CALENDAR-POLICY-PRESERVATION-AUDIT-R1.json`.

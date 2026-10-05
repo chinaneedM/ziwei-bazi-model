@@ -1,0 +1,76 @@
+{
+  "schema": "COMBINED-INDEPENDENT-DATE-CALENDAR-POLICY-PRESERVATION-AUDIT-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-COMBINED-INDEPENDENT-DATE-CALENDAR-POLICY-PRESERVATION-AUDIT-NK",
+  "prior_batch_id": "BATCH-12-COMBINED-SHARED-TIME-CREDENTIAL-SCOPE-AUDIT-NJ",
+  "rule_id": "HPA-COMB-002",
+  "audit_status": "MODERN_COMPATIBILITY_ONLY",
+  "algorithm_reopen_authorized": false,
+  "architecture_contract": {
+    "shared_equalities": [
+      "time_calendar_policy_registry_version",
+      "civil_ambiguous_time_policy"
+    ],
+    "ziwei_policy_snapshot": [
+      "calendar_date_policy",
+      "life_body_leap_month_policy",
+      "day_boundary_policy"
+    ],
+    "bazi_policy_snapshot": "PRESERVE_FULL_BAZI_SELECTED_POLICIES",
+    "same_day_boundary_required": false,
+    "same_calendar_date_policy_required": false,
+    "same_late_zi_policy_required": false
+  },
+  "integrity_contract": {
+    "selected_policy_snapshot_reconstructed_from_profiles": true,
+    "mismatch_fails_closed_with_shared_time_selected_policies_binding_mismatch": true,
+    "shared_physical_branch_binding_validated_separately": true
+  },
+  "regression_witness": {
+    "path": "tests/test_combined_late_zi_day_boundary_independence_r1.py",
+    "shared_local_apparent_solar_datetime": "2008-11-03T23:12",
+    "ziwei_day_boundary_policy": "ZI_START_23",
+    "bazi_day_boundary_policy": "MIDNIGHT",
+    "bazi_late_zi_hour_stem_policy": "CLASSICAL_CONTINUOUS",
+    "bazi_effective_day_date": "2008-11-03",
+    "ziwei_next_day_chart_date_behavior": true
+  },
+  "provenance_defects": {
+    "new_confirmed": 0,
+    "new_repaired": 0,
+    "reason": "The released architecture and documentation already state and enforce policy independence; no metadata overclaim remains after Batch 12NJ."
+  },
+  "unchanged_mechanics": [
+    "civil-time candidate generation",
+    "local apparent solar time",
+    "Ziwei calendar/date policies",
+    "Bazi calendar/date policies",
+    "shared-time credential hashes",
+    "candidate lineage",
+    "combined manifest"
+  ],
+  "evidence": "docs/research/evidence/batch-12nk/combined-independent-date-calendar-policy-preservation.json",
+  "accounting": {
+    "rows_before": 220,
+    "rows_after": 220,
+    "audited_rows_before": 214,
+    "audited_rows_after": 215,
+    "current_missing_from_product_rows": 10,
+    "provenance_defects_confirmed_before": 30,
+    "provenance_defects_confirmed_after": 30,
+    "provenance_defects_repaired_before": 30,
+    "provenance_defects_repaired_after": 30,
+    "chart_algorithm_defects": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0,
+    "new_provenance_defects": 0
+  },
+  "transmission_impact": {
+    "status": "NONE",
+    "reason": "Preserving independent subsystem policies inside a combined runtime is modern software architecture and creates no historical transmission edge."
+  },
+  "next_gate": [
+    "12NL: audit HPA-COMB-003 Candidate lineage preservation.",
+    "Keep candidate identity and branch lineage explicit without collapsing multiple legal subsystem candidates."
+  ]
+}
