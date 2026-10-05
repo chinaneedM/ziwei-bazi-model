@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.389.0",
+  "schema_version": "1.390.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -470,9 +470,10 @@
       "BATCH-12-POST-AUDIT-JIELAN-SOURCE-SCOPED-CANDIDATE-PRODUCT-SURFACE-RECONCILIATION-NR",
       "BATCH-12-POST-AUDIT-FOUR-TRANSFORMATION-DIGNITY-PRODUCT-BOUNDARY-RECONCILIATION-NS",
       "BATCH-12-POST-AUDIT-NANYANGTANG-LATE-ZI-NATAL-CANDIDATE-PRODUCT-SURFACE-RECONCILIATION-NT",
-      "BATCH-12-POST-AUDIT-DAYUN-HISTORICAL-CALENDAR-CANDIDATE-PRODUCT-SURFACE-RECONCILIATION-NU"
+      "BATCH-12-POST-AUDIT-DAYUN-HISTORICAL-CALENDAR-CANDIDATE-PRODUCT-SURFACE-RECONCILIATION-NU",
+      "BATCH-12-UNRESOLVED-HISTORICAL-STATUS-PRIORITIZATION-NV"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-POST-AUDIT-DAYUN-HISTORICAL-CALENDAR-CANDIDATE-PRODUCT-SURFACE-RECONCILIATION-NU.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-UNRESOLVED-HISTORICAL-STATUS-PRIORITIZATION-NV.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -2227,7 +2228,13 @@
       "PROV-DEFECT-039 repaired forward-only: HPA-DAYUN-CAL-003 previously said the adapter contract preserves the unresolved regime without fallback, but the live contract only registers Ming Datong and Qing Shixian contexts. The generic contract can accommodate a future Qianli descriptor; it does not currently contain one.",
       "HPA-DAYUN-CAL-004 remains MISSING_FROM_PRODUCT. The historical contract defines ADD_CALENDAR_YEARS and forbids implicit Gregorian substitution, but current BaziTemporalEngine recurrence is still implemented only by modern continuous/Wenzhen Gregorian anniversary branches and is not wired to a historical adapter.",
       "All 10 current MISSING_FROM_PRODUCT rows now have explicit post-audit product-surface reconciliation. Matrix remains 220/220 audited / 10 current missing; provenance defects 39/39; chart algorithm defects / reopens / candidate collapses 0.",
-      "12NV: prioritize the remaining unresolved historical statuses (30 DISPUTED_MULTIPLE_CANDIDATES, 11 SOURCE_INSUFFICIENT, 1 NOT_YET_FORMALIZED) by evidence risk, source accessibility and algorithm impact, then continue the highest-value evidence closure without collapsing candidates."
+      "12NV: prioritize the remaining unresolved historical statuses (30 DISPUTED_MULTIPLE_CANDIDATES, 11 SOURCE_INSUFFICIENT, 1 NOT_YET_FORMALIZED) by evidence risk, source accessibility and algorithm impact, then continue the highest-value evidence closure without collapsing candidates.",
+      "Batch 12NV completed: remaining unresolved Historical Audit statuses were re-ranked after all 10 current MISSING_FROM_PRODUCT rows received post-audit product-surface reconciliation.",
+      "Priority rule: active production output with SOURCE_INSUFFICIENT provenance outranks fail-closed/not-yet-formalized behavior; broad parent rows already decomposed into child rows are not selected as direct evidence targets.",
+      "Top evidence target is HPA-ZIWEI-023 Zi/Wu Shenzhu Fire/Bell textual composite: strict QS correctly fails closed, but production Wenmo resolves Zi/Wu to Fire while the 1581 Jielan and received Fullbook wording remains composite and no unique historical Fire winner is source-closed.",
+      "Second tier includes HPA-ZIWEI-026 Jiangqian temporal/source scope and HPA-ZMINOR-020 standalone Feilian identity collision, followed by the active month-table provenance gaps HPA-ZMINOR-023/024/025/026.",
+      "HPA-ZT-016 self/inward transformation direction remains important but lower immediate deterministic risk because runtime intentionally emits no inward/outward direction and the project invariant remains NOT_YET_FORMALIZED.",
+      "12NW: perform edition/source/commentary and product-boundary closure on HPA-ZIWEI-023 without promoting Fire or Bell unless the source evidence actually closes a unique candidate."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10
