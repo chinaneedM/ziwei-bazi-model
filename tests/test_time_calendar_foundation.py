@@ -4,6 +4,7 @@ import json
 import math
 import tempfile
 import unittest
+from dataclasses import replace
 from unittest.mock import patch
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
@@ -185,6 +186,74 @@ class TimeCalendarFoundationTests(unittest.TestCase):
         self.assertEqual(2, len(resolved.candidates))
         self.assertIsNone(resolved.selected_candidate)
         self.assertEqual(3600, int((resolved.candidates[1].utc_instant - resolved.candidates[0].utc_instant).total_seconds()))
+
+    def test_explicit_fold_policies_select_pep495_reading_and_preserve_both_candidates(self):
+        resolver = CivilTimeResolver()
+        value = birth(datetime(2020, 11, 1, 1, 30), "New York", -74.006, "America/New_York")
+        earlier = resolver.resolve(value, ambiguous_time_policy="EARLIER_OFFSET")
+        later = resolver.resolve(value, ambiguous_time_policy="LATER_OFFSET")
+
+        self.assertEqual(CivilTimeStatus.AMBIGUOUS, earlier.status)
+        self.assertEqual(CivilTimeStatus.AMBIGUOUS, later.status)
+        self.assertEqual(2, len(earlier.candidates))
+        self.assertEqual(earlier.candidates, later.candidates)
+        self.assertEqual(0, earlier.selected_candidate.fold)
+        self.assertEqual(1, later.selected_candidate.fold)
+        self.assertEqual("2020-11-01T05:30:00+00:00", earlier.selected_candidate.utc_instant.isoformat())
+        self.assertEqual("2020-11-01T06:30:00+00:00", later.selected_candidate.utc_instant.isoformat())
+
+    def test_reject_policy_preserves_fold_branches_at_foundation_layer(self):
+        value = BirthInput(
+            datetime(2020, 11, 1, 1, 30),
+            "New York",
+            40.7128,
+            -74.006,
+            "America/New_York",
+        )
+        default_result = self.foundation.resolve_bazi(value)
+        self.assertEqual("MULTI_CANDIDATE_OR_BOUNDARY_UNCERTAINTY", default_result["status"])
+        self.assertEqual(2, len(default_result["branches"]))
+        self.assertEqual(1, default_result["input_interval"]["ambiguous_sample_count"])
+
+        earlier_selection = replace(
+            self.registry.default_bazi_selection(),
+            civil_ambiguous_time_policy="EARLIER_OFFSET",
+        )
+        selected_result = self.foundation.resolve_bazi(value, earlier_selection)
+        self.assertEqual("MULTI_CANDIDATE_OR_BOUNDARY_UNCERTAINTY", selected_result["status"])
+        self.assertEqual(1, len(selected_result["branches"]))
+        self.assertEqual(1, selected_result["input_interval"]["ambiguous_sample_count"])
+        civil = selected_result["branches"][0]["civil_time"]
+        self.assertEqual("AMBIGUOUS", civil["status"])
+        self.assertEqual(2, len(civil["candidates"]))
+        self.assertEqual(0, civil["selected_candidate"]["fold"])
+
+    def test_fold_and_gap_handling_does_not_assume_one_hour_dst_transition(self):
+        resolver = CivilTimeResolver()
+        lord_howe_fold = resolver.resolve(
+            birth(datetime(2020, 4, 5, 1, 45), "Lord Howe", 159.075, "Australia/Lord_Howe")
+        )
+        self.assertEqual(CivilTimeStatus.AMBIGUOUS, lord_howe_fold.status)
+        self.assertEqual(
+            1800,
+            int((lord_howe_fold.candidates[1].utc_instant - lord_howe_fold.candidates[0].utc_instant).total_seconds()),
+        )
+
+        lord_howe_gap = resolver.resolve(
+            birth(datetime(2020, 10, 4, 2, 15), "Lord Howe", 159.075, "Australia/Lord_Howe")
+        )
+        self.assertEqual(CivilTimeStatus.NONEXISTENT, lord_howe_gap.status)
+        self.assertFalse(lord_howe_gap.candidates)
+
+        kyiv_fold = resolver.resolve(
+            birth(datetime(1990, 7, 1, 1, 30), "Kyiv", 30.5234, "Europe/Kyiv")
+        )
+        self.assertEqual(CivilTimeStatus.AMBIGUOUS, kyiv_fold.status)
+        self.assertEqual({3600}, {candidate.daylight_saving_seconds for candidate in kyiv_fold.candidates})
+        self.assertEqual(
+            {"1990-06-30T21:30:00+00:00", "1990-06-30T22:30:00+00:00"},
+            {candidate.utc_instant.isoformat() for candidate in kyiv_fold.candidates},
+        )
 
     def test_nonexistent_dst_time_fails_closed(self):
         resolved = CivilTimeResolver().resolve(

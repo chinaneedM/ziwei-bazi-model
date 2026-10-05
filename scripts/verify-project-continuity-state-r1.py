@@ -887,9 +887,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-R1-NEUTRAL-Z12-TOPOLOGY-AUDIT-NA",
     "BATCH-12-ZIWEI-R2-RELATIVE-PALACE-FRAME-AUDIT-NB",
     "BATCH-12-TIME-CIVIL-TZDB-INSTANT-RESOLUTION-AUDIT-NC",
+    "BATCH-12-TIME-AMBIGUOUS-CIVIL-FOLD-GAP-HANDLING-AUDIT-ND",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-TIME-CIVIL-TZDB-INSTANT-RESOLUTION-NC.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-TIME-AMBIGUOUS-CIVIL-FOLD-GAP-HANDLING-ND.md"
 
 
 def fail(message: str) -> None:
@@ -14767,6 +14768,55 @@ def main() -> int:
             fail(f"Batch 12NB frozen file drift: {obj['path']}")
     if nb.get("algorithm_reopen_authorized") is not False or nb["transmission_impact"].get("status") != "NONE":
         fail("Batch 12NB reopen/transmission scope drift")
+
+    # Batch 12NC: modern TZDB instant resolution and provenance repairs.
+    nc_path = ROOT / "docs/research/TIME-CIVIL-TZDB-INSTANT-RESOLUTION-AUDIT-R1.json"
+    if not nc_path.is_file():
+        fail("Batch 12NC research record missing")
+    nc = json.loads(nc_path.read_text(encoding="utf-8"))
+    nc_id = "BATCH-12-TIME-CIVIL-TZDB-INSTANT-RESOLUTION-AUDIT-NC"
+    if nc.get("batch_id") != nc_id or nc.get("prior_batch_id") != nb_id or nc_id not in rule_batches:
+        fail("Batch 12NC chronology drift")
+    row_nc = next(r for r in matrix["rows"] if r["rule_id"] == "HPA-TIME-001")
+    if row_nc.get("audit_status") != "MODERN_COMPATIBILITY_ONLY" or row_nc.get("audit_batch") != nc_id or "HPA-TIME-001" not in matrix["audited_row_ids"]:
+        fail("Batch 12NC time-zone audit row drift")
+    repair_ids_nc = {x.get("defect_id") for x in nc.get("provenance_repairs", ())}
+    if repair_ids_nc != {"PROV-DEFECT-021", "PROV-DEFECT-022"}:
+        fail("Batch 12NC provenance repair identities drift")
+    if nc.get("algorithm_reopen_authorized") is not False or nc.get("transmission_impact", {}).get("status") != "NONE":
+        fail("Batch 12NC reopen/transmission scope drift")
+
+    # Batch 12ND: PEP-495 fold/gap handling remains modern operational policy.
+    nd_path = ROOT / "docs/research/TIME-AMBIGUOUS-CIVIL-FOLD-GAP-HANDLING-AUDIT-R1.json"
+    if not nd_path.is_file():
+        fail("Batch 12ND research record missing")
+    nd = json.loads(nd_path.read_text(encoding="utf-8"))
+    nd_id = "BATCH-12-TIME-AMBIGUOUS-CIVIL-FOLD-GAP-HANDLING-AUDIT-ND"
+    if nd.get("batch_id") != nd_id or nd.get("prior_batch_id") != nc_id or nd_id not in rule_batches:
+        fail("Batch 12ND chronology drift")
+    row_nd = next(r for r in matrix["rows"] if r["rule_id"] == "HPA-TIME-002")
+    if row_nd.get("audit_status") != "MODERN_COMPATIBILITY_ONLY" or row_nd.get("audit_batch") != nd_id or "HPA-TIME-002" not in matrix["audited_row_ids"]:
+        fail("Batch 12ND fold/gap audit row drift")
+    if nd.get("provenance_repair", {}).get("defect_id") != "PROV-DEFECT-023":
+        fail("Batch 12ND PROV-DEFECT-023 identity drift")
+    replay_nd = json.loads((ROOT / nd["replay_evidence"]).read_text(encoding="utf-8"))
+    case_ids_nd = {x.get("id") for x in replay_nd.get("cases", ())}
+    expected_case_ids_nd = {
+        "NEW_YORK_FOLD_2020",
+        "NEW_YORK_GAP_2020",
+        "LORD_HOWE_HALF_HOUR_FOLD_2020",
+        "LORD_HOWE_HALF_HOUR_GAP_2020",
+        "KYIV_NON_DST_FLAG_FOLD_1990",
+    }
+    if case_ids_nd != expected_case_ids_nd:
+        fail("Batch 12ND fold/gap replay cases drift")
+    source_ids = {s.get("source_id") for s in registry.get("sources", ())}
+    if "EXT-PEP495-LOCAL-TIME-DISAMBIGUATION" not in source_ids or "EXT-PYTHON-314-ZONEINFO-FOLD-SEMANTICS" not in source_ids:
+        fail("Batch 12ND external source registry binding drift")
+    if audit_summary.get("confirmed_provenance_metadata_defect_count", 0) < 23 or audit_summary.get("repaired_provenance_metadata_defect_count", 0) < 23:
+        fail("Batch 12ND provenance accounting must retain at least 23/23")
+    if nd.get("algorithm_reopen_authorized") is not False or nd.get("transmission_impact", {}).get("status") != "NONE":
+        fail("Batch 12ND reopen/transmission scope drift")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

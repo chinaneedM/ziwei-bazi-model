@@ -80,7 +80,7 @@
       "candidate/profile rules": 2,
       "provenance / hashes / lineage": 2
     },
-    "audited_row_count": 207
+    "audited_row_count": 208
   },
   "rows": [
     {
@@ -114,21 +114,23 @@
       "rule_or_field": "Ambiguous civil time fold/gap handling",
       "current_implementation": "civil.ambiguous_time_policy default REJECT with explicit earlier/later alternatives.",
       "current_profile": "TIME-CALENDAR-POLICY-REGISTRY-V1",
-      "primary_source": "Operational fail-closed policy",
-      "source_quote": "PENDING_VERBATIM_EXTRACTION",
-      "source_quote_location": "config/time-calendar-policies.json civil.ambiguous_time_policy",
-      "historical_period": "MODERN_STANDARD",
-      "later_witnesses": "N/A",
-      "school_attribution": "MODERN_OPERATIONAL",
+      "primary_source": "PEP 495 local-time disambiguation + Python zoneinfo fold semantics + project operational fail-closed policy",
+      "source_quote": "fold=0 is the earlier reading and fold=1 the later reading of an ambiguous local time",
+      "source_quote_location": "PEP 495 §Abstract/Proposal/In the Fold; Python 3.14 zoneinfo fold examples; config/time-calendar-policies.json civil.ambiguous_time_policy",
+      "historical_period": "MODERN_DATETIME_STANDARD_AND_PROJECT_OPERATIONAL_POLICY",
+      "later_witnesses": "Python zoneinfo implements PEP-495 fold semantics across IANA transitions; project higher layers preserve ambiguity provenance.",
+      "school_attribution": "MODERN_OPERATIONAL_TIME_DISAMBIGUATION_NOT_CLASSICAL_ZIWEI_BAZI_DOCTRINE",
       "competing_methods": [
-        "EARLIER_OFFSET",
-        "LATER_OFFSET"
+        "REJECT_IMPLICIT_WINNER_PRESERVE_ALL_LEGAL_CANDIDATES",
+        "EARLIER_OFFSET legacy ID => chronological earlier UTC reading / fold=0",
+        "LATER_OFFSET legacy ID => chronological later UTC reading / fold=1"
       ],
-      "current_implementation_match": "MATCHES_DECLARED_MODERN_SCOPE",
-      "confidence": "HIGH",
+      "current_implementation_match": "FOLD0_EARLIER_FOLD1_LATER_MATCH; GAP_ROUNDTRIP_FAIL_CLOSED; NON_1H_AND_NON_DST-FLAG_TRANSITIONS_MATCH; PROV-DEFECT-023 REJECT_POLICY_DESCRIPTION_REPAIRED",
+      "confidence": "HIGH_FOR_MODERN_OPERATIONAL_CONTRACT",
       "audit_status": "MODERN_COMPATIBILITY_ONLY",
-      "proposed_action": "Retain as modern operational policy; audit only reproducibility and labeling.",
-      "algorithm_reopen_authorized": false
+      "proposed_action": "Retain candidate-preserving default and explicit earlier/later policies. Treat REJECT as rejection of implicit winner selection, not request abortion; preserve AMBIGUOUS provenance after explicit selection. No classical-doctrine claim.",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-12-TIME-AMBIGUOUS-CIVIL-FOLD-GAP-HANDLING-AUDIT-ND"
     },
     {
       "rule_id": "HPA-TIME-003",
@@ -7285,12 +7287,13 @@
     "HPA-STRUCT-020",
     "HPA-STRUCT-001",
     "HPA-STRUCT-002",
-    "HPA-TIME-001"
+    "HPA-TIME-001",
+    "HPA-TIME-002"
   ],
   "audit_summary": {
     "confirmed_chart_algorithm_defect_count": 0,
-    "confirmed_provenance_metadata_defect_count": 22,
-    "repaired_provenance_metadata_defect_count": 22,
+    "confirmed_provenance_metadata_defect_count": 23,
+    "repaired_provenance_metadata_defect_count": 23,
     "algorithm_reopen_count": 0,
     "candidate_collapse_count": 0,
     "historical_candidate_extension_count": 6,
@@ -7319,6 +7322,7 @@
     "BATCH-12-ZIWEI-R8-ADJACENT-PALACE-SOURCE-PHILOLOGY-SCOPE-AUDIT-MZ",
     "BATCH-12-ZIWEI-R1-NEUTRAL-Z12-TOPOLOGY-AUDIT-NA",
     "BATCH-12-ZIWEI-R2-RELATIVE-PALACE-FRAME-AUDIT-NB",
-    "BATCH-12-TIME-CIVIL-TZDB-INSTANT-RESOLUTION-AUDIT-NC"
+    "BATCH-12-TIME-CIVIL-TZDB-INSTANT-RESOLUTION-AUDIT-NC",
+    "BATCH-12-TIME-AMBIGUOUS-CIVIL-FOLD-GAP-HANDLING-AUDIT-ND"
   ]
 }

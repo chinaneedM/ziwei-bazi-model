@@ -1,0 +1,110 @@
+{
+  "schema": "TIME-AMBIGUOUS-FOLD-GAP-REPLAY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-TIME-AMBIGUOUS-CIVIL-FOLD-GAP-HANDLING-AUDIT-ND",
+  "pep495_contract": {
+    "fold_0": "chronologically earlier reading of an ambiguous local time",
+    "fold_1": "chronologically later reading of an ambiguous local time",
+    "gap": "reported wall time with no real UTC reading",
+    "one_hour_dst_assumption": false
+  },
+  "cases": [
+    {
+      "id": "NEW_YORK_FOLD_2020",
+      "timezone_id": "America/New_York",
+      "local_wall_time": "2020-11-01T01:30:00",
+      "status": "AMBIGUOUS",
+      "candidates": [
+        {
+          "fold": 0,
+          "utc": "2020-11-01T05:30:00Z",
+          "utc_offset_seconds": -14400,
+          "daylight_saving_seconds": 3600
+        },
+        {
+          "fold": 1,
+          "utc": "2020-11-01T06:30:00Z",
+          "utc_offset_seconds": -18000,
+          "daylight_saving_seconds": 0
+        }
+      ],
+      "separation_seconds": 3600
+    },
+    {
+      "id": "NEW_YORK_GAP_2020",
+      "timezone_id": "America/New_York",
+      "local_wall_time": "2020-03-08T02:30:00",
+      "status": "NONEXISTENT",
+      "legal_candidate_count": 0
+    },
+    {
+      "id": "LORD_HOWE_HALF_HOUR_FOLD_2020",
+      "timezone_id": "Australia/Lord_Howe",
+      "local_wall_time": "2020-04-05T01:45:00",
+      "status": "AMBIGUOUS",
+      "candidates": [
+        {
+          "fold": 0,
+          "utc": "2020-04-04T14:45:00Z",
+          "utc_offset_seconds": 39600,
+          "daylight_saving_seconds": 1800
+        },
+        {
+          "fold": 1,
+          "utc": "2020-04-04T15:15:00Z",
+          "utc_offset_seconds": 37800,
+          "daylight_saving_seconds": 0
+        }
+      ],
+      "separation_seconds": 1800
+    },
+    {
+      "id": "LORD_HOWE_HALF_HOUR_GAP_2020",
+      "timezone_id": "Australia/Lord_Howe",
+      "local_wall_time": "2020-10-04T02:15:00",
+      "status": "NONEXISTENT",
+      "legal_candidate_count": 0
+    },
+    {
+      "id": "KYIV_NON_DST_FLAG_FOLD_1990",
+      "timezone_id": "Europe/Kyiv",
+      "local_wall_time": "1990-07-01T01:30:00",
+      "status": "AMBIGUOUS",
+      "candidates": [
+        {
+          "fold": 0,
+          "utc": "1990-06-30T21:30:00Z",
+          "utc_offset_seconds": 14400,
+          "daylight_saving_seconds": 3600
+        },
+        {
+          "fold": 1,
+          "utc": "1990-06-30T22:30:00Z",
+          "utc_offset_seconds": 10800,
+          "daylight_saving_seconds": 3600
+        }
+      ],
+      "separation_seconds": 3600,
+      "same_dst_flag_across_both_readings": true
+    }
+  ],
+  "policy_replay": {
+    "default_REJECT": {
+      "selected_candidate": null,
+      "preserves_all_legal_candidates": true,
+      "higher_layer_branching": true
+    },
+    "EARLIER_OFFSET": {
+      "selected_fold": 0,
+      "selection_basis": "chronological UTC instant",
+      "preserves_ambiguous_status": true
+    },
+    "LATER_OFFSET": {
+      "selected_fold": 1,
+      "selection_basis": "chronological UTC instant",
+      "preserves_ambiguous_status": true
+    }
+  },
+  "mechanics_changed": false,
+  "provenance_only_change": true
+}

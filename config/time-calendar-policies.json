@@ -6,9 +6,9 @@
       "class": "OPERATIONAL",
       "default": "REJECT",
       "values": {
-        "REJECT": "Return both UTC candidates and require an explicit choice.",
-        "EARLIER_OFFSET": "Select the earlier UTC instant (fold=0 in ordinary backward transitions).",
-        "LATER_OFFSET": "Select the later UTC instant (fold=1 in ordinary backward transitions)."
+        "REJECT": "Reject implicit single-winner selection and return all legal UTC candidates; higher layers preserve the ambiguity as branches rather than inventing a winner.",
+        "EARLIER_OFFSET": "Legacy policy ID: select the chronologically earlier valid UTC reading of an ambiguous wall time (PEP 495 fold=0); OFFSET does not mean numerically smaller UTC offset.",
+        "LATER_OFFSET": "Legacy policy ID: select the chronologically later valid UTC reading of an ambiguous wall time (PEP 495 fold=1); OFFSET does not mean numerically larger UTC offset."
       }
     },
     "bazi.year_boundary_policy": {

@@ -34,7 +34,7 @@ Every row carries:
 - proposed action;
 - explicit algorithm-reopen authorization, which is **false for every inventory row at creation**.
 
-The initial inventory contained **107 rule/field families**. Through Batch 12NC and explicit splitting of historically distinct candidate families, the current machine-readable inventory contains **220 rows**, with **207 audited rows**. It intentionally keeps unresolved source work explicit rather than converting uncertainty into a chart defect. The current audit ledger records **22 confirmed provenance metadata defects repaired forward-only at the provenance/hash-lineage layer, 0 chart algorithm defects, 0 algorithm reopens, 14 cumulatively identified missing candidate families, 10 rows currently `MISSING_FROM_PRODUCT`, 6 historical candidate extensions, 3 source-scoped historical candidate registries, and 3 runtime-resolver components**.
+The initial inventory contained **107 rule/field families**. Through Batch 12ND and explicit splitting of historically distinct candidate families, the current machine-readable inventory contains **220 rows**, with **208 audited rows**. It intentionally keeps unresolved source work explicit rather than converting uncertainty into a chart defect. The current audit ledger records **23 confirmed provenance metadata defects repaired forward-only at the provenance/hash-lineage layer, 0 chart algorithm defects, 0 algorithm reopens, 14 cumulatively identified missing candidate families, 10 rows currently `MISSING_FROM_PRODUCT`, 6 historical candidate extensions, 3 source-scoped historical candidate registries, and 3 runtime-resolver components**.
 
 ## Research-corpus authority
 
@@ -1372,3 +1372,16 @@ HPA-TIME-001 Civil timezone/TZDB instant resolution is formally audited as **MOD
 UTC candidate generation, offsets, DST, folds, gaps, ambiguity handling and candidate multiplicity are unchanged. This is provenance/confidence repair only; chart algorithm defects/reopens remain 0. Matrix220/207/10, provenance22/22, candidate collapses0. No traditional transmission edge is created.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-TIME-CIVIL-TZDB-INSTANT-RESOLUTION-NC.md`. Research record: `docs/research/TIME-CIVIL-TZDB-INSTANT-RESOLUTION-AUDIT-R1.json`.
+
+
+## Progress — Batch 12ND
+
+HPA-TIME-002 Ambiguous civil time fold/gap handling is formally audited as **MODERN_COMPATIBILITY_ONLY**. PEP 495 defines `fold=0` as the chronologically earlier reading and `fold=1` as the later reading of an ambiguous local wall time; Python `zoneinfo` implements those semantics for IANA transitions. The rule is modern operational time disambiguation, not classical Ziwei/Bazi doctrine.
+
+The released resolver is generic rather than “one-hour DST” specific: New York's one-hour fold, Lord Howe's 30-minute fold/gap and Kyiv's 1990 backward offset change all preserve the expected two-real-reading / no-real-reading distinction. Gaps are rejected by UTC round-trip validation; no fold choice fabricates a missing instant.
+
+**PROV-DEFECT-023** repairs the policy-registry wording for `REJECT`. The old text said both candidates are returned and an explicit choice is required, while the released foundation intentionally proceeds by preserving both candidates as branches. The repaired contract is “reject implicit single-winner selection”; explicit `EARLIER_OFFSET` / `LATER_OFFSET` policies may select one branch, but the source `CivilTimeStatus.AMBIGUOUS` and ambiguity provenance remain intact. The legacy policy IDs are retained and are defined by chronological UTC-reading order, not numeric UTC-offset order.
+
+No UTC resolution algorithm, candidate count rule, chart fact, hash, candidate winner or classical rule changes. Matrix220/208/10, provenance23/23, algorithm defects/reopens/collapses0. No transmission edge.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-TIME-AMBIGUOUS-CIVIL-FOLD-GAP-HANDLING-ND.md`. Research record: `docs/research/TIME-AMBIGUOUS-CIVIL-FOLD-GAP-HANDLING-AUDIT-R1.json`.

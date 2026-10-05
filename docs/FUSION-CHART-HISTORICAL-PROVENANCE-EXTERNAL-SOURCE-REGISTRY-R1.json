@@ -13172,6 +13172,28 @@
       "batch_id": "BATCH-12-TIME-CIVIL-TZDB-INSTANT-RESOLUTION-AUDIT-NC",
       "physical_glyph_authority": false,
       "access_date": "2026-10-05"
+    },
+    {
+      "source_id": "EXT-PEP495-LOCAL-TIME-DISAMBIGUATION",
+      "title": "PEP 495 — Local Time Disambiguation",
+      "url": "https://peps.python.org/pep-0495/",
+      "provider": "Python Enhancement Proposals / Python Software Foundation ecosystem",
+      "source_role": "PRIMARY_NORMATIVE_FOLD_SEMANTICS_FOR_AMBIGUOUS_AND_MISSING_LOCAL_TIMES",
+      "quality_notes": "Defines fold=0 as the earlier and fold=1 as the later reading of an ambiguous local time; distinguishes folds from gaps and explicitly covers backward/forward offset transitions beyond ordinary one-hour DST cases. Used as modern datetime semantics only, never as classical Ziwei/Bazi authority.",
+      "batch_id": "BATCH-12-TIME-AMBIGUOUS-CIVIL-FOLD-GAP-HANDLING-AUDIT-ND",
+      "physical_glyph_authority": false,
+      "access_date": "2026-10-05"
+    },
+    {
+      "source_id": "EXT-PYTHON-314-ZONEINFO-FOLD-SEMANTICS",
+      "title": "Python 3.14 zoneinfo documentation — fold support across offset transitions",
+      "url": "https://docs.python.org/3.14/library/zoneinfo.html",
+      "provider": "Python Software Foundation",
+      "source_role": "PRIMARY_RUNTIME_DOCUMENTATION_FOR_ZONEINFO_PEP495_FOLD_IMPLEMENTATION",
+      "quality_notes": "Documents that ZoneInfo uses the pre-transition offset for fold=0 and post-transition offset for fold=1 and sets fold correctly when converting from UTC. Used to bind project runtime behavior to Python's modern operational contract.",
+      "batch_id": "BATCH-12-TIME-AMBIGUOUS-CIVIL-FOLD-GAP-HANDLING-AUDIT-ND",
+      "physical_glyph_authority": false,
+      "access_date": "2026-10-05"
     }
   ],
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md",

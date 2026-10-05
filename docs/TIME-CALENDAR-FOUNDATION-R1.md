@@ -102,7 +102,7 @@ controlling the actual zoneinfo source.
 
 | Policy ID | R1 default | Status / scope |
 |---|---|---|
-| `civil.ambiguous_time_policy` | `REJECT` | Operational fail-closed default |
+| `civil.ambiguous_time_policy` | `REJECT` | Operational fail-closed default: reject implicit winner selection, preserve every legal UTC reading |
 | `bazi.year_boundary_policy` | `START_OF_SPRING` | UTC instant of longitude 315° |
 | `bazi.day_boundary_policy` | `MIDNIGHT` | Explicit convention; alternative `ZI_START_23` |
 | `bazi.late_zi_hour_stem_policy` | `CLASSICAL_CONTINUOUS` | Core candidate, not settled classical truth |
@@ -111,6 +111,29 @@ controlling the actual zoneinfo source.
 
 The complete alternatives and descriptions are held only in the registry.
 Boolean aliases and unnamed constants are rejected by repository verification.
+
+### Ambiguous and missing civil wall times
+
+PEP 495 defines an ambiguous local time as one wall-clock reading that maps to
+two real instants: `fold=0` is the chronologically earlier reading and
+`fold=1` the later reading. A gap is a missing wall time created by a forward
+clock change. These concepts apply to civil-offset transitions generally; they
+are not limited to one-hour DST changes.
+
+The default project policy `REJECT` means **reject an implicit single winner**,
+not “abort the whole chart”. Both legal UTC candidates remain in
+`CivilResolution.candidates`, `selected_candidate` stays null, and higher
+layers preserve both branches. `EARLIER_OFFSET` and `LATER_OFFSET` are stable
+legacy policy IDs whose actual contract is chronological UTC-reading order
+(PEP-495 fold 0 / fold 1), not numeric ordering of the UTC offset.
+
+For gaps, both fold probes are round-tripped through UTC. If neither returns to
+the reported wall time, the result is `NONEXISTENT` with no legal candidates.
+An explicit fold policy never converts a missing time into a fabricated instant.
+
+Even when an explicit earlier/later policy selects one branch, the source fact
+remains `AMBIGUOUS`; higher-level provenance therefore retains the ambiguity
+count instead of rewriting the input as historically unique.
 
 ## Machine-readable AuditTrace example
 
@@ -166,7 +189,11 @@ algorithm/tzdb versions and the selected registry version.
 16. approximate reported times failing closed unless an explicit uncertainty interval is supplied;
 17. Astronomy Engine results cross-checked against HKO and an independent EOT formula;
 18. already-true-solar input failing closed when UTC cannot be reconstructed;
-19. repository policy/schema integrity.
+19. repository policy/schema integrity;
+20. explicit PEP-495 earlier/later fold selection while retaining both legal candidates;
+21. higher-layer REJECT candidate preservation and explicit-selection provenance;
+22. non-one-hour Lord Howe fold/gap handling;
+23. a Kyiv backward offset transition where both readings retain the same DST flag.
 
 ## Open questions
 

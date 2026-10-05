@@ -223,7 +223,7 @@ Fusion Chart Capability & Performance Acceptance R1 已正式收口。最终执�
 
 ## Fusion Chart Historical Provenance & School Audit R1
 
-最新规则审计闭环为 **Batch 12NC**：HPA-TIME-001 Civil timezone/TZDB instant resolution 正式确认为现代民用时区基础设施，不是古代命理规则。IANA 1970 分界按 UTC POSIX Epoch 而非本地年份；PROV-DEFECT-021 已修复该置信度边界。Python ZoneInfo 先查系统 TZPATH、再回退 PyPI tzdata；PROV-DEFECT-022 已修复“安装了 tzdata 就错误报告其版本”的来源标记。UTC 候选、offset、DST、fold/gap 与候选数均不改；中国民用时区继续显式区分 Asia/Shanghai（北京时间）与 Asia/Urumqi（新疆时间）输入语义。Matrix 220 项、已审 207 项、缺失候选 10；来源缺陷 22/22，算法缺陷/重开/候选折叠 0。下一门 12ND 为 HPA-TIME-002 Ambiguous civil time fold/gap handling。
+最新规则审计闭环为 **Batch 12ND**：HPA-TIME-002 Ambiguous civil time fold/gap handling 正式确认为现代操作层。PEP 495 / Python zoneinfo 的 fold=0 较早读数、fold=1 较晚读数与当前 resolver 一致；New York 一小时 DST、Lord Howe 半小时 fold/gap、Kyiv 1990 非典型回拨均验证通过。PROV-DEFECT-023 修复 REJECT 文案：它不是“整单停止并强迫用户立即选边”，而是“拒绝静默选 winner、保留全部合法 UTC 候选”；显式 earlier/later 只选择分支，不抹掉 AMBIGUOUS provenance。Matrix 220 项、已审 208 项、缺失候选 10；来源缺陷 23/23，算法缺陷/重开/候选折叠 0。下一门 12NE 为 HPA-TIME-004 Chinese lunar calendar construction。
 
 ```text
 FUSION_CHART_HISTORICAL_PROVENANCE_AUDIT_R1=IN_PROGRESS

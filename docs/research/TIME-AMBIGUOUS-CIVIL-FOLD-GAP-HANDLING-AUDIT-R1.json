@@ -1,0 +1,64 @@
+{
+  "schema": "TIME-AMBIGUOUS-CIVIL-FOLD-GAP-HANDLING-AUDIT-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-TIME-AMBIGUOUS-CIVIL-FOLD-GAP-HANDLING-AUDIT-ND",
+  "prior_batch_id": "BATCH-12-TIME-CIVIL-TZDB-INSTANT-RESOLUTION-AUDIT-NC",
+  "rule_id": "HPA-TIME-002",
+  "audit_status": "MODERN_COMPATIBILITY_ONLY",
+  "algorithm_reopen_authorized": false,
+  "authority": {
+    "pep495_source_id": "EXT-PEP495-LOCAL-TIME-DISAMBIGUATION",
+    "python_zoneinfo_source_id": "EXT-PYTHON-314-ZONEINFO-FOLD-SEMANTICS",
+    "project_policy_source": "config/time-calendar-policies.json civil.ambiguous_time_policy",
+    "epistemic_scope": "MODERN_OPERATIONAL_CIVIL_TIME_DISAMBIGUATION_NOT_CLASSICAL_DOCTRINE"
+  },
+  "mechanics": {
+    "candidate_probe": "Evaluate fold=0 and fold=1, convert to UTC, round-trip to the same zone and retain only readings that reproduce the reported naive wall time.",
+    "unique_dedup": "Candidates are deduplicated by UTC instant.",
+    "ordering": "Legal candidates are sorted chronologically by UTC instant.",
+    "reject_policy": "Reject implicit single-winner selection; keep every legal candidate.",
+    "earlier_policy": "Select candidates[0], the chronologically earlier legal UTC reading / PEP-495 fold=0 in a fold.",
+    "later_policy": "Select candidates[-1], the chronologically later legal UTC reading / PEP-495 fold=1 in a fold.",
+    "gap_policy": "If no reading round-trips to the reported wall time, return NONEXISTENT with zero legal candidates."
+  },
+  "provenance_firewall": {
+    "explicit_selection_erases_ambiguous_fact": false,
+    "explicit_selection_erases_other_legal_candidate": false,
+    "higher_layer_ambiguity_count_preserved": true,
+    "offset_policy_id_means_numeric_offset_order": false
+  },
+  "provenance_repair": {
+    "defect_id": "PROV-DEFECT-023",
+    "defect": "AMBIGUOUS_TIME_REJECT_POLICY_DESCRIPTION_IMPLIED_HARD_EXPLICIT_CHOICE_WHILE_RUNTIME_PRESERVES_ALL_BRANCHES",
+    "old_description": "Return both UTC candidates and require an explicit choice.",
+    "repaired_semantics": "Reject implicit single-winner selection and return all legal UTC candidates; higher layers preserve the ambiguity as branches rather than inventing a winner.",
+    "chart_algorithm_effect": false,
+    "candidate_effect": false,
+    "policy_id_or_default_change": false,
+    "registry_version_change": false
+  },
+  "replay_evidence": "docs/research/evidence/batch-12nd/ambiguous-fold-gap-replay.json",
+  "accounting": {
+    "rows_before": 220,
+    "rows_after": 220,
+    "audited_rows_before": 207,
+    "audited_rows_after": 208,
+    "current_missing_from_product_rows": 10,
+    "provenance_defects_confirmed_before": 22,
+    "provenance_defects_confirmed_after": 23,
+    "provenance_defects_repaired_before": 22,
+    "provenance_defects_repaired_after": 23,
+    "chart_algorithm_defects": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0,
+    "new_provenance_defects": 1
+  },
+  "transmission_impact": {
+    "status": "NONE",
+    "reason": "Modern Python civil-time disambiguation semantics add no historical Ziwei/Bazi transmission edge."
+  },
+  "next_gate": [
+    "12NE: audit HPA-TIME-004 Chinese lunar calendar construction.",
+    "Separate modern astronomical calendar realization and fixed UTC+08 official-day coordinate from historical/dynastic calendar authority and range limits."
+  ]
+}
