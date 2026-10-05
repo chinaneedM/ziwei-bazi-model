@@ -1622,3 +1622,19 @@ Next: **12NV** — prioritize the remaining unresolved historical statuses: 30 `
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-POST-AUDIT-DAYUN-HISTORICAL-CALENDAR-CANDIDATE-PRODUCT-SURFACE-RECONCILIATION-NU.md`. Research record: `docs/research/BAZI-DAYUN-HISTORICAL-CALENDAR-CANDIDATE-PRODUCT-SURFACE-RECONCILIATION-R1.json`.
 
+## Progress — Batch 12NV
+
+With all 10 current `MISSING_FROM_PRODUCT` rows now product-surface reconciled, the remaining Historical Audit work was re-ranked rather than treated as a flat unresolved queue.
+
+Current unresolved historical-status inventory: **30 `DISPUTED_MULTIPLE_CANDIDATES` / 11 `SOURCE_INSUFFICIENT` / 1 `NOT_YET_FORMALIZED`**. The priority rule is now explicit: **active production output with insufficient historical provenance outranks behavior that is already fail-closed or absent from runtime**. Broad parent rows already decomposed into child rows are not selected for duplicate re-audit, and disputed candidate families are not collapsed merely to reduce status counts.
+
+The highest-priority next target is **HPA-ZIWEI-023 — Zi/Wu Shenzhu Fire/Bell textual composite**. Strict QS correctly throws `QS_SHENZHU_ZI_WU_TEXTUAL_AMBIGUITY`, while production Wenmo resolves Zi/Wu to Fire. The 1581 Jielan historical registry explicitly preserves `TEXTUAL_COMPOSITE_FIRE_BELL_NOT_UNIQUELY_ARBITRATED` from CH32 and its source-scoped resolver selects no winner. This creates a higher active-output provenance risk than fail-closed HPA-ZT-016.
+
+Next tiers are HPA-ZIWEI-026 Jiangqian temporal/source scope, HPA-ZMINOR-020 standalone Feilian identity collision, then the active month-table source gaps HPA-ZMINOR-023/024/025/026. HPA-ZT-016 remains important but runtime currently emits no inward/outward direction, so its immediate deterministic-output risk is lower.
+
+No Matrix status, runtime, candidate selection, production default, provenance count or transmission graph changed. Matrix220/220/10; provenance39/39; algorithm defects/reopens/candidate collapses0.
+
+Next: **12NW — HPA-ZIWEI-023 Zi/Wu Shenzhu Fire/Bell evidence closure**. A Fire or Bell winner remains forbidden unless edition/source/commentary evidence actually closes it.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-UNRESOLVED-HISTORICAL-STATUS-PRIORITIZATION-NV.md`. Research record: `docs/research/HISTORICAL-UNRESOLVED-STATUS-PRIORITIZATION-R1.json`.
+
