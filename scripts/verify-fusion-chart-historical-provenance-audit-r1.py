@@ -18,6 +18,7 @@ ZIWEI_JIELAN_AO = ROOT / "docs" / "research" / "ZIWEI-JIELAN-INCLEMENT-TIME-ACQU
 ZIWEI_JIELAN_AP = ROOT / "docs" / "research" / "ZIWEI-JIELAN-BIRTH-TIME-CHAPTER-SCOPE-CORRECTION-R1.json"
 ZIWEI_JIELAN_AQ = ROOT / "docs" / "research" / "ZIWEI-JIELAN-BIBLIOGRAPHIC-IMPRINT-RECONCILIATION-R1.json"
 ZIWEI_JIELAN_AR = ROOT / "docs" / "research" / "ZIWEI-JIELAN-PT49-PUBLIC-PREVIEW-ACCESS-BOUNDARY-R1.json"
+ZIWEI_YUEDE_TIANDE_OE = ROOT / "docs" / "research" / "ZIWEI-YUEDE-TIANDE-TEMPORAL-SCOPE-CLOSURE-R1.json"
 ZIWEI_INDEPENDENT_EDITION_ROUTES = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-INDEPENDENT-EDITION-ROUTES-R1.json"
 ZIWEI_WENGUANG_GOOGLE_INDEX = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-WENGUANG-GOOGLE-INDEX-PREVIEW-R1.json"
 ZIWEI_JINGLUNTANG_PHYSICAL_ROUTE = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-JINGLUNTANG-PHYSICAL-ROUTE-R1.json"
@@ -829,6 +830,41 @@ def main() -> int:
         raise SystemExit("Batch 12E HPA-ZDATE-006 target-page boundary regressed")
     if "GLOBAL_ALL_FULLBOOK_EDITION_STABILITY_NOT_CLAIMED" not in row_nanyang.get("hai_glyph_cross_edition_status", ""):
         raise SystemExit("Batch 12AF HPA-ZDATE-006 global Fullbook stability firewall regressed")
+    # Batch 12OE: Fullbook TianDe/YueDe are annual; natal adoption remains separate.
+    if not ZIWEI_YUEDE_TIANDE_OE.is_file():
+        raise SystemExit("Batch 12OE YueDe/TianDe research record is missing")
+    oe=json.loads(ZIWEI_YUEDE_TIANDE_OE.read_text(encoding="utf-8"))
+    if oe.get("batch_id") != "BATCH-12-ZIWEI-YUEDE-TIANDE-TEMPORAL-SCOPE-CLOSURE-OE":
+        raise SystemExit("Batch 12OE research identity mismatch")
+    direct_oe=oe.get("direct_text_controls", ())
+    adjudications={row.get("adjudication") for row in direct_oe}
+    if not {"ANNUAL_TIANDE_EXPLICIT","ANNUAL_YUEDE_EXPLICIT","NATAL_YEAR_JIESHEN_EXPLICIT_SAME_LOCAL_PASSAGE_CONTRAST"}.issubset(adjudications):
+        raise SystemExit("Batch 12OE decisive temporal-scope controls regressed")
+    row006=next((r for r in rows if r.get("rule_id")=="HPA-ZMINOR-006"), None)
+    row022=next((r for r in rows if r.get("rule_id")=="HPA-ZMINOR-022"), None)
+    row027=next((r for r in rows if r.get("rule_id")=="HPA-ZMINOR-027"), None)
+    rowzt007=next((r for r in rows if r.get("rule_id")=="HPA-ZTEMP-007"), None)
+    if row006 is None or row006.get("defect_id")!="PROV-DEFECT-041" or "天德" in row006.get("rule_or_field",""):
+        raise SystemExit("Batch 12OE HPA-ZMINOR-006 provenance repair regressed")
+    if row022 is None or row022.get("audit_status")!="SOURCE_INSUFFICIENT":
+        raise SystemExit("Batch 12OE natal YueDe status regressed")
+    if row027 is None or row027.get("audit_status")!="SOURCE_INSUFFICIENT":
+        raise SystemExit("Batch 12OE natal TianDe split row regressed")
+    if rowzt007 is None or rowzt007.get("audit_status")!="HISTORICALLY_SUPPORTED":
+        raise SystemExit("Batch 12OE annual virtue candidate row regressed")
+    if rowzt007.get("selection_status")!="SOURCE_SCOPED_CANDIDATE_PRESERVED_NO_SELECTION":
+        raise SystemExit("Batch 12OE annual virtue candidate selection firewall regressed")
+    expected_oe_methods={
+        "RECEIVED-FULLBOOK-ANNUAL-YUEDE-ZI-START-R1",
+        "RECEIVED-FULLBOOK-ANNUAL-TIANDE-YOU-START-R1",
+    }
+    if set(rowzt007.get("candidate_method_ids",())) != expected_oe_methods:
+        raise SystemExit("Batch 12OE annual virtue candidate method identities regressed")
+    if oe.get("runtime_after_12oe",{}).get("natal_defaults_changed") is not False:
+        raise SystemExit("Batch 12OE unexpectedly changed natal defaults")
+    if data.get("audit_summary",{}).get("historical_candidate_extension_count",0) < 8:
+        raise SystemExit("Batch 12OE candidate extension accounting regressed")
+
     defect_ids=[row.get("defect_id") for row in rows if row.get("defect_id")]
     if len(defect_ids)!=len(set(defect_ids)):
         raise SystemExit("duplicate historical provenance defect_id")
