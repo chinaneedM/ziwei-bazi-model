@@ -34,7 +34,7 @@ Every row carries:
 - proposed action;
 - explicit algorithm-reopen authorization, which is **false for every inventory row at creation**.
 
-The initial inventory contained **107 rule/field families**. Through Batch 12NR and explicit splitting of historically distinct candidate families, the current machine-readable inventory contains **220 rows**, with **220 audited rows**. It intentionally keeps unresolved source work explicit rather than converting uncertainty into a chart defect. The current audit ledger records **38 confirmed provenance metadata defects repaired forward-only at the provenance/hash-lineage layer, 0 chart algorithm defects, 0 algorithm reopens, 14 cumulatively identified missing candidate families, 10 rows currently `MISSING_FROM_PRODUCT`, 6 historical candidate extensions, 3 source-scoped historical candidate registries, and 3 runtime-resolver components**.
+The initial inventory contained **107 rule/field families**. Through Batch 12NR and explicit splitting of historically distinct candidate families, the current machine-readable inventory contains **220 rows**, with **220 audited rows**. It intentionally keeps unresolved source work explicit rather than converting uncertainty into a chart defect. The current audit ledger records **39 confirmed provenance metadata defects repaired forward-only at the provenance/hash-lineage layer, 0 chart algorithm defects, 0 algorithm reopens, 14 cumulatively identified missing candidate families, 10 rows currently `MISSING_FROM_PRODUCT`, 6 historical candidate extensions, 3 source-scoped historical candidate registries, and 3 runtime-resolver components**.
 
 ## Research-corpus authority
 
@@ -1603,4 +1603,22 @@ No new provenance defect was found. The current Matrix description is materially
 Next: **12NU** — reconcile HPA-DAYUN-CAL-002 / 003 / 004 historical Jiaoyun calendarization and ten-year recurrence candidates against the live historical-calendar adapter contract and product surfaces.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-POST-AUDIT-NANYANGTANG-LATE-ZI-NATAL-CANDIDATE-PRODUCT-SURFACE-RECONCILIATION-NT.md`. Research record: `docs/research/ZIWEI-NANYANGTANG-LATE-ZI-NATAL-CANDIDATE-PRODUCT-SURFACE-RECONCILIATION-R1.json`.
+
+## Progress — Batch 12NU
+
+Post-audit reconciliation confirms **HPA-DAYUN-CAL-002 / 003 / 004** all remain `MISSING_FROM_PRODUCT`.
+
+The repository does have a real historical-calendar boundary: `HISTORICAL-CHINESE-CALENDAR-ADAPTER-CONTRACT-R1` registers **Ming Datong** and **Qing Shixian** contexts, exposes `REALIZE_DAYUN_HANDOVER` and `ADD_CALENDAR_YEARS`, and fail-closes with `UNRESOLVED_NO_CERTIFIED_HISTORICAL_CALENDAR_ADAPTER`. But this contract is not wired into `BaziTemporalEngine`; the released engine/profile/product surface still supports only continuous and Wenzhen compatibility profiles, both with modern Gregorian operational realization.
+
+For **HPA-DAYUN-CAL-002**, the Ming descriptor and fail-closed contract are genuine partial infrastructure, but no certified Ming arithmetic adapter, historical temporal profile or product selector exists.
+
+For **HPA-DAYUN-CAL-003**, **PROV-DEFECT-039** was confirmed and repaired. The previous Matrix wording said the adapter contract “preserves the unresolved regime”; in fact the live registry has no Republican/Qianli descriptor. The contract vocabulary can accommodate such a future regime, but the Qianli method currently exists only as a Matrix/source candidate, not a registered historical-calendar runtime context.
+
+For **HPA-DAYUN-CAL-004**, `ADD_CALENDAR_YEARS` and the no-Gregorian-substitution firewall exist at the contract layer, but actual Dayun recurrence in `BaziTemporalEngine` still has only `PROLEPTIC_GREGORIAN_10Y_UTC_ANNIVERSARY` and `PROLEPTIC_GREGORIAN_10Y_CHINA_STANDARD_ANNIVERSARY` branches.
+
+All **10 current MISSING_FROM_PRODUCT rows now have explicit post-audit product-surface reconciliation**. Matrix220/220/10; provenance39/39; chart algorithm defects/reopens/candidate collapses0. No runtime/schema/hash/rule/candidate-selection/production-default change. `transmission_impact=NONE`.
+
+Next: **12NV** — prioritize the remaining unresolved historical statuses: 30 `DISPUTED_MULTIPLE_CANDIDATES`, 11 `SOURCE_INSUFFICIENT`, and 1 `NOT_YET_FORMALIZED`; then continue the highest-value evidence closure without collapsing candidates.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-POST-AUDIT-DAYUN-HISTORICAL-CALENDAR-CANDIDATE-PRODUCT-SURFACE-RECONCILIATION-NU.md`. Research record: `docs/research/BAZI-DAYUN-HISTORICAL-CALENDAR-CANDIDATE-PRODUCT-SURFACE-RECONCILIATION-R1.json`.
 
