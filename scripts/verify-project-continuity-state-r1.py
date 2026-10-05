@@ -15835,7 +15835,11 @@ def main() -> int:
     row23_nv = next((r for r in matrix["rows"] if r["rule_id"] == "HPA-ZIWEI-023"), None)
     if row23_nv is None or row23_nv.get("audit_status") != "SOURCE_INSUFFICIENT":
         fail("Batch 12NV HPA-ZIWEI-023 source status drift")
-    if "production Wenmo profile resolves Zi/Wu to Fire" not in row23_nv.get("current_implementation", ""):
+    row23_nv_surface = row23_nv.get("product_surface_reconciliation", {})
+    if (
+        "production Wenmo profile resolves Zi/Wu to Fire" not in row23_nv.get("current_implementation", "")
+        and row23_nv_surface.get("production_zi_wu_fire") is not True
+    ):
         fail("Batch 12NV HPA-ZIWEI-023 production-risk anchor drift")
     if row23_nv.get("algorithm_reopen_authorized") is not False:
         fail("Batch 12NV HPA-ZIWEI-023 reopen firewall drift")
