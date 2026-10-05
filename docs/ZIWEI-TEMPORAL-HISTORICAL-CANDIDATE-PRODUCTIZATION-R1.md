@@ -2,114 +2,68 @@
 
 Status: **CLOSED FOR SOURCE-SCOPED CANDIDATE OUTPUT / NO PRODUCTION WINNER CHANGE**
 
-Historical authority remains Batch 08B:
+Baseline historical decomposition remains Batch 08B. The Zhongzhou leap-month daily-origin closure is updated forward-only by Batch 12OP.
 
-- `HPA-ZTEMP-004` — 1581 《新刻纂集紫微斗数捷览》 `日上起子时皆顺行`;
-- `HPA-ZTEMP-006` — Zhongzhou leap-month half split, `S10:ZZTERM-P-0280..0281`.
+- `HPA-ZTEMP-004` — 1581 《新刻纂集紫微斗数捷览》 day-anchored flow-hour candidate;
+- `HPA-ZTEMP-006` / `HPA-ZT-015` — modern Zhongzhou leap-month month/day geometry, source-scoped and unselected.
 
-This document records productization only. It is not a new historical-evidence batch.
+This document records the current product contract. Historical evidence claims remain in the audit batches and research records.
 
 ## 1. Shared candidate registry
 
-The two methods are registered under:
-
 ```text
-ZIWEI-TEMPORAL-HISTORICAL-CANDIDATE-REGISTRY-R1@1.0.0
+ZIWEI-TEMPORAL-HISTORICAL-CANDIDATE-API-R1@1.2.0
+ZIWEI-TEMPORAL-HISTORICAL-CANDIDATE-REGISTRY-R1@1.1.0
+ZIWEI-TEMPORAL-HISTORICAL-CANDIDATE-RUNTIME-R1@1.1.0
 selection_status=PRESERVED_NOT_SELECTED
-runtime_resolver=ZIWEI-TEMPORAL-HISTORICAL-CANDIDATE-RUNTIME-R1@1.0.0
 ```
 
-The registry contains exactly two source-scoped method families:
-
-1. `JIELAN-1581-DAY-ANCHORED-FLOW-HOUR-R1`;
-2. `ZHONGZHOU-LEAP-MONTH-HALF-SPLIT-R1`.
-
-They are candidates, not production defaults and not a ranked list.
+The registry still contains exactly two source-scoped method families: `JIELAN-1581-DAY-ANCHORED-FLOW-HOUR-R1` and `ZHONGZHOU-LEAP-MONTH-HALF-SPLIT-R1`. The version bump adds no winner or third method; it extends the existing Zhongzhou candidate with source-closed daily geometry.
 
 ## 2. 1581 day-anchored flow hour
 
-Mechanical rule:
+The Jielan mechanics are unchanged: Zi hour is anchored to the resolved flow-day active palace and later hours advance by hour-branch ordinal. Its parent daily frame remains time-standard-specific.
 
-```text
-Zi-hour active palace = current flow-day active palace
-later hour active palace = parent flow-day palace + hour-branch ordinal
-```
+## 3. Zhongzhou leap-month month/day geometry
 
-The resolver requires a parent daily frame whose effective Gregorian date matches the **same** time-standard clock and the current Ziwei calendar-date/day-boundary policies.
+Direct Wang Tingzhi text plus the S10 collation close the source-scoped mechanics: days 1–15 use the preceding regular month; leap day 1 continues after that regular month's last flow day, so its 29/30-day length is explicit input; days 16–end use the following regular month's monthly active-palace basis; the actual leap-day ordinal is retained rather than renumbered at day 16.
 
-This prevents an invalid shortcut where Luoyang mean-solar time and local-apparent-solar time reuse one daily parent when their effective dates differ.
+The candidate emits backend-computed `leap_day_one_active_branch`, `daily_basis_branch`, `daily_active_address_branch`, `half_split_basis_switch=true`, and `half_split_reset=false`.
 
-The early-print source authorizes the active-palace geometry only. It does **not** authorize either modern time standard, a 23:00 date boundary, or Zhongzhou dynamic auxiliary/four-transformation projection. Those remain separate axes.
-
-The existing fixed-branch case candidates remain unchanged in `hourly_method_candidates`. The early-print candidates are emitted separately in `historical_hourly_method_candidates`.
-
-## 3. Zhongzhou leap-month half split
-
-Direct source scope closes:
-
-- leap days 1–15 belong to the previous regular month and use that month Ganzhi;
-- leap days 16–end belong to the following regular month and use that month Ganzhi;
-- the flow-day sequence does not reset at the 15/16 split.
-
-The source sentence does **not**, by itself, close whether leap-month day 1 restarts from a month palace or continues from the preceding regular month's final day.
-
-Therefore the candidate deliberately records:
-
-```text
-half_split_reset=false
-daily_active_address_emitted=false
-daily_origin_semantics=NOT_CLOSED_BY_THIS_MONTH_POLICY_API
-```
-
-Existing projection fields remain fail-closed for a leap target:
+Ordinary released fields remain fail-closed:
 
 ```text
 monthly_projection_status=LEAP_MONTH_UNRESOLVED_NO_FRAME
 daily_projection_status=PARENT_LEAP_MONTH_UNRESOLVED_NO_FRAME
 ```
 
-The school candidate is emitted separately through `leap_month_method_candidates`.
+The complete Zhongzhou geometry is exposed only through `leap_month_method_candidates` as `PRESERVED_NOT_SELECTED`; it is not the universal production default.
 
-## 4. Hash, schema and replay
+## 4. Schema, replay and Workbench
 
-Both candidate payloads bind:
+The strict Shared Ziwei Selector Projection schema binds API/registry/runtime versions consistently for both methods. Workbench renders backend-returned assigned month, candidate flow-day palace, basis and switch/reset flags; browser code contains no branch-placement formula or winner selector.
 
-- registry ID/version/hash;
-- runtime-resolver ID/version;
-- method/source/authority identity;
-- `PRESERVED_NOT_SELECTED`;
-- candidate hash.
-
-The Shared Ziwei Selector Projection R1 schema remains strict with `additionalProperties=false` for the new nested candidates.
-
-The shared candidate hash includes both new candidate arrays and statuses. Structural integrity reconstructs them independently, and full replay compares the complete projection object.
-
-The Workbench is read-only: it renders returned candidate fields and contains no branch/hour/month placement formula.
-
-## 5. Audit accounting
-
-The historical sources were already audited, so the audited row count remains unchanged.
+## 5. Current audit accounting after Batch 12OP
 
 ```text
-TOTAL_MATRIX_ROWS=197
-AUDITED_ROWS=165
-CUMULATIVE_IDENTIFIED_MISSING_CANDIDATE_FAMILIES=13
-CURRENT_MISSING_FROM_PRODUCT_ROWS=9
-HISTORICAL_CANDIDATE_EXTENSION_COUNT=6
-HISTORICAL_CANDIDATE_REGISTRY_COUNT=3
-HISTORICAL_CANDIDATE_RUNTIME_RESOLVER_COUNT=3
+TOTAL_MATRIX_ROWS=222
+AUDITED_ROWS=222
+CUMULATIVE_IDENTIFIED_MISSING_CANDIDATE_FAMILIES=14
+CURRENT_MISSING_FROM_PRODUCT_ROWS=4
+HISTORICAL_CANDIDATE_EXTENSION_COUNT=14
+HISTORICAL_CANDIDATE_REGISTRY_COUNT=5
+HISTORICAL_CANDIDATE_RUNTIME_RESOLVER_COUNT=5
+CONFIRMED_PROVENANCE_METADATA_DEFECT_COUNT=44
+REPAIRED_PROVENANCE_METADATA_DEFECT_COUNT=44
 CONFIRMED_CHART_ALGORITHM_DEFECT_COUNT=0
 ALGORITHM_REOPEN_COUNT=0
 CANDIDATE_COLLAPSE_COUNT=0
 DETERMINISTIC_FUSION_CHART_PRODUCT_R1=CLOSED
 ```
 
-The cumulative discovery count remains 13 by definition; productizing two previously discovered gaps reduces the current `MISSING_FROM_PRODUCT` row count from 11 to 9 rather than rewriting discovery history.
+## 6. Remaining boundaries
 
-## 6. Remaining research boundaries
-
-- continue edition/facsimile research for Ziwei late-Zi doctrine independently of the 1581 flow-hour wording;
-- continue Zhongzhou and competing-school research for leap-month day-one flow-day origin before emitting a daily active palace;
-- do not collapse the 1581 day-anchored method with the fixed-branch case method;
-- do not select a winner merely because candidates share an output in some timestamps;
+- other leap-month doctrines remain separate source/school questions;
+- natal leap-month handling is not silently equated with flow-month/day handling;
+- no historical winner is selected merely because this school-scoped candidate is mechanically complete;
 - no prediction, ranking, 吉凶 or 应验 semantics are introduced.

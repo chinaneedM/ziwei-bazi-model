@@ -41,14 +41,14 @@ class ZiweiTemporalHistoricalCandidateProductizationR1Tests(unittest.TestCase):
     def test_accounting_separates_cumulative_discovery_from_current_gap_rows(self) -> None:
         summary = self.matrix["audit_summary"]
         self.assertEqual(14, summary["identified_missing_candidate_family_count"])
-        self.assertEqual(10, summary["current_missing_from_product_row_count"])
-        self.assertEqual(10, sum(
+        self.assertEqual(4, summary["current_missing_from_product_row_count"])
+        self.assertEqual(4, sum(
             row["audit_status"] == "MISSING_FROM_PRODUCT"
             for row in self.matrix["rows"]
         ))
-        self.assertEqual(6, summary["historical_candidate_extension_count"])
-        self.assertEqual(3, summary["historical_candidate_registry_count"])
-        self.assertEqual(3, summary["historical_candidate_runtime_resolver_count"])
+        self.assertEqual(14, summary["historical_candidate_extension_count"])
+        self.assertEqual(5, summary["historical_candidate_registry_count"])
+        self.assertEqual(5, summary["historical_candidate_runtime_resolver_count"])
         self.assertEqual(
             sum(row["audit_status"] == "HISTORICALLY_SUPPORTED" for row in self.matrix["rows"]),
             self.matrix["inventory_summary"]["status_counts"]["HISTORICALLY_SUPPORTED"],
@@ -60,11 +60,11 @@ class ZiweiTemporalHistoricalCandidateProductizationR1Tests(unittest.TestCase):
 
     def test_state_preserves_closed_product_and_g893_boundaries(self) -> None:
         audit = self.state["historical_audit"]
-        self.assertEqual(10, audit["current_missing_from_product_row_count"])
+        self.assertEqual(4, audit["current_missing_from_product_row_count"])
         self.assertEqual(14, audit["identified_missing_candidate_family_count"])
-        self.assertEqual(6, audit["historical_candidate_extension_count"])
-        self.assertEqual(3, audit["historical_candidate_registry_count"])
-        self.assertEqual(3, audit["historical_candidate_runtime_resolver_count"])
+        self.assertEqual(14, audit["historical_candidate_extension_count"])
+        self.assertEqual(5, audit["historical_candidate_registry_count"])
+        self.assertEqual(5, audit["historical_candidate_runtime_resolver_count"])
         self.assertEqual("CLOSED", self.state["invariants"]["deterministic_fusion_chart_product_r1"])
         self.assertEqual(0, self.state["invariants"]["confirmed_chart_algorithm_defect_count"])
         self.assertEqual(0, self.state["invariants"]["algorithm_reopen_count"])
@@ -88,7 +88,9 @@ class ZiweiTemporalHistoricalCandidateProductizationR1Tests(unittest.TestCase):
             "ZIWEI-TEMPORAL-HISTORICAL-CANDIDATE-RUNTIME-R1",
             "JIELAN-1581-DAY-ANCHORED-FLOW-HOUR-R1",
             "ZHONGZHOU-LEAP-MONTH-HALF-SPLIT-R1",
-            "NOT_CLOSED_BY_THIS_MONTH_POLICY_API",
+            "SOURCE_SCOPED_MONTH_AND_DAILY_GEOMETRY_COMPLETE_PRESERVED_NO_SELECTION",
+            "previous_regular_month_day_count",
+            "half_split_basis_switch",
         ):
             self.assertIn(token, core)
         self.assertIn("historical_hourly_method_candidates", browser)
@@ -100,8 +102,9 @@ class ZiweiTemporalHistoricalCandidateProductizationR1Tests(unittest.TestCase):
     def test_productization_doc_is_not_a_new_historical_batch(self) -> None:
         text = DOC.read_text(encoding="utf-8")
         self.assertIn("This document records productization only", text)
-        self.assertIn("Historical authority remains Batch 08B", text)
-        self.assertIn("CURRENT_MISSING_FROM_PRODUCT_ROWS=9", text)
+        self.assertIn("Baseline historical decomposition remains Batch 08B", text)
+        self.assertIn("Batch 12OP", text)
+        self.assertIn("CURRENT_MISSING_FROM_PRODUCT_ROWS=4", text)
 
 
 if __name__ == "__main__":

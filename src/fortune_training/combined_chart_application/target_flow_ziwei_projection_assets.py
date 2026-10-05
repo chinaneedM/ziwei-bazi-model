@@ -235,7 +235,7 @@ TARGET_FLOW_ZIWEI_PROJECTION_JS = r"""
       : [];
     if (row.effective_lunar_is_leap_month || leapMonthCandidates.length > 0) {
       const leap = node('div', undefined, 'ziwei-target-hourly');
-      leap.append(node('strong', '中州派闰月候选（月归属；来源限定）'));
+      leap.append(node('strong', '中州派闰月候选（月/日几何；来源限定）'));
       leap.append(node(
         'div',
         `状态 ${display(row.leap_month_candidate_status)} · 不替换当前 fail-closed 月/日帧。`,
@@ -258,7 +258,11 @@ TARGET_FLOW_ZIWEI_PROJECTION_JS = r"""
         ));
         box.append(node(
           'div',
-          `十五/十六切分重置=${display(continuity.half_split_reset)} · 流日宫位由本候选生成=${display(continuity.daily_active_address_emitted)}`,
+          `候选流日宫位 ${display(continuity.daily_active_address_branch)} · 月初一基准宫 ${display(continuity.daily_basis_branch)} · 闰月初一承接宫 ${display(continuity.leap_day_one_active_branch)}`,
+        ));
+        box.append(node(
+          'div',
+          `十五/十六基准切换=${display(continuity.half_split_basis_switch)} · 日序重置=${display(continuity.half_split_reset)} · 流日宫位由本候选生成=${display(continuity.daily_active_address_emitted)}`,
         ));
         box.append(node('code', `method=${display(candidate.method_id)}`));
         box.append(node('code', `selection=${display(candidate.selection_status)}`));

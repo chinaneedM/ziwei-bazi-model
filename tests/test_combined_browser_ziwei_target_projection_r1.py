@@ -58,9 +58,12 @@ class CombinedBrowserZiweiTargetProjectionR1Tests(unittest.TestCase):
         self.assertIn("candidate.parent_daily_frame_id", TARGET_FLOW_ZIWEI_PROJECTION_JS)
         self.assertIn("candidate.active_address_branch", TARGET_FLOW_ZIWEI_PROJECTION_JS)
         self.assertIn("PRESERVED_NOT_SELECTED", TARGET_FLOW_ZIWEI_PROJECTION_JS)
-        self.assertIn("中州派闰月候选（月归属；来源限定）", TARGET_FLOW_ZIWEI_PROJECTION_JS)
+        self.assertIn("中州派闰月候选（月/日几何；来源限定）", TARGET_FLOW_ZIWEI_PROJECTION_JS)
         self.assertIn("leap_month_method_candidates", TARGET_FLOW_ZIWEI_PROJECTION_JS)
         self.assertIn("continuity.daily_active_address_emitted", TARGET_FLOW_ZIWEI_PROJECTION_JS)
+        self.assertIn("continuity.daily_active_address_branch", TARGET_FLOW_ZIWEI_PROJECTION_JS)
+        self.assertIn("continuity.daily_basis_branch", TARGET_FLOW_ZIWEI_PROJECTION_JS)
+        self.assertIn("continuity.half_split_basis_switch", TARGET_FLOW_ZIWEI_PROJECTION_JS)
         self.assertIn("不替换当前 fail-closed 月/日帧", TARGET_FLOW_ZIWEI_PROJECTION_JS)
         for forbidden_formula in (
             "branch_index(",

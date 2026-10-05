@@ -2024,3 +2024,24 @@ Accordingly `HPA-ZIWEI-018` changes `MISSING_FROM_PRODUCT -> HISTORICALLY_SUPPOR
 Matrix remains **222/222 audited**. Status now includes HISTORICALLY_SUPPORTED **104** and current MISSING_FROM_PRODUCT **5**. Candidate extensions remain 14, registries/runtime resolvers 5/5, provenance defects 43/43, algorithm reopens 0.
 
 Next: **12OP — HPA-ZT-015 leap-month day-one daily-origin geometry / historical candidate closure.**
+
+
+## Progress — Batch 12OP
+
+`HPA-ZT-015` Zhongzhou leap-month day-one/daily geometry is now source-closed as a **school-scoped historical candidate**, without selecting it as the production default.
+
+Direct Wang Tingzhi text and S10 P-0282 close the first-half origin: after the preceding regular month's last flow day, counting continues forward, so leap day 1 depends on whether that regular month had 29 or 30 days. P-0283 switches leap day 16+ to the following regular month's monthly-palace basis. The general flow-day clause controls the arithmetic: the monthly palace is the day-1 basis and the actual requested day ordinal is counted forward, so the 15/16 switch changes basis but does not renumber day 16 as a new day 1.
+
+The existing `ZHONGZHOU-LEAP-MONTH-HALF-SPLIT-R1` candidate is extended in place through API 1.2.0 / registry 1.1.0 / runtime 1.1.0. Shared projection supplies the preceding regular-month length, emits `leap_day_one_active_branch` and `daily_active_address_branch`, and preserves `half_split_basis_switch=true`, `half_split_reset=false`, `PRESERVED_NOT_SELECTED`.
+
+Workbench now exposes the backend-computed daily palace and basis-switch fields without browser placement math. Ordinary production leap-month monthly/daily fields remain fail-closed.
+
+`PROV-DEFECT-044` repairs the stale live Matrix claim that day-one/daily geometry was still source-unclosed. It also narrows scope: natal leap-month doctrines are not silently treated as the same rule as flow-month/day geometry.
+
+`HPA-ZT-015` moves `MISSING_FROM_PRODUCT -> SUPPORTED_BUT_SCHOOL_SPECIFIC`; `HPA-ZTEMP-006` remains `SUPPORTED_BUT_SCHOOL_SPECIFIC` with its now-complete daily geometry. Matrix remains **222/222 audited**; `SUPPORTED_BUT_SCHOOL_SPECIFIC=25`, `MISSING_FROM_PRODUCT=4`, candidate extensions 14, registries/runtime resolvers 5/5, provenance defects 44/44, chart algorithm defects/reopens/candidate collapses 0.
+
+`transmission_impact=NONE`: this is a semantic/mechanical closure inside an already registered modern Zhongzhou witness, not a new ancestry edge.
+
+Next: **12OQ** — re-rank the four remaining product gaps (`HPA-ZDATE-006`, `HPA-DAYUN-CAL-002/003/004`) by evidence-acquisition readiness and dependency depth before resuming the highest-value blocked source route; do not repeat exhausted public-preview searches.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHONGZHOU-LEAP-MONTH-DAILY-GEOMETRY-CLOSURE-OP.md`. Research record: `docs/research/ZIWEI-ZHONGZHOU-LEAP-MONTH-DAILY-GEOMETRY-CLOSURE-R1.json`.
