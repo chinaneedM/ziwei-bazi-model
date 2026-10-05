@@ -30,6 +30,9 @@ ZIWEI_FOUR_TRANS_OJ_TEST = ROOT / "tests" / "test_ziwei_four_transformation_hist
 ZIWEI_FOUR_TRANS_OK = ROOT / "docs" / "research" / "ZIWEI-FOUR-TRANSFORMATION-WHOLE-TABLE-CANDIDATE-PRODUCTIZATION-R1.json"
 ZIWEI_FOUR_TRANS_OK_PRODUCT = ROOT / "docs" / "ZIWEI-FOUR-TRANSFORMATION-HISTORICAL-CANDIDATE-PRODUCTIZATION-R1.md"
 ZIWEI_FOUR_TRANS_OK_TEST = ROOT / "tests" / "test_ziwei_four_transformation_candidate_productization_r1.py"
+ZIWEI_DIGNITY_OM = ROOT / "docs" / "research" / "ZIWEI-JIELAN-DIGNITY-SOURCE-LEXEME-CANDIDATE-R1.json"
+ZIWEI_DIGNITY_OM_MODULE = ROOT / "src" / "fortune_training" / "ziwei_chart" / "dignity_historical_candidates.py"
+ZIWEI_DIGNITY_OM_TEST = ROOT / "tests" / "test_ziwei_jielan_1581_dignity_lexeme_candidates_r1.py"
 ZIWEI_INDEPENDENT_EDITION_ROUTES = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-INDEPENDENT-EDITION-ROUTES-R1.json"
 ZIWEI_WENGUANG_GOOGLE_INDEX = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-WENGUANG-GOOGLE-INDEX-PREVIEW-R1.json"
 ZIWEI_JINGLUNTANG_PHYSICAL_ROUTE = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-JINGLUNTANG-PHYSICAL-ROUTE-R1.json"
@@ -1074,6 +1077,43 @@ def main() -> int:
         raise SystemExit("Batch 12OK candidate extension accounting regressed")
     if summary.get("historical_candidate_registry_count",0)<4 or summary.get("historical_candidate_runtime_resolver_count",0)<4:
         raise SystemExit("Batch 12OK candidate registry/runtime accounting regressed")
+
+    # Batch 12OM: Jielan CH70 dignity is preserved as raw source lexemes, not R4 grades.
+    if not ZIWEI_DIGNITY_OM.is_file() or not ZIWEI_DIGNITY_OM_MODULE.is_file() or not ZIWEI_DIGNITY_OM_TEST.is_file():
+        raise SystemExit("Batch 12OM Jielan dignity lexeme artifacts are missing")
+    om=json.loads(ZIWEI_DIGNITY_OM.read_text(encoding="utf-8"))
+    if om.get("batch_id")!="BATCH-12-ZIWEI-JIELAN-DIGNITY-SOURCE-LEXEME-CANDIDATE-OM":
+        raise SystemExit("Batch 12OM research identity mismatch")
+    rep=om.get("representation",{})
+    if rep.get("registry_id")!="ZIWEI-JIELAN-1581-DIGNITY-LEXEME-CANDIDATES-R1" or rep.get("registry_version")!="1.0.0":
+        raise SystemExit("Batch 12OM dignity registry identity regressed")
+    if rep.get("runtime_resolver_id")!="ZIWEI-JIELAN-1581-DIGNITY-LEXEME-RUNTIME-R1" or rep.get("runtime_resolver_version")!="1.0.0":
+        raise SystemExit("Batch 12OM dignity runtime identity regressed")
+    if rep.get("selection_status")!="PRESERVED_NOT_SELECTED" or rep.get("normalization_status")!="SOURCE_LEXEME_ONLY_NO_PRODUCTION_GRADE_COERCION":
+        raise SystemExit("Batch 12OM dignity non-coercion identity regressed")
+    if rep.get("entity_count")!=25 or rep.get("cell_count")!=300 or rep.get("production_grade_mapping_present") is not False:
+        raise SystemExit("Batch 12OM dignity source-cell accounting regressed")
+    anomalies=om.get("preserved_anomalies",{})
+    if len(anomalies.get("source_conflicts",()))!=2 or len(anomalies.get("unstated_cells",()))!=1 or anomalies.get("repair_or_fill_permission") is not False:
+        raise SystemExit("Batch 12OM dignity anomaly preservation regressed")
+    boundary=om.get("boundary",{})
+    if boundary.get("ch69_used_to_fill_ch70") is not False or boundary.get("modern_r4_grade_mapping_permitted") is not False or boundary.get("production_dignity_registry_changed") is not False or boundary.get("winner_selected") is not False:
+        raise SystemExit("Batch 12OM dignity source/production firewall regressed")
+    row018=next((r for r in rows if r.get("rule_id")=="HPA-ZIWEI-018"),None)
+    if row018 is None or row018.get("audit_status")!="MISSING_FROM_PRODUCT":
+        raise SystemExit("Batch 12OM HPA-ZIWEI-018 product-gap status regressed")
+    if row018.get("reconciliation_batch")!="BATCH-12-ZIWEI-JIELAN-DIGNITY-SOURCE-LEXEME-CANDIDATE-OM":
+        raise SystemExit("Batch 12OM Matrix reconciliation identity regressed")
+    ps=row018.get("product_surface_reconciliation",{})
+    if ps.get("ch70_entity_count")!=25 or ps.get("ch70_cell_count")!=300 or ps.get("ch70_source_conflict_cell_count")!=2 or ps.get("ch70_unstated_cell_count")!=1:
+        raise SystemExit("Batch 12OM Matrix dignity cell accounting regressed")
+    if ps.get("production_grade_mapping_present") is not False or ps.get("public_read_only_candidate_api") is not False or ps.get("production_default_changed") is not False:
+        raise SystemExit("Batch 12OM Matrix dignity product firewall regressed")
+    summary=data.get("audit_summary",{})
+    if summary.get("historical_candidate_extension_count",0)<14:
+        raise SystemExit("Batch 12OM candidate extension accounting regressed")
+    if summary.get("historical_candidate_registry_count",0)<5 or summary.get("historical_candidate_runtime_resolver_count",0)<5:
+        raise SystemExit("Batch 12OM candidate registry/runtime accounting regressed")
 
     defect_ids=[row.get("defect_id") for row in rows if row.get("defect_id")]
     if len(defect_ids)!=len(set(defect_ids)):
