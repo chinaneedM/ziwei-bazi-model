@@ -26,9 +26,26 @@
 - 紫微有效农历日期；
 - 按八字自身规则生成的四柱、有效日和晚子时日干来源；
 - 当前节与下一节的 UTC 时刻；
-- 分支 `realization_hash`、总体 `fact_hash` 和绑定全部规则版本的 `computation_hash`。
+- 分支 `realization_hash`、总体 `fact_hash` 和绑定共享时间 policy snapshot / realization 的 `computation_hash`。
 
 `candidate_lineage` 以 `source_time_branch_index` 为唯一联动坐标，记录同一物理时间分支对应的紫微本命事实哈希及八字应用候选 ID，并生成独立 `lineage_hash`。
+
+## 哈希与 provenance 分层边界
+
+`shared_time_credential` 的哈希边界是共享时间层，不是整个联合盘的全部算法版本：
+
+- `realization_hash` 绑定单个合法物理时间分支的共享时间/历法事实；
+- `fact_hash` 绑定出生输入、两子系统时间解析状态、输入不确定区间、各 realization hash 与未解析样本；
+- `computation_hash` 直接绑定 credential schema、`fact_hash`、policy registry version、`selected_policies` 与 realizations；
+- 它**不直接包含每个子系统的全部 algorithm ID/version**。
+
+完整联合 provenance 由更高一层 `ZIWEI-BAZI-COMBINED-MANIFEST-V1` 补全：manifest 绑定 combined profile 的 algorithm ID/version、紫微/八字各 profile ID/version、完整 shared credential、candidate lineage，以及两个子系统的 bundle hash。子系统内部的算法与规则 lineage 继续由各自 bundle/hash 合约负责。
+
+`SHARED_TIME_CREDENTIAL_HASH_SCOPE=SHARED_FACTS_PLUS_POLICY_SNAPSHOT`
+
+`FULL_COMBINED_PROVENANCE_SCOPE=MANIFEST_PLUS_SUBSYSTEM_BUNDLES`
+
+因此“共享时间”只统一可共同验证的物理事实与必要政策契约，不把紫微与八字的独立规则链压成一个统一命理规则。
 
 ## 完整性门禁
 
