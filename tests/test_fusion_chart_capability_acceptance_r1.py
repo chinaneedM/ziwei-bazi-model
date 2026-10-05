@@ -81,7 +81,14 @@ class FusionChartCapabilityAcceptanceR1Tests(unittest.TestCase):
                     )
                     first = self.harness.resolve_combined(birth, sex=row["sex"])
                     second = self.harness.resolve_combined(birth, sex=row["sex"])
-                    self.assertEqual(row["expected_status"], first.status)
+                    self.assertEqual(
+                        row["expected_status"],
+                        first.status,
+                        msg=(
+                            f"ziwei_error={first.ziwei_error!r} "
+                            f"bazi_error={first.bazi_error!r}"
+                        ),
+                    )
                     self.assertEqual(first, second)
                     self.assertEqual(
                         deterministic_resolution_signature(first),
@@ -229,6 +236,13 @@ class FusionChartCapabilityAcceptanceR1Tests(unittest.TestCase):
                     )
                     result = self.harness.resolve_combined(birth)
                     require_combined_invariants(result)
+                    self.assertIsNotNone(
+                        result.ziwei_bundle,
+                        msg=(
+                            f"status={result.status} ziwei_error={result.ziwei_error!r} "
+                            f"bazi_error={result.bazi_error!r}"
+                        ),
+                    )
                     state = result.ziwei_bundle.temporal_state
                     self.assertEqual(row["expected_daxian_count"], len(state.daxian_frames))
                     self.assertEqual(row["expected_first_daxian_id"], state.daxian_frames[0].frame_id)
