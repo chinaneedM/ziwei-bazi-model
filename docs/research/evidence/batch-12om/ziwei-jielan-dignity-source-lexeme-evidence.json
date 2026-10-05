@@ -1,0 +1,47 @@
+{
+  "schema": "ZIWEI-JIELAN-DIGNITY-SOURCE-LEXEME-EVIDENCE-R1",
+  "batch_id": "BATCH-12-ZIWEI-JIELAN-DIGNITY-SOURCE-LEXEME-CANDIDATE-OM",
+  "source_ref": "EXT-ZIWEI-JIELAN-1581:CH70",
+  "public_chapter_title": "紫微斗数精详集卷之二·辨诸星十二宫庙陷诀与前诀参看",
+  "lexical_controls": {
+    "explicit_gloss_count": 9,
+    "conflict_cell_count": 2,
+    "unstated_cell_count": 1,
+    "raw_entity_count": 25,
+    "raw_cell_count": 300
+  },
+  "conflict_cells": [
+    [
+      "紫微",
+      "午",
+      [
+        "庙",
+        "平"
+      ]
+    ],
+    [
+      "巨门",
+      "丑",
+      [
+        "局",
+        "陷"
+      ]
+    ]
+  ],
+  "unstated_cells": [
+    [
+      "天机",
+      "巳"
+    ]
+  ],
+  "implementation": [
+    "src/fortune_training/ziwei_chart/dignity_historical_candidates.py",
+    "tests/test_ziwei_jielan_1581_dignity_lexeme_candidates_r1.py"
+  ],
+  "exclusions": [
+    "No OPERATIONAL-ZIWEI-DIGNITY-R4 grade is inferred.",
+    "CH69 is not used as an automatic fill source.",
+    "No conflict is collapsed to one source lexeme.",
+    "No unstated cell is imputed."
+  ]
+}
