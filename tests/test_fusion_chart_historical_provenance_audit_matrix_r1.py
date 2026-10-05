@@ -100,7 +100,9 @@ class HistoricalProvenanceAuditMatrixR1Test(unittest.TestCase):
         self.assertEqual(by_id["HPA-ZMINOR-022"]["audit_status"], "DISPUTED_MULTIPLE_CANDIDATES")
         self.assertEqual(by_id["HPA-ZMINOR-020"]["audit_status"], "HISTORICALLY_SUPPORTED")
         self.assertFalse(by_id["HPA-ZMINOR-020"]["algorithm_reopen_authorized"])
-        for rule_id in ("HPA-ZMINOR-023", "HPA-ZMINOR-024", "HPA-ZMINOR-025", "HPA-ZMINOR-026"):
+        self.assertEqual(by_id["HPA-ZMINOR-023"]["audit_status"], "HISTORICALLY_SUPPORTED")
+        self.assertFalse(by_id["HPA-ZMINOR-023"]["algorithm_reopen_authorized"])
+        for rule_id in ("HPA-ZMINOR-024", "HPA-ZMINOR-025", "HPA-ZMINOR-026"):
             self.assertEqual(by_id[rule_id]["audit_status"], "SOURCE_INSUFFICIENT")
             self.assertFalse(by_id[rule_id]["algorithm_reopen_authorized"])
         parent = by_id["HPA-ZIWEI-008"]
