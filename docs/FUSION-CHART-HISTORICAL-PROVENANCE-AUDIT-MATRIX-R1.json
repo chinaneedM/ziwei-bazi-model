@@ -80,7 +80,7 @@
       "candidate/profile rules": 2,
       "provenance / hashes / lineage": 2
     },
-    "audited_row_count": 215
+    "audited_row_count": 216
   },
   "rows": [
     {
@@ -3153,18 +3153,23 @@
       "rule_or_field": "Candidate lineage preservation",
       "current_implementation": "Combined resolution carries candidate identities/hashes without winner selection.",
       "current_profile": "ZIWEI-BAZI-COMBINED-LOCAL-SHELL-V1-R1",
-      "primary_source": "architecture rule",
-      "source_quote": "PENDING_VERBATIM_EXTRACTION",
-      "source_quote_location": "docs/COMBINED-RESOLVED-PROFILE-LINEAGE-R1.md",
-      "historical_period": "MODERN",
-      "later_witnesses": "N/A",
-      "school_attribution": "MODERN_SOFTWARE_ARCHITECTURE",
-      "competing_methods": [],
-      "current_implementation_match": "MATCHES_DECLARED_COMPOSITION_SCOPE",
-      "confidence": "HIGH",
+      "primary_source": "Combined candidate-lineage runtime contract and focused multi-candidate/full-replay regressions",
+      "source_quote": "candidate_lineage uses source_time_branch_index to bind each shared physical-time branch to Ziwei fact hash and Bazi candidate IDs; no winner is selected.",
+      "source_quote_location": "src/fortune_training/combined_chart_application/fusion_time.py build_candidate_lineage/validate_candidate_lineage; docs/ZIWEI-BAZI-SHARED-TIME-CREDENTIAL-R1.md; tests/test_combined_dst_fold_ziwei_candidate_lineage_r1.py; tests/test_combined_application_full_replay_r1.py",
+      "historical_period": "MODERN_SOFTWARE_PROVENANCE_ARCHITECTURE",
+      "later_witnesses": "DST-fold, mixed-uncertainty, multi-candidate UI and full-replay regression suite",
+      "school_attribution": "MODERN_SOFTWARE_ARCHITECTURE_NOT_CLASSICAL_DOCTRINE",
+      "competing_methods": [
+        "SILENT_FIRST_CANDIDATE_SELECTION",
+        "SCORE_OR_RANK_BASED_CANDIDATE_COLLAPSE",
+        "BRANCH_PRESERVING_HASH_BOUND_LINEAGE"
+      ],
+      "current_implementation_match": "EXACT: branch-index lineage preserves shared realization hash, Ziwei fact identity and Bazi candidate IDs; forged well-formed lineage is rejected by full replay",
+      "confidence": "HIGH_FOR_RUNTIME_AND_REPLAY_SCOPE",
       "audit_status": "MODERN_COMPATIBILITY_ONLY",
-      "proposed_action": "Keep as governance invariant for disputed methods.",
-      "algorithm_reopen_authorized": false
+      "proposed_action": "Keep as governance invariant for disputed methods. Preserve branch/candidate identities and replay bindings; never convert presentation selection or identity deduplication into doctrinal winner selection.",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-12-COMBINED-CANDIDATE-LINEAGE-PRESERVATION-AUDIT-NL"
     },
     {
       "rule_id": "HPA-COMB-004",
@@ -7325,12 +7330,13 @@
     "HPA-DAYUN-007",
     "HPA-ZT-016",
     "HPA-COMB-001",
-    "HPA-COMB-002"
+    "HPA-COMB-002",
+    "HPA-COMB-003"
   ],
   "audit_summary": {
     "confirmed_chart_algorithm_defect_count": 0,
-    "confirmed_provenance_metadata_defect_count": 30,
-    "repaired_provenance_metadata_defect_count": 30,
+    "confirmed_provenance_metadata_defect_count": 31,
+    "repaired_provenance_metadata_defect_count": 31,
     "algorithm_reopen_count": 0,
     "candidate_collapse_count": 0,
     "historical_candidate_extension_count": 6,
@@ -7367,6 +7373,7 @@
     "BATCH-12-BAZI-DAYUN-EXACT-JIE-TIE-HANDLING-AUDIT-NH",
     "BATCH-12-ZIWEI-SELF-INWARD-TRANSFORMATION-DIRECTION-SOURCE-SCOPE-AUDIT-NI",
     "BATCH-12-COMBINED-SHARED-TIME-CREDENTIAL-SCOPE-AUDIT-NJ",
-    "BATCH-12-COMBINED-INDEPENDENT-DATE-CALENDAR-POLICY-PRESERVATION-AUDIT-NK"
+    "BATCH-12-COMBINED-INDEPENDENT-DATE-CALENDAR-POLICY-PRESERVATION-AUDIT-NK",
+    "BATCH-12-COMBINED-CANDIDATE-LINEAGE-PRESERVATION-AUDIT-NL"
   ]
 }

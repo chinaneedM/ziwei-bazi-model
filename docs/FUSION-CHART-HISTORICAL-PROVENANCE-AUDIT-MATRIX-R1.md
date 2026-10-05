@@ -34,7 +34,7 @@ Every row carries:
 - proposed action;
 - explicit algorithm-reopen authorization, which is **false for every inventory row at creation**.
 
-The initial inventory contained **107 rule/field families**. Through Batch 12NK and explicit splitting of historically distinct candidate families, the current machine-readable inventory contains **220 rows**, with **215 audited rows**. It intentionally keeps unresolved source work explicit rather than converting uncertainty into a chart defect. The current audit ledger records **30 confirmed provenance metadata defects repaired forward-only at the provenance/hash-lineage layer, 0 chart algorithm defects, 0 algorithm reopens, 14 cumulatively identified missing candidate families, 10 rows currently `MISSING_FROM_PRODUCT`, 6 historical candidate extensions, 3 source-scoped historical candidate registries, and 3 runtime-resolver components**.
+The initial inventory contained **107 rule/field families**. Through Batch 12NL and explicit splitting of historically distinct candidate families, the current machine-readable inventory contains **220 rows**, with **216 audited rows**. It intentionally keeps unresolved source work explicit rather than converting uncertainty into a chart defect. The current audit ledger records **31 confirmed provenance metadata defects repaired forward-only at the provenance/hash-lineage layer, 0 chart algorithm defects, 0 algorithm reopens, 14 cumulatively identified missing candidate families, 10 rows currently `MISSING_FROM_PRODUCT`, 6 historical candidate extensions, 3 source-scoped historical candidate registries, and 3 runtime-resolver components**.
 
 ## Research-corpus authority
 
@@ -1470,3 +1470,16 @@ The focused late-Zi regression proves the invariant on one physical local-appare
 No new provenance defect, chart algorithm defect, algorithm reopen or candidate collapse. Matrix220/215/10; provenance30/30. `transmission_impact=NONE`.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-COMBINED-INDEPENDENT-DATE-CALENDAR-POLICY-PRESERVATION-AUDIT-NK.md`. Research record: `docs/research/COMBINED-INDEPENDENT-DATE-CALENDAR-POLICY-PRESERVATION-AUDIT-R1.json`.
+
+
+## Progress — Batch 12NL
+
+HPA-COMB-003 candidate lineage preservation is audited as **MODERN_COMPATIBILITY_ONLY**. The runtime keeps one lineage row per shared `source_time_branch_index`, binding the shared realization hash, Ziwei natal fact hash and Bazi candidate IDs without score/rank/winner semantics.
+
+DST-fold and mixed-uncertainty regressions preserve all shared branches and distinct Ziwei fact hashes; full replay rejects a forged but syntactically valid fact hash even after lineage/manifest hashes are recomputed.
+
+**PROV-DEFECT-031** repairs a crossed source link: the Matrix row previously pointed to `COMBINED-RESOLVED-PROFILE-LINEAGE-R1.md`, whose primary subject is profile/rule/algorithm lineage. HPA-COMB-003 is now bound to the actual candidate-lineage implementation, shared-time contract, and focused replay tests. No candidate, hash algorithm or runtime behavior changes.
+
+Matrix220/216/10, provenance31/31, chart algorithm defects/reopens/candidate collapses0. `transmission_impact=NONE`.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-COMBINED-CANDIDATE-LINEAGE-PRESERVATION-AUDIT-NL.md`. Research record: `docs/research/COMBINED-CANDIDATE-LINEAGE-PRESERVATION-AUDIT-R1.json`.
