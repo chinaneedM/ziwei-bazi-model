@@ -33,6 +33,9 @@ ZIWEI_FOUR_TRANS_OK_TEST = ROOT / "tests" / "test_ziwei_four_transformation_cand
 ZIWEI_DIGNITY_OM = ROOT / "docs" / "research" / "ZIWEI-JIELAN-DIGNITY-SOURCE-LEXEME-CANDIDATE-R1.json"
 ZIWEI_DIGNITY_OM_MODULE = ROOT / "src" / "fortune_training" / "ziwei_chart" / "dignity_historical_candidates.py"
 ZIWEI_DIGNITY_OM_TEST = ROOT / "tests" / "test_ziwei_jielan_1581_dignity_lexeme_candidates_r1.py"
+ZIWEI_DIGNITY_ON = ROOT / "docs" / "research" / "ZIWEI-JIELAN-DIGNITY-CH69-CH70-CELL-CROSS-COLLATION-R1.json"
+ZIWEI_DIGNITY_ON_MODULE = ROOT / "src" / "fortune_training" / "ziwei_chart" / "dignity_historical_cross_collation.py"
+ZIWEI_DIGNITY_ON_TEST = ROOT / "tests" / "test_ziwei_jielan_1581_dignity_ch69_ch70_cross_collation_r1.py"
 ZIWEI_INDEPENDENT_EDITION_ROUTES = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-INDEPENDENT-EDITION-ROUTES-R1.json"
 ZIWEI_WENGUANG_GOOGLE_INDEX = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-WENGUANG-GOOGLE-INDEX-PREVIEW-R1.json"
 ZIWEI_JINGLUNTANG_PHYSICAL_ROUTE = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-JINGLUNTANG-PHYSICAL-ROUTE-R1.json"
@@ -1102,8 +1105,8 @@ def main() -> int:
     row018=next((r for r in rows if r.get("rule_id")=="HPA-ZIWEI-018"),None)
     if row018 is None or row018.get("audit_status")!="MISSING_FROM_PRODUCT":
         raise SystemExit("Batch 12OM HPA-ZIWEI-018 product-gap status regressed")
-    if row018.get("reconciliation_batch")!="BATCH-12-ZIWEI-JIELAN-DIGNITY-SOURCE-LEXEME-CANDIDATE-OM":
-        raise SystemExit("Batch 12OM Matrix reconciliation identity regressed")
+    if "JIELAN-1581-DIGNITY-CH70-SOURCE-LEXEME-R1" not in row018.get("candidate_method_ids",()):
+        raise SystemExit("Batch 12OM Matrix CH70 candidate identity regressed")
     ps=row018.get("product_surface_reconciliation",{})
     if ps.get("ch70_entity_count")!=25 or ps.get("ch70_cell_count")!=300 or ps.get("ch70_source_conflict_cell_count")!=2 or ps.get("ch70_unstated_cell_count")!=1:
         raise SystemExit("Batch 12OM Matrix dignity cell accounting regressed")
@@ -1114,6 +1117,50 @@ def main() -> int:
         raise SystemExit("Batch 12OM candidate extension accounting regressed")
     if summary.get("historical_candidate_registry_count",0)<5 or summary.get("historical_candidate_runtime_resolver_count",0)<5:
         raise SystemExit("Batch 12OM candidate registry/runtime accounting regressed")
+
+    # Batch 12ON: CH69/CH70 dignity is cross-collated cell-by-cell without grade coercion.
+    if not ZIWEI_DIGNITY_ON.is_file() or not ZIWEI_DIGNITY_ON_MODULE.is_file() or not ZIWEI_DIGNITY_ON_TEST.is_file():
+        raise SystemExit("Batch 12ON Jielan dignity cross-collation artifacts are missing")
+    on=json.loads(ZIWEI_DIGNITY_ON.read_text(encoding="utf-8"))
+    if on.get("batch_id")!="BATCH-12-ZIWEI-JIELAN-DIGNITY-CH69-CH70-CELL-CROSS-COLLATION-ON":
+        raise SystemExit("Batch 12ON research identity mismatch")
+    expected_on_counts={
+        "EXACT_LEXEME_OVERLAP":97,
+        "SOURCE_EXPLICIT_EQUIVALENT":37,
+        "SOURCE_LOCAL_POLARITY_CONFLICT":54,
+        "ATTESTED_NON_EQUIVALENT_NO_DIRECT_GLOSS":21,
+        "CH69_UNSTATED":82,
+        "CH69_TEXT_UNRESOLVED":8,
+        "CH70_UNSTATED":1,
+    }
+    if on.get("relation_counts")!=expected_on_counts:
+        raise SystemExit("Batch 12ON frozen 300-cell relation accounting regressed")
+    method=on.get("method",{})
+    if method.get("grid")!="25 CH70 named entities/groups × 12 branches = 300 cells":
+        raise SystemExit("Batch 12ON dignity grid identity regressed")
+    if method.get("no_transitive_gloss_collapse") is not True or method.get("no_modern_grade_coercion") is not True or method.get("no_cross_chapter_fill") is not True or method.get("no_winner_selection") is not True:
+        raise SystemExit("Batch 12ON source/non-coercion firewall regressed")
+    if len(on.get("unresolved_ch69_cells",()))!=8:
+        raise SystemExit("Batch 12ON CH69 unresolved-cell accounting regressed")
+    if len(on.get("preserved_ch70_anomalies",()))!=3:
+        raise SystemExit("Batch 12ON CH70 anomaly controls regressed")
+    row018=next((r for r in rows if r.get("rule_id")=="HPA-ZIWEI-018"),None)
+    if row018 is None:
+        raise SystemExit("Batch 12ON HPA-ZIWEI-018 row missing")
+    ps=row018.get("product_surface_reconciliation",{})
+    if ps.get("ch69_cell_level_cross_collation_complete") is not True:
+        raise SystemExit("Batch 12ON Matrix cross-collation completion regressed")
+    if ps.get("cross_collation_relation_counts")!=expected_on_counts:
+        raise SystemExit("Batch 12ON Matrix relation counts regressed")
+    if ps.get("ch69_unresolved_cell_count")!=8:
+        raise SystemExit("Batch 12ON Matrix unresolved-cell count regressed")
+    if ps.get("ch69_used_to_fill_ch70") is not False or ps.get("ch70_used_to_overwrite_ch69") is not False:
+        raise SystemExit("Batch 12ON cross-chapter overwrite firewall regressed")
+    if ps.get("production_grade_mapping_present") is not False or ps.get("production_default_changed") is not False or ps.get("production_winner_selected") is not False:
+        raise SystemExit("Batch 12ON production dignity firewall regressed")
+    summary=data.get("audit_summary",{})
+    if summary.get("historical_candidate_extension_count",0)<14 or summary.get("historical_candidate_registry_count",0)<5 or summary.get("historical_candidate_runtime_resolver_count",0)<5:
+        raise SystemExit("Batch 12ON candidate accounting regressed")
 
     defect_ids=[row.get("defect_id") for row in rows if row.get("defect_id")]
     if len(defect_ids)!=len(set(defect_ids)):
