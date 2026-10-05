@@ -400,3 +400,19 @@ Next: **12NT** — reconcile HPA-ZDATE-006 Nanyangtang Fullbook ten-ke Zi/Hai sp
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-POST-AUDIT-FOUR-TRANSFORMATION-DIGNITY-PRODUCT-BOUNDARY-RECONCILIATION-NS.md`. Research record: `docs/research/ZIWEI-FOUR-TRANSFORMATION-DIGNITY-PRODUCT-BOUNDARY-RECONCILIATION-R1.json`.
 
+## Progress — Batch 12NT
+
+Post-audit reconciliation confirms **HPA-ZDATE-006 Nanyangtang Fullbook ten-ke Zi/Hai split natal birth-hour candidate** remains `MISSING_FROM_PRODUCT`.
+
+The current natal runtime still maps local-apparent-solar **23:00..00:59 uniformly to Zi** in `NatalStructureGenerator._hour_branch_index`. `ResolvedZiweiCalculationProfile` has no natal hour-branch reclassification policy, and the time/calendar registry exposes only Ziwei calendar-date and life/body leap-month policy dimensions. Production still uses one frozen Ziwei calculation profile.
+
+The existing historical temporal-candidate API does not close this gap: its Jielan candidate is target **flow-hour** geometry and its Zhongzhou candidate is **leap-month month assignment**. Neither is a natal upper-half-Zi→Hai branch candidate, the package root exports no Nanyangtang resolver, the combined local request exposes no Ziwei historical natal-candidate selector, and Workbench has no Nanyangtang late-Zi selector.
+
+The historical evidence is stronger than the original Batch 12A snapshot but still does not authorize runtime selection. Nanyangtang and Guangyi directly attest the explicit Hai wording and generic upper/lower-half orientation is closed; however explicit Hai is not universal across the broader received Ziwei transmission, and the source-scoped runtime time-standard / inclement-current-time binding remains unresolved.
+
+No new provenance defect was found. The current Matrix description is materially correct; existing `PROV-DEFECT-010` remains the already repaired Batch 12AH auction-media scope defect. Matrix220/220/10; provenance38/38; chart algorithm defects/reopens/candidate collapses0. No runtime/schema/hash/rule/candidate-selection/production-default change. `transmission_impact=NONE`.
+
+Next: **12NU** — reconcile HPA-DAYUN-CAL-002 / 003 / 004 historical Jiaoyun calendarization and ten-year recurrence candidates against the live historical-calendar adapter contract and product surfaces.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-POST-AUDIT-NANYANGTANG-LATE-ZI-NATAL-CANDIDATE-PRODUCT-SURFACE-RECONCILIATION-NT.md`. Research record: `docs/research/ZIWEI-NANYANGTANG-LATE-ZI-NATAL-CANDIDATE-PRODUCT-SURFACE-RECONCILIATION-R1.json`.
+
