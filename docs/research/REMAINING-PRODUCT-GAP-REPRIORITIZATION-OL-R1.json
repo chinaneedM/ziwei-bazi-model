@@ -1,0 +1,70 @@
+{
+  "schema": "REMAINING-PRODUCT-GAP-REPRIORITIZATION-OL-R1",
+  "version": "1.0.0",
+  "batch_id": "BATCH-12-REMAINING-PRODUCT-GAP-REPRIORITIZATION-OL",
+  "date": "2026-10-06",
+  "remaining_missing_from_product_count": 6,
+  "ranking_basis": [
+    "historical/source closure",
+    "deterministic implementation readiness",
+    "ability to preserve ambiguity without coercion",
+    "independence from unresolved historical-calendar/time-coordinate engines",
+    "product value and regression containment"
+  ],
+  "ranked_queue": [
+    {
+      "rank": 1,
+      "rule_id": "HPA-ZIWEI-018",
+      "field": "1581 Jielan historical dignity table",
+      "readiness": "HIGH_FOR_SOURCE_FAITHFUL_LEXEME_CANDIDATE",
+      "reason": "CH69/CH70 are already source-bound and runtime-visible as SOURCE_TABLE_PRESENT_NORMALIZATION_PENDING. CH70 explicitly glosses several historical dignity lexemes, permitting a raw-lexeme/gloss-class candidate without coercion into production R4 seven-grade semantics.",
+      "next_gate": "12OM"
+    },
+    {
+      "rank": 2,
+      "rule_id": "HPA-ZT-015",
+      "field": "Leap-month temporal frames",
+      "readiness": "PARTIAL",
+      "reason": "Half-split month assignment is already productized; remaining gap is day-one flow-day origin and full leap-month daily geometry, which still requires source closure."
+    },
+    {
+      "rank": 3,
+      "rule_id": "HPA-DAYUN-CAL-003",
+      "field": "Later calendar-age years plus remainder-days Jiaoyun method",
+      "readiness": "MEDIUM_LOW",
+      "reason": "Worked method is strong but no Qianli/Republican calendar regime descriptor or invalid-date/recurrence semantics are registered."
+    },
+    {
+      "rank": 4,
+      "rule_id": "HPA-ZDATE-006",
+      "field": "Nanyangtang Fullbook ten-ke Zi/Hai split natal birth-hour candidate",
+      "readiness": "LOW_FOR_RUNTIME",
+      "reason": "Direct glyph evidence is strong, but source-closed runtime time-standard binding and cross-recension stability remain unresolved."
+    },
+    {
+      "rank": 5,
+      "rule_id": "HPA-DAYUN-CAL-002",
+      "field": "Classical lunisolar first Jiaoyun calendarization",
+      "readiness": "LOW_FOR_GENERAL_EXECUTABLE_ADAPTER",
+      "reason": "Extensive Datong evidence exists but general arithmetic certification, qishuo geography and multi-year leap/invalid-date semantics remain open."
+    },
+    {
+      "rank": 6,
+      "rule_id": "HPA-DAYUN-CAL-004",
+      "field": "Ten-year Dayun exchange recurrence from first handover",
+      "readiness": "DEPENDENT",
+      "reason": "Cannot be independently completed before one source-scoped historical first-handover calendar adapter is certified."
+    }
+  ],
+  "selected_next": {
+    "rule_id": "HPA-ZIWEI-018",
+    "batch": "12OM",
+    "objective": "Build a source-faithful Jielan dignity candidate preserving original lexemes and explicit source gloss classes, without mapping them onto production OPERATIONAL-ZIWEI-DIGNITY-R4 grades."
+  },
+  "invariants": {
+    "production_dignity_rule_set": "OPERATIONAL-ZIWEI-DIGNITY-R4@4.0.0",
+    "historical_candidate_selection": "PRESERVED_NOT_SELECTED",
+    "algorithm_reopen": false,
+    "coercive_seven_grade_mapping_forbidden": true
+  }
+}
