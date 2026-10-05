@@ -912,9 +912,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-MONTH-JIESHEN-HISTORICAL-IDENTITY-CLOSURE-NZ",
     "BATCH-12-ZIWEI-TIANWU-HOMONYM-MECHANICAL-SEPARATION-OA",
     "BATCH-12-ZIWEI-TIANYUE-MODERN-RECEIVED-SOURCE-BOUNDARY-OB",
+    "BATCH-12-ZIWEI-YINSHA-MODERN-RECEIVED-SOURCE-BOUNDARY-OC",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TIANYUE-MODERN-RECEIVED-SOURCE-BOUNDARY-OB.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-YINSHA-MODERN-RECEIVED-SOURCE-BOUNDARY-OC.md"
 
 
 def fail(message: str) -> None:
@@ -16332,6 +16333,55 @@ def main() -> int:
         fail("Batch 12OB state version is not numeric")
     if schema12ob < (1, 396, 0):
         fail("Batch 12OB state version regressed below 1.396.0")
+
+    # Batch 12OC: keep modern Yinsha received-cycle evidence separate from premodern historical authority.
+    oc_path = ROOT / "docs/research/ZIWEI-YINSHA-MODERN-RECEIVED-SOURCE-BOUNDARY-R1.json"
+    oc_evidence_path = ROOT / "docs/research/evidence/batch-12oc/ziwei-yinsha-modern-received-source-boundary-evidence.json"
+    if not oc_path.is_file() or not oc_evidence_path.is_file():
+        fail("Batch 12OC research/evidence record missing")
+    oc = json.loads(oc_path.read_text(encoding="utf-8"))
+    oc_evidence = json.loads(oc_evidence_path.read_text(encoding="utf-8"))
+    oc_id = "BATCH-12-ZIWEI-YINSHA-MODERN-RECEIVED-SOURCE-BOUNDARY-OC"
+    if oc.get("batch_id") != oc_id or oc.get("prior_batch_id") != ob_id:
+        fail("Batch 12OC chronology drift")
+    if oc_id in rule_batches:
+        fail("Batch 12OC source-boundary closure must not be enrolled as a supplemental rule-audit batch")
+    if oc.get("target_rule_ids") != ["HPA-ZMINOR-026"] or oc.get("target_status_after") != "SOURCE_INSUFFICIENT":
+        fail("Batch 12OC target/status drift")
+    row26_oc = next((r for r in matrix["rows"] if r["rule_id"] == "HPA-ZMINOR-026"), None)
+    if row26_oc is None or row26_oc.get("audit_status") != "SOURCE_INSUFFICIENT":
+        fail("Batch 12OC HPA-ZMINOR-026 status drift")
+    if row26_oc.get("evidence_closure_batch") != oc_id:
+        fail("Batch 12OC Matrix closure binding drift")
+    modern_oc = oc_evidence.get("modern_received_controls", {})
+    for key in ("iztro_exact_cycle_match", "xstars_exact_cycle_match", "xstars_marks_classical_source_unresolved", "modern_repetition_is_not_premodern_authority"):
+        if modern_oc.get(key) is not True:
+            fail(f"Batch 12OC modern received control drift: {key}")
+    historical_oc = oc_evidence.get("historical_controls", {})
+    if historical_oc.get("qualifying_premodern_ziwei_exact_cycle_witness_established") is not False:
+        fail("Batch 12OC historical closure drift")
+    status_oc = oc.get("status_adjudication", {})
+    if status_oc.get("row_status_remains") != "SOURCE_INSUFFICIENT" or status_oc.get("algorithm_reopen_authorized") is not False or status_oc.get("production_default_changed") is not False or status_oc.get("candidate_created") is not False:
+        fail("Batch 12OC no-reopen/default/candidate firewall drift")
+    accounting_oc = oc.get("accounting", {})
+    if accounting_oc.get("source_insufficient_after") != 9 or accounting_oc.get("historically_supported_after") != 96:
+        fail("Batch 12OC status accounting drift")
+    registry_oc = json.loads((ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json").read_text(encoding="utf-8"))
+    registry_ids_oc = {row.get("source_id") for row in registry_oc.get("sources", ())}
+    for source_id in ("EXT-IZTRO-YINSHA-MODERN", "EXT-XSTARS-YINSHA-MODERN"):
+        if source_id not in registry_ids_oc:
+            fail(f"Batch 12OC source registry binding missing: {source_id}")
+    minor_text_oc = (ROOT / "src/fortune_training/ziwei_chart/minor_stars.py").read_text(encoding="utf-8")
+    if 'yinsha = 2 - 2 * (month - 1)' not in minor_text_oc:
+        fail("Batch 12OC runtime Yinsha formula drift")
+    if oc.get("transmission_impact", {}).get("status") != "NONE":
+        fail("Batch 12OC transmission impact must remain NONE without a premodern edge")
+    try:
+        schema12oc = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12OC state version is not numeric")
+    if schema12oc < (1, 397, 0):
+        fail("Batch 12OC state version regressed below 1.397.0")
 
     try:
         schema12ns = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
