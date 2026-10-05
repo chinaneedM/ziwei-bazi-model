@@ -97,7 +97,9 @@ class HistoricalProvenanceAuditMatrixR1Test(unittest.TestCase):
         by_id = {row["rule_id"]: row for row in self.rows}
         self.assertTrue(expected.issubset(by_id))
         self.assertEqual(by_id["HPA-ZMINOR-021"]["audit_status"], "HISTORICALLY_SUPPORTED")
-        self.assertEqual(by_id["HPA-ZMINOR-022"]["audit_status"], "DISPUTED_MULTIPLE_CANDIDATES")
+        self.assertEqual(by_id["HPA-ZMINOR-022"]["audit_status"], "SOURCE_INSUFFICIENT")
+        self.assertEqual(by_id["HPA-ZTEMP-007"]["audit_status"], "HISTORICALLY_SUPPORTED")
+        self.assertIn("ANNUAL", by_id["HPA-ZMINOR-022"]["current_implementation_match"])
         self.assertEqual(by_id["HPA-ZMINOR-020"]["audit_status"], "HISTORICALLY_SUPPORTED")
         self.assertFalse(by_id["HPA-ZMINOR-020"]["algorithm_reopen_authorized"])
         self.assertEqual(by_id["HPA-ZMINOR-023"]["audit_status"], "HISTORICALLY_SUPPORTED")
@@ -154,10 +156,15 @@ class HistoricalProvenanceAuditMatrixR1Test(unittest.TestCase):
             by_id["HPA-ZTEMP-004"]["current_implementation_match"],
         )
         self.assertIn(
-            "DAILY_ACTIVE_ADDRESS_NOT_EMITTED",
+            "DAILY_ACTIVE_ADDRESS_EMITTED",
             by_id["HPA-ZTEMP-006"]["current_implementation_match"],
         )
-        self.assertEqual(by_id["HPA-ZT-015"]["audit_status"], "MISSING_FROM_PRODUCT")
+        self.assertIn(
+            "LEAP_DAY_ONE_CONTINUES_AFTER_PREVIOUS_REGULAR_MONTH_DAY_29_OR_30",
+            by_id["HPA-ZTEMP-006"]["current_implementation_match"],
+        )
+        self.assertEqual(by_id["HPA-ZT-015"]["audit_status"], "SUPPORTED_BUT_SCHOOL_SPECIFIC")
+        self.assertEqual(by_id["HPA-ZT-015"]["selection_status"], "PRESERVED_NOT_SELECTED")
         self.assertEqual(by_id["HPA-ZT-014"]["audit_status"], "DISPUTED_MULTIPLE_CANDIDATES")
 
     def test_batch_08c_time_standards_are_not_conflated(self) -> None:
