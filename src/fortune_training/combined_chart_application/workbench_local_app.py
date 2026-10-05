@@ -116,6 +116,15 @@ from .ziwei_dignity_provenance_local_app import (
     ZiweiDignityProvenanceLocalMixin,
     _ZiweiDignityProvenanceHandlerMixin,
 )
+from .ziwei_four_transformation_historical_candidate_assets import (
+    ZIWEI_FOUR_TRANSFORMATION_CANDIDATE_CSS,
+    ZIWEI_FOUR_TRANSFORMATION_CANDIDATE_JS,
+    ziwei_four_transformation_candidate_index_html,
+)
+from .ziwei_four_transformation_historical_candidate_local_app import (
+    ZiweiFourTransformationHistoricalCandidateLocalMixin,
+    _ZiweiFourTransformationHistoricalCandidateHandlerMixin,
+)
 from .ziwei_jielan_historical_candidate_assets import (
     ZIWEI_JIELAN_1581_CANDIDATE_CSS,
     ZIWEI_JIELAN_1581_CANDIDATE_JS,
@@ -137,6 +146,7 @@ from .ziwei_transformation_provenance_assets import (
 
 
 class CombinedChartWorkbenchApplication(
+    ZiweiFourTransformationHistoricalCandidateLocalMixin,
     ZiweiJielan1581HistoricalCandidateLocalMixin,
     ZiweiDignityProvenanceLocalMixin,
     ZiweiPalaceStemTopologyLocalMixin,
@@ -166,6 +176,7 @@ class CombinedChartWorkbenchApplication(
 
 
 class _WorkbenchHandler(
+    _ZiweiFourTransformationHistoricalCandidateHandlerMixin,
     _ZiweiJielan1581HistoricalCandidateHandlerMixin,
     _ZiweiDignityProvenanceHandlerMixin,
     _ZiweiPalaceStemTopologyHandlerMixin,
@@ -179,7 +190,7 @@ class _WorkbenchHandler(
     _FlowHandler,
 ):
     application: CombinedChartWorkbenchApplication
-    server_version = "CombinedChartWorkbenchLocalApp/1.13"
+    server_version = "CombinedChartWorkbenchLocalApp/1.14"
 
     def do_GET(self) -> None:  # noqa: N802
         path = urlsplit(self.path).path
@@ -214,6 +225,7 @@ class _WorkbenchHandler(
                 )
             )
             html = ziwei_jielan_1581_candidate_index_html(html)
+            html = ziwei_four_transformation_candidate_index_html(html)
             html = product_shell_index_html(html)
             self._send_bytes(200, "text/html; charset=utf-8", html.encode())
             return
@@ -295,6 +307,20 @@ class _WorkbenchHandler(
             return
         if path == "/ziwei-palace-stem-topology.js":
             self._send_bytes(200, "application/javascript; charset=utf-8", PALACE_STEM_TOPOLOGY_JS.encode())
+            return
+        if path == "/ziwei-four-transformation-candidates.css":
+            self._send_bytes(
+                200,
+                "text/css; charset=utf-8",
+                ZIWEI_FOUR_TRANSFORMATION_CANDIDATE_CSS.encode(),
+            )
+            return
+        if path == "/ziwei-four-transformation-candidates.js":
+            self._send_bytes(
+                200,
+                "application/javascript; charset=utf-8",
+                ZIWEI_FOUR_TRANSFORMATION_CANDIDATE_JS.encode(),
+            )
             return
         if path == "/ziwei-jielan-1581-candidate.css":
             self._send_bytes(
