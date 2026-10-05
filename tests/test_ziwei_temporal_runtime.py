@@ -166,7 +166,7 @@ class TemporalRuntimeTests(unittest.TestCase):
             self.assertEqual(5, len(actual.auxiliary_activations))
             self.assertTrue(all(row.source_layer == "ANNUAL" for row in actual.auxiliary_activations))
             self.assertTrue(all(row.source_stem == actual.year_stem for row in actual.auxiliary_activations))
-            self.assertEqual(3, len(actual.auxiliary_candidate_sets))
+            self.assertEqual(4, len(actual.auxiliary_candidate_sets))
             tianma = actual.auxiliary_candidate_sets[1]
             self.assertEqual(actual.year_branch, tianma.source_basis_value)
             self.assertEqual(
@@ -190,6 +190,19 @@ class TemporalRuntimeTests(unittest.TestCase):
             self.assertEqual(
                 actual.year_branch,
                 yuede.method_candidates[0].activations[0].target_address.branch,
+            )
+            tiande = actual.auxiliary_candidate_sets[3]
+            self.assertEqual("ANNUAL", tiande.source_layer)
+            self.assertEqual("BRANCH", tiande.source_basis_type)
+            self.assertEqual(actual.year_branch, tiande.source_basis_value)
+            self.assertEqual(("STAR.TIANDE",), tiande.entity_ids)
+            self.assertEqual(
+                "SOURCE_SCOPED_CANDIDATE_PRESERVED_NO_SELECTION",
+                tiande.selection_status,
+            )
+            self.assertEqual(
+                "RECEIVED-FULLBOOK-ANNUAL-TIANDE-YOU-START-R1",
+                tiande.method_candidates[0].method_id,
             )
             self.assertTrue(all(row.source_layer == "ANNUAL" for row in actual.transformations))
             self.assertTrue(all(row.source_stem == actual.year_stem for row in actual.transformations))
