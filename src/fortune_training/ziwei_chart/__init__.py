@@ -9,6 +9,15 @@ from .dignity import (
     OperationalZiweiDignityGenerator,
 )
 from .dignity_r3 import OperationalFullZiweiDignityGenerator
+from .dignity_historical_cross_collation import (
+    JIELAN_1581_DIGNITY_CANDIDATE_API_ID,
+    JIELAN_1581_DIGNITY_CANDIDATE_API_VERSION,
+    JIELAN_1581_DIGNITY_CROSS_COLLATION_ID,
+    JIELAN_1581_DIGNITY_CROSS_COLLATION_STATUS,
+    JIELAN_1581_DIGNITY_CROSS_COLLATION_VERSION,
+    jielan_1581_dignity_ch69_ch70_cross_collation_payload,
+    resolve_jielan_1581_dignity_ch69_ch70_cross_collation,
+)
 from .dignity_historical_candidates import (
     JIELAN_1581_DIGNITY_LEXEME_CANDIDATE_ID,
     JIELAN_1581_DIGNITY_LEXEME_REGISTRY_ID,
@@ -156,6 +165,11 @@ __all__ = [
     "DignityAnnotation",
     "DignityRegistryCell",
     "DignityRegistrySummary",
+    "JIELAN_1581_DIGNITY_CANDIDATE_API_ID",
+    "JIELAN_1581_DIGNITY_CANDIDATE_API_VERSION",
+    "JIELAN_1581_DIGNITY_CROSS_COLLATION_ID",
+    "JIELAN_1581_DIGNITY_CROSS_COLLATION_STATUS",
+    "JIELAN_1581_DIGNITY_CROSS_COLLATION_VERSION",
     "JIELAN_1581_DIGNITY_LEXEME_CANDIDATE_ID",
     "JIELAN_1581_DIGNITY_LEXEME_REGISTRY_ID",
     "JIELAN_1581_DIGNITY_LEXEME_REGISTRY_VERSION",
@@ -254,6 +268,8 @@ __all__ = [
     "temporal_hash_bundle",
     "validate_natal_chart",
     "validate_temporal_state",
+    "jielan_1581_dignity_ch69_ch70_cross_collation_payload",
+    "resolve_jielan_1581_dignity_ch69_ch70_cross_collation",
     "jielan_1581_dignity_lexeme_registry_hash",
     "jielan_1581_dignity_lexeme_registry_payload",
     "resolve_jielan_1581_dignity_lexeme_candidate",
