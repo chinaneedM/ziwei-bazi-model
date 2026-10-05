@@ -30,6 +30,14 @@ from fortune_training.ziwei_application import (
     ziwei_application_v1_profile,
 )
 from fortune_training.ziwei_chart import (
+    FOUR_TRANSFORMATION_HISTORICAL_CANDIDATE_API_ID,
+    FOUR_TRANSFORMATION_HISTORICAL_CANDIDATE_API_VERSION,
+    FOUR_TRANSFORMATION_HISTORICAL_CANDIDATE_IDS,
+    FOUR_TRANSFORMATION_HISTORICAL_REGISTRY_ID,
+    FOUR_TRANSFORMATION_HISTORICAL_REGISTRY_VERSION,
+    FOUR_TRANSFORMATION_HISTORICAL_RESOLVER_ID,
+    FOUR_TRANSFORMATION_HISTORICAL_RESOLVER_VERSION,
+    FOUR_TRANSFORMATION_HISTORICAL_SELECTION_STATUS,
     JIELAN_1581_CANDIDATE_API_ID,
     JIELAN_1581_CANDIDATE_API_VERSION,
     JIELAN_1581_PRODUCT_FACT_KEYS,
@@ -40,6 +48,7 @@ from fortune_training.ziwei_chart import (
     JIELAN_1581_SELECTION_STATUS,
     build_production_ziwei_profile,
     historical_candidate_hash,
+    historical_four_transformation_candidate_registry_hash,
 )
 
 from .local_app_assets import APP_JS, INDEX_HTML, STYLE_CSS
@@ -215,6 +224,22 @@ class LocalCombinedChartApplication:
                     "registry_hash": historical_candidate_hash(),
                     "released_fact_keys": JIELAN_1581_PRODUCT_FACT_KEYS,
                     "workbench_api_endpoint": "/api/ziwei-jielan-1581-candidate",
+                    "production_winner_selected": False,
+                    "production_profile_changed": False,
+                },
+                {
+                    "candidate_api_id": FOUR_TRANSFORMATION_HISTORICAL_CANDIDATE_API_ID,
+                    "candidate_api_version": FOUR_TRANSFORMATION_HISTORICAL_CANDIDATE_API_VERSION,
+                    "rule_set_id": FOUR_TRANSFORMATION_HISTORICAL_REGISTRY_ID,
+                    "rule_set_version": FOUR_TRANSFORMATION_HISTORICAL_REGISTRY_VERSION,
+                    "selection_status": FOUR_TRANSFORMATION_HISTORICAL_SELECTION_STATUS,
+                    "runtime_resolver_id": FOUR_TRANSFORMATION_HISTORICAL_RESOLVER_ID,
+                    "runtime_resolver_version": FOUR_TRANSFORMATION_HISTORICAL_RESOLVER_VERSION,
+                    "registry_hash": historical_four_transformation_candidate_registry_hash(),
+                    "candidate_ids": FOUR_TRANSFORMATION_HISTORICAL_CANDIDATE_IDS,
+                    "whole_table_only": True,
+                    "cell_level_hybridization_allowed": False,
+                    "workbench_api_endpoint": "/api/ziwei-four-transformation-candidates",
                     "production_winner_selected": False,
                     "production_profile_changed": False,
                 },
