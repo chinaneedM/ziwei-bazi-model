@@ -1,0 +1,58 @@
+{
+  "schema": "ZIWEI-FOUR-TRANSFORMATION-DIGNITY-PRODUCT-BOUNDARY-RECONCILIATION-EVIDENCE-R1",
+  "schema_version": "1.0.0",
+  "parent_head": "e6540dbe05722cd60b928305be4cf64959e9a0eb",
+  "four_transformations": {
+    "production_path": "src/fortune_training/ziwei_chart/transformations.py",
+    "production_blob_sha": "1dabe34e980abb93020e5b81e48668614b48e8af",
+    "production_rule_set_id": "S08_CURRENT_40_ASSIGNMENT_R1",
+    "historical_path": "src/fortune_training/ziwei_chart/historical_candidates.py",
+    "historical_blob_sha": "1403c6c4dc3bf5fed8c12b1d20b2ffe985fee4ad",
+    "historical_registry_version": "1.1.0",
+    "historical_resolver_id": "ZIWEI-JIELAN-1581-SOURCE-SCOPED-CANDIDATE-RUNTIME-R1",
+    "regression_test_path": "tests/test_ziwei_jielan_1581_historical_candidates_r1.py",
+    "regression_test_blob_sha": "a16794b837e06a71088257ef61c2527f4537bcac",
+    "regression_asserts_jielan_exactly_matches_current_s08": true,
+    "complete_jielan_table_runtime_materialized": true,
+    "jielan_selection_status": "PRESERVED_NOT_SELECTED",
+    "divergent_received_fullbook_or_zhongzhou_complete_selector_observed": false
+  },
+  "dignity": {
+    "historical_path": "src/fortune_training/ziwei_chart/historical_candidates.py",
+    "historical_blob_sha": "1403c6c4dc3bf5fed8c12b1d20b2ffe985fee4ad",
+    "source_status": "SOURCE_TABLE_PRESENT_NORMALIZATION_PENDING",
+    "resolver_runtime_normalized": false,
+    "production_r4_path": "src/fortune_training/ziwei_chart/dignity_r4.py",
+    "production_r4_blob_sha": "4c215e3b5c21fe5bf8d14318ccb465a57d1bc7ca",
+    "historical_closed_cell_table_observed": false
+  },
+  "public_surface_checks": {
+    "ziwei_package_init_path": "src/fortune_training/ziwei_chart/__init__.py",
+    "ziwei_package_init_blob_sha": "647e407563568c3f6c33d4318ccea7fd4a70350e",
+    "combined_local_app_path": "src/fortune_training/combined_chart_application/local_app.py",
+    "combined_local_app_blob_sha": "8ef6d471499018b5dc027cf8acf29b3e118233cc",
+    "transformation_workbench_asset_path": "src/fortune_training/combined_chart_application/ziwei_transformation_provenance_assets.py",
+    "transformation_workbench_asset_blob_sha": "92d798668081fa0eeefddf9755d49c47c0fac098",
+    "transformation_surface_reads_current_resolve_activations_only": true,
+    "transformation_surface_contains_candidate_table_selector": false,
+    "dignity_workbench_asset_path": "src/fortune_training/combined_chart_application/ziwei_dignity_provenance_assets.py",
+    "dignity_workbench_asset_blob_sha": "e6297ecc9ebb1b40f9cbd1f2d16ee234ce301058",
+    "dignity_surface_reads_current_annotation_provenance_only": true,
+    "dignity_surface_contains_historical_candidate_selector": false
+  },
+  "adjudication": {
+    "statuses": {
+      "HPA-ZIWEI-014": "MISSING_FROM_PRODUCT",
+      "HPA-ZIWEI-018": "MISSING_FROM_PRODUCT"
+    },
+    "new_provenance_defects": [
+      "PROV-DEFECT-037",
+      "PROV-DEFECT-038"
+    ],
+    "both_repairs_metadata_only": true,
+    "runtime_behavior_changed": false,
+    "candidate_selection_changed": false,
+    "production_default_changed": false,
+    "transmission_edge_created": false
+  }
+}
