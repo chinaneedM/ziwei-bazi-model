@@ -43,13 +43,13 @@
     "algorithm_reopen_authorized"
   ],
   "inventory_summary": {
-    "row_count": 220,
+    "row_count": 222,
     "status_counts": {
-      "HISTORICALLY_SUPPORTED": 96,
-      "SUPPORTED_BUT_SCHOOL_SPECIFIC": 24,
-      "DISPUTED_MULTIPLE_CANDIDATES": 30,
       "MODERN_COMPATIBILITY_ONLY": 50,
-      "SOURCE_INSUFFICIENT": 9,
+      "HISTORICALLY_SUPPORTED": 97,
+      "DISPUTED_MULTIPLE_CANDIDATES": 29,
+      "SUPPORTED_BUT_SCHOOL_SPECIFIC": 24,
+      "SOURCE_INSUFFICIENT": 11,
       "MISSING_FROM_PRODUCT": 10,
       "NOT_YET_FORMALIZED": 1
     },
@@ -65,14 +65,14 @@
       "十二宫": 6,
       "主星": 2,
       "辅星": 4,
-      "杂曜": 28,
+      "杂曜": 29,
       "庙旺落陷": 2,
       "四化": 3,
       "大限": 3,
       "流年": 3,
       "流月": 5,
       "小限": 1,
-      "动态辅助星": 12,
+      "动态辅助星": 13,
       "流日": 2,
       "流时": 3,
       "Structural R1–R8": 20,
@@ -80,7 +80,7 @@
       "candidate/profile rules": 2,
       "provenance / hashes / lineage": 2
     },
-    "audited_row_count": 220
+    "audited_row_count": 222
   },
   "rows": [
     {
@@ -3847,21 +3847,28 @@
       "algorithm_reopen_authorized": false,
       "audit_batch": "BATCH-07-ZIWEI-MINOR-STARS-A",
       "rule_id": "HPA-ZMINOR-006",
-      "rule_or_field": "天德 + year-based 解神 geometry (modern 年解 display)",
-      "current_implementation": "子年天德酉起顺行；年解戌起逆行。",
-      "primary_source": "S01 frozen received Fullbook",
-      "source_quote": "天德星从酉上起子，顺数至流年太岁上是也。解神从戌上起子，逆数至当生年太岁上是也。",
-      "source_quote_location": "S01:ZZQS-A-1943; S01:ZZQS-A-1945",
+      "rule_or_field": "Year-based 解神 geometry (modern 年解 display)",
+      "current_implementation": "STAR.NIANJIE uses 子年戌宫起、随出生年支逆行，输入为 ziwei_birth_year_branch。",
+      "primary_source": "S01 frozen received Fullbook / EXT-ZIWEI-QUANSHU-RECEIVED",
+      "source_quote": "解神从戌上起子，逆数至当生年太岁上是也。",
+      "source_quote_location": "S01:ZZQS-A-1945; EXT-ZIWEI-QUANSHU-RECEIVED / 卷二《安天德月德解神诀》",
       "historical_period": "RECEIVED_FULLBOOK_TEXT_TRADITION",
-      "later_witnesses": "S01 normalized routes ZZZZA-PR-039/040 distinguish the year-based 解神 as modern 年解 to avoid collision with a separate month 解神/月解 rule.",
-      "school_attribution": "RECEIVED_FULLBOOK_YEAR_BRANCH_GEOMETRY_WITH_MODERN_LABEL_DISAMBIGUATION",
+      "later_witnesses": "S01 normalized route ZZZZA-PR-040 preserves the year-based 解神 rule and product displays it as 年解 to avoid collision with month 解神/月解. TianDe has been split out because the adjacent Fullbook sentence explicitly scopes TianDe to 流年太岁.",
+      "school_attribution": "RECEIVED_FULLBOOK_NATAL_YEAR_JIESHEN_WITH_MODERN_LABEL_DISAMBIGUATION",
       "competing_methods": [
-        "S01 normalized conflict notes preserve alternate textual/table statements for 天德/年解; direct received QQS geometry matches the selected coordinates."
+        "S01 normalized conflict notes preserve alternate textual/table statements for 年解; the direct received Fullbook 戌起逆行当生年太岁 geometry matches the selected natal year-based coordinates."
       ],
-      "current_implementation_match": "GEOMETRY_MATCHES_DIRECT_RECEIVED_TEXT; DISPLAY_NAME 年解 IS A MODERN_DISAMBIGUATION_LABEL",
-      "confidence": "HIGH_FOR_GEOMETRY_MEDIUM_FOR_LATER_NAME_STANDARDIZATION",
+      "current_implementation_match": "EXACT_MATCH_TO_RECEIVED_FULLBOOK_BIRTH_YEAR_JIESHEN_GEOMETRY; DISPLAY_NAME 年解 IS A MODERN_DISAMBIGUATION_LABEL; TIANDE_REMOVED_FROM_THIS_ROW",
+      "confidence": "HIGH_FOR_GEOMETRY_AND_TEMPORAL_SCOPE; MEDIUM_FOR_LATER_NAME_STANDARDIZATION",
       "audit_status": "HISTORICALLY_SUPPORTED",
-      "proposed_action": "No coordinate reopen; keep the historical 解神 -> modern 年解 naming bridge explicit."
+      "proposed_action": "No coordinate reopen. Keep historical 解神 -> modern 年解 naming bridge explicit. TianDe provenance is now independently tracked by HPA-ZMINOR-027 and the received-Fullbook annual candidate by HPA-ZTEMP-007.",
+      "evidence_closure_batch": "BATCH-12-ZIWEI-YUEDE-TIANDE-TEMPORAL-SCOPE-CLOSURE-OE",
+      "evidence_closure_status": "YEAR_JIESHEN_SCOPE_RETAINED_TIANDE_TEMPORAL_CONFLATION_REPAIRED",
+      "defect_id": "PROV-DEFECT-041",
+      "defect_type": "HPA_ZMINOR_006_TIANDE_FLOW_YEAR_SCOPE_CONFLATED_WITH_NATAL_YEAR_JIESHEN",
+      "defect_scope": "The row previously bundled TianDe with year-based JieShen and used a Fullbook sentence explicitly keyed to 流年太岁 as support for a natal birth-year TianDe implementation.",
+      "repair_status": "REPAIRED_IN_BATCH_12OE_FORWARD_ONLY",
+      "repair_action": "Removed TianDe from HPA-ZMINOR-006, retained only birth-year JieShen/NianJie, created HPA-ZMINOR-027 for natal TianDe provenance and HPA-ZTEMP-007 for received-Fullbook annual TianDe/YueDe. No natal placement values changed."
     },
     {
       "system": "ZIWEI",
@@ -4231,22 +4238,34 @@
       "algorithm_reopen_authorized": false,
       "audit_batch": "BATCH-07-ZIWEI-MINOR-STARS-C",
       "rule_id": "HPA-ZMINOR-022",
-      "rule_or_field": "月德 year-branch geometry: 巳起 vs 子起 historical families",
-      "current_implementation": "STAR.YUEDE uses 子年巳宫起、随年支顺行 (year_branch index + 5).",
-      "primary_source": "EXT-CTEXT-SHENFENG-TONGKAO (current-method witness) versus EXT-ZIWEI-QUANSHU-RECEIVED (competing received-Ziwei witness)",
-      "source_quote": "《神峰通考》保存“月德要依巳顺逢”一系；received《斗数全书》则记月德从子起子顺至太岁。",
-      "source_quote_location": "EXT-CTEXT-SHENFENG-TONGKAO / 鸾喜二德解神歌; EXT-ZIWEI-QUANSHU-RECEIVED / 卷二《安天德月德解神诀》; S01:ZZZA-PR-038",
-      "historical_period": "MULTIPLE_HISTORICAL_FAMILIES_WITH_DIFFERENT_START_ANCHORS_AND_POSSIBLE_TEMPORAL_SCOPE_DIFFERENCE",
-      "later_witnesses": "S01 PR-038 and current production select the 巳起 family. The received Fullbook witness supplies a materially different 子起 family and explicitly phrases it against 流年太岁.",
-      "school_attribution": "CURRENT_SI_START_FAMILY_VS_RECEIVED_FULLBOOK_ZI_START_FAMILY",
+      "rule_or_field": "Natal 月德 birth-year Si-start geometry and historical adoption scope",
+      "current_implementation": "Natal STAR.YUEDE uses ziwei_birth_year_branch with 子年巳宫起、随出生年支顺行 (year_branch index + 5).",
+      "primary_source": "EXT-CTEXT-SHENFENG-TONGKAO as premodern cross-domain Si-start geometry witness; received Fullbook is retained only as a distinct ANNUAL Zi-start witness.",
+      "source_quote": "《神峰通考》：月德要依巳顺逢。received《斗数全书》：月德星从子上起子，顺数至流年太岁上是也。",
+      "source_quote_location": "EXT-CTEXT-SHENFENG-TONGKAO / 鸾喜二德解神歌; S01:ZZQS-A-1944; EXT-ZIWEI-QUANSHU-RECEIVED / 卷二《安天德月德解神诀》",
+      "historical_period": "PREMODERN_SI_START_GEOMETRY_ATTESTED_CROSS_DOMAIN; ZIWEI_NATAL_ADOPTION_SCOPE_UNRESOLVED; RECEIVED_FULLBOOK_ANNUAL_ZI_START_ATTESTED",
+      "later_witnesses": "S01 PR-038 and current production select natal Si-start. The Fullbook Zi-start wording is now typed separately as annual because it explicitly says 流年太岁 and is productized as RECEIVED-FULLBOOK-ANNUAL-YUEDE-ZI-START-R1 without selection.",
+      "school_attribution": "CURRENT_NATAL_SI_START_OPERATIONAL_FAMILY_WITH_PREMODERN_GEOMETRY_WITNESS; DISTINCT_RECEIVED_FULLBOOK_ANNUAL_ZI_START_FAMILY",
       "competing_methods": [
-        "子年巳宫起，按年支顺行（current/S01; compatible with 神峰通考 verse family）",
-        "子宫起子，顺至流年太岁（received Fullbook）"
+        "Natal Si-start: current/S01 geometry; Shenfeng preserves the same start anchor in a broader shensha/命限 context but does not close Ziwei natal adoption.",
+        "Annual Zi-start: received Fullbook source-scoped flow-year method, preserved separately under HPA-ZTEMP-007; it is not a natal competitor."
       ],
-      "current_implementation_match": "MATCHES_SI_START_HISTORICAL_FAMILY; DOES_NOT_MATCH_RECEIVED_FULLBOOK_ZI_START_FAMILY; TEMPORAL_SCOPE_REQUIRES_SEPARATE CANDIDATE MODEL",
-      "confidence": "HIGH_FOR_TEXTUAL_CONFLICT; MEDIUM_FOR_CROSS_TEXT_GENEALOGY",
-      "audit_status": "DISPUTED_MULTIPLE_CANDIDATES",
-      "proposed_action": "Do not change production default. Preserve both start-anchor families; resolve natal-vs-flow temporal scope before promoting the received-Fullbook branch into a replayable candidate."
+      "current_implementation_match": "NATAL_GEOMETRY_MATCHES_PREMODERN_SI_START_VERSE; PREMODERN_ZIWEI_NATAL_ADOPTION_NOT_CLOSED. RECEIVED_FULLBOOK_ZI_START_METHOD_IS_ANNUAL_AND_NO_LONGER_TREATED_AS_SAME_LAYER_CONFLICT.",
+      "confidence": "HIGH_FOR_TEMPORAL_SCOPE_SEPARATION_AND_SI_START_GEOMETRY; LOW_TO_MEDIUM_FOR_PREMODERN_ZIWEI_NATAL_ADOPTION_PATH",
+      "audit_status": "SOURCE_INSUFFICIENT",
+      "proposed_action": "Keep production natal default unchanged and continue seeking an edition-bound premodern Ziwei natal Si-start witness. Preserve the received-Fullbook Zi-start method only as the explicit unselected ANNUAL candidate in HPA-ZTEMP-007.",
+      "evidence_closure_batch": "BATCH-12-ZIWEI-YUEDE-TIANDE-TEMPORAL-SCOPE-CLOSURE-OE",
+      "evidence_closure_status": "APPARENT_START_ANCHOR_DISPUTE_DECOMPOSED_BY_TEMPORAL_LAYER_NATAL_ADOPTION_REMAINS_OPEN",
+      "product_surface_reconciliation": {
+        "natal_entity_id": "STAR.YUEDE",
+        "natal_basis": "ZIWEI_BIRTH_YEAR_BRANCH",
+        "natal_method_selected_by_production": true,
+        "annual_method_id": "RECEIVED-FULLBOOK-ANNUAL-YUEDE-ZI-START-R1",
+        "annual_basis": "TARGET_YEAR_BRANCH",
+        "annual_selection_status": "SOURCE_SCOPED_CANDIDATE_PRESERVED_NO_SELECTION",
+        "same_temporal_layer": false,
+        "production_default_changed": false
+      }
     },
     {
       "system": "ZIWEI",
@@ -7429,6 +7448,80 @@
       "confidence": "HIGH_FOR_ENGINEERING_SCOPE; NOT_A_HISTORICAL_FLANK_INTERPRETATION",
       "audit_status": "MODERN_COMPATIBILITY_ONLY",
       "proposed_action": "Keep R8 as geometry only. Any 夹宫/夹格, auspiciousness, strength or event rule must be separately sourced, modeled and audited."
+    },
+    {
+      "system": "ZIWEI",
+      "module": "杂曜",
+      "current_profile": "WENMO_DEFAULT_MINOR_R4_RULE_SET@2.0.0 inside ZIWEI-CHART-ENGINE-V1",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-12-ZIWEI-YUEDE-TIANDE-TEMPORAL-SCOPE-CLOSURE-OE",
+      "rule_id": "HPA-ZMINOR-027",
+      "rule_or_field": "Natal 天德 birth-year You-start geometry and historical adoption scope",
+      "current_implementation": "Natal STAR.TIANDE uses ziwei_birth_year_branch with 子年酉宫起、随出生年支顺行 (year_branch index + 9).",
+      "primary_source": "EXT-CTEXT-SHENFENG-TONGKAO as premodern cross-domain You-start geometry witness; received Fullbook is retained only as a distinct ANNUAL You-start witness.",
+      "source_quote": "《神峰通考》：欲求天德顺从酉。received《斗数全书》：天德星从酉上起子，顺数至流年太岁上是也。",
+      "source_quote_location": "EXT-CTEXT-SHENFENG-TONGKAO / 鸾喜二德解神歌; S01:ZZQS-A-1943; EXT-ZIWEI-QUANSHU-RECEIVED / 卷二《安天德月德解神诀》",
+      "historical_period": "PREMODERN_YOU_START_GEOMETRY_ATTESTED_CROSS_DOMAIN; ZIWEI_NATAL_ADOPTION_SCOPE_UNRESOLVED; RECEIVED_FULLBOOK_ANNUAL_YOU_START_ATTESTED",
+      "later_witnesses": "S01 PR-039 and current production use natal You-start. The adjacent Fullbook TianDe sentence explicitly says 流年太岁 and is now preserved separately as an annual source-scoped candidate.",
+      "school_attribution": "CURRENT_NATAL_YOU_START_OPERATIONAL_FAMILY_WITH_PREMODERN_GEOMETRY_WITNESS; DISTINCT_RECEIVED_FULLBOOK_ANNUAL_YOU_START_FAMILY",
+      "competing_methods": [
+        "Natal You-start current/S01 geometry; Shenfeng attests the start anchor outside an edition-bound Ziwei natal context.",
+        "Annual You-start received-Fullbook method is separately preserved under HPA-ZTEMP-007 and is not natal proof."
+      ],
+      "current_implementation_match": "NATAL_GEOMETRY_MATCHES_PREMODERN_YOU_START_VERSE; PREMODERN_ZIWEI_NATAL_ADOPTION_NOT_CLOSED. FULLBOOK_YOU_START_SENTENCE IS ANNUAL.",
+      "confidence": "HIGH_FOR_GEOMETRY_AND_TEMPORAL_SCOPE_SEPARATION; LOW_TO_MEDIUM_FOR_PREMODERN_ZIWEI_NATAL_ADOPTION_PATH",
+      "audit_status": "SOURCE_INSUFFICIENT",
+      "proposed_action": "Keep production natal default unchanged. Seek edition-bound premodern Ziwei natal TianDe scope/adoption evidence; preserve received-Fullbook annual TianDe separately without winner selection.",
+      "evidence_closure_batch": "BATCH-12-ZIWEI-YUEDE-TIANDE-TEMPORAL-SCOPE-CLOSURE-OE",
+      "evidence_closure_status": "NATAL_TIANDE_PROVENANCE_SPLIT_FROM_FULLBOOK_ANNUAL_RULE",
+      "product_surface_reconciliation": {
+        "natal_entity_id": "STAR.TIANDE",
+        "natal_basis": "ZIWEI_BIRTH_YEAR_BRANCH",
+        "annual_method_id": "RECEIVED-FULLBOOK-ANNUAL-TIANDE-YOU-START-R1",
+        "annual_basis": "TARGET_YEAR_BRANCH",
+        "annual_selection_status": "SOURCE_SCOPED_CANDIDATE_PRESERVED_NO_SELECTION",
+        "same_temporal_layer": false,
+        "production_default_changed": false
+      }
+    },
+    {
+      "system": "ZIWEI",
+      "module": "动态辅助星",
+      "current_profile": "ZIWEI temporal auxiliary source-scoped candidates / PRESERVED_NO_SELECTION",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-12-ZIWEI-YUEDE-TIANDE-TEMPORAL-SCOPE-CLOSURE-OE",
+      "rule_id": "HPA-ZTEMP-007",
+      "rule_or_field": "Received-Fullbook annual TianDe / YueDe source-scoped candidates",
+      "current_implementation": "AnnualFrame exposes two unselected candidate sets: RECEIVED-FULLBOOK-ANNUAL-YUEDE-ZI-START-R1 maps the target-year branch directly from Zi start; RECEIVED-FULLBOOK-ANNUAL-TIANDE-YOU-START-R1 maps Zi to You and advances with target-year branch. Both remain candidate-only and do not alter natal STAR.YUEDE/STAR.TIANDE.",
+      "primary_source": "EXT-ZIWEI-QUANSHU-RECEIVED corroborated by EXT-WIKISOURCE-ZWDSQS-V2 and S01 received-text anchors",
+      "source_quote": "天德星从酉上起子，顺数至流年太岁上是也。月德星从子上起子，顺数至流年太岁上是也。",
+      "source_quote_location": "S01:ZZQS-A-1943..1944; EXT-ZIWEI-QUANSHU-RECEIVED / 卷二《安天德月德解神诀》",
+      "historical_period": "RECEIVED_FULLBOOK_TEXT_TRADITION",
+      "later_witnesses": "The same local passage contrasts annual TianDe/YueDe with JieShen tied to 当生年太岁. Shenfeng supplies parallel You/Si start-anchor geometry but is not used to back-project a Ziwei natal scope.",
+      "school_attribution": "RECEIVED_FULLBOOK_ANNUAL_TIANDE_YUEDE_SOURCE_SCOPED_METHODS",
+      "competing_methods": [
+        "Other schools may use different flowing auxiliary sets; no universal historical winner is selected.",
+        "Natal TianDe/YueDe are separate typed facts and not candidate methods inside this annual candidate set."
+      ],
+      "current_implementation_match": "EXACT_SOURCE_SCOPED_ANNUAL_GEOMETRY_MATCH; BOTH_METHODS_VISIBLE_AS_UNSELECTED_CANDIDATES; NATAL_PRODUCTION_UNCHANGED",
+      "confidence": "HIGH_FOR_RECEIVED_TEXT_ANNUAL_SCOPE_AND_GEOMETRY; MEDIUM_FOR_BROADER_TRANSMISSION_CHRONOLOGY",
+      "audit_status": "HISTORICALLY_SUPPORTED",
+      "proposed_action": "Retain both annual methods as source-scoped PRESERVED_NO_SELECTION candidates. Continue edition/facsimile genealogy work; never promote them to natal proof or universal winner without independent evidence.",
+      "selection_status": "SOURCE_SCOPED_CANDIDATE_PRESERVED_NO_SELECTION",
+      "candidate_method_ids": [
+        "RECEIVED-FULLBOOK-ANNUAL-YUEDE-ZI-START-R1",
+        "RECEIVED-FULLBOOK-ANNUAL-TIANDE-YOU-START-R1"
+      ],
+      "evidence_closure_batch": "BATCH-12-ZIWEI-YUEDE-TIANDE-TEMPORAL-SCOPE-CLOSURE-OE",
+      "evidence_closure_status": "ANNUAL_TEMPORAL_SCOPE_AND_REPLAY_GEOMETRY_CLOSED_WITHOUT_SELECTION",
+      "runtime_resolver_component": "fortune_training.ziwei_chart.temporal_auxiliary.TemporalAuxiliaryGenerator",
+      "product_surface_reconciliation": {
+        "annual_frame_candidate_sets": true,
+        "read_only_candidate_projection": true,
+        "workbench_candidate_visibility": true,
+        "winner_selected": false,
+        "natal_default_changed": false
+      }
     }
   ],
   "historical_research_batches": [
@@ -7690,15 +7783,17 @@
     "HPA-COMB-005",
     "HPA-COMB-006",
     "HPA-COMB-007",
-    "HPA-COMB-008"
+    "HPA-COMB-008",
+    "HPA-ZMINOR-027",
+    "HPA-ZTEMP-007"
   ],
   "audit_summary": {
     "confirmed_chart_algorithm_defect_count": 0,
-    "confirmed_provenance_metadata_defect_count": 40,
-    "repaired_provenance_metadata_defect_count": 40,
+    "confirmed_provenance_metadata_defect_count": 41,
+    "repaired_provenance_metadata_defect_count": 41,
     "algorithm_reopen_count": 0,
     "candidate_collapse_count": 0,
-    "historical_candidate_extension_count": 6,
+    "historical_candidate_extension_count": 8,
     "identified_missing_candidate_family_count": 14,
     "historical_candidate_registry_count": 3,
     "historical_candidate_runtime_resolver_count": 3,
