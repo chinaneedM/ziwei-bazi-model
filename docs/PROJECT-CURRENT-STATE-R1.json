@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.397.0",
+  "schema_version": "1.398.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -478,9 +478,10 @@
       "BATCH-12-ZIWEI-MONTH-JIESHEN-HISTORICAL-IDENTITY-CLOSURE-NZ",
       "BATCH-12-ZIWEI-TIANWU-HOMONYM-MECHANICAL-SEPARATION-OA",
       "BATCH-12-ZIWEI-TIANYUE-MODERN-RECEIVED-SOURCE-BOUNDARY-OB",
-      "BATCH-12-ZIWEI-YINSHA-MODERN-RECEIVED-SOURCE-BOUNDARY-OC"
+      "BATCH-12-ZIWEI-YINSHA-MODERN-RECEIVED-SOURCE-BOUNDARY-OC",
+      "BATCH-12-UNRESOLVED-HISTORICAL-STATUS-REPRIORITIZATION-OD"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-YINSHA-MODERN-RECEIVED-SOURCE-BOUNDARY-OC.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-UNRESOLVED-HISTORICAL-STATUS-REPRIORITIZATION-OD.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -2290,7 +2291,13 @@
       "12OC: audit HPA-ZMINOR-026 Yinsha lunar-month six-palace cycle and preserve cross-system homonym boundaries.",
       "Batch 12OC completed: HPA-ZMINOR-026 remains SOURCE_INSUFFICIENT; the exact current Yinsha cycle is stable in modern Ziwei received material but no qualifying premodern Ziwei exact-cycle witness was established.",
       "Modern xstars documentation reproduces the cycle while explicitly marking provenance 古籍待考、后世悬曜增补; this is a modern uncertainty witness, not historical authority.",
-      "12OD: re-rank remaining SOURCE_INSUFFICIENT / NOT_YET_FORMALIZED rows after the active month-table source audits."
+      "12OD: re-rank remaining SOURCE_INSUFFICIENT / NOT_YET_FORMALIZED rows after the active month-table source audits.",
+      "12OD completed: unresolved historical-status work was re-ranked after the 023-026 month-source audits; no Matrix status changed.",
+      "Remaining SOURCE_INSUFFICIENT / NOT_YET_FORMALIZED rows are now mostly decomposed parents, recently source-bounded rows, non-semantic compatibility order, fail-closed/absent behavior, or recently deep-audited targets.",
+      "Priority returns to active DISPUTED_MULTIPLE_CANDIDATES where production selects one concrete method while historical alternatives remain unproductized.",
+      "HPA-ZMINOR-022 YueDe is selected next: current production uses Zi-year Si-start; received Fullbook has a competing Zi-start family and temporal scope remains unresolved.",
+      "Second tier after YueDe: HPA-ZMINOR-008 TianShou Body/Life basis, then HPA-ZMINOR-007 TianChu competing tables.",
+      "12OE: audit HPA-ZMINOR-022 YueDe start-anchor families and natal/flow temporal candidate closure."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10
