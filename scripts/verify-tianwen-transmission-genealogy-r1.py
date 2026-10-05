@@ -165,6 +165,12 @@ def main() -> int:
         "PASSAGE-NLC-TAIYIN-TONGGUI-CHENHUN-LICHENG",
         "PHYSICAL-COPY-NLC-ZHUNZHAI-JILOU-DAOGUANG3-HUANG-SHILIJU-MS",
         "RULE-FAMILY-ZHUNZHAI-25ARROW-JIEHOU-SELECTION-38-62",
+        "PASSAGE-ZIWEI-FULLBOOK-ANNUAL-ERDE-JIESHEN",
+        "PASSAGE-SHENFENG-ERDE-START-ANCHORS",
+        "RULE-FAMILY-ZIWEI-NATAL-YUEDE-SI-START",
+        "RULE-FAMILY-ZIWEI-ANNUAL-YUEDE-ZI-START",
+        "RULE-FAMILY-ZIWEI-NATAL-TIANDE-YOU-START",
+        "RULE-FAMILY-ZIWEI-ANNUAL-TIANDE-YOU-START",
     }
     if not required_nodes.issubset(set(node_ids)):
         fail("Transmission graph seed nodes incomplete")
@@ -187,6 +193,28 @@ def main() -> int:
             fail(f"Transmission edge lacks evidence class: {edge.get('edge_id')}")
         if not edge.get("evidence"):
             fail(f"Transmission edge lacks evidence: {edge.get('edge_id')}")
+
+    # Batch 12OE: keep natal and annual TianDe/YueDe rule identities separate.
+    oe_edges={e.get("edge_id"): e for e in edges if e.get("edge_id") in {
+        "TG-E0145","TG-E0146","TG-E0147","TG-E0148","TG-E0149","TG-E0150","TG-E0151"
+    }}
+    if set(oe_edges) != {"TG-E0145","TG-E0146","TG-E0147","TG-E0148","TG-E0149","TG-E0150","TG-E0151"}:
+        fail("Batch 12OE transmission edges missing")
+    if oe_edges["TG-E0145"].get("to") != "RULE-FAMILY-ZIWEI-ANNUAL-YUEDE-ZI-START" or oe_edges["TG-E0145"].get("status") != "CONFIRMED":
+        fail("Batch 12OE annual YueDe transmission binding regressed")
+    if oe_edges["TG-E0146"].get("to") != "RULE-FAMILY-ZIWEI-ANNUAL-TIANDE-YOU-START" or oe_edges["TG-E0146"].get("status") != "CONFIRMED":
+        fail("Batch 12OE annual TianDe transmission binding regressed")
+    if oe_edges["TG-E0147"].get("to") != "RULE-FAMILY-ZIWEI-JIESHEN-YEAR" or oe_edges["TG-E0147"].get("status") != "CONFIRMED":
+        fail("Batch 12OE birth-year JieShen contrast binding regressed")
+    if oe_edges["TG-E0148"].get("status") != "POSSIBLE" or oe_edges["TG-E0149"].get("status") != "POSSIBLE":
+        fail("Batch 12OE Shenfeng cross-domain adoption firewall regressed")
+    if oe_edges["TG-E0150"].get("relation") != "PARALLEL_COEXISTS_WITH" or oe_edges["TG-E0151"].get("relation") != "PARALLEL_COEXISTS_WITH":
+        fail("Batch 12OE natal/annual coexistence typing regressed")
+    oe_non_edges=graph.get("explicit_non_edges", [])
+    if not any(x.get("from")=="RULE-FAMILY-ZIWEI-NATAL-YUEDE-SI-START" and x.get("to")=="RULE-FAMILY-ZIWEI-ANNUAL-YUEDE-ZI-START" and x.get("status")=="DISPROVED" for x in oe_non_edges):
+        fail("Batch 12OE YueDe temporal-identity non-edge missing")
+    if not any(x.get("from")=="RULE-FAMILY-ZIWEI-NATAL-TIANDE-YOU-START" and x.get("to")=="RULE-FAMILY-ZIWEI-ANNUAL-TIANDE-YOU-START" and x.get("status")=="DISPROVED" for x in oe_non_edges):
+        fail("Batch 12OE TianDe temporal-identity non-edge missing")
 
     e3 = next((e for e in edges if e.get("edge_id") == "TG-E0003"), None)
     if not e3 or e3.get("relation") != "PARALLEL_COEXISTS_WITH" or e3.get("status") != "CONFIRMED":
