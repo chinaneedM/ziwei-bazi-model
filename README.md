@@ -530,3 +530,20 @@ No runtime/profile/rule-set/hash/candidate/default change and no algorithm reope
 Next: **12OB — HPA-ZMINOR-025 Tianyue lunar-month twelve-value table**, preserving the source-domain firewall against 天月德 / 天月德合 and other homonyms.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TIANWU-HOMONYM-MECHANICAL-SEPARATION-OA.md`. Research record: `docs/research/ZIWEI-TIANWU-HOMONYM-MECHANICAL-SEPARATION-R1.json`.
+
+
+## Progress — Batch 12OB
+
+`HPA-ZMINOR-025` **Tianyue lunar-month twelve-value table** remains `SOURCE_INSUFFICIENT`.
+
+The current mnemonic `一犬二蛇三在龙，四虎五羊六兔宫，七猪八羊九在虎，十马冬犬腊寅中` is stable across modern Ziwei received material. A current open-source implementation reproduces the same table while explicitly marking the classical provenance as `古籍待考、后世悬曜增补`. These are useful modern compatibility witnesses, not premodern authority.
+
+The source-domain firewall is explicit: `三命通会` Tian-De / Yue-De / Tian-Yue-De-He material belongs to a different shensha/day-selection rule family and is not merged with `STAR.TIANYUE_MOON` merely by lexical proximity.
+
+No edition-bound premodern Ziwei exact-table witness was established in the reviewed public surfaces, so the row is not upgraded. This non-finding is scoped to the reviewed search surface and is not an absolute assertion that no earlier witness exists.
+
+No runtime/profile/rule-set/hash/candidate/default change and no algorithm reopen. Matrix remains 220/220 audited / 10 current missing; provenance defects 40/40; status distribution remains HISTORICALLY_SUPPORTED 96 / SOURCE_INSUFFICIENT 9 / DISPUTED_MULTIPLE_CANDIDATES 30 / NOT_YET_FORMALIZED 1.
+
+Next: **12OC — HPA-ZMINOR-026 Yinsha lunar-month six-value cycle**.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TIANYUE-MODERN-RECEIVED-SOURCE-BOUNDARY-OB.md`. Research record: `docs/research/ZIWEI-TIANYUE-MODERN-RECEIVED-SOURCE-BOUNDARY-R1.json`.
