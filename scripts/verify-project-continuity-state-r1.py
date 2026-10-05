@@ -913,9 +913,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-TIANWU-HOMONYM-MECHANICAL-SEPARATION-OA",
     "BATCH-12-ZIWEI-TIANYUE-MODERN-RECEIVED-SOURCE-BOUNDARY-OB",
     "BATCH-12-ZIWEI-YINSHA-MODERN-RECEIVED-SOURCE-BOUNDARY-OC",
+    "BATCH-12-UNRESOLVED-HISTORICAL-STATUS-REPRIORITIZATION-OD",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-YINSHA-MODERN-RECEIVED-SOURCE-BOUNDARY-OC.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-UNRESOLVED-HISTORICAL-STATUS-REPRIORITIZATION-OD.md"
 
 
 def fail(message: str) -> None:
@@ -16382,6 +16383,33 @@ def main() -> int:
         fail("Batch 12OC state version is not numeric")
     if schema12oc < (1, 397, 0):
         fail("Batch 12OC state version regressed below 1.397.0")
+
+    # Batch 12OD: re-rank unresolved historical statuses after the active month-source trio.
+    od_path = ROOT / "docs/research/HISTORICAL-UNRESOLVED-STATUS-REPRIORITIZATION-OD-R1.json"
+    if not od_path.is_file():
+        fail("Batch 12OD prioritization record missing")
+    od = json.loads(od_path.read_text(encoding="utf-8"))
+    od_id = "BATCH-12-UNRESOLVED-HISTORICAL-STATUS-REPRIORITIZATION-OD"
+    if od.get("batch_id") != od_id or od.get("prior_batch_id") != oc_id:
+        fail("Batch 12OD chronology drift")
+    if od_id in rule_batches:
+        fail("Batch 12OD prioritization must not be enrolled as a supplemental rule-audit batch")
+    inv_od = od.get("inventory", {})
+    if inv_od.get("source_insufficient") != 9 or inv_od.get("not_yet_formalized") != 1 or inv_od.get("disputed_multiple_candidates") != 30:
+        fail("Batch 12OD unresolved inventory drift")
+    selected_od = od.get("selected_next", {})
+    if selected_od.get("rule_id") != "HPA-ZMINOR-022":
+        fail("Batch 12OD selected-next priority drift")
+    invs_od = od.get("invariants", {})
+    for key in ("runtime_changed", "production_default_changed", "candidate_collapsed", "matrix_status_changed", "algorithm_reopen"):
+        if invs_od.get(key) is not False:
+            fail(f"Batch 12OD invariant drift: {key}")
+    try:
+        schema12od = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12OD state version is not numeric")
+    if schema12od < (1, 398, 0):
+        fail("Batch 12OD state version regressed below 1.398.0")
 
     try:
         schema12ns = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
