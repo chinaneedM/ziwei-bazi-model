@@ -9,6 +9,17 @@ from .dignity import (
     OperationalZiweiDignityGenerator,
 )
 from .dignity_r3 import OperationalFullZiweiDignityGenerator
+from .dignity_historical_candidates import (
+    JIELAN_1581_DIGNITY_LEXEME_REGISTRY_ID,
+    JIELAN_1581_DIGNITY_LEXEME_REGISTRY_VERSION,
+    JIELAN_1581_DIGNITY_LEXEME_RESOLVER_ID,
+    JIELAN_1581_DIGNITY_LEXEME_RESOLVER_VERSION,
+    JIELAN_1581_DIGNITY_NORMALIZATION_STATUS,
+    JIELAN_1581_DIGNITY_SELECTION_STATUS,
+    jielan_1581_dignity_lexeme_registry_hash,
+    jielan_1581_dignity_lexeme_registry_payload,
+    resolve_jielan_1581_dignity_lexeme_candidate,
+)
 from .dignity_r4 import OperationalZiweiDignityR4Generator
 from .engine import (
     ZiweiChartCandidate,
@@ -144,6 +155,12 @@ __all__ = [
     "DignityAnnotation",
     "DignityRegistryCell",
     "DignityRegistrySummary",
+    "JIELAN_1581_DIGNITY_LEXEME_REGISTRY_ID",
+    "JIELAN_1581_DIGNITY_LEXEME_REGISTRY_VERSION",
+    "JIELAN_1581_DIGNITY_LEXEME_RESOLVER_ID",
+    "JIELAN_1581_DIGNITY_LEXEME_RESOLVER_VERSION",
+    "JIELAN_1581_DIGNITY_NORMALIZATION_STATUS",
+    "JIELAN_1581_DIGNITY_SELECTION_STATUS",
     "HashBundle",
     "FOUR_TRANSFORMATION_HISTORICAL_CANDIDATE_API_ID",
     "FOUR_TRANSFORMATION_HISTORICAL_CANDIDATE_API_VERSION",
@@ -235,6 +252,9 @@ __all__ = [
     "temporal_hash_bundle",
     "validate_natal_chart",
     "validate_temporal_state",
+    "jielan_1581_dignity_lexeme_registry_hash",
+    "jielan_1581_dignity_lexeme_registry_payload",
+    "resolve_jielan_1581_dignity_lexeme_candidate",
     "historical_four_transformation_candidate_payload",
     "historical_four_transformation_candidate_registry_hash",
     "resolve_historical_four_transformation_candidate",
