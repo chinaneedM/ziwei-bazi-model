@@ -4424,19 +4424,32 @@
       "rule_id": "HPA-ZMINOR-026",
       "rule_or_field": "阴煞 lunar-month six-palace cycle",
       "current_implementation": "正七寅、二八子、三九戌、四十申、五十一午、六十二辰.",
-      "primary_source": "S01:ZZZA-PR-050 (project research corpus only); qualifying Ziwei historical placement witness not established in Batch 07C",
-      "source_quote": "Current project route gives a six-palace month cycle; external classical hits under 阴煞 refer to other systems and incompatible definitions.",
-      "source_quote_location": "S01:ZZZA-PR-050; external source-domain check: Tianji Ziwei glossary 阴煞",
-      "historical_period": "CURRENT_ZIWEI_MONTH_TABLE_GENEALOGY_UNRESOLVED; CROSS_SYSTEM_HOMONYM_COLLISION",
-      "later_witnesses": "Modern Ziwei implementations reproduce the cycle; classical Bazi/astrological 阴煞 references found externally are not evidence for this Ziwei placement rule.",
-      "school_attribution": "CURRENT_MODERN_ZIWEI_MONTH_TABLE",
+      "primary_source": "Modern Ziwei received witnesses (iztro setup guide and xstars implementation) reproduce the exact current Yinsha six-palace lunar-month cycle, but no qualifying premodern Ziwei placement witness was established in Batch 12OC.",
+      "source_quote": "Current cycle: 正七月寅、二八月子、三九月戌、四十月申、五十一月午、六十二月辰. xstars labels the provenance 古籍待考、后世悬曜增补.",
+      "source_quote_location": "EXT-IZTRO-YINSHA-MODERN; EXT-XSTARS-YINSHA-MODERN; docs/research/ZIWEI-YINSHA-MODERN-RECEIVED-SOURCE-BOUNDARY-R1.json",
+      "historical_period": "MODERN_ZIWEI_RECEIVED_CYCLE_STABLE; PREMODERN_ZIWEI_GENEALOGY_UNRESOLVED",
+      "later_witnesses": "Multiple modern Ziwei manuals/sites reproduce the exact cycle. These are compatibility witnesses only; they do not establish Ming/Qing placement provenance.",
+      "school_attribution": "CURRENT_MODERN_ZIWEI_MONTH_TABLE; HISTORICAL_SCHOOL_LINEAGE_UNRESOLVED",
       "competing_methods": [
-        "same-name non-Ziwei 阴煞 definitions are explicitly excluded from candidate inference"
+        "Current Ziwei Yinsha: lunar-month six-palace cycle 寅子戌申午辰 repeated twice.",
+        "Same-name non-Ziwei Yinsha references with different inputs or semantics remain outside this rule identity.",
+        "Modern received repetition is not a substitute for a premodern Ziwei witness."
       ],
-      "current_implementation_match": "DETERMINISTIC_OPERATIONAL_MATCH_ONLY; CLASSICAL_ZIWEI_PROVENANCE_NOT_ESTABLISHED",
-      "confidence": "HIGH_FOR_SOURCE_DOMAIN_MISMATCH",
+      "current_implementation_match": "EXACT_MATCH_TO_MODERN_RECEIVED_ZIWEI_CYCLE; PREMODERN_ZIWEI_PROVENANCE_NOT_ESTABLISHED",
+      "confidence": "HIGH_FOR_MODERN_RECEIVED_CYCLE_STABILITY_AND_SOURCE-DOMAIN FIREWALL; LOW_FOR_PREMODERN_ZIWEI_GENEALOGY",
       "audit_status": "SOURCE_INSUFFICIENT",
-      "proposed_action": "Retain as compatibility/profile rule pending a Ziwei-specific historical placement witness."
+      "proposed_action": "Retain as profile-scoped compatibility rule. Continue seeking edition-bound premodern Ziwei Yinsha placement evidence; do not import cross-system homonyms.",
+      "evidence_closure_batch": "BATCH-12-ZIWEI-YINSHA-MODERN-RECEIVED-SOURCE-BOUNDARY-OC",
+      "evidence_closure_status": "MODERN_RECEIVED_CYCLE_CONFIRMED_PREMODERN_ZIWEI_SOURCE_UNRESOLVED_HOMONYM_FIREWALL_RETAINED",
+      "source_domain_reconciliation": {
+        "modern_exact_cycle_witnesses": [
+          "EXT-IZTRO-YINSHA-MODERN",
+          "EXT-XSTARS-YINSHA-MODERN"
+        ],
+        "qualifying_premodern_ziwei_witness_established": false,
+        "cross_system_homonym_identity_closed": false,
+        "runtime_changed": false
+      }
     },
     {
       "system": "ZIWEI",
