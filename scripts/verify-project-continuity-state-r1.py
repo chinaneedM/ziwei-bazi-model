@@ -893,9 +893,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-BAZI-DAYUN-WENZHEN-COMPATIBILITY-SCOPE-AUDIT-NG",
     "BATCH-12-BAZI-DAYUN-EXACT-JIE-TIE-HANDLING-AUDIT-NH",
     "BATCH-12-ZIWEI-SELF-INWARD-TRANSFORMATION-DIRECTION-SOURCE-SCOPE-AUDIT-NI",
+    "BATCH-12-COMBINED-SHARED-TIME-CREDENTIAL-SCOPE-AUDIT-NJ",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-SELF-INWARD-TRANSFORMATION-DIRECTION-SOURCE-SCOPE-AUDIT-NI.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-COMBINED-SHARED-TIME-CREDENTIAL-SCOPE-AUDIT-NJ.md"
 
 
 def fail(message: str) -> None:
@@ -15002,10 +15003,55 @@ def main() -> int:
     prov_ni = ni.get("provenance_defects", {})
     if prov_ni.get("new_confirmed") != 0 or prov_ni.get("new_repaired") != 0:
         fail("Batch 12NI invented provenance defect accounting")
-    if audit_summary.get("confirmed_provenance_metadata_defect_count") != 29 or audit_summary.get("repaired_provenance_metadata_defect_count") != 29:
-        fail("Batch 12NI provenance accounting drift")
+    if audit_summary.get("confirmed_provenance_metadata_defect_count", 0) < 29 or audit_summary.get("repaired_provenance_metadata_defect_count", 0) < 29:
+        fail("Batch 12NI provenance accounting regressed below 29/29")
     if ni.get("algorithm_reopen_authorized") is not False or ni.get("transmission_impact", {}).get("status") != "DEFERRED_NO_EDGE":
         fail("Batch 12NI reopen/transmission scope drift")
+
+    # Batch 12NJ: shared time unifies physical facts without collapsing Ziwei/Bazi policy chains.
+    nj_path = ROOT / "docs/research/COMBINED-SHARED-TIME-CREDENTIAL-SCOPE-AUDIT-R1.json"
+    nj_evidence_path = ROOT / "docs/research/evidence/batch-12nj/combined-shared-time-credential-scope.json"
+    nj_contract_path = ROOT / "docs/ZIWEI-BAZI-SHARED-TIME-CREDENTIAL-R1.md"
+    if not nj_path.is_file() or not nj_evidence_path.is_file() or not nj_contract_path.is_file():
+        fail("Batch 12NJ research/evidence/contract record missing")
+    nj = json.loads(nj_path.read_text(encoding="utf-8"))
+    nj_evidence = json.loads(nj_evidence_path.read_text(encoding="utf-8"))
+    nj_id = "BATCH-12-COMBINED-SHARED-TIME-CREDENTIAL-SCOPE-AUDIT-NJ"
+    if nj.get("batch_id") != nj_id or nj.get("prior_batch_id") != ni_id or nj_id not in rule_batches:
+        fail("Batch 12NJ chronology drift")
+    row_nj = next(r for r in matrix["rows"] if r["rule_id"] == "HPA-COMB-001")
+    if row_nj.get("audit_status") != "MODERN_COMPATIBILITY_ONLY" or row_nj.get("audit_batch") != nj_id or "HPA-COMB-001" not in matrix["audited_row_ids"]:
+        fail("Batch 12NJ shared-time audit row drift")
+    architecture_nj = nj.get("architecture_scope", {})
+    if architecture_nj.get("shared_physical_fact_unification") is not True or architecture_nj.get("independent_ziwei_bazi_policy_chains") is not True or architecture_nj.get("calendar_or_day_boundary_policy_collapse") is not False or architecture_nj.get("classical_doctrine") is not False:
+        fail("Batch 12NJ shared-vs-independent policy firewall drift")
+    hash_nj = nj.get("credential_hash_scope", {})
+    if hash_nj.get("directly_binds_subsystem_algorithm_versions") is not False or hash_nj.get("directly_binds_all_profile_versions") is not False:
+        fail("Batch 12NJ credential hash scope overclaimed")
+    combined_nj = nj.get("combined_provenance_scope", {})
+    for key in (
+        "combined_manifest_binds_combined_algorithm_id_version",
+        "combined_manifest_binds_profile_id_versions",
+        "combined_manifest_binds_shared_credential",
+        "combined_manifest_binds_candidate_lineage",
+        "combined_manifest_binds_subsystem_bundle_hashes",
+        "subsystem_bundles_retain_internal_algorithm_rule_lineage",
+    ):
+        if combined_nj.get(key) is not True:
+            fail(f"Batch 12NJ layered provenance binding drift: {key}")
+    repairs_nj = {x.get("defect_id") for x in nj.get("provenance_repairs", ())}
+    if repairs_nj != {"PROV-DEFECT-030"}:
+        fail("Batch 12NJ provenance repair identity drift")
+    evidence_contract_nj = nj_evidence.get("credential_hash_contract", {})
+    if evidence_contract_nj.get("directly_binds_every_subsystem_algorithm_id_version") is not False:
+        fail("Batch 12NJ evidence hash-scope firewall drift")
+    doc_nj = nj_contract_path.read_text(encoding="utf-8")
+    if "SHARED_TIME_CREDENTIAL_HASH_SCOPE=SHARED_FACTS_PLUS_POLICY_SNAPSHOT" not in doc_nj or "FULL_COMBINED_PROVENANCE_SCOPE=MANIFEST_PLUS_SUBSYSTEM_BUNDLES" not in doc_nj:
+        fail("Batch 12NJ documentation scope markers missing")
+    if audit_summary.get("confirmed_provenance_metadata_defect_count", 0) < 30 or audit_summary.get("repaired_provenance_metadata_defect_count", 0) < 30:
+        fail("Batch 12NJ provenance accounting must retain at least 30/30")
+    if nj.get("algorithm_reopen_authorized") is not False or nj.get("transmission_impact", {}).get("status") != "NONE":
+        fail("Batch 12NJ reopen/transmission scope drift")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

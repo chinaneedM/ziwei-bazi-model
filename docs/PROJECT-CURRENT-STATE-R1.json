@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.377.0",
+  "schema_version": "1.378.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -38,9 +38,9 @@
     "matrix_md": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.md",
     "external_source_registry": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json",
     "row_count": 220,
-    "audited_row_count": 213,
-    "confirmed_provenance_metadata_defect_count": 29,
-    "repaired_provenance_metadata_defect_count": 29,
+    "audited_row_count": 214,
+    "confirmed_provenance_metadata_defect_count": 30,
+    "repaired_provenance_metadata_defect_count": 30,
     "historical_candidate_registry_count": 3,
     "historical_candidate_runtime_resolver_count": 3,
     "identified_missing_candidate_family_count": 14,
@@ -458,9 +458,10 @@
       "BATCH-12-TIME-APPROXIMATE-BIRTH-TIME-SAMPLING-AUDIT-NF",
       "BATCH-12-BAZI-DAYUN-WENZHEN-COMPATIBILITY-SCOPE-AUDIT-NG",
       "BATCH-12-BAZI-DAYUN-EXACT-JIE-TIE-HANDLING-AUDIT-NH",
-      "BATCH-12-ZIWEI-SELF-INWARD-TRANSFORMATION-DIRECTION-SOURCE-SCOPE-AUDIT-NI"
+      "BATCH-12-ZIWEI-SELF-INWARD-TRANSFORMATION-DIRECTION-SOURCE-SCOPE-AUDIT-NI",
+      "BATCH-12-COMBINED-SHARED-TIME-CREDENTIAL-SCOPE-AUDIT-NJ"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-SELF-INWARD-TRANSFORMATION-DIRECTION-SOURCE-SCOPE-AUDIT-NI.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-COMBINED-SHARED-TIME-CREDENTIAL-SCOPE-AUDIT-NJ.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -2137,7 +2138,13 @@
       "Modern Xu Quanren witnesses are now scoped: 2013 bibliography/TOC confirms dedicated 飛宮四化 and 自化 sections; Xu-supervised Qintian teaching identity is corroborated; a secondary advanced-class transcript maps 自化/离心 and 视同自化/向心 but original audio/diagram is not directly bound.",
       "Modern terminology remains non-uniform, including three-label usage separating 向心自化 / 离心自化 / 视同自化; contextual name bridging remains required before any mechanical normalization.",
       "No new provenance defect: the row was explicitly pending by design. Matrix 220 rows / 213 audited / 10 missing; provenance defects remain 29/29; chart algorithm defects / reopens / candidate collapses 0.",
-      "12NJ: audit HPA-COMB-001 Shared time credential as modern combined-runtime infrastructure; keep combined provenance mechanics separate from classical doctrine."
+      "12NJ: audit HPA-COMB-001 Shared time credential as modern combined-runtime infrastructure; keep combined provenance mechanics separate from classical doctrine.",
+      "Batch 12NJ completed: HPA-COMB-001 Shared time credential audited as MODERN_COMPATIBILITY_ONLY; shared physical time facts remain distinct from Ziwei/Bazi system-specific policy chains.",
+      "PROV-DEFECT-030 repaired forward-only: shared_time_credential.computation_hash had been documented as binding all rule versions, but its direct payload is schema + fact_hash + policy registry + selected policy snapshots + realizations.",
+      "Full combined provenance remains layered and intact: combined manifest binds combined algorithm/profile identity, subsystem profile identities, shared credential, candidate lineage and Ziwei/Bazi bundle hashes.",
+      "No shared-time schema, hash algorithm, chart fact, candidate, default policy or subsystem computation changed.",
+      "Matrix 220 rows / 214 audited / 10 missing; provenance defects 30/30; chart algorithm defects / reopens / candidate collapses 0.",
+      "12NK: audit HPA-COMB-002 Independent Ziwei/Bazi date/calendar policy preservation; shared physical time must not collapse system-specific date/calendar rules."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10

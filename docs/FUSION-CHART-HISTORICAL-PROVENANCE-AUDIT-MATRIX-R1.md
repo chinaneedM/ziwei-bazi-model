@@ -34,7 +34,7 @@ Every row carries:
 - proposed action;
 - explicit algorithm-reopen authorization, which is **false for every inventory row at creation**.
 
-The initial inventory contained **107 rule/field families**. Through Batch 12NI and explicit splitting of historically distinct candidate families, the current machine-readable inventory contains **220 rows**, with **213 audited rows**. It intentionally keeps unresolved source work explicit rather than converting uncertainty into a chart defect. The current audit ledger records **29 confirmed provenance metadata defects repaired forward-only at the provenance/hash-lineage layer, 0 chart algorithm defects, 0 algorithm reopens, 14 cumulatively identified missing candidate families, 10 rows currently `MISSING_FROM_PRODUCT`, 6 historical candidate extensions, 3 source-scoped historical candidate registries, and 3 runtime-resolver components**.
+The initial inventory contained **107 rule/field families**. Through Batch 12NJ and explicit splitting of historically distinct candidate families, the current machine-readable inventory contains **220 rows**, with **214 audited rows**. It intentionally keeps unresolved source work explicit rather than converting uncertainty into a chart defect. The current audit ledger records **30 confirmed provenance metadata defects repaired forward-only at the provenance/hash-lineage layer, 0 chart algorithm defects, 0 algorithm reopens, 14 cumulatively identified missing candidate families, 10 rows currently `MISSING_FROM_PRODUCT`, 6 historical candidate extensions, 3 source-scoped historical candidate registries, and 3 runtime-resolver components**.
 
 ## Research-corpus authority
 
@@ -1446,3 +1446,14 @@ Modern evidence now narrows the method family without closing it. Xu Quanren's 2
 No runtime selector or candidate is added. The formalization gate remains closed until an edition-bound or equivalent first-party school witness supplies a complete replayable selector, scope, diagram/coordinate semantics and terminology bridge. Matrix220/213/10; provenance29/29; chart algorithm defects/reopens/candidate collapses0. `transmission_impact=DEFERRED_NO_EDGE` because no direct lineage from the S08 Zhongzhou-labelled source family to the Xu/Qintian family is established.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-SELF-INWARD-TRANSFORMATION-DIRECTION-SOURCE-SCOPE-AUDIT-NI.md`. Research record: `docs/research/ZIWEI-SELF-INWARD-TRANSFORMATION-DIRECTION-SOURCE-SCOPE-AUDIT-R1.json`.
+
+
+## Progress — Batch 12NJ
+
+HPA-COMB-001 Shared time credential is formally audited as **MODERN_COMPATIBILITY_ONLY**. The combined runtime intentionally unifies physical time facts while preserving separate Ziwei and Bazi policy chains; the released late-Zi and DST/uncertainty regressions confirm that sharing the time credential does not collapse day-boundary or calendar conventions.
+
+**PROV-DEFECT-030** repairs an overbroad documentation claim: the shared credential `computation_hash` directly binds its schema, fact hash, policy registry, selected policy snapshots and realizations, but it does not directly contain every subsystem algorithm/profile version. Full combined provenance is layered through the combined manifest (combined algorithm/profile identities, all subsystem profile identities, shared credential and candidate lineage) plus Ziwei/Bazi bundle hashes.
+
+No schema, hash algorithm, chart fact, candidate, policy default or subsystem computation changes. Matrix220/214/10, provenance30/30, chart algorithm defects/reopens/candidate collapses0. No historical transmission edge.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-COMBINED-SHARED-TIME-CREDENTIAL-SCOPE-AUDIT-NJ.md`. Research record: `docs/research/COMBINED-SHARED-TIME-CREDENTIAL-SCOPE-AUDIT-R1.json`.

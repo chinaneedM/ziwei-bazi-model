@@ -80,7 +80,7 @@
       "candidate/profile rules": 2,
       "provenance / hashes / lineage": 2
     },
-    "audited_row_count": 213
+    "audited_row_count": 214
   },
   "rows": [
     {
@@ -3100,18 +3100,26 @@
       "rule_or_field": "Shared time credential",
       "current_implementation": "Combined service binds one civil/astronomical credential while retaining system-specific policies.",
       "current_profile": "ZIWEI-BAZI-COMBINED-LOCAL-SHELL-V1-R1",
-      "primary_source": "composition architecture; downstream source rules remain independent",
-      "source_quote": "PENDING_VERBATIM_EXTRACTION",
-      "source_quote_location": "docs/ZIWEI-BAZI-SHARED-TIME-CREDENTIAL-R1.md",
-      "historical_period": "MODERN",
-      "later_witnesses": "N/A",
-      "school_attribution": "MODERN_SOFTWARE_ARCHITECTURE",
-      "competing_methods": [],
-      "current_implementation_match": "MATCHES_DECLARED_COMPOSITION_SCOPE",
-      "confidence": "HIGH",
+      "primary_source": "Repository composition architecture: fusion_time.py + service.py + shared-time credential contract",
+      "source_quote": "Unify physical time facts without collapsing system-specific conventions.",
+      "source_quote_location": "src/fortune_training/combined_chart_application/fusion_time.py validate_shared_policy_contract; docs/ZIWEI-BAZI-SHARED-TIME-CREDENTIAL-R1.md",
+      "historical_period": "MODERN_SOFTWARE_ARCHITECTURE",
+      "later_witnesses": "Combined late-Zi independence, DST fold/uncertainty, credential tamper and full-replay regressions",
+      "school_attribution": "ENGINEERING_NOT_HISTORICAL_ZIWEI_BAZI_DOCTRINE",
+      "competing_methods": [
+        "independent duplicate subsystem time resolution without shared cross-link",
+        "collapsed single date/calendar convention across Ziwei and Bazi"
+      ],
+      "current_implementation_match": "MATCHES_SHARED_FACT_SEPARATE_POLICY_SCOPE; PROV-DEFECT-030 clarifies credential computation_hash direct scope versus manifest/subsystem provenance",
+      "confidence": "HIGH_FOR_RELEASED_SOFTWARE_CONTRACT",
       "audit_status": "MODERN_COMPATIBILITY_ONLY",
-      "proposed_action": "Audit as software architecture, not historical doctrine.",
-      "algorithm_reopen_authorized": false
+      "proposed_action": "Retain shared physical-time credential and independent Ziwei/Bazi policy snapshots. Keep credential hash scope limited to shared facts/policies; rely on combined manifest and subsystem bundle hashes for full algorithm/profile provenance.",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-12-COMBINED-SHARED-TIME-CREDENTIAL-SCOPE-AUDIT-NJ",
+      "defect_id": "PROV-DEFECT-030",
+      "defect_type": "SHARED_TIME_CREDENTIAL_COMPUTATION_HASH_SCOPE_OVERSTATED_AS_BINDING_ALL_RULE_VERSIONS",
+      "repair_status": "REPAIRED_IN_BATCH_12NJ_FORWARD_ONLY",
+      "repair_action": "Corrected documentation/provenance wording only; no schema, hash algorithm, chart fact, candidate, or subsystem policy changed."
     },
     {
       "rule_id": "HPA-COMB-002",
@@ -7310,12 +7318,13 @@
     "HPA-TIME-011",
     "HPA-DAYUN-006",
     "HPA-DAYUN-007",
-    "HPA-ZT-016"
+    "HPA-ZT-016",
+    "HPA-COMB-001"
   ],
   "audit_summary": {
     "confirmed_chart_algorithm_defect_count": 0,
-    "confirmed_provenance_metadata_defect_count": 29,
-    "repaired_provenance_metadata_defect_count": 29,
+    "confirmed_provenance_metadata_defect_count": 30,
+    "repaired_provenance_metadata_defect_count": 30,
     "algorithm_reopen_count": 0,
     "candidate_collapse_count": 0,
     "historical_candidate_extension_count": 6,
@@ -7350,6 +7359,7 @@
     "BATCH-12-TIME-APPROXIMATE-BIRTH-TIME-SAMPLING-AUDIT-NF",
     "BATCH-12-BAZI-DAYUN-WENZHEN-COMPATIBILITY-SCOPE-AUDIT-NG",
     "BATCH-12-BAZI-DAYUN-EXACT-JIE-TIE-HANDLING-AUDIT-NH",
-    "BATCH-12-ZIWEI-SELF-INWARD-TRANSFORMATION-DIRECTION-SOURCE-SCOPE-AUDIT-NI"
+    "BATCH-12-ZIWEI-SELF-INWARD-TRANSFORMATION-DIRECTION-SOURCE-SCOPE-AUDIT-NI",
+    "BATCH-12-COMBINED-SHARED-TIME-CREDENTIAL-SCOPE-AUDIT-NJ"
   ]
 }
