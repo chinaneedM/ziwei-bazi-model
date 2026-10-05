@@ -2004,3 +2004,23 @@ No production R4 grade/status is inferred. No chapter is allowed to overwrite th
 `HPA-ZIWEI-018` remains `MISSING_FROM_PRODUCT`, but the remaining gap is now only the explicit read-only candidate API / Workbench surface. Internal raw candidate plus source reconciliation are complete.
 
 Next: **12OO — read-only Jielan dignity candidate product surface.**
+
+## Progress — Batch 12OO
+
+`HPA-ZIWEI-018` **1581 Jielan historical dignity table** now has a complete read-only product surface.
+
+Endpoint:
+
+`POST /api/ziwei-jielan-1581-dignity-candidate`
+
+The sidecar returns 300 CH70 raw-source-lexeme rows and 300 CH69↔CH70 cross-collation rows, bound to the exact combined manifest / Ziwei bundle / natal fact and computation hashes. It also exposes registry, candidate-runtime and cross-collation hashes.
+
+The Workbench groups backend-returned rows by star/entity and displays branch, CH70 lexemes, CH69 lexemes and relation classification. Browser JavaScript contains no source table constants, no cross-collation formula and no production dignity grade conversion.
+
+The historical firewall remains unchanged: `PRESERVED_NOT_SELECTED`; no CH69->CH70 fill; no CH70 overwrite of CH69; no production-grade mapping; no winner control; no production profile change.
+
+Accordingly `HPA-ZIWEI-018` changes `MISSING_FROM_PRODUCT -> HISTORICALLY_SUPPORTED`. This is a **product representation closure**, not a historical-winner claim.
+
+Matrix remains **222/222 audited**. Status now includes HISTORICALLY_SUPPORTED **104** and current MISSING_FROM_PRODUCT **5**. Candidate extensions remain 14, registries/runtime resolvers 5/5, provenance defects 43/43, algorithm reopens 0.
+
+Next: **12OP — HPA-ZT-015 leap-month day-one daily-origin geometry / historical candidate closure.**
