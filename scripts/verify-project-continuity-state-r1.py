@@ -902,9 +902,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-COMBINED-FACT-COMPUTATION-VIEW-MANIFEST-HASH-AUDIT-NP",
     "BATCH-12-POST-AUDIT-MISSING-PRODUCT-RECONCILIATION-LEAP-MONTH-NQ",
     "BATCH-12-POST-AUDIT-JIELAN-SOURCE-SCOPED-CANDIDATE-PRODUCT-SURFACE-RECONCILIATION-NR",
+    "BATCH-12-POST-AUDIT-FOUR-TRANSFORMATION-DIGNITY-PRODUCT-BOUNDARY-RECONCILIATION-NS",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-POST-AUDIT-JIELAN-SOURCE-SCOPED-CANDIDATE-PRODUCT-SURFACE-RECONCILIATION-NR.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-POST-AUDIT-FOUR-TRANSFORMATION-DIGNITY-PRODUCT-BOUNDARY-RECONCILIATION-NS.md"
 
 
 def fail(message: str) -> None:
@@ -15554,6 +15555,87 @@ def main() -> int:
         fail("Batch 12NR evidence adjudication drift")
     if nr.get("algorithm_reopen_authorized") is not False or nr.get("transmission_impact", {}).get("status") != "NONE":
         fail("Batch 12NR reopen/transmission scope drift")
+
+    # Batch 12NS: distinguish partial internal Four-Transformation/Dignity source coverage from complete selectable product candidates.
+    ns_path = ROOT / "docs/research/ZIWEI-FOUR-TRANSFORMATION-DIGNITY-PRODUCT-BOUNDARY-RECONCILIATION-R1.json"
+    ns_evidence_path = ROOT / "docs/research/evidence/batch-12ns/ziwei-four-transformation-dignity-product-boundary-reconciliation.json"
+    if not ns_path.is_file() or not ns_evidence_path.is_file():
+        fail("Batch 12NS research/evidence record missing")
+    ns = json.loads(ns_path.read_text(encoding="utf-8"))
+    ns_evidence = json.loads(ns_evidence_path.read_text(encoding="utf-8"))
+    ns_id = "BATCH-12-POST-AUDIT-FOUR-TRANSFORMATION-DIGNITY-PRODUCT-BOUNDARY-RECONCILIATION-NS"
+    if ns.get("batch_id") != ns_id or ns.get("prior_batch_id") != nr_id:
+        fail("Batch 12NS chronology drift")
+    if ns_id in rule_batches:
+        fail("Batch 12NS post-audit reconciliation must not be enrolled as a supplemental rule-audit batch")
+    if ns.get("batch_classification") != "POST_AUDIT_RECONCILIATION_NOT_SUPPLEMENTAL_RULE_AUDIT":
+        fail("Batch 12NS batch classification drift")
+    target_ids_ns = {"HPA-ZIWEI-014", "HPA-ZIWEI-018"}
+    if set(ns.get("target_rule_ids", ())) != target_ids_ns:
+        fail("Batch 12NS target rule set drift")
+    if ns.get("reconciliation_result") != "BOTH_MISSING_FROM_PRODUCT_STATUSES_CONFIRMED_TWO_PROVENANCE_DEFECTS_REPAIRED":
+        fail("Batch 12NS reconciliation result drift")
+    rows_ns = {r["rule_id"]: r for r in matrix["rows"] if r["rule_id"] in target_ids_ns}
+    if set(rows_ns) != target_ids_ns:
+        fail("Batch 12NS Matrix target rows missing")
+    for rule_id, row in rows_ns.items():
+        if row.get("audit_status") != "MISSING_FROM_PRODUCT":
+            fail(f"Batch 12NS target status drift: {rule_id}")
+        if row.get("reconciliation_batch") != ns_id or row.get("reconciliation_status") != "MISSING_FROM_PRODUCT_CONFIRMED":
+            fail(f"Batch 12NS reconciliation binding drift: {rule_id}")
+        if row.get("algorithm_reopen_authorized") is not False:
+            fail(f"Batch 12NS algorithm-reopen firewall drift: {rule_id}")
+
+    row14_ns = rows_ns["HPA-ZIWEI-014"]
+    if row14_ns.get("defect_id") != "PROV-DEFECT-037" or row14_ns.get("repair_status") != "REPAIRED_IN_BATCH_12NS_FORWARD_ONLY":
+        fail("Batch 12NS HPA-ZIWEI-014 provenance repair drift")
+    surface14_ns = row14_ns.get("product_surface_reconciliation", {})
+    for key in ("jielan_complete_ten_stem_source_table_registered", "jielan_source_scoped_runtime_resolver_exists", "jielan_targets_exactly_match_current_s08"):
+        if surface14_ns.get(key) is not True:
+            fail(f"Batch 12NS Four-Transformation partial-coverage evidence drift: {key}")
+    for key in ("received_fullbook_complete_selectable_candidate_profile", "zhongzhou_complete_selectable_candidate_profile", "local_ziwei_table_family_selector", "workbench_table_family_selector", "production_default_changed"):
+        if surface14_ns.get(key) is not False:
+            fail(f"Batch 12NS Four-Transformation product-gap firewall drift: {key}")
+
+    row18_ns = rows_ns["HPA-ZIWEI-018"]
+    if row18_ns.get("defect_id") != "PROV-DEFECT-038" or row18_ns.get("repair_status") != "REPAIRED_IN_BATCH_12NS_FORWARD_ONLY":
+        fail("Batch 12NS HPA-ZIWEI-018 provenance repair drift")
+    if "ZIWEI-JIELAN-1581-HISTORICAL-CANDIDATES-R1@1.1.0" not in row18_ns.get("current_profile", ""):
+        fail("Batch 12NS HPA-ZIWEI-018 live registry version not bound")
+    surface18_ns = row18_ns.get("product_surface_reconciliation", {})
+    if surface18_ns.get("jielan_dignity_source_family_registered") is not True or surface18_ns.get("source_scoped_resolver_emits_dignity_status") is not True:
+        fail("Batch 12NS Jielan dignity source-status coverage drift")
+    if surface18_ns.get("source_scoped_resolver_runtime_normalized") is not False or surface18_ns.get("source_faithful_closed_runtime_dignity_table") is not False:
+        fail("Batch 12NS Jielan dignity normalization firewall drift")
+    for key in ("local_historical_dignity_candidate_profile_selector", "workbench_historical_dignity_candidate_profile_selector", "production_default_changed"):
+        if surface18_ns.get(key) is not False:
+            fail(f"Batch 12NS dignity product-gap firewall drift: {key}")
+
+    repairs_ns = {x.get("defect_id") for x in ns.get("provenance_repairs", ())}
+    if repairs_ns != {"PROV-DEFECT-037", "PROV-DEFECT-038"}:
+        fail("Batch 12NS provenance repair identity drift")
+    accounting_ns = ns.get("accounting", {})
+    if accounting_ns.get("missing_from_product_before") != 10 or accounting_ns.get("missing_from_product_after") != 10:
+        fail("Batch 12NS missing-product accounting drift")
+    if accounting_ns.get("provenance_defects_confirmed_after") != 38 or accounting_ns.get("provenance_defects_repaired_after") != 38:
+        fail("Batch 12NS provenance accounting drift")
+    if audit_summary.get("confirmed_provenance_metadata_defect_count", 0) < 38 or audit_summary.get("repaired_provenance_metadata_defect_count", 0) < 38:
+        fail("Batch 12NS Matrix provenance accounting must retain at least 38/38")
+    if audit_state.get("confirmed_provenance_metadata_defect_count", 0) < 38 or audit_state.get("repaired_provenance_metadata_defect_count", 0) < 38:
+        fail("Batch 12NS state provenance accounting must retain at least 38/38")
+    evidence_adj_ns = ns_evidence.get("adjudication", {})
+    if set(evidence_adj_ns.get("new_provenance_defects", ())) != {"PROV-DEFECT-037", "PROV-DEFECT-038"}:
+        fail("Batch 12NS evidence provenance repair set drift")
+    if evidence_adj_ns.get("both_repairs_metadata_only") is not True or evidence_adj_ns.get("runtime_behavior_changed") is not False or evidence_adj_ns.get("candidate_selection_changed") is not False or evidence_adj_ns.get("production_default_changed") is not False:
+        fail("Batch 12NS evidence adjudication firewall drift")
+    if ns.get("algorithm_reopen_authorized") is not False or ns.get("transmission_impact", {}).get("status") != "NONE":
+        fail("Batch 12NS reopen/transmission scope drift")
+    try:
+        schema12ns = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12NS state version is not numeric")
+    if schema12ns < (1, 387, 0):
+        fail("Batch 12NS state version regressed below 1.387.0")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")
