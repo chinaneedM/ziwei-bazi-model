@@ -174,6 +174,9 @@ def main() -> int:
         "PASSAGE-JIELAN-1581-CH35-TIANCAI-TIANSHOU",
         "RULE-FAMILY-ZIWEI-NATAL-TIANCAI-LIFE-BASIS",
         "RULE-FAMILY-ZIWEI-NATAL-TIANSHOU-BODY-BASIS",
+        "PASSAGE-XINGXUE-DACHENG-V1-TIANCHU",
+        "RULE-FAMILY-PREMODERN-TIANCHU-STEM-TABLE",
+        "RULE-FAMILY-ZIWEI-NATAL-TIANCHU-CURRENT",
     }
     if not required_nodes.issubset(set(node_ids)):
         fail("Transmission graph seed nodes incomplete")
@@ -229,6 +232,19 @@ def main() -> int:
         fail("Batch 12OF TianShou Body-basis transmission binding regressed")
     if of_edges["TG-E0154"].get("relation")!="PARALLEL_COEXISTS_WITH" or of_edges["TG-E0154"].get("status")!="CONFIRMED":
         fail("Batch 12OF complementary Life/Body rule-pair typing regressed")
+
+    # Batch 12OG: exact TianChu geometry does not overclaim direct Ziwei ancestry.
+    og_edges={e.get("edge_id"): e for e in edges if e.get("edge_id") in {"TG-E0155","TG-E0156"}}
+    if set(og_edges) != {"TG-E0155","TG-E0156"}:
+        fail("Batch 12OG transmission edges missing")
+    if og_edges["TG-E0155"].get("from")!="PASSAGE-XINGXUE-DACHENG-V1-TIANCHU" or og_edges["TG-E0155"].get("to")!="RULE-FAMILY-PREMODERN-TIANCHU-STEM-TABLE":
+        fail("Batch 12OG premodern TianChu transmission binding regressed")
+    if og_edges["TG-E0155"].get("status")!="HIGH_CONFIDENCE":
+        fail("Batch 12OG premodern TianChu received-text confidence regressed")
+    if og_edges["TG-E0156"].get("relation")!="STRUCTURAL_MECHANISM_CANDIDATE_FOR" or og_edges["TG-E0156"].get("status")!="PROBABLE":
+        fail("Batch 12OG TianChu adoption-path firewall regressed")
+    if og_edges["TG-E0156"].get("to")!="RULE-FAMILY-ZIWEI-NATAL-TIANCHU-CURRENT":
+        fail("Batch 12OG modern Ziwei TianChu rule-family binding regressed")
 
     e3 = next((e for e in edges if e.get("edge_id") == "TG-E0003"), None)
     if not e3 or e3.get("relation") != "PARALLEL_COEXISTS_WITH" or e3.get("status") != "CONFIRMED":
