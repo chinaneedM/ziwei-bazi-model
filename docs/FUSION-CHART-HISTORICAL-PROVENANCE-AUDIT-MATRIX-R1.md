@@ -1767,3 +1767,38 @@ No Matrix status, runtime, default, candidate selection or algorithm changed.
 Next: **12OE — HPA-ZMINOR-022 YueDe Si-start vs Zi-start historical families and natal/flow temporal candidate closure**.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-UNRESOLVED-HISTORICAL-STATUS-REPRIORITIZATION-OD.md`. Research record: `docs/research/HISTORICAL-UNRESOLVED-STATUS-REPRIORITIZATION-OD-R1.json`.
+
+## Progress — Batch 12OE
+
+`HPA-ZMINOR-022` **YueDe start-anchor conflict** is now decomposed by temporal layer instead of treated as one natal winner contest.
+
+The decisive received-Fullbook local sequence says:
+
+- TianDe: `从酉上起子，顺数至流年太岁`;
+- YueDe: `从子上起子，顺数至流年太岁`;
+- JieShen: `从戌上起子，逆数至当生年太岁`.
+
+The contrast is explicit. Fullbook TianDe/YueDe are flow-year rules; JieShen is birth-year. Therefore Fullbook YueDe Zi-start is **not** a same-layer natal competitor to the current birth-year Si-start YueDe.
+
+`神峰通考` preserves the premodern verse `欲求天德顺从酉，月德要依巳顺逢`. It is retained as a cross-domain geometry witness, not promoted into edition-bound Ziwei natal adoption proof.
+
+Runtime preservation is now symmetric. `RECEIVED-FULLBOOK-ANNUAL-YUEDE-ZI-START-R1` and `RECEIVED-FULLBOOK-ANNUAL-TIANDE-YOU-START-R1` are emitted as `ANNUAL`, source-scoped, unselected candidate sets. They are visible through the existing candidate surface and do not rewrite natal `STAR.YUEDE` / `STAR.TIANDE`.
+
+**PROV-DEFECT-041** is repaired forward-only. `HPA-ZMINOR-006` previously bundled TianDe with year-based JieShen and used the Fullbook flow-year TianDe sentence as support for natal TianDe. It now retains only year-based JieShen / modern `STAR.NIANJIE`. Natal TianDe is split into new `HPA-ZMINOR-027`, while the annual Fullbook pair is tracked by new `HPA-ZTEMP-007`.
+
+Status changes:
+
+- `HPA-ZMINOR-022`: `DISPUTED_MULTIPLE_CANDIDATES -> SOURCE_INSUFFICIENT` for **natal** YueDe adoption;
+- `HPA-ZMINOR-027`: new `SOURCE_INSUFFICIENT` natal TianDe provenance row;
+- `HPA-ZTEMP-007`: new `HISTORICALLY_SUPPORTED` received-Fullbook annual TianDe/YueDe source-scoped candidate row;
+- `HPA-ZMINOR-006`: remains `HISTORICALLY_SUPPORTED` for birth-year JieShen/NianJie after removing the TianDe scope overclaim.
+
+No production default, natal coordinate, candidate winner or chart algorithm changed.
+
+Matrix becomes **222/222 audited / 10 current missing**. Status distribution is HISTORICALLY_SUPPORTED 97 / SUPPORTED_BUT_SCHOOL_SPECIFIC 24 / DISPUTED_MULTIPLE_CANDIDATES 29 / MODERN_COMPATIBILITY_ONLY 50 / SOURCE_INSUFFICIENT 11 / MISSING_FROM_PRODUCT 10 / NOT_YET_FORMALIZED 1. Provenance defects are **41/41 repaired**; historical candidate extensions are **8**; chart algorithm defects / reopens / candidate collapses remain **0/0/0**.
+
+The transmission graph now separates natal and annual TianDe/YueDe rule families, binds the Fullbook passage to annual rule families and birth-year JieShen separately, and records only a possible cross-domain structural bridge from Shenfeng to the natal start-anchor mechanics.
+
+Next: **12OF — HPA-ZMINOR-008 TianShou Body/Life basis source and candidate closure.**
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-YUEDE-TIANDE-TEMPORAL-SCOPE-CLOSURE-OE.md`. Research record: `docs/research/ZIWEI-YUEDE-TIANDE-TEMPORAL-SCOPE-CLOSURE-R1.json`.
