@@ -1,0 +1,108 @@
+{
+  "schema": "HISTORICAL-UNRESOLVED-STATUS-REPRIORITIZATION-OD-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-UNRESOLVED-HISTORICAL-STATUS-REPRIORITIZATION-OD",
+  "prior_batch_id": "BATCH-12-ZIWEI-YINSHA-MODERN-RECEIVED-SOURCE-BOUNDARY-OC",
+  "batch_classification": "POST_AUDIT_PRIORITY_REASSESSMENT_NOT_SUPPLEMENTAL_RULE_AUDIT",
+  "inventory": {
+    "source_insufficient": 9,
+    "not_yet_formalized": 1,
+    "disputed_multiple_candidates": 30,
+    "historically_supported": 96,
+    "total_rows": 220
+  },
+  "source_insufficient_assessment": {
+    "decomposed_parent_rows": [
+      "HPA-ZIWEI-008",
+      "HPA-ZIWEI-011"
+    ],
+    "recently_source_bounded": [
+      "HPA-ZMINOR-024",
+      "HPA-ZMINOR-025",
+      "HPA-ZMINOR-026"
+    ],
+    "nonsemantic_compatibility_order": [
+      "HPA-BAZI-015",
+      "HPA-BHIDDEN-002"
+    ],
+    "fail_closed_or_absent": [
+      "HPA-ZT-016"
+    ],
+    "recently_deep_audited": [
+      "HPA-ZIWEI-023",
+      "HPA-ZIWEI-026"
+    ],
+    "conclusion": "No remaining source-insufficient row currently offers higher marginal closure value than the top active disputed production selections."
+  },
+  "disputed_priority_tiers": [
+    {
+      "tier": 1,
+      "rule_ids": [
+        "HPA-ZMINOR-022",
+        "HPA-ZMINOR-008",
+        "HPA-ZMINOR-007"
+      ],
+      "reason": "Active Ziwei production selects one concrete minor-star method while historically attested/received alternatives remain unselected; compact rule surfaces make candidate closure tractable."
+    },
+    {
+      "tier": 2,
+      "rule_ids": [
+        "HPA-ZIWEI-007",
+        "HPA-ZIWEI-012",
+        "HPA-ZIWEI-025"
+      ],
+      "reason": "Active Ziwei output with multiple historical families, but broader dependency or label surfaces make closure larger than the minor-star trio."
+    },
+    {
+      "tier": 3,
+      "rule_ids": [
+        "HPA-TIME-009",
+        "HPA-ZIWEI-001",
+        "HPA-ZDATE-003",
+        "HPA-TIME-007",
+        "HPA-TIME-008"
+      ],
+      "reason": "Very high output impact, but extensive late-Zi/time-coordinate audits already preserve candidates and the unresolved gate is historical uniqueness rather than an unrepresented alternative."
+    },
+    {
+      "tier": 4,
+      "rule_ids": [
+        "HPA-BAZI-010",
+        "HPA-XIAOYUN-001",
+        "HPA-XIAOYUN-002",
+        "HPA-SHENSHA-001",
+        "HPA-SHENSHA-004",
+        "HPA-SHENSHA-005",
+        "HPA-SHENSHA-007",
+        "HPA-SHENSHA-008",
+        "HPA-SHENSHA-009",
+        "HPA-SHENSHA-010",
+        "HPA-SHENSHA-014",
+        "HPA-SHENSHA-015",
+        "HPA-SHENSHA-016",
+        "HPA-SHENSHA-017",
+        "HPA-ZT-011",
+        "HPA-ZT-014",
+        "HPA-BREL-010",
+        "HPA-BCAND-001"
+      ],
+      "reason": "Candidates are already preserved/unselected or implementation is intentionally absent, reducing immediate silent-winner risk."
+    }
+  ],
+  "selected_next": {
+    "rule_id": "HPA-ZMINOR-022",
+    "rule": "月德 year-branch geometry: 巳起 vs 子起 historical families",
+    "reason": "Current production selects 子年巳宫起; received Fullbook has a competing 子起 family. The unresolved gate is compact and explicitly includes temporal-scope separation, making it the highest-value next candidateization target.",
+    "next_batch_id": "BATCH-12-ZIWEI-YUEDE-START-ANCHOR-TEMPORAL-CANDIDATE-CLOSURE-OE"
+  },
+  "invariants": {
+    "runtime_changed": false,
+    "production_default_changed": false,
+    "candidate_collapsed": false,
+    "matrix_status_changed": false,
+    "algorithm_reopen": false
+  },
+  "next_gate": [
+    "12OE: audit HPA-ZMINOR-022 YueDe Si-start vs Zi-start families, bind each to source/temporal scope, and create a replayable candidate only if the received-Fullbook branch can be typed without conflating natal and flow use."
+  ]
+}
