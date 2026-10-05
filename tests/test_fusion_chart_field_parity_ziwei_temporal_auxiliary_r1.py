@@ -63,6 +63,8 @@ class FusionChartFieldParityZiweiTemporalAuxiliaryR1Tests(unittest.TestCase):
         self.assertIn('LIMIT_TIANMA_METHOD_ID = "S10-LIMIT-PALACE-BRANCH-TIANMA-CASE-R1"', TEMPORAL_AUX)
         self.assertIn('ANNUAL_TIANMA_METHOD_ID = "S10-ANNUAL-BRANCH-TIANMA-CASE-R1"', TEMPORAL_AUX)
         self.assertIn('TIANMA_SELECTION_STATUS = "CASE_METHOD_CANDIDATE_PRESERVED_NO_SELECTION"', TEMPORAL_AUX)
+        self.assertIn('ANNUAL_YUEDE_METHOD_ID = "RECEIVED-FULLBOOK-ANNUAL-YUEDE-ZI-START-R1"', TEMPORAL_AUX)
+        self.assertIn('YUEDE_SELECTION_STATUS = "SOURCE_SCOPED_CANDIDATE_PRESERVED_NO_SELECTION"', TEMPORAL_AUX)
         self.assertIn("class ViewTemporalAuxiliaryCandidate:", VIEW)
         self.assertIn("    frame_id: str", VIEW)
         self.assertIn("    entity_id: str", VIEW)
