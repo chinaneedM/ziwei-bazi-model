@@ -894,9 +894,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-BAZI-DAYUN-EXACT-JIE-TIE-HANDLING-AUDIT-NH",
     "BATCH-12-ZIWEI-SELF-INWARD-TRANSFORMATION-DIRECTION-SOURCE-SCOPE-AUDIT-NI",
     "BATCH-12-COMBINED-SHARED-TIME-CREDENTIAL-SCOPE-AUDIT-NJ",
+    "BATCH-12-COMBINED-INDEPENDENT-DATE-CALENDAR-POLICY-PRESERVATION-AUDIT-NK",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-COMBINED-SHARED-TIME-CREDENTIAL-SCOPE-AUDIT-NJ.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-COMBINED-INDEPENDENT-DATE-CALENDAR-POLICY-PRESERVATION-AUDIT-NK.md"
 
 
 def fail(message: str) -> None:
@@ -15052,6 +15053,39 @@ def main() -> int:
         fail("Batch 12NJ provenance accounting must retain at least 30/30")
     if nj.get("algorithm_reopen_authorized") is not False or nj.get("transmission_impact", {}).get("status") != "NONE":
         fail("Batch 12NJ reopen/transmission scope drift")
+
+    # Batch 12NK: shared physical time must preserve independent Ziwei/Bazi date/calendar policies.
+    nk_path = ROOT / "docs/research/COMBINED-INDEPENDENT-DATE-CALENDAR-POLICY-PRESERVATION-AUDIT-R1.json"
+    nk_evidence_path = ROOT / "docs/research/evidence/batch-12nk/combined-independent-date-calendar-policy-preservation.json"
+    if not nk_path.is_file() or not nk_evidence_path.is_file():
+        fail("Batch 12NK research/evidence record missing")
+    nk = json.loads(nk_path.read_text(encoding="utf-8"))
+    nk_evidence = json.loads(nk_evidence_path.read_text(encoding="utf-8"))
+    nk_id = "BATCH-12-COMBINED-INDEPENDENT-DATE-CALENDAR-POLICY-PRESERVATION-AUDIT-NK"
+    if nk.get("batch_id") != nk_id or nk.get("prior_batch_id") != nj_id or nk_id not in rule_batches:
+        fail("Batch 12NK chronology drift")
+    row_nk = next(r for r in matrix["rows"] if r["rule_id"] == "HPA-COMB-002")
+    if row_nk.get("audit_status") != "MODERN_COMPATIBILITY_ONLY" or row_nk.get("audit_batch") != nk_id or "HPA-COMB-002" not in matrix["audited_row_ids"]:
+        fail("Batch 12NK independent-policy audit row drift")
+    architecture_nk = nk.get("architecture_contract", {})
+    if set(architecture_nk.get("shared_equalities", ())) != {"time_calendar_policy_registry_version", "civil_ambiguous_time_policy"}:
+        fail("Batch 12NK shared equality contract drift")
+    for key in ("same_day_boundary_required", "same_calendar_date_policy_required", "same_late_zi_policy_required"):
+        if architecture_nk.get(key) is not False:
+            fail(f"Batch 12NK subsystem policy independence drift: {key}")
+    integrity_nk = nk.get("integrity_contract", {})
+    if integrity_nk.get("selected_policy_snapshot_reconstructed_from_profiles") is not True or integrity_nk.get("mismatch_fails_closed_with_shared_time_selected_policies_binding_mismatch") is not True or integrity_nk.get("shared_physical_branch_binding_validated_separately") is not True:
+        fail("Batch 12NK policy-integrity contract drift")
+    adjudication_nk = nk_evidence.get("adjudication", {})
+    if adjudication_nk.get("independent_policy_preservation_verified") is not True or adjudication_nk.get("subsystem_policy_collapse_detected") is not False or adjudication_nk.get("provenance_repair_required") is not False or adjudication_nk.get("historical_winner_selected") is not False:
+        fail("Batch 12NK evidence adjudication drift")
+    prov_nk = nk.get("provenance_defects", {})
+    if prov_nk.get("new_confirmed") != 0 or prov_nk.get("new_repaired") != 0:
+        fail("Batch 12NK invented provenance defect accounting")
+    if audit_summary.get("confirmed_provenance_metadata_defect_count", 0) < 30 or audit_summary.get("repaired_provenance_metadata_defect_count", 0) < 30:
+        fail("Batch 12NK provenance accounting regressed below 30/30")
+    if nk.get("algorithm_reopen_authorized") is not False or nk.get("transmission_impact", {}).get("status") != "NONE":
+        fail("Batch 12NK reopen/transmission scope drift")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

@@ -1,0 +1,57 @@
+{
+  "schema": "COMBINED-INDEPENDENT-DATE-CALENDAR-POLICY-PRESERVATION-EVIDENCE-R1",
+  "schema_version": "1.0.0",
+  "parent_head": "b92886d0100e50d25ac520db96b1dcd4cc2db3f9",
+  "implementation": {
+    "fusion_time_path": "src/fortune_training/combined_chart_application/fusion_time.py",
+    "fusion_time_blob_sha": "028dedce23dba891737e35c8190cfd1661d0d1fd",
+    "service_path": "src/fortune_training/combined_chart_application/service.py",
+    "service_blob_sha": "6fc08e88ea89f171da26455248b20e2a6ee296a4",
+    "contract_doc_path": "docs/ZIWEI-BAZI-SHARED-TIME-CREDENTIAL-R1.md",
+    "contract_doc_blob_sha": "c8d348e8c36d26916546d888d43d78268c579336"
+  },
+  "shared_contract": {
+    "required_equal_between_subsystems": [
+      "time_calendar_policy_registry_version",
+      "civil_ambiguous_time_policy"
+    ],
+    "requires_equal_ziwei_bazi_day_boundary": false,
+    "requires_equal_ziwei_bazi_calendar_date_policy": false,
+    "requires_equal_late_zi_policy": false
+  },
+  "stored_policy_snapshots": {
+    "shared_physical": [
+      "civil_ambiguous_time_policy",
+      "time_coordinate_policy"
+    ],
+    "ziwei": [
+      "calendar_date_policy",
+      "life_body_leap_month_policy",
+      "day_boundary_policy"
+    ],
+    "bazi": "FULL_BAZI_TIME_RESULT_SELECTED_POLICIES_SNAPSHOT"
+  },
+  "regression_surface": {
+    "late_zi_test_path": "tests/test_combined_late_zi_day_boundary_independence_r1.py",
+    "late_zi_test_blob_sha": "625ca2113b670a5603b243b28f7f7416ddde17f1",
+    "combined_application_test_path": "tests/test_combined_chart_application_v1.py",
+    "combined_application_test_blob_sha": "b1d790fe5476eaf92e7b88382014161e68cf3573",
+    "late_zi_observation": {
+      "shared_local_apparent_solar_date": "2008-11-03",
+      "shared_local_apparent_solar_clock": "23:12",
+      "bazi_day_boundary_policy": "MIDNIGHT",
+      "bazi_effective_day_date": "2008-11-03",
+      "ziwei_day_boundary_policy": "ZI_START_23",
+      "ziwei_rolls_chart_date_to_next_day": true
+    }
+  },
+  "adjudication": {
+    "status": "MODERN_COMPATIBILITY_ONLY",
+    "independent_policy_preservation_verified": true,
+    "shared_physical_time_preserved": true,
+    "subsystem_policy_collapse_detected": false,
+    "chart_algorithm_change_authorized": false,
+    "provenance_repair_required": false,
+    "historical_winner_selected": false
+  }
+}
