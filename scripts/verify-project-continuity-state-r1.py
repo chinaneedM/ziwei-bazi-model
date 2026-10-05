@@ -926,9 +926,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-JIELAN-DIGNITY-CH69-CH70-CELL-CROSS-COLLATION-ON",
     "BATCH-12-ZIWEI-JIELAN-DIGNITY-CANDIDATE-PRODUCTIZATION-OO",
     "BATCH-12-ZIWEI-ZHONGZHOU-LEAP-MONTH-DAILY-GEOMETRY-CLOSURE-OP",
+    "BATCH-12-REMAINING-PRODUCT-GAP-REPRIORITIZATION-OQ",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHONGZHOU-LEAP-MONTH-DAILY-GEOMETRY-CLOSURE-OP.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-REMAINING-PRODUCT-GAP-REPRIORITIZATION-OQ.md"
 
 
 def fail(message: str) -> None:
@@ -16515,8 +16516,41 @@ def main() -> int:
         fail("Batch 12OP current missing-product count drift")
     if audit_state.get("confirmed_provenance_metadata_defect_count") != 44 or audit_state.get("repaired_provenance_metadata_defect_count") != 44:
         fail("Batch 12OP provenance accounting drift")
-    if state.get("schema_version") != "1.410.0":
-        fail("Batch 12OP continuity schema version drift")
+    try:
+        schema12op = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12OP continuity schema version is not numeric")
+    if schema12op < (1, 410, 0):
+        fail("Batch 12OP continuity schema version regressed below 1.410.0")
+
+    # Batch 12OQ: remaining product-gap reprioritization after 12OO/12OP.
+    oq_path = ROOT / "docs/research/REMAINING-PRODUCT-GAP-REPRIORITIZATION-OQ-R1.json"
+    if not oq_path.is_file():
+        fail("Batch 12OQ prioritization record missing")
+    oq = json.loads(oq_path.read_text(encoding="utf-8"))
+    if oq.get("batch_id") != "BATCH-12-REMAINING-PRODUCT-GAP-REPRIORITIZATION-OQ":
+        fail("Batch 12OQ identity drift")
+    if oq.get("remaining_missing_from_product_count") != 4:
+        fail("Batch 12OQ remaining-gap count drift")
+    oq_queue = oq.get("ranked_queue", ())
+    expected_oq_order = ["HPA-DAYUN-CAL-003", "HPA-ZDATE-006", "HPA-DAYUN-CAL-002", "HPA-DAYUN-CAL-004"]
+    if [row.get("rule_id") for row in oq_queue] != expected_oq_order:
+        fail("Batch 12OQ ranking order drift")
+    selected_oq = oq.get("selected_next", {})
+    if selected_oq.get("rule_id") != "HPA-DAYUN-CAL-003" or selected_oq.get("batch") != "12OR":
+        fail("Batch 12OQ selected-next drift")
+    inv_oq = oq.get("invariants", {})
+    for key in ("matrix_status_changed", "runtime_changed", "production_default_changed", "candidate_selection_changed", "algorithm_reopen"):
+        if inv_oq.get(key) is not False:
+            fail(f"Batch 12OQ invariant drift: {key}")
+    if audit_state.get("current_missing_from_product_row_count") != 4:
+        fail("Batch 12OQ state missing-product count drift")
+    try:
+        schema12oq = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12OQ state version is not numeric")
+    if schema12oq < (1, 411, 0):
+        fail("Batch 12OQ state version regressed below 1.411.0")
 
     contract = state.get("continuity_contract", {})
     if contract.get("ci_gate_required") is not True:

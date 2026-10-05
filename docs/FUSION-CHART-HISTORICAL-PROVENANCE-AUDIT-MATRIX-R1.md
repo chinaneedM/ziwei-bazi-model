@@ -34,7 +34,7 @@ Every row carries:
 - proposed action;
 - explicit algorithm-reopen authorization, which is **false for every inventory row at creation**.
 
-The initial inventory contained **107 rule/field families**. Through Batch 12OP and explicit splitting of historically distinct candidate families, the current machine-readable inventory contains **222 rows**, with **222 audited rows**. It intentionally keeps unresolved source work explicit rather than converting uncertainty into a chart defect. The current audit ledger records **44 confirmed provenance metadata defects repaired forward-only at the provenance/hash-lineage layer, 0 chart algorithm defects, 0 algorithm reopens, 14 cumulatively identified missing candidate families, 4 rows currently `MISSING_FROM_PRODUCT`, 14 historical candidate extensions, 5 source-scoped historical candidate registries, and 5 runtime-resolver components**.
+The initial inventory contained **107 rule/field families**. Through Batch 12OQ and explicit splitting of historically distinct candidate families, the current machine-readable inventory contains **222 rows**, with **222 audited rows**. It intentionally keeps unresolved source work explicit rather than converting uncertainty into a chart defect. The current audit ledger records **44 confirmed provenance metadata defects repaired forward-only at the provenance/hash-lineage layer, 0 chart algorithm defects, 0 algorithm reopens, 14 cumulatively identified missing candidate families, 4 rows currently `MISSING_FROM_PRODUCT`, 14 historical candidate extensions, 5 source-scoped historical candidate registries, and 5 runtime-resolver components**.
 
 ## Research-corpus authority
 
@@ -2045,3 +2045,17 @@ Workbench now exposes the backend-computed daily palace and basis-switch fields 
 Next: **12OQ** — re-rank the four remaining product gaps (`HPA-ZDATE-006`, `HPA-DAYUN-CAL-002/003/004`) by evidence-acquisition readiness and dependency depth before resuming the highest-value blocked source route; do not repeat exhausted public-preview searches.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHONGZHOU-LEAP-MONTH-DAILY-GEOMETRY-CLOSURE-OP.md`. Research record: `docs/research/ZIWEI-ZHONGZHOU-LEAP-MONTH-DAILY-GEOMETRY-CLOSURE-R1.json`.
+
+
+## Progress — Batch 12OQ
+
+After 12OO and 12OP, four Matrix rows remain `MISSING_FROM_PRODUCT`. Batch 12OQ re-ranks them by source closure, deterministic implementation readiness, unresolved dependency depth and the ability to preserve ambiguity without coercion. No Matrix status or runtime behavior changes in this batch.
+
+1. **HPA-DAYUN-CAL-003 — later/Qianli Jiaoyun calendarization.** The worked method is explicit and the generic historical-calendar contract already exists. The narrow unresolved layer is the exact Republican/Qianli calendar coordinate, invalid-date policy, remainder-day addition and recurrence semantics.
+2. **HPA-ZDATE-006 — Nanyangtang ten-ke Zi/Hai natal-hour candidate.** Direct rule glyphs are strong, but runtime time-standard binding and the Fullbook-line inclement current-time procedure are not source-closed. Exhausted Google/public-preview routes are not to be repeated.
+3. **HPA-DAYUN-CAL-002 — classical/Ming Datong first-Jiaoyun adapter.** Evidence is extensive, but a general executable adapter still depends on qishuo geography, invalid-date/month-length arithmetic, multi-year leap behavior and general precision certification.
+4. **HPA-DAYUN-CAL-004 — ten-year historical recurrence.** This is dependency-bound to whichever first-handover historical calendar regime is eventually certified and cannot close independently.
+
+**Next: 12OR — Qianli/Republican Jiaoyun calendar-coordinate and invalid-date semantics audit.** Do not register a regime descriptor or runtime candidate until the source coordinate and arithmetic boundary close.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-REMAINING-PRODUCT-GAP-REPRIORITIZATION-OQ.md`. Research record: `docs/research/REMAINING-PRODUCT-GAP-REPRIORITIZATION-OQ-R1.json`.

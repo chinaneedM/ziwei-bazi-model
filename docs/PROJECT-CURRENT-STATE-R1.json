@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.410.0",
+  "schema_version": "1.411.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -491,9 +491,10 @@
       "BATCH-12-ZIWEI-JIELAN-DIGNITY-SOURCE-LEXEME-CANDIDATE-OM",
       "BATCH-12-ZIWEI-JIELAN-DIGNITY-CH69-CH70-CELL-CROSS-COLLATION-ON",
       "BATCH-12-ZIWEI-JIELAN-DIGNITY-CANDIDATE-PRODUCTIZATION-OO",
-      "BATCH-12-ZIWEI-ZHONGZHOU-LEAP-MONTH-DAILY-GEOMETRY-CLOSURE-OP"
+      "BATCH-12-ZIWEI-ZHONGZHOU-LEAP-MONTH-DAILY-GEOMETRY-CLOSURE-OP",
+      "BATCH-12-REMAINING-PRODUCT-GAP-REPRIORITIZATION-OQ"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHONGZHOU-LEAP-MONTH-DAILY-GEOMETRY-CLOSURE-OP.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-REMAINING-PRODUCT-GAP-REPRIORITIZATION-OQ.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -2388,7 +2389,13 @@
       "Shared projection and Workbench expose backend-computed daily geometry only; ordinary production leap monthly/daily fields remain fail-closed and the candidate remains PRESERVED_NOT_SELECTED.",
       "PROV-DEFECT-044 repaired forward-only: the live Matrix no longer says day-one/daily geometry is source-unclosed and no longer conflates natal leap-month doctrines with this flow-time candidate scope.",
       "HPA-ZT-015 changes MISSING_FROM_PRODUCT -> SUPPORTED_BUT_SCHOOL_SPECIFIC. Matrix remains 222/222 audited; SUPPORTED_BUT_SCHOOL_SPECIFIC=25; MISSING_FROM_PRODUCT=4; provenance defects 44/44; algorithm reopens/candidate collapses remain 0.",
-      "12OQ: re-rank the four remaining MISSING_FROM_PRODUCT rows (HPA-ZDATE-006 and HPA-DAYUN-CAL-002/003/004) by evidence-acquisition readiness and dependency depth; avoid exhausted preview routes."
+      "12OQ: re-rank the four remaining MISSING_FROM_PRODUCT rows (HPA-ZDATE-006 and HPA-DAYUN-CAL-002/003/004) by evidence-acquisition readiness and dependency depth; avoid exhausted preview routes.",
+      "Batch 12OQ completed: the four remaining MISSING_FROM_PRODUCT rows were re-ranked after 12OO/12OP closure; no Matrix status, runtime, production default or candidate selection changed.",
+      "12OQ rank 1 is HPA-DAYUN-CAL-003 because the Qianli worked Jiaoyun method is source-explicit and the generic historical-calendar contract already exists; the narrow unresolved layer is the Republican/Qianli calendar coordinate, invalid-date policy, remainder-day addition and recurrence semantics.",
+      "12OQ rank 2 is HPA-ZDATE-006: direct Nanyangtang Zi/Hai glyph evidence is strong, but source-closed runtime time-standard binding and the Fullbook-line inclement current-time procedure remain unresolved; exhausted public-preview routes must not be repeated.",
+      "12OQ rank 3 is HPA-DAYUN-CAL-002 because a general Ming Datong executable adapter still depends on qishuo geography, invalid-date/month-length arithmetic, multi-year leap behavior and general precision certification.",
+      "12OQ rank 4 is HPA-DAYUN-CAL-004 because ten-year historical recurrence inherits whichever first-handover historical calendar regime is eventually certified and cannot close independently.",
+      "12OR: audit the Qianli/Republican Jiaoyun worked examples for exact calendar-coordinate, invalid-date, remainder-day-addition and recurrence semantics before any regime descriptor or runtime candidate is registered."
     ],
     "historical_candidate_extension_count": 14,
     "current_missing_from_product_row_count": 4
