@@ -385,3 +385,18 @@ Post-audit reconciliation confirms that **HPA-ZIWEI-015 / 016 / 022** remain `MI
 No new provenance defect was found; the existing Matrix gap descriptions remain materially correct. Matrix220/220/10, provenance36/36, chart algorithm defects/reopens/candidate collapses0. No runtime or production-default change.
 
 Next: **12NS** reconciliation of competing Four-Transformation families and the Jielan historical dignity normalization/product boundary.
+
+## Progress — Batch 12NS
+
+Post-audit reconciliation confirms that **HPA-ZIWEI-014 competing Four-Transformation table families** and **HPA-ZIWEI-018 Jielan historical dignity table** both remain `MISSING_FROM_PRODUCT`, but their partial internal coverage is now stated precisely.
+
+For Four Transformations, Jielan 1581 is already preserved in `ZIWEI-JIELAN-1581-HISTORICAL-CANDIDATES-R1@1.1.0` and the source-scoped resolver; regression tests prove its complete ten-stem target table exactly equals current `S08_CURRENT_40_ASSIGNMENT_R1`. That does **not** close the row: the genuinely divergent received-Fullbook/Zhongzhou families still lack complete source-bound selectable candidate profiles and Workbench/API table-family selection. **PROV-DEFECT-037** repairs the stale wording that failed to distinguish this partial internal source-family coverage.
+
+For dignity, the Jielan registry/resolver already preserves CH69/CH70 as `SOURCE_TABLE_PRESENT_NORMALIZATION_PENDING` with `runtime_normalized=false`. Production remains the distinct `OPERATIONAL-ZIWEI-DIGNITY-R4@4.0.0`; no source-faithful Jielan historical cell table has been normalized or exposed as a selectable profile. **PROV-DEFECT-038** updates the stale Matrix registry identity from Jielan `1.0.0` to live `1.1.0` without coercing ambiguous historical wording into the modern seven-grade scale.
+
+Matrix220/220/10; provenance38/38; chart algorithm defects/reopens/candidate collapses0. No runtime/schema/hash/rule/candidate-selection/production-default change. `transmission_impact=NONE`.
+
+Next: **12NT** — reconcile HPA-ZDATE-006 Nanyangtang Fullbook ten-ke Zi/Hai split natal birth-hour candidate against the live time-coordinate runtime/product surfaces and current source-scoped acquisition boundary.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-POST-AUDIT-FOUR-TRANSFORMATION-DIGNITY-PRODUCT-BOUNDARY-RECONCILIATION-NS.md`. Research record: `docs/research/ZIWEI-FOUR-TRANSFORMATION-DIGNITY-PRODUCT-BOUNDARY-RECONCILIATION-R1.json`.
+
