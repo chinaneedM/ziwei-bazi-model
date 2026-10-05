@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.387.0",
+  "schema_version": "1.388.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -468,9 +468,10 @@
       "BATCH-12-COMBINED-FACT-COMPUTATION-VIEW-MANIFEST-HASH-AUDIT-NP",
       "BATCH-12-POST-AUDIT-MISSING-PRODUCT-RECONCILIATION-LEAP-MONTH-NQ",
       "BATCH-12-POST-AUDIT-JIELAN-SOURCE-SCOPED-CANDIDATE-PRODUCT-SURFACE-RECONCILIATION-NR",
-      "BATCH-12-POST-AUDIT-FOUR-TRANSFORMATION-DIGNITY-PRODUCT-BOUNDARY-RECONCILIATION-NS"
+      "BATCH-12-POST-AUDIT-FOUR-TRANSFORMATION-DIGNITY-PRODUCT-BOUNDARY-RECONCILIATION-NS",
+      "BATCH-12-POST-AUDIT-NANYANGTANG-LATE-ZI-NATAL-CANDIDATE-PRODUCT-SURFACE-RECONCILIATION-NT"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-POST-AUDIT-FOUR-TRANSFORMATION-DIGNITY-PRODUCT-BOUNDARY-RECONCILIATION-NS.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-POST-AUDIT-NANYANGTANG-LATE-ZI-NATAL-CANDIDATE-PRODUCT-SURFACE-RECONCILIATION-NT.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -2210,7 +2211,15 @@
       "HPA-ZIWEI-018 remains MISSING_FROM_PRODUCT. Jielan registry v1.1.0 preserves CH69/CH70 source-table identity and the resolver emits SOURCE_TABLE_PRESENT_NORMALIZATION_PENDING with runtime_normalized=false; no source-faithful normalized dignity table or selectable historical dignity profile exists, and production OPERATIONAL-ZIWEI-DIGNITY-R4 stays distinct.",
       "PROV-DEFECT-038 repaired forward-only: HPA-ZIWEI-018 still named Jielan historical-candidate registry 1.0.0 after the live registry advanced to 1.1.0; substantive normalization/product-gap status was already correct.",
       "No runtime/schema/hash/rule/candidate-selection/chart-algorithm change: Matrix 220/220 audited / 10 current missing; provenance defects 38/38; chart algorithm defects / reopens / candidate collapses 0.",
-      "12NT: reconcile HPA-ZDATE-006 Nanyangtang Fullbook ten-ke Zi/Hai split natal birth-hour candidate against the live time-coordinate runtime/product surfaces and current source-scoped acquisition boundary."
+      "12NT: reconcile HPA-ZDATE-006 Nanyangtang Fullbook ten-ke Zi/Hai split natal birth-hour candidate against the live time-coordinate runtime/product surfaces and current source-scoped acquisition boundary.",
+      "Batch 12NT completed: HPA-ZDATE-006 Nanyangtang Fullbook ten-ke Zi/Hai split natal birth-hour candidate reconciled against the live natal runtime, profile/policy registry, package exports, local API and Workbench product surfaces.",
+      "HPA-ZDATE-006 remains MISSING_FROM_PRODUCT. NatalStructureGenerator still maps local apparent-solar 23:00..00:59 uniformly to Zi; ResolvedZiweiCalculationProfile and the time/calendar policy registry have no Ziwei natal hour-branch reclassification policy.",
+      "The public Ziwei package exports historical temporal candidates for Jielan flow-hour geometry and Zhongzhou leap-month assignment, but neither is a natal upper-half-Zi-to-Hai candidate and no Nanyangtang resolver/profile is exported.",
+      "The combined local application still exposes one production Ziwei calculation profile and no Ziwei historical natal candidate selector; Workbench likewise has no Nanyangtang late-Zi selector.",
+      "The source boundary remains intentionally fail-closed: Nanyangtang and Guangyi physically attest the explicit Hai wording, generic upper/lower-half orientation is closed, but Hai is not universal across the broader received transmission and the source-scoped runtime time-standard/current-time binding is still unresolved.",
+      "No new provenance defect was found in 12NT; the existing Matrix gap description and no-reopen firewall remain materially correct. Provenance remains 38/38.",
+      "No runtime/schema/hash/rule/candidate-selection/chart-algorithm change: Matrix 220/220 audited / 10 current missing; chart algorithm defects / reopens / candidate collapses 0.",
+      "12NU: reconcile HPA-DAYUN-CAL-002 / 003 / 004 historical Jiaoyun calendarization and ten-year recurrence candidates against the live historical-calendar adapter contract and product surfaces."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10
