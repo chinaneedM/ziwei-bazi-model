@@ -1,0 +1,45 @@
+{
+  "schema": "ZIWEI-MONTH-JIESHEN-HISTORICAL-IDENTITY-EVIDENCE-R1",
+  "schema_version": "1.0.0",
+  "parent_head": "7a1dc238958ab736b0b9074c21197a20b7f562dd",
+  "target_rule_id": "HPA-ZMINOR-023",
+  "runtime_controls": {
+    "runtime_path": "src/fortune_training/ziwei_chart/minor_stars.py",
+    "runtime_blob_sha": "1c0d72f2bd425716ee0c2ecaff6df150f650c2dd",
+    "s01_path": "sources/canonical/S01_统一输入排盘与坐标冻结库.txt",
+    "s01_blob_sha": "c7ddbea86d29abb95e9fb47ff3303a47340e650b",
+    "month_values_checked": 12,
+    "month_values_matched": 12,
+    "runtime_behavior_changed": false
+  },
+  "historical_controls": {
+    "lishimingyuan_received_transcription_contains_month_jieshen_table": true,
+    "lishimingyuan_surface_has_ocr_noise": true,
+    "xingli_kaoyuan_clean_received_text_contains_exact_table": true,
+    "xieji_bianfang_clean_received_text_contains_exact_table_and_gloss": true,
+    "historical_definition_calls_jieshen_month_deity": true,
+    "exact_zongyaoli_bibliographic_identity_closed": false,
+    "exact_lili_bibliographic_identity_closed": false,
+    "direct_cited_source_rule_text_reviewed": false
+  },
+  "identity_controls": {
+    "month_entity_id": "STAR.JIESHEN",
+    "year_entity_id": "STAR.NIANJIE",
+    "month_input_dimension": "LUNAR_MONTH",
+    "year_input_dimension": "BIRTH_YEAR_BRANCH",
+    "month_and_year_same_algorithm": false,
+    "historical_unique_identity_relation_closed": false,
+    "runtime_identity_merge": false
+  },
+  "adjudication": {
+    "row_status_before": "SOURCE_INSUFFICIENT",
+    "row_status_after": "HISTORICALLY_SUPPORTED",
+    "historical_support_scope_limited_to_month_geometry_and_month_deity_identity": true,
+    "ziwei_adoption_lineage_closed": false,
+    "year_month_identity_merged": false,
+    "runtime_behavior_changed": false,
+    "algorithm_reopen": false,
+    "candidate_selection_changed": false,
+    "provenance_defect_count_changed": false
+  }
+}
