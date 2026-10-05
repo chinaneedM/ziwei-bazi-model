@@ -38,6 +38,17 @@ from fortune_training.ziwei_chart import (
     FOUR_TRANSFORMATION_HISTORICAL_RESOLVER_ID,
     FOUR_TRANSFORMATION_HISTORICAL_RESOLVER_VERSION,
     FOUR_TRANSFORMATION_HISTORICAL_SELECTION_STATUS,
+    JIELAN_1581_DIGNITY_CANDIDATE_API_ID,
+    JIELAN_1581_DIGNITY_CANDIDATE_API_VERSION,
+    JIELAN_1581_DIGNITY_CROSS_COLLATION_ID,
+    JIELAN_1581_DIGNITY_CROSS_COLLATION_STATUS,
+    JIELAN_1581_DIGNITY_CROSS_COLLATION_VERSION,
+    JIELAN_1581_DIGNITY_LEXEME_CANDIDATE_ID,
+    JIELAN_1581_DIGNITY_LEXEME_REGISTRY_ID,
+    JIELAN_1581_DIGNITY_LEXEME_REGISTRY_VERSION,
+    JIELAN_1581_DIGNITY_LEXEME_RESOLVER_ID,
+    JIELAN_1581_DIGNITY_LEXEME_RESOLVER_VERSION,
+    JIELAN_1581_DIGNITY_SELECTION_STATUS,
     JIELAN_1581_CANDIDATE_API_ID,
     JIELAN_1581_CANDIDATE_API_VERSION,
     JIELAN_1581_PRODUCT_FACT_KEYS,
@@ -49,6 +60,8 @@ from fortune_training.ziwei_chart import (
     build_production_ziwei_profile,
     historical_candidate_hash,
     historical_four_transformation_candidate_registry_hash,
+    jielan_1581_dignity_ch69_ch70_cross_collation_payload,
+    jielan_1581_dignity_lexeme_registry_hash,
 )
 
 from .local_app_assets import APP_JS, INDEX_HTML, STYLE_CSS
@@ -224,6 +237,30 @@ class LocalCombinedChartApplication:
                     "registry_hash": historical_candidate_hash(),
                     "released_fact_keys": JIELAN_1581_PRODUCT_FACT_KEYS,
                     "workbench_api_endpoint": "/api/ziwei-jielan-1581-candidate",
+                    "production_winner_selected": False,
+                    "production_profile_changed": False,
+                },
+                {
+                    "candidate_api_id": JIELAN_1581_DIGNITY_CANDIDATE_API_ID,
+                    "candidate_api_version": JIELAN_1581_DIGNITY_CANDIDATE_API_VERSION,
+                    "rule_set_id": JIELAN_1581_DIGNITY_LEXEME_REGISTRY_ID,
+                    "rule_set_version": JIELAN_1581_DIGNITY_LEXEME_REGISTRY_VERSION,
+                    "candidate_id": JIELAN_1581_DIGNITY_LEXEME_CANDIDATE_ID,
+                    "selection_status": JIELAN_1581_DIGNITY_SELECTION_STATUS,
+                    "runtime_resolver_id": JIELAN_1581_DIGNITY_LEXEME_RESOLVER_ID,
+                    "runtime_resolver_version": JIELAN_1581_DIGNITY_LEXEME_RESOLVER_VERSION,
+                    "registry_hash": jielan_1581_dignity_lexeme_registry_hash(),
+                    "cross_collation_id": JIELAN_1581_DIGNITY_CROSS_COLLATION_ID,
+                    "cross_collation_version": JIELAN_1581_DIGNITY_CROSS_COLLATION_VERSION,
+                    "cross_collation_status": JIELAN_1581_DIGNITY_CROSS_COLLATION_STATUS,
+                    "cross_collation_hash": (
+                        jielan_1581_dignity_ch69_ch70_cross_collation_payload()[
+                            "cross_collation_hash"
+                        ]
+                    ),
+                    "production_grade_mapping_present": False,
+                    "ch69_used_to_fill_ch70": False,
+                    "workbench_api_endpoint": "/api/ziwei-jielan-1581-dignity-candidate",
                     "production_winner_selected": False,
                     "production_profile_changed": False,
                 },
