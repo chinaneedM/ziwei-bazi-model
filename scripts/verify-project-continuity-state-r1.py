@@ -908,7 +908,7 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-UNRESOLVED-HISTORICAL-STATUS-PRIORITIZATION-NV",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-UNRESOLVED-HISTORICAL-STATUS-PRIORITIZATION-NV.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZI-WU-SHENZHU-FIRE-BELL-EVIDENCE-CLOSURE-NW.md"
 
 
 def fail(message: str) -> None:
@@ -15857,6 +15857,79 @@ def main() -> int:
         fail("Batch 12NV state version is not numeric")
     if schema12nv < (1, 390, 0):
         fail("Batch 12NV state version regressed below 1.390.0")
+
+
+    # Batch 12NW: preserve the Zi/Wu Shenzhu Fire/Bell composite and narrow the operational compatibility claim.
+    nw_path = ROOT / "docs/research/ZIWEI-ZI-WU-SHENZHU-FIRE-BELL-EVIDENCE-CLOSURE-R1.json"
+    nw_evidence_path = ROOT / "docs/research/evidence/batch-12nw/ziwei-zi-wu-shenzhu-fire-bell-evidence-closure.json"
+    if not nw_path.is_file() or not nw_evidence_path.is_file():
+        fail("Batch 12NW research/evidence record missing")
+    nw = json.loads(nw_path.read_text(encoding="utf-8"))
+    nw_evidence = json.loads(nw_evidence_path.read_text(encoding="utf-8"))
+    nw_id = "BATCH-12-ZIWEI-ZI-WU-SHENZHU-FIRE-BELL-EVIDENCE-CLOSURE-NW"
+    if nw.get("batch_id") != nw_id or nw.get("prior_batch_id") != nv_id:
+        fail("Batch 12NW chronology drift")
+    if nw_id in rule_batches:
+        fail("Batch 12NW evidence closure must not be enrolled as a supplemental rule-audit batch")
+    if nw.get("batch_classification") != "POST_AUDIT_EVIDENCE_CLOSURE_NOT_SUPPLEMENTAL_RULE_AUDIT":
+        fail("Batch 12NW batch classification drift")
+    if nw.get("target_rule_ids") != ["HPA-ZIWEI-023"] or nw.get("target_status_after") != "SOURCE_INSUFFICIENT":
+        fail("Batch 12NW target/status drift")
+    row23_nw = next((r for r in matrix["rows"] if r["rule_id"] == "HPA-ZIWEI-023"), None)
+    if row23_nw is None or row23_nw.get("audit_status") != "SOURCE_INSUFFICIENT":
+        fail("Batch 12NW HPA-ZIWEI-023 status drift")
+    if row23_nw.get("defect_id") != "PROV-DEFECT-040" or row23_nw.get("repair_status") != "REPAIRED_IN_BATCH_12NW_FORWARD_ONLY":
+        fail("Batch 12NW provenance repair drift")
+    if row23_nw.get("evidence_closure_batch") != nw_id:
+        fail("Batch 12NW Matrix closure binding drift")
+    surface_nw = row23_nw.get("product_surface_reconciliation", {})
+    for key in ("strict_qs_zi_wu_fails_closed", "production_zi_wu_fire", "jielan_zi_wu_composite", "existing_zi_year_wenmo_fixture_only_discriminates_fire_bell_placements"):
+        if surface_nw.get(key) is not True:
+            fail(f"Batch 12NW positive control drift: {key}")
+    for key in ("jielan_runtime_winner_selected", "zi_wu_role_binding_has_dedicated_wenmo_compat_ref", "repository_has_zi_or_wu_shenzhu_role_compat_fixture", "production_default_changed"):
+        if surface_nw.get(key) is not False:
+            fail(f"Batch 12NW ambiguity/compatibility firewall drift: {key}")
+    runtime_nw = nw.get("runtime_boundary", {})
+    if runtime_nw.get("strict_qs_diagnostic") != "QS_SHENZHU_ZI_WU_TEXTUAL_AMBIGUITY":
+        fail("Batch 12NW strict-QS diagnostic drift")
+    if runtime_nw.get("jielan_status") != "TEXTUAL_COMPOSITE_FIRE_BELL_NOT_UNIQUELY_ARBITRATED" or runtime_nw.get("jielan_winner_selected") is not False:
+        fail("Batch 12NW Jielan ambiguity drift")
+    if runtime_nw.get("production_fire_default") is not True or runtime_nw.get("dedicated_compat_ref_for_zi_wu") is not False:
+        fail("Batch 12NW production compatibility boundary drift")
+    fixture_nw = nw.get("compatibility_fixture_boundary", {})
+    if fixture_nw.get("dedicated_zi_wu_shenzhu_compatibility_fixture") is not False or fixture_nw.get("only_observed_role_fixture_branch") != "巳":
+        fail("Batch 12NW Wenmo fixture boundary drift")
+    repairs_nw = nw.get("provenance_repairs", ())
+    if len(repairs_nw) != 1 or repairs_nw[0].get("defect_id") != "PROV-DEFECT-040":
+        fail("Batch 12NW provenance repair identity drift")
+    if any(repairs_nw[0].get(k) is not False for k in ("runtime_behavior_effect", "fact_hash_effect", "computation_hash_effect", "candidate_selection_effect")):
+        fail("Batch 12NW provenance repair firewall drift")
+    accounting_nw = nw.get("accounting", {})
+    if accounting_nw.get("provenance_defects_confirmed_after") != 40 or accounting_nw.get("provenance_defects_repaired_after") != 40 or accounting_nw.get("source_insufficient_after") != 11:
+        fail("Batch 12NW accounting drift")
+    if audit_summary.get("confirmed_provenance_metadata_defect_count", 0) < 40 or audit_summary.get("repaired_provenance_metadata_defect_count", 0) < 40:
+        fail("Batch 12NW Matrix provenance accounting must retain at least 40/40")
+    if audit_state.get("confirmed_provenance_metadata_defect_count", 0) < 40 or audit_state.get("repaired_provenance_metadata_defect_count", 0) < 40:
+        fail("Batch 12NW state provenance accounting must retain at least 40/40")
+    roles_text_nw = (ROOT / "src/fortune_training/ziwei_chart/roles.py").read_text(encoding="utf-8")
+    for phrase in (
+        "Zi/Wu -> Fire is the operational compatibility default",
+        "no dedicated Wenmo Zi/Wu ROLE.SHENZHU fixture is currently bound",
+        "does not claim historical arbitration",
+    ):
+        if phrase not in roles_text_nw:
+            fail(f"Batch 12NW runtime documentation boundary missing: {phrase}")
+    adj_nw = nw_evidence.get("adjudication", {})
+    if adj_nw.get("row_status") != "SOURCE_INSUFFICIENT" or adj_nw.get("runtime_behavior_changed") is not False or adj_nw.get("candidate_selection_changed") is not False or adj_nw.get("production_default_changed") is not False:
+        fail("Batch 12NW evidence adjudication drift")
+    if nw.get("transmission_impact", {}).get("status") != "NONE":
+        fail("Batch 12NW transmission scope drift")
+    try:
+        schema12nw = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12NW state version is not numeric")
+    if schema12nw < (1, 391, 0):
+        fail("Batch 12NW state version regressed below 1.391.0")
     try:
         schema12ns = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
     except ValueError:
