@@ -562,3 +562,20 @@ No runtime/profile/rule-set/hash/candidate/default change and no algorithm reope
 Next: **12OD — re-rank the remaining SOURCE_INSUFFICIENT / NOT_YET_FORMALIZED work queue after completing the active month-table provenance trio.**
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-YINSHA-MODERN-RECEIVED-SOURCE-BOUNDARY-OC.md`. Research record: `docs/research/ZIWEI-YINSHA-MODERN-RECEIVED-SOURCE-BOUNDARY-R1.json`.
+
+
+## Progress — Batch 12OD
+
+After 12NZ–12OC, unresolved work is re-ranked rather than continued by row number. Current inventory remains **30 DISPUTED_MULTIPLE_CANDIDATES / 9 SOURCE_INSUFFICIENT / 1 NOT_YET_FORMALIZED**.
+
+The remaining source-insufficient set is now mostly decomposed parents, recently source-bounded month rows, non-semantic display ordering, fail-closed/absent behavior, or rows already deeply audited in 12NW/12NX. Its marginal closure value is lower than active disputed production selections.
+
+The next priority therefore shifts back to the disputed queue. **HPA-ZMINOR-022 YueDe** is selected first: production currently uses the Zi-year-Si-start family, while received Fullbook preserves a competing Zi-start family, and temporal scope still needs explicit typing. This is a compact, directly product-relevant candidateization problem.
+
+Second tier: HPA-ZMINOR-008 TianShou Body/Life basis and HPA-ZMINOR-007 TianChu competing tables. High-impact late-Zi/date-boundary families remain important but already have extensive candidate preservation and historical-coordinate audits.
+
+No Matrix status, runtime, default, candidate selection or algorithm changed.
+
+Next: **12OE — HPA-ZMINOR-022 YueDe Si-start vs Zi-start historical families and natal/flow temporal candidate closure**.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-UNRESOLVED-HISTORICAL-STATUS-REPRIORITIZATION-OD.md`. Research record: `docs/research/HISTORICAL-UNRESOLVED-STATUS-REPRIORITIZATION-OD-R1.json`.
