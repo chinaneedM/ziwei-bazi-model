@@ -905,9 +905,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-POST-AUDIT-FOUR-TRANSFORMATION-DIGNITY-PRODUCT-BOUNDARY-RECONCILIATION-NS",
     "BATCH-12-POST-AUDIT-NANYANGTANG-LATE-ZI-NATAL-CANDIDATE-PRODUCT-SURFACE-RECONCILIATION-NT",
     "BATCH-12-POST-AUDIT-DAYUN-HISTORICAL-CALENDAR-CANDIDATE-PRODUCT-SURFACE-RECONCILIATION-NU",
+    "BATCH-12-UNRESOLVED-HISTORICAL-STATUS-PRIORITIZATION-NV",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-POST-AUDIT-DAYUN-HISTORICAL-CALENDAR-CANDIDATE-PRODUCT-SURFACE-RECONCILIATION-NU.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-UNRESOLVED-HISTORICAL-STATUS-PRIORITIZATION-NV.md"
 
 
 def fail(message: str) -> None:
@@ -15795,6 +15796,67 @@ def main() -> int:
         fail("Batch 12NU state version is not numeric")
     if schema12nu < (1, 389, 0):
         fail("Batch 12NU state version regressed below 1.389.0")
+
+
+    # Batch 12NV: prioritize remaining unresolved statuses by active-output provenance risk.
+    nv_path = ROOT / "docs/research/HISTORICAL-UNRESOLVED-STATUS-PRIORITIZATION-R1.json"
+    nv_evidence_path = ROOT / "docs/research/evidence/batch-12nv/historical-unresolved-status-prioritization.json"
+    if not nv_path.is_file() or not nv_evidence_path.is_file():
+        fail("Batch 12NV research/evidence record missing")
+    nv = json.loads(nv_path.read_text(encoding="utf-8"))
+    nv_evidence = json.loads(nv_evidence_path.read_text(encoding="utf-8"))
+    nv_id = "BATCH-12-UNRESOLVED-HISTORICAL-STATUS-PRIORITIZATION-NV"
+    if nv.get("batch_id") != nv_id or nv.get("prior_batch_id") != nu_id:
+        fail("Batch 12NV chronology drift")
+    if nv_id in rule_batches:
+        fail("Batch 12NV prioritization must not be enrolled as a supplemental rule-audit batch")
+    if nv.get("batch_classification") != "POST_AUDIT_PRIORITIZATION_NOT_SUPPLEMENTAL_RULE_AUDIT":
+        fail("Batch 12NV batch classification drift")
+    snap_nv = nv.get("matrix_snapshot", {})
+    if snap_nv.get("rows") != 220 or snap_nv.get("audited_rows") != 220:
+        fail("Batch 12NV Matrix snapshot cardinality drift")
+    expected_statuses_nv = {
+        "MODERN_COMPATIBILITY_ONLY": 50,
+        "HISTORICALLY_SUPPORTED": 94,
+        "DISPUTED_MULTIPLE_CANDIDATES": 30,
+        "SUPPORTED_BUT_SCHOOL_SPECIFIC": 24,
+        "SOURCE_INSUFFICIENT": 11,
+        "MISSING_FROM_PRODUCT": 10,
+        "NOT_YET_FORMALIZED": 1,
+    }
+    if snap_nv.get("statuses") != expected_statuses_nv:
+        fail("Batch 12NV status inventory drift")
+    if snap_nv.get("current_missing_from_product_all_post_audit_reconciled") is not True:
+        fail("Batch 12NV missing-product reconciliation closure drift")
+    selected_nv = nv.get("selected_next_target", {})
+    if selected_nv.get("rule_id") != "HPA-ZIWEI-023" or selected_nv.get("next_batch_id") != "BATCH-12-ZIWEI-ZI-WU-SHENZHU-FIRE-BELL-EVIDENCE-CLOSURE-NW":
+        fail("Batch 12NV next-target priority drift")
+    row23_nv = next((r for r in matrix["rows"] if r["rule_id"] == "HPA-ZIWEI-023"), None)
+    if row23_nv is None or row23_nv.get("audit_status") != "SOURCE_INSUFFICIENT":
+        fail("Batch 12NV HPA-ZIWEI-023 source status drift")
+    if "production Wenmo profile resolves Zi/Wu to Fire" not in row23_nv.get("current_implementation", ""):
+        fail("Batch 12NV HPA-ZIWEI-023 production-risk anchor drift")
+    if row23_nv.get("algorithm_reopen_authorized") is not False:
+        fail("Batch 12NV HPA-ZIWEI-023 reopen firewall drift")
+    controls_nv = nv_evidence.get("shenzhu_runtime_and_source_controls", {})
+    if controls_nv.get("production_zi_wu_fire_selection") is not True or controls_nv.get("strict_qs_zi_wu_ambiguity_error") is not True:
+        fail("Batch 12NV Shenzhu runtime controls drift")
+    if controls_nv.get("jielan_shenzhu_status") != "TEXTUAL_COMPOSITE_FIRE_BELL_NOT_UNIQUELY_ARBITRATED" or controls_nv.get("jielan_runtime_winner_selected") is not False:
+        fail("Batch 12NV Jielan Shenzhu ambiguity control drift")
+    adjudication_nv = nv_evidence.get("adjudication", {})
+    if adjudication_nv.get("selected_next_rule_id") != "HPA-ZIWEI-023":
+        fail("Batch 12NV evidence next target drift")
+    for key in ("matrix_status_changed", "runtime_behavior_changed", "candidate_selection_changed", "production_default_changed", "provenance_defect_count_changed", "transmission_edge_created"):
+        if adjudication_nv.get(key) is not False:
+            fail(f"Batch 12NV no-change firewall drift: {key}")
+    if nv.get("transmission_impact", {}).get("status") != "NONE":
+        fail("Batch 12NV transmission scope drift")
+    try:
+        schema12nv = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12NV state version is not numeric")
+    if schema12nv < (1, 390, 0):
+        fail("Batch 12NV state version regressed below 1.390.0")
     try:
         schema12ns = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
     except ValueError:
