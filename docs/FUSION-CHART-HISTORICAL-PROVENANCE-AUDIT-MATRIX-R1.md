@@ -1654,3 +1654,18 @@ Next: **12NX — HPA-ZIWEI-026 Jiangqian temporal/source-scope evidence closure*
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZI-WU-SHENZHU-FIRE-BELL-EVIDENCE-CLOSURE-NW.md`. Research record: `docs/research/ZIWEI-ZI-WU-SHENZHU-FIRE-BELL-EVIDENCE-CLOSURE-R1.json`.
 
+## Progress — Batch 12NX
+
+`HPA-ZIWEI-026` **Jiangqian twelve-member trine-wang ring and temporal/source scope** remains `SOURCE_INSUFFICIENT`.
+
+The runtime boundary is now explicit: `RING.JIANGQIAN12` is a natal fact. `ZiweiChartFoundation` passes `structure.ziwei_birth_year_branch` into `WenmoDefaultRingGenerator.jiangqian()`, which applies the four trine-wang anchors and the fixed twelve-member forward order. No annual-target ring is currently materialized.
+
+Historical/received evidence requires a separate temporal-scope distinction. The 1581 Jielan line has an explicitly titled `定流年太岁所值凶星图` chapter whose 驿马 rule is computed from the year-branch trine; this closes an early Ziwei **flow-year related shensha context**, but the reviewed public chapter does not contain the complete Jiangqian twelve-member sequence. A modern Zhongzhou received manual does preserve the complete `将星三合起旺地...指背咸池月煞亡` sequence, and modern derived rule surfaces apply the same geometry both to birth-year and flow-year branches.
+
+Therefore natal and annual use are **distinct temporal applications, not mutually exclusive winner candidates**. The existence of the annual layer does not authorize rewriting the natal ring, while the natal product does not erase annual practice. The unresolved gate is narrower: an edition-bound early complete twelve-member Jiangqian passage plus explicit scope instruction remains unclosed.
+
+No new provenance defect was confirmed because Batch 12MV already required separately sourced annual-target implementation. Provenance remains 40/40. No runtime/profile/schema/hash/rule/candidate/chart-algorithm change; Matrix 220/220 audited / 10 current missing; chart algorithm defects/reopens/candidate collapses 0. `transmission_impact=NONE`.
+
+Next: **12NY — HPA-ZMINOR-020 standalone Feilian identity collision**, preserving identity boundaries among Boshi 飞廉, year-branch 蜚廉 and same-coordinate facts.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JIANGQIAN-TEMPORAL-SOURCE-SCOPE-EVIDENCE-CLOSURE-NX.md`. Research record: `docs/research/ZIWEI-JIANGQIAN-TEMPORAL-SOURCE-SCOPE-CLOSURE-R1.json`.
