@@ -315,3 +315,14 @@ Batch 12AQ resolves the 1581 Jielan bibliographic-imprint conflict by returning 
 ### Historical provenance audit — Batch 12AR
 
 Batch 12AR closes the reviewed public Google Books / Google Play preview route for Jielan PT49 without promoting index OCR to glyph authority. The public Play reader directly source-emits a signed PT49 image URL; the same route returns a genuine PT48 facsimile positive control, but PT49 and PT50 return the identical visible `image not available` placeholder. English accessible mode returns 403 and the source-emitted new-Books route redirects to classic Books without a PT49 image object. The iRead runner timeout is execution-environment access-boundary only. `HPA-ZDATE-006` remains `MISSING_FROM_PRODUCT`; 198/166/10/14 and provenance 11/11 remain unchanged. Evidence: `docs/research/ZIWEI-JIELAN-PT49-PUBLIC-PREVIEW-ACCESS-BOUNDARY-R1.json`.
+
+
+## Progress — Batch 12NM
+
+HPA-COMB-005 Shared target → Ziwei projection is audited as **MODERN_COMPATIBILITY_ONLY**. The shared projection binds the existing target-candidate identity and hashes, then replays Ziwei's own calendar/date-boundary rules; it is not a historical doctrine layer.
+
+**PROV-DEFECT-032** repairs stale Matrix provenance: the old source scope stopped at R1.10, while current runtime also exposes separately source-scoped 1581 day-anchored flow-hour and Zhongzhou leap-month candidates. Their historical authority remains upstream and both stay `PRESERVED_NOT_SELECTED`.
+
+Matrix220/217/10, provenance32/32, chart algorithm defects/reopens/candidate collapses0. No runtime or candidate-selection change. `transmission_impact=NONE`.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-COMBINED-SHARED-TARGET-ZIWEI-PROJECTION-AUDIT-NM.md`. Research record: `docs/research/COMBINED-SHARED-TARGET-ZIWEI-PROJECTION-AUDIT-R1.json`.

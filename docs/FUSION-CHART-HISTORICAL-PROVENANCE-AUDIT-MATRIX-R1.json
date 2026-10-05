@@ -80,7 +80,7 @@
       "candidate/profile rules": 2,
       "provenance / hashes / lineage": 2
     },
-    "audited_row_count": 216
+    "audited_row_count": 217
   },
   "rows": [
     {
@@ -3215,20 +3215,29 @@
       "system": "COMBINED",
       "module": "Combined Fusion",
       "rule_or_field": "Shared target → Ziwei projection",
-      "current_implementation": "Read-only projection preserves released Daxian/Annual/Month/MinorLimit/Daily identities and candidates.",
-      "current_profile": "Combined shared Ziwei projection",
-      "primary_source": "composition of released Ziwei rules",
-      "source_quote": "PENDING_VERBATIM_EXTRACTION",
-      "source_quote_location": "docs/SHARED-ZIWEI-TARGET-PROJECTION-PRODUCTIZATION-R1.md",
-      "historical_period": "MODERN",
-      "later_witnesses": "N/A",
-      "school_attribution": "MODERN_SOFTWARE_ARCHITECTURE",
-      "competing_methods": [],
-      "current_implementation_match": "MATCHES_DECLARED_COMPOSITION_SCOPE",
-      "confidence": "HIGH",
+      "current_implementation": "SharedZiweiSelectorProjectionService replays each shared target candidate under Ziwei's own calendar/day-boundary policies and read-only projects released Daxian/Annual/Month/MinorLimit/Daily layers plus ordinary hourly candidates, source-scoped 1581 day-anchored hourly candidates, and Zhongzhou leap-month candidates without selecting a winner.",
+      "current_profile": "SHARED-ZIWEI-SELECTOR-PROJECTION-RESOLUTION-R1 / SharedZiweiSelectorProjectionService",
+      "primary_source": "Modern shared-target projection service over released Ziwei temporal frames; historical authority for embedded Ziwei methods remains upstream in their source-scoped rule/candidate records.",
+      "source_quote": "No doctrinal arbitration is added in R1.10.",
+      "source_quote_location": "src/fortune_training/combined_chart_application/shared_time_service.py SharedZiweiSelectorProjectionService.project; docs/SHARED-ZIWEI-TARGET-PROJECTION-PRODUCTIZATION-R1.md; docs/ZIWEI-TEMPORAL-HISTORICAL-CANDIDATE-PRODUCTIZATION-R1.md; src/fortune_training/ziwei_chart/temporal_historical_candidates.py; tests/test_shared_target_ziwei_selector_projection_r1.py; tests/test_shared_ziwei_historical_temporal_candidates_r1.py",
+      "historical_period": "MODERN_SOFTWARE_PROJECTION_ARCHITECTURE",
+      "later_witnesses": "Unified target-flow productization, Workbench read-only projection, Fusion R2 binding, and source-scoped temporal historical-candidate regressions",
+      "school_attribution": "MODERN_SOFTWARE_ARCHITECTURE_DELEGATING_HISTORICAL_AUTHORITY_TO_UPSTREAM_ZIWEI_RULES",
+      "competing_methods": [
+        "RECOMPUTE_A_SECOND_INDEPENDENT_TARGET_COORDINATE_FOR_ZIWEI",
+        "SILENTLY_SELECT_ONE_HOURLY_OR_LEAP_MONTH_METHOD",
+        "CURRENT_SHARED_TARGET_IDENTITY_PLUS_ZIWEI_OWN_POLICY_REPLAY_AND_PRESERVED_CANDIDATES"
+      ],
+      "current_implementation_match": "EXACT: projection binds the same target candidate identity/hashes, recomputes Ziwei effective date under Ziwei policy, preserves released layer identities and candidate families, keeps leap regular month/day fail-closed while exposing the separate Zhongzhou month-assignment candidate, and full replay rejects drift.",
+      "confidence": "HIGH_FOR_RELEASED_PROJECTION_AND_REPLAY_SCOPE; HISTORICAL_AUTHORITY_DELEGATED_UPSTREAM",
       "audit_status": "MODERN_COMPATIBILITY_ONLY",
-      "proposed_action": "Keep as non-authoritative projection layer.",
-      "algorithm_reopen_authorized": false
+      "proposed_action": "Keep as a non-authoritative projection/composition layer. Audit historical Ziwei mechanics in their upstream source-scoped rows and registries; preserve all projection candidates and never infer doctrinal authority or winner status from the combined projection.",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-12-COMBINED-SHARED-TARGET-ZIWEI-PROJECTION-AUDIT-NM",
+      "defect_id": "PROV-DEFECT-032",
+      "defect_type": "HPA_COMB_005_SOURCE_SCOPE_STOPPED_AT_R1_10_AND_OMITTED_LATER_SOURCE_SCOPED_TEMPORAL_CANDIDATES",
+      "repair_status": "REPAIRED_IN_BATCH_12NM_FORWARD_ONLY",
+      "repair_action": "Expanded Matrix provenance from the original R1.10 productization document to the current projection service plus temporal historical-candidate productization/runtime/tests. No runtime, schema, hash algorithm, chart fact, candidate selection, or Ziwei algorithm changed."
     },
     {
       "rule_id": "HPA-COMB-006",
@@ -7331,12 +7340,13 @@
     "HPA-ZT-016",
     "HPA-COMB-001",
     "HPA-COMB-002",
-    "HPA-COMB-003"
+    "HPA-COMB-003",
+    "HPA-COMB-005"
   ],
   "audit_summary": {
     "confirmed_chart_algorithm_defect_count": 0,
-    "confirmed_provenance_metadata_defect_count": 31,
-    "repaired_provenance_metadata_defect_count": 31,
+    "confirmed_provenance_metadata_defect_count": 32,
+    "repaired_provenance_metadata_defect_count": 32,
     "algorithm_reopen_count": 0,
     "candidate_collapse_count": 0,
     "historical_candidate_extension_count": 6,
@@ -7374,6 +7384,7 @@
     "BATCH-12-ZIWEI-SELF-INWARD-TRANSFORMATION-DIRECTION-SOURCE-SCOPE-AUDIT-NI",
     "BATCH-12-COMBINED-SHARED-TIME-CREDENTIAL-SCOPE-AUDIT-NJ",
     "BATCH-12-COMBINED-INDEPENDENT-DATE-CALENDAR-POLICY-PRESERVATION-AUDIT-NK",
-    "BATCH-12-COMBINED-CANDIDATE-LINEAGE-PRESERVATION-AUDIT-NL"
+    "BATCH-12-COMBINED-CANDIDATE-LINEAGE-PRESERVATION-AUDIT-NL",
+    "BATCH-12-COMBINED-SHARED-TARGET-ZIWEI-PROJECTION-AUDIT-NM"
   ]
 }

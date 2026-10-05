@@ -34,7 +34,7 @@ Every row carries:
 - proposed action;
 - explicit algorithm-reopen authorization, which is **false for every inventory row at creation**.
 
-The initial inventory contained **107 rule/field families**. Through Batch 12NL and explicit splitting of historically distinct candidate families, the current machine-readable inventory contains **220 rows**, with **216 audited rows**. It intentionally keeps unresolved source work explicit rather than converting uncertainty into a chart defect. The current audit ledger records **31 confirmed provenance metadata defects repaired forward-only at the provenance/hash-lineage layer, 0 chart algorithm defects, 0 algorithm reopens, 14 cumulatively identified missing candidate families, 10 rows currently `MISSING_FROM_PRODUCT`, 6 historical candidate extensions, 3 source-scoped historical candidate registries, and 3 runtime-resolver components**.
+The initial inventory contained **107 rule/field families**. Through Batch 12NM and explicit splitting of historically distinct candidate families, the current machine-readable inventory contains **220 rows**, with **217 audited rows**. It intentionally keeps unresolved source work explicit rather than converting uncertainty into a chart defect. The current audit ledger records **32 confirmed provenance metadata defects repaired forward-only at the provenance/hash-lineage layer, 0 chart algorithm defects, 0 algorithm reopens, 14 cumulatively identified missing candidate families, 10 rows currently `MISSING_FROM_PRODUCT`, 6 historical candidate extensions, 3 source-scoped historical candidate registries, and 3 runtime-resolver components**.
 
 ## Research-corpus authority
 
@@ -1483,3 +1483,14 @@ DST-fold and mixed-uncertainty regressions preserve all shared branches and dist
 Matrix220/216/10, provenance31/31, chart algorithm defects/reopens/candidate collapses0. `transmission_impact=NONE`.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-COMBINED-CANDIDATE-LINEAGE-PRESERVATION-AUDIT-NL.md`. Research record: `docs/research/COMBINED-CANDIDATE-LINEAGE-PRESERVATION-AUDIT-R1.json`.
+
+
+## Progress — Batch 12NM
+
+HPA-COMB-005 Shared target → Ziwei projection is audited as **MODERN_COMPATIBILITY_ONLY**. The projection reuses one shared physical target-candidate identity, then applies Ziwei's own calendar/date-boundary semantics and preserves released Ziwei layer/candidate identities without doctrinal arbitration.
+
+The original Matrix source binding stopped at the R1.10 productization document. Current runtime also carries the separately productized `JIELAN-1581-DAY-ANCHORED-FLOW-HOUR-R1` and `ZHONGZHOU-LEAP-MONTH-HALF-SPLIT-R1` candidate families. **PROV-DEFECT-032** repairs that stale provenance scope by binding HPA-COMB-005 to the live projection service, historical-candidate productization/runtime and focused regressions. Historical authority remains upstream in the corresponding Ziwei source-scoped rows/registries; the Combined projection itself gains no classical authority.
+
+No runtime, schema, hash algorithm, chart fact, candidate selection or Ziwei placement rule changed. Matrix220/217/10; provenance32/32; chart algorithm defects/reopens/candidate collapses0. `transmission_impact=NONE`.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-COMBINED-SHARED-TARGET-ZIWEI-PROJECTION-AUDIT-NM.md`. Research record: `docs/research/COMBINED-SHARED-TARGET-ZIWEI-PROJECTION-AUDIT-R1.json`.

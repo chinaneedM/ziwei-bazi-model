@@ -1,0 +1,55 @@
+{
+  "schema": "COMBINED-SHARED-TARGET-ZIWEI-PROJECTION-EVIDENCE-R1",
+  "schema_version": "1.0.0",
+  "parent_head": "bde4fc4d20536264e1979c3b52f48f7ff202d73c",
+  "implementation": {
+    "shared_projection_service_path": "src/fortune_training/combined_chart_application/shared_time_service.py",
+    "shared_projection_service_blob_sha": "5681d36e4a4ab49c953d9408038d8d4fe0e3e1b2",
+    "full_replay_path": "src/fortune_training/combined_chart_application/shared_time_replay.py",
+    "full_replay_blob_sha": "f1673c64709c93b15caf4a9b5b3415d267c63a56",
+    "schema_path": "schemas/shared-ziwei-selector-projection-r1.schema.json",
+    "schema_blob_sha": "331bf4fb939894f7ac8b35f91e2aa8ba2d9afc80"
+  },
+  "productization_witnesses": {
+    "original_projection_doc": "docs/SHARED-ZIWEI-TARGET-PROJECTION-PRODUCTIZATION-R1.md",
+    "original_projection_doc_blob_sha": "8d0d7abfc06323c99a069651e5055279339ec9d5",
+    "historical_candidate_productization_doc": "docs/ZIWEI-TEMPORAL-HISTORICAL-CANDIDATE-PRODUCTIZATION-R1.md",
+    "historical_candidate_productization_doc_blob_sha": "5d51d28b142621960d4ef4748d0f2dbaf687aff0",
+    "historical_candidate_runtime_path": "src/fortune_training/ziwei_chart/temporal_historical_candidates.py",
+    "historical_candidate_runtime_blob_sha": "3df52da7cd226c510506ad73856eacd6625bf0a8"
+  },
+  "focused_regressions": {
+    "shared_projection_test": "tests/test_shared_target_ziwei_selector_projection_r1.py",
+    "shared_projection_test_blob_sha": "802790caa577a02b5cb9efc81c75a6a74dca53b0",
+    "historical_candidate_test": "tests/test_shared_ziwei_historical_temporal_candidates_r1.py",
+    "historical_candidate_test_blob_sha": "5e2659a3b828103e458c650c6c24394ee8c8257c",
+    "productization_test": "tests/test_combined_target_flow_ziwei_projection_productization_r1.py",
+    "productization_test_blob_sha": "d1bb16b94702e1ad800b4364c55358fa85bbd8e3"
+  },
+  "runtime_findings": {
+    "same_target_candidate_ids_preserved_across_bazi_and_ziwei_projection": true,
+    "dst_fold_candidates_preserved": true,
+    "ziwei_effective_lunar_date_recomputed_under_ziwei_policy": true,
+    "regular_month_daily_rule_preserved": true,
+    "ordinary_hourly_case_candidates_preserved_without_selected_hour": true,
+    "jielan_1581_historical_hourly_candidates_separate": true,
+    "zhongzhou_leap_month_candidate_separate": true,
+    "leap_regular_month_and_daily_production_frames_still_fail_closed": true,
+    "full_replay_compares_complete_projection_object": true
+  },
+  "provenance_repair": {
+    "defect_id": "PROV-DEFECT-032",
+    "before": "HPA-COMB-005 pointed only to the original R1.10 projection productization document and summarized pre-extension layer coverage.",
+    "after": "Bind HPA-COMB-005 to the live projection service plus the later source-scoped temporal historical-candidate productization/runtime/tests.",
+    "reason": "The original document remains valid for R1.10 but is no longer sufficient provenance for the current projection payload after historical temporal candidates were added.",
+    "runtime_behavior_changed": false
+  },
+  "adjudication": {
+    "status": "MODERN_COMPATIBILITY_ONLY",
+    "historical_authority_delegated_upstream": true,
+    "winner_selection": false,
+    "candidate_collapse_found": false,
+    "algorithm_reopen_authorized": false,
+    "transmission_edge_created": false
+  }
+}

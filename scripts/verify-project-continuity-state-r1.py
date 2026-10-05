@@ -896,9 +896,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-COMBINED-SHARED-TIME-CREDENTIAL-SCOPE-AUDIT-NJ",
     "BATCH-12-COMBINED-INDEPENDENT-DATE-CALENDAR-POLICY-PRESERVATION-AUDIT-NK",
     "BATCH-12-COMBINED-CANDIDATE-LINEAGE-PRESERVATION-AUDIT-NL",
+    "BATCH-12-COMBINED-SHARED-TARGET-ZIWEI-PROJECTION-AUDIT-NM",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-COMBINED-CANDIDATE-LINEAGE-PRESERVATION-AUDIT-NL.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-COMBINED-SHARED-TARGET-ZIWEI-PROJECTION-AUDIT-NM.md"
 
 
 def fail(message: str) -> None:
@@ -15155,6 +15156,52 @@ def main() -> int:
         fail("Batch 12NL provenance accounting must retain at least 31/31")
     if nl.get("algorithm_reopen_authorized") is not False or nl.get("transmission_impact", {}).get("status") != "NONE":
         fail("Batch 12NL reopen/transmission scope drift")
+
+    # Batch 12NM: Shared target -> Ziwei projection remains modern composition; upstream historical candidates stay source-scoped.
+    nm_path = ROOT / "docs/research/COMBINED-SHARED-TARGET-ZIWEI-PROJECTION-AUDIT-R1.json"
+    nm_evidence_path = ROOT / "docs/research/evidence/batch-12nm/combined-shared-target-ziwei-projection.json"
+    if not nm_path.is_file() or not nm_evidence_path.is_file():
+        fail("Batch 12NM research/evidence record missing")
+    nm = json.loads(nm_path.read_text(encoding="utf-8"))
+    nm_evidence = json.loads(nm_evidence_path.read_text(encoding="utf-8"))
+    nm_id = "BATCH-12-COMBINED-SHARED-TARGET-ZIWEI-PROJECTION-AUDIT-NM"
+    if nm.get("batch_id") != nm_id or nm.get("prior_batch_id") != nl_id or nm_id not in rule_batches:
+        fail("Batch 12NM chronology drift")
+    row_nm = next(r for r in matrix["rows"] if r["rule_id"] == "HPA-COMB-005")
+    if row_nm.get("audit_status") != "MODERN_COMPATIBILITY_ONLY" or row_nm.get("audit_batch") != nm_id or "HPA-COMB-005" not in matrix["audited_row_ids"]:
+        fail("Batch 12NM shared-target Ziwei projection audit row drift")
+    contract_nm = nm.get("projection_contract", {})
+    for key in (
+        "shared_target_candidate_identity_preserved",
+        "ziwei_own_calendar_policy_replayed",
+        "ziwei_own_day_boundary_policy_replayed",
+        "read_only_projection",
+        "full_replay_required",
+        "upstream_candidate_families_preserved",
+    ):
+        if contract_nm.get(key) is not True:
+            fail(f"Batch 12NM projection contract drift: {key}")
+    if contract_nm.get("winner_selection") is not False or contract_nm.get("historical_authority_minted_by_combined_layer") is not False:
+        fail("Batch 12NM authority/winner firewall drift")
+    delegation_nm = nm.get("historical_candidate_delegation", {})
+    if delegation_nm.get("jielan_method_id") != "JIELAN-1581-DAY-ANCHORED-FLOW-HOUR-R1":
+        fail("Batch 12NM Jielan candidate identity drift")
+    if delegation_nm.get("zhongzhou_leap_method_id") != "ZHONGZHOU-LEAP-MONTH-HALF-SPLIT-R1":
+        fail("Batch 12NM Zhongzhou leap candidate identity drift")
+    if delegation_nm.get("selection_status") != "PRESERVED_NOT_SELECTED" or delegation_nm.get("historical_authority_owned_upstream") is not True:
+        fail("Batch 12NM candidate delegation scope drift")
+    repairs_nm = {x.get("defect_id") for x in nm.get("provenance_repairs", ())}
+    if repairs_nm != {"PROV-DEFECT-032"}:
+        fail("Batch 12NM provenance repair identity drift")
+    evidence_repair_nm = nm_evidence.get("provenance_repair", {})
+    if evidence_repair_nm.get("defect_id") != "PROV-DEFECT-032" or evidence_repair_nm.get("runtime_behavior_changed") is not False:
+        fail("Batch 12NM provenance repair scope drift")
+    if row_nm.get("defect_id") != "PROV-DEFECT-032" or row_nm.get("algorithm_reopen_authorized") is not False:
+        fail("Batch 12NM matrix defect/reopen scope drift")
+    if audit_summary.get("confirmed_provenance_metadata_defect_count", 0) < 32 or audit_summary.get("repaired_provenance_metadata_defect_count", 0) < 32:
+        fail("Batch 12NM provenance accounting must retain at least 32/32")
+    if nm.get("algorithm_reopen_authorized") is not False or nm.get("transmission_impact", {}).get("status") != "NONE":
+        fail("Batch 12NM reopen/transmission scope drift")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

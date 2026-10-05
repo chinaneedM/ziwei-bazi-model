@@ -1,0 +1,74 @@
+{
+  "schema": "COMBINED-SHARED-TARGET-ZIWEI-PROJECTION-AUDIT-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-COMBINED-SHARED-TARGET-ZIWEI-PROJECTION-AUDIT-NM",
+  "prior_batch_id": "BATCH-12-COMBINED-CANDIDATE-LINEAGE-PRESERVATION-AUDIT-NL",
+  "rule_id": "HPA-COMB-005",
+  "audit_status": "MODERN_COMPATIBILITY_ONLY",
+  "algorithm_reopen_authorized": false,
+  "projection_contract": {
+    "shared_target_candidate_identity_preserved": true,
+    "shared_target_coordinate_hashes_preserved": true,
+    "ziwei_own_calendar_policy_replayed": true,
+    "ziwei_own_day_boundary_policy_replayed": true,
+    "read_only_projection": true,
+    "full_replay_required": true,
+    "upstream_candidate_families_preserved": true,
+    "winner_selection": false,
+    "historical_authority_minted_by_combined_layer": false
+  },
+  "historical_candidate_delegation": {
+    "ordinary_hourly_case_candidates_status": "CANDIDATES_PRESERVED_NO_SELECTED_FRAME",
+    "jielan_method_id": "JIELAN-1581-DAY-ANCHORED-FLOW-HOUR-R1",
+    "zhongzhou_leap_method_id": "ZHONGZHOU-LEAP-MONTH-HALF-SPLIT-R1",
+    "selection_status": "PRESERVED_NOT_SELECTED",
+    "historical_authority_owned_upstream": true,
+    "leap_regular_month_and_daily_fields_remain_fail_closed": true
+  },
+  "provenance_repairs": [
+    {
+      "defect_id": "PROV-DEFECT-032",
+      "defect": "HPA_COMB_005_SOURCE_SCOPE_STOPPED_AT_R1_10_AND_OMITTED_LATER_SOURCE_SCOPED_TEMPORAL_CANDIDATES",
+      "repair": "Expand HPA-COMB-005 provenance to current SharedZiweiSelectorProjectionService plus temporal historical-candidate productization/runtime/tests while keeping historical authority on upstream Ziwei rows.",
+      "chart_algorithm_effect": false,
+      "candidate_effect": false,
+      "schema_effect": false,
+      "hash_algorithm_effect": false
+    }
+  ],
+  "unchanged_mechanics": [
+    "shared target coordinate resolution",
+    "Ziwei calendar-date policy",
+    "Ziwei day-boundary policy",
+    "released Daxian/Annual/Month/MinorLimit/Daily frames",
+    "ordinary hourly case-method candidates",
+    "1581 historical hourly candidates",
+    "Zhongzhou leap-month candidate",
+    "candidate hashes",
+    "full replay"
+  ],
+  "evidence": "docs/research/evidence/batch-12nm/combined-shared-target-ziwei-projection.json",
+  "accounting": {
+    "rows_before": 220,
+    "rows_after": 220,
+    "audited_rows_before": 216,
+    "audited_rows_after": 217,
+    "current_missing_from_product_rows": 10,
+    "provenance_defects_confirmed_before": 31,
+    "provenance_defects_confirmed_after": 32,
+    "provenance_defects_repaired_before": 31,
+    "provenance_defects_repaired_after": 32,
+    "chart_algorithm_defects": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0,
+    "new_provenance_defects": 1
+  },
+  "transmission_impact": {
+    "status": "NONE",
+    "reason": "This batch audits a modern projection/composition layer. Existing 1581 and Zhongzhou source-scoped candidate provenance remains upstream; no new transmission edge is asserted."
+  },
+  "next_gate": [
+    "12NN: audit HPA-COMB-006 Combined Target Flow Fusion R2.",
+    "Keep cross-system fusion identity/status binding separate from upstream historical Ziwei/Bazi mechanics."
+  ]
+}
