@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.364.0",
+  "schema_version": "1.365.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -37,8 +37,8 @@
     "matrix_json": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json",
     "matrix_md": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.md",
     "external_source_registry": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json",
-    "row_count": 212,
-    "audited_row_count": 192,
+    "row_count": 214,
+    "audited_row_count": 195,
     "confirmed_provenance_metadata_defect_count": 18,
     "repaired_provenance_metadata_defect_count": 18,
     "historical_candidate_registry_count": 3,
@@ -445,9 +445,10 @@
       "BATCH-12-BAZI-NATAL-FOUR-PILLAR-COMPOSITION-AUDIT-MS",
       "BATCH-12-ZIWEI-R3-BORROW-PROJECTION-SCHOOL-MECHANICS-AND-MODERN-CLOSURE-AUDIT-MT",
       "BATCH-12-ZIWEI-R5-BORROW-RESOLVED-SANFANG-COMPOSITION-AUDIT-MU",
-      "BATCH-12-ZIWEI-THREE-RING-SOURCE-SCOPE-AND-IDENTITY-AUDIT-MV"
+      "BATCH-12-ZIWEI-THREE-RING-SOURCE-SCOPE-AND-IDENTITY-AUDIT-MV",
+      "BATCH-12-ZIWEI-R4-SOURCE-PHILOLOGY-SCOPE-AUDIT-MW"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-THREE-RING-SOURCE-SCOPE-AND-IDENTITY-AUDIT-MV.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-R4-SOURCE-PHILOLOGY-SCOPE-AUDIT-MW.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -2056,7 +2057,8 @@
       "After Batch 12MU, the historical snapshot was 210 / 190 / 10; provenance defects remain 18/18; chart algorithm defects / reopens / candidate collapses remain 0. No transmission edge is added by an engineering composition audit.",
       "12MV completed: HPA-ZIWEI-011 decomposed; Changsheng/Boshi reuse 019/024, TaiSui 025 preserves four label gaps, Jiangqian 026 preserves early-source/time-layer gaps. 212 rows / 192 audited / 10 missing; zero implementation-review-required rows and no algorithm reopen.",
       "Original Wenwu1951 recovery remains PAUSED_ACCESS_UNRESOLVED_PENDING_MATERIALLY_NEW_ROUTE; direct 1951 pp.221–233, 2011 Wenji p.197 and Wenhui1951-08-18 remain NOT_REVIEWED.",
-      "12MW: audit HPA-STRUCT-004 三方四正 source text, terminology, edition/dating and school scope; its initial HISTORICALLY_SUPPORTED inventory label is not an audited verdict. Preserve the separate unresolved TaiSui label bridges and Jiangqian early-text attribution from 12MV."
+      "12MW completed: R4 decomposed into school-scoped coordinate mechanics 013 and modern identity closure 014. Explicit Zi example agrees across all 144 rotated named frames. Early exact-definition dating and modern manual impression remain unresolved; original inventory row retained as snapshot. Matrix214/195/10; provenance18/18; algorithm defects/reopens/collapses0.",
+      "12MX: audit HPA-STRUCT-006 R6 气数位. Extract its exact mechanical anchor and source passage, separate historical/school terminology from engineering closure, and replay all named-palace coordinates. Preserve R4 earliest-definition and edition gaps plus 12MV ring-source gaps."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10

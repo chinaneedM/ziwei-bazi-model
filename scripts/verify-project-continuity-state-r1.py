@@ -880,9 +880,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-R3-BORROW-PROJECTION-SCHOOL-MECHANICS-AND-MODERN-CLOSURE-AUDIT-MT",
     "BATCH-12-ZIWEI-R5-BORROW-RESOLVED-SANFANG-COMPOSITION-AUDIT-MU",
     "BATCH-12-ZIWEI-THREE-RING-SOURCE-SCOPE-AND-IDENTITY-AUDIT-MV",
+    "BATCH-12-ZIWEI-R4-SOURCE-PHILOLOGY-SCOPE-AUDIT-MW",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-THREE-RING-SOURCE-SCOPE-AND-IDENTITY-AUDIT-MV.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-R4-SOURCE-PHILOLOGY-SCOPE-AUDIT-MW.md"
 
 
 def fail(message: str) -> None:
@@ -14583,6 +14584,28 @@ def main() -> int:
             fail(f"Batch 12MV runtime drift: {obj['path']}")
     if mv.get("transmission_impact", {}).get("status") != "NONE":
         fail("Batch 12MV transmission scope drift")
+
+    # Batch 12MW: separate school coordinates from modern R4 composition.
+    mw = json.loads((ROOT / "docs/research/ZIWEI-R4-SOURCE-PHILOLOGY-SCOPE-AUDIT-R1.json").read_text())
+    mw_id = "BATCH-12-ZIWEI-R4-SOURCE-PHILOLOGY-SCOPE-AUDIT-MW"
+    if mw.get("batch_id") != mw_id or mw.get("prior_batch_id") != mv_id or mw_id not in rule_batches:
+        fail("Batch 12MW chronology drift")
+    for rid, expected in (("HPA-STRUCT-004", "MODERN_COMPATIBILITY_ONLY"), ("HPA-STRUCT-013", "SUPPORTED_BUT_SCHOOL_SPECIFIC"), ("HPA-STRUCT-014", "MODERN_COMPATIBILITY_ONLY")):
+        row_mw = next(r for r in matrix["rows"] if r["rule_id"] == rid)
+        if row_mw.get("audit_status") != expected or row_mw.get("audit_batch") != mw_id or rid not in matrix["audited_row_ids"]:
+            fail(f"Batch 12MW row scope drift: {rid}")
+    if mw["historical_scope"].get("early_exact_four_palace_definition_closed") is not False or mw["historical_scope"].get("modern_manual_exact_impression_bound") is not False:
+        fail("Batch 12MW unproved historical date/edition promoted")
+    replay_mw = json.loads((ROOT / mw["replay_evidence"]).read_text())
+    records_mw = replay_mw["records"]
+    if len(records_mw) != 144 or hashlib.sha256(json.dumps(records_mw, sort_keys=True, separators=(",", ":")).encode()).hexdigest() != replay_mw["records_sha256"]:
+        fail("Batch 12MW replay integrity drift")
+    for obj in mw["frozen_files"]:
+        raw_mw = (ROOT / obj["path"]).read_bytes()
+        if hashlib.sha1(b"blob " + str(len(raw_mw)).encode() + b"\0" + raw_mw).hexdigest() != obj["blob_sha"]:
+            fail(f"Batch 12MW frozen file drift: {obj['path']}")
+    if mw.get("algorithm_reopen_authorized") is not False or mw["transmission_impact"].get("status") != "NONE":
+        fail("Batch 12MW reopen/transmission scope drift")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

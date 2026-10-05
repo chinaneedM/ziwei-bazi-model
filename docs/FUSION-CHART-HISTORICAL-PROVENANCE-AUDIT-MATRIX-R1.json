@@ -43,12 +43,12 @@
     "algorithm_reopen_authorized"
   ],
   "inventory_summary": {
-    "row_count": 212,
+    "row_count": 214,
     "status_counts": {
-      "MODERN_COMPATIBILITY_ONLY": 42,
-      "HISTORICALLY_SUPPORTED": 97,
+      "MODERN_COMPATIBILITY_ONLY": 44,
+      "HISTORICALLY_SUPPORTED": 96,
       "DISPUTED_MULTIPLE_CANDIDATES": 30,
-      "SUPPORTED_BUT_SCHOOL_SPECIFIC": 21,
+      "SUPPORTED_BUT_SCHOOL_SPECIFIC": 22,
       "SOURCE_INSUFFICIENT": 11,
       "MISSING_FROM_PRODUCT": 10,
       "NOT_YET_FORMALIZED": 1
@@ -75,12 +75,12 @@
       "动态辅助星": 12,
       "流日": 2,
       "流时": 3,
-      "Structural R1–R8": 12,
+      "Structural R1–R8": 14,
       "Combined Fusion": 4,
       "candidate/profile rules": 2,
       "provenance / hashes / lineage": 2
     },
-    "audited_row_count": 192
+    "audited_row_count": 195
   },
   "rows": [
     {
@@ -2829,18 +2829,45 @@
       "rule_or_field": "R4 三方四正 named semantics",
       "current_implementation": "S04-SANFANG-SIZHENG-CORRECTION-R1 bound to exact S04 hashes.",
       "current_profile": "ZIWEI-STRUCTURAL-RUNTIME-V2-R4",
-      "primary_source": "S04",
-      "source_quote": "PENDING_VERBATIM_EXTRACTION",
-      "source_quote_location": "src/fortune_training/ziwei_structural/r4/profile.py",
-      "historical_period": "PENDING_BIBLIOGRAPHIC_DATING",
-      "later_witnesses": "PENDING_LATER_WITNESS_AUDIT",
-      "school_attribution": "PENDING_SCHOOL_ATTRIBUTION_AUDIT",
+      "primary_source": "Modern R4 composition of HPA-STRUCT-013 school geometry and HPA-STRUCT-014 engineering identity closure.",
+      "source_quote": "Geometry is supported by the received Zhongzhou Zi example; early term attestation is not proof of the full R4 software contract.",
+      "source_quote_location": "docs/research/ZIWEI-R4-SOURCE-PHILOLOGY-SCOPE-AUDIT-R1.json",
+      "historical_period": "MODERN_SCHOOL_MECHANICS_AND_ENGINEERING_COMPOSITION; EARLIEST_DEFINITION_UNRESOLVED",
+      "later_witnesses": "Received Jielan/Fullbook attest terms; no new facsimile or direct ancestry.",
+      "school_attribution": "MODERN_WRAPPER_WITH_SCOPED_ZHONGZHOU_MECHANICAL_WITNESS",
       "competing_methods": [],
-      "current_implementation_match": "MATCHES_REPOSITORY_CANONICAL_SOURCE",
-      "confidence": "HIGH",
-      "audit_status": "HISTORICALLY_SUPPORTED",
-      "proposed_action": "Historical dating/version audit still required, but source-to-algorithm binding is already explicit.",
-      "algorithm_reopen_authorized": false
+      "current_implementation_match": "144_ROTATED_NAMED_FRAMES_MATCH_INDEPENDENT_TABLE; SOURCE_CORRECTION_AND_RUNTIME_BYTES_UNCHANGED",
+      "confidence": "HIGH_FOR_COORDINATES; LIMITED_FOR_EDITION_AND_EARLIEST_DATE",
+      "audit_status": "MODERN_COMPATIBILITY_ONLY",
+      "proposed_action": "Aggregate audited. Keep earliest exact definition, physical edition binding and local term inclusion conventions separate; no algorithm reopen.",
+      "algorithm_reopen_authorized": false,
+      "prior_audit_snapshots": [
+        {
+          "rule_id": "HPA-STRUCT-004",
+          "system": "ZIWEI",
+          "module": "Structural R1–R8",
+          "rule_or_field": "R4 三方四正 named semantics",
+          "current_implementation": "S04-SANFANG-SIZHENG-CORRECTION-R1 bound to exact S04 hashes.",
+          "current_profile": "ZIWEI-STRUCTURAL-RUNTIME-V2-R4",
+          "primary_source": "S04",
+          "source_quote": "PENDING_VERBATIM_EXTRACTION",
+          "source_quote_location": "src/fortune_training/ziwei_structural/r4/profile.py",
+          "historical_period": "PENDING_BIBLIOGRAPHIC_DATING",
+          "later_witnesses": "PENDING_LATER_WITNESS_AUDIT",
+          "school_attribution": "PENDING_SCHOOL_ATTRIBUTION_AUDIT",
+          "competing_methods": [],
+          "current_implementation_match": "MATCHES_REPOSITORY_CANONICAL_SOURCE",
+          "confidence": "HIGH",
+          "audit_status": "HISTORICALLY_SUPPORTED",
+          "proposed_action": "Historical dating/version audit still required, but source-to-algorithm binding is already explicit.",
+          "algorithm_reopen_authorized": false
+        }
+      ],
+      "audit_batch": "BATCH-12-ZIWEI-R4-SOURCE-PHILOLOGY-SCOPE-AUDIT-MW",
+      "child_rule_ids": [
+        "HPA-STRUCT-013",
+        "HPA-STRUCT-014"
+      ]
     },
     {
       "rule_id": "HPA-STRUCT-005",
@@ -6740,6 +6767,48 @@
       "confidence": "HIGH_FOR_CURRENT_MECHANICS; INSUFFICIENT_FOR_EARLY_EDITION_AND_UNIQUE_TEMPORAL_SCOPE",
       "audit_status": "SOURCE_INSUFFICIENT",
       "proposed_action": "Retrieve primary edition-bound Jiangqian passage and temporal-layer instruction; do not backdate modern school text or convert natal rings into annual rings."
+    },
+    {
+      "system": "ZIWEI",
+      "module": "Structural R1–R8",
+      "current_profile": "ZIWEI-STRUCTURAL-RUNTIME-V2-R4@1.0.0",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-12-ZIWEI-R4-SOURCE-PHILOLOGY-SCOPE-AUDIT-MW",
+      "competing_methods": [],
+      "source_quote_location": "docs/research/ZIWEI-R4-SOURCE-PHILOLOGY-SCOPE-AUDIT-R1.json",
+      "rule_id": "HPA-STRUCT-013",
+      "rule_or_field": "R4 named trine-partner and opposition four-palace geometry",
+      "current_implementation": "Origin + offsets4/8 trine partners + offset6 opposition; canonical twelve palace names.",
+      "primary_source": "EXT-WANGTINGZHI-ZHONGZHOU-CHUJI received manual basic chart recognition heading10, explicit Zi example.",
+      "source_quote": "以子宮为主，参看辰、午、申三宫",
+      "historical_period": "MODERN_ZHONGZHOU_RECEIVED_MANUAL; EXACT_IMPRESSION_AND_EARLIEST_DEFINITION_UNRESOLVED",
+      "later_witnesses": "Received Jielan/Fullbook term attestations do not independently enumerate this complete table.",
+      "school_attribution": "ZHONGZHOU_MECHANICAL_WITNESS_NOT_UNIVERSAL_LABEL_CLAIM",
+      "current_implementation_match": "ALL_12_ROTATIONS_X_12_ORIGINS_MATCH; ORIGIN_GROUP_VS_PARTNER_PAIR_DISTINCT",
+      "confidence": "HIGH_FOR_RECEIVED_COORDINATES; NO_PHYSICAL_GLYPH_OR_EARLIEST_DATE_CLOSURE",
+      "audit_status": "SUPPORTED_BUT_SCHOOL_SPECIFIC",
+      "proposed_action": "Preserve local inclusion and 三会/三合 glossary; seek edition-bound early exact definition without source-count voting."
+    },
+    {
+      "system": "ZIWEI",
+      "module": "Structural R1–R8",
+      "current_profile": "ZIWEI-STRUCTURAL-RUNTIME-V2-R4@1.0.0",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-12-ZIWEI-R4-SOURCE-PHILOLOGY-SCOPE-AUDIT-MW",
+      "competing_methods": [],
+      "source_quote_location": "docs/research/ZIWEI-R4-SOURCE-PHILOLOGY-SCOPE-AUDIT-R1.json",
+      "rule_id": "HPA-STRUCT-014",
+      "rule_or_field": "R4 named semantic dedup/hash and immutable reference closure",
+      "current_implementation": "6 axes + 4 groups + 12 frames, stable keys and source/R2 hashes; neutral immutable composition.",
+      "primary_source": "R4 released engine/models/integrity/schema and source binding.",
+      "source_quote": "Engineering contract; not a classical quotation.",
+      "historical_period": "MODERN_SOFTWARE_CONTRACT",
+      "later_witnesses": "No ancient source may certify schema/hash/dedup contracts.",
+      "school_attribution": "ENGINEERING_NOT_HISTORICAL_SCHOOL",
+      "current_implementation_match": "REPLAY_COUNTS_KEYS_AND_RELEASED_BYTES_PRESERVED",
+      "confidence": "HIGH_FOR_ENGINEERING_SCOPE",
+      "audit_status": "MODERN_COMPATIBILITY_ONLY",
+      "proposed_action": "Keep payload identity and neutral geometry distinct from interpretation; no reopening."
     }
   ],
   "historical_research_batches": [
@@ -6973,7 +7042,10 @@
     "HPA-STRUCT-012",
     "HPA-STRUCT-005",
     "HPA-ZIWEI-025",
-    "HPA-ZIWEI-026"
+    "HPA-ZIWEI-026",
+    "HPA-STRUCT-004",
+    "HPA-STRUCT-013",
+    "HPA-STRUCT-014"
   ],
   "audit_summary": {
     "confirmed_chart_algorithm_defect_count": 0,
@@ -7000,6 +7072,7 @@
     "BATCH-12-BAZI-NATAL-FOUR-PILLAR-COMPOSITION-AUDIT-MS",
     "BATCH-12-ZIWEI-R3-BORROW-PROJECTION-SCHOOL-MECHANICS-AND-MODERN-CLOSURE-AUDIT-MT",
     "BATCH-12-ZIWEI-R5-BORROW-RESOLVED-SANFANG-COMPOSITION-AUDIT-MU",
-    "BATCH-12-ZIWEI-THREE-RING-SOURCE-SCOPE-AND-IDENTITY-AUDIT-MV"
+    "BATCH-12-ZIWEI-THREE-RING-SOURCE-SCOPE-AND-IDENTITY-AUDIT-MV",
+    "BATCH-12-ZIWEI-R4-SOURCE-PHILOLOGY-SCOPE-AUDIT-MW"
   ]
 }

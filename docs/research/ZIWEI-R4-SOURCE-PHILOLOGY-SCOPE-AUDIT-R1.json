@@ -1,0 +1,184 @@
+{
+  "schema": "ZIWEI-R4-SOURCE-PHILOLOGY-SCOPE-AUDIT-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-R4-SOURCE-PHILOLOGY-SCOPE-AUDIT-MW",
+  "prior_batch_id": "BATCH-12-ZIWEI-THREE-RING-SOURCE-SCOPE-AND-IDENTITY-AUDIT-MV",
+  "parent_rule_id": "HPA-STRUCT-004",
+  "parent_status": "MODERN_COMPATIBILITY_ONLY",
+  "new_child_rows": [
+    "HPA-STRUCT-013",
+    "HPA-STRUCT-014"
+  ],
+  "geometry_status": "SUPPORTED_BUT_SCHOOL_SPECIFIC",
+  "algorithm_reopen_authorized": false,
+  "witnesses": [
+    {
+      "source_id": "EXT-WANGTINGZHI-ZHONGZHOU-CHUJI",
+      "url": "https://pdfcoffee.com/-3994-pdf-free.html",
+      "locator": "二 入门及起例 / 对命盘之基本认识: headings 5 地支六冲, 6 地支三会局, 10 三方四正 (printed-page stream 12–15)",
+      "evidence_class": "MODERN_SCHOOL_RECEIVED_TEXT",
+      "short_quote": "以子宮为主，参看辰、午、申三宫",
+      "glyph_authority": false,
+      "claim": "The explicit Zi example identifies Chen/Shen trine partners and Wu opposition. Shorter labels in neighboring paragraphs use different inclusion conventions. All yield the same four-palace union in that example."
+    },
+    {
+      "source_id": "EXT-ZIWEI-JIELAN-SHIXINGJI-RECEIVED-RINGS",
+      "url": "https://shixingji.club/public/ziweidoushujielan",
+      "locators": [
+        "卷一（五）定男女竹罗三限",
+        "斗数发微论"
+      ],
+      "evidence_class": "RECEIVED_EDITED_TEXT_NOT_DIRECT_1581_GLYPHS",
+      "short_quote": "四正吉星定为贵，三方杀拱少为奇",
+      "claim": "Attests term usage on a received Jielan surface; these reviewed passages do not enumerate the four addresses. No whole-volume negative or earliest-date verdict."
+    },
+    {
+      "source_id": "EXT-WIKISOURCE-QUANSHU-V1-SANFANG-RECEIVED",
+      "url": "https://zh.wikisource.org/zh/紫微斗數全書/卷一",
+      "locator": "斗數發微論; 女命骨髓賦",
+      "evidence_class": "RECEIVED_TEXT_UNBOUND_TO_EXACT_PHYSICAL_EDITION",
+      "claim": "Parallel term usage corroborates the received tradition. Website assigned author/date and common wording do not prove a Song author or direct Jielan→Fullbook copying."
+    },
+    {
+      "source_id": "EXT-XINGQIAO-WANGTINGZHI-ZHONGZHOU-CHUJI",
+      "url": "https://www.ncc.com.tw/books/goods.php?id=4718",
+      "evidence_class": "MODERN_BIBLIOGRAPHIC_ONLY",
+      "claim": "Catalog corroborates title, author, publisher and 334 pages. Mirror page stream has 224-page pagination; direct edition/impression binding is not established."
+    }
+  ],
+  "philology": {
+    "reference_domain": "TWELVE_PALACE_ADDRESS_GEOMETRY_ONLY",
+    "origin_included_in_trine_group": true,
+    "trine_partner_offsets": [
+      4,
+      8
+    ],
+    "opposition_offset": 6,
+    "four_palace_union_offsets": [
+      0,
+      4,
+      6,
+      8
+    ],
+    "interval_gloss": "左右隔三宫 means three intervening cells, yielding a four-step displacement; it is not ±3. Use explicit Zi→Chen/Shen/Wu example as control.",
+    "san_hui_gloss": "The received manual labels 申子辰/寅午戌/亥卯未/巳酉丑 as 三会局 in this passage. Normalize only these enumerated groups to the trine coordinate concept, never to neighboring seasonal 三会 groups globally. OCR/type origin of the label is not adjudicated.",
+    "inclusion_gloss": "A trine group includes the origin; a trine-partner pair excludes it. Shortened 三方/四正 expressions need local subjects and inclusion scope; union agreement does not make every term identical.",
+    "interpretation_authorized": false,
+    "universal_school_label_equivalence_claimed": false
+  },
+  "historical_scope": {
+    "early_term_attestation_on_received_surfaces": true,
+    "early_exact_four_palace_definition_closed": false,
+    "direct_new_physical_collation": false,
+    "modern_manual_exact_impression_bound": false,
+    "work_composition_date": "UNRESOLVED_FOR_EARLIEST_GEOMETRIC_DEFINITION",
+    "edition_impression_date": "Jielan 1581 bibliographic route retained; no new target facsimile. Fullbook target edition unbound. Modern manual exact impression unbound.",
+    "physical_copy_date": "NO_NEW_PHYSICAL_COPY_REVIEWED",
+    "digital_surrogate_date": "PUBLIC_SURFACES_RETRIEVED_2026-10-05; retrieval date is not digitization date",
+    "direct_lineage_closed": false
+  },
+  "engineering_scope": {
+    "rule_id": "HPA-STRUCT-014",
+    "status": "MODERN_COMPATIBILITY_ONLY",
+    "facts": "6 unique opposition axes + 4 unique trine groups + 12 named frames; stable keys, R2 parent hashes, immutable schema and zero interpretive contribution are modern contracts.",
+    "source_correction": "S04 retained SF07..12 conflicts were already repaired by Issue #194 prefix. Retained bytes and precedence are preserved; no new corpus mutation or algorithm repair."
+  },
+  "access_boundaries": {
+    "nanyangtang_direct_url": "HTTP 403 in this session; no new facsimile glyph review and no source-negative inference.",
+    "catalog_shell_vs_web": "Direct shell extraction was incomplete; catalog assertions use the independently readable web retrieval, not the incomplete shell text."
+  },
+  "accounting": {
+    "rows_before": 212,
+    "rows_after": 214,
+    "audited_rows_before": 192,
+    "audited_rows_after": 195,
+    "current_missing_from_product_rows": 10,
+    "provenance_defects_confirmed": 18,
+    "provenance_defects_repaired": 18,
+    "chart_algorithm_defects": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0,
+    "new_provenance_defect": false,
+    "scope_revision_reason": "Unaudited inventory label corrected with old row preserved; no previously completed R4 historical verdict is reversed."
+  },
+  "frozen_files": [
+    {
+      "path": "src/fortune_training/ziwei_structural/r4/__init__.py",
+      "blob_sha": "47547bbd207bcaeff9c881274a47d1fe244a802c"
+    },
+    {
+      "path": "src/fortune_training/ziwei_structural/r4/engine.py",
+      "blob_sha": "5c6fbc45255ed511d5ef9e00cdfb3c23a5dddd11"
+    },
+    {
+      "path": "src/fortune_training/ziwei_structural/r4/integrity.py",
+      "blob_sha": "5090bf3971b7a123b363632e452e98286b7396e9"
+    },
+    {
+      "path": "src/fortune_training/ziwei_structural/r4/models.py",
+      "blob_sha": "0349636ab9a275aad38951f473953c5a117c93fe"
+    },
+    {
+      "path": "src/fortune_training/ziwei_structural/r4/profile.py",
+      "blob_sha": "9d2499b0c43b7961d640e009c507df22c24f6a64"
+    },
+    {
+      "path": "src/fortune_training/ziwei_structural/r4/semantics.py",
+      "blob_sha": "69a81e99570038c8d5c2ad16a227eef13836427c"
+    },
+    {
+      "path": "sources/canonical/S04_十二宫主题太极与气数位库.txt",
+      "blob_sha": "044743e21651505a1c454ad037671a0d4b6ae2c6"
+    },
+    {
+      "path": "schemas/ziwei-named-structural-semantics-v2-r4.schema.json",
+      "blob_sha": "711d545e2740e4909e749fb16bafbdcd42962136"
+    }
+  ],
+  "replay_evidence": "docs/research/evidence/batch-12mw/r4-geometry-replay.json",
+  "replay_scope": "Compiler-unit exhaustive 12 rotations × 12 named origins = 144 frames, 72 axis objects, 48 trine-group objects across rotations. Synthetic R2 inputs, not 144 natal/calendar charts; full R2/R4 chain remains covered by existing tests.",
+  "normalized_surface_digests": [
+    {
+      "surface": "wang",
+      "normalization": "UTF8 decode / remove script-style and tags / HTML unescape / collapse whitespace",
+      "text_sha256": "c4d400b68c66af4317cf1ef96ec8c43f42c41c8f9090eb4d711aa7ca8af593fa"
+    },
+    {
+      "surface": "jielan",
+      "normalization": "UTF8 decode / remove script-style and tags / HTML unescape / collapse whitespace",
+      "text_sha256": "6c25ef57b672f97873be2d76c831ed333b6b8c2a6499358cc53cf42bac31adee"
+    },
+    {
+      "surface": "fullbook",
+      "normalization": "UTF8 decode / remove script-style and tags / HTML unescape / collapse whitespace",
+      "text_sha256": "ffc997d017c0b48edfcfe4a3ff5f8039b9d9a9d04da5b3463c090416309af7d6"
+    }
+  ],
+  "transmission_impact": {
+    "status": "NONE",
+    "reason": "Scoped modern received mechanics and engineering audit; no new physical witness, earliest date or direct transmission edge proven. Local glossary bridge is recorded here, not promoted into proven historical ancestry."
+  },
+  "next_gate": [
+    "12MX: audit HPA-STRUCT-006 R6 气数位. Extract its exact mechanical anchor and source passage, separate historical/school terminology from engineering closure, and replay all named-palace coordinates. Preserve R4 earliest-definition and edition gaps plus 12MV ring-source gaps.",
+    "Wenwu1951 recovery remains paused pending a materially new access route; three direct primary-text targets remain NOT_REVIEWED."
+  ],
+  "verification": {
+    "new_tests": 5,
+    "existing_r4_tests": 12,
+    "s04_correction_tests": 6,
+    "full_unittest_count": 1907,
+    "full_unittest_status": "PASS",
+    "verify": "PASS",
+    "workbench_smoke": "PASS",
+    "workbench_http_smoke": "PASS",
+    "gates_passed": [
+      "historical provenance",
+      "continuity",
+      "transmission genealogy",
+      "deterministic product",
+      "capability/performance",
+      "credential safety"
+    ],
+    "exact_head_ci_policy": "Inspect all push workflow pages and the main full-test/smoke job for the published live HEAD; startup CI does not substitute for final CI."
+  }
+}

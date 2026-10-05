@@ -223,7 +223,7 @@ Fusion Chart Capability & Performance Acceptance R1 已正式收口。最终执�
 
 ## Fusion Chart Historical Provenance & School Audit R1
 
-最新规则审计闭环为 **Batch 12MV**：`HPA-ZIWEI-011` 博士/将前/岁前三环已分拆。长生、博士复用既有审计；岁前环保留《捷览》与当前四个名称位置的未决桥接，将前环保留早期古籍归属与时层缺口。完成 60 干支 × 男女的三环回放，共 4320 个成员；默认算法不变。Matrix 为 212 项、已审 192 项、缺失候选 10；来源缺陷 18/18，算法缺陷/重开/候选折叠均 0。下一批 12MW 审核 R4 三方四正的原文、训诂和年代。
+最新规则审计闭环为 **Batch 12MW**：R4 三方四正分为有现代中州讲义支持的坐标规则与现代工程封装。子宫示例及全部 12 旋转 × 12 主题宫共 144 个 frame 一致；古籍传录仅支持术语使用，最早完整定义与具体印次仍未闭合。保留旧行快照，默认算法及 S04 字节不变。Matrix 214 项、已审 195 项、缺失候选 10；来源缺陷 18/18，算法缺陷/重开/候选折叠 0。下一门 12MX 为 R6 气数位。
 
 ```text
 FUSION_CHART_HISTORICAL_PROVENANCE_AUDIT_R1=IN_PROGRESS
