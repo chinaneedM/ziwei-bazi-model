@@ -547,3 +547,18 @@ No runtime/profile/rule-set/hash/candidate/default change and no algorithm reope
 Next: **12OC — HPA-ZMINOR-026 Yinsha lunar-month six-value cycle**.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TIANYUE-MODERN-RECEIVED-SOURCE-BOUNDARY-OB.md`. Research record: `docs/research/ZIWEI-TIANYUE-MODERN-RECEIVED-SOURCE-BOUNDARY-R1.json`.
+
+
+## Progress — Batch 12OC
+
+`HPA-ZMINOR-026` **Yinsha lunar-month six-palace cycle** remains `SOURCE_INSUFFICIENT`.
+
+The current cycle `正七寅、二八子、三九戌、四十申、五十一午、六十二辰` is stable in modern Ziwei received material. A modern open-source implementation reproduces the exact cycle and explicitly marks its provenance as `古籍待考、后世悬曜增补`. This is useful evidence for modern compatibility and source uncertainty, not premodern authority.
+
+No qualifying premodern Ziwei exact-cycle witness was established in the reviewed public surfaces. Same-name Yinsha material from other systems remains outside this rule identity unless input dimension and placement mechanics can be bridged explicitly.
+
+No runtime/profile/rule-set/hash/candidate/default change and no algorithm reopen. Matrix remains 220/220 audited / 10 current missing; provenance defects 40/40; status distribution remains HISTORICALLY_SUPPORTED 96 / SOURCE_INSUFFICIENT 9 / DISPUTED_MULTIPLE_CANDIDATES 30 / NOT_YET_FORMALIZED 1.
+
+Next: **12OD — re-rank the remaining SOURCE_INSUFFICIENT / NOT_YET_FORMALIZED work queue after completing the active month-table provenance trio.**
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-YINSHA-MODERN-RECEIVED-SOURCE-BOUNDARY-OC.md`. Research record: `docs/research/ZIWEI-YINSHA-MODERN-RECEIVED-SOURCE-BOUNDARY-R1.json`.
