@@ -15994,6 +15994,11 @@ def main() -> int:
     for key in ("jielan_ch58_contains_complete_jiangqian_twelve_member_sequence", "early_edition_complete_ring_closed"):
         if evidence_controls_nx.get(key) is not False:
             fail(f"Batch 12NX evidence non-closure drift: {key}")
+    registry_nx = json.loads((ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json").read_text(encoding="utf-8"))
+    registry_ids_nx = {row.get("source_id") for row in registry_nx.get("sources", ())}
+    for source_id in ("EXT-ZIWEICN-JIANGQIAN-NATAL-ANNUAL-TABLE", "EXT-TANGSHIFU-JIANGQIAN-NATAL-TABLE"):
+        if source_id not in registry_ids_nx:
+            fail(f"Batch 12NX external source registry binding missing: {source_id}")
     adj_nx = nx_evidence.get("adjudication", {})
     if adj_nx.get("row_status") != "SOURCE_INSUFFICIENT" or adj_nx.get("natal_and_annual_mutually_exclusive") is not False or adj_nx.get("temporal_layers_preserved_separately") is not True:
         fail("Batch 12NX evidence adjudication drift")
