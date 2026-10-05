@@ -882,9 +882,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-THREE-RING-SOURCE-SCOPE-AND-IDENTITY-AUDIT-MV",
     "BATCH-12-ZIWEI-R4-SOURCE-PHILOLOGY-SCOPE-AUDIT-MW",
     "BATCH-12-ZIWEI-R6-QISHU-SOURCE-PHILOLOGY-SCOPE-AUDIT-MX",
+    "BATCH-12-ZIWEI-R7-ONE-SIX-SOURCE-PHILOLOGY-SCOPE-AUDIT-MY",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-R6-QISHU-SOURCE-PHILOLOGY-SCOPE-AUDIT-MX.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-R7-ONE-SIX-SOURCE-PHILOLOGY-SCOPE-AUDIT-MY.md"
 
 
 def fail(message: str) -> None:
@@ -14631,6 +14632,32 @@ def main() -> int:
             fail(f"Batch 12MX frozen file drift: {obj['path']}")
     if mx.get("algorithm_reopen_authorized") is not False or mx["transmission_impact"].get("status") != "NONE":
         fail("Batch 12MX reopen/transmission scope drift")
+
+    # Batch 12MY: premodern Hetu term is not automatic proof of modern Ziwei relative-six projection.
+    my = json.loads((ROOT / "docs/research/ZIWEI-R7-ONE-SIX-SOURCE-PHILOLOGY-SCOPE-AUDIT-R1.json").read_text())
+    my_id = "BATCH-12-ZIWEI-R7-ONE-SIX-SOURCE-PHILOLOGY-SCOPE-AUDIT-MY"
+    if my.get("batch_id") != my_id or my.get("prior_batch_id") != mx_id or my_id not in rule_batches:
+        fail("Batch 12MY chronology drift")
+    for rid, expected in (("HPA-STRUCT-007", "MODERN_COMPATIBILITY_ONLY"), ("HPA-STRUCT-017", "SUPPORTED_BUT_SCHOOL_SPECIFIC"), ("HPA-STRUCT-018", "MODERN_COMPATIBILITY_ONLY")):
+        row_my = next(r for r in matrix["rows"] if r["rule_id"] == rid)
+        if row_my.get("audit_status") != expected or row_my.get("audit_batch") != my_id or rid not in matrix["audited_row_ids"]:
+            fail(f"Batch 12MY row scope drift: {rid}")
+    hscope_my = my["historical_scope"]
+    if hscope_my.get("premodern_hetu_term_attested") is not True or hscope_my.get("premodern_ziwei_palace_projection_attested") is not False or hscope_my.get("direct_term_to_ziwei_transmission_closed") is not False:
+        fail("Batch 12MY Hetu/Ziwei chronology firewall drift")
+    firewall_my = my["engineering_firewall"]
+    if firewall_my.get("direct_event_permission") is not False or firewall_my.get("direct_endpoint_permission") is not False or firewall_my.get("modern_same_fortune_semantics_imported") is not False:
+        fail("Batch 12MY result-permission firewall drift")
+    replay_my = json.loads((ROOT / my["replay_evidence"]).read_text())
+    records_my = replay_my["records"]
+    if len(records_my) != 144 or hashlib.sha256(json.dumps(records_my, sort_keys=True, separators=(",", ":")).encode()).hexdigest() != replay_my["records_sha256"]:
+        fail("Batch 12MY replay integrity drift")
+    for obj in my["frozen_files"]:
+        raw_my = (ROOT / obj["path"]).read_bytes()
+        if hashlib.sha1(b"blob " + str(len(raw_my)).encode() + b"\0" + raw_my).hexdigest() != obj["blob_sha"]:
+            fail(f"Batch 12MY frozen file drift: {obj['path']}")
+    if my.get("algorithm_reopen_authorized") is not False or my["transmission_impact"].get("status") != "NONE":
+        fail("Batch 12MY reopen/transmission scope drift")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")
