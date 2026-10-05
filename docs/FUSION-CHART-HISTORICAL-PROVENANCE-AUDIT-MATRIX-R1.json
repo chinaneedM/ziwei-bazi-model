@@ -4387,19 +4387,33 @@
       "rule_id": "HPA-ZMINOR-025",
       "rule_or_field": "天月 lunar-month twelve-value table",
       "current_implementation": "一戌二巳三辰、四寅五未六卯、七亥八未九寅、十午十一戌十二寅.",
-      "primary_source": "S01:ZZZA-PR-049 (project research corpus only); qualifying Ziwei historical placement witness not established in Batch 07C",
-      "source_quote": "Current project route contains the familiar twelve-month mnemonic; external historical hits for 天月 are dominated by different systems/terms such as 天月德合.",
-      "source_quote_location": "S01:ZZZA-PR-049; external source-domain check: Tianji Ziwei glossary 天月",
-      "historical_period": "CURRENT_ZIWEI_MONTH_TABLE_GENEALOGY_UNRESOLVED; HISTORICAL_HOMONYM_NOISE_HIGH",
-      "later_witnesses": "Modern Ziwei code/manuals reproduce the same table, but modern repetition is compatibility evidence rather than historical authority.",
-      "school_attribution": "CURRENT_MODERN_ZIWEI_MONTH_TABLE",
+      "primary_source": "Modern Ziwei received witnesses (iztro setup guide and xstars implementation) reproduce the exact current twelve-month Tianyue table, but no qualifying premodern Ziwei placement witness was established in Batch 12OB.",
+      "source_quote": "Current mnemonic: 一犬二蛇三在龙，四虎五羊六兔宫，七猪八羊九在虎，十马冬犬腊寅中. xstars explicitly labels the classical provenance 古籍待考、后世悬曜增补.",
+      "source_quote_location": "EXT-IZTRO-TIANYUE-MODERN; EXT-XSTARS-TIANYUE-MODERN; docs/research/ZIWEI-TIANYUE-MODERN-RECEIVED-SOURCE-BOUNDARY-R1.json",
+      "historical_period": "MODERN_ZIWEI_RECEIVED_TABLE_STABLE; PREMODERN_ZIWEI_GENEALOGY_UNRESOLVED",
+      "later_witnesses": "Multiple modern Ziwei manuals/sites reproduce the exact mnemonic. These are compatibility witnesses only. No reviewed public surface supplied an edition-bound Ming/Qing Ziwei exact-table witness.",
+      "school_attribution": "CURRENT_MODERN_ZIWEI_MONTH_TABLE; HISTORICAL_SCHOOL_LINEAGE_UNRESOLVED",
       "competing_methods": [
-        "same-name/near-name historical concepts from Bazi/calendar traditions are not treated as the same rule"
+        "Current Ziwei Tianyue: fixed lunar-month twelve-value table.",
+        "Bazi/calendar Tian-De/Yue-De/Tian-Yue-De-He families are distinct shensha/day-selection concepts and are excluded from identity inference.",
+        "Modern received repetition is not a substitute for a premodern Ziwei witness."
       ],
-      "current_implementation_match": "DETERMINISTIC_OPERATIONAL_MATCH_ONLY; CLASSICAL_ZIWEI_PROVENANCE_NOT_ESTABLISHED",
-      "confidence": "HIGH_FOR_HOMONYM_RISK; LOW_FOR_PREMODERN_ZIWEI_GENEALOGY",
+      "current_implementation_match": "EXACT_MATCH_TO_MODERN_RECEIVED_ZIWEI_MNEMONIC; PREMODERN_ZIWEI_PROVENANCE_NOT_ESTABLISHED",
+      "confidence": "HIGH_FOR_MODERN_RECEIVED_TABLE_STABILITY_AND_HOMONYM_FIREWALL; LOW_FOR_PREMODERN_ZIWEI_GENEALOGY",
       "audit_status": "SOURCE_INSUFFICIENT",
-      "proposed_action": "Retain as profile-scoped compatibility rule; seek a Ziwei-specific edition-bound witness before upgrading historical status."
+      "proposed_action": "Retain as profile-scoped compatibility rule. Continue seeking an edition-bound premodern Ziwei Tianyue witness; do not import Tianyue-de/Tianyue-de-he terminology as ancestry.",
+      "evidence_closure_batch": "BATCH-12-ZIWEI-TIANYUE-MODERN-RECEIVED-SOURCE-BOUNDARY-OB",
+      "evidence_closure_status": "MODERN_RECEIVED_TABLE_CONFIRMED_PREMODERN_ZIWEI_SOURCE_UNRESOLVED_HOMONYM_FIREWALL_RETAINED",
+      "source_domain_reconciliation": {
+        "modern_exact_table_witnesses": [
+          "EXT-IZTRO-TIANYUE-MODERN",
+          "EXT-XSTARS-TIANYUE-MODERN"
+        ],
+        "qualifying_premodern_ziwei_witness_established": false,
+        "excluded_neighbor_source": "EXT:CTEXT-SMTHE-V3-TIANYUEDE",
+        "tianyue_de_same_identity": false,
+        "runtime_changed": false
+      }
     },
     {
       "system": "ZIWEI",
