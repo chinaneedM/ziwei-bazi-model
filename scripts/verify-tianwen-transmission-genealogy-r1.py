@@ -183,6 +183,9 @@ def main() -> int:
         "RULE-FAMILY-FULLBOOK-SHIDIAN-V3-FOUR-TRANSFORM",
         "PASSAGE-ZHONGZHOU-WANGTINGZHI-FOUR-TRANSFORM",
         "RULE-FAMILY-ZHONGZHOU-WANGTINGZHI-FOUR-TRANSFORM",
+        "PASSAGE-JIELAN-1581-CH69-DIGNITY-PALACE",
+        "PASSAGE-JIELAN-1581-CH70-DIGNITY-STAR",
+        "RULE-FAMILY-JIELAN-1581-DIGNITY-SOURCE-LEXEMES",
     }
     if not required_nodes.issubset(set(node_ids)):
         fail("Transmission graph seed nodes incomplete")
@@ -269,6 +272,19 @@ def main() -> int:
     for eid in ("TG-E0160","TG-E0161","TG-E0162"):
         if oj_edges[eid].get("relation")!="PARALLEL_COEXISTS_WITH" or oj_edges[eid].get("status")!="CONFIRMED":
             fail(f"Batch 12OJ parallel whole-table identity regressed: {eid}")
+
+    # Batch 12ON: preserve CH69 and CH70 as parallel dignity source layers.
+    on_edges={e.get("edge_id"):e for e in edges if e.get("edge_id") in {"TG-E0163","TG-E0164","TG-E0165"}}
+    if set(on_edges)!={"TG-E0163","TG-E0164","TG-E0165"}:
+        fail("Batch 12ON transmission edges missing")
+    if on_edges["TG-E0163"].get("from")!="PASSAGE-JIELAN-1581-CH69-DIGNITY-PALACE" or on_edges["TG-E0163"].get("to")!="RULE-FAMILY-JIELAN-1581-DIGNITY-SOURCE-LEXEMES" or on_edges["TG-E0163"].get("relation")!="TRANSMITS_RULE" or on_edges["TG-E0163"].get("status")!="HIGH_CONFIDENCE":
+        fail("Batch 12ON CH69 dignity binding regressed")
+    if on_edges["TG-E0164"].get("from")!="PASSAGE-JIELAN-1581-CH70-DIGNITY-STAR" or on_edges["TG-E0164"].get("to")!="RULE-FAMILY-JIELAN-1581-DIGNITY-SOURCE-LEXEMES" or on_edges["TG-E0164"].get("relation")!="TRANSMITS_RULE" or on_edges["TG-E0164"].get("status")!="CONFIRMED":
+        fail("Batch 12ON CH70 dignity binding regressed")
+    if on_edges["TG-E0165"].get("from")!="PASSAGE-JIELAN-1581-CH69-DIGNITY-PALACE" or on_edges["TG-E0165"].get("to")!="PASSAGE-JIELAN-1581-CH70-DIGNITY-STAR" or on_edges["TG-E0165"].get("relation")!="PARALLEL_COEXISTS_WITH" or on_edges["TG-E0165"].get("status")!="CONFIRMED":
+        fail("Batch 12ON CH69/CH70 parallel-source identity regressed")
+    if "never merged" not in on_edges["TG-E0165"].get("scope_note",""):
+        fail("Batch 12ON no-merge source firewall missing")
 
     e3 = next((e for e in edges if e.get("edge_id") == "TG-E0003"), None)
     if not e3 or e3.get("relation") != "PARALLEL_COEXISTS_WITH" or e3.get("status") != "CONFIRMED":
