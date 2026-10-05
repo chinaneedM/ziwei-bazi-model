@@ -909,9 +909,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-ZI-WU-SHENZHU-FIRE-BELL-EVIDENCE-CLOSURE-NW",
     "BATCH-12-ZIWEI-JIANGQIAN-TEMPORAL-SOURCE-SCOPE-EVIDENCE-CLOSURE-NX",
     "BATCH-12-ZIWEI-STANDALONE-FEILIAN-HISTORICAL-IDENTITY-CLOSURE-NY",
+    "BATCH-12-ZIWEI-MONTH-JIESHEN-HISTORICAL-IDENTITY-CLOSURE-NZ",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-STANDALONE-FEILIAN-HISTORICAL-IDENTITY-CLOSURE-NY.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-MONTH-JIESHEN-HISTORICAL-IDENTITY-CLOSURE-NZ.md"
 
 
 def fail(message: str) -> None:
@@ -16120,6 +16121,102 @@ def main() -> int:
         fail("Batch 12NY state version is not numeric")
     if schema12ny < (1, 393, 0):
         fail("Batch 12NY state version regressed below 1.393.0")
+
+    # Batch 12NZ: close month-based Jieshen geometry while preserving year/month identity separation.
+    nz_path = ROOT / "docs/research/ZIWEI-MONTH-JIESHEN-HISTORICAL-IDENTITY-CLOSURE-R1.json"
+    nz_evidence_path = ROOT / "docs/research/evidence/batch-12nz/ziwei-month-jieshen-historical-identity-evidence.json"
+    if not nz_path.is_file() or not nz_evidence_path.is_file():
+        fail("Batch 12NZ research/evidence record missing")
+    nz = json.loads(nz_path.read_text(encoding="utf-8"))
+    nz_evidence = json.loads(nz_evidence_path.read_text(encoding="utf-8"))
+    nz_id = "BATCH-12-ZIWEI-MONTH-JIESHEN-HISTORICAL-IDENTITY-CLOSURE-NZ"
+    if nz.get("batch_id") != nz_id or nz.get("prior_batch_id") != ny_id:
+        fail("Batch 12NZ chronology drift")
+    if nz_id in rule_batches:
+        fail("Batch 12NZ evidence closure must not be enrolled as a supplemental rule-audit batch")
+    if nz.get("batch_classification") != "POST_AUDIT_EVIDENCE_CLOSURE_NOT_SUPPLEMENTAL_RULE_AUDIT":
+        fail("Batch 12NZ batch classification drift")
+    if nz.get("target_rule_ids") != ["HPA-ZMINOR-023"] or nz.get("target_status_after") != "HISTORICALLY_SUPPORTED":
+        fail("Batch 12NZ target/status drift")
+    row23_nz = next((r for r in matrix["rows"] if r["rule_id"] == "HPA-ZMINOR-023"), None)
+    if row23_nz is None or row23_nz.get("audit_status") != "HISTORICALLY_SUPPORTED":
+        fail("Batch 12NZ HPA-ZMINOR-023 status drift")
+    if row23_nz.get("evidence_closure_batch") != nz_id or row23_nz.get("evidence_closure_status") != "MONTH_GEOMETRY_HISTORICALLY_CLOSED_ZIWEI_ADOPTION_PATH_OPEN_YEAR_IDENTITY_SEPARATED":
+        fail("Batch 12NZ Matrix closure binding drift")
+    ident_nz = row23_nz.get("identity_reconciliation", {})
+    if ident_nz.get("month_entity_id") != "STAR.JIESHEN" or ident_nz.get("year_entity_id") != "STAR.NIANJIE":
+        fail("Batch 12NZ month/year identity binding drift")
+    for key in ("same_mechanical_rule", "same_input_dimension", "historical_same_term_proves_identity", "runtime_identity_merge", "runtime_changed"):
+        if ident_nz.get(key) is not False:
+            fail(f"Batch 12NZ identity firewall drift: {key}")
+    closure_nz = nz.get("historical_geometry_closure", {})
+    if closure_nz.get("month_values_checked") != 12 or closure_nz.get("month_values_matched") != 12 or closure_nz.get("coordinate_reopen_required") is not False:
+        fail("Batch 12NZ 12-of-12 month geometry closure drift")
+    earlier_nz = nz.get("earlier_citation_boundary", {})
+    for key in ("lishimingyuan_explicitly_attributes_definition_to_zongyaoli", "lishimingyuan_explicitly_attributes_month_table_to_lili", "xingli_kaoyuan_preserves_same_attributions", "xieji_bianfang_preserves_same_attributions"):
+        if earlier_nz.get(key) is not True:
+            fail(f"Batch 12NZ citation-layer positive control drift: {key}")
+    if earlier_nz.get("exact_bibliographic_identity_of_zongyaoli") != "UNRESOLVED" or earlier_nz.get("exact_bibliographic_identity_of_lili") != "UNRESOLVED" or earlier_nz.get("surviving_direct_rule_text_from_those_cited_source_works_reviewed") is not False:
+        fail("Batch 12NZ cited-source identity firewall drift")
+    status_nz = nz.get("status_adjudication", {})
+    if status_nz.get("algorithm_reopen_authorized") is not False or status_nz.get("production_default_changed") is not False or status_nz.get("candidate_created") is not False:
+        fail("Batch 12NZ no-reopen/default/candidate firewall drift")
+    accounting_nz = nz.get("accounting", {})
+    if accounting_nz.get("source_insufficient_after") != 9 or accounting_nz.get("historically_supported_after") != 96:
+        fail("Batch 12NZ status accounting drift")
+    if accounting_nz.get("provenance_defects_confirmed_after") != 40 or accounting_nz.get("provenance_defects_repaired_after") != 40:
+        fail("Batch 12NZ provenance accounting drift")
+    if audit_summary.get("confirmed_provenance_metadata_defect_count", 0) < 40 or audit_summary.get("repaired_provenance_metadata_defect_count", 0) < 40:
+        fail("Batch 12NZ Matrix provenance accounting must retain at least 40/40")
+    if audit_state.get("confirmed_provenance_metadata_defect_count", 0) < 40 or audit_state.get("repaired_provenance_metadata_defect_count", 0) < 40:
+        fail("Batch 12NZ state provenance accounting must retain at least 40/40")
+    controls_nz = nz_evidence.get("historical_controls", {})
+    for key in ("lishimingyuan_received_transcription_contains_month_jieshen_table", "lishimingyuan_surface_has_ocr_noise", "xingli_kaoyuan_clean_received_text_contains_exact_table", "xieji_bianfang_clean_received_text_contains_exact_table_and_gloss", "historical_definition_calls_jieshen_month_deity"):
+        if controls_nz.get(key) is not True:
+            fail(f"Batch 12NZ historical positive control drift: {key}")
+    for key in ("exact_zongyaoli_bibliographic_identity_closed", "exact_lili_bibliographic_identity_closed", "direct_cited_source_rule_text_reviewed"):
+        if controls_nz.get(key) is not False:
+            fail(f"Batch 12NZ historical non-closure drift: {key}")
+    runtime_nz = nz_evidence.get("runtime_controls", {})
+    if runtime_nz.get("month_values_checked") != 12 or runtime_nz.get("month_values_matched") != 12 or runtime_nz.get("runtime_behavior_changed") is not False:
+        fail("Batch 12NZ runtime/source replay drift")
+    registry_nz = json.loads((ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json").read_text(encoding="utf-8"))
+    registry_ids_nz = {row.get("source_id") for row in registry_nz.get("sources", ())}
+    for source_id in ("EXT-SHIDIAN-LISHIMINGYUAN-JIESHEN", "EXT-CTEXT-XINGLI-KAOYUAN-JIESHEN", "EXT-WIKISOURCE-XIEJI-BIANFANG-JIESHEN"):
+        if source_id not in registry_ids_nz:
+            fail(f"Batch 12NZ external source registry binding missing: {source_id}")
+    genealogy_nz = json.loads((ROOT / "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json").read_text(encoding="utf-8"))
+    genealogy_node_ids_nz = {row.get("node_id") for row in genealogy_nz.get("nodes", ())}
+    for node_id in ("RULE-FAMILY-JIESHEN-MONTH", "RULE-FAMILY-ZIWEI-JIESHEN-YEAR", "SOURCE-FAMILY-ZONGYAOLI-CITED-JIESHEN", "SOURCE-FAMILY-LILI-CITED-JIESHEN"):
+        if node_id not in genealogy_node_ids_nz:
+            fail(f"Batch 12NZ genealogy node missing: {node_id}")
+    edge_ids_nz = {row.get("edge_id") for row in genealogy_nz.get("edges", ())}
+    for edge_id in ("TG-E0125", "TG-E0126", "TG-E0127", "TG-E0128", "TG-E0129", "TG-E0130", "TG-E0131", "TG-E0132", "TG-E0133", "TG-E0134"):
+        if edge_id not in edge_ids_nz:
+            fail(f"Batch 12NZ genealogy edge missing: {edge_id}")
+    nonedge_nz = next((row for row in genealogy_nz.get("explicit_non_edges", ()) if row.get("from") == "RULE-FAMILY-JIESHEN-MONTH" and row.get("relation") == "SAME_MECHANICAL_RULE_AS" and row.get("to") == "RULE-FAMILY-ZIWEI-JIESHEN-YEAR"), None)
+    if nonedge_nz is None or nonedge_nz.get("status") != "DISPROVED":
+        fail("Batch 12NZ Jieshen month/year non-identity graph firewall missing")
+    minor_text_nz = (ROOT / "src/fortune_training/ziwei_chart/minor_stars.py").read_text(encoding="utf-8")
+    for phrase in ("1: \"申\", 2: \"申\", 3: \"戌\", 4: \"戌\"", "5: \"子\", 6: \"子\", 7: \"寅\", 8: \"寅\"", "9: \"辰\", 10: \"辰\", 11: \"午\", 12: \"午\"", '_branch_placement("STAR.JIESHEN", "解神", JIESHEN_BY_MONTH[month]'):
+        if phrase not in minor_text_nz:
+            fail(f"Batch 12NZ month Jieshen runtime geometry missing: {phrase}")
+    if '_placement("STAR.NIANJIE", "年解", 10 - y' not in minor_text_nz:
+        fail("Batch 12NZ year Jieshen/Nianjie runtime identity drift")
+    adj_nz = nz_evidence.get("adjudication", {})
+    if adj_nz.get("row_status_after") != "HISTORICALLY_SUPPORTED" or adj_nz.get("historical_support_scope_limited_to_month_geometry_and_month_deity_identity") is not True:
+        fail("Batch 12NZ evidence adjudication drift")
+    for key in ("ziwei_adoption_lineage_closed", "year_month_identity_merged", "runtime_behavior_changed", "algorithm_reopen", "candidate_selection_changed", "provenance_defect_count_changed"):
+        if adj_nz.get(key) is not False:
+            fail(f"Batch 12NZ evidence firewall drift: {key}")
+    if nz.get("transmission_impact", {}).get("status") != "GRAPH_UPDATE_REQUIRED":
+        fail("Batch 12NZ transmission impact drift")
+    try:
+        schema12nz = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12NZ state version is not numeric")
+    if schema12nz < (1, 394, 0):
+        fail("Batch 12NZ state version regressed below 1.394.0")
 
     try:
         schema12ns = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
