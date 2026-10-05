@@ -1,0 +1,151 @@
+{
+  "schema": "ZIWEI-R1-NEUTRAL-Z12-TOPOLOGY-AUDIT-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-R1-NEUTRAL-Z12-TOPOLOGY-AUDIT-NA",
+  "prior_batch_id": "BATCH-12-ZIWEI-R8-ADJACENT-PALACE-SOURCE-PHILOLOGY-SCOPE-AUDIT-MZ",
+  "rule_id": "HPA-STRUCT-001",
+  "audit_status": "MODERN_COMPATIBILITY_ONLY",
+  "algorithm_reopen_authorized": false,
+  "scope": {
+    "modern_computational_substrate": true,
+    "historical_doctrine_claim": false,
+    "named_traditional_semantics_enabled": false,
+    "complete_ordered_z12_relation_space": true,
+    "address_count": 12,
+    "topology_fact_count": 144
+  },
+  "coordinate_contract": {
+    "branch_order": [
+      "子",
+      "丑",
+      "寅",
+      "卯",
+      "辰",
+      "巳",
+      "午",
+      "未",
+      "申",
+      "酉",
+      "戌",
+      "亥"
+    ],
+    "index_domain": [
+      0,
+      11
+    ],
+    "relation": "clockwise_offset=(target.index-source.index) mod 12",
+    "canonical_order": "source index 0..11 then target index 0..11",
+    "identity_offset": 0,
+    "pure_plus_six_involution": true,
+    "plus_six_traditional_name_assigned": false
+  },
+  "semantic_firewall": {
+    "semantic_rule_set_id": null,
+    "semantic_rule_set_version": null,
+    "named_semantic_binding_fail_closed": true,
+    "forbidden_in_r1": [
+      "三方四正",
+      "对宫",
+      "夹宫",
+      "空宫借星",
+      "气数位",
+      "一六共宗",
+      "吉凶",
+      "强弱",
+      "格局",
+      "事件",
+      "预测"
+    ],
+    "rationale": "R1 is an interpretation-free coordinate substrate. Traditional names and doctrines are introduced, if at all, only in separately sourced/audited later layers."
+  },
+  "provenance_scope": {
+    "primary_authority_type": "CURRENT_REPOSITORY_RELEASE_CONTRACT_AND_IMPLEMENTATION",
+    "historical_text_required_for_this_modern_contract": false,
+    "external_historical_witness_added": false,
+    "ancient_origin_claim": false,
+    "source_files": [
+      "src/fortune_training/ziwei_structural/topology.py",
+      "src/fortune_training/ziwei_structural/profile.py",
+      "docs/ZIWEI-STRUCTURAL-RUNTIME-V2-R1.md",
+      "schemas/ziwei-structural-state-v2-r1.schema.json"
+    ]
+  },
+  "hash_and_integrity_scope": {
+    "fact_hash_binds": [
+      "upstream Natal FactHash",
+      "canonical neutral topology facts"
+    ],
+    "computation_hash_binds": [
+      "Structural FactHash",
+      "upstream Natal ComputationHash",
+      "resolved structural profile",
+      "structural integrity/hash algorithm identity"
+    ],
+    "input_order_independent_fact_projection": true,
+    "schema_id": "ZIWEI-STRUCTURAL-STATE-V2-R1",
+    "topology_algorithm_id": "NEUTRAL-Z12-TOPOLOGY",
+    "topology_algorithm_version": "1.0.0"
+  },
+  "replay_evidence": "docs/research/evidence/batch-12na/r1-neutral-z12-topology-replay.json",
+  "replay_sha256": "f39fb5006f165aacac6591415d45c774bb9e6e348b9dcea6b519e0a1b24d34f5",
+  "frozen_files": [
+    {
+      "path": "src/fortune_training/ziwei_structural/topology.py",
+      "blob_sha": "398eab7d309ab942b33e3df7b9fa1d0c8c0640b6"
+    },
+    {
+      "path": "src/fortune_training/ziwei_structural/profile.py",
+      "blob_sha": "b01575d3255f413a1c520bd7a2aff54ff1a2874d"
+    },
+    {
+      "path": "src/fortune_training/ziwei_structural/engine.py",
+      "blob_sha": "3ffd681b032639d72dba84d4afb9918c82392148"
+    },
+    {
+      "path": "src/fortune_training/ziwei_structural/models.py",
+      "blob_sha": "57f30740eec053258f8583533f94faba4335e15a"
+    },
+    {
+      "path": "src/fortune_training/ziwei_structural/integrity.py",
+      "blob_sha": "909fb062167a8d371aec55fe56c47c563f00708b"
+    },
+    {
+      "path": "docs/ZIWEI-STRUCTURAL-RUNTIME-V2-R1.md",
+      "blob_sha": "622425da0b0bfb6c38fb69d4008edfc84c896019"
+    },
+    {
+      "path": "schemas/ziwei-structural-state-v2-r1.schema.json",
+      "blob_sha": "7029559b271d549a579403478e8ff3821af366d0"
+    },
+    {
+      "path": "tests/test_ziwei_structural_v2_r1.py",
+      "blob_sha": "e480ebb97468724633c956ad738932239e37f745"
+    }
+  ],
+  "accounting": {
+    "rows_before": 220,
+    "rows_after": 220,
+    "audited_rows_before": 204,
+    "audited_rows_after": 205,
+    "current_missing_from_product_rows": 10,
+    "provenance_defects_confirmed": 19,
+    "provenance_defects_repaired": 19,
+    "chart_algorithm_defects": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0,
+    "new_provenance_defect": false
+  },
+  "transmission_impact": {
+    "status": "NONE",
+    "reason": "No historical author, edition, teacher, copying relation or traditional doctrine is asserted by the modern neutral topology contract."
+  },
+  "next_gate": [
+    "12NB: audit HPA-STRUCT-002 R2 relative-palace frame as a modern rotation over frozen V1 palace designations and R1 topology.",
+    "Keep named traditional semantics disabled in R2; later R3-R8 audits remain the scoped authority for borrow, Sanfang/Sizheng, qishu, one-six and adjacent-palace meanings."
+  ],
+  "verification": {
+    "new_tests": 5,
+    "expected_replay_records": 144,
+    "exact_head_ci_policy": "Require provenance/continuity gates, focused tests, Verify, full unittest and workbench smokes before starting 12NB write."
+  }
+}

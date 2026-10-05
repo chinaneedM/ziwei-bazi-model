@@ -34,7 +34,7 @@ Every row carries:
 - proposed action;
 - explicit algorithm-reopen authorization, which is **false for every inventory row at creation**.
 
-The initial inventory contained **107 rule/field families**. Through Batch 12MZ and explicit splitting of historically distinct candidate families, the current machine-readable inventory contains **220 rows**, with **204 audited rows**. It intentionally keeps unresolved source work explicit rather than converting uncertainty into a chart defect. The current audit ledger records **18 confirmed provenance metadata defects repaired forward-only at the provenance/hash-lineage layer, 0 chart algorithm defects, 0 algorithm reopens, 14 cumulatively identified missing candidate families, 10 rows currently `MISSING_FROM_PRODUCT`, 6 historical candidate extensions, 3 source-scoped historical candidate registries, and 3 runtime-resolver components**.
+The initial inventory contained **107 rule/field families**. Through Batch 12NA and explicit splitting of historically distinct candidate families, the current machine-readable inventory contains **220 rows**, with **205 audited rows**. It intentionally keeps unresolved source work explicit rather than converting uncertainty into a chart defect. The current audit ledger records **18 confirmed provenance metadata defects repaired forward-only at the provenance/hash-lineage layer, 0 chart algorithm defects, 0 algorithm reopens, 14 cumulatively identified missing candidate families, 10 rows currently `MISSING_FROM_PRODUCT`, 6 historical candidate extensions, 3 source-scoped historical candidate registries, and 3 runtime-resolver components**.
 
 ## Research-corpus authority
 
@@ -1347,3 +1347,10 @@ Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-R7
 R8 HPA-STRUCT-008 is corrected and decomposed into HPA-STRUCT-019 school-scoped generic adjacent-palace geometry and HPA-STRUCT-020 modern engineering/result-permission closure. Premodern received Fullbook text attests specific 夹贵/夹败/三夹六夹 patterns, but does not by itself establish the universal rotating term definition 邻宫. Modern Zhongzhou witnesses explicitly define the two adjacent palaces and separately define 相夹 through star occupation. Independent 12 physical LIFE rotations × 12 named origins reproduce 144 bilateral facts / 288 neighbor endpoints with ordinals 2 and 12 = physical offsets 11 and 1. R8 imports no flank judgment. PROV-DEFECT-019 forward-repairs the 12MY next-gate mislabel of HPA-STRUCT-008; historical snapshot retained. Matrix220/204/10, provenance19/19, algorithm defects/reopens/collapses0. No transmission edge.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-R8-ADJACENT-PALACE-SOURCE-PHILOLOGY-SCOPE-AUDIT-MZ.md`. Research record: `docs/research/ZIWEI-R8-ADJACENT-PALACE-SOURCE-PHILOLOGY-SCOPE-AUDIT-R1.json`.
+
+
+## Progress — Batch 12NA
+
+HPA-STRUCT-001 R1 neutral Z12 topology is formally audited as MODERN_COMPATIBILITY_ONLY. It is a modern interpretation-free coordinate substrate: 12 canonical branch addresses × 12 targets = 144 ordered facts, with clockwise_offset=(target-source) mod 12. The semantic rule-set binding remains disabled/fail-closed, so pure geometry is not silently renamed as 三方四正、对宫、夹宫、气数位、一六共宗 or any predictive doctrine. Runtime/schema/hash/V1 natal bytes remain unchanged. Matrix220/205/10, provenance19/19, algorithm defects/reopens/collapses0. No transmission edge.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-R1-NEUTRAL-Z12-TOPOLOGY-AUDIT-NA.md`. Research record: `docs/research/ZIWEI-R1-NEUTRAL-Z12-TOPOLOGY-AUDIT-R1.json`.

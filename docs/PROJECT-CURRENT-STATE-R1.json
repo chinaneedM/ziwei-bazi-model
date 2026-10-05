@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.368.0",
+  "schema_version": "1.369.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -38,7 +38,7 @@
     "matrix_md": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.md",
     "external_source_registry": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json",
     "row_count": 220,
-    "audited_row_count": 204,
+    "audited_row_count": 205,
     "confirmed_provenance_metadata_defect_count": 19,
     "repaired_provenance_metadata_defect_count": 19,
     "historical_candidate_registry_count": 3,
@@ -449,9 +449,10 @@
       "BATCH-12-ZIWEI-R4-SOURCE-PHILOLOGY-SCOPE-AUDIT-MW",
       "BATCH-12-ZIWEI-R6-QISHU-SOURCE-PHILOLOGY-SCOPE-AUDIT-MX",
       "BATCH-12-ZIWEI-R7-ONE-SIX-SOURCE-PHILOLOGY-SCOPE-AUDIT-MY",
-      "BATCH-12-ZIWEI-R8-ADJACENT-PALACE-SOURCE-PHILOLOGY-SCOPE-AUDIT-MZ"
+      "BATCH-12-ZIWEI-R8-ADJACENT-PALACE-SOURCE-PHILOLOGY-SCOPE-AUDIT-MZ",
+      "BATCH-12-ZIWEI-R1-NEUTRAL-Z12-TOPOLOGY-AUDIT-NA"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-R8-ADJACENT-PALACE-SOURCE-PHILOLOGY-SCOPE-AUDIT-MZ.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-R1-NEUTRAL-Z12-TOPOLOGY-AUDIT-NA.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -2075,7 +2076,11 @@
       "Premodern received Fullbook text attests specific 夹贵/夹败/三夹六夹 patterns, but this does not prove the generic rotating term definition 邻宫 or a direct Fullbook→Zhongzhou terminology lineage. No transmission edge is added.",
       "Matrix is now 220 / 204 / 10; provenance defects are 19/19; chart algorithm defects / reopens / candidate collapses remain 0.",
       "12NA: audit HPA-STRUCT-001 R1 neutral Z12 topology as modern coordinate infrastructure, then HPA-STRUCT-002 R2 relative-palace frame before leaving Structural R1-R8.",
-      "12MZ exact-head CI exposed a stale global continuity assertion that required current provenance defects to remain exactly 18/18 after PROV-DEFECT-018. Forward-only repair makes historical PROV-DEFECT-018 retention >=18/18 and 12MZ retention >=19/19, while current Matrix/state parity remains authoritative. No historical snapshot, runtime rule, candidate or chart algorithm changed."
+      "12MZ exact-head CI exposed a stale global continuity assertion that required current provenance defects to remain exactly 18/18 after PROV-DEFECT-018. Forward-only repair makes historical PROV-DEFECT-018 retention >=18/18 and 12MZ retention >=19/19, while current Matrix/state parity remains authoritative. No historical snapshot, runtime rule, candidate or chart algorithm changed.",
+      "Batch 12NA completed: HPA-STRUCT-001 R1 neutral Z12 topology audited as MODERN_COMPATIBILITY_ONLY. The complete 12×12 ordered address-pair matrix and modular clockwise offsets are modern interpretation-free coordinate infrastructure, not a historical doctrine.",
+      "R1 retains semantic_rule_set disabled/fail-closed. The 144 topology facts, schema, hash lineage and upstream Natal bindings are unchanged; no named 三方四正、对宫、夹宫、气数位、一六共宗 or predictive semantics are imported.",
+      "Matrix remains 220 rows and is now 205 audited / 10 missing; provenance defects remain 19/19; chart algorithm defects / reopens / candidate collapses remain 0.",
+      "12NB: audit HPA-STRUCT-002 R2 relative-palace frame as a modern rotation over frozen V1 palace designations and R1 topology, keeping named traditional semantics fail-closed."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10

@@ -884,9 +884,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-R6-QISHU-SOURCE-PHILOLOGY-SCOPE-AUDIT-MX",
     "BATCH-12-ZIWEI-R7-ONE-SIX-SOURCE-PHILOLOGY-SCOPE-AUDIT-MY",
     "BATCH-12-ZIWEI-R8-ADJACENT-PALACE-SOURCE-PHILOLOGY-SCOPE-AUDIT-MZ",
+    "BATCH-12-ZIWEI-R1-NEUTRAL-Z12-TOPOLOGY-AUDIT-NA",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-R8-ADJACENT-PALACE-SOURCE-PHILOLOGY-SCOPE-AUDIT-MZ.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-R1-NEUTRAL-Z12-TOPOLOGY-AUDIT-NA.md"
 
 
 def fail(message: str) -> None:
@@ -14694,6 +14695,34 @@ def main() -> int:
             fail(f"Batch 12MZ frozen file drift: {obj['path']}")
     if mz.get("algorithm_reopen_authorized") is not False or mz["transmission_impact"].get("status") != "NONE":
         fail("Batch 12MZ reopen/transmission scope drift")
+
+    # Batch 12NA: neutral Z12 topology is a modern coordinate substrate, not a historical doctrine.
+    na = json.loads((ROOT / "docs/research/ZIWEI-R1-NEUTRAL-Z12-TOPOLOGY-AUDIT-R1.json").read_text())
+    na_id = "BATCH-12-ZIWEI-R1-NEUTRAL-Z12-TOPOLOGY-AUDIT-NA"
+    if na.get("batch_id") != na_id or na.get("prior_batch_id") != mz_id or na_id not in rule_batches:
+        fail("Batch 12NA chronology drift")
+    row_na = next(r for r in matrix["rows"] if r["rule_id"] == "HPA-STRUCT-001")
+    if row_na.get("audit_status") != "MODERN_COMPATIBILITY_ONLY" or row_na.get("audit_batch") != na_id or "HPA-STRUCT-001" not in matrix["audited_row_ids"]:
+        fail("Batch 12NA R1 audit row drift")
+    scope_na = na["scope"]
+    if scope_na.get("modern_computational_substrate") is not True or scope_na.get("historical_doctrine_claim") is not False or scope_na.get("named_traditional_semantics_enabled") is not False:
+        fail("Batch 12NA neutral-scope firewall drift")
+    semantic_na = na["semantic_firewall"]
+    if semantic_na.get("semantic_rule_set_id") is not None or semantic_na.get("semantic_rule_set_version") is not None or semantic_na.get("named_semantic_binding_fail_closed") is not True:
+        fail("Batch 12NA semantic binding firewall drift")
+    replay_na = json.loads((ROOT / na["replay_evidence"]).read_text())
+    records_na = replay_na["records"]
+    if len(records_na) != 144 or hashlib.sha256(json.dumps(records_na, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode()).hexdigest() != replay_na["records_sha256"]:
+        fail("Batch 12NA replay integrity drift")
+    for row_top in records_na:
+        if row_top["clockwise_offset"] != (row_top["target_index"] - row_top["source_index"]) % 12:
+            fail("Batch 12NA modular offset drift")
+    for obj in na["frozen_files"]:
+        raw_na = (ROOT / obj["path"]).read_bytes()
+        if hashlib.sha1(b"blob " + str(len(raw_na)).encode() + b"\0" + raw_na).hexdigest() != obj["blob_sha"]:
+            fail(f"Batch 12NA frozen file drift: {obj['path']}")
+    if na.get("algorithm_reopen_authorized") is not False or na["transmission_impact"].get("status") != "NONE":
+        fail("Batch 12NA reopen/transmission scope drift")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")
