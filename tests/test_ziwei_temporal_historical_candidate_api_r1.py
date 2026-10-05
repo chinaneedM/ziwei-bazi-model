@@ -101,6 +101,7 @@ class ZiweiTemporalHistoricalCandidateApiR1Tests(unittest.TestCase):
             leap_lunar_year=2025,
             leap_lunar_month=6,
             leap_lunar_day=day,
+            previous_regular_month_day_count=30,
             previous_month_temporal_year=2025,
             previous_month_number=6,
             previous_month_frame_id="MONTH:2025:6",
@@ -126,27 +127,98 @@ class ZiweiTemporalHistoricalCandidateApiR1Tests(unittest.TestCase):
         self.assertFalse(day15["flow_day_continuity"]["half_split_reset"])
         self.assertFalse(day16["flow_day_continuity"]["half_split_reset"])
 
-    def test_zhongzhou_leap_policy_does_not_invent_daily_origin_geometry(self) -> None:
-        row = self._leap(16)
-        continuity = row["flow_day_continuity"]
-        self.assertFalse(continuity["daily_active_address_emitted"])
-        self.assertEqual("NOT_CLOSED_BY_THIS_MONTH_POLICY_API", continuity["daily_origin_semantics"])
+    def test_zhongzhou_leap_daily_geometry_is_source_closed(self) -> None:
+        day1 = self._leap(1)
+        day15 = self._leap(15)
+        day16 = self._leap(16)
+
+        self.assertEqual("子", day1["flow_day_continuity"]["daily_active_address_branch"])
+        self.assertEqual("寅", day15["flow_day_continuity"]["daily_active_address_branch"])
+        self.assertEqual("戌", day16["flow_day_continuity"]["daily_active_address_branch"])
+        self.assertTrue(day1["flow_day_continuity"]["daily_active_address_emitted"])
+        self.assertTrue(day16["flow_day_continuity"]["daily_active_address_emitted"])
         self.assertEqual(
-            "MONTH_ASSIGNMENT_CANDIDATE_ONLY_DAILY_GEOMETRY_REMAINS_FAIL_CLOSED",
-            row["downstream_projection_status"],
+            "PREVIOUS_REGULAR_MONTH_FLOW_DAY_CONTINUES_TO_LEAP_DAY_ONE",
+            day1["flow_day_continuity"]["daily_origin_semantics"],
         )
-        self.assertEqual(64, len(row["candidate_hash"]))
+        self.assertEqual(
+            "FOLLOWING_REGULAR_MONTH_ACTIVE_ADDRESS_AS_DAY_ONE_BASIS_WITH_LEAP_DAY_ORDINAL",
+            day16["flow_day_continuity"]["daily_origin_semantics"],
+        )
+        self.assertTrue(day16["flow_day_continuity"]["half_split_basis_switch"])
+        self.assertEqual(
+            "SOURCE_SCOPED_MONTH_AND_DAILY_GEOMETRY_COMPLETE_PRESERVED_NO_SELECTION",
+            day16["downstream_projection_status"],
+        )
+        self.assertEqual(64, len(day16["candidate_hash"]))
         self.assertEqual(
             ZIWEI_TEMPORAL_HISTORICAL_CANDIDATE_RUNTIME_RESOLVER_ID,
-            row["runtime_resolver_id"],
+            day16["runtime_resolver_id"],
         )
-        self.assertEqual(temporal_historical_candidate_registry_hash(), row["registry_hash"])
+        self.assertEqual(temporal_historical_candidate_registry_hash(), day16["registry_hash"])
+
+    def test_zhongzhou_leap_day_one_replays_s10_example_and_29_day_variant(self) -> None:
+        example = resolve_zhongzhou_leap_month_half_split_candidate(
+            leap_lunar_year=1984,
+            leap_lunar_month=10,
+            leap_lunar_day=1,
+            previous_regular_month_day_count=30,
+            previous_month_temporal_year=1984,
+            previous_month_number=10,
+            previous_month_frame_id="MONTH:1984:10",
+            previous_month_ganzhi="乙亥",
+            previous_month_active_branch="酉",
+            following_month_temporal_year=1984,
+            following_month_number=11,
+            following_month_frame_id="MONTH:1984:11",
+            following_month_ganzhi="丙子",
+            following_month_active_branch="戌",
+        )
+        self.assertEqual("卯", example["flow_day_continuity"]["leap_day_one_active_branch"])
+        self.assertEqual("卯", example["flow_day_continuity"]["daily_active_address_branch"])
+
+        short_month = resolve_zhongzhou_leap_month_half_split_candidate(
+            leap_lunar_year=1984,
+            leap_lunar_month=10,
+            leap_lunar_day=1,
+            previous_regular_month_day_count=29,
+            previous_month_temporal_year=1984,
+            previous_month_number=10,
+            previous_month_frame_id="MONTH:1984:10",
+            previous_month_ganzhi="乙亥",
+            previous_month_active_branch="酉",
+            following_month_temporal_year=1984,
+            following_month_number=11,
+            following_month_frame_id="MONTH:1984:11",
+            following_month_ganzhi="丙子",
+            following_month_active_branch="戌",
+        )
+        self.assertEqual("寅", short_month["flow_day_continuity"]["leap_day_one_active_branch"])
+
+        with self.assertRaisesRegex(ValueError, "29 or 30"):
+            resolve_zhongzhou_leap_month_half_split_candidate(
+                leap_lunar_year=1984,
+                leap_lunar_month=10,
+                leap_lunar_day=1,
+                previous_regular_month_day_count=28,
+                previous_month_temporal_year=1984,
+                previous_month_number=10,
+                previous_month_frame_id="MONTH:1984:10",
+                previous_month_ganzhi="乙亥",
+                previous_month_active_branch="酉",
+                following_month_temporal_year=1984,
+                following_month_number=11,
+                following_month_frame_id="MONTH:1984:11",
+                following_month_ganzhi="丙子",
+                following_month_active_branch="戌",
+            )
 
     def test_zhongzhou_leap_month_12_requires_next_year_month_1(self) -> None:
         row = resolve_zhongzhou_leap_month_half_split_candidate(
             leap_lunar_year=2033,
             leap_lunar_month=12,
             leap_lunar_day=20,
+            previous_regular_month_day_count=30,
             previous_month_temporal_year=2033,
             previous_month_number=12,
             previous_month_frame_id="MONTH:2033:12",
