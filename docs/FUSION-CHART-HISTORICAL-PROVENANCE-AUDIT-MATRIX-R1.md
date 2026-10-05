@@ -1848,3 +1848,23 @@ Matrix remains **222/222 audited / 10 current missing**. Status distribution bec
 Next: **12OH — re-rank the remaining active DISPUTED_MULTIPLE_CANDIDATES queue after TianShou/TianChu closure.**
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TIANCHU-PREMODERN-TABLE-AND-SOURCE-BOUNDARY-OG.md`. Research record: `docs/research/ZIWEI-TIANCHU-PREMODERN-TABLE-AND-SOURCE-BOUNDARY-R1.json`.
+
+## Progress — Batch 12OH
+
+The remaining unresolved queue is re-ranked by source closure, deterministic readiness, product impact and shared implementation leverage.
+
+**Tier 1** is the shared Jielan 1581 source-scoped natal candidate surface:
+
+- `HPA-ZIWEI-015` Jielan Kui/Yue Geng variant;
+- `HPA-ZIWEI-016` Jielan Fire/Bell 巳酉丑 variant;
+- `HPA-ZIWEI-022` Jielan Mingzhu birth-year-branch basis.
+
+All three already have deterministic `PRESERVED_NOT_SELECTED` resolution inside `historical_candidates.py`; Batch 12NR confirmed the remaining gap is public package/API/Workbench lineage. One shared product surface can therefore close three rows without changing production defaults.
+
+Four-Transformation candidate families, Jielan dignity and TaiSui/Suiqian label variants form Tier 2. Late-Zi/date-boundary, historical Dayun calendarization and complete leap-month temporal frames remain high-impact but are currently source-semantics constrained rather than implementation-ready.
+
+No Matrix status, production default, candidate selection or provenance-defect count changes in 12OH.
+
+Next: **12OI — productize the Jielan 1581 source-scoped natal candidate runtime as an explicit read-only candidate-profile API / Workbench lineage surface.**
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-UNRESOLVED-CANDIDATE-PRODUCTIZATION-REPRIORITIZATION-OH.md`. Research record: `docs/research/HISTORICAL-CANDIDATE-PRODUCTIZATION-REPRIORITIZATION-OH-R1.json`.
