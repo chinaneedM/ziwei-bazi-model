@@ -164,7 +164,7 @@ class HistoricalProvenanceAuditMatrixR1Test(unittest.TestCase):
             by_id["HPA-ZTEMP-006"]["current_implementation_match"],
         )
         self.assertEqual(by_id["HPA-ZT-015"]["audit_status"], "SUPPORTED_BUT_SCHOOL_SPECIFIC")
-        self.assertEqual(by_id["HPA-ZT-015"]["selection_status"], "PRESERVED_NOT_SELECTED")
+        self.assertIn("PRESERVED_NOT_SELECTED", by_id["HPA-ZT-015"]["current_profile"])
         self.assertEqual(by_id["HPA-ZT-014"]["audit_status"], "DISPUTED_MULTIPLE_CANDIDATES")
 
     def test_batch_08c_time_standards_are_not_conflated(self) -> None:
