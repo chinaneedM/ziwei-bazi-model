@@ -6764,7 +6764,20 @@
         "l124_ji_xingdu": "1.0281",
         "l132_loss_gain": "7.886075"
       },
-      "joseon_g894_transmission_finding": "CELL_LEVEL_MIXED_ALIGNMENT: L8 aligns with the Goryeosa received/Sillok branch while L124 aligns with Ming 1569/Sillok at 1.0281; L101/L132 preserve explicit positional zeros; solar D16 is structurally non-comparable because the target field is absent. Copy-wide inheritance and source-count voting are forbidden."
+      "joseon_g894_transmission_finding": "CELL_LEVEL_MIXED_ALIGNMENT: L8 aligns with the Goryeosa received/Sillok branch while L124 aligns with Ming 1569/Sillok at 1.0281; L101/L132 preserve explicit positional zeros; solar D16 is structurally non-comparable because the target field is absent. Copy-wide inheritance and source-count voting are forbidden.",
+      "reconciliation_batch": "BATCH-12-POST-AUDIT-DAYUN-HISTORICAL-CALENDAR-CANDIDATE-PRODUCT-SURFACE-RECONCILIATION-NU",
+      "reconciliation_status": "MISSING_FROM_PRODUCT_CONFIRMED",
+      "product_surface_reconciliation": {
+        "ming_datong_regime_descriptor_registered": true,
+        "fail_closed_historical_calendar_adapter_exists": true,
+        "certified_ming_datong_calendar_arithmetic_adapter": false,
+        "bazi_temporal_engine_imports_historical_calendar": false,
+        "bazi_historical_temporal_profile": false,
+        "local_product_historical_temporal_profile_option": false,
+        "current_profiles_are_modern_continuous_and_wenzhen_only": true,
+        "production_default_changed": false
+      },
+      "post_audit_reconciliation_note": "12NU confirms that the historical-calendar contract is an architecture/fail-closed boundary, not an integrated Bazi Dayun runtime path. The source-family/product gap remains real."
     },
     {
       "system": "BAZI",
@@ -6773,8 +6786,8 @@
       "audit_batch": "BATCH-11-BAZI-DAYUN-CALENDAR-REALIZATION-B",
       "rule_id": "HPA-DAYUN-CAL-003",
       "rule_or_field": "Later calendar-age years plus remainder-days Jiaoyun method",
-      "current_implementation": "NOT IMPLEMENTED. The historical-calendar contract can represent an unresolved later source method without silently borrowing Ming, Shixian, modern Chinese-calendar or Wenzhen arithmetic.",
-      "current_profile": "PRESERVED_SOURCE_METHOD_CANDIDATE_NOT_SELECTED",
+      "current_implementation": "NOT IMPLEMENTED. HISTORICAL-CHINESE-CALENDAR-ADAPTER-CONTRACT-R1 has generic operations capable of supporting a future later-source method, but the live registry currently contains only Ming Datong and Qing Shixian regime descriptors; there is no Republican/Qianli regime descriptor and BaziTemporalEngine does not invoke the historical-calendar adapter.",
+      "current_profile": "MATRIX_PRESERVED_QIANLI_SOURCE_METHOD / NO_REGISTERED_QIANLI_CALENDAR_REGIME / NO_RUNTIME_TEMPORAL_PROFILE",
       "primary_source": "EXT-CTEXT-QIANLI-MINGGAO-DAYUN",
       "source_quote": "Worked examples first advance the stated whole age in calendar years, then add the remaining converted days to obtain a concrete handover date.",
       "source_quote_location": "EXT-CTEXT-QIANLI-MINGGAO-DAYUN worked examples",
@@ -6786,13 +6799,29 @@
         "absolute duration x120",
         "Wenzhen month displacement"
       ],
-      "current_implementation_match": "SOURCE_SCOPED_LATER_METHOD_MISSING_FROM_RUNTIME; ADAPTER_CONTRACT_PRESERVES_UNRESOLVED_REGIME_WITHOUT_FALLBACK",
+      "current_implementation_match": "SOURCE_SCOPED_LATER_METHOD_MISSING_FROM_RUNTIME; CONTRACT_VOCABULARY_CAN_ACCOMMODATE_FUTURE_REGIME_BUT_CURRENT_REGISTRY_DOES_NOT_PRESERVE_A_QIANLI_REPUBLICAN_DESCRIPTOR; NO_HISTORICAL_BAZI_TEMPORAL_PROFILE_OR_PRODUCT_SELECTOR",
       "confidence": "HIGH_FOR_WORKED_METHOD",
       "audit_status": "MISSING_FROM_PRODUCT",
-      "proposed_action": "Determine the Qianli worked examples' exact calendar coordinate and invalid-date policy before binding any concrete adapter.",
+      "proposed_action": "Determine the Qianli worked examples' exact calendar coordinate, invalid-date policy and recurrence semantics before registering an explicit Republican/Qianli calendar regime descriptor. Only then consider a fail-closed candidate profile; do not borrow Ming, Shixian, modern Chinese-calendar or Wenzhen arithmetic.",
       "adapter_contract_id": "HISTORICAL-CHINESE-CALENDAR-ADAPTER-CONTRACT-R1",
       "adapter_design_batch": "BATCH-11-BAZI-HISTORICAL-CALENDAR-ADAPTER-C",
-      "calendar_regime_context": "REPUBLICAN_ERA_METHOD_CALENDAR_REGIME_STILL_SOURCE_SCOPED_UNRESOLVED"
+      "calendar_regime_context": "REPUBLICAN_ERA_METHOD_CALENDAR_REGIME_STILL_SOURCE_SCOPED_UNRESOLVED",
+      "defect_id": "PROV-DEFECT-039",
+      "defect_type": "HPA_DAYUN_CAL_003_OVERSTATED_REGISTERED_QIANLI_REGIME_PRESERVATION",
+      "defect_scope": "The Matrix said the adapter contract preserves the unresolved later regime without fallback. The contract's generic operation model can represent such a future regime, but the live _REGIMES registry contains only Ming Datong and Qing Shixian descriptors and has no Qianli/Republican entry.",
+      "repair_status": "REPAIRED_IN_BATCH_12NU_FORWARD_ONLY",
+      "repair_action": "Reworded the row to distinguish generic contract capability from actual registered regime/runtime coverage. No calendar arithmetic, runtime path, profile selection or production default changed.",
+      "reconciliation_batch": "BATCH-12-POST-AUDIT-DAYUN-HISTORICAL-CALENDAR-CANDIDATE-PRODUCT-SURFACE-RECONCILIATION-NU",
+      "reconciliation_status": "MISSING_FROM_PRODUCT_CONFIRMED",
+      "product_surface_reconciliation": {
+        "generic_historical_calendar_contract_can_support_future_regime": true,
+        "qianli_republican_regime_descriptor_registered": false,
+        "fail_closed_qianli_adapter_instantiable_by_registered_id": false,
+        "bazi_temporal_engine_imports_historical_calendar": false,
+        "qianli_historical_temporal_profile": false,
+        "local_product_qianli_temporal_profile_option": false,
+        "production_default_changed": false
+      }
     },
     {
       "system": "BAZI",
@@ -6819,7 +6848,20 @@
       "proposed_action": "When a historical first-handover adapter closes, reuse that exact regime for ten-year recurrence; never switch to Gregorian or another historical regime implicitly.",
       "adapter_contract_id": "HISTORICAL-CHINESE-CALENDAR-ADAPTER-CONTRACT-R1",
       "adapter_design_batch": "BATCH-11-BAZI-HISTORICAL-CALENDAR-ADAPTER-C",
-      "calendar_regime_context": "INHERITS_THE_SELECTED_FIRST_HANDOVER_CANDIDATE_REGIME; NO_INDEPENDENT_CALENDAR_SUBSTITUTION"
+      "calendar_regime_context": "INHERITS_THE_SELECTED_FIRST_HANDOVER_CANDIDATE_REGIME; NO_INDEPENDENT_CALENDAR_SUBSTITUTION",
+      "reconciliation_batch": "BATCH-12-POST-AUDIT-DAYUN-HISTORICAL-CALENDAR-CANDIDATE-PRODUCT-SURFACE-RECONCILIATION-NU",
+      "reconciliation_status": "MISSING_FROM_PRODUCT_CONFIRMED",
+      "product_surface_reconciliation": {
+        "historical_contract_add_calendar_years_operation_exists": true,
+        "historical_contract_forbids_implicit_gregorian_anniversary": true,
+        "bazi_temporal_engine_imports_historical_calendar": false,
+        "continuous_profile_uses_proleptic_gregorian_10y_utc_anniversary": true,
+        "wenzhen_profile_uses_proleptic_gregorian_10y_china_standard_anniversary": true,
+        "historical_recurrence_runtime_branch": false,
+        "local_product_historical_recurrence_profile_option": false,
+        "production_default_changed": false
+      },
+      "post_audit_reconciliation_note": "12NU confirms that ADD_CALENDAR_YEARS exists only at the historical-calendar contract boundary. The released Bazi temporal engine has no historical recurrence branch and current product profiles remain Gregorian operational profiles."
     },
     {
       "system": "BAZI",
@@ -7484,8 +7526,8 @@
   ],
   "audit_summary": {
     "confirmed_chart_algorithm_defect_count": 0,
-    "confirmed_provenance_metadata_defect_count": 38,
-    "repaired_provenance_metadata_defect_count": 38,
+    "confirmed_provenance_metadata_defect_count": 39,
+    "repaired_provenance_metadata_defect_count": 39,
     "algorithm_reopen_count": 0,
     "candidate_collapse_count": 0,
     "historical_candidate_extension_count": 6,
