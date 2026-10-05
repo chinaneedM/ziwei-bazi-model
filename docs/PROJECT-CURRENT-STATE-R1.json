@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.362.0",
+  "schema_version": "1.363.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -38,7 +38,7 @@
     "matrix_md": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.md",
     "external_source_registry": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json",
     "row_count": 210,
-    "audited_row_count": 189,
+    "audited_row_count": 190,
     "confirmed_provenance_metadata_defect_count": 18,
     "repaired_provenance_metadata_defect_count": 18,
     "historical_candidate_registry_count": 3,
@@ -443,9 +443,10 @@
       "BATCH-12-BAZI-STRUCTURAL-SUPPORT-EVIDENCE-CLASS-PROJECTION-AUDIT-MQ",
       "BATCH-12-BAZI-COMBINED-UNIFIED-TARGET-TIMELINE-COMPOSITION-AUDIT-MR",
       "BATCH-12-BAZI-NATAL-FOUR-PILLAR-COMPOSITION-AUDIT-MS",
-      "BATCH-12-ZIWEI-R3-BORROW-PROJECTION-SCHOOL-MECHANICS-AND-MODERN-CLOSURE-AUDIT-MT"
+      "BATCH-12-ZIWEI-R3-BORROW-PROJECTION-SCHOOL-MECHANICS-AND-MODERN-CLOSURE-AUDIT-MT",
+      "BATCH-12-ZIWEI-R5-BORROW-RESOLVED-SANFANG-COMPOSITION-AUDIT-MU"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-R3-BORROW-PROJECTION-SCHOOL-MECHANICS-AND-MODERN-CLOSURE-AUDIT-MT.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-R5-BORROW-RESOLVED-SANFANG-COMPOSITION-AUDIT-MU.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -2047,7 +2048,13 @@
       "HPA-STRUCT-009 empty-palace eligibility, HPA-STRUCT-010 opposite-palace all-star borrowing and HPA-STRUCT-011 pre-borrow of empty Sanfang/Sizheng members are SUPPORTED_BUT_SCHOOL_SPECIFIC from the S06 normalized Wang Tingzhi route / EXT-WANGTINGZHI-ZHONGZHOU-CHUJI.",
       "HPA-STRUCT-012 immutable projection, one-step non-recursion/fail-closed, zero-second-contribution and STRUCTURE_PHYSICAL_KEY dedup are MODERN_COMPATIBILITY_ONLY engineering semantics. They are not back-dated as Zhongzhou doctrine.",
       "No R3 runtime/schema/hash changes and no new provenance defect. Matrix is now 210 / 189 / 10; provenance defects remain 18/18; chart algorithm defects / reopens / candidate collapses remain 0.",
-      "12MU: audit HPA-STRUCT-005 R5 borrow-resolved Sanfang/Sizheng composition as the next unaudited IMPLEMENTATION_REVIEW_REQUIRED row in Matrix order. Keep R3 borrow mechanics, R4 named semantics and R5 composition authority separately scoped."
+      "12MU: audit HPA-STRUCT-005 R5 borrow-resolved Sanfang/Sizheng composition as the next unaudited IMPLEMENTATION_REVIEW_REQUIRED row in Matrix order. Keep R3 borrow mechanics, R4 named semantics and R5 composition authority separately scoped.",
+      "Exact startup HEAD e1c61924 main CI failed only because test_ziwei_temporal_historical_candidate_productization_r1 hard-coded the school-specific global count as 18 after 12MT raised it to 21. Forward-only test repair compares actual row counts with the inventory; no historical snapshot or runtime rule changes.",
+      "Batch 12MU audits HPA-STRUCT-005 as MODERN_COMPATIBILITY_ONLY: R5 joins R3 physical references with R4 named semantic identities, preserves both dedup domains, emits no copied star payload, performs no second borrow pass and adds no independent evidence cause.",
+      "R4 HPA-STRUCT-004 retains its original inventory label but is absent from audited_row_ids; source_quote, dating and school attribution remain pending. R5 hash/profile consistency cannot certify R4 historical authority or replace fresh upstream source-oracle replay.",
+      "Matrix is now 210 / 190 / 10; provenance defects remain 18/18; chart algorithm defects / reopens / candidate collapses remain 0. No transmission edge is added by an engineering composition audit.",
+      "12MV: audit HPA-ZIWEI-011 博士/将前/岁前三环 as the remaining IMPLEMENTATION_REVIEW_REQUIRED row. Separate the three rings, anchors, directions, time layers and coverage of earlier audits; after that, prioritize unaudited HPA-STRUCT-004 historical source/terminology/dating gaps rather than treating its inventory status as closure.",
+      "Original Wenwu1951 recovery remains PAUSED_ACCESS_UNRESOLVED_PENDING_MATERIALLY_NEW_ROUTE; direct 1951 pp.221–233, 2011 Wenji p.197 and Wenhui1951-08-18 remain NOT_REVIEWED."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10

@@ -223,7 +223,7 @@ Fusion Chart Capability & Performance Acceptance R1 已正式收口。最终执�
 
 ## Fusion Chart Historical Provenance & School Audit R1
 
-最新规则审计闭环为 **Batch 12MT**：`HPA-STRUCT-003` R3 borrow projection 已拆为三条中州派借星机械规则（HPA-STRUCT-009 空宫资格、HPA-STRUCT-010 对宫全星借入、HPA-STRUCT-011 三方四正成员先借后会）与一条现代工程闭包（HPA-STRUCT-012 不物理迁移、一次投影/双空 fail-closed、零二次贡献与物理键去重）。R3 总层因此归为 `MODERN_COMPATIBILITY_ONLY`，前三条为 `SUPPORTED_BUT_SCHOOL_SPECIFIC`；不把 hash、去重和 fail-closed 工程语义倒推成传统教义。Matrix 为 210 项、已审 189 项、缺失候选 10；来源缺陷 18/18，算法缺陷/重开/候选折叠 0。下一门为 `HPA-STRUCT-005` R5 borrow-resolved Sanfang/Sizheng composition，见 `docs/PROJECT-CURRENT-STATE-R1.json`。
+最新规则审计闭环为 **Batch 12MU**：`HPA-STRUCT-005` R5 借星后三方四正组合归为 `MODERN_COMPATIBILITY_ONLY`，只引用 R3 物理身份与 R4 三方四正命名身份；不复制星曜、不进行第二次借星、不新增独立证据贡献。R4 的历史出处、训诂与年代仍待实审，本批不替它背书。Matrix 为 210 项、已审 190 项、缺失候选 10；来源缺陷 18/18，算法缺陷/重开/候选折叠 0。主 CI 中写死流派规则计数的测试已改为按实际矩阵核对。下一门为 `HPA-ZIWEI-011` 博士/将前/岁前三环，之后优先补 R4 的历史来源缺口，见 `docs/PROJECT-CURRENT-STATE-R1.json`。
 
 ```text
 FUSION_CHART_HISTORICAL_PROVENANCE_AUDIT_R1=IN_PROGRESS

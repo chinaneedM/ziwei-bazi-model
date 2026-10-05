@@ -878,9 +878,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-BAZI-COMBINED-UNIFIED-TARGET-TIMELINE-COMPOSITION-AUDIT-MR",
     "BATCH-12-BAZI-NATAL-FOUR-PILLAR-COMPOSITION-AUDIT-MS",
     "BATCH-12-ZIWEI-R3-BORROW-PROJECTION-SCHOOL-MECHANICS-AND-MODERN-CLOSURE-AUDIT-MT",
+    "BATCH-12-ZIWEI-R5-BORROW-RESOLVED-SANFANG-COMPOSITION-AUDIT-MU",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-R3-BORROW-PROJECTION-SCHOOL-MECHANICS-AND-MODERN-CLOSURE-AUDIT-MT.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-R5-BORROW-RESOLVED-SANFANG-COMPOSITION-AUDIT-MU.md"
 
 
 def fail(message: str) -> None:
@@ -14516,6 +14517,43 @@ def main() -> int:
             fail("Batch 12MT released runtime mutation claim drift")
     if mt.get("transmission_impact", {}).get("status") != "NONE":
         fail("Batch 12MT transmission scope drift")
+
+    # Batch 12MU: modern R3/R4 reference composition is not R4 historical certification.
+    mu_path = ROOT / "docs/research/ZIWEI-R5-BORROW-RESOLVED-SANFANG-COMPOSITION-AUDIT-R1.json"
+    mu_replay_path = ROOT / "docs/research/evidence/batch-12mu/composition-replay.json"
+    for path in (mu_path, mu_replay_path, ROOT / LATEST_BATCH_DOC):
+        if not path.is_file():
+            fail(f"Batch 12MU continuity artifact missing: {path.relative_to(ROOT)}")
+    mu = json.loads(mu_path.read_text(encoding="utf-8"))
+    mu_id = "BATCH-12-ZIWEI-R5-BORROW-RESOLVED-SANFANG-COMPOSITION-AUDIT-MU"
+    if mu.get("batch_id") != mu_id or mu.get("prior_batch_id") != mt_id or mu_id not in rule_batches:
+        fail("Batch 12MU chronology/rule ledger mismatch")
+    struct5 = next(row for row in matrix["rows"] if row["rule_id"] == "HPA-STRUCT-005")
+    if struct5.get("audit_status") != "MODERN_COMPATIBILITY_ONLY" or struct5.get("audit_batch") != mu_id or "HPA-STRUCT-005" not in matrix["audited_row_ids"]:
+        fail("Batch 12MU R5 audited ledger drift")
+    firewall_mu = struct5.get("component_firewall", {})
+    for flag in ("physical_payload_duplicated", "second_borrow_pass", "new_independent_evidence_cause", "r4_historical_authority_certified_by_composition", "hash_recomputation_equals_independent_upstream_source_replay", "alternate_school_winner_selected", "interpretation_or_prediction_authorized"):
+        if firewall_mu.get(flag) is not False:
+            fail(f"Batch 12MU reference/authority firewall drift: {flag}")
+    acct_mu = mu.get("accounting", {})
+    if acct_mu.get("rows_after") != 210 or acct_mu.get("audited_rows_after") != 190 or acct_mu.get("current_missing_from_product_rows") != 10:
+        fail("Batch 12MU historical snapshot accounting drift")
+    replay_mu = json.loads(mu_replay_path.read_text(encoding="utf-8"))
+    if replay_mu.get("chart_samples") != 288 or replay_mu.get("resolved_frames") != 3456 or replay_mu.get("member_references") != 13824:
+        fail("Batch 12MU replay sample coverage drift")
+    if replay_mu.get("closure_status_counts") != {"DIRECT_PHYSICAL": 11680, "BORROWED_DIRECT": 2144}:
+        fail("Batch 12MU replay closure counts drift")
+    records_mu = replay_mu.get("records", [])
+    digest_mu = hashlib.sha256(json.dumps(records_mu, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
+    if len(records_mu) != 288 or digest_mu != replay_mu.get("records_sha256"):
+        fail("Batch 12MU replay record integrity drift")
+    for obj in mu.get("runtime_files", []):
+        content_mu = (ROOT / obj["path"]).read_bytes()
+        blob_mu = hashlib.sha1(b"blob " + str(len(content_mu)).encode() + b"\0" + content_mu).hexdigest()
+        if obj.get("unchanged_from_base") is not True or blob_mu != obj.get("blob_sha"):
+            fail(f"Batch 12MU released runtime/schema contract drift: {obj.get('path')}")
+    if mu.get("adjudication", {}).get("r4_historical_authority_certified") is not False or mu.get("transmission_impact", {}).get("status") != "NONE":
+        fail("Batch 12MU upstream authority/transmission scope drift")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

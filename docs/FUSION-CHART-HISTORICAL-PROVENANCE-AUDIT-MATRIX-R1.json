@@ -45,12 +45,12 @@
   "inventory_summary": {
     "row_count": 210,
     "status_counts": {
-      "MODERN_COMPATIBILITY_ONLY": 41,
+      "MODERN_COMPATIBILITY_ONLY": 42,
       "HISTORICALLY_SUPPORTED": 97,
       "DISPUTED_MULTIPLE_CANDIDATES": 29,
       "SUPPORTED_BUT_SCHOOL_SPECIFIC": 21,
       "SOURCE_INSUFFICIENT": 9,
-      "IMPLEMENTATION_REVIEW_REQUIRED": 2,
+      "IMPLEMENTATION_REVIEW_REQUIRED": 1,
       "MISSING_FROM_PRODUCT": 10,
       "NOT_YET_FORMALIZED": 1
     },
@@ -81,7 +81,7 @@
       "candidate/profile rules": 2,
       "provenance / hashes / lineage": 2
     },
-    "audited_row_count": 189
+    "audited_row_count": 190
   },
   "rows": [
     {
@@ -2817,20 +2817,43 @@
       "system": "ZIWEI",
       "module": "Structural R1–R8",
       "rule_or_field": "R5 borrow-resolved Sanfang/Sizheng composition",
-      "current_implementation": "Composes R3 borrow projection with R4 named semantics.",
-      "current_profile": "ZIWEI-STRUCTURAL-RUNTIME-V2-R5",
-      "primary_source": "composition of audited upstream rule families",
-      "source_quote": "PENDING_VERBATIM_EXTRACTION",
-      "source_quote_location": "src/fortune_training/ziwei_structural/r5/profile.py",
-      "historical_period": "PENDING_BIBLIOGRAPHIC_DATING",
-      "later_witnesses": "PENDING_LATER_WITNESS_AUDIT",
-      "school_attribution": "PENDING_SCHOOL_ATTRIBUTION_AUDIT",
-      "competing_methods": [],
-      "current_implementation_match": "PENDING_RULE_BY_RULE_REPLAY",
-      "confidence": "INVENTORY_CONFIDENCE_HIGH",
-      "audit_status": "IMPLEMENTATION_REVIEW_REQUIRED",
-      "proposed_action": "Audit composition semantics after R3/R4 historical audits; no independent doctrine assumed.",
-      "algorithm_reopen_authorized": false
+      "current_implementation": "R5 is a NATAL-only read-only join of R3 member references and R4 named axis/group identities; exactly 12 frames and 48 references, with no physical payload copy, second borrow pass or new evidence cause.",
+      "current_profile": "ZIWEI-STRUCTURAL-RUNTIME-V2-R5@1.0.0",
+      "primary_source": "Modern composition/integrity contract over HPA-STRUCT-003 and HPA-STRUCT-004. 12MT audits R3 mechanics; R4 historical dating/attribution is not certified by this engineering audit.",
+      "source_quote": "SOFTWARE_CONTRACT_PARAPHRASE_NOT_HISTORICAL_QUOTATION: R5 preserves the R3 physical key and R4 axis/group keys without a second borrow pass.",
+      "source_quote_location": "src/fortune_training/ziwei_structural/r5/composition.py, integrity.py, engine.py, models.py, profile.py; docs/ZIWEI-STRUCTURAL-RUNTIME-V2-R5.md",
+      "historical_period": "MODERN_SOFTWARE_COMPOSITION_NOT_INDEPENDENT_CLASSICAL_DOCTRINE",
+      "later_witnesses": "No new historical witness. R3 Zhongzhou-school scope stays in 12MT; HPA-STRUCT-004 dating and textual attribution remain unfinished.",
+      "school_attribution": "MODERN_COMPOSER_PRESERVING_SEPARATELY_GOVERNED_UPSTREAM_SOURCE_SCOPES",
+      "competing_methods": [
+        "No alternative school winner is selected by composition.",
+        "R4 initial inventory HISTORICALLY_SUPPORTED label is not promoted to a completed historical audit.",
+        "NATAL-only; no dynamic borrowing, left/right 合宫, weights, motifs or prediction."
+      ],
+      "current_implementation_match": "MATCH_WITHIN_ENGINEERING_SCOPE: independent raw-coordinate oracle and R3 physical/R4 semantic reference comparisons; stale PASS/hash rejection, same-R2 cross-binding, schema and deterministic ordering replayed in focused tests. Hash consistency is not a fresh BirthInput-to-R3/R4 historical/source oracle replay.",
+      "confidence": "HIGH_FOR_RELEASED_COMPOSITION_CONTRACT_ONLY",
+      "audit_status": "MODERN_COMPATIBILITY_ONLY",
+      "proposed_action": "No algorithm reopen. Preserve two upstream identity domains and complete HPA-STRUCT-004 historical source audit separately; never count an R5 frame as independent evidence.",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-12-ZIWEI-R5-BORROW-RESOLVED-SANFANG-COMPOSITION-AUDIT-MU",
+      "historical_scope": "MODERN_NATAL_R3_R4_REFERENCE_COMPOSITION_ONLY",
+      "upstream_rule_ids": [
+        "HPA-STRUCT-003",
+        "HPA-STRUCT-004"
+      ],
+      "component_firewall": {
+        "physical_payload_duplicated": false,
+        "second_borrow_pass": false,
+        "new_independent_evidence_cause": false,
+        "r4_historical_authority_certified_by_composition": false,
+        "named_semantic_keys_recomputed": false,
+        "alternate_school_winner_selected": false,
+        "interpretation_or_prediction_authorized": false,
+        "hash_recomputation_equals_independent_upstream_source_replay": false
+      },
+      "runtime_change": false,
+      "provenance_defect_increment": 0,
+      "audit_evidence": "docs/research/ZIWEI-R5-BORROW-RESOLVED-SANFANG-COMPOSITION-AUDIT-R1.json"
     },
     {
       "rule_id": "HPA-STRUCT-006",
@@ -6837,7 +6860,8 @@
     "HPA-STRUCT-009",
     "HPA-STRUCT-010",
     "HPA-STRUCT-011",
-    "HPA-STRUCT-012"
+    "HPA-STRUCT-012",
+    "HPA-STRUCT-005"
   ],
   "audit_summary": {
     "confirmed_chart_algorithm_defect_count": 0,
@@ -6862,6 +6886,7 @@
     "BATCH-12-BAZI-STRUCTURAL-SUPPORT-EVIDENCE-CLASS-PROJECTION-AUDIT-MQ",
     "BATCH-12-BAZI-COMBINED-UNIFIED-TARGET-TIMELINE-COMPOSITION-AUDIT-MR",
     "BATCH-12-BAZI-NATAL-FOUR-PILLAR-COMPOSITION-AUDIT-MS",
-    "BATCH-12-ZIWEI-R3-BORROW-PROJECTION-SCHOOL-MECHANICS-AND-MODERN-CLOSURE-AUDIT-MT"
+    "BATCH-12-ZIWEI-R3-BORROW-PROJECTION-SCHOOL-MECHANICS-AND-MODERN-CLOSURE-AUDIT-MT",
+    "BATCH-12-ZIWEI-R5-BORROW-RESOLVED-SANFANG-COMPOSITION-AUDIT-MU"
   ]
 }
