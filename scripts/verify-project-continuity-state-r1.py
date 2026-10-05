@@ -895,9 +895,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-SELF-INWARD-TRANSFORMATION-DIRECTION-SOURCE-SCOPE-AUDIT-NI",
     "BATCH-12-COMBINED-SHARED-TIME-CREDENTIAL-SCOPE-AUDIT-NJ",
     "BATCH-12-COMBINED-INDEPENDENT-DATE-CALENDAR-POLICY-PRESERVATION-AUDIT-NK",
+    "BATCH-12-COMBINED-CANDIDATE-LINEAGE-PRESERVATION-AUDIT-NL",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-COMBINED-INDEPENDENT-DATE-CALENDAR-POLICY-PRESERVATION-AUDIT-NK.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-COMBINED-CANDIDATE-LINEAGE-PRESERVATION-AUDIT-NL.md"
 
 
 def fail(message: str) -> None:
@@ -15104,6 +15105,56 @@ def main() -> int:
         fail("Batch 12NK provenance accounting regressed below 30/30")
     if nk.get("algorithm_reopen_authorized") is not False or nk.get("transmission_impact", {}).get("status") != "NONE":
         fail("Batch 12NK reopen/transmission scope drift")
+
+    # Batch 12NL: candidate lineage preserves branch/candidate identities without winner selection.
+    nl_path = ROOT / "docs/research/COMBINED-CANDIDATE-LINEAGE-PRESERVATION-AUDIT-R1.json"
+    nl_evidence_path = ROOT / "docs/research/evidence/batch-12nl/combined-candidate-lineage-preservation.json"
+    if not nl_path.is_file() or not nl_evidence_path.is_file():
+        fail("Batch 12NL research/evidence record missing")
+    nl = json.loads(nl_path.read_text(encoding="utf-8"))
+    nl_evidence = json.loads(nl_evidence_path.read_text(encoding="utf-8"))
+    nl_id = "BATCH-12-COMBINED-CANDIDATE-LINEAGE-PRESERVATION-AUDIT-NL"
+    if nl.get("batch_id") != nl_id or nl.get("prior_batch_id") != nk_id or nl_id not in rule_batches:
+        fail("Batch 12NL chronology drift")
+    row_nl = next(r for r in matrix["rows"] if r["rule_id"] == "HPA-COMB-003")
+    if row_nl.get("audit_status") != "MODERN_COMPATIBILITY_ONLY" or row_nl.get("audit_batch") != nl_id or "HPA-COMB-003" not in matrix["audited_row_ids"]:
+        fail("Batch 12NL candidate-lineage audit row drift")
+    contract_nl = nl.get("lineage_contract", {})
+    for key in (
+        "source_time_branch_index_is_primary_join_coordinate",
+        "shared_time_realization_hash_bound",
+        "ziwei_natal_fact_hash_bound",
+        "bazi_candidate_ids_bound",
+        "lineage_hash_bound_to_shared_time_computation_hash",
+    ):
+        if contract_nl.get(key) is not True:
+            fail(f"Batch 12NL lineage contract drift: {key}")
+    for key in ("winner_selection", "ranking", "scoring"):
+        if contract_nl.get(key) is not False:
+            fail(f"Batch 12NL winner/ranking firewall drift: {key}")
+    multi_nl = nl.get("multi_candidate_adjudication", {})
+    for key in (
+        "dst_fold_two_ziwei_fact_hashes_preserved",
+        "mixed_uncertainty_five_shared_time_branches_preserved",
+        "branch_to_fact_hash_mapping_replayed_exactly",
+        "forged_well_formed_fact_hash_rejected_by_full_replay",
+        "ui_candidate_selection_is_presentation_only",
+    ):
+        if multi_nl.get(key) is not True:
+            fail(f"Batch 12NL multi-candidate preservation drift: {key}")
+    repairs_nl = {x.get("defect_id") for x in nl.get("provenance_repairs", ())}
+    if repairs_nl != {"PROV-DEFECT-031"}:
+        fail("Batch 12NL provenance repair identity drift")
+    evidence_repair_nl = nl_evidence.get("provenance_repair", {})
+    if evidence_repair_nl.get("defect_id") != "PROV-DEFECT-031" or evidence_repair_nl.get("runtime_behavior_changed") is not False:
+        fail("Batch 12NL source-link repair scope drift")
+    adjudication_nl = nl_evidence.get("adjudication", {})
+    if adjudication_nl.get("candidate_collapse_found") is not False or adjudication_nl.get("candidate_change_authorized") is not False:
+        fail("Batch 12NL candidate-collapse firewall drift")
+    if audit_summary.get("confirmed_provenance_metadata_defect_count", 0) < 31 or audit_summary.get("repaired_provenance_metadata_defect_count", 0) < 31:
+        fail("Batch 12NL provenance accounting must retain at least 31/31")
+    if nl.get("algorithm_reopen_authorized") is not False or nl.get("transmission_impact", {}).get("status") != "NONE":
+        fail("Batch 12NL reopen/transmission scope drift")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")
