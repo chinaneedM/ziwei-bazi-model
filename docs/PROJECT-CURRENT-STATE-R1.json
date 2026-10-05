@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.407.0",
+  "schema_version": "1.408.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -488,9 +488,10 @@
       "BATCH-12-ZIWEI-FOUR-TRANSFORMATION-WHOLE-TABLE-CANDIDATE-READINESS-OJ",
       "BATCH-12-ZIWEI-FOUR-TRANSFORMATION-WHOLE-TABLE-CANDIDATE-PRODUCTIZATION-OK",
       "BATCH-12-REMAINING-PRODUCT-GAP-REPRIORITIZATION-OL",
-      "BATCH-12-ZIWEI-JIELAN-DIGNITY-SOURCE-LEXEME-CANDIDATE-OM"
+      "BATCH-12-ZIWEI-JIELAN-DIGNITY-SOURCE-LEXEME-CANDIDATE-OM",
+      "BATCH-12-ZIWEI-JIELAN-DIGNITY-CH69-CH70-CELL-CROSS-COLLATION-ON"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JIELAN-DIGNITY-SOURCE-LEXEME-CANDIDATE-OM.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JIELAN-DIGNITY-CH69-CH70-CELL-CROSS-COLLATION-ON.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -2364,7 +2365,14 @@
       "Candidate identity is JIELAN-1581-DIGNITY-CH70-SOURCE-LEXEME-R1 under ZIWEI-JIELAN-1581-DIGNITY-LEXEME-CANDIDATES-R1@1.0.0 / runtime 1.0.0 / PRESERVED_NOT_SELECTED.",
       "HPA-ZIWEI-018 remains MISSING_FROM_PRODUCT until CH69/CH70 cell-level cross-collation and a read-only product surface close.",
       "Matrix remains 222/222 audited / 6 current missing; candidate extensions 14; registries/runtime resolvers 5/5; provenance defects 43/43.",
-      "12ON: cross-collate Jielan CH69 palace-oriented dignity text against CH70 raw lexeme cells without modern-grade coercion."
+      "12ON: cross-collate Jielan CH69 palace-oriented dignity text against CH70 raw lexeme cells without modern-grade coercion.",
+      "Batch 12ON completed: Jielan CH69 palace-oriented dignity text is cross-collated cell-by-cell against the CH70 25×12 raw-lexeme candidate.",
+      "Frozen 300-cell relation counts: 97 exact lexeme overlaps / 37 source-explicit equivalences / 54 source-local polarity conflicts / 21 attested non-equivalent without direct gloss / 82 CH69 unstated / 8 CH69 text-unresolved / 1 CH70 unstated.",
+      "Eight CH69 cells remain typed as text-unresolved rather than silently repaired, including singular 文 at 子, the ambiguous 丑 羊陀火破 scope, 辰 午-vs-日 suspicion, and truncated 寅 曲与.",
+      "CH70 anomalies remain intact: 紫微午=庙+平, 巨门丑=局+陷, 天机巳=UNSTATED. CH69 never fills or overwrites CH70.",
+      "HPA-ZIWEI-018 remains MISSING_FROM_PRODUCT only because a read-only candidate API/Workbench surface is still absent; production OPERATIONAL-ZIWEI-DIGNITY-R4 remains untouched.",
+      "Matrix remains 222/222 audited / 6 current missing; candidate extensions 14; registries/runtime resolvers 5/5; provenance defects 43/43.",
+      "12OO: expose the reconciled Jielan dignity source-lexeme candidate through a read-only product API/Workbench surface without grade coercion."
     ],
     "historical_candidate_extension_count": 14,
     "current_missing_from_product_row_count": 6
