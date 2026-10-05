@@ -90,6 +90,7 @@ class ZiweiTemporalAuxiliaryCandidateSvgR1Tests(unittest.TestCase):
         self.assertIn("S10-LIMIT-PALACE-BRANCH-TIANMA-CASE-R1", methods)
         self.assertIn("S10-ANNUAL-BRANCH-TIANMA-CASE-R1", methods)
         self.assertIn("RECEIVED-FULLBOOK-ANNUAL-YUEDE-ZI-START-R1", methods)
+        self.assertIn("RECEIVED-FULLBOOK-ANNUAL-TIANDE-YOU-START-R1", methods)
         self.assertIn("候选流曜:", self.artifact.svg)
         for row in self.expected:
             self.assertIn(row.method_id, self.artifact.svg)
