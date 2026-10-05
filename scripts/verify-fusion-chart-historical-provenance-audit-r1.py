@@ -19,6 +19,7 @@ ZIWEI_JIELAN_AP = ROOT / "docs" / "research" / "ZIWEI-JIELAN-BIRTH-TIME-CHAPTER-
 ZIWEI_JIELAN_AQ = ROOT / "docs" / "research" / "ZIWEI-JIELAN-BIBLIOGRAPHIC-IMPRINT-RECONCILIATION-R1.json"
 ZIWEI_JIELAN_AR = ROOT / "docs" / "research" / "ZIWEI-JIELAN-PT49-PUBLIC-PREVIEW-ACCESS-BOUNDARY-R1.json"
 ZIWEI_YUEDE_TIANDE_OE = ROOT / "docs" / "research" / "ZIWEI-YUEDE-TIANDE-TEMPORAL-SCOPE-CLOSURE-R1.json"
+ZIWEI_TIANSHOU_OF = ROOT / "docs" / "research" / "ZIWEI-TIANSHOU-BODY-BASIS-EARLY-PRINT-CLOSURE-R1.json"
 ZIWEI_INDEPENDENT_EDITION_ROUTES = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-INDEPENDENT-EDITION-ROUTES-R1.json"
 ZIWEI_WENGUANG_GOOGLE_INDEX = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-WENGUANG-GOOGLE-INDEX-PREVIEW-R1.json"
 ZIWEI_JINGLUNTANG_PHYSICAL_ROUTE = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-JINGLUNTANG-PHYSICAL-ROUTE-R1.json"
@@ -864,6 +865,34 @@ def main() -> int:
         raise SystemExit("Batch 12OE unexpectedly changed natal defaults")
     if data.get("audit_summary",{}).get("historical_candidate_extension_count",0) < 8:
         raise SystemExit("Batch 12OE candidate extension accounting regressed")
+
+    # Batch 12OF: Jielan closes TianShou Body-basis; no unbound Life candidate.
+    if not ZIWEI_TIANSHOU_OF.is_file():
+        raise SystemExit("Batch 12OF TianShou research record is missing")
+    of=json.loads(ZIWEI_TIANSHOU_OF.read_text(encoding="utf-8"))
+    if of.get("batch_id") != "BATCH-12-ZIWEI-TIANSHOU-BODY-BASIS-EARLY-PRINT-CLOSURE-OF":
+        raise SystemExit("Batch 12OF research identity mismatch")
+    row008=next((r for r in rows if r.get("rule_id")=="HPA-ZMINOR-008"), None)
+    row019=next((r for r in rows if r.get("rule_id")=="HPA-ZMINOR-019"), None)
+    if row008 is None or row008.get("audit_status")!="HISTORICALLY_SUPPORTED":
+        raise SystemExit("Batch 12OF TianShou historical status regressed")
+    if row008.get("defect_id")!="PROV-DEFECT-042":
+        raise SystemExit("Batch 12OF TianShou provenance defect binding regressed")
+    if row008.get("product_surface_reconciliation",{}).get("runtime_basis")!="BODY_PALACE_PLUS_BIRTH_YEAR_BRANCH_OFFSET":
+        raise SystemExit("Batch 12OF TianShou Body-basis runtime binding regressed")
+    if row008.get("product_surface_reconciliation",{}).get("life_basis_source_bound") is not False:
+        raise SystemExit("Batch 12OF unbound Life-basis candidate reintroduced")
+    if any("Life-palace basis" in x and "No edition-bound" not in x for x in row008.get("competing_methods",())):
+        raise SystemExit("Batch 12OF unsupported Life-basis candidate text reintroduced")
+    if row019 is None or "Batch 12OF" not in row019.get("later_witnesses",""):
+        raise SystemExit("Batch 12OF TianCai cross-reference not synchronized")
+    adjof=of.get("adjudication",{})
+    if adjof.get("runtime_change_required") is not False or adjof.get("chart_algorithm_reopened") is not False:
+        raise SystemExit("Batch 12OF unexpectedly reopened runtime algorithm")
+    if data.get("audit_summary",{}).get("confirmed_provenance_metadata_defect_count",0) < 42:
+        raise SystemExit("Batch 12OF provenance defect accounting regressed")
+    if data.get("audit_summary",{}).get("repaired_provenance_metadata_defect_count",0) < 42:
+        raise SystemExit("Batch 12OF provenance repair accounting regressed")
 
     defect_ids=[row.get("defect_id") for row in rows if row.get("defect_id")]
     if len(defect_ids)!=len(set(defect_ids)):
