@@ -125,6 +125,15 @@ from .ziwei_four_transformation_historical_candidate_local_app import (
     ZiweiFourTransformationHistoricalCandidateLocalMixin,
     _ZiweiFourTransformationHistoricalCandidateHandlerMixin,
 )
+from .ziwei_jielan_dignity_historical_candidate_assets import (
+    ZIWEI_JIELAN_DIGNITY_CANDIDATE_CSS,
+    ZIWEI_JIELAN_DIGNITY_CANDIDATE_JS,
+    ziwei_jielan_dignity_candidate_index_html,
+)
+from .ziwei_jielan_dignity_historical_candidate_local_app import (
+    ZiweiJielanDignityHistoricalCandidateLocalMixin,
+    _ZiweiJielanDignityHistoricalCandidateHandlerMixin,
+)
 from .ziwei_jielan_historical_candidate_assets import (
     ZIWEI_JIELAN_1581_CANDIDATE_CSS,
     ZIWEI_JIELAN_1581_CANDIDATE_JS,
@@ -146,6 +155,7 @@ from .ziwei_transformation_provenance_assets import (
 
 
 class CombinedChartWorkbenchApplication(
+    ZiweiJielanDignityHistoricalCandidateLocalMixin,
     ZiweiFourTransformationHistoricalCandidateLocalMixin,
     ZiweiJielan1581HistoricalCandidateLocalMixin,
     ZiweiDignityProvenanceLocalMixin,
@@ -176,6 +186,7 @@ class CombinedChartWorkbenchApplication(
 
 
 class _WorkbenchHandler(
+    _ZiweiJielanDignityHistoricalCandidateHandlerMixin,
     _ZiweiFourTransformationHistoricalCandidateHandlerMixin,
     _ZiweiJielan1581HistoricalCandidateHandlerMixin,
     _ZiweiDignityProvenanceHandlerMixin,
@@ -190,7 +201,7 @@ class _WorkbenchHandler(
     _FlowHandler,
 ):
     application: CombinedChartWorkbenchApplication
-    server_version = "CombinedChartWorkbenchLocalApp/1.14"
+    server_version = "CombinedChartWorkbenchLocalApp/1.15"
 
     def do_GET(self) -> None:  # noqa: N802
         path = urlsplit(self.path).path
@@ -226,6 +237,7 @@ class _WorkbenchHandler(
             )
             html = ziwei_jielan_1581_candidate_index_html(html)
             html = ziwei_four_transformation_candidate_index_html(html)
+            html = ziwei_jielan_dignity_candidate_index_html(html)
             html = product_shell_index_html(html)
             self._send_bytes(200, "text/html; charset=utf-8", html.encode())
             return
@@ -320,6 +332,20 @@ class _WorkbenchHandler(
                 200,
                 "application/javascript; charset=utf-8",
                 ZIWEI_FOUR_TRANSFORMATION_CANDIDATE_JS.encode(),
+            )
+            return
+        if path == "/ziwei-jielan-dignity-candidate.css":
+            self._send_bytes(
+                200,
+                "text/css; charset=utf-8",
+                ZIWEI_JIELAN_DIGNITY_CANDIDATE_CSS.encode(),
+            )
+            return
+        if path == "/ziwei-jielan-dignity-candidate.js":
+            self._send_bytes(
+                200,
+                "application/javascript; charset=utf-8",
+                ZIWEI_JIELAN_DIGNITY_CANDIDATE_JS.encode(),
             )
             return
         if path == "/ziwei-jielan-1581-candidate.css":
