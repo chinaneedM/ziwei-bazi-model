@@ -907,9 +907,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-POST-AUDIT-DAYUN-HISTORICAL-CALENDAR-CANDIDATE-PRODUCT-SURFACE-RECONCILIATION-NU",
     "BATCH-12-UNRESOLVED-HISTORICAL-STATUS-PRIORITIZATION-NV",
     "BATCH-12-ZIWEI-ZI-WU-SHENZHU-FIRE-BELL-EVIDENCE-CLOSURE-NW",
+    "BATCH-12-ZIWEI-JIANGQIAN-TEMPORAL-SOURCE-SCOPE-EVIDENCE-CLOSURE-NX",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZI-WU-SHENZHU-FIRE-BELL-EVIDENCE-CLOSURE-NW.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JIANGQIAN-TEMPORAL-SOURCE-SCOPE-EVIDENCE-CLOSURE-NX.md"
 
 
 def fail(message: str) -> None:
@@ -15935,6 +15936,86 @@ def main() -> int:
         fail("Batch 12NW state version is not numeric")
     if schema12nw < (1, 391, 0):
         fail("Batch 12NW state version regressed below 1.391.0")
+    # Batch 12NX: separate Jiangqian rule geometry from natal/annual temporal application.
+    nx_path = ROOT / "docs/research/ZIWEI-JIANGQIAN-TEMPORAL-SOURCE-SCOPE-CLOSURE-R1.json"
+    nx_evidence_path = ROOT / "docs/research/evidence/batch-12nx/ziwei-jiangqian-temporal-source-scope-evidence.json"
+    if not nx_path.is_file() or not nx_evidence_path.is_file():
+        fail("Batch 12NX research/evidence record missing")
+    nx = json.loads(nx_path.read_text(encoding="utf-8"))
+    nx_evidence = json.loads(nx_evidence_path.read_text(encoding="utf-8"))
+    nx_id = "BATCH-12-ZIWEI-JIANGQIAN-TEMPORAL-SOURCE-SCOPE-EVIDENCE-CLOSURE-NX"
+    if nx.get("batch_id") != nx_id or nx.get("prior_batch_id") != nw_id:
+        fail("Batch 12NX chronology drift")
+    if nx_id in rule_batches:
+        fail("Batch 12NX evidence closure must not be enrolled as a supplemental rule-audit batch")
+    if nx.get("batch_classification") != "POST_AUDIT_EVIDENCE_CLOSURE_NOT_SUPPLEMENTAL_RULE_AUDIT":
+        fail("Batch 12NX batch classification drift")
+    if nx.get("target_rule_ids") != ["HPA-ZIWEI-026"] or nx.get("target_status_after") != "SOURCE_INSUFFICIENT":
+        fail("Batch 12NX target/status drift")
+    row26_nx = next((r for r in matrix["rows"] if r["rule_id"] == "HPA-ZIWEI-026"), None)
+    if row26_nx is None or row26_nx.get("audit_status") != "SOURCE_INSUFFICIENT":
+        fail("Batch 12NX HPA-ZIWEI-026 status drift")
+    if row26_nx.get("evidence_closure_batch") != nx_id or row26_nx.get("evidence_closure_status") != "TEMPORAL_LAYERS_SEPARATED_EARLY_COMPLETE_RING_NOT_CLOSED":
+        fail("Batch 12NX Matrix closure binding drift")
+    temporal_nx = row26_nx.get("temporal_layer_reconciliation", {})
+    for key in ("natal_birth_year_productized", "modern_complete_ring_natal_attested", "modern_complete_ring_annual_attested", "early_flow_year_related_shensha_context_attested"):
+        if temporal_nx.get(key) is not True:
+            fail(f"Batch 12NX positive temporal control drift: {key}")
+    for key in ("annual_target_productized", "natal_and_annual_mutually_exclusive", "early_complete_twelve_member_ring_attested", "runtime_changed"):
+        if temporal_nx.get(key) is not False:
+            fail(f"Batch 12NX temporal/source firewall drift: {key}")
+    scope_nx = nx.get("temporal_scope_adjudication", {})
+    if scope_nx.get("natal_and_annual_are_mutually_exclusive_candidates") is not False:
+        fail("Batch 12NX natal/annual candidate relation drift")
+    if scope_nx.get("same_geometry_can_be_reapplied_with_different_year_branch_contexts") is not True:
+        fail("Batch 12NX temporal reuse geometry drift")
+    if scope_nx.get("annual_runtime_productization_authorized") is not False or scope_nx.get("early_complete_jiangqian_twelve_member_sequence_attested") is not False:
+        fail("Batch 12NX early-source/productization firewall drift")
+    runtime_nx = nx.get("runtime_boundary", {})
+    if runtime_nx.get("active_product_layer") != "NATAL" or runtime_nx.get("runtime_year_branch_input") != "structure.ziwei_birth_year_branch":
+        fail("Batch 12NX natal runtime input drift")
+    for key in ("annual_target_ring_materialized", "runtime_behavior_changed", "rule_set_changed", "algorithm_version_changed", "hash_payload_changed", "candidate_selection_changed"):
+        if runtime_nx.get(key) is not False:
+            fail(f"Batch 12NX runtime firewall drift: {key}")
+    repair_nx = nx.get("matrix_repair", {})
+    if repair_nx.get("confirmed_new_provenance_defect") is not False or repair_nx.get("status_changed") is not False:
+        fail("Batch 12NX provenance/status boundary drift")
+    accounting_nx = nx.get("accounting", {})
+    if accounting_nx.get("provenance_defects_confirmed_after") != 40 or accounting_nx.get("provenance_defects_repaired_after") != 40 or accounting_nx.get("source_insufficient_after") != 11:
+        fail("Batch 12NX accounting drift")
+    if audit_summary.get("confirmed_provenance_metadata_defect_count") != 40 or audit_summary.get("repaired_provenance_metadata_defect_count") != 40:
+        fail("Batch 12NX Matrix provenance accounting drift")
+    if audit_state.get("confirmed_provenance_metadata_defect_count") != 40 or audit_state.get("repaired_provenance_metadata_defect_count") != 40:
+        fail("Batch 12NX state provenance accounting drift")
+    evidence_controls_nx = nx_evidence.get("source_controls", {})
+    for key in ("jielan_ch58_heading_explicitly_flow_year_taisui", "jielan_ch58_contains_related_trine_year_branch_yima_rule", "modern_zhongzhou_received_manual_contains_complete_sequence", "modern_annual_table_contains_same_complete_sequence", "modern_natal_table_contains_same_complete_sequence"):
+        if evidence_controls_nx.get(key) is not True:
+            fail(f"Batch 12NX evidence positive control drift: {key}")
+    for key in ("jielan_ch58_contains_complete_jiangqian_twelve_member_sequence", "early_edition_complete_ring_closed"):
+        if evidence_controls_nx.get(key) is not False:
+            fail(f"Batch 12NX evidence non-closure drift: {key}")
+    adj_nx = nx_evidence.get("adjudication", {})
+    if adj_nx.get("row_status") != "SOURCE_INSUFFICIENT" or adj_nx.get("natal_and_annual_mutually_exclusive") is not False or adj_nx.get("temporal_layers_preserved_separately") is not True:
+        fail("Batch 12NX evidence adjudication drift")
+    for key in ("runtime_behavior_changed", "candidate_selection_changed", "annual_productization_authorized", "provenance_defect_count_changed", "transmission_edge_created"):
+        if adj_nx.get(key) is not False:
+            fail(f"Batch 12NX evidence firewall drift: {key}")
+    rings_text_nx = (ROOT / "src/fortune_training/ziwei_chart/rings.py").read_text(encoding="utf-8")
+    engine_text_nx = (ROOT / "src/fortune_training/ziwei_chart/engine.py").read_text(encoding="utf-8")
+    for phrase in ("JIANGQIAN_ANCHOR_BY_YEAR_BRANCH", 'return _ring("RING.JIANGQIAN12", "将前十二神", anchor, 1, JIANGQIAN_MEMBERS, refs)'):
+        if phrase not in rings_text_nx:
+            fail(f"Batch 12NX Jiangqian runtime geometry missing: {phrase}")
+    if "structure.ziwei_birth_year_branch" not in engine_text_nx:
+        fail("Batch 12NX natal engine year-branch input missing")
+    if nx.get("transmission_impact", {}).get("status") != "NONE":
+        fail("Batch 12NX transmission scope drift")
+    try:
+        schema12nx = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12NX state version is not numeric")
+    if schema12nx < (1, 392, 0):
+        fail("Batch 12NX state version regressed below 1.392.0")
+
     try:
         schema12ns = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
     except ValueError:
