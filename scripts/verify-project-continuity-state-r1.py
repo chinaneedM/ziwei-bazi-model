@@ -16059,7 +16059,7 @@ def main() -> int:
     earlier_ny = ny.get("earlier_citation_boundary", {})
     if earlier_ny.get("lishimingyuan_explicitly_cites_guangshengli_for_feilian_table") is not True or earlier_ny.get("xingli_kaoyuan_explicitly_cites_guangshengli_for_feilian_table") is not True:
         fail("Batch 12NY Guangshengli citation bridge drift")
-    if earlier_ny.get("exact_identity_between_cited_guangshengli_recension_and_songshi_bibliographic_item") != "UNRESOLVED" or earlier_ny.get("direct_surviving_guangshengli_rule_text_reviewed") is not False:
+    if earlier_ny.get("exact_identity_between_cited_guangshengli_recension_and_songshi_bibliographic_item") != "UNRESOLVED" or earlier_ny.get("surviving_direct_guangshengli_rule_text_reviewed") is not False:
         fail("Batch 12NY Guangshengli recension firewall drift")
     accounting_ny = ny.get("accounting", {})
     if accounting_ny.get("source_insufficient_after") != 10 or accounting_ny.get("historically_supported_after") != 95:
