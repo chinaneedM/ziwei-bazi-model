@@ -1906,3 +1906,27 @@ Accounting after 12OI:
 Next: **12OJ — HPA-ZIWEI-014 whole-table Four-Transformation source families and candidate readiness.**
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JIELAN-SOURCE-SCOPED-NATAL-CANDIDATE-PRODUCTIZATION-OI.md`.
+
+## Progress — Batch 12OJ
+
+`HPA-ZIWEI-014` now has complete deterministic **whole-table** candidate readiness for the two genuinely divergent families that Batch 12NS had identified as missing.
+
+Internal identities:
+
+- `ZIWEI-FOUR-TRANSFORMATION-HISTORICAL-CANDIDATES-R1@1.0.0`;
+- `ZIWEI-FOUR-TRANSFORMATION-SOURCE-SCOPED-CANDIDATE-RUNTIME-R1@1.0.0`;
+- `selection_status=PRESERVED_NOT_SELECTED`;
+- `whole_table_only=true`;
+- `cell_level_hybridization_allowed=false`.
+
+Source-scoped received Fullbook candidate `RECEIVED-FULLBOOK-SHIDIAN-V3-FOUR-TRANSFORMATION-R1` differs from production at exactly three cells: 庚化科 太阴→天同, 庚化忌 天同→天相, 壬化科 左辅→天府.
+
+Modern Zhongzhou candidate `ZHONGZHOU-WANGTINGZHI-FOUR-TRANSFORMATION-R1` differs at exactly three cells: 戊化科 右弼→太阳, 庚化科 太阴→天府, 壬化科 左辅→天府.
+
+The received Fullbook candidate is deliberately tied to the Shidian received transcription. Other received surfaces preserve other Geng readings, so 12OJ does not collapse them into a universal Fullbook table.
+
+The transmission graph now contains separate Jielan 1581, Shidian received-Fullbook and Wang Tingzhi Zhongzhou whole-table rule families and only asserts parallel coexistence among them; no direct copying direction or historical winner is inferred.
+
+`HPA-ZIWEI-014` remains **MISSING_FROM_PRODUCT** because the two divergent families are internal candidates only. Accounting: **222/222 audited**, **7 current missing**, candidate extensions **13**, candidate registries/runtime resolvers **4/4**, provenance defects **43/43**, algorithm reopens **0**.
+
+Next: **12OK — read-only Four-Transformation whole-table candidate productization.**
