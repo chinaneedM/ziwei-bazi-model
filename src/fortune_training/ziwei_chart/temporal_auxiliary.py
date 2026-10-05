@@ -64,6 +64,17 @@ YUEDE_SOURCE_REFS = (
     "EXT-WIKISOURCE-ZWDSQS-V2",
     "S01:ZZQS-A-1944",
 )
+TEMPORAL_TIANDE_RULE_ID = "RECEIVED-FULLBOOK-ANNUAL-TIANDE-CANDIDATE-R1"
+TEMPORAL_TIANDE_GENERATOR_ID = "ZIWEI-ANNUAL-TIANDE-RECEIVED-FULLBOOK-CANDIDATE-V1"
+TEMPORAL_TIANDE_ALGORITHM_VERSION = "1.0.0"
+ANNUAL_TIANDE_METHOD_ID = "RECEIVED-FULLBOOK-ANNUAL-TIANDE-YOU-START-R1"
+TIANDE_SELECTION_STATUS = "SOURCE_SCOPED_CANDIDATE_PRESERVED_NO_SELECTION"
+TIANDE_ENTITY_IDS = ("STAR.TIANDE",)
+TIANDE_SOURCE_REFS = (
+    "EXT-ZIWEI-QUANSHU-RECEIVED",
+    "EXT-WIKISOURCE-ZWDSQS-V2",
+    "S01:ZZQS-A-1943",
+)
 
 
 # S10:ZZZA-A-1101 / S10:ZZZA-A-1102. The source table intentionally has no
@@ -410,6 +421,82 @@ class TemporalAuxiliaryGenerator:
             context_id=context_id,
             entity_ids=TIANMA_ENTITY_IDS,
             selection_status=TIANMA_SELECTION_STATUS,
+            method_candidates=(method,),
+            source_refs=source_refs,
+            fact_hash="",
+            computation_hash="",
+        )
+        fact_hash, computation_hash = temporal_auxiliary_candidate_set_hashes(
+            provisional_set
+        )
+        return replace(
+            provisional_set,
+            fact_hash=fact_hash,
+            computation_hash=computation_hash,
+        )
+
+    @classmethod
+    def annual_tiande_candidate_set(
+        cls,
+        source_branch: str,
+        *,
+        source_stem: str,
+        source_layer: str,
+        context_id: str,
+        temporal_source_refs: tuple[str, ...],
+    ) -> TemporalAuxiliaryCandidateSet:
+        """Preserve received-Fullbook 流年天德 without changing natal 天德."""
+        if source_layer != "ANNUAL":
+            raise ValueError(
+                "received-Fullbook TianDe candidate is scoped to ANNUAL only"
+            )
+        try:
+            source_index = BRANCH_TO_INDEX[source_branch]
+        except KeyError as exc:
+            raise ValueError(
+                f"unsupported annual source branch for TianDe: {source_branch}"
+            ) from exc
+        candidate_id = f"{context_id}:TIANDE:{ANNUAL_TIANDE_METHOD_ID}"
+        source_refs = temporal_source_refs + TIANDE_SOURCE_REFS
+        activation = TemporalAuxiliaryActivation(
+            activation_id=f"{candidate_id}:STAR.TIANDE",
+            entity_id="STAR.TIANDE",
+            display_name="天德",
+            target_address=address(BRANCH_TO_INDEX["酉"] + source_index),
+            source_layer=source_layer,
+            source_stem=source_stem,
+            context_id=context_id,
+            rule_id=TEMPORAL_TIANDE_RULE_ID,
+            generator_id=TEMPORAL_TIANDE_GENERATOR_ID,
+            algorithm_version=TEMPORAL_TIANDE_ALGORITHM_VERSION,
+            source_refs=source_refs,
+        )
+        provisional_method = TemporalAuxiliaryMethodCandidate(
+            candidate_id=candidate_id,
+            method_id=ANNUAL_TIANDE_METHOD_ID,
+            authority_status="RECEIVED_FULLBOOK_ANNUAL_SOURCE_SCOPED_METHOD",
+            activations=(activation,),
+            source_refs=source_refs,
+            fact_hash="",
+            computation_hash="",
+        )
+        method_fact_hash, method_computation_hash = (
+            temporal_auxiliary_method_candidate_hashes(provisional_method)
+        )
+        method = replace(
+            provisional_method,
+            fact_hash=method_fact_hash,
+            computation_hash=method_computation_hash,
+        )
+        provisional_set = TemporalAuxiliaryCandidateSet(
+            candidate_set_id=f"{context_id}:TIANDE:CANDIDATE_SET:{ANNUAL_TIANDE_METHOD_ID}",
+            source_layer=source_layer,
+            source_stem=source_stem,
+            source_basis_type="BRANCH",
+            source_basis_value=source_branch,
+            context_id=context_id,
+            entity_ids=TIANDE_ENTITY_IDS,
+            selection_status=TIANDE_SELECTION_STATUS,
             method_candidates=(method,),
             source_refs=source_refs,
             fact_hash="",
