@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.386.0",
+  "schema_version": "1.387.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -39,8 +39,8 @@
     "external_source_registry": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json",
     "row_count": 220,
     "audited_row_count": 220,
-    "confirmed_provenance_metadata_defect_count": 36,
-    "repaired_provenance_metadata_defect_count": 36,
+    "confirmed_provenance_metadata_defect_count": 38,
+    "repaired_provenance_metadata_defect_count": 38,
     "historical_candidate_registry_count": 3,
     "historical_candidate_runtime_resolver_count": 3,
     "identified_missing_candidate_family_count": 14,
@@ -467,9 +467,10 @@
       "BATCH-12-COMBINED-RESOLVED-PROFILE-RULE-ALGORITHM-LINEAGE-AUDIT-NO",
       "BATCH-12-COMBINED-FACT-COMPUTATION-VIEW-MANIFEST-HASH-AUDIT-NP",
       "BATCH-12-POST-AUDIT-MISSING-PRODUCT-RECONCILIATION-LEAP-MONTH-NQ",
-      "BATCH-12-POST-AUDIT-JIELAN-SOURCE-SCOPED-CANDIDATE-PRODUCT-SURFACE-RECONCILIATION-NR"
+      "BATCH-12-POST-AUDIT-JIELAN-SOURCE-SCOPED-CANDIDATE-PRODUCT-SURFACE-RECONCILIATION-NR",
+      "BATCH-12-POST-AUDIT-FOUR-TRANSFORMATION-DIGNITY-PRODUCT-BOUNDARY-RECONCILIATION-NS"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-POST-AUDIT-JIELAN-SOURCE-SCOPED-CANDIDATE-PRODUCT-SURFACE-RECONCILIATION-NR.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-POST-AUDIT-FOUR-TRANSFORMATION-DIGNITY-PRODUCT-BOUNDARY-RECONCILIATION-NS.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -2202,7 +2203,14 @@
       "The current production Ziwei profile remains unchanged; no candidate is selected or merged. Product closure requires explicit candidate-profile API/UI lineage, not merely an internal resolver.",
       "No new provenance defect was found in 12NR: the three rows already described the internal-runtime-versus-product-surface gap correctly. Provenance remains 36/36.",
       "No runtime/schema/hash/rule/candidate-selection/chart-algorithm change: Matrix 220/220 audited / 10 current missing; chart algorithm defects / reopens / candidate collapses 0.",
-      "12NS: reconcile HPA-ZIWEI-014 competing Four-Transformation table families and HPA-ZIWEI-018 Jielan historical dignity table; distinguish partial internal source-family coverage from the still-missing complete/selectable product candidate families."
+      "12NS: reconcile HPA-ZIWEI-014 competing Four-Transformation table families and HPA-ZIWEI-018 Jielan historical dignity table; distinguish partial internal source-family coverage from the still-missing complete/selectable product candidate families.",
+      "Batch 12NS completed: HPA-ZIWEI-014 competing Four-Transformation table families and HPA-ZIWEI-018 Jielan historical dignity table reconciled against the live historical-candidate registry, deterministic resolver, production rule sets and read-only Workbench provenance surfaces.",
+      "HPA-ZIWEI-014 remains MISSING_FROM_PRODUCT. Jielan 1581 already supplies a complete source-scoped ten-stem Four-Transformation table in the internal PRESERVED_NOT_SELECTED resolver and regression tests prove that table exactly matches current S08 targets; the still-missing scope is the genuinely competing received-Fullbook/Zhongzhou table families plus explicit selectable candidate-profile API/Workbench lineage.",
+      "PROV-DEFECT-037 repaired forward-only: HPA-ZIWEI-014 previously said competing tables were not runtime candidates without separating the already materialized Jielan source-family identity from the still-unproductized genuinely divergent families.",
+      "HPA-ZIWEI-018 remains MISSING_FROM_PRODUCT. Jielan registry v1.1.0 preserves CH69/CH70 source-table identity and the resolver emits SOURCE_TABLE_PRESENT_NORMALIZATION_PENDING with runtime_normalized=false; no source-faithful normalized dignity table or selectable historical dignity profile exists, and production OPERATIONAL-ZIWEI-DIGNITY-R4 stays distinct.",
+      "PROV-DEFECT-038 repaired forward-only: HPA-ZIWEI-018 still named Jielan historical-candidate registry 1.0.0 after the live registry advanced to 1.1.0; substantive normalization/product-gap status was already correct.",
+      "No runtime/schema/hash/rule/candidate-selection/chart-algorithm change: Matrix 220/220 audited / 10 current missing; provenance defects 38/38; chart algorithm defects / reopens / candidate collapses 0.",
+      "12NT: reconcile HPA-ZDATE-006 Nanyangtang Fullbook ten-ke Zi/Hai split natal birth-hour candidate against the live time-coordinate runtime/product surfaces and current source-scoped acquisition boundary."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10
