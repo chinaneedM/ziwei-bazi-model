@@ -1,0 +1,50 @@
+{
+  "schema": "ZIWEI-STANDALONE-FEILIAN-HISTORICAL-IDENTITY-EVIDENCE-R1",
+  "schema_version": "1.0.0",
+  "parent_head": "f9db497e6118ae0e669f06fc95423fb57f8c96e6",
+  "target_rule_id": "HPA-ZMINOR-020",
+  "runtime_controls": {
+    "runtime_path": "src/fortune_training/ziwei_chart/minor_stars.py",
+    "runtime_blob_sha": "1c0d72f2bd425716ee0c2ecaff6df150f650c2dd",
+    "s01_path": "sources/canonical/S01_统一输入排盘与坐标冻结库.txt",
+    "s01_blob_sha": "c7ddbea86d29abb95e9fb47ff3303a47340e650b",
+    "boshi_runtime_path": "src/fortune_training/ziwei_chart/rings.py",
+    "boshi_runtime_blob_sha": "e4a5adaab7fe84262df6762dd29551e393d10b9b",
+    "standalone_table_exact_12_of_12": true,
+    "runtime_behavior_changed": false
+  },
+  "historical_controls": {
+    "lishimingyuan_public_transcription_contains_guangshengli_feilian_table": true,
+    "xingli_kaoyuan_1713_received_text_contains_same_table": true,
+    "xieji_bianfang_received_text_contains_same_table_and_mechanical_gloss": true,
+    "songshi_bibliography_records_miao_rui_xin_shan_ding_guangshengli_two_juan": true,
+    "exact_guangshengli_recension_identity_closed": false,
+    "direct_surviving_guangshengli_rule_text_reviewed": false
+  },
+  "mechanical_comparison": {
+    "year_branch_values_checked": 12,
+    "year_branch_values_matched": 12,
+    "boshi_feilian_is_ordinal_6_from_lucun": true,
+    "boshi_feilian_coordinate_is_lucun_opposite_regardless_direction": true,
+    "legal_jiazi_checked": 60,
+    "same_coordinate_cases": 4,
+    "same_coordinate_case_ids": [
+      "甲子",
+      "乙丑",
+      "庚午",
+      "辛未"
+    ],
+    "same_coordinate_proves_identity": false
+  },
+  "adjudication": {
+    "row_status_before": "SOURCE_INSUFFICIENT",
+    "row_status_after": "HISTORICALLY_SUPPORTED",
+    "historical_support_scope_limited_to_geometry_and_year_deity_identity": true,
+    "ziwei_adoption_lineage_closed": false,
+    "boshi_identity_merged": false,
+    "runtime_behavior_changed": false,
+    "algorithm_reopen": false,
+    "candidate_selection_changed": false,
+    "provenance_defect_count_changed": false
+  }
+}
