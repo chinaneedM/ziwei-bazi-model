@@ -80,7 +80,7 @@
       "candidate/profile rules": 2,
       "provenance / hashes / lineage": 2
     },
-    "audited_row_count": 211
+    "audited_row_count": 212
   },
   "rows": [
     {
@@ -1021,19 +1021,23 @@
       "module": "大运",
       "rule_or_field": "Exact-Jie tie handling",
       "current_implementation": "Profile fails closed on exact Jie tie.",
-      "current_profile": "BAZI temporal profiles",
-      "primary_source": "Operational ambiguity policy",
-      "source_quote": "PENDING_VERBATIM_EXTRACTION",
-      "source_quote_location": "src/fortune_training/bazi_temporal/profile.py exact_jie_tie_policy",
-      "historical_period": "MODERN_STANDARD",
-      "later_witnesses": "N/A",
-      "school_attribution": "MODERN_OPERATIONAL",
-      "competing_methods": [],
-      "current_implementation_match": "MATCHES_DECLARED_MODERN_SCOPE",
-      "confidence": "HIGH",
+      "current_profile": "BAZI-TEMPORAL-V1-CONTINUOUS-R1 + BAZI-TEMPORAL-WENZHEN-CHINA-COMPATIBILITY-R1",
+      "primary_source": "Project fail-closed boundary policy constrained by EXT-CTEXT-WUXING-JINGJI-V33-DAYUN and EXT-CTEXT-SANMING-V2-DAYUN",
+      "source_quote": "生日后未来节气…生日前过去节气",
+      "source_quote_location": "EXT-CTEXT-WUXING-JINGJI-V33-DAYUN; EXT-CTEXT-SANMING-V2-DAYUN",
+      "historical_period": "MODERN_FAIL_CLOSED_BOUNDARY_POLICY_OVER_HISTORICALLY_UNRESOLVED_EQUALITY_CASE",
+      "later_witnesses": "Runtime regression test test_exact_jie_tie_fails_closed; BAZI-TEMPORAL-V1-R1 Jie-anchor contract",
+      "school_attribution": "MODERN_PROJECT_GOVERNANCE_NOT_CLASSICAL_DAYUN_DOCTRINE",
+      "competing_methods": [
+        "inclusive equality to the current Jie (not historically attested in current source horizon)",
+        "exclusive equality to the adjacent Jie (not historically attested in current source horizon)"
+      ],
+      "current_implementation_match": "EXACT_RUNTIME_MATCH_TO_DECLARED_FAIL_CLOSED_POLICY; HISTORICAL WITNESSES SUPPORT STRICT BEFORE/AFTER DIRECTION BUT DO NOT RESOLVE EQUALITY",
+      "confidence": "HIGH_FOR_RUNTIME_POLICY_AND_BOUND_WITNESS_WORDING; OPEN_FOR_ANY_FUTURE_SOURCE_SCOPED_EQUALITY_RULE",
       "audit_status": "MODERN_COMPATIBILITY_ONLY",
-      "proposed_action": "Retain fail-closed unless historical text explicitly resolves exact equality.",
-      "algorithm_reopen_authorized": false
+      "proposed_action": "Retain fail-closed. Do not infer an equality operator from strict before/after wording; only add a source-scoped equality candidate if an edition-bound mechanical rule is found.",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-12-BAZI-DAYUN-EXACT-JIE-TIE-HANDLING-AUDIT-NH"
     },
     {
       "rule_id": "HPA-XIAOYUN-001",
@@ -7301,12 +7305,13 @@
     "HPA-TIME-002",
     "HPA-TIME-004",
     "HPA-TIME-011",
-    "HPA-DAYUN-006"
+    "HPA-DAYUN-006",
+    "HPA-DAYUN-007"
   ],
   "audit_summary": {
     "confirmed_chart_algorithm_defect_count": 0,
-    "confirmed_provenance_metadata_defect_count": 28,
-    "repaired_provenance_metadata_defect_count": 28,
+    "confirmed_provenance_metadata_defect_count": 29,
+    "repaired_provenance_metadata_defect_count": 29,
     "algorithm_reopen_count": 0,
     "candidate_collapse_count": 0,
     "historical_candidate_extension_count": 6,
@@ -7339,6 +7344,7 @@
     "BATCH-12-TIME-AMBIGUOUS-CIVIL-FOLD-GAP-HANDLING-AUDIT-ND",
     "BATCH-12-TIME-MODERN-CHINESE-CALENDAR-CONSTRUCTION-AUDIT-NE",
     "BATCH-12-TIME-APPROXIMATE-BIRTH-TIME-SAMPLING-AUDIT-NF",
-    "BATCH-12-BAZI-DAYUN-WENZHEN-COMPATIBILITY-SCOPE-AUDIT-NG"
+    "BATCH-12-BAZI-DAYUN-WENZHEN-COMPATIBILITY-SCOPE-AUDIT-NG",
+    "BATCH-12-BAZI-DAYUN-EXACT-JIE-TIE-HANDLING-AUDIT-NH"
   ]
 }
