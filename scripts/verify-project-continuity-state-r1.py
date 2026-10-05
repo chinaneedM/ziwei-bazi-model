@@ -16219,6 +16219,69 @@ def main() -> int:
     if schema12nz < (1, 394, 0):
         fail("Batch 12NZ state version regressed below 1.394.0")
 
+    # Batch 12OA: separate premodern calendrical Tianwu from the current Ziwei four-horse month table.
+    oa_path = ROOT / "docs/research/ZIWEI-TIANWU-HOMONYM-MECHANICAL-SEPARATION-R1.json"
+    oa_evidence_path = ROOT / "docs/research/evidence/batch-12oa/ziwei-tianwu-homonym-mechanical-evidence.json"
+    if not oa_path.is_file() or not oa_evidence_path.is_file():
+        fail("Batch 12OA research/evidence record missing")
+    oa = json.loads(oa_path.read_text(encoding="utf-8"))
+    oa_evidence = json.loads(oa_evidence_path.read_text(encoding="utf-8"))
+    oa_id = "BATCH-12-ZIWEI-TIANWU-HOMONYM-MECHANICAL-SEPARATION-OA"
+    if oa.get("batch_id") != oa_id or oa.get("prior_batch_id") != nz_id:
+        fail("Batch 12OA chronology drift")
+    if oa_id in rule_batches:
+        fail("Batch 12OA source-domain closure must not be enrolled as a supplemental rule-audit batch")
+    if oa.get("target_rule_ids") != ["HPA-ZMINOR-024"] or oa.get("target_status_after") != "SOURCE_INSUFFICIENT":
+        fail("Batch 12OA target/status drift")
+    row24_oa = next((r for r in matrix["rows"] if r["rule_id"] == "HPA-ZMINOR-024"), None)
+    if row24_oa is None or row24_oa.get("audit_status") != "SOURCE_INSUFFICIENT":
+        fail("Batch 12OA HPA-ZMINOR-024 status drift")
+    if row24_oa.get("evidence_closure_batch") != oa_id:
+        fail("Batch 12OA Matrix closure binding drift")
+    mech_oa = oa.get("mechanical_comparison", {})
+    if mech_oa.get("month_values_checked") != 12 or mech_oa.get("exact_match_count") != 2 or mech_oa.get("exact_mismatch_count") != 10:
+        fail("Batch 12OA 12-month replay count drift")
+    if mech_oa.get("same_mechanical_rule") is not False or mech_oa.get("runtime_provenance_closed_by_classical_homonym") is not False:
+        fail("Batch 12OA homonym firewall drift")
+    replay_oa = oa_evidence.get("mechanical_replay", {})
+    if replay_oa.get("exact_match_count") != 2 or replay_oa.get("exact_mismatch_count") != 10 or replay_oa.get("same_mechanical_rule") is not False:
+        fail("Batch 12OA evidence replay drift")
+    if replay_oa.get("matching_months") != [8, 11]:
+        fail("Batch 12OA accidental-match month set drift")
+    status_oa = oa.get("status_adjudication", {})
+    if status_oa.get("row_status_remains") != "SOURCE_INSUFFICIENT" or status_oa.get("algorithm_reopen_authorized") is not False or status_oa.get("production_default_changed") is not False or status_oa.get("candidate_created") is not False:
+        fail("Batch 12OA no-reopen/default/candidate firewall drift")
+    accounting_oa = oa.get("accounting", {})
+    if accounting_oa.get("source_insufficient_after") != 9 or accounting_oa.get("historically_supported_after") != 96:
+        fail("Batch 12OA status accounting drift")
+    registry_oa = json.loads((ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json").read_text(encoding="utf-8"))
+    registry_ids_oa = {row.get("source_id") for row in registry_oa.get("sources", ())}
+    for source_id in ("EXT-SHIDIAN-LISHIMINGYUAN-TIANWU", "EXT-CTEXT-XINGLI-KAOYUAN-TIANWU", "EXT-WIKISOURCE-XIEJI-BIANFANG-TIANWU"):
+        if source_id not in registry_ids_oa:
+            fail(f"Batch 12OA external source registry binding missing: {source_id}")
+    genealogy_oa = json.loads((ROOT / "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json").read_text(encoding="utf-8"))
+    genealogy_node_ids_oa = {row.get("node_id") for row in genealogy_oa.get("nodes", ())}
+    for node_id in ("RULE-FAMILY-TIANWU-CALENDRICAL-MONTH", "RULE-FAMILY-ZIWEI-TIANWU-FOUR-HORSE-MONTH"):
+        if node_id not in genealogy_node_ids_oa:
+            fail(f"Batch 12OA genealogy node missing: {node_id}")
+    edge_ids_oa = {row.get("edge_id") for row in genealogy_oa.get("edges", ())}
+    for edge_id in ("TG-E0135", "TG-E0136", "TG-E0137", "TG-E0138", "TG-E0139", "TG-E0140", "TG-E0141", "TG-E0142", "TG-E0143", "TG-E0144"):
+        if edge_id not in edge_ids_oa:
+            fail(f"Batch 12OA genealogy edge missing: {edge_id}")
+    nonedge_oa = next((row for row in genealogy_oa.get("explicit_non_edges", ()) if row.get("from") == "RULE-FAMILY-TIANWU-CALENDRICAL-MONTH" and row.get("relation") == "SAME_MECHANICAL_RULE_AS" and row.get("to") == "RULE-FAMILY-ZIWEI-TIANWU-FOUR-HORSE-MONTH"), None)
+    if nonedge_oa is None or nonedge_oa.get("status") != "DISPROVED":
+        fail("Batch 12OA Tianwu homonym non-identity graph firewall missing")
+    minor_text_oa = (ROOT / "src/fortune_training/ziwei_chart/minor_stars.py").read_text(encoding="utf-8")
+    for phrase in ('1: "巳", 5: "巳", 9: "巳"', '2: "申", 6: "申", 10: "申"', '3: "寅", 7: "寅", 11: "寅"', '4: "亥", 8: "亥", 12: "亥"'):
+        if phrase not in minor_text_oa:
+            fail(f"Batch 12OA runtime Tianwu geometry missing: {phrase}")
+    try:
+        schema12oa = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12OA state version is not numeric")
+    if schema12oa < (1, 395, 0):
+        fail("Batch 12OA state version regressed below 1.395.0")
+
     try:
         schema12ns = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
     except ValueError:
