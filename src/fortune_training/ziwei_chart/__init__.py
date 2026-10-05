@@ -10,6 +10,7 @@ from .dignity import (
 )
 from .dignity_r3 import OperationalFullZiweiDignityGenerator
 from .dignity_historical_candidates import (
+    JIELAN_1581_DIGNITY_LEXEME_CANDIDATE_ID,
     JIELAN_1581_DIGNITY_LEXEME_REGISTRY_ID,
     JIELAN_1581_DIGNITY_LEXEME_REGISTRY_VERSION,
     JIELAN_1581_DIGNITY_LEXEME_RESOLVER_ID,
@@ -155,6 +156,7 @@ __all__ = [
     "DignityAnnotation",
     "DignityRegistryCell",
     "DignityRegistrySummary",
+    "JIELAN_1581_DIGNITY_LEXEME_CANDIDATE_ID",
     "JIELAN_1581_DIGNITY_LEXEME_REGISTRY_ID",
     "JIELAN_1581_DIGNITY_LEXEME_REGISTRY_VERSION",
     "JIELAN_1581_DIGNITY_LEXEME_RESOLVER_ID",
