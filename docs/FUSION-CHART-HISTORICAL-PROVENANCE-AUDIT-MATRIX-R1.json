@@ -80,7 +80,7 @@
       "candidate/profile rules": 2,
       "provenance / hashes / lineage": 2
     },
-    "audited_row_count": 217
+    "audited_row_count": 218
   },
   "rows": [
     {
@@ -3244,20 +3244,29 @@
       "system": "COMBINED",
       "module": "Combined Fusion",
       "rule_or_field": "Combined Target Flow Fusion R2",
-      "current_implementation": "R2 binds Ziwei/Bazi target identities and statuses but introduces no new placement rule.",
-      "current_profile": "COMBINED FUSION R2",
-      "primary_source": "composition-only",
-      "source_quote": "PENDING_VERBATIM_EXTRACTION",
-      "source_quote_location": "docs/COMBINED-TARGET-FLOW-FUSION-R2.md",
-      "historical_period": "MODERN",
-      "later_witnesses": "N/A",
-      "school_attribution": "MODERN_SOFTWARE_ARCHITECTURE",
-      "competing_methods": [],
-      "current_implementation_match": "MATCHES_DECLARED_COMPOSITION_SCOPE",
-      "confidence": "HIGH",
+      "current_implementation": "CombinedTargetFlowFusionR2Service composes the immutable R1 combined target-flow bundle, replayed shared target-coordinate resolution, released Bazi target-flow bundle, and released SharedZiweiSelectorProjectionResolution. It validates exact target hash/profile bindings, upstream selector integrity/full replay, preserves uncertainty, and emits only composition status plus bound hashes/counts.",
+      "current_profile": "ZIWEI-BAZI-COMBINED-TARGET-FLOW-FUSION-COMPOSER-R2@1.0.0",
+      "primary_source": "Modern deterministic composition implementation and regressions over already-released R1/Bazi/Ziwei target projections; no historical source is claimed for R2 itself.",
+      "source_quote": "R2 adds the already-released `SharedZiweiSelectorProjectionService` to that same target-coordinate lineage. It does not introduce a new placement rule.",
+      "source_quote_location": "docs/COMBINED-TARGET-FLOW-FUSION-R2.md Purpose; src/fortune_training/combined_chart_application/flow_fusion_r2.py CombinedTargetFlowFusionR2Service/_expected_status/hash functions/full replay; tests/test_combined_target_flow_fusion_r2.py; tests/test_combined_target_flow_fusion_local_r2.py; tests/test_combined_workbench_flow_fusion_panel_r2.py",
+      "historical_period": "MODERN_SOFTWARE_COMPOSITION_ARCHITECTURE",
+      "later_witnesses": "Local R2 endpoint and read-only Workbench panel; exact-target, DST-fold, R1 immutability, local rehash tamper and full-replay regressions",
+      "school_attribution": "MODERN_SOFTWARE_ARCHITECTURE_DELEGATING_ALL_HISTORICAL_METHOD_AUTHORITY_UPSTREAM",
+      "competing_methods": [
+        "RECOMPUTE_OR_DUPLICATE_UPSTREAM_ZIWEI_BAZI_TARGET_FACTS_INSIDE_R2",
+        "COLLAPSE_MULTI_CANDIDATE_TARGETS_TO_A_SINGLE_WINNER",
+        "CURRENT_IDENTITY_HASH_COMPOSITION_WITH_UPSTREAM_REPLAY_AND_UNCERTAINTY_PRESERVATION"
+      ],
+      "current_implementation_match": "EXACT: R2 requires one shared physical target binding across R1/Bazi/Ziwei, keeps Ziwei/Bazi calendar policies independent upstream, derives only RESOLVED versus UNCERTAINTY_PRESENT from upstream statuses/candidate count, binds full upstream selector content through selector fact/computation hashes, and full replay rejects locally rehashed forged bindings.",
+      "confidence": "HIGH_FOR_RELEASED_COMPOSITION_STATUS_HASH_AND_REPLAY_SCOPE; HISTORICAL_DOCTRINE_AUTHORITY_REMAINS_UPSTREAM",
       "audit_status": "MODERN_COMPATIBILITY_ONLY",
-      "proposed_action": "Historical audits must flow through upstream rule identities; R2 itself is software composition.",
-      "algorithm_reopen_authorized": false
+      "proposed_action": "Keep R2 as additive identity/status/hash composition only. Historical or school adjudication must occur in upstream Ziwei/Bazi rules/candidate registries; R2 must not select a candidate, reinterpret uncertainty, or acquire historical authority from containing those hashes.",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-12-COMBINED-TARGET-FLOW-FUSION-R2-AUDIT-NN",
+      "defect_id": "PROV-DEFECT-033",
+      "defect_type": "HPA_COMB_006_PENDING_SOURCE_QUOTE_AND_DOC_ONLY_PROVENANCE_UNDERDESCRIBED_LIVE_R2_CONTRACT",
+      "repair_status": "REPAIRED_IN_BATCH_12NN_FORWARD_ONLY",
+      "repair_action": "Replaced PENDING_VERBATIM_EXTRACTION with the R2 purpose statement and bound the row to the live composer, local endpoint, Workbench and focused replay/uncertainty regressions. No runtime, schema, hash algorithm, status rule, candidate, or subsystem computation changed."
     },
     {
       "rule_id": "HPA-COMB-007",
@@ -7341,12 +7350,13 @@
     "HPA-COMB-001",
     "HPA-COMB-002",
     "HPA-COMB-003",
-    "HPA-COMB-005"
+    "HPA-COMB-005",
+    "HPA-COMB-006"
   ],
   "audit_summary": {
     "confirmed_chart_algorithm_defect_count": 0,
-    "confirmed_provenance_metadata_defect_count": 32,
-    "repaired_provenance_metadata_defect_count": 32,
+    "confirmed_provenance_metadata_defect_count": 33,
+    "repaired_provenance_metadata_defect_count": 33,
     "algorithm_reopen_count": 0,
     "candidate_collapse_count": 0,
     "historical_candidate_extension_count": 6,
@@ -7385,6 +7395,7 @@
     "BATCH-12-COMBINED-SHARED-TIME-CREDENTIAL-SCOPE-AUDIT-NJ",
     "BATCH-12-COMBINED-INDEPENDENT-DATE-CALENDAR-POLICY-PRESERVATION-AUDIT-NK",
     "BATCH-12-COMBINED-CANDIDATE-LINEAGE-PRESERVATION-AUDIT-NL",
-    "BATCH-12-COMBINED-SHARED-TARGET-ZIWEI-PROJECTION-AUDIT-NM"
+    "BATCH-12-COMBINED-SHARED-TARGET-ZIWEI-PROJECTION-AUDIT-NM",
+    "BATCH-12-COMBINED-TARGET-FLOW-FUSION-R2-AUDIT-NN"
   ]
 }

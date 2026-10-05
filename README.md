@@ -326,3 +326,14 @@ HPA-COMB-005 Shared target → Ziwei projection is audited as **MODERN_COMPATIBI
 Matrix220/217/10, provenance32/32, chart algorithm defects/reopens/candidate collapses0. No runtime or candidate-selection change. `transmission_impact=NONE`.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-COMBINED-SHARED-TARGET-ZIWEI-PROJECTION-AUDIT-NM.md`. Research record: `docs/research/COMBINED-SHARED-TARGET-ZIWEI-PROJECTION-AUDIT-R1.json`.
+
+
+## Progress — Batch 12NN
+
+HPA-COMB-006 Combined Target Flow Fusion R2 is audited as **MODERN_COMPATIBILITY_ONLY**. R2 remains additive identity/status/hash composition over already released target-coordinate, BaZi target-flow and Ziwei selector projection outputs; it does not introduce a new placement rule or historical cross-system doctrine.
+
+**PROV-DEFECT-033** replaces the Matrix's pending quote/document-only provenance with the live R2 composer, local endpoint, read-only Workbench and replay/uncertainty tests. `RESOLVED/UNCERTAINTY_PRESENT` remains a multiplicity/status signal, never a doctrinal winner.
+
+Matrix220/218/10, provenance33/33, chart algorithm defects/reopens/candidate collapses0. No runtime or candidate-selection change. `transmission_impact=NONE`.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-COMBINED-TARGET-FLOW-FUSION-R2-AUDIT-NN.md`. Research record: `docs/research/COMBINED-TARGET-FLOW-FUSION-R2-AUDIT-R1.json`.

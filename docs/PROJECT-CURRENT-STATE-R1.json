@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.381.0",
+  "schema_version": "1.382.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -38,9 +38,9 @@
     "matrix_md": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.md",
     "external_source_registry": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json",
     "row_count": 220,
-    "audited_row_count": 217,
-    "confirmed_provenance_metadata_defect_count": 32,
-    "repaired_provenance_metadata_defect_count": 32,
+    "audited_row_count": 218,
+    "confirmed_provenance_metadata_defect_count": 33,
+    "repaired_provenance_metadata_defect_count": 33,
     "historical_candidate_registry_count": 3,
     "historical_candidate_runtime_resolver_count": 3,
     "identified_missing_candidate_family_count": 14,
@@ -462,9 +462,10 @@
       "BATCH-12-COMBINED-SHARED-TIME-CREDENTIAL-SCOPE-AUDIT-NJ",
       "BATCH-12-COMBINED-INDEPENDENT-DATE-CALENDAR-POLICY-PRESERVATION-AUDIT-NK",
       "BATCH-12-COMBINED-CANDIDATE-LINEAGE-PRESERVATION-AUDIT-NL",
-      "BATCH-12-COMBINED-SHARED-TARGET-ZIWEI-PROJECTION-AUDIT-NM"
+      "BATCH-12-COMBINED-SHARED-TARGET-ZIWEI-PROJECTION-AUDIT-NM",
+      "BATCH-12-COMBINED-TARGET-FLOW-FUSION-R2-AUDIT-NN"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-COMBINED-SHARED-TARGET-ZIWEI-PROJECTION-AUDIT-NM.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-COMBINED-TARGET-FLOW-FUSION-R2-AUDIT-NN.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -2163,7 +2164,14 @@
       "Projection preserves ordinary hourly case-method candidates plus separately productized JIELAN-1581-DAY-ANCHORED-FLOW-HOUR-R1 and ZHONGZHOU-LEAP-MONTH-HALF-SPLIT-R1 candidates with no winner selection; historical authority remains upstream in source-scoped Ziwei rows/registries.",
       "PROV-DEFECT-032 repaired forward-only: HPA-COMB-005 source scope stopped at the original R1.10 projection document and omitted later source-scoped temporal historical-candidate productization/runtime surfaces.",
       "No runtime/schema/hash/chart-fact/candidate-selection change: Matrix 220 rows / 217 audited / 10 missing; provenance defects 32/32; chart algorithm defects / reopens / candidate collapses 0.",
-      "12NN: audit HPA-COMB-006 Combined Target Flow Fusion R2; keep cross-system fusion identity/status binding separate from upstream historical Ziwei/Bazi mechanics."
+      "12NN: audit HPA-COMB-006 Combined Target Flow Fusion R2; keep cross-system fusion identity/status binding separate from upstream historical Ziwei/Bazi mechanics.",
+      "Batch 12NN completed: HPA-COMB-006 Combined Target Flow Fusion R2 audited as MODERN_COMPATIBILITY_ONLY.",
+      "R2 is additive identity/status/hash composition: it binds immutable R1 target-flow, replayed shared target coordinate, released Bazi target-flow and released SharedZiweiSelectorProjectionResolution without introducing placement or calendar doctrine.",
+      "R2 RESOLVED versus UNCERTAINTY_PRESENT is a software multiplicity/status signal only; DST folds, approximate/boundary uncertainty or multi-candidate upstream states remain uncertainty and no winner is selected.",
+      "R2 stores Ziwei selector candidate count plus selector fact/computation hashes; the complete selector object remains upstream/returned separately and its current historical candidate families are transitively bound by those hashes and full replay rather than reinterpreted by R2.",
+      "PROV-DEFECT-033 repaired forward-only: HPA-COMB-006 retained PENDING_VERBATIM_EXTRACTION and document-only provenance despite the live composer/local endpoint/Workbench/replay contract.",
+      "No runtime/schema/hash/status-rule/candidate change: Matrix 220 rows / 218 audited / 10 missing; provenance defects 33/33; chart algorithm defects / reopens / candidate collapses 0.",
+      "12NO: audit HPA-COMB-007 Resolved profile/rule/algorithm lineage; distinguish software provenance identity from historical school/source lineage."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10

@@ -34,7 +34,7 @@ Every row carries:
 - proposed action;
 - explicit algorithm-reopen authorization, which is **false for every inventory row at creation**.
 
-The initial inventory contained **107 rule/field families**. Through Batch 12NM and explicit splitting of historically distinct candidate families, the current machine-readable inventory contains **220 rows**, with **217 audited rows**. It intentionally keeps unresolved source work explicit rather than converting uncertainty into a chart defect. The current audit ledger records **32 confirmed provenance metadata defects repaired forward-only at the provenance/hash-lineage layer, 0 chart algorithm defects, 0 algorithm reopens, 14 cumulatively identified missing candidate families, 10 rows currently `MISSING_FROM_PRODUCT`, 6 historical candidate extensions, 3 source-scoped historical candidate registries, and 3 runtime-resolver components**.
+The initial inventory contained **107 rule/field families**. Through Batch 12NN and explicit splitting of historically distinct candidate families, the current machine-readable inventory contains **220 rows**, with **218 audited rows**. It intentionally keeps unresolved source work explicit rather than converting uncertainty into a chart defect. The current audit ledger records **33 confirmed provenance metadata defects repaired forward-only at the provenance/hash-lineage layer, 0 chart algorithm defects, 0 algorithm reopens, 14 cumulatively identified missing candidate families, 10 rows currently `MISSING_FROM_PRODUCT`, 6 historical candidate extensions, 3 source-scoped historical candidate registries, and 3 runtime-resolver components**.
 
 ## Research-corpus authority
 
@@ -1494,3 +1494,16 @@ The original Matrix source binding stopped at the R1.10 productization document.
 No runtime, schema, hash algorithm, chart fact, candidate selection or Ziwei placement rule changed. Matrix220/217/10; provenance32/32; chart algorithm defects/reopens/candidate collapses0. `transmission_impact=NONE`.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-COMBINED-SHARED-TARGET-ZIWEI-PROJECTION-AUDIT-NM.md`. Research record: `docs/research/COMBINED-SHARED-TARGET-ZIWEI-PROJECTION-AUDIT-R1.json`.
+
+
+## Progress — Batch 12NN
+
+HPA-COMB-006 Combined Target Flow Fusion R2 is audited as **MODERN_COMPATIBILITY_ONLY**. R2 binds the immutable R1 target-flow bundle, the same replayed target-coordinate identity, the released BaZi target-flow bundle and the released shared Ziwei selector projection. It does not create a placement rule, calendar doctrine, school winner or interpretation layer.
+
+`RESOLVED` versus `UNCERTAINTY_PRESENT` is strictly a software composition status. A unique target + unique BaZi flow + one Ziwei physical target candidate resolves; DST folds, boundary/approximate uncertainty or upstream multiplicity stay explicit. R2 binds selector content through its fact/computation hashes and validates full replay; it does not duplicate or reinterpret upstream candidate families.
+
+**PROV-DEFECT-033** repairs the Matrix placeholder `PENDING_VERBATIM_EXTRACTION` and document-only provenance by binding HPA-COMB-006 to the live composer, local endpoint, read-only Workbench and focused integrity/full-replay regressions.
+
+No runtime, schema, hash algorithm, status rule, candidate or subsystem computation changed. Matrix220/218/10; provenance33/33; chart algorithm defects/reopens/candidate collapses0. `transmission_impact=NONE`.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-COMBINED-TARGET-FLOW-FUSION-R2-AUDIT-NN.md`. Research record: `docs/research/COMBINED-TARGET-FLOW-FUSION-R2-AUDIT-R1.json`.

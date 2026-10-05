@@ -897,9 +897,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-COMBINED-INDEPENDENT-DATE-CALENDAR-POLICY-PRESERVATION-AUDIT-NK",
     "BATCH-12-COMBINED-CANDIDATE-LINEAGE-PRESERVATION-AUDIT-NL",
     "BATCH-12-COMBINED-SHARED-TARGET-ZIWEI-PROJECTION-AUDIT-NM",
+    "BATCH-12-COMBINED-TARGET-FLOW-FUSION-R2-AUDIT-NN",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-COMBINED-SHARED-TARGET-ZIWEI-PROJECTION-AUDIT-NM.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-COMBINED-TARGET-FLOW-FUSION-R2-AUDIT-NN.md"
 
 
 def fail(message: str) -> None:
@@ -15202,6 +15203,66 @@ def main() -> int:
         fail("Batch 12NM provenance accounting must retain at least 32/32")
     if nm.get("algorithm_reopen_authorized") is not False or nm.get("transmission_impact", {}).get("status") != "NONE":
         fail("Batch 12NM reopen/transmission scope drift")
+
+    # Batch 12NN: Combined Target Flow Fusion R2 remains identity/status/hash composition only.
+    nn_path = ROOT / "docs/research/COMBINED-TARGET-FLOW-FUSION-R2-AUDIT-R1.json"
+    nn_evidence_path = ROOT / "docs/research/evidence/batch-12nn/combined-target-flow-fusion-r2.json"
+    if not nn_path.is_file() or not nn_evidence_path.is_file():
+        fail("Batch 12NN research/evidence record missing")
+    nn = json.loads(nn_path.read_text(encoding="utf-8"))
+    nn_evidence = json.loads(nn_evidence_path.read_text(encoding="utf-8"))
+    nn_id = "BATCH-12-COMBINED-TARGET-FLOW-FUSION-R2-AUDIT-NN"
+    if nn.get("batch_id") != nn_id or nn.get("prior_batch_id") != nm_id or nn_id not in rule_batches:
+        fail("Batch 12NN chronology drift")
+    row_nn = next(r for r in matrix["rows"] if r["rule_id"] == "HPA-COMB-006")
+    if row_nn.get("audit_status") != "MODERN_COMPATIBILITY_ONLY" or row_nn.get("audit_batch") != nn_id or "HPA-COMB-006" not in matrix["audited_row_ids"]:
+        fail("Batch 12NN R2 audit row drift")
+    contract_nn = nn.get("composition_contract", {})
+    for key in (
+        "r1_target_flow_immutable",
+        "shared_target_coordinate_replayed",
+        "r1_target_binding_exact",
+        "bazi_target_binding_exact",
+        "ziwei_selector_uses_released_projection_service",
+        "ziwei_selector_structural_integrity_required",
+        "ziwei_selector_full_replay_required",
+        "ziwei_target_binding_exact",
+    ):
+        if contract_nn.get(key) is not True:
+            fail(f"Batch 12NN composition contract drift: {key}")
+    for key in ("new_placement_rule_introduced", "cross_system_calendar_unification", "historical_doctrine_claim"):
+        if contract_nn.get(key) is not False:
+            fail(f"Batch 12NN composition firewall drift: {key}")
+    status_nn = nn.get("status_semantics", {})
+    if status_nn.get("all_other_legal_multiplicity_becomes") != "UNCERTAINTY_PRESENT":
+        fail("Batch 12NN uncertainty status drift")
+    for key in ("doctrinal_certainty_signal", "winner_selection", "ranking", "scoring"):
+        if status_nn.get(key) is not False:
+            fail(f"Batch 12NN status/winner firewall drift: {key}")
+    replay_nn = nn.get("replay_adjudication", {})
+    for key in (
+        "local_rehash_can_pass_local_integrity",
+        "forged_ziwei_selector_fact_hash_rejected_by_full_replay",
+        "r1_before_after_byte_and_hash_stable",
+        "dst_fold_remains_uncertainty",
+    ):
+        if replay_nn.get(key) is not True:
+            fail(f"Batch 12NN replay/uncertainty oracle drift: {key}")
+    workbench_nn = nn.get("workbench_boundary", {})
+    if workbench_nn.get("read_only") is not True or workbench_nn.get("temporal_algorithm_reimplementation") is not False or workbench_nn.get("positional_first_candidate_fallback") is not False:
+        fail("Batch 12NN Workbench firewall drift")
+    repairs_nn = {x.get("defect_id") for x in nn.get("provenance_repairs", ())}
+    if repairs_nn != {"PROV-DEFECT-033"}:
+        fail("Batch 12NN provenance repair identity drift")
+    evidence_repair_nn = nn_evidence.get("provenance_repair", {})
+    if evidence_repair_nn.get("defect_id") != "PROV-DEFECT-033" or evidence_repair_nn.get("runtime_behavior_changed") is not False:
+        fail("Batch 12NN provenance repair scope drift")
+    if row_nn.get("defect_id") != "PROV-DEFECT-033" or row_nn.get("algorithm_reopen_authorized") is not False:
+        fail("Batch 12NN Matrix defect/reopen scope drift")
+    if audit_summary.get("confirmed_provenance_metadata_defect_count", 0) < 33 or audit_summary.get("repaired_provenance_metadata_defect_count", 0) < 33:
+        fail("Batch 12NN provenance accounting must retain at least 33/33")
+    if nn.get("algorithm_reopen_authorized") is not False or nn.get("transmission_impact", {}).get("status") != "NONE":
+        fail("Batch 12NN reopen/transmission scope drift")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

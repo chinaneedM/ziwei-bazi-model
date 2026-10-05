@@ -1,0 +1,91 @@
+{
+  "schema": "COMBINED-TARGET-FLOW-FUSION-R2-AUDIT-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-COMBINED-TARGET-FLOW-FUSION-R2-AUDIT-NN",
+  "prior_batch_id": "BATCH-12-COMBINED-SHARED-TARGET-ZIWEI-PROJECTION-AUDIT-NM",
+  "rule_id": "HPA-COMB-006",
+  "audit_status": "MODERN_COMPATIBILITY_ONLY",
+  "algorithm_reopen_authorized": false,
+  "composition_contract": {
+    "r1_target_flow_immutable": true,
+    "shared_target_coordinate_replayed": true,
+    "r1_target_binding_exact": true,
+    "bazi_target_binding_exact": true,
+    "ziwei_selector_uses_released_projection_service": true,
+    "ziwei_selector_structural_integrity_required": true,
+    "ziwei_selector_full_replay_required": true,
+    "ziwei_target_binding_exact": true,
+    "new_placement_rule_introduced": false,
+    "cross_system_calendar_unification": false,
+    "historical_doctrine_claim": false
+  },
+  "status_semantics": {
+    "resolved_requires_unique_target": true,
+    "resolved_requires_resolved_bazi_flow": true,
+    "resolved_requires_one_ziwei_target_candidate": true,
+    "all_other_legal_multiplicity_becomes": "UNCERTAINTY_PRESENT",
+    "doctrinal_certainty_signal": false,
+    "winner_selection": false,
+    "ranking": false,
+    "scoring": false
+  },
+  "hash_lineage": {
+    "source_fact_hash_binds_base_manifest": true,
+    "source_fact_hash_binds_r1_bundle": true,
+    "source_fact_hash_binds_target_fact": true,
+    "source_fact_hash_binds_bazi_source_fact": true,
+    "source_fact_hash_binds_ziwei_selector_fact": true,
+    "view_hash_binds_candidate_count": true,
+    "bundle_hash_binds_target_computation_and_profile": true,
+    "bundle_hash_binds_bazi_bundle": true,
+    "bundle_hash_binds_ziwei_selector_computation": true,
+    "upstream_candidate_content_transitively_bound_by_selector_hashes": true
+  },
+  "replay_adjudication": {
+    "local_rehash_can_pass_local_integrity": true,
+    "forged_ziwei_selector_fact_hash_rejected_by_full_replay": true,
+    "r1_before_after_byte_and_hash_stable": true,
+    "dst_fold_remains_uncertainty": true
+  },
+  "workbench_boundary": {
+    "read_only": true,
+    "temporal_algorithm_reimplementation": false,
+    "positional_first_candidate_fallback": false
+  },
+  "provenance_repairs": [
+    {
+      "defect_id": "PROV-DEFECT-033",
+      "defect": "HPA_COMB_006_PENDING_SOURCE_QUOTE_AND_DOC_ONLY_PROVENANCE_UNDERDESCRIBED_LIVE_R2_CONTRACT",
+      "repair": "Replace PENDING_VERBATIM_EXTRACTION with the R2 purpose statement and bind provenance to the live composer, local endpoint, read-only Workbench and focused replay/uncertainty tests.",
+      "chart_algorithm_effect": false,
+      "candidate_effect": false,
+      "schema_effect": false,
+      "hash_algorithm_effect": false,
+      "status_rule_effect": false
+    }
+  ],
+  "evidence": "docs/research/evidence/batch-12nn/combined-target-flow-fusion-r2.json",
+  "accounting": {
+    "rows_before": 220,
+    "rows_after": 220,
+    "audited_rows_before": 217,
+    "audited_rows_after": 218,
+    "current_missing_from_product_rows": 10,
+    "provenance_defects_confirmed_before": 32,
+    "provenance_defects_confirmed_after": 33,
+    "provenance_defects_repaired_before": 32,
+    "provenance_defects_repaired_after": 33,
+    "chart_algorithm_defects": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0,
+    "new_provenance_defects": 1
+  },
+  "transmission_impact": {
+    "status": "NONE",
+    "reason": "R2 is a modern software composition/replay layer and asserts no historical text/person/school transmission."
+  },
+  "next_gate": [
+    "12NO: audit HPA-COMB-007 Resolved profile/rule/algorithm lineage.",
+    "Distinguish deterministic software provenance identity from historical school/source lineage."
+  ]
+}
