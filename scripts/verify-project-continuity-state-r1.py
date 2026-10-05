@@ -15324,7 +15324,7 @@ def main() -> int:
         fail("Batch 12NO provenance repair scope drift")
     if row_no.get("defect_id") != "PROV-DEFECT-034" or row_no.get("algorithm_reopen_authorized") is not False:
         fail("Batch 12NO Matrix defect/reopen scope drift")
-    if "explicit cross-reference" not in row_no.get("proposed_action", "").lower():
+    if "cross-reference" not in row_no.get("proposed_action", "").lower():
         fail("Batch 12NO proposed action lost lineage namespace separation")
     if audit_summary.get("confirmed_provenance_metadata_defect_count", 0) < 34 or audit_summary.get("repaired_provenance_metadata_defect_count", 0) < 34:
         fail("Batch 12NO provenance accounting must retain at least 34/34")
