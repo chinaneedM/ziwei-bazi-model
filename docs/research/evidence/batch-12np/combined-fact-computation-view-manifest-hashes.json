@@ -1,0 +1,75 @@
+{
+  "schema": "COMBINED-FACT-COMPUTATION-VIEW-MANIFEST-HASH-EVIDENCE-R1",
+  "schema_version": "1.0.0",
+  "parent_head": "4b1455322c03bcd89dac5fa9bd034b5531492bc7",
+  "implementation": {
+    "combined_service_path": "src/fortune_training/combined_chart_application/service.py",
+    "combined_service_blob_sha": "6fc08e88ea89f171da26455248b20e2a6ee296a4",
+    "shared_time_path": "src/fortune_training/combined_chart_application/fusion_time.py",
+    "shared_time_blob_sha": "028dedce23dba891737e35c8190cfd1661d0d1fd",
+    "combined_full_replay_path": "src/fortune_training/combined_chart_application/base_replay.py",
+    "combined_full_replay_blob_sha": "c23976e44a6f2487e73cbb6d1d5916394879f302",
+    "target_flow_integrity_path": "src/fortune_training/combined_chart_application/flow_integrity.py",
+    "target_flow_integrity_blob_sha": "9b542cdf4a17f08d2eb51d3c7a648f100a00ba4f",
+    "target_flow_replay_path": "src/fortune_training/combined_chart_application/flow_replay.py",
+    "target_flow_replay_blob_sha": "657e62ce95e0e0f94e2f53e87ebd88fc6bd492bc",
+    "fusion_r2_path": "src/fortune_training/combined_chart_application/flow_fusion_r2.py",
+    "fusion_r2_blob_sha": "08996bdef0572ad3f7778ebad4702806afd7925d"
+  },
+  "contracts": {
+    "shared_time_contract_path": "docs/ZIWEI-BAZI-SHARED-TIME-CREDENTIAL-R1.md",
+    "shared_time_contract_blob_sha": "c8d348e8c36d26916546d888d43d78268c579336",
+    "unified_target_timeline_path": "docs/BAZI-ZIWEI-UNIFIED-TARGET-TIMELINE-R1.md",
+    "unified_target_timeline_blob_sha": "b032e766f7c30197a1f2889f5bfe3fe77308fef2",
+    "fusion_r2_contract_path": "docs/COMBINED-TARGET-FLOW-FUSION-R2.md",
+    "fusion_r2_contract_blob_sha": "39a44c5bca1090f355b12523788935483c718f7a"
+  },
+  "focused_regressions": {
+    "combined_full_replay_test": "tests/test_combined_application_full_replay_r1.py",
+    "combined_full_replay_test_blob_sha": "1b37d0b109d2f1687c167b20bb97ad5953ca5fed",
+    "target_flow_replay_edges_test": "tests/test_combined_target_flow_replay_edges_r1.py",
+    "target_flow_replay_edges_test_blob_sha": "8f4c6bf73590d190e8f59d4a668adc5f273af361",
+    "fusion_r2_test": "tests/test_combined_target_flow_fusion_r2.py",
+    "fusion_r2_test_blob_sha": "9815d57cdc0c4d7b4f1b57313b1e7af9e516c59e"
+  },
+  "historical_evidence_namespace": {
+    "external_source_registry_path": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json",
+    "external_source_registry_blob_sha": "fb392343928f28a8caefa3884cfc98b3b55b23af",
+    "observed_checksum_classes": [
+      "pdf_sha256",
+      "page_sha256",
+      "image_sha256",
+      "artifact_zip_sha256",
+      "response_sha256",
+      "html_sha256"
+    ],
+    "research_authority_policy_path": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md",
+    "research_authority_policy_blob_sha": "284b8db97271815f08cbc98a318ff6e9a41bcc08",
+    "transmission_protocol_path": "docs/TRANSMISSION-GENEALOGY-PROTOCOL-R1.md",
+    "transmission_protocol_blob_sha": "fb165969d31f7ec876cdb912e1075bdff696d294"
+  },
+  "observed_contract": {
+    "shared_fact_and_computation_hashes_have_distinct_payloads": true,
+    "lineage_hash_is_separate": true,
+    "combined_manifest_binds_profiles_shared_credential_lineage_and_subsystem_bundles": true,
+    "target_flow_source_fact_view_bundle_hashes_are_domain_separated": true,
+    "local_rehash_can_be_structurally_self_consistent": true,
+    "full_replay_rejects_forged_upstream_identity": true,
+    "historical_checksum_is_not_doctrinal_authority": true
+  },
+  "provenance_repair": {
+    "defect_id": "PROV-DEFECT-035",
+    "before": "HPA-COMB-008 used PENDING_VERBATIM_EXTRACTION, non-specific 'README + engine integrity docs', and did not explicitly separate historical evidence checksums from runtime deterministic hash domains.",
+    "after": "Bind the row to exact shared-time/manifest/target-flow/full-replay contracts and keep historical object checksums/edition IDs in evidence provenance with explicit audit cross-references.",
+    "runtime_behavior_changed": false
+  },
+  "adjudication": {
+    "status": "MODERN_COMPATIBILITY_ONLY",
+    "algorithm_reopen_authorized": false,
+    "hash_algorithm_change_authorized": false,
+    "hash_payload_change_authorized": false,
+    "candidate_change_authorized": false,
+    "historical_doctrine_claim_authorized": false,
+    "transmission_edge_created": false
+  }
+}

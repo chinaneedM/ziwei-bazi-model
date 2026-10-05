@@ -899,9 +899,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-COMBINED-SHARED-TARGET-ZIWEI-PROJECTION-AUDIT-NM",
     "BATCH-12-COMBINED-TARGET-FLOW-FUSION-R2-AUDIT-NN",
     "BATCH-12-COMBINED-RESOLVED-PROFILE-RULE-ALGORITHM-LINEAGE-AUDIT-NO",
+    "BATCH-12-COMBINED-FACT-COMPUTATION-VIEW-MANIFEST-HASH-AUDIT-NP",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-COMBINED-RESOLVED-PROFILE-RULE-ALGORITHM-LINEAGE-AUDIT-NO.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-COMBINED-FACT-COMPUTATION-VIEW-MANIFEST-HASH-AUDIT-NP.md"
 
 
 def fail(message: str) -> None:
@@ -15330,6 +15331,84 @@ def main() -> int:
         fail("Batch 12NO provenance accounting must retain at least 34/34")
     if no.get("algorithm_reopen_authorized") is not False or no.get("transmission_impact", {}).get("status") != "NONE":
         fail("Batch 12NO reopen/transmission scope drift")
+
+    # Batch 12NP: runtime integrity hashes and historical evidence-object checksums remain separate namespaces.
+    np_path = ROOT / "docs/research/COMBINED-FACT-COMPUTATION-VIEW-MANIFEST-HASH-AUDIT-R1.json"
+    np_evidence_path = ROOT / "docs/research/evidence/batch-12np/combined-fact-computation-view-manifest-hashes.json"
+    if not np_path.is_file() or not np_evidence_path.is_file():
+        fail("Batch 12NP research/evidence record missing")
+    np = json.loads(np_path.read_text(encoding="utf-8"))
+    np_evidence = json.loads(np_evidence_path.read_text(encoding="utf-8"))
+    np_id = "BATCH-12-COMBINED-FACT-COMPUTATION-VIEW-MANIFEST-HASH-AUDIT-NP"
+    if np.get("batch_id") != np_id or np.get("prior_batch_id") != no_id or np_id not in rule_batches:
+        fail("Batch 12NP chronology drift")
+    row_np = next(r for r in matrix["rows"] if r["rule_id"] == "HPA-COMB-008")
+    if row_np.get("audit_status") != "MODERN_COMPATIBILITY_ONLY" or row_np.get("audit_batch") != np_id or "HPA-COMB-008" not in matrix["audited_row_ids"]:
+        fail("Batch 12NP hash-domain audit row drift")
+    domains_np = np.get("runtime_hash_domains", {})
+    expected_domains_np = {
+        "shared_time_realization_hash": "ONE_PHYSICAL_REALIZATION_PAYLOAD",
+        "shared_time_fact_hash": "SHARED_INPUT_AND_RESOLUTION_FACTS",
+        "shared_time_computation_hash": "SHARED_FACTS_PLUS_POLICY_SNAPSHOT",
+        "candidate_lineage_hash": "BRANCH_TO_SUBSYSTEM_CANDIDATE_IDENTITY_MAPPING",
+        "combined_manifest_hash": "COMBINED_PROFILE_SHARED_CREDENTIAL_CANDIDATE_LINEAGE_SUBSYSTEM_BUNDLE_COMPOSITION",
+        "target_flow_source_fact_hash": "UPSTREAM_RELEASED_FACT_IDENTITIES",
+        "target_flow_view_hash": "RENDERER_NEUTRAL_TARGET_STATUS_VIEW_IDENTITIES",
+        "target_flow_bundle_hash": "SOURCE_VIEW_PLUS_COMPUTATION_PROFILE_ALGORITHM_IDENTITY",
+    }
+    for key, value in expected_domains_np.items():
+        if domains_np.get(key) != value:
+            fail(f"Batch 12NP runtime hash domain drift: {key}")
+    integrity_np = np.get("integrity_boundary", {})
+    for key in (
+        "structural_integrity_proves_local_payload_hash_consistency",
+        "full_replay_recomputes_released_objects",
+        "full_replay_rejects_self_consistently_rehashed_tampering",
+    ):
+        if integrity_np.get(key) is not True:
+            fail(f"Batch 12NP replay integrity contract drift: {key}")
+    for key in (
+        "structural_integrity_alone_proves_upstream_authenticity",
+        "hash_identity_is_historical_authority",
+    ):
+        if integrity_np.get(key) is not False:
+            fail(f"Batch 12NP hash authority firewall drift: {key}")
+    historical_np = np.get("historical_evidence_checksum_boundary", {})
+    if historical_np.get("external_source_registry_contains_digital_object_checksums") is not True:
+        fail("Batch 12NP historical checksum registry drift")
+    if historical_np.get("checksum_can_identify_reviewed_bytes_or_artifact") is not True:
+        fail("Batch 12NP evidence-object checksum identity drift")
+    for key in (
+        "checksum_alone_proves_work_date",
+        "checksum_alone_proves_physical_copy_date",
+        "checksum_alone_proves_authorship",
+        "checksum_alone_proves_direct_transmission",
+        "checksum_alone_proves_school_authority",
+        "checksum_alone_proves_rule_correctness",
+    ):
+        if historical_np.get(key) is not False:
+            fail(f"Batch 12NP evidence checksum authority firewall drift: {key}")
+    if historical_np.get("edition_catalog_identity_kept_in_historical_evidence_namespace") is not True:
+        fail("Batch 12NP historical identity namespace drift")
+    if historical_np.get("connection_model") != "EXPLICIT_AUDIT_CROSS_REFERENCE_NOT_RUNTIME_HASH_NAMESPACE_MERGER":
+        fail("Batch 12NP runtime/evidence hash connection model drift")
+    repairs_np = {x.get("defect_id") for x in np.get("provenance_repairs", ())}
+    if repairs_np != {"PROV-DEFECT-035"}:
+        fail("Batch 12NP provenance repair identity drift")
+    evidence_repair_np = np_evidence.get("provenance_repair", {})
+    if evidence_repair_np.get("defect_id") != "PROV-DEFECT-035" or evidence_repair_np.get("runtime_behavior_changed") is not False:
+        fail("Batch 12NP provenance repair scope drift")
+    if row_np.get("defect_id") != "PROV-DEFECT-035" or row_np.get("algorithm_reopen_authorized") is not False:
+        fail("Batch 12NP Matrix defect/reopen scope drift")
+    closure_np = np.get("matrix_closure", {})
+    if closure_np.get("rows") != 220 or closure_np.get("audited_rows_after") != 220 or closure_np.get("all_existing_rows_audited") is not True:
+        fail("Batch 12NP 220/220 Matrix closure drift")
+    if len(matrix.get("rows", ())) != 220 or len(set(matrix.get("audited_row_ids", ()))) != 220:
+        fail("Batch 12NP Matrix row/audited cardinality drift")
+    if audit_summary.get("confirmed_provenance_metadata_defect_count", 0) < 35 or audit_summary.get("repaired_provenance_metadata_defect_count", 0) < 35:
+        fail("Batch 12NP provenance accounting must retain at least 35/35")
+    if np.get("algorithm_reopen_authorized") is not False or np.get("transmission_impact", {}).get("status") != "NONE":
+        fail("Batch 12NP reopen/transmission scope drift")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

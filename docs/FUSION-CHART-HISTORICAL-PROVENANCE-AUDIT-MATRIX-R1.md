@@ -34,7 +34,7 @@ Every row carries:
 - proposed action;
 - explicit algorithm-reopen authorization, which is **false for every inventory row at creation**.
 
-The initial inventory contained **107 rule/field families**. Through Batch 12NO and explicit splitting of historically distinct candidate families, the current machine-readable inventory contains **220 rows**, with **219 audited rows**. It intentionally keeps unresolved source work explicit rather than converting uncertainty into a chart defect. The current audit ledger records **34 confirmed provenance metadata defects repaired forward-only at the provenance/hash-lineage layer, 0 chart algorithm defects, 0 algorithm reopens, 14 cumulatively identified missing candidate families, 10 rows currently `MISSING_FROM_PRODUCT`, 6 historical candidate extensions, 3 source-scoped historical candidate registries, and 3 runtime-resolver components**.
+The initial inventory contained **107 rule/field families**. Through Batch 12NP and explicit splitting of historically distinct candidate families, the current machine-readable inventory contains **220 rows**, with **220 audited rows**. It intentionally keeps unresolved source work explicit rather than converting uncertainty into a chart defect. The current audit ledger records **35 confirmed provenance metadata defects repaired forward-only at the provenance/hash-lineage layer, 0 chart algorithm defects, 0 algorithm reopens, 14 cumulatively identified missing candidate families, 10 rows currently `MISSING_FROM_PRODUCT`, 6 historical candidate extensions, 3 source-scoped historical candidate registries, and 3 runtime-resolver components**.
 
 ## Research-corpus authority
 
@@ -1522,3 +1522,20 @@ Historical source / edition / school / person / transmission identity remains in
 No runtime, profile, schema, hash, rule, candidate or algorithm changed. Matrix220/219/10; provenance34/34; chart algorithm defects/reopens/candidate collapses0. `transmission_impact=NONE`.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-COMBINED-RESOLVED-PROFILE-RULE-ALGORITHM-LINEAGE-AUDIT-NO.md`. Research record: `docs/research/COMBINED-RESOLVED-PROFILE-RULE-ALGORITHM-LINEAGE-AUDIT-R1.json`.
+
+
+## Progress — Batch 12NP
+
+HPA-COMB-008 Fact / computation / view / manifest hashes is audited as **MODERN_COMPATIBILITY_ONLY**. The current integrity architecture deliberately separates shared-time realization/fact/computation hashes, candidate-lineage hash, combined ManifestHash and target-flow source-fact/view/bundle hashes. These identify different deterministic payload domains rather than one undifferentiated notion of truth.
+
+Structural integrity verifies local payload/hash consistency. Full replay independently re-resolves the released objects and rejects self-consistently rehashed tampering. A valid runtime hash therefore identifies an exact deterministic state; it does not by itself establish upstream authenticity or historical authority.
+
+Historical PDF/page/image/artifact/response checksums and edition/catalog identifiers already live in the external-source/evidence namespace. They identify the reviewed digital object or bytes, but do not prove authorship, physical-copy date, transmission, school authority or doctrinal correctness.
+
+**PROV-DEFECT-035** repairs the prior `PENDING_VERBATIM_EXTRACTION`, non-specific `README + engine integrity docs` source binding and ambiguous action by separating runtime deterministic hash namespaces from historical evidence-object checksums. The two layers connect by explicit audit cross-reference, not namespace merger.
+
+No runtime, schema, hash algorithm, hash payload, rule, candidate or chart algorithm changed. Matrix220/220/10; provenance35/35; chart algorithm defects/reopens/candidate collapses0. `transmission_impact=NONE`.
+
+The existing Historical Provenance Matrix is now **220/220 audited**. Next is **12NQ**, a post-audit reconciliation of the 10 current `MISSING_FROM_PRODUCT` rows against live runtime/product surfaces, beginning with HPA-ZT-015 because later Zhongzhou leap-month candidate productization may make its old status stale.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-COMBINED-FACT-COMPUTATION-VIEW-MANIFEST-HASH-AUDIT-NP.md`. Research record: `docs/research/COMBINED-FACT-COMPUTATION-VIEW-MANIFEST-HASH-AUDIT-R1.json`.

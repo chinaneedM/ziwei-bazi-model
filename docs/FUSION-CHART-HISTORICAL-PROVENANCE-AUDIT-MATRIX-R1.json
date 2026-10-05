@@ -80,7 +80,7 @@
       "candidate/profile rules": 2,
       "provenance / hashes / lineage": 2
     },
-    "audited_row_count": 219
+    "audited_row_count": 220
   },
   "rows": [
     {
@@ -3302,20 +3302,29 @@
       "system": "COMBINED",
       "module": "provenance / hashes / lineage",
       "rule_or_field": "Fact/computation/view/manifest hashes",
-      "current_implementation": "Released hashes separate facts, computation/profile lineage and presentation identities.",
-      "current_profile": "all released subsystem profiles",
-      "primary_source": "software integrity architecture",
-      "source_quote": "PENDING_VERBATIM_EXTRACTION",
-      "source_quote_location": "README + engine integrity docs",
-      "historical_period": "MODERN",
-      "later_witnesses": "N/A",
-      "school_attribution": "MODERN_SOFTWARE_ARCHITECTURE",
-      "competing_methods": [],
-      "current_implementation_match": "MATCHES_DECLARED_INTEGRITY_SCOPE",
-      "confidence": "HIGH",
+      "current_implementation": "Released integrity domains are layered rather than interchangeable. Shared time uses realization_hash plus fact_hash over physical/input resolution facts and computation_hash over those facts plus the selected policy snapshot. Candidate lineage has an independent lineage_hash. CombinedChartApplication manifest_hash binds the combined profile/algorithm semantics, six subsystem profile identities, full shared-time credential, candidate lineage, subsystem bundle hashes/errors and composition status. Combined target-flow R1/R2 additionally separate source_fact_hash, renderer-neutral view_hash and aggregate bundle_hash; full replay recomputes upstream objects so a locally rehashed forged identity cannot pass as authentic.",
+      "current_profile": "all released subsystem profiles + combined manifest/target-flow integrity contracts",
+      "primary_source": "Modern deterministic software integrity architecture. Runtime hashes identify exact serialized fact/configuration/view/bundle states; historical digital-object/page checksums and edition identifiers are separate evidence-object provenance and do not become historical authority merely by being hashed.",
+      "source_quote": "SHARED_TIME_CREDENTIAL_HASH_SCOPE=SHARED_FACTS_PLUS_POLICY_SNAPSHOT; FULL_COMBINED_PROVENANCE_SCOPE=MANIFEST_PLUS_SUBSYSTEM_BUNDLES. The structural validator verifies local consistency. Full replay recomputes the entire R2 result from the request and therefore rejects a locally rehashed mutation of an upstream binding.",
+      "source_quote_location": "docs/ZIWEI-BAZI-SHARED-TIME-CREDENTIAL-R1.md Hash scope; src/fortune_training/combined_chart_application/fusion_time.py; src/fortune_training/combined_chart_application/service.py combined_manifest_payload/combined_manifest_hash; src/fortune_training/combined_chart_application/base_replay.py; src/fortune_training/combined_chart_application/flow_integrity.py and flow_replay.py; docs/COMBINED-TARGET-FLOW-FUSION-R2.md Hash lineage; focused full-replay/tamper tests; external-source registry for historical evidence-object checksums",
+      "historical_period": "MODERN_SOFTWARE_INTEGRITY_AND_EVIDENCE_OBJECT_CHECKSUM_ARCHITECTURE",
+      "later_witnesses": "Shared Ziwei target projection, Bazi unified target timeline, Combined Target Flow R1/R2 and historical external-source registry all preserve domain-specific hashes/checksums without treating hash equality as doctrinal or bibliographic authority.",
+      "school_attribution": "MODERN_SOFTWARE_ARCHITECTURE_NOT_HISTORICAL_AUTHORITY",
+      "competing_methods": [
+        "ONE_UNSCOPED_HASH_FOR_FACTS_CONFIGURATION_VIEW_AND_AGGREGATE_STATE",
+        "TREAT_RUNTIME_HASH_OR_DIGITAL_FILE_CHECKSUM_AS_HISTORICAL_AUTHORITY",
+        "DOMAIN_SEPARATED_RUNTIME_HASHES_PLUS_SEPARATE_EVIDENCE_OBJECT_CHECKSUMS_AND_FULL_REPLAY"
+      ],
+      "current_implementation_match": "EXACT_FOR_INTEGRITY_DOMAIN_SEPARATION: fact/computation/view/bundle/manifest/lineage identities bind different deterministic payloads; structural integrity validates local hash consistency while full replay re-resolves upstream state and rejects self-consistently rehashed tampering. Historical source checksums identify reviewed digital objects/pages/artifacts only and do not prove edition date, authorship, transmission or doctrinal correctness.",
+      "confidence": "HIGH_FOR_HASH_PAYLOAD_AND_REPLAY_SEMANTICS; HISTORICAL_AUTHORITY_REMAINS_EVIDENCE_SCOPED_OUTSIDE_RUNTIME_HASH_DOMAINS",
       "audit_status": "MODERN_COMPATIBILITY_ONLY",
-      "proposed_action": "Add historical-source bibliographic hashes/edition IDs without changing deterministic facts unless audited defect is proven.",
-      "algorithm_reopen_authorized": false
+      "proposed_action": "Keep runtime fact/computation/view/bundle/manifest/lineage hash namespaces limited to deterministic software integrity. Record bibliographic identifiers and digital-object/page/artifact checksums in the historical evidence/source registry and genealogy evidence links, then cross-reference audited rule/source IDs where needed. Never inject a source checksum into runtime facts merely to imply historical authority; any chart change remains independently gated by historical adjudication plus deterministic replay.",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-12-COMBINED-FACT-COMPUTATION-VIEW-MANIFEST-HASH-AUDIT-NP",
+      "defect_id": "PROV-DEFECT-035",
+      "defect_type": "HPA_COMB_008_PENDING_SOURCE_SCOPE_AND_ACTION_AMBIGUOUSLY_MIXED_RUNTIME_HASH_DOMAINS_WITH_HISTORICAL_EVIDENCE_CHECKSUMS",
+      "repair_status": "REPAIRED_IN_BATCH_12NP_FORWARD_ONLY",
+      "repair_action": "Replaced the pending/non-specific source binding with explicit hash-domain and replay contracts and clarified the proposed action: historical bibliographic IDs/checksums remain evidence-object provenance, cross-referenced to audited rules rather than merged into runtime deterministic hash namespaces. No runtime, schema, hash algorithm, hash payload, rule, candidate or chart algorithm changed."
     },
     {
       "rule_id": "HPA-BAZI-015",
@@ -7361,12 +7370,13 @@
     "HPA-COMB-003",
     "HPA-COMB-005",
     "HPA-COMB-006",
-    "HPA-COMB-007"
+    "HPA-COMB-007",
+    "HPA-COMB-008"
   ],
   "audit_summary": {
     "confirmed_chart_algorithm_defect_count": 0,
-    "confirmed_provenance_metadata_defect_count": 34,
-    "repaired_provenance_metadata_defect_count": 34,
+    "confirmed_provenance_metadata_defect_count": 35,
+    "repaired_provenance_metadata_defect_count": 35,
     "algorithm_reopen_count": 0,
     "candidate_collapse_count": 0,
     "historical_candidate_extension_count": 6,
@@ -7407,6 +7417,7 @@
     "BATCH-12-COMBINED-CANDIDATE-LINEAGE-PRESERVATION-AUDIT-NL",
     "BATCH-12-COMBINED-SHARED-TARGET-ZIWEI-PROJECTION-AUDIT-NM",
     "BATCH-12-COMBINED-TARGET-FLOW-FUSION-R2-AUDIT-NN",
-    "BATCH-12-COMBINED-RESOLVED-PROFILE-RULE-ALGORITHM-LINEAGE-AUDIT-NO"
+    "BATCH-12-COMBINED-RESOLVED-PROFILE-RULE-ALGORITHM-LINEAGE-AUDIT-NO",
+    "BATCH-12-COMBINED-FACT-COMPUTATION-VIEW-MANIFEST-HASH-AUDIT-NP"
   ]
 }

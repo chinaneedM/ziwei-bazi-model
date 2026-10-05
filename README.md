@@ -348,3 +348,18 @@ HPA-COMB-007 Resolved profile / RuleSet / algorithm lineage is audited as **MODE
 Matrix220/219/10, provenance34/34, chart algorithm defects/reopens/candidate collapses0. No runtime/profile/schema/hash/rule/candidate/algorithm change. `transmission_impact=NONE`.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-COMBINED-RESOLVED-PROFILE-RULE-ALGORITHM-LINEAGE-AUDIT-NO.md`. Research record: `docs/research/COMBINED-RESOLVED-PROFILE-RULE-ALGORITHM-LINEAGE-AUDIT-R1.json`.
+
+
+## Progress — Batch 12NP
+
+HPA-COMB-008 Fact / computation / view / manifest hashes is audited as **MODERN_COMPATIBILITY_ONLY**. Runtime fact/computation/view/bundle/manifest/lineage hashes remain domain-scoped deterministic integrity identities; structural hash consistency is strengthened by full replay, which rejects locally rehashed upstream tampering.
+
+Historical PDF/page/image/artifact checksums and edition/catalog IDs remain evidence-object provenance. They can identify exactly what was reviewed but do not by themselves prove historical date, authorship, transmission, school authority or doctrinal correctness.
+
+**PROV-DEFECT-035** clarifies this namespace boundary and replaces the pending/non-specific Matrix source binding. No runtime/schema/hash/rule/candidate/algorithm change.
+
+Matrix **220/220 audited**, current missing-product rows **10**, provenance **35/35**, chart algorithm defects/reopens/candidate collapses **0**. `transmission_impact=NONE`.
+
+Next: **12NQ** post-audit reconciliation of the 10 current `MISSING_FROM_PRODUCT` rows against live runtime/product surfaces, starting with HPA-ZT-015.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-COMBINED-FACT-COMPUTATION-VIEW-MANIFEST-HASH-AUDIT-NP.md`. Research record: `docs/research/COMBINED-FACT-COMPUTATION-VIEW-MANIFEST-HASH-AUDIT-R1.json`.
