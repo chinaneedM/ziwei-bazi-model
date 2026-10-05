@@ -14758,8 +14758,9 @@ def main() -> int:
     if audit_state.get("confirmed_provenance_metadata_defect_count", 0) < 20 or audit_state.get("repaired_provenance_metadata_defect_count", 0) < 20:
         fail("Batch 12NB state provenance accounting must retain at least 20/20")
     matrix_md_nb = (ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.md").read_text()
-    if "**20 confirmed provenance metadata defects" not in matrix_md_nb:
-        fail("Batch 12NB current Matrix Markdown provenance overview drift")
+    current_provenance_count = audit_summary.get("confirmed_provenance_metadata_defect_count", 0)
+    if f"**{current_provenance_count} confirmed provenance metadata defects" not in matrix_md_nb:
+        fail("current Matrix Markdown provenance overview drift")
     for obj in nb["frozen_files"]:
         raw_nb = (ROOT / obj["path"]).read_bytes()
         if hashlib.sha1(b"blob " + str(len(raw_nb)).encode() + b"\0" + raw_nb).hexdigest() != obj["blob_sha"]:
