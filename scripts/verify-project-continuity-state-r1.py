@@ -903,9 +903,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-POST-AUDIT-MISSING-PRODUCT-RECONCILIATION-LEAP-MONTH-NQ",
     "BATCH-12-POST-AUDIT-JIELAN-SOURCE-SCOPED-CANDIDATE-PRODUCT-SURFACE-RECONCILIATION-NR",
     "BATCH-12-POST-AUDIT-FOUR-TRANSFORMATION-DIGNITY-PRODUCT-BOUNDARY-RECONCILIATION-NS",
+    "BATCH-12-POST-AUDIT-NANYANGTANG-LATE-ZI-NATAL-CANDIDATE-PRODUCT-SURFACE-RECONCILIATION-NT",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-POST-AUDIT-FOUR-TRANSFORMATION-DIGNITY-PRODUCT-BOUNDARY-RECONCILIATION-NS.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-POST-AUDIT-NANYANGTANG-LATE-ZI-NATAL-CANDIDATE-PRODUCT-SURFACE-RECONCILIATION-NT.md"
 
 
 def fail(message: str) -> None:
@@ -15630,6 +15631,79 @@ def main() -> int:
         fail("Batch 12NS evidence adjudication firewall drift")
     if ns.get("algorithm_reopen_authorized") is not False or ns.get("transmission_impact", {}).get("status") != "NONE":
         fail("Batch 12NS reopen/transmission scope drift")
+
+
+    # Batch 12NT: current natal/product surfaces still cannot express the Nanyangtang upper-half-Zi-to-Hai candidate.
+    nt_path = ROOT / "docs/research/ZIWEI-NANYANGTANG-LATE-ZI-NATAL-CANDIDATE-PRODUCT-SURFACE-RECONCILIATION-R1.json"
+    nt_evidence_path = ROOT / "docs/research/evidence/batch-12nt/ziwei-nanyangtang-late-zi-natal-candidate-product-surface-reconciliation.json"
+    if not nt_path.is_file() or not nt_evidence_path.is_file():
+        fail("Batch 12NT research/evidence record missing")
+    nt = json.loads(nt_path.read_text(encoding="utf-8"))
+    nt_evidence = json.loads(nt_evidence_path.read_text(encoding="utf-8"))
+    nt_id = "BATCH-12-POST-AUDIT-NANYANGTANG-LATE-ZI-NATAL-CANDIDATE-PRODUCT-SURFACE-RECONCILIATION-NT"
+    if nt.get("batch_id") != nt_id or nt.get("prior_batch_id") != ns_id:
+        fail("Batch 12NT chronology drift")
+    if nt_id in rule_batches:
+        fail("Batch 12NT post-audit reconciliation must not be enrolled as a supplemental rule-audit batch")
+    if nt.get("batch_classification") != "POST_AUDIT_RECONCILIATION_NOT_SUPPLEMENTAL_RULE_AUDIT":
+        fail("Batch 12NT batch classification drift")
+    if nt.get("target_rule_ids") != ["HPA-ZDATE-006"]:
+        fail("Batch 12NT target rule set drift")
+    if nt.get("reconciliation_result") != "MISSING_FROM_PRODUCT_STATUS_CONFIRMED_NO_NEW_PROVENANCE_DEFECT":
+        fail("Batch 12NT reconciliation result drift")
+    row_nt = next((r for r in matrix["rows"] if r["rule_id"] == "HPA-ZDATE-006"), None)
+    if row_nt is None or row_nt.get("audit_status") != "MISSING_FROM_PRODUCT":
+        fail("Batch 12NT HPA-ZDATE-006 status drift")
+    if row_nt.get("reconciliation_batch") != nt_id or row_nt.get("reconciliation_status") != "MISSING_FROM_PRODUCT_CONFIRMED":
+        fail("Batch 12NT Matrix reconciliation binding drift")
+    if row_nt.get("selection_status") != "NOT_IMPLEMENTED" or row_nt.get("algorithm_reopen_authorized") is not False:
+        fail("Batch 12NT selection/reopen firewall drift")
+    surface_nt = row_nt.get("product_surface_reconciliation", {})
+    if surface_nt.get("current_natal_uniform_zi_mapping_23_to_01") is not True:
+        fail("Batch 12NT current natal mapping evidence drift")
+    for key in (
+        "resolved_ziwei_profile_has_natal_hour_branch_reclassification_policy",
+        "policy_registry_has_ziwei_natal_hour_branch_policy",
+        "package_root_exports_nanyang_natal_candidate",
+        "temporal_historical_candidate_registry_contains_nanyang_natal_method",
+        "combined_local_ziwei_historical_natal_candidate_selector",
+        "workbench_nanyang_late_zi_candidate_selector",
+        "source_scoped_runtime_time_standard_binding_closed",
+        "fullbook_inclement_current_time_procedure_closed",
+        "production_default_changed",
+    ):
+        if surface_nt.get(key) is not False:
+            fail(f"Batch 12NT product/source firewall drift: {key}")
+    if surface_nt.get("production_uses_single_ziwei_calculation_profile") is not True:
+        fail("Batch 12NT production profile cardinality drift")
+    scope_nt = nt.get("source_scope_boundary", {})
+    for key in ("direct_nanyangtang_target_rule_attested", "direct_guangyi_fullbook_hai_witness_attested", "generic_upper_lower_half_orientation_closed"):
+        if scope_nt.get(key) is not True:
+            fail(f"Batch 12NT source positive-control drift: {key}")
+    for key in ("explicit_hai_universal_across_received_ziwei_transmission", "runtime_time_standard_binding_closed", "fullbook_source_scoped_inclement_current_time_procedure_closed", "candidate_runtime_selection_authorized"):
+        if scope_nt.get(key) is not False:
+            fail(f"Batch 12NT source-scope firewall drift: {key}")
+    prov_nt = nt.get("provenance_adjudication", {})
+    if prov_nt.get("new_provenance_defect") is not False or prov_nt.get("existing_matrix_gap_description_materially_stale") is not False:
+        fail("Batch 12NT provenance adjudication drift")
+    if prov_nt.get("existing_defect_id") != "PROV-DEFECT-010" or "ALREADY_REPAIRED" not in prov_nt.get("existing_defect_status", ""):
+        fail("Batch 12NT existing defect identity drift")
+    accounting_nt = nt.get("accounting", {})
+    if accounting_nt.get("missing_from_product_before") != 10 or accounting_nt.get("missing_from_product_after") != 10:
+        fail("Batch 12NT missing-product accounting drift")
+    if accounting_nt.get("provenance_defects_confirmed_after") != 38 or accounting_nt.get("provenance_defects_repaired_after") != 38:
+        fail("Batch 12NT provenance accounting drift")
+    adj_nt = nt_evidence.get("adjudication", {})
+    if adj_nt.get("status") != "MISSING_FROM_PRODUCT" or adj_nt.get("new_provenance_defect") is not False or adj_nt.get("runtime_behavior_changed") is not False or adj_nt.get("candidate_selection_changed") is not False:
+        fail("Batch 12NT evidence adjudication drift")
+    if nt.get("algorithm_reopen_authorized") is not False or nt.get("transmission_impact", {}).get("status") != "NONE":
+        fail("Batch 12NT reopen/transmission scope drift")
+    try:
+        schema12nt = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12NT state version is not numeric")
+    if schema12nt < (1, 388, 0):
+        fail("Batch 12NT state version regressed below 1.388.0")
     try:
         schema12ns = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
     except ValueError:
