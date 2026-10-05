@@ -2610,8 +2610,8 @@
       "system": "ZIWEI",
       "module": "流月",
       "rule_or_field": "Leap-month temporal frames",
-      "current_implementation": "Regular month generator marks leap-month policy UNRESOLVED_NOT_GENERATED.",
-      "current_profile": "ZIWEI-CHART-ENGINE-V1 / S10_CURRENT_TEMPORAL_R1",
+      "current_implementation": "The ordinary Ziwei monthly/daily projection still fails closed for leap targets as LEAP_MONTH_UNRESOLVED_NO_FRAME / PARENT_LEAP_MONTH_UNRESOLVED_NO_FRAME. Separately, ZIWEI-TEMPORAL-HISTORICAL-CANDIDATE-API-R1@1.1.0 and the shared Ziwei selector projection now productize ZHONGZHOU-LEAP-MONTH-HALF-SPLIT-R1 as a PRESERVED_NOT_SELECTED month-assignment candidate, including days 1–15→previous regular month and days 16–end→following regular month. The candidate explicitly leaves leap-month day-one daily-origin geometry unresolved and emits no derived leap-month daily active palace.",
+      "current_profile": "ZIWEI-CHART-ENGINE-V1 / S10_CURRENT_TEMPORAL_R1 + ZIWEI-TEMPORAL-HISTORICAL-CANDIDATE-REGISTRY-R1@1.0.0 / RUNTIME-R1@1.0.0 / ZHONGZHOU-LEAP-MONTH-HALF-SPLIT-R1 PRESERVED_NOT_SELECTED",
       "primary_source": "EXT-WANGTINGZHI-ZHONGZHOU-CHUJI; S10:ZZTERM-P-0280..0281",
       "source_quote": "Zhongzhou method: leap-month days 1–15 belong to the preceding month, days 16–end belong to the following month, while the flow-day sequence continues without reset.",
       "source_quote_location": "EXT-WANGTINGZHI-ZHONGZHOU-CHUJI leap-month/flow-day section; S10:ZZTERM-P-0280..0281",
@@ -2621,12 +2621,17 @@
       "competing_methods": [
         "other leap-month month/day handling methods remain separate candidates"
       ],
-      "current_implementation_match": "SOURCE_METHOD_IS_MECHANICALLY_COMPLETE_BUT_RUNTIME_STILL_FAILS_CLOSED_AS_UNRESOLVED_NOT_GENERATED",
-      "confidence": "HIGH_FOR_SCHOOL_METHOD_AND_PRODUCT_GAP",
+      "current_implementation_match": "PARTIAL_PRODUCTIZATION_NOW_EXISTS: THE_SOURCE_SCOPED_HALF_SPLIT_MONTH_ASSIGNMENT_CANDIDATE_IS_RUNTIME/API/WORKBENCH_VISIBLE_AND_PRESERVED_NOT_SELECTED; THE_BROADER_LEAP_MONTH_TEMPORAL_FRAME_REMAINS_MISSING_BECAUSE_DAY_ONE_FLOW_DAY_ORIGIN_AND_FULL_DAILY_ACTIVE_ADDRESS_GEOMETRY_ARE_NOT_SOURCE_CLOSED",
+      "confidence": "HIGH_FOR_ZHONGZHOU_MONTH_ASSIGNMENT_CANDIDATE_PRODUCTIZATION; HIGH_FOR_REMAINING_FULL_FRAME_PRODUCT_GAP",
       "audit_status": "MISSING_FROM_PRODUCT",
-      "proposed_action": "Implement as an explicit Zhongzhou leap-month temporal candidate without changing the regular-month default or collapsing other leap-month methods.",
+      "proposed_action": "Keep the already productized Zhongzhou half-split month-assignment candidate PRESERVED_NOT_SELECTED. The remaining HPA-ZT-015 product gap is the complete leap-month temporal frame, especially day-one flow-day origin/daily active-address geometry and competing leap-month methods. Continue source research and preserve fail-closed ordinary monthly/daily fields until that scope closes; do not reimplement the already released half-split candidate or select it as a universal winner.",
       "algorithm_reopen_authorized": false,
-      "audit_batch": "BATCH-08-ZIWEI-TEMPORAL-FRAMES-B"
+      "audit_batch": "BATCH-08-ZIWEI-TEMPORAL-FRAMES-B",
+      "reconciliation_batch": "BATCH-12-POST-AUDIT-MISSING-PRODUCT-RECONCILIATION-LEAP-MONTH-NQ",
+      "defect_id": "PROV-DEFECT-036",
+      "defect_type": "HPA_ZT_015_STALE_PRODUCT_GAP_DESCRIPTION_AFTER_ZHONGZHOU_HALF_SPLIT_CANDIDATE_PRODUCTIZATION",
+      "repair_status": "REPAIRED_IN_BATCH_12NQ_FORWARD_ONLY",
+      "repair_action": "Updated the Matrix to distinguish the already productized Zhongzhou month-assignment candidate (HPA-ZTEMP-006) from the still-missing full leap-month temporal frame (HPA-ZT-015). MISSING_FROM_PRODUCT remains correct for the broader frame; no runtime, schema, candidate selection or algorithm changed."
     },
     {
       "rule_id": "HPA-ZT-016",
@@ -7375,8 +7380,8 @@
   ],
   "audit_summary": {
     "confirmed_chart_algorithm_defect_count": 0,
-    "confirmed_provenance_metadata_defect_count": 35,
-    "repaired_provenance_metadata_defect_count": 35,
+    "confirmed_provenance_metadata_defect_count": 36,
+    "repaired_provenance_metadata_defect_count": 36,
     "algorithm_reopen_count": 0,
     "candidate_collapse_count": 0,
     "historical_candidate_extension_count": 6,
@@ -7418,6 +7423,7 @@
     "BATCH-12-COMBINED-SHARED-TARGET-ZIWEI-PROJECTION-AUDIT-NM",
     "BATCH-12-COMBINED-TARGET-FLOW-FUSION-R2-AUDIT-NN",
     "BATCH-12-COMBINED-RESOLVED-PROFILE-RULE-ALGORITHM-LINEAGE-AUDIT-NO",
-    "BATCH-12-COMBINED-FACT-COMPUTATION-VIEW-MANIFEST-HASH-AUDIT-NP"
+    "BATCH-12-COMBINED-FACT-COMPUTATION-VIEW-MANIFEST-HASH-AUDIT-NP",
+    "BATCH-12-POST-AUDIT-MISSING-PRODUCT-RECONCILIATION-LEAP-MONTH-NQ"
   ]
 }

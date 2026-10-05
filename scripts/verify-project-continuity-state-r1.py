@@ -900,9 +900,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-COMBINED-TARGET-FLOW-FUSION-R2-AUDIT-NN",
     "BATCH-12-COMBINED-RESOLVED-PROFILE-RULE-ALGORITHM-LINEAGE-AUDIT-NO",
     "BATCH-12-COMBINED-FACT-COMPUTATION-VIEW-MANIFEST-HASH-AUDIT-NP",
+    "BATCH-12-POST-AUDIT-MISSING-PRODUCT-RECONCILIATION-LEAP-MONTH-NQ",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-COMBINED-FACT-COMPUTATION-VIEW-MANIFEST-HASH-AUDIT-NP.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-POST-AUDIT-MISSING-PRODUCT-RECONCILIATION-LEAP-MONTH-NQ.md"
 
 
 def fail(message: str) -> None:
@@ -15409,6 +15410,70 @@ def main() -> int:
         fail("Batch 12NP provenance accounting must retain at least 35/35")
     if np.get("algorithm_reopen_authorized") is not False or np.get("transmission_impact", {}).get("status") != "NONE":
         fail("Batch 12NP reopen/transmission scope drift")
+
+    # Batch 12NQ: reconcile leap-month full-frame gap after source-scoped candidate productization.
+    nq_path = ROOT / "docs/research/ZIWEI-LEAP-MONTH-MISSING-PRODUCT-RECONCILIATION-R1.json"
+    nq_evidence_path = ROOT / "docs/research/evidence/batch-12nq/ziwei-leap-month-missing-product-reconciliation.json"
+    if not nq_path.is_file() or not nq_evidence_path.is_file():
+        fail("Batch 12NQ research/evidence record missing")
+    nq = json.loads(nq_path.read_text(encoding="utf-8"))
+    nq_evidence = json.loads(nq_evidence_path.read_text(encoding="utf-8"))
+    nq_id = "BATCH-12-POST-AUDIT-MISSING-PRODUCT-RECONCILIATION-LEAP-MONTH-NQ"
+    if nq.get("batch_id") != nq_id or nq.get("prior_batch_id") != np_id or nq_id not in rule_batches:
+        fail("Batch 12NQ chronology drift")
+    row_nq = next(r for r in matrix["rows"] if r["rule_id"] == "HPA-ZT-015")
+    related_nq = next(r for r in matrix["rows"] if r["rule_id"] == "HPA-ZTEMP-006")
+    if row_nq.get("audit_status") != "MISSING_FROM_PRODUCT":
+        fail("Batch 12NQ broader leap-month frame gap must remain missing")
+    if related_nq.get("audit_status") != "SUPPORTED_BUT_SCHOOL_SPECIFIC":
+        fail("Batch 12NQ productized Zhongzhou candidate status drift")
+    if row_nq.get("reconciliation_batch") != nq_id:
+        fail("Batch 12NQ reconciliation batch binding drift")
+    observed_nq = nq.get("observed_runtime", {})
+    if observed_nq.get("historical_candidate_method_id") != "ZHONGZHOU-LEAP-MONTH-HALF-SPLIT-R1":
+        fail("Batch 12NQ historical candidate method drift")
+    if observed_nq.get("selection_status") != "PRESERVED_NOT_SELECTED":
+        fail("Batch 12NQ historical candidate selection drift")
+    if observed_nq.get("shared_projection_field") != "leap_month_method_candidates":
+        fail("Batch 12NQ shared projection field drift")
+    for key in (
+        "workbench_read_only_candidate_rendering",
+        "days_1_15_assigned_to_previous_regular_month",
+        "days_16_end_assigned_to_following_regular_month",
+    ):
+        if observed_nq.get(key) is not True:
+            fail(f"Batch 12NQ productized candidate contract drift: {key}")
+    gap_nq = nq.get("remaining_gap", {})
+    if gap_nq.get("ordinary_monthly_projection_status") != "LEAP_MONTH_UNRESOLVED_NO_FRAME":
+        fail("Batch 12NQ monthly fail-closed status drift")
+    if gap_nq.get("ordinary_daily_projection_status") != "PARENT_LEAP_MONTH_UNRESOLVED_NO_FRAME":
+        fail("Batch 12NQ daily fail-closed status drift")
+    if gap_nq.get("daily_origin_semantics") != "NOT_CLOSED_BY_THIS_MONTH_POLICY_API":
+        fail("Batch 12NQ leap-month daily-origin scope drift")
+    if gap_nq.get("complete_leap_month_temporal_frame_productized") is not False:
+        fail("Batch 12NQ full-frame gap must remain explicit")
+    split_nq = nq.get("row_scope_split", {})
+    if split_nq.get("HPA-ZTEMP-006") != "PRODUCTIZED_SCHOOL_SCOPED_MONTH_ASSIGNMENT_CANDIDATE":
+        fail("Batch 12NQ candidate-row scope drift")
+    if split_nq.get("HPA-ZT-015") != "REMAINING_COMPLETE_LEAP_MONTH_TEMPORAL_FRAME_GAP":
+        fail("Batch 12NQ full-frame-row scope drift")
+    if split_nq.get("duplicate_missing_implementation_step_removed") is not True:
+        fail("Batch 12NQ stale missing-step repair drift")
+    repairs_nq = {x.get("defect_id") for x in nq.get("provenance_repairs", ())}
+    if repairs_nq != {"PROV-DEFECT-036"}:
+        fail("Batch 12NQ provenance repair identity drift")
+    evidence_adj_nq = nq_evidence.get("adjudication", {})
+    if evidence_adj_nq.get("hpa_zt_015_status_after") != "MISSING_FROM_PRODUCT" or evidence_adj_nq.get("runtime_behavior_changed") is not False:
+        fail("Batch 12NQ reconciliation scope drift")
+    if row_nq.get("defect_id") != "PROV-DEFECT-036" or row_nq.get("algorithm_reopen_authorized") is not False:
+        fail("Batch 12NQ Matrix defect/reopen scope drift")
+    accounting_nq = nq.get("accounting", {})
+    if accounting_nq.get("missing_from_product_before") != 10 or accounting_nq.get("missing_from_product_after") != 10:
+        fail("Batch 12NQ missing-product accounting drift")
+    if audit_summary.get("confirmed_provenance_metadata_defect_count", 0) < 36 or audit_summary.get("repaired_provenance_metadata_defect_count", 0) < 36:
+        fail("Batch 12NQ provenance accounting must retain at least 36/36")
+    if nq.get("algorithm_reopen_authorized") is not False or nq.get("transmission_impact", {}).get("status") != "NONE":
+        fail("Batch 12NQ reopen/transmission scope drift")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

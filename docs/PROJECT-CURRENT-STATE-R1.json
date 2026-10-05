@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.384.0",
+  "schema_version": "1.385.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -39,8 +39,8 @@
     "external_source_registry": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json",
     "row_count": 220,
     "audited_row_count": 220,
-    "confirmed_provenance_metadata_defect_count": 35,
-    "repaired_provenance_metadata_defect_count": 35,
+    "confirmed_provenance_metadata_defect_count": 36,
+    "repaired_provenance_metadata_defect_count": 36,
     "historical_candidate_registry_count": 3,
     "historical_candidate_runtime_resolver_count": 3,
     "identified_missing_candidate_family_count": 14,
@@ -465,9 +465,10 @@
       "BATCH-12-COMBINED-SHARED-TARGET-ZIWEI-PROJECTION-AUDIT-NM",
       "BATCH-12-COMBINED-TARGET-FLOW-FUSION-R2-AUDIT-NN",
       "BATCH-12-COMBINED-RESOLVED-PROFILE-RULE-ALGORITHM-LINEAGE-AUDIT-NO",
-      "BATCH-12-COMBINED-FACT-COMPUTATION-VIEW-MANIFEST-HASH-AUDIT-NP"
+      "BATCH-12-COMBINED-FACT-COMPUTATION-VIEW-MANIFEST-HASH-AUDIT-NP",
+      "BATCH-12-POST-AUDIT-MISSING-PRODUCT-RECONCILIATION-LEAP-MONTH-NQ"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-COMBINED-FACT-COMPUTATION-VIEW-MANIFEST-HASH-AUDIT-NP.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-POST-AUDIT-MISSING-PRODUCT-RECONCILIATION-LEAP-MONTH-NQ.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -2187,7 +2188,14 @@
       "Historical digital-object/page/artifact SHA-256 values and edition/catalog identifiers remain evidence-object provenance in the external-source/genealogy research namespace. Hash equality does not prove authorship, date, school transmission or doctrinal correctness.",
       "PROV-DEFECT-035 repaired forward-only: HPA-COMB-008 had PENDING_VERBATIM_EXTRACTION, non-specific 'README + engine integrity docs' provenance, and an ambiguous action that did not separate runtime deterministic hashes from historical evidence-object checksums.",
       "No runtime/schema/hash-algorithm/hash-payload/rule/candidate/chart-algorithm change: Matrix 220 rows / 220 audited / 10 current missing; provenance defects 35/35; chart algorithm defects / reopens / candidate collapses 0.",
-      "12NQ: perform post-audit 220/220 reconciliation of the 10 current MISSING_FROM_PRODUCT rows against live runtime/product surfaces before any new implementation; begin with HPA-ZT-015 because later source-scoped Zhongzhou leap-month candidate productization may make its Matrix status stale."
+      "12NQ: perform post-audit 220/220 reconciliation of the 10 current MISSING_FROM_PRODUCT rows against live runtime/product surfaces before any new implementation; begin with HPA-ZT-015 because later source-scoped Zhongzhou leap-month candidate productization may make its Matrix status stale.",
+      "Batch 12NQ completed: post-audit reconciliation of HPA-ZT-015 Leap-month temporal frames against the live temporal historical-candidate runtime/product surfaces.",
+      "The broader HPA-ZT-015 MISSING_FROM_PRODUCT status remains correct: ordinary leap-month monthly/daily projection still fails closed and the complete day-one flow-day origin/daily active-address geometry is not source closed.",
+      "However, the prior product-gap description was stale: ZHONGZHOU-LEAP-MONTH-HALF-SPLIT-R1 is already a PRESERVED_NOT_SELECTED source-scoped month-assignment candidate in the temporal historical-candidate API, shared Ziwei selector projection and read-only Workbench.",
+      "HPA-ZTEMP-006 correctly records that productized school-scoped candidate; HPA-ZT-015 now records only the remaining full-frame gap so the two Matrix rows no longer double-count the same missing implementation step.",
+      "PROV-DEFECT-036 repaired forward-only: HPA-ZT-015 still proposed implementing the half-split candidate after that candidate had already been productized.",
+      "No runtime/schema/candidate-selection/hash/chart-algorithm change: Matrix 220/220 audited / 10 current missing; provenance defects 36/36; chart algorithm defects / reopens / candidate collapses 0.",
+      "12NR: reconcile HPA-ZIWEI-015, HPA-ZIWEI-016 and HPA-ZIWEI-022 together against the Jielan 1581 source-scoped runtime and actual API/Workbench candidate-profile surfaces; determine whether their MISSING_FROM_PRODUCT statuses remain real."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10

@@ -1,0 +1,67 @@
+{
+  "schema": "ZIWEI-LEAP-MONTH-MISSING-PRODUCT-RECONCILIATION-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-POST-AUDIT-MISSING-PRODUCT-RECONCILIATION-LEAP-MONTH-NQ",
+  "prior_batch_id": "BATCH-12-COMBINED-FACT-COMPUTATION-VIEW-MANIFEST-HASH-AUDIT-NP",
+  "target_rule_id": "HPA-ZT-015",
+  "related_productized_rule_id": "HPA-ZTEMP-006",
+  "reconciliation_result": "MISSING_FROM_PRODUCT_STATUS_PRESERVED_BUT_GAP_SCOPE_REPAIRED",
+  "algorithm_reopen_authorized": false,
+  "observed_runtime": {
+    "historical_candidate_method_id": "ZHONGZHOU-LEAP-MONTH-HALF-SPLIT-R1",
+    "registry_id": "ZIWEI-TEMPORAL-HISTORICAL-CANDIDATE-REGISTRY-R1",
+    "runtime_resolver_id": "ZIWEI-TEMPORAL-HISTORICAL-CANDIDATE-RUNTIME-R1",
+    "selection_status": "PRESERVED_NOT_SELECTED",
+    "shared_projection_field": "leap_month_method_candidates",
+    "workbench_read_only_candidate_rendering": true,
+    "days_1_15_assigned_to_previous_regular_month": true,
+    "days_16_end_assigned_to_following_regular_month": true
+  },
+  "remaining_gap": {
+    "ordinary_monthly_projection_status": "LEAP_MONTH_UNRESOLVED_NO_FRAME",
+    "ordinary_daily_projection_status": "PARENT_LEAP_MONTH_UNRESOLVED_NO_FRAME",
+    "daily_origin_semantics": "NOT_CLOSED_BY_THIS_MONTH_POLICY_API",
+    "daily_geometry_status": "MONTH_ASSIGNMENT_CANDIDATE_ONLY_DAILY_GEOMETRY_REMAINS_FAIL_CLOSED",
+    "complete_leap_month_temporal_frame_productized": false,
+    "competing_leap_month_methods_closed": false
+  },
+  "row_scope_split": {
+    "HPA-ZTEMP-006": "PRODUCTIZED_SCHOOL_SCOPED_MONTH_ASSIGNMENT_CANDIDATE",
+    "HPA-ZT-015": "REMAINING_COMPLETE_LEAP_MONTH_TEMPORAL_FRAME_GAP",
+    "duplicate_missing_implementation_step_removed": true
+  },
+  "provenance_repairs": [
+    {
+      "defect_id": "PROV-DEFECT-036",
+      "defect": "HPA_ZT_015_STALE_PRODUCT_GAP_DESCRIPTION_AFTER_ZHONGZHOU_HALF_SPLIT_CANDIDATE_PRODUCTIZATION",
+      "repair": "Acknowledge the already released Zhongzhou half-split candidate and redefine HPA-ZT-015's remaining product gap as full leap-month frame/day-origin geometry plus competing-method closure.",
+      "runtime_effect": false,
+      "schema_effect": false,
+      "candidate_selection_effect": false,
+      "hash_effect": false,
+      "chart_algorithm_effect": false
+    }
+  ],
+  "accounting": {
+    "rows": 220,
+    "audited_rows": 220,
+    "missing_from_product_before": 10,
+    "missing_from_product_after": 10,
+    "provenance_defects_confirmed_before": 35,
+    "provenance_defects_confirmed_after": 36,
+    "provenance_defects_repaired_before": 35,
+    "provenance_defects_repaired_after": 36,
+    "chart_algorithm_defects": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0
+  },
+  "evidence": "docs/research/evidence/batch-12nq/ziwei-leap-month-missing-product-reconciliation.json",
+  "transmission_impact": {
+    "status": "NONE",
+    "reason": "This is a modern Matrix/product-surface reconciliation and adds no historical text/person/school transmission edge."
+  },
+  "next_gate": [
+    "12NR: reconcile HPA-ZIWEI-015, HPA-ZIWEI-016 and HPA-ZIWEI-022 against the Jielan 1581 source-scoped runtime.",
+    "Verify whether candidate-profile API/Workbench wiring still remains absent before preserving or changing MISSING_FROM_PRODUCT."
+  ]
+}

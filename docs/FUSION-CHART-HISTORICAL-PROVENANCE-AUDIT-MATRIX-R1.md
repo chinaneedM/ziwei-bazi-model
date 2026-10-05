@@ -34,7 +34,7 @@ Every row carries:
 - proposed action;
 - explicit algorithm-reopen authorization, which is **false for every inventory row at creation**.
 
-The initial inventory contained **107 rule/field families**. Through Batch 12NP and explicit splitting of historically distinct candidate families, the current machine-readable inventory contains **220 rows**, with **220 audited rows**. It intentionally keeps unresolved source work explicit rather than converting uncertainty into a chart defect. The current audit ledger records **35 confirmed provenance metadata defects repaired forward-only at the provenance/hash-lineage layer, 0 chart algorithm defects, 0 algorithm reopens, 14 cumulatively identified missing candidate families, 10 rows currently `MISSING_FROM_PRODUCT`, 6 historical candidate extensions, 3 source-scoped historical candidate registries, and 3 runtime-resolver components**.
+The initial inventory contained **107 rule/field families**. Through Batch 12NQ and explicit splitting of historically distinct candidate families, the current machine-readable inventory contains **220 rows**, with **220 audited rows**. It intentionally keeps unresolved source work explicit rather than converting uncertainty into a chart defect. The current audit ledger records **36 confirmed provenance metadata defects repaired forward-only at the provenance/hash-lineage layer, 0 chart algorithm defects, 0 algorithm reopens, 14 cumulatively identified missing candidate families, 10 rows currently `MISSING_FROM_PRODUCT`, 6 historical candidate extensions, 3 source-scoped historical candidate registries, and 3 runtime-resolver components**.
 
 ## Research-corpus authority
 
@@ -1539,3 +1539,22 @@ No runtime, schema, hash algorithm, hash payload, rule, candidate or chart algor
 The existing Historical Provenance Matrix is now **220/220 audited**. Next is **12NQ**, a post-audit reconciliation of the 10 current `MISSING_FROM_PRODUCT` rows against live runtime/product surfaces, beginning with HPA-ZT-015 because later Zhongzhou leap-month candidate productization may make its old status stale.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-COMBINED-FACT-COMPUTATION-VIEW-MANIFEST-HASH-AUDIT-NP.md`. Research record: `docs/research/COMBINED-FACT-COMPUTATION-VIEW-MANIFEST-HASH-AUDIT-R1.json`.
+
+
+## Progress — Batch 12NQ
+
+Post-audit reconciliation of HPA-ZT-015 confirms that the row should remain **MISSING_FROM_PRODUCT**, but its old gap description was stale.
+
+The source-scoped `ZHONGZHOU-LEAP-MONTH-HALF-SPLIT-R1` month-assignment candidate is already productized through the temporal historical-candidate runtime, Shared Ziwei Selector Projection and read-only Workbench as `PRESERVED_NOT_SELECTED`. Days 1–15 map to the previous regular month; days 16–end map to the following regular month.
+
+The broader HPA-ZT-015 gap remains real because ordinary leap-month monthly/daily projection still fails closed as `LEAP_MONTH_UNRESOLVED_NO_FRAME` / `PARENT_LEAP_MONTH_UNRESOLVED_NO_FRAME`, and the source does not close leap-month day-one flow-day origin or a complete daily active-address frame.
+
+HPA-ZTEMP-006 now cleanly represents the productized school-scoped half-split candidate, while HPA-ZT-015 represents only the still-missing complete leap-month temporal frame.
+
+**PROV-DEFECT-036** repairs the stale Matrix action that still said to implement a candidate already released. No runtime, schema, hash, candidate selection or chart algorithm changed.
+
+Matrix220/220/10; provenance36/36; chart algorithm defects/reopens/candidate collapses0. `transmission_impact=NONE`.
+
+Next: **12NR** — reconcile HPA-ZIWEI-015 / 016 / 022 against the Jielan 1581 source-scoped runtime and actual API/Workbench product surfaces.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-POST-AUDIT-MISSING-PRODUCT-RECONCILIATION-LEAP-MONTH-NQ.md`. Research record: `docs/research/ZIWEI-LEAP-MONTH-MISSING-PRODUCT-RECONCILIATION-R1.json`.

@@ -363,3 +363,16 @@ Matrix **220/220 audited**, current missing-product rows **10**, provenance **35
 Next: **12NQ** post-audit reconciliation of the 10 current `MISSING_FROM_PRODUCT` rows against live runtime/product surfaces, starting with HPA-ZT-015.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-COMBINED-FACT-COMPUTATION-VIEW-MANIFEST-HASH-AUDIT-NP.md`. Research record: `docs/research/COMBINED-FACT-COMPUTATION-VIEW-MANIFEST-HASH-AUDIT-R1.json`.
+
+
+## Progress — Batch 12NQ
+
+Post-audit reconciliation keeps **HPA-ZT-015 Leap-month temporal frames** at `MISSING_FROM_PRODUCT`, but narrows the remaining gap.
+
+The Zhongzhou half-split candidate is already productized and visible as `PRESERVED_NOT_SELECTED`; the still-missing scope is the complete leap-month temporal frame/day-one flow-day origin and daily active-address geometry. Ordinary monthly/daily projection therefore remains fail-closed.
+
+**PROV-DEFECT-036** removes the obsolete action to implement a candidate that already exists. Matrix220/220/10, provenance36/36, chart algorithm defects/reopens/candidate collapses0. No runtime change.
+
+Next: **12NR** reconciliation of the three Jielan 1581 source-scoped runtime candidates still marked missing from user-selectable product surfaces.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-POST-AUDIT-MISSING-PRODUCT-RECONCILIATION-LEAP-MONTH-NQ.md`.

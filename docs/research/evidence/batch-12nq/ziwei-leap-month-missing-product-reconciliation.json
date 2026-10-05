@@ -1,0 +1,41 @@
+{
+  "schema": "ZIWEI-LEAP-MONTH-MISSING-PRODUCT-RECONCILIATION-EVIDENCE-R1",
+  "schema_version": "1.0.0",
+  "parent_head": "a0cce9d4ebaf16145e8f484cbb6ec9b60eba5db2",
+  "runtime": {
+    "temporal_historical_candidates_path": "src/fortune_training/ziwei_chart/temporal_historical_candidates.py",
+    "temporal_historical_candidates_blob_sha": "3df52da7cd226c510506ad73856eacd6625bf0a8",
+    "shared_projection_service_path": "src/fortune_training/combined_chart_application/shared_time_service.py",
+    "shared_projection_service_blob_sha": "5681d36e4a4ab49c953d9408038d8d4fe0e3e1b2",
+    "workbench_projection_assets_path": "src/fortune_training/combined_chart_application/target_flow_ziwei_projection_assets.py",
+    "workbench_projection_assets_blob_sha": "5918a3574e37864eb73dcd857bedaaa064de8e2f"
+  },
+  "contract": {
+    "productization_doc": "docs/ZIWEI-TEMPORAL-HISTORICAL-CANDIDATE-PRODUCTIZATION-R1.md",
+    "productization_doc_blob_sha": "5d51d28b142621960d4ef4748d0f2dbaf687aff0",
+    "productization_status": "CLOSED_FOR_SOURCE_SCOPED_CANDIDATE_OUTPUT_NO_PRODUCTION_WINNER_CHANGE"
+  },
+  "regressions": {
+    "shared_historical_candidate_test": "tests/test_shared_ziwei_historical_temporal_candidates_r1.py",
+    "shared_historical_candidate_test_blob_sha": "5e2659a3b828103e458c650c6c24394ee8c8257c",
+    "productization_test": "tests/test_ziwei_temporal_historical_candidate_productization_r1.py",
+    "productization_test_blob_sha": "ba744881456753bc701b9d1952590d2cabc97c6e"
+  },
+  "observed": {
+    "leap_candidate_count_on_leap_target": 1,
+    "leap_candidate_method_id": "ZHONGZHOU-LEAP-MONTH-HALF-SPLIT-R1",
+    "leap_candidate_selection_status": "PRESERVED_NOT_SELECTED",
+    "browser_reads_leap_month_method_candidates": true,
+    "ordinary_monthly_projection_remains_fail_closed": true,
+    "ordinary_daily_projection_remains_fail_closed": true
+  },
+  "adjudication": {
+    "hpa_ztemp_006_status": "SUPPORTED_BUT_SCHOOL_SPECIFIC",
+    "hpa_zt_015_status_before": "MISSING_FROM_PRODUCT",
+    "hpa_zt_015_status_after": "MISSING_FROM_PRODUCT",
+    "reason": "The source-scoped half-split month assignment is productized, but the broader complete leap-month temporal frame remains source-incomplete because daily origin/active-address geometry is unresolved.",
+    "defect_id": "PROV-DEFECT-036",
+    "runtime_behavior_changed": false,
+    "transmission_edge_created": false
+  }
+}
