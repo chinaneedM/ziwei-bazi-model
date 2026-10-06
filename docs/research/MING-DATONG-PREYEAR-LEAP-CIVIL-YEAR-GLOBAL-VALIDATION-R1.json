@@ -1,0 +1,118 @@
+{
+  "schema": "MING-DATONG-PREYEAR-LEAP-CIVIL-YEAR-GLOBAL-VALIDATION-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-BAZI-MING-DATONG-PREYEAR-LEAP-CIVIL-YEAR-GLOBAL-VALIDATION-PB",
+  "rule_id": "HPA-DAYUN-CAL-002",
+  "gate_id": "MD-G09-MULTI-YEAR-LEAP-GENERALIZATION",
+  "status": "ALL_15_PREYEAR_CIVIL_CONTROLS_BOUND_EXPLICIT_CIVIL_YEAR_OWNERSHIP_IMPLEMENTED_G09_SOURCE_SCOPED_CLOSED_RUNTIME_STILL_FAIL_CLOSED",
+  "runtime_selection_authorized": false,
+  "production_default_changed": false,
+  "algorithm_reopen_authorized": false,
+  "candidate_collapse_authorized": false,
+  "implementation_scope": {
+    "generator": "scripts/research_ming_datong_multi_year_leap_validation_r1.py",
+    "validation_harness": "scripts/research_ming_datong_preyear_leap_global_validation_r1.py",
+    "oracle": "docs/research/MING-DATONG-PREYEAR-LEAP-CIVIL-YEAR-ORACLE-R1.json",
+    "old_shortcut": "FIXED_K_EQ_2_AS_CIVIL_YEAR_START",
+    "replacement": "FIRST_REGULAR_MONTH_1_TO_BEFORE_NEXT_REGULAR_MONTH_1",
+    "production_code_changed": false
+  },
+  "validation": {
+    "preyear_candidate_count": 15,
+    "precision_profiles": 4,
+    "profile_year_controls": 60,
+    "expected_profile_year_matches": 60,
+    "expected_profile_structural_divergence_year_count": 0,
+    "expected_formula_ownership_mismatch_count_1368_1643": 0,
+    "civil_years": [
+      1384,
+      1403,
+      1422,
+      1441,
+      1460,
+      1479,
+      1498,
+      1517,
+      1536,
+      1555,
+      1574,
+      1593,
+      1612,
+      1631,
+      1642
+    ],
+    "expected_leap_months": {
+      "1384": 10,
+      "1403": 11,
+      "1422": 12,
+      "1441": 11,
+      "1460": 11,
+      "1479": 10,
+      "1498": 11,
+      "1517": 12,
+      "1536": 12,
+      "1555": 11,
+      "1574": 12,
+      "1593": 11,
+      "1612": 11,
+      "1631": 11,
+      "1642": 11
+    }
+  },
+  "adjudication": {
+    "preyear_ownership_branch": "CLOSED_ACROSS_ALL_15_MING_FORMULA_CANDIDATES_BY_CIVIL_REGNAL_CHRONOLOGY_CONTROLS",
+    "fixed_k2_civil_anchor_universal": false,
+    "multi_year_civil_year_extraction": "CLOSED_SOURCE_SCOPED_FOR_MING_DATONG_RESEARCH_GENERATOR",
+    "g09_status_after_batch": "CLOSED_SOURCE_SCOPED",
+    "general_ming_datong_runtime_authorized": false,
+    "reason_runtime_stays_closed": "G03 qishuo geography, G05 dynamic D1 intermediate precision, G07 invalid target-date policy and G08 intercalary identity/traversal remain open; G10/G11 remain dependency-blocked."
+  },
+  "authority_layers": [
+    {
+      "layer_id": "PRIMARY_1569_RUNYU_EXISTENCE",
+      "authority": "DIRECT_MING_FACSIMILE",
+      "scope": "Runyu/Runxian threshold mechanics only; not civil-year wording."
+    },
+    {
+      "layer_id": "RECEIVED_PREYEAR_PLACEMENT",
+      "authority": "QING_COMPILED_RECEIVED_DATONG_RULE",
+      "scope": "Mingshi quotient 0/1 pre-year branch retained as received bridge."
+    },
+    {
+      "layer_id": "MING_CIVIL_REGNAL_CONTROLS",
+      "authority": "MING_VERITABLE_RECORD_AND_MING_ADMINISTRATIVE_AUTHORIAL_CHRONOLOGY",
+      "scope": "15 civil-year leap-month controls; digital transcriptions are text locators, not physical-glyph authority."
+    }
+  ],
+  "transmission_impact": {
+    "material": true,
+    "graph_edge_change": "NONE",
+    "finding": "The 1569 threshold mechanism and received pre-year placement branch are operationally reconciled against fifteen Ming civil/regnal chronology controls. This strengthens source-family compatibility but does not prove direct copying or a single textual lineage.",
+    "prohibited_inference": "NO_DIRECT_COPY_OR_SINGLE_LINEAGE_EDGE_FROM_NUMERIC_OR_CALENDAR_AGREEMENT"
+  },
+  "epistemic_firewalls": [
+    "NO_RUNTIME_ACTIVATION",
+    "NO_PRODUCTION_DEFAULT_CHANGE",
+    "NO_IMPORT_OF_POST_MING_1645_THRESHOLD_LABEL_INTO_1644_FORMULA_OWNERSHIP_COMPARISON",
+    "NO_DIGITAL_TRANSCRIPTION_PROMOTION_TO_PHYSICAL_GLYPH_AUTHORITY",
+    "NO_REWRITE_OF_12OY_12OZ_12PA_HISTORICAL_SNAPSHOTS"
+  ],
+  "accounting": {
+    "matrix_rows": 222,
+    "audited_rows": 222,
+    "current_missing_from_product_rows": 4,
+    "provenance_defects_confirmed": 45,
+    "provenance_defects_repaired": 45,
+    "historical_candidate_extensions": 14,
+    "historical_candidate_registries": 5,
+    "historical_candidate_runtime_resolvers": 5,
+    "chart_algorithm_defects": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0
+  },
+  "next_research_priority": {
+    "batch": "12PC",
+    "gate_id": "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
+    "focus": "Return to the highest-value remaining independent Ming Datong blocker: source-close or further bound qishuo geographic reference using physical/official critical-year evidence, without inferring event meridian from sunrise/sunset tables alone."
+  }
+}

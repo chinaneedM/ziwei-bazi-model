@@ -30,7 +30,7 @@ class MingDatongPreyearLeapCivilYearBindingR1Tests(unittest.TestCase):
   self.assertEqual(self.data["adjudication"]["four_12oz_tension_labels"],"RESOLVED_AS_MISSING_PREYEAR_CIVIL_OWNERSHIP_BRANCH_NOT_PRIMARY_RUNYU_FORMULA_FAILURE")
   self.assertFalse(self.data["adjudication"]["d1_precision_failure_implicated"]);self.assertFalse(self.data["adjudication"]["fixed_k2_first_month_civil_anchor_universal"])
   self.assertEqual(self.data["adjudication"]["g09_status_after_batch"],"OPEN_BLOCKING_GENERAL_ADAPTER")
-  gates={r["gate_id"]:r for r in self.ou["gates"]};self.assertEqual(gates["MD-G09-MULTI-YEAR-LEAP-GENERALIZATION"]["status"],"OPEN_BLOCKING_GENERAL_ADAPTER")
+  gates={r["gate_id"]:r for r in self.ou["gates"]};self.assertEqual(gates["MD-G09-MULTI-YEAR-LEAP-GENERALIZATION"]["status"],"CLOSED_SOURCE_SCOPED");self.assertEqual(gates["MD-G09-MULTI-YEAR-LEAP-GENERALIZATION"]["batch_12pb_refinement"]["status_after_batch"],"CLOSED_SOURCE_SCOPED")
  def test_direct_civil_controls(self):
   c=self.data["authority_layers"][2]["controls"];self.assertEqual([(x["civil_year"],x["expected_leap_month"]) for x in c],[(1384,10),(1479,10)])
   self.assertEqual(c[0]["observed_heading"],"洪武十七年閏十月乙未朔");self.assertEqual(c[1]["observed_heading"],"成化十五年閏十月癸丑朔")

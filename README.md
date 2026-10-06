@@ -579,3 +579,16 @@ No Matrix status, runtime, default, candidate selection or algorithm changed.
 Next: **12OE — HPA-ZMINOR-022 YueDe Si-start vs Zi-start historical families and natal/flow temporal candidate closure**.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-UNRESOLVED-HISTORICAL-STATUS-REPRIORITIZATION-OD.md`. Research record: `docs/research/HISTORICAL-UNRESOLVED-STATUS-REPRIORITIZATION-OD-R1.json`.
+
+
+## Progress — Batch 12PB
+
+All fifteen Ming Datong pre-year Runyu candidates are now bound to civil/regnal chronology. The research generator no longer assumes `k=2` is civil 正月: a civil year is the first regular month 1 through immediately before the next regular month 1, preserving late leap 11/leap 12 ownership. The oracle binds 1384 leap10, 1403 leap11, 1422 leap12, 1441 leap11, 1460 leap11, 1479 leap10, 1498 leap11, 1517 leap12, 1536 leap12, 1555 leap11, 1574 leap12, 1593 leap11, 1612 leap11, 1631 leap11 and 1642 leap11.
+
+The 12PB harness checks 15 years × 4 research precision profiles = 60 controls and reruns 1368–1644. `MD-G09-MULTI-YEAR-LEAP-GENERALIZATION` closes source-scoped. No historical runtime is activated: G03/G05/G07/G08 remain open and G10/G11 dependency-blocked, so `HPA-DAYUN-CAL-002` stays `MISSING_FROM_PRODUCT` and the fail-closed adapter remains mandatory.
+
+No production algorithm/default/candidate selection changed; algorithm reopens/candidate collapses remain zero.
+
+Next: **12PC — MD-G03 qishuo geographic reference**.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-PREYEAR-LEAP-CIVIL-YEAR-GLOBAL-VALIDATION-PB.md`. Research record: `docs/research/MING-DATONG-PREYEAR-LEAP-CIVIL-YEAR-GLOBAL-VALIDATION-R1.json`.

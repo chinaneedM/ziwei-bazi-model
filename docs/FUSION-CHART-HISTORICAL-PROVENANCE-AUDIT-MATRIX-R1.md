@@ -2105,3 +2105,10 @@ The four remaining MISSING_FROM_PRODUCT rows are therefore re-ranked:
 **Next: 12OU — Ming Datong executable-adapter blocker decomposition.** No historical Bazi runtime winner or production default is selected.
 
 Batch document: docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-REMAINING-PRODUCT-GAP-REPRIORITIZATION-OT.md. Research record: docs/research/REMAINING-PRODUCT-GAP-REPRIORITIZATION-OT-R1.json.
+
+
+## Batch 12PB — Ming Datong pre-year civil-year global validation
+
+`HPA-DAYUN-CAL-002` remains `MISSING_FROM_PRODUCT`, while `MD-G09-MULTI-YEAR-LEAP-GENERALIZATION` is closed source-scoped after all 15 pre-year candidates are bound to Ming civil/regnal chronology and the research generator replaces fixed `k=2` with explicit regular-month-1 boundaries. The 15 controls run under four precision profiles (60 profile-year controls), followed by the 1368–1644 structural rerun. Runtime remains fail-closed because G03/G05/G07/G08 are open; G10/G11 remain dependency-blocked.
+
+Research artifact: `docs/research/MING-DATONG-PREYEAR-LEAP-CIVIL-YEAR-GLOBAL-VALIDATION-R1.json`.

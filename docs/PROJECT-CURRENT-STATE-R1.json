@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.421.0",
+  "schema_version": "1.422.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -502,9 +502,10 @@
       "BATCH-12-BAZI-MING-DATONG-D1-PRECISION-PROFILE-SENSITIVITY-OX",
       "BATCH-12-BAZI-MING-DATONG-MULTI-YEAR-LEAP-RULE-VALIDATION-OY",
       "BATCH-12-BAZI-MING-DATONG-MING-ERA-BOUNDARY-CENSUS-OZ",
-      "BATCH-12-BAZI-MING-DATONG-PREYEAR-LEAP-CIVIL-YEAR-BINDING-PA"
+      "BATCH-12-BAZI-MING-DATONG-PREYEAR-LEAP-CIVIL-YEAR-BINDING-PA",
+      "BATCH-12-BAZI-MING-DATONG-PREYEAR-LEAP-CIVIL-YEAR-GLOBAL-VALIDATION-PB"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-PREYEAR-LEAP-CIVIL-YEAR-BINDING-PA.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-PREYEAR-LEAP-CIVIL-YEAR-GLOBAL-VALIDATION-PB.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -2461,7 +2462,12 @@
       "Mingshi vol.35 received 推閏在何月 supplies the missing branch: after 朔策-閏餘 is divided by 月閏 9062.82, quotient 0 or 1 is 閏在年前. This received rule is kept separate from 1569 direct-glyph authority.",
       "1385 has runyu 290824.02 and residual 4481.91 (quotient 0), so its threshold leap belongs to civil 1384; Ming official veritable-record tradition records 洪武十七年閏十月. 1480 similarly has residual 8574.66 (quotient 0), assigning the leap to civil 1479, whose record states 成化十五年閏十月.",
       "A full formula census finds 15 pre-year threshold-label candidates across 1368-1644. Only the 1385→1384 and 1480→1479 pairs are directly controlled in 12PA, so G09 remains OPEN_BLOCKING_GENERAL_ADAPTER and runtime remains fail-closed.",
-      "12PB: validate all 15 pre-year candidates against Ming civil/regnal chronology or direct almanac controls, replace fixed-k=2 civil-year extraction with explicit ownership logic in the research generator, then rerun 1368-1644 before any G09 closure."
+      "12PB: validate all 15 pre-year candidates against Ming civil/regnal chronology or direct almanac controls, replace fixed-k=2 civil-year extraction with explicit ownership logic in the research generator, then rerun 1368-1644 before any G09 closure.",
+      "Batch 12PB completed: all 15 Ming-era pre-year Runyu threshold candidates are bound to the preceding civil/regnal year and observed leap month through Ming veritable-record or Ming administrative/authorial chronology controls.",
+      "The research generator no longer assumes k=2 is a universal civil-year start; extraction is first regular month 1 through immediately before the next regular month 1, preserving leap 11/leap 12 pre-year structure.",
+      "12PB validates 15 candidate years across all four 12OX precision profiles (60 profile-year controls) and reruns the 1368-1644 structure with explicit ownership. MD-G09 closes source-scoped; historical runtime remains fail-closed.",
+      "After 12PB the Ming adapter ledger is 5 CLOSED_SOURCE_SCOPED / 4 OPEN_BLOCKING_GENERAL_ADAPTER / 2 DEPENDENCY_BLOCKED. Remaining independent blockers are G03 qishuo geography, G05 dynamic D1 precision, G07 invalid target-date policy and G08 intercalary identity/traversal.",
+      "12PC: return to MD-G03 qishuo geographic reference using direct physical/official critical-year evidence and explicit source-coordinate statements; do not infer qishuo meridian from sunrise/sunset tables alone."
     ],
     "historical_candidate_extension_count": 14,
     "current_missing_from_product_row_count": 4

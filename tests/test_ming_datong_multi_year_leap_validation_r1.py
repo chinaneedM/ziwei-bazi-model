@@ -57,7 +57,7 @@ class MingDatongMultiYearLeapValidationR1Tests(unittest.TestCase):
         self.assertEqual(adj["sampled_multi_year_validation"], "CLOSED_28_OF_28_PROFILE_YEAR_CONTROLS")
         self.assertEqual(adj["g09_status_after_batch"], "OPEN_BLOCKING_GENERAL_ADAPTER")
         gates = {item["gate_id"]: item for item in self.ou["gates"]}
-        self.assertEqual(gates["MD-G09-MULTI-YEAR-LEAP-GENERALIZATION"]["status"], "OPEN_BLOCKING_GENERAL_ADAPTER")
+        self.assertEqual(gates["MD-G09-MULTI-YEAR-LEAP-GENERALIZATION"]["status"], "CLOSED_SOURCE_SCOPED")\n        self.assertEqual(gates["MD-G09-MULTI-YEAR-LEAP-GENERALIZATION"]["batch_12pb_refinement"]["profile_year_controls"], "60_OF_60_MATCH")
 
     def test_runtime_and_accounting_firewalls(self) -> None:
         self.assertFalse(self.research["runtime_selection_authorized"])

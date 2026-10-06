@@ -42,15 +42,17 @@ def _new_moon(ctx: dict[str, Any], year: int, k: int, profile: str) -> dict[str,
 
 def _month_sequence(ctx: dict[str, Any], year: int, profile: str, exact_time: bool = False) -> dict[str, Any]:
     source = _source_context(ctx, year)
-    new_moons = [_new_moon(ctx, year, k, profile) for k in range(16)]
+    # Expand far enough to find two regular month-1 anchors. A pre-year
+    # intercalation can shift civil New Year away from a fixed sequence k.
+    new_moons = [_new_moon(ctx, year, k, profile) for k in range(20)]
     rows: list[dict[str, Any]] = []
     previous_month: int | None = None
 
-    for k in range(15):
+    for k in range(19):
         start = new_moons[k]
         end = new_moons[k + 1]
         zhongqi: list[dict[str, Any]] = []
-        for z in range(-1, 17):
+        for z in range(-2, 21):
             event = source["winter"] + Decimal(z) * ZHONGQI_STEP
             if exact_time:
                 inside = start["source"] <= event < end["source"]
@@ -77,13 +79,18 @@ def _month_sequence(ctx: dict[str, Any], year: int, profile: str, exact_time: bo
             "zhongqi": zhongqi,
         })
 
-    calendar_year: list[dict[str, Any]] = []
-    for row in rows:
-        if row["k"] < 2:
-            continue
-        calendar_year.append({"month": row["month"], "is_leap": row["is_leap"]})
-        if row["month"] == 12 and not row["is_leap"]:
-            break
+    regular_month_one_indices = [
+        index for index, row in enumerate(rows)
+        if row["month"] == 1 and not row["is_leap"]
+    ]
+    if len(regular_month_one_indices) < 2:
+        raise AssertionError("civil-year ownership boundary requires two regular month-1 anchors")
+    start_index, end_index = regular_month_one_indices[:2]
+    calendar_rows = rows[start_index:end_index]
+    calendar_year = [
+        {"month": row["month"], "is_leap": row["is_leap"]}
+        for row in calendar_rows
+    ]
 
     leap_months = [row["month"] for row in calendar_year if row["is_leap"]]
     return {
@@ -91,6 +98,10 @@ def _month_sequence(ctx: dict[str, Any], year: int, profile: str, exact_time: bo
         "has_leap_by_run": source["run"] >= LEAP_LIMIT,
         "calendar_year": calendar_year,
         "leap_months": leap_months,
+        "civil_year_start_k": rows[start_index]["k"],
+        "civil_year_end_k_exclusive": rows[end_index]["k"],
+        "civil_year_boundary_rule": "FIRST_REGULAR_MONTH_1_TO_BEFORE_NEXT_REGULAR_MONTH_1",
+        "fixed_k2_anchor_used": False,
         "raw_rows": rows,
     }
 

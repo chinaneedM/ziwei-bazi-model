@@ -146,8 +146,8 @@
     {
       "gate_id": "MD-G09-MULTI-YEAR-LEAP-GENERALIZATION",
       "domain": "CALENDAR_GENERATION",
-      "status": "OPEN_BLOCKING_GENERAL_ADAPTER",
-      "finding": "The 1578 chain is directly closed, but a general Ming Datong adapter must generate and verify month/leap structure across multiple years, including intercalary years and boundary-sensitive new moons.",
+      "status": "CLOSED_SOURCE_SCOPED",
+      "finding": "Ming-era multi-year leap/month structure is source-scoped closed after 12OY sampled replay, 12OZ full-era census, 12PA pre-year ownership and 12PB all-15 civil/regnal controls with explicit civil-year extraction.",
       "dependency_note": "Requires source-faithful qishuo generation plus the geographic and dynamic-precision gates for general certification.",
       "batch_12oy_refinement": {
         "leap_year_existence_subrule": "CLOSED_SOURCE_SCOPED_PRIMARY_1569_RUNYU_VS_RUNXIAN",
@@ -196,6 +196,21 @@
         "status_after_batch": "OPEN_BLOCKING_GENERAL_ADAPTER",
         "runtime_authorized": false,
         "research_artifact": "docs/research/MING-DATONG-PREYEAR-LEAP-CIVIL-YEAR-BINDING-R1.json"
+      },
+      "general_runtime_effect": "Closes multi-year leap/civil-year structure only. G03, G05, G07 and G08 still block a general executable Ming Datong adapter.",
+      "batch_12pb_refinement": {
+        "batch_id": "BATCH-12-BAZI-MING-DATONG-PREYEAR-LEAP-CIVIL-YEAR-GLOBAL-VALIDATION-PB",
+        "research_artifact": "docs/research/MING-DATONG-PREYEAR-LEAP-CIVIL-YEAR-GLOBAL-VALIDATION-R1.json",
+        "oracle": "docs/research/MING-DATONG-PREYEAR-LEAP-CIVIL-YEAR-ORACLE-R1.json",
+        "preyear_candidate_count": 15,
+        "precision_profiles": 4,
+        "profile_year_controls": "60_OF_60_MATCH",
+        "civil_year_extraction": "FIRST_REGULAR_MONTH_1_TO_BEFORE_NEXT_REGULAR_MONTH_1",
+        "fixed_k2_civil_anchor_universal": false,
+        "full_ming_profile_structural_divergence_year_count": 0,
+        "formula_ownership_mismatch_count_1368_1643": 0,
+        "status_after_batch": "CLOSED_SOURCE_SCOPED",
+        "runtime_authorized": false
       }
     },
     {
@@ -231,8 +246,8 @@
     }
   ],
   "counts": {
-    "closed_source_scoped": 4,
-    "open_blocking_general_adapter": 5,
+    "closed_source_scoped": 5,
+    "open_blocking_general_adapter": 4,
     "dependency_blocked": 2,
     "total_gates": 11
   },
@@ -244,9 +259,9 @@
     "RUNTIME_INTEGRATION_IS_A_DEPENDENT_ENGINEERING_STEP_NOT_A_SUBSTITUTE_FOR_HISTORICAL_CERTIFICATION."
   ],
   "next_research_priority": {
-    "batch": "12OZ",
-    "gate_id": "MD-G09-MULTI-YEAR-LEAP-GENERALIZATION",
-    "focus": "Sweep 1368-1644 under all four research profiles; identify day-boundary/profile-sensitive month identities and prioritize direct historical controls."
+    "batch": "12PC",
+    "gate_id": "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
+    "focus": "Return to qishuo geographic reference using direct physical/official critical-year evidence and explicit source-coordinate statements; do not infer event meridian from sunrise/sunset tables alone."
   },
   "accounting": {
     "matrix_rows": 222,
@@ -268,5 +283,7 @@
   "latest_multi_year_leap_batch": "BATCH-12-BAZI-MING-DATONG-MULTI-YEAR-LEAP-RULE-VALIDATION-OY",
   "latest_multi_year_leap_artifact": "docs/research/MING-DATONG-MULTI-YEAR-LEAP-RULE-VALIDATION-R1.json",
   "latest_multi_year_boundary_batch": "BATCH-12-BAZI-MING-DATONG-MING-ERA-BOUNDARY-CENSUS-OZ",
-  "latest_multi_year_boundary_artifact": "docs/research/MING-DATONG-MING-ERA-BOUNDARY-CENSUS-R1.json"
+  "latest_multi_year_boundary_artifact": "docs/research/MING-DATONG-MING-ERA-BOUNDARY-CENSUS-R1.json",
+  "latest_preyear_global_validation_batch": "BATCH-12-BAZI-MING-DATONG-PREYEAR-LEAP-CIVIL-YEAR-GLOBAL-VALIDATION-PB",
+  "latest_preyear_global_validation_artifact": "docs/research/MING-DATONG-PREYEAR-LEAP-CIVIL-YEAR-GLOBAL-VALIDATION-R1.json"
 }
