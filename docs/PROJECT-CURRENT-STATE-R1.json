@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.415.0",
+  "schema_version": "1.416.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -496,9 +496,10 @@
       "BATCH-12-BAZI-QIANLI-MINGXUE-JIANGYI-JIAOYUN-CALENDAR-SEMANTICS-OR",
       "BATCH-12-BAZI-QIANLI-WORK-IDENTITY-AND-JIAOYUN-EDGE-BOUNDARY-OS",
       "BATCH-12-REMAINING-PRODUCT-GAP-REPRIORITIZATION-OT",
-      "BATCH-12-BAZI-MING-DATONG-EXECUTABLE-ADAPTER-BLOCKER-DECOMPOSITION-OU"
+      "BATCH-12-BAZI-MING-DATONG-EXECUTABLE-ADAPTER-BLOCKER-DECOMPOSITION-OU",
+      "BATCH-12-BAZI-MING-SANMING-DAYUN-CALENDAR-ADDITION-EDGE-SEMANTICS-OV"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-EXECUTABLE-ADAPTER-BLOCKER-DECOMPOSITION-OU.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-SANMING-DAYUN-CALENDAR-ADDITION-EDGE-SEMANTICS-OV.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -2422,7 +2423,13 @@
       "The five open blocking gates are qishuo geographic reference, dynamic D1 precision generalization, invalid target-date policy, intercalary-month identity/traversal and multi-year leap generalization. Ten-year recurrence and Bazi product integration remain dependency-blocked.",
       "Qishuo geography and Dayun calendar-addition semantics are independent research fronts: unresolved geography does not erase the physically certified 1578 month pages, but the target-year result cannot be generalized into an arbitrary-year exact-event generator.",
       "No silent invalid-date clamp/roll, no loss of intercalary identity, no modern Chinese-calendar fallback and no Gregorian historical recurrence are authorized.",
-      "12OV: audit Ming/Sanming classical calendar-addition edge semantics, focusing invalid target day and regular-versus-intercalary duplicate-month identity/traversal; keep the adapter fail-closed if direct or near-primary evidence does not close them."
+      "12OV: audit Ming/Sanming classical calendar-addition edge semantics, focusing invalid target day and regular-versus-intercalary duplicate-month identity/traversal; keep the adapter fail-closed if direct or near-primary evidence does not close them.",
+      "Batch 12OV completed: Sanming Dayun calendar-addition semantics are split into explicitly attested worked-example operations versus unattested edge behavior; runtime and Matrix status remain unchanged.",
+      "12OV closes the received-text worked-example semantics that each small month contributes a one-day deficit relative to nominal 30-day-month counting, and that an intercalary insertion contributes one extra elapsed month requiring an aggregate one-month correction in the example.",
+      "12OV also closes the textual statement that luck changes after ten full anniversaries from the first handover, but executable ADD_CALENDAR_YEARS remains dependency-blocked by unresolved calendar identity/valid-date behavior.",
+      "G07 remains OPEN: the reviewed source does not say what to do when a carried target day number is invalid in a small month. G08 remains OPEN: aggregate leap insertion is explicit, but regular-versus-intercalary duplicate month identity, target selection and anchors inside leap months are not source-closed.",
+      "Wanli physical holdings for Sanming juan 2 are identified, but the Dayun target passage was not directly collated in 12OV; no new primary physical vote is claimed.",
+      "12OW: audit dynamic D1 precision generalization beyond the single 1596 Datong worked example; seek additional Ming authorial/official arithmetic controls and boundary-sensitive cases while keeping runtime fail-closed."
     ],
     "historical_candidate_extension_count": 14,
     "current_missing_from_product_row_count": 4

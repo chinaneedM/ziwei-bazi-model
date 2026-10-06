@@ -100,7 +100,12 @@
         "NO_SILENT_ROLL_FORWARD",
         "NO_SILENT_ROLL_BACKWARD",
         "NO_GREGORIAN_INVALID_DATE_POLICY"
-      ]
+      ],
+      "batch_12ov_refinement": {
+        "small_month_deficit_correction": "CLOSED_RECEIVED_TEXT_WORKED_EXAMPLE",
+        "invalid_carried_day_number": "UNRESOLVED_NOT_ATTESTED",
+        "research_artifact": "docs/research/MING-SANMING-DAYUN-CALENDAR-ADDITION-EDGE-SEMANTICS-R1.json"
+      }
     },
     {
       "gate_id": "MD-G08-INTERCALARY-MONTH-IDENTITY-AND-TRAVERSAL",
@@ -111,7 +116,13 @@
         "NO_TREAT_LEAP_MONTH_AS_ORDINARY_NUMBERED_MONTH_WITHOUT_SOURCE_RULE",
         "NO_DROP_INTERCALARY_IDENTITY",
         "NO_MODERN_CALENDAR_LIBRARY_BEHAVIOR_AS_HISTORICAL_AUTHORITY"
-      ]
+      ],
+      "batch_12ov_refinement": {
+        "aggregate_intercalary_extra_month_counting": "CLOSED_RECEIVED_TEXT_WORKED_EXAMPLE",
+        "regular_vs_intercalary_duplicate_identity": "UNRESOLVED_NOT_ATTESTED",
+        "birth_or_anchor_inside_intercalary_month": "UNRESOLVED_NOT_ATTESTED",
+        "research_artifact": "docs/research/MING-SANMING-DAYUN-CALENDAR-ADDITION-EDGE-SEMANTICS-R1.json"
+      }
     },
     {
       "gate_id": "MD-G09-MULTI-YEAR-LEAP-GENERALIZATION",
@@ -129,7 +140,12 @@
         "MD-G07-INVALID-TARGET-DATE-POLICY",
         "MD-G08-INTERCALARY-MONTH-IDENTITY-AND-TRAVERSAL",
         "MD-G09-MULTI-YEAR-LEAP-GENERALIZATION"
-      ]
+      ],
+      "batch_12ov_refinement": {
+        "ten_anniversary_textual_statement": "CLOSED",
+        "executable_add_calendar_years": "DEPENDENCY_BLOCKED",
+        "research_artifact": "docs/research/MING-SANMING-DAYUN-CALENDAR-ADDITION-EDGE-SEMANTICS-R1.json"
+      }
     },
     {
       "gate_id": "MD-G11-BAZI-RUNTIME-AND-PRODUCT-INTEGRATION",
@@ -176,5 +192,7 @@
     "chart_algorithm_defects": 0,
     "algorithm_reopens": 0,
     "candidate_collapses": 0
-  }
+  },
+  "latest_calendar_addition_edge_semantics_batch": "BATCH-12-BAZI-MING-SANMING-DAYUN-CALENDAR-ADDITION-EDGE-SEMANTICS-OV",
+  "latest_calendar_addition_edge_semantics_artifact": "docs/research/MING-SANMING-DAYUN-CALENDAR-ADDITION-EDGE-SEMANTICS-R1.json"
 }

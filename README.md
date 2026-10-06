@@ -223,7 +223,7 @@ Fusion Chart Capability & Performance Acceptance R1 已正式收口。最终执�
 
 ## Fusion Chart Historical Provenance & School Audit R1
 
-最新规则审计闭环为 **Batch 12OU**：HPA-DAYUN-CAL-002 的明大统历可执行适配器剩余问题已拆成 11 个机器可审计 gate，其中 4 个为 source-scoped 已闭合、5 个仍直接阻塞通用适配器、2 个为依赖阻塞。D1 合朔方法、子正/百刻内部坐标、1569 表生成阶段精度与绑定的 1578 月序/大小月物理校验继续有效；气朔地理参考、动态 D1 精度、无效目标日期、闰月同名月份身份/遍历及多年闰月泛化继续 fail-closed。Matrix 222/222，当前 MISSING_FROM_PRODUCT=4，provenance defect=45/45 repaired，historical candidate extensions=14，registries/runtime resolvers=5/5，算法缺陷/重开/候选折叠均为 0。下一门 12OV 聚焦《三命通会》古典交运 calendar-addition 的无效日期与闰月身份语义；不得用 clamp/roll、现代中国历或 Gregorian anniversary 代填历史空白。
+最新规则审计闭环为 **Batch 12OV**：HPA-DAYUN-CAL-002 的《三命通会》交运 calendar-addition 语义已进一步拆开。原文 worked example 可直接支持“小月每遇一月补进一日”的累计修正、闰月作为额外实际月参与十二月计数的总体修正，以及首个交运点之后“十周年方换一运”的文本结构；但原文并未交代“目标日三十遇小月无三十”应如何处理，也未交代目标月份本身出现同名正月/闰月时的身份选择或锚点落在闰月时如何保持身份。因此 12OU 的 G07/G08 仍为 OPEN，G10 仍为 DEPENDENCY_BLOCKED；通用明大统适配器继续 fail-closed。Matrix 222/222，MISSING_FROM_PRODUCT=4，provenance defect=45/45 repaired，historical candidate extensions=14，registries/runtime resolvers=5/5，算法缺陷/重开/候选折叠均为 0。下一门 **12OW** 转入 dynamic D1 precision generalization，不把 1596 单一 worked example 的打印精度擅自推广为通用规则。
 
 ```text
 FUSION_CHART_HISTORICAL_PROVENANCE_AUDIT_R1=IN_PROGRESS

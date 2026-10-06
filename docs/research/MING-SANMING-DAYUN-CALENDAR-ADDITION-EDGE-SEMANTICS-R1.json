@@ -1,0 +1,176 @@
+{
+  "schema": "MING-SANMING-DAYUN-CALENDAR-ADDITION-EDGE-SEMANTICS-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-BAZI-MING-SANMING-DAYUN-CALENDAR-ADDITION-EDGE-SEMANTICS-OV",
+  "rule_id": "HPA-DAYUN-CAL-002",
+  "status": "EDGE_SEMANTICS_PARTIALLY_CLOSED_RUNTIME_STILL_FAIL_CLOSED",
+  "runtime_selection_authorized": false,
+  "production_default_changed": false,
+  "algorithm_reopen_authorized": false,
+  "candidate_collapse_authorized": false,
+  "purpose": "Separate the executable meaning actually attested by the Sanming Tonghui Dayun worked example from calendar-addition edge behavior that the reviewed source does not specify.",
+  "evidence_policy": {
+    "direct_target_page_wanli_physical_collation_completed": false,
+    "received_text_can_close_only_semantics_explicitly_present_in_the_passage": true,
+    "downstream_reuse_is_not_an_independent_vote": true,
+    "later_printed_scan_is_only_a_transmission_control": true,
+    "absence_in_reviewed_passage_does_not_prove_no_rule_existed_elsewhere": true,
+    "no_modern_calendar_behavior_may_fill_a_historical_gap": true
+  },
+  "witnesses": [
+    {
+      "witness_id": "EXT-CTEXT-SANMING-V2-DAYUN",
+      "role": "REGISTERED_MING_AUTHORIAL_RULE_WITNESS_IN_LATER_RECEIVED_TEXT",
+      "bound_semantics": [
+        "SMALL_MONTH_DEFICIT_CORRECTION",
+        "INTERCALARY_MONTH_EXTRA_MONTH_CORRECTION",
+        "TEN_ANNIVERSARY_CHANGE_STATEMENT"
+      ],
+      "direct_wanli_target_page": false
+    },
+    {
+      "witness_id": "WIKISOURCE-SIKU-SANMING-V2-DAYUN",
+      "url": "https://zh.wikisource.org/zh-hant/%E4%B8%89%E5%91%BD%E9%80%9A%E6%9C%83_(%E5%9B%9B%E5%BA%AB%E5%85%A8%E6%9B%B8%E6%9C%AC)/%E5%8D%B702",
+      "role": "PUBLIC_RECEIVED_TEXT_TRANSCRIPTION_CONTROL",
+      "observed_fingerprint": [
+        "內小六個月即進六日",
+        "閏四月乃多一月矣",
+        "當退還本年十二月初七日",
+        "後十週年方換一運"
+      ],
+      "independent_vote": false
+    },
+    {
+      "witness_id": "GUJIN-TUSHU-JICHENG-SANMING-REUSE",
+      "url": "https://zh.wikisource.org/zh-hant/%E6%AC%BD%E5%AE%9A%E5%8F%A4%E4%BB%8A%E5%9C%96%E6%9B%B8%E9%9B%86%E6%88%90/%E5%8D%9A%E7%89%A9%E5%BD%99%E7%B7%A8/%E8%97%9D%E8%A1%93%E5%85%B8/%E7%AC%AC598%E5%8D%B7",
+      "role": "DOWNSTREAM_REUSE_CONTROL",
+      "observed_fingerprint": [
+        "內小六個月即進六日",
+        "閏四月乃多一月矣",
+        "退還本年十二月初七日",
+        "十週年方換一運"
+      ],
+      "independent_vote": false
+    },
+    {
+      "witness_id": "NLC416-13jh000156-94145",
+      "url": "https://commons.wikimedia.org/wiki/File:NLC416-13jh000156-94145_%E4%B8%89%E5%91%BD%E9%80%9A%E6%9C%83.pdf",
+      "role": "1926_PHYSICAL_PRINT_TRANSMISSION_CONTROL",
+      "edition": "秦慎安校勘，文明書局，民國十五年[1926]",
+      "indexed_passage_supports_same_action_logic": true,
+      "physical_target_page_directly_reviewed_in_12ov": false,
+      "independent_ming_vote": false
+    },
+    {
+      "witness_id": "EXT-NLC-CHINA-SANMING-TONGHUI-WANLI-JUAN2-BIRTH-TIME-BRIDGE",
+      "role": "WANLI_PHYSICAL_HOLDING_CONTROL",
+      "volume_scope": "第3冊=卷之二上；第4冊=卷之二下",
+      "target_dayun_page_directly_collated_in_12ov": false,
+      "effect": "IDENTIFIES_A_PREMODERN_PHYSICAL_TARGET_HOLDING_BUT_DOES_NOT_UPGRADE_THE_DAYUN_PASSAGE_TO_DIRECT_PHYSICAL_COLLATION"
+    },
+    {
+      "witness_id": "EXT-SANMING-NCL-1578-MAIN",
+      "role": "1578_PRIMARY_PHYSICAL_HOLDING_ALREADY_REGISTERED",
+      "current_direct_collation_scope": "論日刻/論時刻/時辰辨定",
+      "target_dayun_page_directly_collated_in_12ov": false,
+      "effect": "NO_NEW_PRIMARY_PHYSICAL_VOTE_FOR_THE_DAYUN_TARGET_PASSAGE"
+    }
+  ],
+  "findings": [
+    {
+      "finding_id": "SMTH-CALADD-F01-SMALL-MONTH-DEFICIT",
+      "status": "CLOSED_RECEIVED_TEXT_WORKED_EXAMPLE",
+      "source_action": "The example reaches the same lunar month/day/shichen in the following year, then advances six days because six intervening months are small.",
+      "executable_semantic": "Within this worked-example arithmetic, each small month contributes a one-day deficit relative to the nominal 30-day-month count; six small months therefore require a +6-day correction.",
+      "scope_limit": "WORKED_EXAMPLE_RULE_FAMILY_NOT_A_COMPLETE_INVALID_DATE_POLICY"
+    },
+    {
+      "finding_id": "SMTH-CALADD-F02-INTERCALARY-EXTRA-MONTH",
+      "status": "CLOSED_RECEIVED_TEXT_WORKED_EXAMPLE",
+      "source_action": "The example states that an intercalary fourth month makes the year contain one extra month, so the already corrected coordinate is moved back one month to restore a twelve-month count.",
+      "executable_semantic": "An intercalary insertion participates in elapsed lunisolar-month counting as an additional actual month; a nominal next-year same-month anchor can therefore overcount by one month.",
+      "scope_limit": "AGGREGATE_EXTRA_MONTH_CORRECTION_ONLY_NOT_DUPLICATE_MONTH_IDENTITY_SELECTION"
+    },
+    {
+      "finding_id": "SMTH-CALADD-F03-TEN-ANNIVERSARY-CHANGE",
+      "status": "CLOSED_TEXTUAL_STATEMENT_EXECUTION_DEPENDENCY_BLOCKED",
+      "source_action": "After the first handover coordinate, the passage says the next luck frame changes only after ten full anniversaries.",
+      "executable_semantic": "The textual recurrence unit is anniversary-based from the first handover, not an arbitrary Gregorian ten-year timestamp.",
+      "scope_limit": "DOES_NOT_DEFINE_INVALID_DATE_OR_INTERCALARY_IDENTITY_BEHAVIOR_FOR_ADD_CALENDAR_YEARS"
+    },
+    {
+      "finding_id": "SMTH-CALADD-F04-INVALID-DAY-IN-SMALL-MONTH",
+      "status": "UNRESOLVED_NOT_ATTESTED_IN_REVIEWED_PASSAGE",
+      "question": "If a carried target day number is 30 and the target month has only 29 days, what exact historical action is taken?",
+      "prohibited_inference": [
+        "NO_CLAMP_TO_29",
+        "NO_ROLL_TO_NEXT_MONTH_DAY_1",
+        "NO_ROLL_BACK_OR_FORWARD_BY_LIBRARY_POLICY",
+        "NO_GREGORIAN_INVALID_DATE_RULE"
+      ]
+    },
+    {
+      "finding_id": "SMTH-CALADD-F05-REGULAR_VS_INTERCALARY_DUPLICATE_MONTH_IDENTITY",
+      "status": "UNRESOLVED_NOT_ATTESTED_IN_REVIEWED_PASSAGE",
+      "question": "When a month number appears twice as regular and intercalary, which identity is the intended target/anniversary when the target month itself has that duplicated label?",
+      "source_limit": "The worked example contains an intercalary fourth month, but its target handover coordinate is not a duplicated fourth-month target.",
+      "prohibited_inference": [
+        "NO_AUTOMATIC_REGULAR_MONTH_PREFERENCE",
+        "NO_AUTOMATIC_INTERCALARY_MONTH_PREFERENCE",
+        "NO_DROP_LEAP_FLAG"
+      ]
+    },
+    {
+      "finding_id": "SMTH-CALADD-F06-BIRTH_OR_ANCHOR_INSIDE_INTERCALARY_MONTH",
+      "status": "UNRESOLVED_NOT_ATTESTED_IN_REVIEWED_PASSAGE",
+      "question": "How is anniversary identity preserved when the birth or first-handover anchor itself lies in an intercalary month?"
+    },
+    {
+      "finding_id": "SMTH-CALADD-F07-INTERCALARY_TRAVERSAL",
+      "status": "PARTIALLY_CLOSED_AGGREGATE_ONLY",
+      "executable_semantic": "The example proves that the intercalary insertion is traversed as an extra real month in elapsed-month counting.",
+      "unresolved_semantic": "The text does not provide a typed regular/intercalary month identity rule sufficient for arbitrary target selection."
+    }
+  ],
+  "impact_on_12ou_gates": {
+    "MD-G07-INVALID-TARGET-DATE-POLICY": {
+      "old_status": "OPEN_BLOCKING_GENERAL_ADAPTER",
+      "new_status": "OPEN_BLOCKING_GENERAL_ADAPTER",
+      "refinement": "The small-month deficit correction is explicit, but invalid carried day numbers remain source-unresolved."
+    },
+    "MD-G08-INTERCALARY-MONTH-IDENTITY-AND-TRAVERSAL": {
+      "old_status": "OPEN_BLOCKING_GENERAL_ADAPTER",
+      "new_status": "OPEN_BLOCKING_GENERAL_ADAPTER",
+      "refinement": "Aggregate intercalary-month insertion/traversal is explicit; typed regular-versus-intercalary duplicate identity and target selection remain unresolved."
+    },
+    "MD-G10-TEN-YEAR-RECURRENCE-SAME-REGIME": {
+      "old_status": "DEPENDENCY_BLOCKED",
+      "new_status": "DEPENDENCY_BLOCKED",
+      "refinement": "The ten-anniversary textual rule is closed, but executable recurrence still depends on the unresolved invalid-date/intercalary-identity/multi-year calendar gates."
+    }
+  },
+  "runtime_firewall": {
+    "required_adapter_result": "UNRESOLVED_NO_CERTIFIED_HISTORICAL_CALENDAR_ADAPTER",
+    "modern_gregorian_substitution_authorized": false,
+    "modern_chinese_calendar_library_authorized": false,
+    "silent_invalid_date_fallback_authorized": false,
+    "intercalary_identity_erasure_authorized": false
+  },
+  "accounting": {
+    "matrix_rows": 222,
+    "audited_rows": 222,
+    "current_missing_from_product_rows": 4,
+    "provenance_defects_confirmed": 45,
+    "provenance_defects_repaired": 45,
+    "historical_candidate_extensions": 14,
+    "historical_candidate_registries": 5,
+    "historical_candidate_runtime_resolvers": 5,
+    "chart_algorithm_defects": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0
+  },
+  "next_research_priority": {
+    "batch": "12OW",
+    "focus": "Audit dynamic D1 precision generalization beyond the single 1596 Datong worked example. Seek additional Ming authorial/official arithmetic controls or boundary-sensitive physical-almanac cases; do not promote one local printed precision pattern to a universal runtime rule."
+  }
+}

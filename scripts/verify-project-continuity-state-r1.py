@@ -931,9 +931,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-BAZI-QIANLI-WORK-IDENTITY-AND-JIAOYUN-EDGE-BOUNDARY-OS",
     "BATCH-12-REMAINING-PRODUCT-GAP-REPRIORITIZATION-OT",
     "BATCH-12-BAZI-MING-DATONG-EXECUTABLE-ADAPTER-BLOCKER-DECOMPOSITION-OU",
+    "BATCH-12-BAZI-MING-SANMING-DAYUN-CALENDAR-ADDITION-EDGE-SEMANTICS-OV",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-EXECUTABLE-ADAPTER-BLOCKER-DECOMPOSITION-OU.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-SANMING-DAYUN-CALENDAR-ADDITION-EDGE-SEMANTICS-OV.md"
 
 
 def fail(message: str) -> None:
@@ -16807,6 +16808,67 @@ def main() -> int:
         fail("Batch 12OU continuity schema version is not numeric")
     if schema12ou < (1, 415, 0):
         fail("Batch 12OU continuity schema version regressed below 1.415.0")
+
+    # Batch 12OV: Sanming Dayun calendar-addition edge semantics.
+    ov_id = "BATCH-12-BAZI-MING-SANMING-DAYUN-CALENDAR-ADDITION-EDGE-SEMANTICS-OV"
+    ov_path = ROOT / "docs/research/MING-SANMING-DAYUN-CALENDAR-ADDITION-EDGE-SEMANTICS-R1.json"
+    ov_doc = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-SANMING-DAYUN-CALENDAR-ADDITION-EDGE-SEMANTICS-OV.md"
+    if not ov_path.is_file() or not ov_doc.is_file():
+        fail("Batch 12OV research/batch record missing")
+    ov = json.loads(ov_path.read_text(encoding="utf-8"))
+    if ov.get("batch_id") != ov_id or ov.get("rule_id") != "HPA-DAYUN-CAL-002":
+        fail("Batch 12OV identity/target-row drift")
+    if ov.get("status") != "EDGE_SEMANTICS_PARTIALLY_CLOSED_RUNTIME_STILL_FAIL_CLOSED":
+        fail("Batch 12OV fail-closed status drift")
+    for key in ("runtime_selection_authorized", "production_default_changed", "algorithm_reopen_authorized", "candidate_collapse_authorized"):
+        if ov.get(key) is not False:
+            fail(f"Batch 12OV invariant drift: {key}")
+    findings_ov = {row.get("finding_id"): row for row in ov.get("findings", ())}
+    expected_status_ov = {
+        "SMTH-CALADD-F01-SMALL-MONTH-DEFICIT": "CLOSED_RECEIVED_TEXT_WORKED_EXAMPLE",
+        "SMTH-CALADD-F02-INTERCALARY-EXTRA-MONTH": "CLOSED_RECEIVED_TEXT_WORKED_EXAMPLE",
+        "SMTH-CALADD-F03-TEN-ANNIVERSARY-CHANGE": "CLOSED_TEXTUAL_STATEMENT_EXECUTION_DEPENDENCY_BLOCKED",
+        "SMTH-CALADD-F04-INVALID-DAY-IN-SMALL-MONTH": "UNRESOLVED_NOT_ATTESTED_IN_REVIEWED_PASSAGE",
+        "SMTH-CALADD-F05-REGULAR_VS_INTERCALARY_DUPLICATE_MONTH_IDENTITY": "UNRESOLVED_NOT_ATTESTED_IN_REVIEWED_PASSAGE",
+        "SMTH-CALADD-F06-BIRTH_OR_ANCHOR_INSIDE_INTERCALARY_MONTH": "UNRESOLVED_NOT_ATTESTED_IN_REVIEWED_PASSAGE",
+        "SMTH-CALADD-F07-INTERCALARY_TRAVERSAL": "PARTIALLY_CLOSED_AGGREGATE_ONLY",
+    }
+    actual_status_ov = {key: findings_ov.get(key, {}).get("status") for key in expected_status_ov}
+    if actual_status_ov != expected_status_ov:
+        fail("Batch 12OV finding-status drift")
+    invalid_ov = findings_ov.get("SMTH-CALADD-F04-INVALID-DAY-IN-SMALL-MONTH", {})
+    if "NO_CLAMP_TO_29" not in invalid_ov.get("prohibited_inference", ()) or "NO_GREGORIAN_INVALID_DATE_RULE" not in invalid_ov.get("prohibited_inference", ()):
+        fail("Batch 12OV invalid-date firewall drift")
+    dup_ov = findings_ov.get("SMTH-CALADD-F05-REGULAR_VS_INTERCALARY_DUPLICATE_MONTH_IDENTITY", {})
+    if "NO_AUTOMATIC_REGULAR_MONTH_PREFERENCE" not in dup_ov.get("prohibited_inference", ()) or "NO_DROP_LEAP_FLAG" not in dup_ov.get("prohibited_inference", ()):
+        fail("Batch 12OV intercalary-identity firewall drift")
+    if ov.get("evidence_policy", {}).get("direct_target_page_wanli_physical_collation_completed") is not False:
+        fail("Batch 12OV Wanli target-page scope firewall drift")
+    gates_ov = {row.get("gate_id"): row for row in ou.get("gates", ())}
+    if gates_ov.get("MD-G07-INVALID-TARGET-DATE-POLICY", {}).get("status") != "OPEN_BLOCKING_GENERAL_ADAPTER":
+        fail("Batch 12OV G07 status drift")
+    if gates_ov.get("MD-G08-INTERCALARY-MONTH-IDENTITY-AND-TRAVERSAL", {}).get("status") != "OPEN_BLOCKING_GENERAL_ADAPTER":
+        fail("Batch 12OV G08 status drift")
+    if gates_ov.get("MD-G10-TEN-YEAR-RECURRENCE-SAME-REGIME", {}).get("status") != "DEPENDENCY_BLOCKED":
+        fail("Batch 12OV G10 status drift")
+    rows_ov = {row.get("rule_id"): row for row in matrix.get("rows", ())}
+    row_ov = rows_ov.get("HPA-DAYUN-CAL-002")
+    edge_ov = (row_ov or {}).get("batch_12ov_calendar_addition_edge_semantics", {})
+    if not row_ov or row_ov.get("audit_status") != "MISSING_FROM_PRODUCT":
+        fail("Batch 12OV Matrix status drift")
+    if edge_ov.get("batch_id") != ov_id or edge_ov.get("invalid_day_policy") != "UNRESOLVED_NOT_ATTESTED" or edge_ov.get("runtime_authorized") is not False:
+        fail("Batch 12OV Matrix edge binding drift")
+    accounting_ov = ov.get("accounting", {})
+    if accounting_ov.get("matrix_rows") != 222 or accounting_ov.get("audited_rows") != 222 or accounting_ov.get("current_missing_from_product_rows") != 4:
+        fail("Batch 12OV accounting drift")
+    if accounting_ov.get("provenance_defects_confirmed") != 45 or accounting_ov.get("provenance_defects_repaired") != 45:
+        fail("Batch 12OV provenance accounting drift")
+    try:
+        schema12ov = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12OV continuity schema version is not numeric")
+    if schema12ov < (1, 416, 0):
+        fail("Batch 12OV continuity schema version regressed below 1.416.0")
 
     contract = state.get("continuity_contract", {})
     if contract.get("ci_gate_required") is not True:

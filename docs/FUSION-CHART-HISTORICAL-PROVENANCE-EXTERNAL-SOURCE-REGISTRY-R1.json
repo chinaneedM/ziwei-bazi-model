@@ -413,7 +413,17 @@
       "provider": "Chinese Text Project",
       "url": "https://ctext.org/wiki.pl?chapter=17423&if=en&remap=gb",
       "source_role": "MING_HISTORICAL_WITNESS_FOR_DAYUN_DIRECTION_JIE_ANCHOR_AND_TEN_YEAR_STRUCTURE",
-      "quality_notes": "Preserves 阳男阴女顺/阴男阳女逆, Jie-based interval calculation, one-辰-ten-year structure, real elapsed day/hour counting, explicit small-month and leap-month corrections, and the statement that after the first handover the next luck frame changes after ten anniversaries. This supports a classical lunisolar calendarized schedule family but does not license substituting a modern Gregorian or UTC calendar."
+      "quality_notes": "Preserves 阳男阴女顺/阴男阳女逆, Jie-based interval calculation, one-辰-ten-year structure, real elapsed day/hour counting, explicit small-month and leap-month corrections, and the statement that after the first handover the next luck frame changes after ten anniversaries. This supports a classical lunisolar calendarized schedule family but does not license substituting a modern Gregorian or UTC calendar.",
+      "batch_12ov_calendar_addition_semantics": {
+        "batch_id": "BATCH-12-BAZI-MING-SANMING-DAYUN-CALENDAR-ADDITION-EDGE-SEMANTICS-OV",
+        "small_month_deficit_correction": "six small months -> advance six days in the worked example",
+        "intercalary_extra_month_correction": "leap fourth month -> one extra elapsed month, so move back one month to restore a twelve-month count",
+        "ten_anniversary_change_statement": true,
+        "invalid_target_day_policy_attested": false,
+        "duplicate_regular_intercalary_target_identity_attested": false,
+        "anchor_inside_intercalary_month_semantics_attested": false,
+        "runtime_authorized": false
+      }
     },
     {
       "source_id": "EXT-CTEXT-SANMING-V2-RELATIONS",
@@ -3002,6 +3012,12 @@
         "juan2_readable_artifact": 10178733130,
         "target_glyph_lock_run": 34545625767,
         "target_glyph_lock_artifact": 10178894706
+      },
+      "batch_12ov_dayun_target_page_status": {
+        "target_section": "論大運",
+        "direct_target_page_collation_completed": false,
+        "current_direct_physical_scope_remains": "論日刻/論時刻/時辰辨定",
+        "independent_dayun_vote_increment": 0
       }
     },
     {
@@ -3886,7 +3902,14 @@
         "https://commons.wikimedia.org/wiki/File:NLC892-411999029701-67187_%E4%B8%89%E5%91%BD%E9%80%9A%E6%9C%83_%E7%AC%AC4%E5%86%8A.pdf"
       ],
       "source_role": "DIRECT_PHYSICAL_CROSS_HOLDING_CONTROL_FOR_SANMING_JUAN2_MANTIC_BIRTH_TIME_TO_SHOUSHI_CALENDAR_BRIDGE",
-      "quality_notes": "No-OCR review. Volume 3 is 卷之二上 and volume 4 is 卷之二下. The reviewed public metadata does not prove this NLC copy is the same 1578 impression as the Taiwan NCL witness; treat it as a separate Wanli physical holding/control, not an independent textual vote."
+      "quality_notes": "No-OCR review. Volume 3 is 卷之二上 and volume 4 is 卷之二下. The reviewed public metadata does not prove this NLC copy is the same 1578 impression as the Taiwan NCL witness; treat it as a separate Wanli physical holding/control, not an independent textual vote.",
+      "batch_12ov_dayun_target_page_status": {
+        "target_section": "論大運",
+        "volume_scope": "卷之二上/下",
+        "direct_target_page_collation_completed": false,
+        "holding_identified": true,
+        "independent_dayun_vote_increment": 0
+      }
     },
     {
       "source_id": "EXT-YUANSHI-V55-SHOUSHI-JIUFU-LOCALITY",
