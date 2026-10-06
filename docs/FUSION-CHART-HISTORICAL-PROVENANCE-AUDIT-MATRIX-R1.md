@@ -34,7 +34,7 @@ Every row carries:
 - proposed action;
 - explicit algorithm-reopen authorization, which is **false for every inventory row at creation**.
 
-The initial inventory contained **107 rule/field families**. Through Batch 12OQ and explicit splitting of historically distinct candidate families, the current machine-readable inventory contains **222 rows**, with **222 audited rows**. It intentionally keeps unresolved source work explicit rather than converting uncertainty into a chart defect. The current audit ledger records **44 confirmed provenance metadata defects repaired forward-only at the provenance/hash-lineage layer, 0 chart algorithm defects, 0 algorithm reopens, 14 cumulatively identified missing candidate families, 4 rows currently `MISSING_FROM_PRODUCT`, 14 historical candidate extensions, 5 source-scoped historical candidate registries, and 5 runtime-resolver components**.
+The initial inventory contained **107 rule/field families**. Through Batch 12OS and explicit splitting of historically distinct candidate families, the current machine-readable inventory contains **222 rows**, with **222 audited rows**. It intentionally keeps unresolved source work explicit rather than converting uncertainty into a chart defect. The current audit ledger records **45 confirmed provenance metadata defects repaired forward-only at the provenance/hash-lineage layer, 0 chart algorithm defects, 0 algorithm reopens, 14 cumulatively identified missing candidate families, 4 rows currently `MISSING_FROM_PRODUCT`, 14 historical candidate extensions, 5 source-scoped historical candidate registries, and 5 runtime-resolver components**.
 
 ## Research-corpus authority
 
