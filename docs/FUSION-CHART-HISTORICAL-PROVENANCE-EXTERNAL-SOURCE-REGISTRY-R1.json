@@ -654,7 +654,13 @@
       "provider": "中国科学院上海天文台《天文学进展》",
       "url": "https://www.shao.cas.cn/twxjz/wzll/201102/",
       "source_role": "PEER_REVIEWED_MODERN_RECONSTRUCTION_AND_VALIDATION_WITNESS_FOR_DATONG_QISHUO",
-      "quality_notes": "Peer-reviewed reconstruction of the 1527 Datong almanac's qishuo computation. Used to test recoverability and accuracy of historical algorithms and to locate D1/D2 issues; never substitutes for Ming primary wording or official-almanac page evidence."
+      "quality_notes": "Peer-reviewed reconstruction of the 1527 Datong almanac's qishuo computation. Used to test recoverability and accuracy of historical algorithms and to locate D1/D2 issues; never substitutes for Ming primary wording or official-almanac page evidence.",
+      "batch_12ow_scope_boundary": {
+        "role": "PEER_REVIEWED_CROSS_YEAR_RECONSTRUCTION_CONTROL",
+        "later_comparison_study_explicitly_states_2011_did_not_compare_ming_almanac_conjunction_times": true,
+        "use_for_dynamic_intermediate_precision_rule": false,
+        "use_for_runtime_activation": false
+      }
     },
     {
       "source_id": "EXT-YTLIU-MING-DATONG-CONJUNCTION-D1-D2",
@@ -665,7 +671,33 @@
       "provider": "ChineseCalendar research site",
       "url": "https://ytliu0.github.io/ChineseCalendar/MingCalendar_simp.html",
       "source_role": "MODERN_COMPUTATIONAL_VALIDATION_AGAINST_SURVIVING_MING_OFFICIAL_ALMANACS",
-      "quality_notes": "Compares D1=迟疾限行度 and D2=定限度 against 56 conjunction-time entries in six surviving Ming Datong almanacs (1531, 1532, 1604, 1616, 1629, 1639). Reports all 56 D1 results within printed time bins, while most D2 results fall outside and one near-midnight case moves the conjunction day. Validation evidence only; historical method identity is anchored by primary/received Ming witnesses."
+      "quality_notes": "Compares D1=迟疾限行度 and D2=定限度 against 56 conjunction-time entries in six surviving Ming Datong almanacs (1531, 1532, 1604, 1616, 1629, 1639). Reports all 56 D1 results within printed time bins, while most D2 results fall outside and one near-midnight case moves the conjunction day. Validation evidence only; historical method identity is anchored by primary/received Ming witnesses.",
+      "batch_12ow_machine_validation": {
+        "upstream_repository": "ytliu0/ChineseCalendar",
+        "upstream_commit": "d6aae82b63b79a6f8659ea3e064024b7d8ac3077",
+        "upstream_blob": "4c55fdab0c1352681e125f7cd6cc711bcf6614c5",
+        "fixture": "docs/research/MING-DATONG-D1-56-CONJUNCTION-VALIDATION-R1.json",
+        "total_rows": 56,
+        "years": [
+          1531,
+          1532,
+          1604,
+          1616,
+          1629,
+          1639
+        ],
+        "d1_in_bin": 56,
+        "d2_in_bin": 8,
+        "d2_outside_bin": 48,
+        "narrowest_bin": {
+          "year": 1639,
+          "month": "四",
+          "tolerance_day": 0.0008,
+          "full_width_minutes": 2.304
+        },
+        "intermediate_precision_rule_exposed": false,
+        "authority_boundary": "MODERN_COMPUTATIONAL_VALIDATION_ONLY_NOT_MING_PRIMARY_GLYPH_OR_INTERMEDIATE_ARITHMETIC_AUTHORITY"
+      }
     },
     {
       "source_id": "EXT-SHAO-LI-ZHANG-REAL-NEW-MOON-1996",

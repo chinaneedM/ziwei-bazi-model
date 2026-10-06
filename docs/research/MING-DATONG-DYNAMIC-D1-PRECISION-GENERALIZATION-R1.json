@@ -1,0 +1,115 @@
+{
+  "schema": "MING-DATONG-DYNAMIC-D1-PRECISION-GENERALIZATION-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-BAZI-MING-DATONG-DYNAMIC-D1-PRECISION-GENERALIZATION-OW",
+  "rule_id": "HPA-DAYUN-CAL-002",
+  "gate_id": "MD-G05-DYNAMIC-D1-PRECISION-GENERALIZATION",
+  "status": "CROSS_YEAR_FINAL_TIME_VALIDATION_CLOSED_DYNAMIC_STAGE_PRECISION_GENERALIZATION_OPEN",
+  "runtime_selection_authorized": false,
+  "production_default_changed": false,
+  "algorithm_reopen_authorized": false,
+  "candidate_collapse_authorized": false,
+  "question": "Can the 1596 Datong worked example's dynamic truncation widths be generalized into a source-certified runtime precision policy?",
+  "evidence_layers": [
+    {
+      "layer_id": "PRIMARY_1569_TABLE_GENERATION",
+      "status": "CLOSED_STAGE_SCOPED_NOT_DYNAMIC",
+      "finding": "Direct primary ledgers require different fixed-point operators by table-generation stage; this disproves one global rounding helper but does not define dynamic event-interpolation precision."
+    },
+    {
+      "layer_id": "MING_AUTHORIAL_1596_DATONG_WORKED_EXAMPLE",
+      "status": "CLOSED_LOCAL_DYNAMIC_CONTROL",
+      "finding": "The printed example truncates the within-limit Chi difference to six decimal degree places and the D1 add-correction to two decimal source units.",
+      "generalization": "LOCAL_ONLY"
+    },
+    {
+      "layer_id": "PEER_REVIEWED_1527_RECONSTRUCTION",
+      "source_id": "EXT-SHAO-LIYONG-DATONG-1527-2011",
+      "status": "CROSS_YEAR_DATE_METHOD_VALIDATION_NOT_INTERMEDIATE_PRECISION_CONTROL",
+      "finding": "The peer-reviewed 1527 reconstruction supports recoverability of Datong qishuo/date computation, while the later explicit comparison study notes that the 2011 paper did not compare Ming almanac conjunction times.",
+      "intermediate_precision_rule_exposed": false
+    },
+    {
+      "layer_id": "SIX_MING_ALMANACS_56_CONJUNCTION_TIME_BINS",
+      "source_id": "EXT-YTLIU-MING-DATONG-CONJUNCTION-D1-D2",
+      "status": "CLOSED_END_TO_END_D1_OPERATIONAL_CONSISTENCY",
+      "fixture": "docs/research/MING-DATONG-D1-56-CONJUNCTION-VALIDATION-R1.json",
+      "findings": {
+        "years": [
+          1531,
+          1532,
+          1604,
+          1616,
+          1629,
+          1639
+        ],
+        "total_conjunction_times": 56,
+        "d1_in_printed_bins": 56,
+        "d2_in_printed_bins": 8,
+        "d2_outside_printed_bins": 48,
+        "narrowest_control": "1639 month 4, 巳正四刻, about 2.304 minutes full width by the published decimal-bin representation",
+        "d2_day_change_case": "1639 month 5"
+      },
+      "source_boundary": "The comparison exposes final D1/D2 times and printed almanac bins, not Ming intermediate Chi-difference/division residues."
+    },
+    {
+      "layer_id": "1578_SOURCE_DERIVED_CHAIN",
+      "status": "CLOSED_DAY_LABEL_ORACLE_NOT_PRECISION_DISCRIMINATOR",
+      "finding": "The 13/13 day-level replay and physical 12/12 month-page chain remain valid, but its day-boundary margins cannot select a sub-stage dynamic rounding profile."
+    },
+    {
+      "layer_id": "1605_SHOUSHI_CROSS_CONTEXT",
+      "status": "NEGATIVE_GENERALIZATION_CONTROL",
+      "finding": "The same Ming author prints different intermediate widths in a Shoushi example. It is not Datong production authority and forbids author-wide/context-free fixed-width inference."
+    },
+    {
+      "layer_id": "QING_MEI_WENDING_EXEGESIS",
+      "status": "LATER_EXPLANATORY_ONLY",
+      "finding": "Later exegesis supports stage-scoped collect-up versus discard semantics in table construction but does not close Ming dynamic D1 event-computation precision."
+    }
+  ],
+  "adjudication": {
+    "d1_method_identity": "CLOSED",
+    "d1_cross_year_final_time_operational_consistency": "CLOSED_56_OF_56_MODERN_COMPARISON_TO_SURVIVING_MING_ALMANAC_TIME_BINS",
+    "dynamic_intermediate_precision_policy": "OPEN",
+    "specific_1596_six_decimal_chiji_truncation": "LOCAL_SOURCE_CLOSED",
+    "specific_1596_two_decimal_d1_correction_truncation": "LOCAL_SOURCE_CLOSED",
+    "universalize_1596_widths": false,
+    "reason": "Final-output time-bin agreement constrains the complete D1 calculation but does not uniquely identify which intermediate truncation/carry profile produced those outputs.",
+    "gate_status_after_batch": "OPEN_BLOCKING_GENERAL_ADAPTER"
+  },
+  "precision_profile_experiment_contract": {
+    "next_batch": "12OX",
+    "fixture": "docs/research/MING-DATONG-D1-56-CONJUNCTION-VALIDATION-R1.json",
+    "required_profiles": [
+      "FULL_DECIMAL_UNTIL_FINAL_OUTPUT",
+      "1596_LOCAL_TRUNCATE_CHIJI_6_AND_D1_CORRECTION_2",
+      "HALF_UP_AT_1596_PRINTED_WIDTHS",
+      "TRUNCATE_AT_EACH_STORED_TABLE_WIDTH_ONLY"
+    ],
+    "required_output": "Replay all 56 final conjunction bins and identify whether printed observations discriminate profiles; numerical fit alone does not establish historical authority.",
+    "forbidden_shortcuts": [
+      "NO_SELECT_PROFILE_FROM_1578_DAY_LABEL_MATCH_ONLY",
+      "NO_SELECT_PROFILE_FROM_1596_SINGLE_EXAMPLE_ONLY",
+      "NO_USE_MODERN_FLOAT_DEFAULT_AS_HISTORICAL_RULE",
+      "NO_RUNTIME_ACTIVATION_FROM_NUMERICAL_FIT_WITHOUT_SOURCE_SCOPE"
+    ]
+  },
+  "accounting": {
+    "matrix_rows": 222,
+    "audited_rows": 222,
+    "current_missing_from_product_rows": 4,
+    "provenance_defects_confirmed": 45,
+    "provenance_defects_repaired": 45,
+    "historical_candidate_extensions": 14,
+    "historical_candidate_registries": 5,
+    "historical_candidate_runtime_resolvers": 5,
+    "chart_algorithm_defects": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0
+  },
+  "next_research_priority": {
+    "batch": "12OX",
+    "focus": "Build a research-only precision-profile sensitivity harness over the 56 conjunction-time bins; keep G05 open unless evidence both discriminates profiles and supports a historically bounded rule."
+  }
+}

@@ -81,7 +81,15 @@
       "domain": "DYNAMIC_EVENT_COMPUTATION",
       "status": "OPEN_BLOCKING_GENERAL_ADAPTER",
       "finding": "The 1596 Datong worked example supplies one local dynamic precision control, but its widths/carries are not yet source-closed as a general rule across years and edge cases.",
-      "prohibited_shortcut": "DO_NOT_PROJECT_1596_LOCAL_PRINTED_PRECISION_AS_A_UNIVERSAL_DYNAMIC_RULE"
+      "prohibited_shortcut": "DO_NOT_PROJECT_1596_LOCAL_PRINTED_PRECISION_AS_A_UNIVERSAL_DYNAMIC_RULE",
+      "batch_12ow_refinement": {
+        "final_time_operational_validation": "CLOSED_56_OF_56_D1_WITHIN_PRINTED_BINS",
+        "d2_comparator": "8_OF_56_WITHIN_BINS_48_OUTSIDE",
+        "narrowest_final_time_control": "1639_MONTH_4_APPROX_2.3_MIN_FULL_WIDTH",
+        "dynamic_intermediate_precision_profile": "OPEN_NOT_UNIQUELY_IDENTIFIED",
+        "research_artifact": "docs/research/MING-DATONG-DYNAMIC-D1-PRECISION-GENERALIZATION-R1.json",
+        "validation_fixture": "docs/research/MING-DATONG-D1-56-CONJUNCTION-VALIDATION-R1.json"
+      }
     },
     {
       "gate_id": "MD-G06-1578-TARGET-YEAR-MONTH-STRUCTURE",
@@ -194,5 +202,7 @@
     "candidate_collapses": 0
   },
   "latest_calendar_addition_edge_semantics_batch": "BATCH-12-BAZI-MING-SANMING-DAYUN-CALENDAR-ADDITION-EDGE-SEMANTICS-OV",
-  "latest_calendar_addition_edge_semantics_artifact": "docs/research/MING-SANMING-DAYUN-CALENDAR-ADDITION-EDGE-SEMANTICS-R1.json"
+  "latest_calendar_addition_edge_semantics_artifact": "docs/research/MING-SANMING-DAYUN-CALENDAR-ADDITION-EDGE-SEMANTICS-R1.json",
+  "latest_dynamic_precision_batch": "BATCH-12-BAZI-MING-DATONG-DYNAMIC-D1-PRECISION-GENERALIZATION-OW",
+  "latest_dynamic_precision_artifact": "docs/research/MING-DATONG-DYNAMIC-D1-PRECISION-GENERALIZATION-R1.json"
 }

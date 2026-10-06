@@ -932,9 +932,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-REMAINING-PRODUCT-GAP-REPRIORITIZATION-OT",
     "BATCH-12-BAZI-MING-DATONG-EXECUTABLE-ADAPTER-BLOCKER-DECOMPOSITION-OU",
     "BATCH-12-BAZI-MING-SANMING-DAYUN-CALENDAR-ADDITION-EDGE-SEMANTICS-OV",
+    "BATCH-12-BAZI-MING-DATONG-DYNAMIC-D1-PRECISION-GENERALIZATION-OW",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-SANMING-DAYUN-CALENDAR-ADDITION-EDGE-SEMANTICS-OV.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-DYNAMIC-D1-PRECISION-GENERALIZATION-OW.md"
 
 
 def fail(message: str) -> None:
@@ -16869,6 +16870,54 @@ def main() -> int:
         fail("Batch 12OV continuity schema version is not numeric")
     if schema12ov < (1, 416, 0):
         fail("Batch 12OV continuity schema version regressed below 1.416.0")
+
+    # Batch 12OW: Ming Datong dynamic D1 precision generalization.
+    ow_id = "BATCH-12-BAZI-MING-DATONG-DYNAMIC-D1-PRECISION-GENERALIZATION-OW"
+    ow_path = ROOT / "docs/research/MING-DATONG-DYNAMIC-D1-PRECISION-GENERALIZATION-R1.json"
+    ow_fixture_path = ROOT / "docs/research/MING-DATONG-D1-56-CONJUNCTION-VALIDATION-R1.json"
+    ow_doc = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-DYNAMIC-D1-PRECISION-GENERALIZATION-OW.md"
+    if not ow_path.is_file() or not ow_fixture_path.is_file() or not ow_doc.is_file():
+        fail("Batch 12OW research/fixture/batch record missing")
+    ow = json.loads(ow_path.read_text(encoding="utf-8"))
+    ow_fixture = json.loads(ow_fixture_path.read_text(encoding="utf-8"))
+    if ow.get("batch_id") != ow_id or ow.get("gate_id") != "MD-G05-DYNAMIC-D1-PRECISION-GENERALIZATION":
+        fail("Batch 12OW identity/gate drift")
+    if ow.get("status") != "CROSS_YEAR_FINAL_TIME_VALIDATION_CLOSED_DYNAMIC_STAGE_PRECISION_GENERALIZATION_OPEN":
+        fail("Batch 12OW status drift")
+    for key in ("runtime_selection_authorized", "production_default_changed", "algorithm_reopen_authorized", "candidate_collapse_authorized"):
+        if ow.get(key) is not False:
+            fail(f"Batch 12OW invariant drift: {key}")
+    stats_ow = ow_fixture.get("statistics", {})
+    if stats_ow.get("total_rows") != 56 or stats_ow.get("d1_in_printed_bin_count") != 56 or stats_ow.get("d2_in_printed_bin_count") != 8 or stats_ow.get("d2_outside_printed_bin_count") != 48:
+        fail("Batch 12OW 56-bin fixture accounting drift")
+    narrow_ow = stats_ow.get("narrowest_bin", {})
+    if narrow_ow.get("year") != 1639 or narrow_ow.get("month") != "四" or narrow_ow.get("tolerance_day") != 0.0008 or narrow_ow.get("d1_in_printed_bin") is not True or narrow_ow.get("d2_in_printed_bin") is not False:
+        fail("Batch 12OW narrowest-bin control drift")
+    if stats_ow.get("d2_sexagenary_day_change_count") != 1:
+        fail("Batch 12OW D2 day-change count drift")
+    adj_ow = ow.get("adjudication", {})
+    if adj_ow.get("dynamic_intermediate_precision_policy") != "OPEN" or adj_ow.get("universalize_1596_widths") is not False or adj_ow.get("gate_status_after_batch") != "OPEN_BLOCKING_GENERAL_ADAPTER":
+        fail("Batch 12OW dynamic-precision firewall drift")
+    gates_ow = {row.get("gate_id"): row for row in ou.get("gates", ())}
+    g05_ow = gates_ow.get("MD-G05-DYNAMIC-D1-PRECISION-GENERALIZATION", {})
+    if g05_ow.get("status") != "OPEN_BLOCKING_GENERAL_ADAPTER":
+        fail("Batch 12OW G05 status drift")
+    rows_ow = {row.get("rule_id"): row for row in matrix.get("rows", ())}
+    row_ow = rows_ow.get("HPA-DAYUN-CAL-002")
+    bind_ow = (row_ow or {}).get("batch_12ow_dynamic_precision_generalization", {})
+    if not row_ow or row_ow.get("audit_status") != "MISSING_FROM_PRODUCT":
+        fail("Batch 12OW Matrix status drift")
+    if bind_ow.get("batch_id") != ow_id or bind_ow.get("d1_final_time_bins") != "56_OF_56" or bind_ow.get("dynamic_intermediate_precision_policy") != "OPEN" or bind_ow.get("runtime_authorized") is not False:
+        fail("Batch 12OW Matrix binding drift")
+    accounting_ow = ow.get("accounting", {})
+    if accounting_ow.get("matrix_rows") != 222 or accounting_ow.get("audited_rows") != 222 or accounting_ow.get("current_missing_from_product_rows") != 4:
+        fail("Batch 12OW accounting drift")
+    try:
+        schema12ow = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12OW continuity schema version is not numeric")
+    if schema12ow < (1, 417, 0):
+        fail("Batch 12OW continuity schema version regressed below 1.417.0")
 
     contract = state.get("continuity_contract", {})
     if contract.get("ci_gate_required") is not True:
