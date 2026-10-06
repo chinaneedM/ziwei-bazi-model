@@ -4143,6 +4143,46 @@
         "docs/research/MING-QINTIANJIAN-ALMANAC-CLOCK-CAPITAL-BINDING-R1.json"
       ],
       "first_explicit_graph_batch": "BATCH-12-BAZI-MING-DATONG-QINTIANJIAN-ALMANAC-CLOCK-CAPITAL-BINDING-PL"
+    },
+    {
+      "node_id": "PASSAGE-MINGSHI-V25-JIAJING7-GNOMON-QISHUO-YUANFA",
+      "node_type": "PASSAGE",
+      "label": "《明史》卷25嘉靖七年四丈木表測晷影定氣朔／一以元法為斷",
+      "system_scope": "MING_JIAJING_QISHUO_OBSERVATIONAL_CALIBRATION",
+      "date": "QING_COMPILED_MING_DYNASTIC_HISTORY",
+      "locator": "卷25 天文志 儀象 嘉靖七年段",
+      "evidence": [
+        "EXT-CTEXT-MINGSHI-V25-JIAJING7-GNOMON-QISHUO-YUANFA",
+        "docs/research/MING-DATONG-QISHUO-GNOMON-OBSERVATION-BRIDGE-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-BAZI-MING-DATONG-QISHUO-GNOMON-OBSERVATION-BRIDGE-PM"
+    },
+    {
+      "node_id": "PASSAGE-MINGSHI-V31-HUAXIANG-JIAJING2-OBSERVATION-PROGRAM",
+      "node_type": "PASSAGE",
+      "label": "《明史》卷31嘉靖二年華湘觀象臺逐日逐月測候驗合朔方案",
+      "system_scope": "MING_JIAJING_HESHUO_OBSERVATIONAL_VERIFICATION_PROGRAM",
+      "date": "QING_COMPILED_MING_DYNASTIC_HISTORY",
+      "locator": "卷31 曆法沿革 嘉靖二年華湘段",
+      "evidence": [
+        "EXT-CTEXT-MINGSHI-V31-HUAXIANG-JIAJING2-OBSERVATION-PROGRAM",
+        "docs/research/MING-DATONG-QISHUO-GNOMON-OBSERVATION-BRIDGE-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-BAZI-MING-DATONG-QISHUO-GNOMON-OBSERVATION-BRIDGE-PM"
+    },
+    {
+      "node_id": "RULE-FAMILY-MING-QISHUO-OBSERVATIONAL-VERIFICATION-WITHOUT-DIRECT-CLOCK-BRIDGE",
+      "node_type": "RULE_FAMILY",
+      "label": "明代氣朔觀測校驗層：觀測服務校曆，不等於定朔絕對時標公式",
+      "system_scope": "MING_DATONG_OBSERVATIONAL_CALIBRATION_SEMANTICS",
+      "mechanical_identity": "Jiajing records attest gnomon/observatory verification of qi-shuo and heshuo as calendar targets, but no direct local shadow/clock -> 定朔 small-remainder or longitude operator is attested.",
+      "evidence": [
+        "EXT-CTEXT-MINGSHI-V25-JIAJING7-GNOMON-QISHUO-YUANFA",
+        "EXT-CTEXT-MINGSHI-V31-HUAXIANG-JIAJING2-OBSERVATION-PROGRAM",
+        "EXT-NLC-WUZONG-SHILU-V18-1518-ZHUYU-CALIBRATION",
+        "docs/research/MING-DATONG-QISHUO-GNOMON-OBSERVATION-BRIDGE-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-BAZI-MING-DATONG-QISHUO-GNOMON-OBSERVATION-BRIDGE-PM"
     }
   ],
   "edges": [
@@ -7100,6 +7140,47 @@
       ],
       "scope_note": "The same institution publishes/uses time labels while qishuo coordinate mechanics remain separately attested; no clepsydra or capital identity is inferred.",
       "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-QINTIANJIAN-ALMANAC-CLOCK-CAPITAL-BINDING-PL"
+    },
+    {
+      "edge_id": "TG-E0195",
+      "from": "PASSAGE-MINGSHI-V25-JIAJING7-GNOMON-QISHUO-YUANFA",
+      "relation": "ATTESTS",
+      "to": "RULE-FAMILY-MING-QISHUO-OBSERVATIONAL-VERIFICATION-WITHOUT-DIRECT-CLOCK-BRIDGE",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_FOR_RECEIVED_JIAJING7_CALIBRATION_PURPOSE; NEGATIVE_FOR_DIRECT_NUMERIC_BRIDGE",
+      "evidence_class": "RECEIVED_DYNASTIC_HISTORY_TEXT",
+      "evidence": [
+        "docs/research/MING-DATONG-QISHUO-GNOMON-OBSERVATION-BRIDGE-R1.json"
+      ],
+      "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-QISHUO-GNOMON-OBSERVATION-BRIDGE-PM"
+    },
+    {
+      "edge_id": "TG-E0196",
+      "from": "PASSAGE-MINGSHI-V31-HUAXIANG-JIAJING2-OBSERVATION-PROGRAM",
+      "relation": "ATTESTS",
+      "to": "RULE-FAMILY-MING-QISHUO-OBSERVATIONAL-VERIFICATION-WITHOUT-DIRECT-CLOCK-BRIDGE",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_FOR_HESHUO_AS_OBSERVATIONAL_VERIFICATION_TARGET; EXECUTION_RESULT_UNRESOLVED",
+      "evidence_class": "RECEIVED_DYNASTIC_HISTORY_TEXT",
+      "evidence": [
+        "docs/research/MING-DATONG-QISHUO-GNOMON-OBSERVATION-BRIDGE-R1.json"
+      ],
+      "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-QISHUO-GNOMON-OBSERVATION-BRIDGE-PM"
+    },
+    {
+      "edge_id": "TG-E0197",
+      "from": "RULE-FAMILY-MING-QINTIANJIAN-MULTISOURCE-LOCAL-CALIBRATION-PROPOSAL-1518",
+      "relation": "PARALLEL_COEXISTS_WITH",
+      "to": "RULE-FAMILY-MING-QISHUO-OBSERVATIONAL-VERIFICATION-WITHOUT-DIRECT-CLOCK-BRIDGE",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_FOR_SHARED_CALIBRATION_CONTEXT; NO_SINGLE_CLOCK_IDENTITY_CLAIM",
+      "evidence_class": "DIRECT_1518_PHYSICAL_SURROGATE_PLUS_RECEIVED_JIAJING_CONTROLS",
+      "evidence": [
+        "docs/research/ZIWEI-WUZONG-SHILU-1518-MULTISOURCE-LOCAL-CALIBRATION-PROPOSAL-R1.json",
+        "docs/research/MING-DATONG-QISHUO-GNOMON-OBSERVATION-BRIDGE-R1.json"
+      ],
+      "scope_note": "The 1518 proposal preserves multiple observation/timekeeping streams; parallelism does not prove adoption or a qishuo absolute clock.",
+      "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-QISHUO-GNOMON-OBSERVATION-BRIDGE-PM"
     }
   ],
   "lineage_hypotheses": [

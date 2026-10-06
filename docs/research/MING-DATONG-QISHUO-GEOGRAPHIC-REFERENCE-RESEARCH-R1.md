@@ -515,3 +515,18 @@ This closes institutional coupling, but none of those clauses states that 定朔
 Result: QINTIANJIAN_INSTITUTIONAL_TIME_ALMANAC_COLOCATION=CLOSED; CAPITAL_OR_CLEPSYDRA_QISHUO_BINDING=UNRESOLVED; MD-G03 remains open.
 
 Next: 12PM — test whether Ming observational-verification records explicitly bridge local gnomon/clock observations to the numerical 定朔/合朔 remainder.
+
+
+## 25. Batch 12PM — observation verifies qi-shuo; it does not yet define the qishuo absolute clock
+
+The Jiajing-7 Mingshi astronomy passage says a four-zhang wooden gnomon was established to measure shadows and determine qi-shuo, then states that the observatory instruments were complete and 「一以元法為斷」.
+
+The Jiajing-2 Hua Xiang program separately proposes year-long day/night observation and written records to verify the twenty-four qi, solstices/equinoxes, 合朔, solar/lunar positions, coordinate systems, middle stars and planetary phenomena.
+
+Together these sources close OBSERVATIONAL_CALIBRATION_AND_VERIFICATION_PURPOSE. They do not provide a shadow/clock -> 定朔 small-remainder formula, a local apparent/mean-solar-time identity, or a named qishuo longitude.
+
+The directly collated 1518 Zhu Yu proposal reinforces the firewall because observatory, clepsydra, Huihui-calendar and Nanjing/Zhejiang gnomon evidence streams remain distinguishable.
+
+Result: JIAJING_OBSERVATIONAL_QISHUO_VERIFICATION=CLOSED_SOURCE_SCOPED; DIRECT_LOCAL_OBSERVATION_TO_QISHUO_NUMERIC_CLOCK_BRIDGE=NOT_ATTESTED; MD-G03 remains open.
+
+Next: 12PN — audit the Jingtai-1 lunar-eclipse actual-vs-predicted clock record as a candidate independent absolute-time anchor.

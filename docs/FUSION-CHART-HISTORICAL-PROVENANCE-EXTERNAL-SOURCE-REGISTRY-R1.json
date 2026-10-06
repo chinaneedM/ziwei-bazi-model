@@ -765,7 +765,13 @@
       "provider": "Chinese Text Project",
       "url": "https://ctext.org/wiki.pl?chapter=656119&if=en",
       "source_role": "RECEIVED_INSTITUTIONAL_WITNESS_FOR_MING_BEIJING_NANJING_CLOCK_GEOGRAPHY",
-      "quality_notes": "Records that Beijing polar altitude and sunrise/sunset times differ from Nanjing and that old Nanjing clepsydra forms were unsuitable in Beijing. This proves geographic clock dependence but does not by itself identify the meridian reference of every Datong conjunction calculation."
+      "quality_notes": "Records that Beijing polar altitude and sunrise/sunset times differ from Nanjing and that old Nanjing clepsydra forms were unsuitable in Beijing. This proves geographic clock dependence but does not by itself identify the meridian reference of every Datong conjunction calculation.",
+      "batch_12pm": {
+        "jiajing7_gnomon_ding_qishuo": "ATTESTED_ON_SAME_MINGSHI_ASTRONOMY_SURFACE",
+        "yuan_method_continuity": "一以元法為斷",
+        "direct_qishuo_absolute_clock_bridge": "NOT_ATTESTED",
+        "source_vote_note": "Same underlying Mingshi surface as the passage-specific 12PM source; do not double-count."
+      }
     },
     {
       "source_id": "EXT-WIKISOURCE-WANLI-YEHUO-DATONG-DAYLENGTH",
@@ -14231,6 +14237,30 @@
       "source_role": "RECEIVED_HISTORICAL_CONTROL_FOR_NONAUTOMATIC_CAPITAL_INHERITANCE_IN_MING_DAYLIGHT_TIMEKEEPING_MODULE",
       "quality_notes": "Records that after the Yongle move to Shuntian, Yingtian winter/summer day-night timings remained in use; Zhengtong 14 briefly adopted Shuntian values and the Jingtai-era decision restored the Hongwu/Yongle convention. This is a daylight/sunrise-sunset module control only. It rejects the shortcut CURRENT_CAPITAL -> ALL_CALENDAR_TIME_MODULES but does not identify the qishuo meridian or clock standard.",
       "batch_id": "BATCH-12-BAZI-MING-DATONG-QINTIANJIAN-ALMANAC-CLOCK-CAPITAL-BINDING-PL",
+      "physical_glyph_authority": false,
+      "access_date": "2026-10-06"
+    },
+    {
+      "source_id": "EXT-CTEXT-MINGSHI-V25-JIAJING7-GNOMON-QISHUO-YUANFA",
+      "title": "《明史》卷二十五·嘉靖七年四丈木表測晷影定氣朔／一以元法為斷",
+      "historical_period": "QING_COMPILED_MING_DYNASTIC_HISTORY_RECEIVED_ASTRONOMY_HISTORY",
+      "provider": "Chinese Text Project / Chinese Wikisource",
+      "url": "https://ctext.org/wiki.pl?chapter=656119&if=gb",
+      "source_role": "RECEIVED_OFFICIAL_HISTORY_WITNESS_FOR_JIAJING7_GNOMON_QISHUO_CALIBRATION_PURPOSE_AND_YUAN_METHOD_CONTINUITY",
+      "quality_notes": "Records the Jiajing-7 four-zhang wooden gnomon used to measure shadow and 定氣朔, followed by 一以元法為斷. This supports observational/calendar-calibration purpose and Yuan-method continuity. It does not supply a local-shadow/clock to 定朔 small-remainder conversion, a qishuo longitude, or apparent/mean-solar/clepsydra identity. Same Mingshi astronomy surface as existing broader Beijing/Nanjing clock source; not an independent witness vote.",
+      "batch_id": "BATCH-12-BAZI-MING-DATONG-QISHUO-GNOMON-OBSERVATION-BRIDGE-PM",
+      "physical_glyph_authority": false,
+      "access_date": "2026-10-06"
+    },
+    {
+      "source_id": "EXT-CTEXT-MINGSHI-V31-HUAXIANG-JIAJING2-OBSERVATION-PROGRAM",
+      "title": "《明史》卷三十一·嘉靖二年華湘觀象臺逐日逐月測候驗合朔方案",
+      "historical_period": "QING_COMPILED_MING_DYNASTIC_HISTORY_RECEIVED_CALENDAR_HISTORY",
+      "provider": "Chinese Text Project",
+      "url": "https://ctext.org/wiki.pl?chapter=760533&if=gb",
+      "source_role": "RECEIVED_HISTORICAL_WITNESS_FOR_HESHUO_AS_TARGET_OF_YEAR_LONG_OBSERVATIONAL_CALENDAR_VERIFICATION",
+      "quality_notes": "Preserves Hua Xiang's proposal for day/night observatory measurement, daily/monthly records through the next winter solstice, and verification of 24 qi, solstices/equinoxes, 合朔, solar/lunar positions and other phenomena against Yuan-era measurements. Used for intended verification semantics only. Received compilations differ on immediate administrative disposition, and no completed observation dataset or direct local-clock-to-qishuo-remainder operator is claimed.",
+      "batch_id": "BATCH-12-BAZI-MING-DATONG-QISHUO-GNOMON-OBSERVATION-BRIDGE-PM",
       "physical_glyph_authority": false,
       "access_date": "2026-10-06"
     }

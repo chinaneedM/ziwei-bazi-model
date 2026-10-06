@@ -1,0 +1,113 @@
+{
+  "schema": "MING-DATONG-QISHUO-GNOMON-OBSERVATION-BRIDGE-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-BAZI-MING-DATONG-QISHUO-GNOMON-OBSERVATION-BRIDGE-PM",
+  "date": "2026-10-06",
+  "status": "OBSERVATIONAL_CALIBRATION_PURPOSE_ATTESTED_DIRECT_GNOMON_TO_DINGSHUO_NUMERIC_BRIDGE_NOT_ATTESTED",
+  "question": "Do Jiajing-era Ming records that describe 測晷以定氣朔 or observation programs verifying 合朔 explicitly map a local gnomon/clock observation into the numerical 定朔/合朔 small remainder or its published clock label?",
+  "jiajing7_mingshi_astronomy": {
+    "source_id": "EXT-CTEXT-MINGSHI-V25-JIAJING7-GNOMON-QISHUO-YUANFA",
+    "direct_points": [
+      "嘉靖七年始立四丈木表以測晷影，定氣朔",
+      "觀象臺相關儀器由此具備",
+      "一以元法為斷"
+    ],
+    "direct_mechanical_mapping_from_shadow_to_qishuo_remainder": false,
+    "direct_locality_or_longitude_statement_for_qishuo": false,
+    "direct_apparent_or_mean_solar_identity": false,
+    "adjudication": "OBSERVATIONAL_INSTRUMENT_AND_CALENDAR_CALIBRATION_PURPOSE_ATTESTED; NUMERICAL_QISHUO_CLOCK_COORDINATE_BRIDGE_NOT_ATTESTED"
+  },
+  "jiajing2_huaxiang_program": {
+    "source_id": "EXT-CTEXT-MINGSHI-V31-HUAXIANG-JIAJING2-OBSERVATION-PROGRAM",
+    "proposal_scope": [
+      "詣觀象臺晝夜推測，日記月書",
+      "至來年冬至驗二十四氣、分至、合朔、日躔、月離、黃赤二道、昏旦中星、七政等",
+      "比較元至元辛巳所測離合差次"
+    ],
+    "observation_used_to_verify_calendar_outputs": true,
+    "explicit_formula_mapping_local_shadow_or_clock_to_conjunction_remainder": false,
+    "execution_result_dataset_recovered": false,
+    "source_transmission_note": "Received sources differ on immediate administrative disposition; this batch uses the proposal content as evidence of intended verification semantics, not as proof of completed execution."
+  },
+  "zhengde1518_direct_physical_control": {
+    "source_id": "EXT-NLC-WUZONG-SHILU-V18-1518-ZHUYU-CALIBRATION",
+    "direct_physical_surrogate": true,
+    "proposal_components": [
+      "old/new calendar comparison",
+      "observatory ecliptic/equatorial/celestial-motion measurement",
+      "clepsydra-office dawn/dusk and day/night-water-clock adjustment",
+      "Huihui calendar verification",
+      "Nanjing/Zhejiang gnomon observations"
+    ],
+    "adopted_or_executed": false,
+    "relevance": "Direct primary-surrogate control shows multiple observation/timekeeping streams could coexist in a calibration proposal without being one numeric qishuo clock coordinate."
+  },
+  "batch12pl_institutional_context": {
+    "source_id": "EXT-CTEXT-WANLI-DAMING-HUIDIAN-V223-TIMEKEEPING",
+    "result": "QINTIANJIAN_CLOCK_SERVICE_ECLIPSE_TIMING_ALMANAC_PRODUCTION_COLOCATED",
+    "direct_qishuo_clock_identity": false
+  },
+  "philological_adjudication": {
+    "ding_qishuo_phrase": "以定氣朔",
+    "permitted_reading": "Institutional/calendar-calibration purpose: gnomon observation contributes to determining or correcting qi-shuo within the calendar system.",
+    "forbidden_overreading": "A gnomon shadow mechanically and directly measures the instant of lunar conjunction or defines the qishuo local clock/longitude.",
+    "reason": "The reviewed passage supplies no operator, conversion chain, locality, longitude, apparent/mean-solar-time label, or clepsydra identity for qishuo; it immediately states 一以元法為斷, while separate Ming proposals describe multi-stream verification rather than one instrument-to-remainder formula."
+  },
+  "adjudication": {
+    "observational_verification_of_qi_shuo": "ATTESTED",
+    "gnomon_instrument_use_for_calendar_calibration": "ATTESTED",
+    "huaxiang_program_includes_heshuo_as_verification_target": "ATTESTED_RECEIVED_TEXT",
+    "direct_gnomon_shadow_to_dingshuo_remainder_formula": "NOT_ATTESTED",
+    "direct_local_clock_to_dingshuo_remainder_formula": "NOT_ATTESTED",
+    "qishuo_identity_with_beijing_local_apparent_solar_time": "UNRESOLVED",
+    "qishuo_identity_with_beijing_local_mean_solar_time": "UNRESOLVED",
+    "qishuo_identity_with_nanjing_local_apparent_solar_time": "UNRESOLVED",
+    "qishuo_identity_with_nanjing_local_mean_solar_time": "UNRESOLVED",
+    "qishuo_identity_with_official_clepsydra_standard": "UNRESOLVED",
+    "qishuo_geographic_reference": "UNRESOLVED",
+    "md_g03_status_after_batch": "OPEN_BLOCKING_GENERAL_ADAPTER",
+    "modern_ephemeris_meridian_fit_authorized": false,
+    "runtime_authorized": false,
+    "hpa_dayun_cal_002_status": "MISSING_FROM_PRODUCT",
+    "closed_subquestion": "JIAJING_GNOMON_AND_OBSERVATION_RECORDS_ATTEST_CALENDAR_VERIFICATION_PURPOSE_BUT_DO_NOT_SUPPLY_THE_NUMERICAL_QISHUO_ABSOLUTE_CLOCK_BRIDGE"
+  },
+  "inference_firewalls": [
+    "測晷以定氣朔 != GNOMON_DIRECTLY_MEASURES_LUNAR_CONJUNCTION_INSTANT",
+    "OBSERVATIONAL_VERIFICATION_TARGET_HESHUO != EXPLICIT_LOCAL_CLOCK_TO_QISHUO_REMAINDER_OPERATOR",
+    "一以元法為斷 != PROOF_OF_DADU_QISHUO_MERIDIAN",
+    "BEIJING_OBSERVATORY_LOCATION != AUTOMATIC_BEIJING_QISHUO_LONGITUDE",
+    "CALIBRATION_PROGRAM != PROOF_OF_COMPLETED_EXECUTION_OR_PUBLISHED_NUMERIC_STANDARD"
+  ],
+  "transmission_impact": {
+    "graph_nodes_added": [
+      "PASSAGE-MINGSHI-V25-JIAJING7-GNOMON-QISHUO-YUANFA",
+      "PASSAGE-MINGSHI-V31-HUAXIANG-JIAJING2-OBSERVATION-PROGRAM",
+      "RULE-FAMILY-MING-QISHUO-OBSERVATIONAL-VERIFICATION-WITHOUT-DIRECT-CLOCK-BRIDGE"
+    ],
+    "graph_edges_added": [
+      "TG-E0195",
+      "TG-E0196",
+      "TG-E0197"
+    ],
+    "impact": "Adds an observational-verification layer while explicitly refusing an instrument-to-qishuo-clock identity edge."
+  },
+  "route_disposition": {
+    "repeat_gnomon_directly_defines_qishuo_time": "FORBIDDEN",
+    "repeat_observatory_location_as_meridian": "FORBIDDEN",
+    "next_batch": "12PN",
+    "next_focus": "Audit the Jingtai-1 lunar-eclipse record in Mingshi/Ming Shilu that contrasts actual 卯正三刻 with the bureau prediction 辰初初刻. Determine whether the actual time is a contemporaneous observed capital-clock reading, a later reconstructed value, or another reporting convention; only then consider it as an independent absolute-time anchor."
+  },
+  "accounting": {
+    "matrix_rows": 222,
+    "audited_rows": 222,
+    "current_missing_from_product_rows": 4,
+    "provenance_defects_confirmed": 45,
+    "provenance_defects_repaired": 45,
+    "historical_candidate_extensions": 14,
+    "historical_candidate_registries": 5,
+    "historical_candidate_runtime_resolvers": 5,
+    "chart_algorithm_defects": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0
+  }
+}

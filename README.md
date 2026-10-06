@@ -717,3 +717,16 @@ MD-G03 remains open; HPA-DAYUN-CAL-002 remains MISSING_FROM_PRODUCT and runtime 
 Next: **12PM — audit the observation/clock semantics behind 嘉靖七年「測晷以定氣朔」 and related Qintianjian verification records for an explicit local-observation -> numerical 定朔/合朔 bridge.**
 
 Batch document: docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-QINTIANJIAN-ALMANAC-CLOCK-CAPITAL-BINDING-PL.md. Research record: docs/research/MING-QINTIANJIAN-ALMANAC-CLOCK-CAPITAL-BINDING-R1.json.
+
+
+## Progress — Batch 12PM
+
+Jiajing observational evidence now closes another semantic boundary without inventing a meridian. 《明史·天文志》 records 嘉靖七年「立四丈木表以測晷影，定氣朔」 and immediately says the observatory system was 「一以元法為斷」. The safe inference is calendar calibration/verification purpose, not a direct gnomon-shadow -> 定朔 numeric conversion.
+
+The Jiajing-2 Hua Xiang program independently places 合朔 among the outputs to be verified through year-long observatory measurement and record keeping. This confirms observational verification semantics but still exposes no local-clock/longitude operator for qishuo.
+
+MD-G03 remains open; HPA-DAYUN-CAL-002 remains MISSING_FROM_PRODUCT; runtime and modern ephemeris meridian fitting stay fail-closed.
+
+Next: **12PN — audit the Jingtai-1 lunar-eclipse record contrasting actual 卯正三刻 with the bureau prediction 辰初初刻, and determine whether the actual time is a contemporaneous observed capital-clock value suitable as an independent absolute anchor.**
+
+Batch document: docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-QISHUO-GNOMON-OBSERVATION-BRIDGE-PM.md. Research record: docs/research/MING-DATONG-QISHUO-GNOMON-OBSERVATION-BRIDGE-R1.json.

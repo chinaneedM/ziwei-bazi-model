@@ -2201,3 +2201,14 @@ That institutional coupling does not identify the qishuo numerical coordinate. �
 HPA-DAYUN-CAL-002 remains MISSING_FROM_PRODUCT; MD-G03 remains open; runtime and modern meridian fitting remain fail-closed.
 
 Research: docs/research/MING-QINTIANJIAN-ALMANAC-CLOCK-CAPITAL-BINDING-R1.json.
+
+
+## Batch 12PM — qishuo gnomon / observational bridge semantics
+
+Jiajing-era sources attest observational calibration without source-closing the qishuo absolute clock. 《明史·天文志》 gives 嘉靖七年「四丈木表／測晷影／定氣朔」 and 「一以元法為斷」; the Jiajing-2 Hua Xiang program places 合朔 among calendar outputs to be verified by prolonged observatory measurements.
+
+Neither witness supplies a mechanical mapping from local shadow or official clock readings to the numerical 定朔 remainder, nor a Beijing/Nanjing longitude or apparent/mean/clepsydra identity. The phrase 「以定氣朔」 is therefore kept at institutional/calibrational scope and is not promoted to an instrument-to-qishuo-clock equation.
+
+HPA-DAYUN-CAL-002 remains MISSING_FROM_PRODUCT; MD-G03 remains open.
+
+Research: docs/research/MING-DATONG-QISHUO-GNOMON-OBSERVATION-BRIDGE-R1.json.
