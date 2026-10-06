@@ -7111,21 +7111,22 @@
       "rule_or_field": "Later calendar-age years plus remainder-days Jiaoyun method",
       "current_implementation": "NOT IMPLEMENTED. HISTORICAL-CHINESE-CALENDAR-ADAPTER-CONTRACT-R1 has generic operations capable of supporting a future later-source method, but the live registry currently contains only Ming Datong and Qing Shixian regime descriptors; there is no Republican/Qianli regime descriptor and BaziTemporalEngine does not invoke the historical-calendar adapter.",
       "current_profile": "MATRIX_PRESERVED_QIANLI_SOURCE_METHOD / NO_REGISTERED_QIANLI_CALENDAR_REGIME / NO_RUNTIME_TEMPORAL_PROFILE",
-      "primary_source": "EXT-CTEXT-QIANLI-MINGGAO-DAYUN",
-      "source_quote": "Worked examples first advance the stated whole age in calendar years, then add the remaining converted days to obtain a concrete handover date.",
-      "source_quote_location": "EXT-CTEXT-QIANLI-MINGGAO-DAYUN worked examples",
-      "historical_period": "REPUBLICAN_ERA_LATER_EXPLICIT_METHOD",
-      "later_witnesses": "Modern manuals often reproduce similar calendar-age calculations with varying rounding details.",
+      "primary_source": "EXT-NLC-QIANLI-MINGXUE-JIANGYI-1934; EXT-NLC-QIANLI-MINGXUE-JIANGYI-1936; EXT-CTEXT-QIANLI-MINGGAO-DAYUN (later received corroboration)",
+      "source_quote": "Direct 1934/1936 method: 3 source-days convert to 1 calendar-age year, 1 source-day to 120 nominal remainder days, and 1 shichen to 10 nominal remainder days; after the whole-year anchor the worked examples add 140/190 nominal units to concrete lunar dates.",
+      "source_quote_location": "《韋千里命學講義》1934/1936 NLC target leaves; docs/research/QIANLI-MINGXUE-JIANGYI-JIAOYUN-CALENDAR-SEMANTICS-R1.json",
+      "historical_period": "REPUBLICAN_ERA_DIRECT_PHYSICAL_WITNESSES_1934_AND_1936",
+      "later_witnesses": "CText received Qianli surface; HKO 1924/1928/1929 Gregorian-Lunar tables used only as independent date-coordinate controls, not doctrinal authority.",
       "school_attribution": "QIANLI_CALENDAR_AGE_PLUS_REMAINDER_DAYS_METHOD",
       "competing_methods": [
-        "SMTH classical lunisolar adjustment",
-        "absolute duration x120",
-        "Wenzhen month displacement"
+        "SMTH classical lunisolar small/leap-month correction",
+        "absolute-duration x120",
+        "Wenzhen month displacement",
+        "continuous actual elapsed-day addition after the Qianli whole-year anchor (rejected by both reviewed worked endpoints)"
       ],
-      "current_implementation_match": "SOURCE_SCOPED_LATER_METHOD_MISSING_FROM_RUNTIME; CONTRACT_VOCABULARY_CAN_ACCOMMODATE_FUTURE_REGIME_BUT_CURRENT_REGISTRY_DOES_NOT_PRESERVE_A_QIANLI_REPUBLICAN_DESCRIPTOR; NO_HISTORICAL_BAZI_TEMPORAL_PROFILE_OR_PRODUCT_SELECTOR",
-      "confidence": "HIGH_FOR_WORKED_METHOD",
+      "current_implementation_match": "SOURCE_SCOPED_QIANLI_METHOD_STILL_MISSING_FROM_RUNTIME; DIRECT_1934_1936_PHYSICAL_WITNESSES_CLOSE_THE_REVIEWED_LUNISOLAR_NUMBERED_MONTH_DAY_SHICHEN_COORDINATE_WHOLE_YEAR_ANCHOR_NOMINAL_30_DAY_MONTH_REMAINDER_ARITHMETIC_AND_10_YEAR_SAME_COORDINATE_RECURRENCE; HKO_CONTROLS_REJECT_CONTINUOUS_ACTUAL_ELAPSED_DAY_ADDITION (140_NOMINAL_VS_137_ACTUAL_IN_1929; 190_NOMINAL_VS_215_ACTUAL_IN_1928); THE_1928_INTERCALARY_SECOND_MONTH_DOES_NOT_CONSUM_AN_ADDITIONAL_NUMBERED_MONTH_STEP_IN_THE_190_UNIT_REPLAY; INVALID_TARGET_DAY_LEAP_BIRTH_ANCHOR_AND_DUPLICATED_TARGET_MONTH_SELECTION_REMAIN_SOURCE_UNRESOLVED; NO_QIANLI_REGIME_DESCRIPTOR_OR_BAZI_RUNTIME_PROFILE",
+      "confidence": "VERY_HIGH_FOR_DIRECT_1934_1936_WORKED_METHOD_AND_ORDINARY_RECURRENCE; HIGH_FOR_NOMINAL_30_DAY_POSITIONAL_REMAINDER_INTERPRETATION_FROM_TWO_WORKED_REPLAYS_PLUS_INDEPENDENT_CALENDAR_CONTROLS; INSUFFICIENT_FOR_INVALID_DATE_AND_DUPLICATED_OR_INTERCALARY_TARGET_SELECTION",
       "audit_status": "MISSING_FROM_PRODUCT",
-      "proposed_action": "Determine the Qianli worked examples' exact calendar coordinate, invalid-date policy and recurrence semantics before registering an explicit Republican/Qianli calendar regime descriptor. Only then consider a fail-closed candidate profile; do not borrow Ming, Shixian, modern Chinese-calendar or Wenzhen arithmetic.",
+      "proposed_action": "Continue within Qianli/contemporary source families for invalid target-day handling, leap/intercalary birth-anchor identity and duplicated-month landing semantics. Register no Republican/Qianli regime descriptor or runtime candidate until those source boundaries close; do not borrow Ming Datong, Qing Shixian, modern Chinese-calendar or Wenzhen fallback arithmetic.",
       "adapter_contract_id": "HISTORICAL-CHINESE-CALENDAR-ADAPTER-CONTRACT-R1",
       "adapter_design_batch": "BATCH-11-BAZI-HISTORICAL-CALENDAR-ADAPTER-C",
       "calendar_regime_context": "REPUBLICAN_ERA_METHOD_CALENDAR_REGIME_STILL_SOURCE_SCOPED_UNRESOLVED",
@@ -7144,7 +7145,17 @@
         "qianli_historical_temporal_profile": false,
         "local_product_qianli_temporal_profile_option": false,
         "production_default_changed": false
-      }
+      },
+      "qianli_calendar_semantics_batch": "BATCH-12-BAZI-QIANLI-MINGXUE-JIANGYI-JIAOYUN-CALENDAR-SEMANTICS-OR",
+      "qianli_calendar_coordinate": "REPUBLICAN_QIANLI_LUNISOLAR_NUMBERED_MONTH_DAY_SHICHEN",
+      "qianli_interval_counting": "ACTUAL_ALMANAC_DATE_AND_SHICHEN_GEOMETRY_TO_RELEVANT_JIE",
+      "qianli_whole_year_anchor": "ADVANCE_WHOLE_CALENDAR_AGE_YEARS_TO_SAME_NUMBERED_LUNAR_MONTH_DAY_AND_SHICHEN",
+      "qianli_remainder_arithmetic": "NOMINAL_30_DAY_MONTH_POSITIONAL_UNITS_FOR_THE_REVIEWED_WORKED_METHOD_NOT_CONTINUOUS_ACTUAL_DAY_COUNT",
+      "qianli_intercalary_crossing": "1928_WORKED_EXAMPLE_CROSSES_AN_INTERCALARY_SECOND_MONTH_WITHOUT_CONSUMING_AN_ADDITIONAL_NUMBERED_MONTH_STEP",
+      "qianli_invalid_target_day_policy": "UNRESOLVED",
+      "qianli_leap_birth_anchor_policy": "UNRESOLVED",
+      "qianli_duplicated_target_month_selection": "UNRESOLVED",
+      "qianli_runtime_authorized": false
     },
     {
       "system": "BAZI",
@@ -7155,20 +7166,20 @@
       "rule_or_field": "Ten-year Dayun exchange recurrence from first handover",
       "current_implementation": "Runtime still uses modern proleptic-Gregorian boundaries for current profiles. Historical recurrence is now guarded by the source/regime-scoped adapter contract and remains unimplemented.",
       "current_profile": "Current profiles use Gregorian anniversary rules; classical source family remains unselected.",
-      "primary_source": "EXT-CTEXT-SANMING-V2-DAYUN; EXT-CTEXT-QIANLI-MINGGAO-DAYUN",
-      "source_quote": "Ming text says after the first handover, count ten anniversaries before changing one luck frame; later examples abbreviate the schedule as exchanging on the same cyclical year/lunar month/day/hour.",
-      "source_quote_location": "EXT-CTEXT-SANMING-V2-DAYUN; EXT-CTEXT-QIANLI-MINGGAO-DAYUN",
+      "primary_source": "EXT-CTEXT-SANMING-V2-DAYUN; EXT-NLC-QIANLI-MINGXUE-JIANGYI-1934; EXT-NLC-QIANLI-MINGXUE-JIANGYI-1936; EXT-CTEXT-QIANLI-MINGGAO-DAYUN (later received corroboration)",
+      "source_quote": "Qianli's worked examples state later exchanges on the same lunar month/day/shichen in each ten-year recurrence: one example every 己 year lunar 6/5 Zi-shichen, the other every 戊 year lunar 7/25 Zi-shichen.",
+      "source_quote_location": "《韋千里命學講義》1934/1936 NLC target leaves; docs/research/QIANLI-MINGXUE-JIANGYI-JIAOYUN-CALENDAR-SEMANTICS-R1.json",
       "historical_period": "MING_RULE_WITH_LATER_EXPLICIT_SCHEDULE_EXAMPLES",
-      "later_witnesses": "《千里命稿》 gives successive first/second/third Dayun years and a fixed month/day/hour exchange expression.",
+      "later_witnesses": "Direct 1934 and 1936 Qianli physical witnesses preserve the same decadal recurrence expression. Invalid-date/duplicated-month realization remains dependency-bound to first-handover regime semantics.",
       "school_attribution": "TEN_CALENDAR_YEAR_FRAME_RECURRENCE_FROM_FIRST_HANDOVER",
       "competing_methods": [
         "proleptic Gregorian UTC anniversary",
         "proleptic Gregorian China-standard anniversary"
       ],
-      "current_implementation_match": "TEN_YEAR_FRAME_CONCEPT_MATCHES; HISTORICAL_CALENDAR_RECURRENCE_REQUIRES_THE_SAME_CERTIFIED_REGIME_AS_FIRST_HANDOVER; NO_CROSS_REGIME_ANNIVERSARY_SUBSTITUTION",
-      "confidence": "HIGH_FOR_TEN_YEAR_RECURRENCE; MEDIUM_FOR_EXACT_HISTORICAL_CALENDAR_REALIZATION",
+      "current_implementation_match": "TEN_YEAR_FRAME_CONCEPT_MATCHES; QIANLI_DIRECT_PHYSICAL_WITNESSES_CLOSE_SAME_NUMBERED_LUNAR_MONTH_DAY_SHICHEN_RECURRENCE_FOR_THE_REVIEWED_ORDINARY_CASES; RUNTIME_REMAINS_BLOCKED_BECAUSE_INVALID_DATE_AND_DUPLICATED_OR_INTERCALARY_TARGET_MONTH_POLICIES_MUST_INHERIT_THE_SOURCE_SCOPED_FIRST_HANDOVER_REGIME; NO_IMPLICIT_GREGORIAN_SUBSTITUTION",
+      "confidence": "VERY_HIGH_FOR_QIANLI_TEN_CALENDAR_YEAR_SAME_LUNAR_COORDINATE_RECURRENCE; INSUFFICIENT_FOR_EDGE_CASE_REALIZATION_WHERE_TARGET_COORDINATE_IS_INVALID_OR_DUPLICATED",
       "audit_status": "MISSING_FROM_PRODUCT",
-      "proposed_action": "When a historical first-handover adapter closes, reuse that exact regime for ten-year recurrence; never switch to Gregorian or another historical regime implicitly.",
+      "proposed_action": "Reuse the exact future Qianli first-handover regime for recurrence. Ordinary-case recurrence is source-closed by 12OR; invalid-day and duplicated/intercalary target semantics remain blocking.",
       "adapter_contract_id": "HISTORICAL-CHINESE-CALENDAR-ADAPTER-CONTRACT-R1",
       "adapter_design_batch": "BATCH-11-BAZI-HISTORICAL-CALENDAR-ADAPTER-C",
       "calendar_regime_context": "INHERITS_THE_SELECTED_FIRST_HANDOVER_CANDIDATE_REGIME; NO_INDEPENDENT_CALENDAR_SUBSTITUTION",
@@ -7184,7 +7195,10 @@
         "local_product_historical_recurrence_profile_option": false,
         "production_default_changed": false
       },
-      "post_audit_reconciliation_note": "12NU confirms that ADD_CALENDAR_YEARS exists only at the historical-calendar contract boundary. The released Bazi temporal engine has no historical recurrence branch and current product profiles remain Gregorian operational profiles."
+      "post_audit_reconciliation_note": "12NU confirms that ADD_CALENDAR_YEARS exists only at the historical-calendar contract boundary. The released Bazi temporal engine has no historical recurrence branch and current product profiles remain Gregorian operational profiles.",
+      "qianli_recurrence_source_closed_batch": "BATCH-12-BAZI-QIANLI-MINGXUE-JIANGYI-JIAOYUN-CALENDAR-SEMANTICS-OR",
+      "qianli_recurrence_semantics": "EVERY_10_CALENDAR_YEARS_AT_THE_SAME_NUMBERED_LUNAR_MONTH_DAY_AND_SHICHEN_AS_FIRST_HANDOVER",
+      "qianli_invalid_or_duplicated_target_recurrence_policy": "UNRESOLVED_INHERIT_FROM_FIRST_HANDOVER_REGIME"
     },
     {
       "system": "BAZI",
@@ -7982,5 +7996,6 @@
     "BATCH-12-COMBINED-TARGET-FLOW-FUSION-R2-AUDIT-NN",
     "BATCH-12-COMBINED-RESOLVED-PROFILE-RULE-ALGORITHM-LINEAGE-AUDIT-NO",
     "BATCH-12-COMBINED-FACT-COMPUTATION-VIEW-MANIFEST-HASH-AUDIT-NP"
-  ]
+  ],
+  "updated_at": "2026-10-06"
 }

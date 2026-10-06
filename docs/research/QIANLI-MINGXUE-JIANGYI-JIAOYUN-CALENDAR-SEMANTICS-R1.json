@@ -1,0 +1,125 @@
+{
+  "schema": "QIANLI-MINGXUE-JIANGYI-JIAOYUN-CALENDAR-SEMANTICS-R1",
+  "version": "1.0.0",
+  "batch_id": "BATCH-12-BAZI-QIANLI-MINGXUE-JIANGYI-JIAOYUN-CALENDAR-SEMANTICS-OR",
+  "date": "2026-10-06",
+  "target_rows": [
+    "HPA-DAYUN-CAL-003",
+    "HPA-DAYUN-CAL-004"
+  ],
+  "repository_baseline": {
+    "branch": "agent/fusion-chart-core-r1-20260822",
+    "parent_head": "4df4a382b127176c8518b743cd892c29bea47bda",
+    "parent_tree": "ac0a90f91ae80bf889124efe82baf444c440d13c",
+    "exact_head_ci_run_id": 37415093746,
+    "exact_head_ci_conclusion": "success"
+  },
+  "direct_physical_witnesses": [
+    {
+      "source_id": "EXT-NLC-QIANLI-MINGXUE-JIANGYI-1934",
+      "date": "1934",
+      "nlc_identifier": "17jh007058 / 102955",
+      "work": "《韋千里命學講義》",
+      "publisher": "韋氏命苑",
+      "target_review": "DIRECT_NO_OCR"
+    },
+    {
+      "source_id": "EXT-NLC-QIANLI-MINGXUE-JIANGYI-1936",
+      "date": "1936",
+      "nlc_identifier": "01jh000368 / 10155",
+      "work": "《韋千里命學講義》",
+      "publisher": "韋氏命苑",
+      "target_review": "DIRECT_NO_OCR"
+    }
+  ],
+  "mechanical_adjudication": {
+    "stage_1_actual_interval_to_jie": {
+      "coordinate": "LUNISOLAR_ALMANAC_DATE_PLUS_SHICHEN",
+      "month_length_sensitive": true,
+      "conversion": {
+        "3_source_days": "1_calendar_age_year",
+        "1_source_day": "120_nominal_remainder_days",
+        "1_shichen": "10_nominal_remainder_days"
+      }
+    },
+    "stage_2_calendarization": {
+      "whole_year_anchor": "SAME_NUMBERED_LUNAR_MONTH_DAY_AND_SHICHEN",
+      "remainder_rule": "NOMINAL_30_DAY_MONTH_POSITIONAL_UNITS",
+      "continuous_actual_elapsed_day_addition": false
+    },
+    "worked_example_1": {
+      "anchor": "己巳年正月十五日子時",
+      "nominal_remainder": 140,
+      "nominal_replay": "140=4*30+20 -> 六月初五",
+      "source_result": "己巳年六月初五日子時",
+      "hko_actual_elapsed_days": 137,
+      "actual_day_model": "REJECTED"
+    },
+    "worked_example_2": {
+      "anchor": "戊辰年正月十五日子時",
+      "nominal_remainder": 190,
+      "nominal_replay": "190=6*30+10 -> 七月廿五",
+      "source_result": "戊辰年七月廿五日子時",
+      "hko_actual_elapsed_days": 215,
+      "hko_intercalary_fact": "1928 contains an intercalary duplicate second lunar month between anchor and target",
+      "intercalary_step_finding": "DUPLICATE_INTERCALARY_MONTH_DOES_NOT_CONSUM_AN_ADDITIONAL_NUMBERED_MONTH_STEP_IN_THIS_REPLAY",
+      "actual_day_model": "REJECTED"
+    },
+    "recurrence": {
+      "rule": "EVERY_10_CALENDAR_YEARS_AT_SAME_NUMBERED_LUNAR_MONTH_DAY_AND_SHICHEN",
+      "examples": [
+        "每逢己年六月初五日子時交換",
+        "每逢戊年七月廿五日子時交換"
+      ]
+    }
+  },
+  "independent_calendar_controls": {
+    "role": "DATE_COORDINATE_DISCRIMINATOR_ONLY_NOT_DOCTRINAL_AUTHORITY",
+    "hko_1929": {
+      "lunar_anchor": "1/15",
+      "lunar_target": "6/5",
+      "actual_elapsed_days": 137,
+      "source_nominal_remainder": 140
+    },
+    "hko_1928": {
+      "lunar_anchor": "1/15",
+      "lunar_target": "7/25",
+      "actual_elapsed_days": 215,
+      "source_nominal_remainder": 190,
+      "intercalary_duplicate_month": "2"
+    }
+  },
+  "unresolved_semantics": {
+    "invalid_target_day_in_small_month": "UNRESOLVED",
+    "leap_or_intercalary_birth_anchor_identity": "UNRESOLVED",
+    "duplicated_target_month_regular_vs_intercalary_selection": "UNRESOLVED",
+    "recurrence_on_invalid_or_duplicated_coordinate": "UNRESOLVED_INHERITS_FIRST_HANDOVER_REGIME"
+  },
+  "product_boundary": {
+    "qianli_republican_regime_descriptor_registered": false,
+    "qianli_bazi_temporal_profile": false,
+    "runtime_candidate_authorized": false,
+    "product_selector_option": false,
+    "production_default_changed": false,
+    "hpa_dayun_cal_003_status": "MISSING_FROM_PRODUCT",
+    "hpa_dayun_cal_004_status": "MISSING_FROM_PRODUCT"
+  },
+  "transmission_impact": "MATERIAL_GRAPH_UPDATE",
+  "accounting": {
+    "matrix_rows": 222,
+    "audited_rows": 222,
+    "missing_from_product": 4,
+    "provenance_defects_confirmed": 44,
+    "provenance_defects_repaired": 44,
+    "historical_candidate_extensions": 14,
+    "historical_candidate_registries": 5,
+    "historical_candidate_runtime_resolvers": 5,
+    "chart_algorithm_defects": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0
+  },
+  "next_batch": {
+    "id": "12OS",
+    "objective": "Audit Qianli invalid lunar target-day, leap/intercalary birth-anchor identity and duplicated target-month selection semantics; keep runtime fail-closed if qualifying sources do not close them."
+  }
+}

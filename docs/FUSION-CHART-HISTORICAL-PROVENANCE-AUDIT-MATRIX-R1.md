@@ -2059,3 +2059,18 @@ After 12OO and 12OP, four Matrix rows remain `MISSING_FROM_PRODUCT`. Batch 12OQ 
 **Next: 12OR — Qianli/Republican Jiaoyun calendar-coordinate and invalid-date semantics audit.** Do not register a regime descriptor or runtime candidate until the source coordinate and arithmetic boundary close.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-REMAINING-PRODUCT-GAP-REPRIORITIZATION-OQ.md`. Research record: `docs/research/REMAINING-PRODUCT-GAP-REPRIORITIZATION-OQ-R1.json`.
+
+
+## Progress — Batch 12OR
+
+Direct NLC physical copies of 韋千里《命學講義》 dated 1934 and 1936 now bind the Qianli Jiaoyun target passage. The existing CText 《千里命稿》 surface remains later received corroboration.
+
+The worked method separates actual almanac/shichen interval-to-Jie counting from later calendarization. Whole years preserve the same numbered lunar month/day/shichen; the 140/190 remainder units replay as nominal 30-day-month positional units, not continuous actual elapsed days. HKO controls show 140 nominal units correspond to only 137 actual elapsed days in the first endpoint pair, while 190 nominal units correspond to 215 actual elapsed days in the second. The 1928 intercalary duplicate second month does not consume an additional numbered-month step in the 190-unit replay.
+
+Ordinary recurrence is also source-closed: every ten calendar years at the same numbered lunar month/day/shichen. Invalid target-day, intercalary birth-anchor identity and regular-vs-intercalary target selection remain unresolved, so HPA-DAYUN-CAL-003 and HPA-DAYUN-CAL-004 both remain MISSING_FROM_PRODUCT and no Qianli runtime regime is registered.
+
+Matrix remains **222/222 audited / 4 current missing**; provenance defects **44/44**, candidate extensions **14**, registries/runtime resolvers **5/5**, chart algorithm defects/reopens/candidate collapses **0**.
+
+Next: **12OS — Qianli invalid-date / leap-intercalary target semantics audit.**
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-QIANLI-MINGXUE-JIANGYI-JIAOYUN-CALENDAR-SEMANTICS-OR.md`. Research record: `docs/research/QIANLI-MINGXUE-JIANGYI-JIAOYUN-CALENDAR-SEMANTICS-R1.json`.
