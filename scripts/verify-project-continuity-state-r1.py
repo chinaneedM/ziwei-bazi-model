@@ -933,9 +933,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-BAZI-MING-DATONG-EXECUTABLE-ADAPTER-BLOCKER-DECOMPOSITION-OU",
     "BATCH-12-BAZI-MING-SANMING-DAYUN-CALENDAR-ADDITION-EDGE-SEMANTICS-OV",
     "BATCH-12-BAZI-MING-DATONG-DYNAMIC-D1-PRECISION-GENERALIZATION-OW",
+    "BATCH-12-BAZI-MING-DATONG-D1-PRECISION-PROFILE-SENSITIVITY-OX",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-DYNAMIC-D1-PRECISION-GENERALIZATION-OW.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-D1-PRECISION-PROFILE-SENSITIVITY-OX.md"
 
 
 def fail(message: str) -> None:
@@ -16918,6 +16919,50 @@ def main() -> int:
         fail("Batch 12OW continuity schema version is not numeric")
     if schema12ow < (1, 417, 0):
         fail("Batch 12OW continuity schema version regressed below 1.417.0")
+
+    # Batch 12OX: D1 precision-profile sensitivity / non-discrimination.
+    ox_id = "BATCH-12-BAZI-MING-DATONG-D1-PRECISION-PROFILE-SENSITIVITY-OX"
+    ox_path = ROOT / "docs/research/MING-DATONG-D1-PRECISION-PROFILE-SENSITIVITY-R1.json"
+    ox_script = ROOT / "scripts/research_ming_datong_d1_precision_profile_sensitivity_r1.py"
+    ox_doc = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-D1-PRECISION-PROFILE-SENSITIVITY-OX.md"
+    if not ox_path.is_file() or not ox_script.is_file() or not ox_doc.is_file():
+        fail("Batch 12OX research/harness/batch record missing")
+    ox = json.loads(ox_path.read_text(encoding="utf-8"))
+    if ox.get("batch_id") != ox_id or ox.get("gate_id") != "MD-G05-DYNAMIC-D1-PRECISION-GENERALIZATION":
+        fail("Batch 12OX identity/gate drift")
+    if ox.get("status") != "FOUR_PROFILES_ALL_MATCH_56_BINS_CORPUS_NONDISCRIMINATING_G05_REMAINS_OPEN":
+        fail("Batch 12OX status drift")
+    for key in ("runtime_selection_authorized", "production_default_changed", "algorithm_reopen_authorized", "candidate_collapse_authorized"):
+        if ox.get(key) is not False:
+            fail(f"Batch 12OX invariant drift: {key}")
+    result_ox = ox.get("result_contract", {})
+    if result_ox.get("rows") != 56 or result_ox.get("expected_in_bin_per_profile") != 56 or result_ox.get("all_four_profiles_match_all_56_bins") is not True:
+        fail("Batch 12OX result contract drift")
+    if ox.get("adjudication", {}).get("final_time_corpus_discriminates_dynamic_precision_profiles") is not False or ox.get("adjudication", {}).get("g05_status_after_batch") != "OPEN_BLOCKING_GENERAL_ADAPTER":
+        fail("Batch 12OX non-discrimination/G05 firewall drift")
+    gates_ox = {row.get("gate_id"): row for row in ou.get("gates", ())}
+    g05_ox = gates_ox.get("MD-G05-DYNAMIC-D1-PRECISION-GENERALIZATION", {})
+    if g05_ox.get("status") != "OPEN_BLOCKING_GENERAL_ADAPTER":
+        fail("Batch 12OX G05 status drift")
+    refine_ox = g05_ox.get("batch_12ox_refinement", {})
+    if refine_ox.get("corpus_discrimination_result") != "NEGATIVE_ALL_4_PROFILES_MATCH_56_OF_56" or refine_ox.get("universal_1596_profile_authorized") is not False:
+        fail("Batch 12OX G05 refinement drift")
+    rows_ox = {row.get("rule_id"): row for row in matrix.get("rows", ())}
+    row_ox = rows_ox.get("HPA-DAYUN-CAL-002")
+    bind_ox = (row_ox or {}).get("batch_12ox_precision_profile_sensitivity", {})
+    if not row_ox or row_ox.get("audit_status") != "MISSING_FROM_PRODUCT":
+        fail("Batch 12OX Matrix status drift")
+    if bind_ox.get("batch_id") != ox_id or bind_ox.get("corpus_discriminates_profiles") is not False or bind_ox.get("runtime_authorized") is not False:
+        fail("Batch 12OX Matrix binding drift")
+    accounting_ox = ox.get("accounting", {})
+    if accounting_ox.get("matrix_rows") != 222 or accounting_ox.get("audited_rows") != 222 or accounting_ox.get("current_missing_from_product_rows") != 4:
+        fail("Batch 12OX accounting drift")
+    try:
+        schema12ox = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12OX continuity schema version is not numeric")
+    if schema12ox < (1, 418, 0):
+        fail("Batch 12OX continuity schema version regressed below 1.418.0")
 
     contract = state.get("continuity_contract", {})
     if contract.get("ci_gate_required") is not True:

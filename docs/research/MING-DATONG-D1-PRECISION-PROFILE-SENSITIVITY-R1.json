@@ -1,0 +1,115 @@
+{
+  "schema": "MING-DATONG-D1-PRECISION-PROFILE-SENSITIVITY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-BAZI-MING-DATONG-D1-PRECISION-PROFILE-SENSITIVITY-OX",
+  "rule_id": "HPA-DAYUN-CAL-002",
+  "gate_id": "MD-G05-DYNAMIC-D1-PRECISION-GENERALIZATION",
+  "status": "FOUR_PROFILES_ALL_MATCH_56_BINS_CORPUS_NONDISCRIMINATING_G05_REMAINS_OPEN",
+  "runtime_selection_authorized": false,
+  "production_default_changed": false,
+  "algorithm_reopen_authorized": false,
+  "candidate_collapse_authorized": false,
+  "harness": "scripts/research_ming_datong_d1_precision_profile_sensitivity_r1.py",
+  "inputs": {
+    "solar_table": "docs/research/MING-DATONG-1569-YINGSUO-FULL-NUMERIC-RECONSTRUCTION-R1.json",
+    "lunar_table": "docs/research/MING-DATONG-1569-CHIJI-FULL-NUMERIC-RECONSTRUCTION-R1.json",
+    "constants_and_1578_regression": "docs/research/MING-DATONG-1578-D1-SOURCE-REPLAY-R1.json",
+    "conjunction_time_bins": "docs/research/MING-DATONG-D1-56-CONJUNCTION-VALIDATION-R1.json"
+  },
+  "generator_contract": {
+    "epoch_year": 1281,
+    "first_month_sequence_offset_from_tianzheng_conjunctions": 2,
+    "mean_conjunction_increment_source_units": "295305.93",
+    "solar_phase_cycle_source_units": "3652425",
+    "solar_half_cycle_source_units": "1826212.50",
+    "lunar_phase_cycle_source_units": "275546",
+    "lunar_half_cycle_source_units": "137773",
+    "lunar_phase_increment_per_conjunction_source_units": "19759.93",
+    "note": "This is a research-only extraction of the already-repository-bound source-derived recurrence used to reproduce the 1578 chain. The 56-row almanac order supplies the within-year conjunction sequence, including intercalary rows. It is not a production calendar or a leap-month generator."
+  },
+  "profiles": [
+    {
+      "profile_id": "FULL_DECIMAL_UNTIL_FINAL_OUTPUT",
+      "rule": "Use source-stored table cells; carry Decimal precision through solar/lunar dynamic interpolation and D1 correction without added dynamic quantization.",
+      "historical_authority": false
+    },
+    {
+      "profile_id": "1596_LOCAL_CHIJI6_D1CORR2_TRUNCATE",
+      "rule": "Experimental generalization of only the locally observed 1596 controls: truncate dynamic lunar Chiji difference toward zero to 1e-6 degree and D1 correction toward zero to 0.01 source unit; solar dynamic difference is not assigned an unproved truncation.",
+      "historical_authority": "LOCAL_1596_ONLY_NOT_UNIVERSAL"
+    },
+    {
+      "profile_id": "HALF_UP_AT_1596_LOCAL_WIDTHS",
+      "rule": "Counterfactual comparator: half-up lunar Chiji difference to 1e-6 degree and D1 correction to 0.01 source unit.",
+      "historical_authority": false
+    },
+    {
+      "profile_id": "STORED_TABLE_WIDTH_TRUNCATION_ONLY",
+      "rule": "Counterfactual comparator: truncate computed solar and lunar dynamic degree differences toward zero to 1e-8, matching the reconstructed stored degree-cell width; keep D1 correction unquantized.",
+      "historical_authority": false
+    }
+  ],
+  "internal_regression": {
+    "profile_id": "REPO_1578_REFERENCE",
+    "rule": "No dynamic difference quantization; truncate final D1 correction toward zero to 0.01 source unit, exactly matching the existing 1578 research replay contract.",
+    "expected_points": 13,
+    "expected_exact_true_conjunction_matches": 13
+  },
+  "result_contract": {
+    "rows": 56,
+    "years": [
+      1531,
+      1532,
+      1604,
+      1616,
+      1629,
+      1639
+    ],
+    "expected_in_bin_per_profile": 56,
+    "expected_out_of_bin_per_profile": 0,
+    "all_four_profiles_match_all_56_bins": true,
+    "maximum_profile_spread_row": {
+      "year": 1639,
+      "month": "四"
+    },
+    "maximum_profile_spread_day_upper_bound": "0.0000011",
+    "maximum_profile_spread_seconds_approx": "0.088",
+    "minimum_any_profile_to_bin_edge_margin_row": {
+      "year": 1604,
+      "month": "正"
+    },
+    "minimum_any_profile_to_bin_edge_margin_day_lower_bound": "0.00015",
+    "minimum_any_profile_to_bin_edge_margin_seconds_approx": "13.65",
+    "minimum_edge_margin_to_max_profile_spread_ratio_lower_bound": "150"
+  },
+  "adjudication": {
+    "final_time_corpus_discriminates_dynamic_precision_profiles": false,
+    "reason": "All four materially different experimental profiles remain inside every one of the 56 surviving-almanac printed time bins. Their maximum mutual spread is roughly two orders of magnitude smaller than the smallest observed distance from any tested profile to a bin edge.",
+    "g05_status_after_batch": "OPEN_BLOCKING_GENERAL_ADAPTER",
+    "universal_1596_profile_authorized": false,
+    "numerical_fit_as_historical_authority": false,
+    "future_g05_closure_requires": [
+      "ADDITIONAL_MING_DYNAMIC_INTERMEDIATE_VALUES_OR_WORKED_ARITHMETIC_WITH_EXPLICIT_PRECISION",
+      "OR_OBSERVATIONAL_OUTPUT_WITH_RESOLUTION_FINE_ENOUGH_TO_DISCRIMINATE_PROFILES",
+      "AND_HISTORICAL_SOURCE_SCOPE_NOT_NUMERICAL_FIT_ALONE"
+    ]
+  },
+  "next_research_priority": {
+    "batch": "12OY",
+    "gate_id": "MD-G09-MULTI-YEAR-LEAP-GENERALIZATION",
+    "focus": "Move to the independent multi-year month/leap-generation gate. Build a source-derived multi-year oracle plan spanning ordinary and intercalary years, beginning with already observed leap-six 1531 and leap-four 1629 controls; do not treat the 56-row partial time corpus itself as a complete year/month generator."
+  },
+  "accounting": {
+    "matrix_rows": 222,
+    "audited_rows": 222,
+    "current_missing_from_product_rows": 4,
+    "provenance_defects_confirmed": 45,
+    "provenance_defects_repaired": 45,
+    "historical_candidate_extensions": 14,
+    "historical_candidate_registries": 5,
+    "historical_candidate_runtime_resolvers": 5,
+    "chart_algorithm_defects": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0
+  }
+}

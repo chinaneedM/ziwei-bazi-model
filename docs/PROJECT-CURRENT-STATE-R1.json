@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.417.0",
+  "schema_version": "1.418.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -498,9 +498,10 @@
       "BATCH-12-REMAINING-PRODUCT-GAP-REPRIORITIZATION-OT",
       "BATCH-12-BAZI-MING-DATONG-EXECUTABLE-ADAPTER-BLOCKER-DECOMPOSITION-OU",
       "BATCH-12-BAZI-MING-SANMING-DAYUN-CALENDAR-ADDITION-EDGE-SEMANTICS-OV",
-      "BATCH-12-BAZI-MING-DATONG-DYNAMIC-D1-PRECISION-GENERALIZATION-OW"
+      "BATCH-12-BAZI-MING-DATONG-DYNAMIC-D1-PRECISION-GENERALIZATION-OW",
+      "BATCH-12-BAZI-MING-DATONG-D1-PRECISION-PROFILE-SENSITIVITY-OX"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-DYNAMIC-D1-PRECISION-GENERALIZATION-OW.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-D1-PRECISION-PROFILE-SENSITIVITY-OX.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -2436,7 +2437,12 @@
       "The strongest final-time control is 1639 month 4 (巳正四刻): the published decimal bin is 0.0016 day full width (2.304 minutes) and D1 is inside it; 1639 month 5 also shows the D2 path crossing to the next sexagenary day.",
       "These end-to-end observations close operational D1 final-output consistency but do not expose Ming intermediate Chi-difference/division residues. The 1596 six-decimal and two-decimal truncations remain local worked-example facts, not a universal profile.",
       "G05 remains OPEN_BLOCKING_GENERAL_ADAPTER. The 1527 peer-reviewed reconstruction remains cross-year method validation; the later comparison study explicitly notes it did not compare Ming almanac conjunction times.",
-      "12OX: build a research-only precision-profile sensitivity harness over the 56 bins; compare full precision, 1596-local truncation, half-up at the same widths and stored-table-width truncation without runtime activation."
+      "12OX: build a research-only precision-profile sensitivity harness over the 56 bins; compare full precision, 1596-local truncation, half-up at the same widths and stored-table-width truncation without runtime activation.",
+      "Batch 12OX completed: a research-only Decimal harness replays four dynamic precision profiles over the 56 Ming almanac time bins after exact 13-point regression against the existing 1578 source-derived chain.",
+      "All four profiles match all 56 printed bins. The largest profile-to-profile spread is below 0.1 second (1639 month 4), while the smallest tested output-to-bin-edge margin is above 13 seconds (1604 first month), so the corpus cannot discriminate profiles.",
+      "12OX is a negative-discrimination closure, not a precision-rule winner: the 1596 six-place Chiji / two-place D1-correction behavior remains local only; G05 remains OPEN_BLOCKING_GENERAL_ADAPTER and runtime remains fail-closed.",
+      "Forward-only snapshot discipline is restored: Batch 11J's original dynamic-precision conclusion is not rewritten by 12OW/12OX; later evidence is carried in new batch fields and artifacts.",
+      "12OY: move to MD-G09 multi-year month/leap generalization. Build complete-year source-derived controls across ordinary and intercalary years, beginning with known leap-six 1531 and leap-four 1629 observations; do not treat partial 56-row time data as a full calendar."
     ],
     "historical_candidate_extension_count": 14,
     "current_missing_from_product_row_count": 4

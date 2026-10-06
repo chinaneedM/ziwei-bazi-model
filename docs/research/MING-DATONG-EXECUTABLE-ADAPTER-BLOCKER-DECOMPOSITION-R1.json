@@ -89,6 +89,17 @@
         "dynamic_intermediate_precision_profile": "OPEN_NOT_UNIQUELY_IDENTIFIED",
         "research_artifact": "docs/research/MING-DATONG-DYNAMIC-D1-PRECISION-GENERALIZATION-R1.json",
         "validation_fixture": "docs/research/MING-DATONG-D1-56-CONJUNCTION-VALIDATION-R1.json"
+      },
+      "batch_12ox_refinement": {
+        "corpus_discrimination_result": "NEGATIVE_ALL_4_PROFILES_MATCH_56_OF_56",
+        "tested_profiles": 4,
+        "max_profile_spread_seconds_upper_bound": "0.10",
+        "minimum_profile_to_bin_edge_margin_seconds_lower_bound": "13",
+        "edge_margin_to_spread_ratio_lower_bound": "150",
+        "universal_1596_profile_authorized": false,
+        "gate_status_after_batch": "OPEN_BLOCKING_GENERAL_ADAPTER",
+        "research_artifact": "docs/research/MING-DATONG-D1-PRECISION-PROFILE-SENSITIVITY-R1.json",
+        "harness": "scripts/research_ming_datong_d1_precision_profile_sensitivity_r1.py"
       }
     },
     {
@@ -185,8 +196,9 @@
     "RUNTIME_INTEGRATION_IS_A_DEPENDENT_ENGINEERING_STEP_NOT_A_SUBSTITUTE_FOR_HISTORICAL_CERTIFICATION."
   ],
   "next_research_priority": {
-    "batch": "12OV",
-    "focus": "Audit the Ming/Sanming classical calendar-addition edge semantics, especially invalid target day and regular-versus-intercalary month identity/traversal, against direct or near-primary source evidence. If those remain unclosed, record the non-certification explicitly and continue with dynamic D1 precision / multi-year leap generalization rather than inventing fallback behavior."
+    "batch": "12OY",
+    "gate_id": "MD-G09-MULTI-YEAR-LEAP-GENERALIZATION",
+    "focus": "Build a source-derived multi-year month/leap oracle plan spanning ordinary and intercalary years. Keep exact-time geography and dynamic-precision gates separate and fail-closed."
   },
   "accounting": {
     "matrix_rows": 222,
@@ -203,6 +215,6 @@
   },
   "latest_calendar_addition_edge_semantics_batch": "BATCH-12-BAZI-MING-SANMING-DAYUN-CALENDAR-ADDITION-EDGE-SEMANTICS-OV",
   "latest_calendar_addition_edge_semantics_artifact": "docs/research/MING-SANMING-DAYUN-CALENDAR-ADDITION-EDGE-SEMANTICS-R1.json",
-  "latest_dynamic_precision_batch": "BATCH-12-BAZI-MING-DATONG-DYNAMIC-D1-PRECISION-GENERALIZATION-OW",
-  "latest_dynamic_precision_artifact": "docs/research/MING-DATONG-DYNAMIC-D1-PRECISION-GENERALIZATION-R1.json"
+  "latest_dynamic_precision_batch": "BATCH-12-BAZI-MING-DATONG-D1-PRECISION-PROFILE-SENSITIVITY-OX",
+  "latest_dynamic_precision_artifact": "docs/research/MING-DATONG-D1-PRECISION-PROFILE-SENSITIVITY-R1.json"
 }
