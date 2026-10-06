@@ -223,7 +223,7 @@ Fusion Chart Capability & Performance Acceptance R1 已正式收口。最终执�
 
 ## Fusion Chart Historical Provenance & School Audit R1
 
-最新规则审计闭环为 **Batch 12NF**：HPA-TIME-011 Approximate birth-time candidate sampling 确认为现代操作层。现有 start/center/end、24 小时内分钟网格、宽区间小时级以上步长与 2001 点上限全部保持不变；PROV-DEFECT-026 补齐 strategy/cap/step/max-gap provenance，PROV-DEFECT-027 则明确 `RESOLVED_RANGE_SINGLE_CLASSIFICATION` 只表示“所有已采样点同类”，不是连续区间的数学穷举证明。非零不确定区间统一标记 `SAMPLED_POINTS_ONLY` / `continuous_interval_exhaustive=false`。Matrix 220 项、已审 210 项、缺失候选 10；来源缺陷 27/27，算法缺陷/重开/候选折叠 0。下一门 12NG 为 HPA-DAYUN-006 Wenzhen China Dayun compatibility realization。
+最新规则审计闭环为 **Batch 12OU**：HPA-DAYUN-CAL-002 的明大统历可执行适配器剩余问题已拆成 11 个机器可审计 gate，其中 4 个为 source-scoped 已闭合、5 个仍直接阻塞通用适配器、2 个为依赖阻塞。D1 合朔方法、子正/百刻内部坐标、1569 表生成阶段精度与绑定的 1578 月序/大小月物理校验继续有效；气朔地理参考、动态 D1 精度、无效目标日期、闰月同名月份身份/遍历及多年闰月泛化继续 fail-closed。Matrix 222/222，当前 MISSING_FROM_PRODUCT=4，provenance defect=45/45 repaired，historical candidate extensions=14，registries/runtime resolvers=5/5，算法缺陷/重开/候选折叠均为 0。下一门 12OV 聚焦《三命通会》古典交运 calendar-addition 的无效日期与闰月身份语义；不得用 clamp/roll、现代中国历或 Gregorian anniversary 代填历史空白。
 
 ```text
 FUSION_CHART_HISTORICAL_PROVENANCE_AUDIT_R1=IN_PROGRESS

@@ -1,0 +1,180 @@
+{
+  "schema": "MING-DATONG-EXECUTABLE-ADAPTER-BLOCKER-DECOMPOSITION-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-BAZI-MING-DATONG-EXECUTABLE-ADAPTER-BLOCKER-DECOMPOSITION-OU",
+  "rule_id": "HPA-DAYUN-CAL-002",
+  "status": "DECOMPOSED_RUNTIME_STILL_FAIL_CLOSED",
+  "runtime_selection_authorized": false,
+  "production_default_changed": false,
+  "algorithm_reopen_authorized": false,
+  "candidate_collapse_authorized": false,
+  "purpose": "Turn the remaining Ming Datong historical-calendar adapter uncertainty into independent, testable certification gates without treating partial source closure as executable calendar authority.",
+  "source_scope": [
+    "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-DAYUN-CALENDAR-REALIZATION-B.md",
+    "docs/HISTORICAL-CHINESE-CALENDAR-ADAPTER-CONTRACT-R1.md",
+    "docs/research/MING-DATONG-1569-QISHUO-METHOD-RESEARCH-R1.json",
+    "docs/research/MING-DATONG-1569-TIME-COORDINATE-R1.json",
+    "docs/research/MING-DATONG-QISHUO-GEOGRAPHIC-REFERENCE-RESEARCH-R1.md",
+    "docs/research/MING-DATONG-QISHUO-GEOGRAPHIC-CRITICAL-CASES-R1.json",
+    "docs/research/MING-DATONG-1569-FIXED-POINT-PRECISION-AUDIT-R1.json",
+    "docs/research/MING-DATONG-1578-D1-SOURCE-REPLAY-R1.json",
+    "docs/research/MING-DATONG-1578-NCL-06313-PHYSICAL-ALMANAC-COLLATION-R1.json"
+  ],
+  "gate_status_vocabulary": {
+    "CLOSED_SOURCE_SCOPED": "The named source-scoped requirement is directly closed, but closure does not automatically generalize to another stage, year, edition, geography or runtime.",
+    "OPEN_BLOCKING_GENERAL_ADAPTER": "The requirement is independently unresolved and blocks certification of a general executable Ming Datong adapter.",
+    "DEPENDENCY_BLOCKED": "The requirement cannot be certified before its listed historical-calendar dependencies close."
+  },
+  "gates": [
+    {
+      "gate_id": "MD-G01-D1-CONJUNCTION-METHOD",
+      "domain": "MONTH_START_GENERATION",
+      "status": "CLOSED_SOURCE_SCOPED",
+      "finding": "The corresponding lunar Chi/Ji Xingdu divisor (D1) is adjudicated as the Ming official production method; the Qing-compiled Dingxiandu (D2) is preserved as a later received-text variant, not an equal production candidate.",
+      "evidence": [
+        "1569 Zhou Xiang primary facsimile directly gives the D1 divisor mechanics.",
+        "Xing Yunlu's Ming Datong worked example independently uses the Chi/Ji Xingdu divisor.",
+        "Reported comparison of 56 printed conjunction-time entries across six surviving Ming official almanacs supports D1 over D2."
+      ],
+      "general_runtime_effect": "Necessary but not sufficient."
+    },
+    {
+      "gate_id": "MD-G02-INTERNAL-DAY-AND-CLOCK-COORDINATE",
+      "domain": "EVENT_TIME_COORDINATE",
+      "status": "CLOSED_SOURCE_SCOPED",
+      "finding": "The source-internal event coordinate is a 100-ke day counted from Zi-zheng; this is a calendrical-astronomy coordinate only.",
+      "firewalls": [
+        "DO_NOT_INFER_BAZI_DAY_BOUNDARY",
+        "DO_NOT_INFER_ZIWEI_DAY_BOUNDARY",
+        "DO_NOT_MAP_TO_UTC_OR_UTC_PLUS_8_WITHOUT_A_SEPARATE_HISTORICAL_GEOGRAPHIC_BRIDGE"
+      ],
+      "general_runtime_effect": "Closes the internal coordinate but not its geographic/meridian realization."
+    },
+    {
+      "gate_id": "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
+      "domain": "EVENT_TIME_GEOGRAPHY",
+      "status": "OPEN_BLOCKING_GENERAL_ADAPTER",
+      "finding": "Nanjing and Beijing/Dadu hypotheses remain unselected; primary and operational evidence supports historically mixed location-dependent modules but does not define the qishuo small-remainder meridian.",
+      "preserved_hypotheses": [
+        "INHERITED_SHOUSHI_DADU_ORIGIN_COORDINATE",
+        "MING_NANJING_OR_OFFICIAL_TONGGUI_COORDINATE",
+        "MODULE_SPECIFIC_MIXED_GEOGRAPHY"
+      ],
+      "diagnostics": [
+        "1462 demonstrates that a physical same-year almanac can override a reign-record/later-table consensus.",
+        "1495 cannot be repaired by a simple Beijing-Nanjing longitude shift.",
+        "1497 is boundary-sensitive but does not identify the historical meridian.",
+        "1581 physical almanac, reign record and D1 converge."
+      ],
+      "general_runtime_effect": "Required for general exact event-time/day realization, especially boundary-sensitive cases. It does not invalidate the already physically certified 1578 month-page chain."
+    },
+    {
+      "gate_id": "MD-G04-1569-TABLE-GENERATION-PRECISION",
+      "domain": "FIXED_POINT_TABLE_GENERATION",
+      "status": "CLOSED_SOURCE_SCOPED",
+      "finding": "The 1569 primary table-generation precision map is stage-scoped: day-rate floor, loss-gain shortcut truncation, line-speed ceiling with two central overrides, and reciprocal shortcut truncation.",
+      "firewall": "SINGLE_GLOBAL_ROUNDING_RULE_REJECTED",
+      "general_runtime_effect": "Closes table-generation stages only; it does not certify every dynamic interpolation/D1 intermediate."
+    },
+    {
+      "gate_id": "MD-G05-DYNAMIC-D1-PRECISION-GENERALIZATION",
+      "domain": "DYNAMIC_EVENT_COMPUTATION",
+      "status": "OPEN_BLOCKING_GENERAL_ADAPTER",
+      "finding": "The 1596 Datong worked example supplies one local dynamic precision control, but its widths/carries are not yet source-closed as a general rule across years and edge cases.",
+      "prohibited_shortcut": "DO_NOT_PROJECT_1596_LOCAL_PRINTED_PRECISION_AS_A_UNIVERSAL_DYNAMIC_RULE"
+    },
+    {
+      "gate_id": "MD-G06-1578-TARGET-YEAR-MONTH-STRUCTURE",
+      "domain": "TARGET_YEAR_ORACLE",
+      "status": "CLOSED_SOURCE_SCOPED",
+      "finding": "The source-derived D1 replay matches all twelve Wanli-6 month starts plus the Wanli-7 first-month anchor at day level, and the exact same-year Qintianjian physical pages close all 12 month identities/large-small labels with zero mismatch.",
+      "scope_limit": "TARGET_YEAR_AND_BOUND_ORACLE_ONLY_NOT_MULTI_YEAR_GENERALIZATION"
+    },
+    {
+      "gate_id": "MD-G07-INVALID-TARGET-DATE-POLICY",
+      "domain": "DAYUN_CALENDAR_ADDITION",
+      "status": "OPEN_BLOCKING_GENERAL_ADAPTER",
+      "finding": "The classical source family requires real lunisolar calendarization, but the current evidence does not source-close what to do when a target day number is invalid in a small month.",
+      "forbidden_fallbacks": [
+        "NO_SILENT_CLAMP_TO_LAST_DAY",
+        "NO_SILENT_ROLL_FORWARD",
+        "NO_SILENT_ROLL_BACKWARD",
+        "NO_GREGORIAN_INVALID_DATE_POLICY"
+      ]
+    },
+    {
+      "gate_id": "MD-G08-INTERCALARY-MONTH-IDENTITY-AND-TRAVERSAL",
+      "domain": "DAYUN_CALENDAR_ADDITION",
+      "status": "OPEN_BLOCKING_GENERAL_ADAPTER",
+      "finding": "The source explicitly requires leap-month correction, but exact semantics for duplicate regular/intercalary month identity, target selection and traversal across the intercalary insertion are not yet source-closed for executable realization.",
+      "forbidden_fallbacks": [
+        "NO_TREAT_LEAP_MONTH_AS_ORDINARY_NUMBERED_MONTH_WITHOUT_SOURCE_RULE",
+        "NO_DROP_INTERCALARY_IDENTITY",
+        "NO_MODERN_CALENDAR_LIBRARY_BEHAVIOR_AS_HISTORICAL_AUTHORITY"
+      ]
+    },
+    {
+      "gate_id": "MD-G09-MULTI-YEAR-LEAP-GENERALIZATION",
+      "domain": "CALENDAR_GENERATION",
+      "status": "OPEN_BLOCKING_GENERAL_ADAPTER",
+      "finding": "The 1578 chain is directly closed, but a general Ming Datong adapter must generate and verify month/leap structure across multiple years, including intercalary years and boundary-sensitive new moons.",
+      "dependency_note": "Requires source-faithful qishuo generation plus the geographic and dynamic-precision gates for general certification."
+    },
+    {
+      "gate_id": "MD-G10-TEN-YEAR-RECURRENCE-SAME-REGIME",
+      "domain": "DAYUN_RECURRENCE",
+      "status": "DEPENDENCY_BLOCKED",
+      "finding": "ADD_CALENDAR_YEARS exists only at the contract vocabulary layer. Historical Dayun recurrence must inherit the same certified regime and cannot switch silently to Gregorian anniversaries.",
+      "depends_on": [
+        "MD-G07-INVALID-TARGET-DATE-POLICY",
+        "MD-G08-INTERCALARY-MONTH-IDENTITY-AND-TRAVERSAL",
+        "MD-G09-MULTI-YEAR-LEAP-GENERALIZATION"
+      ]
+    },
+    {
+      "gate_id": "MD-G11-BAZI-RUNTIME-AND-PRODUCT-INTEGRATION",
+      "domain": "PRODUCT_INTEGRATION",
+      "status": "DEPENDENCY_BLOCKED",
+      "finding": "BaziTemporalEngine still does not import the historical-calendar adapter. No historical profile/API/Workbench selector is authorized before a source-scoped adapter is certified.",
+      "depends_on": [
+        "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
+        "MD-G05-DYNAMIC-D1-PRECISION-GENERALIZATION",
+        "MD-G07-INVALID-TARGET-DATE-POLICY",
+        "MD-G08-INTERCALARY-MONTH-IDENTITY-AND-TRAVERSAL",
+        "MD-G09-MULTI-YEAR-LEAP-GENERALIZATION",
+        "MD-G10-TEN-YEAR-RECURRENCE-SAME-REGIME"
+      ],
+      "current_required_behavior": "FailClosedHistoricalCalendarAdapter must continue returning UNRESOLVED_NO_CERTIFIED_HISTORICAL_CALENDAR_ADAPTER."
+    }
+  ],
+  "counts": {
+    "closed_source_scoped": 4,
+    "open_blocking_general_adapter": 5,
+    "dependency_blocked": 2,
+    "total_gates": 11
+  },
+  "decomposition_findings": [
+    "QISHUO_GEOGRAPHY_AND_DAYUN_CALENDAR_ADDITION_ARE_DISTINCT_RESEARCH_FRONTS_AND_CAN_BE_AUDITED_IN_PARALLEL.",
+    "THE_PHYSICALLY_CERTIFIED_1578_MONTH_PAGE_CHAIN_REMAINS_VALID_TARGET_YEAR_EVIDENCE_EVEN_THOUGH_GENERAL_QISHUO_GEOGRAPHY_IS_UNRESOLVED.",
+    "A_GENERAL_MULTI_YEAR_MONTH_GENERATOR_CANNOT_INHERIT_THE_1578_SUCCESS_WITHOUT_CLOSING_GEOGRAPHY_DYNAMIC_PRECISION_AND_LEAP_GENERALIZATION.",
+    "CALENDAR_ADDITION_MUST_FAIL_CLOSED_ON_INVALID_DAY_AND_INTERCALARY_MONTH_IDENTITY_UNTIL_SOURCE_RULES_ARE_BOUND.",
+    "RUNTIME_INTEGRATION_IS_A_DEPENDENT_ENGINEERING_STEP_NOT_A_SUBSTITUTE_FOR_HISTORICAL_CERTIFICATION."
+  ],
+  "next_research_priority": {
+    "batch": "12OV",
+    "focus": "Audit the Ming/Sanming classical calendar-addition edge semantics, especially invalid target day and regular-versus-intercalary month identity/traversal, against direct or near-primary source evidence. If those remain unclosed, record the non-certification explicitly and continue with dynamic D1 precision / multi-year leap generalization rather than inventing fallback behavior."
+  },
+  "accounting": {
+    "matrix_rows": 222,
+    "audited_rows": 222,
+    "current_missing_from_product_rows": 4,
+    "provenance_defects_confirmed": 45,
+    "provenance_defects_repaired": 45,
+    "historical_candidate_extensions": 14,
+    "historical_candidate_registries": 5,
+    "historical_candidate_runtime_resolvers": 5,
+    "chart_algorithm_defects": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0
+  }
+}
