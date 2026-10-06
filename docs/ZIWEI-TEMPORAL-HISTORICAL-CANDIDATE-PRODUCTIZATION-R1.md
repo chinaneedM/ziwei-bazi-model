@@ -7,7 +7,7 @@ Baseline historical decomposition remains Batch 08B. The Zhongzhou leap-month da
 - `HPA-ZTEMP-004` — 1581 《新刻纂集紫微斗数捷览》 day-anchored flow-hour candidate;
 - `HPA-ZTEMP-006` / `HPA-ZT-015` — modern Zhongzhou leap-month month/day geometry, source-scoped and unselected.
 
-This document records the current product contract. Historical evidence claims remain in the audit batches and research records.
+This document records productization only; it does not create a new historical batch.\n\nThis document records the current product contract. Historical evidence claims remain in the audit batches and research records.
 
 ## 1. Shared candidate registry
 

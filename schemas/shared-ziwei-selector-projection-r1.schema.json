@@ -859,7 +859,7 @@
         "auxiliary_candidate_sets": {
           "type": "array",
           "minItems": 1,
-          "maxItems": 2,
+          "maxItems": 4,
           "items": {
             "$ref": "#/$defs/temporalAuxiliaryCandidateSet"
           }
@@ -1072,7 +1072,9 @@
             "STAR.WENQU",
             "STAR.TIANKUI",
             "STAR.TIANYUE",
-            "STAR.TIANMA"
+            "STAR.TIANMA",
+            "STAR.YUEDE",
+            "STAR.TIANDE"
           ]
         },
         "display_name": {
@@ -1084,7 +1086,9 @@
             "文曲",
             "天魁",
             "天钺",
-            "天马"
+            "天马",
+            "月德",
+            "天德"
           ]
         },
         "target_address": {
@@ -1122,7 +1126,9 @@
             "S10-STEM-LUCUN-QINGYANG-TUOLUO-R1",
             "S10-STEM-FLOW-WENCHANG-WENQU-R1",
             "S10-STEM-FLOW-KUI-YUE-CANDIDATES-R1",
-            "S10-BRANCH-FLOW-TIANMA-CASE-CANDIDATES-R1"
+            "S10-BRANCH-FLOW-TIANMA-CASE-CANDIDATES-R1",
+            "RECEIVED-FULLBOOK-ANNUAL-YUEDE-CANDIDATE-R1",
+            "RECEIVED-FULLBOOK-ANNUAL-TIANDE-CANDIDATE-R1"
           ]
         },
         "generator_id": {
@@ -1130,7 +1136,9 @@
             "ZIWEI-TEMPORAL-LUCUN-YANG-TUO-V1",
             "ZIWEI-TEMPORAL-FLOW-WENCHANG-WENQU-V1",
             "ZIWEI-TEMPORAL-FLOW-KUI-YUE-CANDIDATES-V1",
-            "ZIWEI-TEMPORAL-FLOW-TIANMA-CASE-CANDIDATES-V1"
+            "ZIWEI-TEMPORAL-FLOW-TIANMA-CASE-CANDIDATES-V1",
+            "ZIWEI-ANNUAL-YUEDE-RECEIVED-FULLBOOK-CANDIDATE-V1",
+            "ZIWEI-ANNUAL-TIANDE-RECEIVED-FULLBOOK-CANDIDATE-V1"
           ]
         },
         "algorithm_version": {
@@ -1211,12 +1219,50 @@
                 }
               },
               "else": {
-                "properties": {
-                  "rule_id": {
-                    "const": "S10-STEM-FLOW-KUI-YUE-CANDIDATES-R1"
+                "if": {
+                  "properties": {
+                    "entity_id": {
+                      "const": "STAR.YUEDE"
+                    }
+                  }
+                },
+                "then": {
+                  "properties": {
+                    "rule_id": {
+                      "const": "RECEIVED-FULLBOOK-ANNUAL-YUEDE-CANDIDATE-R1"
+                    },
+                    "generator_id": {
+                      "const": "ZIWEI-ANNUAL-YUEDE-RECEIVED-FULLBOOK-CANDIDATE-V1"
+                    }
+                  }
+                },
+                "else": {
+                  "if": {
+                    "properties": {
+                      "entity_id": {
+                        "const": "STAR.TIANDE"
+                      }
+                    }
                   },
-                  "generator_id": {
-                    "const": "ZIWEI-TEMPORAL-FLOW-KUI-YUE-CANDIDATES-V1"
+                  "then": {
+                    "properties": {
+                      "rule_id": {
+                        "const": "RECEIVED-FULLBOOK-ANNUAL-TIANDE-CANDIDATE-R1"
+                      },
+                      "generator_id": {
+                        "const": "ZIWEI-ANNUAL-TIANDE-RECEIVED-FULLBOOK-CANDIDATE-V1"
+                      }
+                    }
+                  },
+                  "else": {
+                    "properties": {
+                      "rule_id": {
+                        "const": "S10-STEM-FLOW-KUI-YUE-CANDIDATES-R1"
+                      },
+                      "generator_id": {
+                        "const": "ZIWEI-TEMPORAL-FLOW-KUI-YUE-CANDIDATES-V1"
+                      }
+                    }
                   }
                 }
               }
@@ -1276,7 +1322,9 @@
             "S01-QS-STRICT-KUI-YUE-R1",
             "COMPAT-WENMO-KUI-YUE-R1",
             "S10-LIMIT-PALACE-BRANCH-TIANMA-CASE-R1",
-            "S10-ANNUAL-BRANCH-TIANMA-CASE-R1"
+            "S10-ANNUAL-BRANCH-TIANMA-CASE-R1",
+            "RECEIVED-FULLBOOK-ANNUAL-YUEDE-ZI-START-R1",
+            "RECEIVED-FULLBOOK-ANNUAL-TIANDE-YOU-START-R1"
           ]
         },
         "authority_status": {
@@ -1284,7 +1332,8 @@
             "CANONICAL_SOURCE_TABLE",
             "EXTERNAL_CASE_COMPATIBILITY",
             "CASE_METHOD_ONLY",
-            "S01_STRICT_PROJECT_CORPUS_METHOD"
+            "S01_STRICT_PROJECT_CORPUS_METHOD",
+            "RECEIVED_FULLBOOK_ANNUAL_SOURCE_SCOPED_METHOD"
           ]
         },
         "activations": {
@@ -1401,14 +1450,17 @@
             "enum": [
               "STAR.TIANKUI",
               "STAR.TIANYUE",
-              "STAR.TIANMA"
+              "STAR.TIANMA",
+              "STAR.YUEDE",
+              "STAR.TIANDE"
             ]
           }
         },
         "selection_status": {
           "enum": [
             "CANDIDATES_PRESERVED_NO_SELECTION",
-            "CASE_METHOD_CANDIDATE_PRESERVED_NO_SELECTION"
+            "CASE_METHOD_CANDIDATE_PRESERVED_NO_SELECTION",
+            "SOURCE_SCOPED_CANDIDATE_PRESERVED_NO_SELECTION"
           ]
         },
         "method_candidates": {

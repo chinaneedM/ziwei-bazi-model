@@ -237,6 +237,7 @@ class ZiweiTemporalHistoricalCandidateApiR1Tests(unittest.TestCase):
                 leap_lunar_year=2033,
                 leap_lunar_month=12,
                 leap_lunar_day=20,
+                previous_regular_month_day_count=30,
                 previous_month_temporal_year=2033,
                 previous_month_number=12,
                 previous_month_frame_id="MONTH:2033:12",

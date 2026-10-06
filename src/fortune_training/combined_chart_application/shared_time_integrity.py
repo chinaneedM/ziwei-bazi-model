@@ -517,11 +517,31 @@ def validate_shared_ziwei_selector_projection(
                     following_annual,
                     following_month_number,
                 )
+                leap_first_gregorian_date = (
+                    lunar.source_gregorian_date - timedelta(days=lunar.day - 1)
+                )
+                previous_regular_month_last = (
+                    ZiweiCalendarResolver().calendar.from_gregorian_date(
+                        leap_first_gregorian_date - timedelta(days=1)
+                    )
+                )
+                if (
+                    previous_regular_month_last.is_leap_month
+                    or previous_regular_month_last.year != lunar.year
+                    or previous_regular_month_last.month != lunar.month
+                    or previous_regular_month_last.day not in (29, 30)
+                ):
+                    diagnostics.append(
+                        "LEAP_PREVIOUS_REGULAR_MONTH_BOUNDARY_INVALID:"
+                        f"{index}:{lunar.year}-{lunar.month}-{lunar.day}"
+                    )
+                    continue
                 leap_month_method_candidates = (
                     resolve_zhongzhou_leap_month_half_split_candidate(
                         leap_lunar_year=lunar.year,
                         leap_lunar_month=lunar.month,
                         leap_lunar_day=lunar.day,
+                        previous_regular_month_day_count=previous_regular_month_last.day,
                         previous_month_temporal_year=annual.absolute_year,
                         previous_month_number=lunar.month,
                         previous_month_frame_id=previous_month.frame_id,
