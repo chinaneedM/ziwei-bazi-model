@@ -2154,3 +2154,11 @@ HPA-DAYUN-CAL-002 remains MISSING_FROM_PRODUCT. Earlier 《元史》 and 《千�
 No direct text or site-bearing quotation was recovered. MD-G03 remains open; runtime remains fail-closed.
 
 Research: docs/research/GUOSHOUJING-LOST-WORKS-BIBLIOGRAPHIC-SURVIVAL-CONTROL-R1.json.
+
+## Batch 12PH — Guo Shoujing lost-work quotation-chain audit
+
+HPA-DAYUN-CAL-002 remains MISSING_FROM_PRODUCT. Later Ming/Qing sources converge on a Zhiyuan-31 response-constant revision narrative, but no reviewed passage explicitly cites 郭守敬《修改源流》 or 郭氏《古今交食考》 as its source and no site/meridian wording is recovered.
+
+The project now forbids promoting narrative similarity into direct lost-work quotation. The generic lost-work search route is parked pending a materially new witness. MD-G03 remains open and runtime remains fail-closed.
+
+Research: docs/research/GUOSHOUJING-LOST-WORK-QUOTATION-CHAIN-AUDIT-R1.json.

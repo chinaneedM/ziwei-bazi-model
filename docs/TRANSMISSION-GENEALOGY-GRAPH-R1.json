@@ -3999,6 +3999,36 @@
         "docs/research/GUOSHOUJING-LOST-WORKS-BIBLIOGRAPHIC-SURVIVAL-CONTROL-R1.json"
       ],
       "first_explicit_graph_batch": "BATCH-12-BAZI-GUOSHOUJING-LOST-WORKS-BIBLIOGRAPHIC-SURVIVAL-CONTROL-PG"
+    },
+    {
+      "node_id": "PASSAGE-XINGYUNLU-V1-ZHIYUAN31-THREE-YING-REVISION",
+      "node_type": "PASSAGE",
+      "label": "邢雲路《古今律曆考》卷一至元三十一年三應再改敘事",
+      "system_scope": "LATE_MING_SHOUSHI_REVISION_HISTORIOGRAPHY",
+      "date": "LATE_MING",
+      "locator": "EXT-WIKISOURCE-XINGYUNLU-V1-SHOUSHI-YING-REVISION",
+      "direct_lost_work_citation": false,
+      "site_wording": false,
+      "evidence": [
+        "EXT-WIKISOURCE-XINGYUNLU-V1-SHOUSHI-YING-REVISION",
+        "docs/research/GUOSHOUJING-LOST-WORK-QUOTATION-CHAIN-AUDIT-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-BAZI-GUOSHOUJING-LOST-WORK-QUOTATION-CHAIN-AUDIT-PH"
+    },
+    {
+      "node_id": "PASSAGE-MINGSHI-V35-ZHIYUAN31-THREE-YING-REVISION",
+      "node_type": "PASSAGE",
+      "label": "《明史》卷35至元三十一年五月望月食差二刻與諸應損益敘事",
+      "system_scope": "QING_RECEIVED_MING_CALENDAR_HISTORIOGRAPHY",
+      "date": "QING_COMPILED",
+      "locator": "EXT-WIKISOURCE-MINGSHI-V35-SHOUSHI-CONTINUED-YING-REVISION",
+      "direct_lost_work_citation": false,
+      "site_wording": false,
+      "evidence": [
+        "EXT-WIKISOURCE-MINGSHI-V35-SHOUSHI-CONTINUED-YING-REVISION",
+        "docs/research/GUOSHOUJING-LOST-WORK-QUOTATION-CHAIN-AUDIT-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-BAZI-GUOSHOUJING-LOST-WORK-QUOTATION-CHAIN-AUDIT-PH"
     }
   ],
   "edges": [
@@ -7790,6 +7820,30 @@
         "docs/research/GUOSHOUJING-LOST-WORKS-BIBLIOGRAPHIC-SURVIVAL-CONTROL-R1.json"
       ],
       "adjudication_batch": "BATCH-12-BAZI-GUOSHOUJING-LOST-WORKS-BIBLIOGRAPHIC-SURVIVAL-CONTROL-PG"
+    },
+    {
+      "from": "PASSAGE-XINGYUNLU-V1-ZHIYUAN31-THREE-YING-REVISION",
+      "relation": "EXPLICITLY_CITES",
+      "to": "TEXT-WORK-GUOSHOUJING-XIUGAI-YUANLIU",
+      "status": "DISPROVED",
+      "reason": "The reviewed Xing Yunlu passage narrates the Zhiyuan-31 response-constant revision but contains no explicit citation formula binding that narrative to Guo Shoujing's 修改源流.",
+      "evidence": [
+        "EXT-WIKISOURCE-XINGYUNLU-V1-SHOUSHI-YING-REVISION",
+        "docs/research/GUOSHOUJING-LOST-WORK-QUOTATION-CHAIN-AUDIT-R1.json"
+      ],
+      "adjudication_batch": "BATCH-12-BAZI-GUOSHOUJING-LOST-WORK-QUOTATION-CHAIN-AUDIT-PH"
+    },
+    {
+      "from": "PASSAGE-MINGSHI-V35-ZHIYUAN31-THREE-YING-REVISION",
+      "relation": "EXPLICITLY_CITES",
+      "to": "TEXT-WORK-GUOSHOUJING-GUJIN-JIAOSHIKAO",
+      "status": "DISPROVED",
+      "reason": "The reviewed Mingshi revision passage supplies the two-ke eclipse narrative and revised response constants but does not explicitly cite Guo Shoujing's 古今交食考 as its source.",
+      "evidence": [
+        "EXT-WIKISOURCE-MINGSHI-V35-SHOUSHI-CONTINUED-YING-REVISION",
+        "docs/research/GUOSHOUJING-LOST-WORK-QUOTATION-CHAIN-AUDIT-R1.json"
+      ],
+      "adjudication_batch": "BATCH-12-BAZI-GUOSHOUJING-LOST-WORK-QUOTATION-CHAIN-AUDIT-PH"
     }
   ],
   "backfill": {

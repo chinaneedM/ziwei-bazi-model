@@ -66,7 +66,8 @@
         "1497 is boundary-sensitive but does not identify the historical meridian.",
         "1581 physical almanac, reign record and D1 converge.",
         "1281 epoch inheritance cannot identify qishuo geography: Yuan received text separates 立元 from revisable 諸應, Tonggui/GK12437 carry revised response constants, and Goryeosa preserves a mixed response-constant recension under the same epoch.",
-        "12PF: Yuan official records prove multi-site observation infrastructure (Dadu plus Shangdu and other sites). The later 1294 eclipse/two-ke revision trigger names no site; Dadu-only default is rejected but neither Dadu nor Shangdu is selected."
+        "12PF: Yuan official records prove multi-site observation infrastructure (Dadu plus Shangdu and other sites). The later 1294 eclipse/two-ke revision trigger names no site; Dadu-only default is rejected but neither Dadu nor Shangdu is selected.",
+        "12PH: Later narratives converge on the 1294 response-constant revision, but no reviewed passage explicitly cites Guo Shoujing's 修改源流 or 古今交食考 and no site word is recovered. Narrative convergence cannot be promoted to lost-work quotation."
       ],
       "general_runtime_effect": "Required for general exact event-time/day realization, especially boundary-sensitive cases. It does not invalidate the already physically certified 1578 month-page chain.",
       "batch_12pd_refinement": {
@@ -126,6 +127,17 @@
         "direct_guo_work_text_located": false,
         "site_evidence_increment": 0,
         "exact_qishuo_reference": "UNRESOLVED",
+        "status_after_batch": "OPEN_BLOCKING_GENERAL_ADAPTER",
+        "runtime_authorized": false
+      },
+      "batch_12ph_refinement": {
+        "batch_id": "BATCH-12-BAZI-GUOSHOUJING-LOST-WORK-QUOTATION-CHAIN-AUDIT-PH",
+        "research_artifact": "docs/research/GUOSHOUJING-LOST-WORK-QUOTATION-CHAIN-AUDIT-R1.json",
+        "direct_lost_work_quote_recovered": false,
+        "explicit_source_binding_recovered": false,
+        "site_or_meridian_wording_recovered": false,
+        "later_revision_narrative_convergence": "ATTESTED",
+        "generic_lost_work_search_route": "PARKED_UNLESS_MATERIALLY_NEW_WITNESS",
         "status_after_batch": "OPEN_BLOCKING_GENERAL_ADAPTER",
         "runtime_authorized": false
       }
@@ -426,8 +438,8 @@
       "focus": "SHOUSHI_DATONG_TONGGUI_GK12437_ZHOUXIANG_QISHUO_EPOCH_CONSTANT_METHOD_NAMED_PLACE_BINDING"
     }
   },
-  "latest_qishuo_geography_batch": "BATCH-12-BAZI-GUOSHOUJING-LOST-WORKS-BIBLIOGRAPHIC-SURVIVAL-CONTROL-PG",
-  "latest_qishuo_geography_artifact": "docs/research/GUOSHOUJING-LOST-WORKS-BIBLIOGRAPHIC-SURVIVAL-CONTROL-R1.json",
+  "latest_qishuo_geography_batch": "BATCH-12-BAZI-GUOSHOUJING-LOST-WORK-QUOTATION-CHAIN-AUDIT-PH",
+  "latest_qishuo_geography_artifact": "docs/research/GUOSHOUJING-LOST-WORK-QUOTATION-CHAIN-AUDIT-R1.json",
   "batch_12pe_forward_refinement": {
     "status": "G03_EPOCH_TO_MERIDIAN_LINEAGE_SHORTCUT_REJECTED_ACTUAL_REFERENCE_REMAINS_OPEN",
     "historical_12ou_top_level_counts_preserved": true,
@@ -489,6 +501,27 @@
       "batch": "12PH",
       "gate_id": "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
       "focus": "SOURCE_BOUND_QUOTATION_HUNT_FOR_GUO_XIUGAI_YUANLIU_GUJIN_JIAOSHIKAO_1294_REVISION_SITE"
+    }
+  },
+  "batch_12ph_forward_refinement": {
+    "status": "G03_LOST_WORK_QUOTATION_CHAIN_NOT_RECOVERED_ROUTE_PARKED",
+    "historical_12ou_top_level_counts_preserved": true,
+    "current_live_gate_accounting_after_12ph": {
+      "closed_source_scoped": 5,
+      "open_blocking_general_adapter": 4,
+      "dependency_blocked": 2,
+      "total_gates": 11
+    },
+    "remaining_open_independent_gates": [
+      "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
+      "MD-G05-DYNAMIC-D1-INTERMEDIATE-PRECISION",
+      "MD-G07-CALENDAR-ADDITION-INVALID-TARGET-DATE",
+      "MD-G08-CALENDAR-ADDITION-INTERCALARY-IDENTITY-TRAVERSAL"
+    ],
+    "next_research_priority": {
+      "batch": "12PI",
+      "gate_id": "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
+      "focus": "SOURCE_BOUND_OFFICIAL_ALMANAC_QISHUO_CLOCK_GEOGRAPHIC_HYPOTHESIS_DIAGNOSTIC_REPLAY"
     }
   }
 }

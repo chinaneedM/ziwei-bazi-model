@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.428.0",
+  "schema_version": "1.429.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -508,9 +508,10 @@
       "BATCH-12-BAZI-MING-DATONG-GK12437-QISHUO-LOCALITY-OPERATOR-AUDIT-PD",
       "BATCH-12-BAZI-MING-DATONG-SHOUSHI-QISHUO-EPOCH-RESPONSE-CONSTANT-LINEAGE-PE",
       "BATCH-12-BAZI-MING-DATONG-1294-REVISED-YING-OBSERVATION-SITE-PROVENANCE-PF",
-      "BATCH-12-BAZI-GUOSHOUJING-LOST-WORKS-BIBLIOGRAPHIC-SURVIVAL-CONTROL-PG"
+      "BATCH-12-BAZI-GUOSHOUJING-LOST-WORKS-BIBLIOGRAPHIC-SURVIVAL-CONTROL-PG",
+      "BATCH-12-BAZI-GUOSHOUJING-LOST-WORK-QUOTATION-CHAIN-AUDIT-PH"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-GUOSHOUJING-LOST-WORKS-BIBLIOGRAPHIC-SURVIVAL-CONTROL-PG.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-GUOSHOUJING-LOST-WORK-QUOTATION-CHAIN-AUDIT-PH.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -2503,7 +2504,13 @@
       "《元史》並藏之官 is treated as historical custody only, not present-survival proof. No direct public text of Guo's 修改源流 or 古今交食考 was located on the reviewed horizon.",
       "No 1294 observation-site or qishuo-geography evidence increment results from 12PG. MD-G03 remains OPEN_BLOCKING_GENERAL_ADAPTER; HPA-DAYUN-CAL-002 remains MISSING_FROM_PRODUCT.",
       "Live accounting remains 5 CLOSED_SOURCE_SCOPED / 4 OPEN_BLOCKING_GENERAL_ADAPTER / 2 DEPENDENCY_BLOCKED; provenance defects remain 45/45 because no pre-existing core seven-juan/homonym misbinding was found.",
-      "12PH: search explicit quotations/paraphrases traceable to Guo's lost works, especially 至元三十一年五月望、差天二刻、三應改定 and location/clock wording."
+      "12PH: search explicit quotations/paraphrases traceable to Guo's lost works, especially 至元三十一年五月望、差天二刻、三應改定 and location/clock wording.",
+      "Batch 12PH completed: explicit quotation-marker searches found no source-bound quotation from 郭守敬《修改源流》 or 郭氏《古今交食考》 for the Zhiyuan-31 three-response revision.",
+      "邢雲路《古今律曆考》, 《明史稿》 and 《明史》 preserve convergent revision narratives, but their reviewed passages do not explicitly cite either lost work and do not recover an observation-site/meridian word.",
+      "12PH installs the firewall CONTENT_SIMILARITY_OR_NARRATIVE_CONVERGENCE != DIRECT_LOST_WORK_QUOTATION; no later compiler narrative may be promoted to recovered Guo text without explicit source binding.",
+      "The repeated generic lost-work title/phrase route is parked unless a materially new witness appears. Evidence increment for the 1294 site is zero; MD-G03 remains OPEN_BLOCKING_GENERAL_ADAPTER.",
+      "Live Ming adapter ledger after 12PH remains 5 CLOSED_SOURCE_SCOPED / 4 OPEN_BLOCKING_GENERAL_ADAPTER / 2 DEPENDENCY_BLOCKED. HPA-DAYUN-CAL-002 remains MISSING_FROM_PRODUCT and runtime fail-closed.",
+      "12PI: move to source-bound official Ming almanac conjunction clock labels and run a research-only geographic-hypothesis diagnostic, prioritizing events close to 子正."
     ],
     "historical_candidate_extension_count": 14,
     "current_missing_from_product_row_count": 4

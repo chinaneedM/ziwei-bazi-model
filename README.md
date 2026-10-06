@@ -656,3 +656,15 @@ No direct public text of Guo's two works was recovered on the reviewed horizon, 
 Next: 12PH — hunt source-bound quotations/paraphrases explicitly traceable to Guo's lost works, especially 至元三十一年五月望 / 差天二刻 / 三應改定 and site/clock wording.
 
 Batch document: docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-GUOSHOUJING-LOST-WORKS-BIBLIOGRAPHIC-SURVIVAL-CONTROL-PG.md. Research record: docs/research/GUOSHOUJING-LOST-WORKS-BIBLIOGRAPHIC-SURVIVAL-CONTROL-R1.json.
+
+## Progress — Batch 12PH
+
+Explicit source-marker searching did not recover a quotation from 郭守敬《修改源流》 or 郭氏《古今交食考》 for the Zhiyuan-31 three-response revision. 邢雲路, 《明史稿》 and 《明史》 preserve convergent later narratives, but the reviewed passages do not bind that narrative to either lost work and do not add an observation-site word.
+
+Therefore CONTENT_SIMILARITY != LOST_WORK_QUOTATION is now an explicit provenance firewall. The repeated generic lost-work title route is parked unless materially new evidence appears.
+
+MD-G03 remains OPEN_BLOCKING_GENERAL_ADAPTER; live accounting stays 5 closed / 4 open / 2 dependency-blocked; HPA-DAYUN-CAL-002 remains MISSING_FROM_PRODUCT and runtime remains fail-closed.
+
+Next: 12PI — research-only diagnostic replay of source-bound official Ming almanac conjunction clock labels under inherited/no-shift, Dadu-Beijing and Nanjing geographic hypotheses.
+
+Batch document: docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-GUOSHOUJING-LOST-WORK-QUOTATION-CHAIN-AUDIT-PH.md. Research record: docs/research/GUOSHOUJING-LOST-WORK-QUOTATION-CHAIN-AUDIT-R1.json.
