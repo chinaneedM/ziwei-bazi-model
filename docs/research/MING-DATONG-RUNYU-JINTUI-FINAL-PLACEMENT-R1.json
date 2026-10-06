@@ -1,0 +1,95 @@
+{
+  "schema": "MING-DATONG-RUNYU-JINTUI-FINAL-PLACEMENT-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-BAZI-MING-DATONG-RUNYU-JINTUI-FINAL-PLACEMENT-PC",
+  "rule_id": "HPA-DAYUN-CAL-002",
+  "gate_id": "MD-G09-MULTI-YEAR-LEAP-GENERALIZATION",
+  "status": "Q2_JINTUI_BOUNDARY_SOURCE_CONTROLLED_NO_ZHONGQI_FINAL_OWNER_GENERALIZATION_CLOSED_G09_SOURCE_SCOPED_RUNTIME_STILL_FAIL_CLOSED",
+  "runtime_selection_authorized": false,
+  "production_default_changed": false,
+  "algorithm_reopen_authorized": false,
+  "candidate_collapse_authorized": false,
+  "finding": {
+    "runyu_threshold_labels_1368_1644": 102,
+    "q2_boundary_labels": [
+      1374,
+      1393,
+      1412,
+      1431,
+      1450,
+      1469,
+      1488,
+      1507,
+      1526,
+      1545
+    ],
+    "retreat_to_preceding": [
+      1374,
+      1393,
+      1412,
+      1431,
+      1526
+    ],
+    "stay_in_label_year": [
+      1450,
+      1469,
+      1488,
+      1507,
+      1545
+    ],
+    "interpretation": "The q=2 quotient is genuinely non-decisive: five cases retreat and five stay. This is exactly the boundary described by 閏有進退; final ownership must follow 定朔無中氣.",
+    "expected_q2_profile_controls": "40_OF_40_MATCH",
+    "expected_full_owner_ambiguity_count": 0,
+    "expected_profile_structural_divergence_year_count": 0,
+    "expected_final_owner_existence_mismatch_count_1368_1643": 0
+  },
+  "adjudication": {
+    "provisional_quotient_only_owner_mapping": "REJECTED_AT_Q2_BOUNDARY",
+    "final_no_zhongqi_owner_mapping": "CLOSED_SOURCE_SCOPED_FOR_MING_1368_1644_RESEARCH_GENERATOR",
+    "g09_status_after_batch": "CLOSED_SOURCE_SCOPED",
+    "general_ming_datong_runtime_authorized": false,
+    "reason_runtime_stays_closed": "G03 qishuo geography, G05 dynamic D1 intermediate precision, G07 invalid target-date policy and G08 intercalary identity/traversal remain open; G10/G11 remain dependency-blocked."
+  },
+  "authority_layers": [
+    {
+      "layer_id": "PRIMARY_1569_RUNYU_EXISTENCE",
+      "authority": "DIRECT_MING_FACSIMILE",
+      "scope": "Existence threshold / recurrence only."
+    },
+    {
+      "layer_id": "RECEIVED_JINTUI_FINAL_RULE",
+      "authority": "QING_COMPILED_RECEIVED_DATONG_RULE",
+      "scope": "Provisional quotient plus final Ding-shuo/no-Zhongqi placement; wording not back-projected as 1569 glyph authority."
+    },
+    {
+      "layer_id": "MING_CHRONOLOGY_BOUNDARY_CONTROLS",
+      "authority": "MING_VERITABLE_RECORD_OR_MING_CHRONOLOGY_CONTROLS",
+      "scope": "Ten q=2 boundary outcomes, five retreat and five stay."
+    }
+  ],
+  "epistemic_firewalls": [
+    "NO_Q2_UNIVERSAL_PREYEAR_SHORTCUT",
+    "NO_Q2_UNIVERSAL_CURRENT_YEAR_SHORTCUT",
+    "NO_RUNTIME_ACTIVATION",
+    "NO_PRODUCTION_DEFAULT_CHANGE",
+    "NO_RETROACTIVE_REWRITE_OF_12OY_12OZ_12PA_12PB_SNAPSHOTS"
+  ],
+  "accounting": {
+    "matrix_rows": 222,
+    "audited_rows": 222,
+    "current_missing_from_product_rows": 4,
+    "provenance_defects_confirmed": 45,
+    "provenance_defects_repaired": 45,
+    "historical_candidate_extensions": 14,
+    "historical_candidate_registries": 5,
+    "historical_candidate_runtime_resolvers": 5,
+    "chart_algorithm_defects": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0
+  },
+  "next_research_priority": {
+    "batch": "12PD",
+    "gate_id": "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
+    "focus": "Formalize the already re-acquired complete Kyujanggak GK12437_00 physical qishuo-method block and its scoped negative for explicit locality/lichai operators; do not infer a hidden meridian from Nanjing sunrise/daylength modules."
+  }
+}

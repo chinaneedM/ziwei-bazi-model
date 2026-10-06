@@ -938,9 +938,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-BAZI-MING-DATONG-MING-ERA-BOUNDARY-CENSUS-OZ",
     "BATCH-12-BAZI-MING-DATONG-PREYEAR-LEAP-CIVIL-YEAR-BINDING-PA",
     "BATCH-12-BAZI-MING-DATONG-PREYEAR-LEAP-CIVIL-YEAR-GLOBAL-VALIDATION-PB",
+    "BATCH-12-BAZI-MING-DATONG-RUNYU-JINTUI-FINAL-PLACEMENT-PC",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-PREYEAR-LEAP-CIVIL-YEAR-GLOBAL-VALIDATION-PB.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-RUNYU-JINTUI-FINAL-PLACEMENT-PC.md"
 
 
 def fail(message: str) -> None:
@@ -17073,6 +17074,28 @@ def main() -> int:
     try: schema12pa=tuple(int(part) for part in state.get("schema_version","0.0.0").split("."))
     except ValueError: fail("Batch 12PA continuity schema version is not numeric")
     if schema12pa < (1,421,0): fail("Batch 12PA continuity schema version regressed below 1.421.0")
+
+    # Batch 12PC forward-only Runyu jintui closure.
+    pc_id = "BATCH-12-BAZI-MING-DATONG-RUNYU-JINTUI-FINAL-PLACEMENT-PC"
+    pc_path = ROOT / "docs/research/MING-DATONG-RUNYU-JINTUI-FINAL-PLACEMENT-R1.json"
+    pc_oracle_path = ROOT / "docs/research/MING-DATONG-RUNYU-JINTUI-BOUNDARY-ORACLE-R1.json"
+    if state_batches[-1] != pc_id: fail("Batch 12PC is not latest completed batch")
+    if not pc_path.exists() or not pc_oracle_path.exists(): fail("Batch 12PC research/oracle artifact missing")
+    pc = load_json(pc_path); pc_oracle = load_json(pc_oracle_path)
+    if pc.get("batch_id") != pc_id or pc.get("gate_id") != "MD-G09-MULTI-YEAR-LEAP-GENERALIZATION": fail("Batch 12PC identity drift")
+    if len(pc_oracle.get("controls",())) != 10: fail("Batch 12PC q2 oracle count drift")
+    if pc.get("finding",{}).get("expected_q2_profile_controls") != "40_OF_40_MATCH": fail("Batch 12PC profile-control drift")
+    g09_pc={row.get("gate_id"):row for row in ou.get("gates",())}.get("MD-G09-MULTI-YEAR-LEAP-GENERALIZATION",{})
+    r12pc=g09_pc.get("batch_12pc_refinement",{})
+    if g09_pc.get("status") != "OPEN_BLOCKING_GENERAL_ADAPTER" or r12pc.get("status_after_batch") != "CLOSED_SOURCE_SCOPED" or r12pc.get("q2_profile_controls") != "40_OF_40_MATCH" or r12pc.get("runtime_authorized") is not False: fail("Batch 12PC G09 forward refinement drift")
+    live12pc=ou.get("batch_12pc_forward_refinement",{}).get("current_live_gate_accounting_after_12pc",{})
+    if live12pc != {"closed_source_scoped":5,"open_blocking_general_adapter":4,"dependency_blocked":2,"total_gates":11}: fail("Batch 12PC live gate accounting drift")
+    rows_pc={row.get("rule_id"):row for row in matrix.get("rows",())}; row_pc=rows_pc.get("HPA-DAYUN-CAL-002"); bpc=(row_pc or {}).get("batch_12pc_runyu_jintui_final_placement",{})
+    if not row_pc or row_pc.get("audit_status") != "MISSING_FROM_PRODUCT" or bpc.get("g09_status") != "CLOSED_SOURCE_SCOPED" or bpc.get("runtime_authorized") is not False: fail("Batch 12PC Matrix drift")
+    if state.get("historical_audit",{}).get("latest_batch_doc") != "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-RUNYU-JINTUI-FINAL-PLACEMENT-PC.md": fail("Batch 12PC latest batch doc drift")
+    try: schema12pc=tuple(int(part) for part in state.get("schema_version","0.0.0").split("."))
+    except ValueError: fail("Batch 12PC continuity schema version is not numeric")
+    if schema12pc < (1,424,0): fail("Batch 12PC continuity schema version regressed below 1.424.0")
 
     contract = state.get("continuity_contract", {})
     if contract.get("ci_gate_required") is not True:

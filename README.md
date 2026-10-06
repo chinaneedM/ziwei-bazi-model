@@ -592,3 +592,16 @@ No production algorithm/default/candidate selection changed; algorithm reopens/c
 Next: **12PC — MD-G09 Runyu 進退 / 定朔無中氣 final-placement boundary**. The G03 physical qishuo evidence already acquired from the complete Kyujanggak `GK12437_00` witness is retained for the following batch.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-PREYEAR-LEAP-CIVIL-YEAR-GLOBAL-VALIDATION-PB.md`. Research record: `docs/research/MING-DATONG-PREYEAR-LEAP-CIVIL-YEAR-GLOBAL-VALIDATION-R1.json`.
+
+
+## Progress — Batch 12PC
+
+The final Runyu `進退` boundary is now source-scoped closed. All ten q=2 threshold labels are historically controlled: five retreat to the preceding civil year and five remain in the threshold-label year. The split disproves any universal q=2 ownership shortcut and confirms that the final owner must follow the old-Datong `定朔無中氣` structure.
+
+The 12PC harness checks **40/40 q=2 profile-controls**, **102 Runyu threshold labels**, unique final owners, zero 1368–1644 profile-structural divergence and zero final-owner/existence mismatch through 1368–1643. `MD-G09-MULTI-YEAR-LEAP-GENERALIZATION` therefore closes source-scoped forward-only.
+
+No historical runtime is activated. G03/G05/G07/G08 remain open and G10/G11 dependency-blocked; `HPA-DAYUN-CAL-002` remains `MISSING_FROM_PRODUCT`. No production algorithm/default/candidate selection changed.
+
+Next: **12PD — MD-G03 qishuo geographic reference**, using the already re-acquired complete Kyujanggak `GK12437_00` physical method block.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-RUNYU-JINTUI-FINAL-PLACEMENT-PC.md`. Research record: `docs/research/MING-DATONG-RUNYU-JINTUI-FINAL-PLACEMENT-R1.json`.

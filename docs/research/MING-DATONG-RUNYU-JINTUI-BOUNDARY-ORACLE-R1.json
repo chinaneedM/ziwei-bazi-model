@@ -1,0 +1,112 @@
+{
+  "schema": "MING-DATONG-RUNYU-JINTUI-BOUNDARY-ORACLE-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-BAZI-MING-DATONG-RUNYU-JINTUI-FINAL-PLACEMENT-PC",
+  "rule_id": "HPA-DAYUN-CAL-002",
+  "gate_id": "MD-G09-MULTI-YEAR-LEAP-GENERALIZATION",
+  "purpose": "Adjudicate every q=2 Runyu placement boundary where the received provisional quotient cannot alone decide whether the intercalary month retreats to the preceding civil year or stays in the threshold-label year.",
+  "received_final_rule": {
+    "source_id": "EXT-WIKISOURCE-MINGSHI-V35-DATONG-PREYEAR-LEAP",
+    "normalized": "閏有進退，仍以定朔無中氣為定",
+    "interpretation": "The quotient is provisional placement guidance; final leap-month ownership follows the Ding-shuo / no-Zhongqi month."
+  },
+  "controls": [
+    {
+      "threshold_label_year": 1374,
+      "expected_owner_civil_year": 1373,
+      "regnal_year": "洪武六年",
+      "expected_leap_month": 11,
+      "disposition": "RETREAT_TO_PRECEDING_CIVIL_YEAR",
+      "source_id": "EXT-WIKISOURCE-MINGSHI-V2-HONGWU6-LATE-LEAP",
+      "observed": "洪武六年十一月冬至後閏月，後接洪武七年正月"
+    },
+    {
+      "threshold_label_year": 1393,
+      "expected_owner_civil_year": 1392,
+      "regnal_year": "洪武二十五年",
+      "expected_leap_month": 12,
+      "disposition": "RETREAT_TO_PRECEDING_CIVIL_YEAR",
+      "source_id": "EXT-NIKH-MINGSHILU-HONGWU25-1392-LEAP12",
+      "observed": "洪武二十五年閏十二月"
+    },
+    {
+      "threshold_label_year": 1412,
+      "expected_owner_civil_year": 1411,
+      "regnal_year": "永樂九年",
+      "expected_leap_month": 12,
+      "disposition": "RETREAT_TO_PRECEDING_CIVIL_YEAR",
+      "source_id": "EXT-WIKISOURCE-MINGSHILU-YONGLE9-1411-LEAP12",
+      "observed": "永樂九年閏十二月丁巳朔"
+    },
+    {
+      "threshold_label_year": 1431,
+      "expected_owner_civil_year": 1430,
+      "regnal_year": "宣德五年",
+      "expected_leap_month": 12,
+      "disposition": "RETREAT_TO_PRECEDING_CIVIL_YEAR",
+      "source_id": "EXT-CTEXT-MINGSHILU-XUANDE5-1430-LEAP12",
+      "observed": "宣德五年閏十二月丁酉朔"
+    },
+    {
+      "threshold_label_year": 1450,
+      "expected_owner_civil_year": 1450,
+      "regnal_year": "景泰元年",
+      "expected_leap_month": 1,
+      "disposition": "STAY_IN_THRESHOLD_LABEL_CIVIL_YEAR",
+      "source_id": "EXT-SHIDIAN-MINGSHILU-JINGTAI1-1450-LEAP1",
+      "observed": "景泰元年閏正月丙午朔"
+    },
+    {
+      "threshold_label_year": 1469,
+      "expected_owner_civil_year": 1469,
+      "regnal_year": "成化五年",
+      "expected_leap_month": 2,
+      "disposition": "STAY_IN_THRESHOLD_LABEL_CIVIL_YEAR",
+      "source_id": "EXT-CTEXT-MINGSHILU-CHENGHUA5-1469-LEAP2",
+      "observed": "成化五年閏二月丙辰朔"
+    },
+    {
+      "threshold_label_year": 1488,
+      "expected_owner_civil_year": 1488,
+      "regnal_year": "弘治元年",
+      "expected_leap_month": 1,
+      "disposition": "STAY_IN_THRESHOLD_LABEL_CIVIL_YEAR",
+      "source_id": "EXT-CTEXT-MINGSHILU-HONGZHI1-1488-LEAP1",
+      "observed": "弘治元年閏正月丙寅朔"
+    },
+    {
+      "threshold_label_year": 1507,
+      "expected_owner_civil_year": 1507,
+      "regnal_year": "正德二年",
+      "expected_leap_month": 1,
+      "disposition": "STAY_IN_THRESHOLD_LABEL_CIVIL_YEAR",
+      "source_id": "EXT-CTEXT-MINGSHILU-ZHENGDE2-1507-LEAP1",
+      "observed": "正德二年閏正月乙巳朔"
+    },
+    {
+      "threshold_label_year": 1526,
+      "expected_owner_civil_year": 1525,
+      "regnal_year": "嘉靖四年",
+      "expected_leap_month": 12,
+      "disposition": "RETREAT_TO_PRECEDING_CIVIL_YEAR",
+      "source_id": "EXT-CTEXT-MINGSHILU-JIAJING4-1525-LEAP12",
+      "observed": "嘉靖四年閏十二月乙卯朔"
+    },
+    {
+      "threshold_label_year": 1545,
+      "expected_owner_civil_year": 1545,
+      "regnal_year": "嘉靖二十四年",
+      "expected_leap_month": 1,
+      "disposition": "STAY_IN_THRESHOLD_LABEL_CIVIL_YEAR",
+      "source_id": "EXT-CTEXT-MINGSHILU-JIAJING24-1545-LEAP1",
+      "observed": "嘉靖二十四年閏正月甲子朔"
+    }
+  ],
+  "firewalls": [
+    "Q2_DOES_NOT_MEAN_ALWAYS_PREYEAR",
+    "Q2_DOES_NOT_MEAN_ALWAYS_CURRENT_YEAR",
+    "FINAL_OWNER_USES_NO_ZHONGQI_STRUCTURE",
+    "DIGITAL_TRANSCRIPTION_IS_CHRONOLOGY_CONTROL_NOT_PHYSICAL_GLYPH_AUTHORITY",
+    "NO_RUNTIME_ACTIVATION_FROM_G09_CLOSURE_ALONE"
+  ]
+}

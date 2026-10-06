@@ -2109,6 +2109,15 @@ Batch document: docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-REMAINING
 
 ## Batch 12PB — Ming Datong pre-year civil-year global validation
 
-`HPA-DAYUN-CAL-002` remains `MISSING_FROM_PRODUCT`, while `MD-G09-MULTI-YEAR-LEAP-GENERALIZATION` is closed source-scoped after all 15 pre-year candidates are bound to Ming civil/regnal chronology and the research generator replaces fixed `k=2` with explicit regular-month-1 boundaries. The 15 controls run under four precision profiles (60 profile-year controls), followed by the 1368–1644 structural rerun. Runtime remains fail-closed because G03/G05/G07/G08 are open; G10/G11 remain dependency-blocked.
+`HPA-DAYUN-CAL-002` remains `MISSING_FROM_PRODUCT`. Corrected 12PB closes the fifteen q=0/1 pre-year controls but leaves G09 open because the full-era rerun exposes the q=2 `閏有進退` boundary. Runtime remains fail-closed.
 
 Research artifact: `docs/research/MING-DATONG-PREYEAR-LEAP-CIVIL-YEAR-GLOBAL-VALIDATION-R1.json`.
+
+
+## Batch 12PC — Ming Datong Runyu 進退 final placement
+
+Ten q=2 boundary labels are source-controlled: five retreat to the preceding civil year (1374→1373 leap11; 1393→1392 leap12; 1412→1411 leap12; 1431→1430 leap12; 1526→1525 leap12), while five stay in the threshold-label year (1450 leap1; 1469 leap2; 1488 leap1; 1507 leap1; 1545 leap1). This proves the quotient alone is non-decisive and validates the received final rule `閏有進退，仍以定朔無中氣為定`.
+
+The 12PC harness checks 40 q=2 profile-controls, 102 Runyu threshold labels, unique final owners, full 1368–1644 profile stability and zero final-owner/existence mismatch through 1368–1643. `MD-G09` therefore closes source-scoped forward-only. Historical runtime remains fail-closed because G03/G05/G07/G08 remain open and G10/G11 dependency-blocked.
+
+Research: `docs/research/MING-DATONG-RUNYU-JINTUI-FINAL-PLACEMENT-R1.json`.

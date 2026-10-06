@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.423.0",
+  "schema_version": "1.424.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -503,9 +503,10 @@
       "BATCH-12-BAZI-MING-DATONG-MULTI-YEAR-LEAP-RULE-VALIDATION-OY",
       "BATCH-12-BAZI-MING-DATONG-MING-ERA-BOUNDARY-CENSUS-OZ",
       "BATCH-12-BAZI-MING-DATONG-PREYEAR-LEAP-CIVIL-YEAR-BINDING-PA",
-      "BATCH-12-BAZI-MING-DATONG-PREYEAR-LEAP-CIVIL-YEAR-GLOBAL-VALIDATION-PB"
+      "BATCH-12-BAZI-MING-DATONG-PREYEAR-LEAP-CIVIL-YEAR-GLOBAL-VALIDATION-PB",
+      "BATCH-12-BAZI-MING-DATONG-RUNYU-JINTUI-FINAL-PLACEMENT-PC"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-PREYEAR-LEAP-CIVIL-YEAR-GLOBAL-VALIDATION-PB.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-RUNYU-JINTUI-FINAL-PLACEMENT-PC.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -2469,7 +2470,12 @@
       "After the 12PB correction the live Ming adapter ledger remains 4 CLOSED_SOURCE_SCOPED / 5 OPEN_BLOCKING_GENERAL_ADAPTER / 2 DEPENDENCY_BLOCKED. Independent blockers are G03, G05, G07, G08 and G09; G10/G11 remain dependency-blocked.",
       "12PC: resolve the Runyu 進退 / 定朔無中氣 final-placement boundary for the 10 full-era residual ownership mismatches. The already-acquired G03 physical qishuo evidence is retained for the following batch.",
       "12PB CI correction: the 10 residuals are not precision-profile divergences; they expose that the received quotient is only provisional because the source says 閏有進退，仍以定朔無中氣為定. G09 must not close until those final placements are historically bound.",
-      "12OZ boundary-ranking assertions are now frozen to the 12OZ research artifact; its live rerun remains an order-independence check so later shared-generator refinements cannot retroactively rewrite the historical 12OZ snapshot."
+      "12OZ boundary-ranking assertions are now frozen to the 12OZ research artifact; its live rerun remains an order-independence check so later shared-generator refinements cannot retroactively rewrite the historical 12OZ snapshot.",
+      "Batch 12PC completed: all ten q=2 Runyu placement boundaries are historically controlled and split 5 retreat / 5 stay, proving the provisional quotient cannot alone decide civil ownership.",
+      "12PC validates 10 q=2 boundaries across four precision profiles (40/40), while the full Ming 1368-1644 generator remains profile-stable and maps 102 Runyu threshold labels to 102 unique final no-Zhongqi owners with zero owner/existence mismatch through 1368-1643.",
+      "MD-G09-MULTI-YEAR-LEAP-GENERALIZATION closes source-scoped forward-only after 12PC. The historical runtime remains fail-closed because G03/G05/G07/G08 remain open; G10/G11 remain dependency-blocked.",
+      "Live Ming adapter ledger after 12PC: 5 CLOSED_SOURCE_SCOPED / 4 OPEN_BLOCKING_GENERAL_ADAPTER / 2 DEPENDENCY_BLOCKED. The 12OU top-level 4/5/2 ledger remains a historical snapshot.",
+      "12PD: return to MD-G03 using the already re-acquired complete Kyujanggak GK12437_00 physical qishuo method block. Formalize the scoped negative for explicit locality/里差 operators without inferring hidden meridian from sunrise/daylength geography."
     ],
     "historical_candidate_extension_count": 14,
     "current_missing_from_product_row_count": 4
