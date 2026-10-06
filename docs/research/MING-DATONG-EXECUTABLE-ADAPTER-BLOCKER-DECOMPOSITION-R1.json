@@ -164,6 +164,26 @@
         "remaining_gate": "FULL_MING_ERA_1368_1644_BOUNDARY_CENSUS_AND_CRITICAL_YEAR_SOURCE_VALIDATION",
         "research_artifact": "docs/research/MING-DATONG-MULTI-YEAR-LEAP-RULE-VALIDATION-R1.json",
         "harness": "scripts/research_ming_datong_multi_year_leap_validation_r1.py"
+      },
+      "batch_12oz_refinement": {
+        "batch_id": "BATCH-12-BAZI-MING-DATONG-MING-ERA-BOUNDARY-CENSUS-OZ",
+        "research_artifact": "docs/research/MING-DATONG-MING-ERA-BOUNDARY-CENSUS-R1.json",
+        "civil_year_control_artifact": "docs/research/MING-DATONG-CIVIL-YEAR-LATE-LEAP-CONTROLS-R1.json",
+        "full_ming_year_range": "1368-1644",
+        "profile_structural_divergence_year_count": 0,
+        "profile_new_moon_source_day_divergence_year_count": 0,
+        "runyu_vs_true_sui_tension_years": [
+          1384,
+          1385,
+          1479,
+          1480
+        ],
+        "primary_runyu_formula_identity": "SOURCE_SCOPED",
+        "global_runyu_to_civil_year_mapping": "NOT_CERTIFIED",
+        "global_runyu_to_true_sui_alignment": "NOT_CERTIFIED",
+        "batch_12oy_snapshot_preserved": true,
+        "g09_status_after_batch": "OPEN_BLOCKING_GENERAL_ADAPTER",
+        "runtime_authorized": false
       }
     },
     {
@@ -234,5 +254,7 @@
   "latest_dynamic_precision_batch": "BATCH-12-BAZI-MING-DATONG-D1-PRECISION-PROFILE-SENSITIVITY-OX",
   "latest_dynamic_precision_artifact": "docs/research/MING-DATONG-D1-PRECISION-PROFILE-SENSITIVITY-R1.json",
   "latest_multi_year_leap_batch": "BATCH-12-BAZI-MING-DATONG-MULTI-YEAR-LEAP-RULE-VALIDATION-OY",
-  "latest_multi_year_leap_artifact": "docs/research/MING-DATONG-MULTI-YEAR-LEAP-RULE-VALIDATION-R1.json"
+  "latest_multi_year_leap_artifact": "docs/research/MING-DATONG-MULTI-YEAR-LEAP-RULE-VALIDATION-R1.json",
+  "latest_multi_year_boundary_batch": "BATCH-12-BAZI-MING-DATONG-MING-ERA-BOUNDARY-CENSUS-OZ",
+  "latest_multi_year_boundary_artifact": "docs/research/MING-DATONG-MING-ERA-BOUNDARY-CENSUS-R1.json"
 }

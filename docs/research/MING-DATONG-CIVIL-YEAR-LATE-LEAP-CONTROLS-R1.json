@@ -1,0 +1,41 @@
+{
+  "schema": "MING-DATONG-CIVIL-YEAR-LATE-LEAP-CONTROLS-R1",
+  "schema_version": "1.0.0",
+  "status": "RECEIVED_DYNASTIC_HISTORY_CIVIL_YEAR_CONTROLS",
+  "controls": [
+    {
+      "civil_year": 1373,
+      "regnal_year": "洪武六年",
+      "source_id": "EXT-WIKISOURCE-MINGSHI-V2-HONGWU6-LATE-LEAP",
+      "source_scope": "《明史》卷二·洪武六年",
+      "observed_sequence": [
+        "十一月",
+        "冬至",
+        "閏月",
+        "洪武七年正月"
+      ],
+      "normalized_leap_month": 11,
+      "authority_boundary": "QING_COMPILED_RECEIVED_DYNASTIC_HISTORY_CHRONOLOGY_NOT_1569_PRIMARY_ARITHMETIC",
+      "use": "Proves that a late leap-eleventh month can belong to the preceding civil/regnal year; do not identify a winter-solstice technical sui label with the civil year without an explicit bridge."
+    },
+    {
+      "civil_year": 1384,
+      "regnal_year": "洪武十七年",
+      "source_id": "EXT-WIKISOURCE-MINGSHI-V3-HONGWU17-LEAP10",
+      "source_scope": "《明史》卷三·洪武十七年",
+      "observed_sequence": [
+        "冬十月",
+        "閏月",
+        "十二月"
+      ],
+      "normalized_leap_month": 10,
+      "authority_boundary": "QING_COMPILED_RECEIVED_DYNASTIC_HISTORY_CHRONOLOGY_NOT_1569_PRIMARY_ARITHMETIC",
+      "use": "Direct civil/regnal-year control for the 12OZ structural-tension year 1384."
+    }
+  ],
+  "firewalls": [
+    "RECEIVED_DYNASTIC_HISTORY_CHRONOLOGY_DOES_NOT_REPLACE_1569_PRIMARY_FORMULA_WORDING",
+    "LATE_LEAP_MONTH_CIVIL_YEAR_PLACEMENT_DOES_NOT_BY_ITSELF_DEFINE_THE_TECHNICAL_RUNYU_REMAINDER_YEAR_LABEL",
+    "NO_RUNTIME_ACTIVATION_FROM_TWO_CIVIL_YEAR_CONTROLS"
+  ]
+}

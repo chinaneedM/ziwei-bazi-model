@@ -1,0 +1,103 @@
+{
+  "schema": "MING-DATONG-MING-ERA-BOUNDARY-CENSUS-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-BAZI-MING-DATONG-MING-ERA-BOUNDARY-CENSUS-OZ",
+  "rule_id": "HPA-DAYUN-CAL-002",
+  "gate_id": "MD-G09-MULTI-YEAR-LEAP-GENERALIZATION",
+  "status": "FULL_MING_ERA_PROFILE_STABLE_RUNYU_SUI_ALIGNMENT_TENSION_FOUND_G09_REMAINS_OPEN",
+  "runtime_selection_authorized": false,
+  "production_default_changed": false,
+  "algorithm_reopen_authorized": false,
+  "candidate_collapse_authorized": false,
+  "census": {
+    "first_year": 1368,
+    "last_year": 1644,
+    "year_count": 277,
+    "precision_profiles": 4,
+    "harness": "scripts/research_ming_datong_ming_era_boundary_census_r1.py",
+    "profile_structural_divergence_year_count": 0,
+    "profile_new_moon_source_day_divergence_year_count": 0,
+    "expected_runyu_vs_true_sui_tension_years": [
+      1384,
+      1385,
+      1479,
+      1480
+    ],
+    "closest_new_moon_day_boundary_expected_control": {
+      "year": 1425,
+      "k": 5,
+      "margin_source_units_lt": "2",
+      "margin_minutes_lt": "0.30"
+    },
+    "closest_same_day_zhongqi_new_moon_expected_control": {
+      "year": 1414,
+      "zhongqi_index": 11,
+      "new_moon_k": 12,
+      "absolute_gap_source_units_lt": "100",
+      "absolute_gap_hours_lt": "0.25"
+    },
+    "known_old_day_vs_exact_order_control": {
+      "year": 1596,
+      "old_day_level_leap_month": 8,
+      "exact_order_counterfactual_leap_month": 9
+    }
+  },
+  "scope_correction": {
+    "batch_12oy_snapshot_preserved": true,
+    "primary_1569_method_heading_and_threshold_identity": "REMAINS_SOURCE_SCOPED",
+    "batch_12oy_sampled_28_of_28_result": "REMAINS_VALID_FOR_THE_SEVEN_BOUND_CONTROLS",
+    "statement_requiring_narrowing": "Do not equate the normalized runyu/runxian threshold flag with 'this same civil/regnal year contains a leap month' for arbitrary years.",
+    "corrected_scope": "The 1569 runyu method is a winter-solstice-centered technical recurrence. Its exact year-label alignment and interaction with true-conjunction winter-boundary cases require separate certification before arbitrary civil-year generation.",
+    "reason": "A 1368-1644 true-conjunction/Pingqi technical-sui sweep yields four structural tension labels (1384, 1385, 1479, 1480) between the normalized threshold flag and the actual 12-versus-13-new-moon winter-to-winter structure. Received dynastic-history chronology independently confirms civil 1384 as leap tenth month.",
+    "consequence": "G09 remains open; the leap-existence subrule is no longer described as globally closed for arbitrary civil/regnal-year mapping."
+  },
+  "historical_controls": {
+    "artifact": "docs/research/MING-DATONG-CIVIL-YEAR-LATE-LEAP-CONTROLS-R1.json",
+    "civil_1373": "RECEIVED_CHRONOLOGY_LEAP_11_AFTER_WINTER_SOLSTICE",
+    "civil_1384": "RECEIVED_CHRONOLOGY_LEAP_10_DIRECTLY_CONTROLS_A_TENSION_YEAR",
+    "use": "Separate civil/regnal-year labeling from winter-solstice technical-sui labeling."
+  },
+  "precision_result": {
+    "finding": "Across the complete 277-year sweep, the four 12OX dynamic precision profiles do not change any tested technical-sui month structure or source-day new-moon label.",
+    "implication": "The 12OZ G09 structural tension is not caused by the currently modeled dynamic-precision profile spread.",
+    "g05_effect": "NONE_G05_REMAINS_INDEPENDENTLY_OPEN"
+  },
+  "boundary_ranking": {
+    "purpose": "Rank direct-source acquisition; not historical authority by itself.",
+    "new_moon_day_boundary": "The closest source-day new-moon case is expected at 1425 k=5, within two source units (well under 0.3 minute) of a source-day boundary.",
+    "zhongqi_new_moon_same_day": "The closest same-day Zhongqi/new-moon pair is expected at 1414 z=11 / k=12, under 100 source units (under 0.25 hour) apart.",
+    "historical_priority": [
+      "1384",
+      "1479",
+      "1480",
+      "1425",
+      "1414"
+    ],
+    "note": "1384 combines a structural threshold/sui tension with a received civil-year leap-10 control; 1479/1480 need direct almanac/reign-record validation."
+  },
+  "epistemic_firewalls": [
+    "NO_RETROACTIVE_REWRITE_OF_BATCH_12OY_SNAPSHOT",
+    "NO_CALLING_RUNYU_THRESHOLD_A_GLOBAL_CIVIL_YEAR_LEAP_BOOLEAN",
+    "NO_DERIVING_CIVIL_YEAR_LABELS_FROM_TECHNICAL_SUI_LABELS_WITHOUT_A_BRIDGE",
+    "NO_TREATING_COMPUTATIONAL_CENSUS_AS_PRIMARY_HISTORICAL_EVIDENCE",
+    "NO_IMPORTING_EXACT_ORDER_COUNTERFACTUAL_INTO_OLD_DATONG_DAY_LEVEL_RULE",
+    "NO_RUNTIME_ACTIVATION"
+  ],
+  "accounting": {
+    "matrix_rows": 222,
+    "audited_rows": 222,
+    "current_missing_from_product_rows": 4,
+    "provenance_defects_confirmed": 45,
+    "provenance_defects_repaired": 45,
+    "historical_candidate_extensions": 14,
+    "historical_candidate_registries": 5,
+    "historical_candidate_runtime_resolvers": 5,
+    "chart_algorithm_defects": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0
+  },
+  "next_research_priority": {
+    "batch": "12PA",
+    "focus": "Directly adjudicate the technical-sui/civil-year binding at the four 12OZ structural tension labels, beginning with the received 1384 leap-10 control and seeking direct Ming almanac/reign-record evidence for 1479/1480. Re-collate the 1569 推閏餘分法 wording as a formula-level source record before any G09 closure."
+  }
+}

@@ -935,9 +935,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-BAZI-MING-DATONG-DYNAMIC-D1-PRECISION-GENERALIZATION-OW",
     "BATCH-12-BAZI-MING-DATONG-D1-PRECISION-PROFILE-SENSITIVITY-OX",
     "BATCH-12-BAZI-MING-DATONG-MULTI-YEAR-LEAP-RULE-VALIDATION-OY",
+    "BATCH-12-BAZI-MING-DATONG-MING-ERA-BOUNDARY-CENSUS-OZ",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-MULTI-YEAR-LEAP-RULE-VALIDATION-OY.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-MING-ERA-BOUNDARY-CENSUS-OZ.md"
 
 
 def fail(message: str) -> None:
@@ -17014,6 +17015,30 @@ def main() -> int:
         fail("Batch 12OY continuity schema version is not numeric")
     if schema12oy < (1, 419, 0):
         fail("Batch 12OY continuity schema version regressed below 1.419.0")
+
+    # Batch 12OZ: full Ming-era boundary census and runyu/sui scope correction.
+    oz_id = "BATCH-12-BAZI-MING-DATONG-MING-ERA-BOUNDARY-CENSUS-OZ"
+    oz_path = ROOT / "docs/research/MING-DATONG-MING-ERA-BOUNDARY-CENSUS-R1.json"
+    oz_controls_path = ROOT / "docs/research/MING-DATONG-CIVIL-YEAR-LATE-LEAP-CONTROLS-R1.json"
+    oz_doc = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-MING-ERA-BOUNDARY-CENSUS-OZ.md"
+    if not oz_path.is_file() or not oz_controls_path.is_file() or not oz_doc.is_file(): fail("Batch 12OZ research/control/batch record missing")
+    oz = json.loads(oz_path.read_text(encoding="utf-8"))
+    oz_controls = json.loads(oz_controls_path.read_text(encoding="utf-8"))
+    if oz.get("batch_id") != oz_id or oz.get("gate_id") != "MD-G09-MULTI-YEAR-LEAP-GENERALIZATION": fail("Batch 12OZ identity/gate drift")
+    if oz.get("status") != "FULL_MING_ERA_PROFILE_STABLE_RUNYU_SUI_ALIGNMENT_TENSION_FOUND_G09_REMAINS_OPEN": fail("Batch 12OZ status drift")
+    census_oz = oz.get("census", {})
+    if census_oz.get("year_count") != 277 or census_oz.get("precision_profiles") != 4 or census_oz.get("profile_structural_divergence_year_count") != 0: fail("Batch 12OZ census drift")
+    if census_oz.get("expected_runyu_vs_true_sui_tension_years") != [1384,1385,1479,1480]: fail("Batch 12OZ tension set drift")
+    if oz.get("scope_correction",{}).get("batch_12oy_snapshot_preserved") is not True: fail("Batch 12OZ forward-only drift")
+    controls_oz={row.get("civil_year"):row for row in oz_controls.get("controls",())}
+    if controls_oz.get(1373,{}).get("normalized_leap_month") != 11 or controls_oz.get(1384,{}).get("normalized_leap_month") != 10: fail("Batch 12OZ civil controls drift")
+    gates_oz={row.get("gate_id"):row for row in ou.get("gates",())}; g09_oz=gates_oz.get("MD-G09-MULTI-YEAR-LEAP-GENERALIZATION",{}); refine_oz=g09_oz.get("batch_12oz_refinement",{})
+    if g09_oz.get("status") != "OPEN_BLOCKING_GENERAL_ADAPTER" or refine_oz.get("runyu_vs_true_sui_tension_years") != [1384,1385,1479,1480] or refine_oz.get("runtime_authorized") is not False: fail("Batch 12OZ G09 drift")
+    rows_oz={row.get("rule_id"):row for row in matrix.get("rows",())}; row_oz=rows_oz.get("HPA-DAYUN-CAL-002"); bind_oz=(row_oz or {}).get("batch_12oz_ming_era_boundary_census",{})
+    if not row_oz or row_oz.get("audit_status") != "MISSING_FROM_PRODUCT" or bind_oz.get("batch_id") != oz_id: fail("Batch 12OZ Matrix drift")
+    try: schema12oz=tuple(int(part) for part in state.get("schema_version","0.0.0").split("."))
+    except ValueError: fail("Batch 12OZ continuity schema version is not numeric")
+    if schema12oz < (1,420,0): fail("Batch 12OZ continuity schema version regressed below 1.420.0")
 
     contract = state.get("continuity_contract", {})
     if contract.get("ci_gate_required") is not True:
