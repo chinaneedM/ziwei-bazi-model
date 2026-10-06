@@ -940,9 +940,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-BAZI-MING-DATONG-PREYEAR-LEAP-CIVIL-YEAR-GLOBAL-VALIDATION-PB",
     "BATCH-12-BAZI-MING-DATONG-RUNYU-JINTUI-FINAL-PLACEMENT-PC",
     "BATCH-12-BAZI-MING-DATONG-GK12437-QISHUO-LOCALITY-OPERATOR-AUDIT-PD",
+    "BATCH-12-BAZI-MING-DATONG-SHOUSHI-QISHUO-EPOCH-RESPONSE-CONSTANT-LINEAGE-PE",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-GK12437-QISHUO-LOCALITY-OPERATOR-AUDIT-PD.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-SHOUSHI-QISHUO-EPOCH-RESPONSE-CONSTANT-LINEAGE-PE.md"
 
 
 def fail(message: str) -> None:
@@ -17102,7 +17103,7 @@ def main() -> int:
     pd_id = "BATCH-12-BAZI-MING-DATONG-GK12437-QISHUO-LOCALITY-OPERATOR-AUDIT-PD"
     pd_path = ROOT / "docs/research/MING-DATONG-GK12437-QISHUO-LOCALITY-OPERATOR-AUDIT-R1.json"
     pd_doc_path = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-GK12437-QISHUO-LOCALITY-OPERATOR-AUDIT-PD.md"
-    if state_batches[-1] != pd_id: fail("Batch 12PD is not latest completed batch")
+    if len(state_batches) < 2 or state_batches[-2] != pd_id: fail("Batch 12PD is not immediately before Batch 12PE")
     if not pd_path.exists() or not pd_doc_path.exists(): fail("Batch 12PD research/batch artifact missing")
     pd = json.loads(pd_path.read_text(encoding="utf-8"))
     if pd.get("batch_id") != pd_id: fail("Batch 12PD identity drift")
@@ -17119,10 +17120,41 @@ def main() -> int:
     if live12pd != {"closed_source_scoped":5,"open_blocking_general_adapter":4,"dependency_blocked":2,"total_gates":11}: fail("Batch 12PD live gate accounting drift")
     rows_pd={row.get("rule_id"):row for row in matrix.get("rows",())}; row_pd=rows_pd.get("HPA-DAYUN-CAL-002"); bpd=(row_pd or {}).get("batch_12pd_gk12437_qishuo_locality_operator_audit",{})
     if not row_pd or row_pd.get("audit_status") != "MISSING_FROM_PRODUCT" or bpd.get("md_g03_status") != "OPEN_BLOCKING_GENERAL_ADAPTER" or bpd.get("runtime_authorized") is not False: fail("Batch 12PD Matrix drift")
-    if state.get("historical_audit",{}).get("latest_batch_doc") != "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-GK12437-QISHUO-LOCALITY-OPERATOR-AUDIT-PD.md": fail("Batch 12PD latest batch doc drift")
+    if pd_id not in state_batches: fail("Batch 12PD disappeared from completed batches")
     try: schema12pd=tuple(int(part) for part in state.get("schema_version","0.0.0").split("."))
     except ValueError: fail("Batch 12PD continuity schema version is not numeric")
     if schema12pd < (1,425,0): fail("Batch 12PD continuity schema version regressed below 1.425.0")
+
+    # Batch 12PE forward-only Shoushi qishuo epoch/response-constant lineage closure.
+    pe_id = "BATCH-12-BAZI-MING-DATONG-SHOUSHI-QISHUO-EPOCH-RESPONSE-CONSTANT-LINEAGE-PE"
+    pe_path = ROOT / "docs/research/MING-DATONG-SHOUSHI-QISHUO-EPOCH-RESPONSE-CONSTANT-LINEAGE-R1.json"
+    pe_doc_path = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-SHOUSHI-QISHUO-EPOCH-RESPONSE-CONSTANT-LINEAGE-PE.md"
+    if state_batches[-1] != pe_id: fail("Batch 12PE is not latest completed batch")
+    if not pe_path.exists() or not pe_doc_path.exists(): fail("Batch 12PE research/batch artifact missing")
+    pe = json.loads(pe_path.read_text(encoding="utf-8"))
+    if pe.get("batch_id") != pe_id: fail("Batch 12PE identity drift")
+    gk_pe = pe.get("evidence_layers",{}).get("gk12437_direct_physical",{})
+    readings_pe = gk_pe.get("readings",{})
+    vals_pe = readings_pe.get("pages_001b_002a",{})
+    if vals_pe != {"氣應":"550600","閏應":"202050","轉應":"130205","交應":"260388"}: fail("Batch 12PE GK12437 revised response constants drift")
+    if "至元辛巳積年減一" not in readings_pe.get("page_002a_formula",""): fail("Batch 12PE GK12437 epoch formula drift")
+    yuan_pe = pe.get("evidence_layers",{}).get("yuanshi_received_shoushi",{})
+    if "隨時推測，不用為元" not in yuan_pe.get("passage","") or yuan_pe.get("philological_result") != "LIYUAN_AND_YINGSHU_ARE_EXPLICITLY_DISTINCT_CONCEPTUAL_LAYERS": fail("Batch 12PE Yuan epoch/response separation drift")
+    goryeo_pe = pe.get("evidence_layers",{}).get("goryeosa_received_transmission",{})
+    if goryeo_pe.get("values",{}).get("轉應") != "131904" or "MIXED_RESPONSE_CONSTANT_RECENSION" not in goryeo_pe.get("result",""): fail("Batch 12PE Goryeosa mixed-recension drift")
+    adj_pe = pe.get("adjudication",{})
+    if adj_pe.get("epoch_identity_proves_qishuo_meridian") is not False or adj_pe.get("dadu_beijing_qishuo_reference") != "UNRESOLVED" or adj_pe.get("nanjing_qishuo_reference") != "UNRESOLVED" or adj_pe.get("runtime_selection_authorized") is not False: fail("Batch 12PE geographic adjudication drift")
+    g03_pe={row.get("gate_id"):row for row in ou.get("gates",())}.get("MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",{})
+    r12pe=g03_pe.get("batch_12pe_refinement",{})
+    if g03_pe.get("status") != "OPEN_BLOCKING_GENERAL_ADAPTER" or r12pe.get("epoch_identity_proves_qishuo_meridian") is not False or r12pe.get("status_after_batch") != "OPEN_BLOCKING_GENERAL_ADAPTER" or r12pe.get("runtime_authorized") is not False: fail("Batch 12PE G03 forward refinement drift")
+    live12pe=ou.get("batch_12pe_forward_refinement",{}).get("current_live_gate_accounting_after_12pe",{})
+    if live12pe != {"closed_source_scoped":5,"open_blocking_general_adapter":4,"dependency_blocked":2,"total_gates":11}: fail("Batch 12PE live gate accounting drift")
+    rows_pe={row.get("rule_id"):row for row in matrix.get("rows",())}; row_pe=rows_pe.get("HPA-DAYUN-CAL-002"); bpe=(row_pe or {}).get("batch_12pe_shoushi_qishuo_epoch_response_constant_lineage",{})
+    if not row_pe or row_pe.get("audit_status") != "MISSING_FROM_PRODUCT" or bpe.get("same_epoch_proves_meridian") is not False or bpe.get("actual_qishuo_geographic_reference") != "UNRESOLVED" or bpe.get("runtime_authorized") is not False: fail("Batch 12PE Matrix drift")
+    if state.get("historical_audit",{}).get("latest_batch_doc") != "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-SHOUSHI-QISHUO-EPOCH-RESPONSE-CONSTANT-LINEAGE-PE.md": fail("Batch 12PE latest batch doc drift")
+    try: schema12pe=tuple(int(part) for part in state.get("schema_version","0.0.0").split("."))
+    except ValueError: fail("Batch 12PE continuity schema version is not numeric")
+    if schema12pe < (1,426,0): fail("Batch 12PE continuity schema version regressed below 1.426.0")
 
     contract = state.get("continuity_contract", {})
     if contract.get("ci_gate_required") is not True:
