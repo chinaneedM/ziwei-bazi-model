@@ -10,7 +10,7 @@ def _load(name:str,path:Path):
  m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m);return m
 oy=_load("ming_datong_multi_year_pb",ROOT/"scripts/research_ming_datong_multi_year_leap_validation_r1.py")
 pa=_load("ming_datong_preyear_pb",ROOT/"scripts/research_ming_datong_preyear_leap_civil_year_binding_r1.py")
-def _formula_owner(constants:dict[str,Any],label:int)->int|None:
+def _provisional_received_owner(constants:dict[str,Any],label:int)->int|None:
  item=pa.placement(constants,label)
  if not item["has_leap_by_runyu_threshold"]: return None
  return label-1 if item["preyear_branch"] else label
@@ -33,10 +33,10 @@ def run(root:Path=ROOT)->dict[str,Any]:
    if len(set(sig.values()))!=1: structural.append(year)
    full=by[oy.d1.PROFILE_FULL];leaps=full["leap_months"];civil_leaps[str(year)]=leaps[0] if len(leaps)==1 else None;startks[str(year)]=int(full["civil_year_start_k"])
    if year<LAST_YEAR:
-    labels=[year,year+1];owners=[label for label in labels if _formula_owner(constants,label)==year]
-    if bool(owners)!=bool(leaps): ownership.append({"civil_year":year,"formula_owner_threshold_labels":owners,"generated_leap_months":leaps})
+    labels=[year,year+1];owners=[label for label in labels if _provisional_received_owner(constants,label)==year]
+    if bool(owners)!=bool(leaps): ownership.append({"civil_year":year,"provisional_received_owner_threshold_labels":owners,"generated_leap_months":leaps})
   matched=sum(1 for x in profile_controls if x["leap_month_match"] and x["assigned_preceding_civil_year_match"])
-  return {"year_range":[FIRST_YEAR,LAST_YEAR],"year_count":LAST_YEAR-FIRST_YEAR+1,"profile_count":len(oy.d1.PROFILES),"preyear_candidate_year_count":len(oracle["controls"]),"profile_year_control_count":len(profile_controls),"matched_profile_year_controls":matched,"all_preyear_profile_year_controls_match":matched==len(profile_controls),"controls":profile_controls,"year_summaries":year_summaries,"profile_structural_divergence_years":structural,"formula_ownership_mismatches_1368_1643":ownership,"civil_year_start_k_histogram":{str(k):list(startks.values()).count(k) for k in sorted(set(startks.values()))},"candidate_civil_year_start_k_values":sorted({x["civil_year_start_k"] for x in profile_controls}),"fixed_k2_anchor_used":any(x["fixed_k2_anchor_used"] for x in profile_controls),"civil_leap_month_by_year":civil_leaps,"terminal_year_1644_formula_ownership_comparison_excluded":True,"terminal_year_note":"1644 month structure is generated/profile-compared; owner comparison avoids importing post-Ming 1645 threshold label across the regime boundary."}
+  return {"year_range":[FIRST_YEAR,LAST_YEAR],"year_count":LAST_YEAR-FIRST_YEAR+1,"profile_count":len(oy.d1.PROFILES),"preyear_candidate_year_count":len(oracle["controls"]),"profile_year_control_count":len(profile_controls),"matched_profile_year_controls":matched,"all_preyear_profile_year_controls_match":matched==len(profile_controls),"controls":profile_controls,"year_summaries":year_summaries,"profile_structural_divergence_years":structural,"provisional_received_ownership_mismatches_1368_1643":ownership,"civil_year_start_k_histogram":{str(k):list(startks.values()).count(k) for k in sorted(set(startks.values()))},"candidate_civil_year_start_k_values":sorted({x["civil_year_start_k"] for x in profile_controls}),"fixed_k2_anchor_used":any(x["fixed_k2_anchor_used"] for x in profile_controls),"civil_leap_month_by_year":civil_leaps,"terminal_year_1644_formula_ownership_comparison_excluded":True,"terminal_year_note":"1644 month structure is generated/profile-compared; owner comparison avoids importing post-Ming 1645 threshold label across the regime boundary."}
 def main()->int:
  print(json.dumps(run(),ensure_ascii=False,sort_keys=True,indent=2));return 0
 if __name__=="__main__":raise SystemExit(main())

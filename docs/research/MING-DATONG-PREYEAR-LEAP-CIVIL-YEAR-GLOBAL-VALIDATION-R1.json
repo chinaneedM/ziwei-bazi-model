@@ -4,7 +4,7 @@
   "batch_id": "BATCH-12-BAZI-MING-DATONG-PREYEAR-LEAP-CIVIL-YEAR-GLOBAL-VALIDATION-PB",
   "rule_id": "HPA-DAYUN-CAL-002",
   "gate_id": "MD-G09-MULTI-YEAR-LEAP-GENERALIZATION",
-  "status": "ALL_15_PREYEAR_CIVIL_CONTROLS_BOUND_EXPLICIT_CIVIL_YEAR_OWNERSHIP_IMPLEMENTED_G09_SOURCE_SCOPED_CLOSED_RUNTIME_STILL_FAIL_CLOSED",
+  "status": "ALL_15_Q0_Q1_PREYEAR_CONTROLS_BOUND_EXPLICIT_CIVIL_EXTRACTION_IMPLEMENTED_FULL_ERA_JINTUI_BOUNDARY_REMAINS_OPEN_G09_OPEN_RUNTIME_FAIL_CLOSED",
   "runtime_selection_authorized": false,
   "production_default_changed": false,
   "algorithm_reopen_authorized": false,
@@ -23,7 +23,6 @@
     "profile_year_controls": 60,
     "expected_profile_year_matches": 60,
     "expected_profile_structural_divergence_year_count": 0,
-    "expected_formula_ownership_mismatch_count_1368_1643": 0,
     "civil_years": [
       1384,
       1403,
@@ -57,15 +56,17 @@
       "1612": 11,
       "1631": 11,
       "1642": 11
-    }
+    },
+    "expected_provisional_received_ownership_mismatch_count_1368_1643": 10,
+    "full_era_residual_interpretation": "TEN_LIVE_MISMATCHES_REMAIN_BETWEEN_PROVISIONAL_RECEIVED_Q0_Q1_OWNER_MAPPING_AND_D1_NO_ZHONGQI_CIVIL_YEAR_STRUCTURE; FIRST_IS_CIVIL_1373_LEAP11"
   },
   "adjudication": {
-    "preyear_ownership_branch": "CLOSED_ACROSS_ALL_15_MING_FORMULA_CANDIDATES_BY_CIVIL_REGNAL_CHRONOLOGY_CONTROLS",
+    "preyear_ownership_branch": "CLOSED_FOR_THE_15_Q0_Q1_FORMULA_CANDIDATES_BY_CIVIL_REGNAL_CHRONOLOGY_CONTROLS",
     "fixed_k2_civil_anchor_universal": false,
-    "multi_year_civil_year_extraction": "CLOSED_SOURCE_SCOPED_FOR_MING_DATONG_RESEARCH_GENERATOR",
-    "g09_status_after_batch": "CLOSED_SOURCE_SCOPED",
+    "multi_year_civil_year_extraction": "EXPLICIT_MONTH1_BOUNDARY_IMPLEMENTED_AND_PROFILE_STABLE_BUT_GLOBAL_OWNERSHIP_NOT_YET_CERTIFIED",
+    "g09_status_after_batch": "OPEN_BLOCKING_GENERAL_ADAPTER",
     "general_ming_datong_runtime_authorized": false,
-    "reason_runtime_stays_closed": "G03 qishuo geography, G05 dynamic D1 intermediate precision, G07 invalid target-date policy and G08 intercalary identity/traversal remain open; G10/G11 remain dependency-blocked."
+    "reason_g09_stays_open": "The 15 q=0/1 pre-year controls all close, but the full 1368-1644 rerun exposes 10 remaining civil-year ownership mismatches at the received placement / 定朔無中氣 進退 boundary. The received text explicitly says leap placement can advance/retreat and must finally follow the no-Zhongqi determined conjunction structure; a provisional quotient alone cannot certify arbitrary-year ownership."
   },
   "authority_layers": [
     {
@@ -95,7 +96,9 @@
     "NO_PRODUCTION_DEFAULT_CHANGE",
     "NO_IMPORT_OF_POST_MING_1645_THRESHOLD_LABEL_INTO_1644_FORMULA_OWNERSHIP_COMPARISON",
     "NO_DIGITAL_TRANSCRIPTION_PROMOTION_TO_PHYSICAL_GLYPH_AUTHORITY",
-    "NO_REWRITE_OF_12OY_12OZ_12PA_HISTORICAL_SNAPSHOTS"
+    "NO_REWRITE_OF_12OY_12OZ_12PA_HISTORICAL_SNAPSHOTS",
+    "NO_G09_CLOSURE_FROM_THE_15_Q0_Q1_PREYEAR_SUBSET",
+    "NO_TREATING_RECEIVED_PLACEMENT_QUOTIENT_AS_FINAL_WHEN_TEXT_SAYS_RUNYOU_JINTUI_FOLLOWS_DINGSHUO_NO_ZHONGQI"
   ],
   "accounting": {
     "matrix_rows": 222,
@@ -112,7 +115,7 @@
   },
   "next_research_priority": {
     "batch": "12PC",
-    "gate_id": "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
-    "focus": "Return to the highest-value remaining independent Ming Datong blocker: source-close or further bound qishuo geographic reference using physical/official critical-year evidence, without inferring event meridian from sunrise/sunset tables alone."
+    "gate_id": "MD-G09-MULTI-YEAR-LEAP-GENERALIZATION",
+    "focus": "Resolve the remaining Runyu 進退 boundary exposed by the full-era rerun: bind the 10 provisional-owner mismatches against Ming civil/regnal chronology and the received '仍以定朔無中氣為定' rule before reconsidering G09 closure. Park the already-acquired qishuo-geography physical evidence for the following batch."
   }
 }

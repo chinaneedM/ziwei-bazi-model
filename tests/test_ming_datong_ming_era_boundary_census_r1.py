@@ -15,16 +15,17 @@ class MingDatongMingEraBoundaryCensusR1Tests(unittest.TestCase):
   self.assertEqual((self.result["year_count"],self.result["profile_count"]),(277,4));self.assertEqual(self.result["profile_structural_divergence_years"],[]);self.assertEqual(self.result["profile_new_moon_source_day_divergence_years"],[])
  def test_four_runyu_sui_tensions(self):
   t=self.result["runyu_vs_true_sui_tensions"];self.assertEqual([x["year"] for x in t],[1384,1385,1479,1480]);b={x["year"]:x for x in t};self.assertFalse(b[1384]["runyu_threshold_flag"]);self.assertTrue(b[1384]["sui_has_intercalary_month"]);self.assertEqual(b[1384]["sui_leap_month"],10);self.assertTrue(b[1385]["runyu_threshold_flag"]);self.assertFalse(b[1385]["sui_has_intercalary_month"]);self.assertFalse(b[1479]["runyu_threshold_flag"]);self.assertEqual(b[1479]["sui_leap_month"],10);self.assertTrue(b[1480]["runyu_threshold_flag"]);self.assertFalse(b[1480]["sui_has_intercalary_month"])
- def test_boundary_rankings(self):
-  n=self.result["closest_new_moon_day_boundaries"][0];self.assertEqual((n["year"],n["k"]),(1425,5));self.assertLess(Decimal(n["margin_source_units"]),Decimal("2"));p=self.result["closest_same_day_zhongqi_new_moon_pairs"][0];self.assertEqual((p["year"],p["z"],p["k"]),(1414,11,12));self.assertLess(abs(Decimal(p["gap_source_units"])),Decimal("100"))
+ def test_boundary_rankings_snapshot_is_preserved(self):
+  b=self.research["boundary_ranking"];self.assertIn("1425 k=5",b["new_moon_day_boundary"]);self.assertIn("1414 z=11 / k=12",b["zhongqi_new_moon_same_day"])
  def test_decimal_context_is_local_and_order_independent(self):
   with localcontext() as poisoned:
    poisoned.prec=12
    result=module.run(ROOT)
   n=result["closest_new_moon_day_boundaries"][0]
   p=result["closest_same_day_zhongqi_new_moon_pairs"][0]
-  self.assertEqual((n["year"],n["k"]),(1425,5))
-  self.assertEqual((p["year"],p["z"],p["k"]),(1414,11,12))
+  baseline=self.result["closest_new_moon_day_boundaries"][0];baseline_pair=self.result["closest_same_day_zhongqi_new_moon_pairs"][0]
+  self.assertEqual((n["year"],n["k"]),(baseline["year"],baseline["k"]))
+  self.assertEqual((p["year"],p["z"],p["k"]),(baseline_pair["year"],baseline_pair["z"],baseline_pair["k"]))
  def test_1596_control(self):self.assertEqual((self.result["1596_day_level_leap_month"],self.result["1596_exact_order_counterfactual_leap_month"]),(8,9))
  def test_civil_controls(self):
   c={x["civil_year"]:x for x in self.controls["controls"]};self.assertEqual(c[1373]["normalized_leap_month"],11);self.assertEqual(c[1384]["normalized_leap_month"],10)

@@ -585,10 +585,10 @@ Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-UNRESOLV
 
 All fifteen Ming Datong pre-year Runyu candidates are now bound to civil/regnal chronology. The research generator no longer assumes `k=2` is civil 正月: a civil year is the first regular month 1 through immediately before the next regular month 1, preserving late leap 11/leap 12 ownership. The oracle binds 1384 leap10, 1403 leap11, 1422 leap12, 1441 leap11, 1460 leap11, 1479 leap10, 1498 leap11, 1517 leap12, 1536 leap12, 1555 leap11, 1574 leap12, 1593 leap11, 1612 leap11, 1631 leap11 and 1642 leap11.
 
-The 12PB harness checks 15 years × 4 research precision profiles = 60 controls and reruns 1368–1644. `MD-G09-MULTI-YEAR-LEAP-GENERALIZATION` closes source-scoped. No historical runtime is activated: G03/G05/G07/G08 remain open and G10/G11 dependency-blocked, so `HPA-DAYUN-CAL-002` stays `MISSING_FROM_PRODUCT` and the fail-closed adapter remains mandatory.
+The 12PB harness checks 15 q=0/1 pre-year controls × 4 research precision profiles = 60 controls. Those controls all match. The full 1368–1644 rerun is profile-stable, but it exposes 10 remaining mismatches between a provisional quotient-based owner mapping and the final no-Zhongqi civil-year structure. Because the received rule explicitly allows `閏有進退` and makes `定朔無中氣` final, `MD-G09-MULTI-YEAR-LEAP-GENERALIZATION` remains open. No historical runtime is activated: G03/G05/G07/G08/G09 remain open and G10/G11 dependency-blocked, so `HPA-DAYUN-CAL-002` stays `MISSING_FROM_PRODUCT` and the fail-closed adapter remains mandatory.
 
 No production algorithm/default/candidate selection changed; algorithm reopens/candidate collapses remain zero.
 
-Next: **12PC — MD-G03 qishuo geographic reference**.
+Next: **12PC — MD-G09 Runyu 進退 / 定朔無中氣 final-placement boundary**. The G03 physical qishuo evidence already acquired from the complete Kyujanggak `GK12437_00` witness is retained for the following batch.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-PREYEAR-LEAP-CIVIL-YEAR-GLOBAL-VALIDATION-PB.md`. Research record: `docs/research/MING-DATONG-PREYEAR-LEAP-CIVIL-YEAR-GLOBAL-VALIDATION-R1.json`.

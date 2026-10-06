@@ -2,12 +2,12 @@
 
 ## Ming Datong pre-year leap civil-year global validation
 
-Status: **15/15 PRE-YEAR CIVIL CONTROLS BOUND / FIXED-k=2 RESEARCH SHORTCUT REMOVED / MD-G09 CLOSED SOURCE-SCOPED / HISTORICAL RUNTIME STILL FAIL-CLOSED**
+Status: **15/15 q=0/1 PRE-YEAR CONTROLS BOUND / FIXED-k=2 SHORTCUT REMOVED / FULL-ERA 進退 RESIDUAL EXPOSED / MD-G09 REMAINS OPEN / RUNTIME FAIL-CLOSED**
 
 ```text
 DETERMINISTIC_FUSION_CHART_PRODUCT_R1=CLOSED
 HPA_DAYUN_CAL_002=MISSING_FROM_PRODUCT
-MD_G09_MULTI_YEAR_LEAP_GENERALIZATION=CLOSED_SOURCE_SCOPED
+MD_G09_MULTI_YEAR_LEAP_GENERALIZATION=OPEN_BLOCKING_GENERAL_ADAPTER
 MING_DATONG_GENERAL_EXECUTABLE_ADAPTER=CERTIFICATION_BLOCKED
 RUNTIME_SELECTION_AUTHORIZED=NO
 ALGORITHM_REOPEN_COUNT=0
@@ -48,9 +48,13 @@ Digital transcriptions are used as textual chronology controls/locators, not phy
 
 The 12PB harness enforces 15 candidate years × 4 precision profiles = **60 profile-year controls**, verifies preceding-civil-year assignment, reruns 1368–1644 for profile-structural invariance, and checks formula ownership against generated civil-year leap existence through 1368–1643. The 1644 structure is still generated/profile-compared, but the owner comparison does not import a post-Ming 1645 threshold label across the regime boundary.
 
-## 5. G09 and runtime firewall
+## 5. Full-era residual and G09 firewall
 
-After 12OY, 12OZ, 12PA and 12PB, `MD-G09-MULTI-YEAR-LEAP-GENERALIZATION` closes **source-scoped**. This does not authorize a Ming historical runtime. G03 qishuo geography, G05 dynamic D1 intermediate precision, G07 invalid target-date policy and G08 intercalary identity/traversal remain open; G10/G11 remain dependency-blocked. `FailClosedHistoricalCalendarAdapter` remains mandatory.
+The 15 q=0/1 pre-year controls close exactly as intended, but the full 1368–1644 rerun exposes **10 remaining mismatches** between a provisional received quotient-based owner mapping and the generated no-Zhongqi civil-year structure. The first is civil 1373, generated as leap 11, while the provisional q=0/1 owner mapping assigns no threshold label to that civil year.
+
+This is not a D1 profile instability: all four precision profiles remain structurally aligned. It is a placement/ownership scope error in treating the received quotient as final. The received text itself states that leap placement may advance or retreat and is finally determined by **定朔無中氣**. Therefore `MD-G09-MULTI-YEAR-LEAP-GENERALIZATION` remains **OPEN_BLOCKING_GENERAL_ADAPTER**.
+
+The next batch must bind the remaining 進退 boundary against Ming chronology before G09 can be reconsidered. G03, G05, G07 and G08 also remain open; G10/G11 remain dependency-blocked. `FailClosedHistoricalCalendarAdapter` remains mandatory.
 
 ## 6. Transmission impact
 
@@ -60,6 +64,6 @@ The fifteen controls strengthen compatibility among the 1569 threshold mechanism
 
 Matrix remains **222/222 audited / 4 MISSING_FROM_PRODUCT**; provenance defects **45/45 repaired**; candidate extensions **14**; registries/runtime resolvers **5/5**; algorithm defects/reopens/candidate collapses **0**.
 
-Next: **12PC — MD-G03 qishuo geographic reference**, prioritizing physical/official critical-year evidence and explicit coordinate statements rather than inferring the event meridian from sunrise/sunset tables.
+Next: **12PC — MD-G09 Runyu 進退 boundary closure**. Bind the 10 residual provisional-owner mismatches against Ming chronology and the received final no-Zhongqi rule. The already-acquired G03 physical qishuo evidence is retained for the following batch.
 
 Research: `docs/research/MING-DATONG-PREYEAR-LEAP-CIVIL-YEAR-GLOBAL-VALIDATION-R1.json`.
