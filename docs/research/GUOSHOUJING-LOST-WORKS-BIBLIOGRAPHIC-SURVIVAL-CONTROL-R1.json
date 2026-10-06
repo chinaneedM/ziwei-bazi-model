@@ -1,0 +1,109 @@
+{
+  "schema": "GUOSHOUJING-LOST-WORKS-BIBLIOGRAPHIC-SURVIVAL-CONTROL-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-BAZI-GUOSHOUJING-LOST-WORKS-BIBLIOGRAPHIC-SURVIVAL-CONTROL-PG",
+  "date": "2026-10-06",
+  "question": "Can Guo Shoujing's 修改源流 or 古今交食考 be recovered or safely used as evidence for the 1294 response-constant revision site?",
+  "bibliographic_witnesses": {
+    "yuanshi_biography": {
+      "source_id": "EXT-WIKISOURCE-YUANSHI-V164-GUOSHOUJING-WORKS",
+      "work_counts": {
+        "修改源流": "1卷",
+        "古今交食考": "1卷"
+      },
+      "custodial_phrase": "並藏之官",
+      "result": "EARLY_OFFICIAL_BIOGRAPHICAL_BIBLIOGRAPHY_ATTESTS_TITLES_AND_ONE_JUAN_COUNTS_BUT_NOT_PRESENT_SURVIVAL"
+    },
+    "qianqingtang_shumu": {
+      "source_id": "EXT-WIKISOURCE-QIANQINGTANG-V13-GUOSHOUJING-WORKS",
+      "work_counts": {
+        "修改源流": "1卷",
+        "古今交食考": "1卷"
+      },
+      "result": "LATER_BIBLIOGRAPHIC_CORROBORATION_OF_ONE_JUAN_COUNTS"
+    },
+    "xinyuanshi": {
+      "source_id": "EXT-WIKISOURCE-XINYUANSHI-V171-GUOSHOUJING-WORKS",
+      "work_counts": {
+        "修改源流": "7卷",
+        "古今交食考": "1卷"
+      },
+      "result": "LATE_DIVERGENT_SEVEN_JUAN_READING_FOR_XIUGAI_YUANLIU",
+      "adjudication": "PRESERVE_AS_LATE_VARIANT_NOT_PROMOTED_OVER_YUANSHI_PLUS_QIANQINGTANG_CONSENSUS"
+    }
+  },
+  "homonym_controls": {
+    "chongzhen_lishu": {
+      "source_id": "EXT-CINII-CHONGZHEN-LISHU-GUJIN-JIAOSHIKAO-HOMONYM",
+      "title": "古今交食考",
+      "author_layer": "李天經督修；湯若望等撰訂",
+      "date_scope": "LATE_MING_CHONGZHEN_CALENDAR_REFORM",
+      "same_as_guo_work": false
+    },
+    "zhu_zaiyu": {
+      "source_id": "EXT-WIKISOURCE-LIXUE-XINSHU-GUJIN-JIAOSHIKAO-HOMONYM",
+      "title": "古今交食考",
+      "author_layer": "朱載堉《曆學新說》相關層",
+      "date_scope": "MING",
+      "same_as_guo_work": false
+    }
+  },
+  "survival_and_access": {
+    "direct_public_text_of_guo_xiugai_yuanliu_located": false,
+    "direct_public_text_of_guo_gujin_jiaoshikao_located": false,
+    "direct_quote_binding_1294_revision_site_located": false,
+    "custodial_phrase_proves_current_survival": false,
+    "modern_secondary_lost_statement": {
+      "source_id": "EXT-CHINESE-GENERAL-HISTORY-GUOSHOUJING-LOST-WORKS",
+      "statement_scope": "Modern secondary states these works are lost.",
+      "authority": "SECONDARY_ONLY_NOT_EXHAUSTIVE_GLOBAL_SURVIVAL_PROOF"
+    },
+    "safe_status": "NO_DIRECT_PUBLIC_TEXT_LOCATED_ON_REVIEWED_HORIZON"
+  },
+  "adjudication": {
+    "xiugai_yuanliu_preferred_volume_count": "1卷",
+    "xiugai_yuanliu_seven_juan_variant": "PRESERVED_NOT_SELECTED",
+    "gujin_jiaoshikao_guo_identity_requires_author_or_lineage_binding": true,
+    "title_only_homonym_match_authorized": false,
+    "work_survival_status": "UNRESOLVED_GLOBAL; NO_DIRECT_PUBLIC_TEXT_LOCATED_ON_REVIEWED_HORIZON",
+    "evidence_increment_for_1294_site": 0,
+    "qishuo_geographic_reference": "UNRESOLVED",
+    "md_g03_status_after_batch": "OPEN_BLOCKING_GENERAL_ADAPTER",
+    "runtime_authorized": false,
+    "hpa_dayun_cal_002_status": "MISSING_FROM_PRODUCT"
+  },
+  "provenance": {
+    "repository_preexisting_seven_juan_misstatement_found_in_core_live_surfaces": false,
+    "provenance_defect_increment": 0,
+    "reason": "Core live project surfaces had not asserted 七卷 or bound a later homonym to Guo's work; this batch installs a preventive firewall rather than repairing an existing defect."
+  },
+  "transmission_impact": {
+    "nodes": [
+      "TEXT-WORK-GUOSHOUJING-XIUGAI-YUANLIU",
+      "TEXT-WORK-GUOSHOUJING-GUJIN-JIAOSHIKAO"
+    ],
+    "explicit_non_edges": [
+      "CHONGZHEN_GUJIN_JIAOSHIKAO_IS_GUO_WORK",
+      "ZHUZAIYU_GUJIN_JIAOSHIKAO_IS_GUO_WORK"
+    ],
+    "direct_content_transmission_edge_added": false
+  },
+  "accounting": {
+    "matrix_rows": 222,
+    "audited_rows": 222,
+    "current_missing_from_product_rows": 4,
+    "provenance_defects_confirmed": 45,
+    "provenance_defects_repaired": 45,
+    "historical_candidate_extensions": 14,
+    "historical_candidate_registries": 5,
+    "historical_candidate_runtime_resolvers": 5,
+    "chart_algorithm_defects": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0
+  },
+  "next_research_priority": {
+    "batch": "12PH",
+    "gate_id": "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
+    "focus": "Search later Ming/Qing calendrical works and bibliographies for explicit quotations, paraphrases, or source citations traceable specifically to Guo Shoujing's 修改源流 or 古今交食考, especially around 至元三十一年五月望、差天二刻、三應改定 and any site/clock wording."
+  }
+}

@@ -3965,6 +3965,40 @@
         "docs/research/MING-DATONG-1294-REVISED-YING-OBSERVATION-SITE-PROVENANCE-R1.json"
       ],
       "first_explicit_graph_batch": "BATCH-12-BAZI-MING-DATONG-1294-REVISED-YING-OBSERVATION-SITE-PROVENANCE-PF"
+    },
+    {
+      "node_id": "TEXT-WORK-GUOSHOUJING-XIUGAI-YUANLIU",
+      "node_type": "TEXT_WORK",
+      "label": "郭守敬《修改源流》",
+      "system_scope": "YUAN_SHOUSHI_REVISION_HISTORY_LOST_WORK",
+      "work_composition_date": "YUAN_GUO_SHOUJING_LIFETIME; exact date unresolved",
+      "physical_copy_date": null,
+      "digital_surrogate_date": null,
+      "bibliographic_state": "元史/千頃堂一卷；新元史七卷晚出異文",
+      "survival_status": "NO_DIRECT_PUBLIC_TEXT_LOCATED_ON_REVIEWED_HORIZON",
+      "evidence": [
+        "EXT-WIKISOURCE-YUANSHI-V164-GUOSHOUJING-WORKS",
+        "EXT-WIKISOURCE-QIANQINGTANG-V13-GUOSHOUJING-WORKS",
+        "docs/research/GUOSHOUJING-LOST-WORKS-BIBLIOGRAPHIC-SURVIVAL-CONTROL-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-BAZI-GUOSHOUJING-LOST-WORKS-BIBLIOGRAPHIC-SURVIVAL-CONTROL-PG"
+    },
+    {
+      "node_id": "TEXT-WORK-GUOSHOUJING-GUJIN-JIAOSHIKAO",
+      "node_type": "TEXT_WORK",
+      "label": "郭守敬《古今交食考》",
+      "system_scope": "YUAN_SHOUSHI_ECLIPSE_STUDY_LOST_WORK",
+      "work_composition_date": "YUAN_GUO_SHOUJING_LIFETIME; exact date unresolved",
+      "physical_copy_date": null,
+      "digital_surrogate_date": null,
+      "bibliographic_state": "元史/千頃堂均一卷",
+      "survival_status": "NO_DIRECT_PUBLIC_TEXT_LOCATED_ON_REVIEWED_HORIZON",
+      "evidence": [
+        "EXT-WIKISOURCE-YUANSHI-V164-GUOSHOUJING-WORKS",
+        "EXT-WIKISOURCE-QIANQINGTANG-V13-GUOSHOUJING-WORKS",
+        "docs/research/GUOSHOUJING-LOST-WORKS-BIBLIOGRAPHIC-SURVIVAL-CONTROL-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-BAZI-GUOSHOUJING-LOST-WORKS-BIBLIOGRAPHIC-SURVIVAL-CONTROL-PG"
     }
   ],
   "edges": [
@@ -7732,6 +7766,30 @@
         "docs/research/MING-DATONG-1294-REVISED-YING-OBSERVATION-SITE-PROVENANCE-R1.json"
       ],
       "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-1294-REVISED-YING-OBSERVATION-SITE-PROVENANCE-PF"
+    },
+    {
+      "from": "EXT-CINII-CHONGZHEN-LISHU-GUJIN-JIAOSHIKAO-HOMONYM",
+      "relation": "SAME_TEXT_WORK_AS",
+      "to": "TEXT-WORK-GUOSHOUJING-GUJIN-JIAOSHIKAO",
+      "status": "DISPROVED",
+      "reason": "The Chongzhen Lishu catalog binds its 古今交食考 to late-Ming reform authorship, not Guo Shoujing. Shared title is a homonym only.",
+      "evidence": [
+        "EXT-CINII-CHONGZHEN-LISHU-GUJIN-JIAOSHIKAO-HOMONYM",
+        "docs/research/GUOSHOUJING-LOST-WORKS-BIBLIOGRAPHIC-SURVIVAL-CONTROL-R1.json"
+      ],
+      "adjudication_batch": "BATCH-12-BAZI-GUOSHOUJING-LOST-WORKS-BIBLIOGRAPHIC-SURVIVAL-CONTROL-PG"
+    },
+    {
+      "from": "EXT-WIKISOURCE-LIXUE-XINSHU-GUJIN-JIAOSHIKAO-HOMONYM",
+      "relation": "SAME_TEXT_WORK_AS",
+      "to": "TEXT-WORK-GUOSHOUJING-GUJIN-JIAOSHIKAO",
+      "status": "DISPROVED",
+      "reason": "The Zhu Zaiyu-related 古今交食考 is a later Ming calendrical work; title identity does not establish textual identity with Guo's lost work.",
+      "evidence": [
+        "EXT-WIKISOURCE-LIXUE-XINSHU-GUJIN-JIAOSHIKAO-HOMONYM",
+        "docs/research/GUOSHOUJING-LOST-WORKS-BIBLIOGRAPHIC-SURVIVAL-CONTROL-R1.json"
+      ],
+      "adjudication_batch": "BATCH-12-BAZI-GUOSHOUJING-LOST-WORKS-BIBLIOGRAPHIC-SURVIVAL-CONTROL-PG"
     }
   ],
   "backfill": {

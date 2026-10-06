@@ -454,3 +454,11 @@ Yuan official records show why a Dadu default is unsafe. In 1279 the dynasty est
 These facts prove a multi-site institutional astronomy network and an active Shangdu court-astronomy context, but neither proves the eclipse was observed at Shangdu. Conversely, the existence of the Dadu central observatory does not prove the revision was based on Dadu time.
 
 Result: Dadu-only default rejected; exact 1294 revision site unresolved; qishuo geographic reference unresolved. The next source route is Guo's lost 修改源流 / 古今交食考 and Yuan Taishiyuan documentary residue.
+
+## 19. Batch 12PG — lost-work bibliography and homonym firewall
+
+《元史》郭守敬傳 gives 修改源流一卷 and 古今交食考一卷, 並藏之官. 《千頃堂書目》 independently repeats both one-volume counts. The later 《新元史》 changes 修改源流 to seven juan; this is retained as a late bibliographic variant, not promoted over the earlier agreement.
+
+The title 古今交食考 is demonstrably non-unique: later Ming calendrical corpora contain different works with the same title. Therefore title-only discovery cannot recover Guo's lost work.
+
+No direct public text or source-bound quotation from Guo's 修改源流 / 古今交食考 was located in this batch. The 1294 observation-site question gains no new positive evidence and remains unresolved.

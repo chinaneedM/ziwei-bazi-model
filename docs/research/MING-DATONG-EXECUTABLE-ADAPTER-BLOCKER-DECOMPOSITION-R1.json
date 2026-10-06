@@ -116,6 +116,18 @@
         "court_location_to_observation_site_inference": "FORBIDDEN",
         "status_after_batch": "OPEN_BLOCKING_GENERAL_ADAPTER",
         "runtime_authorized": false
+      },
+      "batch_12pg_refinement": {
+        "batch_id": "BATCH-12-BAZI-GUOSHOUJING-LOST-WORKS-BIBLIOGRAPHIC-SURVIVAL-CONTROL-PG",
+        "research_artifact": "docs/research/GUOSHOUJING-LOST-WORKS-BIBLIOGRAPHIC-SURVIVAL-CONTROL-R1.json",
+        "xiugai_yuanliu_preferred_volume_count": "1卷",
+        "xiugai_yuanliu_seven_juan_variant": "PRESERVED_NOT_SELECTED",
+        "gujin_jiaoshikao_homonym_firewall": true,
+        "direct_guo_work_text_located": false,
+        "site_evidence_increment": 0,
+        "exact_qishuo_reference": "UNRESOLVED",
+        "status_after_batch": "OPEN_BLOCKING_GENERAL_ADAPTER",
+        "runtime_authorized": false
       }
     },
     {
@@ -414,8 +426,8 @@
       "focus": "SHOUSHI_DATONG_TONGGUI_GK12437_ZHOUXIANG_QISHUO_EPOCH_CONSTANT_METHOD_NAMED_PLACE_BINDING"
     }
   },
-  "latest_qishuo_geography_batch": "BATCH-12-BAZI-MING-DATONG-1294-REVISED-YING-OBSERVATION-SITE-PROVENANCE-PF",
-  "latest_qishuo_geography_artifact": "docs/research/MING-DATONG-1294-REVISED-YING-OBSERVATION-SITE-PROVENANCE-R1.json",
+  "latest_qishuo_geography_batch": "BATCH-12-BAZI-GUOSHOUJING-LOST-WORKS-BIBLIOGRAPHIC-SURVIVAL-CONTROL-PG",
+  "latest_qishuo_geography_artifact": "docs/research/GUOSHOUJING-LOST-WORKS-BIBLIOGRAPHIC-SURVIVAL-CONTROL-R1.json",
   "batch_12pe_forward_refinement": {
     "status": "G03_EPOCH_TO_MERIDIAN_LINEAGE_SHORTCUT_REJECTED_ACTUAL_REFERENCE_REMAINS_OPEN",
     "historical_12ou_top_level_counts_preserved": true,
@@ -456,6 +468,27 @@
       "batch": "12PG",
       "gate_id": "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
       "focus": "LOST_GUO_SHOUJING_XIUGAI_YUANLIU_GUJIN_JIAOSHIKAO_AND_YUAN_TAISHIYUAN_REVISION_LOG_SURVIVAL"
+    }
+  },
+  "batch_12pg_forward_refinement": {
+    "status": "G03_LOST_WORKS_BIBLIOGRAPHIC_IDENTITY_CONTROLLED_NO_CONTENT_RECOVERED",
+    "historical_12ou_top_level_counts_preserved": true,
+    "current_live_gate_accounting_after_12pg": {
+      "closed_source_scoped": 5,
+      "open_blocking_general_adapter": 4,
+      "dependency_blocked": 2,
+      "total_gates": 11
+    },
+    "remaining_open_independent_gates": [
+      "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
+      "MD-G05-DYNAMIC-D1-INTERMEDIATE-PRECISION",
+      "MD-G07-CALENDAR-ADDITION-INVALID-TARGET-DATE",
+      "MD-G08-CALENDAR-ADDITION-INTERCALARY-IDENTITY-TRAVERSAL"
+    ],
+    "next_research_priority": {
+      "batch": "12PH",
+      "gate_id": "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
+      "focus": "SOURCE_BOUND_QUOTATION_HUNT_FOR_GUO_XIUGAI_YUANLIU_GUJIN_JIAOSHIKAO_1294_REVISION_SITE"
     }
   }
 }

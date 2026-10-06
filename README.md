@@ -644,3 +644,15 @@ Therefore DADU_AS_UNIQUE_YUAN_OBSERVATION_SITE is rejected, while the actual 129
 Next: 12PG — trace surviving quotations or catalog/excerpt evidence from 郭守敬《修改源流》《古今交食考》 and Yuan Taishiyuan records for the 1294 revision log/site.
 
 Batch document: docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-1294-REVISED-YING-OBSERVATION-SITE-PROVENANCE-PF.md. Research record: docs/research/MING-DATONG-1294-REVISED-YING-OBSERVATION-SITE-PROVENANCE-R1.json.
+
+## Progress — Batch 12PG
+
+郭守敬 lost-work route is now bibliographically firewalled before quote hunting. 《元史》郭守敬傳 and 《千頃堂書目》 both give 《修改源流》一卷 and 《古今交食考》一卷; the later 《新元史》 alone gives 《修改源流》七卷, so seven juan is preserved only as a late variant.
+
+《古今交食考》 is also a homonym trap: late-Ming 崇禎曆書 and 朱載堉 calendrical material use the same title for different works. Title-only matching is now forbidden.
+
+No direct public text of Guo's two works was recovered on the reviewed horizon, and 並藏之官 is treated as historical custody rather than present-survival proof. No 1294 site evidence was gained; MD-G03 remains open and HPA-DAYUN-CAL-002 remains fail-closed.
+
+Next: 12PH — hunt source-bound quotations/paraphrases explicitly traceable to Guo's lost works, especially 至元三十一年五月望 / 差天二刻 / 三應改定 and site/clock wording.
+
+Batch document: docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-GUOSHOUJING-LOST-WORKS-BIBLIOGRAPHIC-SURVIVAL-CONTROL-PG.md. Research record: docs/research/GUOSHOUJING-LOST-WORKS-BIBLIOGRAPHIC-SURVIVAL-CONTROL-R1.json.

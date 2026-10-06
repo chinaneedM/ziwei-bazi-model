@@ -2146,3 +2146,11 @@ HPA-DAYUN-CAL-002 remains MISSING_FROM_PRODUCT. Yuan official evidence proves a 
 Dadu-only observation is therefore rejected as a system-level assumption, but Dadu, Shangdu, and the actual qishuo reference remain unselected. MD-G03 stays open and runtime remains fail-closed.
 
 Research: docs/research/MING-DATONG-1294-REVISED-YING-OBSERVATION-SITE-PROVENANCE-R1.json.
+
+## Batch 12PG — Guo Shoujing lost-work bibliography and homonym control
+
+HPA-DAYUN-CAL-002 remains MISSING_FROM_PRODUCT. Earlier 《元史》 and 《千頃堂書目》 agree on 《修改源流》一卷 / 《古今交食考》一卷; later 《新元史》 seven-juan 修改源流 is preserved as a variant only. Later homonymous 古今交食考 works are explicitly non-identical unless author/lineage evidence binds them.
+
+No direct text or site-bearing quotation was recovered. MD-G03 remains open; runtime remains fail-closed.
+
+Research: docs/research/GUOSHOUJING-LOST-WORKS-BIBLIOGRAPHIC-SURVIVAL-CONTROL-R1.json.
