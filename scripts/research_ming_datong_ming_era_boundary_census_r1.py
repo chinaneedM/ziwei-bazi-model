@@ -1,6 +1,6 @@
 from __future__ import annotations
 import importlib.util, json
-from decimal import Decimal, localcontext
+from decimal import Decimal, ROUND_HALF_EVEN, localcontext
 from pathlib import Path
 from typing import Any
 ROOT=Path(__file__).resolve().parents[1]
@@ -36,6 +36,7 @@ def run(root:Path=ROOT)->dict[str,Any]:
     # inherit process-global precision from unrelated tests/imports.
     with localcontext() as decimal_ctx:
         decimal_ctx.prec=50
+        decimal_ctx.rounding=ROUND_HALF_EVEN
         ctx=d1._load(root); struct=[]; daydiv=[]; tensions=[]; dx=[]; boundaries=[]; pairs=[]
         for year in range(FIRST_YEAR,LAST_YEAR+1):
             bp={p:_technical_sui(ctx,year,p) for p in d1.PROFILES}

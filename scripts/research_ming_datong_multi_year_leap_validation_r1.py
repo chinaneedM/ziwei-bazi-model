@@ -45,8 +45,7 @@ def _month_sequence(ctx: dict[str, Any], year: int, profile: str, exact_time: bo
     # Expand far enough to find two regular month-1 anchors. A pre-year
     # intercalation can shift civil New Year away from a fixed sequence k.
     new_moons = [_new_moon(ctx, year, k, profile) for k in range(20)]
-    rows: list[dict[str, Any]] = []
-    previous_month: int | None = None
+    interval_rows: list[dict[str, Any]] = []
 
     for k in range(19):
         start = new_moons[k]
@@ -62,22 +61,35 @@ def _month_sequence(ctx: dict[str, Any], year: int, profile: str, exact_time: bo
             if inside:
                 zhongqi.append({"z": z, "source": event, "day": int(event // DAY)})
 
-        if zhongqi:
-            month = ((zhongqi[0]["z"] + 10) % 12) + 1
-            previous_month = month
-            is_leap = False
-        else:
-            if previous_month is None:
-                raise AssertionError("month-11 anchor lost before first no-Zhongqi interval")
-            month = previous_month
-            is_leap = True
-
-        rows.append({
-            "k": k, "month": month, "is_leap": is_leap,
+        interval_rows.append({
+            "k": k,
             "start_source": start["source"], "start_day": start["day"],
             "next_start_source": end["source"], "next_start_day": end["day"],
             "zhongqi": zhongqi,
         })
+
+    anchor_index = next(
+        (index for index, row in enumerate(interval_rows)
+         if any(item["z"] == 0 for item in row["zhongqi"])),
+        None,
+    )
+    if anchor_index is None:
+        raise AssertionError("winter-solstice month-11 anchor not found")
+
+    rows: list[dict[str, Any]] = []
+    previous_month = 11
+    for index, row in enumerate(interval_rows[anchor_index:]):
+        if index == 0:
+            month = 11
+            is_leap = False
+        elif row["zhongqi"]:
+            month = ((row["zhongqi"][0]["z"] + 10) % 12) + 1
+            previous_month = month
+            is_leap = False
+        else:
+            month = previous_month
+            is_leap = True
+        rows.append({**row, "month": month, "is_leap": is_leap})
 
     regular_month_one_indices = [
         index for index, row in enumerate(rows)
