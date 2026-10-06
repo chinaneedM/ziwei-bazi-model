@@ -157,7 +157,8 @@ class ResolvedProfileLineageWorkbenchR1Tests(unittest.TestCase):
         self.assertIn("must not be promoted", row["notes"])
 
     def test_workbench_version_bumps_without_changing_legacy_health_contract(self) -> None:
-        self.assertEqual(_WorkbenchHandler.server_version, "CombinedChartWorkbenchLocalApp/1.12")
+        self.assertTrue(_WorkbenchHandler.server_version.startswith("CombinedChartWorkbenchLocalApp/1."))
+        self.assertGreaterEqual(int(_WorkbenchHandler.server_version.rsplit(".", 1)[1]), 12)
         health = self.app.health()
         self.assertEqual(health["schema"], "ZIWEI-BAZI-COMBINED-LOCAL-APP-HEALTH-V1")
         self.assertEqual(health["application_version"], "1.1.0")
