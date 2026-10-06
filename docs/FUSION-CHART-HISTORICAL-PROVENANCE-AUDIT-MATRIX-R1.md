@@ -2180,3 +2180,13 @@ However, the historical qishuo clock-standard mapping is not source-closed. Appa
 Therefore modern ephemeris precision does not authorize meridian selection. HPA-DAYUN-CAL-002 remains MISSING_FROM_PRODUCT; MD-G03 remains open.
 
 Research: docs/research/MING-DATONG-QISHUO-ABSOLUTE-TIME-ANCHOR-FEASIBILITY-R1.json.
+
+## Batch 12PK — qishuo 子正 / clock-standard semantics
+
+The internal Datong/Shoushi clock coordinate is now source-scoped closed: a uniform 10000-unit day is converted to shichen/ke from 子正. The qishuo method does not directly bind that coordinate to apparent solar time, mean solar time, a physical clepsydra, or a named longitude.
+
+Separate Shoushi locality-sensitive day/night/clepsydra rules and Zhu Zaiyu's Dadu-vs-Nanjing critique strengthen module-specific geography, while the distinct 庚午元曆 supplies a positive control for an explicit place/里差 correction at the new-moon step. None selects the Datong qishuo meridian.
+
+HPA-DAYUN-CAL-002 remains MISSING_FROM_PRODUCT; MD-G03 remains open.
+
+Research: docs/research/MING-DATONG-QISHUO-ZIZHENG-CLOCK-STANDARD-SEMANTICS-R1.json.

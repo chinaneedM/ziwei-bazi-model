@@ -692,3 +692,15 @@ MD-G03 therefore remains open; HPA-DAYUN-CAL-002 remains MISSING_FROM_PRODUCT an
 Next: 12PK — direct historical audit of qishuo 子正/刻 absolute time-standard semantics.
 
 Batch document: docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-QISHUO-ABSOLUTE-TIME-ANCHOR-FEASIBILITY-PJ.md. Research record: docs/research/MING-DATONG-QISHUO-ABSOLUTE-TIME-ANCHOR-FEASIBILITY-R1.json.
+
+## Progress — Batch 12PK
+
+Shoushi/Datong qishuo time semantics are now split into two layers. The internal layer is source-closed: 日周=10000 is converted into 12 shichen / 100-ke labels by `推發斂加時`, counted from 子正. The absolute realization layer remains open: the qishuo method does not directly identify this coordinate as local apparent solar time, local mean solar time, a measured clepsydra reading, or a named-longitude standard.
+
+Shoushi separately has explicit locality-sensitive day/night and clepsydra machinery; Zhu Zaiyu's late-Ming critique also confirms Dadu-vs-Nanjing module geography. A cross-calendar positive control in Yuan-shi volume 56, the distinct 庚午元曆, explicitly applies `尋斯干城` + `里差` to new-moon remainders, demonstrating what an explicit geographic correction looks like without importing it into Shoushi/Datong.
+
+MD-G03 remains open; HPA-DAYUN-CAL-002 remains MISSING_FROM_PRODUCT and runtime remains fail-closed.
+
+Next: **12PL — Ming Qintianjian institutional almanac clock-standard / capital-binding audit**.
+
+Batch document: docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-QISHUO-ZIZHENG-CLOCK-STANDARD-SEMANTICS-PK.md. Research record: docs/research/MING-DATONG-QISHUO-ZIZHENG-CLOCK-STANDARD-SEMANTICS-R1.json.

@@ -14165,6 +14165,54 @@
       "quality_notes": "Peer-reviewed Earth-rotation reconstruction used as a modern uncertainty/model background layer. It does not define any historical Ming or Yuan clock coordinate.",
       "batch_id": "BATCH-12-BAZI-MING-DATONG-QISHUO-ABSOLUTE-TIME-ANCHOR-FEASIBILITY-PJ",
       "access_date": "2026-10-06"
+    },
+    {
+      "source_id": "EXT-WIKISOURCE-YUANSHI-V54-SHOUSHI-FALIAN-ZIZHENG",
+      "title": "《元史》卷五十四《授時曆經上·推發斂加時》",
+      "historical_period": "EARLY_MING_COMPILED_YUAN_DYNASTIC_HISTORY_RECEIVED_SHOUSHI_CANON",
+      "provider": "Chinese Wikisource",
+      "url": "https://zh.wikisource.org/zh-hant/元史/卷054",
+      "source_role": "RECEIVED_SHOUSHI_WITNESS_FOR_UNIFORM_DAY_FRACTION_TO_ZIZHENG_SHICHEN_KE_CONVERSION",
+      "quality_notes": "Preserves 日周=10000 and 推發斂加時: convert event fraction to 12 shichen/ke and count from 子正, with 子初 half-shichen handling. It closes internal clock-label mechanics only; it does not name apparent/mean solar time, longitude, or physical clepsydra realization for qishuo.",
+      "batch_id": "BATCH-12-BAZI-MING-DATONG-QISHUO-ZIZHENG-CLOCK-STANDARD-SEMANTICS-PK",
+      "physical_glyph_authority": false,
+      "access_date": "2026-10-06"
+    },
+    {
+      "source_id": "EXT-WIKISOURCE-YUANSHI-V55-SHOUSHI-DADU-JIUFU-LOUKE",
+      "title": "《元史》卷五十五《授時曆經下·步中星第五》大都與九服漏刻",
+      "historical_period": "EARLY_MING_COMPILED_YUAN_DYNASTIC_HISTORY_RECEIVED_SHOUSHI_CANON",
+      "provider": "Chinese Wikisource",
+      "url": "https://zh.wikisource.org/zh-hant/元史_(四庫全書本)/全覽2",
+      "source_role": "RECEIVED_SHOUSHI_WITNESS_FOR_DADU_DAYLIGHT_AND_LOCAL_NINE_REGION_CLEPSYDRA_CALIBRATION",
+      "quality_notes": "Explicitly gives Dadu polar altitude/day-night values and says nine-region day/night/mid-star rates follow local pole altitude; local leak-clock values may be established by instrument observation or water clock. This proves a locality-sensitive timekeeping module but does not bind qishuo small remainders to Dadu longitude.",
+      "batch_id": "BATCH-12-BAZI-MING-DATONG-QISHUO-ZIZHENG-CLOCK-STANDARD-SEMANTICS-PK",
+      "physical_glyph_authority": false,
+      "access_date": "2026-10-06"
+    },
+    {
+      "source_id": "EXT-WIKISOURCE-YUANSHI-V56-GENGWU-XUNSIGAN-LICHA",
+      "title": "《元史》卷五十六《庚午元曆·求朔弦望中日》尋斯干城里差",
+      "historical_period": "EARLY_MING_COMPILED_RECEIVED_GENGWU_YUANLI_TEXT",
+      "provider": "Chinese Wikisource",
+      "url": "https://zh.wikisource.org/zh-hant/元史/卷056",
+      "source_role": "CROSS_CALENDAR_POSITIVE_CONTROL_FOR_EXPLICIT_GEOGRAPHIC_CORRECTION_OF_NEW_MOON_REMAINDER",
+      "quality_notes": "The distinct 庚午元曆 explicitly uses 尋斯干城 as reference, derives 里差 from east/west distance, and adds/subtracts it from mean new-moon/quarter/full-moon remainder. Positive-control architecture only; it must not be imported into Shoushi/Datong.",
+      "batch_id": "BATCH-12-BAZI-MING-DATONG-QISHUO-ZIZHENG-CLOCK-STANDARD-SEMANTICS-PK",
+      "physical_glyph_authority": false,
+      "access_date": "2026-10-06"
+    },
+    {
+      "source_id": "EXT-SHIDIAN-ZHUZAIYU-HUANGZHONG-LIYI-LOUKE-DADU-NANJING",
+      "title": "朱載堉《黃鍾曆議下·漏刻》",
+      "historical_period": "LATE_MING_AUTHORIAL_CALENDRICAL_CRITIQUE",
+      "provider": "Shidian Guji / 《樂律全書》received digital surface",
+      "url": "https://www.shidianguji.com/zh/book/HY5708/chapter/1lmj5ens2slxl",
+      "source_role": "LATE_MING_AUTHORIAL_WITNESS_FOR_SHOUSHI_DADU_VS_DATONG_NANJING_TIMEKEEPING_MODULE_GEOGRAPHY",
+      "quality_notes": "States Shoushi rising/setting and seasonal day/night behavior used Dadu gnomon/clepsydra, while early Datong changed sunrise/sunset/daylength to Nanjing; criticizes mixed use because eclipse east-west and planetary visibility procedures retained Yuan methods. Strong module-geography evidence, not a direct qishuo-small-remainder meridian statement.",
+      "batch_id": "BATCH-12-BAZI-MING-DATONG-QISHUO-ZIZHENG-CLOCK-STANDARD-SEMANTICS-PK",
+      "physical_glyph_authority": false,
+      "access_date": "2026-10-06"
     }
   ],
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md",

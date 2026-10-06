@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.431.0",
+  "schema_version": "1.432.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -511,9 +511,10 @@
       "BATCH-12-BAZI-GUOSHOUJING-LOST-WORKS-BIBLIOGRAPHIC-SURVIVAL-CONTROL-PG",
       "BATCH-12-BAZI-GUOSHOUJING-LOST-WORK-QUOTATION-CHAIN-AUDIT-PH",
       "BATCH-12-BAZI-MING-DATONG-QISHUO-GEOGRAPHIC-IDENTIFIABILITY-AUDIT-PI",
-      "BATCH-12-BAZI-MING-DATONG-QISHUO-ABSOLUTE-TIME-ANCHOR-FEASIBILITY-PJ"
+      "BATCH-12-BAZI-MING-DATONG-QISHUO-ABSOLUTE-TIME-ANCHOR-FEASIBILITY-PJ",
+      "BATCH-12-BAZI-MING-DATONG-QISHUO-ZIZHENG-CLOCK-STANDARD-SEMANTICS-PK"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-QISHUO-ABSOLUTE-TIME-ANCHOR-FEASIBILITY-PJ.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-QISHUO-ZIZHENG-CLOCK-STANDARD-SEMANTICS-PK.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -2525,7 +2526,14 @@
       "USNO equation-of-time semantics show apparent versus mean solar time can differ by up to about 16 minutes, larger than the Beijing-Nanjing signal. This is a coordinate-semantic ambiguity, not ephemeris noise.",
       "MD-G03 remains OPEN_BLOCKING_GENERAL_ADAPTER; modern absolute-time comparison is technically feasible but not historically admissible for meridian selection until clock semantics/locality are source-closed.",
       "Live Ming adapter ledger after 12PJ remains 5 CLOSED_SOURCE_SCOPED / 4 OPEN_BLOCKING_GENERAL_ADAPTER / 2 DEPENDENCY_BLOCKED. HPA-DAYUN-CAL-002 remains MISSING_FROM_PRODUCT and runtime fail-closed.",
-      "12PK: source-close qishuo 子正/刻 absolute time-standard semantics and locality attachment."
+      "12PK: source-close qishuo 子正/刻 absolute time-standard semantics and locality attachment.",
+      "Batch 12PK completed: Shoushi/Datong qishuo time is source-scoped closed only as a uniform internal 10000-unit day converted to 12 shichen/100 ke from 子正.",
+      "The reviewed qishuo/falian formulas do not directly identify the coordinate as local apparent solar time, local mean solar time, a measured clepsydra reading, or a named longitude.",
+      "Shoushi separately has explicit Dadu and nine-region locality-sensitive day/night/clepsydra machinery. Zhu Zaiyu's late-Ming critique independently describes Shoushi Dadu versus Datong Nanjing timekeeping-module geography and the resulting mixed-system inconsistency.",
+      "Yuan-shi volume 56's distinct 庚午元曆 provides a positive control: when a calendar explicitly applies geographic correction to new-moon remainders it can name a reference city and 里差 with east/west add/subtract. This rule is not imported into Shoushi/Datong.",
+      "12PK closes INTERNAL_UNIFORM_ZIZHENG_CLOCK but leaves ABSOLUTE_PHYSICAL_REALIZATION and QISHUO_GEOGRAPHIC_REFERENCE unresolved. Modern ephemeris longitude fitting remains unauthorized.",
+      "Live Ming adapter ledger after 12PK remains 5 CLOSED_SOURCE_SCOPED / 4 OPEN_BLOCKING_GENERAL_ADAPTER / 2 DEPENDENCY_BLOCKED. HPA-DAYUN-CAL-002 remains MISSING_FROM_PRODUCT and runtime fail-closed.",
+      "12PL: audit Ming Qintianjian institutional almanac clock-standard/capital binding, especially whether published conjunction-time labels inherit a bureau/capital standard."
     ],
     "historical_candidate_extension_count": 14,
     "current_missing_from_product_row_count": 4

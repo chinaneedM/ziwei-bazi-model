@@ -490,3 +490,15 @@ This removes one possible objection: Earth-rotation uncertainty is not, by itsel
 The blocker is instead coordinate semantics. USNO's equation-of-time definition shows that local apparent solar time and local mean solar time can differ by up to about 16 minutes. Until the Datong qishuo 子正/刻 coordinate is explicitly bound to one historical clock standard and locality, a precise modern conjunction instant cannot be converted into a historically comparable clock label without inserting an unproved assumption.
 
 Thus absolute ephemeris anchoring is FEASIBLE_BUT_NOT_YET_HISTORICALLY_ADMISSIBLE_FOR_MERIDIAN_SELECTION.
+
+## 23. Batch 12PK — 子正 closes the internal clock, not the absolute solar-time standard
+
+Shoushi's `推發斂加時` converts the uniform 日周=10000 fractional coordinate into 12 shichen and 100 ke by counting from 子正. This directly closes the internal computational time coordinate.
+
+Nothing in the reviewed qishuo conversion identifies the coordinate as modern-style local apparent solar time or local mean solar time, names a longitude, or instructs a water-clock reading at that step.
+
+Shoushi separately contains Dadu-based and locally recalibratable day/night/clepsydra machinery. Zhu Zaiyu later criticizes Datong for mixing Nanjing daylight/clepsydra parameters with Yuan-derived eclipse/location procedures, strongly supporting module-specific geography rather than a single globally inherited location.
+
+A separate positive control is Yuan-shi volume 56's 庚午元曆: its new-moon method explicitly states a reference city and `里差` with east/west add/subtract. This proves such a geographic operator can be explicit when present, but it is not a Shoushi/Datong rule.
+
+Result: INTERNAL_UNIFORM_ZIZHENG_CLOCK=CLOSED; ABSOLUTE_PHYSICAL_REALIZATION=UNRESOLVED; QISHUO_GEOGRAPHIC_REFERENCE=UNRESOLVED.

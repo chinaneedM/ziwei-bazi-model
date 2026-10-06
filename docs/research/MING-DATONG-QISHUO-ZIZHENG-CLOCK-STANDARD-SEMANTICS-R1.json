@@ -1,0 +1,99 @@
+{
+  "schema": "MING-DATONG-QISHUO-ZIZHENG-CLOCK-STANDARD-SEMANTICS-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-BAZI-MING-DATONG-QISHUO-ZIZHENG-CLOCK-STANDARD-SEMANTICS-PK",
+  "date": "2026-10-06",
+  "status": "INTERNAL_UNIFORM_CLOCK_COORDINATE_CLOSED_ABSOLUTE_REALIZATION_UNRESOLVED",
+  "question": "What does the Shoushi/Datong qishuo 子正/刻 coordinate directly encode, and does the source bind it to apparent solar time, mean solar time, a clepsydra realization, or a named locality?",
+  "direct_shoushi_clock_rule": {
+    "source_id": "EXT-WIKISOURCE-YUANSHI-V54-SHOUSHI-FALIAN-ZIZHENG",
+    "received_text": "推發斂加時: 置所求分秒，以十二乘之，滿辰法而一，為辰數；餘以刻法收之，為刻；命子正算外，即所在辰刻；如滿半辰法，通作一辰，命起子初。",
+    "source_day_unit": "日周10000",
+    "mechanical_semantics": "Uniform fractional-day arithmetic is converted into 12 shichen / 100-ke labels by counting from 子正; half-shichen labeling uses 子初.",
+    "apparent_solar_term_or_equation_attested": false,
+    "mean_solar_term_attested": false,
+    "named_place_or_longitude_attested": false,
+    "clepsydra_device_operation_attested_in_this_qishuo_conversion": false,
+    "result": "UNIFORM_CONVENTIONAL_COMPUTATIONAL_TIME_COORDINATE_CLOSED"
+  },
+  "direct_datong_continuity": {
+    "source_ids": [
+      "EXT-KOTENMON-DAMING-DATONG-1569",
+      "EXT-WIKISOURCE-MINGSHI-V35-DATONG-TIME"
+    ],
+    "result": "Zhou Xiang 1569 and the received Mingshi Datong procedure preserve the same 10000-unit day / 子正-to-shichen-ke conversion architecture.",
+    "absolute_clock_realization_attested": false
+  },
+  "shoushi_local_timekeeping_module": {
+    "source_id": "EXT-WIKISOURCE-YUANSHI-V55-SHOUSHI-DADU-JIUFU-LOUKE",
+    "direct_features": [
+      "大都北極出地四十度太強",
+      "Dadu-specific solstitial day/night fractions",
+      "九服所在晝夜刻分及中星諸率準隨處北極出地度數推之",
+      "求九服所在漏刻: each locality may use instrument observation or water-clock calibration"
+    ],
+    "result": "SHOUSHI_HAS_EXPLICIT_LOCATION_DEPENDENT_DAYLIGHT_AND_CLEPSYDRA_MODULE",
+    "qishuo_small_remainder_identity_with_this_local_module": "NOT_ATTESTED"
+  },
+  "late_ming_authorial_control": {
+    "source_id": "EXT-SHIDIAN-ZHUZAIYU-HUANGZHONG-LIYI-LOUKE-DADU-NANJING",
+    "author": "朱載堉",
+    "work": "《黃鍾曆議》 / 《樂律全書》",
+    "claims": [
+      "元人都燕，其授時曆七曜出沒之早晏、四時晝夜之永短皆準大都晷漏",
+      "國初都金陵，大統曆日出入時刻及晝夜消長改從南京晷漏",
+      "交食分秒、南北東西等差及五星定伏定見仍因元人舊法，與改用南京漏刻形成模塊不一致"
+    ],
+    "evidence_class": "LATE_MING_AUTHORIAL_CALENDRICAL_CRITIQUE",
+    "result": "MODULE_SPECIFIC_TIMEKEEPING_GEOGRAPHY_STRONGLY_SUPPORTED",
+    "limitation": "Does not explicitly say that Datong 定朔小餘 itself equals Dadu or Nanjing apparent/mean solar time."
+  },
+  "explicit_geographic_positive_control": {
+    "source_id": "EXT-WIKISOURCE-YUANSHI-V56-GENGWU-XUNSIGAN-LICHA",
+    "calendar": "庚午元曆",
+    "different_calendar_from_shoushi": true,
+    "received_text": "求朔弦望中日: 以尋斯干城為準，置相去地里...曰里差；以加減經朔弦望小餘；以東加之，以西減之。",
+    "result": "EXPLICIT_PLACE_AND_EAST_WEST_DISTANCE_CORRECTION_TO_NEW_MOON_REMAINDER_IS_HISTORICALLY_EXPRESSIBLE_WHEN_PART_OF_A_METHOD",
+    "firewall": "This is a cross-calendar positive control and must not be imported into Shoushi/Datong."
+  },
+  "adjudication": {
+    "internal_uniform_100ke_zizheng_coordinate": "CLOSED_SOURCE_SCOPED",
+    "direct_identity_with_local_apparent_solar_time": "NOT_ATTESTED",
+    "direct_identity_with_local_mean_solar_time": "NOT_ATTESTED",
+    "direct_identity_with_measured_clepsydra_time": "NOT_ATTESTED_IN_QISHUO_METHOD",
+    "separate_location_dependent_shoushi_datong_timekeeping_modules": "ATTESTED",
+    "explicit_shoushi_datong_qishuo_longitude_operator": "NOT_ATTESTED_ON_REVIEWED_QISHUO_METHODS",
+    "absolute_clock_standard_semantics": "UNRESOLVED",
+    "qishuo_geographic_reference": "UNRESOLVED",
+    "md_g03_status_after_batch": "OPEN_BLOCKING_GENERAL_ADAPTER",
+    "modern_ephemeris_meridian_fit_authorized": false,
+    "runtime_authorized": false,
+    "hpa_dayun_cal_002_status": "MISSING_FROM_PRODUCT",
+    "closed_subquestion": "QISHUO_ZIZHENG_IS_A_UNIFORM_INTERNAL_COMPUTATIONAL_CLOCK_ORIGIN_BUT_ITS_ABSOLUTE_PHYSICAL_TIME_REALIZATION_IS_NOT_SOURCE_CLOSED"
+  },
+  "inference_firewalls": [
+    "UNIFORM_100KE_COORDINATE != DIRECT_PROOF_OF_LOCAL_MEAN_SOLAR_TIME",
+    "ZI_ZHENG_LABEL != DIRECT_PROOF_OF_LOCAL_APPARENT_SOLAR_MIDNIGHT",
+    "SHOUSHI_DADU_DAYLIGHT_LOUKE != AUTOMATIC_QISHUO_DADU_MERIDIAN",
+    "DATONG_NANJING_DAYLIGHT_LOUKE != AUTOMATIC_QISHUO_NANJING_MERIDIAN",
+    "GENGWU_XUNSIGAN_LICHA_RULE != SHOUSHI_DATONG_RULE"
+  ],
+  "route_disposition": {
+    "repeat_generic_apparent_vs_mean_solar_fit": "FORBIDDEN_UNTIL_ABSOLUTE_REALIZATION_BINDING",
+    "next_batch": "12PL",
+    "next_focus": "Ming Qintianjian institutional almanac clock-standard/capital-binding audit: determine whether published qishuo/almanac time labels were officially tied to a bureau/capital standard clock and whether that rule was applied to conjunction times."
+  },
+  "accounting": {
+    "matrix_rows": 222,
+    "audited_rows": 222,
+    "current_missing_from_product_rows": 4,
+    "provenance_defects_confirmed": 45,
+    "provenance_defects_repaired": 45,
+    "historical_candidate_extensions": 14,
+    "historical_candidate_registries": 5,
+    "historical_candidate_runtime_resolvers": 5,
+    "chart_algorithm_defects": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0
+  }
+}

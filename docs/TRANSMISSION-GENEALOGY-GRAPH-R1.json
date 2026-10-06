@@ -4029,6 +4029,70 @@
         "docs/research/GUOSHOUJING-LOST-WORK-QUOTATION-CHAIN-AUDIT-R1.json"
       ],
       "first_explicit_graph_batch": "BATCH-12-BAZI-GUOSHOUJING-LOST-WORK-QUOTATION-CHAIN-AUDIT-PH"
+    },
+    {
+      "node_id": "RULE-SHOUSHI-FALIAN-ZIZHENG-UNIFORM-100KE",
+      "node_type": "MECHANICAL_RULE",
+      "label": "授時發斂：日周10000→子正起算十二辰/百刻均勻計算時標",
+      "system_scope": "SHOUSHI_DATONG_INTERNAL_TIME_COORDINATE",
+      "mechanical_identity": "Uniform 10000-unit day fraction converted to shichen/ke from 子正; no absolute solar-time or longitude identity asserted.",
+      "evidence": [
+        "EXT-WIKISOURCE-YUANSHI-V54-SHOUSHI-FALIAN-ZIZHENG",
+        "docs/research/MING-DATONG-QISHUO-ZIZHENG-CLOCK-STANDARD-SEMANTICS-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-BAZI-MING-DATONG-QISHUO-ZIZHENG-CLOCK-STANDARD-SEMANTICS-PK"
+    },
+    {
+      "node_id": "PASSAGE-YUANSHI-V54-FALIAN-ZIZHENG",
+      "node_type": "PASSAGE",
+      "label": "《元史》卷54授時曆經上·推發斂加時",
+      "system_scope": "SHOUSHI_RECEIVED_INTERNAL_CLOCK_SEMANTICS",
+      "date": "EARLY_MING_COMPILED_YUAN_DYNASTIC_HISTORY",
+      "locator": "卷54 推發斂加時",
+      "evidence": [
+        "EXT-WIKISOURCE-YUANSHI-V54-SHOUSHI-FALIAN-ZIZHENG",
+        "docs/research/MING-DATONG-QISHUO-ZIZHENG-CLOCK-STANDARD-SEMANTICS-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-BAZI-MING-DATONG-QISHUO-ZIZHENG-CLOCK-STANDARD-SEMANTICS-PK"
+    },
+    {
+      "node_id": "PASSAGE-YUANSHI-V56-GENGWU-XUNSIGAN-LICHA",
+      "node_type": "PASSAGE",
+      "label": "《元史》卷56庚午元曆·尋斯干城里差修正朔弦望",
+      "system_scope": "GENGWU_YUANLI_EXPLICIT_GEOGRAPHIC_CORRECTION_POSITIVE_CONTROL",
+      "date": "RECEIVED_IN_EARLY_MING_YUANSHI",
+      "locator": "卷56 庚午元曆 求朔弦望中日",
+      "evidence": [
+        "EXT-WIKISOURCE-YUANSHI-V56-GENGWU-XUNSIGAN-LICHA",
+        "docs/research/MING-DATONG-QISHUO-ZIZHENG-CLOCK-STANDARD-SEMANTICS-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-BAZI-MING-DATONG-QISHUO-ZIZHENG-CLOCK-STANDARD-SEMANTICS-PK"
+    },
+    {
+      "node_id": "PASSAGE-ZHUZAIYU-HUANGZHONG-LIYI-DADU-NANJING-LOUKE",
+      "node_type": "PASSAGE",
+      "label": "朱載堉《黃鍾曆議·漏刻》授時大都／大統南京模塊地理批評",
+      "system_scope": "LATE_MING_CALENDRICAL_TIMEKEEPING_GEOGRAPHY_CRITIQUE",
+      "date": "LATE_MING",
+      "locator": "《樂律全書》黃鍾曆議下·漏刻",
+      "evidence": [
+        "EXT-SHIDIAN-ZHUZAIYU-HUANGZHONG-LIYI-LOUKE-DADU-NANJING",
+        "docs/research/MING-DATONG-QISHUO-ZIZHENG-CLOCK-STANDARD-SEMANTICS-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-BAZI-MING-DATONG-QISHUO-ZIZHENG-CLOCK-STANDARD-SEMANTICS-PK"
+    },
+    {
+      "node_id": "RULE-FAMILY-SHOUSHI-DATONG-MODULE-SPECIFIC-LOUKE-GEOGRAPHY",
+      "node_type": "RULE_FAMILY",
+      "label": "授時/大統地方晷漏模塊與氣朔內部時標分層",
+      "system_scope": "SHOUSHI_DATONG_MODULE_SPECIFIC_TIMEKEEPING_GEOGRAPHY",
+      "mechanical_identity": "Shoushi carries Dadu/local day-night/clepsydra parameters; Datong changed daylight/clepsydra geography to Nanjing while other Yuan-derived modules could remain unchanged. This does not identify qishuo small-remainder longitude.",
+      "evidence": [
+        "EXT-WIKISOURCE-YUANSHI-V55-SHOUSHI-DADU-JIUFU-LOUKE",
+        "EXT-SHIDIAN-ZHUZAIYU-HUANGZHONG-LIYI-LOUKE-DADU-NANJING",
+        "docs/research/MING-DATONG-QISHUO-ZIZHENG-CLOCK-STANDARD-SEMANTICS-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-BAZI-MING-DATONG-QISHUO-ZIZHENG-CLOCK-STANDARD-SEMANTICS-PK"
     }
   ],
   "edges": [
@@ -6878,6 +6942,58 @@
         "docs/research/MING-DATONG-1294-REVISED-YING-OBSERVATION-SITE-PROVENANCE-R1.json"
       ],
       "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-1294-REVISED-YING-OBSERVATION-SITE-PROVENANCE-PF"
+    },
+    {
+      "edge_id": "TG-E0187",
+      "from": "PASSAGE-YUANSHI-V54-FALIAN-ZIZHENG",
+      "relation": "ATTESTS",
+      "to": "RULE-SHOUSHI-FALIAN-ZIZHENG-UNIFORM-100KE",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_FOR_RECEIVED_TEXT_MECHANICS",
+      "evidence_class": "RECEIVED_DYNASTIC_HISTORY_TEXT",
+      "evidence": [
+        "docs/research/MING-DATONG-QISHUO-ZIZHENG-CLOCK-STANDARD-SEMANTICS-R1.json"
+      ],
+      "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-QISHUO-ZIZHENG-CLOCK-STANDARD-SEMANTICS-PK"
+    },
+    {
+      "edge_id": "TG-E0188",
+      "from": "PASSAGE-ZHOUXIANG-1569-SHOUSHI-1281-EPOCH-REVISED-YING",
+      "relation": "TRANSMITS_RULE",
+      "to": "RULE-SHOUSHI-FALIAN-ZIZHENG-UNIFORM-100KE",
+      "status": "HIGH_CONFIDENCE",
+      "confidence": "HIGH_FOR_MING_PRIMARY_CONTINUITY",
+      "evidence_class": "DIRECT_PRIMARY_FACSIMILE_PLUS_PRIOR_COLLATION",
+      "evidence": [
+        "docs/research/MING-DATONG-QISHUO-ZIZHENG-CLOCK-STANDARD-SEMANTICS-R1.json"
+      ],
+      "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-QISHUO-ZIZHENG-CLOCK-STANDARD-SEMANTICS-PK"
+    },
+    {
+      "edge_id": "TG-E0189",
+      "from": "PASSAGE-ZHUZAIYU-HUANGZHONG-LIYI-DADU-NANJING-LOUKE",
+      "relation": "ATTESTS",
+      "to": "RULE-FAMILY-SHOUSHI-DATONG-MODULE-SPECIFIC-LOUKE-GEOGRAPHY",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_FOR_LATE_MING_AUTHORIAL_CRITIQUE",
+      "evidence_class": "LATE_MING_AUTHORIAL_TEXT",
+      "evidence": [
+        "docs/research/MING-DATONG-QISHUO-ZIZHENG-CLOCK-STANDARD-SEMANTICS-R1.json"
+      ],
+      "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-QISHUO-ZIZHENG-CLOCK-STANDARD-SEMANTICS-PK"
+    },
+    {
+      "edge_id": "TG-E0190",
+      "from": "PASSAGE-YUANSHI-V56-GENGWU-XUNSIGAN-LICHA",
+      "relation": "PARALLEL_COEXISTS_WITH",
+      "to": "RULE-SHOUSHI-FALIAN-ZIZHENG-UNIFORM-100KE",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_FOR_CROSS_CALENDAR_POSITIVE_CONTROL_ONLY",
+      "evidence_class": "RECEIVED_DIFFERENT_CALENDAR_TEXT",
+      "evidence": [
+        "docs/research/MING-DATONG-QISHUO-ZIZHENG-CLOCK-STANDARD-SEMANTICS-R1.json"
+      ],
+      "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-QISHUO-ZIZHENG-CLOCK-STANDARD-SEMANTICS-PK"
     }
   ],
   "lineage_hypotheses": [
