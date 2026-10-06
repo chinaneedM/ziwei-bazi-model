@@ -2121,3 +2121,12 @@ Ten q=2 boundary labels are source-controlled: five retreat to the preceding civ
 The 12PC harness checks 40 q=2 profile-controls, 102 Runyu threshold labels, unique final owners, full 1368–1644 profile stability and zero final-owner/existence mismatch through 1368–1643. `MD-G09` therefore closes source-scoped forward-only. Historical runtime remains fail-closed because G03/G05/G07/G08 remain open and G10/G11 dependency-blocked.
 
 Research: `docs/research/MING-DATONG-RUNYU-JINTUI-FINAL-PLACEMENT-R1.json`.
+
+
+## Batch 12PD — GK12437 qishuo locality-operator audit
+
+`HPA-DAYUN-CAL-002` remains `MISSING_FROM_PRODUCT`. Direct no-OCR review of the complete pre-table method block `GK12437_00 / 001a-005b` positively binds `求經朔分` (002b) and `求定朔及望分` (004b–005a), while `006a` is already the numerical 立成 table opening.
+
+No explicit named-place, `里差/地差`, longitude, 大都/北京, 南京, 應天 or 順天 correction step is attested in that reviewed qishuo method block. This is a scoped physical negative only. The implicit/inherited qishuo geographic reference remains unresolved, so `MD-G03` stays open and runtime remains fail-closed.
+
+Research: `docs/research/MING-DATONG-GK12437-QISHUO-LOCALITY-OPERATOR-AUDIT-R1.json`.

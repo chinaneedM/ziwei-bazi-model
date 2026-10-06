@@ -415,3 +415,22 @@ INSTITUTIONAL_ONLY_COPY_STATEMENT = INSTITUTION_SCOPED_UNLESS EXHAUSTIVE NATIONA
 This matters because the target almanacs are ephemeral annual publications. Their documented issue and distribution can be source-closed even while currently indexed surviving copies remain unknown.
 
 The next decisive objective remains the same: locate a physical/page-level Hongzhi-8 or Hongzhi-10 Datong almanac, with the 1495 target especially diagnostic because its D1/Shilu disagreement lies far outside any plausible Beijing–Nanjing longitude shift.
+
+
+## 16. Batch 12PD — GK12437 physical qishuo method block and the locality-operator negative
+
+The complete Kyujanggak `GK12437_00 / 奎貴12437 / 大統曆日通軌` physical capture from workflow `35317924654` / artifact `10536220506` has now been reused specifically for MD-G03.
+
+Direct no-OCR review identifies the full pre-table constants/method block as `001a-005b`. The qishuo positive controls are physical rather than OCR-derived: `002b` has `求冬至分 / 求經朔分`; `004b` has `求遲疾差分 / 求加減差分 / 求定朔及望分`; `005a` continues the 定朔/望 procedure; and `006a` opens `大統立成卷上 / 大陽冬至前後二象盈初縮末限`.
+
+Across `001a-005b`, no explicit named-place/meridian operator or `里差`, `地差`, `地里差`, `經度`, `大都`, `北京`, `南京`, `應天`, `順天` correction step is attested.
+
+```text
+GK12437_QISHUO_EXPLICIT_LOCALITY_OPERATOR = NOT_ATTESTED_IN_REVIEWED_METHOD_BLOCK
+MING_DATONG_QISHUO_GEOGRAPHIC_REFERENCE = UNRESOLVED
+IMPLICIT_GEOGRAPHY_IN_EPOCH_OR_CONSTANTS = UNRESOLVED
+INHERIT_NANJING_FROM_SUNRISE_TABLES = FORBIDDEN
+INHERIT_DADU_FROM_SHOUSHI_LINEAGE = FORBIDDEN
+```
+
+This result strengthens module-separation discipline without selecting a hidden meridian. The next route is source-lineage cross-collation of qishuo epoch/constants and method wording across Yuan Shoushi, early Datong/Tonggui, `GK12437`, and Zhou Xiang 1569.

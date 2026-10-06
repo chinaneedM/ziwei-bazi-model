@@ -497,7 +497,9 @@
       "identifier": "GK12437_00 / 奎貴12437",
       "evidence": [
         "docs/research/ZIWEI-KYUDB-TONGGUI-DAILY-TABLE-PHYSICAL-CLOSURE-R1.json",
-        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KYUDB-TONGGUI-DAILY-TABLE-PHYSICAL-CLOSURE-CV.md"
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KYUDB-TONGGUI-DAILY-TABLE-PHYSICAL-CLOSURE-CV.md",
+        "docs/research/MING-DATONG-GK12437-QISHUO-LOCALITY-OPERATOR-AUDIT-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-GK12437-QISHUO-LOCALITY-OPERATOR-AUDIT-PD.md"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-KYUDB-TONGGUI-DAILY-TABLE-PHYSICAL-CLOSURE-CV",
       "aggregate_set_membership_after_12dt": {
@@ -505,6 +507,16 @@
         "basis": "FIRST_PARTY_COMPONENT_RECORD_PLUS_LI_LIANG_2022_COLLECTION_NOS_12434_39",
         "exact_set_level_impression_year_proved": false,
         "evidence": "docs/research/ZIWEI-KYUDB-DATONG-LIFA-TONGGUI-COMPONENT-SET-CROSSWALK-R1.json"
+      },
+      "batch_12pd_qishuo_scope": {
+        "method_block": "001a-005b",
+        "positive_controls": [
+          "002b 求經朔分",
+          "004b-005a 求定朔及望分"
+        ],
+        "explicit_locality_operator_attested": false,
+        "qishuo_geographic_reference_identified": false,
+        "evidence": "docs/research/MING-DATONG-GK12437-QISHUO-LOCALITY-OPERATOR-AUDIT-R1.json"
       }
     },
     {
@@ -3830,6 +3842,25 @@
         "EXT-CTEXT-QIANLI-MINGGAO-DAYUN"
       ],
       "first_explicit_graph_batch": "BATCH-12-BAZI-QIANLI-WORK-IDENTITY-AND-JIAOYUN-EDGE-BOUNDARY-OS"
+    },
+    {
+      "node_id": "PASSAGE-KYUDB-GK12437-QISHUO-METHOD-BLOCK-001A-005B",
+      "node_type": "PASSAGE",
+      "label": "奎章閣 GK12437《大統曆日通軌》001a–005b 朔望算法前置方法塊",
+      "system_scope": "MING_DATONG_QISHUO_METHOD_TRANSMISSION_IN_JOSEON_WITNESS",
+      "date": "PHYSICAL_WITNESS_CATALOGUED_15TH_CENTURY_JOSEON_GABINJA; SOURCE_METHOD_ANCESTRY_EARLIER",
+      "locator": "GK12437_00 viewer 001a-005b; positive qishuo controls at 002b and 004b-005a; 006a table-boundary control",
+      "direct_readings": [
+        "002b 求經朔分",
+        "004b 求定朔及望分"
+      ],
+      "locality_operator_scope": "NO_EXPLICIT_NAMED_PLACE_LICHA_DICHA_LONGITUDE_OPERATOR_ATTESTED_ON_DIRECT_VISUAL_REVIEW",
+      "geographic_meridian_identified": false,
+      "evidence": [
+        "docs/research/MING-DATONG-GK12437-QISHUO-LOCALITY-OPERATOR-AUDIT-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-GK12437-QISHUO-LOCALITY-OPERATOR-AUDIT-PD.md"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-BAZI-MING-DATONG-GK12437-QISHUO-LOCALITY-OPERATOR-AUDIT-PD"
     }
   ],
   "edges": [
@@ -6586,6 +6617,21 @@
       ],
       "scope_note": "The CText site label 千里命稿 cannot establish that its received rule text derives from or is physically present in this 1935 copy while the base edition is unknown.",
       "adjudication_batch": "BATCH-12-BAZI-QIANLI-WORK-IDENTITY-AND-JIAOYUN-EDGE-BOUNDARY-OS"
+    },
+    {
+      "edge_id": "TG-E0180",
+      "from": "PHYSICAL-COPY-KYUDB-RITONGGUI-GK12437-15C-GABINJA",
+      "relation": "ATTESTS",
+      "to": "PASSAGE-KYUDB-GK12437-QISHUO-METHOD-BLOCK-001A-005B",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_FOR_PASSAGE_PRESENCE_AND_REVIEWED_METHOD_BLOCK_SCOPE",
+      "evidence_class": "DIRECT_NO_OCR_PHYSICAL_COLLATION",
+      "evidence": [
+        "docs/research/MING-DATONG-GK12437-QISHUO-LOCALITY-OPERATOR-AUDIT-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-GK12437-QISHUO-LOCALITY-OPERATOR-AUDIT-PD.md"
+      ],
+      "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-GK12437-QISHUO-LOCALITY-OPERATOR-AUDIT-PD",
+      "scope_note": "Direct passage attestation only. No direct-parent claim to Zhou Xiang 1569 or Ming official almanacs and no qishuo meridian inheritance claim."
     }
   ],
   "lineage_hypotheses": [

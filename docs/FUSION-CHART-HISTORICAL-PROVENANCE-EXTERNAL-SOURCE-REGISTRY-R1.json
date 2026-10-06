@@ -4344,13 +4344,28 @@
       "identifier": "GK12437_00 / 奎貴12437",
       "url": "https://kyudb.snu.ac.kr/book/view.do",
       "source_role": "DIRECT_PRE1578_PHYSICAL_SCOPE_CONTROL_FOR_DATONGLI_RITONGGUI",
-      "quality_notes": "Batch 12CV reviews the complete 78 viewer pages from workflow 35317924654 / artifact 10536220506. The physical object directly preserves the solar 盈縮 / 限 daily computational tables consistent with the corrected Batch 12CO KOSTMA description. No independent 晨昏分/日出入/晝夜刻 table is identified on this complete physical surface. This is an object-scoped nonattestation only; it does not imply absence from the wider Tonggui system. It confirms that the target 晨昏 daily table must not be attributed to GK12437 merely from generic 大統曆日通軌 identity.",
+      "quality_notes": "Batch 12CV reviews the complete 78 viewer pages from workflow 35317924654 / artifact 10536220506. The physical object directly preserves the solar 盈縮 / 限 daily computational tables consistent with the corrected Batch 12CO KOSTMA description. No independent 晨昏分/日出入/晝夜刻 table is identified on this complete physical surface. This is an object-scoped nonattestation only; it does not imply absence from the wider Tonggui system. It confirms that the target 晨昏 daily table must not be attributed to GK12437 merely from generic 大統曆日通軌 identity. Batch 12PD reuses the same source-bound artifact for a direct no-OCR review of the complete pre-table constants/qishuo method block 001a-005b. Physical positive controls include 求經朔分 on 002b and 求定朔及望分 on 004b-005a; 006a opens the numerical 立成 table. No explicit named-place/里差/地差/longitude locality operator is attested in the reviewed method block. This is a method-block-scoped negative only and does not identify an implicit qishuo meridian or authorize inheritance from Nanjing sunrise/daylength modules.",
       "batch_12cv": {
         "workflow_run_id": 35317924654,
         "artifact_id": 10536220506,
         "pages_reviewed": 78,
         "ocr_used_for_final_glyph_claims": false,
         "research_artifact": "docs/research/ZIWEI-KYUDB-TONGGUI-DAILY-TABLE-PHYSICAL-CLOSURE-R1.json"
+      },
+      "batch_12pd": {
+        "batch_id": "BATCH-12-BAZI-MING-DATONG-GK12437-QISHUO-LOCALITY-OPERATOR-AUDIT-PD",
+        "workflow_run_id": 35317924654,
+        "artifact_id": 10536220506,
+        "method_block_reviewed": "001a-005b",
+        "direct_positive_controls": [
+          "002b 求經朔分",
+          "004b-005a 求定朔及望分",
+          "006a numerical table boundary"
+        ],
+        "explicit_locality_operator_attested": false,
+        "geographic_meridian_identified": false,
+        "ocr_used_for_final_claims": false,
+        "research_artifact": "docs/research/MING-DATONG-GK12437-QISHUO-LOCALITY-OPERATOR-AUDIT-R1.json"
       }
     },
     {

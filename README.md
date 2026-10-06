@@ -605,3 +605,16 @@ No historical runtime is activated. G03/G05/G07/G08 remain open and G10/G11 depe
 Next: **12PD — MD-G03 qishuo geographic reference**, using the already re-acquired complete Kyujanggak `GK12437_00` physical method block.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-RUNYU-JINTUI-FINAL-PLACEMENT-PC.md`. Research record: `docs/research/MING-DATONG-RUNYU-JINTUI-FINAL-PLACEMENT-R1.json`.
+
+
+## Progress — Batch 12PD
+
+The already-acquired complete Kyujanggak `GK12437_00 / 大統曆日通軌` physical capture has now been reused for a direct, no-OCR qishuo locality-operator audit. Viewer `002b` visibly carries `求經朔分`; `004b-005a` carries `求定朔及望分`; `006a` is already the opening `大陽冬至前後二象盈初縮末限` table, fixing `001a-005b` as the complete reviewed pre-table method block.
+
+Within that reviewed method block, no explicit named-place, `里差/地差`, longitude, Dadu/Beijing, Nanjing, Yingtian or Shuntian correction step is attested. This closes only the **explicit locality-operator subquestion**. It does not prove geographic neutrality, identify an implicit meridian, or authorize inheritance from Nanjing sunrise/daylength modules.
+
+`MD-G03` therefore remains `OPEN_BLOCKING_GENERAL_ADAPTER`; the live ledger stays **5 closed / 4 open / 2 dependency-blocked**, `HPA-DAYUN-CAL-002` remains `MISSING_FROM_PRODUCT`, and the historical adapter remains fail-closed.
+
+Next: **12PE — cross-collate Shoushi → early Datong/Tonggui → GK12437 → Zhou Xiang 1569 qishuo constants/epoch/method lineage for a direct named-place or inherited-coordinate binding.**
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-GK12437-QISHUO-LOCALITY-OPERATOR-AUDIT-PD.md`. Research record: `docs/research/MING-DATONG-GK12437-QISHUO-LOCALITY-OPERATOR-AUDIT-R1.json`.

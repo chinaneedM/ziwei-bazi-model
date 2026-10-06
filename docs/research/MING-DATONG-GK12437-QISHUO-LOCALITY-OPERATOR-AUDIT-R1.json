@@ -1,0 +1,122 @@
+{
+  "schema": "MING-DATONG-GK12437-QISHUO-LOCALITY-OPERATOR-AUDIT-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-BAZI-MING-DATONG-GK12437-QISHUO-LOCALITY-OPERATOR-AUDIT-PD",
+  "date": "2026-10-06",
+  "question": "Does the complete pre-table qishuo method block in Kyujanggak GK12437_00 explicitly apply a named-place, longitude, 里差/地差, or equivalent locality correction when deriving 經朔/定朔?",
+  "source_identity": {
+    "source_id": "EXT-KYUDB-DATONGLI-RITONGGUI-GK12437-PHYSICAL",
+    "title": "大統曆日通軌",
+    "identifier": "GK12437_00 / 奎貴12437",
+    "edition": "甲寅字; exact impression year unresolved within provider's Sejong-era scope",
+    "provider": "Kyujanggak Institute for Korean Studies, Seoul National University",
+    "physical_scope": "CATALOGUED_PRE1578_15TH_CENTURY_JOSEON_PRINT"
+  },
+  "acquisition": {
+    "reused_workflow_run_id": 35317924654,
+    "reused_artifact_id": 10536220506,
+    "artifact_report_sha256": "fd295c99b8526aa8bd57ed176f308fe944c13b05ccebea355107ce7569bc1f0f",
+    "complete_physical_viewer_pages_available": 78,
+    "method_block_reviewed": "001a-005b",
+    "table_boundary_positive_control": "006a",
+    "ocr_used_for_final_glyph_or_operator_claims": false,
+    "review_method": "DIRECT_VISUAL_NO_OCR"
+  },
+  "page_bindings": {
+    "page_sha256": {
+      "001a": "2224675271585aeff3ac95a3cc5216598b73bf679d54ce81be85f75b9eed400a",
+      "001b": "5defd51b149824689b648143ab9ebc54c024b23a652de162b73b8c93eda64ed2",
+      "002a": "a5173146ca87943731ea1eb2bbf566ec86358d19168aeed5fc3b22939629f77f",
+      "002b": "8a0216f5f5980eaa5a44d08d29c349395935fa7894bc5f44fb06ba35d5047d76",
+      "003a": "60e1be57cee822ff181971ffe6f52d24dd12fde98455a21b744e0e505357098d",
+      "003b": "e1e6237f46701ad30ac17837f9226bb3d97afb1e31f6a792666e5e2943f61ab3",
+      "004a": "3c0423fc0444f680576886929533b7b73a41af4dbe7ba8d09281342f8bd90c79",
+      "004b": "5267a89a34ff88b92732b52dcc8c846fec2d687d0b9d95295ce61f1fc1a53711",
+      "005a": "cb622e81349ad2b47b64f7e1444cfc86166696eca2fb56a10187dbeb636a4e98",
+      "005b": "62a74e10b344c6c21d8eb8f2e63d3522ac58267d66cd55a370ac7218b3ec162e",
+      "006a": "7020091a16a7a8de6986e4478700c4c50ad47099717eb06411794e70e4197d5b"
+    },
+    "direct_positive_controls": {
+      "002b": [
+        "求冬至分",
+        "求經朔分"
+      ],
+      "004b": [
+        "求遲疾差分",
+        "求加減差分",
+        "求定朔及望分"
+      ],
+      "005a": [
+        "求定朔及望分 continuation",
+        "求四季土王用事"
+      ],
+      "006a": [
+        "大統立成卷上",
+        "大陽冬至前後二象盈初縮末限"
+      ]
+    },
+    "structural_boundary": "001a-005b is the constants/method block immediately preceding the 006a numerical 立成 table opening; qishuo-specific procedures are directly visible within 002b-005a."
+  },
+  "locality_operator_audit": {
+    "reviewed_scope": "GK12437_00 viewer pages 001a-005b only, with 006a as the table-start boundary control",
+    "explicit_operator_targets": [
+      "里差",
+      "地差",
+      "經度",
+      "地里差",
+      "大都",
+      "北京",
+      "南京",
+      "應天",
+      "順天"
+    ],
+    "named_place_or_meridian_operator_attested": false,
+    "li_difference_operator_attested": false,
+    "geographic_difference_operator_attested": false,
+    "longitude_operator_attested": false,
+    "named_capital_reference_attested": false,
+    "result": "EXPLICIT_LOCALITY_OPERATOR_NOT_ATTESTED_ON_COMPLETE_REVIEWED_QISHUO_METHOD_BLOCK",
+    "confidence": "HIGH_FOR_REVIEWED_METHOD_BLOCK_SCOPE_ONLY"
+  },
+  "adjudication": {
+    "md_g03_status_after_batch": "OPEN_BLOCKING_GENERAL_ADAPTER",
+    "qishuo_geographic_reference": "UNRESOLVED",
+    "scoped_subquestion": "CLOSED_NEGATIVE_OBJECT_METHOD_BLOCK_SCOPE",
+    "what_is_closed": "The directly reviewed GK12437 qishuo method block expresses 經朔/定朔 arithmetic without an explicit named-place/里差/地差/longitude correction step on those pages.",
+    "what_is_not_closed": [
+      "No claim that the entire wider 大統曆法通軌 system lacks geographic parameters.",
+      "No claim that epoch constants or inherited numerical constants are geography-neutral.",
+      "No identification of an implicit Dadu/Beijing, Nanjing, capital-of-year, or other meridian.",
+      "No inheritance of Nanjing geography from sunrise/daylength modules into qishuo.",
+      "No runtime time-zone or local-apparent-solar-time selection."
+    ],
+    "runtime_selection_authorized": false,
+    "historical_calendar_adapter_remains_fail_closed": true,
+    "hpa_dayun_cal_002_status": "MISSING_FROM_PRODUCT"
+  },
+  "transmission_impact": {
+    "graph_change": "ADD_METHOD_BLOCK_PASSAGE_NODE_AND_DIRECT_ATTESTATION_EDGE",
+    "existing_physical_copy_node": "PHYSICAL-COPY-KYUDB-RITONGGUI-GK12437-15C-GABINJA",
+    "new_passage_node": "PASSAGE-KYUDB-GK12437-QISHUO-METHOD-BLOCK-001A-005B",
+    "direct_copy_parent_of_1569_or_ming_official_qishuo_proved": false,
+    "geographic_meridian_lineage_proved": false
+  },
+  "accounting": {
+    "matrix_rows": 222,
+    "audited_rows": 222,
+    "current_missing_from_product_rows": 4,
+    "provenance_defects_confirmed": 45,
+    "provenance_defects_repaired": 45,
+    "historical_candidate_extensions": 14,
+    "historical_candidate_registries": 5,
+    "historical_candidate_runtime_resolvers": 5,
+    "chart_algorithm_defects": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0
+  },
+  "next_research_priority": {
+    "batch": "12PE",
+    "gate_id": "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
+    "focus": "Cross-collate the qishuo constants/epoch and method lineage across Yuan Shoushi, early Datong/Tonggui, GK12437 and Zhou Xiang 1569 for an explicit named-place or inherited-coordinate binding; do not use sunrise/daylength geography as a proxy."
+  }
+}

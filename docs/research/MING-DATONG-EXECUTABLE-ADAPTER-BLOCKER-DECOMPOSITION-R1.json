@@ -66,7 +66,29 @@
         "1497 is boundary-sensitive but does not identify the historical meridian.",
         "1581 physical almanac, reign record and D1 converge."
       ],
-      "general_runtime_effect": "Required for general exact event-time/day realization, especially boundary-sensitive cases. It does not invalidate the already physically certified 1578 month-page chain."
+      "general_runtime_effect": "Required for general exact event-time/day realization, especially boundary-sensitive cases. It does not invalidate the already physically certified 1578 month-page chain.",
+      "batch_12pd_refinement": {
+        "batch_id": "BATCH-12-BAZI-MING-DATONG-GK12437-QISHUO-LOCALITY-OPERATOR-AUDIT-PD",
+        "research_artifact": "docs/research/MING-DATONG-GK12437-QISHUO-LOCALITY-OPERATOR-AUDIT-R1.json",
+        "source_id": "EXT-KYUDB-DATONGLI-RITONGGUI-GK12437-PHYSICAL",
+        "method_block_reviewed": "001a-005b",
+        "qishuo_positive_controls": [
+          "002b 求經朔分",
+          "004b-005a 求定朔及望分"
+        ],
+        "explicit_locality_operator_subquestion": "CLOSED_NEGATIVE_OBJECT_METHOD_BLOCK_SCOPE",
+        "explicit_named_place_or_meridian_operator_attested": false,
+        "implicit_or_inherited_reference": "UNRESOLVED",
+        "status_after_batch": "OPEN_BLOCKING_GENERAL_ADAPTER",
+        "historical_snapshot_top_level_status_preserved": "OPEN_BLOCKING_GENERAL_ADAPTER",
+        "runtime_authorized": false,
+        "forbidden_inferences": [
+          "NO_HIDDEN_MERIDIAN",
+          "NANJING_FROM_SUNRISE_DAYLENGTH",
+          "DADU_FROM_SHOUSHI_LINEAGE",
+          "MODERN_TIMEZONE_SUBSTITUTION"
+        ]
+      }
     },
     {
       "gate_id": "MD-G04-1569-TABLE-GENERATION-PRECISION",
@@ -342,5 +364,28 @@
     }
   },
   "latest_runyu_jintui_batch": "BATCH-12-BAZI-MING-DATONG-RUNYU-JINTUI-FINAL-PLACEMENT-PC",
-  "latest_runyu_jintui_artifact": "docs/research/MING-DATONG-RUNYU-JINTUI-FINAL-PLACEMENT-R1.json"
+  "latest_runyu_jintui_artifact": "docs/research/MING-DATONG-RUNYU-JINTUI-FINAL-PLACEMENT-R1.json",
+  "batch_12pd_forward_refinement": {
+    "status": "G03_EXPLICIT_LOCALITY_OPERATOR_SUBQUESTION_CLOSED_NEGATIVE_METHOD_BLOCK_SCOPE_IMPLICIT_REFERENCE_REMAINS_OPEN",
+    "historical_12ou_top_level_counts_preserved": true,
+    "current_live_gate_accounting_after_12pd": {
+      "closed_source_scoped": 5,
+      "open_blocking_general_adapter": 4,
+      "dependency_blocked": 2,
+      "total_gates": 11
+    },
+    "remaining_open_independent_gates": [
+      "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
+      "MD-G05-DYNAMIC-D1-INTERMEDIATE-PRECISION",
+      "MD-G07-CALENDAR-ADDITION-INVALID-TARGET-DATE",
+      "MD-G08-CALENDAR-ADDITION-INTERCALARY-IDENTITY-TRAVERSAL"
+    ],
+    "next_research_priority": {
+      "batch": "12PE",
+      "gate_id": "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
+      "focus": "SHOUSHI_DATONG_TONGGUI_GK12437_ZHOUXIANG_QISHUO_EPOCH_CONSTANT_METHOD_NAMED_PLACE_BINDING"
+    }
+  },
+  "latest_qishuo_geography_batch": "BATCH-12-BAZI-MING-DATONG-GK12437-QISHUO-LOCALITY-OPERATOR-AUDIT-PD",
+  "latest_qishuo_geography_artifact": "docs/research/MING-DATONG-GK12437-QISHUO-LOCALITY-OPERATOR-AUDIT-R1.json"
 }
