@@ -17081,7 +17081,7 @@ def main() -> int:
     pc_oracle_path = ROOT / "docs/research/MING-DATONG-RUNYU-JINTUI-BOUNDARY-ORACLE-R1.json"
     if state_batches[-1] != pc_id: fail("Batch 12PC is not latest completed batch")
     if not pc_path.exists() or not pc_oracle_path.exists(): fail("Batch 12PC research/oracle artifact missing")
-    pc = load_json(pc_path); pc_oracle = load_json(pc_oracle_path)
+    pc = json.loads(pc_path.read_text(encoding="utf-8")); pc_oracle = json.loads(pc_oracle_path.read_text(encoding="utf-8"))
     if pc.get("batch_id") != pc_id or pc.get("gate_id") != "MD-G09-MULTI-YEAR-LEAP-GENERALIZATION": fail("Batch 12PC identity drift")
     if len(pc_oracle.get("controls",())) != 10: fail("Batch 12PC q2 oracle count drift")
     if pc.get("finding",{}).get("expected_q2_profile_controls") != "40_OF_40_MATCH": fail("Batch 12PC profile-control drift")
