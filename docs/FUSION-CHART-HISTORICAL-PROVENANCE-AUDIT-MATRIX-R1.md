@@ -2074,3 +2074,18 @@ Matrix remains **222/222 audited / 4 current missing**; provenance defects **44/
 Next: **12OS — Qianli invalid-date / leap-intercalary target semantics audit.**
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-QIANLI-MINGXUE-JIANGYI-JIAOYUN-CALENDAR-SEMANTICS-OR.md`. Research record: `docs/research/QIANLI-MINGXUE-JIANGYI-JIAOYUN-CALENDAR-SEMANTICS-R1.json`.
+
+
+## Progress — Batch 12OS
+
+A direct 1935 NLC physical 《千里命稿》 object changes the provenance model. The reviewed body is explicitly headed **千里命稿 第一集** and is organized as命例批注, while direct 1934/1936 《韋千里命學講義》 witnesses carry the 起例/Jiaoyun rule material used by 12OR. Modern bibliography independently dates 命學講義 to 1934 and 千里命稿第一集 to 1935 as a case collection.
+
+**PROV-DEFECT-045** is repaired forward-only: stable CText source IDs remain, but their site label《千里命稿》no longer confers original-1935 physical-work authority because CText leaves the base edition unknown. Affected Matrix wording is narrowed accordingly. No rule/status/default changes.
+
+The Qianli edge semantics remain source-unresolved. The reviewed 1934/1936 target section does not state invalid destination-day, intercalary birth-anchor, or regular-vs-intercalary duplicated-month selection rules. The 1987 Wuling surface exposes no target leaf; Yuan Shushan's 實歷過日時/多欠 method is mechanically distinct and cannot be borrowed into Qianli.
+
+HPA-DAYUN-CAL-003/004 remain MISSING_FROM_PRODUCT. Accounting: **222/222 audited / 4 current missing**, provenance defects **45/45 repaired**, candidate extensions **14**, registries/runtime **5/5**, chart algorithm defects/reopens/candidate collapses **0**.
+
+Next: **12OT — re-rank the four remaining product gaps.** Do not repeat the same Qianli edge route absent materially new evidence.
+
+Batch document: docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-QIANLI-WORK-IDENTITY-AND-JIAOYUN-EDGE-BOUNDARY-OS.md. Research record: docs/research/QIANLI-WORK-IDENTITY-AND-JIAOYUN-EDGE-BOUNDARY-R1.json.

@@ -928,9 +928,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-ZHONGZHOU-LEAP-MONTH-DAILY-GEOMETRY-CLOSURE-OP",
     "BATCH-12-REMAINING-PRODUCT-GAP-REPRIORITIZATION-OQ",
     "BATCH-12-BAZI-QIANLI-MINGXUE-JIANGYI-JIAOYUN-CALENDAR-SEMANTICS-OR",
+    "BATCH-12-BAZI-QIANLI-WORK-IDENTITY-AND-JIAOYUN-EDGE-BOUNDARY-OS",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-QIANLI-MINGXUE-JIANGYI-JIAOYUN-CALENDAR-SEMANTICS-OR.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-QIANLI-WORK-IDENTITY-AND-JIAOYUN-EDGE-BOUNDARY-OS.md"
 
 
 def fail(message: str) -> None:
@@ -16515,8 +16516,8 @@ def main() -> int:
         fail("Batch 12OP provenance repair identity drift")
     if audit_state.get("current_missing_from_product_row_count") != 4:
         fail("Batch 12OP current missing-product count drift")
-    if audit_state.get("confirmed_provenance_metadata_defect_count") != 44 or audit_state.get("repaired_provenance_metadata_defect_count") != 44:
-        fail("Batch 12OP provenance accounting drift")
+    if audit_state.get("confirmed_provenance_metadata_defect_count", 0) < 44 or audit_state.get("repaired_provenance_metadata_defect_count", 0) < 44:
+        fail("Batch 12OP provenance accounting regressed below its 44/44 floor")
     try:
         schema12op = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
     except ValueError:
@@ -16624,6 +16625,87 @@ def main() -> int:
     if schema12or < (1, 412, 0):
         fail("Batch 12OR continuity schema version regressed below 1.412.0")
 
+    # Batch 12OS: Qianli work-identity repair and Jiaoyun edge source boundary.
+    os_id = "BATCH-12-BAZI-QIANLI-WORK-IDENTITY-AND-JIAOYUN-EDGE-BOUNDARY-OS"
+    os_path = ROOT / "docs/research/QIANLI-WORK-IDENTITY-AND-JIAOYUN-EDGE-BOUNDARY-R1.json"
+    os_doc = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-QIANLI-WORK-IDENTITY-AND-JIAOYUN-EDGE-BOUNDARY-OS.md"
+    if not os_path.is_file() or not os_doc.is_file():
+        fail("Batch 12OS research/batch record missing")
+    os_data = json.loads(os_path.read_text(encoding="utf-8"))
+    if os_data.get("batch_id") != os_id or os_data.get("prior_batch_id") != "BATCH-12-BAZI-QIANLI-MINGXUE-JIANGYI-JIAOYUN-CALENDAR-SEMANTICS-OR":
+        fail("Batch 12OS identity/chronology drift")
+    repair_os = os_data.get("provenance_repair", {})
+    if repair_os.get("defect_id") != "PROV-DEFECT-045" or repair_os.get("status") != "REPAIRED_FORWARD_ONLY" or repair_os.get("algorithm_effect") != "NONE":
+        fail("Batch 12OS provenance repair drift")
+    works_os = os_data.get("work_identity", {})
+    if works_os.get("minggao_first_ji", {}).get("first_edition_year") != 1935 or works_os.get("minggao_first_ji", {}).get("jiaoyun_rule_vote_increment") != 0:
+        fail("Batch 12OS 1935 Minggao work-identity firewall drift")
+    if works_os.get("mingxue_jiangyi", {}).get("first_edition_year_bibliographic") != 1934:
+        fail("Batch 12OS Mingxue Jiangyi chronology drift")
+    if works_os.get("ctext_received", {}).get("base_edition_status") != "UNKNOWN_ON_CTEXT_WORK_RECORD" or works_os.get("ctext_received", {}).get("may_be_used_as_original_1935_physical_authority") is not False:
+        fail("Batch 12OS CText physical-work firewall drift")
+    edge_os = os_data.get("edge_semantics_search_boundary", {})
+    direct_os = edge_os.get("direct_1934_1936_target_section", {})
+    for key in ("invalid_target_day_rule_attested", "leap_or_intercalary_birth_anchor_rule_attested", "duplicated_target_month_selection_rule_attested"):
+        if direct_os.get(key) is not False:
+            fail(f"Batch 12OS target-section nonattestation drift: {key}")
+    if direct_os.get("scope") != "TARGET_SECTION_NONATTESTATION_ONLY_NOT_WHOLE_BOOK_OR_WHOLE_AUTHOR_ABSENCE":
+        fail("Batch 12OS target-section scope firewall drift")
+    parallel_os = edge_os.get("republican_parallel_firewall", {})
+    if parallel_os.get("same_mechanical_rule_as_qianli_nominal_30_day_remainder") is not False or parallel_os.get("may_fill_qianli_edge_semantics") is not False:
+        fail("Batch 12OS cross-author fallback firewall drift")
+    product_os = os_data.get("product_boundary", {})
+    for key in ("qianli_regime_descriptor_registered", "qianli_runtime_candidate_authorized", "qianli_historical_temporal_profile", "product_selector_option", "production_default_changed", "matrix_status_changed"):
+        if product_os.get(key) is not False:
+            fail(f"Batch 12OS product fail-closed drift: {key}")
+    if product_os.get("missing_from_product_count") != 4:
+        fail("Batch 12OS missing-product count drift")
+
+    rows_os = {row.get("rule_id"): row for row in matrix.get("rows", ())}
+    row_time006_os = rows_os.get("HPA-TIME-006")
+    if not row_time006_os or row_time006_os.get("defect_id") != "PROV-DEFECT-045" or row_time006_os.get("repair_status") != "REPAIRED_IN_BATCH_12OS_FORWARD_ONLY":
+        fail("Batch 12OS Matrix provenance-defect binding drift")
+    row3_os = rows_os.get("HPA-DAYUN-CAL-003")
+    row4_os = rows_os.get("HPA-DAYUN-CAL-004")
+    expected_unresolved_os = "SOURCE_UNRESOLVED_AFTER_DIRECT_1934_1936_TARGET_SECTION_AND_CURRENT_PUBLIC_SEARCH_HORIZON"
+    if not row3_os or row3_os.get("audit_status") != "MISSING_FROM_PRODUCT" or row3_os.get("qianli_edge_semantics_audit_batch") != os_id:
+        fail("Batch 12OS HPA-DAYUN-CAL-003 binding drift")
+    for key in ("qianli_invalid_target_day_policy", "qianli_leap_birth_anchor_policy", "qianli_duplicated_target_month_selection"):
+        if row3_os.get(key) != expected_unresolved_os:
+            fail(f"Batch 12OS Qianli edge semantic drift: {key}")
+    if row3_os.get("qianli_cross_author_fallback_forbidden") is not True or row3_os.get("qianli_global_absence_claim_authorized") is not False:
+        fail("Batch 12OS Qianli source-boundary firewall drift")
+    if not row4_os or row4_os.get("audit_status") != "MISSING_FROM_PRODUCT" or row4_os.get("qianli_edge_semantics_audit_batch") != os_id:
+        fail("Batch 12OS HPA-DAYUN-CAL-004 binding drift")
+
+    registry_os = {row.get("source_id"): row for row in registry.get("sources", ())}
+    for sid in ("EXT-NLC-QIANLI-MINGGAO-1935-FIRST-JI", "EXT-XINYITANG-QIANLI-MINGXUE-JIANGYI-BIBLIOGRAPHY", "EXT-XINYITANG-QIANLI-MINGGAO-FIRST-JI-BIBLIOGRAPHY", "EXT-WULING-XINBIAN-QIANLI-MINGXUE-JIANGYI-1987"):
+        if sid not in registry_os:
+            fail(f"Batch 12OS source control missing: {sid}")
+    for sid in ("EXT-CTEXT-QIANLI-MINGGAO-YEAR", "EXT-CTEXT-QIANLI-MINGGAO-DAYUN"):
+        if registry_os.get(sid, {}).get("physical_1935_minggao_authority") is not False or registry_os.get(sid, {}).get("defect_id") != "PROV-DEFECT-045":
+            fail(f"Batch 12OS CText source repair drift: {sid}")
+
+    graph_os = json.loads(TRANSMISSION_GRAPH.read_text(encoding="utf-8"))
+    node_ids_os = {row.get("node_id") for row in graph_os.get("nodes", ())}
+    edge_ids_os = {row.get("edge_id") for row in graph_os.get("edges", ())}
+    for nid in ("WORK-QIANLI-MINGGAO-FIRST-JI","EDITION-QIANLI-MINGGAO-1935","PHYSICAL-QIANLI-MINGGAO-NLC-01JH000372-10197","DIGITAL-QIANLI-MINGGAO-COMMONS-1935","DIGITAL-CTEXT-QIANLI-WIKI-303868"):
+        if nid not in node_ids_os:
+            fail(f"Batch 12OS genealogy node missing: {nid}")
+    for eid in ("TG-E0175","TG-E0176","TG-E0177","TG-E0178","TG-E0179"):
+        if eid not in edge_ids_os:
+            fail(f"Batch 12OS genealogy edge missing: {eid}")
+
+    if audit_state.get("confirmed_provenance_metadata_defect_count") != 45 or audit_state.get("repaired_provenance_metadata_defect_count") != 45:
+        fail("Batch 12OS provenance accounting drift")
+    if audit_state.get("current_missing_from_product_row_count") != 4:
+        fail("Batch 12OS current missing-product count drift")
+    try:
+        schema12os = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12OS continuity schema version is not numeric")
+    if schema12os < (1, 413, 0):
+        fail("Batch 12OS continuity schema version regressed below 1.413.0")
     contract = state.get("continuity_contract", {})
     if contract.get("ci_gate_required") is not True:
         fail("continuity CI gate was disabled")

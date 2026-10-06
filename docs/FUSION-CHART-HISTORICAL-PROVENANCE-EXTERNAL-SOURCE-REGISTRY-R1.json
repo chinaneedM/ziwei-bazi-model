@@ -372,22 +372,28 @@
     },
     {
       "source_id": "EXT-CTEXT-QIANLI-MINGGAO-YEAR",
-      "title": "《千里命稿》立春推年例",
-      "historical_period": "民国 later corroborating witness",
+      "title": "CText Wiki 韋千里 received 推年 transcription（site-labeled《千里命稿》；base edition unknown）",
+      "historical_period": "MODERN_DIGITAL_RECEIVED_TRANSCRIPTION_OF_QIANLI_TEXT_WORK_BINDING_UNVERIFIED",
       "provider": "Chinese Text Project",
       "url": "https://ctext.org/wiki.pl?chapter=933376&if=gb",
-      "source_role": "LATER_CORROBORATING_WITNESS_FOR_LICHUN_YEAR_PILLAR_BOUNDARY",
-      "quality_notes": "Explicitly states 推年以立春为标准 and gives before/after-boundary examples. Used as later corroboration."
+      "source_role": "RECEIVED_TEXTUAL_WITNESS_FOR_LICHUN_YEAR_RULE_WITH_UNBOUND_PHYSICAL_WORK_IDENTITY",
+      "quality_notes": "CText Wiki labels the work 千里命稿 but declares the base text/edition unknown. Batch 12OS directly separates the 1935 NLC physical 千里命稿第一集 case collection from the 1934/1936 命學講義 instructional witnesses. Keep this source ID for stable textual references, but do not use the CText site title to claim that the rule is physically attested in the original 1935 千里命稿.",
+      "defect_id": "PROV-DEFECT-045",
+      "repair_batch": "BATCH-12-BAZI-QIANLI-WORK-IDENTITY-AND-JIAOYUN-EDGE-BOUNDARY-OS",
+      "physical_1935_minggao_authority": false
     },
     {
       "source_id": "EXT-CTEXT-QIANLI-MINGGAO-DAYUN",
-      "title": "《千里命稿》大运部位起点问答",
-      "historical_period": "民国 later explicit witness",
+      "title": "CText Wiki 韋千里 received 大運/起例 transcription（site-labeled《千里命稿》；base edition unknown）",
+      "historical_period": "MODERN_DIGITAL_RECEIVED_TRANSCRIPTION_OF_QIANLI_TEXT_WORK_BINDING_UNVERIFIED",
       "provider": "Chinese Text Project",
       "url": "https://ctext.org/wiki.pl?chapter=933376&if=en&remap=gb",
-      "source_role": "LATER_EXPLICIT_WITNESS_FOR_DAYUN_MONTH_PILLAR_SEQUENCE",
-      "quality_notes": "Explicitly states Dayun starts from the natal month pillar as the base; forward first formal Dayun is the next sexagenary pillar, reverse first formal Dayun is the previous pillar, with complete example sequences. Later witness; not back-dated.",
-      "batch_12or_scope_note": "Batch 12OR strengthens the target Jiaoyun passage with direct 1934/1936 NLC physical witnesses of 《韋千里命學講義》. The CText surface remains later received corroboration; no global title/edition absence claim is made."
+      "source_role": "RECEIVED_TEXTUAL_WITNESS_FOR_DAYUN_RULES_WITH_UNBOUND_PHYSICAL_WORK_IDENTITY",
+      "quality_notes": "CText Wiki labels the work 千里命稿 but its base edition is unknown. Direct 1934/1936 命學講義 physical witnesses bind the relevant 起例/交運 material, while the direct 1935 千里命稿第一集 object is a distinct case-collection work. Keep this stable source ID as a received-text locator only; it is not original-1935 physical authority.",
+      "batch_12or_scope_note": "Batch 12OR strengthens the target Jiaoyun passage with direct 1934/1936 NLC physical witnesses of 《韋千里命學講義》. The CText surface remains later received corroboration; no global title/edition absence claim is made.",
+      "defect_id": "PROV-DEFECT-045",
+      "repair_batch": "BATCH-12-BAZI-QIANLI-WORK-IDENTITY-AND-JIAOYUN-EDGE-BOUNDARY-OS",
+      "physical_1935_minggao_authority": false
     },
     {
       "source_id": "EXT-CTEXT-MINGLI-TANYUAN-DAYUN",
@@ -13553,6 +13559,59 @@
       "quality_notes": "Second direct NLC physical witness. Target-leaf review preserves the same Jiaoyun conversion, 140/190 worked arithmetic, and decadal same-lunar-coordinate exchange expressions as the 1934 copy. It corroborates passage stability but is not treated as a separate rule family.",
       "batch_id": "BATCH-12-BAZI-QIANLI-MINGXUE-JIANGYI-JIAOYUN-CALENDAR-SEMANTICS-OR",
       "physical_glyph_authority": true,
+      "access_date": "2026-10-06"
+    },
+    {
+      "source_id": "EXT-NLC-QIANLI-MINGGAO-1935-FIRST-JI",
+      "title": "《千里命稿》第一集",
+      "author_attribution": "韋千里著述",
+      "historical_period": "REPUBLICAN_ERA_1935",
+      "edition": "韋氏命苑；民國24[1935]；NLC 01jh000372 / 10197",
+      "provider": "National Library of China physical copy / Wikimedia Commons public scan",
+      "url": "https://commons.wikimedia.org/wiki/File:NLC416-01jh000372-10197_%E5%8D%83%E9%87%8C%E5%91%BD%E7%A8%BF.pdf",
+      "source_role": "DIRECT_1935_PHYSICAL_WORK_IDENTITY_AND_CASE_COLLECTION_STRUCTURE_CONTROL_NOT_QILI_JIAOYUN_RULE_AUTHORITY",
+      "quality_notes": "Commons/NLC metadata binds title, author, publisher and 1935 date. Direct no-OCR review of the cover plus sampled early and near-end body leaves shows the body headed 千里命稿 第一集 and organized as命例批注. This establishes the physical 1935 work identity and materially separates it from the 1934/1936 韋千里命學講義 target-rule witnesses. It does not prove a whole-book absence of 起例問答 and contributes zero Jiaoyun edge-rule vote.",
+      "batch_id": "BATCH-12-BAZI-QIANLI-WORK-IDENTITY-AND-JIAOYUN-EDGE-BOUNDARY-OS",
+      "physical_glyph_authority": true,
+      "access_date": "2026-10-06"
+    },
+    {
+      "source_id": "EXT-XINYITANG-QIANLI-MINGXUE-JIANGYI-BIBLIOGRAPHY",
+      "title": "心一堂《韋氏命學講義》版本說明",
+      "historical_period": "MODERN_BIBLIOGRAPHIC_REPRINT_CONTROL",
+      "provider": "心一堂",
+      "url": "https://publish.sunyata.hk/archives/86",
+      "source_role": "MODERN_BIBLIOGRAPHIC_CONTROL_SEPARATING_1934_MINGXUE_JIANGYI_FROM_MINGGAO",
+      "quality_notes": "Publisher states 韋氏命學講義 first appeared in 1934 and its reprint base was extracted from the 1936 韋氏命學三種. Used only for work/edition separation and chronology corroboration; not historical rule authority.",
+      "batch_id": "BATCH-12-BAZI-QIANLI-WORK-IDENTITY-AND-JIAOYUN-EDGE-BOUNDARY-OS",
+      "physical_glyph_authority": false,
+      "access_date": "2026-10-06"
+    },
+    {
+      "source_id": "EXT-XINYITANG-QIANLI-MINGGAO-FIRST-JI-BIBLIOGRAPHY",
+      "title": "心一堂《千里命稿（第一集）》版本說明",
+      "historical_period": "MODERN_BIBLIOGRAPHIC_REPRINT_CONTROL",
+      "provider": "心一堂",
+      "url": "https://publish.sunyata.hk/product/990.html",
+      "source_role": "MODERN_BIBLIOGRAPHIC_CONTROL_FOR_1935_MINGGAO_FIRST_JI_CASE_COLLECTION_IDENTITY",
+      "quality_notes": "Publisher states 千里命稿（第一集） first appeared in 1935, was reprinted the same year, and collects more than one hundred contemporary case annotations; reprint base was extracted from the 1936 韋氏命學三種. Used as bibliographic corroboration of the direct 1935 NLC physical object's work identity.",
+      "batch_id": "BATCH-12-BAZI-QIANLI-WORK-IDENTITY-AND-JIAOYUN-EDGE-BOUNDARY-OS",
+      "physical_glyph_authority": false,
+      "access_date": "2026-10-06"
+    },
+    {
+      "source_id": "EXT-WULING-XINBIAN-QIANLI-MINGXUE-JIANGYI-1987",
+      "title": "《新編韋千里命學講義》",
+      "author": "韋千里",
+      "historical_period": "MODERN_LATER_EDITION_1987",
+      "publisher": "武陵出版社",
+      "publication_year": 1987,
+      "provider": "武陵出版社 official product page",
+      "url": "https://woolin.com.tw/?action=productDetails&id=276",
+      "source_role": "LATER_EDITION_AND_TOC_CONTROL_FOR_QIANLI_QILI_WENDA_NO_EDGE_RULE_VOTE",
+      "quality_notes": "Official publisher page binds the 1987 title/year and TOC including 起例問答; its reproduced self-preface says future editions may be revised. No public target leaf on this surface binds invalid lunar target-day, intercalary birth-anchor, or duplicated-month selection semantics. Edge-rule vote increment is zero.",
+      "batch_id": "BATCH-12-BAZI-QIANLI-WORK-IDENTITY-AND-JIAOYUN-EDGE-BOUNDARY-OS",
+      "physical_glyph_authority": false,
       "access_date": "2026-10-06"
     }
   ],

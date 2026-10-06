@@ -3773,6 +3773,63 @@
         "HPA-DAYUN-CAL-004"
       ],
       "first_explicit_graph_batch": "BATCH-12-BAZI-QIANLI-MINGXUE-JIANGYI-JIAOYUN-CALENDAR-SEMANTICS-OR"
+    },
+    {
+      "node_id": "WORK-QIANLI-MINGGAO-FIRST-JI",
+      "node_type": "TEXT_WORK",
+      "label": "韋千里《千里命稿》第一集",
+      "system_scope": "BAZI_REPUBLICAN_CASE_COLLECTION_WORK_IDENTITY",
+      "date": "1935_FIRST_EDITION_ATTESTED",
+      "evidence": [
+        "EXT-NLC-QIANLI-MINGGAO-1935-FIRST-JI",
+        "EXT-XINYITANG-QIANLI-MINGGAO-FIRST-JI-BIBLIOGRAPHY"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-BAZI-QIANLI-WORK-IDENTITY-AND-JIAOYUN-EDGE-BOUNDARY-OS"
+    },
+    {
+      "node_id": "EDITION-QIANLI-MINGGAO-1935",
+      "node_type": "EDITION",
+      "label": "《千里命稿》民國二十四年（1935）韋氏命苑本",
+      "system_scope": "BAZI_REPUBLICAN_CASE_COLLECTION_WORK_IDENTITY",
+      "date": "1935",
+      "evidence": [
+        "EXT-NLC-QIANLI-MINGGAO-1935-FIRST-JI"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-BAZI-QIANLI-WORK-IDENTITY-AND-JIAOYUN-EDGE-BOUNDARY-OS"
+    },
+    {
+      "node_id": "PHYSICAL-QIANLI-MINGGAO-NLC-01JH000372-10197",
+      "node_type": "PHYSICAL_COPY",
+      "label": "NLC 01jh000372 / 10197《千里命稿》",
+      "system_scope": "BAZI_REPUBLICAN_CASE_COLLECTION_WORK_IDENTITY",
+      "date": "1935_NLC_COPY",
+      "evidence": [
+        "EXT-NLC-QIANLI-MINGGAO-1935-FIRST-JI"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-BAZI-QIANLI-WORK-IDENTITY-AND-JIAOYUN-EDGE-BOUNDARY-OS"
+    },
+    {
+      "node_id": "DIGITAL-QIANLI-MINGGAO-COMMONS-1935",
+      "node_type": "DIGITAL_SURROGATE",
+      "label": "NLC 1935《千里命稿》Wikimedia Commons 公開掃描",
+      "system_scope": "BAZI_REPUBLICAN_CASE_COLLECTION_WORK_IDENTITY",
+      "date": "MODERN_DIGITAL_SURROGATE_OF_1935_NLC_COPY",
+      "evidence": [
+        "EXT-NLC-QIANLI-MINGGAO-1935-FIRST-JI"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-BAZI-QIANLI-WORK-IDENTITY-AND-JIAOYUN-EDGE-BOUNDARY-OS"
+    },
+    {
+      "node_id": "DIGITAL-CTEXT-QIANLI-WIKI-303868",
+      "node_type": "DIGITAL_SURROGATE",
+      "label": "CText Wiki《千里命稿》received digital text / URN ctp:wb303868",
+      "system_scope": "QIANLI_RECEIVED_DIGITAL_TEXT_BASE_EDITION_UNKNOWN",
+      "date": "MODERN_DIGITAL_RECEIVED_TEXT",
+      "evidence": [
+        "EXT-CTEXT-QIANLI-MINGGAO-YEAR",
+        "EXT-CTEXT-QIANLI-MINGGAO-DAYUN"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-BAZI-QIANLI-WORK-IDENTITY-AND-JIAOYUN-EDGE-BOUNDARY-OS"
     }
   ],
   "edges": [
@@ -6453,6 +6510,82 @@
       ],
       "scope_note": "Source-scoped Qianli rule family; invalid-date/leap-target semantics remain unresolved and block runtime registration.",
       "adjudication_batch": "BATCH-12-BAZI-QIANLI-MINGXUE-JIANGYI-JIAOYUN-CALENDAR-SEMANTICS-OR"
+    },
+    {
+      "edge_id": "TG-E0175",
+      "from": "EDITION-QIANLI-MINGGAO-1935",
+      "relation": "EDITION_OF",
+      "to": "WORK-QIANLI-MINGGAO-FIRST-JI",
+      "status": "CONFIRMED",
+      "confidence": "VERY_HIGH",
+      "evidence_class": "NLC_CATALOG_AND_DIRECT_PHYSICAL_SCAN",
+      "evidence": [
+        "EXT-NLC-QIANLI-MINGGAO-1935-FIRST-JI"
+      ],
+      "scope_note": "Binds the 1935 edition to the physical 千里命稿第一集 work identity.",
+      "adjudication_batch": "BATCH-12-BAZI-QIANLI-WORK-IDENTITY-AND-JIAOYUN-EDGE-BOUNDARY-OS"
+    },
+    {
+      "edge_id": "TG-E0176",
+      "from": "PHYSICAL-QIANLI-MINGGAO-NLC-01JH000372-10197",
+      "relation": "PHYSICAL_COPY_OF_EDITION",
+      "to": "EDITION-QIANLI-MINGGAO-1935",
+      "status": "CONFIRMED",
+      "confidence": "VERY_HIGH",
+      "evidence_class": "NLC_CATALOG_BOUND_PHYSICAL_COPY",
+      "evidence": [
+        "EXT-NLC-QIANLI-MINGGAO-1935-FIRST-JI"
+      ],
+      "scope_note": "Physical copy remains distinct from its digital surrogate.",
+      "adjudication_batch": "BATCH-12-BAZI-QIANLI-WORK-IDENTITY-AND-JIAOYUN-EDGE-BOUNDARY-OS"
+    },
+    {
+      "edge_id": "TG-E0177",
+      "from": "DIGITAL-QIANLI-MINGGAO-COMMONS-1935",
+      "relation": "DIGITAL_SURROGATE_OF",
+      "to": "PHYSICAL-QIANLI-MINGGAO-NLC-01JH000372-10197",
+      "status": "CONFIRMED",
+      "confidence": "VERY_HIGH",
+      "evidence_class": "PUBLIC_SCAN_WITH_NLC_METADATA",
+      "evidence": [
+        "EXT-NLC-QIANLI-MINGGAO-1935-FIRST-JI"
+      ],
+      "scope_note": "Digital scan is not counted as a second physical witness.",
+      "adjudication_batch": "BATCH-12-BAZI-QIANLI-WORK-IDENTITY-AND-JIAOYUN-EDGE-BOUNDARY-OS"
+    },
+    {
+      "edge_id": "TG-E0178",
+      "from": "WORK-QIANLI-MINGGAO-FIRST-JI",
+      "relation": "PARALLEL_COEXISTS_WITH",
+      "to": "WORK-QIANLI-MINGXUE-JIANGYI",
+      "status": "CONFIRMED",
+      "confidence": "VERY_HIGH_FOR_DISTINCT_WORK_IDENTITIES",
+      "evidence_class": "DIRECT_PHYSICAL_WORK_IDENTITIES_PLUS_MODERN_BIBLIOGRAPHIC_CONTROL",
+      "evidence": [
+        "EXT-NLC-QIANLI-MINGGAO-1935-FIRST-JI",
+        "EXT-NLC-QIANLI-MINGXUE-JIANGYI-1934",
+        "EXT-NLC-QIANLI-MINGXUE-JIANGYI-1936",
+        "EXT-XINYITANG-QIANLI-MINGXUE-JIANGYI-BIBLIOGRAPHY",
+        "EXT-XINYITANG-QIANLI-MINGGAO-FIRST-JI-BIBLIOGRAPHY"
+      ],
+      "scope_note": "Same author and close chronology do not make these the same work; 千里命稿第一集 is a case collection while 命學講義 is an instructional work with 起例問答.",
+      "adjudication_batch": "BATCH-12-BAZI-QIANLI-WORK-IDENTITY-AND-JIAOYUN-EDGE-BOUNDARY-OS"
+    },
+    {
+      "edge_id": "TG-E0179",
+      "from": "DIGITAL-CTEXT-QIANLI-WIKI-303868",
+      "relation": "DISPROVES_LINEAGE_SHORTCUT",
+      "to": "PHYSICAL-QIANLI-MINGGAO-NLC-01JH000372-10197",
+      "status": "CONFIRMED",
+      "confidence": "HIGH",
+      "evidence_class": "CTEXT_BASE_EDITION_UNKNOWN_PLUS_DIRECT_1935_PHYSICAL_WORK_STRUCTURE",
+      "evidence": [
+        "EXT-CTEXT-QIANLI-MINGGAO-YEAR",
+        "EXT-CTEXT-QIANLI-MINGGAO-DAYUN",
+        "EXT-NLC-QIANLI-MINGGAO-1935-FIRST-JI"
+      ],
+      "scope_note": "The CText site label 千里命稿 cannot establish that its received rule text derives from or is physically present in this 1935 copy while the base edition is unknown.",
+      "adjudication_batch": "BATCH-12-BAZI-QIANLI-WORK-IDENTITY-AND-JIAOYUN-EDGE-BOUNDARY-OS"
     }
   ],
   "lineage_hypotheses": [
