@@ -67,7 +67,11 @@ class ZiweiJapanMingFullbookFacsimileRoutesR1Tests(unittest.TestCase):
         # This batch's historical snapshot is not the evolving project total.
         self.assertEqual(len(set(self.matrix["audited_row_ids"])), audit["audited_row_count"])
         self.assertEqual(audit["audited_row_count"], self.matrix["inventory_summary"]["audited_row_count"])
-        self.assertEqual(10, audit["current_missing_from_product_row_count"])
+        self.assertEqual(
+            self.matrix["audit_summary"]["current_missing_from_product_row_count"],
+            audit["current_missing_from_product_row_count"],
+        )
+        self.assertLessEqual(audit["current_missing_from_product_row_count"], 10)
         self.assertEqual(14, audit["identified_missing_candidate_family_count"])
         self.assertIn("BATCH-12-ZIWEI-JAPAN-MING-FULLBOOK-FACSIMILE-ROUTES-H", audit["completed_batches"])
         self.assertEqual("CLOSED", self.state["invariants"]["deterministic_fusion_chart_product_r1"])

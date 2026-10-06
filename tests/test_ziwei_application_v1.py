@@ -113,15 +113,17 @@ class ZiweiApplicationV1Tests(unittest.TestCase):
             for cell in self.bundle.view_model.cells
             for row in cell.temporal_auxiliary_candidates
         ]
-        self.assertEqual(14, len(candidates))
+        self.assertEqual(16, len(candidates))
         self.assertEqual({"DAXIAN", "ANNUAL", "MONTH"}, {row.frame_type for row in candidates})
-        self.assertEqual({"天魁", "天钺", "天马"}, {row.label for row in candidates})
+        self.assertEqual({"天魁", "天钺", "天马", "月德", "天德"}, {row.label for row in candidates})
         self.assertEqual(
             {
                 "S01-QS-STRICT-KUI-YUE-R1",
                 "COMPAT-WENMO-KUI-YUE-R1",
                 "S10-LIMIT-PALACE-BRANCH-TIANMA-CASE-R1",
                 "S10-ANNUAL-BRANCH-TIANMA-CASE-R1",
+                "RECEIVED-FULLBOOK-ANNUAL-YUEDE-ZI-START-R1",
+                "RECEIVED-FULLBOOK-ANNUAL-TIANDE-YOU-START-R1",
             },
             {row.method_id for row in candidates},
         )

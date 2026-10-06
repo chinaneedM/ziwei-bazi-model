@@ -173,7 +173,7 @@ class SharedTargetZiweiSelectorProjectionR1Tests(unittest.TestCase):
             self.assertEqual(4, len(layer.transformations))
             self.assertEqual(5, len(layer.auxiliary_activations))
             self.assertEqual(
-                1 if layer.source_layer == "MONTH" else 2,
+                1 if layer.source_layer == "MONTH" else (4 if layer.source_layer == "ANNUAL" else 2),
                 len(layer.auxiliary_candidate_sets),
             )
             kui_yue = layer.auxiliary_candidate_sets[0]
