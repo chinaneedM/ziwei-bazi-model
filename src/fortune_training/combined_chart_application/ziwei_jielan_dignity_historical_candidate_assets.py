@@ -207,3 +207,4 @@ ZIWEI_JIELAN_DIGNITY_CANDIDATE_JS = """
     return response;
   };
 })();
+"""
