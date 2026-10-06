@@ -463,10 +463,20 @@ The title 古今交食考 is demonstrably non-unique: later Ming calendrical cor
 
 No direct public text or source-bound quotation from Guo's 修改源流 / 古今交食考 was located in this batch. The 1294 observation-site question gains no new positive evidence and remains unresolved.
 
-## 19. Batch 12PH — convergent revision narrative is not recovered lost-work text
+## 20. Batch 12PH — convergent revision narrative is not recovered lost-work text
 
 Source-marker searches for 修改源流曰/云/載, 古今交食考曰/云/載, and combinations with 至元三十一年五月望 / 差天二刻 / 三應 did not recover an explicit quotation chain to Guo Shoujing's lost works on the reviewed public textual horizon.
 
 邢雲路, 《明史稿》 and 《明史》 transmit materially convergent accounts of the later response-constant revision. That convergence is historically useful, but none of the reviewed passages explicitly says it is quoting 修改源流 or 郭氏古今交食考, and none supplies a missing observation-site label.
 
 Accordingly, CONTENT_SIMILARITY_OR_NARRATIVE_CONVERGENCE -> DIRECT_LOST_WORK_QUOTATION is forbidden. The next diagnostic route shifts to source-bound official almanac clock labels rather than repeating the same lost-title search.
+
+## 21. Batch 12PI — internal official-almanac bins cannot identify the absolute meridian
+
+The 56 surviving-official-almanac conjunction clock controls are a powerful same-coordinate validation set: D1 is 56/56 inside the printed bins.
+
+A research-only ±9.8667-minute Beijing–Nanjing shift test reduces the matches to 22/56 and 17/56, but this is not a geographic contest. Both the printed clock labels and D1 are expressed in the same unresolved historical coordinate. Moving only D1 changes the coordinate frame on one side of an already matched pair.
+
+No shifted event crosses a sexagenary-day boundary in the 56-row corpus; the nearest event is 1616 month 4 at 17.28 minutes from 子正, beyond the Beijing–Nanjing delta.
+
+Therefore NO_SHIFT_BEST_FIT is only evidence of internal algorithm/clock-coordinate consistency, not evidence that the hidden coordinate is Beijing, Nanjing, or Dadu. Absolute geographic identification requires an independent astronomical time anchor plus controlled Delta-T/local-apparent-solar-time semantics.

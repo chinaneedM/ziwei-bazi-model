@@ -67,7 +67,8 @@
         "1581 physical almanac, reign record and D1 converge.",
         "1281 epoch inheritance cannot identify qishuo geography: Yuan received text separates 立元 from revisable 諸應, Tonggui/GK12437 carry revised response constants, and Goryeosa preserves a mixed response-constant recension under the same epoch.",
         "12PF: Yuan official records prove multi-site observation infrastructure (Dadu plus Shangdu and other sites). The later 1294 eclipse/two-ke revision trigger names no site; Dadu-only default is rejected but neither Dadu nor Shangdu is selected.",
-        "12PH: Later narratives converge on the 1294 response-constant revision, but no reviewed passage explicitly cites Guo Shoujing's 修改源流 or 古今交食考 and no site word is recovered. Narrative convergence cannot be promoted to lost-work quotation."
+        "12PH: Later narratives converge on the 1294 response-constant revision, but no reviewed passage explicitly cites Guo Shoujing's 修改源流 or 古今交食考 and no site word is recovered. Narrative convergence cannot be promoted to lost-work quotation.",
+        "12PI: the 56 official-almanac clock bins and D1 outputs share the same unresolved historical coordinate. Their 56/56 internal fit validates D1 but cannot identify an absolute meridian; ±9.8667-minute Beijing-Nanjing shifts are coordinate changes, not geographic tests without an independent absolute-time anchor."
       ],
       "general_runtime_effect": "Required for general exact event-time/day realization, especially boundary-sensitive cases. It does not invalidate the already physically certified 1578 month-page chain.",
       "batch_12pd_refinement": {
@@ -138,6 +139,20 @@
         "site_or_meridian_wording_recovered": false,
         "later_revision_narrative_convergence": "ATTESTED",
         "generic_lost_work_search_route": "PARKED_UNLESS_MATERIALLY_NEW_WITNESS",
+        "status_after_batch": "OPEN_BLOCKING_GENERAL_ADAPTER",
+        "runtime_authorized": false
+      },
+      "batch_12pi_refinement": {
+        "batch_id": "BATCH-12-BAZI-MING-DATONG-QISHUO-GEOGRAPHIC-IDENTIFIABILITY-AUDIT-PI",
+        "research_artifact": "docs/research/MING-DATONG-QISHUO-GEOGRAPHIC-IDENTIFIABILITY-AUDIT-R1.json",
+        "internal_d1_almanac_bin_validation": "56_OF_56",
+        "plus_beijing_nanjing_delta_bin_matches": 22,
+        "minus_delta_bin_matches": 17,
+        "shifted_sexagenary_day_crossings": 0,
+        "nearest_sampled_zizheng_boundary_minutes": 17.28,
+        "absolute_meridian_identifiable_from_56_internal_bins": false,
+        "no_shift_best_fit_is_geographic_evidence": false,
+        "required_next_evidence": "INDEPENDENT_ABSOLUTE_ASTRONOMICAL_TIME_ANCHOR_WITH_CONTROLLED_TIME_COORDINATE_UNCERTAINTY",
         "status_after_batch": "OPEN_BLOCKING_GENERAL_ADAPTER",
         "runtime_authorized": false
       }
@@ -438,8 +453,8 @@
       "focus": "SHOUSHI_DATONG_TONGGUI_GK12437_ZHOUXIANG_QISHUO_EPOCH_CONSTANT_METHOD_NAMED_PLACE_BINDING"
     }
   },
-  "latest_qishuo_geography_batch": "BATCH-12-BAZI-GUOSHOUJING-LOST-WORK-QUOTATION-CHAIN-AUDIT-PH",
-  "latest_qishuo_geography_artifact": "docs/research/GUOSHOUJING-LOST-WORK-QUOTATION-CHAIN-AUDIT-R1.json",
+  "latest_qishuo_geography_batch": "BATCH-12-BAZI-MING-DATONG-QISHUO-GEOGRAPHIC-IDENTIFIABILITY-AUDIT-PI",
+  "latest_qishuo_geography_artifact": "docs/research/MING-DATONG-QISHUO-GEOGRAPHIC-IDENTIFIABILITY-AUDIT-R1.json",
   "batch_12pe_forward_refinement": {
     "status": "G03_EPOCH_TO_MERIDIAN_LINEAGE_SHORTCUT_REJECTED_ACTUAL_REFERENCE_REMAINS_OPEN",
     "historical_12ou_top_level_counts_preserved": true,
@@ -522,6 +537,27 @@
       "batch": "12PI",
       "gate_id": "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
       "focus": "SOURCE_BOUND_OFFICIAL_ALMANAC_QISHUO_CLOCK_GEOGRAPHIC_HYPOTHESIS_DIAGNOSTIC_REPLAY"
+    }
+  },
+  "batch_12pi_forward_refinement": {
+    "status": "G03_INTERNAL_ALMANAC_BIN_CORPUS_PROVEN_NON_IDENTIFYING_FOR_ABSOLUTE_MERIDIAN",
+    "historical_12ou_top_level_counts_preserved": true,
+    "current_live_gate_accounting_after_12pi": {
+      "closed_source_scoped": 5,
+      "open_blocking_general_adapter": 4,
+      "dependency_blocked": 2,
+      "total_gates": 11
+    },
+    "remaining_open_independent_gates": [
+      "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
+      "MD-G05-DYNAMIC-D1-INTERMEDIATE-PRECISION",
+      "MD-G07-CALENDAR-ADDITION-INVALID-TARGET-DATE",
+      "MD-G08-CALENDAR-ADDITION-INTERCALARY-IDENTITY-TRAVERSAL"
+    ],
+    "next_research_priority": {
+      "batch": "12PJ",
+      "gate_id": "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
+      "focus": "ABSOLUTE_TIME_ANCHOR_FEASIBILITY_DELTA_T_LOCAL_APPARENT_SOLAR_TIME_UNCERTAINTY"
     }
   }
 }

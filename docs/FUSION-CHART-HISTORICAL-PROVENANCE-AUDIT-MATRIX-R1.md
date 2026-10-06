@@ -2162,3 +2162,11 @@ HPA-DAYUN-CAL-002 remains MISSING_FROM_PRODUCT. Later Ming/Qing sources converge
 The project now forbids promoting narrative similarity into direct lost-work quotation. The generic lost-work search route is parked pending a materially new witness. MD-G03 remains open and runtime remains fail-closed.
 
 Research: docs/research/GUOSHOUJING-LOST-WORK-QUOTATION-CHAIN-AUDIT-R1.json.
+
+## Batch 12PI — qishuo geographic identifiability audit
+
+The 56 official-almanac clock-bin corpus remains decisive for D1 internal validation but is now formally non-identifying for absolute longitude. A ±9.8667-minute Beijing–Nanjing diagnostic shift changes bin-match counts from 56/56 to 22/56 or 17/56, yet neither shift crosses a sexagenary-day boundary in this corpus; the nearest event is 17.28 minutes from 子正.
+
+Because printed labels and D1 values share the same hidden historical coordinate, the no-shift 56/56 result is not geographic evidence. An independent absolute-time anchor is required before Beijing/Nanjing/Dadu hypotheses can be discriminated. HPA-DAYUN-CAL-002 remains MISSING_FROM_PRODUCT; MD-G03 remains open.
+
+Research: docs/research/MING-DATONG-QISHUO-GEOGRAPHIC-IDENTIFIABILITY-AUDIT-R1.json.

@@ -668,3 +668,15 @@ MD-G03 remains OPEN_BLOCKING_GENERAL_ADAPTER; live accounting stays 5 closed / 4
 Next: 12PI — research-only diagnostic replay of source-bound official Ming almanac conjunction clock labels under inherited/no-shift, Dadu-Beijing and Nanjing geographic hypotheses.
 
 Batch document: docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-GUOSHOUJING-LOST-WORK-QUOTATION-CHAIN-AUDIT-PH.md. Research record: docs/research/GUOSHOUJING-LOST-WORK-QUOTATION-CHAIN-AUDIT-R1.json.
+
+## Progress — Batch 12PI
+
+The 56 official-Ming-almanac conjunction-time controls have now been audited for geographic identifiability. D1 matches 56/56 source bins in the unshifted historical coordinate; mechanically applying the modern Beijing–Nanjing ~9.87-minute longitude delta leaves 22/56 matches in one direction and 17/56 in the other, with zero day-boundary crossings. The nearest sampled event is still about 17.28 minutes from 子正.
+
+This does not select an unshifted/Beijing/Nanjing meridian. D1 and the printed bins share the same unknown historical coordinate, so internal fit can validate the algorithm but cannot identify the absolute geographic zero point.
+
+MD-G03 remains open; HPA-DAYUN-CAL-002 stays MISSING_FROM_PRODUCT and runtime remains fail-closed.
+
+Next: 12PJ — audit the feasibility and uncertainty of an independent absolute-time anchor (modern ephemeris/Delta-T/local apparent solar time or a primary site-bound astronomical observation).
+
+Batch document: docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-QISHUO-GEOGRAPHIC-IDENTIFIABILITY-AUDIT-PI.md. Research record: docs/research/MING-DATONG-QISHUO-GEOGRAPHIC-IDENTIFIABILITY-AUDIT-R1.json.

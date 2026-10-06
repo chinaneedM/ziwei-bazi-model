@@ -1,0 +1,76 @@
+{
+  "schema": "MING-DATONG-QISHUO-GEOGRAPHIC-IDENTIFIABILITY-AUDIT-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-BAZI-MING-DATONG-QISHUO-GEOGRAPHIC-IDENTIFIABILITY-AUDIT-PI",
+  "date": "2026-10-06",
+  "status": "RESEARCH_ONLY_IDENTIFIABILITY_AUDIT_NO_RUNTIME_SELECTION",
+  "question": "Can the existing 56 official-Ming-almanac conjunction clock bins discriminate the hidden qishuo geographic reference by mechanically applying the Beijing-Nanjing longitude offset to D1?",
+  "inputs": {
+    "validation_fixture": "docs/research/MING-DATONG-D1-56-CONJUNCTION-VALIDATION-R1.json",
+    "fixture_source_role": "MODERN_MACHINE_TRANSCRIPTION_OF_PUBLISHED_COMPARISON_AGAINST_SURVIVING_MING_OFFICIAL_ALMANACS_NOT_PRIMARY_GLYPH_AUTHORITY",
+    "geographic_control": "docs/research/MING-DATONG-QISHUO-GEOGRAPHIC-CRITICAL-CASES-R1.json",
+    "modern_coordinate_source": "Mihn, Lee & Ahn 2014",
+    "beijing_longitude_east_deg": 116.4166666667,
+    "nanjing_longitude_east_deg": 118.8833333333,
+    "nanjing_minus_beijing_minutes": 9.8666666664,
+    "scope": "MODERN_DIAGNOSTIC_ONLY_NOT_HISTORICAL_AUTHORITY"
+  },
+  "replay": {
+    "no_shift_d1_in_printed_bins": "56_OF_56",
+    "add_nanjing_minus_beijing_offset_in_bins": "22_OF_56",
+    "subtract_nanjing_minus_beijing_offset_in_bins": "17_OF_56",
+    "plus_offset_sexagenary_day_crossings": 0,
+    "minus_offset_sexagenary_day_crossings": 0,
+    "nearest_day_boundary_event": {
+      "year": 1616,
+      "month": "四",
+      "almanac_display": "庚子夜子初三刻 (36.993±0.005)",
+      "d1_day_index": 36.988,
+      "minutes_to_nearest_zizheng_boundary": 17.28,
+      "beijing_nanjing_offset_minutes": 9.8666666664,
+      "offset_can_cross_day_boundary": false
+    }
+  },
+  "identifiability": {
+    "printed_bins_and_d1_share_same_unknown_historical_coordinate": true,
+    "internal_fit_identifies_algorithm_consistency": true,
+    "internal_fit_identifies_absolute_meridian": false,
+    "no_shift_best_fit_is_geographic_evidence": false,
+    "reason": "A common unknown coordinate origin is shared by both the historical printed clock labels and the reconstructed D1 outputs. Applying a modern longitude offset to only one side changes coordinates rather than tests the original reference. Without an independent absolute-time anchor, the geographic zero point is gauge-like and unidentifiable from this paired internal corpus.",
+    "direct_beijing_vs_nanjing_selection_from_56_bins": "FORBIDDEN"
+  },
+  "adjudication": {
+    "dadu_beijing_qishuo_reference": "UNRESOLVED",
+    "nanjing_qishuo_reference": "UNRESOLVED",
+    "module_specific_mixed_geography": "PRESERVED_NOT_SELECTED",
+    "md_g03_status_after_batch": "OPEN_BLOCKING_GENERAL_ADAPTER",
+    "runtime_authorized": false,
+    "hpa_dayun_cal_002_status": "MISSING_FROM_PRODUCT",
+    "closed_subquestion": "THE_56_INTERNAL_ALMANAC_CLOCK_BINS_ALONE_CANNOT_IDENTIFY_THE_ABSOLUTE_QISHUO_MERIDIAN"
+  },
+  "next_required_evidence": [
+    "independent astronomical absolute-time anchor for true conjunction/eclipses with explicit time standard and uncertainty",
+    "historically controlled Delta-T treatment where modern ephemeris is used",
+    "local apparent solar-time conversion including longitude and equation-of-time semantics",
+    "primary or near-primary observation site / clock reference if available",
+    "prefer events close enough to 子正 that candidate longitude differences can change a historical label after absolute anchoring"
+  ],
+  "route_disposition": {
+    "mechanical_shift_of_d1_against_same_coordinate_printed_bins": "CLOSED_AS_NON_IDENTIFYING_TEST",
+    "next_batch": "12PJ",
+    "next_focus": "ABSOLUTE_TIME_ANCHOR_FEASIBILITY_AND_UNCERTAINTY_AUDIT_FOR_QISHUO_GEOGRAPHY"
+  },
+  "accounting": {
+    "matrix_rows": 222,
+    "audited_rows": 222,
+    "current_missing_from_product_rows": 4,
+    "provenance_defects_confirmed": 45,
+    "provenance_defects_repaired": 45,
+    "historical_candidate_extensions": 14,
+    "historical_candidate_registries": 5,
+    "historical_candidate_runtime_resolvers": 5,
+    "chart_algorithm_defects": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0
+  }
+}
