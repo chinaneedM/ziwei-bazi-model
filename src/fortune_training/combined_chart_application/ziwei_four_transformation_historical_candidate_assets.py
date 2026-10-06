@@ -177,3 +177,4 @@ ZIWEI_FOUR_TRANSFORMATION_CANDIDATE_JS = """
     return response;
   };
 })();
+"""

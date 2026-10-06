@@ -682,6 +682,23 @@ def validate_temporal_state(
                         temporal_source_refs=temporal_source_refs,
                     ),
                 )
+                if source_layer == "ANNUAL":
+                    expected += (
+                        TemporalAuxiliaryGenerator.annual_yuede_candidate_set(
+                            source_branch,
+                            source_stem=source_stem,
+                            source_layer=source_layer,
+                            context_id=context_id,
+                            temporal_source_refs=temporal_source_refs,
+                        ),
+                        TemporalAuxiliaryGenerator.annual_tiande_candidate_set(
+                            source_branch,
+                            source_stem=source_stem,
+                            source_layer=source_layer,
+                            context_id=context_id,
+                            temporal_source_refs=temporal_source_refs,
+                        ),
+                    )
         if tuple(rows) != expected:
             _diag(
                 diagnostics,
