@@ -939,9 +939,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-BAZI-MING-DATONG-PREYEAR-LEAP-CIVIL-YEAR-BINDING-PA",
     "BATCH-12-BAZI-MING-DATONG-PREYEAR-LEAP-CIVIL-YEAR-GLOBAL-VALIDATION-PB",
     "BATCH-12-BAZI-MING-DATONG-RUNYU-JINTUI-FINAL-PLACEMENT-PC",
+    "BATCH-12-BAZI-MING-DATONG-GK12437-QISHUO-LOCALITY-OPERATOR-AUDIT-PD",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-RUNYU-JINTUI-FINAL-PLACEMENT-PC.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-GK12437-QISHUO-LOCALITY-OPERATOR-AUDIT-PD.md"
 
 
 def fail(message: str) -> None:
@@ -17079,7 +17080,7 @@ def main() -> int:
     pc_id = "BATCH-12-BAZI-MING-DATONG-RUNYU-JINTUI-FINAL-PLACEMENT-PC"
     pc_path = ROOT / "docs/research/MING-DATONG-RUNYU-JINTUI-FINAL-PLACEMENT-R1.json"
     pc_oracle_path = ROOT / "docs/research/MING-DATONG-RUNYU-JINTUI-BOUNDARY-ORACLE-R1.json"
-    if state_batches[-1] != pc_id: fail("Batch 12PC is not latest completed batch")
+    if len(state_batches) < 2 or state_batches[-2] != pc_id: fail("Batch 12PC is not immediately before Batch 12PD")
     if not pc_path.exists() or not pc_oracle_path.exists(): fail("Batch 12PC research/oracle artifact missing")
     pc = json.loads(pc_path.read_text(encoding="utf-8")); pc_oracle = json.loads(pc_oracle_path.read_text(encoding="utf-8"))
     if pc.get("batch_id") != pc_id or pc.get("gate_id") != "MD-G09-MULTI-YEAR-LEAP-GENERALIZATION": fail("Batch 12PC identity drift")
@@ -17092,10 +17093,36 @@ def main() -> int:
     if live12pc != {"closed_source_scoped":5,"open_blocking_general_adapter":4,"dependency_blocked":2,"total_gates":11}: fail("Batch 12PC live gate accounting drift")
     rows_pc={row.get("rule_id"):row for row in matrix.get("rows",())}; row_pc=rows_pc.get("HPA-DAYUN-CAL-002"); bpc=(row_pc or {}).get("batch_12pc_runyu_jintui_final_placement",{})
     if not row_pc or row_pc.get("audit_status") != "MISSING_FROM_PRODUCT" or bpc.get("g09_status") != "CLOSED_SOURCE_SCOPED" or bpc.get("runtime_authorized") is not False: fail("Batch 12PC Matrix drift")
-    if state.get("historical_audit",{}).get("latest_batch_doc") != "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-RUNYU-JINTUI-FINAL-PLACEMENT-PC.md": fail("Batch 12PC latest batch doc drift")
+    if pc_id not in state_batches: fail("Batch 12PC disappeared from completed batches")
     try: schema12pc=tuple(int(part) for part in state.get("schema_version","0.0.0").split("."))
     except ValueError: fail("Batch 12PC continuity schema version is not numeric")
     if schema12pc < (1,424,0): fail("Batch 12PC continuity schema version regressed below 1.424.0")
+
+    # Batch 12PD forward-only GK12437 qishuo locality-operator scope closure.
+    pd_id = "BATCH-12-BAZI-MING-DATONG-GK12437-QISHUO-LOCALITY-OPERATOR-AUDIT-PD"
+    pd_path = ROOT / "docs/research/MING-DATONG-GK12437-QISHUO-LOCALITY-OPERATOR-AUDIT-R1.json"
+    pd_doc_path = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-GK12437-QISHUO-LOCALITY-OPERATOR-AUDIT-PD.md"
+    if state_batches[-1] != pd_id: fail("Batch 12PD is not latest completed batch")
+    if not pd_path.exists() or not pd_doc_path.exists(): fail("Batch 12PD research/batch artifact missing")
+    pd = json.loads(pd_path.read_text(encoding="utf-8"))
+    if pd.get("batch_id") != pd_id: fail("Batch 12PD identity drift")
+    acq_pd = pd.get("acquisition",{})
+    if acq_pd.get("method_block_reviewed") != "001a-005b" or acq_pd.get("ocr_used_for_final_glyph_or_operator_claims") is not False: fail("Batch 12PD physical-review scope drift")
+    loc_pd = pd.get("locality_operator_audit",{})
+    if loc_pd.get("result") != "EXPLICIT_LOCALITY_OPERATOR_NOT_ATTESTED_ON_COMPLETE_REVIEWED_QISHUO_METHOD_BLOCK" or loc_pd.get("named_place_or_meridian_operator_attested") is not False: fail("Batch 12PD scoped-negative drift")
+    adj_pd = pd.get("adjudication",{})
+    if adj_pd.get("md_g03_status_after_batch") != "OPEN_BLOCKING_GENERAL_ADAPTER" or adj_pd.get("qishuo_geographic_reference") != "UNRESOLVED" or adj_pd.get("runtime_selection_authorized") is not False: fail("Batch 12PD G03 adjudication drift")
+    g03_pd={row.get("gate_id"):row for row in ou.get("gates",())}.get("MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",{})
+    r12pd=g03_pd.get("batch_12pd_refinement",{})
+    if g03_pd.get("status") != "OPEN_BLOCKING_GENERAL_ADAPTER" or r12pd.get("explicit_locality_operator_subquestion") != "CLOSED_NEGATIVE_OBJECT_METHOD_BLOCK_SCOPE" or r12pd.get("implicit_or_inherited_reference") != "UNRESOLVED" or r12pd.get("runtime_authorized") is not False: fail("Batch 12PD G03 forward refinement drift")
+    live12pd=ou.get("batch_12pd_forward_refinement",{}).get("current_live_gate_accounting_after_12pd",{})
+    if live12pd != {"closed_source_scoped":5,"open_blocking_general_adapter":4,"dependency_blocked":2,"total_gates":11}: fail("Batch 12PD live gate accounting drift")
+    rows_pd={row.get("rule_id"):row for row in matrix.get("rows",())}; row_pd=rows_pd.get("HPA-DAYUN-CAL-002"); bpd=(row_pd or {}).get("batch_12pd_gk12437_qishuo_locality_operator_audit",{})
+    if not row_pd or row_pd.get("audit_status") != "MISSING_FROM_PRODUCT" or bpd.get("md_g03_status") != "OPEN_BLOCKING_GENERAL_ADAPTER" or bpd.get("runtime_authorized") is not False: fail("Batch 12PD Matrix drift")
+    if state.get("historical_audit",{}).get("latest_batch_doc") != "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-GK12437-QISHUO-LOCALITY-OPERATOR-AUDIT-PD.md": fail("Batch 12PD latest batch doc drift")
+    try: schema12pd=tuple(int(part) for part in state.get("schema_version","0.0.0").split("."))
+    except ValueError: fail("Batch 12PD continuity schema version is not numeric")
+    if schema12pd < (1,425,0): fail("Batch 12PD continuity schema version regressed below 1.425.0")
 
     contract = state.get("continuity_contract", {})
     if contract.get("ci_gate_required") is not True:
