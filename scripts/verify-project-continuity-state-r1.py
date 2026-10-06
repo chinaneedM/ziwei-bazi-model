@@ -936,9 +936,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-BAZI-MING-DATONG-D1-PRECISION-PROFILE-SENSITIVITY-OX",
     "BATCH-12-BAZI-MING-DATONG-MULTI-YEAR-LEAP-RULE-VALIDATION-OY",
     "BATCH-12-BAZI-MING-DATONG-MING-ERA-BOUNDARY-CENSUS-OZ",
+    "BATCH-12-BAZI-MING-DATONG-PREYEAR-LEAP-CIVIL-YEAR-BINDING-PA",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-MING-ERA-BOUNDARY-CENSUS-OZ.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-PREYEAR-LEAP-CIVIL-YEAR-BINDING-PA.md"
 
 
 def fail(message: str) -> None:
@@ -17039,6 +17040,38 @@ def main() -> int:
     try: schema12oz=tuple(int(part) for part in state.get("schema_version","0.0.0").split("."))
     except ValueError: fail("Batch 12OZ continuity schema version is not numeric")
     if schema12oz < (1,420,0): fail("Batch 12OZ continuity schema version regressed below 1.420.0")
+
+    # Batch 12PA: Ming Datong pre-year leap civil-year binding.
+    pa_id = "BATCH-12-BAZI-MING-DATONG-PREYEAR-LEAP-CIVIL-YEAR-BINDING-PA"
+    pa_path = ROOT / "docs/research/MING-DATONG-PREYEAR-LEAP-CIVIL-YEAR-BINDING-R1.json"
+    pa_doc = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-PREYEAR-LEAP-CIVIL-YEAR-BINDING-PA.md"
+    pa_script = ROOT / "scripts/research_ming_datong_preyear_leap_civil_year_binding_r1.py"
+    if not pa_path.is_file() or not pa_doc.is_file() or not pa_script.is_file(): fail("Batch 12PA research/batch/script record missing")
+    pa = json.loads(pa_path.read_text(encoding="utf-8"))
+    if pa.get("batch_id") != pa_id or pa.get("gate_id") != "MD-G09-MULTI-YEAR-LEAP-GENERALIZATION": fail("Batch 12PA identity/gate drift")
+    if pa.get("status") != "FOUR_OZ_TENSIONS_RESOLVED_BY_PREYEAR_BRANCH_G09_REMAINS_OPEN_PENDING_FULL_CIVIL_BINDING_CENSUS": fail("Batch 12PA status drift")
+    for key in ("runtime_selection_authorized","production_default_changed","algorithm_reopen_authorized","candidate_collapse_authorized"):
+        if pa.get(key) is not False: fail(f"Batch 12PA invariant drift: {key}")
+    layers_pa={row.get("layer_id"):row for row in pa.get("authority_layers",())}; primary_pa=layers_pa.get("PRIMARY_1569_RUNYU_EXISTENCE",{}); received_pa=layers_pa.get("RECEIVED_MINGSHI_PREYEAR_PLACEMENT",{})
+    if primary_pa.get("physical_page_index_zero_based") != 11 or primary_pa.get("direct_page_image_reviewed") is not True or primary_pa.get("ocr_used_for_final_glyph_claims") is not False: fail("Batch 12PA primary runyu collation drift")
+    if primary_pa.get("constants",{}).get("run_limit_source_units") != "186552.09" or primary_pa.get("constants",{}).get("tong_run_source_units") != "108753.84": fail("Batch 12PA primary constants drift")
+    if received_pa.get("constants",{}).get("yue_run_source_units") != "9062.82" or received_pa.get("preyear_test") != "floor((朔策 - 閏餘) / 月閏) <= 1": fail("Batch 12PA received pre-year rule drift")
+    tensions_pa={row.get("census_label_year"):row for row in pa.get("tension_resolution",())}
+    if tensions_pa.get(1385,{}).get("assigned_preceding_civil_year") != 1384 or tensions_pa.get(1385,{}).get("shuo_minus_runyu_source_units") != "4481.91": fail("Batch 12PA 1385->1384 binding drift")
+    if tensions_pa.get(1480,{}).get("assigned_preceding_civil_year") != 1479 or tensions_pa.get(1480,{}).get("shuo_minus_runyu_source_units") != "8574.66": fail("Batch 12PA 1480->1479 binding drift")
+    census_pa=pa.get("full_ming_formula_candidate_census",{}); expected_candidates_pa=[1385,1404,1423,1442,1461,1480,1499,1518,1537,1556,1575,1594,1613,1632,1643]
+    if census_pa.get("candidate_count") != 15 or census_pa.get("candidate_threshold_label_years") != expected_candidates_pa: fail("Batch 12PA candidate census drift")
+    adj_pa=pa.get("adjudication",{})
+    if adj_pa.get("four_12oz_tension_labels") != "RESOLVED_AS_MISSING_PREYEAR_CIVIL_OWNERSHIP_BRANCH_NOT_PRIMARY_RUNYU_FORMULA_FAILURE" or adj_pa.get("g09_status_after_batch") != "OPEN_BLOCKING_GENERAL_ADAPTER" or adj_pa.get("fixed_k2_first_month_civil_anchor_universal") is not False: fail("Batch 12PA adjudication drift")
+    gates_pa={row.get("gate_id"):row for row in ou.get("gates",())}; g09_pa=gates_pa.get("MD-G09-MULTI-YEAR-LEAP-GENERALIZATION",{})
+    if g09_pa.get("status") != "OPEN_BLOCKING_GENERAL_ADAPTER" or g09_pa.get("batch_12pa_refinement",{}).get("full_ming_preyear_formula_candidate_count") != 15: fail("Batch 12PA G09 drift")
+    rows_pa={row.get("rule_id"):row for row in matrix.get("rows",())}; row_pa=rows_pa.get("HPA-DAYUN-CAL-002"); bind_pa=(row_pa or {}).get("batch_12pa_preyear_leap_civil_year_binding",{})
+    if not row_pa or row_pa.get("audit_status") != "MISSING_FROM_PRODUCT" or bind_pa.get("batch_id") != pa_id or bind_pa.get("runtime_authorized") is not False: fail("Batch 12PA Matrix drift")
+    accounting_pa=pa.get("accounting",{})
+    if accounting_pa.get("matrix_rows") != 222 or accounting_pa.get("audited_rows") != 222 or accounting_pa.get("current_missing_from_product_rows") != 4: fail("Batch 12PA accounting drift")
+    try: schema12pa=tuple(int(part) for part in state.get("schema_version","0.0.0").split("."))
+    except ValueError: fail("Batch 12PA continuity schema version is not numeric")
+    if schema12pa < (1,421,0): fail("Batch 12PA continuity schema version regressed below 1.421.0")
 
     contract = state.get("continuity_contract", {})
     if contract.get("ci_gate_required") is not True:

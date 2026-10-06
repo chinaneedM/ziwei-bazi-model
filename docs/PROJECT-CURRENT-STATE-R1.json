@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.420.0",
+  "schema_version": "1.421.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -501,9 +501,10 @@
       "BATCH-12-BAZI-MING-DATONG-DYNAMIC-D1-PRECISION-GENERALIZATION-OW",
       "BATCH-12-BAZI-MING-DATONG-D1-PRECISION-PROFILE-SENSITIVITY-OX",
       "BATCH-12-BAZI-MING-DATONG-MULTI-YEAR-LEAP-RULE-VALIDATION-OY",
-      "BATCH-12-BAZI-MING-DATONG-MING-ERA-BOUNDARY-CENSUS-OZ"
+      "BATCH-12-BAZI-MING-DATONG-MING-ERA-BOUNDARY-CENSUS-OZ",
+      "BATCH-12-BAZI-MING-DATONG-PREYEAR-LEAP-CIVIL-YEAR-BINDING-PA"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-MING-ERA-BOUNDARY-CENSUS-OZ.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-PREYEAR-LEAP-CIVIL-YEAR-BINDING-PA.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -2454,7 +2455,13 @@
       "All four 12OX precision profiles are structurally invariant across the 277-year census at tested source-day resolution.",
       "The normalized runyu/runxian threshold flag and true-conjunction/day-level-Zhongqi winter-to-winter structure have four alignment tensions: 1384, 1385, 1479, 1480.",
       "Received Mingshi chronology independently binds civil 1373 as late leap 11 and civil 1384 as leap 10; G09 remains OPEN_BLOCKING_GENERAL_ADAPTER and runtime fail-closed.",
-      "12PA: re-collate the 1569 推閏餘分法 formula/year binding and directly adjudicate the four 12OZ tension labels, prioritizing 1384 and direct Ming controls for 1479/1480."
+      "12PA: re-collate the 1569 推閏餘分法 formula/year binding and directly adjudicate the four 12OZ tension labels, prioritizing 1384 and direct Ming controls for 1479/1480.",
+      "Batch 12PA completed: all four 12OZ runyu-vs-technical-sui tension labels (1384, 1385, 1479, 1480) are resolved by the received Datong pre-year leap ownership branch; this is not a D1 precision or 1569 threshold failure.",
+      "The direct 1569 推閏餘分法 page is re-collated: target Tianzheng runyu is compared with run limit 186552.09, and next-year recurrence adds tong-run 108753.84. Civil-year ownership wording is not claimed from that primary page.",
+      "Mingshi vol.35 received 推閏在何月 supplies the missing branch: after 朔策-閏餘 is divided by 月閏 9062.82, quotient 0 or 1 is 閏在年前. This received rule is kept separate from 1569 direct-glyph authority.",
+      "1385 has runyu 290824.02 and residual 4481.91 (quotient 0), so its threshold leap belongs to civil 1384; Ming official veritable-record tradition records 洪武十七年閏十月. 1480 similarly has residual 8574.66 (quotient 0), assigning the leap to civil 1479, whose record states 成化十五年閏十月.",
+      "A full formula census finds 15 pre-year threshold-label candidates across 1368-1644. Only the 1385→1384 and 1480→1479 pairs are directly controlled in 12PA, so G09 remains OPEN_BLOCKING_GENERAL_ADAPTER and runtime remains fail-closed.",
+      "12PB: validate all 15 pre-year candidates against Ming civil/regnal chronology or direct almanac controls, replace fixed-k=2 civil-year extraction with explicit ownership logic in the research generator, then rerun 1368-1644 before any G09 closure."
     ],
     "historical_candidate_extension_count": 14,
     "current_missing_from_product_row_count": 4

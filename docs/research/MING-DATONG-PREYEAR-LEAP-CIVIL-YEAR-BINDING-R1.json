@@ -1,0 +1,207 @@
+{
+  "schema": "MING-DATONG-PREYEAR-LEAP-CIVIL-YEAR-BINDING-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-BAZI-MING-DATONG-PREYEAR-LEAP-CIVIL-YEAR-BINDING-PA",
+  "rule_id": "HPA-DAYUN-CAL-002",
+  "gate_id": "MD-G09-MULTI-YEAR-LEAP-GENERALIZATION",
+  "status": "FOUR_OZ_TENSIONS_RESOLVED_BY_PREYEAR_BRANCH_G09_REMAINS_OPEN_PENDING_FULL_CIVIL_BINDING_CENSUS",
+  "runtime_selection_authorized": false,
+  "production_default_changed": false,
+  "algorithm_reopen_authorized": false,
+  "candidate_collapse_authorized": false,
+  "purpose": "Re-collate the primary 1569 runyu threshold, bind it to the received Datong pre-year leap-placement branch, and distinguish technical-year threshold labels from civil/regnal-year ownership.",
+  "authority_layers": [
+    {
+      "layer_id": "PRIMARY_1569_RUNYU_EXISTENCE",
+      "source_id": "EXT-KOTENMON-DAMING-DATONG-1569",
+      "authority": "DIRECT_MING_FACSIMILE",
+      "physical_page_index_zero_based": 11,
+      "direct_page_image_reviewed": true,
+      "ocr_used_for_final_glyph_claims": false,
+      "normalized_formula": "中積 + 閏應; repeatedly remove 朔策; the remaining quantity is the target 天正閏餘. If 閏餘 >= 閏限, the source says the year has an intercalary month.",
+      "constants": {
+        "shuo_ce_source_units": "295305.93",
+        "tong_run_source_units": "108753.84",
+        "run_limit_source_units": "186552.09"
+      },
+      "scope": "LEAP_THRESHOLD_ONLY; DOES_NOT_BY_ITSELF_ASSIGN_CIVIL_YEAR_OWNERSHIP_OR_LEAP_MONTH_NUMBER"
+    },
+    {
+      "layer_id": "RECEIVED_MINGSHI_PREYEAR_PLACEMENT",
+      "source_id": "EXT-WIKISOURCE-MINGSHI-V35-DATONG-PREYEAR-LEAP",
+      "authority": "QING_COMPILED_RECEIVED_DATONG_RULE",
+      "normalized_rule": "For a year already judged intercalary, compute 朔策 - 閏餘 and divide by 月閏 to place the leap month. If the residual is less than one 月閏, or the integer quotient reaches only one 月閏, the leap is classified as 在年前.",
+      "constants": {
+        "yue_run_source_units": "9062.82"
+      },
+      "preyear_test": "floor((朔策 - 閏餘) / 月閏) <= 1",
+      "source_scope_firewall": "RECEIVED_PLACEMENT_BRIDGE_NOT_PROMOTED_TO_1569_DIRECT_WORDING"
+    },
+    {
+      "layer_id": "MING_OFFICIAL_REIGN_RECORD_CIVIL_CONTROLS",
+      "authority": "MING_OFFICIAL_VERITABLE_RECORD_TRADITION_IN_MODERN_DIGITAL_TRANSCRIPTION",
+      "controls": [
+        {
+          "civil_year": 1384,
+          "reign_label": "洪武十七年",
+          "expected_leap_month": 10,
+          "source_id": "EXT-CTEXT-MINGSHILU-HONGWU17-1384-LEAP10",
+          "observed_heading": "洪武十七年閏十月乙未朔",
+          "physical_glyph_authority": false
+        },
+        {
+          "civil_year": 1479,
+          "reign_label": "成化十五年",
+          "expected_leap_month": 10,
+          "source_id": "EXT-SHIDIAN-MINGSHILU-CHENGHUA15-1479-LEAP10",
+          "observed_heading": "成化十五年閏十月癸丑朔",
+          "physical_glyph_authority": false
+        }
+      ]
+    }
+  ],
+  "tension_resolution": [
+    {
+      "census_label_year": 1384,
+      "old_runyu_threshold_flag": false,
+      "technical_sui_has_intercalary_month": true,
+      "technical_sui_leap_month": 10,
+      "resolution": "CIVIL_YEAR_1384_RECEIVES_PREYEAR_LEAP_FROM_1385_THRESHOLD_LABEL",
+      "next_threshold_label_year": 1385
+    },
+    {
+      "census_label_year": 1385,
+      "runyu_remainder_source_units": "290824.02",
+      "runyu_threshold_flag": true,
+      "shuo_minus_runyu_source_units": "4481.91",
+      "placement_quotient_floor": 0,
+      "preyear_branch": true,
+      "assigned_preceding_civil_year": 1384,
+      "direct_civil_control": "洪武十七年閏十月",
+      "resolution": "THRESHOLD_TRUE_DOES_NOT_MEAN_CIVIL_1385_HAS_THE_LEAP"
+    },
+    {
+      "census_label_year": 1479,
+      "old_runyu_threshold_flag": false,
+      "technical_sui_has_intercalary_month": true,
+      "technical_sui_leap_month": 10,
+      "resolution": "CIVIL_YEAR_1479_RECEIVES_PREYEAR_LEAP_FROM_1480_THRESHOLD_LABEL",
+      "next_threshold_label_year": 1480
+    },
+    {
+      "census_label_year": 1480,
+      "runyu_remainder_source_units": "286731.27",
+      "runyu_threshold_flag": true,
+      "shuo_minus_runyu_source_units": "8574.66",
+      "placement_quotient_floor": 0,
+      "preyear_branch": true,
+      "assigned_preceding_civil_year": 1479,
+      "direct_civil_control": "成化十五年閏十月",
+      "resolution": "THRESHOLD_TRUE_DOES_NOT_MEAN_CIVIL_1480_HAS_THE_LEAP"
+    }
+  ],
+  "adjudication": {
+    "four_12oz_tension_labels": "RESOLVED_AS_MISSING_PREYEAR_CIVIL_OWNERSHIP_BRANCH_NOT_PRIMARY_RUNYU_FORMULA_FAILURE",
+    "primary_1569_runyu_threshold": "RECOLLATED_AND_PRESERVED_SOURCE_SCOPED",
+    "received_preyear_branch": "MECHANICALLY_EXPLAINS_1384_1385_AND_1479_1480_PAIRS",
+    "d1_precision_failure_implicated": false,
+    "fixed_k2_first_month_civil_anchor_universal": false,
+    "g09_status_after_batch": "OPEN_BLOCKING_GENERAL_ADAPTER",
+    "reason_g09_stays_open": "The four known tension labels are resolved, but the received pre-year placement rule produces additional formula-level candidate labels across 1368-1644. Those civil-year assignments require a full source/control census before arbitrary-year certification."
+  },
+  "full_ming_formula_candidate_census": {
+    "first_year": 1368,
+    "last_year": 1644,
+    "condition": "閏餘 >= 閏限 AND floor((朔策 - 閏餘) / 月閏) <= 1",
+    "candidate_threshold_label_years": [
+      1385,
+      1404,
+      1423,
+      1442,
+      1461,
+      1480,
+      1499,
+      1518,
+      1537,
+      1556,
+      1575,
+      1594,
+      1613,
+      1632,
+      1643
+    ],
+    "candidate_preceding_civil_years": [
+      1384,
+      1403,
+      1422,
+      1441,
+      1460,
+      1479,
+      1498,
+      1517,
+      1536,
+      1555,
+      1574,
+      1593,
+      1612,
+      1631,
+      1642
+    ],
+    "candidate_count": 15,
+    "directly_controlled_in_12pa_threshold_label_years": [
+      1385,
+      1480
+    ],
+    "directly_controlled_preceding_civil_years": [
+      1384,
+      1479
+    ],
+    "remaining_candidate_threshold_label_years": [
+      1404,
+      1423,
+      1442,
+      1461,
+      1499,
+      1518,
+      1537,
+      1556,
+      1575,
+      1594,
+      1613,
+      1632,
+      1643
+    ],
+    "status": "FORMULA_LEVEL_CANDIDATE_CENSUS_ONLY_NOT_YET_FULL_HISTORICAL_VALIDATION"
+  },
+  "generator_scope_correction": {
+    "batch_12oy_snapshot_rewritten": false,
+    "batch_12oz_snapshot_rewritten": false,
+    "fixed_sequence_offset_k2_as_universal_civil_year_start": "REJECTED",
+    "replacement_requirement": "Civil-year generation must first apply technical Tianzheng/runyu context plus pre-year ownership/placement logic; sequence indices are internal recurrence coordinates, not universal civil-year labels."
+  },
+  "epistemic_firewalls": [
+    "NO_PROMOTING_MINGSHI_PREYEAR_WORDING_TO_1569_DIRECT_GLYPH_AUTHORITY",
+    "NO_EQUATING_RUNYU_THRESHOLD_LABEL_YEAR_WITH_CIVIL_YEAR_OWNERSHIP",
+    "NO_USING_FIXED_K2_AS_A_UNIVERSAL_CIVIL_YEAR_START",
+    "NO_G09_CLOSURE_FROM_TWO_DIRECT_CIVIL_CONTROLS",
+    "NO_RUNTIME_ACTIVATION",
+    "NO_RETROACTIVE_REWRITE_OF_12OY_OR_12OZ"
+  ],
+  "accounting": {
+    "matrix_rows": 222,
+    "audited_rows": 222,
+    "current_missing_from_product_rows": 4,
+    "provenance_defects_confirmed": 45,
+    "provenance_defects_repaired": 45,
+    "historical_candidate_extensions": 14,
+    "historical_candidate_registries": 5,
+    "historical_candidate_runtime_resolvers": 5,
+    "chart_algorithm_defects": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0
+  },
+  "next_research_priority": {
+    "batch": "12PB",
+    "focus": "Validate the full 15-label pre-year candidate census against Ming-era civil/regnal chronology or direct almanac controls, replace the fixed-k=2 civil-year shortcut with an explicit ownership bridge in the research generator, and rerun 1368-1644 before considering G09 closure."
+  }
+}

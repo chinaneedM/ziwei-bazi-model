@@ -223,7 +223,7 @@ Fusion Chart Capability & Performance Acceptance R1 已正式收口。最终执�
 
 ## Fusion Chart Historical Provenance & School Audit R1
 
-最新规则审计闭环为 **Batch 12OZ**：1368–1644 全明代 277 年冬至—冬至边界 census 显示，四个 12OX precision profile 在测试范围内没有造成月序结构或真朔源日标签分歧；但 12OY 归一化的 `閏餘/閏限` 阈值标志与“真朔 + 日级中气归属”的冬至岁结构在 **1384、1385、1479、1480** 四个标签出现结构张力。《明史》纪年控制又绑定洪武六年（1373）晚闰十一、洪武十七年（1384）闰十，说明“冬至技术岁”与“民用/纪年年”不能直接同名映射。12OY 快照保持不改，但任意年 year-binding 外推被前向收窄。G09 继续 OPEN，历史 calendar runtime 继续 fail-closed。Matrix 222/222，MISSING_FROM_PRODUCT=4，provenance defect=45/45 repaired。下一门 **12PA** 直接复核 `推閏餘分法` 原页公式与年份绑定，并优先裁决 1384、1479、1480 边界案例。
+最新规则审计闭环为 **Batch 12PA**：12OZ 的 1384/1385、1479/1480 四个闰法张力已被“**闰在年前**”民用年归属分支解释。1569 周相本 `推閏餘分法` 的闰余阈值继续作为 primary source-scoped 规则；《明史》卷35只作为后出 received placement bridge，规定 `朔策−閏餘` 除以 `月閏=9062.82` 后整数商 0 或 1 时归为“年前”。1385 的余差 4481.91 因而归到 civil 1384，1480 的余差 8574.66 归到 civil 1479；明实录传统分别直接记洪武十七年、成化十五年闰十月。四个 tension 因此不是 D1 精度或 primary 闰余公式缺陷。但全明公式层共有 **15 个**“年前”候选标签，尚未全部做民用年史料校验，所以 G09 继续 OPEN、历史 calendar runtime 继续 fail-closed。Matrix 222/222，MISSING_FROM_PRODUCT=4，provenance defect=45/45 repaired。下一门 **12PB** 将校验 15 个候选并移除 research generator 的固定 k=2 民用年起点捷径。
 
 ```text
 FUSION_CHART_HISTORICAL_PROVENANCE_AUDIT_R1=IN_PROGRESS
