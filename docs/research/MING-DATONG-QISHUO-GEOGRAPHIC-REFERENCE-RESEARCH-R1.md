@@ -444,3 +444,13 @@ GK12437 page 002a computes from 至元辛巳積年減一, while 001b–002a carr
 《明史》卷35 records the Tonggui response values as 授時續定之數. 《高麗史》卷51 independently shows that the same 1281 epoch could coexist with a mixed revised/initial response-constant recension.
 
 Therefore SAME_ZHIYUAN_XINSI_EPOCH != PROOF_OF_SAME_QISHUO_MERIDIAN. Dadu/Beijing and Nanjing remain possible but unproved. The next target is the observation-site provenance of the revised response constants themselves.
+
+## 18. Batch 12PF — the 1294 revision trigger does not identify its observation site
+
+The later received tradition says the Zhiyuan-31 fifth-month full-moon eclipse differed by two ke and triggered Guo Shoujing's revision of the response constants. No site is named in that report.
+
+Yuan official records show why a Dadu default is unsafe. In 1279 the dynasty established 司天臺 at Dadu while also placing instruments and observing officials at Shangdu, Luoyang and other sites. In the target year 1294, the new emperor reached Shangdu in the fourth month, and the fifth-month chronicle records astronomy-related rites at 司天臺 and 雲仙臺; return to Dadu is not recorded until the tenth month. Guo Shoujing also became 知太史院事 in that year.
+
+These facts prove a multi-site institutional astronomy network and an active Shangdu court-astronomy context, but neither proves the eclipse was observed at Shangdu. Conversely, the existence of the Dadu central observatory does not prove the revision was based on Dadu time.
+
+Result: Dadu-only default rejected; exact 1294 revision site unresolved; qishuo geographic reference unresolved. The next source route is Guo's lost 修改源流 / 古今交食考 and Yuan Taishiyuan documentary residue.

@@ -65,7 +65,8 @@
         "1495 cannot be repaired by a simple Beijing-Nanjing longitude shift.",
         "1497 is boundary-sensitive but does not identify the historical meridian.",
         "1581 physical almanac, reign record and D1 converge.",
-        "1281 epoch inheritance cannot identify qishuo geography: Yuan received text separates 立元 from revisable 諸應, Tonggui/GK12437 carry revised response constants, and Goryeosa preserves a mixed response-constant recension under the same epoch."
+        "1281 epoch inheritance cannot identify qishuo geography: Yuan received text separates 立元 from revisable 諸應, Tonggui/GK12437 carry revised response constants, and Goryeosa preserves a mixed response-constant recension under the same epoch.",
+        "12PF: Yuan official records prove multi-site observation infrastructure (Dadu plus Shangdu and other sites). The later 1294 eclipse/two-ke revision trigger names no site; Dadu-only default is rejected but neither Dadu nor Shangdu is selected."
       ],
       "general_runtime_effect": "Required for general exact event-time/day realization, especially boundary-sensitive cases. It does not invalidate the already physically certified 1578 month-page chain.",
       "batch_12pd_refinement": {
@@ -100,6 +101,19 @@
         "dadu_beijing_actual_reference": "UNRESOLVED",
         "nanjing_actual_reference": "UNRESOLVED",
         "module_specific_mixed_geography": "STRENGTHENED_NOT_SELECTED",
+        "status_after_batch": "OPEN_BLOCKING_GENERAL_ADAPTER",
+        "runtime_authorized": false
+      },
+      "batch_12pf_refinement": {
+        "batch_id": "BATCH-12-BAZI-MING-DATONG-1294-REVISED-YING-OBSERVATION-SITE-PROVENANCE-PF",
+        "research_artifact": "docs/research/MING-DATONG-1294-REVISED-YING-OBSERVATION-SITE-PROVENANCE-R1.json",
+        "yuan_observation_network": "MULTI_SITE_DADU_PLUS_SHANGDU_AND_OTHERS",
+        "later_1294_revision_trigger_site_named": false,
+        "exact_1294_revision_site": "UNRESOLVED",
+        "dadu_target_revision_site": "UNRESOLVED",
+        "shangdu_target_revision_site": "UNRESOLVED",
+        "dadu_unique_observation_site": false,
+        "court_location_to_observation_site_inference": "FORBIDDEN",
         "status_after_batch": "OPEN_BLOCKING_GENERAL_ADAPTER",
         "runtime_authorized": false
       }
@@ -400,8 +414,8 @@
       "focus": "SHOUSHI_DATONG_TONGGUI_GK12437_ZHOUXIANG_QISHUO_EPOCH_CONSTANT_METHOD_NAMED_PLACE_BINDING"
     }
   },
-  "latest_qishuo_geography_batch": "BATCH-12-BAZI-MING-DATONG-SHOUSHI-QISHUO-EPOCH-RESPONSE-CONSTANT-LINEAGE-PE",
-  "latest_qishuo_geography_artifact": "docs/research/MING-DATONG-SHOUSHI-QISHUO-EPOCH-RESPONSE-CONSTANT-LINEAGE-R1.json",
+  "latest_qishuo_geography_batch": "BATCH-12-BAZI-MING-DATONG-1294-REVISED-YING-OBSERVATION-SITE-PROVENANCE-PF",
+  "latest_qishuo_geography_artifact": "docs/research/MING-DATONG-1294-REVISED-YING-OBSERVATION-SITE-PROVENANCE-R1.json",
   "batch_12pe_forward_refinement": {
     "status": "G03_EPOCH_TO_MERIDIAN_LINEAGE_SHORTCUT_REJECTED_ACTUAL_REFERENCE_REMAINS_OPEN",
     "historical_12ou_top_level_counts_preserved": true,
@@ -421,6 +435,27 @@
       "batch": "12PF",
       "gate_id": "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
       "focus": "REVISED_SHOUSHI_YING_RESPONSE_CONSTANT_OBSERVATION_SITE_COORDINATE_PROVENANCE"
+    }
+  },
+  "batch_12pf_forward_refinement": {
+    "status": "G03_DADU_ONLY_DEFAULT_REJECTED_1294_REVISION_SITE_STILL_UNRESOLVED",
+    "historical_12ou_top_level_counts_preserved": true,
+    "current_live_gate_accounting_after_12pf": {
+      "closed_source_scoped": 5,
+      "open_blocking_general_adapter": 4,
+      "dependency_blocked": 2,
+      "total_gates": 11
+    },
+    "remaining_open_independent_gates": [
+      "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
+      "MD-G05-DYNAMIC-D1-INTERMEDIATE-PRECISION",
+      "MD-G07-CALENDAR-ADDITION-INVALID-TARGET-DATE",
+      "MD-G08-CALENDAR-ADDITION-INTERCALARY-IDENTITY-TRAVERSAL"
+    ],
+    "next_research_priority": {
+      "batch": "12PG",
+      "gate_id": "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
+      "focus": "LOST_GUO_SHOUJING_XIUGAI_YUANLIU_GUJIN_JIAOSHIKAO_AND_YUAN_TAISHIYUAN_REVISION_LOG_SURVIVAL"
     }
   }
 }

@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.426.0",
+  "schema_version": "1.427.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -506,9 +506,10 @@
       "BATCH-12-BAZI-MING-DATONG-PREYEAR-LEAP-CIVIL-YEAR-GLOBAL-VALIDATION-PB",
       "BATCH-12-BAZI-MING-DATONG-RUNYU-JINTUI-FINAL-PLACEMENT-PC",
       "BATCH-12-BAZI-MING-DATONG-GK12437-QISHUO-LOCALITY-OPERATOR-AUDIT-PD",
-      "BATCH-12-BAZI-MING-DATONG-SHOUSHI-QISHUO-EPOCH-RESPONSE-CONSTANT-LINEAGE-PE"
+      "BATCH-12-BAZI-MING-DATONG-SHOUSHI-QISHUO-EPOCH-RESPONSE-CONSTANT-LINEAGE-PE",
+      "BATCH-12-BAZI-MING-DATONG-1294-REVISED-YING-OBSERVATION-SITE-PROVENANCE-PF"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-SHOUSHI-QISHUO-EPOCH-RESPONSE-CONSTANT-LINEAGE-PE.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-1294-REVISED-YING-OBSERVATION-SITE-PROVENANCE-PF.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -2488,7 +2489,14 @@
       "Received 《明史》卷35 identifies the Tonggui 閏/轉/交應 values as 授時續定之數, while 《高麗史》卷51 preserves the same epoch with a mixed revised/initial response-constant recension.",
       "12PE formally rejects the SAME_ZHIYUAN_XINSI_EPOCH -> SAME_DADU_QISHUO_MERIDIAN shortcut without rejecting Dadu/Beijing as a possible actual reference. Nanjing remains equally unproved; mixed module geography is strengthened but not selected.",
       "Live Ming adapter ledger after 12PE remains 5 CLOSED_SOURCE_SCOPED / 4 OPEN_BLOCKING_GENERAL_ADAPTER / 2 DEPENDENCY_BLOCKED. HPA-DAYUN-CAL-002 remains MISSING_FROM_PRODUCT and runtime fail-closed.",
-      "12PF: target the observation-site/coordinate provenance of the revised 閏轉交應 layer itself, preferring Yuan or earliest near-primary evidence over later geographic inference."
+      "12PF: target the observation-site/coordinate provenance of the revised 閏轉交應 layer itself, preferring Yuan or earliest near-primary evidence over later geographic inference.",
+      "Batch 12PF completed: the 1294 fifth-month eclipse/two-ke trigger for revising 閏轉交應 is attested only in later received historical tradition and carries no observation-site label.",
+      "Yuan official records prove the Shoushi observing system was multi-site: Dadu had the central 司天臺 while Shangdu, Luoyang and other sites also had instruments and observing officials.",
+      "In the 1294 target fifth month the imperial court was still in Shangdu and the chronicle records astronomy-related rites at 司天臺 / 雲仙臺, but court location is not promoted to eclipse observation site.",
+      "Guo Shoujing was 知太史院事 in Zhiyuan 31, including in Yuan-period near-primary biography, but no reviewed Yuan source binds the revision to Dadu or Shangdu.",
+      "12PF rejects DADU_AS_UNIQUE_YUAN_OBSERVATION_SITE as a system-level assumption. Exact 1294 revision site and qishuo geographic reference remain unresolved; MD-G03 stays open.",
+      "Live Ming adapter ledger after 12PF remains 5 CLOSED_SOURCE_SCOPED / 4 OPEN_BLOCKING_GENERAL_ADAPTER / 2 DEPENDENCY_BLOCKED. HPA-DAYUN-CAL-002 remains MISSING_FROM_PRODUCT and runtime fail-closed.",
+      "12PG: trace surviving quotations, catalog records or excerpts from 郭守敬《修改源流》《古今交食考》 and Yuan Taishiyuan records for the 1294 revision log/site."
     ],
     "historical_candidate_extension_count": 14,
     "current_missing_from_product_row_count": 4

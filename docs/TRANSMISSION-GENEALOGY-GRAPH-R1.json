@@ -3927,6 +3927,44 @@
         "docs/research/MING-DATONG-SHOUSHI-QISHUO-EPOCH-RESPONSE-CONSTANT-LINEAGE-R1.json"
       ],
       "first_explicit_graph_batch": "BATCH-12-BAZI-MING-DATONG-SHOUSHI-QISHUO-EPOCH-RESPONSE-CONSTANT-LINEAGE-PE"
+    },
+    {
+      "node_id": "INSTITUTION-YUAN-DADU-SITIANTAI-1279",
+      "node_type": "INSTITUTION",
+      "label": "元至元十六年大都司天臺",
+      "system_scope": "YUAN_SHOUSHI_ASTRONOMICAL_OBSERVATION_INFRASTRUCTURE",
+      "date": "1279",
+      "evidence": [
+        "EXT-WIKISOURCE-YUANSHI-V10-DADU-SHANGDU-OBSERVATION-NETWORK",
+        "docs/research/MING-DATONG-1294-REVISED-YING-OBSERVATION-SITE-PROVENANCE-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-BAZI-MING-DATONG-1294-REVISED-YING-OBSERVATION-SITE-PROVENANCE-PF"
+    },
+    {
+      "node_id": "NETWORK-YUAN-SHOUSHI-MULTISITE-OBSERVATION-1279",
+      "node_type": "OPERATIONAL_ARTIFACT",
+      "label": "元授時多點觀測網：大都中央司天臺＋上都等五處儀表監候",
+      "system_scope": "YUAN_SHOUSHI_ASTRONOMICAL_OBSERVATION_INFRASTRUCTURE",
+      "date": "1279",
+      "mechanical_identity": "Dadu central observatory coexisted with instrument/monitoring sites at Shangdu, Luoyang and others; Guo Shoujing also conducted a north-to-south measurement mission.",
+      "evidence": [
+        "EXT-WIKISOURCE-YUANSHI-V10-DADU-SHANGDU-OBSERVATION-NETWORK",
+        "docs/research/MING-DATONG-1294-REVISED-YING-OBSERVATION-SITE-PROVENANCE-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-BAZI-MING-DATONG-1294-REVISED-YING-OBSERVATION-SITE-PROVENANCE-PF"
+    },
+    {
+      "node_id": "CONTEXT-YUAN-ZHIYUAN31-SHANGDU-COURT-ASTRONOMY",
+      "node_type": "OPERATIONAL_ARTIFACT",
+      "label": "元至元三十一年五月上都宮廷天文活動語境",
+      "system_scope": "YUAN_1294_COURT_ASTRONOMY_CONTEXT",
+      "date": "1294_FIFTH_LUNAR_MONTH",
+      "mechanical_identity": "Court remained in Shangdu; chronicle records rites at Sitiantai/Yunxiantai in the target month. Context only, not an eclipse-site binding.",
+      "evidence": [
+        "EXT-WIKISOURCE-YUANSHI-V18-ZHIYUAN31-SHANGDU-COURT-ASTRONOMY",
+        "docs/research/MING-DATONG-1294-REVISED-YING-OBSERVATION-SITE-PROVENANCE-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-BAZI-MING-DATONG-1294-REVISED-YING-OBSERVATION-SITE-PROVENANCE-PF"
     }
   ],
   "edges": [
@@ -6750,6 +6788,32 @@
         "docs/research/MING-DATONG-SHOUSHI-QISHUO-EPOCH-RESPONSE-CONSTANT-LINEAGE-R1.json"
       ],
       "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-SHOUSHI-QISHUO-EPOCH-RESPONSE-CONSTANT-LINEAGE-PE"
+    },
+    {
+      "edge_id": "TG-E0185",
+      "from": "INSTITUTION-YUAN-DADU-SITIANTAI-1279",
+      "relation": "PARALLEL_COEXISTS_WITH",
+      "to": "CONTEXT-YUAN-ZHIYUAN31-SHANGDU-COURT-ASTRONOMY",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_FOR_DISTINCT_DADU_AND_SHANGDU_ASTRONOMY_CONTEXTS",
+      "evidence_class": "YUANSHI_RECEIVED_OFFICIAL_RECORDS",
+      "evidence": [
+        "docs/research/MING-DATONG-1294-REVISED-YING-OBSERVATION-SITE-PROVENANCE-R1.json"
+      ],
+      "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-1294-REVISED-YING-OBSERVATION-SITE-PROVENANCE-PF"
+    },
+    {
+      "edge_id": "TG-E0186",
+      "from": "NETWORK-YUAN-SHOUSHI-MULTISITE-OBSERVATION-1279",
+      "relation": "TRANSMITS_RULE",
+      "to": "RULE-SHOUSHI-LIYUAN-YING-SEPARATION-QISHUO",
+      "status": "POSSIBLE",
+      "confidence": "LOW_FOR_DIRECT_RESPONSE_CONSTANT_SITE_LINEAGE",
+      "evidence_class": "INSTITUTIONAL_CONTEXT_ONLY",
+      "evidence": [
+        "docs/research/MING-DATONG-1294-REVISED-YING-OBSERVATION-SITE-PROVENANCE-R1.json"
+      ],
+      "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-1294-REVISED-YING-OBSERVATION-SITE-PROVENANCE-PF"
     }
   ],
   "lineage_hypotheses": [
@@ -7654,6 +7718,20 @@
         "EXT-WIKISOURCE-GORYEOSA-V51-SHOUSHI-EPOCH-INTERVAL-CONSTANTS"
       ],
       "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-SHOUSHI-QISHUO-EPOCH-RESPONSE-CONSTANT-LINEAGE-PE"
+    },
+    {
+      "from": "INSTITUTION-YUAN-DADU-SITIANTAI-1279",
+      "relation": "SOLE_OBSERVATION_SITE_PROVES_1294_REVISED_YING_REFERENCE",
+      "to": "RULE-SHOUSHI-LIYUAN-YING-SEPARATION-QISHUO",
+      "status": "DISPROVED",
+      "reason": "Yuan official records establish multiple instrumented/monitored sites including Shangdu; the later 1294 eclipse-revision report names no site. Dadu observatory existence therefore cannot prove the 1294 revised-response site or qishuo meridian.",
+      "evidence": [
+        "EXT-WIKISOURCE-YUANSHI-V10-DADU-SHANGDU-OBSERVATION-NETWORK",
+        "EXT-WIKISOURCE-YUANSHI-V18-ZHIYUAN31-SHANGDU-COURT-ASTRONOMY",
+        "EXT-SHIDIAN-MINGSHIGAO-V7-1294-ECLIPSE-RESPONSE-REVISION",
+        "docs/research/MING-DATONG-1294-REVISED-YING-OBSERVATION-SITE-PROVENANCE-R1.json"
+      ],
+      "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-1294-REVISED-YING-OBSERVATION-SITE-PROVENANCE-PF"
     }
   ],
   "backfill": {

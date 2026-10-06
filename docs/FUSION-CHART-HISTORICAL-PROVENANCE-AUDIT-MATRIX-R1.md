@@ -2138,3 +2138,11 @@ HPA-DAYUN-CAL-002 remains MISSING_FROM_PRODUCT. Direct GK12437 evidence combines
 Epoch inheritance is therefore formally barred from serving as proof of a qishuo meridian. Dadu/Beijing, Nanjing and mixed-geography hypotheses remain unselected; G03 stays open and runtime remains fail-closed.
 
 Research: docs/research/MING-DATONG-SHOUSHI-QISHUO-EPOCH-RESPONSE-CONSTANT-LINEAGE-R1.json.
+
+## Batch 12PF — 1294 revised-應 observation-site provenance
+
+HPA-DAYUN-CAL-002 remains MISSING_FROM_PRODUCT. Yuan official evidence proves a multi-site Shoushi observation network (Dadu central observatory plus Shangdu and other instrument/monitoring sites), while the later 1294 eclipse-revision tradition does not name the observation site. The emperor's fifth-month Shangdu context and Guo Shoujing's 知太史院事 office are contextual controls only, not site bindings.
+
+Dadu-only observation is therefore rejected as a system-level assumption, but Dadu, Shangdu, and the actual qishuo reference remain unselected. MD-G03 stays open and runtime remains fail-closed.
+
+Research: docs/research/MING-DATONG-1294-REVISED-YING-OBSERVATION-SITE-PROVENANCE-R1.json.

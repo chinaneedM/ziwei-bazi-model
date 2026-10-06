@@ -1,0 +1,98 @@
+{
+  "schema": "MING-DATONG-1294-REVISED-YING-OBSERVATION-SITE-PROVENANCE-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-BAZI-MING-DATONG-1294-REVISED-YING-OBSERVATION-SITE-PROVENANCE-PF",
+  "date": "2026-10-06",
+  "question": "Can the later tradition that Guo Shoujing revised 閏/轉/交應 after a Zhiyuan-31 fifth-month full-moon eclipse discrepancy be tied to a specific observation site or geographic time reference?",
+  "evidence": {
+    "later_revision_trigger": {
+      "source_id": "EXT-SHIDIAN-MINGSHIGAO-V7-1294-ECLIPSE-RESPONSE-REVISION",
+      "source_date_scope": "QING_MINGSHIGAO_RECEIVED_HISTORICAL_COMPILATION",
+      "statement": "至元三十一年甲午五月望，月食不效，差天二刻；守敬於是取諸應損益之",
+      "revised_values": {
+        "閏應": "202050",
+        "轉應": "130205",
+        "交應": "260388"
+      },
+      "site_named": false,
+      "result": "EVENT_TRIGGER_ATTESTED_ONLY_IN_LATER_RECEIVED_TRADITION; OBSERVATION_SITE_NOT_NAMED"
+    },
+    "yuan_observation_network": {
+      "source_id": "EXT-WIKISOURCE-YUANSHI-V10-DADU-SHANGDU-OBSERVATION-NETWORK",
+      "date": "ZHiyuan_16_1279",
+      "dadu": "建司天臺於大都，儀象圭表皆銅為之",
+      "additional_sites": "又請上都、洛陽等五處分置儀表，各選監候官",
+      "guo_mission": "郭守敬由上都、大都歷河南府抵南海測驗晷景",
+      "result": "YUAN_OFFICIAL_ASTRONOMICAL_OBSERVATION_INFRASTRUCTURE_WAS_MULTI_SITE_NOT_DADU_ONLY"
+    },
+    "yuan_1294_court_astronomy_context": {
+      "source_id": "EXT-WIKISOURCE-YUANSHI-V18-ZHIYUAN31-SHANGDU-COURT-ASTRONOMY",
+      "april": "四月壬午帝至上都；甲午即皇帝位",
+      "may": "五月 records 祭太陽太歲火土等星於司天臺 and 祭紫微星於雲仙臺",
+      "october": "十月戊寅車駕還大都",
+      "inference_limit": "COURT_AT_SHANGDU_DOES_NOT_PROVE_GUO_OR_THE_TARGET_ECLIPSE_OBSERVATION_WAS_AT_SHANGDU",
+      "result": "SHANGDU_WAS_AN_ACTIVE_COURT_ASTRONOMY_CONTEXT_DURING_THE_TRIGGER_MONTH; DADU_ONLY_ASSUMPTION_UNSAFE"
+    },
+    "guo_1294_institutional_role": {
+      "source_id": "EXT-WIKISOURCE-YUANSHI-V164-GUOSHOUJING-ZHI-TAISHIYUAN-1294",
+      "statement": "三十一年，拜昭文館大學士、知太史院事",
+      "site_named": false,
+      "result": "GUO_HELD_TOP_TAISHIYUAN_ROLE_IN_1294_BUT_BIOGRAPHY_DOES_NOT_BIND_HIM_OR_THE_REVISION_TO_DADU_OR_SHANGDU"
+    },
+    "near_primary_yuan_biography_control": {
+      "source_id": "EXT-CTEXT-YUANCHAO-MINGCHEN-SHILUE-GUOSHOUJING",
+      "work": "《元朝名臣事略》卷九之二",
+      "statement": "三十一年，拜昭文館大學士，知太史院事",
+      "role": "YUAN_DYNASTY_NEAR_PRIMARY_BIOGRAPHICAL_CONTROL",
+      "site_named": false
+    }
+  },
+  "adjudication": {
+    "revised_ying_trigger_event": "LATER_RECEIVED_TRADITION_ATTESTED",
+    "revised_ying_exact_observation_site": "UNRESOLVED",
+    "dadu_as_unique_observation_site": "DISPROVED_AS_SYSTEM_LEVEL_ASSUMPTION",
+    "dadu_as_target_revision_site": "UNRESOLVED",
+    "shangdu_as_target_revision_site": "UNRESOLVED",
+    "court_location_is_observation_site": "FORBIDDEN_INFERENCE",
+    "taishiyuan_office_holder_location_is_observation_site": "FORBIDDEN_INFERENCE",
+    "qishuo_geographic_reference": "UNRESOLVED",
+    "md_g03_status_after_batch": "OPEN_BLOCKING_GENERAL_ADAPTER",
+    "runtime_authorized": false,
+    "historical_calendar_adapter_remains_fail_closed": true,
+    "hpa_dayun_cal_002_status": "MISSING_FROM_PRODUCT",
+    "closed_subquestion": "YUAN_OBSERVATION_NETWORK_WAS_MULTI_SITE_AND_DADU_ONLY_DEFAULT_IS_UNSAFE"
+  },
+  "source_horizon": {
+    "yuan_or_near_primary_source_naming_1294_revision_site_found": false,
+    "later_source_naming_1294_revision_site_found": false,
+    "search_conclusion": "NO_SITE_BINDING_FOUND_ON_REVIEWED_PUBLIC_TEXTUAL_HORIZON",
+    "negative_evidence_scope": "REVIEWED_SOURCE_HORIZON_ONLY_NOT_HISTORICAL_NONEXISTENCE"
+  },
+  "transmission_impact": {
+    "new_nodes": [
+      "INSTITUTION-YUAN-DADU-SITIANTAI-1279",
+      "NETWORK-YUAN-SHOUSHI-MULTISITE-OBSERVATION-1279",
+      "CONTEXT-YUAN-ZHIYUAN31-SHANGDU-COURT-ASTRONOMY"
+    ],
+    "nonedge": "DADU_OBSERVATORY_EXISTENCE_DOES_NOT_PROVE_1294_REVISED_YING_SITE_OR_QISHUO_MERIDIAN",
+    "direct_parentage_claim": false
+  },
+  "accounting": {
+    "matrix_rows": 222,
+    "audited_rows": 222,
+    "current_missing_from_product_rows": 4,
+    "provenance_defects_confirmed": 45,
+    "provenance_defects_repaired": 45,
+    "historical_candidate_extensions": 14,
+    "historical_candidate_registries": 5,
+    "historical_candidate_runtime_resolvers": 5,
+    "chart_algorithm_defects": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0
+  },
+  "next_research_priority": {
+    "batch": "12PG",
+    "gate_id": "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
+    "focus": "Trace surviving quotations, catalog records, or excerpts of Guo Shoujing's lost 修改源流 / 古今交食考 and Yuan Taishiyuan records for the 1294 eclipse revision log, observation site, or coordinate definition."
+  }
+}

@@ -632,3 +632,15 @@ MD-G03 stays open; live accounting remains 5 closed / 4 open / 2 dependency-bloc
 Next: 12PF — observation-site / coordinate provenance of the revised 閏轉交應 layer.
 
 Batch document: docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-SHOUSHI-QISHUO-EPOCH-RESPONSE-CONSTANT-LINEAGE-PE.md. Research record: docs/research/MING-DATONG-SHOUSHI-QISHUO-EPOCH-RESPONSE-CONSTANT-LINEAGE-R1.json.
+
+## Progress — Batch 12PF
+
+12PF follows the later tradition that Guo Shoujing revised 閏/轉/交應 after a Zhiyuan-31 fifth-month full-moon eclipse discrepancy. The trigger itself is preserved only in later received historical text and still carries no site label.
+
+Yuan official evidence now closes a different but important point: the Shoushi observing system was not Dadu-only. In 1279 a 司天臺 was established at Dadu while Shangdu, Luoyang and other sites also received instruments and observing officials. In 1294 the emperor was at Shangdu during the target fifth month, when the chronicle also records astronomy-related rites at 司天臺 / 雲仙臺. Guo was 知太史院事 that year, but no reviewed Yuan source binds the eclipse observation or revised constants to either Dadu or Shangdu.
+
+Therefore DADU_AS_UNIQUE_YUAN_OBSERVATION_SITE is rejected, while the actual 1294 revision site and qishuo geographic reference remain unresolved. MD-G03 stays open; live accounting remains 5 closed / 4 open / 2 dependency-blocked; HPA-DAYUN-CAL-002 remains fail-closed.
+
+Next: 12PG — trace surviving quotations or catalog/excerpt evidence from 郭守敬《修改源流》《古今交食考》 and Yuan Taishiyuan records for the 1294 revision log/site.
+
+Batch document: docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-1294-REVISED-YING-OBSERVATION-SITE-PROVENANCE-PF.md. Research record: docs/research/MING-DATONG-1294-REVISED-YING-OBSERVATION-SITE-PROVENANCE-R1.json.
