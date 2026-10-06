@@ -17081,7 +17081,7 @@ def main() -> int:
     pc_id = "BATCH-12-BAZI-MING-DATONG-RUNYU-JINTUI-FINAL-PLACEMENT-PC"
     pc_path = ROOT / "docs/research/MING-DATONG-RUNYU-JINTUI-FINAL-PLACEMENT-R1.json"
     pc_oracle_path = ROOT / "docs/research/MING-DATONG-RUNYU-JINTUI-BOUNDARY-ORACLE-R1.json"
-    if len(state_batches) < 2 or state_batches[-2] != pc_id: fail("Batch 12PC is not immediately before Batch 12PD")
+    if pc_id not in state_batches or state_batches.index(pc_id) + 1 >= len(state_batches) or state_batches[state_batches.index(pc_id) + 1] != "BATCH-12-BAZI-MING-DATONG-GK12437-QISHUO-LOCALITY-OPERATOR-AUDIT-PD": fail("Batch 12PC is not immediately before Batch 12PD")
     if not pc_path.exists() or not pc_oracle_path.exists(): fail("Batch 12PC research/oracle artifact missing")
     pc = json.loads(pc_path.read_text(encoding="utf-8")); pc_oracle = json.loads(pc_oracle_path.read_text(encoding="utf-8"))
     if pc.get("batch_id") != pc_id or pc.get("gate_id") != "MD-G09-MULTI-YEAR-LEAP-GENERALIZATION": fail("Batch 12PC identity drift")
@@ -17103,7 +17103,7 @@ def main() -> int:
     pd_id = "BATCH-12-BAZI-MING-DATONG-GK12437-QISHUO-LOCALITY-OPERATOR-AUDIT-PD"
     pd_path = ROOT / "docs/research/MING-DATONG-GK12437-QISHUO-LOCALITY-OPERATOR-AUDIT-R1.json"
     pd_doc_path = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-GK12437-QISHUO-LOCALITY-OPERATOR-AUDIT-PD.md"
-    if len(state_batches) < 2 or state_batches[-2] != pd_id: fail("Batch 12PD is not immediately before Batch 12PE")
+    if pd_id not in state_batches or state_batches.index(pd_id) + 1 >= len(state_batches) or state_batches[state_batches.index(pd_id) + 1] != "BATCH-12-BAZI-MING-DATONG-SHOUSHI-QISHUO-EPOCH-RESPONSE-CONSTANT-LINEAGE-PE": fail("Batch 12PD is not immediately before Batch 12PE")
     if not pd_path.exists() or not pd_doc_path.exists(): fail("Batch 12PD research/batch artifact missing")
     pd = json.loads(pd_path.read_text(encoding="utf-8"))
     if pd.get("batch_id") != pd_id: fail("Batch 12PD identity drift")
