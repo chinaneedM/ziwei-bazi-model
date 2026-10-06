@@ -927,9 +927,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-JIELAN-DIGNITY-CANDIDATE-PRODUCTIZATION-OO",
     "BATCH-12-ZIWEI-ZHONGZHOU-LEAP-MONTH-DAILY-GEOMETRY-CLOSURE-OP",
     "BATCH-12-REMAINING-PRODUCT-GAP-REPRIORITIZATION-OQ",
+    "BATCH-12-BAZI-QIANLI-MINGXUE-JIANGYI-JIAOYUN-CALENDAR-SEMANTICS-OR",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-REMAINING-PRODUCT-GAP-REPRIORITIZATION-OQ.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-QIANLI-MINGXUE-JIANGYI-JIAOYUN-CALENDAR-SEMANTICS-OR.md"
 
 
 def fail(message: str) -> None:
@@ -16551,6 +16552,77 @@ def main() -> int:
         fail("Batch 12OQ state version is not numeric")
     if schema12oq < (1, 411, 0):
         fail("Batch 12OQ state version regressed below 1.411.0")
+
+    # Batch 12OR: direct Republican Qianli Jiaoyun calendar-semantics narrowing.
+    or_id = "BATCH-12-BAZI-QIANLI-MINGXUE-JIANGYI-JIAOYUN-CALENDAR-SEMANTICS-OR"
+    or_path = ROOT / "docs/research/QIANLI-MINGXUE-JIANGYI-JIAOYUN-CALENDAR-SEMANTICS-R1.json"
+    or_doc = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-QIANLI-MINGXUE-JIANGYI-JIAOYUN-CALENDAR-SEMANTICS-OR.md"
+    if not or_path.is_file() or not or_doc.is_file():
+        fail("Batch 12OR research/batch record missing")
+    or_data = json.loads(or_path.read_text(encoding="utf-8"))
+    if or_data.get("batch_id") != or_id or or_data.get("target_rows") != ["HPA-DAYUN-CAL-003", "HPA-DAYUN-CAL-004"]:
+        fail("Batch 12OR identity/target-row drift")
+    mech_or = or_data.get("mechanical_adjudication", {})
+    stage2_or = mech_or.get("stage_2_calendarization", {})
+    if stage2_or.get("whole_year_anchor") != "SAME_NUMBERED_LUNAR_MONTH_DAY_AND_SHICHEN":
+        fail("Batch 12OR whole-year anchor drift")
+    if stage2_or.get("remainder_rule") != "NOMINAL_30_DAY_MONTH_POSITIONAL_UNITS" or stage2_or.get("continuous_actual_elapsed_day_addition") is not False:
+        fail("Batch 12OR remainder arithmetic drift")
+    ex1_or = mech_or.get("worked_example_1", {})
+    ex2_or = mech_or.get("worked_example_2", {})
+    if ex1_or.get("nominal_remainder") != 140 or ex1_or.get("hko_actual_elapsed_days") != 137 or ex1_or.get("actual_day_model") != "REJECTED":
+        fail("Batch 12OR example-1 replay drift")
+    if ex2_or.get("nominal_remainder") != 190 or ex2_or.get("hko_actual_elapsed_days") != 215 or ex2_or.get("actual_day_model") != "REJECTED":
+        fail("Batch 12OR example-2 replay drift")
+    if ex2_or.get("intercalary_step_finding") != "DUPLICATE_INTERCALARY_MONTH_DOES_NOT_CONSUM_AN_ADDITIONAL_NUMBERED_MONTH_STEP_IN_THIS_REPLAY":
+        fail("Batch 12OR intercalary crossing drift")
+    if mech_or.get("recurrence", {}).get("rule") != "EVERY_10_CALENDAR_YEARS_AT_SAME_NUMBERED_LUNAR_MONTH_DAY_AND_SHICHEN":
+        fail("Batch 12OR recurrence drift")
+    unresolved_or = or_data.get("unresolved_semantics", {})
+    for key in ("invalid_target_day_in_small_month", "leap_or_intercalary_birth_anchor_identity", "duplicated_target_month_regular_vs_intercalary_selection"):
+        if unresolved_or.get(key) != "UNRESOLVED":
+            fail(f"Batch 12OR unresolved-edge firewall drift: {key}")
+    product_or = or_data.get("product_boundary", {})
+    for key in ("qianli_republican_regime_descriptor_registered", "qianli_bazi_temporal_profile", "runtime_candidate_authorized", "product_selector_option", "production_default_changed"):
+        if product_or.get(key) is not False:
+            fail(f"Batch 12OR product fail-closed drift: {key}")
+    if product_or.get("hpa_dayun_cal_003_status") != "MISSING_FROM_PRODUCT" or product_or.get("hpa_dayun_cal_004_status") != "MISSING_FROM_PRODUCT":
+        fail("Batch 12OR Matrix status firewall drift")
+
+    rows_or = {row.get("rule_id"): row for row in matrix.get("rows", ())}
+    row3_or = rows_or.get("HPA-DAYUN-CAL-003")
+    row4_or = rows_or.get("HPA-DAYUN-CAL-004")
+    if not row3_or or row3_or.get("audit_status") != "MISSING_FROM_PRODUCT" or row3_or.get("qianli_calendar_semantics_batch") != or_id:
+        fail("Batch 12OR HPA-DAYUN-CAL-003 binding drift")
+    if row3_or.get("qianli_remainder_arithmetic") != "NOMINAL_30_DAY_MONTH_POSITIONAL_UNITS_FOR_THE_REVIEWED_WORKED_METHOD_NOT_CONTINUOUS_ACTUAL_DAY_COUNT":
+        fail("Batch 12OR Matrix remainder semantic drift")
+    if not row4_or or row4_or.get("audit_status") != "MISSING_FROM_PRODUCT" or row4_or.get("qianli_recurrence_source_closed_batch") != or_id:
+        fail("Batch 12OR HPA-DAYUN-CAL-004 binding drift")
+    if row4_or.get("qianli_recurrence_semantics") != "EVERY_10_CALENDAR_YEARS_AT_THE_SAME_NUMBERED_LUNAR_MONTH_DAY_AND_SHICHEN_AS_FIRST_HANDOVER":
+        fail("Batch 12OR Matrix recurrence semantic drift")
+
+    registry_ids_or = {row.get("source_id") for row in registry.get("sources", ())}
+    for source_id in ("EXT-NLC-QIANLI-MINGXUE-JIANGYI-1934", "EXT-NLC-QIANLI-MINGXUE-JIANGYI-1936"):
+        if source_id not in registry_ids_or:
+            fail(f"Batch 12OR direct physical source binding missing: {source_id}")
+
+    graph_or = json.loads(TRANSMISSION_GRAPH.read_text(encoding="utf-8"))
+    node_ids_or = {row.get("node_id") for row in graph_or.get("nodes", ())}
+    edge_ids_or = {row.get("edge_id") for row in graph_or.get("edges", ())}
+    for node_id in ("WORK-QIANLI-MINGXUE-JIANGYI", "PASSAGE-QIANLI-MINGXUE-JIANGYI-QILI-JIAOYUN", "RULE-FAMILY-QIANLI-JIAOYUN-NOMINAL-30DAY-LUNISOLAR"):
+        if node_id not in node_ids_or:
+            fail(f"Batch 12OR genealogy node missing: {node_id}")
+    for edge_id in ("TG-E0166", "TG-E0167", "TG-E0168", "TG-E0169", "TG-E0170", "TG-E0171", "TG-E0172", "TG-E0173", "TG-E0174"):
+        if edge_id not in edge_ids_or:
+            fail(f"Batch 12OR genealogy edge missing: {edge_id}")
+    if audit_state.get("current_missing_from_product_row_count") != 4:
+        fail("Batch 12OR current missing-product count drift")
+    try:
+        schema12or = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12OR continuity schema version is not numeric")
+    if schema12or < (1, 412, 0):
+        fail("Batch 12OR continuity schema version regressed below 1.412.0")
 
     contract = state.get("continuity_contract", {})
     if contract.get("ci_gate_required") is not True:
