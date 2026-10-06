@@ -17136,7 +17136,7 @@ def main() -> int:
     pe_id = "BATCH-12-BAZI-MING-DATONG-SHOUSHI-QISHUO-EPOCH-RESPONSE-CONSTANT-LINEAGE-PE"
     pe_path = ROOT / "docs/research/MING-DATONG-SHOUSHI-QISHUO-EPOCH-RESPONSE-CONSTANT-LINEAGE-R1.json"
     pe_doc_path = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-SHOUSHI-QISHUO-EPOCH-RESPONSE-CONSTANT-LINEAGE-PE.md"
-    if state_batches[-1] != pe_id: fail("Batch 12PE is not latest completed batch")
+    if pe_id not in state_batches: fail("Batch 12PE missing from completed batch ledger")
     if not pe_path.exists() or not pe_doc_path.exists(): fail("Batch 12PE research/batch artifact missing")
     pe = json.loads(pe_path.read_text(encoding="utf-8"))
     if pe.get("batch_id") != pe_id: fail("Batch 12PE identity drift")
