@@ -930,9 +930,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-BAZI-QIANLI-MINGXUE-JIANGYI-JIAOYUN-CALENDAR-SEMANTICS-OR",
     "BATCH-12-BAZI-QIANLI-WORK-IDENTITY-AND-JIAOYUN-EDGE-BOUNDARY-OS",
     "BATCH-12-REMAINING-PRODUCT-GAP-REPRIORITIZATION-OT",
+    "BATCH-12-BAZI-MING-DATONG-EXECUTABLE-ADAPTER-BLOCKER-DECOMPOSITION-OU",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-REMAINING-PRODUCT-GAP-REPRIORITIZATION-OT.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-EXECUTABLE-ADAPTER-BLOCKER-DECOMPOSITION-OU.md"
 
 
 def fail(message: str) -> None:
@@ -16745,6 +16746,67 @@ def main() -> int:
         fail("Batch 12OT continuity schema version is not numeric")
     if schema12ot < (1, 414, 0):
         fail("Batch 12OT continuity schema version regressed below 1.414.0")
+
+    # Batch 12OU: Ming Datong executable-adapter blocker decomposition.
+    ou_id = "BATCH-12-BAZI-MING-DATONG-EXECUTABLE-ADAPTER-BLOCKER-DECOMPOSITION-OU"
+    ou_path = ROOT / "docs/research/MING-DATONG-EXECUTABLE-ADAPTER-BLOCKER-DECOMPOSITION-R1.json"
+    ou_doc = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-EXECUTABLE-ADAPTER-BLOCKER-DECOMPOSITION-OU.md"
+    if not ou_path.is_file() or not ou_doc.is_file():
+        fail("Batch 12OU research/batch record missing")
+    ou = json.loads(ou_path.read_text(encoding="utf-8"))
+    if ou.get("batch_id") != ou_id or ou.get("rule_id") != "HPA-DAYUN-CAL-002":
+        fail("Batch 12OU identity/target-row drift")
+    if ou.get("status") != "DECOMPOSED_RUNTIME_STILL_FAIL_CLOSED":
+        fail("Batch 12OU fail-closed status drift")
+    for key in ("runtime_selection_authorized", "production_default_changed", "algorithm_reopen_authorized", "candidate_collapse_authorized"):
+        if ou.get(key) is not False:
+            fail(f"Batch 12OU invariant drift: {key}")
+    counts_ou = ou.get("counts", {})
+    if counts_ou != {"closed_source_scoped": 4, "open_blocking_general_adapter": 5, "dependency_blocked": 2, "total_gates": 11}:
+        fail("Batch 12OU gate accounting drift")
+    gates_ou = {row.get("gate_id"): row for row in ou.get("gates", ())}
+    expected_open_ou = {
+        "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
+        "MD-G05-DYNAMIC-D1-PRECISION-GENERALIZATION",
+        "MD-G07-INVALID-TARGET-DATE-POLICY",
+        "MD-G08-INTERCALARY-MONTH-IDENTITY-AND-TRAVERSAL",
+        "MD-G09-MULTI-YEAR-LEAP-GENERALIZATION",
+    }
+    actual_open_ou = {gid for gid, row in gates_ou.items() if row.get("status") == "OPEN_BLOCKING_GENERAL_ADAPTER"}
+    if actual_open_ou != expected_open_ou:
+        fail("Batch 12OU open-gate set drift")
+    if gates_ou.get("MD-G02-INTERNAL-DAY-AND-CLOCK-COORDINATE", {}).get("status") != "CLOSED_SOURCE_SCOPED":
+        fail("Batch 12OU internal-coordinate closure drift")
+    if gates_ou.get("MD-G06-1578-TARGET-YEAR-MONTH-STRUCTURE", {}).get("scope_limit") != "TARGET_YEAR_AND_BOUND_ORACLE_ONLY_NOT_MULTI_YEAR_GENERALIZATION":
+        fail("Batch 12OU 1578 target-year scope firewall drift")
+    if "NO_SILENT_CLAMP_TO_LAST_DAY" not in gates_ou.get("MD-G07-INVALID-TARGET-DATE-POLICY", {}).get("forbidden_fallbacks", ()):
+        fail("Batch 12OU invalid-date fallback firewall drift")
+    if "NO_DROP_INTERCALARY_IDENTITY" not in gates_ou.get("MD-G08-INTERCALARY-MONTH-IDENTITY-AND-TRAVERSAL", {}).get("forbidden_fallbacks", ()):
+        fail("Batch 12OU intercalary-identity firewall drift")
+    if gates_ou.get("MD-G10-TEN-YEAR-RECURRENCE-SAME-REGIME", {}).get("status") != "DEPENDENCY_BLOCKED":
+        fail("Batch 12OU recurrence dependency drift")
+    if gates_ou.get("MD-G11-BAZI-RUNTIME-AND-PRODUCT-INTEGRATION", {}).get("status") != "DEPENDENCY_BLOCKED":
+        fail("Batch 12OU runtime dependency drift")
+    rows_ou = {row.get("rule_id"): row for row in matrix.get("rows", ())}
+    row_ou = rows_ou.get("HPA-DAYUN-CAL-002")
+    decomp_ou = (row_ou or {}).get("batch_12ou_adapter_blocker_decomposition", {})
+    if not row_ou or row_ou.get("audit_status") != "MISSING_FROM_PRODUCT":
+        fail("Batch 12OU Matrix status drift")
+    if decomp_ou.get("batch_id") != ou_id or decomp_ou.get("total_gates") != 11 or decomp_ou.get("fail_closed_required") is not True:
+        fail("Batch 12OU Matrix decomposition binding drift")
+    accounting_ou = ou.get("accounting", {})
+    if accounting_ou.get("matrix_rows") != 222 or accounting_ou.get("audited_rows") != 222 or accounting_ou.get("current_missing_from_product_rows") != 4:
+        fail("Batch 12OU accounting drift")
+    if accounting_ou.get("provenance_defects_confirmed") != 45 or accounting_ou.get("provenance_defects_repaired") != 45:
+        fail("Batch 12OU provenance accounting drift")
+    if audit_state.get("current_missing_from_product_row_count") != 4:
+        fail("Batch 12OU state missing-product count drift")
+    try:
+        schema12ou = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12OU continuity schema version is not numeric")
+    if schema12ou < (1, 415, 0):
+        fail("Batch 12OU continuity schema version regressed below 1.415.0")
 
     contract = state.get("continuity_contract", {})
     if contract.get("ci_gate_required") is not True:
