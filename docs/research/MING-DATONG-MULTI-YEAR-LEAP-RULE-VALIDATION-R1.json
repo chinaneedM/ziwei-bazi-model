@@ -1,0 +1,120 @@
+{
+  "schema": "MING-DATONG-MULTI-YEAR-LEAP-RULE-VALIDATION-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-BAZI-MING-DATONG-MULTI-YEAR-LEAP-RULE-VALIDATION-OY",
+  "rule_id": "HPA-DAYUN-CAL-002",
+  "gate_id": "MD-G09-MULTI-YEAR-LEAP-GENERALIZATION",
+  "status": "LEAP_EXISTENCE_AND_DAY_LEVEL_PLACEMENT_SAMPLE_VALIDATED_G09_REMAINS_OPEN_PENDING_MING_ERA_BOUNDARY_SWEEP",
+  "runtime_selection_authorized": false,
+  "production_default_changed": false,
+  "algorithm_reopen_authorized": false,
+  "candidate_collapse_authorized": false,
+  "primary_leap_existence_rule": {
+    "source_id": "EXT-KOTENMON-DAMING-DATONG-1569",
+    "source_scope": "《大明大統曆法》步氣朔卷第一",
+    "method_heading": "推閏餘分法",
+    "pdf_page_index_zero_based": 11,
+    "normalized_rule": "Compute 閏餘 from the source year accumulation and 閏應 under 朔策; compare the remainder with 閏限. A remainder at or above 閏限 marks a leap year.",
+    "leap_limit_source_units": "186552.09",
+    "source_authority": "DIRECT_MING_PRIMARY_FACSIMILE_METHOD_PAGE",
+    "note": "This rule decides whether the year has an intercalary month; by itself it does not name that month."
+  },
+  "leap_position_rule": {
+    "source_id": "EXT-WIKISOURCE-MINGSHI-V31-DATONG-LEAP-PLACEMENT",
+    "received_statement_scope": "Late-Ming reform report preserved in the Qing-compiled Ming history.",
+    "normalized_old_datong_rule": "大統置閏，但論月無中氣: old Datong placement is determined by whether the civil lunar month contains a Zhongqi, without the new-law exact conjunction-order refinement.",
+    "exact_time_contrast": "The same report says the new method additionally considers whether Zhongqi occurs before or after the next conjunction on the same civil day.",
+    "authority_boundary": "RECEIVED_DYNASTIC_HISTORY_SEMANTIC_BRIDGE_NOT_1569_PRIMARY_WORDING"
+  },
+  "computational_bridge": {
+    "zhongqi_model": "DATONG_PINGQI",
+    "pingqi_zhongqi_step_source_units": "304368.75",
+    "source_day_radix": "10000",
+    "month_membership_rule": "Assign Zhongqi by source civil-day labels: new-moon start day <= Zhongqi day < next new-moon start day. A lunar month with no such Zhongqi repeats the preceding month number and is intercalary.",
+    "month_number_anchor": "The interval containing winter-solstice Zhongqi is month 11; subsequent regular Zhongqi map 12,1,2,... in order.",
+    "d1_new_moon_source": "Repository-bound 1569 D1 arithmetic/tables, research-only.",
+    "precision_profiles": "Reuse the four 12OX profiles only as sensitivity controls; no profile is promoted to historical authority."
+  },
+  "validation": {
+    "fixture": "docs/research/MING-DATONG-MULTI-YEAR-LEAP-SAMPLE-ORACLE-R1.json",
+    "harness": "scripts/research_ming_datong_multi_year_leap_validation_r1.py",
+    "sampled_years": [
+      1531,
+      1532,
+      1578,
+      1596,
+      1616,
+      1629,
+      1639
+    ],
+    "sampled_profile_count": 4,
+    "profile_year_combinations": 28,
+    "expected_profile_year_matches": 28,
+    "leap_year_controls": {
+      "leap": [
+        1531,
+        1596,
+        1629
+      ],
+      "non_leap": [
+        1532,
+        1578,
+        1616,
+        1639
+      ]
+    },
+    "leap_month_controls": {
+      "1531": 6,
+      "1596": 8,
+      "1629": 4
+    },
+    "full_or_partial_month_sequence_controls": {
+      "full": [
+        1531,
+        1532,
+        1578,
+        1616
+      ],
+      "partial": [
+        1629,
+        1639
+      ],
+      "leap_identity_only": [
+        1596
+      ]
+    },
+    "profile_invariance_required": true
+  },
+  "1596_same_day_diagnostic": {
+    "status": "OLD_DATONG_DAY_LEVEL_RULE_REPRODUCES_LEAP_8_WHILE_EXACT_ORDER_COMPARATOR_MOVES_THE_EMPTY_ZHONGQI_MONTH_TO_LEAP_9",
+    "old_datong_day_level_expected_leap_month": 8,
+    "exact_time_counterfactual_leap_month": 9,
+    "mechanism": "The relevant Zhongqi and the next conjunction occupy the same source civil day; Zhongqi occurs earlier in exact time. Old day-level attribution puts that Zhongqi on the next month-start day, leaving the preceding month without a Zhongqi. An exact-order comparator would retain the earlier Zhongqi in the preceding month.",
+    "historical_use": "This is a computational illustration of the Ming-history old/new semantic contrast, not a claim that the later Western-method calendar was run for 1596."
+  },
+  "adjudication": {
+    "leap_year_existence_subrule": "CLOSED_SOURCE_SCOPED_PRIMARY_1569",
+    "old_datong_day_level_no_zhongqi_placement_subrule": "CLOSED_SOURCE_SCOPED_RECEIVED_SEMANTIC_BRIDGE_PLUS_MULTI_YEAR_REPLAY",
+    "sampled_multi_year_validation": "CLOSED_28_OF_28_PROFILE_YEAR_CONTROLS",
+    "g09_status_after_batch": "OPEN_BLOCKING_GENERAL_ADAPTER",
+    "reason_g09_stays_open": "The sampled controls establish the algorithmic family and several ordinary/intercalary years, but arbitrary-year certification still requires a Ming-era boundary census to find years where a true conjunction or Pingqi Zhongqi lies close enough to a source-day boundary that unresolved precision/source-coordinate issues could alter the month identity.",
+    "general_runtime_authorized": false
+  },
+  "next_research_priority": {
+    "batch": "12OZ",
+    "focus": "Run a full Ming-era 1368-1644 boundary census under all four research precision profiles. Identify any year whose leap placement or month identity changes by profile, and rank source-day-boundary critical cases for direct almanac/reign-record validation before considering G09 closure."
+  },
+  "accounting": {
+    "matrix_rows": 222,
+    "audited_rows": 222,
+    "current_missing_from_product_rows": 4,
+    "provenance_defects_confirmed": 45,
+    "provenance_defects_repaired": 45,
+    "historical_candidate_extensions": 14,
+    "historical_candidate_registries": 5,
+    "historical_candidate_runtime_resolvers": 5,
+    "chart_algorithm_defects": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0
+  }
+}

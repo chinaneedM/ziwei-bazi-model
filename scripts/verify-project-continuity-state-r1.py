@@ -934,9 +934,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-BAZI-MING-SANMING-DAYUN-CALENDAR-ADDITION-EDGE-SEMANTICS-OV",
     "BATCH-12-BAZI-MING-DATONG-DYNAMIC-D1-PRECISION-GENERALIZATION-OW",
     "BATCH-12-BAZI-MING-DATONG-D1-PRECISION-PROFILE-SENSITIVITY-OX",
+    "BATCH-12-BAZI-MING-DATONG-MULTI-YEAR-LEAP-RULE-VALIDATION-OY",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-D1-PRECISION-PROFILE-SENSITIVITY-OX.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-MULTI-YEAR-LEAP-RULE-VALIDATION-OY.md"
 
 
 def fail(message: str) -> None:
@@ -16963,6 +16964,56 @@ def main() -> int:
         fail("Batch 12OX continuity schema version is not numeric")
     if schema12ox < (1, 418, 0):
         fail("Batch 12OX continuity schema version regressed below 1.418.0")
+
+    # Batch 12OY: Ming Datong multi-year leap-rule validation.
+    oy_id = "BATCH-12-BAZI-MING-DATONG-MULTI-YEAR-LEAP-RULE-VALIDATION-OY"
+    oy_path = ROOT / "docs/research/MING-DATONG-MULTI-YEAR-LEAP-RULE-VALIDATION-R1.json"
+    oy_fixture = ROOT / "docs/research/MING-DATONG-MULTI-YEAR-LEAP-SAMPLE-ORACLE-R1.json"
+    oy_script = ROOT / "scripts/research_ming_datong_multi_year_leap_validation_r1.py"
+    oy_doc = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-MULTI-YEAR-LEAP-RULE-VALIDATION-OY.md"
+    for path in (oy_path, oy_fixture, oy_script, oy_doc):
+        if not path.is_file():
+            fail(f"Batch 12OY artifact missing: {path.relative_to(ROOT)}")
+    oy = json.loads(oy_path.read_text(encoding="utf-8"))
+    if oy.get("batch_id") != oy_id or oy.get("gate_id") != "MD-G09-MULTI-YEAR-LEAP-GENERALIZATION":
+        fail("Batch 12OY identity/gate drift")
+    if oy.get("status") != "LEAP_EXISTENCE_AND_DAY_LEVEL_PLACEMENT_SAMPLE_VALIDATED_G09_REMAINS_OPEN_PENDING_MING_ERA_BOUNDARY_SWEEP":
+        fail("Batch 12OY status drift")
+    for key in ("runtime_selection_authorized", "production_default_changed", "algorithm_reopen_authorized", "candidate_collapse_authorized"):
+        if oy.get(key) is not False:
+            fail(f"Batch 12OY invariant drift: {key}")
+    val_oy = oy.get("validation", {})
+    if val_oy.get("sampled_years") != [1531, 1532, 1578, 1596, 1616, 1629, 1639] or val_oy.get("sampled_profile_count") != 4 or val_oy.get("expected_profile_year_matches") != 28:
+        fail("Batch 12OY validation contract drift")
+    diag_oy = oy.get("1596_same_day_diagnostic", {})
+    if diag_oy.get("old_datong_day_level_expected_leap_month") != 8 or diag_oy.get("exact_time_counterfactual_leap_month") != 9:
+        fail("Batch 12OY 1596 old/new-order diagnostic drift")
+    adj_oy = oy.get("adjudication", {})
+    if adj_oy.get("leap_year_existence_subrule") != "CLOSED_SOURCE_SCOPED_PRIMARY_1569" or adj_oy.get("sampled_multi_year_validation") != "CLOSED_28_OF_28_PROFILE_YEAR_CONTROLS" or adj_oy.get("g09_status_after_batch") != "OPEN_BLOCKING_GENERAL_ADAPTER":
+        fail("Batch 12OY adjudication drift")
+    gates_oy = {row.get("gate_id"): row for row in ou.get("gates", ())}
+    g09_oy = gates_oy.get("MD-G09-MULTI-YEAR-LEAP-GENERALIZATION", {})
+    if g09_oy.get("status") != "OPEN_BLOCKING_GENERAL_ADAPTER":
+        fail("Batch 12OY G09 status drift")
+    refine_oy = g09_oy.get("batch_12oy_refinement", {})
+    if refine_oy.get("profile_year_controls") != "28_OF_28_MATCH" or refine_oy.get("g09_status_after_batch") != "OPEN_BLOCKING_GENERAL_ADAPTER":
+        fail("Batch 12OY G09 refinement drift")
+    rows_oy = {row.get("rule_id"): row for row in matrix.get("rows", ())}
+    row_oy = rows_oy.get("HPA-DAYUN-CAL-002")
+    bind_oy = (row_oy or {}).get("batch_12oy_multi_year_leap_rule_validation", {})
+    if not row_oy or row_oy.get("audit_status") != "MISSING_FROM_PRODUCT":
+        fail("Batch 12OY Matrix status drift")
+    if bind_oy.get("batch_id") != oy_id or bind_oy.get("sampled_profile_year_controls") != "28_OF_28_MATCH" or bind_oy.get("runtime_authorized") is not False:
+        fail("Batch 12OY Matrix binding drift")
+    accounting_oy = oy.get("accounting", {})
+    if accounting_oy.get("matrix_rows") != 222 or accounting_oy.get("audited_rows") != 222 or accounting_oy.get("current_missing_from_product_rows") != 4:
+        fail("Batch 12OY accounting drift")
+    try:
+        schema12oy = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12OY continuity schema version is not numeric")
+    if schema12oy < (1, 419, 0):
+        fail("Batch 12OY continuity schema version regressed below 1.419.0")
 
     contract = state.get("continuity_contract", {})
     if contract.get("ci_gate_required") is not True:

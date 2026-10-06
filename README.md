@@ -223,7 +223,7 @@ Fusion Chart Capability & Performance Acceptance R1 已正式收口。最终执�
 
 ## Fusion Chart Historical Provenance & School Audit R1
 
-最新规则审计闭环为 **Batch 12OX**：12OW 的 56 个明代官历合朔时刻已经进入 research-only Decimal precision-profile 灵敏度实验。四种明显不同的动态精度 profile（全精度、1596 局部迟疾差6位+D1加差2位截断、同宽 half-up、stored-table-width 截断实验）全部 **56/56** 落入历书时刻区间；profile 间最大终值差小于约 **0.1 秒**，而任一 profile 距最近印刷区间边界仍大于约 **13 秒**，观测分辨率相差超过 150 倍。因此该 corpus 能强判 D1/D2，却不能判定中间截断 profile。G05 继续 OPEN，1596 局部截断不得普遍化，历史 calendar runtime 继续 fail-closed。Matrix 222/222，MISSING_FROM_PRODUCT=4，provenance defect=45/45 repaired，candidate extensions=14，registries/runtime resolvers=5/5，算法缺陷/重开/候选折叠均为 0。下一门 **12OY** 转入独立的 G09 多年月份/闰月泛化。
+最新规则审计闭环为 **Batch 12OY**：明大统历多年置闰已经拆成两个不同层级并完成样本复算。1569《大明大統曆法》`推閏餘分法`直接支持以閏餘对閏限 **186552.09** 判“本年有无闰”；闰月位置则由旧《大统》“月无中气”规则确定，且《明史》崇祯改革段明确说明新法才进一步比较中气与合朔的精确先后。7 个年份 × 4 个 12OX 精度 profile 共 **28/28** 控制全部匹配：1531 闰六、1596 闰八、1629 闰四，1532/1578/1616/1639 样本结构无闰。1596 还是关键同日案例：中气精确时刻虽在次朔之前，但两者同一源内历日，旧法日级归属仍得到闰八；精确时刻 comparator 会移成闰九。G09 因此已大幅收窄，但仍保持 OPEN，下一门 **12OZ** 对 1368–1644 全明代做边界/profile 普查后再判断是否可关闭。Matrix 222/222，MISSING_FROM_PRODUCT=4，provenance defect=45/45 repaired，candidate extensions=14，registries/runtime resolvers=5/5，算法缺陷/重开/候选折叠均为 0。
 
 ```text
 FUSION_CHART_HISTORICAL_PROVENANCE_AUDIT_R1=IN_PROGRESS

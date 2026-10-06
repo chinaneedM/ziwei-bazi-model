@@ -580,6 +580,15 @@
         "sanming_exact_multipoint_day_night_table_observed": false,
         "global_datong_absence_authorized": false,
         "quality_note": "The reviewed 1569 physical volume is a strong primary Ming Datong method witness, but this exact 45-page object does not directly expose Sanming Tonghui's distinctive seasonal day/night-ke fingerprint. This is a volume-scoped nonattestation, not a claim that no Datong recension, almanac, attached table, or other fascicle ever carried such data."
+      },
+      "batch_12oy_leap_existence": {
+        "method_heading": "推閏餘分法",
+        "pdf_page_index_zero_based": 11,
+        "leap_limit_source_units": "186552.09",
+        "direct_page_image_reviewed": true,
+        "ocr_used_for_final_glyph_claims": false,
+        "normalized_scope": "LEAP_YEAR_EXISTENCE_ONLY_NOT_LEAP_MONTH_POSITION",
+        "research_artifact": "docs/research/MING-DATONG-MULTI-YEAR-LEAP-RULE-VALIDATION-R1.json"
       }
     },
     {
@@ -643,7 +652,15 @@
       "provider": "Wikisource",
       "url": "https://zh.wikisource.org/zh-hans/%E5%8F%A4%E4%BB%8A%E5%BE%8B%E5%8E%AF%E8%80%83_(%E5%9B%9B%E5%BA%AB%E5%85%A8%E6%9B%B8%E6%9C%AC)/%E5%8D%B749",
       "source_role": "MING_AUTHORIAL_DATONG_WORKED_EXAMPLE_PRESERVED_IN_LATER_SIKU_EDITION",
-      "quality_notes": "The worked example is explicitly labelled 大統. It independently agrees with the 1569 Zhou Xiang D1 denominator and supplies a local dynamic-precision replay: the within-limit 遲差 prints as 4.546285 after a longer raw division, and D1 加差 prints as 1526.64 after a longer raw quotient. These are controls for that worked example only, not a universal Datong precision rule. The same example converts 定朔 to 乙丑日午正初刻."
+      "quality_notes": "The worked example is explicitly labelled 大統. It independently agrees with the 1569 Zhou Xiang D1 denominator and supplies a local dynamic-precision replay: the within-limit 遲差 prints as 4.546285 after a longer raw division, and D1 加差 prints as 1526.64 after a longer raw quotient. These are controls for that worked example only, not a universal Datong precision rule. The same example converts 定朔 to 乙丑日午正初刻.",
+      "batch_12oy_leap_position_control": {
+        "example_year": 1596,
+        "explicit_intercalary_month": 8,
+        "example_label": "萬曆二十四年丙申歲閏八月",
+        "role": "MING_AUTHORIAL_WORKED_DATONG_LEAP_POSITION_CONTROL",
+        "full_annual_month_page_sequence_claimed": false,
+        "research_artifact": "docs/research/MING-DATONG-MULTI-YEAR-LEAP-RULE-VALIDATION-R1.json"
+      }
     },
     {
       "source_id": "EXT-SHAO-LIYONG-DATONG-1527-2011",
@@ -13666,6 +13683,18 @@
       "source_role": "LATER_EDITION_AND_TOC_CONTROL_FOR_QIANLI_QILI_WENDA_NO_EDGE_RULE_VOTE",
       "quality_notes": "Official publisher page binds the 1987 title/year and TOC including 起例問答; its reproduced self-preface says future editions may be revised. No public target leaf on this surface binds invalid lunar target-day, intercalary birth-anchor, or duplicated-month selection semantics. Edge-rule vote increment is zero.",
       "batch_id": "BATCH-12-BAZI-QIANLI-WORK-IDENTITY-AND-JIAOYUN-EDGE-BOUNDARY-OS",
+      "physical_glyph_authority": false,
+      "access_date": "2026-10-06"
+    },
+    {
+      "source_id": "EXT-WIKISOURCE-MINGSHI-V31-DATONG-LEAP-PLACEMENT",
+      "title": "《明史》卷三十一·崇禎曆法改革「大統置閏但論月無中氣」段",
+      "historical_period": "清修《明史》received dynastic-history witness reporting late-Ming calendar reform",
+      "provider": "Wikisource",
+      "url": "https://zh.wikisource.org/zh-hans/%E6%98%8E%E5%8F%B2/%E5%8D%B731",
+      "source_role": "RECEIVED_HISTORICAL_WITNESS_FOR_OLD_DATONG_NO_ZHONGQI_LEAP_PLACEMENT_AND_NEW_METHOD_EXACT_CONJUNCTION_ORDER_CONTRAST",
+      "quality_notes": "Preserves Li Tianjing's Chongzhen-reform statement that old Datong leap placement only considered whether a month lacked Zhongqi, whereas the new method additionally examined whether Zhongqi crossed before/after the next conjunction. Used as a semantic bridge for old-Datong day-level month attribution and as a firewall against silently importing the later exact-order rule into Ming Datong. It is Qing-compiled received history, not the 1569 primary wording.",
+      "batch_id": "BATCH-12-BAZI-MING-DATONG-MULTI-YEAR-LEAP-RULE-VALIDATION-OY",
       "physical_glyph_authority": false,
       "access_date": "2026-10-06"
     }

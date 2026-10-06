@@ -148,7 +148,23 @@
       "domain": "CALENDAR_GENERATION",
       "status": "OPEN_BLOCKING_GENERAL_ADAPTER",
       "finding": "The 1578 chain is directly closed, but a general Ming Datong adapter must generate and verify month/leap structure across multiple years, including intercalary years and boundary-sensitive new moons.",
-      "dependency_note": "Requires source-faithful qishuo generation plus the geographic and dynamic-precision gates for general certification."
+      "dependency_note": "Requires source-faithful qishuo generation plus the geographic and dynamic-precision gates for general certification.",
+      "batch_12oy_refinement": {
+        "leap_year_existence_subrule": "CLOSED_SOURCE_SCOPED_PRIMARY_1569_RUNYU_VS_RUNXIAN",
+        "old_datong_leap_position_subrule": "CLOSED_SOURCE_SCOPED_DAY_LEVEL_NO_ZHONGQI",
+        "sampled_years": 7,
+        "precision_profiles": 4,
+        "profile_year_controls": "28_OF_28_MATCH",
+        "sampled_leap_months": {
+          "1531": 6,
+          "1596": 8,
+          "1629": 4
+        },
+        "g09_status_after_batch": "OPEN_BLOCKING_GENERAL_ADAPTER",
+        "remaining_gate": "FULL_MING_ERA_1368_1644_BOUNDARY_CENSUS_AND_CRITICAL_YEAR_SOURCE_VALIDATION",
+        "research_artifact": "docs/research/MING-DATONG-MULTI-YEAR-LEAP-RULE-VALIDATION-R1.json",
+        "harness": "scripts/research_ming_datong_multi_year_leap_validation_r1.py"
+      }
     },
     {
       "gate_id": "MD-G10-TEN-YEAR-RECURRENCE-SAME-REGIME",
@@ -196,9 +212,9 @@
     "RUNTIME_INTEGRATION_IS_A_DEPENDENT_ENGINEERING_STEP_NOT_A_SUBSTITUTE_FOR_HISTORICAL_CERTIFICATION."
   ],
   "next_research_priority": {
-    "batch": "12OY",
+    "batch": "12OZ",
     "gate_id": "MD-G09-MULTI-YEAR-LEAP-GENERALIZATION",
-    "focus": "Build a source-derived multi-year month/leap oracle plan spanning ordinary and intercalary years. Keep exact-time geography and dynamic-precision gates separate and fail-closed."
+    "focus": "Sweep 1368-1644 under all four research profiles; identify day-boundary/profile-sensitive month identities and prioritize direct historical controls."
   },
   "accounting": {
     "matrix_rows": 222,
@@ -216,5 +232,7 @@
   "latest_calendar_addition_edge_semantics_batch": "BATCH-12-BAZI-MING-SANMING-DAYUN-CALENDAR-ADDITION-EDGE-SEMANTICS-OV",
   "latest_calendar_addition_edge_semantics_artifact": "docs/research/MING-SANMING-DAYUN-CALENDAR-ADDITION-EDGE-SEMANTICS-R1.json",
   "latest_dynamic_precision_batch": "BATCH-12-BAZI-MING-DATONG-D1-PRECISION-PROFILE-SENSITIVITY-OX",
-  "latest_dynamic_precision_artifact": "docs/research/MING-DATONG-D1-PRECISION-PROFILE-SENSITIVITY-R1.json"
+  "latest_dynamic_precision_artifact": "docs/research/MING-DATONG-D1-PRECISION-PROFILE-SENSITIVITY-R1.json",
+  "latest_multi_year_leap_batch": "BATCH-12-BAZI-MING-DATONG-MULTI-YEAR-LEAP-RULE-VALIDATION-OY",
+  "latest_multi_year_leap_artifact": "docs/research/MING-DATONG-MULTI-YEAR-LEAP-RULE-VALIDATION-R1.json"
 }
