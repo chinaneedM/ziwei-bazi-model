@@ -14135,6 +14135,36 @@
       "batch_id": "BATCH-12-BAZI-GUOSHOUJING-LOST-WORKS-BIBLIOGRAPHIC-SURVIVAL-CONTROL-PG",
       "physical_glyph_authority": false,
       "access_date": "2026-10-06"
+    },
+    {
+      "source_id": "EXT-JPL-DE430-DE431-HISTORICAL-LUNAR-EPHEMERIS",
+      "title": "The Planetary and Lunar Ephemerides DE430 and DE431",
+      "provider": "NASA Jet Propulsion Laboratory Solar System Dynamics",
+      "url": "https://ssd.jpl.nasa.gov/doc/de430_de431.html",
+      "source_role": "MODERN_HIGH_PRECISION_EPHEMERIS_AUTHORITY_FOR_HISTORICAL_SUN_MOON_GEOMETRY",
+      "quality_notes": "JPL states DE431 spans -13200 to +17191 and omits the DE430 lunar core/mantle damping term so it is more suitable for integrations more than a few centuries into the past. Used only as a modern diagnostic absolute-ephemeris layer, never as historical calendrical authority.",
+      "batch_id": "BATCH-12-BAZI-MING-DATONG-QISHUO-ABSOLUTE-TIME-ANCHOR-FEASIBILITY-PJ",
+      "access_date": "2026-10-06"
+    },
+    {
+      "source_id": "EXT-NASA-DELTAT-HISTORICAL-UNCERTAINTY",
+      "title": "Uncertainty in Delta T / Five Millennium Canon of Lunar Eclipses",
+      "provider": "NASA GSFC Eclipse Web Site",
+      "url": "https://eclipse.gsfc.nasa.gov/LEcat5/uncertainty.html",
+      "source_role": "MODERN_EARTH_ROTATION_UNCERTAINTY_CONTROL_FOR_HISTORICAL_ASTRONOMICAL_TIME_CONVERSION",
+      "quality_notes": "NASA summarizes Morrison/Stephenson uncertainty and states decade fluctuations give approximately 20 s uncertainty for 1300-1600 CE. Used to bound modern absolute-time diagnostic uncertainty, not to define Ming historical clock semantics.",
+      "batch_id": "BATCH-12-BAZI-MING-DATONG-QISHUO-ABSOLUTE-TIME-ANCHOR-FEASIBILITY-PJ",
+      "access_date": "2026-10-06"
+    },
+    {
+      "source_id": "EXT-STEPHENSON-MORRISON-HOHENKERK-2016-DELTAT",
+      "title": "Measurement of the Earth's rotation: 720 BC to AD 2015",
+      "provider": "Proceedings of the Royal Society A / PMC",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5247521/",
+      "source_role": "PEER_REVIEWED_MODERN_DELTA_T_RECONSTRUCTION_BACKGROUND",
+      "quality_notes": "Peer-reviewed Earth-rotation reconstruction used as a modern uncertainty/model background layer. It does not define any historical Ming or Yuan clock coordinate.",
+      "batch_id": "BATCH-12-BAZI-MING-DATONG-QISHUO-ABSOLUTE-TIME-ANCHOR-FEASIBILITY-PJ",
+      "access_date": "2026-10-06"
     }
   ],
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md",

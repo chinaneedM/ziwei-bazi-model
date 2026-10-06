@@ -680,3 +680,15 @@ MD-G03 remains open; HPA-DAYUN-CAL-002 stays MISSING_FROM_PRODUCT and runtime re
 Next: 12PJ — audit the feasibility and uncertainty of an independent absolute-time anchor (modern ephemeris/Delta-T/local apparent solar time or a primary site-bound astronomical observation).
 
 Batch document: docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-QISHUO-GEOGRAPHIC-IDENTIFIABILITY-AUDIT-PI.md. Research record: docs/research/MING-DATONG-QISHUO-GEOGRAPHIC-IDENTIFIABILITY-AUDIT-R1.json.
+
+## Progress — Batch 12PJ
+
+Modern absolute-time anchoring is technically feasible for the Ming qishuo problem: JPL DE431 covers the full target period, and NASA's ~20-second ΔT uncertainty for 1300–1600 is far smaller than the ~592-second Beijing–Nanjing longitude signal.
+
+The remaining blocker is historical clock semantics, not modern ephemeris precision. Apparent versus mean solar time can differ by as much as ~16 minutes, and the project has not source-closed whether Datong qishuo 子正/刻 is apparent solar, mean solar, calibrated clepsydra, or another conventional coordinate attached to a named longitude.
+
+MD-G03 therefore remains open; HPA-DAYUN-CAL-002 remains MISSING_FROM_PRODUCT and runtime stays fail-closed.
+
+Next: 12PK — direct historical audit of qishuo 子正/刻 absolute time-standard semantics.
+
+Batch document: docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-QISHUO-ABSOLUTE-TIME-ANCHOR-FEASIBILITY-PJ.md. Research record: docs/research/MING-DATONG-QISHUO-ABSOLUTE-TIME-ANCHOR-FEASIBILITY-R1.json.

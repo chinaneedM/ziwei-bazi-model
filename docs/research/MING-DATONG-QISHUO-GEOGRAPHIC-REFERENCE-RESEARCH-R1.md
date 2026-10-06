@@ -480,3 +480,13 @@ A research-only ±9.8667-minute Beijing–Nanjing shift test reduces the matches
 No shifted event crosses a sexagenary-day boundary in the 56-row corpus; the nearest event is 1616 month 4 at 17.28 minutes from 子正, beyond the Beijing–Nanjing delta.
 
 Therefore NO_SHIFT_BEST_FIT is only evidence of internal algorithm/clock-coordinate consistency, not evidence that the hidden coordinate is Beijing, Nanjing, or Dadu. Absolute geographic identification requires an independent astronomical time anchor plus controlled Delta-T/local-apparent-solar-time semantics.
+
+## 22. Batch 12PJ — modern absolute-time precision is sufficient; historical time-standard semantics are not
+
+JPL DE431 provides a suitable long historical lunar ephemeris over the entire Ming target interval. NASA's historical ΔT work gives approximately 20-second uncertainty for 1300–1600, far below the ~9.87-minute Beijing–Nanjing longitude difference used in the project's modern diagnostic layer.
+
+This removes one possible objection: Earth-rotation uncertainty is not, by itself, too large to attempt a city-level diagnostic in the 16th century.
+
+The blocker is instead coordinate semantics. USNO's equation-of-time definition shows that local apparent solar time and local mean solar time can differ by up to about 16 minutes. Until the Datong qishuo 子正/刻 coordinate is explicitly bound to one historical clock standard and locality, a precise modern conjunction instant cannot be converted into a historically comparable clock label without inserting an unproved assumption.
+
+Thus absolute ephemeris anchoring is FEASIBLE_BUT_NOT_YET_HISTORICALLY_ADMISSIBLE_FOR_MERIDIAN_SELECTION.

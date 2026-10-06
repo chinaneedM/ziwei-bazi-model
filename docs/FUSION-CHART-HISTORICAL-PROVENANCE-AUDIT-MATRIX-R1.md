@@ -2170,3 +2170,13 @@ The 56 official-almanac clock-bin corpus remains decisive for D1 internal valida
 Because printed labels and D1 values share the same hidden historical coordinate, the no-shift 56/56 result is not geographic evidence. An independent absolute-time anchor is required before Beijing/Nanjing/Dadu hypotheses can be discriminated. HPA-DAYUN-CAL-002 remains MISSING_FROM_PRODUCT; MD-G03 remains open.
 
 Research: docs/research/MING-DATONG-QISHUO-GEOGRAPHIC-IDENTIFIABILITY-AUDIT-R1.json.
+
+## Batch 12PJ — qishuo absolute-time anchor feasibility
+
+An independent modern astronomical anchor is feasible in principle: DE431 covers the target centuries, while historical ΔT uncertainty around 1300–1600 is roughly 20 seconds, much smaller than the modern Beijing–Nanjing longitude signal.
+
+However, the historical qishuo clock-standard mapping is not source-closed. Apparent versus mean solar time can differ by up to about 16 minutes, larger than the city longitude signal; Datong's source-closed 子正/100-ke internal coordinate does not itself select apparent solar, mean solar, clepsydra, or another absolute-time standard.
+
+Therefore modern ephemeris precision does not authorize meridian selection. HPA-DAYUN-CAL-002 remains MISSING_FROM_PRODUCT; MD-G03 remains open.
+
+Research: docs/research/MING-DATONG-QISHUO-ABSOLUTE-TIME-ANCHOR-FEASIBILITY-R1.json.
