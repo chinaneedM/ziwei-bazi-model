@@ -434,3 +434,13 @@ INHERIT_DADU_FROM_SHOUSHI_LINEAGE = FORBIDDEN
 ```
 
 This result strengthens module-separation discipline without selecting a hidden meridian. The next route is source-lineage cross-collation of qishuo epoch/constants and method wording across Yuan Shoushi, early Datong/Tonggui, `GK12437`, and Zhou Xiang 1569.
+
+## 17. Batch 12PE — 立元 is not 應數, and neither is a meridian statement
+
+GK12437 page 002a computes from 至元辛巳積年減一, while 001b–002a carry the revised Tonggui response state 氣應 550600 / 閏應 202050 / 轉應 130205 / 交應 260388.
+
+《元史》卷54 explicitly says 至元十八年歲次辛巳為元 and 其諸應等數，隨時推測，不用為元. This separates the arithmetic epoch from the revisable response constants.
+
+《明史》卷35 records the Tonggui response values as 授時續定之數. 《高麗史》卷51 independently shows that the same 1281 epoch could coexist with a mixed revised/initial response-constant recension.
+
+Therefore SAME_ZHIYUAN_XINSI_EPOCH != PROOF_OF_SAME_QISHUO_MERIDIAN. Dadu/Beijing and Nanjing remain possible but unproved. The next target is the observation-site provenance of the revised response constants themselves.

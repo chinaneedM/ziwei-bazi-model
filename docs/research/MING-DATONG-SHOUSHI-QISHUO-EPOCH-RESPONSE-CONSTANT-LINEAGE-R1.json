@@ -1,0 +1,133 @@
+{
+  "schema": "MING-DATONG-SHOUSHI-QISHUO-EPOCH-RESPONSE-CONSTANT-LINEAGE-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-BAZI-MING-DATONG-SHOUSHI-QISHUO-EPOCH-RESPONSE-CONSTANT-LINEAGE-PE",
+  "date": "2026-10-06",
+  "question": "Does inheritance of the Shoushi 至元辛巳 epoch or its qishuo constants establish a Dadu/Beijing geographic reference for Ming Datong 定朔?",
+  "evidence_layers": {
+    "gk12437_direct_physical": {
+      "source_id": "EXT-KYUDB-DATONGLI-RITONGGUI-GK12437-PHYSICAL",
+      "review_method": "DIRECT_VISUAL_NO_OCR",
+      "pages": [
+        "001a",
+        "001b",
+        "002a"
+      ],
+      "readings": {
+        "page_001a": {
+          "日周": "10000",
+          "歲實": "3652425",
+          "通閏": "108753.84",
+          "月策_or_朔策": "295305.93",
+          "望策": "147652.965",
+          "弦策": "73826.4825"
+        },
+        "pages_001b_002a": {
+          "氣應": "550600",
+          "閏應": "202050",
+          "轉應": "130205",
+          "交應": "260388"
+        },
+        "page_002a_formula": "置歲實三百六十五萬二千四百二十五分，以至元辛巳積年減一乘之得數為中積分；置中積內加上氣應分五十五萬零六百分得為通積分"
+      },
+      "result": "PHYSICAL_WITNESS_EXPLICITLY_REUSES_ZHIYUAN_XINSI_EPOCH_WHILE_CARRYING_REVISED_SHOUSHI_RESPONSE_CONSTANTS"
+    },
+    "zhouxiang_1569_direct_primary": {
+      "source_id": "EXT-KOTENMON-DAMING-DATONG-1569",
+      "existing_artifact": "docs/research/MING-DATONG-1569-QISHUO-METHOD-RESEARCH-R1.json",
+      "epoch_line": "大元至元十八年辛巳為元",
+      "base_constants_match_gk12437": true,
+      "revised_xinsi_runying_202050_directly_reused_in_primary_method": true,
+      "result": "MING_PRIMARY_METHOD_CONTINUES_THE_SAME_SHOUSHI_EPOCH_AND_REVISED_RESPONSE_CONSTANT_LINEAGE"
+    },
+    "yuanshi_received_shoushi": {
+      "source_id": "EXT-WIKISOURCE-YUANSHI-V54-SHOUSHI-EPOCH-YING-SEPARATION",
+      "passage": "至元十八年歲次辛巳為元；其諸應等數，隨時推測，不用為元",
+      "initial_values": {
+        "氣應": "550600",
+        "閏應": "201850",
+        "轉應": "131904",
+        "交應": "260187.86"
+      },
+      "philological_result": "LIYUAN_AND_YINGSHU_ARE_EXPLICITLY_DISTINCT_CONCEPTUAL_LAYERS",
+      "authority_scope": "EARLY_MING_COMPILED_YUAN_DYNASTIC_HISTORY_RECEIVED_CANON_NOT_YUAN_PHYSICAL_AUTOGRAPH"
+    },
+    "mingshi_received_datong": {
+      "source_id": "EXT-WIKISOURCE-MINGSHI-V35-SHOUSHI-CONTINUED-YING-REVISION",
+      "revised_values": {
+        "閏應": "202050",
+        "轉應": "130205",
+        "交應": "260388"
+      },
+      "deltas_from_yuanshi_initial": {
+        "閏應": "+200",
+        "轉應": "-1699",
+        "交應": "+200.14"
+      },
+      "received_explanation": "通軌所述者乃授時續定之數；閏應加二百分 corresponds to 經朔改早二刻",
+      "result": "TONGGUI_RESPONSE_CONSTANT_STATE_IS_A_LATER_REVISED_SHOUSHI_LAYER_NOT_THE_RAW_1281_INITIAL_STATE"
+    },
+    "goryeosa_received_transmission": {
+      "source_id": "EXT-WIKISOURCE-GORYEOSA-V51-SHOUSHI-EPOCH-INTERVAL-CONSTANTS",
+      "epoch": "至元十八年歲次辛巳為元",
+      "values": {
+        "氣應": "550600",
+        "閏應": "202050",
+        "轉應": "131904",
+        "交應": "260388"
+      },
+      "result": "MIXED_RESPONSE_CONSTANT_RECENSION_REVISED_RUN_AND_JIAO_WITH_INITIAL_ZHUAN",
+      "consequence": "SAME_EPOCH_DOES_NOT_IMPLY_ONE_IMMUTABLE_RESPONSE_CONSTANT_PACKAGE"
+    },
+    "xingyunlu_late_ming": {
+      "source_id": "EXT-WIKISOURCE-XINGYUNLU-V1-SHOUSHI-YING-REVISION",
+      "attribution": "邢雲路 attributes the three-response-constant revision to 至元三十一年甲午 and interprets 諸應不用為元 as requiring periodic remeasurement.",
+      "evidence_class": "LATE_MING_AUTHORIAL_HISTORICAL_INTERPRETATION_NOT_CONTEMPORARY_YUAN_REVISION_RECORD"
+    },
+    "modern_crosscheck": {
+      "source_id": "EXT-RAA-MIHN-SHOUSHI-AFFILIATED-2014",
+      "result": "Modern peer-reviewed study independently treats Shoushi interval constants as revised after introduction, except Qi, and separates sunrise/sunset geography from interval-constant analysis.",
+      "authority_scope": "MODERN_COMPUTATIONAL_CORROBORATION_ONLY"
+    }
+  },
+  "adjudication": {
+    "epoch_identity_proves_qishuo_meridian": false,
+    "same_core_constants_prove_qishuo_meridian": false,
+    "dadu_beijing_qishuo_reference": "UNRESOLVED",
+    "nanjing_qishuo_reference": "UNRESOLVED",
+    "capital_of_year_qishuo_reference": "UNRESOLVED",
+    "module_specific_mixed_geography": "STRENGTHENED_AS_EVIDENCE_MODEL_NOT_SELECTED_RUNTIME",
+    "md_g03_status_after_batch": "OPEN_BLOCKING_GENERAL_ADAPTER",
+    "closed_subquestion": "ZHIYUAN_XINSI_EPOCH_INHERITANCE_IS_NOT_A_GEOGRAPHIC_MERIDIAN_BINDING",
+    "runtime_selection_authorized": false,
+    "historical_calendar_adapter_remains_fail_closed": true,
+    "hpa_dayun_cal_002_status": "MISSING_FROM_PRODUCT"
+  },
+  "transmission_impact": {
+    "rule_node": "RULE-SHOUSHI-LIYUAN-YING-SEPARATION-QISHUO",
+    "yuan_passage_node": "PASSAGE-YUANSHI-V54-SHOUSHI-LIYUAN-YING-SEPARATION",
+    "goryeo_passage_node": "PASSAGE-GORYEOSA-V51-SHOUSHI-MIXED-YING-STATE",
+    "zhouxiang_passage_node": "PASSAGE-ZHOUXIANG-1569-SHOUSHI-1281-EPOCH-REVISED-YING",
+    "direct_parentage_claim": false,
+    "geographic_meridian_edge_created": false,
+    "lineage_shortcut_rejected": "SAME_1281_EPOCH_DOES_NOT_PROVE_SAME_QISHUO_GEOGRAPHIC_REFERENCE"
+  },
+  "accounting": {
+    "matrix_rows": 222,
+    "audited_rows": 222,
+    "current_missing_from_product_rows": 4,
+    "provenance_defects_confirmed": 45,
+    "provenance_defects_repaired": 45,
+    "historical_candidate_extensions": 14,
+    "historical_candidate_registries": 5,
+    "historical_candidate_runtime_resolvers": 5,
+    "chart_algorithm_defects": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0
+  },
+  "next_research_priority": {
+    "batch": "12PF",
+    "gate_id": "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
+    "focus": "Locate Yuan or earliest near-primary provenance for the observation site / coordinate meaning of the revised 閏轉交應 layer behind Tonggui. Do not infer the site from the 1281 epoch, Dadu daylight tables, or Nanjing daylight tables."
+  }
+}

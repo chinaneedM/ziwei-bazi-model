@@ -2130,3 +2130,11 @@ Research: `docs/research/MING-DATONG-RUNYU-JINTUI-FINAL-PLACEMENT-R1.json`.
 No explicit named-place, `里差/地差`, longitude, 大都/北京, 南京, 應天 or 順天 correction step is attested in that reviewed qishuo method block. This is a scoped physical negative only. The implicit/inherited qishuo geographic reference remains unresolved, so `MD-G03` stays open and runtime remains fail-closed.
 
 Research: `docs/research/MING-DATONG-GK12437-QISHUO-LOCALITY-OPERATOR-AUDIT-R1.json`.
+
+## Batch 12PE — Shoushi qishuo epoch / response-constant lineage
+
+HPA-DAYUN-CAL-002 remains MISSING_FROM_PRODUCT. Direct GK12437 evidence combines the 1281 至元辛巳 epoch with revised Tonggui response constants. Received 元史 explicitly distinguishes 立元 from revisable 諸應; 明史 identifies Tonggui as 授時續定之數; 高麗史 preserves the same epoch with a mixed old/new response-constant state.
+
+Epoch inheritance is therefore formally barred from serving as proof of a qishuo meridian. Dadu/Beijing, Nanjing and mixed-geography hypotheses remain unselected; G03 stays open and runtime remains fail-closed.
+
+Research: docs/research/MING-DATONG-SHOUSHI-QISHUO-EPOCH-RESPONSE-CONSTANT-LINEAGE-R1.json.

@@ -64,7 +64,8 @@
         "1462 demonstrates that a physical same-year almanac can override a reign-record/later-table consensus.",
         "1495 cannot be repaired by a simple Beijing-Nanjing longitude shift.",
         "1497 is boundary-sensitive but does not identify the historical meridian.",
-        "1581 physical almanac, reign record and D1 converge."
+        "1581 physical almanac, reign record and D1 converge.",
+        "1281 epoch inheritance cannot identify qishuo geography: Yuan received text separates 立元 from revisable 諸應, Tonggui/GK12437 carry revised response constants, and Goryeosa preserves a mixed response-constant recension under the same epoch."
       ],
       "general_runtime_effect": "Required for general exact event-time/day realization, especially boundary-sensitive cases. It does not invalidate the already physically certified 1578 month-page chain.",
       "batch_12pd_refinement": {
@@ -88,6 +89,19 @@
           "DADU_FROM_SHOUSHI_LINEAGE",
           "MODERN_TIMEZONE_SUBSTITUTION"
         ]
+      },
+      "batch_12pe_refinement": {
+        "batch_id": "BATCH-12-BAZI-MING-DATONG-SHOUSHI-QISHUO-EPOCH-RESPONSE-CONSTANT-LINEAGE-PE",
+        "research_artifact": "docs/research/MING-DATONG-SHOUSHI-QISHUO-EPOCH-RESPONSE-CONSTANT-LINEAGE-R1.json",
+        "epoch_identity_proves_qishuo_meridian": false,
+        "yuanshi_liyuan_vs_yingshu_separation": "CLOSED_RECEIVED_TEXT",
+        "tonggui_revised_response_constant_lineage": "CLOSED_RECEIVED_TEXT_PLUS_GK12437_DIRECT_PHYSICAL_VALUES",
+        "goryeosa_mixed_response_constant_recension": "ATTESTED_RECEIVED_TRANSMISSION",
+        "dadu_beijing_actual_reference": "UNRESOLVED",
+        "nanjing_actual_reference": "UNRESOLVED",
+        "module_specific_mixed_geography": "STRENGTHENED_NOT_SELECTED",
+        "status_after_batch": "OPEN_BLOCKING_GENERAL_ADAPTER",
+        "runtime_authorized": false
       }
     },
     {
@@ -386,6 +400,27 @@
       "focus": "SHOUSHI_DATONG_TONGGUI_GK12437_ZHOUXIANG_QISHUO_EPOCH_CONSTANT_METHOD_NAMED_PLACE_BINDING"
     }
   },
-  "latest_qishuo_geography_batch": "BATCH-12-BAZI-MING-DATONG-GK12437-QISHUO-LOCALITY-OPERATOR-AUDIT-PD",
-  "latest_qishuo_geography_artifact": "docs/research/MING-DATONG-GK12437-QISHUO-LOCALITY-OPERATOR-AUDIT-R1.json"
+  "latest_qishuo_geography_batch": "BATCH-12-BAZI-MING-DATONG-SHOUSHI-QISHUO-EPOCH-RESPONSE-CONSTANT-LINEAGE-PE",
+  "latest_qishuo_geography_artifact": "docs/research/MING-DATONG-SHOUSHI-QISHUO-EPOCH-RESPONSE-CONSTANT-LINEAGE-R1.json",
+  "batch_12pe_forward_refinement": {
+    "status": "G03_EPOCH_TO_MERIDIAN_LINEAGE_SHORTCUT_REJECTED_ACTUAL_REFERENCE_REMAINS_OPEN",
+    "historical_12ou_top_level_counts_preserved": true,
+    "current_live_gate_accounting_after_12pe": {
+      "closed_source_scoped": 5,
+      "open_blocking_general_adapter": 4,
+      "dependency_blocked": 2,
+      "total_gates": 11
+    },
+    "remaining_open_independent_gates": [
+      "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
+      "MD-G05-DYNAMIC-D1-INTERMEDIATE-PRECISION",
+      "MD-G07-CALENDAR-ADDITION-INVALID-TARGET-DATE",
+      "MD-G08-CALENDAR-ADDITION-INTERCALARY-IDENTITY-TRAVERSAL"
+    ],
+    "next_research_priority": {
+      "batch": "12PF",
+      "gate_id": "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
+      "focus": "REVISED_SHOUSHI_YING_RESPONSE_CONSTANT_OBSERVATION_SITE_COORDINATE_PROVENANCE"
+    }
+  }
 }

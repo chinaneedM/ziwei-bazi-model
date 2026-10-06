@@ -618,3 +618,17 @@ Within that reviewed method block, no explicit named-place, `里差/地差`, lon
 Next: **12PE — cross-collate Shoushi → early Datong/Tonggui → GK12437 → Zhou Xiang 1569 qishuo constants/epoch/method lineage for a direct named-place or inherited-coordinate binding.**
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-GK12437-QISHUO-LOCALITY-OPERATOR-AUDIT-PD.md`. Research record: `docs/research/MING-DATONG-GK12437-QISHUO-LOCALITY-OPERATOR-AUDIT-R1.json`.
+
+## Progress — Batch 12PE
+
+Direct GK12437 pages 001a–002a now bind the 至元辛巳 epoch to the revised Tonggui response-constant state (氣應 550600 / 閏應 202050 / 轉應 130205 / 交應 260388).
+
+《元史》卷54 explicitly separates 立元 from 諸應 by stating that the latter are 隨時推測、不用為元. 《明史》卷35 identifies Tonggui 閏/轉/交應 as 授時續定之數, while 《高麗史》卷51 preserves the same epoch with a mixed old/new response-constant recension.
+
+Therefore the shortcut same 至元辛巳 epoch => same Dadu qishuo meridian is rejected. Dadu/Beijing remains possible but unproved; Nanjing remains possible but unproved; mixed module geography is strengthened but not selected.
+
+MD-G03 stays open; live accounting remains 5 closed / 4 open / 2 dependency-blocked, and HPA-DAYUN-CAL-002 remains fail-closed.
+
+Next: 12PF — observation-site / coordinate provenance of the revised 閏轉交應 layer.
+
+Batch document: docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-SHOUSHI-QISHUO-EPOCH-RESPONSE-CONSTANT-LINEAGE-PE.md. Research record: docs/research/MING-DATONG-SHOUSHI-QISHUO-EPOCH-RESPONSE-CONSTANT-LINEAGE-R1.json.

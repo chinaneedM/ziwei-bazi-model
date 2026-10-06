@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.425.0",
+  "schema_version": "1.426.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -505,9 +505,10 @@
       "BATCH-12-BAZI-MING-DATONG-PREYEAR-LEAP-CIVIL-YEAR-BINDING-PA",
       "BATCH-12-BAZI-MING-DATONG-PREYEAR-LEAP-CIVIL-YEAR-GLOBAL-VALIDATION-PB",
       "BATCH-12-BAZI-MING-DATONG-RUNYU-JINTUI-FINAL-PLACEMENT-PC",
-      "BATCH-12-BAZI-MING-DATONG-GK12437-QISHUO-LOCALITY-OPERATOR-AUDIT-PD"
+      "BATCH-12-BAZI-MING-DATONG-GK12437-QISHUO-LOCALITY-OPERATOR-AUDIT-PD",
+      "BATCH-12-BAZI-MING-DATONG-SHOUSHI-QISHUO-EPOCH-RESPONSE-CONSTANT-LINEAGE-PE"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-GK12437-QISHUO-LOCALITY-OPERATOR-AUDIT-PD.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-SHOUSHI-QISHUO-EPOCH-RESPONSE-CONSTANT-LINEAGE-PE.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -2481,7 +2482,13 @@
       "12PD closes only the explicit-locality-operator subquestion negatively: no named-place, 里差/地差, longitude, 大都/北京, 南京, 應天 or 順天 correction step is attested in the reviewed qishuo method block.",
       "MD-G03 remains OPEN_BLOCKING_GENERAL_ADAPTER because an implicit/inherited qishuo reference could reside in epoch/constants or transmission context; no hidden meridian is inferred and Nanjing sunrise/daylength geography remains forbidden as a proxy.",
       "Live Ming adapter ledger after 12PD remains 5 CLOSED_SOURCE_SCOPED / 4 OPEN_BLOCKING_GENERAL_ADAPTER / 2 DEPENDENCY_BLOCKED. HPA-DAYUN-CAL-002 remains MISSING_FROM_PRODUCT and runtime remains fail-closed.",
-      "12PE: cross-collate qishuo constants/epoch and method lineage across Yuan Shoushi, early Datong/Tonggui, GK12437 and Zhou Xiang 1569 for an explicit named-place or inherited-coordinate binding; do not repeat generic place-name searching inside the already-reviewed GK12437 method block."
+      "12PE: cross-collate qishuo constants/epoch and method lineage across Yuan Shoushi, early Datong/Tonggui, GK12437 and Zhou Xiang 1569 for an explicit named-place or inherited-coordinate binding; do not repeat generic place-name searching inside the already-reviewed GK12437 method block.",
+      "Batch 12PE completed: direct GK12437 pages 001a-002a bind the 至元辛巳 epoch to the revised Tonggui response-constant state (氣應550600 / 閏應202050 / 轉應130205 / 交應260388).",
+      "Received 《元史》卷54 explicitly separates 立元 from 諸應 by stating that the latter are 隨時推測、不用為元; epoch identity therefore cannot itself define qishuo geography.",
+      "Received 《明史》卷35 identifies the Tonggui 閏/轉/交應 values as 授時續定之數, while 《高麗史》卷51 preserves the same epoch with a mixed revised/initial response-constant recension.",
+      "12PE formally rejects the SAME_ZHIYUAN_XINSI_EPOCH -> SAME_DADU_QISHUO_MERIDIAN shortcut without rejecting Dadu/Beijing as a possible actual reference. Nanjing remains equally unproved; mixed module geography is strengthened but not selected.",
+      "Live Ming adapter ledger after 12PE remains 5 CLOSED_SOURCE_SCOPED / 4 OPEN_BLOCKING_GENERAL_ADAPTER / 2 DEPENDENCY_BLOCKED. HPA-DAYUN-CAL-002 remains MISSING_FROM_PRODUCT and runtime fail-closed.",
+      "12PF: target the observation-site/coordinate provenance of the revised 閏轉交應 layer itself, preferring Yuan or earliest near-primary evidence over later geographic inference."
     ],
     "historical_candidate_extension_count": 14,
     "current_missing_from_product_row_count": 4

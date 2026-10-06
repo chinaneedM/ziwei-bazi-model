@@ -3860,7 +3860,73 @@
         "docs/research/MING-DATONG-GK12437-QISHUO-LOCALITY-OPERATOR-AUDIT-R1.json",
         "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-GK12437-QISHUO-LOCALITY-OPERATOR-AUDIT-PD.md"
       ],
-      "first_explicit_graph_batch": "BATCH-12-BAZI-MING-DATONG-GK12437-QISHUO-LOCALITY-OPERATOR-AUDIT-PD"
+      "first_explicit_graph_batch": "BATCH-12-BAZI-MING-DATONG-GK12437-QISHUO-LOCALITY-OPERATOR-AUDIT-PD",
+      "batch_12pe_epoch_constant_lineage": {
+        "direct_pages": [
+          "001a",
+          "001b",
+          "002a"
+        ],
+        "epoch_formula": "至元辛巳積年減一",
+        "response_constants": {
+          "氣應": "550600",
+          "閏應": "202050",
+          "轉應": "130205",
+          "交應": "260388"
+        },
+        "evidence": "docs/research/MING-DATONG-SHOUSHI-QISHUO-EPOCH-RESPONSE-CONSTANT-LINEAGE-R1.json"
+      }
+    },
+    {
+      "node_id": "RULE-SHOUSHI-LIYUAN-YING-SEPARATION-QISHUO",
+      "node_type": "MECHANICAL_RULE",
+      "label": "授時氣朔：至元辛巳立元與可隨時推測諸應分層規則",
+      "system_scope": "SHOUSHI_DATONG_QISHUO_EPOCH_RESPONSE_CONSTANT_LINEAGE",
+      "mechanical_identity": "1281 至元辛巳 is the arithmetic epoch anchor; response constants are a distinct, revisable observational layer. Shared epoch does not itself define one response-constant recension or qishuo geographic reference.",
+      "evidence": [
+        "docs/research/MING-DATONG-SHOUSHI-QISHUO-EPOCH-RESPONSE-CONSTANT-LINEAGE-R1.json",
+        "EXT-WIKISOURCE-YUANSHI-V54-SHOUSHI-EPOCH-YING-SEPARATION"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-BAZI-MING-DATONG-SHOUSHI-QISHUO-EPOCH-RESPONSE-CONSTANT-LINEAGE-PE"
+    },
+    {
+      "node_id": "PASSAGE-YUANSHI-V54-SHOUSHI-LIYUAN-YING-SEPARATION",
+      "node_type": "PASSAGE",
+      "label": "《元史》卷54授時曆經：至元辛巳為元／諸應隨時推測不用為元",
+      "system_scope": "YUANSHI_RECEIVED_SHOUSHI_QISHUO_CANON",
+      "date": "EARLY_MING_COMPILED_YUAN_DYNASTIC_HISTORY",
+      "locator": "《元史》卷54·授時曆經上·步氣朔第一",
+      "evidence": [
+        "EXT-WIKISOURCE-YUANSHI-V54-SHOUSHI-EPOCH-YING-SEPARATION",
+        "docs/research/MING-DATONG-SHOUSHI-QISHUO-EPOCH-RESPONSE-CONSTANT-LINEAGE-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-BAZI-MING-DATONG-SHOUSHI-QISHUO-EPOCH-RESPONSE-CONSTANT-LINEAGE-PE"
+    },
+    {
+      "node_id": "PASSAGE-GORYEOSA-V51-SHOUSHI-MIXED-YING-STATE",
+      "node_type": "PASSAGE",
+      "label": "《高麗史》卷51授時曆：同至元辛巳歷元下的新舊應數混合狀態",
+      "system_scope": "JOSEON_RECEIVED_SHOUSHI_TRANSMISSION",
+      "date": "15TH_CENTURY_JOSEON_COMPILATION",
+      "mechanical_identity": "氣應550600 / 閏應202050 / 轉應131904 / 交應260388 under the same 至元辛巳 epoch.",
+      "evidence": [
+        "EXT-WIKISOURCE-GORYEOSA-V51-SHOUSHI-EPOCH-INTERVAL-CONSTANTS",
+        "docs/research/MING-DATONG-SHOUSHI-QISHUO-EPOCH-RESPONSE-CONSTANT-LINEAGE-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-BAZI-MING-DATONG-SHOUSHI-QISHUO-EPOCH-RESPONSE-CONSTANT-LINEAGE-PE"
+    },
+    {
+      "node_id": "PASSAGE-ZHOUXIANG-1569-SHOUSHI-1281-EPOCH-REVISED-YING",
+      "node_type": "PASSAGE",
+      "label": "周相1569《大明大統曆法》步氣朔：至元辛巳歷元與續定應數層",
+      "system_scope": "MING_DATONG_QISHUO_PRIMARY_METHOD",
+      "date": "LONGQING_3_1569",
+      "locator": "EXT-KOTENMON-DAMING-DATONG-1569 qishuo opening/constants and 辛巳應數 procedure",
+      "evidence": [
+        "docs/research/MING-DATONG-1569-QISHUO-METHOD-RESEARCH-R1.json",
+        "docs/research/MING-DATONG-SHOUSHI-QISHUO-EPOCH-RESPONSE-CONSTANT-LINEAGE-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-BAZI-MING-DATONG-SHOUSHI-QISHUO-EPOCH-RESPONSE-CONSTANT-LINEAGE-PE"
     }
   ],
   "edges": [
@@ -6632,6 +6698,58 @@
       ],
       "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-GK12437-QISHUO-LOCALITY-OPERATOR-AUDIT-PD",
       "scope_note": "Direct passage attestation only. No direct-parent claim to Zhou Xiang 1569 or Ming official almanacs and no qishuo meridian inheritance claim."
+    },
+    {
+      "edge_id": "TG-E0181",
+      "from": "PASSAGE-YUANSHI-V54-SHOUSHI-LIYUAN-YING-SEPARATION",
+      "relation": "ATTESTS",
+      "to": "RULE-SHOUSHI-LIYUAN-YING-SEPARATION-QISHUO",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_FOR_RECEIVED_TEXT_SEMANTICS",
+      "evidence_class": "RECEIVED_DYNASTIC_HISTORY_TEXT",
+      "evidence": [
+        "docs/research/MING-DATONG-SHOUSHI-QISHUO-EPOCH-RESPONSE-CONSTANT-LINEAGE-R1.json"
+      ],
+      "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-SHOUSHI-QISHUO-EPOCH-RESPONSE-CONSTANT-LINEAGE-PE"
+    },
+    {
+      "edge_id": "TG-E0182",
+      "from": "PASSAGE-KYUDB-GK12437-QISHUO-METHOD-BLOCK-001A-005B",
+      "relation": "TRANSMITS_RULE",
+      "to": "RULE-SHOUSHI-LIYUAN-YING-SEPARATION-QISHUO",
+      "status": "HIGH_CONFIDENCE",
+      "confidence": "HIGH_FOR_DIRECT_PHYSICAL_EPOCH_AND_RESPONSE_CONSTANT_STATE",
+      "evidence_class": "DIRECT_NO_OCR_PHYSICAL_COLLATION",
+      "evidence": [
+        "docs/research/MING-DATONG-SHOUSHI-QISHUO-EPOCH-RESPONSE-CONSTANT-LINEAGE-R1.json"
+      ],
+      "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-SHOUSHI-QISHUO-EPOCH-RESPONSE-CONSTANT-LINEAGE-PE"
+    },
+    {
+      "edge_id": "TG-E0183",
+      "from": "PASSAGE-ZHOUXIANG-1569-SHOUSHI-1281-EPOCH-REVISED-YING",
+      "relation": "TRANSMITS_RULE",
+      "to": "RULE-SHOUSHI-LIYUAN-YING-SEPARATION-QISHUO",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_FOR_DIRECT_MING_PRIMARY_METHOD",
+      "evidence_class": "DIRECT_PRIMARY_FACSIMILE",
+      "evidence": [
+        "docs/research/MING-DATONG-SHOUSHI-QISHUO-EPOCH-RESPONSE-CONSTANT-LINEAGE-R1.json"
+      ],
+      "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-SHOUSHI-QISHUO-EPOCH-RESPONSE-CONSTANT-LINEAGE-PE"
+    },
+    {
+      "edge_id": "TG-E0184",
+      "from": "PASSAGE-GORYEOSA-V51-SHOUSHI-MIXED-YING-STATE",
+      "relation": "TRANSMITS_RULE",
+      "to": "RULE-SHOUSHI-LIYUAN-YING-SEPARATION-QISHUO",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_FOR_RECEIVED_MIXED_RECENSION_CONTROL",
+      "evidence_class": "RECEIVED_JOSEON_HISTORICAL_TEXT",
+      "evidence": [
+        "docs/research/MING-DATONG-SHOUSHI-QISHUO-EPOCH-RESPONSE-CONSTANT-LINEAGE-R1.json"
+      ],
+      "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-SHOUSHI-QISHUO-EPOCH-RESPONSE-CONSTANT-LINEAGE-PE"
     }
   ],
   "lineage_hypotheses": [
@@ -7523,6 +7641,19 @@
         "docs/research/ZIWEI-YUEDE-TIANDE-TEMPORAL-SCOPE-CLOSURE-R1.json"
       ],
       "adjudication_batch": "BATCH-12-ZIWEI-YUEDE-TIANDE-TEMPORAL-SCOPE-CLOSURE-OE"
+    },
+    {
+      "from": "RULE-SHOUSHI-LIYUAN-YING-SEPARATION-QISHUO",
+      "relation": "EPOCH_IDENTITY_PROVES_QISHUO_GEOGRAPHIC_REFERENCE",
+      "to": "TABLE-SHOUSHI-DAILY-CII-B-BEIJING",
+      "status": "DISPROVED",
+      "reason": "The Yuan received rule explicitly separates 立元 from revisable 諸應; Tonggui/GK12437 carry revised response constants and Goryeosa carries a mixed response-constant recension under the same 1281 epoch. Therefore epoch identity cannot transfer the separately attested Beijing/Dadu daylight-table geography into qishuo. This does not disprove Dadu/Beijing as the actual qishuo reference; it disproves this inference route.",
+      "evidence": [
+        "docs/research/MING-DATONG-SHOUSHI-QISHUO-EPOCH-RESPONSE-CONSTANT-LINEAGE-R1.json",
+        "EXT-WIKISOURCE-YUANSHI-V54-SHOUSHI-EPOCH-YING-SEPARATION",
+        "EXT-WIKISOURCE-GORYEOSA-V51-SHOUSHI-EPOCH-INTERVAL-CONSTANTS"
+      ],
+      "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-SHOUSHI-QISHUO-EPOCH-RESPONSE-CONSTANT-LINEAGE-PE"
     }
   ],
   "backfill": {
