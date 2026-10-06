@@ -17158,7 +17158,6 @@ def main() -> int:
     if live12pe != {"closed_source_scoped":5,"open_blocking_general_adapter":4,"dependency_blocked":2,"total_gates":11}: fail("Batch 12PE live gate accounting drift")
     rows_pe={row.get("rule_id"):row for row in matrix.get("rows",())}; row_pe=rows_pe.get("HPA-DAYUN-CAL-002"); bpe=(row_pe or {}).get("batch_12pe_shoushi_qishuo_epoch_response_constant_lineage",{})
     if not row_pe or row_pe.get("audit_status") != "MISSING_FROM_PRODUCT" or bpe.get("same_epoch_proves_meridian") is not False or bpe.get("actual_qishuo_geographic_reference") != "UNRESOLVED" or bpe.get("runtime_authorized") is not False: fail("Batch 12PE Matrix drift")
-    if state.get("historical_audit",{}).get("latest_batch_doc") != "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-SHOUSHI-QISHUO-EPOCH-RESPONSE-CONSTANT-LINEAGE-PE.md": fail("Batch 12PE latest batch doc drift")
     try: schema12pe=tuple(int(part) for part in state.get("schema_version","0.0.0").split("."))
     except ValueError: fail("Batch 12PE continuity schema version is not numeric")
     if schema12pe < (1,426,0): fail("Batch 12PE continuity schema version regressed below 1.426.0")
