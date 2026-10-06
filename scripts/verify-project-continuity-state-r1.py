@@ -929,9 +929,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-REMAINING-PRODUCT-GAP-REPRIORITIZATION-OQ",
     "BATCH-12-BAZI-QIANLI-MINGXUE-JIANGYI-JIAOYUN-CALENDAR-SEMANTICS-OR",
     "BATCH-12-BAZI-QIANLI-WORK-IDENTITY-AND-JIAOYUN-EDGE-BOUNDARY-OS",
+    "BATCH-12-REMAINING-PRODUCT-GAP-REPRIORITIZATION-OT",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-QIANLI-WORK-IDENTITY-AND-JIAOYUN-EDGE-BOUNDARY-OS.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-REMAINING-PRODUCT-GAP-REPRIORITIZATION-OT.md"
 
 
 def fail(message: str) -> None:
@@ -16706,6 +16707,45 @@ def main() -> int:
         fail("Batch 12OS continuity schema version is not numeric")
     if schema12os < (1, 413, 0):
         fail("Batch 12OS continuity schema version regressed below 1.413.0")
+    # Batch 12OT: remaining product-gap reprioritization after Qianli closure.
+    ot_id = "BATCH-12-REMAINING-PRODUCT-GAP-REPRIORITIZATION-OT"
+    ot_path = ROOT / "docs/research/REMAINING-PRODUCT-GAP-REPRIORITIZATION-OT-R1.json"
+    ot_doc = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-REMAINING-PRODUCT-GAP-REPRIORITIZATION-OT.md"
+    if not ot_path.is_file() or not ot_doc.is_file():
+        fail("Batch 12OT prioritization record missing")
+    ot = json.loads(ot_path.read_text(encoding="utf-8"))
+    if ot.get("batch_id") != ot_id or ot.get("prior_batch_id") != "BATCH-12-BAZI-QIANLI-WORK-IDENTITY-AND-JIAOYUN-EDGE-BOUNDARY-OS":
+        fail("Batch 12OT identity/chronology drift")
+    if ot.get("remaining_missing_from_product_count") != 4:
+        fail("Batch 12OT remaining-gap count drift")
+    ot_queue = ot.get("ranked_queue", ())
+    expected_ot_order = ["HPA-DAYUN-CAL-002", "HPA-ZDATE-006", "HPA-DAYUN-CAL-003", "HPA-DAYUN-CAL-004"]
+    if [row.get("rule_id") for row in ot_queue] != expected_ot_order:
+        fail("Batch 12OT ranking order drift")
+    selected_ot = ot.get("selected_next", {})
+    if selected_ot.get("rule_id") != "HPA-DAYUN-CAL-002" or selected_ot.get("batch") != "12OU":
+        fail("Batch 12OT selected-next drift")
+    firewall_ot = ot.get("route_firewalls", {})
+    for key in ("repeat_qianli_12or_12os_search_without_new_witness", "repeat_exhausted_zdate_google_public_preview_routes", "borrow_modern_chinese_calendar_for_ming_datong", "select_runtime_winner", "collapse_candidates"):
+        if firewall_ot.get(key) is not False:
+            fail(f"Batch 12OT route firewall drift: {key}")
+    inv_ot = ot.get("invariants", {})
+    for key in ("matrix_status_changed", "runtime_changed", "production_default_changed", "candidate_selection_changed", "algorithm_reopen"):
+        if inv_ot.get(key) is not False:
+            fail(f"Batch 12OT invariant drift: {key}")
+    if inv_ot.get("current_missing_from_product_count") != 4 or inv_ot.get("current_provenance_defects_confirmed") != 45 or inv_ot.get("current_provenance_defects_repaired") != 45:
+        fail("Batch 12OT accounting drift")
+    if audit_state.get("current_missing_from_product_row_count") != 4:
+        fail("Batch 12OT state missing-product count drift")
+    if audit_state.get("confirmed_provenance_metadata_defect_count") != 45 or audit_state.get("repaired_provenance_metadata_defect_count") != 45:
+        fail("Batch 12OT provenance accounting drift")
+    try:
+        schema12ot = tuple(int(part) for part in state.get("schema_version", "0.0.0").split("."))
+    except ValueError:
+        fail("Batch 12OT continuity schema version is not numeric")
+    if schema12ot < (1, 414, 0):
+        fail("Batch 12OT continuity schema version regressed below 1.414.0")
+
     contract = state.get("continuity_contract", {})
     if contract.get("ci_gate_required") is not True:
         fail("continuity CI gate was disabled")

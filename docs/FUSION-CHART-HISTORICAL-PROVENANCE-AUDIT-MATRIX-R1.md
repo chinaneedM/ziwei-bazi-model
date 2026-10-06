@@ -2089,3 +2089,19 @@ HPA-DAYUN-CAL-003/004 remain MISSING_FROM_PRODUCT. Accounting: **222/222 audited
 Next: **12OT — re-rank the four remaining product gaps.** Do not repeat the same Qianli edge route absent materially new evidence.
 
 Batch document: docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-QIANLI-WORK-IDENTITY-AND-JIAOYUN-EDGE-BOUNDARY-OS.md. Research record: docs/research/QIANLI-WORK-IDENTITY-AND-JIAOYUN-EDGE-BOUNDARY-R1.json.
+
+
+## Progress — Batch 12OT
+
+After 12OR/12OS, the prior 12OQ ordering is stale. Qianli ordinary Jiaoyun mechanics are now substantially closed, but its invalid-day/intercalary/duplicated-month edge semantics are source-unresolved at the current searchable horizon and the same route must not be repeated without materially new evidence.
+
+The four remaining MISSING_FROM_PRODUCT rows are therefore re-ranked:
+
+1. **HPA-DAYUN-CAL-002** — active Ming Datong historical-calendar adapter route. Existing source/physical/table work is deep and remaining qishuo geography, calendar-addition edge semantics, multi-year leap behavior and dynamic precision are concrete testable gates.
+2. **HPA-ZDATE-006** — strong direct Fullbook Zi/Hai evidence, but runtime time-standard binding and the cloudy/rainy current-time acquisition procedure remain open; exhausted preview routes stay closed.
+3. **HPA-DAYUN-CAL-003** — ordinary Qianli mechanics closed; edge semantics remain source-unresolved and parked pending a materially new witness.
+4. **HPA-DAYUN-CAL-004** — recurrence remains dependency-bound to a certified first-handover historical regime.
+
+**Next: 12OU — Ming Datong executable-adapter blocker decomposition.** No historical Bazi runtime winner or production default is selected.
+
+Batch document: docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-REMAINING-PRODUCT-GAP-REPRIORITIZATION-OT.md. Research record: docs/research/REMAINING-PRODUCT-GAP-REPRIORITIZATION-OT-R1.json.
