@@ -70,7 +70,8 @@
         "12PH: Later narratives converge on the 1294 response-constant revision, but no reviewed passage explicitly cites Guo Shoujing's 修改源流 or 古今交食考 and no site word is recovered. Narrative convergence cannot be promoted to lost-work quotation.",
         "12PI: the 56 official-almanac clock bins and D1 outputs share the same unresolved historical coordinate. Their 56/56 internal fit validates D1 but cannot identify an absolute meridian; ±9.8667-minute Beijing-Nanjing shifts are coordinate changes, not geographic tests without an independent absolute-time anchor.",
         "12PJ: modern absolute astronomy is precise enough for a diagnostic in the Ming period (DE431 coverage; ~20 s Delta-T uncertainty versus ~592 s Beijing-Nanjing longitude signal), but Datong qishuo 子正/刻 is not source-bound to apparent solar, mean solar, clepsydra or another absolute clock standard. Time-standard semantics remain the blocker.",
-        "12PK: Shoushi/Datong qishuo is source-closed as a uniform 10000-unit day converted to shichen/ke from 子正, but its absolute physical realization is not directly identified as apparent solar, mean solar, clepsydra, or named-longitude time. Separate local daylight/clepsydra modules and a distinct Gengwu explicit 里差 control cannot fill that gap."
+        "12PK: Shoushi/Datong qishuo is source-closed as a uniform 10000-unit day converted to shichen/ke from 子正, but its absolute physical realization is not directly identified as apparent solar, mean solar, clepsydra, or named-longitude time. Separate local daylight/clepsydra modules and a distinct Gengwu explicit 里差 control cannot fill that gap.",
+        "12PL: Wanli Daming Huidian places official clepsydra/time service, eclipse 分秒時刻 reporting and Datong almanac production under Qintianjian, but does not identify qishuo as the tower clepsydra or a capital-local solar coordinate. Mingshi daylight history disproves automatic capital inheritance as a universal calendrical rule."
       ],
       "general_runtime_effect": "Required for general exact event-time/day realization, especially boundary-sensitive cases. It does not invalidate the already physically certified 1578 month-page chain.",
       "batch_12pd_refinement": {
@@ -182,6 +183,18 @@
         "physical_clepsydra_identity_in_qishuo_method": "NOT_ATTESTED",
         "separate_location_sensitive_daylight_clepsydra_modules": "ATTESTED",
         "gengwu_explicit_licha_positive_control": "CROSS_CALENDAR_ONLY",
+        "status_after_batch": "OPEN_BLOCKING_GENERAL_ADAPTER",
+        "runtime_authorized": false
+      },
+      "batch_12pl_refinement": {
+        "batch_id": "BATCH-12-BAZI-MING-DATONG-QINTIANJIAN-ALMANAC-CLOCK-CAPITAL-BINDING-PL",
+        "research_artifact": "docs/research/MING-QINTIANJIAN-ALMANAC-CLOCK-CAPITAL-BINDING-R1.json",
+        "institutional_clock_eclipse_almanac_colocation": "CLOSED_SOURCE_SCOPED",
+        "gnomon_qishuo_calibration_clause": "ATTESTED",
+        "same_bureau_equals_same_numeric_coordinate": "REJECTED_SHORTCUT",
+        "capital_auto_inheritance": "REJECTED",
+        "qishuo_capital_clock_binding": "UNRESOLVED",
+        "absolute_physical_time_realization": "UNRESOLVED",
         "status_after_batch": "OPEN_BLOCKING_GENERAL_ADAPTER",
         "runtime_authorized": false
       }
@@ -482,8 +495,8 @@
       "focus": "SHOUSHI_DATONG_TONGGUI_GK12437_ZHOUXIANG_QISHUO_EPOCH_CONSTANT_METHOD_NAMED_PLACE_BINDING"
     }
   },
-  "latest_qishuo_geography_batch": "BATCH-12-BAZI-MING-DATONG-QISHUO-ZIZHENG-CLOCK-STANDARD-SEMANTICS-PK",
-  "latest_qishuo_geography_artifact": "docs/research/MING-DATONG-QISHUO-ZIZHENG-CLOCK-STANDARD-SEMANTICS-R1.json",
+  "latest_qishuo_geography_batch": "BATCH-12-BAZI-MING-DATONG-QINTIANJIAN-ALMANAC-CLOCK-CAPITAL-BINDING-PL",
+  "latest_qishuo_geography_artifact": "docs/research/MING-QINTIANJIAN-ALMANAC-CLOCK-CAPITAL-BINDING-R1.json",
   "batch_12pe_forward_refinement": {
     "status": "G03_EPOCH_TO_MERIDIAN_LINEAGE_SHORTCUT_REJECTED_ACTUAL_REFERENCE_REMAINS_OPEN",
     "historical_12ou_top_level_counts_preserved": true,
@@ -629,6 +642,27 @@
       "batch": "12PL",
       "gate_id": "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
       "focus": "MING_QINTIANJIAN_ALMANAC_STANDARD_CLOCK_CAPITAL_BINDING_FOR_PUBLISHED_QISHUO_TIME_LABELS"
+    }
+  },
+  "batch_12pl_forward_refinement": {
+    "status": "G03_INSTITUTIONAL_COLOCATION_CLOSED_AUTOMATIC_CAPITAL_AND_CLEPSYDRA_QISHUO_BINDING_REJECTED_REFERENCE_OPEN",
+    "historical_12ou_top_level_counts_preserved": true,
+    "current_live_gate_accounting_after_12pl": {
+      "closed_source_scoped": 5,
+      "open_blocking_general_adapter": 4,
+      "dependency_blocked": 2,
+      "total_gates": 11
+    },
+    "remaining_open_independent_gates": [
+      "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
+      "MD-G05-DYNAMIC-D1-INTERMEDIATE-PRECISION",
+      "MD-G07-CALENDAR-ADDITION-INVALID-TARGET-DATE",
+      "MD-G08-CALENDAR-ADDITION-INTERCALARY-IDENTITY-TRAVERSAL"
+    ],
+    "next_research_priority": {
+      "batch": "12PM",
+      "gate_id": "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
+      "focus": "MING_QINTIANJIAN_GNOMON_QISHUO_OBSERVATIONAL_VERIFICATION_TO_NUMERICAL_DINGSHUO_REMAINDER_BRIDGE"
     }
   }
 }

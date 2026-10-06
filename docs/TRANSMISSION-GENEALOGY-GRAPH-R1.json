@@ -4093,6 +4093,56 @@
         "docs/research/MING-DATONG-QISHUO-ZIZHENG-CLOCK-STANDARD-SEMANTICS-R1.json"
       ],
       "first_explicit_graph_batch": "BATCH-12-BAZI-MING-DATONG-QISHUO-ZIZHENG-CLOCK-STANDARD-SEMANTICS-PK"
+    },
+    {
+      "node_id": "INSTITUTION-MING-QINTIANJIAN-OFFICIAL-TIME-ALMANAC",
+      "node_type": "INSTITUTION",
+      "label": "明欽天監：官方報時／交食時刻／大統曆編造機構層",
+      "system_scope": "MING_OFFICIAL_TIMEKEEPING_ECLIPSE_TIMING_ALMANAC_INSTITUTION",
+      "date_scope": "MING; WANLI_HUIDIAN_RECEIVED_INSTITUTIONAL_COMPILATION",
+      "evidence": [
+        "EXT-CTEXT-WANLI-DAMING-HUIDIAN-V223-TIMEKEEPING",
+        "docs/research/MING-QINTIANJIAN-ALMANAC-CLOCK-CAPITAL-BINDING-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-BAZI-MING-DATONG-QINTIANJIAN-ALMANAC-CLOCK-CAPITAL-BINDING-PL"
+    },
+    {
+      "node_id": "PASSAGE-DAMING-HUIDIAN-V223-QINTIANJIAN-CLOCK-ECLIPSE-ALMANAC",
+      "node_type": "PASSAGE",
+      "label": "(萬曆)《大明會典》卷223欽天監：漏刻／交食分秒時刻／歲造大統曆",
+      "system_scope": "MING_QINTIANJIAN_INSTITUTIONAL_FUNCTIONS",
+      "date": "WANLI_RECOMPILATION_1587_RECEIVED_INSTITUTIONAL_TEXT",
+      "locator": "卷223 欽天監，條5-10",
+      "evidence": [
+        "EXT-CTEXT-WANLI-DAMING-HUIDIAN-V223-TIMEKEEPING",
+        "docs/research/MING-QINTIANJIAN-ALMANAC-CLOCK-CAPITAL-BINDING-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-BAZI-MING-DATONG-QINTIANJIAN-ALMANAC-CLOCK-CAPITAL-BINDING-PL"
+    },
+    {
+      "node_id": "PASSAGE-MINGSHI-V31-YINGTIAN-SHUNTIAN-DAYNIGHT-STANDARD",
+      "node_type": "PASSAGE",
+      "label": "《明史》卷31：遷都後應天／順天晝夜時刻標準爭議",
+      "system_scope": "MING_DAYLIGHT_TIMEKEEPING_CAPITAL_REFERENCE_COUNTEREXAMPLE",
+      "date": "QING_COMPILED_MING_DYNASTIC_HISTORY",
+      "locator": "卷31 永樂遷都順天至景泰復洪永舊制段",
+      "evidence": [
+        "EXT-CTEXT-MINGSHI-V31-YINGTIAN-SHUNTIAN-DAYNIGHT-STANDARD",
+        "docs/research/MING-QINTIANJIAN-ALMANAC-CLOCK-CAPITAL-BINDING-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-BAZI-MING-DATONG-QINTIANJIAN-ALMANAC-CLOCK-CAPITAL-BINDING-PL"
+    },
+    {
+      "node_id": "TERM-CONCEPT-CAPITAL-AUTO-INHERITANCE-NOT-UNIVERSAL",
+      "node_type": "TERM_CONCEPT",
+      "label": "京師所在地不自動等於所有曆法時間模塊的地理基準",
+      "system_scope": "CALENDRICAL_GEOGRAPHIC_REFERENCE_INFERENCE_FIREWALL",
+      "mechanical_identity": "A capital move or bureau location cannot by itself select the reference locality/clock for every calendrical module; positive module-specific binding is required.",
+      "evidence": [
+        "EXT-CTEXT-MINGSHI-V31-YINGTIAN-SHUNTIAN-DAYNIGHT-STANDARD",
+        "docs/research/MING-QINTIANJIAN-ALMANAC-CLOCK-CAPITAL-BINDING-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-BAZI-MING-DATONG-QINTIANJIAN-ALMANAC-CLOCK-CAPITAL-BINDING-PL"
     }
   ],
   "edges": [
@@ -6994,6 +7044,62 @@
         "docs/research/MING-DATONG-QISHUO-ZIZHENG-CLOCK-STANDARD-SEMANTICS-R1.json"
       ],
       "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-QISHUO-ZIZHENG-CLOCK-STANDARD-SEMANTICS-PK"
+    },
+    {
+      "edge_id": "TG-E0191",
+      "from": "PASSAGE-DAMING-HUIDIAN-V223-QINTIANJIAN-CLOCK-ECLIPSE-ALMANAC",
+      "relation": "ATTESTS",
+      "to": "INSTITUTION-MING-QINTIANJIAN-OFFICIAL-TIME-ALMANAC",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_FOR_RECEIVED_INSTITUTIONAL_FUNCTION_SCOPE",
+      "evidence_class": "MING_INSTITUTIONAL_COMPILATION_RECEIVED_TEXT",
+      "evidence": [
+        "docs/research/MING-QINTIANJIAN-ALMANAC-CLOCK-CAPITAL-BINDING-R1.json"
+      ],
+      "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-QINTIANJIAN-ALMANAC-CLOCK-CAPITAL-BINDING-PL"
+    },
+    {
+      "edge_id": "TG-E0192",
+      "from": "PASSAGE-MINGSHI-V31-YINGTIAN-SHUNTIAN-DAYNIGHT-STANDARD",
+      "relation": "ATTESTS",
+      "to": "TERM-CONCEPT-CAPITAL-AUTO-INHERITANCE-NOT-UNIVERSAL",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_FOR_DAYLIGHT_MODULE_COUNTEREXAMPLE_ONLY",
+      "evidence_class": "RECEIVED_DYNASTIC_HISTORY_TEXT",
+      "evidence": [
+        "docs/research/MING-QINTIANJIAN-ALMANAC-CLOCK-CAPITAL-BINDING-R1.json"
+      ],
+      "scope_note": "Rejects automatic capital inheritance generally; does not positively select a qishuo reference.",
+      "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-QINTIANJIAN-ALMANAC-CLOCK-CAPITAL-BINDING-PL"
+    },
+    {
+      "edge_id": "TG-E0193",
+      "from": "INSTITUTION-MING-QINTIANJIAN-OFFICIAL-TIME-ALMANAC",
+      "relation": "PARALLEL_COEXISTS_WITH",
+      "to": "RULE-FAMILY-SHOUSHI-DATONG-MODULE-SPECIFIC-LOUKE-GEOGRAPHY",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_FOR_INSTITUTIONAL_COLOCATION_COEXISTING_WITH_MODULE_SPECIFIC_GEOGRAPHY",
+      "evidence_class": "INSTITUTIONAL_TEXT_PLUS_LATE_MING_AUTHORIAL_MODULE_CONTROL",
+      "evidence": [
+        "docs/research/MING-QINTIANJIAN-ALMANAC-CLOCK-CAPITAL-BINDING-R1.json",
+        "docs/research/MING-DATONG-QISHUO-ZIZHENG-CLOCK-STANDARD-SEMANTICS-R1.json"
+      ],
+      "scope_note": "Co-location under one bureau is not an identity edge between module coordinates.",
+      "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-QINTIANJIAN-ALMANAC-CLOCK-CAPITAL-BINDING-PL"
+    },
+    {
+      "edge_id": "TG-E0194",
+      "from": "PASSAGE-DAMING-HUIDIAN-V223-QINTIANJIAN-CLOCK-ECLIPSE-ALMANAC",
+      "relation": "PARALLEL_COEXISTS_WITH",
+      "to": "RULE-SHOUSHI-FALIAN-ZIZHENG-UNIFORM-100KE",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_FOR_INSTITUTIONAL_PARALLEL_ONLY_NOT_CLOCK_IDENTITY",
+      "evidence_class": "MING_INSTITUTIONAL_TEXT_PLUS_RECEIVED_SHOUSHI_MECHANICS",
+      "evidence": [
+        "docs/research/MING-QINTIANJIAN-ALMANAC-CLOCK-CAPITAL-BINDING-R1.json"
+      ],
+      "scope_note": "The same institution publishes/uses time labels while qishuo coordinate mechanics remain separately attested; no clepsydra or capital identity is inferred.",
+      "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-QINTIANJIAN-ALMANAC-CLOCK-CAPITAL-BINDING-PL"
     }
   ],
   "lineage_hypotheses": [

@@ -2190,3 +2190,14 @@ Separate Shoushi locality-sensitive day/night/clepsydra rules and Zhu Zaiyu's Da
 HPA-DAYUN-CAL-002 remains MISSING_FROM_PRODUCT; MD-G03 remains open.
 
 Research: docs/research/MING-DATONG-QISHUO-ZIZHENG-CLOCK-STANDARD-SEMANTICS-R1.json.
+
+
+## Batch 12PL — Ming Qintianjian almanac clock / capital binding
+
+(萬曆)《大明會典》卷223 source-closes the institutional co-location of Qintianjian tower-clock/timekeeping service, official eclipse-time computation/reporting, and annual Datong almanac production. It also records 嘉靖七年「測晷以定氣朔」.
+
+That institutional coupling does not identify the qishuo numerical coordinate. 《明史》卷31 supplies a scoped counterexample: after the capital moved to Shuntian, the day/night module continued using Yingtian values and later reverted to the older convention. Therefore current-capital location cannot be used as an automatic inheritance rule for every calendar time module.
+
+HPA-DAYUN-CAL-002 remains MISSING_FROM_PRODUCT; MD-G03 remains open; runtime and modern meridian fitting remain fail-closed.
+
+Research: docs/research/MING-QINTIANJIAN-ALMANAC-CLOCK-CAPITAL-BINDING-R1.json.

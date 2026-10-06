@@ -502,3 +502,16 @@ Shoushi separately contains Dadu-based and locally recalibratable day/night/clep
 A separate positive control is Yuan-shi volume 56's 庚午元曆: its new-moon method explicitly states a reference city and `里差` with east/west add/subtract. This proves such a geographic operator can be explicit when present, but it is not a Shoushi/Datong rule.
 
 Result: INTERNAL_UNIFORM_ZIZHENG_CLOCK=CLOSED; ABSOLUTE_PHYSICAL_REALIZATION=UNRESOLVED; QISHUO_GEOGRAPHIC_REFERENCE=UNRESOLVED.
+
+
+## 24. Batch 12PL — the bureau is shared; the absolute qishuo clock is not thereby shared
+
+(萬曆)《大明會典》卷223 puts three relevant official functions under 欽天監: 譙樓定時/漏刻 service, 日月交食 分秒時刻 calculation/reporting, and annual 《大統曆》 production/distribution. It also records 正統十一年 圭表壺漏俱如南京舊制 and 嘉靖七年 立四丈木表測晷以定氣朔.
+
+This closes institutional coupling, but none of those clauses states that 定朔/合朔小餘 is numerically read from the tower clepsydra or expressed in Beijing/Nanjing local apparent or mean solar time.
+
+《明史》卷31 provides the critical counterexample: after the Yongle move to Shuntian, the day/night module continued to use Yingtian values; a temporary Zhengtong-era Shuntian substitution did not establish an irreversible capital rule. The evidence is daylight-module scoped, so it rejects CURRENT_CAPITAL -> ALL_CALENDAR_TIME_MODULES while selecting no qishuo meridian.
+
+Result: QINTIANJIAN_INSTITUTIONAL_TIME_ALMANAC_COLOCATION=CLOSED; CAPITAL_OR_CLEPSYDRA_QISHUO_BINDING=UNRESOLVED; MD-G03 remains open.
+
+Next: 12PM — test whether Ming observational-verification records explicitly bridge local gnomon/clock observations to the numerical 定朔/合朔 remainder.

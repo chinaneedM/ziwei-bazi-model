@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.432.0",
+  "schema_version": "1.433.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -512,9 +512,10 @@
       "BATCH-12-BAZI-GUOSHOUJING-LOST-WORK-QUOTATION-CHAIN-AUDIT-PH",
       "BATCH-12-BAZI-MING-DATONG-QISHUO-GEOGRAPHIC-IDENTIFIABILITY-AUDIT-PI",
       "BATCH-12-BAZI-MING-DATONG-QISHUO-ABSOLUTE-TIME-ANCHOR-FEASIBILITY-PJ",
-      "BATCH-12-BAZI-MING-DATONG-QISHUO-ZIZHENG-CLOCK-STANDARD-SEMANTICS-PK"
+      "BATCH-12-BAZI-MING-DATONG-QISHUO-ZIZHENG-CLOCK-STANDARD-SEMANTICS-PK",
+      "BATCH-12-BAZI-MING-DATONG-QINTIANJIAN-ALMANAC-CLOCK-CAPITAL-BINDING-PL"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-QISHUO-ZIZHENG-CLOCK-STANDARD-SEMANTICS-PK.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-QINTIANJIAN-ALMANAC-CLOCK-CAPITAL-BINDING-PL.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -2533,7 +2534,15 @@
       "Yuan-shi volume 56's distinct 庚午元曆 provides a positive control: when a calendar explicitly applies geographic correction to new-moon remainders it can name a reference city and 里差 with east/west add/subtract. This rule is not imported into Shoushi/Datong.",
       "12PK closes INTERNAL_UNIFORM_ZIZHENG_CLOCK but leaves ABSOLUTE_PHYSICAL_REALIZATION and QISHUO_GEOGRAPHIC_REFERENCE unresolved. Modern ephemeris longitude fitting remains unauthorized.",
       "Live Ming adapter ledger after 12PK remains 5 CLOSED_SOURCE_SCOPED / 4 OPEN_BLOCKING_GENERAL_ADAPTER / 2 DEPENDENCY_BLOCKED. HPA-DAYUN-CAL-002 remains MISSING_FROM_PRODUCT and runtime fail-closed.",
-      "12PL: audit Ming Qintianjian institutional almanac clock-standard/capital binding, especially whether published conjunction-time labels inherit a bureau/capital standard."
+      "12PL: audit Ming Qintianjian institutional almanac clock-standard/capital binding, especially whether published conjunction-time labels inherit a bureau/capital standard.",
+      "Batch 12PL completed: Ming Qintianjian institutional control closes official tower-clock/timekeeping service, eclipse-time calculation/reporting and Datong almanac production as co-located bureau functions.",
+      "Wanli Daming Huidian volume 223 also records Zhengtong-11 instruments/clepsydra following Nanjing old forms and Jiajing-7 a four-zhang gnomon used to 測晷以定氣朔; neither clause directly binds the qishuo numerical remainder to tower clepsydra time or a named longitude.",
+      "Mingshi volume 31 supplies a scoped counterexample to automatic capital inheritance: after the Yongle move to Shuntian, the daylight/day-night module continued using Yingtian values and a later Shuntian substitution could be reverted to the older convention.",
+      "Therefore SAME_QINTIANJIAN_BUREAU != SAME_NUMERIC_TIME_COORDINATE and CURRENT_CAPITAL != AUTOMATIC_QISHUO_MERIDIAN are now explicit inference firewalls.",
+      "The 1518 Zhu Yu multi-source calibration proposal remains a non-adopted comparative control: observatory, clepsydra and provincial gnomon evidence streams were distinguishable rather than one assumed capital clock.",
+      "MD-G03 remains OPEN_BLOCKING_GENERAL_ADAPTER; HPA-DAYUN-CAL-002 remains MISSING_FROM_PRODUCT; modern ephemeris meridian fitting and historical runtime remain unauthorized.",
+      "Live Ming adapter ledger after 12PL remains 5 CLOSED_SOURCE_SCOPED / 4 OPEN_BLOCKING_GENERAL_ADAPTER / 2 DEPENDENCY_BLOCKED.",
+      "12PM: audit the observational-verification semantics behind Jiajing-7 測晷以定氣朔 and related Qintianjian records for an explicit local-observation-to-numerical 定朔/合朔 bridge, keeping 氣 and 朔 distinct unless directly joined."
     ],
     "historical_candidate_extension_count": 14,
     "current_missing_from_product_row_count": 4

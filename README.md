@@ -704,3 +704,16 @@ MD-G03 remains open; HPA-DAYUN-CAL-002 remains MISSING_FROM_PRODUCT and runtime 
 Next: **12PL — Ming Qintianjian institutional almanac clock-standard / capital-binding audit**.
 
 Batch document: docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-QISHUO-ZIZHENG-CLOCK-STANDARD-SEMANTICS-PK.md. Research record: docs/research/MING-DATONG-QISHUO-ZIZHENG-CLOCK-STANDARD-SEMANTICS-R1.json.
+
+
+## Progress — Batch 12PL
+
+Ming institutional evidence now closes a narrower question without overreaching. (萬曆)《大明會典》卷223 places official 譙樓漏刻/time service, eclipse 分秒時刻 reporting and annual 《大統曆》 production under the same 欽天監, and records 嘉靖七年「測晷以定氣朔」. This proves institutional coupling, not a single absolute time coordinate.
+
+《明史》卷31 supplies the decisive firewall: after the capital moved to Shuntian, the day/night module continued using Yingtian values and even after a temporary Shuntian substitution could be restored to the older convention. Therefore CURRENT_CAPITAL != AUTOMATIC_REFERENCE_FOR_ALL_CALENDAR_TIME_MODULES.
+
+MD-G03 remains open; HPA-DAYUN-CAL-002 remains MISSING_FROM_PRODUCT and runtime stays fail-closed. Modern ephemeris longitude fitting is still unauthorized.
+
+Next: **12PM — audit the observation/clock semantics behind 嘉靖七年「測晷以定氣朔」 and related Qintianjian verification records for an explicit local-observation -> numerical 定朔/合朔 bridge.**
+
+Batch document: docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-QINTIANJIAN-ALMANAC-CLOCK-CAPITAL-BINDING-PL.md. Research record: docs/research/MING-QINTIANJIAN-ALMANAC-CLOCK-CAPITAL-BINDING-R1.json.
