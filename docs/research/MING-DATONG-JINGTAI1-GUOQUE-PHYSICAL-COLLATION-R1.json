@@ -1,0 +1,112 @@
+{
+  "schema": "MING-DATONG-JINGTAI1-GUOQUE-PHYSICAL-COLLATION-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-GUOQUE-PHYSICAL-COLLATION-PQ",
+  "date": "2026-10-07",
+  "status": "GUOQUE_PHYSICAL_TARGET_CLOSED_AS_DERIVATIVE_ABRIDGMENT_NO_NEW_PHASE_CLOCK_PROVENANCE",
+  "source_route": {
+    "route_source_id": "EXT-COMMONS-ZJLIB-GUOQUE-V25-JINGTAI1-PHYSICAL-ROUTE",
+    "physical_source_id": "EXT-COMMONS-ZJLIB-GUOQUE-V25-P112-JINGTAI1-ECLIPSE-PHYSICAL",
+    "work": "談遷《國榷》",
+    "workflow_run_id": 37614030769,
+    "workflow_head_sha": "d1e0c19280b0e3d6e95d1c7e68958d38e48551e2",
+    "artifact_id": 11478827349,
+    "artifact_digest": "sha256:e2bff3959008fcea17e0cb9d6f8df4dd9a9fe1e62bfdf6ba8e047c8fc3fc924d",
+    "source_pdf_sha256": "71c0895b396f54b785145b1aa7b16884d80549d04eb893e3031a9ac63c735d81",
+    "source_pdf_pages": 177,
+    "source_pdf_bytes": 86798848,
+    "ocr_used_for_final_glyph_claims": false,
+    "text_layer_role": "LOCATOR_AID_ONLY_AND_EMPTY_FOR_TARGET_TERMS"
+  },
+  "physical_page_binding": {
+    "juan29_opening_pdf_page": 106,
+    "juan29_opening_page_sha256": "6c6bc7c4afaf5024910b7a1f6ed5fa07ebcf733499f65185eaece167a9f11a0e",
+    "juan29_opening_direct_reading": [
+      "國榷卷二十九",
+      "庚午景泰元年",
+      "正月丁丑朔"
+    ],
+    "preceding_context_pdf_page": 111,
+    "preceding_context_page_sha256": "4f18472b49ea3781b1c2a810b6ae3c1eb4015d1ae50b23418f00871c2b70dc6a",
+    "target_pdf_page": 112,
+    "target_page_sha256": "44f14d7b7580fb581c32f86949dda1416c4e9e5bc8cf0900021e0cfb73222657",
+    "target_contact_sheet_sha256": "dd1b4bd17eb058da0ea0bc40c10dbd43a83bdcc8cecc607fd63ee3a55f00103f",
+    "direct_context_reading": "辛卯括京師官民馬給軍",
+    "direct_target_reading": "卯刻月食欽天監官以辰初刻被劾下法司宥之",
+    "punctuation_policy": "PUNCTUATION_EDITORIAL_ONLY_DIRECT_GLYPH_SEQUENCE_PRESERVED",
+    "result": "TARGET_EVENT_DIRECTLY_BOUND_AT_PHYSICAL_PAGE_LEVEL"
+  },
+  "comparison_to_ming_shilu": {
+    "controlling_source_id": "EXT-CTEXT-MINGSHILU-YINGZONG-V187-JINGTAI1-ECLIPSE-CLOCK-ERROR",
+    "shilu_payload": "是日早月食當在卯正三刻欽天監官以為辰初初刻致失救護六科十三道劾監正許惇等推測不明下三法司論罪當徒詔宥之",
+    "guoque_payload": "卯刻月食欽天監官以辰初刻被劾下法司宥之",
+    "guoque_actual_label": "卯刻",
+    "shilu_actual_label": "卯正三刻",
+    "guoque_prediction_label": "辰初刻",
+    "shilu_prediction_label": "辰初初刻",
+    "guoque_preserves_rescue_failure_wording": false,
+    "guoque_preserves_named_censorial_bodies": false,
+    "guoque_preserves_xudun_name_and_title": false,
+    "guoque_adds_phase_label": false,
+    "guoque_adds_named_observer": false,
+    "guoque_adds_clock_or_instrument": false,
+    "guoque_adds_time_acquisition_method": false,
+    "guoque_adds_explicit_event_locality": false,
+    "result": "LATER_CHRONICLE_ABRIDGES_THE_CONTROLLING_EVENT_AND_CANNOT_BE_TREATED_AS_A_SECOND_OBSERVED_CLOCK_VALUE"
+  },
+  "adjudication": {
+    "guoque_target_physical_page_collated": "CLOSED_DIRECT_PHYSICAL_SURROGATE",
+    "guoque_actual_time_value_status": "DERIVATIVE_ABRIDGMENT_NOT_INDEPENDENT_ABSOLUTE_VALUE",
+    "guoque_prediction_time_value_status": "DERIVATIVE_ABRIDGMENT_NOT_INDEPENDENT_ABSOLUTE_VALUE",
+    "guoque_phase_identity": "NOT_ATTESTED",
+    "guoque_observer_identity": "NOT_ATTESTED",
+    "guoque_clock_instrument": "NOT_ATTESTED",
+    "guoque_time_acquisition_method": "NOT_ATTESTED",
+    "guoque_explicit_locality": "NOT_ATTESTED",
+    "jingtai1_phase_identity": "UNRESOLVED",
+    "jingtai1_actual_time_measurement_chain": "UNRESOLVED",
+    "jingtai1_absolute_anchor_status": "NOT_YET_ADMISSIBLE",
+    "qishuo_geographic_reference": "UNRESOLVED",
+    "md_g03_status_after_batch": "OPEN_BLOCKING_GENERAL_ADAPTER",
+    "modern_ephemeris_meridian_fit_authorized": false,
+    "runtime_authorized": false,
+    "hpa_dayun_cal_002_status": "MISSING_FROM_PRODUCT"
+  },
+  "inference_firewalls": [
+    "國榷卯刻 != INDEPENDENT_OBSERVED_TIME_DISTINCT_FROM_實錄卯正三刻",
+    "國榷辰初刻 != INDEPENDENT_PREDICTION_VALUE_DISTINCT_FROM_實錄辰初初刻",
+    "ABRIDGED_TIME_LABEL != HIGHER_PRECISION_CLOCK_EVIDENCE",
+    "PHYSICAL_GLYPH_AUTHORITY_FOR_GUOQUE_COPY != PRIMARY_EVENT_OBSERVATION_AUTHORITY",
+    "NO_PHASE_OR_INSTRUMENT_ON_TARGET_PAGE != HISTORICAL_NONEXISTENCE"
+  ],
+  "transmission_impact": {
+    "graph_nodes_added": [
+      "DIGITAL-SURROGATE-ZJLIB-GUOQUE-V25",
+      "PASSAGE-GUOQUE-V29-JINGTAI1-ECLIPSE-ABRIDGMENT",
+      "TERM-CONCEPT-GUOQUE-JINGTAI1-ABRIDGMENT-NOT-INDEPENDENT-CLOCK-VALUE"
+    ],
+    "graph_edges_added": [
+      "TG-E0207",
+      "TG-E0208",
+      "TG-E0209"
+    ]
+  },
+  "route_disposition": {
+    "use_guoque_maoke_or_chenchuke_for_meridian_fit": "FORBIDDEN",
+    "next_batch": "12PR",
+    "next_focus": "Directly collate the already acquired NLC/Wikimedia Ming Yingzong Shilu volume 19 / juan 187 physical pages for the Jingtai-1 target event."
+  },
+  "accounting": {
+    "matrix_rows": 222,
+    "audited_rows": 222,
+    "current_missing_from_product_rows": 4,
+    "provenance_defects_confirmed": 45,
+    "provenance_defects_repaired": 45,
+    "historical_candidate_extensions": 14,
+    "historical_candidate_registries": 5,
+    "historical_candidate_runtime_resolvers": 5,
+    "chart_algorithm_defects": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0
+  }
+}

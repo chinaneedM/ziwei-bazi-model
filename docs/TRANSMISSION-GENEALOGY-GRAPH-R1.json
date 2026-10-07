@@ -4297,6 +4297,42 @@
         "docs/research/MING-DATONG-JINGTAI1-ECLIPSE-SOURCE-CHAIN-AUDIT-R1.json"
       ],
       "first_explicit_graph_batch": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-ECLIPSE-SOURCE-CHAIN-AUDIT-PP"
+    },
+    {
+      "node_id": "DIGITAL-SURROGATE-ZJLIB-GUOQUE-V25",
+      "node_type": "DIGITAL_SURROGATE",
+      "label": "ZJLib/Wikimedia Commons《國榷》第25冊物理數字替身",
+      "system_scope": "JINGTAI1_ECLIPSE_DERIVATIVE_PHYSICAL_COLLATION",
+      "locator": "PDF p106卷29; p112 target",
+      "evidence": [
+        "EXT-COMMONS-ZJLIB-GUOQUE-V25-P112-JINGTAI1-ECLIPSE-PHYSICAL",
+        "docs/research/MING-DATONG-JINGTAI1-GUOQUE-PHYSICAL-COLLATION-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-GUOQUE-PHYSICAL-COLLATION-PQ"
+    },
+    {
+      "node_id": "PASSAGE-GUOQUE-V29-JINGTAI1-ECLIPSE-ABRIDGMENT",
+      "node_type": "PASSAGE",
+      "label": "《國榷》卷29景泰元年辛卯：卯刻月食／欽天監辰初刻／被劾下法司宥之",
+      "system_scope": "JINGTAI1_ECLIPSE_DERIVATIVE_ABRIDGMENT",
+      "locator": "ZJLib/Wikimedia volume25 PDF p112",
+      "evidence": [
+        "EXT-COMMONS-ZJLIB-GUOQUE-V25-P112-JINGTAI1-ECLIPSE-PHYSICAL",
+        "docs/research/MING-DATONG-JINGTAI1-GUOQUE-PHYSICAL-COLLATION-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-GUOQUE-PHYSICAL-COLLATION-PQ"
+    },
+    {
+      "node_id": "TERM-CONCEPT-GUOQUE-JINGTAI1-ABRIDGMENT-NOT-INDEPENDENT-CLOCK-VALUE",
+      "node_type": "TERM_CONCEPT",
+      "label": "《國榷》景泰元年月食縮寫時刻不構成獨立絕對鐘值",
+      "system_scope": "QISHUO_ABSOLUTE_TIME_PROVENANCE_FIREWALL",
+      "mechanical_identity": "Physical Guoque reduces 卯正三刻 to 卯刻 and 辰初初刻 to 辰初刻 while dropping rescue/censorial detail; these coarse labels are abridgment, not independent clock evidence.",
+      "evidence": [
+        "EXT-COMMONS-ZJLIB-GUOQUE-V25-P112-JINGTAI1-ECLIPSE-PHYSICAL",
+        "docs/research/MING-DATONG-JINGTAI1-GUOQUE-PHYSICAL-COLLATION-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-GUOQUE-PHYSICAL-COLLATION-PQ"
     }
   ],
   "edges": [
@@ -7420,6 +7456,49 @@
       ],
       "scope_note": "The concept applies to the reviewed derivative chain, not to all lost or unreviewed historical sources.",
       "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-ECLIPSE-SOURCE-CHAIN-AUDIT-PP"
+    },
+    {
+      "edge_id": "TG-E0207",
+      "from": "DIGITAL-SURROGATE-ZJLIB-GUOQUE-V25",
+      "relation": "ATTESTS",
+      "to": "PASSAGE-GUOQUE-V29-JINGTAI1-ECLIPSE-ABRIDGMENT",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_DIRECT_PHYSICAL_PAGE_REVIEW_NO_OCR",
+      "evidence_class": "DIRECT_RENDERED_ZJLIB_PHYSICAL_SURROGATE_PAGE_112",
+      "evidence": [
+        "EXT-COMMONS-ZJLIB-GUOQUE-V25-P112-JINGTAI1-ECLIPSE-PHYSICAL",
+        "docs/research/MING-DATONG-JINGTAI1-GUOQUE-PHYSICAL-COLLATION-R1.json"
+      ],
+      "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-GUOQUE-PHYSICAL-COLLATION-PQ"
+    },
+    {
+      "edge_id": "TG-E0208",
+      "from": "PASSAGE-GUOQUE-V29-JINGTAI1-ECLIPSE-ABRIDGMENT",
+      "relation": "DERIVATIVE_ABRIDGMENT_OF",
+      "to": "PASSAGE-MINGSHILU-YINGZONG-V187-JINGTAI1-ECLIPSE-CLOCK-DISCREPANCY",
+      "status": "PROBABLE",
+      "confidence": "HIGH_FOR_SAME_EVENT_AND_ABRIDGMENT_PATTERN_NOT_DIRECT_COPYING_MECHANISM",
+      "evidence_class": "PHYSICAL_GUOQUE_TARGET_PLUS_MING_SHILU_EVENT_COMPARISON",
+      "evidence": [
+        "EXT-COMMONS-ZJLIB-GUOQUE-V25-P112-JINGTAI1-ECLIPSE-PHYSICAL",
+        "docs/research/MING-DATONG-JINGTAI1-GUOQUE-PHYSICAL-COLLATION-R1.json"
+      ],
+      "scope_note": "Same event and systematic precision loss support abridgment; exact copying mechanism is not claimed.",
+      "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-GUOQUE-PHYSICAL-COLLATION-PQ"
+    },
+    {
+      "edge_id": "TG-E0209",
+      "from": "PASSAGE-GUOQUE-V29-JINGTAI1-ECLIPSE-ABRIDGMENT",
+      "relation": "SUPPORTS_INFERENCE_FIREWALL",
+      "to": "TERM-CONCEPT-GUOQUE-JINGTAI1-ABRIDGMENT-NOT-INDEPENDENT-CLOCK-VALUE",
+      "status": "CONFIRMED",
+      "confidence": "HIGH",
+      "evidence_class": "DIRECT_PHYSICAL_ABRIDGMENT_COMPARISON",
+      "evidence": [
+        "EXT-COMMONS-ZJLIB-GUOQUE-V25-P112-JINGTAI1-ECLIPSE-PHYSICAL",
+        "docs/research/MING-DATONG-JINGTAI1-GUOQUE-PHYSICAL-COLLATION-R1.json"
+      ],
+      "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-GUOQUE-PHYSICAL-COLLATION-PQ"
     }
   ],
   "lineage_hypotheses": [

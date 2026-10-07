@@ -2249,3 +2249,14 @@ A concrete next source is available: the ZJLib/Wikimedia Commons file inventory 
 HPA-DAYUN-CAL-002 remains MISSING_FROM_PRODUCT; MD-G03 remains open.
 
 Research: docs/research/MING-DATONG-JINGTAI1-ECLIPSE-SOURCE-CHAIN-AUDIT-R1.json.
+
+
+## Batch 12PQ — 《國榷》卷29景泰元年月食物理页复核
+
+Exact-head workflow `37614030769` rendered the ZJLib/Wikimedia volume without OCR. PDF p106 opens 卷29 / 景泰元年; PDF p112 directly reads `卯刻月食欽天監官以辰初刻被劾下法司宥之`.
+
+Against Ming Shilu v187, 《國榷》 abridges `卯正三刻 -> 卯刻` and `辰初初刻 -> 辰初刻`, drops rescue/censorial/Xu Dun detail, and adds no phase, observer, clock/instrument, acquisition method or locality. Its coarse values are derivative abridgment, not independent clock evidence.
+
+HPA-DAYUN-CAL-002 remains MISSING_FROM_PRODUCT; MD-G03 remains OPEN_BLOCKING_GENERAL_ADAPTER; runtime remains fail-closed.
+
+Research: docs/research/MING-DATONG-JINGTAI1-GUOQUE-PHYSICAL-COLLATION-R1.json.

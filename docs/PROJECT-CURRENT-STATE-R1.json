@@ -517,9 +517,10 @@
       "BATCH-12-BAZI-MING-DATONG-QISHUO-GNOMON-OBSERVATION-BRIDGE-PM",
       "BATCH-12-BAZI-MING-DATONG-JINGTAI1-ECLIPSE-CLOCK-PROVENANCE-PN",
       "BATCH-12-BAZI-MING-DATONG-ECLIPSE-RESCUE-PHASE-CLOCK-PROTOCOL-PO",
-      "BATCH-12-BAZI-MING-DATONG-JINGTAI1-ECLIPSE-SOURCE-CHAIN-AUDIT-PP"
+      "BATCH-12-BAZI-MING-DATONG-JINGTAI1-ECLIPSE-SOURCE-CHAIN-AUDIT-PP",
+      "BATCH-12-BAZI-MING-DATONG-JINGTAI1-GUOQUE-PHYSICAL-COLLATION-PQ"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-JINGTAI1-ECLIPSE-SOURCE-CHAIN-AUDIT-PP.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-JINGTAI1-GUOQUE-PHYSICAL-COLLATION-PQ.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -2582,7 +2583,13 @@
       "A higher-value physical route is identified: the ZJLib/Wikimedia Commons inventory places 國榷卷29 景泰元年正月 inside physical PDF volume 25.",
       "MD-G03 remains OPEN_BLOCKING_GENERAL_ADAPTER; HPA-DAYUN-CAL-002 remains MISSING_FROM_PRODUCT; Jingtai-1 remains NOT_YET_ADMISSIBLE as an absolute-time anchor.",
       "Live Ming adapter ledger after 12PP remains 5 CLOSED_SOURCE_SCOPED / 4 OPEN_BLOCKING_GENERAL_ADAPTER / 2 DEPENDENCY_BLOCKED.",
-      "12PQ: directly collate 國榷 volume 25 / volume 29 / Jingtai-1 first month at page level for target-event wording."
+      "12PQ: directly collate 國榷 volume 25 / volume 29 / Jingtai-1 first month at page level for target-event wording.",
+      "Batch 12PQ completed: ZJLib/Wikimedia 國榷 volume 25 physical p112 directly reads 卯刻月食欽天監官以辰初刻被劾下法司宥之.",
+      "Guoque abridges Ming Shilu 卯正三刻 -> 卯刻 and 辰初初刻 -> 辰初刻 and drops rescue, 六科十三道, 許惇 and 推測不明 detail.",
+      "The Guoque labels are derivative abridgment, not independent clock values; no phase, observer, instrument, acquisition method or explicit locality is gained.",
+      "Jingtai-1 remains NOT_YET_ADMISSIBLE; MD-G03 remains OPEN_BLOCKING_GENERAL_ADAPTER; HPA-DAYUN-CAL-002 remains MISSING_FROM_PRODUCT.",
+      "Live Ming adapter ledger after 12PQ remains 5 CLOSED_SOURCE_SCOPED / 4 OPEN_BLOCKING_GENERAL_ADAPTER / 2 DEPENDENCY_BLOCKED.",
+      "12PR: directly collate the already-acquired NLC/Wikimedia Ming Yingzong Shilu volume 19 / juan 187 physical target pages."
     ],
     "historical_candidate_extension_count": 14,
     "current_missing_from_product_row_count": 4
@@ -2622,7 +2629,7 @@
     "handoff_text_should_be_generated_from_repository_state_not_chat_memory": true,
     "new_chat_minimal_user_prompt": "继续项目。按仓库 docs/PROJECT-CONTINUITY-PROTOCOL-R1.md 启动，以 GitHub 远端最新状态为唯一事实源。"
   },
-  "updated_at": "2026-10-06",
+  "updated_at": "2026-10-07",
   "tianwen_identity": {
     "umbrella_name_zh": "天问",
     "umbrella_name_en": "TIANWEN",

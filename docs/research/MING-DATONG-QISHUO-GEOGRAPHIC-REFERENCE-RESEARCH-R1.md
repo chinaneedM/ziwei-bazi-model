@@ -567,3 +567,12 @@ The route now shifts from repeated derivative text to a physical target: ZJLib's
 Result: DERIVATIVE_CHAIN_NEW_PHASE_CLOCK_FIELDS=NOT_RECOVERED; GENERIC_ROUTE=PARKED; JINGTAI1_ABSOLUTE_ANCHOR=NOT_YET_ADMISSIBLE; MD-G03 remains open.
 
 Next: 12PQ — page-level 《國榷》 collation.
+
+
+## 28. Batch 12PQ — physical 《國榷》 confirms abridgment, not a second clock
+
+Direct physical p112 reads `卯刻月食欽天監官以辰初刻被劾下法司宥之`. Relative to Ming Shilu, both clock labels lose precision and institutional detail disappears. No phase, observer, instrument, acquisition method or explicit locality is added.
+
+Result: GUOQUE_PHYSICAL_TARGET=CLOSED; GUOQUE_CLOCK_LABELS=DERIVATIVE_ABRIDGMENT_NOT_INDEPENDENT_ABSOLUTE_VALUES; JINGTAI1_ABSOLUTE_ANCHOR=NOT_YET_ADMISSIBLE; MD-G03 remains open.
+
+Next: 12PR — direct physical collation of NLC/Wikimedia Ming Yingzong Shilu volume 19 / juan 187.
