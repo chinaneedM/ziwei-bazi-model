@@ -627,3 +627,27 @@ SILENT_當在_TO_初虧_NORMALIZATION = FORBIDDEN
 Most importantly for MD-G03, the early ritual text does not say whether `報日初蝕` is triggered by direct sighting, a precomputed scheduled clock, a clepsydra/tower clock, or a mixed institutional procedure. Batch 12PO already proves that later Ming rescue reporting could remain forecast-driven under cloud cover. Therefore the 1450 `卯正三刻` value is still not an admissible absolute-time/locality anchor.
 
 Next diagnostic route: 12PU — trace early-Ming `報日初蝕 / 報時` acquisition semantics and any contemporaneous clock/observation protocol.
+
+
+## 32. Batch 12PU — rescue reporting is not itself an acquisition method
+
+Batch 12PT source-bound the rescue trigger to initial eclipse onset. 12PU closes the next inference firewall.
+
+The Wanli `《大明會典》` transmission of the dated Hongwu rules preserves `報日初食` and also the Hongwu-6 weather clause `若遇雨雪雲翳，則免行禮`. This makes visibility relevant to ritual execution, but does not define how the Qintianjian officer acquired the report time.
+
+The near-contemporary 1464 `《憲宗實錄》` is procedurally decisive: Qintianjian officials submitted one `初虧` time, Tianwensheng Jia Xin submitted another, and the emperor separately ordered `臨時測候`. Pre-event calculation/report and live observation/verification are therefore source-distinct operations.
+
+The later-Ming institutional protocol already closed in 12PO is compatible: eclipse timings and start/recovery geometry are prepared in advance, the bureau officer reports the timing during rescue, and cloudy invisibility does not make reporting intrinsically visual. Zhengde institutional material also shows observation and leak-clock functions coexisting without binding any specific event time to one subsystem.
+
+Applied to 1450, `欽天監官以為辰初初刻` together with `推測不明` identifies `辰初初刻` as the failed predictive determination. The physical record still does not say who established the corrected `卯正三刻`, by what observation, clock or instrument, under what solar-time standard, or at what locality.
+
+```text
+FORECAST_TIMES_VS_LIVE_CEHOU = SOURCE_DISTINCT_BY_1464
+QINTIANJIAN_REPORT != DIRECT_VISUAL_OBSERVATION_BY_DEFAULT
+JINGTAI1_CORRECTED_MAOZHENG_ACQUISITION = UNRESOLVED
+JINGTAI1_ABSOLUTE_ANCHOR = NOT_YET_ADMISSIBLE
+MD_G03 = OPEN_BLOCKING_GENERAL_ADAPTER
+RUNTIME = FAIL_CLOSED
+```
+
+Next diagnostic route: 12PV — trace how the corrected `卯正三刻` entered the court record, with special attention to censorial/judicial residue, Qintianjian observation reports, adjacent Shilu material, Xu Dun/許惇 records and the pre-1450 Beijing/Nanjing clock-regime transition.

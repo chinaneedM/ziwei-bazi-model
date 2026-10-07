@@ -2303,3 +2303,20 @@ This does **not** overturn Batch 12PS's philological firewall. The target still 
 Result: RESCUE_INITIATION_PHASE=INITIAL_ECLIPSE_ONSET is CLOSED_SOURCE_SCOPED; JINGTAI1_BARE_DANGZAI_LEXICAL_PHASE=UNRESOLVED; JINGTAI1_CLOCK_ACQUISITION=UNRESOLVED; ABSOLUTE_ANCHOR=NOT_YET_ADMISSIBLE; MD-G03 remains open; runtime remains fail-closed.
 
 Next: 12PU — source-bind early-Ming Qintianjian `報日初蝕 / 報時` acquisition semantics and the 1450 clock/observation chain.
+
+
+## 32. Batch 12PU — eclipse report is not an acquisition method; forecast and live `測候` are separate
+
+Batch 12PT source-bound the rescue trigger to eclipse onset. 12PU closes the next inference firewall.
+
+The Wanli `《大明會典》` transmission of the dated Hongwu rescue rules says `報日初食`, but its separate Hongwu-6 clause only says that rain/snow/cloud cover waives the rite. That makes visibility relevant to ritual execution; it does not define how the report time was obtained.
+
+The near-contemporary 1464 `《憲宗實錄》` is decisive for procedure separation: Qintianjian officials submitted one predicted `初虧` time, Jia Xin submitted another, and the emperor separately ordered `臨時測候`. Pre-event calculation/report and live observation/verification are therefore source-distinct operations.
+
+The later Ming institutional rule from 12PO remains a compatible positive control: eclipse timings are prepared in advance and reported during rescue, including cloudy cases. Zhengde institutional material also separates observation roles from leak-clock roles; coexistence does not bind a particular event time to one subsystem.
+
+Applied to 1450, `欽天監官以為辰初初刻` plus `推測不明` identifies the Chen-chu label as the failed predictive determination. The source still does not say who established the corrected `卯正三刻`, by what clock/instrument or observation, under which time standard, or at what locality.
+
+Result: FORECAST-vs-LIVE-CEHOU separation is CLOSED_SOURCE_SCOPED; REPORT≠DIRECT_OBSERVATION is source-strengthened; JINGTAI1_CORRECTED_TIME_ACQUISITION remains UNRESOLVED; ABSOLUTE_ANCHOR remains NOT_YET_ADMISSIBLE; MD-G03 remains open; runtime remains fail-closed.
+
+Next: 12PV — trace the provenance of the corrected `卯正三刻` itself.

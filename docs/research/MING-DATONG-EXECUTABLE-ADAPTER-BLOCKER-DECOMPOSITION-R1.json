@@ -79,7 +79,8 @@
         "12PQ: direct no-OCR Guoque v25 p112 reads 卯刻月食欽天監官以辰初刻被劾下法司宥之; it abridges Shilu precision and adds no phase/observer/instrument/locality, so its labels are not independent absolute values.",
         "12PR: direct no-OCR NLC/Wikimedia Yingzong Shilu v19 p10 physically confirms the precise Jingtai-1 卯正三刻 actual label, 辰初初刻 Qintianjian prediction, rescue failure, impeachment and 許惇 glyph. This upgrades target wording to physical-page authority but adds no explicit phase, observer, instrument, acquisition method, solar-time standard or locality; the event remains not admissible as an absolute anchor.",
         "12PS: comparative Ming Shilu philology closes only a normalization prohibition. The 1450 target says 月食當在卯正三刻 without a phase word; 1464 explicitly writes 初虧 for initial-contact forecasts, 1500 explicitly distinguishes 虧/圓, and 1610 enumerates 初虧/食甚/復圓 with measurement vocabulary. Therefore 當在某時 cannot be silently normalized to 初虧某時, but no alternate phase is selected.",
-        "12PT: Hongwu-period Zhusi Zhizhang rescue ritual says Qintianjian reports 日初蝕 before rescue begins and waits for 復圓; lunar ritual is 同前. Zhengde Huidian v95 preserves the same structure. Thus Jingtai-1 致失救護 source-binds the operational rescue trigger to eclipse onset, while bare 當在 remains lexically phase-unmarked and observer/clock acquisition/locality remain unresolved."
+        "12PT: Hongwu-period Zhusi Zhizhang rescue ritual says Qintianjian reports 日初蝕 before rescue begins and waits for 復圓; lunar ritual is 同前. Zhengde Huidian v95 preserves the same structure. Thus Jingtai-1 致失救護 source-binds the operational rescue trigger to eclipse onset, while bare 當在 remains lexically phase-unmarked and observer/clock acquisition/locality remain unresolved.",
+        "12PU: Xianzong Shilu 1464 explicitly separates competing pre-event 初虧 predictions from an emperor-ordered 臨時測候, so calculation/report and live observation are source-distinct procedures. Wanli Huidian v103 transmits a Hongwu cloud/rain ritual waiver but does not define report acquisition. Jingtai-1 辰初初刻 is the failed predictive determination; corrected 卯正三刻 observer/clock/acquisition/locality remain unresolved."
       ],
       "general_runtime_effect": "Required for general exact event-time/day realization, especially boundary-sensitive cases. It does not invalidate the already physically certified 1578 month-page chain.",
       "batch_12pd_refinement": {
@@ -315,6 +316,21 @@
         "actual_time_measurement_chain": "UNRESOLVED",
         "official_clepsydra_identity": "UNRESOLVED",
         "explicit_event_locality": "UNRESOLVED",
+        "independent_absolute_anchor_status": "NOT_YET_ADMISSIBLE",
+        "status_after_batch": "OPEN_BLOCKING_GENERAL_ADAPTER",
+        "runtime_authorized": false
+      },
+      "batch_12pu_refinement": {
+        "batch_id": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-RESCUE-REPORT-ACQUISITION-SEMANTICS-PU",
+        "research_artifact": "docs/research/MING-DATONG-JINGTAI1-RESCUE-REPORT-ACQUISITION-SEMANTICS-R1.json",
+        "forecast_vs_live_cehou_separation": "CLOSED_SOURCE_SCOPED_BY_1464_CONTROL",
+        "rescue_report_intrinsically_direct_observation": false,
+        "hongwu_weather_waiver": "RITUAL_EXECUTION_VISIBILITY_CONDITION_NOT_ACQUISITION_METHOD",
+        "jingtai1_failed_qintianjian_label": "FAILED_PREDICTIVE_DETERMINATION",
+        "jingtai1_corrected_time_acquisition": "UNRESOLVED",
+        "jingtai1_corrected_time_observer": "UNRESOLVED",
+        "jingtai1_corrected_time_clock_instrument": "UNRESOLVED",
+        "jingtai1_corrected_time_locality": "UNRESOLVED",
         "independent_absolute_anchor_status": "NOT_YET_ADMISSIBLE",
         "status_after_batch": "OPEN_BLOCKING_GENERAL_ADAPTER",
         "runtime_authorized": false
@@ -616,8 +632,8 @@
       "focus": "SHOUSHI_DATONG_TONGGUI_GK12437_ZHOUXIANG_QISHUO_EPOCH_CONSTANT_METHOD_NAMED_PLACE_BINDING"
     }
   },
-  "latest_qishuo_geography_batch": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-RESCUE-INITIATION-PHASE-SEMANTICS-PT",
-  "latest_qishuo_geography_artifact": "docs/research/MING-DATONG-JINGTAI1-RESCUE-INITIATION-PHASE-SEMANTICS-R1.json",
+  "latest_qishuo_geography_batch": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-RESCUE-REPORT-ACQUISITION-SEMANTICS-PU",
+  "latest_qishuo_geography_artifact": "docs/research/MING-DATONG-JINGTAI1-RESCUE-REPORT-ACQUISITION-SEMANTICS-R1.json",
   "batch_12pe_forward_refinement": {
     "status": "G03_EPOCH_TO_MERIDIAN_LINEAGE_SHORTCUT_REJECTED_ACTUAL_REFERENCE_REMAINS_OPEN",
     "historical_12ou_top_level_counts_preserved": true,
@@ -940,6 +956,21 @@
       "batch": "12PU",
       "gate_id": "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
       "focus": "EARLY_MING_QINTIANJIAN_RESCUE_REPORT_CLOCK_ACQUISITION_OBSERVATION_SEMANTICS"
+    }
+  },
+  "batch_12pu_forward_refinement": {
+    "status": "G03_REPORT_ACQUISITION_FIREWALL_SOURCE_CLOSED_CORRECTED_TIME_PROVENANCE_NEXT",
+    "historical_12ou_top_level_counts_preserved": true,
+    "current_live_gate_accounting_after_12pu": {
+      "closed_source_scoped": 5,
+      "open_blocking_general_adapter": 4,
+      "dependency_blocked": 2,
+      "total_gates": 11
+    },
+    "next_research_priority": {
+      "batch": "12PV",
+      "gate_id": "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
+      "focus": "JINGTAI1_CORRECTED_MAOZHENG_TIME_OBSERVER_CLOCK_ACQUISITION_PROVENANCE"
     }
   }
 }

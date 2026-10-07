@@ -4408,6 +4408,36 @@
         "docs/research/MING-DATONG-JINGTAI1-RESCUE-INITIATION-PHASE-SEMANTICS-R1.json"
       ],
       "batch_id": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-RESCUE-INITIATION-PHASE-SEMANTICS-PT"
+    },
+    {
+      "node_id": "PASSAGE-DAMING-HUIDIAN-V103-HONGWU-ECLIPSE-WEATHER-WAIVER",
+      "node_type": "PASSAGE",
+      "label": "(萬曆)《大明會典》卷103所傳洪武日月食救護：雨雪雲翳則免行禮",
+      "evidence": [
+        "EXT-CTEXT-WANLI-DAMING-HUIDIAN-V103-HONGWU-ECLIPSE-WEATHER-WAIVER",
+        "docs/research/MING-DATONG-JINGTAI1-RESCUE-REPORT-ACQUISITION-SEMANTICS-R1.json"
+      ],
+      "batch_id": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-RESCUE-REPORT-ACQUISITION-SEMANTICS-PU"
+    },
+    {
+      "node_id": "TERM-CONCEPT-MIDMING-ECLIPSE-FORECAST-VS-LIVE-CEHOU-SEPARATION",
+      "node_type": "TERM_CONCEPT",
+      "label": "明代交食：預先推算／奏報相位時刻與臨時測候是可分離程序",
+      "evidence": [
+        "EXT-SHIDIAN-MINGSHILU-XIANZONG-V4-TIANSHUN8-ECLIPSE-CHUKUI-CONTROL",
+        "docs/research/MING-DATONG-JINGTAI1-RESCUE-REPORT-ACQUISITION-SEMANTICS-R1.json"
+      ],
+      "batch_id": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-RESCUE-REPORT-ACQUISITION-SEMANTICS-PU"
+    },
+    {
+      "node_id": "TERM-CONCEPT-JINGTAI1-CORRECTED-TIME-ACQUISITION-STILL-UNBOUND",
+      "node_type": "TERM_CONCEPT",
+      "label": "景泰元年卯正三刻修正值：事件結果已載，但觀測者／鐘源／取得方法仍未綁定",
+      "evidence": [
+        "EXT-NLC-WIKIMEDIA-YINGZONG-SHILU-V19-P10-JINGTAI1-ECLIPSE-PHYSICAL",
+        "docs/research/MING-DATONG-JINGTAI1-RESCUE-REPORT-ACQUISITION-SEMANTICS-R1.json"
+      ],
+      "batch_id": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-RESCUE-REPORT-ACQUISITION-SEMANTICS-PU"
     }
   ],
   "edges": [
@@ -7738,6 +7768,51 @@
       ],
       "scope_note": "The 1450 physical passage says the wrong Qintianjian time 致失救護. Under the documented rescue ritual, the actionable start endpoint is initial eclipse. This supports an operational onset-trigger bridge but does not silently rewrite 月食當在卯正三刻 as the explicit lexeme 初虧 or prove direct observation.",
       "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-RESCUE-INITIATION-PHASE-SEMANTICS-PT"
+    },
+    {
+      "edge_id": "TG-E0218",
+      "from": "PASSAGE-XIANZONG-V4-TIANSHUN8-ECLIPSE-CHUKUI-1464",
+      "relation": "ATTESTS",
+      "to": "TERM-CONCEPT-MIDMING-ECLIPSE-FORECAST-VS-LIVE-CEHOU-SEPARATION",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_RECEIVED_NEAR_CONTEMPORARY_MING_SHILU",
+      "evidence_class": "RECEIVED_1464_MING_SHILU_EXPLICIT_PREDICTION_VS_LINSHI_CEHOU_PROCEDURE_SEPARATION",
+      "evidence": [
+        "EXT-SHIDIAN-MINGSHILU-XIANZONG-V4-TIANSHUN8-ECLIPSE-CHUKUI-CONTROL",
+        "docs/research/MING-DATONG-JINGTAI1-RESCUE-REPORT-ACQUISITION-SEMANTICS-R1.json"
+      ],
+      "scope_note": "Two pre-event initial-contact predictions are recorded before the emperor separately orders 臨時測候; this directly distinguishes prediction/report from live verification.",
+      "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-RESCUE-REPORT-ACQUISITION-SEMANTICS-PU"
+    },
+    {
+      "edge_id": "TG-E0219",
+      "from": "PASSAGE-MINGSHILU-YINGZONG-V187-JINGTAI1-ECLIPSE-CLOCK-DISCREPANCY",
+      "relation": "ATTESTS",
+      "to": "TERM-CONCEPT-JINGTAI1-CORRECTED-TIME-ACQUISITION-STILL-UNBOUND",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_DIRECT_PHYSICAL_TARGET_FIELD_SCOPE",
+      "evidence_class": "DIRECT_PHYSICAL_1450_TARGET_NEGATIVE_ACQUISITION_FIELD_SCOPE",
+      "evidence": [
+        "EXT-NLC-WIKIMEDIA-YINGZONG-SHILU-V19-P10-JINGTAI1-ECLIPSE-PHYSICAL",
+        "docs/research/MING-DATONG-JINGTAI1-RESCUE-REPORT-ACQUISITION-SEMANTICS-R1.json"
+      ],
+      "scope_note": "The physical target states the corrected and failed labels plus 推測不明, but names no observer, live cehou, clepsydra, instrument, solar standard or locality for 卯正三刻.",
+      "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-RESCUE-REPORT-ACQUISITION-SEMANTICS-PU"
+    },
+    {
+      "edge_id": "TG-E0220",
+      "from": "PASSAGE-DAMING-HUIDIAN-V103-HONGWU-ECLIPSE-WEATHER-WAIVER",
+      "relation": "PARALLEL_COEXISTS_WITH",
+      "to": "TERM-CONCEPT-ECLIPSE-RESCUE-REPORTING-NOT-DIRECT-OBSERVATION",
+      "status": "UNRESOLVED",
+      "confidence": "SCOPE_CONTROL_ONLY",
+      "evidence_class": "RECEIVED_DATED_HONGWU_WEATHER_RITUAL_CLAUSE",
+      "evidence": [
+        "EXT-CTEXT-WANLI-DAMING-HUIDIAN-V103-HONGWU-ECLIPSE-WEATHER-WAIVER",
+        "docs/research/MING-DATONG-JINGTAI1-RESCUE-REPORT-ACQUISITION-SEMANTICS-R1.json"
+      ],
+      "scope_note": "Hongwu weather waiver makes visibility relevant to ritual execution but does not by itself decide how Qintianjian acquired the reported onset time; it must not be promoted to a direct-observation rule.",
+      "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-RESCUE-REPORT-ACQUISITION-SEMANTICS-PU"
     }
   ],
   "lineage_hypotheses": [
