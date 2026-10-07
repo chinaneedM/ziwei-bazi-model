@@ -2223,3 +2223,16 @@ The record still does not identify an observing person/instrument, phase label, 
 HPA-DAYUN-CAL-002 remains MISSING_FROM_PRODUCT; MD-G03 remains open; runtime and modern meridian fitting remain fail-closed.
 
 Research: docs/research/MING-DATONG-JINGTAI1-ECLIPSE-CLOCK-PROVENANCE-R1.json.
+
+
+## Batch 12PO — eclipse rescue reporting, phase and clock semantics
+
+(萬曆)《大明會典》 closes the institutional protocol: eclipse 分秒時刻 and 起復方位 were precomputed; Qintianjian officials reported times during rescue; cloud/rain did not stop the protocol from reporting 復完時. Thus rescue-time reporting is not definitionally direct visual phase detection.
+
+《新法算書》崇禎五年 provides a later positive control with explicit 初虧, 至期測候, 壺漏, 輪鐘 and Sun/star instrument timing vocabulary. It proves explicit phase/time-acquisition wording was available when documented; it does not identify the 1450 method.
+
+Accordingly the Jingtai-1 `卯正三刻` record still lacks a source-bound eclipse phase, observer, clock instrument and locality. It remains inadmissible as an absolute-time anchor.
+
+HPA-DAYUN-CAL-002 remains MISSING_FROM_PRODUCT; MD-G03 remains open; runtime and modern meridian fitting remain fail-closed.
+
+Research: docs/research/MING-DATONG-ECLIPSE-RESCUE-PHASE-CLOCK-PROTOCOL-R1.json.

@@ -543,3 +543,14 @@ However, the target clause does not say who established `卯正三刻`, what ins
 Result: CONTEMPORANEOUS_OPERATIONAL_DISCREPANCY=CLOSED; ABSOLUTE_CLOCK_PHASE_LOCALITY_PROVENANCE=UNRESOLVED; MD-G03 remains open.
 
 Next: 12PO — audit rescue/reporting protocol for the phase and actual-time acquisition chain.
+
+
+## 26. Batch 12PO — rescue reporting is forecast-driven, not intrinsically direct observation
+
+The Wanli Huidian rescue protocol states that Qintianjian first submitted eclipse `分秒時刻` and `起復方位`; during the rite a bureau officer `專報時候`. In cloud/rain when the eclipse was not visible, the same officer still waited to `復完時` and reported completion. Therefore ritual reporting can run from the predicted schedule and cannot by itself identify a directly observed phase or physical clock.
+
+A Chongzhen-5 Xinfa Suanshu discussion supplies the useful positive control: it explicitly labels `初虧`, says `至期測候`, and discusses 壺漏, 輪鐘, and Sun/star instrument methods for determining time. Those semantics are explicit there and therefore cannot be silently supplied to the phase-less Jingtai-1 Shilu sentence.
+
+Result: RESCUE_REPORTING_FORECAST_SEMANTICS=CLOSED; JINGTAI1_PHASE_AND_ACTUAL_CLOCK_ACQUISITION=UNRESOLVED; INDEPENDENT_ABSOLUTE_ANCHOR=NOT_YET_ADMISSIBLE; MD-G03 remains open.
+
+Next: 12PP — search the Jingtai-1 Xu Dun event/impeachment source chain for a target-specific phase, observer or clock statement.

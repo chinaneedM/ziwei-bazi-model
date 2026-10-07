@@ -1,0 +1,116 @@
+{
+  "schema": "MING-DATONG-ECLIPSE-RESCUE-PHASE-CLOCK-PROTOCOL-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-BAZI-MING-DATONG-ECLIPSE-RESCUE-PHASE-CLOCK-PROTOCOL-PO",
+  "date": "2026-10-07",
+  "status": "RESCUE_PROTOCOL_FORECAST_REPORTING_CLOSED_EXPLICIT_PHASE_CLOCK_POSITIVE_CONTROL_CLOSED_JINGTAI_ACTUAL_PHASE_CLOCK_UNRESOLVED",
+  "question": "Does Ming eclipse rescue/reporting protocol prove that the Jingtai-1 bare event label 卯正三刻 denotes initial contact measured on a Qintianjian clepsydra or other absolute capital clock?",
+  "wanli_huidian_rescue_protocol": {
+    "source_id": "EXT-CTEXT-WANLI-DAMING-HUIDIAN-V223-TIMEKEEPING",
+    "received_text_points": [
+      "凡推算日月交食，本監先期備開分秒時刻，并起復方位具奏",
+      "禮部通行內外諸司，臨時救護",
+      "至救護時，本監官專報時候，不隨班行禮",
+      "如遇陰雨不見食，本監官候復完時，報各官，行四拜禮而退"
+    ],
+    "precomputed_timing_and_start_recovery_geometry": true,
+    "bureau_officer_reports_time_during_rite": true,
+    "cloudy_invisible_case_still_has_recovery_time_reporting": true,
+    "protocol_requires_direct_visual_phase_detection": false,
+    "result": "RESCUE_TIME_REPORTING_CAN_OPERATE_FROM_PRECOMPUTED_ECLIPSE_SCHEDULE_AND_IS_NOT_INTRINSICALLY_A_DIRECT_OBSERVED_CLOCK_READING"
+  },
+  "jingtai1_event_application": {
+    "source_id": "EXT-CTEXT-MINGSHILU-YINGZONG-V187-JINGTAI1-ECLIPSE-CLOCK-ERROR",
+    "event_time_label": "卯正三刻",
+    "prediction_label": "辰初初刻",
+    "rescue_failure_attested": true,
+    "bare_event_time_explicitly_labeled_chukui": false,
+    "bare_event_time_explicitly_labeled_shishen": false,
+    "bare_event_time_explicitly_labeled_fuyuan": false,
+    "actual_time_acquisition_method_explicit": false,
+    "result": "OPERATIONAL_MISS_CONFIRMED_BUT_PHASE_AND_ACTUAL_CLOCK_ACQUISITION_REMAIN_UNSTATED"
+  },
+  "late_ming_positive_control": {
+    "source_id": "EXT-CTEXT-XINFA-SUANSHU-CHONGZHEN5-ECLIPSE-TIME-MEASUREMENT",
+    "work": "《新法算書》崇禎五年月食測候/定時論",
+    "direct_points": [
+      "監推初虧在卯初一刻，光啟等推在卯初三刻，回回科推在辰初初刻",
+      "至期測候，陰雲不見，異同無可徵",
+      "定時之術，相傳有壺漏為古法，近則有輪鐘為簡法",
+      "不若求端於日星；晝則用日，夜則任用一星，皆以儀器測取經緯度數推算得之",
+      "測日有平晷，測星有立晷；至期徵驗"
+    ],
+    "explicit_phase_term_chukui": true,
+    "explicit_observation_term_cehou": true,
+    "explicit_clock_methods_named": true,
+    "explicit_astronomical_instrument_timing_named": true,
+    "result": "MING_TEXT_CAN_EXPLICITLY_DISTINGUISH_PHASE_PREDICTION_OBSERVATION_AND_TIME_ACQUISITION_WHEN_THOSE_SEMANTICS_ARE_DOCUMENTED",
+    "firewall": "CHONGZHEN5_METHODS_AND_VOCABULARY_ARE_POSITIVE_CONTROL_ONLY_AND_MUST_NOT_BE_BACK_PROJECTED_TO_1450"
+  },
+  "protocol_adjudication": {
+    "qintianjian_rescue_reporter_role": "CLOSED_RECEIVED_INSTITUTIONAL_TEXT",
+    "rescue_schedule_precomputed": "CLOSED_RECEIVED_INSTITUTIONAL_TEXT",
+    "cloudy_case_direct_observation_required": false,
+    "rescue_report_time_equals_visual_observation": "REJECTED_AS_UNIVERSAL_RULE",
+    "rescue_report_time_equals_clepsydra_reading": "NOT_ATTESTED",
+    "bare_yueshi_time_equals_chukui": "NOT_ATTESTED",
+    "jingtai1_actual_time_clock_instrument": "UNRESOLVED",
+    "jingtai1_actual_time_phase": "UNRESOLVED",
+    "jingtai1_actual_time_locality": "UNRESOLVED"
+  },
+  "adjudication": {
+    "ming_rescue_protocol_forecast_reporting_semantics": "CLOSED_SOURCE_SCOPED",
+    "late_ming_explicit_phase_measurement_positive_control": "CLOSED_SOURCE_SCOPED",
+    "jingtai1_bare_event_time_phase_identity": "UNRESOLVED",
+    "jingtai1_actual_time_measurement_chain": "UNRESOLVED",
+    "jingtai1_official_clepsydra_identity": "UNRESOLVED",
+    "jingtai1_capital_locality_binding": "UNRESOLVED",
+    "jingtai1_independent_absolute_anchor_status": "NOT_YET_ADMISSIBLE",
+    "qishuo_geographic_reference": "UNRESOLVED",
+    "md_g03_status_after_batch": "OPEN_BLOCKING_GENERAL_ADAPTER",
+    "modern_ephemeris_meridian_fit_authorized": false,
+    "runtime_authorized": false,
+    "hpa_dayun_cal_002_status": "MISSING_FROM_PRODUCT",
+    "closed_subquestion": "RESCUE_REPORTING_IS_NOT_INTRINSICALLY_DIRECT_OBSERVATION_AND_1450_BARE_YUESHI_TIME_CANNOT_BE_PROMOTED_TO_CHUKUI_OR_CLEPSYDRA_WITHOUT_NEW_SOURCE_BINDING"
+  },
+  "inference_firewalls": [
+    "本監官專報時候 != DIRECT_VISUAL_OBSERVATION_BY_DEFINITION",
+    "陰雨不見食仍候復完時 != VISUAL_PHASE_DETECTION",
+    "救護失時 != PROOF_ACTUAL_TIME_WAS_READ_FROM_QIAOLOU_CLEPSYDRA",
+    "月食當在卯正三刻 != 初虧_UNLESS_PHASE_IS_SOURCE_BOUND",
+    "CHONGZHEN5_壺漏輪鐘平晷立晷 != JINGTAI1_CLOCK_IDENTITY",
+    "LATE_MING_EXPLICIT_MEASUREMENT_VOCABULARY != RETROACTIVE_1450_METHOD"
+  ],
+  "transmission_impact": {
+    "graph_nodes_added": [
+      "PASSAGE-DAMING-HUIDIAN-V223-ECLIPSE-RESCUE-REPORTING-PROTOCOL",
+      "PASSAGE-XINFA-SUANSHU-CHONGZHEN5-ECLIPSE-PHASE-TIME-MEASUREMENT",
+      "TERM-CONCEPT-ECLIPSE-RESCUE-REPORTING-NOT-DIRECT-OBSERVATION"
+    ],
+    "graph_edges_added": [
+      "TG-E0201",
+      "TG-E0202",
+      "TG-E0203"
+    ],
+    "impact": "Separates institutional rescue-reporting schedule from direct observation and adds a later-Ming positive control for explicit phase/time-acquisition wording without back-projecting it to Jingtai-1."
+  },
+  "route_disposition": {
+    "use_rescue_protocol_to_label_jingtai_time_as_chukui": "FORBIDDEN",
+    "use_qintianjian_reporter_role_to_select_clepsydra": "FORBIDDEN",
+    "next_batch": "12PP",
+    "next_focus": "Trace the Jingtai-1 Xu Dun impeachment/event source chain and contemporaneous ritual or memorial residue for an explicit phase label, observer, or clock acquisition statement tied specifically to 卯正三刻. Search Ming Shilu adjacent records, early Huidian/ritual materials, memorial collections and derivative compilations without multiplying dependent witnesses."
+  },
+  "accounting": {
+    "matrix_rows": 222,
+    "audited_rows": 222,
+    "current_missing_from_product_rows": 4,
+    "provenance_defects_confirmed": 45,
+    "provenance_defects_repaired": 45,
+    "historical_candidate_extensions": 14,
+    "historical_candidate_registries": 5,
+    "historical_candidate_runtime_resolvers": 5,
+    "chart_algorithm_defects": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0
+  }
+}

@@ -743,3 +743,16 @@ MD-G03 remains open; HPA-DAYUN-CAL-002 remains MISSING_FROM_PRODUCT; modern ephe
 Next: **12PO — audit Ming eclipse rescue/reporting protocol to source-bind phase semantics and the actual-time reporting chain.**
 
 Batch document: docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-JINGTAI1-ECLIPSE-CLOCK-PROVENANCE-PN.md. Research record: docs/research/MING-DATONG-JINGTAI1-ECLIPSE-CLOCK-PROVENANCE-R1.json.
+
+
+## Progress — Batch 12PO
+
+Ming eclipse rescue protocol now closes a critical negative inference. (萬曆)《大明會典》 records that Qintianjian first prepared eclipse 分秒時刻 and 起復方位, then a bureau officer 專報時候 during rescue; even when cloud/rain made the eclipse invisible, the officer still waited until 復完時 and reported completion. Therefore official rescue-time reporting is forecast-driven and is not intrinsically a direct visual observation.
+
+A Chongzhen-5 positive control in 《新法算書》 explicitly distinguishes 初虧 predictions, 至期測候, and time determination by 壺漏, 輪鐘, or Sun/star instruments. This demonstrates that Ming texts can state phase and timing acquisition explicitly when those semantics are documented, but those late-Ming methods are not projected backward to 1450.
+
+The Jingtai-1 `卯正三刻` label therefore remains operationally real but phase, observer, clock instrument and locality are unresolved. MD-G03 stays open; HPA-DAYUN-CAL-002 remains MISSING_FROM_PRODUCT; modern meridian fitting remains unauthorized.
+
+Next: **12PP — trace the 景泰元年許惇 impeachment/event chain for a source-specific phase, observer or clock-acquisition statement tied to 卯正三刻.**
+
+Batch document: docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-ECLIPSE-RESCUE-PHASE-CLOCK-PROTOCOL-PO.md. Research record: docs/research/MING-DATONG-ECLIPSE-RESCUE-PHASE-CLOCK-PROTOCOL-R1.json.

@@ -4221,6 +4221,45 @@
         "docs/research/MING-DATONG-JINGTAI1-ECLIPSE-CLOCK-PROVENANCE-R1.json"
       ],
       "first_explicit_graph_batch": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-ECLIPSE-CLOCK-PROVENANCE-PN"
+    },
+    {
+      "node_id": "PASSAGE-DAMING-HUIDIAN-V223-ECLIPSE-RESCUE-REPORTING-PROTOCOL",
+      "node_type": "PASSAGE",
+      "label": "(萬曆)《大明會典》卷223日月交食救護：先期時刻／起復方位／專報時候／陰雨候復完",
+      "system_scope": "MING_ECLIPSE_RESCUE_REPORTING_PROTOCOL",
+      "date": "WANLI_RECOMPILATION_1587_RECEIVED_INSTITUTIONAL_TEXT",
+      "locator": "卷223 欽天監 日月交食救護條",
+      "evidence": [
+        "EXT-CTEXT-WANLI-DAMING-HUIDIAN-V223-TIMEKEEPING",
+        "docs/research/MING-DATONG-ECLIPSE-RESCUE-PHASE-CLOCK-PROTOCOL-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-BAZI-MING-DATONG-ECLIPSE-RESCUE-PHASE-CLOCK-PROTOCOL-PO"
+    },
+    {
+      "node_id": "PASSAGE-XINFA-SUANSHU-CHONGZHEN5-ECLIPSE-PHASE-TIME-MEASUREMENT",
+      "node_type": "PASSAGE",
+      "label": "《新法算書》崇禎五年月食：初虧／測候／壺漏輪鐘／日星儀器定時",
+      "system_scope": "LATE_MING_EXPLICIT_ECLIPSE_PHASE_AND_TIME_ACQUISITION_POSITIVE_CONTROL",
+      "date": "CHONGZHEN_5",
+      "locator": "月食測候與定時論",
+      "evidence": [
+        "EXT-CTEXT-XINFA-SUANSHU-CHONGZHEN5-ECLIPSE-TIME-MEASUREMENT",
+        "docs/research/MING-DATONG-ECLIPSE-RESCUE-PHASE-CLOCK-PROTOCOL-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-BAZI-MING-DATONG-ECLIPSE-RESCUE-PHASE-CLOCK-PROTOCOL-PO"
+    },
+    {
+      "node_id": "TERM-CONCEPT-ECLIPSE-RESCUE-REPORTING-NOT-DIRECT-OBSERVATION",
+      "node_type": "TERM_CONCEPT",
+      "label": "交食救護報時不等同直接目測相位",
+      "system_scope": "MING_ECLIPSE_REPORTING_INFERENCE_FIREWALL",
+      "mechanical_identity": "Official rescue reporting may follow a precomputed phase schedule and can continue through cloud/rain; direct visual phase detection or a specific physical clock must be independently source-bound.",
+      "evidence": [
+        "EXT-CTEXT-WANLI-DAMING-HUIDIAN-V223-TIMEKEEPING",
+        "EXT-CTEXT-XINFA-SUANSHU-CHONGZHEN5-ECLIPSE-TIME-MEASUREMENT",
+        "docs/research/MING-DATONG-ECLIPSE-RESCUE-PHASE-CLOCK-PROTOCOL-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-BAZI-MING-DATONG-ECLIPSE-RESCUE-PHASE-CLOCK-PROTOCOL-PO"
     }
   ],
   "edges": [
@@ -7261,6 +7300,48 @@
       ],
       "scope_note": "Qintianjian produced the erroneous predicted label; the Shilu does not attribute the actual 卯正三刻 label to the bureau clock.",
       "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-ECLIPSE-CLOCK-PROVENANCE-PN"
+    },
+    {
+      "edge_id": "TG-E0201",
+      "from": "PASSAGE-DAMING-HUIDIAN-V223-ECLIPSE-RESCUE-REPORTING-PROTOCOL",
+      "relation": "ATTESTS",
+      "to": "TERM-CONCEPT-ECLIPSE-RESCUE-REPORTING-NOT-DIRECT-OBSERVATION",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_FOR_RECEIVED_INSTITUTIONAL_PROTOCOL",
+      "evidence_class": "MING_INSTITUTIONAL_COMPILATION_RECEIVED_TEXT",
+      "evidence": [
+        "docs/research/MING-DATONG-ECLIPSE-RESCUE-PHASE-CLOCK-PROTOCOL-R1.json"
+      ],
+      "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-ECLIPSE-RESCUE-PHASE-CLOCK-PROTOCOL-PO"
+    },
+    {
+      "edge_id": "TG-E0202",
+      "from": "PASSAGE-XINFA-SUANSHU-CHONGZHEN5-ECLIPSE-PHASE-TIME-MEASUREMENT",
+      "relation": "PARALLEL_COEXISTS_WITH",
+      "to": "TERM-CONCEPT-ECLIPSE-RESCUE-REPORTING-NOT-DIRECT-OBSERVATION",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_FOR_LATE_MING_POSITIVE_CONTROL_ONLY",
+      "evidence_class": "LATE_MING_EXPLICIT_PHASE_AND_TIME_MEASUREMENT_TEXT",
+      "evidence": [
+        "docs/research/MING-DATONG-ECLIPSE-RESCUE-PHASE-CLOCK-PROTOCOL-R1.json"
+      ],
+      "scope_note": "Shows explicit phase/observation/time-method vocabulary when documented; does not back-project Chongzhen methods to Jingtai-1.",
+      "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-ECLIPSE-RESCUE-PHASE-CLOCK-PROTOCOL-PO"
+    },
+    {
+      "edge_id": "TG-E0203",
+      "from": "PASSAGE-MINGSHILU-YINGZONG-V187-JINGTAI1-ECLIPSE-CLOCK-DISCREPANCY",
+      "relation": "PARALLEL_COEXISTS_WITH",
+      "to": "TERM-CONCEPT-ECLIPSE-RESCUE-REPORTING-NOT-DIRECT-OBSERVATION",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_FOR_PROTOCOL_FIREWALL; INSUFFICIENT_FOR_1450_PHASE_OR_CLOCK_IDENTITY",
+      "evidence_class": "MING_SHILU_EVENT_RECORD_PLUS_LATER_INSTITUTIONAL_PROTOCOL",
+      "evidence": [
+        "docs/research/MING-DATONG-ECLIPSE-RESCUE-PHASE-CLOCK-PROTOCOL-R1.json",
+        "docs/research/MING-DATONG-JINGTAI1-ECLIPSE-CLOCK-PROVENANCE-R1.json"
+      ],
+      "scope_note": "The Jingtai event had rescue consequences, but the event sentence itself does not source-bind phase or time-acquisition method.",
+      "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-ECLIPSE-RESCUE-PHASE-CLOCK-PROTOCOL-PO"
     }
   ],
   "lineage_hypotheses": [
