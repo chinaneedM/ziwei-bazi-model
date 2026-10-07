@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.439.0",
+  "schema_version": "1.440.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -520,9 +520,10 @@
       "BATCH-12-BAZI-MING-DATONG-JINGTAI1-ECLIPSE-SOURCE-CHAIN-AUDIT-PP",
       "BATCH-12-BAZI-MING-DATONG-JINGTAI1-GUOQUE-PHYSICAL-COLLATION-PQ",
       "BATCH-12-BAZI-MING-DATONG-JINGTAI1-MINGSHILU-PHYSICAL-COLLATION-PR",
-      "BATCH-12-BAZI-MING-DATONG-JINGTAI1-BARE-DANGZAI-PHASE-SEMANTICS-PS"
+      "BATCH-12-BAZI-MING-DATONG-JINGTAI1-BARE-DANGZAI-PHASE-SEMANTICS-PS",
+      "BATCH-12-BAZI-MING-DATONG-JINGTAI1-RESCUE-INITIATION-PHASE-SEMANTICS-PT"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-JINGTAI1-BARE-DANGZAI-PHASE-SEMANTICS-PS.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-JINGTAI1-RESCUE-INITIATION-PHASE-SEMANTICS-PT.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -2603,7 +2604,14 @@
       "Therefore 景泰元年 月食當在卯正三刻 cannot be mechanically normalized to 初虧卯正三刻 from syntax alone; bare 當在 is a timing predication, not an attested phase lexeme.",
       "Wanli-38 / 1610 is retained only as a later Ming positive control because it explicitly enumerates 初虧 / 食甚 / 復圓 and documents 壺漏 / 簡儀 measurement language; those semantics are not back-projected to 1450.",
       "Jingtai-1 phase identity remains UNRESOLVED and the absolute anchor remains NOT_YET_ADMISSIBLE; MD-G03 stays OPEN_BLOCKING_GENERAL_ADAPTER and runtime remains fail-closed.",
-      "12PT: audit early-/mid-Ming eclipse rescue initiation semantics to determine whether 失救護 source-binds the operational trigger to 初虧 or merely to an official forecast/reporting time."
+      "12PT: audit early-/mid-Ming eclipse rescue initiation semantics to determine whether 失救護 source-binds the operational trigger to 初虧 or merely to an official forecast/reporting time.",
+      "12PT: audited early-/mid-Ming eclipse rescue-initiation semantics against the 1450 Jingtai-1 致失救護 event.",
+      "Hongwu institutional 《諸司職掌》 states that at the appointed time Qintianjian reports 日初蝕 before rescue begins, then reports 復圓 to close the ritual; 月食儀注 is 同前.",
+      "Zhengde 《明會典》卷95 preserves the same onset-to-recovery structure with the received wording 日初食 / 復圓, strengthening institutional transmission without double-counting it as an independent Hongwu physical witness.",
+      "Therefore 1450 致失救護 source-binds the operational rescue schedule to the eclipse-onset endpoint. This does not lexically convert bare 月食當在卯正三刻 into 初虧卯正三刻 and does not prove direct visual observation.",
+      "Jingtai-1 observer, clock/acquisition method, solar-time standard and explicit locality remain unresolved; the event remains NOT_YET_ADMISSIBLE as an absolute anchor. MD-G03 remains OPEN_BLOCKING_GENERAL_ADAPTER and runtime remains fail-closed.",
+      "Live Ming adapter ledger after 12PT remains 5 CLOSED_SOURCE_SCOPED / 4 OPEN_BLOCKING_GENERAL_ADAPTER / 2 DEPENDENCY_BLOCKED; HPA-DAYUN-CAL-002 remains MISSING_FROM_PRODUCT.",
+      "12PU: audit early-Ming Qintianjian 報日初蝕 / 報時 acquisition semantics to determine whether rescue-start reports were forecast-scheduled, contemporaneous observation/clock readings, or a mixed protocol."
     ],
     "historical_candidate_extension_count": 14,
     "current_missing_from_product_row_count": 4

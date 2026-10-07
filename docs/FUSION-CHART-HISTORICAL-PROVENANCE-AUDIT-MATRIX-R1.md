@@ -2288,3 +2288,18 @@ Philological result: `當在 + 時刻` is a timing predication, not by itself an
 Jingtai-1 phase identity remains UNRESOLVED; the absolute anchor remains NOT_YET_ADMISSIBLE; MD-G03 remains open and runtime fail-closed.
 
 Next: 12PT — early-/mid-Ming eclipse rescue initiation semantics: test whether `失救護` itself binds the operational trigger specifically to 初虧.
+
+
+## 31. Batch 12PT — early-Ming rescue starts at eclipse onset, but the 1450 clock-acquisition chain remains open
+
+The early-Ming institutional `《諸司職掌》` rescue ritual is phase-specific. It orders prior notice for solar/lunar eclipses and, at the appointed time, has the Qintianjian officer report `日初蝕` before the officials begin the rescue/drumming sequence; the ritual ends after the Qintianjian reports `復圓`. The lunar-eclipse rubric says `同前`.
+
+The Zhengde `《明會典》` juan 95 transmission preserves the same structure with `報日初食` / `報復圓` and again says the lunar ritual is `同前`. This is a received institutional transmission control, not a second independent Hongwu physical witness.
+
+Adjudication: the operational rescue trigger is **initial eclipse onset**, not an arbitrary official report time. Therefore the Jingtai-1 physical clause `欽天監官以為辰初初刻致失救護` materially binds the failed rescue schedule to the eclipse-onset endpoint.
+
+This does **not** overturn Batch 12PS's philological firewall. The target still literally reads `月食當在卯正三刻` without the lexeme `初虧`, so silent lexical normalization `當在 -> 初虧` remains forbidden. It also does not identify whether `卯正三刻` came from live observation, a scheduled forecast/report, a clepsydra, another clock, a later reconstruction, or a named locality.
+
+Result: RESCUE_INITIATION_PHASE=INITIAL_ECLIPSE_ONSET is CLOSED_SOURCE_SCOPED; JINGTAI1_BARE_DANGZAI_LEXICAL_PHASE=UNRESOLVED; JINGTAI1_CLOCK_ACQUISITION=UNRESOLVED; ABSOLUTE_ANCHOR=NOT_YET_ADMISSIBLE; MD-G03 remains open; runtime remains fail-closed.
+
+Next: 12PU — source-bind early-Ming Qintianjian `報日初蝕 / 報時` acquisition semantics and the 1450 clock/observation chain.

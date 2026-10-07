@@ -78,7 +78,8 @@
         "12PP: Qianan draft Mingshi, Wang Hongxu Mingshigao, Mingshi, Ming Huiyao and Xu Wenxian Tongkao repeat the Jingtai-1 timing error but add no target phase/observer/clock/locality. Public derivative search is parked; ZJLib Guoque v25 provides the next physical page route.",
         "12PQ: direct no-OCR Guoque v25 p112 reads 卯刻月食欽天監官以辰初刻被劾下法司宥之; it abridges Shilu precision and adds no phase/observer/instrument/locality, so its labels are not independent absolute values.",
         "12PR: direct no-OCR NLC/Wikimedia Yingzong Shilu v19 p10 physically confirms the precise Jingtai-1 卯正三刻 actual label, 辰初初刻 Qintianjian prediction, rescue failure, impeachment and 許惇 glyph. This upgrades target wording to physical-page authority but adds no explicit phase, observer, instrument, acquisition method, solar-time standard or locality; the event remains not admissible as an absolute anchor.",
-        "12PS: comparative Ming Shilu philology closes only a normalization prohibition. The 1450 target says 月食當在卯正三刻 without a phase word; 1464 explicitly writes 初虧 for initial-contact forecasts, 1500 explicitly distinguishes 虧/圓, and 1610 enumerates 初虧/食甚/復圓 with measurement vocabulary. Therefore 當在某時 cannot be silently normalized to 初虧某時, but no alternate phase is selected."
+        "12PS: comparative Ming Shilu philology closes only a normalization prohibition. The 1450 target says 月食當在卯正三刻 without a phase word; 1464 explicitly writes 初虧 for initial-contact forecasts, 1500 explicitly distinguishes 虧/圓, and 1610 enumerates 初虧/食甚/復圓 with measurement vocabulary. Therefore 當在某時 cannot be silently normalized to 初虧某時, but no alternate phase is selected.",
+        "12PT: Hongwu-period Zhusi Zhizhang rescue ritual says Qintianjian reports 日初蝕 before rescue begins and waits for 復圓; lunar ritual is 同前. Zhengde Huidian v95 preserves the same structure. Thus Jingtai-1 致失救護 source-binds the operational rescue trigger to eclipse onset, while bare 當在 remains lexically phase-unmarked and observer/clock acquisition/locality remain unresolved."
       ],
       "general_runtime_effect": "Required for general exact event-time/day realization, especially boundary-sensitive cases. It does not invalidate the already physically certified 1578 month-page chain.",
       "batch_12pd_refinement": {
@@ -298,6 +299,22 @@
         "normalize_dangzai_to_chukui": "FORBIDDEN",
         "select_alternate_phase": false,
         "phase_identity_after_batch": "UNRESOLVED",
+        "independent_absolute_anchor_status": "NOT_YET_ADMISSIBLE",
+        "status_after_batch": "OPEN_BLOCKING_GENERAL_ADAPTER",
+        "runtime_authorized": false
+      },
+      "batch_12pt_refinement": {
+        "batch_id": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-RESCUE-INITIATION-PHASE-SEMANTICS-PT",
+        "research_artifact": "docs/research/MING-DATONG-JINGTAI1-RESCUE-INITIATION-PHASE-SEMANTICS-R1.json",
+        "early_ming_rescue_start_endpoint": "INITIAL_ECLIPSE_ONSET_初蝕_初食",
+        "lunar_ritual_inherits_solar_start_end_structure": true,
+        "jingtai1_rescue_operational_phase_bridge": "SOURCE_SUPPORTED_HIGH_CONFIDENCE",
+        "bare_dangzai_lexical_phase_identity": "UNRESOLVED",
+        "normalize_dangzai_to_chukui_lexeme": "FORBIDDEN",
+        "direct_visual_observation_required": false,
+        "actual_time_measurement_chain": "UNRESOLVED",
+        "official_clepsydra_identity": "UNRESOLVED",
+        "explicit_event_locality": "UNRESOLVED",
         "independent_absolute_anchor_status": "NOT_YET_ADMISSIBLE",
         "status_after_batch": "OPEN_BLOCKING_GENERAL_ADAPTER",
         "runtime_authorized": false
@@ -599,8 +616,8 @@
       "focus": "SHOUSHI_DATONG_TONGGUI_GK12437_ZHOUXIANG_QISHUO_EPOCH_CONSTANT_METHOD_NAMED_PLACE_BINDING"
     }
   },
-  "latest_qishuo_geography_batch": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-BARE-DANGZAI-PHASE-SEMANTICS-PS",
-  "latest_qishuo_geography_artifact": "docs/research/MING-DATONG-JINGTAI1-BARE-DANGZAI-PHASE-SEMANTICS-R1.json",
+  "latest_qishuo_geography_batch": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-RESCUE-INITIATION-PHASE-SEMANTICS-PT",
+  "latest_qishuo_geography_artifact": "docs/research/MING-DATONG-JINGTAI1-RESCUE-INITIATION-PHASE-SEMANTICS-R1.json",
   "batch_12pe_forward_refinement": {
     "status": "G03_EPOCH_TO_MERIDIAN_LINEAGE_SHORTCUT_REJECTED_ACTUAL_REFERENCE_REMAINS_OPEN",
     "historical_12ou_top_level_counts_preserved": true,
@@ -908,6 +925,21 @@
       "batch": "12PT",
       "gate_id": "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
       "focus": "EARLY_MID_MING_ECLIPSE_RESCUE_INITIATION_PHASE_TRIGGER_SEMANTICS"
+    }
+  },
+  "batch_12pt_forward_refinement": {
+    "status": "G03_RESCUE_INITIAL_ONSET_TRIGGER_SOURCE_CLOSED_CLOCK_ACQUISITION_NEXT",
+    "historical_12ou_top_level_counts_preserved": true,
+    "current_live_gate_accounting_after_12pt": {
+      "closed_source_scoped": 5,
+      "open_blocking_general_adapter": 4,
+      "dependency_blocked": 2,
+      "total_gates": 11
+    },
+    "next_research_priority": {
+      "batch": "12PU",
+      "gate_id": "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
+      "focus": "EARLY_MING_QINTIANJIAN_RESCUE_REPORT_CLOCK_ACQUISITION_OBSERVATION_SEMANTICS"
     }
   }
 }

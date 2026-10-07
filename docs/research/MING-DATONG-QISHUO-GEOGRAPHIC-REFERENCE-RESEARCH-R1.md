@@ -602,3 +602,28 @@ Wanli-38 / 1610 supplies a later positive control that enumerates `初虧 / 食�
 Therefore `當在 + 時刻` cannot be normalized to `初虧 + 時刻` without an explicit bridge. The target phase remains unresolved rather than reassigned.
 
 Next: 12PT — test whether the operational phrase `致失救護` supplies that missing phase bridge through an early-/mid-Ming rescue-initiation rule.
+
+
+## 31. Batch 12PT — rescue-initiation phase is source-bound; clock acquisition is not
+
+The early-Ming `《諸司職掌》` rescue rubric supplies the missing operational trigger semantics. It says that when solar/lunar eclipses occur the offices are notified in advance; at the appointed time the Qintianjian officer reports `日初蝕`, rescue/drumming begins, and the ritual remains active until the Qintianjian reports `復圓`. The lunar-eclipse rubric is explicitly `同前`.
+
+The Zhengde `《明會典》` juan 95 transmission preserves the same structure as `報日初食 ... 報復圓`, again with lunar ritual `同前`. A near-contemporary 1464 Ming Shilu control independently uses explicit `初虧` terminology in the same eclipse/rescue decision domain.
+
+This closes a narrow question:
+
+```text
+MING_ECLIPSE_RESCUE_OPERATIONAL_START = INITIAL_ECLIPSE_ONSET
+JINGTAI1_致失救護_OPERATIONAL_PHASE_BRIDGE = SOURCE_SUPPORTED_HIGH_CONFIDENCE
+```
+
+It does not close the different question opened by 12PS:
+
+```text
+JINGTAI1_BARE_當在_LEXICAL_PHASE_IDENTITY = UNRESOLVED
+SILENT_當在_TO_初虧_NORMALIZATION = FORBIDDEN
+```
+
+Most importantly for MD-G03, the early ritual text does not say whether `報日初蝕` is triggered by direct sighting, a precomputed scheduled clock, a clepsydra/tower clock, or a mixed institutional procedure. Batch 12PO already proves that later Ming rescue reporting could remain forecast-driven under cloud cover. Therefore the 1450 `卯正三刻` value is still not an admissible absolute-time/locality anchor.
+
+Next diagnostic route: 12PU — trace early-Ming `報日初蝕 / 報時` acquisition semantics and any contemporaneous clock/observation protocol.

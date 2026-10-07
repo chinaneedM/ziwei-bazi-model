@@ -1,0 +1,110 @@
+{
+  "schema": "MING-DATONG-JINGTAI1-RESCUE-INITIATION-PHASE-SEMANTICS-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-RESCUE-INITIATION-PHASE-SEMANTICS-PT",
+  "date": "2026-10-07",
+  "status": "RESCUE_INITIAL_ECLIPSE_ONSET_TRIGGER_SOURCE_CLOSED_BARE_DANGZAI_LEXICAL_PHASE_AND_CLOCK_ACQUISITION_STILL_OPEN",
+  "question": "Does the early-/mid-Ming eclipse rescue ritual make the 1450 phrase 致失救護 operationally phase-specific, or is rescue merely tied to an arbitrary official forecast/reporting time?",
+  "target": {
+    "source_id": "EXT-NLC-WIKIMEDIA-YINGZONG-SHILU-V19-P10-JINGTAI1-ECLIPSE-PHYSICAL",
+    "event": "景泰元年春正月辛卯 / 1450",
+    "physical_wording": "是日早月食當在卯正三刻欽天監官以為辰初初刻致失救護",
+    "bare_timing_predicate": "月食當在卯正三刻",
+    "explicit_phase_lexeme": false,
+    "rescue_failure_clause": "致失救護"
+  },
+  "institutional_controls": [
+    {
+      "source_id": "EXT-CTEXT-ZHUSI-ZHIZHANG-HONGWU26-ECLIPSE-RESCUE-INITIATION",
+      "work": "《諸司職掌·禮部·祠部》",
+      "wording": "若遇日月交蝕則預先行移諸司救護；至期欽天監官報日初蝕…班首擊鼓三聲眾鼓齊鳴…候欽天監官報復圓；月食儀注同前",
+      "rescue_start_endpoint": "日初蝕",
+      "rescue_end_endpoint": "復圓",
+      "lunar_inherits_same_ritual": true,
+      "role": "EARLY_MING_INSTITUTIONAL_OPERATIONAL_CONTROL"
+    },
+    {
+      "source_id": "EXT-CTEXT-ZHENGDE-MING-HUIDIAN-V95-ECLIPSE-RESCUE-INITIATION",
+      "work": "(正德)《明會典》卷95",
+      "wording": "至期欽天監官報日初食…眾鼓齊鳴候欽天監官報復圓；月食儀注同前",
+      "rescue_start_endpoint": "日初食",
+      "rescue_end_endpoint": "復圓",
+      "lunar_inherits_same_ritual": true,
+      "role": "MING_INSTITUTIONAL_TRANSMISSION_CONTROL"
+    },
+    {
+      "source_id": "EXT-SHIDIAN-MINGSHILU-XIANZONG-V4-TIANSHUN8-ECLIPSE-CHUKUI-CONTROL",
+      "work": "《明憲宗純皇帝實錄》卷4",
+      "wording": "日食三分十四秒酉正二刻初虧…食不及分例不救護",
+      "role": "NEAR_CONTEMPORARY_CONTROL_LINKING_EXPLICIT_INITIAL_CONTACT_FORECAST_TO_RESCUE_APPLICABILITY"
+    }
+  ],
+  "philology_and_mechanics": {
+    "initial_eclipse_wording_variants": [
+      "初蝕",
+      "初食"
+    ],
+    "later_explicit_initial_contact_term": "初虧",
+    "adjudicated_mechanical_endpoint": "INITIAL_ECLIPSE_ONSET",
+    "claim_of_exact_lexical_identity_initial_shi_equals_chukui": "NOT_REQUIRED_AND_NOT_ASSERTED",
+    "bare_dangzai_syntactic_status": "TIMING_PREDICATION_WITHOUT_EXPLICIT_PHASE_LEXEME",
+    "rescue_initiation_semantics": "PHASE_SPECIFIC_TO_INITIAL_ECLIPSE_ONSET_NOT_ARBITRARY_REPORTING_TIME"
+  },
+  "adjudication": {
+    "early_ming_rescue_initiation_phase": "INITIAL_ECLIPSE_ONSET",
+    "early_ming_rescue_initiation_source_scoped_closed": true,
+    "lunar_rescue_uses_same_phase_structure": true,
+    "jingtai1_rescue_failure_operational_bridge": "SOURCE_SUPPORTED_HIGH_CONFIDENCE",
+    "jingtai1_rescue_operational_trigger": "INITIAL_ECLIPSE_ONSET",
+    "normalize_bare_dangzai_to_explicit_chukui_lexeme": "FORBIDDEN",
+    "target_bare_dangzai_lexical_phase_identity": "UNRESOLVED",
+    "target_direct_visual_observation": "NOT_ATTESTED",
+    "target_time_acquisition_method": "UNRESOLVED",
+    "target_official_clepsydra_identity": "UNRESOLVED",
+    "target_explicit_locality": "UNRESOLVED",
+    "jingtai1_absolute_anchor_status": "NOT_YET_ADMISSIBLE",
+    "md_g03_status_after_batch": "OPEN_BLOCKING_GENERAL_ADAPTER",
+    "qishuo_geographic_reference": "UNRESOLVED",
+    "runtime_authorized": false,
+    "modern_ephemeris_meridian_fit_authorized": false,
+    "hpa_dayun_cal_002_status": "MISSING_FROM_PRODUCT"
+  },
+  "inference_firewalls": [
+    "RESCUE_START_AT_INITIAL_ECLIPSE_ONSET != PROOF_OF_DIRECT_VISUAL_OBSERVATION",
+    "OPERATIONAL_ONSET_TRIGGER != LEXICAL_REWRITE_OF_BARE_當在_TO_初虧",
+    "EARLY_MING_RITUAL_REPORT != IDENTIFIED_PHYSICAL_CLOCK_OR_CLEPSYDRA",
+    "PHASE_TRIGGER != EVENT_LOCALITY_OR_QISHUO_MERIDIAN",
+    "ZHENGDE_HUIDIAN_TRANSMISSION != SECOND_INDEPENDENT_HONGWU_PHYSICAL_WITNESS"
+  ],
+  "transmission_impact": {
+    "graph_nodes_added": [
+      "PASSAGE-ZHUSI-ZHIZHANG-HONGWU26-ECLIPSE-RESCUE-INITIATION",
+      "PASSAGE-ZHENGDE-HUIDIAN-V95-ECLIPSE-RESCUE-INITIATION",
+      "TERM-CONCEPT-MING-ECLIPSE-RESCUE-INITIAL-ONSET-TRIGGER"
+    ],
+    "graph_edges_added": [
+      "TG-E0215",
+      "TG-E0216",
+      "TG-E0217"
+    ],
+    "impact": "Adds an early-Ming institutional operational layer: rescue begins on Qintianjian report of eclipse onset and ends at recovery, with lunar rescue using the same structure. It strengthens the 1450 rescue-failure phase bridge without inventing observation or clock provenance."
+  },
+  "route_disposition": {
+    "next_batch": "12PU",
+    "next_focus": "Audit early-Ming Qintianjian 報日初蝕 / 報時 acquisition semantics: forecast-scheduled report versus contemporaneous observation/clock reading versus mixed protocol. Keep the now source-closed rescue onset trigger separate from physical time acquisition and locality.",
+    "use_jingtai1_as_absolute_anchor_now": "FORBIDDEN"
+  },
+  "accounting": {
+    "matrix_rows": 222,
+    "audited_rows": 222,
+    "current_missing_from_product_rows": 4,
+    "provenance_defects_confirmed": 45,
+    "provenance_defects_repaired": 45,
+    "historical_candidate_extensions": 14,
+    "historical_candidate_registries": 5,
+    "historical_candidate_runtime_resolvers": 5,
+    "chart_algorithm_defects": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0
+  }
+}

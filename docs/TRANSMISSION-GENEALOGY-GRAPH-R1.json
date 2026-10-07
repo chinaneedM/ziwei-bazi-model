@@ -4379,6 +4379,35 @@
         "docs/research/MING-DATONG-JINGTAI1-BARE-DANGZAI-PHASE-SEMANTICS-R1.json"
       ],
       "batch_id": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-BARE-DANGZAI-PHASE-SEMANTICS-PS"
+    },
+    {
+      "node_id": "PASSAGE-ZHUSI-ZHIZHANG-HONGWU26-ECLIPSE-RESCUE-INITIATION",
+      "node_type": "PASSAGE",
+      "label": "《諸司職掌》日月交蝕救護：欽天監報日初蝕啟動，月食同前",
+      "evidence": [
+        "EXT-CTEXT-ZHUSI-ZHIZHANG-HONGWU26-ECLIPSE-RESCUE-INITIATION"
+      ],
+      "batch_id": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-RESCUE-INITIATION-PHASE-SEMANTICS-PT"
+    },
+    {
+      "node_id": "PASSAGE-ZHENGDE-HUIDIAN-V95-ECLIPSE-RESCUE-INITIATION",
+      "node_type": "PASSAGE",
+      "label": "正德《明會典》卷95救護儀注：報日初食啟動，月食同前",
+      "evidence": [
+        "EXT-CTEXT-ZHENGDE-MING-HUIDIAN-V95-ECLIPSE-RESCUE-INITIATION"
+      ],
+      "batch_id": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-RESCUE-INITIATION-PHASE-SEMANTICS-PT"
+    },
+    {
+      "node_id": "TERM-CONCEPT-MING-ECLIPSE-RESCUE-INITIAL-ONSET-TRIGGER",
+      "node_type": "TERM_CONCEPT",
+      "label": "明代交食救護的制度性啟動端點為食始（初蝕／初食），月食沿用同一儀注",
+      "evidence": [
+        "EXT-CTEXT-ZHUSI-ZHIZHANG-HONGWU26-ECLIPSE-RESCUE-INITIATION",
+        "EXT-CTEXT-ZHENGDE-MING-HUIDIAN-V95-ECLIPSE-RESCUE-INITIATION",
+        "docs/research/MING-DATONG-JINGTAI1-RESCUE-INITIATION-PHASE-SEMANTICS-R1.json"
+      ],
+      "batch_id": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-RESCUE-INITIATION-PHASE-SEMANTICS-PT"
     }
   ],
   "edges": [
@@ -7662,6 +7691,53 @@
       "scope_note": "The 1450 target physically preserves 月食當在卯正三刻 without an explicit phase lexeme; comparison does not authorize selecting any hidden phase.",
       "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-BARE-DANGZAI-PHASE-SEMANTICS-PS",
       "evidence_class": "DIRECT_PHYSICAL_1450_TARGET_PLUS_RECEIVED_MING_SHILU_COMPARATIVE_PHILOLOGY"
+    },
+    {
+      "edge_id": "TG-E0215",
+      "from": "PASSAGE-ZHUSI-ZHIZHANG-HONGWU26-ECLIPSE-RESCUE-INITIATION",
+      "relation": "ATTESTS",
+      "to": "TERM-CONCEPT-MING-ECLIPSE-RESCUE-INITIAL-ONSET-TRIGGER",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_FOR_RECEIVED_EARLY_MING_INSTITUTIONAL_RITUAL_SEMANTICS",
+      "evidence_class": "RECEIVED_EARLY_MING_OFFICIAL_INSTITUTIONAL_TEXT",
+      "evidence": [
+        "EXT-CTEXT-ZHUSI-ZHIZHANG-HONGWU26-ECLIPSE-RESCUE-INITIATION",
+        "docs/research/MING-DATONG-JINGTAI1-RESCUE-INITIATION-PHASE-SEMANTICS-R1.json"
+      ],
+      "scope_note": "Closes the transmitted rescue-initiation endpoint: Qintianjian reports initial eclipse before the ritual starts; lunar ritual is 同前. Does not identify how that report time was acquired.",
+      "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-RESCUE-INITIATION-PHASE-SEMANTICS-PT"
+    },
+    {
+      "edge_id": "TG-E0216",
+      "from": "PASSAGE-ZHENGDE-HUIDIAN-V95-ECLIPSE-RESCUE-INITIATION",
+      "relation": "ATTESTS",
+      "to": "TERM-CONCEPT-MING-ECLIPSE-RESCUE-INITIAL-ONSET-TRIGGER",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_FOR_ZHENGDE_RECEIVED_INSTITUTIONAL_TRANSMISSION",
+      "evidence_class": "RECEIVED_MING_HUIDIAN_INSTITUTIONAL_TRANSMISSION_CONTROL",
+      "evidence": [
+        "EXT-CTEXT-ZHENGDE-MING-HUIDIAN-V95-ECLIPSE-RESCUE-INITIATION",
+        "docs/research/MING-DATONG-JINGTAI1-RESCUE-INITIATION-PHASE-SEMANTICS-R1.json"
+      ],
+      "scope_note": "Preserves the same onset-to-recovery rescue structure in Zhengde Huidian; not a separate physical Hongwu witness.",
+      "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-RESCUE-INITIATION-PHASE-SEMANTICS-PT"
+    },
+    {
+      "edge_id": "TG-E0217",
+      "from": "PASSAGE-MINGSHILU-YINGZONG-V187-JINGTAI1-ECLIPSE-CLOCK-DISCREPANCY",
+      "relation": "ATTESTS",
+      "to": "TERM-CONCEPT-MING-ECLIPSE-RESCUE-INITIAL-ONSET-TRIGGER",
+      "status": "PROBABLE",
+      "confidence": "HIGH_FOR_OPERATIONAL_RESCUE_SCHEDULE_BINDING; NOT_LEXICAL_PHASE_IDENTITY_OR_CLOCK_ACQUISITION",
+      "evidence_class": "DIRECT_PHYSICAL_1450_EVENT_PLUS_RECEIVED_EARLY_MING_INSTITUTIONAL_PROTOCOL",
+      "evidence": [
+        "EXT-NLC-WIKIMEDIA-YINGZONG-SHILU-V19-P10-JINGTAI1-ECLIPSE-PHYSICAL",
+        "EXT-CTEXT-ZHUSI-ZHIZHANG-HONGWU26-ECLIPSE-RESCUE-INITIATION",
+        "EXT-CTEXT-ZHENGDE-MING-HUIDIAN-V95-ECLIPSE-RESCUE-INITIATION",
+        "docs/research/MING-DATONG-JINGTAI1-RESCUE-INITIATION-PHASE-SEMANTICS-R1.json"
+      ],
+      "scope_note": "The 1450 physical passage says the wrong Qintianjian time 致失救護. Under the documented rescue ritual, the actionable start endpoint is initial eclipse. This supports an operational onset-trigger bridge but does not silently rewrite 月食當在卯正三刻 as the explicit lexeme 初虧 or prove direct observation.",
+      "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-RESCUE-INITIATION-PHASE-SEMANTICS-PT"
     }
   ],
   "lineage_hypotheses": [
