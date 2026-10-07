@@ -72,7 +72,8 @@
         "12PJ: modern absolute astronomy is precise enough for a diagnostic in the Ming period (DE431 coverage; ~20 s Delta-T uncertainty versus ~592 s Beijing-Nanjing longitude signal), but Datong qishuo 子正/刻 is not source-bound to apparent solar, mean solar, clepsydra or another absolute clock standard. Time-standard semantics remain the blocker.",
         "12PK: Shoushi/Datong qishuo is source-closed as a uniform 10000-unit day converted to shichen/ke from 子正, but its absolute physical realization is not directly identified as apparent solar, mean solar, clepsydra, or named-longitude time. Separate local daylight/clepsydra modules and a distinct Gengwu explicit 里差 control cannot fill that gap.",
         "12PL: Wanli Daming Huidian places official clepsydra/time service, eclipse 分秒時刻 reporting and Datong almanac production under Qintianjian, but does not identify qishuo as the tower clepsydra or a capital-local solar coordinate. Mingshi daylight history disproves automatic capital inheritance as a universal calendrical rule.",
-        "12PM: Jiajing-7 測晷影定氣朔 and Jiajing-2 Hua Xiang year-long observatory program attest observational calibration/verification, including 合朔 as a target, but no direct local gnomon/clock -> 定朔 remainder operator or longitude is stated. 一以元法為斷 preserves method continuity without selecting Dadu qishuo meridian."
+        "12PM: Jiajing-7 測晷影定氣朔 and Jiajing-2 Hua Xiang year-long observatory program attest observational calibration/verification, including 合朔 as a target, but no direct local gnomon/clock -> 定朔 remainder operator or longitude is stated. 一以元法為斷 preserves method continuity without selecting Dadu qishuo meridian.",
+        "12PN: Ming Yingzong Shilu v187 directly records Jingtai-1 eclipse at 卯正三刻 versus Qintianjian prediction 辰初初刻 with rescue failure and immediate impeachment. This closes contemporaneous operational discrepancy provenance but does not identify the actual-time observer, phase, clock instrument, solar-time standard, longitude or explicit event locality."
       ],
       "general_runtime_effect": "Required for general exact event-time/day realization, especially boundary-sensitive cases. It does not invalidate the already physically certified 1578 month-page chain.",
       "batch_12pd_refinement": {
@@ -208,6 +209,19 @@
         "direct_local_clock_to_qishuo_numeric_bridge": "NOT_ATTESTED",
         "yuan_method_continuity": "ATTESTED_WITHOUT_MERIDIAN_SELECTION",
         "qishuo_geographic_reference": "UNRESOLVED",
+        "status_after_batch": "OPEN_BLOCKING_GENERAL_ADAPTER",
+        "runtime_authorized": false
+      },
+      "batch_12pn_refinement": {
+        "batch_id": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-ECLIPSE-CLOCK-PROVENANCE-PN",
+        "research_artifact": "docs/research/MING-DATONG-JINGTAI1-ECLIPSE-CLOCK-PROVENANCE-R1.json",
+        "contemporaneous_ming_shilu_event_record": "CLOSED_SOURCE_SCOPED",
+        "operational_actual_vs_prediction_discrepancy": "ATTESTED",
+        "actual_time_measurement_provenance": "UNRESOLVED",
+        "eclipse_phase_identity": "UNRESOLVED",
+        "explicit_event_locality_binding": "UNRESOLVED",
+        "official_clepsydra_identity": "UNRESOLVED",
+        "independent_absolute_anchor_status": "NOT_YET_ADMISSIBLE",
         "status_after_batch": "OPEN_BLOCKING_GENERAL_ADAPTER",
         "runtime_authorized": false
       }
@@ -508,8 +522,8 @@
       "focus": "SHOUSHI_DATONG_TONGGUI_GK12437_ZHOUXIANG_QISHUO_EPOCH_CONSTANT_METHOD_NAMED_PLACE_BINDING"
     }
   },
-  "latest_qishuo_geography_batch": "BATCH-12-BAZI-MING-DATONG-QISHUO-GNOMON-OBSERVATION-BRIDGE-PM",
-  "latest_qishuo_geography_artifact": "docs/research/MING-DATONG-QISHUO-GNOMON-OBSERVATION-BRIDGE-R1.json",
+  "latest_qishuo_geography_batch": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-ECLIPSE-CLOCK-PROVENANCE-PN",
+  "latest_qishuo_geography_artifact": "docs/research/MING-DATONG-JINGTAI1-ECLIPSE-CLOCK-PROVENANCE-R1.json",
   "batch_12pe_forward_refinement": {
     "status": "G03_EPOCH_TO_MERIDIAN_LINEAGE_SHORTCUT_REJECTED_ACTUAL_REFERENCE_REMAINS_OPEN",
     "historical_12ou_top_level_counts_preserved": true,
@@ -697,6 +711,27 @@
       "batch": "12PN",
       "gate_id": "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
       "focus": "JINGTAI1_LUNAR_ECLIPSE_ACTUAL_VS_PREDICTED_CLOCK_PROVENANCE_AS_INDEPENDENT_ABSOLUTE_TIME_ANCHOR"
+    }
+  },
+  "batch_12pn_forward_refinement": {
+    "status": "G03_CONTEMPORANEOUS_OPERATIONAL_ECLIPSE_DISCREPANCY_CLOSED_ABSOLUTE_CLOCK_PHASE_LOCALITY_CHAIN_OPEN",
+    "historical_12ou_top_level_counts_preserved": true,
+    "current_live_gate_accounting_after_12pn": {
+      "closed_source_scoped": 5,
+      "open_blocking_general_adapter": 4,
+      "dependency_blocked": 2,
+      "total_gates": 11
+    },
+    "remaining_open_independent_gates": [
+      "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
+      "MD-G05-DYNAMIC-D1-INTERMEDIATE-PRECISION",
+      "MD-G07-CALENDAR-ADDITION-INVALID-TARGET-DATE",
+      "MD-G08-CALENDAR-ADDITION-INTERCALARY-IDENTITY-TRAVERSAL"
+    ],
+    "next_research_priority": {
+      "batch": "12PO",
+      "gate_id": "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
+      "focus": "MING_ECLIPSE_RESCUE_REPORTING_PHASE_AND_ACTUAL_CLOCK_PROVENANCE_CHAIN"
     }
   }
 }

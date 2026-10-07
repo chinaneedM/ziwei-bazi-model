@@ -1,0 +1,123 @@
+{
+  "schema": "MING-DATONG-JINGTAI1-ECLIPSE-CLOCK-PROVENANCE-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-ECLIPSE-CLOCK-PROVENANCE-PN",
+  "date": "2026-10-07",
+  "status": "CONTEMPORANEOUS_OPERATIONAL_TIME_DISCREPANCY_CLOSED_ABSOLUTE_CLOCK_PROVENANCE_UNRESOLVED",
+  "question": "Can the Jingtai-1 lunar-eclipse record that says the eclipse was at 卯正三刻 while Qintianjian predicted 辰初初刻 be used as an independent absolute-time anchor for Ming qishuo geography?",
+  "primary_event_record": {
+    "source_id": "EXT-CTEXT-MINGSHILU-YINGZONG-V187-JINGTAI1-ECLIPSE-CLOCK-ERROR",
+    "work": "《明英宗睿皇帝實錄》卷187（廢帝郕戾王附錄第五）",
+    "event": "景泰元年春正月辛卯",
+    "received_text": "是日早月食當在卯正三刻欽天監官以為辰初初刻致失救護六科十三道劾監正許敦等推測不明下三法司論罪當徒詔宥之",
+    "source_class": "CONTEMPORANEOUS_MING_COURT_ANNAL_TRANSMISSION",
+    "operational_discrepancy_attested": true,
+    "qintianjian_prediction_label": "辰初初刻",
+    "event_time_label": "卯正三刻",
+    "same_day_administrative_consequence": "六科十三道劾監正許敦等推測不明",
+    "rescue_failure_attested": true,
+    "actual_time_explicitly_attributed_to_named_observer": false,
+    "actual_time_explicitly_attributed_to_qiaolou_or_clepsydra": false,
+    "actual_time_explicitly_attributed_to_beijing_longitude": false,
+    "eclipse_phase_explicitly_named": false,
+    "observation_method_explicitly_named": false,
+    "adjudication": "CONTEMPORANEOUS_OPERATIONAL_EVENT_TIME_REPORT_CLOSED; MEASUREMENT_CHANNEL_AND_ABSOLUTE_COORDINATE_NOT_ATTESTED"
+  },
+  "archive_object_control": {
+    "source_id": "EXT-IHP-MINGSHILU-YINGZONG-V187-CATALOG",
+    "repository": "Academia Sinica IHP digital archive catalog",
+    "catalog_item": "00001d0055468",
+    "catalog_label": "卷之一百八十七, 廢帝郕戾王附錄第五; 景泰元年春正月",
+    "volume_existence_confirmed": true,
+    "target_page_image_directly_collated_in_batch": false,
+    "target_glyph_authority": false,
+    "result": "PHYSICAL_ARCHIVE_UNIT_EXISTENCE_CONTROL_ONLY"
+  },
+  "dependent_later_transmissions": {
+    "mingshi": {
+      "source_id": "EXT-CTEXT-MINGSHI-V31-YINGTIAN-SHUNTIAN-DAYNIGHT-STANDARD",
+      "text_role": "Later Qing-compiled history repeats the Jingtai-1 actual-vs-predicted eclipse timing and rescue failure.",
+      "independent_witness_vote": false
+    },
+    "ming_huiyao": {
+      "url": "https://ctext.org/wiki.pl?chapter=642776&if=gb",
+      "text_role": "Later compilation repeats the same event in the calendar-history chain.",
+      "independent_witness_vote": false
+    },
+    "shidian_mingshilu_mirror": {
+      "url": "https://www.shidianguji.com/zh/book/LS0026/chapter/1k6qy3t7nqo85",
+      "text_role": "Independent digital surface of the same Ming Shilu passage; materially agrees with CText transcription.",
+      "independent_historical_witness_vote": false
+    }
+  },
+  "provenance_adjudication": {
+    "event_record_is_late_mingshi_only": false,
+    "ming_shilu_same_reign_annal_record_attested": true,
+    "real_time_operational_failure_context": "ATTESTED_BY_RESCUE_FAILURE_AND_IMMEDIATE_CENSORIAL_IMPEACHMENT",
+    "event_time_is_contemporaneous_official_report": "CLOSED_SOURCE_SCOPED",
+    "event_time_is_direct_observer_clock_reading": "NOT_ATTESTED",
+    "event_time_clock_instrument": "UNRESOLVED",
+    "event_time_solar_standard": "UNRESOLVED",
+    "event_time_named_locality": "UNRESOLVED_IN_TARGET_CLAUSE",
+    "beijing_court_context": "STRONG_CONTEXTUAL_SUPPORT_NOT_DIRECT_EVENT_TIME_BINDING",
+    "event_phase_identity": "UNRESOLVED_NOT_EXPLICITLY_CHUKUI_SHISHEN_OR_FUYUAN",
+    "actual_vs_prediction_shared_clock_coordinate": "LIKELY_OPERATIONAL_COMPARISON_BUT_NOT_EXPLICITLY_SOURCE_DEFINED",
+    "independent_absolute_time_anchor_status": "NOT_YET_ADMISSIBLE"
+  },
+  "adjudication": {
+    "contemporaneous_operational_eclipse_timing_discrepancy": "CLOSED_SOURCE_SCOPED",
+    "qintianjian_prediction_error": "ATTESTED",
+    "actual_time_label_baomaozheng_sanke": "ATTESTED",
+    "actual_time_measurement_provenance": "UNRESOLVED",
+    "actual_time_phase_identity": "UNRESOLVED",
+    "actual_time_capital_locality_binding": "UNRESOLVED",
+    "actual_time_apparent_solar_identity": "UNRESOLVED",
+    "actual_time_mean_solar_identity": "UNRESOLVED",
+    "actual_time_official_clepsydra_identity": "UNRESOLVED",
+    "qishuo_geographic_reference": "UNRESOLVED",
+    "md_g03_status_after_batch": "OPEN_BLOCKING_GENERAL_ADAPTER",
+    "modern_ephemeris_meridian_fit_authorized": false,
+    "runtime_authorized": false,
+    "hpa_dayun_cal_002_status": "MISSING_FROM_PRODUCT",
+    "closed_subquestion": "JINGTAI1_TIME_DISCREPANCY_IS_CONTEMPORANEOUS_OPERATIONAL_EVIDENCE_BUT_NOT_YET_AN_ABSOLUTE_CLOCK_OR_MERIDIAN_ANCHOR"
+  },
+  "inference_firewalls": [
+    "MING_SHILU_EVENT_TIME_LABEL != PROOF_OF_BEIJING_LOCAL_MEAN_SOLAR_TIME",
+    "MING_SHILU_EVENT_TIME_LABEL != PROOF_OF_BEIJING_LOCAL_APPARENT_SOLAR_TIME",
+    "RESCUE_FAILURE != PROOF_OF_QIAOLOU_CLEPSYDRA_READING",
+    "COURT_CONTEXT_IN_BEIJING != DIRECT_TARGET_CLAUSE_LOCALITY_BINDING",
+    "月食當在卯正三刻 != EXPLICIT_INITIAL_CONTACT_PHASE_WITHOUT_PHASE_WORDING",
+    "MINGSHI_AND_MINGHUIYAO_REPETITION != INDEPENDENT_WITNESS_MULTIPLICATION"
+  ],
+  "transmission_impact": {
+    "graph_nodes_added": [
+      "DIGITAL-SURROGATE-CTEXT-MINGSHILU-YINGZONG-V187",
+      "PASSAGE-MINGSHILU-YINGZONG-V187-JINGTAI1-ECLIPSE-CLOCK-DISCREPANCY",
+      "TERM-CONCEPT-JINGTAI1-CONTEMPORANEOUS-ECLIPSE-TIME-WITHOUT-CLOCK-PROVENANCE"
+    ],
+    "graph_edges_added": [
+      "TG-E0198",
+      "TG-E0199",
+      "TG-E0200"
+    ],
+    "impact": "Moves the Jingtai-1 discrepancy from later-history-only status to Ming Shilu event-record provenance while refusing a direct absolute-clock/locality identity edge."
+  },
+  "route_disposition": {
+    "use_jingtai1_as_absolute_anchor_now": "FORBIDDEN",
+    "next_batch": "12PO",
+    "next_focus": "Audit Ming eclipse rescue/reporting protocol to determine what phase a bare 月食時刻 denotes in this operational context and how post-event actual times were established/reported (observer, clepsydra, tower clock, or calculation). Only a source-bound phase + clock/locality chain can unlock absolute ephemeris comparison."
+  },
+  "accounting": {
+    "matrix_rows": 222,
+    "audited_rows": 222,
+    "current_missing_from_product_rows": 4,
+    "provenance_defects_confirmed": 45,
+    "provenance_defects_repaired": 45,
+    "historical_candidate_extensions": 14,
+    "historical_candidate_registries": 5,
+    "historical_candidate_runtime_resolvers": 5,
+    "chart_algorithm_defects": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0
+  }
+}

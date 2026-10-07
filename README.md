@@ -730,3 +730,16 @@ MD-G03 remains open; HPA-DAYUN-CAL-002 remains MISSING_FROM_PRODUCT; runtime and
 Next: **12PN — audit the Jingtai-1 lunar-eclipse record contrasting actual 卯正三刻 with the bureau prediction 辰初初刻, and determine whether the actual time is a contemporaneous observed capital-clock value suitable as an independent absolute anchor.**
 
 Batch document: docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-QISHUO-GNOMON-OBSERVATION-BRIDGE-PM.md. Research record: docs/research/MING-DATONG-QISHUO-GNOMON-OBSERVATION-BRIDGE-R1.json.
+
+
+## Progress — Batch 12PN
+
+The Jingtai-1 lunar-eclipse discrepancy has now been moved from later-history-only evidence to a Ming Shilu event record. 《明英宗睿皇帝實錄》卷187 records that the eclipse was at `卯正三刻`, while Qintianjian had predicted `辰初初刻`, causing rescue failure and immediate censorial impeachment.
+
+That closes contemporaneous operational discrepancy provenance, but not an absolute clock. The target clause does not identify the observer, phase, clepsydra/tower clock, solar-time standard, longitude, or explicit event-time locality. Beijing court context is retained as contextual support only.
+
+MD-G03 remains open; HPA-DAYUN-CAL-002 remains MISSING_FROM_PRODUCT; modern ephemeris meridian fitting stays unauthorized.
+
+Next: **12PO — audit Ming eclipse rescue/reporting protocol to source-bind phase semantics and the actual-time reporting chain.**
+
+Batch document: docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-JINGTAI1-ECLIPSE-CLOCK-PROVENANCE-PN.md. Research record: docs/research/MING-DATONG-JINGTAI1-ECLIPSE-CLOCK-PROVENANCE-R1.json.

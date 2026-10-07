@@ -530,3 +530,16 @@ The directly collated 1518 Zhu Yu proposal reinforces the firewall because obser
 Result: JIAJING_OBSERVATIONAL_QISHUO_VERIFICATION=CLOSED_SOURCE_SCOPED; DIRECT_LOCAL_OBSERVATION_TO_QISHUO_NUMERIC_CLOCK_BRIDGE=NOT_ATTESTED; MD-G03 remains open.
 
 Next: 12PN — audit the Jingtai-1 lunar-eclipse actual-vs-predicted clock record as a candidate independent absolute-time anchor.
+
+
+## 25. Batch 12PN — contemporaneous operational eclipse time is not yet an absolute clock
+
+《明英宗睿皇帝實錄》卷187 records on 景泰元年正月辛卯 that the early lunar eclipse was `當在卯正三刻`, while Qintianjian officials had taken it as `辰初初刻`; the miss caused failure of the rescue rite and immediate impeachment for `推測不明`.
+
+This is a major provenance upgrade over using Qing-compiled 《明史》 alone: the discrepancy is embedded in the Ming court-annal record and had real operational consequences.
+
+However, the target clause does not say who established `卯正三刻`, what instrument/clock supplied it, whether the label denotes 初虧/食甚/復圓, or whether its coordinate is Beijing apparent solar, mean solar, official clepsydra, or another conventional clock. Same-day court context cannot fill those missing operators.
+
+Result: CONTEMPORANEOUS_OPERATIONAL_DISCREPANCY=CLOSED; ABSOLUTE_CLOCK_PHASE_LOCALITY_PROVENANCE=UNRESOLVED; MD-G03 remains open.
+
+Next: 12PO — audit rescue/reporting protocol for the phase and actual-time acquisition chain.

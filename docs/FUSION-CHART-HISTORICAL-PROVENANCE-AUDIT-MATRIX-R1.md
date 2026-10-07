@@ -2212,3 +2212,14 @@ Neither witness supplies a mechanical mapping from local shadow or official cloc
 HPA-DAYUN-CAL-002 remains MISSING_FROM_PRODUCT; MD-G03 remains open.
 
 Research: docs/research/MING-DATONG-QISHUO-GNOMON-OBSERVATION-BRIDGE-R1.json.
+
+
+## Batch 12PN — Jingtai-1 eclipse clock provenance
+
+《明英宗睿皇帝實錄》卷187 directly records the 景泰元年正月辛卯 operational error: `卯正三刻` versus Qintianjian's `辰初初刻`, with rescue failure and immediate impeachment. This closes that the discrepancy belongs to the Ming court-annal layer rather than only to later 《明史》 transmission.
+
+The record still does not identify an observing person/instrument, phase label, physical clock standard, longitude, or explicit target-clause locality. Accordingly it is not yet an independent absolute-time anchor.
+
+HPA-DAYUN-CAL-002 remains MISSING_FROM_PRODUCT; MD-G03 remains open; runtime and modern meridian fitting remain fail-closed.
+
+Research: docs/research/MING-DATONG-JINGTAI1-ECLIPSE-CLOCK-PROVENANCE-R1.json.

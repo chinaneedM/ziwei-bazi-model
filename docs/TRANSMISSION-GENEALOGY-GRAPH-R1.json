@@ -4183,6 +4183,44 @@
         "docs/research/MING-DATONG-QISHUO-GNOMON-OBSERVATION-BRIDGE-R1.json"
       ],
       "first_explicit_graph_batch": "BATCH-12-BAZI-MING-DATONG-QISHUO-GNOMON-OBSERVATION-BRIDGE-PM"
+    },
+    {
+      "node_id": "DIGITAL-SURROGATE-CTEXT-MINGSHILU-YINGZONG-V187",
+      "node_type": "DIGITAL_SURROGATE",
+      "label": "CText《明英宗睿皇帝實錄》卷187數位轉錄",
+      "system_scope": "MING_SHILU_JINGTAI1_ECLIPSE_EVENT_RECORD",
+      "provider": "Chinese Text Project",
+      "locator": "卷187 lines 57-67 around 辛卯",
+      "evidence": [
+        "EXT-CTEXT-MINGSHILU-YINGZONG-V187-JINGTAI1-ECLIPSE-CLOCK-ERROR",
+        "docs/research/MING-DATONG-JINGTAI1-ECLIPSE-CLOCK-PROVENANCE-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-ECLIPSE-CLOCK-PROVENANCE-PN"
+    },
+    {
+      "node_id": "PASSAGE-MINGSHILU-YINGZONG-V187-JINGTAI1-ECLIPSE-CLOCK-DISCREPANCY",
+      "node_type": "PASSAGE",
+      "label": "《明英宗睿皇帝實錄》卷187景泰元年辛卯月食卯正三刻／監誤推辰初初刻",
+      "system_scope": "MING_CONTEMPORANEOUS_OPERATIONAL_ECLIPSE_TIME_DISCREPANCY",
+      "date": "JINGTAI_1_FIRST_MONTH_XINMAO_1450",
+      "locator": "卷187 廢帝郕戾王附錄第五 辛卯",
+      "evidence": [
+        "EXT-CTEXT-MINGSHILU-YINGZONG-V187-JINGTAI1-ECLIPSE-CLOCK-ERROR",
+        "docs/research/MING-DATONG-JINGTAI1-ECLIPSE-CLOCK-PROVENANCE-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-ECLIPSE-CLOCK-PROVENANCE-PN"
+    },
+    {
+      "node_id": "TERM-CONCEPT-JINGTAI1-CONTEMPORANEOUS-ECLIPSE-TIME-WITHOUT-CLOCK-PROVENANCE",
+      "node_type": "TERM_CONCEPT",
+      "label": "景泰元年月食實錄時刻：操作性同時代證據≠絕對物理時標",
+      "system_scope": "QISHUO_ABSOLUTE_TIME_PROVENANCE_FIREWALL",
+      "mechanical_identity": "The Ming Shilu event label establishes an operational actual-vs-predicted discrepancy but does not identify observer, phase, clock instrument, solar-time standard, longitude, or explicit locality.",
+      "evidence": [
+        "EXT-CTEXT-MINGSHILU-YINGZONG-V187-JINGTAI1-ECLIPSE-CLOCK-ERROR",
+        "docs/research/MING-DATONG-JINGTAI1-ECLIPSE-CLOCK-PROVENANCE-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-ECLIPSE-CLOCK-PROVENANCE-PN"
     }
   ],
   "edges": [
@@ -7181,6 +7219,48 @@
       ],
       "scope_note": "The 1518 proposal preserves multiple observation/timekeeping streams; parallelism does not prove adoption or a qishuo absolute clock.",
       "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-QISHUO-GNOMON-OBSERVATION-BRIDGE-PM"
+    },
+    {
+      "edge_id": "TG-E0198",
+      "from": "DIGITAL-SURROGATE-CTEXT-MINGSHILU-YINGZONG-V187",
+      "relation": "ATTESTS",
+      "to": "PASSAGE-MINGSHILU-YINGZONG-V187-JINGTAI1-ECLIPSE-CLOCK-DISCREPANCY",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_FOR_DIGITAL_TRANSCRIPTION_OF_MING_SHILU_EVENT_TEXT",
+      "evidence_class": "PRIMARY_ANNAL_DIGITAL_TRANSCRIPTION_NOT_PHYSICAL_GLYPH_COLLATION",
+      "evidence": [
+        "docs/research/MING-DATONG-JINGTAI1-ECLIPSE-CLOCK-PROVENANCE-R1.json"
+      ],
+      "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-ECLIPSE-CLOCK-PROVENANCE-PN"
+    },
+    {
+      "edge_id": "TG-E0199",
+      "from": "PASSAGE-MINGSHILU-YINGZONG-V187-JINGTAI1-ECLIPSE-CLOCK-DISCREPANCY",
+      "relation": "ATTESTS",
+      "to": "TERM-CONCEPT-JINGTAI1-CONTEMPORANEOUS-ECLIPSE-TIME-WITHOUT-CLOCK-PROVENANCE",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_FOR_OPERATIONAL_DISCREPANCY; INSUFFICIENT_FOR_ABSOLUTE_CLOCK",
+      "evidence_class": "MING_COURT_ANNAL_EVENT_RECORD",
+      "evidence": [
+        "docs/research/MING-DATONG-JINGTAI1-ECLIPSE-CLOCK-PROVENANCE-R1.json"
+      ],
+      "scope_note": "Closes contemporaneous discrepancy only; no absolute-clock/locality identity edge.",
+      "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-ECLIPSE-CLOCK-PROVENANCE-PN"
+    },
+    {
+      "edge_id": "TG-E0200",
+      "from": "PASSAGE-MINGSHILU-YINGZONG-V187-JINGTAI1-ECLIPSE-CLOCK-DISCREPANCY",
+      "relation": "PARALLEL_COEXISTS_WITH",
+      "to": "INSTITUTION-MING-QINTIANJIAN-OFFICIAL-TIME-ALMANAC",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_FOR_QINTIANJIAN_PREDICTION_AND_RESCUE_OPERATION; NO_ACTUAL_CLOCK_IDENTITY",
+      "evidence_class": "MING_SHILU_EVENT_TEXT_PLUS_INSTITUTIONAL_CONTROL",
+      "evidence": [
+        "docs/research/MING-DATONG-JINGTAI1-ECLIPSE-CLOCK-PROVENANCE-R1.json",
+        "docs/research/MING-QINTIANJIAN-ALMANAC-CLOCK-CAPITAL-BINDING-R1.json"
+      ],
+      "scope_note": "Qintianjian produced the erroneous predicted label; the Shilu does not attribute the actual 卯正三刻 label to the bureau clock.",
+      "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-ECLIPSE-CLOCK-PROVENANCE-PN"
     }
   ],
   "lineage_hypotheses": [
