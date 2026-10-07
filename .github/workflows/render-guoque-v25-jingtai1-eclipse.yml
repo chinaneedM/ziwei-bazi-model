@@ -1,0 +1,105 @@
+name: render-guoque-v25-jingtai1-eclipse
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/render-guoque-v25-jingtai1-eclipse.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install PDF and image tools
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils imagemagick
+
+      - name: Download ZJLib Guoque volume 25
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/guoque-v25-jingtai1-eclipse'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT/pages" "$ROOT/contact" "$ROOT/text"
+
+          url='https://commons.wikimedia.org/wiki/Special:Redirect/file/ZJLib-65e6fe7f969db848e322aa5a-25%20%E5%9C%8B%E6%A6%B7%E4%B8%8D%E5%88%86%E5%8D%B7%20%E7%AC%AC25%E5%86%8A.pdf'
+          curl -L --fail --retry 5 --retry-delay 3 --connect-timeout 15 --max-time 300             -A 'Tianwen-Provenance-Audit/1.0' "$url" -o "$ROOT/guoque-v25.pdf"
+
+          sha256sum "$ROOT/guoque-v25.pdf" | tee "$ROOT/source.sha256"
+          pdfinfo "$ROOT/guoque-v25.pdf" | tee "$ROOT/pdfinfo.txt"
+          pdftotext -layout "$ROOT/guoque-v25.pdf" "$ROOT/text/full.txt" || true
+
+          grep -nE '景泰元年|庚午|正月|辛卯|月食|卯正|辰初|許惇|許敦|救護|欽天監'             "$ROOT/text/full.txt" > "$ROOT/text-layer-target-hits.txt" || true
+
+          python - <<'PY'
+          from pathlib import Path
+          import subprocess
+          root=Path('audit/guoque-v25-jingtai1-eclipse')
+          pdf=root/'guoque-v25.pdf'
+          info=subprocess.run(['pdfinfo',str(pdf)],capture_output=True,text=True,check=True).stdout
+          pages=0
+          for line in info.splitlines():
+              if line.startswith('Pages:'):
+                  pages=int(line.split(':',1)[1].strip())
+                  break
+          terms=['景泰元年','庚午','正月','辛卯','月食','卯正','辰初','許惇','許敦','救護','欽天監']
+          out=[]
+          for p in range(1,pages+1):
+              cp=subprocess.run(['pdftotext','-f',str(p),'-l',str(p),'-layout',str(pdf),'-'],
+                                capture_output=True,text=True,check=False)
+              hits=[t for t in terms if t in cp.stdout]
+              if hits:
+                  out.append(f'page={p}\tterms={";".join(hits)}')
+          (root/'page-locator-hits.tsv').write_text('\n'.join(out)+'\n',encoding='utf-8')
+          PY
+
+      - name: Render every physical PDF page without OCR
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/guoque-v25-jingtai1-eclipse'
+          pdftoppm -jpeg -jpegopt quality=92 -r 140 "$ROOT/guoque-v25.pdf" "$ROOT/pages/page"
+
+          mapfile -t pages < <(find "$ROOT/pages" -maxdepth 1 -name 'page-*.jpg' | sort -V)
+          n=${#pages[@]}
+          echo "RENDERED_PAGE_COUNT=$n" | tee "$ROOT/render-count.txt"
+          test "$n" -gt 0
+          sha256sum "${pages[@]}" | sort -V > "$ROOT/pages.sha256"
+
+          for ((offset=0; offset<n; offset+=12)); do
+            start=$((offset+1))
+            end=$((offset+12))
+            [ "$end" -gt "$n" ] && end=$n
+            chunk=("${pages[@]:offset:12}")
+            montage "${chunk[@]}" -thumbnail 300x420 -tile 4x -geometry +4+18               "$ROOT/contact/contact-$(printf '%03d' "$start")-$(printf '%03d' "$end").jpg"
+          done
+          sha256sum "$ROOT"/contact/*.jpg | sort -V > "$ROOT/contact.sha256"
+
+          cat > "$ROOT/manifest.txt" <<'EOF'
+NO_OCR_USED_FOR_FINAL_GLYPH_CLAIMS=true
+SOURCE=Wikimedia Commons / Zhejiang Library 國榷 第25冊
+FILE=ZJLib-65e6fe7f969db848e322aa5a-25 國榷不分卷 第25冊.pdf
+INVENTORY_TARGET=卷二十九 庚午景泰元年 正月
+RESEARCH_TARGET=景泰元年正月辛卯月食卯正三刻 / 欽天監辰初初刻 / 救護 / 許惇
+TEXT_LAYER_POLICY=pdftotext is locator aid only; final wording claims require direct rendered-page review
+SOURCE_ROLE=PHYSICAL_PAGE_COLLATION_CONTROL_FOR_BATCH_12PQ
+EOF
+
+      - name: Upload Guoque physical evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: guoque-v25-jingtai1-eclipse-physical
+          path: audit/guoque-v25-jingtai1-eclipse/
+          if-no-files-found: error
+          compression-level: 6
+          retention-days: 30
