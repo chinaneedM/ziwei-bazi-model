@@ -2273,3 +2273,18 @@ No explicit `初虧 / 食甚 / 復圓` phase, named observer, clock/instrument, 
 Result: MING_SHILU_V187_PHYSICAL_TARGET=CLOSED; PRECISE_CLOCK_LABELS=PHYSICALLY_CONFIRMED; ABSOLUTE_PHASE_CLOCK_LOCALITY_CHAIN=UNRESOLVED; JINGTAI1_ABSOLUTE_ANCHOR=NOT_YET_ADMISSIBLE; MD-G03 remains open.
 
 Next: 12PS — same-era Ming Shilu/Qintianjian bare-`當在` eclipse timing versus explicit-phase corpus audit.
+
+
+## 30. Batch 12PS — bare `當在某時` is not an attested phase lexeme
+
+The 12PR physical target reads `月食當在卯正三刻` and contains no `初虧 / 食甚 / 復圓` phase word.
+
+A near-contemporary control only fourteen years later, 《憲宗實錄》卷4 (天順八年, 1464), explicitly writes `酉正二刻初虧` for one Qintianjian forecast and `酉初初刻初虧` for the competing forecast. 《孝宗實錄》卷162 (弘治十三年, 1500) likewise distinguishes `寅虧卯圓` from the observed `虧於卯而復圓於辰`.
+
+A later Ming positive control, 《神宗實錄》卷477 (萬曆三十八年, 1610), explicitly enumerates `初虧 / 食甚 / 復圓` and separately records `壺漏 / 簡儀` measurement language. Its late-Ming clock practice is not projected backward to 1450.
+
+Philological result: `當在 + 時刻` is a timing predication, not by itself an attested phase marker. Therefore `月食當在卯正三刻 -> 初虧卯正三刻` normalization is forbidden. This does **not** select 食甚、復圓 or any other hidden phase.
+
+Jingtai-1 phase identity remains UNRESOLVED; the absolute anchor remains NOT_YET_ADMISSIBLE; MD-G03 remains open and runtime fail-closed.
+
+Next: 12PT — early-/mid-Ming eclipse rescue initiation semantics: test whether `失救護` itself binds the operational trigger specifically to 初虧.

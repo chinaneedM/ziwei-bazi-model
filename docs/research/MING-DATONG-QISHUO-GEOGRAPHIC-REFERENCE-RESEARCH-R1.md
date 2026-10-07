@@ -589,3 +589,16 @@ This strengthens source identity but does not supply the missing operator. The p
 Result: JINGTAI1_MING_SHILU_PHYSICAL_WORDING=CLOSED; ABSOLUTE_TIME_ANCHOR=NOT_YET_ADMISSIBLE; MD-G03 remains OPEN_BLOCKING_GENERAL_ADAPTER.
 
 Next: 12PS — compare same-era Ming Shilu/Qintianjian bare `月食當在 / 日食當在` timing syntax with entries that explicitly identify eclipse phase, while keeping phase semantics separate from clock/locality semantics.
+
+
+## 30. Batch 12PS — `當在某時` remains phase-unbound
+
+The Jingtai-1 physical target contains the timing predicate `月食當在卯正三刻` but no explicit phase noun.
+
+The near-contemporary TianShun-8 / 1464 Xianzong Shilu control explicitly writes `酉正二刻初虧` for one forecast and `酉初初刻初虧` for the competing forecast. Hongzhi-13 / 1500 Xiaozong Shilu explicitly contrasts predicted `寅虧卯圓` with observed `虧於卯而復圓於辰`. These show that start/recovery semantics can be lexically marked in Ming Shilu adjudications.
+
+Wanli-38 / 1610 supplies a later positive control that enumerates `初虧 / 食甚 / 復圓` and separately discusses `壺漏 / 簡儀` measurement. It is not used to back-project a 1610 clock system into 1450.
+
+Therefore `當在 + 時刻` cannot be normalized to `初虧 + 時刻` without an explicit bridge. The target phase remains unresolved rather than reassigned.
+
+Next: 12PT — test whether the operational phrase `致失救護` supplies that missing phase bridge through an early-/mid-Ming rescue-initiation rule.

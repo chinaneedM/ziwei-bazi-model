@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.438.0",
+  "schema_version": "1.439.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -519,9 +519,10 @@
       "BATCH-12-BAZI-MING-DATONG-ECLIPSE-RESCUE-PHASE-CLOCK-PROTOCOL-PO",
       "BATCH-12-BAZI-MING-DATONG-JINGTAI1-ECLIPSE-SOURCE-CHAIN-AUDIT-PP",
       "BATCH-12-BAZI-MING-DATONG-JINGTAI1-GUOQUE-PHYSICAL-COLLATION-PQ",
-      "BATCH-12-BAZI-MING-DATONG-JINGTAI1-MINGSHILU-PHYSICAL-COLLATION-PR"
+      "BATCH-12-BAZI-MING-DATONG-JINGTAI1-MINGSHILU-PHYSICAL-COLLATION-PR",
+      "BATCH-12-BAZI-MING-DATONG-JINGTAI1-BARE-DANGZAI-PHASE-SEMANTICS-PS"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-JINGTAI1-MINGSHILU-PHYSICAL-COLLATION-PR.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-JINGTAI1-BARE-DANGZAI-PHASE-SEMANTICS-PS.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -2596,7 +2597,13 @@
       "The received CText 許敦 form is retained as a digital-transcription variant, not a second person or independent witness.",
       "Physical wording authority adds no explicit phase, observer, clock/instrument, acquisition method, solar-time standard or locality; Jingtai-1 remains NOT_YET_ADMISSIBLE.",
       "Live Ming adapter ledger after 12PR remains 5 CLOSED_SOURCE_SCOPED / 4 OPEN_BLOCKING_GENERAL_ADAPTER / 2 DEPENDENCY_BLOCKED; HPA-DAYUN-CAL-002 remains MISSING_FROM_PRODUCT and runtime fail-closed.",
-      "12PS: audit same-era Ming Shilu/Qintianjian bare 月食當在 / 日食當在 timing syntax against explicit 初虧 / 食甚 / 復圓 entries, without importing later clock semantics."
+      "12PS: audit same-era Ming Shilu/Qintianjian bare 月食當在 / 日食當在 timing syntax against explicit 初虧 / 食甚 / 復圓 entries, without importing later clock semantics.",
+      "12PS: same-era Ming Shilu/Qintianjian eclipse-formula corpus audit completed for the 1450 bare 當在 phase-semantics question.",
+      "Near-contemporary 1464 Xianzong Shilu explicitly writes 酉正二刻初虧 when the predicted phase is initial contact; 1500 Xiaozong Shilu explicitly distinguishes 寅虧卯圓 and observed 虧於卯而復圓於辰.",
+      "Therefore 景泰元年 月食當在卯正三刻 cannot be mechanically normalized to 初虧卯正三刻 from syntax alone; bare 當在 is a timing predication, not an attested phase lexeme.",
+      "Wanli-38 / 1610 is retained only as a later Ming positive control because it explicitly enumerates 初虧 / 食甚 / 復圓 and documents 壺漏 / 簡儀 measurement language; those semantics are not back-projected to 1450.",
+      "Jingtai-1 phase identity remains UNRESOLVED and the absolute anchor remains NOT_YET_ADMISSIBLE; MD-G03 stays OPEN_BLOCKING_GENERAL_ADAPTER and runtime remains fail-closed.",
+      "12PT: audit early-/mid-Ming eclipse rescue initiation semantics to determine whether 失救護 source-binds the operational trigger to 初虧 or merely to an official forecast/reporting time."
     ],
     "historical_candidate_extension_count": 14,
     "current_missing_from_product_row_count": 4

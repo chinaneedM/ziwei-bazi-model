@@ -4343,6 +4343,42 @@
         "EXT-NLC-WIKIMEDIA-YINGZONG-SHILU-V19-P10-JINGTAI1-ECLIPSE-PHYSICAL"
       ],
       "batch_id": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-MINGSHILU-PHYSICAL-COLLATION-PR"
+    },
+    {
+      "node_id": "PASSAGE-XIANZONG-V4-TIANSHUN8-ECLIPSE-CHUKUI-1464",
+      "node_type": "PASSAGE",
+      "label": "《憲宗實錄》卷4天順八年日食：明記初虧時刻",
+      "evidence": [
+        "EXT-SHIDIAN-MINGSHILU-XIANZONG-V4-TIANSHUN8-ECLIPSE-CHUKUI-CONTROL"
+      ],
+      "batch_id": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-BARE-DANGZAI-PHASE-SEMANTICS-PS"
+    },
+    {
+      "node_id": "PASSAGE-XIAOZONG-V162-HONGZHI13-ECLIPSE-QIYUAN-1500",
+      "node_type": "PASSAGE",
+      "label": "《孝宗實錄》卷162弘治十三年日食：寅虧卯圓／虧於卯復圓於辰",
+      "evidence": [
+        "EXT-SHIDIAN-MINGSHILU-XIAOZONG-V162-HONGZHI13-ECLIPSE-QIYUAN-CONTROL"
+      ],
+      "batch_id": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-BARE-DANGZAI-PHASE-SEMANTICS-PS"
+    },
+    {
+      "node_id": "PASSAGE-SHENZONG-V477-WANLI38-ECLIPSE-PHASE-CLOCK-1610",
+      "node_type": "PASSAGE",
+      "label": "《神宗實錄》卷477萬曆三十八年日食：初虧食甚復圓與壺漏簡儀",
+      "evidence": [
+        "EXT-SHIDIAN-MINGSHILU-SHENZONG-V477-WANLI38-ECLIPSE-PHASE-CLOCK-CONTROL"
+      ],
+      "batch_id": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-BARE-DANGZAI-PHASE-SEMANTICS-PS"
+    },
+    {
+      "node_id": "TERM-CONCEPT-MING-ECLIPSE-BARE-DANGZAI-NOT-PHASE-LEXEME",
+      "node_type": "TERM_CONCEPT",
+      "label": "明代交食記錄：裸「當在某時」不是已證相位詞，不得自動正規化為初虧",
+      "evidence": [
+        "docs/research/MING-DATONG-JINGTAI1-BARE-DANGZAI-PHASE-SEMANTICS-R1.json"
+      ],
+      "batch_id": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-BARE-DANGZAI-PHASE-SEMANTICS-PS"
     }
   ],
   "edges": [
@@ -7569,6 +7605,59 @@
       ],
       "scope_note": "The physical page closes the target wording and 許惇 glyph only; it does not identify phase, observer, clock method, solar-time standard, longitude, or event locality.",
       "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-MINGSHILU-PHYSICAL-COLLATION-PR"
+    },
+    {
+      "edge_id": "TG-E0211",
+      "from": "PASSAGE-XIANZONG-V4-TIANSHUN8-ECLIPSE-CHUKUI-1464",
+      "relation": "ATTESTS",
+      "to": "TERM-CONCEPT-MING-ECLIPSE-BARE-DANGZAI-NOT-PHASE-LEXEME",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_RECEIVED_TEXT_COMPARATIVE_CONTROL",
+      "evidence": [
+        "EXT-SHIDIAN-MINGSHILU-XIANZONG-V4-TIANSHUN8-ECLIPSE-CHUKUI-CONTROL"
+      ],
+      "scope_note": "Shows that initial contact can be explicitly lexically marked as 初虧 in a near-contemporary Ming Shilu record; it does not define the 1450 bare 當在 phrase.",
+      "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-BARE-DANGZAI-PHASE-SEMANTICS-PS"
+    },
+    {
+      "edge_id": "TG-E0212",
+      "from": "PASSAGE-XIAOZONG-V162-HONGZHI13-ECLIPSE-QIYUAN-1500",
+      "relation": "ATTESTS",
+      "to": "TERM-CONCEPT-MING-ECLIPSE-BARE-DANGZAI-NOT-PHASE-LEXEME",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_RECEIVED_TEXT_COMPARATIVE_CONTROL",
+      "evidence": [
+        "EXT-SHIDIAN-MINGSHILU-XIAOZONG-V162-HONGZHI13-ECLIPSE-QIYUAN-CONTROL"
+      ],
+      "scope_note": "Shows explicit start/recovery phase distinction in a forecast-versus-observation adjudication.",
+      "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-BARE-DANGZAI-PHASE-SEMANTICS-PS"
+    },
+    {
+      "edge_id": "TG-E0213",
+      "from": "PASSAGE-SHENZONG-V477-WANLI38-ECLIPSE-PHASE-CLOCK-1610",
+      "relation": "ATTESTS",
+      "to": "TERM-CONCEPT-MING-ECLIPSE-BARE-DANGZAI-NOT-PHASE-LEXEME",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_LATER_MING_POSITIVE_CONTROL",
+      "evidence": [
+        "EXT-SHIDIAN-MINGSHILU-SHENZONG-V477-WANLI38-ECLIPSE-PHASE-CLOCK-CONTROL"
+      ],
+      "scope_note": "Later positive control: phase and measurement vocabulary can be explicit; not back-projected to 1450.",
+      "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-BARE-DANGZAI-PHASE-SEMANTICS-PS"
+    },
+    {
+      "edge_id": "TG-E0214",
+      "from": "PASSAGE-MINGSHILU-YINGZONG-V187-JINGTAI1-ECLIPSE-CLOCK-DISCREPANCY",
+      "relation": "ATTESTS",
+      "to": "TERM-CONCEPT-MING-ECLIPSE-BARE-DANGZAI-NOT-PHASE-LEXEME",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_DIRECT_PHYSICAL_TARGET_PLUS_COMPARATIVE_PHILOLOGY",
+      "evidence": [
+        "EXT-NLC-WIKIMEDIA-YINGZONG-SHILU-V19-P10-JINGTAI1-ECLIPSE-PHYSICAL",
+        "docs/research/MING-DATONG-JINGTAI1-BARE-DANGZAI-PHASE-SEMANTICS-R1.json"
+      ],
+      "scope_note": "The 1450 target physically preserves 月食當在卯正三刻 without an explicit phase lexeme; comparison does not authorize selecting any hidden phase.",
+      "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-BARE-DANGZAI-PHASE-SEMANTICS-PS"
     }
   ],
   "lineage_hypotheses": [
