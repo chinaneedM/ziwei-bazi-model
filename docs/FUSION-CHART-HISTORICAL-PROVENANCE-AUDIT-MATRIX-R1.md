@@ -2260,3 +2260,16 @@ Against Ming Shilu v187, 《國榷》 abridges `卯正三刻 -> 卯刻` and `辰
 HPA-DAYUN-CAL-002 remains MISSING_FROM_PRODUCT; MD-G03 remains OPEN_BLOCKING_GENERAL_ADAPTER; runtime remains fail-closed.
 
 Research: docs/research/MING-DATONG-JINGTAI1-GUOQUE-PHYSICAL-COLLATION-R1.json.
+
+
+## 29. Batch 12PR — physical Ming Shilu closes the precise target wording, not the absolute clock
+
+Direct no-OCR review of NLC/Wikimedia 《明英宗睿皇帝實錄》第19冊 binds 卷187 on PDF p2 and the 景泰元年正月辛卯 target event on PDF p10. The physical page confirms `卯正三刻`, Qintianjian `辰初初刻`, rescue failure, immediate impeachment, and the personal-name glyph `許惇`.
+
+The received CText `許敦` form is retained as a digital-transcription variant only. It is not a second historical person or an independent witness.
+
+No explicit `初虧 / 食甚 / 復圓` phase, named observer, clock/instrument, acquisition method, solar-time standard, longitude or event locality appears in the target clause.
+
+Result: MING_SHILU_V187_PHYSICAL_TARGET=CLOSED; PRECISE_CLOCK_LABELS=PHYSICALLY_CONFIRMED; ABSOLUTE_PHASE_CLOCK_LOCALITY_CHAIN=UNRESOLVED; JINGTAI1_ABSOLUTE_ANCHOR=NOT_YET_ADMISSIBLE; MD-G03 remains open.
+
+Next: 12PS — same-era Ming Shilu/Qintianjian bare-`當在` eclipse timing versus explicit-phase corpus audit.

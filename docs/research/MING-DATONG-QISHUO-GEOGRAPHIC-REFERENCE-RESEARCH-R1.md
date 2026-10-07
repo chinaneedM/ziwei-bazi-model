@@ -576,3 +576,16 @@ Direct physical p112 reads `卯刻月食欽天監官以辰初刻被劾下法司�
 Result: GUOQUE_PHYSICAL_TARGET=CLOSED; GUOQUE_CLOCK_LABELS=DERIVATIVE_ABRIDGMENT_NOT_INDEPENDENT_ABSOLUTE_VALUES; JINGTAI1_ABSOLUTE_ANCHOR=NOT_YET_ADMISSIBLE; MD-G03 remains open.
 
 Next: 12PR — direct physical collation of NLC/Wikimedia Ming Yingzong Shilu volume 19 / juan 187.
+
+
+## 29. Batch 12PR — the physical Ming Shilu page confirms precision, not phase or absolute clock
+
+The already-acquired NLC/Wikimedia volume 19 artifact was reused rather than reacquired. PDF p2 directly opens 《明英宗睿皇帝實錄》卷187; PDF p10 directly preserves the 景泰元年正月辛卯 eclipse event. No OCR is admitted for final glyph claims.
+
+The physical target confirms `卯正三刻` versus Qintianjian `辰初初刻`, the rescue failure, the censorial impeachment, and the target name as `許惇`. The received digital `許敦` form is therefore a transcription variant, not an independent person/value.
+
+This strengthens source identity but does not supply the missing operator. The page still does not name `初虧 / 食甚 / 復圓`, an observer, a clepsydra or other instrument, an acquisition method, apparent/mean-solar time, longitude, or explicit event locality.
+
+Result: JINGTAI1_MING_SHILU_PHYSICAL_WORDING=CLOSED; ABSOLUTE_TIME_ANCHOR=NOT_YET_ADMISSIBLE; MD-G03 remains OPEN_BLOCKING_GENERAL_ADAPTER.
+
+Next: 12PS — compare same-era Ming Shilu/Qintianjian bare `月食當在 / 日食當在` timing syntax with entries that explicitly identify eclipse phase, while keeping phase semantics separate from clock/locality semantics.

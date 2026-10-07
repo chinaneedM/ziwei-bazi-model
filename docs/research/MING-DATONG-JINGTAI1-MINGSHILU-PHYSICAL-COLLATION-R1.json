@@ -1,0 +1,110 @@
+{
+  "schema": "MING-DATONG-JINGTAI1-MINGSHILU-PHYSICAL-COLLATION-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-MINGSHILU-PHYSICAL-COLLATION-PR",
+  "date": "2026-10-07",
+  "status": "MING_SHILU_V187_TARGET_PHYSICAL_PAGE_CLOSED_NO_NEW_ABSOLUTE_CLOCK_SEMANTICS",
+  "question": "Does direct no-OCR collation of the NLC/Wikimedia Ming Yingzong Shilu volume 19 / juan 187 target page confirm the precise Jingtai-1 eclipse clock wording, and does the physical page add any phase, observer, clock-acquisition, or locality semantics needed for an absolute-time anchor?",
+  "source_route": {
+    "physical_source_id": "EXT-NLC-WIKIMEDIA-YINGZONG-SHILU-V19-P10-JINGTAI1-ECLIPSE-PHYSICAL",
+    "work": "《明英宗睿皇帝實錄》",
+    "source_volume": 19,
+    "target_juan": 187,
+    "target_reign_date": "景泰元年春正月辛卯",
+    "provider": "National Library of China digitized ancient book surrogate mirrored by Wikimedia Commons",
+    "workflow_run_id": 35007522124,
+    "workflow_head_sha": "4025e8619dc74b7ad2f49ce12df34e5a919c15ca",
+    "artifact_id": 10411764656,
+    "artifact_digest": "sha256:422cb871c13b2fe2ba4a2db6532accd39238c78a45ce54127e7e945adf4f23a0",
+    "source_pdf_sha256": "8c917af7b8a86450b6fffe8eaba1264d6537d081fd19516f473c6b50d05be9a7",
+    "source_pdf_pages": 108,
+    "ocr_used_for_final_glyph_claims": false,
+    "text_layer_role": "LOCATOR_AID_ONLY_EFFECTIVELY_EMPTY; FINAL_WORDING_FROM_DIRECT_RENDERED_PAGE_REVIEW"
+  },
+  "physical_page_binding": {
+    "juan187_opening_pdf_page": 2,
+    "juan187_opening_page_sha256": "20dc256cfc4772ef54f9770c8d4f6349dd70fed5181a1d47be63e9ec0aefe779",
+    "juan187_opening_direct_reading": [
+      "明英宗睿皇帝實錄卷之一百八十七",
+      "廢帝郕戾王附錄第五",
+      "景泰元年春正月丁丑朔"
+    ],
+    "target_pdf_page": 10,
+    "target_page_sha256": "8e431e1b51a8cf7b040564d94d18f120ac31b4418053b0abee9ffb30937c07e5",
+    "target_contact_sheet_sha256": "40265a38f96d2920095484879b4df303ecb814bea65454c572036204395a2d01",
+    "direct_target_reading": "是日早月食當在卯正三刻欽天監官以為辰初初刻致失救護六科十三道劾監正許惇等推測不明下三法司論罪當徒詔宥之",
+    "punctuation_policy": "PUNCTUATION_EDITORIAL_ONLY_DIRECT_GLYPH_SEQUENCE_PRESERVED",
+    "target_name_glyph": "許惇",
+    "received_digital_transcription_variant": "許敦",
+    "received_digital_transcription_variant_status": "DIGITAL_TRANSCRIPTION_VARIANT_NOT_PHYSICAL_GLYPH_AUTHORITY",
+    "result": "TARGET_EVENT_DIRECTLY_BOUND_AT_PHYSICAL_PAGE_LEVEL"
+  },
+  "physical_vs_received_text": {
+    "received_source_id": "EXT-CTEXT-MINGSHILU-YINGZONG-V187-JINGTAI1-ECLIPSE-CLOCK-ERROR",
+    "received_text_variant": "是日早月食當在卯正三刻欽天監官以為辰初初刻致失救護六科十三道劾監正許敦等推測不明下三法司論罪當徒詔宥之",
+    "precise_actual_label_confirmed": "卯正三刻",
+    "precise_prediction_label_confirmed": "辰初初刻",
+    "rescue_failure_wording_confirmed": true,
+    "six_offices_thirteen_circuits_impeachment_confirmed": true,
+    "physical_person_name": "許惇",
+    "digital_person_name_variant": "許敦",
+    "person_identity_split_authorized": false,
+    "independent_witness_increment_from_digital_variant": 0,
+    "adjudication": "PHYSICAL_PAGE_SUPERSEDES_DIGITAL_TRANSCRIPTION_FOR_TARGET_GLYPH; SEMANTIC_EVENT_IDENTITY_UNCHANGED"
+  },
+  "adjudication": {
+    "ming_shilu_target_physical_page_collated": "CLOSED_DIRECT_PHYSICAL_SURROGATE",
+    "precise_actual_time_label": "ATTESTED_PHYSICAL_PAGE",
+    "precise_prediction_time_label": "ATTESTED_PHYSICAL_PAGE",
+    "rescue_failure": "ATTESTED_PHYSICAL_PAGE",
+    "immediate_censorial_consequence": "ATTESTED_PHYSICAL_PAGE",
+    "target_phase_identity": "UNRESOLVED",
+    "named_observer_for_actual_time": "NOT_ATTESTED",
+    "clock_instrument": "NOT_ATTESTED",
+    "time_acquisition_method": "NOT_ATTESTED",
+    "explicit_event_locality": "NOT_ATTESTED",
+    "apparent_solar_time_identity": "NOT_ATTESTED",
+    "mean_solar_time_identity": "NOT_ATTESTED",
+    "official_clepsydra_identity": "NOT_ATTESTED",
+    "jingtai1_absolute_anchor_status": "NOT_YET_ADMISSIBLE",
+    "qishuo_geographic_reference": "UNRESOLVED",
+    "md_g03_status_after_batch": "OPEN_BLOCKING_GENERAL_ADAPTER",
+    "modern_ephemeris_meridian_fit_authorized": false,
+    "runtime_authorized": false,
+    "hpa_dayun_cal_002_status": "MISSING_FROM_PRODUCT"
+  },
+  "inference_firewalls": [
+    "PHYSICAL_PRECISE_TIME_LABEL != PROOF_OF_ABSOLUTE_SOLAR_TIME_STANDARD",
+    "PHYSICAL_PAGE_GLYPH_AUTHORITY != PROOF_OF_OBSERVATION_OR_TIME_ACQUISITION_METHOD",
+    "COURT_OPERATIONAL_CONTEXT != DIRECT_EVENT_TIME_LOCALITY_BINDING",
+    "PHYSICAL_MING_SHILU_WITNESS != AUTOMATIC_INITIAL_CONTACT_PHASE_SEMANTICS",
+    "許敦_DIGITAL_VARIANT != SECOND_HISTORICAL_PERSON_OR_INDEPENDENT_WITNESS"
+  ],
+  "transmission_impact": {
+    "graph_nodes_added": [
+      "DIGITAL-SURROGATE-YINGZONG-SHILU-NLC892-V19"
+    ],
+    "graph_edges_added": [
+      "TG-E0210"
+    ],
+    "impact": "Upgrades the existing Jingtai-1 Ming Shilu passage from received digital transcription control to direct NLC/Wikimedia physical-page glyph authority while preserving all unresolved phase/clock/locality firewalls."
+  },
+  "route_disposition": {
+    "use_jingtai1_as_absolute_anchor_now": "FORBIDDEN",
+    "next_batch": "12PS",
+    "next_focus": "Audit a same-era Ming Shilu/Qintianjian corpus of bare eclipse timing formulas (e.g. 月食當在/日食當在) against entries that explicitly name 初虧/食甚/復圓, to test whether the bare 當在某時 syntax has a source-scoped phase meaning. Do not import later Chongzhen semantics or infer clock/locality from phase syntax."
+  },
+  "accounting": {
+    "matrix_rows": 222,
+    "audited_rows": 222,
+    "current_missing_from_product_rows": 4,
+    "provenance_defects_confirmed": 45,
+    "provenance_defects_repaired": 45,
+    "historical_candidate_extensions": 14,
+    "historical_candidate_registries": 5,
+    "historical_candidate_runtime_resolvers": 5,
+    "chart_algorithm_defects": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0
+  }
+}

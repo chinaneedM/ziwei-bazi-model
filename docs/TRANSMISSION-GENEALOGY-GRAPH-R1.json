@@ -4333,6 +4333,16 @@
         "docs/research/MING-DATONG-JINGTAI1-GUOQUE-PHYSICAL-COLLATION-R1.json"
       ],
       "first_explicit_graph_batch": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-GUOQUE-PHYSICAL-COLLATION-PQ"
+    },
+    {
+      "node_id": "DIGITAL-SURROGATE-YINGZONG-SHILU-NLC892-V19",
+      "node_type": "DIGITAL_SURROGATE",
+      "label": "NLC892-CBM0103-366393《明英宗睿皇帝實錄》第19冊數字替身",
+      "date_scope": "MODERN_DIGITAL_SURROGATE_OF_MING_SHILU_RECEIVED_COPY",
+      "evidence": [
+        "EXT-NLC-WIKIMEDIA-YINGZONG-SHILU-V19-P10-JINGTAI1-ECLIPSE-PHYSICAL"
+      ],
+      "batch_id": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-MINGSHILU-PHYSICAL-COLLATION-PR"
     }
   ],
   "edges": [
@@ -7544,6 +7554,21 @@
         "semantic_strength_changed": false,
         "prior_record_preserved": true
       }
+    },
+    {
+      "edge_id": "TG-E0210",
+      "from": "DIGITAL-SURROGATE-YINGZONG-SHILU-NLC892-V19",
+      "relation": "ATTESTS",
+      "to": "PASSAGE-MINGSHILU-YINGZONG-V187-JINGTAI1-ECLIPSE-CLOCK-DISCREPANCY",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_DIRECT_PHYSICAL_PAGE_REVIEW_NO_OCR",
+      "evidence_class": "DIRECT_RENDERED_NLC_WIKIMEDIA_PHYSICAL_SURROGATE_PAGE_10",
+      "evidence": [
+        "EXT-NLC-WIKIMEDIA-YINGZONG-SHILU-V19-P10-JINGTAI1-ECLIPSE-PHYSICAL",
+        "docs/research/MING-DATONG-JINGTAI1-MINGSHILU-PHYSICAL-COLLATION-R1.json"
+      ],
+      "scope_note": "The physical page closes the target wording and 許惇 glyph only; it does not identify phase, observer, clock method, solar-time standard, longitude, or event locality.",
+      "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-MINGSHILU-PHYSICAL-COLLATION-PR"
     }
   ],
   "lineage_hypotheses": [

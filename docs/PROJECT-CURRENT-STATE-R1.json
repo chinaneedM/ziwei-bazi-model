@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.437.0",
+  "schema_version": "1.438.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -518,9 +518,10 @@
       "BATCH-12-BAZI-MING-DATONG-JINGTAI1-ECLIPSE-CLOCK-PROVENANCE-PN",
       "BATCH-12-BAZI-MING-DATONG-ECLIPSE-RESCUE-PHASE-CLOCK-PROTOCOL-PO",
       "BATCH-12-BAZI-MING-DATONG-JINGTAI1-ECLIPSE-SOURCE-CHAIN-AUDIT-PP",
-      "BATCH-12-BAZI-MING-DATONG-JINGTAI1-GUOQUE-PHYSICAL-COLLATION-PQ"
+      "BATCH-12-BAZI-MING-DATONG-JINGTAI1-GUOQUE-PHYSICAL-COLLATION-PQ",
+      "BATCH-12-BAZI-MING-DATONG-JINGTAI1-MINGSHILU-PHYSICAL-COLLATION-PR"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-JINGTAI1-GUOQUE-PHYSICAL-COLLATION-PQ.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-JINGTAI1-MINGSHILU-PHYSICAL-COLLATION-PR.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -2589,7 +2590,13 @@
       "The Guoque labels are derivative abridgment, not independent clock values; no phase, observer, instrument, acquisition method or explicit locality is gained.",
       "Jingtai-1 remains NOT_YET_ADMISSIBLE; MD-G03 remains OPEN_BLOCKING_GENERAL_ADAPTER; HPA-DAYUN-CAL-002 remains MISSING_FROM_PRODUCT.",
       "Live Ming adapter ledger after 12PQ remains 5 CLOSED_SOURCE_SCOPED / 4 OPEN_BLOCKING_GENERAL_ADAPTER / 2 DEPENDENCY_BLOCKED.",
-      "12PR: directly collate the already-acquired NLC/Wikimedia Ming Yingzong Shilu volume 19 / juan 187 physical target pages."
+      "12PR: directly collate the already-acquired NLC/Wikimedia Ming Yingzong Shilu volume 19 / juan 187 physical target pages.",
+      "12PR: directly collated the already-acquired NLC/Wikimedia Ming Yingzong Shilu volume 19 / juan 187 physical target pages without OCR for final glyph claims.",
+      "Batch 12PR closed physical target wording: PDF p10 confirms 卯正三刻, 辰初初刻, rescue failure, impeachment and 許惇; source PDF SHA256 8c917af7b8a86450b6fffe8eaba1264d6537d081fd19516f473c6b50d05be9a7.",
+      "The received CText 許敦 form is retained as a digital-transcription variant, not a second person or independent witness.",
+      "Physical wording authority adds no explicit phase, observer, clock/instrument, acquisition method, solar-time standard or locality; Jingtai-1 remains NOT_YET_ADMISSIBLE.",
+      "Live Ming adapter ledger after 12PR remains 5 CLOSED_SOURCE_SCOPED / 4 OPEN_BLOCKING_GENERAL_ADAPTER / 2 DEPENDENCY_BLOCKED; HPA-DAYUN-CAL-002 remains MISSING_FROM_PRODUCT and runtime fail-closed.",
+      "12PS: audit same-era Ming Shilu/Qintianjian bare 月食當在 / 日食當在 timing syntax against explicit 初虧 / 食甚 / 復圓 entries, without importing later clock semantics."
     ],
     "historical_candidate_extension_count": 14,
     "current_missing_from_product_row_count": 4

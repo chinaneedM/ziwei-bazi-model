@@ -76,7 +76,8 @@
         "12PN: Ming Yingzong Shilu v187 directly records Jingtai-1 eclipse at 卯正三刻 versus Qintianjian prediction 辰初初刻 with rescue failure and immediate impeachment. This closes contemporaneous operational discrepancy provenance but does not identify the actual-time observer, phase, clock instrument, solar-time standard, longitude or explicit event locality.",
         "12PO: Wanli Huidian shows eclipse rescue timing is precomputed and officially reported even when cloud/rain prevents visibility, so rescue reporting is not intrinsically direct observation. Chongzhen-5 Xinfa Suanshu explicitly names 初虧, 測候 and timing methods as a positive control; Jingtai-1 still lacks phase/clock acquisition binding.",
         "12PP: Qianan draft Mingshi, Wang Hongxu Mingshigao, Mingshi, Ming Huiyao and Xu Wenxian Tongkao repeat the Jingtai-1 timing error but add no target phase/observer/clock/locality. Public derivative search is parked; ZJLib Guoque v25 provides the next physical page route.",
-        "12PQ: direct no-OCR Guoque v25 p112 reads 卯刻月食欽天監官以辰初刻被劾下法司宥之; it abridges Shilu precision and adds no phase/observer/instrument/locality, so its labels are not independent absolute values."
+        "12PQ: direct no-OCR Guoque v25 p112 reads 卯刻月食欽天監官以辰初刻被劾下法司宥之; it abridges Shilu precision and adds no phase/observer/instrument/locality, so its labels are not independent absolute values.",
+        "12PR: direct no-OCR NLC/Wikimedia Yingzong Shilu v19 p10 physically confirms the precise Jingtai-1 卯正三刻 actual label, 辰初初刻 Qintianjian prediction, rescue failure, impeachment and 許惇 glyph. This upgrades target wording to physical-page authority but adds no explicit phase, observer, instrument, acquisition method, solar-time standard or locality; the event remains not admissible as an absolute anchor."
       ],
       "general_runtime_effect": "Required for general exact event-time/day realization, especially boundary-sensitive cases. It does not invalidate the already physically certified 1578 month-page chain.",
       "batch_12pd_refinement": {
@@ -261,6 +262,25 @@
         "target_page_sha256": "44f14d7b7580fb581c32f86949dda1416c4e9e5bc8cf0900021e0cfb73222657",
         "relation_to_shilu": "DERIVATIVE_ABRIDGMENT",
         "new_phase_observer_clock_locality": false,
+        "independent_absolute_anchor_status": "NOT_YET_ADMISSIBLE",
+        "status_after_batch": "OPEN_BLOCKING_GENERAL_ADAPTER",
+        "runtime_authorized": false
+      },
+      "batch_12pr_refinement": {
+        "batch_id": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-MINGSHILU-PHYSICAL-COLLATION-PR",
+        "research_artifact": "docs/research/MING-DATONG-JINGTAI1-MINGSHILU-PHYSICAL-COLLATION-R1.json",
+        "mingshilu_physical_target": "CLOSED_DIRECT_PHYSICAL_SURROGATE",
+        "source_volume": 19,
+        "target_juan": 187,
+        "opening_pdf_page": 2,
+        "target_pdf_page": 10,
+        "target_page_sha256": "8e431e1b51a8cf7b040564d94d18f120ac31b4418053b0abee9ffb30937c07e5",
+        "precise_actual_label": "卯正三刻",
+        "precise_prediction_label": "辰初初刻",
+        "physical_person_name": "許惇",
+        "received_digital_name_variant": "許敦",
+        "phase_identity": "UNRESOLVED",
+        "observer_clock_acquisition_locality_gain": false,
         "independent_absolute_anchor_status": "NOT_YET_ADMISSIBLE",
         "status_after_batch": "OPEN_BLOCKING_GENERAL_ADAPTER",
         "runtime_authorized": false
@@ -562,8 +582,8 @@
       "focus": "SHOUSHI_DATONG_TONGGUI_GK12437_ZHOUXIANG_QISHUO_EPOCH_CONSTANT_METHOD_NAMED_PLACE_BINDING"
     }
   },
-  "latest_qishuo_geography_batch": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-GUOQUE-PHYSICAL-COLLATION-PQ",
-  "latest_qishuo_geography_artifact": "docs/research/MING-DATONG-JINGTAI1-GUOQUE-PHYSICAL-COLLATION-R1.json",
+  "latest_qishuo_geography_batch": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-MINGSHILU-PHYSICAL-COLLATION-PR",
+  "latest_qishuo_geography_artifact": "docs/research/MING-DATONG-JINGTAI1-MINGSHILU-PHYSICAL-COLLATION-R1.json",
   "batch_12pe_forward_refinement": {
     "status": "G03_EPOCH_TO_MERIDIAN_LINEAGE_SHORTCUT_REJECTED_ACTUAL_REFERENCE_REMAINS_OPEN",
     "historical_12ou_top_level_counts_preserved": true,
@@ -835,6 +855,27 @@
       "batch": "12PR",
       "gate_id": "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
       "focus": "MING_SHILU_V19_V187_JINGTAI1_TARGET_DIRECT_PHYSICAL_COLLATION"
+    }
+  },
+  "batch_12pr_forward_refinement": {
+    "status": "G03_MING_SHILU_PHYSICAL_TARGET_CLOSED_PHASE_SEMANTICS_NEXT",
+    "historical_12ou_top_level_counts_preserved": true,
+    "current_live_gate_accounting_after_12pr": {
+      "closed_source_scoped": 5,
+      "open_blocking_general_adapter": 4,
+      "dependency_blocked": 2,
+      "total_gates": 11
+    },
+    "remaining_open_independent_gates": [
+      "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
+      "MD-G05-DYNAMIC-D1-INTERMEDIATE-PRECISION",
+      "MD-G07-CALENDAR-ADDITION-INVALID-TARGET-DATE",
+      "MD-G08-CALENDAR-ADDITION-INTERCALARY-IDENTITY-TRAVERSAL"
+    ],
+    "next_research_priority": {
+      "batch": "12PS",
+      "gate_id": "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
+      "focus": "MING_SHILU_ECLIPSE_BARE_DANGZAI_PHASE_SEMANTICS_CORPUS_AUDIT"
     }
   }
 }

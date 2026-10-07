@@ -1,7 +1,7 @@
 {
   "schema": "FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1",
   "schema_version": "1.0.0",
-  "access_date": "2026-09-25",
+  "access_date": "2026-10-07",
   "authority_policy": "S00-S19 are a frozen project research corpus and discovery/index layer, not infallible historical authority. External primary/received/bibliographic witnesses may corroborate, refine, contradict, or expose scope/attribution defects in the project corpus. Modern software and secondary research never become historical authority by observation alone.",
   "sources": [
     {
@@ -14388,8 +14388,29 @@
       "target_page_sha256": "44f14d7b7580fb581c32f86949dda1416c4e9e5bc8cf0900021e0cfb73222657",
       "batch_id": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-GUOQUE-PHYSICAL-COLLATION-PQ",
       "access_date": "2026-10-07"
+    },
+    {
+      "source_id": "EXT-NLC-WIKIMEDIA-YINGZONG-SHILU-V19-P10-JINGTAI1-ECLIPSE-PHYSICAL",
+      "title": "《明英宗睿皇帝實錄》第19冊卷187·景泰元年正月辛卯月食（PDF p10）",
+      "author_attribution": "〔明〕孫繼宗等纂修",
+      "historical_period": "MING_YINGZONG_SHILU_RECEIVED_TEXT; TARGET_EVENT_JINGTAI_1_MONTH1_1450",
+      "provider": "National Library of China digitized ancient book surrogate mirrored by Wikimedia Commons",
+      "url": "https://commons.wikimedia.org/wiki/File:NLC892-CBM0103-366393_%E6%98%8E%E8%8B%B1%E5%AE%97%E7%9D%BF%E7%9A%87%E5%B8%9D%E5%AF%A6%E9%8C%84_%E4%B8%89%E7%99%BE%E5%85%AD%E5%8D%81%E4%B8%80%E5%8D%B7_%E7%AC%AC19%E5%86%8A.pdf",
+      "source_role": "DIRECT_PHYSICAL_PAGE_AUTHORITY_FOR_MING_SHILU_V187_JINGTAI1_ECLIPSE_TARGET_WORDING",
+      "quality_notes": "Batch 12PR reuses workflow 35007522124 / artifact 10411764656. Source PDF SHA256 8c917af7b8a86450b6fffe8eaba1264d6537d081fd19516f473c6b50d05be9a7; 108 rendered pages. PDF p2 opens juan 187 and p10 SHA256 8e431e1b51a8cf7b040564d94d18f120ac31b4418053b0abee9ffb30937c07e5 directly preserves the precise 卯正三刻 / 辰初初刻 event wording and 許惇 glyph. No OCR is used for final glyph claims. The page does not identify eclipse phase, observer, clock instrument, acquisition method, solar-time standard, or explicit locality.",
+      "physical_glyph_authority": true,
+      "physical_glyph_authority_scope": "THIS_NLC_WIKIMEDIA_YINGZONG_SHILU_V19_TARGET_PAGE_ONLY; WORDING_AND_GLYPH_AUTHORITY_NOT_ABSOLUTE_CLOCK_SEMANTICS",
+      "workflow_run_id": 35007522124,
+      "artifact_id": 10411764656,
+      "source_pdf_sha256": "8c917af7b8a86450b6fffe8eaba1264d6537d081fd19516f473c6b50d05be9a7",
+      "juan187_opening_pdf_page": 2,
+      "juan187_opening_page_sha256": "20dc256cfc4772ef54f9770c8d4f6349dd70fed5181a1d47be63e9ec0aefe779",
+      "target_pdf_page": 10,
+      "target_page_sha256": "8e431e1b51a8cf7b040564d94d18f120ac31b4418053b0abee9ffb30937c07e5",
+      "batch_id": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-MINGSHILU-PHYSICAL-COLLATION-PR",
+      "access_date": "2026-10-07"
     }
   ],
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md",
-  "updated_at": "2026-10-06"
+  "updated_at": "2026-10-07"
 }
