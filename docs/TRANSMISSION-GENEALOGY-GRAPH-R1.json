@@ -7421,14 +7421,23 @@
       "from": "PASSAGE-QIANAN-NIMINGSHIGAO-V5-JINGTAI1-ECLIPSE-DERIVATIVE",
       "relation": "TEXTUAL_ANCESTRY_CANDIDATE_FOR",
       "to": "PASSAGE-MINGSHILU-YINGZONG-V187-JINGTAI1-ECLIPSE-CLOCK-DISCREPANCY",
-      "status": "REJECTED_DIRECTION_FOR_AUTHORITY",
+      "status": "DISPROVED",
       "confidence": "HIGH_FOR_DERIVATIVE_LATER_DATE_NOT_INDEPENDENT_EVENT_OBSERVATION",
       "evidence_class": "LATER_HISTORIOGRAPHIC_REPETITION",
       "evidence": [
         "docs/research/MING-DATONG-JINGTAI1-ECLIPSE-SOURCE-CHAIN-AUDIT-R1.json"
       ],
       "scope_note": "Edge records dependency relationship only; the later text cannot be an ancestor of the earlier Shilu event record and supplies no independent phase/clock evidence.",
-      "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-ECLIPSE-SOURCE-CHAIN-AUDIT-PP"
+      "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-ECLIPSE-SOURCE-CHAIN-AUDIT-PP",
+      "status_revision": {
+        "prior_status": "REJECTED_DIRECTION_FOR_AUTHORITY",
+        "new_status": "DISPROVED",
+        "revision_date": "2026-10-07",
+        "revision_reason": "Normalize the already-rejected later-text-to-earlier-Shilu ancestry direction to the registered Transmission Genealogy R1 status vocabulary. Semantic adjudication is unchanged: the later Qian'an draft cannot be an ancestor/authority source for the earlier Ming Shilu event record.",
+        "triggering_ci": "exact-head transmission verifier rejected unregistered edge status",
+        "originating_batch": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-ECLIPSE-SOURCE-CHAIN-AUDIT-PP",
+        "prior_record_preserved": true
+      }
     },
     {
       "edge_id": "TG-E0205",
@@ -8473,5 +8482,5 @@
     "first_explicit_seed_batch": "BATCH-12-ZIWEI-SISHI-QIHOU-JINGTAI6-TONGSHU-TABLE-CONTROL-CH",
     "future_material_batches_require_transmission_impact": true
   },
-  "updated_at": "2026-10-06"
+  "updated_at": "2026-10-07"
 }
