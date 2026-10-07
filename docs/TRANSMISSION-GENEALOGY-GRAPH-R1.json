@@ -4260,6 +4260,43 @@
         "docs/research/MING-DATONG-ECLIPSE-RESCUE-PHASE-CLOCK-PROTOCOL-R1.json"
       ],
       "first_explicit_graph_batch": "BATCH-12-BAZI-MING-DATONG-ECLIPSE-RESCUE-PHASE-CLOCK-PROTOCOL-PO"
+    },
+    {
+      "node_id": "PASSAGE-QIANAN-NIMINGSHIGAO-V5-JINGTAI1-ECLIPSE-DERIVATIVE",
+      "node_type": "PASSAGE",
+      "label": "《潛菴先生擬明史稿》卷五景泰元年月食誤推衍生記載",
+      "system_scope": "JINGTAI1_ECLIPSE_DERIVATIVE_TRANSMISSION",
+      "date": "EARLY_QING_DRAFT_HISTORY",
+      "locator": "卷五 景泰元年正月辛卯",
+      "evidence": [
+        "EXT-SHIDIAN-QIANAN-NIMINGSHIGAO-V5-JINGTAI1-ECLIPSE-DERIVATIVE",
+        "docs/research/MING-DATONG-JINGTAI1-ECLIPSE-SOURCE-CHAIN-AUDIT-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-ECLIPSE-SOURCE-CHAIN-AUDIT-PP"
+    },
+    {
+      "node_id": "PASSAGE-XUWENXIANTONGKAO-V212-JINGTAI1-ECLIPSE-DERIVATIVE",
+      "node_type": "PASSAGE",
+      "label": "《欽定續文獻通考》卷212景帝實錄景泰元年月食衍生記載",
+      "system_scope": "JINGTAI1_ECLIPSE_DERIVATIVE_TRANSMISSION",
+      "date": "QING_OFFICIAL_COMPILATION",
+      "locator": "卷212 月食條",
+      "evidence": [
+        "EXT-WIKISOURCE-XUWENXIANTONGKAO-V212-JINGTAI1-ECLIPSE-DERIVATIVE",
+        "docs/research/MING-DATONG-JINGTAI1-ECLIPSE-SOURCE-CHAIN-AUDIT-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-ECLIPSE-SOURCE-CHAIN-AUDIT-PP"
+    },
+    {
+      "node_id": "TERM-CONCEPT-JINGTAI1-DERIVATIVE-REPETITION-NOT-INDEPENDENT-PHASE-CLOCK-EVIDENCE",
+      "node_type": "TERM_CONCEPT",
+      "label": "景泰元年月食後出重述不等於獨立相位／時鐘證據",
+      "system_scope": "SOURCE_DEPENDENCY_AND_NEGATIVE_SEARCH_FIREWALL",
+      "mechanical_identity": "Later repetitions of the same event wording cannot multiply observation authority or fill phase/observer/clock fields that remain absent from the controlling event source.",
+      "evidence": [
+        "docs/research/MING-DATONG-JINGTAI1-ECLIPSE-SOURCE-CHAIN-AUDIT-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-ECLIPSE-SOURCE-CHAIN-AUDIT-PP"
     }
   ],
   "edges": [
@@ -7342,6 +7379,47 @@
       ],
       "scope_note": "The Jingtai event had rescue consequences, but the event sentence itself does not source-bind phase or time-acquisition method.",
       "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-ECLIPSE-RESCUE-PHASE-CLOCK-PROTOCOL-PO"
+    },
+    {
+      "edge_id": "TG-E0204",
+      "from": "PASSAGE-QIANAN-NIMINGSHIGAO-V5-JINGTAI1-ECLIPSE-DERIVATIVE",
+      "relation": "TEXTUAL_ANCESTRY_CANDIDATE_FOR",
+      "to": "PASSAGE-MINGSHILU-YINGZONG-V187-JINGTAI1-ECLIPSE-CLOCK-DISCREPANCY",
+      "status": "REJECTED_DIRECTION_FOR_AUTHORITY",
+      "confidence": "HIGH_FOR_DERIVATIVE_LATER_DATE_NOT_INDEPENDENT_EVENT_OBSERVATION",
+      "evidence_class": "LATER_HISTORIOGRAPHIC_REPETITION",
+      "evidence": [
+        "docs/research/MING-DATONG-JINGTAI1-ECLIPSE-SOURCE-CHAIN-AUDIT-R1.json"
+      ],
+      "scope_note": "Edge records dependency relationship only; the later text cannot be an ancestor of the earlier Shilu event record and supplies no independent phase/clock evidence.",
+      "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-ECLIPSE-SOURCE-CHAIN-AUDIT-PP"
+    },
+    {
+      "edge_id": "TG-E0205",
+      "from": "PASSAGE-XUWENXIANTONGKAO-V212-JINGTAI1-ECLIPSE-DERIVATIVE",
+      "relation": "EXPLICITLY_CITES",
+      "to": "PASSAGE-MINGSHILU-YINGZONG-V187-JINGTAI1-ECLIPSE-CLOCK-DISCREPANCY",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_FOR_EXPLICIT_JINGDI_SHILU_ATTRIBUTION",
+      "evidence_class": "LATER_OFFICIAL_COMPILATION_SOURCE_LABEL",
+      "evidence": [
+        "docs/research/MING-DATONG-JINGTAI1-ECLIPSE-SOURCE-CHAIN-AUDIT-R1.json"
+      ],
+      "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-ECLIPSE-SOURCE-CHAIN-AUDIT-PP"
+    },
+    {
+      "edge_id": "TG-E0206",
+      "from": "PASSAGE-QIANAN-NIMINGSHIGAO-V5-JINGTAI1-ECLIPSE-DERIVATIVE",
+      "relation": "ATTESTS",
+      "to": "TERM-CONCEPT-JINGTAI1-DERIVATIVE-REPETITION-NOT-INDEPENDENT-PHASE-CLOCK-EVIDENCE",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_FOR_SCOPED_DERIVATIVE_CHAIN_NEGATIVE",
+      "evidence_class": "COMPARATIVE_TRANSMISSION_AUDIT",
+      "evidence": [
+        "docs/research/MING-DATONG-JINGTAI1-ECLIPSE-SOURCE-CHAIN-AUDIT-R1.json"
+      ],
+      "scope_note": "The concept applies to the reviewed derivative chain, not to all lost or unreviewed historical sources.",
+      "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-ECLIPSE-SOURCE-CHAIN-AUDIT-PP"
     }
   ],
   "lineage_hypotheses": [

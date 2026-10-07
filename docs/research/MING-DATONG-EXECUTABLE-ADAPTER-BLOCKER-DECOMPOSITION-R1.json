@@ -74,7 +74,8 @@
         "12PL: Wanli Daming Huidian places official clepsydra/time service, eclipse 分秒時刻 reporting and Datong almanac production under Qintianjian, but does not identify qishuo as the tower clepsydra or a capital-local solar coordinate. Mingshi daylight history disproves automatic capital inheritance as a universal calendrical rule.",
         "12PM: Jiajing-7 測晷影定氣朔 and Jiajing-2 Hua Xiang year-long observatory program attest observational calibration/verification, including 合朔 as a target, but no direct local gnomon/clock -> 定朔 remainder operator or longitude is stated. 一以元法為斷 preserves method continuity without selecting Dadu qishuo meridian.",
         "12PN: Ming Yingzong Shilu v187 directly records Jingtai-1 eclipse at 卯正三刻 versus Qintianjian prediction 辰初初刻 with rescue failure and immediate impeachment. This closes contemporaneous operational discrepancy provenance but does not identify the actual-time observer, phase, clock instrument, solar-time standard, longitude or explicit event locality.",
-        "12PO: Wanli Huidian shows eclipse rescue timing is precomputed and officially reported even when cloud/rain prevents visibility, so rescue reporting is not intrinsically direct observation. Chongzhen-5 Xinfa Suanshu explicitly names 初虧, 測候 and timing methods as a positive control; Jingtai-1 still lacks phase/clock acquisition binding."
+        "12PO: Wanli Huidian shows eclipse rescue timing is precomputed and officially reported even when cloud/rain prevents visibility, so rescue reporting is not intrinsically direct observation. Chongzhen-5 Xinfa Suanshu explicitly names 初虧, 測候 and timing methods as a positive control; Jingtai-1 still lacks phase/clock acquisition binding.",
+        "12PP: Qianan draft Mingshi, Wang Hongxu Mingshigao, Mingshi, Ming Huiyao and Xu Wenxian Tongkao repeat the Jingtai-1 timing error but add no target phase/observer/clock/locality. Public derivative search is parked; ZJLib Guoque v25 provides the next physical page route."
       ],
       "general_runtime_effect": "Required for general exact event-time/day realization, especially boundary-sensitive cases. It does not invalidate the already physically certified 1578 month-page chain.",
       "batch_12pd_refinement": {
@@ -236,6 +237,18 @@
         "jingtai1_actual_time_measurement_chain": "UNRESOLVED",
         "jingtai1_official_clepsydra_identity": "UNRESOLVED",
         "independent_absolute_anchor_status": "NOT_YET_ADMISSIBLE",
+        "status_after_batch": "OPEN_BLOCKING_GENERAL_ADAPTER",
+        "runtime_authorized": false
+      },
+      "batch_12pp_refinement": {
+        "batch_id": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-ECLIPSE-SOURCE-CHAIN-AUDIT-PP",
+        "research_artifact": "docs/research/MING-DATONG-JINGTAI1-ECLIPSE-SOURCE-CHAIN-AUDIT-R1.json",
+        "derivative_chain_adds_phase_observer_clock": false,
+        "dependent_repetition_independent_witness": false,
+        "public_search_negative_scope": "PUBLIC_DIGITAL_SEARCH_HORIZON_ONLY",
+        "generic_derivative_search_route": "PARKED_UNLESS_NEW_WITNESS",
+        "guoque_physical_route": "IDENTIFIED_NOT_YET_COLLATED",
+        "jingtai1_absolute_anchor_status": "NOT_YET_ADMISSIBLE",
         "status_after_batch": "OPEN_BLOCKING_GENERAL_ADAPTER",
         "runtime_authorized": false
       }
@@ -536,8 +549,8 @@
       "focus": "SHOUSHI_DATONG_TONGGUI_GK12437_ZHOUXIANG_QISHUO_EPOCH_CONSTANT_METHOD_NAMED_PLACE_BINDING"
     }
   },
-  "latest_qishuo_geography_batch": "BATCH-12-BAZI-MING-DATONG-ECLIPSE-RESCUE-PHASE-CLOCK-PROTOCOL-PO",
-  "latest_qishuo_geography_artifact": "docs/research/MING-DATONG-ECLIPSE-RESCUE-PHASE-CLOCK-PROTOCOL-R1.json",
+  "latest_qishuo_geography_batch": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-ECLIPSE-SOURCE-CHAIN-AUDIT-PP",
+  "latest_qishuo_geography_artifact": "docs/research/MING-DATONG-JINGTAI1-ECLIPSE-SOURCE-CHAIN-AUDIT-R1.json",
   "batch_12pe_forward_refinement": {
     "status": "G03_EPOCH_TO_MERIDIAN_LINEAGE_SHORTCUT_REJECTED_ACTUAL_REFERENCE_REMAINS_OPEN",
     "historical_12ou_top_level_counts_preserved": true,
@@ -767,6 +780,27 @@
       "batch": "12PP",
       "gate_id": "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
       "focus": "JINGTAI1_XUDUN_IMPEACHMENT_PHASE_OBSERVER_CLOCK_SOURCE_CHAIN"
+    }
+  },
+  "batch_12pp_forward_refinement": {
+    "status": "G03_DERIVATIVE_CHAIN_NEGATIVE_CLOSED_PHYSICAL_GUOQUE_ROUTE_NEXT",
+    "historical_12ou_top_level_counts_preserved": true,
+    "current_live_gate_accounting_after_12pp": {
+      "closed_source_scoped": 5,
+      "open_blocking_general_adapter": 4,
+      "dependency_blocked": 2,
+      "total_gates": 11
+    },
+    "remaining_open_independent_gates": [
+      "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
+      "MD-G05-DYNAMIC-D1-INTERMEDIATE-PRECISION",
+      "MD-G07-CALENDAR-ADDITION-INVALID-TARGET-DATE",
+      "MD-G08-CALENDAR-ADDITION-INTERCALARY-IDENTITY-TRAVERSAL"
+    ],
+    "next_research_priority": {
+      "batch": "12PQ",
+      "gate_id": "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
+      "focus": "GUOQUE_V25_VOL29_JINGTAI1_MONTH1_PHYSICAL_PAGE_COLLATION"
     }
   }
 }

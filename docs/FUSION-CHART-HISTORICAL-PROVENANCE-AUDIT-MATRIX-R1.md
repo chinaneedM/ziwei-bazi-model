@@ -2236,3 +2236,16 @@ Accordingly the Jingtai-1 `卯正三刻` record still lacks a source-bound eclip
 HPA-DAYUN-CAL-002 remains MISSING_FROM_PRODUCT; MD-G03 remains open; runtime and modern meridian fitting remain fail-closed.
 
 Research: docs/research/MING-DATONG-ECLIPSE-RESCUE-PHASE-CLOCK-PROTOCOL-R1.json.
+
+
+## Batch 12PP — Jingtai-1 derivative source-chain audit
+
+The reviewed 《潛菴先生擬明史稿》, 王鴻緒《明史稿》, 《明史》, 《明會要》 and 《欽定續文獻通考》 repeat the Jingtai-1 eclipse discrepancy but do not add a source-bound phase, named observer, clock instrument, actual-time acquisition method or event-time locality.
+
+Dependent repetition is not counted as independent observation. The public search negative is scope-limited and does not authorize a historical-nonexistence claim.
+
+A concrete next source is available: the ZJLib/Wikimedia Commons file inventory places 《國榷》卷29 景泰元年正月 in physical volume 25.
+
+HPA-DAYUN-CAL-002 remains MISSING_FROM_PRODUCT; MD-G03 remains open.
+
+Research: docs/research/MING-DATONG-JINGTAI1-ECLIPSE-SOURCE-CHAIN-AUDIT-R1.json.

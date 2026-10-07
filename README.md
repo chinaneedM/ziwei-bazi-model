@@ -756,3 +756,18 @@ The Jingtai-1 `卯正三刻` label therefore remains operationally real but phas
 Next: **12PP — trace the 景泰元年許惇 impeachment/event chain for a source-specific phase, observer or clock-acquisition statement tied to 卯正三刻.**
 
 Batch document: docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-ECLIPSE-RESCUE-PHASE-CLOCK-PROTOCOL-PO.md. Research record: docs/research/MING-DATONG-ECLIPSE-RESCUE-PHASE-CLOCK-PROTOCOL-R1.json.
+
+
+## Progress — Batch 12PP
+
+The reviewed Jingtai-1 derivative source chain has been exhausted without manufacturing evidence. Early/Qing historiographic compilations repeat the Ming Shilu `卯正三刻` / erroneous `辰初初刻` / rescue-failure episode but add no source-bound eclipse phase, observer, clock instrument, time-acquisition method or explicit event locality.
+
+This is a scoped negative only: public derivative-text search absence is not historical nonexistence, and repeated wording is not multiplied as independent witness evidence.
+
+A higher-value route is now identified: the ZJLib/Wikimedia Commons inventory places 《國榷》卷29、景泰元年正月 in physical PDF volume 25.
+
+MD-G03 remains open; HPA-DAYUN-CAL-002 remains MISSING_FROM_PRODUCT; the Jingtai event is still not an admissible absolute-time anchor.
+
+Next: **12PQ — direct physical/page-level collation of 《國榷》第25冊、卷29、景泰元年正月.**
+
+Batch document: docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-JINGTAI1-ECLIPSE-SOURCE-CHAIN-AUDIT-PP.md. Research record: docs/research/MING-DATONG-JINGTAI1-ECLIPSE-SOURCE-CHAIN-AUDIT-R1.json.

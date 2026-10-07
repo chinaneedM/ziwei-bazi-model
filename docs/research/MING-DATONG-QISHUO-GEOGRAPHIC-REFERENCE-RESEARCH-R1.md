@@ -554,3 +554,16 @@ A Chongzhen-5 Xinfa Suanshu discussion supplies the useful positive control: it 
 Result: RESCUE_REPORTING_FORECAST_SEMANTICS=CLOSED; JINGTAI1_PHASE_AND_ACTUAL_CLOCK_ACQUISITION=UNRESOLVED; INDEPENDENT_ABSOLUTE_ANCHOR=NOT_YET_ADMISSIBLE; MD-G03 remains open.
 
 Next: 12PP — search the Jingtai-1 Xu Dun event/impeachment source chain for a target-specific phase, observer or clock statement.
+
+
+## 27. Batch 12PP — derivative repetition adds no missing 1450 phase/clock semantics
+
+The later historiographic chain materially preserves the Jingtai-1 `卯正三刻` versus erroneous `辰初初刻` episode but does not enrich it with 初虧/食甚/復圓, observer, instrument or explicit locality. 《續文獻通考》 explicitly attributes its shortened item to 景帝實錄, reinforcing dependency rather than creating a new observational witness.
+
+Targeted public searches with the date/event plus phase and clock vocabulary recovered no materially new target-specific witness. This is only a public-digital-horizon negative; it cannot prove historical nonexistence.
+
+The route now shifts from repeated derivative text to a physical target: ZJLib's public inventory places 《國榷》卷29 景泰元年正月 in PDF volume 25.
+
+Result: DERIVATIVE_CHAIN_NEW_PHASE_CLOCK_FIELDS=NOT_RECOVERED; GENERIC_ROUTE=PARKED; JINGTAI1_ABSOLUTE_ANCHOR=NOT_YET_ADMISSIBLE; MD-G03 remains open.
+
+Next: 12PQ — page-level 《國榷》 collation.
