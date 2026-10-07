@@ -7482,9 +7482,9 @@
     },
     {
       "edge_id": "TG-E0208",
-      "from": "PASSAGE-GUOQUE-V29-JINGTAI1-ECLIPSE-ABRIDGMENT",
-      "relation": "DERIVATIVE_ABRIDGMENT_OF",
-      "to": "PASSAGE-MINGSHILU-YINGZONG-V187-JINGTAI1-ECLIPSE-CLOCK-DISCREPANCY",
+      "from": "PASSAGE-MINGSHILU-YINGZONG-V187-JINGTAI1-ECLIPSE-CLOCK-DISCREPANCY",
+      "relation": "TEXTUAL_ANCESTRY_CANDIDATE_FOR",
+      "to": "PASSAGE-GUOQUE-V29-JINGTAI1-ECLIPSE-ABRIDGMENT",
       "status": "PROBABLE",
       "confidence": "HIGH_FOR_SAME_EVENT_AND_ABRIDGMENT_PATTERN_NOT_DIRECT_COPYING_MECHANISM",
       "evidence_class": "PHYSICAL_GUOQUE_TARGET_PLUS_MING_SHILU_EVENT_COMPARISON",
@@ -7493,12 +7493,30 @@
         "docs/research/MING-DATONG-JINGTAI1-GUOQUE-PHYSICAL-COLLATION-R1.json"
       ],
       "scope_note": "Same event and systematic precision loss support abridgment; exact copying mechanism is not claimed.",
-      "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-GUOQUE-PHYSICAL-COLLATION-PQ"
+      "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-GUOQUE-PHYSICAL-COLLATION-PQ",
+      "relation_revision": {
+        "prior": {
+          "from": "PASSAGE-GUOQUE-V29-JINGTAI1-ECLIPSE-ABRIDGMENT",
+          "relation": "DERIVATIVE_ABRIDGMENT_OF",
+          "to": "PASSAGE-MINGSHILU-YINGZONG-V187-JINGTAI1-ECLIPSE-CLOCK-DISCREPANCY",
+          "status": "PROBABLE"
+        },
+        "new": {
+          "from": "PASSAGE-MINGSHILU-YINGZONG-V187-JINGTAI1-ECLIPSE-CLOCK-DISCREPANCY",
+          "relation": "TEXTUAL_ANCESTRY_CANDIDATE_FOR",
+          "to": "PASSAGE-GUOQUE-V29-JINGTAI1-ECLIPSE-ABRIDGMENT",
+          "status": "PROBABLE"
+        },
+        "revision_date": "2026-10-07",
+        "revision_reason": "Normalize the inverse custom label DERIVATIVE_ABRIDGMENT_OF into the registered directed genealogy vocabulary. The evidence supports Ming Shilu as a probable textual-ancestry candidate for the later Guoque abridgment; exact direct-copy mechanism remains unproved.",
+        "semantic_strength_changed": false,
+        "prior_record_preserved": true
+      }
     },
     {
       "edge_id": "TG-E0209",
       "from": "PASSAGE-GUOQUE-V29-JINGTAI1-ECLIPSE-ABRIDGMENT",
-      "relation": "SUPPORTS_INFERENCE_FIREWALL",
+      "relation": "ATTESTS",
       "to": "TERM-CONCEPT-GUOQUE-JINGTAI1-ABRIDGMENT-NOT-INDEPENDENT-CLOCK-VALUE",
       "status": "CONFIRMED",
       "confidence": "HIGH",
@@ -7507,7 +7525,25 @@
         "EXT-COMMONS-ZJLIB-GUOQUE-V25-P112-JINGTAI1-ECLIPSE-PHYSICAL",
         "docs/research/MING-DATONG-JINGTAI1-GUOQUE-PHYSICAL-COLLATION-R1.json"
       ],
-      "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-GUOQUE-PHYSICAL-COLLATION-PQ"
+      "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-GUOQUE-PHYSICAL-COLLATION-PQ",
+      "relation_revision": {
+        "prior": {
+          "from": "PASSAGE-GUOQUE-V29-JINGTAI1-ECLIPSE-ABRIDGMENT",
+          "relation": "SUPPORTS_INFERENCE_FIREWALL",
+          "to": "TERM-CONCEPT-GUOQUE-JINGTAI1-ABRIDGMENT-NOT-INDEPENDENT-CLOCK-VALUE",
+          "status": "CONFIRMED"
+        },
+        "new": {
+          "from": "PASSAGE-GUOQUE-V29-JINGTAI1-ECLIPSE-ABRIDGMENT",
+          "relation": "ATTESTS",
+          "to": "TERM-CONCEPT-GUOQUE-JINGTAI1-ABRIDGMENT-NOT-INDEPENDENT-CLOCK-VALUE",
+          "status": "CONFIRMED"
+        },
+        "revision_date": "2026-10-07",
+        "revision_reason": "Normalize custom inference-firewall support into the registered ATTESTS relation. The direct physical Guoque passage attests the scoped concept that its abridged clock labels are not independent precision values.",
+        "semantic_strength_changed": false,
+        "prior_record_preserved": true
+      }
     }
   ],
   "lineage_hypotheses": [
