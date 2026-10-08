@@ -1,0 +1,125 @@
+{
+  "schema": "MING-DATONG-YEHUOBIAN-OLD20-SCHOLARLY-COLLATION-CONTROLS-R1",
+  "schema_version": "1.0.0",
+  "date": "2026-10-09",
+  "batch_id": "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-OLD20-SCHOLARLY-COLLATION-CONTROLS-PY",
+  "status": "OLD20_A_B_SCHOLARLY_RECENSION_VARIANTS_IDENTIFIED_CHRONOLOGY_ERROR_FIREWALL_STRENGTHENED_NO_TARGET_PHYSICAL_GLYPH_COLLATION",
+  "question": "Which early twenty-volume manuscript recension is appropriate to collate the quoted 改造漏刻 palace-clock assertion, and may matching 丙辰/丙午 catalog preface years identify a physical copy?",
+  "primary_holding_routes": [
+    {
+      "source_id": "EXT-WIKIMEDIA-NCL02260-YEHUOBIAN-OLD20V-OLD-MANUSCRIPT-1",
+      "holding": "Taiwan NCL 02260 old manuscript",
+      "catalog_scope": "20 volumes + supplement 1 + continuation 12; separate 16-fascicle object",
+      "first_party_physical_target_collated": false,
+      "catalog_preface_date": "萬曆三十四年丙午",
+      "surrogate": "Wikimedia part1 1000pp/179.47MB; part2 35pp/5.68MB"
+    },
+    {
+      "source_id": "EXT-TAIWAN-NCL02261-YEHUOBIAN-20-VOLUME-GREEN-GRID-MANUSCRIPT",
+      "holding": "Taiwan NCL 02261 green-grid manuscript",
+      "catalog_scope": "20 vols / 6 fascicles / 11 lines 21 chars",
+      "first_party_physical_target_collated": false,
+      "catalog_preface_date": "萬曆三十四年丙辰",
+      "surrogate": "Wikimedia 534pp/137.06MB"
+    },
+    {
+      "source_id": "EXT-WIKIMEDIA-NLC411999003250-YEHUOBIAN-MS-V10-18-20",
+      "holding": "China NLC 411999003250 manuscript fascicle10",
+      "catalog_scope": "old volume18-20; 145pp/44.32MB",
+      "first_party_physical_target_collated": false,
+      "negative_scope": "No heading page established; volume20 number not equivalent to 1827 categorized volume20"
+    }
+  ],
+  "scholarship_controls": [
+    {
+      "source_id": "EXT-NAGOYA-INOUE2019-YEHUOBIAN-VERSION-PROBLEM",
+      "title": "井上進 2019 版本問題",
+      "publication": "名古屋大學東洋史研究報告 43:51–73",
+      "reviewed_public_excerpt_printed_pages": [
+        67,
+        68
+      ],
+      "observations": [
+        "Two scholarly-labeled 20v old copies 甲/乙 have text/sequence differences including items in different volumes; do not presume universal original-20v identity.",
+        "Scholar's 乙 misdates the 1606 authorial preface 丙午 as 丙辰, corresponding to 万曆四十四 rather than 三十四.",
+        "The 乙 old20v also contains some later 續編 material; editorial contamination complicates simplistic pre-1619 dating of every copied item.",
+        "Scholar sees some readings of 乙 later inherited by Daoguang printed edition, but no direct physical copy chain from Taiwan NCL02261 to Fuli printed target is established."
+      ]
+    },
+    {
+      "source_id": "EXT-NAGOYA-INOUE2020-YEHUOBIAN-CRITICAL-NOTES1",
+      "title": "井上進 2020 校記（一）",
+      "publication": "名古屋大學東洋史研究報告 44:81–99",
+      "observations": [
+        "Page83 published collation notes distinguish 甲/乙/丙 old readings from later 卅 volume printed wording.",
+        "Modern 30volume compilation may include editorial normalization/interpolation; printed and old manuscript wording cannot be merged without exact passage collation."
+      ]
+    }
+  ],
+  "physical_target_status": {
+    "desired_title": "改造漏刻",
+    "later_classified_location": "received classified 30v volume20 under 曆法",
+    "old20_volume_locator": "NOT_ATTACHED_TO_SPECIFIC_OLD_MANUSCRIPT_FOLIO",
+    "printed_1827_target_folio": "NOT_COLLATION_VERIFIED",
+    "palace_guo_gong_glyph": "UNRESOLVED",
+    "retrospective_bu_dai_yan_glyph": "UNRESOLVED",
+    "reason": "Public old manuscript scans 44MB/137MB/179MB inaccessible to web PDF text reader on present route; no specific target leaf visual acquisition. 2019/2020 research are secondary scholarly analyses not scanned target pages.",
+    "copy_specific_1827_condition": {
+      "source_id": "EXT-CINII-BC08398372-YEHUOBIAN-TOKYO-1827-V19-LACUNA",
+      "lacuna": "Tokyo 1827 copy has volume19 loss after leaf30; volume20 target not thereby proven absent",
+      "visual_target_page_collated": false
+    }
+  },
+  "inference_firewalls": [
+    "同一丙辰誤字不等於同一物理抄本",
+    "20V_甲乙_VARIED_SEQUENCE_NO_UNIVERSAL_OLD20V_VOLUME_MAPPING",
+    "RECEIVED_DIGITAL_TEXT_NOT_EARLY_MANUSCRIPT_GLYPH",
+    "SECONDARY_SCHOLARLY_COLLATION_NOT_DIRECT_TARGET_PAGE",
+    "V19_LACUNA_NOT_V20_TARGET_ABSENCE",
+    "1606_WORK_DATE_NOT_PHYSICAL_COPY_DATE",
+    "1447_CLOCK_ORDER_NOT_CLOCK_COMPLETION",
+    "1450_CORRECTED_TIME_NOT_ABSOLUTE_ANCHOR"
+  ],
+  "adjudication": {
+    "pre1606_authorial_date_bingwu": "SUPPORTED_AS_RECEIVED_PLUS_SCHOLARLY_DATE_CORRECTION",
+    "ncl02261_catalog_bingchen": "DIRECT_CATALOG_TRANSCRIPTION_VARIANT",
+    "ncl02261_same_as_scholar_edition_B": "UNRESOLVED",
+    "cross_volume_original_locus": "UNRESOLVED",
+    "target_physical_glyph": "NOT_COLLATED",
+    "new_independent_physical_target_witness_count": 0,
+    "contemporaneous_1447_clock_completion": "NOT_ATTESTED",
+    "jingtai1_corrected_observer_clock_locality": "UNRESOLVED",
+    "independent_absolute_anchor": "NOT_YET_ADMISSIBLE",
+    "md_g03": "OPEN_BLOCKING_GENERAL_ADAPTER",
+    "hpa_dayun_cal_002": "MISSING_FROM_PRODUCT",
+    "algorithm_reopen_authorized": false,
+    "runtime_authorized": false
+  },
+  "transmission_impact": {
+    "nodes_added": [
+      "EDITION-YEHUOBIAN-TAIWAN-NCL02260-OLDMS-20V",
+      "EDITION-YEHUOBIAN-TAIWAN-NCL02261-GREENMS-20V",
+      "PASSAGE-YEHUOBIAN-NCL02261-CATALOG-AUTHOR-DATE-BINGCHEN",
+      "TERM-CONCEPT-YEHUOBIAN-1606-BINGWU-VS-BINGCHEN-VARIANT"
+    ],
+    "edges_added": [
+      "TG-E0230",
+      "TG-E0231",
+      "TG-E0232"
+    ],
+    "explicit_non_edges_added": 1,
+    "scope": "Bibliographic 20v holdings and authorial-preface textual error identities only; no unproven A/B copy identification, direct transmission or 1450 clock attribution."
+  },
+  "next_batch": "12PZ",
+  "next_focus": "Obtain a physical source-bound heading-to-leaf crosswalk for 改造漏刻 in one old 20v copy and 1827 printed vol20; prioritize available page-level image viewers and inherited collation tables, no OCR-only glyph verdict.",
+  "accounting": {
+    "matrix_rows": 222,
+    "audited_rows": 222,
+    "metadata_defects_confirmed": 45,
+    "metadata_defects_repaired": 45,
+    "missing_from_product_rows": 4,
+    "chart_algorithm_defects": 0,
+    "reopens": 0,
+    "candidate_collapses": 0
+  }
+}

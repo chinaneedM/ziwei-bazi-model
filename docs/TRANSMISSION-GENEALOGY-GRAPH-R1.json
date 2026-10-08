@@ -4607,6 +4607,57 @@
         "EXT-WIKISOURCE-YEHUOBIAN-CATEGORIZED-COMPILER-FANLI-30V"
       ],
       "first_explicit_graph_batch": "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-20-30-RECENSION-CROSSWALK-PX"
+    },
+    {
+      "node_id": "EDITION-YEHUOBIAN-TAIWAN-NCL02260-OLDMS-20V",
+      "node_type": "EDITION",
+      "label": "臺灣國圖02260原20卷舊鈔本（續編另卷；物理抄成年代未確定）",
+      "work_composition_date": "MING_AUTHORIAL_WORK_1606",
+      "edition_impression_date": null,
+      "physical_copy_date": null,
+      "digital_surrogate_date": "MODERN_PUBLIC_COMMONS_BACKUP_DATE_UNDETERMINED",
+      "evidence": [
+        "EXT-WIKIMEDIA-NCL02260-YEHUOBIAN-OLD20V-OLD-MANUSCRIPT-1",
+        "docs/research/MING-DATONG-YEHUOBIAN-OLD20-COLLATION-SCHOLARLY-CONTROL-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-OLD20-SCHOLARLY-COLLATION-CONTROLS-PY"
+    },
+    {
+      "node_id": "EDITION-YEHUOBIAN-TAIWAN-NCL02261-GREENMS-20V",
+      "node_type": "EDITION",
+      "label": "臺灣國圖02261二十卷綠格鈔本，序跋館目記丙辰",
+      "work_composition_date": "MING_AUTHORIAL_WORK_1606",
+      "edition_impression_date": null,
+      "physical_copy_date": null,
+      "digital_surrogate_date": "MODERN_PUBLIC_BACKUP_DATE_UNDETERMINED",
+      "evidence": [
+        "EXT-TAIWAN-NCL02261-YEHUOBIAN-20-VOLUME-GREEN-GRID-MANUSCRIPT",
+        "EXT-NAGOYA-INOUE2019-YEHUOBIAN-VERSION-PROBLEM",
+        "docs/research/MING-DATONG-YEHUOBIAN-OLD20-COLLATION-SCHOLARLY-CONTROL-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-OLD20-SCHOLARLY-COLLATION-CONTROLS-PY"
+    },
+    {
+      "node_id": "PASSAGE-YEHUOBIAN-NCL02261-CATALOG-AUTHOR-DATE-BINGCHEN",
+      "node_type": "PASSAGE",
+      "label": "臺灣國圖02261館目序跋記錄萬曆三十四年丙辰（館目轉錄，非物理字形）",
+      "evidence": [
+        "EXT-TAIWAN-NCL02261-YEHUOBIAN-20-VOLUME-GREEN-GRID-MANUSCRIPT",
+        "docs/research/MING-DATONG-YEHUOBIAN-OLD20-COLLATION-SCHOLARLY-CONTROL-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-OLD20-SCHOLARLY-COLLATION-CONTROLS-PY"
+    },
+    {
+      "node_id": "TERM-CONCEPT-YEHUOBIAN-1606-BINGWU-VS-BINGCHEN-VARIANT",
+      "node_type": "TERM_CONCEPT",
+      "label": "萬曆三十四年應為丙午，丙辰系抄本/館目異文，不能用同錯字直接定抄本身份",
+      "evidence": [
+        "EXT-NAGOYA-INOUE2019-YEHUOBIAN-VERSION-PROBLEM",
+        "EXT-WIKIMEDIA-NCL02260-YEHUOBIAN-OLD20V-OLD-MANUSCRIPT-1",
+        "EXT-TAIWAN-NCL02261-YEHUOBIAN-20-VOLUME-GREEN-GRID-MANUSCRIPT",
+        "docs/research/MING-DATONG-YEHUOBIAN-OLD20-COLLATION-SCHOLARLY-CONTROL-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-OLD20-SCHOLARLY-COLLATION-CONTROLS-PY"
     }
   ],
   "edges": [
@@ -8117,6 +8168,51 @@
       ],
       "scope_note": "Edition/catalog/editorial relation only, no target passage glyph and no proven direct-copy parent for the late 30-volume compilation.",
       "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-20-30-RECENSION-CROSSWALK-PX"
+    },
+    {
+      "edge_id": "TG-E0230",
+      "from": "EDITION-YEHUOBIAN-TAIWAN-NCL02260-OLDMS-20V",
+      "relation": "EDITION_OF",
+      "to": "TEXT-WORK-YEHUOBIAN-SHEN-ORIGINAL-20V",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_FOR_SCOPED_BIBLIOGRAPHIC_ATTESTATION_ONLY",
+      "evidence_class": "DIRECT_LIBRARY_CATALOG_METADATA",
+      "evidence": [
+        "EXT-WIKIMEDIA-NCL02260-YEHUOBIAN-OLD20V-OLD-MANUSCRIPT-1",
+        "docs/research/MING-DATONG-YEHUOBIAN-OLD20-COLLATION-SCHOLARLY-CONTROL-R1.json"
+      ],
+      "scope_note": "20-volume holding scoped, not proof of this copy as 2019 scholar's A.",
+      "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-OLD20-SCHOLARLY-COLLATION-CONTROLS-PY"
+    },
+    {
+      "edge_id": "TG-E0231",
+      "from": "EDITION-YEHUOBIAN-TAIWAN-NCL02261-GREENMS-20V",
+      "relation": "EDITION_OF",
+      "to": "TEXT-WORK-YEHUOBIAN-SHEN-ORIGINAL-20V",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_FOR_SCOPED_BIBLIOGRAPHIC_ATTESTATION_ONLY",
+      "evidence_class": "FIRST_PARTY_LIBRARY_CATALOG",
+      "evidence": [
+        "EXT-TAIWAN-NCL02261-YEHUOBIAN-20-VOLUME-GREEN-GRID-MANUSCRIPT",
+        "docs/research/MING-DATONG-YEHUOBIAN-OLD20-COLLATION-SCHOLARLY-CONTROL-R1.json"
+      ],
+      "scope_note": "20-volume holding scoped, not proof of this copy as 2019 scholar's B.",
+      "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-OLD20-SCHOLARLY-COLLATION-CONTROLS-PY"
+    },
+    {
+      "edge_id": "TG-E0232",
+      "from": "PASSAGE-YEHUOBIAN-NCL02261-CATALOG-AUTHOR-DATE-BINGCHEN",
+      "relation": "ATTESTS",
+      "to": "TERM-CONCEPT-YEHUOBIAN-1606-BINGWU-VS-BINGCHEN-VARIANT",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_FOR_SCOPED_BIBLIOGRAPHIC_ATTESTATION_ONLY",
+      "evidence_class": "BIBLIOGRAPHIC_TRANSCRIPTION_PLUS_SECONDARY_TEXTUAL_CRITICISM",
+      "evidence": [
+        "EXT-TAIWAN-NCL02261-YEHUOBIAN-20-VOLUME-GREEN-GRID-MANUSCRIPT",
+        "docs/research/MING-DATONG-YEHUOBIAN-OLD20-COLLATION-SCHOLARLY-CONTROL-R1.json"
+      ],
+      "scope_note": "Record says 丙辰 while distinct old-MS catalog plus received text gives 丙午; the published 2019 comparison also identifies a B-case 丙辰 error, but identities remain unbound.",
+      "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-OLD20-SCHOLARLY-COLLATION-CONTROLS-PY"
     }
   ],
   "lineage_hypotheses": [
@@ -9108,6 +9204,18 @@
         "EXT-WIKISOURCE-YEHUOBIAN-CATEGORIZED-COMPILER-FANLI-30V"
       ],
       "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-20-30-RECENSION-CROSSWALK-PX"
+    },
+    {
+      "from": "EDITION-YEHUOBIAN-TAIWAN-NCL02261-GREENMS-20V",
+      "relation": "IDENTICAL_PHYSICAL_COPY_AS_SCHOLARLY_RECENSION_B",
+      "to": "TERM-CONCEPT-YEHUOBIAN-1606-BINGWU-VS-BINGCHEN-VARIANT",
+      "status": "UNRESOLVED",
+      "reason": "A matching 丙辰 error is not an identity crosswalk. Inoue 2019 scholarly A/B holding catalog numbers and Taiwan NCL02261 physical page/ownership provenance have not been bound in this batch.",
+      "evidence": [
+        "EXT-NAGOYA-INOUE2019-YEHUOBIAN-VERSION-PROBLEM",
+        "EXT-TAIWAN-NCL02261-YEHUOBIAN-20-VOLUME-GREEN-GRID-MANUSCRIPT"
+      ],
+      "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-OLD20-SCHOLARLY-COLLATION-CONTROLS-PY"
     }
   ],
   "backfill": {
