@@ -4470,6 +4470,55 @@
         "docs/research/MING-DATONG-JINGTAI1-CLOCK-REGIME-PROVENANCE-R1.json"
       ],
       "first_explicit_graph_batch": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-CLOCK-REGIME-PROVENANCE-PV"
+    },
+    {
+      "node_id": "PASSAGE-WANLI-YEHUOBIAN-V20-LOUKE-RETROSPECTIVE",
+      "node_type": "PASSAGE",
+      "label": "《萬曆野獲編》卷20：禁中官漏循用新製（晚明追述）",
+      "evidence": [
+        "EXT-CTEXT-WANLI-YEHUOBIAN-V20-GAIZAO-LOUKE-RETROSPECTIVE",
+        "docs/research/MING-DATONG-LOUJIAN-LATE-WANLI-RECEPTION-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-BAZI-MING-DATONG-LOUJIAN-LATE-WANLI-RECEPTION-PW",
+      "work_composition_date": "LATER_RECEIVED_WORK_NOT_1447",
+      "edition_impression_date": null,
+      "physical_copy_date": null,
+      "digital_surrogate_date": "MODERN_TRANSCRIPTION_UNDATED"
+    },
+    {
+      "node_id": "TERM-CONCEPT-ZHENGTONG12-LATE-RETROSPECTIVE-ADOPTION-ASSERTION",
+      "node_type": "TERM_CONCEPT",
+      "label": "宫漏采用新制仅有晚明追述；不构成同期完工验收证据",
+      "evidence": [
+        "EXT-CTEXT-WANLI-YEHUOBIAN-V20-GAIZAO-LOUKE-RETROSPECTIVE",
+        "docs/research/MING-DATONG-LOUJIAN-LATE-WANLI-RECEPTION-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-BAZI-MING-DATONG-LOUJIAN-LATE-WANLI-RECEPTION-PW"
+    },
+    {
+      "node_id": "PASSAGE-MINGHUIYAO-V28-1447-MONTH-VARIANT",
+      "node_type": "PASSAGE",
+      "label": "《明會要》卷28正統十二年九月之改造命令系年",
+      "evidence": [
+        "EXT-CTEXT-MINGHUIYAO-V28-ZHENGTONG12-LOUJIAN-MONTH-VARIANT",
+        "docs/research/MING-DATONG-LOUJIAN-LATE-WANLI-RECEPTION-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-BAZI-MING-DATONG-LOUJIAN-LATE-WANLI-RECEPTION-PW",
+      "work_composition_date": "LATER_RECEIVED_WORK_NOT_1447",
+      "edition_impression_date": null,
+      "physical_copy_date": null,
+      "digital_surrogate_date": "MODERN_TRANSCRIPTION_UNDATED"
+    },
+    {
+      "node_id": "TERM-CONCEPT-ZHENGTONG12-ORDER-MONTH-CHRONOLOGY-VARIANT",
+      "node_type": "TERM_CONCEPT",
+      "label": "《明會要》九月与《英宗實錄》十一月甲寅纪月异文",
+      "evidence": [
+        "EXT-CTEXT-MINGHUIYAO-V28-ZHENGTONG12-LOUJIAN-MONTH-VARIANT",
+        "EXT-NLC-YINGZONG-SHILU-V16-1447-NANJING59",
+        "docs/research/MING-DATONG-LOUJIAN-LATE-WANLI-RECEPTION-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-BAZI-MING-DATONG-LOUJIAN-LATE-WANLI-RECEPTION-PW"
     }
   ],
   "edges": [
@@ -7890,6 +7939,36 @@
       ],
       "scope_note": "The corrected target value is in the Shilu but its physical clock, observer, acquisition and locality are not; scope-limited negative field inventory.",
       "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-CLOCK-REGIME-PROVENANCE-PV"
+    },
+    {
+      "edge_id": "TG-E0224",
+      "from": "PASSAGE-WANLI-YEHUOBIAN-V20-LOUKE-RETROSPECTIVE",
+      "to": "TERM-CONCEPT-ZHENGTONG12-LATE-RETROSPECTIVE-ADOPTION-ASSERTION",
+      "relation": "ATTESTS",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_FOR_TEXTUAL_CLAIM_ONLY",
+      "evidence_class": "RECEIVED_LATE_MING_ASSERTION",
+      "evidence": [
+        "EXT-CTEXT-WANLI-YEHUOBIAN-V20-GAIZAO-LOUKE-RETROSPECTIVE",
+        "docs/research/MING-DATONG-LOUJIAN-LATE-WANLI-RECEPTION-R1.json"
+      ],
+      "scope_note": "Confirms late writer asserts adoption; no contemporaneous completion proof nor clock identity.",
+      "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-LOUJIAN-LATE-WANLI-RECEPTION-PW"
+    },
+    {
+      "edge_id": "TG-E0225",
+      "from": "PASSAGE-MINGHUIYAO-V28-1447-MONTH-VARIANT",
+      "to": "TERM-CONCEPT-ZHENGTONG12-ORDER-MONTH-CHRONOLOGY-VARIANT",
+      "relation": "ATTESTS",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_FOR_TEXTUAL_CLAIM_ONLY",
+      "evidence_class": "RECEIVED_COMPILER_CHRONOLOGY_VS_PRIOR_SHILU_PHYSICAL",
+      "evidence": [
+        "EXT-CTEXT-MINGHUIYAO-V28-ZHENGTONG12-LOUJIAN-MONTH-VARIANT",
+        "docs/research/MING-DATONG-LOUJIAN-LATE-WANLI-RECEPTION-R1.json"
+      ],
+      "scope_note": "Confirms different month assignments; not two orders; physical Shilu entry stays November.",
+      "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-LOUJIAN-LATE-WANLI-RECEPTION-PW"
     }
   ],
   "lineage_hypotheses": [
@@ -8856,6 +8935,18 @@
         "docs/research/GUOSHOUJING-LOST-WORK-QUOTATION-CHAIN-AUDIT-R1.json"
       ],
       "adjudication_batch": "BATCH-12-BAZI-GUOSHOUJING-LOST-WORK-QUOTATION-CHAIN-AUDIT-PH"
+    },
+    {
+      "from": "PASSAGE-WANLI-YEHUOBIAN-V20-LOUKE-RETROSPECTIVE",
+      "relation": "DIRECT_CONTEMPORARY_COMPLETION_PROOF",
+      "to": "PASSAGE-YINGZONG160-ZHENGTONG12-LOUJIAN-ORDER",
+      "status": "UNRESOLVED",
+      "reason": "Late Ming rhetorical 循用新製不待言 does not supply 1447-1450 completed apparatus, timestamp or handover.",
+      "evidence": [
+        "EXT-CTEXT-WANLI-YEHUOBIAN-V20-GAIZAO-LOUKE-RETROSPECTIVE",
+        "EXT-NLC-YINGZONG-SHILU-V16-1447-NANJING59"
+      ],
+      "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-LOUJIAN-LATE-WANLI-RECEPTION-PW"
     }
   ],
   "backfill": {

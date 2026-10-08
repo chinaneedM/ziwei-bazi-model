@@ -1,0 +1,78 @@
+{
+  "schema": "MING-DATONG-LOUJIAN-LATE-WANLI-RECEPTION-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-BAZI-MING-DATONG-LOUJIAN-LATE-WANLI-RECEPTION-PW",
+  "date": "2026-10-08",
+  "status": "LATE_MING_ADOPTION_CLAIM_AND_COMPILER_MONTH_VARIANT_IDENTIFIED_NO_CONTEMPORARY_COMPLETION_PROOF",
+  "question": "Find evidence the 1447 Inner Palace leak-arrow rebuild was completed/operational by the 1450 lunar eclipse and identify corrected 卯正三刻 source.",
+  "prior_physical_anchor": {
+    "source": "EXT-NLC-YINGZONG-SHILU-V16-1447-NANJING59",
+    "date": "正統十二年十一月甲寅",
+    "physical": "NLC volume16 PDF p28 previously collated in 12CF",
+    "meaning": "改造敕令, not 竣工; already reviewed, not a new witness"
+  },
+  "received_controls": [
+    {
+      "source_id": "EXT-CTEXT-WANLI-YEHUOBIAN-V20-GAIZAO-LOUKE-RETROSPECTIVE",
+      "atomic_wording": "是時禁中官漏循用新製不待言",
+      "date": "正統十二年十一月",
+      "evidence_class": "LATE_MING_RECEIVED_RETROSPECTIVE_COMMENTARY",
+      "result": "Claims later palace-clock adoption but provides no primary completion/documentation or 1450 clock-identification. CText 官漏 and modern received 宮漏 require early physical-edition collation."
+    },
+    {
+      "source_id": "EXT-CTEXT-MINGHUIYAO-V28-ZHENGTONG12-LOUJIAN-MONTH-VARIANT",
+      "atomic_wording": "十二年九月 ... 令內官監改造",
+      "date": "正統十二年九月",
+      "evidence_class": "LATER_RECEIVED_COMPILATION",
+      "result": "Chronological variance against directly physically collated Ming Yingzong Shilu v160 十一月甲寅, not a second dated event."
+    }
+  ],
+  "search_horizon": "Targeted public queries for 1447-1450 inner-palace repair completion, Shen Defu palace clocks and 1450 Xu Dun judicial/observation chain. No contemporary completion/acquisition source recovered in this public search horizon; never a claim of historical nonexistence.",
+  "adjudication": {
+    "late_ming_retroactive_adoption_assertion": "ATTESTED_RECEIVED_TEXT_SCOPE_ONLY",
+    "zhengtong12_rebuild_completion_by_1450": "NOT_ATTESTED_CONTEMPORANEOUSLY",
+    "zhengtong12_exact_operating_clock": "UNRESOLVED",
+    "later_minghuiyao_month_variant": "NINTH_VERSUS_PRIOR_SHILU_ELEVENTH",
+    "new_independent_physical_witness_count": 0,
+    "jingtai1_corrected_time_observer": "UNRESOLVED",
+    "jingtai1_corrected_time_instrument": "UNRESOLVED",
+    "jingtai1_corrected_time_acquisition": "UNRESOLVED",
+    "jingtai1_corrected_time_locality": "UNRESOLVED",
+    "jingtai1_absolute_anchor": "NOT_YET_ADMISSIBLE",
+    "md_g03": "OPEN_BLOCKING_GENERAL_ADAPTER",
+    "hpa_dayun_cal_002": "MISSING_FROM_PRODUCT",
+    "runtime_authorized": false,
+    "algorithm_reopen_authorized": false
+  },
+  "forbidden_inferences": [
+    "LATE_MING_COMMENTARY_NOT_EARLY_MING_COMPLETION_DOCUMENT",
+    "NINTH_VS_ELEVENTH_MONTH_NOT_TWO_REBUILD_EVENTS",
+    "PALACE_CLOCK_NOT_NECESSARILY_QIAOLOU_OR_OBSERVATORY_CLOCK",
+    "1450_CORRECTED_TIME_NOT_PHYSICAL_CLOCK_IDENTITY",
+    "SECONDARY_DIGITAL_TRANSCRIPT_NOT_PHYSICAL_GLYPH_AUTHORITY"
+  ],
+  "transmission_impact": {
+    "graph_nodes_added": [
+      "PASSAGE-WANLI-YEHUOBIAN-V20-LOUKE-RETROSPECTIVE",
+      "TERM-CONCEPT-ZHENGTONG12-LATE-RETROSPECTIVE-ADOPTION-ASSERTION",
+      "PASSAGE-MINGHUIYAO-V28-1447-MONTH-VARIANT",
+      "TERM-CONCEPT-ZHENGTONG12-ORDER-MONTH-CHRONOLOGY-VARIANT"
+    ],
+    "graph_edges_added": [
+      "TG-E0224",
+      "TG-E0225"
+    ],
+    "explicit_non_edges_added": 1
+  },
+  "next_batch": "12PX",
+  "next_focus": "Physically collate an early Wanli Yehoubian printing for 官漏/宮漏 and modality of 不待言; pursue independent 1447-1450 workshop completion or event-specific corrected eclipse time acquisition records.",
+  "accounting": {
+    "rows": 222,
+    "audited": 222,
+    "metadata_defects": 45,
+    "repaired_defects": 45,
+    "missing_product_rows": 4,
+    "algorithm_defects": 0,
+    "reopens": 0
+  }
+}
