@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.443.0",
+  "schema_version": "1.444.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -524,9 +524,10 @@
       "BATCH-12-BAZI-MING-DATONG-JINGTAI1-RESCUE-INITIATION-PHASE-SEMANTICS-PT",
       "BATCH-12-BAZI-MING-DATONG-JINGTAI1-RESCUE-REPORT-ACQUISITION-SEMANTICS-PU",
       "BATCH-12-BAZI-MING-DATONG-JINGTAI1-CLOCK-REGIME-PROVENANCE-PV",
-      "BATCH-12-BAZI-MING-DATONG-LOUJIAN-LATE-WANLI-RECEPTION-PW"
+      "BATCH-12-BAZI-MING-DATONG-LOUJIAN-LATE-WANLI-RECEPTION-PW",
+      "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-20-30-RECENSION-CROSSWALK-PX"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-LOUJIAN-LATE-WANLI-RECEPTION-PW.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-20-30-RECENSION-CROSSWALK-PX.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -2633,7 +2634,12 @@
       "12PW: Ming Huiyao v28 正統十二年九月 conflicts with already physically collated Ming Yingzong Shilu v160 十一月甲寅 for the rebuild order; preserve received month variant, no second event.",
       "12PW: CText 官漏/新製 vs Shidian 宮漏/新制 must be physically collation checked; zero newly physically collated witnesses, no new confirmed algorithm defect or metadata repair.",
       "12PW: MD-G03 remains OPEN_BLOCKING_GENERAL_ADAPTER; HPA-DAYUN-CAL-002 remains MISSING_FROM_PRODUCT and runtime fail-closed; Jingtai1 corrected 卯正三刻 has no independently bound clock/instrument/observer/acquisition/locality.",
-      "12PX: acquire an early printed Wanli Yehoubian target page and specifically dated contemporary 1447-1450 clock completion/1450 actual eclipse event records."
+      "12PX: acquire an early printed Wanli Yehoubian target page and specifically dated contemporary 1447-1450 clock completion/1450 actual eclipse event records.",
+      "12PX: NLC old-20-volume Wanli Yehoubian manuscript volume 10 PDF (NLC 411999003250) directly has bibliographic catalog vol18-20; 145 pages/44.32MB, no target physical leaf inspected. Taiwan NCL 02261 independent 20-volume green-grid manuscript route also found.",
+      "12PX: two Kyoto CiNii distinct holdings BB05477307 and BB18578034 of the Daoguang-7 1827 Fuli Shan Fang 30-volume regrouped printed recension have explicit vol19-20 fascicle locators.",
+      "12PX: late compiler classification preface says 因割裂排纘，都為三十卷，分四十八門; hence early 20-volume 卷20 and 1827 30-volume 卷20 are not equivalent physical/page/section locators. Never infer target paragraph presence from same volume number alone.",
+      "12PX: 官漏/宮漏 glyph and 不待言 remain uncollated from target physical pages; bibliographic hold-level evidence not upgraded to direct text; zero new physically verified witnesses, no 1450 clock chain, MD-G03/HPA-DAYUN-CAL-002 fail-closed.",
+      "12PY: physically locate original 20-volume manuscript target passage by heading/text (not volume number), collate 1827 printed volume 20 target page and older manuscript, record image digest/page/line/glyph."
     ],
     "historical_candidate_extension_count": 14,
     "current_missing_from_product_row_count": 4
@@ -2673,7 +2679,7 @@
     "handoff_text_should_be_generated_from_repository_state_not_chat_memory": true,
     "new_chat_minimal_user_prompt": "继续项目。按仓库 docs/PROJECT-CONTINUITY-PROTOCOL-R1.md 启动，以 GitHub 远端最新状态为唯一事实源。"
   },
-  "updated_at": "2026-10-08",
+  "updated_at": "2026-10-09",
   "tianwen_identity": {
     "umbrella_name_zh": "天问",
     "umbrella_name_en": "TIANWEN",

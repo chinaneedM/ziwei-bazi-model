@@ -1,0 +1,94 @@
+{
+  "schema": "MING-DATONG-YEHUOBIAN-20-30-RECENSION-CROSSWALK-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-20-30-RECENSION-CROSSWALK-PX",
+  "date": "2026-10-09",
+  "status": "BOOK_OBJECT_AND_1827_PRINTED_RECENSION_SCOPED_VOLUME_NUMBER_EQUIVALENCE_REJECTED_TARGET_GLYPH_UNCOLLATED",
+  "question": "Before comparing 官漏/宮漏 in 改造漏刻, do early twenty-volume manuscript witnesses and late classified thirty-volume printed 卷20 identify the same exact physical passage?",
+  "witness_routes": [
+    {
+      "source_id": "EXT-WIKIMEDIA-NLC411999003250-YEHUOBIAN-MS-V10-18-20",
+      "object": "NLC 411999003250, manuscript vol10, old 卷18-20",
+      "date_layers": {
+        "work": "Ming",
+        "edition": "manuscript catalog Ming broad range only",
+        "copy": "not precisely dated",
+        "surrogate": "Wikimedia 2026-08-31 upload"
+      },
+      "target_page_visually_collated": false
+    },
+    {
+      "source_id": "EXT-TAIWAN-NCL02261-YEHUOBIAN-20-VOLUME-GREEN-GRID-MANUSCRIPT",
+      "object": "NCL Taiwan 02261 20-volume green-grid manuscript, 6 fascicles, 534-page Commons digital copy",
+      "target_page_visually_collated": false
+    },
+    {
+      "source_id": "EXT-CINII-BB05477307-YEHUOBIAN-1827-FULISHANFANG-KYOTO-EASTASIANHISTORY",
+      "object": "1827 first printed Fuli Shan Fang 30-volume rearrangement, Kyoto Oriental History copy, physically located vol19-20",
+      "target_page_visually_collated": false
+    },
+    {
+      "source_id": "EXT-CINII-BB18578034-YEHUOBIAN-1827-FULISHANFANG-KYOTO-CHINESEPHILOSOPHY",
+      "object": "1827 Kyoto Chinese Philosophy second catalog copy, vol19-20",
+      "target_page_visually_collated": false
+    },
+    {
+      "source_id": "EXT-WIKISOURCE-YEHUOBIAN-CATEGORIZED-COMPILER-FANLI-30V",
+      "object": "Later reorganizer's 分類凡例",
+      "direct_received_statement": "因割裂排纘，都為三十卷，分四十八門",
+      "adjudication": "COHERENT_REARRANGEMENT_PROOF_NOT_TARGET_GLYPH_COLLATION"
+    }
+  ],
+  "philological_controls": {
+    "same_work_title_not_same_edition": true,
+    "old20v_vol20_not_automatically_new30v_vol20": true,
+    "same_witness_counting": "Two 1827 Kyoto holding records show distinct copies of a printed recension, not two independent 1447 event records.",
+    "guan_vs_gong": "UNRESOLVED_PENDING_PHYSICAL_TARGET_PAGE",
+    "bu_dai_yan": "RETROSPECTIVE_AUTHORIAL_MODALITY_UNCHANGED",
+    "ctext_unknown_base": "NOT_LINKED_TO_1827_EARLY_PRINT_BY_THIS_BATCH"
+  },
+  "access_notes": "NLC Commons vol10 PDF original 44.32 MB, 145 pages; web text service rejects original oversized PDF, and no page/glyph screenshot was reviewed in this batch. NCL 02261 PDF 137.06 MB, 534 pages; also bibliographic route only. Do not label direct physical collation.",
+  "adjudication": {
+    "bibliographic_copy_routes": "CLOSED_SOURCE_SCOPED",
+    "recension_identity_firewall": "CONFIRMED",
+    "target_heading_crosswalk": "NOT_YET_PHYSICALLY_ATTACHED",
+    "target_glyph": "NOT_COLLATED",
+    "contemporaneous_1447_completion": "NOT_ATTESTED",
+    "jingtai1_corrected_clock_and_locality": "UNRESOLVED",
+    "new_independent_physical_witness_count": 0,
+    "md_g03": "OPEN_BLOCKING_GENERAL_ADAPTER",
+    "hpa_dayun_cal_002": "MISSING_FROM_PRODUCT",
+    "runtime_authorized": false,
+    "algorithm_reopen_authorized": false
+  },
+  "transmission_impact": {
+    "nodes_added": [
+      "TEXT-WORK-YEHUOBIAN-SHEN-ORIGINAL-20V",
+      "EDITION-YEHUOBIAN-NLC411999003250-20V-MS",
+      "DIGITAL-SURROGATE-YEHUOBIAN-NLC-V10-18TO20",
+      "EDITION-YEHUOBIAN-1827-FULISHANFANG-30V",
+      "PHYSICAL-COPY-YEHUOBIAN-KYOTO-BB05477307-V19V20",
+      "PASSAGE-YEHUOBIAN-30V-COMPILER-FANLI",
+      "TERM-CONCEPT-YEHUOBIAN-V20-SAME_NUMBER-NOT-SAME_LOCUS"
+    ],
+    "edges_added": [
+      "TG-E0226",
+      "TG-E0227",
+      "TG-E0228",
+      "TG-E0229"
+    ],
+    "explicit_non_edges_added": 1,
+    "scope": "Manuscript-vs-late-compilation version chain and copy identity only; no direct text-copy genealogy claimed."
+  },
+  "next_batch": "12PY",
+  "next_focus": "Identify old 20-volume manuscript locus for 改造漏刻 by table-of-contents/visual page scan, and collate exact physical glyph 官漏/宮漏 from 1827 卷20 and one independently specified older manuscript witness. Maintain source clock lock and no 1450 meridian selection.",
+  "accounting": {
+    "matrix_rows": 222,
+    "audited_rows": 222,
+    "confirmed_metadata_defects": 45,
+    "repaired_metadata_defects": 45,
+    "chart_algorithm_defects": 0,
+    "reopens": 0,
+    "candidate_collapses": 0
+  }
+}

@@ -4519,6 +4519,94 @@
         "docs/research/MING-DATONG-LOUJIAN-LATE-WANLI-RECEPTION-R1.json"
       ],
       "first_explicit_graph_batch": "BATCH-12-BAZI-MING-DATONG-LOUJIAN-LATE-WANLI-RECEPTION-PW"
+    },
+    {
+      "node_id": "TEXT-WORK-YEHUOBIAN-SHEN-ORIGINAL-20V",
+      "node_type": "TEXT_WORK",
+      "label": "沈德符《萬曆野獲編》原二十卷著作層",
+      "evidence": [
+        "EXT-WIKIMEDIA-NLC411999003250-YEHUOBIAN-MS-V10-18-20",
+        "EXT-TAIWAN-NCL02261-YEHUOBIAN-20-VOLUME-GREEN-GRID-MANUSCRIPT"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-20-30-RECENSION-CROSSWALK-PX",
+      "work_composition_date": "MING_AUTHORIAL_WORK_1606_COMPONENT",
+      "edition_impression_date": null,
+      "physical_copy_date": null,
+      "digital_surrogate_date": null
+    },
+    {
+      "node_id": "EDITION-YEHUOBIAN-NLC411999003250-20V-MS",
+      "node_type": "EDITION",
+      "label": "國圖411999003250二十卷系抄本",
+      "evidence": [
+        "EXT-WIKIMEDIA-NLC411999003250-YEHUOBIAN-MS-V10-18-20"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-20-30-RECENSION-CROSSWALK-PX",
+      "work_composition_date": "MING_AUTHORIAL_WORK_1606_COMPONENT",
+      "edition_impression_date": null,
+      "physical_copy_date": null,
+      "digital_surrogate_date": null
+    },
+    {
+      "node_id": "DIGITAL-SURROGATE-YEHUOBIAN-NLC-V10-18TO20",
+      "node_type": "DIGITAL_SURROGATE",
+      "label": "NLC 第10冊数字扫描卷18—20，2026上载",
+      "evidence": [
+        "EXT-WIKIMEDIA-NLC411999003250-YEHUOBIAN-MS-V10-18-20"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-20-30-RECENSION-CROSSWALK-PX",
+      "work_composition_date": "MING_AUTHORIAL_WORK_1606_COMPONENT",
+      "edition_impression_date": null,
+      "physical_copy_date": null,
+      "digital_surrogate_date": "2026-08-31_WIKIMEDIA_UPLOAD_ONLY"
+    },
+    {
+      "node_id": "EDITION-YEHUOBIAN-1827-FULISHANFANG-30V",
+      "node_type": "EDITION",
+      "label": "扶荔山房道光七年1827三十卷分类重编刻本",
+      "evidence": [
+        "EXT-CINII-BB05477307-YEHUOBIAN-1827-FULISHANFANG-KYOTO-EASTASIANHISTORY",
+        "EXT-CINII-BB18578034-YEHUOBIAN-1827-FULISHANFANG-KYOTO-CHINESEPHILOSOPHY",
+        "EXT-WIKISOURCE-YEHUOBIAN-CATEGORIZED-COMPILER-FANLI-30V"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-20-30-RECENSION-CROSSWALK-PX",
+      "work_composition_date": "MING_AUTHORIAL_WORK_1606_COMPONENT",
+      "edition_impression_date": "1827",
+      "physical_copy_date": null,
+      "digital_surrogate_date": null
+    },
+    {
+      "node_id": "PHYSICAL-COPY-YEHUOBIAN-KYOTO-BB05477307-V19V20",
+      "node_type": "PHYSICAL_COPY",
+      "label": "京都东洋史1827版卷19—20馆藏 200023037620",
+      "evidence": [
+        "EXT-CINII-BB05477307-YEHUOBIAN-1827-FULISHANFANG-KYOTO-EASTASIANHISTORY"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-20-30-RECENSION-CROSSWALK-PX",
+      "work_composition_date": "MING_AUTHORIAL_WORK_1606_COMPONENT",
+      "edition_impression_date": "1827",
+      "physical_copy_date": null,
+      "digital_surrogate_date": null
+    },
+    {
+      "node_id": "PASSAGE-YEHUOBIAN-30V-COMPILER-FANLI",
+      "node_type": "PASSAGE",
+      "label": "分类凡例：割裂排纘三十卷分四十八门",
+      "evidence": [
+        "EXT-WIKISOURCE-YEHUOBIAN-CATEGORIZED-COMPILER-FANLI-30V"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-20-30-RECENSION-CROSSWALK-PX"
+    },
+    {
+      "node_id": "TERM-CONCEPT-YEHUOBIAN-V20-SAME_NUMBER-NOT-SAME_LOCUS",
+      "node_type": "TERM_CONCEPT",
+      "label": "旧20卷本与再编30卷本之卷20不可仅凭卷次相同认定同一章页",
+      "evidence": [
+        "EXT-WIKIMEDIA-NLC411999003250-YEHUOBIAN-MS-V10-18-20",
+        "EXT-CINII-BB05477307-YEHUOBIAN-1827-FULISHANFANG-KYOTO-EASTASIANHISTORY",
+        "EXT-WIKISOURCE-YEHUOBIAN-CATEGORIZED-COMPILER-FANLI-30V"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-20-30-RECENSION-CROSSWALK-PX"
     }
   ],
   "edges": [
@@ -7969,6 +8057,66 @@
       ],
       "scope_note": "Confirms different month assignments; not two orders; physical Shilu entry stays November.",
       "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-LOUJIAN-LATE-WANLI-RECEPTION-PW"
+    },
+    {
+      "edge_id": "TG-E0226",
+      "from": "EDITION-YEHUOBIAN-NLC411999003250-20V-MS",
+      "relation": "EDITION_OF",
+      "to": "TEXT-WORK-YEHUOBIAN-SHEN-ORIGINAL-20V",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_FOR_SCOPE_STATED",
+      "evidence_class": "DIRECT_BIBLIOGRAPHIC_BINDING",
+      "evidence": [
+        "EXT-WIKIMEDIA-NLC411999003250-YEHUOBIAN-MS-V10-18-20",
+        "docs/research/MING-DATONG-YEHUOBIAN-20-30-RECENSION-CROSSWALK-R1.json"
+      ],
+      "scope_note": "Edition/catalog/editorial relation only, no target passage glyph and no proven direct-copy parent for the late 30-volume compilation.",
+      "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-20-30-RECENSION-CROSSWALK-PX"
+    },
+    {
+      "edge_id": "TG-E0227",
+      "from": "DIGITAL-SURROGATE-YEHUOBIAN-NLC-V10-18TO20",
+      "relation": "DIGITAL_SURROGATE_OF",
+      "to": "EDITION-YEHUOBIAN-NLC411999003250-20V-MS",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_FOR_SCOPE_STATED",
+      "evidence_class": "DIGITAL_SURROGATE_LIBRARY_BACKUP_METADATA",
+      "evidence": [
+        "EXT-WIKIMEDIA-NLC411999003250-YEHUOBIAN-MS-V10-18-20",
+        "docs/research/MING-DATONG-YEHUOBIAN-20-30-RECENSION-CROSSWALK-R1.json"
+      ],
+      "scope_note": "Edition/catalog/editorial relation only, no target passage glyph and no proven direct-copy parent for the late 30-volume compilation.",
+      "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-20-30-RECENSION-CROSSWALK-PX"
+    },
+    {
+      "edge_id": "TG-E0228",
+      "from": "PHYSICAL-COPY-YEHUOBIAN-KYOTO-BB05477307-V19V20",
+      "relation": "PHYSICAL_COPY_OF_EDITION",
+      "to": "EDITION-YEHUOBIAN-1827-FULISHANFANG-30V",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_FOR_SCOPE_STATED",
+      "evidence_class": "DIRECT_BIBLIOGRAPHIC_BINDING",
+      "evidence": [
+        "EXT-CINII-BB05477307-YEHUOBIAN-1827-FULISHANFANG-KYOTO-EASTASIANHISTORY",
+        "docs/research/MING-DATONG-YEHUOBIAN-20-30-RECENSION-CROSSWALK-R1.json"
+      ],
+      "scope_note": "Edition/catalog/editorial relation only, no target passage glyph and no proven direct-copy parent for the late 30-volume compilation.",
+      "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-20-30-RECENSION-CROSSWALK-PX"
+    },
+    {
+      "edge_id": "TG-E0229",
+      "from": "PASSAGE-YEHUOBIAN-30V-COMPILER-FANLI",
+      "relation": "ATTESTS",
+      "to": "TERM-CONCEPT-YEHUOBIAN-V20-SAME_NUMBER-NOT-SAME_LOCUS",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_FOR_SCOPE_STATED",
+      "evidence_class": "RECEIVED_EDITORIAL_PARATEXT",
+      "evidence": [
+        "EXT-WIKISOURCE-YEHUOBIAN-CATEGORIZED-COMPILER-FANLI-30V",
+        "docs/research/MING-DATONG-YEHUOBIAN-20-30-RECENSION-CROSSWALK-R1.json"
+      ],
+      "scope_note": "Edition/catalog/editorial relation only, no target passage glyph and no proven direct-copy parent for the late 30-volume compilation.",
+      "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-20-30-RECENSION-CROSSWALK-PX"
     }
   ],
   "lineage_hypotheses": [
@@ -8947,6 +9095,19 @@
         "EXT-NLC-YINGZONG-SHILU-V16-1447-NANJING59"
       ],
       "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-LOUJIAN-LATE-WANLI-RECEPTION-PW"
+    },
+    {
+      "from": "EDITION-YEHUOBIAN-NLC411999003250-20V-MS",
+      "relation": "SAME_VOLUME_NUMBER_PROVES_TARGET_PASSAGE_IDENTITY",
+      "to": "EDITION-YEHUOBIAN-1827-FULISHANFANG-30V",
+      "status": "DISPROVED",
+      "reason": "30-volume editor explicitly reclassified the 20-volume ancestor material into 48 thematic gates; volume number 卷20 cannot be used as a stable leaf/page/section locator across recensions without direct content/heading mapping.",
+      "evidence": [
+        "EXT-WIKIMEDIA-NLC411999003250-YEHUOBIAN-MS-V10-18-20",
+        "EXT-CINII-BB05477307-YEHUOBIAN-1827-FULISHANFANG-KYOTO-EASTASIANHISTORY",
+        "EXT-WIKISOURCE-YEHUOBIAN-CATEGORIZED-COMPILER-FANLI-30V"
+      ],
+      "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-20-30-RECENSION-CROSSWALK-PX"
     }
   ],
   "backfill": {
@@ -8955,5 +9116,5 @@
     "first_explicit_seed_batch": "BATCH-12-ZIWEI-SISHI-QIHOU-JINGTAI6-TONGSHU-TABLE-CONTROL-CH",
     "future_material_batches_require_transmission_impact": true
   },
-  "updated_at": "2026-10-08"
+  "updated_at": "2026-10-09"
 }
