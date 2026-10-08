@@ -651,3 +651,26 @@ RUNTIME = FAIL_CLOSED
 ```
 
 Next diagnostic route: 12PV — trace how the corrected `卯正三刻` entered the court record, with special attention to censorial/judicial residue, Qintianjian observation reports, adjacent Shilu material, Xu Dun/許惇 records and the pre-1450 Beijing/Nanjing clock-regime transition.
+
+
+## 33. Batch 12PV — 1447-1450 clock-system transition does not supply the target clock
+
+This batch reuses the previously directly reviewed Ming Yingzong Shilu physical leaves: 1447 vol160 (NLC16 PDF p28), 1449 vol186 (NLC18 PDF p91), and 1450 vol187 (NLC19 PDF p10). No new independent physical witness is counted.
+
+In 1447 Peng Deqing says palace/government leak arrows were still Nanjing old-style and requests change because Beijing has different day/night length; the ruler orders Inner Palace Directorate rebuilding. The order **does not prove completion by 1450**, scale or use in a specific event. In late 1449 Xu Dun's calendar-parameter dispute yields the imperial decree to produce future Datong calendars according to Hongwu/Yongle old-style day/night-ke; **this does not prove physical clock reversion**.
+
+Wanli Huidian v223 independently records different timekeeping surfaces (Qiaolou official service, Nanjing-style earlier observatory instruments, and a new Jingtai-6 copper clepsydra); the 1455 device postdates 1450 and cannot supply its physical timestamp.
+
+Thus neither a source-specific 1450 observer, nor corrected clock acquisition, local solar-time standard, physical clock identity or locality is identified by these records. This is **not** a demonstration that Beijing was or was not used, and is not an explanation of the prediction failure's cause.
+
+```text
+1447_CLOCK_REBUILD_ORDER = ATTESTED
+1447_REBUILD_COMPLETION_BY_1450 = NOT_ATTESTED
+1449_DATONG_CALENDAR_POLICY_REVERSION = ATTESTED
+1449_PHYSICAL_CLOCK_REVERSION = NOT_ATTESTED
+JINGTAI1_CORRECTED_MAOZHENG_ACQUISITION = UNRESOLVED
+JINGTAI1_ABSOLUTE_ANCHOR = NOT_YET_ADMISSIBLE
+MD_G03 = OPEN_BLOCKING_GENERAL_ADAPTER
+```
+
+Next 12PW: direct 1447 rebuild completion and 1450 corrected eclipse clock/observer provenance, preserving separate Qiaolou/palace/observatory/calendar subsystems.

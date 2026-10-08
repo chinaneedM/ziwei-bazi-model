@@ -2320,3 +2320,18 @@ Applied to 1450, `欽天監官以為辰初初刻` plus `推測不明` identifies
 Result: FORECAST-vs-LIVE-CEHOU separation is CLOSED_SOURCE_SCOPED; REPORT≠DIRECT_OBSERVATION is source-strengthened; JINGTAI1_CORRECTED_TIME_ACQUISITION remains UNRESOLVED; ABSOLUTE_ANCHOR remains NOT_YET_ADMISSIBLE; MD-G03 remains open; runtime remains fail-closed.
 
 Next: 12PV — trace the provenance of the corrected `卯正三刻` itself.
+
+
+## 33. Batch 12PV — 1447 rebuild order ≠ 1450 clock identity
+
+Cross-collation reuses **three already physically reviewed and source-bound** Ming Yingzong Shilu pages rather than inventing new independent witness counts:
+
+- 1447, 卷160 NLC16 PDF p28: Peng Deqing contrasts Beijing/Nanjing solstitial day/night-ke values; palace and government leak arrows are still 南京舊式不可用 and the ruler orders 內官監改造. **Rebuild completion and later scale are not stated**.
+- 1449, 卷186 NLC18 PDF p91: Xu Dun and officials defend Beijing-measured Datong calendar day/night-ke while the ruler orders future calendar production to follow 洪武永樂舊式. This **does not establish physical clock reversal**.
+- 1450, 卷187 NLC19 PDF p10: corrected eclipse label 卯正三刻, failed official prediction 辰初初刻 and 救護失時 survive, but corrected-time observer, acquisition, physical clock and locality are unbound.
+
+The later received Wanli Huidian v223 separately transmits ZhengTong-6 Qiaolou clock service under Qintianjian, ZhengTong-11 observatory water-clock instruments still 南京舊制, and a new Jingtai-6 copper clepsydra **five years after** the target. Palazzo/government 漏箭, 谯楼定时器, 观象台壶漏, and published calendar 晷刻 are distinct typed subsystems until directly bridged.
+
+**Adjudication:** PRE_1450_REGIME_TRANSITION=SUPPORTED; 1447_REBUILD_COMPLETION=NOT_ATTESTED; 1449_PHYSICAL_CLOCK_REVERSION=NOT_ATTESTED; JINGTAI1_CORRECTED_MAOZHENG_CLOCK=UNRESOLVED; ABSOLUTE_ANCHOR=NOT_YET_ADMISSIBLE; MD-G03=OPEN; runtime remains fail-closed. No added independent physical witness votes and no product algorithm reopen.
+
+Next 12PW: trace completion/implementation of the 1447 rebuild and direct provenance of the 1450 corrected clock value.

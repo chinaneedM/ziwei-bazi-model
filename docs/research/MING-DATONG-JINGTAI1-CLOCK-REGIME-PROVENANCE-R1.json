@@ -1,0 +1,114 @@
+{
+  "schema": "MING-DATONG-JINGTAI1-CLOCK-REGIME-PROVENANCE-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-CLOCK-REGIME-PROVENANCE-PV",
+  "date": "2026-10-08",
+  "question": "Can 1450 Jingtai1 corrected 卯正三刻 be assigned to a specific Beijing clock from the 1447-1449 surrounding institutional and calendrical records?",
+  "status": "PRE_1450_CLOCK_REGIME_DISTINCTION_SOURCE_CLOSED_CORRECTED_TIME_ACQUISITION_STILL_UNRESOLVED",
+  "prior_physical_controls": [
+    {
+      "source_id": "EXT-NLC-YINGZONG-SHILU-V16-1447-NANJING59",
+      "work": "明英宗實錄卷160",
+      "date": "正統十二年十一月甲寅 / 1447",
+      "physical_location": "NLC第16冊 PDF p28",
+      "prior_research": "docs/research/ZIWEI-YINGZONG-SHILU-1447-NANJING-59-41-PHYSICAL-COLLATION-R1.json",
+      "attests": [
+        "彭德清奏南京冬夏59刻與北京62刻地域差異",
+        "今宮禁及官府漏箭皆南京舊式不可用",
+        "上令內官監改造"
+      ],
+      "scope": "ORDER_TO_REBUILD_ONLY; COMPLETION_DATE_AND_PRECISE_POST_REBUILD_CLOCK_UNSTATED"
+    },
+    {
+      "source_id": "EXT-NLC-WIKIMEDIA-YINGZONG-SHILU-V18-186-1449",
+      "work": "明英宗實錄卷186",
+      "date": "正統十四年十二月戊申 / 1449",
+      "physical_location": "NLC第18冊 PDF p91",
+      "prior_research": "docs/research/ZIWEI-YINGZONG-SHILU-1449-DATONG-OLD-STYLE-RESTORATION-R1.json",
+      "attests": [
+        "欽天監監正許惇等援引彭德清北京觀象臺測驗",
+        "今後造曆宜悉照洪武永樂間舊式"
+      ],
+      "scope": "CALENDAR_DAYNIGHT_POLICY_REVERSAL_ONLY; NOT_PHYSICAL_LEAK_ARROW_REVERSAL"
+    },
+    {
+      "source_id": "EXT-NLC-WIKIMEDIA-YINGZONG-SHILU-V19-P10-JINGTAI1-ECLIPSE-PHYSICAL",
+      "work": "明英宗實錄卷187",
+      "date": "景泰元年正月辛卯 / 1450",
+      "physical_location": "NLC第19冊 PDF p10",
+      "prior_research": "docs/research/MING-DATONG-JINGTAI1-MINGSHILU-PHYSICAL-COLLATION-R1.json",
+      "attests": [
+        "月食當在卯正三刻",
+        "欽天監官以為辰初初刻",
+        "致失救護"
+      ],
+      "scope": "CORRECTED_EVENT_LABEL_WITHOUT_IDENTIFIED_OBSERVER_CLOCK_OR_ACQUISITION_METHOD"
+    }
+  ],
+  "received_institutional_control": {
+    "source_id": "EXT-CTEXT-WANLI-DAMING-HUIDIAN-V223-TIMEKEEPING",
+    "work": "萬曆大明會典卷223",
+    "source_class": "RECEIVED_LATER_MING_COMPILATION",
+    "attests": [
+      "正統六年譙樓漏刻改屬欽天監",
+      "正統十一年圭表壺漏俱如南京舊制",
+      "景泰六年又造簡儀銅壺",
+      "交食先期推算分秒時刻；欽天監官救護時專報時候"
+    ],
+    "subsystem_types": [
+      "PALACE_GOVERNMENT_LEAK_ARROWS",
+      "QIAOLOU_TIMEKEEPING",
+      "OBSERVATORY_CLEPSYDRA",
+      "CALENDAR_DAY_NIGHT_TABLE"
+    ]
+  },
+  "adjudication": {
+    "clock_regime_transition_before_1450": "SUPPORTED_SOURCE_SCOPED",
+    "zhengtong12_order_to_rebuild": "CONFIRMED_BY_PREVIOUS_DIRECT_PHYSICAL_REVIEW",
+    "zhengtong12_rebuild_completed_before_1450": "NOT_ATTESTED_IN_REVIEWED_SOURCES",
+    "zhengtong12_post_rebuild_exact_scale": "UNRESOLVED",
+    "zhengtong14_calendar_daynight_reversion": "CONFIRMED_BY_PREVIOUS_DIRECT_PHYSICAL_REVIEW",
+    "zhengtong14_physical_clock_reversion": "NOT_ATTESTED",
+    "jingtai6_copper_clepsydra": "LATER_RECEIVED_CONTROL_POSTDATES_1450",
+    "jingtai1_corrected_clock_identity": "UNRESOLVED",
+    "jingtai1_corrected_observer_acquisition": "UNRESOLVED",
+    "jingtai1_corrected_locality_solar_standard": "UNRESOLVED",
+    "jingtai1_absolute_time_anchor": "NOT_YET_ADMISSIBLE",
+    "ming_qishuo_geographic_reference": "UNRESOLVED",
+    "md_g03_status": "OPEN_BLOCKING_GENERAL_ADAPTER",
+    "runtime_authorized": false,
+    "algorithm_reopen_authorized": false,
+    "new_independent_physical_witness_increment": 0
+  },
+  "forbidden_inferences": [
+    "1447_REBUILD_ORDER_NOT_1450_COMPLETION",
+    "1447_SOLSTICE_DAYNIGHT_KE_NOT_1450_LUNAR_ECLIPSE_CLOCK",
+    "1449_CALENDAR_POLICY_REVERSION_NOT_PHYSICAL_CLOCK_REVERSION",
+    "LATER_1455_COPPER_CLEPSYDRA_NOT_1450_PHYSICAL_CLOCK",
+    "SAME_BUREAU_NOT_SAME_TIMEKEEPING_INSTRUMENT",
+    "CONTEXT_NOT_CAUSAL_EXPLANATION_FOR_ECLIPSE_PREDICTION_ERROR",
+    "REUSE_12CF_12CL_12PR_NOT_NEW_INDEPENDENT_PHYSICAL_WITNESSES"
+  ],
+  "transmission_impact": {
+    "graph_nodes_added": [
+      "PASSAGE-YINGZONG160-ZHENGTONG12-LOUJIAN-ORDER",
+      "TERM-CONCEPT-MING-1447-1449-CLOCK-VS-CALENDAR-POLICY",
+      "TERM-CONCEPT-JINGTAI1-MAOZHENG-CLOCK-UNBOUND"
+    ],
+    "graph_edges_added": [
+      "TG-E0221",
+      "TG-E0222",
+      "TG-E0223"
+    ],
+    "scope": "CROSS_LAYER_DISTINCTION_WITHOUT_DIRECT_CLOCK_SOURCE_BINDING"
+  },
+  "next_batch": "12PW",
+  "next_focus": "Look for 1447-1450 Inner Palace Directorate leak-arrow rebuilding completion/implementation and an independent direct record binding the 1450 corrected 卯正三刻 to an observer, clock, instrument, or locality.",
+  "account_counts": {
+    "matrix_rows": 222,
+    "audited_rows": 222,
+    "provenance_metadata_defects_confirmed": 45,
+    "provenance_metadata_defects_repaired": 45,
+    "chart_algorithm_defects": 0
+  }
+}

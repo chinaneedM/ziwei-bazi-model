@@ -80,7 +80,8 @@
         "12PR: direct no-OCR NLC/Wikimedia Yingzong Shilu v19 p10 physically confirms the precise Jingtai-1 卯正三刻 actual label, 辰初初刻 Qintianjian prediction, rescue failure, impeachment and 許惇 glyph. This upgrades target wording to physical-page authority but adds no explicit phase, observer, instrument, acquisition method, solar-time standard or locality; the event remains not admissible as an absolute anchor.",
         "12PS: comparative Ming Shilu philology closes only a normalization prohibition. The 1450 target says 月食當在卯正三刻 without a phase word; 1464 explicitly writes 初虧 for initial-contact forecasts, 1500 explicitly distinguishes 虧/圓, and 1610 enumerates 初虧/食甚/復圓 with measurement vocabulary. Therefore 當在某時 cannot be silently normalized to 初虧某時, but no alternate phase is selected.",
         "12PT: Hongwu-period Zhusi Zhizhang rescue ritual says Qintianjian reports 日初蝕 before rescue begins and waits for 復圓; lunar ritual is 同前. Zhengde Huidian v95 preserves the same structure. Thus Jingtai-1 致失救護 source-binds the operational rescue trigger to eclipse onset, while bare 當在 remains lexically phase-unmarked and observer/clock acquisition/locality remain unresolved.",
-        "12PU: Xianzong Shilu 1464 explicitly separates competing pre-event 初虧 predictions from an emperor-ordered 臨時測候, so calculation/report and live observation are source-distinct procedures. Wanli Huidian v103 transmits a Hongwu cloud/rain ritual waiver but does not define report acquisition. Jingtai-1 辰初初刻 is the failed predictive determination; corrected 卯正三刻 observer/clock/acquisition/locality remain unresolved."
+        "12PU: Xianzong Shilu 1464 explicitly separates competing pre-event 初虧 predictions from an emperor-ordered 臨時測候, so calculation/report and live observation are source-distinct procedures. Wanli Huidian v103 transmits a Hongwu cloud/rain ritual waiver but does not define report acquisition. Jingtai-1 辰初初刻 is the failed predictive determination; corrected 卯正三刻 observer/clock/acquisition/locality remain unresolved.",
+        "12PV: Reuse previously physically collated Shilu 1447 Peng Deqing leak-arrow rebuild order (no completion date), 1449 Xu Dun calendar day/night old-style rollback (not physical clock rollback), and 1450 corrected 卯正三刻 target. Wanli Huidian separates Qiaolou time service, older Nanjing-style observatory clock/instruments and a new 1455 copper clepsydra. No target-specific observer, clock, acquired time standard or locality. Existing witnesses reused with zero new independent votes."
       ],
       "general_runtime_effect": "Required for general exact event-time/day realization, especially boundary-sensitive cases. It does not invalidate the already physically certified 1578 month-page chain.",
       "batch_12pd_refinement": {
@@ -332,6 +333,20 @@
         "jingtai1_corrected_time_clock_instrument": "UNRESOLVED",
         "jingtai1_corrected_time_locality": "UNRESOLVED",
         "independent_absolute_anchor_status": "NOT_YET_ADMISSIBLE",
+        "status_after_batch": "OPEN_BLOCKING_GENERAL_ADAPTER",
+        "runtime_authorized": false
+      },
+      "batch_12pv_refinement": {
+        "batch_id": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-CLOCK-REGIME-PROVENANCE-PV",
+        "research_artifact": "docs/research/MING-DATONG-JINGTAI1-CLOCK-REGIME-PROVENANCE-R1.json",
+        "zhengtong12_clock_rebuild_order": "CONFIRMED_SOURCE_SCOPED",
+        "zhengtong12_clock_rebuild_completion": "NOT_ATTESTED",
+        "zhengtong14_calendar_daynight_rollback": "CONFIRMED_SOURCE_SCOPED",
+        "zhengtong14_physical_clock_rollback": "NOT_ATTESTED",
+        "jingtai1_corrected_maozheng_clock": "UNRESOLVED",
+        "jingtai1_clock_acquisition_locality": "UNRESOLVED",
+        "independent_absolute_anchor_status": "NOT_YET_ADMISSIBLE",
+        "independent_physical_witness_increment": 0,
         "status_after_batch": "OPEN_BLOCKING_GENERAL_ADAPTER",
         "runtime_authorized": false
       }
@@ -632,8 +647,8 @@
       "focus": "SHOUSHI_DATONG_TONGGUI_GK12437_ZHOUXIANG_QISHUO_EPOCH_CONSTANT_METHOD_NAMED_PLACE_BINDING"
     }
   },
-  "latest_qishuo_geography_batch": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-RESCUE-REPORT-ACQUISITION-SEMANTICS-PU",
-  "latest_qishuo_geography_artifact": "docs/research/MING-DATONG-JINGTAI1-RESCUE-REPORT-ACQUISITION-SEMANTICS-R1.json",
+  "latest_qishuo_geography_batch": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-CLOCK-REGIME-PROVENANCE-PV",
+  "latest_qishuo_geography_artifact": "docs/research/MING-DATONG-JINGTAI1-CLOCK-REGIME-PROVENANCE-R1.json",
   "batch_12pe_forward_refinement": {
     "status": "G03_EPOCH_TO_MERIDIAN_LINEAGE_SHORTCUT_REJECTED_ACTUAL_REFERENCE_REMAINS_OPEN",
     "historical_12ou_top_level_counts_preserved": true,
@@ -971,6 +986,21 @@
       "batch": "12PV",
       "gate_id": "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
       "focus": "JINGTAI1_CORRECTED_MAOZHENG_TIME_OBSERVER_CLOCK_ACQUISITION_PROVENANCE"
+    }
+  },
+  "batch_12pv_forward_refinement": {
+    "status": "G03_PRE_1450_CLOCK_REGIME_DISTINCTION_CLOSED_IMPLEMENTATION_AND_TARGET_CLOCK_PROVENANCE_NEXT",
+    "historical_12ou_top_level_counts_preserved": true,
+    "current_live_gate_accounting_after_12pv": {
+      "closed_source_scoped": 5,
+      "open_blocking_general_adapter": 4,
+      "dependency_blocked": 2,
+      "total_gates": 11
+    },
+    "next_research_priority": {
+      "batch": "12PW",
+      "gate_id": "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
+      "focus": "1447_LEAK_ARROW_REBUILD_IMPLEMENTATION_AND_1450_MAOZHENG_CORRECTED_VALUE_ACQUISITION"
     }
   }
 }

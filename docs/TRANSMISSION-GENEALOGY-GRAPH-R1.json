@@ -4438,6 +4438,38 @@
         "docs/research/MING-DATONG-JINGTAI1-RESCUE-REPORT-ACQUISITION-SEMANTICS-R1.json"
       ],
       "batch_id": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-RESCUE-REPORT-ACQUISITION-SEMANTICS-PU"
+    },
+    {
+      "node_id": "PASSAGE-YINGZONG160-ZHENGTONG12-LOUJIAN-ORDER",
+      "node_type": "PASSAGE",
+      "label": "《英宗實錄》卷160正統十二年：宮禁官府漏箭南京舊式，命內官監改造",
+      "evidence": [
+        "EXT-NLC-YINGZONG-SHILU-V16-1447-NANJING59",
+        "docs/research/MING-DATONG-JINGTAI1-CLOCK-REGIME-PROVENANCE-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-CLOCK-REGIME-PROVENANCE-PV"
+    },
+    {
+      "node_id": "TERM-CONCEPT-MING-1447-1449-CLOCK-VS-CALENDAR-POLICY",
+      "node_type": "TERM_CONCEPT",
+      "label": "1447宮禁官府漏箭改造命令與1449大統曆晷刻政策回調不等於物理鐘源相同",
+      "mechanical_identity": "Distinguish uncompleted physical repair order from calendar daynight policy revision; no source asserts completion/reversion equivalence.",
+      "evidence": [
+        "EXT-NLC-YINGZONG-SHILU-V16-1447-NANJING59",
+        "EXT-NLC-WIKIMEDIA-YINGZONG-SHILU-V18-186-1449",
+        "docs/research/MING-DATONG-JINGTAI1-CLOCK-REGIME-PROVENANCE-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-CLOCK-REGIME-PROVENANCE-PV"
+    },
+    {
+      "node_id": "TERM-CONCEPT-JINGTAI1-MAOZHENG-CLOCK-UNBOUND",
+      "node_type": "TERM_CONCEPT",
+      "label": "1450卯正三刻來源未綁定：觀測者、時鐘、取得方法及地域待證",
+      "evidence": [
+        "EXT-NLC-WIKIMEDIA-YINGZONG-SHILU-V19-P10-JINGTAI1-ECLIPSE-PHYSICAL",
+        "docs/research/MING-DATONG-JINGTAI1-CLOCK-REGIME-PROVENANCE-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-CLOCK-REGIME-PROVENANCE-PV"
     }
   ],
   "edges": [
@@ -7813,6 +7845,51 @@
       ],
       "scope_note": "Hongwu weather waiver makes visibility relevant to ritual execution but does not by itself decide how Qintianjian acquired the reported onset time; it must not be promoted to a direct-observation rule.",
       "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-RESCUE-REPORT-ACQUISITION-SEMANTICS-PU"
+    },
+    {
+      "edge_id": "TG-E0221",
+      "from": "PASSAGE-YINGZONG160-ZHENGTONG12-LOUJIAN-ORDER",
+      "relation": "ATTESTS",
+      "to": "TERM-CONCEPT-MING-1447-1449-CLOCK-VS-CALENDAR-POLICY",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_EXISTING_DIRECT_PHYSICAL_1447_SCOPE",
+      "evidence_class": "DIRECT_PHYSICAL_SHILU_PRIOR_BATCH_12CF_REUSE",
+      "evidence": [
+        "EXT-NLC-YINGZONG-SHILU-V16-1447-NANJING59",
+        "docs/research/MING-DATONG-JINGTAI1-CLOCK-REGIME-PROVENANCE-R1.json"
+      ],
+      "scope_note": "1447 passage directly records a rebuild order but not completion or final scale. No new independent witness.",
+      "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-CLOCK-REGIME-PROVENANCE-PV"
+    },
+    {
+      "edge_id": "TG-E0222",
+      "from": "PASSAGE-YINGZONG186-DATONG-OLD-STYLE-RESTORATION-1449",
+      "relation": "ATTESTS",
+      "to": "TERM-CONCEPT-MING-1447-1449-CLOCK-VS-CALENDAR-POLICY",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_EXISTING_DIRECT_PHYSICAL_1449_SCOPE",
+      "evidence_class": "DIRECT_PHYSICAL_SHILU_PRIOR_BATCH_12CL_REUSE",
+      "evidence": [
+        "EXT-NLC-WIKIMEDIA-YINGZONG-SHILU-V18-186-1449",
+        "docs/research/MING-DATONG-JINGTAI1-CLOCK-REGIME-PROVENANCE-R1.json"
+      ],
+      "scope_note": "1449 passage directly orders future Datong calendar old-style production, not physical clock reversion. No new independent witness.",
+      "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-CLOCK-REGIME-PROVENANCE-PV"
+    },
+    {
+      "edge_id": "TG-E0223",
+      "from": "PASSAGE-MINGSHILU-YINGZONG-V187-JINGTAI1-ECLIPSE-CLOCK-DISCREPANCY",
+      "relation": "ATTESTS",
+      "to": "TERM-CONCEPT-JINGTAI1-MAOZHENG-CLOCK-UNBOUND",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_EXISTING_DIRECT_PHYSICAL_1450_TARGET_SCOPE",
+      "evidence_class": "DIRECT_PHYSICAL_SHILU_PRIOR_BATCH_12PR_REUSE",
+      "evidence": [
+        "EXT-NLC-WIKIMEDIA-YINGZONG-SHILU-V19-P10-JINGTAI1-ECLIPSE-PHYSICAL",
+        "docs/research/MING-DATONG-JINGTAI1-CLOCK-REGIME-PROVENANCE-R1.json"
+      ],
+      "scope_note": "The corrected target value is in the Shilu but its physical clock, observer, acquisition and locality are not; scope-limited negative field inventory.",
+      "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-CLOCK-REGIME-PROVENANCE-PV"
     }
   ],
   "lineage_hypotheses": [
@@ -8787,5 +8864,5 @@
     "first_explicit_seed_batch": "BATCH-12-ZIWEI-SISHI-QIHOU-JINGTAI6-TONGSHU-TABLE-CONTROL-CH",
     "future_material_batches_require_transmission_impact": true
   },
-  "updated_at": "2026-10-07"
+  "updated_at": "2026-10-08"
 }
