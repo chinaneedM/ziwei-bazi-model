@@ -1,0 +1,48 @@
+name: render-yehuobian-ncl02260-original-v1-12pz
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/render-yehuobian-ncl02260-original-v1-12pz.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install pdf renderer
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils
+      - name: Retrieve fixed source and validate digest
+        run: |
+          set -euo pipefail
+          mkdir -p 12pz-main-v1/source 12pz-main-v1/pages
+          root='https://commons.wikimedia.org/wiki/Special:Redirect/file'
+          curl -L --fail --retry 5 --retry-all-errors --retry-delay 3 --max-time 1100 -A 'Tianwen-Historical-Provenance-R1/1.0' "$root/NCL-02260_1_%E8%90%AC%E6%9B%86%E9%87%8E%E7%8D%B2%E7%B7%A8.pdf" -o 12pz-main-v1/source/part1.pdf
+          echo '5b91b5cad4a9d7573271ffd275085b046339cdfab80341b60a6156706e80e191  12pz-main-v1/source/part1.pdf' | sha256sum -c -
+          pdfinfo 12pz-main-v1/source/part1.pdf > 12pz-main-v1/pdfinfo.txt
+          test "$(awk '/^Pages:/ {print $2}' 12pz-main-v1/pdfinfo.txt)" = 1000
+      - name: Render original volume one candidate pages without OCR
+        run: |
+          set -euo pipefail
+          for p in 3 4 5; do
+            pdftoppm -f "$p" -l "$p" -r 200 -jpeg -jpegopt quality=94 -singlefile 12pz-main-v1/source/part1.pdf "12pz-main-v1/pages/$(printf 'pdf1-p%04d' "$p")"
+          done
+          test "$(find 12pz-main-v1/pages -name '*.jpg' | wc -l)" -eq 3
+          (cd 12pz-main-v1 && sha256sum pages/*.jpg > image-sha256.txt)
+          printf 'CATALOG=Taiwan_NCL_02260\nPDF_POSITIONS=3,4,5\nOCR=false\nSOURCE_SHA256=5b91b5cad4a9d7573271ffd275085b046339cdfab80341b60a6156706e80e191\nNO_GLYPH_CLAIM_BEFORE_MANUAL_READING=true\n' > 12pz-main-v1/manifest.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ncl02260-main-v1-title-12pz
+          path: |
+            12pz-main-v1/pages/
+            12pz-main-v1/image-sha256.txt
+            12pz-main-v1/pdfinfo.txt
+            12pz-main-v1/manifest.txt
+          if-no-files-found: error
+          retention-days: 30
