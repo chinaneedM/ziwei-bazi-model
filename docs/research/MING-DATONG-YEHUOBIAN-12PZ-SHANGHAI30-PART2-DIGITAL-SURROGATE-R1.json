@@ -1,0 +1,103 @@
+{
+  "schema": "MING-DATONG-YEHUOBIAN-12PZ-SHANGHAI30-PART2-DIGITAL-SURROGATE-R1",
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-10-09",
+  "batch": "12PZ_IN_PROGRESS",
+  "status": "PDF_SOURCE_HASH_VERIFIED_AND_ALL_550_PDF_PAGE_POSITIONS_NAVIGATION_RENDERED; EDITION_IDENTITY_UNVERIFIED",
+  "source": {
+    "provider": "Wikimedia Commons",
+    "library_attribution": "Shanghai Library (file-level label only)",
+    "title": "上海 萬曆野獲編三十卷 part 2",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Shanghai_%E8%90%AC%E6%9B%86%E9%87%8E%E7%8D%B2%E7%B7%A8%E4%B8%89%E5%8D%81%E5%8D%B7_part_2.pdf",
+    "pdf_page_count": 550,
+    "source_pdf_byte_count": 177242086,
+    "commons_sha1": "8b6c144319979011238a079260872c5868f9f83d",
+    "runner_sha256": "7ea8fe57f5baebd8f2841771d87ec5e3ed34c271e0fe89596a28d2521c9165a6",
+    "original_impression": "UNVERIFIED_NOT_ASSUMED_TO_BE_1827",
+    "physical_copy_identity": "UNVERIFIED",
+    "physical_imprint_page": "UNVERIFIED",
+    "digital_pdf_page_numbering": "ONE_BASED_SURROGATE_INDEX_NOT_ORIGINAL_FOLIO"
+  },
+  "navigation": {
+    "workflow": ".github/workflows/render-yehuobian-shanghai30-part2-navigation-12pz.yml",
+    "commit_sha": "855ebc48cad57e356dc3b08b281e0be93dfe917f",
+    "github_actions_run_id": 37883073422,
+    "conclusion": "success",
+    "artifact_id": 11594979036,
+    "artifact_name": "shanghai-yehuobian-30v-part2-navigation-12pz",
+    "artifact_zip_sha256": "d482988b4444d28c73cb07f63a564d53f38b188c0cf16f5f3803531452a2c6ac",
+    "number_contact_sheets": 35,
+    "pages_per_sheet": 16,
+    "pdf_page_range_1based": [
+      1,
+      550
+    ],
+    "sha256_manifest_files_verified": 35,
+    "sha256_manifest_matches": 35,
+    "ocr_used": false,
+    "full_manual_page_reading": false
+  },
+  "visual_navigation": {
+    "sample_contact_ranges_inspected": [
+      [
+        1,
+        16
+      ],
+      [
+        193,
+        208
+      ],
+      [
+        289,
+        304
+      ],
+      [
+        369,
+        384
+      ],
+      [
+        529,
+        544
+      ]
+    ],
+    "visibly_mixed_brown_and_monochrome_page_reproductions": true,
+    "physical_copy_multiplicity": "UNRESOLVED_NEEDS_COPY_IDENTIFIERS_AND_COLOPHON",
+    "title_pages_identified": "NOT_YET_SOURCE_GLYPH_CLOSED",
+    "target_article_heading_identified": "NOT_YET_SOURCE_GLYPH_CLOSED"
+  },
+  "next_acquisition": {
+    "workflow": ".github/workflows/render-yehuobian-shanghai30-part2-book-boundaries-12pz.yml",
+    "pdf_pages_requested": [
+      1,
+      4,
+      198,
+      200,
+      369,
+      370,
+      537,
+      538,
+      550
+    ],
+    "source_sha256_gate_required": true,
+    "manual_native_page_inspection_required": true,
+    "run_conclusion": "PENDING_AS_OF_AUTHORING"
+  },
+  "limits": [
+    "A Commons file label 上海 library and 三十卷 does not verify 1827 扶荔山房 edition identity.",
+    "35 contact sheets allow page navigation only; they do not prove full-page glyphs, target presence or target absence.",
+    "Changes in scan coloration may have many causes; do not infer a multi-copy composite without source identities.",
+    "A printed 30v edition title is not a mechanically stable old20v original heading/folio locator.",
+    "The digital PDF page index is not an original printed folio or manuscript leaf number.",
+    "No independent historical clock, eclipse observation or textual variant is claimed from contact sheets."
+  ],
+  "project_effect": {
+    "batch_closed": false,
+    "matrix_modified": false,
+    "source_registry_modified": false,
+    "graph_modified": false,
+    "current_state_modified": false,
+    "algorithm_reopened": false,
+    "md_g03": "OPEN_BLOCKING_GENERAL_ADAPTER",
+    "hpa_dayun_cal_002": "MISSING_FROM_PRODUCT"
+  }
+}
