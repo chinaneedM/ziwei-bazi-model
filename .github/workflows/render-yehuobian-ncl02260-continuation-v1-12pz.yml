@@ -1,0 +1,70 @@
+name: render-yehuobian-ncl02260-continuation-v1-12pz
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/render-yehuobian-ncl02260-continuation-v1-12pz.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  render-continuation-v1:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install reproducible PDF renderer
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils
+      - name: Download fixed source object, verify SHA256 and 1000-page count
+        run: |
+          set -euo pipefail
+          mkdir -p 12pz-v1/source 12pz-v1/pages
+          root='https://commons.wikimedia.org/wiki/Special:Redirect/file'
+          curl -L --fail --retry 5 --retry-all-errors --retry-delay 3 --max-time 1100 \
+            -A 'Tianwen-Historical-Provenance-R1/1.0' \
+            "$root/NCL-02260_1_%E8%90%AC%E6%9B%86%E9%87%8E%E7%8D%B2%E7%B7%A8.pdf" \
+            -o 12pz-v1/source/part1.pdf
+          printf '%s  %s\n' \
+            '5b91b5cad4a9d7573271ffd275085b046339cdfab80341b60a6156706e80e191' \
+            '12pz-v1/source/part1.pdf' | sha256sum -c -
+          pdfinfo 12pz-v1/source/part1.pdf > 12pz-v1/pdfinfo.txt
+          test "$(awk '/^Pages:/ {print $2}' 12pz-v1/pdfinfo.txt)" = 1000
+      - name: Render precise first-continuation candidate pages without OCR
+        run: |
+          set -euo pipefail
+          positions=(649 651 652)
+          for p in "${positions[@]}"; do
+            pdftoppm -f "$p" -l "$p" -r 200 -jpeg -jpegopt quality=94 \
+              -singlefile 12pz-v1/source/part1.pdf \
+              "12pz-v1/pages/$(printf 'pdf1-p%04d' "$p")"
+          done
+          test "$(find 12pz-v1/pages -maxdepth 1 -name '*.jpg' | wc -l)" -eq 3
+          (cd 12pz-v1 && sha256sum pages/*.jpg > image-sha256.txt)
+          cat > 12pz-v1/manifest.txt <<'EOF'
+          COLLECTION=Taiwan NCL 204.26 02260
+          PDF1_SHA256=5b91b5cad4a9d7573271ffd275085b046339cdfab80341b60a6156706e80e191
+          PDF1_TOTAL_PAGES=1000
+          PDF1_REQUESTED_PAGES=649,651,652
+          IMAGE_DPI=200
+          OCR_USED=false
+          VOLUME_TITLE_STATUS=UNRESOLVED_UNTIL_MANUAL_SOURCE_IMAGE_READING
+          OLDER_SOURCE_GLYPH_NO_AUTO_ADJUDICATION=true
+          NO_RUNTIME_CHANGE=true
+          EOF
+      - name: Upload page imagery and source manifest only
+        uses: actions/upload-artifact@v4
+        with:
+          name: ncl02260-continuation-v1-title-12pz
+          path: |
+            12pz-v1/pages/
+            12pz-v1/image-sha256.txt
+            12pz-v1/manifest.txt
+            12pz-v1/pdfinfo.txt
+          if-no-files-found: error
+          retention-days: 30
