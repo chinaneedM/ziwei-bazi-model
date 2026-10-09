@@ -1,0 +1,78 @@
+{
+  "schema": "MING-DATONG-YEHUOBIAN-12PZ-1447-1606-TEXT-VARIANT-R1",
+  "schema_version": "1.0.0",
+  "date": "2026-10-09",
+  "batch_in_progress": "12PZ",
+  "state": "EARLIER_OFFICIAL_PHYSICAL_WITNESS_REUSED_RECEIVED_TEXT_VARIANTS_CONFIRMED_TARGET_YEHUOBIAN_PHYSICAL_LEAF_UNCOLLATED",
+  "official_1447": {
+    "work": "明英宗實錄",
+    "juan": 160,
+    "source_id": "EXT-NLC-YINGZONG-SHILU-V16-1447-NANJING59",
+    "physical_evidence_prior_batch": "BATCH-12-ZIWEI-YINGZONG-SHILU-1447-NANJING-59-41-PHYSICAL-COLLATION-CF",
+    "physical_pdf_page_1based": 28,
+    "page_sha256": "b7d95f00fd529468c4242f60b7255b5305df6298d14841a9d9f6ac03eccccfea",
+    "evidence_class": "REUSED_DIRECT_PHYSICAL_PAGE_NOT_NEW_VOTE",
+    "beijing_winter_sunrise": "辰初一刻",
+    "beijing_summer_sunset": "戌初一刻",
+    "source_wording": "宮禁及官府漏箭",
+    "actual_clock_completion_proved": false
+  },
+  "received_variants": [
+    {
+      "work": "明英宗實錄",
+      "provider": "Shidian",
+      "url": "https://www.shidianguji.com/zh/book/LS0026/chapter/1k6qy33meo3za",
+      "beijing_winter_sunrise": "辰初一刻",
+      "authority": "RECEIVED_DIGITAL_TRANSCRIPTION"
+    },
+    {
+      "work": "萬曆野獲編",
+      "provider": "Shidian",
+      "url": "https://www.shidianguji.com/book/NA09843/chapter/1lwjva2l98soe",
+      "beijing_winter_sunrise": "辰初一刻",
+      "palace_clock": "宮漏",
+      "authority": "RECEIVED_DIGITAL_TRANSCRIPTION_UNBOUND_TO_PHYSICAL_COPY"
+    },
+    {
+      "work": "萬曆野獲編",
+      "provider": "Wikisource",
+      "url": "https://zh.wikisource.org/wiki/萬曆野獲編/卷20",
+      "beijing_winter_sunrise": "辰初二刻",
+      "palace_clock": "宮漏",
+      "authority": "RECEIVED_DIGITAL_TEXT_UNBOUND_TO_PHYSICAL_COPY"
+    },
+    {
+      "work": "野獲編",
+      "provider": "CText",
+      "url": "https://ctext.org/wiki.pl?chapter=418967&if=gb",
+      "beijing_winter_sunrise": "辰初二刻",
+      "palace_clock": "官漏",
+      "authority": "OCR_USER_TRANSCRIPTION",
+      "dependency_note": "self-described as collation/entry based on 看典古籍 OCR; name 十六v19~20 is not original-old20 volume authority"
+    }
+  ],
+  "safeguards": [
+    "OCR_AND_ELECTRONIC_TEXT_NOT_PHYSICAL_GLYPH",
+    "SAME_REORGANIZED_VOLUME_20_NAME_NOT_OLD20_VOLUME_20",
+    "CTEXT_SHIDIAN_ELECTRONIC_DEPENDENCY_NOT_INDEPENDENT_PHYSICAL_VOTE",
+    "OFFICIAL_1447_READING_NOT_AUTOMATIC_1606_SOURCE_GLYPH_CORRECTION",
+    "PREEXISTING_PHYSICALLY_COLLATED_SOURCE_NOT_NEW_INDEPENDENT_VOTE",
+    "1447_REBUILD_ORDER_NOT_COMPLETION",
+    "1450_CORRECTED_EVENT_TIME_NOT_INSTRUMENT_ATTESTATION"
+  ],
+  "gates": {
+    "old20_target_leaf": "UNRESOLVED",
+    "printed30_target_leaf": "UNRESOLVED",
+    "printed_1827_identity": "UNVERIFIED",
+    "one_vs_two_on_target_physical_copy": "UNRESOLVED",
+    "gong_vs_guan_on_target_physical_copy": "UNRESOLVED",
+    "confirmed_chart_algorithm_defects_added": 0,
+    "matrix_modified": false,
+    "graph_modified": false,
+    "runtime_authorized": false,
+    "md_g03": "OPEN_BLOCKING_GENERAL_ADAPTER",
+    "hpa_dayun_cal_002": "MISSING_FROM_PRODUCT",
+    "batch_12pz_closed": false
+  },
+  "next": "Bind old20 heading->volume/folio/physical PDF page, 30v edition/colophon/target page and inspect 一/二, 官/宮 on both."
+}

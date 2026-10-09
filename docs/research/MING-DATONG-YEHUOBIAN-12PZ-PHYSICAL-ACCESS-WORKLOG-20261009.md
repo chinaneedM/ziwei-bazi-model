@@ -34,3 +34,28 @@
 Find the literal 〈改造漏刻〉 heading and line span on a **specific 20-volume manuscript copy**; record physical volume/folio, PDF 1-based page, source URL and digest, and transcribe 官/宮及日出刻 on that *physical target* image. Separately visually inspect a **source-identified printed 30-volume copy**'s 卷二十 target leaf and its edition/colophon, before making a copy-to-copy comparison. Until then **12PZ is open**.
 
 This worklog changes **no** historical Matrix counts, candidate registry, provenance defect tally or transmission graph edge. It is not evidence of an implementation defect or authorization to reopen charting algorithms.
+
+
+## New higher-priority textual collation control: 1447 official report vs received 《野獲編》
+
+The existing **physically inspected** NLC/Wikimedia 《明英宗實錄》 卷160, 第16冊, PDF **p28** (12CF's original image SHA-256 `b7d95f00fd529468c4242f60b7255b5305df6298d14841a9d9f6ac03eccccfea`, PDF SHA-256 `1e9546177289930ae33a64793df94518fcc21c90184c935a30ea975461990268`) records the **1447 正統十二年十一月甲寅 official Peng Deqing memorandum** with:
+
+- **北京冬至日出辰初一刻**; 北京夏至日出寅正二刻; 夏至日入戌初一刻.
+- 南京冬至日出辰初初刻; 南京夏至日出寅正四刻; 夜/晝刻五十九, versus Beijing 六十二.
+- **今宮禁及官府漏箭皆南京舊式不可用；上令內官監改造**.
+
+The physical *一刻* reading was already recorded in `docs/research/ZIWEI-YINGZONG-SHILU-1447-NANJING-59-41-PHYSICAL-COLLATION-R1.json`; **it is NOT a newly acquired independent physical witness**.
+
+| Witness/read route | 北京冬至日出 | 官/宮 reading | Evidence level |
+| --- | --- | --- | --- |
+| 1447 《明英宗實錄》卷160, NLC PDF p28 / Batch 12CF | 辰初**一**刻 | 宮禁及官府漏箭 | Direct physical page; earlier official record, already counted |
+| [Shidian received 《明英宗實錄》](https://www.shidianguji.com/zh/book/LS0026/chapter/1k6qy33meo3za) | 辰初**一**刻 | 宮禁及官府漏箭 | Digital received transcript, not additional physical vote |
+| [Shidian received 《萬曆野獲編·改造漏刻》](https://www.shidianguji.com/book/NA09843/chapter/1lwjva2l98soe) | 辰初**一**刻 | 禁中**宮**漏循用新制 | Digital received transcript; underlying edition not physically bound |
+| [Wikisource received 《萬曆野獲編》卷20](https://zh.wikisource.org/wiki/%E8%90%AC%E6%9B%86%E9%87%8E%E7%8D%B2%E7%B7%A8/%E5%8D%B720) | 辰初**二**刻 | 禁中**宮**漏循用新製 | Digital normalized text; no source-copy identity |
+| [CText user/OCR transcribed 《野獲編·十六v19~20》](https://ctext.org/wiki.pl?chapter=418967&if=gb) | 辰初**二**刻 | 禁中**官**漏循用新制 | User/OCR derivative, not physical glyph authority |
+
+**New witness-dependency control:** the CText `十六v19~20` page itself explicitly states that its transcription was prepared using **《看典古籍》 OCR** and includes `秀水沈德符景倩著　桐鄉錢枋爾載輯`. Its visible volume 20 classification (言事/京職/曆法) belongs to the **reorganized categorized 30-volume line**, *not* a sourced original-20-volume leaf. Thus CText and Shidian cannot be counted as independently collated old-manuscript evidence by virtue of different domain names. The named editorial collaboration/derivation also blocks treating a CText page named "十六v19~20" as a verified original twenty-volume witness.
+
+**Decision:** A 1447 physically attested official `一` and later electronic `一` / `二` readings prove a **textual collation problem**. The received `二` is **not authorized** as an independent historical clock value or a corrected 1447 value; equally, the late-Ming physical 《野獲編》 `二` vs `一` glyph cannot be declared a copying error until the exact physical leaves are obtained. Never back-project later digital `二` into the 1447 memorial. Do not claim 1447 official `一` mechanically adjudicates the physical 《野獲編》 quotation.
+
+This strengthens the 12PZ proof obligation: visually bind **both** the `一/二` numeric character and `官/宮` character on a **specific 《野獲編》 old manuscript leaf and on a specifically identified 30-volume printed leaf**; record collation provenance, PDF page, edition, source digest. It does **not** close `12PZ`, alter Matrix totals, establish an instrument/observer for Jingtai-1, select an adapter or authorize runtime.
