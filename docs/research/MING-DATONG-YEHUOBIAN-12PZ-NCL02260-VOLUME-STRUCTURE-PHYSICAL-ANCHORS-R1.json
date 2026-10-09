@@ -1,0 +1,88 @@
+{
+  "schema": "MING-DATONG-YEHUOBIAN-12PZ-NCL02260-VOLUME-STRUCTURE-PHYSICAL-ANCHORS-R1",
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-10-09",
+  "batch": "12PZ_IN_PROGRESS",
+  "status": "FIVE_POSITIVE_MANUAL_SOURCE_IMAGE_NAVIGATION_ATTESTATIONS_NO_TARGET_HEADING_YET",
+  "source": {
+    "repository": "Taiwan National Central Library",
+    "catalog": "204.26 02260",
+    "object": "NCL-02260_1_萬曆野獲編.pdf",
+    "source_sha256": "5b91b5cad4a9d7573271ffd275085b046339cdfab80341b60a6156706e80e191",
+    "source_pdf_pages": 1000,
+    "edition_context": "舊鈔本 original-20v + supplement + continuation; not any independently verified printed 30v impression"
+  },
+  "acquisition": {
+    "workflow": ".github/workflows/render-yehuobian-ncl02260-headings-12pz.yml",
+    "commit": "4e136b53ca4e3538c4579340aeb3e2cd551b1543",
+    "run_id": 37881159585,
+    "conclusion": "success",
+    "artifact_id": 11594845832,
+    "artifact": "ncl02260-old20-heading-candidates-12pz",
+    "zip_sha256": "5bd66904c1ac5d4118f364915e64b9325bd73587e4be9210298558484593c0aa",
+    "selected_image_count": 32,
+    "image_digest_verification": "PASS_32_OF_32",
+    "ocr_used": false,
+    "render_dpi": 175
+  },
+  "physical_visual_attestations": [
+    {
+      "pdf1_page_1based": 36,
+      "heading": "萬曆野獲編卷第二目",
+      "identification": "ORIGINAL_MAIN_VOLUME_2_CONTENTS",
+      "rendered_image_sha256": "7f8bac107ccc64f119b4f172f5ad957be4f1eb20cc0ae335c38c76d593a7d71b",
+      "status": "DIRECT_IMAGE_MANUAL_VISUAL_READ"
+    },
+    {
+      "pdf1_page_1based": 592,
+      "heading": "萬曆野獲編卷第二十目",
+      "identification": "ORIGINAL_MAIN_VOLUME_20_CONTENTS",
+      "rendered_image_sha256": "f173d98c6ee32aba342ade6b377094f333871345c357284fc4f27a2d819942a2",
+      "status": "DIRECT_IMAGE_MANUAL_VISUAL_READ"
+    },
+    {
+      "pdf1_page_1based": 623,
+      "heading": "萬曆野獲編補遺目",
+      "identification": "SUPPLEMENT_CONTENTS_NOT_CONTINUATION_VOLUME",
+      "rendered_image_sha256": "aaa7eef323415890baf6d59495c3650c3d38c71fff199ca317ff97e362d6d7ac",
+      "status": "DIRECT_IMAGE_MANUAL_VISUAL_READ"
+    },
+    {
+      "pdf1_page_1based": 650,
+      "opening": "今上御極已垂五十年",
+      "identification": "PREFATORY_OR_RUNNING_PROSE_NOT_A_VERIFIED_VOLUME_CONTENTS_LEAF",
+      "rendered_image_sha256": "a1eb973fd37655acc896ec949eae64f99250fa6dfbb64350843c7a528c5cdefe",
+      "status": "DIRECT_IMAGE_MANUAL_VISUAL_READ"
+    },
+    {
+      "pdf1_page_1based": 682,
+      "heading": "萬曆野獲續編卷第一目",
+      "identification": "CONTINUATION_VOLUME_1_CONTENTS",
+      "rendered_image_sha256": "1124416e71b1b11d64d2bac915c65b9eb8eb288bb1e858d7c2c3fe55c785936e",
+      "status": "DIRECT_IMAGE_MANUAL_VISUAL_READ"
+    }
+  ],
+  "negative_identity_guard": {
+    "pdf1_page_1based": 1,
+    "observed_opening": "余生長京邸",
+    "verified_volume1_toc": false,
+    "reason": "The selected first page is authorial opening prose; first-position list index is not a physically collated 卷第一目."
+  },
+  "adjudication": {
+    "scan_navigation_now_source_scoped": true,
+    "bibliographic_title_no_longer_substitutes_for_manuscript_subsections": true,
+    "remaining_27_selected_pages_individually_heading_collated": false,
+    "original_20v_full_toc_inspection_complete": false,
+    "gaizao_louke_original_heading_to_leaf": "UNRESOLVED",
+    "gaizao_louke_present_absent": "NOT_ADJUDICATED",
+    "original_one_two_glyph": "UNRESOLVED",
+    "original_gong_guan_glyph": "UNRESOLVED",
+    "printed_1827_30v_target": "UNRESOLVED",
+    "no_hist_graph_edge_promoted": true,
+    "matrix_modified": false,
+    "current_state_modified": false,
+    "algorithm_modified": false,
+    "batch_closed": false
+  },
+  "next": "Identify 〈改造漏刻〉 on source-specific old20v contents leaf(s) or actual narrative pages; manually inspect the other original-volume contents images and render promising exact pages, then separately collate an identity-verified 1827 printed target leaf."
+}
