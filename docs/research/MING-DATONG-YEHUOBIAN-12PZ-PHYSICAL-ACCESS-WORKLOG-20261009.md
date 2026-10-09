@@ -143,3 +143,22 @@ A reproducible **non-OCR** evidence-acquisition workflow has been added at [`.gi
 **Proof gates after completion:** verify exact GitHub workflow run conclusion; inspect rendered contact sheets to locate target heading `改造漏刻` or derive a bounded older-leaf search interval; if identified, inspect full native rendered image and quote the actual physical `辰初一/二刻` and `官/宮` only with source object, PDF 1-based page, artifact SHA and folio context. If no target appears within inspected range, record only `NOT_LOCATED_IN_SAMPLED_160_PAGES`, not absence from the entire old 20v copy. Update Matrix, registry, genealogy and product **only under source-evidence gate**; no change in this workflow setup commit.
 
 **Expected run trigger:** push to development branch with workflow file added. User can inspect `ncl02260-old20-tail-boundary-12pz` Actions artifact after the workflow passes. Artifact expiry 30 days; manifest and later source observations should be persisted in versioned research records for durable provenance.
+
+
+## Positive 02260 split-boundary negative continuity: source PDFs actually rendered and inspected
+
+**Executable physical-source success:** `render-yehuobian-ncl02260-boundary-12pz` Actions [run 37879659267](https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/37879659267) returned **success** at exact workflow-enabling HEAD `99967467e982495730f0bd29b11188771c9fdc41`. [Artifact](https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/37879659267/artifacts/11593967535): `ncl02260-old20-tail-boundary-12pz`, 15,899,587 bytes, artifact/ZIP SHA-256 `89f84f571f432af4c444ada6900b67dafd21a07c0fddb78b65ba84a30c869bc9`, 30-day expiry ~2026-11-08. The artifact was downloaded and **actual 1-based PDF page images visually inspected**; these observations are no longer just catalog/URL notes.
+
+Source PDF SHA-256 from successful real downloads:
+- NCL 02260 part1, **1000 pages**: `5b91b5cad4a9d7573271ffd275085b046339cdfab80341b60a6156706e80e191`.
+- NCL 02260 part2, **35 pages**: `bb97af8a82afbc3412d743ba6638ca919440709d35fc14ef6810629e9c2c2ff2`.
+- 10 contact sheets render PDF1 p841–1000 (160 pages), with a high-resolution native image for PDF1 pp.985–1000 and PDF2 pp.1–3. Only a *subset* of the contacts has been visually surveyed: **p841–856, p953–968, p969–984, p985–1000**. Thus **160 pages rendered != 160 pages read**, and no corpus-wide absence of the target can be asserted.
+
+**Direct contradiction of presumed split adjacency:**
+1. **PDF1 p1000**, image SHA-256 `c7d69535afe46d0cfb0aaa8a8b89a19538fa9ffc0a8a0d454472283252ea7af4`. The right-hand leaf has a clearly legible heading **`武弁報恩`** and begins a distinct anecdote; the leftmost text ends **`至大將`**, within an unfinished running narrative.
+2. **PDF2 p1**, image SHA-256 `e3a7b4e52e368a835aa7158dba68b35397b6505054f62a55046f93d5e2a0ffe9`. The right leaf opens **`居第吉凶`**, whose first column continues **`地理吉凶時亦有驗如余所知嚴分宜舊第已三度籍沒`** (previously 12PZ section-anchor collation).
+3. Therefore **surrogate PDF1 final text and surrogate PDF2 initial text are NOT consecutive prose**. This **disproves using the digital `1000→1` split as an immediately adjacent physical-text bridge**. The cause is not known: do not claim physical lost folio, editorial reordering, missing pages or definite position of 〈改造漏刻〉 based on this observation.
+
+**Additional reading scope:** the PDF1 contact overview shows interior blank / chapter-opening transitions around 842 and 970, but their **specific physical chapter/volume names and page-level exact glyphs remain uncollated** on 16-up low-resolution sheets. Do not infer their titles or claim the entire p841–1000 corpus has been checked for the target. A candidate physical heading-to-leaf must be rebound to high-resolution actual images.
+
+**Decision:** split-boundary continuity hypothesis now **REJECTED** at a physical-surrogate page-to-page text level. The `居第吉凶` physical passage overlap with received categorized 30v remains true but does **not** establish adjacency to PDF1 p1000, nor any original-old20v 〈改造漏刻〉 target folio. 1447 official `辰初一刻` remains source-scoped; the 1827 printed target and all `一/二`/`宮/官` original target variants remain unresolved. No new target witness, no matrix/graph/runtime/source-registry/algorithm change, no batch closure. Durable source/digest machine record: `docs/research/MING-DATONG-YEHUOBIAN-12PZ-NCL02260-SURROGATE-SPLIT-BOUNDARY-R1.json`.
