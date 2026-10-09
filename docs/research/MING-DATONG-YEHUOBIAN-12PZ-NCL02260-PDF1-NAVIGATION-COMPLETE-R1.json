@@ -1,0 +1,98 @@
+{
+  "schema": "MING-DATONG-YEHUOBIAN-12PZ-NCL02260-PDF1-NAVIGATION-COMPLETE-R1",
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-10-09",
+  "batch": "12PZ_IN_PROGRESS",
+  "status": "DIGITAL_PDF1_FULL_NAVIGATION_IMAGES_ACQUIRED_BUT_TARGET_PHYSICAL_GLYPHS_UNRESOLVED",
+  "source": {
+    "library": "Taiwan National Central Library",
+    "catalog": "204.26 02260",
+    "work": "萬曆野獲編",
+    "witness_type": "ORIGINAL_20_VOLUME_OLD_MANUSCRIPT_DIGITAL_SURROGATE",
+    "pdf1_name": "NCL-02260_1_萬曆野獲編.pdf",
+    "pdf1_total_pages": 1000,
+    "pdf1_sha256": "5b91b5cad4a9d7573271ffd275085b046339cdfab80341b60a6156706e80e191",
+    "pdf2_distinct_sha256": "bb97af8a82afbc3412d743ba6638ca919440709d35fc14ef6810629e9c2c2ff2",
+    "pdf1_pdf2_continuous_text": false,
+    "split_reason": "UNRESOLVED"
+  },
+  "navigation_artifacts": [
+    {
+      "workflow": ".github/workflows/render-yehuobian-ncl02260-core-navigation-12pz.yml",
+      "head_sha": "3c43daed2d5017ea1ccd78985efd70d730ab92bd",
+      "run_id": 37880480045,
+      "run_conclusion": "success",
+      "artifact_id": 11593643366,
+      "artifact_name": "ncl02260-old20-core-navigation-12pz",
+      "artifact_sha256": "818c8116c3b2e9152348c9e7288f03300f57dc7579441ff3cfeda9d76c1ab870",
+      "pdf1_page_range_1based": [
+        1,
+        840
+      ],
+      "contact_count": 53,
+      "expected_total_rendered_pages": 840,
+      "visual_contact_sha256_verification": "PASS_53_OF_53",
+      "source_sha256_gate": "PASS",
+      "pdf_page_count_gate": "PASS_1000"
+    },
+    {
+      "workflow": ".github/workflows/render-yehuobian-ncl02260-boundary-12pz.yml",
+      "head_sha": "99967467e982495730f0bd29b11188771c9fdc41",
+      "run_id": 37879659267,
+      "run_conclusion": "success",
+      "artifact_id": 11593967535,
+      "artifact_name": "ncl02260-old20-tail-boundary-12pz",
+      "artifact_sha256": "89f84f571f432af4c444ada6900b67dafd21a07c0fddb78b65ba84a30c869bc9",
+      "pdf1_page_range_1based": [
+        841,
+        1000
+      ],
+      "contact_count": 10,
+      "expected_total_rendered_pages": 160,
+      "visual_contact_sha256_verification": "PASS_10_OF_10",
+      "enlarged_pdf1_pages_1based": [
+        985,
+        1000
+      ],
+      "enlarged_pdf1_sha256_verification": "PASS_16_OF_16",
+      "enlarged_pdf2_pages_1based": [
+        1,
+        3
+      ],
+      "enlarged_pdf2_sha256_verification": "PASS_3_OF_3"
+    }
+  ],
+  "scope": {
+    "digital_pdf1_navigation_range_1based": [
+      1,
+      1000
+    ],
+    "digital_pdf1_contact_sheet_count": 63,
+    "all_1000_pages_manually_read": false,
+    "all_1000_pages_physically_glyph_collated": false,
+    "original20v_target_heading_to_leaf": "UNRESOLVED",
+    "target_kaizao_louke_presence_absence": "NOT_ADJUDICATED",
+    "physical_one_two_glyph": "UNRESOLVED",
+    "physical_gong_guan_glyph": "UNRESOLVED",
+    "original_folio_number": "UNRESOLVED",
+    "printed_1827_30v_copy_target": "UNRESOLVED",
+    "no_ocr_used": true,
+    "source_object_and_image_artifact_checksums_are_distinct": true,
+    "artifact_retention_is_temporary": true
+  },
+  "scope_firewall": [
+    "1-based PDF positions are surrogate navigation positions, not original manuscript foliation.",
+    "Contact mosaics do not prove target textual presence or absence and are not full human page/glyph collation.",
+    "Digitally adjacent PDFs are text-noncontinuous across the inspected boundary; do not infer lost folios or an editorial insertion from this alone.",
+    "Received 30-volume categorized text cannot be treated as an original-20v section index.",
+    "No numerical clock value, instrument realization, observer, general Ming adapter, or transmission edge is promoted on this acquisition evidence."
+  ],
+  "no_authorized_chart_change": true,
+  "existing_matrix_unchanged": true,
+  "existing_state_unchanged": true,
+  "existing_genealogy_graph_unchanged": true,
+  "md_g03": "OPEN_BLOCKING_GENERAL_ADAPTER",
+  "hpa_dayun_cal_002": "MISSING_FROM_PRODUCT",
+  "batch_closed": false,
+  "next": "Manually inspect bounded original-20v contact sheets for candidate headings, enlarge source-identifiable PDF pages, independently bind physical 1827 printed target leaves; only then adjudicate the four received-text variants."
+}
