@@ -1,0 +1,80 @@
+name: render-yehuobian-ncl02260-headings-12pz
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/render-yehuobian-ncl02260-headings-12pz.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  render-headings:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install PDF renderer
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils
+
+      - name: Download one fixed original-20v source surrogate and verify digest
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p 12pz-headings/source 12pz-headings/pages
+          root='https://commons.wikimedia.org/wiki/Special:Redirect/file'
+          curl -L --fail --retry 5 --retry-all-errors --retry-delay 3 --max-time 1100 \
+            -A 'Tianwen-Historical-Provenance-R1/1.0' \
+            "$root/NCL-02260_1_%E8%90%AC%E6%9B%86%E9%87%8E%E7%8D%B2%E7%B7%A8.pdf" \
+            -o 12pz-headings/source/part1.pdf
+          printf '%s  %s\n' \
+            '5b91b5cad4a9d7573271ffd275085b046339cdfab80341b60a6156706e80e191' \
+            '12pz-headings/source/part1.pdf' | sha256sum -c -
+          pdfinfo 12pz-headings/source/part1.pdf > 12pz-headings/pdfinfo.txt
+          test "$(awk '/^Pages:/ {print $2}' 12pz-headings/pdfinfo.txt)" = 1000
+
+      - name: Render selected PDF-page opening candidates at 175 DPI
+        shell: bash
+        run: |
+          set -euo pipefail
+          positions=(1 36 65 94 125 156 187 218 249 282 313 344 375 405 438 469 499 530 561 592 623 650 682 714 746 779 811 843 875 907 939 971)
+          test "${#positions[@]}" -eq 32
+          for page in "${positions[@]}"; do
+            name="$(printf 'pdf1-p%04d' "$page")"
+            pdftoppm -f "$page" -l "$page" -r 175 -jpeg \
+              -jpegopt quality=92 -singlefile 12pz-headings/source/part1.pdf \
+              "12pz-headings/pages/$name"
+          done
+          test "$(find 12pz-headings/pages -maxdepth 1 -name '*.jpg' | wc -l)" -eq 32
+          (cd 12pz-headings && sha256sum pages/*.jpg > image-sha256.txt)
+          cat > 12pz-headings/manifest.txt <<'EOF'
+          COLLECTION=Taiwan NCL 204.26 02260, old 20-volume manuscript
+          PDF1_SHA256=5b91b5cad4a9d7573271ffd275085b046339cdfab80341b60a6156706e80e191
+          PDF1_PAGES=1000
+          SELECTED_PDF_POSITION_COUNT=32
+          IMAGE_DPI=175
+          OCR_USED=false
+          PAGE_POSITIONS_ARE_LAYOUT_NAVIGATION_CANDIDATES_NOT_ORIGINAL_FOLIOS
+          DO_NOT_INFER_ORIGINAL20V_VOLUME_NUMBER_FROM_ARRAY_INDEX=true
+          TARGET_CHAPTER_GLYPHS=NOT_YET_COLLATED
+          ORIGINAL20V_VS_PRINTED30V_VOLUME_EQUIVALENCE=UNPROVEN
+          EOF
+
+      - name: Upload only selected images and manifests
+        uses: actions/upload-artifact@v4
+        with:
+          name: ncl02260-old20-heading-candidates-12pz
+          path: |
+            12pz-headings/pages/
+            12pz-headings/image-sha256.txt
+            12pz-headings/manifest.txt
+            12pz-headings/pdfinfo.txt
+          if-no-files-found: error
+          compression-level: 5
+          retention-days: 30
