@@ -99,3 +99,21 @@ A **new distinct 1827 physical holding locator** appears in [Hokkaido University
 Three smaller [1959 中華書局 NLC modern printed objects](https://commons.wikimedia.org/wiki/File:NLC511-023031404016661-24957_%E8%90%AC%E6%9B%86%E9%87%8E%E7%8D%B2%E7%B7%A8_%E4%B8%AD%E5%86%8A.pdf) are **modern edition reception routes**, not original woodblock/1827 physical-glyph votes. They are not to be promoted from smaller file size to stronger historical authority.
 
 No direct target page, original folio, title, `官/宮` or `一/二` text has been newly physically collated in this section. The machine log with copy/fascicle distinction and inference firewalls is `docs/research/MING-DATONG-YEHUOBIAN-12PZ-NEW-INDEPENDENT-HOLDING-ROUTES-R1.json`. Batch 12PZ remains in progress; Matrix/current-state/graph/runtime unchanged.
+
+
+## Received-text four-field dependency probe: winter sunrise, summer sunset and clock nouns
+
+**Scope:** received online transmission vs already-verified 1447 official physical report. This is **NOT** a new original-20v or 1827 image witness. Search evidence: [Shidian full target](https://www.shidianguji.com/book/NA09843/chapter/1lwjva2l98soe), [Wikisource categorized v20 target](https://zh.wikisource.org/wiki/萬曆野獲編/卷20), [CText target indexed excerpt](https://ctext.org/wiki.pl?chapter=418967&if=gb). The direct CText page was HTTP 403 in this session; the indexed excerpt is **OCR/user transcription, not a verified physical page**.
+
+| Field | 1447 `明英宗實錄` physical p28 (previous Batch 12CF) | Shidian received | Wikisource received | CText OCR/index received |
+| --- | --- | --- | --- | --- |
+| 北京冬至日出 | 辰初**一**刻 | 辰初**一**刻 | 辰初**二**刻 | 辰初**二**刻 |
+| 北京夏至日入 | 戌初**一**刻 | 戌初**一**刻 | 戌初**一**刻 | 戌初**二**刻 |
+| 今宮禁/官禁及官府漏箭 | **宮**禁 | **宮**禁 | **宮**禁 | **官**禁 |
+| 禁中宮漏/官漏 | **not present in the 1447 court memorial** | **宮**漏 | **宮**漏 | **官**漏 |
+
+The **second numerical variant (summer 戌初一/二)** is a new collation discriminant not covered by the earlier 12PZ winter-only table. It prevents a simplistic grouping of received texts into just two edition lineages. CText's simultaneous 官禁 and 官漏 renderings might reflect correlated OCR glyph substitution or an editorial copying pathway; **no causal finding or direct-transmission edge is established**. Any correction of digital 二 to 一 requires edition-identified physical target text rather than automatic substitution of earlier official wording. A 1447 source-level value cannot settle a distinct later-Ming writer's physical textual recension.
+
+**Failed acquisition boundaries this session:** source PDF for NLC original-20v no.411999003250 fascicle 10 remains 44.32MB / 145 pages and was rejected by the web PDF reader; direct container network cannot resolve upload.wikimedia.org; original PDF SHA256 **not computed**. Nagoya 2019/2020 version-study PDFs returned HTTP 429 in this session. This means **unavailable by current tools**, not historically missing passage. Sampled volume-title pages 1/81/137 from the earlier 12PZ work remain physically identified but do **not** locate 改造漏刻.
+
+Next: compare four-field *physical* readings of an identified old-20v manuscript copy and a separately identity-bound 1827 30v printed copy; attach source digest, page and original folio. Research proof registry: `docs/research/MING-DATONG-YEHUOBIAN-12PZ-FOUR-FIELD-RECEIVED-COLLATION-R1.json`. No Matrix, state, genealogy, historical candidate/runtime or deterministic chart reopen.

@@ -1,0 +1,100 @@
+{
+  "schema": "MING-DATONG-YEHUOBIAN-12PZ-FOUR-FIELD-RECEIVED-COLLATION-R1",
+  "schema_version": "1.0.0",
+  "date": "2026-10-09",
+  "status": "RECEIVED_DIGITAL_FOUR_FIELD_VARIANT_VECTOR_AUDITED_SOURCE_PHYSICAL_TARGET_OPEN",
+  "current_batch": "12PZ",
+  "status_of_batch": "IN_PROGRESS",
+  "target_work": "萬曆野獲編",
+  "target_section": "改造漏刻",
+  "witnesses": {
+    "early_1447_official": {
+      "work": "明英宗實錄",
+      "juan": 160,
+      "date_scope": "正統十二年十一月甲寅",
+      "source_id": "EXT-NLC-YINGZONG-SHILU-V16-1447-NANJING59",
+      "earlier_audit_batch": "BATCH-12-ZIWEI-YINGZONG-SHILU-1447-NANJING-59-41-PHYSICAL-COLLATION-CF",
+      "pdf_1based_page": 28,
+      "page_sha256": "b7d95f00fd529468c4242f60b7255b5305df6298d14841a9d9f6ac03eccccfea",
+      "physical_image_prior_session": true,
+      "physical_image_new_this_batch": false,
+      "evidence_class": "REUSED_DIRECT_PHYSICAL_PAGE"
+    },
+    "shidian": {
+      "url": "https://www.shidianguji.com/book/NA09843/chapter/1lwjva2l98soe",
+      "evidence_class": "RECEIVED_DIGITAL_TEXT_UNBOUND_PHYSICAL_EDITION"
+    },
+    "wikisource": {
+      "url": "https://zh.wikisource.org/wiki/萬曆野獲編/卷20",
+      "evidence_class": "RECEIVED_DIGITAL_TEXT_CATEGORIZED_30V"
+    },
+    "ctext": {
+      "url": "https://ctext.org/wiki.pl?chapter=418967&if=gb",
+      "evidence_class": "OCR_OR_USER_SUBMITTED_RECEIVED_DIGITAL_TEXT",
+      "access_note": "Search-index excerpt exposes complete target text, while direct full-page open returns HTTP 403; wording is not authenticated as a scan."
+    }
+  },
+  "fields": [
+    {
+      "field": "BEIJING_WINTER_SOLSTICE_SUNRISE",
+      "earlier_ming_1447": "辰初一刻",
+      "shidian": "辰初一刻",
+      "wikisource": "辰初二刻",
+      "ctext": "辰初二刻"
+    },
+    {
+      "field": "BEIJING_SUMMER_SOLSTICE_SUNSET",
+      "earlier_ming_1447": "戌初一刻",
+      "shidian": "戌初一刻",
+      "wikisource": "戌初一刻",
+      "ctext": "戌初二刻"
+    },
+    {
+      "field": "PALACE_GOVERNMENT_CLOCKS_PREFIX",
+      "earlier_ming_1447": "今宮禁及官府漏箭",
+      "shidian": "今宮禁及官府漏箭",
+      "wikisource": "今宮禁及官府漏箭",
+      "ctext": "今官禁及官府漏箭"
+    },
+    {
+      "field": "PALACE_CLOCK_RETROSPECTIVE",
+      "earlier_ming_1447": null,
+      "shidian": "禁中宮漏",
+      "wikisource": "禁中宮漏",
+      "ctext": "禁中官漏"
+    }
+  ],
+  "analysis": {
+    "direct_textual_variants_observed": "RECEIVED_DIGITAL_ONLY",
+    "patterns": [
+      "Winter Beijing sunrise: Shidian matches earlier official 1447 one-ke; Wikisource and CText give two-ke.",
+      "Summer Beijing sunset: Shidian and Wikisource plus earlier official 1447 give one-ke; CText index gives two-ke.",
+      "宮禁 / 官禁 and 禁中宮漏 / 官漏 differ in the CText indexed transcription versus two other received online transcriptions.",
+      "Neither same wording nor different wording establish independent early manuscript or 1827 impression witnesses.",
+      "1450 repaired clock, 1447 construction order and late Ming retrospective narrative remain distinct propositions."
+    ],
+    "digitally_attested_variant_vectors_do_not_define_stemma": true,
+    "ctext_index_only_not_physical_text": true,
+    "no_known_target_image_digest": true,
+    "no_clock_reconstruction_licensed": true
+  },
+  "gates": {
+    "original20v_early_manuscript_target_leaf": "UNRESOLVED",
+    "late_30v_1827_physical_target_leaf": "UNRESOLVED",
+    "original_20v_physical_glyph_variant": "UNRESOLVED",
+    "claimed_1447_clock_completion": "NOT_ATTESTED",
+    "jingtai1_actual_clock_observer_locality": "UNRESOLVED",
+    "runtime_ming_adapter": "FAIL_CLOSED",
+    "chart_algorithm_reopen_authorized": false,
+    "transmission_edges_added": 0,
+    "matrix_rows_changed": 0,
+    "source_registry_changed": false,
+    "current_state_changed": false,
+    "batch_closed": false
+  },
+  "next_actions": [
+    "Obtain target leaf directly from an identified pre-Qing/Qing 20v manuscript and distinct 1827 30v print.",
+    "Record PDF 1-based page, historical volume/folio, heading, source SHA256 and line/glyph for each of the four fields.",
+    "Use extra summer-sunset one/two variant as a cross-site digital transcription fingerprint; do not infer shared printed ancestry solely from matching one value."
+  ]
+}
