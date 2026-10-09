@@ -1,9 +1,9 @@
 {
   "schema": "MING-DATONG-YEHUOBIAN-12PZ-NCL02260-VOLUME-STRUCTURE-PHYSICAL-ANCHORS-R1",
-  "schema_version": "1.1.0",
+  "schema_version": "1.2.0",
   "recorded_at": "2026-10-09",
   "batch": "12PZ_IN_PROGRESS",
-  "status": "CORRECTED_CONTINUATION_VOLUME_2_DIRECT_IMAGE_HEADING_WITH_BOUNDED_30_TOC_LEAF_REVIEW",
+  "status": "DIRECT_SOURCE_IMAGE_MAIN_SUPPLEMENT_CONTINUATION_VOLUME1_AND_VOLUME2_STRUCTURE_BOUND",
   "source": {
     "repository": "Taiwan National Central Library",
     "catalog": "204.26 02260",
@@ -60,6 +60,20 @@
       "identification": "CONTINUATION_VOLUME_2_CONTENTS",
       "rendered_image_sha256": "1124416e71b1b11d64d2bac915c65b9eb8eb288bb1e858d7c2c3fe55c785936e",
       "status": "DIRECT_IMAGE_MANUAL_VISUAL_READ"
+    },
+    {
+      "pdf1_page_1based": 651,
+      "heading": "萬曆野獲續編卷第一目",
+      "identification": "CONTINUATION_VOLUME_1_TOC_DIRECT_POSITIVE",
+      "rendered_image_sha256": "ff0f84b5de6c1cbbbe66a8efe1b50d1c431fa51f4abe9d518b795342ac5b01dd",
+      "status": "DIRECT_IMAGE_VISUAL_READ"
+    },
+    {
+      "pdf1_page_1based": 652,
+      "heading": "萬曆野獲續編卷第一",
+      "identification": "CONTINUATION_VOLUME_1_TEXT_BEGINNING_AND_TOC_CONTINUATION",
+      "rendered_image_sha256": "6c7be87ea9d20fea69b8c1f66fe356018760e2e9b99e3a9977c3229df4063c04",
+      "status": "DIRECT_IMAGE_VISUAL_READ"
     }
   ],
   "negative_identity_guard": {
@@ -85,9 +99,13 @@
     "batch_closed": false,
     "bounded_30_content_pages_exact_gaizao_louke_heading_seen": false,
     "bounded_30_content_pages_scope": "MAIN_2_TO_20_TOC_19 + SUPPLEMENT_TOC_1 + CONTINUATION_2_TO_11_TOC_10; FIRST_MAIN_AND_FIRST_CONTINUATION_TOC_NOT_YET_VERIFIED",
-    "exhaustive_old_20v_search_completed": false
+    "exhaustive_old_20v_search_completed": false,
+    "continuation_v1_contents_image_bound": true,
+    "continuation_v1_original_pdf_page": 651,
+    "continuation_v1_continuation_and_text_start_pdf_page": 652,
+    "continuation_v1_source_verification": "docs/research/MING-DATONG-YEHUOBIAN-12PZ-NCL02260-CONTINUATION-V1-CONTENTS-COLLATION-R1.json"
   },
-  "next": "Inspect PDF1 p649/p651/p652 for continuation volume 1 authentic contents; preserve original physical volume count and target presence unresolved. Separately check older/30v variants on exact passage images.",
+  "next": "Direct source identity/heading now reconciled (續編卷第一 p651, 第二 p682). Continue search for target passage and an identity-verified 1827 printed copy; do not infer absence from bounded contents review.",
   "revision_history": [
     {
       "recorded_at": "2026-10-09",
