@@ -1,9 +1,9 @@
 {
   "schema": "MING-DATONG-YEHUOBIAN-12PZ-NCL02260-VOLUME-STRUCTURE-PHYSICAL-ANCHORS-R1",
-  "schema_version": "1.2.0",
+  "schema_version": "1.3.0",
   "recorded_at": "2026-10-09",
   "batch": "12PZ_IN_PROGRESS",
-  "status": "DIRECT_SOURCE_IMAGE_MAIN_SUPPLEMENT_CONTINUATION_VOLUME1_AND_VOLUME2_STRUCTURE_BOUND",
+  "status": "DIRECT_PHYSICAL_MAIN_VOLUME_1_THROUGH_20_AND_CONTINUATION_VOLUME_1_BOUND",
   "source": {
     "repository": "Taiwan National Central Library",
     "catalog": "204.26 02260",
@@ -74,6 +74,27 @@
       "identification": "CONTINUATION_VOLUME_1_TEXT_BEGINNING_AND_TOC_CONTINUATION",
       "rendered_image_sha256": "6c7be87ea9d20fea69b8c1f66fe356018760e2e9b99e3a9977c3229df4063c04",
       "status": "DIRECT_IMAGE_VISUAL_READ"
+    },
+    {
+      "pdf1_page_1based": 3,
+      "heading": "萬曆野獲編卷第一目",
+      "identification": "ORIGINAL_MAIN_V1_DIRECT_IMAGE_MANUAL_READ",
+      "rendered_image_sha256": "aa818602ab4ec3a4acc16e5d05e4d4a29704f989cefb32aa98889e8c22c20db6",
+      "status": "DIRECT_IMAGE_MANUAL_READ"
+    },
+    {
+      "pdf1_page_1based": 4,
+      "heading": "ORIGINAL_MAIN_V1_CONTENTS_CONTINUE",
+      "identification": "ORIGINAL_MAIN_V1_DIRECT_IMAGE_MANUAL_READ",
+      "rendered_image_sha256": "11984203baa9ba4afad6dbed8279b3a3fb2a0c51d5d5520df479e8fdb9d2413f",
+      "status": "DIRECT_IMAGE_MANUAL_READ"
+    },
+    {
+      "pdf1_page_1based": 5,
+      "heading": "萬曆野獲編卷第一",
+      "identification": "ORIGINAL_MAIN_V1_DIRECT_IMAGE_MANUAL_READ",
+      "rendered_image_sha256": "eb92f1564f2a7e2f2ce1d073628f1b7ae78a0100a569887d03ea180ec5594066",
+      "status": "DIRECT_IMAGE_MANUAL_READ"
     }
   ],
   "negative_identity_guard": {
@@ -103,9 +124,15 @@
     "continuation_v1_contents_image_bound": true,
     "continuation_v1_original_pdf_page": 651,
     "continuation_v1_continuation_and_text_start_pdf_page": 652,
-    "continuation_v1_source_verification": "docs/research/MING-DATONG-YEHUOBIAN-12PZ-NCL02260-CONTINUATION-V1-CONTENTS-COLLATION-R1.json"
+    "continuation_v1_source_verification": "docs/research/MING-DATONG-YEHUOBIAN-12PZ-NCL02260-CONTINUATION-V1-CONTENTS-COLLATION-R1.json",
+    "original_main_v1_toc_source_confirmed": true,
+    "original_main_v1_toc_pdf_pages": [
+      3,
+      4
+    ],
+    "main_volume_v1_evidence": "docs/research/MING-DATONG-YEHUOBIAN-12PZ-NCL02260-MAIN-V1-CONTENTS-COLLATION-R1.json"
   },
-  "next": "Direct source identity/heading now reconciled (續編卷第一 p651, 第二 p682). Continue search for target passage and an identity-verified 1827 printed copy; do not infer absence from bounded contents review.",
+  "next": "Original/main/continuation volume titles now grounded at least at selected positions; prioritize an edition-identified physical copy target for 改造漏刻, while retaining old20v headings/narrative unresolved.",
   "revision_history": [
     {
       "recorded_at": "2026-10-09",

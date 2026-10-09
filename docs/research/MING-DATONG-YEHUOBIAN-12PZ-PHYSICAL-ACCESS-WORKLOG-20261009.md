@@ -225,3 +225,17 @@ The previously-added targeting workflow successfully completed on [GitHub Action
 **Source-verified crosswalk, explicitly correcting the previous project misreading:** PDF1 **p651=續編卷第一目**, **p682=續編卷第二目**, **p714=續編卷第三目**. This is now based on actual inspected images for each of those respective pages; no assumption from list indices or future 30-volume rearrangement is needed.
 
 The literal category heading `改造漏刻` was not observed on these **two particular first-continuation contents images**. This is a **bounded negative**, not proof of a whole-book omission, and not proof the chapter's passage is absent under a different label. The original main-volume-one contents and the printed 1827 specific-target leaf remain uncollated. Record machine evidence at `docs/research/MING-DATONG-YEHUOBIAN-12PZ-NCL02260-CONTINUATION-V1-CONTENTS-COLLATION-R1.json` and link into `docs/research/MING-DATONG-YEHUOBIAN-12PZ-NCL02260-VOLUME-STRUCTURE-PHYSICAL-ANCHORS-R1.json`. No new textual variants, absolute-time realizations, 1447 clock completion, 1450 eclipse admission, Matrix/graph/state/runtime change; 12PZ remains open.
+
+
+## 12PZ NCL02260 original main 卷第一目 closed by physical p3/p4/p5 images
+
+A newly executed source-bound GitHub Actions renderer [run 37882767000](https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/37882767000) succeeded on exact commit `29072d080a127d8cf7869df5a3e1662f88ee52d3`. Fixed PDF1 source SHA256 was validated as `5b91b5cad4a9d7573271ffd275085b046339cdfab80341b60a6156706e80e191` and page count as **1000**. Artifact **11594763918**, ZIP digest `sha256:9c8188c4d26b3a9164a4b28a58c31a4f6709d6c05b6e6e7c1526ea292443ab68`, contained 200-DPI original page renders; the downloaded images independently passed **3/3 SHA256 manifest entries** with **no OCR**.
+
+The exact source-derived pages show:
+- **PDF1 p3** left-hand page titled `萬曆野獲編卷第一目` (image SHA256 `aa818602ab4ec3a4acc16e5d05e4d4a29704f989cefb32aa98889e8c22c20db6`), directly confirming original main volume one TOC in this manuscript.
+- **PDF1 p4** right-hand page continues the same original main volume one contents (image SHA256 `11984203baa9ba4afad6dbed8279b3a3fb2a0c51d5d5520df479e8fdb9d2413f`).
+- **PDF1 p5** physical image begins `萬曆野獲編卷第一` with opening text and an author credit (image SHA256 `eb92f1564f2a7e2f2ce1d073628f1b7ae78a0100a569887d03ea180ec5594066`).
+
+Thus original main **卷第一目录=p3–4**, **卷第二目录=p36**, **卷第二十目录=p592**, **補遺目录=p623**, **續編卷第一目录=p651**, **續編卷第二目录=p682** are now individually tied to actual source page images. The earlier category-30v volume20 passage-title search cannot be treated as an original volume20 physical folio index.
+
+`改造漏刻` is not visibly listed on this specific original-main-v1 contents p3–4, but no statement of absence from the full 20v manuscript, later copies, different names, or unlisted chapter bodies is authorized. Both the exact old20v target leaf and identified printed-1827 target leaf remain **UNRESOLVED**. Evidence is recorded in `docs/research/MING-DATONG-YEHUOBIAN-12PZ-NCL02260-MAIN-V1-CONTENTS-COLLATION-R1.json` and the continuing source-structure ledger. No historical Matrix or genealogy upgrade, no algorithm reopen, and 12PZ remains open.
