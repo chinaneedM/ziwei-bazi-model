@@ -5396,7 +5396,7 @@ def main() -> int:
         (2,441,991,"c452e18d8da8f70114a5592a917f7bfc2611a610ba36ebf208b39d969c7a0d50"),
         (2,442,992,"146d2fc4c53a66b758f04af62525ca75661896c55a900be3a0bdaa32ee489445"),
     ]: fail("Batch 12QC target-neighbor page SHA/locator drift")
-    if qc_capture.get("all_201_manually_read") is not False or "NO_OCR" not in qc_capture.get("method",""): fail("Batch 12QC visual/no-OCR scope lost")
+    if qc_capture.get("all_201_manually_read") is not False or "WITHOUT_OCR" not in qc_capture.get("method",""): fail("Batch 12QC visual/no-OCR scope lost")
     qc_glyphs = qc.get("target",{}).get("original_glyph_controls",[])
     if [(g.get("concept"),g.get("glyph"),g.get("visual_attested")) for g in qc_glyphs[:2]] != [
         ("官府漏箭","官",True),("禁中宮漏","宮",True),
