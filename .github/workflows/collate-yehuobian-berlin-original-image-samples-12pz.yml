@@ -1,0 +1,89 @@
+name: collate-yehuobian-berlin-original-image-samples-12pz
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/collate-yehuobian-berlin-original-image-samples-12pz.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  source-explicit-sample-image-review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Install local image resize library
+        run: python -m pip install --quiet pillow
+      - name: Acquire twelve manifest-explicit original sample JPEGs, no image-transform API
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p berlin-12pz-original/images berlin-12pz-original/contact
+          python - <<'PY'
+          import base64, hashlib, io, json, pathlib, time, urllib.parse, urllib.request, urllib.error
+          from PIL import Image,ImageDraw
+          out=pathlib.Path("berlin-12pz-original")
+          source="https://content.staatsbibliothek-berlin.de/dc/PPN334378186X/manifest"
+          headers={"User-Agent":"Tianwen-Historical-Audit-R1/1.0 (non-commercial source attribution; sequential source-explicit images)","Accept":"application/ld+json,image/jpeg"}
+          req=urllib.request.Request(source,headers=headers)
+          with urllib.request.urlopen(req,timeout=35) as response: j=json.load(response)
+          canvases=j["sequences"][0]["canvases"];assert len(canvases)==38
+          selected=[1,11,13,17,19,23,25,27,29,31,33,38]
+          evidence={"recorded_at":"2026-10-10","source":source,"physical_item":"SBB PPN334378186X 1827 printed sample-surrogate","scope":"SELECTED_TWELVE_OF_THIRTY_EIGHT_IIIF_SAMPLE_CANVASES_ONLY","selected_indexes":selected,"no_ocr":True,"source_explicit_urls_only":True,"full_1827_target_text":None,"direct_target_glyph_conclusion":"NOT_ATTEMPTED","results":[],"halted_on_rate_limit":False}
+          for i in selected:
+              c=canvases[i-1]
+              resource=(c.get("images") or [{}])[0].get("resource") or {}
+              image_url=resource.get("@id") or resource.get("id")
+              u=urllib.parse.urlparse(image_url or "")
+              assert u.scheme=="https" and u.hostname=="content.staatsbibliothek-berlin.de"
+              ent={"index":i,"label":c.get("label"),"source_image_url":image_url,"status":"NOT_ACQUIRED","source_sha256":None,"size_bytes":None,"resolution":None}
+              try:
+                  request=urllib.request.Request(image_url,headers=headers)
+                  with urllib.request.urlopen(request,timeout=70) as response:
+                      b=response.read(7000000+1)
+                      if len(b)>7000000:raise ValueError("source_over_7MiB_limit")
+                  im=Image.open(io.BytesIO(b)); im.verify()
+                  im=Image.open(io.BytesIO(b)).convert("RGB")
+                  ent.update(status="IMAGE_RETRIEVED_SOURCE_EXPLICIT",source_sha256=hashlib.sha256(b).hexdigest(),size_bytes=len(b),resolution=[im.width,im.height])
+                  dest=out/"images"/f"canvas-{i:02}.jpg"
+                  dest.write_bytes(b)
+                  print("SOURCE_IMAGE",json.dumps(ent,ensure_ascii=False),flush=True)
+              except urllib.error.HTTPError as ex:
+                  ent["status"]="HTTP_"+str(ex.code)
+                  if ex.code==429:evidence["halted_on_rate_limit"]=True
+              except Exception as ex:ent["status"]="ERROR_"+type(ex).__name__
+              evidence["results"].append(ent)
+              if evidence["halted_on_rate_limit"]:
+                  print("RATE_LIMIT_STOP_REQUESTS",flush=True)
+                  break
+              time.sleep(0.30)
+          evidence["retrieved_count"]=sum(x["status"]=="IMAGE_RETRIEVED_SOURCE_EXPLICIT" for x in evidence["results"])
+          for groupindex,start in enumerate((0,6),1):
+              chunk=selected[start:start+6]
+              sheet=Image.new("RGB",(3*490,2*650),(244,244,244))
+              d=ImageDraw.Draw(sheet)
+              for k,idx in enumerate(chunk):
+                  x=(k%3)*490;y=(k//3)*650
+                  d.text((x+10,y+8),f"Manifest canvas {idx}",fill=(0,0,0))
+                  src=out/"images"/f"canvas-{idx:02}.jpg"
+                  if src.exists():
+                      img=Image.open(src);img.thumbnail((460,575))
+                      sheet.paste(img,(x+10,y+32))
+                  else:d.text((x+10,y+60),"Image unavailable; not collated",fill=(0,0,0))
+              target=out/"contact"/f"source-original-group-{groupindex}.jpg"
+              sheet.save(target,format="JPEG",quality=78,optimize=True)
+              bb=target.read_bytes()
+              evidence.setdefault("contact_sheets",[]).append({"name":target.name,"sha256":hashlib.sha256(bb).hexdigest(),"bytes":len(bb),"source_indexes":chunk})
+              print("CONTACT_SHEET_B64",target.name,base64.b64encode(bb).decode(),flush=True)
+          (out/"manifest-selected-originals.json").write_text(json.dumps(evidence,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+          print("SUMMARY",json.dumps({"selected":len(selected),"attempted":len(evidence["results"]),"retrieved":evidence["retrieved_count"],"rate_limited":evidence["halted_on_rate_limit"]}),flush=True)
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: berlin-1827-original-twelve-sample-source-review-12pz
+          path: berlin-12pz-original/
+          retention-days: 30
+          if-no-files-found: error
