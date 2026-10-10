@@ -187,5 +187,30 @@ class Yehuobian12PZWitnessBoundaryTests(unittest.TestCase):
         self.assertFalse(self.ledger["gates"]["batch_closed"])
 
 
+    def test_1827_printed_alternate_copy_routes_do_not_promote_glyph_witness(self) -> None:
+        routes = load(RESEARCH / "MING-DATONG-YEHUOBIAN-12PZ-1827-PRINTED-RECORD-AND-BERLIN-IIIF-ROUTE-R1.json")
+        ids = {r["item_id"] for r in routes["printed_copy_routes"]}
+        self.assertEqual(ids, {"TOKYO_OMOKI_1827_V20", "HOKKAIDO_1827_V19_20", "BERLIN_1827_SAMPLES"})
+        self.assertEqual(next(r for r in routes["printed_copy_routes"] if r["item_id"] == "TOKYO_OMOKI_1827_V20")["target_item_number"], "6403767830")
+        self.assertEqual(next(r for r in routes["printed_copy_routes"] if r["item_id"] == "HOKKAIDO_1827_V19_20")["target_item_number"], "0181427762")
+        berlin = next(r for r in routes["printed_copy_routes"] if r["item_id"] == "BERLIN_1827_SAMPLES")
+        self.assertEqual(berlin["ppn"], "PPN334378186X")
+        self.assertEqual(berlin["volume20_target_page_in_samples"], "UNDETERMINED")
+        self.assertFalse(berlin["target_leaf_image_acquired"])
+        self.assertEqual(routes["authority_scope"]["independent_full_printed_target_collations_added"], 0)
+        self.assertEqual(routes["gates"]["original_target_glyph_count_delta"], 0)
+        self.assertEqual(self.ledger["printed_1827_alternative_copies_20261010"]["original_target_glyph_witness_count_increment"], 0)
+        registry = load(ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json")
+        expected = {
+            "EXT-CINII-BC0492354X-YEHUOBIAN-1827-TOKYO-DAIMOKU-V20",
+            "EXT-CINII-BB10385966-YEHUOBIAN-1827-HOKKAIDO-V19V20",
+            "EXT-SBB-DDB-PPN334378186X-YEHUOBIAN-1827-BERLIN-SAMPLES"
+        }
+        actual = [s for s in registry["sources"] if s["source_id"] in expected]
+        self.assertEqual({s["source_id"] for s in actual}, expected)
+        self.assertTrue(all(s["physical_glyph_authority"] is False for s in actual))
+        self.assertFalse(self.ledger["gates"]["batch_closed"])
+
+
 if __name__ == "__main__":
     unittest.main()

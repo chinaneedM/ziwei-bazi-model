@@ -1,0 +1,115 @@
+{
+  "schema": "MING-DATONG-YEHUOBIAN-12PZ-1827-PRINTED-RECORD-AND-BERLIN-IIIF-ROUTE-R1",
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-10-10",
+  "batch": "12PZ_IN_PROGRESS",
+  "status": "THREE_ADDITIONAL_1827_COPY_ROUTES_CATALOG_BOUND_NO_TARGET_GLYPH",
+  "purpose": "Obtain independently item-identified alternate 1827 print holdings while distinguishing catalog/surrogate/sample data from a physically inspected target leaf.",
+  "printed_copy_routes": [
+    {
+      "item_id": "TOKYO_OMOKI_1827_V20",
+      "ncid": "BC0492354X",
+      "institution": "University of Tokyo, Institute for Advanced Studies on Asia",
+      "print_edition": "扶茘山房 道光7 (1827)",
+      "physical_set": "大木文庫; 34冊",
+      "target_volume_fascicle": "卷20 alone",
+      "target_item_number": "6403767830",
+      "call_number": "大木;子部:雜家類:16-20",
+      "catalog_note": "Heavy insect damage across set, but no demonstrated vol20 target-page loss; 補遺卷4 leaves 31–32 disorder is not 卷20 disorder.",
+      "target_leaf_image_acquired": false
+    },
+    {
+      "item_id": "HOKKAIDO_1827_V19_20",
+      "ncid": "BB10385966",
+      "institution": "Hokkaido University Library",
+      "print_edition": "扶茘山房 道光7 (1827)",
+      "physical_set": "24冊",
+      "target_volume_fascicle": "卷19–20",
+      "target_item_number": "0181427762",
+      "call_number": "史6-2/YA/2",
+      "target_leaf_image_acquired": false
+    },
+    {
+      "item_id": "BERLIN_1827_SAMPLES",
+      "institution": "Staatsbibliothek zu Berlin",
+      "physical_set": "Libri sin. 365/372",
+      "print_edition": "羊城邸寓之扶荔山房 1827",
+      "ddb_item": "WBXTVCN6VMFVV7ESZ7QLCGP4GFJ22IA7",
+      "first_party_reader": "https://digital.staatsbibliothek-berlin.de/werkansicht/?PPN=PPN334378186X",
+      "ppn": "PPN334378186X",
+      "digitization_scope": "Beispielseiten (sample pages, not stated full volume)",
+      "standard_iiif_manifest_pattern": "https://content.staatsbibliothek-berlin.de/dc/PPN334378186X/manifest",
+      "manifest_object_verified": false,
+      "volume20_target_page_in_samples": "UNDETERMINED",
+      "target_leaf_image_acquired": false
+    }
+  ],
+  "preexisting_comparators": [
+    {
+      "item_id": "TOKYO_YURAN_1827",
+      "ncid": "BC08398372",
+      "copy_note": "20 fascicles, 夕嵐草堂 stamp, v19 after folio30 missing, listed preservation unavailable; NOT the Oki/大木 copy."
+    },
+    {
+      "item_id": "KYOTO_EAST_ASIAN_HISTORY_1827",
+      "ncid": "BB05477307",
+      "copy_note": "Kyoto University distinct catalog-identified 1827 printed copy."
+    },
+    {
+      "item_id": "KYOTO_CHINESE_PHILOSOPHY_1827",
+      "ncid": "BB18578034",
+      "copy_note": "Kyoto University another printed copy at a distinct catalog identity."
+    }
+  ],
+  "authority_scope": {
+    "source_level": "INSTITUTIONAL_CATALOGED_PRINT_COPY_AND_DIGITAL_SAMPLE_LOCATOR",
+    "original_1827_target_heading_image_count": 0,
+    "original_1827_target_text_glyph_count": 0,
+    "old20_target_heading_image_count": 0,
+    "independent_full_printed_target_collations_added": 0,
+    "third_party_iiif_pattern_is_not_object_manifest_access": true,
+    "same_title_is_not_same_physical_copy": true,
+    "missing_v19_folio_is_not_missing_v20": true
+  },
+  "research_routes": [
+    {
+      "priority": 1,
+      "aim": "Try object-specific SBB manifest with exact PPN; determine count and whether this is sample-only; do not infer full target availability.",
+      "status": "WORKFLOW_PROBE_PENDING"
+    },
+    {
+      "priority": 2,
+      "aim": "Request or publicly access Tokyo 大木卷20 object 6403767830, compare with Tokyo 夕嵐卷19-20 6411758714 without merging their damage reports.",
+      "status": "HOLDING_CONFIRMED_NO_TARGET_IMAGE"
+    },
+    {
+      "priority": 3,
+      "aim": "Acquire Hokkaido 0181427762 卷19-20 official digitization or authorized scholarly reproduction; compare to Kyoto independently held prints.",
+      "status": "HOLDING_CONFIRMED_NO_TARGET_IMAGE"
+    }
+  ],
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Multiple catalogs show independent surviving printed copies but neither proves textual copying, a target glyph, or ancient clock completion."
+    ],
+    "unresolved_lineage_questions": [
+      "Direct old20 original target folio.",
+      "Physical 1827 print target page from source-bound copy and image digest.",
+      "Whether Berlin samples include the target page."
+    ]
+  },
+  "gates": {
+    "batch_closed": false,
+    "matrix_changed": false,
+    "current_state_changed": false,
+    "graph_changed": false,
+    "chart_algorithm_changed": false,
+    "original_target_glyph_count_delta": 0,
+    "md_g03": "OPEN_BLOCKING_GENERAL_ADAPTER",
+    "hpa_dayun_cal_002": "MISSING_FROM_PRODUCT",
+    "deterministic_product_r1": "CLOSED"
+  }
+}
