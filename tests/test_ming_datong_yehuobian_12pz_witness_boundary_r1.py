@@ -231,5 +231,15 @@ class Yehuobian12PZWitnessBoundaryTests(unittest.TestCase):
         self.assertFalse(record["gates"]["batch_closed"])
 
 
+    def test_temporary_tokyo_access_route_does_not_count_as_physical_leaf(self) -> None:
+        record = load(RESEARCH / "MING-DATONG-YEHUOBIAN-12PZ-1827-PRINTED-RECORD-AND-BERLIN-IIIF-ROUTE-R1.json")
+        access = record["tokyo_public_first_party_access_control_20261010"]
+        self.assertIn("BC0492354X", access["item_scope"])
+        self.assertEqual(access["external_action_boundary"], "NO_REPRODUCTION_OR_VIEWING_APPLICATION_SUBMITTED")
+        self.assertEqual(access["number_of_target_glyphs_observed"], 0)
+        self.assertIn("OBJECT_SPECIFIC_IMAGE_AND_COPY_ELIGIBILITY_UNRESOLVED", access["status"])
+        self.assertFalse(record["gates"]["batch_closed"])
+
+
 if __name__ == "__main__":
     unittest.main()
