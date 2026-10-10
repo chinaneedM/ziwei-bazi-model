@@ -102,8 +102,8 @@ class Yehuobian12PZWitnessBoundaryTests(unittest.TestCase):
         self.assertEqual(len(evidence["rendered_pages"]), 10)
         self.assertEqual([p["pdf_page_1based"] for p in evidence["rendered_pages"]], list(range(136, 146)))
         self.assertEqual(evidence["preexisting_direct_page_read"]["pdf_page_1based"], 137)
-        self.assertFalse(evidence["scope"]["manually_collated_all_ten_pages"])
-        self.assertEqual(evidence["scope"]["old20_kaizao_louke_present_or_absent"], "NOT_ADJUDICATED")
+        self.assertTrue(evidence["scope"]["manually_collated_all_ten_pages"])
+        self.assertEqual(evidence["scope"]["old20_kaizao_louke_present_or_absent"], "NOT_IDENTIFIED_AS_HEADING_IN_P136_TO_P145_ONLY_BROADER_UNRESOLVED")
         self.assertEqual(china["counts_for_shen_defu_old20v_target"], 0)
 
     def test_wikimedia_imageinfo_independently_confirms_pdf2_source_binary(self) -> None:
