@@ -1,0 +1,125 @@
+{
+  "schema": "MING-DATONG-YEHUOBIAN-12PZ-SHANGHAI30-V20-PHYSICAL-NAVIGATION-R1",
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-10-10",
+  "batch": "12PZ_IN_PROGRESS",
+  "status": "PHYSICAL_VOLUME20_AND_CALENDAR_HEADING_LOCATORS_DIRECTLY_IDENTIFIED; TARGET_GLYPHS_OPEN",
+  "source": {
+    "label": "Shanghai Library-labelled 萬曆野獲編三十卷 PDF part2",
+    "pdf_pages": 550,
+    "sha256": "7ea8fe57f5baebd8f2841771d87ec5e3ed34c271e0fe89596a28d2521c9165a6",
+    "edition_1827": "UNVERIFIED",
+    "physical_copy_identity": "UNVERIFIED",
+    "pdf_page_numbers": "1-BASED_DIGITAL_NOT_PRINTED_FOLIOS"
+  },
+  "imaging": [
+    {
+      "run_id": 37883445704,
+      "artifact_id": 11595162668,
+      "artifact_digest": "sha256:3991138bfc91a4b0d461f8316c12414734383557ea2e1ab6b0f7fdc6107baae7",
+      "positions": [
+        1,
+        4,
+        198,
+        200,
+        369,
+        370,
+        537,
+        538,
+        550
+      ],
+      "local_jpeg_manifest_integrity": "PASS_9_OF_9"
+    },
+    {
+      "run_id": 37883816244,
+      "artifact_id": 11594634160,
+      "artifact_digest": "sha256:c511e958c29cbc61cd085e915aba3df32f383ce603d46f6a3e927f3eafd0f21d",
+      "positions": [
+        403,
+        406,
+        407,
+        408,
+        409,
+        436,
+        440,
+        448
+      ],
+      "local_jpeg_manifest_integrity": "PASS_8_OF_8"
+    }
+  ],
+  "direct_image_glyph_locators": [
+    {
+      "pdf_page": 369,
+      "source_derived_jpeg_sha256": "67f48eb16ee7b9bc3dcd3f99e241db8af5f41301657374df797fb097289642d9",
+      "visible_heading": "萬曆野獲編卷十九",
+      "role": "BOOK_VOL19_HEADING",
+      "scope": "SOURCE_PAGE_HEADING_ONLY_NO_TARGET_TEXT_GLYPH_IMPLICATION"
+    },
+    {
+      "pdf_page": 407,
+      "source_derived_jpeg_sha256": "db873ac98b98fd53bacd5264d1f127f9bc5838781ff17a53c86811a1039f5b89",
+      "visible_heading": "萬曆野獲編卷二十",
+      "role": "BOOK_VOL20_HEADING",
+      "scope": "SOURCE_PAGE_HEADING_ONLY_NO_TARGET_TEXT_GLYPH_IMPLICATION"
+    },
+    {
+      "pdf_page": 436,
+      "source_derived_jpeg_sha256": "f9b931f9349643cd8929f76ea5cea872e906884cc062846f393ac186a8434740",
+      "visible_heading": "曆法／俗忌",
+      "role": "CALENDAR_CATEGORY_AND_SUBHEADING",
+      "scope": "SOURCE_PAGE_HEADING_ONLY_NO_TARGET_TEXT_GLYPH_IMPLICATION"
+    },
+    {
+      "pdf_page": 440,
+      "source_derived_jpeg_sha256": "3c1496bd587168e4f4005ccd86e4c5ceb173b541bbba9490d28eb164863dbf70",
+      "visible_heading": "渾天儀",
+      "role": "CALENDAR_SECTION_HEAD",
+      "scope": "SOURCE_PAGE_HEADING_ONLY_NO_TARGET_TEXT_GLYPH_IMPLICATION"
+    },
+    {
+      "pdf_page": 448,
+      "source_derived_jpeg_sha256": "5407cf169b9945e2f87969c858e21525b083393ed4491f91fd014eb88e8f7b73",
+      "visible_heading": "居第吉凶",
+      "role": "NEXT_CALENDAR_SECTION_HEAD",
+      "scope": "SOURCE_PAGE_HEADING_ONLY_NO_TARGET_TEXT_GLYPH_IMPLICATION"
+    },
+    {
+      "pdf_page": 537,
+      "source_derived_jpeg_sha256": "49f895dbd56777955950942cb575bd88cc941c2a8a99fa97028909050c6b7d40",
+      "visible_heading": "萬曆野獲編卷二十三",
+      "role": "BOOK_VOL23_HEADING",
+      "scope": "SOURCE_PAGE_HEADING_ONLY_NO_TARGET_TEXT_GLYPH_IMPLICATION"
+    }
+  ],
+  "next_acquisition": {
+    "workflow": ".github/workflows/render-yehuobian-shanghai30-v20-lexical-target-12pz.yml",
+    "pages": [
+      441,
+      442,
+      443,
+      444,
+      445,
+      446,
+      447,
+      448
+    ],
+    "status": "PENDING_EXACT_HEAD_WORKFLOW_SUCCESS_AND_PHYSICAL_GLYPH_REVIEW",
+    "reason": "First narrow image window after 曆法/渾天儀 and before or at 居第吉凶; target heading requires explicit positive image"
+  },
+  "limitations": [
+    "Do not treat the file's 上海 label as verified 1827 edition/copy provenance.",
+    "The identified original 30-volume 卷二十 is not the same physical locator as an original old20v 卷二十.",
+    "A received-text title index only motivates a bounded search; it does not prove exact original leaf order.",
+    "No reading of 一/二, 官/宮 or 1447 physical clock implementation may be deduced from nearby headings.",
+    "No negative claim of target absence from the whole scan or edition is justified."
+  ],
+  "project_effect": {
+    "chart_r1": "CLOSED",
+    "md_g03": "OPEN_BLOCKING_GENERAL_ADAPTER",
+    "hpa_dayun_cal_002": "MISSING_FROM_PRODUCT",
+    "matrix_modified": false,
+    "state_modified": false,
+    "graph_modified": false,
+    "batch_closed": false
+  }
+}
