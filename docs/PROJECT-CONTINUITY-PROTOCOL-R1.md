@@ -201,3 +201,7 @@ ZIWEI_SELF_INWARD_TRANSFORMATION_DIRECTION=NOT_YET_FORMALIZED
 PREDICTION_AI_INTERPRETATION=CURRENTLY_OUT_OF_SCOPE
 TIANWEN_TRANSMISSION_GENEALOGY_R1=ACTIVE_INCREMENTAL
 ```
+
+## Source-registry sharding checkpoint (12QE)
+
+When retrieving external provenance witnesses, read the original root registry and then `docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json` and every explicitly listed shard. Do not infer a source is absent merely because the root registry alone lacks it. Root and extension counts are separate; the union count and Git blob hashes are checked by `scripts/verify-historical-source-registry-extensions-r1.py` in CI. An extension entry marked `UNVERIFIED_TARGET_LOCATOR_QUARANTINED` or `ACCESS_BOUNDARY_UNVERIFIED` cannot attest a target historical glyph or provide stemmatic voting. Never silently rewrite older historical assertions when direct source recheck fails; publish a forward-only correction record.

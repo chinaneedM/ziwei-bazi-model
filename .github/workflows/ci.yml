@@ -31,6 +31,10 @@ jobs:
         run: python scripts/verify-fusion-chart-historical-provenance-audit-r1.py
       - name: Project continuity state R1 machine gate
         run: python scripts/verify-project-continuity-state-r1.py
+      - name: Historical source registry extension integrity gate
+        run: |
+          python scripts/verify-historical-source-registry-extensions-r1.py
+          python -m unittest discover -s tests -p 'test_historical_source_registry_extensions_r1.py' -v
       - name: Focused historical provenance audit tests
         run: |
           python -m unittest discover -s tests -p "test_fusion_chart_historical_provenance_audit_matrix_r1.py" -v

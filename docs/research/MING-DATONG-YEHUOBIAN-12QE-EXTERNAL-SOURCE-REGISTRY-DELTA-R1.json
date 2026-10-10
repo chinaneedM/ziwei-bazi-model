@@ -1,29 +1,77 @@
 {
   "schema": "MING-DATONG-YEHUOBIAN-12QE-EXTERNAL-SOURCE-REGISTRY-DELTA-R1",
   "date": "2026-10-10",
-  "status": "STAGED_NEW_RECEIVED_WITNESSES_NOT_MERGED_INTO_CANONICAL_ROOT_REGISTRY_DUE_TO_FETCH_FILE_SIZE_BOUNDARY",
+  "status": "AUTHORITATIVE_EXTENSION_SHARD_WITH_SOURCE_SCOPED_VERIFICATION_STATUSES",
   "root_registry": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json",
   "root_registry_restored_blob_sha": "ea2ab50479450c39ce3fc7a00ea91cd713bf4a60",
+  "review_history": [
+    "9093f851: first staged two preliminary sources; subsequent direct URL verification quarantines Wang Hongxu target mismatch and CText Yuan 403; three new received/bibliographic controls added forward-only"
+  ],
   "sources": [
     {
       "source_id": "EXT-SHIDIAN-WANGHONGXU-MINGSHIGAO-TIANWEN1-PENGDEQING-1447-12QE",
-      "title": "王鴻緒《明史稿·天文一》彭德清漏箭奏議後出一刻讀法",
-      "provider": "Shidian Guji web received text; physical edition unbound",
+      "title": "王鸿绪《明史稿》网页定位待核：卷二十/天文一",
+      "provider": "Shidian Guji",
       "url": "https://www.shidianguji.com/book/NA03560/chapter/1m8gn2ryp26us",
-      "role": "QING_COMPILATION_LATER_ONE_KE_AGREEMENT_NOT_INDEPENDENT_1447_PHYSICAL_GLYPH",
-      "quality_notes": "Reads 北京冬至辰初一刻/夏至戌初一刻 and 宮禁, aligned to Ming Yingzong Shilu and Shanghai 12QC but not a new original physical reading or proof of direct copying; CText 二刻 transmission not resolved.",
-      "physical_glyph_authority": false
+      "historical_period": "QING_HISTORIOGRAPHY_MODERN_TRANSCRIPTION_TARGET_UNBOUND",
+      "source_role": "QUARANTINED_LOCATOR_NOT_EVIDENCE_FOR_PENGDEQING_ONE_KE",
+      "quality_notes": "Directly opened webpage, heading 明史稿 卷二十/天文一 present but 彭德清 and 漏箭 target text absent. Earlier 12QE one-ke attribution to this exact link is withdrawn pending verified target locator; no whole-book negative claim.",
+      "physical_glyph_authority": false,
+      "verification_status": "UNVERIFIED_TARGET_LOCATOR_QUARANTINED",
+      "access_date": "2026-10-10",
+      "evidence": "docs/research/MING-DATONG-YEHUOBIAN-12QE-RECEIVED-TEXT-LOCATOR-CORRECTION-R1.json"
     },
     {
       "source_id": "EXT-CTEXT-YUANSHI-V52-SHOUSHI-BEIJING-SOLSTICE-KE-12QE",
-      "title": "《元史》卷52《昼夜刻》元授時歷北京冬夏至刻位資料",
-      "provider": "Chinese Text Project modern received transcript; physical edition unbound",
+      "title": "CText《元史》卷52先前链接：本轮无法取回",
+      "provider": "Chinese Text Project",
       "url": "https://ctext.org/wiki.pl?chapter=6270786&if=gb",
-      "role": "EARLIER_DISTINCT_YUAN_KE_TABLE_PROFILE_NOT_AN_INDEPENDENT_MING_1447_EVENT_WITNESS",
-      "quality_notes": "Records winter Beijing sunrise 辰初二刻 / summer sunset 戌初二刻, and 62-ke solstitial day/night. Same numeric totals do not prove equal clock coordinate, transmission to CText, or parity with the 1447 Peng Deqing proposal.",
-      "physical_glyph_authority": false
+      "historical_period": "MODERN_RECEIVED_TRANSCRIPTION_ACCESS_BOUNDARY",
+      "source_role": "HTTP403_ACCESS_BOUNDARY_NOT_DIRECTLY_INSPECTED_THIS_SESSION",
+      "quality_notes": "2026-10-10 direct open fails 403; retain old link as route, not proof target. Independent later Siku received passage was retrieved from Chinese Wikisource and registered separately.",
+      "physical_glyph_authority": false,
+      "verification_status": "ACCESS_BOUNDARY_UNVERIFIED",
+      "access_date": "2026-10-10",
+      "evidence": "docs/research/MING-DATONG-YEHUOBIAN-12QE-RECEIVED-TEXT-LOCATOR-CORRECTION-R1.json"
+    },
+    {
+      "source_id": "EXT-WIKISOURCE-YEHUOBIAN-V20-GAIZAO-LOUKE-TWO-ONE-RECEIVED-12QE",
+      "title": "维基文库《万历野获编》卷20〈改造漏刻〉二／一异文",
+      "provider": "Wikisource modern received text",
+      "url": "https://zh.wikisource.org/wiki/萬曆野獲編/卷20",
+      "historical_period": "MODERN_RECEIVED_DIGITAL_TEXT_UNBOUND_BASE_EDITION",
+      "source_role": "NEW_INDEPENDENT_WEBSITE_READING_NOT_INDEPENDENT_PHYSICAL_COPY_OR_STEMMATIC_VOTE",
+      "quality_notes": "Direct online target passage reads winter sunrise 辰初二刻 and summer sunset 戌初一刻, 宮禁/宮漏; previous 12QD recorded CText received two/two. Different website readings cannot be collapsed or counted as distinct manuscripts.",
+      "physical_glyph_authority": false,
+      "verification_status": "RECEIVED_TEXT_VERIFIED",
+      "access_date": "2026-10-10",
+      "evidence": "docs/research/MING-DATONG-YEHUOBIAN-12QE-RECEIVED-TEXT-LOCATOR-CORRECTION-R1.json"
+    },
+    {
+      "source_id": "EXT-WIKISOURCE-YUANSHI-SIKU-V52-DAYNIGHT-KE-TWO-TWO-12QE",
+      "title": "维基文库《元史》四库全书本卷52·昼夜刻",
+      "provider": "Wikisource modern received text of Siku edition",
+      "url": "https://zh.wikisource.org/wiki/元史_(四庫全書本)/卷052",
+      "historical_period": "SIKU_RECEIVED_YUAN_DYNASTY_TECHNICAL_CONTENT_MODERN_DIGITAL",
+      "source_role": "EARLIER_SEPARATE_TECHNICAL_NUMERIC_PROFILE_COMPARISON_ONLY",
+      "quality_notes": "Direct online text reads winter sunrise 辰初二刻 and summer sunset 戌初二刻. Not a witness to 1447 Peng Deqing event or same-source inheritance.",
+      "physical_glyph_authority": false,
+      "verification_status": "RECEIVED_TEXT_VERIFIED",
+      "access_date": "2026-10-10",
+      "evidence": "docs/research/MING-DATONG-YEHUOBIAN-12QE-RECEIVED-TEXT-LOCATOR-CORRECTION-R1.json"
+    },
+    {
+      "source_id": "EXT-WIKIMEDIA-NLC511-1959-ZHONGHUA-YEHUOBIAN-3V-12QE",
+      "title": "国图民国文献 NLC511《万历野获编》1959中华书局本三册文件定位",
+      "provider": "Wikimedia Commons / National Library of China provenance metadata",
+      "url": "https://commons.wikimedia.org/wiki/File:NLC511-023031404016561-25336_萬曆野獲編_上冊.pdf",
+      "historical_period": "MODERN_PRINT_1959_NOT_1827",
+      "source_role": "BIBLIOGRAPHIC_EXCLUSION_CONTROL_NOT_HISTORICAL_1827_PRINTED_TARGET",
+      "quality_notes": "Commons exact file page identifies 上冊, Publisher 中華書局, 民國48[1959], 366 pages, and same category has 中冊323 and 下冊290. This is not a known 1827 physical-page scan; target paragraph was not manually inspected.",
+      "physical_glyph_authority": false,
+      "verification_status": "BIBLIOGRAPHIC_METADATA_ONLY",
+      "access_date": "2026-10-10",
+      "evidence": "docs/research/MING-DATONG-YEHUOBIAN-12QE-RECEIVED-TEXT-LOCATOR-CORRECTION-R1.json"
     }
-  ],
-  "note": "This is a forward evidence addition, not an edit of old registered sources. Merge later via a source-registry v2/sharded manifest design whose root remains within the connector's readable limits.",
-  "checkpoint": "docs/research/MING-DATONG-YEHUOBIAN-12QE-YUAN-MING-KE-RECEPTION-CROSSWALK-R1.json"
+  ]
 }
