@@ -1,0 +1,69 @@
+name: extract-yehuobian-shanghai30-part1-p10-inscription-12pz
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/extract-yehuobian-shanghai30-part1-p10-inscription-12pz.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  exact-previous-artifact:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Download exact 300DPI rendered artifact, preserving immutable run ID
+        uses: actions/download-artifact@v4
+        with:
+          name: shanghai30-part1-p5-p10-300dpi-closeups-12pz
+          run-id: 38023335422
+          repository: chinaneedM/ziwei-bazi-model
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: evidence
+      - name: Verify original high-resolution JPG sha256 manifest
+        shell: bash
+        run: |
+          set -euo pipefail
+          (cd evidence && sha256sum -c image-sha256.txt)
+          test -f evidence/images/p0010-right-close.jpg
+          mkdir -p small
+      - name: Render bounded right-side inscription-only strip from existing 300DPI
+        shell: bash
+        run: |
+          python3 -m pip install -q --break-system-packages Pillow
+          python3 - <<'PY'
+          from PIL import Image
+          from pathlib import Path
+          import hashlib,base64,json
+          im=Image.open("evidence/images/p0010-right-close.jpg")
+          w,h=im.size
+          # already right-hand folio crop; select right-hand text columns, including dated inscription
+          strip=im.crop((int(w*.46),0,w,h))
+          # keep readable text with bounded transport size, not a new glyph source
+          if strip.width>1400:
+              strip=strip.resize((1400,int(strip.height*1400/strip.width)))
+          dest=Path("small/p0010-inscription-strip.jpg")
+          strip.save(dest,quality=78,optimize=True)
+          raw=dest.read_bytes()
+          result={"source_artifact_run_id":38023335422,"original_file":"p0010-right-close.jpg",
+            "crop":"rightmost 54 percent of already-right-hand-p10 folio", "original_width":w,
+            "original_height":h,"cropped_width":strip.width,"cropped_height":strip.height,
+            "jpeg_sha256":hashlib.sha256(raw).hexdigest(),"ocr_used":False,
+            "copy_year_adjudicated":False,"date_glyphs_adjudicated":False}
+          Path("small/manifest.json").write_text(json.dumps(result,ensure_ascii=False,indent=2)+"\n")
+          s=base64.b64encode(raw).decode("ascii")
+          print("TIANWEN_SMALL_BEGIN base64_chars="+str(len(s)),flush=True)
+          for i in range(0,len(s),4000):print("TIANWEN_SMALL_CHUNK "+s[i:i+4000],flush=True)
+          print("TIANWEN_SMALL_END",flush=True)
+          PY
+      - name: Upload tiny human-checkable image and digest
+        uses: actions/upload-artifact@v4
+        with:
+          name: shanghai30-p10-small-inscription-12pz
+          path: small/
+          retention-days: 30
+          if-no-files-found: error
