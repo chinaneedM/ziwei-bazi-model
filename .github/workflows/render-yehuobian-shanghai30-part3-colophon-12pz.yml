@@ -1,0 +1,84 @@
+name: render-yehuobian-shanghai30-part3-colophon-12pz
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/render-yehuobian-shanghai30-part3-colophon-12pz.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  bounded-imaging:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - name: Install PDF image tools
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils
+      - name: Fetch original Shanghai PDF part 3, verify Wikimedia SHA1 and page count
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p 12pz-shanghai-part3/source 12pz-shanghai-part3/pages
+          root='https://commons.wikimedia.org/wiki/Special:Redirect/file'
+          curl -L --fail --retry 5 --retry-all-errors --retry-delay 3 --max-time 1100 \
+            -A 'Tianwen-Historical-Provenance-R1/1.0' \
+            "$root/Shanghai_%E8%90%AC%E6%9B%86%E9%87%8E%E7%8D%B2%E7%B7%A8%E4%B8%89%E5%8D%81%E5%8D%B7_part_3.pdf" \
+            -o 12pz-shanghai-part3/source/part3.pdf
+          echo '80f3f426b0f658bc1773e25719299d71ea64ec83  12pz-shanghai-part3/source/part3.pdf' | sha1sum -c -
+          sha256sum 12pz-shanghai-part3/source/part3.pdf > 12pz-shanghai-part3/source-sha256.txt
+          pdfinfo 12pz-shanghai-part3/source/part3.pdf > 12pz-shanghai-part3/pdfinfo.txt
+          test "$(awk '/^Pages:/ {print $2}' 12pz-shanghai-part3/pdfinfo.txt)" = 357
+      - name: Render bounded source leaves with exact image manifest (no OCR)
+        shell: bash
+        run: |
+          set -euo pipefail
+          for p in 1 2 3 4 5 6 346 347 348 349 350 351 352 353 354 355 356 357; do
+            pdftoppm -f "$p" -l "$p" -scale-to 2000 -jpeg -jpegopt quality=88 \
+              -singlefile 12pz-shanghai-part3/source/part3.pdf \
+              "12pz-shanghai-part3/pages/$(printf 'part3-p%04d' "$p")"
+          done
+          test "$(find 12pz-shanghai-part3/pages -name '*.jpg' | wc -l)" -eq 18
+          (cd 12pz-shanghai-part3 && sha256sum pages/*.jpg > image-sha256.txt)
+          printf '%s\n' \
+            'SOURCE=Shanghai-Library-labelled_Wikimedia_Commons_30v_PDF_part3' \
+            'COMMONS_SHA1=80f3f426b0f658bc1773e25719299d71ea64ec83' \
+            'DIGITAL_PDF_PAGES=357' \
+            'SOURCE_UPLOAD_FILENAME=dGJ2312912-1101-1457.pdf' \
+            'SELECTED_PAGES=1..6,346..357' \
+            'PDF_PAGE_NUMBERS_ARE_NOT_ORIGINAL_LEAF_NUMBERS=true' \
+            'TARGET=edition/date/copy colophon candidate inspection only' \
+            'TARGET_GLYPHS_NOT_YET_VERIFIED=true' \
+            'SOURCE_1827_IDENTITY_NOT_ESTABLISHED=true' \
+            'OCR=false' > 12pz-shanghai-part3/manifest.txt
+      - name: Emit small tagged preview JPEGs to logs for direct human image reading
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import base64,pathlib
+          for p in [1,2,5,350,354,356,357]:
+              f=pathlib.Path(f"12pz-shanghai-part3/pages/part3-p{p:04d}.jpg")
+              s=base64.b64encode(f.read_bytes()).decode("ascii")
+              print(f"TIANWEN_IMAGE_BEGIN page={p} base64_chars={len(s)}",flush=True)
+              for i in range(0,len(s),4000):print("TIANWEN_IMAGE_CHUNK "+s[i:i+4000],flush=True)
+              print(f"TIANWEN_IMAGE_END page={p}",flush=True)
+          PY
+      - name: Upload checksummed source-derived pages
+        uses: actions/upload-artifact@v4
+        with:
+          name: shanghai30-part3-colophon-leaves-12pz
+          path: |
+            12pz-shanghai-part3/pages/
+            12pz-shanghai-part3/image-sha256.txt
+            12pz-shanghai-part3/source-sha256.txt
+            12pz-shanghai-part3/pdfinfo.txt
+            12pz-shanghai-part3/manifest.txt
+          retention-days: 30
+          if-no-files-found: error
