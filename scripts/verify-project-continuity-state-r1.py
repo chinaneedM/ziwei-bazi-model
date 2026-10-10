@@ -964,9 +964,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-KOREA-CNTS-BOUNDARY-PZ",
     "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-GJ2312912-IMAGE-ROUTE-QA",
     "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-GJ2312912-DENSE-IMAGE-INDEX-QB",
+    "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-GJ2312912-DIRECT-TARGET-GLYPH-QC",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-GJ2312912-DENSE-IMAGE-INDEX-QB.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-GJ2312912-DIRECT-TARGET-GLYPH-QC.md"
 
 
 def fail(message: str) -> None:
@@ -5378,6 +5379,40 @@ def main() -> int:
     if qb.get("gates",{}).get("algorithm_reopen_authorized") is not False or qb.get("gates",{}).get("md_g03") != "OPEN_BLOCKING_GENERAL_ADAPTER": fail("Batch 12QB chart firewall regressed")
     qbsrc = {x.get("source_id"):x for x in registry.get("sources", ())}.get(qb.get("source_id"))
     if not qbsrc or qbsrc.get("dense_window_evidence") != str(qb_path.relative_to(ROOT)): fail("Batch 12QB registry ledger mismatch")
+
+    # Batch 12QC advances only direct glyphs in a single already captured source-image page.
+    qc_path = ROOT / "docs/research/MING-DATONG-YEHUOBIAN-12QC-SHLIB-GJ2312912-P441-DIRECT-TARGET-GLYPH-R1.json"
+    if not qc_path.is_file(): fail("Batch 12QC target-page glyph evidence missing")
+    qc = json.loads(qc_path.read_text(encoding="utf-8"))
+    if qc.get("batch_id") != "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-GJ2312912-DIRECT-TARGET-GLYPH-QC": fail("Batch 12QC evidence identity mismatch")
+    if qc.get("source",{}).get("source_pdf_sha256") != "7ea8fe57f5baebd8f2841771d87ec5e3ed34c271e0fe89596a28d2521c9165a6": fail("Batch 12QC parent PDF fingerprint drift")
+    qc_capture = qc.get("capture",{})
+    if qc_capture.get("upstream_artifact_id") != 11665913148 or qc_capture.get("upstream_workflow_run") != 38042316379: fail("Batch 12QC artifact provenance drift")
+    qc_pages = qc_capture.get("physically_visually_reviewed_pages",[])
+    if [(p.get("part"),p.get("pdf_page"),p.get("global_page"),p.get("sha256")) for p in qc_pages] != [
+        (2,440,990,"a3161bd9af6700a1529d8bbcfba3624dd7e12d44c67f1d69bf363f0a79467ca8"),
+        (2,441,991,"c452e18d8da8f70114a5592a917f7bfc2611a610ba36ebf208b39d969c7a0d50"),
+        (2,442,992,"146d2fc4c53a66b758f04af62525ca75661896c55a900be3a0bdaa32ee489445"),
+    ]: fail("Batch 12QC target-neighbor page SHA/locator drift")
+    if qc_capture.get("all_201_manually_read") is not False or "NO_OCR" not in qc_capture.get("method",""): fail("Batch 12QC visual/no-OCR scope lost")
+    qc_glyphs = qc.get("target",{}).get("original_glyph_controls",[])
+    if [(g.get("concept"),g.get("glyph"),g.get("visual_attested")) for g in qc_glyphs[:2]] != [
+        ("官府漏箭","官",True),("禁中宮漏","宮",True),
+    ]: fail("Batch 12QC guan/gong distinct-referent direct glyph readings drifted")
+    qc_judge = qc.get("adjudication",{})
+    if (qc_judge.get("target_heading_to_digital_page") != "RESOLVED"
+        or qc_judge.get("first_party_library_copy_identity") != "UNBOUND"
+        or qc_judge.get("independent_1827_or_old20_target_collation") != "NOT_COMPLETED"
+        or qc_judge.get("independent_physical_witness_increment") != 0
+        or qc_judge.get("md_g03") != "OPEN_BLOCKING_GENERAL_ADAPTER"
+        or qc_judge.get("algorithm_reopen_authorized") is not False):
+        fail("Batch 12QC witness independence/calendar fail-closed gate regressed")
+    if qbsrc.get("direct_target_glyph_evidence") != str(qc_path.relative_to(ROOT)) or qbsrc.get("physical_glyph_authority") is not True or "PART2_PDF_441" not in qbsrc.get("physical_glyph_authority_scope",""):
+        fail("Batch 12QC external-source target glyph accounting drifted")
+    qc_node_ids = set(qc.get("transmission_impact",{}).get("nodes_added",[]))
+    if qc_node_ids != {"DIGITAL-SURROGATE-YEHUOBIAN-SHLIB-ATTRIBUTED-GJ2312912","PASSAGE-YEHUOBIAN-GJ2312912-GAIZAO-LOUKE"} or qc.get("transmission_impact",{}).get("edges_supported") != ["TG-E0233"]:
+        fail("Batch 12QC transmission impact references drifted")
+
 
     # Batch 11U remains the controlling catalog-item identity gate.
     if identity_evidence.get("status") != "DIRECT_NO_OCR_1940_PRECIOUS_BOOK_NUMBER_893_BINDING_CLOSES_CATALOG_ITEM_CONTINUITY":
