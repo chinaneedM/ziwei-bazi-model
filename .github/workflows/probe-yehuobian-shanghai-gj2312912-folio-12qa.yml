@@ -1,0 +1,81 @@
+name: probe-yehuobian-shanghai-gj2312912-folio-12qa
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-yehuobian-shanghai-gj2312912-folio-12qa.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  bounded-shanghai-source-leaf-probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        part: [2, 3]
+    steps:
+      - name: Install source-image renderer
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils
+          python -m pip install -q pillow
+      - name: Download exact public source PDF and render spatial samples without OCR
+        shell: bash
+        env:
+          SEGMENT: ${{ matrix.part }}
+        run: |
+          set -euo pipefail
+          mkdir -p shanghai-12qa/pages shanghai-12qa/contacts
+          python - <<'PY'
+          import os, json, subprocess, hashlib, pathlib, urllib.parse
+          from PIL import Image,ImageDraw
+          part=int(os.environ["SEGMENT"])
+          root=pathlib.Path("shanghai-12qa")
+          source=f"Shanghai 萬曆野獲編三十卷 part {part}.pdf"
+          url="https://commons.wikimedia.org/wiki/Special:Redirect/file/"+urllib.parse.quote(source)
+          dst=root/f"part{part}.pdf"
+          rc=subprocess.run(["curl","--fail","-L","--retry","3","--retry-all-errors","--retry-delay","4","--connect-timeout","20","--max-time","450","-A","Tianwen-Historical-Provenance-R1/1.0",url,"-o",str(dst)],capture_output=True,text=True,timeout=480)
+          if rc.returncode: raise RuntimeError(f"DOWNLOAD_FAILED_{rc.returncode}_{rc.stderr[-500:]}")
+          assert dst.open("rb").read(4)==b"%PDF"
+          info=subprocess.run(["pdfinfo",str(dst)],capture_output=True,text=True,check=True).stdout
+          pages=int(next(ln.partition(":")[2].strip() for ln in info.splitlines() if ln.startswith("Pages:")))
+          expected={2:550,3:357}
+          assert pages==expected[part],(part,pages)
+          digest=hashlib.sha256(dst.read_bytes()).hexdigest()
+          positions=sorted(set([1,2,3,4,5,6,7,8,9,10,15,20,pages-3,pages-2,pages-1,pages]+list(range(25,pages+1,25))))
+          readings={"catalogue":"Shanghai Library GJ2312912 asserted by third-party Commons file source; original institution identity/edition/impression awaits direct collation",
+                    "pdf_pages":pages, "sha256":digest,"size_bytes":dst.stat().st_size,"part":part,"source":url,"no_ocr":True,
+                    "global_pdf_page_span":[(part-1)*550+1,(part-1)*550+pages],"samples":[]}
+          thumbs=[]
+          for p in positions:
+            out=root/"pages"/f"part{part}-p{p:04d}.jpg"
+            cmd=["pdftoppm","-f",str(p),"-l",str(p),"-r","95","-jpeg","-jpegopt","quality=78","-singlefile",str(dst),str(out.with_suffix(""))]
+            subprocess.run(cmd,check=True,capture_output=True,timeout=75)
+            raw=out.read_bytes()
+            readings["samples"].append({"source_pdf_page":p,"global_pdf_page":(part-1)*550+p,"image_path":out.name,"jpg_sha256":hashlib.sha256(raw).hexdigest(),"size_bytes":len(raw)})
+            img=Image.open(out)
+            img.thumbnail((540,420))
+            thumbs.append((p,img.copy()))
+          for start in range(0,len(thumbs),8):
+            page=Image.new("RGB",(4*570,2*480),(243,243,243))
+            draw=ImageDraw.Draw(page)
+            for k,(p,img) in enumerate(thumbs[start:start+8]):
+              col=k%4;row=k//4; x=col*570;y=row*480
+              draw.text((x+10,y+5),f"Shanghai GJ2312912 part {part} PDF {p} / global {(part-1)*550+p}",fill=(0,0,0))
+              page.paste(img,(x+10,y+30))
+            f=root/"contacts"/f"part{part}-contact{start//8+1}.jpg"
+            page.save(f,quality=77,optimize=True)
+          (root/"source-physical-page-index.json").write_text(json.dumps(readings,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+          dst.unlink()
+          print("SOURCE_ATTESTATION",json.dumps({k:v for k,v in readings.items() if k!="samples"},ensure_ascii=False),flush=True)
+          print("SAMPLED",len(positions),flush=True)
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: shanghai-gj2312912-part${{ matrix.part }}-physical-samples-12qa
+          path: shanghai-12qa/
+          retention-days: 30
+          if-no-files-found: warn
