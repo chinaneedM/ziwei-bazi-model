@@ -1,0 +1,100 @@
+{
+  "schema": "MING-DATONG-YEHUOBIAN-12QS-F7-REMAINING90-FOURUP-TRIAGE-R1",
+  "date": "2026-10-11",
+  "batch": "12QE_OPEN",
+  "status": "SOURCE_SHA_BOUND_90_PAGE_DOWNSAMPLED_MONTAGE_VISUAL_TRIAGE_NOT_ORIGINAL_FULL_RES_COLLATION",
+  "source": {
+    "holding": "NLC411999003250_ONE_HOLDING",
+    "fascicle": 7,
+    "source_pdf_pages": 110,
+    "source_pdf_sha256": "540435e7f56bd33f54a5a7dd540b1e3312cb1beae1e18c384d45ab752aaf51b1",
+    "source_pdf_rehashed_this_round": false,
+    "original_workflow_run_id": 38064436808,
+    "original_artifact_id": 11674890925,
+    "artifact_zip_sha256": "31eb8bf2d27d6a562a676da3eba034e74db173282f5004e5c234547167052f14",
+    "artifact_status_json_sha256": "fe20b671dee5f97b69933dc27655c3780861954eb32d05a14a945687c526004d",
+    "image_integrity": {
+      "source_page_jpegs_rehashed": 110,
+      "contact_sheets_rehashed": 14,
+      "hash_mismatches": 0
+    }
+  },
+  "upstream_12qr": "docs/research/MING-DATONG-YEHUOBIAN-12QR-NLC411999003250-F7-OLD12-TWENTY-DIRECT-IMAGE-SCREENS-R1.json",
+  "upstream_12qq": "docs/research/MING-DATONG-YEHUOBIAN-12QQ-NLC411999003250-REVIEW-QUEUE-R1.json",
+  "review_scope": {
+    "start_pdf_page": 21,
+    "end_pdf_page": 110,
+    "new_visually_screened_pages": 90,
+    "visual_method": "4UP_DOWNSAMPLED_FULL_PAGE_MONTAGES_WITH_LEGIBLE_PAGE_HEADINGS_NOT_SINGLE_IMAGE_NATIVE_SIZE",
+    "max_page_thumbnail_width": 1400,
+    "max_page_thumbnail_height": 1190,
+    "individually_reopened_full_resolution_source_pages": [
+      48,
+      68,
+      110
+    ],
+    "full_text_line_by_line_collated": false,
+    "ocr_used": false,
+    "original_target_heading": "改造漏刻",
+    "positive_target_glyph_or_passage_attestation_count": 0,
+    "does_not_prove_absence_of_target_on_screened_pages": true,
+    "does_not_prove_absence_in_whole_work": true,
+    "page_sequence_hash_encoding": "sha256(lowercase ASCII concatenation of source JPEG SHA-256 for f7 p21 through p110 in ascending page order)",
+    "page_sequence_hash_sha256": "f2cb44f86dabe5047dfe6945defd88169acde9d7cc39e9e97ad76dc82292abce",
+    "original_full_image_anchor_sha256": {
+      "48": "b433c5af31c5da41357f1a1cdeab50561a7f1ef16fbcdfea9cf7557ed9f188ce",
+      "68": "18229c7943ba84497ccbfdcc7165765d3c0b5a4b0594771d1f3fe86794f1f212",
+      "110": "6987faa10ec0cfd54ac3bfcbd59485429274700115382bacfc35299810bc5098"
+    }
+  },
+  "leaf_aware_navigation": {
+    "f7_pages_21_to_47_volume12": 27,
+    "f7_pages_48_to_67_volume13": 20,
+    "f7_page_68_mixed_original_volume13_right_volume14_left": 1,
+    "f7_pages_69_to_110_volume14": 42,
+    "source_page_48_heading": "萬曆三十八年庚戌卷十三",
+    "source_page_68_left_heading": "萬曆三十九年辛亥卷十四",
+    "volume_boundary_warning": "Digital page 68 contains two original volumes; navigation only, no one-volume whole page allocation"
+  },
+  "queue_reconciliation": {
+    "source_pages_total": 1030,
+    "eligible_body_pages_total": 1027,
+    "inherited_nine_page_bounded_target_check": 9,
+    "inherited_12qr_native_individual_page_screen": 20,
+    "new_12qs_fourup_preview_pages": 90,
+    "source_pages_with_any_bounded_target_visual_screen": 119,
+    "remaining_not_even_firstpass_screened_source_body_pages": 909,
+    "still_requires_individual_native_source_page_target_review": 999,
+    "old20_gaizao_louke_original_folio": "UNLOCATED"
+  },
+  "authority_firewall": [
+    "First-pass four-up screen is NOT the equivalent of individual full-res original image review; the prior 999-page native-size backlog must NOT shrink from this batch",
+    "No manuscript passage absence proof even for source pages already screened; no OCR text search negative",
+    "One holding across ten fascicles is one copy, not 10 independent witnesses",
+    "Chronological original volumes12-14 cannot be equated to later 1827 categorized printed volumes",
+    "No historical algorithm promotion or runtime choice"
+  ],
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [
+      "NLC f7 p21-110 bounded visual-triage source-image hash-chain checkpoint"
+    ],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Low-res page screening does not support text absence or print/manuscript lineage"
+    ],
+    "unresolved_lineage_questions": [
+      "Locate direct high-resolution old20 改造漏刻 original target leaf",
+      "Identify physically dated 1827 printed 改造漏刻 target source"
+    ]
+  },
+  "invariants": {
+    "matrix": "222/222",
+    "provenance_repairs": "45/45",
+    "source_count": "647+7=654",
+    "product_r1": "CLOSED",
+    "algorithm_reopens": 0,
+    "md_g03": "OPEN",
+    "hpa_dayun_cal_002": "MISSING_FROM_PRODUCT"
+  }
+}
