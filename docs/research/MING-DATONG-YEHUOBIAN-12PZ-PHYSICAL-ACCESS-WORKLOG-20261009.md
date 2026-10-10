@@ -432,3 +432,15 @@ New physical-copy acquisition **route**, not a collation of the target 〈改造
 Next source task: current NPM per-volume title/TOC and impression record for **故觀003512–003527**, then lawfully accessible copy-specific 〈改造漏刻〉 leaf and digest before variant comparison; separately continue NCL old20v heading-to-leaf search. Batch 12PZ OPEN; MD-G03 OPEN_BLOCKING_GENERAL_ADAPTER; HPA-DAYUN-CAL-002 MISSING_FROM_PRODUCT; Matrix, current-state, genealogy graph, runtime and deterministic R1 CLOSED status unchanged.
 
 Machine record: docs/research/MING-DATONG-YEHUOBIAN-12PZ-NPM-QING-JINXIANG-HOLDING-LOCATOR-R1.json.
+
+## 12PZ 2026-10-10 — NCL02260 part2 physical 續編卷十二 opening
+
+Direct manual image inspection (no OCR) of [NCL02260 second PDF, page 5](https://commons.wikimedia.org/w/index.php?title=File:NCL-02260_2_%E8%90%AC%E6%9B%86%E9%87%8E%E7%8D%B2%E7%B7%A8.pdf&page=5) positively reads 萬曆野獲續編卷第十二 on the LEFT page of the facing spread. This source file is the 35-page Commons digital segment uploaded as 12047_2.pdf, catalog-bound to NCL 舊鈔本 204.26 02260. This is one copy-scoped physical volume opening and is consistent with its catalog 十二卷 count. Source PDF SHA1/SHA256 and local rendered-image digest were NOT acquired in this browser-only reading. Copy age and original folio number remain unverified.
+
+The physical 卷第十二 title does NOT inspect Shen Zhen's 1713 補遺序. Received CText/Xuoda 續編十卷 and Wikisource 續編十二卷 remain separate unadjudicated preface variants; the current manuscript could reflect a later volume arrangement. No second independent physical witness, original old20v 改造漏刻 leaf, 1447 clock completion, 1450 observational time anchor, or runtime rule is proved. Keep 12PZ OPEN, MD-G03 OPEN_BLOCKING_GENERAL_ADAPTER and HPA-DAYUN-CAL-002 MISSING_FROM_PRODUCT; no Matrix, current-state, genealogy graph or algorithm change.
+
+Machine evidence: docs/research/MING-DATONG-YEHUOBIAN-12PZ-NCL02260-PART2-RECEIVED-XUBIAN12-DIRECT-HEADING-R1.json.
+
+### Forward-only NPM source-identity qualification
+
+The 2023 NPM exhibition list explicitly identifies 故觀003527 and the TELDAP holding lists 故觀003512–003527. By contrast, the [NPM 2019 exhibition page](https://theme.npm.edu.tw/exh108/LiteratisOrdinaries/ch/page-5.html) names the title/清刊巾箱本 but has no public accession number. The previous assertion that its pictured copy is the same specific 故觀003512–003527 physical set is therefore TOO STRONG. Revise the inference to UNRESOLVED same-copy identity; do not count it as an independent copy either. Prior statement remains visible above and a revision_history item preserves the change. No physical target glyph or defect counter is affected.
