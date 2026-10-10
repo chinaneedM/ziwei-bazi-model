@@ -12,7 +12,9 @@ class NLC12QEOld20V20Boundary(unittest.TestCase):
         d=self.o["direct_page_review"]
         self.assertEqual([x["pdf_page"] for x in d["reviewed_pages"]],list(range(137,146)))
         self.assertEqual(len({x["derived_jpeg_sha256"] for x in d["reviewed_pages"]}),9)
-        self.assertEqual(d["heading_start_exact"],"萬曆野獲編卷二十")
+        self.assertEqual(d["heading_start_exact"],"萬曆肆拾伍丁巳卷二十")
+        self.assertEqual(d["normalized_bibliographic_volume_label"],"萬曆野獲編卷二十")
+        self.assertTrue(d["heading_text_is_not_bibliographic_label"])
         self.assertEqual(d["end_exact"],"萬曆野獲編二十卷紀事畢")
         self.assertFalse(d["target_heading_seen_within_nine_pages"])
     def test_no_false_global_absence_or_edition_identity(self):

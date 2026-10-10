@@ -25,7 +25,7 @@
       {
         "pdf_page": 137,
         "derived_jpeg_sha256": "18881b8c7a57aaf612026b38a387c73d664e481a42063ba221517908e29ad130",
-        "observation": "direct heading 萬曆野獲編卷二十; first dated narrative 萬曆肆拾伍丁巳"
+        "observation": "literal dated heading 萬曆肆拾伍丁巳卷二十 with separately written 野獲編 margin-byline, followed by 春正月 chronicle; old work-title paraphrase was NOT literal heading"
       },
       {
         "pdf_page": 138,
@@ -69,7 +69,7 @@
       }
     ],
     "preceding_context_pdf_page": 136,
-    "heading_start_exact": "萬曆野獲編卷二十",
+    "heading_start_exact": "萬曆肆拾伍丁巳卷二十",
     "end_exact": "萬曆野獲編二十卷紀事畢",
     "heading_locator": "p137",
     "end_locator": "p145",
@@ -81,7 +81,10 @@
     "entire_original_20_volume_work_negatively_searched": false,
     "other_original_volume_positions_checked_for_target": false,
     "target_not_in_any_other_old20_volume": "UNRESOLVED",
-    "year_1447_quote_is_present_here": "NOT_ESTABLISHED"
+    "year_1447_quote_is_present_here": "NOT_ESTABLISHED",
+    "normalized_bibliographic_volume_label": "萬曆野獲編卷二十",
+    "heading_text_is_not_bibliographic_label": true,
+    "heading_forward_correction_ref": "docs/research/MING-DATONG-YEHUOBIAN-12QG-NLC-OLD20-V20-HEADING-FORWARD-CORRECTION-R1.json"
   },
   "comparison": {
     "this_copy_original_old20_v20_section_layout": "WANLI_YEAR_45_AND_LATER_CHRONOLOGICAL_NARRATIVE",
@@ -113,5 +116,18 @@
     "product": "CLOSED",
     "md_g03": "OPEN_BLOCKING_GENERAL_ADAPTER",
     "hpa_dayun_cal_002": "MISSING_FROM_PRODUCT"
-  }
+  },
+  "forward_only_revision_history": [
+    {
+      "date": "2026-10-10",
+      "batch": "12QG",
+      "type": "CORRECT_SOURCE_PAGE137_LITERAL_HEADING_FROM_EARLIER_12QE_CONFLATION",
+      "previous_literal_recorded": "萬曆野獲編卷二十",
+      "corrected_literal": "萬曆肆拾伍丁巳卷二十",
+      "reason": "Re-reviewed source image; prior 12PZ direct source already had correct reading; 12QE later handoff mixed bibliography with exact historical line.",
+      "evidence": "docs/research/MING-DATONG-YEHUOBIAN-12QG-NLC-OLD20-V20-HEADING-FORWARD-CORRECTION-R1.json",
+      "new_witness_count": 0,
+      "algorithm_reopen": false
+    }
+  ]
 }

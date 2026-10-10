@@ -3,7 +3,7 @@
 **状态：SCOPED_MANUAL_TARGET_HEADING_REVIEW，不是 12QE 关闭。** NLC 411999003250 第十分册与上海三十卷重编扫描件、CADAL扶荔山房系列均为需要分别标识的历史对象。本次将原始 PDF 页 137–145 九张 JPEG 原页逐张人工目视审阅，没有 OCR 或大规模反向文字检索。
 
 - 复用以前已核验的 PDF SHA-256 `8e746faaadcd961c7983981d419862d97fdc2a1f3ec33ecb02046e9e79a6376c`；[原页采集 run 38044584678](https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/38044584678) artifact `11666856770`，一份原始旧二十卷抄本见证，**不是新增独立抄本**。
-- PDF 第137页卷首直接写「萬曆野獲編卷二十」，并由「萬曆肆拾伍丁巳」年间记述展开。
+- PDF 第137页原图卷首实际为「萬曆肆拾伍丁巳卷二十」，旁另有「野獲編」字样；「萬曆野獲編卷二十」只能用作书目概括，**不得标为逐字卷首引文**。详见 12QG 前向更正。
 - PDF 第145页卷末直接写「萬曆野獲編二十卷紀事畢」。
 - 137–145页每页原图均已人工查看，目标〈改造漏刻〉**篇名未在这九页出现**，1447 彭德清奏议作为独立篇章也没有在本次限定阅读中得到确认。全部原页衍生JPEG SHA-256逐一记录在机读证据中。
 
@@ -12,3 +12,8 @@
 这项范围限定和 12QF CADAL 首册 p5 的1827序、1869重校文字互相独立：数字文件编号、卷号、目录标题、印次和物理实物身份不能混用。历史 Matrix 222/222、修复元数据缺陷45/45、排盘算法缺陷0，`MD-G03=OPEN_BLOCKING_GENERAL_ADAPTER`，`HPA-DAYUN-CAL-002=MISSING_FROM_PRODUCT`，排盘R1继续`CLOSED`。
 
 机器记录：`docs/research/MING-DATONG-YEHUOBIAN-12QE-NLC-OLD20-V20-NINE-PAGE-BOUNDED-REVIEW-R1.json`。
+
+
+## 12QG forward-only 校正记录（2026-10-10）
+
+上一行在 12QE 首次提交时误将「萬曆野獲編卷二十」当成原图卷首逐字字串；经返回已绑定原页图复查，按原页修订为「萬曆肆拾伍丁巳卷二十」。旧记录文本、旧字段和旧测试期待值由当前提交的 Git 历史保留，前向更正原因和双图哈希见 `docs/research/MING-DATONG-YEHUOBIAN-12QG-NLC-OLD20-V20-HEADING-FORWARD-CORRECTION-R1.json`。此更正不新增独立原始文本见证、不构成排盘算法缺陷，也不扩大第137–145页的范围否定。
