@@ -141,5 +141,24 @@ class Yehuobian12PZWitnessBoundaryTests(unittest.TestCase):
 
 
 
+    def test_12pz_postcollation_scope_fields_reconcile_forward_only(self) -> None:
+        china = self.by_id["CHINA_NLC_411999003250_OLD20_FASCICLE10"]
+        digest = load(RESEARCH / "MING-DATONG-YEHUOBIAN-12PZ-CHINA-NLC411999003250-V20-TAIL-SOURCE-DIGEST-R1.json")
+        cross = load(RESEARCH / "MING-DATONG-YEHUOBIAN-12PZ-OLD20-VOLUME-HEADING-CROSSWALK-R1.json")
+        self.assertTrue(digest["scope"]["manually_collated_all_ten_pages"])
+        self.assertTrue(china["bounded_ten_page_visual_review_pass"])
+        self.assertNotIn("the last ten PDF pages have all been glyph-reviewed", china["does_not_prove"])
+        self.assertIn("a full character-by-character transcription of all ten reviewed PDF pages", china["does_not_prove"])
+        self.assertFalse(china["physical_heading_revision_20261010"]["not_an_old20_target_leaf_collation"] is False)
+        self.assertTrue(digest["preexisting_direct_page_read"]["previous_reading_is_superseded_as_literal_glyph"])
+        self.assertEqual(digest["preexisting_direct_page_read"]["corrected_literal_page137_reading"], "萬曆肆拾伍丁巳卷二十")
+        self.assertEqual(china["physical_heading_revision_20261010"]["corrected_literal_page137"], "萬曆肆拾伍丁巳卷二十")
+        self.assertEqual(cross["source"]["original_pdf_sha256"], china["source_pdf_sha256"])
+        self.assertEqual(cross["digest_reconciliation_20261010"]["source_sha256"], digest["source"]["pdf_sha256"])
+        self.assertIsNone(cross["revision_history"][-1]["previous_value"])
+        self.assertEqual(sum(w["counts_for_shen_defu_old20v_target"] for w in self.ledger["witnesses"]), 0)
+        self.assertFalse(self.ledger["gates"]["batch_closed"])
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -136,14 +136,35 @@
       "original_old20_target_status": "UNRESOLVED",
       "does_not_prove": [
         "改造漏刻 present or absent anywhere in the original twenty-volume manuscript",
-        "the last ten PDF pages have all been glyph-reviewed",
+        "a full character-by-character transcription of all ten reviewed PDF pages",
         "categorized thirty-volume printed section target location"
       ],
       "direct_source_image_comparison": "docs/research/MING-DATONG-YEHUOBIAN-12PZ-NLC-TAIWAN-OLD20-V20-DIRECT-COMPARE-R1.json",
       "p137_manuscript_chronological_heading": "萬曆肆拾伍丁巳卷二十",
       "p145_volume_end_colophon": "萬曆野獲編二十卷紀事畢",
       "bounded_ten_page_visual_review_pass": true,
-      "ancient_target_louke_heading_scope": "NOT_IDENTIFIED_P136_TO_P145_ONLY"
+      "ancient_target_louke_heading_scope": "NOT_IDENTIFIED_P136_TO_P145_ONLY",
+      "physical_heading_revision_20261010": {
+        "prior_generic_label": "萬曆野獲編卷二十",
+        "prior_label_is_literal_page137_transcription": false,
+        "corrected_literal_page137": "萬曆肆拾伍丁巳卷二十",
+        "correction_source": "docs/research/MING-DATONG-YEHUOBIAN-12PZ-OLD20-VOLUME-HEADING-CROSSWALK-R1.json",
+        "bounded_ten_page_visual_review_completed": true,
+        "reviewed_pdf_pages_1based": [
+          136,
+          137,
+          138,
+          139,
+          140,
+          141,
+          142,
+          143,
+          144,
+          145
+        ],
+        "not_a_complete_textual_transcription": true,
+        "not_an_old20_target_leaf_collation": true
+      }
     }
   ],
   "not_yet_collated": [
@@ -247,6 +268,14 @@
       "new_material_copies": 0,
       "target_glyph_votes": 0,
       "source_title_transcription_fix": true
+    },
+    {
+      "date": "2026-10-10",
+      "type": "FORWARD_ONLY_RESOLVE_STALE_NEGATIVE_SCOPE_ASSERTION_AFTER_TEN_PAGE_REVIEW",
+      "previous_assertion": "the last ten PDF pages have all been glyph-reviewed (previously listed among unproved items)",
+      "current_evidence": "p136–145 have all been manually reviewed; not all glyphs transcribed and no target heading identified within bounded pages",
+      "physical_target_glyph_witness_increment": 0,
+      "algorithm_change": false
     }
   ],
   "cross_holding_volume20_comparison_20261010": {
