@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.447.0",
+  "schema_version": "1.448.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -528,9 +528,10 @@
       "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-20-30-RECENSION-CROSSWALK-PX",
       "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-OLD20-SCHOLARLY-COLLATION-CONTROLS-PY",
       "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-KOREA-CNTS-BOUNDARY-PZ",
-      "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-GJ2312912-IMAGE-ROUTE-QA"
+      "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-GJ2312912-IMAGE-ROUTE-QA",
+      "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-GJ2312912-DENSE-IMAGE-INDEX-QB"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-GJ2312912-IMAGE-ROUTE-QA.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-GJ2312912-DENSE-IMAGE-INDEX-QB.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -2657,7 +2658,11 @@
       "12QA: exact source PDFs part2 550 pages/177242086 bytes/SHA256 7ea8fe57f5baebd8f2841771d87ec5e3ed34c271e0fe89596a28d2521c9165a6 and part3 357 pages/62262769 bytes/SHA256 7fa233a835c30f1a3fc8c2a1b83896c9f1821af87ed50a84a313d69b9fc2f940 acquired; 67 spaced JPG page samples, no OCR; workflow 38041768513 artifacts 11665902200 / 11665967208.",
       "12QA: no verified target heading-to-folio, neither 官漏/宮漏 nor 不待言 physical glyph has been read in this new object; page sampling DOES NOT establish target absence, same transmission line, or bibliographic edition date.",
       "12QA: keep 222/222 Matrix / provenance 45/45 / chart algorithm defect 0, MD-G03 OPEN_BLOCKING_GENERAL_ADAPTER, HPA-DAYUN-CAL-002 MISSING_FROM_PRODUCT; product R1 CLOSED and genealogy graph unchanged.",
-      "Next 12QB: denser physical page/heading collation of GJ2312912 parts2-3 and first-party Shanghai catalog-item identity; prioritize 1827 printed and old20 manuscript target leaf for cross-recension 官漏/宮漏 reading."
+      "Next 12QB: denser physical page/heading collation of GJ2312912 parts2-3 and first-party Shanghai catalog-item identity; prioritize 1827 printed and old20 manuscript target leaf for cross-recension 官漏/宮漏 reading.",
+      "12QB: Shahghai GJ2312912 source PDFs match 12QA SHA256 and have 311 contiguous source-image pages under run 38042316379, artifacts 11665913148(part2 350-550/global900-1100) and 11665464139(part3 1-110/global1101-1210), 27 contact sheets, no OCR.",
+      "12QB: 311 page images CAPTURED is not 311 pages MANUALLY COLLATED; no 改造漏刻 heading-to-folio, direct 官漏/宮漏 glyph, entire-book negative search or official Shanghai physical-copy/edition date identity.",
+      "12QB: historical Matrix 222/222, provenance 45/45, algorithm defect0; MD-G03 OPEN_BLOCKING_GENERAL_ADAPTER; HPA-DAYUN-CAL-002 MISSING_FROM_PRODUCT; chart R1 CLOSED, genealogy graph unchanged.",
+      "Next 12QC: examine dense source pages visually for specific target passage/printed folio and obtain first-party Shanghai copy identity plus independent 1827/old20 witness."
     ],
     "historical_candidate_extension_count": 14,
     "current_missing_from_product_row_count": 4

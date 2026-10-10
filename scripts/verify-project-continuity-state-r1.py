@@ -963,9 +963,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-OLD20-SCHOLARLY-COLLATION-CONTROLS-PY",
     "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-KOREA-CNTS-BOUNDARY-PZ",
     "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-GJ2312912-IMAGE-ROUTE-QA",
+    "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-GJ2312912-DENSE-IMAGE-INDEX-QB",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-GJ2312912-IMAGE-ROUTE-QA.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-GJ2312912-DENSE-IMAGE-INDEX-QB.md"
 
 
 def fail(message: str) -> None:
@@ -5363,6 +5364,20 @@ def main() -> int:
     qasrc = ids.get("EXT-SHLIB-ATTRIBUTED-GJ2312912-YEHUOBIAN-30V-COMMONS-MIRROR")
     if not qasrc or qasrc.get("physical_glyph_authority") is not False or qasrc.get("batch_id") != qa.get("batch_id"):
         fail("Batch 12QA authority/quarantine metadata regressed")
+
+    # Batch 12QB preserves capture-vs-text-collation and input PDF identity.
+    qb_path = ROOT / "docs/research/MING-DATONG-YEHUOBIAN-12QB-SHLIB-GJ2312912-DENSE-PAGE-INDEX-R1.json"
+    if not qb_path.is_file(): fail("Batch 12QB evidence missing")
+    qb = json.loads(qb_path.read_text(encoding="utf-8"))
+    if qb.get("batch_id") != "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-GJ2312912-DENSE-IMAGE-INDEX-QB": fail("Batch 12QB identity mismatch")
+    wins = qb.get("windows", [])
+    if [(w.get("part"), w.get("pdf_pages"), w.get("global_pages"), w.get("rendered_page_count"), w.get("contact_sheet_count")) for w in wins] != [(2,[350,550],[900,1100],201,17),(3,[1,110],[1101,1210],110,10)]: fail("Batch 12QB image-page window mismatch")
+    if qb.get("total_rendered_images") != 311 or qb.get("total_contact_sheets") != 27: fail("Batch 12QB count mismatch")
+    qbm = qb.get("manual_collation", {})
+    if qbm.get("all_311_pages_read") is not False or qbm.get("negative_whole_copy_search") != "NOT_PERFORMED" or qbm.get("guo_gong_glyph") != "NOT_PHYSICALLY_COLLATED": fail("Batch 12QB manual-read scope regressed")
+    if qb.get("gates",{}).get("algorithm_reopen_authorized") is not False or qb.get("gates",{}).get("md_g03") != "OPEN_BLOCKING_GENERAL_ADAPTER": fail("Batch 12QB chart firewall regressed")
+    qbsrc = {x.get("source_id"):x for x in registry.get("sources", ())}.get(qb.get("source_id"))
+    if not qbsrc or qbsrc.get("dense_window_evidence") != str(qb_path.relative_to(ROOT)): fail("Batch 12QB registry ledger mismatch")
 
     # Batch 11U remains the controlling catalog-item identity gate.
     if identity_evidence.get("status") != "DIRECT_NO_OCR_1940_PRECIOUS_BOOK_NUMBER_893_BINDING_CLOSES_CATALOG_ITEM_CONTINUITY":

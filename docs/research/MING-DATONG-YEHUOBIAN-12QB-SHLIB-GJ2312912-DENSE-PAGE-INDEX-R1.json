@@ -1,0 +1,86 @@
+{
+  "schema": "MING-DATONG-YEHUOBIAN-12QB-SHLIB-GJ2312912-DENSE-PAGE-INDEX-R1",
+  "version": "1.0.0",
+  "date": "2026-10-10",
+  "batch_id": "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-GJ2312912-DENSE-IMAGE-INDEX-QB",
+  "preceding_batch": "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-GJ2312912-IMAGE-ROUTE-QA",
+  "source_id": "EXT-SHLIB-ATTRIBUTED-GJ2312912-YEHUOBIAN-30V-COMMONS-MIRROR",
+  "workflow": "probe-yehuobian-shanghai-gj2312912-dense-12qb",
+  "run_id": 38042316379,
+  "run_conclusion": "success",
+  "artifact_retention_days": 30,
+  "method": "SHA-256 match to exact 12QA source PDFs, PDF page-image rendering with 52dpi pdftoppm without OCR; all images and individual image hashes in separate workflow artifacts",
+  "windows": [
+    {
+      "part": 2,
+      "pdf_pages": [
+        350,
+        550
+      ],
+      "global_pages": [
+        900,
+        1100
+      ],
+      "rendered_page_count": 201,
+      "contact_sheet_count": 17,
+      "artifact_id": 11665913148,
+      "source_pdf_sha256": "7ea8fe57f5baebd8f2841771d87ec5e3ed34c271e0fe89596a28d2521c9165a6"
+    },
+    {
+      "part": 3,
+      "pdf_pages": [
+        1,
+        110
+      ],
+      "global_pages": [
+        1101,
+        1210
+      ],
+      "rendered_page_count": 110,
+      "contact_sheet_count": 10,
+      "artifact_id": 11665464139,
+      "source_pdf_sha256": "7fa233a835c30f1a3fc8c2a1b83896c9f1821af87ed50a84a313d69b9fc2f940"
+    }
+  ],
+  "total_rendered_images": 311,
+  "total_contact_sheets": 27,
+  "manual_collation": {
+    "all_311_pages_read": false,
+    "reviewed_contact_sheets": "SELECTED_ONLY",
+    "heading_to_original_folio": "UNRESOLVED",
+    "negative_whole_copy_search": "NOT_PERFORMED",
+    "guo_gong_glyph": "NOT_PHYSICALLY_COLLATED",
+    "bu_dai_yan_glyph": "NOT_PHYSICALLY_COLLATED"
+  },
+  "provenance": {
+    "official_shanghai_copy_identity": "UNBOUND",
+    "edition_date": "UNBOUND",
+    "physical_copy_date": "UNBOUND",
+    "same_copy_as_secondary_early_qing_catalog": "NOT_PROVEN"
+  },
+  "gates": {
+    "matrix_rows": 222,
+    "audited_rows": 222,
+    "provenance_repaired": 45,
+    "chart_algorithm_defects": 0,
+    "md_g03": "OPEN_BLOCKING_GENERAL_ADAPTER",
+    "hpa_dayun_cal_002": "MISSING_FROM_PRODUCT",
+    "deterministic_product": "CLOSED",
+    "algorithm_reopen_authorized": false,
+    "genealogy_graph_changed": false
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Same filename group is not multiple independent editions.",
+      "Dense capture is not a negative passage search or a direct 1827/early Qing edition bridge."
+    ],
+    "unresolved_lineage_questions": [
+      "Manually locate 改造漏刻 target folio, 官漏/宮漏 original glyph.",
+      "Bind Shanghai holding identity and copy date at institutional record level."
+    ]
+  },
+  "next": "Review bounded image sheets and candidate original pages; independently collate the 1827 printed and original 20-volume copy target."
+}
