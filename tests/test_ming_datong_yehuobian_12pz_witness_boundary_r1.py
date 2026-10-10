@@ -212,5 +212,24 @@ class Yehuobian12PZWitnessBoundaryTests(unittest.TestCase):
         self.assertFalse(self.ledger["gates"]["batch_closed"])
 
 
+    def test_berlin_ppn_manifest_canvases_are_only_sample_metadata(self) -> None:
+        record = load(RESEARCH / "MING-DATONG-YEHUOBIAN-12PZ-1827-PRINTED-RECORD-AND-BERLIN-IIIF-ROUTE-R1.json")
+        berlin = next(x for x in record["printed_copy_routes"] if x["item_id"] == "BERLIN_1827_SAMPLES")
+        run = record["workflow_attestation_20261010"]
+        self.assertTrue(berlin["manifest_object_verified"])
+        self.assertEqual(berlin["public_iiif_manifest_canvas_count"], 38)
+        self.assertEqual(run["manifest_canvases"], 38)
+        self.assertEqual(run["manifest_status"], 200)
+        self.assertEqual(run["mets_status"], 200)
+        self.assertEqual(run["run_conclusion"], "success")
+        self.assertEqual(run["artifact_id"], 11662685894)
+        self.assertFalse(run["individual_canvas_images_downloaded"])
+        self.assertFalse(run["target_glyphs_observed"])
+        self.assertFalse(record["authority_scope"]["individual_sample_image_glyphs_reviewed"])
+        self.assertEqual(record["authority_scope"]["original_1827_target_text_glyph_count"], 0)
+        self.assertEqual(berlin["volume20_target_page_in_samples"], "UNDETERMINED")
+        self.assertFalse(record["gates"]["batch_closed"])
+
+
 if __name__ == "__main__":
     unittest.main()

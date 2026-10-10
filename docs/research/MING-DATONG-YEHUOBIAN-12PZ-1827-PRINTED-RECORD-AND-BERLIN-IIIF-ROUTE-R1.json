@@ -3,7 +3,7 @@
   "schema_version": "1.0.0",
   "recorded_at": "2026-10-10",
   "batch": "12PZ_IN_PROGRESS",
-  "status": "THREE_ADDITIONAL_1827_COPY_ROUTES_CATALOG_BOUND_NO_TARGET_GLYPH",
+  "status": "BERLIN_1827_38_SAMPLE_CANVASES_OFFICIALLY_ACCESSIBLE_NO_TARGET_GLYPH",
   "purpose": "Obtain independently item-identified alternate 1827 print holdings while distinguishing catalog/surrogate/sample data from a physically inspected target leaf.",
   "printed_copy_routes": [
     {
@@ -39,9 +39,16 @@
       "ppn": "PPN334378186X",
       "digitization_scope": "Beispielseiten (sample pages, not stated full volume)",
       "standard_iiif_manifest_pattern": "https://content.staatsbibliothek-berlin.de/dc/PPN334378186X/manifest",
-      "manifest_object_verified": false,
+      "manifest_object_verified": true,
       "volume20_target_page_in_samples": "UNDETERMINED",
-      "target_leaf_image_acquired": false
+      "target_leaf_image_acquired": false,
+      "manifest_scope": "IIIF_MANIFEST_38_SAMPLE_CANVASES_INDEXED_NOT_TARGET_FOLIO_REVIEWED",
+      "public_iiif_manifest_http_status": 200,
+      "public_iiif_manifest_canvas_count": 38,
+      "public_iiif_manifest_response_bytes": 69638,
+      "public_iiif_mets_http_status": 200,
+      "public_iiif_mets_response_bytes": 73209,
+      "official_reader_http_status": 200
     }
   ],
   "preexisting_comparators": [
@@ -69,13 +76,16 @@
     "independent_full_printed_target_collations_added": 0,
     "third_party_iiif_pattern_is_not_object_manifest_access": true,
     "same_title_is_not_same_physical_copy": true,
-    "missing_v19_folio_is_not_missing_v20": true
+    "missing_v19_folio_is_not_missing_v20": true,
+    "official_iiif_manifest_directly_downloaded_by_runner": true,
+    "individual_sample_image_glyphs_reviewed": false,
+    "official_sample_canvas_count": 38
   },
   "research_routes": [
     {
       "priority": 1,
       "aim": "Try object-specific SBB manifest with exact PPN; determine count and whether this is sample-only; do not infer full target availability.",
-      "status": "WORKFLOW_PROBE_PENDING"
+      "status": "FIRST_PARTY_METADATA_MANIFEST_200_38_CANVASES; TARGET_NOT_REVIEWED"
     },
     {
       "priority": 2,
@@ -111,5 +121,27 @@
     "md_g03": "OPEN_BLOCKING_GENERAL_ADAPTER",
     "hpa_dayun_cal_002": "MISSING_FROM_PRODUCT",
     "deterministic_product_r1": "CLOSED"
+  },
+  "workflow_attestation_20261010": {
+    "workflow": ".github/workflows/probe-yehuobian-berlin-iiif-12pz.yml",
+    "run_id": 38032118754,
+    "job_id": 114155064144,
+    "artifact_id": 11662685894,
+    "run_conclusion": "success",
+    "artifact_name": "berlin-1827-ppn334378186x-public-route-summary-12pz",
+    "manifest_url": "https://content.staatsbibliothek-berlin.de/dc/PPN334378186X/manifest",
+    "manifest_status": 200,
+    "manifest_content_type": "application/ld+json; charset=utf-8",
+    "manifest_bytes": 69638,
+    "manifest_canvases": 38,
+    "mets_url": "https://content.staatsbibliothek-berlin.de/dc/PPN334378186X.mets.xml",
+    "mets_status": 200,
+    "mets_bytes": 73209,
+    "reader_url": "https://digital.staatsbibliothek-berlin.de/werkansicht/?PPN=PPN334378186X",
+    "reader_status": 200,
+    "artifact_file_sha256_recomputed": false,
+    "individual_canvas_images_downloaded": false,
+    "target_glyphs_observed": false,
+    "warning": "38 canvases are sample digital-object availability only. No PPN-target glyph or complete 1827 vol20 can be inferred."
   }
 }
