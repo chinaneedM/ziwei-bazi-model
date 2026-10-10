@@ -1,6 +1,6 @@
 {
   "schema": "MING-DATONG-YEHUOBIAN-12PZ-SHANGHAI30-V20-PHYSICAL-NAVIGATION-R1",
-  "schema_version": "1.0.0",
+  "schema_version": "1.0.1",
   "recorded_at": "2026-10-10",
   "batch": "12PZ_IN_PROGRESS",
   "status": "PHYSICAL_VOLUME20_AND_CALENDAR_HEADING_LOCATORS_DIRECTLY_IDENTIFIED; TARGET_GLYPHS_OPEN",
@@ -78,7 +78,7 @@
     },
     {
       "pdf_page": 448,
-      "source_derived_jpeg_sha256": "5407cf169b9945e2f87969c858e21525b083393ed4491f91fd014eb88e8f7b73",
+      "source_derived_jpeg_sha256": "028764d57c2dbcc66c3d2b0224440290206d26e787a205e5c451637084b60c5a",
       "visible_heading": "居第吉凶",
       "role": "NEXT_CALENDAR_SECTION_HEAD",
       "scope": "SOURCE_PAGE_HEADING_ONLY_NO_TARGET_TEXT_GLYPH_IMPLICATION"
@@ -121,5 +121,16 @@
     "state_modified": false,
     "graph_modified": false,
     "batch_closed": false
-  }
+  },
+  "revision_history": [
+    {
+      "date": "2026-10-10",
+      "field": "direct_image_glyph_locators[pdf_page=448].source_derived_jpeg_sha256",
+      "prior": "5407cf169b9945e2f87969c858e21525b083393ed4491f91fd014eb88e8f7b73",
+      "corrected": "028764d57c2dbcc66c3d2b0224440290206d26e787a205e5c451637084b60c5a",
+      "reason": "Earlier ledger-entry transcribed wrong digest; direct SHA256 checksum of downloaded JPEG and workflow artifact image-sha256.txt both confirm corrected digest.",
+      "source_artifact_id": 11594634160,
+      "impact": "EVIDENCE_FINGERPRINT_ONLY_NOT_PHYSICAL_GLYPH_OR_ALGORITHM"
+    }
+  ]
 }
