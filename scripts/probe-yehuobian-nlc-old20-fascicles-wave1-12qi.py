@@ -25,6 +25,18 @@ SOURCES = {
     8: ("383069", 87, (15,)),
     9: ("383063", 141, (16, 17)),
 }
+EXPECTED_SOURCE_SHA256 = {
+    1: "acd33a56d2c829fcafd8db1c15b4bb9cb3d3b21905cc8d1e9e9d5a5c45b11939",
+    2: "8fa105b74efe109a08140286c96a8215f049a62d0b1cf587e7e3e5afdb559d57",
+    3: "94ef8982e97b05427836639d45daeb88d46b8de3918d61bab4f444536388e739",
+    4: "11c1cfacb913404be79e386a967324048b762a166b1c08c1853fcbdcc904d67a",
+    5: "06692bd33c86c6c6cd8eb732fe89aa1d289e06da976663d33ca04352d9f45280",
+    6: "9949f3c736d75f1772c306455f6bead7e744675b66283a415e7c50f4dc4f1c62",
+    7: "540435e7f56bd33f54a5a7dd540b1e3312cb1beae1e18c384d45ab752aaf51b1",
+    8: "8618b54338df71d07f4b8b70bb2d9b549613be0488529c9163a68ef25a7de366",
+    9: "cbfea56ea3e447c6c241fee3dfb319b4886bc77eeddbc9de4bc5f81bf3d72d62",
+}
+
 ROOT = Path("artifacts/yehuobian-nlc-old20-wave1-12qi")
 
 def sha256(path: Path) -> str:
@@ -67,6 +79,8 @@ def main() -> int:
         status.update(source_pdf_sha256=sha256(pdf),
                       source_pdf_sha1=hashlib.sha1(pdf.read_bytes()).hexdigest(),
                       source_bytes=pdf.stat().st_size, observed_pages=pages)
+        if status["source_pdf_sha256"] != EXPECTED_SOURCE_SHA256[idx]:
+            raise ValueError("SOURCE_SHA256_IDENTITY_MISMATCH")
         if pages != expected_pages:
             raise ValueError("SOURCE_PAGE_COUNT_MISMATCH")
         images = out / "images"; images.mkdir(exist_ok=True)
