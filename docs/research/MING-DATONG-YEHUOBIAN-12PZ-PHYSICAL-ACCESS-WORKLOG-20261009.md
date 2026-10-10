@@ -444,3 +444,17 @@ Machine evidence: docs/research/MING-DATONG-YEHUOBIAN-12PZ-NCL02260-PART2-RECEIV
 ### Forward-only NPM source-identity qualification
 
 The 2023 NPM exhibition list explicitly identifies 故觀003527 and the TELDAP holding lists 故觀003512–003527. By contrast, the [NPM 2019 exhibition page](https://theme.npm.edu.tw/exh108/LiteratisOrdinaries/ch/page-5.html) names the title/清刊巾箱本 but has no public accession number. The previous assertion that its pictured copy is the same specific 故觀003512–003527 physical set is therefore TOO STRONG. Revise the inference to UNRESOLVED same-copy identity; do not count it as an independent copy either. Prior statement remains visible above and a revision_history item preserves the change. No physical target glyph or defect counter is affected.
+
+## 12PZ 2026-10-10 — same-copy NCL02260 part2 p4 contents + p5 body opening direct source images
+
+Follow-up **no-OCR manual visual verification** of the public [NCL02260 Commons second PDF](https://commons.wikimedia.org/wiki/File:NCL-02260_2_%E8%90%AC%E6%9B%86%E9%87%8E%E7%8D%B2%E7%B7%A8.pdf) on its actual browser-rendered original PDF pages (1-based):
+
+- **PDF p4 left folio:** `萬曆野獲續編卷第十二目`, explicitly a *contents* (`目`) heading.
+- **PDF p5 left folio:** `萬曆野獲續編卷第十二`, the corresponding main-body opening, with the right folio completing the itemized contents list.
+- **PDF p3:** blank separator; **PDF p6:** running body. The sequence distinguishes TOC vs chapter text without assuming additional 12th-volume physical copies.
+
+Direct source PDF URL: https://upload.wikimedia.org/wikipedia/commons/2/25/NCL-02260_2_%E8%90%AC%E6%9B%86%E9%87%8E%E7%8D%B2%E7%B7%A8.pdf . Source object 35 pages, NCL `204.26 02260`, originally uploaded as `12047_2.pdf`. Full original PDF file was not locally downloadable through available analysis runtime; **no new SHA1/SHA256 source or rendered-page digest acquired**. The visual-page findings are directly observed but **hash closure remains pending**.
+
+This new p4/p5 source-image pair supports **one physical copy with both 續編卷十二 contents and body opening**. It neither establishes Shen Zhen's 1713 `補遺序` physical original `十/十二` glyph nor yields original-twenty-volume `改造漏刻` target position. Never count TOC and running volume as two independent material witnesses. No runtime/product, current-state, Matrix, genealogy or metadata-defect counter changes; 12PZ still OPEN.
+
+Machine revision: `docs/research/MING-DATONG-YEHUOBIAN-12PZ-NCL02260-PART2-RECEIVED-XUBIAN12-DIRECT-HEADING-R1.json`.

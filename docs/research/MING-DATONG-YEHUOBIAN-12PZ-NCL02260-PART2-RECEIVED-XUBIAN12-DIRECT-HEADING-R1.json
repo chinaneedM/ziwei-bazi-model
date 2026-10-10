@@ -2,7 +2,7 @@
   "schema": "TIANWEN-12PZ-DIRECT-VOLUME-HEADING-COLLATION-R1",
   "batch": "12PZ",
   "date": "2026-10-10",
-  "status": "DIRECT_BROWSER_PDF_IMAGE_POSITIVE_HEADING_SOURCE_DIGEST_PENDING",
+  "status": "DIRECT_BROWSER_PDF_IMAGES_P4_P5_PAIRED_CONTENTS_AND_TEXT_OPENERS_DIGEST_PENDING",
   "source": {
     "repository": "Taiwan National Central Library",
     "shelfmark": "204.26 02260",
@@ -59,5 +59,53 @@
     "hpa_dayun_cal_002": "MISSING_FROM_PRODUCT",
     "chart_r1": "CLOSED",
     "algorithm_reopen": false
-  }
+  },
+  "followup_source_page_pair_20261010": {
+    "method": "MANUAL_SOURCE_PDF_VISUAL_VERIFICATION_NO_OCR",
+    "original_pdf_url": "https://upload.wikimedia.org/wikipedia/commons/2/25/NCL-02260_2_%E8%90%AC%E6%9B%86%E9%87%8E%E7%8D%B2%E7%B7%A8.pdf",
+    "observed_pdf_page_1based_4": {
+      "zero_based_index": 3,
+      "side": "LEFT",
+      "reading": "萬曆野獲續編卷第十二目",
+      "function": "TABLE_OF_CONTENTS_HEADING",
+      "browser_screenshot": "web screenshot of actual public PDF page 4; no image file re-hosted",
+      "sha256": "NOT_COMPUTED"
+    },
+    "observed_pdf_page_1based_5": {
+      "zero_based_index": 4,
+      "side": "LEFT",
+      "reading": "萬曆野獲續編卷第十二",
+      "function": "MAIN_BODY_VOLUME_OPENING",
+      "browser_screenshot": "web screenshot of actual public PDF page 5; no image file re-hosted",
+      "sha256": "NOT_COMPUTED"
+    },
+    "observed_pdf_page_1based_3": {
+      "zero_based_index": 2,
+      "side": "RIGHT",
+      "function": "BLANK_SEPARATOR_PAGE",
+      "caveat": "Page blank is a layout clue, not textual or missing-work proof"
+    },
+    "observed_pdf_page_1based_6": {
+      "zero_based_index": 5,
+      "function": "RUNNING_BODY_TEXT_AFTER_VOLUME_OPENING"
+    },
+    "strength": "TWO_SEQUENTIAL_POSITIVE_SOURCE_IMAGES_IN_SAME_PHYSICAL_COPY; ONE_INDEPENDENT_COPY_NOT_TWO",
+    "source_pdf_sha1": "NOT_INDEPENDENTLY_VALIDATED",
+    "source_pdf_sha256": "NOT_COMPUTED",
+    "browser_download_attempt": "Direct file download into local analysis runtime failed; visual screenshot remained accessible, so source digest still OPEN",
+    "not_proven": [
+      "Any 1713 補遺序 first-hand source glyph",
+      "Whether 十 or 十二 is original to Shen Zhen",
+      "Any full-corpus presence/absence of 改造漏刻",
+      "1447 clock construction or 1450 eclipse time standard"
+    ]
+  },
+  "revision_history": [
+    {
+      "date": "2026-10-10",
+      "reason": "CORROBORATING_SEQUENTIAL_CONTENTS_AND_BODY_OPENING_SOURCE_IMAGE_COLLATION",
+      "status": "COPY_SCOPED_POSITIVE_TWO_PAGES_SOURCE_HASH_OPEN",
+      "previous_page5_only_claim_preserved": true
+    }
+  ]
 }
