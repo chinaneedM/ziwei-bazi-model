@@ -10,8 +10,14 @@ class NLC12QEOld20V20Boundary(unittest.TestCase):
         cls.o=json.loads(E.read_text(encoding="utf-8"))
     def test_only_source_bound_nine_pages_reviewed(self):
         d=self.o["direct_page_review"]
-        self.assertEqual([x["pdf_page"] for x in d["reviewed_pages"]],list(range(137,146)))
-        self.assertEqual(len({x["derived_jpeg_sha256"] for x in d["reviewed_pages"]}),9)
+        # One context page p136 is stored with nine scoped target pages.
+        pages=[x["pdf_page"] for x in d["reviewed_pages"]]
+        self.assertEqual(pages, list(range(136,146)))
+        self.assertEqual(pages[1:], list(range(137,146)))
+        self.assertEqual(d["preceding_context_pdf_page"], 136)
+        self.assertEqual(d["boundary_start_pdf_page"], 137)
+        self.assertEqual(d["boundary_end_pdf_page"], 145)
+        self.assertEqual(len({x["derived_jpeg_sha256"] for x in d["reviewed_pages"]}),10)
         self.assertEqual(d["heading_start_exact"],"萬曆肆拾伍丁巳卷二十")
         self.assertEqual(d["normalized_bibliographic_volume_label"],"萬曆野獲編卷二十")
         self.assertTrue(d["heading_text_is_not_bibliographic_label"])

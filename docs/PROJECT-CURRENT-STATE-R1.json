@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.454.0",
+  "schema_version": "1.455.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -2685,7 +2685,9 @@
       "12QE NLC old20 source scoped negative checkpoint: old20 fascicle10 (PDF SHA256 8e746faa...) directly reviewed every PDF page137-145, physically bound by p137 萬曆野獲編卷二十 heading and p145 萬曆野獲編二十卷紀事畢. No 改造漏刻 heading seen in these NINE images; this does NOT search entire old20 manuscript or disprove the passage elsewhere.",
       "Next 12QE priority remains original-old20 actual passage search by heading/text across all separate volumes and an independent exactly identified 1827 30v volume20 print target; CADAL first-fascicle 1869 revision preface cannot date sixteenth-fascicle impression without proof. Matrix 222/222, provenance 45/45, source registry 647+7=654, MD-G03 open and chart R1 closed.",
       "12QG forward-only philological repair: 12QE NLC411999003250 source p137 mistakenly stored a generic bibliographic heading 萬曆野獲編卷二十 as literal; source original actually writes 萬曆肆拾伍丁巳卷二十 with separate 野獲編 byline. Earlier 12PZ direct source already had the correct literal; new scoped correction ledger, repaired 12QE field/prose and regression tests preserve the old claim through Git history without inventing new witness.",
-      "12QE remains OPEN after 12QG. The p145 colophon 萬曆野獲編二十卷紀事畢 and p137 dated opening are distinct; no change to nine-page scoped negative, source registry 647+7=654, Matrix 222/222, metadata defect repaired 45/45, MD-G03 OPEN, HPA-DAYUN-CAL-002 MISSING_FROM_PRODUCT, chart R1 CLOSED."
+      "12QE remains OPEN after 12QG. The p145 colophon 萬曆野獲編二十卷紀事畢 and p137 dated opening are distinct; no change to nine-page scoped negative, source registry 647+7=654, Matrix 222/222, metadata defect repaired 45/45, MD-G03 OPEN, HPA-DAYUN-CAL-002 MISSING_FROM_PRODUCT, chart R1 CLOSED.",
+      "12QH: clean-training-system for 08d9fbf failed Full unittest 1/2149 because the new nine-page target test mistakenly expected only p137–145 in review ledger, which also stores context p136. Corrected test separately asserts ten imaged pages136–145 and nine target pages137–145; original source review remains unchanged.",
+      "12QG source-heading literal correction remains effective. Historical Matrix 222/222, provenance defects45/45, extension sources7/root647/total654, chart R1 CLOSED, algorithm defect0. New exact-HEAD CI still required."
     ],
     "historical_candidate_extension_count": 14,
     "current_missing_from_product_row_count": 4,
