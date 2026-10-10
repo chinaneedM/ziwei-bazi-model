@@ -458,3 +458,17 @@ Direct source PDF URL: https://upload.wikimedia.org/wikipedia/commons/2/25/NCL-0
 This new p4/p5 source-image pair supports **one physical copy with both 續編卷十二 contents and body opening**. It neither establishes Shen Zhen's 1713 `補遺序` physical original `十/十二` glyph nor yields original-twenty-volume `改造漏刻` target position. Never count TOC and running volume as two independent material witnesses. No runtime/product, current-state, Matrix, genealogy or metadata-defect counter changes; 12PZ still OPEN.
 
 Machine revision: `docs/research/MING-DATONG-YEHUOBIAN-12PZ-NCL02260-PART2-RECEIVED-XUBIAN12-DIRECT-HEADING-R1.json`.
+
+## 12PZ 2026-10-10 — NCL 02260 second PDF source-digest and p3–p6 artifact gates PASS
+
+Exact [GitHub Actions workflow run 38028236031](https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/38028236031), running from HEAD `e117005de855c1073f85b74abf1dbcba621f32d6`, completed **success**, including source PDF magic check, 35-page PDFInfo assertion and p3–p6 derived-image generation at 170 DPI without OCR. Source was the fixed Commons Special:Redirect/file object `NCL-02260_2_萬曆野獲編.pdf` uploaded as `12047_2.pdf`; this **second PDF segment belongs to the same NCL 204.26 02260 physical copy**, not an independent book.
+
+- Captured PDF length **5,959,699 bytes**, source SHA-256 `bb97af8a82afbc3412d743ba6638ca919440709d35fc14ef6810629e9c2c2ff2`, SHA-1 `b0ab33d76ec27457173f6285b920016a0f24cdab`, pdfinfo **35 pages**.
+- Exact runner-derived source-image JPEG digests: p3 `19b5de94807693c44c63a1c3b702eb88718b966faafd1f58573f7a6479132766`; **p4** `9f0bd458bb8338874534f2f417eb6804f5dc4e7f5f40b9508f63907c637b6d76`; **p5** `800572b8cef27ed9577b9b91994d8881f638f63d4801851eec3601cc23ea08f2`; p6 `6b68442eef319b945608aec22a1d584407e4f7381283cbc6034f5965e5d82f0f`.
+- [Artifact 11660463958](https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/38028236031/artifacts/11660463958) preserves PDFInfo, source SHA1/SHA256, four page JPEGs, their SHA256 list and a no-OCR scope manifest. Official artifact uploader log reports ZIP SHA256 `001455225d0a0e7bcba297b0a703edf4935301da7e6b959c578a81268ca1eb3f`; independent ZIP download/re-hash was not done here.
+
+Previously direct visual source PDF p4 left folio was read `萬曆野獲續編卷第十二目` (contents) and p5 left folio `萬曆野獲續編卷第十二` (text opening). New SHA256s bind those **PDF positions in the runner-derived image artifact**; they do not create extra ancient manuscript witnesses, and browser screenshots are not asserted to have pixel-identical hashes to runner JPEGs. **Independent pre-download Commons first-party SHA-1 comparison is still pending**; this is a source-binary capture/checksum upgrade, not complete independent-original identity adjudication.
+
+This upgrade is **source-object/digital surrogate only**: it does not collate the 1713 Shen Zhen 補遺序 physical ten/twelve glyph, locate old20v 改造漏刻, determine 宮/官 or 辰初一/二 in original page, or prove 1447 clock completion/1450 time coordinate. 12PZ remains OPEN; MD-G03 OPEN_BLOCKING_GENERAL_ADAPTER; HPA-DAYUN-CAL-002 MISSING_FROM_PRODUCT; no Matrix, project state, genealogy edge or chart algorithm revision.
+
+Machine evidence revised forward-only: `docs/research/MING-DATONG-YEHUOBIAN-12PZ-NCL02260-PART2-RECEIVED-XUBIAN12-DIRECT-HEADING-R1.json`.

@@ -2,7 +2,7 @@
   "schema": "TIANWEN-12PZ-DIRECT-VOLUME-HEADING-COLLATION-R1",
   "batch": "12PZ",
   "date": "2026-10-10",
-  "status": "DIRECT_BROWSER_PDF_IMAGES_P4_P5_PAIRED_CONTENTS_AND_TEXT_OPENERS_DIGEST_PENDING",
+  "status": "SOURCE_FILE_AND_RUNNER_DERIVED_PAGE_DIGEST_CAPTURED_EXTERNAL_SHA1_PRECHECK_PENDING",
   "source": {
     "repository": "Taiwan National Central Library",
     "shelfmark": "204.26 02260",
@@ -13,9 +13,9 @@
     "upstream_file_name": "12047_2.pdf",
     "pdf_pages": 35,
     "commons_file_url": "https://commons.wikimedia.org/wiki/File:NCL-02260_2_%E8%90%AC%E6%9B%86%E9%87%8E%E7%8D%B2%E7%B7%A8.pdf",
-    "source_sha1": "NOT_ACQUIRED",
-    "source_sha256": "NOT_ACQUIRED",
-    "rendered_image_sha256": "NOT_ACQUIRED",
+    "source_sha1": "b0ab33d76ec27457173f6285b920016a0f24cdab",
+    "source_sha256": "bb97af8a82afbc3412d743ba6638ca919440709d35fc14ef6810629e9c2c2ff2",
+    "rendered_image_sha256": "SEE_SHA256_BY_PDF_PAGE_1BASED_IN_WORKFLOW_ATTESTATION",
     "physical_copy_date": "UNKNOWN"
   },
   "visual_citation": {
@@ -69,7 +69,8 @@
       "reading": "萬曆野獲續編卷第十二目",
       "function": "TABLE_OF_CONTENTS_HEADING",
       "browser_screenshot": "web screenshot of actual public PDF page 4; no image file re-hosted",
-      "sha256": "NOT_COMPUTED"
+      "sha256": "NOT_COMPUTED",
+      "runner_rendered_jpeg_sha256": "9f0bd458bb8338874534f2f417eb6804f5dc4e7f5f40b9508f63907c637b6d76"
     },
     "observed_pdf_page_1based_5": {
       "zero_based_index": 4,
@@ -77,7 +78,8 @@
       "reading": "萬曆野獲續編卷第十二",
       "function": "MAIN_BODY_VOLUME_OPENING",
       "browser_screenshot": "web screenshot of actual public PDF page 5; no image file re-hosted",
-      "sha256": "NOT_COMPUTED"
+      "sha256": "NOT_COMPUTED",
+      "runner_rendered_jpeg_sha256": "800572b8cef27ed9577b9b91994d8881f638f63d4801851eec3601cc23ea08f2"
     },
     "observed_pdf_page_1based_3": {
       "zero_based_index": 2,
@@ -90,8 +92,8 @@
       "function": "RUNNING_BODY_TEXT_AFTER_VOLUME_OPENING"
     },
     "strength": "TWO_SEQUENTIAL_POSITIVE_SOURCE_IMAGES_IN_SAME_PHYSICAL_COPY; ONE_INDEPENDENT_COPY_NOT_TWO",
-    "source_pdf_sha1": "NOT_INDEPENDENTLY_VALIDATED",
-    "source_pdf_sha256": "NOT_COMPUTED",
+    "source_pdf_sha1": "RUNNER_COMPUTED_SHA1_NOT_INDEPENDENT_PRECHECKED",
+    "source_pdf_sha256": "bb97af8a82afbc3412d743ba6638ca919440709d35fc14ef6810629e9c2c2ff2",
     "browser_download_attempt": "Direct file download into local analysis runtime failed; visual screenshot remained accessible, so source digest still OPEN",
     "not_proven": [
       "Any 1713 補遺序 first-hand source glyph",
@@ -106,6 +108,68 @@
       "reason": "CORROBORATING_SEQUENTIAL_CONTENTS_AND_BODY_OPENING_SOURCE_IMAGE_COLLATION",
       "status": "COPY_SCOPED_POSITIVE_TWO_PAGES_SOURCE_HASH_OPEN",
       "previous_page5_only_claim_preserved": true
+    },
+    {
+      "date": "2026-10-10",
+      "revision": "UPGRADE_P3_P6_SURROGATE_SOURCE_DIGEST_WITH_EXACT_HEAD_SUCCESSFUL_WORKFLOW",
+      "from_status": "DIRECT_BROWSER_PDF_IMAGES_P4_P5_PAIRED_CONTENTS_AND_TEXT_OPENERS_DIGEST_PENDING",
+      "to_status": "SOURCE_FILE_AND_RUNNER_DERIVED_PAGE_DIGEST_CAPTURED_EXTERNAL_SHA1_PRECHECK_PENDING",
+      "prior_browser_download_failure_retained": true,
+      "strictly_unresolved": "EXTERNAL_COMMONS_SHA1_PRECHECK_AND_ANCIENT_TARGET_LEAF"
     }
-  ]
+  ],
+  "workflow_attestation_20261010": {
+    "workflow": ".github/workflows/render-yehuobian-ncl02260-part2-volume12-digest-12pz.yml",
+    "git_commit": "e117005de855c1073f85b74abf1dbcba621f32d6",
+    "run_id": 38028236031,
+    "run_url": "https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/38028236031",
+    "job_id": 114143554247,
+    "run_conclusion": "success",
+    "artifact_id": 11660463958,
+    "artifact_name": "ncl02260-part2-volume12-source-digest-pages-12pz",
+    "artifact_url": "https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/38028236031/artifacts/11660463958",
+    "artifact_zip_sha256_from_upload_action_log": "001455225d0a0e7bcba297b0a703edf4935301da7e6b959c578a81268ca1eb3f",
+    "artifact_zip_sha256_independently_downloaded_and_recomputed": false,
+    "downloaded_pdf": {
+      "size_bytes": 5959699,
+      "pdf_pages": 35,
+      "pdf_size_pts": "1057.5 x 807.75 on first page",
+      "pdf_magic_check": "PASS",
+      "sha1": "b0ab33d76ec27457173f6285b920016a0f24cdab",
+      "sha256": "bb97af8a82afbc3412d743ba6638ca919440709d35fc14ef6810629e9c2c2ff2",
+      "digest_method": "SHA1SUM_SHA256SUM_IN_SUCCESSFUL_GITHUB_ACTION_RUNNER",
+      "first_party_commons_sha1_independent_precheck": "NOT_PERFORMED"
+    },
+    "derived_images": [
+      {
+        "pdf_page_1based": 3,
+        "rendered_jpeg_sha256": "19b5de94807693c44c63a1c3b702eb88718b966faafd1f58573f7a6479132766",
+        "relative_artifact_path": "pages/part2-p0003.jpg",
+        "dpi": 170,
+        "ocr_used": false
+      },
+      {
+        "pdf_page_1based": 4,
+        "rendered_jpeg_sha256": "9f0bd458bb8338874534f2f417eb6804f5dc4e7f5f40b9508f63907c637b6d76",
+        "relative_artifact_path": "pages/part2-p0004.jpg",
+        "dpi": 170,
+        "ocr_used": false
+      },
+      {
+        "pdf_page_1based": 5,
+        "rendered_jpeg_sha256": "800572b8cef27ed9577b9b91994d8881f638f63d4801851eec3601cc23ea08f2",
+        "relative_artifact_path": "pages/part2-p0005.jpg",
+        "dpi": 170,
+        "ocr_used": false
+      },
+      {
+        "pdf_page_1based": 6,
+        "rendered_jpeg_sha256": "6b68442eef319b945608aec22a1d584407e4f7381283cbc6034f5965e5d82f0f",
+        "relative_artifact_path": "pages/part2-p0006.jpg",
+        "dpi": 170,
+        "ocr_used": false
+      }
+    ],
+    "note": "Runner hashes apply to its captured Commons redirect PDF and deterministic render settings; browser screenshots read separately, not claimed pixel-identical to rendered JPEG. One Commons digital object and one NCL physical copy, not four independent text witnesses."
+  }
 }
