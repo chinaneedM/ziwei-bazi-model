@@ -1,0 +1,102 @@
+{
+  "schema": "MING-DATONG-YEHUOBIAN-12PZ-NCL02260-02261-PHYSICAL-PREFACE-BINGWU-BINGCHEN-DIRECT-COMPARISON-R1",
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-10-10",
+  "batch": "12PZ_IN_PROGRESS",
+  "issue": "Authorial 1606 copied preface sexagenary year variation between two separately catalogued original twenty-volume manuscript holdings",
+  "source_witnesses": [
+    {
+      "witness_id": "NCL-02260",
+      "shelfmark": "204.26 02260",
+      "repository": "National Central Library Taiwan",
+      "recension": "old twenty-volume manuscript",
+      "original_digital_file": "NCL-02260_1_萬曆野獲編.pdf",
+      "scan_url": "https://commons.wikimedia.org/wiki/File:NCL-02260_1_%E8%90%AC%E6%9B%86%E9%87%8E%E7%8D%B2%E7%B7%A8.pdf",
+      "scan_first_segment_pages": 1000,
+      "first_segment_source_sha256": "5b91b5cad4a9d7573271ffd275085b046339cdfab80341b60a6156706e80e191",
+      "first_segment_source_sha1": "8e00a60e91d42761b4443954897678686c88a0a9",
+      "source_sha1_matched_commons_upstream": true,
+      "source_download_run_id": 38024646251,
+      "source_download_run_status": "success",
+      "exact_sample_artifact_run_id": 38024646251,
+      "source_image_verification_run_id": 38024759827,
+      "source_image_verification_run_status": "success",
+      "visual_pdf_page_1based": 2,
+      "imaged_side": "right-hand text leaf",
+      "visual_source_jpeg_sha256": "7b2f701314156a0553de253e257fde5dc7a1b2a8e5a5feb5b577d77d6e9f4b2f",
+      "page_visual_url": "https://commons.wikimedia.org/w/index.php?title=File:NCL-02260_1_%E8%90%AC%E6%9B%86%E9%87%8E%E7%8D%B2%E7%B7%A8.pdf&page=2",
+      "direct_text": "萬曆三十四年丙午仲冬日自題於甕汲軒",
+      "direct_year_glyphs": "丙午",
+      "evidence_status": "SOURCE_ORIGINAL_IMAGE_DIRECTLY_COLLATED",
+      "ocr_used": false,
+      "physical_leaf_number": "UNMAPPED",
+      "material_copy_date": "UNRESOLVED"
+    },
+    {
+      "witness_id": "NCL-02261",
+      "shelfmark": "204.26 02261",
+      "repository": "National Central Library Taiwan",
+      "recension": "green-grid manuscript, 20-volume work 6 physical fascicles",
+      "scan_url": "https://commons.wikimedia.org/wiki/File:NCL-02261_%E8%90%AC%E6%9B%86%E9%87%8E%E7%8D%B2%E7%B7%A8.pdf",
+      "scan_pages": 534,
+      "scan_source_sha256": "8a293ed49c7aa4cb21ade8f36b6b649be5157ed1c82df9dae4ecce5c654c70d2",
+      "visual_pdf_page_1based": 7,
+      "imaged_side": "right-hand text leaf",
+      "page_visual_url": "https://commons.wikimedia.org/w/index.php?title=File:NCL-02261_%E8%90%AC%E6%9B%86%E9%87%8E%E7%8D%B2%E7%B7%A8.pdf&page=7",
+      "visual_source_jpeg_sha256": "3daa88f072e5ddbc6a519f23739cbd649f96ceacf7f80d3c497ac4993d486977",
+      "original_source_visual_run_id": 38024488509,
+      "direct_text": "萬曆三十四年丙辰仲冬日自題於甕汲軒",
+      "direct_year_glyphs": "丙辰",
+      "evidence_status": "SOURCE_ORIGINAL_IMAGE_DIRECTLY_COLLATED_PREVIOUS_12PZ",
+      "ocr_used": false,
+      "physical_leaf_number": "UNMAPPED",
+      "material_copy_date": "UNRESOLVED"
+    }
+  ],
+  "comparison": {
+    "exact_difference": "丙午 versus 丙辰 in otherwise matching 萬曆三十四年...仲冬日 authorial-preface subscription",
+    "physical_witness_count": 2,
+    "inferred_independent_textual_lineages": "NOT_ESTABLISHED",
+    "regnal_year_civil": "萬曆三十四年 = 1606",
+    "year_ganzhi": "丙午",
+    "ncl02261_bingchen_internal_conflict": true,
+    "authority": "TWO_DIRECT_PAGE_GLYPH_WITNESSES_NOT_AUTHOR_AUTOGRAPH",
+    "interpretation": "NCL 02260 and NCL 02261 copied-preface texts physically differ at sexagenary year, consistent with erroneous copied/received textual branch for 02261 but the immediate stage, agent, and chronological source of corruption are not identified."
+  },
+  "relation_to_inoue_2019": "Shared 丙辰 reading between NCL02261 and Inoue's described B-type is neither unique-copy match nor direct inheritance evidence; compare named accession and surrounding variants to establish provenance.",
+  "transmission_impact": {
+    "nodes_strengthened_or_proposed": [
+      "NCL 02260 physically scanned old20v authorial preface p2 丙午",
+      "NCL 02261 physically scanned old20v preface p7 丙辰"
+    ],
+    "edges_supported": [
+      "TWO_DISTINCT_HOLDINGS_HAVE_VARIANT_PREFACE_YEAR_GLYPHS"
+    ],
+    "edges_revised": [],
+    "edges_not_supported": [
+      "NCL 02260 is direct ancestor of NCL 02261",
+      "NCL 02261 is identified with Inoue B recension by matching 丙辰 alone",
+      "Author's actual 1606 autograph was 丙辰",
+      "Either physical manuscript made in 1606 by copied preface date",
+      "Both copies independently attest 〈改造漏刻〉 target glyphs without passage leaf"
+    ],
+    "graph_mutated": false
+  },
+  "audit_scope": {
+    "new_original_20v_preface_direct_image_glyph_witnesses_this_increment": 1,
+    "new_original_20v_kaizao_louke_target_image_glyph_witnesses": 0,
+    "missing_target_locator": "OPEN",
+    "edition_print_1827_or_1869_target_images": "NOT_RECEIVED",
+    "md_g03": "OPEN_BLOCKING_GENERAL_ADAPTER",
+    "hpa_dayun_cal_002": "MISSING_FROM_PRODUCT",
+    "deterministic_chart": "CLOSED",
+    "no_matrix_state_or_graph_count_change": true,
+    "runtime_untouched": true,
+    "batch_closed": false
+  },
+  "next": [
+    "Locate exact independent old-20-volume 〈改造漏刻〉 section heading/physical-leaf in both NCL copies without assuming categorized 30v volume coordinates.",
+    "Establish wider phrase-context comparison and Inoue reference-to-shelfmark mapping before asserting a B-group textual genealogy.",
+    "Continue Shanghai manuscript unique shelfmark and 1827/1869 print-specific 〈改造漏刻〉 direct glyph source searches."
+  ]
+}
