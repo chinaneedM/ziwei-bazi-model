@@ -60,10 +60,14 @@ def build_rows(qr_path=QR,qs_path=QS):
     qr_pages=qr["review"]["screened_pdf_pages"]
     if len(qr_pages)!=20 or [x["pdf_page"] for x in qr_pages]!=list(range(1,21)):
         raise ValueError("12QR_EXPECTED_TWENTY_NATIVE_PAGES")
+    # 12QT forward-only full-CI repair: these are the twenty SHA256 digests
+    # already recorded by 12QR, NOT freshly fetched source images. Prevent
+    # syntactically valid but falsified QR page image digests from passing.
+    qr_image_sha_pins=["7d8a5c0f761a152f75bc0b7b5e9db0dd27fe2106cbd13bee30e78bfe2d14dfe3","233f9a5c17f41469ddef6650c906f608cabb6c3dd2f662ac46ff3a9d1ef5be9e","5d551e454e166a5cf812a0f79ae1a7f485072296c4bbc3d2d7467affda66047e","fc1ac6db27972fa13ebc6763a31bf9292a3fab6746bfd8c661fa7bbee5c3d153","fdc24763efd9128cbd80e4e16a3fd48304f7593b2f59282d078ff03025d4e719","3977935d391ca0317eef9de89c6b370bcc77edda59b38d771c6f2ab313a22b8f","f785a420eb6ca4a8a712da5d34998fbe10d35dff6f3da9af3068add35145531f","6c4fbea4c3d80a14f96fed054f8e9c1420b35b4c9293c5a2cd5f4213b89a8237","dd10411756b2d54c70d599007bd1c5da079dfe75738ceb678fa10a2194b15a7e","21013ae9f460cba1e2557df0e18758b90c5cac5b19ac6e0d60d9a97b4fee4243","7bb790b45f5657d353c8e642ca9213314f460fb34748b772042279d55e62cd36","00358c8805e39bd1cc2b47ad330e6fb09abb83bf520483ae735c420d655f8e66","45496a1feab4271d32342e8f4da45288c24b34dbf15060f018150269a947ba2e","98575c2ada4e35834f0782067b2c6c39c9676886c10200ccbc787e968c8843e1","f81a17efc392a6febf4ea40aa28b9c54c58f26fdd59b164cc44fcf120ceb7880","cf77617608ef196f49f4be67ea50c99f74294d42b81f1e54330d3d7d0c4736d3","318612d7b581e6def0a67b7f106e17ec4782e9dcbce4ead84e5f5d798d5d2c65","84a98e6d37a8a5d81b59914a47695f5b91a6266d7dcc6531cd04e164a50ef008","d9ad87c77c350ca9fe9d3865ef6eed866da45c1c9550c17ce34ba1b3db49c18e","2b9630e525fc8784610efa94382d6ed16886a5e219d7dd1c797dc4f988a5f318"]
     for x in qr_pages:
         r=index[7,x["pdf_page"]]
         h=x["source_derived_page_jpeg_sha256"]
-        if not (x["fascicle"]==7 and sha(h)
+        if not (x["fascicle"]==7 and sha(h) and h==qr_image_sha_pins[x["pdf_page"]-1]
                 and x["original_volume_candidates"]==r["original_volume_candidates"]
                 and x["review_mode"]=="DIRECT_MANUAL_FULL_PAGE_SCREEN"
                 and x["target_status"]=="NO_POSITIVE_TARGET_ATTESTATION_IN_THIS_SCREEN"
