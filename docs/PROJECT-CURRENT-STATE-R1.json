@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.445.0",
+  "schema_version": "1.446.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -526,9 +526,10 @@
       "BATCH-12-BAZI-MING-DATONG-JINGTAI1-CLOCK-REGIME-PROVENANCE-PV",
       "BATCH-12-BAZI-MING-DATONG-LOUJIAN-LATE-WANLI-RECEPTION-PW",
       "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-20-30-RECENSION-CROSSWALK-PX",
-      "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-OLD20-SCHOLARLY-COLLATION-CONTROLS-PY"
+      "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-OLD20-SCHOLARLY-COLLATION-CONTROLS-PY",
+      "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-KOREA-CNTS-BOUNDARY-PZ"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-OLD20-SCHOLARLY-COLLATION-CONTROLS-PY.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-KOREA-CNTS-BOUNDARY-PZ.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -2645,7 +2646,12 @@
       "12PY: scholar's B-case has original self-preface date 萬曆三十四年丙辰 versus historically compatible 丙午. Taiwan NCL02261 first-party catalog independently transcribes 丙辰 while separate Taiwan NCL02260 old manuscript catalog gives 丙午; identical bad cycle year does not source-bind B to 02261 without copy identifiers.",
       "12PY: Inoue 2020 critical notes article and 1827 Tokyo University printed copy with volume19 post-leaf30 lacuna are secondary/copy-specific controls, neither collates the target 《改造漏刻》 page nor invalidates volume20 by association.",
       "12PY: source-level edition/copy research produced zero target physical glyph collations. 官漏/宮漏, 不待言 source copy, 1447 repair completion and 1450 卯正三刻 clock/observer/acquisition/locality all remain unresolved.",
-      "12PY: MD-G03 OPEN_BLOCKING_GENERAL_ADAPTER; HPA-DAYUN-CAL-002 MISSING_FROM_PRODUCT; chart R1 CLOSED, zero runtime authorization. 12PZ next: obtain heading-to-leaf + physical page images, not same-volume-number proxies."
+      "12PY: MD-G03 OPEN_BLOCKING_GENERAL_ADAPTER; HPA-DAYUN-CAL-002 MISSING_FROM_PRODUCT; chart R1 CLOSED, zero runtime authorization. 12PZ next: obtain heading-to-leaf + physical page images, not same-volume-number proxies.",
+      "12PZ: Korean CNTS-00047974753 last two public PDF segments directly visually collated (no OCR) with exact PDF/JPG hashes and action artifact: part11 p2 卷十六目錄 / p142 卷十七終; part12 p2 卷十八目錄 / p86 卷十八終.",
+      "12PZ: Korean digital segment 12 is not printed volume20; this only closes a digital-part-number shortcut. It does NOT establish an all-pages absence of 改造漏刻, a 1700 print year, a full edition lineage, or a direct 官漏/宮漏 glyph.",
+      "12PZ: previous Korean parts7-10 artifact 11665159010 plus parts11-12 artifact 11665284001 remain reproducible bounded source-image evidence; twelve parts are one indexed set, not twelve independent historical witnesses.",
+      "12PZ: no confirmed target physical leaf; MD-G03 remains OPEN_BLOCKING_GENERAL_ADAPTER, HPA-DAYUN-CAL-002 MISSING_FROM_PRODUCT; historical Matrix 222/222 / provenance defects 45/45 / confirmed chart defects 0 / algorithm reopen 0.",
+      "Next: locate named 改造漏刻 passage by heading and physical folio in an identified 1827 volume20 or independent old20 manuscript, then contrast 官漏/宮漏 visually; no global clock or runtime authorization until independently scoped evidence."
     ],
     "historical_candidate_extension_count": 14,
     "current_missing_from_product_row_count": 4
@@ -2685,7 +2691,7 @@
     "handoff_text_should_be_generated_from_repository_state_not_chat_memory": true,
     "new_chat_minimal_user_prompt": "继续项目。按仓库 docs/PROJECT-CONTINUITY-PROTOCOL-R1.md 启动，以 GitHub 远端最新状态为唯一事实源。"
   },
-  "updated_at": "2026-10-09",
+  "updated_at": "2026-10-10",
   "tianwen_identity": {
     "umbrella_name_zh": "天问",
     "umbrella_name_en": "TIANWEN",
