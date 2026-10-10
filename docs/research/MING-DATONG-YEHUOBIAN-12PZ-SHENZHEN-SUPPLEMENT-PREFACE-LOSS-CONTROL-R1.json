@@ -75,5 +75,31 @@
     "md_g03": "OPEN_BLOCKING_GENERAL_ADAPTER",
     "hpa_dayun_cal_002": "MISSING_FROM_PRODUCT",
     "algorithm_reopen_authorized": false
-  }
+  },
+  "received_text_variant_notice_20261010": {
+    "status": "TWO_DIGITAL_TRANSMISSION_VARIANTS_UNRESOLVED_PHYSICAL_BASE",
+    "first_claim_original_and_continuation_is_source_specific": true,
+    "first_claim_witness": "WIKISOURCE_TWELVE_NOT_UNIVERSAL",
+    "supplementary_preface_continuation": {
+      "wikisource": "十二卷",
+      "ctext_indexed": "十卷",
+      "xuoda": "十卷"
+    },
+    "authorial_continuation_intro_original": {
+      "wikisource": "卅卷",
+      "ctext_indexed": "廿卷",
+      "xuoda": "廿卷"
+    },
+    "explicit_adjudication": "NO_PHYSICAL_SOURCE_FOLIO_COLLATION; NO_EDITORIAL_ANCESTRY_ASCERTAINED",
+    "evidence_file": "docs/research/MING-DATONG-YEHUOBIAN-12PZ-RECEIVED-PREFACE-JUAN-COUNT-TEXTUAL-VARIANTS-R1.json"
+  },
+  "revision_history": [
+    {
+      "date": "2026-10-10",
+      "scope": "ADD_NON_DESTRUCTIVE_WITNESS_SCOPE_TO_ORIGINAL_CONTINUATION_CLAIM",
+      "reason": "The earlier 十二卷 anchor was from Wikisource's received-text layer; alternative ctext/xuoda received texts have 十卷, while 續編小引 has a separate 廿/卅 discrepancy.",
+      "preserve_prior_reading": true,
+      "no_physical_witness_or_lineage_selection": true
+    }
+  ]
 }

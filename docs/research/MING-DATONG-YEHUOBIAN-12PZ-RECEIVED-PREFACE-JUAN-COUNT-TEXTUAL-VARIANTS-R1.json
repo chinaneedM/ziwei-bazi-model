@@ -1,0 +1,83 @@
+{
+  "schema": "TIANWEN-YEHUOBIAN-12PZ-RECEIVED-PREFACE-VARIANT-CONTROL-R1",
+  "batch": "12PZ",
+  "batch_status": "RESEARCH_IN_PROGRESS",
+  "date": "2026-10-10",
+  "issue": "Two numerically material juan-count differences in two separate prefaces, requiring copy-identified folio collation",
+  "received_text_groups": [
+    {
+      "group_id": "WIKISOURCE_RECEIVED",
+      "url": "https://zh.wikisource.org/wiki/%E8%90%AC%E6%9B%86%E9%87%8E%E7%8D%B2%E7%B7%A8",
+      "site": "Wikisource",
+      "access": "WEB_OPEN_FULL_TEXT",
+      "base_physical_copy": "UNSPECIFIED",
+      "readings": {
+        "1619_續編小引_initial_work_count": "卅卷",
+        "1713_補遺序_continuation_count": "十二卷"
+      }
+    },
+    {
+      "group_id": "CTEXT_RECEIVED",
+      "url": "https://ctext.org/wiki.pl?chapter=938703&if=en",
+      "site": "Chinese Text Project wiki",
+      "access": "INDEXED_SEARCH_VISIBLE_TEXT; DIRECT_OPEN_403",
+      "base_physical_copy": "UNSPECIFIED",
+      "readings": {
+        "1619_續編小引_initial_work_count": "廿卷",
+        "1713_補遺序_continuation_count": "十卷"
+      }
+    },
+    {
+      "group_id": "XUODA_RECEIVED",
+      "url": "https://xuoda.com/bj/wly/000.htm",
+      "site": "學達書庫",
+      "access": "WEB_OPEN_FULL_TEXT",
+      "base_physical_copy": "UNSPECIFIED",
+      "readings": {
+        "1619_續編小引_initial_work_count": "廿卷",
+        "1713_補遺序_continuation_count": "十卷"
+      }
+    }
+  ],
+  "separate_bibliographic_control": {
+    "site": "Wikimedia Commons NCL 02260 listing, transcribed catalog information",
+    "url": "https://commons.wikimedia.org/wiki/File:NCL-02260_1_%E8%90%AC%E6%9B%86%E9%87%8E%E7%8D%B2%E7%B7%A8.pdf",
+    "quoted_catalog_fascicle_frame": "二十卷, 補遺一卷, 續編十二卷",
+    "status": "COPY_CATALOG_DESCRIPTION_ONLY_NOT_PREFACE_FOLIO_GLYPH",
+    "note": "NCL 02260 physical authorial preface p2 丙午 was directly collated previously; that does not physically collate the separate 續編小引 or 補遺序 juan-count glyphs."
+  },
+  "interpretation": {
+    "single_winner_selected": false,
+    "type": "DIGITAL_TRANSMISSION_VARIANTS_PENDING_COPY_SCOPED_PHYSICAL_COLLATION",
+    "critical_distinctions": [
+      "1619 author-attributed 續編小引 refers to preexisting original work count, not automatically received thirty-volume categories",
+      "1713 descendant-attributed 補遺序 refers to continuation count, distinct passage/date/author from 1619",
+      "two electronic sites with matching text do not prove separate material exemplars or one inherited branch",
+      "catalog counts and physical fascicle counts are different concepts and do not validate a handwritten glyph",
+      "neither 1619 卅/廿 nor 1713 十二/十 identifies 改造漏刻 old20v folio"
+    ],
+    "priority_read_targets": [
+      "image Shanghai dGJ2312912 part1 續編小引 if present on source-specific p6/p7, never infer reading from scanned title alone",
+      "locate matching preface folios for NCL 02260 and NCL 02261 or source-certified printed witnesses",
+      "resolve continuation number against independently identified old manuscript 續編 and original catalog leaf",
+      "trace original-old20v 改造漏刻 heading-to-leaf separately"
+    ]
+  },
+  "evidence_limitations": {
+    "wikisource_direct_physical_scan": false,
+    "ctext_direct_webpage_retrieved": false,
+    "ctext_search_index_text_visible": true,
+    "xuoda_direct_physical_scan": false,
+    "physical_introduction_juan_glyphs_new_this_pass": 0,
+    "independent_physical_witnesses_added": 0,
+    "chart_relevant_algorithm_defect_confirmed": false
+  },
+  "unchanged": {
+    "matrix_and_current_state": "NO_CHANGE",
+    "transmission_graph": "NO_EDGE_CHANGE",
+    "product": "DETERMINISTIC_FUSION_CHART_PRODUCT_R1=CLOSED",
+    "ming_adapter": "MD-G03=OPEN_BLOCKING_GENERAL_ADAPTER",
+    "missing_candidate": "HPA-DAYUN-CAL-002=MISSING_FROM_PRODUCT",
+    "runtime_selection": "NONE"
+  }
+}

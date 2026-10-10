@@ -394,3 +394,20 @@ The attributed preface supplies three source-*claimed* transmission constraints:
 Evidence grade: **RECEIVED_TEXT_UNVERIFIED_PHYSICAL_SUPPLEMENT_PREFACE**, corroborating only the *received narrative*, with **NO_DIRECT_1713_FOLIO_INSPECTION**. Next evidence requirement: source-identify and image-collate a Kangxi manuscript 〈補遺序〉 / original table-of-contents locator, then seek a specific NCL 02260/02261 〈改造漏刻〉 original page or establish the true extent of the available individual fascicles. The 1827 and 1869 target printed leaves are still uninspected. Keep **12PZ OPEN**; no new chart source/runtime vote, Matrix/state/graph edit, MD-G03 gate closure, HPA-DAYUN-CAL-002 change, or R1 algorithm reopen.
 
 Machine control: `docs/research/MING-DATONG-YEHUOBIAN-12PZ-SHENZHEN-SUPPLEMENT-PREFACE-LOSS-CONTROL-R1.json`.
+
+## 12PZ 2026-10-10 — two introductory preface juan-count variants, source-transcript only
+
+New collation of **two different attributed passages** surfaces paired contradictions across received electronic texts, not directly authenticated original glyphs:
+
+| Passage | Wikisource received | CText indexed received | Xuoda received |
+| --- | --- | --- | --- |
+| 1619 沈德符〈續編小引〉: original 《萬曆野獲編》 count | `共卅卷` | `共廿卷` | `共廿卷` |
+| 1713 沈振〈補遺序〉: 續編 count | `續編十二卷` | `續編十卷` | `續編十卷` |
+
+[Wikisource received full text](https://zh.wikisource.org/wiki/%E8%90%AC%E6%9B%86%E9%87%8E%E7%8D%B2%E7%B7%A8) was directly opened; [CText's indexed passage](https://ctext.org/wiki.pl?chapter=938703&if=en) displayed `廿/十` in public search output while the full page returned 403 in this web-reader route, and [Xuoda's directly opened transcription](https://xuoda.com/bj/wly/000.htm) separately displays `廿/十`. Agreement of two web texts is **not** two independently counted physical books. The [NCL02260 source-object catalog description](https://commons.wikimedia.org/wiki/File:NCL-02260_1_%E8%90%AC%E6%9B%86%E9%87%8E%E7%8D%B2%E7%B7%A8.pdf) gives `二十卷, 補遺一卷, 續編十二卷`, a **bibliographic count**, not the original target preface's source-image reading.
+
+**Correction to earlier worklog claim without deletion:** our prior 12PZ Shen Zhen evidence had `二十卷。又續編十二卷` as a single textual anchor from Wikisource, not a globally accepted verbatim critical text; it is now explicitly marked `WIKISOURCE_TWELVE_NOT_UNIVERSAL`, with the `十` alternative retained. `1619 共卅` and `1713 續十二` cannot be fused into a pre-1700 `30+12` physical original; edited thirty-volume category/volume arrangement is a distinct textual layer. Neither discrepancy identifies the original-20v 〈改造漏刻〉 page or resolves original authorship/variant direction.
+
+**Next highest-value physical comparison:** view the `續編小引` target leaf (candidate Shanghai manuscript part1 early pages; page number must be verified) and the `補遺序` in a source-identified old manuscript or print, record source digest, PDF page, physical folio and exact 廿/卅, 十/十二 glyphs, and maintain separate authorial-dating / scribe / physical-copy layers. The historical original table of contents remains **not independently acquired**, and physical-original-20v 〈改造漏刻〉 remains unlocated. 12PZ OPEN; no change to historical audit Matrix/current-state, transmitted-genealogy edges, deterministic R1, MD-G03, HPA-DAYUN-CAL-002 or runtime algorithms.
+
+Machine control: `docs/research/MING-DATONG-YEHUOBIAN-12PZ-RECEIVED-PREFACE-JUAN-COUNT-TEXTUAL-VARIANTS-R1.json`.
