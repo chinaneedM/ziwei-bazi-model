@@ -5331,7 +5331,7 @@ def main() -> int:
         if any(len(r.get("image_sha256", "")) != 64 for r in readings):
             fail("Batch 12PZ exact image digests absent")
     pz_adjudication = pz.get("adjudication", {})
-    if pz_adjudication.get("volume20_target_section_absent_from_entire_copy") != "NOT_PROVEN":
+    if pz_adjudication.get("volume20_target_section_absent_from_entire_copy") != "NOT_PROVEN; NO_EXHAUSTIVE_ALL_PAGE_HEADING_SEARCH_PERFORMED":
         fail("Batch 12PZ bounded negative-search firewall regressed")
     if pz_adjudication.get("guo_gong_glyph") != "NOT_PHYSICALLY_COLLATED":
         fail("Batch 12PZ target glyph scope overstated")
