@@ -160,5 +160,25 @@ class Yehuobian12PZWitnessBoundaryTests(unittest.TestCase):
         self.assertFalse(self.ledger["gates"]["batch_closed"])
 
 
+    def test_china_nlc_ten_fascicle_catalog_routes_cover_labels_not_source_glyphs(self) -> None:
+        bundle = load(RESEARCH / "MING-DATONG-YEHUOBIAN-12PZ-CHINA-NLC-OLD20-TEN-FASCICLE-PUBLIC-DIGITAL-ROUTE-CROSSWALK-R1.json")
+        fascicles = bundle["fascicles"]
+        self.assertEqual(len(fascicles), 10)
+        self.assertEqual([f["fascicle"] for f in fascicles], list(range(1, 11)))
+        self.assertEqual(sorted(v for f in fascicles for v in f["volume_numbers_in_commons_file_description"]), list(range(1, 21)))
+        self.assertEqual(sum(f["public_pdf_pages"] for f in fascicles), 1030)
+        self.assertEqual(len({f["file_id"] for f in fascicles}), 10)
+        self.assertEqual(bundle["distinct_physical_copy_count_in_this_collection"], 1)
+        self.assertEqual([f["fascicle"] for f in fascicles if f["source_pdf_sha256"] is not None], [10])
+        self.assertEqual(fascicles[-1]["source_pdf_sha256"], self.by_id["CHINA_NLC_411999003250_OLD20_FASCICLE10"]["source_pdf_sha256"])
+        self.assertEqual(bundle["mechanical_scope"]["old20_target_kaizao_louke_leaf"], "UNRESOLVED")
+        self.assertFalse(bundle["mechanical_scope"]["complete_manuscript_page_inventory_and_target_locator"])
+        self.assertEqual(self.ledger["digital_collection_index_20261010"]["reported_volume_labels"], 20)
+        registry = load(ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json")
+        item = next(s for s in registry["sources"] if s["source_id"] == "EXT-COMMONS-NLC411999003250-YEHUOBIAN-TEN-FASCICLE-ROUTES")
+        self.assertFalse(item["physical_glyph_authority"])
+        self.assertFalse(self.ledger["gates"]["batch_closed"])
+
+
 if __name__ == "__main__":
     unittest.main()
