@@ -3,7 +3,7 @@
   "schema_version": "1.0.0",
   "recorded_at": "2026-10-10",
   "batch": "12PZ_IN_PROGRESS",
-  "status": "BERLIN_SAMPLE_12_SOURCE_ORIGINALS_DIRECT_REVIEW_BOUNDED_NO_TARGET",
+  "status": "BERLIN_38_OF_38_OFFICIAL_SAMPLE_IMAGES_DIRECT_REVIEW_CLOSED_TARGET_NONATTESTATION_SCOPED",
   "purpose": "Obtain independently item-identified alternate 1827 print holdings while distinguishing catalog/surrogate/sample data from a physically inspected target leaf.",
   "printed_copy_routes": [
     {
@@ -40,7 +40,7 @@
       "digitization_scope": "Beispielseiten (sample pages, not stated full volume)",
       "standard_iiif_manifest_pattern": "https://content.staatsbibliothek-berlin.de/dc/PPN334378186X/manifest",
       "manifest_object_verified": true,
-      "volume20_target_page_in_samples": "UNDETERMINED_UNREVIEWED_26_REMAINING",
+      "volume20_target_page_in_samples": "NOT_PRESENT_IN_PUBLIC_38_SAMPLE_CANVASES_ONLY",
       "target_leaf_image_acquired": false,
       "manifest_scope": "IIIF_MANIFEST_38_SAMPLE_CANVASES_INDEXED_NOT_TARGET_FOLIO_REVIEWED",
       "public_iiif_manifest_http_status": 200,
@@ -49,9 +49,9 @@
       "public_iiif_mets_http_status": 200,
       "public_iiif_mets_response_bytes": 73209,
       "official_reader_http_status": 200,
-      "sample_canvas_original_images_acquired": 12,
-      "sample_canvas_visual_review_completed": 12,
-      "sample_review_scope": "SELECTED_12_OF_38_NO_TARGET_HEADING; NOT_FULL_38_OR_1827_TARGET_NEGATIVE"
+      "sample_canvas_original_images_acquired": 38,
+      "sample_canvas_visual_review_completed": 38,
+      "sample_review_scope": "ALL_38_OFFICIAL_SAMPLE_CANVASES_REVIEWED_NO_TARGET_PAGE; FULL_1827_VOLUME20_NOT_NEGATIVELY_SEARCHED"
     }
   ],
   "preexisting_comparators": [
@@ -83,14 +83,15 @@
     "official_iiif_manifest_directly_downloaded_by_runner": true,
     "individual_sample_image_glyphs_reviewed": true,
     "official_sample_canvas_count": 38,
-    "reviewed_sample_image_count": 12,
-    "ancient_target_glyph_count_from_berlin_sample": 0
+    "reviewed_sample_image_count": 38,
+    "ancient_target_glyph_count_from_berlin_sample": 0,
+    "reviewed_all_public_sample_canvases": true
   },
   "research_routes": [
     {
       "priority": 1,
       "aim": "Try object-specific SBB manifest with exact PPN; determine count and whether this is sample-only; do not infer full target availability.",
-      "status": "IIIF_SAMPLES_12_DIRECT_IMAGE_REVIEWED; ORIGINALLY_TARGETED_1827_VOLUME20_NOT_YET_ACQUIRED"
+      "status": "PUBLIC_38_OF_38_SAMPLE_IMAGES_VISUALLY_REVIEWED_TARGET_NOT_IN_SAMPLES; NEED_FULL_PRINTED_COPY_ROUTE"
     },
     {
       "priority": 2,
@@ -186,5 +187,24 @@
     "only_bounded_review": true,
     "old20_original_target_glyph_added": 0,
     "printed1827_original_target_glyph_added": 0
+  },
+  "berlin_sample38_direct_image_review_20261010": {
+    "evidence_file": "docs/research/MING-DATONG-YEHUOBIAN-12PZ-BERLIN-38-OF-38-SAMPLE-IMAGE-CLOSURE-R1.json",
+    "total": 38,
+    "source_sha256_count": 38,
+    "run_ids": [
+      38032962716,
+      38033275797
+    ],
+    "all_original_images_reviewed": true,
+    "full_1827_target_leaf_acquired": false
+  },
+  "korea_cntr_candidate_first_scan_20261010": {
+    "evidence_file": "docs/research/MING-DATONG-YEHUOBIAN-12PZ-KOREA-CNTS-00047974753-PART1-EDITION-IDENTITY-R1.json",
+    "source_pdf_sha256": "94c127f857ad2e0b5eef2e167eccaca3c2ad275bfcbdcdd67bc61ca8990bde96",
+    "source_pages": 118,
+    "run_id": 38033574862,
+    "edition_same_as_berlin": "NOT_PROVEN",
+    "catalog_1700": "NOT_HISTORICAL_PRINT_DATE"
   }
 }

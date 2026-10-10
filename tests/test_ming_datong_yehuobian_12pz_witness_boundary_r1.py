@@ -262,5 +262,36 @@ class Yehuobian12PZWitnessBoundaryTests(unittest.TestCase):
         self.assertFalse(self.ledger["gates"]["batch_closed"])
 
 
+    def test_berlin_all_thirty_eight_source_jpegs_close_only_sample_scope(self) -> None:
+        full = load(RESEARCH / "MING-DATONG-YEHUOBIAN-12PZ-BERLIN-38-OF-38-SAMPLE-IMAGE-CLOSURE-R1.json")
+        self.assertEqual(full["manifest_canvas_count"], 38)
+        self.assertEqual(full["source_original_images_human_reviewed"], 38)
+        self.assertEqual(full["all_canvas_indexes"], list(range(1,39)))
+        images = full["all_original_jpegs_source_sha256"]
+        self.assertEqual(len(images), 38)
+        self.assertEqual(len({p["sha256"] for p in images}), 38)
+        self.assertTrue(all(len(p["sha256"]) == 64 for p in images))
+        self.assertEqual(sum(x["source_original_jpg_count"] for x in full["runs"]), 38)
+        self.assertTrue(full["bounded_target_adjudication"]["reviewed_all_38_public_sample_canvases"])
+        self.assertFalse(full["bounded_target_adjudication"]["kaizao_louke_heading_identified_in_any_38"])
+        self.assertFalse(full["bounded_target_adjudication"]["entire_1827_print_negative_claim_allowed"])
+        self.assertEqual(full["bounded_target_adjudication"]["historical_target_glyph_count_increment"], 0)
+        self.assertEqual(self.ledger["berlin_1827_all_sample_image_review_20261010"]["images"], 38)
+        self.assertFalse(self.ledger["gates"]["batch_closed"])
+
+    def test_korea_cnts_1700_catalog_year_cannot_date_print_or_prove_lineage(self) -> None:
+        korea = load(RESEARCH / "MING-DATONG-YEHUOBIAN-12PZ-KOREA-CNTS-00047974753-PART1-EDITION-IDENTITY-R1.json")
+        self.assertEqual(korea["source_pdf_pages"], 118)
+        self.assertEqual(korea["source_pdf_size_bytes"], 32023702)
+        self.assertEqual(len(korea["source_pdf_sha256"]), 64)
+        self.assertEqual(korea["source_pdf_sha256"], "94c127f857ad2e0b5eef2e167eccaca3c2ad275bfcbdcdd67bc61ca8990bde96")
+        self.assertEqual(korea["manual_images_reviewed"], [1,2,3])
+        self.assertEqual(korea["catalog_display_year"], "1700")
+        self.assertTrue(korea["catalog_display_year_must_not_be_promoted_to_ancient_print_date"])
+        self.assertFalse(korea["comparative_titlepage"]["direct_same_woodblock_lineage_proven"])
+        self.assertFalse(korea["comparative_titlepage"]["direct_same_edition_impression_proven"])
+        self.assertFalse(korea["gates"]["batch_closed"])
+
+
 if __name__ == "__main__":
     unittest.main()
