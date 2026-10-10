@@ -1,0 +1,79 @@
+{
+  "schema": "TIANWEN-HISTORICAL-RESEARCH-EVIDENCE-R1",
+  "evidence_id": "12PZ-SHENZHEN-1713-RECEIVED-PREFACE-LOSS-RECENSION-CONTROL",
+  "batch": "12PZ",
+  "batch_status": "OPEN",
+  "research_date": "2026-10-10",
+  "subject": "《萬曆野獲編》沈振〈補遺序〉原目、散佚、分類次序與抄本完整性推理防火牆",
+  "sources": [
+    {
+      "url": "https://zh.wikisource.org/wiki/%E8%90%AC%E6%9B%86%E9%87%8E%E7%8D%B2%E7%B7%A8",
+      "title": "《萬曆野獲編》補遺序（維基文庫傳世電子正文）",
+      "witness_grade": "RECEIVED_DIGITAL_TEXT",
+      "textual_note": "(據康熙寫本補) editorial attribution; no physical leaf checked"
+    },
+    {
+      "url": "https://ctext.org/wiki.pl?chapter=938703&if=en",
+      "title": "《萬曆野獲編》序（中國哲學書電子化計劃）",
+      "witness_grade": "RECEIVED_DIGITAL_TEXT_NOT_INDEPENDENT_PHYSICAL_VOTE"
+    }
+  ],
+  "attributed_preface": {
+    "attributed_author": "沈振",
+    "claimed_date": "康熙癸巳閏五月 (1713)",
+    "text_layer": "COPIED_OR_RECEIVED_SUPPLEMENTARY_PREFACE_NOT_PHYSICAL_COPY_DATE",
+    "claims": [
+      {
+        "key": "original_and_continuation",
+        "textual_anchor": "二十卷。又續編十二卷",
+        "meaning": "reported original composition frame; not completeness of any present holding"
+      },
+      {
+        "key": "post_loss_survival",
+        "textual_anchor": "是編所存。僅十之四五",
+        "meaning": "descendant's retrospective quantity estimate; no denominator independently audited"
+      },
+      {
+        "key": "qian_collection_coverage",
+        "textual_anchor": "而質之原目。亦止十之六七耳",
+        "meaning": "author's reported comparison to earlier table of contents; not physical 02260/02261 copy census"
+      },
+      {
+        "key": "reclassified_order",
+        "textual_anchor": "惟次第非復本來",
+        "meaning": "the received text explicitly describes rearrangement rather than original chapter order"
+      }
+    ]
+  },
+  "assurance": {
+    "direct_1713_manuscript_folio_inspected": false,
+    "original_20v_gaizao_louke_target_page_identified": false,
+    "named_ncl_copy_total_completeness_proved": false,
+    "independent_historical_target_glyph_witness_added": false,
+    "direct_transmission_or_edition_edge_added": false,
+    "materialized_original_contents_table": false,
+    "source_scoped_witness_status": "RECEIVED_TEXT_CONTROL_ONLY",
+    "inference_firewalls": [
+      "absence_in_digitized_segment != absence_in_multi_fascicle_holding",
+      "absence_in_surveyed_copy != absence_from_historical_original_work",
+      "received_supplementary_preface_report != audited_copy_inventory",
+      "categorized_30v_target_presence != old20v_exact_volume_or_leaf",
+      "same_chapter_title != proven direct copying"
+    ]
+  },
+  "unresolved": [
+    "image and source-ID of Kangxi-manuscript supplementary preface",
+    "independently inspect original table of contents and identify named fascicle/page",
+    "find original-20v 改造漏刻 in a physically identified NCL copy",
+    "separate source-identified 1827 and 1869 printed target pages"
+  ],
+  "unchanged_gates": {
+    "historical_audit_matrix": "UNCHANGED",
+    "project_current_state": "UNCHANGED",
+    "transmission_genealogy_graph": "UNCHANGED",
+    "deterministic_fusion_chart_product_r1": "CLOSED",
+    "md_g03": "OPEN_BLOCKING_GENERAL_ADAPTER",
+    "hpa_dayun_cal_002": "MISSING_FROM_PRODUCT",
+    "algorithm_reopen_authorized": false
+  }
+}
