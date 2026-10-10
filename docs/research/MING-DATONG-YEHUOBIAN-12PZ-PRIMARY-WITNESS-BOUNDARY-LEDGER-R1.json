@@ -1,0 +1,195 @@
+{
+  "schema": "MING-DATONG-YEHUOBIAN-12PZ-PRIMARY-WITNESS-BOUNDARY-LEDGER-R1",
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-10-10",
+  "status": "CROSS_BATCH_PHYSICAL_WITNESS_BOUNDARIES_RECONCILED_NO_NEW_HISTORICAL_WITNESS",
+  "batch": "12PZ_IN_PROGRESS",
+  "purpose": "Single machine-auditable relationship index across existing 12CF and 12PZ source-image attestations. It does not transcribe new leaves or create a new copy from multiple pages or scans.",
+  "witnesses": [
+    {
+      "id": "CHINA_NLC_YINGZONG_SHILU_V160_1447",
+      "work": "大明英宗睿皇帝實錄",
+      "copy_key": "NLC-CBM0103-366390-FASC16",
+      "type": "CONTEMPORARY_OFFICIAL_RECORD_LATER_PRESERVED_IN_MANUSCRIPT",
+      "source_doc": "docs/research/ZIWEI-YINGZONG-SHILU-1447-NANJING-59-41-PHYSICAL-COLLATION-R1.json",
+      "source_pdf_sha256": "1e9546177289930ae33a64793df94518fcc21c90184c935a30ea975461990268",
+      "target_pdf_pages_1based": [
+        28
+      ],
+      "physical_glyphs_collated": [
+        "辰初一刻",
+        "戌初一刻",
+        "宮禁及官府漏箭"
+      ],
+      "direct_historical_questions": [
+        "1447_NOV_JIAYIN_ORDER"
+      ],
+      "does_not_prove": [
+        "clock construction completion",
+        "1450 eclipse acquisition apparatus or observer"
+      ],
+      "counts_for_1447_official_record": 1,
+      "counts_for_shen_defu_old20v_target": 0
+    },
+    {
+      "id": "SHANGHAI_REORGANIZED_30V_MANUSCRIPT",
+      "work": "萬曆野獲編",
+      "copy_key": "SHANGHAI-LABELLED-30V-DIGITAL-OBJECT-EDITION-COPY-ID-OPEN",
+      "type": "REORGANIZED_30V_SOURCE_IMAGE_UNDATED_COPY",
+      "source_doc": "docs/research/MING-DATONG-YEHUOBIAN-12PZ-SHANGHAI30-GAIZAO-LOUKE-P441-P442-DIRECT-COLLATION-R1.json",
+      "source_pdf_sha256": "7ea8fe57f5baebd8f2841771d87ec5e3ed34c271e0fe89596a28d2521c9165a6",
+      "target_pdf_pages_1based": [
+        441,
+        442
+      ],
+      "physical_glyphs_collated": [
+        "改造漏刻",
+        "辰初一刻",
+        "戌初一刻",
+        "今宮禁及官府漏箭",
+        "禁中宮漏循用新製"
+      ],
+      "does_not_prove": [
+        "1827 Fuli Shan Fang physical identity",
+        "Shen Defu autograph",
+        "original old-20 volume folio",
+        "1447 completed instrument",
+        "1450 lunar eclipse time adapter"
+      ],
+      "counts_for_1447_official_record": 0,
+      "counts_for_shen_defu_old20v_target": 0,
+      "counts_for_reorganized_30v_target": 1
+    },
+    {
+      "id": "TAIWAN_NCL02260_OLD20_MANUSCRIPT",
+      "work": "萬曆野獲編",
+      "copy_key": "TAIWAN-NCL-204.26-02260",
+      "type": "OLD20_MANUSCRIPT_ONE_COPY_TWO_DIGITAL_FILES",
+      "source_doc": "docs/research/MING-DATONG-YEHUOBIAN-12PZ-NCL02260-PART2-RECEIVED-XUBIAN12-DIRECT-HEADING-R1.json",
+      "digital_parts": [
+        {
+          "name": "NCL-02260_1",
+          "pdf_pages": 1000,
+          "pdf_sha256": "5b91b5cad4a9d7573271ffd275085b046339cdfab80341b60a6156706e80e191",
+          "physically_imaged_heading": "1606 copied preface 丙午"
+        },
+        {
+          "name": "NCL-02260_2",
+          "pdf_pages": 35,
+          "pdf_sha256": "bb97af8a82afbc3412d743ba6638ca919440709d35fc14ef6810629e9c2c2ff2",
+          "physically_imaged_heading": "續編卷第十二目 p4; 續編卷第十二 p5"
+        }
+      ],
+      "physical_glyphs_collated": [
+        "丙午 in copied preface PDF1 p2",
+        "萬曆野獲續編卷第十二目 in PDF2 p4",
+        "萬曆野獲續編卷第十二 in PDF2 p5"
+      ],
+      "counts_for_1447_official_record": 0,
+      "counts_for_shen_defu_old20v_target": 0,
+      "counts_for_old20_preface_variant": 1,
+      "identity_notice": "Two surrogate PDF segments are not independent manuscripts."
+    },
+    {
+      "id": "TAIWAN_NCL02261_GREEN_GRID_OLD20",
+      "work": "萬曆野獲編",
+      "copy_key": "TAIWAN-NCL-204.26-02261",
+      "type": "GREEN_GRID_OLD20_MANUSCRIPT_DISTINCT_FROM_02260",
+      "source_doc": "docs/research/MING-DATONG-YEHUOBIAN-12PZ-NCL02260-02261-PHYSICAL-PREFACE-BINGWU-BINGCHEN-DIRECT-COMPARISON-R1.json",
+      "source_pdf_sha256": "8a293ed49c7aa4cb21ade8f36b6b649be5157ed1c82df9dae4ecce5c654c70d2",
+      "physical_glyphs_collated": [
+        "丙辰 in copied preface p7"
+      ],
+      "counts_for_1447_official_record": 0,
+      "counts_for_shen_defu_old20v_target": 0,
+      "counts_for_old20_preface_variant": 1,
+      "transmission_control": "Same erroneous sexagenary year as scholarly type B does not identify this holding with B or establish direct copying."
+    }
+  ],
+  "not_yet_collated": [
+    {
+      "target": "original old20 改造漏刻 heading and folio",
+      "status": "NOT_ACQUIRED",
+      "candidates": [
+        "NCL 02260",
+        "NCL 02261",
+        "China NLC 411999003250 ten-fascicle old20"
+      ]
+    },
+    {
+      "target": "edition/copy-identified 1827 扶荔山房 print physical target leaf",
+      "status": "NOT_ACQUIRED"
+    },
+    {
+      "target": "1713 Shen Zhen 補遺序 own physical 十 or 十二 glyph",
+      "status": "NOT_ACQUIRED"
+    },
+    {
+      "target": "1450 actual observation apparatus/observer, source-locality and clock coordinate",
+      "status": "NOT_ACQUIRED"
+    },
+    {
+      "target": "Commons first-party SHA1 independent pre-check for NCL02260 PDF2",
+      "status": "NOT_ACQUIRED_RUNNER_DIGEST_ONLY"
+    }
+  ],
+  "received_text_controls": {
+    "wikisource_reorganized_30v_beijing_winter": "辰初二刻",
+    "ctext_index_reorganized_30v_beijing_winter": "辰初二刻",
+    "shidian_reorganized_30v_beijing_winter": "辰初一刻",
+    "status": "RECEIVED_WEB_TEXT_MAY_NOT_BE_INDEPENDENT_COPIES",
+    "independent_physical_count_delta": 0
+  },
+  "chronology_controls": [
+    {
+      "source": "《明英宗實錄》卷160 physical source; 甲寅",
+      "statement": "正統十二年十一月",
+      "evidence": "1447_OFFICIAL_DOCUMENT"
+    },
+    {
+      "source": "《萬曆野獲編》 received and Shanghai scan",
+      "statement": "正統十二年十一月",
+      "evidence": "LATER_MING_RETELLING"
+    },
+    {
+      "source": "《明會要》卷28 received",
+      "statement": "正統十二年九月",
+      "evidence": "LATER_COMPILATION_VARIANT",
+      "interpretation": "Not proof a second dated government order exists."
+    }
+  ],
+  "prohibitions": {
+    "same_pages_as_multiple_copies": true,
+    "same_copied_wording_means_direct_transmission": false,
+    "original20v_equivalent_to_categorized30v_volume20": false,
+    "command_to_rebuild_means_completed": false,
+    "one_ke_wins_every_version": false,
+    "preface_copy_date_equals_physical_copy_date": false,
+    "manuscript_title_date_equals_impression_date": false,
+    "guessing_1450_clock_reference": false
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Physical reproduction agreement between 1447 official and Shanghai 30v retrospect is not a proven direct copying chain.",
+      "NCL 02261 matching 丙辰 does not establish Inoue B-type copy identity."
+    ],
+    "unresolved_lineage_questions": [
+      "Old20 target presence and specific folio",
+      "Reorganized Shanghai exemplar colophon/copy-specific identity",
+      "Independently identified 1827 printed physical target leaf"
+    ]
+  },
+  "gates": {
+    "matrix_changed": false,
+    "current_state_changed": false,
+    "genealogy_graph_changed": false,
+    "chart_algorithm_changed": false,
+    "deterministic_product_r1": "CLOSED",
+    "md_g03": "OPEN_BLOCKING_GENERAL_ADAPTER",
+    "hpa_dayun_cal_002": "MISSING_FROM_PRODUCT",
+    "batch_closed": false
+  }
+}

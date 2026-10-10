@@ -472,3 +472,12 @@ Previously direct visual source PDF p4 left folio was read `萬曆野獲續編�
 This upgrade is **source-object/digital surrogate only**: it does not collate the 1713 Shen Zhen 補遺序 physical ten/twelve glyph, locate old20v 改造漏刻, determine 宮/官 or 辰初一/二 in original page, or prove 1447 clock completion/1450 time coordinate. 12PZ remains OPEN; MD-G03 OPEN_BLOCKING_GENERAL_ADAPTER; HPA-DAYUN-CAL-002 MISSING_FROM_PRODUCT; no Matrix, project state, genealogy edge or chart algorithm revision.
 
 Machine evidence revised forward-only: `docs/research/MING-DATONG-YEHUOBIAN-12PZ-NCL02260-PART2-RECEIVED-XUBIAN12-DIRECT-HEADING-R1.json`.
+
+## 12PZ 2026-10-10 — cross-batch copy/recension ledger + unit-tested fail-closed gates
+
+Reconciled **existing** four material witness keys without creating a new ancient source: (i) NLC official 1447 Yingzong Shilu fasc.16/v160 p28 (original physical collation in earlier batch 12CF); (ii) Shanghai-labelled *reorganized thirty-volume* manuscript surrogate with already image-collated `改造漏刻` p441–442, source SHA; (iii) Taiwan NCL `204.26 02260` old20 manuscript with **two PDF segments belonging to one holding**; (iv) independently cataloged Taiwan NCL `204.26 02261` green-grid old20 manuscript (copied 1606 preface `丙辰`).
+
+Part2 NCL02260 digital SHA has now passed reproducible GitHub runner acquisition, **but no proof of independent first-party Commons SHA-1 cross-check**. The Shanghai image's `一刻/宮漏` is copy-scoped and **not** the 1827 print nor the old20 source; NLC official `一刻` previously source-imaged in 12CF is **not** a fresh 12PZ historical witness. Received Shidian/CText/Wikisource transcripts are navigation controls, not copied manuscript votes. Explicit `明會要` **九月** remains later compilation month variant against the physical `明英宗實錄` **十一月甲寅**; no second order is inferred.
+
+Machine ledger: `docs/research/MING-DATONG-YEHUOBIAN-12PZ-PRIMARY-WITNESS-BOUNDARY-LEDGER-R1.json`.
+Added six focused source-identity and fail-closed machine checks in `tests/test_ming_datong_yehuobian_12pz_witness_boundary_r1.py`. Pending exact-head CI; no algorithm, Matrix, historical counts, state-file semantic change or genealogy graph mutation. Target old20 page and 1827 print remain open.
