@@ -1,7 +1,7 @@
 {
   "schema": "MING-DATONG-YEHUOBIAN-12PZ-CHINA-NLC411999003250-V20-TAIL-SOURCE-DIGEST-R1",
   "recorded_at": "2026-10-10",
-  "status": "SOURCE_PDF_CAPTURE_AND_BOUNDARY_TAIL_IMAGES_SHA256_VERIFIED_NOT_GLYPH_REVIEWED",
+  "status": "SOURCE_SHA_PINNED_TEN_PAGES_DIRECTLY_REVIEWED_WITH_BOUNDED_FINDINGS",
   "batch": "12PZ_IN_PROGRESS",
   "source": {
     "repository": "China National Library",
@@ -96,8 +96,8 @@
   "scope": {
     "digital_surrogate_p136_to_145_acquired": true,
     "digital_surrogate_last_page": 145,
-    "manually_collated_all_ten_pages": false,
-    "old20_kaizao_louke_present_or_absent": "NOT_ADJUDICATED",
+    "manually_collated_all_ten_pages": true,
+    "old20_kaizao_louke_present_or_absent": "NOT_IDENTIFIED_AS_HEADING_IN_P136_TO_P145_ONLY_BROADER_UNRESOLVED",
     "target_lexical_glyphs": "NOT_COLLATED",
     "hist_original_folio_numbers": "NOT_COLLATED",
     "same_volume_number_as_reclassified_30v_means_same_text": false,
@@ -126,5 +126,15 @@
     "md_g03": "OPEN_BLOCKING_GENERAL_ADAPTER",
     "hpa_dayun_cal_002": "MISSING_FROM_PRODUCT",
     "deterministic_r1": "CLOSED"
+  },
+  "source_end_leaf_visual_review_20261010": {
+    "comparison_file": "docs/research/MING-DATONG-YEHUOBIAN-12PZ-NLC-TAIWAN-OLD20-V20-DIRECT-COMPARE-R1.json",
+    "volume_heading_pdf_page_1based": 137,
+    "verified_heading": "萬曆肆拾伍丁巳卷二十",
+    "final_colophon_pdf_page_1based": 145,
+    "colophon": "萬曆野獲編二十卷紀事畢",
+    "all_ten_pages_opened_and_jpeg_sha_verified": true,
+    "gaizao_louke_negative_scope": "NOT_IDENTIFIED_HEADING_P136_TO_P145_ONLY",
+    "broader_old20_presence_absence": "UNRESOLVED"
   }
 }

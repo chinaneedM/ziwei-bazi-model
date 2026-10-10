@@ -115,5 +115,31 @@ class Yehuobian12PZWitnessBoundaryTests(unittest.TestCase):
 
 
 
+    def test_two_distinct_old20_volume20_structures_from_sha_pinned_images(self) -> None:
+        evidence = load(RESEARCH / "MING-DATONG-YEHUOBIAN-12PZ-NLC-TAIWAN-OLD20-V20-DIRECT-COMPARE-R1.json")
+        china = evidence["china_nlc"]
+        taiwan = evidence["taiwan_ncl02260"]
+        self.assertEqual(china["p137"]["heading"], "萬曆肆拾伍丁巳卷二十")
+        self.assertEqual(china["p145"]["colophon"], "萬曆野獲編二十卷紀事畢")
+        self.assertEqual(taiwan["manual_toc_heading"], "萬曆野獲編卷第二十目")
+        self.assertEqual(taiwan["p592_jpeg_sha256"], "f173d98c6ee32aba342ade6b377094f333871345c357284fc4f27a2d819942a2")
+        self.assertTrue(evidence["comparison"]["different_volume20_structure"])
+        self.assertEqual(evidence["comparison"]["independent_old20_target_glyph_count_delta"], 0)
+        self.assertEqual(evidence["comparison"]["direct_copying_relation"], "NOT_PROVEN")
+        self.assertEqual(china["bounded_review"]["negative_scope"], "P136_TO_P145_ONLY_NOT_THE_WHOLE_BOOK")
+
+    def test_prior_p137_heading_is_corrected_with_forward_only_history(self) -> None:
+        cross = load(RESEARCH / "MING-DATONG-YEHUOBIAN-12PZ-OLD20-VOLUME-HEADING-CROSSWALK-R1.json")
+        actual = next(x for x in cross["volume_heading_evidence"] if x["volume"] == 20)
+        self.assertEqual(actual["heading"], "萬曆肆拾伍丁巳卷二十")
+        self.assertEqual(actual["physical_colophon_p145"], "萬曆野獲編二十卷紀事畢")
+        correction = cross["revision_history"][-1]
+        self.assertEqual(correction["previous_value"], "萬曆野獲編卷二十")
+        self.assertEqual(correction["corrected_value"], actual["heading"])
+        self.assertEqual(correction["new_external_metadata_defect_count"], 0)
+        self.assertEqual(cross["next_proof"]["old20_gaizao_louke_heading_to_leaf"], "UNRESOLVED")
+
+
+
 if __name__ == "__main__":
     unittest.main()
