@@ -195,7 +195,8 @@ class Yehuobian12PZWitnessBoundaryTests(unittest.TestCase):
         self.assertEqual(next(r for r in routes["printed_copy_routes"] if r["item_id"] == "HOKKAIDO_1827_V19_20")["target_item_number"], "0181427762")
         berlin = next(r for r in routes["printed_copy_routes"] if r["item_id"] == "BERLIN_1827_SAMPLES")
         self.assertEqual(berlin["ppn"], "PPN334378186X")
-        self.assertEqual(berlin["volume20_target_page_in_samples"], "UNDETERMINED")
+        self.assertEqual(berlin["volume20_target_page_in_samples"], "NOT_PRESENT_IN_PUBLIC_38_SAMPLE_CANVASES_ONLY")
+        self.assertFalse(berlin["target_leaf_image_acquired"])
         self.assertFalse(berlin["target_leaf_image_acquired"])
         self.assertEqual(routes["authority_scope"]["independent_full_printed_target_collations_added"], 0)
         self.assertEqual(routes["gates"]["original_target_glyph_count_delta"], 0)
@@ -225,9 +226,15 @@ class Yehuobian12PZWitnessBoundaryTests(unittest.TestCase):
         self.assertEqual(run["artifact_id"], 11662685894)
         self.assertFalse(run["individual_canvas_images_downloaded"])
         self.assertFalse(run["target_glyphs_observed"])
-        self.assertFalse(record["authority_scope"]["individual_sample_image_glyphs_reviewed"])
+        # Early manifest-only run downloaded no images, but later workflows
+        # acquired and visibly reviewed all 38 source JPEGs; these are distinct
+        # evidence milestones and neither proves a full-volume target leaf.
+        self.assertTrue(record["authority_scope"]["individual_sample_image_glyphs_reviewed"])
+        self.assertEqual(record["authority_scope"]["reviewed_sample_image_count"], 38)
         self.assertEqual(record["authority_scope"]["original_1827_target_text_glyph_count"], 0)
-        self.assertEqual(berlin["volume20_target_page_in_samples"], "UNDETERMINED")
+        self.assertEqual(record["authority_scope"]["original_1827_target_text_glyph_count"], 0)
+        self.assertEqual(berlin["volume20_target_page_in_samples"], "NOT_PRESENT_IN_PUBLIC_38_SAMPLE_CANVASES_ONLY")
+        self.assertFalse(berlin["target_leaf_image_acquired"])
         self.assertFalse(record["gates"]["batch_closed"])
 
 
