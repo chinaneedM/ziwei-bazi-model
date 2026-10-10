@@ -1,0 +1,83 @@
+name: render-yehuobian-ncl02260-part2-volume12-digest-12pz
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/render-yehuobian-ncl02260-part2-volume12-digest-12pz.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  source-digest-and-image:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install PDF image tools
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils
+      - name: Download exact Commons object and record source hashes
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p 12pz-part2/source 12pz-part2/pages
+          url='https://commons.wikimedia.org/wiki/Special:Redirect/file/NCL-02260_2_%E8%90%AC%E6%9B%86%E9%87%8E%E7%8D%B2%E7%B7%A8.pdf'
+          curl -L --fail --retry 5 --retry-all-errors --retry-delay 4 --max-time 700 \
+            -A 'Tianwen-Historical-Provenance-R1/1.0' "$url" \
+            -o 12pz-part2/source/ncl02260-part2.pdf
+          test "$(head -c 4 12pz-part2/source/ncl02260-part2.pdf)" = '%PDF'
+          (cd 12pz-part2 && sha256sum source/ncl02260-part2.pdf > source-sha256.txt)
+          (cd 12pz-part2 && sha1sum source/ncl02260-part2.pdf > source-sha1.txt)
+          pdfinfo 12pz-part2/source/ncl02260-part2.pdf > 12pz-part2/pdfinfo.txt
+          test "$(awk '/^Pages:/ {print $2}' 12pz-part2/pdfinfo.txt)" = 35
+          test "$(stat -c%s 12pz-part2/source/ncl02260-part2.pdf)" -gt 5000000
+          cat 12pz-part2/source-sha256.txt
+          cat 12pz-part2/source-sha1.txt
+          grep -E '^(Pages|File size|Page size):' 12pz-part2/pdfinfo.txt
+      - name: Render p3-p6 at exact PDF positions, no OCR
+        shell: bash
+        run: |
+          set -euo pipefail
+          for p in 3 4 5 6; do
+            pdftoppm -f "$p" -l "$p" -r 170 -jpeg -jpegopt quality=93 \
+              -singlefile 12pz-part2/source/ncl02260-part2.pdf \
+              "12pz-part2/pages/$(printf 'part2-p%04d' "$p")"
+          done
+          test "$(find 12pz-part2/pages -maxdepth 1 -name '*.jpg' | wc -l)" -eq 4
+          (cd 12pz-part2 && sha256sum pages/*.jpg > image-sha256.txt)
+          cat 12pz-part2/image-sha256.txt
+          cat > 12pz-part2/manifest.txt <<'EOF'
+          REPO_COPY=Taiwan NCL 204.26 02260 old manuscript
+          COMMONS_DIGITAL_OBJECT=NCL-02260_2_萬曆野獲編.pdf
+          SOURCE_ORIGINAL_FILENAME=12047_2.pdf
+          SOURCE_PDF_PAGE_COUNT=35
+          SELECTED_PDF_PAGES_1BASED=3,4,5,6
+          RENDER_DPI=170
+          OCR_USED=false
+          SOURCE_RETRIEVAL_GATES=PDF_MAGIC_AND_PAGECOUNT_AND_SIZE
+          P4_CANDIDATE=CONTINUATION_V12_CONTENTS
+          P5_CANDIDATE=CONTINUATION_V12_BODY_OPENING
+          SOURCE_DIGEST_NOT_PREBOUND_TO_COMMONS_FIRST_PARTY_SHA1=true
+          NO_GLYPH_VERDICT_FROM_AUTOMATED_RENDER=true
+          NO_1713_PREFACE_GLYPH_INFERENCE=true
+          NO_GAIZAO_LOUKE_TEXT_INFERENCE=true
+          EOF
+      - name: Upload source and page checksum evidence, not raw PDF
+        uses: actions/upload-artifact@v4
+        with:
+          name: ncl02260-part2-volume12-source-digest-pages-12pz
+          path: |
+            12pz-part2/pages/
+            12pz-part2/source-sha256.txt
+            12pz-part2/source-sha1.txt
+            12pz-part2/image-sha256.txt
+            12pz-part2/pdfinfo.txt
+            12pz-part2/manifest.txt
+          if-no-files-found: error
+          compression-level: 4
+          retention-days: 30
