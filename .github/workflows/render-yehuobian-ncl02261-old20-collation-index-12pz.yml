@@ -1,0 +1,91 @@
+name: render-yehuobian-ncl02261-old20-collation-index-12pz
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/render-yehuobian-ncl02261-old20-collation-index-12pz.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  render-primary-old20-source:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - name: Install PDF render utilities
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils
+
+      - name: Acquire NCL 02261 independent 20-volume manuscript digital surrogate
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p ncl02261-12pz/source ncl02261-12pz/pages
+          url='https://commons.wikimedia.org/wiki/Special:Redirect/file/NCL-02261_%E8%90%AC%E6%9B%86%E9%87%8E%E7%8D%B2%E7%B7%A8.pdf'
+          curl -L --fail --retry 5 --retry-all-errors --retry-delay 3 --max-time 1700 \
+            -A 'Tianwen-Historical-Provenance-R1/1.0' "$url" -o ncl02261-12pz/source/ncl02261.pdf
+          test "$(stat -c%s ncl02261-12pz/source/ncl02261.pdf)" -gt 100000000
+          sha256sum ncl02261-12pz/source/ncl02261.pdf > ncl02261-12pz/source-sha256.txt
+          sha1sum ncl02261-12pz/source/ncl02261.pdf > ncl02261-12pz/source-sha1.txt
+          pdfinfo ncl02261-12pz/source/ncl02261.pdf > ncl02261-12pz/pdfinfo.txt
+          test "$(awk '/^Pages:/ {print $2}' ncl02261-12pz/pdfinfo.txt)" = 534
+
+      - name: Render bounded sampled contents and later-volume pages without OCR
+        shell: bash
+        run: |
+          set -euo pipefail
+          for p in $(seq 1 20) 40 80 120 160 200 240 280 320 360 400 440 460 470 480 490 500 510 515 520 525 530 531 532 533 534; do
+            pdftoppm -f "$p" -l "$p" -scale-to 1200 -jpeg -jpegopt quality=82 \
+              -singlefile ncl02261-12pz/source/ncl02261.pdf \
+              "ncl02261-12pz/pages/ncl02261-p$(printf '%04d' "$p")"
+          done
+          (cd ncl02261-12pz && sha256sum pages/*.jpg > image-sha256.txt)
+          printf '%s\n' \
+            'NCL=02261' \
+            'COLLECTION_SHELFMARK=204.26 02261' \
+            'RECENSION=OLD_20_VOLUME_GREEN_GRID_MANUSCRIPT' \
+            'PDF_PAGES=534' \
+            'DIGITAL_UPLOAD_ORIGINAL=12048_1.pdf' \
+            'PDF_1BASED_PAGE_NOT_PHYSICAL_FOLIO=true' \
+            'PDF_CATALOG_YEAR_VARIANT=萬曆三十四年丙辰' \
+            'DIRECT_TARGET_PAGE_LOCATOR=NOT_ESTABLISHED' \
+            'DIFFERENT_FROM_NCL_02260=true' \
+            'NOT_AUTOMATICALLY_IDENTICAL_TO_INOUE_B_RECENSION=true' \
+            'SOURCE_SHA_FROZEN_AFTER_DOWNLOAD=true' \
+            'VISUAL_REVIEW_PENDING=true' \
+            'OCR=false' > ncl02261-12pz/manifest.txt
+
+      - name: Expose a few bounded image previews for independent human collation
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          from base64 import b64encode
+          for p in [1,2,3,6,12,18,400,500,520,534]:
+              f=Path(f"ncl02261-12pz/pages/ncl02261-p{p:04d}.jpg")
+              s=b64encode(f.read_bytes()).decode("ascii")
+              print(f"TIANWEN_NCL02261_IMAGE_BEGIN page={p} chars={len(s)}",flush=True)
+              for j in range(0,len(s),4000):
+                  print("TIANWEN_NCL02261_IMAGE_CHUNK "+s[j:j+4000],flush=True)
+              print(f"TIANWEN_NCL02261_IMAGE_END page={p}",flush=True)
+          PY
+
+      - name: Upload sampled independent original-image evidence and digests
+        uses: actions/upload-artifact@v4
+        with:
+          name: ncl02261-old20-index-sampled-leaves-12pz
+          path: |
+            ncl02261-12pz/pages/
+            ncl02261-12pz/image-sha256.txt
+            ncl02261-12pz/source-sha256.txt
+            ncl02261-12pz/source-sha1.txt
+            ncl02261-12pz/pdfinfo.txt
+            ncl02261-12pz/manifest.txt
+          retention-days: 30
+          if-no-files-found: error
