@@ -133,7 +133,14 @@ class Yehuobian12PZWitnessBoundaryTests(unittest.TestCase):
         actual = next(x for x in cross["volume_heading_evidence"] if x["volume"] == 20)
         self.assertEqual(actual["heading"], "萬曆肆拾伍丁巳卷二十")
         self.assertEqual(actual["physical_colophon_p145"], "萬曆野獲編二十卷紀事畢")
-        correction = cross["revision_history"][-1]
+        # Forward-only history is append-only: locate this correction by type,
+        # never by array position (later digest backfills are legitimate).
+        corrections = [
+            item for item in cross["revision_history"]
+            if item.get("type") == "CORRECT_PRIOR_PROJECT_GENERIC_VOLUME20_HEADING_FROM_ACTUAL_P137_GLYPH"
+        ]
+        self.assertEqual(len(corrections), 1)
+        correction = corrections[0]
         self.assertEqual(correction["previous_value"], "萬曆野獲編卷二十")
         self.assertEqual(correction["corrected_value"], actual["heading"])
         self.assertEqual(correction["new_external_metadata_defect_count"], 0)
@@ -149,7 +156,7 @@ class Yehuobian12PZWitnessBoundaryTests(unittest.TestCase):
         self.assertTrue(china["bounded_ten_page_visual_review_pass"])
         self.assertNotIn("the last ten PDF pages have all been glyph-reviewed", china["does_not_prove"])
         self.assertIn("a full character-by-character transcription of all ten reviewed PDF pages", china["does_not_prove"])
-        self.assertFalse(china["physical_heading_revision_20261010"]["not_an_old20_target_leaf_collation"] is False)
+        self.assertTrue(china["physical_heading_revision_20261010"]["not_an_old20_target_leaf_collation"])
         self.assertTrue(digest["preexisting_direct_page_read"]["previous_reading_is_superseded_as_literal_glyph"])
         self.assertEqual(digest["preexisting_direct_page_read"]["corrected_literal_page137_reading"], "萬曆肆拾伍丁巳卷二十")
         self.assertEqual(china["physical_heading_revision_20261010"]["corrected_literal_page137"], "萬曆肆拾伍丁巳卷二十")
