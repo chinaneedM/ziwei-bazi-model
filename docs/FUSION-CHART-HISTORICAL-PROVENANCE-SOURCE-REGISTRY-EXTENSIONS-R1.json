@@ -1,21 +1,28 @@
 {
   "schema": "FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1",
-  "schema_version": "1.0.0",
+  "schema_version": "1.1.0",
   "date": "2026-10-10",
   "root_registry": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json",
   "root_registry_blob_sha": "ea2ab50479450c39ce3fc7a00ea91cd713bf4a60",
   "root_source_count": 647,
-  "extension_source_count": 5,
-  "combined_source_count": 652,
+  "extension_source_count": 6,
+  "combined_source_count": 653,
   "shards": [
     {
       "path": "docs/research/MING-DATONG-YEHUOBIAN-12QE-EXTERNAL-SOURCE-REGISTRY-DELTA-R1.json",
       "schema": "MING-DATONG-YEHUOBIAN-12QE-EXTERNAL-SOURCE-REGISTRY-DELTA-R1",
       "blob_sha": "498ec4b80bfd7eca14b98b5642d8547ca32038d6",
       "source_count": 5
+    },
+    {
+      "path": "docs/research/MING-DATONG-YEHUOBIAN-12QE-CADAL02096915-SOURCE-SHARD-R1.json",
+      "schema": "MING-DATONG-YEHUOBIAN-12QE-CADAL02096915-DIRECT-IMAGE-SOURCE-SHARD-R1",
+      "blob_sha": "80256daed007a7e5d1e59c3ab269a7e608d4f764",
+      "source_count": 1
     }
   ],
-  "authority_policy": "All five extension records are received-text or bibliographic locator evidence. No physical target-glyph authority is established.",
+  "authority_policy": "Five original extension records are received/bibliographic locator controls with no direct glyph authority; one new CADAL printed-source image record is permitted only with source digest, exact page-level JPEG digests, and edition/date/lineage scope firewall. Runtime authority remains prohibited.",
   "update_rule": "Append a new validated shard in future or deliberately revise the manifest with a forward-only source-record correction. Preserve root registry bytes and revalidate Git blob SHA.",
-  "research_evidence": "docs/research/MING-DATONG-YEHUOBIAN-12QE-RECEIVED-TEXT-LOCATOR-CORRECTION-R1.json"
+  "research_evidence": "docs/research/MING-DATONG-YEHUOBIAN-12QE-RECEIVED-TEXT-LOCATOR-CORRECTION-R1.json",
+  "additional_research_evidence": "docs/research/MING-DATONG-YEHUOBIAN-12QE-CADAL02096915-V20-DIRECT-TARGET-GLYPH-R1.json"
 }

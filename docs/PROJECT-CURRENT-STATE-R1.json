@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.450.0",
+  "schema_version": "1.451.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -2675,14 +2675,17 @@
       "12QE interim crosswalk (not batch closed): physically scoped early Ming Yingzong Shilu v160 1447 Peng Deqing memorial (prior 12CF) and modern Shidian transcript read Beijing winter 辰初一刻, summer 戌初一刻; Qing Wang Hongxu Mingshigao later digital received text also has 一刻/一刻, and Shanghai image 12QC has 一刻/一刻. CText Yehuobian received text has 二刻/二刻. Yuan Shi v52 independently has an earlier Yuan-dynasty Beijing solstice profile with 二刻/二刻 and 62/38 totals. This is cross-era technical comparison only; no direct transmission edge, 1827 printed leaf, old20 target folio, or algorithm winner.",
       "12QE manuscript structure check: NLC 411999003250 fascicle10 p1 visibly says Wanli 43 乙卯 and 卷十八, p81 says Wanli 44 丙辰, p145 says 萬曆野獲編二十卷紀事畢. Late-Wanli narrative sequence means 1827 30v thematic volume 20 cannot locate the original-old20 target by matching volume number. No exhaustive negative search.",
       "12QE forward-only correction: earlier Shidian Wang Hongxu Ming Shi Gao target URL did not expose Peng Deqing/漏箭 on direct page recheck; previous one-ke attestation to that exact URL is QUARANTINED. Earlier CText Yuan Shi URL returns 403. New directly accessible Wikisource Yehuobian received text instead reads Beijing winter 二刻 / summer 一刻, distinct from 12QD CText earlier 二/二 and 12QC Shanghai image 一/一; no physical copy or edition stemma inferred.",
-      "12QE source registry growth: frozen root 647 rows at blob ea2ab50479450c39ce3fc7a00ea91cd713bf4a60; signed manifest of extension shard now totals 5 new evidence records and 652 unique IDs, with new CI gate rejecting root/shard tampering, identity collisions, missing source status or false physical-glyph authority. Latest CLOSED batch remains 12QD; 12QE remains OPEN. Continue original-old20 and 1827 printed target leaf acquisition."
+      "12QE source registry growth: frozen root 647 rows at blob ea2ab50479450c39ce3fc7a00ea91cd713bf4a60; signed manifest of extension shard now totals 5 new evidence records and 652 unique IDs, with new CI gate rejecting root/shard tampering, identity collisions, missing source status or false physical-glyph authority. Latest CLOSED batch remains 12QD; 12QE remains OPEN. Continue original-old20 and 1827 printed target leaf acquisition.",
+      "12QE new CADAL02096915 no-OCR direct image checkpoint: digitally imaged fascicle 十六 has original work volume20 table of contents p65-66 (改造漏刻 listed p66), printed target heading/body p121 and continuation p122. Image SHA256 and page hashes are committed in 12QE CADAL target evidence; this is ONE image-bearing witness, not a proven independent lineage.",
+      "12QE CADAL exact target glyphs: 今宮禁及官府漏箭, 是時禁中宮漏循用新製不待言; 北京冬至日出辰初二刻, 夏至日入戌初三刻. This two/three print reading differs from Shanghai 12QC direct one/one, Wikisource two/one, and earlier CText two/two; do not collapse the four scoped readings or grant runtime authority.",
+      "12QE remains OPEN: printed 扶荔山房 imprint visible at p120 does not independently certify 1827 impression or physical holding; independent original-old20 manuscript target and institutional edition/copy binding still unresolved. Root registry unchanged 647, extensions now 6, combined 653; MD-G03 OPEN, HPA-DAYUN-CAL-002 MISSING_FROM_PRODUCT, chart R1 CLOSED, algorithms unchanged."
     ],
     "historical_candidate_extension_count": 14,
     "current_missing_from_product_row_count": 4,
     "external_source_registry_extension_manifest": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json",
     "external_source_registry_root_count": 647,
-    "external_source_registry_extension_count": 5,
-    "external_source_registry_total_unique_count": 652
+    "external_source_registry_extension_count": 6,
+    "external_source_registry_total_unique_count": 653
   },
   "new_chat_bootstrap_order": [
     "read live GitHub branch HEAD and tree SHA",

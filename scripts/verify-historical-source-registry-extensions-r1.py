@@ -74,9 +74,33 @@ def verify(root: Path) -> dict:
                 fail(f"incomplete source record: {path}")
             if type(item.get("physical_glyph_authority")) is not bool:
                 fail("physical_glyph_authority must be an explicit bool")
-            if item["physical_glyph_authority"] is not False:
-                fail("unreviewed external source shard cannot claim physical glyph authority")
-            if item["verification_status"] not in {"RECEIVED_TEXT_VERIFIED", "UNVERIFIED_TARGET_LOCATOR_QUARANTINED", "ACCESS_BOUNDARY_UNVERIFIED", "BIBLIOGRAPHIC_METADATA_ONLY"}:
+            if item["physical_glyph_authority"]:
+                if item["verification_status"] != "DIRECT_SOURCE_IMAGE_GLYPH_COLLATED_EDITION_UNBOUND":
+                    fail("physical glyph authority requires direct source-image status")
+                attestation = item.get("direct_image_attestation")
+                if not isinstance(attestation, dict):
+                    fail("physical glyph authority requires page-level attestation")
+                source_sha = attestation.get("source_sha256")
+                page_shas = attestation.get("page_sha256")
+                if not (isinstance(source_sha, str) and len(source_sha) == 64
+                        and all(c in "0123456789abcdef" for c in source_sha)
+                        and isinstance(page_shas, dict) and page_shas):
+                    fail("physical glyph authority requires source hash and page hashes")
+                for page, page_sha in page_shas.items():
+                    if not (isinstance(page, str) and page.isdecimal()
+                            and isinstance(page_sha, str) and len(page_sha) == 64
+                            and all(c in "0123456789abcdef" for c in page_sha)):
+                        fail("invalid direct source-image page digest")
+                witness = json.loads(verified_path(root, item["evidence"]).read_text(encoding="utf-8")).get("witness", {})
+                if (witness.get("source_sha256") != source_sha or
+                    witness.get("source_url") != attestation.get("source_url") or
+                    witness.get("edition_impression_date_bound") is not False or
+                    witness.get("physical_copy_catalog_identity_bound") is not False):
+                    fail("direct image source identity or edition boundary mismatch")
+                witnessed_pages = {str(p["page"]): p["sha256"] for p in witness.get("manually_collated_pages", [])}
+                if any(witnessed_pages.get(page) != sha for page, sha in page_shas.items()):
+                    fail("direct image page hashes not independently declared in evidence")
+            elif item["verification_status"] not in {"RECEIVED_TEXT_VERIFIED", "UNVERIFIED_TARGET_LOCATOR_QUARANTINED", "ACCESS_BOUNDARY_UNVERIFIED", "BIBLIOGRAPHIC_METADATA_ONLY"}:
                 fail("unrecognized source verification status")
             sid = item["source_id"]
             if sid in seen:

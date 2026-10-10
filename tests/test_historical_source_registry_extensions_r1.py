@@ -59,6 +59,31 @@ class ExtensionRegistryGateR1Test(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "verification status"):
             gate.verify(self.root)
 
+    def test_scoped_direct_image_requires_matching_digests_and_unbound_edition(self):
+        evidence = self.root / "docs/research/evidence.json"
+        sha, page_sha = "a"*64, "b"*64
+        evidence.write_text(json.dumps({"witness": {"source_url": "https://example.org/scan",
+            "source_sha256": sha, "edition_impression_date_bound": False,
+            "physical_copy_catalog_identity_bound": False,
+            "manually_collated_pages": [{"page": 121, "sha256": page_sha}]}}), encoding="utf-8")
+        self.row.update({"physical_glyph_authority": True,
+            "verification_status": "DIRECT_SOURCE_IMAGE_GLYPH_COLLATED_EDITION_UNBOUND",
+            "evidence": "docs/research/evidence.json",
+            "direct_image_attestation": {"source_url": "https://example.org/scan",
+                "source_sha256": sha, "page_sha256": {"121": page_sha}}})
+        self.set_data()
+        self.assertEqual(gate.verify(self.root)["extension_source_count"], 1)
+        evidence.write_text(evidence.read_text().replace(page_sha, "c"*64), encoding="utf-8")
+        with self.assertRaisesRegex(ValueError, "page hashes"):
+            gate.verify(self.root)
+
+    def test_direct_image_claim_without_attestation_fails(self):
+        self.row.update({"physical_glyph_authority": True,
+                         "verification_status": "DIRECT_SOURCE_IMAGE_GLYPH_COLLATED_EDITION_UNBOUND"})
+        self.set_data()
+        with self.assertRaisesRegex(ValueError, "page-level attestation"):
+            gate.verify(self.root)
+
     def test_source_tampering_fails(self):
         self.shard.write_text(self.shard.read_text() + " ", encoding="utf-8")
         with self.assertRaisesRegex(ValueError, "shard hash mismatch"):
