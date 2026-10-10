@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.455.0",
+  "schema_version": "1.456.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -2687,7 +2687,9 @@
       "12QG forward-only philological repair: 12QE NLC411999003250 source p137 mistakenly stored a generic bibliographic heading 萬曆野獲編卷二十 as literal; source original actually writes 萬曆肆拾伍丁巳卷二十 with separate 野獲編 byline. Earlier 12PZ direct source already had the correct literal; new scoped correction ledger, repaired 12QE field/prose and regression tests preserve the old claim through Git history without inventing new witness.",
       "12QE remains OPEN after 12QG. The p145 colophon 萬曆野獲編二十卷紀事畢 and p137 dated opening are distinct; no change to nine-page scoped negative, source registry 647+7=654, Matrix 222/222, metadata defect repaired 45/45, MD-G03 OPEN, HPA-DAYUN-CAL-002 MISSING_FROM_PRODUCT, chart R1 CLOSED.",
       "12QH: clean-training-system for 08d9fbf failed Full unittest 1/2149 because the new nine-page target test mistakenly expected only p137–145 in review ledger, which also stores context p136. Corrected test separately asserts ten imaged pages136–145 and nine target pages137–145; original source review remains unchanged.",
-      "12QG source-heading literal correction remains effective. Historical Matrix 222/222, provenance defects45/45, extension sources7/root647/total654, chart R1 CLOSED, algorithm defect0. New exact-HEAD CI still required."
+      "12QG source-heading literal correction remains effective. Historical Matrix 222/222, provenance defects45/45, extension sources7/root647/total654, chart R1 CLOSED, algorithm defect0. New exact-HEAD CI still required.",
+      "12QI source acquisition staged, NOT target attestation: first three distinct digital PDF fascicles (catalog labels old20 volumes 1–7; 119+72+121=312 pages) of ONE NLC411999003250 physical holding, with separate SHA256 per source/page/contacts, no OCR or inferred page glyph. Use corresponding run artifact for manual page localization. This does not establish 改造漏刻 presence/absence, physical copies, edition genealogy or clock regime.",
+      "Exact-HEAD CI for previous 12QH was still running full unittest at start of this session; do not claim success without explicit completed/success. Product R1 remains CLOSED; Matrix 222/222, metadata repair 45/45, root647 + extension7 = 654; MD-G03 OPEN and HPA-DAYUN-CAL-002 MISSING_FROM_PRODUCT."
     ],
     "historical_candidate_extension_count": 14,
     "current_missing_from_product_row_count": 4,
