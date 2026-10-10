@@ -178,5 +178,38 @@
     "Review p10 cyclical inscription at larger rendering resolution before final named scribe/gregorian year.",
     "Bind Shanghai scanned copy to first-party catalog and check provenance of three separate PDF objects.",
     "Get print-specific 1827/1869 and NDL 1700 target glyph pages; keep 12PZ open."
+  ],
+  "high_resolution_inscription_followup": {
+    "source_page": 10,
+    "original_sha256": "83f7b3384d1ccdff831bb7e7416c4dac6f6cdcecc6068ff295d4b6c32ea1668a",
+    "source_direct_300dpi_workflow_run": 38023335422,
+    "source_direct_300dpi_run_conclusion": "success",
+    "source_direct_300dpi_artifact_id": 11659765350,
+    "source_direct_300dpi_artifact_zip_sha256": "3475faed46b782c38906464822410c907d0f7ce4753998ee1db3b2650ee55ed8",
+    "exact_existing_300dpi_artifact_subset_workflow_run": 38023454702,
+    "existing_artifact_sha256_manifest_checked": "PASS",
+    "subset_artifact_id": 11659825453,
+    "subset_artifact_zip_sha256": "0a24f454d635d1e390f39fe0f80f1a9553f71404df21b4c7637e310e166e595b",
+    "subset_preview_base64_length_matched": true,
+    "image_crop_type": "rightmost 54% of source 300DPI p10 right-facing page",
+    "no_ocr": true,
+    "direct_copying_inscription": "壬申菊月錄于塘灣館舍",
+    "direct_signatory": "嘉禾李含潤",
+    "direct_qianfang_editorial_inscription": "康熙庚辰八月桐鄉錢枋識",
+    "yearly_status": "REN_SHEN_ONLY_NO_UNIQUE_GREGORIAN_YEAR",
+    "person_status": "VISIBLE_SIGNATORY_NOT_BIOGRAPHICALLY_IDENTIFIED_OR_SOURCE_BOUNDED_TO_EPOCH",
+    "interpretation": "The copy identifies a 壬申 calendrical inscription and a named 嘉禾 李含潤 signature separately from a copied 1700 Qian Fang editorial inscription. This does not identify the physical date of each of the three digital PDF parts or prove direct transmission to 1827 print.",
+    "target_page_fingerprint_improved": true,
+    "material_original_print_impression_year_still_unverified": true
+  },
+  "revision_history": [
+    {
+      "date": "2026-10-10",
+      "batch": "12PZ_IN_PROGRESS",
+      "prior_status": "PDF1 p10 cyclical copying inscription and signatory pending close-up; absolute year unresolved",
+      "new_status": "Copying inscription 壬申菊月錄于塘灣館舍 and signatory 嘉禾李含潤 directly read on checksum-verified 300DPI image-derived crop; absolute year still unresolved",
+      "evidence_run_id": 38023454702,
+      "consequence": "PHILOLOGICAL_PHYSICAL_GLYPH_ADJUDICATION_ONLY; NO_DATE_INFERENCE_OR_ALGORITHM_CHANGE"
+    }
   ]
 }
