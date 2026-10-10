@@ -961,9 +961,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-BAZI-MING-DATONG-LOUJIAN-LATE-WANLI-RECEPTION-PW",
     "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-20-30-RECENSION-CROSSWALK-PX",
     "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-OLD20-SCHOLARLY-COLLATION-CONTROLS-PY",
+    "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-KOREA-CNTS-BOUNDARY-PZ",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-OLD20-SCHOLARLY-COLLATION-CONTROLS-PY.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-KOREA-CNTS-BOUNDARY-PZ.md"
 
 
 def fail(message: str) -> None:
@@ -5304,6 +5305,41 @@ def main() -> int:
         fail("supplemental Matrix rule-audit ledger is invalid or absent from continuity chronology")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail(f"current-state latest batch drift: {audit_state.get('latest_batch_doc')!r}")
+
+    # Batch 12PZ preserves exact source-image identity and bounded volume semantics.
+    pz_path = ROOT / "docs/research/MING-DATONG-YEHUOBIAN-12PZ-KOREA-CNTS-11-12-BOUNDARY-R1.json"
+    if not pz_path.is_file():
+        fail("Batch 12PZ source-image collation evidence missing")
+    pz = json.loads(pz_path.read_text(encoding="utf-8"))
+    if pz.get("batch_id") != "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-KOREA-CNTS-BOUNDARY-PZ":
+        fail("Batch 12PZ batch identity mismatch")
+    pz_parts = pz.get("parts", [])
+    if len(pz_parts) != 2 or [p.get("part") for p in pz_parts] != [11, 12]:
+        fail("Batch 12PZ segment boundaries missing")
+    pz_expected = [
+        (142, "3df614d550e4d597ff28031951bdfa272f019ba2d21a6c485ce7f9f024f7ba9a",
+         [(2, "野獲編卷十六目錄"), (142, "野獲編卷十七終")]),
+        (86, "f35c806fb2b70ca22768cf0bdc013fef67b8985403ec8266bb3165b2b792f39c",
+         [(2, "野獲編卷十八目錄"), (86, "野獲編卷十八終")]),
+    ]
+    for part, (pages, digest, expected_readings) in zip(pz_parts, pz_expected):
+        if part.get("pdf_pages") != pages or part.get("pdf_sha256") != digest:
+            fail("Batch 12PZ source PDF page identity or SHA256 regressed")
+        readings = part.get("readings", [])
+        if [(r.get("pdf_page"), r.get("direct_reading")) for r in readings] != expected_readings:
+            fail("Batch 12PZ physical page marker collation regressed")
+        if any(len(r.get("image_sha256", "")) != 64 for r in readings):
+            fail("Batch 12PZ exact image digests absent")
+    pz_adjudication = pz.get("adjudication", {})
+    if pz_adjudication.get("volume20_target_section_absent_from_entire_copy") != "NOT_PROVEN":
+        fail("Batch 12PZ bounded negative-search firewall regressed")
+    if pz_adjudication.get("guo_gong_glyph") != "NOT_PHYSICALLY_COLLATED":
+        fail("Batch 12PZ target glyph scope overstated")
+    if pz_adjudication.get("md_g03") != "OPEN_BLOCKING_GENERAL_ADAPTER" or pz_adjudication.get("algorithm_reopen_authorized") is not False:
+        fail("Batch 12PZ deterministic chart firewall regressed")
+    pz_entry = {src.get("source_id"): src for src in registry.get("sources", ())}.get("EXT-NLK-CNTS-00047974753-YEHUOBIAN-12SEGMENT-ROUTE")
+    if not pz_entry or pz_entry.get("latest_direct_image_boundary_evidence") != str(pz_path.relative_to(ROOT)):
+        fail("Batch 12PZ source registry reference mismatch")
 
     # Batch 11U remains the controlling catalog-item identity gate.
     if identity_evidence.get("status") != "DIRECT_NO_OCR_1940_PRECIOUS_BOOK_NUMBER_893_BINDING_CLOSES_CATALOG_ITEM_CONTINUITY":
