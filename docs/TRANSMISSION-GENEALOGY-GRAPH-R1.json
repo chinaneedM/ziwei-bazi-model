@@ -4658,6 +4658,36 @@
         "docs/research/MING-DATONG-YEHUOBIAN-OLD20-COLLATION-SCHOLARLY-CONTROL-R1.json"
       ],
       "first_explicit_graph_batch": "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-OLD20-SCHOLARLY-COLLATION-CONTROLS-PY"
+    },
+    {
+      "node_id": "DIGITAL-SURROGATE-YEHUOBIAN-SHLIB-ATTRIBUTED-GJ2312912",
+      "node_type": "DIGITAL_SURROGATE",
+      "label": "Commons三分件GJ2312912《萬曆野獲編》数字影像（上海馆归属标注未获官方实物绑定）",
+      "evidence": [
+        "EXT-SHLIB-ATTRIBUTED-GJ2312912-YEHUOBIAN-30V-COMMONS-MIRROR",
+        "docs/research/MING-DATONG-YEHUOBIAN-12QC-SHLIB-GJ2312912-P441-DIRECT-TARGET-GLYPH-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-GJ2312912-DIRECT-TARGET-GLYPH-QC.md"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-GJ2312912-DIRECT-TARGET-GLYPH-QC",
+      "work_composition_date": "MING_WANLI_WORK",
+      "edition_impression_date": null,
+      "physical_copy_date": null,
+      "digital_surrogate_date": "UNBOUND_SCAN_DATE; 2024_PUBLIC_MIRROR_UPLOAD_ONLY",
+      "underlying_physical_copy_binding": "UNRESOLVED"
+    },
+    {
+      "node_id": "PASSAGE-YEHUOBIAN-GJ2312912-GAIZAO-LOUKE",
+      "node_type": "PASSAGE",
+      "label": "dGJ2312912 part2 PDF441/global991〈改造漏刻〉可见官府漏箭、禁中宮漏、不待言",
+      "evidence": [
+        "EXT-SHLIB-ATTRIBUTED-GJ2312912-YEHUOBIAN-30V-COMMONS-MIRROR",
+        "docs/research/MING-DATONG-YEHUOBIAN-12QC-SHLIB-GJ2312912-P441-DIRECT-TARGET-GLYPH-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-GJ2312912-DIRECT-TARGET-GLYPH-QC.md"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-GJ2312912-DIRECT-TARGET-GLYPH-QC",
+      "source_image_sha256": "c452e18d8da8f70114a5592a917f7bfc2611a610ba36ebf208b39d969c7a0d50",
+      "physical_original_folio": "UNRESOLVED",
+      "underlying_edition": "UNBOUND"
     }
   ],
   "edges": [
@@ -8213,6 +8243,22 @@
       ],
       "scope_note": "Record says 丙辰 while distinct old-MS catalog plus received text gives 丙午; the published 2019 comparison also identifies a B-case 丙辰 error, but identities remain unbound.",
       "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-OLD20-SCHOLARLY-COLLATION-CONTROLS-PY"
+    },
+    {
+      "edge_id": "TG-E0233",
+      "from": "PASSAGE-YEHUOBIAN-GJ2312912-GAIZAO-LOUKE",
+      "relation": "ATTESTS",
+      "to": "TERM-CONCEPT-ZHENGTONG12-LATE-RETROSPECTIVE-ADOPTION-ASSERTION",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_FOR_PAGE_GLYPH_AND_LATE_TEXTUAL_ASSERTION_ONLY",
+      "evidence_class": "DIRECT_MANUALLY_VIEWED_DIGITAL_SURROGATE_PAGE",
+      "evidence": [
+        "EXT-SHLIB-ATTRIBUTED-GJ2312912-YEHUOBIAN-30V-COMMONS-MIRROR",
+        "docs/research/MING-DATONG-YEHUOBIAN-12QC-SHLIB-GJ2312912-P441-DIRECT-TARGET-GLYPH-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-GJ2312912-DIRECT-TARGET-GLYPH-QC.md"
+      ],
+      "scope_note": "Only attests that this digitized page says 禁中宮漏循用新製不待言; no evidence that 1447 construction finished, 1450 observer/clock calibrated, Shanghai catalog copy identified or 1827/old20 target same wording.",
+      "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-GJ2312912-DIRECT-TARGET-GLYPH-QC"
     }
   ],
   "lineage_hypotheses": [
@@ -9224,5 +9270,5 @@
     "first_explicit_seed_batch": "BATCH-12-ZIWEI-SISHI-QIHOU-JINGTAI6-TONGSHU-TABLE-CONTROL-CH",
     "future_material_batches_require_transmission_impact": true
   },
-  "updated_at": "2026-10-09"
+  "updated_at": "2026-10-10"
 }
