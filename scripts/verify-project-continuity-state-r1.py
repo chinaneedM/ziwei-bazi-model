@@ -965,9 +965,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-GJ2312912-IMAGE-ROUTE-QA",
     "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-GJ2312912-DENSE-IMAGE-INDEX-QB",
     "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-GJ2312912-DIRECT-TARGET-GLYPH-QC",
+    "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-FIRSTPARTY-AND-OLD20-ATLAS-QD",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-GJ2312912-DIRECT-TARGET-GLYPH-QC.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-FIRSTPARTY-AND-OLD20-ATLAS-QD.md"
 
 
 def fail(message: str) -> None:
@@ -5415,6 +5416,52 @@ def main() -> int:
     if qc_node_ids != {"DIGITAL-SURROGATE-YEHUOBIAN-SHLIB-ATTRIBUTED-GJ2312912","PASSAGE-YEHUOBIAN-GJ2312912-GAIZAO-LOUKE"} or qc.get("transmission_impact",{}).get("edges_supported") != ["TG-E0233"]:
         fail("Batch 12QC transmission impact references drifted")
 
+
+
+    # Batch 12QD: public-route boundary + all-page *capture* is not physical target-glyph collation.
+    qd_path = ROOT / "docs/research/MING-DATONG-YEHUOBIAN-12QD-SHLIB-FIRSTPARTY-AND-NLC-OLD20-ATLAS-R1.json"
+    if not qd_path.is_file():
+        fail("Batch 12QD machine evidence missing")
+    qd = json.loads(qd_path.read_text(encoding="utf-8"))
+    if qd.get("batch_id") != "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-FIRSTPARTY-AND-OLD20-ATLAS-QD":
+        fail("Batch 12QD identity drift")
+    sp = qd.get("shlib_public_route_probe", {})
+    if sp.get("run_id") != 38044509548 or sp.get("artifact_id") != 11667052185:
+        fail("Batch 12QD first-party public-probe identity drift")
+    urls = {v.get("label"): v for v in sp.get("public_roots", [])}
+    for label in ("public_shlib_catalog", "legacy_shlib_gjxz_landing"):
+        if urls.get(label, {}).get("status") != 412:
+            fail("Batch 12QD public portal HTTP boundary drift")
+    if sp.get("first_party_shlib_item_identity") != "UNBOUND" or sp.get("scan_to_item_bridge") != "UNPROVEN":
+        fail("Batch 12QD first-party source-identity collapse")
+    if sp.get("login_attempted") is not False or sp.get("auth_bypass_attempted") is not False or sp.get("provider_id_guessing_attempted") is not False:
+        fail("Batch 12QD access firewall drift")
+    api = qd.get("official_open_data_key_scope", {})
+    if api.get("endpoint_response_tested_this_batch") is not False or api.get("unapproved_credentials_used") is not False:
+        fail("Batch 12QD unauthorized API claim")
+    old20 = qd.get("nlc_old20_direct_raster_atlas", {})
+    if old20.get("original_pdf_sha256") != "8e746faaadcd961c7983981d419862d97fdc2a1f3ec33ecb02046e9e79a6376c" or old20.get("pdf_pages") != 145 or old20.get("captured_page_images") != 145 or old20.get("contact_sheets") != 19:
+        fail("Batch 12QD old20 physical-page fingerprint or count drift")
+    if old20.get("upstream_run") != 38044584678 or old20.get("artifact_id") != 11666856770:
+        fail("Batch 12QD old20 capture execution identity drift")
+    if old20.get("manual_full_book_review") is not False or old20.get("heading_to_source_pdf_page") != "UNRESOLVED" or old20.get("no_target_paragraph_in_145_pages") != "NOT_PROVEN" or old20.get("independent_target_glyph_voters_added") != 0:
+        fail("Batch 12QD capture-to-collation or negative-search firewall drift")
+    variants = qd.get("received_text_comparison", {}).get("variant_loci", [])
+    if [(z.get("locus"),z.get("source_scanned"),z.get("ctext"),z.get("shidian")) for z in variants] != [
+        ("GONGJIN_WORD","宮禁","官禁","宫禁"),
+        ("PALACE_CLOCK_NOUN","禁中宮漏","禁中官漏","禁中宫漏"),
+        ("BEIJING_WINTER_SUNRISE_KE","辰初一刻","辰初二刻","辰初一刻"),
+        ("BEIJING_SUMMER_SUNSET_KE","戌初一刻","戌初二刻","戌初一刻"),
+    ]:
+        fail("Batch 12QD source-scoped philology variants drift")
+    if qd.get("received_text_comparison",{}).get("difference_proven_to_be_scribal_error") is not False:
+        fail("Batch 12QD digital-reception variance overadjudicated")
+    jd = qd.get("disposition", {})
+    if jd.get("chart_product") != "CLOSED" or jd.get("md_g03") != "OPEN_BLOCKING_GENERAL_ADAPTER" or jd.get("hpa_dayun_cal_002") != "MISSING_FROM_PRODUCT" or jd.get("runtime_change_authorized") is not False or jd.get("genealogy_graph_changed") is not False:
+        fail("Batch 12QD runtime/genealogy scope violation")
+    nlc_src = {s.get("source_id"): s for s in registry.get("sources", [])}.get("EXT-WIKIMEDIA-NLC411999003250-YEHUOBIAN-MS-V10-18-20")
+    if not nlc_src or nlc_src.get("batch_12qd_atlas_evidence") != str(qd_path.relative_to(ROOT)) or nlc_src.get("physical_glyph_authority") is not False:
+        fail("Batch 12QD NLC source registry capture-vs-glyph drift")
 
     # Batch 11U remains the controlling catalog-item identity gate.
     if identity_evidence.get("status") != "DIRECT_NO_OCR_1940_PRECIOUS_BOOK_NUMBER_893_BINDING_CLOSES_CATALOG_ITEM_CONTINUITY":

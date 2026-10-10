@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.449.0",
+  "schema_version": "1.450.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -530,9 +530,10 @@
       "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-KOREA-CNTS-BOUNDARY-PZ",
       "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-GJ2312912-IMAGE-ROUTE-QA",
       "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-GJ2312912-DENSE-IMAGE-INDEX-QB",
-      "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-GJ2312912-DIRECT-TARGET-GLYPH-QC"
+      "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-GJ2312912-DIRECT-TARGET-GLYPH-QC",
+      "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-FIRSTPARTY-AND-OLD20-ATLAS-QD"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-GJ2312912-DIRECT-TARGET-GLYPH-QC.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-FIRSTPARTY-AND-OLD20-ATLAS-QD.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -2666,7 +2667,11 @@
       "Next 12QC: examine dense source pages visually for specific target passage/printed folio and obtain first-party Shanghai copy identity plus independent 1827/old20 witness.",
       "12QC: Refetched SHA-verified 12QB part2 image artifact 11665913148 and directly visually read PDF p441/global991: 〈改造漏刻〉, 官府漏箭 (官) and 禁中宮漏 (宮), 不待言. Adjacent p440 渾天儀 / p442 釐正曆法 page headings bind target digital locator. See machine evidence, image SHA-256 and batch MD.",
       "12QC: This is exactly one source-scoped digital-glyph witness, NOT proof of independent edition identity, Qing-early physical copy dating, 1447 rebuild completion, 1450 clock coordinate, or old20/1827 variant identity. Shanghai official copy/folio identity remains UNBOUND; algorithm unchanged.",
-      "Next 12QD: bind first-party Shanghai dGJ2312912 copy metadata, then independently visually collate 改造漏刻 folio/官府漏箭/禁中宮漏/不待言 in verified 1827 print and authorial old20 manuscripts. MD-G03 OPEN; HPA-DAYUN-CAL-002 MISSING_FROM_PRODUCT; chart R1 CLOSED."
+      "Next 12QD: bind first-party Shanghai dGJ2312912 copy metadata, then independently visually collate 改造漏刻 folio/官府漏箭/禁中宮漏/不待言 in verified 1827 print and authorial old20 manuscripts. MD-G03 OPEN; HPA-DAYUN-CAL-002 MISSING_FROM_PRODUCT; chart R1 CLOSED.",
+      "12QD: Official Shanghai generic catalog roots org/shl and gjxz/index returned HTTP 412 in bounded anonymous GitHub-runner probe 38044509548/artifact11667052185; official Shlib digital humanities and opendata landing pages returned HTTP200. These are service access bounds, NOT first-party GJ2312912 identity or record absence.",
+      "12QD: NLC 411999003250 tenth fascicle 145-page old20 manuscript digital copy captured as 145 JPG + 19 contact sheets, PDF SHA256 8e746faaadcd961c7983981d419862d97fdc2a1f3ec33ecb02046e9e79a6376c, workflow 38044584678/artifact11666856770, no OCR. Selected sheets viewed only; no direct old20 改造漏刻 target page/glyph, no 145-page negative search.",
+      "12QD: Four source-scoped reception variant loci against direct Shanghai page: 宮禁/官禁, 禁中宮漏/官漏, 北京冬至日出辰初一/二刻, 北京夏至日入戌初一/二刻. Shidian received text agrees Shanghai direct image for these loci, while CText differs; not edition identity or demonstrated scribal/OCR error.",
+      "Next 12QE: manually locate a source-bound original old20 target passage plus 1827 printed target leaf, preserve Shlib catalog 412/access/key firewall; MD-G03 OPEN_BLOCKING_GENERAL_ADAPTER, HPA-DAYUN-CAL-002 MISSING_FROM_PRODUCT, Product R1 CLOSED, genealogy unchanged."
     ],
     "historical_candidate_extension_count": 14,
     "current_missing_from_product_row_count": 4

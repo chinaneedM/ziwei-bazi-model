@@ -1,0 +1,180 @@
+{
+  "schema": "MING-DATONG-YEHUOBIAN-12QD-SHLIB-FIRSTPARTY-AND-NLC-OLD20-ATLAS-R1",
+  "schema_version": "1.0.0",
+  "date": "2026-10-10",
+  "batch_id": "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-FIRSTPARTY-AND-OLD20-ATLAS-QD",
+  "question": "Can an official Shanghai Library catalog item/physical-copy binding for dGJ2312912 be resolved, and can a separate NLC old-20v manuscript target glyph be directly collated without using OCR or received-text copy shortcuts?",
+  "shlib_public_route_probe": {
+    "workflow": "probe-yehuobian-shlib-public-catalog-12qd",
+    "run_id": 38044509548,
+    "conclusion": "success",
+    "artifact_id": 11667052185,
+    "artifact_name": "shlib-gj2312912-public-catalog-12qd",
+    "source_portal_help": "https://dhblog.library.sh.cn/zh-hant/node/3",
+    "official_public_catalog_root": "https://gj.library.sh.cn/org/shl",
+    "public_roots": [
+      {
+        "label": "public_shlib_catalog",
+        "url": "https://gj.library.sh.cn/org/shl",
+        "status": 412,
+        "evidence": "GITHUB_RUNNER_HTTP_412_ONLY"
+      },
+      {
+        "label": "legacy_shlib_gjxz_landing",
+        "url": "https://gj.library.sh.cn/gjxz/index",
+        "status": 412,
+        "evidence": "GITHUB_RUNNER_HTTP_412_ONLY"
+      },
+      {
+        "label": "first_party_shlib_dh_service",
+        "url": "https://www.library.sh.cn/service/service/11",
+        "status": 200,
+        "evidence": "OFFICIAL_SERVICE_INDEX_ONLY_NOT_ITEM"
+      },
+      {
+        "label": "first_party_shlib_opendata",
+        "url": "https://opendata.library.sh.cn/",
+        "status": 200,
+        "evidence": "OFFICIAL_OPEN_DATA_HOME_ONLY_NOT_ITEM"
+      },
+      {
+        "label": "official_shlib_help",
+        "url": "https://dhblog.library.sh.cn/zh-hant/node/3",
+        "status": null,
+        "evidence": "GITHUB_RUNNER_CERTIFICATE_VERIFY_FAILED_NOT_NEGATIVE_SEARCH"
+      }
+    ],
+    "access_outcome": "PUBLISHED_FIRSTPARTY_ROUTES_IDENTIFIED_BUT_EXACT_ITEM_NOT_RETRIEVABLE_IN_CURRENT_RUNNER",
+    "first_party_shlib_item_identity": "UNBOUND",
+    "physical_copy_number": "UNBOUND",
+    "scan_to_item_bridge": "UNPROVEN",
+    "login_attempted": false,
+    "auth_bypass_attempted": false,
+    "provider_id_guessing_attempted": false,
+    "whole_catalog_negative_search": false
+  },
+  "official_open_data_key_scope": {
+    "official_public_documentation": "https://opendata.library.sh.cn/2020/download/docs/18/%E4%B8%8A%E6%B5%B7%E5%9B%BE%E4%B9%A6%E9%A6%86/%E4%B8%8A%E6%B5%B7%E5%9B%BE%E4%B9%A6%E9%A6%86%E4%B8%AD%E6%96%87%E5%8F%A4%E7%B1%8D%E5%BC%80%E6%94%BE%E6%95%B0%E6%8D%AE%E6%8E%A5%E5%8F%A3%E8%AF%B4%E6%98%8E-%E9%99%88%E5%B0%9A%E6%9D%BE.pdf",
+    "webapi_key_requirement": "DOCUMENTED_FOR_COMPETITION_API_ACCESS_EXAMPLE_NOT_PROOF_ALL_CATALOG_READS_REQUIRE_KEY",
+    "published_sparql_endpoint": "http://data1.library.sh.cn:8890/sparql",
+    "endpoint_response_tested_this_batch": false,
+    "unapproved_credentials_used": false
+  },
+  "nlc_old20_direct_raster_atlas": {
+    "source_id": "EXT-WIKIMEDIA-NLC411999003250-YEHUOBIAN-MS-V10-18-20",
+    "source_url": "https://commons.wikimedia.org/wiki/File:NLC892-411999003250-383067_%E8%90%AC%E6%9B%86%E9%87%8E%E7%8D%B2%E7%B7%A8_%E2%96%A1%E2%96%A1%E5%8D%B7_%E7%AC%AC10%E5%86%8A.pdf",
+    "original_pdf_sha256": "8e746faaadcd961c7983981d419862d97fdc2a1f3ec33ecb02046e9e79a6376c",
+    "pdf_pages": 145,
+    "captured_page_images": 145,
+    "contact_sheets": 19,
+    "upstream_workflow": "probe-yehuobian-nlc-old20-source-pages-12qd",
+    "upstream_run": 38044584678,
+    "upstream_conclusion": "success",
+    "artifact_id": 11666856770,
+    "artifact_name": "nlc411999003250-old20-fascicle10-12qd",
+    "method": "REPRODUCIBLE_PUBLIC_SOURCE_PDF_IMAGE_RASTERIZATION_AT_85_DPI; NO_OCR; PAGE_JPEG_HASHES_AND_PAGE_NUMBER_MANIFEST",
+    "visual_inspection_scope": "SELECTED_CONTACT_SHEETS_01_06_13_19_ONLY_NOT_145_PAGES_MANUALLY_TEXT_COLLATED",
+    "manual_full_book_review": false,
+    "heading_to_source_pdf_page": "UNRESOLVED",
+    "direct_guan_gong_glyph": "NOT_COLLATED",
+    "no_target_paragraph_in_145_pages": "NOT_PROVEN",
+    "underlying_original_edition": "OLD20V_MANUSCRIPT_AS_CATALOGED; PHYSICAL_COPY_DATE_UNBOUND",
+    "relationship_to_shlib_scan": "NOT_PROVEN",
+    "independent_target_glyph_voters_added": 0
+  },
+  "received_text_comparison": {
+    "baseline_digital_surrogate": "GJ2312912 Commons part2 PDF441 global991 under verified SHA-256 (12QC)",
+    "scope": "WITNESS_SCOPED_WEBSITE_TRANSCRIPTION_COMPARISON; NO_NEW_PHYSICAL_COPY_TARGET_PAGE",
+    "c_text": {
+      "source_id": "EXT-CTEXT-WANLI-YEHUOBIAN-V20-GAIZAO-LOUKE-RETROSPECTIVE",
+      "url": "https://ctext.org/wiki.pl?chapter=418967&if=en",
+      "source_copy_identity": "NOT_BOUND_TO_NLC_411999003250_OR_02260_BY_CHAPTER_LABEL",
+      "relevant_readings": [
+        "今官禁及官府漏箭",
+        "是時禁中官漏循用新製不待言",
+        "北京冬至曰出辰初二刻",
+        "夏至入戌初二刻"
+      ],
+      "physical_glyph_authority": false
+    },
+    "shidian": {
+      "source_id": "EXT-SHIDIAN-YEHUOBIAN-GAIZAO-LOUKE-RECEIVED-12QD",
+      "url": "https://www.shidianguji.com/book/NA09843/chapter/1lwjva2l98soe",
+      "source_copy_identity": "UNSPECIFIED",
+      "relevant_readings": [
+        "今宫禁及官府漏箭",
+        "是时禁中宫漏",
+        "北京冬至日出辰初一刻",
+        "夏至入戌初一刻"
+      ],
+      "physical_glyph_authority": false
+    },
+    "variant_loci": [
+      {
+        "locus": "GONGJIN_WORD",
+        "source_scanned": "宮禁",
+        "ctext": "官禁",
+        "shidian": "宫禁",
+        "adjudication": "SCANNED_PAGE_GLYPH_CONTROLS_ONLY_SCANNED_COPY"
+      },
+      {
+        "locus": "PALACE_CLOCK_NOUN",
+        "source_scanned": "禁中宮漏",
+        "ctext": "禁中官漏",
+        "shidian": "禁中宫漏",
+        "adjudication": "NOT_PROVEN_CTEXT_PHYSICAL_EDITION_VARIANT_OR_OCR_ERROR"
+      },
+      {
+        "locus": "BEIJING_WINTER_SUNRISE_KE",
+        "source_scanned": "辰初一刻",
+        "ctext": "辰初二刻",
+        "shidian": "辰初一刻",
+        "adjudication": "KEEP_SOURCE_SCOPED_KE_ONE_VERSUS_TWO_NO_CLOCK_SELECTION"
+      },
+      {
+        "locus": "BEIJING_SUMMER_SUNSET_KE",
+        "source_scanned": "戌初一刻",
+        "ctext": "戌初二刻",
+        "shidian": "戌初一刻",
+        "adjudication": "KEEP_SOURCE_SCOPED_KE_ONE_VERSUS_TWO_NO_CLOCK_SELECTION"
+      }
+    ],
+    "group_count_is_independent_stemmatic_vote": false,
+    "difference_proven_to_be_scribal_error": false
+  },
+  "disposition": {
+    "phase": "BOUNDED_SOURCE_ACCESS_AND_IMAGE_ATLAS_COMPLETED_TARGET_OLD20_NOT_COLLATED",
+    "new_source_scoped_image_witnesses": 0,
+    "old20_new_direct_target_glyph_witnesses": 0,
+    "first_party_shlib_copy_id": "UNBOUND",
+    "shlib_early_qing_attribution": "NOT_TRANSFERRED_TO_GJ2312912",
+    "historical_matrix_rows": 222,
+    "audited_rows": 222,
+    "metadata_defects_repaired": 45,
+    "chart_defects_confirmed": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0,
+    "md_g03": "OPEN_BLOCKING_GENERAL_ADAPTER",
+    "hpa_dayun_cal_002": "MISSING_FROM_PRODUCT",
+    "chart_product": "CLOSED",
+    "runtime_change_authorized": false,
+    "genealogy_graph_changed": false
+  },
+  "transmission_impact": {
+    "status": "NONE_NEW_LINEAGE_EDGE",
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "First-party generic Shanghai catalog route is not an exact physical-object binding to GJ2312912.",
+      "NLC 411999003250 tenth fascicle full raster capture and CText website's 十六v19~20 heading do not prove a common-copy relationship.",
+      "CText/Shidian received-transcript agreement or difference is not independent physical stemmatic voting."
+    ],
+    "unresolved_lineage_questions": [
+      "Bind first-party Shanghai Library item and digital object to physical copy through a source-emitted identifier, not guesswork.",
+      "Visually locate 改造漏刻 heading and text in original old20 manuscripts; 145 images captured but not fully collated.",
+      "Obtain 1827 FuliShanFang volume20 target leaf from a known physical holding for cross-recension comparison."
+    ]
+  },
+  "next": "12QE: find and visually collate original old20/1827 exact passage pages; separately pursue documented official Shanghai catalog source-item identity, respecting HTTP 412/key/login constraints."
+}
