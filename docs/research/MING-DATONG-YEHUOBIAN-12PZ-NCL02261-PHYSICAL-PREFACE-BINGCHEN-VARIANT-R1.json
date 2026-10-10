@@ -1,0 +1,119 @@
+{
+  "schema": "MING-DATONG-YEHUOBIAN-12PZ-NCL02261-PHYSICAL-PREFACE-BINGCHEN-VARIANT-R1",
+  "schema_version": "1.0.0",
+  "date": "2026-10-10",
+  "batch": "12PZ_IN_PROGRESS",
+  "witness_identity": {
+    "institution": "Taiwan National Central Library",
+    "shelfmark": "204.26 02261",
+    "title": "萬曆野獲編",
+    "recension": "綠格鈔本",
+    "original_work_volumes": 20,
+    "physical_binding_units": 6,
+    "lineation": "11 lines x 21 characters",
+    "digital_surrogate": "https://commons.wikimedia.org/wiki/File:NCL-02261_%E8%90%AC%E6%9B%86%E9%87%8E%E7%8D%B2%E7%B7%A8.pdf",
+    "original_uploaded_name": "12048_1.pdf",
+    "pdf_pages": 534,
+    "original_pdf_sha256": "8a293ed49c7aa4cb21ade8f36b6b649be5157ed1c82df9dae4ecce5c654c70d2",
+    "original_pdf_sha1": "3999fb6c7286e7e70e32f7ee63f58b935ecedb1c",
+    "physical_copy_date": "NOT_ESTABLISHED"
+  },
+  "acquisition": {
+    "initial_download_workflow_run": 38024279949,
+    "initial_workflow_url": "https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/38024279949",
+    "sample_artifact_id": 11659861919,
+    "sample_artifact_zip_sha256": "eb3c56671632664979c2b39c6abbf6e8643b9340fffe0c45c66cfb87e0784e6e",
+    "original_pdf_hashes_verbatim_from_followup_job": 38024488509,
+    "original_pdf_pages_confirmed": 534,
+    "original_rendered_image_pdf_page_1based": 7,
+    "rendered_p7_image_sha256": "3daa88f072e5ddbc6a519f23739cbd649f96ceacf7f80d3c497ac4993d486977",
+    "independent_sha256_manifest_validation": "PASS",
+    "intermediate_preface_extract_run": 38024393297,
+    "final_close_crop_run": 38024488509,
+    "final_close_crop_run_url": "https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/38024488509",
+    "image_base64_length_validation": "PASS",
+    "ocr_used": false,
+    "physical_folio_number": "NOT_YET_MAPPED_FROM_PDF_INDEX"
+  },
+  "direct_image_collation": {
+    "pdf_page_1based": 7,
+    "folio_side": "RIGHT_HAND_PAGE_OF_FACING_SPREAD",
+    "image_locator": "https://commons.wikimedia.org/w/index.php?title=File:NCL-02261_%E8%90%AC%E6%9B%86%E9%87%8E%E7%8D%B2%E7%B7%A8.pdf&page=7",
+    "direct_reading": "萬曆三十四年丙辰仲冬日自題於甕汲軒",
+    "adjudicated_glyphs": [
+      "丙",
+      "辰"
+    ],
+    "evidence_level": "DIRECT_ORIGINAL_MANUSCRIPT_SURROGATE_PAGE_VISUAL_COLLATION",
+    "status": "DIRECTLY_READ",
+    "reading_is_not_catalog_only": true
+  },
+  "variant_interpretation": {
+    "regnal_year": "萬曆三十四年",
+    "regnal_to_gregorian_year": 1606,
+    "proper_1606_sexagenary_year": "丙午",
+    "source_page_sexagenary_year": "丙辰",
+    "calendar_consistency": "INTERNAL_CONFLICT_IN_COPIED_PREFACE",
+    "scribal_copy_date_resolved": false,
+    "author_original_glyph_attribution": "UNRESOLVED",
+    "copying_error_or_edition_variant": "SOURCE_SCOPED_GLYPH_VARIANT_PROVEN_ERROR_CHAIN_NOT_ATTRIBUTED",
+    "note": "Do not silently correct this individual physical witness to 丙午; do not mistake 丙辰 in a copied preface for physical-copy dating."
+  },
+  "comparison_witnesses": [
+    {
+      "id": "NCL-02260",
+      "basis": "FIRST_PARTY_LIBRARY_CATALOG_TRANSCRIPTION",
+      "reading": "萬曆三十四年丙午",
+      "source": "https://commons.wikimedia.org/wiki/File:NCL-02260_1_%E8%90%AC%E6%9B%86%E9%87%8E%E7%8D%B2%E7%B7%A8.pdf",
+      "physical_target_page_directly_inspected_in_this_batch": false
+    },
+    {
+      "id": "SHANGHAI-CATEGORIZED-30V-PART1-P5",
+      "basis": "PREVIOUS_12PZ_DIRECT_PAGE_IMAGE",
+      "reading": "萬曆三十四年丙午仲冬日",
+      "source": "https://commons.wikimedia.org/wiki/File:Shanghai_%E8%90%AC%E6%9B%86%E9%87%8E%E7%8D%B2%E7%B7%A8%E4%B8%89%E5%8D%81%E5%8D%B7_part_1.pdf",
+      "physical_copy_uniquely_identified": false
+    },
+    {
+      "id": "INOUE-2019-B-RECENSION",
+      "basis": "SCHOLARLY_SECONDARY_VARIANT_DISCUSSION",
+      "reading": "丙辰",
+      "source": "https://nagoya.repo.nii.ac.jp/record/2010546/files/toykhj_43_51.pdf",
+      "same_physical_copy_as_ncl02261": "UNPROVEN",
+      "reason": "A shared cyclical-year mistake is not a unique copy/recension identity."
+    }
+  ],
+  "transmission_impact": {
+    "nodes_strengthened_or_proposed": [
+      "NCL 204.26 02261 green-grid twenty-volume manuscript physical page 7 prefatory 丙辰 witness"
+    ],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "NCL 02261 uniquely equals Inoue 2019 B-group exemplar",
+      "Preface 1606 means surviving NCL 02261 physical copy dates to 1606",
+      "Shared 丙辰 proves direct copying",
+      "NCL 02261 preserves 〈改造漏刻〉 target wording without target image"
+    ],
+    "graph_updated": false
+  },
+  "audit_gate": {
+    "new_direct_preface_glyph_witnesses": 1,
+    "new_direct_kaizao_louke_target_glyph_witnesses": 0,
+    "independent_1827_1869_target_print_collations": 0,
+    "physical_target_paper_locator": "STILL_OPEN",
+    "confirmed_algorithm_defects": 0,
+    "deterministic_chart_r1": "CLOSED",
+    "md_g03": "OPEN_BLOCKING_GENERAL_ADAPTER",
+    "hpa_dayun_cal_002": "MISSING_FROM_PRODUCT",
+    "matrix_modified": false,
+    "state_modified": false,
+    "runtime_changed": false,
+    "batch_closed": false
+  },
+  "next": [
+    "Collate NCL 02260 prefatory 丙午 directly to form source-bound A/B physical comparison instead of catalog-only control.",
+    "Look for 〈改造漏刻〉 by heading/continuous passage across NCL 02261 and other original-20v physical books; do not infer from 30v volume20 locator.",
+    "Seek evidence connecting Inoue's scholarly A/B witnesses to NCL 02261 by holdings and text concordance, not one year glyph."
+  ]
+}
