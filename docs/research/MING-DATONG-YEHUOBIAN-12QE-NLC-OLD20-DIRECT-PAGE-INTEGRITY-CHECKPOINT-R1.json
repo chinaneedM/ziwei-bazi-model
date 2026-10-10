@@ -1,0 +1,100 @@
+{
+  "schema": "MING-DATONG-YEHUOBIAN-12QE-NLC-OLD20-DIRECT-PAGE-INTEGRITY-CHECKPOINT-R1",
+  "schema_version": "1.0.0",
+  "date": "2026-10-10",
+  "status": "PARTIAL_RESEARCH_CHECKPOINT_NOT_COMPLETED_BATCH",
+  "research_batch": "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-OLD20-ORIGINAL-PAGE-COLLATION-QE",
+  "parent_closed_batch": "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-FIRSTPARTY-AND-OLD20-ATLAS-QD",
+  "repository_head_when_read": "43cc852db3618d42c5070f089d9948814233a3af",
+  "source_object": {
+    "source_id": "EXT-WIKIMEDIA-NLC411999003250-YEHUOBIAN-MS-V10-18-20",
+    "catalog_identifier": "NLC 411999003250",
+    "digital_filename": "NLC892-411999003250-383067",
+    "fascicle_number": 10,
+    "source_pdf_sha256_from_12qd_manifest": "8e746faaadcd961c7983981d419862d97fdc2a1f3ec33ecb02046e9e79a6376c",
+    "source_pdf_sha256_independently_recomputed_this_checkpoint": false,
+    "pdf_pages": 145,
+    "workflow_run": 38044584678,
+    "workflow_artifact_id": 11666856770,
+    "extracted_page_manifest": "page-atlas.json",
+    "scan_to_edition_identity": "NLC_CATALOGED_OLD20V_MANUSCRIPT_PHYSICAL_COPY_DATE_UNBOUND"
+  },
+  "image_integrity_replay": {
+    "input": "145 JPEG files and page-atlas.json extracted from existing 12QD GitHub Actions artifact",
+    "method": "for each page, locally recompute JPEG SHA256 and byte length and compare with exact manifest entry; no OCR",
+    "checked_pages": 145,
+    "sha256_matches": 145,
+    "byte_count_matches": 145,
+    "failures": 0,
+    "source_pdf_retrieved_in_this_checkpoint": false
+  },
+  "direct_image_observations": [
+    {
+      "pdf_page": 1,
+      "image_sha256": "eb185b6f31c1f285f5690627d4b199f2d2b73679ae4ed0a3648595059239e40b",
+      "observation": "Visible rightmost vertical header includes 卷十八 and a Wanli reign-year heading; exact historic-year glyph transcription not asserted.",
+      "authority": "EXACT_DIGITAL_PAGE_ONLY"
+    },
+    {
+      "pdf_page": 81,
+      "image_sha256": "222f6f312dee3447bf6e4446a869e6f1aad765ce45f8670cec7b54aaea1345e4",
+      "observation": "Visible rightmost/heading area opens a Wanli reign-year narrative and mentions 丙辰; this is not certified as a 卷十九 section boundary.",
+      "authority": "EXACT_DIGITAL_PAGE_ONLY"
+    },
+    {
+      "pdf_page": 145,
+      "image_sha256": "b26468c9399352a5c947e8dac74e810761fff28bff54dc71ad555a264b00977c",
+      "observation": "Visible colophon-like vertical text at central gutter reads 萬曆野獲編二十卷紀事畢, supporting an original 20-volume end marker in this one scanned object.",
+      "authority": "EXACT_DIGITAL_PAGE_ONLY"
+    }
+  ],
+  "manually_examined_pdf_pages": [
+    1,
+    6,
+    14,
+    22,
+    60,
+    67,
+    72,
+    75,
+    77,
+    80,
+    81,
+    101,
+    102,
+    121,
+    125,
+    128,
+    129,
+    130,
+    139,
+    141,
+    142,
+    143,
+    145
+  ],
+  "exhaustive_target_search": false,
+  "target_heading_original_20v": "UNLOCATED",
+  "gaizao_louke_original_page": "UNLOCATED",
+  "guan_gong_original_target_glyph": "NOT_COLLATED",
+  "independent_1827_print_target_page": "NOT_ACQUIRED",
+  "original_20v_vs_30v_volume_number_mapping": "NOT_INFERRED",
+  "complete_fascicle_negative_search": false,
+  "adjudication": "PARTIAL_COPY_STRUCTURE_ANCHORS_ONLY_NO_TARGET_TEXT_EDITION_GLYPH_OR_TIME_COORDINATE",
+  "historical_matrix_rows_unchanged": 222,
+  "audited_rows_unchanged": 222,
+  "provenance_repairs_unchanged": 45,
+  "chart_algorithm_defects_unchanged": 0,
+  "chart_r1_status": "CLOSED",
+  "transmission_impact": {
+    "status": "NO_NEW_CONFIRMED_GENEALOGY_EDGE",
+    "strengthened": "DIRECT_DIGITAL_PAGE_ANCHORS_TO_NLC411999003250_FASCICLE10_ONLY",
+    "not_proved": [
+      "NLC original-20v volume number equals thematic recast 1827 volume number",
+      "Original-20v target passage is present in this PDF",
+      "NLC physical-copy date or lineage to Shanghai GJ2312912",
+      "An 1827 physical target page with either 官漏 or 宮漏"
+    ]
+  },
+  "next": "Continue image-based, no-OCR historical heading/passage localization across source-bound old-20v and the 1827 print; do not close Batch12QE until exact target folio/glyph is obtained or clearly bounded; preserve NLC and Shanghai physical lineage independence."
+}
