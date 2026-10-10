@@ -31,7 +31,7 @@ class Yehuobian12PZWitnessBoundaryTests(unittest.TestCase):
     def test_disjoint_material_copy_keys_not_digital_segment_count(self) -> None:
         self.assertEqual(len(self.by_id), len(self.ledger["witnesses"]))
         copies = [x["copy_key"] for x in self.ledger["witnesses"]]
-        self.assertEqual(len(set(copies)), 4)
+        self.assertEqual(len(set(copies)), 5)
         a = self.by_id["TAIWAN_NCL02260_OLD20_MANUSCRIPT"]
         self.assertEqual(len(a["digital_parts"]), 2)
         self.assertEqual([x["pdf_pages"] for x in a["digital_parts"]], [1000, 35])
@@ -92,6 +92,27 @@ class Yehuobian12PZWitnessBoundaryTests(unittest.TestCase):
         self.assertEqual(gate["md_g03"], "OPEN_BLOCKING_GENERAL_ADAPTER")
         self.assertEqual(gate["hpa_dayun_cal_002"], "MISSING_FROM_PRODUCT")
         self.assertTrue(self.ledger["prohibitions"]["original20v_equivalent_to_categorized30v_volume20"] is False)
+
+    def test_distinct_china_nlc_v20_tail_has_source_digest_not_target_vote(self) -> None:
+        china = self.by_id["CHINA_NLC_411999003250_OLD20_FASCICLE10"]
+        evidence = load(RESEARCH / "MING-DATONG-YEHUOBIAN-12PZ-CHINA-NLC411999003250-V20-TAIL-SOURCE-DIGEST-R1.json")
+        self.assertEqual(evidence["source"]["pdf_sha256"], china["source_pdf_sha256"])
+        self.assertEqual(evidence["acquisition"]["run_conclusion"], "success")
+        self.assertEqual(evidence["source"]["pdf_pages"], 145)
+        self.assertEqual(len(evidence["rendered_pages"]), 10)
+        self.assertEqual([p["pdf_page_1based"] for p in evidence["rendered_pages"]], list(range(136, 146)))
+        self.assertEqual(evidence["preexisting_direct_page_read"]["pdf_page_1based"], 137)
+        self.assertFalse(evidence["scope"]["manually_collated_all_ten_pages"])
+        self.assertEqual(evidence["scope"]["old20_kaizao_louke_present_or_absent"], "NOT_ADJUDICATED")
+        self.assertEqual(china["counts_for_shen_defu_old20v_target"], 0)
+
+    def test_wikimedia_imageinfo_independently_confirms_pdf2_source_binary(self) -> None:
+        attestation = self.original["commons_imageinfo_independent_verification_20261010"]
+        self.assertTrue(attestation["comparison_pass"])
+        self.assertEqual(attestation["commons_sha1_hex"], self.original["source"]["source_sha1"])
+        self.assertEqual(attestation["commons_size_bytes"], self.original["workflow_attestation_20261010"]["downloaded_pdf"]["size_bytes"])
+        self.assertEqual(attestation["source_physical_witness_number_added"], 0)
+
 
 
 if __name__ == "__main__":

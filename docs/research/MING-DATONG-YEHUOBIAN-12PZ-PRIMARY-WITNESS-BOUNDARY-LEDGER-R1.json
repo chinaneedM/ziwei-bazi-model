@@ -88,7 +88,8 @@
       "counts_for_1447_official_record": 0,
       "counts_for_shen_defu_old20v_target": 0,
       "counts_for_old20_preface_variant": 1,
-      "identity_notice": "Two surrogate PDF segments are not independent manuscripts."
+      "identity_notice": "Two surrogate PDF segments are not independent manuscripts.",
+      "external_commons_sha1_verified": true
     },
     {
       "id": "TAIWAN_NCL02261_GREEN_GRID_OLD20",
@@ -104,6 +105,40 @@
       "counts_for_shen_defu_old20v_target": 0,
       "counts_for_old20_preface_variant": 1,
       "transmission_control": "Same erroneous sexagenary year as scholarly type B does not identify this holding with B or establish direct copying."
+    },
+    {
+      "id": "CHINA_NLC_411999003250_OLD20_FASCICLE10",
+      "work": "萬曆野獲編",
+      "copy_key": "CHINA-NLC-411999003250-FASCICLE10",
+      "type": "OLD20_MANUSCRIPT_PHYSICAL_HOLDING_SEPARATE_FROM_TAIWAN_NCL",
+      "source_doc": "docs/research/MING-DATONG-YEHUOBIAN-12PZ-CHINA-NLC411999003250-V20-TAIL-SOURCE-DIGEST-R1.json",
+      "source_pdf_sha256": "8e746faaadcd961c7983981d419862d97fdc2a1f3ec33ecb02046e9e79a6376c",
+      "target_pdf_pages_1based": [],
+      "physically_bound_volume_20_heading_pdf_page_1based": 137,
+      "rendered_pdf_pages_1based": [
+        136,
+        137,
+        138,
+        139,
+        140,
+        141,
+        142,
+        143,
+        144,
+        145
+      ],
+      "physical_glyphs_collated_prior": [
+        "萬曆野獲編卷二十 on p137"
+      ],
+      "counts_for_1447_official_record": 0,
+      "counts_for_shen_defu_old20v_target": 0,
+      "counts_for_old20_preface_variant": 0,
+      "original_old20_target_status": "UNRESOLVED",
+      "does_not_prove": [
+        "改造漏刻 present or absent anywhere in the original twenty-volume manuscript",
+        "the last ten PDF pages have all been glyph-reviewed",
+        "categorized thirty-volume printed section target location"
+      ]
     }
   ],
   "not_yet_collated": [
@@ -130,7 +165,7 @@
     },
     {
       "target": "Commons first-party SHA1 independent pre-check for NCL02260 PDF2",
-      "status": "NOT_ACQUIRED_RUNNER_DIGEST_ONLY"
+      "status": "CLOSED_EXACT_SHA1_AND_BYTE_SIZE_MATCH"
     }
   ],
   "received_text_controls": {
@@ -191,5 +226,14 @@
     "md_g03": "OPEN_BLOCKING_GENERAL_ADAPTER",
     "hpa_dayun_cal_002": "MISSING_FROM_PRODUCT",
     "batch_closed": false
-  }
+  },
+  "revision_history": [
+    {
+      "date": "2026-10-10",
+      "type": "ADD_HASHED_DISTINCT_OLD20_FASCICLE10_ACQUISITION_NO_TARGET_GLYPH",
+      "source": "docs/research/MING-DATONG-YEHUOBIAN-12PZ-CHINA-NLC411999003250-V20-TAIL-SOURCE-DIGEST-R1.json",
+      "physical_copy_count_increment_in_tracking": 1,
+      "physical_target_glyph_witness_increment": 0
+    }
+  ]
 }

@@ -2,7 +2,7 @@
   "schema": "TIANWEN-12PZ-DIRECT-VOLUME-HEADING-COLLATION-R1",
   "batch": "12PZ",
   "date": "2026-10-10",
-  "status": "SOURCE_FILE_AND_RUNNER_DERIVED_PAGE_DIGEST_CAPTURED_EXTERNAL_SHA1_PRECHECK_PENDING",
+  "status": "RUNNER_SOURCE_DIGEST_AND_COMMONS_INDEPENDENT_IMAGEINFO_SHA1_SIZE_MATCH_PASS",
   "source": {
     "repository": "Taiwan National Central Library",
     "shelfmark": "204.26 02260",
@@ -16,7 +16,9 @@
     "source_sha1": "b0ab33d76ec27457173f6285b920016a0f24cdab",
     "source_sha256": "bb97af8a82afbc3412d743ba6638ca919440709d35fc14ef6810629e9c2c2ff2",
     "rendered_image_sha256": "SEE_SHA256_BY_PDF_PAGE_1BASED_IN_WORKFLOW_ATTESTATION",
-    "physical_copy_date": "UNKNOWN"
+    "physical_copy_date": "UNKNOWN",
+    "source_sha1_first_party_commons_checked": true,
+    "source_sha1_first_party_commons_result": "PASS_EXACT_UPSTREAM_IMAGEINFO_AND_DOWNLOAD_MATCH"
   },
   "visual_citation": {
     "url": "https://commons.wikimedia.org/w/index.php?title=File:NCL-02260_2_%E8%90%AC%E6%9B%86%E9%87%8E%E7%8D%B2%E7%B7%A8.pdf&page=5",
@@ -116,6 +118,14 @@
       "to_status": "SOURCE_FILE_AND_RUNNER_DERIVED_PAGE_DIGEST_CAPTURED_EXTERNAL_SHA1_PRECHECK_PENDING",
       "prior_browser_download_failure_retained": true,
       "strictly_unresolved": "EXTERNAL_COMMONS_SHA1_PRECHECK_AND_ANCIENT_TARGET_LEAF"
+    },
+    {
+      "date": "2026-10-10",
+      "reason": "CLOSE_COMMONS_SOURCE_SHA1_INDEPENDENT_METADATA_GATE_USING_IMAGEINFO",
+      "from_status": "SOURCE_FILE_AND_RUNNER_DERIVED_PAGE_DIGEST_CAPTURED_EXTERNAL_SHA1_PRECHECK_PENDING",
+      "to_status": "RUNNER_SOURCE_DIGEST_AND_COMMONS_INDEPENDENT_IMAGEINFO_SHA1_SIZE_MATCH_PASS",
+      "source_page_glyph_revision": false,
+      "old20_target_adjudication": false
     }
   ],
   "workflow_attestation_20261010": {
@@ -171,5 +181,23 @@
       }
     ],
     "note": "Runner hashes apply to its captured Commons redirect PDF and deterministic render settings; browser screenshots read separately, not claimed pixel-identical to rendered JPEG. One Commons digital object and one NCL physical copy, not four independent text witnesses."
+  },
+  "commons_imageinfo_independent_verification_20261010": {
+    "run_id": 38029093566,
+    "run_conclusion": "success",
+    "job_id": 114146075233,
+    "artifact_id": 11661805364,
+    "source": "Wikimedia Commons action=query imageinfo sha1|size|timestamp|url",
+    "file_title_normalization": "UNDERSCORES_CANONICALIZED_TO_SPACES_BY_MEDIAWIKI",
+    "commons_sha1_hex": "b0ab33d76ec27457173f6285b920016a0f24cdab",
+    "prior_captured_pdf_sha1": "b0ab33d76ec27457173f6285b920016a0f24cdab",
+    "commons_size_bytes": 5959699,
+    "prior_runner_pdf_size_bytes": 5959699,
+    "commons_file_timestamp": "2023-09-25T06:55:32Z",
+    "comparison_pass": true,
+    "commons_catalog_name": "NCL-02260 2 萬曆野獲編.pdf",
+    "public_source_url": "https://commons.wikimedia.org/wiki/File:NCL-02260_2_%E8%90%AC%E6%9B%86%E9%87%8E%E7%8D%B2%E7%B7%A8.pdf",
+    "source_physical_witness_number_added": 0,
+    "scope": "Digital-source object identity by SHA1 and exact byte count; not external confirmation of manually read ancient source glyphs."
   }
 }
