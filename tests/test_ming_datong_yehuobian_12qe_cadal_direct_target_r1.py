@@ -32,8 +32,8 @@ class CADAL12QEDirectTargetImageTest(unittest.TestCase):
         self.assertFalse(self.e["witness"]["physical_copy_catalog_identity_bound"])
         self.assertTrue(all(v is False for v in self.e["scope_firewall"].values()))
     def test_extension_is_digest_bound_and_never_reopens_algorithm(self):
-        self.assertEqual(self.manifest["combined_source_count"],653)
-        self.assertEqual(self.manifest["extension_source_count"],6)
+        self.assertEqual(self.manifest["combined_source_count"],654)
+        self.assertEqual(self.manifest["extension_source_count"],7)
         row=self.shard["sources"][0]
         self.assertTrue(row["physical_glyph_authority"])
         self.assertEqual(row["verification_status"],"DIRECT_SOURCE_IMAGE_GLYPH_COLLATED_EDITION_UNBOUND")

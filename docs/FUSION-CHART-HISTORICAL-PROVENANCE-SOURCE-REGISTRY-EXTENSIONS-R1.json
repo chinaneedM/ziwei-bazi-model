@@ -1,12 +1,12 @@
 {
   "schema": "FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1",
-  "schema_version": "1.1.0",
+  "schema_version": "1.2.0",
   "date": "2026-10-10",
   "root_registry": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json",
   "root_registry_blob_sha": "ea2ab50479450c39ce3fc7a00ea91cd713bf4a60",
   "root_source_count": 647,
-  "extension_source_count": 6,
-  "combined_source_count": 653,
+  "extension_source_count": 7,
+  "combined_source_count": 654,
   "shards": [
     {
       "path": "docs/research/MING-DATONG-YEHUOBIAN-12QE-EXTERNAL-SOURCE-REGISTRY-DELTA-R1.json",
@@ -19,10 +19,17 @@
       "schema": "MING-DATONG-YEHUOBIAN-12QE-CADAL02096915-DIRECT-IMAGE-SOURCE-SHARD-R1",
       "blob_sha": "80256daed007a7e5d1e59c3ab269a7e608d4f764",
       "source_count": 1
+    },
+    {
+      "path": "docs/research/MING-DATONG-YEHUOBIAN-12QF-CADAL-PREFACE-SOURCE-SHARD-R1.json",
+      "schema": "MING-DATONG-YEHUOBIAN-12QF-CADAL-PREFACE-DIRECT-IMAGE-SOURCE-SHARD-R1",
+      "blob_sha": "4eb718e42cf671969fafeae08f6b3f59a8653895",
+      "source_count": 1
     }
   ],
-  "authority_policy": "Five original extension records are received/bibliographic locator controls with no direct glyph authority; one new CADAL printed-source image record is permitted only with source digest, exact page-level JPEG digests, and edition/date/lineage scope firewall. Runtime authority remains prohibited.",
+  "authority_policy": "The five original received/bibliographic controls carry no glyph authority; two independent bounded source image records may attest EXACT verified image glyphs only (CADAL02096915 vol20 target and CADAL02096900 first-fascicle paratext), with separate SHA256+page hashes and no inferred print date, physical copy or direct transmission. No runtime authorization.",
   "update_rule": "Append a new validated shard in future or deliberately revise the manifest with a forward-only source-record correction. Preserve root registry bytes and revalidate Git blob SHA.",
   "research_evidence": "docs/research/MING-DATONG-YEHUOBIAN-12QE-RECEIVED-TEXT-LOCATOR-CORRECTION-R1.json",
-  "additional_research_evidence": "docs/research/MING-DATONG-YEHUOBIAN-12QE-CADAL02096915-V20-DIRECT-TARGET-GLYPH-R1.json"
+  "additional_research_evidence": "docs/research/MING-DATONG-YEHUOBIAN-12QE-CADAL02096915-V20-DIRECT-TARGET-GLYPH-R1.json",
+  "additional_research_evidence_12qf": "docs/research/MING-DATONG-YEHUOBIAN-12QF-CADAL-FIRST-PREFACE-DIRECT-DATES-R1.json"
 }
