@@ -1,0 +1,72 @@
+name: extract-yehuobian-ncl02261-p7-year-close-12pz
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/extract-yehuobian-ncl02261-p7-year-close-12pz.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  physical-preface-date:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Reuse primary NCL 02261 source-page artifact from exact run
+        uses: actions/download-artifact@v4
+        with:
+          name: ncl02261-old20-index-sampled-leaves-12pz
+          run-id: 38024279949
+          repository: chinaneedM/ziwei-bazi-model
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: evidence
+      - name: Verify all sampled image digests and reveal source checksums
+        shell: bash
+        run: |
+          set -euo pipefail
+          (cd evidence && sha256sum -c image-sha256.txt)
+          cat evidence/source-sha256.txt evidence/source-sha1.txt
+      - name: Preserve original and visually legible source-derived p7 right leaf
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m pip install -q --break-system-packages Pillow
+          mkdir -p crop
+          python3 - <<'PY'
+          from PIL import Image
+          from pathlib import Path
+          import hashlib,json,base64
+          src=Path("evidence/pages/ncl02261-p0007.jpg")
+          im=Image.open(src)
+          w,h=im.size
+          crop=im.crop((int(w*.38),int(h*.09),int(w*.79),int(h*.72)))
+          crop=crop.resize((crop.width*3,crop.height*3),resample=Image.Resampling.NEAREST)
+          dst=Path("crop/ncl02261-p7-preface-year-rightleaf.jpg")
+          crop.save(dst,quality=94,subsampling=0,optimize=True)
+          raw=dst.read_bytes()
+          Path("crop/manifest.json").write_text(json.dumps({
+             "source":"NCL-02261 20v green-grid original-copy photographed page",
+             "shelfmark":"204.26 02261","original_run_id":38024279949,
+             "pdf_page_1based":7,"source_page_jpg_sha256":hashlib.sha256(src.read_bytes()).hexdigest(),
+             "crop_left_ratio":0.38,"crop_top_ratio":0.09,"crop_right_ratio":0.79,"crop_bottom_ratio":0.72,
+             "crop_sha256":hashlib.sha256(raw).hexdigest(),"ocr_used":False,
+             "copy_date_from_preface_not_authorized":True,
+             "glyph_review_not_performed_by_job":True
+          },ensure_ascii=False,indent=2)+"\n")
+          encoded=base64.b64encode(raw).decode("ascii")
+          print(f"TIANWEN_NCL02261_YEAR_BEGIN chars={len(encoded)}",flush=True)
+          for i in range(0,len(encoded),4000):
+             print("TIANWEN_NCL02261_YEAR_CHUNK "+encoded[i:i+4000],flush=True)
+          print("TIANWEN_NCL02261_YEAR_END",flush=True)
+          PY
+      - name: Archive p7 proof
+        uses: actions/upload-artifact@v4
+        with:
+          name: ncl02261-p7-preface-year-close-12pz
+          path: crop/
+          retention-days: 30
+          if-no-files-found: error
