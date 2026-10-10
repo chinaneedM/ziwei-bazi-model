@@ -101,7 +101,7 @@ jobs:
               data=json.load(r)
           pathlib.Path("12pz-commons/imageinfo.json").write_text(json.dumps(data,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
           pages=data["query"]["pages"]
-          assert len(pages)==1 and pages[0]["title"]==title,pages
+          assert len(pages)==1 and pages[0]["title"].replace(' ','_')==title,pages
           item=pages[0]["imageinfo"][0]
           api_sha1=item["sha1"].lower()
           actual_sha1="b0ab33d76ec27457173f6285b920016a0f24cdab"
