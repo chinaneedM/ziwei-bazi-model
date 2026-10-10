@@ -1,0 +1,61 @@
+{
+  "schema": "MING-DATONG-YEHUOBIAN-12QQ-SCOPED-IMAGE-REVIEW-QUEUE-R1",
+  "date": "2026-10-11",
+  "status": "BACKLOG_RECONCILED_NOT_NEW_TEXTUAL_COLLATION",
+  "upstream_locator": "scripts/yehuobian_nlc_original_volume_locator_12qp.py",
+  "inherited_bounded_review": "docs/research/MING-DATONG-YEHUOBIAN-12QE-NLC-OLD20-V20-NINE-PAGE-BOUNDED-REVIEW-R1.json",
+  "correction_12qg": "docs/research/MING-DATONG-YEHUOBIAN-12QG-NLC-OLD20-V20-HEADING-FORWARD-CORRECTION-R1.json",
+  "replay_script": "scripts/yehuobian_nlc_scoped_manual_review_queue_12qq.py",
+  "regression_test": "tests/test_yehuobian_nlc_scoped_manual_review_queue_12qq.py",
+  "computed_review_queue": {
+    "source_pages": 1030,
+    "unassigned_preliminary_pages": 2,
+    "single_volume_candidate_pages": 1020,
+    "two_leaf_shared_pages": 8,
+    "prior_nine_page_bounded_target_checks": 9,
+    "body_search_eligible_pages": 1027,
+    "eligible_prior_bounded_checked_pages": 8,
+    "remaining_target_body_review_queue": 1019,
+    "entire_manuscript_target_absence_proven": false,
+    "original_target_folio": "UNLOCATED",
+    "new_physical_witnesses": 0
+  },
+  "scope": {
+    "new_original_target_folio_seen": false,
+    "entire_work_absence_proven": false,
+    "source_holding": "NLC411999003250_ONE_HOLDING",
+    "ocr_used": false,
+    "notes": "P136 context image viewed, not part of bounded nine-page title scan; p137-145 source-scoped title/paragraph check only; p145 colophon excluded from body queue; preliminary f1p1-2 not silently allocated to volume1"
+  },
+  "guards": [
+    "SHA256 of source PDFs must bind the correct fascicle",
+    "Nine previous image hashes inherited only within their exact source-reviewed scope",
+    "Unknown interior PDF pages have null image hash until physically verified",
+    "Cross-volume pages preserve right/left leaf ownership",
+    "No whole-manuscript negative inference",
+    "No date or edition promotion from a digital page interval"
+  ],
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Bounded negative of old20 volume20 nine pages is not an absence proof for old20 entire manuscript"
+    ],
+    "unresolved_lineage_questions": [
+      "Directly find original twenty-volume folio of 改造漏刻 if present",
+      "Verify separate original 1827 printed target impression"
+    ]
+  },
+  "invariants": {
+    "matrix_rows": 222,
+    "audited_rows": 222,
+    "provenance_repairs": 45,
+    "source_root": 647,
+    "source_extension": 7,
+    "product_r1": "CLOSED",
+    "algorithm_reopen": 0,
+    "md_g03": "OPEN",
+    "hpa_dayun_cal_002": "MISSING_FROM_PRODUCT"
+  }
+}
