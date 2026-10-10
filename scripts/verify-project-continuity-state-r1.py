@@ -962,9 +962,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-20-30-RECENSION-CROSSWALK-PX",
     "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-OLD20-SCHOLARLY-COLLATION-CONTROLS-PY",
     "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-KOREA-CNTS-BOUNDARY-PZ",
+    "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-GJ2312912-IMAGE-ROUTE-QA",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-KOREA-CNTS-BOUNDARY-PZ.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-GJ2312912-IMAGE-ROUTE-QA.md"
 
 
 def fail(message: str) -> None:
@@ -5340,6 +5341,28 @@ def main() -> int:
     pz_entry = {src.get("source_id"): src for src in registry.get("sources", ())}.get("EXT-NLK-CNTS-00047974753-YEHUOBIAN-12SEGMENT-ROUTE")
     if not pz_entry or pz_entry.get("latest_direct_image_boundary_evidence") != str(pz_path.relative_to(ROOT)):
         fail("Batch 12PZ source registry reference mismatch")
+
+    # Batch 12QA: precisely bounded mirror PDF witness, not a target glyph or first-party edition.
+    qa_path = ROOT / "docs/research/MING-DATONG-YEHUOBIAN-12QA-SHLIB-GJ2312912-SOURCE-SAMPLES-R1.json"
+    if not qa_path.is_file():
+        fail("Batch 12QA source image record missing")
+    qa = json.loads(qa_path.read_text(encoding="utf-8"))
+    if qa.get("batch_id") != "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-GJ2312912-IMAGE-ROUTE-QA":
+        fail("Batch 12QA identity mismatch")
+    qa_parts = qa.get("parts", [])
+    if [(v.get("part"),v.get("pdf_pages"),v.get("pdf_size_bytes"),v.get("pdf_sha256")) for v in qa_parts] != [
+        (2,550,177242086,"7ea8fe57f5baebd8f2841771d87ec5e3ed34c271e0fe89596a28d2521c9165a6"),
+        (3,357,62262769,"7fa233a835c30f1a3fc8c2a1b83896c9f1821af87ed50a84a313d69b9fc2f940")]:
+        fail("Batch 12QA source-byte identity regressed")
+    qa_adjudication = qa.get("adjudication", {})
+    if qa_adjudication.get("new_direct_target_page") is not False or qa_adjudication.get("negative_entire_book_search") != "NOT_PERFORMED" or qa_adjudication.get("algorithm_reopen_authorized") is not False:
+        fail("Batch 12QA false positive target or algorithm reopen")
+    if qa_adjudication.get("md_g03") != "OPEN_BLOCKING_GENERAL_ADAPTER" or qa_adjudication.get("hpa_dayun_cal_002") != "MISSING_FROM_PRODUCT":
+        fail("Batch 12QA MD-G03 fail-close boundary")
+    ids = {v.get("source_id"):v for v in registry.get("sources", ())}
+    qasrc = ids.get("EXT-SHLIB-ATTRIBUTED-GJ2312912-YEHUOBIAN-30V-COMMONS-MIRROR")
+    if not qasrc or qasrc.get("physical_glyph_authority") is not False or qasrc.get("batch_id") != qa.get("batch_id"):
+        fail("Batch 12QA authority/quarantine metadata regressed")
 
     # Batch 11U remains the controlling catalog-item identity gate.
     if identity_evidence.get("status") != "DIRECT_NO_OCR_1940_PRECIOUS_BOOK_NUMBER_893_BINDING_CLOSES_CATALOG_ITEM_CONTINUITY":

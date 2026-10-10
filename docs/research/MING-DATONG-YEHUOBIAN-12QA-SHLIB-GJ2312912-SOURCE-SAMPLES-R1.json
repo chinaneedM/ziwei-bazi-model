@@ -1,0 +1,171 @@
+{
+  "schema": "MING-DATONG-YEHUOBIAN-12QA-SHLIB-GJ2312912-SOURCE-SAMPLES-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-GJ2312912-IMAGE-ROUTE-QA",
+  "date": "2026-10-10",
+  "question": "Can a previously unregistered 1457-page Shanghai-Library-attributed 30-volume set offer a physically scoped witness to the 改造漏刻/官漏宮漏 wording?",
+  "source_object": {
+    "attributed_holding": "Shanghai Library",
+    "attribution_source": "Wikimedia Commons original-file description and user-uploaded scan title, NOT directly verified first-party SHLIB catalog",
+    "original_identifier_from_mirror": "dGJ2312912",
+    "provider_call_number_directly_verified": false,
+    "commons_category": "https://commons.wikimedia.org/wiki/Category:%E8%90%AC%E6%9B%86%E9%87%8E%E7%8D%B2%E7%B7%A8",
+    "three_files_declared": [
+      {
+        "part": 1,
+        "global_range": [
+          1,
+          550
+        ],
+        "pages": 550,
+        "downloaded_this_batch": false
+      },
+      {
+        "part": 2,
+        "global_range": [
+          551,
+          1100
+        ],
+        "pages": 550,
+        "downloaded_this_batch": true
+      },
+      {
+        "part": 3,
+        "global_range": [
+          1101,
+          1457
+        ],
+        "pages": 357,
+        "downloaded_this_batch": true
+      }
+    ],
+    "claimed_work_title": "萬曆野獲編三十卷",
+    "edition_impression_date": "UNBOUND",
+    "physical_copy_date": "UNBOUND",
+    "handwritten_appearance": "VISIBLE_IN_SAMPLED_PAGES_NOT_FORMAL_PALEOGRAPHIC_OR_DATE_DETERMINATION",
+    "qingchu_manuscript_secondary_catalog_same_physical_object": "UNPROVEN"
+  },
+  "execution": {
+    "workflow": "probe-yehuobian-shanghai-gj2312912-folio-12qa",
+    "run_id": 38041768513,
+    "run_url": "https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/38041768513",
+    "conclusion": "success",
+    "method": "curl original public PDFs, verify PDF header and SHA256, pdfinfo page count, render spaced and boundary samples via pdftoppm 95 dpi; no OCR, no inferred text extraction, no manual all-page collation"
+  },
+  "parts": [
+    {
+      "part": 2,
+      "source": "https://commons.wikimedia.org/wiki/File:Shanghai_%E8%90%AC%E6%9B%86%E9%87%8E%E7%8D%B2%E7%B7%A8%E4%B8%89%E5%8D%81%E5%8D%B7_part_2.pdf",
+      "original_filename": "dGJ2312912-0551-1100.pdf",
+      "pdf_pages": 550,
+      "source_global_range": [
+        551,
+        1100
+      ],
+      "pdf_size_bytes": 177242086,
+      "pdf_sha256": "7ea8fe57f5baebd8f2841771d87ec5e3ed34c271e0fe89596a28d2521c9165a6",
+      "artifact_id": 11665902200,
+      "artifact_name": "shanghai-gj2312912-part2-physical-samples-12qa",
+      "sampled_pages": 37,
+      "visual_reviewed": [
+        {
+          "pdf_page": 1,
+          "global_page": 551,
+          "note": "Continuous vertical historical text; not the named target title"
+        },
+        {
+          "pdf_page": 4,
+          "global_page": 554,
+          "note": "Tan-toned scanned facing pages, no date or copy attribution from this page"
+        },
+        {
+          "pdf_page": 400,
+          "global_page": 950,
+          "note": "Continuous text; not an identified 改造漏刻 original folio"
+        },
+        {
+          "pdf_page": 550,
+          "global_page": 1100,
+          "note": "Text page at PDF segment boundary, not printed volume end"
+        }
+      ]
+    },
+    {
+      "part": 3,
+      "source": "https://commons.wikimedia.org/wiki/File:Shanghai_%E8%90%AC%E6%9B%86%E9%87%8E%E7%8D%B2%E7%B7%A8%E4%B8%89%E5%8D%81%E5%8D%B7_part_3.pdf",
+      "original_filename": "dGJ2312912-1101-1457.pdf",
+      "pdf_pages": 357,
+      "source_global_range": [
+        1101,
+        1457
+      ],
+      "pdf_size_bytes": 62262769,
+      "pdf_sha256": "7fa233a835c30f1a3fc8c2a1b83896c9f1821af87ed50a84a313d69b9fc2f940",
+      "artifact_id": 11665967208,
+      "artifact_name": "shanghai-gj2312912-part3-physical-samples-12qa",
+      "sampled_pages": 30,
+      "visual_reviewed": [
+        {
+          "pdf_page": 1,
+          "global_page": 1101,
+          "note": "Continuous text, not beginning of a named printed volume"
+        },
+        {
+          "pdf_page": 357,
+          "global_page": 1457,
+          "note": "End page with empty facing leaf / red seals; not proof of imprint or target passage"
+        }
+      ]
+    }
+  ],
+  "external_bibliography_controls": [
+    {
+      "url": "https://www.guoxuedashi.com/shumu/gj-1717015ql.html",
+      "source_class": "SECONDARY_BIBLIOGRAPHIC_COPY-UNBOUND",
+      "recorded": "《萬曆野獲編三十卷》 上海圖書館 清初(1644–1722)抄本",
+      "identity_to_gj2312912": "UNPROVEN"
+    },
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/4/4d/SSID-13990658_%E4%B8%AD%E5%9C%8B%E5%8F%A4%E7%B1%8D%E5%96%84%E6%9C%AC%E6%9B%B8%E7%9B%AE_%E5%AD%90%E9%83%A8_4.pdf",
+      "source_class": "PUBLIC_SCAN_OF_BOOK_CATALOG",
+      "recorded": "Multiple distinct 《萬曆野獲編三十卷》 copies listed with early-Qing manuscript, Qing manuscript, and typographic variants",
+      "identity_to_gj2312912": "UNPROVEN"
+    }
+  ],
+  "adjudication": {
+    "new_previously_unregistered_witness_route": true,
+    "new_direct_target_page": false,
+    "new_direct_guo_gong_glyph_witness": 0,
+    "heading_to_physical_leaf": "UNLOCATED_IN_REVIEWED_SPACED_SAMPLES",
+    "negative_entire_book_search": "NOT_PERFORMED",
+    "different_scanned_parts_are_independent_copies": false,
+    "edition_date": "UNRESOLVED",
+    "qingchu_bibliographic_copy_equal_to_gj2312912": "UNRESOLVED",
+    "same_as_berlin1827": "NOT_PROVEN",
+    "source_phase": "DIGITAL_SOURCE_IDENTIFIED_AND_SPACED_PAGES_REPRODUCIBLY_CAPTURED_TARGET_NOT_YET_COLLATED",
+    "matrix_rows": 222,
+    "audited_rows": 222,
+    "provenance_repairs": 45,
+    "algorithm_defects": 0,
+    "algorithm_reopen_authorized": false,
+    "runtime_change": false,
+    "md_g03": "OPEN_BLOCKING_GENERAL_ADAPTER",
+    "hpa_dayun_cal_002": "MISSING_FROM_PRODUCT"
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Third-party SHLIB attribution and copied filename GJ2312912 do not alone prove exact first-party catalog identity.",
+      "A separately indexed 清初抄本 record is not a demonstrated physical identity bridge to digitized GJ2312912.",
+      "Three PDF segments of a digital object must not be counted as three independent historical witnesses."
+    ],
+    "unresolved_lineage_questions": [
+      "Find official Shanghai Library item/copy record for GJ2312912 and verify manuscript date, provenance and material object identity.",
+      "Locate the chapter heading 改造漏刻 and original leaf/page with direct high-resolution scan for 官漏/宮漏 in this scanned set, 1827 print, or old20 manuscript."
+    ],
+    "graph_changed": false
+  },
+  "next_priority": "Targeted finer source-page indexing in GJ2312912 parts 2-3, avoiding volume number/part-number assumption; only then compare physical target glyph with independent 1827 and old20 editions."
+}
