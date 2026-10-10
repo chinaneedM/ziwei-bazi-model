@@ -241,5 +241,26 @@ class Yehuobian12PZWitnessBoundaryTests(unittest.TestCase):
         self.assertFalse(record["gates"]["batch_closed"])
 
 
+    def test_berlin_twelve_of_thirty_eight_original_images_not_printed_target(self) -> None:
+        sample = load(RESEARCH / "MING-DATONG-YEHUOBIAN-12PZ-BERLIN-38-SAMPLES-12-DIRECT-IMAGE-COLLATION-R1.json")
+        self.assertEqual(sample["manifest_canvas_count"], 38)
+        self.assertEqual(sample["reviewed_canvas_count"], 12)
+        self.assertEqual(sample["reviewed_canvas_indices"], [1,11,13,17,19,23,25,27,29,31,33,38])
+        self.assertEqual(len(sample["canvas_originals"]), 12)
+        self.assertEqual(len({s["source_sha256"] for s in sample["canvas_originals"]}), 12)
+        self.assertTrue(all(len(s["source_sha256"]) == 64 for s in sample["canvas_originals"]))
+        self.assertTrue(all(s["status"] == "IMAGE_RETRIEVED_SOURCE_EXPLICIT" for s in sample["canvas_originals"]))
+        self.assertEqual(sample["run_conclusion"], "success")
+        self.assertEqual(sample["bounded_adjudication"]["remaining_unreviewed_manifest_canvases"], 26)
+        self.assertFalse(sample["bounded_adjudication"]["target_heading_identified_in_reviewed_twelve"])
+        self.assertFalse(sample["bounded_adjudication"]["entire_1827_print_negative_claim_allowed"])
+        self.assertEqual(sample["bounded_adjudication"]["historical_target_text_glyph_count_increment"], 0)
+        self.assertEqual(self.ledger["berlin_1827_bounded_image_review_20261010"]["reviewed_original_jpeg_canvases"], 12)
+        evidence = load(RESEARCH / "MING-DATONG-YEHUOBIAN-12PZ-1827-PRINTED-RECORD-AND-BERLIN-IIIF-ROUTE-R1.json")
+        self.assertFalse(next(x for x in evidence["printed_copy_routes"] if x["item_id"] == "BERLIN_1827_SAMPLES")["target_leaf_image_acquired"])
+        self.assertEqual(evidence["gates"]["original_target_glyph_count_delta"], 0)
+        self.assertFalse(self.ledger["gates"]["batch_closed"])
+
+
 if __name__ == "__main__":
     unittest.main()
