@@ -5363,8 +5363,10 @@ def main() -> int:
         fail("Batch 12QA MD-G03 fail-close boundary")
     ids = {v.get("source_id"):v for v in registry.get("sources", ())}
     qasrc = ids.get("EXT-SHLIB-ATTRIBUTED-GJ2312912-YEHUOBIAN-30V-COMMONS-MIRROR")
-    if not qasrc or qasrc.get("physical_glyph_authority") is not False or qasrc.get("batch_id") != qa.get("batch_id"):
-        fail("Batch 12QA authority/quarantine metadata regressed")
+    # QA's own 67-page spaced sample remains negative for target; QC later independently attested p441.
+    # The registry is a current-state source record, not a frozen QA-stage boolean.
+    if not qasrc or qasrc.get("batch_id") != qa.get("batch_id") or qasrc.get("physical_glyph_authority") is not True or qasrc.get("direct_target_glyph_batch_id") != "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-GJ2312912-DIRECT-TARGET-GLYPH-QC":
+        fail("Batch 12QA/QC temporal source-authority bridge regressed")
 
     # Batch 12QB preserves capture-vs-text-collation and input PDF identity.
     qb_path = ROOT / "docs/research/MING-DATONG-YEHUOBIAN-12QB-SHLIB-GJ2312912-DENSE-PAGE-INDEX-R1.json"
