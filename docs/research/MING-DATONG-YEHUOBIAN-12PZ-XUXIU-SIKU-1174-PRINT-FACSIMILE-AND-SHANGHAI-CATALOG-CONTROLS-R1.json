@@ -1,0 +1,97 @@
+{
+  "schema": "MING-DATONG-YEHUOBIAN-12PZ-XUXIU-SIKU-1174-PRINT-FACSIMILE-AND-SHANGHAI-CATALOG-CONTROLS-R1",
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-10-10",
+  "batch": "12PZ_IN_PROGRESS",
+  "classification": "BIBLIOGRAPHIC_LOCATOR_ONLY_NO_NEW_TARGET_PHYSICAL_GLYPH",
+  "scope": "Ming Datong historical clock/edition source collation; 12PZ forward-only research route; no runtime authorization",
+  "lines_of_inquiry": [
+    {
+      "id": "XUXIU-1174-PRINT-FACSIMILE",
+      "hypothesis": "《續修四庫全書》子部第1174冊 may supply an accessible photoreproduction of the Qing Daoguang-7 Yao printing as repaired in Tongzhi-8, independently of the Shanghai-labelled manuscript surrogate.",
+      "catalog_support": [
+        {
+          "url": "https://wiki.ling2.cn/images/1/11/%E7%BB%AD%E4%BF%AE%E5%9B%9B%E5%BA%93%E5%85%A8%E4%B9%A6%281800%E5%86%8C%29%E4%B9%A6%E7%9B%AE%E8%AF%A6%E8%A1%A8%28%E5%B8%A6%E8%AF%A6%E7%BB%86%E9%A1%B5%E7%A0%81%29.pdf",
+          "claim": "Public index search snippet lists 子部雜家類 第1174冊－115頁 as the beginning of 野獲編三十卷 / 補遺四卷",
+          "support_level": "SEARCH_INDEX_SNIPPET_NOT_DIRECT_PDF_PAGE_VISUAL"
+        },
+        {
+          "url": "https://www.xianzhiguan.com/article.php?id=250",
+          "claim": "Independent online 1800-volume index transcription likewise lists 第1174冊－115頁 for 野獲編",
+          "support_level": "SECONDARY_WEB_INDEX"
+        },
+        {
+          "url": "https://www.scribd.com/document/825902397/%E7%BA%8C%E4%BF%AE%E5%9B%9B%E5%BA%AB%E5%85%A8%E6%9B%B8%E7%B8%BD%E7%9B%AE%E9%8C%84",
+          "claim": "Catalog transcription labels the reproduced source 清道光七年姚氏刻同治八年補修本",
+          "support_level": "SECONDARY_CATALOG_TRANSCRIPTION"
+        },
+        {
+          "url": "https://ci.nii.ac.jp/author/DA14502583",
+          "claim": "CiNii library catalog indexes physical published series 《續修四庫全書》 and volume 1174; this binds series existence, NOT the particular internal target leaf",
+          "support_level": "LIBRARY_SERIES_CATALOG"
+        }
+      ],
+      "expected_relation": "1869-repaired Yao printed recension photographed in a modern facsimile series; NOT an 1827 uncorrected print by default and NOT a confirmed distinct original impression without underlying source/copy colophon.",
+      "target": "Locate 《改造漏刻》 by the classified 30-volume contents heading, then inspect and cite actual 1174-volume facsimile image and underlying imprint leaf for 官漏/宮漏, 新製/新制, 不待言. Volume-level p115 is work start, not target leaf.",
+      "availability": "NO_DIRECT_1174_TARGET_PAGE_IMAGE_OBTAINED",
+      "target_glyph_collated": false,
+      "original_printing_identified": false,
+      "edition_ambiguity": "1827 original vs 1869 repaired state cannot be disambiguated from catalog label alone"
+    },
+    {
+      "id": "SHANGHAI-OLD-QING-MANUSCRIPT-CATALOG",
+      "hypothesis": "A third-party Shanghai holding record of 清初(1644–1722) 抄本 may or may not correspond to the Commons/Shanghai dGJ2312912 manuscript file series.",
+      "catalog_support": [
+        {
+          "url": "https://www.guoxuedashi.com/shumu/gj-1717015ql.html",
+          "claim": "Third-party 古籍書目 record 《萬曆野獲編三十卷》, 清初(1644–1722) 抄本, 上海圖書館, but supplies no verified shelfmark or direct digital-file identity.",
+          "support_level": "THIRD_PARTY_HOLDING_SUMMARY_NO_SHELFMARK"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/File:Shanghai_%E8%90%AC%E6%9B%86%E9%87%8E%E7%8D%B2%E7%B7%A8%E4%B8%89%E5%8D%81%E5%8D%B7_part_1.pdf",
+          "claim": "Commons uploaded dGJ2312912-0001-0550.pdf, 550 scanned pages; no unique Shanghai physical shelfmark in public file inventory.",
+          "support_level": "DIGITAL_OBJECT_METADATA"
+        }
+      ],
+      "relevant_already_collated": "Shanghai-labeled digital part1 physical-cover reads 抄本 and p10 source-derived 300DPI evidence reads 康熙庚辰八月 桐鄉錢枋識 separately from 壬申菊月錄于塘灣館舍 嘉禾李含潤; previous 12PZ SHA-based physical log remains controlling.",
+      "boundary": "DO NOT EQUATE third-party 清初 holdings with scanned copy; DO NOT treat copied 1700 preface or ambiguous 壬申 cyclical note as physical manuscript production date.",
+      "target_glyph_collated": false,
+      "unique_shelfmark_matched": false,
+      "ren_shen_year_resolved": false
+    }
+  ],
+  "evidence_accounting": {
+    "new_direct_target_glyph_witnesses": 0,
+    "new_physical_copy_identity_resolutions": 0,
+    "external_locator_routes_added": 2
+  },
+  "transmission_impact": {
+    "nodes_proposed_not_activated": [
+      "《續修四庫全書》子部1174 modern photofacsimile of catalog-labelled Daoguang/Tongzhi Yao print",
+      "Shanghai Library 清初抄本 third-party holding summary"
+    ],
+    "edges_supported": [],
+    "edges_unproved": [
+      "XUXIU-1174 is same physical copy as Shanghai dGJ2312912",
+      "Shanghai 清初馆藏记录 = Shanghai scan's uniquely identified manuscript",
+      "The 1174 facsimile is unaltered 1827 original printing",
+      "壬申 signatory corresponds to one absolute year"
+    ],
+    "graph_updated": false
+  },
+  "invariants": {
+    "deterministic_fusion_chart_product_r1": "CLOSED",
+    "md_g03": "OPEN_BLOCKING_GENERAL_ADAPTER",
+    "hpa_dayun_cal_002": "MISSING_FROM_PRODUCT",
+    "matrix_changed": false,
+    "state_changed": false,
+    "algorithm_reopened": false,
+    "run_time_candidate_selected": false,
+    "batch_closed": false
+  },
+  "next": [
+    "Locate a lawful page viewer for 《續修四庫全書》子部第1174冊 and directly inspect its actual 《改造漏刻》 image and imprint, rather than treating p115 work start as target page.",
+    "Match Commons Shanghai dGJ2312912 metadata to Shanghai Library first-party catalog accession/shelfmark and physical-copy dating; do not equate identical book titles.",
+    "Keep independently imaged 1827 original and 1869 repaired recension as separate copy/impression targets."
+  ]
+}
