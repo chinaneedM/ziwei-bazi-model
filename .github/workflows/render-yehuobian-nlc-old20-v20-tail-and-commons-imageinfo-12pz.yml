@@ -1,0 +1,125 @@
+name: render-yehuobian-nlc-old20-v20-tail-and-commons-imageinfo-12pz
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/render-yehuobian-nlc-old20-v20-tail-and-commons-imageinfo-12pz.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  nlc-old20-v20-tail:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install PDF rendering tools
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils
+      - name: Acquire separately identified China NLC old20 manuscript fascicle 10
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p 12pz-nlc10/source 12pz-nlc10/pages
+          url='https://commons.wikimedia.org/wiki/Special:Redirect/file/NLC892-411999003250-383067_%E8%90%AC%E6%9B%86%E9%87%8E%E7%8D%B2%E7%B7%A8_%E2%96%A1%E2%96%A1%E5%8D%B7_%E7%AC%AC10%E5%86%8A.pdf'
+          curl -L --fail --retry 5 --retry-all-errors --retry-delay 3 --max-time 1000 \
+            -A 'Tianwen-Historical-Provenance-R1/1.0' "$url" \
+            -o 12pz-nlc10/source/fascicle10.pdf
+          test "$(head -c4 12pz-nlc10/source/fascicle10.pdf)" = '%PDF'
+          pdfinfo 12pz-nlc10/source/fascicle10.pdf > 12pz-nlc10/pdfinfo.txt
+          test "$(awk '/^Pages:/ {print $2}' 12pz-nlc10/pdfinfo.txt)" = 145
+          test "$(stat -c%s 12pz-nlc10/source/fascicle10.pdf)" -gt 40000000
+          (cd 12pz-nlc10 && sha256sum source/fascicle10.pdf > source-sha256.txt)
+          (cd 12pz-nlc10 && sha1sum source/fascicle10.pdf > source-sha1.txt)
+          cat 12pz-nlc10/source-sha256.txt 12pz-nlc10/source-sha1.txt
+          grep -E '^(Pages|File size|Page size):' 12pz-nlc10/pdfinfo.txt
+      - name: Render bounded last 10 digital spreads (one earlier + entire candidate tail)
+        shell: bash
+        run: |
+          set -euo pipefail
+          for p in $(seq 136 145); do
+            pdftoppm -f "$p" -l "$p" -r 155 -jpeg -jpegopt quality=88 \
+              -singlefile 12pz-nlc10/source/fascicle10.pdf \
+              "12pz-nlc10/pages/$(printf 'nlc10-p%04d' "$p")"
+          done
+          test "$(find 12pz-nlc10/pages -name '*.jpg' | wc -l)" -eq 10
+          (cd 12pz-nlc10 && sha256sum pages/*.jpg > images-sha256.txt)
+          cat 12pz-nlc10/images-sha256.txt
+          cat > 12pz-nlc10/manifest.txt <<'EOF'
+          REPO_COPY=China National Library 411999003250 Ming old20 manuscript fascicle 10
+          SOURCE_COMMONS_OBJECT=NLC892-411999003250-383067
+          CATALOG_BIBLIOGRAPHY=卷十八十九二十
+          PDF_PAGES=145
+          PREVIOUS_MANUAL_SOURCE_IMAGE_VOLUME20_OPENING_P137=true
+          RENDERED_PAGES_1BASED=136,137,138,139,140,141,142,143,144,145
+          HISTORICAL_FOLIO_NUMBERS=NOT_COLLATED
+          OCR_USED=false
+          DO_NOT_INFER_GAIZAO_LOUKE_ABSENCE_FROM_RENDER_ONLY=true
+          DO_NOT_INFER_OLD20_EQUIVALENT_TO_CATEGORIZED30_VOLUME20=true
+          SOURCE_GLYPHS_REQUIRE_LATER_MANUAL_INSPECTION=true
+          EOF
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nlc-old20-v20-final-10-digital-spreads-12pz
+          path: |
+            12pz-nlc10/pages/
+            12pz-nlc10/source-sha256.txt
+            12pz-nlc10/source-sha1.txt
+            12pz-nlc10/images-sha256.txt
+            12pz-nlc10/pdfinfo.txt
+            12pz-nlc10/manifest.txt
+          if-no-files-found: error
+          retention-days: 30
+
+  commons-ncl02260-pdf2-metadata-crosscheck:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Read independent Wikimedia Commons ImageInfo SHA1 and size
+        run: |
+          set -euo pipefail
+          mkdir -p 12pz-commons
+          python - <<'PY'
+          import hashlib
+          import json
+          import pathlib
+          import urllib.parse
+          import urllib.request
+
+          title="File:NCL-02260_2_萬曆野獲編.pdf"
+          params={"action":"query","format":"json","formatversion":"2",
+                  "prop":"imageinfo","iiprop":"sha1|size|timestamp|url","titles":title}
+          api="https://commons.wikimedia.org/w/api.php?"+urllib.parse.urlencode(params)
+          request=urllib.request.Request(api,headers={"User-Agent":"Tianwen-ProvenanceAudit-R1/1.0 (read-only digital object identity check)","Accept":"application/json"})
+          with urllib.request.urlopen(request,timeout=80) as r:
+              data=json.load(r)
+          pathlib.Path("12pz-commons/imageinfo.json").write_text(json.dumps(data,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+          pages=data["query"]["pages"]
+          assert len(pages)==1 and pages[0]["title"]==title,pages
+          item=pages[0]["imageinfo"][0]
+          api_sha1=item["sha1"].lower()
+          actual_sha1="b0ab33d76ec27457173f6285b920016a0f24cdab"
+          if len(api_sha1)==40 and all(x in "0123456789abcdef" for x in api_sha1):
+              upstream_hex=api_sha1
+          else:
+              upstream_hex=format(int(api_sha1,36),"040x")
+          assert upstream_hex==actual_sha1,{"upstream":api_sha1,"derived_hex":upstream_hex,"runner_pdf_sha1":actual_sha1}
+          assert item["size"]==5959699,{"commons_file_size":item["size"],"runner_file_size":5959699}
+          print("COMMONS_API_SHA1_AND_SIZE_INDEPENDENT_METADATA_MATCH=PASS")
+          print("COMMONS_API_SHA1="+upstream_hex)
+          print("COMMONS_API_SIZE="+str(item["size"]))
+          print("COMMONS_API_TIMESTAMP="+str(item.get("timestamp")))
+          print("COMMONS_API_OBJECT_URL="+str(item.get("url")))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ncl02260-part2-commons-imageinfo-direct-check-12pz
+          path: 12pz-commons/imageinfo.json
+          if-no-files-found: error
+          retention-days: 30
