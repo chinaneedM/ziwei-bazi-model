@@ -1,0 +1,84 @@
+name: render-yehuobian-shanghai30-part1-opening-12pz
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/render-yehuobian-shanghai30-part1-opening-12pz.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  source-opening:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Install PDF imaging utilities
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils
+      - name: Acquire Commons Shanghai source part1 and freeze hashes
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p 12pz-shanghai-part1/source 12pz-shanghai-part1/pages
+          url='https://commons.wikimedia.org/wiki/Special:Redirect/file/Shanghai_%E8%90%AC%E6%9B%86%E9%87%8E%E7%8D%B2%E7%B7%A8%E4%B8%89%E5%8D%81%E5%8D%B7_part_1.pdf'
+          curl -L --fail --retry 5 --retry-all-errors --retry-delay 3 --max-time 1500 \
+            -A 'Tianwen-Historical-Provenance-R1/1.0' "$url" \
+            -o 12pz-shanghai-part1/source/part1.pdf
+          test "$(stat -c%s 12pz-shanghai-part1/source/part1.pdf)" -gt 250000000
+          sha256sum 12pz-shanghai-part1/source/part1.pdf | tee 12pz-shanghai-part1/source-sha256.txt
+          sha1sum 12pz-shanghai-part1/source/part1.pdf | tee 12pz-shanghai-part1/source-sha1.txt
+          pdfinfo 12pz-shanghai-part1/source/part1.pdf > 12pz-shanghai-part1/pdfinfo.txt
+          test "$(awk '/^Pages:/ {print $2}' 12pz-shanghai-part1/pdfinfo.txt)" = 550
+      - name: Render only selected opening folios and first-file boundary
+        shell: bash
+        run: |
+          set -euo pipefail
+          for p in 1 2 3 4 5 6 7 8 9 10 11 12 540 545 549 550; do
+            pdftoppm -f "$p" -l "$p" -scale-to 2000 -jpeg -jpegopt quality=88 \
+              -singlefile 12pz-shanghai-part1/source/part1.pdf \
+              "12pz-shanghai-part1/pages/$(printf 'part1-p%04d' "$p")"
+          done
+          test "$(find 12pz-shanghai-part1/pages -type f -name '*.jpg' | wc -l)" -eq 16
+          (cd 12pz-shanghai-part1 && sha256sum pages/*.jpg > image-sha256.txt)
+          printf '%s\n' \
+            'SOURCE=Shanghai Library-labelled Commons part1 of categorized 30v' \
+            'SOURCE_UPLOAD_FILENAME=dGJ2312912-0001-0550.pdf' \
+            'SOURCE_PDF_PAGES=550' \
+            'PAGES_RENDERED=1..12,540,545,549,550' \
+            'PDF_1BASED_PAGES_NOT_PHYSICAL_FOLIOS=true' \
+            'SOURCE_EDITION_DATE_NOT_ATTESTED=true' \
+            'COMMONS_SHA1_AS_OF_WORKFLOW_UNCONFIRMED_INITIAL_ACQUISITION=true' \
+            'NO_IMPRINT_OR_SEAL_CLAIM_UNTIL_MANUAL_VISUAL_REVIEW=true' \
+            'OCR=false' > 12pz-shanghai-part1/manifest.txt
+      - name: Expose bounded original-page JPEG previews to human visual reviewer
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import base64,pathlib
+          for p in [1,2,3,4,5,6,8,10,12]:
+              f=pathlib.Path(f"12pz-shanghai-part1/pages/part1-p{p:04d}.jpg")
+              s=base64.b64encode(f.read_bytes()).decode("ascii")
+              print(f"TIANWEN_PART1_IMAGE_BEGIN page={p} base64_chars={len(s)}",flush=True)
+              for i in range(0,len(s),4000):
+                  print("TIANWEN_PART1_IMAGE_CHUNK "+s[i:i+4000],flush=True)
+              print(f"TIANWEN_PART1_IMAGE_END page={p}",flush=True)
+          PY
+      - name: Upload indexed source-image proof
+        uses: actions/upload-artifact@v4
+        with:
+          name: shanghai30-part1-opening-leaves-12pz
+          path: |
+            12pz-shanghai-part1/pages/
+            12pz-shanghai-part1/image-sha256.txt
+            12pz-shanghai-part1/source-sha1.txt
+            12pz-shanghai-part1/source-sha256.txt
+            12pz-shanghai-part1/pdfinfo.txt
+            12pz-shanghai-part1/manifest.txt
+          retention-days: 30
+          if-no-files-found: error
