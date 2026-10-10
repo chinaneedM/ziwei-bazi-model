@@ -1,0 +1,87 @@
+name: probe-yehuobian-korea-cnts-11-12-cross-volume-folio-12pz
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-yehuobian-korea-cnts-11-12-cross-volume-folio-12pz.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  korea-11-12-boundary-physical-pages:
+    runs-on: ubuntu-latest
+    timeout-minutes: 26
+    steps:
+      - name: Install reproducible PDF renderer
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils
+          python -m pip install --quiet pillow
+      - name: Fetch official scan backups for four parts and preview exact PDF physical-page boundaries
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p korea-12pz/source korea-12pz/pages korea-12pz/contacts
+          python - <<'PY'
+          import json,pathlib,subprocess,hashlib,urllib.parse
+          from PIL import Image,ImageDraw
+          root=pathlib.Path("korea-12pz")
+          parts=[11,12]
+          results={"source_object_id":"CNTS-00047974753","edition_date_catalog_year_1700":"UNVERIFIED","purpose":"Locate possible 1827 rearranged vol20 across digital segments, from exact image leaves not file numbers","original_20v_target_copy_not_established":True,"ocr_used":False,"parts":[]}
+          for n in parts:
+              filename=f"CNTS-00047974753_{n}_野獲編.pdf"
+              url="https://commons.wikimedia.org/wiki/Special:Redirect/file/"+urllib.parse.quote(filename)
+              dst=root/"source"/f"part{n}.pdf"
+              record={"part":n,"catalog_item":filename,"source_url":url,"status":"UNATTEMPTED"}
+              try:
+                  result=subprocess.run(["curl","-L","--fail","--retry","3","--retry-all-errors","--retry-delay","3","--connect-timeout","20","--max-time","420","-A","Tianwen-Historical-Provenance-R1/1.0",url,"-o",str(dst)],capture_output=True,text=True,timeout=460)
+                  if result.returncode!=0:raise RuntimeError("DOWNLOAD_CURL_EXIT_"+str(result.returncode))
+                  assert dst.read_bytes()[:4]==b"%PDF"
+                  info=subprocess.run(["pdfinfo",str(dst)],capture_output=True,text=True,check=True).stdout
+                  page_count=int(next(x.split(":",1)[1].strip() for x in info.splitlines() if x.startswith("Pages:")))
+                  assert page_count>10
+                  sha=hashlib.sha256(dst.read_bytes()).hexdigest()
+                  record.update(status="PDF_DOWNLOADED",sha256=sha,size_bytes=dst.stat().st_size,pdf_pages=page_count)
+                  positions=sorted(set([1,2,3,4,5,6,7,8,9,10,page_count//3,page_count//2,page_count*2//3,page_count-3,page_count-2,page_count-1,page_count]))
+                  record["sample_pages"]=positions
+                  thumbs=[]
+                  for p in positions:
+                      output=root/"pages"/f"part{n}-p{p:04d}.jpg"
+                      cmd=["pdftoppm","-f",str(p),"-l",str(p),"-r","110","-jpeg","-jpegopt","quality=80","-singlefile",str(dst),str(output.with_suffix(""))]
+                      subprocess.run(cmd,check=True,capture_output=True,timeout=65)
+                      img=Image.open(output);img.thumbnail((345,500))
+                      thumbs.append((p,img.copy()))
+                  chunk=6
+                  for start in range(0,len(thumbs),chunk):
+                      group=thumbs[start:start+chunk]
+                      sheet=Image.new("RGB",(3*365,2*550),(246,246,246));dr=ImageDraw.Draw(sheet)
+                      for i,(p,img) in enumerate(group):
+                          x=(i%3)*365;y=(i//3)*550
+                          dr.text((x+6,y+6),f"Korea part {n} source PDF p{p}/{page_count}",fill=(0,0,0))
+                          sheet.paste(img,(x+8,y+30))
+                      name=root/"contacts"/f"part{n}-sample{start//chunk+1}.jpg"
+                      sheet.save(name,"JPEG",quality=76,optimize=True)
+                      entry={"contact_sheet":name.name,"sha256":hashlib.sha256(name.read_bytes()).hexdigest(),"size_bytes":name.stat().st_size,"sample_pages":[p for p,_ in group]}
+                      record.setdefault("contact_sheets",[]).append(entry)
+                  print("PART_RESULT",json.dumps(record,ensure_ascii=False),flush=True)
+              except Exception as ex:
+                  record["status"]="ERROR_"+type(ex).__name__
+                  record["error_message"]=str(ex)[:240]
+                  print("PART_ERROR",json.dumps(record,ensure_ascii=False),flush=True)
+              results["parts"].append(record)
+              if dst.exists():dst.unlink()
+          (root/"route-inventory.json").write_text(json.dumps(results,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+          print("SUMMARY",json.dumps({"successful_parts":sum(x["status"]=="PDF_DOWNLOADED" for x in results["parts"]),"selected_parts":parts},ensure_ascii=False),flush=True)
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: korea-cnts-yehuobian-parts11-12-physical-boundary-contact-sheets-12pz
+          path: |
+            korea-12pz/route-inventory.json
+            korea-12pz/contacts/
+            korea-12pz/pages/
+          retention-days: 30
+          if-no-files-found: error
