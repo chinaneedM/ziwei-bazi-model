@@ -1,0 +1,84 @@
+{
+  "schema": "MING-DATONG-YEHUOBIAN-12SK-TOKYO-1827-1869-CATALOG-GRAPH-BACKFILL-R1",
+  "date": "2026-10-12",
+  "status": "CATALOG_SCOPED_GRAPH_BACKFILL_NOT_TEXTUAL_COLLATION",
+  "parent_batch": "12QE_OPEN",
+  "sources": [
+    {
+      "ncid": "BC0492354X",
+      "source_id": "EXT-CINII-BC0492354X-YEHUOBIAN-1827-TOKYO-DAIMOKU-V20",
+      "url": "https://ci.nii.ac.jp/ncid/BC0492354X",
+      "collection": "大木文庫",
+      "physical_item": "6403767830",
+      "physical_volume": "卷20",
+      "cataloged_year": 1827,
+      "target_glyph_observed": false
+    },
+    {
+      "ncid": "BB23196128",
+      "source_id": "EXT-CINII-BB23196128-YEHUOBIAN-1869-KURAISHI-V19V20-12SI",
+      "url": "https://ci.nii.ac.jp/ncid/BB23196128.amp?l=en",
+      "collection": "倉石文庫",
+      "physical_item": "6403148395",
+      "physical_volume": "卷19-20",
+      "cataloged_year": 1869,
+      "target_glyph_observed": false,
+      "retains_1827_preface": true
+    }
+  ],
+  "graph_change": {
+    "old_nodes": 245,
+    "new_nodes": 248,
+    "old_edges": 233,
+    "new_edges": 235,
+    "nodes_added": [
+      "EDITION-YEHUOBIAN-1869-FULISHANFANG-RECOLLATED-30V",
+      "PHYSICAL-COPY-YEHUOBIAN-TOKYO-OKI-BC0492354X-V20",
+      "PHYSICAL-COPY-YEHUOBIAN-TOKYO-KURAISHI-BB23196128-V19V20"
+    ],
+    "edges_added": [
+      "TG-E0234",
+      "TG-E0235"
+    ]
+  },
+  "boundaries": {
+    "catalog_holdings_distinct": true,
+    "source_page_glyph_votes_added": 0,
+    "old20_manuscript_target_page_identified": false,
+    "shared_printing_plates_proven": false,
+    "direct_1827_to_1869_copying_proven": false,
+    "cadal_physical_copy_bound": false,
+    "algorithm_reopens": 0
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [
+      "EDITION-YEHUOBIAN-1869-FULISHANFANG-RECOLLATED-30V",
+      "PHYSICAL-COPY-YEHUOBIAN-TOKYO-OKI-BC0492354X-V20",
+      "PHYSICAL-COPY-YEHUOBIAN-TOKYO-KURAISHI-BB23196128-V19V20"
+    ],
+    "edges_supported": [
+      "TG-E0234",
+      "TG-E0235"
+    ],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "No direct ancestral-copy link between cataloged 1827 and 1869 prints",
+      "No CADAL02096915 same-copy identification for either Tokyo holding",
+      "No numeric glyph vote from catalog entries"
+    ],
+    "unresolved_lineage_questions": [
+      "Get corresponding target leaves and related impression controls from both Tokyo items",
+      "Determine CADAL fascicle16 print/copy identity",
+      "Locate old 20-volume manuscript target leaf"
+    ]
+  },
+  "invariants": {
+    "matrix_rows": 222,
+    "audited_rows": 222,
+    "source_root": 647,
+    "source_extensions": 8,
+    "source_union": 655,
+    "deterministic_r1": "CLOSED",
+    "current_algorithm_defects": 0
+  }
+}

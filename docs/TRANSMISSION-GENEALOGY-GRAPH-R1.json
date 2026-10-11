@@ -4688,6 +4688,59 @@
       "source_image_sha256": "c452e18d8da8f70114a5592a917f7bfc2611a610ba36ebf208b39d969c7a0d50",
       "physical_original_folio": "UNRESOLVED",
       "underlying_edition": "UNBOUND"
+    },
+    {
+      "node_id": "EDITION-YEHUOBIAN-1869-FULISHANFANG-RECOLLATED-30V",
+      "node_type": "EDITION",
+      "label": "扶茘山房同治八年(1869)重校刋補三十卷本（CiNii書目所定出版層）",
+      "work_composition_date": "MING_AUTHORIAL_COMPONENT_1606",
+      "edition_impression_date": "1869_CATALOGED_RECOLLATION_YEAR",
+      "physical_copy_date": null,
+      "digital_surrogate_date": null,
+      "evidence": [
+        "EXT-CINII-BB23196128-YEHUOBIAN-1869-KURAISHI-V19V20-12SI",
+        "docs/research/MING-DATONG-YEHUOBIAN-12SK-TOKYO-1827-1869-CATALOG-GRAPH-BACKFILL-R1.json"
+      ],
+      "first_explicit_graph_batch": "12SK_SUPPLEMENTAL_UNDER_12QE_OPEN",
+      "target_page_collated": false,
+      "relation_to_1827_plates": "UNRESOLVED"
+    },
+    {
+      "node_id": "PHYSICAL-COPY-YEHUOBIAN-TOKYO-OKI-BC0492354X-V20",
+      "node_type": "PHYSICAL_COPY",
+      "label": "東京大學東洋文化研究所大木文庫卷20 1827目錄刊本 item6403767830",
+      "work_composition_date": "MING_AUTHORIAL_COMPONENT_1606",
+      "edition_impression_date": "1827_CATALOGED_PRINT_DATE",
+      "physical_copy_date": null,
+      "digital_surrogate_date": null,
+      "evidence": [
+        "EXT-CINII-BC0492354X-YEHUOBIAN-1827-TOKYO-DAIMOKU-V20",
+        "docs/research/MING-DATONG-YEHUOBIAN-12SK-TOKYO-1827-1869-CATALOG-GRAPH-BACKFILL-R1.json"
+      ],
+      "first_explicit_graph_batch": "12SK_SUPPLEMENTAL_UNDER_12QE_OPEN",
+      "catalog": "BC0492354X",
+      "item": "6403767830",
+      "collection": "大木文庫",
+      "target_page_collated": false
+    },
+    {
+      "node_id": "PHYSICAL-COPY-YEHUOBIAN-TOKYO-KURAISHI-BB23196128-V19V20",
+      "node_type": "PHYSICAL_COPY",
+      "label": "東京大學東洋文化研究所倉石文庫卷19–20 1869目錄重校本 item6403148395",
+      "work_composition_date": "MING_AUTHORIAL_COMPONENT_1606",
+      "edition_impression_date": "1869_CATALOGED_RECOLLATION_YEAR",
+      "physical_copy_date": null,
+      "digital_surrogate_date": null,
+      "evidence": [
+        "EXT-CINII-BB23196128-YEHUOBIAN-1869-KURAISHI-V19V20-12SI",
+        "docs/research/MING-DATONG-YEHUOBIAN-12SK-TOKYO-1827-1869-CATALOG-GRAPH-BACKFILL-R1.json"
+      ],
+      "first_explicit_graph_batch": "12SK_SUPPLEMENTAL_UNDER_12QE_OPEN",
+      "catalog": "BB23196128",
+      "item": "6403148395",
+      "collection": "倉石文庫",
+      "shelfmark": "倉石文庫:20128:11",
+      "target_page_collated": false
     }
   ],
   "edges": [
@@ -8259,6 +8312,36 @@
       ],
       "scope_note": "Only attests that this digitized page says 禁中宮漏循用新製不待言; no evidence that 1447 construction finished, 1450 observer/clock calibrated, Shanghai catalog copy identified or 1827/old20 target same wording.",
       "adjudication_batch": "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-GJ2312912-DIRECT-TARGET-GLYPH-QC"
+    },
+    {
+      "edge_id": "TG-E0234",
+      "from": "PHYSICAL-COPY-YEHUOBIAN-TOKYO-OKI-BC0492354X-V20",
+      "to": "EDITION-YEHUOBIAN-1827-FULISHANFANG-30V",
+      "relation": "PHYSICAL_COPY_OF_EDITION",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_FOR_CATALOG_SCOPE_ONLY",
+      "evidence_class": "DIRECT_BIBLIOGRAPHIC_BINDING",
+      "evidence": [
+        "EXT-CINII-BC0492354X-YEHUOBIAN-1827-TOKYO-DAIMOKU-V20",
+        "docs/research/MING-DATONG-YEHUOBIAN-12SK-TOKYO-1827-1869-CATALOG-GRAPH-BACKFILL-R1.json"
+      ],
+      "scope_note": "Known 1827 catalogued edition and distinct Tokyo Oki item; no original target folio or exact physical impression check.",
+      "adjudication_batch": "12SK_SUPPLEMENTAL_UNDER_12QE_OPEN"
+    },
+    {
+      "edge_id": "TG-E0235",
+      "from": "PHYSICAL-COPY-YEHUOBIAN-TOKYO-KURAISHI-BB23196128-V19V20",
+      "to": "EDITION-YEHUOBIAN-1869-FULISHANFANG-RECOLLATED-30V",
+      "relation": "PHYSICAL_COPY_OF_EDITION",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_FOR_CATALOG_SCOPE_ONLY",
+      "evidence_class": "DIRECT_BIBLIOGRAPHIC_BINDING",
+      "evidence": [
+        "EXT-CINII-BB23196128-YEHUOBIAN-1869-KURAISHI-V19V20-12SI",
+        "docs/research/MING-DATONG-YEHUOBIAN-12SK-TOKYO-1827-1869-CATALOG-GRAPH-BACKFILL-R1.json"
+      ],
+      "scope_note": "1869 recollected catalog record with inherited 1827 frontmatter; does not identify CADAL original source copy or give target-page glyphs.",
+      "adjudication_batch": "12SK_SUPPLEMENTAL_UNDER_12QE_OPEN"
     }
   ],
   "lineage_hypotheses": [
@@ -9270,5 +9353,5 @@
     "first_explicit_seed_batch": "BATCH-12-ZIWEI-SISHI-QIHOU-JINGTAI6-TONGSHU-TABLE-CONTROL-CH",
     "future_material_batches_require_transmission_impact": true
   },
-  "updated_at": "2026-10-10"
+  "updated_at": "2026-10-12"
 }
