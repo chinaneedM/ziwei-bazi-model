@@ -1,0 +1,176 @@
+{
+  "schema": "MING-DATONG-YEHUOBIAN-12QU-NLC411999003250-F8-EIGHT-UP-TRIAGE-R1",
+  "date": "2026-10-11",
+  "stage": "12QE_OPEN",
+  "status": "SOURCE_SHA_BOUND_EIGHT_UP_PREVIEW_NOT_NATIVE_TARGET_COLLATION",
+  "source": {
+    "holding_id": "NLC411999003250_ONE_HOLDING",
+    "fascicle": 8,
+    "original_work_volume": 15,
+    "source_pdf_pages": 87,
+    "source_pdf_sha256": "8618b54338df71d07f4b8b70bb2d9b549613be0488529c9163a68ef25a7de366",
+    "source_pdf_rehashed_this_batch": false,
+    "artifact_id": 11674711192,
+    "workflow_run_id": 38064436808,
+    "artifact_zip_sha256": "be1fd1bb2aeb016dea6cf721e9ee72499194a4edbc8989c8906dbd491f550c21",
+    "artifact_status_json_sha256": "9ccaaaafb30829e72feed99b028f76b5f4cb6390e38a339f491c4c2ed9a61cda",
+    "image_integrity": {
+      "original_jpegs_rehashed": 87,
+      "contact_sheets_rehashed": 11,
+      "hash_mismatches": 0
+    },
+    "page_sha_sequence_sha256": "b118385f23fbfb4219ea336474ceea3e77ed1864b175d41dbbb87c9b29c1a37f",
+    "contacts_sha_sequence_sha256": "3d4eeee69821e211517a79cf35d21a86a030ae45ffde30e9cb2d2a6873944f3c",
+    "hash_chain_method": "sha256(ASCII concatenation of each original source JPEG sha256 in PDF page order 1..87; contact hashes similarly in sheets start 1,9,...81)",
+    "ocr_used": false
+  },
+  "visual_review": {
+    "visual_method": "EIGHT_UP_PREEXISTING_CONTACT_SHEETS_NOT_FULL_SIZE_GLYPH_COLLATION",
+    "contacts_opened": 11,
+    "pages_in_preview": 87,
+    "first_page": 1,
+    "last_page": 87,
+    "contact_sheet_starts": [
+      1,
+      9,
+      17,
+      25,
+      33,
+      41,
+      49,
+      57,
+      65,
+      73,
+      81
+    ],
+    "native_pages_opened_for_navigation_only": [
+      1,
+      87
+    ],
+    "new_native_target_passage_reviews": 0,
+    "positive_target_attestation_count": 0,
+    "page_by_page_full_text_transcription": false,
+    "does_not_prove_page_absence": true,
+    "does_not_prove_work_absence": true,
+    "target_heading": "改造漏刻",
+    "explanation": "All 11 contact sheets individually visually viewed; two original-size source pages p1 and p87 opened solely for bounded manuscript chronology and page-end navigation. No verified original target glyph found at preview grade; cannot prove page/whole-work absence."
+  },
+  "original_page_navigation": {
+    "opening_label_direct_native_image": "萬曆四十年壬子卷十五",
+    "p1_source_sha256": "827017f05fda959c727c3bfb7e5a2639c9d66d4f19476fded57dcf0d1044e71e",
+    "p87_source_sha256": "22e1062cc969a523b14ed3ca290d41fb052088289f6a9d1fc17bc9f3ecd67919",
+    "volume15_in_fascicle8": true,
+    "volume16_in_next_fascicle9": true
+  },
+  "queue_reconciliation": {
+    "upstream_12qt": "docs/research/MING-DATONG-YEHUOBIAN-12QT-NLC411999003250-GRADED-TARGET-REVIEW-QUEUE-R1.json",
+    "old_12qt_preview_pages": 90,
+    "new_preview_pages": 87,
+    "native_target_review_backlog_not_reduced": true,
+    "expected_new_summary": {
+      "source_pages": 1030,
+      "body_pages": 1027,
+      "native_screened_source_pages": 29,
+      "montage_only_source_pages": 177,
+      "not_target_screened_source_pages": 824,
+      "native_body_review_backlog": 999,
+      "body_not_even_firstpass_screened": 822,
+      "body_full_text_collation_backlog": 1027,
+      "manuscript_target_folio": "UNLOCATED",
+      "global_target_absence_proven": false,
+      "independent_physical_copy_increment": 0,
+      "per_fascicle": {
+        "1": {
+          "pages": 119,
+          "native_screens": 0,
+          "fourup_only": 0,
+          "native_body_backlog": 117
+        },
+        "2": {
+          "pages": 72,
+          "native_screens": 0,
+          "fourup_only": 0,
+          "native_body_backlog": 72
+        },
+        "3": {
+          "pages": 121,
+          "native_screens": 0,
+          "fourup_only": 0,
+          "native_body_backlog": 121
+        },
+        "4": {
+          "pages": 56,
+          "native_screens": 0,
+          "fourup_only": 0,
+          "native_body_backlog": 56
+        },
+        "5": {
+          "pages": 63,
+          "native_screens": 0,
+          "fourup_only": 0,
+          "native_body_backlog": 63
+        },
+        "6": {
+          "pages": 116,
+          "native_screens": 0,
+          "fourup_only": 0,
+          "native_body_backlog": 116
+        },
+        "7": {
+          "pages": 110,
+          "native_screens": 20,
+          "fourup_only": 90,
+          "native_body_backlog": 90
+        },
+        "8": {
+          "pages": 87,
+          "native_screens": 0,
+          "fourup_only": 87,
+          "native_body_backlog": 87
+        },
+        "9": {
+          "pages": 141,
+          "native_screens": 0,
+          "fourup_only": 0,
+          "native_body_backlog": 141
+        },
+        "10": {
+          "pages": 145,
+          "native_screens": 9,
+          "fourup_only": 0,
+          "native_body_backlog": 136
+        }
+      }
+    }
+  },
+  "historical_adjudication": {
+    "old20_target_folio": "UNLOCATED",
+    "independent_1827_printing_target": "UNVERIFIED",
+    "historical_algorithm_reopen": false,
+    "physical_copy_increment": 0,
+    "full_manuscript_negative_claim": false
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [
+      "NLC old20 fascicle8 original-image hash-bound preview-only coverage (existing one physical holding)"
+    ],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "No inferred old20 manuscript target absence, old20→1827 printing copy relationship, or astronomical clock-standard winner"
+    ],
+    "unresolved_lineage_questions": [
+      "Locate 〈改造漏刻〉 original old20 source leaf with individual image-glyph coordinates",
+      "Verify independent 1827 Fuli Shan Fang physical target leaf and impression dating"
+    ]
+  },
+  "invariants": {
+    "matrix": "222/222",
+    "provenance_repairs": "45/45",
+    "source_registry": "647+7=654",
+    "product_r1": "CLOSED",
+    "algorithm_reopens": 0,
+    "md_g03": "OPEN",
+    "hpa_dayun_cal_002": "MISSING_FROM_PRODUCT"
+  }
+}
