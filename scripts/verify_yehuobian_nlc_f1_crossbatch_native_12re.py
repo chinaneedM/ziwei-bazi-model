@@ -120,12 +120,10 @@ def verify(record_path=RECORD, replacement_sources=None):
         digest = hashlib.sha256("".join(hashes).encode("ascii")).hexdigest()
         if digest != page[window["ordered_hash_chain_field"]] or digest != pinned_digest:
             raise ValueError("12RE_ORDERED_HASH_CHAIN_MISMATCH")
-        if batch == "12RD":
+        if batch in {"12RC", "12RD"}:
             a, z = page["first_pdf_page"], page["last_pdf_page"]
         else:
-            a, z = page["pdf_page_first"], page["pdf_page_last"] if batch != "12RC" else page["last_pdf_page"]
-            if batch == "12RC":
-                a = page["first_pdf_page"]
+            a, z = page["pdf_page_first"], page["pdf_page_last"]
         if (a, z) != (first, last):
             raise ValueError("12RE_REVIEW_WINDOW_SOURCE_PAGE_DRIFT")
         if batch in {"12QZ", "12RA", "12RC"}:
