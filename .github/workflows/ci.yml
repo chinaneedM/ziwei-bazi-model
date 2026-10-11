@@ -61,6 +61,10 @@ jobs:
           python scripts/verify_yehuobian_nlc_all1030_union_12rx.py
           python -m unittest discover -s tests -p "test_yehuobian_nlc_f1_f5_union_12rw.py" -v
           python -m unittest discover -s tests -p "test_yehuobian_nlc_all1030_union_12rx.py" -v
+      - name: NLC old20 F6 native original source p1-20 gate
+        run: |
+          python scripts/verify_yehuobian_nlc_f6_p1_20_native_12ry.py
+          python -m unittest discover -s tests -p "test_yehuobian_nlc_f6_p1_20_native_12ry.py" -v
       - name: Focused capability acceptance tests
         run: |
           python -m unittest discover -s tests -p "test_fusion_chart_capability_acceptance_r1.py" -v
