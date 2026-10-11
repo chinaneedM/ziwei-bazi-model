@@ -89,6 +89,10 @@ jobs:
         run: |
           python scripts/verify_yehuobian_nlc_f8_all87_native_12se.py
           python -m unittest discover -s tests -p 'test_yehuobian_nlc_f8_all87_native_12se.py' -v
+      - name: NLC old20 F9 p1-80 native source SHA-grade gate
+        run: |
+          python scripts/verify_yehuobian_nlc_f9_p1_80_native_12sf.py
+          python -m unittest discover -s tests -p 'test_yehuobian_nlc_f9_p1_80_native_12sf.py' -v
       - name: Focused capability acceptance tests
         run: |
           python -m unittest discover -s tests -p "test_fusion_chart_capability_acceptance_r1.py" -v
