@@ -55,6 +55,12 @@ jobs:
           python -m unittest discover -s tests -p "test_ming_datong_1569_solar_primary_collation_ledger_r1.py" -v
           python -m unittest discover -s tests -p "test_ming_datong_1569_time_coordinate_r1.py" -v
           python -m unittest discover -s tests -p "test_ming_datong_qishuo_geographic_critical_cases_r1.py" -v
+      - name: NLC old20 exact-source-page graded union gates
+        run: |
+          python scripts/verify_yehuobian_nlc_f1_f5_union_12rw.py
+          python scripts/verify_yehuobian_nlc_all1030_union_12rx.py
+          python -m unittest discover -s tests -p "test_yehuobian_nlc_f1_f5_union_12rw.py" -v
+          python -m unittest discover -s tests -p "test_yehuobian_nlc_all1030_union_12rx.py" -v
       - name: Focused capability acceptance tests
         run: |
           python -m unittest discover -s tests -p "test_fusion_chart_capability_acceptance_r1.py" -v
