@@ -24,7 +24,7 @@ def verify(record_path=RECORD, previous_path=PREVIOUS, navigation_path=NAVIGATIO
     s, v, q = rec["source"], rec["review"], rec["queue"]
     prev = before["source"]
     n = atlas["sources"][2]
-    if not (rec["batch"]=="12RN" and rec["stage"]==rec["parent_open_batch"]=="12QE_OPEN"
+    if not (rec["batch"]=="12RN" and rec["stage"]=="12QE_OPEN" and rec["parent_open_batch"]=="12QE"
             and rec["status"]=="SOURCE_NATIVE_ORIGINAL_JUAN7_HEADING_DIRECTLY_ATTESTED_F3_P83_LEFT_LEAF_MIXED_BOUNDARY"
             and s["physical_holding"]==prev["holding"]=="NLC411999003250_ONE_HOLDING"
             and s["digital_fascicle"]==prev["digital_fascicle"]==n["fascicle"]==3

@@ -45,7 +45,7 @@ def verify(record_path=RECORD, prior_path=RK, origin_path=ORIGIN):
     source, review, queue = obj["source"], obj["review"], obj["queue"]
     ps, pr, pq = prior["source"], prior["review"], prior["queue"]
     atlas3 = atlas["sources"][2]
-    if not (obj["batch"] == "12RL" and obj["parent_open_batch"] == obj["stage"] == "12QE_OPEN"
+    if not (obj["batch"] == "12RL" and obj["stage"]=="12QE_OPEN" and obj["parent_open_batch"]=="12QE"
             and obj["status"] == "THIRD_DIGITAL_FASCICLE_P21_40_NATIVE_BOUNDED_HEADING_SCREEN_NO_TEXT_ABSENCE_PROOF"
             and source["holding"] == ps["holding"] == "NLC411999003250_ONE_HOLDING"
             and source["digital_fascicle"] == ps["digital_fascicle"] == atlas3["fascicle"] == 3

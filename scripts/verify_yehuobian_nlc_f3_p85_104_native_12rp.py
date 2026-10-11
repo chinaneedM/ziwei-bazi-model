@@ -42,7 +42,7 @@ def verify(record_path=RECORD,prior_path=RO,rn_path=RN,rk_path=RK,rl_path=RL,rm_
     data, prior, rn, rk, rl, rm=(read(z) for z in (record_path,prior_path,rn_path,rk_path,rl_path,rm_path))
     s,v,q=data["source"],data["review"],data["queue"]
     ps=prior["source"]
-    if not (data["batch"]=="12RP" and data["parent_open_batch"]==data["stage"]=="12QE_OPEN"
+    if not (data["batch"]=="12RP" and data["stage"]=="12QE_OPEN" and data["parent_open_batch"]=="12QE"
             and data["status"]=="SOURCE_NATIVE_F3_P85_104_BOUNDED_VISUAL_TARGET_SCREEN_WITH_17_REMAINING"
             and s["physical_holding"]==ps["physical_holding"]==rn["source"]["physical_holding"]=="NLC411999003250_ONE_HOLDING"
             and s["digital_fascicle"]==ps["digital_fascicle"]==rn["source"]["digital_fascicle"]==3

@@ -45,7 +45,7 @@ def verify(record_path=RECORD, rl_path=RL, rk_path=RK):
     prior=rl["source"]
     assert_fields=("holding","digital_fascicle","commons_file_id","source_pdf_pages","source_pdf_sha256",
                    "artifact_id","artifact_zip_sha256")
-    if not (obj["batch"]=="12RM" and obj["stage"]==obj["parent_open_batch"]=="12QE_OPEN"
+    if not (obj["batch"]=="12RM" and obj["stage"]=="12QE_OPEN" and obj["parent_open_batch"]=="12QE"
             and obj["status"]=="THIRD_FASCICLE_FIRST60_NATIVE_BOUNDED_SCREEN_NOT_FULLTEXT_OR_NEGATIVE_WORK_PROOF"
             and all(s[k]==prior[k]==rk["source"][k] for k in assert_fields)
             and s["holding"]=="NLC411999003250_ONE_HOLDING" and s["digital_fascicle"]==3
