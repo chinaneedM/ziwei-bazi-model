@@ -46,12 +46,21 @@ class Tokyo12SOPhysicalFormatAndHistoricalImagePolicy(unittest.TestCase):
     def test_source_manifest_forward_only_and_formal_batch_unchanged(self):
         sh=self.s["sources"][0]
         self.assertEqual(sh["source_id"],"EXT-TOKYO-IOC-2005-HANJI-DIGITIZATION-PRACTICE-12SO")
-        self.assertEqual(self.m["extension_source_count"],11)
-        self.assertEqual(self.m["combined_source_count"],658)
-        self.assertEqual(self.state["historical_audit"]["external_source_registry_total_unique_count"],658)
-        self.assertTrue(any(x["path"]=="docs/research/MING-DATONG-YEHUOBIAN-12SO-TOKYO-2005-DIGITIZATION-SOURCE-SHARD-R1.json" and x["source_count"]==1 for x in self.m["shards"]))
-        self.assertEqual(len(self.state["historical_audit"]["completed_batches"]),487)
-        self.assertTrue(self.state["historical_audit"]["latest_batch_doc"].endswith("-QD.md"))
+        # Source totals are a growing union; require the 12SO shard and internal
+        # arithmetic, never freeze the total at the historical 12SO checkpoint.
+        h=self.state["historical_audit"]
+        shards=self.m["shards"]
+        matched=[x for x in shards if x["path"]=="docs/research/MING-DATONG-YEHUOBIAN-12SO-TOKYO-2005-DIGITIZATION-SOURCE-SHARD-R1.json"]
+        self.assertEqual(len(matched),1)
+        self.assertEqual(matched[0]["source_count"],1)
+        self.assertEqual(len({x["path"] for x in shards}),len(shards))
+        self.assertGreaterEqual(self.m["extension_source_count"],11)
+        self.assertEqual(self.m["extension_source_count"],sum(x["source_count"] for x in shards))
+        self.assertEqual(self.m["combined_source_count"],self.m["root_source_count"]+self.m["extension_source_count"])
+        self.assertEqual(h["external_source_registry_total_unique_count"],self.m["combined_source_count"])
+        self.assertEqual(h["external_source_registry_extension_count"],self.m["extension_source_count"])
+        self.assertGreaterEqual(len(h["completed_batches"]),487)
+        self.assertTrue(h["latest_batch_doc"].startswith("docs/"))
         self.assertEqual(self.state["invariants"]["deterministic_fusion_chart_product_r1"],"CLOSED")
         self.assertEqual(self.state["invariants"]["algorithm_reopen_count"],0)
 

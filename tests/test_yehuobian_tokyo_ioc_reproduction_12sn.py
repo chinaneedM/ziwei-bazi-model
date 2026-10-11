@@ -44,16 +44,24 @@ class Tokyo12SNReproductionServiceScope(unittest.TestCase):
         self.assertEqual(self.s["sources"][0]["source_id"], "EXT-TOKYO-IOC-RARE-BOOK-REPRODUCTION-AND-APPLICATION-12SN")
         self.assertIs(self.s["sources"][0]["physical_glyph_authority"], False)
         self.assertEqual(self.s["sources"][0]["verification_status"], "ACCESS_BOUNDARY_UNVERIFIED")
-        self.assertEqual(self.m["extension_source_count"], 10)
-        self.assertEqual(self.m["combined_source_count"], 657)
-        self.assertEqual(self.state["historical_audit"]["external_source_registry_total_unique_count"], 657)
-        self.assertEqual(self.state["historical_audit"]["external_source_registry_extension_count"], 10)
-        self.assertTrue(any(x["path"] == "docs/research/MING-DATONG-YEHUOBIAN-12SN-IOC-REPRODUCTION-SERVICE-SOURCE-SHARD-R1.json" and x["source_count"] == 1 for x in self.m["shards"]))
+        # 12SN proves one immutable source shard, not the future total size of the
+        # append-only registry. Exact fixed counts regress as soon as 12SO grows it.
+        h = self.state["historical_audit"]
+        shards = self.m["shards"]
+        matched = [x for x in shards if x["path"] == "docs/research/MING-DATONG-YEHUOBIAN-12SN-IOC-REPRODUCTION-SERVICE-SOURCE-SHARD-R1.json"]
+        self.assertEqual(len(matched), 1)
+        self.assertEqual(matched[0]["source_count"], 1)
+        self.assertEqual(len({x["path"] for x in shards}), len(shards))
+        self.assertGreaterEqual(self.m["extension_source_count"], 10)
+        self.assertEqual(self.m["extension_source_count"], sum(x["source_count"] for x in shards))
+        self.assertEqual(self.m["combined_source_count"], self.m["root_source_count"] + self.m["extension_source_count"])
+        self.assertEqual(h["external_source_registry_total_unique_count"], self.m["combined_source_count"])
+        self.assertEqual(h["external_source_registry_extension_count"], self.m["extension_source_count"])
 
     def test_parent_and_product_invariants_not_reopened(self):
         h = self.state["historical_audit"]
-        self.assertTrue(h["latest_batch_doc"].endswith("-QD.md"))
-        self.assertEqual(len(h["completed_batches"]), 487)
+        self.assertTrue(h["latest_batch_doc"].startswith("docs/"))
+        self.assertGreaterEqual(len(h["completed_batches"]), 487)
         self.assertEqual(self.state["invariants"]["deterministic_fusion_chart_product_r1"], "CLOSED")
         self.assertEqual(self.state["invariants"]["algorithm_reopen_count"], 0)
         self.assertEqual(self.r["invariants"]["algorithm_reopens"], 0)
