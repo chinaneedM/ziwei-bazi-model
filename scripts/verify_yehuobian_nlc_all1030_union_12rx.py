@@ -141,7 +141,7 @@ def verify(record_path=RECORD, replacement_sources=None, prior_gate=True):
         qw["grade_rules"]["f10_native_bounded_pages"]!="137..145"):
         fail("F10_NONBODY_CHRONICLE_BOUNDARY")
     if (qy["queue_reconciliation"]["source_pages"],qy["queue_reconciliation"]["body_pages"],
-        qy["queue_reconciliation"]["body_no_firstpass_screened_count"],
+        qy["queue_reconciliation"]["new_body_never_firstpass"],
         qy["queue_reconciliation"]["native_screened_source_pages"])!=(1030,1027,0,29):
         fail("INHERITED_FIRSTPASS_GRADE")
     if (qt["summary"]["native_screened_source_pages"]!=29 or
