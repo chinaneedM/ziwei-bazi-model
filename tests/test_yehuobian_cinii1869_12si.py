@@ -38,10 +38,15 @@ class TestYehuobian1869CatalogGate(unittest.TestCase):
         source = self.shard["sources"][0]
         self.assertEqual(source["evidence"], "docs/research/MING-DATONG-YEHUOBIAN-12SI-TOKYO-1869-PRINT-CATALOG-BOUNDARY-R1.json")
         self.assertEqual(self.e["parent_research_batch"], "12QE_OPEN")
-        self.assertEqual((self.manifest["root_source_count"], self.manifest["extension_source_count"], self.manifest["combined_source_count"]), (647, 8, 655))
+        # At 12SI the union was 647+8=655; subsequent append-only shards are valid.
+        self.assertEqual(self.manifest["root_source_count"], 647)
+        self.assertGreaterEqual(self.manifest["extension_source_count"], 8)
+        self.assertEqual(self.manifest["combined_source_count"],
+                         self.manifest["root_source_count"] + self.manifest["extension_source_count"])
         self.assertTrue(any(s["path"] == "docs/research/MING-DATONG-YEHUOBIAN-12SI-CINII1869-SOURCE-SHARD-R1.json" and s["source_count"] == 1 for s in self.manifest["shards"]))
         audit = self.state["historical_audit"]
-        self.assertEqual((audit["external_source_registry_root_count"], audit["external_source_registry_extension_count"], audit["external_source_registry_total_unique_count"]), (647, 8, 655))
+        self.assertEqual((audit["external_source_registry_root_count"], audit["external_source_registry_extension_count"], audit["external_source_registry_total_unique_count"]),
+                         (self.manifest["root_source_count"], self.manifest["extension_source_count"], self.manifest["combined_source_count"]))
         self.assertEqual((audit["row_count"], audit["audited_row_count"]), (222, 222))
         self.assertTrue(audit["latest_batch_doc"].endswith("-QD.md"))
         self.assertEqual(self.state["invariants"]["algorithm_reopen_count"], 0)

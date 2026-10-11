@@ -32,8 +32,14 @@ class CADAL12QEDirectTargetImageTest(unittest.TestCase):
         self.assertFalse(self.e["witness"]["physical_copy_catalog_identity_bound"])
         self.assertTrue(all(v is False for v in self.e["scope_firewall"].values()))
     def test_extension_is_digest_bound_and_never_reopens_algorithm(self):
-        self.assertEqual(self.manifest["combined_source_count"],654)
-        self.assertEqual(self.manifest["extension_source_count"],7)
+        # 12QE registered the original direct-image shard. Later forward-only shards
+        # must not invalidate this historical page/digest regression.
+        self.assertEqual(self.manifest["root_source_count"],647)
+        self.assertGreaterEqual(self.manifest["extension_source_count"],7)
+        self.assertEqual(self.manifest["combined_source_count"],
+                         self.manifest["root_source_count"] + self.manifest["extension_source_count"])
+        self.assertTrue(any(x["path"] == "docs/research/MING-DATONG-YEHUOBIAN-12QE-CADAL02096915-SOURCE-SHARD-R1.json"
+                            and x["source_count"] == 1 for x in self.manifest["shards"]))
         row=self.shard["sources"][0]
         self.assertTrue(row["physical_glyph_authority"])
         self.assertEqual(row["verification_status"],"DIRECT_SOURCE_IMAGE_GLYPH_COLLATED_EDITION_UNBOUND")

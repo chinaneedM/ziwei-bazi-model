@@ -41,9 +41,16 @@ class Yehuobian12QFFrontmatterDateScope(unittest.TestCase):
                          self.e["witness"]["source_sha256"])
     def test_source_extension_and_product_gate(self):
         self.assertEqual(self.manifest["root_source_count"],647)
-        self.assertEqual(self.manifest["extension_source_count"],7)
-        self.assertEqual(self.manifest["combined_source_count"],654)
-        self.assertEqual(self.state["historical_audit"]["external_source_registry_total_unique_count"],654)
+        # The 12QF source itself is frozen; the global registry grows append-only.
+        self.assertGreaterEqual(self.manifest["extension_source_count"],7)
+        self.assertEqual(self.manifest["combined_source_count"],
+                         self.manifest["root_source_count"] + self.manifest["extension_source_count"])
+        self.assertEqual(self.state["historical_audit"]["external_source_registry_total_unique_count"],
+                         self.manifest["combined_source_count"])
+        self.assertEqual(self.state["historical_audit"]["external_source_registry_extension_count"],
+                         self.manifest["extension_source_count"])
+        self.assertTrue(any(x["path"] == "docs/research/MING-DATONG-YEHUOBIAN-12QF-CADAL-PREFACE-SOURCE-SHARD-R1.json"
+                            and x["source_count"] == 1 for x in self.manifest["shards"]))
         self.assertEqual(self.state["invariants"]["deterministic_fusion_chart_product_r1"],"CLOSED")
         self.assertEqual(self.state["invariants"]["algorithm_reopen_count"],0)
 if __name__=="__main__":unittest.main()
