@@ -66,8 +66,12 @@ def verify(record_path=RECORD, replacement_sources=None):
             "DERIVED_CROSS_BATCH_METADATA_AND_HASH_LEDGER_REPLAY_NO_NEW_ORIGINAL_IMAGE_VIEWING"):
         raise ValueError("12RE_EVIDENCE_GRADE_DRIFT")
     ident = record["source_identity"]
+    # The 12RE aggregate names its image count "source_pages"; original 12QZ–12RD
+    # source records retain "source_pdf_pages". Bind the same value without
+    # claiming a different source identity or weakening any hash checks.
     for key, value in SOURCE.items():
-        if ident.get(key) != value:
+        observed = ident.get("source_pages") if key == "source_pdf_pages" else ident.get(key)
+        if observed != value:
             raise ValueError("12RE_PHYSICAL_HOLDING_OR_SOURCE_ARCHIVE_DRIFT")
     if ident.get("source_pages") != 119 or ident.get("body_first_page") != 3 or ident.get("body_last_page") != 119:
         raise ValueError("12RE_F1_SOURCE_RANGE_DRIFT")

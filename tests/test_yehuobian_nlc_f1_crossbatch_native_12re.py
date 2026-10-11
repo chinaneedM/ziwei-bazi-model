@@ -34,6 +34,9 @@ class TestNlcOld20F1CrossBatch12RE(unittest.TestCase):
     def test_overlapping_scope_fails(self):
         self._mutate_manifest(lambda x: x["windows"][1].__setitem__("first_page", 22))
 
+    def test_aggregate_source_pages_alias_is_exact(self):
+        self._mutate_manifest(lambda x: x["source_identity"].__setitem__("source_pages", 120))
+
     def test_wrong_archive_does_not_merge_holding(self):
         self._mutate_manifest(lambda x: x["source_identity"].__setitem__("artifact_id", 0))
 
