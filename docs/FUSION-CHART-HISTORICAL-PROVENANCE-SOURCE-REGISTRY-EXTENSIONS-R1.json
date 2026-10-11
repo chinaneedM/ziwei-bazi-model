@@ -1,12 +1,12 @@
 {
   "schema": "FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1",
-  "schema_version": "1.6.0",
+  "schema_version": "1.7.0",
   "date": "2026-10-12",
   "root_registry": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json",
   "root_registry_blob_sha": "ea2ab50479450c39ce3fc7a00ea91cd713bf4a60",
   "root_source_count": 647,
-  "extension_source_count": 11,
-  "combined_source_count": 658,
+  "extension_source_count": 12,
+  "combined_source_count": 659,
   "shards": [
     {
       "path": "docs/research/MING-DATONG-YEHUOBIAN-12QE-EXTERNAL-SOURCE-REGISTRY-DELTA-R1.json",
@@ -49,9 +49,15 @@
       "schema": "MING-DATONG-YEHUOBIAN-12SO-TOKYO-2005-DIGITIZATION-SOURCE-SHARD-R1",
       "blob_sha": "f313d1a76eab17f8d1d70884ac8f456c4550d270",
       "source_count": 1
+    },
+    {
+      "path": "docs/research/MING-DATONG-YEHUOBIAN-12SS-HOKKAIDO-ACCESS-SOURCE-SHARD-R1.json",
+      "schema": "MING-DATONG-YEHUOBIAN-12SS-HOKKAIDO-ACCESS-SOURCE-SHARD-R1",
+      "blob_sha": "46f66b904dd9b81deb1b5d5f60b3469c1ec18a16",
+      "source_count": 1
     }
   ],
-  "authority_policy": "The five original received/bibliographic controls carry no glyph authority; two independent bounded source image records may attest EXACT verified image glyphs only (CADAL02096915 vol20 target and CADAL02096900 first-fascicle paratext), with separate SHA256+page hashes and no inferred print date, physical copy or direct transmission. No runtime authorization. A 12SN official IOC library application/copy-service item is an access-policy source only; it neither attests target glyphs nor makes both cataloged physical copies digitized or eligible for individual postal reproduction. 12SO 2005 dated first-party digitization methods are historic institution-policy evidence only; unverified target copies still have zero original folio glyph votes and no 2026 access claims.",
+  "authority_policy": "The five original received/bibliographic controls carry no glyph authority; two independent bounded source image records may attest EXACT verified image glyphs only (CADAL02096915 vol20 target and CADAL02096900 first-fascicle paratext), with separate SHA256+page hashes and no inferred print date, physical copy or direct transmission. No runtime authorization. A 12SN official IOC library application/copy-service item is an access-policy source only; it neither attests target glyphs nor makes both cataloged physical copies digitized or eligible for individual postal reproduction. 12SO 2005 dated first-party digitization methods are historic institution-policy evidence only; unverified target copies still have zero original folio glyph votes and no 2026 access claims. 12SS Hokkaido first-party interlibrary-service scope is not item-specific eligibility or physical target glyph; former Tokyo research institute stamp is catalog-reported only.",
   "update_rule": "Append a new validated shard in future or deliberately revise the manifest with a forward-only source-record correction. Preserve root registry bytes and revalidate Git blob SHA.",
   "research_evidence": "docs/research/MING-DATONG-YEHUOBIAN-12QE-RECEIVED-TEXT-LOCATOR-CORRECTION-R1.json",
   "additional_research_evidence": "docs/research/MING-DATONG-YEHUOBIAN-12QE-CADAL02096915-V20-DIRECT-TARGET-GLYPH-R1.json",
@@ -59,5 +65,6 @@
   "additional_research_evidence_12si": "docs/research/MING-DATONG-YEHUOBIAN-12SI-TOKYO-1869-PRINT-CATALOG-BOUNDARY-R1.json",
   "additional_research_evidence_12sm": "docs/research/MING-DATONG-YEHUOBIAN-12SM-TOKYO-SHANBEN-ACCESS-BOUNDARY-R1.json",
   "additional_research_evidence_12sn": "docs/research/MING-DATONG-YEHUOBIAN-12SN-TOKYO-IOC-REPRODUCTION-SERVICE-R1.json",
-  "additional_research_evidence_12so": "docs/research/MING-DATONG-YEHUOBIAN-12SO-TOKYO-PRINT-IDENTITY-AND-HISTORIC-DIGITIZATION-R1.json"
+  "additional_research_evidence_12so": "docs/research/MING-DATONG-YEHUOBIAN-12SO-TOKYO-PRINT-IDENTITY-AND-HISTORIC-DIGITIZATION-R1.json",
+  "additional_research_evidence_12ss": "docs/research/MING-DATONG-YEHUOBIAN-12SS-HOKKAIDO-COPY-PROVENANCE-AND-SERVICE-GATES-R1.json"
 }
