@@ -1,12 +1,12 @@
 {
   "schema": "FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1",
-  "schema_version": "1.4.0",
+  "schema_version": "1.5.0",
   "date": "2026-10-12",
   "root_registry": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json",
   "root_registry_blob_sha": "ea2ab50479450c39ce3fc7a00ea91cd713bf4a60",
   "root_source_count": 647,
-  "extension_source_count": 9,
-  "combined_source_count": 656,
+  "extension_source_count": 10,
+  "combined_source_count": 657,
   "shards": [
     {
       "path": "docs/research/MING-DATONG-YEHUOBIAN-12QE-EXTERNAL-SOURCE-REGISTRY-DELTA-R1.json",
@@ -37,13 +37,20 @@
       "schema": "MING-DATONG-YEHUOBIAN-12SM-SHANBEN-SOURCE-SHARD-R1",
       "blob_sha": "4202d0d08b5d4ae6d7d588f9a4ed74cdcabccbe7",
       "source_count": 1
+    },
+    {
+      "path": "docs/research/MING-DATONG-YEHUOBIAN-12SN-IOC-REPRODUCTION-SERVICE-SOURCE-SHARD-R1.json",
+      "schema": "MING-DATONG-YEHUOBIAN-12SN-IOC-REPRODUCTION-SERVICE-SOURCE-SHARD-R1",
+      "blob_sha": "3b6ff11429772f3566c6606eeb26c91d79935bbc",
+      "source_count": 1
     }
   ],
-  "authority_policy": "The five original received/bibliographic controls carry no glyph authority; two independent bounded source image records may attest EXACT verified image glyphs only (CADAL02096915 vol20 target and CADAL02096900 first-fascicle paratext), with separate SHA256+page hashes and no inferred print date, physical copy or direct transmission. No runtime authorization.",
+  "authority_policy": "The five original received/bibliographic controls carry no glyph authority; two independent bounded source image records may attest EXACT verified image glyphs only (CADAL02096915 vol20 target and CADAL02096900 first-fascicle paratext), with separate SHA256+page hashes and no inferred print date, physical copy or direct transmission. No runtime authorization. A 12SN official IOC library application/copy-service item is an access-policy source only; it neither attests target glyphs nor makes both cataloged physical copies digitized or eligible for individual postal reproduction.",
   "update_rule": "Append a new validated shard in future or deliberately revise the manifest with a forward-only source-record correction. Preserve root registry bytes and revalidate Git blob SHA.",
   "research_evidence": "docs/research/MING-DATONG-YEHUOBIAN-12QE-RECEIVED-TEXT-LOCATOR-CORRECTION-R1.json",
   "additional_research_evidence": "docs/research/MING-DATONG-YEHUOBIAN-12QE-CADAL02096915-V20-DIRECT-TARGET-GLYPH-R1.json",
   "additional_research_evidence_12qf": "docs/research/MING-DATONG-YEHUOBIAN-12QF-CADAL-FIRST-PREFACE-DIRECT-DATES-R1.json",
   "additional_research_evidence_12si": "docs/research/MING-DATONG-YEHUOBIAN-12SI-TOKYO-1869-PRINT-CATALOG-BOUNDARY-R1.json",
-  "additional_research_evidence_12sm": "docs/research/MING-DATONG-YEHUOBIAN-12SM-TOKYO-SHANBEN-ACCESS-BOUNDARY-R1.json"
+  "additional_research_evidence_12sm": "docs/research/MING-DATONG-YEHUOBIAN-12SM-TOKYO-SHANBEN-ACCESS-BOUNDARY-R1.json",
+  "additional_research_evidence_12sn": "docs/research/MING-DATONG-YEHUOBIAN-12SN-TOKYO-IOC-REPRODUCTION-SERVICE-R1.json"
 }
