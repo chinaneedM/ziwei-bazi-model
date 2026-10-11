@@ -1,0 +1,158 @@
+{
+  "schema": "MING-DATONG-YEHUOBIAN-12QX-NLC411999003250-F4-F5-SHA-BOUND-EIGHTUP-PREVIEW-R1",
+  "date": "2026-10-11",
+  "batch": "12QX",
+  "stage": "12QE_OPEN",
+  "status": "HASH_VERIFIED_CONTACT_PREVIEW_ONLY_NO_NATIVE_TARGET_PROOF",
+  "physical_holding": "NLC411999003250_ONE_HOLDING",
+  "source_archives": [
+    {
+      "fascicle": 4,
+      "old_original_juan": [
+        8,
+        9
+      ],
+      "source_pdf_pages": 56,
+      "source_pdf_sha256": "11c1cfacb913404be79e386a967324048b762a166b1c08c1853fcbdcc904d67a",
+      "source_pdf_binary_rehashed": false,
+      "artifact_id": 11674246374,
+      "workflow_run_id": 38064436808,
+      "archive_sha256": "9a56d1f98fdb4a727ad1cd1f8c4131c94334d35864ed66279b118a26deb2f4f7",
+      "status_json_sha256": "44a12a988cfdaa867a1f2471383669c3f7f3fcc8c99d620535c4d5c577e3b1",
+      "source_page_jpeg_count": 56,
+      "contact_sheet_jpeg_count": 7,
+      "source_page_sha_chain": "b1866e1fe3cf4c3b73f87d88699d1dae31e6e1ea65aa7c545072d15c0006c8e1",
+      "contact_sheet_sha_chain": "78c6f8b765511bb90b40450d960c608d613d8cac21d93a3f0328dd8d657ca18d",
+      "contact_sheet_starts": [
+        1,
+        9,
+        17,
+        25,
+        33,
+        41,
+        49
+      ],
+      "member_hash_mismatches": 0,
+      "original_images_opened_for_navigation_only": [
+        1,
+        35,
+        56
+      ],
+      "volume_openings": [
+        {
+          "old_juan": 8,
+          "page": 1,
+          "sha256": "86bb06ae975b10e5495b8f161631f6f9b4aa857fb785048908c868479fdb5161",
+          "prior_volume_on_right_leaf": false,
+          "year": 1605
+        },
+        {
+          "old_juan": 9,
+          "page": 35,
+          "sha256": "320a25d6902b0e5e0a4e9931eda67b2882195f6f96abdfb862c4b1ef0afa8e76",
+          "prior_volume_on_right_leaf": true,
+          "year": 1606
+        }
+      ],
+      "last_source_jpeg_sha256": "c0500d19b5b3033fb89f5a0b68cbbb3117f4a75cfb9814ea3ecfd28c7fe3ebad"
+    },
+    {
+      "fascicle": 5,
+      "old_original_juan": [
+        10
+      ],
+      "source_pdf_pages": 63,
+      "source_pdf_sha256": "06692bd33c86c6c6cd8eb732fe89aa1d289e06da976663d33ca04352d9f45280",
+      "source_pdf_binary_rehashed": false,
+      "artifact_id": 11674555957,
+      "workflow_run_id": 38064436808,
+      "archive_sha256": "89d314baafc615809a2ba906bb308bedbe130bd7f100571724cdba8a27978c36",
+      "status_json_sha256": "73a464cf649f92226d6f016ad50acb71d2f1f00a32ba8bf9c7c43eb3828d77a7",
+      "source_page_jpeg_count": 63,
+      "contact_sheet_jpeg_count": 8,
+      "source_page_sha_chain": "d66546a59822762c76936edd93d5fd11db907ffdf9dd247b69be50066592c950",
+      "contact_sheet_sha_chain": "5f9fd56c4b5f0f79ea95fcc95d31cbf55da217dfb43580207e304c5dafa2b4d1",
+      "contact_sheet_starts": [
+        1,
+        9,
+        17,
+        25,
+        33,
+        41,
+        49,
+        57
+      ],
+      "member_hash_mismatches": 0,
+      "original_images_opened_for_navigation_only": [
+        1,
+        63
+      ],
+      "volume_openings": [
+        {
+          "old_juan": 10,
+          "page": 1,
+          "sha256": "7b6499149c1a0f21c7dc2e03018af90eafc390001115c9969a64a7b88c0f37e7",
+          "prior_volume_on_right_leaf": false,
+          "year": 1607
+        }
+      ],
+      "last_source_jpeg_sha256": "1ba2f95a2f18183d28ba71fab701f9d8d1efd6c0c5b8d62ee96664d7eb718d4f"
+    }
+  ],
+  "visual_method": {
+    "mode": "EIGHT_UP_SOURCE_CONTACT_MANUAL_PREVIEW_NOT_NATIVE_FULL_TEXT",
+    "individual_contacts_opened": 15,
+    "pages_represented": 119,
+    "source_jpegs_rehashed": 119,
+    "contact_jpegs_rehashed": 15,
+    "hash_mismatches": 0,
+    "ocr_used": false,
+    "source_pdf_rehashed": false,
+    "member_source_sha_method": "sha256 of lowercase ASCII concatenation of individual archived member SHA256s in PDF source page and contact sheet start-page order. Source member table in existing archived status.json.",
+    "new_native_target_text_screens": 0,
+    "verified_target_glyphs": 0,
+    "negative_on_individual_page_proven": false,
+    "negative_on_entire_work_proven": false,
+    "full_text_transcribed": false,
+    "full_size_page_reopens_navigation_only": true
+  },
+  "queue_reconciliation": {
+    "upstream_12qw": "docs/research/MING-DATONG-YEHUOBIAN-12QW-NLC411999003250-F6-F10-CONTACT-TRIAGE-R1.json",
+    "native_screened_source_pages": 29,
+    "prior_preview_only_source_pages": 570,
+    "added_preview_only_source_pages": 119,
+    "new_preview_only_source_pages": 689,
+    "new_not_target_screened_source_pages": 312,
+    "new_body_not_even_firstpass_screened": 310,
+    "native_body_review_backlog": 999,
+    "body_full_text_collation_backlog": 1027,
+    "source_pages": 1030,
+    "body_pages": 1027,
+    "independent_physical_copy_increment": 0,
+    "full_work_target_absence_proven": false
+  },
+  "evidence_limitation": "f4 p35 mixed right old8 / left old9; p56 is sparse final page but not reclassified from baseline eligible body page; f5 p63 rear copy/colophon-like location text but not reclassified. The new firstpass count is 119 preview source images, not native glyph examination nor negative target-proof.",
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [
+      "NLC old20 same-copy original8/9 and original10 leaf navigation and preview-grade evidence"
+    ],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "No proof of 1827 printed text direct transmission or old20 target-folio absence"
+    ],
+    "unresolved_lineage_questions": [
+      "Locate physical original-source 〈改造漏刻〉 folio",
+      "Confirm independent 1827 printed target folio and edition/impression identity"
+    ]
+  },
+  "invariants": {
+    "matrix": "222/222",
+    "metadata_defects_repaired": "45/45",
+    "external_source_registry": "647+7=654",
+    "md_g03": "OPEN",
+    "hpa_dayun_cal_002": "MISSING_FROM_PRODUCT",
+    "product_r1": "CLOSED",
+    "algorithm_reopen_count": 0
+  }
+}
