@@ -1,0 +1,114 @@
+{
+  "schema": "MING-DATONG-YEHUOBIAN-12SI-TOKYO-1869-PRINT-CATALOG-BOUNDARY-R1",
+  "date": "2026-10-12",
+  "status": "BIBLIOGRAPHIC_1869_COMPARATOR_TARGET_IMAGE_PENDING",
+  "parent_research_batch": "12QE_OPEN",
+  "checkpoint_class": "SUPPLEMENTAL_NOT_FORMAL_MATRIX_BATCH",
+  "provider": "CiNii Books / National Institute of Informatics",
+  "source_url": "https://ci.nii.ac.jp/ncid/BB23196128.amp?l=en",
+  "catalog_object": {
+    "ncid": "BB23196128",
+    "work": "野獲編 30卷補遺4卷",
+    "creator": "(明)沈徳符著 ; (清)錢枋輯",
+    "catalog_imprint": "[扶茘山房], 同治8[1869]重校刋補",
+    "holding_institution": "東京大学 東洋文化研究所 図書室",
+    "holding_collection": "倉石文庫",
+    "volume": "卷19-20",
+    "call_number": "倉石文庫:20128:11",
+    "item_number": "6403148395",
+    "physical_fascicles": 20,
+    "holding_target_page_digitized_and_read": false,
+    "physical_copy_date_independently_attested": false,
+    "notes": [
+      "卷首載道光七年1827姚祖恩序",
+      "校刊弁言載同治八年1869季男德恆重校刊補",
+      "封面有道光丁亥春鐫題記",
+      "版心下部扶茘山房",
+      "四周雙邊有界10行21字注文雙行"
+    ]
+  },
+  "comparison_controls": [
+    {
+      "url": "https://ci.nii.ac.jp/ncid/BB18578034",
+      "ncid": "BB18578034",
+      "institution": "京都大学",
+      "volume": "卷19-20",
+      "call_number": "B||VIb||9-1 188987L",
+      "date_scope": "道光7[1827][序]; first-impression target glyph NOT verified"
+    },
+    {
+      "source": "CADAL02096900",
+      "pages": [
+        5
+      ],
+      "direct_reading": "1827 姚祖恩序 and 1869 重校刊補 co-observed in first-fascicle scanned frontmatter",
+      "identity_to_tokyo_copy": "UNPROVEN"
+    },
+    {
+      "source": "CADAL02096915",
+      "pages": [
+        121,
+        122
+      ],
+      "direct_reading": "改造漏刻: 冬至日出辰初二刻; 夏至日入戌初三刻",
+      "physical_print_impression": "UNBOUND",
+      "identity_to_tokyo_copy": "UNPROVEN"
+    },
+    {
+      "source": "NLC411999003250",
+      "pages_total": 1030,
+      "body_pages": 1027,
+      "bounded_screened_body_pages": 1027,
+      "fulltext_linewise_collation_body_pages": 0,
+      "original_old20_gaizao_target_page": "NOT_YET_LOCATED"
+    }
+  ],
+  "claims_fail_closed": {
+    "has_direct_target_image_from_1869_catalog_copy": false,
+    "proves_cadal_1869_copy": false,
+    "proves_1827_first_print_glyph": false,
+    "proves_1827_1869_text_change": false,
+    "proves_old20_manuscript_gaizao_folio": false,
+    "proves_independent_glyph_voting": false,
+    "proves_1447_clock_rebuild": false,
+    "authorizes_algorithm_reopen": false,
+    "authorizes_runtime_profile": false
+  },
+  "next_steps": [
+    "Acquire Tokyo Kuraishi collection 20128:11 item 6403148395 exact 改造漏刻 target leaf by an authorized official route",
+    "Acquire independently cataloged 1827 printed copy matching target leaf with impression/provenance markers, avoiding assumption that preface date equals impression date",
+    "Identify authorial old20 manuscript's exact target folio and compare source-scoped loci; defer any mechanical adapter selection"
+  ],
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [
+      "CiNii BB23196128 / Tokyo IASA Kuraishi 20128:11 physical 1869-revised-edition catalog object"
+    ],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "No direct-copy edge from CiNii 1869 holding to CADAL02096915 without shared page/plate/item provenance",
+      "1827 Yao preface is not proof of exact target page impression year",
+      "Catalog-only record does not create a physical glyph vote"
+    ],
+    "unresolved_lineage_questions": [
+      "Identify 1827 first-print and 1869 revised printed target leaf readings",
+      "Bind CADAL target to specific physical item, impression and any plate-level variant",
+      "Find NLC old20 authorial original 〈改造漏刻〉 folio if present"
+    ]
+  },
+  "counts_after": {
+    "matrix_rows": 222,
+    "audited_rows": 222,
+    "metadata_repairs": 45,
+    "root_sources": 647,
+    "extension_sources": 8,
+    "total_sources": 655,
+    "chart_algorithm_defects": 0,
+    "algorithm_reopens": 0
+  },
+  "invariants": {
+    "product_r1": "CLOSED",
+    "md_g03": "OPEN_BLOCKING_GENERAL_ADAPTER",
+    "hpa_dayun_cal_002": "MISSING_FROM_PRODUCT"
+  }
+}
