@@ -18,6 +18,9 @@ on:
       - tests/test_yehuobian_xuxiu1174_mirror_dedupe_12tu.py
       - tests/test_yehuobian_xuxiu1174_source_glyph_scope_12uc.py
       - tests/test_yehuobian_xuxiu1174_four_loci_seam_12ud.py
+      - docs/research/MING-DATONG-YEHUOBIAN-12UG-NAJ3080212-DIGITIZATION-PLAN-AND-TARGET-ACCESS-R1.json
+      - docs/research/MING-DATONG-YEHUOBIAN-12UG-NAJ-DIGITIZATION-PLAN-SOURCE-SHARD-R1.json
+      - tests/test_yehuobian_naj_plan_scope_12ug.py
   workflow_dispatch:
 permissions:
   contents: read
@@ -39,3 +42,4 @@ jobs:
       - name: Regression historical evidence must be append-safe
         run: |
           python -m unittest discover -s tests -p 'test_yehuobian_xuxiu1174_*.py' -v
+          python -m unittest discover -s tests -p 'test_yehuobian_naj_plan_scope_12ug.py' -v
