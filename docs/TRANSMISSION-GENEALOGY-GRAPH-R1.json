@@ -4741,6 +4741,41 @@
       "collection": "倉石文庫",
       "shelfmark": "倉石文庫:20128:11",
       "target_page_collated": false
+    },
+    {
+      "node_id": "EDITION-YEHUOBIAN-ZHONGHUA1959-FIRSTPRINT-3V",
+      "node_type": "EDITION",
+      "label": "中華書局1959年2月第一版、上海第一次印刷《萬曆野獲編》三冊整理本",
+      "work_composition_date": "MING_AUTHORIAL_COMPONENT_1606_WITH_LATER_RECENSION",
+      "edition_impression_date": "1959-02_AS_PRINTED_IN_NLC511_PDF3",
+      "physical_copy_date": null,
+      "digital_surrogate_date": "2023-06-28_COMMONS_UPLOAD_NOT_SCAN_CREATION",
+      "evidence": [
+        "EXT-WIKIMEDIA-NLC511-1959-ZHONGHUA-YEHUOBIAN-3V-12QE",
+        "docs/research/MING-DATONG-YEHUOBIAN-12TS-ZHONGHUA1959-PUBLISHER-YAO1827-BASE-CITATION-R1.json"
+      ],
+      "first_explicit_graph_batch": "12TS_SUPPLEMENTAL_UNDER_12QE_OPEN",
+      "source_scope": "Modern type-edited punctuation edition; exact original printed exemplar/printing history outside this scanned upper copy unproven",
+      "ancient_target_glyph_authority": false
+    },
+    {
+      "node_id": "PASSAGE-YEHUOBIAN-ZHONGHUA1958-PUBLISHER-NOTE-1827BASE",
+      "node_type": "PASSAGE",
+      "label": "中華書局《出版者說明》1958年11月署記、1959印本所載道光七年姚氏刻本底本聲明",
+      "work_composition_date": "1958-11_PUBLISHER_NOTE_SIGNATURE",
+      "edition_impression_date": "1959-02_PAGE_IN_MODERN_UPPER_PRINT",
+      "physical_copy_date": null,
+      "digital_surrogate_date": "2023-06-28_COMMONS_UPLOAD",
+      "evidence": [
+        "EXT-WIKIMEDIA-NLC511-1959-ZHONGHUA-YEHUOBIAN-3V-12QE",
+        "docs/research/MING-DATONG-YEHUOBIAN-12TS-ZHONGHUA1959-PUBLISHER-YAO1827-BASE-CITATION-R1.json"
+      ],
+      "first_explicit_graph_batch": "12TS_SUPPLEMENTAL_UNDER_12QE_OPEN",
+      "pdf_page_1based": 4,
+      "source_pdf_sha256": "90a94278928fcafd5020e09bf0edbce6e85a2b8fb90a398026f7b23876b41623",
+      "page_jpeg_sha256": "a8bd71a8cb78eea01c10cec50b7378f760aefbe1efc7936a188c36f97e1be97d",
+      "no_ocr": true,
+      "declared_1827_base_copy_item_bound": false
     }
   ],
   "edges": [
@@ -8342,6 +8377,36 @@
       ],
       "scope_note": "1869 recollected catalog record with inherited 1827 frontmatter; does not identify CADAL original source copy or give target-page glyphs.",
       "adjudication_batch": "12SK_SUPPLEMENTAL_UNDER_12QE_OPEN"
+    },
+    {
+      "edge_id": "TG-E0236",
+      "from": "PASSAGE-YEHUOBIAN-ZHONGHUA1958-PUBLISHER-NOTE-1827BASE",
+      "to": "EDITION-YEHUOBIAN-1827-FULISHANFANG-30V",
+      "relation": "EXPLICITLY_CITES",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_FOR_DIRECT_EDITORIAL_SELF_ASCRIPTION_ONLY",
+      "evidence_class": "DIRECT_PUBLISHER_NOTE_PAGE_IMAGE_MODERN1959",
+      "evidence": [
+        "EXT-WIKIMEDIA-NLC511-1959-ZHONGHUA-YEHUOBIAN-3V-12QE",
+        "docs/research/MING-DATONG-YEHUOBIAN-12TS-ZHONGHUA1959-PUBLISHER-YAO1827-BASE-CITATION-R1.json"
+      ],
+      "scope_note": "Publisher self-reports using 道光七年姚氏扶荔山房刻本 as modern editing base; this does not identify a specific 1827 physical copy or prove direct textual identity at 改造漏刻 four loci.",
+      "adjudication_batch": "12TS_SUPPLEMENTAL_UNDER_12QE_OPEN"
+    },
+    {
+      "edge_id": "TG-E0237",
+      "from": "PASSAGE-YEHUOBIAN-ZHONGHUA1958-PUBLISHER-NOTE-1827BASE",
+      "to": "EDITION-YEHUOBIAN-ZHONGHUA1959-FIRSTPRINT-3V",
+      "relation": "ATTESTS",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_FOR_DIRECT_MODERN_PRINTED_PAGE_ONLY",
+      "evidence_class": "HASH_BOUND_NLC511_1959_PDF_PAGE3_4",
+      "evidence": [
+        "EXT-WIKIMEDIA-NLC511-1959-ZHONGHUA-YEHUOBIAN-3V-12QE",
+        "docs/research/MING-DATONG-YEHUOBIAN-12TS-ZHONGHUA1959-PUBLISHER-YAO1827-BASE-CITATION-R1.json"
+      ],
+      "scope_note": "1958-11 dated publisher note and 1959-02 first-print imprint are both visible in one exact matched modern scanned edition, not two physical printings.",
+      "adjudication_batch": "12TS_SUPPLEMENTAL_UNDER_12QE_OPEN"
     }
   ],
   "lineage_hypotheses": [
