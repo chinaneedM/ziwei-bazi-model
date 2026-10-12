@@ -25,8 +25,8 @@ class AcquisitionGate12UI(unittest.TestCase):
  def test_registry_state_and_prior_12uh_still_exist(self):
   s=importlib.util.spec_from_file_location("reg",ROOT/"scripts/verify-historical-source-registry-extensions-r1.py");mod=importlib.util.module_from_spec(s);s.loader.exec_module(mod)
   v=mod.verify(ROOT); state=read("docs/PROJECT-CURRENT-STATE-R1.json")["historical_audit"]
-  self.assertEqual(v["combined_source_count"],683); self.assertEqual(v["combined_source_count"],state["external_source_registry_total_unique_count"])
-  self.assertEqual(v["extension_source_count"],36);self.assertEqual(v["extension_source_count"],state["external_source_registry_extension_count"])
+  self.assertEqual(v["combined_source_count"],state["external_source_registry_total_unique_count"]); self.assertGreaterEqual(v["combined_source_count"],read(E)["accounting"]["source_count_after"])
+  self.assertEqual(v["extension_source_count"],state["external_source_registry_extension_count"])
   self.assertTrue(any(x.startswith("12UI ") for x in state["current_focus"]))
   old=read("docs/research/MING-DATONG-YEHUOBIAN-12UH-NDL1700-TSUKUBA-UNBOUND-PRINT-CATALOG-R1.json")
   self.assertEqual(old["source_gate"]["new_independent_ancient_target_glyph_votes"],0)

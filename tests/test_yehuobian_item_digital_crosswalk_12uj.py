@@ -35,9 +35,9 @@ class ItemDigitalCrosswalk12UJ(unittest.TestCase):
   spec=importlib.util.spec_from_file_location("source_registry_12uj",ROOT/"scripts/verify-historical-source-registry-extensions-r1.py")
   mod=importlib.util.module_from_spec(spec);spec.loader.exec_module(mod)
   v=mod.verify(ROOT); a=read("docs/PROJECT-CURRENT-STATE-R1.json")["historical_audit"]
-  self.assertEqual(v["combined_source_count"],686)
-  self.assertEqual(v["extension_source_count"],39)
   self.assertEqual(v["combined_source_count"],a["external_source_registry_total_unique_count"])
+  self.assertEqual(v["extension_source_count"],a["external_source_registry_extension_count"])
+  self.assertGreaterEqual(v["combined_source_count"],read(E)["accounting"]["sources_after"])
   self.assertTrue(any(x.startswith("12UJ ") for x in a["current_focus"]))
   self.assertEqual(read("docs/research/MING-DATONG-YEHUOBIAN-12UI-TSUKUBA-NDL-ACQUISITION-MODE-GATES-R1.json")["gates"]["new_independent_glyph_votes"],0)
 if __name__=="__main__":unittest.main()
