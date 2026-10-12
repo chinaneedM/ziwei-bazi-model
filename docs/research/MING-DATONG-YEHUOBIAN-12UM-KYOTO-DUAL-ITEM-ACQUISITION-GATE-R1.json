@@ -1,0 +1,116 @@
+{
+  "schema": "TIANWEN-12UM-KYOTO-DUAL-ITEM-ACQUISITION-GATE-R1",
+  "schema_version": "1.0.0",
+  "date": "2026-10-12",
+  "parent": "12UL_CATALOG_CONFLICT",
+  "role": "ACTIONABLE_ACQUISITION_SCOPE_NOT_A_NEW_HISTORICAL_GLYPH_WITNESS",
+  "catalog": {
+    "ncid": "BB18578034",
+    "source_url": "https://ci.nii.ac.jp/ncid/BB18578034",
+    "catalog_year_statement": "康熙30年[1700]",
+    "actual_regnal_concordance": "康熙三十年=1691;康熙三十九年庚辰=1700",
+    "exact_catalog_error_cause": "UNRESOLVED",
+    "historical_impression_date_from_catalog": "NOT_ATTESTED"
+  },
+  "distinct_request_items": [
+    {
+      "role": "PREFACE_FRONTMATTER",
+      "holder": "京都大学文学研究科図書館",
+      "source_issued_call_number": "B||VIb||9-1 188987",
+      "holding_scope": "卷首, 卷1",
+      "required_target": "錢枋凡例纪年原叶及卷首版心/牌记",
+      "usable_for": [
+        "KYOTO_OWN_COPY_DATE_GLYPHS_AFTER_DIRECT_IMAGE_AND_FOLIO_BINDING"
+      ],
+      "not_usable_for": [
+        "JUAN20_FOUR_LOCUS_GLYPH_VOTE",
+        "UNREPAIRED_1827_FIRST_PRINT_CLAIM_WITHOUT_PRINT_STATE_PROOF"
+      ]
+    },
+    {
+      "role": "JUAN20_TARGET",
+      "holder": "京都大学文学研究科図書館",
+      "source_issued_call_number": "B||VIb||9-1 188987L",
+      "holding_scope": "卷19-20",
+      "required_target": "卷20〈改造漏刻〉原叶、版心及四个校勘坐标",
+      "usable_for": [
+        "FOUR_LOCUS_MANUAL_COLLATION_ONLY_AFTER_OBJECT_AND_PAGE_HASH_BINDING"
+      ],
+      "not_usable_for": [
+        "KYOTO_FRONTMATTER_DIRECT_GLYPH_READ_WITHOUT_188987_IMAGE",
+        "AUTOMATIC_1827_IMPRESSION_PROOF"
+      ]
+    }
+  ],
+  "institutional_access": [
+    {
+      "provider": "Kyoto University rare materials digital archive",
+      "url": "https://rmda.kulib.kyoto-u.ac.jp/about",
+      "source_scope": "GENERAL_DIGITAL_ARCHIVE_AND_IIIF_SERVICE",
+      "item_specific_image_or_manifest": "NOT_IDENTIFIED_FROM_INSPECTED_PUBLIC_SOURCES",
+      "disproves_item_digitization": false
+    },
+    {
+      "provider": "Kyoto University Graduate School of Letters Library",
+      "url": "https://www.kulib.kyoto-u.ac.jp/newdb/12109",
+      "source_scope": "GENERAL_LIBRARY_VISITING_AND_COPY_CAUTION",
+      "item_copy_eligibility": "UNVERIFIED;SOME_WAKAN_BOOKS_CANNOT_BE_PHOTOCOPIED"
+    },
+    {
+      "provider": "Kyoto University Letters Library historical interlibrary guidance",
+      "url": "https://ceschi.bun.kyoto-u.ac.jp/archive/bun_archive/lib/external/ill-2.html",
+      "source_scope": "GENERAL_PAID_INTERLIBRARY_COPY_ROUTE_VIA_LOCAL_LIBRARY",
+      "item_copy_eligibility": "UNVERIFIED",
+      "fee_for_exact_item": "UNQUOTED"
+    }
+  ],
+  "direct_inquiry_prerequisites": [
+    "Verify whether item 188987 and 188987L have source-issued online images, microfilms, or preservation copies; generic archive support is not item proof.",
+    "If not publicly image-linked, determine via institution or lending-library route whether opening-item/juan20 originals may be photographed or copied, plus permission, scope, charge, and delivery conditions.",
+    "Ask about two physical parts separately, without inferring 1827 unrepaired issue from a DaoGuang preface.",
+    "Upon actual receipt, record originating physical copy, folio, full binary SHA-256 and page SHA-256, then run 12UK intake and independent paleographic review.",
+    "Keep four glyph loci under existing 12UF and 12UE correction controls until independent dated/plate-scoped witness acquired."
+  ],
+  "acquisition": {
+    "image_or_iiif_manifest_obtained": false,
+    "item_specific_copy_permission": false,
+    "outreach_sent": false,
+    "paid_order_placed": false,
+    "files_or_glyph_votes_acquired": 0,
+    "negative_catalog_existence_asserted": false
+  },
+  "decision": {
+    "status": "OPEN_ITEM_SCOPED_SOURCE_ACQUISITION",
+    "inference": "No independent Kyoto original pages are yet linked to the exact holdings; neither the catalog year anomaly nor general archive/copy policy proves a 1827/1869 text variant.",
+    "algorithm_reopen_authorized": false,
+    "graph_edge_promotion_authorized": false
+  },
+  "accounting": {
+    "root_sources": 647,
+    "extension_sources": 40,
+    "combined_sources": 687,
+    "matrix_rows": 222,
+    "audited_rows": 222,
+    "provenance_repairs": 45,
+    "formal_batches": 487,
+    "formal_latest": "12QD",
+    "transmission_graph_nodes": 250,
+    "transmission_graph_edges": 237,
+    "original_kyoto_folios": 0,
+    "new_glyph_votes": 0,
+    "algorithm_reopens": 0,
+    "product": "CLOSED"
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "A shared CiNii NCID alone does not establish that item 188987 and item 188987L are the same physical volume or that a frontmatter date identifies a juan20 print state."
+    ],
+    "unresolved_lineage_questions": [
+      "188987 original 凡例 glyphs",
+      "188987L direct four loci and physical 1827/1869 plate/impression state"
+    ]
+  }
+}

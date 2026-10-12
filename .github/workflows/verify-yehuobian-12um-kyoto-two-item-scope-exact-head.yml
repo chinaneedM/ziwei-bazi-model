@@ -1,0 +1,30 @@
+name: verify-yehuobian-12um-kyoto-two-item-scope-exact-head
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/verify-yehuobian-12um-kyoto-two-item-scope-exact-head.yml
+      - docs/PROJECT-CURRENT-STATE-R1.json
+      - docs/research/MING-DATONG-YEHUOBIAN-12UM-*.json
+      - docs/research/MING-DATONG-YEHUOBIAN-12UK-ORIGINAL-LEAF-INTAKE-QUEUE-R1.json
+      - tests/test_yehuobian_kyoto_two_item_acquisition_12um.py
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check continuity, sources and genealogy
+        run: |
+          set -euo pipefail
+          python scripts/verify-project-continuity-state-r1.py
+          python scripts/verify-historical-source-registry-extensions-r1.py
+          python scripts/verify-tianwen-transmission-genealogy-r1.py
+      - name: Guard original Kyoto frontmatter and juan20 boundaries
+        run: python -m unittest discover -s tests -p 'test_yehuobian_kyoto_two_item_acquisition_12um.py' -v
