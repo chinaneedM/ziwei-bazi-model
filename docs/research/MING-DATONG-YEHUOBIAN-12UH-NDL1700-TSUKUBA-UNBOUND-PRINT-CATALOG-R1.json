@@ -1,0 +1,101 @@
+{
+  "schema": "TIANWEN-12UH-PRINT-CATALOG-TWO-ALTERNATE-COPIES-NOT-ORIGINAL-GLYPHS",
+  "schema_version": "1.0.0",
+  "date": "2026-10-12",
+  "parent": "12QE_OPEN",
+  "controlling_12uf": "docs/research/MING-DATONG-YEHUOBIAN-12UF-SOURCE-READING-CONTROL-AND-IMPRESSION-GATES-R1.json",
+  "scope": "Two additional book-level catalog targets found during follow-up to 12UG. Not assumed NAJ308-0212, 1827 first impression, or 1869 repair; no original target folio acquired.",
+  "candidates": [
+    {
+      "id": "NDL_184_65",
+      "institution": "National Diet Library of Japan",
+      "url": "https://ndlsearch.ndl.go.jp/books/R100000002-I000007607208",
+      "catalog_id": "000007607208",
+      "call_number": "184-65",
+      "catalog_title": "萬暦野獲編30卷",
+      "catalog_imprint_phrase": "康煕39序活字印",
+      "catalog_year_display": 1700,
+      "bibliographic_date_interpretation": "1700 is tied to a Kangxi39 preface in the catalog phrase; whether a particular surviving physical copy or printing was made in 1700 is NOT verified.",
+      "form": "16冊（合8冊）、18cm；印刷資料",
+      "author_scope": "沈徳符撰；錢枋輯",
+      "catalog_original_page_read": true,
+      "object_original_page_read": false,
+      "original_juan20_folio": false,
+      "edition_1827_proven": false,
+      "edition_1869_proven": false,
+      "existing_cadal_plate_identity": "UNTESTED",
+      "target_4_loci": null
+    },
+    {
+      "id": "TSUKUBA_BA62912433",
+      "institution": "University of Tsukuba Library / CiNii Books union catalog",
+      "url": "https://ci.nii.ac.jp/ncid/BA62912433",
+      "linked_first_party_opac": "https://www.tulips.tsukuba.ac.jp/opac/search?target=local&searchmode=complex&autoDetail=true&s_ncid=BA62912433",
+      "ncid": "BA62912433",
+      "physical_item_id_vol20": "10076865665",
+      "shelfmark": "ル380-17",
+      "catalog_title": "萬暦野獲編, 30巻",
+      "catalog_date": "[1---] (unresolved)",
+      "type": "刻本",
+      "format": "4帙31冊; 四周單邊無界10行23字; 17.5×11.2cm",
+      "item_specific_note": "巻之1[1] leaf has a handwritten Meiji7 1874-01-23 annotation, which is not proof of original edition date or printing date.",
+      "imprint_comparison": "1827 Kyoto BB05477307 catalog describes 10行21字, unlike this 10行23字 layout; exact same printing plates not established. The different layout suggests avoiding automatic bibliographic same-edition linkage.",
+      "catalog_original_page_read": true,
+      "original_image_seen": false,
+      "original_juan20_folio": false,
+      "edition_1827_proven": false,
+      "edition_1869_proven": false,
+      "target_4_loci": null
+    }
+  ],
+  "source_gate": {
+    "new_bibliographic_sources": 2,
+    "new_independent_ancient_target_glyph_votes": 0,
+    "original_source_images_acquired": 0,
+    "naJ_3080212_source_identity_established": false,
+    "unrepaired_1827_original_folio_seen": false,
+    "independent_1869_repaired_original_folio_seen": false,
+    "edition_date_inferred_from_preface": false,
+    "meiji7_ink_note_used_as_original_print_date": false,
+    "automatic_chart_algorithm_reopen": false
+  },
+  "next_actions": [
+    "Ask or search official NDL digital catalog for record 184-65 item-level image or reproduction route; do not infer unrestricted scanning from generic Help.",
+    "Use CiNii-issued Tsukuba OPAC item ID 10076865665 to request only a confirmed original target leaf and material/版心 features (if an authorized copy route exists).",
+    "Keep 12UF Kyoto/Hokkaido/Tokyo source-bound 1827/1869 impression adjudication as controlling priority.",
+    "If a direct image is obtained, register immutable source/file/page hashes and four loci, check plate correspondence; only then reconsider witness status."
+  ],
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Same 30卷 title does not prove same edition or same leaves.",
+      "Kangxi39 preface year does not prove this physical print's production date.",
+      "Meiji7 marginalia do not establish source text or printing chronology."
+    ],
+    "unresolved_lineage_questions": [
+      "Can NDL 184-65 or Tsukuba vol20 supply an independent original 改造漏刻 locus?",
+      "Do their plates share the 1827/1869 or CADAL/Xuxiu reading genealogy?"
+    ]
+  },
+  "accounting": {
+    "sources_before": 679,
+    "source_shard_added": 2,
+    "sources_after": 681,
+    "matrix_rows": 222,
+    "audited_rows": 222,
+    "repairs": 45,
+    "formal_batches": 487,
+    "latest_formal_batch": "12QD",
+    "graph_nodes": 250,
+    "graph_edges": 237,
+    "product": "CLOSED",
+    "algorithm_reopens": 0
+  },
+  "external_actions": {
+    "messages_sent": 0,
+    "applications_submitted": 0,
+    "payments": 0
+  }
+}
