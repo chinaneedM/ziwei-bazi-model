@@ -58,7 +58,7 @@ jobs:
           if len(doc)!=c['expected_pdf_pages_from_existing_12ST_12SU']: sys.exit('PAGE_COUNT_MISMATCH')
           pages=c['pdf_pages_1based']
           assert 1<=len(pages)<=32 and len(pages)==len(set(pages)) and all(type(p)==int and 1<=p<=len(doc) for p in pages)
-          w,h,cols=360,515,4
+          w,h,cols=(900,1340,2) if c.get('detailed_view',False) else (360,515,4)
           sheet=Image.new('RGB',(w*cols,h*((len(pages)+cols-1)//cols)),'white')
           draw=ImageDraw.Draw(sheet)
           for i,p in enumerate(pages):
@@ -69,7 +69,7 @@ jobs:
             if mode=='upper_left_margin': clip=fitz.Rect(page.rect.width*.01,0,page.rect.width*.38,page.rect.height*.51)
             if mode=='upper_right_half': clip=fitz.Rect(page.rect.width*.43,0,page.rect.width*.99,page.rect.height*.51)
             if mode=='lower_right_half': clip=fitz.Rect(page.rect.width*.43,page.rect.height*.49,page.rect.width*.99,page.rect.height*.99)
-            scale=.22 if mode=='full_page' else .55
+            scale=(.62 if mode=='full_page' else .9) if c.get('detailed_view',False) else (.22 if mode=='full_page' else .55)
             pix=page.get_pixmap(matrix=fitz.Matrix(scale,scale),clip=clip,alpha=False)
             im=Image.frombytes('RGB',(pix.width,pix.height),pix.samples)
             im.thumbnail((w-12,h-35))
