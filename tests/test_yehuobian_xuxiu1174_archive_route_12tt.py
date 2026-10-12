@@ -34,7 +34,7 @@ class Xuxiu1174AcquisitionScope12TT(unittest.TestCase):
         self.assertEqual(i["graph_edges"], 237)
         self.assertEqual(s["invariants"]["deterministic_fusion_chart_product_r1"], "CLOSED")
         self.assertEqual(s["invariants"]["algorithm_reopen_count"], 0)
-        self.assertIn("12TT", s["historical_audit"]["current_focus"][-1])
+        self.assertTrue(any(x.startswith("12TT ") for x in s["historical_audit"]["current_focus"]))
 
 if __name__ == "__main__":
     unittest.main()

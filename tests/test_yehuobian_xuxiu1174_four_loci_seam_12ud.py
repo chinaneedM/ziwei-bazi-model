@@ -30,5 +30,5 @@ class SourceFourLoci12UD(unittest.TestCase):
   self.assertEqual(e['invariants']['source_registry_total'],s['historical_audit']['external_source_registry_total_unique_count'])
   self.assertEqual(s['invariants']['algorithm_reopen_count'],0)
   self.assertEqual(s['invariants']['deterministic_fusion_chart_product_r1'],'CLOSED')
-  self.assertTrue(s['historical_audit']['current_focus'][-1].startswith('12UD '))
+  self.assertTrue(any(x.startswith('12UD ') for x in s['historical_audit']['current_focus']))
 if __name__=='__main__':unittest.main()

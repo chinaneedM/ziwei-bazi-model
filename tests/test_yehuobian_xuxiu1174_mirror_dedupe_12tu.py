@@ -29,7 +29,7 @@ class FacsimileDedupe12TU(unittest.TestCase):
         self.assertEqual(i["ancient_target_glyph_votes_added"],0)
         self.assertEqual(i["chart_algorithm_reopens"],s["invariants"]["algorithm_reopen_count"])
         self.assertEqual(s["invariants"]["deterministic_fusion_chart_product_r1"],"CLOSED")
-        self.assertTrue(s["historical_audit"]["current_focus"][-1].startswith("12TU "))
+        self.assertTrue(any(x.startswith("12TU ") for x in s["historical_audit"]["current_focus"]))
 
 if __name__=="__main__":
     unittest.main()

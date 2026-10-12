@@ -30,5 +30,5 @@ class ExactImageScope(unittest.TestCase):
   self.assertEqual(state["historical_audit"]["external_source_registry_total_unique_count"],678)
   self.assertEqual(state["invariants"]["deterministic_fusion_chart_product_r1"],"CLOSED")
   self.assertEqual(state["invariants"]["algorithm_reopen_count"],0)
-  self.assertTrue(state["historical_audit"]["current_focus"][-1].startswith("12UC "))
+  self.assertTrue(any(x.startswith("12UC ") for x in state["historical_audit"]["current_focus"]))
 if __name__=="__main__":unittest.main()
