@@ -25,7 +25,8 @@ class MonthCorrection12SZ(unittest.TestCase):
  def test_continuity_and_product_not_modified(self):
   a=self.state["historical_audit"]
   self.assertTrue(any(x.startswith("12SZ XUXIU1174") for x in a["current_focus"]))
-  self.assertEqual(a["external_source_registry_total_unique_count"],660)
+  self.assertGreaterEqual(a["external_source_registry_total_unique_count"],660)
+  self.assertEqual(a["external_source_registry_total_unique_count"],json.loads((ROOT/"docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json").read_text(encoding="utf-8"))["combined_source_count"])
   self.assertEqual(len(a["completed_batches"]),487)
   self.assertEqual(self.state["invariants"]["algorithm_reopen_count"],0)
   self.assertEqual(self.state["invariants"]["deterministic_fusion_chart_product_r1"],"CLOSED")

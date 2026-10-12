@@ -51,7 +51,8 @@ class Xuxiu1174DirectFourLoci12SX(unittest.TestCase):
         self.assertEqual(self.d["transmission_impact"]["edges_supported"],[])
         s=self.s["historical_audit"]
         self.assertTrue(any(z.startswith("12SX XUXIU1174") for z in s["current_focus"]))
-        self.assertEqual(s["external_source_registry_total_unique_count"],660)
+        self.assertGreaterEqual(s["external_source_registry_total_unique_count"],660)
+        self.assertEqual(s["external_source_registry_total_unique_count"],json.loads((ROOT/"docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json").read_text(encoding="utf-8"))["combined_source_count"])
         self.assertEqual(s["audited_row_count"],222)
         self.assertGreaterEqual(len(s["completed_batches"]),487)
         self.assertEqual(self.s["invariants"]["algorithm_reopen_count"],0)

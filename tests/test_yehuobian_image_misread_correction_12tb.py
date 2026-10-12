@@ -27,7 +27,8 @@ class OriginalPrintImageRecheck12TB(unittest.TestCase):
  def test_handoff_remains_forward_only(self):
   s=self.st
   self.assertTrue(any(x.startswith("12TB CADAL/1174") for x in s["historical_audit"]["current_focus"]))
-  self.assertEqual(s["historical_audit"]["external_source_registry_total_unique_count"],660)
+  self.assertGreaterEqual(s["historical_audit"]["external_source_registry_total_unique_count"],660)
+  self.assertEqual(s["historical_audit"]["external_source_registry_total_unique_count"],json.loads((ROOT/"docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json").read_text(encoding="utf-8"))["combined_source_count"])
   self.assertEqual(len(s["historical_audit"]["completed_batches"]),487)
   self.assertEqual(s["invariants"]["algorithm_reopen_count"],0)
   self.assertEqual(s["invariants"]["deterministic_fusion_chart_product_r1"],"CLOSED")

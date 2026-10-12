@@ -39,7 +39,8 @@ class Xuxiu1174DenseOriginalSource12SW(unittest.TestCase):
         a=self.s["historical_audit"]
         self.assertTrue(any(t.startswith("12SW XUXIU1174") for t in a["current_focus"]))
         self.assertGreaterEqual(len(a["completed_batches"]),487)
-        self.assertEqual(a["external_source_registry_total_unique_count"],660)
+        self.assertGreaterEqual(a["external_source_registry_total_unique_count"],660)
+        self.assertEqual(a["external_source_registry_total_unique_count"],json.loads((ROOT/"docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json").read_text(encoding="utf-8"))["combined_source_count"])
         self.assertEqual(self.s["invariants"]["algorithm_reopen_count"],0)
         self.assertEqual(self.s["invariants"]["deterministic_fusion_chart_product_r1"],"CLOSED")
 
