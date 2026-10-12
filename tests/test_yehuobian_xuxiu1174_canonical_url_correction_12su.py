@@ -46,7 +46,10 @@ class XuxiuTraditionalFileTitle12SU(unittest.TestCase):
         ud=self.manifest["additional_research_evidence_12ud"]
         self.assertEqual(uc["previous_12st_blob_sha"],self.record["source_shard_updated_blob_sha"])
         self.assertEqual(ud["source_registry_shard_sha_before"],uc["new_12uc_blob_sha"])
-        self.assertEqual(specs[0]["blob_sha"],ud["source_registry_shard_sha_after"])
+        ue=self.manifest["additional_research_evidence_12ue"]
+        self.assertEqual(ud["source_registry_shard_sha_after"],ue["blob_sha_previous"])
+        self.assertEqual(ue["source_count_change"],0)
+        self.assertIn("post_12ue_forward_scoped_correction",self.sh["sources"][0])
         self.assertEqual(self.record["source_shard_previous_blob_sha"],"8ff2ef2d4ce506b53dfe2ed52283f78597e54e1b")
         self.assertEqual(len(self.sh["sources"]),1)
         self.assertFalse(self.sh["sources"][0]["physical_glyph_authority"])
