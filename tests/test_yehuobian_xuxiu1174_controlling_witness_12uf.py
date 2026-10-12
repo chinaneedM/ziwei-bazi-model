@@ -21,6 +21,8 @@ class SourcePrecedence12UF(unittest.TestCase):
         self.assertNotEqual(self.ue["corrected_same_source_loci"],self.ue["erroneous_12ud_loci"])
         self.assertEqual(self.x["copy_independence"]["distinct_original_printing_states_positively_verified"],0)
         self.assertFalse(self.x["copy_independence"]["xuxiu_cadal_strong_image_registration"]["independent_physical_copy_proven"])
+        self.assertTrue(self.x["copy_independence"]["old_twenty_volume_fascicle_ten_is_a_different_chronological_arrangement"])
+        self.assertTrue(self.x["copy_independence"]["old_twenty_volume_title_alignment_by_juan_number_is_forbidden"])
     def test_three_catalog_items_without_unrepaired_copy_vote(self):
         holdings={h["ncid"]:h for h in self.x["catalog_holding_candidates"]}
         self.assertEqual(set(holdings),{"BB18578034","BB10385966","BB23196128"})
