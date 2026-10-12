@@ -1,0 +1,165 @@
+{
+  "schema": "MING-DATONG-YEHUOBIAN-12TA-CROSS-IMAGE-THREE-KE-FOUR-LOCUS-MATRIX-R1",
+  "schema_version": "1.0.0",
+  "date": "2026-10-12",
+  "parent_gate": "12QE_MD-G03_OPEN",
+  "checkpoint": "FORWARD_ONLY_EXISTING_EVIDENCE_CROSSWALK_NOT_A_NEW_SOURCE_ACQUISITION",
+  "exact_sources": {
+    "cadal": "docs/research/MING-DATONG-YEHUOBIAN-12QE-CADAL02096915-V20-DIRECT-TARGET-GLYPH-R1.json",
+    "shanghai": "docs/research/MING-DATONG-YEHUOBIAN-12QD-SHLIB-FIRSTPARTY-AND-NLC-OLD20-ATLAS-R1.json",
+    "xuxiu": "docs/research/MING-DATONG-YEHUOBIAN-12SX-XUXIU1174-DIRECT-FOUR-LOCUS-FACSIMILE-COLLATION-R1.json",
+    "received": "docs/research/MING-DATONG-YEHUOBIAN-12QE-YUAN-MING-KE-RECEPTION-CROSSWALK-R1.json",
+    "berlin": "docs/research/MING-DATONG-YEHUOBIAN-12PZ-BERLIN-38-OF-38-SAMPLE-IMAGE-CLOSURE-R1.json"
+  },
+  "positions": [
+    "GONGJIN_WORD",
+    "PALACE_CLOCK_NOUN",
+    "BEIJING_WINTER_SUNRISE_KE",
+    "BEIJING_SUMMER_SUNSET_KE"
+  ],
+  "witnessed_readings": [
+    {
+      "id": "SHLIB_GJ2312912",
+      "class": "DIRECT_DIGITAL_IMAGE_TEXT_COPY_UNBOUND",
+      "loci": [
+        "宮禁",
+        "宮漏",
+        "辰初一刻",
+        "戌初一刻"
+      ],
+      "image_location": "12QC direct scan target as bounded in 12QD",
+      "proven_1827_unrepaired": false
+    },
+    {
+      "id": "CADAL02096915",
+      "class": "DIRECT_DIGITAL_IMAGE_TEXT_IMPRESSION_UNBOUND",
+      "loci": [
+        "宮禁",
+        "宮漏",
+        "辰初二刻",
+        "戌初三刻"
+      ],
+      "image_location": "Fascicle16 printed 卷二十 PDF/DjVu p121-122; public source full SHA256 262edac806b90c984d5f0c4fce1bc150a974ebd574d847738a08a00cad39640d",
+      "proven_1827_unrepaired": false
+    },
+    {
+      "id": "XUXIU1174_2002",
+      "class": "DIRECT_DIGITAL_FACSIMILE_OF_REPAIRED_PRINT_DESCRIPTION_UNBOUND_PHYSICAL_EXEMPLAR",
+      "loci": [
+        "宮禁",
+        "官漏",
+        "辰初二刻",
+        "戌初二刻"
+      ],
+      "image_location": "2002 facsimile PDF p506, source PDF SHA256 bee08d95d6b141a978f4d7fb068b97b74cf8ee25b46c6273110b2891a0faf953",
+      "proven_1827_unrepaired": false
+    },
+    {
+      "id": "CTEXT_RECEIVED",
+      "class": "MODERN_RECEIVED_TEXT_NO_INDEPENDENT_PHYSICAL_GLYPH",
+      "loci": [
+        "官禁",
+        "官漏",
+        "辰初二刻",
+        "戌初二刻"
+      ],
+      "image_location": null,
+      "proven_1827_unrepaired": false
+    },
+    {
+      "id": "SHIDIAN_RECEIVED",
+      "class": "MODERN_RECEIVED_TEXT_NO_INDEPENDENT_PHYSICAL_GLYPH",
+      "loci": [
+        "宫禁",
+        "宫漏",
+        "辰初一刻",
+        "戌初一刻"
+      ],
+      "image_location": null,
+      "proven_1827_unrepaired": false
+    },
+    {
+      "id": "WIKISOURCE_RECEIVED",
+      "class": "MODERN_RECEIVED_TEXT_PARTIAL_FIELDS",
+      "loci": [
+        null,
+        null,
+        "辰初二刻",
+        "戌初一刻"
+      ],
+      "image_location": null,
+      "proven_1827_unrepaired": false
+    }
+  ],
+  "derived": {
+    "image_witnesses_without_bounded_original_print_state": 3,
+    "modern_text_surfaces_not_ancient_original_votes": 3,
+    "printed_image_winter_readings": [
+      "辰初一刻",
+      "辰初二刻"
+    ],
+    "printed_image_summer_readings": [
+      "戌初一刻",
+      "戌初二刻",
+      "戌初三刻"
+    ],
+    "printed_image_numeric_pairs": [
+      [
+        "辰初一刻",
+        "戌初一刻"
+      ],
+      [
+        "辰初二刻",
+        "戌初三刻"
+      ],
+      [
+        "辰初二刻",
+        "戌初二刻"
+      ]
+    ],
+    "shared_winter_two_ke_does_not_entail_shared_summer_value": true,
+    "no_1827_first_impression_original_leaf_authenticated": true,
+    "no_word_or_number_authority_votes_from_received_text": true,
+    "duplicate_existing_cadal_image_added": 0,
+    "new_independent_source_count": 0,
+    "direct_stemma_edges_added": 0,
+    "claimed_1869_recuts_at_target": 0,
+    "source_scoped_historical_clock_adapter_activated": false
+  },
+  "historical_controls": {
+    "official_1447_event_record": "12CF 明英宗實錄卷160 recorded 辰初一刻/戌初一刻; distinct work and event record, not same 野獲編 physical text witness",
+    "berlin_1827_preview": "PPN334378186X, Libri sin.365/372, 38/38 public samples inspected in 12PZ, target 卷二十 改造漏刻 not in sample set; not evidence full original target missing",
+    "edition_scopes": "1827 preface / 1869 repair declaration / 2002 reproduction / 2018 upload must not be collapsed",
+    "update_kind": "Newly consolidated old material; no new source or citation authority"
+  },
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "explicitly_unproved": [
+      "Identical winter 二刻 between CADAL and 1174 does not prove same printing plate because CADAL summer 三刻 differs from 1174 二刻",
+      "CText two/two matches 1174 numeric pair but does not prove direct copying",
+      "SHLIB one/one and Shidian one/one do not prove historical physical descent",
+      "Berlin 1827 catalog with sample pages cannot add a target glyph vote"
+    ],
+    "next": [
+      "Acquire independently authenticated unrepaired 1827 target leaf with holding and physical page identifiers",
+      "Acquire physically bounded 1869 repair target leaf and compare plate/row characters",
+      "Only then evaluate whether 三刻→二刻 or 一刻 variants are plate changes, transcription errors, or received revisions"
+    ]
+  },
+  "invariants": {
+    "matrix_rows": 222,
+    "audited_rows": 222,
+    "source_root": 647,
+    "source_extensions": 13,
+    "source_union": 660,
+    "repairs": 45,
+    "transmission_nodes": 248,
+    "transmission_edges": 235,
+    "formal_batches": 487,
+    "latest_formal": "12QD",
+    "product_r1": "CLOSED",
+    "algorithm_reopen_count": 0
+  }
+}
