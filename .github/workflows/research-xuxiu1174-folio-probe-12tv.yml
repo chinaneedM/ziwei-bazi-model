@@ -62,7 +62,12 @@ jobs:
           sheet=Image.new('RGB',(w*cols,h*((len(pages)+cols-1)//cols)),'white')
           draw=ImageDraw.Draw(sheet)
           for i,p in enumerate(pages):
-            pix=doc[p-1].get_pixmap(matrix=fitz.Matrix(.22,.22),alpha=False)
+            page=doc[p-1]
+            mode=c.get('probe_mode','full_page')
+            assert mode in ('full_page','upper_left_margin')
+            clip=page.rect if mode=='full_page' else fitz.Rect(page.rect.width*0.01,page.rect.height*0.00,page.rect.width*0.38,page.rect.height*0.51)
+            scale=.22 if mode=='full_page' else .55
+            pix=page.get_pixmap(matrix=fitz.Matrix(scale,scale),clip=clip,alpha=False)
             im=Image.frombytes('RGB',(pix.width,pix.height),pix.samples)
             im.thumbnail((w-12,h-35))
             x=(i%cols)*w+6+(w-12-im.width)//2;y=(i//cols)*h+27
