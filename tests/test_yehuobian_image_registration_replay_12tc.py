@@ -21,8 +21,15 @@ class ImageRegistrationReplayContract12TC(unittest.TestCase):
  def test_state_keeps_evidence_uncertainty(self):
   s=json.loads(STATE.read_text(encoding="utf-8"))
   self.assertTrue(any(x.startswith("12TC IMAGE-REGISTRATION") for x in s["historical_audit"]["current_focus"]))
-  self.assertEqual(s["historical_audit"]["external_source_registry_total_unique_count"],660)
-  self.assertEqual(len(s["historical_audit"]["completed_batches"]),487)
+  a=s["historical_audit"]
+  manifest=json.loads((ROOT/"docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json").read_text(encoding="utf-8"))
+  self.assertGreaterEqual(a["external_source_registry_total_unique_count"],660)
+  self.assertGreaterEqual(len(a["completed_batches"]),487)
+  self.assertEqual(a["external_source_registry_root_count"],manifest["root_source_count"])
+  self.assertEqual(a["external_source_registry_extension_count"],manifest["extension_source_count"])
+  self.assertEqual(a["external_source_registry_total_unique_count"],manifest["combined_source_count"])
+  self.assertEqual(manifest["extension_source_count"],sum(x["source_count"] for x in manifest["shards"]))
+  self.assertEqual(a["external_source_registry_root_count"]+a["external_source_registry_extension_count"],a["external_source_registry_total_unique_count"])
   self.assertEqual(s["invariants"]["algorithm_reopen_count"],0)
   self.assertEqual(s["invariants"]["deterministic_fusion_chart_product_r1"],"CLOSED")
 if __name__=="__main__":unittest.main()
