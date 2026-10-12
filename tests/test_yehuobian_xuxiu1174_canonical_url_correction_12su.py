@@ -14,7 +14,7 @@ def load(p):
     return json.loads((ROOT / p).read_text(encoding="utf-8"))
 def blobsha(p):
     raw=(ROOT / p).read_bytes()
-    return hashlib.sha1(b"blob "+str(len(raw)).encode()+b"\\x00"+raw).hexdigest()
+    return hashlib.sha1(b"blob "+str(len(raw)).encode()+b"\x00"+raw).hexdigest()
 
 class XuxiuTraditionalFileTitle12SU(unittest.TestCase):
     @classmethod
