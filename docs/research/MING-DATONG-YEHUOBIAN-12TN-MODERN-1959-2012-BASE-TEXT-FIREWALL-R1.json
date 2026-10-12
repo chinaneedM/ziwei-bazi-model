@@ -1,0 +1,93 @@
+{
+  "schema": "MING-DATONG-YEHUOBIAN-12TN-MODERN-1959-2012-BASE-TEXT-FIREWALL-R1",
+  "date": "2026-10-12",
+  "parent": "12QE_OPEN",
+  "preceding_checkpoint": "12TM",
+  "checkpoint": "MODERN_EDITIONS_DIFFERENT_DECLARED_SOURCE_BASES_NOT_INDEPENDENT_ANCIENT_GLYPH",
+  "bibliography": {
+    "zhonghua_1959": {
+      "official_catalog_url": "https://ndlsearch.ndl.go.jp/books/R100000002-I000001008336",
+      "provider": "NDL",
+      "catalog_id": "000001008336",
+      "publication": "中華書局 1959",
+      "volumes": 3,
+      "catalog_original_base_statement": "底本は姚氏扶茘山房刻本",
+      "catalog_is_not_original_1827_folio": true
+    },
+    "shanghai_2012": {
+      "official_catalog_url": "https://ndlsearch.ndl.go.jp/books/R100000136-I1971149384851060752",
+      "ndlcinii_ncid": "BB11939247",
+      "isbn": "9787532563593",
+      "publication": "上海古籍出版社 2012.11",
+      "editor": "楊萬里",
+      "volumes": 3,
+      "publisher_description_url": "https://www.sanmin.com.tw/product/index/003533274",
+      "publisher_description_source": "本書以臺灣史語所傅斯年圖書館所藏鈔本之影印件點校",
+      "description_is_not_physical_holding_catalog": true,
+      "actual_editorial_foreword_and_target_glyph_directly_checked": false
+    },
+    "taipei_1976": {
+      "earlier_research": "docs/research/MING-DATONG-YEHUOBIAN-12TM-CINII1976-IHP-IMAGE-POLICY-R1.json",
+      "ncid": "BA59231697",
+      "publication": "偉文圖書出版社 1976.9",
+      "volumes": 5,
+      "base_institution_attributed": "Academia Sinica IHP",
+      "exact_physical_barcode174009_bound": false
+    }
+  },
+  "adjudication": {
+    "three_modern_publications_or_editions_not_collapsed": true,
+    "three_volume_similarity_not_source_identity": true,
+    "zhonghua1959_and_shanghai2012_identical_base_unproved": true,
+    "shanghai2012_and_taipei1976_same_original_exemplar_unproved": true,
+    "shanghai2012_and_IHP_barcode174009_identity_unproved": true,
+    "modern_editorship_not_glyph_authority": true,
+    "ndlcinii_same_record_not_independent_witness": true,
+    "new_original_manuscript_folios": 0,
+    "new_original_1827_print_folios": 0,
+    "new_repaired_1869_print_folios": 0,
+    "new_historical_glyph_votes": 0,
+    "algorithm_reopens": 0,
+    "graph_nodes_added": 0,
+    "graph_edges_added": 0,
+    "formal_batches_added": 0,
+    "project_product_state": "CLOSED"
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "1959 Zhonghua 3-volume Yao-print-based edited edition is not identical in base-text lineage to 2012 Shanghai 3-volume IHP-manuscript-described edition merely because their format matches.",
+      "2012 Shanghai IHP-manuscript-description does not identify exact IHP barcode174009 or establish that 1976 Weiwen used that same copy.",
+      "NDL and CiNii views of same 2012 NCID are duplicate catalog pathways and not two independent physical witnesses."
+    ],
+    "unresolved_lineage_questions": [
+      "Read the 2012 edition's actual 校点说明 and source reproduction acknowledgements for original manuscript holding identity and handling of variants.",
+      "Obtain item-identified IHP original or 1976 base-copy folio under lawful access to bind 174009 and manually collate 卷20〈改造漏刻〉.",
+      "Locate independently authenticated original 1827 unaltered print and 1869 repaired print target leaves and establish image-lineage independence."
+    ]
+  },
+  "source_registry": {
+    "shard": "docs/research/MING-DATONG-YEHUOBIAN-12TN-MODERN-1959-2012-SOURCE-SHARD-R1.json",
+    "source_ids": [
+      "EXT-NDL-1959-ZHONGHUA-YAO-FULISHANFANG-BASE-CATALOG-12TN",
+      "EXT-NDL-2012-SHANGHAI-YANGWANLI-ISBN9787532563593-12TN",
+      "EXT-SANMIN-2012-YANGWANLI-IHP-MANUSCRIPT-FACSIMILE-BASE-12TN"
+    ],
+    "new_sources": 3,
+    "all_physical_glyph_authority": false
+  },
+  "invariant_snapshot": {
+    "matrix_rows": 222,
+    "audited_rows": 222,
+    "repaired_metadata": 45,
+    "root_registry_sources": 647,
+    "extension_sources_after": 27,
+    "total_sources_after": 674,
+    "genealogy_nodes": 248,
+    "genealogy_edges": 235,
+    "formal_batches": 487,
+    "algorithm_reopens": 0
+  }
+}
