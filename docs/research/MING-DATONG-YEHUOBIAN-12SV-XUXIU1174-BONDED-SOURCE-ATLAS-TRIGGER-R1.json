@@ -1,0 +1,67 @@
+{
+  "schema": "MING-DATONG-YEHUOBIAN-12SV-XUXIU1174-BONDED-SOURCE-ATLAS-TRIGGER-R1",
+  "schema_version": "1.0.0",
+  "date": "2026-10-12",
+  "parent_research_gate": "12QE_MD-G03_OPEN",
+  "predecessor": "docs/research/MING-DATONG-YEHUOBIAN-12SU-XUXIU1174-COMMONS-TITLE-IDENTITY-CORRECTION-R1.json",
+  "workflow": ".github/workflows/probe-xuxiu1174-original-pages-12sv.yml",
+  "target_object": {
+    "public_file": "https://commons.wikimedia.org/wiki/File:%E7%BA%8C%E4%BF%AE%E5%9B%9B%E5%BA%AB%E5%85%A8%E6%9B%B8%E7%AC%AC1174%E5%86%8A.pdf",
+    "filename": "續修四庫全書第1174冊.pdf",
+    "expected_bytes": 68649578,
+    "expected_sha1": "fc6a98b070c11372c557e22bb05cdc9859541715",
+    "expected_pdf_pages": 810,
+    "part2_first_pdf_page_1based": 118,
+    "part2_first_printed_page": 115,
+    "edition_claim": "2002_REPRINT_OF_1827_PRINT_1869_REPAIRED_PER_FILE_DESCRIPTION_ONLY"
+  },
+  "method": {
+    "transfer": "public Commons Special:Redirect/file, no login or bypass",
+    "verify": "complete bytes SHA1 PDF signature and pdfinfo pages before sample rendering",
+    "image_sampling": "1,2,115-119,810, then each 12 pages from 130 through 802",
+    "hashing": "full_source_sha256_and_each_sample_jpeg_sha256_and_contact_sheet_sha256",
+    "image_processing": "pdftoppm plus Pillow; NO OCR",
+    "artifact": "checked JPEG samples and status manifest only; original full PDF removed",
+    "interaction": "workflow push trigger; resulting run/access not presumed successful"
+  },
+  "current_observation": {
+    "public_page_metadata_previously_verified": true,
+    "original_pdf_binary_obtained_by_this_commit": false,
+    "image_hash_available_from_this_commit": false,
+    "original_edition_copy_verified": false,
+    "target_article_identified": false,
+    "original_four_locus_votes": 0,
+    "source_access_result": "PENDING_EXACT_HEAD_ACTIONS"
+  },
+  "scope_firewall": [
+    "Old 12ST incorrect simplified source URL remains in archived research record; 12SU correction governs public file route",
+    "Public 2002 facsimile PDF is not certified same physical 1827 or 1869 library copy",
+    "Sampling cannot establish absence of article or proof of four characters",
+    "Workflow output is an access experiment, not an already examined primary leaf",
+    "No catalog-only relation can become transmission copy edge without physical comparison"
+  ],
+  "invariants": {
+    "matrix_rows": 222,
+    "audited_rows": 222,
+    "metadata_repaired": 45,
+    "root_sources": 647,
+    "extension_sources": 13,
+    "unique_sources": 660,
+    "graph_nodes": 248,
+    "graph_edges": 235,
+    "formal_batches": 487,
+    "latest_formal_batch": "12QD",
+    "algorithm_reopens": 0,
+    "product_r1": "CLOSED",
+    "new_source_or_glyph_vote": 0
+  },
+  "transmission_impact": {
+    "nodes": [],
+    "supported_edges": [],
+    "revised_edges": [],
+    "remaining": [
+      "Locate target 改造漏刻 article in 1174 and inspect source-bearing PDF pages",
+      "Determine printed exemplar/repair plate and independent four-locus variants"
+    ]
+  }
+}
