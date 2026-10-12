@@ -40,7 +40,13 @@ class XuxiuTraditionalFileTitle12SU(unittest.TestCase):
         specs=[x for x in self.manifest["shards"] if x["path"]==SHARD]
         self.assertEqual(len(specs),1)
         self.assertEqual(specs[0]["blob_sha"],blobsha(SHARD))
-        self.assertEqual(specs[0]["blob_sha"],self.record["source_shard_updated_blob_sha"])
+        # 12SU SHA is a historical checkpoint, not the latest mutable shard SHA.
+        # Follow explicit forward-only 12UC -> 12UD revision links instead.
+        uc=self.manifest["additional_research_evidence_12uc"]
+        ud=self.manifest["additional_research_evidence_12ud"]
+        self.assertEqual(uc["previous_12st_blob_sha"],self.record["source_shard_updated_blob_sha"])
+        self.assertEqual(ud["source_registry_shard_sha_before"],uc["new_12uc_blob_sha"])
+        self.assertEqual(specs[0]["blob_sha"],ud["source_registry_shard_sha_after"])
         self.assertEqual(self.record["source_shard_previous_blob_sha"],"8ff2ef2d4ce506b53dfe2ed52283f78597e54e1b")
         self.assertEqual(len(self.sh["sources"]),1)
         self.assertFalse(self.sh["sources"][0]["physical_glyph_authority"])
