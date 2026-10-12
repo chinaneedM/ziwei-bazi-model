@@ -28,6 +28,16 @@ class CText12UR(unittest.TestCase):
     def test_no_unrelated_image_destination_accepted(self):
         self.assertIsNone(mod.public_image_link("http://ctext.org/images/foo.png","https://ctext.org"))
         self.assertIsNone(mod.public_image_link("https://ctext.org.evil.example/scan","https://ctext.org"))
+    def test_distinct_endpoints_with_identical_html_are_not_verified(self):
+        a={"requested_url":"https://ctext.org/wiki.pl?if=en&res=1946940","outcome":"PUBLIC_HTML_NO_IMAGE_LINKS","http_status":200,"body_sha256":"4f323319db2cfd81d5d8106ab0f3cdbf21aaf8a17f2d187347961c569bbc1d73","found_source_emitted_links":[]}
+        b={"requested_url":"https://ctext.org/wiki.pl?chapter=418967&if=gb","outcome":"PUBLIC_HTML_NO_IMAGE_LINKS","http_status":200,"body_sha256":a["body_sha256"],"found_source_emitted_links":[]}
+        rows=mod.crosscheck_distinct_urls([a,b])
+        self.assertEqual([x["outcome"] for x in rows],["AMBIGUOUS_IDENTICAL_HTML_SHELL"]*2)
+        self.assertTrue(all(x["source_item_identity_proven"] is False for x in rows))
+    def test_different_html_hashes_do_not_prove_a_scanned_folio_either(self):
+        a={"requested_url":"https://ctext.org/wiki.pl?if=en&res=1946940","outcome":"PUBLIC_HTML_NO_IMAGE_LINKS","http_status":200,"body_sha256":"1"*64}
+        b={"requested_url":"https://ctext.org/wiki.pl?chapter=418967&if=gb","outcome":"PUBLIC_HTML_NO_IMAGE_LINKS","http_status":200,"body_sha256":"2"*64}
+        self.assertTrue(all(x["source_item_identity_proven"] is False for x in mod.crosscheck_distinct_urls([a,b])))
     def test_berlin_sample_already_accounted_for(self):
         b=self.doc["prior_exhausted_german_example_source"]
         self.assertEqual(b["total_public_sample_canvases"],38)

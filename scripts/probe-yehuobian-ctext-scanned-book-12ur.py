@@ -74,8 +74,8 @@ def probe_url(url):
             if "captcha" in decoded.lower() or "verify that you" in decoded.lower():
                 row["outcome"]="PUBLIC_ANTI_BOT_GATE_NO_BYPASS"
                 return row
-            row["outcome"]="PUBLIC_HTML_METADATA_ONLY"
             row["found_source_emitted_links"]=extract_links(decoded,response.url)
+            row["outcome"]="PUBLIC_HTML_HAS_SOURCE_LINKS" if row["found_source_emitted_links"] else "PUBLIC_HTML_NO_IMAGE_LINKS"
     except HTTPError as ex:
         row["http_status"]=ex.code
         row["outcome"]="HTTP_RESTRICTED_OR_UNAVAILABLE"
@@ -83,6 +83,21 @@ def probe_url(url):
         row["outcome"]="NETWORK_ERROR_OR_TIMEOUT"
         row["diagnostic"]=type(ex).__name__
     return row
+def crosscheck_distinct_urls(probes):
+    """Identical 200 HTML bytes for distinct CText URLs are not item verification."""
+    if len(probes)!=2:return probes
+    a,b=probes
+    if (a.get("requested_url")!=b.get("requested_url")
+            and a.get("http_status")==b.get("http_status")==200
+            and a.get("body_sha256") and a["body_sha256"]==b.get("body_sha256")):
+        for row in probes:
+            row["outcome"]="AMBIGUOUS_IDENTICAL_HTML_SHELL"
+            row["source_item_identity_proven"]=False
+            row["warning"]="Distinct book and chapter URL returned byte-identical HTTP200 HTML; could be common shell, access prompt, or redirect. No historical image inference."
+    else:
+        for row in probes:
+            row["source_item_identity_proven"]=False
+    return probes
 def main():
     p=argparse.ArgumentParser()
     p.add_argument("--live",action="store_true")
@@ -91,7 +106,7 @@ def main():
     d=json.loads(LEDGER.read_text(encoding="utf-8"))
     res={"schema":"TIANWEN-12UR-CURRENT-PUBLIC-CTEXT-LINK-PROBE","baseline":validate_ledger(d),"historical_vote_authorized":False}
     if x.live:
-        res["probes"]=[probe_url(url) for url in (d["known_book_url"],d["known_received_chapter_url"])]
+        res["probes"]=crosscheck_distinct_urls([probe_url(url) for url in (d["known_book_url"],d["known_received_chapter_url"])])
     else:
         res["probes"]=[]
     body=json.dumps(res,ensure_ascii=False,indent=2)+"\n"
