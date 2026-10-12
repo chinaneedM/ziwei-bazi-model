@@ -64,8 +64,11 @@ jobs:
           for i,p in enumerate(pages):
             page=doc[p-1]
             mode=c.get('probe_mode','full_page')
-            assert mode in ('full_page','upper_left_margin')
-            clip=page.rect if mode=='full_page' else fitz.Rect(page.rect.width*0.01,page.rect.height*0.00,page.rect.width*0.38,page.rect.height*0.51)
+            assert mode in ('full_page','upper_left_margin','upper_right_half','lower_right_half')
+            clip=page.rect
+            if mode=='upper_left_margin': clip=fitz.Rect(page.rect.width*.01,0,page.rect.width*.38,page.rect.height*.51)
+            if mode=='upper_right_half': clip=fitz.Rect(page.rect.width*.43,0,page.rect.width*.99,page.rect.height*.51)
+            if mode=='lower_right_half': clip=fitz.Rect(page.rect.width*.43,page.rect.height*.49,page.rect.width*.99,page.rect.height*.99)
             scale=.22 if mode=='full_page' else .55
             pix=page.get_pixmap(matrix=fitz.Matrix(scale,scale),clip=clip,alpha=False)
             im=Image.frombytes('RGB',(pix.width,pix.height),pix.samples)
