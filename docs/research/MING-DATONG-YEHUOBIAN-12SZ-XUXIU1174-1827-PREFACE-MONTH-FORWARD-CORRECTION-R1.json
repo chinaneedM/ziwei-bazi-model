@@ -1,0 +1,70 @@
+{
+  "schema": "MING-DATONG-YEHUOBIAN-12SZ-XUXIU1174-1827-PREFACE-MONTH-FORWARD-CORRECTION-R1",
+  "date": "2026-10-12",
+  "correction_type": "EVIDENCE_BOUNDED_TRANSCRIPTION_REPAIR_NOT_AN_EARLY_PRINT_VARIANT",
+  "supersedes_assertion_in": "docs/research/MING-DATONG-YEHUOBIAN-12SY-XUXIU1174-PREFACE-DATE-SCOPE-R1.json",
+  "prior_assertion": "道光七年歲次丁亥春二月錢塘姚祖恩",
+  "corrected_reading": "道光七年歲次丁亥春三月錢塘姚祖恩",
+  "difference": {
+    "word": "月前數字",
+    "incorrect": "二",
+    "correct": "三",
+    "edition_witness": "2002 public facsimile PDF page119",
+    "full_pdf_sha256": "bee08d95d6b141a978f4d7fb068b97b74cf8ee25b46c6273110b2891a0faf953",
+    "jpeg_page119_sha256": "f76a74aff8c11113ae9ec7f55d2db7286d114d82032291835751f294312312ae"
+  },
+  "cross_checks": [
+    {
+      "source": "CiNii Tokyo Kuraishi 1869 repaired bibliographic record",
+      "ncid": "BB23196128",
+      "url": "https://ci.nii.ac.jp/ncid/BB23196128.amp?l=en",
+      "passage": "道光七年歳次丁亥春三月錢塘姚祖恩芴園氏識於羊城邸寓之扶茘山房",
+      "authority": "LIBRARY_CATALOG_TRANSCRIPTION_CORROBORATION_NOT_DIRECT_SECOND_IMAGE_VOTE"
+    },
+    {
+      "source": "CiNii Kyoto 1827 preface-dated bibliographic record",
+      "ncid": "BB18578034",
+      "url": "https://ci.nii.ac.jp/ncid/BB18578034",
+      "passage": "道光七年[1827]歳次丁亥春三月錢塘姚祖恩芴園氏識於羊城邸寓之扶茘山房",
+      "authority": "LIBRARY_CATALOG_TRANSCRIPTION_CORROBORATION_NOT_DIRECT_SECOND_IMAGE_VOTE"
+    }
+  ],
+  "adjudication": {
+    "incorrect_12SY_record_preserved": true,
+    "new_reading_applies_to_existing_pdf_page119": true,
+    "independent_1827_original_target_glyphs_added": 0,
+    "independent_original_book_photos_added": 0,
+    "new_external_source_added": 0,
+    "prior_12SX_four_locus_readings_unchanged": true,
+    "three_chronological_years_remain": [
+      1606,
+      1827,
+      1869
+    ],
+    "source_repaired_folio_cannot_be_dated_by_preface": true,
+    "no_new_direct_edition_stemma_edge": true,
+    "no_chart_algorithm_change": true
+  },
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "unproved": [
+      "The same prefatory wording in two CiNii catalog records is not evidence of shared specific physical copy",
+      "Corrected calendar month is an editorial transcription correction and not historical textual variant"
+    ]
+  },
+  "invariants": {
+    "matrix": 222,
+    "audited": 222,
+    "root": 647,
+    "extension": 13,
+    "total_sources": 660,
+    "graph_nodes": 248,
+    "graph_edges": 235,
+    "batches": 487,
+    "latest_batch": "12QD",
+    "product": "CLOSED",
+    "algorithm_reopens": 0
+  }
+}
