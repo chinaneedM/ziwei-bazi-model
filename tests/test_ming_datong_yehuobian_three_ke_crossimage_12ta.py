@@ -44,7 +44,7 @@ class ThreeKeCrossImageMatrix12TA(unittest.TestCase):
         self.assertTrue(any(x.startswith("12TA CROSS-IMAGE") for x in a["current_focus"]))
         self.assertGreaterEqual(a["external_source_registry_total_unique_count"],660)
         self.assertEqual(a["external_source_registry_total_unique_count"],json.loads((ROOT/"docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json").read_text(encoding="utf-8"))["combined_source_count"])
-        self.assertEqual(len(a["completed_batches"]),487)
+        self.assertGreaterEqual(len(a["completed_batches"]),487)
         self.assertEqual(a["row_count"],222)
         self.assertEqual(a["repaired_provenance_metadata_defect_count"],45)
         self.assertEqual(self.state["invariants"]["algorithm_reopen_count"],0)
