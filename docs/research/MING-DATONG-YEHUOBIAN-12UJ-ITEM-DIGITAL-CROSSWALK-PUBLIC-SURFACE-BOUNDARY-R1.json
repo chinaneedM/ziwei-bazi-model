@@ -1,0 +1,107 @@
+{
+  "schema": "TIANWEN-12UJ-ITEM-DIGITAL-SURROGATE-CROSSWALK-AND-ACCESS-UI-FIREWALL",
+  "schema_version": "1.0.0",
+  "date": "2026-10-12",
+  "parent": "12QE_OPEN",
+  "prior": [
+    "docs/research/MING-DATONG-YEHUOBIAN-12UI-TSUKUBA-NDL-ACQUISITION-MODE-GATES-R1.json",
+    "docs/research/MING-DATONG-YEHUOBIAN-12UF-SOURCE-READING-CONTROL-AND-IMPRESSION-GATES-R1.json"
+  ],
+  "purpose": "Do not conflate a paper-record service footer or library digital collection landing with an item-issued digital object. Scope-limited observations made by reading exact public item and official help/collection pages; nothing asserts universal catalog absence.",
+  "exact_item_surfaces": [
+    {
+      "id": "NDL_18465",
+      "object_url": "https://ndlsearch.ndl.go.jp/books/R100000002-I000007607208",
+      "item_bib_id": "000007607208",
+      "call_number": "184-65",
+      "read_mode": "DIRECT_PUBLIC_TEXT_RENDERED_ITEM_PAGE",
+      "observed_media_class": "紙",
+      "observed_public_item_bound_pid": null,
+      "observed_public_item_bound_image_url": null,
+      "generic_bottom_access_help_present": true,
+      "generic_help_is_item_digitization_proof": false,
+      "item_digitization_status": "NOT_DETERMINED_FROM_RENDERED_RECORD",
+      "item_microfilm_status": "NOT_DETERMINED_FROM_RENDERED_RECORD",
+      "catalog_1700_is_impression_proof": false,
+      "public_digital_fingerprint_glyphs": null
+    },
+    {
+      "id": "TSUKUBA_10076865665",
+      "object_url": "https://ci.nii.ac.jp/ncid/BA62912433",
+      "source_emitted_opac": "https://www.tulips.tsukuba.ac.jp/mylimedio/search/search.do?mode=comp&ncid=BA62912433&target=local",
+      "resolved_url": "https://www.tulips.tsukuba.ac.jp/opac/search?target=local&searchmode=complex&autoDetail=true&s_ncid=BA62912433",
+      "target_item_id": "10076865665",
+      "read_mode": "CINII_SOURCE_EMITTED_OPAC_ROUTE_PUBLIC_TEXT_RENDER",
+      "observed_opac_result": "SEARCH_SHELL_ONLY_NO_ITEM_SPECIFIC_DETAIL_IN_RETRIEVED_TEXT",
+      "digital_library_landing": "https://dc.tulips.tsukuba.ac.jp/s/pub_ja/page/top",
+      "digital_platform_is_item_attestation": false,
+      "public_digital_fingerprint_glyphs": null,
+      "public_search_scope": "General digital platform access exists but no item-level match verified; inaccessible indexed searches cannot establish source absence.",
+      "item_digitization_status": "NOT_DETERMINED",
+      "item_microfilm_status": "NOT_DETERMINED"
+    }
+  ],
+  "general_provider_rules": {
+    "ndl_public_help": "https://ndlsearch.ndl.go.jp/help/about",
+    "ndl_accessible_tag_requires_item_specific_digital_badge": true,
+    "ndl_general_access_help_is_not_item_badge": true,
+    "ndl_residence_firewall": "NDL individual digitized-material transmission excludes persons residing outside Japan; this service restriction alone does not establish the user's residency and does not imply all public images restricted.",
+    "ndl_classical_material_original_viewing": "https://www.ndl.go.jp/tokyo/classic",
+    "ndl_use_existing_surrogates_first": true,
+    "ndl_original_scholarly_request_required_for_classical_room": true,
+    "ndl_rare_material_advance_notice_applies_if_item_in_rare_category": "PRECONDITION_NOT_CLASSIFIED_FOR_18465",
+    "tsukuba_dc_main": "https://dc.tulips.tsukuba.ac.jp/s/pub_ja/page/top"
+  },
+  "print_glyph_gate": {
+    "early_print_original_seen": false,
+    "edition_or_impression_resolved": false,
+    "original_juan20_leaf_seen": false,
+    "new_source_images": 0,
+    "new_ancient_glyph_votes": 0,
+    "old_12uf_4_loci_unchanged": true,
+    "derived_service_links_are_not_witnesses": true,
+    "guessed_pid_prohibited": true,
+    "guessed_iiif_id_prohibited": true,
+    "external_messages_sent": 0,
+    "copies_requested": 0,
+    "paid_services_used": 0,
+    "chart_algorithms_reopened": 0
+  },
+  "next_actions": [
+    "Crosswalk NDL 184-65 item-specific digital collection identifier only if item or first-party catalog returns the relationship; no synthesized PID from bib ID.",
+    "Crosswalk Tsukuba 10076865665 to a real digitized item/IIIF if official catalog issues it; general Tulips-DC search landing alone insufficient.",
+    "If only physical/micro materials exist, use precise copy/leaf/printing state request after institutional scope and eligibility are confirmed; not an unapproved paid request.",
+    "Retain Kyoto/Hokkaido 1827 and Tokyo 1869 original-impression test, compare four loci only with hash-bound first-hand target folio images and plate features."
+  ],
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "An NDL page-wide help link is not a digitally attested item witness.",
+      "An institutional digital collection homepage is not an item-source relationship.",
+      "A CiNii OPAC routing link is not an authenticated original edition/printing state."
+    ],
+    "unresolved_lineage_questions": [
+      "Whether either exact object has an issued public facsimile or microfilm identifier",
+      "Whether Tsukuba, NDL, and original 1827/1869 witnesses are related at printing plate level"
+    ]
+  },
+  "accounting": {
+    "sources_before": 683,
+    "new_institutional_interface_sources": 3,
+    "sources_after": 686,
+    "root": 647,
+    "extensions_after": 39,
+    "shards_after": 21,
+    "matrix_rows": 222,
+    "matrix_audited": 222,
+    "provenance_repairs": 45,
+    "formal_batches": 487,
+    "latest_formal_batch": "12QD",
+    "graph_nodes": 250,
+    "graph_edges": 237,
+    "product": "CLOSED",
+    "algorithm_reopens": 0
+  }
+}

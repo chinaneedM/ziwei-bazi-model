@@ -7,7 +7,9 @@ on:
       - docs/PROJECT-CURRENT-STATE-R1.json
       - docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json
       - docs/research/MING-DATONG-YEHUOBIAN-12UI-*.json
+      - docs/research/MING-DATONG-YEHUOBIAN-12UJ-*.json
       - tests/test_yehuobian_national_library_acquisition_gates_12ui.py
+      - tests/test_yehuobian_item_digital_crosswalk_12uj.py
   workflow_dispatch:
 permissions:
   contents: read
@@ -26,4 +28,7 @@ jobs:
           python scripts/verify-historical-source-registry-extensions-r1.py
           python scripts/verify-project-continuity-state-r1.py
       - name: No fake original-leaf votes and no unapproved copying
-        run: python -m unittest discover -s tests -p 'test_yehuobian_national_library_acquisition_gates_12ui.py' -v
+        run: |
+          set -euo pipefail
+          python -m unittest discover -s tests -p 'test_yehuobian_national_library_acquisition_gates_12ui.py' -v
+          python -m unittest discover -s tests -p 'test_yehuobian_item_digital_crosswalk_12uj.py' -v
