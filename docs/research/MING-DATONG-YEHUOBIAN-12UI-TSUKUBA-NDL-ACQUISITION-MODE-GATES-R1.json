@@ -1,0 +1,133 @@
+{
+  "schema": "TIANWEN-12UI-INSTITUTIONAL-ACQUISITION-MODE-GATES-NO_TARGET_LEAF",
+  "schema_version": "1.0.0",
+  "date": "2026-10-12",
+  "parent": "12QE_OPEN",
+  "previous": "docs/research/MING-DATONG-YEHUOBIAN-12UH-NDL1700-TSUKUBA-UNBOUND-PRINT-CATALOG-R1.json",
+  "research_scope": "First-party provider-copying rules for two exact bibliographic target objects, not access to the source texts and not independent early-impression evidence.",
+  "objects": [
+    {
+      "id": "TSUKUBA_10076865665",
+      "ncid": "BA62912433",
+      "item": "10076865665",
+      "shelfmark": "ル380-17",
+      "juan": "20",
+      "catalog_url": "https://ci.nii.ac.jp/ncid/BA62912433",
+      "issuer_opac_url": "https://www.tulips.tsukuba.ac.jp/opac/search?target=local&searchmode=complex&autoDetail=true&s_ncid=BA62912433",
+      "official_rules": [
+        {
+          "url": "https://www.tulips.tsukuba.ac.jp/lib/ja/visitor/waso",
+          "type": "UNMICROFILMED_UNDIGITIZED_WASO_BOOK_FULL_SCAN",
+          "observations": [
+            "Ordinary copy service is NOT accepted for undigitized and unmicrofilmed stitched books; full-page outsourced digitization applications are a different service.",
+            "Individual applications for full-page digitization are not accepted; request must be sent through an affiliated academic/public library.",
+            "Check the book's OPAC electronic image icon and separately search micro-type matching/near-matching items before deciding to apply.",
+            "If reproduction or publication on web is intended, separate materials-use permission is needed."
+          ],
+          "official_general_price_pre_tax_jpy": {
+            "base": 5000,
+            "shipping_domestic": 1000,
+            "per_scan_black_white": 150,
+            "per_scan_color": 300
+          },
+          "specific_item_estimate_obtained": false,
+          "cut_count_for_item_known": false
+        },
+        {
+          "url": "https://www.tulips.tsukuba.ac.jp/lib/ja/visitor/ill",
+          "type": "INSTITUTIONAL_ILL_CLASSIFICATION_AND_COPYING",
+          "observations": [
+            "ILL requests are accepted from libraries; stitched classics are specially routed, not ordinary loanable books.",
+            "For already microfilmed rare/stitched books, reproduction may be from the microfilm reader/printer; item-level microfilm existence remains unverified."
+          ]
+        },
+        {
+          "url": "https://www.tulips.tsukuba.ac.jp/lib/ja/collection/guide-koten",
+          "type": "ON_SITE_CLASSICAL_MATERIAL_ACCESS",
+          "observations": [
+            "Material type 和装古書 and 貴重 require access procedure; category for item10076865665 requires first-party OPAC confirmation.",
+            "Digitized images, where present, are linked through the item catalogue and should be checked before original-handling requests."
+          ]
+        }
+      ],
+      "exact_item_digitized": false,
+      "exact_item_digitization_status": "NOT_VERIFIED",
+      "exact_item_microfilm_status": "NOT_VERIFIED",
+      "original_juan20_image_received": false,
+      "corrected_prior_12uh_action": "Earlier draft suggestion 'request only a limited leaf span' cannot be treated as an available standard Tsukuba copy service for an unmicrofilmed/undigitized stitched book; first verify existing surrogate and service category, otherwise consider institutional all-pages application."
+    },
+    {
+      "id": "NDL_18465",
+      "bibliography_id": "000007607208",
+      "call_number": "184-65",
+      "catalog_url": "https://ndlsearch.ndl.go.jp/books/R100000002-I000007607208",
+      "official_rules": [
+        {
+          "url": "https://ndlsearch.ndl.go.jp/en/help/remotecopy",
+          "type": "REMOTE_PHOTODUPLICATION_SERVICE",
+          "observations": [
+            "NDL provides a fee-based remotely requested copy service for registered individuals/institutions; unregistered users can ask a participating local library.",
+            "A book request must identify the book and the passage/page or article title; unidentified target folio is not enough without a separate reference/table-of-contents locating step.",
+            "Some Rare Books and Old Materials requests may require a mailed special permission application; never infer this item is automatically copyable.",
+            "When microfilm or a digitized surrogate exists, NDL ordinarily reproduces from that surrogate instead of handling the original.",
+            "Overseas service conditions can differ; no foreign delivery or PDF receipt eligibility is established for this specific book."
+          ]
+        }
+      ],
+      "exact_item_digital_surrogate": "NOT_VERIFIED",
+      "exact_item_copy_eligibility": "NOT_VERIFIED",
+      "original_juan20_image_received": false,
+      "original_1700_physical_print_proven": false,
+      "requested": false
+    }
+  ],
+  "study_only_copy_is_not_physical_print_proof": true,
+  "gates": {
+    "new_first_party_service_policy_sources": 2,
+    "new_ancient_print_target_images": 0,
+    "new_independent_glyph_votes": 0,
+    "first_hand_1827_original_impression": false,
+    "first_hand_1869_repaired_impression": false,
+    "naJ3080212_edition_identified": false,
+    "requests_sent": 0,
+    "forms_submitted": 0,
+    "paid_services_purchased": 0,
+    "chart_reopen_authorized": false
+  },
+  "next_actions": [
+    "Tsukuba: check OPAC item-type, digital-image link and microfiche coverage for specific vol20 item; if absent, treat institutional full-volume digitization as a potential paid route, not a free few-page option.",
+    "NDL: seek item-specific digital surrogate / index or TOC for 184-65 before submitting any paid or permission-requiring remote-copy request.",
+    "Ask for exact bound original Juan20 target leaf and its colophon/版心, obtain file and page hashes and copy/plate provenance before giving the reading any independent historical vote.",
+    "Retain Kyoto/Hokkaido 1827 and Tokyo 1869 original-item leads separately as the main repair-attribution test."
+  ],
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Provider reproduction procedures do not establish a physical edition or original image.",
+      "A derivative digitized or microfilm copy cannot receive an independent ancient-witness vote solely because a new library fulfills a request.",
+      "Service-level fee schedule does not establish any item-specific cost or permission."
+    ],
+    "unresolved_lineage_questions": [
+      "Exact Tsukuba item image/plate relationship to CADAL/Xuxiu and 1827/1869 witnesses remains unknown.",
+      "NDL 184-65 typographic edition, source printing year and original target glyphs remain unresolved."
+    ]
+  },
+  "accounting": {
+    "source_count_before": 681,
+    "new_service_policy_sources": 2,
+    "source_count_after": 683,
+    "registry_root": 647,
+    "registry_extensions_after": 36,
+    "matrix_rows": 222,
+    "audited_rows": 222,
+    "provenance_repairs": 45,
+    "formal_batches": 487,
+    "latest_formal_batch": "12QD",
+    "genealogy_nodes": 250,
+    "genealogy_edges": 237,
+    "product": "CLOSED",
+    "algorithm_reopens": 0
+  }
+}
