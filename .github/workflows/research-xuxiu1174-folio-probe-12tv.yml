@@ -80,7 +80,10 @@ jobs:
               region=regions[i]
               clip=fitz.Rect(page.rect.width*region[0],page.rect.height*region[1],page.rect.width*region[2],page.rect.height*region[3])
             scale=(.62 if mode=='full_page' else .9) if c.get('detailed_view',False) else (.22 if mode=='full_page' else .55)
+            scale=c.get('zoom_scale',scale)
+            assert .15<=scale<=2.4
             pix=page.get_pixmap(matrix=fitz.Matrix(scale,scale),clip=clip,alpha=False)
+            print('CROP_PIXEL_SHA256',p,list(regions[i]) if regions else None,hashlib.sha256(pix.samples).hexdigest(),flush=True)
             im=Image.frombytes('RGB',(pix.width,pix.height),pix.samples)
             im.thumbnail((w-12,h-35))
             x=(i%cols)*w+6+(w-12-im.width)//2;y=(i//cols)*h+27
