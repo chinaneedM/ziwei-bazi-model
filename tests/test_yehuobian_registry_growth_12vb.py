@@ -20,10 +20,25 @@ class RegistryGrowth12VB(unittest.TestCase):
   self.assertEqual(UX.validate(*self.u)["new_target_glyph_votes"],0)
  def test_live_state_and_manifest_consistent(self):
   manifest=self.v[2];state=self.v[3]
+  # 12VA's 647+43=690 is an immutable historical snapshot, not a live ceiling.
   self.assertEqual(manifest["root_source_count"],647)
-  self.assertEqual(manifest["extension_source_count"],43)
-  self.assertEqual(manifest["combined_source_count"],690)
-  self.assertEqual(state["historical_audit"]["external_source_registry_total_unique_count"],690)
+  self.assertGreaterEqual(manifest["extension_source_count"],43)
+  self.assertEqual(manifest["combined_source_count"],
+                   manifest["root_source_count"]+manifest["extension_source_count"])
+  audit=state["historical_audit"]
+  self.assertEqual(audit["external_source_registry_root_count"],manifest["root_source_count"])
+  self.assertEqual(audit["external_source_registry_extension_count"],manifest["extension_source_count"])
+  self.assertEqual(audit["external_source_registry_total_unique_count"],manifest["combined_source_count"])
+  self.assertEqual(self.v[0]["source_delta"]["extension_after"],43)
+  self.assertEqual(self.v[0]["source_delta"]["unique_source_count_increment"],1)
+ def test_historical_12va_floor_rejected_even_if_current_state_matches(self):
+  x=copy.deepcopy(self.v)
+  x[2]["extension_source_count"]=42
+  x[2]["combined_source_count"]=689
+  x[3]["historical_audit"]["external_source_registry_extension_count"]=42
+  x[3]["historical_audit"]["external_source_registry_total_unique_count"]=689
+  with self.assertRaisesRegex(ValueError,"manifest current count"):
+   VA.validate(*x)
  def test_nonmatching_manifest_rejected_even_if_greater(self):
   for validator,docs in [(VA.validate,self.v),(UX.validate,self.u)]:
    x=copy.deepcopy(docs)
