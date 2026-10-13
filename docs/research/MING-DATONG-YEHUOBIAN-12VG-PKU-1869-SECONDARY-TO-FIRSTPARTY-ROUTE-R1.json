@@ -1,0 +1,164 @@
+{
+  "schema": "TIANWEN-12VG-PKU-1869-CROSSWALK-NONPROMOTION-GATE-R1",
+  "schema_version": "1.0.0",
+  "date": "2026-10-13",
+  "status": "PKU_1869_SECONDARY_HOLDING_LEAD_NOT_A_SOURCE_BOUND_PHYSICAL_COPY",
+  "scope": "Backup 1869 revised-edition acquisition route while preserving Tokyo IOC source-bound item and 1827/1869 original-leaf embargo",
+  "priority": "ORIGINAL_1827_AND_1869_THEMATIC_JUAN20_GAIZAO_LOUKE_TARGET_FOLIOS",
+  "first_party_platform_evidence": [
+    {
+      "provider": "Beijing University Library",
+      "url": "https://lib.pku.edu.cn/publish/bjdxtsg/3wxbz/34gwxzy/349dyxs/index.htm",
+      "authority": "FIRST_PARTY_DISCOVERY_GUIDANCE_NOT_ITEM_CATALOG",
+      "observation": "Institution explicitly states classical material is queried via 祕籍琳琅 and 学苑汲古 rather than merged ordinary books OPAC.",
+      "item_1869_confirmed": false
+    },
+    {
+      "provider": "Beijing University Library",
+      "url": "https://www.lib.pku.edu.cn/portal/cn/node/1047",
+      "authority": "FIRST_PARTY_PLATFORM_DESCRIPTION_NOT_ITEM_CATALOG",
+      "observation": "Institution explains the classical-platform metadata may expose images when bound to an item; the generic statement does not confirm this title's 1869 pages.",
+      "item_1869_confirmed": false
+    },
+    {
+      "provider": "祕籍琳琅",
+      "url": "https://rbdl.calis.edu.cn/aopac/indexold.jsp",
+      "authority": "FIRST_PARTY_LINKED_ITEM_SEARCH_ENTRANCE_ONLY",
+      "observed_web_result": "TIMEOUT_ON_DIRECT_PUBLIC_FETCH",
+      "item_1869_confirmed": false
+    },
+    {
+      "provider": "学苑汲古",
+      "url": "https://rbsc2.calis.edu.cn/",
+      "authority": "FIRST_PARTY_LINKED_MULTI_INSTITUTION_INDEX_ENTRANCE_ONLY",
+      "observed_web_result": "FRONTEND_LOADING_SHELL_WITHOUT_ITEM_RESULTS",
+      "item_1869_confirmed": false
+    }
+  ],
+  "candidate_1869": {
+    "secondary_source_url": "https://www.guoxuedashi.com/shumu/gj-3053193xz.html",
+    "source_grade": "UNVERIFIED_SECONDARY_BIBLIOGRAPHIC_HOLDING_LEAD",
+    "claimed_holder": "北京大學圖書館",
+    "claimed_title": "野獲編:30卷,補遺4卷",
+    "claimed_print": "清同治八年[1869]羊城姚氏扶荔山房刻本",
+    "claimed_extent": "20冊(4函)",
+    "disclaimer": "Secondary page says listing provides a holding clue, not facsimiles",
+    "first_party_item_url": null,
+    "source_issued_shelfmark": null,
+    "first_party_physical_copy_identifier": null,
+    "first_party_edition_description": null,
+    "original_juan20_folio": null,
+    "source_issued_target_image_url": null,
+    "source_binary_sha256": null,
+    "target_page_sha256": null,
+    "confirmed_original_1869_revised_impression": false,
+    "independent_physical_copy_attested": false,
+    "has_direct_target_glyphs": false,
+    "independent_target_votes": 0,
+    "four_loci": {
+      "GONGJIN": null,
+      "CLOCK_NOUN": null,
+      "BEIJING_WINTER_SUNRISE": null,
+      "BEIJING_SUMMER_SUNSET": null
+    }
+  },
+  "controlling_tokyo_1869": {
+    "catalog": "https://ci.nii.ac.jp/ncid/BB23196128",
+    "ncid": "BB23196128",
+    "institution": "東京大学東洋文化研究所図書室",
+    "shelfmark": "倉石文庫:20128:11",
+    "physical_item": "6403148395",
+    "catalog_edition": "同治8[1869]重校刋補",
+    "book_format": "卷19-20",
+    "status": "EXACT_INSTITUTIONAL_CATALOG_ITEM_NO_ORIGINAL_TARGET_IMAGE",
+    "source_issued_original_image_url": null,
+    "original_juan20_folio": null,
+    "first_party_glyph_votes": 0,
+    "earlier_preface_is_not_1827_edition_proof": true
+  },
+  "crosswalk_requirements": [
+    {
+      "step": "A",
+      "requirement": "Acquire a provider-emitted item-level catalog record for PKU 1869, not a third-party holding assertion.",
+      "satisfied": false
+    },
+    {
+      "step": "B",
+      "requirement": "Bind unique PKU shelfmark/copy identifier and assess actual impression status separately from original 1827 inherited preface.",
+      "satisfied": false
+    },
+    {
+      "step": "C",
+      "requirement": "Bind physical thematic 卷20 and 改造漏刻 folio, distinguishing old20 and reorganized 30.",
+      "satisfied": false
+    },
+    {
+      "step": "D",
+      "requirement": "Obtain authorized source-issued original target images, original file SHA256, page SHA256 and page/fascicle.",
+      "satisfied": false
+    },
+    {
+      "step": "E",
+      "requirement": "Manually collate 宮/官禁, 宮/官漏 and the two Beijing daylength numerals in the physical leaf.",
+      "satisfied": false
+    },
+    {
+      "step": "F",
+      "requirement": "Compare separate Tokyo 1869 and PKU 1869 impressions before any shared-plate or independence assertion.",
+      "satisfied": false
+    }
+  ],
+  "source_identity_firewalls": {
+    "different_city_not_independent_source_glyph_vote": true,
+    "same_1869_catalogued_year_not_same_plate": true,
+    "same_10x21_setting_not_same_plate": true,
+    "inherited_1827_preface_not_1827_original_impression": true,
+    "secondary_catalogue_not_physical_copy_identifier": true,
+    "general_pkulibrary_policy_not_item_specific_approval": true,
+    "platform_load_screen_not_item_image": true,
+    "web_access_timeout_not_collection_absence": true,
+    "source_image_and_page_hash_required": true,
+    "no_crosscopy_glyph_transfer": true,
+    "no_algorithm_reopen": true,
+    "no_external_contact_or_purchase": true
+  },
+  "controlling_prior_records": [
+    "docs/research/MING-DATONG-YEHUOBIAN-12UU-ORIGINAL-JUAN20-ACQUISITION-PACKET-R1.json",
+    "docs/research/MING-DATONG-YEHUOBIAN-12TK-PKU-ACCESS-AND-1827-SOURCE-SHARD-R1.json",
+    "docs/research/MING-DATONG-YEHUOBIAN-12VF-THREE-SECONDARY-HOLDINGS-QUARANTINE-R1.json"
+  ],
+  "accounting": {
+    "matrix_rows": 222,
+    "audited_rows": 222,
+    "metadata_defects_repaired": 45,
+    "formal_batches": 487,
+    "latest_formal": "12QD",
+    "root_sources": 647,
+    "extension_sources": 43,
+    "union_sources": 690,
+    "graph_nodes": 252,
+    "graph_edges": 238,
+    "new_registry_rows": 0,
+    "new_graph_nodes": 0,
+    "new_graph_edges": 0,
+    "new_original_target_images": 0,
+    "new_independent_glyph_votes": 0,
+    "algorithm_reopens": 0,
+    "product": "CLOSED",
+    "md_g03": "OPEN",
+    "batch_12qe": "OPEN"
+  },
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Third-party Beijing University 1869 holding locator cannot support a copy-level or plate-level 1869 relationship to Tokyo.",
+      "Generic official digital discovery platforms cannot create a bibliographic link to the requested physical item without their own item result."
+    ],
+    "unresolved_lineage_questions": [
+      "Does PKU's source-issued catalog independently identify this 1869 revised impression and volume 20?",
+      "Can 1869 same-state copies be distinguished physically from repaired/reused 1827 blocks?"
+    ]
+  }
+}
