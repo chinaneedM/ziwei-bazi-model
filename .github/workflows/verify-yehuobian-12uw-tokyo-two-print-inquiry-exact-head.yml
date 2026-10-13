@@ -1,0 +1,35 @@
+name: verify-yehuobian-12uw-tokyo-two-print-inquiry-exact-head
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/verify-yehuobian-12uw-tokyo-two-print-inquiry-exact-head.yml
+      - docs/PROJECT-CURRENT-STATE-R1.json
+      - docs/research/MING-DATONG-YEHUOBIAN-12UW-*.json
+      - docs/research/MING-DATONG-YEHUOBIAN-12UW-*.md
+      - docs/research/MING-DATONG-YEHUOBIAN-12UU-ORIGINAL-JUAN20-ACQUISITION-PACKET-R1.json
+      - scripts/verify-yehuobian-tokyo-two-print-inquiry-12uw.py
+      - tests/test_yehuobian_tokyo_two_print_inquiry_12uw.py
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 9
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Invariants and state gates
+        run: |
+          set -euo pipefail
+          python scripts/verify-project-continuity-state-r1.py
+          python scripts/verify-historical-source-registry-extensions-r1.py
+          python scripts/verify-tianwen-transmission-genealogy-r1.py
+      - name: Tokyo item-specific original print inquiry and 16 regressions
+        run: |
+          set -euo pipefail
+          python scripts/verify-yehuobian-tokyo-two-print-inquiry-12uw.py
+          python -m unittest discover -s tests -p 'test_yehuobian_tokyo_two_print_inquiry_12uw.py' -v

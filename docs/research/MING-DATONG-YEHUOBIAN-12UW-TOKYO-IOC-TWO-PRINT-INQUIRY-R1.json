@@ -1,0 +1,158 @@
+{
+  "schema": "TIANWEN-12UW-TOKYO-IOC-TWO-PRINT-INQUIRY-GATE-R1",
+  "schema_version": "1.0.0",
+  "date": "2026-10-13",
+  "status": "DRAFT_NOT_SENT",
+  "parent": "12QE_OPEN",
+  "authority_sources": [
+    {
+      "url": "https://ci.nii.ac.jp/ncid/BC0492354X",
+      "role": "1827_OKI_COPY_BIBLIOGRAPHIC_ITEM"
+    },
+    {
+      "url": "https://ci.nii.ac.jp/ncid/BB23196128.amp?l=en",
+      "role": "1869_KURAISHI_COPY_BIBLIOGRAPHIC_ITEM"
+    },
+    {
+      "url": "https://www.ioc.u-tokyo.ac.jp/~library/",
+      "role": "CURRENT_INSTITUTIONAL_LIBRARY_SERVICE_AND_2026_BRANCH_STATUS"
+    },
+    {
+      "url": "https://www.ioc.u-tokyo.ac.jp/~library/guide/form.html",
+      "role": "CURRENT_SPECIAL_RARE_BOOK_AND_COPY_APPLICATION_CONDITIONS"
+    },
+    {
+      "url": "https://www.ioc.u-tokyo.ac.jp/~library/news/covid-19/reserve.html",
+      "role": "LINKED_RESERVATION_GUIDANCE_LAST_REVISED_2023"
+    },
+    {
+      "url": "https://www.ioc.u-tokyo.ac.jp/~library/guide/guide_gakugai.html",
+      "role": "OUTSIDE_USER_READING_GUIDANCE"
+    },
+    {
+      "url": "https://www.ioc.u-tokyo.ac.jp/~library/guide/search.html",
+      "role": "OPAC_OR_EXPLICIT_IAS_ACQUISITION_LINK_SEARCH_ORDER"
+    },
+    {
+      "url": "https://shanben.ioc.u-tokyo.ac.jp/intro.html",
+      "role": "HISTORIC_IMAGE_DB_SCOPE_NOT_ITEM_ACCESS"
+    },
+    {
+      "url": "https://kuraishi.ioc.u-tokyo.ac.jp/about_system.html",
+      "role": "KURAISHI_LECTURE_NOTES_NOT_KURAISHI_ANCIENT_BOOKS"
+    }
+  ],
+  "physical_targets": [
+    {
+      "queue_id": "TOKYO_1827_OKI_6403767830",
+      "ncid": "BC0492354X",
+      "item": "6403767830",
+      "shelfmark": "大木;子部:雜家類:16-20",
+      "volume": "卷20",
+      "date_class": "CATALOGUED_1827_IMPRESSION_UNVERIFIED",
+      "catalog_url": "https://ci.nii.ac.jp/ncid/BC0492354X",
+      "target": "卷20《改造漏刻》 original leaf",
+      "original_folio": null,
+      "source_issued_image_url": null,
+      "source_binary_sha256": null,
+      "target_page_sha256": null,
+      "physical_impression_verified": false,
+      "copy_specific_permission": false,
+      "source_glyph_votes": 0,
+      "readings": {
+        "GONGJIN": null,
+        "CLOCK_NOUN": null,
+        "BEIJING_WINTER_SUNRISE": null,
+        "BEIJING_SUMMER_SUNSET": null
+      }
+    },
+    {
+      "queue_id": "TOKYO_1869_6403148395",
+      "ncid": "BB23196128",
+      "item": "6403148395",
+      "shelfmark": "倉石文庫:20128:11",
+      "volume": "卷19-20",
+      "date_class": "CATALOGUED_1869_REVISED_IMPRESSION_UNVERIFIED",
+      "catalog_url": "https://ci.nii.ac.jp/ncid/BB23196128",
+      "target": "卷20《改造漏刻》 original leaf",
+      "original_folio": null,
+      "source_issued_image_url": null,
+      "source_binary_sha256": null,
+      "target_page_sha256": null,
+      "physical_impression_verified": false,
+      "copy_specific_permission": false,
+      "source_glyph_votes": 0,
+      "readings": {
+        "GONGJIN": null,
+        "CLOCK_NOUN": null,
+        "BEIJING_WINTER_SUNRISE": null,
+        "BEIJING_SUMMER_SUNSET": null
+      }
+    }
+  ],
+  "source_scoped_questions": [
+    "Are these two exact shelfmarks and item identifiers eligible for access to a source-issued digital image, authorized microfilm, or an institutional reading-room route?",
+    "Is the original folio of themed juan20 《改造漏刻》 identifiable separately for each physical item?",
+    "Would item-specific restrictions, rare-book classification, condition, microfilm replacement, or institutional referral affect requested pages?",
+    "If permissible, clarify original-leaf copying scope, costs, processing, file identity and research-only reuse rights before any order.",
+    "Check image print state, volume seams, binding and original 1827 versus 1869 prefaces/colophons independently before four-locus manual collation."
+  ],
+  "scope_firewalls": {
+    "2026_library_branch_status_not_copy_specific_service_permission": true,
+    "2023_reservation_guide_not_assumed_updated_2026_policy": true,
+    "university_opac_and_cinii_holdings_not_original_target_images": true,
+    "lecture_notes_archive_not_kuraishi_rare_book_scan": true,
+    "2009_shanben_A_B_scope_not_item_inclusion_or_2026_access": true,
+    "1827_preface_in_1869_copy_not_1827_print_impression": true,
+    "1827_printed_target_not_verified_from_catalog_date": true,
+    "1869_juan20_target_not_verified_from_colophon": true,
+    "two_catalog_items_not_two_independent_glyph_votes": true,
+    "condition_damage_not_juan20_leaf_absence": true,
+    "special_rare_book_form_only_if_item_classification_requires": true,
+    "no_print_plate_identity_inferred_from_ten_by_twenty_one_grid": true,
+    "no_online_IIIF_manifest_unless_item_link_emitted": true,
+    "no_contact_or_order_submitted": true,
+    "no_algorithm_reopen": true
+  },
+  "external_actions": {
+    "sent": false,
+    "reading_reservation": false,
+    "reproduction_order": false,
+    "fees_paid": false,
+    "item_specific_permission_obtained": false
+  },
+  "acquisition": {
+    "new_original_target_images": 0,
+    "new_target_glyph_votes": 0,
+    "new_historical_source_registry_rows": 0,
+    "printing_state_determinations": 0
+  },
+  "accounting": {
+    "matrix_rows": 222,
+    "audited": 222,
+    "metadata_repairs": 45,
+    "sources_root": 647,
+    "sources_extensions": 40,
+    "sources_total": 687,
+    "genealogy_nodes": 250,
+    "genealogy_edges": 237,
+    "formal_batches": 487,
+    "latest_formal": "12QD",
+    "product": "CLOSED",
+    "algorithm_reopens": 0
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Kuraishi lecture-note archive cannot be used to attest the Kuraishi ancient-book item 6403148395.",
+      "The 2026 library branch announcement changes no edition/copy identity and proves no target source image.",
+      "1827 preface inherited by the 1869 revised impression does not establish identical title-leaf or target-leaf plate or glyph reading."
+    ],
+    "unresolved_lineage_questions": [
+      "Obtain item-bound original 1827 and revised-1869 thematic juan20 leaves, if permitted.",
+      "Reconcile each original print state, four glyph loci and plate repair evidence using source URL, digest, and folio."
+    ]
+  }
+}
