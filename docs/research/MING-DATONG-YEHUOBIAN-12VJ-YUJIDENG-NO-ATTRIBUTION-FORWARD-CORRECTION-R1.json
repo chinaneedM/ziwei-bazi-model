@@ -1,0 +1,138 @@
+{
+  "schema": "TIANWEN-12VJ-ATTRIBUTION-SCOPE-FORWARD-CORRECTION-R1",
+  "schema_version": "1.0.0",
+  "date": "2026-10-13",
+  "status": "EARLIER_YU_CHAPTER11_PENG_DEQING_ATTRIBUTION_WITHDRAWN_NOT_GLYPHS",
+  "correction_type": "FORWARD_ONLY_RESEARCH_ATTRIBUTION_NARROWING",
+  "supersedes_assertion_scopes": [
+    {
+      "file": "docs/research/MING-DATONG-YEHUOBIAN-12VH-YUJIDENG-RECEIVED-PARALLEL-R1.json",
+      "selector": "witnesses[id=YU_JIDENG].locus",
+      "old_claim": "卷十一彭德清奏摘要",
+      "corrected_claim": "卷十一独立南京、北京北极出地及二至日出入记述；目标段未明确署彭德清",
+      "historical_file_unchanged": true
+    },
+    {
+      "file": "docs/research/MING-DATONG-YEHUOBIAN-12VH-YUJIDENG-RECEIVED-PARALLEL-R1-WORKLOG.md",
+      "old_claim_scope": "彭德清奏事摘要",
+      "correction": "target numerical paragraph not explicitly ascribed to Peng in this received chapter",
+      "historical_file_unchanged": true
+    }
+  ],
+  "scoped_evidence": [
+    {
+      "witness_id": "YU_CTEXT_349188",
+      "work": "皇明典故紀聞",
+      "location": "卷十一, digital segmented paragraphs 91/92/93",
+      "url": "https://ctext.org/wiki.pl?chapter=349188&if=gb",
+      "evidence_class": "RECEIVED_ELECTRONIC_TEXT",
+      "preceding_subject": "正統十二年馬愉卒追贈兩官",
+      "target_section_starts": "南京北極出地三十六度；北京出地四十度強",
+      "followup_subject": "郭璡為福建參議時年二十四",
+      "attributed_to_peng_in_target_paragraph": false,
+      "winter": "辰初一刻",
+      "summer": "戌初一刻",
+      "direct_physical_leaf_reviewed": false
+    },
+    {
+      "witness_id": "YU_WIKISOURCE_CH11",
+      "work": "皇明典故紀聞",
+      "location": "卷十一, paragraph between 馬愉 and 郭璡 anecdotes",
+      "url": "https://zh.wikisource.org/wiki/皇明典故紀聞/卷十一",
+      "evidence_class": "RECEIVED_ELECTRONIC_TEXT_NOT_INDEPENDENT_EDITION",
+      "attributed_to_peng_in_target_paragraph": false,
+      "winter": "辰初一刻",
+      "summer": "戌初一刻",
+      "direct_physical_leaf_reviewed": false
+    },
+    {
+      "witness_id": "MING_SHILU_160",
+      "work": "明英宗實錄",
+      "location": "卷一百六十 正統十二年十一月甲寅条",
+      "url": "https://ctext.org/wiki.pl?chapter=638064&if=gb",
+      "evidence_class": "RECEIVED_ELECTRONIC_TEXT",
+      "attributed_to_peng_in_target_paragraph": true,
+      "explicit_attribution": "欽天監監正彭德清言",
+      "winter": "辰初一刻",
+      "summer": "戌初一刻",
+      "direct_physical_leaf_reviewed": false
+    },
+    {
+      "witness_id": "YEHUOBIAN_CTEXT",
+      "work": "萬曆野獲編",
+      "location": "新编卷20 改造漏刻",
+      "url": "https://ctext.org/wiki.pl?chapter=418967&if=en",
+      "evidence_class": "RECEIVED_ELECTRONIC_TEXT",
+      "attributed_to_peng_in_target_paragraph": true,
+      "winter": "辰初二刻",
+      "summer": "戌初二刻",
+      "direct_physical_leaf_reviewed": false
+    },
+    {
+      "witness_id": "YU_SHIDIAN_CADAL_LABEL",
+      "work": "皇明典故紀聞",
+      "location": "卷十一 target paragraph",
+      "url": "https://www.shidianguji.com/zh/book/CADAL02047821/chapter/1l88x1ilkgzky",
+      "evidence_class": "RECEIVED_TEXT_CADAL_CODE_VISIBLE_NOT_VERIFIED_PHYSICAL_SOURCE",
+      "source_label": "CADAL02047821",
+      "physical_edition_verified": false,
+      "scan_to_ncl_02253_or_02254_verified": false,
+      "original_juan11_leaf_downloaded": false
+    }
+  ],
+  "philology_and_provenance_firewalls": {
+    "adjacent_official_narrative_not_named_official_attribution": true,
+    "no_global_claim_author_never_knew_peng": true,
+    "identical_numeric_pair_not_direct_copy": true,
+    "shilu_named_attribution_not_transferable_to_yu": true,
+    "ctext_and_wikisource_no_independent_print_vote": true,
+    "shidian_cadal_label_not_image_edition_binding": true,
+    "no_transfer_to_ncl_02253_or_02254": true,
+    "no_original_1827_or_1869_yehuobian_leaf": true,
+    "original_target_source_glyph_votes_remain_zero": true,
+    "no_runtime_rule_or_algorithm_reopen": true
+  },
+  "target_status": {
+    "original_1827_yehuobian_juan20_target_folio": null,
+    "original_1869_yehuobian_juan20_target_folio": null,
+    "yu_juan11_original_print_leaf": null,
+    "original_file_sha256": null,
+    "page_sha256": null,
+    "original_1827_1869_four_locus_adjudication": "OPEN",
+    "received_one_ke_pair": "RETAINED_AS_RECEIVED_TEXT_ONLY",
+    "attribution_of_juan11_pair_to_peng": "NOT_STATED_IN_TARGET_PARAGRAPH",
+    "transmission_from_shilu_to_yu": "UNPROVEN"
+  },
+  "accounting": {
+    "matrix_rows": 222,
+    "audited_rows": 222,
+    "metadata_repairs": 45,
+    "formal_batches": 487,
+    "latest_formal": "12QD",
+    "root_sources": 647,
+    "extension_sources": 43,
+    "total_sources": 690,
+    "graph_nodes": 252,
+    "graph_edges": 238,
+    "new_registered_sources": 0,
+    "new_graph_nodes": 0,
+    "new_graph_edges": 0,
+    "new_original_target_images": 0,
+    "new_independent_original_glyph_votes": 0,
+    "new_algorithm_reopens": 0,
+    "product": "CLOSED"
+  },
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Do not treat independent geographical summary in Yu Jideng chapter 11 as directly attributed Peng Deqing memorial.",
+      "Do not infer direct Yu-to-Shilu transmission from the one-ke numerical pair."
+    ],
+    "unresolved_lineage_questions": [
+      "Which physical edition and exact leaf underlies the received geographical summary of 皇明典故紀聞卷十一?",
+      "Do 1827/1869 original 改造漏刻 leaves carry a corrected one-ke or two-ke Beijing reading?"
+    ]
+  }
+}
