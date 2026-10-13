@@ -1,0 +1,106 @@
+{
+  "schema": "TIANWEN-12VF-SHENZHEN-XI-WEI-JI-ZI-RECEIVED-VARIANT-R1",
+  "schema_version": "1.0.0",
+  "date": "2026-10-13",
+  "status": "TWO_RECEIVED_VARIANTS_NO_PHYSICAL_WINNER",
+  "correction_of": "docs/research/MING-DATONG-YEHUOBIAN-12VE-THREE-PREDICATES-OF-SHENZHEN-PARATEXT-R1.json",
+  "earlier_juan_count_control": "docs/research/MING-DATONG-YEHUOBIAN-12PZ-RECEIVED-PREFACE-JUAN-COUNT-TEXTUAL-VARIANTS-R1.json",
+  "research_question": "Does 12VE's quoted 惜未梓 represent all received witnesses to Shen Zhen's Supplementary Preface, and is the glyph 及 source-stable?",
+  "witnesses": [
+    {
+      "id": "WIKISOURCE_RECEIVED",
+      "url": "https://zh.wikisource.org/zh-hans/萬曆野獲編",
+      "surface": "DIRECT_PUBLIC_RECEIVED_HTML",
+      "edition_physical_copy_identified": false,
+      "passage": "補遺序",
+      "readings": {
+        "CONTINUATION_JUAN_COUNT": "十二卷",
+        "PRINTING_CLAUSE": "惜未梓"
+      },
+      "direct_original_folio_seen": false
+    },
+    {
+      "id": "CTEXT_RECEIVED",
+      "url": "https://ctext.org/wiki.pl?chapter=938703&if=gb&remap=gb",
+      "surface": "PUBLIC_SEARCH_INDEX_VISIBLE_DIRECT_OPEN_NOT_RELIABLY_RETRIEVABLE",
+      "edition_physical_copy_identified": false,
+      "passage": "補遺序",
+      "readings": {
+        "CONTINUATION_JUAN_COUNT": "十卷",
+        "PRINTING_CLAUSE": "惜未及梓"
+      },
+      "direct_original_folio_seen": false
+    }
+  ],
+  "loci": [
+    {
+      "id": "BU_YI_XU_PRINTING_WORDING",
+      "before": "精核該博，凡朝常國典、山川人物，鉅細畢舉",
+      "readings": {
+        "WIKISOURCE_RECEIVED": "惜未梓",
+        "CTEXT_RECEIVED": "惜未及梓"
+      },
+      "variant_type": "ONE_EXTRA_及_IN_CTEX_RECEIVED",
+      "physical_print_glyph_authority": false,
+      "wording_same_surface": false,
+      "semantic_claim_scope": "BOTH_REPORTED_NOT_YET_PRINTED_NOT_UNIVERSAL_NONEXISTENCE_OF_MING_PRINT",
+      "independent_voting_allowed": false
+    },
+    {
+      "id": "BU_YI_XU_CONTINUATION_NUMBER",
+      "readings": {
+        "WIKISOURCE_RECEIVED": "十二卷",
+        "CTEXT_RECEIVED": "十卷"
+      },
+      "variant_type": "NUMERICAL_DIFFERENCE_ALREADY_REGISTERED_12PZ",
+      "physical_print_glyph_authority": false,
+      "wording_same_surface": false,
+      "independent_voting_allowed": false
+    }
+  ],
+  "forward_correction": {
+    "earlier_12ve_printing_wording": "惜未梓",
+    "earlier_12ve_scope": "WIKISOURCE_RECEIVED_ONLY_NOT_UNIVERSAL_QUOTATION",
+    "earlier_record_unchanged": true,
+    "ctext_reading_first_separately_preserved_here": "惜未及梓",
+    "no_alternative_winner_selected": true,
+    "no_recension_pairing_proved_from_two_websites": true,
+    "ctext_direct_source_html_not_claimed": true,
+    "quote_origin_or_1713_physical_copy_unverified": true,
+    "text_variation_does_not_change_12ve_three_predicates": true,
+    "no_1827_1869_target_glyph_inference": true
+  },
+  "next_evidence_gate": [
+    "Acquire copy-identified original manuscript/printed 補遺序 page for the 梓／及梓 contrast.",
+    "Do not import a continuation count winner from a received website; maintain 12PZ distinct physical source-page findings.",
+    "Keep 1827/1869 categorized 卷20《改造漏刻》 source-identified images highest priority."
+  ],
+  "accounting": {
+    "root_sources": 647,
+    "extension_sources": 43,
+    "total_sources": 690,
+    "matrix_rows": 222,
+    "audited_rows": 222,
+    "defects_repaired": 45,
+    "genealogy_nodes": 252,
+    "genealogy_edges": 238,
+    "formal_batches": 487,
+    "latest_formal": "12QD",
+    "original_1827_1869_images": 0,
+    "new_glyph_votes": 0,
+    "new_sources": 0,
+    "algorithm_reopens": 0
+  },
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Two received websites with differences at two loci are not two authenticated physical exemplars or proven related recension branches."
+    ],
+    "unresolved_lineage_questions": [
+      "Original 1713 layer direct 梓/及梓 character?",
+      "Which textual edition underlies each modern digital transcription?"
+    ]
+  }
+}
