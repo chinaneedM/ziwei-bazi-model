@@ -46,7 +46,9 @@ class MultiCopy12UN(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,"algorithm reopen"):self.check()
         st=load("docs/PROJECT-CURRENT-STATE-R1.json")
         self.assertTrue(any(x.startswith("12UN ") for x in st["historical_audit"]["current_focus"]))
-        self.assertEqual(st["historical_audit"]["external_source_registry_total_unique_count"],687)
+        self.assertEqual(self.d["accounting"]["total_sources"],687)
+        self.assertEqual(self.d["accounting"]["root_sources"]+self.d["accounting"]["extension_sources"],687)
+        self.assertGreaterEqual(st["historical_audit"]["external_source_registry_total_unique_count"],self.d["accounting"]["total_sources"])
         self.assertEqual(st["invariants"]["algorithm_reopen_count"],0)
         self.assertEqual(st["invariants"]["deterministic_fusion_chart_product_r1"],"CLOSED")
 

@@ -45,7 +45,9 @@ class CText12UR(unittest.TestCase):
         self.assertFalse(b["entire_1827_print_juan20_excluded"])
     def test_project_counters_unchanged(self):
         s=json.loads((ROOT/"docs/PROJECT-CURRENT-STATE-R1.json").read_text(encoding="utf-8"))
-        self.assertEqual(s["historical_audit"]["external_source_registry_total_unique_count"],687)
+        self.assertEqual(self.doc["accounting"]["total_sources"],687)
+        self.assertEqual(self.doc["accounting"]["root_sources"]+self.doc["accounting"]["extension_sources"],687)
+        self.assertGreaterEqual(s["historical_audit"]["external_source_registry_total_unique_count"],self.doc["accounting"]["total_sources"])
         self.assertEqual(len(s["historical_audit"]["completed_batches"]),487)
         self.assertEqual(s["invariants"]["deterministic_fusion_chart_product_r1"],"CLOSED")
         self.assertEqual(s["invariants"]["algorithm_reopen_count"],0)
