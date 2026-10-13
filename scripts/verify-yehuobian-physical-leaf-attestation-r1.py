@@ -5,6 +5,8 @@ This verifies declared record structure. It never verifies a historical
 glyph, physical copy authenticity, or that a remote scan was legally viewed.
 """
 from __future__ import annotations
+import argparse
+import hashlib
 import json
 import re
 import sys
@@ -16,7 +18,26 @@ SCHEMA = "MING-DATONG-YEHUOBIAN-12SM-TARGET-LEAF-QUEUE-R1"
 LOCI = {"WINTER_BEIJING_SUNRISE", "SUMMER_BEIJING_SUNSET", "PRECINCT_TERM", "CLOCK_TERM"}
 SHA256 = re.compile(r"^[0-9a-f]{64}$")
 
-def verify(record: dict) -> dict:
+def file_sha256(artifact_root: Path | None, relative_path: str) -> str:
+    """Verify actual captured bytes, never a self-asserted digest alone."""
+    if artifact_root is None:
+        raise ValueError("positive original leaf requires actual artifact root and bytes")
+    if (not isinstance(relative_path, str) or not relative_path
+        or "\\" in relative_path or Path(relative_path).is_absolute()
+        or any(p in ("", ".", "..") for p in relative_path.split("/"))):
+        raise ValueError("unsafe source/page artifact path")
+    root = Path(artifact_root).resolve(strict=True)
+    file = (root / relative_path).resolve(strict=True)
+    if not file.is_relative_to(root) or not file.is_file():
+        raise ValueError("artifact path escapes root or not a file")
+    result = hashlib.sha256()
+    with file.open("rb") as fh:
+        for chunk in iter(lambda: fh.read(1024 * 1024), b""):
+            result.update(chunk)
+    return result.hexdigest()
+
+
+def verify(record: dict, artifact_root: Path | None = None) -> dict:
     if record.get("schema") != SCHEMA or set(record.get("required_loci", [])) != LOCI:
         raise ValueError("wrong leaf-queue schema or collation locus set")
     if record.get("target_article") != "改造漏刻":
@@ -28,6 +49,8 @@ def verify(record: dict) -> dict:
     if {(e.get("ncid"), e.get("physical_item"), e.get("cataloged_year")) for e in entries} != expected:
         raise ValueError("Tokyo NCID, item number or cataloged print layer changed")
     votes = 0
+    positive_source_hashes = set()
+    positive_page_hashes = set()
     for item in entries:
         if item.get("digital_access") not in {"NOT_VERIFIED", "ITEM_ORIGINAL_LEAF_VERIFIED"}:
             raise ValueError("unrecognized image access state")
@@ -56,14 +79,29 @@ def verify(record: dict) -> dict:
             not leaf["human_reviewer"].strip() or
             not isinstance(leaf.get("edition_control"), str) or not leaf["edition_control"].strip()):
             raise ValueError("direct source leaf needs independent human/edition controls")
+        for claimed_hash, path_key in (("source_sha256", "source_local_file"),
+                                       ("page_sha256", "page_local_file")):
+            local = leaf.get(path_key)
+            actual = file_sha256(artifact_root, local)
+            if actual != leaf[claimed_hash]:
+                raise ValueError("actual file bytes sha256 mismatch for " + path_key)
+        if (leaf["source_sha256"] in positive_source_hashes
+                or leaf["page_sha256"] in positive_page_hashes):
+            raise ValueError("same digitized bytes cannot cast independent copy votes")
+        positive_source_hashes.add(leaf["source_sha256"])
+        positive_page_hashes.add(leaf["page_sha256"])
         votes += 1
     if record.get("independent_target_glyph_votes") != votes:
         raise ValueError("aggregate vote count does not match independently admitted targets")
     return {"status":"PASS","catalog_items":len(entries),"admitted_target_glyph_votes":votes}
 
 def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--artifact-root", type=Path,
+                        help="local authorized source PDF and page-image directory; mandatory for positive votes")
+    args = parser.parse_args()
     try:
-        print(json.dumps(verify(json.loads(QUEUE.read_text(encoding="utf-8"))),sort_keys=True))
+        print(json.dumps(verify(json.loads(QUEUE.read_text(encoding="utf-8")), args.artifact_root),sort_keys=True))
         return 0
     except (OSError, ValueError, TypeError, KeyError, json.JSONDecodeError) as err:
         print(json.dumps({"status":"FAIL","reason":str(err)},ensure_ascii=False))
