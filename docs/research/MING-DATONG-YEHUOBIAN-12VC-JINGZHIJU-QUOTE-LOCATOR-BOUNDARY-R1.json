@@ -1,0 +1,99 @@
+{
+  "schema": "TIANWEN-12VC-PANG1959-JINGZHIJU-ATTRIBUTION-LOCATOR-BOUNDARY-R1",
+  "schema_version": "1.0.0",
+  "date": "2026-10-13",
+  "parent": "12VA_SUPPLEMENTAL_12QE_OPEN",
+  "status": "QUOTATION_CHAPTER_LOCATOR_UNRESOLVED_NOT_DISPROVED",
+  "historical_question": "Can the 1959 university journal abstract's attribution of 惜其书未刊行于世 to Zhu Yizun's 靜志居詩話 be anchored at a specified original chapter/printed leaf, or is the current received Shen Defu entry insufficient?",
+  "prior_registered_secondary": {
+    "source_id": "EXT-SCU-PANGSHIZHOU1959-WANLI-YEHUOBIAN-MING-PRINT-UNRESOLVED-12VA",
+    "url": "https://journal.scu.edu.cn/info/1109/11943.htm",
+    "published_abstract_quote": "惜其书未刊行于世",
+    "claimed_work": "朱彝尊《静志居诗话》",
+    "exact_chapter_in_published_abstract": null,
+    "original_leaf_id": null,
+    "physical_edition": null,
+    "full_1959_article_inspected": false
+  },
+  "locator_probe": [
+    {
+      "role": "SPECIFIC_RECEIVED_SHEN_DEFU_ENTRY",
+      "provider": "中國古典戲曲資料庫 CCddb",
+      "url": "https://ccddb.net/靜志居詩話/卷十七/沈德符",
+      "target": "靜志居詩話 卷十七 沈德符",
+      "visible_author_work_line": "所撰萬歷野獲編，事有左證，論無偏黨，明代野史，未有過焉者",
+      "wording_quoted_in_1959_present_in_this_displayed_entry": false,
+      "physically_edition_bound": false,
+      "complete_all_editions_verified": false,
+      "source_role": "RECEIVED_TRANSCRIPTION_LOCATOR_ONLY_NOT_ORIGINAL_PHYSICAL_PRINT"
+    },
+    {
+      "role": "OCR_BOOK_WIDE_CONTEXT",
+      "provider": "Chinese Text Project",
+      "url": "https://ctext.org/wiki.pl?chapter=675653&if=gb&remap=gb",
+      "target": "靜志居詩話 : 十七",
+      "ocr_status": "UNPROOFREAD_AUTOMATIC_OCR",
+      "physical_leaf_seen": false,
+      "negative_quote_vote_authorized": false
+    }
+  ],
+  "outstanding_checks": [
+    "Find physical Qing period printed facsimile of 靜志居詩話 or predecessor 明詩綜 entry bound to 沈德符 and relevant quote.",
+    "Check the 1819 姚祖恩 扶荔山房 reprint layer independently from the Zhu original notes, if a physical edition can be bound.",
+    "Locate exact line of the 1959 published article (not merely university abstract) to ensure truncation/normalization did not move quotation context.",
+    "Inspect exact historical print images, not OCR/online received transcription alone, before deciding misquotation or edition-variant.",
+    "Preserve Pang1959 quoted evidence and Du2019 scholarship as independent historical positions even if this one quote remains unresolved."
+  ],
+  "firewalls": {
+    "quotation_absent_in_one_displayed_received_entry_not_absent_in_all_editions": true,
+    "1959_author_misattribution_not_proven": true,
+    "zhu_yizun_historical_physical_leaf_not_obtained": true,
+    "1819_fulishanfang_jingzhiju_is_not_1827_yehuobian": true,
+    "current_reproduced_text_is_not_original_glyph_vote": true,
+    "ocr_nonhit_does_not_prove_missing_passage": true,
+    "an_earlier_comment_on_publication_does_not_establish_ming_print_existence": true,
+    "exact_1827_1869_gaizao_original_pages_not_obtained": true,
+    "no_historical_rule_selected_or_algorithm_reopened": true,
+    "no_external_contact_or_order": true
+  },
+  "adjudication": {
+    "quote_target": "PANG1959_ASCRIBED_ZHU_JINGZHIJU_UNVERIFIED_EXACT_LOCUS",
+    "ccddb_shen_entry": "VISIBLE_RECEIVED_ENTRY_DOES_NOT_CONTAIN_THE_PANG1959_QUOTED_SENTENCE",
+    "conclusion": "NEEDS_EDITION_SCOPED_PHYSICAL_PAGE_COMPARISON_NO_ATTRIBUTION_ERROR_VERDICT",
+    "new_registered_sources": 0,
+    "new_original_images": 0,
+    "new_ancient_glyph_votes": 0,
+    "transmission_nodes_added": 0,
+    "transmission_edges_added": 0,
+    "algorithm_reopens": 0
+  },
+  "accounting": {
+    "root_sources": 647,
+    "extension_sources": 43,
+    "total_sources": 690,
+    "matrix_rows": 222,
+    "audited_rows": 222,
+    "repaired_defects": 45,
+    "graph_nodes": 252,
+    "graph_edges": 238,
+    "formal_batches": 487,
+    "formal_latest": "12QD",
+    "product": "CLOSED",
+    "md_g03": "OPEN",
+    "batch_12qe": "OPEN"
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "No original print/edition link from the 1959 quotation to a specific Shen Defu passage until physically scoped page can be read.",
+      "Absence in a received short entry is not a disproved historical text-to-text transmission edge."
+    ],
+    "unresolved_lineage_questions": [
+      "In which edition, passage and physical folio does Zhu's allegedly unpublished-book phrase occur, if any?",
+      "Was a received 1819 editorial version normalized compared to the earlier 明詩綜 layer?",
+      "Do primary 1827 and 1869 printed 改造漏刻 leaves differ at any of four loci?"
+    ]
+  }
+}
