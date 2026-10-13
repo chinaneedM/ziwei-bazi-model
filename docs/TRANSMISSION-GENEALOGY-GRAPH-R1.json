@@ -4776,6 +4776,44 @@
       "page_jpeg_sha256": "a8bd71a8cb78eea01c10cec50b7378f760aefbe1efc7936a188c36f97e1be97d",
       "no_ocr": true,
       "declared_1827_base_copy_item_bound": false
+    },
+    {
+      "node_id": "EDITION-YEHUOBIAN-NPM-QING-JINXIANG-PRINTYEAR-UNSPECIFIED",
+      "node_type": "EDITION",
+      "label": "國立故宮博物院《萬曆野獲編》清刊巾箱本（確切刊印年及版片未明）",
+      "work_composition_date": "MING_WANLI_AUTHORIAL_COMPONENT_SEPARATE_FROM_QING_COMPILATION",
+      "edition_impression_date": "QING_PERIOD_ONLY_EXACT_YEAR_UNBOUND",
+      "physical_copy_date": null,
+      "digital_surrogate_date": null,
+      "evidence": [
+        "EXT-NPM-YEHUOBIAN-QING-JINXIANG-EXHIBIT-12UX",
+        "EXT-TELDAP-NPM-GUGUAN003512-003527-YEHUOBIAN-12UX",
+        "docs/research/MING-DATONG-YEHUOBIAN-12UX-NPM-QING-JINXIANG-PHYSICAL-COPY-R1.json"
+      ],
+      "first_explicit_graph_batch": "12UX_SUPPLEMENTAL_UNDER_12QE_OPEN",
+      "relation_to_1827_1869_print_plates": "UNRESOLVED_NO_DIRECT_COPY_OR_IDENTITY_CLAIM",
+      "target_original_leaf_collated": false
+    },
+    {
+      "node_id": "PHYSICAL-COPY-YEHUOBIAN-NPM-GUGUAN003512-003527",
+      "node_type": "PHYSICAL_COPY",
+      "label": "國立故宮博物院故觀003512–003527十六冊《萬曆野獲編》清刊巾箱本",
+      "work_composition_date": "MING_WANLI_AUTHORIAL_COMPONENT",
+      "edition_impression_date": "QING_PERIOD_EXACT_PRINT_DATE_UNBOUND",
+      "physical_copy_date": null,
+      "digital_surrogate_date": null,
+      "source_holding": "NPM",
+      "unified_id": "故觀003512-003527",
+      "individual_books": 16,
+      "representative_2023_exhibited_book": "故觀003527",
+      "evidence": [
+        "EXT-NPM-YEHUOBIAN-QING-JINXIANG-EXHIBIT-12UX",
+        "EXT-TELDAP-NPM-GUGUAN003512-003527-YEHUOBIAN-12UX",
+        "docs/research/MING-DATONG-YEHUOBIAN-12UX-NPM-QING-JINXIANG-PHYSICAL-COPY-R1.json"
+      ],
+      "first_explicit_graph_batch": "12UX_SUPPLEMENTAL_UNDER_12QE_OPEN",
+      "target_page_collated": false,
+      "access_2009_copying_limit_not_current_permission": true
     }
   ],
   "edges": [
@@ -8407,6 +8445,22 @@
       ],
       "scope_note": "1958-11 dated publisher note and 1959-02 first-print imprint are both visible in one exact matched modern scanned edition, not two physical printings.",
       "adjudication_batch": "12TS_SUPPLEMENTAL_UNDER_12QE_OPEN"
+    },
+    {
+      "edge_id": "TG-E0238",
+      "from": "PHYSICAL-COPY-YEHUOBIAN-NPM-GUGUAN003512-003527",
+      "to": "EDITION-YEHUOBIAN-NPM-QING-JINXIANG-PRINTYEAR-UNSPECIFIED",
+      "relation": "PHYSICAL_COPY_OF_EDITION",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_FOR_ITEM_AND_QING_JINXIANG_CLASS_ONLY",
+      "evidence_class": "NPM_FIRST_PARTY_EXHIBITION_PLUS_NPM_SOURCED_CATALOG_BINDING",
+      "evidence": [
+        "EXT-NPM-YEHUOBIAN-QING-JINXIANG-EXHIBIT-12UX",
+        "EXT-TELDAP-NPM-GUGUAN003512-003527-YEHUOBIAN-12UX",
+        "docs/research/MING-DATONG-YEHUOBIAN-12UX-NPM-QING-JINXIANG-PHYSICAL-COPY-R1.json"
+      ],
+      "scope_note": "Confirmed museum holding of a Qing printed miniature form; not exact imprint-year or printing-block identification, no proof that it is the original 1827/1869 edition, no juan20 target glyphs and no current copying permission.",
+      "adjudication_batch": "12UX_SUPPLEMENTAL_UNDER_12QE_OPEN"
     }
   ],
   "lineage_hypotheses": [
@@ -9418,5 +9472,5 @@
     "first_explicit_seed_batch": "BATCH-12-ZIWEI-SISHI-QIHOU-JINGTAI6-TONGSHU-TABLE-CONTROL-CH",
     "future_material_batches_require_transmission_impact": true
   },
-  "updated_at": "2026-10-12"
+  "updated_at": "2026-10-13"
 }
