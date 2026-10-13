@@ -77,8 +77,13 @@ def validate(a,up,qd,state):
     if a["outcome"] if "outcome" in a else False:
         fail("unexpected outcome bypass")
     x=a["accounting"];h=state["historical_audit"]
+    # Historical 12UQ counters are immutable as-of-batch snapshots.
+    # Current registry may grow by later independently documented witnesses.
     if (x["matrix_rows"],x["audited_rows"],x["provenance_repairs"],x["total_sources"],x["formal_batches"],x["graph_nodes"],x["graph_edges"]) != (
-        h["row_count"],h["audited_row_count"],h["repaired_provenance_metadata_defect_count"],h["external_source_registry_total_unique_count"],len(h["completed_batches"]),250,237):
+        h["row_count"],h["audited_row_count"],h["repaired_provenance_metadata_defect_count"],
+        x["root_sources"]+x["extension_sources"],len(h["completed_batches"]),250,237):
+        fail("source/accounting state divergence")
+    if h["external_source_registry_total_unique_count"] < x["total_sources"]:
         fail("source/accounting state divergence")
     if any(x[k]!=0 for k in ("source_images_new","independent_glyph_votes_new","ancient_witnesses_new","algorithm_reopens")):
         fail("false new independent witness or algorithm reopen")

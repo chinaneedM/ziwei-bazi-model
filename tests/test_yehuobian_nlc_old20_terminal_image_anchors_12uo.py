@@ -51,7 +51,9 @@ class Old20Terminal12UO(unittest.TestCase):
 
     def test_project_counts_and_reopen_firewall(self):
         x=self.a["accounting"];h=self.s["historical_audit"]
-        self.assertEqual(x["source_registry_unique"],h["external_source_registry_total_unique_count"])
+        # 12UO source total is an immutable historical snapshot, not the live registry count.
+        self.assertEqual(x["source_registry_unique"],x["source_registry_root"]+x["source_registry_extension"])
+        self.assertGreaterEqual(h["external_source_registry_total_unique_count"],x["source_registry_unique"])
         self.assertEqual(x["formal_batches"],len(h["completed_batches"]))
         self.assertEqual(x["matrix_rows"],h["row_count"])
         self.assertEqual(x["matrix_audited"],h["audited_row_count"])

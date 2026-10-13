@@ -53,7 +53,10 @@ class Old20Seam12UP(unittest.TestCase):
         self.check()
         st=load("docs/PROJECT-CURRENT-STATE-R1.json")
         self.assertTrue(any(x.startswith("12UP ") for x in st["historical_audit"]["current_focus"]))
-        self.assertEqual(st["historical_audit"]["external_source_registry_total_unique_count"],687)
+        # New independently registered sources may grow after the 12UP snapshot.
+        self.assertEqual(self.d["accounting"]["total_sources"],687)
+        self.assertEqual(self.d["accounting"]["source_root"]+self.d["accounting"]["source_extensions"],687)
+        self.assertGreaterEqual(st["historical_audit"]["external_source_registry_total_unique_count"],self.d["accounting"]["total_sources"])
         self.assertEqual(len(st["historical_audit"]["completed_batches"]),487)
         self.assertEqual(st["invariants"]["algorithm_reopen_count"],0)
         self.assertEqual(st["invariants"]["deterministic_fusion_chart_product_r1"],"CLOSED")

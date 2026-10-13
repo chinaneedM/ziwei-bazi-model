@@ -60,7 +60,10 @@ class KyotoScope12UM(unittest.TestCase):
         st = self.state
         h = st["historical_audit"]
         self.assertTrue(any(x.startswith("12UM ") for x in h["current_focus"]))
-        self.assertEqual(h["external_source_registry_total_unique_count"], 687)
+        # 687 is the 12UM capture-time total; it must not freeze all future sessions.
+        self.assertEqual(self.record["accounting"]["combined_sources"],687)
+        self.assertEqual(self.record["accounting"]["root_sources"]+self.record["accounting"]["extension_sources"],687)
+        self.assertGreaterEqual(h["external_source_registry_total_unique_count"],self.record["accounting"]["combined_sources"])
         self.assertEqual(len(h["completed_batches"]), 487)
         self.assertEqual(st["invariants"]["deterministic_fusion_chart_product_r1"], "CLOSED")
         self.assertEqual(st["invariants"]["algorithm_reopen_count"], 0)

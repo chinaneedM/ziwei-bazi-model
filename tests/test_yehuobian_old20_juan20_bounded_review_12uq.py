@@ -47,6 +47,8 @@ class Boundary12UQ(unittest.TestCase):
         self.check()
         self.assertTrue(any(x.startswith("12UQ ") for x in self.s["historical_audit"]["current_focus"]))
         self.assertEqual(len(self.s["historical_audit"]["completed_batches"]),487)
-        self.assertEqual(self.s["historical_audit"]["external_source_registry_total_unique_count"],687)
+        # Preserve 12UQ's immutable 687-count historical accounting; newer batches may add sources.
+        self.assertEqual(self.d["accounting"]["root_sources"]+self.d["accounting"]["extension_sources"],687)
+        self.assertGreaterEqual(self.s["historical_audit"]["external_source_registry_total_unique_count"],self.d["accounting"]["total_sources"])
         self.assertEqual(self.s["invariants"]["algorithm_reopen_count"],0)
 if __name__=="__main__":unittest.main()
