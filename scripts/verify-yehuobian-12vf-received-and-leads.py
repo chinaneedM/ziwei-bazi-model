@@ -24,7 +24,7 @@ def validate(r,leads,st,pz,ve):
  if loc[1]["readings"]!={"WIKISOURCE_RECEIVED":"十二卷","CTEXT_RECEIVED":"十卷"}: raise ValueError("locus numerals")
  if any(l["physical_print_glyph_authority"] is not False or l["independent_voting_allowed"] is not False for l in loc): raise ValueError("unearned glyph")
  gate=r.get("forward_correction",{})
- if len(gate)!=9 or any(gate.get(k) is not True for k in ("earlier_record_unchanged","no_alternative_winner_selected","no_recension_pairing_proved_from_two_websites","ctext_direct_source_html_not_claimed","quote_origin_or_1713_physical_copy_unverified","text_variation_does_not_change_12ve_three_predicates","no_1827_1869_target_glyph_inference")): raise ValueError("source scope")
+ if len(gate)!=10 or gate.get("ctext_reading_first_separately_preserved_here")!="惜未及梓" or any(gate.get(k) is not True for k in ("earlier_record_unchanged","no_alternative_winner_selected","no_recension_pairing_proved_from_two_websites","ctext_direct_source_html_not_claimed","quote_origin_or_1713_physical_copy_unverified","text_variation_does_not_change_12ve_three_predicates","no_1827_1869_target_glyph_inference")): raise ValueError("source scope")
  if leads.get("schema")!="TIANWEN-12VF-SECONDARY-1827-HOLDING-LEADS-QUARANTINE-R1" or leads.get("status")!="SECONDARY_CATALOG_LEADS_ONLY_NO_INSTITUTIONAL_ITEM_CONFIRMATION": raise ValueError("leads schema")
  q=leads.get("leads",[])
  if len(q)!=3 or [x.get("key") for x in q]!=["HENAN_UNIVERSITY","TSINGHUA_UNIVERSITY","SHANDONG_UNIVERSITY"]: raise ValueError("lead groups")

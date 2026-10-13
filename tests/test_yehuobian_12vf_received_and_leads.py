@@ -21,6 +21,7 @@ class ForwardVariant12VF(unittest.TestCase):
  def test_no_direct_ocr_read(self):self.bad(0,["forward_correction","ctext_direct_source_html_not_claimed"],False)
  def test_no_edition_winner(self):self.bad(0,["forward_correction","no_alternative_winner_selected"],False)
  def test_no_stemmatic_pairing(self):self.bad(0,["forward_correction","no_recension_pairing_proved_from_two_websites"],False)
+ def test_forward_ctext_clause_guard(self):self.bad(0,["forward_correction","ctext_reading_first_separately_preserved_here"],"惜未梓")
  def test_no_original_glyph(self):self.bad(0,["loci",0,"physical_print_glyph_authority"],True)
  def test_henan_not_verified(self):self.bad(1,["leads",0,"provider_verified"],True)
  def test_qinghua_not_verified(self):self.bad(1,["leads",1,"provider_catalog_item_id"],"shelfmark")
