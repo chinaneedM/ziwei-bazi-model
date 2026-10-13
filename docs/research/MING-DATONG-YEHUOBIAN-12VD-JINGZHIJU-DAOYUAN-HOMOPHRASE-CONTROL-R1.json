@@ -1,0 +1,104 @@
+{
+  "schema": "TIANWEN-12VD-JINGZHIJU-DAOYUAN-NEAR-PHRASE-REFERENT-CONTROL-R1",
+  "schema_version": "1.0.0",
+  "date": "2026-10-13",
+  "parent": "12VC_SUPPLEMENTAL_12QE_OPEN",
+  "status": "NEAR_PHRASE_IN_UNRELATED_ENTRY_DOES_NOT_RESOLVE_PANG1959_QUOTATION",
+  "question": "Does 靜志居詩話 卷二十三 道源's near wording 惜其書未刊行 corroborate Pang1959's claimed statement about 沈德符《萬曆野獲編》?",
+  "prior_12vc": "docs/research/MING-DATONG-YEHUOBIAN-12VC-JINGZHIJU-QUOTE-LOCATOR-BOUNDARY-R1.json",
+  "passages": [
+    {
+      "role": "CLAIMED_1959_SCHOLARLY_QUOTE",
+      "source": "庞石帚 1959〈跋《萬曆野獲編》〉 四川大学期刊社摘要",
+      "url": "https://journal.scu.edu.cn/info/1109/11943.htm",
+      "wording": "惜其书未刊行于世",
+      "claimed_author": "朱彝尊",
+      "claimed_work": "静志居诗话",
+      "exact_original_folio": null,
+      "full_article_read": false,
+      "witness_rank": "SECONDARY_SCHOLARLY_ABSTRACT_ONLY"
+    },
+    {
+      "role": "SHEN_DEFU_RECEIVED_ENTRY",
+      "source": "中國古典戲曲資料庫 靜志居詩話 卷十七 沈德符",
+      "url": "https://ccddb.net/靜志居詩話/卷十七/沈德符",
+      "wording": "所撰萬歷野獲編，事有左證，論無偏黨",
+      "subject": "沈德符所撰《萬曆野獲編》",
+      "contains_claimed_1959_quote": false,
+      "original_print_leaf_seen": false,
+      "witness_rank": "RECEIVED_TRANSCRIPTION_ONLY"
+    },
+    {
+      "role": "DAOYUAN_NEAR_PHRASE",
+      "source": "中國古典戲曲資料庫 靜志居詩話 卷二十三 釋子 道源",
+      "url": "https://ccddb.net/靜志居詩話/卷二十三/釋子/道源",
+      "wording": "惜其書未刊行",
+      "local_preceding_scope": "道源（石林）以餘力注李義山詩三卷",
+      "referent": "道源所注李義山詩三卷",
+      "not_referring_to": "沈德符《萬曆野獲編》",
+      "original_print_leaf_seen": false,
+      "witness_rank": "RECEIVED_TRANSCRIPTION_ONLY"
+    }
+  ],
+  "collated_differences": {
+    "claimed_1959_tail": "于世",
+    "daoyuan_received_tail": null,
+    "exact_wording_match": false,
+    "near_phrase_match": true,
+    "referent_identity": false,
+    "source_to_source_copying_proved": false,
+    "misquotation_proved": false
+  },
+  "evidence_rule": "PHRASE_SIMILARITY_IS_NOT_SUBJECT_IDENTITY; a received text analogue in unrelated Dao Yuan entry cannot be transferred to Shen Defu, used as a print-fact vote or used as proof of Pang's copying or misattribution.",
+  "controls": {
+    "no_1819_original_leaf": true,
+    "no_1959_full_article": true,
+    "no_original_1827_1869_target_pages": true,
+    "no_source_registration": true,
+    "no_new_independent_historical_glyph": true,
+    "no_transfer_of_daoyuan_referent_to_shen_defu": true,
+    "no_pang_misattribution_verdict": true,
+    "no_stemmatic_direct_copy_claim": true,
+    "no_algorithm_reopen": true,
+    "no_external_request": true
+  },
+  "next_work": [
+    "Secure physically identified 1819 靜志居詩話 卷十七/卷二十三 leaves and compare their printed wording.",
+    "Inspect the original 明詩綜 沈德符 entry and 1959 journal full article for Pang's precise citation scope.",
+    "Acquire source-issued 1827 and 1869 thematic juan20 改造漏刻 originals, folio/plate identity and four-locus high-resolution page hashes before promoting any historical glyph."
+  ],
+  "accounting": {
+    "root_sources": 647,
+    "extension_sources": 43,
+    "total_sources": 690,
+    "matrix_rows": 222,
+    "audited_rows": 222,
+    "defects_repaired": 45,
+    "genealogy_nodes": 252,
+    "genealogy_edges": 238,
+    "formal_completed_batches": 487,
+    "formal_latest": "12QD",
+    "md_g03": "OPEN",
+    "batch_12qe": "OPEN",
+    "product": "CLOSED",
+    "new_registered_sources": 0,
+    "new_original_images": 0,
+    "new_glyph_votes": 0,
+    "new_genealogy_nodes": 0,
+    "new_genealogy_edges": 0,
+    "algorithm_reopens": 0
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "A lexical near match between the Dao Yuan note on Li Yishan and the Pang1959 quote is not provenance or copying evidence.",
+      "The Dao Yuan textual referent is explicitly not the Shen Defu work in the displayed received passage."
+    ],
+    "unresolved_lineage_questions": [
+      "Does the phrase claimed by Pang occur in another original passage or recension?",
+      "Does an independently imaged 1819 leaf match the received Dao Yuan and Shen entries?"
+    ]
+  }
+}
