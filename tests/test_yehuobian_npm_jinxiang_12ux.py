@@ -28,7 +28,7 @@ class NPMJinxiangCopyBinding(unittest.TestCase):
  def test_zero_glyph_vote(self):self.bad(0,["scope_outcome","new_historical_target_glyph_votes"],1)
  def test_zero_outreach(self):self.bad(0,["scope_outcome","institutional_contact_sent"],1)
  def test_no_source_upgrade(self):self.bad(1,["sources",0,"physical_glyph_authority"],True)
- def test_manifest_counts(self):self.bad(2,["combined_source_count"],690)
+ def test_manifest_counts(self):self.bad(2,["combined_source_count"],self.v[2]["combined_source_count"]+1)
  def test_graph_relation_not_1827(self):
   e=next(i for i,x in enumerate(self.v[3]["edges"]) if x.get("edge_id")=="TG-E0238")
   self.bad(3,["edges",e,"to"],"EDITION-YEHUOBIAN-1827-FULISHANFANG-30V")

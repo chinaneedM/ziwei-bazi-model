@@ -26,7 +26,7 @@ class HistoricalPrintDebate12VA(unittest.TestCase):
  def test_no_1827_glyph(self):self.bad(0,["historical_state","original_1827_target_image"],True)
  def test_no_1869_glyph(self):self.bad(0,["historical_state","original_1869_target_image"],True)
  def test_no_physical_glyph_vote(self):self.bad(1,["sources",0,"physical_glyph_authority"],True)
- def test_manifest_count(self):self.bad(2,["combined_source_count"],691)
+ def test_manifest_count(self):self.bad(2,["combined_source_count"],self.docs[2]["combined_source_count"]+1)
  def test_no_graph_promotions(self):self.bad(0,["historical_state","transmission_edges_added"],1)
  def test_no_algorithm_reopen(self):self.bad(0,["historical_state","algorithm_reopen_authorized"],True)
  def test_state_count(self):self.bad(3,["historical_audit","external_source_registry_total_unique_count"],689)

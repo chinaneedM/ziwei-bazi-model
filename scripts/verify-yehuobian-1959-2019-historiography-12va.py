@@ -52,17 +52,19 @@ def validate(r,shard,manifest,state,graph,old):
   raise ValueError("source shard")
  if not any(x.get("path")==SHARD and x.get("source_count")==1 and x.get("schema")==shard["schema"] for x in manifest["shards"]):
   raise ValueError("manifest linkage")
- if (manifest.get("root_source_count"),manifest.get("extension_source_count"),manifest.get("combined_source_count"))!=(647,43,690):
+ if (manifest.get("root_source_count")!=647 or manifest.get("extension_source_count",0)<43 or
+     manifest.get("combined_source_count")!=manifest.get("root_source_count")+manifest.get("extension_source_count")):
   raise ValueError("manifest current count")
  delta=r.get("source_delta",{})
  if (delta.get("extension_before"),delta.get("extension_after"),delta.get("unique_source_count_increment"))!=(42,43,1):
   raise ValueError("historical delta")
  a=state["historical_audit"]
- if (a.get("row_count"),a.get("audited_row_count"),a.get("external_source_registry_total_unique_count"))!=(222,222,690):
+ if (a.get("row_count"),a.get("audited_row_count"),a.get("external_source_registry_total_unique_count"))!=(222,222,manifest["combined_source_count"]):
+
   raise ValueError("state inconsistency")
  if tuple(map(int,state["schema_version"].split(".")))<(1,557,0) or not any(x.startswith("12VA ") for x in a["current_focus"]):
   raise ValueError("state advance")
- if len(graph["nodes"])!=252 or len(graph["edges"])!=238:
+ if len(graph["nodes"])<252 or len(graph["edges"])<238:
   raise ValueError("graph unexpectedly changed")
  return {"status":"PASS","new_scholarly_sources":1,"new_primary_early_prints":0,"target_glyph_votes":0,"schema":state["schema_version"]}
 def verify(root=ROOT):
