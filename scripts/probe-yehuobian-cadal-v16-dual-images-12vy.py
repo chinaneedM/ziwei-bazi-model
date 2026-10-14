@@ -3,7 +3,6 @@
 from __future__ import annotations
 import argparse,hashlib,json,subprocess,tempfile,urllib.request
 from pathlib import Path
-from PIL import Image
 
 SOURCES=[{"id":"CADAL02096915","url":"https://upload.wikimedia.org/wikipedia/commons/0/0f/CADAL02096915_%E9%87%8E%E7%8D%B2%E7%B7%A8%EF%BC%88%E5%8D%81%E5%85%AD%EF%BC%89.djvu","bytes":3495009,"sha1":"69d9b157cc060b5cd760c953fedcd5eae282d8e9","pages":[65,66,120,121,122],"expected_pages":135,"existing_sha256":"262edac806b90c984d5f0c4fce1bc150a974ebd574d847738a08a00cad39640d"},{"id":"CADAL02112262","url":"https://upload.wikimedia.org/wikipedia/commons/d/d9/CADAL02112262_%E9%87%8E%E7%8D%B2%E7%B7%A8%EF%BC%88%E5%8D%81%E5%85%AD%EF%BC%89.djvu","bytes":3413348,"sha1":"837c8df07b562d4a94950efc1a5b96b8a11b7447","pages":[64,65,66,115,116,117,118,119,120,121,122,123],"expected_pages":133,"existing_sha256":None}]
 LIMIT=8_000_000
@@ -31,6 +30,7 @@ def pages_count(source):
     p=subprocess.run(["djvused",str(source),"-e","n"],capture_output=True,text=True,check=True)
     return int(p.stdout.strip())
 def capture(outdir):
+    from PIL import Image
     outdir=Path(outdir);outdir.mkdir(parents=True,exist_ok=True)
     results=[]
     for item in SOURCES:
