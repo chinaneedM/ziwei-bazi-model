@@ -1,0 +1,101 @@
+{
+  "schema": "TIANWEN-12VW-COLUMBIA-OPEN-MARC-DATA-ACQUISITION-GATE-R1",
+  "date": "2026-10-14",
+  "status": "FIRST_PARTY_MARCXML_BULK_INDEX_IDENTIFIED_EXACT_YEHUOBIAN_ITEM_STILL_UNBOUND",
+  "discovery": {
+    "provider": "Columbia University Libraries",
+    "official_documentation": "https://library.columbia.edu/about/lib-ops/clio-data.html",
+    "official_dataset_index": "https://lito.cul.columbia.edu/extracts/ColumbiaLibraryCatalog/full/",
+    "record_format": "MARCXML_GZIP",
+    "catalogue_freshness": "MONTHLY_PUBLISHER_UPDATES_SUBJECT_TO_CHANGE",
+    "index_observation_date": "2026-10-14",
+    "index_numbered_shards": 111,
+    "first_file": "extract-001.xml.gz",
+    "last_file": "extract-111.xml.gz",
+    "last_file_advertised_size": "17M",
+    "typical_other_file_advertised_size": "58M-59M",
+    "advertised_last_modified_date": "2026-10-11",
+    "index_is_physical_holding_identification": false
+  },
+  "source_scope": {
+    "existing_columbia_holding_citation": "docs/research/MING-DATONG-YEHUOBIAN-12VU-COLUMBIA-1827-CITATION-AND-FIRSTPARTY-CATALOG-GATE-R1.json",
+    "university_library_first_party_data": true,
+    "contains_bibliographic_and_holding_fields_per_publisher": true,
+    "may_omit_vendor_records": true,
+    "excludes_columbia_law_and_recap_partner_records": true,
+    "metadata_quality_not_guaranteed": true,
+    "bulk_shard_order_not_known_to_be_title_sorted": true,
+    "one_shard_nonhit_never_proves_book_absent": true,
+    "entire_archive_not_downloaded_this_batch": true,
+    "clio_public_search_anubis_blocked_current_environment": true,
+    "physical_1827_folio_proved": false,
+    "ancient_glyphs_proved": false
+  },
+  "bounded_acquisition": {
+    "workflow": ".github/workflows/verify-yehuobian-12vw-columbia-marc-shard-exact-head.yml",
+    "script": "scripts/probe-yehuobian-columbia-marc-12vw.py",
+    "default_one_shard": 111,
+    "default_shard_url": "https://lito.cul.columbia.edu/extracts/ColumbiaLibraryCatalog/full/extract-111.xml.gz",
+    "max_compressed_bytes": 80000000,
+    "xml_parse_mode": "STANDARD_LIBRARY_STREAMING_ITERPARSE_NO_OCR",
+    "search_scope": "MARC_TITLE_FIELDS_130_240_245_246_730_880",
+    "query_forms": [
+      "萬曆野獲編",
+      "万历野获编",
+      "野獲編",
+      "野获编",
+      "ye huo bian",
+      "yehuo bian",
+      "yeh huo pien"
+    ],
+    "result_status_before_probe": "NOT_RUN_IN_RESEARCH_RECORD",
+    "exact_clio_id": null,
+    "record_sha256": null,
+    "physical_copy_call_number": null,
+    "digitized_juan20_leaf": null,
+    "negative_global_holding_claim_allowed": false
+  },
+  "repository_gates": {
+    "exact_original_item": "UNBOUND",
+    "year1827": "CITED_SECONDARY_NOT_VERIFIED_IN_EXACT_MARC_OBJECT",
+    "year1869": "SEPARATE_PRINT_STATE_UNVERIFIED",
+    "source_byte_sha_required_for_any_marc_sample": true,
+    "per_record_candidate_needs_item_and_holdings_review": true,
+    "marc_catalogue_is_not_original_page_scan": true,
+    "do_not_add_ninth_verified_copy_on_hit_without_physical_item_and_volume": true,
+    "do_not_cast_target_glyph_from_marc_metadata": true
+  },
+  "accounting": {
+    "root_sources": 647,
+    "extension_before": 53,
+    "extension_after": 54,
+    "source_union_before": 700,
+    "source_union_after": 701,
+    "new_first_party_metadata_source": 1,
+    "matrix_rows": 222,
+    "audited_rows": 222,
+    "repaired_metadata": 45,
+    "genealogy_nodes": 252,
+    "genealogy_edges": 238,
+    "formal_batches": 487,
+    "latest_formal": "12QD",
+    "new_original_pages": 0,
+    "original_glyph_votes": 0,
+    "new_genealogy_edges": 0,
+    "algorithm_reopens": 0,
+    "product": "CLOSED"
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "A first-party bibliographic MARC title match cannot independently prove 1827 physical copy or direct relation to Japanese prints.",
+      "A single archive shard without a matching title is never a negative proof about the whole institutional catalogue."
+    ],
+    "unresolved_lineage_questions": [
+      "Find the exact Columbia first-party MARC 001 record and holding/call number, if present.",
+      "Obtain authenticated original thematic 卷20 《改造漏刻》 1827/1869 source leaf bytes and separate physical impression/plate verification."
+    ]
+  }
+}
