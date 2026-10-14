@@ -3,6 +3,8 @@ from __future__ import annotations
 import copy
 import importlib.util
 import json
+import hashlib
+import tempfile
 from pathlib import Path
 import unittest
 
@@ -64,13 +66,25 @@ class Intake12UK(unittest.TestCase):
 
     def test_capture_remains_zero_vote(self):
         q, c = fixtures()
-        item = q["candidates"][0]
-        item.update(stage="IMAGE_CAPTURED", source_binary_sha256="d" * 64,
-                    source_issued_image_url="https://example.org/scan", pages=[{"page_label": "p10", "sha256": "1" * 64}],
-                    target_original_folio="卷20第10葉", relationship_to_prior_surfaces="DISTINCT_BYTES_RELATION_UNRESOLVED")
-        outcome = ingest.validate(q, c)
-        self.assertEqual(outcome["captured_images"], 1)
-        self.assertEqual(outcome["independent_ancient_glyph_votes"], 0)
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            source = b"SYNTHETIC SOURCE PDF TEST ONLY"
+            page = b"SYNTHETIC PAGE JPEG TEST ONLY"
+            (root/"src.pdf").write_bytes(source)
+            (root/"p10.jpg").write_bytes(page)
+            item = q["candidates"][0]
+            item.update(
+                stage="IMAGE_CAPTURED",
+                source_binary_sha256=hashlib.sha256(source).hexdigest(),
+                source_issued_image_url="https://example.invalid/unit-test-not-historical",
+                source_local_file="src.pdf",
+                pages=[{"page_label":"p10","sha256":hashlib.sha256(page).hexdigest(),"local_file":"p10.jpg"}],
+                target_original_folio="SYNTHETIC NOT HISTORICAL",
+                relationship_to_prior_surfaces="DISTINCT_BYTES_RELATION_UNRESOLVED")
+            outcome = ingest.validate(q, c, artifact_root=root)
+            self.assertEqual(outcome["captured_images"], 1)
+            self.assertEqual(outcome["binary_verified_image_captures"], 1)
+            self.assertEqual(outcome["independent_ancient_glyph_votes"], 0)
 
     def test_print_claim_needs_image_bound_paratext(self):
         q, c = fixtures()

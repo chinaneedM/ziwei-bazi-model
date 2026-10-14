@@ -5,7 +5,10 @@ This gate cannot authenticate a physical original. Even a structurally complete
 image record must be manually adjudicated before entering the historical graph.
 """
 from __future__ import annotations
+import argparse
+import hashlib
 import json
+import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -20,7 +23,34 @@ def reject(reason):
 def digest(v):
     return isinstance(v, str) and len(v) == 64 and all(x in "0123456789abcdef" for x in v)
 
-def validate(data, control):
+def verify_actual_image_bytes(artifact_root, relative_file, expected_sha256):
+    """Validate actual source/image file bytes within an explicit artifact root.
+
+    This proves file integrity only; it does not authenticate physical copy,
+    imprint, bibliographic identity, or manual reading of ancient glyphs.
+    """
+    if artifact_root is None:
+        reject("positive image intake requires actual artifact root and file bytes")
+    if (not isinstance(relative_file, str) or not relative_file
+        or "\\" in relative_file or Path(relative_file).is_absolute()
+        or any(x in ("", ".", "..") for x in relative_file.split("/"))):
+        reject("unsafe image artifact relative path")
+    try:
+        root = Path(artifact_root).resolve(strict=True)
+        file = (root / relative_file).resolve(strict=True)
+    except (OSError, RuntimeError) as err:
+        reject("source/page local image file missing or inaccessible: " + str(err))
+    if not file.is_relative_to(root) or not file.is_file():
+        reject("image artifact path escapes root or is not a file")
+    sha = hashlib.sha256()
+    with file.open("rb") as fh:
+        for chunk in iter(lambda: fh.read(1024 * 1024), b""):
+            sha.update(chunk)
+    if sha.hexdigest() != expected_sha256:
+        reject("actual source/page file bytes sha256 mismatch")
+    return sha.hexdigest()
+
+def validate(data, control, artifact_root=None):
     if data.get("schema") != "TIANWEN-12UK-ORIGINAL-LEAF-INTAKE-R1":
         reject("wrong intake schema")
     if data.get("historical_vote_authority") != "NONE_INTAKE_ONLY":
@@ -36,6 +66,8 @@ def validate(data, control):
     ids = set()
     images = 0
     print_states = 0
+    observed_source_hashes = set()
+    observed_page_hashes = set()
     for c in candidates:
         if not isinstance(c, dict) or not isinstance(c.get("id"), str) or not c["id"] or c["id"] in ids:
             reject("duplicate or invalid candidate ID")
@@ -90,14 +122,39 @@ def validate(data, control):
                 reject("printing state claims require page-scoped pending manual adjudication")
             if not isinstance(proof.get("dated_paratext_quotation"), str) or not proof["dated_paratext_quotation"].strip():
                 reject("must point to image-backed edition paratext, not catalog year")
+            if (not isinstance(proof.get("source_page_label"), str)
+                or not any(p["page_label"] == proof["source_page_label"]
+                           and p["sha256"] == proof["source_page_sha256"] for p in pages)):
+                reject("print-state paratext must bind to exact hashed acquired page label")
+        if source_sha in observed_source_hashes:
+            reject("duplicate original source bytes across candidate objects")
+        observed_source_hashes.add(source_sha)
+        if any(p["sha256"] in observed_page_hashes for p in pages):
+            reject("duplicate original page bytes across candidate objects")
+        if len({p["sha256"] for p in pages}) != len(pages):
+            reject("duplicate page image bytes within candidate")
+        for p in pages:
+            observed_page_hashes.add(p["sha256"])
+        verify_actual_image_bytes(artifact_root, c.get("source_local_file"), source_sha)
+        for p in pages:
+            verify_actual_image_bytes(artifact_root, p.get("local_file"), p["sha256"])
     return {"status": "PASS", "candidate_count": len(candidates), "captured_images": images,
-            "print_state_candidates": print_states, "independent_ancient_glyph_votes": 0,
+            "print_state_candidates": print_states, "binary_verified_image_captures": images,
+            "independent_ancient_glyph_votes": 0,
             "historical_control_surfaces": len(known_sha)}
 
-def verify(root=ROOT):
+def verify(root=ROOT, artifact_root=None):
     data = json.loads((root / QUEUE).read_text(encoding="utf-8"))
     control = json.loads((root / CONTROL).read_text(encoding="utf-8"))
-    return validate(data, control)
+    return validate(data, control, artifact_root=artifact_root)
 
 if __name__ == "__main__":
-    print(json.dumps(verify(), ensure_ascii=False, sort_keys=True))
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--artifact-root", type=Path,
+                        help="local source PDF and exact page image files, mandatory for positive image stages")
+    args = parser.parse_args()
+    try:
+        print(json.dumps(verify(artifact_root=args.artifact_root), ensure_ascii=False, sort_keys=True))
+    except (ValueError, OSError, TypeError, KeyError, json.JSONDecodeError) as exc:
+        print(json.dumps({"status":"FAIL","reason":str(exc)},ensure_ascii=False))
+        sys.exit(1)
