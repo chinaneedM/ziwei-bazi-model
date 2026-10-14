@@ -1,0 +1,88 @@
+{
+  "schema": "TIANWEN-12VN-HARVARD-KEIO-OBJECT-ACCESS-R1",
+  "date": "2026-10-14",
+  "status": "CATALOG_LEADS_ONLY_NO_TARGET_IMAGE",
+  "harvard": {
+    "source_url": "https://rbook.ncl.edu.tw/NCLSearch/Search/SearchDetail?HasImage=&SourceID=3&item=8798977c12ce44e9be30a73bf6c135effDg4MzI10.U_3TmyfKthEVp_BS1Ofj4MC36iEAVXqqr0QwfWpcUYc_&page=80284&sourceWhereString=&whereString=IChOVUxMSUYoRGF0ZV9DcmVhdGVkLCAnICcpIGlzIE5VTEwgYW5kIE5VTExJRihEb2N1bWVudF9ZZWFyLCAnICcpIGlzIE5VTEwgKSA1.uQrV5XxqrHh4fOCXMwOuuzssvPVRwJbumFyT4mFEUCA_",
+    "provider": "Taiwan NCL Chinese rare-book union catalogue",
+    "title": "野獲編",
+    "reported_holder": "Harvard-Yenching Library",
+    "union_registration": "tracy30008244",
+    "volumes": "30卷 補遺4卷 卷首",
+    "publication_field": "道光丁亥 1827",
+    "later_statement_note": "同治8年 1869 重校刊補季男姚德恆謹識",
+    "hollis_item_id": null,
+    "original_impression_year_verified": null,
+    "original_juan20_folio": null,
+    "original_target_image": null,
+    "scope": "Union catalogue identity only; earlier publication field and later revision note coexist. Do not choose a physical impression date or invent HOLLIS ID from tracy identifier."
+  },
+  "keio_google": {
+    "source_url": "https://books.google.com/books?id=amSwWglNYgcC",
+    "volume_id": "amSwWglNYgcC",
+    "google_edition_search_key": "KEIO10811246205",
+    "original_from": "Keio University",
+    "catalog_publisher": "姚氏扶荔山房",
+    "catalog_publication_year": 1827,
+    "digitized_date": "2010-08-13",
+    "play_advertised_pages": 172,
+    "keio_opac_item_binding": null,
+    "historical_juan_mapping": null,
+    "original_juan20_folio": null,
+    "original_target_image": null,
+    "current_page_flags": {
+      "is_browsable": false,
+      "can_download_pdf": false,
+      "has_scanned_text": false
+    },
+    "scope": "Source-emitted Google partner search key, not independently confirmed Keio barcode or a juan20 locator. Google other editions are not automatically independent print witnesses; access flags describe this observed surface, not legal copyright or global availability."
+  },
+  "probe": {
+    "workflow": ".github/workflows/probe-yehuobian-harvard-google-public-12vn.yml",
+    "head": "05055fd0f17aab1e726ae0f8a925537d79e19b7c",
+    "run_id": 38491197468,
+    "job_id": 115616528389,
+    "artifact_id": 11861981306,
+    "archive_sha256_locally_recomputed": "4bcffa4b6a855e0efe96e26ab666838f98632a942728b9dcca119b77fffe7a50",
+    "archive_bytes": 9540,
+    "google_html_file": "docs/research/MING-DATONG-YEHUOBIAN-12VN-HARVARD-KEIO-OBJECT-ACCESS-GOOGLE-CATALOG.html",
+    "google_html_bytes": 34394,
+    "google_html_sha256": "85816972d541dcb8ef025d2e03078ca1883a4942645869009917a3b4f5dd3d08",
+    "google_http_status": 200,
+    "harvard_search_http_status": 429,
+    "google_api_http_status": 429,
+    "response_class": "HTML_METADATA_NOT_ORIGINAL_BOOK_IMAGE"
+  },
+  "source_delta": {
+    "new_registry_rows": 2,
+    "root": 647,
+    "extensions_before": 44,
+    "extensions_after": 46,
+    "union_before": 691,
+    "union_after": 693
+  },
+  "acquisition": {
+    "original_target_images": 0,
+    "historical_target_glyph_votes": 0,
+    "new_independent_print_witnesses": 0,
+    "external_outreach_sent": false,
+    "algorithm_reopens": 0
+  },
+  "next_evidence": [
+    "Get source-issued HOLLIS item and holding/volume/print-state crosswalk for NCL tracy30008244; do not assume NYPL modern Harvard record is the same book.",
+    "Get Keio source-issued OPAC record and exact juan20 subvolume from the partner key; do not generate image/page URLs or infer folios from 172 pages.",
+    "Maintain Tokyo 1827/1869 original target leaf queue as primary acquisition targets."
+  ],
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "No Harvard-to-Tokyo print equivalence.",
+      "No Google-to-Keio juan20 physical-image binding."
+    ],
+    "unresolved_lineage_questions": [
+      "Physical impression date and independently imaged four loci for each new lead."
+    ]
+  }
+}

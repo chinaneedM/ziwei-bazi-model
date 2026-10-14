@@ -32,7 +32,11 @@ class BerlinCatalogGate(unittest.TestCase):
         self.assertEqual(E["transmission_impact"]["nodes_added_or_strengthened"], [])
         self.assertEqual(E["transmission_impact"]["edges_supported"], [])
         self.assertEqual(len(S["sources"]), 1)
-        self.assertEqual(H["historical_audit"]["external_source_registry_total_unique_count"], 691)
+        self.assertEqual(E["accounting"]["total_unique_sources"], 691)
+        manifest = json.loads((ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json").read_text())
+        self.assertGreaterEqual(manifest["combined_source_count"], 691)
+        self.assertEqual(manifest["combined_source_count"], manifest["root_source_count"] + manifest["extension_source_count"])
+        self.assertEqual(H["historical_audit"]["external_source_registry_total_unique_count"], manifest["combined_source_count"])
 
 if __name__ == "__main__":
     unittest.main()
