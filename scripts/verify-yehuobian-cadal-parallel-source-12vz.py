@@ -41,6 +41,10 @@ def validate(r,s,m,state):
  req(len(src)==1 and src[0]["source_id"]==SRC and src[0]["physical_glyph_authority"] is True,"exact registered digital surface")
  req(src[0]["verification_status"]=="DIRECT_SOURCE_IMAGE_GLYPH_COLLATED_EDITION_UNBOUND","undated original source role")
  req(src[0]["direct_image_attestation"]["independent_physical_print_vote"] is False,"duplicate physical vote")
+ witness=r.get("witness",{})
+ req(witness.get("edition_impression_date_bound") is False and witness.get("physical_copy_catalog_identity_bound") is False,"physical holding gate")
+ req(witness.get("source_url")==src[0]["direct_image_attestation"]["source_url"] and witness.get("source_sha256")==src[0]["direct_image_attestation"]["source_sha256"],"direct image witness")
+ req({str(p["page"]):p["sha256"] for p in witness.get("manually_collated_pages",[])}==src[0]["direct_image_attestation"]["page_sha256"],"page digest witness")
  entries=[x for x in m["shards"] if x["path"]==SHARD]
  req(len(entries)==1 and entries[0]["source_count"]==1,"registry shard")
  req(m["combined_source_count"]>=702 and m["combined_source_count"]==m["root_source_count"]+m["extension_source_count"],"future source union")
