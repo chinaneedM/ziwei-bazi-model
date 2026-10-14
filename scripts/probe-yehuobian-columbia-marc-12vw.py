@@ -30,7 +30,7 @@ def title_candidate(strings):
     low=unicodedata.normalize("NFKC",orig).casefold()
     simplified=re.sub(r"[^a-z0-9]+"," ",low)
     compact=re.sub(r"[^a-z0-9]","",low)
-    return any(x in compact for x in ("yehuobian","yehuopien","yehhuopian","wanliyehuo","wanliyehhuo")) or bool(re.search(r"\\b(?:ye|yeh)\\s+huo\\s+(?:bian|pien)\\b",simplified))
+    return any(x in compact for x in ("yehuobian","yehuopien","yehhuopian","yehhuopien","wanliyehuo","wanliyehhuo")) or bool(re.search(r"\b(?:ye|yeh)\s+huo\s+(?:bian|pien)\b",simplified))
 
 def parse_record(elem):
     titles=[]
@@ -122,6 +122,6 @@ def main():
             url,_=download_one(args.download_shard,source)
             out=report(source,url)
     args.output.parent.mkdir(parents=True,exist_ok=True)
-    args.output.write_text(json.dumps(out,indent=2,ensure_ascii=False)+"\\n",encoding="utf-8")
+    args.output.write_text(json.dumps(out,indent=2,ensure_ascii=False)+chr(10),encoding="utf-8")
     print(json.dumps({k:v for k,v in out.items() if k!="title_candidates"},ensure_ascii=False))
 if __name__=="__main__":main()
