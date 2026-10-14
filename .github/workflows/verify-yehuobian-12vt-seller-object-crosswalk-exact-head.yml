@@ -1,0 +1,31 @@
+name: verify-yehuobian-12vt-seller-object-crosswalk-exact-head
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/verify-yehuobian-12vt-seller-object-crosswalk-exact-head.yml
+      - docs/PROJECT-CURRENT-STATE-R1.json
+      - docs/research/MING-DATONG-YEHUOBIAN-12VT-*
+      - docs/research/MING-DATONG-YEHUOBIAN-12VS-*
+      - scripts/verify-yehuobian-rinrokaku-object-crosswalk-12vt.py
+      - tests/test_yehuobian_rinrokaku_object_crosswalk_12vt.py
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Seller object scope + continuity + genealogy
+        run: |
+          set -euo pipefail
+          python scripts/verify-project-continuity-state-r1.py
+          python scripts/verify-historical-source-registry-extensions-r1.py
+          python scripts/verify-tianwen-transmission-genealogy-r1.py
+          python scripts/verify-yehuobian-rinrokaku-object-crosswalk-12vt.py
+          python -m unittest discover -s tests -p 'test_yehuobian_rinrokaku_object_crosswalk_12vt.py' -v
