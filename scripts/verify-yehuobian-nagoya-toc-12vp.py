@@ -16,7 +16,7 @@ def require(value, msg):
         raise ValueError(msg)
 
 def git_blob_sha(data):
-    return hashlib.sha1(b"blob " + str(len(data)).encode() + b"\\0" + data).hexdigest()
+    return hashlib.sha1(b"blob " + str(len(data)).encode() + bytes([0]) + data).hexdigest()
 
 def validate(r, shard, manifest, state):
     require(r["schema"] == "TIANWEN-12VP-NAGOYA-PUBLISHER-TOC-SCOPE-R1", "schema")
