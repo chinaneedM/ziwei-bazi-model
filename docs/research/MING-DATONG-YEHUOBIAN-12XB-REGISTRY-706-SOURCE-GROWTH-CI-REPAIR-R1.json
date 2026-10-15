@@ -1,0 +1,62 @@
+{
+  "schema": "TIANWEN-12XB-FORWARD-ONLY-705-SNAPSHOT-VS-706-LIVE-REGISTRY-CI-REPAIR-R1",
+  "date": "2026-10-15",
+  "status": "REPAIR_CI_SCOPE_NO_NEW_HISTORY_OR_IMAGE",
+  "cause": {
+    "prior_manifest": {
+      "root": 647,
+      "extension": 58,
+      "union": 705
+    },
+    "new_manifest": {
+      "root": 647,
+      "extension": 59,
+      "union": 706
+    },
+    "old_state_at_failure": {
+      "root": 647,
+      "extension": 58,
+      "union": 706
+    },
+    "new_state": {
+      "root": 647,
+      "extension": 59,
+      "union": 706
+    },
+    "added_actual_source": "EXT-TOKYO-IOC-KANSEKI-YEHUOBIAN-SEVEN-EXACT-ITEM-DETAILS-12WZ"
+  },
+  "failed_exact_head": "2ac64f3ca203269fc7b060b77ed7a92129e7c6f6",
+  "known_failed_workflows": [
+    "38745487499",
+    "38745488224",
+    "38745484094",
+    "38745484330",
+    "38745484609",
+    "38745480171",
+    "38745480968",
+    "38745480446",
+    "38745480508",
+    "38745480704"
+  ],
+  "historical_snapshot": 705,
+  "current_source_count": 706,
+  "altered_source_registry_sources": 0,
+  "altered_historical_receipts": 0,
+  "original_1827_folio_images": 0,
+  "original_1869_folio_images": 0,
+  "source_glyph_votes": 0,
+  "genealogy_nodes": 252,
+  "genealogy_edges": 238,
+  "formal_batches": 487,
+  "matrix_rows": 222,
+  "algorithms_reopened": 0,
+  "deterministic_chart_product": "CLOSED",
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Historical source count snapshotted before 12WZ is immutable metadata, not the current registry cardinality."
+    ]
+  }
+}

@@ -22,7 +22,7 @@ def validate(r,s,code):
  for k in ("specialized_image_index_not_identical_to_general_holdings_catalog","index_no_hit_does_not_prove_physical_holding_absence","index_no_hit_does_not_prove_historical_original_print_absence","query_string_appearing_inside_js_does_not_mean_item_hit","no_speculative_iiif_or_folio_identifier","no_new_independent_1827_or_1869_original_paper_print_vote","no_original_juan20_gaizao_louke_glyph_vote"):
   chk(i[k] is True,"absence/paper date firewall:"+k)
  chk(i["source_registry_additions"]==0 and i["algorithm_reopens"]==0 and i["no_new_transmission_graph_edges"] is True,"scope frozen")
- m=r["metrics"];chk(m["matrix"]==m["audited"]==s["historical_audit"]["row_count"]==222 and m["registered_sources"]==s["historical_audit"]["external_source_registry_total_unique_count"]==705 and m["provenance_repairs"]==45,"state consistent")
+ m=r["metrics"];chk(m["matrix"]==m["audited"]==s["historical_audit"]["row_count"]==222 and m["registered_sources"]==705 and s["historical_audit"]["external_source_registry_total_unique_count"]>=m["registered_sources"] and m["provenance_repairs"]==45,"state consistent")
  chk(m["genealogy_nodes"]==252 and m["genealogy_edges"]==238 and m["formal_batches"]==len(s["historical_audit"]["completed_batches"])==487 and m["product"]==s["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED","graph/closed")
  chk(r["transmission_impact"]["edges_supported"]==[],"no fictional genealogy vote")
  return {"status":"PASS","source_pages_checked":8,"tokyo_shanben_search_result_rows":0,"ancient_print_votes":0}
