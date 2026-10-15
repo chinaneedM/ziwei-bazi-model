@@ -76,5 +76,11 @@ if __name__=="__main__":
  opt=parser.parse_args()
  need(bool(opt.receipt_json)==bool(opt.image_file),"receipt and image both required")
  out=verify()
- if opt.receipt_json:out["intake"]=check_receipt(json.loads(Path(opt.receipt_json).read_text(encoding="utf-8")),Path(opt.image_file).read_bytes())
+ if opt.receipt_json:
+  import importlib.util
+  strict_path=ROOT/"scripts/verify-yehuobian-original-folio-intake-12xg.py"
+  strict_spec=importlib.util.spec_from_file_location("original_folio_strict_12xg",strict_path)
+  strict_mod=importlib.util.module_from_spec(strict_spec)
+  strict_spec.loader.exec_module(strict_mod)
+  out["intake"]=strict_mod.validate(json.loads(Path(opt.receipt_json).read_text(encoding="utf-8")),Path(opt.image_file).read_bytes())
  print(json.dumps(out,ensure_ascii=False))
