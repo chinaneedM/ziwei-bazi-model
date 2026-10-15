@@ -1,0 +1,278 @@
+{
+  "schema": "TIANWEN-RESEARCH-OMISSION-RISK-LEDGER-R1",
+  "version": "1.0.0",
+  "updated_at": "2026-10-15",
+  "definition": "NON_EXHAUSTIVE_RECOVERY_SEED_FROM_LIVE_REMOTE; not proof no other omissions exist",
+  "explicit_limits": [
+    "The ledger captures known open leads, not every unpublished witness or every possible school.",
+    "A completed audit row is not a claim of historically exhaustive search.",
+    "Material not committed before cancellation cannot be recovered automatically.",
+    "Do not promote modern catalog, OCR, selected-index zero hits, or parallel-text counts into independent historical originals."
+  ],
+  "binding": {
+    "repository": "chinaneedM/ziwei-bazi-model",
+    "branch": "agent/fusion-chart-core-r1-20260822",
+    "reviewed_state_version": "1.595.0",
+    "source_focus_count": 2319,
+    "latest_research_focus_prefix": "12XG"
+  },
+  "coverage_axes": [
+    "primary_editions_and_physical_copies",
+    "region_and_location",
+    "school_specific_methods",
+    "philology_and_word_sense",
+    "historical_time_and_calendar_coordinate",
+    "mathematical_replay",
+    "contrary_and_negative_evidence",
+    "transmission_lineage_and_non_edges"
+  ],
+  "issues": [
+    {
+      "id": "TW-OPEN-0001",
+      "title": "1827 大木本《野获编》卷二十〈改造漏刻〉原叶",
+      "priority": "P0",
+      "scope": "BAZI_TIMEKEEPING_YEHUOBIAN",
+      "status": "BLOCKED_SOURCE_ACCESS",
+      "origin": "REMOTE-CURRENT-STATE-RECONSTRUCTION-2026-10-15",
+      "source_refs": [
+        "docs/research/MING-DATONG-YEHUOBIAN-12WZ-TOKYO-SEVEN-FIRSTPARTY-RECORDS-AND-IMABORI-LEAF-GATE-R1.json",
+        "docs/research/MING-DATONG-YEHUOBIAN-12XC-TOKYO-ITEM-SPECIFIC-REPRODUCTION-DOSSIER-R1.json"
+      ],
+      "evidence_boundary": "东京大学原生详目 9927；CiNii NCID BC0492354X，物品号6403767830。目录属于书目层，尚未取得原叶。",
+      "missing_evidence": "可绑定具体实物/原叶号的馆方影像及四处异文原字、复制许可。",
+      "next_action": "获取馆方正式的原叶定位与获准复制，保存 URL、物品号、图像 SHA-256 与逐字核读。",
+      "closure_criteria": "实物与图像逐页绑定，四处异文人工校勘、印次作用域和可复核证据齐全。",
+      "resolution_evidence": [],
+      "history": [
+        {
+          "event": "REGISTERED_UNRESOLVED",
+          "date": "2026-10-15",
+          "basis": "current remote state and linked evidence; not a claim of exhaustive discovery"
+        }
+      ]
+    },
+    {
+      "id": "TW-OPEN-0002",
+      "title": "1869 仓石本《野获编》卷二十〈改造漏刻〉原叶",
+      "priority": "P0",
+      "scope": "BAZI_TIMEKEEPING_YEHUOBIAN",
+      "status": "BLOCKED_SOURCE_ACCESS",
+      "origin": "REMOTE-CURRENT-STATE-RECONSTRUCTION-2026-10-15",
+      "source_refs": [
+        "docs/research/MING-DATONG-YEHUOBIAN-12WZ-TOKYO-SEVEN-FIRSTPARTY-RECORDS-AND-IMABORI-LEAF-GATE-R1.json",
+        "docs/research/MING-DATONG-YEHUOBIAN-12XA-TOKYO-SEVEN-ITEM-IMAGE-LINK-BOUNDARY-R1.json"
+      ],
+      "evidence_boundary": "东京大学原生详目 90972；NCID BB23196128，物品号6403148395。现代本 1959 的图片不能移植到此本。",
+      "missing_evidence": "卷十九—二十合册中目标叶、馆方影像、四处原字和印次/物理状态。",
+      "next_action": "询问具体卷册影像及许可，与1827本逐页比对。",
+      "closure_criteria": "取得经过馆藏条码、原叶、印次与哈希绑定的原刻页，并完成人工四点与版片核读。",
+      "resolution_evidence": [],
+      "history": [
+        {
+          "event": "REGISTERED_UNRESOLVED",
+          "date": "2026-10-15",
+          "basis": "current remote state and linked evidence; not a claim of exhaustive discovery"
+        }
+      ]
+    },
+    {
+      "id": "TW-OPEN-0003",
+      "title": "今堀 J2006 混合印次及卷二十残存状况",
+      "priority": "P1",
+      "scope": "BAZI_TIMEKEEPING_YEHUOBIAN",
+      "status": "BLOCKED_SOURCE_ACCESS",
+      "origin": "REMOTE-CURRENT-STATE-RECONSTRUCTION-2026-10-15",
+      "source_refs": [
+        "docs/research/MING-DATONG-YEHUOBIAN-12WZ-TOKYO-SEVEN-FIRSTPARTY-RECORDS-AND-IMABORI-LEAF-GATE-R1.json"
+      ],
+      "evidence_boundary": "今堀文库 J2006 目录载缺卷二十一、二十二；不能反推出二十卷可用。",
+      "missing_evidence": "卷二十是否存在、保存状况、具体印次与原页可读性。",
+      "next_action": "取得馆方明确册页清单及版心/序跋影像。",
+      "closure_criteria": "馆方物品定位及卷20是否存在的实际证据；无法获取则记录明确受限而非伪关闭。",
+      "resolution_evidence": [],
+      "history": [
+        {
+          "event": "REGISTERED_UNRESOLVED",
+          "date": "2026-10-15",
+          "basis": "current remote state and linked evidence; not a claim of exhaustive discovery"
+        }
+      ]
+    },
+    {
+      "id": "TW-OPEN-0004",
+      "title": "CADAL 02096900 与 02096915 跨册物理同本关系",
+      "priority": "P1",
+      "scope": "BAZI_TIMEKEEPING_YEHUOBIAN",
+      "status": "OPEN",
+      "origin": "REMOTE-CURRENT-STATE-RECONSTRUCTION-2026-10-15",
+      "source_refs": [
+        "docs/PROJECT-CURRENT-STATE-R1.json",
+        "docs/research/MING-DATONG-YEHUOBIAN-12XC-TOKYO-ITEM-SPECIFIC-REPRODUCTION-DOSSIER-R1.json"
+      ],
+      "evidence_boundary": "02096900 前册保留1606/1700/1827/1869序文层；数字编号相邻或相似内容不证明同一物理原件。",
+      "missing_evidence": "第一册与第十六册的原始馆藏物品与装订/图像连续性。",
+      "next_action": "从馆方原始目录与卷尾卷首、藏印、页面缺损构造物品级跨册映射。",
+      "closure_criteria": "独立馆方物品级交叉绑定与具体页核对，而非用数字相邻推断。",
+      "resolution_evidence": [],
+      "history": [
+        {
+          "event": "REGISTERED_UNRESOLVED",
+          "date": "2026-10-15",
+          "basis": "current remote state and linked evidence; not a claim of exhaustive discovery"
+        }
+      ]
+    },
+    {
+      "id": "TW-OPEN-0005",
+      "title": "G893《授时历立成》六组直接目标数值",
+      "priority": "P0",
+      "scope": "BAZI_MING_DATONG_CALENDAR",
+      "status": "BLOCKED_SOURCE_ACCESS",
+      "origin": "REMOTE-CURRENT-STATE-RECONSTRUCTION-2026-10-15",
+      "source_refs": [
+        "docs/PROJECT-CURRENT-STATE-R1.json",
+        "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json"
+      ],
+      "evidence_boundary": "官方目录身份和复制服务路径已查证；六组数表均标记 PENDING_DIRECT_TARGET_PAGE。",
+      "missing_evidence": "G893 目标叶/行/字形六组直接证据，不能拿后代数表或平行记录预填。",
+      "next_action": "继续公共原页检索或在获得适当授权时使用馆方复制服务。",
+      "closure_criteria": "每组目标数值必须具备原页出处、版次、图像、行列定位和可复算数值。",
+      "resolution_evidence": [],
+      "history": [
+        {
+          "event": "REGISTERED_UNRESOLVED",
+          "date": "2026-10-15",
+          "basis": "current remote state and linked evidence; not a claim of exhaustive discovery"
+        }
+      ]
+    },
+    {
+      "id": "TW-OPEN-0006",
+      "title": "紫微早夜子时上五刻属亥候选 HPA-ZDATE-006",
+      "priority": "P0",
+      "scope": "ZIWEI_HOUR_BOUNDARY",
+      "status": "OPEN",
+      "origin": "REMOTE-CURRENT-STATE-RECONSTRUCTION-2026-10-15",
+      "source_refs": [
+        "docs/PROJECT-CURRENT-STATE-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json"
+      ],
+      "evidence_boundary": "南阳堂直接扫描读得上五刻/下五刻，海/子版本稳定性与源历法时间坐标仍未完整绑定；当前实现未覆盖候选重分类。",
+      "missing_evidence": "独立物理版本对读、时刻坐标机械映射、流派范围和可复现候选盘。",
+      "next_action": "核对更早/独立版刻目标叶并分清紫微/四柱各自的换日政策。",
+      "closure_criteria": "有来源作用域与机械可重放规则、候选可并列，再判断产品缺项；不得仅以古籍异文重开算法。",
+      "resolution_evidence": [],
+      "history": [
+        {
+          "event": "REGISTERED_UNRESOLVED",
+          "date": "2026-10-15",
+          "basis": "current remote state and linked evidence; not a claim of exhaustive discovery"
+        }
+      ]
+    },
+    {
+      "id": "TW-OPEN-0007",
+      "title": "MD-G03 历法跨时代绝对计时坐标适配器",
+      "priority": "P0",
+      "scope": "BAZI_CALENDAR_ABSOLUTE_TIME",
+      "status": "OPEN",
+      "origin": "REMOTE-CURRENT-STATE-RECONSTRUCTION-2026-10-15",
+      "source_refs": [
+        "docs/PROJECT-CURRENT-STATE-R1.json",
+        "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.md"
+      ],
+      "evidence_boundary": "1447/1449/1450 计时器与历书数表属不同系统，1450 校正时刻基准钟未获得归属证明。",
+      "missing_evidence": "独立器物/地点/观测原件及与算法表值之间的实际桥接。",
+      "next_action": "继续元明官方数表、器物、诏令、地方标准分层证据核查。",
+      "closure_criteria": "原始地点/历表/钟时桥接、数表重放收敛并通过独立验证；不得凭相似数对断言直祖。",
+      "resolution_evidence": [],
+      "history": [
+        {
+          "event": "REGISTERED_UNRESOLVED",
+          "date": "2026-10-15",
+          "basis": "current remote state and linked evidence; not a claim of exhaustive discovery"
+        }
+      ]
+    },
+    {
+      "id": "TW-OPEN-0008",
+      "title": "HPA-DAYUN-CAL-002 史料日历适配候选未入产品",
+      "priority": "P1",
+      "scope": "BAZI_CALENDAR_ADAPTER",
+      "status": "OPEN",
+      "origin": "REMOTE-CURRENT-STATE-RECONSTRUCTION-2026-10-15",
+      "source_refs": [
+        "docs/PROJECT-CURRENT-STATE-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-FIRSTPARTY-AND-OLD20-ATLAS-QD.md"
+      ],
+      "evidence_boundary": "正式 12QD 文档将其记为 MISSING_FROM_PRODUCT，未授权选择唯一历史候选。",
+      "missing_evidence": "适用年代/地点/历法/表值和重放测试的独立证据。",
+      "next_action": "在史料候选范围内补充原表实例，保留校勘歧义。",
+      "closure_criteria": "明确 source-scoped 候选及机械重放与实现门禁通过后方可改变状态。",
+      "resolution_evidence": [],
+      "history": [
+        {
+          "event": "REGISTERED_UNRESOLVED",
+          "date": "2026-10-15",
+          "basis": "current remote state and linked evidence; not a claim of exhaustive discovery"
+        }
+      ]
+    },
+    {
+      "id": "TW-OPEN-0009",
+      "title": "旧二十卷 NLC 第十册145页《改造漏刻》篇页范围",
+      "priority": "P1",
+      "scope": "TEXTUAL_COLLATION_OLD20",
+      "status": "OPEN",
+      "origin": "REMOTE-CURRENT-STATE-RECONSTRUCTION-2026-10-15",
+      "source_refs": [
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-FIRSTPARTY-AND-OLD20-ATLAS-QD.md",
+        "docs/PROJECT-CURRENT-STATE-R1.json"
+      ],
+      "evidence_boundary": "12QD 保存145页图谱但明确当批只选看四组联络表，非145页逐字检校；后续关联页仍需回指确切工作闭环。",
+      "missing_evidence": "是否在原第十册、确切古卷与页次、可对照原页；需要核对后续批次以防重复。",
+      "next_action": "从后续证明文件和历史页图索引核对篇名确切叶号；已有完成必须回填证据而非凭摘要关闭。",
+      "closure_criteria": "明确列出目录/目标篇的位置与全程页号出处，或经过可核查排除范围；不得以 OCR 阴性证明不存在。",
+      "resolution_evidence": [],
+      "history": [
+        {
+          "event": "REGISTERED_UNRESOLVED",
+          "date": "2026-10-15",
+          "basis": "current remote state and linked evidence; not a claim of exhaustive discovery"
+        }
+      ]
+    }
+  ],
+  "checkpoint_log": [
+    {
+      "id": "OMISSIONS-INIT-20261015",
+      "date": "2026-10-15",
+      "state_version": "1.595.0",
+      "reviewed_issue_ids": [
+        "TW-OPEN-0001",
+        "TW-OPEN-0002",
+        "TW-OPEN-0003",
+        "TW-OPEN-0004",
+        "TW-OPEN-0005",
+        "TW-OPEN-0006",
+        "TW-OPEN-0007",
+        "TW-OPEN-0008",
+        "TW-OPEN-0009"
+      ],
+      "discovery_mode": "reconstructed from current remote handoff, specific research records and formal latest 12QD document",
+      "result": "open leads retained; no closure inferred from 222/222 matrix"
+    }
+  ],
+  "resolution_policy": {
+    "allowed_statuses": [
+      "OPEN",
+      "BLOCKED_SOURCE_ACCESS",
+      "RESOLVED_WITH_EVIDENCE"
+    ],
+    "closing_requires": "resolution_evidence_nonempty_and_append_only_transition_record",
+    "do_not_purge_resolved": true,
+    "source_gap_is_not_negative_evidence": true,
+    "algorithm_reopen_never_automatic": true
+  }
+}

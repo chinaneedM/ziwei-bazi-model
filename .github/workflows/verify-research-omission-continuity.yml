@@ -1,0 +1,32 @@
+name: verify-research-omission-continuity
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json
+      - docs/PROJECT-CURRENT-STATE-R1.json
+      - docs/PROJECT-CONTINUITY-PROTOCOL-R1.md
+      - scripts/verify-research-omission-risk-ledger-r1.py
+      - tests/test_research_omission_risk_ledger_r1.py
+      - .github/workflows/verify-research-omission-continuity.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify historic continuity and open research issue preservation
+        run: |
+          set -euo pipefail
+          python scripts/verify-project-continuity-state-r1.py
+          python scripts/verify-historical-source-registry-extensions-r1.py
+          python scripts/verify-research-omission-risk-ledger-r1.py --check-parent
+          python -m unittest discover -s tests -p 'test_research_omission_risk_ledger_r1.py' -v
