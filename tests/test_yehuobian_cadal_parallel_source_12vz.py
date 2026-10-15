@@ -25,7 +25,12 @@ class FacsimileScope(unittest.TestCase):
  def test_wrong_image_sha(self):
   self.r["source_page_crosswalk"]["page_sha256"]["new_p119"]="a"*64;self.bad("page binary")
  def test_duplicate_shard_registration_rejected(self):
-  self.m["shards"][-1]["source_count"]=2;self.bad("registry shard")
+  target=next(x for x in self.m["shards"] if x["path"]==v.SHARD)
+  target["source_count"]=2;self.bad("registry shard")
+ def test_extra_following_shards_cannot_hide_target_tampering(self):
+  target=next(x for x in self.m["shards"] if x["path"]==v.SHARD)
+  self.assertNotEqual(self.m["shards"][-1]["path"],v.SHARD)
+  target["source_count"]=2;self.bad("registry shard")
  def test_future_growth_allowed(self):
   self.m["extension_source_count"]+=1;self.m["combined_source_count"]+=1;self.st["historical_audit"]["external_source_registry_total_unique_count"]+=1
   self.assertEqual(v.validate(self.r,self.s,self.m,self.st)["status"],"PASS")
