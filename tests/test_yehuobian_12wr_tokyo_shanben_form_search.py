@@ -25,6 +25,14 @@ class SourceForm(unittest.TestCase):
   z=m.summarize("野獲編 1827 1869".encode())
   self.assertFalse(z["tokyo_1827_folio_glyph_attested"])
   self.assertFalse(z["tokyo_1869_folio_glyph_attested"])
+ def test_echo_is_not_a_result(self):
+  x=m.summarize('document.qform.str.value="野獲編"; 共 <b>0</b> 筆，目前 <b>1</b>/1頁 無任何資料'.encode())
+  self.assertTrue(x["visible_text_contains_exact_target_title"])
+  self.assertEqual(x["actual_index_result_count_from_visible_count"],0)
+  self.assertTrue(x["actual_result_table_explicit_no_rows"])
+ def test_no_total_not_assumed(self):
+  x=m.summarize("野獲編".encode())
+  self.assertIsNone(x["actual_index_result_count_from_visible_count"])
  def test_max_bytes(self):
   with self.assertRaisesRegex(ValueError,"oversized"):m.summarize(b"b"*(m.MAX_BYTES+1))
 if __name__=="__main__":unittest.main()

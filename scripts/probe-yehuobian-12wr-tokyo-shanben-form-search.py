@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """12WR: one exact public source-issued POST form from archived 12WQ HTML, no image."""
-import argparse,hashlib,html.parser,json,urllib.request,urllib.parse,urllib.error
+import argparse,hashlib,html.parser,json,re,urllib.request,urllib.parse,urllib.error
 from pathlib import Path
 
 ENDPOINT="https://shanben.ioc.u-tokyo.ac.jp/list.php?order=rn_no"
@@ -39,6 +39,9 @@ def summarize(raw):
   "visible_text_contains_exact_target_title":TARGET in text,
   "title_bearing_links":matches[:25],
   "title_bearing_links_count":len(matches),
+  # JavaScript echoes the query; textual occurrence is not a record.
+  "actual_index_result_count_from_visible_count":(int(re.findall(r"共\s*(\d+)\s*筆",text)[-1]) if re.findall(r"共\s*(\d+)\s*筆",text) else None),
+  "actual_result_table_explicit_no_rows":"無任何資料" in text,
   "list_form_search_exhausts_historical_catalog":False,
   "actual_titled_printed_leaf_inspected":False,
   "tokyo_1827_folio_glyph_attested":False,
