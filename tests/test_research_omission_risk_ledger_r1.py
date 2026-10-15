@@ -21,6 +21,9 @@ class ResearchOmissionLedgerTests(unittest.TestCase):
    m.validate(self.d,self.state,self.protocol,lambda x:(ROOT/x).is_file())
  def test_latest_family_cannot_be_stale(self):
   self.d["binding"]["latest_research_focus_prefix"]="12XG";self.invalid("latest research family review missing")
+ def test_guard_reviewed_version_cannot_lag(self):
+  self.state["historical_audit"]["research_omission_guard"]["reviewed_state_version"]="1.599.0"
+  self.invalid("state guard synchronization")
  def test_stale_state_version(self):
   self.d["binding"]["reviewed_state_version"]="1.594.0";self.invalid("state review missing")
  def test_open_count_laundered(self):
