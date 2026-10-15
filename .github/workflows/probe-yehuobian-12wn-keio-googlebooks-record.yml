@@ -23,6 +23,7 @@ jobs:
           set -euo pipefail
           python -m unittest discover -s tests -p 'test_yehuobian_keio_googlebooks_volume_12wn.py' -v
   capture:
+    if: github.event_name == 'workflow_dispatch'
     needs: verify
     runs-on: ubuntu-latest
     timeout-minutes: 4
