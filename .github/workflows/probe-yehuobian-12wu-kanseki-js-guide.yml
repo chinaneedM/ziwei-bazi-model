@@ -1,0 +1,41 @@
+name: probe-yehuobian-12wu-kanseki-js-guide
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-yehuobian-12wu-kanseki-js-guide.yml
+      - scripts/probe-yehuobian-12wu-tokyo-kanseki-source-declared-js-guide.py
+      - tests/test_yehuobian_12wu_kanseki_js_guide.py
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Source exactness and zero ancient image votes
+        run: python -m unittest discover -s tests -p 'test_yehuobian_12wu_kanseki_js_guide.py' -v
+  capture:
+    needs: verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Read first-party source-emitted script and usage guide only
+        run: python scripts/probe-yehuobian-12wu-tokyo-kanseki-source-declared-js-guide.py --output-dir 12wu-kanseki-source-links
+      - name: Archive sources and access boundary per URL
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tokyo-kanseki-two-source-links-12wu
+          path: 12wu-kanseki-source-links/
+          retention-days: 30
+          if-no-files-found: warn
