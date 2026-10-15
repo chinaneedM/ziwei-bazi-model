@@ -159,6 +159,19 @@ class ResearchOmissionLedgerTests(unittest.TestCase):
   x["g893_six_control_snapshot"]["six_original_target_controls"][1]["original_page_id"]="synthetic-unverified"
   x["history"].append({"event":"ISSUE_REVISION","reason":"pretend data","evidence_refs":["docs/PROJECT-CURRENT-STATE-R1.json"]})
   with self.assertRaisesRegex(ValueError,"historical G893 six-control source snapshot overwritten"):m.check_forward_only(self.d,new)
+ def test_g893_original_locator_numeric_unadjudicated(self):
+  record=next(x for x in self.d["issues"] if x["id"]=="TW-OPEN-0005")
+  record["g893_target_page_locators"][0]["numeric_value"]="invented number"
+  self.invalid("G893 source page location laundered into numeric decision")
+ def test_g893_locator_source_sha_cannot_falsify(self):
+  record=next(x for x in self.d["issues"] if x["id"]=="TW-OPEN-0005")
+  record["g893_target_page_locators"][0]["page_sha256"]="0"*64
+  self.invalid("G893 locator target source mismatch")
+ def test_g893_locator_is_append_only(self):
+  later=copy.deepcopy(self.d)
+  x=next(x for x in later["issues"] if x["id"]=="TW-OPEN-0005")
+  x["g893_target_page_locators"].clear()
+  with self.assertRaisesRegex(ValueError,"historic G893 target locators removed/rewritten"):m.check_forward_only(self.d,later)
  def test_forward_only_ordinary_noop(self):
   self.assertEqual(m.check_forward_only(self.d,copy.deepcopy(self.d))["status"],"PASS")
 if __name__=="__main__":unittest.main()

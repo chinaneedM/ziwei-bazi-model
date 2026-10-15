@@ -115,6 +115,25 @@ def validate(data,state,protocol,exists_fn=None):
   require(ev["exact_impression_year"]=="UNRESOLVED" and ev["provider_year_scope"]==src["source_identity"]["provider_date_scope"],"G893 inferred exact printed year")
   require(issue["status"]!="BLOCKED_SOURCE_ACCESS","G893 complete source mistakenly access-blocked")
   require(issue["status"]!="RESOLVED_WITH_EVIDENCE","G893 6 original number controls still uncollated")
+ for issue in data["issues"]:
+  locators=issue.get("g893_target_page_locators",[])
+  require(isinstance(locators,list),"G893 locators must be list")
+  ids=[x["control_id"] for x in locators]
+  require(len(ids)==len(set(ids)),"G893 locator control duplicated")
+  if not locators:continue
+  import hashlib,re
+  known={c["id"] for c in issue["g893_six_control_snapshot"]["six_original_target_controls"]}
+  require(set(ids).issubset(known),"G893 unknown target locator ID")
+  for row in locators:
+   p=Path(row["evidence_doc"])
+   require(p.parts[:2]==("docs","research") and ".." not in p.parts,"G893 page evidence outside research")
+   doc=json.loads((ROOT/p).read_text(encoding="utf-8"))
+   target=doc["target"]
+   require(target["control_id"]==row["control_id"] and target["verified_page_id"]==row["page_id"] and target["source_original_page_sha256"]==row["page_sha256"],"G893 locator target source mismatch")
+   require(len([x for x in doc["source_original_direct_review"] if x["page_id"]==row["page_id"] and x["source_page_sha256"]==row["page_sha256"]])==1,"G893 original page provenance missing")
+   require(bool(re.fullmatch(r"[0-9a-f]{64}",row["page_sha256"])),"G893 page SHA malformed")
+   require(row["status"]=="LOCATED_NUMERIC_UNADJUDICATED" and row["numeric_value"] is None and target["original_difference_reading"] is None and target["numeric_collation_status"]=="PENDING_VALUE_AND_FIELD_SEMANTICS","G893 source page location laundered into numeric decision")
+   require(doc["known_archive"]["reported_jpeg_digest_matches_from_independent_download"]==doc["known_archive"]["source_original_jpeg_count"]==204 and doc["known_archive"]["digest_mismatches"]==0,"G893 recovered original JPEG manifest validation status missing")
  require(data["definition"].startswith("NON_EXHAUSTIVE"),"not falsely exhaustive")
  require(len(data["explicit_limits"])>=3 and any("not be recovered" in x for x in data["explicit_limits"]),"unsaved research limitation")
  require(data["binding"]["reviewed_state_version"]==state["schema_version"],"state review missing")
@@ -197,6 +216,11 @@ def check_forward_only(old,new):
    require(y.get("source_page_coverage_interpretation")==x["source_page_coverage_interpretation"],"prior source-grade interpretation silently rewritten: "+k)
   if x.get("g893_six_control_snapshot"):
    require(y.get("g893_six_control_snapshot")==x["g893_six_control_snapshot"],"historical G893 six-control source snapshot overwritten: "+k)
+  older=x.get("g893_target_page_locators",[])
+  newer=y.get("g893_target_page_locators",[])
+  require(isinstance(older,list) and isinstance(newer,list) and newer[:len(older)]==older,"historic G893 target locators removed/rewritten: "+k)
+  if len(newer)>len(older):
+   require(len(y["history"])>len(x["history"]) and y["history"][-1].get("event")=="G893_SOURCE_PAGE_TARGET_LOCATOR_APPEND" and y["history"][-1].get("evidence_refs"),"G893 new locator added without cited history: "+k)
 
   material=("priority","evidence_boundary","missing_evidence","next_action","closure_criteria")
   changed={name for name in material if x[name]!=y[name]}
