@@ -24,7 +24,7 @@ class ProviderRoutes(unittest.TestCase):
  def test_nonmanifest_rejected(self):
   with self.assertRaisesRegex(ValueError,"not an IIIF"):p.parse_manifest(b'{"type":"Collection"}')
  def test_mets_synthetic_struct_div(self):
-  x=b'<mets:mets xmlns:mets="http://www.loc.gov/METS/"><mets:structMap><mets:div LABEL="卷二十"/></mets:structMap></mets:mets>'
+  x='<mets:mets xmlns:mets="http://www.loc.gov/METS/"><mets:structMap><mets:div LABEL="卷二十"/></mets:structMap></mets:mets>'.encode("utf-8")
   z=p.parse_mets(x)
   self.assertEqual(len(z["label_matched_divs"]),1)
   self.assertFalse(z["target_article_original_folio_confirmed"])
