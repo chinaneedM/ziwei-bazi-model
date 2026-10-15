@@ -126,6 +126,36 @@ class ResearchOmissionLedgerTests(unittest.TestCase):
   latest=copy.deepcopy(self.d);i=next(x for x in latest["issues"] if x["id"]=="TW-OPEN-0009")
   i["source_page_coverage_interpretation"]["positive_target_evidence_from_12xk"]=True
   with self.assertRaisesRegex(ValueError,"prior source-grade interpretation silently rewritten"):m.check_forward_only(self.d,latest)
+ def test_g893_six_controls_are_not_solar_initial_pages(self):
+  x=next(x for x in self.d["issues"] if x["id"]=="TW-OPEN-0005")
+  x["g893_six_control_snapshot"]["six_original_target_controls"][0]["status"]="SOURCE_DECIDED"
+  self.invalid("G893 six targets falsely adjudicated")
+ def test_g893_six_target_missing(self):
+  x=next(x for x in self.d["issues"] if x["id"]=="TW-OPEN-0005")
+  x["g893_six_control_snapshot"]["six_original_target_controls"].pop()
+  self.invalid("G893 one of six control IDs")
+ def test_g893_archived_book_page_count_not_six_number_decisions(self):
+  x=next(x for x in self.d["issues"] if x["id"]=="TW-OPEN-0005")
+  x["g893_six_control_snapshot"]["independent_original_target_numeric_decisions"]=6
+  self.invalid("G893 whole book access vs six target separation lost")
+ def test_g893_legacy_access_blocker_must_be_open(self):
+  x=next(x for x in self.d["issues"] if x["id"]=="TW-OPEN-0005")
+  x["status"]="BLOCKED_SOURCE_ACCESS"
+  self.invalid("G893 complete source mistakenly access-blocked")
+ def test_g893_legacy_six_witnesses_cannot_be_implicitly_closed(self):
+  x=next(x for x in self.d["issues"] if x["id"]=="TW-OPEN-0005")
+  x["status"]="RESOLVED_WITH_EVIDENCE"
+  self.invalid("G893 6 original number controls still uncollated")
+ def test_g893_source_archive_hash_integrity(self):
+  x=next(x for x in self.d["issues"] if x["id"]=="TW-OPEN-0005")
+  x["g893_six_control_snapshot"]["source_doc_git_blob_sha"]="0"*40
+  self.invalid("G893 existing source blob drift")
+ def test_g893_append_only_history_preserves_source_snapshot(self):
+  new=copy.deepcopy(self.d)
+  x=next(x for x in new["issues"] if x["id"]=="TW-OPEN-0005")
+  x["g893_six_control_snapshot"]["six_original_target_controls"][1]["original_page_id"]="synthetic-unverified"
+  x["history"].append({"event":"ISSUE_REVISION","reason":"pretend data","evidence_refs":["docs/PROJECT-CURRENT-STATE-R1.json"]})
+  with self.assertRaisesRegex(ValueError,"historical G893 six-control source snapshot overwritten"):m.check_forward_only(self.d,new)
  def test_forward_only_ordinary_noop(self):
   self.assertEqual(m.check_forward_only(self.d,copy.deepcopy(self.d))["status"],"PASS")
 if __name__=="__main__":unittest.main()

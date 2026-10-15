@@ -85,6 +85,36 @@ def validate(data,state,protocol,exists_fn=None):
    require(bool(issue.get("resolution_evidence")),"resolution evidence must be explicit")
 
 
+ for issue in data["issues"]:
+  if "g893_six_control_snapshot" not in issue:
+   continue
+  ev=issue["g893_six_control_snapshot"]
+  import hashlib
+  p=Path(ev["source_doc"]);oldp=Path(ev["baseline_control_source_doc"])
+  require(p.parts[:2]==("docs","research") and ".." not in p.parts and oldp.parts[:2]==("docs","research") and ".." not in oldp.parts,"G893 evidence paths escaped repository")
+  raw=(ROOT/p).read_bytes();old_raw=(ROOT/oldp).read_bytes()
+  h=lambda b:hashlib.sha1(b"blob "+str(len(b)).encode("ascii")+b"\0"+b).hexdigest()
+  require(h(raw)==ev["source_doc_git_blob_sha"] and h(old_raw)==ev["baseline_control_source_git_blob_sha"],"G893 existing source blob drift")
+  src=json.loads(raw);base=json.loads(old_raw)
+  require(ev["catalog_source_id"]==src["source_identity"]["source_id"]==base["source_id"],"G893 source identifier diverged")
+  require(ev["catalog_identifier"]==src["source_identity"]["identifier"],"G893 copied catalog identity changed")
+  require(ev["provider_book_cd"]=="GK00893_00" and base["g893_object"]["book_cd"]==ev["provider_book_cd"],"G893 object code not source-bound")
+  acq=src["acquisition"]
+  require(acq["complete_sequence"] is True and ev["acquired_physical_pages"]==acq["physical_pages_acquired"]==acq["physical_pages_expected"]==ev["expected_physical_pages"]==204,"G893 whole source capture misrepresented")
+  archive=ev["acquisition_archive"]
+  require(archive["workflow_run_id"]==acq["workflow_run_id"] and archive["artifact_id"]==acq["artifact_id"] and archive["name"]==acq["artifact_name"],"G893 archived image artifact mismatch")
+  require(src["adjudication"]["legacy_six_g893_controls"]=="NOT_ADJUDICATED_IN_THIS_BATCH" and base["target_status"]=="ALL_SIX_PENDING_DIRECT_TARGET_PAGE","G893 six controls mistakenly closed from other source")
+  ids=base["target_controls"]
+  controls=ev["six_original_target_controls"]
+  require(len(controls)==len(ids)==6 and [c["id"] for c in controls]==ids,"G893 one of six control IDs was lost or reordered")
+  require(all(c["status"]=="PENDING_DIRECT_TARGET_PAGE_COLLATION" and c["original_page_id"] is None and c["original_page_sha256"] is None and c["direct_glyph_and_numeric_replay"] is None for c in controls),"G893 six targets falsely adjudicated from 12CW")
+  require(ev["independent_original_target_numeric_decisions"]==0 and ev["whole_book_capture_completed"] is True and ev["historical_source_snapshot_not_six_target_collation"] is True and ev["old_acquisition_blocker_resolved"] is True,"G893 whole book access vs six target separation lost")
+  observed=src["direct_physical_collation"]
+  anchors=ev["independently_reviewed_non_six_loci"]
+  require(len(anchors)==2 and [(x["page_id"],x["original_jpeg_sha256"]) for x in anchors]==[("052a",observed["winter_opening_052a"]["sha256"]),("077a",observed["summer_transition_077a"]["sha256"])],"G893 non-six source page identities falsely transferred")
+  require(ev["exact_impression_year"]=="UNRESOLVED" and ev["provider_year_scope"]==src["source_identity"]["provider_date_scope"],"G893 inferred exact printed year")
+  require(issue["status"]!="BLOCKED_SOURCE_ACCESS","G893 complete source mistakenly access-blocked")
+  require(issue["status"]!="RESOLVED_WITH_EVIDENCE","G893 6 original number controls still uncollated")
  require(data["definition"].startswith("NON_EXHAUSTIVE"),"not falsely exhaustive")
  require(len(data["explicit_limits"])>=3 and any("not be recovered" in x for x in data["explicit_limits"]),"unsaved research limitation")
  require(data["binding"]["reviewed_state_version"]==state["schema_version"],"state review missing")
@@ -165,6 +195,9 @@ def check_forward_only(old,new):
    require(last.get("event")=="SOURCE_PAGE_REVIEW_REVISION" and last.get("evidence_refs") and last.get("reason"),"new source-page revision needs evidence-scoped history: "+k)
   if x.get("source_page_coverage_interpretation"):
    require(y.get("source_page_coverage_interpretation")==x["source_page_coverage_interpretation"],"prior source-grade interpretation silently rewritten: "+k)
+  if x.get("g893_six_control_snapshot"):
+   require(y.get("g893_six_control_snapshot")==x["g893_six_control_snapshot"],"historical G893 six-control source snapshot overwritten: "+k)
+
   material=("priority","evidence_boundary","missing_evidence","next_action","closure_criteria")
   changed={name for name in material if x[name]!=y[name]}
   if changed:

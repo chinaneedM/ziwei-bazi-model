@@ -12,9 +12,9 @@
   "binding": {
     "repository": "chinaneedM/ziwei-bazi-model",
     "branch": "agent/fusion-chart-core-r1-20260822",
-    "reviewed_state_version": "1.599.0",
-    "source_focus_count": 2323,
-    "latest_research_focus_prefix": "12XL"
+    "reviewed_state_version": "1.600.0",
+    "source_focus_count": 2324,
+    "latest_research_focus_prefix": "12XM"
   },
   "coverage_axes": [
     "primary_editions_and_physical_copies",
@@ -157,24 +157,125 @@
       "title": "G893《授时历立成》六组直接目标数值",
       "priority": "P0",
       "scope": "BAZI_MING_DATONG_CALENDAR",
-      "status": "BLOCKED_SOURCE_ACCESS",
+      "status": "OPEN",
       "origin": "REMOTE-CURRENT-STATE-RECONSTRUCTION-2026-10-15",
       "source_refs": [
         "docs/PROJECT-CURRENT-STATE-R1.json",
-        "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json"
+        "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json",
+        "docs/research/KYUJANGGAK-G893-OFFICIAL-REPRODUCTION-ROUTE-R1.json",
+        "docs/research/ZIWEI-KYUDB-G893-SHOUSHI-TYPE-II-BEIJING-PHYSICAL-COLLATION-R1.json"
       ],
-      "evidence_boundary": "官方目录身份和复制服务路径已查证；六组数表均标记 PENDING_DIRECT_TARGET_PAGE。",
-      "missing_evidence": "G893 目标叶/行/字形六组直接证据，不能拿后代数表或平行记录预填。",
-      "next_action": "继续公共原页检索或在获得适当授权时使用馆方复制服务。",
-      "closure_criteria": "每组目标数值必须具备原页出处、版次、图像、行列定位和可复算数值。",
+      "evidence_boundary": "12CW 已取得奎章阁 G893/奎貴893/ GK00893_00《授時曆立成》同一物理来源全部 204/204 张公开图像并经源页哈希验证；冬至起页 052a 和夏至起页 077a 的日出入晨昏半昼分数值已直接核读。但早期 11X 所列六组太阳/太阴目标（冬至后日16、太阴日8/101/114/124/132）在 12CW 文档中明确 NOT_ADJUDICATED_IN_THIS_BATCH，不能从全书下载率或其他两张日出页的数字推断六组已校勘。印本确切年份保持 1418—1450 年馆方范围，不能选定 1434 或 1444。",
+      "missing_evidence": "六组目标各自的 G893 原页 ID、图像哈希、表题、行列及逐字数值重放；目前 204/204 仅为来源图像获取完成，6/6 仍需局部直接核读与与其它版本的差异比较。部分既有太阳/太阴数值存在于其他文献，但不得冒充 G893 原字。",
+      "next_action": "直接复用已封存的 Kyujanggak 完整 204 页原始图像 archive（run35324088110/artifact10538746764），定位 11X 六个指定数表/日行/原叶；逐项记录 provider 原始页 ID、原图 SHA-256、表题、行列、数字、单位及算术检查。确切年份不足时继续保留不定年。仅若原存档丢失/图像不可读，才评估另行复制服务；勿重复把 204 页公有来源当作未取得。",
+      "closure_criteria": "六个指定目标每一项均提供独立可核查的 G893 原图页、表题/行列字形、哈希、单位及复算裁决；遇残损/缺叶逐项记载限定不可证而非捏造目标值。完整扫描已有不等于六项研究全部完成。",
       "resolution_evidence": [],
       "history": [
         {
           "event": "REGISTERED_UNRESOLVED",
           "date": "2026-10-15",
           "basis": "current remote state and linked evidence; not a claim of exhaustive discovery"
+        },
+        {
+          "event": "SOURCE_ACCESS_BLOCKER_RESOLVED_TARGET_COLLATION_REMAINS_OPEN",
+          "date": "2026-10-16",
+          "from": "BLOCKED_SOURCE_ACCESS",
+          "to": "OPEN",
+          "changed_fields": [
+            "evidence_boundary",
+            "missing_evidence",
+            "next_action",
+            "closure_criteria"
+          ],
+          "reason": "The original reconstructed 11X-based P0 ledger falsely retained no image access. Repo evidence from formal 12CW binds the same GK00893_00 to 204/204 acquired original image pages, but explicitly does not adjudicate six historical control numbers; forward correction prevents loss of completed capture and false numeric closure.",
+          "evidence_refs": [
+            "docs/research/KYUJANGGAK-G893-OFFICIAL-REPRODUCTION-ROUTE-R1.json",
+            "docs/research/ZIWEI-KYUDB-G893-SHOUSHI-TYPE-II-BEIJING-PHYSICAL-COLLATION-R1.json"
+          ],
+          "added_source_refs": [
+            "docs/research/KYUJANGGAK-G893-OFFICIAL-REPRODUCTION-ROUTE-R1.json",
+            "docs/research/ZIWEI-KYUDB-G893-SHOUSHI-TYPE-II-BEIJING-PHYSICAL-COLLATION-R1.json"
+          ]
         }
-      ]
+      ],
+      "g893_six_control_snapshot": {
+        "catalog_source_id": "EXT-KYUJANGGAK-SHOUSHI-LICHENG-G893",
+        "catalog_identifier": "GK00893_00 / 奎貴893",
+        "source_doc": "docs/research/ZIWEI-KYUDB-G893-SHOUSHI-TYPE-II-BEIJING-PHYSICAL-COLLATION-R1.json",
+        "source_doc_git_blob_sha": "09e66527cf45ee2c86a73cdbaee40ffae995118b",
+        "baseline_control_source_doc": "docs/research/KYUJANGGAK-G893-OFFICIAL-REPRODUCTION-ROUTE-R1.json",
+        "baseline_control_source_git_blob_sha": "81e22d0ed10da48883213eb654790f1752cfc0a0",
+        "provider_book_cd": "GK00893_00",
+        "acquired_physical_pages": 204,
+        "expected_physical_pages": 204,
+        "acquisition_archive": {
+          "workflow_run_id": 35324088110,
+          "artifact_id": 10538746764,
+          "name": "kyudb-g893-shoushi-licheng-complete-physical-r2"
+        },
+        "provider_year_scope": "15世紀前半(世宗年間:1418-1450)",
+        "exact_impression_year": "UNRESOLVED",
+        "independently_reviewed_non_six_loci": [
+          {
+            "page_id": "052a",
+            "original_jpeg_sha256": "12a9fcd04d87d00a401776fec63bb4fcc55db776b28eb37e8599dc672a1ac2c7",
+            "scope": "SOLAR_WINTER_INITIAL_NOT_D16"
+          },
+          {
+            "page_id": "077a",
+            "original_jpeg_sha256": "629334d68177b84e551f9bdb0700d238800233832bbba417ba7cf29b247b7bbe",
+            "scope": "SOLAR_SUMMER_INITIAL_NOT_ANY_LEGACY_SIX"
+          }
+        ],
+        "six_original_target_controls": [
+          {
+            "id": "VAR-NUM-SOLAR-WINTER-D16-DIFFERENCE",
+            "original_page_id": null,
+            "original_page_sha256": null,
+            "direct_glyph_and_numeric_replay": null,
+            "status": "PENDING_DIRECT_TARGET_PAGE_COLLATION"
+          },
+          {
+            "id": "VAR-NUM-LUNAR-L8-LOSSGAIN",
+            "original_page_id": null,
+            "original_page_sha256": null,
+            "direct_glyph_and_numeric_replay": null,
+            "status": "PENDING_DIRECT_TARGET_PAGE_COLLATION"
+          },
+          {
+            "id": "NORM-LUNAR-L101-CHIJI-DEGREE-POSITIONAL-GROUPING",
+            "original_page_id": null,
+            "original_page_sha256": null,
+            "direct_glyph_and_numeric_replay": null,
+            "status": "PENDING_DIRECT_TARGET_PAGE_COLLATION"
+          },
+          {
+            "id": "VAR-NUM-LUNAR-L114-DAYRATE",
+            "original_page_id": null,
+            "original_page_sha256": null,
+            "direct_glyph_and_numeric_replay": null,
+            "status": "PENDING_DIRECT_TARGET_PAGE_COLLATION"
+          },
+          {
+            "id": "VAR-NUM-LUNAR-L124-JI-XINGDU",
+            "original_page_id": null,
+            "original_page_sha256": null,
+            "direct_glyph_and_numeric_replay": null,
+            "status": "PENDING_DIRECT_TARGET_PAGE_COLLATION"
+          },
+          {
+            "id": "VAR-NUM-LUNAR-L132-LOSSGAIN",
+            "original_page_id": null,
+            "original_page_sha256": null,
+            "direct_glyph_and_numeric_replay": null,
+            "status": "PENDING_DIRECT_TARGET_PAGE_COLLATION"
+          }
+        ],
+        "independent_original_target_numeric_decisions": 0,
+        "whole_book_capture_completed": true,
+        "historical_source_snapshot_not_six_target_collation": true,
+        "old_acquisition_blocker_resolved": true
+      }
     },
     {
       "id": "TW-OPEN-0006",
@@ -558,6 +659,26 @@
       ],
       "discovery_mode": "exact live 12XK CI and source-page grade code audit; freeze old snapshot without banning future original page collation",
       "result": "11 open leaves remain unchanged; original snapshot immutable, future authorized direct positive or complete high-res negative only through evidence-hashed append-only revision. No invented new ancient witness."
+    },
+    {
+      "id": "OMISSIONS-12XM-G893-SIX-CONTROL-20261016",
+      "date": "2026-10-16",
+      "state_version": "1.600.0",
+      "reviewed_issue_ids": [
+        "TW-OPEN-0001",
+        "TW-OPEN-0002",
+        "TW-OPEN-0003",
+        "TW-OPEN-0004",
+        "TW-OPEN-0005",
+        "TW-OPEN-0006",
+        "TW-OPEN-0007",
+        "TW-OPEN-0008",
+        "TW-OPEN-0009",
+        "TW-OPEN-0010",
+        "TW-OPEN-0011"
+      ],
+      "discovery_mode": "reconcile G893 11X six target controls against later formal 12CW 204/204 accessible physical image archive, without promoting two unrelated original numeric anchors to six target values",
+      "result": "11 issues remain open; G893 source-access blocker resolved with archived full 204 physical pages, 6/6 named lunar/solar target rows still pending direct source-page glyph/numeric collation and no fake calendar algorithm change."
     }
   ],
   "resolution_policy": {
