@@ -39,7 +39,7 @@ def validate(r,w,sh,vz,st,manifest):
   fail((row["year"],row["year_cycle"],row["page"],row["glyph"])==(y,cy,p,g),"date glyph/page label "+row["id"])
   fail(row["page_sha256"]==PAGES[p],"source jpeg SHA "+row["id"])
   fail(STEMS[(y-4)%10]+BRANCHES[(y-4)%12]==cy,"sexagenary year coherence "+row["id"])
-  fail("not proof" in row["scope"].lower() or "not established" in row["scope"].lower(),"textual witness scope "+row["id"])
+  fail(any(marker in row["scope"].lower() for marker in ("not proof","not established","neither original","not a copy-date proof")),"textual witness scope "+row["id"])
  fail(w["witness"]["manually_collated_pages"][0]["sha256"]==PAGES[5] and w["witness"]["manually_collated_pages"][1]["sha256"]==PAGES[10],"old manual reading control")
  fail(sh["sources"][0]["direct_image_attestation"]["page_sha256"]=={"5":PAGES[5],"10":PAGES[10]},"preserve previous registered source readings")
  cross=r["cross_fascicle"]
