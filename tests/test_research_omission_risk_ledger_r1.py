@@ -78,6 +78,26 @@ class ResearchOmissionLedgerTests(unittest.TestCase):
   updated=copy.deepcopy(self.d);x=updated["issues"][0];old=x["title"];x["title"]="corrected authenticated title"
   x["history"].append({"event":"TITLE_CORRECTION","date":"2026-10-15","previous_title":old,"new_title":x["title"],"changed_fields":["title"],"reason":"corrected evidence","evidence_refs":["docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json"]})
   self.assertEqual(m.check_forward_only(self.d,updated)["status"],"PASS")
+ def test_nlc_bounded_review_must_not_claim_fulltext(self):
+  record=next(x for x in self.d["issues"] if x["id"]=="TW-OPEN-0009")
+  record["source_page_coverage"]["fulltext_linewise_collated_body_pages"]=1027
+  self.invalid("fulltext completed replay mismatch")
+ def test_nlc_bounded_review_does_not_prove_absence(self):
+  record=next(x for x in self.d["issues"] if x["id"]=="TW-OPEN-0009")
+  record["source_page_coverage"]["all_body_passage_absence_proven"]=True
+  self.invalid("unproven whole-work absence")
+ def test_nlc_bounded_review_has_one_physical_copy(self):
+  record=next(x for x in self.d["issues"] if x["id"]=="TW-OPEN-0009")
+  record["source_page_coverage"]["copy_identity_unified_not_multiple_independent_physical_witnesses"]=False
+  self.invalid("source copy multiplication")
+ def test_nlc_seam_does_not_prove_new_print_identity(self):
+  record=next(x for x in self.d["issues"] if x["id"]=="TW-OPEN-0009")
+  record["source_page_coverage"]["distinct_1827_thematic_juan20_binding_proven"]=True
+  self.invalid("false old/new juan equivalence")
+ def test_nlc_page_evidence_cannot_disappear(self):
+  latest=copy.deepcopy(self.d)
+  next(x for x in latest["issues"] if x["id"]=="TW-OPEN-0009").pop("source_page_coverage")
+  with self.assertRaisesRegex(ValueError,"prior source-page coverage missing"):m.check_forward_only(self.d,latest)
  def test_forward_only_ordinary_noop(self):
   self.assertEqual(m.check_forward_only(self.d,copy.deepcopy(self.d))["status"],"PASS")
 if __name__=="__main__":unittest.main()

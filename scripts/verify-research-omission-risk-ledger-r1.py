@@ -26,6 +26,38 @@ def record_statuses(data):
  return {x["id"]:x for x in data["issues"]}
 def validate(data,state,protocol,exists_fn=None):
  require(data["schema"]=="TIANWEN-RESEARCH-OMISSION-RISK-LEDGER-R1","schema")
+ for issue in data["issues"]:
+  if "source_page_coverage" not in issue:
+   continue
+  ev=issue["source_page_coverage"]
+  p=Path(ev["source_doc"])
+  require(p.as_posix().startswith("docs/research/") and ".." not in p.parts,"evidence replay path must be stable")
+  original=(ROOT/p).read_bytes()
+  import hashlib
+  blob_hash=hashlib.sha1(b"blob "+str(len(original)).encode("ascii")+b"\0"+original).hexdigest()
+  require(blob_hash==ev["source_blob_sha"],"research image-grade source blob mismatch")
+  src=json.loads(original)
+  g=src["grade_union"];r=src["review"]
+  require(ev["total_source_pdf_pages"]==g["whole_holding_source_pdf_pages"],"page-count replay mismatch")
+  require(ev["body_source_pages"]==g["whole_body_pages"],"body page replay mismatch")
+  require(ev["bounded_native_body_jpeg_pages"]==g["global_native_body_source_pages_after"],"native grade replay mismatch")
+  require(ev["linewise_fulltext_pending_body_pages"]==g["whole_body_fulltext_collation_pending"],"full-text pending replay mismatch")
+  require(ev["fulltext_linewise_collated_body_pages"]==g["whole_body_pages"]-g["whole_body_fulltext_collation_pending"],"fulltext completed replay mismatch")
+  require(ev["non_target_preliminary_pages"]==g["non_target_first_fascicle_preliminary_pages"],"preliminary non-body page replay mismatch")
+  require(ev["nonbody_colophon_pages"]==g["f10_colophon_native_nonbody_pages"],"colophon non-body page replay mismatch")
+  require(ev["any_page_target_absence_proven"]==r["any_page_target_absence_proven"]==False,"unproven page-level text absence")
+  require(ev["all_body_passage_absence_proven"]==r["whole_old20_work_target_absence_proven"]==False,"unproven whole-work absence")
+  require(ev["original_old20_target_folio_attested"]==r["any_original_old20_gaizao_louke_target_folio_positive_attestation"]==False,"unproven original target folio")
+  require(ev["source_pdf_rehashed_in_this_batch"]==src["source"]["source_pdf_rehashed_this_batch"]==False,"false source PDF binary rehash")
+  require(ev["copy_identity_unified_not_multiple_independent_physical_witnesses"]==True and ev["physical_holding"]==src["source"]["physical_holding"],"source copy multiplication")
+  require(ev["distinct_1827_thematic_juan20_binding_proven"]==False and r["old20_juan_equivalent_to_1827_reorganized_thematic_juan"]==False,"false old/new juan equivalence")
+  seam=Path(ev["direct_juan_seam_doc"])
+  seam_bytes=(ROOT/seam).read_bytes()
+  require(hashlib.sha1(b"blob "+str(len(seam_bytes)).encode("ascii")+b"\0"+seam_bytes).hexdigest()==ev["direct_juan_seam_blob_sha"],"chronological seam source drift")
+  sm=json.loads(seam_bytes)
+  require({(x["from_juan"],x["to_juan"],x["shared_pdf_page"]) for x in sm["seams"]}>={(18,19,81),(19,20,137)},"old20 mixed-leaf seam evidence missing")
+  require(issue["status"]!="RESOLVED_WITH_EVIDENCE","limited archival page preview must not close open target")
+
  require(data["definition"].startswith("NON_EXHAUSTIVE"),"not falsely exhaustive")
  require(len(data["explicit_limits"])>=3 and any("not be recovered" in x for x in data["explicit_limits"]),"unsaved research limitation")
  require(data["binding"]["reviewed_state_version"]==state["schema_version"],"state review missing")
@@ -93,6 +125,9 @@ def check_forward_only(old,new):
    require(last.get("event")=="TITLE_CORRECTION" and last.get("previous_title")==x["title"] and last.get("new_title")==y["title"] and "title" in last.get("changed_fields",[]) and last.get("reason") and last.get("evidence_refs"),"title correction lacks original/evidence record: "+k)
   require(set(x["source_refs"]).issubset(set(y["source_refs"])),"prior source reference removed: "+k)
   require(set(x.get("matrix_rule_ids",[])).issubset(set(y.get("matrix_rule_ids",[]))),"prior matrix coverage removed: "+k)
+  if x.get("source_page_coverage"):
+   require(y.get("source_page_coverage"),"prior source-page coverage missing: "+k)
+   require(x["source_page_coverage"]==y["source_page_coverage"] or (len(y["history"])>len(x["history"]) and y["history"][-1].get("reason") and y["history"][-1].get("evidence_refs")),"source-page evidence changed without revision: "+k)
   material=("priority","evidence_boundary","missing_evidence","next_action","closure_criteria")
   changed={name for name in material if x[name]!=y[name]}
   if changed:
