@@ -19,6 +19,8 @@ class ResearchOmissionLedgerTests(unittest.TestCase):
   self.d["issues"][0]["source_refs"]=["docs/DOES-NOT-EXIST.md"]
   with self.assertRaisesRegex(ValueError,"missing primary reference"):
    m.validate(self.d,self.state,self.protocol,lambda x:(ROOT/x).is_file())
+ def test_latest_family_cannot_be_stale(self):
+  self.d["binding"]["latest_research_focus_prefix"]="12XG";self.invalid("latest research family review missing")
  def test_stale_state_version(self):
   self.d["binding"]["reviewed_state_version"]="1.594.0";self.invalid("state review missing")
  def test_open_count_laundered(self):
