@@ -7,6 +7,9 @@ on:
       - docs/PROJECT-CURRENT-STATE-R1.json
       - docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json
       - docs/research/MING-DATONG-YEHUOBIAN-12WC-*
+      - docs/research/MING-DATONG-YEHUOBIAN-12WD-*
+      - scripts/verify-yehuobian-cadal-original-digital-alias-12wd.py
+      - tests/test_yehuobian_cadal_original_digital_alias_12wd.py
       - scripts/verify-yehuobian-wenzhou-cadal-series-12wc.py
       - scripts/probe-yehuobian-cadal-duplicate-alias-12wc.py
       - tests/test_yehuobian_cadal_catalog_12wc.py
@@ -29,7 +32,10 @@ jobs:
           python scripts/verify-historical-source-registry-extensions-r1.py
           python scripts/verify-yehuobian-wenzhou-cadal-series-12wc.py
           python -m unittest discover -s tests -p 'test_yehuobian_cadal_catalog_12wc.py' -v
+          python scripts/verify-yehuobian-cadal-original-digital-alias-12wd.py
+          python -m unittest discover -s tests -p 'test_yehuobian_cadal_original_digital_alias_12wd.py' -v
   capture:
+    if: github.event_name == 'workflow_dispatch'
     needs: verify
     runs-on: ubuntu-latest
     timeout-minutes: 12
