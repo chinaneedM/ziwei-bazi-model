@@ -60,6 +60,8 @@ same title != proven same edition/copy
 parallel coexistence != proven lineage
 ```
 
+For a mistaken attribution introduced in a recent research ledger, publish a forward-only erratum preserving the earlier claim. Changing an issue title is permitted only with a documented evidence-scoped `TITLE_CORRECTION` transition that retains the previous title. A Romanized source name must be checked against original-script catalog identity before being expanded to a person.
+
 Graph revisions are forward-only. New evidence may strengthen, weaken or disprove a lineage edge, but the earlier status and revision reason must remain auditable. A genealogy revision never automatically reopens a deterministic chart algorithm and never activates prediction/AI interpretation.
 
 Machine graph: `docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json`.

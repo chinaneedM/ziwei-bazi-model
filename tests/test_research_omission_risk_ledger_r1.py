@@ -71,6 +71,13 @@ class ResearchOmissionLedgerTests(unittest.TestCase):
   x=new["issues"][0];x["next_action"]="New independently sourced action"
   x["history"].append({"event":"ISSUE_REVISION","date":"2026-10-15","changed_fields":["next_action"],"reason":"new evidence","evidence_refs":["docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json"]})
   self.assertEqual(m.check_forward_only(self.d,new)["status"],"PASS")
+ def test_forward_only_catches_silent_title_change(self):
+  updated=copy.deepcopy(self.d);updated["issues"][0]["title"]="injected title"
+  with self.assertRaisesRegex(ValueError,"issue title silently changed"):m.check_forward_only(self.d,updated)
+ def test_forward_only_allows_evidence_backed_title_correction(self):
+  updated=copy.deepcopy(self.d);x=updated["issues"][0];old=x["title"];x["title"]="corrected authenticated title"
+  x["history"].append({"event":"TITLE_CORRECTION","date":"2026-10-15","previous_title":old,"new_title":x["title"],"changed_fields":["title"],"reason":"corrected evidence","evidence_refs":["docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json"]})
+  self.assertEqual(m.check_forward_only(self.d,updated)["status"],"PASS")
  def test_forward_only_ordinary_noop(self):
   self.assertEqual(m.check_forward_only(self.d,copy.deepcopy(self.d))["status"],"PASS")
 if __name__=="__main__":unittest.main()

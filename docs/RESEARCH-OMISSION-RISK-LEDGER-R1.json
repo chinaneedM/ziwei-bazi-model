@@ -12,9 +12,9 @@
   "binding": {
     "repository": "chinaneedM/ziwei-bazi-model",
     "branch": "agent/fusion-chart-core-r1-20260822",
-    "reviewed_state_version": "1.596.0",
-    "source_focus_count": 2320,
-    "latest_research_focus_prefix": "12XI"
+    "reviewed_state_version": "1.597.0",
+    "source_focus_count": 2321,
+    "latest_research_focus_prefix": "12XJ"
   },
   "coverage_axes": [
     "primary_editions_and_physical_copies",
@@ -263,7 +263,7 @@
     },
     {
       "id": "TW-OPEN-0010",
-      "title": "HPA-DAYUN-CAL-003 钱理群系历龄余日交运候选未入产品",
+      "title": "HPA-DAYUN-CAL-003 韦千里系历龄余日交运候选未入产品",
       "priority": "P1",
       "scope": "BAZI_DAYUN_CALENDAR_HISTORICAL_CANDIDATES",
       "status": "OPEN",
@@ -273,11 +273,12 @@
       ],
       "source_refs": [
         "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json",
-        "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md"
+        "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md",
+        "docs/research/TIANWEN-12XJ-QIANLI-AUTHOR-IDENTITY-FORWARD-CORRECTION-R1.md"
       ],
-      "evidence_boundary": "矩阵将钱理群系后出历龄加余日交运法列为 MISSING_FROM_PRODUCT；1934/1936《命学讲义》普通算例直接来源支持有限机械步骤，但《命稿》网络转录的作品身份、无效日期、闰月出生锚点、重复月份选择尚不具备可靠绑定。",
-      "missing_evidence": "钱理群具体原叶及独立版本对交运无效日、闰月与重叠目标月的可重复边界规则。",
-      "next_action": "只在获得新增可核验钱理群原叶/独立版次时继续核对三个异常边界；禁止挪用《三命通会》、元氏、明大统、清时宪或现代软件的历法填空。",
+      "evidence_boundary": "矩阵将韦千里系后出历龄加余日交运法列为 MISSING_FROM_PRODUCT；1934/1936《命学讲义》普通算例直接来源支持有限机械步骤，但《命稿》网络转录的作品身份、无效日期、闰月出生锚点、重复月份选择尚不具备可靠绑定。",
+      "missing_evidence": "韦千里具体原叶及独立版本对交运无效日、闰月与重叠目标月的可重复边界规则。",
+      "next_action": "只在获得新增可核验韦千里原叶/独立版次时继续核对三个异常边界；禁止挪用《三命通会》、元氏、明大统、清时宪或现代软件的历法填空。",
       "closure_criteria": "对普通算例与三个异常边界分别给出真实印本、具体页行、历法适用域和可复算测试，再决定来源限定候选是否可实现。",
       "resolution_evidence": [],
       "history": [
@@ -285,6 +286,23 @@
           "event": "REGISTERED_UNRESOLVED",
           "date": "2026-10-15",
           "basis": "Exact remote Matrix row is MISSING_FROM_PRODUCT; preserved independently from classical HPA-DAYUN-CAL-002; no product repair authorized"
+        },
+        {
+          "event": "TITLE_CORRECTION",
+          "date": "2026-10-15",
+          "changed_fields": [
+            "title",
+            "evidence_boundary",
+            "missing_evidence",
+            "next_action"
+          ],
+          "reason": "12XI conflated Romanized QIANLI with 钱理群; authoritative root source registry directly identifies 1934/1936 NLC witnesses as 《韋千里命學講義》, author 韦千里. No mechanical scope change.",
+          "evidence_refs": [
+            "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json",
+            "docs/research/TIANWEN-12XJ-QIANLI-AUTHOR-IDENTITY-FORWARD-CORRECTION-R1.md"
+          ],
+          "previous_title": "HPA-DAYUN-CAL-003 钱理群系历龄余日交运候选未入产品",
+          "new_title": "HPA-DAYUN-CAL-003 韦千里系历龄余日交运候选未入产品"
         }
       ]
     },
@@ -300,11 +318,12 @@
       ],
       "source_refs": [
         "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json",
-        "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md"
+        "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md",
+        "docs/research/TIANWEN-12XJ-QIANLI-AUTHOR-IDENTITY-FORWARD-CORRECTION-R1.md"
       ],
       "evidence_boundary": "矩阵确认源限定的普通同历月坐标十年递推可由1934/1936《命学讲义》检验，仍标 MISSING_FROM_PRODUCT；历史递推的无效／重复农历目标日期规则缺少来源闭合证据，不能与 003 机械上自动合并。",
-      "missing_evidence": "钱理群系第十年递推遇不存在或重复农历日期、闰月重现、历史历法跨度时的原文判据和一致重放。",
-      "next_action": "优先取得独立原叶中十年递推目标日期的反例或明示条文；不得把其他历法系统或现行软件约定充作钱理群例。",
+      "missing_evidence": "韦千里系第十年递推遇不存在或重复农历日期、闰月重现、历史历法跨度时的原文判据和一致重放。",
+      "next_action": "优先取得独立原叶中十年递推目标日期的反例或明示条文；不得把其他历法系统或现行软件约定充作韦千里例。",
       "closure_criteria": "需来源限定的普通和边界例证、重复/无效日期候选处理和确定性测试后方可讨论历史运行时支持。",
       "resolution_evidence": [],
       "history": [
@@ -312,6 +331,19 @@
           "event": "REGISTERED_UNRESOLVED",
           "date": "2026-10-15",
           "basis": "Exact remote Matrix row is MISSING_FROM_PRODUCT; preserved independently from classical HPA-DAYUN-CAL-002; no product repair authorized"
+        },
+        {
+          "event": "ISSUE_REVISION",
+          "date": "2026-10-15",
+          "changed_fields": [
+            "missing_evidence",
+            "next_action"
+          ],
+          "reason": "12XI conflated Romanized QIANLI with 钱理群; authoritative root source registry directly identifies 1934/1936 NLC witnesses as 《韋千里命學講義》, author 韦千里. No mechanical scope change.",
+          "evidence_refs": [
+            "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json",
+            "docs/research/TIANWEN-12XJ-QIANLI-AUTHOR-IDENTITY-FORWARD-CORRECTION-R1.md"
+          ]
         }
       ]
     }
@@ -372,6 +404,26 @@
       ],
       "discovery_mode": "exact live Matrix audit_status=MISSING_FROM_PRODUCT crosswalk reveals two source-scoped Dayun omissions",
       "result": "11 open items preserved (9 prior + 2 newly recovered); 4/4 live missing product rows represented; no source gap falsely closed"
+    },
+    {
+      "id": "OMISSIONS-12XJ-QIANLI-CORRECTION-20261015",
+      "date": "2026-10-15",
+      "state_version": "1.597.0",
+      "reviewed_issue_ids": [
+        "TW-OPEN-0001",
+        "TW-OPEN-0002",
+        "TW-OPEN-0003",
+        "TW-OPEN-0004",
+        "TW-OPEN-0005",
+        "TW-OPEN-0006",
+        "TW-OPEN-0007",
+        "TW-OPEN-0008",
+        "TW-OPEN-0009",
+        "TW-OPEN-0010",
+        "TW-OPEN-0011"
+      ],
+      "discovery_mode": "postcommit 12XI independent root registry author identity recheck; append-only self-correction",
+      "result": "correct identity 韦千里; original erroneous name kept in 12XI document with erratum; all 11 unresolved issues preserved"
     }
   ],
   "resolution_policy": {

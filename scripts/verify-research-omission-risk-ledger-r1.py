@@ -84,9 +84,13 @@ def check_forward_only(old,new):
  require(new["checkpoint_log"][:len(old["checkpoint_log"])]==old["checkpoint_log"],"prior checkpoint overwritten")
  for k,x in before.items():
   y=after[k]
-  for name in ("id","title","origin","scope"):
+  for name in ("id","origin","scope"):
    require(x[name]==y[name],"immutable issue identity changed: "+k)
   require(y["history"][:len(x["history"])]==x["history"],"prior issue history overwritten: "+k)
+  if x["title"]!=y["title"]:
+   require(len(y["history"])>len(x["history"]),"issue title silently changed: "+k)
+   last=y["history"][-1]
+   require(last.get("event")=="TITLE_CORRECTION" and last.get("previous_title")==x["title"] and last.get("new_title")==y["title"] and "title" in last.get("changed_fields",[]) and last.get("reason") and last.get("evidence_refs"),"title correction lacks original/evidence record: "+k)
   require(set(x["source_refs"]).issubset(set(y["source_refs"])),"prior source reference removed: "+k)
   require(set(x.get("matrix_rule_ids",[])).issubset(set(y.get("matrix_rule_ids",[]))),"prior matrix coverage removed: "+k)
   material=("priority","evidence_boundary","missing_evidence","next_action","closure_criteria")
