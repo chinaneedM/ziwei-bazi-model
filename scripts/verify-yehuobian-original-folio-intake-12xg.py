@@ -72,7 +72,7 @@ def decode_image(image_bytes, label):
         try:
             with Image.open(io.BytesIO(image_bytes)) as probe:
                 require(probe.format == expected, "decoder format contradicts receipt")
-                require(probe.n_frames == 1, "multi-frame object requires explicit page binding")
+                require(getattr(probe, "n_frames", 1) == 1, "multi-frame object requires explicit page binding")
                 dims = probe.size
                 require(all(isinstance(n, int) and n > 0 for n in dims), "invalid raster dimensions")
                 require(dims[0] * dims[1] <= MAX_PIXELS, "image pixel limit")

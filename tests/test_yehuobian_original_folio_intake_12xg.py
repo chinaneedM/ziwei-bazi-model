@@ -67,7 +67,10 @@ class OriginalLeafStrictIntake(unittest.TestCase):
         self.receipt["source_image_url"] = "https://www.ioc.u-tokyo.ac.jp/ttsweb/hb_new/B/B17/%42%31%37%36%35%37%30%30-1,2_photo.html"
         self.bad("modern 1959")
     def test_pdf_not_single_image(self):
+        self.raw = b"%PDF-1.7\n" + b"synthetic-pdf-not-a-real-page" * 4
         self.receipt["format"] = "PDF"
+        self.receipt["image_bytes"] = len(self.raw)
+        self.receipt["image_sha256"] = hashlib.sha256(self.raw).hexdigest()
         self.bad("PDF needs independent")
     def test_corrupted_pixel_decode(self):
         self.raw = self.raw[:45] + b"0123456"
@@ -90,8 +93,12 @@ class OriginalLeafStrictIntake(unittest.TestCase):
         self.receipt.update(format="JPEG", image_bytes=len(self.raw), image_sha256=hashlib.sha256(self.raw).hexdigest())
         self.assertEqual(m.validate(self.receipt, self.raw)["image"]["decoded_format"], "JPEG")
     def test_wrong_declared_image_type(self):
+        # A falsely declared format is caught by the 12XD signature gate before Pillow.
         self.receipt["format"] = "JPEG"
-        self.bad("decoder format")
+        self.bad("file signature only")
+        # Test the separate Pillow decoder against a real PNG mislabeled as JPEG.
+        with self.assertRaisesRegex(ValueError, "image cannot be fully decoded"):
+            m.decode_image(self.raw, "JPEG")
     def test_legacy_cli_routes_actual_receipts_through_strict(self):
         with tempfile.TemporaryDirectory() as d:
             image_path = Path(d) / "fake.png"
