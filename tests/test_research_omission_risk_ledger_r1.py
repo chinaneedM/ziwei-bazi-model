@@ -98,6 +98,34 @@ class ResearchOmissionLedgerTests(unittest.TestCase):
   latest=copy.deepcopy(self.d)
   next(x for x in latest["issues"] if x["id"]=="TW-OPEN-0009").pop("source_page_coverage")
   with self.assertRaisesRegex(ValueError,"prior source-page coverage missing"):m.check_forward_only(self.d,latest)
+ def test_no_bounded_snapshot_mutation_even_with_reason(self):
+  latest=copy.deepcopy(self.d);i=next(x for x in latest["issues"] if x["id"]=="TW-OPEN-0009")
+  i["source_page_coverage"]["fulltext_linewise_collated_body_pages"]=1027
+  i["history"].append({"event":"ISSUE_REVISION","reason":"unsupported alleged reread","evidence_refs":["docs/PROJECT-CURRENT-STATE-R1.json"]})
+  with self.assertRaisesRegex(ValueError,"historical source-page snapshot rewritten"):m.check_forward_only(self.d,latest)
+ def test_later_revision_requires_append_only_history(self):
+  latest=copy.deepcopy(self.d);i=next(x for x in latest["issues"] if x["id"]=="TW-OPEN-0009")
+  i["source_page_coverage_revisions"]=[{"revision_id":"SIMULATED_TEST_ONLY"}]
+  with self.assertRaisesRegex(ValueError,"new source-page revision without history"):m.check_forward_only(self.d,latest)
+ def test_fake_revision_cannot_pass_current_live_validation(self):
+  i=next(x for x in self.d["issues"] if x["id"]=="TW-OPEN-0009")
+  i["source_page_coverage_revisions"]=[{"revision_id":"SIMULATED_TEST_ONLY","review_kind":"DIRECT_ORIGINAL_TARGET_FOLIO"}]
+  self.invalid("source-page revision field missing")
+ def test_bounded_old_snapshot_alone_not_sufficient_to_close(self):
+  i=next(x for x in self.d["issues"] if x["id"]=="TW-OPEN-0009")
+  i["status"]="RESOLVED_WITH_EVIDENCE"
+  i["resolution_evidence"]=["docs/PROJECT-CURRENT-STATE-R1.json"]
+  i["history"].append({"event":"RESOLVED_WITH_EVIDENCE","evidence_refs":["docs/PROJECT-CURRENT-STATE-R1.json"]})
+  self.invalid("old bounded page snapshot cannot by itself resolve target")
+ def test_append_only_revisions_cannot_disappear(self):
+  before=copy.deepcopy(self.d);after=copy.deepcopy(self.d)
+  ib=next(x for x in before["issues"] if x["id"]=="TW-OPEN-0009")
+  ib["source_page_coverage_revisions"]=[{"revision_id":"SIMULATED_TEST_ONLY"}]
+  with self.assertRaisesRegex(ValueError,"source-page revisions rewritten or removed"):m.check_forward_only(before,after)
+ def test_grade_scope_is_immutably_interpreted(self):
+  latest=copy.deepcopy(self.d);i=next(x for x in latest["issues"] if x["id"]=="TW-OPEN-0009")
+  i["source_page_coverage_interpretation"]["positive_target_evidence_from_12xk"]=True
+  with self.assertRaisesRegex(ValueError,"prior source-grade interpretation silently rewritten"):m.check_forward_only(self.d,latest)
  def test_forward_only_ordinary_noop(self):
   self.assertEqual(m.check_forward_only(self.d,copy.deepcopy(self.d))["status"],"PASS")
 if __name__=="__main__":unittest.main()

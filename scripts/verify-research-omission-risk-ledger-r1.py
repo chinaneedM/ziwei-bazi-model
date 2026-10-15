@@ -56,7 +56,34 @@ def validate(data,state,protocol,exists_fn=None):
   require(hashlib.sha1(b"blob "+str(len(seam_bytes)).encode("ascii")+b"\0"+seam_bytes).hexdigest()==ev["direct_juan_seam_blob_sha"],"chronological seam source drift")
   sm=json.loads(seam_bytes)
   require({(x["from_juan"],x["to_juan"],x["shared_pdf_page"]) for x in sm["seams"]}>={(18,19,81),(19,20,137)},"old20 mixed-leaf seam evidence missing")
-  require(issue["status"]!="RESOLVED_WITH_EVIDENCE","limited archival page preview must not close open target")
+  revisions=issue.get("source_page_coverage_revisions",[])
+  require(isinstance(revisions,list),"source-page revisions must be a list")
+  require(len({x.get("revision_id") for x in revisions})==len(revisions),"duplicate page-review revision id")
+  for rev in revisions:
+   require(rev.get("review_kind") in ("DIRECT_ORIGINAL_TARGET_FOLIO","FULL_SOURCE_HIGH_RES_LINEWISE_NEGATIVE"),"source-page revision kind unsupported")
+   for key in ("revision_id","source_doc","source_blob_sha","physical_holding","original_folio_ref","original_image_sha256","reviewed_by","review_date","review_kind"):
+    require(isinstance(rev.get(key),str) and bool(rev[key]),"source-page revision field missing: "+key)
+   import re
+   require(bool(re.fullmatch(r"[0-9a-f]{40}",rev["source_blob_sha"])),"revision Git blob SHA format")
+   require(bool(re.fullmatch(r"[0-9a-f]{64}",rev["original_image_sha256"])),"revision image SHA256 format")
+   new_path=Path(rev["source_doc"])
+   require(new_path.parts[:2]==("docs","research") and ".." not in new_path.parts,"revision evidence doc path")
+   newbytes=(ROOT/new_path).read_bytes()
+   require(hashlib.sha1(b"blob "+str(len(newbytes)).encode("ascii")+b"\0"+newbytes).hexdigest()==rev["source_blob_sha"],"revision source blob integrity")
+   doc=json.loads(newbytes)
+   match=doc.get("source_page_review_revision",{})
+   for key in ("revision_id","physical_holding","original_folio_ref","original_image_sha256","reviewed_by","review_date","review_kind"):
+    require(match.get(key)==rev[key],"revision original page source binding mismatch: "+key)
+   require(match.get("original_image_source_url") and match.get("human_direct_glyph_or_linewise_review") is True,"revision original image and human review required")
+   if rev["review_kind"]=="FULL_SOURCE_HIGH_RES_LINEWISE_NEGATIVE":
+    require(match.get("whole_body_pages_linewise_reviewed")==ev["body_source_pages"],"full manuscript negative lacks source-scoped complete linewise pages")
+    require(match.get("complete_original_page_image_manifest_sha256") and not match.get("source_coverage_gaps"),"negative source completeness unproved")
+   else:
+    require(match.get("target_passage")=="改造漏刻" and match.get("target_passage_original_glyph_directly_visible") is True,"positive target original glyph not proven")
+  if issue["status"]=="RESOLVED_WITH_EVIDENCE":
+   require(bool(revisions),"old bounded page snapshot cannot by itself resolve target")
+   require(bool(issue.get("resolution_evidence")),"resolution evidence must be explicit")
+
 
  require(data["definition"].startswith("NON_EXHAUSTIVE"),"not falsely exhaustive")
  require(len(data["explicit_limits"])>=3 and any("not be recovered" in x for x in data["explicit_limits"]),"unsaved research limitation")
@@ -127,7 +154,17 @@ def check_forward_only(old,new):
   require(set(x.get("matrix_rule_ids",[])).issubset(set(y.get("matrix_rule_ids",[]))),"prior matrix coverage removed: "+k)
   if x.get("source_page_coverage"):
    require(y.get("source_page_coverage"),"prior source-page coverage missing: "+k)
-   require(x["source_page_coverage"]==y["source_page_coverage"] or (len(y["history"])>len(x["history"]) and y["history"][-1].get("reason") and y["history"][-1].get("evidence_refs")),"source-page evidence changed without revision: "+k)
+   require(x["source_page_coverage"]==y["source_page_coverage"],"historical source-page snapshot rewritten: "+k)
+  prior_revisions=x.get("source_page_coverage_revisions",[])
+  later_revisions=y.get("source_page_coverage_revisions",[])
+  require(isinstance(prior_revisions,list) and isinstance(later_revisions,list),"page revisions not append-only list: "+k)
+  require(later_revisions[:len(prior_revisions)]==prior_revisions,"source-page revisions rewritten or removed: "+k)
+  if len(later_revisions)>len(prior_revisions):
+   require(len(y["history"])>len(x["history"]),"new source-page revision without history: "+k)
+   last=y["history"][-1]
+   require(last.get("event")=="SOURCE_PAGE_REVIEW_REVISION" and last.get("evidence_refs") and last.get("reason"),"new source-page revision needs evidence-scoped history: "+k)
+  if x.get("source_page_coverage_interpretation"):
+   require(y.get("source_page_coverage_interpretation")==x["source_page_coverage_interpretation"],"prior source-grade interpretation silently rewritten: "+k)
   material=("priority","evidence_boundary","missing_evidence","next_action","closure_criteria")
   changed={name for name in material if x[name]!=y[name]}
   if changed:

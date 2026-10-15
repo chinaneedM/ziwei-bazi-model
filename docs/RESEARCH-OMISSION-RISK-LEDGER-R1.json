@@ -12,9 +12,9 @@
   "binding": {
     "repository": "chinaneedM/ziwei-bazi-model",
     "branch": "agent/fusion-chart-core-r1-20260822",
-    "reviewed_state_version": "1.598.0",
-    "source_focus_count": 2322,
-    "latest_research_focus_prefix": "12XK"
+    "reviewed_state_version": "1.599.0",
+    "source_focus_count": 2323,
+    "latest_research_focus_prefix": "12XL"
   },
   "coverage_axes": [
     "primary_editions_and_physical_copies",
@@ -278,7 +278,8 @@
         "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-FIRSTPARTY-AND-OLD20-ATLAS-QD.md",
         "docs/PROJECT-CURRENT-STATE-R1.json",
         "docs/research/MING-DATONG-YEHUOBIAN-12SH-NLC411999003250-F10-P1-136-ORIGINAL-BOUNDED-CLOSURE-R1.json",
-        "docs/research/MING-DATONG-YEHUOBIAN-12UP-OLD20-JUAN-SEAMS-FORWARD-CORRECTION-R1.json"
+        "docs/research/MING-DATONG-YEHUOBIAN-12UP-OLD20-JUAN-SEAMS-FORWARD-CORRECTION-R1.json",
+        "docs/research/TIANWEN-12XL-SOURCE-PAGE-SNAPSHOT-FUTURE-EVIDENCE-GATE-R1.md"
       ],
       "evidence_boundary": "12SH 经既有图像档案复核：同一国图馆藏 NLC411999003250 有 10 数字册、1030 PDF 源页；1027 正文源页仅完成原档 85dpi 派生 JPEG 的有限标题/主题分级初筛，F1前言2页不算目标审读、F10末尾跋页1页不算正文。无 OCR、无逐行全文校勘、不能证明任何页或全书不存在〈改造漏刻〉。12UP 已复核末册旧编按万历年份分卷的卷18→19（第81页）、卷19→20（第137页）跨叶界；旧历年编卷20不等于1827主题重编卷20。",
       "missing_evidence": "旧二十卷〈改造漏刻〉是否存在及若存在其确切册、原叶、行字位置；1027 正文页仍缺高分辨率逐行全文校勘。现有85dpi视觉初筛既不能验证目标存在，也不能证明它不存在；不能因同为卷20断言与1827整理版同文。",
@@ -312,6 +313,16 @@
             "docs/research/MING-DATONG-YEHUOBIAN-12SH-NLC411999003250-F10-P1-136-ORIGINAL-BOUNDED-CLOSURE-R1.json",
             "docs/research/MING-DATONG-YEHUOBIAN-12UP-OLD20-JUAN-SEAMS-FORWARD-CORRECTION-R1.json"
           ]
+        },
+        {
+          "event": "SOURCE_PAGE_GRADE_INTERPRETATION_AND_FUTURE_APPEND_POLICY",
+          "date": "2026-10-16",
+          "reason": "12XK archive snapshot is a fixed historical grade; only f10 had explicitly documented 85dpi derivative, and prior unconditional resolved-status block prevented legitimate future evidence-scoped completion. Do not rewrite the 12XK snapshot.",
+          "evidence_refs": [
+            "docs/research/MING-DATONG-YEHUOBIAN-12SH-NLC411999003250-F10-P1-136-ORIGINAL-BOUNDED-CLOSURE-R1.json",
+            "docs/research/TIANWEN-12XK-OMISSION-NLC-OLD20-IMAGE-GRADE-RECONCILIATION-R1.md"
+          ],
+          "conclusion": "No upgrade, no new folio, no target negative proof; future witnessed changes must go to revision array."
         }
       ],
       "source_page_coverage": {
@@ -335,6 +346,13 @@
         "direct_juan_seam_doc": "docs/research/MING-DATONG-YEHUOBIAN-12UP-OLD20-JUAN-SEAMS-FORWARD-CORRECTION-R1.json",
         "direct_juan_seam_blob_sha": "d7068ccebb38799d8a2e6e636b794004c46aae6a",
         "distinct_1827_thematic_juan20_binding_proven": false
+      },
+      "source_page_coverage_interpretation": {
+        "initial_snapshot_is_immutable": true,
+        "source_digital_grade_clarification": "The F10 source JPEGs are 85dpi-derived; other fascicle images have independent source/JPEG resolutions. Do not assert ALL 1027 body pages are uniformly 85dpi. All 1027 received bounded visual screens only and zero complete textual collation.",
+        "positive_target_evidence_from_12xk": false,
+        "future_upgrades_use": "source_page_coverage_revisions",
+        "revision_policy": "APPEND_ONLY_INDEPENDENT_HASH_BOUND_SOURCE_PAGE_EVIDENCE"
       }
     },
     {
@@ -520,6 +538,26 @@
       ],
       "discovery_mode": "reconcile source-bound 12SH all-body bounded original-derived JPEG screens and 12UP old20 chronological physical seams to previously stale TW-OPEN-0009 status and 12XE/12XG P0 source scope",
       "result": "retain 11 unresolved source leads; confirm 1027/1027 bounded body firstpass, 0 linewise collated/1027 pending, no original target glyph and no absence claim; no prior checkpoints lost"
+    },
+    {
+      "id": "OMISSIONS-12XL-FUTURE-DIRECT-EVIDENCE-20261016",
+      "date": "2026-10-16",
+      "state_version": "1.599.0",
+      "reviewed_issue_ids": [
+        "TW-OPEN-0001",
+        "TW-OPEN-0002",
+        "TW-OPEN-0003",
+        "TW-OPEN-0004",
+        "TW-OPEN-0005",
+        "TW-OPEN-0006",
+        "TW-OPEN-0007",
+        "TW-OPEN-0008",
+        "TW-OPEN-0009",
+        "TW-OPEN-0010",
+        "TW-OPEN-0011"
+      ],
+      "discovery_mode": "exact live 12XK CI and source-page grade code audit; freeze old snapshot without banning future original page collation",
+      "result": "11 open leaves remain unchanged; original snapshot immutable, future authorized direct positive or complete high-res negative only through evidence-hashed append-only revision. No invented new ancient witness."
     }
   ],
   "resolution_policy": {
