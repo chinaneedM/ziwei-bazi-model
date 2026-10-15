@@ -1,0 +1,41 @@
+name: probe-yehuobian-12ww-tokyo-kanseki-search-js
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-yehuobian-12ww-tokyo-kanseki-search-js.yml
+      - scripts/probe-yehuobian-12ww-tokyo-kanseki-search-js.py
+      - tests/test_yehuobian_12ww_tokyo_kanseki_search_js.py
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check source-issued JS and no imaginary book images
+        run: python -m unittest discover -s tests -p 'test_yehuobian_12ww_tokyo_kanseki_search_js.py' -v
+  capture:
+    needs: verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Capture only source-emitted advanced-form JS and exact validator
+        run: python scripts/probe-yehuobian-12ww-tokyo-kanseki-search-js.py --output-dir 12ww-tokyo-kanseki-script-output
+      - name: Archive original JS and SHA256
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: 12ww-tokyo-kanseki-provider-search-script
+          path: 12ww-tokyo-kanseki-script-output/
+          retention-days: 30
+          if-no-files-found: warn
