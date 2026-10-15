@@ -9,6 +9,8 @@ ROOT=Path(__file__).resolve().parents[1]
 LEDGER=Path("docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json")
 STATE=Path("docs/PROJECT-CURRENT-STATE-R1.json")
 PROTOCOL=Path("docs/PROJECT-CONTINUITY-PROTOCOL-R1.md")
+MATRIX=Path("docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json")
+MANIFEST=Path("docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json")
 ALLOWED={"OPEN","BLOCKED_SOURCE_ACCESS","RESOLVED_WITH_EVIDENCE"}
 REQUIRED_AXES={
  "primary_editions_and_physical_copies","region_and_location","school_specific_methods",
@@ -36,11 +38,19 @@ def validate(data,state,protocol,exists_fn=None):
  require(len(ids)==len(set(ids)),"duplicate issue IDs")
  require(BASELINE_IDS.issubset(set(ids)),"baseline research issue silently removed")
  require(len(data["issues"])>=len(BASELINE_IDS),"missing baseline issues")
+ matrix=read(MATRIX)
+ matrix_ids={x["rule_id"] for x in matrix["rows"]}
+ missing_ids={x["rule_id"] for x in matrix["rows"] if x["audit_status"]=="MISSING_FROM_PRODUCT"}
+ tracked_ids={rid for x in data["issues"] for rid in x.get("matrix_rule_ids",[])}
+ require(tracked_ids.issubset(matrix_ids),"unrecognized Matrix rule coverage reference")
+ require(missing_ids.issubset(tracked_ids),"missing product candidate coverage: "+", ".join(sorted(missing_ids-tracked_ids)))
  for x in data["issues"]:
   for key in ("id","title","priority","scope","origin","source_refs","evidence_boundary","missing_evidence","next_action","closure_criteria","history","resolution_evidence"):
    require(x.get(key),"missing issue field: "+x["id"]+" "+key) if key not in ("resolution_evidence",) else require(isinstance(x.get(key),list),"resolution evidence list")
   require(x["status"] in ALLOWED,"issue status "+x["id"])
   require(x["priority"] in ("P0","P1","P2"),"priority "+x["id"])
+  if "matrix_rule_ids" in x:
+   require(isinstance(x["matrix_rule_ids"],list) and len(x["matrix_rule_ids"])==len(set(x["matrix_rule_ids"])),"duplicate matrix rule IDs "+x["id"])
   require(x["history"][0]["event"]=="REGISTERED_UNRESOLVED","registration lost")
   if x["status"]=="RESOLVED_WITH_EVIDENCE":
    require(x["resolution_evidence"],"closed issue without evidence "+x["id"])
@@ -62,8 +72,9 @@ def validate(data,state,protocol,exists_fn=None):
  open_count=sum(x["status"]!="RESOLVED_WITH_EVIDENCE" for x in data["issues"])
  require(guard["open_issues"]==open_count and guard["coverage_status"]=="INCREMENTAL_NOT_EXHAUSTIVE","state open count cannot masquerade as exhaustiveness")
  h=state["historical_audit"];i=state["invariants"]
- require(h["row_count"]==h["audited_row_count"]==222 and h["repaired_provenance_metadata_defect_count"]==45,"historical matrix snapshot")
- require(h["external_source_registry_total_unique_count"]==706,"source registry snapshot")
+ require(h["row_count"]==h["audited_row_count"]==len(matrix["rows"]) and h["repaired_provenance_metadata_defect_count"]==matrix["audit_summary"]["repaired_provenance_metadata_defect_count"],"historical matrix snapshot")
+ manifest=read(MANIFEST)
+ require(h["external_source_registry_root_count"]==manifest["root_source_count"] and h["external_source_registry_extension_count"]==manifest["extension_source_count"] and h["external_source_registry_total_unique_count"]==manifest["combined_source_count"],"source registry snapshot")
  require(i["deterministic_fusion_chart_product_r1"]=="CLOSED" and i["algorithm_reopen_count"]==0,"product and algorithm freeze")
  return {"result":"PASS","tracked_issues":len(ids),"open_issues":open_count,"coverage":"NON_EXHAUSTIVE","state_version":state["schema_version"]}
 def check_forward_only(old,new):
@@ -76,6 +87,14 @@ def check_forward_only(old,new):
   for name in ("id","title","origin","scope"):
    require(x[name]==y[name],"immutable issue identity changed: "+k)
   require(y["history"][:len(x["history"])]==x["history"],"prior issue history overwritten: "+k)
+  require(set(x["source_refs"]).issubset(set(y["source_refs"])),"prior source reference removed: "+k)
+  require(set(x.get("matrix_rule_ids",[])).issubset(set(y.get("matrix_rule_ids",[]))),"prior matrix coverage removed: "+k)
+  material=("priority","evidence_boundary","missing_evidence","next_action","closure_criteria")
+  changed={name for name in material if x[name]!=y[name]}
+  if changed:
+   require(len(y["history"])>len(x["history"]),"scope silently changed: "+k)
+   last=y["history"][-1]
+   require(changed.issubset(set(last.get("changed_fields",[]))) and last.get("reason") and last.get("evidence_refs"),"scope revision missing explicit field/evidence audit: "+k)
   if y["status"]!=x["status"]:
    require(len(y["history"])>len(x["history"]),"status silently changed: "+k)
    last=y["history"][-1]

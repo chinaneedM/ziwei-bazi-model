@@ -10,7 +10,7 @@ class ResearchOmissionLedgerTests(unittest.TestCase):
  def invalid(self,match):
   with self.assertRaisesRegex(ValueError,match):m.validate(self.d,self.state,self.protocol)
  def test_live(self):
-  r=m.verify();self.assertEqual(r["open_issues"],9);self.assertEqual(r["coverage"],"NON_EXHAUSTIVE")
+  r=m.verify();self.assertEqual(r["open_issues"],11);self.assertEqual(r["coverage"],"NON_EXHAUSTIVE")
  def test_missing_issue(self):
   self.d["issues"].pop(0);self.invalid("baseline research issue")
  def test_bad_closed_status(self):
@@ -43,6 +43,34 @@ class ResearchOmissionLedgerTests(unittest.TestCase):
   latest=copy.deepcopy(self.d);latest["issues"][0]["status"]="RESOLVED_WITH_EVIDENCE"
   with self.assertRaisesRegex(ValueError,"status silently changed"):
    m.check_forward_only(self.d,latest)
+ def test_matrix_coverage_catches_loss(self):
+  self.d["issues"]= [x for x in self.d["issues"] if x["id"]!="TW-OPEN-0011"]
+  self.d["checkpoint_log"][-1]["reviewed_issue_ids"]=[x["id"] for x in self.d["issues"]]
+  self.invalid("missing product candidate coverage")
+ def test_matrix_coverage_bridge_catches_loss(self):
+  x=next(x for x in self.d["issues"] if x["id"]=="TW-OPEN-0010")
+  x["matrix_rule_ids"]=[]
+  self.invalid("missing product candidate coverage")
+ def test_manifest_growth_is_not_hardcoded(self):
+  self.state["historical_audit"]["external_source_registry_total_unique_count"]=705
+  self.invalid("source registry snapshot")
+ def test_forward_only_catches_source_deletion(self):
+  new=copy.deepcopy(self.d);new["issues"][0]["source_refs"].pop()
+  with self.assertRaisesRegex(ValueError,"prior source reference removed"):m.check_forward_only(self.d,new)
+ def test_forward_only_catches_matrix_rule_deletion(self):
+  new=copy.deepcopy(self.d);next(x for x in new["issues"] if x["id"]=="TW-OPEN-0006")["matrix_rule_ids"]=[]
+  with self.assertRaisesRegex(ValueError,"prior matrix coverage removed"):m.check_forward_only(self.d,new)
+ def test_forward_only_catches_priority_downgrade(self):
+  new=copy.deepcopy(self.d);new["issues"][0]["priority"]="P2"
+  with self.assertRaisesRegex(ValueError,"scope silently changed"):m.check_forward_only(self.d,new)
+ def test_forward_only_catches_stealth_missing_evidence_rewrite(self):
+  new=copy.deepcopy(self.d);new["issues"][0]["missing_evidence"]="nothing remains"
+  with self.assertRaisesRegex(ValueError,"scope silently changed"):m.check_forward_only(self.d,new)
+ def test_forward_only_allows_explicit_scoped_revision(self):
+  new=copy.deepcopy(self.d)
+  x=new["issues"][0];x["next_action"]="New independently sourced action"
+  x["history"].append({"event":"ISSUE_REVISION","date":"2026-10-15","changed_fields":["next_action"],"reason":"new evidence","evidence_refs":["docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json"]})
+  self.assertEqual(m.check_forward_only(self.d,new)["status"],"PASS")
  def test_forward_only_ordinary_noop(self):
   self.assertEqual(m.check_forward_only(self.d,copy.deepcopy(self.d))["status"],"PASS")
 if __name__=="__main__":unittest.main()
