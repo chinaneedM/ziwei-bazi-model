@@ -23,6 +23,9 @@ class OriginalSolarSource(unittest.TestCase):
  def test_step_changed(self):
   self.p[0]["arithmetic_on_source_scoped_candidate_digits"]["day17_minus_day16"]="0.0286"
   with self.assertRaises(ValueError):m.verify(*self.p)
+ def test_total_span_changed(self):
+  self.p[0]["arithmetic_on_source_scoped_candidate_digits"]["day15_to_day17_double_step"]="0.0472"
+  with self.assertRaises(ValueError):m.verify(*self.p)
  def test_false_unit_bridge(self):
   self.p[0]["arithmetic_on_source_scoped_candidate_digits"]["solar_header_increment_unit_identity"]="CONFIRMED"
   with self.assertRaises(ValueError):m.verify(*self.p)

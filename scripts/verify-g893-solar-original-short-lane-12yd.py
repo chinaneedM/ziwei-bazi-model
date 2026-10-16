@@ -27,7 +27,7 @@ def verify(d,ya,ledger,state):
  need(len(rows)==3 and [(x["day"],x["original_short_glyph_string"],x["derived_candidate_decimal_string"]) for x in rows]==[(15,"五分二一七六","5.2176"),(16,"五分二三六二","5.2362"),(17,"五分二五四八","5.2548")],"original copied glyph not matching source-bound numeric candidate")
  need(all(x["semantic_scope"]=="SOURCE_PRINTED_SHORT_LANE_CANDIDATE_NO_HEADER_COLUMN_IDENTITY_AWARD" for x in rows),"unsupported source field identity")
  a,b,c=(Decimal(x["derived_candidate_decimal_string"]) for x in rows); n=d["arithmetic_on_source_scoped_candidate_digits"]
- need(str(b-a)==n["day16_minus_day15"]==str(c-b)=="0.0186" and str(c-a)==n["day15_to_day17_double_step"]=="0.0372" and n["same_increment_twice"] is True,"source candidate Decimal replay")
+ need(str(b-a)==n["day16_minus_day15"]=="0.0186" and str(c-b)==n["day17_minus_day16"]=="0.0186" and str(c-a)==n["day15_to_day17_double_step"]=="0.0372" and n["same_increment_twice"] is True,"source candidate Decimal replay")
  need(n["solar_header_increment_unit_identity"]=="UNPROVEN" and n["copying_or_transmission_causality"]=="UNPROVEN" and n["independent_physical_witness_vote_for_external_edition"]==0,"arithmetic promoted to historical causality")
  need(r["header_to_specific_short_lane_mechanical_equivalence"]=="UNPROVEN" and r["candidate_full_d16_target_second_difference_field_literal"] is None and r["confirmed_target_original_field_count_after"]==5 and r["does_not_prove_absence_elsewhere"] is True,"target field prematurely closed")
  need(ya["visual_interpretation"]["candidate_full_d16_original_target_literal"] is None and ya["visual_interpretation"]["explicit_source_to_other_edition_second_column_mapping"]=="UNPROVEN","historical 12YA rewritten")
