@@ -46,7 +46,7 @@ def verify(o,v,lg,s,xr,xu,xs):
     need(len(fields)==3 and o["complete_source_literal_fields"]==fields,"three full source glyph columns do not match original evidence")
     completed={x["control_id"] for x in fields}
     reviewed={x["control_id"] for x in issue["g893_target_field_reviews"]+issue["g893_loss_gain_complete_field_reviews"]}
-    need(reviewed==completed,"original field review and live omission issue out of sync")
+    need(completed.issubset(reviewed),"archival 12XW source fields removed from newer live issue")
     remaining=[x["control_id"] for x in loc if x["control_id"] not in completed]
     need(len(remaining)==3 and remaining==o["unresolved_source_full_field_controls"],"unresolved three source fields hidden")
     need({x["control_id"] for x in xs["reviews"]}==set(remaining),"ROI source regions confused with complete original field")
@@ -57,10 +57,10 @@ def verify(o,v,lg,s,xr,xu,xs):
     need((o["current_g893_original_jpeg_sha_verified_count"],o["current_g893_original_rgb_roi_verified_count"],o["total_target_controls"],o["complete_source_literal_field_count"])==(204,9,6,3),"G893 source-stage counters changed")
     need(all(o[k] is True for k in ("no_new_source_votes","no_new_lineage_edges","no_algorithm_reopen")),"unsupported positive source/lineage/algorithm delta")
     need(o["all_open_research_issues"]==sum(x["status"]!="RESOLVED_WITH_EVIDENCE" for x in lg["issues"])==11,"open research omissions miscounted")
-    need(OVERLAY in issue["source_refs"] and issue["history"][-1]["event"]=="CROSS_LEDGER_STAGE_RECONCILIATION","append-only evidence event absent")
+    need(OVERLAY in issue["source_refs"] and any(x.get("event")=="CROSS_LEDGER_STAGE_RECONCILIATION" and OVERLAY in x.get("evidence_refs",[]) for x in issue["history"]),"historical 12XW append-only evidence event absent")
     need(all((ROOT/p).is_file() for p in o["evidence_refs"]),"referenced source evidence missing")
-    need(s["schema_version"]==o["current_state_version"]==lg["binding"]["reviewed_state_version"]==s["historical_audit"]["research_omission_guard"]["reviewed_state_version"],"research state/ledger desync")
-    need(s["historical_audit"]["current_focus"][-1].startswith("12XW "),"latest G893 focus stale")
+    need(s["schema_version"]==lg["binding"]["reviewed_state_version"]==s["historical_audit"]["research_omission_guard"]["reviewed_state_version"] and tuple(map(int,s["schema_version"].split(".")))>=tuple(map(int,o["current_state_version"].split("."))),"research state/ledger desync or historical overlay upgraded as live")
+    need(any(x.startswith("12XW ") for x in s["historical_audit"]["current_focus"]),"frozen 12XW research focus missing")
     need((s["historical_audit"]["row_count"],s["historical_audit"]["audited_row_count"],s["historical_audit"]["external_source_registry_total_unique_count"])==(222,222,706),"Matrix/source registry scope changed")
     need(s["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED" and s["invariants"]["algorithm_reopen_count"]==0,"chart algorithm reopened")
     return {"status":"PASS","original_day_pages":6,"fully_collated_original_fields":3,"missing_full_original_fields":3,"cross_edition_numeric_decisions":0}
