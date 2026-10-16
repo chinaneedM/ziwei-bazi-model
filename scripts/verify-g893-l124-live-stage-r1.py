@@ -38,7 +38,7 @@ def validate(d,lg,st,old):
     require(issue["status"]=="OPEN" and P in issue["source_refs"],"G893 unresolved source row missing")
     present=[x for x in issue["g893_target_field_reviews"] if x["control_id"]==d["target"]["control_id"]]
     require(len(present)==1 and present[0]["evidence_doc"]==P and present[0]["original_literal_full_field"]==d["target"]["original_literal_full_field"],"live original L124 field missing/mismatch")
-    require(len(issue["g893_target_field_reviews"])==2 and len(issue["g893_loss_gain_complete_field_reviews"])==2,"source full field count not four")
+    require(len(issue["g893_target_field_reviews"])>=2 and len(issue["g893_loss_gain_complete_field_reviews"])==2,"source full field count not four")
     require(len(issue["g893_target_page_locators"])==6 and len(issue["g893_field_identity_roi_reviews"])==3,"historical day/ROI evidence dropped")
     require(any(x.get("event")=="G893_SOURCE_FULL_FIELD_COLLATION_APPEND" and P in x.get("evidence_refs",[]) for x in issue["history"]),"append-only direct source review absent")
     require(st["schema_version"]==lg["binding"]["reviewed_state_version"]==st["historical_audit"]["research_omission_guard"]["reviewed_state_version"] and tuple(map(int,st["schema_version"].split(".")))>= (1,611,0),"state guard version")

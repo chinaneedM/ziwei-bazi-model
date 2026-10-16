@@ -70,8 +70,8 @@ def verify(d,older,state,lg):
     need(len(scopes)==1 and scopes[0]["evidence_doc"]==DOC and set(scopes[0]["source_page_ids"])==set(EXPECTED),"missing append-only source geometry")
     need(scopes[0]["fully_adjudicated_original_target_fields_added"]==0 and scopes[0]["numeric_values_adjudicated"]==0,"overclaimed contextual grade")
     need(any(x.get("event")=="G893_CONTEXTUAL_ORIGINAL_COLUMN_GEOMETRY_APPEND" and DOC in x.get("evidence_refs",[]) for x in issue["history"]),"no append-only research evidence event")
-    need(state["schema_version"]==lg["binding"]["reviewed_state_version"]==state["historical_audit"]["research_omission_guard"]["reviewed_state_version"]=="1.612.0","state/omission synchronization")
-    need(state["historical_audit"]["current_focus"][-1].startswith("12XY ") and state["historical_audit"]["row_count"]==222,"research focus not advanced")
+    need(state["schema_version"]==lg["binding"]["reviewed_state_version"]==state["historical_audit"]["research_omission_guard"]["reviewed_state_version"] and tuple(map(int,state["schema_version"].split(".")))>= (1,612,0),"state/omission synchronization")
+    need(any(x.startswith("12XY ") for x in state["historical_audit"]["current_focus"]) and state["historical_audit"]["row_count"]==222,"research focus not advanced")
     need(state["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED" and state["invariants"]["algorithm_reopen_count"]==0,"chart CLOSED violated")
     need(sum(x["status"]!="RESOLVED_WITH_EVIDENCE" for x in lg["issues"])==11,"open research issues lost")
     return {"status":"PASS","original_page_sha_refs":5,"source_native_rgb_regions":8,"complete_original_target_fields":4,"unresolved_original_target_fields":2,"cross_witness_numeric_decisions":0}

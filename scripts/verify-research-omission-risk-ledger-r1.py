@@ -168,11 +168,14 @@ def validate(data,state,protocol,exists_fn=None):
    e=json.loads((ROOT/p).read_text(encoding="utf-8"))
    o=e["target"];h=e["structural_header"];im=e["source_page"]
    require(o["control_id"]==f["control_id"] and o["original_literal_full_field"]==f["original_literal_full_field"] and o["source_scoped_compact_reading"]==f["source_scoped_reading"],"G893 full-field original glyph mismatch")
-   require(h["page_id"]==f["header_page_id"] and h["source_original_sha256"]==f["header_page_sha256"] and h["observed_column_label"]=={"VAR-NUM-LUNAR-L114-DAYRATE":"遲疾曆日率","VAR-NUM-LUNAR-L124-JI-XINGDU":"疾曆限行度"}.get(f["control_id"]) and h["independent_page_sha256_checked_against_report"] is True,"G893 original column header provenance mismatch")
+   require(h["page_id"]==f["header_page_id"] and h["source_original_sha256"]==f["header_page_sha256"] and h["observed_column_label"]=={"VAR-NUM-LUNAR-L114-DAYRATE":"遲疾曆日率","VAR-NUM-LUNAR-L124-JI-XINGDU":"疾曆限行度","NORM-LUNAR-L101-CHIJI-DEGREE-POSITIONAL-GROUPING":"遲疾度"}.get(f["control_id"]) and h["independent_page_sha256_checked_against_report"] is True,"G893 original column header provenance mismatch")
    require(im["page_id"]==f["page_id"] and im["source_original_sha256"]==f["page_sha256"] and im["source_original_jpeg_reviewed"] is True,"G893 source original full-field image mismatch")
    require(f["stage"]=="SOURCE_ORIGINAL_FULL_LITERAL_FIELD_AND_HEADER_VERIFIED" and f["cross_witness_numeric_variant_final_decision"] is None and f["new_source_or_lineage_votes"]==0,"G893 source literal promoted to historical final decision")
    require(o["arithmetic_derivation_and_unit_standardization"]=="PENDING" and o["cross_witness_variant_cause"]=="PENDING" and e["safeguards"]["all_six_cross_edition_arithmetic_variant_decisions_completed"]==0,"G893 new field numerical adjudication premature")
    require(e["safeguards"]["new_source_registry_records"]==0 and e["safeguards"]["new_lineage_edges"]==0 and e["safeguards"]["algorithm_changes"]==0 and e["safeguards"]["historical_12xq_not_rewritten"] is True,"G893 full-field scope leakage")
+   if f["control_id"]=="NORM-LUNAR-L101-CHIJI-DEGREE-POSITIONAL-GROUPING":
+    require(o["original_literal_full_field"]=="五度二十〇分四八一一二五" and o["original_section_to_normalized_source_value"] is None and e["catalog_book_code"]=="GK00893_00" and e["ocr_used"] is False,"G893 L101 original zero-place/field provenance")
+    require(e["archive"]["sha256"]=="ee9ecf1de3bb6abe5678e0f8ec8383ef985051e77d091ee40840756e57081107" and len(e["original_rgb_pixel_regions"]["regions"])==5,"G893 L101 original archive/ROI evidence missing")
    if f["control_id"]=="VAR-NUM-LUNAR-L124-JI-XINGDU":
     require(o["original_literal_full_field"]=="一度〇二八一" and o["normalized_numeric_value"] is None and e["physical_source"]["catalog_book_code"]=="GK00893_00" and e["guards"]["ocr_used"] is False,"G893 L124 original glyph source-grade mismatch")
     require(e["archived_original"]["archive_sha256"]=="ee9ecf1de3bb6abe5678e0f8ec8383ef985051e77d091ee40840756e57081107" and len(e["original_rgb_pixel_regions"]["regions"])==3,"G893 L124 source archive/ROI mismatch")
