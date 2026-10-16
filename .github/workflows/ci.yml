@@ -49,6 +49,10 @@ jobs:
         run: |
           python scripts/verify-g893-l101-direct-field-12xz.py
           python -m unittest discover -s tests -p 'test_g893_l101_direct_field_12xz.py' -v
+      - name: G893 12YA solar D16 source print vs external arithmetic gate
+        run: |
+          python scripts/verify-g893-d16-solar-scope-12ya.py
+          python -m unittest discover -s tests -p 'test_g893_d16_solar_scope_12ya.py' -v
       - name: Historical source registry extension integrity gate
         run: |
           python scripts/verify-historical-source-registry-extensions-r1.py

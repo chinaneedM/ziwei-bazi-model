@@ -344,6 +344,11 @@ def check_forward_only(old,new):
   require(isinstance(old_geometry,list) and isinstance(new_geometry,list) and new_geometry[:len(old_geometry)]==old_geometry,"G893 earlier source geometry evidence removed/rewritten: "+k)
   if len(new_geometry)>len(old_geometry):
    require(len(y["history"])>len(x["history"]) and y["history"][-1].get("event")=="G893_CONTEXTUAL_ORIGINAL_COLUMN_GEOMETRY_APPEND" and y["history"][-1].get("evidence_refs"),"G893 native original geometry evidence missing forward event: "+k)
+  old_d16=x.get("g893_d16_solar_bounded_structural_reviews",[])
+  new_d16=y.get("g893_d16_solar_bounded_structural_reviews",[])
+  require(isinstance(old_d16,list) and isinstance(new_d16,list) and new_d16[:len(old_d16)]==old_d16,"G893 older D16 original print-boundary review removed/rewritten: "+k)
+  if len(new_d16)>len(old_d16):
+   require(len(y["history"])>len(x["history"]) and y["history"][-1].get("event")=="G893_D16_SOLAR_BOUNDED_ARITHMETIC_CONTEXT_APPEND" and y["history"][-1].get("evidence_refs"),"G893 solar printed-original evidence lacks forward append event: "+k)
   material=("priority","evidence_boundary","missing_evidence","next_action","closure_criteria")
   changed={name for name in material if x[name]!=y[name]}
   if changed:
