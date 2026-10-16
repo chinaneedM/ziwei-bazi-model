@@ -173,6 +173,32 @@ def validate(data,state,protocol,exists_fn=None):
    require(f["stage"]=="SOURCE_ORIGINAL_FULL_LITERAL_FIELD_AND_HEADER_VERIFIED" and f["cross_witness_numeric_variant_final_decision"] is None and f["new_source_or_lineage_votes"]==0,"G893 source literal promoted to historical final decision")
    require(o["arithmetic_derivation_and_unit_standardization"]=="PENDING" and o["cross_witness_variant_cause"]=="PENDING" and e["safeguards"]["all_six_cross_edition_arithmetic_variant_decisions_completed"]==0,"G893 new field numerical adjudication premature")
    require(e["safeguards"]["new_source_registry_records"]==0 and e["safeguards"]["new_lineage_edges"]==0 and e["safeguards"]["algorithm_changes"]==0 and e["safeguards"]["historical_12xq_not_rewritten"] is True,"G893 full-field scope leakage")
+ for issue in data["issues"]:
+  rows=issue.get("g893_field_identity_roi_reviews",[])
+  require(isinstance(rows,list),"G893 ROI review list missing")
+  if not rows:continue
+  locs={x["control_id"]:x for x in issue.get("g893_target_page_locators",[])}
+  require(len(rows)==len({x["control_id"] for x in rows}),"G893 ROI duplicate controls")
+  for item in rows:
+   old=locs.get(item["control_id"])
+   require(old and old["page_id"]==item["page_id"] and old["page_sha256"]==item["page_sha256"],"G893 ROI source page binding mismatch")
+   p=Path(item["evidence_doc"])
+   require(p.parts[:2]==("docs","research") and ".." not in p.parts,"G893 ROI path invalid")
+   ev=json.loads((ROOT/p).read_text(encoding="utf-8"))
+   matches=[x for x in ev["reviews"] if x["control_id"]==item["control_id"]]
+   require(len(matches)==1 and ev["source_id"]=="EXT-KYUJANGGAK-SHOUSHI-LICHENG-G893" and ev["book_cd"]=="GK00893_00","G893 ROI physical source mismatch")
+   x=matches[0]
+   require(x["target_page_id"]==item["page_id"] and x["target_original_jpeg_sha256"]==item["page_sha256"] and x["header_page_id"]==item["header_page_id"] and x["header_original_jpeg_sha256"]==item["header_page_sha256"],"G893 ROI header/target original mismatch")
+   require(item["header_page_id"]==("001a" if item["page_id"]=="002b" else "018b"),"G893 ROI wrong table family header")
+   require(item["header_page_sha256"]==("8b07513ca8aad42ae167a93f22c39f14850c8cd1c345db9ce98c1e0e769226a5" if item["header_page_id"]=="001a" else "4decd1801d832ba5b471b047dd84cca487245038622a589b48552a0fb43ab83a"),"G893 ROI unbound header image")
+   import re
+   for key in ("day_heading_region","table_candidate_region","source_header_region"):
+    v=item[key];box=v["rect_px"]
+    require(isinstance(box,list) and len(box)==4 and all(type(a) is int for a in box) and 0<=box[0]<box[2]<=1150 and 0<=box[1]<box[3]<=2000,"G893 ROI invalid pixel coordinates")
+    require(v==x[key] and re.fullmatch(r"[0-9a-f]{64}",v["rgb_pixel_sha256"]) is not None,"G893 ROI image region hash mismatch")
+   require(item["status"]=="PIXEL_REGIONS_BOUND_FIELD_IDENTITY_UNRESOLVED" and item["field_literal"] is None and item["numeric_value"] is None and item["negative_proof"] is False,"G893 ROI falsely promotes numeric field or negative proof")
+   require(x["field_identity_positive"] is False and x["field_literal"] is None and x["numeric_value"] is None and x["negative_absence_proven"] is False and x["cross_witness_comparability"]=="PENDING_SOURCE_COLUMN_MAPPING","G893 ROI scope reinterpreted as original glyph")
+   require(ev["archive"]["source_jpg_digest_matches"]==ev["archive"]["source_original_jpgs_total"]==204 and ev["guards"]["cross_edition_complete_numeric_decisions_new"]==0 and ev["guards"]["new_external_source_records"]==0 and ev["guards"]["new_historical_physical_witnesses"]==0 and ev["guards"]["new_genealogy_edges"]==0 and ev["guards"]["algorithm_reopens"]==0,"G893 ROI proof source/witness overcount")
  require(data["definition"].startswith("NON_EXHAUSTIVE"),"not falsely exhaustive")
  require(len(data["explicit_limits"])>=3 and any("not be recovered" in x for x in data["explicit_limits"]),"unsaved research limitation")
  require(data["binding"]["reviewed_state_version"]==state["schema_version"],"state review missing")
@@ -271,6 +297,11 @@ def check_forward_only(old,new):
   require(isinstance(old_fields,list) and isinstance(new_fields,list) and new_fields[:len(old_fields)]==old_fields,"G893 prior field review removed/rewritten: "+k)
   if len(new_fields)>len(old_fields):
    require(len(y["history"])>len(x["history"]) and y["history"][-1].get("event")=="G893_SOURCE_FULL_FIELD_COLLATION_APPEND" and y["history"][-1].get("evidence_refs"),"G893 full-field review lacking forward history: "+k)
+  prior_roi=x.get("g893_field_identity_roi_reviews",[])
+  added_roi=y.get("g893_field_identity_roi_reviews",[])
+  require(isinstance(prior_roi,list) and isinstance(added_roi,list) and added_roi[:len(prior_roi)]==prior_roi,"G893 original ROI history lost/rewritten: "+k)
+  if len(added_roi)>len(prior_roi):
+   require(len(y["history"])>len(x["history"]) and y["history"][-1].get("event")=="G893_FIELD_IDENTITY_PIXEL_SCOPE_APPEND" and y["history"][-1].get("evidence_refs"),"G893 new ROI lacks forward evidence event: "+k)
   material=("priority","evidence_boundary","missing_evidence","next_action","closure_criteria")
   changed={name for name in material if x[name]!=y[name]}
   if changed:

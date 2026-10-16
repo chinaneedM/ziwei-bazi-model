@@ -12,9 +12,9 @@
   "binding": {
     "repository": "chinaneedM/ziwei-bazi-model",
     "branch": "agent/fusion-chart-core-r1-20260822",
-    "reviewed_state_version": "1.605.0",
-    "source_focus_count": 2329,
-    "latest_research_focus_prefix": "12XR"
+    "reviewed_state_version": "1.606.0",
+    "source_focus_count": 2330,
+    "latest_research_focus_prefix": "12XS"
   },
   "coverage_axes": [
     "primary_editions_and_physical_copies",
@@ -173,7 +173,9 @@
         "docs/research/TIANWEN-12XQ-G893-DIRECT-GLYPH-SEGMENT-READINGS-R1.json",
         "docs/research/TIANWEN-12XQ-G893-DIRECT-GLYPH-PHILOLOGICAL-FIREWALL-R1.md",
         "docs/research/TIANWEN-12XR-G893-L114-DAYRATE-FULL-FIELD-SEPARATION-R1.json",
-        "docs/research/TIANWEN-12XR-G893-L114-DAYRATE-FULL-FIELD-SEPARATION-R1.md"
+        "docs/research/TIANWEN-12XR-G893-L114-DAYRATE-FULL-FIELD-SEPARATION-R1.md",
+        "docs/research/TIANWEN-12XS-G893-THREE-TARGET-PIXEL-ROI-GATES-R1.json",
+        "docs/research/TIANWEN-12XS-G893-D16-L101-L124-FIELD-MAPPING-GATES-R1.md"
       ],
       "evidence_boundary": "12CW 已取得奎章阁 G893/奎貴893/ GK00893_00《授時曆立成》同一物理来源全部 204/204 张公开图像并经源页哈希验证；冬至起页 052a 和夏至起页 077a 的日出入晨昏半昼分数值已直接核读。但早期 11X 所列六组太阳/太阴目标（冬至后日16、太阴日8/101/114/124/132）在 12CW 文档中明确 NOT_ADJUDICATED_IN_THIS_BATCH，不能从全书下载率或其他两张日出页的数字推断六组已校勘。印本确切年份保持 1418—1450 年馆方范围，不能选定 1434 或 1444。",
       "missing_evidence": "六组目标各自的 G893 原页 ID、图像哈希、表题、行列及逐字数值重放；目前 204/204 仅为来源图像获取完成，6/6 仍需局部直接核读与与其它版本的差异比较。部分既有太阳/太阴数值存在于其他文献，但不得冒充 G893 原字。",
@@ -264,6 +266,21 @@
           "control_id": "VAR-NUM-LUNAR-L114-DAYRATE",
           "full_field_reviewed": 1,
           "comprehensive_numeric_decisions_awarded": 0
+        },
+        {
+          "event": "G893_FIELD_IDENTITY_PIXEL_SCOPE_APPEND",
+          "date": "2026-10-16",
+          "added_control_ids": [
+            "VAR-NUM-SOLAR-WINTER-D16-DIFFERENCE",
+            "NORM-LUNAR-L101-CHIJI-DEGREE-POSITIONAL-GROUPING",
+            "VAR-NUM-LUNAR-L124-JI-XINGDU"
+          ],
+          "evidence_refs": [
+            "docs/research/TIANWEN-12XS-G893-THREE-TARGET-PIXEL-ROI-GATES-R1.json",
+            "docs/research/TIANWEN-12XS-G893-D16-L101-L124-FIELD-MAPPING-GATES-R1.md"
+          ],
+          "reason": "Independent G893 204/204 original JPG SHA256 recheck and 3 targets x 3 original RGB crop region signatures; target day/page known but exact source column to comparator field still not demonstrated; older observations remain append-only.",
+          "numeric_closures_added": 0
         }
       ],
       "g893_six_control_snapshot": {
@@ -451,6 +468,125 @@
           "stage": "SOURCE_ORIGINAL_FULL_LITERAL_FIELD_AND_HEADER_VERIFIED",
           "cross_witness_numeric_variant_final_decision": null,
           "new_source_or_lineage_votes": 0
+        }
+      ],
+      "g893_field_identity_roi_reviews": [
+        {
+          "control_id": "VAR-NUM-SOLAR-WINTER-D16-DIFFERENCE",
+          "page_id": "002b",
+          "page_sha256": "f9812e8c6a357eb6cd1117bb2af58d816e01030d5b93f34e7094bddb766b2b55",
+          "header_page_id": "001a",
+          "header_page_sha256": "8b07513ca8aad42ae167a93f22c39f14850c8cd1c345db9ce98c1e0e769226a5",
+          "evidence_doc": "docs/research/TIANWEN-12XS-G893-THREE-TARGET-PIXEL-ROI-GATES-R1.json",
+          "day_heading_region": {
+            "rect_px": [
+              510,
+              215,
+              610,
+              550
+            ],
+            "rgb_pixel_sha256": "41c316acd24eea7b58ee12f2b9bf2e463a4091ae3c255b5bd0c90670bead75a8"
+          },
+          "table_candidate_region": {
+            "rect_px": [
+              415,
+              555,
+              665,
+              1400
+            ],
+            "rgb_pixel_sha256": "d339a3b5e30f36ff59754e3c9ec0d80972f28b5165ec9c7f8fd3daa18a9fe5ea"
+          },
+          "source_header_region": {
+            "rect_px": [
+              430,
+              210,
+              740,
+              950
+            ],
+            "rgb_pixel_sha256": "c3dce34ca72a1f246ca42a521c1eccbb2e3440097fc514480562bb67ee676635"
+          },
+          "status": "PIXEL_REGIONS_BOUND_FIELD_IDENTITY_UNRESOLVED",
+          "field_literal": null,
+          "numeric_value": null,
+          "negative_proof": false
+        },
+        {
+          "control_id": "NORM-LUNAR-L101-CHIJI-DEGREE-POSITIONAL-GROUPING",
+          "page_id": "032b",
+          "page_sha256": "65457d858a2b2a6c5d04603d4e03430e25e671cbb7f66f6563f9d36798bc300c",
+          "header_page_id": "018b",
+          "header_page_sha256": "4decd1801d832ba5b471b047dd84cca487245038622a589b48552a0fb43ab83a",
+          "evidence_doc": "docs/research/TIANWEN-12XS-G893-THREE-TARGET-PIXEL-ROI-GATES-R1.json",
+          "day_heading_region": {
+            "rect_px": [
+              805,
+              222,
+              904,
+              555
+            ],
+            "rgb_pixel_sha256": "a313c256093db2b169df6f35e5856d21a274036ae54825b7123d9dc6b5c1f6b4"
+          },
+          "table_candidate_region": {
+            "rect_px": [
+              630,
+              580,
+              915,
+              1440
+            ],
+            "rgb_pixel_sha256": "3d3082dcd50425565cb8b1bcadb7529f77722767ca94f66581ef1847dca2bae9"
+          },
+          "source_header_region": {
+            "rect_px": [
+              408,
+              220,
+              835,
+              1040
+            ],
+            "rgb_pixel_sha256": "b1014a82a0107d54863a51f3a99022efd36ffc3c08054d681602bfdc58e50b9e"
+          },
+          "status": "PIXEL_REGIONS_BOUND_FIELD_IDENTITY_UNRESOLVED",
+          "field_literal": null,
+          "numeric_value": null,
+          "negative_proof": false
+        },
+        {
+          "control_id": "VAR-NUM-LUNAR-L124-JI-XINGDU",
+          "page_id": "035b",
+          "page_sha256": "06b5a0ba80c5604576f84b59fc1017b5b0822920e737ef5c96a66b2d82d9e02c",
+          "header_page_id": "018b",
+          "header_page_sha256": "4decd1801d832ba5b471b047dd84cca487245038622a589b48552a0fb43ab83a",
+          "evidence_doc": "docs/research/TIANWEN-12XS-G893-THREE-TARGET-PIXEL-ROI-GATES-R1.json",
+          "day_heading_region": {
+            "rect_px": [
+              570,
+              220,
+              675,
+              580
+            ],
+            "rgb_pixel_sha256": "7694f31e8a78125dad78961f4e50a64966a0eee9078f09f2b655a31878b6b7c8"
+          },
+          "table_candidate_region": {
+            "rect_px": [
+              400,
+              580,
+              680,
+              1450
+            ],
+            "rgb_pixel_sha256": "b28c8292c79415425d8aa6a363262fe109ad8abf23e1dc598aea30e8ae554bb9"
+          },
+          "source_header_region": {
+            "rect_px": [
+              408,
+              220,
+              835,
+              1040
+            ],
+            "rgb_pixel_sha256": "b1014a82a0107d54863a51f3a99022efd36ffc3c08054d681602bfdc58e50b9e"
+          },
+          "status": "PIXEL_REGIONS_BOUND_FIELD_IDENTITY_UNRESOLVED",
+          "field_literal": null,
+          "numeric_value": null,
+          "negative_proof": false
         }
       ]
     },
@@ -956,6 +1092,26 @@
       ],
       "discovery_mode": "source-original G893 018b header and 034a day114 field separator re-review, both hash checked against original 204-JPEG acquisition report; forward-only repair of narrower 12XQ stage",
       "result": "L114 original rate literal 9日3489 field structurally closed for one G893 copy; full numeric cross-witness algorithm/precision adjudication remains open 0/6 and 11 issues still open"
+    },
+    {
+      "id": "OMISSIONS-12XS-G893-THREE-PIXEL-REGIONS-20261016",
+      "date": "2026-10-16",
+      "state_version": "1.606.0",
+      "reviewed_issue_ids": [
+        "TW-OPEN-0001",
+        "TW-OPEN-0002",
+        "TW-OPEN-0003",
+        "TW-OPEN-0004",
+        "TW-OPEN-0005",
+        "TW-OPEN-0006",
+        "TW-OPEN-0007",
+        "TW-OPEN-0008",
+        "TW-OPEN-0009",
+        "TW-OPEN-0010",
+        "TW-OPEN-0011"
+      ],
+      "discovery_mode": "G893 original JPG 204/204 SHA check, 3 page/day plus original-source table header and target-field RGB ROI digest binding, no cross-version field assumptions",
+      "result": "D16 L101 L124 exact page image review regions replayable; numeric field identity still unresolved, original L114 complete remains 1/6, all eleven issues open"
     }
   ],
   "resolution_policy": {

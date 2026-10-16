@@ -200,6 +200,31 @@ class ResearchOmissionLedgerTests(unittest.TestCase):
   i["g893_target_field_reviews"].clear()
   with self.assertRaisesRegex(ValueError,"G893 prior field review removed/rewritten"):
    m.check_forward_only(self.d,later)
+ def test_g893_roi_cannot_become_numeric(self):
+  row=next(i for i in self.d["issues"] if i["id"]=="TW-OPEN-0005")["g893_field_identity_roi_reviews"][0]
+  row["numeric_value"]="5.2362"
+  self.invalid("G893 ROI falsely promotes numeric field or negative proof")
+ def test_g893_roi_cannot_invent_negative(self):
+  row=next(i for i in self.d["issues"] if i["id"]=="TW-OPEN-0005")["g893_field_identity_roi_reviews"][0]
+  row["negative_proof"]=True
+  self.invalid("G893 ROI falsely promotes numeric field or negative proof")
+ def test_g893_roi_header_cannot_swap(self):
+  row=next(i for i in self.d["issues"] if i["id"]=="TW-OPEN-0005")["g893_field_identity_roi_reviews"][0]
+  row["header_page_id"]="018b"
+  self.invalid("G893 ROI header/target original mismatch")
+ def test_g893_roi_bad_bounds_rejected(self):
+  row=next(i for i in self.d["issues"] if i["id"]=="TW-OPEN-0005")["g893_field_identity_roi_reviews"][0]
+  row["day_heading_region"]["rect_px"]=[0,0,9000,9000]
+  self.invalid("G893 ROI invalid pixel coordinates")
+ def test_g893_roi_hash_change_rejected(self):
+  row=next(i for i in self.d["issues"] if i["id"]=="TW-OPEN-0005")["g893_field_identity_roi_reviews"][0]
+  row["day_heading_region"]["rgb_pixel_sha256"]="0"*64
+  self.invalid("G893 ROI image region hash mismatch")
+ def test_g893_roi_forward_history_immutable(self):
+  future=copy.deepcopy(self.d)
+  next(i for i in future["issues"] if i["id"]=="TW-OPEN-0005")["g893_field_identity_roi_reviews"].pop()
+  with self.assertRaisesRegex(ValueError,"G893 original ROI history lost/rewritten"):
+   m.check_forward_only(self.d,future)
  def test_forward_only_ordinary_noop(self):
   self.assertEqual(m.check_forward_only(self.d,copy.deepcopy(self.d))["status"],"PASS")
 if __name__=="__main__":unittest.main()
