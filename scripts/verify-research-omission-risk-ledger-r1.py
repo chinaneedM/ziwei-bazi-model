@@ -231,6 +231,14 @@ def validate(data,state,protocol,exists_fn=None):
    require(len(matching)==1 and matching[0]["page_id"]==entry["page_id"] and matching[0]["sha256"]==entry["page_sha256"] and entry["evidence_doc"]==str(p),"G893 same-copy symmetric page digest mismatch")
    require(entry["status"]=="DAY_HEADER_LOCATED_SYMMETRIC_FIELD_PENDING" and entry["original_target_value"] is None and matching[0]["target_field_original_literal"] is None and matching[0]["target_value_normalized"] is None,"G893 symmetric control falsely treated as collated field")
   require(doc["known_image_archive"]["jpgs_verified_against_original_acquisition_report"]==doc["known_image_archive"]["reported_total_jpgs"]==204 and doc["scope"]["full_numeric_mechanical_variant_decisions"]==0 and doc["scope"]["source_registry_delta"]==0 and doc["scope"]["lineage_edge_delta"]==0 and doc["scope"]["algorithm_reopens"]==0,"G893 loss-gain source or numeric scope inflated")
+ for issue in data["issues"]:
+  if issue["id"]=="TW-OPEN-0005" and issue.get("g893_same_copy_polarity_source_reviews"):
+   reviews=issue["g893_same_copy_polarity_source_reviews"]
+   require(len(reviews)==1,"one source-bound polarity-grade review")
+   e=reviews[0]
+   require(e["source_pages"]==["018b","023b","040a"] and e["limits"]==[35,159] and e["observed_signs"]==["益","損"] and e["evidence_grade"]=="DAY_HEADING_AND_POLARITY_ONLY","G893 bounded original sign record")
+   require(e["new_full_numeric_fields"]==e["new_numeric_symmetric_rules"]==e["new_independent_witness_votes"]==0,"G893 polarity-only evidence promoted beyond scope")
+   require(e["evidence_doc"] in issue["source_refs"] and (ROOT/e["evidence_doc"]).is_file(),"G893 source polarity doc not bound")
  require(data["definition"].startswith("NON_EXHAUSTIVE"),"not falsely exhaustive")
  require(len(data["explicit_limits"])>=3 and any("not be recovered" in x for x in data["explicit_limits"]),"unsaved research limitation")
  require(data["binding"]["reviewed_state_version"]==state["schema_version"],"state review missing")
@@ -349,6 +357,11 @@ def check_forward_only(old,new):
   require(isinstance(old_d16,list) and isinstance(new_d16,list) and new_d16[:len(old_d16)]==old_d16,"G893 older D16 original print-boundary review removed/rewritten: "+k)
   if len(new_d16)>len(old_d16):
    require(len(y["history"])>len(x["history"]) and y["history"][-1].get("event")=="G893_D16_SOLAR_BOUNDED_ARITHMETIC_CONTEXT_APPEND" and y["history"][-1].get("evidence_refs"),"G893 solar printed-original evidence lacks forward append event: "+k)
+  prev_pol=x.get("g893_same_copy_polarity_source_reviews",[])
+  new_pol=y.get("g893_same_copy_polarity_source_reviews",[])
+  require(isinstance(prev_pol,list) and isinstance(new_pol,list) and new_pol[:len(prev_pol)]==prev_pol,"G893 earlier polarity witness modified or deleted: "+k)
+  if len(new_pol)>len(prev_pol):
+   require(len(y["history"])>len(x["history"]) and y["history"][-1].get("event")=="G893_SAME_COPY_LOSSGAIN_POLARITY_SOURCE_APPEND" and y["history"][-1].get("evidence_refs"),"G893 polarity append missing original source citation event: "+k)
   material=("priority","evidence_boundary","missing_evidence","next_action","closure_criteria")
   changed={name for name in material if x[name]!=y[name]}
   if changed:

@@ -57,10 +57,10 @@ def verify(d,ledger,state,xy,xz,variant):
     need(issue["status"]=="OPEN" and EVIDENCE in issue["source_refs"],"D16 issue/record disconnected")
     reviews=issue.get("g893_d16_solar_bounded_structural_reviews",[])
     need(len(reviews)==1 and reviews[0]["evidence_doc"]==EVIDENCE and reviews[0]["source_full_field_added"]==0 and reviews[0]["mechanical_variant_decisions_awarded"]==0,"forward-only D16 structure review absent")
-    need(issue["history"][-1]["event"]=="G893_D16_SOLAR_BOUNDED_ARITHMETIC_CONTEXT_APPEND" and EVIDENCE in issue["history"][-1]["evidence_refs"],"D16 source+external arithmetic history missing")
+    need(any(h["event"]=="G893_D16_SOLAR_BOUNDED_ARITHMETIC_CONTEXT_APPEND" and EVIDENCE in h["evidence_refs"] for h in issue["history"]),"D16 source+external arithmetic history missing")
     need(len(issue["g893_target_field_reviews"])==3 and len(issue["g893_loss_gain_complete_field_reviews"])==2,"other five original target fields overwritten")
-    need(state["schema_version"]==ledger["binding"]["reviewed_state_version"]==state["historical_audit"]["research_omission_guard"]["reviewed_state_version"]=="1.614.0","12YA live state mismatch")
-    need(state["historical_audit"]["current_focus"][-1].startswith("12YA ") and state["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED" and state["invariants"]["algorithm_reopen_count"]==0,"product/chart invariant")
+    need(state["schema_version"]==ledger["binding"]["reviewed_state_version"]==state["historical_audit"]["research_omission_guard"]["reviewed_state_version"] and tuple(map(int,state["schema_version"].split(".")))>=(1,614,0),"12YA live state mismatch")
+    need(any(x.startswith("12YA ") for x in state["historical_audit"]["current_focus"]) and state["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED" and state["invariants"]["algorithm_reopen_count"]==0,"product/chart invariant")
     need(sum(x["status"]!="RESOLVED_WITH_EVIDENCE" for x in ledger["issues"])==11,"open research issue count")
     return {"status":"PASS","G893_D16_full_field":"UNPROVEN","six_source_original_complete_literal_fields":5,"external_midpoint":str(midpoint),"received_minus_midpoint":str(received-midpoint),"final_cross_witness_numeric_decisions":0}
 if __name__=="__main__":
