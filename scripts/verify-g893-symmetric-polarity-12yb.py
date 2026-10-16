@@ -33,8 +33,8 @@ def verify(d,ledger,state,ya):
     need(issue["status"]=="OPEN" and DOC in issue["source_refs"] and "docs/research/TIANWEN-12YB-G893-L35-L159-SAME-COPY-LOSSGAIN-POLARITY-R1.md" in issue["source_refs"],"risk ledger references")
     pol=issue["g893_same_copy_polarity_source_reviews"]
     need(len(pol)==1 and pol[0]["evidence_doc"]==DOC and pol[0]["observed_signs"]==["益","損"] and pol[0]["new_full_numeric_fields"]==pol[0]["new_numeric_symmetric_rules"]==pol[0]["new_independent_witness_votes"]==0,"risk ledger overclaim")
-    need(issue["history"][-1]["event"]=="G893_SAME_COPY_LOSSGAIN_POLARITY_SOURCE_APPEND" and DOC in issue["history"][-1]["evidence_refs"],"forward evidence event")
-    need(state["schema_version"]==ledger["binding"]["reviewed_state_version"]==state["historical_audit"]["research_omission_guard"]["reviewed_state_version"]=="1.615.0" and state["historical_audit"]["current_focus"][-1].startswith("12YB "),"handoff continuity")
+    need(any(h["event"]=="G893_SAME_COPY_LOSSGAIN_POLARITY_SOURCE_APPEND" and DOC in h["evidence_refs"] for h in issue["history"]),"forward evidence event")
+    need(state["schema_version"]==ledger["binding"]["reviewed_state_version"]==state["historical_audit"]["research_omission_guard"]["reviewed_state_version"] and tuple(map(int,state["schema_version"].split(".")))>=(1,615,0) and any(f.startswith("12YB ") for f in state["historical_audit"]["current_focus"]),"handoff continuity")
     need(state["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED" and state["invariants"]["algorithm_reopen_count"]==0 and sum(x["status"]!="RESOLVED_WITH_EVIDENCE" for x in ledger["issues"])==11,"no algorithm or risk closure")
     return {"status":"PASS","same_copy_source_polarity":"L35=益; L159=損","source_numeric_symmetry":"UNRESOLVED","primary_source_complete_fields":"5/6","D16_original_print":"UNRESOLVED","cross_witness_final":"0/6"}
 if __name__=="__main__":

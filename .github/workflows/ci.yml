@@ -57,6 +57,10 @@ jobs:
         run: |
           python scripts/verify-g893-symmetric-polarity-12yb.py
           python -m unittest discover -s tests -p 'test_g893_symmetric_polarity_12yb.py' -v
+      - name: G893 12YC same-original four-row complete printed glyph pair gate
+        run: |
+          python scripts/verify-g893-symmetric-original-pairs-12yc.py
+          python -m unittest discover -s tests -p 'test_g893_symmetric_original_pairs_12yc.py' -v
       - name: Historical source registry extension integrity gate
         run: |
           python scripts/verify-historical-source-registry-extensions-r1.py

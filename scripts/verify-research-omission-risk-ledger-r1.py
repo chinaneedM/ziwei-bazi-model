@@ -239,6 +239,15 @@ def validate(data,state,protocol,exists_fn=None):
    require(e["source_pages"]==["018b","023b","040a"] and e["limits"]==[35,159] and e["observed_signs"]==["益","損"] and e["evidence_grade"]=="DAY_HEADING_AND_POLARITY_ONLY","G893 bounded original sign record")
    require(e["new_full_numeric_fields"]==e["new_numeric_symmetric_rules"]==e["new_independent_witness_votes"]==0,"G893 polarity-only evidence promoted beyond scope")
    require(e["evidence_doc"] in issue["source_refs"] and (ROOT/e["evidence_doc"]).is_file(),"G893 source polarity doc not bound")
+ for issue in data["issues"]:
+  if issue["id"]=="TW-OPEN-0005" and issue.get("g893_same_copy_full_original_pair_reviews"):
+   entries=issue["g893_same_copy_full_original_pair_reviews"]
+   require(len(entries)==1,"12YC same-copy glyph review identity")
+   e=entries[0]
+   require(e["physical_copy"]=="GK00893_00" and e["limits"]==[8,159,35,132] and e["source_glyph_pair_matches"]==2,"G893 original source pair identity")
+   require(e["added_full_source_glyph_lanes_for_supplementary_targets"]==2 and e["original_primary_six_targets_complete_fields_now"]==5,"source control count mistaken")
+   require(e["final_cross_witness_mechanical_decisions"]==e["new_physical_witness_count"]==0,"symmetry original prints misread as independent evidence")
+   require(e["evidence_doc"] in issue["source_refs"] and (ROOT/e["evidence_doc"]).is_file(),"12YC missing source doc")
  require(data["definition"].startswith("NON_EXHAUSTIVE"),"not falsely exhaustive")
  require(len(data["explicit_limits"])>=3 and any("not be recovered" in x for x in data["explicit_limits"]),"unsaved research limitation")
  require(data["binding"]["reviewed_state_version"]==state["schema_version"],"state review missing")
@@ -362,6 +371,11 @@ def check_forward_only(old,new):
   require(isinstance(prev_pol,list) and isinstance(new_pol,list) and new_pol[:len(prev_pol)]==prev_pol,"G893 earlier polarity witness modified or deleted: "+k)
   if len(new_pol)>len(prev_pol):
    require(len(y["history"])>len(x["history"]) and y["history"][-1].get("event")=="G893_SAME_COPY_LOSSGAIN_POLARITY_SOURCE_APPEND" and y["history"][-1].get("evidence_refs"),"G893 polarity append missing original source citation event: "+k)
+  old_pairs=x.get("g893_same_copy_full_original_pair_reviews",[])
+  new_pairs=y.get("g893_same_copy_full_original_pair_reviews",[])
+  require(isinstance(old_pairs,list) and isinstance(new_pairs,list) and new_pairs[:len(old_pairs)]==old_pairs,"12YC original source pair review deleted or overwritten: "+k)
+  if len(new_pairs)>len(old_pairs):
+   require(len(y["history"])>len(x["history"]) and y["history"][-1].get("event")=="G893_SAME_COPY_COMPLETE_ORIGINAL_PAIR_COLLATION_APPEND" and y["history"][-1].get("evidence_refs"),"12YC source pair update lacks forward-only history: "+k)
   material=("priority","evidence_boundary","missing_evidence","next_action","closure_criteria")
   changed={name for name in material if x[name]!=y[name]}
   if changed:
