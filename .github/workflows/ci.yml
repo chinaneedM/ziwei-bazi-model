@@ -61,6 +61,10 @@ jobs:
         run: |
           python scripts/verify-g893-symmetric-original-pairs-12yc.py
           python -m unittest discover -s tests -p 'test_g893_symmetric_original_pairs_12yc.py' -v
+      - name: G893 12YD D15-D17 original short printed solar lane scope gate
+        run: |
+          python scripts/verify-g893-solar-original-short-lane-12yd.py
+          python -m unittest discover -s tests -p 'test_g893_solar_original_short_lane_12yd.py' -v
       - name: Historical source registry extension integrity gate
         run: |
           python scripts/verify-historical-source-registry-extensions-r1.py

@@ -248,6 +248,14 @@ def validate(data,state,protocol,exists_fn=None):
    require(e["added_full_source_glyph_lanes_for_supplementary_targets"]==2 and e["original_primary_six_targets_complete_fields_now"]==5,"source control count mistaken")
    require(e["final_cross_witness_mechanical_decisions"]==e["new_physical_witness_count"]==0,"symmetry original prints misread as independent evidence")
    require(e["evidence_doc"] in issue["source_refs"] and (ROOT/e["evidence_doc"]).is_file(),"12YC missing source doc")
+ for issue in data["issues"]:
+  if issue["id"]=="TW-OPEN-0005" and issue.get("g893_d16_three_day_short_lane_reviews"):
+   reviews=issue["g893_d16_three_day_short_lane_reviews"]
+   require(len(reviews)==1,"12YD one original short lane record")
+   e=reviews[0]
+   require(e["source_pages"]==["001a","002b"] and e["source_lanes"]==["五分二一七六","五分二三六二","五分二五四八"] and e["lexical_decimal_candidates"]==["5.2176","5.2362","5.2548"],"12YD source original glyph series")
+   require(e["candidate_step"]=="0.0186" and e["original_target_source_field_finalized"] is False and e["principal_source_fields_awarded"]==e["cross_witness_final_decisions_awarded"]==e["independent_original_votes_added"]==0,"12YD textual source evidence promoted into target field")
+   require(e["evidence_doc"] in issue["source_refs"] and (ROOT/e["evidence_doc"]).is_file(),"12YD research original evidence missing")
  require(data["definition"].startswith("NON_EXHAUSTIVE"),"not falsely exhaustive")
  require(len(data["explicit_limits"])>=3 and any("not be recovered" in x for x in data["explicit_limits"]),"unsaved research limitation")
  require(data["binding"]["reviewed_state_version"]==state["schema_version"],"state review missing")
@@ -376,6 +384,11 @@ def check_forward_only(old,new):
   require(isinstance(old_pairs,list) and isinstance(new_pairs,list) and new_pairs[:len(old_pairs)]==old_pairs,"12YC original source pair review deleted or overwritten: "+k)
   if len(new_pairs)>len(old_pairs):
    require(len(y["history"])>len(x["history"]) and y["history"][-1].get("event")=="G893_SAME_COPY_COMPLETE_ORIGINAL_PAIR_COLLATION_APPEND" and y["history"][-1].get("evidence_refs"),"12YC source pair update lacks forward-only history: "+k)
+  old_short=x.get("g893_d16_three_day_short_lane_reviews",[])
+  new_short=y.get("g893_d16_three_day_short_lane_reviews",[])
+  require(isinstance(old_short,list) and isinstance(new_short,list) and new_short[:len(old_short)]==old_short,"12YD historic source original short lanes overwritten: "+k)
+  if len(new_short)>len(old_short):
+   require(len(y["history"])>len(x["history"]) and y["history"][-1].get("event")=="G893_D16_THREE_DAY_DIRECT_SHORT_LANE_APPEND" and y["history"][-1].get("evidence_refs"),"12YD new G893 positive original strings lack forward evidence")
   material=("priority","evidence_boundary","missing_evidence","next_action","closure_criteria")
   changed={name for name in material if x[name]!=y[name]}
   if changed:
