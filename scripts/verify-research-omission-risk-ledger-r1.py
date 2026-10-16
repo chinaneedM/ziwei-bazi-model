@@ -134,6 +134,26 @@ def validate(data,state,protocol,exists_fn=None):
    require(bool(re.fullmatch(r"[0-9a-f]{64}",row["page_sha256"])),"G893 page SHA malformed")
    require(row["status"]=="LOCATED_NUMERIC_UNADJUDICATED" and row["numeric_value"] is None and target["original_difference_reading"] is None and target["numeric_collation_status"]=="PENDING_VALUE_AND_FIELD_SEMANTICS","G893 source page location laundered into numeric decision")
    require(doc["known_archive"]["reported_jpeg_digest_matches_from_independent_download"]==doc["known_archive"]["source_original_jpeg_count"]==204 and doc["known_archive"]["digest_mismatches"]==0,"G893 recovered original JPEG manifest validation status missing")
+ for issue in data["issues"]:
+  readings=issue.get("g893_direct_glyph_observations",[])
+  require(isinstance(readings,list),"G893 glyph observations must be list")
+  if not readings:continue
+  locs={x["control_id"]:x for x in issue.get("g893_target_page_locators",[])}
+  require(len({x["control_id"] for x in readings})==len(readings),"G893 glyph observation control duplicated")
+  for o in readings:
+   loc=locs.get(o["control_id"])
+   require(loc is not None and o["page_id"]==loc["page_id"] and o["page_sha256"]==loc["page_sha256"],"G893 observed glyph source-page locator mismatch")
+   p=Path(o["evidence_doc"])
+   require(p.parts[:2]==("docs","research") and ".." not in p.parts,"G893 observed glyph evidence path")
+   doc=json.loads((ROOT/p).read_text(encoding="utf-8"))
+   match=[x for x in doc["observations"] if x["control_id"]==o["control_id"]]
+   require(doc["source_id"]=="EXT-KYUJANGGAK-SHOUSHI-LICHENG-G893" and doc["provider_book_cd"]=="GK00893_00" and len(match)==1,"G893 glyph evidence copy mismatch")
+   s=match[0]
+   require(s["page_id"]==o["page_id"] and s["source_original_page_sha256"]==o["page_sha256"] and s["surface"]==o["observed_surface"],"G893 direct glyph evidence mismatch")
+   require(o["observed_surface"] and s["scope"]==o["scope"] and s["confidence"]==o["confidence"] and o["grade"]=="SOURCE_ORIGINAL_VISIBLE_GLYPH_SEGMENT_ONLY","G893 glyph observation authority inflation")
+   require(s["human_visual_source_jpeg_review"] is True and s["ocr_used"] is False and s["source_issued_original_image_url"].startswith("https://kyudb.snu.ac.kr/ImageServlet.do?"),"G893 glyph image direct origin absent")
+   require(o["normalized_numeric_value"] is None and o["numeric_decision_awarded"]==0 and s["normalized_numeric_value"] is None and s["new_independent_witness_votes"]==0,"G893 direct glyph promoted without semantics")
+   require(s["numeric_adjudication_status"]=="FIELD_SEMANTICS_PRECISION_AND_CROSS_WITNESS_REPLAY_PENDING" and doc["guardrails"]["all_six_numeric_adjudications_awarded"]==0 and doc["guardrails"]["new_source_registry_records"]==0 and doc["guardrails"]["new_transmission_edges"]==0 and doc["guardrails"]["new_algorithm_reopens"]==0,"G893 glyph claim made numeric/lineage without basis")
  require(data["definition"].startswith("NON_EXHAUSTIVE"),"not falsely exhaustive")
  require(len(data["explicit_limits"])>=3 and any("not be recovered" in x for x in data["explicit_limits"]),"unsaved research limitation")
  require(data["binding"]["reviewed_state_version"]==state["schema_version"],"state review missing")
@@ -222,6 +242,11 @@ def check_forward_only(old,new):
   if len(newer)>len(older):
    require(len(y["history"])>len(x["history"]) and y["history"][-1].get("event")=="G893_SOURCE_PAGE_TARGET_LOCATOR_APPEND" and y["history"][-1].get("evidence_refs"),"G893 new locator added without cited history: "+k)
 
+  prev_g=x.get("g893_direct_glyph_observations",[])
+  next_g=y.get("g893_direct_glyph_observations",[])
+  require(isinstance(prev_g,list) and isinstance(next_g,list) and next_g[:len(prev_g)]==prev_g,"G893 observed glyph records removed/rewritten: "+k)
+  if len(next_g)>len(prev_g):
+   require(len(y["history"])>len(x["history"]) and y["history"][-1].get("event")=="G893_DIRECT_ORIGINAL_GLYPH_OBSERVATION_APPEND" and y["history"][-1].get("evidence_refs"),"G893 newly observed glyph lacks cited history: "+k)
   material=("priority","evidence_boundary","missing_evidence","next_action","closure_criteria")
   changed={name for name in material if x[name]!=y[name]}
   if changed:

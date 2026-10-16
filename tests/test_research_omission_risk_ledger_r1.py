@@ -172,6 +172,20 @@ class ResearchOmissionLedgerTests(unittest.TestCase):
   x=next(x for x in later["issues"] if x["id"]=="TW-OPEN-0005")
   x["g893_target_page_locators"].clear()
   with self.assertRaisesRegex(ValueError,"historic G893 target locators removed/rewritten"):m.check_forward_only(self.d,later)
+ def test_g893_glyph_value_must_remain_unadjudicated(self):
+  i=next(x for x in self.d["issues"] if x["id"]=="TW-OPEN-0005")
+  i["g893_direct_glyph_observations"][0]["normalized_numeric_value"]="10.561775"
+  self.invalid("G893 direct glyph promoted without semantics")
+ def test_g893_direct_glyph_requires_matching_evidence(self):
+  i=next(x for x in self.d["issues"] if x["id"]=="TW-OPEN-0005")
+  i["g893_direct_glyph_observations"][1]["observed_surface"]="FORGED"
+  self.invalid("G893 direct glyph evidence mismatch")
+ def test_g893_direct_observation_forward_only(self):
+  revised=copy.deepcopy(self.d)
+  i=next(x for x in revised["issues"] if x["id"]=="TW-OPEN-0005")
+  i["g893_direct_glyph_observations"].clear()
+  with self.assertRaisesRegex(ValueError,"G893 observed glyph records removed/rewritten"):
+   m.check_forward_only(self.d,revised)
  def test_forward_only_ordinary_noop(self):
   self.assertEqual(m.check_forward_only(self.d,copy.deepcopy(self.d))["status"],"PASS")
 if __name__=="__main__":unittest.main()
