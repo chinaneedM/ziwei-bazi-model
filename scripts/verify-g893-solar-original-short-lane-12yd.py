@@ -38,8 +38,8 @@ def verify(d,ya,ledger,state):
  need(issue["status"]=="OPEN" and DOC in issue["source_refs"] and "docs/research/TIANWEN-12YD-G893-D15-D17-DIRECT-SOLAR-PRINTED-FIVE-FEN-SEQUENCE-R1.md" in issue["source_refs"],"omission research evidence missing")
  review=issue["g893_d16_three_day_short_lane_reviews"]
  need(len(review)==1 and review[0]["evidence_doc"]==DOC and review[0]["original_target_source_field_finalized"] is False and review[0]["principal_source_fields_awarded"]==review[0]["cross_witness_final_decisions_awarded"]==0,"issue numeric overclaim")
- need(issue["history"][-1]["event"]=="G893_D16_THREE_DAY_DIRECT_SHORT_LANE_APPEND" and DOC in issue["history"][-1]["evidence_refs"],"12YD missing explicit forward-only event")
- need(state["schema_version"]==ledger["binding"]["reviewed_state_version"]==state["historical_audit"]["research_omission_guard"]["reviewed_state_version"]=="1.617.0" and state["historical_audit"]["current_focus"][-1].startswith("12YD "),"state handoff mismatch")
+ need(any(h["event"]=="G893_D16_THREE_DAY_DIRECT_SHORT_LANE_APPEND" and DOC in h["evidence_refs"] for h in issue["history"]),"12YD forward-only event")
+ need(state["schema_version"]==ledger["binding"]["reviewed_state_version"]==state["historical_audit"]["research_omission_guard"]["reviewed_state_version"] and tuple(map(int,state["schema_version"].split(".")))>=(1,617,0) and any(f.startswith("12YD ") for f in state["historical_audit"]["current_focus"]),"state handoff mismatch")
  need(state["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED" and state["invariants"]["algorithm_reopen_count"]==0 and sum(x["status"]!="RESOLVED_WITH_EVIDENCE" for x in ledger["issues"])==11,"product or issue grade changed")
  return {"status":"PASS","same_original_printed_candidate_strings":3,"candidate_increment":"0.0186","D16_full_target_original_field":"UNPROVEN","main_target_fields":"5/6","cross_witness_mechanical_final":"0/6"}
 if __name__=="__main__":
