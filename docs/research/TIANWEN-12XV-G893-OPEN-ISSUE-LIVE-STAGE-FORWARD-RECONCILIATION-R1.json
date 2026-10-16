@@ -1,0 +1,39 @@
+{
+  "schema": "TIANWEN-12XV-G893-LIVE-OPEN-ISSUE-STATE-FORWARD-ONLY-R1",
+  "date": "2026-10-16",
+  "issue_id": "TW-OPEN-0005",
+  "before_issue_stage": "12CW-based snapshot still reporting six source folio targets pending",
+  "after_issue_stage": "12XP/12XS/12XT/12XU source evidence consistently recorded as six day page locators and three original complete literal fields",
+  "preserved_historical_version": "1.608.0",
+  "current_version": "1.609.0",
+  "previous_live_summary": {
+    "evidence_boundary": "12CW 已取得奎章阁 G893/奎貴893/ GK00893_00《授時曆立成》同一物理来源全部 204/204 张公开图像并经源页哈希验证；冬至起页 052a 和夏至起页 077a 的日出入晨昏半昼分数值已直接核读。但早期 11X 所列六组太阳/太阴目标（冬至后日16、太阴日8/101/114/124/132）在 12CW 文档中明确 NOT_ADJUDICATED_IN_THIS_BATCH，不能从全书下载率或其他两张日出页的数字推断六组已校勘。印本确切年份保持 1418—1450 年馆方范围，不能选定 1434 或 1444。",
+    "missing_evidence": "六组目标各自的 G893 原页 ID、图像哈希、表题、行列及逐字数值重放；目前 204/204 仅为来源图像获取完成，6/6 仍需局部直接核读与与其它版本的差异比较。部分既有太阳/太阴数值存在于其他文献，但不得冒充 G893 原字。",
+    "next_action": "直接复用已封存的 Kyujanggak 完整 204 页原始图像 archive（run35324088110/artifact10538746764），定位 11X 六个指定数表/日行/原叶；逐项记录 provider 原始页 ID、原图 SHA-256、表题、行列、数字、单位及算术检查。确切年份不足时继续保留不定年。仅若原存档丢失/图像不可读，才评估另行复制服务；勿重复把 204 页公有来源当作未取得。"
+  },
+  "revised_live_summary": {
+    "evidence_boundary": "截至 12XU，G893/奎貴893/GK00893_00 原始影像 204/204 已独立 SHA-256 复验、ZIP CRC 正常；D16/L8/L101/L114/L124/L132 六组原目标的原页日次均已直接定位并绑定独立 JPG SHA-256（6/6）。12XS 的 D16/L101/L124 九个像素区域已于 12XT 对真实原图独立重放（9/9）；L8 019b、L114 034a、L132 036b 三组完整原字栏及对应表头已按独立来源页与字段分别校勘（3/6）。L35 023b、L159 040a 已找到同书对称日次页位，字段仍待逐字核定。全部页均属同一份馆藏，不新增独立古籍见证。图像书目保留馆方 1418—1450 年范围，不指定 1434 或 1444。跨版本精度、机械同值与直接传承因果最终裁决仍 0/6。",
+    "missing_evidence": "余下 D16(002b)/L101(032b)/L124(035b) 三组 G893 完整原字段与机械栏目映射尚未裁决；L8/L132 已有完整可辨原字，但与 G894/《高麗史》及明1569 不同零位写法须按分、秒及分位体系独立复算；L114 原字段既证九日三四八九，但跨本数表机械等价和传承关系尚未解决。同书对称 L35/L159 只有日次页位，缺独立损益原字段核读。六项跨版数值异文原因与历算变换最终裁决 0/6。不得把原字相同或数字串相似直接等同原刊、直接抄袭或排盘算法证据。",
+    "next_action": "优先按原书 001a/018b 表头及已哈希校验的 002b(D16)、032b(L101)、035b(L124) 日次页确认源栏与完整字形，不照抄明1569/KRDB/G894 的候选数。其次核读同书对称 023b(L35)、040a(L159)，约束 019b(L8)/036b(L132) 的〇位与损益正负，再对 L8/L114/L132 已核原字段做单位、精度、算术复算和不同印本的逐字比较。每项复审保存原页 SHA-256、栏目、日次、零位/复算与不能证的边界；没有足够依据继续保持跨版裁决未定。不要重复下载 204 页或重计其为新增纸本。"
+  },
+  "counts": {
+    "original_image_jpegs_verified": 204,
+    "original_target_day_pages_located": 6,
+    "fully_bound_original_literal_fields": 3,
+    "native_original_rgb_rois_replayed": 9,
+    "same_copy_symmetric_day_page_locators": 2,
+    "final_cross_witness_numerical_adjudications": 0,
+    "known_unresolved_research_issues": 11,
+    "new_source_registry_votes": 0,
+    "new_transmission_edges": 0,
+    "algorithm_reopens": 0
+  },
+  "research_evidence_refs": [
+    "docs/research/TIANWEN-12XP-G893-ALL-SIX-TARGET-ORIGINAL-PAGE-LOCATORS-R1.md",
+    "docs/research/TIANWEN-12XS-G893-D16-L101-L124-FIELD-MAPPING-GATES-R1.md",
+    "docs/research/TIANWEN-12XT-G893-SOURCE-PIXEL-REPLAY-INTEGRITY-R1.md",
+    "docs/research/TIANWEN-12XR-G893-L114-DAYRATE-FULL-FIELD-SEPARATION-R1.json",
+    "docs/research/TIANWEN-12XU-G893-L8-L132-SOURCE-GLYPH-AND-SYMMETRIC-LOCATORS-R1.json"
+  ],
+  "change_policy": "FORWARD_ONLY_LIVE_ISSUE_SUMMARY_CORRECTION_DO_NOT_REWRITE_12CW_OR_12XM_ARCHIVE_SNAPSHOT"
+}
