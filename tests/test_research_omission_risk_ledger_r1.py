@@ -186,6 +186,20 @@ class ResearchOmissionLedgerTests(unittest.TestCase):
   i["g893_direct_glyph_observations"].clear()
   with self.assertRaisesRegex(ValueError,"G893 observed glyph records removed/rewritten"):
    m.check_forward_only(self.d,revised)
+ def test_g893_l114_full_field_cannot_be_false_numeric_final(self):
+  i=next(x for x in self.d["issues"] if x["id"]=="TW-OPEN-0005")
+  i["g893_target_field_reviews"][0]["cross_witness_numeric_variant_final_decision"]="CLOSED"
+  self.invalid("G893 source literal promoted to historical final decision")
+ def test_g893_l114_full_field_matches_direct_source(self):
+  i=next(x for x in self.d["issues"] if x["id"]=="TW-OPEN-0005")
+  i["g893_target_field_reviews"][0]["original_literal_full_field"]="九日二四八九"
+  self.invalid("G893 full-field original glyph mismatch")
+ def test_g893_l114_full_field_forward_only(self):
+  later=copy.deepcopy(self.d)
+  i=next(x for x in later["issues"] if x["id"]=="TW-OPEN-0005")
+  i["g893_target_field_reviews"].clear()
+  with self.assertRaisesRegex(ValueError,"G893 prior field review removed/rewritten"):
+   m.check_forward_only(self.d,later)
  def test_forward_only_ordinary_noop(self):
   self.assertEqual(m.check_forward_only(self.d,copy.deepcopy(self.d))["status"],"PASS")
 if __name__=="__main__":unittest.main()

@@ -12,9 +12,9 @@
   "binding": {
     "repository": "chinaneedM/ziwei-bazi-model",
     "branch": "agent/fusion-chart-core-r1-20260822",
-    "reviewed_state_version": "1.604.0",
-    "source_focus_count": 2328,
-    "latest_research_focus_prefix": "12XQ"
+    "reviewed_state_version": "1.605.0",
+    "source_focus_count": 2329,
+    "latest_research_focus_prefix": "12XR"
   },
   "coverage_axes": [
     "primary_editions_and_physical_copies",
@@ -171,7 +171,9 @@
         "docs/research/TIANWEN-12XP-G893-L124-ORIGINAL-PAGE-LOCATOR-R1.json",
         "docs/research/TIANWEN-12XP-G893-L132-ORIGINAL-PAGE-LOCATOR-R1.json",
         "docs/research/TIANWEN-12XQ-G893-DIRECT-GLYPH-SEGMENT-READINGS-R1.json",
-        "docs/research/TIANWEN-12XQ-G893-DIRECT-GLYPH-PHILOLOGICAL-FIREWALL-R1.md"
+        "docs/research/TIANWEN-12XQ-G893-DIRECT-GLYPH-PHILOLOGICAL-FIREWALL-R1.md",
+        "docs/research/TIANWEN-12XR-G893-L114-DAYRATE-FULL-FIELD-SEPARATION-R1.json",
+        "docs/research/TIANWEN-12XR-G893-L114-DAYRATE-FULL-FIELD-SEPARATION-R1.md"
       ],
       "evidence_boundary": "12CW 已取得奎章阁 G893/奎貴893/ GK00893_00《授時曆立成》同一物理来源全部 204/204 张公开图像并经源页哈希验证；冬至起页 052a 和夏至起页 077a 的日出入晨昏半昼分数值已直接核读。但早期 11X 所列六组太阳/太阴目标（冬至后日16、太阴日8/101/114/124/132）在 12CW 文档中明确 NOT_ADJUDICATED_IN_THIS_BATCH，不能从全书下载率或其他两张日出页的数字推断六组已校勘。印本确切年份保持 1418—1450 年馆方范围，不能选定 1434 或 1444。",
       "missing_evidence": "六组目标各自的 G893 原页 ID、图像哈希、表题、行列及逐字数值重放；目前 204/204 仅为来源图像获取完成，6/6 仍需局部直接核读与与其它版本的差异比较。部分既有太阳/太阴数值存在于其他文献，但不得冒充 G893 原字。",
@@ -250,6 +252,18 @@
             "VAR-NUM-LUNAR-L132-LOSSGAIN"
           ],
           "numeric_decisions_awarded": 0
+        },
+        {
+          "event": "G893_SOURCE_FULL_FIELD_COLLATION_APPEND",
+          "date": "2026-10-16",
+          "reason": "Original image 034a L114 rate column physically separated from adjoining loss-gain column, and source 018b directly carries 日率 column heading; 12XQ initially recorded only the six-glyph prefix, now field-bounded. Arithmetic and transmission unresolved.",
+          "evidence_refs": [
+            "docs/research/TIANWEN-12XR-G893-L114-DAYRATE-FULL-FIELD-SEPARATION-R1.json",
+            "docs/research/TIANWEN-12XR-G893-L114-DAYRATE-FULL-FIELD-SEPARATION-R1.md"
+          ],
+          "control_id": "VAR-NUM-LUNAR-L114-DAYRATE",
+          "full_field_reviewed": 1,
+          "comprehensive_numeric_decisions_awarded": 0
         }
       ],
       "g893_six_control_snapshot": {
@@ -422,6 +436,21 @@
           "grade": "SOURCE_ORIGINAL_VISIBLE_GLYPH_SEGMENT_ONLY",
           "normalized_numeric_value": null,
           "numeric_decision_awarded": 0
+        }
+      ],
+      "g893_target_field_reviews": [
+        {
+          "control_id": "VAR-NUM-LUNAR-L114-DAYRATE",
+          "page_id": "034a",
+          "page_sha256": "ac738d1a83ea7f19dc1f83583af6adc90878534beec1727b9076cc1e099c8137",
+          "header_page_id": "018b",
+          "header_page_sha256": "4decd1801d832ba5b471b047dd84cca487245038622a589b48552a0fb43ab83a",
+          "evidence_doc": "docs/research/TIANWEN-12XR-G893-L114-DAYRATE-FULL-FIELD-SEPARATION-R1.json",
+          "original_literal_full_field": "九日三四八九",
+          "source_scoped_reading": "9日3489",
+          "stage": "SOURCE_ORIGINAL_FULL_LITERAL_FIELD_AND_HEADER_VERIFIED",
+          "cross_witness_numeric_variant_final_decision": null,
+          "new_source_or_lineage_votes": 0
         }
       ]
     },
@@ -907,6 +936,26 @@
       ],
       "discovery_mode": "human direct image review of three source-original G893 lunar target columns, SHA checked against independent acquired corpus; explicit semantic/precision firewall",
       "result": "3 literal field segments visually recorded, 0 numeric targets fully adjudicated, zero new source/print/graph/algorithm votes, 11 omissions still OPEN/BLOCKED"
+    },
+    {
+      "id": "OMISSIONS-12XR-G893-L114-FULL-DAYRATE-20261016",
+      "date": "2026-10-16",
+      "state_version": "1.605.0",
+      "reviewed_issue_ids": [
+        "TW-OPEN-0001",
+        "TW-OPEN-0002",
+        "TW-OPEN-0003",
+        "TW-OPEN-0004",
+        "TW-OPEN-0005",
+        "TW-OPEN-0006",
+        "TW-OPEN-0007",
+        "TW-OPEN-0008",
+        "TW-OPEN-0009",
+        "TW-OPEN-0010",
+        "TW-OPEN-0011"
+      ],
+      "discovery_mode": "source-original G893 018b header and 034a day114 field separator re-review, both hash checked against original 204-JPEG acquisition report; forward-only repair of narrower 12XQ stage",
+      "result": "L114 original rate literal 9日3489 field structurally closed for one G893 copy; full numeric cross-witness algorithm/precision adjudication remains open 0/6 and 11 issues still open"
     }
   ],
   "resolution_policy": {

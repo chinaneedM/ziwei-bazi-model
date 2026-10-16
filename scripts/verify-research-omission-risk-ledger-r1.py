@@ -154,6 +154,25 @@ def validate(data,state,protocol,exists_fn=None):
    require(s["human_visual_source_jpeg_review"] is True and s["ocr_used"] is False and s["source_issued_original_image_url"].startswith("https://kyudb.snu.ac.kr/ImageServlet.do?"),"G893 glyph image direct origin absent")
    require(o["normalized_numeric_value"] is None and o["numeric_decision_awarded"]==0 and s["normalized_numeric_value"] is None and s["new_independent_witness_votes"]==0,"G893 direct glyph promoted without semantics")
    require(s["numeric_adjudication_status"]=="FIELD_SEMANTICS_PRECISION_AND_CROSS_WITNESS_REPLAY_PENDING" and doc["guardrails"]["all_six_numeric_adjudications_awarded"]==0 and doc["guardrails"]["new_source_registry_records"]==0 and doc["guardrails"]["new_transmission_edges"]==0 and doc["guardrails"]["new_algorithm_reopens"]==0,"G893 glyph claim made numeric/lineage without basis")
+ for issue in data["issues"]:
+  field_rows=issue.get("g893_target_field_reviews",[])
+  require(isinstance(field_rows,list),"G893 field reviews must be list")
+  if not field_rows:continue
+  locs={x["control_id"]:x for x in issue.get("g893_target_page_locators",[])}
+  require(len({x["control_id"] for x in field_rows})==len(field_rows),"G893 full-field duplicate")
+  for f in field_rows:
+   loc=locs.get(f["control_id"])
+   require(loc is not None and loc["page_id"]==f["page_id"] and loc["page_sha256"]==f["page_sha256"],"G893 full-field locator mismatch")
+   p=Path(f["evidence_doc"])
+   require(p.parts[:2]==("docs","research") and ".." not in p.parts,"G893 full-field evidence path")
+   e=json.loads((ROOT/p).read_text(encoding="utf-8"))
+   o=e["target"];h=e["structural_header"];im=e["source_page"]
+   require(o["control_id"]==f["control_id"] and o["original_literal_full_field"]==f["original_literal_full_field"] and o["source_scoped_compact_reading"]==f["source_scoped_reading"],"G893 full-field original glyph mismatch")
+   require(h["page_id"]==f["header_page_id"] and h["source_original_sha256"]==f["header_page_sha256"] and h["observed_column_label"]=="遲疾曆日率" and h["independent_page_sha256_checked_against_report"] is True,"G893 original column header provenance mismatch")
+   require(im["page_id"]==f["page_id"] and im["source_original_sha256"]==f["page_sha256"] and im["source_original_jpeg_reviewed"] is True,"G893 source original full-field image mismatch")
+   require(f["stage"]=="SOURCE_ORIGINAL_FULL_LITERAL_FIELD_AND_HEADER_VERIFIED" and f["cross_witness_numeric_variant_final_decision"] is None and f["new_source_or_lineage_votes"]==0,"G893 source literal promoted to historical final decision")
+   require(o["arithmetic_derivation_and_unit_standardization"]=="PENDING" and o["cross_witness_variant_cause"]=="PENDING" and e["safeguards"]["all_six_cross_edition_arithmetic_variant_decisions_completed"]==0,"G893 new field numerical adjudication premature")
+   require(e["safeguards"]["new_source_registry_records"]==0 and e["safeguards"]["new_lineage_edges"]==0 and e["safeguards"]["algorithm_changes"]==0 and e["safeguards"]["historical_12xq_not_rewritten"] is True,"G893 full-field scope leakage")
  require(data["definition"].startswith("NON_EXHAUSTIVE"),"not falsely exhaustive")
  require(len(data["explicit_limits"])>=3 and any("not be recovered" in x for x in data["explicit_limits"]),"unsaved research limitation")
  require(data["binding"]["reviewed_state_version"]==state["schema_version"],"state review missing")
@@ -247,6 +266,11 @@ def check_forward_only(old,new):
   require(isinstance(prev_g,list) and isinstance(next_g,list) and next_g[:len(prev_g)]==prev_g,"G893 observed glyph records removed/rewritten: "+k)
   if len(next_g)>len(prev_g):
    require(len(y["history"])>len(x["history"]) and y["history"][-1].get("event")=="G893_DIRECT_ORIGINAL_GLYPH_OBSERVATION_APPEND" and y["history"][-1].get("evidence_refs"),"G893 newly observed glyph lacks cited history: "+k)
+  old_fields=x.get("g893_target_field_reviews",[])
+  new_fields=y.get("g893_target_field_reviews",[])
+  require(isinstance(old_fields,list) and isinstance(new_fields,list) and new_fields[:len(old_fields)]==old_fields,"G893 prior field review removed/rewritten: "+k)
+  if len(new_fields)>len(old_fields):
+   require(len(y["history"])>len(x["history"]) and y["history"][-1].get("event")=="G893_SOURCE_FULL_FIELD_COLLATION_APPEND" and y["history"][-1].get("evidence_refs"),"G893 full-field review lacking forward history: "+k)
   material=("priority","evidence_boundary","missing_evidence","next_action","closure_criteria")
   changed={name for name in material if x[name]!=y[name]}
   if changed:
