@@ -225,6 +225,23 @@ class ResearchOmissionLedgerTests(unittest.TestCase):
   next(i for i in future["issues"] if i["id"]=="TW-OPEN-0005")["g893_field_identity_roi_reviews"].pop()
   with self.assertRaisesRegex(ValueError,"G893 original ROI history lost/rewritten"):
    m.check_forward_only(self.d,future)
+ def test_g893_lossgain_literal_cannot_be_converted_without_replay(self):
+  x=next(x for x in self.d["issues"] if x["id"]=="TW-OPEN-0005")
+  x["g893_loss_gain_complete_field_reviews"][0]["normalized_numeric_value"]="10.561775"
+  self.invalid("G893 loss-gain source literal falsely promoted")
+ def test_g893_lossgain_glyph_must_match_exact_original_evidence(self):
+  x=next(x for x in self.d["issues"] if x["id"]=="TW-OPEN-0005")
+  x["g893_loss_gain_complete_field_reviews"][0]["original_full_literal"]="益一十〇分五六〇一七七五"
+  self.invalid("G893 loss-gain glyph/source evidence mismatch")
+ def test_g893_samecopy_page_is_not_original_numeric_decision(self):
+  x=next(x for x in self.d["issues"] if x["id"]=="TW-OPEN-0005")
+  x["g893_same_copy_symmetric_control_locators"][0]["original_target_value"]="7.886075"
+  self.invalid("G893 symmetric control falsely treated as collated field")
+ def test_g893_lossgain_history_forward_only(self):
+  revised=copy.deepcopy(self.d)
+  next(x for x in revised["issues"] if x["id"]=="TW-OPEN-0005")["g893_loss_gain_complete_field_reviews"].clear()
+  with self.assertRaisesRegex(ValueError,"G893 previous loss-gain/symmetry research overwritten"):
+   m.check_forward_only(self.d,revised)
  def test_forward_only_ordinary_noop(self):
   self.assertEqual(m.check_forward_only(self.d,copy.deepcopy(self.d))["status"],"PASS")
 if __name__=="__main__":unittest.main()

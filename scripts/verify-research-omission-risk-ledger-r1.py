@@ -199,6 +199,32 @@ def validate(data,state,protocol,exists_fn=None):
    require(item["status"]=="PIXEL_REGIONS_BOUND_FIELD_IDENTITY_UNRESOLVED" and item["field_literal"] is None and item["numeric_value"] is None and item["negative_proof"] is False,"G893 ROI falsely promotes numeric field or negative proof")
    require(x["field_identity_positive"] is False and x["field_literal"] is None and x["numeric_value"] is None and x["negative_absence_proven"] is False and x["cross_witness_comparability"]=="PENDING_SOURCE_COLUMN_MAPPING","G893 ROI scope reinterpreted as original glyph")
    require(ev["archive"]["source_jpg_digest_matches"]==ev["archive"]["source_original_jpgs_total"]==204 and ev["guards"]["cross_edition_complete_numeric_decisions_new"]==0 and ev["guards"]["new_external_source_records"]==0 and ev["guards"]["new_historical_physical_witnesses"]==0 and ev["guards"]["new_genealogy_edges"]==0 and ev["guards"]["algorithm_reopens"]==0,"G893 ROI proof source/witness overcount")
+ for issue in data["issues"]:
+  fields=issue.get("g893_loss_gain_complete_field_reviews",[])
+  require(isinstance(fields,list),"G893 loss-gain literal reviews must be list")
+  if not fields:continue
+  known={x["control_id"]:x for x in issue.get("g893_target_page_locators",[])}
+  require(len({x["control_id"] for x in fields})==len(fields),"G893 loss-gain duplicate original field")
+  for row in fields:
+   loc=known.get(row["control_id"])
+   require(loc and row["page_id"]==loc["page_id"] and row["page_sha256"]==loc["page_sha256"],"G893 loss-gain original source-page mismatch")
+   p=Path(row["evidence_doc"])
+   require(p.parts[:2]==("docs","research") and ".." not in p.parts,"G893 loss-gain evidence path unsafe")
+   doc=json.loads((ROOT/p).read_text(encoding="utf-8"))
+   matched=[f for f in doc["original_fields"] if f["control_id"]==row["control_id"]]
+   require(len(matched)==1 and doc["source_id"]=="EXT-KYUJANGGAK-SHOUSHI-LICHENG-G893" and doc["catalog_book_code"]=="GK00893_00","G893 loss-gain physical copy identity mismatch")
+   f=matched[0]
+   require(f["page_id"]==row["page_id"] and f["source_jpeg_sha256"]==row["page_sha256"] and f["complete_original_literal"]==row["original_full_literal"] and f["field_identity"]==row["field_identity"],"G893 loss-gain glyph/source evidence mismatch")
+   require(f["header_page_id"]==row["header_page_id"]=="018b" and f["header_page_jpeg_sha256"]==row["header_page_sha256"]=="4decd1801d832ba5b471b047dd84cca487245038622a589b48552a0fb43ab83a","G893 loss-gain original header mismatch")
+   require(row["source_glyph_grade"]=="SOURCE_ORIGINAL_FULL_LITERAL_LOSS_GAIN_FIELD_ONLY" and row["normalized_numeric_value"] is None and row["cross_witness_final_decision"] is None and row["new_source_votes"]==0,"G893 loss-gain source literal falsely promoted to numerical conclusion")
+   require(f["normalized_numeric_value"] is None and f["whole_numeric_variant_adjudication"]=="PENDING_UNIT_FIELD_AND_CROSS_WITNESS_MECHANICAL_REPLAY" and f["independent_physical_witness_votes_added"]==0 and f["no_ocr"] is True,"G893 loss-gain new variant authority claimed")
+  symmetric=issue.get("g893_same_copy_symmetric_control_locators",[])
+  require(len(symmetric)==2 and {x["limit"] for x in symmetric}=={35,159},"G893 same-copy symmetry page coverage missing")
+  for entry in symmetric:
+   matching=[x for x in doc["same_copy_symmetry_control_locator_only"] if x["limit"]==entry["limit"]]
+   require(len(matching)==1 and matching[0]["page_id"]==entry["page_id"] and matching[0]["sha256"]==entry["page_sha256"] and entry["evidence_doc"]==str(p),"G893 same-copy symmetric page digest mismatch")
+   require(entry["status"]=="DAY_HEADER_LOCATED_SYMMETRIC_FIELD_PENDING" and entry["original_target_value"] is None and matching[0]["target_field_original_literal"] is None and matching[0]["target_value_normalized"] is None,"G893 symmetric control falsely treated as collated field")
+  require(doc["known_image_archive"]["jpgs_verified_against_original_acquisition_report"]==doc["known_image_archive"]["reported_total_jpgs"]==204 and doc["scope"]["full_numeric_mechanical_variant_decisions"]==0 and doc["scope"]["source_registry_delta"]==0 and doc["scope"]["lineage_edge_delta"]==0 and doc["scope"]["algorithm_reopens"]==0,"G893 loss-gain source or numeric scope inflated")
  require(data["definition"].startswith("NON_EXHAUSTIVE"),"not falsely exhaustive")
  require(len(data["explicit_limits"])>=3 and any("not be recovered" in x for x in data["explicit_limits"]),"unsaved research limitation")
  require(data["binding"]["reviewed_state_version"]==state["schema_version"],"state review missing")
@@ -302,6 +328,11 @@ def check_forward_only(old,new):
   require(isinstance(prior_roi,list) and isinstance(added_roi,list) and added_roi[:len(prior_roi)]==prior_roi,"G893 original ROI history lost/rewritten: "+k)
   if len(added_roi)>len(prior_roi):
    require(len(y["history"])>len(x["history"]) and y["history"][-1].get("event")=="G893_FIELD_IDENTITY_PIXEL_SCOPE_APPEND" and y["history"][-1].get("evidence_refs"),"G893 new ROI lacks forward evidence event: "+k)
+  for name in ("g893_loss_gain_complete_field_reviews","g893_same_copy_symmetric_control_locators"):
+   olditems=x.get(name,[]);newitems=y.get(name,[])
+   require(isinstance(olditems,list) and isinstance(newitems,list) and newitems[:len(olditems)]==olditems,"G893 previous loss-gain/symmetry research overwritten: "+k+" "+name)
+   if len(newitems)>len(olditems):
+    require(len(y["history"])>len(x["history"]) and y["history"][-1].get("event")=="G893_LOSSGAIN_COMPLETE_FIELD_AND_SYMMETRY_LOCATOR_APPEND" and y["history"][-1].get("evidence_refs"),"G893 new original loss-gain field lacks witnessed append event: "+k)
   material=("priority","evidence_boundary","missing_evidence","next_action","closure_criteria")
   changed={name for name in material if x[name]!=y[name]}
   if changed:

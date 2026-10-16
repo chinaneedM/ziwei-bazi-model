@@ -12,9 +12,9 @@
   "binding": {
     "repository": "chinaneedM/ziwei-bazi-model",
     "branch": "agent/fusion-chart-core-r1-20260822",
-    "reviewed_state_version": "1.607.0",
-    "source_focus_count": 2331,
-    "latest_research_focus_prefix": "12XT"
+    "reviewed_state_version": "1.608.0",
+    "source_focus_count": 2332,
+    "latest_research_focus_prefix": "12XU"
   },
   "coverage_axes": [
     "primary_editions_and_physical_copies",
@@ -177,7 +177,9 @@
         "docs/research/TIANWEN-12XS-G893-THREE-TARGET-PIXEL-ROI-GATES-R1.json",
         "docs/research/TIANWEN-12XS-G893-D16-L101-L124-FIELD-MAPPING-GATES-R1.md",
         "docs/research/TIANWEN-12XT-G893-204-PAGE-NATIVE-ROI-REPLAY-R1.json",
-        "docs/research/TIANWEN-12XT-G893-SOURCE-PIXEL-REPLAY-INTEGRITY-R1.md"
+        "docs/research/TIANWEN-12XT-G893-SOURCE-PIXEL-REPLAY-INTEGRITY-R1.md",
+        "docs/research/TIANWEN-12XU-G893-L8-L132-SOURCE-GLYPH-AND-SYMMETRIC-LOCATORS-R1.json",
+        "docs/research/TIANWEN-12XU-G893-L8-L132-FULL-LITERAL-AND-CROSS-WITNESS-FIREWALL-R1.md"
       ],
       "evidence_boundary": "12CW 已取得奎章阁 G893/奎貴893/ GK00893_00《授時曆立成》同一物理来源全部 204/204 张公开图像并经源页哈希验证；冬至起页 052a 和夏至起页 077a 的日出入晨昏半昼分数值已直接核读。但早期 11X 所列六组太阳/太阴目标（冬至后日16、太阴日8/101/114/124/132）在 12CW 文档中明确 NOT_ADJUDICATED_IN_THIS_BATCH，不能从全书下载率或其他两张日出页的数字推断六组已校勘。印本确切年份保持 1418—1450 年馆方范围，不能选定 1434 或 1444。",
       "missing_evidence": "六组目标各自的 G893 原页 ID、图像哈希、表题、行列及逐字数值重放；目前 204/204 仅为来源图像获取完成，6/6 仍需局部直接核读与与其它版本的差异比较。部分既有太阳/太阴数值存在于其他文献，但不得冒充 G893 原字。",
@@ -296,6 +298,17 @@
           "original_source_jpgs_matched": 204,
           "roi_pixels_matched": 9,
           "numeric_decisions_awarded": 0
+        },
+        {
+          "event": "G893_LOSSGAIN_COMPLETE_FIELD_AND_SYMMETRY_LOCATOR_APPEND",
+          "date": "2026-10-16",
+          "reason": "Direct G893 019b/036b vertical loss-gain field original glyphs read alongside original 018b 損益分 header; 023b/040a original same-book symmetric day headings located but their fields pending. Existing 12XQ/12XR/12XS/12XT records immutable; no complete variant arithmetic decision.",
+          "evidence_refs": [
+            "docs/research/TIANWEN-12XU-G893-L8-L132-SOURCE-GLYPH-AND-SYMMETRIC-LOCATORS-R1.json",
+            "docs/research/TIANWEN-12XU-G893-L8-L132-FULL-LITERAL-AND-CROSS-WITNESS-FIREWALL-R1.md"
+          ],
+          "full_literal_field_reviewed_now": 3,
+          "mechanical_numeric_variant_decisions_awarded": 0
         }
       ],
       "g893_six_control_snapshot": {
@@ -602,6 +615,54 @@
           "field_literal": null,
           "numeric_value": null,
           "negative_proof": false
+        }
+      ],
+      "g893_loss_gain_complete_field_reviews": [
+        {
+          "control_id": "VAR-NUM-LUNAR-L8-LOSSGAIN",
+          "page_id": "019b",
+          "page_sha256": "05d6a658664475540333965079363e476c58f708819636f5137558b05a35bcda",
+          "header_page_id": "018b",
+          "header_page_sha256": "4decd1801d832ba5b471b047dd84cca487245038622a589b48552a0fb43ab83a",
+          "evidence_doc": "docs/research/TIANWEN-12XU-G893-L8-L132-SOURCE-GLYPH-AND-SYMMETRIC-LOCATORS-R1.json",
+          "original_full_literal": "益一十〇分五六一七七五",
+          "field_identity": "遲疾損益分",
+          "source_glyph_grade": "SOURCE_ORIGINAL_FULL_LITERAL_LOSS_GAIN_FIELD_ONLY",
+          "normalized_numeric_value": null,
+          "cross_witness_final_decision": null,
+          "new_source_votes": 0
+        },
+        {
+          "control_id": "VAR-NUM-LUNAR-L132-LOSSGAIN",
+          "page_id": "036b",
+          "page_sha256": "8acb0c32bcdd0be8827bc2851f089bf5d73a2378c3b7ffcfa80eeaf725d1dd84",
+          "header_page_id": "018b",
+          "header_page_sha256": "4decd1801d832ba5b471b047dd84cca487245038622a589b48552a0fb43ab83a",
+          "evidence_doc": "docs/research/TIANWEN-12XU-G893-L8-L132-SOURCE-GLYPH-AND-SYMMETRIC-LOCATORS-R1.json",
+          "original_full_literal": "損七分八八六〇七五",
+          "field_identity": "遲疾損益分",
+          "source_glyph_grade": "SOURCE_ORIGINAL_FULL_LITERAL_LOSS_GAIN_FIELD_ONLY",
+          "normalized_numeric_value": null,
+          "cross_witness_final_decision": null,
+          "new_source_votes": 0
+        }
+      ],
+      "g893_same_copy_symmetric_control_locators": [
+        {
+          "limit": 35,
+          "page_id": "023b",
+          "page_sha256": "f5f732a4db9636ab563af47a5c8332e1f00eed1e587cc138d150da53f557d94f",
+          "evidence_doc": "docs/research/TIANWEN-12XU-G893-L8-L132-SOURCE-GLYPH-AND-SYMMETRIC-LOCATORS-R1.json",
+          "status": "DAY_HEADER_LOCATED_SYMMETRIC_FIELD_PENDING",
+          "original_target_value": null
+        },
+        {
+          "limit": 159,
+          "page_id": "040a",
+          "page_sha256": "ba5cb6bcc8ec21ce59b6a33c402cd6ee661f1466239649eaa8c661d80c63143a",
+          "evidence_doc": "docs/research/TIANWEN-12XU-G893-L8-L132-SOURCE-GLYPH-AND-SYMMETRIC-LOCATORS-R1.json",
+          "status": "DAY_HEADER_LOCATED_SYMMETRIC_FIELD_PENDING",
+          "original_target_value": null
         }
       ]
     },
@@ -1147,6 +1208,26 @@
       ],
       "discovery_mode": "independent re-read of the previously obtained original 33MB G893 archive using byte-verified offline program + CI-suitable synthetic fixture tests; 204/204 and 9/9 source replays",
       "result": "new durable ROI replayer removes unrepeatable scratchpad risk, no ancient glyph or numeric closure; open research issues remain 11"
+    },
+    {
+      "id": "OMISSIONS-12XU-G893-L8-L132-FULL-GLYPH-AND-SYMMETRY-20261016",
+      "date": "2026-10-16",
+      "state_version": "1.608.0",
+      "reviewed_issue_ids": [
+        "TW-OPEN-0001",
+        "TW-OPEN-0002",
+        "TW-OPEN-0003",
+        "TW-OPEN-0004",
+        "TW-OPEN-0005",
+        "TW-OPEN-0006",
+        "TW-OPEN-0007",
+        "TW-OPEN-0008",
+        "TW-OPEN-0009",
+        "TW-OPEN-0010",
+        "TW-OPEN-0011"
+      ],
+      "discovery_mode": "review of source-G893 018b header and target originals 019b/036b, same-book symmetry page IDs 023b/040a plus exact source JPEG sha; existing received/Ming variant ledger for scoped comparison",
+      "result": "G893 full literal source fields 3/6, cross-version mechanical numeric decisions 0/6; eleven unresolved and no new independent print/source/graph/runtime vote"
     }
   ],
   "resolution_policy": {
