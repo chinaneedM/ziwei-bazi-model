@@ -12,9 +12,9 @@
   "binding": {
     "repository": "chinaneedM/ziwei-bazi-model",
     "branch": "agent/fusion-chart-core-r1-20260822",
-    "reviewed_state_version": "1.611.0",
-    "source_focus_count": 2335,
-    "latest_research_focus_prefix": "12XX"
+    "reviewed_state_version": "1.612.0",
+    "source_focus_count": 2336,
+    "latest_research_focus_prefix": "12XY"
   },
   "coverage_axes": [
     "primary_editions_and_physical_copies",
@@ -183,11 +183,13 @@
         "docs/research/TIANWEN-12XV-G893-OPEN-ISSUE-LIVE-STAGE-FORWARD-RECONCILIATION-R1.json",
         "docs/research/TIANWEN-12XV-G893-OPEN-ISSUE-LIVE-STAGE-FORWARD-RECONCILIATION-R1.md",
         "docs/research/TIANWEN-12XW-G893-CROSS-EDITION-LIVE-STAGE-OVERLAY-R1.json",
-        "docs/research/TIANWEN-12XX-G893-L124-DIRECT-ORIGINAL-JI-XINGDU-GLYPH-R1.json"
+        "docs/research/TIANWEN-12XX-G893-L124-DIRECT-ORIGINAL-JI-XINGDU-GLYPH-R1.json",
+        "docs/research/TIANWEN-12XY-G893-L101-D16-ADJACENT-ORIGINAL-COLUMN-SCOPE-R1.json",
+        "docs/research/TIANWEN-12XY-G893-L101-D16-ADJACENT-ORIGINAL-COLUMN-SCOPE-R1.md"
       ],
       "evidence_boundary": "12XX 直接重校勘同一奎章阁 G893 / GK00893_00 原书，完整验证 204/204 原 JPG SHA 与三处新原 RGB ROI；L124 原页035b和表头018b读作疾曆限行度一度〇二八一。六目标原页6/6，完整原字栏现4/6（L8/L114/L124/L132），D16/L101源字段仍待审；旧12XS/12XW快照不重写。跨版数值与传播因果最终裁决0/6，馆方印年仍1418—1450范围，同一馆藏只计1份实物见证。",
       "missing_evidence": "D16 002b 与 L101 032b 两组目标的源列及完整字串尚未完成。L124 原字与既有明1569/G894相合，但与高丽史收本一度〇八二一的传抄成因、精度/单位复算、机械等价仍未裁定。L8/L132零位、L114日率和同书L35/L159对称字段亦需再审。六组跨版最终数值/历史原因均0/6。",
-      "next_action": "先直接校读已封存的 G893 032b L101 积度栏及零位，再核查002b D16与001a表头是否有可比较的第二差分栏；之后复核同书L35/L159损益字段和全部相关单位/精度/版本差异。禁止用邻列或二手数字替代原字；不重复采集204 JPG，不把同书页数计作独立印本数。",
+      "next_action": "按12XY同一实物原页源哈希的5页／8原始像素区域定位，先把032b太阴L101各竖栏与018b表头及032a第100限／032b第102限做逐栏映射，亲自核定完整目标积度原字与分位零位；再以001a太阳源表头、002b第15／16／17日相邻行核定是否存在同概念可比较的第二差分列。对两项目标没有精确栏目、原字及算术重放之前继续保持未决，禁止填入明1569的5.20481125／5.2362或高丽史的5.1362。已获取的204原JPG不可当作204份纸本，也无需重复全册采集。其他L8/L114/L124/L132既定原字不变，跨版数值原因仍0/6。",
       "closure_criteria": "六个指定目标每一项均提供独立可核查的 G893 原图页、表题/行列字形、哈希、单位及复算裁决；遇残损/缺叶逐项记载限定不可证而非捏造目标值。完整扫描已有不等于六项研究全部完成。",
       "resolution_evidence": [],
       "history": [
@@ -362,6 +364,22 @@
           ],
           "original_full_literal_fields_now": 4,
           "final_mechanical_numeric_decisions": 0
+        },
+        {
+          "event": "G893_CONTEXTUAL_ORIGINAL_COLUMN_GEOMETRY_APPEND",
+          "date": "2026-10-16",
+          "changed_fields": [
+            "next_action"
+          ],
+          "reason": "Direct original 204/204 JPEG hash replay and eight native RGB source ROIs anchored five original G893 pages including adjacent L100/L101/L102 and D15/D16/D17; no source-to-mechanical field equivalence or full L101/D16 original literal established. This updates the live action but preserves 12XS/12XW/12XX historical source snapshots.",
+          "evidence_refs": [
+            "docs/research/TIANWEN-12XY-G893-L101-D16-ADJACENT-ORIGINAL-COLUMN-SCOPE-R1.json",
+            "docs/research/TIANWEN-12XY-G893-L101-D16-ADJACENT-ORIGINAL-COLUMN-SCOPE-R1.md"
+          ],
+          "new_context_original_source_pages": 5,
+          "new_context_native_original_rois": 8,
+          "complete_original_source_fields": 4,
+          "fully_decided_cross_witness_numeric_variants": 0
         }
       ],
       "g893_six_control_snapshot": {
@@ -729,6 +747,27 @@
           "evidence_doc": "docs/research/TIANWEN-12XU-G893-L8-L132-SOURCE-GLYPH-AND-SYMMETRIC-LOCATORS-R1.json",
           "status": "DAY_HEADER_LOCATED_SYMMETRIC_FIELD_PENDING",
           "original_target_value": null
+        }
+      ],
+      "g893_contextual_column_geometry_reviews": [
+        {
+          "evidence_doc": "docs/research/TIANWEN-12XY-G893-L101-D16-ADJACENT-ORIGINAL-COLUMN-SCOPE-R1.json",
+          "source_page_ids": [
+            "001a",
+            "002b",
+            "018b",
+            "032a",
+            "032b"
+          ],
+          "source_original_jpeg_sha256_replayed": 204,
+          "source_native_pixel_roi_sha256_replayed": 8,
+          "target_controls": [
+            "NORM-LUNAR-L101-CHIJI-DEGREE-POSITIONAL-GROUPING",
+            "VAR-NUM-SOLAR-WINTER-D16-DIFFERENCE"
+          ],
+          "fully_adjudicated_original_target_fields_added": 0,
+          "numeric_values_adjudicated": 0,
+          "status": "SOURCE_CONTEXT_NATIVE_GEOMETRY_REPLAYED_TARGET_FIELD_IDENTITY_UNRESOLVED"
         }
       ]
     },
@@ -1354,6 +1393,26 @@
       ],
       "discovery_mode": "existing authorized G893 204 source JPGs direct original SHA/ROI and manual 035b/018b field collation",
       "result": "G893 original complete source glyph target field 4/6, only D16/L101 pending, cross-witness mechanical numeric decisions still 0/6 and all 11 issues remain unresolved."
+    },
+    {
+      "id": "OMISSIONS-12XY-G893-L101-D16-ORIGINAL-NEIGHBOR-GEOMETRY-20261016",
+      "date": "2026-10-16",
+      "state_version": "1.612.0",
+      "reviewed_issue_ids": [
+        "TW-OPEN-0001",
+        "TW-OPEN-0002",
+        "TW-OPEN-0003",
+        "TW-OPEN-0004",
+        "TW-OPEN-0005",
+        "TW-OPEN-0006",
+        "TW-OPEN-0007",
+        "TW-OPEN-0008",
+        "TW-OPEN-0009",
+        "TW-OPEN-0010",
+        "TW-OPEN-0011"
+      ],
+      "discovery_mode": "independently SHA bound all 204 source JPGs and eight real G893 original native RGB ROIs across five source pages; manual scoped visual day/header/neighbor context; no external numeric import or OCR",
+      "result": "5 source original pages+8 original ROIs replayed for L101/D16, fields still unassigned and neither numerically adjudicated. G893 complete source literal controls remain4/6, final cross-witness numeric decisions0/6, all 11 research omissions OPEN/BLOCKED, source registry and product unchanged."
     }
   ],
   "resolution_policy": {

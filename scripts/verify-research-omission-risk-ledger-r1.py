@@ -336,6 +336,11 @@ def check_forward_only(old,new):
    require(isinstance(olditems,list) and isinstance(newitems,list) and newitems[:len(olditems)]==olditems,"G893 previous loss-gain/symmetry research overwritten: "+k+" "+name)
    if len(newitems)>len(olditems):
     require(len(y["history"])>len(x["history"]) and y["history"][-1].get("event")=="G893_LOSSGAIN_COMPLETE_FIELD_AND_SYMMETRY_LOCATOR_APPEND" and y["history"][-1].get("evidence_refs"),"G893 new original loss-gain field lacks witnessed append event: "+k)
+  old_geometry=x.get("g893_contextual_column_geometry_reviews",[])
+  new_geometry=y.get("g893_contextual_column_geometry_reviews",[])
+  require(isinstance(old_geometry,list) and isinstance(new_geometry,list) and new_geometry[:len(old_geometry)]==old_geometry,"G893 earlier source geometry evidence removed/rewritten: "+k)
+  if len(new_geometry)>len(old_geometry):
+   require(len(y["history"])>len(x["history"]) and y["history"][-1].get("event")=="G893_CONTEXTUAL_ORIGINAL_COLUMN_GEOMETRY_APPEND" and y["history"][-1].get("evidence_refs"),"G893 native original geometry evidence missing forward event: "+k)
   material=("priority","evidence_boundary","missing_evidence","next_action","closure_criteria")
   changed={name for name in material if x[name]!=y[name]}
   if changed:
