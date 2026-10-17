@@ -24,7 +24,13 @@ def verify(d,ledger,state):
  w=d["received_text_presentations"]
  need(len(w)==4 and [x["key"] for x in w]==list(EXPECTED),"four source-specific web text presentations")
  for item in w:
-  need(item["url"].startswith("https://") and "NOT_PHYSICAL" in item["representation"] or item["representation"]=="RECEIVED_WEB_TRANSCRIPTION_WITH_UNVERIFIED_SIKU_EDITION_LABEL_NOT_PHYSICAL_PAGE","received only")
+  allowed={
+   "MINGSHI_GENERAL_WIKISOURCE":"RECEIVED_WEB_TRANSCRIPTION_NOT_PHYSICAL_PAGE",
+   "MINGSHI_SIKU_WIKISOURCE":"RECEIVED_WEB_TRANSCRIPTION_WITH_UNVERIFIED_SIKU_EDITION_LABEL_NOT_PHYSICAL_PAGE",
+   "MINGSHI_DAZHISHI":"RECEIVED_WEB_TRANSCRIPTION_NOT_VERIFIED_PHYSICAL_EDITION",
+   "DATONG_LIZHI_SHIDIAN":"LATER_RECEIVED_EXEGETICAL_WEB_TRANSCRIPTION_NOT_PHYSICAL_PAGE"
+  }
+  need(item["url"].startswith("https://") and item["representation"]==allowed[item["key"]],"received only, no original upgrades")
   need((item["intermediate_decimal"],item["sum_decimal"])==EXPECTED[item["key"]],"source-local 2 locus glyph candidates")
   need(item["intermediate_glyph"].startswith("一秒") and item["sum_glyph"].startswith("四分") and "三十一" in item["multiplier_glyph"],"glyph confidence scope")
  m=d["mechanical_semantics"]
