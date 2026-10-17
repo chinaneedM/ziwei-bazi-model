@@ -88,4 +88,19 @@ for start in range(1,pages+1,24):
  sheet.save(name,quality=85,optimize=True)
  print("12YT ATLAS",name,hashlib.sha256(name.read_bytes()).hexdigest(),flush=True)
 (OUT/"report.json").write_text(json.dumps(report,ensure_ascii=False,indent=2)+"\n")
+# Export all candidate Juan-3 to Juan-4 boundary pages without OCR at native
+# lossless resolution, so a human can locate both printed numeric targets.
+native_manifest=[]
+for page in range(25,min(pages+1,78)):
+ rendered=subprocess.run(["ddjvu","-format=pnm",f"-page={page}",str(target)],capture_output=True,check=True)
+ image=Image.open(io.BytesIO(rendered.stdout)).convert("RGB")
+ pth=OUT/f"native_{page:03d}.png"
+ image.save(pth,optimize=True)
+ rec={"page_one_based":page,"width":image.width,"height":image.height,
+      "rgb_sha256":hashlib.sha256(image.tobytes()).hexdigest(),
+      "png_sha256":hashlib.sha256(pth.read_bytes()).hexdigest()}
+ native_manifest.append(rec)
+ if page%10==0: print("12YT NATIVE_PRINT",page,image.width,image.height,rec["png_sha256"],flush=True)
+(OUT/"native-manifest.json").write_text(json.dumps(native_manifest,ensure_ascii=False,indent=2)+"\n")
+print("12YT native candidate folios",len(native_manifest),"original glyph verdict pending manual collation",flush=True)
 print("12YT source acquired, direct printed numeral review STILL ZERO",flush=True)
