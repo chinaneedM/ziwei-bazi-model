@@ -1,0 +1,29 @@
+name: probe-nlc1892-mingshi-v33-original-12yn
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - scripts/probe-nlc1892-mingshi-v33-12yn.py
+      - .github/workflows/probe-nlc1892-mingshi-v33-original-12yn.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  acquire:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python -m pip install 'Pillow>=10,<12'
+      - name: Hash original NLC1892 PDF and build no-OCR page atlas
+        run: python scripts/probe-nlc1892-mingshi-v33-12yn.py
+      - name: Save source and atlas (ephemeral research, not a new independent witness verdict)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nlc1892-mingshi-v33-12yn-original-and-contact
+          path: research-12yn-nlc1892/
+          if-no-files-found: warn
+          retention-days: 15
