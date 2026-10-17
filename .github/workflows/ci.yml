@@ -77,6 +77,10 @@ jobs:
         run: |
           python scripts/verify-g893-solar-seven-day-original-12yg.py
           python -m unittest discover -s tests -p 'test_g893_solar_seven_day_original_12yg.py' -v
+      - name: G893 12YH original D21-D25 cross-folio source print and five exact Decimal edges gate
+        run: |
+          python scripts/verify-g893-solar-d21-d25-original-12yh.py
+          python -m unittest discover -s tests -p 'test_g893_solar_d21_d25_original_12yh.py' -v
       - name: Historical source registry extension integrity gate
         run: |
           python scripts/verify-historical-source-registry-extensions-r1.py

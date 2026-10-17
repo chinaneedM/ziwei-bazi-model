@@ -276,6 +276,16 @@ def validate(data,state,protocol,exists_fn=None):
    require(e["original_sha_rois"]==14 and e["arithmetic_exact_edges"]==6 and e["original_image_count_reverified"]==204,"G893 12YG evidence count")
    require(e["final_decisions_added"]==e["copies_added"]==e["algorithm_reopens"]==0,"false evidence vote")
    require(e["evidence_doc"] in issue["source_refs"] and (ROOT/e["evidence_doc"]).is_file(),"12YG original correction missing")
+ for issue in data["issues"]:
+  if issue["id"]=="TW-OPEN-0005" and issue.get("g893_12yh_extended_source_print_reviews"):
+   rec=issue["g893_12yh_extended_source_print_reviews"]
+   require(len(rec)==1,"12YH single source original extension, not independent copies")
+   e=rec[0]
+   require(e["source_pages"]==["003a","003b"] and e["old_12yg_d20_baseline"]==["5.3106","408.5509"],"12YH original folio seam")
+   require(e["correct_d21_d25_long"]==["403.2403","397.9111","392.5633","387.1969","381.8119"] and e["correct_d21_d25_short"]==["5.3292","5.3478","5.3664","5.3850","5.4036"],"12YH direct glyph source strings")
+   require(e["new_original_same_copy_days"]==5 and e["new_source_rois"]==10 and e["arithmetic_exact_new_edges"]==5 and e["original_jpegs_verified"]==204,"12YH bounded original count")
+   require(e["no_new_external_votes"]==e["no_new_physical_originals"]==e["algorithm_reopens"]==0,"false extra historical award")
+   require(e["evidence_doc"] in issue["source_refs"] and (ROOT/e["evidence_doc"]).is_file(),"12YH source evidence missing")
  require(data["definition"].startswith("NON_EXHAUSTIVE"),"not falsely exhaustive")
  require(len(data["explicit_limits"])>=3 and any("not be recovered" in x for x in data["explicit_limits"]),"unsaved research limitation")
  require(data["binding"]["reviewed_state_version"]==state["schema_version"],"state review missing")
