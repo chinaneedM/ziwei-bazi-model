@@ -23,5 +23,5 @@ class OriginalDualLocusTest(unittest.TestCase):
   self.assertEqual(v.verify(*self.d)["original_direct_glyph_loci"],2)
  def test_missing_original_12ym_focus_rejected(self):
   self.d[2]["historical_audit"]["current_focus"]=[x for x in self.d[2]["historical_audit"]["current_focus"] if not x.startswith("12YM ")]
-  self.rejects()
+  self.fails()
 if __name__=="__main__":unittest.main()
