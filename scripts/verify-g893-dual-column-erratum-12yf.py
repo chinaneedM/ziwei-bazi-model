@@ -45,7 +45,7 @@ def verify(d,ledger,state):
  issue=next(x for x in ledger["issues"] if x["id"]=="TW-OPEN-0005")
  need(issue["status"]=="OPEN" and DOC in issue["source_refs"] and "docs/research/TIANWEN-12YF-G893-TWO-COLUMN-ERRATUM-AND-SOLAR-RECURRENCE-R1.md" in issue["source_refs"],"issue/source missing")
  corrections=issue["g893_12ye_dual_column_errata"]
- need(len(corrections)==1 and corrections[0]["evidence_doc"]==DOC and corrections[0]["retracted_false_second_difference"]=="-0.00000186" and corrections[0]["replacement_long_second_difference"]=="-0.0186" and corrections[0]["cross_witness_final_decisions_added"]==0,"issue 12YE not formally corrected")
+ need(len(corrections)==1 and corrections[0]["evidence_doc"]==DOC and corrections[0]["retracted_false_second_difference"]=="-0.00000186" and corrections[0]["replacement_long_second_difference"]=="-0.0186" and corrections[0]["final_decisions_added"]==0 and corrections[0]["copies_added"]==0,"issue 12YE not formally corrected")
  need(issue["history"][-1]["event"]=="G893_12YE_TWO_COLUMN_ERRATUM_AND_DUAL_LANE_REPLAY_APPEND" and DOC in issue["history"][-1]["evidence_refs"],"forward-only correction event")
  need(state["schema_version"]==ledger["binding"]["reviewed_state_version"]==state["historical_audit"]["research_omission_guard"]["reviewed_state_version"]=="1.619.0" and state["historical_audit"]["current_focus"][-1].startswith("12YF "),"state handoff")
  need(state["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED" and state["invariants"]["algorithm_reopen_count"]==0 and sum(z["status"]!="RESOLVED_WITH_EVIDENCE" for z in ledger["issues"])==11,"chart/omission")
