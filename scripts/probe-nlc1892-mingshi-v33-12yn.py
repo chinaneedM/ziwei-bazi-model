@@ -45,7 +45,7 @@ report={"schema":"TIANWEN-12YN-1892-MINGSHI-V33-CANDIDATE-SOURCE-PROBE-R1",
         "original_catalog_printing_date_verified_by_original_colophon":False,
         "independent_original_evidence_votes":0,
         "comments":"Contact atlas for volume33 page location only. No OCR performed; target glyphs not adjudicated by index."}
-    (OUT/"report.json").write_text(json.dumps(report,ensure_ascii=False,indent=2)+"\n")
+(OUT/"report.json").write_text(json.dumps(report,ensure_ascii=False,indent=2)+"\n")
 W,H=245,330
 for first in range(1,pages+1,20):
     sheet=Image.new("RGB",(W*5,H*4),"white")
@@ -80,6 +80,6 @@ with Image.open(native_root.with_suffix(".png")) as page:
     report["native_page62_png_sha256"]=native_sha
     report["native_page62_size_px"]=list(rgb.size)
     report["native_source_roi"]=roi
-    (OUT/"report.json").write_text(json.dumps(report,ensure_ascii=False,indent=2)+"\\n")
+    (OUT/"report.json").write_text(json.dumps(report,ensure_ascii=False,indent=2)+"\n")
     print("12YN DIRECT_PRINT_IMAGE_BOUND",native_sha,flush=True)
 print("12YN COMPLETE original source native glyph images captured; historic edition independence remains scoped.",flush=True)
