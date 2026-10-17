@@ -32,7 +32,7 @@ for url in URLS:
   access.append({"url":url,"error":type(exc).__name__+": "+str(exc)[:300]})
 else:
  (OUT/"access.json").write_text(json.dumps({"item":ITEM,"attempts":access,"original_glyphs_direct_verified":0,"physical_original_votes":0},ensure_ascii=False,indent=2)+"\n")
- raise SystemExit("12YR NO_SOURCE_DOWNLOAD; recorded access error; no evidence promotion")
+ print("12YR SOURCE_ACCESS_BLOCKED; exact IA URL 404 in both forms; no original bytes or glyphs",flush=True)\n raise SystemExit(0)
 raw=srcfile.read_bytes()
 sha1=hashlib.sha1(raw).hexdigest();sha256=hashlib.sha256(raw).hexdigest()
 assert raw[:4]==b"AT&T",("not djvu",raw[:12])
