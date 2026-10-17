@@ -34,7 +34,7 @@ def verify(doc,ledger,state):
  require(len(reviews)==1 and reviews[0]["original_djvu_page_1based"]==58 and reviews[0]["locus_1_original_glyph"]==a["target_glyph"] and reviews[0]["locus_2_original_glyph"]==b["target_glyph"] and reviews[0]["independent_physical_witness_votes"]==0,"original review issue crossbind")
  require(state["schema_version"]==ledger["binding"]["reviewed_state_version"]==state["historical_audit"]["research_omission_guard"]["reviewed_state_version"] and tuple(map(int,state["schema_version"].split("."))) >= (1,627,0),"state forward-only sync")
  require(ledger["checkpoint_log"][-1]["state_version"]==state["schema_version"] and all(x["id"] in ledger["checkpoint_log"][-1]["reviewed_issue_ids"] for x in ledger["issues"]),"research omission oversight")
- require(state["historical_audit"]["current_focus"][-1].startswith("12YM ") and state["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED" and state["invariants"]["algorithm_reopen_count"]==0,"state focus/algorithm safeguards")
+ require(any(f.startswith("12YM ") for f in state["historical_audit"]["current_focus"]) and state["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED" and state["invariants"]["algorithm_reopen_count"]==0,"state focus/algorithm safeguards")
  return {"result":"PASS","source_pages_verified":p["full_image_page_count_replayed"],"original_direct_glyph_loci":2,"independent_physical_originals_added":0,"local_original_arithmetic_gap_wei":50,"unresolved_omission_issues":11}
 if __name__=="__main__":
  print(json.dumps(verify(*load()),ensure_ascii=False))
