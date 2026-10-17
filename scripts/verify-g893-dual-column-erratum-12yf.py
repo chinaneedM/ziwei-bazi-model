@@ -5,7 +5,8 @@ from decimal import Decimal
 import json,argparse,hashlib,zipfile,io
 ROOT=Path(__file__).resolve().parents[1]
 DOC="docs/research/TIANWEN-12YF-G893-TWO-COLUMN-ERRATUM-AND-SOLAR-RECURRENCE-R1.json"
-S=["5.2176","5.2362","5.2548","5.2734","5.2920"],L=["424.8249","429.6073","434.3711","439.1163","443.8429"]
+S=["5.2176","5.2362","5.2548","5.2734","5.2920"]
+L=["424.8249","429.6073","434.3711","439.1163","443.8429"]
 SHORT_GLYPH=["五分二一七六","五分二三六二","五分二五四八","五分二七三四","五分二九二〇"]
 LONG_GLYPH=["四百二十四分八二四九","四百二十九分六〇七三","四百三十四分三七一一","四百三十九分一一六三","四百四十三分八四二九"]
 HASHES=["7d065c072c313911c7ff62d7783714cd764413f064a5af28b9c4438517362b10","4fc2ffcf03239d0a2d0fa1ff6f21b8f92a9821cab1e11a14f011c763fd3720b6","139c9d66cf0cc142832448de85aabb4bfd319fbbc82abff20653daf7a0f32ea0","f34ff5ee28c2e5dd4cad5ab0596adece8f7efb054cea3df342850339821cd250","9ad82eef0c2e1fe7e1055a99978f50dedfb41483531ba130ecc8b231588cde5c","7ac1a2a264268868825042babba71812bb364f0a50e9b1b0dd2ab59b849d9629","2c1fc3bc3b7eb898ce35b9623c8d2bfb6589ce4c6cd5151f78e64641b9ba24e6","00c92cb82b0089b7a4e06c796cf11eb6e1bc3f0bbd987af0c830396a21fdfe84","2f584a9a438f1bde5d867e616db978767ca2b32ef1647eaf946d1f19295c3184","20552d924a42385f8f7bd92615a245ee94e5ad39a477c14b642cd1fb83737f34"]
