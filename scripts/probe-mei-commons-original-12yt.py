@@ -91,7 +91,7 @@ for start in range(1,pages+1,24):
 # Export all candidate Juan-3 to Juan-4 boundary pages without OCR at native
 # lossless resolution, so a human can locate both printed numeric targets.
 native_manifest=[]
-for page in range(25,min(pages+1,78)):
+for page in range(14,min(pages+1,78)):
  rendered=subprocess.run(["ddjvu","-format=pnm",f"-page={page}",str(target)],capture_output=True,check=True)
  image=Image.open(io.BytesIO(rendered.stdout)).convert("RGB")
  pth=OUT/f"native_{page:03d}.png"
