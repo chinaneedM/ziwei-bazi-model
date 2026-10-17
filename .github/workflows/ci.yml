@@ -117,6 +117,10 @@ jobs:
         run: |
           python scripts/verify-mei-ia-12ys-404-boundary.py
           python -m unittest discover -s tests -p 'test_mei_ia_12ys_404_boundary.py' -v
+      - name: Mei 12YT authentic CADAL page26 plus page76 native original printed glyph SHA and source-unit scope
+        run: |
+          python scripts/verify-mei-cadal-original-12yt.py
+          python -m unittest discover -s tests -p 'test_mei_cadal_original_12yt.py' -v
       - name: Historical source registry extension integrity gate
         run: |
           python scripts/verify-historical-source-registry-extensions-r1.py
