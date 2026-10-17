@@ -137,6 +137,10 @@ jobs:
         run: |
           python scripts/verify-siku-zongmu-nlc50-ssid-original-12yx.py
           python -m unittest discover -s tests -p 'test_siku_zongmu_nlc50_ssid_original_12yx.py' -v
+      - name: G893 12YY national Korean received Goryeosa D16 one-glyph anomaly original source unit firewall
+        run: |
+          python scripts/verify-goryeosa-institutional-d16-12yy.py
+          python -m unittest discover -s tests -p 'test_goryeosa_institutional_d16_12yy.py' -v
       - name: Historical source registry extension integrity gate
         run: |
           python scripts/verify-historical-source-registry-extensions-r1.py
