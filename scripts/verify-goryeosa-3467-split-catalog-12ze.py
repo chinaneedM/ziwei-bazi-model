@@ -39,8 +39,9 @@ def verify(d,previous,state,ledger):
  req(issue["status"]=="OPEN" and DOC in issue["source_refs"] and DOC.replace(".json",".md") in issue["source_refs"],"issue cross-reference")
  req(issue["g893_12ze_exact_child_item_and_mf_scope"][-1]["new_original_images"]==0,"checkpoint no original")
  req(state["schema_version"]==ledger["binding"]["reviewed_state_version"]==state["historical_audit"]["research_omission_guard"]["reviewed_state_version"],"state version")
- req(ledger["binding"]["source_focus_count"]==len(state["historical_audit"]["current_focus"]) and ledger["binding"]["latest_research_focus_prefix"]=="12ZE","latest focus review")
- req(state["historical_audit"]["current_focus"][-1].startswith("12ZE "),"new source focus")
+ focus=state["historical_audit"]["current_focus"]
+ req(any(x.startswith("12ZE ") for x in focus),"12ZE evidence batch retained")
+ req(ledger["binding"]["source_focus_count"]==len(focus) and ledger["binding"]["latest_research_focus_prefix"]==focus[-1].split(" ",1)[0],"latest focus review")
  req(ledger["checkpoint_log"][-1]["state_version"]==state["schema_version"] and len(ledger["checkpoint_log"][-1]["reviewed_issue_ids"])==len(ledger["issues"])==11,"review all 11")
  req(previous["risk_controls"]["named_original_d16_d18_page_new"]==0,"prior invariant")
  return {"status":"PASS","exact_item_records_verified":2,"split_catalog_groups":4,"original_glyph_pages":0,"unresolved_issues":11}

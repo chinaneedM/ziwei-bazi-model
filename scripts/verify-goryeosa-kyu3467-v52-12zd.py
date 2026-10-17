@@ -28,7 +28,9 @@ def verify(d,prior,state,ledger):
  need(issue["status"]=="OPEN" and DOC in issue["source_refs"] and DOC.replace(".json",".md") in issue["source_refs"],"durable issue crosswalk")
  need(issue["g893_12zd_kyu3467_targeted_original_folio_lead"][-1]["new_original_images"]==0,"issue no page")
  need(state["schema_version"]==ledger["binding"]["reviewed_state_version"]==state["historical_audit"]["research_omission_guard"]["reviewed_state_version"],"state ledger version")
- need(ledger["binding"]["source_focus_count"]==len(state["historical_audit"]["current_focus"]) and ledger["binding"]["latest_research_focus_prefix"]=="12ZD" and state["historical_audit"]["current_focus"][-1].startswith("12ZD "),"latest review scope")
+ focus=state["historical_audit"]["current_focus"]
+ need(any(x.startswith("12ZD ") for x in focus),"12ZD committed batch retained")
+ need(ledger["binding"]["source_focus_count"]==len(focus) and ledger["binding"]["latest_research_focus_prefix"]==focus[-1].split(" ",1)[0],"latest review scope")
  need(ledger["checkpoint_log"][-1]["state_version"]==state["schema_version"] and len(ledger["checkpoint_log"][-1]["reviewed_issue_ids"])==len(ledger["issues"])==11,"checkpoint all issues")
  need(prior["closure"]["new_physical_page_images_acquired"] is False,"no backward overwrite")
  return {"status":"PASS","new_targeted_mixed_copy_leads":1,"new_original_folios":0,"known_5553_supplement_fascicles":3,"open_recovery_issues":11}

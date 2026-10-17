@@ -22,4 +22,11 @@ class Kyu3467ItemRecords(unittest.TestCase):
  def test_no_original_image(self):self.a[0]["physical_metadata"]["source_emitted_target_image_sha256"]="imaginary";self.bad()
  def test_unchanged_issues(self):self.a[3]["issues"][4]["status"]="RESOLVED_WITH_EVIDENCE";self.bad()
  def test_state_version(self):self.a[3]["binding"]["reviewed_state_version"]="1.642.0";self.bad()
+ def test_future_research_batch_without_immutable_backrewrite(self):
+  self.a[2]["historical_audit"]["current_focus"].append("12ZF future research")
+  self.a[3]["binding"]["source_focus_count"]+=1
+  self.a[3]["binding"]["latest_research_focus_prefix"]="12ZF"
+  self.assertEqual(m.verify(*self.a)["status"],"PASS")
+ def test_stale_prefix_caught(self):
+  self.a[3]["binding"]["latest_research_focus_prefix"]="12ZD";self.bad()
 if __name__=="__main__":unittest.main()

@@ -21,4 +21,11 @@ class Goryeosa3467Scope(unittest.TestCase):
  def test_no_research_closed(self): self.x[3]["issues"][4]["status"]="RESOLVED_WITH_EVIDENCE";self.bad()
  def test_no_phantom_source(self): self.x[0]["risk_controls"]["source_witness_count_new"]=1;self.bad()
  def test_preserve_reviewed_version(self): self.x[3]["binding"]["reviewed_state_version"]="1.641.0";self.bad()
+ def test_next_batch_may_advance_last_focus(self):
+  self.x[2]["historical_audit"]["current_focus"].append("12ZF future follow-up")
+  self.x[3]["binding"]["source_focus_count"]+=1
+  self.x[3]["binding"]["latest_research_focus_prefix"]="12ZF"
+  self.assertEqual(v.verify(*self.x)["status"],"PASS")
+ def test_inconsistent_latest_prefix_still_rejected(self):
+  self.x[3]["binding"]["latest_research_focus_prefix"]="12ZD";self.bad()
 if __name__=="__main__":unittest.main()
