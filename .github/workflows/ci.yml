@@ -169,6 +169,10 @@ jobs:
         run: |
           python scripts/verify-goryeosa-5554-12zf.py
           python -m unittest discover -s tests -p 'test_goryeosa_5554_12zf.py' -v
+      - name: G893 12ZG GK05554 modern heritage 1482 scope firewall
+        run: |
+          python scripts/verify-goryeosa-5554-heritage-12zg.py
+          python -m unittest discover -s tests -p 'test_goryeosa_5554_heritage_12zg.py' -v
       - name: Historical source registry extension integrity gate
         run: |
           python scripts/verify-historical-source-registry-extensions-r1.py
