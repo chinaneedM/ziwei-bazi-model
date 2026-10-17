@@ -31,8 +31,9 @@ for url in URLS:
  except Exception as exc:
   access.append({"url":url,"error":type(exc).__name__+": "+str(exc)[:300]})
 else:
- (OUT/"access.json").write_text(json.dumps({"item":ITEM,"attempts":access,"original_glyphs_direct_verified":0,"physical_original_votes":0},ensure_ascii=False,indent=2)+"\n")
- print("12YR SOURCE_ACCESS_BLOCKED; exact IA URL 404 in both forms; no original bytes or glyphs",flush=True)\n raise SystemExit(0)
+ (OUT/"access.json").write_text(json.dumps({"item":ITEM,"attempts":access,"original_glyphs_direct_verified":0,"physical_original_votes":0,"status":"SOURCE_ACCESS_BLOCKED","original_source_bytes":0},ensure_ascii=False,indent=2)+"\n")
+ print("12YR SOURCE_ACCESS_BLOCKED; no original bytes or glyphs",flush=True)
+ raise SystemExit(0)
 raw=srcfile.read_bytes()
 sha1=hashlib.sha1(raw).hexdigest();sha256=hashlib.sha256(raw).hexdigest()
 assert raw[:4]==b"AT&T",("not djvu",raw[:12])
