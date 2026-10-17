@@ -18,4 +18,10 @@ class OriginalDualLocusTest(unittest.TestCase):
  def test_no_algorithms_reopen(self):self.d[0]["safeguards"]["algorithm_reopens"]=1;self.fails()
  def test_issue5_open(self):next(i for i in self.d[1]["issues"] if i["id"]=="TW-OPEN-0005")["status"]="RESOLVED_WITH_EVIDENCE";self.fails()
  def test_state_fresh(self):self.d[2]["schema_version"]="1.626.0";self.fails()
+ def test_later_batch_does_not_erase_12ym(self):
+  self.d[2]["historical_audit"]["current_focus"].append("12YO FUTURE_GUARD")
+  self.assertEqual(v.verify(*self.d)["original_direct_glyph_loci"],2)
+ def test_missing_original_12ym_focus_rejected(self):
+  self.d[2]["historical_audit"]["current_focus"]=[x for x in self.d[2]["historical_audit"]["current_focus"] if not x.startswith("12YM ")]
+  self.rejects()
 if __name__=="__main__":unittest.main()
