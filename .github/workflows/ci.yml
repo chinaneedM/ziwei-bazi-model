@@ -93,6 +93,10 @@ jobs:
         run: |
           python scripts/verify-g893-mingshi-siku-dual-locus-12yk.py
           python -m unittest discover -s tests -p 'test_g893_mingshi_siku_dual_locus_12yk.py' -v
+      - name: MingShi 12YL exact CADAL 168-page bibliographic source-route nonpromotion gate
+        run: |
+          python scripts/verify-mingshi-cadal-12yl-bibliography.py
+          python -m unittest discover -s tests -p 'test_mingshi_cadal_source_route_12yl.py' -v
       - name: Historical source registry extension integrity gate
         run: |
           python scripts/verify-historical-source-registry-extensions-r1.py
