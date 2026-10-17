@@ -16,7 +16,11 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: {python-version: '3.12'}
-      - run: python -m pip install 'Pillow>=10,<12'
+      - name: Install PDF renderer and Pillow
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils
+          python -m pip install 'Pillow>=10,<12'
       - name: Hash original NLC1892 PDF and build no-OCR page atlas
         run: python scripts/probe-nlc1892-mingshi-v33-12yn.py
       - name: Save source and atlas (ephemeral research, not a new independent witness verdict)
