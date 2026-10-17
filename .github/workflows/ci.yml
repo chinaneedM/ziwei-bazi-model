@@ -165,6 +165,10 @@ jobs:
         run: |
           python scripts/verify-goryeosa-3467-split-catalog-12ze.py
           python -m unittest discover -s tests -p 'test_goryeosa_3467_split_catalog_12ze.py' -v
+      - name: G893 12ZF GK05554 microfilm and modern facsimile scope gate
+        run: |
+          python scripts/verify-goryeosa-5554-12zf.py
+          python -m unittest discover -s tests -p 'test_goryeosa_5554_12zf.py' -v
       - name: Historical source registry extension integrity gate
         run: |
           python scripts/verify-historical-source-registry-extensions-r1.py
