@@ -1,0 +1,119 @@
+{
+  "schema": "TIANWEN-12YN-NLC1892-MINGSHI-V33-INDEPENDENT-CATALOG-PRINT-ORIGINAL-DUAL-LOCUS-R1",
+  "date": "2026-10-17",
+  "grade": "DIRECT_HASH_BOUND_HISTORICAL_SCAN_OF_SEPARATELY_CATALOGUED_PRINT_ITEM",
+  "source": {
+    "catalog_title": "二十四史 第178冊（明史 卷25至39）",
+    "specific_chapter": "明史卷三十三",
+    "id": "NLC892-312002017339-363680",
+    "holder": "中国国家图书馆",
+    "witness_catalog_note": "武林竹簡齋 清光緒十八年[1892]石印；雙頁開本，20行42字小字雙行",
+    "catalog_item_url": "https://commons.wikimedia.org/wiki/File:NLC892-312002017339-363680_二十四史_第178冊.pdf",
+    "download_url": "https://upload.wikimedia.org/wikipedia/commons/9/96/NLC892-312002017339-363680_二十四史_第178冊.pdf",
+    "image_catalog_upload": "2026-08-31",
+    "image_pdf_bytes": 78635564,
+    "image_pdf_sha1": "58bc2ae04cf25c0065c301e8daf390fc274e38e3",
+    "image_pdf_sha256": "938895cee288ce94ff02d17dc7feb3dfd88094f16ac27e6b1fe0404d47089be3",
+    "image_pdf_pages": 108,
+    "pdf_page_index_one_based": 62,
+    "digitized_spread_not_original_leaf": true,
+    "source_has_chapter_margin": "明史卷三十三",
+    "source_has_copied_prior_marker": "乾隆四年校刊",
+    "copied_1739_label_does_not_fix_1892_physical_impression": true,
+    "physical_object_specific_colophon_directly_authenticated": false,
+    "source_byte_and_page_count_replay": true,
+    "source_atlas_generator": "scripts/probe-nlc1892-mingshi-v33-12yn.py",
+    "source_probe_success": "https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/39002932915",
+    "source_artifact_id": 12089748196,
+    "source_artifact_ephemeral_days": 15,
+    "scan_page_native_render_width": 2400,
+    "scan_page_native_render_height": 2235,
+    "scan_page_render_sha256": "e1a2c0d19a734e458c20e2b40bf0155a3808b7fb7a2d809b700b168feb2d7360",
+    "scan_page_pillow_rgb_sha256": "82a07ad4395990f9a96b9df6742c0fc4caa8c6fdd851f93ef93974b497bedeb6",
+    "ocr_used": false,
+    "original_target_woodblock_versus_lithographic_form": "SCANNED_LITHOGRAPHIC_CATALOG_ITEM_NOT_PROVEN_1739_ORIGINAL_PRINT"
+  },
+  "target_loci": [
+    {
+      "id": "TW-12YN-MINGSHI33-NLC1892-MULTIPLY",
+      "original_print": "盈初縮末 置立差三十一微 以六因之 得一秒八十六微 為加分立差",
+      "direct_printed_result": "一秒八十六微",
+      "role": "independent item original printed intermediate",
+      "image_original_pdf_page": 62,
+      "ROI_png_page_bbox_xyxy": [
+        1710,
+        400,
+        1875,
+        1520
+      ],
+      "ROI_rgb_sha256": "04be8d16ebd3f46bd06a723fb2cb79e9bd21d4f245ffff4175eb50765be9a3ac",
+      "ROI_png_sha256": "d1652e9721ae2d4a66e3bfdfd7ab34648d85aadebd31c325fea222cd954fa5f1"
+    },
+    {
+      "id": "TW-12YN-MINGSHI33-NLC1892-PINGLI",
+      "original_print": "置平差二分四十六秒 倍之 得四分九十二秒 加入加分立差 得四分九十三秒八十六微 為平立合差",
+      "direct_printed_result": "四分九十三秒八十六微",
+      "role": "same physical item original printed final",
+      "image_original_pdf_page": 62,
+      "ROI_png_page_bbox_xyxy": [
+        1520,
+        400,
+        1700,
+        1520
+      ],
+      "ROI_rgb_sha256": "3a9a5cbdfab51d7266c6412eac001072ed6b77bd12e1641ebe017cfbcf544a42",
+      "ROI_png_sha256": "23137bd37ea58cd9b81e358d351e1acf6374cad96aa0b4d032aacede0531a5aa"
+    }
+  ],
+  "cross_source_collation": {
+    "cadal_12ym": {
+      "source_id": "CADAL06056955",
+      "scan_page": 58,
+      "first": "一秒三十六微",
+      "final": "四分九十三秒八十六微"
+    },
+    "nlc_12yn": {
+      "source_id": "NLC892-312002017339-363680",
+      "scan_page": 62,
+      "first": "一秒八十六微",
+      "final": "四分九十三秒八十六微"
+    },
+    "first_result_disagrees_by_micro": 50,
+    "final_result_matches": true,
+    "arithmetic": "31微 × 6 = 186微 (一秒八十六微); 4分92秒 + 一秒八十六微 = 四分九十三秒八十六微",
+    "printed_cadal_arithmetic_internal_contradiction": true,
+    "printed_nlc_arithmetic_internal_consistency": true,
+    "independent_catalog_item_print_scan_count_for_two_source_comparison": 2,
+    "independent_stemmatic_origin_or_direct_copy_proven": false,
+    "cadal_physical_print_date_unverified": true,
+    "nlc_catalog_1892_print_item_holding_direct_target_page": true,
+    "copying_cause": "UNVERIFIED",
+    "arithmetic_consistency_does_not_certify_authorial_original": true,
+    "modern_general_wikisource": "一秒八十六微 / 四分九十二秒八十六微",
+    "modern_siku_wikisource": "一秒三十六微 / 四分九十三秒八十六微",
+    "no_electronic_text_physical_witness_votes": true
+  },
+  "transmission_impact": {
+    "new_nodes": [],
+    "supported_edges": [],
+    "revised_edges": [],
+    "rejected_edges": [],
+    "unresolved_questions": [
+      "Separate NLC 1892 lithographic physical catalog item reads one second 86 micro, while ZJU/CADAL digital Siku-format item reads 36; no direct dependence or ancestral archetype identified.",
+      "The photo's '乾隆四年校刊' line is a copied content/edition label, not proof this lithographic impression occurred in 1739."
+    ]
+  },
+  "safeguards": {
+    "new_original_print_item_compared": 1,
+    "original_digital_item_cross_comparison": 2,
+    "new_independent_stemmatic_root_awarded": 0,
+    "new_genealogy_edges": 0,
+    "new_algorithm_reopens": 0,
+    "remaining_g893_formal_original_fields": "5/6",
+    "g893_cross_edition_mechanical_final": "0/6",
+    "research_omission_open_count": 11,
+    "historical_matrix": "222/222",
+    "chart_product": "CLOSED"
+  },
+  "next": "Independent original printed wording comparison for MingShi v33 two loci completed across CADAL and NLC; next prioritize primary/original Mei Wending Datong Lizhi v3 folio (independent work) and earlier source/imprint genealogy for whether 36 or 86 is secondary; keep G893 original 001a 少/微 and Ming1569 D16 column/units unresolved."
+}

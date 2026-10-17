@@ -61,4 +61,25 @@ for first in range(1,pages+1,20):
     dest=OUT/f"contact_{first:03d}_{min(pages,first+19):03d}.jpg"
     sheet.save(dest,quality=83,optimize=True)
     print("12YN ATLAS",dest.name,hashlib.sha256(dest.read_bytes()).hexdigest(),flush=True)
-print("12YN COMPLETE; ORIGINAL_2_LOCI_NOT_YET_ADJUDICATED",flush=True)
+if sha1!="58bc2ae04cf25c0065c301e8daf390fc274e38e3":
+    raise RuntimeError("NLC_SOURCE_CATALOG_SHA1_NOT_MATCHING_VERIFIED_12YN")
+print("12YN ORIGINAL PDF SOURCE_SHA1_CONFIRMED",sha1,flush=True)
+native_root=OUT/"NLC1892_scan_page_062"
+subprocess.run(["pdftoppm","-f","62","-l","62","-scale-to","2400","-png","-singlefile",str(SRC),str(native_root)],check=True)
+with Image.open(native_root.with_suffix(".png")) as page:
+    rgb=page.convert("RGB")
+    native_sha=hashlib.sha256(native_root.with_suffix(".png").read_bytes()).hexdigest()
+    roi={}
+    for key,xyxy in (("locusA",(1710,400,1875,1520)),("locusB",(1520,400,1700,1520))):
+        crop=rgb.crop(xyxy)
+        pix=hashlib.sha256(crop.tobytes()).hexdigest()
+        dest=OUT/f"NLC1892_{key}_p62.png"
+        crop.save(dest,optimize=True)
+        roi[key]={"bbox":xyxy,"rgb_sha256":pix,"png_sha256":hashlib.sha256(dest.read_bytes()).hexdigest()}
+        print("12YN NATIVE_REGION",key,pix,flush=True)
+    report["native_page62_png_sha256"]=native_sha
+    report["native_page62_size_px"]=list(rgb.size)
+    report["native_source_roi"]=roi
+    (OUT/"report.json").write_text(json.dumps(report,ensure_ascii=False,indent=2)+"\\n")
+    print("12YN DIRECT_PRINT_IMAGE_BOUND",native_sha,flush=True)
+print("12YN COMPLETE original source native glyph images captured; historic edition independence remains scoped.",flush=True)

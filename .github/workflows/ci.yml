@@ -101,6 +101,10 @@ jobs:
         run: |
           python scripts/verify-mingshi-cadal-12ym-original-dual-locus.py
           python -m unittest discover -s tests -p 'test_mingshi_cadal_original_dual_locus_12ym.py' -v
+      - name: MingShi 12YN second original NLC lithograph two-locus disjoint pixel and recension gate
+        run: |
+          python scripts/verify-mingshi-nlc1892-two-originals-12yn.py
+          python -m unittest discover -s tests -p 'test_mingshi_nlc1892_two_originals_12yn.py' -v
       - name: Historical source registry extension integrity gate
         run: |
           python scripts/verify-historical-source-registry-extensions-r1.py
