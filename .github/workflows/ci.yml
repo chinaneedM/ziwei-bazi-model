@@ -149,6 +149,10 @@ jobs:
         run: |
           python scripts/verify-goryeosa-hanja-d18-12za.py
           python -m unittest discover -s tests -p 'test_goryeosa_hanja_d18_12za.py' -v
+      - name: G893 12ZB recover existing CADAL Goryeosa D16 image evidence without invented Kyujanggak glyphs
+        run: |
+          python scripts/verify-goryeosa-cadal-source-recovery-12zb.py
+          python -m unittest discover -s tests -p 'test_goryeosa_cadal_source_recovery_12zb.py' -v
       - name: Historical source registry extension integrity gate
         run: |
           python scripts/verify-historical-source-registry-extensions-r1.py
