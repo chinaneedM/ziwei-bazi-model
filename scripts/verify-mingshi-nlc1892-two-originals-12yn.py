@@ -30,7 +30,7 @@ def verify(d,ledger,state):
  need(issue["status"]=="OPEN" and DOC in issue["source_refs"] and DOC.replace(".json",".md") in issue["source_refs"],"missing evidence-bound omission")
  evidence=issue["mingshi_12yn_nlc1892_independent_original_reviews"]
  need(len(evidence)==1 and evidence[0]["source_sha256"]==a["image_pdf_sha256"] and evidence[0]["original_pdf_page"]==62 and evidence[0]["stemmatic_root_awarded"]==0,"issue evidence mismatch")
- need(ledger["binding"]["latest_research_focus_prefix"]=="12YN" and state["historical_audit"]["current_focus"][-1].startswith("12YN "),"latest scope")
+ need(any(f.startswith("12YN ") for f in state["historical_audit"]["current_focus"]),"historical 12YN evidence focus removed")
  need(state["schema_version"]==ledger["binding"]["reviewed_state_version"]==state["historical_audit"]["research_omission_guard"]["reviewed_state_version"] and tuple(map(int,state["schema_version"].split(".")))>=(1,628,0),"research continuity state")
  need(ledger["checkpoint_log"][-1]["state_version"]==state["schema_version"] and len(ledger["checkpoint_log"][-1]["reviewed_issue_ids"])==len(ledger["issues"]),"11 item oversight not reviewed")
  need(state["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED" and state["invariants"]["algorithm_reopen_count"]==0,"chart reopen forbidden")

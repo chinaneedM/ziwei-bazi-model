@@ -19,4 +19,10 @@ class TwoOriginalImprintTest(unittest.TestCase):
  def test_reject_chart_reopen(self):self.d[0]["safeguards"]["new_algorithm_reopens"]=1;self.rejects()
  def test_reject_closed_issue(self):next(x for x in self.d[1]["issues"] if x["id"]=="TW-OPEN-0005")["status"]="RESOLVED_WITH_EVIDENCE";self.rejects()
  def test_reject_stale_state(self):self.d[2]["schema_version"]="1.627.0";self.rejects()
+ def test_later_12yo_12yp_focus_does_not_invalidate_12yn_original_evidence(self):
+  self.d[2]["historical_audit"]["current_focus"].append("12YP FUTURE_RESEARCH")
+  self.assertEqual(m.verify(*self.d)["two_print_objects"],2)
+ def test_missing_prior_12yn_focus_rejected(self):
+  self.d[2]["historical_audit"]["current_focus"]=[x for x in self.d[2]["historical_audit"]["current_focus"] if not x.startswith("12YN ")]
+  self.rejects()
 if __name__=="__main__":unittest.main()
