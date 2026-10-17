@@ -262,9 +262,20 @@ def validate(data,state,protocol,exists_fn=None):
    require(len(corr)==1,"12YF correction must remain single and append-only")
    e=corr[0]
    require(e["correction"]=="RETRACTED_AS_CROSS_COLUMN_CONCATENATION" and e["retracted_false_second_difference"]=="-0.00000186" and e["replacement_long_second_difference"]=="-0.0186","old erroneous source-reading still active")
-   require(e["original_long_lanes"]==["424.8249","429.6073","434.3711","439.1163","443.8429"] and e["original_short_lanes"]==["5.2176","5.2362","5.2548","5.2734","5.2920"],"12YF two-column source data")
+   require(e["original_long_lanes"]==["424.8249","429.6073","434.3711","439.1163","443.8429"] and e["original_short_lanes"]==["5.2176","5.2362","5.2548","5.2734","5.2920"],"12YF archived mistaken source data (retracted by 12YG)")
    require(e["final_decisions_added"]==e["copies_added"]==0,"false independent source or mechanical award")
    require(e["evidence_doc"] in issue["source_refs"] and (ROOT/e["evidence_doc"]).is_file(),"missing 12YF original correction")
+ for issue in data["issues"]:
+  if issue["id"]=="TW-OPEN-0005" and issue.get("g893_12yf_long_direction_errata"):
+   corr=issue["g893_12yf_long_direction_errata"]
+   require(len(corr)==1,"12YG second erratum append only")
+   e=corr[0]
+   require(e["retracted_relation"]=="LONG_INCREASE_EQUALS_10_MINUS_SHORT" and e["valid_relation"]=="LONG_NEXT_EQUALS_LONG_PREVIOUS_MINUS_SHORT_PREVIOUS","12YF still wrongly trusted")
+   require(e["corrected_long_lanes"]==["440.0239","434.8249","429.6073","424.3711","419.1163","413.8429","408.5509"],"G893 D14–D20 original descending long")
+   require(e["corrected_short_lanes"]==["5.1990","5.2176","5.2362","5.2548","5.2734","5.2920","5.3106"],"G893 D14–D20 original short")
+   require(e["original_sha_rois"]==14 and e["arithmetic_exact_edges"]==6 and e["original_image_count_reverified"]==204,"G893 12YG evidence count")
+   require(e["final_decisions_added"]==e["copies_added"]==e["algorithm_reopens"]==0,"false evidence vote")
+   require(e["evidence_doc"] in issue["source_refs"] and (ROOT/e["evidence_doc"]).is_file(),"12YG original correction missing")
  require(data["definition"].startswith("NON_EXHAUSTIVE"),"not falsely exhaustive")
  require(len(data["explicit_limits"])>=3 and any("not be recovered" in x for x in data["explicit_limits"]),"unsaved research limitation")
  require(data["binding"]["reviewed_state_version"]==state["schema_version"],"state review missing")

@@ -43,13 +43,14 @@ def verify(d,ledger,state):
  need(all(guard[k]=="UNPROVEN" for k in ("header_to_column_unit_identity","independent_ming1569_equivalence","printing_or_copy_causation","comprehensive_all_days_table_law")),"unsupported historical award")
  need(guard["source_original_six_primary_target_fields"]=="5/6" and guard["cross_witness_mechanical_final_decisions"]=="0/6" and guard["open_omission_issues"]==11 and all(guard[k]==0 for k in ("new_genealogy_edges","new_source_records","algorithm_reopens")),"historical scope drift")
  issue=next(x for x in ledger["issues"] if x["id"]=="TW-OPEN-0005")
+ need(len(issue["g893_12yf_long_direction_errata"])==1 and issue["g893_12yf_long_direction_errata"][0]["retracted_relation"]=="LONG_INCREASE_EQUALS_10_MINUS_SHORT" and issue["g893_12yf_long_direction_errata"][0]["valid_relation"]=="LONG_NEXT_EQUALS_LONG_PREVIOUS_MINUS_SHORT_PREVIOUS","old 12YF direction must be retired")
  need(issue["status"]=="OPEN" and DOC in issue["source_refs"] and "docs/research/TIANWEN-12YF-G893-TWO-COLUMN-ERRATUM-AND-SOLAR-RECURRENCE-R1.md" in issue["source_refs"],"issue/source missing")
  corrections=issue["g893_12ye_dual_column_errata"]
  need(len(corrections)==1 and corrections[0]["evidence_doc"]==DOC and corrections[0]["retracted_false_second_difference"]=="-0.00000186" and corrections[0]["replacement_long_second_difference"]=="-0.0186" and corrections[0]["final_decisions_added"]==0 and corrections[0]["copies_added"]==0,"issue 12YE not formally corrected")
- need(issue["history"][-1]["event"]=="G893_12YE_TWO_COLUMN_ERRATUM_AND_DUAL_LANE_REPLAY_APPEND" and DOC in issue["history"][-1]["evidence_refs"],"forward-only correction event")
- need(state["schema_version"]==ledger["binding"]["reviewed_state_version"]==state["historical_audit"]["research_omission_guard"]["reviewed_state_version"]=="1.619.0" and state["historical_audit"]["current_focus"][-1].startswith("12YF "),"state handoff")
+ need(any(h.get("event")=="G893_12YE_TWO_COLUMN_ERRATUM_AND_DUAL_LANE_REPLAY_APPEND" and DOC in h.get("evidence_refs",[]) for h in issue["history"]),"forward-only correction event")
+ need(state["schema_version"]==ledger["binding"]["reviewed_state_version"]==state["historical_audit"]["research_omission_guard"]["reviewed_state_version"] and tuple(map(int,state["schema_version"].split(".")))>=(1,620,0) and any(f.startswith("12YF ") for f in state["historical_audit"]["current_focus"]) and any(f.startswith("12YG ") for f in state["historical_audit"]["current_focus"]),"state handoff")
  need(state["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED" and state["invariants"]["algorithm_reopen_count"]==0 and sum(z["status"]!="RESOLVED_WITH_EVIDENCE" for z in ledger["issues"])==11,"chart/omission")
- return {"status":"PASS","erratum":"12YE_TWO_LANE_CONCATENATION_RETRACTED","valid_short_prints":5,"valid_long_prints":5,"paired_recurrence_checks":4,"cross_witness_final":"0/6"}
+ return {"status":"PASS","12ye_eight_digit_field":"RETRACTED","12yf_source_readings":"HISTORICAL_FALSE_NUMERIC_LANES_RETRACTED_12YG","12yf_prior_arithmetic":"ARCHIVED_INVALID_ORIGINAL_SOURCE_INFERENCE","correct_source_numeric_evidence":"12YG","cross_witness_final":"0/6"}
 def replay(archive,d):
  from PIL import Image
  raw=Path(archive).read_bytes();src=d["original_copy"]

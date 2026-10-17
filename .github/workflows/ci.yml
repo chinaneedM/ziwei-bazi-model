@@ -69,10 +69,14 @@ jobs:
         run: |
           python scripts/verify-g893-solar-eight-place-12ye.py
           python -m unittest discover -s tests -p 'test_g893_solar_eight_place_12ye.py' -v
-      - name: G893 12YF two-column original erratum, exact recurrence and scope gate
+      - name: G893 12YF archived numeric error preserved and 12YG retraction gate
         run: |
           python scripts/verify-g893-dual-column-erratum-12yf.py
           python -m unittest discover -s tests -p 'test_g893_dual_column_erratum_12yf.py' -v
+      - name: G893 12YG direct original seven-day subtractive table and second historical erratum gate
+        run: |
+          python scripts/verify-g893-solar-seven-day-original-12yg.py
+          python -m unittest discover -s tests -p 'test_g893_solar_seven_day_original_12yg.py' -v
       - name: Historical source registry extension integrity gate
         run: |
           python scripts/verify-historical-source-registry-extensions-r1.py
