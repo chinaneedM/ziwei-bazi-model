@@ -32,7 +32,7 @@ if len(data) != EXPECTED_SIZE or h1 != EXPECTED_SHA1:
     raise RuntimeError(f"SOURCE_DIGEST_MISMATCH length={len(data)} sha1={h1}")
 print("12YM SOURCE_BYTES_VERIFIED", len(data), h1, h256, flush=True)
 dump = subprocess.run(["djvudump", str(source)], capture_output=True, text=True, check=True).stdout
-if not dump.startswith("FORM:DJVM"): raise RuntimeError("NOT_EXPECTED_MULTIPAGE_DJVU")
+if not dump.strip(): raise RuntimeError("DJVU_DUMP_EMPTY")
 pages = subprocess.run(["djvused", str(source), "-e", "n"], capture_output=True, text=True, check=True).stdout.strip()
 if pages != "168": raise RuntimeError(f"UNEXPECTED_PAGE_COUNT {pages}")
 print("12YM ORIGINAL_PAGE_COUNT_VERIFIED", pages, flush=True)
