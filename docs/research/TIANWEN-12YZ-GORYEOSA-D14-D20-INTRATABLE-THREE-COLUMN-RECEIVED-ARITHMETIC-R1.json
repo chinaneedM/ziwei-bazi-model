@@ -1,0 +1,166 @@
+{
+  "schema": "TIANWEN-12YZ-GORYEOSA-OFFICIAL-RECEIVED-TRIPLE-COLUMN-LOCAL-ARITHMETIC-R1",
+  "date": "2026-10-17",
+  "grade": "FIRST_PARTY_MODERN_RECEIVED_TEXT_TABLE_CROSSCOLUMN_REPLAY_ONLY_WITH_PRIOR_ONE_COPY_G893_ORIGINAL_AS_SEPARATE_CONTROL",
+  "question": "Does the official received Goryeosa table D16 5.1362 also violate its own neighboring long and cumulative columns, without attributing the error to any unseen ancient leaf?",
+  "sources": {
+    "official_provider": "National Institute of Korean History (국사편찬위원회)",
+    "official_item": "kr_052_0010_0010_0020_0010",
+    "official_url": "https://db.history.go.kr/goryeo/level.do?levelId=kr_052_0010_0010_0020_0010&types=o",
+    "official_grade": "INSTITUTIONAL_MODERN_DIGITAL_TRANSCRIPTION_NOT_ANCIENT_PHYSICAL_IMAGE",
+    "earlier_comparison": "docs/research/TIANWEN-12YY-GORYEOSA-FIRSTPARTY-ONLINE-SOLAR-D16-RECEIVED-VARIANT-VS-G893-ORIGINAL-R1.json",
+    "g893_same_copy_original": "docs/research/TIANWEN-12YG-G893-SEVEN-DAY-SOLAR-DECREASING-LANE-SECOND-ERRATUM-R1.json",
+    "g893_page_scope": [
+      "002b",
+      "003a"
+    ],
+    "g893_original_single_copy": "GK00893_00 / 奎貴893",
+    "g893_sha_bound_original_evidence_reused": true,
+    "new_original_page_acquired": false
+  },
+  "lexical_mapping": "FOR THIS BOUNDED DIGIT STRING REPLAY ONLY: short=5.xxxx; long and cumulative numeric glyph strings mapped to four decimal places without inferring historical units, ancient edition or recurrence universally.",
+  "modern_received_rows": [
+    {
+      "day": 14,
+      "short_raw": "五分一九九〇",
+      "short": "5.1990",
+      "long_raw": "四百四十〇〇二三九",
+      "long": "440.0239",
+      "cumulative_raw": "六千六百九十五八一三六",
+      "cumulative": "6695.8136"
+    },
+    {
+      "day": 15,
+      "short_raw": "五分二一七六",
+      "short": "5.2176",
+      "long_raw": "四百三十四八二四九",
+      "long": "434.8249",
+      "cumulative_raw": "七千一百三十五八三七五",
+      "cumulative": "7135.8375"
+    },
+    {
+      "day": 16,
+      "short_raw": "五分一三六二",
+      "short": "5.1362",
+      "long_raw": "四百二十九六〇七三",
+      "long": "429.6073",
+      "cumulative_raw": "七千五百七十〇六六二四",
+      "cumulative": "7570.6624"
+    },
+    {
+      "day": 17,
+      "short_raw": "五分二五四八",
+      "short": "5.2548",
+      "long_raw": "四百二十四三七一一",
+      "long": "424.3711",
+      "cumulative_raw": "八千〇〇〇二六九七",
+      "cumulative": "8000.2697"
+    },
+    {
+      "day": 18,
+      "short_raw": "五分二七三四",
+      "short": "5.2734",
+      "long_raw": "四百一十九一一六三",
+      "long": "419.1163",
+      "cumulative_raw": "八千四百二十四六四〇八",
+      "cumulative": "8424.6408"
+    },
+    {
+      "day": 19,
+      "short_raw": "五分二九二〇",
+      "short": "5.2920",
+      "long_raw": "四百一十三八四二九",
+      "long": "413.8429",
+      "cumulative_raw": "八千八百四十三七五七一",
+      "cumulative": "8843.7571"
+    },
+    {
+      "day": 20,
+      "short_raw": "五分三一〇六",
+      "short": "5.3106",
+      "long_raw": "四百〇八五五〇九",
+      "long": "408.5509",
+      "cumulative_raw": "九千二百五十七六〇〇〇",
+      "cumulative": "9257.6000"
+    }
+  ],
+  "local_relations": {
+    "method": "Decimal exact four-place arithmetic on received cells only; six D14-D19 edges in the displayed D14-D20 range.",
+    "long_relation": "LONG(day) - LONG(day+1) = SHORT(day)",
+    "cumulative_relation": "CUM(day+1) - CUM(day) = LONG(day)",
+    "edges": [
+      {
+        "day": 14,
+        "long_drop_to_next": "5.1990",
+        "cumulative_rise_from_previous_to_next": "440.0239",
+        "short_equals_long_drop": true
+      },
+      {
+        "day": 15,
+        "long_drop_to_next": "5.2176",
+        "cumulative_rise_from_previous_to_next": "434.8249",
+        "short_equals_long_drop": true
+      },
+      {
+        "day": 16,
+        "long_drop_to_next": "5.2362",
+        "cumulative_rise_from_previous_to_next": "429.6073",
+        "short_equals_long_drop": false
+      },
+      {
+        "day": 17,
+        "long_drop_to_next": "5.2548",
+        "cumulative_rise_from_previous_to_next": "424.3711",
+        "short_equals_long_drop": true
+      },
+      {
+        "day": 18,
+        "long_drop_to_next": "5.2734",
+        "cumulative_rise_from_previous_to_next": "419.1163",
+        "short_equals_long_drop": true
+      },
+      {
+        "day": 19,
+        "long_drop_to_next": "5.2920",
+        "cumulative_rise_from_previous_to_next": "413.8429",
+        "short_equals_long_drop": true
+      }
+    ],
+    "long_to_cumulative_success_count": 6,
+    "short_to_long_success_count": 5,
+    "short_to_long_failure_days": [
+      16
+    ],
+    "d16_short_received": "5.1362",
+    "d16_own_long_implied": "5.2362",
+    "d16_own_cumulative_lane_confirms_long": "429.6073",
+    "d16_mismatch": "-0.1000",
+    "d16_same_copy_original_short": "5.2362",
+    "offending_literal": "五分一三六二",
+    "original_literal": "五分二三六二"
+  },
+  "scope_firewall": {
+    "institution_digital_locus_is_historic_original_folio": false,
+    "official_original_image_pixels_or_hash_acquired": false,
+    "same_goryeosa_paper_copy_as_G893_proven": false,
+    "digital_transcription_error_cause_proven": false,
+    "ancient_print_error_cause_proven": false,
+    "law_outside_14_to_20_proven": false,
+    "historical_少_vs_微_unit_identity_proven": false,
+    "Ming1569_target_column_mechanical_equivalence_proven": false,
+    "source_registry_entries_added": 0,
+    "independently_attested_new_physical_originals": 0,
+    "genealogy_nodes_added": 0,
+    "genealogy_edges_added": 0,
+    "G893_six_controls_fully_adjudicated": "5/6",
+    "G893_cross_original_final_decisions": "0/6",
+    "unresolved_issue_count": 11,
+    "algorithm_reopens": 0,
+    "product_R1": "CLOSED"
+  },
+  "next": [
+    "Obtain exact official Goryeosa original-image object/page, full image bytes/SHA, physical-copy and edition identity; compare D14-D20 glyphs before deciding historic printing versus modern transcription stage.",
+    "Treat these three within-table numeric constraints as one digital edition and not three independent ancient witnesses.",
+    "Verify source-target unit, same original column and Ming1569 printed D16 independently before closing G893 sixth target."
+  ]
+}
