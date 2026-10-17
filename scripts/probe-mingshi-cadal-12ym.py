@@ -58,4 +58,12 @@ for start in range(1,169,20):
     target=DEST/f"atlas_{start:03d}_{min(168,start+19):03d}.jpg"
     atlas.save(target,quality=78,optimize=True)
     print("12YM ATLAS",target.name,"sha256",hashlib.sha256(target.read_bytes()).hexdigest(),flush=True)
+for page in range(43, 75):
+    ppm=DEST/f"native_{page:03d}.ppm"
+    subprocess.run(["ddjvu","-format=ppm","-page="+str(page),str(source),str(ppm)],check=True,stdout=subprocess.DEVNULL)
+    with Image.open(ppm) as native:
+        out=DEST/f"original_page_{page:03d}.png"
+        native.save(out,format="PNG",optimize=True)
+    ppm.unlink()
+    print("12YM NATIVE_PAGE",page,hashlib.sha256(out.read_bytes()).hexdigest(),flush=True)
 print("12YM COMPLETE original archive SHA verified; glyphs remain UNREAD until manual full-page inspection.",flush=True)
