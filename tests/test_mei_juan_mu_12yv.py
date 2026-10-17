@@ -9,7 +9,10 @@ class JuanMuEvidenceScope(unittest.TestCase):
   with self.assertRaises(ValueError):v.check(*self.data)
  def test_live(self):self.assertEqual(v.check(*self.data)["result"],"PASS")
  def test_future_12yw_is_allowed(self):
-  self.assertTrue(self.data[2]["historical_audit"]["current_focus"][-1].startswith("12YW "))
+  self.assertTrue(any(x.startswith("12YW ") for x in self.data[2]["historical_audit"]["current_focus"]))
+  self.data[2]["historical_audit"]["current_focus"].append("12ZZ synthetic later research focus")
+  self.data[1]["binding"]["source_focus_count"]+=1
+  self.data[1]["binding"]["latest_research_focus_prefix"]="12ZZ"
   self.assertEqual(v.check(*self.data)["result"],"PASS")
  def test_mu_to_juan_leap(self):self.data[0]["philology"]["mu_total_is_not_automatically_historical_juan_count"]=False;self.fail_scope()
  def test_fabricated_independent_original(self):self.data[0]["evidence_impact"]["new_distinct_historical_physical_witnesses"]=1;self.fail_scope()
