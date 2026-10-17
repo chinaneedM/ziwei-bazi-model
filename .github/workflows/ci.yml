@@ -121,6 +121,10 @@ jobs:
         run: |
           python scripts/verify-mei-cadal-original-12yt.py
           python -m unittest discover -s tests -p 'test_mei_cadal_original_12yt.py' -v
+      - name: Mei 12YU bounded scanned Siku title paratext provenance and physical edition firewall
+        run: |
+          python scripts/verify-mei-cadal-paratext-12yu.py
+          python -m unittest discover -s tests -p 'test_mei_cadal_paratext_12yu.py' -v
       - name: Historical source registry extension integrity gate
         run: |
           python scripts/verify-historical-source-registry-extensions-r1.py
