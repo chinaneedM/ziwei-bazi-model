@@ -157,6 +157,10 @@ jobs:
         run: |
           python scripts/verify-goryeosa-kyu-copy-gate-12zc.py
           python -m unittest discover -s tests -p 'test_goryeosa_kyu_copy_gate_12zc.py' -v
+      - name: G893 12ZD Kyujanggak vol52 movable type and manuscript supplement firewall
+        run: |
+          python scripts/verify-goryeosa-kyu3467-v52-12zd.py
+          python -m unittest discover -s tests -p 'test_goryeosa_kyu3467_v52_12zd.py' -v
       - name: Historical source registry extension integrity gate
         run: |
           python scripts/verify-historical-source-registry-extensions-r1.py
