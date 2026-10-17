@@ -27,6 +27,6 @@ def verify(d,l,s):
  must(issue["status"]=="OPEN" and DOC in issue["source_refs"] and DOC[:-5]+".md" in issue["source_refs"],"issue binding")
  must(issue["mei_12yw_catalog_original_page_reviews"][0]["printed_pages_zero_based"]==[86,88] and issue["mei_12yw_catalog_original_page_reviews"][0]["full_file_sha_recomputed"] is False,"no overstated evidence grade")
  must(l["binding"]["reviewed_state_version"]==s["schema_version"]==s["historical_audit"]["research_omission_guard"]["reviewed_state_version"],"state mismatch")
- must(l["binding"]["source_focus_count"]==len(s["historical_audit"]["current_focus"]) and s["historical_audit"]["current_focus"][-1].startswith("12YW ") and l["checkpoint_log"][-1]["state_version"]==s["schema_version"],"checkpoint")
+ must(l["binding"]["source_focus_count"]==len(s["historical_audit"]["current_focus"]) and any(x.startswith("12YW ") for x in s["historical_audit"]["current_focus"]) and l["binding"]["latest_research_focus_prefix"]==s["historical_audit"]["current_focus"][-1].split(" ")[0] and l["checkpoint_log"][-1]["state_version"]==s["schema_version"],"checkpoint forward progress")
  return {"result":"PASS","original_page_loci":2,"locally_hashed":False,"historical_copy_added":0,"issues_open":11}
 if __name__=="__main__":print(json.dumps(verify(*read()),ensure_ascii=False))

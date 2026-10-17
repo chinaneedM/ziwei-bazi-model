@@ -27,6 +27,6 @@ def check(d,l,s):
  req(x["mei_12yv_bibliographic_juan_mu_conflict_reviews"][0]["original_catalog_leaf_verified"] is False,"fabricated original")
  req(l["binding"]["reviewed_state_version"]==s["schema_version"] and l["binding"]["source_focus_count"]==len(s["historical_audit"]["current_focus"]),"state drift")
  req(l["checkpoint_log"][-1]["state_version"]==s["schema_version"] and len(l["checkpoint_log"][-1]["reviewed_issue_ids"])==len(l["issues"]),"omission gate")
- req(s["historical_audit"]["current_focus"][-1].startswith("12YV ") and s["invariants"]["algorithm_reopen_count"]==0,"handoff and frozen algorithm")
+ req(any(x.startswith("12YV ") for x in s["historical_audit"]["current_focus"]) and s["invariants"]["algorithm_reopen_count"]==0,"historical research progress must remain append-only; chart frozen")
  return {"result":"PASS","grade":"RECEIVED_AND_SECONDARY_ONLY","original_catalog_leaf_verified":False,"source_count":5,"unresolved":11}
 if __name__=="__main__":print(json.dumps(check(*load()),ensure_ascii=False))
