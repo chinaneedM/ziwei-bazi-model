@@ -33,8 +33,9 @@ def verify(d,ledger,state):
  need(g["adjacent_large_lane_arithmetic"]=="PENDING" and g["source_original_complete_targets"]=="5/6" and g["final_cross_witness_decisions"]=="0/6" and g["open_research_issues"]==11 and g["new_physical_copies"]==g["new_graph_edges"]==g["algorithm_reopens"]==0,"false award")
  issue=next(x for x in ledger["issues"] if x["id"]=="TW-OPEN-0005")
  need(issue["status"]=="OPEN" and DOC in issue["source_refs"] and "docs/research/TIANWEN-12YE-G893-SOLAR-EIGHT-PLACE-PRECISION-R1.md" in issue["source_refs"],"source risk missing")
- need(issue["g893_d16_eight_place_original_reviews"][-1]["source_second_difference"]=="-0.00000186" and issue["history"][-1]["event"]=="G893_EIGHT_PLACE_SOURCE_PRECISION_APPEND","forward evidence")
- need(state["schema_version"]==ledger["binding"]["reviewed_state_version"]==state["historical_audit"]["research_omission_guard"]["reviewed_state_version"]=="1.618.0" and state["historical_audit"]["current_focus"][-1].startswith("12YE "),"state mismatch")
+ need(issue["g893_d16_eight_place_original_reviews"][-1]["source_second_difference"]=="-0.00000186" and any(h["event"]=="G893_EIGHT_PLACE_SOURCE_PRECISION_APPEND" for h in issue["history"]),"historical 12YE archive not retained")
+ need(issue["g893_12ye_dual_column_errata"][-1]["retracted_false_second_difference"]=="-0.00000186" and issue["g893_12ye_dual_column_errata"][-1]["correction"]=="RETRACTED_AS_CROSS_COLUMN_CONCATENATION","dangerous uncorrected 12YE eight place reading")
+ need(state["schema_version"]==ledger["binding"]["reviewed_state_version"]==state["historical_audit"]["research_omission_guard"]["reviewed_state_version"] and tuple(map(int,state["schema_version"].split(".")))>=(1,619,0) and any(f.startswith("12YE ") for f in state["historical_audit"]["current_focus"]) and state["historical_audit"]["current_focus"][-1].startswith("12YF "),"state mismatch")
  need(state["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED" and state["invariants"]["algorithm_reopen_count"]==0,"product reopen")
- return {"status":"PASS","source_full_prints":3,"second_difference":"-0.00000186","original_d16_mechanical_field":"UNPROVEN"}
+ return {"status":"PASS","historical_12ye_raw_record":"PRESERVED_BUT_RETRACTED_BY_12YF","alleged_eight_decimal_field":"INVALID_CROSS_COLUMN_JOIN","old_derived_minus_0_00000186":"NOT_SOURCE_EVIDENCE","original_d16_mechanical_field":"UNPROVEN"}
 if __name__=="__main__":print(json.dumps(verify(*load()),ensure_ascii=False))

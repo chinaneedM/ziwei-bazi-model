@@ -256,6 +256,15 @@ def validate(data,state,protocol,exists_fn=None):
    require(e["source_pages"]==["001a","002b"] and e["source_lanes"]==["五分二一七六","五分二三六二","五分二五四八"] and e["lexical_decimal_candidates"]==["5.2176","5.2362","5.2548"],"12YD source original glyph series")
    require(e["candidate_step"]=="0.0186" and e["original_target_source_field_finalized"] is False and e["principal_source_fields_awarded"]==e["cross_witness_final_decisions_awarded"]==e["independent_original_votes_added"]==0,"12YD textual source evidence promoted into target field")
    require(e["evidence_doc"] in issue["source_refs"] and (ROOT/e["evidence_doc"]).is_file(),"12YD research original evidence missing")
+ for issue in data["issues"]:
+  if issue["id"]=="TW-OPEN-0005" and issue.get("g893_12ye_dual_column_errata"):
+   corr=issue["g893_12ye_dual_column_errata"]
+   require(len(corr)==1,"12YF correction must remain single and append-only")
+   e=corr[0]
+   require(e["correction"]=="RETRACTED_AS_CROSS_COLUMN_CONCATENATION" and e["retracted_false_second_difference"]=="-0.00000186" and e["replacement_long_second_difference"]=="-0.0186","old erroneous source-reading still active")
+   require(e["original_long_lanes"]==["424.8249","429.6073","434.3711","439.1163","443.8429"] and e["original_short_lanes"]==["5.2176","5.2362","5.2548","5.2734","5.2920"],"12YF two-column source data")
+   require(e["final_decisions_added"]==e["copies_added"]==0,"false independent source or mechanical award")
+   require(e["evidence_doc"] in issue["source_refs"] and (ROOT/e["evidence_doc"]).is_file(),"missing 12YF original correction")
  require(data["definition"].startswith("NON_EXHAUSTIVE"),"not falsely exhaustive")
  require(len(data["explicit_limits"])>=3 and any("not be recovered" in x for x in data["explicit_limits"]),"unsaved research limitation")
  require(data["binding"]["reviewed_state_version"]==state["schema_version"],"state review missing")
