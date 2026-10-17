@@ -56,7 +56,7 @@ for url in URLS[1:]:
  except Exception as exc:
   results.append({"route":"source-byte","state":"UNAVAILABLE","requested":url,"error":type(exc).__name__+": "+str(exc)[:240]})
 report={"schema":"TIANWEN-12YT-CADAL06054965-EXACT-COMMONS-ORIGINAL-PROBE-R1",
-"source_title":NAME,"wiki_catalog_index":CATAL,"wiki_catalog_exact_filename_listed":True,
+"source_title":NAME,"wiki_catalog_index":CATALOG,"wiki_catalog_exact_filename_listed":True,
 "mediawiki_imageinfo_verified":bool(imageinfo),
 "acquisition_attempts":results,
 "original_source_image_bytes_acquired":downloaded,
