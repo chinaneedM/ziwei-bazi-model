@@ -1,0 +1,130 @@
+{
+  "schema": "TIANWEN-12YK-MINGSHI-V33-SIKU-RECEIVED-DUAL-LOCUS-ARITHMETIC-R1",
+  "date": "2026-10-17",
+  "previous_batch": "docs/research/TIANWEN-12YJ-G893-HEADER-MINGSHI-PINGLI-RECEIVED-TEXT-ARITHMETIC-R1.json",
+  "scope": "FOUR_WEB_TEXT_PRESENTATIONS_NOT_FOUR_INDEPENDENT_EDITION_OR_PHYSICAL_WITNESSES",
+  "received_text_presentations": [
+    {
+      "key": "MINGSHI_GENERAL_WIKISOURCE",
+      "work": "明史",
+      "edition_claim": "通行条目《明史/卷33》",
+      "url": "https://zh.wikisource.org/zh-hant/%E6%98%8E%E5%8F%B2/%E5%8D%B733",
+      "representation": "RECEIVED_WEB_TRANSCRIPTION_NOT_PHYSICAL_PAGE",
+      "multiplier_glyph": "三十一微以六因之",
+      "intermediate_glyph": "一秒八十六微",
+      "intermediate_decimal": "0.0186",
+      "sum_glyph": "四分九十二秒八十六微",
+      "sum_decimal": "4.9286"
+    },
+    {
+      "key": "MINGSHI_SIKU_WIKISOURCE",
+      "work": "明史",
+      "edition_claim": "《明史(四庫全書本)/卷033》数字转录版本标签，仅为待核版本信息",
+      "url": "https://zh.wikisource.org/wiki/%E6%98%8E%E5%8F%B2_(%E5%9B%9B%E5%BA%AB%E5%85%A8%E6%9B%B8%E6%9C%AC)/%E5%8D%B7033",
+      "representation": "RECEIVED_WEB_TRANSCRIPTION_WITH_UNVERIFIED_SIKU_EDITION_LABEL_NOT_PHYSICAL_PAGE",
+      "multiplier_glyph": "三十一㣲以六因之",
+      "intermediate_glyph": "一秒三十六㣲",
+      "intermediate_decimal": "0.0136",
+      "sum_glyph": "四分九十三秒八十六㣲",
+      "sum_decimal": "4.9386"
+    },
+    {
+      "key": "MINGSHI_DAZHISHI",
+      "work": "明史",
+      "edition_claim": "四库全书门户现代电子收本，不由站名赋予原印证据",
+      "url": "https://skqs.dazhishi.com/show_ondxxzzrdg.html",
+      "representation": "RECEIVED_WEB_TRANSCRIPTION_NOT_VERIFIED_PHYSICAL_EDITION",
+      "multiplier_glyph": "三十一微，以六因之",
+      "intermediate_glyph": "一秒八十六微",
+      "intermediate_decimal": "0.0186",
+      "sum_glyph": "四分九十三秒八十六微",
+      "sum_decimal": "4.9386"
+    },
+    {
+      "key": "DATONG_LIZHI_SHIDIAN",
+      "work": "大統歷志",
+      "edition_claim": "梅文鼎《大統歷志》卷三现代收本，不是独立明1569物理本",
+      "url": "https://www.shidianguji.com/zh/book/SK1539/chapter/1la1487n41uf3",
+      "representation": "LATER_RECEIVED_EXEGETICAL_WEB_TRANSCRIPTION_NOT_PHYSICAL_PAGE",
+      "multiplier_glyph": "三十一微，以六因之",
+      "intermediate_glyph": "一秒八十六微",
+      "intermediate_decimal": "0.0186",
+      "sum_glyph": "四分九十三秒八十六微",
+      "sum_decimal": "4.9386"
+    }
+  ],
+  "two_locus_controls": [
+    {
+      "id": "L1_MULTIPLIED_LICHA",
+      "inputs": "三十一微 × 六",
+      "expected": "0.0186",
+      "readings": [
+        "0.0186",
+        "0.0136",
+        "0.0186",
+        "0.0186"
+      ],
+      "mismatch_siku": "-0.0050",
+      "historical_unit_guard": "TEXT_INTERNAL_BASE100_PLACE_VALUE_ONLY_NOT_MODERN_SECONDS"
+    },
+    {
+      "id": "L2_PINGLI_SUM",
+      "inputs": "倍平差四分九十二秒 + 文本自身加分立差",
+      "expected_if_multiplication_correct": "4.9386",
+      "readings": [
+        "4.9286",
+        "4.9386",
+        "4.9386",
+        "4.9386"
+      ],
+      "general_vs_math": "-0.0100",
+      "siku_reported_minus_its_own_intermediate": "+0.0050",
+      "siku_reported_minus_math": "0.0000"
+    }
+  ],
+  "mechanical_semantics": {
+    "base": "4.9200",
+    "licha": "0.0031",
+    "factor": "6",
+    "true_intermediate": "0.0186",
+    "siku_reported_intermediate": "0.0136",
+    "general_reported_total": "4.9286",
+    "siku_reported_total": "4.9386",
+    "correct_total": "4.9386",
+    "delta_general_total": "-0.0100",
+    "delta_siku_intermediate": "-0.0050",
+    "delta_siku_self_sum": "+0.0050",
+    "delta_siku_total_using_multiplied_correct": "0.0000",
+    "precision": "EXACT_DECIMAL_4"
+  },
+  "scan_candidate": {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/5/53/SSID-14059739_%E6%98%8E%E5%8F%B2_%E5%8D%B7%E4%B8%89%E4%B8%80%E8%87%B3%E5%8D%B7%E4%B8%89%E4%B9%9D%EF%BC%88%E7%B4%80%E5%BF%97%EF%BC%89_%E7%AC%AC%E4%B8%89%E5%86%8A.pdf",
+    "claimed_scope": "MINGSHI_VOLUMES_31_TO_39_THIRD_FASCICLE",
+    "fetch_attempt": "WEB_PDF_OPEN_FAILED_TOO_LARGE_36398055_BYTES; LOCAL_CONTAINER_DOWNLOAD_FAILED",
+    "actual_scanned_folio_read": false,
+    "physical_copy_date_verified": false,
+    "edition_impression_date_verified": false,
+    "scan_payload_hash_verified": false,
+    "source_text_search_snippet_not_original_page_ocr_authority": true,
+    "may_not_upgrade_grade": true,
+    "claim_about_its_printed_glyphs": "UNVERIFIED_TARGET_PAGE"
+  },
+  "crosswalk": {
+    "g893_source": "EXT-KYUJANGGAK-SHOUSHI-LICHENG-G893",
+    "g893_original_header_jpeg_page": "001a",
+    "g893_lanes_original_days": "D14-D30",
+    "g893_daily_short_difference": "0.0186",
+    "mingshi_field_same_as_g893": "UNPROVEN",
+    "native_g893_少_vs_received_微": "UNRESOLVED",
+    "ming1569_independent_original_column": "NOT_BOUND",
+    "physical_witnesses_added": 0,
+    "source_registry_additions": 0,
+    "genealogy_nodes_added": 0,
+    "genealogy_edges_added": 0,
+    "algorithm_reopens": 0,
+    "original_formal_targets": "5/6",
+    "cross_witness_mechanical_final": "0/6",
+    "open_research_issues": 11
+  },
+  "next_original_evidence": "Obtain source-edition-bound printed image of MingShi v33 at both target loci, independent Mei v3 printed original and Ming1569 original full same-column row with source original 001a field header; do not promote Wikisource Siku title or catalogue/scanned PDF search snippet as an examined physical witness."
+}

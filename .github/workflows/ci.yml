@@ -89,6 +89,10 @@ jobs:
         run: |
           python scripts/verify-g893-header-mingshi-received-arithmetic-12yj.py
           python -m unittest discover -s tests -p 'test_g893_header_mingshi_received_arithmetic_12yj.py' -v
+      - name: G893 12YK MingShi Siku received two-locus arithmetic and physical-copy firewall
+        run: |
+          python scripts/verify-g893-mingshi-siku-dual-locus-12yk.py
+          python -m unittest discover -s tests -p 'test_g893_mingshi_siku_dual_locus_12yk.py' -v
       - name: Historical source registry extension integrity gate
         run: |
           python scripts/verify-historical-source-registry-extensions-r1.py
