@@ -25,8 +25,8 @@ def verify():
  ck(d["further_same_copy_confirmation"]["id"]==6425 and d["further_same_copy_confirmation"]["new_source_registry_entry"] is False,"same-source supplementary check")
  scope=d["historical_inference"]
  ck(scope["date_label_disagreement_is_proven"] and scope["same_gk3539_implies_same_registered_physical_set"] and scope["actual_book_to_work_map_attested_by_media_catalog_only"],"date scope")
- ck(scope["media_caption_1454_meaning"]=="UNRESOLVED_WORK_PRINTING_REPRODUCTION_DATE_OR_EDITORIAL_UNSCOPED_LABEL","do not assign 1454")
- ck(all(scope[k] is False for k in ("media_year_1454_proves_original_copy_printed_1454","first_1454_printing_as_current_physical_witness_unproven")) is False or scope["media_year_1454_proves_original_copy_printed_1454"] is False,"date guard")
+ ck(scope["ngc_media_caption_1454_meaning"]=="UNRESOLVED_WORK_PRINTING_REPRODUCTION_DATE_OR_EDITORIAL_UNSCOPED_LABEL","do not assign 1454")
+ ck(scope["media_year_1454_proves_original_copy_printed_1454"] is False,"year 1454 cannot date original item")
  ck(scope["media_year_1454_proves_original_copy_printed_1454"] is False and scope["first_1454_printing_as_current_physical_witness_unproven"] is True,"date still unproven")
  ck(scope["independent_physical_witnesses_from_6426_and_6545"]==scope["new_target_work52_page_images"]==scope["new_target_D16_D18_numeric_votes"]==0 and scope["work52_physical_book_number"] is None,"no original")
  items=sh["sources"]
