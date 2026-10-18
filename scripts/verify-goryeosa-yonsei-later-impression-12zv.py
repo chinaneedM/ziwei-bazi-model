@@ -32,7 +32,7 @@ def verify():
     require(s["schema_version"]==l["binding"]["reviewed_state_version"]==s["historical_audit"]["research_omission_guard"]["reviewed_state_version"],"state sync")
     require(s["historical_audit"]["external_source_registry_total_unique_count"]>=717 and m["combined_source_count"]==s["historical_audit"]["external_source_registry_total_unique_count"],"source count")
     require(any(e["path"]==SOURCE and e["source_count"]==1 for e in m["shards"]),"source shard")
-    require(s["historical_audit"]["current_focus"][-1].startswith("12ZV ") and l["binding"]["latest_research_focus_prefix"]=="12ZV","focus")
+    require(any(x.startswith("12ZV ") for x in s["historical_audit"]["current_focus"]) and l["binding"]["latest_research_focus_prefix"]==s["historical_audit"]["current_focus"][-1].split(" ",1)[0],"focus forward")
     require(l["binding"]["source_focus_count"]==len(s["historical_audit"]["current_focus"]),"focus count")
     issue=next(i for i in l["issues"] if i["id"]=="TW-OPEN-0005")
     require(issue["status"]=="OPEN" and all(z in issue["source_refs"] for z in (DOC,DOC.replace(".json",".md"),SOURCE)),"P0 preservation")

@@ -27,7 +27,7 @@ def verify():
     ck(sc["source_registry_total"]==s["historical_audit"]["external_source_registry_total_unique_count"]==717,"no double-counted web source")
     ck(sc["omission_issues_open"]==len(l["issues"])==11 and sc["g893_original_direct"]=="5/6" and sc["g893_cross_original"]=="0/6","risks kept open")
     ck(s["schema_version"]==l["binding"]["reviewed_state_version"]==s["historical_audit"]["research_omission_guard"]["reviewed_state_version"],"version sync")
-    ck(s["historical_audit"]["current_focus"][-1].startswith("12ZX ") and l["binding"]["latest_research_focus_prefix"]=="12ZX" and l["binding"]["source_focus_count"]==len(s["historical_audit"]["current_focus"]),"focus sync")
+    ck(any(x.startswith("12ZX ") for x in s["historical_audit"]["current_focus"]) and l["binding"]["latest_research_focus_prefix"]==s["historical_audit"]["current_focus"][-1].split(" ",1)[0] and l["binding"]["source_focus_count"]==len(s["historical_audit"]["current_focus"]),"focus forward sync")
     issue=next(i for i in l["issues"] if i["id"]=="TW-OPEN-0005")
     ck(issue["status"]=="OPEN" and DOC in issue["source_refs"] and DOC.replace(".json",".md") in issue["source_refs"],"unresolved issue preserving erratum")
     ck(l["checkpoint_log"][-1]["state_version"]==s["schema_version"] and set(l["checkpoint_log"][-1]["reviewed_issue_ids"])=={i["id"] for i in l["issues"]},"checkpoint")
