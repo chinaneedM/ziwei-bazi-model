@@ -193,6 +193,10 @@ jobs:
         run: |
           python scripts/verify-goryeosa-1972-5553-12zl.py
           python -m unittest discover -s tests -p 'test_goryeosa_1972_5553_12zl.py' -v
+      - name: G893 12ZM firstparty SNU GK5553 work81-83 and distinct 3467 work52 copy gate
+        run: |
+          python scripts/verify-goryeosa-snu-triangle-12zm.py
+          python -m unittest discover -s tests -p 'test_goryeosa_snu_triangle_12zm.py' -v
       - name: Historical source registry extension integrity gate
         run: |
           python scripts/verify-historical-source-registry-extensions-r1.py
