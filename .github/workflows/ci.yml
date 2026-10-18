@@ -173,6 +173,10 @@ jobs:
         run: |
           python scripts/verify-goryeosa-5554-heritage-12zg.py
           python -m unittest discover -s tests -p 'test_goryeosa_5554_heritage_12zg.py' -v
+      - name: G893 12ZH GK05554 volume enumeration and original folio firewall
+        run: |
+          python scripts/verify-goryeosa-5554-enumeration-12zh.py
+          python -m unittest discover -s tests -p 'test_goryeosa_5554_enumeration_12zh.py' -v
       - name: Historical source registry extension integrity gate
         run: |
           python scripts/verify-historical-source-registry-extensions-r1.py
