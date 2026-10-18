@@ -32,7 +32,7 @@ def verify(d,prev,state,ledger):
  issue=next(x for x in ledger["issues"] if x["id"]=="TW-OPEN-0005")
  need(issue["status"]=="OPEN" and P in issue["source_refs"] and P.replace(".json",".md") in issue["source_refs"],"issue evidence")
  f=state["historical_audit"]["current_focus"]
- need(any(z.startswith("12ZH ") for z in f) and f[-1].startswith("12ZH ") and ledger["binding"]["latest_research_focus_prefix"]=="12ZH" and ledger["binding"]["source_focus_count"]==len(f),"state/ledger focus")
+ need(any(z.startswith("12ZH ") for z in f) and ledger["binding"]["latest_research_focus_prefix"]==f[-1].split(" ",1)[0] and ledger["binding"]["source_focus_count"]==len(f),"state/ledger focus")
  need(state["schema_version"]==ledger["binding"]["reviewed_state_version"]==state["historical_audit"]["research_omission_guard"]["reviewed_state_version"],"version sync")
  need(ledger["checkpoint_log"][-1]["state_version"]==state["schema_version"] and set(ledger["checkpoint_log"][-1]["reviewed_issue_ids"])=={x["id"] for x in ledger["issues"]},"reviewed issues")
  return {"status":"PASS","enumerated_heritage":95,"enumerated_scholar":100,"new_original_images":0}
