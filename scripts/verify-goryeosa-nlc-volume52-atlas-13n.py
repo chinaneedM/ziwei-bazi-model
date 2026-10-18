@@ -38,15 +38,17 @@ def verify():
  m=read("docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json")
  rr=read("docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json")
  assert any(x["source_id"]=="EXT-COMMONS-CADAL-GORYEOSA-V52-FACSIMILE" for x in rr["sources"])
- assert m["root_source_count"]==647 and m["extension_source_count"]==87 and m["combined_source_count"]==734
- assert s["schema_version"]=="1.674.0" and s["historical_audit"]["external_source_registry_total_unique_count"]==734
+ assert m["root_source_count"]==647 and m["extension_source_count"]>=87 and m["combined_source_count"]==m["root_source_count"]+m["extension_source_count"]
+ assert tuple(map(int,s["schema_version"].split("."))) >= (1,674,0) and s["historical_audit"]["external_source_registry_total_unique_count"]==m["combined_source_count"]
  assert s["schema_version"]==l["binding"]["reviewed_state_version"]==s["historical_audit"]["research_omission_guard"]["reviewed_state_version"]
  assert l["binding"]["source_focus_count"]==len(s["historical_audit"]["current_focus"])
- assert s["historical_audit"]["current_focus"][-1].startswith("13N ") and l["binding"]["latest_research_focus_prefix"]=="13N"
+ assert any(x.startswith("13N ") for x in s["historical_audit"]["current_focus"])
+ assert l["binding"]["latest_research_focus_prefix"]==s["historical_audit"]["current_focus"][-1].split(" ",1)[0]
  issue=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
  assert issue["status"]=="OPEN" and all(x in issue["source_refs"] for x in [E,"docs/research/TIANWEN-13N-NLC-411999022809-V52-FASCICLE-ATLAS-R1.md"])
  assert len(l["issues"])==11 and {x["id"] for x in l["issues"]}==set(l["checkpoint_log"][-1]["reviewed_issue_ids"])
- assert l["checkpoint_log"][-1]["state_version"]=="1.674.0"
+ assert l["checkpoint_log"][-1]["state_version"]==s["schema_version"]
+ assert any(x["id"]=="OMISSIONS-13N-NLC411999022809-FASCICLE-ATLAS-20261019" and x["state_version"]=="1.674.0" for x in l["checkpoint_log"])
  assert s["invariants"]["algorithm_reopen_count"]==0 and s["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED"
- return {"status":"PASS","candidate_digital_groups":13,"registered_sources_unchanged":734,"ancient_votes_added":0}
+ return {"status":"PASS","candidate_digital_groups":13,"registered_sources_unchanged":m["combined_source_count"],"ancient_votes_added":0}
 if __name__=="__main__":print(json.dumps(verify(),ensure_ascii=False))

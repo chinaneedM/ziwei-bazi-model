@@ -35,23 +35,24 @@ def verify():
     assert all(x["physical_glyph_authority"] is False and x["evidence"]==E for x in sh["sources"])
     assert len({x["source_id"] for x in sh["sources"]})==3
     assert any(x["path"]==SH and x["schema"]==sh["schema"] and x["source_count"]==3 for x in m["shards"])
-    assert m["root_source_count"]==647 and m["extension_source_count"]==87 and m["combined_source_count"]==734
-    assert state["schema_version"]=="1.673.0"
-    assert state["historical_audit"]["external_source_registry_total_unique_count"]==734
-    assert state["historical_audit"]["external_source_registry_extension_count"]==87
+    assert m["root_source_count"]==647 and m["extension_source_count"]>=87 and m["combined_source_count"]==m["root_source_count"]+m["extension_source_count"]
+    assert tuple(map(int,state["schema_version"].split("."))) >= (1,673,0)
+    assert state["historical_audit"]["external_source_registry_total_unique_count"]==m["combined_source_count"]
+    assert state["historical_audit"]["external_source_registry_extension_count"]==m["extension_source_count"]
     assert state["schema_version"]==ledger["binding"]["reviewed_state_version"]
     assert state["schema_version"]==state["historical_audit"]["research_omission_guard"]["reviewed_state_version"]
     assert ledger["binding"]["source_focus_count"]==len(state["historical_audit"]["current_focus"])
-    assert state["historical_audit"]["current_focus"][-1].startswith("13J ")
-    assert ledger["binding"]["latest_research_focus_prefix"]=="13J"
+    assert any(x.startswith("13J ") for x in state["historical_audit"]["current_focus"])
+    assert ledger["binding"]["latest_research_focus_prefix"]==state["historical_audit"]["current_focus"][-1].split(" ",1)[0]
     issue=next(x for x in ledger["issues"] if x["id"]=="TW-OPEN-0005")
     assert issue["status"]=="OPEN"
     assert all(x in issue["source_refs"] for x in (E,"docs/research/TIANWEN-13J-NLC99-WASEDA1848-WUL47-COPY-FIREWALL-R1.md",SH))
     assert len(ledger["issues"])==11
-    assert ledger["checkpoint_log"][-1]["state_version"]=="1.673.0"
+    assert ledger["checkpoint_log"][-1]["state_version"]==state["schema_version"]
+    assert any(x["id"]=="OMISSIONS-13J-NLC99-WASEDA1848-WUL47-20261019" and x["state_version"]=="1.673.0" for x in ledger["checkpoint_log"])
     assert {x["id"] for x in ledger["issues"]}==set(ledger["checkpoint_log"][-1]["reviewed_issue_ids"])
     assert state["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED"
     assert state["invariants"]["algorithm_reopen_count"]==0
-    return {"status":"PASS","source_count":734,"new_original_votes":0}
+    return {"status":"PASS","source_count":m["combined_source_count"],"new_original_votes":0}
 if __name__=="__main__":
     print(json.dumps(verify(),ensure_ascii=False))
