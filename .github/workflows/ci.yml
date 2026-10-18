@@ -233,6 +233,10 @@ jobs:
         run: |
           python scripts/verify-goryeosa-yonsei-copy-composite-12zw.py
           python -m unittest discover -s tests -p 'test_goryeosa_yonsei_copy_composite_12zw.py' -v
+      - name: G893 12ZX Yonsei forward erratum for unknown work52 book mapping
+        run: |
+          python scripts/verify-goryeosa-yonsei-12zx-forward-erratum.py
+          python -m unittest discover -s tests -p 'test_goryeosa_yonsei_12zx_forward_erratum.py' -v
       - name: Historical source registry extension integrity gate
         run: |
           python scripts/verify-historical-source-registry-extensions-r1.py
