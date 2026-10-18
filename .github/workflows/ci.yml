@@ -209,6 +209,10 @@ jobs:
         run: |
           python scripts/verify-goryeosa-royal-annals-publication-12zp.py
           python -m unittest discover -s tests -p 'test_goryeosa_royal_annals_publication_12zp.py' -v
+      - name: G893 12ZR Dong-A and Kyujanggak same-block family versus modern 2024 apparatus gate
+        run: |
+          python scripts/verify-goryeosa-same-plate-modern-collation-12zr.py
+          python -m unittest discover -s tests -p 'test_goryeosa_same_plate_modern_collation_12zr.py' -v
       - name: Historical source registry extension integrity gate
         run: |
           python scripts/verify-historical-source-registry-extensions-r1.py
