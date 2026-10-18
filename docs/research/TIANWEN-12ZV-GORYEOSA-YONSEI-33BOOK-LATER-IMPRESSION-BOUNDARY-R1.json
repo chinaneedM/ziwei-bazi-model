@@ -1,0 +1,86 @@
+{
+  "schema": "TIANWEN-12ZV-GORYEOSA-YONSEI-33BOOK-LATER-IMPRESSION-CANDIDATE-R1",
+  "date": "2026-10-18",
+  "issue": "TW-OPEN-0005",
+  "prior": "docs/research/TIANWEN-12ZU-GORYEOSA-HERITAGE-GK-ID-AND-SHARED-MICROFILM-R1.json",
+  "source_evidence_grade": "OFFICIAL_GOVERNMENT_CATALOG_SEARCH_INDEX_ONLY__DIRECT_HERITAGE_DETAIL_CURRENTLY_ACCESS_RESTRICTED",
+  "source_review": {
+    "official_heritage_item_url": "https://heritage.go.kr/heri/cul/culSelectDetail.do?ccbaAsno=0021150000300&ccbaCpno=1121121150300&pageNo=1_1_1_1&sngl=Y",
+    "indexed_public_heritage_item_title": "고려사(2021-5)",
+    "heritage_object_code": "1121121150300",
+    "original_page_open_result": "403_OR_TOOL_ACCESS_FAILURE",
+    "original_source_folio_seen": false,
+    "modern_index_does_not_equal_source_folio": true
+  },
+  "new_physical_copy_candidate": {
+    "institution": "Yonsei University Library",
+    "heritage_record": "고려사(2021-5)",
+    "work_title": "高麗史",
+    "physical_books": 33,
+    "work_volumes": 139,
+    "material": "WOODBLOCK",
+    "woodblock_cut_year": 1613,
+    "impression_classification": "LATER_IMPRESSION_CENTURY_17_TO_18",
+    "heritage_designation_date": "2021-02-17",
+    "specific_library_call_number": null,
+    "work52_physical_book_number": null,
+    "work52_original_folio_reference": null,
+    "work52_original_image_url": null,
+    "work52_original_image_sha256": null,
+    "d16_original_glyph": null,
+    "d18_original_glyph": null
+  },
+  "existing_physical_copy_controls": [
+    {
+      "item": "GK03539_00",
+      "institution": "SNU Kyujanggak / Taebaeksan",
+      "books": 85,
+      "impression": "FIRST_IMPRESSION_1613",
+      "heritage_item": "2021-3",
+      "source": "docs/research/TIANWEN-12ZU-GORYEOSA-HERITAGE-GK-ID-AND-SHARED-MICROFILM-R1.json"
+    },
+    {
+      "item": "GK03579_00",
+      "institution": "SNU Kyujanggak / Odaesan",
+      "books": 85,
+      "impression": "FIRST_IMPRESSION_1613",
+      "heritage_item": "2021-4",
+      "source": "docs/research/TIANWEN-12ZU-GORYEOSA-HERITAGE-GK-ID-AND-SHARED-MICROFILM-R1.json"
+    },
+    {
+      "item": null,
+      "institution": "Dong-A Seokdang Museum",
+      "books": 75,
+      "impression": "LATER_IMPRESSION_CENTURY_17_TO_18",
+      "heritage_item": "2021-6",
+      "source": "docs/research/TIANWEN-12ZT-GORYEOSA-NATIONAL-HERITAGE-IMPRESSION-GRADE-R1.json"
+    }
+  ],
+  "scope_firewall": {
+    "new_physical_holder_not_a_new_edition_or_plate_ancestor": true,
+    "book_count_33_vs_85_vs_75_not_a_work52_folio_locator": true,
+    "plate_cut_year_not_copy_impression_year": true,
+    "direct_government_index_not_original_17c_page": true,
+    "distinct_physical_copy_not_independent_plate_ancestry_vote": true,
+    "word_level_d16_d18_cannot_be_voted_without_original_folio": true,
+    "no_automatic_numeric_error_correction": true,
+    "no_algorithm_reopen": true
+  },
+  "unresolved": {
+    "yonsei_catalog_item_number": null,
+    "yonsei_volume52_physical_book": null,
+    "yonsei_volume52_target_page_image_sha256": null,
+    "gk03539_volume52_target_page_image_sha256": null,
+    "gk03579_volume52_target_page_image_sha256": null,
+    "donga_volume52_target_page_image_sha256": null,
+    "new_original_folios": 0,
+    "new_cross_physical_d16_d18_votes": 0,
+    "g893_principal_original_controls": "5/6",
+    "g893_cross_original_controls": "0/6",
+    "omission_open_issues": 11,
+    "algorithm_reopens": 0,
+    "product": "CLOSED"
+  },
+  "transmission_impact": "NEW_BIBLIOGRAPHIC_PHYSICAL_COPY_LOCATOR_ONLY; NO NEW GRAPH NODE OR EDGE UNTIL ITEM-AND-FOLIO BINDING",
+  "next": "Locate first-party Yonsei item-level shelfmark, book-to-work-volume table, and item-authenticated work volume52 solar D16/D18 native images; compare with SNU GK03539/GK03579 and Dong-A without counting shared plate impressions as independent ancestors."
+}
