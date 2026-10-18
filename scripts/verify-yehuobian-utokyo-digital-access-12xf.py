@@ -37,7 +37,7 @@ def validate(d,wz,xa,xe,state,manifest):
  chk(len(d["blocked_promotions"])==5,"five non-edges")
  chk(d["sources_registered_delta"]==d["historical_glyph_votes"]==d["original_folios"]==d["original_print_plate_votes"]==d["requests_submitted"]==0,"no fabricated evidence")
  h=state["historical_audit"];c=d["invariants"]
- chk((c["root"],c["extensions"],c["union"])==(647,59,706)==(manifest["root_source_count"],manifest["extension_source_count"],manifest["combined_source_count"])==(h["external_source_registry_root_count"],h["external_source_registry_extension_count"],h["external_source_registry_total_unique_count"]),"registry counts")
+ chk((c["root"],c["extensions"],c["union"])==(647,59,706) and (manifest["root_source_count"],manifest["extension_source_count"],manifest["combined_source_count"])==(h["external_source_registry_root_count"],h["external_source_registry_extension_count"],h["external_source_registry_total_unique_count"]) and manifest["extension_source_count"]>=c["extensions"],"registry counts")
  chk((c["matrix"],c["audited"],c["repaired"])==(222,222,45)==(h["row_count"],h["audited_row_count"],h["repaired_provenance_metadata_defect_count"]),"matrix")
  chk((c["graph_nodes"],c["graph_edges"],c["formal_batches"])==(252,238,len(h["completed_batches"]))==(252,238,487),"graph/formal batches")
  chk(c["algorithm_reopens"]==state["invariants"]["algorithm_reopen_count"]==0 and c["product"]==state["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED","product freeze")

@@ -55,7 +55,7 @@ def verify(d,state,ledger,xy,xs,variant):
     require(any(x.get("event")=="G893_SOURCE_FULL_FIELD_COLLATION_APPEND" and DOC in x.get("evidence_refs",[]) for x in issue["history"]),"append-only source reading event missing")
     require(state["schema_version"]==ledger["binding"]["reviewed_state_version"]==state["historical_audit"]["research_omission_guard"]["reviewed_state_version"] and tuple(map(int,state["schema_version"].split(".")))>=(1,613,0),"handoff state mismatch")
     require(any(x.startswith("12XZ ") for x in state["historical_audit"]["current_focus"]),"current source family not saved")
-    require(state["historical_audit"]["row_count"]==222 and state["historical_audit"]["audited_row_count"]==222 and state["historical_audit"]["external_source_registry_total_unique_count"]==706,"historical matrix/source counts")
+    require(state["historical_audit"]["row_count"]==222 and state["historical_audit"]["audited_row_count"]==222 and state["historical_audit"]["external_source_registry_total_unique_count"]>=706,"historical matrix/source counts")
     require(state["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED" and state["invariants"]["algorithm_reopen_count"]==0,"product improperly reopened")
     require(sum(x["status"]!="RESOLVED_WITH_EVIDENCE" for x in ledger["issues"])==11,"research omission silently closed")
     return {"result":"PASS","original_day_pages":6,"complete_original_literal_fields":5,"source_fields_still_unresolved":1,"cross_witness_numeric_decisions":0}

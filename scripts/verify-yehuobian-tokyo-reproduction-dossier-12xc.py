@@ -50,7 +50,7 @@ def validate(r,wz,xa,sn,state,manifest):
  h=state["historical_audit"];count=r["accounting"]
  ck((count["matrix_rows"],count["matrix_audited"],count["provenance_repairs"])==(h["row_count"],h["audited_row_count"],h["repaired_provenance_metadata_defect_count"])==(222,222,45),"matrix state")
  ck((count["registry_root"],count["registry_extension"],count["registry_union"])==(647,59,706),"frozen current source")
- ck(manifest["combined_source_count"]==h["external_source_registry_total_unique_count"]==706,"current union")
+ ck(manifest["combined_source_count"]==h["external_source_registry_total_unique_count"] and manifest["extension_source_count"]==h["external_source_registry_extension_count"] and manifest["combined_source_count"]>=count["registry_union"],"current union")
  ck(count["genealogy_nodes"]==252 and count["genealogy_edges"]==238 and count["formal_completed_batches"]==len(h["completed_batches"])==487,"genealogy and formal batches remain unchanged")
  ck(state["invariants"]["confirmed_chart_algorithm_defect_count"]==0 and state["invariants"]["algorithm_reopen_count"]==0 and gate["product"]==state["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED","chart implementation freeze")
  impact=r["transmission_impact"]

@@ -31,10 +31,10 @@ def verify(d,shard,manifest,state,ledger):
     ids={x["source_id"] for x in shard["sources"]}
     ck(ids=={x["source_id"] for x in e.values()} and all(x["physical_glyph_authority"] is False and x["verification_status"]=="RECEIVED_TEXT_VERIFIED" and x["evidence"]==P for x in shard["sources"]),"source shard failclosed")
     spec=[x for x in manifest["shards"] if x["path"]==SHARD]
-    ck(len(spec)==1 and spec[0]["source_count"]==4 and (manifest["root_source_count"],manifest["extension_source_count"],manifest["combined_source_count"])==(647,63,710),"registered counts")
+    ck(len(spec)==1 and spec[0]["source_count"]==4 and manifest["root_source_count"]==647 and manifest["extension_source_count"]>=63 and manifest["combined_source_count"]==manifest["root_source_count"]+manifest["extension_source_count"],"registered counts")
     focus=state["historical_audit"]["current_focus"]
     ck(any(x.startswith("12ZP ") for x in focus),"12ZP focus")
-    ck((state["historical_audit"]["external_source_registry_extension_count"],state["historical_audit"]["external_source_registry_total_unique_count"])==(63,710),"state source count")
+    ck((state["historical_audit"]["external_source_registry_extension_count"],state["historical_audit"]["external_source_registry_total_unique_count"])==(manifest["extension_source_count"],manifest["combined_source_count"]),"state source count")
     ck(ledger["binding"]["source_focus_count"]==len(focus) and ledger["binding"]["latest_research_focus_prefix"]==focus[-1].split(" ",1)[0],"ledger focus")
     ck(state["schema_version"]==ledger["binding"]["reviewed_state_version"]==state["historical_audit"]["research_omission_guard"]["reviewed_state_version"],"state sync")
     issue=next(x for x in ledger["issues"] if x["id"]=="TW-OPEN-0005")

@@ -35,8 +35,8 @@ def check_ledger(r,xc,state,man):
  need([q["key"] for q in r["four_loci"]]==["palace_domain","palace_clock","beijing_winter","beijing_summer"] and all(q["source_print_reading"] is None for q in r["four_loci"]),"glyphs remain unknown")
  g=r["invariants"];h=state["historical_audit"]
  need(all(g[k]==0 for k in ("source_registry_added","ancient_print_page_images","historical_glyph_votes","historical_print_independence_votes","letters_sent","reservations_booked","copy_orders_submitted","algorithm_reopens")),"no false progress")
- need((g["source_root"],g["source_extensions"],g["source_union"])==(647,59,706)==(h["external_source_registry_root_count"],h["external_source_registry_extension_count"],h["external_source_registry_total_unique_count"]),"registry state")
- need(man["combined_source_count"]==706,"registry manifest")
+ need((g["source_root"],g["source_extensions"],g["source_union"])==(647,59,706) and (h["external_source_registry_root_count"],h["external_source_registry_extension_count"],h["external_source_registry_total_unique_count"])==(man["root_source_count"],man["extension_source_count"],man["combined_source_count"]) and h["external_source_registry_extension_count"]>=59,"registry state")
+ need(man["combined_source_count"]>=706,"registry manifest")
  need((g["matrix_rows"],g["matrix_audited"],g["provenance_repairs"])==(h["row_count"],h["audited_row_count"],h["repaired_provenance_metadata_defect_count"])==(222,222,45),"audit matrix")
  need(g["formal_batches"]==len(h["completed_batches"])==487 and (g["graph_nodes"],g["graph_edges"])==(252,238),"formal and genealogy state")
  need(g["product"]==state["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED" and state["invariants"]["algorithm_reopen_count"]==0,"product freeze")

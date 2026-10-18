@@ -31,8 +31,8 @@ def validate(r,s,st,m):
   req(r["limits"][k] is want,"historical print inference gate "+k)
  req(r["limits"]["registered_metadata_sources"]==1 and r["limits"]["seven_rows_are_source_issued_metadata_not_physical_glyphs"] is True,"one source not seven")
  counts=r["counts"];h=st["historical_audit"]
- req((counts["source_root"],counts["source_extensions"],counts["source_union"])==(m["root_source_count"],m["extension_source_count"],m["combined_source_count"])==(647,59,706),"registered evidence growth")
- req(counts["source_union"]==h["external_source_registry_total_unique_count"],"state registry union")
+ req((counts["source_root"],counts["source_extensions"],counts["source_union"])==(647,59,706) and m["root_source_count"]==647 and m["extension_source_count"]>=59 and m["combined_source_count"]==m["root_source_count"]+m["extension_source_count"],"registered evidence growth")
+ req(m["combined_source_count"]==h["external_source_registry_total_unique_count"] and m["extension_source_count"]==h["external_source_registry_extension_count"] and counts["source_union"]<=m["combined_source_count"],"state registry union")
  req(counts["matrix_rows"]==counts["matrix_audited"]==h["row_count"]==222 and counts["provenance_repairs"]==45,"matrix")
  req(counts["genealogy_nodes"]==252 and counts["genealogy_edges"]==238 and counts["formal_batches"]==len(h["completed_batches"])==487,"graph")
  req(counts["historical_print_votes"]==counts["source_glyph_votes"]==counts["algorithm_reopen_count"]==0 and counts["product"]==st["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED","product")

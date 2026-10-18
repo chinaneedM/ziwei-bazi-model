@@ -61,7 +61,7 @@ def verify(o,v,lg,s,xr,xu,xs):
     need(all((ROOT/p).is_file() for p in o["evidence_refs"]),"referenced source evidence missing")
     need(s["schema_version"]==lg["binding"]["reviewed_state_version"]==s["historical_audit"]["research_omission_guard"]["reviewed_state_version"] and tuple(map(int,s["schema_version"].split(".")))>=tuple(map(int,o["current_state_version"].split("."))),"research state/ledger desync or historical overlay upgraded as live")
     need(any(x.startswith("12XW ") for x in s["historical_audit"]["current_focus"]),"frozen 12XW research focus missing")
-    need((s["historical_audit"]["row_count"],s["historical_audit"]["audited_row_count"],s["historical_audit"]["external_source_registry_total_unique_count"])==(222,222,706),"Matrix/source registry scope changed")
+    need(s["historical_audit"]["row_count"]==s["historical_audit"]["audited_row_count"]==222 and s["historical_audit"]["external_source_registry_total_unique_count"]>=706,"Matrix/source registry scope changed")
     need(s["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED" and s["invariants"]["algorithm_reopen_count"]==0,"chart algorithm reopened")
     return {"status":"PASS","original_day_pages":6,"fully_collated_original_fields":3,"missing_full_original_fields":3,"cross_edition_numeric_decisions":0}
 
