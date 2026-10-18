@@ -1,0 +1,91 @@
+{
+  "schema": "TIANWEN-13D-GORYEOSA-SCHOLARLY-1454-FULFILLMENT-INFERENCE-SCOPE-R1",
+  "date": "2026-10-18",
+  "open_issue": "TW-OPEN-0005",
+  "prior": [
+    "docs/research/TIANWEN-12ZP-GORYEOSA-1452-1454-1482-ROYAL-ANNALS-PRINT-STATE-COLLATION-R1.json",
+    "docs/research/TIANWEN-13B-GORYEOSA-SNU-CURATORIAL-1452-1453-VS-1454-ANNALS-SCOPE-R1.json",
+    "docs/research/TIANWEN-13C-GORYEOSA-1469-PETITION-AND-1454-SECONDARY-R1.json"
+  ],
+  "scholarship": {
+    "nihk": {
+      "source_id": "EXT-TIANWEN-13D-NIKH-NEW-HISTORY-V26-1454-GORYEOSA-PRINT-INTERPRETATION",
+      "provider": "National Institute of Korean History, New History of Korea vol. 26, Joseon Early Culture I, History chapter",
+      "html_url": "https://contents.history.go.kr/front/nh/view.do?levelId=nh_026_0020_0030_0010_0020_0030",
+      "pdf_url": "https://contents.history.go.kr/data/pdf/nh/nh_026_0020.pdf",
+      "printed_pages": [
+        124,
+        125
+      ],
+      "pdf_page_zero_based": [
+        114,
+        115
+      ],
+      "html_section": "3. 역사학 > 1) 민족사의 체계화와 전대사의 정리 > (2) 고려시대사의 정리 > 라. 고려사",
+      "firstpass_page_review": "BOTH_PDF_PAGE_IMAGES_VISUALLY_CHECKED_AT_ORIGINAL_WEB_PDF_RENDER_NO_ANCIENT_FOLIO",
+      "footnote_63": "《端宗實錄》卷4 1452 Dec print request",
+      "footnote_64": "《端宗實錄》卷12 1454 Oct 辛卯 report full history had limited few palace copies",
+      "footnote_65": "Commentary asserts reprinting under 鄭麟趾 and public distribution after request",
+      "main_conclusion": "Modern historical narrative infers October 1454 broad distribution after Lee Geukgam petition and approval; primary quoted passage directly attests report and approval, not completed distribution.",
+      "historical_1454_completion_original_witness": false
+    },
+    "aks": {
+      "source_id": "EXT-TIANWEN-13D-AKS-SHIN-ANSIK-GORYEOSA-1454-1455-ENCYCLOPEDIA",
+      "provider": "Academy of Korean Studies, Encyclopedia of Korean Culture",
+      "url": "https://encykorea.aks.ac.kr/Article/E0003456",
+      "author": "신안식 / Shin An-sik",
+      "initial_authorship_year": 1995,
+      "last_revision_date": "2024-05-22",
+      "page_section": "서지적 사항 / 편찬·발간 경위",
+      "claim_1454": "The entry attributes wide printing/distribution in 1454 to 國朝寶鑑 and 增補文獻備考 and further narrates October 1454 circulation",
+      "claim_1455": "It describes an Eulhae movable-type printing in 1455",
+      "physical_book_count_in_page": 75,
+      "book_count_scope": "FORM_OF_A_DESCRIBED_COPY_NOT_UNIVERSAL_PHYSICAL_BOOK_COUNT_139_WORK_VOLUMES",
+      "source_caution": "AKS explicitly says author-expert interpretation need not be institutional official view; original reference-book target pages have not been independently consulted",
+      "original_GK03539_folio": false
+    }
+  },
+  "evidence_scope": {
+    "nihk_text_and_pdf_same_intellectual_source": true,
+    "aks_and_snu_13c_same_1454_claim_do_not_count_as_two_original_1454_prints": true,
+    "later_literature_citing_a_1454_annals_approval_cannot_bootstrap_completed_print": true,
+    "footnote_64_received_statement_does_not_alone_observe_approved_reprint": true,
+    "nihk_1454_widespread_distribution_is_scholarly_interpretation": true,
+    "aks_1454_widespread_distribution_is_scholarly_interpretation": true,
+    "both_original_baogam_bigo_target_passages_unread": true,
+    "publication_sequence_1452_1453_1454_1455_1475_1476_unresolved": true,
+    "physical_book_75_not_universal_work_volume_count": true,
+    "first_print_completion_timestamp": null,
+    "verified_1454_distribution_delivery_receipt": null,
+    "gk03539_work52_physical_book": null,
+    "work52_D16_D18_native_folio_sha256": null,
+    "new_target_ancient_original_glyph_votes": 0,
+    "new_independent_physical_ancient_print_witnesses": 0,
+    "new_graph_edges": 0,
+    "chart_algorithm_reopens": 0,
+    "open_issues_preserved": 11
+  },
+  "positive_events_retained": [
+    {
+      "date": "1452-11-28",
+      "reference": "NIKH received 12ZP",
+      "proven": "printing request approval"
+    },
+    {
+      "date": "1454-10-13",
+      "reference": "NIKH received 12ZP",
+      "proven": "contemporaneous reported few palace copies previously; new print/distribution request approved"
+    },
+    {
+      "date": "1469-06-29",
+      "reference": "NIKH received 13C",
+      "proven": "Liang Chengzhi renewed circulation request, not complete"
+    },
+    {
+      "date": "1454",
+      "reference": "NIKH scholarly v26, AKS Shin An-sik, SNU Jeong Jae-hun",
+      "proven": "later scholarly assertions exist, not a physical completed-print receipt"
+    }
+  ],
+  "next": "Seek text of original 國朝寶鑑 and 增補文獻備考 with exact 1454 juan/folio and any independent print-done/distribution contemporary register; do not circularly multiply citing essays. In parallel find GK03539 physical book holding work52 and D16/D18 original images."
+}

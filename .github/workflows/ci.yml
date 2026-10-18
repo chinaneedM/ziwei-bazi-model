@@ -249,6 +249,10 @@ jobs:
         run: |
           python scripts/verify-goryeosa-1469-chronology-13c.py
           python -m unittest discover -s tests -p 'test_goryeosa_1469_chronology_13c.py' -v
+      - name: G893 13D modern 1454 broad-print inference vs source event
+        run: |
+          python scripts/verify-goryeosa-1454-scholarly-inference-13d.py
+          python -m unittest discover -s tests -p 'test_goryeosa_1454_scholarly_inference_13d.py' -v
       - name: Historical source registry extension integrity gate
         run: |
           python scripts/verify-historical-source-registry-extensions-r1.py
