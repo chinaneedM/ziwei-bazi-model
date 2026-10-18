@@ -245,6 +245,10 @@ jobs:
         run: |
           python scripts/verify-goryeosa-snu-curatorial-13b.py
           python -m unittest discover -s tests -p 'test_goryeosa_snu_curatorial_13b.py' -v
+      - name: G893 13C 1469 received petition not dated print
+        run: |
+          python scripts/verify-goryeosa-1469-chronology-13c.py
+          python -m unittest discover -s tests -p 'test_goryeosa_1469_chronology_13c.py' -v
       - name: Historical source registry extension integrity gate
         run: |
           python scripts/verify-historical-source-registry-extensions-r1.py
