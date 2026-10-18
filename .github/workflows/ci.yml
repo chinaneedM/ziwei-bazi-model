@@ -201,6 +201,10 @@ jobs:
         run: |
           python scripts/verify-goryeosa-gk3467-subrecords-12zn.py
           python -m unittest discover -s tests -p 'test_goryeosa_gk3467_subrecords_12zn.py' -v
+      - name: G893 12ZO first-print chronology and physical-copy date scope gate
+        run: |
+          python scripts/verify-goryeosa-print-chronology-12zo.py
+          python -m unittest discover -s tests -p 'test_goryeosa_print_chronology_12zo.py' -v
       - name: Historical source registry extension integrity gate
         run: |
           python scripts/verify-historical-source-registry-extensions-r1.py
