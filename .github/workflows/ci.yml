@@ -265,6 +265,10 @@ jobs:
         run: |
           python scripts/verify-goryeosa-ncl-copyscope-13g.py
           python -m unittest discover -s tests -p 'test_goryeosa_ncl_copyscope_13g.py' -v
+      - name: Goryeosa 13I Waseda first-party holding and NCL proxy filename firewall
+        run: |
+          python scripts/verify-goryeosa-waseda-13i.py
+          python -m unittest discover -s tests -p 'test_goryeosa_waseda_13i.py' -v
       - name: Historical source registry extension integrity gate
         run: |
           python scripts/verify-historical-source-registry-extensions-r1.py
