@@ -241,6 +241,10 @@ jobs:
         run: |
           python scripts/verify-goryeosa-gugak-3539-caption-12zz.py
           python -m unittest discover -s tests -p 'test_goryeosa_gugak_3539_caption_12zz.py' -v
+      - name: G893 13B SNU retrospective printing dates vs 1454 annals scope
+        run: |
+          python scripts/verify-goryeosa-snu-curatorial-13b.py
+          python -m unittest discover -s tests -p 'test_goryeosa_snu_curatorial_13b.py' -v
       - name: Historical source registry extension integrity gate
         run: |
           python scripts/verify-historical-source-registry-extensions-r1.py

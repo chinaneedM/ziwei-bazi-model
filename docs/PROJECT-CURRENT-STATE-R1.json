@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.665.0",
+  "schema_version": "1.666.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -2923,20 +2923,21 @@
       "12ZX FORWARD-ONLY YONSEI WORK-VOLUME MAPPING ERRATUM: prior 12ZW field printed_work_volume_total=139 overstated woodblock-original scope because official Yonsei 33-book object explicitly has work vols122/123 later handwritten supplements; effective catalog_work_volume_total=139, printed woodblock original work-volume count UNKNOWN. Prior work52_same_book_30=false was unlicensed absent a complete 33-book-to-work-volume concordance; effective relation UNKNOWN, not proven false or true. Preserve 12ZW snapshot and append 12ZX correction without changing physical/source votes. Source registry717, 11 omission issues OPEN, G893 direct5/6 cross-original0/6, Matrix222/222 repairs45/45 genealogy unchanged, deterministic R1 CLOSED algorithm reopen0.",
       "12ZY EXACT-HEAD CI FORWARD-FOCUS RECOVERY: Main CI at 12ZW HEAD 121889ce failed specifically in 12ZV verifier because it incorrectly required its historic batch be the live latest state focus. Update 12ZV,12ZW,12ZX validators to assert append-only historic prefix presence plus dynamic latest-focus/current-ledger matching, not immutable last-position assumption. Preserve 12ZV/ZW/ZX historical evidence blobs. Exact new-head CI to be checked. 717 sources, all11 omission risks OPEN, G893 5/6 principal 0/6 cross original, Matrix222/222 repaired45/45, genealogy252/238, chart CLOSED, algorithm reopen0.",
       "12ZZ GK3539 NATIONAL GUGAK PHOTO METADATA DATE DISAGREEMENT AND COPY-BOOK TO WORK-VOLUME POSITIVE CONTROLS: National Gugak Center 2024 public media captions for the same SNU call-number 奎貴3539 conflict on year: 6426 and 6425 cite 1454 for physical book42/work卷70, whereas 6545 cites 1613 for physical book10/work卷18; SNU original GK03539 catalog binds this same physical set to 1613 Taebaeksan gift-stamped woodblock impression. Treat 1454 as unspecific MEDIA CAPTION date, neither target image physical impression proof nor verified editorial typo. Two caption book/work mappings are partial page-level locators outside target; neither work52 book nor D16/D18 exact ancient source folio derived. Two new first-party metadata-only source records => registry647+72=719. Historic 12ZW/12ZX original registry snapshots 717 immutable; validators allow forward source growth. 11 research omissions OPEN, G893 single5/6 crossoriginal0/6, matrix222/222 repaired45/45, genealogy unchanged, chart CLOSED, algorithms reopened0.",
-      "13A 12ZZ EXACT-HEAD CI EVIDENCE-KEY MISMATCH RECOVERY: HEAD 8cdb11b CI main run39131994833 failed at 12ZZ verifier because historical_inference.media_caption_1454_meaning does not exist; immutable evidence key is ngc_media_caption_1454_meaning. Correct validator lookup and redundant year-guard expression; leave 12ZZ original source evidence, 719 registered sources, and provenance metadata unchanged. Re-evaluate exact HEAD CI before batch closure. Open omission11, G893 5/6 main original 0/6 cross copy, Matrix222/222 repaired45/45, graph unchanged, algorithm reopen0 chart R1 CLOSED."
+      "13A 12ZZ EXACT-HEAD CI EVIDENCE-KEY MISMATCH RECOVERY: HEAD 8cdb11b CI main run39131994833 failed at 12ZZ verifier because historical_inference.media_caption_1454_meaning does not exist; immutable evidence key is ngc_media_caption_1454_meaning. Correct validator lookup and redundant year-guard expression; leave 12ZZ original source evidence, 719 registered sources, and provenance metadata unchanged. Re-evaluate exact HEAD CI before batch closure. Open omission11, G893 5/6 main original 0/6 cross copy, Matrix222/222 repaired45/45, graph unchanged, algorithm reopen0 chart R1 CLOSED.",
+      "13B SNU GORYEOSA RETROSPECTIVE PRINT-DISTRIBUTION CHRONOLOGY FIREWALL: SNU official GK03269 curatorial commentary tentatively proposes first printing 1452 December (type vs woodblock uncertain) and widespread distribution after October 1453 (early copy not extant). Contemporary 1452-11-28 NIKH annal attests only print approval, while 1454-10-13 annal reports the full Goryeosa previously printed only in small quantity and held in palace and then approves a NEW wide distribution request; prior broad circulation inferred from SNU essay is not a dated primary fact. The tension remains OPEN; no claimed 1452/1453 completion or 1454 fulfillment, and 1448 predecessor not conflated. First-party CURATORIAL/METADATA record increases 647 root+73 extensions=720; GK03269 is not GK03539, no work52 D16/D18 original folio or book map, 0 added independent originals, G893 5/6 same-copy 0/6 cross, 11 issues OPEN, Matrix222/222 repaired45/45 genealogy252/238, chart CLOSED algorithm reopens0."
     ],
     "historical_candidate_extension_count": 14,
     "current_missing_from_product_row_count": 4,
     "external_source_registry_extension_manifest": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json",
     "external_source_registry_root_count": 647,
-    "external_source_registry_extension_count": 72,
-    "external_source_registry_total_unique_count": 719,
+    "external_source_registry_extension_count": 73,
+    "external_source_registry_total_unique_count": 720,
     "research_omission_guard": {
       "ledger": "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json",
       "verifier": "scripts/verify-research-omission-risk-ledger-r1.py",
       "version": "1.0.0",
       "open_issues": 11,
-      "reviewed_state_version": "1.665.0",
+      "reviewed_state_version": "1.666.0",
       "coverage_status": "INCREMENTAL_NOT_EXHAUSTIVE"
     }
   },

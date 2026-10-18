@@ -35,7 +35,7 @@ def verify():
  ck(all(x["verification_status"]=="BIBLIOGRAPHIC_METADATA_ONLY" and x["physical_glyph_authority"] is False and x["evidence"]==P for x in items),"no false glyph authority")
  cs=d["source_controls"]
  ck(cs["registry_total_before"]==717 and cs["registry_total_after"]==719 and cs["registered_sources_added"]==2,"historical source increment")
- ck(m["combined_source_count"]==st["historical_audit"]["external_source_registry_total_unique_count"]==719 and m["extension_source_count"]==72,"live source count")
+ ck(m["combined_source_count"]==st["historical_audit"]["external_source_registry_total_unique_count"]>=719 and m["extension_source_count"]>=72 and m["root_source_count"]+m["extension_source_count"]==m["combined_source_count"],"live source count")
  ck(any(e["path"]==SHARD and e["source_count"]==2 for e in m["shards"]),"source shard linked")
  ck(st["schema_version"]==l["binding"]["reviewed_state_version"]==st["historical_audit"]["research_omission_guard"]["reviewed_state_version"],"state sync")
  ck(any(x.startswith("12ZZ ") for x in st["historical_audit"]["current_focus"]) and l["binding"]["latest_research_focus_prefix"]==st["historical_audit"]["current_focus"][-1].split(" ",1)[0] and l["binding"]["source_focus_count"]==len(st["historical_audit"]["current_focus"]),"live focus")
