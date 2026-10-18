@@ -253,6 +253,10 @@ jobs:
         run: |
           python scripts/verify-goryeosa-1454-scholarly-inference-13d.py
           python -m unittest discover -s tests -p 'test_goryeosa_1454_scholarly_inference_13d.py' -v
+      - name: G893 13E Noh 2015 earliest Goryeosa critical edition scope
+        run: |
+          python scripts/verify-goryeosa-noh-2015-critical-edition-13e.py
+          python -m unittest discover -s tests -p 'test_goryeosa_noh_2015_critical_edition_13e.py' -v
       - name: Historical source registry extension integrity gate
         run: |
           python scripts/verify-historical-source-registry-extensions-r1.py
