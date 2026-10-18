@@ -14,7 +14,7 @@ def validate(e):
     assert w["impression_year"] is None and w["copy_date"] is None
     assert w["identical_to_1782"] is False and w["original_work9_leaf_read"] is False
     assert n["digital_id"]=="411999022809" and n["digital_file_count"]==99
-    assert n["described_work_volume_ranges"]==["1-117","120-125","127-137"]
+    assert n["surviving_work_volumes"]==["1-117","120-125","127-137"]
     assert n["firstparty_item_verified"] is False
     assert all(n[k] is None for k in ("physical_books_verified","vol52_digital_group","vol52_folio","d16_glyph","d18_glyph","image_sha256"))
     assert m["same_prior_physical_shelfmark"]=="リ06 02809" and m["group_number"]==47
