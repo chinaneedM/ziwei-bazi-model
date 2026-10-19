@@ -10,14 +10,14 @@ import urllib.request
 from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
-E="docs/research/TIANWEN-13V-WASEDA-GORYEOSA-0034-ORIGINAL-FASCICLE-ATLAS-ROUTE-R1.json"
+E="docs/research/TIANWEN-13V-WASEDA-GORYEOSA-0034-TARGET-WORK52-LOCATOR-R1.json"
 SOURCE="https://archive.wul.waseda.ac.jp/kosho/ri06/ri06_02809/ri06_02809_0034/ri06_02809_0034.pdf"
 LIMIT=80_000_000
 def evidence():
  return json.loads((ROOT/E).read_text(encoding="utf-8"))
 def check_static(e):
  assert e["schema"]=="TIANWEN-13V-WASEDA-GORYEOSA-BOOK0034-ORIGINAL-TARGET-PROBE-R1"
- assert e["priority_issue"]=="TW-OPEN-0005" and e["target_work_volume"]==52
+ assert e["issue"]=="TW-OPEN-0005" and e["original30_verified"]["group30_contains_work52"] is False
  assert e["firstparty_shelfmark"]=="リ06 02809"
  assert e["book34_candidate"]["impression_year"] is None
  s=e["book34_candidate"]
@@ -79,7 +79,7 @@ def atlas(pdf,out,receipt):
     sheet.paste(img,(x+20,y+32))
     pen.text((x+16,y+7),f"PDF p.{selected[start+pos]}",fill="black")
    sheet.save(out/f"waseda-sample-sheet-{start//8+1:02}.jpg",quality=91)
-  receipt.update({"actual_pdf_pages":count,"selected_first_mid_last":selected,"thumbnail_evidence":records,"digitized_book30_juan52_presence":None,"original_paper_date":None,"ancient_numerical_glyph_votes":0})
+  receipt.update({"actual_pdf_pages":count,"selected_first_mid_last":selected,"thumbnail_evidence":records,"digitized_book34_juan52_presence":None,"original_paper_date":None,"ancient_numerical_glyph_votes":0})
   (out/"acquisition-receipt.json").write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
   print("13V_WASEDA_ORIGINAL_ACQUISITION="+json.dumps({"sha256":receipt["sha256"],"bytes":receipt["bytes"],"pdf_pages":count,"thumbnail_pages":len(selected),"ancient_numeric_votes":0}))
  finally:doc.close()
