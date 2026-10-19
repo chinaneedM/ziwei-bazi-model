@@ -1,0 +1,97 @@
+{
+  "schema": "TIANWEN-13S-NLC-GORYEOSA-V52-NATIVE-SOURCE-PIXEL-REPLAY-R1",
+  "date": "2026-10-19",
+  "issue_id": "TW-OPEN-0005",
+  "previous_evidence": "docs/research/TIANWEN-13R-NLC-GORYEOSA-V52-D16-D18-DIRECT-ORIGINAL-IMAGE-COLLATION-R1.json",
+  "source_pdf_url": "https://upload.wikimedia.org/wikipedia/commons/c/c7/NLC892-411999022809-48456_%E9%AB%98%E9%BA%97%E5%8F%B2_%E7%AC%AC40%E5%86%8A.pdf",
+  "expected_pdf_bytes": 19799436,
+  "expected_pdf_sha256": "2b9e51cc5f44a4d92d3cb4a63318605f78cc8ffb118853036655b65ed279a689",
+  "expected_pdf_pages": 64,
+  "page_replay": [
+    {
+      "pdf_page_1based": 2,
+      "xref": 13,
+      "expected_encoded_png_sha256": "d477a70c3543d328f79adb319163c63be1a5b83070f0be4c65f4940235ca7dcc",
+      "crop_box_xyxy": [
+        100,
+        650,
+        1800,
+        3150
+      ],
+      "rgb_pixels_sha256": "4f8a28e94e1a1591949066e9e40486b5d4a70d5a367dd7e531e6555c94325082",
+      "rgb_crop_encoded_png_sha256": "a765c220d7e14f61c19ac3c684eed64287fe23bc447cd9fbb6b7e9637000ea60"
+    },
+    {
+      "pdf_page_1based": 16,
+      "xref": 111,
+      "expected_encoded_png_sha256": "cfd7a3bb0741d49d9e0fe04147a88eefb3f32cffa404004f01f1748374ea637f",
+      "crop_box_xyxy": [
+        250,
+        700,
+        2200,
+        3200
+      ],
+      "rgb_pixels_sha256": "4d9cdaf5d680ebfb534b29cf4fd40bb77fa4d5562ab8b72439310bc714bb19b5",
+      "rgb_crop_encoded_png_sha256": "f3d52e8790db60958fce54b2b7459bdf6cfe3046d448120bc228b5751fac6066"
+    },
+    {
+      "pdf_page_1based": 17,
+      "xref": 118,
+      "expected_encoded_png_sha256": "8807e0c2e3b6d88a508bfc450e3b9eec78c59948b9314586fc882338f3bf52af",
+      "crop_box_xyxy": [
+        2700,
+        700,
+        4200,
+        3250
+      ],
+      "rgb_pixels_sha256": "de35ba44e09dd083fc1fcef17aa9e224503e8c3e7412e933e4e112c3239b528e",
+      "rgb_crop_encoded_png_sha256": "640ce449af4967bacc2e684a44b9269208d3b3056cfcc9b5a2fa18e1cfccc5bd"
+    }
+  ],
+  "serialization_contract": {
+    "original_page_bytes": "PyMuPDF.Document.extract_image(xref)['image'] stored PNG bytes; SHA-256 is over extracted source image file bytes",
+    "crop_algorithm": "Image.open(BytesIO(original_png_bytes)).convert('RGB').crop(xyxy); RGB pixel_SHA256 over .tobytes(); RGB PNG_encoded_SHA256 over .save(BytesIO, format='PNG')",
+    "source_pixel_mode": "L",
+    "normalized_pixel_mode": "RGB",
+    "pixel_hash_is_more_codec_independent_than_encoded_png_hash": true,
+    "reference_stack": "PyMuPDF 1.26.7 / Pillow 12.3.0",
+    "replay_requires_byte_identical_pdf_and_recorded_crop_boxes": true,
+    "local_replay_result": "PASS_3_OF_3",
+    "reference_png_reencoded_hashes_also_match": true
+  },
+  "upload_bibliography_secondary": {
+    "catalog_candidate_value": "13494",
+    "field_label": "善本書號",
+    "field_reporter": "WIKIMEDIA_COMMONS_UPLOADER_DESCRIPTION_NOT_NLC_FIRST_PARTY_CATALOG",
+    "same_digital_series_39_40_54": "411999022809",
+    "source_url": "https://commons.wikimedia.org/wiki/File:NLC892-411999022809-48456_%E9%AB%98%E9%BA%97%E5%8F%B2_%E7%AC%AC40%E5%86%8A.pdf",
+    "catalog_candidate_status": "UNVERIFIED_FIRST_PARTY_ITEM_BINDING",
+    "impression_date": null,
+    "physical_copy_date": null,
+    "identical_to_cadal02050311": null,
+    "confidence": "SECONDARY_CATALOG_HINT_NONVOTING",
+    "no_independent_original_numeric_vote": true
+  },
+  "adjudication": {
+    "D16_original_reading_retained": "五分一三六二",
+    "D18_original_reading_retained": "八千四百二十四六四〇八",
+    "original_page_hash_binding_retained": true,
+    "new_original_glyphs_decided": 0,
+    "new_physical_originals_established": 0,
+    "independent_numeric_votes_added": 0,
+    "external_source_registry_entries_added": 0,
+    "transmission_edges_added": 0,
+    "algorithm_reopens": 0,
+    "open_research_issues": 11,
+    "product_r1": "CLOSED",
+    "source_registry_total": 734,
+    "matrix_rows_audited": 222,
+    "genealogy_nodes": 252,
+    "genealogy_edges": 238
+  },
+  "next_action": [
+    "Obtain independent National Library of China first-party item detail using catalog candidate 13494 and digital series 411999022809, never promote uploader field without source-bound record.",
+    "Acquire an independently identified CADAL02050311 original and crosscompare full source folio/typographic fingerprint and copy seals; do not assume separate physical copies.",
+    "Continue G893 少/微 source-unit and Ming1569 same-column corroboration without changing chart runtime."
+  ]
+}

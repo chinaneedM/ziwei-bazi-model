@@ -287,6 +287,10 @@ jobs:
         run: |
           python scripts/verify-goryeosa-nlc-group40-direct-13r.py
           python -m unittest discover -s tests -p 'test_goryeosa_nlc_group40_direct_13r.py' -v
+      - name: Goryeosa 13S original page RGB crop bytes replay contract and secondary catalog firewall
+        run: |
+          python scripts/replay-goryeosa-nlc-source-pixels-13s.py
+          python -m unittest discover -s tests -p 'test_goryeosa_nlc_source_replay_13s.py' -v
       - name: Historical source registry extension integrity gate
         run: |
           python scripts/verify-historical-source-registry-extensions-r1.py
