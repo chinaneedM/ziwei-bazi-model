@@ -1,0 +1,100 @@
+{
+  "schema": "TIANWEN-13AF-UTOKYO-HANSEKI1995-EXACT-SOURCE-PDF-ACQUISITION-AND-FORWARD-ERRATUM-R1",
+  "date": "2026-10-19",
+  "issue": "TW-OPEN-0005",
+  "acquisition": {
+    "run_id": 39256688817,
+    "job_id": 118073633311,
+    "artifact_id": 12188365046,
+    "artifact_name": "utokyo-hanseki1995-13ae-evidence",
+    "run_conclusion": "success",
+    "received_from": "The University of Tokyo official public institutional repository record 2010678",
+    "original_binaries_retrieved": true,
+    "retrieval_mode": "NONCREDENTIALLED_PUBLIC_PDF_GET",
+    "local_original_byte_sha256_rechecked": true,
+    "source_workflow": ".github/workflows/acquire-utokyo-hanseki1995-13ae.yml",
+    "reproduction_script": "scripts/acquire-utokyo-hanseki1995-13ae.py"
+  },
+  "pdfs": [
+    {
+      "filename": "kansekimokuroku_11_shibu.pdf",
+      "part": "史部",
+      "section": "正史類",
+      "printed_page_start": 100,
+      "original_byte_count": 20676873,
+      "sha256": "ecda861729b853366c96fc0fac0e3a3171706be53aefadf27976bef8b8971546",
+      "pdf_pages": 152,
+      "firstpage_native_rgb_sha256": "3f08db1170c8c8b52db3513726c8feae09a23ec86a01105e131e753e338a7894",
+      "firstpage_native_dimensions": [
+        515,
+        728
+      ],
+      "manual_first_page_glyph_confirmed": true,
+      "text_layer": "EMPTY_ON_PAGE1",
+      "catalog_holding_target_folio": "NOT_YET_LOCATED"
+    },
+    {
+      "filename": "kansekimokuroku_12_shibu.pdf",
+      "part": "子部",
+      "section": "諸子合刻類",
+      "printed_page_start": 252,
+      "original_byte_count": 26308592,
+      "sha256": "9255018f5e3d99e9842d0c5d2dcb9e3c8ca398d2dd8617fcf17c861284074046",
+      "pdf_pages": 187,
+      "firstpage_native_rgb_sha256": "aed3b33a4272e97420e35f4300a09c528e8722e2bbf6fc35b4d48581c899d0bb",
+      "firstpage_native_dimensions": [
+        515,
+        728
+      ],
+      "manual_first_page_glyph_confirmed": true,
+      "text_layer": "EMPTY_ON_PAGE1",
+      "catalog_holding_target_folio": "NOT_APPLICABLE_TO_SHIBU_HISTORY"
+    },
+    {
+      "filename": "kansekimokuroku_90_errata_1.pdf",
+      "part": "1998正誤補遺",
+      "section": "INDEX_AND_CORRECTIONS",
+      "original_byte_count": 3173609,
+      "sha256": "c7765bca691c2787aaf60ab49284cf03306cc436ac51f57332e48c331c4c8215",
+      "pdf_pages": 74,
+      "firstpage_native_rgb_sha256": "423b101aafa97b021315b83c256e800483b429692a72d7fd6ec185661d27fb48",
+      "firstpage_native_dimensions": [
+        517,
+        729
+      ],
+      "firstpage_ocr_or_text_layer": "NONAUTHORITATIVE_MACHINE_TEXT",
+      "target_holding_entry": "NOT_YET_ESTABLISHED"
+    }
+  ],
+  "correction": {
+    "prior_evidence": "docs/research/TIANWEN-13AE-UTOKYO-1995-HANSEKI-CATALOG-PUBLIC-REPRODUCTION-ROUTE-R1.json",
+    "prior_narrative": "docs/research/TIANWEN-13AE-UTOKYO-1995-HANSEKI-CATALOG-PUBLIC-REPRODUCTION-ROUTE-R1.md",
+    "prior_registry_source_id": "EXT-TIANWEN-13AE-UTOKYO-GENERAL-LIBRARY-HANSEKI-1995-1998-REPOSITORY",
+    "previous_claim": "13AE described kansekimokuroku_11_shibu.pdf and kansekimokuroku_12_shibu.pdf as two History-section fascicle PDFs.",
+    "status": "ERRATUM_REVISED_FORWARD_ONLY",
+    "evidence": "Original source PDFs p1 title lines: 11_shibu=史部 正史類; 12_shibu=子部 諸子合刻類. Official 1995 catalogue table of contents also separates 史部 printed pp100–251 and 子部 pp252–438.",
+    "corrected_claim": "Only 11_shibu.pdf is the History-section PDF. 12_shibu.pdf is the Philosophers-section PDF, with romanized 'shibu' homograph and must not be counted as a second History-section file.",
+    "prior_record_preserved_without_silent_rewrite": true,
+    "source_history_status": "EARLIER_ERROR_RETAINED_WITH_PUBLIC_CORRECTION",
+    "invalid_content_based_provenance_promotion": false
+  },
+  "scope": {
+    "historical_goryeosa_work52_original_image_acquired": false,
+    "physical_UTokyo_G2312_work52_folio": false,
+    "physical_UTokyo_G23194_work52_folio": false,
+    "original_D16_glyph": "UNREAD",
+    "original_D18_cumulative": "UNREAD",
+    "direct_Historical_Goryeosa_numeric_votes_added": 0,
+    "physical_catalog_item_record_G23_12_directly_identified_in_1995_pdf": false,
+    "physical_catalog_item_record_G23_194_directly_identified_in_1995_pdf": false,
+    "whole_History_catalog_negative_search_proven": false,
+    "whole_152page_catalog_linewise_review_complete": false,
+    "nonrelevant_second_pdf_not_a_History_witness": true,
+    "history_shibu_first36_pages_contact_sample_not_linewise_exhaustive": true,
+    "remaining_open_issues": 11,
+    "product": "CLOSED",
+    "algorithm_reopens": 0
+  },
+  "source_registry_count_change": 0,
+  "transmission_impact": "NONE_DIRECT_PDF_LIBRARY_CATALOG_BIBLIOGRAPHY_ONLY"
+}

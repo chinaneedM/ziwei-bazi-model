@@ -403,6 +403,10 @@ jobs:
         run: |
           python scripts/verify-utokyo-hanseki1995-13ae.py
           python -m unittest discover -s tests -p 'test_utokyo_hanseki1995_13ae.py' -v
+      - name: UTokyo 13AF acquired original library PDFs and 史部/子部 correction gate
+        run: |
+          python scripts/verify-utokyo-hanseki-original-pdf-erratum-13af.py
+          python -m unittest discover -s tests -p 'test_utokyo_hanseki_original_pdf_erratum_13af.py' -v
       - name: Focused capability acceptance tests
         run: |
           python -m unittest discover -s tests -p "test_fusion_chart_capability_acceptance_r1.py" -v
