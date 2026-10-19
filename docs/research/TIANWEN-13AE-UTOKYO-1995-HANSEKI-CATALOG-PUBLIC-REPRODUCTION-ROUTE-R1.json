@@ -1,0 +1,87 @@
+{
+  "schema": "TIANWEN-13AE-UTOKYO-HANSEKI-CATALOG-1995-1998-OFFICIAL-REPOSITORY-ACCESS-BOUNDARY-R1",
+  "date": "2026-10-19",
+  "issue_id": "TW-OPEN-0005",
+  "source": {
+    "title": "東京大學總合圖書館漢籍目録",
+    "institution": "The University of Tokyo General Library",
+    "publisher": "東京大学総合図書館",
+    "firstparty_record": "https://repository.dl.itc.u-tokyo.ac.jp/records/2010678",
+    "handle": "http://hdl.handle.net/2261/0002010678",
+    "edition_main_year": 1995,
+    "edition_corrections_year": 1998,
+    "repository_deposit_year": 2025,
+    "main_printed_bibliography_shibu_range": "100–251",
+    "repository_section_files": [
+      {
+        "part": "SHIBU_11",
+        "name": "kansekimokuroku_11_shibu.pdf",
+        "url": "https://repository.dl.itc.u-tokyo.ac.jp/record/2010678/files/kansekimokuroku_11_shibu.pdf",
+        "published_size": "19.7 MB",
+        "direct_binary_attained": false
+      },
+      {
+        "part": "SHIBU_12",
+        "name": "kansekimokuroku_12_shibu.pdf",
+        "url": "https://repository.dl.itc.u-tokyo.ac.jp/record/2010678/files/kansekimokuroku_12_shibu.pdf",
+        "published_size": "25.1 MB",
+        "direct_binary_attained": false
+      },
+      {
+        "part": "1998_ERRATA",
+        "name": "kansekimokuroku_90_errata_1.pdf",
+        "url": "https://repository.dl.itc.u-tokyo.ac.jp/record/2010678/files/kansekimokuroku_90_errata_1.pdf",
+        "published_size": "3 MB",
+        "direct_binary_attained": false
+      }
+    ]
+  },
+  "observed_access": {
+    "firstparty_record_public_html": true,
+    "pdf_part_11_web_http": 429,
+    "pdf_part_12_web_http": 429,
+    "source_pdf_sha256": null,
+    "fulltext_page_level_entry_read": false,
+    "positive_koryosa_entry_in_1995_catalog": false,
+    "negative_entry_absence_proven": false,
+    "firstparty_exact_G2312_item_bound": false,
+    "firstparty_exact_G23194_item_bound": false,
+    "not_a_goryeosa_original_folio": true
+  },
+  "comparisons": [
+    {
+      "ncid": "BC15670118",
+      "call_number": "G23:12",
+      "item_id": "0008535809",
+      "item_kind": "MANUSCRIPT",
+      "source": "https://ci.nii.ac.jp/ncid/BC15670118"
+    },
+    {
+      "ncid": "BC15973641",
+      "call_number": "G23:194",
+      "item_id": "0008542011",
+      "item_kind": "PRINTED",
+      "source": "https://ci.nii.ac.jp/ncid/BC15973641"
+    }
+  ],
+  "acquisition_probe": {
+    "script": "scripts/acquire-utokyo-hanseki1995-13ae.py",
+    "workflow": ".github/workflows/acquire-utokyo-hanseki1995-13ae.yml",
+    "trigger": "PUSH_FILE_PATH_CHANGE_AND_MANUAL_DISPATCH",
+    "download_limits": "3 official PDF URLs, maximum 65 MiB each, one attempt per item, no login, stop at non-200, no OCR",
+    "results_artifact": "utokyo-hanseki1995-13ae-evidence",
+    "interpretation": "Successful PDF bytes can establish 1995 catalog page/bibliography only after page review, not 1451 historical-original glyph. HTTP429 or zero searchable-text matches is not target-absence proof."
+  },
+  "nonpromotion": {
+    "new_source_registry_entry_count": 1,
+    "physical_numeric_votes_added": 0,
+    "original_goryeosa_target_pages_added": 0,
+    "genealogy_nodes_added": 0,
+    "genealogy_edges_added": 0,
+    "algorithm_reopens": 0,
+    "open_research_issues": 11,
+    "chart_product": "CLOSED",
+    "primary_historical_witness": false
+  },
+  "transmission_impact": "BIBLIOGRAPHIC_ACCESS_ROUTE_ONLY_NO_STEMMATIC_EDGE"
+}

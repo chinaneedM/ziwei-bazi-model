@@ -1,0 +1,30 @@
+name: acquire-utokyo-hanseki1995-13ae
+on:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - scripts/acquire-utokyo-hanseki1995-13ae.py
+      - .github/workflows/acquire-utokyo-hanseki1995-13ae.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  bounded-catalog-acquisition:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Bounded official catalogue-PDF source probe without OCR
+        run: python scripts/acquire-utokyo-hanseki1995-13ae.py
+      - name: Upload replayable catalog access result (no credentials)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: utokyo-hanseki1995-13ae-evidence
+          path: utokyo-hanseki1995-13ae-evidence/
+          retention-days: 30
+          if-no-files-found: warn
