@@ -281,6 +281,8 @@ jobs:
         run: |
           python scripts/verify-goryeosa-nlc-metadata-anchors-13p.py
           python -m unittest discover -s tests -p 'test_goryeosa_nlc_metadata_anchors_13p.py' -v
+      - name: Goryeosa 13Q exact original PDF source access static provenance gate
+        run: python -m unittest discover -s tests -p 'test_nlc_goryeosa_group40_13q.py' -v
       - name: Historical source registry extension integrity gate
         run: |
           python scripts/verify-historical-source-registry-extensions-r1.py
