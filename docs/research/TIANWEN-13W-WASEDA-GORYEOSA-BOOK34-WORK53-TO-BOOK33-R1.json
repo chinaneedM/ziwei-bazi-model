@@ -1,0 +1,76 @@
+{
+  "schema": "TIANWEN-13W-WASEDA-GORYEOSA-BOOK34-EXCLUDES-TARGET-BOOK33-PROBE-R1",
+  "date": "2026-10-19",
+  "issue_id": "TW-OPEN-0005",
+  "institution": "Waseda University Library",
+  "shelfmark": "リ06 02809",
+  "original_book_0034": {
+    "archive_url": "https://archive.wul.waseda.ac.jp/kosho/ri06/ri06_02809/ri06_02809_0034/ri06_02809_0034.pdf",
+    "original_pdf_bytes": 54493573,
+    "original_pdf_sha256": "53644757776778236d28bd1ee21b41469814a69e794de3b780fb582c91b56ead",
+    "pdf_pages": 73,
+    "run_id": 39233097456,
+    "artifact_id": 12177242720,
+    "artifact_digest": "sha256:efd20f9c94aae86a06c5f937826f0d1804b9db717ea5a09925209b4e73494b76",
+    "local_sha256_matches_action": true,
+    "native_page_recheck": [
+      {
+        "pdf_page_1based": 1,
+        "xref": 4,
+        "source_jpeg_sha256": "7cab6299d87d99ac6459bcbd5f7102372d364f7e34c90f20129688dad4bf8d8c",
+        "direct_read": "高麗史 志三十四",
+        "grade": "ORIGINAL_PHYSICAL_COVER_IMAGE"
+      },
+      {
+        "pdf_page_1based": 2,
+        "xref": 7,
+        "source_jpeg_sha256": "7f96b6be048511b7cc6a9777971649184cc49eb8a2c1983fc8a8cb7381ef1da7",
+        "direct_read": "高麗史五十三／志卷第七",
+        "grade": "ORIGINAL_INTERNAL_WORK_TITLE_IMAGE"
+      },
+      {
+        "pdf_page_1based": 71,
+        "xref": 214,
+        "source_jpeg_sha256": "7122131deeb6c744acee567f1bca2e7f920a57d6b9c2467a5d5f962900120e47",
+        "direct_read": "志卷第七",
+        "grade": "ORIGINAL_INTERNAL_WORK_END_IMAGE"
+      }
+    ],
+    "volume53_proven": true,
+    "volume52_target_present": false
+  },
+  "candidate_book_0033": {
+    "archive_url": "https://archive.wul.waseda.ac.jp/kosho/ri06/ri06_02809/ri06_02809_0033/ri06_02809_0033.pdf",
+    "digital_group": 33,
+    "pdf_sha256": null,
+    "pdf_pages": null,
+    "source_existence": "NOT_YET_VERIFIED_BY_SUCCESSFUL_BINARY_FETCH",
+    "source_firstparty_pdf_url_opened_by_web": "URL_RETURNED_NONDETERMINISTIC_INACCESSIBLE_STATUS",
+    "internal_work52_verified": false,
+    "original_16_18_glyph": null,
+    "physical_impression_year": null,
+    "workflow": "acquire-waseda-goryeosa-0033-13w"
+  },
+  "calibration": {
+    "book0030_work48_confirmed": "docs/research/TIANWEN-13V-WASEDA-GORYEOSA-0034-TARGET-WORK52-LOCATOR-R1.json",
+    "book0034_work53_confirmed": true,
+    "book0033_work52_is_only_high_priority_candidate": true,
+    "not_all_series_book_to_work_volume_mapping_confirmed": true,
+    "firstparty_catalog_imprint_date_known": false
+  },
+  "safety": {
+    "independent_source_numeric_votes_added": 0,
+    "known_original_13r_d16_d18_preserved": true,
+    "no_printed_edition_date_claim": true,
+    "original_source_registry_entries_added": 0,
+    "transmission_graph_edges_added": 0,
+    "algorithm_reopens": 0,
+    "issues_open": 11,
+    "chart_product_r1": "CLOSED"
+  },
+  "next": [
+    "Try Waseda original 0033 in GitHub Actions with bounded 90MB binary, retain log and artifact.",
+    "Inspect original inner work title and page count to establish whether 0033 contains work52/志6 before numerical original glyph collation.",
+    "If confirmed, locate D16 and D18 original folios for a truly independently cataloged Waseda holding, not Waseda Commons mirrors as second witnesses."
+  ]
+}

@@ -299,6 +299,8 @@ jobs:
         run: python -m unittest discover -s tests -p 'test_waseda_goryeosa_0030_route_13u.py' -v
       - name: Waseda 13V independent exact work volume candidate group0034 nonpromotion gate
         run: python -m unittest discover -s tests -p 'test_waseda_goryeosa_0034_route_13v.py' -v
+      - name: Waseda 13W original PDF group34 work53 positive title and group33 unadjudicated target gate
+        run: python -m unittest discover -s tests -p 'test_waseda_goryeosa_book0033_13w.py' -v
       - name: Historical source registry extension integrity gate
         run: |
           python scripts/verify-historical-source-registry-extensions-r1.py
