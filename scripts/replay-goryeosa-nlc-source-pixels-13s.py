@@ -62,12 +62,23 @@ def verify_source(pdf,e):
         n=rec["pdf_page_1based"];xref=rec["xref"]
         page=doc.load_page(n-1)
         assert any(x[0]==xref for x in page.get_images(full=True)),("xref missing",n,xref)
-        img=doc.extract_image(xref)
-        assert img["ext"]=="png" and h(img["image"])==rec["expected_encoded_png_sha256"]
-        raw,encoded=rgb_crop_bytes(img["image"],rec["crop_box_xyxy"])
-        assert h(raw)==rec["rgb_pixels_sha256"],("RGB pixel mismatch",n)
-        assert h(encoded)==rec["rgb_crop_encoded_png_sha256"],("RGB PNG encoding differs from recorded Pillow reference",n)
-        observed.append({"page":n,"source_png_sha256":h(img["image"]),"rgb_pixel_sha256":h(raw),"rgb_png_sha256":h(encoded)})
+        # 13T correction: extract_image() PNG serialization is not stable across PyMuPDF versions.
+        # Compare the PDF's decoded source pixels, not library-produced PNG container bytes.
+        from PIL import Image
+        pix=fitz.Pixmap(doc,xref)
+        assert pix.colorspace is not None and pix.colorspace.n==1 and pix.n==1 and pix.alpha==0
+        assert [pix.width,pix.height]==[4296,3607] and pix.stride==pix.width
+        grayscale=bytes(pix.samples)
+        assert len(grayscale)==pix.width*pix.height
+        correction=read("docs/research/TIANWEN-13T-NLC-GORYEOSA-CROSS-RUNTIME-PIXEL-DIGEST-CORRECTION-R1.json")
+        item=next(p for p in correction["page_checks"] if p["pdf_page_1based"]==n)
+        assert item["xref"]==xref and h(grayscale)==item["decoded_grayscale_pixels_sha256"],("decoded original image mismatch",n)
+        image=Image.frombytes("L",(pix.width,pix.height),grayscale).convert("RGB").crop(tuple(rec["crop_box_xyxy"]))
+        raw=image.tobytes()
+        assert h(raw)==rec["rgb_pixels_sha256"],("RGB source crop pixel mismatch",n)
+        # Reference encoded PNG digests are historical, version-scoped records, not CI gates.
+        buff=io.BytesIO();image.save(buff,format="PNG")
+        observed.append({"page":n,"decoded_grayscale_pixels_sha256":h(grayscale),"rgb_pixel_sha256":h(raw),"reference_rgb_png_sha256":rec["rgb_crop_encoded_png_sha256"],"this_runtime_rgb_png_sha256":h(buff.getvalue()),"source_image_encoding_gates":False})
       return observed
     finally:doc.close()
 def main():

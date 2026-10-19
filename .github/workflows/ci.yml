@@ -291,6 +291,10 @@ jobs:
         run: |
           python scripts/replay-goryeosa-nlc-source-pixels-13s.py
           python -m unittest discover -s tests -p 'test_goryeosa_nlc_source_replay_13s.py' -v
+      - name: Goryeosa 13T native decoded pixel cross-runtime correction verifier
+        run: |
+          python scripts/verify-goryeosa-cross-runtime-13t.py
+          python -m unittest discover -s tests -p 'test_goryeosa_cross_runtime_13t.py' -v
       - name: Historical source registry extension integrity gate
         run: |
           python scripts/verify-historical-source-registry-extensions-r1.py
