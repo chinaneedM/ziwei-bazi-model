@@ -1,0 +1,20 @@
+import importlib.util,copy,unittest
+from pathlib import Path
+p=Path(__file__).resolve().parents[1]/"scripts"/"verify-waseda-goryeosa-two-day-13z.py"
+spec=importlib.util.spec_from_file_location("waseda13z",p)
+m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
+class WasedaTwoDaySource(unittest.TestCase):
+ def test_exact_decimal_and_source_scope(self): self.assertTrue(m.check(m.read()))
+ def test_no_unwitnessed_correction_of_d16_original(self):
+  d=copy.deepcopy(m.read());d["short_original"][0]["original_glyph"]="五分二三六二"
+  with self.assertRaises(AssertionError):m.check(d)
+ def test_residual_not_zeroed_out(self):
+  d=copy.deepcopy(m.read());d["two_day_replays"][0]["decrement_minus_short_sum"]="0.0000"
+  with self.assertRaises(AssertionError):m.check(d)
+ def test_no_final_source_vote(self):
+  d=copy.deepcopy(m.read());d["conclusions"]["final_independent_physical_numeric_votes_added"]=1
+  with self.assertRaises(AssertionError):m.check(d)
+ def test_cumulative_folio_remains_unbound(self):
+  d=copy.deepcopy(m.read());d["conclusions"]["waseda_d18_yingsuoji_cumulative_original_folio"]=23
+  with self.assertRaises(AssertionError):m.check(d)
+if __name__=="__main__":unittest.main()
