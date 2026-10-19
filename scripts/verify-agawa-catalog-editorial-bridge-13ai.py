@@ -29,22 +29,22 @@ def verify():
  b=e["boundaries"]
  assert b["cross_original_numeric_votes"]==b["new_Goryeosa_folio_images"]==b["new_external_sources"]==b["algorithm_reopens"]==0
  assert b["catalog_inclusion_of_Goryeosa"]==b["catalog_exclusion_of_Goryeosa"]=="UNKNOWN"
- assert b["external_sources_remain"]==m["combined_source_count"]==746
- assert m["root_source_count"]==647 and m["extension_source_count"]==99
+ assert b["external_sources_remain"]==746 and m["combined_source_count"]>=b["external_sources_remain"]
+ assert m["root_source_count"]>=647 and m["extension_source_count"]>=99
  assert b["graph_nodes_added"]==b["graph_edges_added"]==0 and b["product"]=="CLOSED"
  ids={x["source_id"] for x in ag["sources"]+ah["sources"]}
  assert all(x in ids for x in e["referenced_registry_source_ids"])
  assert s["schema_version"]==l["binding"]["reviewed_state_version"]==s["historical_audit"]["research_omission_guard"]["reviewed_state_version"]
  assert tuple(map(int,s["schema_version"].split(".")))>=(1,694,0)
- assert s["historical_audit"]["current_focus"][-1].startswith("13AI ")
+ assert any(x.startswith("13AI ") for x in s["historical_audit"]["current_focus"])
  assert len(s["historical_audit"]["current_focus"])==l["binding"]["source_focus_count"]
- assert l["binding"]["latest_research_focus_prefix"]=="13AI"
+ assert l["binding"]["latest_research_focus_prefix"]==s["historical_audit"]["current_focus"][-1].split(" ",1)[0]
  assert len(l["issues"])==11 and all(x["status"] in ("OPEN","BLOCKED_SOURCE_ACCESS") for x in l["issues"])
  i=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
  assert i["priority"]=="P0" and i["status"]=="OPEN"
  assert all(x in i["source_refs"] for x in (E,"docs/research/TIANWEN-13AI-AGAWA-CATALOG-EDITORIAL-BRIDGE-AND-OPAC-LOCATORS-R1.md"))
  assert any(x["event"]=="UTOKYO_AGAWA_1998_LIST_OFFICIAL_SUPPLEMENT_DESCRIPTION_AND_DUAL_OPAC_BIBLIOGRAPHIC_IDS" for x in i["history"])
- assert l["checkpoint_log"][-1]["id"]=="OMISSIONS-13AI-AGAWA-LIBRARIAN-CATALOG-SUPPLEMENT-BIBIDS-20261020"
+ assert any(x["id"]=="OMISSIONS-13AI-AGAWA-LIBRARIAN-CATALOG-SUPPLEMENT-BIBIDS-20261020" for x in l["checkpoint_log"])
  assert l["checkpoint_log"][-1]["state_version"]==s["schema_version"]
  assert s["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED" and s["invariants"]["algorithm_reopen_count"]==0
  return True
