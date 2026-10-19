@@ -39,11 +39,14 @@ def check(e):
  assert old["original_short_day_series"][4]["original_glyph"]=="五分一三六二"
  st=read("docs/PROJECT-CURRENT-STATE-R1.json");le=read("docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json")
  assert st["schema_version"]==le["binding"]["reviewed_state_version"]==st["historical_audit"]["research_omission_guard"]["reviewed_state_version"]
- assert st["schema_version"]>="1.685.0" and le["binding"]["latest_research_focus_prefix"]=="13Z"
+ assert tuple(map(int,st["schema_version"].split(".")))>=(1,685,0)
+ assert any(x.startswith("13Z ") for x in st["historical_audit"]["current_focus"])
+ assert any(x.get("id")=="OMISSIONS-13Z-WASEDA-TWO-DAY-ORIGINAL-LONG-SHORT-20261019" for x in le["checkpoint_log"])
+ assert le["binding"]["latest_research_focus_prefix"]==st["historical_audit"]["current_focus"][-1].split(" ",1)[0]
  assert le["binding"]["source_focus_count"]==len(st["historical_audit"]["current_focus"])
  issue=next(x for x in le["issues"] if x["id"]=="TW-OPEN-0005")
  assert issue["status"]=="OPEN" and E in issue["source_refs"]
- assert len(le["issues"])==11 and le["checkpoint_log"][-1]["state_version"]==st["schema_version"]
+ assert len(le["issues"])>=11 and le["checkpoint_log"][-1]["state_version"]==st["schema_version"]
  return True
 def replay_pdf(source,e):
  import fitz

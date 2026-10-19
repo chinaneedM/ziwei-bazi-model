@@ -21,14 +21,18 @@ def verify():
  assert e["safety"]["source_registry_new_entries"]==1 and e["safety"]["open_research_issues"]==11 and e["safety"]["chart_product_r1"]=="CLOSED"
  assert len(s["sources"])==1 and s["sources"][0]["verification_status"]=="BIBLIOGRAPHIC_METADATA_ONLY" and s["sources"][0]["physical_glyph_authority"] is False
  assert s["sources"][0]["evidence"]==E and s["sources"][0]["url"]=="https://ci.nii.ac.jp/ncid/BC15973641"
- assert m["root_source_count"]==647 and m["extension_source_count"]==88 and m["combined_source_count"]==735
- assert m["shards"][-1]["path"]==S and m["shards"][-1]["source_count"]==1 and m["shards"][-1]["schema"]==s["schema"]
+ assert m["root_source_count"]==647 and m["extension_source_count"]>=88 and m["combined_source_count"]>=735
+ assert any(z["path"]==S and z["source_count"]==1 and z["schema"]==s["schema"] for z in m["shards"])
  st=load("docs/PROJECT-CURRENT-STATE-R1.json");le=load("docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json")
  assert st["schema_version"]==le["binding"]["reviewed_state_version"]==st["historical_audit"]["research_omission_guard"]["reviewed_state_version"]
- assert tuple(map(int,st["schema_version"].split(".")))>=(1,686,0) and le["binding"]["latest_research_focus_prefix"]=="13AA"
- assert st["historical_audit"]["external_source_registry_extension_count"]==88 and st["historical_audit"]["external_source_registry_total_unique_count"]==735
+ assert tuple(map(int,st["schema_version"].split(".")))>=(1,686,0)
+ assert any(x.startswith("13AA ") for x in st["historical_audit"]["current_focus"])
+ assert any(z.get("id")=="OMISSIONS-13AA-NII-UTOKYO-WORK52-EXACT-CATALOG-20261019" for z in le["checkpoint_log"])
+ assert le["binding"]["latest_research_focus_prefix"]==st["historical_audit"]["current_focus"][-1].split(" ",1)[0]
+ assert st["historical_audit"]["external_source_registry_extension_count"]==m["extension_source_count"]
+ assert st["historical_audit"]["external_source_registry_total_unique_count"]==m["combined_source_count"]
  issue=next(x for x in le["issues"] if x["id"]=="TW-OPEN-0005")
- assert issue["status"]=="OPEN" and E in issue["source_refs"] and len(le["issues"])==11
+ assert issue["status"]=="OPEN" and E in issue["source_refs"] and len(le["issues"])>=11
  assert le["binding"]["source_focus_count"]==len(st["historical_audit"]["current_focus"])
  assert le["checkpoint_log"][-1]["state_version"]==st["schema_version"]
  return True

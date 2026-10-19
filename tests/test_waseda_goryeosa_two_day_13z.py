@@ -17,4 +17,20 @@ class WasedaTwoDaySource(unittest.TestCase):
  def test_cumulative_folio_remains_unbound(self):
   d=copy.deepcopy(m.read());d["conclusions"]["waseda_d18_yingsuoji_cumulative_original_folio"]=23
   with self.assertRaises(AssertionError):m.check(d)
+ def test_next_checkpoint_does_not_break_historical_13z(self):
+  from unittest.mock import patch
+  e=m.read();orig=m.read
+  st=copy.deepcopy(orig("docs/PROJECT-CURRENT-STATE-R1.json"))
+  le=copy.deepcopy(orig("docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json"))
+  st["schema_version"]="1.687.0";st["historical_audit"]["research_omission_guard"]["reviewed_state_version"]="1.687.0"
+  st["historical_audit"]["current_focus"].append("13AB SIMULATED NEXT RESEARCH FOCUS")
+  le["binding"]["reviewed_state_version"]="1.687.0"
+  le["binding"]["latest_research_focus_prefix"]="13AB"
+  le["binding"]["source_focus_count"]=len(st["historical_audit"]["current_focus"])
+  le["checkpoint_log"].append({"id":"SIMULATED_FUTURE_REVIEW","state_version":"1.687.0"})
+  def get(path=m.E):
+   if path=="docs/PROJECT-CURRENT-STATE-R1.json":return st
+   if path=="docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json":return le
+   return orig(path)
+  with patch.object(m,"read",side_effect=get):self.assertTrue(m.check(e))
 if __name__=="__main__":unittest.main()
