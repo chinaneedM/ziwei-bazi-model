@@ -1,0 +1,88 @@
+{
+  "schema": "TIANWEN-13V-WASEDA-GORYEOSA-BOOK0034-ORIGINAL-TARGET-PROBE-R1",
+  "date": "2026-10-19",
+  "issue": "TW-OPEN-0005",
+  "prior_evidence": "docs/research/TIANWEN-13U-WASEDA-GORYEOSA-0030-ORIGINAL-FASCICLE-ATLAS-ROUTE-R1.json",
+  "firstparty_shelfmark": "リ06 02809",
+  "waseda_catalog_url": "https://www.wul.waseda.ac.jp/kotenseki/html/ri06/ri06_02809/index.html",
+  "original30_verified": {
+    "original_pdf_sha256": "707c47dea5e77e1a19352cccda7ebe315f17eabb048dbf04f9dafb07407b1af5",
+    "original_pdf_bytes": 48797544,
+    "verified_pdf_pages": 63,
+    "artifact_id": 12177471936,
+    "artifact_sha256": "bd8d527c697899fd33a02b08660c13684458a4ecffa02ee2a6fffd81a626b80b",
+    "workflow_run_id": 39232268922,
+    "archive_url": "https://archive.wul.waseda.ac.jp/kosho/ri06/ri06_02809/ri06_02809_0030/ri06_02809_0030.pdf",
+    "native_pages": [
+      {
+        "pdf_page_1based": 1,
+        "embedded_jpeg_xref": 4,
+        "jpeg_sha256": "0f15d30ea0db44eb80922318a276e26d9d9a3a2024d67085a15e20223f71afab",
+        "observed_text": "高麗史 志三十",
+        "grade": "PHYSICAL_VOLUME_COVER_HUMAN_VISUAL_NO_OCR"
+      },
+      {
+        "pdf_page_1based": 2,
+        "embedded_jpeg_xref": 7,
+        "jpeg_sha256": "582dade86eb6920f63eee18712a0c6eb3f92dc40bf9e7d2ebe5fe8e960e82db1",
+        "observed_text": "高麗史四十八／志卷第二",
+        "grade": "DIRECT_NATIVE_IMAGE_INNER_WORK_VOLUME"
+      },
+      {
+        "pdf_page_1based": 61,
+        "embedded_jpeg_xref": 184,
+        "jpeg_sha256": "d7809dd4262174f5f98bd7066c6fd546f104c8a34808c3e7fd0833620556a751",
+        "observed_text": "志卷第二",
+        "grade": "DIRECT_NATIVE_IMAGE_INNER_WORK_VOLUME_END"
+      }
+    ],
+    "group30_contains_work52": false,
+    "group30_is_one_physical_fascicle_not_new_rule": false
+  },
+  "book34_candidate": {
+    "digital_book": 34,
+    "firstparty_url": "https://archive.wul.waseda.ac.jp/kosho/ri06/ri06_02809/ri06_02809_0034/ri06_02809_0034.pdf",
+    "external_web_browser_reported_pdf_size": 54493573,
+    "digital_pdf_source_sha256": null,
+    "download_at_commit": false,
+    "book_contains_work52": null,
+    "expected_juan_from_extrapolation": "志卷第六 / work52",
+    "extrapolation_is_direct_source_fact": false,
+    "impression_year": null,
+    "d16_original_glyph": null,
+    "d18_original_glyph": null
+  },
+  "method": {
+    "group30_inner_volume_is_work48": true,
+    "estimated_offset_work52_minus_work48": 4,
+    "source_books_of_inferred_interval": [
+      31,
+      32,
+      33,
+      34
+    ],
+    "book34_is_candidate_not_winner": true,
+    "browse_proxy_size_exception_is_not_missing_original": true,
+    "edition_unit_and_printing_date_not_deduced": true
+  },
+  "workflow": ".github/workflows/acquire-waseda-goryeosa-0034-13v.yml",
+  "source_script": "scripts/acquire-waseda-goryeosa-0034-13v.py",
+  "workflow_status_on_commit": "NOT_YET_CHECKED",
+  "local_atlas_source_group30_verified_from_exact_gh_artifact": true,
+  "safety": {
+    "independent_historical_witnesses_added": 0,
+    "numeric_glyph_votes_added": 0,
+    "firstparty_nlc_holding_bound": false,
+    "original_13R_hashes_mutated": false,
+    "source_registry_entries_added": 0,
+    "transmission_graph_edges_added": 0,
+    "algorithm_reopens": 0,
+    "all_research_omissions_open": 11,
+    "product_r1": "CLOSED"
+  },
+  "next": [
+    "Check GitHub Actions group34 actual download and page atlas; bind exact firstparty archive hash, page count, inner original work-title, first and last volume pages.",
+    "If group34 truly contains work52, inspect 64+ original page images for D16 and D18 with source PDF/page pixel hashes.",
+    "Investigate provenance difference among Waseda 80册, Commons NLC 99 pieces, and CADAL02050311 without conflating source counts."
+  ]
+}
