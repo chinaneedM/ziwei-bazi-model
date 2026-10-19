@@ -305,6 +305,10 @@ jobs:
         run: |
           python scripts/verify-waseda-goryeosa-original-13x.py
           python -m unittest discover -s tests -p 'test_waseda_goryeosa_original_13x.py' -v
+      - name: Waseda 13Y original local solar nine-day source and no-promotion arithmetic gate
+        run: |
+          python scripts/verify-waseda-goryeosa-13y.py
+          python -m unittest discover -s tests -p 'test_waseda_goryeosa_original_13y.py' -v
       - name: Historical source registry extension integrity gate
         run: |
           python scripts/verify-historical-source-registry-extensions-r1.py
