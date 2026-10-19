@@ -415,6 +415,10 @@ jobs:
         run: |
           python scripts/verify-agawa-old-catalog-nanki-g23-control-13ah.py
           python -m unittest discover -s tests -p 'test_agawa_old_catalog_nanki_g23_control_13ah.py' -v
+      - name: UTokyo 13AI Agawa catalog editorial supplement and OPAC nonpromotion gate
+        run: |
+          python scripts/verify-agawa-catalog-editorial-bridge-13ai.py
+          python -m unittest discover -s tests -p 'test_agawa_catalog_editorial_bridge_13ai.py' -v
       - name: Focused capability acceptance tests
         run: |
           python -m unittest discover -s tests -p "test_fusion_chart_capability_acceptance_r1.py" -v
