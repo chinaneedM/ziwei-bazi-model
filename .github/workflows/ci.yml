@@ -395,6 +395,10 @@ jobs:
         run: |
           python scripts/verify_yehuobian_nlc_f10_all145_native_12sh.py
           python -m unittest discover -s tests -p 'test_yehuobian_nlc_f10_all145_native_12sh.py' -v
+      - name: UTokyo Goryeosa manuscript/print dual-holding 13AD source-scope gate
+        run: |
+          python scripts/verify-goryeosa-utokyo-dual-holding-13ad.py
+          python -m unittest discover -s tests -p 'test_goryeosa_utokyo_dual_holding_13ad.py' -v
       - name: Focused capability acceptance tests
         run: |
           python -m unittest discover -s tests -p "test_fusion_chart_capability_acceptance_r1.py" -v
