@@ -30,7 +30,8 @@ def verify():
  assert any(x.startswith("13AF ") for x in st["historical_audit"]["current_focus"])
  assert le["binding"]["latest_research_focus_prefix"]==st["historical_audit"]["current_focus"][-1].split(" ",1)[0]
  assert le["binding"]["source_focus_count"]==len(st["historical_audit"]["current_focus"])
- assert st["historical_audit"]["external_source_registry_total_unique_count"]==739
+ assert st["historical_audit"]["external_source_registry_total_unique_count"]>=739
+ assert st["historical_audit"]["external_source_registry_total_unique_count"]==load("docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json")["combined_source_count"]
  i=next(x for x in le["issues"] if x["id"]=="TW-OPEN-0005")
  assert i["status"]=="OPEN" and all(x in i["source_refs"] for x in [E,"docs/research/TIANWEN-13AF-UTOKYO-HANSEKI1995-DIRECT-PDF-SHA-AND-SHIBU-HOMOGRAPH-ERRATUM-R1.md"])
  assert any(x["event"]=="FORWARD_ONLY_ERRATUM_13AE_SHIBU_ROMANIZED_CLASSIFICATION" for x in i["history"])
