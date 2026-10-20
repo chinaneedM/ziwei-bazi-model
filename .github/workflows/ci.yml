@@ -439,6 +439,8 @@ jobs:
         run: |
           python scripts/verify-najda-goryeosa-digital-route-13an.py
           python -m unittest discover -s tests -p 'test_najda_goryeosa_digital_route_13an.py' -v
+      - name: NAJDA 13AP source-emitted bounded-link tests
+        run: python -m unittest discover -s tests -p 'test_probe_najda_goryeosa_13ap.py' -v
       - name: Focused capability acceptance tests
         run: |
           python -m unittest discover -s tests -p "test_fusion_chart_capability_acceptance_r1.py" -v
