@@ -321,6 +321,10 @@ jobs:
         run: |
           python scripts/verify-goryeosa-crosscopy-three-day-13ab.py
           python -m unittest discover -s tests -p 'test_goryeosa_crosscopy_three_day_13ab.py' -v
+      - name: Goryeosa 13BB original multi-holding solar D16 glyph and no-voting gate
+        run: |
+          python scripts/verify-goryeosa-solar-d16-multiholding-13bb.py
+          python -m unittest discover -s tests -p 'test_goryeosa_solar_d16_multiholding_13bb.py' -v
       - name: Goryeosa 13AC Tokyo general library policy versus unconfirmed item category
         run: |
           python scripts/verify-goryeosa-utokyo-access-policy-13ac.py
