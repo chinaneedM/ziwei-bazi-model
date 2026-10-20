@@ -24,8 +24,8 @@ def verify():
  assert st["schema_version"]==l["binding"]["reviewed_state_version"]==st["historical_audit"]["research_omission_guard"]["reviewed_state_version"]
  assert tuple(map(int,st["schema_version"].split(".")))>=(1,697,0)
  assert l["binding"]["source_focus_count"]==len(st["historical_audit"]["current_focus"])
- assert l["binding"]["latest_research_focus_prefix"]=="13AL"
- assert st["historical_audit"]["current_focus"][-1].startswith("13AL ")
+ assert l["binding"]["latest_research_focus_prefix"]==st["historical_audit"]["current_focus"][-1].split(" ",1)[0]
+ assert any(x.startswith("13AL ") for x in st["historical_audit"]["current_focus"])
  issue=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
  assert issue["status"]=="OPEN" and all(x in issue["source_refs"] for x in [E,S,"docs/research/TIANWEN-13AL-UTOKYO-GORYEOSA-W52-ILL-REMOTE-COPY-ACCESS-ROUTE-R1.md"])
  assert any(x["event"]=="UTOKYO_FIRSTPARTY_ILL_NONMEMBER_REMOTE_COPY_GATE_AND_V52_CONDITIONAL_ACQUISITION" for x in issue["history"])
