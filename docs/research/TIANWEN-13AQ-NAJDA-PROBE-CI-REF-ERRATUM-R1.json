@@ -1,0 +1,34 @@
+{
+  "schema": "TIANWEN-13AQ-P0-NAJDA-13AP-ACCESS-RESULT-AND-STRICT-LEDGER-AUX-PATH-ERRATUM-R1",
+  "date": "2026-10-20",
+  "target_issue": "TW-OPEN-0005",
+  "parent_13ap_commit": "663b504b27f7fa061a0d2ac980ecbd0a6b4852e9",
+  "script_fix_commit": "938c37c00344c29a4657d9ad45c29a8f7d6781f7",
+  "failed_runs": [
+    39373547025,
+    39373545694
+  ],
+  "failure": "source_refs allowed only docs/; 13AP mistakenly appended three non-doc code paths",
+  "resolution": "Keep historic issue source_refs forward-only and allow exact three known replay artifacts for TW-OPEN-0005 only, treating them as auxiliary executables rather than historical source pages.",
+  "allowed_auxiliary_refs": [
+    "scripts/probe-najda-goryeosa-13ap.py",
+    ".github/workflows/probe-najda-goryeosa-13ap.yml",
+    "tests/test_probe_najda_goryeosa_13ap.py"
+  ],
+  "other_issue_aux_source_ref_permitted": false,
+  "provider_probe": {
+    "workflow_run_id": 39373628730,
+    "job_id": 118466762184,
+    "source_url": "https://www.digital.archives.go.jp/search?fond=1073275&lang=en&page=1",
+    "http": 200,
+    "captured_bytes": 703538,
+    "sha256": "76f8cc07b783b65844470770a3a786dee0688510e4cdd6ff85b8f9938be7ab4e",
+    "source_emitted_exact_child_links": [],
+    "result_scope": "STRICT_TITLE_PLUS_HTML_ANCHOR_ONLY; NO LINKS FOUND IS NOT NEGATIVE_CATALOG_OR_NO_IMAGE_PROOF",
+    "original_work52_folio_obtained": false,
+    "independent_numeric_votes": 0
+  },
+  "state_version_after": "1.702.0",
+  "external_source_registry_delta": 0,
+  "chart_reopen": 0
+}

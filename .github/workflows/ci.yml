@@ -441,6 +441,8 @@ jobs:
           python -m unittest discover -s tests -p 'test_najda_goryeosa_digital_route_13an.py' -v
       - name: NAJDA 13AP source-emitted bounded-link tests
         run: python -m unittest discover -s tests -p 'test_probe_najda_goryeosa_13ap.py' -v
+      - name: NAJDA 13AQ omission ledger strict executable reference exception
+        run: python -m unittest discover -s tests -p 'test_13aq_omission_aux_reference_allowlist.py' -v
       - name: Focused capability acceptance tests
         run: |
           python -m unittest discover -s tests -p "test_fusion_chart_capability_acceptance_r1.py" -v

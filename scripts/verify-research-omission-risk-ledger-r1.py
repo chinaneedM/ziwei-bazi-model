@@ -18,6 +18,18 @@ REQUIRED_AXES={
  "mathematical_replay","contrary_and_negative_evidence","transmission_lineage_and_non_edges"
 }
 BASELINE_IDS={f"TW-OPEN-{i:04d}" for i in range(1,10)}
+# Exact preexisting 13AP operational artifacts are auxiliary replay references,
+# NOT new historical source witnesses. Never generalize to other issue IDs.
+ALLOWED_13AP_AUX_REFS = {
+    "scripts/probe-najda-goryeosa-13ap.py",
+    ".github/workflows/probe-najda-goryeosa-13ap.yml",
+    "tests/test_probe_najda_goryeosa_13ap.py",
+}
+def valid_issue_source_ref(issue_id, reference):
+    if not isinstance(reference,str) or ".." in Path(reference).parts:
+        return False
+    return reference.startswith("docs/") or (issue_id=="TW-OPEN-0005" and reference in ALLOWED_13AP_AUX_REFS)
+
 def require(p,msg):
  if not p:raise ValueError(msg)
 def read(path):
@@ -318,7 +330,7 @@ def validate(data,state,protocol,exists_fn=None):
   else:
    require(not x["resolution_evidence"],"open issue cannot have asserted resolution "+x["id"])
   for s in x["source_refs"]:
-   require(isinstance(s,str) and s.startswith("docs/") and ".." not in Path(s).parts,"path escape/unstable evidence ref "+x["id"])
+   require(valid_issue_source_ref(x["id"],s),"path escape/unstable evidence ref "+x["id"])
    if exists_fn is not None:
     require(exists_fn(s),"missing primary reference "+x["id"]+": "+s)
  checks=data["checkpoint_log"]
