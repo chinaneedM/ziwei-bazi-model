@@ -27,7 +27,7 @@ def exact_item_links(html):
     parser=Links();parser.feed(html)
     hits=[]
     for entry in parser.links:
-        title=unicodedata.normalize("NFKC",re.sub(r"\\s+","",entry["text"]))
+        title=unicodedata.normalize("NFKC",re.sub(r"\s+","",entry["text"]))
         raw=entry["href"]
         url=urllib.parse.urljoin(SOURCE,raw)
         p=urllib.parse.urlparse(url)
@@ -77,6 +77,6 @@ def main():
             "no_endpoint_guessing":True,
             "no_ocr":True,
             "access_result_must_not_close_issue":True}
-    (OUT/"probe-result.json").write_text(json.dumps(result,ensure_ascii=False,indent=2)+"\\n",encoding="utf-8")
+    (OUT/"probe-result.json").write_text(json.dumps(result,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     print(json.dumps(result,ensure_ascii=False))
 if __name__=="__main__":main()
