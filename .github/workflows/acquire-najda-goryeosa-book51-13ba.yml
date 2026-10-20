@@ -1,0 +1,37 @@
+name: acquire-najda-goryeosa-book51-13ba
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - scripts/acquire-najda-goryeosa-book51-13ba.py
+      - .github/workflows/acquire-najda-goryeosa-book51-13ba.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  source-emitted-nine-pages:
+    runs-on: ubuntu-latest
+    timeout-minutes: 13
+    strategy:
+      fail-fast: false
+      matrix:
+        part: [1, 2, 3, 4]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check strict manifest/source immutability and cardinality
+        run: python -m unittest discover -s tests -p 'test_najda_goryeosa_book51_13ba.py' -v
+      - name: Capture nine original source-emitted public image renditions
+        env:
+          NAJ_13BA_PART: ${{ matrix.part }}
+        run: python scripts/acquire-najda-goryeosa-book51-13ba.py
+      - name: Preserve original bytes, digest, and bounded result even on access failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: najda-goryeosa-book51-13ba-part${{ matrix.part }}
+          path: najda-goryeosa-13ba-part${{ matrix.part }}/
+          retention-days: 30
+          if-no-files-found: error
