@@ -1,0 +1,121 @@
+{
+  "schema": "TIANWEN-13BH-GORYEOSA-ORIGINAL-RECEIVED-FIVEPOINT-INDEX-OFFSET-REPLAY-R1",
+  "date": "2026-10-21",
+  "issue_id": "TW-OPEN-0005",
+  "grade": "DERIVED_CROSS_LAYER_ALIGNMENT_OF_ALREADY_SHA_BOUND_ORIGINAL_GLYPHS_AND_INSTITUTIONAL_RECEIVED_TEXT",
+  "input_evidence": {
+    "original_day14_day15_long_and_day15_cum": "docs/research/TIANWEN-13BF-GORYEOSA-D14-D17-ORIGINAL-ACCUMULATIVE-LOCAL-INDEX-OFFSET-R1.json",
+    "original_day16_day17_long_cum": "docs/research/TIANWEN-13BE-GORYEOSA-D16-ORIGINAL-LONG-LANE-DUAL-COPY-COLLATION-R1.json",
+    "original_day18_day19_cum": "docs/research/TIANWEN-13BG-GORYEOSA-NAJ-ADJACENT-FOLIOS-CUMULATIVE-D17-D19-R1.json",
+    "modern_institutional_received_rows": "docs/research/TIANWEN-12YZ-GORYEOSA-D14-D20-INTRATABLE-THREE-COLUMN-RECEIVED-ARITHMETIC-R1.json"
+  },
+  "source_holding": "NAJ-282-0006-PHYSICAL51",
+  "known_original_canvases": [
+    17,
+    18
+  ],
+  "same_physical_holding_not_independent_vote": true,
+  "observed_original_vs_received": [
+    {
+      "original_layout_day": 15,
+      "source_canvas": 17,
+      "original_cumulative": "6695.8136",
+      "received_digital_row_day": 14,
+      "received_digital_cumulative": "6695.8136",
+      "direct_original_source": "docs/research/TIANWEN-13BF-GORYEOSA-D14-D17-ORIGINAL-ACCUMULATIVE-LOCAL-INDEX-OFFSET-R1.json"
+    },
+    {
+      "original_layout_day": 16,
+      "source_canvas": 17,
+      "original_cumulative": "7135.8375",
+      "received_digital_row_day": 15,
+      "received_digital_cumulative": "7135.8375",
+      "direct_original_source": "docs/research/TIANWEN-13BE-GORYEOSA-D16-ORIGINAL-LONG-LANE-DUAL-COPY-COLLATION-R1.json"
+    },
+    {
+      "original_layout_day": 17,
+      "source_canvas": 17,
+      "original_cumulative": "7570.6624",
+      "received_digital_row_day": 16,
+      "received_digital_cumulative": "7570.6624",
+      "direct_original_source": "docs/research/TIANWEN-13BE-GORYEOSA-D16-ORIGINAL-LONG-LANE-DUAL-COPY-COLLATION-R1.json"
+    },
+    {
+      "original_layout_day": 18,
+      "source_canvas": 18,
+      "original_cumulative": "8000.2697",
+      "received_digital_row_day": 17,
+      "received_digital_cumulative": "8000.2697",
+      "direct_original_source": "docs/research/TIANWEN-13BG-GORYEOSA-NAJ-ADJACENT-FOLIOS-CUMULATIVE-D17-D19-R1.json"
+    },
+    {
+      "original_layout_day": 19,
+      "source_canvas": 18,
+      "original_cumulative": "8424.6408",
+      "received_digital_row_day": 18,
+      "received_digital_cumulative": "8424.6408",
+      "direct_original_source": "docs/research/TIANWEN-13BG-GORYEOSA-NAJ-ADJACENT-FOLIOS-CUMULATIVE-D17-D19-R1.json"
+    }
+  ],
+  "original_four_local_edges": [
+    {
+      "from_original_layout_day": 15,
+      "to_original_layout_day": 16,
+      "cumulative_delta": "440.0239",
+      "original_long_day": 14,
+      "original_long": "440.0239",
+      "received_digital_long_day": 14,
+      "received_digital_long": "440.0239"
+    },
+    {
+      "from_original_layout_day": 16,
+      "to_original_layout_day": 17,
+      "cumulative_delta": "434.8249",
+      "original_long_day": 15,
+      "original_long": "434.8249",
+      "received_digital_long_day": 15,
+      "received_digital_long": "434.8249"
+    },
+    {
+      "from_original_layout_day": 17,
+      "to_original_layout_day": 18,
+      "cumulative_delta": "429.6073",
+      "original_long_day": 16,
+      "original_long": "429.6073",
+      "received_digital_long_day": 16,
+      "received_digital_long": "429.6073"
+    },
+    {
+      "from_original_layout_day": 18,
+      "to_original_layout_day": 19,
+      "cumulative_delta": "424.3711",
+      "original_long_day": 17,
+      "original_long": "424.3711",
+      "received_digital_long_day": 17,
+      "received_digital_long": "424.3711"
+    }
+  ],
+  "local_offset_rule": "C_NAJ_LAYOUT(n) == C_RECEIVED_DIGITAL_ROW(n-1), limited to n=15..19 and these five already-read slots",
+  "same_numbered_day_equivalence": false,
+  "historical_printed_header_index_convention": "UNADJUDICATED",
+  "section_start_and_end_and_transition_behavior": "NOT_DIRECTLY_COLLATED",
+  "Waseda_original_day18_day19_cumulative": "NOT_DIRECTLY_COLLATED",
+  "G893_other_work_column_unit_equivalence": "UNPROVEN",
+  "D16_original_short": "5.1362",
+  "D16_original_long_difference": "5.2362",
+  "D16_different_work_G893_short": "5.2362",
+  "D16_ancestral_original_choice": "UNRESOLVED",
+  "historical_lineage_independence": "UNPROVEN",
+  "scope_counters": {
+    "new_original_pixels_acquired": 0,
+    "new_original_copies": 0,
+    "new_registry_sources": 0,
+    "new_matrix_rows": 0,
+    "new_genealogy_nodes": 0,
+    "new_genealogy_edges": 0,
+    "algorithm_reopens": 0,
+    "open_omission_issues": 11,
+    "deterministic_product": "CLOSED"
+  },
+  "next_action": "Original-image native ROI review of Waseda D18-D19 and NAJ table first/last columns plus D20-D21; do not transfer received row index to original printed heading without leaf-by-leaf scope proof."
+}
