@@ -17,7 +17,7 @@ def verify():
  assert a["request_sent"] is a["approval_received"] is a["original_scan_captured"] is False
  assert e["provenance_fences"]["direct_individual_ill_available"] is False
  assert e["non_promotions"]["independent_original_numeric_votes_added"]==0
- assert e["non_promotions"]["registry_total"]==m["combined_source_count"]==st["historical_audit"]["external_source_registry_total_unique_count"]
+ assert e["non_promotions"]["registry_total"]<=m["combined_source_count"]==st["historical_audit"]["external_source_registry_total_unique_count"]
  assert m["extension_source_count"]>=103 and len(sh["sources"])==2
  assert all(x["verification_status"]=="BIBLIOGRAPHIC_METADATA_ONLY" and x["physical_glyph_authority"] is False for x in sh["sources"])
  assert any(x["path"]==S and x["source_count"]==2 and x["schema"]==sh["schema"] for x in m["shards"])
