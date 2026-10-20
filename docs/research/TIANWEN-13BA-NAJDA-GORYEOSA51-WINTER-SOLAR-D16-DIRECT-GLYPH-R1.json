@@ -1,0 +1,121 @@
+{
+  "schema": "TIANWEN-13BA-NAJDA-ORIGINAL-SOLAR-D16-ONE-GLYPH-R1",
+  "date": "2026-10-20",
+  "research_issue_id": "TW-OPEN-0005",
+  "source_commit": "73a73aac9c8ef987c2c8c237d8c98fd825f5e7b3",
+  "official_item": "https://www.digital.archives.go.jp/item/en/4898853",
+  "provider_manifest": "https://www.digital.archives.go.jp/api/iiif/4898853/manifest.json",
+  "manifest_sha256": "3f38f52860bd06ca7f4b89cec65a32b8529fcb547ac098548120e8071fe370a1",
+  "action_run": 39410644745,
+  "job_parts_success": 4,
+  "exact_provider_jpeg_count": 36,
+  "jpeg_sha256_verified_count": 36,
+  "total_original_jpeg_bytes": 36654461,
+  "original_rendition": "Source IIIF full/max JPEG (3000x2215), not underlying 6500x4800 JP2 master",
+  "artifact_groups": [
+    {
+      "ordinals": "1-9",
+      "artifact_id": 12258998208,
+      "zip_sha256": "600969bbd79e2051ff7de7964ad8df0e8a4c8b9bfbd7f79c390a5c40535baa12"
+    },
+    {
+      "ordinals": "10-18",
+      "artifact_id": 12258234108,
+      "zip_sha256": "dd7e35494898f5a3dae1c9cff1a05627c2fe4ca530ebea0434c67f8f356320f4"
+    },
+    {
+      "ordinals": "19-27",
+      "artifact_id": 12258588506,
+      "zip_sha256": "320b0e09c00c7e1005b33756b05cf78f381b77c7ec0ef2fb76821c60e4bad8b6"
+    },
+    {
+      "ordinals": "28-36",
+      "artifact_id": 12258258904,
+      "zip_sha256": "b34c9cf2741ef9e14a46d5b72842e6f7f5534ac35f390cda019d6ec16f9e3ae0"
+    }
+  ],
+  "source_glyph_loci": [
+    {
+      "canvas": 16,
+      "jpeg_sha256": "23814245c0e7952a4d8581068d23448e285cd14b145b8824c8bfa9aeb6501884",
+      "visible_heading": "大陽冬至前後二象盈初縮末限"
+    },
+    {
+      "canvas": 17,
+      "jpeg_sha256": "8362e8a2b8ddf5f36408d4450a81ebad2d9548b32f49dbe37e01493592b7c3e9",
+      "source_image_size": [
+        3000,
+        2215
+      ],
+      "original_rgb_roi": [
+        {
+          "day": 15,
+          "reading": "五分二一七六",
+          "bbox": [
+            793,
+            950,
+            847,
+            1400
+          ],
+          "rgb_pixel_sha256": "ce9e9ff519d163b8c8d7256d49d902b158e6ad4f4eb8367b1ff4dcb7f0823ec1"
+        },
+        {
+          "day": 16,
+          "reading": "五分一三六二",
+          "bbox": [
+            623,
+            950,
+            677,
+            1400
+          ],
+          "rgb_pixel_sha256": "70e262c702cf2d01c0779fb8b245c8733c65e803290a8b6fd46df4de825afb38"
+        },
+        {
+          "day": 17,
+          "reading": "五分二五四八",
+          "bbox": [
+            463,
+            950,
+            517,
+            1400
+          ],
+          "rgb_pixel_sha256": "44fe577d55f63d11dcd155555e7127794b08727bb6d3c313a53ae996cdaba698"
+        }
+      ]
+    }
+  ],
+  "evidence_grade": "SOURCE_ORIGINAL_IIIF_RENDER_PLUS_DIRECT_MANUAL_GLYPH_COLLATION_WITH_SHA_BOUND_ROI; NO_OCR",
+  "comparator": {
+    "physical_copy": "Kyujanggak 奎貴893 GK00893_00",
+    "D15": "五分二一七六",
+    "D16": "五分二三六二",
+    "D17": "五分二五四八",
+    "one_digit_physical_variant": "NAJ 一 / G893 二",
+    "shared_stemma_independence": "UNPROVEN",
+    "original_archetype_winner": "UNADJUDICATED"
+  },
+  "numeric_control": {
+    "expected_midpoint_of_5_2176_and_5_2548": "5.2362",
+    "NAJ_D16": "5.1362",
+    "difference": "-0.1000",
+    "inference": "Arithmetic favors G893 local constant-step series; not proof of first exemplar, historical transmission stage, or original manuscript glyph corruption."
+  },
+  "do_not_count_official_modern_digital_transcript_as_additional_physical_copy": true,
+  "no_algorithm_reopen": true,
+  "source_registry_count": 754,
+  "open_research_issues": 11,
+  "chart_product_status": "CLOSED",
+  "transmission_impact": {
+    "nodes": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Physical copy difference does not prove direct copying or ancestry"
+    ],
+    "unresolved_lineage_questions": [
+      "Date and trace NAJ Qing manuscript exemplar",
+      "Bound historical unit and physical numeric column origin",
+      "Check independent historical manuscript/print witness for earliest 一/二 divergence"
+    ]
+  }
+}
