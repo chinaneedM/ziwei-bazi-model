@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.703.0",
+  "schema_version": "1.704.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -2961,7 +2961,8 @@
       "13AO FORWARD ERRATUM NAJDA BOOK0052 NOT PROVEN ABSENT: 13AN field target_work_volume_in_book_0052=false could be misread as a verified negative. With original catalog lacking book-to-work mapping the status is UNKNOWN, corrected to JSON null and separately proven=false. Original commit fd4c0a7 remains preserved; numeric votes0 glyph0 source count754 11 omissions OPEN graph252/238 algorithm reopen0 product CLOSED.",
       "13AP NAJDA FIRSTPARTY EXACT BOOK52 SOURCE-EMITTED LINK PROBE: bounded public catalog HTML acquisition configured via push-triggered standalone GitHub Action with SHA256 + raw HTML artifact and strict exact-title linked /item/<ID> allowlist, no guessed API or OCR; no historical glyph inferred before source-native folio. This is a probe QUEUED NOT AN ORIGINAL FIND. Official 282-0006 work卷52-to-physical-book mapping still UNKNOWN, digital availability unresolved. Reuses existing 13AN sources; root647+extensions107=754, 11 omissions OPEN/BLOCKED Matrix222/222 graph252/238, no independent numeric votes or algorithm reopen, R1 CLOSED.",
       "13AQ NAJDA 13AP EXACT-HEAD FAILURE AND PROVIDER-PAGE BOUNDED RESULT: Original source-only 13AP run39373628730 GOT HTTP200/703538 bytes SHA256 76f8cc07... official 282-0006 index, strict direct HTML <a> title 高麗史52 matched zero; absence of extracted anchor does NOT prove physical item or digitization absence. 13AP CI failed solely because three replay code paths were placed into docs-only omission source_refs. Preserve prior refs; narrow exact three-file exception for TW-OPEN-0005 only with negative tests, no generalized weakening. All11 research issues remain OPEN/BLOCKED, 754 sources unchanged, Matrix222/222 graph252/238 original work52 numeric0, deterministic R1 CLOSED algorithm reopens0.",
-      "13AR NAJDA VERIFIED FIRSTPARTY HTML POSITIVE ITEM+VIEWER SOURCE-LINK PAIR: 13AP GitHub Action 39373628730 original 703538 bytes SHA256 76f8cc07b783b65844470770a3a786dee0688510e4cdd6ff85b8f9938be7ab4e row53 title 高麗史５２ 282-0006 physical book order0052; exact provider-emitted item/en/4898854 and img/en/4898854 BROWSE anchors same row and same ID. 13AP previous zero link matched because regex rejected /item/en, forward-only extraction erratum, corrected probe follows exact source emitted pair, no guessing. Item-level viewer LINK is positive but actual image data and work卷52 content UNREAD, numeric votes0, no new external sources 754, 11 issues OPEN graph252/238 chart R1 CLOSED algorithm reopens0."
+      "13AR NAJDA VERIFIED FIRSTPARTY HTML POSITIVE ITEM+VIEWER SOURCE-LINK PAIR: 13AP GitHub Action 39373628730 original 703538 bytes SHA256 76f8cc07b783b65844470770a3a786dee0688510e4cdd6ff85b8f9938be7ab4e row53 title 高麗史５２ 282-0006 physical book order0052; exact provider-emitted item/en/4898854 and img/en/4898854 BROWSE anchors same row and same ID. 13AP previous zero link matched because regex rejected /item/en, forward-only extraction erratum, corrected probe follows exact source emitted pair, no guessing. Item-level viewer LINK is positive but actual image data and work卷52 content UNREAD, numeric votes0, no new external sources 754, 11 issues OPEN graph252/238 chart R1 CLOSED algorithm reopens0.",
+      "13AS NAJDA FIRSTPARTY BOOK0052 IMAGE VIEWER IIIF NATIVE LIST: Source viewer /img/en/4898854 returned HTTP200 89340B SHA256 cfa9ad6e9b77320befd7c05cb0ae9f2f12ba012a9de3dd18dd24b99b9ed24441, explicit /api/iiif/4898854/manifest.json and 32 source-native JPEG2000 image paths; first named M2022071510153404631_0001.jp2 declares 6500x4800. Dedicated push-triggered bounded acquisition of manifest + at most 3 source-emitted original JP2 files planned; image bytes NOT ACQUIRED AT COMMIT; work卷52 mapping still UNKNOWN numeric votes0. No new registry source (754), Matrix222/222, 11 risks OPEN, graph252/238, no algorithm reopen chart R1 CLOSED."
     ],
     "historical_candidate_extension_count": 14,
     "current_missing_from_product_row_count": 4,
@@ -2974,7 +2975,7 @@
       "verifier": "scripts/verify-research-omission-risk-ledger-r1.py",
       "version": "1.0.0",
       "open_issues": 11,
-      "reviewed_state_version": "1.703.0",
+      "reviewed_state_version": "1.704.0",
       "coverage_status": "INCREMENTAL_NOT_EXHAUSTIVE"
     }
   },
