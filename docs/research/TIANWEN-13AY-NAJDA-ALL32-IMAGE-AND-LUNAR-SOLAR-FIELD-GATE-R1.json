@@ -1,0 +1,91 @@
+{
+  "schema": "TIANWEN-13AY-NAJDA-32-CANVAS-DIRECT-ORIGINAL-IMAGE-BYTE-ATLAS-R1",
+  "date": "2026-10-20",
+  "issue_id": "TW-OPEN-0005",
+  "source_head": "57ccb764d98a7ce8b3ff90d02d39095682cb462a",
+  "workflow_url": "https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/39408552959",
+  "official_viewer": "https://www.digital.archives.go.jp/img/en/4898854",
+  "manifest": "https://www.digital.archives.go.jp/api/iiif/4898854/manifest.json",
+  "manifest_sha256": "a7ef9f1d7953eca9c44168dee0f482f2a408ca1a18a093410b0b5c1da221f7d2",
+  "image_count": 32,
+  "sha256_verified_count": 32,
+  "jpeg_bytes_total": 31952791,
+  "jpeg_magic_verified_count": 32,
+  "image_size_px": [
+    3000,
+    2215
+  ],
+  "jpeg_render_only_not_underlying_jp2": true,
+  "source_image_group_archives": [
+    {
+      "ordinals": "1-8",
+      "artifact_id": 12258895240,
+      "zip_sha256": "dff709b0307fac63eeac01af762d5e6907f6af967fb8b133a7762e10ed4917a6"
+    },
+    {
+      "ordinals": "9-16",
+      "artifact_id": 12258830196,
+      "zip_sha256": "41e29871d39c7d84ba0a384d284ce11394d4aa493ea206be429bae6435a85446"
+    },
+    {
+      "ordinals": "17-24",
+      "artifact_id": 12258730258,
+      "zip_sha256": "b9826698f23053b511398f9f4d39d6c6707acf1ca913bff71fb7fac6c6a544fe"
+    },
+    {
+      "ordinals": "25-32",
+      "artifact_id": 12257833928,
+      "zip_sha256": "efda7c888cae25d3088a3db09e5e44f85fd06bcfe704f63f41d2887995ca889a"
+    }
+  ],
+  "sha256_selectively_fullpage_reviewed": {
+    "4": "76df63af6b49dffba4cbd0b77a15de534caa648009197168edb5a463b14462f0",
+    "24": "eca10f1b9a44a4b1d3209cb0f8e0a62f7d90a1592e11988f4ca9741429c012e5",
+    "27": "e94d195a5097735ce3c2d3d11f8419582b496bb5d3a0c3591a027c0108e6ed32",
+    "29": "74c4066cf70147c5c1f779356a350a6fcad66fdb9cbba338be35ca138a38ffa2",
+    "31": "28ae150893816c4a86d89db1bf4e8313f947f03a5e2341df5e34c0d7018103ef"
+  },
+  "source_visual_findings": [
+    "First physical images are cover/flyleaf, canvas3 starts numbered 十二.",
+    "Canvases3-24 continue numbered 十二..一百六十八; received textual section sequence and ordinal-16 rate identify 太陰限數遲疾度, NOT 太陽 D16.",
+    "Canvas24 source explicitly labels 五星立成 / 木星 at next section after lunar limit 一百六十八.",
+    "Canvas27 visibly says 土星 and canvas29 says 水星; canvas31 terminates 志卷第六."
+  ],
+  "transmission_text_checks": [
+    {
+      "url": "https://zh.wikisource.org/zh-hant/高麗史/卷五十二",
+      "grade": "received_text_nonphysical",
+      "sequence": "太陽冬至/夏至盈縮日數 -> 太陰限數遲疾度 limits0..168 -> 五星立成",
+      "original_solar_glyph_votes": 0
+    },
+    {
+      "url": "https://db.history.go.kr/goryeo/level.do?levelId=kr_052_0010_0010_0020_0010&types=o",
+      "grade": "official_modern_transcription_nonphysical",
+      "d15": "五分二一七六",
+      "d16": "五分一三六二",
+      "d17": "五分二五四八",
+      "original_solar_glyph_votes": 0
+    }
+  ],
+  "original_na_51_link": {
+    "evidence": "NAJ 13AP official source index raw HTML SHA256 76f8cc07b783b65844470770a3a786dee0688510e4cdd6ff85b8f9938be7ab4e",
+    "title": "高麗史５１",
+    "exact_source_emitted_url": "https://www.digital.archives.go.jp/item/en/4898853",
+    "physical_book_51_equals_work_volume_51": "UNKNOWN",
+    "target_original_solar_folio_unread": true
+  },
+  "human_collation_grade": "ALL32 THUMBNAIL-CONTACT-SCREEN + FIVE SELECTED FULL-PAGE POSITIVE READINGS; NOT WHOLEBOOK LINE_BY_LINE COLLATION",
+  "opening_solar_pages_in_this_digital_object": "NOT_OBSERVED_IN_BOUNDED_REVIEW",
+  "physical_loss_or_distributed_binding": "UNKNOWN",
+  "repeated_images_create_new_witnesses": false,
+  "independent_solar_D16_numeric_votes_added": 0,
+  "unresolved_issue_count": 11,
+  "next_action": "Follow official emitted item/en/4898853 Browse link, bind its manifest and inspect final leaves or volume boundary for solar D15-D17. Do not infer adjacent physical book equals adjacent work chapter.",
+  "external_registry_count": 754,
+  "matrix_rows": 222,
+  "matrix_audited": 222,
+  "genealogy_nodes": 252,
+  "genealogy_edges": 238,
+  "algorithm_reopen_count": 0,
+  "deterministic_chart_product": "CLOSED"
+}
