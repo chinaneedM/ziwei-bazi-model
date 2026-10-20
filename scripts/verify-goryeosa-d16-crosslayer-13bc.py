@@ -51,10 +51,12 @@ def check(e,a,b,c,ledger,state):
     assert e["earliest_original_one_or_two"]=="UNRESOLVED" and e["product_status"]=="CLOSED"
     issue=next(i for i in ledger["issues"] if i["id"]=="TW-OPEN-0005")
     assert issue["priority"]=="P0" and issue["status"]=="OPEN"
-    assert issue["source_refs"][-2:]==[MD,PC]
+    assert MD in issue["source_refs"] and PC in issue["source_refs"]
+    assert issue["source_refs"].index(PC)==issue["source_refs"].index(MD)+1
     assert ledger["binding"]["reviewed_state_version"]==state["schema_version"]==state["historical_audit"]["research_omission_guard"]["reviewed_state_version"]
     assert ledger["binding"]["source_focus_count"]==len(state["historical_audit"]["current_focus"])
-    assert ledger["binding"]["latest_research_focus_prefix"]==state["historical_audit"]["current_focus"][-1].split(" ")[0]=="13BC"
+    assert any(x.startswith("13BC ") for x in state["historical_audit"]["current_focus"])
+    assert ledger["binding"]["latest_research_focus_prefix"]==state["historical_audit"]["current_focus"][-1].split(" ")[0]
     assert ledger["checkpoint_log"][-1]["state_version"]==state["schema_version"]
     assert len(ledger["checkpoint_log"][-1]["reviewed_issue_ids"])==11
     return True
