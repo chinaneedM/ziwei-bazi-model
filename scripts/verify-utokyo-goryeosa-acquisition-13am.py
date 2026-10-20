@@ -25,7 +25,7 @@ def verify():
  assert tuple(map(int,s["schema_version"].split(".")))>=(1,698,0)
  assert l["binding"]["source_focus_count"]==len(s["historical_audit"]["current_focus"])
  assert l["binding"]["latest_research_focus_prefix"]==s["historical_audit"]["current_focus"][-1].split(" ",1)[0]
- assert "13AM"==l["binding"]["latest_research_focus_prefix"]
+ assert any(x.startswith("13AM ") for x in s["historical_audit"]["current_focus"])
  q=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
  assert q["status"]=="OPEN" and all(x in q["source_refs"] for x in [E,S,"docs/research/TIANWEN-13AM-UTOKYO-GORYEOSA-V52-EXACT-ITEM-INQUIRY-AND-MICRO-SPLIT-R1.md"])
  assert any(x["event"]=="UTOKYO_V52_ORIGINAL_INQUIRY_FORM_AND_MICROFORM_SERVICE_SPLIT" for x in q["history"])

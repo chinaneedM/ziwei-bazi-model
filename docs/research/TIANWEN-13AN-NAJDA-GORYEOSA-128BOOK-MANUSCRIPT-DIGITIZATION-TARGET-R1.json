@@ -1,0 +1,80 @@
+{
+  "schema": "TIANWEN-13AN-NAJDA-GORYEOSA-2820006-BOOK-ORDER-VS-WORK-VOLUME-AND-2022-DIGITIZATION-PLAN-BOUNDARY-R1",
+  "date": "2026-10-20",
+  "issue_id": "TW-OPEN-0005",
+  "official_sources": [
+    {
+      "source_id": "EXT-TIANWEN-13AN-NAJDA-GORYEOSA-2820006-128BOOK-CATALOG",
+      "url": "https://www.digital.archives.go.jp/search?fond=1073275&lang=en&page=1",
+      "firstparty_claims": [
+        "NAJ Cabinet Library Chinese historical catalogue registers 高麗史 (reference number 282-0006) as 128 physical books",
+        "catalog describes the holding as 写本:清 (Qing manuscript)",
+        "search result has child entry 高麗史５２ with book order 0052 and subject number 0052",
+        "usage restriction 'Open' applies to access classification, not proof a digital target folio is freely viewable"
+      ],
+      "source_level": "INSTITUTIONAL_CATALOG_TEXT_ONLY"
+    },
+    {
+      "source_id": "EXT-TIANWEN-13AN-NAJ-2022-GORYEOSA-DIGITIZATION-PLAN",
+      "url": "https://www.archives.go.jp/news/pdf/20220713.pdf",
+      "pdf_page_zero_based": 19,
+      "pdf_printed_page": "20/76",
+      "source_firstparty_claims": [
+        "2022 Japanese National Archives list 別紙4 デジタル画像作成対象一覧 lists 282-0006 高麗史 as a digitization target",
+        "the preceding plan explicitly cautions some objects may not be completed in FY2022 due to condition"
+      ],
+      "source_level": "ADMINISTRATIVE_PLAN_NOT_DIGITAL_IMAGE"
+    }
+  ],
+  "na_japan_holding": {
+    "holding": "National Archives of Japan, Cabinet Library",
+    "shelf": "282-0006",
+    "described_edition_kind": "QING_MANUSCRIPT_CATALOG_ASSERTION_UNVERIFIED_BY_ORIGINAL",
+    "set_physical_books": 128,
+    "child_label": "高麗史５２",
+    "child_book_order": "0052",
+    "child_subject_number": "0052",
+    "work_volume_52_mapping": "UNKNOWN",
+    "target_work_volume_in_book_0052": false,
+    "original_folio_obtained": false,
+    "viewer_image_url": null,
+    "image_byte_sha256": null
+  },
+  "independent_witness_status": {
+    "na_japan_physical_holding_is_distinct_institution": "YES",
+    "same_copy_or_plate_as_Waseda_NLC_UTokyo": "NOT_ESTABLISHED",
+    "image_published_online": "NOT_ESTABLISHED_BY_SEARCH_RESULT_OR_PLAN",
+    "digitization_completed_by_2022": "NOT_ESTABLISHED",
+    "book_number_equals_work_volume_number": "NOT_ESTABLISHED",
+    "solar_table_D15_D18_in_child_0052": "NOT_ESTABLISHED",
+    "D16_original_glyph": null,
+    "cross_print_numeric_vote": 0
+  },
+  "acquisition_route": [
+    "Obtain firstparty specific child item/permalink or provider staff response for NAJ 282-0006 volume-level work-to-book concordance.",
+    "Verify whether the 2022 digitization task for exact 282-0006 was completed; obtain an official item-level digital viewer/IIIF/file URI emitted by the provider, not a guessed API endpoint.",
+    "Review original first and last leaves of the actual book containing work52, then source native solar table heading and D15-D18 short+long columns.",
+    "Record physical book identifier, edition assertion as catalog-only until leaf corroboration, folio, original image bytes SHA256, and Waseda/NLC/G893 same-field crosscomparison before lineage assertion."
+  ],
+  "non_promotions": {
+    "new_historical_numeric_sources": 0,
+    "new_provider_bibliographic_and_plan_sources": 2,
+    "original_images": 0,
+    "independent_numeric_votes": 0,
+    "graph_nodes": 0,
+    "graph_edges": 0,
+    "algo_reopens": 0,
+    "product": "CLOSED",
+    "research_issues_open": 11,
+    "root_sources": 647,
+    "extension_sources": 107,
+    "total_sources": 754
+  },
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_added": [],
+    "scope": "HISTORICAL_COPY_LOCATOR_ONLY",
+    "stemmata": "UNRESOLVED",
+    "reason": "Qing-manuscript catalog assertion and digitization project do not establish textual copying, physical date, work-to-book location, or a glyph."
+  }
+}
