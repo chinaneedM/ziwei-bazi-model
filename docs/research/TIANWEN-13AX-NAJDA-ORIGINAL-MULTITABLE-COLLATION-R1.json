@@ -1,0 +1,55 @@
+{
+  "schema": "TIANWEN-13AX-NAJDA-WORK52-ORIGINAL-PLANET-TABLE-TRANSITION-COLLATION-R1",
+  "date": "2026-10-20",
+  "issue_id": "TW-OPEN-0005",
+  "source_head": "feaa380e39a80e57e0f0660a5fa6e16639c06461",
+  "source_action_run": 39378434396,
+  "source_artifact_id": 12243913967,
+  "archive_digest": "sha256:d1d9373be6e4fe0ad994cd661ff63556392912511f6ee302f7f5e4ad776c8ceb",
+  "provider_item": "https://www.digital.archives.go.jp/img/en/4898854",
+  "provider_manifest": "https://www.digital.archives.go.jp/api/iiif/4898854/manifest.json",
+  "source_canvas_count": 32,
+  "source_image_grade": "ACTUAL_PROVIDER_FULL_JPEG_ORIGINAL_SCAN_RENDERING_3000X2215",
+  "no_OCR": true,
+  "direct_original_visual_observations": [
+    {
+      "canvas_ordinal": 23,
+      "sha256": "a86adca3269f8a5a738b1b324d83b8676cf26dc65acdfa3ddf83dd18c0b1d72d",
+      "bytes": 998503,
+      "visible": "long uninterrupted manuscript columns headed numeric ordinals 一百五十五 through 一百六十一; no explicit original 太陽/盈縮 field label on this bounded page",
+      "type": "DIRECT_ORIGINAL_CONTINUOUS_COLUMN_SEGMENT"
+    },
+    {
+      "canvas_ordinal": 25,
+      "sha256": "d2b5f0ef8a44fb5637757bca847ecf9439ddf930989fb39c220e847699c49e4d",
+      "bytes": 1008583,
+      "visible": "original headers 策數, 度率, 盈積度, 縮積度 and short ordinal columns 初、二、三 etc; field referent not independently proven to be solar table day16",
+      "type": "DIRECT_ORIGINAL_DIFFERENT_TABLE_STRUCTURE"
+    },
+    {
+      "canvas_ordinal": 29,
+      "sha256": "74c4066cf70147c5c1f779356a350a6fcad66fdb9cbba338be35ca138a38ffa2",
+      "bytes": 1007249,
+      "visible": "clear source original heading 水星, row 策數, 率度 and 盈積度; any same words as solar盈縮 not field equality",
+      "type": "DIRECT_ORIGINAL_PLANETARY_WATER_STAR_TABLE"
+    }
+  ],
+  "replay_checks": {
+    "all_three_http": 200,
+    "all_three_sha256_match_original_action_result": true,
+    "original_solar_D16_numerical_value": "NOT_OBSERVED",
+    "current_reviewer_scope": "THREE_IMAGES_ONLY",
+    "whole_book_absence_proven": false
+  },
+  "next_reading_plan": "Before treating canvas4 heading 十六 as the G893 solar D16 target, establish an unambiguous original source section heading 太陽/盈縮, identity of its units and neighboring D15 and D17 fields; inspect bounded source-emitted canvas24,26,30 as likely table-transition links if needed; do not infer negative after a bounded sample.",
+  "remaining_open_issues": 11,
+  "source_registry_count": 754,
+  "matrix_rows": 222,
+  "matrix_audited": 222,
+  "genealogy_nodes": 252,
+  "genealogy_edges": 238,
+  "new_original_solar_D16_votes": 0,
+  "additional_physical_copies": 0,
+  "algorithm_reopens": 0,
+  "product": "CLOSED"
+}
