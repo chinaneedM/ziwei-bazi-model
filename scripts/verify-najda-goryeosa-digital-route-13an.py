@@ -11,7 +11,7 @@ def verify():
  c=d["na_japan_holding"]
  assert c["shelf"]=="282-0006" and c["set_physical_books"]==128
  assert c["child_book_order"]=="0052" and c["work_volume_52_mapping"]=="UNKNOWN"
- assert c["target_work_volume_in_book_0052"] is False and c["original_folio_obtained"] is False and c["image_byte_sha256"] is None
+ assert c["target_work_volume_in_book_0052"] is None and c["target_work_volume_in_book_0052_proven"] is False and c["original_folio_obtained"] is False and c["image_byte_sha256"] is None
  assert d["independent_witness_status"]["digitization_completed_by_2022"]=="NOT_ESTABLISHED"
  assert d["independent_witness_status"]["image_published_online"]=="NOT_ESTABLISHED_BY_SEARCH_RESULT_OR_PLAN"
  assert d["independent_witness_status"]["cross_print_numeric_vote"]==0

@@ -35,10 +35,11 @@
     "child_book_order": "0052",
     "child_subject_number": "0052",
     "work_volume_52_mapping": "UNKNOWN",
-    "target_work_volume_in_book_0052": false,
+    "target_work_volume_in_book_0052": null,
     "original_folio_obtained": false,
     "viewer_image_url": null,
-    "image_byte_sha256": null
+    "image_byte_sha256": null,
+    "target_work_volume_in_book_0052_proven": false
   },
   "independent_witness_status": {
     "na_japan_physical_holding_is_distinct_institution": "YES",
@@ -76,5 +77,16 @@
     "scope": "HISTORICAL_COPY_LOCATOR_ONLY",
     "stemmata": "UNRESOLVED",
     "reason": "Qing-manuscript catalog assertion and digitization project do not establish textual copying, physical date, work-to-book location, or a glyph."
-  }
+  },
+  "forward_only_errata": [
+    {
+      "id": "13AO-BOOK52-UNKNOWN-NOT-NEGATIVE",
+      "date": "2026-10-20",
+      "prior_commit": "fd4c0a717d6f8f5a0e10ea198a7d9b0e940605b0",
+      "field": "na_japan_holding.target_work_volume_in_book_0052",
+      "old_value": false,
+      "new_value": null,
+      "reason": "A false value implied verified absence; catalog only establishes physical book order, so target work volume mapping remains UNKNOWN."
+    }
+  ]
 }

@@ -8,7 +8,8 @@ class TestNAJDA(unittest.TestCase):
   a=module.load(module.E)["na_japan_holding"]
   self.assertEqual(a["child_book_order"],"0052")
   self.assertEqual(a["work_volume_52_mapping"],"UNKNOWN")
-  self.assertFalse(a["target_work_volume_in_book_0052"])
+  self.assertIsNone(a["target_work_volume_in_book_0052"])
+  self.assertFalse(a["target_work_volume_in_book_0052_proven"])
  def test_plan_not_scan(self):
   a=module.load(module.E)["independent_witness_status"]
   self.assertNotEqual(a["digitization_completed_by_2022"],"YES")
