@@ -31,8 +31,27 @@ def exact_item_links(html):
         raw=entry["href"]
         url=urllib.parse.urljoin(SOURCE,raw)
         p=urllib.parse.urlparse(url)
-        if title=="高麗史52" and p.scheme=="https" and p.netloc=="www.digital.archives.go.jp" and re.fullmatch(r"/item/[0-9]+",p.path):
+        if title=="高麗史52" and p.scheme=="https" and p.netloc=="www.digital.archives.go.jp" and re.fullmatch(r"/item/(?:en/)?[0-9]+",p.path):
             hits.append(url)
+    return sorted(set(hits))
+
+def exact_image_links(html):
+    # Only pair URL values within the SAME publisher-emitted row.
+    if not html:
+        return []
+    starts=[m.start() for m in re.finditer(r'<li class="archive-result-table__body-item"',html)]
+    hits=[]
+    for i,start in enumerate(starts):
+        chunk=html[start:starts[i+1] if i+1<len(starts) else len(html)]
+        items=exact_item_links(chunk)
+        if not items:
+            continue
+        expected_ids={urllib.parse.urlparse(u).path.rsplit("/",1)[-1] for u in items}
+        for raw in re.findall(r'href="([^"]+)"',chunk):
+            url=urllib.parse.urljoin(SOURCE,raw)
+            p=urllib.parse.urlparse(url)
+            if p.scheme=="https" and p.netloc=="www.digital.archives.go.jp" and re.fullmatch(r"/img/(?:en/)?[0-9]+",p.path) and p.path.rsplit("/",1)[-1] in expected_ids:
+                hits.append(url)
     return sorted(set(hits))
 
 def capture(url,name):
@@ -65,13 +84,18 @@ def main():
     primary,body=capture(SOURCE,"official-fond-index.html")
     links=exact_item_links(body) if body is not None else []
     rows=[]
+    viewer_rows=[]
+    image_links=exact_image_links(body)
     # Public source-emitted links only. Never enumerate numeric IDs or infer dates from link shapes.
     for url in links[:2]:
         row,_=capture(url,"exact-book52-item.html")
         rows.append(row)
+    for url in image_links[:2]:
+        row,_=capture(url,"exact-book52-viewer.html")
+        viewer_rows.append(row)
     result={"schema":"TIANWEN-13AP-NAJDA-BOUND-ACCESS-REPLAY-R1",
             "source":primary,"source_emitted_book52_item_links":links,
-            "item_details":rows,"original_work52_folio_read":False,
+            "item_details":rows,"source_emitted_book52_image_viewer_links":image_links,"viewer_details":viewer_rows,"original_work52_folio_read":False,
             "book52_equals_work_volume52":"UNKNOWN",
             "independent_numeric_votes_added":0,
             "no_endpoint_guessing":True,
