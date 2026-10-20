@@ -1,0 +1,71 @@
+{
+  "schema": "TIANWEN-13BC-D16-RECEIVED-ARITHMETIC-AND-HISTORICAL-ORIGINAL-GLYPH-CROSS-LAYER-GATE-R1",
+  "date": "2026-10-20",
+  "issue_id": "TW-OPEN-0005",
+  "evidence_inputs": {
+    "received_arithmetic": "docs/research/TIANWEN-12YZ-GORYEOSA-D14-D20-INTRATABLE-THREE-COLUMN-RECEIVED-ARITHMETIC-R1.json",
+    "historical_original_NAJ": "docs/research/TIANWEN-13BA-NAJDA-GORYEOSA51-WINTER-SOLAR-D16-DIRECT-GLYPH-R1.json",
+    "multiholding_original_scope": "docs/research/TIANWEN-13BB-GORYEOSA-SOLAR-D16-MULTIHOLDING-EVIDENCE-FIREWALL-R1.json"
+  },
+  "new_historical_original_pages_acquired": 0,
+  "prior_recurrence_discovered_in_batch": "12YZ",
+  "received_triple_lane": {
+    "provider_url": "https://db.history.go.kr/goryeo/level.do?levelId=kr_052_0010_0010_0020_0010&types=o",
+    "grade": "MODERN_INSTITUTIONAL_TEXT_NOT_NEW_HISTORICAL_ORIGINAL",
+    "day16_short": "5.1362",
+    "day16_long": "429.6073",
+    "day17_long": "424.3711",
+    "day16_cumulative": "7570.6624",
+    "day17_cumulative": "8000.2697",
+    "long_difference_implies_day16_short": "5.2362",
+    "cumulative_difference_confirms_day16_long": "429.6073",
+    "literal_anomaly": "五分一三六二",
+    "tested_edges_days": [
+      14,
+      15,
+      16,
+      17,
+      18,
+      19
+    ],
+    "only_short_to_long_failed_day": 16
+  },
+  "previously_attested_original_short_glyphs": [
+    {
+      "id": "NAJ-282-0006-PHYSICAL-51",
+      "folio": "book51 canvas17",
+      "jpeg_sha256": "8362e8a2b8ddf5f36408d4450a81ebad2d9548b32f49dbe37e01493592b7c3e9",
+      "d16": "五分一三六二"
+    },
+    {
+      "id": "WASEDA-RI06-02809-BOOK33",
+      "folio": "PDF p23 xref70",
+      "jpeg_sha256": "388f3d5dd9e9861f8ce90c304b154edaeaee98614bb12cd3468f957dcde6fc66",
+      "d16": "五分一三六二"
+    },
+    {
+      "id": "NLC-COMMONS-GROUP40-UNBOUND",
+      "folio": "Commons PDF p16 NLC item not independently bound",
+      "jpeg_sha256": "d99f7233a4203f634b58f25ae7f9d554aeaf363108e48c71a12f32e04d310832",
+      "d16": "五分一三六二"
+    },
+    {
+      "id": "KYUJANGGAK-GK00893-00",
+      "folio": "G893 original 002b different work",
+      "jpeg_sha256": null,
+      "d16": "五分二三六二"
+    }
+  ],
+  "original_crosscolumn_image_collation_status": "NOT_PERFORMED_BY_13BC",
+  "received_relation_may_be_computed_but_not_projected_onto_original_long_or_cumulative_glyphs": true,
+  "original_digit_is_not_silently_normalized_by_arithmetic": true,
+  "identical_received_long_lane_not_proof_of_cross_work_unit_or_stemmatic_independence": true,
+  "independent_numeric_votes_added": 0,
+  "direct_transmission_edges_added": 0,
+  "new_registry_sources_added": 0,
+  "algorithm_reopens": 0,
+  "product_status": "CLOSED",
+  "earliest_original_one_or_two": "UNRESOLVED",
+  "next_source_action": "Review NAJ original book51 canvas17 and Waseda p23 native-resolution LONG/CUM glyphs with separately SHA-bound original ROIs; then identify edition/unit relationships, independent witness chronology; do not infer from modern received text.",
+  "transmission_impact": "NONE_NO_NEW_LINEAGE_LINKS"
+}

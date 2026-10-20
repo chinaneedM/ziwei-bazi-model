@@ -449,6 +449,10 @@ jobs:
         run: python -m unittest discover -s tests -p 'test_13aq_omission_aux_reference_allowlist.py' -v
       - name: NAJDA 13AS source-emitted native image acquisition offline tests
         run: python -m unittest discover -s tests -p 'test_najda_goryeosa_native_image_13as.py' -v
+      - name: Goryeosa 13BC received-arithmetic versus original-glyph crosslayer gate
+        run: |
+          python scripts/verify-goryeosa-d16-crosslayer-13bc.py
+          python -m unittest discover -s tests -p 'test_goryeosa_d16_crosslayer_13bc.py' -v
       - name: Focused capability acceptance tests
         run: |
           python -m unittest discover -s tests -p "test_fusion_chart_capability_acceptance_r1.py" -v
