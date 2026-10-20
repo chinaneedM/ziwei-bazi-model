@@ -469,6 +469,10 @@ jobs:
         run: |
           python scripts/verify-goryeosa-fivepoint-original-received-offset-13bh.py
           python -m unittest discover -s tests -p 'test_goryeosa_fivepoint_original_received_offset_13bh.py' -v
+      - name: Goryeosa 13BI P0 original acquisition handoff staleness gate
+        run: |
+          python scripts/verify-goryeosa-p0-original-handoff-13bi.py
+          python -m unittest discover -s tests -p 'test_goryeosa_p0_original_handoff_13bi.py' -v
       - name: Focused capability acceptance tests
         run: |
           python -m unittest discover -s tests -p "test_fusion_chart_capability_acceptance_r1.py" -v
