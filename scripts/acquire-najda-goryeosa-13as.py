@@ -44,7 +44,7 @@ def fetch_bounded(url,name,cap,content):
             if len(b)>cap:result["status"]="STREAM_SIZE_LIMIT";return result,None
             result["sha256"]=hashlib.sha256(b).hexdigest()
             result["bytes"]=len(b);result["status"]="BYTE_CAPTURED"
-            if b.startswith(b"\\x00\\x00\\x00\\x0cjP  \\r\\n\\x87\\n") or b.startswith(bytes.fromhex("ff4f")):result["format"]="JPEG2000_MAGIC"
+            if b.startswith(bytes.fromhex("0000000c6a5020200d0a870a")) or b.startswith(bytes.fromhex("ff4f")):result["format"]="JPEG2000_MAGIC"
             elif b.lstrip().startswith(b"{"):result["format"]="JSON"
             elif b.lstrip().startswith(b"<"):result["format"]="HTML_OR_XML"
             OUT.mkdir(parents=True,exist_ok=True);(OUT/name).write_bytes(b)
@@ -69,6 +69,6 @@ def main():
             r.update({"viewer_list_ordinal":i+1,"source_content_path":info["path"],"declared_image_geometry":[info["width"],info["height"]]})
             selections.append(r)
     out={"schema":"TIANWEN-13AS-NAJDA-NATIVE-JP2-BOUNDED-PROBE-R1","viewer":page,"source_emitted_canvas_count":len(entries),"manifest_from_provider_html":manifest,"manifest_result":mr,"sampled_source_native_originals":selections,"human_glyph_collation_done":False,"work52_presence":"UNVERIFIED","D16_numeric_vote":0,"single_physical_copy_witness_max":1,"no_computed_paths":True}
-    (OUT/"result.json").write_text(json.dumps(out,ensure_ascii=False,indent=2)+"\\n",encoding="utf-8")
+    (OUT/"result.json").write_text(json.dumps(out,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     print(json.dumps(out,ensure_ascii=False))
 if __name__=="__main__":main()
