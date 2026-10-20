@@ -54,10 +54,13 @@ def check(e,bd,ba,ab,yz,ledger,state):
     for k in ("this_batch_new_physical_witnesses_acquired","this_batch_new_image_objects_acquired","independent_stemmatic_votes_counted","registry_sources_added","genealogy_nodes_added","genealogy_edges_added","matrix_rows_added","algorithm_reopen_count"):assert f[k]==0
     assert f["chart_product"]=="CLOSED"
     issue=next(z for z in ledger["issues"] if z["id"]=="TW-OPEN-0005")
-    assert issue["priority"]=="P0" and issue["status"]=="OPEN" and issue["source_refs"][-2:]==[MD,PC]
+    assert issue["priority"]=="P0" and issue["status"]=="OPEN"
+    # Evidence is append-only, so previous 13BE refs must stay contiguous but NOT forever last.
+    assert MD in issue["source_refs"] and PC in issue["source_refs"]
+    assert issue["source_refs"].index(PC)==issue["source_refs"].index(MD)+1
     assert state["schema_version"]==ledger["binding"]["reviewed_state_version"]==state["historical_audit"]["research_omission_guard"]["reviewed_state_version"]
-    assert state["historical_audit"]["current_focus"][-1].startswith("13BE ")
-    assert ledger["binding"]["latest_research_focus_prefix"]=="13BE"
+    assert any(x.startswith("13BE ") for x in state["historical_audit"]["current_focus"])
+    assert ledger["binding"]["latest_research_focus_prefix"]==state["historical_audit"]["current_focus"][-1].split(" ")[0]
     assert ledger["binding"]["source_focus_count"]==len(state["historical_audit"]["current_focus"])
     assert ledger["checkpoint_log"][-1]["state_version"]==state["schema_version"]
     assert len(ledger["checkpoint_log"][-1]["reviewed_issue_ids"])==11

@@ -29,4 +29,21 @@ class Test13BE(unittest.TestCase):
  def test_wrong_implied_short(self):
   x=copy.deepcopy(self.e);x["roman_decimal_bridge"]["long_d16_minus_d17"]="5.1362"
   with self.assertRaises(AssertionError):self.run_check(x)
+ def test_future_batch_append_preserves_prior_source_gate(self):
+  future_l=copy.deepcopy(self.ledger);future_s=copy.deepcopy(self.state)
+  f=next(x for x in future_l["issues"] if x["id"]=="TW-OPEN-0005")
+  f["source_refs"].extend(["docs/research/SYNTHETIC_TEST_FUTURE_BATCH.md","docs/research/SYNTHETIC_TEST_FUTURE_BATCH.json"])
+  future_s["schema_version"]="TEST_FORWARD_ONLY"
+  future_s["historical_audit"]["research_omission_guard"]["reviewed_state_version"]="TEST_FORWARD_ONLY"
+  future_s["historical_audit"]["current_focus"].append("13BF TEST_ONLY_FOR_APPEND_FORWARD_COMPAT")
+  future_l["binding"]["reviewed_state_version"]="TEST_FORWARD_ONLY"
+  future_l["binding"]["source_focus_count"]=len(future_s["historical_audit"]["current_focus"])
+  future_l["binding"]["latest_research_focus_prefix"]="13BF"
+  future_l["checkpoint_log"].append({"state_version":"TEST_FORWARD_ONLY","reviewed_issue_ids":[x["id"] for x in future_l["issues"]]})
+  self.assertTrue(m.check(self.e,self.bd,self.ba,self.ab,self.yz,future_l,future_s))
+ def test_historical_source_pair_disappearance_rejected(self):
+  future_l=copy.deepcopy(self.ledger)
+  f=next(x for x in future_l["issues"] if x["id"]=="TW-OPEN-0005")
+  f["source_refs"].remove(m.MD)
+  with self.assertRaises(AssertionError):m.check(self.e,self.bd,self.ba,self.ab,self.yz,future_l,self.state)
 if __name__=="__main__":unittest.main()
