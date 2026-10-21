@@ -509,6 +509,10 @@ jobs:
         run: |
           python scripts/verify-goryeosa-original-target-rois-13br.py
           python -m unittest discover -s tests -p 'test_goryeosa_original_target_rois_13br.py' -v
+      - name: Goryeosa 13BS Waseda D16 and NAJ D18 D19 original glyph ROI gate
+        run: |
+          python scripts/verify-goryeosa-13bs-native-glyphs.py
+          python -m unittest discover -s tests -p 'test_goryeosa_13bs_native_glyphs.py' -v
       - name: Focused capability acceptance tests
         run: |
           python -m unittest discover -s tests -p "test_fusion_chart_capability_acceptance_r1.py" -v
