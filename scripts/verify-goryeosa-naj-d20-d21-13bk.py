@@ -75,7 +75,15 @@ def check(e,bg,bj,yz,ledger,state):
  assert set([PBG,PBJ,PYZ,MD,P]).issubset(set(h["evidence_refs"]))
  assert "[13BK 2026-10-21 DIRECT NAJ CANVAS18 ORIGINAL REVIEW]" in issue["evidence_boundary"]
  assert "[13BK 2026-10-21 CURRENT REMAINING GAPS]" in issue["missing_evidence"]
- assert issue["next_action"].startswith("13BK CURRENT ACTION") or any(z.get("event")=="ISSUE_REVISION" and "next_action" in z.get("changed_fields",[]) for z in issue["history"][issue["history"].index(h)+1:])
+ # A future issue revision is valid only when the new active action agrees
+ # with the current handoff focus; older action text cannot be reactivated.
+ later_action_revision=any(
+    z.get("event")=="ISSUE_REVISION" and "next_action" in z.get("changed_fields",[])
+    for z in issue["history"][issue["history"].index(h)+1:])
+ latest_focus_prefix=ledger["binding"]["latest_research_focus_prefix"]
+ assert issue["next_action"].startswith("13BK CURRENT ACTION") or (
+    later_action_revision and latest_focus_prefix!="13BK"
+    and issue["next_action"].startswith(latest_focus_prefix+" "))
  assert state["schema_version"]==ledger["binding"]["reviewed_state_version"]==state["historical_audit"]["research_omission_guard"]["reviewed_state_version"]
  assert any(x.startswith("13BK ") for x in state["historical_audit"]["current_focus"])
  assert ledger["binding"]["latest_research_focus_prefix"]==state["historical_audit"]["current_focus"][-1].split(" ")[0]

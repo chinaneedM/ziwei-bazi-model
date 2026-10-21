@@ -38,6 +38,14 @@ class NAJ13BK(unittest.TestCase):
  def test_old_action_cannot_regress(self):
   l=copy.deepcopy(self.l);next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")["next_action"]="13BJ CURRENT ACTION superseded"
   with self.assertRaises(AssertionError):self.go(ledger=l)
+ def test_unregistered_future_action_rejected(self):
+  l=copy.deepcopy(self.l)
+  next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")["next_action"]="13BL UNREGISTERED ACTION"
+  with self.assertRaises(AssertionError):self.go(ledger=l)
+ def test_false_old_action_with_append_only_history(self):
+  l=copy.deepcopy(self.l)
+  next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")["next_action"]="13BJ CURRENT ACTION (STALE)"
+  with self.assertRaises(AssertionError):self.go(ledger=l)
  def test_future_append_safe(self):
   l=copy.deepcopy(self.l);s=copy.deepcopy(self.s)
   i=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")

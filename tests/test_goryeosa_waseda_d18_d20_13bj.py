@@ -40,6 +40,14 @@ class Waseda13BJ(unittest.TestCase):
   l=copy.deepcopy(self.ledger)
   next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")["next_action"]="13BI CURRENT EVIDENCE-BOUND NEXT ACTION"
   with self.assertRaises(AssertionError):self.go(ledger=l)
+ def test_unregistered_future_action_rejected(self):
+  l=copy.deepcopy(self.ledger)
+  next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")["next_action"]="13BL UNREGISTERED ACTION"
+  with self.assertRaises(AssertionError):self.go(ledger=l)
+ def test_false_stale_action_after_newer_revision(self):
+  l=copy.deepcopy(self.ledger)
+  next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")["next_action"]="13BI CURRENT EVIDENCE-BOUND NEXT ACTION (STALE)"
+  with self.assertRaises(AssertionError):self.go(ledger=l)
  def test_future_forward_only(self):
   l=copy.deepcopy(self.ledger);s=copy.deepcopy(self.state)
   issue=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")

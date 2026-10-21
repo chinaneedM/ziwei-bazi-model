@@ -84,12 +84,16 @@ def check(e,be,bg,bh,yz,ledger,state):
  assert {PBE,PBG,PBH,MD,P}.issubset(set(ev["evidence_refs"]))
  assert "[13BJ 2026-10-21 WASEDA NATIVE FOLIO POSITIVE REVIEW]" in issue["evidence_boundary"]
  assert "[13BJ 2026-10-21 REMAINING ORIGINAL TARGETS]" in issue["missing_evidence"]
- # 13BI is superseded, even when a newer legitimate ISSUE_REVISION exists.
- # Preserve original glyph/ROI checks and future-scoped append-only transitions.
- assert not issue["next_action"].startswith("13BI CURRENT EVIDENCE-BOUND NEXT ACTION")
- assert issue["next_action"].startswith("13BJ CURRENT ACTION") or any(
+ # A later ISSUE_REVISION alone is insufficient: the active action must match
+ # the latest durable research-focus prefix, not a stale 13BI/13BJ instruction.
+ # This allows forward-only future research without silently reactivating old work.
+ later_action_revision=any(
     z.get("event")=="ISSUE_REVISION" and "next_action" in z.get("changed_fields",[])
     for z in issue["history"][issue["history"].index(ev)+1:])
+ latest_focus_prefix=ledger["binding"]["latest_research_focus_prefix"]
+ assert issue["next_action"].startswith("13BJ CURRENT ACTION") or (
+    later_action_revision and latest_focus_prefix!="13BJ"
+    and issue["next_action"].startswith(latest_focus_prefix+" "))
  assert state["schema_version"]==ledger["binding"]["reviewed_state_version"]==state["historical_audit"]["research_omission_guard"]["reviewed_state_version"]
  assert any(z.startswith("13BJ ") for z in state["historical_audit"]["current_focus"])
  assert ledger["binding"]["source_focus_count"]==len(state["historical_audit"]["current_focus"])
