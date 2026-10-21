@@ -561,6 +561,10 @@ jobs:
         run: |
           python scripts/verify-goryeosa-day-header-folio-13ce.py
           python -m unittest discover -s tests -p 'test_goryeosa_day_header_folio_13ce.py' -v
+      - name: Goryeosa 13CF original SHA-bound D17 heading sidedness and folio gate
+        run: |
+          python scripts/verify-goryeosa-source-sidedness-13cf.py
+          python -m unittest discover -s tests -p 'test_goryeosa_source_sidedness_13cf.py' -v
       - name: Focused capability acceptance tests
         run: |
           python -m unittest discover -s tests -p "test_fusion_chart_capability_acceptance_r1.py" -v
