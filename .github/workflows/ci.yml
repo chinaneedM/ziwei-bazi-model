@@ -501,6 +501,10 @@ jobs:
         run: |
           python scripts/verify-goryeosa-field-day-alignment-13bp.py
           python -m unittest discover -s tests -p 'test_goryeosa_field_day_alignment_13bp.py' -v
+      - name: Goryeosa 13BQ numeric and original-heading evidence grade gate
+        run: |
+          python scripts/verify-goryeosa-numeric-evidence-grades-13bq.py
+          python -m unittest discover -s tests -p 'test_goryeosa_numeric_evidence_grades_13bq.py' -v
       - name: Focused capability acceptance tests
         run: |
           python -m unittest discover -s tests -p "test_fusion_chart_capability_acceptance_r1.py" -v
