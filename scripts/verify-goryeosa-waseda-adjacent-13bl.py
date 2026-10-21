@@ -21,7 +21,7 @@ def check(e,ledger,state):
  assert src["script"]=="scripts/probe-goryeosa-waseda-adjacent-13bl.py" and src["workflow"]==".github/workflows/probe-goryeosa-waseda-adjacent-13bl.yml"
  expected=[
  (24,73,"913368872d9a7589abf88a4ae9b8d87ca4b836cc27c0d66d21b8ba82022e1574",690293,"7202517581d6a9ecd18fe134851d60c61166c11223e43b055f31c437aa4be1da",21,29),
- (25,76,"ac19365a36456f0a550dd85873c0a006cee37765a352aa2b23d37137b5478646",680130,"4b628cfd4cf69d1748772c64ae8cc76fb2f7391afc3e4fe423f7fb9b",30,38)]
+ (25,76,"ac19365a36456f0a550dd85873c0a006cee37765a352aa2b23d37137b5478646",680130,"4b628cfd4cf69d1748772c6fbd770c64ae8cc76fb2f7391afc3e4fe423f7fb9b",30,38)]
  assert len(e["original_embedded_images"])==len(expected)
  for row,exp in zip(e["original_embedded_images"],expected):
   assert (row["pdf_page_1based"],row["embedded_xref"],row["original_jpeg_sha256"],
