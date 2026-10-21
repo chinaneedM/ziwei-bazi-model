@@ -493,6 +493,10 @@ jobs:
         run: |
           python scripts/verify-goryeosa-waseda-tight-roi-13bn.py
           python -m unittest discover -s tests -p 'test_goryeosa_waseda_tight_roi_13bn.py' -v
+      - name: Goryeosa 13BO Waseda original D17 D18 native column and heading gate
+        run: |
+          python scripts/verify-goryeosa-waseda-d17-d18-tight-13bo.py
+          python -m unittest discover -s tests -p 'test_goryeosa_waseda_d17_d18_13bo.py' -v
       - name: Focused capability acceptance tests
         run: |
           python -m unittest discover -s tests -p "test_fusion_chart_capability_acceptance_r1.py" -v
