@@ -17,7 +17,7 @@ def evidence_files_and_sha(e):
     out={}
     for key,r in e["source_records"].items():
         b=(ROOT/r["path"]).read_bytes()
-        blob=b"blob "+str(len(b)).encode()+b"\\0"+b
+        blob=b"blob "+str(len(b)).encode()+bytes([0])+b
         assert hashlib.sha1(blob).hexdigest()==r["sha"], (key,"source blob changed")
         out[key]=json.loads(b)
     return out
