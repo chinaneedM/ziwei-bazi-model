@@ -577,6 +577,10 @@ jobs:
         run: |
           python scripts/verify-goryeosa-two-original-long-short-asymmetry-13ci.py
           python -m unittest discover -s tests -p 'test_goryeosa_two_original_long_short_asymmetry_13ci.py' -v
+      - name: Goryeosa 13CJ original printed day header to technical long short cross-batch geometry
+        run: |
+          python scripts/verify-goryeosa-printed-day-lane-crossbinding-13cj.py
+          python -m unittest discover -s tests -p 'test_goryeosa_printed_day_lane_crossbinding_13cj.py' -v
       - name: Focused capability acceptance tests
         run: |
           python -m unittest discover -s tests -p "test_fusion_chart_capability_acceptance_r1.py" -v
