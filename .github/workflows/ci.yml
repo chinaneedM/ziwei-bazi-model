@@ -477,6 +477,10 @@ jobs:
         run: |
           python scripts/verify-goryeosa-waseda-d18-d20-13bj.py
           python -m unittest discover -s tests -p 'test_goryeosa_waseda_d18_d20_13bj.py' -v
+      - name: Goryeosa 13BK NAJ original D19 long D20 D21 cumulative gate
+        run: |
+          python scripts/verify-goryeosa-naj-d20-d21-13bk.py
+          python -m unittest discover -s tests -p 'test_goryeosa_naj_d20_d21_13bk.py' -v
       - name: Focused capability acceptance tests
         run: |
           python -m unittest discover -s tests -p "test_fusion_chart_capability_acceptance_r1.py" -v
