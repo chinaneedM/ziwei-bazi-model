@@ -4,6 +4,8 @@ on:
     branches: [agent/fusion-chart-core-r1-20260822]
     paths:
       - scripts/acquire-goryeosa-waseda-p28-p44-original-13bx.py
+      - scripts/verify-goryeosa-waseda-p26-p27-original-13bx.py
+      - tests/test_goryeosa_waseda_p26_p27_original_13bx.py
       - .github/workflows/acquire-goryeosa-waseda-p28-p44-original-13bx.yml
       - docs/research/TIANWEN-13BX-GORYEOSA-WASEDA-P26-P27-ORIGINAL-D39-D56-AND-EXTENDED-FOLIO-ATLAS-R1.json
   workflow_dispatch:
