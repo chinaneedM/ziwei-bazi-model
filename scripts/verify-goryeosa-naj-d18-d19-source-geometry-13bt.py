@@ -66,11 +66,11 @@ def check(e,s,l,prior):
  assert e["transmission_impact"]["nodes_added"]==e["transmission_impact"]["edges_supported"]==e["transmission_impact"]["edges_revised"]==[]
  issue=next(z for z in l["issues"] if z["id"]=="TW-OPEN-0005")
  assert issue["priority"]=="P0" and issue["status"]=="OPEN"
- assert issue["source_refs"].count(M)==issue["source_refs"].count(P)==1
- assert issue["source_refs"].index(P)==issue["source_refs"].index(M)+1
+ assert issue["source_refs"].count(MD)==issue["source_refs"].count(P)==1
+ assert issue["source_refs"].index(P)==issue["source_refs"].index(MD)+1
  rev=next(z for z in issue["history"] if z.get("revision_id")=="TW-OPEN-0005-NAJ-HEADING-CUMULATIVE-GEOMETRY-13BT")
  assert rev["previous_next_action"].startswith("13BS CURRENT ACTION")
- assert {M,P,BS,BG,BQ,BR}.issubset(set(rev["evidence_refs"]))
+ assert {MD,P,BS,BG,BQ,BR}.issubset(set(rev["evidence_refs"]))
  later=any("next_action" in z.get("changed_fields",[]) for z in issue["history"][issue["history"].index(rev)+1:])
  prefix=l["binding"]["latest_research_focus_prefix"]
  assert issue["next_action"].startswith("13BT CURRENT ACTION") or (later and prefix!="13BT" and issue["next_action"].startswith(prefix+" CURRENT ACTION"))
