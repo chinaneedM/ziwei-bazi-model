@@ -513,6 +513,10 @@ jobs:
         run: |
           python scripts/verify-goryeosa-13bs-native-glyphs.py
           python -m unittest discover -s tests -p 'test_goryeosa_13bs_native_glyphs.py' -v
+      - name: Goryeosa 13BT NAJ original D18-D19 cumulative and heading geometry
+        run: |
+          python scripts/verify-goryeosa-naj-d18-d19-source-geometry-13bt.py
+          python -m unittest discover -s tests -p 'test_goryeosa_naj_d18_d19_geometry_13bt.py' -v
       - name: Focused capability acceptance tests
         run: |
           python -m unittest discover -s tests -p "test_fusion_chart_capability_acceptance_r1.py" -v

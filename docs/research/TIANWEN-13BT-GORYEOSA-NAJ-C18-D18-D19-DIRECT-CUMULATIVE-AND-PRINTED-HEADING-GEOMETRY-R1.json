@@ -1,0 +1,106 @@
+{
+  "schema": "TIANWEN-13BT-NAJ-ORIGINAL-CANVAS18-INTRA-COLUMN-PRINTED-DAY-AND-CUMULATIVE-GEOMETRY-R1",
+  "date": "2026-10-21",
+  "issue_id": "TW-OPEN-0005",
+  "grade": "DIRECT_SOURCE_NATIVE_ORIGINAL_RGB_TIGHT_CUMULATIVE_PLUS_INDEPENDENT_DAY_HEADING_NO_OCR",
+  "firstparty_source": {
+    "physical_holding": "NAJ-282-0006-PHYSICAL51",
+    "provider_item": "https://www.digital.archives.go.jp/item/en/4898853",
+    "original_source": "https://www.digital.archives.go.jp/api/content/item/da12/C103403933000/iiif/M2022071510152404630_0018.jp2/full/max/0/native.jpg",
+    "provider_manifest_sha256": "3f38f52860bd06ca7f4b89cec65a32b8529fcb547ac098548120e8071fe370a1",
+    "canvas_1based": 18,
+    "jpeg_sha256": "88cecf62c8cd0dd623199eb06e3044efbe61771c1ffe058b8e7a87cc2f8f88cc",
+    "dimensions": [
+      3000,
+      2215
+    ],
+    "run_id": 39588454662,
+    "artifact_id": 12340553228,
+    "artifact_zip_sha256": "f39ac9b4dd815133ea2cad55088ff33963783e22d960b19c03729230b80eaced",
+    "manual_review": "SOURCE_NATIVE_JPEG_RGB_NO_OCR"
+  },
+  "paired_original_field_columns": [
+    {
+      "day": 18,
+      "heading_key": "N_D18_DAY",
+      "heading": "十八日",
+      "heading_bbox": [
+        2350,
+        520,
+        2465,
+        815
+      ],
+      "heading_sha256": "09a8f78fe2446bad31a689db2e339cc1a508de357c125bd39c92dd9e249cc257",
+      "cumulative_key": "N_D18_C",
+      "cumulative_literal": "八千〇〇〇二六九七",
+      "cumulative_value": "8000.2697",
+      "cumulative_bbox": [
+        2490,
+        827,
+        2552,
+        1760
+      ],
+      "cumulative_sha256": "433e8d3aab7170282c8bb94dd6e42acc7e1aa6cdb1d09738bd485e7a107ca20b"
+    },
+    {
+      "day": 19,
+      "heading_key": "N_D19_DAY",
+      "heading": "十九日",
+      "heading_bbox": [
+        2185,
+        520,
+        2310,
+        815
+      ],
+      "heading_sha256": "691553c623bc1bbf344066a6feffae5b576e5d352e2623506f851b7cf0b5ca1d",
+      "cumulative_key": "N_D19_C",
+      "cumulative_literal": "八千四百二十四六四〇八",
+      "cumulative_value": "8424.6408",
+      "cumulative_bbox": [
+        2318,
+        827,
+        2378,
+        1760
+      ],
+      "cumulative_sha256": "d7316b09caa6210f7075176551064a2ac6ce5e86e5d21726983d0a15d17a4884"
+    }
+  ],
+  "local_geometry_finding": "NAJ canvas18 original explicit headings 十八日 and 十九日 occupy separate original folio columns; narrow original cumulative numeral lanes immediately to the right of those headings bind printed D18 C8000.2697 and D19 C8424.6408. This is a two-day same-folio heading/column pairing only, not a mechanical interpretation of the entire table or proven whole-table day offset.",
+  "comparison": {
+    "waseda_holding": "WASEDA-RI06-02809-BOOK33",
+    "waseda_printed_day17_cumulative": "8000.2697",
+    "waseda_printed_day18_cumulative": "8424.6408",
+    "local_field_label_difference": "NAJ_CUMULATIVE_PRINTED_D18_D19_MATCHES_WASEDA_CUMULATIVE_PRINTED_D17_D18",
+    "uniform_all_field_day_shift_proven": false,
+    "global_source_day_index_proven": false,
+    "independent_physical_copying_lineage_proven": false,
+    "ancient_D16_variant_ancestry_proven": false
+  },
+  "source_dependencies": {
+    "previous_d18_d19_original_day_header": "docs/research/TIANWEN-13BS-GORYEOSA-WASEDA-D16-NAJ-D18-D19-SOURCE-NATIVE-GLYPH-COLLATION-R1.json",
+    "previous_broad_naj_numeric": "docs/research/TIANWEN-13BG-GORYEOSA-NAJ-ADJACENT-FOLIOS-CUMULATIVE-D17-D19-R1.json",
+    "prior_evidence_grade": "docs/research/TIANWEN-13BQ-GORYEOSA-NUMERIC-PARALLELS-HEADING-GRADE-AND-LEGACY-ATTRIBUTION-R1.json",
+    "pixel_capture_definition": "docs/research/TIANWEN-13BR-GORYEOSA-WASEDA-D16-NAJ-D18-D19-BOUNDED-SOURCE-ACQUISITION-R1.json"
+  },
+  "source_scope": {
+    "new_original_jpeg_objects": 0,
+    "new_physical_witnesses": 0,
+    "new_independent_stemmatic_votes": 0,
+    "new_registry_sources": 0,
+    "new_matrix_rows": 0,
+    "new_genealogy_nodes": 0,
+    "new_genealogy_edges": 0,
+    "algorithm_reopens": 0,
+    "research_risks_open_or_blocked": 11,
+    "product": "CLOSED"
+  },
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproven": [
+      "Two adjacent numeric/heading matches within one NAJ same physical copy cannot attest an independent impression or all-column date-shift law."
+    ]
+  },
+  "next_action": "Keep 13BT bounded; directly isolate Waseda original D16 cumulative candidate and table section start/end, compare G893 少/微 and Ming1569 original same-field units, preserve source genealogy OPEN."
+}
