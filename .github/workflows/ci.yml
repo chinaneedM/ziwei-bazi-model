@@ -537,6 +537,10 @@ jobs:
         run: |
           python scripts/verify-goryeosa-waseda-seasonal-boundary-13by.py
           python -m unittest discover -s tests -p 'test_goryeosa_waseda_seasonal_boundary_13by.py' -v
+      - name: Goryeosa 13BZ source-original summer table D93 terminus and repeated scan gate
+        run: |
+          python scripts/verify-goryeosa-waseda-summer-terminus-13bz.py
+          python -m unittest discover -s tests -p 'test_goryeosa_waseda_summer_terminus_13bz.py' -v
       - name: Focused capability acceptance tests
         run: |
           python -m unittest discover -s tests -p "test_fusion_chart_capability_acceptance_r1.py" -v
