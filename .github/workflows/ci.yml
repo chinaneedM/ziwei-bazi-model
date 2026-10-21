@@ -525,6 +525,10 @@ jobs:
         run: |
           python scripts/verify-waseda-solar-table-original-start-13bv.py
           python -m unittest discover -s tests -p 'test_waseda_solar_table_original_start_13bv.py' -v
+      - name: Goryeosa 13BW Waseda original D21-D38 page boundary and source capture
+        run: |
+          python scripts/verify-goryeosa-waseda-p24-p25-boundary-13bw.py
+          python -m unittest discover -s tests -p 'test_goryeosa_waseda_p24_p25_boundary_13bw.py' -v
       - name: Focused capability acceptance tests
         run: |
           python -m unittest discover -s tests -p "test_fusion_chart_capability_acceptance_r1.py" -v
