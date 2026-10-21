@@ -485,6 +485,10 @@ jobs:
         run: |
           python scripts/verify-goryeosa-waseda-adjacent-13bl.py
           python -m unittest discover -s tests -p 'test_goryeosa_waseda_adjacent_13bl.py' -v
+      - name: Goryeosa 13BM Waseda native cumulative day-header forward erratum gate
+        run: |
+          python scripts/verify-goryeosa-waseda-day-index-13bm.py
+          python -m unittest discover -s tests -p 'test_goryeosa_waseda_day_index_13bm.py' -v
       - name: Focused capability acceptance tests
         run: |
           python -m unittest discover -s tests -p "test_fusion_chart_capability_acceptance_r1.py" -v
