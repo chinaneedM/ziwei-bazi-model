@@ -521,6 +521,10 @@ jobs:
         run: |
           python scripts/verify-goryeosa-waseda-folio-seam-13bu.py
           python -m unittest discover -s tests -p 'test_goryeosa_waseda_folio_seam_13bu.py' -v
+      - name: Goryeosa 13BV Waseda original solar table start and printed day-index source gate
+        run: |
+          python scripts/verify-waseda-solar-table-original-start-13bv.py
+          python -m unittest discover -s tests -p 'test_waseda_solar_table_original_start_13bv.py' -v
       - name: Focused capability acceptance tests
         run: |
           python -m unittest discover -s tests -p "test_fusion_chart_capability_acceptance_r1.py" -v
