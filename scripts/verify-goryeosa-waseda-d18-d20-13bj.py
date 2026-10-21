@@ -84,6 +84,9 @@ def check(e,be,bg,bh,yz,ledger,state):
  assert {PBE,PBG,PBH,MD,P}.issubset(set(ev["evidence_refs"]))
  assert "[13BJ 2026-10-21 WASEDA NATIVE FOLIO POSITIVE REVIEW]" in issue["evidence_boundary"]
  assert "[13BJ 2026-10-21 REMAINING ORIGINAL TARGETS]" in issue["missing_evidence"]
+ # 13BI is superseded, even when a newer legitimate ISSUE_REVISION exists.
+ # Preserve original glyph/ROI checks and future-scoped append-only transitions.
+ assert not issue["next_action"].startswith("13BI CURRENT EVIDENCE-BOUND NEXT ACTION")
  assert issue["next_action"].startswith("13BJ CURRENT ACTION") or any(
     z.get("event")=="ISSUE_REVISION" and "next_action" in z.get("changed_fields",[])
     for z in issue["history"][issue["history"].index(ev)+1:])
