@@ -557,6 +557,10 @@ jobs:
         run: |
           python scripts/verify-goryeosa-crossfield-label-alignment-13cd.py
           python -m unittest discover -s tests -p 'test_goryeosa_crossfield_label_alignment_13cd.py' -v
+      - name: Goryeosa 13CE original D15-D17 two holding folio topology
+        run: |
+          python scripts/verify-goryeosa-day-header-folio-13ce.py
+          python -m unittest discover -s tests -p 'test_goryeosa_day_header_folio_13ce.py' -v
       - name: Focused capability acceptance tests
         run: |
           python -m unittest discover -s tests -p "test_fusion_chart_capability_acceptance_r1.py" -v
