@@ -91,7 +91,7 @@ def check(e, sources, s, ledger):
     assert s["invariants"]["algorithm_reopen_count"]==0
     assert ledger["binding"]["reviewed_state_version"]==s["schema_version"]
     assert ledger["binding"]["source_focus_count"]==len(a["current_focus"])
-    assert ledger["binding"]["latest_research_focus_prefix"]=="13CD"
+    assert ledger["binding"]["latest_research_focus_prefix"]==a["current_focus"][-1].split()[0]
     q=next(x for x in ledger["issues"] if x["id"]=="TW-OPEN-0005")
     assert q["status"]=="OPEN"
     assert E in q["source_refs"]

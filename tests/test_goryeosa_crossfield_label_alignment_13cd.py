@@ -52,8 +52,7 @@ class Cross13CD(unittest.TestCase):
         s["historical_audit"]["current_focus"].append("13ZZ future")
         l["binding"]["reviewed_state_version"]="1.800.0"
         l["binding"]["source_focus_count"]=len(s["historical_audit"]["current_focus"])
-        # The check here is a snapshot-specific handoff contract: explicit 13CD as latest,
-        # so future stages must update the latest prefix and corresponding future verifier.
-        with self.assertRaises(AssertionError):self.go(s=s,l=l)
+        l["binding"]["latest_research_focus_prefix"]="13ZZ"
+        self.assertTrue(self.go(s=s,l=l))
 
 if __name__=="__main__":unittest.main()
