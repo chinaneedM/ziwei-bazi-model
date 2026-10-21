@@ -66,7 +66,7 @@ def check(e,state,ledger,old):
  assert issue["status"]=="OPEN" and issue["priority"]=="P0"
  assert issue["source_refs"].count(MD)==issue["source_refs"].count(P)==1
  assert issue["source_refs"].index(P)==issue["source_refs"].index(MD)+1
- rev=next(z for z in issue["history"] if z.get("revision_id")=="TW-OPEN-0005-WASEDA-P26-P27-AND-BULK-13BX")
+ rev=next(z for z in issue["history"] if z.get("revision_id")=="TW-OPEN-0005-WASEDA-P26-P27-AND-ATLAS-13BX")
  assert rev["previous_next_action"].startswith("13BW CURRENT ACTION")
  assert {MD,P,BW,BV}.issubset(set(rev["evidence_refs"]))
  later=any("next_action" in z.get("changed_fields",[]) for z in issue["history"][issue["history"].index(rev)+1:])
