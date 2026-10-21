@@ -529,6 +529,10 @@ jobs:
         run: |
           python scripts/verify-goryeosa-waseda-p24-p25-boundary-13bw.py
           python -m unittest discover -s tests -p 'test_goryeosa_waseda_p24_p25_boundary_13bw.py' -v
+      - name: Goryeosa 13BX Waseda original p26-p27 and p28-p44 atlas gate
+        run: |
+          python scripts/verify-goryeosa-waseda-p26-p27-original-13bx.py
+          python -m unittest discover -s tests -p 'test_goryeosa_waseda_p26_p27_original_13bx.py' -v
       - name: Focused capability acceptance tests
         run: |
           python -m unittest discover -s tests -p "test_fusion_chart_capability_acceptance_r1.py" -v
