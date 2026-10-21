@@ -51,7 +51,7 @@ class Waseda13BJ(unittest.TestCase):
  def test_future_forward_only(self):
   l=copy.deepcopy(self.ledger);s=copy.deepcopy(self.state)
   issue=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
-  issue["next_action"]="13BK NEXT TEST SOURCE"
+  issue["next_action"]="13BK CURRENT ACTION future test"
   issue["history"].append({"event":"ISSUE_REVISION","date":"2026-10-21","changed_fields":["next_action"],"reason":"future test","evidence_refs":[m.P]})
   s["schema_version"]="NEXT_VERSION";s["historical_audit"]["research_omission_guard"]["reviewed_state_version"]="NEXT_VERSION"
   s["historical_audit"]["current_focus"].append("13BK NEXT TEST")

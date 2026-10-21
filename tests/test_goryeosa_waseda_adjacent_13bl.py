@@ -32,6 +32,10 @@ class Original13BL(unittest.TestCase):
  def test_old_action_resurrection_rejected(self):
   l=copy.deepcopy(self.l);next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")["next_action"]="13BK CURRENT ACTION (STALE)"
   with self.assertRaises(AssertionError):self.go(l=l)
+ def test_unregistered_same_focus_action_rejected(self):
+  l=copy.deepcopy(self.l)
+  next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")["next_action"]="13BL UNREGISTERED ACTION"
+  with self.assertRaises(AssertionError):self.go(l=l)
  def test_future_append_only_valid(self):
   l=copy.deepcopy(self.l);s=copy.deepcopy(self.s)
   issue=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")

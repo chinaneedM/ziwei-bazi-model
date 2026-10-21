@@ -49,7 +49,7 @@ class NAJ13BK(unittest.TestCase):
  def test_future_append_safe(self):
   l=copy.deepcopy(self.l);s=copy.deepcopy(self.s)
   i=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
-  i["next_action"]="13BL test newer scoped work"
+  i["next_action"]="13BL CURRENT ACTION test newer scoped work"
   i["history"].append({"event":"ISSUE_REVISION","date":"2026-10-21","changed_fields":["next_action"],"reason":"test forward","evidence_refs":[m.P]})
   s["schema_version"]="NEXT";s["historical_audit"]["research_omission_guard"]["reviewed_state_version"]="NEXT"
   s["historical_audit"]["current_focus"].append("13BL FUTURE")

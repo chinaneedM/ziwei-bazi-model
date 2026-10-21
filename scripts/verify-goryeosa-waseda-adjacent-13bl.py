@@ -66,7 +66,7 @@ def check(e,ledger,state):
            for z in issue["history"][issue["history"].index(h)+1:])
  prefix=ledger["binding"]["latest_research_focus_prefix"]
  assert issue["next_action"].startswith("13BL CURRENT ACTION") or (
-    later and prefix!="13BL" and issue["next_action"].startswith(prefix+" "))
+    later and prefix!="13BL" and issue["next_action"].startswith(prefix+" CURRENT ACTION"))
  assert state["schema_version"]==ledger["binding"]["reviewed_state_version"]==state["historical_audit"]["research_omission_guard"]["reviewed_state_version"]
  assert any(t.startswith("13BL ") for t in state["historical_audit"]["current_focus"])
  assert ledger["binding"]["source_focus_count"]==len(state["historical_audit"]["current_focus"])

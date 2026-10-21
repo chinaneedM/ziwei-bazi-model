@@ -93,7 +93,7 @@ def check(e,be,bg,bh,yz,ledger,state):
  latest_focus_prefix=ledger["binding"]["latest_research_focus_prefix"]
  assert issue["next_action"].startswith("13BJ CURRENT ACTION") or (
     later_action_revision and latest_focus_prefix!="13BJ"
-    and issue["next_action"].startswith(latest_focus_prefix+" "))
+    and issue["next_action"].startswith(latest_focus_prefix+" CURRENT ACTION"))
  assert state["schema_version"]==ledger["binding"]["reviewed_state_version"]==state["historical_audit"]["research_omission_guard"]["reviewed_state_version"]
  assert any(z.startswith("13BJ ") for z in state["historical_audit"]["current_focus"])
  assert ledger["binding"]["source_focus_count"]==len(state["historical_audit"]["current_focus"])
