@@ -545,6 +545,10 @@ jobs:
         run: |
           python scripts/verify-goryeosa-waseda-p21-field-d16-boundary-13ca.py
           python -m unittest discover -s tests -p 'test_goryeosa_waseda_p21_field_d16_boundary_13ca.py' -v
+      - name: Goryeosa 13CB Waseda folio-seam original numeral and candidate field boundary
+        run: |
+          python scripts/verify-goryeosa-waseda-d16-seam-triad-13cb.py
+          python -m unittest discover -s tests -p 'test_goryeosa_waseda_d16_seam_triad_13cb.py' -v
       - name: Focused capability acceptance tests
         run: |
           python -m unittest discover -s tests -p "test_fusion_chart_capability_acceptance_r1.py" -v
