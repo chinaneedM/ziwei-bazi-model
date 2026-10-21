@@ -549,6 +549,10 @@ jobs:
         run: |
           python scripts/verify-goryeosa-waseda-d16-seam-triad-13cb.py
           python -m unittest discover -s tests -p 'test_goryeosa_waseda_d16_seam_triad_13cb.py' -v
+      - name: Goryeosa 13CC NAJ original D17 D18 canvas seam and field identity boundary
+        run: |
+          python scripts/verify-goryeosa-naj-d17-d18-canvas-seam-13cc.py
+          python -m unittest discover -s tests -p 'test_goryeosa_naj_d17_d18_canvas_seam_13cc.py' -v
       - name: Focused capability acceptance tests
         run: |
           python -m unittest discover -s tests -p "test_fusion_chart_capability_acceptance_r1.py" -v
