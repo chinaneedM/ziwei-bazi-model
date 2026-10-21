@@ -505,6 +505,10 @@ jobs:
         run: |
           python scripts/verify-goryeosa-numeric-evidence-grades-13bq.py
           python -m unittest discover -s tests -p 'test_goryeosa_numeric_evidence_grades_13bq.py' -v
+      - name: Goryeosa 13BR original-source ROI acquisition boundary and continuity gate
+        run: |
+          python scripts/verify-goryeosa-original-target-rois-13br.py
+          python -m unittest discover -s tests -p 'test_goryeosa_original_target_rois_13br.py' -v
       - name: Focused capability acceptance tests
         run: |
           python -m unittest discover -s tests -p "test_fusion_chart_capability_acceptance_r1.py" -v
