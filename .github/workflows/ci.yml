@@ -489,6 +489,10 @@ jobs:
         run: |
           python scripts/verify-goryeosa-waseda-day-index-13bm.py
           python -m unittest discover -s tests -p 'test_goryeosa_waseda_day_index_13bm.py' -v
+      - name: Goryeosa 13BN Waseda narrow source numeric lanes arithmetic gate
+        run: |
+          python scripts/verify-goryeosa-waseda-tight-roi-13bn.py
+          python -m unittest discover -s tests -p 'test_goryeosa_waseda_tight_roi_13bn.py' -v
       - name: Focused capability acceptance tests
         run: |
           python -m unittest discover -s tests -p "test_fusion_chart_capability_acceptance_r1.py" -v

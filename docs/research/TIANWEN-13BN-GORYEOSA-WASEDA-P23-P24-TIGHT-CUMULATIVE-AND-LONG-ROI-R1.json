@@ -1,0 +1,222 @@
+{
+  "schema": "TIANWEN-13BN-WASEDA-SINGLE-NUMERIC-LANE-NATIVE-RGB-ROI-COLLATION-R1",
+  "date": "2026-10-21",
+  "issue_id": "TW-OPEN-0005",
+  "grade": "SHA256_VERIFIED_SOURCE_JPEG_WITH_NATIVE_RGB_SINGLE_LANE_MANUAL_NO_OCR",
+  "source": {
+    "holding": "WASEDA-RI06-02809-BOOK33",
+    "pdf": "https://archive.wul.waseda.ac.jp/kosho/ri06/ri06_02809/ri06_02809_0033/ri06_02809_0033.pdf",
+    "pdf_sha256": "28ebfeb34191f45715bc449d27da61fe04fb05eb45e84dd00cf569699f46225f",
+    "images": [
+      {
+        "pdf_page_1based": 23,
+        "embedded_xref": 70,
+        "jpeg_sha256": "388f3d5dd9e9861f8ce90c304b154edaeaee98614bb12cd3468f957dcde6fc66",
+        "dimensions": [
+          2592,
+          1728
+        ],
+        "prior_artifact_id": 12263559032
+      },
+      {
+        "pdf_page_1based": 24,
+        "embedded_xref": 73,
+        "jpeg_sha256": "913368872d9a7589abf88a4ae9b8d87ca4b836cc27c0d66d21b8ba82022e1574",
+        "dimensions": [
+          2592,
+          1728
+        ],
+        "prior_artifact_id": 12322497620
+      }
+    ],
+    "origin": "REUSE_PREVIOUS_FIRSTPARTY_ARCHIVED_JPEG_BYTES_NO_NEW_IMAGE_ACQUISITION"
+  },
+  "original_single_numeric_lane_rois": [
+    {
+      "key": "P23_D19_C",
+      "pdf_page_1based": 23,
+      "printed_day": 19,
+      "field": "CUMULATIVE",
+      "original_literal": "八千八百四十三七五七一",
+      "value": "8843.7571",
+      "bbox": [
+        638,
+        685,
+        688,
+        1400
+      ],
+      "rgb_sha256": "ec5693f9712dbf5b270ec6034040b34459a141944f8ee7f28b20e9f17cd9c76f"
+    },
+    {
+      "key": "P23_D19_LONG",
+      "pdf_page_1based": 23,
+      "printed_day": 19,
+      "field": "LONG",
+      "original_literal": "四百一十三八四二九",
+      "value": "413.8429",
+      "bbox": [
+        693,
+        685,
+        732,
+        1400
+      ],
+      "rgb_sha256": "3f68459fc9d79b6860f29e0dd3f6860c2a517adc833374d94001a4f831c8e875"
+    },
+    {
+      "key": "P23_D20_C",
+      "pdf_page_1based": 23,
+      "printed_day": 20,
+      "field": "CUMULATIVE",
+      "original_literal": "九千二百五十七六〇〇〇",
+      "value": "9257.6000",
+      "bbox": [
+        460,
+        685,
+        505,
+        1400
+      ],
+      "rgb_sha256": "e380b2f287dcd536b96b72482683e8fbfe8700100cff68ea6a7d8401f2366768"
+    },
+    {
+      "key": "P23_D20_LONG",
+      "pdf_page_1based": 23,
+      "printed_day": 20,
+      "field": "LONG",
+      "original_literal": "四百〇八五五〇九",
+      "value": "408.5509",
+      "bbox": [
+        514,
+        685,
+        551,
+        1400
+      ],
+      "rgb_sha256": "8c4d45ed95801f3ae18c65a3a852196bd2ed3344d8af9bbbcecb2172a0de720f"
+    },
+    {
+      "key": "P24_D21_C",
+      "pdf_page_1based": 24,
+      "printed_day": 21,
+      "field": "CUMULATIVE",
+      "original_literal": "九千六百六十六一五〇九",
+      "value": "9666.1509",
+      "bbox": [
+        2032,
+        685,
+        2071,
+        1400
+      ],
+      "rgb_sha256": "9bcc7d6e5c42fd145756da116a0559600c5cefbba71f571ff4458091a4b5f231"
+    }
+  ],
+  "original_day_heading_binding_from": "docs/research/TIANWEN-13BM-GORYEOSA-WASEDA-P23-P24-DAY-HEADER-CUMULATIVE-FORWARD-ERRATUM-R1.json",
+  "exact_local_arithmetic": [
+    {
+      "from_original_printed_day": 19,
+      "to_original_printed_day": 20,
+      "first_cumulative": "8843.7571",
+      "second_cumulative": "9257.6000",
+      "difference": "413.8429",
+      "same_original_printed_day_long": 19,
+      "original_long_value": "413.8429",
+      "relation": "C20-C19=L19",
+      "same_copy_native_two_column_check": true
+    },
+    {
+      "from_original_printed_day": 20,
+      "to_original_printed_day": 21,
+      "first_cumulative": "9257.6000",
+      "second_cumulative": "9666.1509",
+      "difference": "408.5509",
+      "same_original_printed_day_long": 20,
+      "original_long_value": "408.5509",
+      "relation": "C21-C20=L20",
+      "same_copy_native_two_column_check": true
+    }
+  ],
+  "previous_record_restrictions": [
+    {
+      "prior": "docs/research/TIANWEN-13BJ-GORYEOSA-WASEDA-P23-D18-D20-DIRECT-CUMULATIVE-AND-LONG-R1.json",
+      "old_key": "D20_CUMULATIVE",
+      "old_bbox": [
+        601,
+        690,
+        686,
+        1400
+      ],
+      "scope": "MIXES_ADJACENT_DAY19_DEGREE_AND_CUMULATIVE_LANES;_NOT_EXCLUSIVE_NUMERAL_ROI"
+    },
+    {
+      "prior": "docs/research/TIANWEN-13BM-GORYEOSA-WASEDA-P23-P24-DAY-HEADER-CUMULATIVE-FORWARD-ERRATUM-R1.json",
+      "old_key": "P23_D19_CUM",
+      "old_bbox": [
+        601,
+        690,
+        686,
+        1400
+      ],
+      "scope": "MIXES_ADJACENT_DAY19_DEGREE_AND_CUMULATIVE_LANES"
+    },
+    {
+      "prior": "docs/research/TIANWEN-13BM-GORYEOSA-WASEDA-P23-P24-DAY-HEADER-CUMULATIVE-FORWARD-ERRATUM-R1.json",
+      "old_key": "P23_D20_CUM",
+      "old_bbox": [
+        455,
+        690,
+        527,
+        1430
+      ],
+      "scope": "SPANS_CUMULATIVE_AND_PART_OF_ADJACENT_LONG_LANE"
+    },
+    {
+      "prior": "docs/research/TIANWEN-13BM-GORYEOSA-WASEDA-P23-P24-DAY-HEADER-CUMULATIVE-FORWARD-ERRATUM-R1.json",
+      "old_key": "P24_D21_CUM",
+      "old_bbox": [
+        2015,
+        685,
+        2080,
+        1430
+      ],
+      "scope": "SPANS_DEGREE_CUMULATIVE_AND_ADJACENT_LONG_BOUNDARY"
+    }
+  ],
+  "audited_but_unrebound_legacy_records": [
+    {
+      "prior": "docs/research/TIANWEN-13BJ-GORYEOSA-WASEDA-P23-D18-D20-DIRECT-CUMULATIVE-AND-LONG-R1.json",
+      "old_ids": [
+        "D18_CUMULATIVE",
+        "D19_CUMULATIVE",
+        "D18_LONG"
+      ],
+      "status": "SOURCE_ORIGINAL_LITERALS_RETAINED_DAY_AND_NUMERIC_FIELD_BINDING_PENDING_TIGHT_ROI"
+    }
+  ],
+  "cross_holding_scope": {
+    "naj_book51_source": "docs/research/TIANWEN-13BK-GORYEOSA-NAJ-CANVAS18-D19-LONG-D20-D21-CUMULATIVE-R1.json",
+    "same_copy_numeric_arithmetic_positive": true,
+    "whole_table_shift_proven": false,
+    "stemmatic_independence_proven": false,
+    "earliest_archetype_day16_proven": false,
+    "table_first_last_heading_scope_pending": true
+  },
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproven": [
+      "Numeric lane correction in the same source does not establish independent printing branches or direct historical ancestry."
+    ]
+  },
+  "scope_firewall": {
+    "new_physical_historical_copies": 0,
+    "new_source_jpegs_acquired": 0,
+    "new_independent_source_votes": 0,
+    "new_registry_sources": 0,
+    "new_matrix_rows": 0,
+    "new_genealogy_nodes": 0,
+    "new_genealogy_edges": 0,
+    "algorithm_reopens": 0,
+    "open_or_blocked_research_issues": 11,
+    "deterministic_product": "CLOSED"
+  },
+  "next_action": "Tightly reread Waseda p23 D17/D18 original cumulative/long lanes with unshared RGB pixel ROIs, source table beginning/end and NAJ comparison; investigate G893 少/微 and Ming1569 same-field historical units separately."
+}
