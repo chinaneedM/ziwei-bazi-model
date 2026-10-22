@@ -16,8 +16,9 @@ SOURCE = ("https://commons.wikimedia.org/wiki/Special:Redirect/file/"
           "NLC416-13jh005095-74760_%E9%AB%98%E9%BA%97%E5%8F%B2.pdf")
 MAX_BYTES = 55_000_000
 EXPECTED_PAGES = 755
+EXPECTED_SHA256 = "b4bd5c557c7ba44bac1fc881e6c2e8784c9d56a8d2629f17b5255a1ec6bd9e97"
 FIRST = 1
-LAST = 220
+LAST = EXPECTED_PAGES
 PER_SHEET = 40
 OUT = Path(os.environ.get("TIANWEN_13CY_OUTPUT", "goryeosa-13cy-original"))
 def digest(data):
@@ -52,6 +53,9 @@ def main():
             if raw[:5]!=b"%PDF-": raise RuntimeError("unexpected source magic")
             r.update({"download_url":response.url,"source_bytes":total,
                       "sha256_original_pdf":sha.hexdigest()})
+            if r["sha256_original_pdf"] != EXPECTED_SHA256:
+                raise RuntimeError("source file SHA-256 changed since verified 13CY acquisition")
+            r["expected_sha256_original_pdf"] = EXPECTED_SHA256
             pdfpath=OUT/"NLC416-1909-source.pdf"
             pdfpath.write_bytes(raw)
         doc=fitz.open(stream=raw,filetype="pdf")
@@ -64,7 +68,7 @@ def main():
             r["embedded_text_page_samples"].append({
                 "pdf_page":p+1,"text_chars":len(content),
                 "nonempty_text_layer":bool(content.strip())})
-        r["atlas_scope"]={"start":FIRST,"end":LAST,"status":"BOUNDED_THUMBNAILS_UNREVIEWED"}
+        r["atlas_scope"]={"start":FIRST,"end":LAST,"status":"ALL_PAGES_THUMBNAILS_UNREVIEWED_NOT_GLYPH_COLLATION"}
         for start in range(FIRST,LAST+1,PER_SHEET):
             hi=min(start+PER_SHEET-1,LAST)
             sheet=Image.new("RGB",(8*150,5*225),"white")
@@ -85,7 +89,7 @@ def main():
                 print(f"13CY_ATLAS_BASE64_BEGIN {name} {len(data)}")
                 print(base64.b64encode(data).decode("ascii"))
                 print(f"13CY_ATLAS_BASE64_END {name}")
-        r["status"]="ACQUIRED_HASHED_WITH_UNREVIEWED_BOUNDED_ATLAS"
+        r["status"]="ACQUIRED_SHA256_PINNED_ALL_PAGES_THUMBNAILS_UNREVIEWED"
         print("13CY_SOURCE_PDF",r["sha256_original_pdf"],"BYTES",r["source_bytes"],"PAGES",len(doc))
     except Exception as exc:
         r["status"]="SOURCE_ACCESS_OR_FORMAT_BOUNDARY"
