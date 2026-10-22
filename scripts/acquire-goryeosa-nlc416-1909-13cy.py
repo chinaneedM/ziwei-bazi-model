@@ -108,6 +108,36 @@ def main():
                 print(f"13CY_NAV_BASE64_BEGIN {name} {len(data)}")
                 print(base64.b64encode(data).decode("ascii"))
                 print(f"13CY_NAV_BASE64_END {name}")
+        # Source-native, non-OCR crops for the newly located volume 52.
+        # These are image artifacts, never automatic textual adjudications.
+        target_crops=[
+            (142,"table-heading-and-first-days",(0.10,0.075,0.92,0.82)),
+            (143,"day12-to-day17-lower-panel",(0.10,0.44,0.91,0.85)),
+            (143,"day16-adjacent-columns",(0.20,0.47,0.55,0.80)),
+        ]
+        r["target_source_native_crops"]=[]
+        for page_number,tag,fractional_bbox in target_crops:
+            pix=doc[page_number-1].get_pixmap(matrix=fitz.Matrix(4,4),alpha=False)
+            img=Image.open(io.BytesIO(pix.tobytes("png"))).convert("RGB")
+            x0,y0,x1,y1=fractional_bbox
+            bbox=(round(img.width*x0),round(img.height*y0),
+                  round(img.width*x1),round(img.height*y1))
+            crop=img.crop(bbox)
+            bio=io.BytesIO()
+            crop.save(bio,format="JPEG",quality=93,optimize=True)
+            data=bio.getvalue()
+            name=f"source-native-p{page_number:03}-{tag}-4x.jpg"
+            (OUT/name).write_bytes(data)
+            r["target_source_native_crops"].append({
+                "pdf_page":page_number,"file":name,
+                "raster_matrix":4,"fractional_bbox":list(fractional_bbox),
+                "pixel_bbox":list(bbox),"pixels":list(crop.size),
+                "bytes":len(data),"sha256":digest(data),
+                "status":"SOURCE_NATIVE_IMAGE_NOT_AUTOMATIC_GLYPH_TRANSCRIPTION"})
+            if args.emit_preview_base64:
+                print(f"13CY_TARGET_BASE64_BEGIN {name} {len(data)}")
+                print(base64.b64encode(data).decode("ascii"))
+                print(f"13CY_TARGET_BASE64_END {name}")
         r["status"]="ACQUIRED_SHA256_PINNED_ALL_PAGES_THUMBNAILS_UNREVIEWED"
         print("13CY_SOURCE_PDF",r["sha256_original_pdf"],"BYTES",r["source_bytes"],"PAGES",len(doc))
     except Exception as exc:
