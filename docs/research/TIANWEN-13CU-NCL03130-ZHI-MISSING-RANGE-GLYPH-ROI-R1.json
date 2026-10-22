@@ -1,0 +1,189 @@
+{
+  "schema": "TIANWEN-13CU-NCL03130-ZHI-SHORTAGE-GLYPH-ALTERNATIVES-R1",
+  "date": "2026-10-22",
+  "issue_id": "TW-OPEN-0005",
+  "previous_checkpoint": "docs/research/TIANWEN-13CT-NCL03130-RED-REGISTER-CATEGORY-ZHI6-R1.json",
+  "physical_source_boundary": {
+    "source_url": "https://commons.wikimedia.org/wiki/File:NCL-03130_01_%E9%AB%98%E9%BA%97%E5%8F%B2.pdf",
+    "hosting": "COMMONS_DIGITAL_MIRROR_NO_FIRSTPARTY_NCL_ITEM_LINK",
+    "github_workflow_run": 39773078687,
+    "github_artifact_id": 12423406394,
+    "original_pdf_sha256": "24fb9612634ba085d2546ba6c1f02305aa2a02b9ddfd02f0b645ba0409b5e01e",
+    "pdf_page_1based": 7,
+    "source_png_name": "front-page-007.png",
+    "source_png_sha256": "baa5ab0199a41af85ee6a5290601d15390a7faf7ea2c247b0cdd8e7867dee456",
+    "source_png_dimensions": [
+      1474,
+      974
+    ],
+    "pixel_source": "SOURCE_DERIVED_RGB_PAGE_RENDER_NOT_SECOND_INDEPENDENT_IMAGE",
+    "crop_coordinates": "PIXEL_X0_Y0_X1_Y1_HALF_OPEN",
+    "roi_digest_method": "SHA256_OF_PIL_RGB_CROP_TOBYTES_AFTER_DECODE_SOURCE_PNG",
+    "ocr_used": false,
+    "image_filters_and_resize_create_no_new_original_pixels": true
+  },
+  "manual_red_ink_crops": [
+    {
+      "id": "genre_zhi",
+      "bbox": [
+        991,
+        115,
+        1053,
+        187
+      ],
+      "rgb_sha256": "0461691a33439846bbc34d477067d8f4d61560a778097601900f3af279259bd4",
+      "reading": "志",
+      "status": "VISIBLE"
+    },
+    {
+      "id": "marker_shao",
+      "bbox": [
+        986,
+        188,
+        1046,
+        247
+      ],
+      "rgb_sha256": "8c87afe21be264aef006a75484631130bb560f3f21f1811860151f890f0ea7ef",
+      "reading": "少",
+      "status": "VISIBLE"
+    },
+    {
+      "id": "first_numeral",
+      "bbox": [
+        986,
+        246,
+        1049,
+        285
+      ],
+      "rgb_sha256": "cc5bb903565ed35ac5c2ad0ae39fadeaa4017aae056fc8af66c46dfba619c77e",
+      "reading": "一",
+      "status": "PROVISIONAL_READ"
+    },
+    {
+      "id": "range_connector_ambiguous",
+      "bbox": [
+        989,
+        282,
+        1045,
+        332
+      ],
+      "rgb_sha256": "d30c0d7c4dbb2eb1a82f3509dd87e7fa07c0e7dcc24aed3243813e8fcc8d1c33",
+      "reading": "至? / 五? / other",
+      "status": "UNRESOLVED"
+    },
+    {
+      "id": "end_numeral_candidate",
+      "bbox": [
+        990,
+        328,
+        1046,
+        377
+      ],
+      "rgb_sha256": "62550812556e549df8690d9504d3979ed7eb0c6c4c85343a943d322da2377bcd",
+      "reading": "九?",
+      "status": "PROVISIONAL_READ"
+    },
+    {
+      "id": "further_numbers",
+      "bbox": [
+        986,
+        400,
+        1056,
+        502
+      ],
+      "rgb_sha256": "4e3717e58fda1dbab550ac9ba3718ff03d8b6e87f6013c3e94d51d26ddd01d86",
+      "reading": "UNTRANSCRIBED",
+      "status": "UNRESOLVED"
+    },
+    {
+      "id": "entire_zhi_column",
+      "bbox": [
+        970,
+        105,
+        1061,
+        705
+      ],
+      "rgb_sha256": "37d4cec8bb9882e7c632b66a0e80b0b6fa91788614e67924c2033dbe794550a6",
+      "reading": "志少…",
+      "status": "SOURCE_AREA"
+    }
+  ],
+  "bounded_reading": {
+    "stable_genre_and_marker": "志少",
+    "first_numeric_proposal": "一",
+    "fifth_numeric_proposal": "九",
+    "fourth_linking_glyph_verdict": "AMBIGUOUS_BETWEEN_RANGE_TO_至_AND_SEPARATE_DIGIT_OR_OTHER",
+    "upper_line_with_uncertainty": "志少一[至?／五?]九[?]",
+    "lower_line": "PRESENT_BUT_UNTRANSCRIBED",
+    "is_fully_transcribed": false,
+    "is_zhi_six_mentioned_or_included": "UNRESOLVED",
+    "options": [
+      {
+        "id": "A",
+        "if_glyph": "至_AND_RANGE_SEMANTICS_VALIDATED",
+        "reading": "志少一至九",
+        "implied_six_in_missing_range": true,
+        "status": "CONDITIONAL_ONLY_NOT_ATTESTED"
+      },
+      {
+        "id": "B",
+        "if_glyph": "NOT_RANGE_CONNECTOR",
+        "reading": "志少一…九（离散数字或其他词形）",
+        "implied_six_in_missing_range": null,
+        "status": "CONDITIONAL_ONLY_NOT_ATTESTED"
+      },
+      {
+        "id": "C",
+        "if_glyph": "SOURCE_RESOLUTION_INSUFFICIENT",
+        "reading": "志少…[数字无法逐字定读]",
+        "implied_six_in_missing_range": null,
+        "status": "CURRENT_FAIL_CLOSED"
+      }
+    ],
+    "current_option": "C",
+    "cannot_use_probable_to_select_A": true,
+    "physical_1905_copy_membership_independent_of_range_read": true
+  },
+  "text_structure": {
+    "institution": "National Institute of Korean History",
+    "url": "https://db.history.go.kr/goryeo/itemLevelKrList.do?levelId=kr_051_0010_0010_0060",
+    "mapping": "高麗史全書卷52=志卷第六=曆三",
+    "whole_book_juan": 52,
+    "genre_juan": 6,
+    "kind": "FIRSTPARTY_RECEIVED_TEXT_INDEX_ONLY"
+  },
+  "next_gate": {
+    "phase1": "INDEPENDENT_SECOND_PASS_ON_NATIVE_RED_ZHI_GLYPH_SEQUENCE_NOT_ENLARGEMENT_ALONE",
+    "phase2": "FIRSTPARTY_NCL20803130_ITEM_DIGITAL_SURROGATE_AND_OLD_QING_1905_HAND_LINK",
+    "phase3": "COPY_SPECIFIC_WORK52_D16_ORIGINAL_NUMERIC_FOLIO_WITH_FIELD_HEADING_BOUND",
+    "z6_current_status": "UNRESOLVED",
+    "third_historical_copy_votes": 0,
+    "existing_waseda_naj_printed_D16_SHORT": "5.1362",
+    "derived_only_D16_short_candidate": "5.2362"
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "A single SHA-verified mirror original image has multiple enhanced renderings and crops, but not multiple independent physical manuscript copies.",
+      "The possible connector 至 is not a securely collated historical glyph and cannot establish that genre-juan six was missing in the pre-1905 manuscript.",
+      "Official received-text full-book 52 to 志6 mapping does not date or identify NCL03130 physical folios."
+    ],
+    "unresolved_lineage_questions": [
+      "Exact NCL red 志 shortage numeric wording and connector",
+      "Direct Taiwan NCL object and old/1905 replacement hand to source-page binding",
+      "Independent D16 numerical third physical source with original printed/handwritten field alignment"
+    ]
+  },
+  "counts": {
+    "matrix_rows": 222,
+    "audited_rows": 222,
+    "source_total": 754,
+    "genealogy_nodes": 252,
+    "genealogy_edges": 238,
+    "open_research_risks": 11,
+    "algorithm_reopens": 0,
+    "product": "CLOSED"
+  }
+}
