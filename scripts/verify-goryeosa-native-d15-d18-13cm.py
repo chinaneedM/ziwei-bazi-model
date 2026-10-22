@@ -58,7 +58,7 @@ def check(e,s,l,prior,binary_paths=None):
   ("W23",17,"SHORT","5.2548"),("N17",17,"SHORT","5.2548"),
   ("W23",16,"LONG","429.6073"),("N17",16,"LONG","429.6073"),
   ("W23",17,"LONG","424.3711"),("N17",17,"LONG","424.3711")]:
-  assert any(x["source"]==source and x["printed_day"]==day and x["field"]==field and x["decimal"]==val for x in old)
+  assert any(x["source"]==({"N17":"NAJ17","N18":"NAJ18","W23":"W23"}[source]) and x["printed_day"]==day and x["field"]==field and x["decimal"]==val for x in old)
  ar=e["original_local_arithmetic"]
  assert ar["d15_short"]==ar["d18_short"][:0]+"5.2176"
  assert (D(ar["d15_short"]),D(ar["d16_short_both_prior"]),D(ar["d17_short_both_prior"]),D(ar["d18_short"]))==(D("5.2176"),D("5.1362"),D("5.2548"),D("5.2734"))

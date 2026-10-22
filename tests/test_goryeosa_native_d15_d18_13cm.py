@@ -25,6 +25,10 @@ class TestNative13CM(unittest.TestCase):
  def test_false_c_claim(self):
   e=copy.deepcopy(self.e);e["limitations"]["waseda_D16_same_day_C"]="PROVEN"
   with self.assertRaises(AssertionError):self.check(e=e)
+ def test_original_13ci_photo_key_names(self):
+  self.assertEqual({x["source"] for x in self.old["13CI"]["rois"]},{"W23","NAJ17","NAJ18"})
+  self.assertEqual({z["source"] for z in self.e["native_original_rois"]},{"W23","N17","N18"})
+  self.assertTrue(self.check())
  def test_old_missing_revision_id(self):
   l=copy.deepcopy(self.l)
   next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")["history"].insert(0,{"event":"LEGACY_NO_REVISION_ID"})
