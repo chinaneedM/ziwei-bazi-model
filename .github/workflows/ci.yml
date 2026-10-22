@@ -644,6 +644,11 @@ jobs:
           python -m py_compile scripts/verify-goryeosa-third-witness-locator-firewall-13cw.py tests/test_goryeosa_third_witness_locator_firewall_13cw.py
           python scripts/verify-goryeosa-third-witness-locator-firewall-13cw.py
           python -m unittest discover -s tests -p 'test_goryeosa_third_witness_locator_firewall_13cw.py' -v
+      - name: Goryeosa 13CX NLC416 1909 target-volume catalog scope and original-page boundary
+        run: |
+          python -m py_compile scripts/verify-goryeosa-nlc416-1909-v52-13cx.py tests/test_goryeosa_nlc416_1909_v52_13cx.py
+          python scripts/verify-goryeosa-nlc416-1909-v52-13cx.py
+          python -m unittest discover -s tests -p 'test_goryeosa_nlc416_1909_v52_13cx.py' -v
       - name: Focused capability acceptance tests
         run: |
           python -m unittest discover -s tests -p "test_fusion_chart_capability_acceptance_r1.py" -v

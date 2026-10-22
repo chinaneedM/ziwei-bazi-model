@@ -39,7 +39,7 @@ def check(e,s,l,old):
  assert s["schema_version"]==l["binding"]["reviewed_state_version"]==s["historical_audit"]["research_omission_guard"]["reviewed_state_version"]
  assert l["binding"]["source_focus_count"]==len(s["historical_audit"]["current_focus"])
  assert any(x.startswith("13CV ") for x in s["historical_audit"]["current_focus"])
- assert l["binding"]["latest_research_focus_prefix"] in ("13CV","13CW")
+ assert l["binding"]["latest_research_focus_prefix"]==s["historical_audit"]["current_focus"][-1].split(" ",1)[0]
  issue=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
  assert issue["status"]=="OPEN" and E in issue["source_refs"]
  assert any(x.get("revision_id")=="TW-OPEN-0005-13CV-KRDB-V52-D16-ERRATUM" for x in issue["history"])

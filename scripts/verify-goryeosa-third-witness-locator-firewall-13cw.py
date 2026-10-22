@@ -42,13 +42,13 @@ def check(e,s,l):
  assert len(t["edges_rejected_or_unproved"])==3
  assert s["schema_version"]==l["binding"]["reviewed_state_version"]==s["historical_audit"]["research_omission_guard"]["reviewed_state_version"]
  assert l["binding"]["source_focus_count"]==len(s["historical_audit"]["current_focus"])
- assert l["binding"]["latest_research_focus_prefix"]=="13CW"
- assert s["historical_audit"]["current_focus"][-1].startswith("13CW ")
+ assert l["binding"]["latest_research_focus_prefix"]==s["historical_audit"]["current_focus"][-1].split(" ",1)[0]
+ assert any(x.startswith("13CW ") for x in s["historical_audit"]["current_focus"])
  issue=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
  assert issue["status"]=="OPEN" and E in issue["source_refs"] and "docs/research/TIANWEN-13CW-NCL-NEIGHBOR-AND-CNTS-CATALOG-GAP-FIREWALL-R1.md" in issue["source_refs"]
- assert issue["history"][-1]["revision_id"]=="TW-OPEN-0005-13CW-THIRD-WITNESS-LOCATOR-FIREWALL"
- assert issue["next_action"].startswith("13CW CURRENT ACTION:")
- assert l["checkpoint_log"][-1]["id"]=="OMISSIONS-13CW-THIRD-WITNESS-LOCATOR-FIREWALL-20261022"
+ assert any(x.get("revision_id")=="TW-OPEN-0005-13CW-THIRD-WITNESS-LOCATOR-FIREWALL" for x in issue["history"])
+ assert "CURRENT ACTION:" in issue["next_action"]
+ assert any(x.get("id")=="OMISSIONS-13CW-THIRD-WITNESS-LOCATOR-FIREWALL-20261022" for x in l["checkpoint_log"])
  assert sum(i["status"] in ("OPEN","BLOCKED_SOURCE_ACCESS") for i in l["issues"])==11
  assert s["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED" and s["invariants"]["algorithm_reopen_count"]==0
  return True
