@@ -66,7 +66,7 @@ class Waseda13BJ(unittest.TestCase):
  def test_latest_focus_without_action_event_cannot_spoof(self):
   l=copy.deepcopy(self.ledger)
   issue=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
-  issue["next_action"]="13DB CURRENT ACTION spoofed without material scope revision"
+  issue["next_action"]="13ZZ CURRENT ACTION spoofed without material scope revision"
   with self.assertRaises(AssertionError):self.go(ledger=l)
  def test_last_action_event_must_authorize_prefix(self):
   l=copy.deepcopy(self.ledger)
