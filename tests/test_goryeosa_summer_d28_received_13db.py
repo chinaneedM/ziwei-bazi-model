@@ -20,6 +20,16 @@ class Test13DB(unittest.TestCase):
  def test_wrong_long(self):self.bad(lambda e:e["received_summer_rows"][1].update(long="354.6101"))
  def test_wrong_cumulative(self):self.bad(lambda e:e["received_summer_rows"][2].update(cumulative="12200.2798"))
  def test_scope_confusion(self):self.bad(lambda e:e["adjudication"].update(differentiated_from_13DA="SAME_TABLE"))
+ def test_later_original_does_not_rewrite_archived_13db(self):
+  # State may advance beyond 13DB, but the received-only 13DB evidence is
+  # an immutable dated snapshot, not a false present-day absence claim.
+  self.assertTrue(any(x.startswith("13DD ") for x in self.state["historical_audit"]["current_focus"]))
+  self.assertTrue(self.check())
+ def test_historical_13db_focus_cannot_disappear(self):
+  state=copy.deepcopy(self.state);ledger=copy.deepcopy(self.ledger)
+  state["historical_audit"]["current_focus"]=[x for x in state["historical_audit"]["current_focus"] if not x.startswith("13DB ")]
+  ledger["binding"]["source_focus_count"]=len(state["historical_audit"]["current_focus"])
+  with self.assertRaises(AssertionError):m.check(self.e,state,ledger)
  def test_ledger_binding(self):
   l=copy.deepcopy(self.ledger);l["binding"]["source_focus_count"]-=1
   with self.assertRaises(AssertionError):self.check(l=l)

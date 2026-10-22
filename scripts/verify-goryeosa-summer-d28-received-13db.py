@@ -46,7 +46,8 @@ def check(e,s,l):
  assert imp["deterministic_chart"]=="CLOSED" and imp["algorithm_reopens"]==0
  assert s["schema_version"]==l["binding"]["reviewed_state_version"]==s["historical_audit"]["research_omission_guard"]["reviewed_state_version"]
  assert l["binding"]["source_focus_count"]==len(s["historical_audit"]["current_focus"])
- assert l["binding"]["latest_research_focus_prefix"]==s["historical_audit"]["current_focus"][-1].split(" ",1)[0]=="13DB"
+ assert l["binding"]["latest_research_focus_prefix"]==s["historical_audit"]["current_focus"][-1].split(" ",1)[0]
+ assert any(x.startswith("13DB ") for x in s["historical_audit"]["current_focus"]), "13DB archival checkpoint must be retained"
  i=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
  assert i["status"]=="OPEN" and E in i["source_refs"]
  assert any(x.get("revision_id")=="TW-OPEN-0005-13DB-SUMMER-D28-RECEIVED-OUTLIER" for x in i["history"])
