@@ -38,14 +38,14 @@ def check(e,s,l,old):
  assert (z["matrix"],z["audited"],z["sources"],z["graph_nodes"],z["graph_edges"],z["unresolved_risks"],z["chart"],z["algorithm_reopens"])==(222,222,754,252,238,11,"CLOSED",0)
  assert s["schema_version"]==l["binding"]["reviewed_state_version"]==s["historical_audit"]["research_omission_guard"]["reviewed_state_version"]
  assert l["binding"]["source_focus_count"]==len(s["historical_audit"]["current_focus"])
- assert s["historical_audit"]["current_focus"][-1].startswith("13CV ")
- assert l["binding"]["latest_research_focus_prefix"]=="13CV"
+ assert any(x.startswith("13CV ") for x in s["historical_audit"]["current_focus"])
+ assert l["binding"]["latest_research_focus_prefix"] in ("13CV","13CW")
  issue=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
  assert issue["status"]=="OPEN" and E in issue["source_refs"]
- assert issue["history"][-1]["revision_id"]=="TW-OPEN-0005-13CV-KRDB-V52-D16-ERRATUM"
- assert issue["history"][-1]["event"]=="ISSUE_REVISION"
- assert issue["next_action"].startswith("13CV CURRENT ACTION:")
- assert l["checkpoint_log"][-1]["id"]=="OMISSIONS-13CV-KRDB-V52-D16-ERRATUM-20261022"
+ assert any(x.get("revision_id")=="TW-OPEN-0005-13CV-KRDB-V52-D16-ERRATUM" for x in issue["history"])
+ assert any(x.get("event")=="ISSUE_REVISION" and x.get("revision_id")=="TW-OPEN-0005-13CV-KRDB-V52-D16-ERRATUM" for x in issue["history"])
+ assert "CURRENT ACTION:" in issue["next_action"]
+ assert any(x.get("id")=="OMISSIONS-13CV-KRDB-V52-D16-ERRATUM-20261022" for x in l["checkpoint_log"])
  assert sum(x["status"] in ("OPEN","BLOCKED_SOURCE_ACCESS") for x in l["issues"])==11
  assert s["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED"
  return True

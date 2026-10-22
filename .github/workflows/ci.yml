@@ -639,6 +639,11 @@ jobs:
           python -m py_compile scripts/verify-goryeosa-krdb-v52-d16-13cv.py tests/test_goryeosa_krdb_v52_d16_13cv.py
           python scripts/verify-goryeosa-krdb-v52-d16-13cv.py
           python -m unittest discover -s tests -p 'test_goryeosa_krdb_v52_d16_13cv.py' -v
+      - name: Goryeosa 13CW firstparty neighbor and CNTS number-gap fail-closed locator gate
+        run: |
+          python -m py_compile scripts/verify-goryeosa-third-witness-locator-firewall-13cw.py tests/test_goryeosa_third_witness_locator_firewall_13cw.py
+          python scripts/verify-goryeosa-third-witness-locator-firewall-13cw.py
+          python -m unittest discover -s tests -p 'test_goryeosa_third_witness_locator_firewall_13cw.py' -v
       - name: Focused capability acceptance tests
         run: |
           python -m unittest discover -s tests -p "test_fusion_chart_capability_acceptance_r1.py" -v
