@@ -26,4 +26,13 @@ class Test13CT(unittest.TestCase):
  def test_no_old_copy_date_inference(self):
   e=copy.deepcopy(self.e);e["scope_gates"]["whether_juan52_qing_old_hand"]="CONFIRMED"
   with self.assertRaises(AssertionError):self.check(e=e)
+ def test_historical_13ct_issue_revision_not_removed(self):
+  l=copy.deepcopy(self.l)
+  issue=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
+  issue["history"]=[x for x in issue["history"] if x.get("revision_id")!="TW-OPEN-0005-13CT-RED-ZHI6"]
+  with self.assertRaises(AssertionError):self.check(l=l)
+ def test_historical_13ct_checkpoint_not_removed(self):
+  l=copy.deepcopy(self.l)
+  l["checkpoint_log"]=[x for x in l["checkpoint_log"] if x.get("id")!="OMISSIONS-13CT-DIRECT-RED-ZHI6-20261022"]
+  with self.assertRaises(AssertionError):self.check(l=l)
 if __name__=="__main__":unittest.main()

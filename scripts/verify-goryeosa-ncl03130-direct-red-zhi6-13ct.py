@@ -48,9 +48,9 @@ def check(e,s,l):
  assert l["binding"]["source_focus_count"]==len(s["historical_audit"]["current_focus"])
  issue=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
  assert issue["status"]=="OPEN" and E in issue["source_refs"]
- assert issue["history"][-1]["event"]=="ISSUE_REVISION" and issue["history"][-1]["revision_id"]=="TW-OPEN-0005-13CT-RED-ZHI6" and "next_action" in issue["history"][-1]["changed_fields"]
+ assert any(x.get("event")=="ISSUE_REVISION" and x.get("revision_id")=="TW-OPEN-0005-13CT-RED-ZHI6" and "next_action" in x.get("changed_fields",[]) for x in issue["history"])
  assert "CURRENT ACTION" in issue["next_action"]
- assert l["checkpoint_log"][-1]["id"]=="OMISSIONS-13CT-DIRECT-RED-ZHI6-20261022"
+ assert any(x["id"]=="OMISSIONS-13CT-DIRECT-RED-ZHI6-20261022" for x in l["checkpoint_log"])
  assert sum(x["status"] in ("OPEN","BLOCKED_SOURCE_ACCESS") for x in l["issues"])==11
  return True
 if __name__=="__main__":
