@@ -8,7 +8,7 @@ class TestNative13CM(unittest.TestCase):
   cls.e=m.load(m.E);cls.s=m.load(m.S);cls.l=m.load(m.L)
   cls.old={k:m.load(z["path"]) for k,z in cls.e["frozen_previous_git_blobs"].items()}
  def check(self,e=None,s=None,l=None):
-  return m.check(self.e if e is None else e,self.s if s is None else s,self.l if l is None,self.old)
+  return m.check(self.e if e is None else e,self.s if s is None else s,self.l if l is None else l,self.old)
  def test_positive(self):self.assertTrue(self.check())
  def test_roi_sha_mismatch(self):
   e=copy.deepcopy(self.e);e["native_original_rois"][0]["rgb_sha256"]="0"*64
