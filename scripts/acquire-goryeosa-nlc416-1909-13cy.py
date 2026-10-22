@@ -91,7 +91,7 @@ def main():
                 print(f"13CY_ATLAS_BASE64_END {name}")
         # Coarse structural navigation only. These source-rendered pages are not
         # transcribed text and must never be counted as target-glyph collation.
-        probe_pages=[71,95,101,108,115,120,125,129,130,132,133,134,136,138,140,142,145,150,160,170,175,178,179,181,222]
+        probe_pages=[134,140,141,142,143,144,145,146,147,148,149,150,178,179]
         r["native_page_probes"]=[]
         for page_number in probe_pages:
             pix=doc[page_number-1].get_pixmap(matrix=fitz.Matrix(2,2),alpha=False)
