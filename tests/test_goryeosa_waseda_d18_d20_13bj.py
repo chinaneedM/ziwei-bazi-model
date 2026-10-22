@@ -51,8 +51,17 @@ class Waseda13BJ(unittest.TestCase):
  def test_new_focus_does_not_rewrite_prior_action(self):
   l=copy.deepcopy(self.ledger);s=copy.deepcopy(self.state)
   issue=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
-  assert issue["next_action"].startswith("13DA CURRENT ACTION")
-  assert l["binding"]["latest_research_focus_prefix"]=="13DB"
+  prior_action=issue["next_action"]
+  # A future source_refs-only research batch advances focus but does not
+  # necessarily supersede the last cited next_action.
+  s["schema_version"]="NEXT_FOCUS_ONLY"
+  s["historical_audit"]["research_omission_guard"]["reviewed_state_version"]="NEXT_FOCUS_ONLY"
+  s["historical_audit"]["current_focus"].append("13ZZ TEST_ONLY_FOCUS")
+  l["binding"]["reviewed_state_version"]="NEXT_FOCUS_ONLY"
+  l["binding"]["source_focus_count"]=len(s["historical_audit"]["current_focus"])
+  l["binding"]["latest_research_focus_prefix"]="13ZZ"
+  l["checkpoint_log"].append({"state_version":"NEXT_FOCUS_ONLY","reviewed_issue_ids":[x["id"] for x in l["issues"]]})
+  self.assertEqual(issue["next_action"],prior_action)
   self.assertTrue(self.go(ledger=l,state=s))
  def test_latest_focus_without_action_event_cannot_spoof(self):
   l=copy.deepcopy(self.ledger)
