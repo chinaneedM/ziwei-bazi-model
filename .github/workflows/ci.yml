@@ -609,6 +609,11 @@ jobs:
           python -m py_compile scripts/verify-goryeosa-ncl03117-03130-crosswalk-13cp.py tests/test_goryeosa_ncl03117_03130_crosswalk_13cp.py
           python scripts/verify-goryeosa-ncl03117-03130-crosswalk-13cp.py
           python -m unittest discover -s tests -p 'test_goryeosa_ncl03117_03130_crosswalk_13cp.py' -v
+      - name: Goryeosa 13CQ NCL 1905 manuscript missing-volume register source firewall
+        run: |
+          python -m py_compile scripts/verify-goryeosa-ncl03130-1905-strata-13cq.py tests/test_goryeosa_ncl03130_1905_strata_13cq.py
+          python scripts/verify-goryeosa-ncl03130-1905-strata-13cq.py
+          python -m unittest discover -s tests -p 'test_goryeosa_ncl03130_1905_strata_13cq.py' -v
       - name: Focused capability acceptance tests
         run: |
           python -m unittest discover -s tests -p "test_fusion_chart_capability_acceptance_r1.py" -v
