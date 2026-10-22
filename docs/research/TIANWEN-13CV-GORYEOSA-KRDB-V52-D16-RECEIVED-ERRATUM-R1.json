@@ -1,0 +1,99 @@
+{
+  "schema": "TIANWEN-13CV-GORYEOSA-KRDB-V52-D16-RECEIVED-SOURCE-ERRATUM-R1",
+  "date": "2026-10-22",
+  "issue_id": "TW-OPEN-0005",
+  "follows": "docs/research/TIANWEN-13CU-NCL03130-ZHI-MISSING-RANGE-GLYPH-ROI-R1.json",
+  "first_party_direct_target": {
+    "institution": "National Institute of Korean History",
+    "url": "https://db.history.go.kr/goryeo/level.do?levelId=kr_052_0010_0010_0020_0010&types=o",
+    "web_verification_date": "2026-10-22",
+    "work": "高麗史",
+    "whole_work_juan": 52,
+    "subgenre": "志",
+    "genre_juan": 6,
+    "division": "曆 三",
+    "section": "授時曆立成",
+    "table": "大陽冬至前後二象盈初縮末限",
+    "field": "日差加一秒八十六少",
+    "read_mode": "OFFICIAL_ONLINE_RECEIVED_TRANSCRIPTION_NOT_NATIVE_PHYSICAL_FOLIO",
+    "url_52_verified_by_title_breadcrumb": true,
+    "adjacent_day_readings": [
+      {
+        "day": 15,
+        "received_literal": "五分二一七六",
+        "numeric": "5.2176"
+      },
+      {
+        "day": 16,
+        "received_literal": "五分一三六二",
+        "numeric": "5.1362"
+      },
+      {
+        "day": 17,
+        "received_literal": "五分二五四八",
+        "numeric": "5.2548"
+      }
+    ]
+  },
+  "forward_only_link_erratum": {
+    "earlier_evidence": "docs/research/TIANWEN-13CU-NCL03130-ZHI-MISSING-RANGE-GLYPH-ROI-R1.json",
+    "wrong_url_as_preserved_in_13cu": "https://db.history.go.kr/goryeo/itemLevelKrList.do?levelId=kr_051_0010_0010_0060",
+    "wrong_url_shows": "高麗史 卷五十一 志卷第五 曆二",
+    "correct_url": "https://db.history.go.kr/goryeo/level.do?levelId=kr_052_0010_0010_0020_0010&types=o",
+    "correct_url_shows": "高麗史 卷五十二 志卷第六 曆三 授時曆立成",
+    "claim_mapping_52_to_zhi6_is_unchanged": true,
+    "prior_report_not_rewritten": true,
+    "status": "URL_CORRECTED_IN_NEW_CHECKPOINT_ONLY"
+  },
+  "independent_arithmetic_lanes": {
+    "recurrence_header_increment": "0.0186",
+    "d15": "5.2176",
+    "d16_printed_or_received": "5.1362",
+    "d17": "5.2548",
+    "inferred_d16_by_both_neighbors": "5.2362",
+    "observed_d15_to_d16": "-0.0814",
+    "observed_d16_to_d17": "0.1186",
+    "neighbor_interpolation_delta": "0.1000",
+    "material_status": "NUMERIC_CONJECTURE_NOT_TEXTUAL_EMENDATION"
+  },
+  "source_scope_firewalls": {
+    "modern_official_received_krdb_text": "ONE_TRANSCRIPTION_CHANNEL_NOT_ADDITIONAL_PHYSICAL_COPY",
+    "waseda_original_d16": "5.1362",
+    "naj_original_d16": "5.1362",
+    "direct_third_historical_original_count_new": 0,
+    "modern_krdb_d16_variant_independently_original": false,
+    "ncl_mirror_p7_zhi_range_connector": "UNRESOLVED",
+    "taiwan_ncl_208_03130_firstparty_catalog_item": "UNBOUND",
+    "qing_old_vs_1905_d16_folio_hand": "UNBOUND",
+    "force_corrected_d16_as_printed": false,
+    "ncl_official_search_entry": "https://rbook.ncl.edu.tw/NCLSearch/Search/Index/1",
+    "ncl_official_faq": "https://rbook.ncl.edu.tw/NCLSearch/FAQ",
+    "ncl_direct_detail_found": false,
+    "commons_03117_internal_filename_not_proof_physical_catalog_identity": true
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "An institutionally curated received-text row corroborating 5.1362 does not become a new physically independent historical copy of the D16 table.",
+      "The 13CU kr_051 link was to volume51 and was never direct evidence for a v52 numerical row; the newer v52 target link corrects its reference without rewriting old evidence.",
+      "A recurrence-derived 5.2362 is not a manuscript variant unless actually located on a physical folio."
+    ],
+    "unresolved_lineage_questions": [
+      "Whether Taiwanese manuscript 志卷第六 was included in contemporary handwritten missing-juan list",
+      "Which NCL physical leaf belongs to initial Qing copying versus 1905 supplemental hand",
+      "Whether a third independently dated physical original collates D16 as 5.1362 or 5.2362"
+    ]
+  },
+  "snapshot": {
+    "matrix": 222,
+    "audited": 222,
+    "sources": 754,
+    "graph_nodes": 252,
+    "graph_edges": 238,
+    "unresolved_risks": 11,
+    "chart": "CLOSED",
+    "algorithm_reopens": 0
+  }
+}

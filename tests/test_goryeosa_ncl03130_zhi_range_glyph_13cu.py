@@ -32,4 +32,12 @@ class Test13CU(unittest.TestCase):
  def test_state_sync(self):
   a=copy.deepcopy(self.s);a["historical_audit"]["research_omission_guard"]["reviewed_state_version"]="1.756.0"
   with self.assertRaises(AssertionError):self.check(s=a)
+ def test_13cu_history_must_remain(self):
+  a=copy.deepcopy(self.l)
+  i=next(x for x in a["issues"] if x["id"]=="TW-OPEN-0005")
+  i["history"]=[x for x in i["history"] if x.get("revision_id")!="TW-OPEN-0005-13CU-ZHI-RANGE-CONNECTOR"]
+  with self.assertRaises(AssertionError):self.check(l=a)
+ def test_13cu_checkpoint_must_remain(self):
+  a=copy.deepcopy(self.l);a["checkpoint_log"]=[x for x in a["checkpoint_log"] if x.get("id")!="OMISSIONS-13CU-ZHI-AMBIGUOUS-CONNECTOR-20261022"]
+  with self.assertRaises(AssertionError):self.check(l=a)
 if __name__=="__main__":unittest.main()

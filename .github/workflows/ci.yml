@@ -634,6 +634,11 @@ jobs:
           python -m py_compile scripts/verify-goryeosa-ncl03130-zhi-range-glyph-13cu.py tests/test_goryeosa_ncl03130_zhi_range_glyph_13cu.py
           python scripts/verify-goryeosa-ncl03130-zhi-range-glyph-13cu.py
           python -m unittest discover -s tests -p 'test_goryeosa_ncl03130_zhi_range_glyph_13cu.py' -v
+      - name: Goryeosa 13CV institutional firstparty V52 D16 received text and 13CU link erratum
+        run: |
+          python -m py_compile scripts/verify-goryeosa-krdb-v52-d16-13cv.py tests/test_goryeosa_krdb_v52_d16_13cv.py
+          python scripts/verify-goryeosa-krdb-v52-d16-13cv.py
+          python -m unittest discover -s tests -p 'test_goryeosa_krdb_v52_d16_13cv.py' -v
       - name: Focused capability acceptance tests
         run: |
           python -m unittest discover -s tests -p "test_fusion_chart_capability_acceptance_r1.py" -v
