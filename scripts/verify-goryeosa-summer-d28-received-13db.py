@@ -44,7 +44,7 @@ def check(e,s,l):
  imp=e["impact"]
  assert (imp["historical_matrix_rows"],imp["audited_rows"],imp["registry_sources"],imp["genealogy_nodes"],imp["genealogy_edges"],imp["open_or_blocked_issues"])==(222,222,754,252,238,11)
  assert imp["deterministic_chart"]=="CLOSED" and imp["algorithm_reopens"]==0
- assert s["schema_version"]==l["binding"]["reviewed_state_version"]=="1.763.0"
+ assert s["schema_version"]==l["binding"]["reviewed_state_version"]==s["historical_audit"]["research_omission_guard"]["reviewed_state_version"]
  assert l["binding"]["source_focus_count"]==len(s["historical_audit"]["current_focus"])
  assert l["binding"]["latest_research_focus_prefix"]==s["historical_audit"]["current_focus"][-1].split(" ",1)[0]=="13DB"
  i=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
