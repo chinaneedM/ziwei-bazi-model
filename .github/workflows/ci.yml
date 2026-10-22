@@ -604,6 +604,11 @@ jobs:
           python -m py_compile scripts/verify-goryeosa-third-witness-access-13co.py tests/test_goryeosa_third_witness_access_13co.py
           python scripts/verify-goryeosa-third-witness-access-13co.py
           python -m unittest discover -s tests -p 'test_goryeosa_third_witness_access_13co.py' -v
+      - name: Goryeosa 13CP Taiwan NCL 03117 03130 digital alias identity firewall
+        run: |
+          python -m py_compile scripts/verify-goryeosa-ncl03117-03130-crosswalk-13cp.py tests/test_goryeosa_ncl03117_03130_crosswalk_13cp.py
+          python scripts/verify-goryeosa-ncl03117-03130-crosswalk-13cp.py
+          python -m unittest discover -s tests -p 'test_goryeosa_ncl03117_03130_crosswalk_13cp.py' -v
       - name: Focused capability acceptance tests
         run: |
           python -m unittest discover -s tests -p "test_fusion_chart_capability_acceptance_r1.py" -v
