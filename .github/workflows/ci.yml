@@ -599,6 +599,11 @@ jobs:
           python -m py_compile scripts/verify-goryeosa-native-d19-d20-13cn.py tests/test_goryeosa_native_d19_d20_13cn.py
           python scripts/verify-goryeosa-native-d19-d20-13cn.py
           python -m unittest discover -s tests -p 'test_goryeosa_native_d19_d20_13cn.py' -v
+      - name: Goryeosa 13CO third witness source access provenance firewall
+        run: |
+          python -m py_compile scripts/verify-goryeosa-third-witness-access-13co.py tests/test_goryeosa_third_witness_access_13co.py
+          python scripts/verify-goryeosa-third-witness-access-13co.py
+          python -m unittest discover -s tests -p 'test_goryeosa_third_witness_access_13co.py' -v
       - name: Focused capability acceptance tests
         run: |
           python -m unittest discover -s tests -p "test_fusion_chart_capability_acceptance_r1.py" -v
