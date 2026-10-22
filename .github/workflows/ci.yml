@@ -589,6 +589,10 @@ jobs:
         run: |
           python scripts/verify-goryeosa-d15-d20-received-double-difference-13cl.py
           python -m unittest discover -s tests -p 'test_goryeosa_d15_d20_received_double_difference_13cl.py' -v
+      - name: Goryeosa 13CM source-native original D15 D18 numeric ROI controls
+        run: |
+          python scripts/verify-goryeosa-native-d15-d18-13cm.py
+          python -m unittest discover -s tests -p 'test_goryeosa_native_d15_d18_13cm.py' -v
       - name: Focused capability acceptance tests
         run: |
           python -m unittest discover -s tests -p "test_fusion_chart_capability_acceptance_r1.py" -v

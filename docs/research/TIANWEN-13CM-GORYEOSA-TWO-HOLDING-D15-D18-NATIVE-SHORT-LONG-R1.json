@@ -1,0 +1,228 @@
+{
+  "schema": "TIANWEN-13CM-ORIGINAL-TWO-HOLDING-D15-D18-LONG-SHORT-NATIVE-RGB-COLLATION-R1",
+  "date": "2026-10-22",
+  "issue_id": "TW-OPEN-0005",
+  "evidence_grade": "DIRECT_REOPENED_EXISTING_GITHUB_ACTIONS_ZIP_NATIVE_JPEG_TWO_EXISTING_PHYSICAL_HOLDINGS_SIX_NEW_RGB_ROI_SHA_WITH_MANUAL_GLYPH_COLLATION_NO_OCR",
+  "recovery_method": {
+    "waseda": "GitHub Actions artifact 12340588249 recovered to local working copy; archive zip SHA checked, original-source.jpg original JPEG SHA checked",
+    "naj": "GitHub Actions artifact 12258234108 recovered to local working copy; archive zip SHA checked, canvases 17 and 18 JPEG SHA checked",
+    "method": "opened and visually read native original images, computed SHA256 of Pillow RGB cropped bytes (not PNG compression), no new provider acquisition",
+    "original_jpeg_count": 3,
+    "existing_historical_physical_copy_count": 2,
+    "source_archive_binaries_committed_to_repo": false
+  },
+  "frozen_previous_git_blobs": {
+    "13CH": {
+      "path": "docs/research/TIANWEN-13CH-GORYEOSA-TWO-HOLDING-D01-D20-ORIGINAL-HEADING-ATLAS-R1.json",
+      "sha": "597ce1e7cd72acf54a82f4c662f34848b353a81c"
+    },
+    "13CI": {
+      "path": "docs/research/TIANWEN-13CI-GORYEOSA-D16-D18-TWO-ORIGINAL-LONG-SHORT-ASYMMETRY-R1.json",
+      "sha": "be9b703e5f4e2523c1af7e8dfd23dc047222d2e1"
+    },
+    "13CL": {
+      "path": "docs/research/TIANWEN-13CL-GORYEOSA-D15-D20-DOUBLE-DIFFERENCE-CHECK-R1.json",
+      "sha": "20bcd99ff7ce912ee88fe61e9420659e24509e16"
+    }
+  },
+  "original_sources": {
+    "W23": {
+      "holding": "WASEDA-RI06-02809-BOOK33",
+      "photographic_page": 23,
+      "source_file": "original-source.jpg",
+      "archived_zip_sha256": "41863a3d931122d53cce3bcdd59af1828eb41cc7efbab53b32ec738273a9306c",
+      "github_actions_artifact_id": 12340588249,
+      "jpeg_sha256": "388f3d5dd9e9861f8ce90c304b154edaeaee98614bb12cd3468f957dcde6fc66",
+      "dimensions": [
+        2592,
+        1728
+      ],
+      "provider_pdf": "https://archive.wul.waseda.ac.jp/kosho/ri06/ri06_02809/ri06_02809_0033/ri06_02809_0033.pdf"
+    },
+    "N17": {
+      "holding": "NAJ-282-0006-PHYSICAL51",
+      "photographic_canvas": 17,
+      "source_file": "book51-full-leaf-017.jpg",
+      "archived_zip_sha256": "dd7e35494898f5a3dae1c9cff1a05627c2fe4ca530ebea0434c67f8f356320f4",
+      "github_actions_artifact_id": 12258234108,
+      "jpeg_sha256": "8362e8a2b8ddf5f36408d4450a81ebad2d9548b32f49dbe37e01493592b7c3e9",
+      "dimensions": [
+        3000,
+        2215
+      ],
+      "provider_item": "https://www.digital.archives.go.jp/item/en/4898853"
+    },
+    "N18": {
+      "holding": "NAJ-282-0006-PHYSICAL51",
+      "photographic_canvas": 18,
+      "source_file": "book51-full-leaf-018.jpg",
+      "archived_zip_sha256": "dd7e35494898f5a3dae1c9cff1a05627c2fe4ca530ebea0434c67f8f356320f4",
+      "github_actions_artifact_id": 12258234108,
+      "jpeg_sha256": "88cecf62c8cd0dd623199eb06e3044efbe61771c1ffe058b8e7a87cc2f8f88cc",
+      "dimensions": [
+        3000,
+        2215
+      ],
+      "provider_item": "https://www.digital.archives.go.jp/item/en/4898853"
+    }
+  },
+  "native_original_rois": [
+    {
+      "source": "W23",
+      "printed_day": 15,
+      "field": "LONG",
+      "bbox": [
+        1576,
+        680,
+        1622,
+        1410
+      ],
+      "original_literal": "四百三十四八二四九",
+      "decimal": "434.8249",
+      "rgb_sha256": "a3c7a4d375073cbed69ec3c00b4421fffdc0e72c2ddc6aab476ed0d9d5614a9d",
+      "original_day_heading_from": "13CH",
+      "isolated_field_grade": "SOURCE_NATIVE_TARGET_NUMERIC_COLUMN_WITH_HEADER_CROSSCHECK"
+    },
+    {
+      "source": "W23",
+      "printed_day": 15,
+      "field": "SHORT",
+      "bbox": [
+        1622,
+        680,
+        1664,
+        1410
+      ],
+      "original_literal": "五分二一七六",
+      "decimal": "5.2176",
+      "rgb_sha256": "c230d004b4f5bd0b28359c10b2382bb22dc13603450172fdc9e7b1b5b1eb3d8b",
+      "original_day_heading_from": "13CH",
+      "isolated_field_grade": "SOURCE_NATIVE_TARGET_NUMERIC_COLUMN_WITH_HEADER_CROSSCHECK"
+    },
+    {
+      "source": "N17",
+      "printed_day": 15,
+      "field": "LONG",
+      "bbox": [
+        772,
+        870,
+        815,
+        1775
+      ],
+      "original_literal": "四百三十四八二四九",
+      "decimal": "434.8249",
+      "rgb_sha256": "455bb6ddb8284977444a767408a80a35abfffa2b97bdb7c47aba9365c68d6cd4",
+      "original_day_heading_from": "13CH",
+      "isolated_field_grade": "SOURCE_NATIVE_TARGET_NUMERIC_COLUMN_WITH_HEADER_CROSSCHECK"
+    },
+    {
+      "source": "N17",
+      "printed_day": 15,
+      "field": "SHORT",
+      "bbox": [
+        815,
+        870,
+        852,
+        1775
+      ],
+      "original_literal": "五分二一七六",
+      "decimal": "5.2176",
+      "rgb_sha256": "e29c504fcfd53a2a56c54481a3b069718466182fb089cb21de2d1d9dc7dddf55",
+      "original_day_heading_from": "13CH",
+      "isolated_field_grade": "SOURCE_NATIVE_TARGET_NUMERIC_COLUMN_WITH_HEADER_CROSSCHECK"
+    },
+    {
+      "source": "W23",
+      "printed_day": 18,
+      "field": "SHORT",
+      "bbox": [
+        889,
+        685,
+        937,
+        1400
+      ],
+      "original_literal": "五分二七三四",
+      "decimal": "5.2734",
+      "rgb_sha256": "876e24eccf051b42cc9db1befb07b3b144b3ce6d8be9bbc5a6a5898b48b5cc44",
+      "original_day_heading_from": "13CH",
+      "isolated_field_grade": "SOURCE_NATIVE_TARGET_NUMERIC_COLUMN_WITH_HEADER_CROSSCHECK"
+    },
+    {
+      "source": "N18",
+      "printed_day": 18,
+      "field": "SHORT",
+      "bbox": [
+        2385,
+        835,
+        2440,
+        1775
+      ],
+      "original_literal": "五分二七三四",
+      "decimal": "5.2734",
+      "rgb_sha256": "7d1481dd09794d79b577989454881fede694e19403b23a30e585e44bad6aeaa2",
+      "original_day_heading_from": "13CH",
+      "isolated_field_grade": "SOURCE_NATIVE_TARGET_NUMERIC_COLUMN_WITH_HEADER_CROSSCHECK"
+    }
+  ],
+  "original_local_arithmetic": {
+    "d15_short": "5.2176",
+    "d16_short_both_prior": "5.1362",
+    "d17_short_both_prior": "5.2548",
+    "d18_short": "5.2734",
+    "local_delta_s15_to_s16": "-0.0814",
+    "local_delta_s16_to_s17": "0.1186",
+    "local_delta_s17_to_s18": "0.0186",
+    "d15_long": "434.8249",
+    "d16_long_both_prior": "429.6073",
+    "d17_long_both_prior": "424.3711",
+    "d18_long_both_prior": "419.1163",
+    "long_delta_d15_to_d16": "5.2176",
+    "long_delta_d16_to_d17": "5.2362",
+    "long_delta_d17_to_d18": "5.2548",
+    "isolated_d16_numeric_midpoint_conjecture": "5.2362",
+    "original_d16_short_always_read": "5.1362",
+    "delta_conjecture_minus_source": "0.1000",
+    "numeral_comparison_grade": "NEW_SOURCE_NATIVE_D15_AND_D18_GLYPHS_WITH_EXISTING_SOURCE_NATIVE_D16_D17_GLYPHS",
+    "local_arithmetic_is_not_original_emendation": true,
+    "global_historical_recurrence": false
+  },
+  "possible_new_improvement": "13CL six-day reception arithmetic now has direct-original photographic controls for D15 short+long and D18 short in both existing holders; no dependence on received electronic page for these added glyphs.",
+  "limitations": {
+    "no_original_provider_new_capture": true,
+    "new_source_native_rgb_crops": 6,
+    "new_original_jpegs": 0,
+    "new_physical_copy_witnesses": 0,
+    "no_independent_stemmatic_votes": true,
+    "physical_copy_stemma": "UNRESOLVED",
+    "waseda_D16_same_day_C": "UNBOUND",
+    "naj_D17_same_day_C": "UNBOUND",
+    "original_d16_short_5_2362": "NOT_ATTESTED",
+    "G893_shao_wei_Ming1569_units": "UNPROVEN",
+    "n18_roi_tight_clean_neighbor_exclusion": "TARGET_NATIVE_COLUMN_WITH_NEARBY_STROKES_NOT_GLYPH_EXCLUSIVITY_CLAIM",
+    "OCR_used": false
+  },
+  "scope": {
+    "new_external_source_registry_rows": 0,
+    "new_historical_matrix_rows": 0,
+    "new_transmission_nodes": 0,
+    "new_transmission_edges": 0,
+    "independent_stemmatic_votes": 0,
+    "algorithm_reopens": 0,
+    "open_or_blocked_risks": 11,
+    "product": "CLOSED"
+  },
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproven": [
+      "Six new original RGB crops from previously counted two physical copies cannot create a third historical witness, prove common-exemplar error, correct historical 5.1362 by mathematical conjecture, or prove NAJ/W direct dependence."
+    ],
+    "unresolved_lineage_questions": [
+      "Independent dated third print or trustworthy earlier independent facsimile for D16 short glyph",
+      "NAJ D17/Waseda D16 precise C-header/row mapping",
+      "G893 and later Ming mechanical units independently"
+    ]
+  },
+  "next_action": "Seek independent dated original D16 SHORT variant or explicit original-era correction; source-native direct W p23 D16 C and NAJ canvas17 D17 C field headers; G893 少／微 and Ming 1569 source-local units. Reproduce new six RGB ROI hashes by passing recovered original JPEGs into 13CM verifier optional arguments."
+}
