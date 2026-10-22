@@ -89,6 +89,25 @@ def main():
                 print(f"13CY_ATLAS_BASE64_BEGIN {name} {len(data)}")
                 print(base64.b64encode(data).decode("ascii"))
                 print(f"13CY_ATLAS_BASE64_END {name}")
+        # Coarse structural navigation only. These source-rendered pages are not
+        # transcribed text and must never be counted as target-glyph collation.
+        probe_pages=[2,71,175,222,335,446,533,610,658,675,688,707,726,727,728,739,754]
+        r["native_page_probes"]=[]
+        for page_number in probe_pages:
+            pix=doc[page_number-1].get_pixmap(matrix=fitz.Matrix(2,2),alpha=False)
+            img=Image.open(io.BytesIO(pix.tobytes("png"))).convert("RGB")
+            bio=io.BytesIO()
+            img.save(bio,format="JPEG",quality=87,optimize=True)
+            data=bio.getvalue()
+            name=f"original-navigation-p{page_number:03}.jpg"
+            (OUT/name).write_bytes(data)
+            r["native_page_probes"].append({
+                "pdf_page":page_number,"file":name,"bytes":len(data),
+                "sha256":digest(data),"interpretation":"UNREVIEWED_NO_GLYPH_PROMOTION"})
+            if args.emit_preview_base64:
+                print(f"13CY_NAV_BASE64_BEGIN {name} {len(data)}")
+                print(base64.b64encode(data).decode("ascii"))
+                print(f"13CY_NAV_BASE64_END {name}")
         r["status"]="ACQUIRED_SHA256_PINNED_ALL_PAGES_THUMBNAILS_UNREVIEWED"
         print("13CY_SOURCE_PDF",r["sha256_original_pdf"],"BYTES",r["source_bytes"],"PAGES",len(doc))
     except Exception as exc:
