@@ -594,6 +594,11 @@ jobs:
           python -m py_compile scripts/verify-goryeosa-native-d15-d18-13cm.py tests/test_goryeosa_native_d15_d18_13cm.py
           python scripts/verify-goryeosa-native-d15-d18-13cm.py
           python -m unittest discover -s tests -p 'test_goryeosa_native_d15_d18_13cm.py' -v
+      - name: Goryeosa 13CN original D19 D20 two-copy six-day lane controls
+        run: |
+          python -m py_compile scripts/verify-goryeosa-native-d19-d20-13cn.py tests/test_goryeosa_native_d19_d20_13cn.py
+          python scripts/verify-goryeosa-native-d19-d20-13cn.py
+          python -m unittest discover -s tests -p 'test_goryeosa_native_d19_d20_13cn.py' -v
       - name: Focused capability acceptance tests
         run: |
           python -m unittest discover -s tests -p "test_fusion_chart_capability_acceptance_r1.py" -v
