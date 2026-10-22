@@ -138,6 +138,44 @@ def main():
                 print(f"13CY_TARGET_BASE64_BEGIN {name} {len(data)}")
                 print(base64.b64encode(data).decode("ascii"))
                 print(f"13CY_TARGET_BASE64_END {name}")
+        # Source-embedded RGB column probes; unlike raster thumbnails these
+        # crop the original scan pixels and can be replayed against 13CZ hashes.
+        embedded_page=doc[142].get_images(full=True)
+        if len(embedded_page)!=1:
+            raise RuntimeError("PDF p143 embedded image count changed")
+        embedded_bytes=doc.extract_image(embedded_page[0][0])["image"]
+        source_rgb=Image.open(io.BytesIO(embedded_bytes)).convert("RGB")
+        if source_rgb.size!=(1486,2162):
+            raise RuntimeError("PDF p143 native scan dimensions changed")
+        r["native_p143_rgb_sha256"]=digest(source_rgb.tobytes())
+        if r["native_p143_rgb_sha256"]!="30fd1c9c1601d871d1739a8691e90183960ca19ce3e2f225fd1573ddb8e110b4":
+            raise RuntimeError("PDF p143 source RGB no longer matches 13CZ")
+        raw_lanes=[
+            (15,"short_long_context",(611,1080,750,1715)),
+            (16,"short_long_context",(429,1080,569,1715)),
+            (17,"short_long_context",(246,1080,387,1715)),
+            (15,"candidate_long",(618,1080,663,1715)),
+            (16,"candidate_long",(435,1080,480,1715)),
+            (17,"candidate_long",(252,1080,297,1715)),
+        ]
+        r["native_p143_column_probes"]=[]
+        for day,lane,bbox in raw_lanes:
+            cut=source_rgb.crop(bbox)
+            rgb_hash=digest(cut.tobytes())
+            io_buffer=io.BytesIO()
+            cut.save(io_buffer,format="PNG",optimize=True)
+            png_bytes=io_buffer.getvalue()
+            file_name=f"native-p143-day{day:02}-{lane}.png"
+            (OUT/file_name).write_bytes(png_bytes)
+            r["native_p143_column_probes"].append({
+                "pdf_page":143,"day":day,"lane":lane,
+                "bbox":list(bbox),"native_rgb_sha256":rgb_hash,
+                "file":file_name,"status":"CANDIDATE_VISUAL_COLUMN_REGION_UNREVIEWED"})
+            print("13CY_NATIVE_COLUMN_SHA",day,lane,rgb_hash,file_name)
+            if args.emit_preview_base64:
+                print(f"13CY_COLUMN_BASE64_BEGIN {file_name} {len(png_bytes)}")
+                print(base64.b64encode(png_bytes).decode("ascii"))
+                print(f"13CY_COLUMN_BASE64_END {file_name}")
         r["status"]="ACQUIRED_SHA256_PINNED_ALL_PAGES_THUMBNAILS_UNREVIEWED"
         print("13CY_SOURCE_PDF",r["sha256_original_pdf"],"BYTES",r["source_bytes"],"PAGES",len(doc))
     except Exception as exc:
