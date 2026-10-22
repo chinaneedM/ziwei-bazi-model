@@ -150,13 +150,19 @@ def main():
         r["native_p143_rgb_sha256"]=digest(source_rgb.tobytes())
         if r["native_p143_rgb_sha256"]!="30fd1c9c1601d871d1739a8691e90183960ca19ce3e2f225fd1573ddb8e110b4":
             raise RuntimeError("PDF p143 source RGB no longer matches 13CZ")
+        # Prior exploratory 'candidate_long' crops include the cumulative
+        # column, not the long column. Preserve that run as an erratum source;
+        # generate disjoint corrected long/cumulative fields from native RGB.
         raw_lanes=[
-            (15,"short_long_context",(611,1080,750,1715)),
-            (16,"short_long_context",(429,1080,569,1715)),
-            (17,"short_long_context",(246,1080,387,1715)),
-            (15,"candidate_long",(618,1080,663,1715)),
-            (16,"candidate_long",(435,1080,480,1715)),
-            (17,"candidate_long",(252,1080,297,1715)),
+            (15,"full_three_fields",(570,1080,755,1715)),
+            (16,"full_three_fields",(388,1080,572,1715)),
+            (17,"full_three_fields",(205,1080,390,1715)),
+            (15,"long",(653,1080,700,1715)),
+            (16,"long",(471,1080,519,1715)),
+            (17,"long",(287,1080,335,1715)),
+            (15,"cumulative",(601,1080,652,1715)),
+            (16,"cumulative",(420,1080,470,1715)),
+            (17,"cumulative",(236,1080,286,1715)),
         ]
         r["native_p143_column_probes"]=[]
         for day,lane,bbox in raw_lanes:
