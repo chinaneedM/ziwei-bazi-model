@@ -48,6 +48,22 @@ class Waseda13BJ(unittest.TestCase):
   l=copy.deepcopy(self.ledger)
   next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")["next_action"]="13BI CURRENT EVIDENCE-BOUND NEXT ACTION (STALE)"
   with self.assertRaises(AssertionError):self.go(ledger=l)
+ def test_new_focus_does_not_rewrite_prior_action(self):
+  l=copy.deepcopy(self.ledger);s=copy.deepcopy(self.state)
+  issue=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
+  assert issue["next_action"].startswith("13DA CURRENT ACTION")
+  assert l["binding"]["latest_research_focus_prefix"]=="13DB"
+  self.assertTrue(self.go(ledger=l,state=s))
+ def test_latest_focus_without_action_event_cannot_spoof(self):
+  l=copy.deepcopy(self.ledger)
+  issue=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
+  issue["next_action"]="13DB CURRENT ACTION spoofed without material scope revision"
+  with self.assertRaises(AssertionError):self.go(ledger=l)
+ def test_last_action_event_must_authorize_prefix(self):
+  l=copy.deepcopy(self.ledger)
+  issue=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
+  issue["next_action"]="13DC CURRENT ACTION unregistered"
+  with self.assertRaises(AssertionError):self.go(ledger=l)
  def test_future_forward_only(self):
   l=copy.deepcopy(self.ledger);s=copy.deepcopy(self.state)
   issue=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
