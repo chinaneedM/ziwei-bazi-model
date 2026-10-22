@@ -664,6 +664,11 @@ jobs:
           python -m py_compile scripts/verify-goryeosa-summer-d28-received-13db.py tests/test_goryeosa_summer_d28_received_13db.py
           python scripts/verify-goryeosa-summer-d28-received-13db.py
           python -m unittest discover -s tests -p 'test_goryeosa_summer_d28_received_13db.py' -v
+      - name: Goryeosa 13DD NLC416 1909 summer D28 source-original glyph replay
+        run: |
+          python -m py_compile scripts/verify-goryeosa-nlc416-summer-d28-native-13dd.py tests/test_goryeosa_nlc416_summer_d28_native_13dd.py
+          python scripts/verify-goryeosa-nlc416-summer-d28-native-13dd.py
+          python -m unittest discover -s tests -p 'test_goryeosa_nlc416_summer_d28_native_13dd.py' -v
       - name: Focused capability acceptance tests
         run: |
           python -m unittest discover -s tests -p "test_fusion_chart_capability_acceptance_r1.py" -v
