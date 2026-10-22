@@ -8,7 +8,7 @@ E="docs/research/TIANWEN-13CN-GORYEOSA-TWO-HOLDING-D19-D20-SIX-DAY-NATIVE-R1.jso
 def load(p):return json.loads((ROOT/p).read_text(encoding="utf-8"))
 def gitsha(p):
  b=(ROOT/p).read_bytes()
- return hashlib.sha1(b"blob "+str(len(b)).encode()+b"\\0"+b).hexdigest()
+ return hashlib.sha1(b"blob "+str(len(b)).encode()+bytes([0])+b).hexdigest()
 def check(e,s,l,prior,images=None):
  assert e["schema"]=="TIANWEN-13CN-GORYEOSA-TWO-ORIGINAL-D19-D20-SIX-DAY-NATIVE-ROIS-R1"
  assert e["issue_id"]=="TW-OPEN-0005" and set(prior)=={"13CH","13CM"}
