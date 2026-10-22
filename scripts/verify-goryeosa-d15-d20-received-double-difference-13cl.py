@@ -92,7 +92,7 @@ def check(e,s,l,reg,old):
  assert l["binding"]["source_focus_count"]==len(s["historical_audit"]["current_focus"])
  issue=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
  assert issue["status"]=="OPEN" and E in issue["source_refs"]
- assert any(h["revision_id"]=="TW-OPEN-0005-LOCAL-DOUBLE-DIFFERENCE-13CL" for h in issue["history"])
+ assert any(h.get("revision_id")=="TW-OPEN-0005-LOCAL-DOUBLE-DIFFERENCE-13CL" for h in issue["history"])
  assert any(x["id"]=="OMISSIONS-13CL-TWO-CONTROLS-20261022" for x in l["checkpoint_log"])
  assert len([i for i in l["issues"] if i["status"] in ("OPEN","BLOCKED_SOURCE_ACCESS")])==11
  return True

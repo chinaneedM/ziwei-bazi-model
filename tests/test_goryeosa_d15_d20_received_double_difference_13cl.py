@@ -28,6 +28,16 @@ class Test13CL(unittest.TestCase):
  def test_krdb_tail_silence(self):
   e=copy.deepcopy(self.e);e["received_rows"][3]["institutional_received_c_glyph"]="八千四百二十四六四〇八"
   with self.assertRaises(AssertionError):self.check(e=e)
+ def test_legacy_history_without_revision_id(self):
+  l=copy.deepcopy(self.l)
+  issue=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
+  issue["history"].insert(0,{"event":"OLDER_HISTORICAL_CHECKPOINT_WITHOUT_REVISION_ID"})
+  self.assertTrue(self.check(l=l))
+ def test_missing_required_revision_fails(self):
+  l=copy.deepcopy(self.l)
+  issue=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
+  issue["history"]=[x for x in issue["history"] if x.get("revision_id")!="TW-OPEN-0005-LOCAL-DOUBLE-DIFFERENCE-13CL"]
+  with self.assertRaises(AssertionError):self.check(l=l)
  def test_forward_only_future_add(self):
   s=copy.deepcopy(self.s);l=copy.deepcopy(self.l)
   s["schema_version"]="1.900.0";s["historical_audit"]["current_focus"].append("13ZZ later")
