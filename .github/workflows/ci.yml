@@ -624,6 +624,11 @@ jobs:
           python -m py_compile scripts/verify-goryeosa-ncl03130-sha-front-13cs.py tests/test_goryeosa_ncl03130_sha_front_13cs.py
           python scripts/verify-goryeosa-ncl03130-sha-front-13cs.py
           python -m unittest discover -s tests -p 'test_goryeosa_ncl03130_sha_front_13cs.py' -v
+      - name: Goryeosa 13CT direct highres missing-juan red register genre and official Zhi-6 structural firewall
+        run: |
+          python -m py_compile scripts/verify-goryeosa-ncl03130-direct-red-zhi6-13ct.py tests/test_goryeosa_ncl03130_direct_red_zhi6_13ct.py
+          python scripts/verify-goryeosa-ncl03130-direct-red-zhi6-13ct.py
+          python -m unittest discover -s tests -p 'test_goryeosa_ncl03130_direct_red_zhi6_13ct.py' -v
       - name: Focused capability acceptance tests
         run: |
           python -m unittest discover -s tests -p "test_fusion_chart_capability_acceptance_r1.py" -v
