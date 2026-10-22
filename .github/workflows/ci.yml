@@ -649,6 +649,11 @@ jobs:
           python -m py_compile scripts/verify-goryeosa-nlc416-1909-v52-13cx.py tests/test_goryeosa_nlc416_1909_v52_13cx.py
           python scripts/verify-goryeosa-nlc416-1909-v52-13cx.py
           python -m unittest discover -s tests -p 'test_goryeosa_nlc416_1909_v52_13cx.py' -v
+      - name: Goryeosa 13CZ original NLC416 1909 D15-D17 source-native evidence
+        run: |
+          python -m py_compile scripts/verify-goryeosa-nlc416-native-d15-d17-13cz.py tests/test_goryeosa_nlc416_native_d15_d17_13cz.py
+          python scripts/verify-goryeosa-nlc416-native-d15-d17-13cz.py
+          python -m unittest discover -s tests -p 'test_goryeosa_nlc416_native_d15_d17_13cz.py' -v
       - name: Focused capability acceptance tests
         run: |
           python -m unittest discover -s tests -p "test_fusion_chart_capability_acceptance_r1.py" -v
