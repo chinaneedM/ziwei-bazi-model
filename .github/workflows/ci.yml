@@ -614,6 +614,11 @@ jobs:
           python -m py_compile scripts/verify-goryeosa-ncl03130-1905-strata-13cq.py tests/test_goryeosa_ncl03130_1905_strata_13cq.py
           python scripts/verify-goryeosa-ncl03130-1905-strata-13cq.py
           python -m unittest discover -s tests -p 'test_goryeosa_ncl03130_1905_strata_13cq.py' -v
+      - name: Goryeosa 13CR NCL03130 digital 24-part inventory and acquisition scope firewall
+        run: |
+          python -m py_compile scripts/verify-goryeosa-ncl03130-parts-13cr.py tests/test_goryeosa_ncl03130_parts_13cr.py scripts/acquire-ncl03130-front-13cr.py
+          python scripts/verify-goryeosa-ncl03130-parts-13cr.py
+          python -m unittest discover -s tests -p 'test_goryeosa_ncl03130_parts_13cr.py' -v
       - name: Focused capability acceptance tests
         run: |
           python -m unittest discover -s tests -p "test_fusion_chart_capability_acceptance_r1.py" -v

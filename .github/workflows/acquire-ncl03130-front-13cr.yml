@@ -1,0 +1,33 @@
+name: acquire-ncl03130-front-13cr
+on:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - "docs/research/TIANWEN-13CR-NCL03130-COMMONS-24PART-FRONT-INTAKE-R1.json"
+      - "scripts/acquire-ncl03130-front-13cr.py"
+      - ".github/workflows/acquire-ncl03130-front-13cr.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  public-mirror-acquisition:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install isolated scan inspection dependencies
+        run: python -m pip install --disable-pip-version-check pymupdf pillow requests
+      - name: Attempt Commons public source PDF acquisition, no OCR
+        run: python scripts/acquire-ncl03130-front-13cr.py
+      - name: Upload bounded public source page atlas and access diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ncl03130-13cr-front-source-pages
+          path: 13cr-public-acquisition/
+          if-no-files-found: warn
+          retention-days: 30
