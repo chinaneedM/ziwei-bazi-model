@@ -659,6 +659,11 @@ jobs:
           python -m py_compile scripts/verify-goryeosa-nlc416-three-columns-13da.py tests/test_goryeosa_nlc416_three_columns_13da.py
           python scripts/verify-goryeosa-nlc416-three-columns-13da.py
           python -m unittest discover -s tests -p 'test_goryeosa_nlc416_three_columns_13da.py' -v
+      - name: Goryeosa 13DB summer D28 received XingDu outlier evidence-scope check
+        run: |
+          python -m py_compile scripts/verify-goryeosa-summer-d28-received-13db.py tests/test_goryeosa_summer_d28_received_13db.py
+          python scripts/verify-goryeosa-summer-d28-received-13db.py
+          python -m unittest discover -s tests -p 'test_goryeosa_summer_d28_received_13db.py' -v
       - name: Focused capability acceptance tests
         run: |
           python -m unittest discover -s tests -p "test_fusion_chart_capability_acceptance_r1.py" -v
