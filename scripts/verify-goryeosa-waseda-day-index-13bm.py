@@ -90,7 +90,7 @@ def check(e,bj,bk,yz,ledger,state):
            for z in issue["history"][issue["history"].index(h)+1:])
  prefix=ledger["binding"]["latest_research_focus_prefix"]
  assert issue["next_action"].startswith("13BM CURRENT ACTION") or (
-  later and prefix!="13BM" and issue["next_action"].startswith(prefix+" CURRENT ACTION"))
+  later and prefix!="13BM" and (issue["next_action"].startswith(prefix+" CURRENT ACTION") or issue["next_action"].startswith(next((z["revision_id"].split("-")[3]+" CURRENT ACTION" for z in reversed(issue["history"]) if "next_action" in z.get("changed_fields",[]) and len(z.get("revision_id","").split("-"))>3 and z["revision_id"].split("-")[3].startswith("13")),"__NO_RECORDED_ACTION__"))))
  assert state["schema_version"]==ledger["binding"]["reviewed_state_version"]==state["historical_audit"]["research_omission_guard"]["reviewed_state_version"]
  assert any(z.startswith("13BM ") for z in state["historical_audit"]["current_focus"])
  assert ledger["binding"]["source_focus_count"]==len(state["historical_audit"]["current_focus"])

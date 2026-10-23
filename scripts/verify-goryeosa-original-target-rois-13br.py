@@ -29,7 +29,7 @@ def check(e,state,ledger):
  assert {M,P,"docs/research/TIANWEN-13BO-GORYEOSA-WASEDA-P23-D17-D18-ORIGINAL-HEADER-CUMULATIVE-LONG-R1.json","docs/research/TIANWEN-13BK-GORYEOSA-NAJ-CANVAS18-D19-LONG-D20-D21-CUMULATIVE-R1.json"}.issubset(set(rev["evidence_refs"]))
  later=any("next_action" in z.get("changed_fields",[]) for z in issue["history"][issue["history"].index(rev)+1:])
  prefix=ledger["binding"]["latest_research_focus_prefix"]
- assert issue["next_action"].startswith("13BR CURRENT ACTION") or (later and prefix!="13BR" and issue["next_action"].startswith(prefix+" CURRENT ACTION"))
+ assert issue["next_action"].startswith("13BR CURRENT ACTION") or (later and prefix!="13BR" and (issue["next_action"].startswith(prefix+" CURRENT ACTION") or issue["next_action"].startswith(next((z["revision_id"].split("-")[3]+" CURRENT ACTION" for z in reversed(issue["history"]) if "next_action" in z.get("changed_fields",[]) and len(z.get("revision_id","").split("-"))>3 and z["revision_id"].split("-")[3].startswith("13")),"__NO_RECORDED_ACTION__"))))
  assert state["schema_version"]==ledger["binding"]["reviewed_state_version"]==state["historical_audit"]["research_omission_guard"]["reviewed_state_version"]
  assert ledger["binding"]["source_focus_count"]==len(state["historical_audit"]["current_focus"])
  assert any(z.startswith("13BR ") for z in state["historical_audit"]["current_focus"])

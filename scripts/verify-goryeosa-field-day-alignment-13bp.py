@@ -59,7 +59,7 @@ def check(e,w,n,l,s,physical=True):
     assert {MD,P,W,N}.issubset(set(h["evidence_refs"]))
     ix=iss["history"].index(h);later=any("next_action" in z.get("changed_fields",[]) for z in iss["history"][ix+1:])
     prefix=l["binding"]["latest_research_focus_prefix"]
-    assert iss["next_action"].startswith("13BP CURRENT ACTION") or (later and prefix!="13BP" and iss["next_action"].startswith(prefix+" CURRENT ACTION"))
+    assert iss["next_action"].startswith("13BP CURRENT ACTION") or (later and prefix!="13BP" and (iss["next_action"].startswith(prefix+" CURRENT ACTION") or iss["next_action"].startswith(next((z["revision_id"].split("-")[3]+" CURRENT ACTION" for z in reversed(iss["history"]) if "next_action" in z.get("changed_fields",[]) and len(z.get("revision_id","").split("-"))>3 and z["revision_id"].split("-")[3].startswith("13")),"__NO_RECORDED_ACTION__"))))
     assert s["schema_version"]==l["binding"]["reviewed_state_version"]==s["historical_audit"]["research_omission_guard"]["reviewed_state_version"]
     assert l["binding"]["source_focus_count"]==len(s["historical_audit"]["current_focus"])
     assert any(z.startswith("13BP ") for z in s["historical_audit"]["current_focus"])

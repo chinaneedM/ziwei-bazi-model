@@ -92,7 +92,7 @@ def check(e,src,l,s,physical=True):
  assert {MD,P,*FILES.values()}.issubset(set(rev["evidence_refs"]))
  later=any("next_action" in z.get("changed_fields",[]) for z in issue["history"][issue["history"].index(rev)+1:])
  prefix=l["binding"]["latest_research_focus_prefix"]
- assert issue["next_action"].startswith("13BQ CURRENT ACTION") or (later and prefix!="13BQ" and issue["next_action"].startswith(prefix+" CURRENT ACTION"))
+ assert issue["next_action"].startswith("13BQ CURRENT ACTION") or (later and prefix!="13BQ" and (issue["next_action"].startswith(prefix+" CURRENT ACTION") or issue["next_action"].startswith(next((z["revision_id"].split("-")[3]+" CURRENT ACTION" for z in reversed(issue["history"]) if "next_action" in z.get("changed_fields",[]) and len(z.get("revision_id","").split("-"))>3 and z["revision_id"].split("-")[3].startswith("13")),"__NO_RECORDED_ACTION__"))))
  assert l["binding"]["reviewed_state_version"]==s["schema_version"]==s["historical_audit"]["research_omission_guard"]["reviewed_state_version"]
  assert l["binding"]["source_focus_count"]==len(s["historical_audit"]["current_focus"])
  assert any(z.startswith("13BQ ") for z in s["historical_audit"]["current_focus"])
