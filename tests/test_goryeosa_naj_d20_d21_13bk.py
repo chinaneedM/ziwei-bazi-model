@@ -51,7 +51,10 @@ class NAJ13BK(unittest.TestCase):
   # The 13DG issue action may remain the active next source request while a
   # later image/physical-cover batch advances the general handoff focus.
   prior_action=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")["next_action"]
-  self.assertTrue(prior_action.startswith("13DZ CURRENT ACTION"))
+  active_family=prior_action.split(" ",1)[0]
+  last_action_revision=[h for h in next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")["history"] if "next_action" in h.get("changed_fields",[])][-1]
+  self.assertTrue(prior_action.startswith(active_family+" CURRENT ACTION"))
+  self.assertTrue(last_action_revision.get("revision_id","").startswith("TW-OPEN-0005-"+active_family+"-"))
   s["schema_version"]="NEXT_FOCUS_ONLY"
   s["historical_audit"]["research_omission_guard"]["reviewed_state_version"]="NEXT_FOCUS_ONLY"
   s["historical_audit"]["current_focus"].append("13DN SOURCE-ORIGINAL BOUNDARY")

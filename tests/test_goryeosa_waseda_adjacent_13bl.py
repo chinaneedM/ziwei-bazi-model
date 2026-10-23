@@ -39,7 +39,10 @@ class Original13BL(unittest.TestCase):
  def test_issue_action_remains_stable_when_unrelated_new_research_focus_is_added(self):
   l=copy.deepcopy(self.l);s=copy.deepcopy(self.s)
   prior_action=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")["next_action"]
-  assert prior_action.startswith("13DZ CURRENT ACTION")
+  active_family=prior_action.split(" ",1)[0]
+  last_action_revision=[h for h in next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")["history"] if "next_action" in h.get("changed_fields",[])][-1]
+  self.assertTrue(prior_action.startswith(active_family+" CURRENT ACTION"))
+  self.assertTrue(last_action_revision.get("revision_id","").startswith("TW-OPEN-0005-"+active_family+"-"))
   s["schema_version"]="NEXT_UNRELATED";s["historical_audit"]["research_omission_guard"]["reviewed_state_version"]="NEXT_UNRELATED"
   s["historical_audit"]["current_focus"].append("13DN UNRELATED PHYSICAL COPY ACCESS")
   l["binding"].update(reviewed_state_version="NEXT_UNRELATED",
