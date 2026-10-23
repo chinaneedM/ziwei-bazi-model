@@ -14,7 +14,7 @@ def check(e,s,l,ei,eg,ed):
  assert p["pdf_page"]==74 and p["png_sha256"]==target["png_sha256"] and p["rgb_sha256"]==target["rgb_sha256"] and p["image_size"]==target["png_size"]
  assert p["artifact_id"]==ei["source"]["archive_artifact_id"] and p["workflow_run"]==ei["source"]["archive_run_id"]
  assert p["ocr_used"] is False and p["physical_copy"]==p["qing_vs_1905_stratum"]=="UNBOUND"
- assert [(x["name"],x["bbox"],x["rgb_sha256"],x["visible"]) for x in e["rois"]]==EXPECTED
+ assert [[x["name"],x["bbox"],x["rgb_sha256"],x["visible"]] for x in e["rois"]]==EXPECTED
  assert e["rois"][0]["rgb_sha256"]==target["boundaries"][0]["roi_rgb_sha256"]
  assert all(0<=b["bbox"][0]<b["bbox"][2]<=1305 and 0<=b["bbox"][1]<b["bbox"][3]<=873 for b in e["rois"])
  assert ei["error"]["actual_visible_opening"]=="四分" and ei["replacement"]["normalized_pair_geometry"]=="RETRACTED_NOT_ADMISSIBLE"
