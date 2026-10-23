@@ -760,6 +760,11 @@ jobs:
           python -m py_compile scripts/verify-ncl03130-p74-d4-d6-fourfen-prefix-13en.py tests/test_ncl03130_p74_d4_d6_fourfen_prefix_13en.py
           python scripts/verify-ncl03130-p74-d4-d6-fourfen-prefix-13en.py
           python -m unittest discover -s tests -p 'test_ncl03130_p74_d4_d6_fourfen_prefix_13en.py' -v
+      - name: Goryeosa 13EO NCL original p73 headers and p74 day continuity
+        run: |
+          python -m py_compile scripts/verify-ncl03130-p73-headings-p74-day-sequence-13eo.py tests/test_ncl03130_p73_headings_p74_day_sequence_13eo.py
+          python scripts/verify-ncl03130-p73-headings-p74-day-sequence-13eo.py
+          python -m unittest discover -s tests -p 'test_ncl03130_p73_headings_p74_day_sequence_13eo.py' -v
       - name: Focused capability acceptance tests
         run: |
           python -m unittest discover -s tests -p "test_fusion_chart_capability_acceptance_r1.py" -v
