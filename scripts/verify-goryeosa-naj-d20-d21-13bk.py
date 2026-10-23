@@ -81,9 +81,24 @@ def check(e,bg,bj,yz,ledger,state):
     z.get("event")=="ISSUE_REVISION" and "next_action" in z.get("changed_fields",[])
     for z in issue["history"][issue["history"].index(h)+1:])
  latest_focus_prefix=ledger["binding"]["latest_research_focus_prefix"]
- assert issue["next_action"].startswith("13BK CURRENT ACTION") or (
+ active_action=issue["next_action"]
+ active_family=active_action.split(" CURRENT ACTION",1)[0]
+ # The issue's action can legitimately stay at the most recent evidence-scoped
+ # issue revision while unrelated follow-up batches advance the project focus.
+ # Require an actual post-13BK issue revision for this family: merely editing
+ # next_action to an old or invented focus must not pass.
+ future_action_revisions=[
+    z for z in issue["history"][issue["history"].index(h)+1:]
+    if z.get("event")=="ISSUE_REVISION" and "next_action" in z.get("changed_fields",[])]
+ action_is_evidence_scoped=any(
+    ("-"+active_family+"-") in z.get("revision_id","") or
+    (not z.get("revision_id") and latest_focus_prefix==active_family)
+    for z in future_action_revisions)
+ assert active_action.startswith("13BK CURRENT ACTION") or (
     later_action_revision and latest_focus_prefix!="13BK"
-    and issue["next_action"].startswith(latest_focus_prefix+" CURRENT ACTION"))
+    and active_action.startswith(active_family+" CURRENT ACTION")
+    and action_is_evidence_scoped
+    and any(x.startswith(active_family+" ") for x in state["historical_audit"]["current_focus"]))
  assert state["schema_version"]==ledger["binding"]["reviewed_state_version"]==state["historical_audit"]["research_omission_guard"]["reviewed_state_version"]
  assert any(x.startswith("13BK ") for x in state["historical_audit"]["current_focus"])
  assert ledger["binding"]["latest_research_focus_prefix"]==state["historical_audit"]["current_focus"][-1].split(" ")[0]

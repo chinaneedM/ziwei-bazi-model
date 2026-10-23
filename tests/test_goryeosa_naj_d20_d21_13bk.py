@@ -46,6 +46,32 @@ class NAJ13BK(unittest.TestCase):
   l=copy.deepcopy(self.l)
   next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")["next_action"]="13BJ CURRENT ACTION (STALE)"
   with self.assertRaises(AssertionError):self.go(ledger=l)
+ def test_later_research_focus_does_not_rewrite_last_evidence_scoped_issue_action(self):
+  l=copy.deepcopy(self.l);s=copy.deepcopy(self.s)
+  # The 13DG issue action may remain the active next source request while a
+  # later image/physical-cover batch advances the general handoff focus.
+  self.assertTrue(next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")["next_action"].startswith("13DG CURRENT ACTION"))
+  s["schema_version"]="NEXT_FOCUS_ONLY"
+  s["historical_audit"]["research_omission_guard"]["reviewed_state_version"]="NEXT_FOCUS_ONLY"
+  s["historical_audit"]["current_focus"].append("13DN SOURCE-ORIGINAL BOUNDARY")
+  l["binding"].update(reviewed_state_version="NEXT_FOCUS_ONLY",
+    source_focus_count=len(s["historical_audit"]["current_focus"]),
+    latest_research_focus_prefix="13DN")
+  l["checkpoint_log"].append({"state_version":"NEXT_FOCUS_ONLY",
+     "reviewed_issue_ids":[x["id"] for x in l["issues"]]})
+  self.assertTrue(self.go(ledger=l,state=s))
+ def test_unrelated_future_focus_cannot_activate_an_unrecorded_issue_action(self):
+  l=copy.deepcopy(self.l);s=copy.deepcopy(self.s)
+  next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")["next_action"]="13DN CURRENT ACTION invented"
+  s["historical_audit"]["current_focus"].append("13DN FOCUS")
+  s["schema_version"]="NEXT_FOCUS_ONLY"
+  s["historical_audit"]["research_omission_guard"]["reviewed_state_version"]="NEXT_FOCUS_ONLY"
+  l["binding"].update(reviewed_state_version="NEXT_FOCUS_ONLY",
+     source_focus_count=len(s["historical_audit"]["current_focus"]),
+     latest_research_focus_prefix="13DN")
+  l["checkpoint_log"].append({"state_version":"NEXT_FOCUS_ONLY",
+     "reviewed_issue_ids":[x["id"] for x in l["issues"]]})
+  with self.assertRaises(AssertionError):self.go(ledger=l,state=s)
  def test_future_append_safe(self):
   l=copy.deepcopy(self.l);s=copy.deepcopy(self.s)
   i=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
