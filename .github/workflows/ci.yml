@@ -679,6 +679,11 @@ jobs:
           python -m py_compile scripts/verify-goryeosa-naj-summer-three-holding-13dg.py tests/test_goryeosa_naj_summer_three_holding_13dg.py
           python scripts/verify-goryeosa-naj-summer-three-holding-13dg.py
           python -m unittest discover -s tests -p 'test_goryeosa_naj_summer_three_holding_13dg.py' -v
+      - name: Goryeosa 13DX NCL original solar/lunar table-category forward-only erratum
+        run: |
+          python -m py_compile scripts/verify-ncl03130-solar-taiyin-erratum-13dx.py tests/test_ncl03130_solar_taiyin_erratum_13dx.py
+          python scripts/verify-ncl03130-solar-taiyin-erratum-13dx.py
+          python -m unittest discover -s tests -p 'test_ncl03130_solar_taiyin_erratum_13dx.py' -v
       - name: Focused capability acceptance tests
         run: |
           python -m unittest discover -s tests -p "test_fusion_chart_capability_acceptance_r1.py" -v
