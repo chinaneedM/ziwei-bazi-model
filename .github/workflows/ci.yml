@@ -745,6 +745,11 @@ jobs:
           python -m py_compile scripts/verify-ncl03130-p74-d4-d5-chudu-long-13ek.py tests/test_ncl03130_p74_d4_d5_chudu_long_13ek.py
           python scripts/verify-ncl03130-p74-d4-d5-chudu-long-13ek.py
           python -m unittest discover -s tests -p 'test_ncl03130_p74_d4_d5_chudu_long_13ek.py' -v
+      - name: Goryeosa 13EL NCL original p74 day6 SHA-bound glyph controls
+        run: |
+          python -m py_compile scripts/verify-ncl03130-p74-d6-chudu-long-13el.py tests/test_ncl03130_p74_d6_chudu_long_13el.py
+          python scripts/verify-ncl03130-p74-d6-chudu-long-13el.py
+          python -m unittest discover -s tests -p 'test_ncl03130_p74_d6_chudu_long_13el.py' -v
       - name: Focused capability acceptance tests
         run: |
           python -m unittest discover -s tests -p "test_fusion_chart_capability_acceptance_r1.py" -v

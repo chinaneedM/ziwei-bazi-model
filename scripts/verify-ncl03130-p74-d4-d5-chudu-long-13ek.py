@@ -34,15 +34,15 @@ def check(e,s,l,ej,ei,ed):
  assert f["legacy_13eh_misread_reinstated"] is False and ei["replacement"]["normalized_pair_geometry"]=="RETRACTED_NOT_ADMISSIBLE"
  i=e["impact"]; assert i["risks_open_or_blocked"]==11 and i["chart"]=="CLOSED"
  assert all(i[k]==0 for k in ("new_independent_sources","algorithm_reopens","matrix_rows_changed","genealogy_nodes_added","genealogy_edges_added","risks_closed"))
- assert s["schema_version"]=="1.786.0"==l["binding"]["reviewed_state_version"]==s["historical_audit"]["research_omission_guard"]["reviewed_state_version"]
+ assert s["schema_version"]==l["binding"]["reviewed_state_version"]==s["historical_audit"]["research_omission_guard"]["reviewed_state_version"]
  assert l["binding"]["source_focus_count"]==len(s["historical_audit"]["current_focus"])
- assert l["binding"]["latest_research_focus_prefix"]=="13EK"==s["historical_audit"]["current_focus"][-1].split(" ",1)[0]
- assert s["historical_audit"]["current_focus"][-1].startswith("13EK SHA-BOUND ORIGINAL P74 D4/D5 CHUDU LONG STRIPS")
+ assert l["binding"]["latest_research_focus_prefix"]==s["historical_audit"]["current_focus"][-1].split(" ",1)[0]
+ assert any(x.startswith("13EK SHA-BOUND ORIGINAL P74 D4/D5 CHUDU LONG STRIPS") for x in s["historical_audit"]["current_focus"])
  q=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
- assert q["priority"]=="P0" and q["status"]=="OPEN" and q["next_action"].startswith("13EK CURRENT ACTION")
+ assert q["priority"]=="P0" and q["status"]=="OPEN" and q["next_action"].startswith(l["binding"]["latest_research_focus_prefix"]+" CURRENT ACTION")
  assert all(x in q["next_action"] for x in ("D4","D5","D30","初度","NULL"))
  assert {E,E.replace(".json",".md")}.issubset(set(q["source_refs"]))
- h=q["history"][-1]
+ h=next(x for x in q["history"] if x.get("revision_id")=="TW-OPEN-0005-13EK-ORIGINAL-P74-D4-D5-LONG-LITERALS-20261023")
  assert h["revision_id"]=="TW-OPEN-0005-13EK-ORIGINAL-P74-D4-D5-LONG-LITERALS-20261023"
  assert h["previous_next_action"].startswith("13EJ CURRENT ACTION") and set(h["changed_fields"])=={"source_refs","next_action"}
  assert {E,E.replace(".json",".md"),EJ,EI,ED}.issubset(set(h["evidence_refs"]))
