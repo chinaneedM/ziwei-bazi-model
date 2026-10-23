@@ -98,7 +98,7 @@ def check(e,be,bg,bh,yz,ledger,state):
   assert later_action_revisions, "13BJ handoff requires a later evidence-scoped action revision"
   last= later_action_revisions[-1]
   action_prefix=issue["next_action"].split(" ",1)[0]
-  assert issue["next_action"].startswith(action_prefix+" CURRENT ACTION")
+  assert issue["next_action"].startswith((action_prefix+" CURRENT ACTION",action_prefix+" NEXT:")), "next_action must use a registered scope-bound CURRENT ACTION or NEXT: prefix"
   revision_id=last.get("revision_id")
   if revision_id:
    assert revision_id.startswith("TW-OPEN-0005-"+action_prefix+"-"), "action not matched to last durable next_action revision"

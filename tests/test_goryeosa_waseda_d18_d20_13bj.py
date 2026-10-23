@@ -73,6 +73,17 @@ class Waseda13BJ(unittest.TestCase):
   issue=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
   issue["next_action"]="13DC CURRENT ACTION unregistered"
   with self.assertRaises(AssertionError):self.go(ledger=l)
+ def test_revision_bound_next_colon_accepted(self):
+  l=copy.deepcopy(self.ledger)
+  issue=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
+  issue["next_action"]="13EA NEXT: source-target direct original search"
+  issue["history"].append({"event":"ISSUE_REVISION","revision_id":"TW-OPEN-0005-13EA-NEXT","date":"2026-10-23","changed_fields":["next_action"],"reason":"test evidence-scoped revision","evidence_refs":[m.P]})
+  self.assertTrue(self.go(ledger=l))
+ def test_unregistered_next_colon_rejected(self):
+  l=copy.deepcopy(self.ledger)
+  issue=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
+  issue["next_action"]="13EA NEXT: forged without revision"
+  with self.assertRaises(AssertionError):self.go(ledger=l)
  def test_future_forward_only(self):
   l=copy.deepcopy(self.ledger);s=copy.deepcopy(self.state)
   issue=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")

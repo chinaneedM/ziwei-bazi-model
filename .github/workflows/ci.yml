@@ -684,6 +684,12 @@ jobs:
           python -m py_compile scripts/verify-ncl03130-solar-taiyin-erratum-13dx.py tests/test_ncl03130_solar_taiyin_erratum_13dx.py
           python scripts/verify-ncl03130-solar-taiyin-erratum-13dx.py
           python -m unittest discover -s tests -p 'test_ncl03130_solar_taiyin_erratum_13dx.py' -v
+      - name: Goryeosa 13DZ NCL true solar day28 p76 locator and 13BJ forward-action compatibility
+        run: |
+          python -m py_compile scripts/verify-ncl03130-correct-solar-p76-13dz.py tests/test_ncl03130_correct_solar_p76_13dz.py scripts/verify-goryeosa-waseda-d18-d20-13bj.py tests/test_goryeosa_waseda_d18_d20_13bj.py
+          python scripts/verify-ncl03130-correct-solar-p76-13dz.py
+          python -m unittest discover -s tests -p 'test_ncl03130_correct_solar_p76_13dz.py' -v
+          python -m unittest discover -s tests -p 'test_goryeosa_waseda_d18_d20_13bj.py' -v
       - name: Focused capability acceptance tests
         run: |
           python -m unittest discover -s tests -p "test_fusion_chart_capability_acceptance_r1.py" -v
