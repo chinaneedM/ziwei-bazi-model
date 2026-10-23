@@ -67,7 +67,7 @@ def check(e,s,l,eh,eg,ed):
  assert l["binding"]["latest_research_focus_prefix"]==s["historical_audit"]["current_focus"][-1].split(" ",1)[0]
  assert any(x.startswith("13EI FORWARD-ONLY ORIGINAL P74 GLYPH ERRATUM") for x in s["historical_audit"]["current_focus"])
  q=next(z for z in l["issues"] if z["id"]=="TW-OPEN-0005")
- assert q["priority"]=="P0" and q["status"]=="OPEN" and q["next_action"].startswith("13EI CURRENT ACTION")
+ assert q["priority"]=="P0" and q["status"]=="OPEN" and q["next_action"].startswith(l["binding"]["latest_research_focus_prefix"]+" CURRENT ACTION")
  assert all(z in q["next_action"] for z in ("四分","初度","D30","NULL"))
  assert {E,E.replace(".json",".md")}.issubset(set(q["source_refs"]))
  h=next(x for x in q["history"] if x.get("revision_id")=="TW-OPEN-0005-13EI-GLYPH-LANE-FORWARD-ERRATUM-20261023")
