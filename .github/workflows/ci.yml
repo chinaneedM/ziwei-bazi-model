@@ -669,6 +669,11 @@ jobs:
           python -m py_compile scripts/verify-goryeosa-nlc416-summer-d28-native-13dd.py tests/test_goryeosa_nlc416_summer_d28_native_13dd.py
           python scripts/verify-goryeosa-nlc416-summer-d28-native-13dd.py
           python -m unittest discover -s tests -p 'test_goryeosa_nlc416_summer_d28_native_13dd.py' -v
+      - name: Goryeosa 13DE Waseda summer three-row source original XingDu offsets
+        run: |
+          python -m py_compile scripts/verify-goryeosa-waseda-summer-xingdu-13de.py tests/test_goryeosa_waseda_summer_xingdu_13de.py
+          python scripts/verify-goryeosa-waseda-summer-xingdu-13de.py
+          python -m unittest discover -s tests -p 'test_goryeosa_waseda_summer_xingdu_13de.py' -v
       - name: Focused capability acceptance tests
         run: |
           python -m unittest discover -s tests -p "test_fusion_chart_capability_acceptance_r1.py" -v
