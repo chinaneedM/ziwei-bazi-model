@@ -38,10 +38,15 @@ def check(e,s,l,dz,ee):
  assert l["binding"]["source_focus_count"]==len(s["historical_audit"]["current_focus"]) and l["binding"]["latest_research_focus_prefix"]==s["historical_audit"]["current_focus"][-1].split(" ",1)[0]
  assert any(x.startswith("13EF DIRECT NCL03130 TRUE SOLAR P73") for x in s["historical_audit"]["current_focus"])
  issue=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
- assert issue["priority"]=="P0" and issue["status"]=="OPEN" and issue["next_action"].startswith("13EF CURRENT ACTION")
- assert all(v in issue["next_action"] for v in ("p73","行度","盈縮積","日差","D30"))
+ assert issue["priority"]=="P0" and issue["status"]=="OPEN"
+ current_prefix=issue["next_action"].split(" ",1)[0]
+ assert issue["next_action"].startswith(current_prefix+" CURRENT ACTION")
+ future=[h for h in issue["history"] if h.get("event")=="ISSUE_REVISION" and "next_action" in h.get("changed_fields",[])]
+ assert future and future[-1]["revision_id"].startswith("TW-OPEN-0005-"+current_prefix+"-")
+ assert future[-1].get("evidence_refs") and any(z.startswith(current_prefix+" ") for z in s["historical_audit"]["current_focus"])
+ assert "D30" in issue["next_action"] and pos["visible_original_technical_names"]==["行度","盈縮積","日差"]
  assert E in issue["source_refs"] and E.replace(".json",".md") in issue["source_refs"]
- h=issue["history"][-1];assert h["revision_id"]=="TW-OPEN-0005-13EF-P73-ORIGINAL-TECHNICAL-HEADINGS-20261023"
+ h=next(h for h in issue["history"] if h.get("revision_id")=="TW-OPEN-0005-13EF-P73-ORIGINAL-TECHNICAL-HEADINGS-20261023")
  assert h["previous_next_action"].startswith("13EE CURRENT ACTION") and set(h["changed_fields"])=={"source_refs","next_action"}
  assert set([E,E.replace(".json",".md"),EE]).issubset(set(h["evidence_refs"]))
  assert len(l["issues"])==11 and l["checkpoint_log"][-1]["state_version"]==s["schema_version"]
