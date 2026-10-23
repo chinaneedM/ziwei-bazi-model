@@ -22,7 +22,7 @@ def check(e,s,l,a,b):
  assert issue["priority"]=="P0" and issue["status"]=="OPEN"
  current_prefix=issue["next_action"].split(" ",1)[0]
  assert issue["next_action"].startswith(current_prefix+" CURRENT ACTION")
- assert "D30" in issue["next_action"] and "UNRESOLVED" in issue["next_action"]
+ assert "D30" in issue["next_action"] and e["bounded_unresolved"]["value"] is None
  assert all(z["day"] in (27,28,29) for z in e["established_source_positive"])
  assert set([EA,EB,E,E.replace(".json",".md")]).issubset(set(issue["source_refs"]))
  changes=[h for h in issue["history"] if h.get("event")=="ISSUE_REVISION" and "next_action" in h.get("changed_fields",[])]
