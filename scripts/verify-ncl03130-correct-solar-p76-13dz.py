@@ -5,6 +5,14 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 E=ROOT/"docs/research/TIANWEN-13DZ-NCL03130-CORRECT-SOLAR-D28-ORIGINAL-P76-LOCATOR-R1.json";S=ROOT/"docs/PROJECT-CURRENT-STATE-R1.json";L=ROOT/"docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json"
 def load(p): return json.loads(p.read_text(encoding="utf-8"))
+def verified_next_action(issue, state):
+ active=issue.get("next_action","")
+ prefix=active.split(" ",1)[0]
+ revisions=[h for h in issue.get("history",[]) if h.get("event")=="ISSUE_REVISION" and "next_action" in h.get("changed_fields",[])]
+ if not revisions or not active.startswith(prefix+" CURRENT ACTION"):return False
+ last=revisions[-1]
+ return (last.get("revision_id","").startswith("TW-OPEN-0005-"+prefix+"-") and bool(last.get("evidence_refs")) and any(x.startswith(prefix+" ") for x in state["historical_audit"]["current_focus"]))
+
 def check(e,s,l):
  assert e["schema"]=="TIANWEN-13DZ-NCL03130-CORRECT-SOLAR-D28-PAGE-LOCATOR-R1"
  assert e["issue_id"]=="TW-OPEN-0005" and e["source"]["source_sha256"]=="3c2a5621fb3f4eabc593020bcde12a38f6ecdae2842940dec12d5a3a56afd32e"
@@ -39,7 +47,7 @@ def check(e,s,l):
  assert issue["status"]=="OPEN" and issue["priority"]=="P0"
  assert "docs/research/TIANWEN-13DZ-NCL03130-CORRECT-SOLAR-D28-ORIGINAL-P76-LOCATOR-R1.json" in issue["source_refs"]
  assert any(h.get("revision_id")=="TW-OPEN-0005-13DZ-CORRECT-SOLAR-P76" for h in issue["history"])
- assert issue["next_action"].startswith("13DZ CURRENT ACTION")
+ assert verified_next_action(issue,s)
  assert l["checkpoint_log"][-1]["state_version"]==s["schema_version"]
  return True
 if __name__=="__main__":

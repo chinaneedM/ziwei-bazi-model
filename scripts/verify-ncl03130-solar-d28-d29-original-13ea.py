@@ -11,6 +11,14 @@ W="docs/research/TIANWEN-13DE-WASEDA-SUMMER-XINGDU-D28-D30-THREE-ROW-ORIGINAL-R1
 N="docs/research/TIANWEN-13DG-NAJ-ORIGINAL-SUMMER-XINGDU-THREE-HOLDING-R1.json"
 P1909="docs/research/TIANWEN-13DD-NLC416-1909-SUMMER-D28-NATIVE-ORIGINAL-GLYPH-R1.json"
 def load(path):return json.loads((ROOT/path).read_text(encoding="utf-8"))
+def verified_next_action(issue, state):
+ active=issue.get("next_action","")
+ prefix=active.split(" ",1)[0]
+ revisions=[h for h in issue.get("history",[]) if h.get("event")=="ISSUE_REVISION" and "next_action" in h.get("changed_fields",[])]
+ if not revisions or not active.startswith(prefix+" CURRENT ACTION"):return False
+ last=revisions[-1]
+ return (last.get("revision_id","").startswith("TW-OPEN-0005-"+prefix+"-") and bool(last.get("evidence_refs")) and any(x.startswith(prefix+" ") for x in state["historical_audit"]["current_focus"]))
+
 def check(e,s,l,w,n,p):
  assert e["schema"]=="TIANWEN-13EA-NCL03130-SOLAR-XIAZHI-D28-D29-DIRECT-ORIGINAL-XINGDU-R1"
  assert e["issue_id"]=="TW-OPEN-0005"
@@ -57,7 +65,7 @@ def check(e,s,l,w,n,p):
  issue=next(q for q in l["issues"] if q["id"]=="TW-OPEN-0005")
  assert issue["status"]=="OPEN" and issue["priority"]=="P0"
  assert E in issue["source_refs"] and "docs/research/TIANWEN-13EA-NCL03130-SOLAR-D28-D29-ORIGINAL-XINGDU-GLYPH-R1.md" in issue["source_refs"]
- assert issue["next_action"].startswith("13DZ CURRENT ACTION")
+ assert verified_next_action(issue,s)
  assert any(z.get("revision_id")=="TW-OPEN-0005-13EA-SOURCE-ONLY-ORIGINAL-D28-D29" for z in issue["history"])
  assert l["checkpoint_log"][-1]["state_version"]==s["schema_version"]
  return True

@@ -7,6 +7,14 @@ ROOT=Path(__file__).resolve().parents[1]
 E="docs/research/TIANWEN-13EB-NCL03130-SOLAR-D27-D30-ORIGINAL-ROI-R1.json";S="docs/PROJECT-CURRENT-STATE-R1.json";L="docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json"
 P="docs/research/TIANWEN-13EA-NCL03130-SOLAR-D28-D29-ORIGINAL-XINGDU-GLYPH-R1.json"
 def load(path):return json.loads((ROOT/path).read_text(encoding="utf8"))
+def verified_next_action(issue, state):
+ active=issue.get("next_action","")
+ prefix=active.split(" ",1)[0]
+ revisions=[h for h in issue.get("history",[]) if h.get("event")=="ISSUE_REVISION" and "next_action" in h.get("changed_fields",[])]
+ if not revisions or not active.startswith(prefix+" CURRENT ACTION"):return False
+ last=revisions[-1]
+ return (last.get("revision_id","").startswith("TW-OPEN-0005-"+prefix+"-") and bool(last.get("evidence_refs")) and any(x.startswith(prefix+" ") for x in state["historical_audit"]["current_focus"]))
+
 def check(e,s,l,prior):
  assert e["schema"]=="TIANWEN-13EB-NCL03130-SOLAR-D27-D30-ORIGINAL-ROI-R1"
  assert e["issue_id"]=="TW-OPEN-0005"
@@ -43,7 +51,7 @@ def check(e,s,l,prior):
  assert l["binding"]["latest_research_focus_prefix"]==s["historical_audit"]["current_focus"][-1].split(" ",1)[0]
  assert any(x.startswith("13EB ") for x in s["historical_audit"]["current_focus"])
  issue=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
- assert issue["status"]=="OPEN" and issue["priority"]=="P0" and issue["next_action"].startswith("13DZ CURRENT ACTION")
+ assert issue["status"]=="OPEN" and issue["priority"]=="P0" and verified_next_action(issue,s)
  assert E in issue["source_refs"] and "docs/research/TIANWEN-13EB-NCL03130-SOLAR-D27-D30-ORIGINAL-ROI-R1.md" in issue["source_refs"]
  assert any(x.get("revision_id")=="TW-OPEN-0005-13EB-SOURCE-ROI" for x in issue["history"])
  assert l["checkpoint_log"][-1]["state_version"]==s["schema_version"]

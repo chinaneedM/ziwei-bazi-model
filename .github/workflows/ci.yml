@@ -700,6 +700,11 @@ jobs:
           python -m py_compile scripts/verify-ncl03130-solar-d27-d30-original-13eb.py tests/test_ncl03130_solar_d27_d30_original_13eb.py
           python scripts/verify-ncl03130-solar-d27-d30-original-13eb.py
           python -m unittest discover -s tests -p 'test_ncl03130_solar_d27_d30_original_13eb.py' -v
+      - name: Goryeosa 13EC P0 next action reconciliation
+        run: |
+          python -m py_compile scripts/verify-ncl03130-solar-d30-action-13ec.py tests/test_ncl03130_solar_d30_action_13ec.py
+          python scripts/verify-ncl03130-solar-d30-action-13ec.py
+          python -m unittest discover -s tests -p 'test_ncl03130_solar_d30_action_13ec.py' -v
       - name: Focused capability acceptance tests
         run: |
           python -m unittest discover -s tests -p "test_fusion_chart_capability_acceptance_r1.py" -v
