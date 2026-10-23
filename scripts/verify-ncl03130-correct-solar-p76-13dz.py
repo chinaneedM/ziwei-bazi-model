@@ -39,7 +39,7 @@ def check(e,s,l):
  assert issue["status"]=="OPEN" and issue["priority"]=="P0"
  assert "docs/research/TIANWEN-13DZ-NCL03130-CORRECT-SOLAR-D28-ORIGINAL-P76-LOCATOR-R1.json" in issue["source_refs"]
  assert any(h.get("revision_id")=="TW-OPEN-0005-13DZ-CORRECT-SOLAR-P76" for h in issue["history"])
- assert issue["next_action"].startswith("13DZ NEXT:")
+ assert issue["next_action"].startswith("13DZ CURRENT ACTION")
  assert l["checkpoint_log"][-1]["state_version"]==s["schema_version"]
  return True
 if __name__=="__main__":

@@ -38,7 +38,8 @@ class Original13BL(unittest.TestCase):
   with self.assertRaises(AssertionError):self.go(l=l)
  def test_issue_action_remains_stable_when_unrelated_new_research_focus_is_added(self):
   l=copy.deepcopy(self.l);s=copy.deepcopy(self.s)
-  assert next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")["next_action"].startswith("13DG CURRENT ACTION")
+  prior_action=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")["next_action"]
+  assert prior_action.startswith("13DZ CURRENT ACTION")
   s["schema_version"]="NEXT_UNRELATED";s["historical_audit"]["research_omission_guard"]["reviewed_state_version"]="NEXT_UNRELATED"
   s["historical_audit"]["current_focus"].append("13DN UNRELATED PHYSICAL COPY ACCESS")
   l["binding"].update(reviewed_state_version="NEXT_UNRELATED",
