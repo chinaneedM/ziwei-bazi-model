@@ -62,11 +62,25 @@ def check(e,ledger,state):
  assert {MD,P,"scripts/probe-goryeosa-waseda-adjacent-13bl.py",".github/workflows/probe-goryeosa-waseda-adjacent-13bl.yml"}.issubset(set(h["evidence_refs"]))
  assert "[13BL 2026-10-21 WASEDA ADJACENT ORIGINAL IMAGE POSITIVE]" in issue["evidence_boundary"]
  assert "[13BL 2026-10-21 REMAINING NATIVE PIXEL NUMERIC REVIEW]" in issue["missing_evidence"]
- later=any(z.get("event")=="ISSUE_REVISION" and "next_action" in z.get("changed_fields",[])
-           for z in issue["history"][issue["history"].index(h)+1:])
+ later_revs=[
+    z for z in issue["history"][issue["history"].index(h)+1:]
+    if z.get("event")=="ISSUE_REVISION" and "next_action" in z.get("changed_fields",[])]
  prefix=ledger["binding"]["latest_research_focus_prefix"]
- assert issue["next_action"].startswith("13BL CURRENT ACTION") or (
-    later and prefix!="13BL" and issue["next_action"].startswith(prefix+" CURRENT ACTION"))
+ active=issue["next_action"]
+ family=active.split(" CURRENT ACTION",1)[0]
+ # Project focus may progress beyond the issue's latest evidenced action.
+ # Prevent false resurrection of obsolete actions and fabricated families:
+ # an actual later issue revision for the family (or synthetic append-only
+ # future test at current focus) must exist.
+ recorded=any(
+    ("-"+family+"-") in z.get("revision_id","")
+    or (not z.get("revision_id") and prefix==family)
+    for z in later_revs)
+ assert active.startswith("13BL CURRENT ACTION") or (
+    bool(later_revs) and prefix!="13BL"
+    and active.startswith(family+" CURRENT ACTION")
+    and recorded
+    and any(x.startswith(family+" ") for x in state["historical_audit"]["current_focus"]))
  assert state["schema_version"]==ledger["binding"]["reviewed_state_version"]==state["historical_audit"]["research_omission_guard"]["reviewed_state_version"]
  assert any(t.startswith("13BL ") for t in state["historical_audit"]["current_focus"])
  assert ledger["binding"]["source_focus_count"]==len(state["historical_audit"]["current_focus"])
