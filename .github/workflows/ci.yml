@@ -750,6 +750,11 @@ jobs:
           python -m py_compile scripts/verify-ncl03130-p74-d6-chudu-long-13el.py tests/test_ncl03130_p74_d6_chudu_long_13el.py
           python scripts/verify-ncl03130-p74-d6-chudu-long-13el.py
           python -m unittest discover -s tests -p 'test_ncl03130_p74_d6_chudu_long_13el.py' -v
+      - name: Goryeosa 13EM NCL original p74 three right-neighbor glyph strips
+        run: |
+          python -m py_compile scripts/verify-ncl03130-p74-d4-d6-right-column-13em.py tests/test_ncl03130_p74_d4_d6_right_column_13em.py
+          python scripts/verify-ncl03130-p74-d4-d6-right-column-13em.py
+          python -m unittest discover -s tests -p 'test_ncl03130_p74_d4_d6_right_column_13em.py' -v
       - name: Focused capability acceptance tests
         run: |
           python -m unittest discover -s tests -p "test_fusion_chart_capability_acceptance_r1.py" -v

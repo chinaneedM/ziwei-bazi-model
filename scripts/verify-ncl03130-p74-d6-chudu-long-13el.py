@@ -31,14 +31,14 @@ def check(e,ek,ei,ed,s,l):
  assert all(i[k]==0 for k in ("matrix_rows_changed","source_registry_entries_added","genealogy_nodes_added","genealogy_edges_added","algorithm_reopens","risks_closed"))
  assert s["schema_version"]==l["binding"]["reviewed_state_version"]==s["historical_audit"]["research_omission_guard"]["reviewed_state_version"]
  assert l["binding"]["source_focus_count"]==len(s["historical_audit"]["current_focus"])
- assert s["historical_audit"]["current_focus"][-1].startswith("13EL ")
- assert l["binding"]["latest_research_focus_prefix"]=="13EL"
+ assert any(z.startswith("13EL ") for z in s["historical_audit"]["current_focus"])
+ assert l["binding"]["latest_research_focus_prefix"]==s["historical_audit"]["current_focus"][-1].split(" ",1)[0]
  q=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
- assert q["priority"]=="P0" and q["status"]=="OPEN" and q["next_action"].startswith("13EL CURRENT ACTION")
+ assert q["priority"]=="P0" and q["status"]=="OPEN" and q["next_action"].startswith(l["binding"]["latest_research_focus_prefix"]+" CURRENT ACTION")
  assert all(z in q["next_action"] for z in ("D4","D5","D6","D30","初度","NULL"))
  assert {E,E.replace(".json",".md")}.issubset(set(q["source_refs"]))
- assert q["history"][-1]["revision_id"]=="TW-OPEN-0005-13EL-P74-D6-SOURCE-ORIGINAL-20261024"
- assert q["history"][-1]["previous_next_action"].startswith("13EK CURRENT ACTION")
+ assert next(z for z in q["history"] if z.get("revision_id")=="TW-OPEN-0005-13EL-P74-D6-SOURCE-ORIGINAL-20261024")["revision_id"]=="TW-OPEN-0005-13EL-P74-D6-SOURCE-ORIGINAL-20261024"
+ assert next(z for z in q["history"] if z.get("revision_id")=="TW-OPEN-0005-13EL-P74-D6-SOURCE-ORIGINAL-20261024")["previous_next_action"].startswith("13EK CURRENT ACTION")
  assert len(l["issues"])==11 and l["checkpoint_log"][-1]["state_version"]==s["schema_version"]
  return True
 def replay(e,source_dir):
