@@ -41,9 +41,14 @@ def check(e,s,l,ed,dz):
  assert l["binding"]["source_focus_count"]==len(s["historical_audit"]["current_focus"]) and l["binding"]["latest_research_focus_prefix"]==s["historical_audit"]["current_focus"][-1].split(" ",1)[0]
  assert any(f.startswith("13EE NCL03130 THREE-FOLIO") for f in s["historical_audit"]["current_focus"])
  issue=next(q for q in l["issues"] if q["id"]=="TW-OPEN-0005")
- assert issue["priority"]=="P0" and issue["status"]=="OPEN" and issue["next_action"].startswith("13EE CURRENT ACTION")
- assert "p73" in issue["next_action"] and "numeric" in issue["next_action"] and E in issue["source_refs"] and E.replace(".json",".md") in issue["source_refs"]
- h=issue["history"][-1];assert h["revision_id"]=="TW-OPEN-0005-13EE-THREE-FOLIO-LANE-CONTROL-20261023"
+ assert issue["priority"]=="P0" and issue["status"]=="OPEN"
+ current_family=issue["next_action"].split(" ",1)[0]
+ assert issue["next_action"].startswith(current_family+" CURRENT ACTION")
+ action_events=[z for z in issue["history"] if z.get("event")=="ISSUE_REVISION" and "next_action" in z.get("changed_fields",[])]
+ assert action_events and action_events[-1].get("revision_id","").startswith("TW-OPEN-0005-"+current_family+"-")
+ assert action_events[-1].get("evidence_refs") and any(q.startswith(current_family+" ") for q in s["historical_audit"]["current_focus"])
+ assert E in issue["source_refs"] and E.replace(".json",".md") in issue["source_refs"] and obs["numeric_d30"] is None
+ h=next(z for z in issue["history"] if z.get("revision_id")=="TW-OPEN-0005-13EE-THREE-FOLIO-LANE-CONTROL-20261023")
  assert h["previous_next_action"].startswith("13ED CURRENT ACTION")
  assert set(h["changed_fields"])=={"source_refs","next_action"} and set([E,E.replace(".json",".md"),ED]).issubset(set(h["evidence_refs"]))
  assert len(l["issues"])==11 and l["checkpoint_log"][-1]["state_version"]==s["schema_version"]

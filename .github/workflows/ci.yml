@@ -715,6 +715,11 @@ jobs:
           python -m py_compile scripts/verify-ncl03130-solar-three-folio-13ee.py tests/test_ncl03130_solar_three_folio_13ee.py
           python scripts/verify-ncl03130-solar-three-folio-13ee.py
           python -m unittest discover -s tests -p 'test_ncl03130_solar_three_folio_13ee.py' -v
+      - name: Goryeosa 13EF NCL source P73 original technical labels
+        run: |
+          python -m py_compile scripts/verify-ncl03130-solar-p73-technical-headings-13ef.py tests/test_ncl03130_solar_p73_technical_headings_13ef.py
+          python scripts/verify-ncl03130-solar-p73-technical-headings-13ef.py
+          python -m unittest discover -s tests -p 'test_ncl03130_solar_p73_technical_headings_13ef.py' -v
       - name: Focused capability acceptance tests
         run: |
           python -m unittest discover -s tests -p "test_fusion_chart_capability_acceptance_r1.py" -v
