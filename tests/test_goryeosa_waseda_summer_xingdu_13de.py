@@ -18,6 +18,22 @@ class Test13DE(unittest.TestCase):
  def test_false_ancestor_winner(self):self.bad(lambda e:e["adjudication"].update(early_archetype_winner="PROVEN"))
  def test_global_law_invented(self):self.bad(lambda e:e["cross_original_locus_comparison"].update(scope="PROVEN_TABLE_LAW"))
  def test_a_source_original_is_not_candidate(self):self.bad(lambda e:e["arithmetic_scope"].update(earlier_source_candidate_0_964549_attested=True))
+ def test_later_research_focus_keeps_13de_valid(self):
+  s=copy.deepcopy(self.s);l=copy.deepcopy(self.l)
+  s["schema_version"]="NEXT_REVISION"
+  s["historical_audit"]["research_omission_guard"]["reviewed_state_version"]="NEXT_REVISION"
+  s["historical_audit"]["current_focus"].append("13DF UNRESOLVED_FUTURE_TEST")
+  l["binding"]["reviewed_state_version"]="NEXT_REVISION"
+  l["binding"]["latest_research_focus_prefix"]="13DF"
+  l["binding"]["source_focus_count"]=len(s["historical_audit"]["current_focus"])
+  l["checkpoint_log"].append({"state_version":"NEXT_REVISION","reviewed_issue_ids":[x["id"] for x in l["issues"]]})
+  self.assertTrue(m.check(self.e,s,l))
+ def test_13de_focus_cannot_be_lost(self):
+  s=copy.deepcopy(self.s);l=copy.deepcopy(self.l)
+  s["historical_audit"]["current_focus"]=[x for x in s["historical_audit"]["current_focus"] if not x.startswith("13DE ")]
+  l["binding"]["source_focus_count"]=len(s["historical_audit"]["current_focus"])
+  l["binding"]["latest_research_focus_prefix"]=s["historical_audit"]["current_focus"][-1].split(" ",1)[0]
+  with self.assertRaises(AssertionError):m.check(self.e,s,l)
  def test_missed_ledger(self):
   l=copy.deepcopy(self.l);l["binding"]["source_focus_count"]-=1
   with self.assertRaises(AssertionError):self.go(l=l)

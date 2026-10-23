@@ -47,14 +47,16 @@ def check(e,s,l):
  assert q["separate_winter_D16"]=="OPEN" and q["early_archetype_winner"]=="UNRESOLVED"
  assert all(q[k]==0 for k in ("new_source_registry_entries","new_matrix_rows","new_genealogy_nodes","new_genealogy_edges","new_stemmatic_votes","algorithm_reopens"))
  p=e["impact"];assert (p["matrix_rows"],p["matrix_audited"],p["sources"],p["genealogy_nodes"],p["genealogy_edges"],p["open_issues"])==(222,222,754,252,238,11)
- assert s["schema_version"]==l["binding"]["reviewed_state_version"]==s["historical_audit"]["research_omission_guard"]["reviewed_state_version"]=="1.766.0"
+ assert s["schema_version"]==l["binding"]["reviewed_state_version"]==s["historical_audit"]["research_omission_guard"]["reviewed_state_version"]
  assert l["binding"]["source_focus_count"]==len(s["historical_audit"]["current_focus"])
- assert l["binding"]["latest_research_focus_prefix"]==s["historical_audit"]["current_focus"][-1].split(" ",1)[0]=="13DE"
+ assert l["binding"]["latest_research_focus_prefix"]==s["historical_audit"]["current_focus"][-1].split(" ",1)[0]
+ assert any(x.startswith("13DE ") for x in s["historical_audit"]["current_focus"]), "historical 13DE focus lost"
  assert any(x.startswith("13DD ") for x in s["historical_audit"]["current_focus"])
  i=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
  assert i["status"]=="OPEN" and E in i["source_refs"]
  assert any(x.get("revision_id")=="TW-OPEN-0005-13DE-WASEDA-ROW-OFFSET" for x in i["history"])
- assert l["checkpoint_log"][-1]["id"]=="OMISSIONS-13DE-WASEDA-SUMMER-20261023"
+ assert any(x.get("id")=="OMISSIONS-13DE-WASEDA-SUMMER-20261023" for x in l["checkpoint_log"])
+ assert l["checkpoint_log"][-1]["state_version"]==s["schema_version"]
  assert sum(x["status"] in ("OPEN","BLOCKED_SOURCE_ACCESS") for x in l["issues"])==11
  return True
 def replay(e,w34,w36):

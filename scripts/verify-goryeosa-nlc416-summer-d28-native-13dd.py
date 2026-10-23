@@ -69,8 +69,9 @@ def check(e,s,l):
  imp=e["impact"]
  assert (imp["matrix_rows"],imp["matrix_audited"],imp["registered_sources"],imp["genealogy_nodes"],imp["genealogy_edges"],imp["unresolved_risks"])==(222,222,754,252,238,11)
  assert imp["deterministic_chart"]=="CLOSED" and imp["algorithm_reopens"]==0
- assert s["schema_version"]==l["binding"]["reviewed_state_version"]==s["historical_audit"]["research_omission_guard"]["reviewed_state_version"]=="1.765.0"
- assert l["binding"]["latest_research_focus_prefix"]==s["historical_audit"]["current_focus"][-1].split(" ",1)[0]=="13DD"
+ assert s["schema_version"]==l["binding"]["reviewed_state_version"]==s["historical_audit"]["research_omission_guard"]["reviewed_state_version"]
+ assert l["binding"]["latest_research_focus_prefix"]==s["historical_audit"]["current_focus"][-1].split(" ",1)[0]
+ assert any(x.startswith("13DD ") for x in s["historical_audit"]["current_focus"]), "historical 13DD focus lost"
  assert l["binding"]["source_focus_count"]==len(s["historical_audit"]["current_focus"])
  issue=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
  assert issue["status"]=="OPEN" and E in issue["source_refs"]
