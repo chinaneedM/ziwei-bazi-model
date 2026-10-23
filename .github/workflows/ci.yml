@@ -674,6 +674,11 @@ jobs:
           python -m py_compile scripts/verify-goryeosa-waseda-summer-xingdu-13de.py tests/test_goryeosa_waseda_summer_xingdu_13de.py
           python scripts/verify-goryeosa-waseda-summer-xingdu-13de.py
           python -m unittest discover -s tests -p 'test_goryeosa_waseda_summer_xingdu_13de.py' -v
+      - name: Goryeosa 13DG NAJ original summer XingDu three-holding comparison
+        run: |
+          python -m py_compile scripts/verify-goryeosa-naj-summer-three-holding-13dg.py tests/test_goryeosa_naj_summer_three_holding_13dg.py
+          python scripts/verify-goryeosa-naj-summer-three-holding-13dg.py
+          python -m unittest discover -s tests -p 'test_goryeosa_naj_summer_three_holding_13dg.py' -v
       - name: Focused capability acceptance tests
         run: |
           python -m unittest discover -s tests -p "test_fusion_chart_capability_acceptance_r1.py" -v
