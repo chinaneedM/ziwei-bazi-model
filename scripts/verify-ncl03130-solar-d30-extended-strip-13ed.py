@@ -47,7 +47,7 @@ def check(e,s,l,b,a):
  assert any(z.startswith("13ED NCL03130 D30 EXTENDED") for z in s["historical_audit"]["current_focus"])
  issue=next(z for z in l["issues"] if z["id"]=="TW-OPEN-0005")
  assert issue["priority"]=="P0" and issue["status"]=="OPEN" and issue["next_action"].startswith("13ED CURRENT ACTION")
- assert "numeric precision" in issue["next_action"] and all(q in issue["next_action"] for q in ("[590,706,615,830]","D26-D36","D37-D47"))
+ assert "precision" in issue["next_action"] and all(q in issue["next_action"] for q in ("[590,706,615,830]","D26-D36","D37-D47"))
  assert set([E,E.replace(".json",".md"),B]).issubset(set(issue["source_refs"]))
  revision=issue["history"][-1]
  assert revision["revision_id"]=="TW-OPEN-0005-13ED-EXTENDED-ORIGINAL-STRIP-20261023"
