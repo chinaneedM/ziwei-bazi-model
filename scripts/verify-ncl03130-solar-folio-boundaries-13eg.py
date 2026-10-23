@@ -48,10 +48,13 @@ def check(e,s,l,dz,ef,ee):
  assert l["binding"]["source_focus_count"]==len(s["historical_audit"]["current_focus"]) and l["binding"]["latest_research_focus_prefix"]==s["historical_audit"]["current_focus"][-1].split(" ",1)[0]
  assert any(z.startswith("13EG NCL03130 SOURCE-LOCAL FIVE-FOLIO") for z in s["historical_audit"]["current_focus"])
  issue=next(z for z in l["issues"] if z["id"]=="TW-OPEN-0005")
- assert issue["status"]=="OPEN" and issue["priority"]=="P0" and issue["next_action"].startswith("13EG CURRENT ACTION")
- assert all(x in issue["next_action"] for x in ("D30","行度","盈縮積","日差","3→4","36→37"))
+ assert issue["status"]=="OPEN" and issue["priority"]=="P0"
+ current=issue["next_action"].split(" ",1)[0]
+ assert issue["next_action"].startswith(current+" CURRENT ACTION") and "D30" in issue["next_action"]
+ assert issue["history"][-1]["revision_id"].startswith("TW-OPEN-0005-"+current+"-")
+ assert issue["history"][-1]["evidence_refs"]
  assert set([E,E.replace(".json",".md")]).issubset(set(issue["source_refs"]))
- h=issue["history"][-1];assert h["revision_id"]=="TW-OPEN-0005-13EG-FIVE-FOLIO-BOUNDARY-CONTINUITY-20261023"
+ h=next(z for z in issue["history"] if z.get("revision_id")=="TW-OPEN-0005-13EG-FIVE-FOLIO-BOUNDARY-CONTINUITY-20261023")
  assert h["previous_next_action"].startswith("13EF CURRENT ACTION") and set(h["changed_fields"])=={"source_refs","next_action"}
  assert set([E,E.replace(".json",".md"),EF,EE]).issubset(set(h["evidence_refs"]))
  assert len(l["issues"])==11 and l["checkpoint_log"][-1]["state_version"]==s["schema_version"]

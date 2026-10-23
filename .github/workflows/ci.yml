@@ -725,6 +725,11 @@ jobs:
           python -m py_compile scripts/verify-ncl03130-solar-folio-boundaries-13eg.py tests/test_ncl03130_solar_folio_boundaries_13eg.py
           python scripts/verify-ncl03130-solar-folio-boundaries-13eg.py
           python -m unittest discover -s tests -p 'test_ncl03130_solar_folio_boundaries_13eg.py' -v
+      - name: Goryeosa 13EH source-original D4 D30 prefix geometry
+        run: |
+          python -m py_compile scripts/verify-ncl03130-solar-d4-d30-prefix-geometry-13eh.py tests/test_ncl03130_solar_d4_d30_prefix_geometry_13eh.py
+          python scripts/verify-ncl03130-solar-d4-d30-prefix-geometry-13eh.py
+          python -m unittest discover -s tests -p 'test_ncl03130_solar_d4_d30_prefix_geometry_13eh.py' -v
       - name: Focused capability acceptance tests
         run: |
           python -m unittest discover -s tests -p "test_fusion_chart_capability_acceptance_r1.py" -v
