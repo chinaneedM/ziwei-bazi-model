@@ -24,6 +24,13 @@ def check(e,s,l,eg,ef,ed):
   for roi in p["rois"]:
    b=roi["bbox"];assert 0<=b[0]<b[2]<=p["png_size"][0] and 0<=b[1]<b[3]<=p["png_size"][1]
    assert len(roi["rgb_sha256"])==64 and not roi["positive_scope"].startswith("NUMERIC_ADJUDICATION")
+ EXPECTED={
+  73:[([317,386,461,815],"66cf9dd345e16fcd399ed3ecf9c2a69b15cde76945f3bbe7fbd5e1e225937efe"),([328,388,371,800],"4341abf030c3008845ef6d1abf766ab8b6b24a7096978c6ae21da6543f6b44e3")],
+  74:[([888,390,990,815],"bcc2dc933fbb7a23f995eeaaa42fcb499e1b71fb59e107d076c7f8f94d62244c"),([929,396,951,785],"b86ee0c9fea7e8597ee2f05d2785fbfffe2aa3f68717e8643c6d8c1592fcc22c"),([963,396,985,785],"f62529ffd6ce87613606a4440c7a1cb1c98f5f8204dfdcdc9aec6d289dede197"),([806,390,895,815],"3a9d70381ce4ac77292d58ab6dfb10bff7c2a976ddf667394afb566183d920df")],
+  76:[([547,390,649,830],"9c63499771fb952f4ec6508a71a0ae183cdab7601cb5a6815bff4c7cb89ecccd"),([590,418,615,830],"bc91212e7b7a6a98f67913788e0051c3eabfd5af46982aa26f90a3339cf0efd4"),([625,418,647,830],"a8bb8540a5f4cbc2252eb6b1d7879cb5073fa653412605ec20313fdffd2f7752"),([553,418,580,830],"666db57c4380e9ff3d78c2af64edd909f4b5b63286bac3bc7eff87c4abd4e10e")]
+ }
+ for p in pages:
+  assert [(x["bbox"],x["rgb_sha256"]) for x in p["rois"]]==EXPECTED[p["pdf_page"]],p["pdf_page"]
  assert len(pages[0]["rois"])==2 and len(pages[1]["rois"])==4 and len(pages[2]["rois"])==4
  d4,d30=pages[1:]
  assert d4["day_heading"]["source_literal"]=="四日" and d4["day_heading"]["bbox"]==eg["pages"][1]["boundaries"][0]["bbox"]

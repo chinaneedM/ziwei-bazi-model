@@ -13,6 +13,7 @@ class Test13EH(unittest.TestCase):
   with self.assertRaises(AssertionError):self.go(e)
  def test_bound_original(self):self.assertTrue(self.go())
  def test_fake_day4_roi(self):self.reject(lambda e:e["pages"][1]["rois"][1].update(rgb_sha256="0"*64))
+ def test_fake_day30_bbox(self):self.reject(lambda e:e["pages"][2]["rois"][1].update(bbox=[590,418,617,830]))
  def test_fake_day4_heading(self):self.reject(lambda e:e["pages"][1]["day_heading"].update(source_literal="五日"))
  def test_false_offset(self):self.reject(lambda e:e["relative_column_observation"]["day4"].update(offset_px=25))
  def test_fabricated_d30_number(self):self.reject(lambda e:e["open_questions"].update(day30_original_numeric_decimal="0.965038"))
