@@ -74,7 +74,7 @@ def check(e,s,l,eg,ef,ed):
  assert {E,E.replace(".json",".md"),EG,EF,ED}.issubset(set(h["evidence_refs"]))
  if current!="13EH":
   assert any(x.startswith("13EI FORWARD-ONLY ORIGINAL P74 GLYPH ERRATUM") for x in s["historical_audit"]["current_focus"])
-  assert issue["history"][-1].get("revision_id")=="TW-OPEN-0005-13EI-GLYPH-LANE-FORWARD-ERRATUM-20261023"
+  assert any(z.get("revision_id")=="TW-OPEN-0005-13EI-GLYPH-LANE-FORWARD-ERRATUM-20261023" for z in issue["history"])
  assert l["checkpoint_log"][-1]["state_version"]==s["schema_version"]
  assert len(l["issues"])==11
  return True

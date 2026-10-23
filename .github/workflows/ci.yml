@@ -735,6 +735,11 @@ jobs:
           python -m py_compile scripts/verify-ncl03130-d4-chudu-roi-erratum-13ei.py tests/test_ncl03130_d4_chudu_roi_erratum_13ei.py
           python scripts/verify-ncl03130-d4-chudu-roi-erratum-13ei.py
           python -m unittest discover -s tests -p 'test_ncl03130_d4_chudu_roi_erratum_13ei.py' -v
+      - name: Goryeosa 13EJ NCL original p74 D4 D5 three-lane glyph controls
+        run: |
+          python -m py_compile scripts/verify-ncl03130-p74-d4-d5-triple-lane-13ej.py tests/test_ncl03130_p74_d4_d5_triple_lane_13ej.py
+          python scripts/verify-ncl03130-p74-d4-d5-triple-lane-13ej.py
+          python -m unittest discover -s tests -p 'test_ncl03130_p74_d4_d5_triple_lane_13ej.py' -v
       - name: Focused capability acceptance tests
         run: |
           python -m unittest discover -s tests -p "test_fusion_chart_capability_acceptance_r1.py" -v
