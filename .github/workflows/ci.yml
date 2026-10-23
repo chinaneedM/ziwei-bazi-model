@@ -730,6 +730,11 @@ jobs:
           python -m py_compile scripts/verify-ncl03130-solar-d4-d30-prefix-geometry-13eh.py tests/test_ncl03130_solar_d4_d30_prefix_geometry_13eh.py
           python scripts/verify-ncl03130-solar-d4-d30-prefix-geometry-13eh.py
           python -m unittest discover -s tests -p 'test_ncl03130_solar_d4_d30_prefix_geometry_13eh.py' -v
+      - name: Goryeosa 13EI original glyph misattribution forward-only erratum
+        run: |
+          python -m py_compile scripts/verify-ncl03130-d4-chudu-roi-erratum-13ei.py tests/test_ncl03130_d4_chudu_roi_erratum_13ei.py
+          python scripts/verify-ncl03130-d4-chudu-roi-erratum-13ei.py
+          python -m unittest discover -s tests -p 'test_ncl03130_d4_chudu_roi_erratum_13ei.py' -v
       - name: Focused capability acceptance tests
         run: |
           python -m unittest discover -s tests -p "test_fusion_chart_capability_acceptance_r1.py" -v

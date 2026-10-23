@@ -60,18 +60,21 @@ def check(e,s,l,eg,ef,ed):
  assert impact["source_original_pages_replayed"]==3 and impact["new_bounded_original_rois"]==10
  assert all(impact[k]==0 for k in ("new_independent_physical_witnesses","new_registry_sources","new_matrix_rows","new_genealogy_nodes","new_genealogy_edges","new_numeric_adjudications","algorithm_reopens","risks_closed"))
  assert impact["open_or_blocked_issues"]==11 and impact["product"]=="CLOSED"
- assert s["schema_version"]=="1.783.0"==l["binding"]["reviewed_state_version"]
+ assert s["schema_version"]==l["binding"]["reviewed_state_version"]
  assert l["binding"]["source_focus_count"]==len(s["historical_audit"]["current_focus"])
- assert l["binding"]["latest_research_focus_prefix"]=="13EH"==s["historical_audit"]["current_focus"][-1].split(" ",1)[0]
- assert s["historical_audit"]["current_focus"][-1].startswith("13EH SOURCE-ORIGINAL")
+ current=l["binding"]["latest_research_focus_prefix"]
+ assert current==s["historical_audit"]["current_focus"][-1].split(" ",1)[0]
+ assert any(x.startswith("13EH SOURCE-ORIGINAL") for x in s["historical_audit"]["current_focus"])
  issue=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
- assert issue["priority"]=="P0" and issue["status"]=="OPEN" and issue["next_action"].startswith("13EH CURRENT ACTION")
- assert all(z in issue["next_action"] for z in ("D4","D30","行度","盈縮積","日差","NULL"))
+ assert issue["priority"]=="P0" and issue["status"]=="OPEN" and issue["next_action"].startswith(current+" CURRENT ACTION")
+ assert "D30" in issue["next_action"]
  assert {E,E.replace(".json",".md")}.issubset(set(issue["source_refs"]))
- h=issue["history"][-1]
- assert h["revision_id"]=="TW-OPEN-0005-13EH-SAME-SOURCE-PREFIX-GEOMETRY-20261023"
+ h=next(x for x in issue["history"] if x.get("revision_id")=="TW-OPEN-0005-13EH-SAME-SOURCE-PREFIX-GEOMETRY-20261023")
  assert h["previous_next_action"].startswith("13EG CURRENT ACTION") and set(h["changed_fields"])=={"source_refs","next_action"}
  assert {E,E.replace(".json",".md"),EG,EF,ED}.issubset(set(h["evidence_refs"]))
+ if current!="13EH":
+  assert any(x.startswith("13EI FORWARD-ONLY ORIGINAL P74 GLYPH ERRATUM") for x in s["historical_audit"]["current_focus"])
+  assert issue["history"][-1].get("revision_id")=="TW-OPEN-0005-13EI-GLYPH-LANE-FORWARD-ERRATUM-20261023"
  assert l["checkpoint_log"][-1]["state_version"]==s["schema_version"]
  assert len(l["issues"])==11
  return True
@@ -89,4 +92,4 @@ if __name__=="__main__":
  parser=argparse.ArgumentParser();parser.add_argument("--source-dir");args=parser.parse_args()
  e=read(E);assert check(e,read(S),read(L),read(EG),read(EF),read(ED))
  if args.source_dir: assert replay(e,args.source_dir)
- print("13EH_PASS D4_D30_CHUDU_PREFIX_RELATIVE_PIXEL_GEOMETRY D30_NUMERIC_NULL")
+ print("13EH_ARCHIVAL_RECORD_REPLAYED_CORRECTION_IN_13EI D30_NUMERIC_NULL")
