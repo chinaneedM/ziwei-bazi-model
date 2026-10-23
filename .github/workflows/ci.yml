@@ -690,6 +690,11 @@ jobs:
           python scripts/verify-ncl03130-correct-solar-p76-13dz.py
           python -m unittest discover -s tests -p 'test_ncl03130_correct_solar_p76_13dz.py' -v
           python -m unittest discover -s tests -p 'test_goryeosa_waseda_d18_d20_13bj.py' -v
+      - name: Goryeosa 13EA NCL03130 original solar D28 D29 glyphs with SHA-bounded same-source scope
+        run: |
+          python -m py_compile scripts/verify-ncl03130-solar-d28-d29-original-13ea.py tests/test_ncl03130_solar_d28_d29_original_13ea.py
+          python scripts/verify-ncl03130-solar-d28-d29-original-13ea.py
+          python -m unittest discover -s tests -p 'test_ncl03130_solar_d28_d29_original_13ea.py' -v
       - name: Focused capability acceptance tests
         run: |
           python -m unittest discover -s tests -p "test_fusion_chart_capability_acceptance_r1.py" -v
