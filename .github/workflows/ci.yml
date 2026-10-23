@@ -705,6 +705,11 @@ jobs:
           python -m py_compile scripts/verify-ncl03130-solar-d30-action-13ec.py tests/test_ncl03130_solar_d30_action_13ec.py
           python scripts/verify-ncl03130-solar-d30-action-13ec.py
           python -m unittest discover -s tests -p 'test_ncl03130_solar_d30_action_13ec.py' -v
+      - name: Goryeosa 13ED NCL03130 source D30 extended original strip
+        run: |
+          python -m py_compile scripts/verify-ncl03130-solar-d30-extended-strip-13ed.py tests/test_ncl03130_solar_d30_extended_strip_13ed.py
+          python scripts/verify-ncl03130-solar-d30-extended-strip-13ed.py
+          python -m unittest discover -s tests -p 'test_ncl03130_solar_d30_extended_strip_13ed.py' -v
       - name: Focused capability acceptance tests
         run: |
           python -m unittest discover -s tests -p "test_fusion_chart_capability_acceptance_r1.py" -v

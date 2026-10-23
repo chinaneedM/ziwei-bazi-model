@@ -19,14 +19,18 @@ def check(e,s,l,a,b):
  assert l["binding"]["source_focus_count"]==len(s["historical_audit"]["current_focus"]) and l["binding"]["latest_research_focus_prefix"]==s["historical_audit"]["current_focus"][-1].split(" ",1)[0]
  assert any(x.startswith("13EC FORWARD-ONLY P0 ACTION CORRECTION:") for x in s["historical_audit"]["current_focus"])
  issue=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
- assert issue["priority"]=="P0" and issue["status"]=="OPEN" and issue["next_action"].startswith("13EC CURRENT ACTION")
+ assert issue["priority"]=="P0" and issue["status"]=="OPEN"
+ current_prefix=issue["next_action"].split(" ",1)[0]
+ assert issue["next_action"].startswith(current_prefix+" CURRENT ACTION")
  assert all(q in issue["next_action"] for q in ("D27=0.963576","D28=0.964062","D29=0.994549","D30"))
  assert set([EA,EB,E,E.replace(".json",".md")]).issubset(set(issue["source_refs"]))
  changes=[h for h in issue["history"] if h.get("event")=="ISSUE_REVISION" and "next_action" in h.get("changed_fields",[])]
- assert changes[-1]["revision_id"]=="TW-OPEN-0005-13EC-NEXT-ACTION-CORRECTION-20261023"
- assert changes[-1]["previous_next_action"].startswith("13DZ CURRENT ACTION")
- assert set(changes[-1]["changed_fields"])=={"source_refs","next_action"}
- assert set([EA,EB,E,E.replace(".json",".md")]).issubset(set(changes[-1]["evidence_refs"]))
+ historic=next(h for h in changes if h.get("revision_id")=="TW-OPEN-0005-13EC-NEXT-ACTION-CORRECTION-20261023")
+ assert changes[-1]["revision_id"].startswith("TW-OPEN-0005-"+current_prefix+"-")
+ assert historic["previous_next_action"].startswith("13DZ CURRENT ACTION")
+ assert set(historic["changed_fields"])=={"source_refs","next_action"}
+ assert bool(changes[-1].get("evidence_refs")) and any(x.startswith(current_prefix+" ") for x in s["historical_audit"]["current_focus"])
+ assert set([EA,EB,E,E.replace(".json",".md")]).issubset(set(historic["evidence_refs"]))
  assert len(l["issues"])==11 and l["checkpoint_log"][-1]["state_version"]==s["schema_version"]
  return True
 if __name__=="__main__":
