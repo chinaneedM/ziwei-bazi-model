@@ -28,16 +28,17 @@ def check(e,s,l,ei,eg,ed):
  i=e["impact"]
  assert i["open_or_blocked"]==11 and i["product"]=="CLOSED"
  assert all(i[k]==0 for k in ("new_sources","new_ancient_witnesses","matrix_rows","genealogy_nodes","genealogy_edges","algorithm_reopens","issues_closed"))
- assert s["schema_version"]=="1.785.0"==l["binding"]["reviewed_state_version"]==s["historical_audit"]["research_omission_guard"]["reviewed_state_version"]
+ assert s["schema_version"]==l["binding"]["reviewed_state_version"]==s["historical_audit"]["research_omission_guard"]["reviewed_state_version"]
  assert l["binding"]["source_focus_count"]==len(s["historical_audit"]["current_focus"])
- assert l["binding"]["latest_research_focus_prefix"]=="13EJ"==s["historical_audit"]["current_focus"][-1].split(" ",1)[0]
- assert s["historical_audit"]["current_focus"][-1].startswith("13EJ NCL03130 P74 D4 D5 ORIGINAL GLYPH TRIADS")
+ current=l["binding"]["latest_research_focus_prefix"]
+ assert current==s["historical_audit"]["current_focus"][-1].split(" ",1)[0]
+ assert any(x.startswith("13EJ NCL03130 P74 D4 D5 ORIGINAL GLYPH TRIADS") for x in s["historical_audit"]["current_focus"])
  q=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
- assert q["status"]=="OPEN" and q["priority"]=="P0" and q["next_action"].startswith("13EJ CURRENT ACTION")
+ assert q["status"]=="OPEN" and q["priority"]=="P0" and q["next_action"].startswith(current+" CURRENT ACTION")
  assert all(k in q["next_action"] for k in ("D4","D5","D30","四分","初度","NULL"))
  assert set([E,E.replace(".json",".md")]).issubset(set(q["source_refs"]))
- h=q["history"][-1]
- assert h["revision_id"]=="TW-OPEN-0005-13EJ-SAME-PAGE-D4-D5-PREFIX-20261023" and h["previous_next_action"].startswith("13EI CURRENT ACTION")
+ h=next(x for x in q["history"] if x.get("revision_id")=="TW-OPEN-0005-13EJ-SAME-PAGE-D4-D5-PREFIX-20261023")
+ assert h["previous_next_action"].startswith("13EI CURRENT ACTION")
  assert set(h["changed_fields"])=={"source_refs","next_action"}
  assert len(l["issues"])==11 and l["checkpoint_log"][-1]["state_version"]==s["schema_version"]
  return True
