@@ -40,7 +40,7 @@ def check(e,s,l):
  assert q["source_original_target_xingdu"]=="PENDING_DIRECT_CORRECT_TABLE_PAGE"
  assert s["schema_version"]==l["binding"]["reviewed_state_version"]==s["historical_audit"]["research_omission_guard"]["reviewed_state_version"]
  assert len(s["historical_audit"]["current_focus"])==l["binding"]["source_focus_count"]
- assert l["binding"]["latest_research_focus_prefix"]=="13DX"
+ assert l["binding"]["latest_research_focus_prefix"]==s["historical_audit"]["current_focus"][-1].split(" ",1)[0]
  assert any(x.startswith("13DX ") for x in s["historical_audit"]["current_focus"])
  assert any(x.startswith("13DW ") for x in s["historical_audit"]["current_focus"])
  issue=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")

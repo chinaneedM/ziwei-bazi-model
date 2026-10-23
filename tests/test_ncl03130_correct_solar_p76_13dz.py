@@ -15,4 +15,17 @@ class Test13DZ(unittest.TestCase):
  def test_fake_source_sha(self):self.bad(lambda e:e["original_page_register"][3].update(png_sha256="0"*64))
  def test_false_day_offset(self):self.bad(lambda e:e["cross_witness_firewall"].update(uniform_day_offset_law="PROVEN"))
  def test_false_phy_vote(self):self.bad(lambda e:e["impact"].update(new_independent_physical_copy_votes=1))
+
+ def test_later_focus_preserves_verified_p76_locator(self):
+  s=copy.deepcopy(self.s);l=copy.deepcopy(self.l)
+  s["schema_version"]="FUTURE_R"
+  s["historical_audit"]["research_omission_guard"]["reviewed_state_version"]="FUTURE_R"
+  s["historical_audit"]["current_focus"].append("13EA FURTHER SOURCE-LOCAL FIELD READ")
+  l["binding"].update(reviewed_state_version="FUTURE_R",
+      latest_research_focus_prefix="13EA",source_focus_count=len(s["historical_audit"]["current_focus"]))
+  l["checkpoint_log"].append({"state_version":"FUTURE_R","reviewed_issue_ids":[x["id"] for x in l["issues"]]})
+  self.assertTrue(m.check(self.e,s,l))
+ def test_false_latest_focus_rejected(self):
+  l=copy.deepcopy(self.l);l["binding"]["latest_research_focus_prefix"]="13FA"
+  with self.assertRaises(AssertionError):m.check(self.e,self.s,l)
 if __name__=="__main__":unittest.main()
