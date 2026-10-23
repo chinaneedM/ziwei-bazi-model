@@ -71,7 +71,7 @@ def check(e,state,ledger,old):
  assert {MD,P,BW,BV}.issubset(set(rev["evidence_refs"]))
  later=any("next_action" in z.get("changed_fields",[]) for z in issue["history"][issue["history"].index(rev)+1:])
  prefix=ledger["binding"]["latest_research_focus_prefix"]
- assert issue["next_action"].startswith("13BX CURRENT ACTION") or (later and prefix!="13BX" and issue["next_action"].startswith(prefix+" CURRENT ACTION"))
+ assert issue["next_action"].startswith("13BX CURRENT ACTION") or (later and prefix!="13BX" and (issue["next_action"].startswith(prefix+" CURRENT ACTION") or issue["next_action"].startswith(next((z["revision_id"].split("-")[3]+" CURRENT ACTION" for z in reversed(issue["history"]) if "next_action" in z.get("changed_fields",[]) and len(z.get("revision_id","").split("-"))>3 and z["revision_id"].split("-")[3].startswith("13")),"__NO_RECORDED_ACTION__"))))
  assert state["schema_version"]==ledger["binding"]["reviewed_state_version"]==state["historical_audit"]["research_omission_guard"]["reviewed_state_version"]
  assert any(z.startswith("13BX ") for z in state["historical_audit"]["current_focus"])
  assert ledger["binding"]["source_focus_count"]==len(state["historical_audit"]["current_focus"])

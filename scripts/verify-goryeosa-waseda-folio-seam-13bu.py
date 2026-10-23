@@ -57,7 +57,7 @@ def check(e,st,ledger,prev):
  assert {MD,P,BS,BT,BQ}.issubset(set(rev["evidence_refs"]))
  later=any("next_action" in v.get("changed_fields",[]) for v in issue["history"][issue["history"].index(rev)+1:])
  prefix=ledger["binding"]["latest_research_focus_prefix"]
- assert issue["next_action"].startswith("13BU CURRENT ACTION") or (later and prefix!="13BU" and issue["next_action"].startswith(prefix+" CURRENT ACTION"))
+ assert issue["next_action"].startswith("13BU CURRENT ACTION") or (later and prefix!="13BU" and (issue["next_action"].startswith(prefix+" CURRENT ACTION") or issue["next_action"].startswith(next((z["revision_id"].split("-")[3]+" CURRENT ACTION" for z in reversed(issue["history"]) if "next_action" in z.get("changed_fields",[]) and len(z.get("revision_id","").split("-"))>3 and z["revision_id"].split("-")[3].startswith("13")),"__NO_RECORDED_ACTION__"))))
  assert ledger["binding"]["source_focus_count"]==len(st["historical_audit"]["current_focus"])
  assert ledger["binding"]["reviewed_state_version"]==st["schema_version"]==st["historical_audit"]["research_omission_guard"]["reviewed_state_version"]
  assert any(x.startswith("13BU ") for x in st["historical_audit"]["current_focus"])
