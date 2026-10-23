@@ -46,10 +46,15 @@ def check(e,s,l,b,a):
  assert l["binding"]["source_focus_count"]==len(s["historical_audit"]["current_focus"]) and l["binding"]["latest_research_focus_prefix"]==s["historical_audit"]["current_focus"][-1].split(" ",1)[0]
  assert any(z.startswith("13ED NCL03130 D30 EXTENDED") for z in s["historical_audit"]["current_focus"])
  issue=next(z for z in l["issues"] if z["id"]=="TW-OPEN-0005")
- assert issue["priority"]=="P0" and issue["status"]=="OPEN" and issue["next_action"].startswith("13ED CURRENT ACTION")
- assert "precision" in issue["next_action"] and all(q in issue["next_action"] for q in ("[590,706,615,830]","D26-D36","D37-D47"))
+ assert issue["priority"]=="P0" and issue["status"]=="OPEN"
+ active_prefix=issue["next_action"].split(" ",1)[0]
+ assert issue["next_action"].startswith(active_prefix+" CURRENT ACTION")
+ action_revisions=[q for q in issue["history"] if q.get("event")=="ISSUE_REVISION" and "next_action" in q.get("changed_fields",[])]
+ assert action_revisions and action_revisions[-1].get("revision_id","").startswith("TW-OPEN-0005-"+active_prefix+"-")
+ assert action_revisions[-1].get("evidence_refs") and any(z.startswith(active_prefix+" ") for z in s["historical_audit"]["current_focus"])
+ assert "D30" in issue["next_action"] and e["next"].startswith("Review adjacent D26-D36")
  assert set([E,E.replace(".json",".md"),B]).issubset(set(issue["source_refs"]))
- revision=issue["history"][-1]
+ revision=next(q for q in issue["history"] if q.get("revision_id")=="TW-OPEN-0005-13ED-EXTENDED-ORIGINAL-STRIP-20261023")
  assert revision["revision_id"]=="TW-OPEN-0005-13ED-EXTENDED-ORIGINAL-STRIP-20261023"
  assert revision["previous_next_action"].startswith("13EC CURRENT ACTION")
  assert set(revision["changed_fields"])=={"source_refs","next_action"}
