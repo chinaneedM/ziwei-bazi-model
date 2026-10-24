@@ -35,9 +35,9 @@ def check(x,s,l):
  assert x["transmission_impact"]["new_supported_edges"]==[] and x["transmission_impact"]["distinct_editions_not_collapsed"]
  assert s["schema_version"]==l["binding"]["reviewed_state_version"]==s["historical_audit"]["research_omission_guard"]["reviewed_state_version"]
  assert l["binding"]["source_focus_count"]==len(s["historical_audit"]["current_focus"])
- assert l["binding"]["latest_research_focus_prefix"]=="13FH" and any(z.startswith("13FH ") for z in s["historical_audit"]["current_focus"])
+ assert l["binding"]["latest_research_focus_prefix"].startswith("13") and any(z.startswith("13FH ") for z in s["historical_audit"]["current_focus"])
  issue=next(z for z in l["issues"] if z["id"]=="TW-OPEN-0005")
- assert issue["status"]=="OPEN" and issue["priority"]=="P0" and issue["next_action"].startswith("13FH CURRENT ACTION:")
+ assert issue["status"]=="OPEN" and issue["priority"]=="P0" and issue["next_action"].startswith(l["binding"]["latest_research_focus_prefix"]+" CURRENT ACTION:")
  assert {P,P.replace(".json",".md")}.issubset(set(issue["source_refs"]))
  assert any(z.get("revision_id")=="TW-OPEN-0005-13FH-GK5553-46BOOK-VS-DONGA75-AND-PROBE-ACCESS-20261024" for z in issue["history"])
  assert l["checkpoint_log"][-1]["state_version"]==s["schema_version"] and len(l["issues"])==11

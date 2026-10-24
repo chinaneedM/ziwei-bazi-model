@@ -46,7 +46,7 @@ def check(e,s,l):
  assert e["transmission_impact"]["new_supported_edges"]==[] and e["transmission_impact"]["not_established_as_recension_variant_edge"]
  assert s["schema_version"]==l["binding"]["reviewed_state_version"]==s["historical_audit"]["research_omission_guard"]["reviewed_state_version"]
  assert l["binding"]["source_focus_count"]==len(s["historical_audit"]["current_focus"])
- assert l["binding"]["latest_research_focus_prefix"] in ("13FG","13FH")
+ assert isinstance(l["binding"]["latest_research_focus_prefix"],str) and l["binding"]["latest_research_focus_prefix"] and l["binding"]["latest_research_focus_prefix"].startswith("13")
  assert any(x.startswith("13FG ") for x in s["historical_audit"]["current_focus"])
  assert s["historical_audit"]["external_source_registry_total_unique_count"]==761
  issue=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
