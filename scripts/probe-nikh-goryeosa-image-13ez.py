@@ -157,6 +157,49 @@ def bounded_literal_context(markup, literal, flank=520, limit=3):
         start = offset + len(literal)
     return results
 
+def source_emitted_thumb_urls(viewer_markup):
+    # Read only actual HTML data-src bytes, never enumerate invented image IDs.
+    if not viewer_markup:
+        return []
+    found = []
+    for raw in re.findall(r'<img\\b[^>]*\\bdata-src="([^"]+)"', viewer_markup, re.I):
+        u = urllib.parse.urlsplit(urllib.parse.urljoin(ARTICLE, raw))
+        q = urllib.parse.parse_qs(u.query, keep_blank_values=True)
+        if (u.scheme == "https" and u.hostname == "db.history.go.kr"
+                and u.path == "/common/imageProxy.do"
+                and q.get("mode") == ["thumb"]
+                and len(q.get("filePath", [])) == 1
+                and re.fullmatch(r"/kr/052/kr_052_[0-9]+\\.jpg", q["filePath"][0])):
+            found.append(urllib.parse.urlunsplit((u.scheme, u.netloc, u.path, u.query, "")))
+    return list(dict.fromkeys(found))
+
+def read_public_thumbnail(url, number):
+    row = {"url": url, "status": "NOT_FETCHED", "http": None, "bytes": 0, "sha256": None, "jpeg_signature_verified": False}
+    try:
+        req = urllib.request.Request(url, headers={"User-Agent": "Tianwen-Research-13EZ/1.0 (official-source-emitted-thumbnail-check)", "Accept": "image/jpeg,image/*;q=0.8"})
+        with urllib.request.urlopen(req, timeout=TIMEOUT) as r:
+            row["http"] = r.status
+            if r.status != 200:
+                row["status"] = "HTTP_NON_200"
+                return row
+            raw = r.read(3_000_001)
+            if len(raw) > 3_000_000:
+                row["status"] = "DECLINED_TOO_LARGE"
+                return row
+            row["bytes"] = len(raw)
+            row["sha256"] = hashlib.sha256(raw).hexdigest()
+            row["jpeg_signature_verified"] = raw.startswith(b"\\xff\\xd8\\xff")
+            row["status"] = "PUBLIC_THUMBNAIL_CAPTURED" if row["jpeg_signature_verified"] else "NOT_JPEG"
+            if row["jpeg_signature_verified"]:
+                (ROOT / f"official-juan52-thumb-{number:02d}.jpg").write_bytes(raw)
+    except urllib.error.HTTPError as e:
+        row["status"] = "HTTP_ERROR"
+        row["http"] = e.code
+    except Exception as e:
+        row["status"] = "TRANSPORT_ERROR"
+        row["error_type"] = type(e).__name__
+    return row
+
 def main():
     ROOT.mkdir(parents=True, exist_ok=True)
     article, article_html = read_public_html(ARTICLE, "official-juan52-article.html")
@@ -180,6 +223,8 @@ def main():
     viewer_html = None
     if viewer_url:
         viewer_read, viewer_html = read_public_html(viewer_url, "official-source-declared-juan52-viewer.html")
+    thumbs = source_emitted_thumb_urls(viewer_html)
+    thumb_reads = [read_public_thumbnail(url, i + 1) for i, url in enumerate(thumbs[:3])]
     result = {
         "schema": "TIANWEN-13EZ-NIKH-FIRSTPARTY-EMITTED-IMAGE-ENTRY-ACCESS-PROBE-R1",
         "source_article": article,
@@ -189,6 +234,9 @@ def main():
         "source_emitted_script_assets": js_files,
         "source_declared_public_viewer_url": viewer_url,
         "public_viewer_html": viewer_read,
+        "public_viewer_source_emitted_thumbnail_urls": thumbs,
+        "source_emitted_thumbnail_reads": thumb_reads,
+        "thumbnail_image_is_not_a_full_original_source_folio": True,
         "public_viewer_target_context": bounded_literal_context(viewer_html, "kr_052_1055", flank=700),
         "public_viewer_image_references_context": bounded_literal_context(viewer_html, ".jpg", flank=300, limit=3),
         "inline_function_context": bounded_literal_context(article_html, "function fnImageViewerPopup", flank=600),

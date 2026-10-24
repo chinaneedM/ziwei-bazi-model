@@ -56,6 +56,14 @@ class Test13EZ(unittest.TestCase):
         scripts = [{"function_context": [{"markup": 'function fnImageViewerPopup(){var popupUrl = "/common/imageViewer.do";}'}]}]
         choice = [{"source_emitted_onclick": "fnImageViewerPopup('kr_003_0010', 'kr_052_1055')"}]
         self.assertIsNone(m.source_declared_viewer_url(scripts, choice))
+    def test_only_source_emitted_thumb_links(self):
+        html = '<img data-src="/common/imageProxy.do?mode=thumb&filePath=/kr/052/kr_052_1055.jpg"/>'
+        links = m.source_emitted_thumb_urls(html)
+        self.assertEqual(links, ["https://db.history.go.kr/common/imageProxy.do?mode=thumb&filePath=/kr/052/kr_052_1055.jpg"])
+    def test_rejects_guessed_or_external_images(self):
+        html = ('<img data-src="https://elsewhere.example/common/imageProxy.do?mode=thumb&filePath=/kr/052/kr_052_1055.jpg" />'
+                '<img data-src="/common/imageProxy.do?mode=full&filePath=/kr/052/kr_052_1055.jpg"/>')
+        self.assertEqual(m.source_emitted_thumb_urls(html), [])
     def test_only_original_widget_metadata_not_photo(self):
         p = m.PageAnchors()
         p.feed('<button onclick="showViewer(1)" title="고려사 원문이미지">원문이미지</button>')
