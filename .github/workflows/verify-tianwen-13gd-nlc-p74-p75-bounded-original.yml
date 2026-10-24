@@ -1,0 +1,18 @@
+name: verify-tianwen-13gd-nlc-p74-p75-bounded-original
+on:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+  workflow_dispatch:
+jobs:
+  verify-source-glyphs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify five source-original rows with D9 D14 D30 still null
+        run: python scripts/verify-tianwen-13gd-nlc-p74-p75-original-lanes.py
+      - name: Mutation rejection tests
+        run: python -m unittest discover -s tests -p 'test_verify_tianwen_13gd_nlc_p74_p75_original_lanes.py' -v
