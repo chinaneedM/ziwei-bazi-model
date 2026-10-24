@@ -831,6 +831,10 @@ jobs:
         run: |
           python scripts/verify-tianwen-13ft-nlc-gk3467-counterparts.py
           python -m unittest discover -s tests -p 'test_verify_tianwen_13ft_nlc_gk3467_counterparts.py' -v
+      - name: NLC 13FU day16 source-fourfen native glyphs and no-day30 winner gate
+        run: |
+          python scripts/verify-tianwen-13fu-nlc-d16-fourfen-original.py
+          python -m unittest discover -s tests -p 'test_verify_tianwen_13fu_nlc_d16_fourfen_original.py' -v
       - name: Focused capability acceptance tests
         run: |
           python -m unittest discover -s tests -p "test_fusion_chart_capability_acceptance_r1.py" -v
