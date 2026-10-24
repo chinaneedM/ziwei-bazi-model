@@ -785,6 +785,11 @@ jobs:
           python -m py_compile scripts/verify-ncl03130-d1-d6-roi-geometry-13es.py tests/test_ncl03130_d1_d6_roi_geometry_13es.py
           python scripts/verify-ncl03130-d1-d6-roi-geometry-13es.py
           python -m unittest discover -s tests -p 'test_ncl03130_d1_d6_roi_geometry_13es.py' -v
+      - name: Goryeosa 13ET NCL source-original six intersection RGB pixel firewall
+        run: |
+          python -m py_compile scripts/verify-ncl03130-six-day-source-pixel-intersections-13et.py tests/test_ncl03130_source_pixel_intersections_13et.py
+          python scripts/verify-ncl03130-six-day-source-pixel-intersections-13et.py
+          python -m unittest discover -s tests -p 'test_ncl03130_source_pixel_intersections_13et.py' -v
       - name: Focused capability acceptance tests
         run: |
           python -m unittest discover -s tests -p "test_fusion_chart_capability_acceptance_r1.py" -v
