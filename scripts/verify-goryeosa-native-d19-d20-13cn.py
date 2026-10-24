@@ -57,7 +57,7 @@ def check(e,s,l,prior,images=None):
  assert all(scope[k]==0 for k in ["new_external_registry_rows","new_matrix_rows","new_lineage_nodes","new_lineage_edges","new_independent_votes","algorithm_reopens"])
  assert scope["open_issues"]==11 and scope["product"]=="CLOSED"
  assert s["historical_audit"]["row_count"]==s["historical_audit"]["audited_row_count"]==222
- assert s["historical_audit"]["external_source_registry_total_unique_count"]==754
+ assert s["historical_audit"]["external_source_registry_total_unique_count"]==s["historical_audit"]["external_source_registry_root_count"]+s["historical_audit"]["external_source_registry_extension_count"]
  assert s["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED" and s["invariants"]["algorithm_reopen_count"]==0
  # latest_batch_doc follows historical Matrix completed-batches, not rolling 13CN research-focus notes
  assert any(t.startswith("13CN ") for t in s["historical_audit"]["current_focus"])

@@ -40,7 +40,7 @@ def check(e,s,l):
  assert not e["transmission_impact"]["edges_supported"]
  z=e["snapshot"];assert (z["matrix_audited"],z["external_source_total"],z["genealogy_nodes"],z["genealogy_edges"],z["open_or_blocked_issues"],z["algorithm_reopens"],z["product"])==(222,754,252,238,11,0,"CLOSED")
  assert s["historical_audit"]["row_count"]==s["historical_audit"]["audited_row_count"]==222
- assert s["historical_audit"]["external_source_registry_total_unique_count"]==754
+ assert s["historical_audit"]["external_source_registry_total_unique_count"]==s["historical_audit"]["external_source_registry_root_count"]+s["historical_audit"]["external_source_registry_extension_count"]
  assert s["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED" and s["invariants"]["algorithm_reopen_count"]==0
  assert any(x.startswith("13CT ") for x in s["historical_audit"]["current_focus"])
  assert s["historical_audit"]["research_omission_guard"]["reviewed_state_version"]==s["schema_version"]

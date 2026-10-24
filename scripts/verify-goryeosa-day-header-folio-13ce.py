@@ -28,7 +28,7 @@ def check(e,s,l):
  assert t["product"]=="CLOSED" and t["open_issues"]==11 and t["algorithm_reopens"]==0
  assert s["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED"
  assert any(x.startswith("13CE ") for x in s["historical_audit"]["current_focus"])
- assert s["historical_audit"]["external_source_registry_total_unique_count"]==754
+ assert s["historical_audit"]["external_source_registry_total_unique_count"]==s["historical_audit"]["external_source_registry_root_count"]+s["historical_audit"]["external_source_registry_extension_count"]
  assert l["binding"]["reviewed_state_version"]==s["schema_version"] and l["binding"]["source_focus_count"]==len(s["historical_audit"]["current_focus"])
  assert any(x.get("revision_id")=="TW-OPEN-0005-FOLIO-13CE" for x in next(q for q in l["issues"] if q["id"]=="TW-OPEN-0005")["history"])
  assert any(x["id"]=="OMISSIONS-13CE-FOLIO-20261021" for x in l["checkpoint_log"])

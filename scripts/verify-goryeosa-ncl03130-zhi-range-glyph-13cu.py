@@ -44,7 +44,7 @@ def check(e,s,l):
  assert len(e["transmission_impact"]["edges_supported"])==0 and len(e["transmission_impact"]["nodes_added_or_strengthened"])==0
  c=e["counts"]
  assert (c["matrix_rows"],c["audited_rows"],c["source_total"],c["genealogy_nodes"],c["genealogy_edges"],c["open_research_risks"],c["algorithm_reopens"],c["product"])==(222,222,754,252,238,11,0,"CLOSED")
- assert (s["historical_audit"]["row_count"],s["historical_audit"]["audited_row_count"],s["historical_audit"]["external_source_registry_total_unique_count"])==(222,222,754)
+ assert (s["historical_audit"]["row_count"],s["historical_audit"]["audited_row_count"],s["historical_audit"]["external_source_registry_total_unique_count"])==(222,222,s["historical_audit"]["external_source_registry_root_count"]+s["historical_audit"]["external_source_registry_extension_count"])
  assert s["schema_version"]==s["historical_audit"]["research_omission_guard"]["reviewed_state_version"]==l["binding"]["reviewed_state_version"]
  assert l["binding"]["source_focus_count"]==len(s["historical_audit"]["current_focus"])
  assert any(x.startswith("13CU ") for x in s["historical_audit"]["current_focus"])

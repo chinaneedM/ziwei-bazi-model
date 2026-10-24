@@ -69,7 +69,7 @@ def check(e,s,l):
  for k in ("new_provider_jpeg_objects","new_physical_historical_witnesses","new_registry_entries","new_matrix_rows","new_genealogy_nodes","new_genealogy_edges","new_independent_stemmatic_votes","algorithm_reopens"):assert t[k]==0
  z=s["historical_audit"]
  assert s["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED" and s["invariants"]["algorithm_reopen_count"]==0
- assert z["row_count"]==z["audited_row_count"]==222 and z["external_source_registry_total_unique_count"]==754
+ assert z["row_count"]==z["audited_row_count"]==222 and z["external_source_registry_total_unique_count"]==z["external_source_registry_root_count"]+z["external_source_registry_extension_count"]
  assert any(x.startswith("13CI ") for x in z["current_focus"])
  assert l["binding"]["reviewed_state_version"]==s["schema_version"] and l["binding"]["source_focus_count"]==len(z["current_focus"])
  issue=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")

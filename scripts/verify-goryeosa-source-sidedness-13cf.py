@@ -98,7 +98,7 @@ def check(e,src,state,ledger):
     assert state["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED"
     assert state["invariants"]["algorithm_reopen_count"]==0
     assert a["row_count"]==a["audited_row_count"]==222
-    assert a["external_source_registry_total_unique_count"]==754
+    assert a["external_source_registry_total_unique_count"]==a["external_source_registry_root_count"]+a["external_source_registry_extension_count"]
     assert any(x.startswith("13CF ") for x in a["current_focus"])
     assert ledger["binding"]["reviewed_state_version"]==state["schema_version"]
     assert ledger["binding"]["source_focus_count"]==len(a["current_focus"])

@@ -72,7 +72,7 @@ def check(e,s,l,reg,old):
  assert scope["open_or_blocked_issues"]==11 and scope["deterministic_product"]=="CLOSED"
  assert s["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED" and s["invariants"]["algorithm_reopen_count"]==0
  a=s["historical_audit"]
- assert a["row_count"]==a["audited_row_count"]==222 and a["external_source_registry_total_unique_count"]==754
+ assert a["row_count"]==a["audited_row_count"]==222 and a["external_source_registry_total_unique_count"]==a["external_source_registry_root_count"]+a["external_source_registry_extension_count"]
  assert any(x.startswith("13CK ") for x in a["current_focus"])
  assert l["binding"]["reviewed_state_version"]==s["schema_version"] and l["binding"]["source_focus_count"]==len(a["current_focus"])
  issue=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")

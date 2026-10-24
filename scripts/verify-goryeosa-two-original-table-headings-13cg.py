@@ -68,7 +68,7 @@ def check(e,s,l):
  a=s["historical_audit"]
  assert s["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED" and s["invariants"]["algorithm_reopen_count"]==0
  assert a["row_count"]==a["audited_row_count"]==222
- assert a["external_source_registry_total_unique_count"]==754
+ assert a["external_source_registry_total_unique_count"]==a["external_source_registry_root_count"]+a["external_source_registry_extension_count"]
  assert any(x.startswith("13CG ") for x in a["current_focus"])
  assert l["binding"]["reviewed_state_version"]==s["schema_version"]
  assert l["binding"]["source_focus_count"]==len(a["current_focus"])

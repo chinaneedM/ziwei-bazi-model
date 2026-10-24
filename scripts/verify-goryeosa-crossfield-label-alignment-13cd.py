@@ -85,7 +85,7 @@ def check(e, sources, s, ledger):
         "open_research_issues":11,"deterministic_product":"CLOSED"}
     a=s["historical_audit"]
     assert a["row_count"]==a["audited_row_count"]==222
-    assert a["external_source_registry_total_unique_count"]==754
+    assert a["external_source_registry_total_unique_count"]==a["external_source_registry_root_count"]+a["external_source_registry_extension_count"]
     assert any(x.startswith("13CD ") for x in a["current_focus"])
     assert s["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED"
     assert s["invariants"]["algorithm_reopen_count"]==0

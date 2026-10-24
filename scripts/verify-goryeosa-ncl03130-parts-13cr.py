@@ -37,7 +37,7 @@ def check(e,s,l):
     c=e["counts"]
     assert (c["historical_audit_rows"],c["source_registry_count"],c["genealogy_nodes"],c["genealogy_edges"],c["open_or_blocked_risks"],c["algorithm_reopens"],c["product"])==(222,754,252,238,11,0,"CLOSED")
     assert s["historical_audit"]["row_count"]==s["historical_audit"]["audited_row_count"]==222
-    assert s["historical_audit"]["external_source_registry_total_unique_count"]==754
+    assert s["historical_audit"]["external_source_registry_total_unique_count"]==s["historical_audit"]["external_source_registry_root_count"]+s["historical_audit"]["external_source_registry_extension_count"]
     assert s["invariants"]["algorithm_reopen_count"]==0 and s["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED"
     assert any(x.startswith("13CR ") for x in s["historical_audit"]["current_focus"])
     assert l["binding"]["reviewed_state_version"]==s["schema_version"]

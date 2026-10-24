@@ -21,6 +21,13 @@ class SourceField13CA(unittest.TestCase):
  def test_false_source_independence(self):
   x=copy.deepcopy(self.e);x["scope"]["new_physical_witnesses"]=1
   with self.assertRaises(AssertionError):m.check(x,self.s,self.l)
+ def test_live_registry_count_drift_rejected(self):
+  s=copy.deepcopy(self.s);s["historical_audit"]["external_source_registry_total_unique_count"]+=1
+  with self.assertRaises(AssertionError):m.check(self.e,s,self.l)
+ def test_future_shard_count_growth_is_not_static(self):
+  s=copy.deepcopy(self.s);s["historical_audit"]["external_source_registry_extension_count"]+=3
+  s["historical_audit"]["external_source_registry_total_unique_count"]+=3
+  self.assertTrue(m.check(self.e,s,self.l))
  def test_forward_only_future_state(self):
   s=copy.deepcopy(self.s);l=copy.deepcopy(self.l);s["schema_version"]="FUTURE";s["historical_audit"]["current_focus"].append("13CB NEXT")
   l["binding"]["reviewed_state_version"]="FUTURE";l["binding"]["source_focus_count"]=len(s["historical_audit"]["current_focus"])

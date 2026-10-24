@@ -33,7 +33,7 @@ def check(e,s,l):
  assert all(e["scope"][k]==0 for k in ("new_physical_witnesses","new_independent_stemmatic_votes","new_source_registry_rows","new_matrix_rows","new_genealogy_nodes","new_genealogy_edges","algorithm_reopens"))
  assert e["scope"]["open_research_risks"]==11 and e["scope"]["product"]=="CLOSED"
  assert s["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED"
- assert s["historical_audit"]["row_count"]==222 and s["historical_audit"]["external_source_registry_total_unique_count"]==754
+ assert s["historical_audit"]["row_count"]==222 and s["historical_audit"]["external_source_registry_total_unique_count"]==s["historical_audit"]["external_source_registry_root_count"]+s["historical_audit"]["external_source_registry_extension_count"]
  assert any(x.startswith("13CA WASEDA") for x in s["historical_audit"]["current_focus"])
  assert l["binding"]["reviewed_state_version"]==s["schema_version"]
  assert l["binding"]["source_focus_count"]==len(s["historical_audit"]["current_focus"])
