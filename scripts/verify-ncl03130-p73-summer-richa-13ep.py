@@ -52,9 +52,10 @@ def check(e,eo,en,ei,ed,s,l):
  q=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
  assert q["priority"]=="P0" and q["status"]=="OPEN" and q["next_action"].startswith("13EP CURRENT ACTION:")
  assert P in q["source_refs"] and P.replace(".json",".md") in q["source_refs"]
- h=q["history"][-1]
- assert h["revision_id"]=="TW-OPEN-0005-13EP-P73-SUMMER-RICHA-20261024"
+ h=next(x for x in q["history"] if x.get("revision_id")=="TW-OPEN-0005-13EP-P73-SUMMER-RICHA-20261024")
  assert h["previous_next_action"].startswith("13EO CURRENT ACTION:") and set(h["changed_fields"])=={"source_refs","next_action"}
+ assert all(x in q["next_action"] for x in ("D4","D5","D6","D30","四分","初度","NULL"))
+ assert any(x.get("revision_id")=="TW-OPEN-0005-13EP-LEGACY-GATE-EXPLICIT-DAYLABELS-20261024" and x.get("previous_next_action","").startswith("13EP CURRENT ACTION:") for x in q["history"])
  assert l["checkpoint_log"][-1]["state_version"]==s["schema_version"] and len(l["issues"])==11
  return True
 def replay(e,source_dir):
