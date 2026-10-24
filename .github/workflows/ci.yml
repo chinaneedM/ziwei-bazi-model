@@ -790,6 +790,11 @@ jobs:
           python -m py_compile scripts/verify-ncl03130-six-day-source-pixel-intersections-13et.py tests/test_ncl03130_source_pixel_intersections_13et.py
           python scripts/verify-ncl03130-six-day-source-pixel-intersections-13et.py
           python -m unittest discover -s tests -p 'test_ncl03130_source_pixel_intersections_13et.py' -v
+      - name: Goryeosa 13EU NCL D5 original glyph versus KRDB transcription firewall
+        run: |
+          python -m py_compile scripts/verify-ncl03130-d5-fourfen-krdb-divergence-13eu.py tests/test_ncl03130_d5_fourfen_divergence_13eu.py
+          python scripts/verify-ncl03130-d5-fourfen-krdb-divergence-13eu.py
+          python -m unittest discover -s tests -p 'test_ncl03130_d5_fourfen_divergence_13eu.py' -v
       - name: Focused capability acceptance tests
         run: |
           python -m unittest discover -s tests -p "test_fusion_chart_capability_acceptance_r1.py" -v
