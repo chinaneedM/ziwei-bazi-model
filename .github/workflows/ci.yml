@@ -815,6 +815,11 @@ jobs:
           python -m py_compile scripts/verify-tianwen-13ey-nikh-image-link-lifecycle.py tests/test_tianwen_13ey_image_link_lifecycle.py
           python scripts/verify-tianwen-13ey-nikh-image-link-lifecycle.py
           python -m unittest discover -s tests -p 'test_tianwen_13ey_image_link_lifecycle.py' -v
+      - name: Goryeosa 13FA exact juan52 GK05553 source menu and original-folio firewall
+        run: |
+          python -m py_compile scripts/verify-tianwen-13fa-nikh-gk5553-menu.py tests/test_tianwen_13fa_nikh_gk5553_menu.py
+          python scripts/verify-tianwen-13fa-nikh-gk5553-menu.py
+          python -m unittest discover -s tests -p 'test_tianwen_13fa_nikh_gk5553_menu.py' -v
       - name: Focused capability acceptance tests
         run: |
           python -m unittest discover -s tests -p "test_fusion_chart_capability_acceptance_r1.py" -v

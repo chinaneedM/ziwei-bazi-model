@@ -1,0 +1,103 @@
+{
+  "schema": "TIANWEN-13FA-GORYEOSA-JUAN52-GK05553-POPUP-CATALOG-R1",
+  "date": "2026-10-24",
+  "issue_id": "TW-OPEN-0005",
+  "source_probe": {
+    "workflow_run": 40054281719,
+    "workflow_job": 120753380539,
+    "run_conclusion": "success",
+    "artifact_name": "nikh-goryeosa-13ez-source-emitted-probe",
+    "article_url": "https://db.history.go.kr/id/kr_052_0010_0010_0020_0020",
+    "article_http": 200,
+    "article_size_bytes": 277246,
+    "article_html_sha256": "e2a5a7b1136202c5828e67a187b8572519490444d57d77c8a4cc78cf323ee753",
+    "collector": "scripts/probe-nikh-goryeosa-image-13ez.py",
+    "metadata_kind": "PUBLIC_SNAPSHOT_HTML_NOT_ANCIENT_SOURCE_IMAGE"
+  },
+  "target_native_menu": {
+    "article_id": "kr_052_0010_0010_0020_0020",
+    "matching_entries": 1,
+    "exact_label": "규장각한국학연구원 소장본(규귀5553[을해자])",
+    "exact_source_emitted_call": "fnImageViewerPopup('kr_052_0010_0010_0020_0020', 'kr_052_1055')",
+    "viewer_item_id": "kr_052_1055",
+    "first_party_label_at_exact_target_article": true,
+    "existing_13EY_other_article_index_only_restriction_now_superseded_for_5553_target_menu": true,
+    "any_KO21634_menu_entry_proven_at_target": false,
+    "onclick_executed": false,
+    "viewer_destination_url": null,
+    "original_image_loaded": false,
+    "original_image_bytes_sha256": null,
+    "exact_folio": null,
+    "work_juan": 52,
+    "actual_printed_historic_copy_verified": false,
+    "original_glyph_reading": null
+  },
+  "kyujanggak_catalog": {
+    "url": "https://kyudb.snu.ac.kr/book/view.do?book_cd=GK05553_00",
+    "book_cd": "GK05553_00",
+    "shelfmark": "奎貴5553-v.1-46",
+    "format": "乙亥字",
+    "work_juan_count": 139,
+    "physical_books_count": 46,
+    "catalog_print_year": null,
+    "notable_replacement_physical_books": [
+      8,
+      26,
+      29
+    ],
+    "replaced_books_type": "補寫本",
+    "other_books_necessarily_genuine_print_ink_of_target": false,
+    "juan52_to_physical_book": null,
+    "juan52_to_source_leaf": null,
+    "independent_catalog_glyph_authority": false,
+    "exact_image_copy_identity_from_menu_to_catalog": "IDENTIFIER_LEVEL_LOCATOR_ONLY"
+  },
+  "contrast": {
+    "ncl_direct_p74_d5": "四分〇一七二",
+    "krdb_editorial_table_d5": "四分五一七二",
+    "ancient_variant_established": false,
+    "independent_original_glyph_votes": 0,
+    "ncl_original_d4_d5_d6_complete_tails": null,
+    "summer_d30_original_historic_numeric": null,
+    "winter_d16_original_historic_numeric": null,
+    "g893_six_historic_controls": "OPEN",
+    "retired_13EI": "RETRACTED",
+    "ncl_qing_vs_1905_hands": "UNBOUND"
+  },
+  "controls": {
+    "menu_label_is_not_a_verified_folio": true,
+    "modern_html_sha_does_not_equal_ancient_image_sha": true,
+    "catalog_format_not_target_leaf_format_without_original_page": true,
+    "work_juan_not_physical_book_number": true,
+    "three_manuscript_replacement_books_not_all_46_books": true,
+    "do_not_reassign_1613_3539_microfilms": true,
+    "do_not_double_register_krdb_article_as_new_ancient_witness": true,
+    "do_not_claim_2023_notice_body_retrieved": true
+  },
+  "transmission_impact": {
+    "supported_nodes": [],
+    "supported_edges": [],
+    "rejected_edges": [
+      "NIKH clickable collection label proves copy-specific image glyph",
+      "NIKH GK05553 viewer ID is a separate folio image SHA-256",
+      "NCL ring glyph must be changed to 五 because labeled viewer exists"
+    ],
+    "questions": [
+      "Follow source-emitted viewer action using public approved browser to obtain actual SNU image bytes and folio.",
+      "Determine which physical book in 46-book series contains historical 卷52 and whether that very item is an original Eulhae type leaf."
+    ]
+  },
+  "impact": {
+    "new_firstparty_catalog_sources": 1,
+    "new_historic_original_page_images": 0,
+    "new_historic_glyph_votes": 0,
+    "historical_matrix_rows_added": 0,
+    "genealogy_nodes_added": 0,
+    "genealogy_edges_added": 0,
+    "risk_closures": 0,
+    "algorithm_reopens": 0,
+    "product": "CLOSED",
+    "registry_total_after": 761,
+    "open_or_blocked_risks": 11
+  }
+}
