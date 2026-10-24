@@ -31,7 +31,7 @@ def check(e,s,l):
  assert d["original_RGB_day_heading_sha256"]=="427d4b129cadc2e7fccb018f7e2a0a3322ee0a111e79c10c109bc5e140e9f41b"
  assert d["original_RGB_fourfen_lane_bbox_xyxy"]==[167,606,250,1450]
  assert d["original_RGB_fourfen_lane_sha256"]=="e3bcf659d342b6fe46349eb0dbb91433992d59b0cccb3befbb17d5c401a4c833"
- assert d["original_physical_book_number"] is d["original_physical_leaf_number"] is d["historical_numeric_D5_interpreted_as_decimal"] is None
+ assert d["physical_original_book_number"] is d["physical_original_leaf_number"] is d["historical_numeric_D5_interpreted_as_decimal"] is None
  assert d["original_physical_edition_identity_verified"] is False and d["independent_authenticated_physical_copy_vote_added"]==0
  assert o["prior_visual_D5"]=="四分〇一七二"
  assert o["KRDB_modern_editorial_D5"]==o["NIKH_saved_photo_D5"]=="四分五一七二"

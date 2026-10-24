@@ -12,7 +12,7 @@ class Test13FG(unittest.TestCase):
   with self.assertRaises(AssertionError):v.check(x,self.s,self.l)
  def test_forged_photo_five(self):self.deny(lambda x:x["D5_direct_visual_image_evidence"].update(directly_read_literal="四分〇一七二"))
  def test_forged_crop_sha(self):self.deny(lambda x:x["D5_direct_visual_image_evidence"].update(original_RGB_fourfen_lane_sha256="0"*64))
- def test_forged_original_book(self):self.deny(lambda x:x["D5_direct_visual_image_evidence"].update(original_physical_book_number=22))
+ def test_forged_original_book(self):self.deny(lambda x:x["D5_direct_visual_image_evidence"].update(physical_original_book_number=22))
  def test_fake_numeric_winner(self):self.deny(lambda x:x["opposing_prior_source"].update(historic_true_winner="FIVE"))
  def test_ncl_retraction(self):self.deny(lambda x:x["opposing_prior_source"].update(NCL_O_original_reading_withdrawn=True))
  def test_fake_independent_edition(self):self.deny(lambda x:x["impact"].update(separately_authenticated_independent_ancient_editions_added=1))
