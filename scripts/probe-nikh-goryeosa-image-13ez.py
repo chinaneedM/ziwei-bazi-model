@@ -89,6 +89,24 @@ def read_public_html(url, name):
         rec["error_type"] = type(err).__name__
     return rec, None
 
+def extract_target_viewer_menu(markup):
+    # Extract only browser-source-emitted options under the specific first-party
+    # multi-image menu. An onclick function call is NOT an authenticated image.
+    if not markup:
+        return []
+    menu = re.search(r'<div class="popup-nd popup-multiImg">(?P<body>.*?)</ul>', markup, re.S)
+    if not menu:
+        return []
+    result = []
+    for match in re.finditer(r'<a\b[^>]*\bonclick="(?P<call>fnImageViewerPopup\([^"]+\))[^"]*"[^>]*>(?P<label>.*?)</a>', menu.group("body"), re.S):
+        call = match.group("call")
+        if not re.fullmatch(r"fnImageViewerPopup\('kr_052_0010_0010_0020_0020', 'kr_[0-9]+_[0-9]+'\)", call):
+            continue
+        label = re.sub(r"\s+", " ", re.sub(r"<[^>]*>", " ", match.group("label"))).strip()
+        if label:
+            result.append({"label": label, "source_emitted_onclick": call, "original_image_verified": False})
+    return result[:8]
+
 def bounded_literal_context(markup, literal, flank=520, limit=3):
     if not markup:
         return []
@@ -125,6 +143,7 @@ def main():
         "official_help": help_page,
         "article_original_image_widget_attributes": parser.image_widgets[:20],
         "article_source_emitted_image_icon_context": bounded_literal_context(article_html, "고려사 원문이미지"),
+        "target_source_emitted_viewer_options": extract_target_viewer_menu(article_html),
         "notice_list_title_event_context": bounded_literal_context(list_html, NOTICE_TITLE),
         "notice_2023_exact_source_emitted_detail_links": linked_notice,
         "notice_2023_detail_reads": notice_body,

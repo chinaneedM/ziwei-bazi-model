@@ -25,6 +25,19 @@ class Test13EZ(unittest.TestCase):
         self.assertEqual(got[0]["markup"], "c TARGET x")
     def test_no_guessed_2023_notice_markup(self):
         self.assertEqual(m.bounded_literal_context("<div>other</div>", m.NOTICE_TITLE), [])
+    def test_exact_article_issuer_viewer_options(self):
+        source = """<div class="popup-nd popup-multiImg"><ul>
+        <li><a onclick="fnImageViewerPopup('kr_052_0010_0010_0020_0020', 'kr_052_1055'); return false;">奎貴5553</a></li>
+        <li><a onclick="fnImageViewerPopup('kr_052_0010_0010_0020_0020', 'kr_052_21634'); return false;">KO21634</a></li>
+        </ul></div>"""
+        opts = m.extract_target_viewer_menu(source)
+        self.assertEqual([z["label"] for z in opts], ["奎貴5553", "KO21634"])
+        self.assertTrue(all(z["original_image_verified"] is False for z in opts))
+    def test_other_article_does_not_bind_vol52(self):
+        html = """<div class="popup-nd popup-multiImg"><ul>
+        <li><a onclick="fnImageViewerPopup('kr_003_0040_0020', 'kr_003_1055'); return false;">奎貴5553</a></li>
+        </ul></div>"""
+        self.assertEqual(m.extract_target_viewer_menu(html), [])
     def test_only_original_widget_metadata_not_photo(self):
         p = m.PageAnchors()
         p.feed('<button onclick="showViewer(1)" title="고려사 원문이미지">원문이미지</button>')
