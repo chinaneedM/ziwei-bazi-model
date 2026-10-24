@@ -1,0 +1,132 @@
+#!/usr/bin/env python3
+"""13EZ bounded public NIKH image-link probe; no fabricated viewer API or glyph vote."""
+from __future__ import annotations
+import hashlib
+import json
+import os
+import re
+import urllib.error
+import urllib.parse
+import urllib.request
+from html.parser import HTMLParser
+from pathlib import Path
+
+ROOT = Path(os.environ.get("TIANWEN_13EZ_OUT", "nikh-goryeosa-13ez-evidence"))
+ARTICLE = "https://db.history.go.kr/id/kr_052_0010_0010_0020_0020"
+NOTICE_INDEX = "https://db.history.go.kr/goryeo/notice/noticeList.do"
+HELP = "https://db.history.go.kr/main/help.do"
+NOTICE_TITLE = "고려사 원문이미지 LINK 변경 안내"
+LIMIT = 1_250_000
+TIMEOUT = 18
+
+class PageAnchors(HTMLParser):
+    def __init__(self):
+        super().__init__()
+        self.stack = []
+        self.anchors = []
+        self.image_widgets = []
+    def handle_starttag(self, tag, attributes):
+        attrs = dict(attributes)
+        if tag == "a":
+            self.stack.append({"href": attrs.get("href", ""), "text": []})
+        signal = " ".join(str(v or "") for k, v in attributes if k in ("title", "alt", "aria-label", "onclick", "data-original", "data-src"))
+        if "원문이미지" in signal or "원문 이미지" in signal:
+            keep = {k: str(v or "")[:400] for k, v in attributes if k in ("href", "src", "title", "alt", "aria-label", "onclick", "data-original", "data-src")}
+            self.image_widgets.append({"tag": tag, "attributes": keep})
+    def handle_data(self, data):
+        for x in self.stack:
+            x["text"].append(data)
+    def handle_endtag(self, tag):
+        if tag == "a" and self.stack:
+            x = self.stack.pop()
+            x["text"] = re.sub(r"\s+", " ", "".join(x["text"])).strip()
+            self.anchors.append(x)
+
+def official_notice_links(markup):
+    parser = PageAnchors()
+    parser.feed(markup)
+    urls = []
+    for entry in parser.anchors:
+        if entry["text"] != NOTICE_TITLE:
+            continue
+        href = entry["href"].strip()
+        if not href or href.startswith(("javascript:", "#")):
+            continue
+        url = urllib.parse.urljoin(NOTICE_INDEX, href)
+        u = urllib.parse.urlsplit(url)
+        if u.scheme == "https" and u.hostname == "db.history.go.kr" and u.path.endswith("/notice/noticeView.do") and not u.username and not u.password:
+            urls.append(url)
+    return sorted(set(urls))
+
+def read_public_html(url, name):
+    rec = {"url": url, "status": "NOT_FETCHED", "http": None, "bytes": 0, "sha256": None}
+    try:
+        request = urllib.request.Request(url, headers={"User-Agent": "Tianwen-Research-13EZ/1.0 (read-only institutional bibliography)", "Accept": "text/html"})
+        with urllib.request.urlopen(request, timeout=TIMEOUT) as response:
+            rec["http"] = response.status
+            if response.status != 200:
+                rec["status"] = "HTTP_NON_200"
+                return rec, None
+            length = response.headers.get("Content-Length")
+            if length and int(length) > LIMIT:
+                rec["status"] = "DECLINED_TOO_LARGE"
+                return rec, None
+            raw = response.read(LIMIT + 1)
+            if len(raw) > LIMIT:
+                rec["status"] = "DECLINED_TOO_LARGE"
+                return rec, None
+            rec["bytes"] = len(raw)
+            rec["sha256"] = hashlib.sha256(raw).hexdigest()
+            rec["status"] = "PUBLIC_HTML_CAPTURED"
+            ROOT.mkdir(parents=True, exist_ok=True)
+            (ROOT / name).write_bytes(raw)
+            return rec, raw.decode("utf-8", "replace")
+    except urllib.error.HTTPError as err:
+        rec["http"] = err.code
+        rec["status"] = "HTTP_ERROR"
+    except Exception as err:
+        rec["status"] = "TRANSPORT_ERROR"
+        rec["error_type"] = type(err).__name__
+    return rec, None
+
+def main():
+    ROOT.mkdir(parents=True, exist_ok=True)
+    article, article_html = read_public_html(ARTICLE, "official-juan52-article.html")
+    listing, list_html = read_public_html(NOTICE_INDEX, "official-notice-index.html")
+    help_page, help_html = read_public_html(HELP, "official-image-viewer-help.html")
+    parser = PageAnchors()
+    if article_html:
+        parser.feed(article_html)
+    linked_notice = official_notice_links(list_html) if list_html else []
+    notice_body = []
+    # Follow only an explicit first-party link emitted by the official index.
+    for i, url in enumerate(linked_notice[:1]):
+        row, html = read_public_html(url, f"official-notice-body-{i}.html")
+        notice_body.append({"fetch": row, "declared_title_present": NOTICE_TITLE in html if html else None})
+    result = {
+        "schema": "TIANWEN-13EZ-NIKH-FIRSTPARTY-EMITTED-IMAGE-ENTRY-ACCESS-PROBE-R1",
+        "source_article": article,
+        "official_notice_list": listing,
+        "official_help": help_page,
+        "article_original_image_widget_attributes": parser.image_widgets[:20],
+        "notice_2023_exact_source_emitted_detail_links": linked_notice,
+        "notice_2023_detail_reads": notice_body,
+        "help_original_image_label_present": ("원문이미지" in help_html) if help_html else None,
+        "browser_popup_not_executed": True,
+        "original_image_bytes_acquired": False,
+        "specific_physical_book": None,
+        "specific_juan52_folio": None,
+        "source_original_png_sha256": None,
+        "ncl_d5_original_photo_vs_krdb_editorial_glyph": "UNADJUDICATED",
+        "historical_glyph_votes_added": 0,
+        "source_id_inferred_from_published_label": False,
+        "unverified_2023_link_destination_not_assumed": True,
+        "no_hidden_endpoint_enumeration": True,
+        "no_ocr_or_glyph_inference": True,
+        "research_risk_closures": 0
+    }
+    (ROOT / "probe-result.json").write_text(json.dumps(result, ensure_ascii=False, sort_keys=True, indent=2) + "\n", encoding="utf-8")
+    print(json.dumps(result, ensure_ascii=False, sort_keys=True))
+
+if __name__ == "__main__":
+    main()
