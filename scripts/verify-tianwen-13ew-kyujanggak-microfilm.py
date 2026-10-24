@@ -18,6 +18,8 @@ def check(x,s,l):
  assert x["work_juan_52_exact_physical_book"] is x["source_3539_volume52_target_page_sha256"] is x["source_3579_volume52_target_page_sha256"] is None
  assert x["inherited_original_ncl_p74_d5"]=="四分〇一七二" and x["inherited_secondary_krdb_d5"]=="四分五一七二"
  assert x["G893_six_original_controls"]=="OPEN" and x["old_13EI_false_attribution"]=="RETRACTED"
+ assert x["D4_D5_D6_full_original_fourfen"] is x["winter_D16_original_numerics"] is x["summer_D30_original_numerics"] is None
+ assert x["ncl_Qing_vs_1905_copy_layer"]=="UNBOUND" and x["digital_transcription_vs_original_photo_not_yet_stemmatic_variant"] is True
  assert x["source_original_glyph_readings_added"]==0 and x["transmission_impact"]["edges_supported"]==[]
  im=x["impact"]
  assert all(im[k]==0 for k in ["new_external_registry_entries","new_matrix_rows","new_original_glyph_votes","new_original_target_folios","new_genealogy_nodes","new_genealogy_edges","risk_closures","algorithm_reopens"])
