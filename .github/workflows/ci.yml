@@ -810,6 +810,11 @@ jobs:
           python -m py_compile scripts/verify-tianwen-13ex-nikh-image-provider.py tests/test_tianwen_13ex_nikh_image_provider.py
           python scripts/verify-tianwen-13ex-nikh-image-provider.py
           python -m unittest discover -s tests -p 'test_tianwen_13ex_nikh_image_provider.py' -v
+      - name: Goryeosa 13EY official image link chronology and separate-work firewall
+        run: |
+          python -m py_compile scripts/verify-tianwen-13ey-nikh-image-link-lifecycle.py tests/test_tianwen_13ey_image_link_lifecycle.py
+          python scripts/verify-tianwen-13ey-nikh-image-link-lifecycle.py
+          python -m unittest discover -s tests -p 'test_tianwen_13ey_image_link_lifecycle.py' -v
       - name: Focused capability acceptance tests
         run: |
           python -m unittest discover -s tests -p "test_fusion_chart_capability_acceptance_r1.py" -v

@@ -1,0 +1,103 @@
+{
+  "schema": "TIANWEN-13EY-GORYEOSA-IMAGE-LINK-LIFECYCLE-DISTINCT-WORK-GATE-R1",
+  "date": "2026-10-24",
+  "risk_id": "TW-OPEN-0005",
+  "prior_institutional_claim": {
+    "batch": "13EX",
+    "notice_url": "https://db.history.go.kr/main/notice/noticeView.do?noticeId=78",
+    "notice_date": "2025-02-04",
+    "scope": "고려사 original images linked to 규장각한국학연구원 at institutional level",
+    "exact_article_image_copy_unbound": true
+  },
+  "notice_2023": {
+    "source_url": "https://db.history.go.kr/goryeo/notice/noticeList.do",
+    "notice_list_row": 50,
+    "publication_date": "2023-11-23",
+    "display_title": "고려사 원문이미지 LINK 변경 안내",
+    "recovered_grade": "FIRSTPARTY_NOTICE_LIST_TITLE_AND_DATE_ONLY",
+    "body_text_read": false,
+    "old_link_destination": null,
+    "new_link_destination": null,
+    "copy_identity_effect": null,
+    "specific_volume52_article_effect": null
+  },
+  "notice_2026": {
+    "source_url": "https://db.history.go.kr/main/notice/noticeView.do?noticeId=84",
+    "publication_date": "2026-01-29",
+    "content_section": "고려시대사료 DB",
+    "named_work": "고려사절요",
+    "asserted_linked_provider": "서울대 규장각한국학연구원",
+    "distinct_from_target_work": "고려사",
+    "same_work_as_target": false,
+    "repairs_2025_goryeosa_link": null,
+    "exact_goryeosa_volume52_image_covered": false,
+    "grade": "FIRSTPARTY_DISTINCT_WORK_NOTICE"
+  },
+  "indexed_alternative_source_labels": {
+    "observed_via": "PUBLIC_SEARCH_INDEX_SNIPPETS_NOT_FULL_PROVIDER_PAGE",
+    "context_article": "https://db.history.go.kr/id/kr_003_0040_0020",
+    "candidate_labels": [
+      "규장각한국학연구원 소장본(규귀5553[을해자])",
+      "국사편찬위원회 소장본(KO21634)"
+    ],
+    "only_other_article_context": true,
+    "verified_on_target_article": false,
+    "original_image_acquired": false,
+    "catalog_mapping_for_target": null,
+    "source_metadata_authority": "UNVERIFIED_INDEX_EXCERPT_ONLY",
+    "claim_that_target_has_both_buttons": false,
+    "not_counted_as_separate_physical_witnesses": true
+  },
+  "target_article": {
+    "url": "https://db.history.go.kr/id/kr_052_0010_0010_0020_0020",
+    "work_juan": 52,
+    "ncl_original_d5": "四分〇一七二",
+    "krdb_digital_transcription_d5": "四分五一七二",
+    "retrieved_direct_ancient_target_page": false,
+    "image_sha256": null,
+    "provider_holding_id": null,
+    "physical_book": null,
+    "source_leaf": null,
+    "glyph_winner": null,
+    "historic_numeric_decimal": null
+  },
+  "risk_controls": {
+    "different_works_dont_share_provenance_automatically": true,
+    "modern_notice_dates_not_ancient_print_dates": true,
+    "notice_link_change_does_not_prove_copy_switch": true,
+    "digital_label_choices_not_direct_original_glyph_attestation": true,
+    "physical_book_number_not_work_juan": true,
+    "shoushi_G893_six_original_controls": "OPEN",
+    "winter_d16_original_numeric": null,
+    "summer_d30_original_numeric": null,
+    "retired_13EI": "RETRACTED",
+    "ncl_qing_vs_1905_layer": "UNBOUND"
+  },
+  "impact": {
+    "new_modern_registry_records": 2,
+    "physical_original_folios_added": 0,
+    "original_glyph_votes": 0,
+    "historical_numeric_values_added": 0,
+    "risks_closed": 0,
+    "new_matrix_rows": 0,
+    "new_genealogy_nodes": 0,
+    "new_genealogy_edges": 0,
+    "algorithms_reopened": 0,
+    "product": "CLOSED",
+    "registry_total_after": 760,
+    "open_or_blocked_risks": 11
+  },
+  "transmission_impact": {
+    "supported_nodes": [],
+    "supported_edges": [],
+    "unsupported_edges": [
+      "Goryeosa target juan52 original image is Kyujanggak GK03539_00 or GK03579_00",
+      "KRDB 2026 Goryeosa Jeolyo update covers the same work Goryeosa juan52",
+      "KO21634 search index snippet is source-original witness for Goryeosa juan52"
+    ],
+    "still_needed": [
+      "Actual target article image source/holding ID and physical book/folio",
+      "Target image content hashes and original D5 glyph direct comparison"
+    ]
+  }
+}
