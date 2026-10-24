@@ -89,6 +89,21 @@ def read_public_html(url, name):
         rec["error_type"] = type(err).__name__
     return rec, None
 
+def bounded_literal_context(markup, literal, flank=520, limit=3):
+    if not markup:
+        return []
+    results = []
+    start = 0
+    for _ in range(limit):
+        offset = markup.find(literal, start)
+        if offset < 0:
+            break
+        before = max(0, offset - flank)
+        after = min(len(markup), offset + len(literal) + flank)
+        results.append({"literal": literal, "offset": offset, "markup": markup[before:after]})
+        start = offset + len(literal)
+    return results
+
 def main():
     ROOT.mkdir(parents=True, exist_ok=True)
     article, article_html = read_public_html(ARTICLE, "official-juan52-article.html")
@@ -109,6 +124,8 @@ def main():
         "official_notice_list": listing,
         "official_help": help_page,
         "article_original_image_widget_attributes": parser.image_widgets[:20],
+        "article_source_emitted_image_icon_context": bounded_literal_context(article_html, "고려사 원문이미지"),
+        "notice_list_title_event_context": bounded_literal_context(list_html, NOTICE_TITLE),
         "notice_2023_exact_source_emitted_detail_links": linked_notice,
         "notice_2023_detail_reads": notice_body,
         "help_original_image_label_present": ("원문이미지" in help_html) if help_html else None,

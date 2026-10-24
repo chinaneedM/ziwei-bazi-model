@@ -20,6 +20,11 @@ class Test13EZ(unittest.TestCase):
     def test_jeolyo_not_accepted(self):
         h = '<a href="/main/notice/noticeView.do?noticeId=sample">고려사절요 원문이미지 LINK 변경 안내</a>'
         self.assertEqual(m.official_notice_links(h), [])
+    def test_bounded_context_only_literal_source(self):
+        got = m.bounded_literal_context("abc TARGET xyz", "TARGET", flank=2)
+        self.assertEqual(got[0]["markup"], "c TARGET xy")
+    def test_no_guessed_2023_notice_markup(self):
+        self.assertEqual(m.bounded_literal_context("<div>other</div>", m.NOTICE_TITLE), [])
     def test_only_original_widget_metadata_not_photo(self):
         p = m.PageAnchors()
         p.feed('<button onclick="showViewer(1)" title="고려사 원문이미지">원문이미지</button>')
