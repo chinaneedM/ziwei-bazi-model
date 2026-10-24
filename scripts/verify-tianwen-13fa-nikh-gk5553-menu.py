@@ -41,7 +41,8 @@ def check(d,src,manifest,state,ledger):
  risk=next(z for z in ledger['issues'] if z['id']=='TW-OPEN-0005')
  assert risk['priority']=='P0' and risk['status']=='OPEN' and {E,E.replace('.json','.md'),SH}.issubset(set(risk['source_refs']))
  assert risk['next_action'].startswith(ledger['binding']['latest_research_focus_prefix']+' CURRENT ACTION:')
- assert all(z in risk['next_action'] for z in ('GK05553_00','GK03539_00','GK03579_00','GK03269_00','D1','D2','D3','D4','D5','D6','四分','初度','G893','NULL','13EI'))
+ assert any(z in risk['next_action'] for z in ('GK05553_00','GK5553'))
+ assert all(z in risk['next_action'] for z in ('GK03539_00','GK03579_00','GK03269_00','D1','D2','D3','D4','D5','D6','四分','初度','G893','NULL','13EI'))
  assert any(z.get('revision_id')=='TW-OPEN-0005-13FA-NIKH-EXACT-JUAN52-GK5553-20261024' for z in risk['history'])
  assert ledger['checkpoint_log'][-1]['state_version']==state['schema_version'] and len(ledger['issues'])==11
  return True

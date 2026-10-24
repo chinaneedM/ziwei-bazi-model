@@ -19,4 +19,13 @@ class Test13FA(unittest.TestCase):
  def test_lose_manuscript_exception(self):self.bad(lambda x:x['kyujanggak_catalog'].update(notable_replacement_physical_books=[]))
  def test_fake_ancient_vote(self):self.bad(lambda x:x['impact'].update(new_historic_glyph_votes=1))
  def test_reopen_algorithm(self):self.bad(lambda x:x['impact'].update(algorithm_reopens=1))
+ def test_current_gk5553_shelfmark_alias(self):
+  q=copy.deepcopy(self.l);risk=next(x for x in q['issues'] if x['id']=='TW-OPEN-0005')
+  self.assertIn('GK5553',risk['next_action'])
+  risk['next_action']=risk['next_action'].replace('GK5553','GK05553_00')
+  self.assertTrue(v.check(self.d,self.s,self.m,self.st,q))
+ def test_unbound_gk5553_shelfmark_rejected(self):
+  q=copy.deepcopy(self.l);risk=next(x for x in q['issues'] if x['id']=='TW-OPEN-0005')
+  risk['next_action']=risk['next_action'].replace('GK5553','UNBOUND_COPY')
+  with self.assertRaises(AssertionError):v.check(self.d,self.s,self.m,self.st,q)
 if __name__=='__main__':unittest.main()

@@ -20,4 +20,13 @@ class Test13FB(unittest.TestCase):
  def test_false_numeric(self):self.deny(lambda x:x['numerical_and_philological_firewall'].update(precise_historic_numeric_D5=5.5172))
  def test_13ei_revival(self):self.deny(lambda x:x['numerical_and_philological_firewall'].update(old_13EI_false_source_claim='APPROVED'))
  def test_algorithm_reopen(self):self.deny(lambda x:x['impact'].update(algorithm_reopens=1))
+ def test_current_gk5553_shelfmark_alias(self):
+  q=copy.deepcopy(self.l);risk=next(x for x in q['issues'] if x['id']=='TW-OPEN-0005')
+  self.assertIn('GK5553',risk['next_action'])
+  risk['next_action']=risk['next_action'].replace('GK5553','GK05553_00')
+  self.assertTrue(v.check(self.e,self.s,q,self.m))
+ def test_unbound_gk5553_shelfmark_rejected(self):
+  q=copy.deepcopy(self.l);risk=next(x for x in q['issues'] if x['id']=='TW-OPEN-0005')
+  risk['next_action']=risk['next_action'].replace('GK5553','UNBOUND_COPY')
+  with self.assertRaises(AssertionError):v.check(self.e,self.s,q,self.m)
 if __name__=='__main__':unittest.main()
