@@ -795,6 +795,11 @@ jobs:
           python -m py_compile scripts/verify-ncl03130-d5-fourfen-krdb-divergence-13eu.py tests/test_ncl03130_d5_fourfen_divergence_13eu.py
           python scripts/verify-ncl03130-d5-fourfen-krdb-divergence-13eu.py
           python -m unittest discover -s tests -p 'test_ncl03130_d5_fourfen_divergence_13eu.py' -v
+      - name: Goryeosa 13EV Kyujanggak exact catalog holding provenance boundary
+        run: |
+          python -m py_compile scripts/verify-tianwen-13ev-kyujanggak-catalog-leads.py tests/test_tianwen_13ev_kyujanggak_catalog_leads.py
+          python scripts/verify-tianwen-13ev-kyujanggak-catalog-leads.py
+          python -m unittest discover -s tests -p 'test_tianwen_13ev_kyujanggak_catalog_leads.py' -v
       - name: Focused capability acceptance tests
         run: |
           python -m unittest discover -s tests -p "test_fusion_chart_capability_acceptance_r1.py" -v
