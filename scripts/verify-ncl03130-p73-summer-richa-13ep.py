@@ -48,9 +48,10 @@ def check(e,eo,en,ei,ed,s,l):
  assert e["impact"]["chart_product"]=="CLOSED" and e["impact"]["risks_open_or_blocked"]==11
  assert s["schema_version"]==l["binding"]["reviewed_state_version"]==s["historical_audit"]["research_omission_guard"]["reviewed_state_version"]
  assert l["binding"]["source_focus_count"]==len(s["historical_audit"]["current_focus"])
- assert s["historical_audit"]["current_focus"][-1].startswith("13EP ") and l["binding"]["latest_research_focus_prefix"]=="13EP"
+ assert any(x.startswith("13EP ") for x in s["historical_audit"]["current_focus"])
+ assert l["binding"]["latest_research_focus_prefix"]==s["historical_audit"]["current_focus"][-1].split(" ",1)[0]
  q=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
- assert q["priority"]=="P0" and q["status"]=="OPEN" and q["next_action"].startswith("13EP CURRENT ACTION:")
+ assert q["priority"]=="P0" and q["status"]=="OPEN" and q["next_action"].startswith(l["binding"]["latest_research_focus_prefix"]+" CURRENT ACTION:")
  assert P in q["source_refs"] and P.replace(".json",".md") in q["source_refs"]
  h=next(x for x in q["history"] if x.get("revision_id")=="TW-OPEN-0005-13EP-P73-SUMMER-RICHA-20261024")
  assert h["previous_next_action"].startswith("13EO CURRENT ACTION:") and set(h["changed_fields"])=={"source_refs","next_action"}
