@@ -28,7 +28,7 @@ class Test13DX(unittest.TestCase):
   l["checkpoint_log"].append({"state_version":"FUTURE_R","reviewed_issue_ids":[x["id"] for x in l["issues"]]})
   self.assertTrue(m.check(self.e,s,l))
  def test_fake_future_latest_focus_rejected(self):
-  l=copy.deepcopy(self.l);l["binding"]["latest_research_focus_prefix"]="13FA"
+  l=copy.deepcopy(self.l);l["binding"]["latest_research_focus_prefix"]=l["binding"]["latest_research_focus_prefix"]+"_FORGED"
   with self.assertRaises(AssertionError):m.check(self.e,self.s,l)
  def test_13dx_history_missing_rejected(self):
   l=copy.deepcopy(self.l)
