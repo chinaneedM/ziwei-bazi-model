@@ -21,4 +21,13 @@ class Test13EQ(unittest.TestCase):
  def test_fabricated_field_mapping(self):self.bad(lambda e:e["observations"].update(technical_heading_to_daily_lane_identity="PROVEN"))
  def test_forged_independent_witness(self):self.bad(lambda e:e["source"].update(independent_physical_witnesses_added=3))
  def test_revive_13ei_error(self):self.bad(lambda e:e["observations"].update(prior_13ei_source_glyph_erratum_still_retracted=False))
+ def test_shorthand_D1_D6_preserves_full_scope(self):
+  q=copy.deepcopy(self.l);issue=next(x for x in q["issues"] if x["id"]=="TW-OPEN-0005")
+  self.assertIn("D1-D6",issue["next_action"])
+  self.assertTrue(m.check(self.e,self.eo,self.ep,self.en,self.ei,self.ed,self.s,q))
+ def test_mutated_shorthand_does_not_certify_all_six(self):
+  q=copy.deepcopy(self.l);issue=next(x for x in q["issues"] if x["id"]=="TW-OPEN-0005")
+  issue["next_action"]=issue["next_action"].replace("D1-D6","D1-D5")
+  with self.assertRaises(AssertionError):
+   m.check(self.e,self.eo,self.ep,self.en,self.ei,self.ed,self.s,q)
 if __name__=="__main__":unittest.main()
