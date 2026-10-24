@@ -800,6 +800,11 @@ jobs:
           python -m py_compile scripts/verify-tianwen-13ev-kyujanggak-catalog-leads.py tests/test_tianwen_13ev_kyujanggak_catalog_leads.py
           python scripts/verify-tianwen-13ev-kyujanggak-catalog-leads.py
           python -m unittest discover -s tests -p 'test_tianwen_13ev_kyujanggak_catalog_leads.py' -v
+      - name: Goryeosa 13EW catalog microfilm physical copy scope gate
+        run: |
+          python -m py_compile scripts/verify-tianwen-13ew-kyujanggak-microfilm.py tests/test_tianwen_13ew_kyujanggak_microfilm.py
+          python scripts/verify-tianwen-13ew-kyujanggak-microfilm.py
+          python -m unittest discover -s tests -p 'test_tianwen_13ew_kyujanggak_microfilm.py' -v
       - name: Focused capability acceptance tests
         run: |
           python -m unittest discover -s tests -p "test_fusion_chart_capability_acceptance_r1.py" -v
