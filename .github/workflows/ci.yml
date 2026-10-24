@@ -827,6 +827,10 @@ jobs:
           python -m unittest discover -s tests -p 'test_tianwen_13fb_nikh_thumb_cert.py' -v
       - name: GK3467 13FQ original book6 source pixels
         run: python scripts/verify-tianwen-13fq-original-book6.py
+      - name: NLC 13FT original day16/day30 counterpart no-winner gate
+        run: |
+          python scripts/verify-tianwen-13ft-nlc-gk3467-counterparts.py
+          python -m unittest discover -s tests -p 'test_verify_tianwen_13ft_nlc_gk3467_counterparts.py' -v
       - name: Focused capability acceptance tests
         run: |
           python -m unittest discover -s tests -p "test_fusion_chart_capability_acceptance_r1.py" -v

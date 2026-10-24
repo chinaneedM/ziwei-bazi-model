@@ -1,0 +1,121 @@
+{
+  "schema": "TIANWEN-13FT-NLC-GK3467-D16-D30-ORIGINAL-COUNTERPART-LOCATORS-R1",
+  "date": "2026-10-24",
+  "issue_id": "TW-OPEN-0005",
+  "review": "DIRECT_ORIGINAL_PIXELS_BOUNDED_DAY_HEADER_ONLY",
+  "source_nlc": {
+    "source_family": "NCL-03130_09 高麗史",
+    "digital_pdf_url": "https://commons.wikimedia.org/wiki/Special:Redirect/file/NCL-03130_09_%E9%AB%98%E9%BA%97%E5%8F%B2.pdf",
+    "full_pdf_expected_sha256": "3c2a5621fb3f4eabc593020bcde12a38f6ecdae2842940dec12d5a3a56afd32e",
+    "source_pdf_physical_copy": null,
+    "archived_action_run": 39938606876,
+    "archived_artifact_id": 12494518841,
+    "archived_artifact_name": "ncl03130-13dy-correct-solar-original-p73-p80",
+    "manifest_schema": "TIANWEN-13DY-NCL03130-SOLAR-TARGET-REACQUISITION-R1",
+    "archived_pages_are_one_digital_pdf_not_distinct_originals": true
+  },
+  "source_gk3467": {
+    "source": "docs/research/TIANWEN-13FR-GK3467-BOOK6-D16-D30-DIRECT-FIELD-COLLATION-R1.json",
+    "official_subcatalog": "GK03467_04",
+    "digital_volume": "0001",
+    "physical_group": "奎3467",
+    "book": 6,
+    "work_juan": 52,
+    "source_pdf_sha256": "b75009805dae9ccc22797c005bd5f32c7870a192945b503f6b3af3fbf14e1386"
+  },
+  "targets": [
+    {
+      "day": 16,
+      "nlc_page": 75,
+      "filename": "original-p075.png",
+      "png_sha256": "059821b008f41c1cdf11bf0daab89de01b44dc5ffee1263e569decb567f76458",
+      "rgb_sha256": "f90eb6e5be96ae16408833fb2722db9b90413347a8acd733efbd3836d7f5f534",
+      "wh": [
+        1305,
+        878
+      ],
+      "roi_xyxy": [
+        785,
+        160,
+        909,
+        810
+      ],
+      "roi_rgb_sha256": "5a4a6d0775e23d2da1395d5266264c0bf9fbc795a696078e12f3f2dba82821d0",
+      "heading": "十六日",
+      "gk_pdf_page": 15,
+      "gk_original_literal": "六九五四",
+      "nlc_fourfen_full_glyph_literal": null,
+      "field_identity_grade": "HEADER_AND_DAY_COUNTERPART_ONLY_NOT_FULL_FIELD_COLLATION",
+      "nlc_ancient_folio": null,
+      "source_original_copy_identity": null
+    },
+    {
+      "day": 30,
+      "nlc_page": 76,
+      "filename": "original-p076.png",
+      "png_sha256": "ce4eb8b044868fe48bb41fe5453b10fa7bbd949d8fdf2c8e31037f8b89f32fad",
+      "rgb_sha256": "cd8e71f9a048323d58475576548dc0c18d4cc8d0fe26cc0eb3af50feb26a5c07",
+      "wh": [
+        1305,
+        875
+      ],
+      "roi_xyxy": [
+        525,
+        160,
+        642,
+        810
+      ],
+      "roi_rgb_sha256": "bb1a267f001935e49dea9b9d6a42b95417e3d47fe72afe2fb3498b890a03724e",
+      "heading": "三十日",
+      "gk_pdf_page": 17,
+      "gk_original_literal": "九二二一四三",
+      "nlc_fourfen_full_glyph_literal": null,
+      "field_identity_grade": "HEADER_AND_DAY_COUNTERPART_ONLY_NOT_FULL_FIELD_COLLATION",
+      "nlc_ancient_folio": null,
+      "source_original_copy_identity": null
+    }
+  ],
+  "method": "Recovered existing SHA-bound 13DY original image artifact, replayed original PNG and RGB hashes, re-read D16 on source PDF page75 and D30 on source PDF page76 against 13FR original GK3467 days. Exact NLC fourfen glyph lanes not promoted; crop bounds cover a narrow target day column including header and row context, not a certified field-specific disjoint native-resolution image.",
+  "decisions": {
+    "nlc_d16_fourfen_complete": null,
+    "nlc_d30_fourfen_complete": null,
+    "day16_final_historical_winner": null,
+    "day30_final_historical_winner": null,
+    "gk3467_numbers_are_source_specific": true,
+    "source_impression_identity_equality": null,
+    "technical_unit_fourfen_chudu_bridge": "UNPROVEN",
+    "season_mapping": null,
+    "nlc_d9_fourfen": null,
+    "day5_disagreement_preserved": {
+      "NLC": "〇一七二",
+      "NIKH": "五一七二",
+      "GK3467": "五一七二",
+      "winner": null
+    },
+    "g893_six_primary_controls": "OPEN",
+    "counterpart_headers_confirmed": 2,
+    "new_ancient_copy_votes": 0,
+    "algorithms_reopened": 0,
+    "candidates_collapsed": 0
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [],
+    "unresolved_lineage_questions": [
+      "Cross-gallery D16/D30 heading and page matches cannot prove the technical identity of fourfen lanes, direct copying, a common physical impression, or an algorithmic normalization."
+    ]
+  },
+  "counts": {
+    "matrix_audited": 222,
+    "matrix_total": 222,
+    "registry_root": 647,
+    "registry_extensions": 114,
+    "registry_total": 761,
+    "genealogy_nodes": 252,
+    "genealogy_edges": 238,
+    "risk_issues_open_or_blocked": 11,
+    "product": "CLOSED"
+  }
+}
