@@ -49,7 +49,8 @@ def check(e,fy,l,s,source_image=None):
  assert e["transmission_impact"]["edges_supported"]==[] and e["transmission_impact"]["edges_revised"]==[]
  assert l["binding"]["reviewed_state_version"]==s["schema_version"]
  assert l["binding"]["source_focus_count"]==len(s["historical_audit"]["current_focus"])
- assert l["binding"]["latest_research_focus_prefix"]==s["historical_audit"]["current_focus"][-1].split(" ",1)[0]=="13FZ"
+ assert l["binding"]["latest_research_focus_prefix"]==s["historical_audit"]["current_focus"][-1].split(" ",1)[0]
+ assert any(x.startswith("13FZ ") for x in s["historical_audit"]["current_focus"]) # Preserve 13FZ checkpoint without freezing global head
  issue=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
  assert issue["priority"]=="P0" and issue["status"]=="OPEN" and issue["next_action"].startswith("13FZ CURRENT ACTION:")
  assert str(E.relative_to(ROOT)) in issue["source_refs"] and str(E.relative_to(ROOT)).replace(".json",".md") in issue["source_refs"]
