@@ -34,12 +34,12 @@ def check(x,s,l):
  assert i["transmission_impact"]["new_supported_edges"]==[]
  assert s["schema_version"]==l["binding"]["reviewed_state_version"]==s["historical_audit"]["research_omission_guard"]["reviewed_state_version"]
  assert l["binding"]["source_focus_count"]==len(s["historical_audit"]["current_focus"])
- assert l["binding"]["latest_research_focus_prefix"]=="13FI"
+ assert l["binding"]["latest_research_focus_prefix"]==s["historical_audit"]["current_focus"][-1].split(" ",1)[0]
  assert any(z.startswith("13FI ") for z in s["historical_audit"]["current_focus"])
  issue=next(z for z in l["issues"] if z["id"]=="TW-OPEN-0005")
  assert issue["status"]=="OPEN" and issue["priority"]=="P0"
  assert {P,P.replace(".json",".md")}.issubset(set(issue["source_refs"]))
- assert issue["next_action"].startswith("13FI CURRENT ACTION:")
+ assert issue["next_action"].startswith(l["binding"]["latest_research_focus_prefix"]+" CURRENT ACTION:")
  assert any(z.get("revision_id")=="TW-OPEN-0005-13FI-NIKH-D4D5D6-SAME-GALLERY-STRING-REPLAY-20261024" for z in issue["history"])
  assert l["checkpoint_log"][-1]["state_version"]==s["schema_version"] and len(l["issues"])==11
  return True

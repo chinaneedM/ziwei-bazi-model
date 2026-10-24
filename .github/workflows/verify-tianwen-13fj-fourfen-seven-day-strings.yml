@@ -1,0 +1,29 @@
+name: verify-tianwen-13fj-fourfen-seven-day-strings
+on:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - docs/research/TIANWEN-13FJ-NIKH-JUAN52-FOURFEN-D4D10-SIX-REPEATED-STRING-STEPS-R1.json
+      - docs/PROJECT-CURRENT-STATE-R1.json
+      - docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json
+      - scripts/verify-tianwen-13fj-fourfen-seven-day-strings.py
+      - tests/test_verify_tianwen_13fj_fourfen_seven_day_strings.py
+      - .github/workflows/verify-tianwen-13fj-fourfen-seven-day-strings.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify-origin-source-image-hexads:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Original photo glyph/provenance, conditional six differences, negative tests
+        run: |
+          python -m py_compile scripts/verify-tianwen-13fj-fourfen-seven-day-strings.py tests/test_verify_tianwen_13fj_fourfen_seven_day_strings.py
+          python scripts/verify-tianwen-13fj-fourfen-seven-day-strings.py
+          python -m unittest discover -s tests -p 'test_verify_tianwen_13fj_fourfen_seven_day_strings.py' -v
