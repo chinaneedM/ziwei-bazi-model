@@ -23,6 +23,10 @@ class Test13EQ(unittest.TestCase):
  def test_revive_13ei_error(self):self.bad(lambda e:e["observations"].update(prior_13ei_source_glyph_erratum_still_retracted=False))
  def test_shorthand_D1_D6_preserves_full_scope(self):
   q=copy.deepcopy(self.l);issue=next(x for x in q["issues"] if x["id"]=="TW-OPEN-0005")
+  action=issue["next_action"]
+  self.assertTrue("D1-D6" in action or "D1 D2 D3 D4 D5 D6" in action)
+  self.assertTrue(m.check(self.e,self.eo,self.ep,self.en,self.ei,self.ed,self.s,q))
+  issue["next_action"]=action.replace("D1 D2 D3 D4 D5 D6","D1-D6")
   self.assertIn("D1-D6",issue["next_action"])
   self.assertTrue(m.check(self.e,self.eo,self.ep,self.en,self.ei,self.ed,self.s,q))
  def test_mutated_shorthand_does_not_certify_all_six(self):
