@@ -52,7 +52,8 @@ def check(e,fy,l,s,source_image=None):
  assert l["binding"]["latest_research_focus_prefix"]==s["historical_audit"]["current_focus"][-1].split(" ",1)[0]
  assert any(x.startswith("13FZ ") for x in s["historical_audit"]["current_focus"]) # Preserve 13FZ checkpoint without freezing global head
  issue=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
- assert issue["priority"]=="P0" and issue["status"]=="OPEN" and issue["next_action"].startswith("13FZ CURRENT ACTION:")
+ assert issue["priority"]=="P0" and issue["status"]=="OPEN" and issue["next_action"].startswith(l["binding"]["latest_research_focus_prefix"]+" CURRENT ACTION:")
+ assert "13FZ CURRENT ACTION:" in issue["next_action"] # archived context preserved
  assert str(E.relative_to(ROOT)) in issue["source_refs"] and str(E.relative_to(ROOT)).replace(".json",".md") in issue["source_refs"]
  assert any(h.get("revision_id")=="TW-OPEN-0005-13FZ-NLC-D32-D36-FEN-CARRY-20261024" for h in issue["history"])
  if source_image is not None:

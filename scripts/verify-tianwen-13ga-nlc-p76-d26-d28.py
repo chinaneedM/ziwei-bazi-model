@@ -111,7 +111,8 @@ def check(e,fy,fz,ledger,state,source_image=None):
  assert any(x.startswith("13GA ") for x in state["historical_audit"]["current_focus"])
  issue=next(x for x in ledger["issues"] if x["id"]=="TW-OPEN-0005")
  assert issue["priority"]=="P0" and issue["status"]=="OPEN"
- assert issue["next_action"].startswith("13FZ CURRENT ACTION:") # D30 unchanged; preserve old prefix gates
+ assert issue["next_action"].startswith(ledger["binding"]["latest_research_focus_prefix"]+" CURRENT ACTION:") # rolling current contract; historic 13FZ retained
+ assert "13FZ CURRENT ACTION:" in issue["next_action"]
  assert str(E.relative_to(ROOT)) in issue["source_refs"] and str(E.relative_to(ROOT)).replace(".json",".md") in issue["source_refs"]
  assert any(h.get("revision_id")=="TW-OPEN-0005-13GA-D26-D28-NLC-20261024" for h in issue["history"])
  assert any(x.get("id")=="OMISSIONS-13GA-NLC-P76-D26-D28-20261024" for x in ledger["checkpoint_log"])
