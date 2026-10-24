@@ -805,6 +805,11 @@ jobs:
           python -m py_compile scripts/verify-tianwen-13ew-kyujanggak-microfilm.py tests/test_tianwen_13ew_kyujanggak_microfilm.py
           python scripts/verify-tianwen-13ew-kyujanggak-microfilm.py
           python -m unittest discover -s tests -p 'test_tianwen_13ew_kyujanggak_microfilm.py' -v
+      - name: Goryeosa 13EX official institutional image-provider scope
+        run: |
+          python -m py_compile scripts/verify-tianwen-13ex-nikh-image-provider.py tests/test_tianwen_13ex_nikh_image_provider.py
+          python scripts/verify-tianwen-13ex-nikh-image-provider.py
+          python -m unittest discover -s tests -p 'test_tianwen_13ex_nikh_image_provider.py' -v
       - name: Focused capability acceptance tests
         run: |
           python -m unittest discover -s tests -p "test_fusion_chart_capability_acceptance_r1.py" -v

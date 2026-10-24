@@ -37,17 +37,17 @@ def check(x,sh,m,c,l):
     assert impact["registered_catalog_sources_added"]==3 and impact["registered_original_glyph_witnesses_added"]==impact["physical_folio_pages_collated"]==0
     assert all(impact[z]==0 for z in ("history_matrix_rows_changed","genealogy_nodes_added","genealogy_edges_added","risks_closed","algorithm_reopens"))
     assert impact["product"]=="CLOSED" and impact["current_open_or_blocked_risks"]==11
-    assert impact["extension_manifest_shards_now"]==len(m["shards"])==62
-    assert impact["source_registry_combined_now"]==m["combined_source_count"]==757
+    assert impact["extension_manifest_shards_now"]==62 and len(m["shards"])>=62
+    assert impact["source_registry_combined_now"]==757 and m["combined_source_count"]>=757
     assert sh["schema"]=="TIANWEN-13EV-KYUJANGGAK-GORYEOSA-THREE-CATALOG-HOLDING-LOCATORS-SOURCE-SHARD-R1"
     assert len(sh["sources"])==3
     for item,copy in zip(sh["sources"],a):
         assert item["url"]==copy["url"] and item["evidence"]==P
         assert item["physical_glyph_authority"] is False and item["verification_status"]=="BIBLIOGRAPHIC_METADATA_ONLY"
         assert item["source_id"]=="EXT-TIANWEN-13EV-KYUDB-GORYEOSA-"+copy["book_cd"].replace("_00","")
-    assert m["shards"][-1]["path"]==S and m["shards"][-1]["source_count"]==3
-    assert m["extension_source_count"]==110 and m["root_source_count"]==647
-    assert c["historical_audit"]["external_source_registry_extension_count"]==110 and c["historical_audit"]["external_source_registry_total_unique_count"]==757
+    assert m["shards"][61]["path"]==S and m["shards"][61]["source_count"]==3
+    assert m["extension_source_count"]>=110 and m["root_source_count"]==647 and m["combined_source_count"]==m["root_source_count"]+m["extension_source_count"]
+    assert c["historical_audit"]["external_source_registry_extension_count"]==m["extension_source_count"] and c["historical_audit"]["external_source_registry_total_unique_count"]==m["combined_source_count"]
     assert c["schema_version"]==l["binding"]["reviewed_state_version"]==c["historical_audit"]["research_omission_guard"]["reviewed_state_version"]
     assert l["binding"]["source_focus_count"]==len(c["historical_audit"]["current_focus"])
     assert l["binding"]["latest_research_focus_prefix"]==c["historical_audit"]["current_focus"][-1].split(" ",1)[0]

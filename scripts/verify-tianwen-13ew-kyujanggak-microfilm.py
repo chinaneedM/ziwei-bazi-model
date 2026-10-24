@@ -25,14 +25,14 @@ def check(x,s,l):
  assert all(im[k]==0 for k in ["new_external_registry_entries","new_matrix_rows","new_original_glyph_votes","new_original_target_folios","new_genealogy_nodes","new_genealogy_edges","risk_closures","algorithm_reopens"])
  assert (im["product"],im["open_or_blocked_issues"],im["registry_sources"],im["genealogy_nodes"],im["genealogy_edges"],im["matrix_rows"])==("CLOSED",11,757,252,238,222)
  assert s["schema_version"]==l["binding"]["reviewed_state_version"]==s["historical_audit"]["research_omission_guard"]["reviewed_state_version"]
- assert s["historical_audit"]["current_focus"][-1].startswith("13EW ") and l["binding"]["latest_research_focus_prefix"]=="13EW"
+ assert any(t.startswith("13EW ") for t in s["historical_audit"]["current_focus"]) and l["binding"]["latest_research_focus_prefix"]==s["historical_audit"]["current_focus"][-1].split(" ",1)[0]
  assert l["binding"]["source_focus_count"]==len(s["historical_audit"]["current_focus"])
  issue=next(z for z in l["issues"] if z["id"]=="TW-OPEN-0005")
  assert issue["priority"]=="P0" and issue["status"]=="OPEN" and {P,P.replace(".json",".md")}.issubset(issue["source_refs"])
- assert issue["next_action"].startswith("13EW CURRENT ACTION:")
+ assert issue["next_action"].startswith(l["binding"]["latest_research_focus_prefix"]+" CURRENT ACTION:")
  assert all(z in issue["next_action"] for z in ("GK03539_00","GK03579_00","GK03269_00","D1","D2","D3","D4","D5","D6","四分","初度","G893","NULL","13EI"))
  assert any(q.get("revision_id")=="TW-OPEN-0005-13EW-3539-3579-MF-BOUNDARY-20261024" for q in issue["history"])
- assert l["checkpoint_log"][-1]["state_version"]=="1.800.0" and len(l["issues"])==11
+ assert l["checkpoint_log"][-1]["state_version"]==s["schema_version"] and len(l["issues"])==11
  return True
 if __name__=="__main__":
  assert check(load(P),load(S),load(L))
