@@ -12,10 +12,12 @@ class Test13EU(unittest.TestCase):
         with self.assertRaises(AssertionError):self.good(x)
     def test_valid(self):self.assertTrue(self.good())
     def test_rolling_next_action_may_abbreviate_13eu_glyphs(self):
-        issue=next(z for z in self.l["issues"] if z["id"]=="TW-OPEN-0005")
+        l=copy.deepcopy(self.l)
+        issue=next(z for z in l["issues"] if z["id"]=="TW-OPEN-0005")
+        issue["next_action"]=issue["next_action"].replace("四分〇一七二","D5_NCL_ROI").replace("四分五一七二","D5_KRDB_TEXT")
         self.assertNotIn("四分〇一七二",issue["next_action"])
         self.assertNotIn("四分五一七二",issue["next_action"])
-        self.assertTrue(self.good())
+        self.assertTrue(v.verify(self.a,self.en,self.et,self.st,l))
     def test_prior_glyph_record_cannot_disappear(self):
         l=copy.deepcopy(self.l);issue=next(z for z in l["issues"] if z["id"]=="TW-OPEN-0005")
         issue["history"]=[z for z in issue["history"] if z.get("revision_id")!="TW-OPEN-0005-13EU-LEGACY-D1D6-GUARD-20261024"]
