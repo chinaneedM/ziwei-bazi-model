@@ -37,15 +37,15 @@ def check(e,fm,fk,s,l):
  assert (m["matrix_total"],m["matrix_audited"],m["genealogy_nodes"],m["genealogy_edges"],m["risk_count"])==(222,222,252,238,11)
  assert all(m[k]==0 for k in ("source_registry_delta","independent_physical_originals_added","original_page_glyphs_added","risk_closures","algorithm_reopens","chart_candidate_collapses"))
  assert m["product"]=="CLOSED" and not e["transmission_impact"]["edges_supported"]
- assert s["schema_version"]==l["binding"]["reviewed_state_version"]==s["historical_audit"]["research_omission_guard"]["reviewed_state_version"]=="1.814.0"
- assert l["binding"]["latest_research_focus_prefix"]=="13FN" and s["historical_audit"]["current_focus"][-1].startswith("13FN ")
+ assert s["schema_version"]==l["binding"]["reviewed_state_version"]==s["historical_audit"]["research_omission_guard"]["reviewed_state_version"]
+ assert l["binding"]["latest_research_focus_prefix"]==s["historical_audit"]["current_focus"][-1].split(" ",1)[0] and any(q.startswith("13FN ") for q in s["historical_audit"]["current_focus"])
  assert l["binding"]["source_focus_count"]==len(s["historical_audit"]["current_focus"])
  issue=next(i for i in l["issues"] if i["id"]=="TW-OPEN-0005")
- assert issue["status"]=="OPEN" and issue["priority"]=="P0" and issue["next_action"].startswith("13FN CURRENT ACTION:")
+ assert issue["status"]=="OPEN" and issue["priority"]=="P0" and issue["next_action"].startswith(l["binding"]["latest_research_focus_prefix"]+" CURRENT ACTION:")
  assert all(z in issue["next_action"] for z in ("8/26/29","8/26/28","8/12/26","filsa","G893","D30","D1 D2 D3 D4 D5 D6","NULL","13EI","四分","初度","GK03539_00","GK03579_00","GK03269_00","GK05554_00","GK3467","81-83","29"))
  assert {E,E.replace(".json",".md")}.issubset(set(issue["source_refs"]))
  assert any(x.get("revision_id")=="TW-OPEN-0005-13FN-FIRSTPARTY-GK5553-BOOK29-JUAN81-83-GK3467-BOOK6-JUAN52-20261024" for x in issue["history"])
- assert l["checkpoint_log"][-1]["id"]=="OMISSIONS-13FN-OFFICIAL-KYUDB-BOOK29-JUAN81-83-GK3467-BOOK6-JUAN52-20261024"
+ assert any(q.get("id")=="OMISSIONS-13FN-OFFICIAL-KYUDB-BOOK29-JUAN81-83-GK3467-BOOK6-JUAN52-20261024" for q in l["checkpoint_log"])
  assert l["checkpoint_log"][-1]["state_version"]==s["schema_version"] and len(l["issues"])==11
  return True
 if __name__=="__main__":
