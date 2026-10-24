@@ -825,6 +825,8 @@ jobs:
           python -m py_compile scripts/verify-tianwen-13fb-nikh-thumb-cert.py tests/test_tianwen_13fb_nikh_thumb_cert.py
           python scripts/verify-tianwen-13fb-nikh-thumb-cert.py
           python -m unittest discover -s tests -p 'test_tianwen_13fb_nikh_thumb_cert.py' -v
+      - name: GK3467 13FQ original book6 source pixels
+        run: python scripts/verify-tianwen-13fq-original-book6.py
       - name: Focused capability acceptance tests
         run: |
           python -m unittest discover -s tests -p "test_fusion_chart_capability_acceptance_r1.py" -v
