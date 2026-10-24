@@ -46,7 +46,11 @@ def verify(v,en,et,s,l):
     assert any(z.startswith("13EU ") for z in s["historical_audit"]["current_focus"])
     issue=next(z for z in l["issues"] if z["id"]=="TW-OPEN-0005")
     assert issue["status"]=="OPEN" and issue["priority"]=="P0" and issue["next_action"].startswith(l["binding"]["latest_research_focus_prefix"]+" CURRENT ACTION:")
-    assert all(z in issue["next_action"] for z in ("四分〇一七二","四分五一七二","D5","G893","NULL","13EI"))
+    # Source-grade glyphs must remain in 13EU evidence and append-only historical
+    # action. The rolling NEXT action intentionally changes with later batches.
+    archived_13eu=next(z for z in issue["history"] if z.get("revision_id")=="TW-OPEN-0005-13EU-LEGACY-D1D6-GUARD-20261024")["previous_next_action"]
+    assert all(z in archived_13eu for z in ("四分〇一七二","四分五一七二","D5","G893","NULL","13EI"))
+    assert all(z in issue["next_action"] for z in ("D5","G893","NULL","13EI"))
     assert all(z in issue["next_action"] for z in ("D1","D2","D3","D4","D5","D6","四分","初度"))
     assert {P,P.replace(".json",".md")}.issubset(set(issue["source_refs"]))
     assert next(z for z in issue["history"] if z.get("revision_id")=="TW-OPEN-0005-13EU-D5-FOURFEN-DIVERGENCE-20261024")["previous_next_action"].startswith("13ET CURRENT ACTION:")

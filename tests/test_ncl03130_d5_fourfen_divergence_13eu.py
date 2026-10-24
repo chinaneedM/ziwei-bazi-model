@@ -11,6 +11,22 @@ class Test13EU(unittest.TestCase):
         x=copy.deepcopy(self.a);f(x)
         with self.assertRaises(AssertionError):self.good(x)
     def test_valid(self):self.assertTrue(self.good())
+    def test_rolling_next_action_may_abbreviate_13eu_glyphs(self):
+        issue=next(z for z in self.l["issues"] if z["id"]=="TW-OPEN-0005")
+        self.assertNotIn("四分〇一七二",issue["next_action"])
+        self.assertNotIn("四分五一七二",issue["next_action"])
+        self.assertTrue(self.good())
+    def test_prior_glyph_record_cannot_disappear(self):
+        l=copy.deepcopy(self.l);issue=next(z for z in l["issues"] if z["id"]=="TW-OPEN-0005")
+        issue["history"]=[z for z in issue["history"] if z.get("revision_id")!="TW-OPEN-0005-13EU-LEGACY-D1D6-GUARD-20261024"]
+        with self.assertRaises((AssertionError,StopIteration)):
+            v.verify(self.a,self.en,self.et,self.st,l)
+    def test_prior_glyph_record_cannot_be_corrupted(self):
+        l=copy.deepcopy(self.l);issue=next(z for z in l["issues"] if z["id"]=="TW-OPEN-0005")
+        archival=next(z for z in issue["history"] if z.get("revision_id")=="TW-OPEN-0005-13EU-LEGACY-D1D6-GUARD-20261024")
+        archival["previous_next_action"]=archival["previous_next_action"].replace("四分〇一七二","四分五一七二")
+        with self.assertRaises(AssertionError):
+            v.verify(self.a,self.en,self.et,self.st,l)
     def test_primary_character_crop(self):self.reject(lambda x:x["ncl_original"]["positive_d5_digit_roi"].update(rgb_sha256="0"*64))
     def test_rewrite_source_original(self):self.reject(lambda x:x["ncl_original"].update(previous_image_reading="四分五一七二"))
     def test_reverse_db_reading(self):self.reject(lambda x:x["krdb_original_text"]["adjacent_daily_original_text_transcriptions"][1].update(original_transcription="四分〇一七二"))
