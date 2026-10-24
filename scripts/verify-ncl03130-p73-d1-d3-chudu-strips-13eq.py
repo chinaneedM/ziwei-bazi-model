@@ -43,10 +43,10 @@ def check(e,eo,ep,en,ei,ed,s,l):
  assert all(i[z]==0 for z in ("matrix_rows_changed","registry_sources_added","genealogy_nodes_added","genealogy_edges_added","risks_closed","algorithm_reopens"))
  assert s["schema_version"]==l["binding"]["reviewed_state_version"]==s["historical_audit"]["research_omission_guard"]["reviewed_state_version"]
  assert l["binding"]["source_focus_count"]==len(s["historical_audit"]["current_focus"])
- assert l["binding"]["latest_research_focus_prefix"]==s["historical_audit"]["current_focus"][-1].split(" ",1)[0]=="13EQ"
+ assert l["binding"]["latest_research_focus_prefix"]==s["historical_audit"]["current_focus"][-1].split(" ",1)[0]
  assert any(x.startswith("13EQ ") for x in s["historical_audit"]["current_focus"])
  q=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
- assert q["priority"]=="P0" and q["status"]=="OPEN" and q["next_action"].startswith("13EQ CURRENT ACTION:")
+ assert q["priority"]=="P0" and q["status"]=="OPEN" and q["next_action"].startswith(l["binding"]["latest_research_focus_prefix"]+" CURRENT ACTION:")
  assert all(x in q["next_action"] for x in ("D1","D2","D3","D4","D5","D6","D30","初度","四分","NULL"))
  assert E in q["source_refs"] and E.replace(".json",".md") in q["source_refs"]
  h=next(x for x in q["history"] if x.get("revision_id")=="TW-OPEN-0005-13EQ-P73-D1-D3-ORIGINAL-STRIPS-20261024")

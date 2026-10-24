@@ -775,6 +775,11 @@ jobs:
           python -m py_compile scripts/verify-ncl03130-p73-d1-d3-chudu-strips-13eq.py tests/test_ncl03130_p73_d1_d3_chudu_strips_13eq.py
           python scripts/verify-ncl03130-p73-d1-d3-chudu-strips-13eq.py
           python -m unittest discover -s tests -p 'test_ncl03130_p73_d1_d3_chudu_strips_13eq.py' -v
+      - name: Goryeosa 13ER NCL original p73 day1-day3 bounded fourfen glyphs
+        run: |
+          python -m py_compile scripts/verify-ncl03130-p73-d1-d3-fourfen-13er.py tests/test_ncl03130_p73_d1_d3_fourfen_13er.py
+          python scripts/verify-ncl03130-p73-d1-d3-fourfen-13er.py
+          python -m unittest discover -s tests -p 'test_ncl03130_p73_d1_d3_fourfen_13er.py' -v
       - name: Focused capability acceptance tests
         run: |
           python -m unittest discover -s tests -p "test_fusion_chart_capability_acceptance_r1.py" -v
