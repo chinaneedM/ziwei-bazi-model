@@ -45,6 +45,17 @@ class Test13EZ(unittest.TestCase):
         p = m.PageAnchors()
         p.feed('<script src="/resources/korea/js/article.js"></script>')
         self.assertEqual(p.script_sources, ["/resources/korea/js/article.js"])
+    def test_declared_viewer_requires_public_script_proof(self):
+        choice = [{"source_emitted_onclick": "fnImageViewerPopup('kr_052_0010_0010_0020_0020', 'kr_052_1055')"}]
+        scripts = [{"function_context": [{"markup": 'function fnImageViewerPopup(levelId, begin) { var popupUrl = "/common/imageViewer.do"; }'}]}]
+        self.assertEqual(m.source_declared_viewer_url(scripts, choice),
+            "https://db.history.go.kr/common/imageViewer.do?levelId=kr_052_0010_0010_0020_0020&begin=kr_052_1055")
+        self.assertIsNone(m.source_declared_viewer_url([], choice))
+        self.assertIsNone(m.source_declared_viewer_url(scripts, []))
+    def test_no_guess_for_other_article_viewer(self):
+        scripts = [{"function_context": [{"markup": 'function fnImageViewerPopup(){var popupUrl = "/common/imageViewer.do";}'}]}]
+        choice = [{"source_emitted_onclick": "fnImageViewerPopup('kr_003_0010', 'kr_052_1055')"}]
+        self.assertIsNone(m.source_declared_viewer_url(scripts, choice))
     def test_only_original_widget_metadata_not_photo(self):
         p = m.PageAnchors()
         p.feed('<button onclick="showViewer(1)" title="고려사 원문이미지">원문이미지</button>')

@@ -79,6 +79,20 @@ def firstparty_script_urls(script_sources, root=ARTICLE):
     # Source-emitted assets only; this never probes guessed image endpoints.
     return ordered[:16]
 
+def source_declared_viewer_url(script_records, target_options):
+    script_proof = any("function fnImageViewerPopup" in z["markup"] and
+                       '"/common/imageViewer.do"' in z["markup"]
+                       for record in script_records for z in record.get("function_context", []))
+    if not script_proof or len(target_options) != 1:
+        return None
+    call = target_options[0]["source_emitted_onclick"]
+    m = re.fullmatch(r"fnImageViewerPopup\('(kr_052_0010_0010_0020_0020)', '(kr_052_[0-9]+)'\)", call)
+    if not m:
+        return None
+    # Public URL is composed from the first-party publisher's actual JS
+    # function body and the first-party target HTML onclick parameters.
+    return urllib.parse.urljoin(ARTICLE, "/common/imageViewer.do") + "?" + urllib.parse.urlencode({"levelId": m.group(1), "begin": m.group(2)})
+
 def read_public_html(url, name):
     rec = {"url": url, "status": "NOT_FETCHED", "http": None, "bytes": 0, "sha256": None}
     try:
@@ -161,6 +175,11 @@ def main():
     for i, url in enumerate(linked_notice[:1]):
         row, html = read_public_html(url, f"official-notice-body-{i}.html")
         notice_body.append({"fetch": row, "declared_title_present": NOTICE_TITLE in html if html else None})
+    viewer_url = source_declared_viewer_url(js_files, extract_target_viewer_menu(article_html))
+    viewer_read = None
+    viewer_html = None
+    if viewer_url:
+        viewer_read, viewer_html = read_public_html(viewer_url, "official-source-declared-juan52-viewer.html")
     result = {
         "schema": "TIANWEN-13EZ-NIKH-FIRSTPARTY-EMITTED-IMAGE-ENTRY-ACCESS-PROBE-R1",
         "source_article": article,
@@ -168,6 +187,10 @@ def main():
         "official_help": help_page,
         "article_original_image_widget_attributes": parser.image_widgets[:20],
         "source_emitted_script_assets": js_files,
+        "source_declared_public_viewer_url": viewer_url,
+        "public_viewer_html": viewer_read,
+        "public_viewer_target_context": bounded_literal_context(viewer_html, "kr_052_1055", flank=700),
+        "public_viewer_image_references_context": bounded_literal_context(viewer_html, ".jpg", flank=300, limit=3),
         "inline_function_context": bounded_literal_context(article_html, "function fnImageViewerPopup", flank=600),
         "article_source_emitted_image_icon_context": bounded_literal_context(article_html, "고려사 원문이미지"),
         "target_source_emitted_viewer_options": extract_target_viewer_menu(article_html),
