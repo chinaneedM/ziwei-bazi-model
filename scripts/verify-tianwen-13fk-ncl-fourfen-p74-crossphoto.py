@@ -45,9 +45,9 @@ def check(e,f,en,s,l):
  assert e["transmission_impact"]["new_supported_edges"]==[]
  assert s["schema_version"]==l["binding"]["reviewed_state_version"]==s["historical_audit"]["research_omission_guard"]["reviewed_state_version"]
  assert l["binding"]["source_focus_count"]==len(s["historical_audit"]["current_focus"])
- assert l["binding"]["latest_research_focus_prefix"]=="13FK" and any(z.startswith("13FK ") for z in s["historical_audit"]["current_focus"])
+ assert any(z.startswith("13FK ") for z in s["historical_audit"]["current_focus"]) and l["binding"]["latest_research_focus_prefix"]==s["historical_audit"]["current_focus"][-1].split(" ",1)[0]
  issue=next(z for z in l["issues"] if z["id"]=="TW-OPEN-0005")
- assert issue["status"]=="OPEN" and issue["priority"]=="P0" and issue["next_action"].startswith("13FK CURRENT ACTION:")
+ assert issue["status"]=="OPEN" and issue["priority"]=="P0" and issue["next_action"].startswith(l["binding"]["latest_research_focus_prefix"]+" CURRENT ACTION:")
  assert "D1 D2 D3 D4 D5 D6" in issue["next_action"] and all(k in issue["next_action"] for k in ("G893","NULL","13EI","四分","初度","D30","GK03539_00","GK03579_00","GK03269_00"))
  assert {P,P.replace(".json",".md")}.issubset(set(issue["source_refs"]))
  assert any(t.get("revision_id")=="TW-OPEN-0005-13FK-NLC-P74-D7D8D10-THREE-POSITIVE-D9-UNKNOWN-20261024" for t in issue["history"])
