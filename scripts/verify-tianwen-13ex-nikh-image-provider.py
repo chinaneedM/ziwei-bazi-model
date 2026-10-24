@@ -18,8 +18,8 @@ def check(a,b,m,c,l):
  assert v['modern_metadata_sources_added']==1 and all(v[k]==0 for k in ('ancient_folios_acquired','physical_glyph_votes','new_matrix_rows','new_genealogy_nodes','new_genealogy_edges','risks_closed','algorithms_reopened'))
  assert v['product']=='CLOSED' and v['registry_sources_after']==758 and v['open_risks']==11
  assert a['genealogy']['supported_new_edges']==[] and b['schema']=='TIANWEN-13EX-NIKH-2025-GORYEOSA-SNU-IMAGE-LINK-SOURCE-SHARD-R1'
- assert len(b['sources'])==1 and b['sources'][0]['url']==q['notice_url'] and b['sources'][0]['physical_glyph_authority'] is False
- assert any(t['path']==H and t['blob_sha']=='2b4a1fb56ef655c8ed50da4f828b3633d068e84e' and t['source_count']==1 for t in m['shards'])
+ assert len(b['sources'])==1 and b['sources'][0]['url']==q['notice_url'] and b['sources'][0]['physical_glyph_authority'] is False and b['sources'][0]['verification_status']=='BIBLIOGRAPHIC_METADATA_ONLY'
+ assert any(t['path']==H and t['blob_sha']=='54ddc7a607492019ba8dd272ebacbb0078fcdf30' and t['source_count']==1 for t in m['shards'])
  assert m['combined_source_count']>=758 and m['root_source_count']==647 and m['combined_source_count']==m['root_source_count']+m['extension_source_count']
  assert c['historical_audit']['external_source_registry_total_unique_count']==m['combined_source_count']
  assert c['schema_version']==l['binding']['reviewed_state_version']==c['historical_audit']['research_omission_guard']['reviewed_state_version']
