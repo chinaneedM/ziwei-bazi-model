@@ -1,0 +1,18 @@
+name: verify-tianwen-13gb-nlc-p75-original-crosspage
+on:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+  workflow_dispatch:
+jobs:
+  verify-original-crosspage:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify p75 D21-D25 original, p76 D26, and preserve D30 NULL
+        run: python scripts/verify-tianwen-13gb-nlc-p75-d21-d25.py
+      - name: Mutation rejection tests
+        run: python -m unittest discover -s tests -p 'test_verify_tianwen_13gb_nlc_p75_d21_d25.py' -v
