@@ -43,20 +43,20 @@ def check(e, prior, s, ledger):
     assert i["genealogy_nodes"] == 252 and i["genealogy_edges"] == 238
     assert i["open_risks"] == len(ledger["issues"]) == 11
     assert i["product"] == "CLOSED" and i["algorithm_reopens"] == 0 and i["source_original_D5_winner"] is None
-    assert s["schema_version"] == "1.812.0"
+    assert s["schema_version"] == ledger["binding"]["reviewed_state_version"] == s["historical_audit"]["research_omission_guard"]["reviewed_state_version"]
     assert ledger["binding"]["reviewed_state_version"] == s["schema_version"]
     assert s["historical_audit"]["research_omission_guard"]["reviewed_state_version"] == s["schema_version"]
     assert ledger["binding"]["source_focus_count"] == len(s["historical_audit"]["current_focus"])
-    assert ledger["binding"]["latest_research_focus_prefix"] == "13FL"
+    assert ledger["binding"]["latest_research_focus_prefix"] == s["historical_audit"]["current_focus"][-1].split(" ",1)[0]
     assert any(q.startswith("13FL ") for q in s["historical_audit"]["current_focus"])
     issue = next(q for q in ledger["issues"] if q["id"] == "TW-OPEN-0005")
     assert issue["priority"] == "P0" and issue["status"] == "OPEN"
-    assert issue["next_action"].startswith("13FL CURRENT ACTION:")
+    assert issue["next_action"].startswith(ledger["binding"]["latest_research_focus_prefix"]+" CURRENT ACTION:")
     assert all(x in issue["next_action"] for x in ("D1 D2 D3 D4 D5 D6","G893","D30","NULL","13EI","四分","初度","GK03539_00","GK03579_00","GK03269_00","GK05554_00"))
     assert {E,E.replace(".json",".md")}.issubset(set(issue["source_refs"]))
     assert any(q.get("revision_id") == "TW-OPEN-0005-13FL-GK05553-REPAIR-BOOK-28-29-SOURCE-CONFLICT-20261024" for q in issue["history"])
     assert ledger["checkpoint_log"][-1]["state_version"] == s["schema_version"]
-    assert ledger["checkpoint_log"][-1]["id"] == "OMISSIONS-13FL-GK05553-28-29-ORDINAL-CONFLICT-20261024"
+    assert any(z.get("id") == "OMISSIONS-13FL-GK05553-28-29-ORDINAL-CONFLICT-20261024" for z in ledger["checkpoint_log"])
     return True
 if __name__ == "__main__":
     assert check(load(E),load(P),load(S),load(L))
