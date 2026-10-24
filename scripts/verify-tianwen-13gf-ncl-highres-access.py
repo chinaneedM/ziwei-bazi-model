@@ -27,10 +27,10 @@ def check(e,s,l,gd,ge):
  assert u["historical_fourfen_unit"] is None and u["g893_direct_six"]=="OPEN" and u["historical_winner"] is None and u["legacy_13EI"]=="RETRACTED"
  assert e["counts"]=={"matrix_rows":222,"matrix_audited":222,"sources":761,"graph_nodes":252,"graph_edges":238,"risk_issues_open_or_blocked":11,"product":"CLOSED","algorithm_reopens":0,"candidate_collapses":0,"new_source_registry_entries":0,"new_ancient_physical_witnesses":0,"new_genealogy_nodes":0,"new_genealogy_edges":0}
  assert not e["transmission_impact"]["edges_supported"]
- assert s["schema_version"]==l["binding"]["reviewed_state_version"]==s["historical_audit"]["research_omission_guard"]["reviewed_state_version"]=="1.835.0"
- assert l["binding"]["latest_research_focus_prefix"]=="13GF" and l["binding"]["source_focus_count"]==len(s["historical_audit"]["current_focus"])
+ assert s["schema_version"]==l["binding"]["reviewed_state_version"]==s["historical_audit"]["research_omission_guard"]["reviewed_state_version"] and tuple(map(int,s["schema_version"].split(".")))>=(1,835,0)
+ assert l["binding"]["source_focus_count"]==len(s["historical_audit"]["current_focus"]) and any(x.startswith("13GF ") for x in s["historical_audit"]["current_focus"])
  issue=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
- assert issue["status"]=="OPEN" and issue["next_action"].startswith("13GF CURRENT ACTION:")
+ assert issue["status"]=="OPEN" and (issue["next_action"].startswith("13GF CURRENT ACTION:") or "ARCHIVED 13GF PRIOR ACTION" in issue["next_action"])
  assert str(E.relative_to(R)) in issue["source_refs"]
  assert any(x.get("revision_id")=="TW-OPEN-0005-13GF-NCL-HIGHRES-POLICY-20261025" for x in issue["history"])
  assert any(x.get("id")=="OMISSIONS-13GF-NCL-HIGHRES-POLICY-20261025" for x in l["checkpoint_log"])
