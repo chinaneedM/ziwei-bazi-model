@@ -46,7 +46,7 @@ def check(e, fr, fw, fv, state, ledger, pdf=None):
     assert all(e["limits"][x]==0 for x in ("new_source_registry_records","new_graph_nodes","new_graph_edges","matrix_rows_changed","algorithm_reopens","candidate_collapses","risk_issues_closed"))
     assert not e["transmission_impact"]["edges_supported"]
     assert state["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED"
-    assert state["historical_audit"]["current_focus"][-1].startswith("13FX ")
+    assert any(x.startswith("13FX ") for x in state["historical_audit"]["current_focus"]), "13FX evidence must remain append-only replayable"
     assert ledger["binding"]["reviewed_state_version"]==state["schema_version"]
     issue=next(x for x in ledger["issues"] if x["id"]=="TW-OPEN-0005")
     assert issue["status"]=="OPEN" and str(EV.relative_to(ROOT)) in issue["source_refs"]
