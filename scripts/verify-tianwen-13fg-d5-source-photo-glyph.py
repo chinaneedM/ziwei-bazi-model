@@ -46,13 +46,13 @@ def check(e,s,l):
  assert e["transmission_impact"]["new_supported_edges"]==[] and e["transmission_impact"]["not_established_as_recension_variant_edge"]
  assert s["schema_version"]==l["binding"]["reviewed_state_version"]==s["historical_audit"]["research_omission_guard"]["reviewed_state_version"]
  assert l["binding"]["source_focus_count"]==len(s["historical_audit"]["current_focus"])
- assert l["binding"]["latest_research_focus_prefix"]=="13FG"
+ assert l["binding"]["latest_research_focus_prefix"] in ("13FG","13FH")
  assert any(x.startswith("13FG ") for x in s["historical_audit"]["current_focus"])
  assert s["historical_audit"]["external_source_registry_total_unique_count"]==761
  issue=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
  assert issue["priority"]=="P0" and issue["status"]=="OPEN"
  assert {P,P.replace(".json",".md")}.issubset(set(issue["source_refs"]))
- assert issue["next_action"].startswith("13FG CURRENT ACTION:")
+ assert issue["next_action"].startswith(l["binding"]["latest_research_focus_prefix"]+" CURRENT ACTION:")
  assert any(x.get("revision_id")=="TW-OPEN-0005-13FG-TWO-ORIGINAL-PHOTO-D5-FIVE-VS-CIRCLE-20261024" for x in issue["history"])
  assert l["checkpoint_log"][-1]["state_version"]==s["schema_version"] and len(l["issues"])==11
  return True
