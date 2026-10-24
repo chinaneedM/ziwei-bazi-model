@@ -17,7 +17,7 @@ class Test13ED(unittest.TestCase):
  def test_false_copyist_attribution(self):self.bad(lambda e:e["finding"].update(missing_or_elided_digits_caused_by_copyist_proven=True))
  def test_false_independent_vote(self):self.bad(lambda e:e["impact"].update(independent_votes_added=1))
  def test_stale_action_fails(self):
-  l=copy.deepcopy(self.l);z=next(z for z in l["issues"] if z["id"]=="TW-OPEN-0005");z["next_action"]=z["history"][-1]["previous_next_action"]
+  l=copy.deepcopy(self.l);z=next(z for z in l["issues"] if z["id"]=="TW-OPEN-0005");z["next_action"]=next(h for h in z["history"] if h.get("revision_id")=="TW-OPEN-0005-13ED-EXTENDED-ORIGINAL-STRIP-20261023")["previous_next_action"]
   with self.assertRaises(AssertionError):self.go(l=l)
  def test_forward_action_reference_required(self):
   l=copy.deepcopy(self.l);z=next(z for z in l["issues"] if z["id"]=="TW-OPEN-0005");z["history"][-1]["evidence_refs"]=[]

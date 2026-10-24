@@ -19,7 +19,7 @@ class Test13EF(unittest.TestCase):
  def test_fake_stemmatic_votes(self):self.bad(lambda e:e["impact"].update(new_stemmatic_independent_votes=1))
  def test_stale_13ee_task_cannot_resurrect(self):
   l=copy.deepcopy(self.l);z=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
-  z["next_action"]=z["history"][-1]["previous_next_action"]
+  z["next_action"]=next(h for h in z["history"] if h.get("revision_id")=="TW-OPEN-0005-13EF-P73-ORIGINAL-TECHNICAL-HEADINGS-20261023")["previous_next_action"]
   with self.assertRaises(AssertionError):self.go(l=l)
  def test_missing_evidence_links_rejected(self):
   l=copy.deepcopy(self.l);l["issues"][4]["history"][-1]["evidence_refs"]=[]

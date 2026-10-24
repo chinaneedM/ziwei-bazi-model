@@ -21,6 +21,6 @@ class Test13EH(unittest.TestCase):
  def test_fabricated_independent_copy(self):self.reject(lambda e:e["impact"].update(new_independent_physical_witnesses=1))
  def test_action_rollback(self):
   l=copy.deepcopy(self.l);x=next(z for z in l["issues"] if z["id"]=="TW-OPEN-0005")
-  x["next_action"]=x["history"][-1]["previous_next_action"]
+  x["next_action"]=next(h for h in x["history"] if h.get("revision_id")=="TW-OPEN-0005-13EH-SAME-SOURCE-PREFIX-GEOMETRY-20261023")["previous_next_action"]
   with self.assertRaises(AssertionError):self.go(l=l)
 if __name__=="__main__":unittest.main()

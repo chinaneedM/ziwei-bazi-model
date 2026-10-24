@@ -21,6 +21,6 @@ class Test13EI(unittest.TestCase):
  def test_reject_fake_source_vote(self):self.reject(lambda e:e["impact"].update(independent_physical_copy_votes=1))
  def test_reject_stale_issue_action(self):
   l=copy.deepcopy(self.l);q=next(z for z in l["issues"] if z["id"]=="TW-OPEN-0005")
-  q["next_action"]=q["history"][-1]["previous_next_action"]
+  q["next_action"]=next(h for h in q["history"] if h.get("revision_id")=="TW-OPEN-0005-13EI-GLYPH-LANE-FORWARD-ERRATUM-20261023")["previous_next_action"]
   with self.assertRaises(AssertionError):self.check(l=l)
 if __name__=="__main__":unittest.main()

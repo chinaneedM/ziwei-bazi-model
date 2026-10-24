@@ -19,6 +19,6 @@ class Test13EE(unittest.TestCase):
  def test_false_global_day_offset(self):self.reject(lambda e:e["observation"].update(global_day_offset="PROVEN"))
  def test_fake_full_folio(self):self.reject(lambda e:e["observation"].update(full_folio_numerical_transcription=True))
  def test_stale_action_cannot_reopen(self):
-  l=copy.deepcopy(self.l);item=next(i for i in l["issues"] if i["id"]=="TW-OPEN-0005");item["next_action"]=item["history"][-1]["previous_next_action"]
+  l=copy.deepcopy(self.l);item=next(i for i in l["issues"] if i["id"]=="TW-OPEN-0005");item["next_action"]=next(h for h in item["history"] if h.get("revision_id")=="TW-OPEN-0005-13EE-THREE-FOLIO-LANE-CONTROL-20261023")["previous_next_action"]
   with self.assertRaises(AssertionError):self.runcheck(l=l)
 if __name__=="__main__":unittest.main()

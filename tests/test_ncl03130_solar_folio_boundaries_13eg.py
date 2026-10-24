@@ -19,7 +19,7 @@ class Test13EG(unittest.TestCase):
  def test_reject_fabricated_d30_decimal(self):self.reject(lambda e:e["conclusion"].update(d30_exact_numeric="0.965038"))
  def test_reject_fabricated_independent_copy(self):self.reject(lambda e:e["impact"].update(new_independent_physical_witnesses=1))
  def test_reject_stale_action(self):
-  l=copy.deepcopy(self.l);q=next(z for z in l["issues"] if z["id"]=="TW-OPEN-0005");q["next_action"]=q["history"][-1]["previous_next_action"]
+  l=copy.deepcopy(self.l);q=next(z for z in l["issues"] if z["id"]=="TW-OPEN-0005");q["next_action"]=next(h for h in q["history"] if h.get("revision_id")=="TW-OPEN-0005-13EG-FIVE-FOLIO-BOUNDARY-CONTINUITY-20261023")["previous_next_action"]
   with self.assertRaises(AssertionError):self.go(l=l)
  def test_reject_missing_current_evidence(self):
   l=copy.deepcopy(self.l);q=next(z for z in l["issues"] if z["id"]=="TW-OPEN-0005");q["history"][-1]["evidence_refs"]=[]

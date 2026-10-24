@@ -12,8 +12,8 @@
   "binding": {
     "repository": "chinaneedM/ziwei-bazi-model",
     "branch": "agent/fusion-chart-core-r1-20260822",
-    "reviewed_state_version": "1.792.0",
-    "source_focus_count": 2514,
+    "reviewed_state_version": "1.793.0",
+    "source_focus_count": 2515,
     "latest_research_focus_prefix": "13EP"
   },
   "coverage_axes": [
@@ -8673,6 +8673,26 @@
       ],
       "discovery_mode": "Exact-HEAD CI failure recovery: read 13EJ original checker, confirmed explicit D4/D5/D6 string gate; no change to original pixels, source registry, Matrix, graph or source identity.",
       "result": "Append-only correction of next-action day label wording; old 13EP revision preserved and selected by stable ID; all 11 risks remain OPEN/BLOCKED."
+    },
+    {
+      "id": "OMISSIONS-13EP-HISTORIC-REVISION-NEGATIVE-TEST-20261024",
+      "date": "2026-10-24",
+      "state_version": "1.793.0",
+      "reviewed_issue_ids": [
+        "TW-OPEN-0001",
+        "TW-OPEN-0002",
+        "TW-OPEN-0003",
+        "TW-OPEN-0004",
+        "TW-OPEN-0005",
+        "TW-OPEN-0006",
+        "TW-OPEN-0007",
+        "TW-OPEN-0008",
+        "TW-OPEN-0009",
+        "TW-OPEN-0010",
+        "TW-OPEN-0011"
+      ],
+      "discovery_mode": "Exact-head main CI 40043264671 traceback confirmed 13EC test_stale_action false negative: the immediate prior 13EP action shared the same prefix; reviewed all 13EC–13EI stale-action regressions, keyed them to specific immutable revision IDs.",
+      "result": "Seven negative regression tests reference historical named revision predecessors without mutating old issue history or research evidence; 11 risks remain OPEN/BLOCKED."
     }
   ],
   "resolution_policy": {
