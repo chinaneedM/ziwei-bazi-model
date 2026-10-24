@@ -30,4 +30,9 @@ class Test13EQ(unittest.TestCase):
   issue["next_action"]=issue["next_action"].replace("D1-D6","D1-D5").replace("D1 D2 D3 D4 D5 D6","D1 D2 D3 D4 D5")
   with self.assertRaises(AssertionError):
    m.check(self.e,self.eo,self.ep,self.en,self.ei,self.ed,self.s,q)
+ def test_invalid_broader_range_d1_d60_rejected(self):
+  q=copy.deepcopy(self.l);issue=next(x for x in q["issues"] if x["id"]=="TW-OPEN-0005")
+  issue["next_action"]=issue["next_action"].replace("D1-D6","D1-D60").replace("D1 D2 D3 D4 D5 D6","D1 D2 D3 D4 D5")
+  with self.assertRaises(AssertionError):
+   m.check(self.e,self.eo,self.ep,self.en,self.ei,self.ed,self.s,q)
 if __name__=="__main__":unittest.main()
