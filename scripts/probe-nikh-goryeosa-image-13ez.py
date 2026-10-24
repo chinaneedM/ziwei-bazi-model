@@ -162,14 +162,14 @@ def source_emitted_thumb_urls(viewer_markup):
     if not viewer_markup:
         return []
     found = []
-    for raw in re.findall(r'<img\\b[^>]*\\bdata-src="([^"]+)"', viewer_markup, re.I):
+    for raw in re.findall(r'<img\b[^>]*\bdata-src="([^"]+)"', viewer_markup, re.I):
         u = urllib.parse.urlsplit(urllib.parse.urljoin(ARTICLE, raw))
         q = urllib.parse.parse_qs(u.query, keep_blank_values=True)
         if (u.scheme == "https" and u.hostname == "db.history.go.kr"
                 and u.path == "/common/imageProxy.do"
                 and q.get("mode") == ["thumb"]
                 and len(q.get("filePath", [])) == 1
-                and re.fullmatch(r"/kr/052/kr_052_[0-9]+\\.jpg", q["filePath"][0])):
+                and re.fullmatch(r"/kr/052/kr_052_[0-9]+\.jpg", q["filePath"][0])):
             found.append(urllib.parse.urlunsplit((u.scheme, u.netloc, u.path, u.query, "")))
     return list(dict.fromkeys(found))
 
@@ -188,7 +188,7 @@ def read_public_thumbnail(url, number):
                 return row
             row["bytes"] = len(raw)
             row["sha256"] = hashlib.sha256(raw).hexdigest()
-            row["jpeg_signature_verified"] = raw.startswith(b"\\xff\\xd8\\xff")
+            row["jpeg_signature_verified"] = raw.startswith(b"\xff\xd8\xff")
             row["status"] = "PUBLIC_THUMBNAIL_CAPTURED" if row["jpeg_signature_verified"] else "NOT_JPEG"
             if row["jpeg_signature_verified"]:
                 (ROOT / f"official-juan52-thumb-{number:02d}.jpg").write_bytes(raw)
