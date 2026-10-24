@@ -843,6 +843,10 @@ jobs:
         run: |
           python scripts/verify-tianwen-13fw-goryeosa-d30-received-arithmetic.py
           python -m unittest discover -s tests -p 'test_verify_tianwen_13fw_goryeosa_d30_received_arithmetic.py' -v
+      - name: Goryeosa 13FX original book6 p17 29-31 Fourfen lane and forward-only field correction
+        run: |
+          python scripts/verify-tianwen-13fx-gk3467-three-day-fourfen.py
+          python -m unittest discover -s tests -p 'test_verify_tianwen_13fx_gk3467_three_day_fourfen.py' -v
       - name: Focused capability acceptance tests
         run: |
           python -m unittest discover -s tests -p "test_fusion_chart_capability_acceptance_r1.py" -v

@@ -1,0 +1,153 @@
+{
+  "schema": "TIANWEN-13FX-GK3467-P17-THREE-DAY-FOURFEN-SOURCE-FIELD-ERRATUM-R1",
+  "date": "2026-10-24",
+  "issue_id": "TW-OPEN-0005",
+  "grade": "DIRECT_SAME_PDF_SOURCE_NATIVE_THREE_COLUMN_GLYPH_REVIEW_WITH_FORWARD_ONLY_PRIOR_FIELD_ATTRIBUTION_CORRECTION",
+  "source": {
+    "provider": "Seoul National University Kyujanggak",
+    "source_catalog": "GK03467_04",
+    "digital_volume": "0001",
+    "physical_book": 6,
+    "work_juan": 52,
+    "source_url": "https://kyudb.snu.ac.kr/book/mfPdf.do?book_cd=GK03467_04&vol_no=0001",
+    "archive_library_file_id": "libfile_bb34400cc108819185027e61217ce461",
+    "archive_filename": "tianwen-13fp-gk3467-six-source-pdfs.zip",
+    "archive_zip_sha256": "7057a7362f3cf6284b853b32b253533a40ee008c20a222d9deac94cc9c2e83d4",
+    "archive_pdf_entry": "GK03467_04-0001.pdf",
+    "pdf_sha256": "b75009805dae9ccc22797c005bd5f32c7870a192945b503f6b3af3fbf14e1386",
+    "pdf_pages": 53,
+    "pdf_page_one_based": 17,
+    "source_embedded_xref": 48,
+    "source_embedded_png_sha256": "375acd8814bca370bc9d83402f6ca6f77368efbadddef646bac0632faf5db585",
+    "source_original_rgb_sha256": "7bb9428f748f61875bf0ca1470b3bd8ada29ee8e0c79a5b8621f27c6d2467238",
+    "source_image_native_wh": [
+      2432,
+      2064
+    ],
+    "same_original_copy_for_three_rows": true,
+    "new_ancient_physical_witnesses": 0,
+    "physical_copy_vs_nlc_nikh_independence": null,
+    "edition_impression_date": null,
+    "original_ancient_folio_number": null
+  },
+  "method": "Direct native image visual source-column separation, no OCR; exact PDF and native embedded raster rehashed; each crop uses pixel xyxy and SHA256 of RGB bytes and PNG encode, replayable with optional --pdf argument.",
+  "day_column_binding": "Physical scan p17 on right page shows 三十一日 / 三十日 / 二十九日 ordered right-to-left by distinct heading groups; each day has its own printed 四分 vertical glyph lane. The three crop x ranges are mutually disjoint and must not be merged with neighboring 百/萬/度 lanes.",
+  "original_fourfen_rows": [
+    {
+      "day": 29,
+      "field": "四分",
+      "digits": "九〇六〇",
+      "numeric": 9060,
+      "roi_xyxy": [
+        2128,
+        670,
+        2192,
+        1370
+      ],
+      "roi_rgb_sha256": "60551f17d26ea785a3cbbf4199e3d60343851b16adae72f3faf534f46ed940d1",
+      "roi_png_sha256": "0fca173085597d2e0c81dbc5704996822aed972d54d8d2e3a674d79b75a5a096"
+    },
+    {
+      "day": 30,
+      "field": "四分",
+      "digits": "九二二二",
+      "numeric": 9222,
+      "roi_xyxy": [
+        1899,
+        670,
+        1964,
+        1260
+      ],
+      "roi_rgb_sha256": "020c9d1bf29d54cfafa10624dc363bf3383465a4b229dbe775120282eeb6a71f",
+      "roi_png_sha256": "566393b5a7fe0f6e1877df2e8316b41b748f94e003dd2be52d852d8a316d55ef"
+    },
+    {
+      "day": 31,
+      "field": "四分",
+      "digits": "九三八四",
+      "numeric": 9384,
+      "roi_xyxy": [
+        1655,
+        670,
+        1722,
+        1370
+      ],
+      "roi_rgb_sha256": "e5da7516d895358e94f64fe09d12c18bc9f10aa4bf0c91350b8229af8afaf227",
+      "roi_png_sha256": "c18618fd6a3f76746051edcf2b97ea70b3e36b5364c9005a99a9c2297bd1f918"
+    }
+  ],
+  "source_native_numeric_neighbor_differences": [
+    162,
+    162
+  ],
+  "comparison": {
+    "received_13fw_document": "docs/research/TIANWEN-13FW-GORYEOSA-D30-RECEIVED-FOURFEN-ARITHMETIC-CONFLICT-R1.json",
+    "received_13fw_days": [
+      29,
+      30,
+      31
+    ],
+    "received_13fw_values": [
+      9060,
+      9222,
+      9384
+    ],
+    "agreement_grade": "RECEIVED_TEXT_AND_ONE_SEPARATELY_BOUNDED_SOURCE_ORIGINAL_ALIGN_FOR_THIS_THREE_DAY_FOURFEN_LANE_ONLY",
+    "not_independent_ancient_original_voting": true
+  },
+  "forward_only_erratum": {
+    "earlier_document": "docs/research/TIANWEN-13FR-GK3467-BOOK6-D16-D30-DIRECT-FIELD-COLLATION-R1.json",
+    "earlier_pdf_page": 17,
+    "earlier_day30_literal": "九二二一四三",
+    "earlier_claimed_field": "四分",
+    "earlier_broad_roi_xyxy": [
+      1670,
+      290,
+      1985,
+      1720
+    ],
+    "earlier_record_bytes_preserved": true,
+    "revised_original_fourfen_source_specific_day30": "九二二二",
+    "correction_scope": "EARLIER_SIX_GLYPH_FOURFEN_FIELD_ATTRIBUTION_IS_INCOMPATIBLE_WITH_NARROW_DIRECT_FOURFEN_LANE; earlier report preserved as historical claim, not an accepted original Fourfen reading",
+    "cause_of_earlier_six_glyph_report": "NOT_PROVEN; wider ROI spans adjacent column context, exact provenance of six-glyph sequence unassigned",
+    "previous_statement_superseded_only_for_field_identity": true
+  },
+  "limits": {
+    "nlc_p76_day30_fourfen_original_digits": null,
+    "nlc_day5_versus_gk3467_original_opposition": "NLC〇一七二 vs GK/NIKH五一七二 OPEN",
+    "nlc_day9_fourfen": null,
+    "g893_six_direct_controls": "OPEN",
+    "original_digits_to_unit_bridge": "UNPROVEN",
+    "historical_day30_winner": null,
+    "physical_impression_independence": null,
+    "original_historical_units": null,
+    "full_juan52_linewise_collation": false,
+    "new_source_registry_records": 0,
+    "new_graph_nodes": 0,
+    "new_graph_edges": 0,
+    "matrix_rows_changed": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0,
+    "risk_issues_closed": 0,
+    "product": "CLOSED"
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [],
+    "unresolved_lineage_questions": [
+      "Corrected original p17 field must not be misread as original NLC p76; source relationships, edition independence and day5 opposed variant remain unresolved.",
+      "Same-source D29/D30/D31 plus162 is internal arithmetic of one witness, not additional independent transmission votes."
+    ]
+  },
+  "counts": {
+    "matrix_total": 222,
+    "matrix_audited": 222,
+    "external_sources": 761,
+    "genealogy_nodes": 252,
+    "genealogy_edges": 238,
+    "issues_open_or_blocked": 11,
+    "product": "CLOSED"
+  }
+}
