@@ -64,6 +64,10 @@ class Test13EZ(unittest.TestCase):
         html = ('<img data-src="https://elsewhere.example/common/imageProxy.do?mode=thumb&filePath=/kr/052/kr_052_1055.jpg" />'
                 '<img data-src="/common/imageProxy.do?mode=full&filePath=/kr/052/kr_052_1055.jpg"/>')
         self.assertEqual(m.source_emitted_thumb_urls(html), [])
+    def test_prior_publisher_script_sha_is_stable(self):
+        self.assertEqual(m.ARCHIVED_EXACT_SCRIPT_PROOF["success_run"], 40054600880)
+        self.assertEqual(m.ARCHIVED_EXACT_SCRIPT_PROOF["source_function_popup_path"], "/common/imageViewer.do")
+        self.assertEqual(m.ARCHIVED_EXACT_SCRIPT_PROOF["source_article_html_sha256"], "e2a5a7b1136202c5828e67a187b8572519490444d57d77c8a4cc78cf323ee753")
     def test_only_original_widget_metadata_not_photo(self):
         p = m.PageAnchors()
         p.feed('<button onclick="showViewer(1)" title="고려사 원문이미지">원문이미지</button>')

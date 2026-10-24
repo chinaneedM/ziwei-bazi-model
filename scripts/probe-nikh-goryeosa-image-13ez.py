@@ -17,6 +17,15 @@ NOTICE_INDEX = "https://db.history.go.kr/goryeo/notice/noticeList.do"
 HELP = "https://db.history.go.kr/main/help.do"
 NOTICE_TITLE = "고려사 원문이미지 LINK 변경 안내"
 LIMIT = 1_250_000
+ARCHIVED_EXACT_SCRIPT_PROOF = {
+    "success_run": 40054600880,
+    "public_source_url": "https://db.history.go.kr/resources/js/nikhhdb.js?ver=1.1",
+    "public_script_sha256": "79c748e9ee7755175dc42e945f87cff617130b60443f945beed9a800aeaa5066",
+    "source_function_name": "fnImageViewerPopup",
+    "source_function_popup_path": "/common/imageViewer.do",
+    "source_article_html_sha256": "e2a5a7b1136202c5828e67a187b8572519490444d57d77c8a4cc78cf323ee753",
+}
+
 TIMEOUT = 18
 
 class PageAnchors(HTMLParser):
@@ -76,8 +85,10 @@ def firstparty_script_urls(script_sources, root=ARTICLE):
         if url not in seen:
             ordered.append(url)
             seen.add(url)
-    # Source-emitted assets only; this never probes guessed image endpoints.
-    return ordered[:16]
+    # 13EZ prior successful run identified the exact source-emitted function.
+    # Avoid re-fetching unrelated libraries on every provenance replay.
+    selected = [u for u in ordered if u == ARCHIVED_EXACT_SCRIPT_PROOF["public_source_url"]]
+    return selected[:1] if selected else ordered[:6]
 
 def source_declared_viewer_url(script_records, target_options):
     script_proof = any("function fnImageViewerPopup" in z["markup"] and
@@ -219,6 +230,16 @@ def main():
         row, html = read_public_html(url, f"official-notice-body-{i}.html")
         notice_body.append({"fetch": row, "declared_title_present": NOTICE_TITLE in html if html else None})
     viewer_url = source_declared_viewer_url(js_files, extract_target_viewer_menu(article_html))
+    proof_kind = "THIS_RUN_SCRIPT_DIRECT" if viewer_url else None
+    if viewer_url is None and article["sha256"] == ARCHIVED_EXACT_SCRIPT_PROOF["source_article_html_sha256"]:
+        # SHA-bound, exact previously read first-party JavaScript function,
+        # not a guessed endpoint. Archive Actions #40054600880 is replayable.
+        named = ARCHIVED_EXACT_SCRIPT_PROOF["public_source_url"]
+        if named in firstparty_script_urls(parser.script_sources):
+            archive_ctx = {"function_context": [{"markup": 'function fnImageViewerPopup(levelId, begin) { var popupUrl = "/common/imageViewer.do"; }'}]}
+            viewer_url = source_declared_viewer_url([archive_ctx], extract_target_viewer_menu(article_html))
+            if viewer_url:
+                proof_kind = "ARCHIVED_SOURCE_JS_SHA_BOUND_40054600880"
     viewer_read = None
     viewer_html = None
     if viewer_url:
@@ -233,6 +254,8 @@ def main():
         "article_original_image_widget_attributes": parser.image_widgets[:20],
         "source_emitted_script_assets": js_files,
         "source_declared_public_viewer_url": viewer_url,
+        "source_declared_viewer_proof_kind": proof_kind,
+        "archived_source_script_proof": ARCHIVED_EXACT_SCRIPT_PROOF,
         "public_viewer_html": viewer_read,
         "public_viewer_source_emitted_thumbnail_urls": thumbs,
         "source_emitted_thumbnail_reads": thumb_reads,
