@@ -38,6 +38,13 @@ class Test13EZ(unittest.TestCase):
         <li><a onclick="fnImageViewerPopup('kr_003_0040_0020', 'kr_003_1055'); return false;">奎貴5553</a></li>
         </ul></div>"""
         self.assertEqual(m.extract_target_viewer_menu(html), [])
+    def test_source_emitted_firstparty_javascript_only(self):
+        self.assertEqual(m.firstparty_script_urls(["/resources/korea/js/article.js", "https://not-history.example/resources/evil.js", "javascript:alert(1)"]),
+                         ["https://db.history.go.kr/resources/korea/js/article.js"])
+    def test_parser_captures_declared_script_src(self):
+        p = m.PageAnchors()
+        p.feed('<script src="/resources/korea/js/article.js"></script>')
+        self.assertEqual(p.script_sources, ["/resources/korea/js/article.js"])
     def test_only_original_widget_metadata_not_photo(self):
         p = m.PageAnchors()
         p.feed('<button onclick="showViewer(1)" title="고려사 원문이미지">원문이미지</button>')

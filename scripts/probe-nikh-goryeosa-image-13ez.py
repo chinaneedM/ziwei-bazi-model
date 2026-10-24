@@ -25,8 +25,11 @@ class PageAnchors(HTMLParser):
         self.stack = []
         self.anchors = []
         self.image_widgets = []
+        self.script_sources = []
     def handle_starttag(self, tag, attributes):
         attrs = dict(attributes)
+        if tag == "script" and attrs.get("src"):
+            self.script_sources.append(attrs["src"])
         if tag == "a":
             self.stack.append({"href": attrs.get("href", ""), "text": []})
         signal = " ".join(str(v or "") for k, v in attributes if k in ("title", "alt", "aria-label", "onclick", "data-original", "data-src"))
@@ -57,6 +60,24 @@ def official_notice_links(markup):
         if u.scheme == "https" and u.hostname == "db.history.go.kr" and u.path.endswith("/notice/noticeView.do") and not u.username and not u.password:
             urls.append(url)
     return sorted(set(urls))
+
+def firstparty_script_urls(script_sources, root=ARTICLE):
+    allowed = []
+    for raw in script_sources:
+        parsed = urllib.parse.urlsplit(urllib.parse.urljoin(root, raw))
+        if (parsed.scheme == "https" and parsed.hostname == "db.history.go.kr"
+                and parsed.username is None and parsed.password is None
+                and parsed.path.endswith(".js")
+                and parsed.path.startswith(("/resources/", "/goryeo/"))):
+            allowed.append(urllib.parse.urlunsplit((parsed.scheme, parsed.netloc, parsed.path, parsed.query, "")))
+    seen = set()
+    ordered = []
+    for url in allowed:
+        if url not in seen:
+            ordered.append(url)
+            seen.add(url)
+    # Source-emitted assets only; this never probes guessed image endpoints.
+    return ordered[:16]
 
 def read_public_html(url, name):
     rec = {"url": url, "status": "NOT_FETCHED", "http": None, "bytes": 0, "sha256": None}
@@ -131,6 +152,10 @@ def main():
     if article_html:
         parser.feed(article_html)
     linked_notice = official_notice_links(list_html) if list_html else []
+    js_files = []
+    for idx, url in enumerate(firstparty_script_urls(parser.script_sources)):
+        row, js_body = read_public_html(url, f"official-source-script-{idx:02d}.js")
+        js_files.append({"fetch": row, "function_context": bounded_literal_context(js_body, "fnImageViewerPopup", flank=600, limit=2)})
     notice_body = []
     # Follow only an explicit first-party link emitted by the official index.
     for i, url in enumerate(linked_notice[:1]):
@@ -142,6 +167,8 @@ def main():
         "official_notice_list": listing,
         "official_help": help_page,
         "article_original_image_widget_attributes": parser.image_widgets[:20],
+        "source_emitted_script_assets": js_files,
+        "inline_function_context": bounded_literal_context(article_html, "function fnImageViewerPopup", flank=600),
         "article_source_emitted_image_icon_context": bounded_literal_context(article_html, "고려사 원문이미지"),
         "target_source_emitted_viewer_options": extract_target_viewer_menu(article_html),
         "notice_list_title_event_context": bounded_literal_context(list_html, NOTICE_TITLE),
