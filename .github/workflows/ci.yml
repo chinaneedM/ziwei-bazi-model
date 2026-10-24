@@ -820,6 +820,11 @@ jobs:
           python -m py_compile scripts/verify-tianwen-13fa-nikh-gk5553-menu.py tests/test_tianwen_13fa_nikh_gk5553_menu.py
           python scripts/verify-tianwen-13fa-nikh-gk5553-menu.py
           python -m unittest discover -s tests -p 'test_tianwen_13fa_nikh_gk5553_menu.py' -v
+      - name: Goryeosa 13FB exact original-image viewer and two thumbnail evidence boundary
+        run: |
+          python -m py_compile scripts/verify-tianwen-13fb-nikh-thumb-cert.py tests/test_tianwen_13fb_nikh_thumb_cert.py
+          python scripts/verify-tianwen-13fb-nikh-thumb-cert.py
+          python -m unittest discover -s tests -p 'test_tianwen_13fb_nikh_thumb_cert.py' -v
       - name: Focused capability acceptance tests
         run: |
           python -m unittest discover -s tests -p "test_fusion_chart_capability_acceptance_r1.py" -v
