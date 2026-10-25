@@ -1,0 +1,45 @@
+{
+  "schema": "TIANWEN-13HC-13HB-NEXT-ACTION-PREFIX-FORWARD-REPAIR-R1",
+  "date": "2026-10-25",
+  "issue_id": "TW-OPEN-0005",
+  "kind": "FORWARD_ONLY_CONTINUITY_PREFIX_REPAIR",
+  "previous_focus": "13HB",
+  "new_focus": "13HC",
+  "observed_failure_runs": [
+    40204315952,
+    40204315822
+  ],
+  "failed_scripts": [
+    "scripts/verify-tianwen-13gc-nlc-p75-d17-d20.py",
+    "scripts/verify-tianwen-13fo-kyudb-3467-book6-reels.py"
+  ],
+  "cause": "Live TW-OPEN-0005 next_action prefixed 13HB SOURCE-ORIGINAL-PHOTO POSITIVE: but prior script equality gate requires binding.latest_research_focus_prefix + CURRENT ACTION:; this is metadata-only formatting mismatch.",
+  "previous_action_head": "13HB SOURCE-ORIGINAL-PHOTO POSITIVE:",
+  "expected_action_head": "13HC CURRENT ACTION:",
+  "archive_previous_full_next_action": true,
+  "changes_original_photo_decisions": false,
+  "NIKH_photo4_original_D14": "四分六六三〇",
+  "NCL_original_D14_numeric": null,
+  "NCL_original_D14_terminal": null,
+  "old_D5": "〇/五_UNRESOLVED",
+  "G893_six": "OPEN",
+  "old_13EI": "RETRACTED",
+  "counters": {
+    "matrix": [
+      222,
+      222
+    ],
+    "registry": 761,
+    "genealogy": [
+      252,
+      238
+    ],
+    "issues": 11,
+    "chart": "CLOSED",
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0,
+    "new_physical_witnesses": 0,
+    "source_registry_additions": 0
+  },
+  "next_action": "Run all exact-HEAD workflows; preserve source findings and old scope. Only true original page evidence can update unknown NCL glyphs or relation."
+}
