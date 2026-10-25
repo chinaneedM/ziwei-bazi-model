@@ -909,6 +909,10 @@ jobs:
         run: |
           python scripts/verify-tianwen-13gz-native-segmentation.py
           python -m unittest discover -s tests -p 'test_tianwen_13gz*' -v
+      - name: NIKH 13HA explicit seasonal table/day/column key guard
+        run: |
+          python scripts/verify-tianwen-13ha-seasonal-day14-row-keys.py
+          python -m unittest discover -s tests -p 'test_tianwen_13ha*' -v
       - name: Verify
         run: fortune-train verify
       - name: Full unittest
