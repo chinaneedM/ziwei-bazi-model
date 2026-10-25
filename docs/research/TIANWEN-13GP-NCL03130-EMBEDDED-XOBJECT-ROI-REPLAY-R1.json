@@ -1,0 +1,168 @@
+{
+  "schema": "TIANWEN-13GP-NCL03130-EMBEDDED-XOBJECT-ROI-REPLAY-R1",
+  "date": "2026-10-25",
+  "issue_id": "TW-OPEN-0005",
+  "grade": "EXACT_SOURCE_SHA_AND_PDF_IMAGE_XOBJECT_AFFINE_BOUNDED_NATIVE_RGB_CROPS_NO_FULL_GLYPH",
+  "source": {
+    "url": "https://commons.wikimedia.org/wiki/Special:Redirect/file/NCL-03130_09_%E9%AB%98%E9%BA%97%E5%8F%B2.pdf",
+    "pdf_bytes": 50735589,
+    "pdf_sha256": "3c2a5621fb3f4eabc593020bcde12a38f6ecdae2842940dec12d5a3a56afd32e",
+    "pdf_pages": 189,
+    "prior_13gn": "docs/research/TIANWEN-13GN-NCL03130-EMBEDDED-IMAGE-GRADE-ERRATUM-R1.json",
+    "prior_13go": "docs/research/TIANWEN-13GO-NCL03130-EMBEDDED-ROI-COVERAGE-AUDIT-R1.json",
+    "acquisition_script": "scripts/acquire-tianwen-13gp-original-embedded-probe.py",
+    "action_run": 40187378679,
+    "action_job": 121150938347,
+    "action_conclusion": "success",
+    "artifact_id": 12596309772,
+    "source_independence": "SAME_DIGITAL_SURROGATE_NO_NEW_PHYSICAL_WITNESS"
+  },
+  "method": "GitHub Actions independently re-downloaded exact 50,735,589-byte source PDF, verified SHA-256, extracted XObject JPEG xrefs291/299 and native RGB, checked original image and previous render hashes, then inverted image normalized-unit-to-PDF-page affine placement from page.get_image_rects(transform=True), applied factor3.1 to prior bounded render geometry and expanded each candidate area; saved PNG losslessly from decoded original JPEG pixels without resize, sharpen, OCR, or interpolation.",
+  "geometry_evidence": "PDF_XOBJECT_AFFINE_GEOMETRY_ONLY_NO_INDEPENDENT_SCRIBAL_LANDMARK_REGISTRATION",
+  "images": [
+    {
+      "target": "D14",
+      "page": 74,
+      "xref": 291,
+      "image_file": "docs/research/TIANWEN-13GP-P74-D14-EMBEDDED-XOBJECT-ROI.png",
+      "source_box": [
+        127,
+        555,
+        180,
+        830
+      ],
+      "actual_affine_projection": [
+        135,
+        563,
+        171,
+        822
+      ],
+      "old_ratio_projection": [
+        135,
+        562,
+        171,
+        821
+      ],
+      "placement_matrix": [
+        420.9599914550781,
+        0,
+        0,
+        281.5199890136719,
+        0,
+        0
+      ],
+      "placement_rect": [
+        0,
+        0,
+        420.9599914550781,
+        281.5199890136719
+      ],
+      "image_wh": [
+        53,
+        275
+      ],
+      "png_sha256": "64f0add0d36ad9c63c9b692438a7fe0d29ba15270caeb8079b8e7f843ff99d1a",
+      "png_bytes": 25279,
+      "rgb_sha256": "eb731f7bf7a0937d9a00a741f980631bb91e79c783ed1477dfcd384190fe1b95",
+      "old_render_box": [
+        101,
+        419,
+        127,
+        611
+      ]
+    },
+    {
+      "target": "D30",
+      "page": 76,
+      "xref": 299,
+      "image_file": "docs/research/TIANWEN-13GP-P76-D30-EMBEDDED-XOBJECT-ROI.png",
+      "source_box": [
+        732,
+        535,
+        865,
+        1070
+      ],
+      "actual_affine_projection": [
+        740,
+        544,
+        857,
+        1062
+      ],
+      "old_ratio_projection": [
+        740,
+        543,
+        857,
+        1061
+      ],
+      "placement_matrix": [
+        420.9599914550781,
+        0,
+        0,
+        282,
+        0,
+        0
+      ],
+      "placement_rect": [
+        0,
+        0,
+        420.9599914550781,
+        282
+      ],
+      "image_wh": [
+        133,
+        535
+      ],
+      "png_sha256": "47ac63981a68ce2f83bf002f4683dc331cfef749a14109ad5a920a4eba1d0515",
+      "png_bytes": 103494,
+      "rgb_sha256": "61dbd228c4edc45347ac541d604b2a58cba867b62402747eb00b68eba1fc6e6a",
+      "old_render_box": [
+        551,
+        405,
+        637,
+        790
+      ]
+    }
+  ],
+  "target_status": {
+    "D9_complete_source_literal": null,
+    "D14_complete_source_literal": null,
+    "D30_complete_source_literal": null,
+    "D30_historical_fourfen_field_locator": null,
+    "original_physical_folio": null,
+    "early_copy_vs_guangxu_supplement": null,
+    "ancient_fourfen_units": null
+  },
+  "no_promotion_guards": {
+    "new_physical_witnesses": 0,
+    "new_historical_glyph_certifications": 0,
+    "registration_is_glyph_independent": false,
+    "old_D5": "〇/五_UNRESOLVED",
+    "G893_six": "OPEN",
+    "prior_13EI": "RETRACTED",
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0,
+    "source_registry_added": 0,
+    "genealogy_edges_added": 0
+  },
+  "transmission_impact": {
+    "edges_supported": [],
+    "edges_revised": [],
+    "unresolved": [
+      "Full field identity, original leaf/copying layer and historical units remain unproved; two source images belong to ONE source PDF."
+    ]
+  },
+  "next": "Jointly review source-original day headings, 四分 technical lane identity, inter-column gutters and terminal glyphs on saved expanded pixels, without claiming completeness from enclosure. If still unresolvable, request approved first-party higher-res image/physical folio bindings. Continue independent G893 six originals.",
+  "counts": {
+    "matrix": [
+      222,
+      222
+    ],
+    "sources": 761,
+    "genealogy": [
+      252,
+      238
+    ],
+    "open_or_blocked": 11,
+    "product": "CLOSED"
+  }
+}
