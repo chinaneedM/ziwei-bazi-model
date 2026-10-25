@@ -5,6 +5,8 @@ from pathlib import Path
 URL="https://rbook.ncl.edu.tw/NCLSearch/rbook.csv"
 DEST=Path(os.environ.get("TIANWEN_13GI_OUTPUT","/tmp/tianwen-13gi-catalog-result.json"))
 MAX_BYTES=80_000_000
+def is_exact_book_number(value):
+ return "".join(value.split()) in ("03130","20803130")
 def main():
  result={"schema":"TIANWEN-13GI-NCL-OFFICIAL-CSV-PROBE-RESULT-R1","url":URL,"status":"ACCESS_OR_PARSE_INCOMPLETE","status_detail":None,"http_status":None,"source_bytes_sha256":None,"source_size":None,"decoding":None,"headers":[],"rows_checked":None,"candidate_rows":[],"exact_book_number_rows":[],"negative_absence_certified":False,"item_folio_or_glyph_certified":False}
  try:
@@ -45,7 +47,7 @@ def main():
    if not row:continue
    joined=" ".join(row)
    # Fuzzy match is a lead, never stronger than an exact recognized book-number column.
-   exact=any(i<len(row) and re.fullmatch(r"\\s*(?:208\\s*)?0?3130\\s*",row[i]) for i in exact_indices)
+   exact=any(i<len(row) and is_exact_book_number(row[i]) for i in exact_indices)
    candidate=bool(re.search(r"(?<![0-9])0?3130(?![0-9])",joined))
    if exact or candidate:
     values={header[i]:row[i][:300] for i in index if i<len(row)}
