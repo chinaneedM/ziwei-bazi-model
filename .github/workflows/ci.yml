@@ -901,6 +901,14 @@ jobs:
         run: |
           python scripts/verify-tianwen-13gx-null-identity-erratum.py
           python -m unittest discover -s tests -p 'test_tianwen_13gx*' -v
+      - name: NLC 13GY explicit printed-header overlap and mixed numeric candidate
+        run: |
+          python scripts/verify-tianwen-13gy-header-numeric-overlap.py
+          python -m unittest discover -s tests -p 'test_tianwen_13gy*' -v
+      - name: NLC 13GZ source-native disjoint printed heading and lower-tile replay
+        run: |
+          python scripts/verify-tianwen-13gz-native-segmentation.py
+          python -m unittest discover -s tests -p 'test_tianwen_13gz*' -v
       - name: Verify
         run: fortune-train verify
       - name: Full unittest
