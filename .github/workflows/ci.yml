@@ -861,6 +861,10 @@ jobs:
           python -m unittest discover -s tests -p "test_combined_workbench_real_machine_calibration_r1.py" -v
           python -m unittest discover -s tests -p "test_real_machine_calibration_regression_closure_r1.py" -v
           python -m unittest discover -s tests -p "test_windows_platform_calibration_evidence_r1.py" -v
+      - name: NCL 13GM exact public detail byte replay
+        run: |
+          python scripts/verify-tianwen-13gm-ncl-detail-replay.py
+          python -m unittest discover -s tests -p "test_tianwen_13gm*" -v
       - name: Verify
         run: fortune-train verify
       - name: Full unittest
