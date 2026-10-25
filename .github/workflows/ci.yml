@@ -877,6 +877,10 @@ jobs:
         run: |
           python scripts/verify-tianwen-13gp-embedded-xobject-roi.py
           python -m unittest discover -s tests -p "test_tianwen_13gp*" -v
+      - name: NCL 13GQ original JPEG day and field context hash replay
+        run: |
+          python scripts/verify-tianwen-13gq-joint-context-rois.py
+          python -m unittest discover -s tests -p "test_tianwen_13gq*" -v
       - name: Verify
         run: fortune-train verify
       - name: Full unittest
