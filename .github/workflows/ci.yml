@@ -869,6 +869,10 @@ jobs:
         run: |
           python scripts/verify-tianwen-13gn-embedded-image-grade.py
           python -m unittest discover -s tests -p "test_tianwen_13gn*" -v
+      - name: NCL 13GO embedded source crop geometric coverage audit
+        run: |
+          python scripts/verify-tianwen-13go-embedded-roi-coverage.py
+          python -m unittest discover -s tests -p "test_tianwen_13go*" -v
       - name: Verify
         run: fortune-train verify
       - name: Full unittest
