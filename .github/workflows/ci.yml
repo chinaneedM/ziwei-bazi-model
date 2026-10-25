@@ -897,6 +897,10 @@ jobs:
         run: |
           python scripts/verify-tianwen-13gw-paired-column-headings.py
           python -m unittest discover -s tests -p 'test_tianwen_13gw*' -v
+      - name: NCL 13GX epistemic NULL-overlay for 四分 初度 identity
+        run: |
+          python scripts/verify-tianwen-13gx-null-identity-erratum.py
+          python -m unittest discover -s tests -p 'test_tianwen_13gx*' -v
       - name: Verify
         run: fortune-train verify
       - name: Full unittest
