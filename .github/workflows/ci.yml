@@ -881,6 +881,10 @@ jobs:
         run: |
           python scripts/verify-tianwen-13gq-joint-context-rois.py
           python -m unittest discover -s tests -p "test_tianwen_13gq*" -v
+      - name: NCL 13GR day12 day13 original positive and day14 same-photo native ROI controls
+        run: |
+          python scripts/verify-tianwen-13gr-original-pixel-control.py
+          python -m unittest discover -s tests -p "test_tianwen_13gr*" -v
       - name: Verify
         run: fortune-train verify
       - name: Full unittest
