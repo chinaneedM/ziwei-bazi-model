@@ -913,6 +913,10 @@ jobs:
         run: |
           python scripts/verify-tianwen-13ha-seasonal-day14-row-keys.py
           python -m unittest discover -s tests -p 'test_tianwen_13ha*' -v
+      - name: NIKH 13HB gallery photo4 direct D14 visual glyph source
+        run: |
+          python scripts/verify-tianwen-13hb-photo4-day14-direct-glyph.py
+          python -m unittest discover -s tests -p 'test_tianwen_13hb*' -v
       - name: Verify
         run: fortune-train verify
       - name: Full unittest
