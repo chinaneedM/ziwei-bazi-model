@@ -16,6 +16,8 @@ jobs:
       - run: python scripts/verify-tianwen-13gi-ncl-catalog-gate.py
       - run: python -m unittest discover -s tests -p 'test_verify_tianwen_13gi_ncl_catalog_gate.py' -v
       - run: python -m unittest discover -s tests -p 'test_probe_tianwen_13gi_ncl_catalog.py' -v
+      - run: python scripts/verify-tianwen-13gk-ncl-catalog-original.py
+      - run: python -m unittest discover -s tests -p 'test_verify_tianwen_13gk_ncl_catalog_original.py' -v
       - name: Probe first-party CSV (public unauthenticated source)
         run: python scripts/probe-tianwen-13gi-ncl-catalog.py
         env:
