@@ -33,7 +33,7 @@ def check(e, root=ROOT):
     assert licensing["quote_or_fee_for_target_item"] is None
     assert not licensing["commercial_or_rehosting_permission_granted"]
     assert official["site_image_rights_notice"].startswith("CC BY-NC-ND 3.0 Taiwan")
-    assert "public domain" in official["commons_rights_notice"].lower()
+    assert "public domain" in official["commons_rights_notice"].lower().replace("-", " ")
     assert not official["notices_are_a_copy_specific_legal_resolution"]
     assert official["one_host_tag_does_not_override_other_host_policy"]
     t=e["target"]
