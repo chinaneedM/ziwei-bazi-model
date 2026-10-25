@@ -1,0 +1,27 @@
+name: verify-tianwen-13gi-ncl-catalog-csv
+on:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+  workflow_dispatch:
+jobs:
+  probe-firstparty-catalog:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python scripts/verify-tianwen-13gi-ncl-catalog-gate.py
+      - run: python -m unittest discover -s tests -p 'test_verify_tianwen_13gi_ncl_catalog_gate.py' -v
+      - name: Probe first-party CSV (public unauthenticated source)
+        run: python scripts/probe-tianwen-13gi-ncl-catalog.py
+        env:
+          TIANWEN_13GI_OUTPUT: /tmp/tianwen-13gi-catalog-result.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: tianwen-13gi-ncl-official-catalog-probe
+          path: /tmp/tianwen-13gi-catalog-result.json
+          retention-days: 90
