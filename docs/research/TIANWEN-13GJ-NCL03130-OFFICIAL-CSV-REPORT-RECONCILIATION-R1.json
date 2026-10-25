@@ -1,0 +1,134 @@
+{
+  "schema": "TIANWEN-13GJ-NCL03130-OFFICIAL-CSV-REPORT-RECONCILIATION-R1",
+  "date": "2026-10-25",
+  "issue_id": "TW-OPEN-0005",
+  "grade": "FIRSTPARTY_CATALOG_ROW_REPORTED_BY_HASH_VERIFIED_ACTION_ARTIFACT_FULL_CSV_REPLAY_PENDING",
+  "prior_snapshot_preserved": "docs/research/TIANWEN-13GI-NCL-OPEN-DATA-CATALOG-CSV-GATE-R1.json",
+  "artifact": {
+    "run_id": 40160420907,
+    "head_sha": "7bb9ff805d9fb0e05f2c71a9ec12b1836e93ddfc",
+    "artifact_id": 12586181171,
+    "zip_bytes": 910,
+    "zip_sha256": "82e228b635e712b1d1ae98f3f47628308cc06596446881e217297b95751203cd",
+    "report_path": "docs/research/evidence/TIANWEN-13GJ-NCL-CATALOG-RESULT.json",
+    "report_bytes": 1503,
+    "report_sha256": "e2188644c10d51e7729f49c4b4e028e213d6bc0c25ac338d05f815ac4446b23d"
+  },
+  "observed_report": {
+    "schema": "TIANWEN-13GI-NCL-OFFICIAL-CSV-PROBE-RESULT-R1",
+    "url": "https://rbook.ncl.edu.tw/NCLSearch/rbook.csv",
+    "status": "CSV_RETRIEVED_PARSED_REPORT_ONLY",
+    "status_detail": "Exact matches require original row, column, SHA and firstparty detail follow-up; absence here is not historic nonexistence.",
+    "http_status": 200,
+    "source_bytes_sha256": "d33512f060122a3ade8cdadd0c2195c3f1996983d83c3c0599e01e8a9c4a9c24",
+    "source_size": 1937091,
+    "decoding": "cp950",
+    "headers": [
+      "正題名",
+      "書號",
+      "索書號",
+      "作者",
+      "版本"
+    ],
+    "rows_checked": 28913,
+    "candidate_rows": [
+      {
+        "csv_row_1based": 3541,
+        "bibliographic_fields": {
+          "正題名": "高麗史",
+          "書號": "03130",
+          "索書號": "208 03130",
+          "作者": "鄭麟趾",
+          "版本": "清初葉舊鈔光緒間(1644-1735)錢塘丁氏補鈔本"
+        },
+        "exact_book_number_column": true
+      }
+    ],
+    "exact_book_number_rows": [
+      {
+        "csv_row_1based": 3541,
+        "bibliographic_fields": {
+          "正題名": "高麗史",
+          "書號": "03130",
+          "索書號": "208 03130",
+          "作者": "鄭麟趾",
+          "版本": "清初葉舊鈔光緒間(1644-1735)錢塘丁氏補鈔本"
+        },
+        "exact_book_number_column": true
+      }
+    ],
+    "negative_absence_certified": false,
+    "item_folio_or_glyph_certified": false,
+    "core_column_indices": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "book_number_columns": [
+      1,
+      2
+    ]
+  },
+  "independent_replay": {
+    "full_csv_downloaded_this_session": false,
+    "full_csv_sha_recomputed_this_session": false,
+    "exact_row_reparsed_this_session": false,
+    "next_gate": "Modified 13GI workflow archives full bounded public CSV alongside its report; independently replay original bytes before source-byte upgrade."
+  },
+  "philology": {
+    "version_verbatim": "清初葉舊鈔光緒間(1644-1735)錢塘丁氏補鈔本",
+    "date_scope": "CATALOG_LITERAL_ONLY; parenthesized range is not assigned to Guangxu or target leaf; no silent repair of catalog chronology",
+    "target_leaf_copy_date": null
+  },
+  "ci_recovery": {
+    "failed_run_id": 40160420793,
+    "failed_job_id": 121070612608,
+    "root_cause": "13GH verifier hard-coded latest next_action prefix to 13GH; legitimate 13GI progression failed.",
+    "repair": "Compare active action to live bound focus, retain mandatory archived 13GH history/checkpoint and immutable evidence guards. Apply same repair to 13GI before later focus.",
+    "negative_tests": [
+      "reject stale action",
+      "reject missing historical revision",
+      "reject HTML/wrong-schema CSV",
+      "reject partial malformed row and truncated match reports",
+      "distinguish fuzzy title from exact shelfmark"
+    ]
+  },
+  "unresolved": {
+    "firstparty_item_detail_url": null,
+    "segment_to_physical_folio": null,
+    "old_d9": null,
+    "old_d14": null,
+    "old_d30": null,
+    "target_leaf_copy_date": null,
+    "historic_fourfen_unit": null,
+    "nlc_d5_vs_gk": "〇/五_UNRESOLVED",
+    "g893_six": "OPEN",
+    "legacy_13ei": "RETRACTED"
+  },
+  "counts": {
+    "matrix": [
+      222,
+      222
+    ],
+    "sources": 761,
+    "graph": [
+      252,
+      238
+    ],
+    "open_or_blocked_risks": 11,
+    "new_physical_witnesses": 0,
+    "new_original_glyphs": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0,
+    "product": "CLOSED"
+  },
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_supported": [],
+    "unresolved": [
+      "Official shelfmark report does not bind target leaf, impression, copying layer or lineage."
+    ]
+  }
+}

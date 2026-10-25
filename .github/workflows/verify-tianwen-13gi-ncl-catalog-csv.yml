@@ -15,6 +15,7 @@ jobs:
           python-version: '3.11'
       - run: python scripts/verify-tianwen-13gi-ncl-catalog-gate.py
       - run: python -m unittest discover -s tests -p 'test_verify_tianwen_13gi_ncl_catalog_gate.py' -v
+      - run: python -m unittest discover -s tests -p 'test_probe_tianwen_13gi_ncl_catalog.py' -v
       - name: Probe first-party CSV (public unauthenticated source)
         run: python scripts/probe-tianwen-13gi-ncl-catalog.py
         env:
@@ -23,5 +24,7 @@ jobs:
         if: always()
         with:
           name: tianwen-13gi-ncl-official-catalog-probe
-          path: /tmp/tianwen-13gi-catalog-result.json
+          path: |
+            /tmp/tianwen-13gi-catalog-result.json
+            /tmp/tianwen-13gi-source.csv
           retention-days: 90

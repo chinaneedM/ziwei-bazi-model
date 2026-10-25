@@ -11,6 +11,20 @@ class Test13GH(unittest.TestCase):
   x=copy.deepcopy(self.e);fn(x)
   with self.assertRaises(AssertionError):self.ck(x)
  def test_positive(self):self.assertTrue(self.ck(self.e))
+ def test_later_focus_keeps_historical_faq_valid(self):
+  s=copy.deepcopy(self.s);l=copy.deepcopy(self.l)
+  s["historical_audit"]["current_focus"].append("FUTURE evidence-scoped follow-up")
+  l["binding"]["latest_research_focus_prefix"]="FUTURE"
+  next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")["next_action"]="FUTURE CURRENT ACTION: new evidence pending"
+  self.assertTrue(m.check(self.e,s,l))
+ def test_stale_current_action_rejected(self):
+  l=copy.deepcopy(self.l)
+  next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")["next_action"]="STALE CURRENT ACTION:"
+  with self.assertRaises(AssertionError):m.check(self.e,self.s,l)
+ def test_lost_faq_history_rejected(self):
+  l=copy.deepcopy(self.l);issue=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
+  issue["history"]=[z for z in issue["history"] if z.get("revision_id")!="TW-OPEN-0005-13GH-NCL-FAQ-20261025"]
+  with self.assertRaises(AssertionError):m.check(self.e,self.s,l)
  def test_no_old_d30_guess(self):self.reject(lambda x:x["unverified_item"].update(target_d30_original="四分九二二二"))
  def test_no_catalog_identity_guess(self):self.reject(lambda x:x["unverified_item"].update(firstparty_physical_item_id="20803130"))
  def test_no_remote_copy_claim(self):self.reject(lambda x:x["verified_policy"].update(onsite_form_is_not_proven_remote_copy_order=False))

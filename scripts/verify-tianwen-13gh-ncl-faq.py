@@ -36,7 +36,7 @@ def check(e,s,l):
  assert tuple(map(int,s["schema_version"].split(".")))>=(1,837,0)
  assert l["binding"]["latest_research_focus_prefix"]==s["historical_audit"]["current_focus"][-1].split(" ")[0]
  issue=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
- assert issue["status"]=="OPEN" and issue["next_action"].startswith("13GH CURRENT ACTION:")
+ assert issue["status"]=="OPEN" and issue["next_action"].startswith(l["binding"]["latest_research_focus_prefix"]+" CURRENT ACTION:")
  assert "docs/research/TIANWEN-13GH-NCL-FAQ-DETAIL-ROUTES-R1.json" in issue["source_refs"] and "docs/research/TIANWEN-13GH-NCL-FAQ-DETAIL-ROUTES-R1.md" in issue["source_refs"]
  assert any(z.get("revision_id")=="TW-OPEN-0005-13GH-NCL-FAQ-20261025" for z in issue["history"])
  assert any(z.get("id")=="OMISSIONS-13GH-NCL-FAQ-20261025" for z in l["checkpoint_log"])
