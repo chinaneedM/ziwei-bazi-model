@@ -47,3 +47,20 @@ class Ndl1909Canvas72Capture(unittest.TestCase):
         source = (ROOT / "scripts/probe-tianwen-13hr-ndl991069-canvas72-full.py").read_text(encoding="utf-8")
         self.assertIn("TIANWEN-13HR-NDL991069-CANVAS72-ONE-PAGE-SOURCE-CAPTURE-R1", source)
         self.assertNotIn("CANVAS73-ONE-PAGE-SOURCE-CAPTURE", source)
+
+    def test_full_image_recheck_preserves_1909_scope(self):
+        import json
+        r = json.loads((ROOT / "docs/research/TIANWEN-13HR-NDL991069-CANVAS72-FULL-IMAGE-VISUAL-RECHECK-R1.json").read_text(encoding="utf-8"))
+        self.assertEqual(r["source"]["source_jpeg_sha256"], "83f76e06aad3ab3d8f1c757c69a8d2d8450086acce6baf71d900b1c0d3ade9cd")
+        self.assertEqual(r["visual_reading"]["row_headers_original_right_to_left"], ["初日", "一日", "二日", "三日", "四日", "五日"])
+        self.assertEqual(r["visual_reading"]["text_context"], "太陽冬至前後二氣盈初縮末限")
+        self.assertTrue(r["decision_scope"]["text_reading_same_as_13HQ"])
+        self.assertIsNone(r["decision_scope"]["ncl03130_original_D14"])
+        self.assertIsNone(r["decision_scope"]["ancient_technical_unit"])
+        self.assertEqual(r["decision_scope"]["new_independent_physical_witnesses"], 0)
+        self.assertEqual(r["decision_scope"]["new_numeric_glyph_promotion"], 0)
+        self.assertEqual(r["transmission_impact"], "NONE")
+        for item in r["regions"]:
+            a,b,c,d = item["bbox_xyxy"]
+            self.assertTrue(0<=a<c<=3773 and 0<=b<d<=2943)
+            self.assertEqual(len(item["rgb_sha256"]), 64)
