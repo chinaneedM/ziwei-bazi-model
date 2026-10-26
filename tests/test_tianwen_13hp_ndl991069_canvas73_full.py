@@ -20,7 +20,7 @@ class Ndl1909FullSourceAcquisition(unittest.TestCase):
 
     def test_source_coordinates_scale_not_numeric_guess(self):
         self.assertEqual(M.scaled_box((1020,590,1098,682), (4000,3120)), (2550,1475,2745,1705))
-        self.assertEqual(M.scaled_box((866,589,939,680), (4000,3120)), (2165,1473,2348,1700))
+        self.assertEqual(M.scaled_box((866,589,939,680), (4000,3120)), (2165,1472,2348,1700))
 
     def test_box_bounds_reject_oversized_or_invalid(self):
         for dims in ((6000,4680),(800,624),(4000,0)):

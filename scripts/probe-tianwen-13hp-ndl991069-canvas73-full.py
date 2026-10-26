@@ -82,7 +82,7 @@ def main():
         report["declared_source_canvas_size"] = list(declared_size)
         image_url = service + "/full/full/0/default.jpg"
         body, mime = get(image_url, 30000000)
-        if not mime.lower().startswith("image/jpeg") or not body.startswith(b"\\xff\\xd8"):
+        if not mime.lower().startswith("image/jpeg") or not body.startswith(b"\xff\xd8"):
             raise ValueError("not original provider JPEG response")
         im = Image.open(io.BytesIO(body))
         im.load()
@@ -116,7 +116,7 @@ def main():
         report["error_type"] = type(exc).__name__
         report["error_message"] = str(exc)[:300]
     path = OUT / "report.json"
-    path.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\\n", encoding="utf-8")
+    path.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(json.dumps({k: report.get(k) for k in (
         "status", "manifest_sha256", "provider_response_dimensions", "error_type", "assets"
     )}, ensure_ascii=False))
