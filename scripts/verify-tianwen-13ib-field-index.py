@@ -53,4 +53,5 @@ def check(e,with_state=True):
  return True
 if __name__=="__main__":
  assert check(read("docs/research/TIANWEN-13IB-WINTER-CUMULATIVE-VS-ADDITION-FIELD-INDEX-CONTROL-R1.json"))
+ print("ARCHIVED_13IB_DAY_ATTRIBUTION_SUPERSEDED_BY_SOURCE_ORIGINAL_13ID")
  print("TIANWEN_13IB_FIELD_SPECIFIC_DAY_SHIFT_GATE_PASS")

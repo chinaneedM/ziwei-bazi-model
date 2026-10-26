@@ -64,4 +64,5 @@ def check(e,with_state=True):
  return True
 if __name__=="__main__":
  assert check(load(str(E.relative_to(R))))
+ print("ARCHIVED_13IA_DAY_ATTRIBUTION_SUPERSEDED_BY_SOURCE_ORIGINAL_13ID")
  print("TIANWEN_13IA_WASEDA_PRINTED_DAY_FORWARD_ERRATUM_PASS")

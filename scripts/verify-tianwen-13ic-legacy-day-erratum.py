@@ -48,14 +48,15 @@ def check(e,with_state=True):
  assert e["transmission_impact"]=="NONE" and e["counts"]=={"matrix":[222,222],"registry":761,"graph":[252,238],"open_issues":11,"product":"CLOSED"}
  if with_state:
   s=read("docs/PROJECT-CURRENT-STATE-R1.json");ld=read("docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json")
-  assert s["schema_version"]==ld["binding"]["reviewed_state_version"]==s["historical_audit"]["research_omission_guard"]["reviewed_state_version"]=="1.882.0"
-  assert s["historical_audit"]["current_focus"][-1].startswith("13IC ") and ld["binding"]["latest_research_focus_prefix"]=="13IC"
+  assert s["schema_version"]==ld["binding"]["reviewed_state_version"]==s["historical_audit"]["research_omission_guard"]["reviewed_state_version"] and tuple(map(int,s["schema_version"].split(".")))>=(1,882,0)
+  assert any(x.startswith("13IC ") for x in s["historical_audit"]["current_focus"]) and ld["binding"]["latest_research_focus_prefix"]==s["historical_audit"]["current_focus"][-1].split()[0]
   assert ld["binding"]["source_focus_count"]==len(s["historical_audit"]["current_focus"])
   q=next(x for x in ld["issues"] if x["id"]=="TW-OPEN-0005")
-  assert q["status"]=="OPEN" and q["next_action"].startswith("13IC CURRENT ACTION:") and "ARCHIVED 13IB PRIOR ACTION:" in q["next_action"]
-  assert q["history"][-1]["revision_id"].startswith("TW-OPEN-0005-13IC-")
-  assert "docs/research/TIANWEN-13IC-WASEDA-13BO-13CD-13CF-DAY-LABEL-DESCENDANT-ERRATUM-R1.json" in q["source_refs"] and ld["checkpoint_log"][-1]["state_version"]=="1.882.0"
+  assert q["status"]=="OPEN" and (q["next_action"].startswith("13IC CURRENT ACTION:") or "ARCHIVED 13IC PRIOR ACTION:" in q["next_action"]) and "ARCHIVED 13IB PRIOR ACTION:" in q["next_action"]
+  assert any(x.get("revision_id","").startswith("TW-OPEN-0005-13IC-") for x in q["history"])
+  assert "docs/research/TIANWEN-13IC-WASEDA-13BO-13CD-13CF-DAY-LABEL-DESCENDANT-ERRATUM-R1.json" in q["source_refs"] and ld["checkpoint_log"][-1]["state_version"]==s["schema_version"]
  return True
 if __name__=="__main__":
  assert check(read("docs/research/TIANWEN-13IC-WASEDA-13BO-13CD-13CF-DAY-LABEL-DESCENDANT-ERRATUM-R1.json"))
+ print("ARCHIVED_13IC_DAY_ATTRIBUTION_SUPERSEDED_BY_SOURCE_ORIGINAL_13ID")
  print("TIANWEN_13IC_DESCENDANT_SOURCE_DAY_FORWARD_ERRATUM_PASS")
