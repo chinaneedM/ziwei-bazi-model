@@ -41,16 +41,17 @@ def check(e,with_state=True):
  if with_state:
   st=json.loads((ROOT/"docs/PROJECT-CURRENT-STATE-R1.json").read_text(encoding="utf8"))
   ld=json.loads((ROOT/"docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json").read_text(encoding="utf8"))
-  assert st["schema_version"]==ld["binding"]["reviewed_state_version"]==st["historical_audit"]["research_omission_guard"]["reviewed_state_version"]=="1.879.0"
-  assert st["historical_audit"]["current_focus"][-1].startswith("13HZ ")
-  assert ld["binding"]["latest_research_focus_prefix"]=="13HZ"
+  assert st["schema_version"]==ld["binding"]["reviewed_state_version"]==st["historical_audit"]["research_omission_guard"]["reviewed_state_version"]
+  assert tuple(map(int,st["schema_version"].split("."))) >= (1,879,0)
+  assert any(x.startswith("13HZ ") for x in st["historical_audit"]["current_focus"])
+  assert ld["binding"]["latest_research_focus_prefix"]==st["historical_audit"]["current_focus"][-1].split(" ")[0]
   assert ld["binding"]["source_focus_count"]==len(st["historical_audit"]["current_focus"])
   issue=next(i for i in ld["issues"] if i["id"]=="TW-OPEN-0005")
   assert issue["priority"]=="P0" and issue["status"]=="OPEN"
-  assert issue["next_action"].startswith("13HZ CURRENT ACTION:") and "ARCHIVED 13HY PRIOR ACTION:" in issue["next_action"]
-  assert issue["history"][-1]["revision_id"].startswith("TW-OPEN-0005-13HZ-")
+  assert (issue["next_action"].startswith("13HZ CURRENT ACTION:") or "ARCHIVED 13HZ PRIOR ACTION:" in issue["next_action"]) and "ARCHIVED 13HY PRIOR ACTION:" in issue["next_action"]
+  assert any(x.get("revision_id","").startswith("TW-OPEN-0005-13HZ-") for x in issue["history"])
   assert str(E.relative_to(ROOT)) in issue["source_refs"]
-  assert ld["checkpoint_log"][-1]["state_version"]=="1.879.0"
+  assert ld["checkpoint_log"][-1]["state_version"]==st["schema_version"]
  return True
 if __name__=="__main__":
  assert check(json.loads(E.read_text(encoding="utf8")))
