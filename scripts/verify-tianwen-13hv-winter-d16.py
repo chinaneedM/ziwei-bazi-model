@@ -17,6 +17,7 @@ def check(e, with_state=True):
   assert [r["day"] for r in h["rows"]]==["十五日","十六日","十七日"]
   assert [r["literal"] for r in h["rows"]]==["五分二一七六","五分一三六二","五分二五四八"]
   assert all(len(r["rgb_sha256"])==64 and 0<=r["bbox_xyxy"][0]<r["bbox_xyxy"][2]<=h["dimensions"][0] and 0<=r["bbox_xyxy"][1]<r["bbox_xyxy"][3]<=h["dimensions"][1] for r in h["rows"])
+ assert [r["rgb_sha256"] for h in e["holdings"] for r in h["rows"]]==["32862909c8433fe743c9bd7da61a4ed54b46c4496490d30f934cc70b5d08a52d","581d2b22b8b55be17028aaa314432eee0b690ced4e86f22517d05c0e49676719","295a7f1e2ff955c593e6c8e75ed11b592f678fcefb2a3fcd1fc014b6054809e1","f2db39c2900c410303dbb03493420817307001af5b61d2b39e04d6ded2c9d323","9b98af3da4e38d8d96dbf4be956373a7169a883ee87c5abb182cae0bb35f4e73","3faf76423fca12040aaf802792b386a0718c258f0e6856f0bd68862186258f88","8861c06874ea4c62ca726ed9ec250ca3abf42acd9a9a026596213686d2e1eb3e","2a3a6a0a7827b92f6e27143ba69d8bc52d323e4e64f70b0af28e93decce96be2","5430ca780fd18bfb9bdce331cc8e9dbbfea637bd7efeca6ce14c2ee1cb45b8b2"]
  assert e["arithmetic"]=={"day15":2176,"day16_printed":1362,"day17":2548,"observed_deltas":[-814,1186],"uniform_186_d16_candidate":2362,"candidate_attested_in_reviewed_images":False}
  f=e["firewall"]
  assert f["no_new_physical_witnesses"] and f["no_new_registered_sources"] and f["no_new_genealogy_edges"] and f["not_unique_to_1909"]
