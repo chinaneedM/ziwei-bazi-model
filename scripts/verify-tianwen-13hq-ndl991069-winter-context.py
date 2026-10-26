@@ -13,7 +13,7 @@ def check(e):
  assert e["source"]["canvas73"]["dimensions"]==[3773,2943]
  assert e["source"]["atlas"]["zip_sha256"]=="f0776fc9d679ac72c481241edb08010be889413ad15f8b36c8d25427726de69d"
  assert e["source"]["canvas73"]["artifact_zip_sha256"]=="5fa5a8d197238794d16ed5c3e37e33fe5d74b4838d4d51da27195548c42935e9"
- assert e["contextual_reading"]["heading_original_1909_surface"]=="太陽冬至前後二氣盈初縮末限"
+ assert e["contextual_reading"]["heading_original_1909_surface"]=="太陽冬至前後二氣盈初縮末限"  # Historical misread, superseded by 13HT, do not overwrite immutable JSON
  assert e["contextual_reading"]["companion_caption"]=="授時曆立成"
  assert [x["visible_day_range"] for x in e["contextual_reading"]["table_day_continuity"]]==["初日..五日","六日..十一日","十二日..十七日"]
  assert e["contextual_reading"]["printed_D14_first_local_field"]=="五分一九九〇"

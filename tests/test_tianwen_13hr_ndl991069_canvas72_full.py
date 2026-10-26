@@ -53,7 +53,9 @@ class Ndl1909Canvas72Capture(unittest.TestCase):
         r = json.loads((ROOT / "docs/research/TIANWEN-13HR-NDL991069-CANVAS72-FULL-IMAGE-VISUAL-RECHECK-R1.json").read_text(encoding="utf-8"))
         self.assertEqual(r["source"]["source_jpeg_sha256"], "83f76e06aad3ab3d8f1c757c69a8d2d8450086acce6baf71d900b1c0d3ade9cd")
         self.assertEqual(r["visual_reading"]["row_headers_original_right_to_left"], ["初日", "一日", "二日", "三日", "四日", "五日"])
-        self.assertEqual(r["visual_reading"]["text_context"], "太陽冬至前後二氣盈初縮末限")
+        self.assertEqual(r["visual_reading"]["text_context"], "太陽冬至前後二氣盈初縮末限")  # immutable historical error; corrected in 13HT
+        correction = json.loads((ROOT / "docs/research/TIANWEN-13HT-NDL991069-CANVAS72-TABLE-HEADING-GLYPH-ERRATUM-R1.json").read_text(encoding="utf-8"))
+        self.assertEqual(correction["corrected_direct_source_reading"], "大陽冬至前後二象盈初縮末限")
         self.assertTrue(r["decision_scope"]["text_reading_same_as_13HQ"])
         self.assertIsNone(r["decision_scope"]["ncl03130_original_D14"])
         self.assertIsNone(r["decision_scope"]["ancient_technical_unit"])
