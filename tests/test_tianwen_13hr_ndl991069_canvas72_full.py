@@ -42,3 +42,8 @@ class Ndl1909Canvas72Capture(unittest.TestCase):
             with self.assertRaises(ValueError): M.scaled_box((115,130,780,650),dims)
         with self.assertRaises(ValueError): M.scaled_box((115,130,1800,650),(3773,2943))
         self.assertEqual(M.EXPECTED_MANIFEST_SHA, "5ef67e4f84917ffd1eafee2b2da1d22f1aeb68f8d7f2ac441b7d398be19bf674")
+
+    def test_report_schema_matches_canvas72_source(self):
+        source = (ROOT / "scripts/probe-tianwen-13hr-ndl991069-canvas72-full.py").read_text(encoding="utf-8")
+        self.assertIn("TIANWEN-13HR-NDL991069-CANVAS72-ONE-PAGE-SOURCE-CAPTURE-R1", source)
+        self.assertNotIn("CANVAS73-ONE-PAGE-SOURCE-CAPTURE", source)

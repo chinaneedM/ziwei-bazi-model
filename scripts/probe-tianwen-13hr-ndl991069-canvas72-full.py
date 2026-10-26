@@ -56,7 +56,7 @@ def save_bytes(filename, data):
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     report = {
-        "schema": "TIANWEN-13HR-NDL991069-CANVAS73-ONE-PAGE-SOURCE-CAPTURE-R1",
+        "schema": "TIANWEN-13HR-NDL991069-CANVAS72-ONE-PAGE-SOURCE-CAPTURE-R1",
         "provider": "National Diet Library of Japan", "pid": "991069",
         "juan": 52, "print_year": 1909, "canvas": 72,
         "evidence_grade": "1909_RECEIVED_PRINT_ACQUISITION_ONLY_UNREAD_NO_GLYPH_OR_NUMERIC_ADJUDICATION",
