@@ -1,0 +1,71 @@
+{
+  "schema": "TIANWEN-13HN-NDL991069-V52-CANVAS68-AND-SOURCE-THUMB-ATLAS-R1",
+  "date": "2026-10-26",
+  "issue_id": "TW-OPEN-0005",
+  "primary_manifest": {
+    "url": "https://dl.ndl.go.jp/api/iiif/991069/manifest.json",
+    "github_run": "https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/40275833145",
+    "github_artifact_id": 12630570464,
+    "github_run_head_sha": "78b437dadbefd82eb216460330ac0961fc9ed911",
+    "http_status": 200,
+    "sha256": "5ef67e4f84917ffd1eafee2b2da1d22f1aeb68f8d7f2ac441b7d398be19bf674",
+    "canvas_count": 395,
+    "book_label": "高麗史. 第2",
+    "tocc_label": "第六　高麗史五十二",
+    "first_canvas_index_one_based": 68,
+    "canvas_id": "https://dl.ndl.go.jp/api/iiif/991069/canvas/68",
+    "target_volume_start_source_native": true,
+    "exact_target_D14_D16_numeric_unread": true
+  },
+  "image_acquisition": {
+    "script": "scripts/probe-tianwen-13hn-ndl991069-v52-atlas.py",
+    "workflow": ".github/workflows/probe-tianwen-13hn-ndl991069-v52-atlas.yml",
+    "source_only_iiif_manifest": true,
+    "require_source_toc_next_volume_boundary": true,
+    "thumbnail_max": 20,
+    "thumbnail_width": 1600,
+    "source_emitted_image_service_only": true,
+    "no_ocr": true,
+    "preview_not_final_glyph_judgment": true,
+    "actual_images_fetched_when_document_committed": false,
+    "sha256_for_each_successful_image": true
+  },
+  "provenance_boundary": {
+    "NDL1909_received_print_not_1451_or_earlier_original": true,
+    "NDL1909_vs_NLC1909_same_print_copy_unresolved": true,
+    "NDL_four_part_backups_not_four_physical_witnesses": true,
+    "Taiwan_NCL03130_old_or_guangxu_copy": null,
+    "Taiwan_NCL03130_original_D14_full": null,
+    "Taiwan_NCL03130_original_D14_terminal": null,
+    "NIKH_photo4_summer_D14": "四分六六三〇",
+    "do_not_transfer_NIKH_into_other_copy": true,
+    "G893_six": "OPEN",
+    "D5_〇_五": "OPEN",
+    "fourfen_chudu_mechanical_identity": null,
+    "unit": null,
+    "legacy_13EI": "RETRACTED"
+  },
+  "effects": {
+    "added_registry_sources": 0,
+    "additional_physical_witnesses": 0,
+    "new_target_glyphs": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0,
+    "new_genealogy_edges": 0
+  },
+  "invariants": {
+    "matrix": [
+      222,
+      222
+    ],
+    "source_registry": 761,
+    "genealogy": [
+      252,
+      238
+    ],
+    "open_issues": 11,
+    "product": "CLOSED"
+  },
+  "transmission_impact": "NONE",
+  "next_action": "Inspect exact HEAD IIIF v52 preview artifact; find the table's native page and run a separately source-scoped full-resolution visual original D14/D16 reading with pixel SHA and day/season/column binding."
+}
