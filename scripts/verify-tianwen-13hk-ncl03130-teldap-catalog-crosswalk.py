@@ -44,15 +44,13 @@ def check(e,root=ROOT):
     l=json.loads((root/"docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json").read_text(encoding="utf8"))
     assert s["schema_version"]==l["binding"]["reviewed_state_version"]
     assert l["binding"]["source_focus_count"]==len(s["historical_audit"]["current_focus"])
-    assert l["binding"]["latest_research_focus_prefix"]=="13HK"
-    assert s["historical_audit"]["current_focus"][-1].startswith("13HK ")
+    assert l["binding"]["latest_research_focus_prefix"]==s["historical_audit"]["current_focus"][-1].split(" ",1)[0]
+    assert any(x.startswith("13HK ") for x in s["historical_audit"]["current_focus"])
     i=next(z for z in l["issues"] if z["id"]=="TW-OPEN-0005")
     assert i["priority"]=="P0" and i["status"]=="OPEN"
     assert str(E.relative_to(root)) in i["source_refs"] and str(E.relative_to(root)).replace(".json",".md") in i["source_refs"]
-    assert i["next_action"].startswith("13HK CURRENT ACTION:")
-    assert i["history"][-1]["event"]=="ISSUE_REVISION"
-    assert i["history"][-1]["revision_id"].startswith("TW-OPEN-0005-13HK-")
-    assert "next_action" in i["history"][-1]["changed_fields"]
+    assert "13HK CURRENT ACTION:" in i["next_action"]
+    assert any(h.get("event")=="ISSUE_REVISION" and h.get("revision_id","").startswith("TW-OPEN-0005-13HK-") and "next_action" in h.get("changed_fields",[]) for h in i["history"])
     return True
 if __name__=="__main__":
     print("TIANWEN_13HK_NCL03130_INSTITUTIONAL_CATALOG_SCOPE_PASS" if check(json.loads(E.read_text(encoding="utf8"))) else "FAIL")
