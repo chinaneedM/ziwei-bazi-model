@@ -1,0 +1,25 @@
+name: verify-tianwen-13hq-ndl-winter-context
+on:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - docs/research/TIANWEN-13HQ-NDL991069-CANVAS72-73-WINTER-SURPLUS-DEFICIT-CONTEXT-R1.json
+      - docs/research/TIANWEN-13HQ-NDL991069-CANVAS72-73-WINTER-SURPLUS-DEFICIT-CONTEXT-R1.md
+      - scripts/verify-tianwen-13hq-ndl991069-winter-context.py
+      - tests/test_tianwen_13hq_ndl991069_winter_context.py
+      - .github/workflows/verify-tianwen-13hq-ndl-winter-context.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  source-scope:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python scripts/verify-tianwen-13hq-ndl991069-winter-context.py
+      - run: python -m unittest discover -s tests -p 'test_tianwen_13hq_ndl991069_winter_context.py' -v
