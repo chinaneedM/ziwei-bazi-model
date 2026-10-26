@@ -33,7 +33,7 @@ def check(e,with_state=True):
    assert old["literal"]==glyph and int(old["value"].replace(".",""))==num
    assert old["pixel_sha256"]==r[("W23","D"+day+"_C")][3]
   else:
-   key=("P24_" if int(day)==21 else "P23_")+day+"_C"
+   key=("P24_D" if int(day)==21 else "P23_D")+day+"_C"
    old=next(x for x in src["BN"]["original_single_numeric_lane_rois"] if x["key"]==key)
    assert old["original_literal"]==glyph and int(old["value"].replace(".",""))==num
    assert old["rgb_sha256"]==r[("W24" if int(day)==21 else "W23","D"+day+"_C")][3]
