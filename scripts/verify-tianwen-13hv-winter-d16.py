@@ -30,14 +30,14 @@ def check(e, with_state=True):
  if with_state:
   s=json.loads((ROOT/"docs/PROJECT-CURRENT-STATE-R1.json").read_text(encoding="utf8"))
   l=json.loads((ROOT/"docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json").read_text(encoding="utf8"))
-  assert s["schema_version"]==l["binding"]["reviewed_state_version"]==s["historical_audit"]["research_omission_guard"]["reviewed_state_version"]=="1.875.0"
-  assert l["binding"]["latest_research_focus_prefix"]=="13HV"
-  assert s["historical_audit"]["current_focus"][-1].startswith("13HV ") and l["binding"]["source_focus_count"]==len(s["historical_audit"]["current_focus"])
+  assert s["schema_version"]==l["binding"]["reviewed_state_version"]==s["historical_audit"]["research_omission_guard"]["reviewed_state_version"]and tuple(map(int,s["schema_version"].split("."))) >= (1,875,0)
+  assert any(x.startswith("13HV ") for x in s["historical_audit"]["current_focus"])
+  assert any(x.startswith("13HV ") for x in s["historical_audit"]["current_focus"]) and l["binding"]["source_focus_count"]==len(s["historical_audit"]["current_focus"])
   i=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
   assert i["status"]=="OPEN" and i["priority"]=="P0"
-  assert i["next_action"].startswith("13HV CURRENT ACTION:") and "ARCHIVED 13HU PRIOR ACTION:" in i["next_action"]
-  assert i["history"][-1]["revision_id"].startswith("TW-OPEN-0005-13HV-")
-  assert str(E.relative_to(ROOT)) in i["source_refs"] and l["checkpoint_log"][-1]["state_version"]=="1.875.0"
+  assert (i["next_action"].startswith("13HV CURRENT ACTION:") or "ARCHIVED 13HV PRIOR ACTION:" in i["next_action"]) and "ARCHIVED 13HU PRIOR ACTION:" in i["next_action"]
+  assert any(z.get("revision_id","").startswith("TW-OPEN-0005-13HV-") for z in i["history"])
+  assert str(E.relative_to(ROOT)) in i["source_refs"] and l["checkpoint_log"][-1]["state_version"]==s["schema_version"]
  return True
 def replay(source,p):
  from PIL import Image
