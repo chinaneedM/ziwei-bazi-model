@@ -1,0 +1,169 @@
+{
+  "schema": "TIANWEN-13HS-NDL991069-1909-D12-D17-FIRSTFIELD-ANOMALY-R1",
+  "date": "2026-10-26",
+  "issue_id": "TW-OPEN-0005",
+  "evidence_grade": "DIRECT_SINGLE_1909_RECEIVED_PRINT_IMAGE_WITH_INTERNAL_ARITHMETIC_EXCEPTION",
+  "source": {
+    "provider": "National Diet Library of Japan",
+    "pid": "991069",
+    "work": "高麗史",
+    "juan": 52,
+    "edition_year": 1909,
+    "canvas": 73,
+    "source_image_url": "https://dl.ndl.go.jp/api/iiif/991069/R0000073/full/full/0/default.jpg",
+    "manifest_sha256": "5ef67e4f84917ffd1eafee2b2da1d22f1aeb68f8d7f2ac441b7d398be19bf674",
+    "source_jpeg_sha256": "c5fc1b3aeff9aedb84bc36fff02fad2a865e7c86c9fd1e624f7f18a548f945bb",
+    "image_dimensions": [
+      3773,
+      2943
+    ],
+    "source_bytes": 1895234,
+    "run_id": 40312727158,
+    "artifact_id": 12645481673,
+    "artifact_zip_sha256": "5fa5a8d197238794d16ed5c3e37e33fe5d74b4838d4d51da27195548c42935e9"
+  },
+  "prior_scope_docs": [
+    "docs/research/TIANWEN-13HP-NDL991069-FULL-IMAGE-AND-13HO-ERRATUM-R1.json",
+    "docs/research/TIANWEN-13HQ-NDL991069-CANVAS72-73-WINTER-SURPLUS-DEFICIT-CONTEXT-R1.json"
+  ],
+  "local_original_context": "太陽冬至前後二氣盈初縮末限",
+  "printed_first_field_prefix": "五分",
+  "rows": [
+    {
+      "day": "十二日",
+      "printed_literal": "五分一六一八",
+      "encoded_numeral": 1618,
+      "original_image_bbox_xyxy": [
+        3140,
+        1560,
+        3280,
+        2115
+      ],
+      "rgb_sha256": "766a8599f0519cd62393ff5eb5e3294506ec1fa8bef67667cf6b4e57318c98cf"
+    },
+    {
+      "day": "十三日",
+      "printed_literal": "五分一八〇四",
+      "encoded_numeral": 1804,
+      "original_image_bbox_xyxy": [
+        2940,
+        1560,
+        3080,
+        2115
+      ],
+      "rgb_sha256": "307055a3d80351c61e22d29592ad1a185ef90b09c7bfa4697f34855a3515a8c6"
+    },
+    {
+      "day": "十四日",
+      "printed_literal": "五分一九九〇",
+      "encoded_numeral": 1990,
+      "original_image_bbox_xyxy": [
+        2740,
+        1560,
+        2880,
+        2115
+      ],
+      "rgb_sha256": "82cc2fa89e9e810404762e9d1cb6b9c0eed2a9ba0c31b76c6c6819890d1b137d"
+    },
+    {
+      "day": "十五日",
+      "printed_literal": "五分二一七六",
+      "encoded_numeral": 2176,
+      "original_image_bbox_xyxy": [
+        2540,
+        1560,
+        2680,
+        2115
+      ],
+      "rgb_sha256": "8861c06874ea4c62ca726ed9ec250ca3abf42acd9a9a026596213686d2e1eb3e"
+    },
+    {
+      "day": "十六日",
+      "printed_literal": "五分一三六二",
+      "encoded_numeral": 1362,
+      "original_image_bbox_xyxy": [
+        2340,
+        1560,
+        2480,
+        2115
+      ],
+      "rgb_sha256": "2a3a6a0a7827b92f6e27143ba69d8bc52d323e4e64f70b0af28e93decce96be2"
+    },
+    {
+      "day": "十七日",
+      "printed_literal": "五分二五四八",
+      "encoded_numeral": 2548,
+      "original_image_bbox_xyxy": [
+        2140,
+        1560,
+        2280,
+        2115
+      ],
+      "rgb_sha256": "5430ca780fd18bfb9bdce331cc8e9dbbfea637bd7efeca6ce14c2ee1cb45b8b2"
+    }
+  ],
+  "full_context_region": {
+    "bbox_xyxy": [
+      2060,
+      1400,
+      3410,
+      2650
+    ],
+    "rgb_sha256": "53e29ef7d515929b9c242ce40b25336e44a5754da370054ffcb9b4984fb1831a"
+  },
+  "arithmetic_control": {
+    "observed_encoded_numerals": [
+      1618,
+      1804,
+      1990,
+      2176,
+      1362,
+      2548
+    ],
+    "adjacent_differences": [
+      186,
+      186,
+      186,
+      -814,
+      1186
+    ],
+    "regular_neighbour_step": 186,
+    "day16_literal": 1362,
+    "day16_if_regular_neighbour_step": 2362,
+    "anomalous_offset": -1000,
+    "decision": "LITERAL_RETAINED_POSSIBLE_RECEIVED_PRINT_OR_TRANSCRIPTION_VARIANT_NOT_PROVEN_HISTORICAL_CORRECTION",
+    "candidate_2362_not_original_glyph": true
+  },
+  "firewall": {
+    "not_nikh_summer_table": true,
+    "not_ncl03130_original": true,
+    "ncl03130_original_d14": null,
+    "ncl03130_original_d16": null,
+    "g893_six_original": "OPEN",
+    "d5_zero_or_five": "OPEN",
+    "ancient_technical_unit": null,
+    "early_archetype_decision": null,
+    "new_independent_physical_witnesses": 0,
+    "new_registry_sources": 0,
+    "new_graph_nodes": 0,
+    "new_graph_edges": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0,
+    "prior_13ei": "RETRACTED"
+  },
+  "counts": {
+    "matrix": [
+      222,
+      222
+    ],
+    "source_registry": 761,
+    "genealogy": [
+      252,
+      238
+    ],
+    "open_issues": 11,
+    "product": "CLOSED"
+  },
+  "transmission_impact": "NONE",
+  "next_action": "Check independent earlier edition SAME winter seasonal/technical field D12..D17 and compare printed numeral; obtain Taiwan NCL03130 actual original summer field and copy stratum separately; do not normalize late print into early ancient numeric winner."
+}
