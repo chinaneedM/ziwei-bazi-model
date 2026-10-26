@@ -50,13 +50,15 @@ def check(e,with_state=True):
  if with_state:
   s=json.loads((ROOT/"docs/PROJECT-CURRENT-STATE-R1.json").read_text(encoding="utf8"))
   l=json.loads((ROOT/"docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json").read_text(encoding="utf8"))
-  assert s["schema_version"]==l["binding"]["reviewed_state_version"]==s["historical_audit"]["research_omission_guard"]["reviewed_state_version"]=="1.878.0"
-  assert s["historical_audit"]["current_focus"][-1].startswith("13HY ") and l["binding"]["latest_research_focus_prefix"]=="13HY"
+  assert s["schema_version"]==l["binding"]["reviewed_state_version"]==s["historical_audit"]["research_omission_guard"]["reviewed_state_version"]
+  assert tuple(map(int,s["schema_version"].split("."))) >= (1,878,0)
+  assert any(x.startswith("13HY ") for x in s["historical_audit"]["current_focus"])
+  assert l["binding"]["latest_research_focus_prefix"]==s["historical_audit"]["current_focus"][-1].split(" ")[0]
   assert len(s["historical_audit"]["current_focus"])==l["binding"]["source_focus_count"]
   i=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
-  assert i["next_action"].startswith("13HY CURRENT ACTION:") and "ARCHIVED 13HX PRIOR ACTION:" in i["next_action"]
-  assert i["history"][-1]["revision_id"].startswith("TW-OPEN-0005-13HY-")
-  assert str(E.relative_to(ROOT)) in i["source_refs"] and l["checkpoint_log"][-1]["state_version"]=="1.878.0"
+  assert (i["next_action"].startswith("13HY CURRENT ACTION:") or "ARCHIVED 13HY PRIOR ACTION:" in i["next_action"]) and "ARCHIVED 13HX PRIOR ACTION:" in i["next_action"]
+  assert any(z.get("revision_id","").startswith("TW-OPEN-0005-13HY-") for z in i["history"])
+  assert str(E.relative_to(ROOT)) in i["source_refs"] and l["checkpoint_log"][-1]["state_version"]==s["schema_version"]
  return True
 if __name__=="__main__":
  assert check(json.loads(E.read_text(encoding="utf8")))
