@@ -1,0 +1,25 @@
+name: verify-tianwen-13hv-three-source-winter-d16
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - docs/research/TIANWEN-13HV-NAJ-WASEDA-NDL-WINTER-D15-D17-SAME-LITERAL-R1.json
+      - docs/research/TIANWEN-13HV-NAJ-WASEDA-NDL-WINTER-D15-D17-SAME-LITERAL-R1.md
+      - docs/PROJECT-CURRENT-STATE-R1.json
+      - docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json
+      - scripts/verify-tianwen-13hv-winter-d16.py
+      - tests/test_tianwen_13hv_winter_d16.py
+      - .github/workflows/verify-tianwen-13hv-three-source-winter-d16.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  source-crosscopy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - run: python scripts/verify-tianwen-13hv-winter-d16.py
+      - run: python -m unittest discover -s tests -p 'test_tianwen_13hv_winter_d16.py' -v
