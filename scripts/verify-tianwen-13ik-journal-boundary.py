@@ -38,11 +38,10 @@ def check(x,with_state=True):
         state=read("docs/PROJECT-CURRENT-STATE-R1.json")
         ledger=read("docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json")
         assert state["schema_version"]==ledger["binding"]["reviewed_state_version"]
-        assert ledger["binding"]["latest_research_focus_prefix"]=="13IK"
-        assert state["historical_audit"]["current_focus"][-1].startswith("13IK ")
+        assert any(z.startswith("13IK ") for z in state["historical_audit"]["current_focus"])
         issue=next(i for i in ledger["issues"] if i["id"]=="TW-OPEN-0005")
         assert issue["status"]=="OPEN" and PATH in issue["source_refs"]
-        assert issue["history"][-1]["new_action_prefix"]=="13IK"
+        assert any(z.get("new_action_prefix")=="13IK" for z in issue["history"])
     return True
 if __name__=="__main__":
     assert check(read())

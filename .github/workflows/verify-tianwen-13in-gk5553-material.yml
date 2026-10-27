@@ -1,0 +1,21 @@
+name: verify-tianwen-13in-gk5553-material
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - 'docs/research/TIANWEN-13IN-*'
+      - 'docs/PROJECT-CURRENT-STATE-R1.json'
+      - 'docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json'
+      - 'scripts/verify-tianwen-13in-gk5553-material.py'
+      - 'tests/test_tianwen_13in_gk5553_material.py'
+  workflow_dispatch:
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python scripts/verify-tianwen-13in-gk5553-material.py
+      - run: python -m unittest discover -s tests -p 'test_tianwen_13in_gk5553_material.py' -v
