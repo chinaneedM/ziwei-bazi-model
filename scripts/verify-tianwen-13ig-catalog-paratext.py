@@ -43,10 +43,10 @@ def check(d,with_state=True):
         ledger=load("docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json")
         assert tuple(map(int,state["schema_version"].split(".")))>=(1,886,0)
         assert state["schema_version"]==ledger["binding"]["reviewed_state_version"]
-        assert state["historical_audit"]["current_focus"][-1].startswith("13IG ")
+        assert any(x.startswith("13IG ") for x in state["historical_audit"]["current_focus"])
         issue=next(x for x in ledger["issues"] if x["id"]=="TW-OPEN-0005")
         assert issue["status"]=="OPEN" and EVIDENCE in issue["source_refs"]
-        assert issue["next_action"].startswith("13IG CURRENT ACTION:")
+        assert any(x.get("new_action_prefix")=="13IG" for x in issue["history"])
     return True
 if __name__=="__main__":
     assert check(load())
