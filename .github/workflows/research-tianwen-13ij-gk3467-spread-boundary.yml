@@ -1,0 +1,54 @@
+name: research-tianwen-13ij-gk3467-spread-boundary
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - '.github/workflows/research-tianwen-13ij-gk3467-spread-boundary.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  replay_original_spreads:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install --quiet Pillow==11.3.0
+      - name: Replay SHA-bound native JP2 without OCR or interpretation
+        shell: bash
+        run: |
+          python - <<'PY'
+          import hashlib
+          import json
+          import base64
+          from io import BytesIO
+          from pathlib import Path
+          from PIL import Image
+          root=Path(".")
+          first=json.loads((root/"docs/research/TIANWEN-13IE-GK3467-WINTER-D16-ORIGINAL-AND-HEADER-COVERAGE-R1.json").read_text())
+          anchor=json.loads((root/"docs/research/TIANWEN-13IH-GK3467-PRINTED-FOLIO-DISCONTINUITY-R1.json").read_text())
+          for page in (4,5):
+              info=next(x for x in first["native_pages"] if x["page_1based"]==page)
+              path=root/info["path"]
+              original=path.read_bytes()
+              assert hashlib.sha256(original).hexdigest()==info["raw_sha256"]
+              im=Image.open(BytesIO(original)).convert("RGB")
+              assert list(im.size)==info["size"]
+              assert hashlib.sha256(im.tobytes()).hexdigest()==info["rgb_sha256"]
+              im.thumbnail((1600,1600))
+              stream=BytesIO()
+              im.save(stream,format="JPEG",quality=66,optimize=True)
+              data=stream.getvalue()
+              print("PAGE",page,"GIT_SOURCE_PATH",path)
+              print("PAGE",page,"RAW_SHA256",info["raw_sha256"],"RGB_SHA256",info["rgb_sha256"])
+              print("PAGE",page,"PREVIEW_DIMENSIONS",im.size,"PREVIEW_SHA256",hashlib.sha256(data).hexdigest(),"PREVIEW_BYTES",len(data))
+              print("ACTUAL_OUTPUT_PAGE_"+str(page)+"_BEGIN")
+              print(base64.b64encode(data).decode("ascii"))
+              print("ACTUAL_OUTPUT_PAGE_"+str(page)+"_END")
+          assert [(x["pdf_page"],x["printed_number"]) for x in anchor["direct_folio_readings"]]==[(4,2),(6,10),(7,11)]
+          print("SOURCE_REPLAY=PASS")
+          print("ADJUDICATION_SCOPE=VIEW_ONLY_NO_NEW_PHYSICAL_COPY_NO_LEAF_LOSS_INFERENCE")
+          PY
