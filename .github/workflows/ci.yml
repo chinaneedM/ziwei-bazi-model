@@ -33,6 +33,10 @@ jobs:
         run: python scripts/verify-project-continuity-state-r1.py
       - name: Research omission continuity review R1 gate
         run: python scripts/verify-research-omission-risk-ledger-r1.py
+      - name: GK3467 native source pixels and title coverage boundary
+        run: |
+          python scripts/verify-tianwen-13ie-gk3467-winter-source.py
+          python -m unittest discover -s tests -p 'test_tianwen_13ie_gk3467_winter_source.py' -v
       - name: G893 12XW provenance research live-stage gate
         run: |
           python scripts/verify-g893-cross-ledger-live-stage-12xw.py
