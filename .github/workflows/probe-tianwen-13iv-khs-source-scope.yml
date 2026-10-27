@@ -1,0 +1,30 @@
+name: probe-tianwen-13iv-khs-source-scope
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - 'docs/research/TIANWEN-13IV-*'
+      - 'docs/PROJECT-CURRENT-STATE-R1.json'
+      - 'docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json'
+      - 'scripts/probe-tianwen-13iv-khs-heritage-xml.py'
+      - 'scripts/verify-tianwen-13iv-khs-source-scope.py'
+      - 'tests/test_tianwen_13iv_khs_source_scope.py'
+      - '.github/workflows/probe-tianwen-13iv-khs-source-scope.yml'
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  exact-id-heritage-probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python scripts/verify-tianwen-13iv-khs-source-scope.py
+      - run: python -m unittest discover -s tests -p 'test_tianwen_13iv_khs_source_scope.py' -v
+      - run: python scripts/probe-tianwen-13iv-khs-heritage-xml.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: tianwen-13iv-khs-bounded-xml-evidence
+          path: /tmp/tianwen-13iv-khs/probe-summary.json
+          if-no-files-found: warn

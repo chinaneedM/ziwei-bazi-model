@@ -1,0 +1,110 @@
+{
+  "schema": "TIANWEN-13IV-KHS-OFFICIAL-DESCRIPTION-XML-1482-SCOPE-R1",
+  "date": "2026-10-28",
+  "issue_id": "TW-OPEN-0005",
+  "start_head": "ae3c65fddd70410e791ece15ae76ad9952c838fc",
+  "predecessor": {
+    "path": "docs/research/TIANWEN-13IU-GK5553-GK5554-MICROFILM-IDENTITY-FIREWALL-R1.json",
+    "git_blob_sha": "7101bfc69cbdb235094d9e572ee3919069982e29",
+    "prior_retraction": "13IO_RETRACTED_UNBOUND"
+  },
+  "official_api": {
+    "documentation": "https://khs.go.kr/html/HtmlPage.do?mn=NS_04_04_03&pg=%2Fpublicinfo%2Fpbinfo3_0201.jsp",
+    "documented_url": "http://www.khs.go.kr/cha/SearchKindOpenapiDt.do",
+    "documented_required": [
+      "ccbaKdcd",
+      "ccbaAsno",
+      "ccbaCtcd"
+    ],
+    "documented_response": "XML",
+    "documentation_confirmed": true,
+    "returned_official_long_text_confirmed": false,
+    "https_probe_result_at_document_write": "NOT_YET_EXECUTED",
+    "target_code_variants": [
+      "21140200",
+      "0021140000200"
+    ],
+    "target_category": "12",
+    "target_locality": "11",
+    "no_identifier_enumeration": true,
+    "https_only_no_downgrade": true,
+    "probe_script": "scripts/probe-tianwen-13iv-khs-heritage-xml.py",
+    "probe_workflow": ".github/workflows/probe-tianwen-13iv-khs-source-scope.yml"
+  },
+  "sources": [
+    {
+      "role": "FIRSTPARTY_SNU_CURATORIAL_BIBLIOGRAPHIC_YEAR_DISCUSSION",
+      "url": "https://kyudb.snu.ac.kr/book/view.do?book_cd=GK03269_00&notes=basic",
+      "claim": "1482 February printing upon Yang Seong-ji petition presented as conjecture, exact surviving Eulhae impression year unknown",
+      "quoted_phrase": "1482년 2월 梁誠之의 상소로 인출된 것으로 추측될 뿐이다",
+      "strength": "BIBLIOGRAPHIC_CONJECTURE_NOT_PHYSICAL_IMPRESSION_ORIGINAL"
+    },
+    {
+      "role": "FIRSTPARTY_KHS_INDEX_YEAR_LABEL",
+      "url": "https://heritage.go.kr/heri/cul/culSelectDetail.do?ccbaAsno=0021140000200&ccbaCpno=1121121140200&pageNo=1_1_1_1&sngl=Y",
+      "designation": "2114-2",
+      "extent": "98권 32책",
+      "period": "1482년(성종13)",
+      "strength": "PERIOD_CATEGORY_NOT_DIRECT_ANCIENT_ORIGINAL"
+    },
+    {
+      "role": "FIRSTPARTY_OFFICIAL_API_DOCUMENTATION",
+      "url": "https://khs.go.kr/html/HtmlPage.do?mn=NS_04_04_03&pg=%2Fpublicinfo%2Fpbinfo3_0201.jsp",
+      "strength": "PUBLISHED_ENDPOINT_SCHEMA_ONLY"
+    }
+  ],
+  "hypothesis_fence": {
+    "edition_year": "1482_CANDIDATE_PERIOD",
+    "snu_exact_print_year": "UNKNOWN",
+    "physical_copy_impression_year": "UNBOUND",
+    "modern_surrogate_date": "NOT_ANCIENT_DATE",
+    "government_label_not_copy_specific_proof": true,
+    "snu_conjecture_not_government_error_proof": true
+  },
+  "pending": {
+    "official_2114_2_korean_long_description": null,
+    "verified_copy_specific_5554_image": null,
+    "gk5553_book29_to_juan81_83": "RETRACTED_UNBOUND",
+    "g893_six_original_numbers": null,
+    "gk3467_winter_D1_D7": null,
+    "nlc03130_solar_D30": null,
+    "nlc03130_summer_D14": null,
+    "d5_zero_five_glyph": null,
+    "older_13EI": "RETRACTED",
+    "fourfen_to_chudu_bridge": null
+  },
+  "counts": {
+    "matrix": [
+      222,
+      222
+    ],
+    "sources": 761,
+    "genealogy": [
+      252,
+      238
+    ],
+    "issues": 11,
+    "chart": "CLOSED",
+    "algorithm_reopen": 0,
+    "new_ancient_originals": 0,
+    "new_numerical_winners": 0,
+    "new_lineage_edges": 0
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "1482 firstparty KHS period index is not a source-authenticated physical impression date; SNU curator explicitly calls the proposed 1482 printing a conjecture."
+    ],
+    "unresolved_lineage_questions": [
+      "Can official KHS 2114-2 detailed designation text be recovered with exact identity and hash?",
+      "Can separately source-bound physical GK5553 book12/29 and GK5554 juan81/82 folios be obtained?"
+    ]
+  },
+  "next_actions": [
+    "Run exact public 2114-2 KHS OpenAPI endpoint on GitHub runner, judge the returned XML by both official identity and actual text, not HTTP or CI exit alone.",
+    "Preserve error/403 and non-XML as unavailable, never automatic promotion; if official long description recovered, make distinct subsequent hash-bound evidence revision.",
+    "Continue G893 six physical numeral controls, GK3467 table opening and NLC03130 D30/summer D14 and 四分/初度 independently."
+  ]
+}
