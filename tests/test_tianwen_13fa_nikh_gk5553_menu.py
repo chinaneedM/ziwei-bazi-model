@@ -26,6 +26,6 @@ class Test13FA(unittest.TestCase):
   self.assertTrue(v.check(self.d,self.s,self.m,self.st,q))
  def test_unbound_gk5553_shelfmark_rejected(self):
   q=copy.deepcopy(self.l);risk=next(x for x in q['issues'] if x['id']=='TW-OPEN-0005')
-  risk['next_action']=risk['next_action'].replace('GK5553','UNBOUND_COPY')
+  risk['next_action']=risk['next_action'].replace('GK05553_00','UNBOUND_COPY').replace('GK5553','UNBOUND_COPY')
   with self.assertRaises(AssertionError):v.check(self.d,self.s,self.m,self.st,q)
 if __name__=='__main__':unittest.main()
