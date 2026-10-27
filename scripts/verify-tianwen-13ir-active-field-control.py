@@ -26,7 +26,8 @@ def check(e,with_state=True):
   assert any(t.startswith("13IR ") for t in s["historical_audit"]["current_focus"])
   issue=next(x for x in ld["issues"] if x["id"]=="TW-OPEN-0005")
   action=issue["next_action"]
-  assert action.startswith("13IR CURRENT ACTION:")
+  # The active controls persist as the research queue advances to later batches.
+  assert action.startswith(ld["binding"]["latest_research_focus_prefix"]+" CURRENT ACTION:")
   for scope,control in controls.items():
    for token in control["labels"]:
     assert token in action,(scope,token)

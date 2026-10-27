@@ -1,0 +1,178 @@
+{
+  "schema": "TIANWEN-13IS-SYSU-PDF-BYTES-AND-GK3467-FRONT-ACCESS-R1",
+  "date": "2026-10-28",
+  "issue_id": "TW-OPEN-0005",
+  "startup": {
+    "head": "0e1de7c2a5f78c6016dc7c0f7dbc3ab668c541c6",
+    "tree": "3b9e8faa795ac984a9351c303f9cc3914826790a",
+    "exact_head_actions": {
+      "total": 21,
+      "success": 21
+    }
+  },
+  "immutable_predecessors": [
+    {
+      "path": "docs/research/TIANWEN-13IM-SYSU-2020-JOURNAL-ORIGINAL-PDF-FOOTNOTE-AND-GK5553-ROUTE-R1.json",
+      "git_blob_sha": "3272c7d7ab83ec6096fe28038b86f8bae580c233"
+    },
+    {
+      "path": "docs/research/TIANWEN-13IH-GK3467-PRINTED-FOLIO-DISCONTINUITY-R1.json",
+      "git_blob_sha": "0d40f68b46c2ffc3cbdb7a4aa514ab5088d8bfb7"
+    }
+  ],
+  "journal_byte_recovery": {
+    "url": "https://sir.sysu.edu.cn/sites/default/files/2026-07/%E9%AB%98%E4%B8%BD%E5%8F%B2_%E7%89%88%E6%9C%AC%E6%BA%90%E6%B5%81%E4%B8%8E%E7%BC%96%E7%BA%82%E4%BD%93%E4%BE%8B%E8%80%83_%E9%AD%8F%E5%BF%97%E6%B1%9F.pdf",
+    "request_method": "GET",
+    "user_agent": "TianwenAcademicSourceVerification/1.0",
+    "status": 200,
+    "content_type": "application/pdf",
+    "raw_pdf_bytes": 433784,
+    "raw_pdf_sha256": "3fc3408cc07e62f48556c95634b2858da76cc68bcbd2ac33c4dce73aef7ed1d2",
+    "pages": 12,
+    "pdf_magic_verified": true,
+    "same_hash_successful_gets": 2,
+    "intervening_default_python_user_agent_get_status": 403,
+    "article_publication_year": 2020,
+    "url_directory_layer": "2026-07_HOST_PATH_ONLY_NOT_ARTICLE_OR_ANCIENT_IMPRESSION_DATE",
+    "whole_pdf_committed_to_public_repo": false,
+    "raw_pdf_saved_in_scratch_for_replay": true,
+    "previous_13IM_null_snapshot_unchanged": true
+  },
+  "page100_replay": {
+    "page_index": 7,
+    "printed_page": 100,
+    "woodblock_supplement_volumes": [
+      19,
+      20,
+      21,
+      31,
+      73,
+      74,
+      77,
+      78,
+      79,
+      81,
+      82,
+      83
+    ],
+    "unused_alternate_eulhae_volumes": [
+      31,
+      77,
+      78,
+      79,
+      81,
+      82
+    ],
+    "base_shelfmark": "奎5554",
+    "unused_alternate_shelfmark": "奎5553",
+    "evidence_kind": "2020_MODERN_JOURNAL_SOURCE_PDF_TEXT_LAYER_NOT_ANCIENT_PRINTED_FOLIO",
+    "content_streams": [
+      {
+        "xref": 39,
+        "raw_bytes": 8344,
+        "sha256": "fb1eb96cb03c09993b1608e7d452edbe345bc23dfb1413465d7e9a2cf17e1370"
+      },
+      {
+        "xref": 40,
+        "raw_bytes": 20352,
+        "sha256": "c803872bd52f4f13158556fca7717ec754769f042696ddf2958de5d8941a5efe"
+      }
+    ],
+    "unembedded_font_xrefs": [
+      6,
+      77
+    ],
+    "unembedded_fonts": [
+      {
+        "xref": 6,
+        "resource": "F0",
+        "type": "Type0",
+        "encoding": "GBK-EUC-H",
+        "font_program_embedded": false
+      },
+      {
+        "xref": 77,
+        "resource": "F3",
+        "type": "Type0",
+        "encoding": "GBK-EUC-H",
+        "font_program_embedded": false
+      }
+    ],
+    "poppler_unmodified_render": {
+      "dpi": 150,
+      "size_px": [
+        1123,
+        1595
+      ],
+      "rgb_sha256": "7c96bddcafa662f3f9068524e4b122b231dc84ae717e7e0b5a820c76ded172a7",
+      "many_CJK_glyphs_missing": true,
+      "font_substitution_or_reconstruction_performed": false,
+      "renderer_digest_is_diagnostic_not_portable_original_pdf_digest": true
+    },
+    "original_CJK_glyphs_exhaustively_verified": false,
+    "text_extraction_is_not_original_glyph_shape": true
+  },
+  "gk3467_front_retry": {
+    "catalog": "GK03467_04",
+    "volume": "0001",
+    "request_method": "POST_PROVIDER_PUBLISHED_READING_FORM",
+    "request_url": "https://kyudb.snu.ac.kr/pf01/rendererImg.do",
+    "selected_provider_listed_pages": [
+      "000a",
+      "000b",
+      "001a"
+    ],
+    "statuses": [
+      503,
+      503,
+      503
+    ],
+    "new_original_images": 0,
+    "seed_renderer_sha256": "d18eda904b621ffa309ee6ec299d43714c3346f9561d831b251ad1a8e5e25f3d",
+    "response_file": "docs/research/evidence/13is/gk3467-front-503-response.txt",
+    "response_sha256": "33fbc61ad080ef68dd7a6479f8c53f1bf864dba2930567dbbc4ceb47490a1909",
+    "physical_leaf_loss_proven": false,
+    "target_page_absence_proven": false,
+    "previous_17_successful_color_images_not_redownloaded": true
+  },
+  "scope": {
+    "GK3467_table_start_recovered": false,
+    "GK5553_book29_to_juan81_83_bound": false,
+    "G893_six_adjudicated": false,
+    "ancient_glyph_decisions_added": false,
+    "GK5553_13IO_status": "RETRACTED_UNBOUND",
+    "NCL03130_solar_D30": null,
+    "NCL03130_summer_D14": null,
+    "D5_zero_five": "OPEN",
+    "fourfen_chudu_unit_equivalence": null,
+    "historical_13EI": "RETRACTED"
+  },
+  "counts": {
+    "matrix": [
+      222,
+      222
+    ],
+    "sources": 761,
+    "graph": [
+      252,
+      238
+    ],
+    "open_issues": 11,
+    "chart": "CLOSED",
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0
+  },
+  "continuity_gate_repair": "13IR checks latest live action prefix while retaining all source-specific active control tokens; historical 13IR source JSON stays immutable.",
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Modern scholarly footnote and recovered PDF bytes do not bind GK5553 book29 to juan81-83 or repair GK3467 physical leaves."
+    ],
+    "unresolved_lineage_questions": [
+      "Holding-specific GK3467 intermediate folios and exact table title",
+      "1972 facsimile physical colophon and alternate-source selection"
+    ]
+  }
+}
