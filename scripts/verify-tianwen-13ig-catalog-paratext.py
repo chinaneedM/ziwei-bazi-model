@@ -18,7 +18,7 @@ def check(d,with_state=True):
     for token in ("乙亥字","[刊年未詳]","1冊外缺","卷首","進高麗史箋"):
         assert token in html, ("not found in original catalog",token)
     old=(ROOT/source["prior_original_cover"]).read_bytes()
-    assert hashlib.sha1(b"blob "+str(len(old)).encode()+b"\\0"+old).hexdigest()==source["prior_original_cover_blob_sha"]
+    assert hashlib.sha1(b"blob "+str(len(old)).encode()+b"\0"+old).hexdigest()==source["prior_original_cover_blob_sha"]
     older=json.loads(old)
     assert older["navigation_transition"]["before"]=="002b"
     assert older["navigation_transition"]["after"]=="003a"
